@@ -14,6 +14,7 @@ require "lib/stateManager"
 require "lib/lovelyMoon"
 require "lib/AnimatedSprite"
 bump = require "lib/bump"
+gamera = require "lib/gamera"
 
 --GameStates
 require("states/testState")
