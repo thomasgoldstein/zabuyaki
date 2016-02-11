@@ -24,7 +24,7 @@ function TestState:load()
 	world:add({}, 800, 100, 20, 240)
 	world:add({}, 900, 500, 500, 24)
 
-	background = BigPic:new("BG1")
+	background = CompoundPicture:new("BG1", 2000, 700)
 	background:add({x=40, y=30, w=200, h=20}, nil)
 	background:add({x=300, y=90, w=20, h=200}, nil)
 	background:add({x=550, y=130, w=200, h=20}, nil)

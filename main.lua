@@ -15,6 +15,7 @@ require "lib/lovelyMoon"
 require "lib/AnimatedSprite"
 bump = require "lib/bump"
 gamera = require "lib/gamera"
+CompoundPicture = require  "compoPic"
 
 --GameStates
 require("states/testState")
