@@ -3,11 +3,11 @@ print("ManSprite.lua loaded")
 local image_w = 640 --This info can be accessed with a Love2D call
 local image_h = 130 --      after the image has been loaded. I'm creating these for readability.
 
-
 return {
 	serialization_version = 0.2, -- The version of this serialization process
 
 	sprite_sheet = "res/man_template.png", -- The path to the spritesheet
+	--TODO read width/height of the sheet automatically.
 	sprite_name = "man", -- The name of the sprite
 
 	frame_duration = 0.30,

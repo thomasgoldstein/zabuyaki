@@ -2,7 +2,7 @@
     AnimatedSprite.lua - 2016
     
     Copyright Dejaime Antonio de Oliveira Neto, 2014
-	Don Miguel, 2016
+	fixed Don Miguel, 2016
     
     Released under the MIT license.
     Visit for more information:
