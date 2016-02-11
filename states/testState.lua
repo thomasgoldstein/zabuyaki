@@ -29,6 +29,12 @@ function TestState:load()
 	background:add({x=300, y=90, w=20, h=200}, nil)
 	background:add({x=550, y=130, w=200, h=20}, nil)
 	background:add({x=800, y=330, w=20, h=200}, nil)
+	background:add({x=240, y=530, w=60, h=60}, 0,0, -200, 0, nil)
+	background:add({x=140, y=600, w=60, h=60}, 0,0, 0, 100, nil)
+	background:add({x=340, y=630, w=60, h=60}, 0,0, 500, -300, nil)
+	background:add({x=40, y=30, w=30, h=30}, 0,0, -220, 0, nil)
+	background:add({x=40, y=60, w=30, h=30}, 0,0, 0, 130, nil)
+	
 
 
 	player = {x = 40, y = 50, stepx  = 0, stepy = 0}
@@ -80,7 +86,7 @@ function TestState:update(dt)
 	player.y = actualY
 
 	UpdateInstance(ManSprite, dt)
-
+	background:update(dt)
 	cam:setPosition(player.x, player.y)
 end
 

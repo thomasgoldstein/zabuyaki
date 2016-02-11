@@ -22,21 +22,29 @@ function CompoundPicture:initialize(name, width, height)
 	print(name..' '..self.width..'x'..self.height..' compoundPicture created')
 end
 
-function CompoundPicture:add(rect, color)
-	table.insert(self.pics, {x = rect.x, y = rect.y, w = rect.w, h = rect.h, color = color})
-	print('rect '..self.pics[#self.pics].x ..' '..self.pics[#self.pics].y ..' '..self.pics[#self.pics].w ..' '..self.pics[#self.pics].h ..' added to '..self.name)
+function CompoundPicture:add(rect, px, py, sx, sy, func, color)
+	local x = rect.x or 0
+	local y = rect.y or 0
+	local w = rect.w or 1
+	local h = rect.h or 1
+	--table.insert(self.pics, {x = rect.x, y = rect.y, w = rect.w, h = rect.h, color = color})
+	table.insert(self.pics, {x = x, y = y, w = w, h = h, px = _px or 1, py = _py or 1, sx = sx or 0, sy = sy or 0, update = func, color = color})
+	print('rect '..self.pics[#self.pics].x ..' '..self.pics[#self.pics].y ..' '..self.pics[#self.pics].w ..' '..self.pics[#self.pics].h
+		..' P:'..self.pics[#self.pics].px ..','..self.pics[#self.pics].py
+		..' S:'..self.pics[#self.pics].sx ..','..self.pics[#self.pics].sy
+		..' added to '..self.name)
 end
 
 function CompoundPicture:remove(rect)
 --TODO add check fr w h color
 	for i=1, #self.pics do 
 		if self.pics[i].x == rect.x and 
-		  self.pics[i].y == rect.y and
-		  self.pics[i].w == rect.w and
-		  self.pics[i].h == rect.h
+		self.pics[i].y == rect.y and
+		self.pics[i].w == rect.w and
+		self.pics[i].h == rect.h
 		then
-		  table.remove (self.pics, i)
-		  return
+			table.remove (self.pics, i)
+			return
 		end
 	end
 end
@@ -47,6 +55,39 @@ function CompoundPicture:getRect(i)
 	end
 	-- Whole Picture rect
 	return 0, 0, self.width, self.height
+end
+
+function CompoundPicture:update(dt)
+	local p
+	for i=1, #self.pics do 
+		p = self.pics[i]
+		--scroll horizontally e.g. clouds
+		if p.sx and p.sx ~= 0 then
+			p.x = p.x + (p.sx * dt)
+			if p.sx > 0 then
+				if p.x > self.width then
+					p.x = -p.w
+				end
+			else
+				if p.x + p.w < 0 then
+					p.x = self.width
+				end
+			end
+		end
+		--scroll vertically
+		if p.sy and p.sy ~= 0 then
+			p.y = p.y + (p.sy * dt)
+			if p.sy > 0 then
+				if p.y > self.height then
+					p.y = -p.h
+				end
+			else
+				if p.y + p.h < 0 then
+					p.y = self.height
+				end
+			end
+		end
+	end
 end
 
 function CompoundPicture:drawAll()
