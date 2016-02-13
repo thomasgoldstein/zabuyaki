@@ -7,9 +7,9 @@ function testState:enter()
     next_animation = 2
     --define obstacles
     world = bump.newWorld(64)
-    world:add({}, 500, 0, 20, 240)
+    world:add({}, 500, 0, 20, 40)
     world:add({}, 0, 400, 500, 24)
-    world:add({}, 800, 100, 20, 240)
+    world:add({}, 800, 100, 20, 40)
     world:add({}, 900, 500, 500, 24)
 
     --define sprites
@@ -24,12 +24,12 @@ function testState:enter()
     --bg as a big picture
     background = CompoundPicture:new("LevelBackground", 2000, 600)
     --arrange sprites along the big picture
-    background:add(bgImg, quadSkyWater01, 0, 0, 0, 0, -10, 0)
-    background:add(bgImg, quadSkyWater01, 0 + 402, 0, 0, 0, -10, 0)
-    background:add(bgImg, quadSkyWater01, 0 + 402 * 2, 0, 0, 0, -10, 0)
-    background:add(bgImg, quadSkyWater01, 0 + 402 * 3, 0, 0, 0, -10, 0)
-    background:add(bgImg, quadSkyWater01, 0 + 402 * 4, 0, 0, 0, -10, 0)
-    background:add(bgImg, quadSkyWater01, 0 + 402 * 5, 0, 0, 0, -10, 0)
+    background:add(bgImg, quadSkyWater01, 0, 0, 0.1, 0, -1, 0)
+    background:add(bgImg, quadSkyWater01, 0 + 402, 0, 0.1, 0, -1, 0)
+    background:add(bgImg, quadSkyWater01, 0 + 402 * 2, 0, 0.1, 0, -1, 0)
+    background:add(bgImg, quadSkyWater01, 0 + 402 * 3, 0, 0.1, 0, -1, 0)
+    background:add(bgImg, quadSkyWater01, 0 + 402 * 4, 0, 0.1, 0, -1, 0)
+    background:add(bgImg, quadSkyWater01, 0 + 402 * 5, 0, 0.1, 0, -1, 0)
     background:add(bgImg, quadCloud01, 0 + 402, 20, 0, 0, -3, 0)
     background:add(bgImg, quadCloud01, 0 + 402 * 2, 30, 0, 0, -4, 0)
     background:add(bgImg, quadCloud02, 0 + 402 * 3, 40, 0, 0, -5, 0)
@@ -39,20 +39,11 @@ function testState:enter()
     background:add(bgImg, quadRoad01, 404 * 2, 155, nil)
     background:add(bgImg, quadBank01, 356 * 3, 152, nil)
     background:add(bgImg, quadBank01, 356 * 3 + 404, 152, nil)
-    background:add(bgImg, quadBldng01, 0, 0, nil)
-    background:add(bgImg, quadBldng02, 356, 0, nil)
-    background:add(bgImg, quadBldng01, 356 * 2, 0, nil)
+    background:add(bgImg, quadBldng01, 0, 0 )
+    background:add(bgImg, quadBldng02, 356*2, 0, nil)
+    background:add(bgImg, quadBldng01, 356 * 4, 0, nil)
 
-
-    --	background:add({x=40, y=30, w=200, h=20}, nil)
-    --	background:add({x=300, y=90, w=20, h=200}, nil)
-    --[[	background:add({x=550, y=130, w=200, h=20}, nil)
-        background:add({x=800, y=330, w=20, h=200}, nil)
-        background:add({x=240, y=530, w=60, h=60}, 0,0, -200, 0, nil)
-        background:add({x=140, y=600, w=60, h=60}, 0,0, 0, 100, nil)
-        background:add({x=340, y=630, w=60, h=60}, 0,0, 500, -300, nil)
-        background:add({x=40, y=30, w=30, h=30}, 0,0, -220, 0, nil)
-        background:add({x=40, y=60, w=30, h=30}, 0,0, 0, 130, nil)]]
+--    function CompoundPicture:add(sprite_sheet, quad, x, y, px, py, sx, sy, func)
 
     player = { x = 40, y = 50, stepx = 0, stepy = 0 }
     world:add(player, player.x, player.y, 32, 32)
