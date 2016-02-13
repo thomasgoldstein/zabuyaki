@@ -22,23 +22,9 @@ function CompoundPicture:initialize(name, width, height)
 	print(name..' '..self.width..'x'..self.height..' compoundPicture created')
 end
 
---[[
-love.graphics.draw (
-    image_bank[spr.sprite.sprite_sheet], --The image
-    --Current frame of the current animation
-    spr.sprite.animations[spr.curr_anim][spr.curr_frame],
-    x,
-    y,
-    spr.rotation,
-    spr.size_scale * spr.flip_h,
-    spr.size_scale * spr.flip_v,
-    spr.sprite.offsets[spr.curr_anim][spr.curr_frame][1],
-    spr.sprite.offsets[spr.curr_anim][spr.curr_frame][2]
-)]]
-
 function CompoundPicture:add(sprite_sheet, quad, x, y, px, py, sx, sy, func)
     local _,_,w,h = quad:getViewport()
-	table.insert(self.pics, {sprite_sheet = sprite_sheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, px = px or 1, py = py or 1, sx = sx or 0, sy = sy or 0, update = func})
+	table.insert(self.pics, {sprite_sheet = sprite_sheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, px = px or 0, py = py or 0, sx = sx or 0, sy = sy or 0, update = func})
 	print('rect '..self.pics[#self.pics].x ..' '..self.pics[#self.pics].y
 		..' P:'..self.pics[#self.pics].px ..','..self.pics[#self.pics].py
 		..' S:'..self.pics[#self.pics].sx ..','..self.pics[#self.pics].sy
@@ -112,15 +98,13 @@ function CompoundPicture:draw(l,t,w,h)
 	love.graphics.setColor(0,200, 130)
 	for i=1, #self.pics do
 --		print( CheckCollision( l,t,w,h, self:getRect(i) ) )
-		if CheckCollision( l,t,w,h, self:getRect(i) ) then
+		if CheckCollision( l- self.pics[i].px*l,t- self.pics[i].py*t,w,h, self:getRect(i) ) then
 			--love.graphics.rectangle("fill", self:getRect(i) )
             love.graphics.draw (self.pics[i].sprite_sheet,
                 self.pics[i].quad,
-                self.pics[i].x,
-                self.pics[i].y
+                self.pics[i].x + self.pics[i].px*l,	--parallax slow down
+                self.pics[i].y + self.pics[i].py*t
             )
-			--love.graphics.rectangle("fill", self:getRect(i) )
-			--print('ok, i draw ',self:getRect(i))
 		end
 	end
 end
