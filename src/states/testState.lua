@@ -93,10 +93,11 @@ function testState:update(dt)
 end
 
 function testState:draw()
-    love.graphics.setBackgroundColor(255, 255, 255)
+    --love.graphics.setBackgroundColor(255, 255, 255)
     cam:draw(function(l, t, w, h)
         -- draw camera stuff here
 
+        love.graphics.setColor(255, 255, 255, 255)
         background:draw(l, t, w, h)
 
         -- debug draw bump boxes
