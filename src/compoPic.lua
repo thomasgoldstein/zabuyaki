@@ -56,6 +56,7 @@ end
 
 function CompoundPicture:update(dt)
 	local p
+	self.dt = dt --save dt for custom draw function
 	for i=1, #self.pics do
 		p = self.pics[i]
 		--scroll horizontally e.g. clouds
@@ -88,23 +89,35 @@ function CompoundPicture:update(dt)
 end
 
 function CompoundPicture:drawAll()
-	love.graphics.setColor(200, 130, 0)
-	for i=1, #self.pics do
-		--love.graphics.rectangle("fill", self:getRect(i) )
+	local p
+	for i = 1, #self.pics do
+		p = self.pics[i]
+		if p.update then
+			p.update(p, self.dt)
+		end
+		love.graphics.draw(p.sprite_sheet,
+			p.quad,
+			p.x + p.px * l, --parallax slow down
+			p.y + p.py * t)
 	end
 end
 
-function CompoundPicture:draw(l,t,w,h)
-	love.graphics.setColor(0,200, 130)
-	for i=1, #self.pics do
---		print( CheckCollision( l,t,w,h, self:getRect(i) ) )
-		if CheckCollision( l- self.pics[i].px*l,t- self.pics[i].py*t,w,h, self:getRect(i) ) then
-			--love.graphics.rectangle("fill", self:getRect(i) )
-            love.graphics.draw (self.pics[i].sprite_sheet,
-                self.pics[i].quad,
-                self.pics[i].x + self.pics[i].px*l,	--parallax slow down
-                self.pics[i].y + self.pics[i].py*t
-            )
+function CompoundPicture:draw(l, t, w, h)
+	--love.graphics.setColor(0, 200, 130)
+	local p
+	for i = 1, #self.pics do
+		--		print( CheckCollision( l,t,w,h, self:getRect(i) ) )
+		p = self.pics[i]
+--		if CheckCollision(l - p.px * l, t - p.py * t, w, h, self:getRect(i)) then
+		if CheckCollision(l - p.px * l, t - p.py * t, w, h, p.x, p.y, p.w, p.h) then
+			--custom function(p, dt)
+			if p.update then
+				p.update(p, self.dt)
+			end
+			love.graphics.draw(p.sprite_sheet,
+				p.quad,
+				p.x + p.px * l, --parallax slow down
+				p.y + p.py * t)
 		end
 	end
 end
