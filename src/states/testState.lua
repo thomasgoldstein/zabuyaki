@@ -21,6 +21,7 @@ function testState:enter()
     local quadBank01 = love.graphics.newQuad(1, 538, 404, 72, bgImg:getDimensions())
     local quadCloud01 = love.graphics.newQuad(360, 243, 35, 8, bgImg:getDimensions())
     local quadCloud02 = love.graphics.newQuad(399, 245, 67, 7, bgImg:getDimensions())
+    local quadCustomShit01 = love.graphics.newQuad(1, 314, 50, 50, bgImg:getDimensions())
     --bg as a big picture
     background = CompoundPicture:new("LevelBackground", 2000, 600)
     --arrange sprites along the big picture
@@ -34,14 +35,21 @@ function testState:enter()
     background:add(bgImg, quadCloud01, 0 + 402 * 2, 30, 0, 0, -4, 0)
     background:add(bgImg, quadCloud02, 0 + 402 * 3, 40, 0, 0, -5, 0)
     background:add(bgImg, quadCloud02, 0 + 402 * 4, 50, 0, 0, -6, 0)
-    background:add(bgImg, quadRoad01, 0, 155, nil)
-    background:add(bgImg, quadRoad01, 404, 155, nil)
-    background:add(bgImg, quadRoad01, 404 * 2, 155, nil)
-    background:add(bgImg, quadBank01, 356 * 3, 152, nil)
-    background:add(bgImg, quadBank01, 356 * 3 + 404, 152, nil)
+    background:add(bgImg, quadRoad01, 0, 155)
+    background:add(bgImg, quadRoad01, 404, 155)
+    background:add(bgImg, quadRoad01, 404 * 2, 155)
+    background:add(bgImg, quadBank01, 356 * 3, 152)
+    background:add(bgImg, quadBank01, 356 * 3 + 404, 152)
     background:add(bgImg, quadBldng01, 0, 0 )
-    background:add(bgImg, quadBldng02, 356*2, 0, nil)
-    background:add(bgImg, quadBldng01, 356 * 4, 0, nil)
+    background:add(bgImg, quadBldng02, 356*2, 0)
+    background:add(bgImg, quadBldng01, 356 * 4, 0)
+
+    background:add(bgImg, quadCustomShit01, 100, 100, 0, 0, 0, 0,
+        function(pic, dt)
+            love.graphics.setColor(love.math.random(250), love.math.random(250), love.math.random(250))
+            pic.x = pic.x + 1
+        end
+        )
 
 --    function CompoundPicture:add(sprite_sheet, quad, x, y, px, py, sx, sy, func)
 
