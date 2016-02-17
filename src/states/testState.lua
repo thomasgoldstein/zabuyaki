@@ -57,7 +57,7 @@ function testState:enter()
     player = { x = 140, y = 200, stepx = 0, stepy = 0 }
     world:add(player, player.x, player.y, 8, 8)
 
-    ManSprite = GetInstance("res/ManSprite.lua")
+    ManSprite = GetInstance("res/man_template.lua")
 
     cam = gamera.new(0, 0, worldWidth, worldHeight)
     cam:setWindow(0, 0, 640, 480)

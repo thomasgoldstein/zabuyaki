@@ -42,12 +42,15 @@ return {
 		center = {
 			love.graphics.newQuad(155, 2, 41, 62, image_w, image_h),
 		},
-		walk = {
+		walk = { -- 1 2 3 2 1 4 5 4
 			love.graphics.newQuad(2, 66, 31, 63, image_w, image_h),
 			love.graphics.newQuad(35, 66, 32, 63, image_w, image_h),
-			love.graphics.newQuad(69, 66, 37, 62, image_w, image_h),
+			love.graphics.newQuad(69, 67, 37, 62, image_w, image_h),
+			love.graphics.newQuad(35, 66, 32, 63, image_w, image_h),
+			love.graphics.newQuad(2, 66, 31, 63, image_w, image_h),
 			love.graphics.newQuad(108, 66, 31, 63, image_w, image_h),
-			love.graphics.newQuad(141, 66, 37, 62, image_w, image_h)
+			love.graphics.newQuad(141, 67, 37, 62, image_w, image_h),
+			love.graphics.newQuad(108, 66, 31, 63, image_w, image_h),
 		},
 		duck = {
 			love.graphics.newQuad(2, 143, 35, 55, image_w, image_h),
@@ -97,12 +100,15 @@ return {
 		center = {
 			{ 20, 60 },
 		},
-		walk = {
-			{ 20, 61 },
-			{ 20, 60 },
-			{ 20, 59 },
-			{ 20, 59 },
-			{ 20, 60 }
+		walk = { -- 1 2 3 2 1 4 5 4
+			{ 15, 62 },
+			{ 16, 62 },
+			{ 17, 62 },
+			{ 16, 62 },
+			{ 15, 62 },
+			{ 15, 62 },
+			{ 17, 62 }, --
+			{ 15, 62 }
 		},
 		duck = {
 			{ 20, 59 },
