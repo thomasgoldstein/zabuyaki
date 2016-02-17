@@ -23,7 +23,7 @@ function testState:enter()
     local quadCloud02 = love.graphics.newQuad(399, 245, 67, 7, bgImg:getDimensions())
     local quadCustomShit01 = love.graphics.newQuad(1, 314, 50, 50, bgImg:getDimensions())
     --bg as a big picture
-    background = CompoundPicture:new("LevelBackground", 2000, 600)
+    background = CompoundPicture:new("LevelBackground", 2000, 240)
     --arrange sprites along the big picture
     background:add(bgImg, quadSkyWater01, 0, 0, 0.1, 0, -1, 0)
     background:add(bgImg, quadSkyWater01, 0 + 402, 0, 0.1, 0, -1, 0)
@@ -53,13 +53,14 @@ function testState:enter()
 
 --    function CompoundPicture:add(sprite_sheet, quad, x, y, px, py, sx, sy, func)
 
-    player = { x = 40, y = 50, stepx = 0, stepy = 0 }
-    world:add(player, player.x, player.y, 32, 32)
+    player = { x = 140, y = 200, stepx = 0, stepy = 0 }
+    world:add(player, player.x, player.y, 8, 8)
 
     ManSprite = GetInstance("res/ManSprite.lua")
 
-    cam = gamera.new(0, 0, 2000, 1000)
-    cam:setWindow(0, 0, 800, 600)
+    cam = gamera.new(0, 0, 2000, 240)
+    cam:setWindow(0, 0, 640, 480)
+    cam:setScale(2)
 end
 
 function testState:update(dt)
