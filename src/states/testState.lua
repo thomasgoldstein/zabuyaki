@@ -63,6 +63,10 @@ function testState:enter()
 end
 
 function testState:update(dt)
+    fancy.watch("FPS", love.timer.getFPS())
+    --fancy.watch("Bump items", len, 3)
+    fancy.watch("Plr anim", ManSprite.curr_anim, 1)
+
     player.stepx = 0;
     player.stepy = 0;
     if love.keyboard.isDown("left") then
@@ -101,18 +105,17 @@ function testState:draw()
         background:draw(l, t, w, h)
 
         -- debug draw bump boxes
-        love.graphics.setColor(255, 0, 0)
         local items, len = world:getItems()
+        love.graphics.setColor(255, 0, 0)
         for i = 1, #items do
             love.graphics.rectangle("line", world:getRect(items[i]))
         end
 
         love.graphics.setColor(255, 255, 255)
         DrawInstance(ManSprite, player.x, player.y)
-        love.graphics.print("Curr_anim " .. ManSprite.curr_anim, player.x, player.y - 12)
     end)
-    love.graphics.setColor(0, 0, 255)
-    love.graphics.print("Frame Rate: " .. love.timer.getFPS(), 500, 450)
+    fancy.draw()	--DEBUG var show
+
     --[[love.graphics.print("PgUp & PgDown to change size: "..ManSprite.size_scale, 500, 470)
         love.graphics.print("Home & End to change speed: "..string.format("%.7f",ManSprite.time_scale), 500, 490)
         love.graphics.print("Insert & Delete to Rotate: "..string.format("%.3f",ManSprite.rotation), 500, 510)

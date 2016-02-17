@@ -11,12 +11,12 @@
 love.graphics.setDefaultFilter("nearest", "nearest")
 --Libraries
 Gamestate = require "lib/hump.gamestate"
---require "lib/stateManager"
---require "lib/lovelyMoon"
 require "lib/AnimatedSprite"
 bump = require "lib/bump"
 gamera = require "lib/gamera"
 CompoundPicture = require "src/compoPic"
+--DEBUG libs
+fancy = require "lib/fancy"
 
 --GameStates
 require "src/states/testState"
