@@ -1,16 +1,16 @@
 --[[
     AnimatedSprite.lua - 2016
-    
+
     Copyright Dejaime Antonio de Oliveira Neto, 2014
 	fixed Don Miguel, 2016
-    
+
     Released under the MIT license.
     Visit for more information:
     http://opensource.org/licenses/MIT
 ]]
 print("AnimatedSprite.lua loaded")
 
-local ManagerVersion = 0.2
+local ManagerVersion = 0.3
 
 sprite_bank = {} --Map with all the sprite definitions
 image_bank = {} --Contains all images that were already loaded
@@ -35,7 +35,7 @@ function LoadSprite (sprite_def)
         We can execute the file by calling it as a function
             with these () as we loaded with loadfile previously.
         If we used dofile with an invalid file path our program
-            would crash. 
+            would crash.
         At this point, executing the file will load all the necessary
             information in a single call. There's no need to parse
             this of serialization.
@@ -121,18 +121,14 @@ function UpdateInstance(spr, dt)
 end
 
 function DrawInstance (spr, x, y)
-
-	love.graphics.draw (
+    local s = spr.sprite.animations[spr.curr_anim][spr.curr_frame]
+    love.graphics.draw (
 		image_bank[spr.sprite.sprite_sheet], --The image
-		--Current frame of the current animation
-		spr.sprite.animations[spr.curr_anim][spr.curr_frame],
-		x,
-		y,
+		s.q, --Current frame of the current animation
+		x, y,
 		spr.rotation,
 		spr.size_scale * spr.flip_h,
 		spr.size_scale * spr.flip_v,
-		spr.sprite.offsets[spr.curr_anim][spr.curr_frame][1],
-		spr.sprite.offsets[spr.curr_anim][spr.curr_frame][2]
+		s.ox, s.oy
 	)
-
 end
