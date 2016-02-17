@@ -6,11 +6,12 @@ end
 function testState:enter()
     next_animation = 2
     --define obstacles
+    local worldWidth, worldHeight = 4000, 240
     world = bump.newWorld(64)
-    world:add({}, 500, 0, 20, 40)
-    world:add({}, 0, 400, 500, 24)
-    world:add({}, 800, 100, 20, 40)
-    world:add({}, 900, 500, 500, 24)
+    world:add({}, -20, 0, 40, worldHeight)
+    world:add({}, worldWidth-20, 0, 40, worldHeight)
+    world:add({}, 0, 110, worldWidth, 40)
+    world:add({}, 0, worldHeight-20, worldWidth, 40)
 
     --define sprites
     local bgImg = love.graphics.newImage("res/test_bg.png")
@@ -23,7 +24,7 @@ function testState:enter()
     local quadCloud02 = love.graphics.newQuad(399, 245, 67, 7, bgImg:getDimensions())
     local quadCustomShit01 = love.graphics.newQuad(1, 314, 50, 50, bgImg:getDimensions())
     --bg as a big picture
-    background = CompoundPicture:new("LevelBackground", 2000, 240)
+    background = CompoundPicture:new("LevelBackground", worldWidth, worldHeight)
     --arrange sprites along the big picture
     background:add(bgImg, quadSkyWater01, 0, 0, 0.1, 0, -1, 0)
     background:add(bgImg, quadSkyWater01, 0 + 402, 0, 0.1, 0, -1, 0)
@@ -58,7 +59,7 @@ function testState:enter()
 
     ManSprite = GetInstance("res/ManSprite.lua")
 
-    cam = gamera.new(0, 0, 2000, 240)
+    cam = gamera.new(0, 0, worldWidth, worldHeight)
     cam:setWindow(0, 0, 640, 480)
     cam:setScale(2)
 end
