@@ -4,22 +4,18 @@
 -- To change this template use File | Settings | File Templates.
 --
 
--- User: bmv
--- Date: 16.02.2016
--- To change this template use File | Settings | File Templates.
---
 local class = require "lib/middleclass"
 
-
-Player = class("Player")
-
+local Player = class("Player")
 
 local function nop() print "nop" end
 
-function Player:initialize(name)
-	self.sprite = nil --GetInstance("res/man_template.lua")
+function Player:initialize(name, sprite, x, y)
+	self.sprite = sprite --GetInstance("res/man_template.lua")
 	self.isConnected = false
 	self.name = name or "Player 1"
+	self.x, self.y = x, y
+	self.stepx, self.stepy = 0, 0
 	self.state = "nop"
 
 	self.isHidden = false
@@ -33,41 +29,11 @@ function Player:initialize(name)
 	self:setState(Player.idle)
 end
 
-function Player:idle_start()
-	print (self.name.." - idle start")
-	--self.sprite
-end
-function Player:idle_exit()
-	print (self.name.." - idle exit")
-end
-function Player:idle_update(dt)
-	print (self.name.." - idle update",dt)
-end
-function Player:idle_draw(l,t,w,h)
-	print(self.name.." - idle draw ",l,t,w,h)
-end
-Player.idle = {name = "idle", start = Player.idle_start, exit = Player.idle_exit, update = Player.idle_update, draw = Player.idle_draw}
-
-function Player:walk_start()
-	print (self.name.." - walk start")
-	--self.sprite
-end
-function Player:walk_exit()
-	print (self.name.." - walk exit")
-end
-function Player:walk_update(dt)
-	print (self.name.." - walk update",dt)
-end
-function Player:walk_draw(l,t,w,h)
-	print(self.name.." - walk draw ",l,t,w,h)
-end
-Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit, update = Player.walk_update, draw = Player.walk_draw}
-
 function Player:setState(state)
-	print (self.name.." -> Set state try...")
+--	print (self.name.." -> Set state try...")
 	assert(type(state) == "table", "setState expects a table")
 	if state and state.name ~= self.state then
-		print (self.name.." -> Switching from ",self.state,"to",state.name)
+--		print (self.name.." -> Switching from ",self.state,"to",state.name)
 		self:exit()
 		self.state = state.name
 		self.draw = state.draw
@@ -79,6 +45,93 @@ function Player:setState(state)
 	end
 end
 
+function Player:idle_start()
+	print (self.name.." - idle start")
+--	self.sprite = GetInstance("idle")
+	self.sprite.curr_frame = 1
+--	self.sprite.curr_anim = sprite_bank[self.sprite].animations_names[1]
+end
+function Player:idle_exit()
+	print (self.name.." - idle exit")
+end
+function Player:idle_update(dt)
+--	print (self.name," - idle update",dt)
+	if love.keyboard.isDown("left") or
+	 love.keyboard.isDown("right") or
+	 love.keyboard.isDown("up") or
+	 love.keyboard.isDown("down") then
+		self:setState(self.walk)
+	end
+	UpdateInstance(self.sprite, dt)
+end
+function Player:idle_draw(l,t,w,h)
+--	print(self.name.." - idle draw ",l,t,w,h)
+	love.graphics.setColor(255, 255, 255)
+	DrawInstance(self.sprite, self.x, self.y)
+end
+Player.idle = {name = "idle", start = Player.idle_start, exit = Player.idle_exit, update = Player.idle_update, draw = Player.idle_draw}
+
+function Player:walk_start()
+	print (self.name.." - walk start")
+	self.sprite.curr_frame = 1
+	--self.sprite.curr_anim = sprite_bank[self.sprite].animations_names[3]
+
+	--sprite = sprite_bank[sprite_def], --Sprite reference
+	--Sets the animation as the first one in the list.
+--	self.sprite.curr_anim = sprite_bank[self.sprite].animations_names[1]
+end
+function Player:walk_exit()
+	print (self.name.." - walk exit")
+end
+function Player:walk_update(dt)
+--	print (self.name.." - walk update",dt)
+
+	self.stepx = 0;
+	self.stepy = 0;
+	if love.keyboard.isDown("left") then
+		self.stepx = -100 * dt;
+	end
+	if love.keyboard.isDown("right") then
+		self.stepx = 100 * dt;
+	end
+	if love.keyboard.isDown("up") then
+		self.stepy = -75 * dt;
+	end
+	if love.keyboard.isDown("down") then
+		self.stepy = 75 * dt;
+	end
+	--face sprite left or right
+	if self.stepx < 0 then
+		self.sprite.flip_h = -1
+	elseif self.stepx > 0 then
+		self.sprite.flip_h = 1
+	end
+
+	if self.stepx == 0 and self.stepy == 0 then
+			self:setState(self.idle)
+			return
+	end
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+
+	UpdateInstance(self.sprite, dt)
+end
+function Player:walk_draw(l,t,w,h)
+--	print(self.name.." - walk draw ",l,t,w,h)
+	love.graphics.setColor(255, 255, 25)
+	DrawInstance(self.sprite, self.x, self.y)
+end
+Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit, update = Player.walk_update, draw = Player.walk_draw}
+
+
+return Player
 
 --anim transitions
 --Play sounds as states are entered or exited
