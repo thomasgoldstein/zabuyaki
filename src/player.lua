@@ -47,9 +47,8 @@ end
 
 function Player:idle_start()
 	print (self.name.." - idle start")
---	self.sprite = GetInstance("idle")
 	self.sprite.curr_frame = 1
---	self.sprite.curr_anim = sprite_bank[self.sprite].animations_names[1]
+	self.sprite.curr_anim = "idle"
 end
 function Player:idle_exit()
 	print (self.name.." - idle exit")
@@ -74,11 +73,8 @@ Player.idle = {name = "idle", start = Player.idle_start, exit = Player.idle_exit
 function Player:walk_start()
 	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
-	--self.sprite.curr_anim = sprite_bank[self.sprite].animations_names[3]
-
-	--sprite = sprite_bank[sprite_def], --Sprite reference
-	--Sets the animation as the first one in the list.
---	self.sprite.curr_anim = sprite_bank[self.sprite].animations_names[1]
+	self.sprite.curr_anim = "walk"
+--	self.sprite.curr_anim = sprite_bank[self.sprite.sprite].animations_names[3]
 end
 function Player:walk_exit()
 	print (self.name.." - walk exit")
@@ -125,7 +121,7 @@ function Player:walk_update(dt)
 end
 function Player:walk_draw(l,t,w,h)
 --	print(self.name.." - walk draw ",l,t,w,h)
-	love.graphics.setColor(255, 255, 25)
+	love.graphics.setColor(255, 255, 255)
 	DrawInstance(self.sprite, self.x, self.y)
 end
 Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit, update = Player.walk_update, draw = Player.walk_draw}
