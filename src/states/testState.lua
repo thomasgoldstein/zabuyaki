@@ -144,6 +144,23 @@ function testState:keypressed(k, unicode)
 
 end
 
+function testState:wheelmoved( dx, dy )
+    local worldWidth = 4000
+    if love.keyboard.isDown("lctrl") or love.keyboard.isDown("rctrl") then
+        if dy > 0 and cam:getScale() < 2 then
+            cam:setScale(cam:getScale() + 0.25 )
+        elseif dy < 0 and cam:getScale() > 0.25 then
+            cam:setScale(cam:getScale() - 0.25 )
+        end
+    else
+        if dy > 0 and player.x < worldWidth - 200 then
+            player.x = player.x + 200
+        elseif dy < 0 and player.x > 200 then
+            player.x = player.x - 200
+        end
+    end
+end
+
 function testState:mousepressed(x, y, button)
     --player.x = x
     --player.y = y
