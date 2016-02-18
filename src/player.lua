@@ -14,7 +14,7 @@ function Player:initialize(name, sprite, x, y)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
 	self.isConnected = false
 	self.name = name or "Player 1"
-	self.x, self.y = x, y
+	self.x, self.y, self.z = x, y, 0
 	self.stepx, self.stepy = 0, 0
 	self.state = "nop"
 
@@ -125,6 +125,40 @@ function Player:walk_draw(l,t,w,h)
 	DrawInstance(self.sprite, self.x, self.y)
 end
 Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit, update = Player.walk_update, draw = Player.walk_draw}
+
+function Player:jump_start()
+	print (self.name.." - jump start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "jump"
+	--	self.sprite.curr_anim = sprite_bank[self.sprite.sprite].animations_names[3]
+end
+function Player:jump_exit()
+	print (self.name.." - jump exit")
+end
+function Player:jump_update(dt)
+	--	print (self.name.." - jump update",dt)
+
+	--self.stepx = 0;
+	self.stepy = 0;
+	self.stepx = -100 * dt * sprite.flip_h;
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+
+	UpdateInstance(self.sprite, dt)
+end
+function Player:jump_draw(l,t,w,h)
+	--	print(self.name.." - jump draw ",l,t,w,h)
+	love.graphics.setColor(255, 255, 255)
+	DrawInstance(self.sprite, self.x, self.y)
+end
+Player.jump = {name = "jump", start = Player.jump_start, exit = Player.jump_exit, update = Player.jump_update, draw = Player.jump_draw}
 
 
 return Player
