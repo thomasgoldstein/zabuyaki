@@ -52,48 +52,22 @@ function testState:enter()
         end
         )
 
---    function CompoundPicture:add(sprite_sheet, quad, x, y, px, py, sx, sy, func)
-
-    player = { x = 140, y = 200, stepx = 0, stepy = 0 }
+    player = Player:new("Player One", GetInstance("res/man_template.lua"), 140, 200)
     world:add(player, player.x, player.y, 8, 8)
-
-    ManSprite = GetInstance("res/man_template.lua")
 
     cam = gamera.new(0, 0, worldWidth, worldHeight)
     cam:setWindow(0, 0, 640, 480)
     cam:setScale(2)
+--    cam:setAngle(10)
 end
 
 function testState:update(dt)
     fancy.watch("FPS", love.timer.getFPS())
     --fancy.watch("Bump items", len, 3)
-    fancy.watch("Plr anim", ManSprite.curr_anim, 1)
+    fancy.watch("Player state: ",player.state, 1)
 
-    player.stepx = 0;
-    player.stepy = 0;
-    if love.keyboard.isDown("left") then
-        player.stepx = -100 * dt;
-    end
-    if love.keyboard.isDown("right") then
-        player.stepx = 100 * dt;
-    end
-    if love.keyboard.isDown("up") then
-        player.stepy = -100 * dt;
-    end
-    if love.keyboard.isDown("down") then
-        player.stepy = 100 * dt;
-    end
+    player:update(dt)
 
-    local actualX, actualY, cols, len = world:move(player, player.x + player.stepx, player.y + player.stepy,
-        function(player, item)
-            if player ~= item then
-                return "slide"
-            end
-        end)
-    player.x = actualX
-    player.y = actualY
-
-    UpdateInstance(ManSprite, dt)
     background:update(dt)
     cam:setPosition(player.x, player.y)
 end
@@ -113,8 +87,7 @@ function testState:draw()
             love.graphics.rectangle("line", world:getRect(items[i]))
         end
 
-        love.graphics.setColor(255, 255, 255)
-        DrawInstance(ManSprite, player.x, player.y)
+        player:draw(l,t,w,h)
     end)
     fancy.draw()	--DEBUG var show
 
@@ -130,7 +103,7 @@ function testState:keypressed(k, unicode)
     if k == "escape" then
         Gamestate.switch(menuState)
 
-    elseif k == 'pageup' then
+--[[    elseif k == 'pageup' then
         ManSprite.size_scale = ManSprite.size_scale * 1.25
     elseif k == 'pagedown' then
         ManSprite.size_scale = ManSprite.size_scale * 0.8
@@ -152,7 +125,8 @@ function testState:keypressed(k, unicode)
     elseif k == '3' then
         ManSprite.flip_v = -1
     elseif k == '4' then
-        ManSprite.flip_v = 1
+        ManSprite.flip_v = 1]]
+
     elseif k == '5' then
         cam:setScale(0.5)
     elseif k == '6' then
@@ -161,19 +135,16 @@ function testState:keypressed(k, unicode)
         cam:setScale(2)
 
     elseif k == 'return' then
-        ManSprite.curr_anim = ManSprite.sprite.animations_names[next_animation]
-        ManSprite.curr_frame = 1
-        next_animation = next_animation + 1
-        if next_animation > #ManSprite.sprite.animations_names then
-            next_animation = 1
+        if(player.state == "idle") then
+            player:setState(Player.walk)
+        else
+            player:setState(Player.idle)
         end
-
-    elseif k == 'backspace' then
-        ManSprite = GetInstance("res/ManSprite.lua")
     end
+
 end
 
 function testState:mousepressed(x, y, button)
-    player.x = x
-    player.y = y
+    --player.x = x
+    --player.y = y
 end
