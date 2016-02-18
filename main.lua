@@ -23,16 +23,18 @@ require "src/states/testState"
 require "src/states/gameState"
 require "src/states/menuState"
 
-function love.load()
-end
-
-function love.load()
+function love.load(arg)
+	if arg[#arg] == "-debug" then
+		require("mobdebug").start()
+	end
+		
 	--Add Gamestates Here
     Gamestate.registerEvents()
 
 --    player = {x = 40, y = 50, stepx  = 0, stepy = 0 }
 
-    Gamestate.switch(menuState)
+    Gamestate.switch(testState)
+--    Gamestate.switch(menuState)
 end
 
 function love.update(dt)
