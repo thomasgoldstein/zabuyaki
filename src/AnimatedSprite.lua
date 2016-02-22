@@ -2,7 +2,7 @@
     AnimatedSprite.lua - 2016
 
     Copyright Dejaime Antonio de Oliveira Neto, 2014
-	fixed Don Miguel, 2016
+	Don Miguel, 2016
 
     Released under the MIT license.
     Visit for more information:
@@ -10,7 +10,7 @@
 ]]
 print("AnimatedSprite.lua loaded")
 
-local ManagerVersion = 0.3
+local ManagerVersion = 0.4
 
 sprite_bank = {} --Map with all the sprite definitions
 image_bank = {} --Contains all images that were already loaded
@@ -53,9 +53,6 @@ function LoadSprite (sprite_def)
 		return sprite_bank[sprite_def]
 	end
 
-	--All we need to do now is check if the image exist
-	--  and load it.
-
 	--Storing the path to the image in a variable (to add readability)
 	local sprite_sheet = sprite_bank[sprite_def].sprite_sheet
 
@@ -77,38 +74,49 @@ function LoadSprite (sprite_def)
 end
 
 function GetInstance (sprite_def)
-
 	if sprite_def == nil then return nil end -- invalid use
-
 	if sprite_bank[sprite_def] == nil then
 		--Sprite not loaded attempting to load; abort on failure.
 		if LoadSprite (sprite_def) == nil then return nil end
 	end
-
-	--All set, return the default table.
+	--default table.
 	return {
-		sprite = sprite_bank[sprite_def], --Sprite reference
-		--Sets the animation as the first one in the list.
-		curr_anim = sprite_bank[sprite_def].animations_names[1],
+		def = sprite_bank[sprite_def], --Sprite reference
+		curr_anim = nil,
 		curr_frame = 1,
 		elapsed_time = 0,
 		size_scale = 1,
 		time_scale = 1,
 		rotation = 0,
-		flip_h = 1,
-		flip_v = 1
+		flip_h = 1, -- 1 normal, -1 mirrored
+		flip_v = 1	-- same
 	}
 end
 
 function UpdateInstance(spr, dt)
+	local s = spr.def.animations[spr.curr_anim][spr.curr_frame]
+--[[	there are 3 kinds of duration:
+	1) default for whole sprite animations 		: spr.def.default_frame_duration
+	2) default for all frames of 1 animation	: spr.def.animations.frame_duration
+	3) custom duration per frame				: spr.def.animations[i].duration ]]
+
+	-- is there default delay for frames of 1 animation?
+	if not spr.def.animations[spr.curr_anim].frame_duration then
+		spr.def.animations[spr.curr_anim].frame_duration = spr.def.default_frame_duration
+	end
+	-- is there delay for this frame?
+	if not s.duration then
+		s.duration = spr.def.animations[spr.curr_anim].frame_duration
+	end
+	--spr.def.animations[spr.curr_anim]
 	--Increment the internal counter.
 	spr.elapsed_time = spr.elapsed_time + dt
 
 	--We check we need to change the current frame.
-	if spr.elapsed_time > spr.sprite.frame_duration * spr.time_scale then
+	if spr.elapsed_time > s.duration * spr.time_scale then
 		--Check if we are at the last frame.
 		--  # returns the total entries of an array.
-		if spr.curr_frame < #spr.sprite.animations[spr.curr_anim] then
+		if spr.curr_frame < #spr.def.animations[spr.curr_anim] then
 			-- Not on last frame, increment.
 			spr.curr_frame = spr.curr_frame + 1
 		else
@@ -121,9 +129,9 @@ function UpdateInstance(spr, dt)
 end
 
 function DrawInstance (spr, x, y)
-    local s = spr.sprite.animations[spr.curr_anim][spr.curr_frame]
+    local s = spr.def.animations[spr.curr_anim][spr.curr_frame]
     love.graphics.draw (
-		image_bank[spr.sprite.sprite_sheet], --The image
+		image_bank[spr.def.sprite_sheet], --The image
 		s.q, --Current frame of the current animation
 		x, y,
 		spr.rotation,
