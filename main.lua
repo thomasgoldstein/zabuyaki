@@ -12,7 +12,7 @@ love.graphics.setDefaultFilter("nearest", "nearest")
 --Libraries
 class = require "lib/middleclass"
 Gamestate = require "lib/hump.gamestate"
-require "lib/AnimatedSprite"
+require "src/AnimatedSprite"
 bump = require "lib/bump"
 gamera = require "lib/gamera"
 CompoundPicture = require "src/compoPic"

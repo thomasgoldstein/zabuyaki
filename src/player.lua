@@ -74,7 +74,6 @@ function Player:walk_start()
 	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "walk"
---	self.sprite.curr_anim = sprite_bank[self.sprite.sprite].animations_names[3]
 end
 function Player:walk_exit()
 	print (self.name.." - walk exit")
@@ -130,7 +129,6 @@ function Player:jump_start()
 	print (self.name.." - jump start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jump"
-	--	self.sprite.curr_anim = sprite_bank[self.sprite.sprite].animations_names[3]
 end
 function Player:jump_exit()
 	print (self.name.." - jump exit")
@@ -184,10 +182,6 @@ Inherited members
 Variables
 hideFlags	Should the object be hidden, saved with the scene or modifiable by the user?
 name	The name of the object.
-
-Public Functions
-GetInstanceID	Returns the instance id of the object.
-ToString	Returns the name of the game object.
 
 Static Functions
 Destroy	Removes a gameobject, component or asset.
