@@ -125,7 +125,11 @@ function UpdateInstance(spr, dt)
 		end
 		-- Reset internal counter on frame change.
 		spr.elapsed_time = 0
+		if s.func then
+			return s.func()
+		end
 	end
+	return nil
 end
 
 function DrawInstance (spr, x, y)
