@@ -20,28 +20,40 @@ return {
 	--  each one can be accessed like this:
 	--  mySprite.animations["idle"][1], or even
 	animations = {
-		idle = {
+		center = {
+			{q = q(155, 2, 41, 62), ox = 20, oy = 60, duration = 5, func = function() print("frame test") end }
+		},
+		stand = {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad
+			-- duration = 0.1, func = fun
 			{q = q(2, 2, 49, 62), ox = 20, oy = 61 },
 			{q = q(53, 3, 49, 61), ox = 20, oy = 60 },
-			{q = q(104, 4, 49, 60), ox = 20, oy = 59 , func = function() print("bam") end},
-			{q = q(53, 3, 49, 61), ox = 20, oy = 60, duration = 1 },
---			frame_duration = 0.1
-		},
-		center = {
-			{q = q(155, 2, 41, 62), ox = 20, oy = 60 }
+			{q = q(104, 4, 49, 60), ox = 20, oy = 59 },
+			{q = q(53, 3, 49, 61), ox = 20, oy = 60 },
+			frame_duration = 0.2
 		},
 		walk = { -- 1 2 3 2 1 4 5 4
 			{q = q(  2, 66, 31, 63), ox = 15, oy = 62},
-			{q = q( 35, 66, 32, 63), ox = 16, oy = 62, duration = 1},
+			{q = q( 35, 66, 32, 63), ox = 16, oy = 62},
 			{q = q( 69, 67, 37, 62), ox = 17, oy = 61},
-			{q = q( 35, 66, 32, 63), ox = 16, oy = 62, func = function() print("bam2") end},
+			{q = q( 35, 66, 32, 63), ox = 16, oy = 62},
 			{q = q(  2, 66, 31, 63), ox = 15, oy = 62},
-			{q = q(108, 66, 31, 63), ox = 15, oy = 62, duration = 0.1},
-			{q = q(141, 67, 37, 62), ox = 17, oy = 61, duration = 0.2},
-			{q = q(108, 66, 31, 63), ox = 15, oy = 62, duration = 0.3},
---			frame_duration = 0.5
+			{q = q(108, 66, 31, 63), ox = 15, oy = 62},
+			{q = q(141, 67, 37, 62), ox = 17, oy = 61},
+			{q = q(108, 66, 31, 63), ox = 15, oy = 62, func = function(self) self.anim_repeated = self.anim_repeated + 1 end},
+			frame_duration = 0.11
+		},
+		run = { -- 1 2 3 2 1 4 5 4
+			{q = q(2, 200, 33, 63), ox = 14, oy = 62},
+			{q = q(37, 201, 48, 61), ox = 21, oy = 61},
+			{q = q(87, 202, 51, 55), ox = 24, oy = 60},
+			{q = q(37, 201, 48, 61), ox = 21, oy = 61},
+			{q = q(2, 200, 33, 63), ox = 14, oy = 62},
+			{q = q(140, 201, 45, 58), ox = 20, oy = 61},
+			{q = q(187, 202, 51, 55), ox = 23, oy = 60},
+			{q = q(140, 201, 45, 58), ox = 20, oy = 61},
+			frame_duration = 0.075
 		},
 		duck = {
 			{q = q(2, 143, 35, 55), ox = 16, oy = 60},
@@ -51,13 +63,7 @@ return {
 			{q = q(72, 132, 44, 66), ox = 16, oy = 60},
 			{q = q(118, 131, 44, 67), ox = 16, oy = 60},
 		},
-		run = {
-			{q = q(2, 200, 33, 63), ox = 16, oy = 60},
-			{q = q(37, 201, 48, 61), ox = 16, oy = 60},
-			{q = q(87, 202, 51, 55), ox = 16, oy = 60},
-			{q = q(140, 201, 45, 58), ox = 16, oy = 60},
-			{q = q(187, 202, 51, 55), ox = 16, oy = 60},
-		},
+
 		punch = {
 			{q = q(2, 266, 56, 61), ox = 16, oy = 60},
 			{q = q(60, 265, 51, 62), ox = 16, oy = 60},
