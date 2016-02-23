@@ -18,6 +18,8 @@ function Player:initialize(name, sprite, x, y)
 	self.stepx, self.stepy = 0, 0
 	self.state = "nop"
 
+	self.anim_repeated = 0
+
 	self.isHidden = false
 	self.isEnabled = true
 
@@ -26,7 +28,7 @@ function Player:initialize(name, sprite, x, y)
 	self.start = nop
 	self.exit = nop
 	
-	self:setState(Player.idle)
+	self:setState(Player.stand)
 end
 
 function Player:setState(state)
@@ -45,35 +47,39 @@ function Player:setState(state)
 	end
 end
 
-function Player:idle_start()
-	print (self.name.." - idle start")
+
+function Player:stand_start()
+	print (self.name.." - stand start")
 	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "idle"
+	self.sprite.curr_anim = "stand"
 end
-function Player:idle_exit()
-	print (self.name.." - idle exit")
+function Player:stand_exit()
+	print (self.name.." - stand exit")
 end
-function Player:idle_update(dt)
---	print (self.name," - idle update",dt)
+function Player:stand_update(dt)
+--	print (self.name," - stand update",dt)
 	if love.keyboard.isDown("left") or
 	 love.keyboard.isDown("right") or
 	 love.keyboard.isDown("up") or
 	 love.keyboard.isDown("down") then
 		self:setState(self.walk)
 	end
-	UpdateInstance(self.sprite, dt)
+	UpdateInstance(self.sprite, dt, self)
 end
-function Player:idle_draw(l,t,w,h)
---	print(self.name.." - idle draw ",l,t,w,h)
+function Player:stand_draw(l,t,w,h)
+--	print(self.name.." - stand draw ",l,t,w,h)
 	love.graphics.setColor(255, 255, 255)
 	DrawInstance(self.sprite, self.x, self.y)
 end
-Player.idle = {name = "idle", start = Player.idle_start, exit = Player.idle_exit, update = Player.idle_update, draw = Player.idle_draw}
+Player.stand = {name = "stand", start = Player.stand_start, exit = Player.stand_exit, update = Player.stand_update, draw = Player.stand_draw}
+
 
 function Player:walk_start()
 	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "walk"
+
+	self.anim_repeated = 0
 end
 function Player:walk_exit()
 	print (self.name.." - walk exit")
@@ -103,8 +109,13 @@ function Player:walk_update(dt)
 	end
 
 	if self.stepx == 0 and self.stepy == 0 then
-			self:setState(self.idle)
+			self:setState(self.stand)
 			return
+	end
+	-- switch to run - for testing
+	if self.anim_repeated > 2 then
+		self:setState(self.run)
+		return
 	end
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
@@ -116,7 +127,7 @@ function Player:walk_update(dt)
 	self.x = actualX
 	self.y = actualY
 
-	UpdateInstance(self.sprite, dt)
+	UpdateInstance(self.sprite, dt, self)
 end
 function Player:walk_draw(l,t,w,h)
 --	print(self.name.." - walk draw ",l,t,w,h)
@@ -124,6 +135,63 @@ function Player:walk_draw(l,t,w,h)
 	DrawInstance(self.sprite, self.x, self.y)
 end
 Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit, update = Player.walk_update, draw = Player.walk_draw}
+
+
+function Player:run_start()
+	print (self.name.." - run start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "run"
+end
+function Player:run_exit()
+	print (self.name.." - run exit")
+end
+function Player:run_update(dt)
+	--	print (self.name.." - run update",dt)
+
+	self.stepx = 0;
+	self.stepy = 0;
+	if love.keyboard.isDown("left") then
+		self.stepx = -150 * dt;
+	end
+	if love.keyboard.isDown("right") then
+		self.stepx = 150 * dt;
+	end
+	if love.keyboard.isDown("up") then
+		self.stepy = -25 * dt;
+	end
+	if love.keyboard.isDown("down") then
+		self.stepy = 25 * dt;
+	end
+	--face sprite left or right
+	if self.stepx < 0 then
+		self.sprite.flip_h = -1
+	elseif self.stepx > 0 then
+		self.sprite.flip_h = 1
+	end
+
+	if self.stepx == 0 and self.stepy == 0 then
+		self:setState(self.stand)
+		return
+	end
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+
+	UpdateInstance(self.sprite, dt, self)
+end
+function Player:run_draw(l,t,w,h)
+	--	print(self.name.." - run draw ",l,t,w,h)
+	love.graphics.setColor(255, 255, 255)
+	DrawInstance(self.sprite, self.x, self.y)
+end
+Player.run = {name = "run", start = Player.run_start, exit = Player.run_exit, update = Player.run_update, draw = Player.run_draw}
+
 
 function Player:jump_start()
 	print (self.name.." - jump start")
@@ -149,7 +217,7 @@ function Player:jump_update(dt)
 	self.x = actualX
 	self.y = actualY
 
-	UpdateInstance(self.sprite, dt)
+	UpdateInstance(self.sprite, dt, self)
 end
 function Player:jump_draw(l,t,w,h)
 	--	print(self.name.." - jump draw ",l,t,w,h)
