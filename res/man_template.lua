@@ -25,9 +25,9 @@ return {
 			-- ox,oy pivots offsets from the top left corner of the quad
 			{q = q(2, 2, 49, 62), ox = 20, oy = 61 },
 			{q = q(53, 3, 49, 61), ox = 20, oy = 60 },
-			{q = q(104, 4, 49, 60), ox = 20, oy = 59 },
+			{q = q(104, 4, 49, 60), ox = 20, oy = 59 , func = function() print("bam") end},
 			{q = q(53, 3, 49, 61), ox = 20, oy = 60, duration = 1 },
-			frame_duration = 0.3
+--			frame_duration = 0.1
 		},
 		center = {
 			{q = q(155, 2, 41, 62), ox = 20, oy = 60 }
@@ -36,12 +36,12 @@ return {
 			{q = q(  2, 66, 31, 63), ox = 15, oy = 62},
 			{q = q( 35, 66, 32, 63), ox = 16, oy = 62, duration = 1},
 			{q = q( 69, 67, 37, 62), ox = 17, oy = 61},
-			{q = q( 35, 66, 32, 63), ox = 16, oy = 62},
+			{q = q( 35, 66, 32, 63), ox = 16, oy = 62, func = function() print("bam2") end},
 			{q = q(  2, 66, 31, 63), ox = 15, oy = 62},
 			{q = q(108, 66, 31, 63), ox = 15, oy = 62, duration = 0.1},
 			{q = q(141, 67, 37, 62), ox = 17, oy = 61, duration = 0.2},
 			{q = q(108, 66, 31, 63), ox = 15, oy = 62, duration = 0.3},
-			frame_duration = 0.5
+--			frame_duration = 0.5
 		},
 		duck = {
 			{q = q(2, 143, 35, 55), ox = 16, oy = 60},
