@@ -135,10 +135,10 @@ function testState:keypressed(k, unicode)
         cam:setScale(2)
 
     elseif k == 'return' then
-        if(player.state == "idle") then
+        if(player.state == "run") then
             player:setState(Player.walk)
         else
-            player:setState(Player.idle)
+            player:setState(Player.run)
         end
     end
 
