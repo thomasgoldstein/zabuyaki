@@ -93,7 +93,7 @@ function GetInstance (sprite_def)
 	}
 end
 
-function UpdateInstance(spr, dt)
+function UpdateInstance(spr, dt, self)
 	local s = spr.def.animations[spr.curr_anim][spr.curr_frame]
 --[[	there are 3 kinds of duration:
 	1) default for whole sprite animations 		: spr.def.default_frame_duration
@@ -126,7 +126,7 @@ function UpdateInstance(spr, dt)
 		-- Reset internal counter on frame change.
 		spr.elapsed_time = 0
 		if s.func then
-			return s.func()
+			return s.func(self)
 		end
 	end
 	return nil
