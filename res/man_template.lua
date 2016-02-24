@@ -65,10 +65,11 @@ return {
 			frame_duration = 5
 		},
 		duck = {
-			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 },
+			{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.1 },
+			{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.1 },
 			--[[{ q = q(39, 147, 31, 51), ox = 14, oy = 50 },
 			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 },]]
-			frame_duration = 0.2
+			frame_duration = 0.5
 		},
 		duck0 = {
 			{ q = q(2, 143, 35, 55), ox = 16, oy = 60 },
