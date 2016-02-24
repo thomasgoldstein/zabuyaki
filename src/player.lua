@@ -200,7 +200,7 @@ function Player:jumpUp_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpUp"
 
-	--self.stepx = 0;
+	self.stepx = 0;
 	self.stepy = 0;
 	self.stepz = 170;
 end
@@ -209,15 +209,17 @@ function Player:jumpUp_exit()
 end
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
-	self.stepx = 170 * dt * self.sprite.flip_h;
 
-	if self.z < 40 then
-		self.z = self.z + dt * self.stepz
-	else
-		self:setState(self.jumpDown)
-		return
+	if self.sprite.curr_frame > 1 then -- should make duck before jumping
+		self.stepx = 170 * dt * self.sprite.flip_h;
+
+		if self.z < 40 then
+			self.z = self.z + dt * self.stepz
+		else
+			self:setState(self.jumpDown)
+			return
+		end
 	end
-
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
 			if player ~= item then
@@ -226,7 +228,6 @@ function Player:jumpUp_update(dt)
 		end)
 	self.x = actualX
 	self.y = actualY
-
 	UpdateInstance(self.sprite, dt, self)
 end
 function Player:jumpUp_draw(l,t,w,h)

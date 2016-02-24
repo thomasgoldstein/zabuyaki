@@ -56,7 +56,7 @@ return {
 			frame_duration = 0.075
 		},
 		jumpUp = {
-			{ q = q(39, 147, 31, 51), ox = 14, oy = 50, duration = 0.1 },
+			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 , duration = 0.2 },
 			{ q = q(72, 132, 44, 66), ox = 16, oy = 60 },
 			frame_duration = 5
 		},
