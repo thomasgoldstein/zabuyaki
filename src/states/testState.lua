@@ -142,6 +142,12 @@ function testState:keypressed(k, unicode)
         end
     end
 
+    if k == 'space' then
+        if (player.state == "run" or player.state == "walk") then
+            player:setState(Player.jumpUp)
+        end
+    end
+
 end
 
 function testState:wheelmoved( dx, dy )
