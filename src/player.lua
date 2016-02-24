@@ -51,7 +51,9 @@ end
 function Player:stand_start()
 	print (self.name.." - stand start")
 	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "stand"
+	if not self.sprite.curr_anim then
+		self.sprite.curr_anim = "stand"
+	end
 end
 function Player:stand_exit()
 	print (self.name.." - stand exit")
@@ -63,6 +65,8 @@ function Player:stand_update(dt)
 	 love.keyboard.isDown("up") or
 	 love.keyboard.isDown("down") then
 		self:setState(self.walk)
+	else
+		self.sprite.curr_anim = "stand"	-- to prevent flashing frame after duck
 	end
 	UpdateInstance(self.sprite, dt, self)
 end
