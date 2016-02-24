@@ -84,6 +84,7 @@ function GetInstance (sprite_def)
 		def = sprite_bank[sprite_def], --Sprite reference
 		curr_anim = nil,
 		curr_frame = 1,
+		loop_count = 0, -- loop played times
 		elapsed_time = 0,
 		size_scale = 1,
 		time_scale = 1,
@@ -122,6 +123,7 @@ function UpdateInstance(spr, dt, self)
 		else
 			-- Last frame, loop back to 1.
 			spr.curr_frame = 1
+			spr.loop_count = spr.loop_count + 1 --loop played times++
 		end
 		-- Reset internal counter on frame change.
 		spr.elapsed_time = 0
