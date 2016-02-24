@@ -78,8 +78,9 @@ function Player:walk_start()
 	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "walk"
+	self.sprite.loop_count = 0
 
-	self.anim_repeated = 0
+	--self.anim_repeated = 0
 end
 function Player:walk_exit()
 	print (self.name.." - walk exit")
@@ -113,7 +114,7 @@ function Player:walk_update(dt)
 			return
 	end
 	-- switch to run - for testing
-	if self.anim_repeated > 2 then
+	if self.sprite.loop_count > 1 then
 		self:setState(self.run)
 		return
 	end
@@ -141,6 +142,7 @@ function Player:run_start()
 	print (self.name.." - run start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "run"
+	self.sprite.loop_count = 0
 end
 function Player:run_exit()
 	print (self.name.." - run exit")
@@ -193,20 +195,28 @@ end
 Player.run = {name = "run", start = Player.run_start, exit = Player.run_exit, update = Player.run_update, draw = Player.run_draw}
 
 
-function Player:jump_start()
-	print (self.name.." - jump start")
+function Player:jumpUp_start()
+	print (self.name.." - jumpUp start")
 	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "jump"
-end
-function Player:jump_exit()
-	print (self.name.." - jump exit")
-end
-function Player:jump_update(dt)
-	--	print (self.name.." - jump update",dt)
+	self.sprite.curr_anim = "jumpUp"
 
 	--self.stepx = 0;
 	self.stepy = 0;
-	self.stepx = -100 * dt * sprite.flip_h;
+	self.stepz = 170;
+end
+function Player:jumpUp_exit()
+	print (self.name.." - jumpUp exit")
+end
+function Player:jumpUp_update(dt)
+	--	print (self.name.." - jumpUp update",dt)
+	self.stepx = 170 * dt * self.sprite.flip_h;
+
+	if self.z < 40 then
+		self.z = self.z + dt * self.stepz
+	else
+		self:setState(self.jumpDown)
+		return
+	end
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
@@ -219,13 +229,81 @@ function Player:jump_update(dt)
 
 	UpdateInstance(self.sprite, dt, self)
 end
-function Player:jump_draw(l,t,w,h)
-	--	print(self.name.." - jump draw ",l,t,w,h)
+function Player:jumpUp_draw(l,t,w,h)
+	--	print(self.name.." - jumpUp draw ",l,t,w,h)
 	love.graphics.setColor(255, 255, 255)
-	DrawInstance(self.sprite, self.x, self.y)
+	DrawInstance(self.sprite, self.x, self.y - self.z)
 end
-Player.jump = {name = "jump", start = Player.jump_start, exit = Player.jump_exit, update = Player.jump_update, draw = Player.jump_draw}
+Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = Player.jumpUp_exit, update = Player.jumpUp_update, draw = Player.jumpUp_draw}
 
+
+function Player:jumpDown_start()
+	print (self.name.." - jumpDown start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "jumpDown"
+
+	--self.stepx = 0;
+	self.stepy = 0;
+end
+function Player:jumpDown_exit()
+	print (self.name.." - jumpDown exit")
+end
+function Player:jumpDown_update(dt)
+	--	print (self.name.." - jumpDown update",dt)
+
+	if self.z > 0 then
+		self.z = self.z - dt * self.stepz
+	else
+		self.z = 0
+		self:setState(self.duck)
+		return
+	end
+	self.stepx = 170 * dt * self.sprite.flip_h;
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+
+	UpdateInstance(self.sprite, dt, self)
+end
+function Player:jumpDown_draw(l,t,w,h)
+	--	print(self.name.." - jumpDown draw ",l,t,w,h)
+	love.graphics.setColor(255, 255, 255)
+	DrawInstance(self.sprite, self.x, self.y - self.z)
+end
+Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = Player.jumpDown_exit, update = Player.jumpDown_update, draw = Player.jumpDown_draw}
+
+
+function Player:duck_start()
+	print (self.name.." - duck start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "duck"
+	self.sprite.loop_count = 0
+
+	self.z = 0;
+end
+function Player:duck_exit()
+	print (self.name.." - duck exit")
+end
+function Player:duck_update(dt)
+	--	print (self.name.." - duck update",dt)
+	if self.sprite.loop_count > 0 then
+		self:setState(self.stand)
+		return
+	end
+	UpdateInstance(self.sprite, dt, self)
+end
+function Player:duck_draw(l,t,w,h)
+	--	print(self.name.." - duck draw ",l,t,w,h)
+	love.graphics.setColor(255, 255, 255)
+	DrawInstance(self.sprite, self.x, self.y - self.z)
+end
+Player.duck = {name = "duck", start = Player.duck_start, exit = Player.duck_exit, update = Player.duck_update, draw = Player.duck_draw}
 
 return Player
 
