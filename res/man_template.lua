@@ -41,7 +41,7 @@ return {
 			{q = q(  2, 66, 31, 63), ox = 15, oy = 62},
 			{q = q(108, 66, 31, 63), ox = 15, oy = 62},
 			{q = q(141, 67, 37, 62), ox = 17, oy = 61},
-			{q = q(108, 66, 31, 63), ox = 15, oy = 62, func = function(self) self.anim_repeated = self.anim_repeated + 1 end},
+			{q = q(108, 66, 31, 63), ox = 15, oy = 62},
 			frame_duration = 0.11
 		},
 		run = { -- 1 2 3 2 1 4 5 4
@@ -66,20 +66,15 @@ return {
 		},
 		duck = {
 			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 },
-			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 },
-			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 },
-			frame_duration = 0.15
+			--[[{ q = q(39, 147, 31, 51), ox = 14, oy = 50 },
+			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 },]]
+			frame_duration = 0.2
 		},
 		duck0 = {
 			{ q = q(2, 143, 35, 55), ox = 16, oy = 60 },
 			{ q = q(39, 147, 31, 51), ox = 16, oy = 60 },
 			frame_duration = 0.2
 		},
-		jump0 = {
-			{q = q(72, 132, 44, 66), ox = 16, oy = 60},
-			{q = q(118, 131, 44, 67), ox = 16, oy = 60},
-		},
-
 		punch = {
 			{q = q(2, 266, 56, 61), ox = 16, oy = 60},
 			{q = q(60, 265, 51, 62), ox = 16, oy = 60},
