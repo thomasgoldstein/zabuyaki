@@ -46,13 +46,6 @@ function testState:draw()
         player:draw(l,t,w,h)
     end)
     fancy.draw()	--DEBUG var show
-
-    --[[love.graphics.print("PgUp & PgDown to change size: "..ManSprite.size_scale, 500, 470)
-        love.graphics.print("Home & End to change speed: "..string.format("%.7f",ManSprite.time_scale), 500, 490)
-        love.graphics.print("Insert & Delete to Rotate: "..string.format("%.3f",ManSprite.rotation), 500, 510)
-        love.graphics.print("Enter to change animation: "..ManSprite.curr_anim, 500, 530)
-        love.graphics.print("Backspace to reset the sprite", 500, 550)
-        love.graphics.print("1,2,3,4 to flip the sprite", 500, 570)]]
 end
 
 function testState:keypressed(k, unicode)
@@ -83,13 +76,14 @@ function testState:keypressed(k, unicode)
     elseif k == '4' then
         ManSprite.flip_v = 1]]
 
-    elseif k == '5' then
+    elseif k == '1' then
         cam:setScale(0.5)
-    elseif k == '6' then
+    elseif k == '2' then
         cam:setScale(1)
-    elseif k == '7' then
+    elseif k == '3' then
         cam:setScale(2)
-
+    end
+--[[
     elseif k == 'return' then
         if(player.state == "run") then
             player:setState(Player.walk)
@@ -97,13 +91,12 @@ function testState:keypressed(k, unicode)
             player:setState(Player.run)
         end
     end
-
     if k == 'space' then
         if (player.state == "run" or player.state == "walk") then
             player:setState(Player.jumpUp)
         end
     end
-
+]]
 end
 
 function testState:wheelmoved( dx, dy )
