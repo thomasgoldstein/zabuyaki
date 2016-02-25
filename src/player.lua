@@ -16,6 +16,7 @@ function Player:initialize(name, sprite, x, y)
 	self.name = name or "Player 1"
 	self.x, self.y, self.z = x, y, 0
 	self.stepx, self.stepy = 0, 0
+	self.velx, self.vely, self.velz = 0, 0, 0
 	self.state = "nop"
 
 	self.anim_repeated = 0
@@ -35,7 +36,7 @@ function Player:setState(state)
 --	print (self.name.." -> Set state try...")
 	assert(type(state) == "table", "setState expects a table")
 	if state and state.name ~= self.state then
---		print (self.name.." -> Switching from ",self.state,"to",state.name)
+--	--	print (self.name.." -> Switching from ",self.state,"to",state.name)
 		self:exit()
 		self.state = state.name
 		self.draw = state.draw
@@ -49,14 +50,16 @@ end
 
 
 function Player:stand_start()
-	print (self.name.." - stand start")
+--	print (self.name.." - stand start")
 	self.sprite.curr_frame = 1
+	self.stepx, self.stepy = 0, 0
 	if not self.sprite.curr_anim then
 		self.sprite.curr_anim = "stand"
 	end
+	self.velx = 0
 end
 function Player:stand_exit()
-	print (self.name.." - stand exit")
+--	print (self.name.." - stand exit")
 end
 function Player:stand_update(dt)
 --	print (self.name," - stand update",dt)
@@ -65,6 +68,8 @@ function Player:stand_update(dt)
 	 love.keyboard.isDown("up") or
 	 love.keyboard.isDown("down") then
 		self:setState(self.walk)
+	elseif love.keyboard.isDown("space") then
+		self:setState(self.jumpUp)
 	else
 		self.sprite.curr_anim = "stand"	-- to prevent flashing frame after duck
 	end
@@ -79,15 +84,15 @@ Player.stand = {name = "stand", start = Player.stand_start, exit = Player.stand_
 
 
 function Player:walk_start()
-	print (self.name.." - walk start")
+--	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "walk"
 	self.sprite.loop_count = 0
 
-	--self.anim_repeated = 0
+	self.velx, self.vely = 100, 75
 end
 function Player:walk_exit()
-	print (self.name.." - walk exit")
+--	print (self.name.." - walk exit")
 end
 function Player:walk_update(dt)
 --	print (self.name.." - walk update",dt)
@@ -95,27 +100,32 @@ function Player:walk_update(dt)
 	self.stepx = 0;
 	self.stepy = 0;
 	if love.keyboard.isDown("left") then
-		self.stepx = -100 * dt;
+		self.stepx = -self.velx * dt;
 	end
 	if love.keyboard.isDown("right") then
-		self.stepx = 100 * dt;
+		self.stepx = self.velx * dt;
 	end
 	if love.keyboard.isDown("up") then
-		self.stepy = -75 * dt;
+		self.stepy = -self.vely * dt;
 	end
 	if love.keyboard.isDown("down") then
-		self.stepy = 75 * dt;
+		self.stepy = self.vely * dt;
 	end
+
 	--face sprite left or right
 	if self.stepx < 0 then
 		self.sprite.flip_h = -1
 	elseif self.stepx > 0 then
 		self.sprite.flip_h = 1
 	end
+	if love.keyboard.isDown("space") then
+		self:setState(self.jumpUp)
+		return
+	end
 
 	if self.stepx == 0 and self.stepy == 0 then
-			self:setState(self.stand)
-			return
+		self:setState(self.stand)
+		return
 	end
 	-- switch to run - for testing
 	if self.sprite.loop_count > 1 then
@@ -143,13 +153,15 @@ Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit
 
 
 function Player:run_start()
-	print (self.name.." - run start")
+--	print (self.name.." - run start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "run"
 	self.sprite.loop_count = 0
+
+	self.velx, self.vely = 150, 25
 end
 function Player:run_exit()
-	print (self.name.." - run exit")
+--	print (self.name.." - run exit")
 end
 function Player:run_update(dt)
 	--	print (self.name.." - run update",dt)
@@ -157,22 +169,26 @@ function Player:run_update(dt)
 	self.stepx = 0;
 	self.stepy = 0;
 	if love.keyboard.isDown("left") then
-		self.stepx = -150 * dt;
+		self.stepx = -self.velx * dt;
 	end
 	if love.keyboard.isDown("right") then
-		self.stepx = 150 * dt;
+		self.stepx = self.velx * dt;
 	end
 	if love.keyboard.isDown("up") then
-		self.stepy = -25 * dt;
+		self.stepy = -self.vely * dt;
 	end
 	if love.keyboard.isDown("down") then
-		self.stepy = 25 * dt;
+		self.stepy = self.vely * dt;
 	end
 	--face sprite left or right
 	if self.stepx < 0 then
 		self.sprite.flip_h = -1
 	elseif self.stepx > 0 then
 		self.sprite.flip_h = 1
+	end
+	if love.keyboard.isDown("space") then
+		self:setState(self.jumpUp)
+		return
 	end
 
 	if self.stepx == 0 and self.stepy == 0 then
@@ -200,25 +216,29 @@ Player.run = {name = "run", start = Player.run_start, exit = Player.run_exit, up
 
 
 function Player:jumpUp_start()
-	print (self.name.." - jumpUp start")
+--	print (self.name.." - jumpUp start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpUp"
 
-	self.stepx = 0;
-	self.stepy = 0;
-	self.stepz = 170;
+	self.velz = 170;
 end
 function Player:jumpUp_exit()
-	print (self.name.." - jumpUp exit")
+--	print (self.name.." - jumpUp exit")
 end
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
-
+	if self.velx == 0 then
+		if love.keyboard.isDown("left") then
+			self.sprite.flip_h = -1
+		elseif love.keyboard.isDown("right") then
+			self.sprite.flip_h = 1
+		end
+	end
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
-		self.stepx = 170 * dt * self.sprite.flip_h;
+		self.stepx = self.velx * dt * self.sprite.flip_h;
 
 		if self.z < 40 then
-			self.z = self.z + dt * self.stepz
+			self.z = self.z + dt * self.velz
 		else
 			self:setState(self.jumpDown)
 			return
@@ -243,27 +263,33 @@ Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = Player.jum
 
 
 function Player:jumpDown_start()
-	print (self.name.." - jumpDown start")
+--	print (self.name.." - jumpDown start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpDown"
 
-	--self.stepx = 0;
-	self.stepy = 0;
+	self.velz = 170;
 end
 function Player:jumpDown_exit()
-	print (self.name.." - jumpDown exit")
+--	print (self.name.." - jumpDown exit")
 end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
+	if self.velx == 0 then
+		if love.keyboard.isDown("left") then
+			self.sprite.flip_h = -1
+		elseif love.keyboard.isDown("right") then
+			self.sprite.flip_h = 1
+		end
+	end
 
 	if self.z > 0 then
-		self.z = self.z - dt * self.stepz
+		self.z = self.z - dt * self.velz
 	else
 		self.z = 0
 		self:setState(self.duck)
 		return
 	end
-	self.stepx = 170 * dt * self.sprite.flip_h;
+	self.stepx = self.velx * dt * self.sprite.flip_h;
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
@@ -285,7 +311,7 @@ Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = Play
 
 
 function Player:duck_start()
-	print (self.name.." - duck start")
+--	print (self.name.." - duck start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "duck"
 	self.sprite.loop_count = 0
@@ -293,7 +319,7 @@ function Player:duck_start()
 	self.z = 0;
 end
 function Player:duck_exit()
-	print (self.name.." - duck exit")
+--	print (self.name.." - duck exit")
 end
 function Player:duck_update(dt)
 	--	print (self.name.." - duck update",dt)
