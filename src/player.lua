@@ -86,10 +86,14 @@ Player.stand = {name = "stand", start = Player.stand_start, exit = Player.stand_
 function Player:walk_start()
 --	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "walk"
 	self.sprite.loop_count = 0
 
 	self.velx, self.vely = 100, 75
+
+	if not self.sprite.curr_anim then
+		self.sprite.curr_anim = "walk"
+		-- to prevent flashing 1 frame transition (when u instantly enter another stite)
+	end
 end
 function Player:walk_exit()
 --	print (self.name.." - walk exit")
@@ -119,6 +123,8 @@ function Player:walk_update(dt)
 	if self.stepx == 0 and self.stepy == 0 then
 		self:setState(self.stand)
 		return
+	else
+		self.sprite.curr_anim = "walk"	-- to prevent flashing frame after duck and instand jump
 	end
 	-- switch to run - for testing
 	if self.sprite.loop_count > 1 then
