@@ -101,22 +101,15 @@ function Player:walk_update(dt)
 	self.stepy = 0;
 	if love.keyboard.isDown("left") then
 		self.stepx = -self.velx * dt;
-	end
-	if love.keyboard.isDown("right") then
+		self.sprite.flip_h = -1 --face sprite left or right
+	elseif love.keyboard.isDown("right") then
+		self.sprite.flip_h = 1
 		self.stepx = self.velx * dt;
 	end
 	if love.keyboard.isDown("up") then
 		self.stepy = -self.vely * dt;
-	end
-	if love.keyboard.isDown("down") then
+	elseif love.keyboard.isDown("down") then
 		self.stepy = self.vely * dt;
-	end
-
-	--face sprite left or right
-	if self.stepx < 0 then
-		self.sprite.flip_h = -1
-	elseif self.stepx > 0 then
-		self.sprite.flip_h = 1
 	end
 	if love.keyboard.isDown("space") then
 		self:setState(self.jumpUp)
@@ -169,23 +162,18 @@ function Player:run_update(dt)
 	self.stepx = 0;
 	self.stepy = 0;
 	if love.keyboard.isDown("left") then
+		self.sprite.flip_h = -1 --face sprite left or right
 		self.stepx = -self.velx * dt;
-	end
-	if love.keyboard.isDown("right") then
+	elseif love.keyboard.isDown("right") then
+		self.sprite.flip_h = 1
 		self.stepx = self.velx * dt;
 	end
 	if love.keyboard.isDown("up") then
 		self.stepy = -self.vely * dt;
-	end
-	if love.keyboard.isDown("down") then
+	elseif love.keyboard.isDown("down") then
 		self.stepy = self.vely * dt;
 	end
-	--face sprite left or right
-	if self.stepx < 0 then
-		self.sprite.flip_h = -1
-	elseif self.stepx > 0 then
-		self.sprite.flip_h = 1
-	end
+
 	if love.keyboard.isDown("space") then
 		self:setState(self.jumpUp)
 		return
@@ -225,35 +213,38 @@ end
 function Player:jumpUp_exit()
 --	print (self.name.." - jumpUp exit")
 end
+
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
-	if self.velx == 0 then
+--[[	if self.velx == 0 then
 		if love.keyboard.isDown("left") then
 			self.sprite.flip_h = -1
 		elseif love.keyboard.isDown("right") then
 			self.sprite.flip_h = 1
 		end
-	end
+	end]]
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
 		self.stepx = self.velx * dt * self.sprite.flip_h;
 
-		if self.z < 40 then
+		if self.z < 60 then
 			self.z = self.z + dt * self.velz
 		else
 			self:setState(self.jumpDown)
 			return
 		end
+
+		local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+			function(player, item)
+				if player ~= item then
+					return "slide"
+				end
+			end)
+		self.x = actualX
+		self.y = actualY
 	end
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
 	UpdateInstance(self.sprite, dt, self)
 end
+
 function Player:jumpUp_draw(l,t,w,h)
 	--	print(self.name.." - jumpUp draw ",l,t,w,h)
 	love.graphics.setColor(255, 255, 255)
@@ -274,13 +265,13 @@ function Player:jumpDown_exit()
 end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
-	if self.velx == 0 then
+--[[	if self.velx == 0 then
 		if love.keyboard.isDown("left") then
 			self.sprite.flip_h = -1
 		elseif love.keyboard.isDown("right") then
 			self.sprite.flip_h = 1
 		end
-	end
+	end]]
 
 	if self.z > 0 then
 		self.z = self.z - dt * self.velz
