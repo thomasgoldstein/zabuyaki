@@ -56,7 +56,7 @@ end
 
 function Player:drawShadow()
     love.graphics.setColor(0, 0, 0, 200)
-    love.graphics.ellipse("fill", self.x, self.y, 20 - self.z/16, 10 - self.z/32)
+    love.graphics.ellipse("fill", self.x, self.y, 18 - self.z/16, 6 - self.z/32)
 end
 
 
