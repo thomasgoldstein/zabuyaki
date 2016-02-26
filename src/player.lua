@@ -17,7 +17,8 @@ function Player:initialize(name, sprite, x, y, color)
 	self.x, self.y, self.z = x, y, 0
 	self.stepx, self.stepy = 0, 0
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0
-	self.gravity = 450
+	self.gravity = 650
+	self.jumpHeight = 40
 	self.state = "nop"
 	if color then
 		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
@@ -227,7 +228,7 @@ function Player:jumpUp_start()
 --	print (self.name.." - jumpUp start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpUp"
-	self.velz = 170;
+	self.velz = 270;
 	if self.velx ~= 0 then
 		self.velx = self.velx + 10 --make jump little faster than the walk/run speed
 	end
@@ -239,10 +240,11 @@ end
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
-		if self.z < 30 then
+		if self.z < self.jumpHeight then
 			self.z = self.z + dt * self.velz
 			self.velz = self.velz - self.gravity * dt;
 		else
+			self.velz = self.velz / 2
 			self:setState(self.jumpDown)
 			return
 		end
