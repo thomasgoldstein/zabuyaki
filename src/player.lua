@@ -10,7 +10,7 @@ local Player = class("Player")
 
 local function nop() print "nop" end
 
-function Player:initialize(name, sprite, x, y)
+function Player:initialize(name, sprite, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
 	self.isConnected = false
 	self.name = name or "Player 1"
@@ -19,6 +19,11 @@ function Player:initialize(name, sprite, x, y)
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0
 	self.gravity = 250
 	self.state = "nop"
+	if color then
+		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
+	else
+		self.color = { r= 255, g = 255, b = 255, a = 255 }
+	end
 
 	self.anim_repeated = 0
 
@@ -78,8 +83,8 @@ function Player:stand_update(dt)
 end
 function Player:stand_draw(l,t,w,h)
 --	print(self.name.." - stand draw ",l,t,w,h)
-	love.graphics.setColor(255, 255, 255)
-	DrawInstance(self.sprite, self.x, self.y)
+	love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+	DrawInstance(self.sprite, self.x, self.y - self.z)
 end
 Player.stand = {name = "stand", start = Player.stand_start, exit = Player.stand_exit, update = Player.stand_update, draw = Player.stand_draw}
 
@@ -146,8 +151,8 @@ function Player:walk_update(dt)
 end
 function Player:walk_draw(l,t,w,h)
 --	print(self.name.." - walk draw ",l,t,w,h)
-	love.graphics.setColor(255, 255, 255)
-	DrawInstance(self.sprite, self.x, self.y)
+    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+    DrawInstance(self.sprite, self.x, self.y - self.z)
 end
 Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit, update = Player.walk_update, draw = Player.walk_draw}
 
@@ -204,8 +209,8 @@ function Player:run_update(dt)
 end
 function Player:run_draw(l,t,w,h)
 	--	print(self.name.." - run draw ",l,t,w,h)
-	love.graphics.setColor(255, 255, 255)
-	DrawInstance(self.sprite, self.x, self.y)
+    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+    DrawInstance(self.sprite, self.x, self.y - self.z)
 end
 Player.run = {name = "run", start = Player.run_start, exit = Player.run_exit, update = Player.run_update, draw = Player.run_draw}
 
@@ -249,8 +254,8 @@ end
 
 function Player:jumpUp_draw(l,t,w,h)
 	--	print(self.name.." - jumpUp draw ",l,t,w,h)
-	love.graphics.setColor(255, 255, 255)
-	DrawInstance(self.sprite, self.x, self.y - self.z)
+    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+    DrawInstance(self.sprite, self.x, self.y - self.z)
 end
 Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = Player.jumpUp_exit, update = Player.jumpUp_update, draw = Player.jumpUp_draw}
 
@@ -291,8 +296,8 @@ function Player:jumpDown_update(dt)
 end
 function Player:jumpDown_draw(l,t,w,h)
 	--	print(self.name.." - jumpDown draw ",l,t,w,h)
-	love.graphics.setColor(255, 255, 255)
-	DrawInstance(self.sprite, self.x, self.y - self.z)
+    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+    DrawInstance(self.sprite, self.x, self.y - self.z)
 end
 Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = Player.jumpDown_exit, update = Player.jumpDown_update, draw = Player.jumpDown_draw}
 
@@ -318,8 +323,8 @@ function Player:duck_update(dt)
 end
 function Player:duck_draw(l,t,w,h)
 	--	print(self.name.." - duck draw ",l,t,w,h)
-	love.graphics.setColor(255, 255, 255)
-	DrawInstance(self.sprite, self.x, self.y - self.z)
+    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+    DrawInstance(self.sprite, self.x, self.y - self.z)
 end
 Player.duck = {name = "duck", start = Player.duck_start, exit = Player.duck_exit, update = Player.duck_update, draw = Player.duck_draw}
 

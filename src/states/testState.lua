@@ -7,7 +7,7 @@ function testState:enter()
     --create players
     player = Player:new("Player One", GetInstance("res/man_template.lua"), 140, 200)
 
-    player2 = Player:new("Player Two", GetInstance("res/man_template.lua"), 240, 180)
+    player2 = Player:new("Player Two", GetInstance("res/man_template.lua"), 240, 180, {239,255,191, 50})
 
     --load level
     world, background, worldWidth, worldHeight = require("res/level_template")(player, player2)
