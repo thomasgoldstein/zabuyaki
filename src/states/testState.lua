@@ -21,6 +21,8 @@ function testState:update(dt)
     fancy.watch("FPS", love.timer.getFPS())
     --fancy.watch("Bump items", len, 3)
     fancy.watch("Player state: ",player.state, 1)
+    fancy.watch("Velocity Z: ",player.velz, 3)
+    fancy.watch("Velocity X: ",player.velx, 3)
 
     player:update(dt)
 
