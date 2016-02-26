@@ -16,7 +16,8 @@ function Player:initialize(name, sprite, x, y)
 	self.name = name or "Player 1"
 	self.x, self.y, self.z = x, y, 0
 	self.stepx, self.stepy = 0, 0
-	self.velx, self.vely, self.velz = 0, 0, 0
+	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0
+	self.gravity = 250
 	self.state = "nop"
 
 	self.anim_repeated = 0
@@ -213,8 +214,10 @@ function Player:jumpUp_start()
 --	print (self.name.." - jumpUp start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpUp"
-
 	self.velz = 170;
+	if self.velx ~= 0 then
+		self.velx = self.velx + 10 --make jump little faster than the walk/run speed
+	end
 end
 function Player:jumpUp_exit()
 --	print (self.name.." - jumpUp exit")
@@ -222,22 +225,15 @@ end
 
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
---[[	if self.velx == 0 then
-		if love.keyboard.isDown("left") then
-			self.sprite.flip_h = -1
-		elseif love.keyboard.isDown("right") then
-			self.sprite.flip_h = 1
-		end
-	end]]
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
-		self.stepx = self.velx * dt * self.sprite.flip_h;
-
-		if self.z < 60 then
+		if self.z < 30 then
 			self.z = self.z + dt * self.velz
+			self.velz = self.velz - self.gravity * dt;
 		else
 			self:setState(self.jumpDown)
 			return
 		end
+		self.stepx = self.velx * dt * self.sprite.flip_h;
 
 		local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 			function(player, item)
@@ -264,29 +260,23 @@ function Player:jumpDown_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpDown"
 
-	self.velz = 170;
+	--self.velz = 170;
 end
 function Player:jumpDown_exit()
 --	print (self.name.." - jumpDown exit")
 end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
---[[	if self.velx == 0 then
-		if love.keyboard.isDown("left") then
-			self.sprite.flip_h = -1
-		elseif love.keyboard.isDown("right") then
-			self.sprite.flip_h = 1
-		end
-	end]]
-
 	if self.z > 0 then
-		self.z = self.z - dt * self.velz
+		self.z = self.z + dt * self.velz
+		self.velz = self.velz - self.gravity * dt;
 	else
 		self.z = 0
 		self:setState(self.duck)
 		return
 	end
 	self.stepx = self.velx * dt * self.sprite.flip_h;
+
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
