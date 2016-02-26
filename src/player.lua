@@ -17,7 +17,7 @@ function Player:initialize(name, sprite, x, y, color)
 	self.x, self.y, self.z = x, y, 0
 	self.stepx, self.stepy = 0, 0
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0
-	self.gravity = 250
+	self.gravity = 450
 	self.state = "nop"
 	if color then
 		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
