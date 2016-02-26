@@ -7,8 +7,10 @@ function testState:enter()
     --create players
     player = Player:new("Player One", GetInstance("res/man_template.lua"), 140, 200)
 
+    player2 = Player:new("Player Two", GetInstance("res/man_template.lua"), 240, 180)
+
     --load level
-    world, background, worldWidth, worldHeight = require("res/level_template")(player, nil)
+    world, background, worldWidth, worldHeight = require("res/level_template")(player, player2)
 
     --set camera, scale
     cam = gamera.new(0, 0, worldWidth, worldHeight)
@@ -25,6 +27,9 @@ function testState:update(dt)
     fancy.watch("Velocity X: ",player.velx, 3)
 
     player:update(dt)
+    if player2 then
+        player2:update(dt)
+    end
 
     background:update(dt)
     cam:setPosition(player.x, player.y)
@@ -40,12 +45,15 @@ function testState:draw()
 
         -- debug draw bump boxes
         local items, len = world:getItems()
-        love.graphics.setColor(255, 0, 0)
+        love.graphics.setColor(255, 0, 0, 50)
         for i = 1, #items do
             love.graphics.rectangle("line", world:getRect(items[i]))
         end
 
         player:draw(l,t,w,h)
+        if player2 then
+            player2:draw(l,t,w,h)
+        end
     end)
     fancy.draw()	--DEBUG var show
 end
