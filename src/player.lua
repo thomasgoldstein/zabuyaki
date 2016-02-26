@@ -54,6 +54,11 @@ function Player:setState(state)
 	end
 end
 
+function Player:drawShadow()
+    love.graphics.setColor(0, 0, 0, 200)
+    love.graphics.ellipse("fill", self.x, self.y, 20 - self.z/16, 10 - self.z/32)
+end
+
 
 function Player:stand_start()
 --	print (self.name.." - stand start")
@@ -83,6 +88,7 @@ function Player:stand_update(dt)
 end
 function Player:stand_draw(l,t,w,h)
 --	print(self.name.." - stand draw ",l,t,w,h)
+    self:drawShadow()
 	love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 	DrawInstance(self.sprite, self.x, self.y - self.z)
 end
@@ -151,6 +157,7 @@ function Player:walk_update(dt)
 end
 function Player:walk_draw(l,t,w,h)
 --	print(self.name.." - walk draw ",l,t,w,h)
+    self:drawShadow()
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
     DrawInstance(self.sprite, self.x, self.y - self.z)
 end
@@ -209,6 +216,7 @@ function Player:run_update(dt)
 end
 function Player:run_draw(l,t,w,h)
 	--	print(self.name.." - run draw ",l,t,w,h)
+    self:drawShadow()
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
     DrawInstance(self.sprite, self.x, self.y - self.z)
 end
@@ -254,6 +262,7 @@ end
 
 function Player:jumpUp_draw(l,t,w,h)
 	--	print(self.name.." - jumpUp draw ",l,t,w,h)
+    self:drawShadow()
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
     DrawInstance(self.sprite, self.x, self.y - self.z)
 end
@@ -296,6 +305,7 @@ function Player:jumpDown_update(dt)
 end
 function Player:jumpDown_draw(l,t,w,h)
 	--	print(self.name.." - jumpDown draw ",l,t,w,h)
+    self:drawShadow()
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
     DrawInstance(self.sprite, self.x, self.y - self.z)
 end
@@ -323,6 +333,7 @@ function Player:duck_update(dt)
 end
 function Player:duck_draw(l,t,w,h)
 	--	print(self.name.." - duck draw ",l,t,w,h)
+    self:drawShadow()
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
     DrawInstance(self.sprite, self.x, self.y - self.z)
 end
