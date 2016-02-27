@@ -16,8 +16,8 @@ function love.load(arg)
 
 	--Libraries
 	class = require "lib/middleclass"
+	require "lib/soundmanager"
 	tactile = require 'lib/tactile'
-
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
 	bump = require "lib/bump"
@@ -84,6 +84,7 @@ function love.update(dt)
 	for k, v in pairs(button) do	-- update input
 		v:update()
 	end
+	love.audio.update()
 end
 
 function love.draw()
