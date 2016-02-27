@@ -5,9 +5,9 @@ end
 
 function testState:enter()
     --create players
-    player = Player:new("Player One", GetInstance("res/man_template.lua"), 140, 200)
+    player = Player:new("Player One", GetInstance("res/man_template.lua"), button, 140, 200)
 
-    player2 = Player:new("Player Two", GetInstance("res/man_template.lua"), 240, 180, {239,255,191, 50})
+    player2 = Player:new("Player Two", GetInstance("res/man_template.lua"), button2, 240, 180, {239,255,191, 50})
 
     --load level
     world, background, worldWidth, worldHeight = require("res/level_template")(player, player2)
@@ -23,8 +23,8 @@ function testState:update(dt)
     fancy.watch("FPS", love.timer.getFPS())
     --fancy.watch("Bump items", len, 3)
     fancy.watch("Player state: ",player.state, 1)
-    fancy.watch("Velocity Z: ",player.velz, 3)
-    fancy.watch("Velocity X: ",player.velx, 3)
+    fancy.watch("Velocity Z: ",player.velz, 2)
+    fancy.watch("Velocity X: ",player.velx, 2)
 
     player:update(dt)
     if player2 then

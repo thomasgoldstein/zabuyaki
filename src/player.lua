@@ -10,10 +10,10 @@ local Player = class("Player")
 
 local function nop() print "nop" end
 
-function Player:initialize(name, sprite, x, y, color)
+function Player:initialize(name, sprite, input, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
-	self.isConnected = false
 	self.name = name or "Player 1"
+	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.x, self.y, self.z = x, y, 0
 	self.stepx, self.stepy = 0, 0
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0
@@ -73,19 +73,22 @@ end
 function Player:stand_exit()
 --	print (self.name.." - stand exit")
 end
+
 function Player:stand_update(dt)
---	print (self.name," - stand update",dt)
-	if love.keyboard.isDown("left") or
-	 love.keyboard.isDown("right") or
-	 love.keyboard.isDown("up") or
-	 love.keyboard.isDown("down") then
-		self:setState(self.walk)
-	elseif love.keyboard.isDown("space") then
-		self:setState(self.jumpUp)
-	else
-		self.sprite.curr_anim = "stand"	-- to prevent flashing frame after duck
-	end
-	UpdateInstance(self.sprite, dt, self)
+    --	print (self.name," - stand update",dt)
+    local button = self.b
+    if button.left.down or
+            button.right.down or
+            button.up.down or
+            button.down.down
+    then
+        self:setState(self.walk)
+    elseif button.jump.down then
+        self:setState(self.jumpUp)
+    else
+        self.sprite.curr_anim = "stand" -- to prevent flashing frame after duck
+    end
+    UpdateInstance(self.sprite, dt, self)
 end
 function Player:stand_draw(l,t,w,h)
 --	print(self.name.." - stand draw ",l,t,w,h)
@@ -113,22 +116,21 @@ function Player:walk_exit()
 end
 function Player:walk_update(dt)
 --	print (self.name.." - walk update",dt)
-
 	self.stepx = 0;
 	self.stepy = 0;
-	if love.keyboard.isDown("left") then
+	if self.b.left.down then
 		self.stepx = -self.velx * dt;
 		self.sprite.flip_h = -1 --face sprite left or right
-	elseif love.keyboard.isDown("right") then
+	elseif self.b.right.down then
 		self.sprite.flip_h = 1
 		self.stepx = self.velx * dt;
 	end
-	if love.keyboard.isDown("up") then
+	if self.b.up.down then
 		self.stepy = -self.vely * dt;
-	elseif love.keyboard.isDown("down") then
+	elseif self.b.down.down then
 		self.stepy = self.vely * dt;
 	end
-	if love.keyboard.isDown("space") then
+	if self.b.jump.down then
 		self:setState(self.jumpUp)
 		return
 	end
@@ -181,20 +183,20 @@ function Player:run_update(dt)
 
 	self.stepx = 0;
 	self.stepy = 0;
-	if love.keyboard.isDown("left") then
+	if self.b.left.down then
 		self.sprite.flip_h = -1 --face sprite left or right
 		self.stepx = -self.velx * dt;
-	elseif love.keyboard.isDown("right") then
+	elseif self.b.right.down then
 		self.sprite.flip_h = 1
 		self.stepx = self.velx * dt;
 	end
-	if love.keyboard.isDown("up") then
+	if self.b.up.down then
 		self.stepy = -self.vely * dt;
-	elseif love.keyboard.isDown("down") then
+	elseif self.b.down.down then
 		self.stepy = self.vely * dt;
 	end
 
-	if love.keyboard.isDown("space") then
+	if self.b.jump.down then
 		self:setState(self.jumpUp)
 		return
 	end
