@@ -24,6 +24,47 @@ function love.load(arg)
 	gamera = require "lib/gamera"
 	CompoundPicture = require "src/compoPic"
 	Player = require "src/player"
+
+
+	tactile = require 'lib/tactile'
+
+	--basic detectors
+	keyboardLeft  = tactile.key('left')
+	keyboardRight = tactile.key('right')
+	keyboardUp    = tactile.key('up')
+	keyboardDown  = tactile.key('down')
+	keyboardX     = tactile.key('x')
+	keyboardC     = tactile.key('c')
+	gamepadA      = tactile.gamepadButton('a', 1)
+	gamepadB      = tactile.gamepadButton('b', 1)
+	gamepadXAxis  = tactile.analogStick('leftx', 1)
+	gamepadYAxis  = tactile.analogStick('lefty', 1)
+	mouseLeft     = tactile.mouseButton(1)
+	mouseRight    = tactile.mouseButton(2)
+
+	--weird detectors that depend on other detectors
+	gamepadLeft   = tactile.thresholdButton(gamepadXAxis, -.5)
+	gamepadRight  = tactile.thresholdButton(gamepadXAxis, .5)
+	gamepadUp     = tactile.thresholdButton(gamepadYAxis, -.5)
+	gamepadDown   = tactile.thresholdButton(gamepadYAxis, .5)
+	keyboardXAxis = tactile.binaryAxis(keyboardLeft, keyboardRight)
+	keyboardYAxis = tactile.binaryAxis(keyboardUp, keyboardDown)
+
+	button = {}
+	button.left       = tactile.newButton(keyboardLeft, gamepadLeft)
+	button.right      = tactile.newButton(keyboardRight, gamepadRight)
+	button.up         = tactile.newButton(keyboardUp, gamepadUp)
+	button.down       = tactile.newButton(keyboardDown, gamepadDown)
+	button.fire    = tactile.newButton(keyboardX, gamepadA, mouseLeft)
+	button.jump    = tactile.newButton(keyboardC, gamepadB, mouseRight)
+
+	axis = {}
+	axis.horizontal = tactile.newAxis(gamepadXAxis, keyboardXAxis)
+	axis.vertical   = tactile.newAxis(gamepadYAxis, keyboardYAxis)
+	axis.horizontal.deadzone = .25
+	axis.vertical.deadzone = .25
+
+
 	--require "src/level_template"
 	--DEBUG libs
 	fancy = require "lib/fancy"
@@ -40,6 +81,9 @@ function love.load(arg)
 end
 
 function love.update(dt)
+	for k, v in pairs(button) do	-- update input
+		v:update()
+	end
 end
 
 function love.draw()
