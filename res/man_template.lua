@@ -75,6 +75,10 @@ return {
 			{ q = q(39, 147, 31, 51), ox = 16, oy = 60 }, -- duck 2
 			frame_duration = 0.2
 		},
+		dash = {
+			{ q = q(164,131,69,58), ox = 34, oy = 29 }, -- dash 1
+			frame_duration = 0.2
+		},
 		punch = {
 			{q = q(2, 266, 56, 61), ox = 16, oy = 60}, --p1
 			{q = q(60, 265, 51, 62), ox = 16, oy = 60}, --p2
