@@ -234,7 +234,7 @@ function Player:jumpUp_start()
 	if self.velx ~= 0 then
 		self.velx = self.velx + 10 --make jump little faster than the walk/run speed
 	end
-	love.audio.play("res/sfx/jump.wav")
+	TEsound.play("res/sfx/jump.wav")
 end
 function Player:jumpUp_exit()
 --	print (self.name.." - jumpUp exit")
@@ -291,7 +291,7 @@ function Player:jumpDown_update(dt)
 		self.velz = self.velz - self.gravity * dt;
 	else
 		self.z = 0
-		love.audio.play("res/sfx/land.wav")
+		TEsound.play("res/sfx/land.wav")
 		self:setState(self.duck)
 		return
 	end
