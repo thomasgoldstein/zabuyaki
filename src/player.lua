@@ -18,6 +18,7 @@ function Player:initialize(name, sprite, input, x, y, color)
 	self.stepx, self.stepy = 0, 0
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0
 	self.gravity = 650
+    self.friction = 650 -- velocity penalty for sideStepUp Down (when u slide on ground)
 	self.jumpHeight = 40
 	self.state = "nop"
 	if color then
@@ -135,8 +136,16 @@ function Player:walk_update(dt)
 	end
 	if self.b.up.down then
 		self.stepy = -self.vely * dt;
+        if playerKeyCombo:getLast().up then
+            self:setState(self.sideStepUp)
+            return
+        end
 	elseif self.b.down.down then
 		self.stepy = self.vely * dt;
+        if playerKeyCombo:getLast().down then
+            self:setState(self.sideStepDown)
+            return
+        end
 	end
 	if self.b.jump.down then
 		self:setState(self.jumpUp)
@@ -353,44 +362,95 @@ function Player:duck_draw(l,t,w,h)
 end
 Player.duck = {name = "duck", start = Player.duck_start, exit = Player.duck_exit, update = Player.duck_update, draw = Player.duck_draw}
 
+function Player:sideStepDown_start()
+--	print (self.name.." - sideStepDown start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "sideStepDown"
+
+    self.stepx, self.stepy = 0, 0
+    self.velx, self.vely = 0, 170
+    TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfz
+end
+function Player:sideStepDown_exit()
+--	print (self.name.." - sideStepDown exit")
+end
+function Player:sideStepDown_update(dt)
+	--	print (self.name.." - sideStepDown update",dt)
+	if self.vely > 0 then
+        self.stepy = self.vely * dt;
+		self.vely = self.vely - self.friction * dt;
+	else
+        self.vely = 0
+		TEsound.play("res/sfx/land.wav", nil, 0.3)
+		self:setState(self.duck)
+		return
+	end
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+
+	UpdateInstance(self.sprite, dt, self)
+end
+function Player:sideStepDown_draw(l,t,w,h)
+	--	print(self.name.." - sideStepDown draw ",l,t,w,h)
+    self:drawShadow()
+    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+    DrawInstance(self.sprite, self.x, self.y - self.z)
+end
+Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start, exit = Player.sideStepDown_exit, update = Player.sideStepDown_update, draw = Player.sideStepDown_draw}
+
+
+function Player:sideStepUp_start()
+    --	print (self.name.." - sideStepUp start")
+    self.sprite.curr_frame = 1
+    self.sprite.curr_anim = "sideStepUp"
+
+    self.stepx, self.stepy = 0, 0
+    self.velx, self.vely = 0, 170
+    TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfz
+end
+function Player:sideStepUp_exit()
+    --	print (self.name.." - sideStepUp exit")
+end
+function Player:sideStepUp_update(dt)
+    --	print (self.name.." - sideStepUp update",dt)
+    if self.vely > 0 then
+        self.stepy = -self.vely * dt;
+        self.vely = self.vely - self.friction * dt;
+    else
+        self.vely = 0
+        TEsound.play("res/sfx/land.wav", nil, 0.3)
+        self:setState(self.duck)
+        return
+    end
+
+    local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+        function(player, item)
+            if player ~= item then
+                return "slide"
+            end
+        end)
+    self.x = actualX
+    self.y = actualY
+
+    UpdateInstance(self.sprite, dt, self)
+end
+function Player:sideStepUp_draw(l,t,w,h)
+    --	print(self.name.." - sideStepUp draw ",l,t,w,h)
+    self:drawShadow()
+    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+    DrawInstance(self.sprite, self.x, self.y - self.z)
+end
+Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = Player.sideStepUp_exit, update = Player.sideStepUp_update, draw = Player.sideStepUp_draw}
 return Player
 
 --anim transitions
 --Play sounds as states are entered or exited
 --Perform certain tests (eg, ground detection) only when in appropriate states
 --Activate and control special effects associated with specific states
-
---[[
-Public Functions
-OnStateMachineEnter	Called on the first Update frame when making a transition to a StateMachine. This is not called when making a transition into a StateMachine sub-state.
-OnStateMachineExit	Called on the last Update frame when making a transition out of a StateMachine. This is not called when making a transition into a StateMachine sub-state.
-
-Messages
-OnStateEnter	Called on the first Update frame when a statemachine evaluate this state.
-OnStateExit	Called on the last update frame when a statemachine evaluate this state.
-OnStateIK	Called right after MonoBehaviour.OnAnimatorIK.
-OnStateMove	Called right after MonoBehaviour.OnAnimatorMove.
-OnStateUpdate	Called at each Update frame except for the first and last frame.
-
-Inherited members
-Variables
-hideFlags	Should the object be hidden, saved with the scene or modifiable by the user?
-name	The name of the object.
-
-Static Functions
-Destroy	Removes a gameobject, component or asset.
-DestroyImmediate	Destroys the object obj immediately. You are strongly recommended to use Destroy instead.
-DontDestroyOnLoad	Makes the object target not be destroyed automatically when loading a new scene.
-FindObjectOfType	Returns the first active loaded object of Type type.
-FindObjectsOfType	Returns a list of all active loaded objects of Type type.
-Instantiate	Clones the object original and returns the clone.
-CreateInstance	Creates an instance of a scriptable object.
-
-Operators
-bool	Does the object exist?
-operator !=	Compares if two objects refer to a different object.
-operator ==	Compares two object references to see if they refer to the same object.
-Messages
-OnDestroy	This function is called when the scriptable object will be destroyed.
-OnDisable	This function is called when the scriptable object goes out of scope.
-OnEnable	This function is called when the object is loaded.]]
