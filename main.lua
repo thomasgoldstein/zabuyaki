@@ -27,6 +27,7 @@ function love.load(arg)
 
 
 	tactile = require 'lib/tactile'
+	KeyCombo = require 'src/KeyCombo'
 
 	--basic detectors
 	keyboardLeft  = tactile.key('left')
