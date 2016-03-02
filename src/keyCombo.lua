@@ -33,13 +33,15 @@ function KeyCombo:update(dt)
 		if value:released() then
 			t[index] = true
 			triggered = true
-			print("released ",index,value)
+			--print("released ",index,value)
 		end
 	end
 	self.elapsed_time = self.elapsed_time + dt
-	if self.elapsed_time > 500 or triggered then
+	--print(self.elapsed_time)
+	if self.elapsed_time > 0.15 or triggered then
 		-- Reset internal counter on key release or timeout.
 		self.elapsed_time = 0
+		print("push ",t)
 		self:PushKeys(t)
 	end
 end
