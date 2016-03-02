@@ -120,10 +120,18 @@ function Player:walk_update(dt)
 	self.stepy = 0;
 	if self.b.left.down then
 		self.stepx = -self.velx * dt;
-		self.sprite.flip_h = -1 --face sprite left or right
+		self.sprite.flip_h = -1 --face sprite left or right	
+		if playerKeyCombo:getLast().left then
+			self:setState(self.run)
+			return
+		end
 	elseif self.b.right.down then
 		self.sprite.flip_h = 1
 		self.stepx = self.velx * dt;
+		if playerKeyCombo:getLast().right then
+			self:setState(self.run)
+			return
+		end
 	end
 	if self.b.up.down then
 		self.stepy = -self.vely * dt;
@@ -142,10 +150,10 @@ function Player:walk_update(dt)
 		self.sprite.curr_anim = "walk"	-- to prevent flashing frame after duck and instand jump
 	end
 	-- switch to run - for testing
-	if self.sprite.loop_count > 1 then
-		self:setState(self.run)
-		return
-	end
+--	if self.sprite.loop_count > 1 then
+--		self:setState(self.run)
+--		return
+--	end
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
