@@ -27,10 +27,10 @@ return {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad
 			-- duration = 0.1, func = fun
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61 },
-			{q = q(53, 3, 49, 61), ox = 20, oy = 60 },
-			{q = q(104, 4, 49, 60), ox = 20, oy = 59 },
-			{q = q(53, 3, 49, 61), ox = 20, oy = 60 },
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
+			{q = q(53, 3, 49, 61), ox = 20, oy = 60 }, --stand 2
+			{q = q(104, 4, 49, 60), ox = 20, oy = 59 }, --stand 3
+			{q = q(53, 3, 49, 61), ox = 20, oy = 60 }, --stand 2
 			frame_duration = 0.2
 		},
 		walk = { -- 1 2 3 2 1 4 5 4
@@ -70,21 +70,27 @@ return {
 			{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.1 }, -- duck 1
 			frame_duration = 0.5
 		},
-		duck0 = {
+		duck____0 = {
 			{ q = q(2, 143, 35, 55), ox = 16, oy = 60 }, -- duck 1
 			{ q = q(39, 147, 31, 51), ox = 16, oy = 60 }, -- duck 2
 			frame_duration = 0.2
 		},
 		dash = {
-			{ q = q(164,131,69,58), ox = 34, oy = 29 }, -- dash 1
+			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
+			{ q = q(164,131,69,58), ox = 24, oy = 62, duration = 1 }, -- dash 1
 			frame_duration = 0.2
 		},
 		punch = {
 			{q = q(2, 266, 56, 61), ox = 16, oy = 60}, --p1
 			{q = q(60, 265, 51, 62), ox = 16, oy = 60}, --p2
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
+			{q = q(2, 266, 56, 61), ox = 16, oy = 60}, --p1
+			{q = q(60, 265, 51, 62), ox = 16, oy = 60}, --p2
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
 			{q = q(113, 265, 42, 62), ox = 16, oy = 60}, --p3
 			{q = q(157, 265, 51, 62), ox = 16, oy = 60}, --p4
 			{q = q(113, 265, 42, 62), ox = 16, oy = 60}, --p3
+			frame_duration = 0.1
 		},
 		kick = {
 			{q = q(2, 329, 33, 62), ox = 16, oy = 60}, --k1
@@ -92,6 +98,7 @@ return {
 			{q = q(91, 330, 46, 61), ox = 16, oy = 60}, --k3
 			{q = q(139, 331, 60, 60), ox = 16, oy = 60}, --k4
 			{q = q(91, 330, 46, 61), ox = 16, oy = 60}, --k3
+			frame_duration = 0.1
 		},
 		fall = {
 			{q = q(2, 393, 53, 58), ox = 26, oy = 58},
@@ -107,12 +114,12 @@ return {
 			{q = q(148, 456, 36, 59), ox = 18, oy = 59},
 		},
 		jumpAttackForward = {
-			{q = q(2, 517, 46, 61), ox = 23, oy = 61},
-			{q = q(50, 517, 57, 54), ox = 25, oy = 60},
+			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
+			{q = q(50, 517, 57, 54), ox = 25, oy = 60}, --jaf 2
 		},
 		jumpAttackWeak = {
-			{q = q(109, 517, 46, 63), ox = 23, oy = 60},
-			{q = q(157, 517, 47, 60), ox = 25, oy = 60},
+			{q = q(109, 517, 46, 63), ox = 23, oy = 60}, --jaw 1
+			{q = q(157, 517, 47, 60), ox = 25, oy = 60}, --jaw 2
 		},
 		jumpAttackStill = {
 			{q = q(2, 582, 33, 65), ox = 16, oy = 65},
