@@ -57,8 +57,14 @@ function Player:setState(state)
 end
 
 function Player:drawShadow()
-    love.graphics.setColor(0, 0, 0, 200)
-    love.graphics.ellipse("fill", self.x, self.y, 18 - self.z/16, 6 - self.z/32)
+	love.graphics.setColor(0, 0, 0, 200)
+	love.graphics.ellipse("fill", self.x, self.y, 18 - self.z/16, 6 - self.z/32)
+end
+
+function Player:default_draw(l,t,w,h)
+	self:drawShadow()
+	love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+	DrawInstance(self.sprite, self.x, self.y - self.z)
 end
 
 
@@ -77,27 +83,22 @@ end
 
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
-    local button = self.b
-    if button.left.down or
-            button.right.down or
-            button.up.down or
-            button.down.down
+    if self.b.left.down or
+			self.b.right.down or
+			self.b.up.down or
+			self.b.down.down
     then
         self:setState(self.walk)
-    elseif button.jump.down then
-        self:setState(self.jumpUp)
-    else
+	elseif self.b.jump.down then
+		self:setState(self.jumpUp)
+	elseif self.b.fire.down then
+		self:setState(self.punch)
+	else
         self.sprite.curr_anim = "stand" -- to prevent flashing frame after duck
     end
     UpdateInstance(self.sprite, dt, self)
 end
-function Player:stand_draw(l,t,w,h)
---	print(self.name.." - stand draw ",l,t,w,h)
-    self:drawShadow()
-	love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-	DrawInstance(self.sprite, self.x, self.y - self.z)
-end
-Player.stand = {name = "stand", start = Player.stand_start, exit = Player.stand_exit, update = Player.stand_update, draw = Player.stand_draw}
+Player.stand = {name = "stand", start = Player.stand_start, exit = Player.stand_exit, update = Player.stand_update, draw = Player.default_draw}
 
 
 function Player:walk_start()
@@ -147,7 +148,10 @@ function Player:walk_update(dt)
             return
         end
 	end
-	if self.b.jump.down then
+	if self.b.fire.down then
+		self:setState(self.punch)
+		return
+	elseif self.b.jump.down then
 		self:setState(self.jumpUp)
 		return
 	end
@@ -175,13 +179,7 @@ function Player:walk_update(dt)
 
 	UpdateInstance(self.sprite, dt, self)
 end
-function Player:walk_draw(l,t,w,h)
---	print(self.name.." - walk draw ",l,t,w,h)
-    self:drawShadow()
-    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-    DrawInstance(self.sprite, self.x, self.y - self.z)
-end
-Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit, update = Player.walk_update, draw = Player.walk_draw}
+Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit, update = Player.walk_update, draw = Player.default_draw}
 
 
 function Player:run_start()
@@ -213,7 +211,10 @@ function Player:run_update(dt)
 		self.stepy = self.vely * dt;
 	end
 
-	if self.b.jump.down then
+	if self.b.fire.down then
+		self:setState(self.dash)
+		return
+	elseif self.b.jump.down then
 		self:setState(self.jumpUp)
 		return
 	end
@@ -234,13 +235,7 @@ function Player:run_update(dt)
 
 	UpdateInstance(self.sprite, dt, self)
 end
-function Player:run_draw(l,t,w,h)
-	--	print(self.name.." - run draw ",l,t,w,h)
-    self:drawShadow()
-    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-    DrawInstance(self.sprite, self.x, self.y - self.z)
-end
-Player.run = {name = "run", start = Player.run_start, exit = Player.run_exit, update = Player.run_update, draw = Player.run_draw}
+Player.run = {name = "run", start = Player.run_start, exit = Player.run_exit, update = Player.run_update, draw = Player.default_draw}
 
 
 function Player:jumpUp_start()
@@ -281,14 +276,7 @@ function Player:jumpUp_update(dt)
 	end
 	UpdateInstance(self.sprite, dt, self)
 end
-
-function Player:jumpUp_draw(l,t,w,h)
-	--	print(self.name.." - jumpUp draw ",l,t,w,h)
-    self:drawShadow()
-    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-    DrawInstance(self.sprite, self.x, self.y - self.z)
-end
-Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = Player.jumpUp_exit, update = Player.jumpUp_update, draw = Player.jumpUp_draw}
+Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = Player.jumpUp_exit, update = Player.jumpUp_update, draw = Player.default_draw}
 
 
 function Player:jumpDown_start()
@@ -326,13 +314,7 @@ function Player:jumpDown_update(dt)
 
 	UpdateInstance(self.sprite, dt, self)
 end
-function Player:jumpDown_draw(l,t,w,h)
-	--	print(self.name.." - jumpDown draw ",l,t,w,h)
-    self:drawShadow()
-    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-    DrawInstance(self.sprite, self.x, self.y - self.z)
-end
-Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = Player.jumpDown_exit, update = Player.jumpDown_update, draw = Player.jumpDown_draw}
+Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = Player.jumpDown_exit, update = Player.jumpDown_update, draw = Player.default_draw}
 
 
 function Player:duck_start()
@@ -354,13 +336,7 @@ function Player:duck_update(dt)
 	end
 	UpdateInstance(self.sprite, dt, self)
 end
-function Player:duck_draw(l,t,w,h)
-	--	print(self.name.." - duck draw ",l,t,w,h)
-    self:drawShadow()
-    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-    DrawInstance(self.sprite, self.x, self.y - self.z)
-end
-Player.duck = {name = "duck", start = Player.duck_start, exit = Player.duck_exit, update = Player.duck_update, draw = Player.duck_draw}
+Player.duck = {name = "duck", start = Player.duck_start, exit = Player.duck_exit, update = Player.duck_update, draw = Player.default_draw}
 
 function Player:sideStepDown_start()
 --	print (self.name.." - sideStepDown start")
@@ -397,13 +373,7 @@ function Player:sideStepDown_update(dt)
 
 	UpdateInstance(self.sprite, dt, self)
 end
-function Player:sideStepDown_draw(l,t,w,h)
-	--	print(self.name.." - sideStepDown draw ",l,t,w,h)
-    self:drawShadow()
-    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-    DrawInstance(self.sprite, self.x, self.y - self.z)
-end
-Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start, exit = Player.sideStepDown_exit, update = Player.sideStepDown_update, draw = Player.sideStepDown_draw}
+Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start, exit = Player.sideStepDown_exit, update = Player.sideStepDown_update, draw = Player.default_draw}
 
 
 function Player:sideStepUp_start()
@@ -441,13 +411,53 @@ function Player:sideStepUp_update(dt)
 
     UpdateInstance(self.sprite, dt, self)
 end
-function Player:sideStepUp_draw(l,t,w,h)
-    --	print(self.name.." - sideStepUp draw ",l,t,w,h)
-    self:drawShadow()
-    love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-    DrawInstance(self.sprite, self.x, self.y - self.z)
+Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = Player.sideStepUp_exit, update = Player.sideStepUp_update, draw = Player.default_draw}
+
+
+function Player:punch_start()
+	--	print (self.name.." - punch start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "punch"
+	self.sprite.loop_count = 0
+	self.stepx, self.stepy = 0, 0
+	self.velx, self.vely = 0, 0
+	--TEsound.play("res/sfx/jump.wav")
 end
-Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = Player.sideStepUp_exit, update = Player.sideStepUp_update, draw = Player.sideStepUp_draw}
+function Player:punch_exit()
+	--	print (self.name.." - punch exit")
+end
+function Player:punch_update(dt)
+	if self.sprite.loop_count > 0 then
+		self:setState(self.stand)
+		return
+	end
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.punch = {name = "punch", start = Player.punch_start, exit = Player.punch_exit, update = Player.punch_update, draw = Player.default_draw}
+
+
+function Player:dash_start()
+	--	print (self.name.." - dash start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "dash"
+	self.sprite.loop_count = 0
+	self.stepx, self.stepy = 0, 0
+	self.velx, self.vely = 0, 0
+	TEsound.play("res/sfx/jump.wav")
+end
+function Player:dash_exit()
+	--	print (self.name.." - dash exit")
+end
+function Player:dash_update(dt)
+	if self.sprite.loop_count > 0 then
+		self:setState(self.duck)
+		return
+	end
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.dash = {name = "dash", start = Player.dash_start, exit = Player.dash_exit, update = Player.dash_update, draw = Player.default_draw}
+
+
 return Player
 
 --anim transitions
