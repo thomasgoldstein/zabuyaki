@@ -72,6 +72,7 @@ function Player:stand_start()
 --	print (self.name.." - stand start")
 	self.sprite.curr_frame = 1
 	self.stepx, self.stepy = 0, 0
+	self.z = 0
 	if not self.sprite.curr_anim then
 		self.sprite.curr_anim = "stand"
 	end
@@ -199,9 +200,17 @@ function Player:run_update(dt)
 	self.stepx = 0;
 	self.stepy = 0;
 	if self.b.left.down then
+		if self.sprite.flip_h > 0 then
+			self:setState(self.walk)
+			return
+		end
 		self.sprite.flip_h = -1 --face sprite left or right
 		self.stepx = -self.velx * dt;
 	elseif self.b.right.down then
+		if self.sprite.flip_h < 0 then
+			self:setState(self.walk)
+			return
+		end
 		self.sprite.flip_h = 1
 		self.stepx = self.velx * dt;
 	end
@@ -414,8 +423,8 @@ end
 Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = Player.sideStepUp_exit, update = Player.sideStepUp_update, draw = Player.default_draw}
 
 
-function Player:punch_start()
-	--	print (self.name.." - punch start")
+function Player:combo_start()
+	--	print (self.name.." - combo start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "punch"
 	self.sprite.loop_count = 0
@@ -423,17 +432,17 @@ function Player:punch_start()
 	self.velx, self.vely = 0, 0
 	--TEsound.play("res/sfx/jump.wav")
 end
-function Player:punch_exit()
-	--	print (self.name.." - punch exit")
+function Player:combo_exit()
+	--	print (self.name.." - combo exit")
 end
-function Player:punch_update(dt)
+function Player:combo_update(dt)
 	if self.sprite.loop_count > 0 then
 		self:setState(self.stand)
 		return
 	end
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.punch = {name = "punch", start = Player.punch_start, exit = Player.punch_exit, update = Player.punch_update, draw = Player.default_draw}
+Player.combo = {name = "combo", start = Player.combo_start, exit = Player.combo_exit, update = Player.combo_update, draw = Player.default_draw}
 
 
 function Player:dash_start()
