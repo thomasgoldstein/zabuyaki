@@ -364,8 +364,10 @@ function Player:sideStepDown_update(dt)
 	if self.vely > 0 then
         self.stepy = self.vely * dt;
 		self.vely = self.vely - self.friction * dt;
+		self.z = self.vely / 24 --to show low leap
 	else
         self.vely = 0
+		self.z = 0
 		TEsound.play("res/sfx/land.wav", nil, 0.3)
 		self:setState(self.duck)
 		return
@@ -402,8 +404,10 @@ function Player:sideStepUp_update(dt)
     if self.vely > 0 then
         self.stepy = -self.vely * dt;
         self.vely = self.vely - self.friction * dt;
+		self.z = self.vely / 24 --to show low leap
     else
         self.vely = 0
+		self.z = 0
         TEsound.play("res/sfx/land.wav", nil, 0.3)
         self:setState(self.duck)
         return
