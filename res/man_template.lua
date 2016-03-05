@@ -66,8 +66,8 @@ return {
 			frame_duration = 5
 		},
 		duck = {
-			{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.1 }, -- duck 1
-			{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.1 }, -- duck 1
+			{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.15 }, -- duck 1
+			--{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.1 }, -- duck 1
 			frame_duration = 0.5
 		},
 		duck____0 = {
