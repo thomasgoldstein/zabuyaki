@@ -8,7 +8,7 @@ local class = require "lib/middleclass"
 
 local Player = class("Player")
 
-local function nop() print "nop" end
+local function nop() --[[print "nop"]] end
 
 function Player:initialize(name, sprite, input, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
@@ -78,10 +78,6 @@ function Player:stand_start()
 	end
 	self.velx = 0
 end
-function Player:stand_exit()
---	print (self.name.." - stand exit")
-end
-
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
     if self.b.left.down or
@@ -99,7 +95,7 @@ function Player:stand_update(dt)
     end
     UpdateInstance(self.sprite, dt, self)
 end
-Player.stand = {name = "stand", start = Player.stand_start, exit = Player.stand_exit, update = Player.stand_update, draw = Player.default_draw}
+Player.stand = {name = "stand", start = Player.stand_start, exit = nop, update = Player.stand_update, draw = Player.default_draw}
 
 
 function Player:walk_start()
@@ -113,9 +109,6 @@ function Player:walk_start()
 		self.sprite.curr_anim = "walk"
 		-- to prevent flashing 1 frame transition (when u instantly enter another stite)
 	end
-end
-function Player:walk_exit()
---	print (self.name.." - walk exit")
 end
 function Player:walk_update(dt)
 --	print (self.name.." - walk update",dt)
@@ -180,7 +173,7 @@ function Player:walk_update(dt)
 
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.walk = {name = "walk", start = Player.walk_start, exit = Player.walk_exit, update = Player.walk_update, draw = Player.default_draw}
+Player.walk = {name = "walk", start = Player.walk_start, exit = nop, update = Player.walk_update, draw = Player.default_draw}
 
 
 function Player:run_start()
@@ -190,9 +183,6 @@ function Player:run_start()
 	self.sprite.loop_count = 0
 
 	self.velx, self.vely = 150, 25
-end
-function Player:run_exit()
---	print (self.name.." - run exit")
 end
 function Player:run_update(dt)
 	--	print (self.name.." - run update",dt)
@@ -244,7 +234,7 @@ function Player:run_update(dt)
 
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.run = {name = "run", start = Player.run_start, exit = Player.run_exit, update = Player.run_update, draw = Player.default_draw}
+Player.run = {name = "run", start = Player.run_start, exit = nop, update = Player.run_update, draw = Player.default_draw}
 
 
 function Player:jumpUp_start()
@@ -257,10 +247,6 @@ function Player:jumpUp_start()
 	end
 	TEsound.play("res/sfx/jump.wav")
 end
-function Player:jumpUp_exit()
---	print (self.name.." - jumpUp exit")
-end
-
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
@@ -285,7 +271,7 @@ function Player:jumpUp_update(dt)
 	end
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = Player.jumpUp_exit, update = Player.jumpUp_update, draw = Player.default_draw}
+Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = nop, update = Player.jumpUp_update, draw = Player.default_draw}
 
 
 function Player:jumpDown_start()
@@ -294,9 +280,6 @@ function Player:jumpDown_start()
 	self.sprite.curr_anim = "jumpDown"
 
 	--self.velz = 170;
-end
-function Player:jumpDown_exit()
---	print (self.name.." - jumpDown exit")
 end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
@@ -323,7 +306,7 @@ function Player:jumpDown_update(dt)
 
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = Player.jumpDown_exit, update = Player.jumpDown_update, draw = Player.default_draw}
+Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = nop, update = Player.jumpDown_update, draw = Player.default_draw}
 
 
 function Player:duck_start()
@@ -334,9 +317,6 @@ function Player:duck_start()
 
 	self.z = 0;
 end
-function Player:duck_exit()
---	print (self.name.." - duck exit")
-end
 function Player:duck_update(dt)
 	--	print (self.name.." - duck update",dt)
 	if self.sprite.loop_count > 0 then
@@ -345,7 +325,7 @@ function Player:duck_update(dt)
 	end
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.duck = {name = "duck", start = Player.duck_start, exit = Player.duck_exit, update = Player.duck_update, draw = Player.default_draw}
+Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
 
 function Player:sideStepDown_start()
 --	print (self.name.." - sideStepDown start")
@@ -355,9 +335,6 @@ function Player:sideStepDown_start()
     self.stepx, self.stepy = 0, 0
     self.velx, self.vely = 0, 170
     TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfz
-end
-function Player:sideStepDown_exit()
---	print (self.name.." - sideStepDown exit")
 end
 function Player:sideStepDown_update(dt)
 	--	print (self.name.." - sideStepDown update",dt)
@@ -384,7 +361,7 @@ function Player:sideStepDown_update(dt)
 
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start, exit = Player.sideStepDown_exit, update = Player.sideStepDown_update, draw = Player.default_draw}
+Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start, exit = nop, update = Player.sideStepDown_update, draw = Player.default_draw}
 
 
 function Player:sideStepUp_start()
@@ -395,9 +372,6 @@ function Player:sideStepUp_start()
     self.stepx, self.stepy = 0, 0
     self.velx, self.vely = 0, 170
     TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfz
-end
-function Player:sideStepUp_exit()
-    --	print (self.name.." - sideStepUp exit")
 end
 function Player:sideStepUp_update(dt)
     --	print (self.name.." - sideStepUp update",dt)
@@ -424,7 +398,7 @@ function Player:sideStepUp_update(dt)
 
     UpdateInstance(self.sprite, dt, self)
 end
-Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = Player.sideStepUp_exit, update = Player.sideStepUp_update, draw = Player.default_draw}
+Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = nop, update = Player.sideStepUp_update, draw = Player.default_draw}
 
 
 function Player:combo_start()
@@ -436,9 +410,6 @@ function Player:combo_start()
 	self.velx, self.vely = 0, 0
 	--TEsound.play("res/sfx/jump.wav")
 end
-function Player:combo_exit()
-	--	print (self.name.." - combo exit")
-end
 function Player:combo_update(dt)
 	if self.sprite.loop_count > 0 then
 		self:setState(self.stand)
@@ -446,7 +417,7 @@ function Player:combo_update(dt)
 	end
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.combo = {name = "combo", start = Player.combo_start, exit = Player.combo_exit, update = Player.combo_update, draw = Player.default_draw}
+Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
 
 
 function Player:dash_start()
@@ -458,9 +429,6 @@ function Player:dash_start()
 	self.vely = 0
 	self.velz = 10
 	TEsound.play("res/sfx/jump.wav")
-end
-function Player:dash_exit()
-	--	print (self.name.." - dash exit")
 end
 function Player:dash_update(dt)
 	if self.z < 6 then
@@ -483,7 +451,7 @@ function Player:dash_update(dt)
 	self.y = actualY
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.dash = {name = "dash", start = Player.dash_start, exit = Player.dash_exit, update = Player.dash_update, draw = Player.default_draw}
+Player.dash = {name = "dash", start = Player.dash_start, exit = nop, update = Player.dash_update, draw = Player.default_draw}
 
 
 return Player
