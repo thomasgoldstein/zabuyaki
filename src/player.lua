@@ -93,7 +93,7 @@ function Player:stand_update(dt)
 	elseif self.b.jump.down then
 		self:setState(self.jumpUp)
 	elseif self.b.fire.down then
-		self:setState(self.punch)
+		self:setState(self.combo)
 	else
         self.sprite.curr_anim = "stand" -- to prevent flashing frame after duck
     end
@@ -150,7 +150,7 @@ function Player:walk_update(dt)
         end
 	end
 	if self.b.fire.down then
-		self:setState(self.punch)
+		self:setState(self.combo)
 		return
 	elseif self.b.jump.down then
 		self:setState(self.jumpUp)
@@ -451,17 +451,32 @@ function Player:dash_start()
 	self.sprite.curr_anim = "dash"
 	self.sprite.loop_count = 0
 	self.stepx, self.stepy = 0, 0
-	self.velx, self.vely = 0, 0
+	self.vely = 0
+	self.velz = 10
 	TEsound.play("res/sfx/jump.wav")
 end
 function Player:dash_exit()
 	--	print (self.name.." - dash exit")
 end
 function Player:dash_update(dt)
-	if self.sprite.loop_count > 0 then
-		self:setState(self.duck)
+	if self.z < 6 then
+		self.z = self.z + dt * self.velz
+		self.velz = self.velz - 5 * dt;
+	else
+		self.velz = self.velz / 2
+		self:setState(self.jumpDown)
 		return
 	end
+	self.stepx = self.velx * dt * self.sprite.flip_h;
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.dash = {name = "dash", start = Player.dash_start, exit = Player.dash_exit, update = Player.dash_update, draw = Player.default_draw}
