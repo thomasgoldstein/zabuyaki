@@ -83,18 +83,18 @@ return {
 		combo = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(60, 265, 51, 62), ox = 20, oy = 61}, --p2
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --stand 1
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(60, 265, 51, 62), ox = 20, oy = 61}, --p2
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
-			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61}, --stand 1
+			{q = q(113, 265, 42, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --p3
 			{q = q(157, 265, 51, 62), ox = 20, oy = 61}, --p4 *
 			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
-			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61}, --stand 1
+			{q = q(2, 329, 33, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --k1
 			{q = q(37, 329, 52, 62), ox = 20, oy = 61}, --k2 *
 			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
-			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
+			{q = q(91, 330, 46, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end}, --k3
 			{q = q(139, 331, 60, 60), ox = 20, oy = 59}, --k4*
 			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
 			frame_duration = 0.1

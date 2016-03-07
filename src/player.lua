@@ -427,12 +427,22 @@ function Player:combo_start()
 	self.sprite.loop_count = 0
 	self.stepx, self.stepy = 0, 0
 	self.velx, self.vely = 0, 0
+	self.check_mash = true
 	--TEsound.play("res/sfx/jump.wav")
 end
 function Player:combo_update(dt)
 	if self.sprite.loop_count > 0 then
 		self:setState(self.stand)
 		return
+	end
+	if self.check_mash and self.b.fire.down then
+		TEsound.play("res/sfx/attack1.wav", nil, 1)
+	end
+	if self.check_mash and self.b.fire.down == false then
+		self:setState(self.stand)
+		return
+	else
+		self.check_mash = false
 	end
 	UpdateInstance(self.sprite, dt, self)
 end
