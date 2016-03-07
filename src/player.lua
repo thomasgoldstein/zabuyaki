@@ -27,7 +27,7 @@ function Player:initialize(name, sprite, input, x, y, color)
 		self.color = { r= 255, g = 255, b = 255, a = 255 }
 	end
 
-	self.anim_repeated = 0
+	self.prev_frame = 0 -- for SFX like steps self.sprite.curr_frame
 
 	self.isHidden = false
 	self.isEnabled = true
@@ -105,6 +105,8 @@ function Player:walk_start()
 
 	self.velx, self.vely = 100, 75
 
+	self.prev_frame = 0
+
 	if not self.sprite.curr_anim then
 		self.sprite.curr_anim = "walk"
 		-- to prevent flashing 1 frame transition (when u instantly enter another stite)
@@ -161,6 +163,12 @@ function Player:walk_update(dt)
 --		self:setState(self.run)
 --		return
 --	end
+	if self.prev_frame ~= self.sprite.curr_frame then
+		if self.sprite.curr_frame == 3 or self.sprite.curr_frame == 7 then
+			self.prev_frame = self.sprite.curr_frame
+			TEsound.play("res/sfx/step.wav", nil, 0.5)
+		end
+	end
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
@@ -181,6 +189,8 @@ function Player:run_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "run"
 	self.sprite.loop_count = 0
+
+	self.prev_frame = 0
 
 	self.velx, self.vely = 150, 25
 end
@@ -221,6 +231,13 @@ function Player:run_update(dt)
 	if self.stepx == 0 and self.stepy == 0 then
 		self:setState(self.stand)
 		return
+	end
+
+	if self.prev_frame ~= self.sprite.curr_frame then
+		if self.sprite.curr_frame == 5 or self.sprite.curr_frame == 1 then
+			self.prev_frame = self.sprite.curr_frame
+			TEsound.play("res/sfx/step.wav", nil, 1)
+		end
 	end
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
