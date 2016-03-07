@@ -21,6 +21,8 @@ function Player:initialize(name, sprite, input, x, y, color)
     self.friction = 650 -- velocity penalty for sideStepUp Down (when u slide on ground)
 	self.jumpHeight = 40
 	self.state = "nop"
+	self.prev_state = "" -- text name
+
 	if color then
 		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
 	else
@@ -45,6 +47,8 @@ function Player:setState(state)
 	assert(type(state) == "table", "setState expects a table")
 	if state and state.name ~= self.state then
 --	--	print (self.name.." -> Switching from ",self.state,"to",state.name)
+		self.prev_state = self.state
+
 		self:exit()
 		self.state = state.name
 		self.draw = state.draw
@@ -77,6 +81,7 @@ function Player:stand_start()
 		self.sprite.curr_anim = "stand"
 	end
 	self.velx = 0
+	self.can_jump = false
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
@@ -86,13 +91,17 @@ function Player:stand_update(dt)
 			self.b.down.down
     then
         self:setState(self.walk)
-	elseif self.b.jump.down then
+	elseif self.b.jump.down and self.can_jump then
 		self:setState(self.jumpUp)
 	elseif self.b.fire.down then
 		self:setState(self.combo)
 	else
         self.sprite.curr_anim = "stand" -- to prevent flashing frame after duck
-    end
+	end
+
+	if not self.b.jump.down then
+		self.can_jump = true
+	end
     UpdateInstance(self.sprite, dt, self)
 end
 Player.stand = {name = "stand", start = Player.stand_start, exit = nop, update = Player.stand_update, draw = Player.default_draw}
@@ -102,11 +111,9 @@ function Player:walk_start()
 --	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
 	self.sprite.loop_count = 0
-
 	self.velx, self.vely = 100, 75
-
 	self.prev_frame = 0
-
+	self.can_jump = false
 	if not self.sprite.curr_anim then
 		self.sprite.curr_anim = "walk"
 		-- to prevent flashing 1 frame transition (when u instantly enter another stite)
@@ -147,11 +154,10 @@ function Player:walk_update(dt)
 	if self.b.fire.down then
 		self:setState(self.combo)
 		return
-	elseif self.b.jump.down then
+	elseif self.b.jump.down and self.can_jump then
 		self:setState(self.jumpUp)
 		return
 	end
-
 	if self.stepx == 0 and self.stepy == 0 then
 		self:setState(self.stand)
 		return
@@ -169,7 +175,9 @@ function Player:walk_update(dt)
 			TEsound.play("res/sfx/step.wav", nil, 0.5)
 		end
 	end
-
+	if not self.b.jump.down then
+		self.can_jump = true
+	end
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
 			if player ~= item then
@@ -178,7 +186,6 @@ function Player:walk_update(dt)
 		end)
 	self.x = actualX
 	self.y = actualY
-
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.walk = {name = "walk", start = Player.walk_start, exit = nop, update = Player.walk_update, draw = Player.default_draw}
@@ -189,14 +196,12 @@ function Player:run_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "run"
 	self.sprite.loop_count = 0
-
 	self.prev_frame = 0
-
+	self.can_jump = false
 	self.velx, self.vely = 150, 25
 end
 function Player:run_update(dt)
 	--	print (self.name.." - run update",dt)
-
 	self.stepx = 0;
 	self.stepy = 0;
 	if self.b.left.down then
@@ -219,27 +224,26 @@ function Player:run_update(dt)
 	elseif self.b.down.down then
 		self.stepy = self.vely * dt;
 	end
-
 	if self.b.fire.down then
 		self:setState(self.dash)
 		return
-	elseif self.b.jump.down then
+	elseif self.b.jump.down and self.can_jump then
 		self:setState(self.jumpUp)
 		return
 	end
-
 	if self.stepx == 0 and self.stepy == 0 then
 		self:setState(self.stand)
 		return
 	end
-
 	if self.prev_frame ~= self.sprite.curr_frame then
 		if self.sprite.curr_frame == 5 or self.sprite.curr_frame == 1 then
 			self.prev_frame = self.sprite.curr_frame
 			TEsound.play("res/sfx/step.wav", nil, 1)
 		end
 	end
-
+	if not self.b.jump.down then
+		self.can_jump = true
+	end
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
 			if player ~= item then
@@ -248,7 +252,6 @@ function Player:run_update(dt)
 		end)
 	self.x = actualX
 	self.y = actualY
-
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.run = {name = "run", start = Player.run_start, exit = nop, update = Player.run_update, draw = Player.default_draw}
@@ -276,7 +279,6 @@ function Player:jumpUp_update(dt)
 			return
 		end
 		self.stepx = self.velx * dt * self.sprite.flip_h;
-
 		local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 			function(player, item)
 				if player ~= item then
