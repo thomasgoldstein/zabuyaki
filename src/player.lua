@@ -423,7 +423,7 @@ Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit 
 function Player:combo_start()
 	--	print (self.name.." - combo start")
 	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "punch"
+	self.sprite.curr_anim = "combo"
 	self.sprite.loop_count = 0
 	self.stepx, self.stepy = 0, 0
 	self.velx, self.vely = 0, 0
