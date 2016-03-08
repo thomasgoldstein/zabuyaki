@@ -293,6 +293,11 @@ function Player:jumpUp_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpUp"
 	self.velz = 270;
+	self.stepy = 0
+	self.vely = 0
+	if self.b.right.down == false and self.b.left.down == false then
+		self.velx = 0
+	end
 	if self.velx ~= 0 then
 		self.velx = self.velx + 10 --make jump little faster than the walk/run speed
 	end
@@ -328,8 +333,6 @@ function Player:jumpDown_start()
 --	print (self.name.." - jumpDown start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpDown"
-
-	--self.velz = 170;
 end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
@@ -343,7 +346,6 @@ function Player:jumpDown_update(dt)
 		return
 	end
 	self.stepx = self.velx * dt * self.sprite.flip_h;
-
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
