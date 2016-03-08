@@ -22,6 +22,8 @@ function Player:initialize(name, sprite, input, x, y, color)
 	self.jumpHeight = 40
 	self.state = "nop"
 	self.prev_state = "" -- text name
+	self.last_state = "" -- text name
+	self.cool_down = 0
 
 	if color then
 		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
@@ -43,19 +45,17 @@ function Player:initialize(name, sprite, input, x, y, color)
 end
 
 function Player:setState(state)
---	print (self.name.." -> Set state try...")
 	assert(type(state) == "table", "setState expects a table")
 	if state and state.name ~= self.state then
---	--	print (self.name.." -> Switching from ",self.state,"to",state.name)
-		self.prev_state = self.state
-
+		self.prev_state = self.last_state
+		self.last_state = self.state
+--		print (self.name.." -> Switching to ",state.name," Last:",self.last_state,"Prev:",self.prev_state)
 		self:exit()
 		self.state = state.name
 		self.draw = state.draw
 		self.update = state.update
 		self.start = state.start
 		self.exit = state.exit
-
 		self:start()
 	end
 end
@@ -82,25 +82,42 @@ function Player:stand_start()
 	end
 	self.velx = 0
 	self.can_jump = false
+	self.can_fire = false
+	if self.last_state == "combo" then
+		self.cool_down = 0.2 --you cant insta move after any attack
+	else
+		self.cool_down = 0
+	end
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
-    if self.b.left.down or
+	if self.cool_down > 0 then
+		self.cool_down = self.cool_down - dt
+	end
+
+	if self.cool_down <= 0 and
+			(self.b.left.down or
 			self.b.right.down or
 			self.b.up.down or
-			self.b.down.down
-    then
-        self:setState(self.walk)
+			self.b.down.down)
+	then
+		self:setState(self.walk)
+		return
 	elseif self.b.jump.down and self.can_jump then
 		self:setState(self.jumpUp)
-	elseif self.b.fire.down then
+		return
+	elseif self.b.fire.down and self.can_fire then
 		self:setState(self.combo)
+		return
 	else
-        self.sprite.curr_anim = "stand" -- to prevent flashing frame after duck
+		self.sprite.curr_anim = "stand" -- to prevent flashing frame after duck
 	end
 
 	if not self.b.jump.down then
 		self.can_jump = true
+	end
+	if not self.b.fire.down then
+		self.can_fire = true
 	end
     UpdateInstance(self.sprite, dt, self)
 end
@@ -114,78 +131,88 @@ function Player:walk_start()
 	self.velx, self.vely = 100, 75
 	self.prev_frame = 0
 	self.can_jump = false
+	self.can_fire = false
+	--self.can_walk = false
 	if not self.sprite.curr_anim then
 		self.sprite.curr_anim = "walk"
 		-- to prevent flashing 1 frame transition (when u instantly enter another stite)
 	end
 end
 function Player:walk_update(dt)
---	print (self.name.." - walk update",dt)
-	self.stepx = 0;
-	self.stepy = 0;
-	if self.b.left.down then
-		self.stepx = -self.velx * dt;
-		self.sprite.flip_h = -1 --face sprite left or right	
-		if playerKeyCombo:getLast().left then
-			self:setState(self.run)
-			return
-		end
-	elseif self.b.right.down then
-		self.sprite.flip_h = 1
-		self.stepx = self.velx * dt;
-		if playerKeyCombo:getLast().right then
-			self:setState(self.run)
-			return
-		end
-	end
-	if self.b.up.down then
-		self.stepy = -self.vely * dt;
-        if playerKeyCombo:getLast().up then
-            self:setState(self.sideStepUp)
-            return
-        end
-	elseif self.b.down.down then
-		self.stepy = self.vely * dt;
-        if playerKeyCombo:getLast().down then
-            self:setState(self.sideStepDown)
-            return
-        end
-	end
-	if self.b.fire.down then
+	--	print (self.name.." - walk update",dt)
+	if self.b.fire.down and self.can_fire then
 		self:setState(self.combo)
 		return
 	elseif self.b.jump.down and self.can_jump then
 		self:setState(self.jumpUp)
 		return
 	end
-	if self.stepx == 0 and self.stepy == 0 then
-		self:setState(self.stand)
-		return
-	else
-		self.sprite.curr_anim = "walk"	-- to prevent flashing frame after duck and instand jump
-	end
-	-- switch to run - for testing
---	if self.sprite.loop_count > 1 then
---		self:setState(self.run)
---		return
---	end
-	if self.prev_frame ~= self.sprite.curr_frame then
-		if self.sprite.curr_frame == 3 or self.sprite.curr_frame == 7 then
-			self.prev_frame = self.sprite.curr_frame
-			TEsound.play("res/sfx/step.wav", nil, 0.5)
+	if true then
+		self.stepx = 0
+		self.stepy = 0
+		if self.b.left.down then
+			self.stepx = -self.velx * dt
+			self.sprite.flip_h = -1 --face sprite left or right
+			if playerKeyCombo:getLast().left then
+				self:setState(self.run)
+				return
+			end
+		elseif self.b.right.down then
+			self.sprite.flip_h = 1
+			self.stepx = self.velx * dt
+			if playerKeyCombo:getLast().right then
+				self:setState(self.run)
+				return
+			end
 		end
+		if self.b.up.down then
+			self.stepy = -self.vely * dt;
+			if playerKeyCombo:getLast().up then
+				self:setState(self.sideStepUp)
+				return
+			end
+		elseif self.b.down.down then
+			self.stepy = self.vely * dt;
+			if playerKeyCombo:getLast().down then
+				self:setState(self.sideStepDown)
+				return
+			end
+		end
+		if self.stepx == 0 and self.stepy == 0 then
+			self:setState(self.stand)
+			return
+		else
+			self.sprite.curr_anim = "walk" -- to prevent flashing frame after duck and instand jump
+		end
+		-- switch to run - for testing
+		--	if self.sprite.loop_count > 1 then
+		--		self:setState(self.run)
+		--		return
+		--	end
+		if self.prev_frame ~= self.sprite.curr_frame then
+			if self.sprite.curr_frame == 3 or self.sprite.curr_frame == 7 then
+				self.prev_frame = self.sprite.curr_frame
+				TEsound.play("res/sfx/step.wav", nil, 0.5)
+			end
+		end
+		local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+			function(player, item)
+				if player ~= item then
+					return "slide"
+				end
+			end)
+		self.x = actualX
+		self.y = actualY
+	else
+		-- can walk?
+		self.cool_down = self.cool_down - dt
 	end
 	if not self.b.jump.down then
 		self.can_jump = true
 	end
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	if not self.b.fire.down then
+		self.can_fire = true
+	end
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.walk = {name = "walk", start = Player.walk_start, exit = nop, update = Player.walk_update, draw = Player.default_draw}
@@ -198,6 +225,7 @@ function Player:run_start()
 	self.sprite.loop_count = 0
 	self.prev_frame = 0
 	self.can_jump = false
+	self.can_fire = false
 	self.velx, self.vely = 150, 25
 end
 function Player:run_update(dt)
@@ -224,7 +252,7 @@ function Player:run_update(dt)
 	elseif self.b.down.down then
 		self.stepy = self.vely * dt;
 	end
-	if self.b.fire.down then
+	if self.b.fire.down and self.can_fire then
 		self:setState(self.dash)
 		return
 	elseif self.b.jump.down and self.can_jump then
@@ -243,6 +271,9 @@ function Player:run_update(dt)
 	end
 	if not self.b.jump.down then
 		self.can_jump = true
+	end
+	if not self.b.fire.down then
+		self.can_fire = true
 	end
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
@@ -435,12 +466,20 @@ function Player:combo_update(dt)
 		self:setState(self.stand)
 		return
 	end
-	if self.check_mash and self.b.fire.down then
+--[[	if self.check_mash and self.b.fire.down and playerKeyCombo:getLast().fire then
 		TEsound.play("res/sfx/attack1.wav", nil, 1)
-	end
-	if self.check_mash and self.b.fire.down == false then
-		self:setState(self.stand)
-		return
+	end]]
+	if self.check_mash then
+		if (self.b.fire.down and playerKeyCombo:getLast().fire) then
+--				or (self.b.fire.down == false and playerKeyCombo:getLast().fire ) then
+			-- attack action
+			TEsound.play("res/sfx/attack1.wav", nil, 1)
+			self.check_mash = false
+		else
+			-- key mashing stopped
+			self:setState(self.stand)
+			return
+		end
 	else
 		self.check_mash = false
 	end
