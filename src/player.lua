@@ -60,13 +60,13 @@ function Player:setState(state)
 	end
 end
 
-function Player:drawShadow()
+function Player:drawShadow(l,t,w,h)
 	love.graphics.setColor(0, 0, 0, 200)
 	love.graphics.ellipse("fill", self.x, self.y, 18 - self.z/16, 6 - self.z/32)
 end
 
 function Player:default_draw(l,t,w,h)
-	self:drawShadow()
+	--self:drawShadow()
 	love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 	DrawInstance(self.sprite, self.x, self.y - self.z)
 end
