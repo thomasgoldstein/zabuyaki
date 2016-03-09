@@ -15,6 +15,7 @@ function Player:initialize(name, sprite, input, x, y, color)
 	self.name = name or "Player 1"
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.x, self.y, self.z = x, y, 0
+	self.vertical, self.horizontal = 1, 1;
 	self.stepx, self.stepy = 0, 0
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0
 	self.gravity = 650
@@ -67,6 +68,7 @@ end
 
 function Player:default_draw(l,t,w,h)
 	--self:drawShadow()
+	self.sprite.flip_h = self.horizontal
 	love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 	DrawInstance(self.sprite, self.x, self.y - self.z)
 end
@@ -147,66 +149,60 @@ function Player:walk_update(dt)
 		self:setState(self.jumpUp)
 		return
 	end
-	if true then
-		self.stepx = 0
-		self.stepy = 0
-		if self.b.left.down then
-			self.stepx = -self.velx * dt
-			self.sprite.flip_h = -1 --face sprite left or right
-			if playerKeyCombo:getLast().left then
-				self:setState(self.run)
-				return
-			end
-		elseif self.b.right.down then
-			self.sprite.flip_h = 1
-			self.stepx = self.velx * dt
-			if playerKeyCombo:getLast().right then
-				self:setState(self.run)
-				return
-			end
-		end
-		if self.b.up.down then
-			self.stepy = -self.vely * dt;
-			if playerKeyCombo:getLast().up then
-				self:setState(self.sideStepUp)
-				return
-			end
-		elseif self.b.down.down then
-			self.stepy = self.vely * dt;
-			if playerKeyCombo:getLast().down then
-				self:setState(self.sideStepDown)
-				return
-			end
-		end
-		if self.stepx == 0 and self.stepy == 0 then
-			self:setState(self.stand)
+	self.stepx = 0
+	self.stepy = 0
+	if self.b.left.down then
+		self.horizontal = -1 --face sprite left or right
+		self.stepx = self.velx * dt * self.horizontal
+		if playerKeyCombo:getLast().left then
+			self:setState(self.run)
 			return
-		else
-			self.sprite.curr_anim = "walk" -- to prevent flashing frame after duck and instand jump
 		end
-		-- switch to run - for testing
-		--	if self.sprite.loop_count > 1 then
-		--		self:setState(self.run)
-		--		return
-		--	end
-		if self.prev_frame ~= self.sprite.curr_frame then
-			if self.sprite.curr_frame == 3 or self.sprite.curr_frame == 7 then
-				self.prev_frame = self.sprite.curr_frame
-				TEsound.play("res/sfx/step.wav", nil, 0.5)
-			end
+	elseif self.b.right.down then
+		self.horizontal = 1
+		self.stepx = self.velx * dt * self.horizontal
+		if playerKeyCombo:getLast().right then
+			self:setState(self.run)
+			return
 		end
-		local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-			function(player, item)
-				if player ~= item then
-					return "slide"
-				end
-			end)
-		self.x = actualX
-		self.y = actualY
-	else
-		-- can walk?
-		self.cool_down = self.cool_down - dt
 	end
+	if self.b.up.down then
+		self.vertical = -1
+		self.stepy = self.vely * dt * self.vertical
+		if playerKeyCombo:getLast().up then
+			self:setState(self.sideStepUp)
+			return
+		end
+	elseif self.b.down.down then
+		self.vertical = 1
+		self.stepy = self.vely * dt * self.vertical
+		if playerKeyCombo:getLast().down then
+			self:setState(self.sideStepDown)
+			return
+		end
+	end
+
+	if self.stepx == 0 and self.stepy == 0 then
+		self:setState(self.stand)
+		return
+	else
+		self.sprite.curr_anim = "walk" -- to prevent flashing frame after duck and instand jump
+	end
+	if self.prev_frame ~= self.sprite.curr_frame then
+		if self.sprite.curr_frame == 3 or self.sprite.curr_frame == 7 then
+			self.prev_frame = self.sprite.curr_frame
+			TEsound.play("res/sfx/step.wav", nil, 0.5)
+		end
+	end
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+
 	if not self.b.jump.down then
 		self.can_jump = true
 	end
@@ -233,20 +229,22 @@ function Player:run_update(dt)
 	self.stepx = 0;
 	self.stepy = 0;
 	if self.b.left.down then
-		self.sprite.flip_h = -1 --face sprite left or right
-		self.stepx = -self.velx * dt;
+		self.horizontal = -1 --face sprite left or right
+		self.stepx = self.velx * dt * self.horizontal
 	elseif self.b.right.down then
-		self.sprite.flip_h = 1
-		self.stepx = self.velx * dt;
+		self.horizontal = 1
+		self.stepx = self.velx * dt * self.horizontal
 	end
 	if self.b.up.down then
-		self.stepy = -self.vely * dt;
+		self.vertical = -1
+		self.stepy = self.vely * dt * self.vertical
 	elseif self.b.down.down then
-		self.stepy = self.vely * dt;
+		self.vertical = 1
+		self.stepy = self.vely * dt * self.vertical
 	end
 	if self.b.right.down == false and self.b.left.down == false
-		or (self.b.right.down and self.sprite.flip_h < 0)
-		or (self.b.left.down and self.sprite.flip_h > 0)
+		or (self.b.right.down and self.horizontal < 0)
+		or (self.b.left.down and self.horizontal > 0)
 	then
 		self:setState(self.walk)
 		return
@@ -292,13 +290,22 @@ function Player:jumpUp_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpUp"
 	self.velz = 270;
-	self.stepy = 0
-	self.vely = 0
-	if self.b.right.down == false and self.b.left.down == false then
+
+	if self.b.up.down then
+		self.vertical = -1
+	elseif self.b.down.down then
+		self.vertical = 1
+	else
+		self.vertical = 0
+	end
+	if self.b.left.down == false and self.b.right.down == false then
 		self.velx = 0
 	end
 	if self.velx ~= 0 then
 		self.velx = self.velx + 10 --make jump little faster than the walk/run speed
+	end
+	if self.vely ~= 0 then
+		self.vely = self.vely + 5 --make jump little faster than the walk/run speed
 	end
 	TEsound.play("res/sfx/jump.wav")
 end
@@ -307,13 +314,14 @@ function Player:jumpUp_update(dt)
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
 		if self.z < self.jumpHeight then
 			self.z = self.z + dt * self.velz
-			self.velz = self.velz - self.gravity * dt;
+			self.velz = self.velz - self.gravity * dt
 		else
 			self.velz = self.velz / 2
 			self:setState(self.jumpDown)
 			return
 		end
-		self.stepx = self.velx * dt * self.sprite.flip_h;
+		self.stepx = self.velx * dt * self.horizontal
+		self.stepy = self.vely * dt * self.vertical
 		local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 			function(player, item)
 				if player ~= item then
@@ -344,7 +352,8 @@ function Player:jumpDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	self.stepx = self.velx * dt * self.sprite.flip_h;
+	self.stepx = self.velx * dt * self.horizontal
+	self.stepy = self.vely * dt * self.vertical
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
@@ -508,7 +517,7 @@ function Player:dash_update(dt)
 		self:setState(self.jumpDown)
 		return
 	end
-	self.stepx = self.velx * dt * self.sprite.flip_h;
+	self.stepx = self.velx * dt * self.horizontal;
 
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
