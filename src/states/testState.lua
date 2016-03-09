@@ -36,7 +36,8 @@ function testState:update(dt)
 		player:update(dt)
     end
 	
-	--TODO sort players + entities by y 
+	--TODO sort players + entities by y
+	table.sort(self.entities , function(a,b) return a.y<b.y end )
 	
     background:update(dt)
     cam:setPosition(player.x, player.y)
