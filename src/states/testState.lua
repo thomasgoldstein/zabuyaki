@@ -9,25 +9,35 @@ function testState:enter()
 
     playerKeyCombo = KeyCombo:new(player, button)
 
-    player2 = Player:new("Player Two", GetInstance("res/man_template.lua"), button2, 240, 180, {239,255,191, 50})
+    player2 = Player:new("Player Two", GetInstance("res/man_template.lua"), button2, 240, 180, {239,255,191, 70})
+	
+	dummy0 = Player:new("Dummy0", GetInstance("res/man_template.lua"), button2, 720, 200-24, {239,191,255, 255})
+	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button2, 740, 206, {255,239,191, 255})
+	dummy1.sprite.flip_h = -1
+	dummy2 = Player:new("Dummy2", GetInstance("res/man_template.lua"), button2, 1140, 200-20, {191,191,255, 255})
+	dummy3 = Player:new("Dummy3", GetInstance("res/man_template.lua"), button2, 1540, 200-40, {239,191,255, 255})
+
+	self.entities = {player, player2, dummy0, dummy1, dummy2, dummy3}
 
     --load level
-    world, background, worldWidth, worldHeight = require("res/level_template")(player, player2)
-
-    --set camera, scale
+    world, background, worldWidth, worldHeight = require("res/level_template")(self.entities)
+	
+	--set camera, scale
     cam = gamera.new(0, 0, worldWidth, worldHeight)
     cam:setWindow(0, 0, 640, 480)
     cam:setScale(2)
---    cam:setAngle(10)
+    --cam:setAngle(0.10)
 end
 
 function testState:update(dt)
     playerKeyCombo:update(dt)
-    player:update(dt)
-    if player2 then
-        player2:update(dt)
+	
+	for i,player in ipairs(self.entities) do
+		player:update(dt)
     end
-
+	
+	--TODO sort players + entities by y 
+	
     background:update(dt)
     cam:setPosition(player.x, player.y)
 
@@ -46,9 +56,12 @@ function testState:draw()
     --love.graphics.setBackgroundColor(255, 255, 255)
     cam:draw(function(l, t, w, h)
         -- draw camera stuff here
-
         love.graphics.setColor(255, 255, 255, 255)
         background:draw(l, t, w, h)
+
+		for i,player in ipairs(self.entities) do
+			player:drawShadow(l,t,w,h)
+		end
 
         -- debug draw bump boxes
         local items, len = world:getItems()
@@ -57,10 +70,10 @@ function testState:draw()
             love.graphics.rectangle("line", world:getRect(items[i]))
         end
 
-        player:draw(l,t,w,h)
-        if player2 then
-            player2:draw(l,t,w,h)
-        end
+		for i,player in ipairs(self.entities) do
+			player:draw(l,t,w,h)
+		end
+	
     end)
     fancy.draw()	--DEBUG var show
 end
