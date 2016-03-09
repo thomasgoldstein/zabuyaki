@@ -128,7 +128,7 @@ function Player:walk_start()
 --	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
 	self.sprite.loop_count = 0
-	self.velx, self.vely = 100, 75
+	self.velx, self.vely = 100, 50
 	self.prev_frame = 0
 	self.can_jump = false
 	self.can_fire = false
@@ -233,17 +233,9 @@ function Player:run_update(dt)
 	self.stepx = 0;
 	self.stepy = 0;
 	if self.b.left.down then
-		if self.sprite.flip_h > 0 then
-			self:setState(self.walk)
-			return
-		end
 		self.sprite.flip_h = -1 --face sprite left or right
 		self.stepx = -self.velx * dt;
 	elseif self.b.right.down then
-		if self.sprite.flip_h < 0 then
-			self:setState(self.walk)
-			return
-		end
 		self.sprite.flip_h = 1
 		self.stepx = self.velx * dt;
 	end
@@ -251,6 +243,13 @@ function Player:run_update(dt)
 		self.stepy = -self.vely * dt;
 	elseif self.b.down.down then
 		self.stepy = self.vely * dt;
+	end
+	if self.b.right.down == false and self.b.left.down == false
+		or (self.b.right.down and self.sprite.flip_h < 0)
+		or (self.b.left.down and self.sprite.flip_h > 0)
+	then
+		self:setState(self.walk)
+		return
 	end
 	if self.b.fire.down and self.can_fire then
 		self:setState(self.dash)
