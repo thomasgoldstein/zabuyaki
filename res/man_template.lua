@@ -146,11 +146,21 @@ return {
 			{q = q(50, 517, 57, 54), ox = 25, oy = 60}, --jaf 2
 			frame_duration = 5
 		},
-		jumpAttackWeak = {
+		jumpAttackWeakUp = {
+			{q = q(109, 517, 46, 63), ox = 23, oy = 62}, --jaw 1
+			{q = q(157, 517, 47, 60), ox = 25, oy = 62}, --jaw 2
+			frame_duration = 5
+		},
+		jumpAttackWeakDown = {
+			{q = q(109, 517, 46, 63), ox = 23, oy = 62, duration = 0.2}, --jaw 1
+			{q = q(157, 517, 47, 60), ox = 25, oy = 62}, --jaw 2
+			frame_duration = 5
+		},
+		jumpAttackWeak_ = {
 			{q = q(109, 517, 46, 63), ox = 23, oy = 60}, --jaw 1
 			{q = q(157, 517, 47, 60), ox = 25, oy = 60}, --jaw 2
 		},
-		jumpAttackStill = {
+		jumpAttackStill_ = {
 			{q = q(2, 582, 33, 65), ox = 16, oy = 65},
 			{q = q(37, 582, 51, 60), ox = 25, oy = 60},
 		},

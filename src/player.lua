@@ -326,8 +326,13 @@ function Player:jumpUp_update(dt)
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
 	--!!!
 		if self.b.fire.down and self.can_fire then
-			self:setState(self.jumpAttackForwardUp)
-			return
+			if self.b.down.down then
+				self:setState(self.jumpAttackWeakUp)
+				return
+			else
+				self:setState(self.jumpAttackForwardUp)
+				return
+			end
 		end
 		if self.z < self.jumpHeight then
 			self.z = self.z + dt * self.velz
@@ -364,9 +369,15 @@ end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
 	if self.b.fire.down and self.can_fire then
-		self:setState(self.jumpAttackForwardDown)
-		return
+		if self.b.down.down then
+			self:setState(self.jumpAttackWeakDown)
+			return
+		else
+			self:setState(self.jumpAttackForwardDown)
+			return
+		end
 	end
+
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
 		self.velz = self.velz - self.gravity * dt;
@@ -562,23 +573,6 @@ function Player:jumpAttackForwardUp_start()
 	--	print (self.name.." - jumpAttackForwardUp start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpAttackForwardUp"
---[[	self.velz = 270;
-	if self.b.up.down then
-		self.vertical = -1
-	elseif self.b.down.down then
-		self.vertical = 1
-	else
-		self.vertical = 0
-	end
-	if self.b.left.down == false and self.b.right.down == false then
-		self.velx = 0
-	end
-	if self.velx ~= 0 then
-		self.velx = self.velx + 10 --make jump little faster than the walk/run speed
-	end
-	if self.vely ~= 0 then
-		self.vely = self.vely + 5 --make jump little faster than the walk/run speed
-	end]]
 	--TEsound.play("res/sfx/jump.wav")
 end
 function Player:jumpAttackForwardUp_update(dt)
@@ -638,6 +632,71 @@ function Player:jumpAttackForwardDown_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackForwardDown = {name = "jumpAttackForwardDown", start = Player.jumpAttackForwardDown_start, exit = nop, update = Player.jumpAttackForwardDown_update, draw = Player.default_draw}
+
+-- --------------------------------------------------
+function Player:jumpAttackWeakUp_start()
+	--	print (self.name.." - jumpAttackWeakUp start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "jumpAttackWeakUp"
+	--TEsound.play("res/sfx/jump.wav")
+end
+function Player:jumpAttackWeakUp_update(dt)
+	--	print (self.name.." - jumpAttackWeakUp update",dt)
+	--if self.sprite.curr_frame > 1 then -- should make duck before jumping
+	if self.z < self.jumpHeight then
+		self.z = self.z + dt * self.velz
+		self.velz = self.velz - self.gravity * dt
+	else
+		self.velz = self.velz / 2
+		self:setState(self.jumpAttackWeakDown)
+		return
+	end
+	self.stepx = self.velx * dt * self.horizontal
+	self.stepy = self.vely * dt * self.vertical
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+	--end
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.jumpAttackWeakUp = {name = "jumpAttackWeakUp", start = Player.jumpAttackWeakUp_start, exit = nop, update = Player.jumpAttackWeakUp_update, draw = Player.default_draw}
+
+
+function Player:jumpAttackWeakDown_start()
+	--	print (self.name.." - jumpAttackWeakDown start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "jumpAttackWeakDown"
+end
+function Player:jumpAttackWeakDown_update(dt)
+	--	print (self.name.." - jumpAttackWeakDown update",dt)
+	if self.z > 0 then
+		self.z = self.z + dt * self.velz
+		self.velz = self.velz - self.gravity * dt;
+	else
+		self.z = 0
+		TEsound.play("res/sfx/land.wav")
+		self:setState(self.duck)
+		return
+	end
+	self.stepx = self.velx * dt * self.horizontal
+	self.stepy = self.vely * dt * self.vertical
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.jumpAttackWeakDown = {name = "jumpAttackWeakDown", start = Player.jumpAttackWeakDown_start, exit = nop, update = Player.jumpAttackWeakDown_update, draw = Player.default_draw}
 
 return Player
 
