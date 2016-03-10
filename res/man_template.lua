@@ -132,9 +132,19 @@ return {
 			{q = q(105, 454, 41, 61), ox = 20, oy = 61},
 			{q = q(148, 456, 36, 59), ox = 18, oy = 59},
 		},
-		jumpAttackForward = {
+		jumpAttackForward_ = {
 			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
 			{q = q(50, 517, 57, 54), ox = 25, oy = 60}, --jaf 2
+		},
+		jumpAttackForwardUp = {
+			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
+			{q = q(50, 517, 57, 54), ox = 25, oy = 60}, --jaf 2
+			frame_duration = 5
+		},
+		jumpAttackForwardDown = {
+			{q = q(2, 517, 46, 61), ox = 23, oy = 60, duration = 0.2}, --jaf 1
+			{q = q(50, 517, 57, 54), ox = 25, oy = 60}, --jaf 2
+			frame_duration = 5
 		},
 		jumpAttackWeak = {
 			{q = q(109, 517, 46, 63), ox = 23, oy = 60}, --jaw 1

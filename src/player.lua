@@ -324,6 +324,11 @@ end
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
+	--!!!
+		if self.b.fire.down and self.can_fire then
+			self:setState(self.jumpAttackForwardUp)
+			return
+		end
 		if self.z < self.jumpHeight then
 			self.z = self.z + dt * self.velz
 			self.velz = self.velz - self.gravity * dt
@@ -343,6 +348,9 @@ function Player:jumpUp_update(dt)
 		self.x = actualX
 		self.y = actualY
 	end
+	if not self.b.fire.down then
+		self.can_fire = true
+	end
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = nop, update = Player.jumpUp_update, draw = Player.default_draw}
@@ -355,6 +363,10 @@ function Player:jumpDown_start()
 end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
+	if self.b.fire.down and self.can_fire then
+		self:setState(self.jumpAttackForwardDown)
+		return
+	end
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
 		self.velz = self.velz - self.gravity * dt;
@@ -375,7 +387,9 @@ function Player:jumpDown_update(dt)
 		end)
 	self.x = actualX
 	self.y = actualY
-
+	if not self.b.fire.down then
+		self.can_fire = true
+	end
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = nop, update = Player.jumpDown_update, draw = Player.default_draw}
@@ -543,6 +557,87 @@ function Player:dash_update(dt)
 end
 Player.dash = {name = "dash", start = Player.dash_start, exit = nop, update = Player.dash_update, draw = Player.default_draw}
 
+-- --------------------------------------------------
+function Player:jumpAttackForwardUp_start()
+	--	print (self.name.." - jumpAttackForwardUp start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "jumpAttackForwardUp"
+--[[	self.velz = 270;
+	if self.b.up.down then
+		self.vertical = -1
+	elseif self.b.down.down then
+		self.vertical = 1
+	else
+		self.vertical = 0
+	end
+	if self.b.left.down == false and self.b.right.down == false then
+		self.velx = 0
+	end
+	if self.velx ~= 0 then
+		self.velx = self.velx + 10 --make jump little faster than the walk/run speed
+	end
+	if self.vely ~= 0 then
+		self.vely = self.vely + 5 --make jump little faster than the walk/run speed
+	end]]
+	--TEsound.play("res/sfx/jump.wav")
+end
+function Player:jumpAttackForwardUp_update(dt)
+	--	print (self.name.." - jumpAttackForwardUp update",dt)
+	--if self.sprite.curr_frame > 1 then -- should make duck before jumping
+	if self.z < self.jumpHeight then
+		self.z = self.z + dt * self.velz
+		self.velz = self.velz - self.gravity * dt
+	else
+		self.velz = self.velz / 2
+		self:setState(self.jumpAttackForwardDown)
+		return
+	end
+	self.stepx = self.velx * dt * self.horizontal
+	self.stepy = self.vely * dt * self.vertical
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+	--end
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.jumpAttackForwardUp = {name = "jumpAttackForwardUp", start = Player.jumpAttackForwardUp_start, exit = nop, update = Player.jumpAttackForwardUp_update, draw = Player.default_draw}
+
+
+function Player:jumpAttackForwardDown_start()
+	--	print (self.name.." - jumpAttackForwardDown start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "jumpAttackForwardDown"
+end
+function Player:jumpAttackForwardDown_update(dt)
+	--	print (self.name.." - jumpAttackForwardDown update",dt)
+	if self.z > 0 then
+		self.z = self.z + dt * self.velz
+		self.velz = self.velz - self.gravity * dt;
+	else
+		self.z = 0
+		TEsound.play("res/sfx/land.wav")
+		self:setState(self.duck)
+		return
+	end
+	self.stepx = self.velx * dt * self.horizontal
+	self.stepy = self.vely * dt * self.vertical
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.jumpAttackForwardDown = {name = "jumpAttackForwardDown", start = Player.jumpAttackForwardDown_start, exit = nop, update = Player.jumpAttackForwardDown_update, draw = Player.default_draw}
 
 return Player
 
