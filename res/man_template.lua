@@ -160,9 +160,20 @@ return {
 			{q = q(109, 517, 46, 63), ox = 23, oy = 60}, --jaw 1
 			{q = q(157, 517, 47, 60), ox = 25, oy = 60}, --jaw 2
 		},
+		jumpAttackStillUp = {
+			{q = q(2, 582, 33, 65), ox = 14, oy = 64}, --jas 1
+			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
+			frame_duration = 5
+		},
+		jumpAttackStillDown = {
+			{q = q(2, 582, 33, 65), ox = 14, oy = 64, duration = 0.2}, --jas 1
+			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
+			{q = q(2, 582, 33, 65), ox = 14, oy = 64, duration = 0.2}, --jas 1
+			frame_duration = 0.4
+		},
 		jumpAttackStill_ = {
-			{q = q(2, 582, 33, 65), ox = 16, oy = 65},
-			{q = q(37, 582, 51, 60), ox = 25, oy = 60},
+			{q = q(2, 582, 33, 65), ox = 14, oy = 64}, --jas 1
+			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
 		},
 		sideStepUp = {
 			{q = q(90, 582, 42, 65), ox = 21, oy = 65},

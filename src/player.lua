@@ -326,7 +326,10 @@ function Player:jumpUp_update(dt)
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
 	--!!!
 		if self.b.fire.down and self.can_fire then
-			if self.b.down.down then
+			if self.velx == 0 then
+				self:setState(self.jumpAttackStillUp)
+				return
+			elseif self.b.down.down then
 				self:setState(self.jumpAttackWeakUp)
 				return
 			else
@@ -369,7 +372,10 @@ end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
 	if self.b.fire.down and self.can_fire then
-		if self.b.down.down then
+		if self.velx == 0 then
+			self:setState(self.jumpAttackStillDown)
+			return
+		elseif self.b.down.down then
 			self:setState(self.jumpAttackWeakDown)
 			return
 		else
@@ -697,6 +703,71 @@ function Player:jumpAttackWeakDown_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackWeakDown = {name = "jumpAttackWeakDown", start = Player.jumpAttackWeakDown_start, exit = nop, update = Player.jumpAttackWeakDown_update, draw = Player.default_draw}
+
+-- --------------------------------------------------
+function Player:jumpAttackStillUp_start()
+	--	print (self.name.." - jumpAttackStillUp start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "jumpAttackStillUp"
+	--TEsound.play("res/sfx/jump.wav")
+end
+function Player:jumpAttackStillUp_update(dt)
+	--	print (self.name.." - jumpAttackStillUp update",dt)
+	--if self.sprite.curr_frame > 1 then -- should make duck before jumping
+	if self.z < self.jumpHeight then
+		self.z = self.z + dt * self.velz
+		self.velz = self.velz - self.gravity * dt
+	else
+		self.velz = self.velz / 2
+		self:setState(self.jumpAttackStillDown)
+		return
+	end
+	self.stepx = self.velx * dt * self.horizontal
+	self.stepy = self.vely * dt * self.vertical
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+	--end
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.jumpAttackStillUp = {name = "jumpAttackStillUp", start = Player.jumpAttackStillUp_start, exit = nop, update = Player.jumpAttackStillUp_update, draw = Player.default_draw}
+
+
+function Player:jumpAttackStillDown_start()
+	--	print (self.name.." - jumpAttackStillDown start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "jumpAttackStillDown"
+end
+function Player:jumpAttackStillDown_update(dt)
+	--	print (self.name.." - jumpAttackStillDown update",dt)
+	if self.z > 0 then
+		self.z = self.z + dt * self.velz
+		self.velz = self.velz - self.gravity * dt;
+	else
+		self.z = 0
+		TEsound.play("res/sfx/land.wav")
+		self:setState(self.duck)
+		return
+	end
+	self.stepx = self.velx * dt * self.horizontal
+	self.stepy = self.vely * dt * self.vertical
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.jumpAttackStillDown = {name = "jumpAttackStillDown", start = Player.jumpAttackStillDown_start, exit = nop, update = Player.jumpAttackStillDown_update, draw = Player.default_draw}
 
 return Player
 
