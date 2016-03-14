@@ -71,8 +71,8 @@ return {
 			frame_duration = 0.5
 		},
 		duck____0 = {
-			{ q = q(2, 143, 35, 55), ox = 16, oy = 60 }, -- duck 1
-			{ q = q(39, 147, 31, 51), ox = 16, oy = 60 }, -- duck 2
+			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 }, -- duck 1
+			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2
 			frame_duration = 0.2
 		},
 		dash = {
@@ -120,9 +120,11 @@ return {
 			frame_duration = 0.1
 		},
 		fall = {
-			{q = q(2, 393, 53, 58), ox = 26, oy = 58},
-			{q = q(57, 416, 76, 35), ox = 38, oy = 35},
-			{q = q(135, 404, 62, 47), ox = 31, oy = 47},
+			{q = q(2, 393, 53, 58), ox = 26, oy = 57, duration = 0.5},
+			{q = q(57, 416, 76, 35), ox = 38, oy = 34, duration = 1},
+			{q = q(135, 404, 62, 47), ox = 31, oy = 46},
+			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2
+			frame_duration = 0.2
 		},
 		hurtFace = {
 			{q = q(2, 453, 49, 62), ox = 24, oy = 62},
