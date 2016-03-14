@@ -46,8 +46,9 @@ function testState:update(dt)
     --fancy.watch("Bump items", len, 3)
     fancy.watch("Player state: ",player.state, 1)
     fancy.watch("Velocity Z: ",player.velz, 2)
-    fancy.watch("Velocity X: ",player.velx, 2) 
-	
+    fancy.watch("Z: ",player.z, 3)
+    fancy.watch("Velocity X: ",player.velx, 2)
+
 --	print( playerKeyCombo:getLast(), playerKeyCombo:getPrev())
 --	fancy.watch("kkl ", playerKeyCombo:getLast() or "NA", 3)
 --	fancy.watch("kkp ", playerKeyCombo:getPrev() or "NA" , 3)
@@ -114,14 +115,14 @@ function testState:keypressed(k, unicode)
     elseif k == '3' then
         cam:setScale(2)
     end
---[[
-    elseif k == 'return' then
-        if(player.state == "run") then
-            player:setState(Player.walk)
-        else
-            player:setState(Player.run)
-        end
+
+    if k == 'return' then
+       if player.state ~= "fall" then
+           print "DEBUG to fall"
+           player:setState(Player.fall)
+       end
     end
+--[[
     if k == 'space' then
         if (player.state == "run" or player.state == "walk") then
             player:setState(Player.jumpUp)
