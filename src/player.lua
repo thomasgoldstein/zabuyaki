@@ -57,7 +57,7 @@ function Player:setState(state)
 	if state and state.name ~= self.state then
 		self.prev_state = self.last_state
 		self.last_state = self.state
---		print (self.name.." -> Switching to ",state.name," Last:",self.last_state,"Prev:",self.prev_state)
+		--print (self.name.." -> Switching to ",state.name," Last:",self.last_state,"Prev:",self.prev_state)
 		self:exit()
 		self.state = state.name
 		self.draw = state.draw
@@ -768,6 +768,54 @@ function Player:jumpAttackStillDown_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackStillDown = {name = "jumpAttackStillDown", start = Player.jumpAttackStillDown_start, exit = nop, update = Player.jumpAttackStillDown_update, draw = Player.default_draw}
+
+function Player:fall_start()
+		print (self.name.." - fall start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "fall"
+
+	if self.velz <= 0 then
+		self.velz = 0
+	end
+	if self.z <= 0 then
+		self.z = 0
+	end
+	TEsound.play("res/sfx/grunt2.wav")
+end
+
+function Player:fall_update(dt)
+	--print(self.name .. " - fall update", dt)
+	if self.sprite.loop_count > 0 then
+		self:setState(self.duck)
+		return
+	end
+
+	if self.z <= 0 then
+		--self.z = 0
+		TEsound.play("res/sfx/fall.wav")
+
+		self.velx = self.velx / 2
+		self.vely = self.vely / 2
+	else
+		self.velz = self.velz - self.gravity * dt
+		self.z = self.z + dt * self.velz
+	end
+	self.stepx = self.velx * dt * self.horizontal
+	self.stepy = self.vely * dt * self.vertical
+
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+
+	UpdateInstance(self.sprite, dt, self)
+end
+
+Player.fall = {name = "fall", start = Player.fall_start, exit = nop, update = Player.fall_update, draw = Player.default_draw}
 
 return Player
 
