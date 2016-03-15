@@ -777,13 +777,13 @@ function Player:fall_start()
 	if self.z <= 0 then
 		self.z = 0
     end
-    self.velz = 150
+    --self.velz = 150
 	TEsound.play("res/sfx/grunt2.wav")
 end
 
 function Player:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
-	if self.sprite.loop_count > 0 then
+	if self.sprite.isLast then
 		self:setState(self.duck)
 		return
 	end
