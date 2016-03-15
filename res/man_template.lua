@@ -124,6 +124,7 @@ return {
 			{q = q(57, 416, 76, 35), ox = 38, oy = 34, duration = 1},
 			{q = q(135, 404, 62, 47), ox = 31, oy = 46},
 			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2
+			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2 (we dont draw it, need it for check for last frame)
 			frame_duration = 0.2
 		},
 		hurtFace = {
