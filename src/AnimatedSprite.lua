@@ -84,6 +84,8 @@ function GetInstance (sprite_def)
 		def = sprite_bank[sprite_def], --Sprite reference
 		curr_anim = nil,
 		curr_frame = 1,
+		isFirst = true, -- if the 1st frame
+		isLast = false, -- if the last frame
 		loop_count = 0, -- loop played times
 		elapsed_time = 0,
 		size_scale = 1,
@@ -125,12 +127,18 @@ function UpdateInstance(spr, dt, self)
 			spr.curr_frame = 1
 			spr.loop_count = spr.loop_count + 1 --loop played times++
 		end
+		-- First or Last frames?
+		spr.isFirst = (spr.curr_frame == 1)
+		spr.isLast = (spr.curr_frame == #spr.def.animations[spr.curr_anim])
 		-- Reset internal counter on frame change.
 		spr.elapsed_time = 0
 		if s.func then
 			return s.func(self)
 		end
 	end
+	-- First or Last frames?
+	spr.isFirst = (spr.curr_frame == 1)
+	spr.isLast = (spr.curr_frame == #spr.def.animations[spr.curr_anim])
 	return nil
 end
 
