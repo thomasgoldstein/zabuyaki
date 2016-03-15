@@ -24,7 +24,7 @@ function Player:initialize(name, sprite, input, x, y, color)
 	self.x, self.y, self.z = x, y, 0
 	self.vertical, self.horizontal = 1, 1;
 	self.stepx, self.stepy = 0, 0
-	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0
+	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
 	self.gravity = 650
     self.friction = 650 -- velocity penalty for sideStepUp Down (when u slide on ground)
 	self.jumpHeight = 40
@@ -770,16 +770,14 @@ end
 Player.jumpAttackStillDown = {name = "jumpAttackStillDown", start = Player.jumpAttackStillDown_start, exit = nop, update = Player.jumpAttackStillDown_update, draw = Player.default_draw}
 
 function Player:fall_start()
-		print (self.name.." - fall start")
+    --print (self.name.." - fall start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "fall"
 
-	if self.velz <= 0 then
-		self.velz = 0
-	end
 	if self.z <= 0 then
 		self.z = 0
-	end
+    end
+    self.velz = 150
 	TEsound.play("res/sfx/grunt2.wav")
 end
 
@@ -789,20 +787,20 @@ function Player:fall_update(dt)
 		self:setState(self.duck)
 		return
 	end
-
-	if self.z <= 0 then
-		--self.z = 0
-		TEsound.play("res/sfx/fall.wav")
-
-		self.velx = self.velx / 2
-		self.vely = self.vely / 2
-	else
+    self.stepx, self.stepy = 0, 0
+    if self.z > 0 then
+        self.stepx = self.velx * dt * self.horizontal
+        self.stepy = self.vely * dt * self.vertical
 		self.velz = self.velz - self.gravity * dt
 		self.z = self.z + dt * self.velz
+	    if self.z <= 0 then
+            self.z = 0
+            self.velz = 0
+            self.vely = self.vely / 2
+            self.velx = self.velx / 2
+            TEsound.play("res/sfx/fall.wav")
+        end
 	end
-	self.stepx = self.velx * dt * self.horizontal
-	self.stepy = self.vely * dt * self.vertical
-
 	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
 		function(player, item)
 			if player ~= item then
