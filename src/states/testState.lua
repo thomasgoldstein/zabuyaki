@@ -98,27 +98,18 @@ function testState:keypressed(k, unicode)
         ManSprite.rotation = ManSprite.rotation + math.rad(15)
     elseif k == 'delete' then
         ManSprite.rotation = ManSprite.rotation - math.rad(15)
+]]
 
     elseif k == '1' then
-        ManSprite.flip_h = -1
-    elseif k == '2' then
-        ManSprite.flip_h = 1
-    elseif k == '3' then
-        ManSprite.flip_v = -1
-    elseif k == '4' then
-        ManSprite.flip_v = 1]]
-
-    elseif k == '1' then
-        cam:setScale(0.5)
-    elseif k == '2' then
         cam:setScale(1)
-    elseif k == '3' then
+    elseif k == '2' then
         cam:setScale(2)
+    elseif k == '3' then
+        cam:setScale(3)
     end
 
     if k == 'return' then
-       if player.state ~= "fall" then
-           print "DEBUG to fall"
+       if player.state == "jumpUp" or player.state == "jumpDown" then
            player:setState(Player.fall)
        end
     end
