@@ -23,7 +23,6 @@ function Player:initialize(name, sprite, input, x, y, color)
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.x, self.y, self.z = x, y, 0
 	self.vertical, self.horizontal = 1, 1;
-	self.stepx, self.stepy = 0, 0
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
 	self.gravity = 650
     self.friction = 650 -- velocity penalty for sideStepUp Down (when u slide on ground)
@@ -87,9 +86,9 @@ end
 
 -- private
 function Player:checkCollisionAndMove(dt)
-	self.stepx = self.velx * dt * self.horizontal
-	self.stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+	local stepx = self.velx * dt * self.horizontal
+	local stepy = self.vely * dt * self.vertical
+	local actualX, actualY, cols, len = world:move(self, self.x + stepx, self.y + stepy,
 		function(player, item)
 			if player ~= item then
 				return "slide"
@@ -98,12 +97,10 @@ function Player:checkCollisionAndMove(dt)
 	self.x = actualX
 	self.y = actualY
 end
---
 
 function Player:stand_start()
 --	print (self.name.." - stand start")
 	self.sprite.curr_frame = 1
-	self.stepx, self.stepy = 0, 0
 	self.z = 0
 	if not self.sprite.curr_anim then
 		self.sprite.curr_anim = "stand"
@@ -157,7 +154,7 @@ function Player:walk_start()
 --	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
 	self.sprite.loop_count = 0
-	self.velx, self.vely = 100, 50
+	--self.velx, self.vely = 100, 50
 	self.prev_frame = 0
 	self.can_jump = false
 	self.can_fire = false
@@ -176,18 +173,18 @@ function Player:walk_update(dt)
 		self:setState(self.jumpUp)
 		return
 	end
-	self.stepx = 0
-	self.stepy = 0
+	self.velx = 0
+	self.vely = 0
 	if self.b.left.down then
 		self.horizontal = -1 --face sprite left or right
-		self.stepx = self.velx * dt * self.horizontal
+		self.velx = 100
 		if playerKeyCombo:getLast().left then
 			self:setState(self.run)
 			return
 		end
 	elseif self.b.right.down then
 		self.horizontal = 1
-		self.stepx = self.velx * dt * self.horizontal
+		self.velx = 100
 		if playerKeyCombo:getLast().right then
 			self:setState(self.run)
 			return
@@ -195,21 +192,21 @@ function Player:walk_update(dt)
 	end
 	if self.b.up.down then
 		self.vertical = -1
-		self.stepy = self.vely * dt * self.vertical
+		self.vely = 50
 		if playerKeyCombo:getLast().up then
 			self:setState(self.sideStepUp)
 			return
 		end
 	elseif self.b.down.down then
 		self.vertical = 1
-		self.stepy = self.vely * dt * self.vertical
+		self.vely = 50
 		if playerKeyCombo:getLast().down then
 			self:setState(self.sideStepDown)
 			return
 		end
 	end
 
-	if self.stepx == 0 and self.stepy == 0 then
+	if self.velx == 0 and self.vely == 0 then
 		self:setState(self.stand)
 		return
 	else
@@ -221,15 +218,7 @@ function Player:walk_update(dt)
 			TEsound.play("res/sfx/step.wav", nil, 0.5)
 		end
 	end
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
-
+	self:checkCollisionAndMove(dt)
 	if not self.b.jump.down then
 		self.can_jump = true
 	end
@@ -249,25 +238,25 @@ function Player:run_start()
 	self.prev_frame = 0
 	self.can_jump = false
 	self.can_fire = false
-	self.velx, self.vely = 150, 25
+	--self.velx, self.vely = 150, 25
 end
 function Player:run_update(dt)
 	--	print (self.name.." - run update",dt)
-	self.stepx = 0;
-	self.stepy = 0;
+	self.velx = 0
+	self.vely = 0
 	if self.b.left.down then
 		self.horizontal = -1 --face sprite left or right
-		self.stepx = self.velx * dt * self.horizontal
+		self.velx = 200
 	elseif self.b.right.down then
 		self.horizontal = 1
-		self.stepx = self.velx * dt * self.horizontal
+		self.velx = 200
 	end
 	if self.b.up.down then
 		self.vertical = -1
-		self.stepy = self.vely * dt * self.vertical
+		self.vely = 25
 	elseif self.b.down.down then
 		self.vertical = 1
-		self.stepy = self.vely * dt * self.vertical
+		self.vely = 25
 	end
 	if self.b.right.down == false and self.b.left.down == false
 		or (self.b.right.down and self.horizontal < 0)
@@ -283,7 +272,7 @@ function Player:run_update(dt)
 		self:setState(self.jumpUp)
 		return
 	end
-	if self.stepx == 0 and self.stepy == 0 then
+	if self.velx == 0 and self.vely == 0 then
 		self:setState(self.stand)
 		return
 	end
@@ -299,14 +288,7 @@ function Player:run_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.run = {name = "run", start = Player.run_start, exit = nop, update = Player.run_update, draw = Player.default_draw}
@@ -431,14 +413,12 @@ function Player:sideStepDown_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "sideStepDown"
 
-    self.stepx, self.stepy = 0, 0
     self.velx, self.vely = 0, 170
     TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfz
 end
 function Player:sideStepDown_update(dt)
 	--	print (self.name.." - sideStepDown update",dt)
 	if self.vely > 0 then
-        self.stepy = self.vely * dt;
 		self.vely = self.vely - self.friction * dt;
 		self.z = self.vely / 24 --to show low leap
 	else
@@ -459,14 +439,12 @@ function Player:sideStepUp_start()
     self.sprite.curr_frame = 1
     self.sprite.curr_anim = "sideStepUp"
 
-    self.stepx, self.stepy = 0, 0
     self.velx, self.vely = 0, 170
     TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfz
 end
 function Player:sideStepUp_update(dt)
     --	print (self.name.." - sideStepUp update",dt)
     if self.vely > 0 then
-        self.stepy = -self.vely * dt;
         self.vely = self.vely - self.friction * dt;
 		self.z = self.vely / 24 --to show low leap
     else
@@ -487,7 +465,6 @@ function Player:combo_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "combo"
 	self.sprite.loop_count = 0
-	self.stepx, self.stepy = 0, 0
 	self.velx, self.vely = 0, 0
 	self.check_mash = true
 	--TEsound.play("res/sfx/jump.wav")
@@ -524,7 +501,6 @@ function Player:dash_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "dash"
 	self.sprite.loop_count = 0
-	self.stepx, self.stepy = 0, 0
 	self.vely = 0
 	self.velz = 10
 	TEsound.play("res/sfx/jump.wav")
@@ -699,10 +675,7 @@ function Player:fall_update(dt)
 		self:setState(self.duck)
 		return
 	end
-    self.stepx, self.stepy = 0, 0
     if self.z > 0 then
-        self.stepx = self.velx * dt * self.horizontal
-        self.stepy = self.vely * dt * self.vertical
 		self.velz = self.velz - self.gravity * dt
 		self.z = self.z + dt * self.velz
 	    if self.z <= 0 then
