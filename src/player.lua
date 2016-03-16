@@ -85,6 +85,21 @@ function Player:default_draw(l,t,w,h)
 	end
 end
 
+-- private
+function Player:checkCollisionAndMove(dt)
+	self.stepx = self.velx * dt * self.horizontal
+	self.stepy = self.vely * dt * self.vertical
+	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
+		function(player, item)
+			if player ~= item then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+end
+--
+
 function Player:stand_start()
 --	print (self.name.." - stand start")
 	self.sprite.curr_frame = 1
@@ -345,16 +360,7 @@ function Player:jumpUp_update(dt)
 			self:setState(self.jumpDown)
 			return
 		end
-		self.stepx = self.velx * dt * self.horizontal
-		self.stepy = self.vely * dt * self.vertical
-		local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-			function(player, item)
-				if player ~= item then
-					return "slide"
-				end
-			end)
-		self.x = actualX
-		self.y = actualY
+		self:checkCollisionAndMove(dt)
 	end
 	if not self.b.fire.down then
 		self.can_fire = true
@@ -393,17 +399,7 @@ function Player:jumpDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	self.stepx = self.velx * dt * self.horizontal
-	self.stepy = self.vely * dt * self.vertical
-
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	self:checkCollisionAndMove(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
@@ -452,16 +448,7 @@ function Player:sideStepDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
-
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start, exit = nop, update = Player.sideStepDown_update, draw = Player.default_draw}
@@ -489,16 +476,7 @@ function Player:sideStepUp_update(dt)
         self:setState(self.duck)
         return
     end
-
-    local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-        function(player, item)
-            if player ~= item then
-                return "slide"
-            end
-        end)
-    self.x = actualX
-    self.y = actualY
-
+	self:checkCollisionAndMove(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = nop, update = Player.sideStepUp_update, draw = Player.default_draw}
@@ -560,16 +538,7 @@ function Player:dash_update(dt)
 		self:setState(self.jumpDown)
 		return
 	end
-	self.stepx = self.velx * dt * self.horizontal;
-
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.dash = {name = "dash", start = Player.dash_start, exit = nop, update = Player.dash_update, draw = Player.default_draw}
@@ -592,16 +561,7 @@ function Player:jumpAttackForwardUp_update(dt)
 		self:setState(self.jumpAttackForwardDown)
 		return
 	end
-	self.stepx = self.velx * dt * self.horizontal
-	self.stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	self:checkCollisionAndMove(dt)
 	--end
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -624,17 +584,7 @@ function Player:jumpAttackForwardDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	self.stepx = self.velx * dt * self.horizontal
-	self.stepy = self.vely * dt * self.vertical
-
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackForwardDown = {name = "jumpAttackForwardDown", start = Player.jumpAttackForwardDown_start, exit = nop, update = Player.jumpAttackForwardDown_update, draw = Player.default_draw}
@@ -657,16 +607,7 @@ function Player:jumpAttackWeakUp_update(dt)
 		self:setState(self.jumpAttackWeakDown)
 		return
 	end
-	self.stepx = self.velx * dt * self.horizontal
-	self.stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	self:checkCollisionAndMove(dt)
 	--end
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -689,17 +630,7 @@ function Player:jumpAttackWeakDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	self.stepx = self.velx * dt * self.horizontal
-	self.stepy = self.vely * dt * self.vertical
-
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackWeakDown = {name = "jumpAttackWeakDown", start = Player.jumpAttackWeakDown_start, exit = nop, update = Player.jumpAttackWeakDown_update, draw = Player.default_draw}
@@ -722,16 +653,7 @@ function Player:jumpAttackStillUp_update(dt)
 		self:setState(self.jumpAttackStillDown)
 		return
 	end
-	self.stepx = self.velx * dt * self.horizontal
-	self.stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	self:checkCollisionAndMove(dt)
 	--end
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -754,17 +676,7 @@ function Player:jumpAttackStillDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	self.stepx = self.velx * dt * self.horizontal
-	self.stepy = self.vely * dt * self.vertical
-
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackStillDown = {name = "jumpAttackStillDown", start = Player.jumpAttackStillDown_start, exit = nop, update = Player.jumpAttackStillDown_update, draw = Player.default_draw}
@@ -796,20 +708,12 @@ function Player:fall_update(dt)
 	    if self.z <= 0 then
             self.z = 0
             self.velz = 0
-            self.vely = self.vely / 2
-            self.velx = self.velx / 2
+            self.vely = 0
+            self.velx = 0
             TEsound.play("res/sfx/fall.wav")
         end
 	end
-	local actualX, actualY, cols, len = world:move(self, self.x + self.stepx, self.y + self.stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
-
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 
