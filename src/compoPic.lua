@@ -19,16 +19,17 @@ function CompoundPicture:initialize(name, width, height)
 	self.width = width
     self.height = height
 	self.pics = {}
-	print(name..' '..self.width..'x'..self.height..' compoundPicture created')
+	--print(name..' '..self.width..'x'..self.height..' compoundPicture created')
 end
 
 function CompoundPicture:add(sprite_sheet, quad, x, y, px, py, sx, sy, func)
     local _,_,w,h = quad:getViewport()
 	table.insert(self.pics, {sprite_sheet = sprite_sheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, px = px or 0, py = py or 0, sx = sx or 0, sy = sy or 0, update = func})
-	print('rect '..self.pics[#self.pics].x ..' '..self.pics[#self.pics].y
+	--[[print('rect '..self.pics[#self.pics].x ..' '..self.pics[#self.pics].y
 		..' P:'..self.pics[#self.pics].px ..','..self.pics[#self.pics].py
 		..' S:'..self.pics[#self.pics].sx ..','..self.pics[#self.pics].sy
 		..' added to '..self.name)
+	]]
 end
 
 function CompoundPicture:remove(rect)
