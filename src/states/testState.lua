@@ -32,11 +32,11 @@ end
 function testState:update(dt)
     playerKeyCombo:update(dt)
 	
-	for i,player in ipairs(self.entities) do
+	for _,player in ipairs(self.entities) do
 		player:update(dt)
     end
 	
-	--TODO sort players + entities by y
+	--sort players + entities by y
 	table.sort(self.entities , function(a,b) return a.y<b.y end )
 	
     background:update(dt)
@@ -74,8 +74,13 @@ function testState:draw()
 
 		for i,player in ipairs(self.entities) do
 			player:draw(l,t,w,h)
-		end
-	
+        end
+
+        -- draw HP bars
+        love.graphics.setColor(0, 50, 50, 255)
+        love.graphics.rectangle("fill", l+16, t+16, 100, 8 )
+        love.graphics.setColor(255, 80, 80, 255)
+        love.graphics.rectangle("fill", l+17, t+17, (player.hp*10)-2, 6 )
     end)
     fancy.draw()	--DEBUG var show
 end
@@ -123,6 +128,7 @@ function testState:keypressed(k, unicode)
 end
 
 function testState:wheelmoved( dx, dy )
+    --TODO remove debug scale
     local worldWidth = 4000
     if love.keyboard.isDown("lctrl") or love.keyboard.isDown("rctrl") then
         if dy > 0 and cam:getScale() < 2 then
