@@ -19,7 +19,8 @@ local function nop() --[[print "nop"]] end
 
 function Player:initialize(name, sprite, input, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
-	self.name = name or "Player 1"
+	self.name = name or "Unknown"
+    self.hp = 10
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.x, self.y, self.z = x, y, 0
 	self.vertical, self.horizontal = 1, 1;
@@ -65,6 +66,18 @@ function Player:setState(state)
 		self.exit = state.exit
 		self:start()
 	end
+end
+
+function Player:checkHurt()
+    if not self.hurt then
+        return
+    end
+    -- do stuff
+    -- hurt = {source, damage, velx,vely,x,y,z}
+    -- calc falling traectory
+    self:setState(self.fall)
+    -- free hurt data
+    self.hurt = nil
 end
 
 function Player:drawShadow(l,t,w,h)
