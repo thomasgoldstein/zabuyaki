@@ -1,6 +1,6 @@
 ﻿-- test level
 
-local function init_level(...)
+local function init_level()
     --define obstacles
     local worldWidth, worldHeight = 4000, 240
     local world = bump.newWorld(64)
@@ -71,11 +71,6 @@ local function init_level(...)
             pic.x = pic.x + 1
         end)
 ]]
-    --    player = Player:new("Player One", GetInstance("res/man_template.lua"), 140, 200)
-	for i,pl in pairs(...) do
-		world:add(pl, pl.x, pl.y, 8, 8)
-    end
-
     return world, background, worldWidth, worldHeight
 end
 
