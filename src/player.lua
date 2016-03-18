@@ -87,11 +87,17 @@ function Player:onHurt()
 	-- calc falling traectory
 	self.velx = self.hurt.velx
 	self.vely = self.hurt.vely
-	self.z = self.z + 8
-	--free hurt data
-	self.hurt = nil
-	self:setState(self.fall)
 
+	if self.z > 1 then
+		--free hurt data
+		self.hurt = nil
+		self.z = self.z + 8
+		self:setState(self.fall)
+	elseif self.hurt.z > 30 then
+		self:setState(self.hurtFace)
+	else
+		self:setState(self.hurtStomach)
+	end
 end
 
 function Player:drawShadow(l,t,w,h)
@@ -144,7 +150,6 @@ end
 
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
-	self:checkHurt()
 
 	if self.cool_down > 0 then
 		self.cool_down = self.cool_down - dt
@@ -174,6 +179,8 @@ function Player:stand_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
+
+	self:checkHurt()
     UpdateInstance(self.sprite, dt, self)
 end
 Player.stand = {name = "stand", start = Player.stand_start, exit = nop, update = Player.stand_update, draw = Player.default_draw}
@@ -195,8 +202,6 @@ function Player:walk_start()
 end
 function Player:walk_update(dt)
 	--	print (self.name.." - walk update",dt)
-	self:checkHurt()
-
 	if self.b.fire.down and self.can_fire then
 		self:setState(self.combo)
 		return
@@ -256,6 +261,7 @@ function Player:walk_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.walk = {name = "walk", start = Player.walk_start, exit = nop, update = Player.walk_update, draw = Player.default_draw}
@@ -273,8 +279,6 @@ function Player:run_start()
 end
 function Player:run_update(dt)
 	--	print (self.name.." - run update",dt)
-	self:checkHurt()
-
 	self.velx = 0
 	self.vely = 0
 	if self.b.left.down then
@@ -322,6 +326,7 @@ function Player:run_update(dt)
 		self.can_fire = true
 	end
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.run = {name = "run", start = Player.run_start, exit = nop, update = Player.run_update, draw = Player.default_draw}
@@ -353,8 +358,6 @@ function Player:jumpUp_start()
 end
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
-	self:checkHurt()
-
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
 	--!!!
 		if self.b.fire.down and self.can_fire then
@@ -382,6 +385,7 @@ function Player:jumpUp_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = nop, update = Player.jumpUp_update, draw = Player.default_draw}
@@ -394,8 +398,6 @@ function Player:jumpDown_start()
 end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
-	self:checkHurt()
-
 	if self.b.fire.down and self.can_fire then
 		if self.b.down.down then
 			self:setState(self.jumpAttackWeakDown)
@@ -422,6 +424,7 @@ function Player:jumpDown_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = nop, update = Player.jumpDown_update, draw = Player.default_draw}
@@ -432,7 +435,7 @@ function Player:duck_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "duck"
 	self.sprite.loop_count = 0
-	--TODO should i resed hurt here?
+	--TODO should I reset hurt here?
 	self.hurt = nil
 	self.z = 0;
 end
@@ -445,6 +448,52 @@ function Player:duck_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
+
+function Player:hurtFace_start()
+--		print (self.name.." - hurtFace start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "hurtFace"
+	self.sprite.loop_count = 0
+	--self.z = 0
+end
+function Player:hurtFace_update(dt)
+	--	print (self.name.." - hurtFace update",dt)
+	if self.sprite.loop_count > 0 then
+		--free hurt data
+		self.hurt = nil
+		if self.hp <= 0 then
+			self:setState(self.dead)
+			return
+		end
+		self:setState(self.stand)
+		return
+	end
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.hurtFace = {name = "hurtFace", start = Player.hurtFace_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
+
+function Player:hurtStomach_start()
+	--	print (self.name.." - hurtStomach start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "hurtStomach"
+	self.sprite.loop_count = 0
+	--self.z = 0
+end
+function Player:hurtStomach_update(dt)
+	--	print (self.name.." - hurtStomach update",dt)
+	if self.sprite.loop_count > 0 then
+		--free hurt data
+		self.hurt = nil
+		if self.hp <= 0 then
+			self:setState(self.dead)
+			return
+		end
+		self:setState(self.stand)
+		return
+	end
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.hurtStomach = {name = "hurtStomach", start = Player.hurtStomach_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
 
 function Player:sideStepDown_start()
 --	print (self.name.." - sideStepDown start")
@@ -508,8 +557,6 @@ function Player:combo_start()
 	--TEsound.play("res/sfx/jump.wav")
 end
 function Player:combo_update(dt)
-	self:checkHurt()
-
 	if self.sprite.loop_count > 0 then
 		self:setState(self.stand)
 		return
@@ -531,6 +578,7 @@ function Player:combo_update(dt)
 	else
 		self.check_mash = false
 	end
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
