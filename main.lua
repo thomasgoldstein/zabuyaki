@@ -65,6 +65,22 @@ function love.load(arg)
 	axis.horizontal.deadzone = .25
 	axis.vertical.deadzone = .25
 
+	--player 2
+	--basic detectors
+	keyboardA  = tactile.key('a')
+	keyboardD = tactile.key('d')
+	keyboardW    = tactile.key('w')
+	keyboardS  = tactile.key('s')
+	keyboardI     = tactile.key('i')
+	keyboardO     = tactile.key('o')
+
+	button2 = {}
+	button2.left       = tactile.newButton(keyboardA)
+	button2.right      = tactile.newButton(keyboardD)
+	button2.up         = tactile.newButton(keyboardW)
+	button2.down       = tactile.newButton(keyboardS)
+	button2.fire    = tactile.newButton(keyboardI) --mouseLeft
+	button2.jump    = tactile.newButton(keyboardO) --mouseRight
 
 	--require "src/level_template"
 	--DEBUG libs
@@ -83,6 +99,9 @@ end
 
 function love.update(dt)
 	for k, v in pairs(button) do	-- update input
+		v:update()
+	end
+	for k, v in pairs(button2) do	-- update input
 		v:update()
 	end
 	TEsound.cleanup()
