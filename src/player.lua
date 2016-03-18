@@ -123,38 +123,41 @@ end
 function Player:checkCollisionAndMove(dt)
 	local stepx = self.velx * dt * self.horizontal
 	local stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = world:move(self, self.x + stepx, self.y + stepy,
+	local actualX, actualY, cols, len = world:move(self, self.x + stepx - 4, self.y + stepy - 4,
 		function(player, item)
 			if player ~= item  and item.type == "wall" then
 				return "slide"
 			end
 		end)
-	self.x = actualX
-	self.y = actualY
+	self.x = actualX + 4
+	self.y = actualY + 4
 end
 
 function Player:checkAndAttack(l,t,w,h)
 	--self.vertical, self.horizontal = 1, 1;
 
-	local items, len = world:queryRect(self.x + self.horizontal*l, self.y + t, w, w,
+	local items, len = world:queryRect(self.x + self.horizontal*l - w/2, self.y + t, w, h,
 		function(item)
 			if self ~= item and item.type ~= "wall" then
-				print ("hit "..item.name)
+				--print ("hit "..item.name)
 				return true
 			end
 		end)
 
-	print("items: ".. #items)
+	--print("items: ".. #items)
+    --DEBUG to show attack hitBoxes in green
+    attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.horizontal*l - w/2, y = self.y + t, w = w, h = h }
 
 	for i = 1,#items do
 		--player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
 		print ("hit CHK "..items[i].name)
-		items[i].hurt = {source = self, damage = 1, velx = self.velx+100, vely = self.vely, horizontal = self.horizontal, x = self.x, y = self.y, z = love.math.random(10, 40)}
-	end
+		items[i].hurt = {source = self, damage = 1, velx = self.velx+100, vely = self.vely, horizontal = self.horizontal, x = self.x, y = self.y, z = love.math.random(10, 40) }
+    end
+
 
 end
 
-function Player:checkCollisionAndMove_old(dt)
+function Player:checkCollisionAndMove_unused(dt)
 	local stepx = self.velx * dt * self.horizontal
 	local stepy = self.vely * dt * self.vertical
 	local actualX, actualY, cols, len = world:move(self, self.x + stepx, self.y + stepy,
@@ -608,7 +611,7 @@ function Player:combo_update(dt)
 			-- attack action
 			TEsound.play("res/sfx/attack1.wav", nil, 1)
 
-			self:checkAndAttack(30,0, 20,8)
+			self:checkAndAttack(20,0, 20,12)
 
 			self.check_mash = false
 		else
