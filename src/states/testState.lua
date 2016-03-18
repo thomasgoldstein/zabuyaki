@@ -11,11 +11,11 @@ function testState:enter()
 
     player2 = Player:new("Player Two", GetInstance("res/man_template.lua"), button2, 240, 180, {239,255,191, 70})
 	
-	dummy0 = Player:new("Dummy0", GetInstance("res/man_template.lua"), button2, 720, 200-24, {239,191,255, 255})
-	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button2, 740, 206, {255,239,191, 255})
+	dummy0 = Player:new("Dummy0", GetInstance("res/man_template.lua"), button3, 720, 200-24, {239,191,255, 255})
+	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button3, 740, 206, {255,239,191, 255})
 	dummy1.sprite.flip_h = -1
-	dummy2 = Player:new("Dummy2", GetInstance("res/man_template.lua"), button2, 1140, 200-20, {191,191,255, 255})
-	dummy3 = Player:new("Dummy3", GetInstance("res/man_template.lua"), button2, 1540, 200-40, {239,191,255, 255})
+	dummy2 = Player:new("Dummy2", GetInstance("res/man_template.lua"), button3, 1140, 200-20, {191,191,255, 255})
+	dummy3 = Player:new("Dummy3", GetInstance("res/man_template.lua"), button3, 1540, 200-40, {239,191,255, 255})
 
 	self.entities = {player, player2, dummy0, dummy1, dummy2, dummy3}
 
@@ -118,7 +118,7 @@ function testState:keypressed(k, unicode)
     if k == 'return' then
        --if player.state == "jumpUp" or player.state == "jumpDown" then
        -- hurt = {source, damage, velx,vely,x,y,z}
-       player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
+       player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, horizontal = -player2.horizontal, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
        --player:setState(Player.fall)
        --player:setState(Player.fall)
        --end
