@@ -118,7 +118,7 @@ function testState:keypressed(k, unicode)
     if k == 'return' then
        --if player.state == "jumpUp" or player.state == "jumpDown" then
        -- hurt = {source, damage, velx,vely,x,y,z}
-       player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = player2.z}
+       player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
        --player:setState(Player.fall)
        --player:setState(Player.fall)
        --end
