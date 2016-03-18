@@ -70,6 +70,7 @@ function Player:setState(state)
 end
 
 function Player:checkHurt()
+	--print("Ck Hurt for "..self.name)
     if not self.hurt then
         return
     end
@@ -119,6 +120,40 @@ end
 
 -- private
 function Player:checkCollisionAndMove(dt)
+	local stepx = self.velx * dt * self.horizontal
+	local stepy = self.vely * dt * self.vertical
+	local actualX, actualY, cols, len = world:move(self, self.x + stepx, self.y + stepy,
+		function(player, item)
+			if player ~= item  and item.type == "wall" then
+				return "slide"
+			end
+		end)
+	self.x = actualX
+	self.y = actualY
+end
+
+function Player:checkAndAttack(l,t,w,h)
+	--self.vertical, self.horizontal = 1, 1;
+
+	local items, len = world:queryRect(self.x + self.horizontal*l, self.y + t, w, w,
+		function(item)
+			if self ~= item and item.type ~= "wall" then
+				print ("hit "..item.name)
+				return true
+			end
+		end)
+
+	print("items: ".. #items)
+
+	for i = 1,#items do
+		--player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
+		print ("hit CHK "..items[i].name)
+		items[i].hurt = {source = self, damage = 1, velx = self.velx+100, vely = self.vely, x = self.x, y = self.y, z = love.math.random(10, 40)}
+	end
+
+end
+
+function Player:checkCollisionAndMove_old(dt)
 	local stepx = self.velx * dt * self.horizontal
 	local stepy = self.vely * dt * self.vertical
 	local actualX, actualY, cols, len = world:move(self, self.x + stepx, self.y + stepy,
@@ -569,6 +604,9 @@ function Player:combo_update(dt)
 --				or (self.b.fire.down == false and playerKeyCombo:getLast().fire ) then
 			-- attack action
 			TEsound.play("res/sfx/attack1.wav", nil, 1)
+
+			self:checkAndAttack(30,0, 20,8)
+
 			self.check_mash = false
 		else
 			-- key mashing stopped

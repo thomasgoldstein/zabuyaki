@@ -1,7 +1,7 @@
 --[[
     main.lua - 2016
     
-    Copyright Don Miguel, 2016
+    Copyright Don Miguel, Stifu 2016
     
     Released under the MIT license.
     Visit for more information:
@@ -40,8 +40,8 @@ function love.load(arg)
 	gamepadB      = tactile.gamepadButton('b', 1)
 	gamepadXAxis  = tactile.analogStick('leftx', 1)
 	gamepadYAxis  = tactile.analogStick('lefty', 1)
-	mouseLeft     = tactile.mouseButton(1)
-	mouseRight    = tactile.mouseButton(2)
+--	mouseLeft     = tactile.mouseButton(1)
+--	mouseRight    = tactile.mouseButton(2)
 
 	--weird detectors that depend on other detectors
 	gamepadLeft   = tactile.thresholdButton(gamepadXAxis, -.5)
@@ -56,8 +56,8 @@ function love.load(arg)
 	button.right      = tactile.newButton(keyboardRight, gamepadRight)
 	button.up         = tactile.newButton(keyboardUp, gamepadUp)
 	button.down       = tactile.newButton(keyboardDown, gamepadDown)
-	button.fire    = tactile.newButton(keyboardX, gamepadA, mouseLeft)
-	button.jump    = tactile.newButton(keyboardC, gamepadB, mouseRight)
+	button.fire    = tactile.newButton(keyboardX, gamepadA) --mouseLeft
+	button.jump    = tactile.newButton(keyboardC, gamepadB) --mouseRight
 
 	axis = {}
 	axis.horizontal = tactile.newAxis(gamepadXAxis, keyboardXAxis)
