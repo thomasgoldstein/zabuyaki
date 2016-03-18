@@ -7,9 +7,12 @@
     Visit for more information:
     http://opensource.org/licenses/MIT
 ]]
+DEBUG = true
+attackHitBoxes = {} -- DEBUG
 
 function love.load(arg)
-	if arg[#arg] == "-debug" then
+	--TODO remove in release
+	if DEBUG and arg[#arg] == "-debug" then
 		require("mobdebug").start()
 	end
 	love.graphics.setDefaultFilter("nearest", "nearest")
@@ -84,8 +87,9 @@ function love.load(arg)
 
 	--require "src/level_template"
 	--DEBUG libs
-	fancy = require "lib/fancy"
-
+	if DEBUG then
+		fancy = require "lib/fancy"
+	end
 	--GameStates
 	require "src/states/testState"
 	require "src/states/gameState"
