@@ -20,6 +20,7 @@ local function nop() --[[print "nop"]] end
 function Player:initialize(name, sprite, input, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
 	self.name = name or "Unknown"
+	self.type = "player"
     self.hp = 10
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.x, self.y, self.z = x, y, 0
@@ -73,11 +74,24 @@ function Player:checkHurt()
         return
     end
     -- do stuff
-    -- hurt = {source, damage, velx,vely,x,y,z}
-    -- calc falling traectory
-    self:setState(self.fall)
-    -- free hurt data
-    self.hurt = nil
+	self:onHurt()
+end
+
+function Player:onHurt()
+	-- hurt = {source, damage, velx,vely,x,y,z}
+	self.hurt.damage = self.hurt.damage or 0
+	print(self.hurt.source.name .. " damaged "..self.name.." by "..self.hurt.damage)
+
+	self.hp = self.hp - self.hurt.damage
+
+	-- calc falling traectory
+	self.velx = self.hurt.velx
+	self.vely = self.hurt.vely
+	self.z = self.z + 8
+	--free hurt data
+	self.hurt = nil
+	self:setState(self.fall)
+
 end
 
 function Player:drawShadow(l,t,w,h)
@@ -130,6 +144,8 @@ end
 
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
+	self:checkHurt()
+
 	if self.cool_down > 0 then
 		self.cool_down = self.cool_down - dt
 	end
@@ -179,6 +195,8 @@ function Player:walk_start()
 end
 function Player:walk_update(dt)
 	--	print (self.name.." - walk update",dt)
+	self:checkHurt()
+
 	if self.b.fire.down and self.can_fire then
 		self:setState(self.combo)
 		return
@@ -255,14 +273,16 @@ function Player:run_start()
 end
 function Player:run_update(dt)
 	--	print (self.name.." - run update",dt)
+	self:checkHurt()
+
 	self.velx = 0
 	self.vely = 0
 	if self.b.left.down then
 		self.horizontal = -1 --face sprite left or right
-		self.velx = 200
+		self.velx = 150
 	elseif self.b.right.down then
 		self.horizontal = 1
-		self.velx = 200
+		self.velx = 150
 	end
 	if self.b.up.down then
 		self.vertical = -1
@@ -333,6 +353,8 @@ function Player:jumpUp_start()
 end
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
+	self:checkHurt()
+
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
 	--!!!
 		if self.b.fire.down and self.can_fire then
@@ -372,6 +394,8 @@ function Player:jumpDown_start()
 end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
+	self:checkHurt()
+
 	if self.b.fire.down and self.can_fire then
 		if self.b.down.down then
 			self:setState(self.jumpAttackWeakDown)
@@ -408,7 +432,8 @@ function Player:duck_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "duck"
 	self.sprite.loop_count = 0
-
+	--TODO should i resed hurt here?
+	self.hurt = nil
 	self.z = 0;
 end
 function Player:duck_update(dt)
@@ -483,6 +508,8 @@ function Player:combo_start()
 	--TEsound.play("res/sfx/jump.wav")
 end
 function Player:combo_update(dt)
+	self:checkHurt()
+
 	if self.sprite.loop_count > 0 then
 		self:setState(self.stand)
 		return
@@ -697,13 +724,41 @@ function Player:fall_update(dt)
             self.vely = 0
             self.velx = 0
             TEsound.play("res/sfx/fall.wav")
-        end
+		end
+	else
+		if self.hp <= 0 then
+			self:setState(self.dead)
+			return
+		end
 	end
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 
 Player.fall = {name = "fall", start = Player.fall_start, exit = nop, update = Player.fall_update, draw = Player.default_draw}
+
+function Player:dead_start()
+	--print (self.name.." - dead start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "dead"
+
+	print(self.name.." is dead.")
+	--TODO dead
+	self.hp = 0
+	self.hurt = nil
+
+	if self.z <= 0 then
+		self.z = 0
+	end
+	TEsound.play("res/sfx/grunt1.wav")
+end
+
+function Player:dead_update(dt)
+	--print(self.name .. " - dead update", dt)
+	UpdateInstance(self.sprite, dt, self)
+end
+
+Player.dead = {name = "dead", start = Player.dead_start, exit = nop, update = Player.dead_update, draw = Player.default_draw}
 
 return Player
 
