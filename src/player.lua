@@ -86,8 +86,9 @@ function Player:onHurt()
 	self.hp = self.hp - self.hurt.damage
 
 	-- calc falling traectory
-	self.velx = self.hurt.velx
+	self.velx = self.hurt.velx + 10
 	self.vely = self.hurt.vely
+	self.horizontal = -self.hurt.horizontal
 
 	if self.z > 1 then
 		--free hurt data
@@ -148,7 +149,7 @@ function Player:checkAndAttack(l,t,w,h)
 	for i = 1,#items do
 		--player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
 		print ("hit CHK "..items[i].name)
-		items[i].hurt = {source = self, damage = 1, velx = self.velx+100, vely = self.vely, x = self.x, y = self.y, z = love.math.random(10, 40)}
+		items[i].hurt = {source = self, damage = 1, velx = self.velx+100, vely = self.vely, horizontal = self.horizontal, x = self.x, y = self.y, z = love.math.random(10, 40)}
 	end
 
 end
@@ -490,6 +491,7 @@ function Player:hurtFace_start()
 	self.sprite.curr_anim = "hurtFace"
 	self.sprite.loop_count = 0
 	--self.z = 0
+    TEsound.play("res/sfx/grunt4.wav", nil, 1)
 end
 function Player:hurtFace_update(dt)
 	--	print (self.name.." - hurtFace update",dt)
@@ -513,6 +515,7 @@ function Player:hurtStomach_start()
 	self.sprite.curr_anim = "hurtStomach"
 	self.sprite.loop_count = 0
 	--self.z = 0
+    TEsound.play("res/sfx/grunt3.wav", nil, 1)
 end
 function Player:hurtStomach_update(dt)
 	--	print (self.name.." - hurtStomach update",dt)
