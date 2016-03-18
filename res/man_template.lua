@@ -133,12 +133,16 @@ return {
 			frame_duration = 60
 		},
 		hurtFace = {
-			{q = q(2, 453, 49, 62), ox = 24, oy = 62},
-			{q = q(53, 454, 50, 61), ox = 22, oy = 61},
+			{q = q(2, 453, 49, 62), ox = 24, oy = 61}, --hf1
+			{q = q(53, 454, 50, 61), ox = 22, oy = 60}, --hf2
+			{q = q(2, 453, 49, 62), ox = 24, oy = 61}, --hf1
+			frame_duration = 0.2
 		},
 		hurtStomach = {
-			{q = q(105, 454, 41, 61), ox = 20, oy = 61},
-			{q = q(148, 456, 36, 59), ox = 18, oy = 59},
+			{q = q(105, 454, 41, 61), ox = 20, oy = 60}, --hs1
+			{q = q(148, 456, 36, 59), ox = 18, oy = 58}, --hs2
+			{q = q(105, 454, 41, 61), ox = 20, oy = 60}, --hs1
+			frame_duration = 0.2
 		},
 		jumpAttackForward_ = {
 			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
