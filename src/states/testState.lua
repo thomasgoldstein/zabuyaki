@@ -80,7 +80,9 @@ function testState:draw()
         love.graphics.setColor(0, 50, 50, 255)
         love.graphics.rectangle("fill", l+16, t+16, 100, 8 )
         love.graphics.setColor(255, 80, 80, 255)
-        love.graphics.rectangle("fill", l+17, t+17, (player.hp*10)-2, 6 )
+        if player.hp > 0 then
+            love.graphics.rectangle("fill", l+17, t+17, (player.hp*10)-2, 6 )
+        end
     end)
     fancy.draw()	--DEBUG var show
 end
@@ -114,9 +116,12 @@ function testState:keypressed(k, unicode)
     end
 
     if k == 'return' then
-       if player.state == "jumpUp" or player.state == "jumpDown" then
-           player:setState(Player.fall)
-       end
+       --if player.state == "jumpUp" or player.state == "jumpDown" then
+       -- hurt = {source, damage, velx,vely,x,y,z}
+       player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = player2.z}
+       --player:setState(Player.fall)
+       --player:setState(Player.fall)
+       --end
     end
 --[[
     if k == 'space' then
