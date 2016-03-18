@@ -20,7 +20,14 @@ function testState:enter()
 	self.entities = {player, player2, dummy0, dummy1, dummy2, dummy3}
 
     --load level
-    world, background, worldWidth, worldHeight = require("res/level_template")(self.entities)
+    world, background, worldWidth, worldHeight = require("res/level_template")()
+
+    --adding players into collision world
+    for i,pl in pairs(self.entities) do
+        world:add(pl, pl.x-4, pl.y-4, 8, 8)
+    end
+
+    --adding 1st wave of foes into collision world
 	
 	--set camera, scale
     cam = gamera.new(0, 0, worldWidth, worldHeight)
@@ -42,16 +49,16 @@ function testState:update(dt)
     background:update(dt)
     cam:setPosition(player.x, player.y)
 
-	 fancy.watch("FPS", love.timer.getFPS())
-    --fancy.watch("Bump items", len, 3)
-    fancy.watch("Player state: ",player.state, 1)
-    fancy.watch("Velocity Z: ",player.velz, 2)
-    fancy.watch("Z: ",player.z, 3)
-    fancy.watch("Velocity X: ",player.velx, 2)
-
+    if DEBUG then
+        fancy.watch("FPS", love.timer.getFPS())
+        fancy.watch("Player state: ",player.state, 1)
+        fancy.watch("Velocity Z: ",player.velz, 2)
+        fancy.watch("Z: ",player.z, 3)
+        fancy.watch("Velocity X: ",player.velx, 2)
 --	print( playerKeyCombo:getLast(), playerKeyCombo:getPrev())
 --	fancy.watch("kkl ", playerKeyCombo:getLast() or "NA", 3)
 --	fancy.watch("kkp ", playerKeyCombo:getPrev() or "NA" , 3)
+    end
 end
 
 function testState:draw()
@@ -66,15 +73,28 @@ function testState:draw()
 		end
 
         -- debug draw bump boxes
-        local items, len = world:getItems()
-        love.graphics.setColor(255, 0, 0, 50)
-        for i = 1, #items do
-            love.graphics.rectangle("line", world:getRect(items[i]))
+        if DEBUG then
+            local items, _ = world:getItems()
+            love.graphics.setColor(255, 0, 0, 50)
+            for i = 1, #items do
+                love.graphics.rectangle("line", world:getRect(items[i]))
+            end
+            -- draw attack hitboxes
+            love.graphics.setColor(0, 255, 0, 250)
+            for i = 1, #attackHitBoxes do
+                local a = attackHitBoxes[i]
+                --print("fill", a.x, a.y, a.w, a.h )
+                love.graphics.rectangle("fill", a.x, a.y, a.w, a.h )
+            end
+            attackHitBoxes = {}
         end
 
-		for i,player in ipairs(self.entities) do
+		for _,player in ipairs(self.entities) do
 			player:draw(l,t,w,h)
         end
+
+        --TODO add foreground parallax for levels
+        --foreground:draw(l, t, w, h)
 
         -- draw HP bars
         love.graphics.setColor(0, 50, 50, 255)
@@ -84,29 +104,14 @@ function testState:draw()
             love.graphics.rectangle("fill", l+17, t+17, (player.hp*10)-2, 6 )
         end
     end)
-    fancy.draw()	--DEBUG var show
+    if DEBUG then
+        fancy.draw()	--DEBUG var show
+    end
 end
 
 function testState:keypressed(k, unicode)
     if k == "escape" then
         Gamestate.switch(menuState)
-
---[[    elseif k == 'pageup' then
-        ManSprite.size_scale = ManSprite.size_scale * 1.25
-    elseif k == 'pagedown' then
-        ManSprite.size_scale = ManSprite.size_scale * 0.8
-
-    elseif k == 'end' then
-        ManSprite.time_scale = ManSprite.time_scale * 1.25
-    elseif k == 'home' then
-        ManSprite.time_scale = ManSprite.time_scale * 0.8
-
-    elseif k == 'insert' then
-        ManSprite.rotation = ManSprite.rotation + math.rad(15)
-    elseif k == 'delete' then
-        ManSprite.rotation = ManSprite.rotation - math.rad(15)
-]]
-
     elseif k == '1' then
         cam:setScale(1)
     elseif k == '2' then
@@ -116,24 +121,16 @@ function testState:keypressed(k, unicode)
     end
 
     if k == 'return' then
-       --if player.state == "jumpUp" or player.state == "jumpDown" then
-       -- hurt = {source, damage, velx,vely,x,y,z}
        player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, horizontal = -player2.horizontal, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
-       --player:setState(Player.fall)
-       --player:setState(Player.fall)
-       --end
     end
---[[
-    if k == 'space' then
-        if (player.state == "run" or player.state == "walk") then
-            player:setState(Player.jumpUp)
-        end
-    end
-]]
 end
 
 function testState:wheelmoved( dx, dy )
     --TODO remove debug scale
+    if not DEBUG then
+        return
+    end
+
     local worldWidth = 4000
     if love.keyboard.isDown("lctrl") or love.keyboard.isDown("rctrl") then
         if dy > 0 and cam:getScale() < 2 then
