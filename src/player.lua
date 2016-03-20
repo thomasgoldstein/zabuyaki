@@ -27,7 +27,7 @@ function Player:initialize(name, sprite, input, x, y, color)
 	self.vertical, self.horizontal = 1, 1;
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
 	self.gravity = 650
-    self.friction = 650 -- velocity penalty for sideStepUp Down (when u slide on ground)
+    self.friction = 1650 -- velocity penalty for sideStepUp Down (when u slide on ground)
 	self.jumpHeight = 40
 	self.state = "nop"
 	self.prev_state = "" -- text name
@@ -86,7 +86,7 @@ function Player:onHurt()
 	self.hp = self.hp - self.hurt.damage
 
 	-- calc falling traectory
-	self.velx = self.hurt.velx + 10
+	self.velx = self.hurt.velx
 	self.vely = self.hurt.vely
 	self.horizontal = -self.hurt.horizontal
 
@@ -133,6 +133,19 @@ function Player:checkCollisionAndMove(dt)
 	self.y = actualY + 4
 end
 
+function Player:calcFriction(dt)
+	if self.velx > 0 then
+		self.velx = self.velx - self.friction * dt
+	else
+		self.velx = 0
+	end
+	if self.vely > 0 then
+		self.vely = self.vely - self.friction * dt
+	else
+		self.vely = 0
+	end
+end
+
 function Player:checkAndAttack(l,t,w,h)
 	--self.vertical, self.horizontal = 1, 1;
 
@@ -177,7 +190,7 @@ function Player:stand_start()
 	if not self.sprite.curr_anim then
 		self.sprite.curr_anim = "stand"
 	end
-	self.velx = 0
+	--self.velx = 0
 	self.can_jump = false
 	self.can_fire = false
 	if self.last_state == "combo" then
@@ -218,7 +231,8 @@ function Player:stand_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
-
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
 	self:checkHurt()
     UpdateInstance(self.sprite, dt, self)
 end
