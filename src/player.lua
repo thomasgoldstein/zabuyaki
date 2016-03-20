@@ -27,7 +27,8 @@ function Player:initialize(name, sprite, input, x, y, color)
 	self.vertical, self.horizontal = 1, 1;
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
 	self.gravity = 650
-    self.friction = 650 -- velocity penalty for sideStepUp Down (when u slide on ground)
+    self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
+    self.sideStepFriction = 600 -- velocity penalty for sideStepUp Down (when u slide on ground)
 	self.jumpHeight = 40
 	self.state = "nop"
 	self.prev_state = "" -- text name
@@ -86,9 +87,9 @@ function Player:onHurt()
 	self.hp = self.hp - self.hurt.damage
 
 	-- calc falling traectory
-	self.velx = self.hurt.velx + 10
+	self.velx = self.hurt.velx
 	self.vely = self.hurt.vely
-	self.horizontal = -self.hurt.horizontal
+	self.horizontal = self.hurt.horizontal
 
 	if self.z > 1 then
 		--free hurt data
@@ -133,10 +134,23 @@ function Player:checkCollisionAndMove(dt)
 	self.y = actualY + 4
 end
 
-function Player:checkAndAttack(l,t,w,h)
+function Player:calcFriction(dt)
+	if self.velx > 0 then
+		self.velx = self.velx - self.friction * dt
+	else
+		self.velx = 0
+	end
+	if self.vely > 0 then
+		self.vely = self.vely - self.friction * dt
+	else
+		self.vely = 0
+	end
+end
+
+function Player:checkAndAttack(l,t,w,h,z)
 	--self.vertical, self.horizontal = 1, 1;
 
-	local items, len = world:queryRect(self.x + self.horizontal*l - w/2, self.y + t, w, h,
+	local items, len = world:queryRect(self.x + self.horizontal*l - w/2, self.y + t - h/2, w, h,
 		function(item)
 			if self ~= item and item.type ~= "wall" then
 				--print ("hit "..item.name)
@@ -146,12 +160,12 @@ function Player:checkAndAttack(l,t,w,h)
 
 	--print("items: ".. #items)
     --DEBUG to show attack hitBoxes in green
-    attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.horizontal*l - w/2, y = self.y + t, w = w, h = h }
+    attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.horizontal*l - w/2, y = self.y + t - h/2, w = w, h = h }
 
 	for i = 1,#items do
 		--player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
-		print ("hit CHK "..items[i].name)
-		items[i].hurt = {source = self, damage = 1, velx = self.velx+100, vely = self.vely, horizontal = self.horizontal, x = self.x, y = self.y, z = love.math.random(10, 40) }
+		--print ("hit CHK "..items[i].name)
+		items[i].hurt = {source = self, state = self.state, damage = 1, velx = self.velx+10, vely = self.vely, horizontal = self.horizontal, x = self.x, y = self.y, z = z or self.z}
     end
 
 
@@ -177,7 +191,7 @@ function Player:stand_start()
 	if not self.sprite.curr_anim then
 		self.sprite.curr_anim = "stand"
 	end
-	self.velx = 0
+	--self.velx = 0
 	self.can_jump = false
 	self.can_fire = false
 	if self.last_state == "combo" then
@@ -218,7 +232,8 @@ function Player:stand_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
-
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
 	self:checkHurt()
     UpdateInstance(self.sprite, dt, self)
 end
@@ -484,6 +499,8 @@ function Player:duck_update(dt)
 		self:setState(self.stand)
 		return
 	end
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
@@ -508,6 +525,8 @@ function Player:hurtFace_update(dt)
 		self:setState(self.stand)
 		return
 	end
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.hurtFace = {name = "hurtFace", start = Player.hurtFace_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
@@ -532,6 +551,8 @@ function Player:hurtStomach_update(dt)
 		self:setState(self.stand)
 		return
 	end
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.hurtStomach = {name = "hurtStomach", start = Player.hurtStomach_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
@@ -547,7 +568,7 @@ end
 function Player:sideStepDown_update(dt)
 	--	print (self.name.." - sideStepDown update",dt)
 	if self.vely > 0 then
-		self.vely = self.vely - self.friction * dt;
+		self.vely = self.vely - self.sideStepFriction * dt;
 		self.z = self.vely / 24 --to show low leap
 	else
         self.vely = 0
@@ -573,7 +594,7 @@ end
 function Player:sideStepUp_update(dt)
     --	print (self.name.." - sideStepUp update",dt)
     if self.vely > 0 then
-        self.vely = self.vely - self.friction * dt;
+        self.vely = self.vely - self.sideStepFriction * dt;
 		self.z = self.vely / 24 --to show low leap
     else
         self.vely = 0
@@ -611,7 +632,7 @@ function Player:combo_update(dt)
 			-- attack action
 			TEsound.play("res/sfx/attack1.wav", nil, 1)
 
-			self:checkAndAttack(20,0, 20,12)
+			self:checkAndAttack(20,0, 20,12, love.math.random(10,40))
 
 			self.check_mash = false
 		else
@@ -623,6 +644,8 @@ function Player:combo_update(dt)
 		self.check_mash = false
 	end
 	self:checkHurt()
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
@@ -646,6 +669,7 @@ function Player:dash_update(dt)
 		self:setState(self.jumpDown)
 		return
 	end
+	self:checkAndAttack(20,0, 20,12)
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -668,6 +692,10 @@ function Player:jumpAttackForwardUp_update(dt)
 		self.velz = self.velz / 2
 		self:setState(self.jumpAttackForwardDown)
 		return
+	end
+
+	if self.z > 10 then
+		self:checkAndAttack(20,0, 20,12)
 	end
 	self:checkCollisionAndMove(dt)
 	--end
@@ -692,6 +720,9 @@ function Player:jumpAttackForwardDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
+	if self.z > 10 then
+		self:checkAndAttack(20,0, 20,12)
+	end
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -714,6 +745,9 @@ function Player:jumpAttackWeakUp_update(dt)
 		self.velz = self.velz / 2
 		self:setState(self.jumpAttackWeakDown)
 		return
+	end
+	if self.z > 10 then
+		self:checkAndAttack(20,0, 20,12)
 	end
 	self:checkCollisionAndMove(dt)
 	--end
@@ -738,6 +772,9 @@ function Player:jumpAttackWeakDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
+	if self.z > 10 then
+		self:checkAndAttack(20,0, 20,12)
+	end
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -761,6 +798,9 @@ function Player:jumpAttackStillUp_update(dt)
 		self:setState(self.jumpAttackStillDown)
 		return
 	end
+	if self.z > 10 then
+		self:checkAndAttack(20,0, 20,12)
+	end
 	self:checkCollisionAndMove(dt)
 	--end
 	UpdateInstance(self.sprite, dt, self)
@@ -783,6 +823,9 @@ function Player:jumpAttackStillDown_update(dt)
 		TEsound.play("res/sfx/land.wav")
 		self:setState(self.duck)
 		return
+	end
+	if self.z > 10 then
+		self:checkAndAttack(20,0, 20,12)
 	end
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -847,6 +890,8 @@ end
 
 function Player:dead_update(dt)
 	--print(self.name .. " - dead update", dt)
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 
