@@ -80,11 +80,11 @@ function testState:draw()
                 love.graphics.rectangle("line", world:getRect(items[i]))
             end
             -- draw attack hitboxes
-            love.graphics.setColor(0, 255, 0, 250)
+            love.graphics.setColor(0, 255, 0, 150)
             for i = 1, #attackHitBoxes do
                 local a = attackHitBoxes[i]
                 --print("fill", a.x, a.y, a.w, a.h )
-                love.graphics.rectangle("fill", a.x, a.y, a.w, a.h )
+                love.graphics.rectangle("line", a.x, a.y, a.w, a.h )
             end
             attackHitBoxes = {}
         end
@@ -121,7 +121,8 @@ function testState:keypressed(k, unicode)
     end
 
     if k == 'return' then
-       player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, horizontal = -player2.horizontal, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
+       player.hurt = {source = player2, damage = 1.5, velx = player2.velx+10, vely = player2.vely+10,
+           horizontal = -player.horizontal, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
     end
 end
 
