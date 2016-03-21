@@ -104,9 +104,13 @@ function Player:onHurt()
         end
     else
         -- fall
-        h = nil
         self.z = self.z + 1
         self.velz = 120
+        if h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown"
+        then
+            self.velx = 120
+        end
+        h = nil
         self:setState(self.fall)
     end
 end
@@ -793,7 +797,7 @@ function Player:jumpAttackStillUp_update(dt)
 		return
 	end
 	if self.z > 10 then
-		self:checkAndAttack(20,0, 20,12)
+		self:checkAndAttack(20,0, 30,12)
 	end
 	self:checkCollisionAndMove(dt)
 	--end
@@ -818,7 +822,7 @@ function Player:jumpAttackStillDown_update(dt)
 		return
 	end
 	if self.z > 10 then
-		self:checkAndAttack(20,0, 20,12)
+		self:checkAndAttack(20,0, 30,12)
 	end
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
