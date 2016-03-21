@@ -97,11 +97,15 @@ function testState:draw()
         --foreground:draw(l, t, w, h)
 
         -- draw HP bars
-        love.graphics.setColor(0, 50, 50, 255)
+        love.graphics.setColor(0, 50, 50, 200)
         love.graphics.rectangle("fill", l+16, t+16, 100, 8 )
-        love.graphics.setColor(255, 80, 80, 255)
+            love.graphics.rectangle("fill", l+204, t+16, 100, 8 )
+        love.graphics.setColor(255, 80, 80, 200)
         if player.hp > 0 then
             love.graphics.rectangle("fill", l+17, t+17, (player.hp*10)-2, 6 )
+        end
+        if player2.hp > 0 then
+            love.graphics.rectangle("fill", l+205, t+17, (player2.hp*10)-2, 6 )
         end
     end)
     if DEBUG then
