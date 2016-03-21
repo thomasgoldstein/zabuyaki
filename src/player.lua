@@ -81,26 +81,34 @@ end
 
 function Player:onHurt()
 	-- hurt = {source, damage, velx,vely,x,y,z}
-	self.hurt.damage = self.hurt.damage or 0
-	print(self.hurt.source.name .. " damaged "..self.name.." by "..self.hurt.damage)
+    local h = self.hurt
+    h.damage = h.damage or 0
+	print(h.source.name .. " damaged "..self.name.." by "..h.damage)
 
-	self.hp = self.hp - self.hurt.damage
+	self.hp = self.hp - h.damage
 
 	-- calc falling traectory
-	self.velx = self.hurt.velx
-	self.vely = self.hurt.vely
-	self.horizontal = self.hurt.horizontal
+	self.velx = h.velx
+	self.vely = h.vely
+	self.horizontal = h.horizontal
 
-	if self.z > 1 then
-		--free hurt data
-		self.hurt = nil
-		self.z = self.z + 8
-		self:setState(self.fall)
-	elseif self.hurt.z > 30 then
-		self:setState(self.hurtFace)
-	else
-		self:setState(self.hurtStomach)
-	end
+    if h.state == "combo"
+            or h.state == "jumpAttackWeakUp"
+            or h.state == "jumpAttackWeakDown"
+    then
+        -- face / stomach hurt
+        if h.z > 30 then
+            self:setState(self.hurtFace)
+        else
+            self:setState(self.hurtStomach)
+        end
+    else
+        -- fall
+        h = nil
+        self.z = self.z + 1
+        self.velz = 120
+        self:setState(self.fall)
+    end
 end
 
 function Player:drawShadow(l,t,w,h)
@@ -200,7 +208,6 @@ function Player:stand_start()
 		self.cool_down = 0
 	end
 end
-
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
 
@@ -238,7 +245,6 @@ function Player:stand_update(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Player.stand = {name = "stand", start = Player.stand_start, exit = nop, update = Player.stand_update, draw = Player.default_draw}
-
 
 function Player:walk_start()
 --	print (self.name.." - walk start")
@@ -320,7 +326,6 @@ function Player:walk_update(dt)
 end
 Player.walk = {name = "walk", start = Player.walk_start, exit = nop, update = Player.walk_update, draw = Player.default_draw}
 
-
 function Player:run_start()
 --	print (self.name.." - run start")
 	self.sprite.curr_frame = 1
@@ -385,7 +390,6 @@ function Player:run_update(dt)
 end
 Player.run = {name = "run", start = Player.run_start, exit = nop, update = Player.run_update, draw = Player.default_draw}
 
-
 function Player:jumpUp_start()
 --	print (self.name.." - jumpUp start")
 	self.sprite.curr_frame = 1
@@ -444,7 +448,6 @@ function Player:jumpUp_update(dt)
 end
 Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = nop, update = Player.jumpUp_update, draw = Player.default_draw}
 
-
 function Player:jumpDown_start()
 --	print (self.name.." - jumpDown start")
 	self.sprite.curr_frame = 1
@@ -482,7 +485,6 @@ function Player:jumpDown_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = nop, update = Player.jumpDown_update, draw = Player.default_draw}
-
 
 function Player:duck_start()
 --	print (self.name.." - duck start")
@@ -582,7 +584,6 @@ function Player:sideStepDown_update(dt)
 end
 Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start, exit = nop, update = Player.sideStepDown_update, draw = Player.default_draw}
 
-
 function Player:sideStepUp_start()
     --	print (self.name.." - sideStepUp start")
     self.sprite.curr_frame = 1
@@ -607,7 +608,6 @@ function Player:sideStepUp_update(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = nop, update = Player.sideStepUp_update, draw = Player.default_draw}
-
 
 function Player:combo_start()
 	--	print (self.name.." - combo start")
@@ -650,7 +650,6 @@ function Player:combo_update(dt)
 end
 Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
 
-
 function Player:dash_start()
 	--	print (self.name.." - dash start")
 	self.sprite.curr_frame = 1
@@ -675,7 +674,6 @@ function Player:dash_update(dt)
 end
 Player.dash = {name = "dash", start = Player.dash_start, exit = nop, update = Player.dash_update, draw = Player.default_draw}
 
--- --------------------------------------------------
 function Player:jumpAttackForwardUp_start()
 	--	print (self.name.." - jumpAttackForwardUp start")
 	self.sprite.curr_frame = 1
@@ -703,7 +701,6 @@ function Player:jumpAttackForwardUp_update(dt)
 end
 Player.jumpAttackForwardUp = {name = "jumpAttackForwardUp", start = Player.jumpAttackForwardUp_start, exit = nop, update = Player.jumpAttackForwardUp_update, draw = Player.default_draw}
 
-
 function Player:jumpAttackForwardDown_start()
 	--	print (self.name.." - jumpAttackForwardDown start")
 	self.sprite.curr_frame = 1
@@ -728,7 +725,6 @@ function Player:jumpAttackForwardDown_update(dt)
 end
 Player.jumpAttackForwardDown = {name = "jumpAttackForwardDown", start = Player.jumpAttackForwardDown_start, exit = nop, update = Player.jumpAttackForwardDown_update, draw = Player.default_draw}
 
--- --------------------------------------------------
 function Player:jumpAttackWeakUp_start()
 	--	print (self.name.." - jumpAttackWeakUp start")
 	self.sprite.curr_frame = 1
@@ -755,7 +751,6 @@ function Player:jumpAttackWeakUp_update(dt)
 end
 Player.jumpAttackWeakUp = {name = "jumpAttackWeakUp", start = Player.jumpAttackWeakUp_start, exit = nop, update = Player.jumpAttackWeakUp_update, draw = Player.default_draw}
 
-
 function Player:jumpAttackWeakDown_start()
 	--	print (self.name.." - jumpAttackWeakDown start")
 	self.sprite.curr_frame = 1
@@ -780,7 +775,6 @@ function Player:jumpAttackWeakDown_update(dt)
 end
 Player.jumpAttackWeakDown = {name = "jumpAttackWeakDown", start = Player.jumpAttackWeakDown_start, exit = nop, update = Player.jumpAttackWeakDown_update, draw = Player.default_draw}
 
--- --------------------------------------------------
 function Player:jumpAttackStillUp_start()
 	--	print (self.name.." - jumpAttackStillUp start")
 	self.sprite.curr_frame = 1
@@ -806,7 +800,6 @@ function Player:jumpAttackStillUp_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackStillUp = {name = "jumpAttackStillUp", start = Player.jumpAttackStillUp_start, exit = nop, update = Player.jumpAttackStillUp_update, draw = Player.default_draw}
-
 
 function Player:jumpAttackStillDown_start()
 	--	print (self.name.." - jumpAttackStillDown start")
@@ -843,7 +836,6 @@ function Player:fall_start()
     --self.velz = 150
 	TEsound.play("res/sfx/grunt2.wav")
 end
-
 function Player:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
 	if self.sprite.isLast then
@@ -869,7 +861,6 @@ function Player:fall_update(dt)
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-
 Player.fall = {name = "fall", start = Player.fall_start, exit = nop, update = Player.fall_update, draw = Player.default_draw}
 
 function Player:dead_start()
@@ -887,19 +878,12 @@ function Player:dead_start()
 	end
 	TEsound.play("res/sfx/grunt1.wav")
 end
-
 function Player:dead_update(dt)
 	--print(self.name .. " - dead update", dt)
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-
 Player.dead = {name = "dead", start = Player.dead_start, exit = nop, update = Player.dead_update, draw = Player.default_draw}
 
 return Player
-
---anim transitions
---Play sounds as states are entered or exited
---Perform certain tests (eg, ground detection) only when in appropriate states
---Activate and control special effects associated with specific states
