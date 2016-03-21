@@ -9,7 +9,7 @@ function testState:enter()
 
     playerKeyCombo = KeyCombo:new(player, button)
 
-    player2 = Player:new("Player Two", GetInstance("res/man_template.lua"), button2, 240, 180, {239,255,191, 70})
+    player2 = Player:new("Player Two", GetInstance("res/rick.lua"), button2, 240, 180, {255,255,255, 255})
 	
 	dummy0 = Player:new("Dummy0", GetInstance("res/man_template.lua"), button3, 720, 200-24, {239,191,255, 255})
 	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button3, 740, 206, {255,239,191, 255})
