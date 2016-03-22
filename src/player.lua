@@ -91,6 +91,7 @@ function Player:onHurt()
 	self.velx = h.velx
 	self.vely = h.vely
 	self.horizontal = h.horizontal
+	self.vertical = h.vertical
 
     if h.state == "combo"
             or h.state == "jumpAttackWeakUp"
@@ -175,7 +176,7 @@ function Player:checkAndAttack(l,t,w,h,z)
 	for i = 1,#items do
 		--player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
 		--print ("hit CHK "..items[i].name)
-		items[i].hurt = {source = self, state = self.state, damage = 1, velx = self.velx+10, vely = self.vely, horizontal = self.horizontal, x = self.x, y = self.y, z = z or self.z}
+		items[i].hurt = {source = self, state = self.state, damage = 1, velx = self.velx+30, vely = self.vely+10, horizontal = self.horizontal, vertical = self.vertical, x = self.x, y = self.y, z = z or self.z}
     end
 end
 
