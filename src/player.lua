@@ -17,12 +17,13 @@ end
 
 local function nop() --[[print "nop"]] end
 
-function Player:initialize(name, sprite, input, x, y, color)
+function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
 	self.name = name or "Unknown"
 	self.type = "player"
     self.hp = 10
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
+	self.ik = inputCombo
 	self.x, self.y, self.z = x, y, 0
 	self.vertical, self.horizontal, self.face = 1, 1, 1; --movement and face directions
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
@@ -265,7 +266,7 @@ function Player:walk_update(dt)
 		self.face = -1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
-		if playerKeyCombo:getLast().left then
+		if self.ik and self.ik:getLast().left then
 			self:setState(self.run)
 			return
 		end
@@ -273,7 +274,7 @@ function Player:walk_update(dt)
 		self.face = 1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
-		if playerKeyCombo:getLast().right then
+		if self.ik and self.ik:getLast().right then
 			self:setState(self.run)
 			return
 		end
@@ -281,14 +282,14 @@ function Player:walk_update(dt)
 	if self.b.up.down then
 		self.vertical = -1
 		self.vely = 50
-		if playerKeyCombo:getLast().up then
+		if self.ik and self.ik:getLast().up then
 			self:setState(self.sideStepUp)
 			return
 		end
 	elseif self.b.down.down then
 		self.vertical = 1
 		self.vely = 50
-		if playerKeyCombo:getLast().down then
+		if self.ik and self.ik:getLast().down then
 			self:setState(self.sideStepDown)
 			return
 		end
@@ -619,12 +620,12 @@ function Player:combo_update(dt)
 		self:setState(self.stand)
 		return
 	end
---[[	if self.check_mash and self.b.fire.down and playerKeyCombo:getLast().fire then
+--[[	if self.check_mash and self.b.fire.down and self.ik and self.ik:getLast().fire then
 		TEsound.play("res/sfx/attack1.wav", nil, 1)
 	end]]
 	if self.check_mash then
-		if (self.b.fire.down and playerKeyCombo:getLast().fire) then
---				or (self.b.fire.down == false and playerKeyCombo:getLast().fire ) then
+		if (self.b.fire.down and self.ik and self.ik:getLast().fire) then
+--				or (self.b.fire.down == false and self.ik and self.ik:getLast().fire ) then
 			-- attack action
 			TEsound.play("res/sfx/attack1.wav", nil, 1)
 
