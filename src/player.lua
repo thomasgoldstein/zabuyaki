@@ -24,7 +24,7 @@ function Player:initialize(name, sprite, input, x, y, color)
     self.hp = 10
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.x, self.y, self.z = x, y, 0
-	self.vertical, self.horizontal = 1, 1;
+	self.vertical, self.horizontal, self.face = 1, 1, 1; --movement and face directions
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
 	self.gravity = 650
     self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
@@ -126,7 +126,7 @@ end
 function Player:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions
 	if CheckCollision(l, t, w, h, self.x, self.y, 20, 20) then
-		self.sprite.flip_h = self.horizontal
+		self.sprite.flip_h = self.face
 		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 		DrawInstance(self.sprite, self.x, self.y - self.z)
 	end
@@ -160,8 +160,6 @@ function Player:calcFriction(dt)
 end
 
 function Player:checkAndAttack(l,t,w,h,z)
-	--self.vertical, self.horizontal = 1, 1;
-
 	local items, len = world:queryRect(self.x + self.horizontal*l - w/2, self.y + t - h/2, w, h,
 		function(item)
 			if self ~= item and item.type ~= "wall" then
@@ -169,31 +167,16 @@ function Player:checkAndAttack(l,t,w,h,z)
 				return true
 			end
 		end)
-
-	--print("items: ".. #items)
     --DEBUG to show attack hitBoxes in green
-    attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.horizontal*l - w/2, y = self.y + t - h/2, w = w, h = h }
-
+	if DEBUG then
+		--print("items: ".. #items)
+    	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.horizontal*l - w/2, y = self.y + t - h/2, w = w, h = h }
+    end
 	for i = 1,#items do
 		--player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
 		--print ("hit CHK "..items[i].name)
 		items[i].hurt = {source = self, state = self.state, damage = 1, velx = self.velx+10, vely = self.vely, horizontal = self.horizontal, x = self.x, y = self.y, z = z or self.z}
     end
-
-
-end
-
-function Player:checkCollisionAndMove_unused(dt)
-	local stepx = self.velx * dt * self.horizontal
-	local stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = world:move(self, self.x + stepx, self.y + stepy,
-		function(player, item)
-			if player ~= item then
-				return "slide"
-			end
-		end)
-	self.x = actualX
-	self.y = actualY
 end
 
 function Player:stand_start()
@@ -276,14 +259,16 @@ function Player:walk_update(dt)
 	self.velx = 0
 	self.vely = 0
 	if self.b.left.down then
-		self.horizontal = -1 --face sprite left or right
+		self.face = -1 --face sprite left or right
+		self.horizontal = self.face --X direction
 		self.velx = 100
 		if playerKeyCombo:getLast().left then
 			self:setState(self.run)
 			return
 		end
 	elseif self.b.right.down then
-		self.horizontal = 1
+		self.face = 1 --face sprite left or right
+		self.horizontal = self.face --X direction
 		self.velx = 100
 		if playerKeyCombo:getLast().right then
 			self:setState(self.run)
@@ -345,10 +330,12 @@ function Player:run_update(dt)
 	self.velx = 0
 	self.vely = 0
 	if self.b.left.down then
-		self.horizontal = -1 --face sprite left or right
+		self.face = -1 --face sprite left or right
+		self.horizontal = self.face --X direction
 		self.velx = 150
 	elseif self.b.right.down then
-		self.horizontal = 1
+		self.face = 1 --face sprite left or right
+		self.horizontal = self.face --X direction
 		self.velx = 150
 	end
 	if self.b.up.down then
