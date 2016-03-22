@@ -109,11 +109,16 @@ function Player:onHurt()
     else
         -- fall
         self.z = self.z + 1
-        self.velz = 120
+        self.velz = 220
         if h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown"
         then
-            self.velx = 120
-        end
+			if self.hp <= 0 then
+				self.velx = 120	-- dead body flies further
+			else
+            	self.velx = 60
+			end
+		end
+		self.velx = self.velx + 10 + love.math.random(10)
         h = nil
         self:setState(self.fall)
     end
