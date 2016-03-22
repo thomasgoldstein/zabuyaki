@@ -5,17 +5,14 @@ end
 
 function testState:enter()
     --create players
-    player = Player:new("Player One", GetInstance("res/man_template.lua"), button, 140, 200)
-
-    playerKeyCombo = KeyCombo:new(player, button)
-
-    player2 = Player:new("Player Two", GetInstance("res/rick.lua"), button2, 240, 180, {255,255,255, 255})
+    player = Player:new("Player One", GetInstance("res/man_template.lua"), button, playerKeyCombo, 140, 200)
+    player2 = Player:new("Player Two", GetInstance("res/rick.lua"), button2, player2KeyCombo, 240, 180, {255,255,255, 255})
 	
-	dummy0 = Player:new("Dummy0", GetInstance("res/man_template.lua"), button3, 720, 200-24, {239,191,255, 255})
-	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button3, 740, 206, {255,239,191, 255})
+	dummy0 = Player:new("Dummy0", GetInstance("res/man_template.lua"), button3, nil, 720, 200-24, {239,191,255, 255})
+	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button3, nil, 740, 206, {255,239,191, 255})
 	dummy1.sprite.flip_h = -1
-	dummy2 = Player:new("Dummy2", GetInstance("res/man_template.lua"), button3, 1140, 200-20, {191,191,255, 255})
-	dummy3 = Player:new("Dummy3", GetInstance("res/man_template.lua"), button3, 1540, 200-40, {239,191,255, 255})
+	dummy2 = Player:new("Dummy2", GetInstance("res/man_template.lua"), button3, nil, 1140, 200-20, {191,191,255, 255})
+	dummy3 = Player:new("Dummy3", GetInstance("res/man_template.lua"), button3, nil, 1540, 200-40, {239,191,255, 255})
 
 	self.entities = {player, player2, dummy0, dummy1, dummy2, dummy3}
 
@@ -37,8 +34,6 @@ function testState:enter()
 end
 
 function testState:update(dt)
-    playerKeyCombo:update(dt)
-	
 	for _,player in ipairs(self.entities) do
 		player:update(dt)
     end
