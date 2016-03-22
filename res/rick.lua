@@ -48,6 +48,87 @@ return {
 			{ q = q(187,68,35,63), ox = 17, oy = 62, duration = 0.15 }, --walk 6
 			frame_duration = 0.1
 		},
+		jumpUp = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4			frame_duration = 5
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4			frame_duration = 5
+		},
+		jumpDown = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4			frame_duration = 5
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4			frame_duration = 5
+		},
+		duck = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4			frame_duration = 0.5
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4			frame_duration = 0.5
+		},
+		dash = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 0.2
+		},
+		combo = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 62 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 61 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 60 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 59 }, --walk 4
+			frame_duration = 0.1
+		},
+		fall = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 0.2
+		},
+		dead = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 60
+		},
+		hurtFace = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 0.2
+		},
+		hurtStomach = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 0.2
+		},
+		jumpAttackForwardUp = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 5
+		},
+		jumpAttackForwardDown = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 5
+		},
+		jumpAttackWeakUp = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 5
+		},
+		jumpAttackWeakDown = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 5
+		},
+		jumpAttackStillUp = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 5
+		},
+		jumpAttackStillDown = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			frame_duration = 0.4
+		},
+		sideStepUp = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+		},
+		sideStepDown = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+		},
 	} --offsets
 
 } --return (end of file)
