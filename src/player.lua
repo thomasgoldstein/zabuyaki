@@ -109,11 +109,16 @@ function Player:onHurt()
     else
         -- fall
         self.z = self.z + 1
-        self.velz = 120
+        self.velz = 220
         if h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown"
         then
-            self.velx = 120
-        end
+			if self.hp <= 0 then
+				self.velx = 120	-- dead body flies further
+			else
+            	self.velx = 60
+			end
+		end
+		self.velx = self.velx + 10 + love.math.random(10)
         h = nil
         self:setState(self.fall)
     end
@@ -140,13 +145,13 @@ end
 function Player:checkCollisionAndMove(dt)
 	local stepx = self.velx * dt * self.horizontal
 	local stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = world:move(self, self.x + stepx - 4, self.y + stepy - 4,
+	local actualX, actualY, cols, len = world:move(self, self.x + stepx - 8, self.y + stepy - 4,
 		function(player, item)
 			if player ~= item  and item.type == "wall" then
 				return "slide"
 			end
 		end)
-	self.x = actualX + 4
+	self.x = actualX + 8
 	self.y = actualY + 4
 end
 
