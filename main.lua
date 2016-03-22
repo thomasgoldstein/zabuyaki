@@ -85,6 +85,18 @@ function love.load(arg)
 	button2.fire    = tactile.newButton(keyboardI) --mouseLeft
 	button2.jump    = tactile.newButton(keyboardO) --mouseRight
 
+	--dummie player
+	button3 = {left = {down = false, released = function() return false end},
+		right = {down = false,released = function() return false end},
+		up = {down = false,released = function() return false end},
+		down = {down = false,released = function() return false end},
+		fire = {down = false,released = function() return false end},
+		jump = {down = false,released = function() return false end},
+		update = function() end}
+
+	playerKeyCombo = KeyCombo:new(button)
+	player2KeyCombo = KeyCombo:new(button2)
+
 	--DEBUG libs
 	fancy = require "lib/fancy"	--we need this lib always
 
@@ -106,6 +118,8 @@ function love.update(dt)
 	for k, v in pairs(button2) do	-- update input
 		v:update()
 	end
+	playerKeyCombo:update(dt)
+	player2KeyCombo:update(dt)
 	TEsound.cleanup()
 end
 
