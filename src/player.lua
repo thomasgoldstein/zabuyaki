@@ -411,7 +411,8 @@ function Player:jumpUp_update(dt)
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
 	--!!!
 		if self.b.fire.down and self.can_fire then
-			if self.b.down.down then
+			if (self.b.left.down and self.face == 1)
+				or (self.b.right.down and self.face == -1) then
 				self:setState(self.jumpAttackWeakUp)
 				return
 			elseif self.velx == 0 then
@@ -448,8 +449,9 @@ end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
 	if self.b.fire.down and self.can_fire then
-		if self.b.down.down then
-			self:setState(self.jumpAttackWeakDown)
+		if (self.b.left.down and self.face == 1)
+			or (self.b.right.down and self.face == -1) then
+				self:setState(self.jumpAttackWeakDown)
 			return
 		elseif self.velx == 0 then
 			self:setState(self.jumpAttackStillDown)
