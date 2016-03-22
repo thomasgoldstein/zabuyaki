@@ -5,11 +5,11 @@ class = require "lib/middleclass"
 local KeyCombo = class("KeyCombo")
 
 -- input = {keyName = keyTrigger, ...}
-function KeyCombo:initialize(player, input)
+function KeyCombo:initialize(input)
 	self.keys = {}
 	self.curr_key = 0
 	self.max_key = 10
-	self.player = player
+	--self.player = player
 	self.input = input
 	self.elapsed_time = 0
 --	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
