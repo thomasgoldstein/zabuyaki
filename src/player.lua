@@ -145,13 +145,13 @@ end
 function Player:checkCollisionAndMove(dt)
 	local stepx = self.velx * dt * self.horizontal
 	local stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = world:move(self, self.x + stepx - 4, self.y + stepy - 4,
+	local actualX, actualY, cols, len = world:move(self, self.x + stepx - 8, self.y + stepy - 4,
 		function(player, item)
 			if player ~= item  and item.type == "wall" then
 				return "slide"
 			end
 		end)
-	self.x = actualX + 4
+	self.x = actualX + 8
 	self.y = actualY + 4
 end
 

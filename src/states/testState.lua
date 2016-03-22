@@ -21,7 +21,7 @@ function testState:enter()
 
     --adding players into collision world
     for i,pl in pairs(self.entities) do
-        world:add(pl, pl.x-4, pl.y-4, 8, 8)
+        world:add(pl, pl.x-8, pl.y-4, 16, 8)
     end
 
     --adding 1st wave of foes into collision world
