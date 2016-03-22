@@ -128,6 +128,11 @@ function testState:keypressed(k, unicode)
        player.hurt = {source = player2, damage = 1.5, velx = player2.velx+10, vely = player2.vely+10,
            horizontal = -player.horizontal, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
     end
+
+    if k == '`' then
+        DEBUG = not DEBUG
+    end
+
 end
 
 function testState:wheelmoved( dx, dy )

@@ -7,12 +7,12 @@
     Visit for more information:
     http://opensource.org/licenses/MIT
 ]]
-DEBUG = true
+DEBUG = false
 attackHitBoxes = {} -- DEBUG
 
 function love.load(arg)
-	--TODO remove in release
-	if DEBUG and arg[#arg] == "-debug" then
+	--TODO remove in release. Needed for ZeroBane Studio debugging
+	if arg[#arg] == "-debug" then
 		require("mobdebug").start()
 	end
 	love.graphics.setDefaultFilter("nearest", "nearest")
@@ -85,11 +85,9 @@ function love.load(arg)
 	button2.fire    = tactile.newButton(keyboardI) --mouseLeft
 	button2.jump    = tactile.newButton(keyboardO) --mouseRight
 
-	--require "src/level_template"
 	--DEBUG libs
-	if DEBUG then
-		fancy = require "lib/fancy"
-	end
+	fancy = require "lib/fancy"	--we need this lib always
+
 	--GameStates
 	require "src/states/testState"
 	require "src/states/gameState"
