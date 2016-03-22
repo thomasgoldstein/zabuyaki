@@ -83,7 +83,9 @@ function Player:onHurt()
 	-- hurt = {source, damage, velx,vely,x,y,z}
     local h = self.hurt
     h.damage = h.damage or 0
-	print(h.source.name .. " damaged "..self.name.." by "..h.damage)
+	if DEBUG then
+		print(h.source.name .. " damaged "..self.name.." by "..h.damage)
+	end
 
 	self.hp = self.hp - h.damage
 
@@ -862,7 +864,9 @@ function Player:dead_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "dead"
 
-	print(self.name.." is dead.")
+	if DEBUG then
+		print(self.name.." is dead.")
+	end
 	--TODO dead
 	self.hp = 0
 	self.hurt = nil
