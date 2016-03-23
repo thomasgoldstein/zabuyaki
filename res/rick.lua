@@ -79,9 +79,11 @@ return {
 			frame_duration = 0.2
 		},
 		dead = {
-			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
-			frame_duration = 60
+			{ q = q(113,67,35,54), ox = 17, oy = 53 }, --head
+			{ q = q(113,67,35,44), ox = 17, oy = 43 }, --head
+			{ q = q(113,67,35,33), ox = 17, oy = 32 }, --head
+			{ q = q(113,67,35,23), ox = 17, oy = 22,duration = 60 }, --head
+			frame_duration = 0.3
 		},
 		hurtFace = {
 			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
