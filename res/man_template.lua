@@ -98,7 +98,7 @@ return {
 			{q = q(139, 331, 60, 60), ox = 20, oy = 59}, --k4*
 			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
 			--{q = q(2, 2, 49, 62), ox = 20, oy = 61}, --stand 1 - extra frame for smooth transition to stand
-			frame_duration = 0.067
+			frame_duration = 0.085
 		},
 		punch_ = {
 			{q = q(2, 266, 56, 61), ox = 16, oy = 60}, --p1
