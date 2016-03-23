@@ -96,22 +96,15 @@ function Player:onHurt()
 	self.horizontal = h.horizontal
 	self.vertical = h.vertical
 
-    if h.state == "combo"
-            or h.state == "jumpAttackWeakUp"
-            or h.state == "jumpAttackWeakDown"
-    then
-        -- face / stomach hurt
-        if h.z > 30 then
-            self:setState(self.hurtFace)
-        else
-            self:setState(self.hurtStomach)
-        end
+    if h.type == "face" and self.hp > 0 then
+        self:setState(self.hurtFace)
+    elseif h.type == "stomach" and self.hp > 0 then
+        self:setState(self.hurtStomach)
     else
         -- fall
         self.z = self.z + 1
         self.velz = 220
-        if h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown"
-        then
+        if h.state == "combo" or h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown" then
 			if self.hp <= 0 then
 				self.velx = 120	-- dead body flies further
 			else
@@ -168,7 +161,8 @@ function Player:calcFriction(dt)
 	end
 end
 
-function Player:checkAndAttack(l,t,w,h,z)
+function Player:checkAndAttack(l,t,w,h, damage, type)
+    -- type = "face" "stomach" "fall"
 	local items, len = world:queryRect(self.x + self.horizontal*l - w/2, self.y + t - h/2, w, h,
 		function(item)
 			if self ~= item and item.type ~= "wall" then
@@ -184,7 +178,7 @@ function Player:checkAndAttack(l,t,w,h,z)
 	for i = 1,#items do
 		--player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
 		--print ("hit CHK "..items[i].name)
-		items[i].hurt = {source = self, state = self.state, damage = 1, velx = self.velx+30, vely = self.vely+10, horizontal = self.horizontal, vertical = self.vertical, x = self.x, y = self.y, z = z or self.z}
+		items[i].hurt = {source = self, state = self.state, damage = damage, type = type, velx = self.velx+30, vely = self.vely+10, horizontal = self.horizontal, vertical = self.vertical, x = self.x, y = self.y, z = z or self.z}
     end
 end
 
@@ -616,28 +610,38 @@ function Player:combo_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "combo"
 	self.sprite.loop_count = 0
+
 	self.check_mash = true
     self.n_combo = 2
+    self.n_hits = 0
 end
 function Player:combo_update(dt)
 	if self.sprite.isLast then
+        self.n_hits = 0 --TODO not needed
 		self:setState(self.stand)
 		return
 	end
 	if self.check_mash then
         if self.n_combo > 1 then
+            self.n_hits = self.n_hits + 1
             if DEBUG then
 			    TEsound.play("res/sfx/hit3.wav", nil, 1)
             else
 				TEsound.play("res/sfx/attack1.wav", nil, 1)
             end
-			self:checkAndAttack(20,0, 20,12, love.math.random(10,40))
-
+            if self.n_hits > 4 then
+                self:checkAndAttack(20,0, 20,12, 1, "fall")
+            elseif love.math.random(0,1) == 1 then
+			    self:checkAndAttack(20,0, 20,12, 1, "face")
+            else
+			    self:checkAndAttack(20,0, 20,12, 1, "stomach")
+            end
 			self.check_mash = false
             self.n_combo = 0
-		else
+        else
 			-- key mashing stopped
-			self:setState(self.stand)
+            self.n_hits = 0 --TODO not needed
+            self:setState(self.stand)
 			return
 		end
 	else
@@ -674,8 +678,8 @@ function Player:dash_update(dt)
 		self.velz = self.velz / 2
 		self:setState(self.jumpDown)
 		return
-	end
-	self:checkAndAttack(20,0, 20,12)
+    end
+    self:checkAndAttack(20,0, 20,12, 3, "fall")
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -699,9 +703,7 @@ function Player:jumpAttackForwardUp_update(dt)
 		return
 	end
 
-	if self.z > 10 then
-		self:checkAndAttack(20,0, 20,12)
-	end
+    self:checkAndAttack(20,0, 20,12, 2, "fall")
 	self:checkCollisionAndMove(dt)
 	--end
 	UpdateInstance(self.sprite, dt, self)
@@ -724,9 +726,7 @@ function Player:jumpAttackForwardDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	if self.z > 10 then
-		self:checkAndAttack(20,0, 20,12)
-	end
+    self:checkAndAttack(20,0, 20,12, 2, "fall")
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -749,9 +749,11 @@ function Player:jumpAttackWeakUp_update(dt)
 		self:setState(self.jumpAttackWeakDown)
 		return
 	end
-	if self.z > 10 then
-		self:checkAndAttack(20,0, 20,12)
-	end
+    if self.z > 30 then
+        self:checkAndAttack(20,0, 20,12, 1.1, "face")
+    elseif self.z > 10 then
+        self:checkAndAttack(20,0, 20,12, 1.1, "stomach")
+    end
 	self:checkCollisionAndMove(dt)
 	--end
 	UpdateInstance(self.sprite, dt, self)
@@ -774,9 +776,11 @@ function Player:jumpAttackWeakDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	if self.z > 10 then
-		self:checkAndAttack(20,0, 20,12)
-	end
+    if self.z > 30 then
+        self:checkAndAttack(20,0, 20,12, 1.1, "face")
+    elseif self.z > 10 then
+        self:checkAndAttack(20,0, 20,12, 1.1, "stomach")
+    end
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -799,9 +803,7 @@ function Player:jumpAttackStillUp_update(dt)
 		self:setState(self.jumpAttackStillDown)
 		return
 	end
-	if self.z > 10 then
-		self:checkAndAttack(20,0, 30,12)
-	end
+    self:checkAndAttack(20,0, 20,12, 1.3, "fall")
 	self:checkCollisionAndMove(dt)
 	--end
 	UpdateInstance(self.sprite, dt, self)
@@ -824,9 +826,7 @@ function Player:jumpAttackStillDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	if self.z > 10 then
-		self:checkAndAttack(20,0, 30,12)
-	end
+    self:checkAndAttack(20,0, 20,12, 1.3, "fall")
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
