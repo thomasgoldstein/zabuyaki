@@ -126,16 +126,16 @@ end
 
 function Player:drawShadow(l,t,w,h)
 	--TODO adjust sprite dimensions
-	if CheckCollision(l, t, w, h, self.x, self.y, 20, 20) then
+	if CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
 		love.graphics.setColor(0, 0, 0, 200)
 		love.graphics.ellipse("fill", self.x, self.y, 18 - self.z/16, 6 - self.z/32)
 	end
 end
 
 function Player:default_draw(l,t,w,h)
-	--TODO adjust sprite dimensions
-	if CheckCollision(l, t, w, h, self.x, self.y, 20, 20) then
-		self.sprite.flip_h = self.face
+	--TODO adjust sprite dimensions.
+	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
+		self.sprite.flip_h = self.face  --TODO get rid of .face
 		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 		DrawInstance(self.sprite, self.x, self.y - self.z)
 	end
