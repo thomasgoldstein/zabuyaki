@@ -127,7 +127,7 @@ function testState:keypressed(k, unicode)
            horizontal = -player.horizontal, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
     end
 
-    if k == '`' then
+    if k == '0' then
         DEBUG = not DEBUG
     end
 
