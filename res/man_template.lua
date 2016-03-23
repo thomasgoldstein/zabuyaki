@@ -86,17 +86,18 @@ return {
 			{q = q(2, 2, 49, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --stand 1
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(60, 265, 51, 62), ox = 20, oy = 61}, --p2
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61}, --stand 1
-			{q = q(113, 265, 42, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --p3
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --stand 1
+			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
 			{q = q(157, 265, 51, 62), ox = 20, oy = 61}, --p4 *
 			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61}, --stand 1
-			{q = q(2, 329, 33, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --k1
-			{q = q(37, 329, 52, 62), ox = 20, oy = 61}, --k2 *
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --stand 1
 			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
-			{q = q(91, 330, 46, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end}, --k3
+			{q = q(37, 329, 52, 62), ox = 20, oy = 61}, --k2 *
+			{q = q(2, 329, 33, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --k1
+			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
 			{q = q(139, 331, 60, 60), ox = 20, oy = 59}, --k4*
 			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61}, --stand 1 - extra frame for smooth transition to stand
 			frame_duration = 0.1
 		},
 		punch_ = {
@@ -121,7 +122,7 @@ return {
 		},
 		fall = {
 			{q = q(2, 393, 53, 58), ox = 26, oy = 57, duration = 0.5},
-			{q = q(57, 416, 76, 35), ox = 38, oy = 34, duration = 1},
+			{q = q(57, 416, 76, 34), ox = 38, oy = 33, duration = 1},
 			{q = q(135, 404, 62, 47), ox = 31, oy = 46},
 			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2
 			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2 (we dont draw it, need it for check for last frame)
@@ -129,7 +130,7 @@ return {
 		},
 		dead = {
 			{q = q(135, 404, 62, 47), ox = 31, oy = 46, duration = 1},
-			{q = q(57, 416, 76, 35), ox = 38, oy = 34},
+			{q = q(57, 416, 76, 34), ox = 38, oy = 33},
 			frame_duration = 60
 		},
 		hurtFace = {
