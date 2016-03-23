@@ -190,12 +190,10 @@ end
 
 function Player:stand_start()
 --	print (self.name.." - stand start")
+	--self.sprite.elapsed_time = 1000
 	self.sprite.curr_frame = 1
-	self.z = 0
-	if not self.sprite.curr_anim then
-		self.sprite.curr_anim = "stand"
-	end
-	--self.velx = 0
+--	self.z = 0
+	self.sprite.curr_anim = "stand"
 	self.can_jump = false
 	self.can_fire = false
 	if self.last_state == "combo" then
@@ -206,11 +204,9 @@ function Player:stand_start()
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
-
 	if self.cool_down > 0 then
 		self.cool_down = self.cool_down - dt
 	end
-
 	if self.cool_down <= 0 and
 			(self.b.left.down or
 			self.b.right.down or
@@ -223,8 +219,12 @@ function Player:stand_update(dt)
 		self:setState(self.jumpUp)
 		return
 	elseif self.b.fire.down and self.can_fire then
-		self:setState(self.combo)
-		return
+		if self.cool_down > 0 then
+			--self.cool_down = self.cool_down - dt
+		else
+			self:setState(self.combo)
+			return
+		end
 	else
 		self.sprite.curr_anim = "stand" -- to prevent flashing frame after duck
 	end
@@ -616,27 +616,25 @@ function Player:combo_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "combo"
 	self.sprite.loop_count = 0
-	self.velx, self.vely = 0, 0
 	self.check_mash = true
-	--TEsound.play("res/sfx/jump.wav")
+    self.n_combo = 2
 end
 function Player:combo_update(dt)
-	if self.sprite.loop_count > 0 then
+	if self.sprite.isLast then
 		self:setState(self.stand)
 		return
 	end
---[[	if self.check_mash and self.b.fire.down and self.ik and self.ik:getLast().fire then
-		TEsound.play("res/sfx/attack1.wav", nil, 1)
-	end]]
 	if self.check_mash then
-		if (self.b.fire.down and self.ik and self.ik:getLast().fire) then
---				or (self.b.fire.down == false and self.ik and self.ik:getLast().fire ) then
-			-- attack action
-			TEsound.play("res/sfx/attack1.wav", nil, 1)
-
+        if self.n_combo > 1 then
+            if DEBUG then
+			    TEsound.play("res/sfx/hit3.wav", nil, 1)
+            else
+				TEsound.play("res/sfx/attack1.wav", nil, 1)
+            end
 			self:checkAndAttack(20,0, 20,12, love.math.random(10,40))
 
 			self.check_mash = false
+            self.n_combo = 0
 		else
 			-- key mashing stopped
 			self:setState(self.stand)
@@ -644,7 +642,14 @@ function Player:combo_update(dt)
 		end
 	else
 		self.check_mash = false
+    end
+	--button should be released and pressed between combo attacks
+    if not self.b.fire.down and self.n_combo == 0 then
+        self.n_combo = 1
+	elseif self.b.fire.down and self.n_combo == 1 then
+		self.n_combo = 2
 	end
+
 	self:checkHurt()
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
