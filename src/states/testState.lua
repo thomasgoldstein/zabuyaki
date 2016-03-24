@@ -47,12 +47,14 @@ function testState:update(dt)
     if DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
         fancy.watch("Player state: ",player.state, 1)
-        if player.n_hits then
-            fancy.watch("N Hits: ",player.n_hits, 3)
+        if player.n_combo then
+            fancy.watch("N Combo: ",player.n_combo, 3)
         end
+        fancy.watch("CD Combo: ",player.cool_down_combo, 2)
+        fancy.watch("Cool Down: ",player.cool_down, 2)
         fancy.watch("Velocity Z: ",player.velz, 2)
-        fancy.watch("Z: ",player.z, 3)
         fancy.watch("Velocity X: ",player.velx, 2)
+        fancy.watch("Z: ",player.z, 3)
 --	print( playerKeyCombo:getLast(), playerKeyCombo:getPrev())
 --	fancy.watch("kkl ", playerKeyCombo:getLast() or "NA", 3)
 --	fancy.watch("kkp ", playerKeyCombo:getPrev() or "NA" , 3)
