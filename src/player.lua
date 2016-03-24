@@ -34,7 +34,9 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.state = "nop"
 	self.prev_state = "" -- text name
 	self.last_state = "" -- text name
+	self.n_combo = 1
 	self.cool_down = 0
+	self.cool_down_combo = 0
 
 	if color then
 		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
@@ -89,6 +91,7 @@ function Player:onHurt()
 	end
 
 	self.hp = self.hp - h.damage
+	self.n_combo = 1	--if u get hit reset combo chain
 
 	-- calc falling traectory
 	self.velx = h.velx
@@ -185,22 +188,20 @@ end
 
 function Player:stand_start()
 --	print (self.name.." - stand start")
-	--self.sprite.elapsed_time = 1000
 	self.sprite.curr_frame = 1
---	self.z = 0
 	self.sprite.curr_anim = "stand"
 	self.can_jump = false
 	self.can_fire = false
-	if self.last_state == "combo" then
-		self.cool_down = 0.2 --you cant insta move after any attack
-	else
-		self.cool_down = 0
-	end
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
 	if self.cool_down > 0 then
 		self.cool_down = self.cool_down - dt
+	end
+	if self.cool_down_combo > 0 then
+		self.cool_down_combo = self.cool_down_combo - dt
+	else
+		self.n_combo = 1
 	end
 	if self.cool_down <= 0 and
 			(self.b.left.down or
@@ -214,9 +215,7 @@ function Player:stand_update(dt)
 		self:setState(self.jumpUp)
 		return
 	elseif self.b.fire.down and self.can_fire then
-		if self.cool_down > 0 then
-			--self.cool_down = self.cool_down - dt
-		else
+		if self.cool_down <= 0 then
 			self:setState(self.combo)
 			return
 		end
@@ -241,15 +240,15 @@ function Player:walk_start()
 --	print (self.name.." - walk start")
 	self.sprite.curr_frame = 1
 	self.sprite.loop_count = 0
-	--self.velx, self.vely = 100, 50
 	self.prev_frame = 0
 	self.can_jump = false
 	self.can_fire = false
-	--self.can_walk = false
-	if not self.sprite.curr_anim then
-		self.sprite.curr_anim = "walk"
+
+	self.n_combo = 1	--if u move reset combo chain
+--	if not self.sprite.curr_anim then
+--		self.sprite.curr_anim = "walk"
 		-- to prevent flashing 1 frame transition (when u instantly enter another stite)
-	end
+--	end
 end
 function Player:walk_update(dt)
 	--	print (self.name.." - walk update",dt)
@@ -327,7 +326,6 @@ function Player:run_start()
 	self.prev_frame = 0
 	self.can_jump = false
 	self.can_fire = false
-	--self.velx, self.vely = 150, 25
 end
 function Player:run_update(dt)
 	--	print (self.name.." - run update",dt)
@@ -390,7 +388,6 @@ function Player:jumpUp_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpUp"
 	self.velz = 270;
-
 	if self.b.up.down then
 		self.vertical = -1
 	elseif self.b.down.down then
@@ -412,7 +409,6 @@ end
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
 	if self.sprite.curr_frame > 1 then -- should make duck before jumping
-	--!!!
 		if self.b.fire.down and self.can_fire then
 			if (self.b.left.down and self.face == 1)
 				or (self.b.right.down and self.face == -1) then
@@ -464,7 +460,6 @@ function Player:jumpDown_update(dt)
 			return
 		end
 	end
-
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
 		self.velz = self.velz - self.gravity * dt;
@@ -509,7 +504,6 @@ function Player:hurtFace_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "hurtFace"
 	self.sprite.loop_count = 0
-	--self.z = 0
     TEsound.play("res/sfx/grunt4.wav", nil, 1)
 end
 function Player:hurtFace_update(dt)
@@ -535,7 +529,6 @@ function Player:hurtStomach_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "hurtStomach"
 	self.sprite.loop_count = 0
-	--self.z = 0
     TEsound.play("res/sfx/grunt3.wav", nil, 1)
 end
 function Player:hurtStomach_update(dt)
@@ -606,62 +599,6 @@ function Player:sideStepUp_update(dt)
 end
 Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = nop, update = Player.sideStepUp_update, draw = Player.default_draw}
 
-function Player:combo_start()
-	--	print (self.name.." - combo start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "combo"
-	self.sprite.loop_count = 0
-
-	self.check_mash = true
-    self.n_combo = 2
-    self.n_hits = 0
-end
-function Player:combo_update(dt)
-	if self.sprite.isLast then
-        self.n_hits = 0 --TODO not needed
-		self:setState(self.stand)
-		return
-	end
-	if self.check_mash then
-        if self.n_combo > 1 then
-            self.n_hits = self.n_hits + 1
-            if DEBUG then
-			    TEsound.play("res/sfx/hit3.wav", nil, 1)
-            else
-				TEsound.play("res/sfx/attack1.wav", nil, 1)
-            end
-            if self.n_hits > 4 then
-                self:checkAndAttack(20,0, 20,12, 1, "fall")
-            elseif love.math.random(0,1) == 1 then
-			    self:checkAndAttack(20,0, 20,12, 1, "face")
-            else
-			    self:checkAndAttack(20,0, 20,12, 1, "stomach")
-            end
-			self.check_mash = false
-            self.n_combo = 0
-        else
-			-- key mashing stopped
-            self.n_hits = 0 --TODO not needed
-            self:setState(self.stand)
-			return
-		end
-	else
-		self.check_mash = false
-    end
-	--button should be released and pressed between combo attacks
-    if not self.b.fire.down and self.n_combo == 0 then
-        self.n_combo = 1
-	elseif self.b.fire.down and self.n_combo == 1 then
-		self.n_combo = 2
-	end
-
-	self:checkHurt()
-	self:calcFriction(dt)
-	self:checkCollisionAndMove(dt)
-	UpdateInstance(self.sprite, dt, self)
-end
-Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
-
 function Player:dash_start()
 	--	print (self.name.." - dash start")
 	self.sprite.curr_frame = 1
@@ -690,11 +627,9 @@ function Player:jumpAttackForwardUp_start()
 	--	print (self.name.." - jumpAttackForwardUp start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpAttackForwardUp"
-	--TEsound.play("res/sfx/jump.wav")
 end
 function Player:jumpAttackForwardUp_update(dt)
 	--	print (self.name.." - jumpAttackForwardUp update",dt)
-	--if self.sprite.curr_frame > 1 then -- should make duck before jumping
 	if self.z < self.jumpHeight then
 		self.z = self.z + dt * self.velz
 		self.velz = self.velz - self.gravity * dt
@@ -703,10 +638,8 @@ function Player:jumpAttackForwardUp_update(dt)
 		self:setState(self.jumpAttackForwardDown)
 		return
 	end
-
     self:checkAndAttack(20,0, 20,12, 2, "fall")
 	self:checkCollisionAndMove(dt)
-	--end
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackForwardUp = {name = "jumpAttackForwardUp", start = Player.jumpAttackForwardUp_start, exit = nop, update = Player.jumpAttackForwardUp_update, draw = Player.default_draw}
@@ -737,11 +670,9 @@ function Player:jumpAttackWeakUp_start()
 	--	print (self.name.." - jumpAttackWeakUp start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpAttackWeakUp"
-	--TEsound.play("res/sfx/jump.wav")
 end
 function Player:jumpAttackWeakUp_update(dt)
 	--	print (self.name.." - jumpAttackWeakUp update",dt)
-	--if self.sprite.curr_frame > 1 then -- should make duck before jumping
 	if self.z < self.jumpHeight then
 		self.z = self.z + dt * self.velz
 		self.velz = self.velz - self.gravity * dt
@@ -756,7 +687,6 @@ function Player:jumpAttackWeakUp_update(dt)
         self:checkAndAttack(20,0, 20,12, 1.1, "stomach")
     end
 	self:checkCollisionAndMove(dt)
-	--end
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackWeakUp = {name = "jumpAttackWeakUp", start = Player.jumpAttackWeakUp_start, exit = nop, update = Player.jumpAttackWeakUp_update, draw = Player.default_draw}
@@ -791,11 +721,9 @@ function Player:jumpAttackStillUp_start()
 	--	print (self.name.." - jumpAttackStillUp start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "jumpAttackStillUp"
-	--TEsound.play("res/sfx/jump.wav")
 end
 function Player:jumpAttackStillUp_update(dt)
 	--	print (self.name.." - jumpAttackStillUp update",dt)
-	--if self.sprite.curr_frame > 1 then -- should make duck before jumping
 	if self.z < self.jumpHeight then
 		self.z = self.z + dt * self.velz
 		self.velz = self.velz - self.gravity * dt
@@ -806,7 +734,6 @@ function Player:jumpAttackStillUp_update(dt)
 	end
     self:checkAndAttack(20,0, 20,12, 1.3, "fall")
 	self:checkCollisionAndMove(dt)
-	--end
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackStillUp = {name = "jumpAttackStillUp", start = Player.jumpAttackStillUp_start, exit = nop, update = Player.jumpAttackStillUp_update, draw = Player.default_draw}
@@ -837,11 +764,9 @@ function Player:fall_start()
     --print (self.name.." - fall start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "fall"
-
 	if self.z <= 0 then
 		self.z = 0
     end
-    --self.velz = 150
 	TEsound.play("res/sfx/grunt2.wav")
 end
 function Player:fall_update(dt)
@@ -875,14 +800,12 @@ function Player:dead_start()
 	--print (self.name.." - dead start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "dead"
-
 	if DEBUG then
 		print(self.name.." is dead.")
 	end
-	--TODO dead
+	--TODO dead event
 	self.hp = 0
 	self.hurt = nil
-
 	if self.z <= 0 then
 		self.z = 0
 	end
@@ -895,5 +818,65 @@ function Player:dead_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.dead = {name = "dead", start = Player.dead_start, exit = nop, update = Player.dead_update, draw = Player.default_draw}
+
+function Player:combo_start()
+	--	print (self.name.." - combo start")
+	if self.n_combo > 5 then
+		self.n_combo = 1
+	end
+	self.sprite.curr_frame = 1
+	self.sprite.loop_count = 0
+
+	if self.n_combo == 1 or self.n_combo == 2 then
+		self.sprite.curr_anim = "combo12"
+	elseif self.n_combo == 3 then
+		self.sprite.curr_anim = "combo3"
+	elseif self.n_combo == 4 then
+		self.sprite.curr_anim = "combo4"
+	elseif self.n_combo == 5 then
+		self.sprite.curr_anim = "combo5"
+	else
+		self.sprite.curr_anim = "dead"	--TODO remove after debug
+	end
+	self.check_mash = false
+
+	self.cool_down = 0.1
+end
+function Player:combo_update(dt)
+	if self.sprite.loop_count > 0 then
+		self.n_combo = self.n_combo + 1
+		if self.n_combo > 5 then
+			self.n_combo = 1
+		end
+		self:setState(self.stand)
+		return
+	end
+	if self.check_mash then
+		if DEBUG then
+			TEsound.play("res/sfx/hit3.wav", nil, 1)
+		else
+			TEsound.play("res/sfx/attack1.wav", nil, 1)
+		end
+		if self.n_combo == 3 then
+			self:checkAndAttack(20,0, 20,12, 1, "stomach")
+			self.cool_down_combo = 1
+		elseif self.n_combo == 4 then
+			self:checkAndAttack(20,0, 20,12, 1, "face")
+			self.cool_down_combo = 1
+		elseif self.n_combo == 5 then
+			self:checkAndAttack(20,0, 20,12, 1, "fall")
+			self.cool_down_combo = 1
+		else -- self.n_combo == 1 or 2
+			self:checkAndAttack(20,0, 20,12, 1, "face")
+			self.cool_down_combo = 1
+		end
+		self.check_mash = false
+	end
+	self:checkHurt()
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
 
 return Player
