@@ -510,7 +510,7 @@ function Player:hurtFace_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "hurtFace"
 	self.sprite.loop_count = 0
-    TEsound.play("res/sfx/grunt4.wav", nil, 1)
+	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
 function Player:hurtFace_update(dt)
 	--	print (self.name.." - hurtFace update",dt)
@@ -534,7 +534,7 @@ function Player:hurtStomach_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "hurtStomach"
 	self.sprite.loop_count = 0
-    TEsound.play("res/sfx/grunt3.wav", nil, 1)
+	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
 function Player:hurtStomach_update(dt)
 	--	print (self.name.." - hurtStomach update",dt)
@@ -778,7 +778,7 @@ function Player:fall_start()
 	if self.z <= 0 then
 		self.z = 0
 	end
-	TEsound.play("res/sfx/grunt2.wav")
+	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
 function Player:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
@@ -863,11 +863,7 @@ function Player:combo_update(dt)
 		return
 	end
 	if self.check_mash then
-		if DEBUG then
-			TEsound.play("res/sfx/hit3.wav", nil, 1)
-		else
-			TEsound.play("res/sfx/attack1.wav", nil, 1)
-		end
+		TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 		if self.n_combo == 3 then
 			self:checkAndAttack(20,0, 20,12, 1, "stomach")
 			self.cool_down_combo = 1
