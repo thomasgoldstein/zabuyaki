@@ -17,6 +17,8 @@ end
 
 local function nop() --[[print "nop"]] end
 
+GLOBAL_PLAYER_ID = 0
+
 function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
 	self.name = name or "Unknown"
@@ -53,6 +55,9 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.update = nop
 	self.start = nop
 	self.exit = nop
+
+	self.id = GLOBAL_PLAYER_ID --to stop Y coord sprites flickering
+	GLOBAL_PLAYER_ID = GLOBAL_PLAYER_ID + 1
 	
 	self:setState(Player.stand)
 end
