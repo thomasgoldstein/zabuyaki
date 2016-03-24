@@ -103,28 +103,26 @@ return {
 		combo12 = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end, delay = 0.1}, --p1 *
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
---			{q = q(60, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --p2
---			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60, delay = 0.2}, --p1 *
 			frame_duration = 0.05
 		},
 		combo3 = {
 			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
-			{q = q(157, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --p4 *
-			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
-			frame_duration = 0.1
+			{q = q(157, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, delay = 0.2}, --p4 *
+			{q = q(113, 265, 42, 62), ox = 20, oy = 61, delay = 0.2}, --p3
+			frame_duration = 0.05
 		},
 		combo4 = {
 			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
-			{q = q(37, 329, 52, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --k2 *
-			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
-			frame_duration = 0.1
+			{q = q(37, 329, 52, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, delay = 0.2}, --k2 *
+			{q = q(2, 329, 33, 62), ox = 20, oy = 61, delay = 0.2}, --k1
+			frame_duration = 0.05
 		},
 		combo5 = {
 			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
-			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end}, --k4*
-			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
-			frame_duration = 0.1
+			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, delay = 0.2}, --k4*
+			{q = q(91, 330, 46, 61), ox = 20, oy = 60, delay = 0.2}, --k3
+			frame_duration = 0.05
 		},
 		punch_ = {
 			{q = q(2, 266, 56, 61), ox = 16, oy = 60}, --p1
@@ -160,16 +158,16 @@ return {
 			frame_duration = 60
 		},
 		hurtFace = {
-			{q = q(2, 453, 49, 62), ox = 24, oy = 61}, --hf1
+			{q = q(2, 453, 49, 62), ox = 24, oy = 61, delay = 0.05}, --hf1
 			{q = q(53, 454, 50, 61), ox = 22, oy = 60}, --hf2
 			{q = q(2, 453, 49, 62), ox = 24, oy = 61}, --hf1
-			frame_duration = 0.2
+			frame_duration = 0.1
 		},
 		hurtStomach = {
-			{q = q(105, 454, 41, 61), ox = 20, oy = 60}, --hs1
+			{q = q(105, 454, 41, 61), ox = 20, oy = 60, delay = 0.05}, --hs1
 			{q = q(148, 456, 36, 59), ox = 18, oy = 58}, --hs2
 			{q = q(105, 454, 41, 61), ox = 20, oy = 60}, --hs1
-			frame_duration = 0.2
+			frame_duration = 0.1
 		},
 		jumpAttackForward_ = {
 			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
