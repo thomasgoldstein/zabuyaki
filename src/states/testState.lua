@@ -8,8 +8,8 @@ function testState:enter()
     player = Player:new("Player One", GetInstance("res/man_template.lua"), button, playerKeyCombo, 140, 200)
     player2 = Player:new("Player Two", GetInstance("res/rick.lua"), button2, player2KeyCombo, 90, 180, {255,255,255, 255})
 	
-	dummy0 = Player:new("Dummy0", GetInstance("res/man_template.lua"), button3, nil, 420, 200-24, {239,191,255, 255})
-	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button3, nil, 540, 206, {255,239,191, 255})
+	dummy0 = Player:new("Dummy0", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 420, 200-24, {239,191,255, 255})
+	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 540, 206, {255,239,191, 255})
 	dummy1.sprite.flip_h = -1
 	dummy2 = Player:new("Dummy2", GetInstance("res/man_template.lua"), button3, nil, 640, 200-20, {191,191,255, 255})
 	dummy3 = Player:new("Dummy3", GetInstance("res/man_template.lua"), button3, nil, 740, 200-40, {239,191,255, 255})
