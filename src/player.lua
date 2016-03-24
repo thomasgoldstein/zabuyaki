@@ -105,6 +105,7 @@ function Player:onHurt()
 	self.vertical = h.vertical
 	self.face = -h.source.face
 
+	self.hurt = nil --free hurt data
     if h.type == "face" and self.hp > 0 then
         self:setState(self.hurtFace)
     elseif h.type == "stomach" and self.hp > 0 then
@@ -121,7 +122,6 @@ function Player:onHurt()
 			end
 		end
 		self.velx = self.velx + 10 + love.math.random(10)
-        h = nil
         self:setState(self.fall)
     end
 end
@@ -489,7 +489,7 @@ function Player:duck_start()
 	self.sprite.curr_anim = "duck"
 	self.sprite.loop_count = 0
 	--TODO should I reset hurt here?
-	self.hurt = nil
+	self.hurt = nil --free hurt data
 	self.z = 0;
 end
 function Player:duck_update(dt)
@@ -500,6 +500,7 @@ function Player:duck_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
+	--self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
@@ -514,8 +515,6 @@ end
 function Player:hurtFace_update(dt)
 	--	print (self.name.." - hurtFace update",dt)
 	if self.sprite.loop_count > 0 then
-		--free hurt data
-		self.hurt = nil
 		if self.hp <= 0 then
 			self:setState(self.dead)
 			return
@@ -525,6 +524,7 @@ function Player:hurtFace_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.hurtFace = {name = "hurtFace", start = Player.hurtFace_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
@@ -539,8 +539,6 @@ end
 function Player:hurtStomach_update(dt)
 	--	print (self.name.." - hurtStomach update",dt)
 	if self.sprite.loop_count > 0 then
-		--free hurt data
-		self.hurt = nil
 		if self.hp <= 0 then
 			self:setState(self.dead)
 			return
@@ -550,6 +548,7 @@ function Player:hurtStomach_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.hurtStomach = {name = "hurtStomach", start = Player.hurtStomach_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
@@ -619,6 +618,7 @@ function Player:dash_update(dt)
 		self.velz = self.velz - 5 * dt;
 	else
 		self.velz = self.velz / 2
+		--TODO what about hurt immunity?
 		self:setState(self.jumpDown)
 		return
     end
@@ -645,6 +645,7 @@ function Player:jumpAttackForwardUp_update(dt)
 	end
     self:checkAndAttack(20,0, 20,12, 2, "fall")
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackForwardUp = {name = "jumpAttackForwardUp", start = Player.jumpAttackForwardUp_start, exit = nop, update = Player.jumpAttackForwardUp_update, draw = Player.default_draw}
@@ -667,6 +668,7 @@ function Player:jumpAttackForwardDown_update(dt)
 	end
     self:checkAndAttack(20,0, 20,12, 2, "fall")
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackForwardDown = {name = "jumpAttackForwardDown", start = Player.jumpAttackForwardDown_start, exit = nop, update = Player.jumpAttackForwardDown_update, draw = Player.default_draw}
@@ -692,6 +694,7 @@ function Player:jumpAttackWeakUp_update(dt)
         self:checkAndAttack(20,0, 20,12, 1.1, "stomach")
     end
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackWeakUp = {name = "jumpAttackWeakUp", start = Player.jumpAttackWeakUp_start, exit = nop, update = Player.jumpAttackWeakUp_update, draw = Player.default_draw}
@@ -718,6 +721,7 @@ function Player:jumpAttackWeakDown_update(dt)
         self:checkAndAttack(20,0, 20,12, 1.1, "stomach")
     end
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackWeakDown = {name = "jumpAttackWeakDown", start = Player.jumpAttackWeakDown_start, exit = nop, update = Player.jumpAttackWeakDown_update, draw = Player.default_draw}
@@ -739,6 +743,7 @@ function Player:jumpAttackStillUp_update(dt)
 	end
     self:checkAndAttack(20,0, 20,12, 1.3, "fall")
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackStillUp = {name = "jumpAttackStillUp", start = Player.jumpAttackStillUp_start, exit = nop, update = Player.jumpAttackStillUp_update, draw = Player.default_draw}
@@ -761,6 +766,7 @@ function Player:jumpAttackStillDown_update(dt)
 	end
     self:checkAndAttack(20,0, 20,12, 1.3, "fall")
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackStillDown = {name = "jumpAttackStillDown", start = Player.jumpAttackStillDown_start, exit = nop, update = Player.jumpAttackStillDown_update, draw = Player.default_draw}
@@ -771,7 +777,7 @@ function Player:fall_start()
 	self.sprite.curr_anim = "fall"
 	if self.z <= 0 then
 		self.z = 0
-    end
+	end
 	TEsound.play("res/sfx/grunt2.wav")
 end
 function Player:fall_update(dt)
@@ -877,9 +883,9 @@ function Player:combo_update(dt)
 		end
 		self.check_mash = false
 	end
-	self:checkHurt()
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
+	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
