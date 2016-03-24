@@ -65,12 +65,24 @@ return {
 			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
 			frame_duration = 0.2
 		},
-		combo = {
+		combo12 = {
 			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
 			{ q = q(113,67,35,64), ox = 17, oy = 62 }, --walk 4
-			{ q = q(113,67,35,64), ox = 17, oy = 61 }, --walk 4
-			{ q = q(113,67,35,64), ox = 17, oy = 60 }, --walk 4
-			{ q = q(113,67,35,64), ox = 17, oy = 59 }, --walk 4
+			frame_duration = 0.1
+		},
+		combo3 = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 62 }, --walk 4
+			frame_duration = 0.1
+		},
+		combo4 = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 62 }, --walk 4
+			frame_duration = 0.1
+		},
+		combo5 = {
+			{ q = q(113,67,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(113,67,35,64), ox = 17, oy = 62 }, --walk 4
 			frame_duration = 0.1
 		},
 		fall = {
