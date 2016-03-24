@@ -70,7 +70,7 @@ return {
 			--{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.1 }, -- duck 1
 			frame_duration = 0.5
 		},
-		duck____0 = {
+		duck_ = {
 			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 }, -- duck 1
 			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2
 			frame_duration = 0.2
@@ -80,7 +80,7 @@ return {
 			{ q = q(164,131,69,58), ox = 24, oy = 62, duration = 1 }, -- dash 1
 			frame_duration = 0.2
 		},
-		combo = {
+		combo_ = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(60, 265, 51, 62), ox = 20, oy = 61}, --p2
 			{q = q(2, 2, 49, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --stand 1
@@ -99,6 +99,30 @@ return {
 			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
 			{q = q(2, 2, 49, 62), ox = 20, oy = 61}, --stand 1 - extra frame for smooth transition to stand
 			frame_duration = 0.085
+		},
+		combo12 = {
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
+			{q = q(60, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --p2
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
+			frame_duration = 0.1
+		},
+		combo3 = {
+			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
+			{q = q(157, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --p4 *
+			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
+			frame_duration = 0.1
+		},
+		combo4 = {
+			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
+			{q = q(37, 329, 52, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --k2 *
+			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
+			frame_duration = 0.1
+		},
+		combo5 = {
+			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
+			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end}, --k4*
+			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
+			frame_duration = 0.1
 		},
 		punch_ = {
 			{q = q(2, 266, 56, 61), ox = 16, oy = 60}, --p1
