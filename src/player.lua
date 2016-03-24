@@ -95,6 +95,7 @@ function Player:onHurt()
 	self.vely = h.vely
 	self.horizontal = h.horizontal
 	self.vertical = h.vertical
+	self.face = -h.source.face
 
     if h.type == "face" and self.hp > 0 then
         self:setState(self.hurtFace)
