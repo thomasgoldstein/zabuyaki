@@ -17,7 +17,7 @@ end
 
 local function nop() --[[print "nop"]] end
 
-GLOBAL_PLAYER_ID = 0
+GLOBAL_PLAYER_ID = 1
 
 function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
