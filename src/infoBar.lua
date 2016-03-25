@@ -27,7 +27,7 @@ function InfoBar:initialize(source)
     self.name = source.name or "Unknown"
     self.extra_text = "EXTRA TEXT"
     self.hp = 1
-    self.max_hp = 10
+    self.max_hp = 100
     self.id = self.source.id
     print("src id", self.id)
     self.x, self.y, self.face = bars_coords[self.id].x, bars_coords[self.id].y, bars_coords[self.id].face
@@ -64,10 +64,10 @@ end
 function InfoBar:update(dt)
     if dt % 2 then
         if self.hp > self.source.hp then
-            self.hp = self.hp - 0.1
+            self.hp = self.hp - 1
         elseif self.hp < self.source.hp then
             if self.hp < self.max_hp then
-                self.hp = self.hp + 0.1
+                self.hp = self.hp + 1
             end
         end
     end
