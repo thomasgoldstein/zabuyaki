@@ -129,6 +129,7 @@ end
 
 function testState:keypressed(k, unicode)
     if k == "escape" then
+	GLOBAL_PLAYER_ID = 1
         Gamestate.switch(menuState)
     elseif k == '1' then
         cam:setScale(1)
