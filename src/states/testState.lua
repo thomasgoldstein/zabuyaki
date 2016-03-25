@@ -5,16 +5,24 @@ end
 
 function testState:enter()
     --create players
-    player = Player:new("Player One", GetInstance("res/man_template.lua"), button, playerKeyCombo, 140, 200)
+    player1 = Player:new("Player One", GetInstance("res/man_template.lua"), button, playerKeyCombo, 140, 200)
+    ibar1 = InfoBar:new(player1)
     player2 = Player:new("Player Two", GetInstance("res/rick.lua"), button2, player2KeyCombo, 90, 180, {255,255,255, 255})
-	
-	dummy0 = Player:new("Dummy0", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 420, 200-24, {239,191,255, 255})
-	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 540, 206, {255,239,191, 255})
-	dummy1.sprite.flip_h = -1
-	dummy2 = Player:new("Dummy2", GetInstance("res/man_template.lua"), button3, nil, 640, 200-20, {191,191,255, 255})
-	dummy3 = Player:new("Dummy3", GetInstance("res/man_template.lua"), button3, nil, 740, 200-40, {239,191,255, 255})
+    ibar2 = InfoBar:new(player2)
 
-	self.entities = {player, player2, dummy0, dummy1, dummy2, dummy3}
+	dummy0 = Player:new("D u m m y 0", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 420, 200-24, {239,191,255, 255})
+    ibar3 = InfoBar:new(dummy0)
+	dummy1 = Player:new("Dummy1", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 540, 206, {255,239,191, 255})
+    ibar4 = InfoBar:new(dummy1)
+	dummy1.sprite.flip_h = -1
+	dummy2 = Player:new("Dummy 2", GetInstance("res/man_template.lua"), button3, nil, 640, 200-20, {191,191,255, 255})
+    ibar5 = InfoBar:new(dummy2)
+	dummy3 = Player:new("Dummy3", GetInstance("res/man_template.lua"), button3, nil, 740, 200-40, {239,191,255, 255})
+    ibar6 = InfoBar:new(dummy3)
+
+	self.entities = {player1, player2, dummy0, dummy1, dummy2, dummy3,
+        ibar1, ibar2, ibar3, ibar4, ibar5, ibar6
+    }
 
     --load level
     world, background, worldWidth, worldHeight = require("res/level_template")()
@@ -46,22 +54,22 @@ function testState:update(dt)
         return a.y<b.y end )
 	
     background:update(dt)
-    cam:setPosition(player.x, player.y)
+    cam:setPosition(player1.x, player1.y)
+
+    --ibar1:update(dt)
+    --ibar2:update(dt)
 
     if DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
-        fancy.watch("Player state: ",player.state, 1)
-        if player.n_combo then
-            fancy.watch("N Combo: ",player.n_combo, 3)
+        fancy.watch("Player state: ",player1.state, 1)
+        if player1.n_combo then
+            fancy.watch("N Combo: ",player1.n_combo, 3)
         end
-        fancy.watch("CD Combo: ",player.cool_down_combo, 2)
-        fancy.watch("Cool Down: ",player.cool_down, 2)
-        fancy.watch("Velocity Z: ",player.velz, 2)
-        fancy.watch("Velocity X: ",player.velx, 2)
-        fancy.watch("Z: ",player.z, 3)
---	print( playerKeyCombo:getLast(), playerKeyCombo:getPrev())
---	fancy.watch("kkl ", playerKeyCombo:getLast() or "NA", 3)
---	fancy.watch("kkp ", playerKeyCombo:getPrev() or "NA" , 3)
+        fancy.watch("CD Combo: ",player1.cool_down_combo, 2)
+        fancy.watch("Cool Down: ",player1.cool_down, 2)
+        fancy.watch("Velocity Z: ",player1.velz, 2)
+        fancy.watch("Velocity X: ",player1.velx, 2)
+        fancy.watch("Z: ",player1.z, 3)
     end
 end
 
@@ -101,7 +109,9 @@ function testState:draw()
         --foreground:draw(l, t, w, h)
 
         -- draw HP bars
-        love.graphics.setColor(0, 50, 50, 200)
+        --ibar1:draw(l,t,w,h)
+        --ibar2:draw(l,t,w,h)
+--[[        love.graphics.setColor(0, 50, 50, 200)
         love.graphics.rectangle("fill", l+16, t+16, 100, 8 )
             love.graphics.rectangle("fill", l+204, t+16, 100, 8 )
         love.graphics.setColor(255, 80, 80, 200)
@@ -110,7 +120,7 @@ function testState:draw()
         end
         if player2.hp > 0 then
             love.graphics.rectangle("fill", l+205, t+17, (player2.hp*10)-2, 6 )
-        end
+        end]]
     end)
     if DEBUG then
         fancy.draw()	--DEBUG var show

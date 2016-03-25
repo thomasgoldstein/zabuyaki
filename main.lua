@@ -27,6 +27,7 @@ function love.load(arg)
 	gamera = require "lib/gamera"
 	CompoundPicture = require "src/compoPic"
 	Player = require "src/player"
+	InfoBar = require "src/infoBar"
 
 
 	tactile = require 'lib/tactile'
