@@ -64,10 +64,10 @@ end
 function InfoBar:update(dt)
     if dt % 2 then
         if self.hp > self.source.hp then
-            self.hp = self.hp - 1
+            self.hp = self.hp - 0.1
         elseif self.hp < self.source.hp then
             if self.hp < self.max_hp then
-                self.hp = self.hp + 1
+                self.hp = self.hp + 0.1
             end
         end
     end
