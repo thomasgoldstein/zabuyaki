@@ -1,7 +1,7 @@
 print("rick.lua loaded")
 
 local image_w = 224 --This info can be accessed with a Love2D call
-local image_h = 134 --after the image has been loaded
+local image_h = 262 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -39,13 +39,13 @@ return {
 			{ q = q(187,69,35,63), ox = 17, oy = 62, duration = 0.25 }, --walk 6
 			frame_duration = 0.167
 		},
-		run = { -- 1 2 3 4 5 6 temp ruu
-			{ q = q(2,68,35,64), ox = 17, oy = 63 }, --walk 1
-			{ q = q(39,68,35,64), ox = 17, oy = 63 }, --walk 2
-			{ q = q(76,69,35,63), ox = 17, oy = 62, duration = 0.15 }, --walk 3
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(150,68,35,64), ox = 17, oy = 63 }, --walk 5
-			{ q = q(187,69,35,63), ox = 17, oy = 62, duration = 0.15 }, --walk 6
+		run = { -- 1 2 3 4 5 6
+			{ q = q(2,135,46,61), ox = 21, oy = 60 }, --run 1 (+4)
+			{ q = q(50,134,50,62), ox = 25, oy = 61 }, --run 2 (+0)
+			{ q = q(102,135,49,61), ox = 24, oy = 60 }, --run 3 (+1)
+			{ q = q(2,199,44,61), ox = 19, oy = 60 }, --run 4 (+6)
+			{ q = q(48,198,50,61), ox = 25, oy = 60 }, --run 5 (+0)
+			{ q = q(100,199,49,61), ox = 24, oy = 60 }, --run 6 (+1)
 			frame_duration = 0.1
 		},
 		jumpUp = {
