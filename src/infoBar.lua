@@ -12,10 +12,10 @@ local h_m = 16 --horizontal margin
 local bar_width = 116
 local bar_height = 8
 local screen_width = 320
-local norm_color = {255,210,77}
-local decr_color = {255,0,0}
-local incr_color = {255,233,164}
-local lose_color = {0,0,0}
+local norm_color = {255,200,40}
+local decr_color = {240,60,30}
+local incr_color = {140,240,50}
+local lost_color = {64,64,64}
 
 local bars_coords = {
     { x = h_m, y = v_m + 0 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 0 * v_g, face = -1 },
