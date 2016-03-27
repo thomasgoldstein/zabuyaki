@@ -863,7 +863,7 @@ function Player:combo_update(dt)
 		return
 	end
 	if self.check_mash then
-		TEsound.play("res/sfx/attack1.wav", nil, 2) --air
+		TEsound.play("res/sfx/attack1.wav", nil, .3) --air
 		if self.n_combo == 3 then
 			self:checkAndAttack(20,0, 20,12, 10, "stomach")
 			self.cool_down_combo = 1
