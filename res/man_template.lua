@@ -158,13 +158,13 @@ return {
 			frame_duration = 60
 		},
 		hurtFace = {
-			{q = q(2, 453, 49, 62), ox = 21, oy = 61, delay = 0.05}, --hf1
+			{q = q(2, 453, 49, 62), ox = 21, oy = 61, delay = 0.01}, --hf1
 			{q = q(53, 454, 50, 61), ox = 23, oy = 60}, --hf2
 			{q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hf1
 			frame_duration = 0.1
 		},
 		hurtStomach = {
-			{q = q(105, 454, 41, 61), ox = 21, oy = 60, delay = 0.05}, --hs1
+			{q = q(105, 454, 41, 61), ox = 21, oy = 60, delay = 0.01}, --hs1
 			{q = q(148, 456, 36, 59), ox = 21, oy = 58}, --hs2
 			{q = q(105, 454, 41, 61), ox = 21, oy = 60}, --hs1
 			frame_duration = 0.1
