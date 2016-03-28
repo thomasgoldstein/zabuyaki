@@ -651,7 +651,7 @@ function Player:jumpAttackForwardUp_update(dt)
 		self:setState(self.jumpAttackForwardDown)
 		return
 	end
-    self:checkAndAttack(20,0, 20,12, 20, "fall")
+    self:checkAndAttack(24,0, 20,12, 20, "fall")
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
@@ -674,7 +674,7 @@ function Player:jumpAttackForwardDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-    self:checkAndAttack(20,0, 20,12, 20, "fall")
+    self:checkAndAttack(24,0, 20,12, 20, "fall")
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
@@ -697,9 +697,9 @@ function Player:jumpAttackWeakUp_update(dt)
 		return
 	end
     if self.z > 30 then
-        self:checkAndAttack(20,0, 20,12, 11, "face")
+        self:checkAndAttack(10,0, 20,12, 11, "face")
     elseif self.z > 10 then
-        self:checkAndAttack(20,0, 20,12, 11, "stomach")
+        self:checkAndAttack(10,0, 20,12, 11, "stomach")
     end
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
@@ -724,9 +724,9 @@ function Player:jumpAttackWeakDown_update(dt)
 		return
 	end
     if self.z > 30 then
-        self:checkAndAttack(20,0, 20,12, 11, "face")
+        self:checkAndAttack(10,0, 20,12, 11, "face")
     elseif self.z > 10 then
-        self:checkAndAttack(20,0, 20,12, 11, "stomach")
+        self:checkAndAttack(10,0, 20,12, 11, "stomach")
     end
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
@@ -749,7 +749,7 @@ function Player:jumpAttackStillUp_update(dt)
 		self:setState(self.jumpAttackStillDown)
 		return
 	end
-    self:checkAndAttack(20,0, 20,12, 13, "fall")
+    self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
@@ -772,7 +772,7 @@ function Player:jumpAttackStillDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-    self:checkAndAttack(20,0, 20,12, 13, "fall")
+    self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
@@ -873,16 +873,16 @@ function Player:combo_update(dt)
 	if self.check_mash then
 		TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 		if self.n_combo == 3 then
-			self:checkAndAttack(20,0, 20,12, 10, "stomach")
+			self:checkAndAttack(25,0, 20,12, 10, "stomach")
 			self.cool_down_combo = 1
 		elseif self.n_combo == 4 then
-			self:checkAndAttack(20,0, 20,12, 10, "face")
+			self:checkAndAttack(25,0, 20,12, 10, "face")
 			self.cool_down_combo = 1
 		elseif self.n_combo == 5 then
-			self:checkAndAttack(20,0, 20,12, 15, "fall")
+			self:checkAndAttack(25,0, 20,12, 15, "fall")
 			self.cool_down_combo = 1
 		else -- self.n_combo == 1 or 2
-			self:checkAndAttack(20,0, 20,12, 10, "face")
+			self:checkAndAttack(25,0, 20,12, 10, "face")
 			self.cool_down_combo = 1
 		end
 		self.check_mash = false
