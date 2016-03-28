@@ -64,6 +64,7 @@ end
 
 function Player:revive()
 	self.hp = 100
+	self.hurt = nil
 	self.z = 0
 	self.isHidden = false
 	self.isEnabled = true
