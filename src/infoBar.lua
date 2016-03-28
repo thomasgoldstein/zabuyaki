@@ -15,7 +15,11 @@ local screen_width = 320
 local norm_color = {255,200,40}
 local decr_color = {240,60,30}
 local incr_color = {140,240,50}
-local lost_color = {64,64,64}
+local lost_color = {64,0,0}
+local transp_bg = 200
+local transp_bar = 200
+local transp_lost = 255
+local transp_name = 255
 
 local bars_coords = {
     { x = h_m, y = v_m + 0 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 0 * v_g, face = -1 },
@@ -31,38 +35,44 @@ function InfoBar:initialize(source)
     self.name = source.name or "Unknown"
     self.extra_text = "EXTRA TEXT"
     self.hp = 1
+    self.old_hp = 1
     self.color = {155,110,20}
     self.max_hp = 100
     self.id = self.source.id
-    print("src id", self.id)
+    --print("src id", self.id)
     self.x, self.y, self.face = bars_coords[self.id].x, bars_coords[self.id].y, bars_coords[self.id].face
 end
 
 function InfoBar:draw(l,t,w,h)
     if self.face == 1 then
         --left side
-        love.graphics.setColor(0, 50, 50, 200)
+        love.graphics.setColor(0, 50, 50, transp_bg)
         love.graphics.rectangle("fill", l + self.x, t + self.y, bar_width, bar_height )
-
-
+        if self.old_hp > 0 and self.old_hp > self.hp then
+            love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_lost)
+            love.graphics.rectangle("fill", l + self.x + 1, t + self.y +1, (bar_width -2) * self.old_hp / self.max_hp, 6 )
+        end
         if self.hp > 0 then
-            love.graphics.setColor(self.color[1], self.color[2], self.color[3], 200)
+            love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bar)
             love.graphics.rectangle("fill", l + self.x + 1, t + self.y +1, (bar_width -2) * self.hp / self.max_hp, 6 )
         end
 
-        love.graphics.setColor(255, 255, 255, 200)
+        love.graphics.setColor(255, 255, 255, transp_name)
         love.graphics.print(self.name, l + self.x, t + self.y-13)
     else
         --right side
-        love.graphics.setColor(0, 50, 50, 200)
+        love.graphics.setColor(0, 50, 50, transp_bg)
         love.graphics.rectangle("fill", l + self.x, t + self.y, bar_width, bar_height )
-
+        if self.old_hp > 0 and self.old_hp > self.hp then
+            love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_lost)
+            love.graphics.rectangle("fill", l + self.x + 1, t + self.y +1, (bar_width -2) * self.old_hp / self.max_hp, 6 )
+        end
         if self.hp > 0 then
-            love.graphics.setColor(self.color[1], self.color[2], self.color[3], 200)
+            love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bar)
             love.graphics.rectangle("fill", l + self.x + 1, t + self.y +1, (bar_width -2) * self.hp / self.max_hp, 6 )
         end
 
-        love.graphics.setColor(255, 255, 255, 200)
+        love.graphics.setColor(255, 255, 255, transp_name)
         love.graphics.print(self.name, l + self.x, t + self.y-13)
     end
 end
@@ -92,6 +102,7 @@ function InfoBar:update(dt)
         self.color[1] = norm_n(self.color[1],norm_color[1])
         self.color[2] = norm_n(self.color[2],norm_color[2])
         self.color[3] = norm_n(self.color[3],norm_color[3])
+        self.old_hp = self.hp
     end
 end
 
