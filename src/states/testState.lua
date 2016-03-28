@@ -108,19 +108,6 @@ function testState:draw()
         --TODO add foreground parallax for levels
         --foreground:draw(l, t, w, h)
 
-        -- draw HP bars
-        --ibar1:draw(l,t,w,h)
-        --ibar2:draw(l,t,w,h)
---[[        love.graphics.setColor(0, 50, 50, 200)
-        love.graphics.rectangle("fill", l+16, t+16, 100, 8 )
-            love.graphics.rectangle("fill", l+204, t+16, 100, 8 )
-        love.graphics.setColor(255, 80, 80, 200)
-        if player.hp > 0 then
-            love.graphics.rectangle("fill", l+17, t+17, (player.hp*10)-2, 6 )
-        end
-        if player2.hp > 0 then
-            love.graphics.rectangle("fill", l+205, t+17, (player2.hp*10)-2, 6 )
-        end]]
     end)
     if DEBUG then
         fancy.draw()	--DEBUG var show
@@ -140,8 +127,11 @@ function testState:keypressed(k, unicode)
     end
 
     if k == 'return' then
-       player.hurt = {source = player2, damage = 1.5, velx = player2.velx+10, vely = player2.vely+10,
-           horizontal = -player.horizontal, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
+        for i,player in ipairs(self.entities) do
+            if player.type == "player" then
+                player:revive()
+            end
+        end
     end
 
     if k == '0' then

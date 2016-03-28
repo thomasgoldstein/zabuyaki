@@ -62,6 +62,14 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self:setState(Player.stand)
 end
 
+function Player:revive()
+	self.hp = 100
+	self.z = 0
+	self.isHidden = false
+	self.isEnabled = true
+	self:setState(Player.stand)
+end
+
 function Player:setState(state)
 	assert(type(state) == "table", "setState expects a table")
 	if state and state.name ~= self.state then
@@ -863,7 +871,7 @@ function Player:combo_update(dt)
 		return
 	end
 	if self.check_mash then
-		TEsound.play("res/sfx/attack1.wav", nil, .3) --air
+		TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 		if self.n_combo == 3 then
 			self:checkAndAttack(20,0, 20,12, 10, "stomach")
 			self.cool_down_combo = 1
