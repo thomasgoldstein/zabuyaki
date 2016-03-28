@@ -114,9 +114,9 @@ function Player:onHurt()
 	self.face = -h.source.face
 
 	self.hurt = nil --free hurt data
-    if h.type == "face" and self.hp > 0 then
+    if h.type == "face" and self.hp > 0 and self.z <= 0 then
         self:setState(self.hurtFace)
-    elseif h.type == "stomach" and self.hp > 0 then
+    elseif h.type == "stomach" and self.hp > 0 and self.z <= 0 then
         self:setState(self.hurtStomach)
     else
         -- fall
