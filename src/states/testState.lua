@@ -126,7 +126,7 @@ function testState:keypressed(k, unicode)
         cam:setScale(3)
     end
 
-    if k == 'return' then
+    if k == 'return' and DEBUG then
         for i,player in ipairs(self.entities) do
             if player.type == "player" then
                 player:revive()
@@ -154,10 +154,10 @@ function testState:wheelmoved( dx, dy )
             cam:setScale(cam:getScale() - 0.25 )
         end
     else
-        if dy > 0 and player.x < worldWidth - 200 then
-            player.x = player.x + 200
-        elseif dy < 0 and player.x > 200 then
-            player.x = player.x - 200
+        if dy > 0 and player1.x < worldWidth - 200 then
+            player1.x = player1.x + 200
+        elseif dy < 0 and player1.x > 200 then
+            player1.x = player1.x - 200
         end
     end
 end
