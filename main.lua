@@ -17,6 +17,8 @@ function love.load(arg)
 	end
 	love.graphics.setDefaultFilter("nearest", "nearest")
 
+	--Working folder for writing data
+	love.filesystem.setIdentity("Zabuyaki")
 	--Libraries
 	class = require "lib/middleclass"
 	require "lib/TEsound"
