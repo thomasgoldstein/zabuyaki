@@ -14,7 +14,7 @@ function testState:enter()
     ibar3 = InfoBar:new(dummy0)
 	dummy1 = Player:new("DICKY", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 460, 200-24, {255,239,191, 255})
     ibar4 = InfoBar:new(dummy1)
-	dummy1.sprite.flip_h = -1
+	dummy1.face = -1
 	dummy2 = Player:new("DORMY", GetInstance("res/man_template.lua"), button3, nil, 500, 200-24, {191,191,255, 255})
     ibar5 = InfoBar:new(dummy2)
 	dummy3 = Player:new("UNNIE", GetInstance("res/man_template.lua"), button3, nil, 540, 200-24, {239,191,255, 255})
