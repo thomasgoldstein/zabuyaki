@@ -23,7 +23,13 @@ function testState:enter()
     dummy4 = Player:new("Dummie RICK", GetInstance("res/rick.lua"), button3, nil, 600, 200-24, {239,191,255, 255})
     ibar7 = InfoBar:new(dummy4)
 
-	self.entities = {player1, player2, dummy0, dummy1, dummy2, dummy3, dummy4,
+    --Item:initialize(name, sprite, x, y, hp, money, func, color)
+    item1 = Item:new("Apple 1", nil, 10, 1, nil, 200,160, {239,0,55, 255})
+    item2 = Item:new("Apple 2", nil, 20, 0, nil, 220,180, {239,0,155, 255})
+    item3 = Item:new("Coins 3", nil, 0, 100, nil, 250,200, {155,239,0, 255})
+
+    self.entities = {player1, player2, dummy0, dummy1, dummy2, dummy3, dummy4,
+        item1, item2, item3,
         ibar1, ibar2, ibar3, ibar4, ibar5, ibar6, ibar7
     }
 
@@ -119,28 +125,27 @@ end
 
 function testState:keypressed(k, unicode)
     if k == "escape" then
-	GLOBAL_PLAYER_ID = 1
+        GLOBAL_PLAYER_ID = 1
         Gamestate.switch(menuState)
-    elseif k == '1' then
-        cam:setScale(1)
-    elseif k == '2' then
-        cam:setScale(2)
-    elseif k == '3' then
-        cam:setScale(3)
-    end
-
-    if k == 'return' and DEBUG then
-        for i,player in ipairs(self.entities) do
-            if player.type == "player" then
-                player:revive()
-            end
-        end
-    end
-
-    if k == '0' then
+    elseif k == '0' then
         DEBUG = not DEBUG
     end
 
+    if DEBUG then
+        if k == '1' then
+            cam:setScale(1)
+        elseif k == '2' then
+            cam:setScale(2)
+        elseif k == '3' then
+            cam:setScale(3)
+        elseif k == 'return' then
+            for i, player in ipairs(self.entities) do
+                if player.type == "player" then
+                    player:revive()
+                end
+            end
+        end
+    end
 end
 
 function testState:wheelmoved( dx, dy )

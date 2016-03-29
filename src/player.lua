@@ -24,6 +24,7 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.name = name or "Unknown"
 	self.type = "player"
     self.hp = 100
+    self.money = 0
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.ik = inputCombo
 	self.x, self.y, self.z = x, y, 0
@@ -135,6 +136,18 @@ function Player:onHurt()
     end
 end
 
+function Player:onGetItem(item)
+	-- hurt = {picker, hp, money, func}
+	if DEBUG then
+		print(self.name .. " got "..item.name.." HP+ ".. item.hp .. ", $+ " .. item.money)
+	end
+	self.hp = self.hp + item.hp
+	self.money = self.money + item.money
+	item.isHidden = true
+	item.type = nil
+	item = nil
+end
+
 function Player:drawShadow(l,t,w,h)
 	--TODO adjust sprite dimensions
 	if CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
@@ -158,7 +171,7 @@ function Player:checkCollisionAndMove(dt)
 	local stepy = self.vely * dt * self.vertical
 	local actualX, actualY, cols, len = world:move(self, self.x + stepx - 8, self.y + stepy - 4,
 		function(player, item)
-			if player ~= item  and item.type == "wall" then
+            if player ~= item and item.type == "wall" then
 				return "slide"
 			end
 		end)
