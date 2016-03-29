@@ -14,14 +14,17 @@ function testState:enter()
     ibar3 = InfoBar:new(dummy0)
 	dummy1 = Player:new("DICKY", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 460, 200-24, {255,239,191, 255})
     ibar4 = InfoBar:new(dummy1)
-	dummy1.face = -1
+    dummy1.horizontal = -1
+    dummy1.face = -1
 	dummy2 = Player:new("DORMY", GetInstance("res/man_template.lua"), button3, nil, 500, 200-24, {191,191,255, 255})
     ibar5 = InfoBar:new(dummy2)
 	dummy3 = Player:new("UNNIE", GetInstance("res/man_template.lua"), button3, nil, 540, 200-24, {239,191,255, 255})
     ibar6 = InfoBar:new(dummy3)
+    dummy4 = Player:new("Dummie RICK", GetInstance("res/rick.lua"), button3, nil, 600, 200-24, {239,191,255, 255})
+    ibar7 = InfoBar:new(dummy4)
 
-	self.entities = {player1, player2, dummy0, dummy1, dummy2, dummy3,
-        ibar1, ibar2, ibar3, ibar4, ibar5, ibar6
+	self.entities = {player1, player2, dummy0, dummy1, dummy2, dummy3, dummy4,
+        ibar1, ibar2, ibar3, ibar4, ibar5, ibar6, ibar7
     }
 
     --load level
