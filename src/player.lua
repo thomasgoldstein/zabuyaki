@@ -24,7 +24,7 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.name = name or "Unknown"
 	self.type = "player"
     self.hp = 100
-    self.money = 0
+    self.score = 0
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.ik = inputCombo
 	self.x, self.y, self.z = x, y, 0
@@ -137,12 +137,17 @@ function Player:onHurt()
 end
 
 function Player:onGetItem(item)
-	-- hurt = {picker, hp, money, func}
+	-- hurt = {picker, hp, score, func}
 	if DEBUG then
-		print(self.name .. " got "..item.name.." HP+ ".. item.hp .. ", $+ " .. item.money)
+		print(self.name .. " got "..item.name.." HP+ ".. item.hp .. ", $+ " .. item.score)
+	end
+	if item.hp > item.score then
+		TEsound.play("res/sfx/pickup1.wav", nil, 1)
+	else
+		TEsound.play("res/sfx/pickup2.wav", nil, 1)
 	end
 	self.hp = self.hp + item.hp
-	self.money = self.money + item.money
+	self.score = self.score + item.score
 	item.isHidden = true
 	item.type = nil
 	item = nil
@@ -213,6 +218,20 @@ function Player:checkAndAttack(l,t,w,h, damage, type)
     end
 end
 
+function Player:checkForItem(w, h)
+	--got any items near feet?
+	local items, len = world:queryRect(self.x - w/2, self.y - h/2, w, h,
+		function(item)
+			if item.type == "item" then
+				return true
+			end
+		end)
+	if len > 0 then
+		return items[1]
+	end
+	return nil
+end
+
 function Player:stand_start()
 --	print (self.name.." - stand start")
 	self.sprite.curr_frame = 1
@@ -243,6 +262,10 @@ function Player:stand_update(dt)
 		return
 	elseif self.b.fire.down and self.can_fire then
 		if self.cool_down <= 0 then
+			if self:checkForItem(9, 9) ~= nil then
+				self:setState(self.pickup)
+				return
+			end
 			self:setState(self.combo)
 			return
 		end
@@ -504,6 +527,30 @@ function Player:jumpDown_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = nop, update = Player.jumpDown_update, draw = Player.default_draw}
+
+function Player:pickup_start()
+	--	print (self.name.." - pickup start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "pickup"
+	self.sprite.loop_count = 0
+	self.z = 0;
+end
+function Player:pickup_update(dt)
+	--	print (self.name.." - pickup update",dt)
+	if self.sprite.loop_count > 0 then
+		local item = self:checkForItem(9, 9)
+		if item then
+			self:onGetItem(item)
+		end
+		self:setState(self.stand)
+		return
+	end
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
+	--self:checkHurt()
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.pickup = {name = "pickup", start = Player.pickup_start, exit = nop, update = Player.pickup_update, draw = Player.default_draw}
 
 function Player:duck_start()
 --	print (self.name.." - duck start")
