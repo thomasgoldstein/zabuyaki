@@ -62,6 +62,12 @@ return {
 			{ q = q(2,269,42,59), ox = 21, oy = 58 }, --duck
 			frame_duration = 0.5
 		},
+		pickup = {
+			{ q = q(2,269,42,59), ox = 21, oy = 58 }, --duck
+			{ q = q(2,269,42,59), ox = 21, oy = 57 }, --duck*
+			{ q = q(2,269,42,59), ox = 21, oy = 58 }, --duck
+			frame_duration = 0.15
+		},
 		dash = {
 			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
 			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
