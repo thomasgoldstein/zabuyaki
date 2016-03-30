@@ -128,7 +128,7 @@ return {
 		combo5 = {
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3
 			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, duration = 0.1}, --k4*
-			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3
+			{q = q(91, 330, 46, 61), ox = 19, oy = 60, duration = 0.2}, --k3
 			frame_duration = 0.05
 		},
 		punch_ = {
