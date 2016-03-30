@@ -32,7 +32,7 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
 	self.gravity = 650
     self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
-    self.sideStepFriction = 600 -- velocity penalty for sideStepUp Down (when u slide on ground)
+    self.sideStepFriction = 650 -- velocity penalty for sideStepUp Down (when u slide on ground)
 	self.jumpHeight = 40
 	self.state = "nop"
 	self.prev_state = "" -- text name
@@ -627,8 +627,8 @@ function Player:sideStepDown_start()
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "sideStepDown"
 
-    self.velx, self.vely = 0, 170
-    TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfz
+    self.velx, self.vely = 0, 220
+    TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfx
 end
 function Player:sideStepDown_update(dt)
 	--	print (self.name.." - sideStepDown update",dt)
@@ -652,8 +652,8 @@ function Player:sideStepUp_start()
     self.sprite.curr_frame = 1
     self.sprite.curr_anim = "sideStepUp"
 
-    self.velx, self.vely = 0, 170
-    TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfz
+    self.velx, self.vely = 0, 220
+    TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfx
 end
 function Player:sideStepUp_update(dt)
     --	print (self.name.." - sideStepUp update",dt)
