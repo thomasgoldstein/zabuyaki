@@ -27,7 +27,8 @@ return {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad
 			-- duration = 0.1, func = fun
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61, duration = 0.01 }, --stand 1
+			{q = q(2, 2, 49, 62), ox = 20, oy = 61, duration = 0.1 }, --stand 1
 			{q = q(53, 3, 49, 61), ox = 20, oy = 60 }, --stand 2
 			{q = q(104, 4, 49, 60), ox = 20, oy = 59 }, --stand 3
 			{q = q(53, 3, 49, 61), ox = 20, oy = 60 }, --stand 2
@@ -108,26 +109,26 @@ return {
 		},
 		combo12 = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end, duration = 0.1}, --p1 *
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end, duration = 0.015}, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			frame_duration = 0.05
+			frame_duration = 0.015
 		},
 		combo3 = {
 			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
-			{q = q(157, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, duration = 0.2}, --p4 *
+			{q = q(157, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, duration = 0.0152}, --p4 *
 			{q = q(113, 265, 42, 62), ox = 20, oy = 61, duration = 0.075}, --p3
-			frame_duration = 0.05
+			frame_duration = 0.015
 		},
 		combo4 = {
 			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
-			{q = q(37, 329, 52, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, duration = 0.2}, --k2 *
+			{q = q(37, 329, 52, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, duration = 0.12}, --k2 *
 			{q = q(2, 329, 33, 62), ox = 20, oy = 61, duration = 0.1}, --k1
 			frame_duration = 0.05
 		},
 		combo5 = {
 			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
-			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, duration = 0.2}, --k4*
-			{q = q(91, 330, 46, 61), ox = 20, oy = 60, duration = 0.2}, --k3
+			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, duration = 0.12}, --k4*
+			{q = q(91, 330, 46, 61), ox = 20, oy = 60, duration = 0.12}, --k3
 			frame_duration = 0.05
 		},
 		punch_ = {
