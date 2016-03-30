@@ -137,20 +137,7 @@ function Player:onHurt()
 end
 
 function Player:onGetItem(item)
-	-- hurt = {picker, hp, score, func}
-	if DEBUG then
-		print(self.name .. " got "..item.name.." HP+ ".. item.hp .. ", $+ " .. item.score)
-	end
-	if item.hp > item.score then
-		TEsound.play("res/sfx/pickup1.wav", nil, 1)
-	else
-		TEsound.play("res/sfx/pickup2.wav", nil, 1)
-	end
-	self.hp = self.hp + item.hp
-	self.score = self.score + item.score
-	item.isHidden = true
-	item.type = nil
-	item = nil
+    item:get(self)
 end
 
 function Player:drawShadow(l,t,w,h)
@@ -547,7 +534,7 @@ function Player:pickup_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
-	--self:checkHurt()
+    self:checkHurt()
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.pickup = {name = "pickup", start = Player.pickup_start, exit = nop, update = Player.pickup_update, draw = Player.default_draw}
