@@ -109,26 +109,26 @@ return {
 		},
 		combo12 = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end, duration = 0.015}, --p1 *
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end }, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			frame_duration = 0.015
+			frame_duration = 0.04
 		},
 		combo3 = {
-			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
-			{q = q(157, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, duration = 0.0152}, --p4 *
-			{q = q(113, 265, 42, 62), ox = 20, oy = 61, duration = 0.075}, --p3
-			frame_duration = 0.015
+			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
+			{q = q(157, 265, 51, 62), ox = 14, oy = 61, func = function(self) self.check_mash = true end, duration = 0.08}, --p4 *
+			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
+			frame_duration = 0.04
 		},
 		combo4 = {
-			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
-			{q = q(37, 329, 52, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, duration = 0.12}, --k2 *
-			{q = q(2, 329, 33, 62), ox = 20, oy = 61, duration = 0.1}, --k1
+			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
+			{q = q(37, 329, 52, 62), ox = 15, oy = 61, func = function(self) self.check_mash = true end, duration = 0.1}, --k2 *
+			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
 			frame_duration = 0.05
 		},
 		combo5 = {
-			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
-			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, duration = 0.12}, --k4*
-			{q = q(91, 330, 46, 61), ox = 20, oy = 60, duration = 0.12}, --k3
+			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3
+			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, duration = 0.1}, --k4*
+			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3
 			frame_duration = 0.05
 		},
 		punch_ = {
