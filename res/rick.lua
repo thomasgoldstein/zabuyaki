@@ -148,10 +148,10 @@ return {
 			frame_duration = 0.4
 		},
 		sideStepUp = {
-			{ q = q(50,134,50,62), ox = 25, oy = 61 }, --run 2
+			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
 		},
 		sideStepDown = {
-			{ q = q(50,134,50,62), ox = 25, oy = 61 }, --run 2
+			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
 		},
 	} --offsets
 
