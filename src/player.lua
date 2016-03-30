@@ -229,23 +229,34 @@ function Player:stand_start()
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
-	if self.cool_down > 0 then
-		self.cool_down = self.cool_down - dt
-	end
 	if self.cool_down_combo > 0 then
 		self.cool_down_combo = self.cool_down_combo - dt
 	else
 		self.n_combo = 1
 	end
-	if self.cool_down <= 0 and
-			(self.b.left.down or
+	if self.cool_down <= 0 then
+    --can move
+        if self.b.left.down or
 			self.b.right.down or
 			self.b.up.down or
-			self.b.down.down)
-	then
-		self:setState(self.walk)
-		return
-	elseif self.b.jump.down and self.can_jump then
+			self.b.down.down
+	    then
+		    self:setState(self.walk)
+		    return
+        end
+    else
+        self.cool_down = self.cool_down - dt    --when <=0 u can move
+        --can flip
+        if self.b.left.down then
+            self.face = -1
+            self.horizontal = self.face
+        elseif self.b.right.down then
+            self.face = 1
+            self.horizontal = self.face
+        end
+    end
+
+    if self.b.jump.down and self.can_jump then
 		self:setState(self.jumpUp)
 		return
 	elseif self.b.fire.down and self.can_fire then
@@ -257,8 +268,6 @@ function Player:stand_update(dt)
 			self:setState(self.combo)
 			return
 		end
-	else
-		self.sprite.curr_anim = "stand" -- to prevent flashing frame after duck
 	end
 
 	if not self.b.jump.down then
@@ -908,7 +917,7 @@ function Player:combo_start()
 	end
 	self.check_mash = false
 
-	self.cool_down = 0.1
+	self.cool_down = 0.2
 end
 function Player:combo_update(dt)
 	if self.sprite.loop_count > 0 then
