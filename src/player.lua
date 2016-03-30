@@ -23,7 +23,8 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
 	self.name = name or "Unknown"
 	self.type = "player"
-    self.hp = 100
+    self.max_hp = 100
+    self.hp = self.max_hp
     self.score = 0
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.ik = inputCombo

@@ -69,6 +69,9 @@ function Item:get(taker)
         TEsound.play("res/sfx/pickup2.wav", nil, 1)
     end
     taker.hp = taker.hp + self.hp
+    if taker.hp > taker.max_hp then
+        taker.hp = taker.max_hp
+    end
     taker.score = taker.score + self.score
     self.isHidden = true
     world:remove(self)  --world = global bump var
