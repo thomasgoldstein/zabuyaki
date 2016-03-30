@@ -109,13 +109,13 @@ return {
 		combo12 = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end, duration = 0.1}, --p1 *
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60, duration = 0.1}, --p1 *
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			frame_duration = 0.05
 		},
 		combo3 = {
 			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
 			{q = q(157, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, duration = 0.2}, --p4 *
-			{q = q(113, 265, 42, 62), ox = 20, oy = 61, duration = 0.1}, --p3
+			{q = q(113, 265, 42, 62), ox = 20, oy = 61, duration = 0.075}, --p3
 			frame_duration = 0.05
 		},
 		combo4 = {
