@@ -56,29 +56,29 @@ return {
 			frame_duration = 0.075
 		},
 		jumpUp = {
-			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 , duration = 0.2 }, -- duck 1
-			{ q = q(72, 132, 44, 66), ox = 16, oy = 60 }, --ju
+			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 , duration = 0.2 }, -- duck 1
+			{ q = q(72, 132, 44, 66), ox = 23, oy = 65 }, --ju
 			frame_duration = 5
 		},
 		jumpDown = {
-			{ q = q(72, 132, 44, 66), ox = 16, oy = 60, duration = 0.5 }, --ju,
-			{ q = q(118, 131, 44, 67), ox = 16, oy = 60 }, --jd
+			{ q = q(72, 132, 44, 66), ox = 23, oy = 65, duration = 0.5 }, --ju,
+			{ q = q(118, 131, 44, 67), ox = 19, oy = 66 }, --jd
 			frame_duration = 5
 		},
 		duck = {
-			{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.15 }, -- duck 1
-			--{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.1 }, -- duck 1
+			{ q = q(2, 143, 35, 55), ox = 19, oy = 54, duration = 0.15 }, -- duck 1
+			--{ q = q(2, 143, 35, 55), ox = 19, oy = 54, duration = 0.1 }, -- duck 1
 			frame_duration = 0.5
 		},
 		pickup = {
-			{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.15 }, -- duck 1
-			{ q = q(39, 147, 31, 51), ox = 18, oy = 50}, -- duck 2
-			{ q = q(2, 143, 35, 55), ox = 18, oy = 54, duration = 0.15 }, -- duck 1
+			{ q = q(2, 143, 35, 55), ox = 19, oy = 54, duration = 0.15 }, -- duck 1
+			{ q = q(39, 147, 31, 51), ox = 14, oy = 50}, -- duck 2
+			{ q = q(2, 143, 35, 55), ox = 19, oy = 54, duration = 0.15 }, -- duck 1
 			frame_duration = 0.25
 		},
 		duck_ = {
-			{ q = q(2, 143, 35, 55), ox = 18, oy = 54 }, -- duck 1
-			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2
+			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
+			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
 			frame_duration = 0.2
 		},
 		dash = {
@@ -109,19 +109,19 @@ return {
 		combo12 = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end, duration = 0.1}, --p1 *
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60, duration = 0.2}, --p1 *
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60, duration = 0.1}, --p1 *
 			frame_duration = 0.05
 		},
 		combo3 = {
 			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
 			{q = q(157, 265, 51, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, duration = 0.2}, --p4 *
-			{q = q(113, 265, 42, 62), ox = 20, oy = 61, duration = 0.2}, --p3
+			{q = q(113, 265, 42, 62), ox = 20, oy = 61, duration = 0.1}, --p3
 			frame_duration = 0.05
 		},
 		combo4 = {
 			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
 			{q = q(37, 329, 52, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end, duration = 0.2}, --k2 *
-			{q = q(2, 329, 33, 62), ox = 20, oy = 61, duration = 0.2}, --k1
+			{q = q(2, 329, 33, 62), ox = 20, oy = 61, duration = 0.1}, --k1
 			frame_duration = 0.05
 		},
 		combo5 = {
@@ -154,8 +154,8 @@ return {
 			{q = q(2, 393, 53, 58), ox = 26, oy = 57, duration = 0.5},
 			{q = q(57, 416, 76, 34), ox = 38, oy = 33, duration = 1},
 			{q = q(135, 404, 62, 47), ox = 31, oy = 46},
-			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2
-			{ q = q(39, 147, 31, 51), ox = 18, oy = 50 }, -- duck 2 (we dont draw it, need it for check for last frame)
+			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
+			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2 (we dont draw it, need it for check for last frame)
 			frame_duration = 0.2
 		},
 		dead = {
@@ -176,27 +176,27 @@ return {
 			frame_duration = 0.1
 		},
 		jumpAttackForward_ = {
-			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
-			{q = q(50, 517, 57, 54), ox = 25, oy = 60}, --jaf 2
+			{q = q(2, 517, 46, 61), ox = 23, oy = 65}, --jaf 1
+			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
 		},
 		jumpAttackForwardUp = {
-			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
-			{q = q(50, 517, 57, 54), ox = 25, oy = 60}, --jaf 2
+			{q = q(2, 517, 46, 61), ox = 23, oy = 65}, --jaf 1
+			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
 			frame_duration = 5
 		},
 		jumpAttackForwardDown = {
-			{q = q(2, 517, 46, 61), ox = 23, oy = 60, duration = 0.2}, --jaf 1
-			{q = q(50, 517, 57, 54), ox = 25, oy = 60}, --jaf 2
+			{q = q(2, 517, 46, 61), ox = 23, oy = 65, duration = 0.2}, --jaf 1
+			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
 			frame_duration = 5
 		},
 		jumpAttackWeakUp = {
-			{q = q(109, 517, 46, 63), ox = 23, oy = 62}, --jaw 1
-			{q = q(157, 517, 47, 60), ox = 25, oy = 62}, --jaw 2
+			{q = q(109, 517, 46, 63), ox = 22, oy = 65}, --jaw 1
+			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
 			frame_duration = 5
 		},
 		jumpAttackWeakDown = {
-			{q = q(109, 517, 46, 63), ox = 23, oy = 62, duration = 0.2}, --jaw 1
-			{q = q(157, 517, 47, 60), ox = 25, oy = 62}, --jaw 2
+			{q = q(109, 517, 46, 63), ox = 22, oy = 65, duration = 0.2}, --jaw 1
+			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
 			frame_duration = 5
 		},
 		jumpAttackWeak_ = {
