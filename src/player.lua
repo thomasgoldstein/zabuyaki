@@ -264,10 +264,11 @@ function Player:stand_update(dt)
 			if self:checkForItem(9, 9) ~= nil then
 				self:setState(self.pickup)
 				return
-			end
-			self:setState(self.combo)
-			return
-		end
+            end
+        end
+        self:setState(self.combo)
+        return
+		--end
 	end
 
 	if not self.b.jump.down then
