@@ -59,7 +59,7 @@ return {
 			frame_duration = 5
 		},
 		duck = {
-			{ q = q(2,269,42,59), ox = 21, oy = 58 }, --duck
+			{ q = q(2,269,42,59), ox = 21, oy = 58, duration = 0.15 }, --duck
 			frame_duration = 0.5
 		},
 		pickup = {
