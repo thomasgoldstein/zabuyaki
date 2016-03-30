@@ -23,9 +23,9 @@ function testState:enter()
     dummy4 = Player:new("Dummie RICK", GetInstance("res/rick.lua"), button3, nil, 600, 200-24, {239,191,255, 255})
     ibar7 = InfoBar:new(dummy4)
 
-    --Item:initialize(name, sprite, x, y, hp, money, func, color)
+    --Item:initialize(name, sprite, hp, money, func, x, y, color)
     item1 = Item:new("Apple 1", nil, 10, 1, nil, 200,160, {239,0,55, 255})
-    item2 = Item:new("Apple 2", nil, 20, 0, nil, 220,180, {239,0,155, 255})
+    item2 = Item:new("Apple 2", nil, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 220,180, {239,0,155, 255})
     item3 = Item:new("Coins 3", nil, 0, 100, nil, 250,200, {155,239,0, 255})
 
     self.entities = {player1, player2, dummy0, dummy1, dummy2, dummy3, dummy4,
