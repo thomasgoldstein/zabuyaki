@@ -199,7 +199,7 @@ end
 
 function Player:checkAndAttack(l,t,w,h, damage, type)
     -- type = "face" "stomach" "fall"
-	local items, len = world:queryRect(self.x + self.horizontal*l - w/2, self.y + t - h/2, w, h,
+	local items, len = world:queryRect(self.x + self.face*l - w/2, self.y + t - h/2, w, h,
 		function(item)
 			if self ~= item and item.type ~= "wall" then
 				--print ("hit "..item.name)
@@ -209,7 +209,7 @@ function Player:checkAndAttack(l,t,w,h, damage, type)
     --DEBUG to show attack hitBoxes in green
 	if DEBUG then
 		--print("items: ".. #items)
-    	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.horizontal*l - w/2, y = self.y + t - h/2, w = w, h = h }
+    	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.face*l - w/2, y = self.y + t - h/2, w = w, h = h }
     end
 	for i = 1,#items do
 		--player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
