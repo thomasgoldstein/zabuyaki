@@ -9,7 +9,9 @@ function KeyCombo:initialize(input)
 	self.keys = {}
 	self.curr_key = 0
 	self.max_key = 10
-	--self.player = player
+	for i=1,self.max_key do
+		self.keys[#self.keys+1] = {up = false, down = false, left = false, right=false, fire = false, jump = false }
+	end
 	self.input = input
 	self.elapsed_time = 0
 --	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
