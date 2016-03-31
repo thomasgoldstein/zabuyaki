@@ -945,16 +945,16 @@ function Player:combo_update(dt)
 		TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 		if self.n_combo == 3 then
 			self:checkAndAttack(25,0, 20,12, 10, "face")
-			self.cool_down_combo = 1
+			self.cool_down_combo = 0.4
 		elseif self.n_combo == 4 then
 			self:checkAndAttack(25,0, 20,12, 10, "stomach")
-			self.cool_down_combo = 1
+			self.cool_down_combo = 0.4
 		elseif self.n_combo == 5 then
 			self:checkAndAttack(25,0, 20,12, 15, "fall")
-			self.cool_down_combo = 1
+			self.cool_down_combo = 0.4
 		else -- self.n_combo == 1 or 2
 			self:checkAndAttack(25,0, 20,12, 10, "face")
-			self.cool_down_combo = 1
+			self.cool_down_combo = 0.4
 		end
 		self.check_mash = false
 	end
