@@ -250,9 +250,21 @@ function Player:stand_update(dt)
         if self.b.left.down then
             self.face = -1
             self.horizontal = self.face
+            --dash from combo
+            if self.ik and self.ik:getLast().left then
+                self.velx = 130
+                self:setState(self.dash)
+                return
+            end
         elseif self.b.right.down then
             self.face = 1
             self.horizontal = self.face
+            --dash from combo
+            if self.ik and self.ik:getLast().right then
+                self.velx = 130
+                self:setState(self.dash)
+                return
+            end
         end
     end
 
