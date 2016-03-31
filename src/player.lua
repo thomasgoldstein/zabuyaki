@@ -60,7 +60,7 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 
 	self.id = GLOBAL_PLAYER_ID --to stop Y coord sprites flickering
 	GLOBAL_PLAYER_ID = GLOBAL_PLAYER_ID + 1
-	
+
 	self:setState(Player.stand)
 end
 
@@ -185,7 +185,7 @@ function Player:calcFriction(dt)
 	end
 end
 
-function Player:countKeyPresses()
+function Player:countKeyPresses()   --replaced with keyCombo
     if self.mash_count.left == 0 then
         if self.b.left.down then
             self.mash_count.left = 1
@@ -199,7 +199,6 @@ function Player:countKeyPresses()
             self.mash_count.left = 3
         end
     end
-
     if self.mash_count.right == 0 then
         if self.b.right.down then
             self.mash_count.right = 1
@@ -213,8 +212,6 @@ function Player:countKeyPresses()
             self.mash_count.right = 3
         end
     end
-
-    --self.mash_count = {left = 0, right = 0, up = 0, down = 0, fire = 0, jump = 0}
 end
 
 function Player:countKeyPressesReset()
@@ -262,12 +259,9 @@ function Player:stand_start()
 	self.sprite.curr_anim = "stand"
 	self.can_jump = false
 	self.can_fire = false
-    self:countKeyPressesReset()
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
-    self:countKeyPresses()
-
 	if self.cool_down_combo > 0 then
 		self.cool_down_combo = self.cool_down_combo - dt
 	else
@@ -290,7 +284,7 @@ function Player:stand_update(dt)
             self.face = -1
             self.horizontal = self.face
             --dash from combo
-            if self.mash_count.left >= 3
+            if self.ik and self.ik:getLast().left
                 and self.b.fire.down and self.can_fire
             then
                 self.velx = 130
@@ -301,7 +295,7 @@ function Player:stand_update(dt)
             self.face = 1
             self.horizontal = self.face
             --dash from combo
-            if self.mash_count.right >= 3
+            if self.ik and self.ik:getLast().right
                     and self.b.fire.down and self.can_fire
             then
                 self.velx = 130
@@ -954,7 +948,7 @@ Player.dead = {name = "dead", start = Player.dead_start, exit = nop, update = Pl
 
 function Player:combo_start()
 	--	print (self.name.." - combo start")
-	if self.n_combo > 5 then
+    if self.n_combo > 5 then
 		self.n_combo = 1
 	end
 	self.sprite.curr_frame = 1
