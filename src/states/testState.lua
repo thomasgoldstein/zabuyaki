@@ -70,7 +70,10 @@ function testState:update(dt)
 
     if DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
-        fancy.watch("Player state: ",player1.state, 1)
+        fancy.watch("Player state: ",player1.state, 2)
+        fancy.watch("Mash Left #: ",player1.mash_count.left, 1)
+        fancy.watch("Mash Right #: ",player1.mash_count.right, 1)
+
         if player1.n_combo then
             fancy.watch("N Combo: ",player1.n_combo, 3)
         end
