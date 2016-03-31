@@ -34,13 +34,13 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.gravity = 650
     self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
     self.sideStepFriction = 650 -- velocity penalty for sideStepUp Down (when u slide on ground)
-	self.jumpHeight = 40
+    self.jumpHeight = 40 -- in pixels
 	self.state = "nop"
 	self.prev_state = "" -- text name
-	self.last_state = "" -- text name
-	self.n_combo = 1
-	self.cool_down = 0
-	self.cool_down_combo = 0
+    self.last_state = "" -- text name
+    self.n_combo = 1    -- n of the combo hit
+    self.cool_down = 0  -- can't move
+    self.cool_down_combo = 0    -- can cont combo
 
 	if color then
 		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
@@ -51,7 +51,7 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
 	self.prev_frame = 0 -- for SFX like steps self.sprite.curr_frame
 
 	self.isHidden = false
-	self.isEnabled = true
+	--self.isEnabled = true
 
 	self.draw = nop
 	self.update = nop
@@ -69,7 +69,7 @@ function Player:revive()
 	self.hurt = nil
 	self.z = 0
 	self.isHidden = false
-	self.isEnabled = true
+	--self.isEnabled = true
 	self:setState(Player.stand)
 end
 
@@ -185,6 +185,42 @@ function Player:calcFriction(dt)
 	end
 end
 
+function Player:countKeyPresses()
+    if self.mash_count.left == 0 then
+        if self.b.left.down then
+            self.mash_count.left = 1
+        end
+    elseif self.mash_count.left == 1 then
+        if not self.b.left.down then
+            self.mash_count.left = 2
+        end
+    elseif self.mash_count.left == 2 then
+        if self.b.left.down then
+            self.mash_count.left = 3
+        end
+    end
+
+    if self.mash_count.right == 0 then
+        if self.b.right.down then
+            self.mash_count.right = 1
+        end
+    elseif self.mash_count.right == 1 then
+        if not self.b.right.down then
+            self.mash_count.right = 2
+        end
+    elseif self.mash_count.right == 2 then
+        if self.b.right.down then
+            self.mash_count.right = 3
+        end
+    end
+
+    --self.mash_count = {left = 0, right = 0, up = 0, down = 0, fire = 0, jump = 0}
+end
+
+function Player:countKeyPressesReset()
+     self.mash_count = {left = 0, right = 0, up = 0, down = 0, fire = 0, jump = 0}
+end
+
 function Player:checkAndAttack(l,t,w,h, damage, type)
     -- type = "face" "stomach" "fall"
 	local items, len = world:queryRect(self.x + self.face*l - w/2, self.y + t - h/2, w, h,
@@ -226,9 +262,12 @@ function Player:stand_start()
 	self.sprite.curr_anim = "stand"
 	self.can_jump = false
 	self.can_fire = false
+    self:countKeyPressesReset()
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
+    self:countKeyPresses()
+
 	if self.cool_down_combo > 0 then
 		self.cool_down_combo = self.cool_down_combo - dt
 	else
@@ -251,7 +290,9 @@ function Player:stand_update(dt)
             self.face = -1
             self.horizontal = self.face
             --dash from combo
-            if self.ik and self.ik:getLast().left then
+            if self.mash_count.left >= 3
+                and self.b.fire.down and self.can_fire
+            then
                 self.velx = 130
                 self:setState(self.dash)
                 return
@@ -260,7 +301,9 @@ function Player:stand_update(dt)
             self.face = 1
             self.horizontal = self.face
             --dash from combo
-            if self.ik and self.ik:getLast().right then
+            if self.mash_count.right >= 3
+                    and self.b.fire.down and self.can_fire
+            then
                 self.velx = 130
                 self:setState(self.dash)
                 return
