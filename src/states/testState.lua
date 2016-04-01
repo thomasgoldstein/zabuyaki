@@ -5,22 +5,22 @@ end
 
 function testState:enter()
     --create players
-    player1 = Player:new("TEMPLATE MAN", GetInstance("res/man_template.lua"), button, playerKeyCombo, 140, 200)
+    player1 = Player:new("TEMPLATE MAN", GetInstance("res/man_template.lua"), button, 140, 200)
     ibar1 = InfoBar:new(player1)
-    player2 = Player:new("RICK", GetInstance("res/rick.lua"), button2, player2KeyCombo, 90, 180, {255,255,255, 255})
+    player2 = Player:new("RICK", GetInstance("res/rick.lua"), button2, 90, 180, {255,255,255, 255})
     ibar2 = InfoBar:new(player2)
 
-	dummy0 = Player:new("LOCKY", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 420, 200-24, {239,255,191, 255})
+	dummy0 = Player:new("LOCKY", GetInstance("res/man_template.lua"), button2, 420, 200-24, {239,255,191, 255})
     ibar3 = InfoBar:new(dummy0)
-	dummy1 = Player:new("DICKY", GetInstance("res/man_template.lua"), button2, player2KeyCombo, 460, 200-24, {255,239,191, 255})
+	dummy1 = Player:new("DICKY", GetInstance("res/man_template.lua"), button2, 460, 200-24, {255,239,191, 255})
     ibar4 = InfoBar:new(dummy1)
     dummy1.horizontal = -1
     dummy1.face = -1
-	dummy2 = Player:new("DORMY", GetInstance("res/man_template.lua"), button3, nil, 500, 200-24, {191,191,255, 255})
+	dummy2 = Player:new("DORMY", GetInstance("res/man_template.lua"), button3, 500, 200-24, {191,191,255, 255})
     ibar5 = InfoBar:new(dummy2)
-	dummy3 = Player:new("UNNIE", GetInstance("res/man_template.lua"), button3, nil, 540, 200-24, {239,191,255, 255})
+	dummy3 = Player:new("UNNIE", GetInstance("res/man_template.lua"), button3, 540, 200-24, {239,191,255, 255})
     ibar6 = InfoBar:new(dummy3)
-    dummy4 = Player:new("Dummie RICK", GetInstance("res/rick.lua"), button3, nil, 600, 200-24, {239,191,255, 255})
+    dummy4 = Player:new("Dummie RICK", GetInstance("res/rick.lua"), button3, 600, 200-24, {239,191,255, 255})
     ibar7 = InfoBar:new(dummy4)
 
     --Item:initialize(name, sprite, hp, money, func, x, y, color)

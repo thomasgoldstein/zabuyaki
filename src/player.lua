@@ -19,7 +19,7 @@ local function nop() --[[print "nop"]] end
 
 GLOBAL_PLAYER_ID = 1
 
-function Player:initialize(name, sprite, input, inputCombo, x, y, color)
+function Player:initialize(name, sprite, input, x, y, color)
 	self.sprite = sprite --GetInstance("res/man_template.lua")
 	self.name = name or "Unknown"
 	self.type = "player"
@@ -27,7 +27,6 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
     self.hp = self.max_hp
     self.score = 0
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
-	self.ik_ = inputCombo
 	self.x, self.y, self.z = x, y, 0
 	self.vertical, self.horizontal, self.face = 1, 1, 1; --movement and face directions
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
