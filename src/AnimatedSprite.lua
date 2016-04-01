@@ -20,7 +20,7 @@ function LoadSprite (sprite_def)
 	if sprite_def == nil then return nil end
 
 	--Load the sprite definition file to ensure it exists
-	local definition_file = loadfile(sprite_def)
+	local definition_file = love.filesystem.load( sprite_def )
 
 	--If the file doesn't exist or has syntax errors, it'll be nil.
 	if definition_file == nil then
@@ -96,7 +96,7 @@ function GetInstance (sprite_def)
 	}
 end
 
-function UpdateInstance(spr, dt, self)
+function UpdateInstance(spr, dt, slf)
 	local s = spr.def.animations[spr.curr_anim][spr.curr_frame]
 --[[	there are 3 kinds of duration:
 	1) default for whole sprite animations 		: spr.def.default_frame_duration
@@ -133,7 +133,7 @@ function UpdateInstance(spr, dt, self)
 		-- Reset internal counter on frame change.
 		spr.elapsed_time = 0
 		if s.func then
-			return s.func(self)
+			return s.func(slf)
 		end
 	end
 	-- First or Last frames?
