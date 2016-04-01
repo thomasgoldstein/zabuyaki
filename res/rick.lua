@@ -153,6 +153,26 @@ return {
 		sideStepDown = {
 			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
 		},
+		grab = {
+			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+		},
+		grabHit = {
+			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+		},
+		grabHitEnd = {
+			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+		},
+		grabThrow = {
+			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+		},
+		grabSwap = {
+			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+		},
+		grabbed = {
+			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+			frame_duration = 0.1
+		},
+
 	} --offsets
 
 } --return (end of file)
