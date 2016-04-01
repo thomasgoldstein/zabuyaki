@@ -117,6 +117,10 @@ function love.load(arg)
 	--DEBUG libs
 	fancy = require "lib/fancy"	--we need this lib always
 
+	--Sprites definitions
+ 	require "res/man_template"
+	require "res/rick"
+
 	--GameStates
 	require "src/states/testState"
 	require "src/states/gameState"
