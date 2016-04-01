@@ -34,8 +34,6 @@ function love.load(arg)
 
 
 	tactile = require 'lib/tactile'
-	KeyCombo = require 'src/KeyCombo'
-
 	KeyTrace = require 'src/KeyTrace'
 
 	--basic detectors
@@ -74,7 +72,7 @@ function love.load(arg)
 	axis.horizontal.deadzone = .25
 	axis.vertical.deadzone = .25
 
-	--add keyTrace into
+	--add keyTrace into every player 1 button
 	for index,value in pairs(button) do
 		local b = button[index]
 		b.ik = KeyTrace:new(index, value)
@@ -99,7 +97,7 @@ function love.load(arg)
 	button2.fire    = tactile.newButton(keyboardI) --mouseLeft
 	button2.jump    = tactile.newButton(keyboardO) --mouseRight
 
-	--add keyTrace into
+	--add keyTrace into every player 2 button
 	for index,value in pairs(button2) do
 		local b = button2[index]
 		b.ik = KeyTrace:new(index, value)
@@ -114,10 +112,7 @@ function love.load(arg)
 		down = {down = false,released = function() return false end},
 		fire = {down = false,released = function() return false end},
 		jump = {down = false,released = function() return false end},
-		update = function() end}
-
-	playerKeyCombo = KeyCombo:new(button)
-	player2KeyCombo = KeyCombo:new(button2)
+		update = function() end }
 
 	--DEBUG libs
 	fancy = require "lib/fancy"	--we need this lib always
@@ -144,8 +139,6 @@ function love.update(dt)
 		v.ik:update(dt)
 		--v.ik:print()
 	end
-	playerKeyCombo:update(dt)
-	player2KeyCombo:update(dt)
 	TEsound.cleanup()
 end
 

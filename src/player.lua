@@ -27,7 +27,7 @@ function Player:initialize(name, sprite, input, inputCombo, x, y, color)
     self.hp = self.max_hp
     self.score = 0
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
-	self.ik = inputCombo
+	self.ik_ = inputCombo
 	self.x, self.y, self.z = x, y, 0
 	self.vertical, self.horizontal, self.face = 1, 1, 1; --movement and face directions
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
@@ -284,7 +284,7 @@ function Player:stand_update(dt)
             self.face = -1
             self.horizontal = self.face
             --dash from combo
-            if self.ik and self.ik:getLast().left
+            if self.b.left.ik:getLast()
                 and self.b.fire.down and self.can_fire
             then
                 self.velx = 130
@@ -295,7 +295,7 @@ function Player:stand_update(dt)
             self.face = 1
             self.horizontal = self.face
             --dash from combo
-            if self.ik and self.ik:getLast().right
+            if self.b.right.ik:getLast()
                     and self.b.fire.down and self.can_fire
             then
                 self.velx = 130
@@ -362,7 +362,7 @@ function Player:walk_update(dt)
 		self.face = -1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
-		if self.ik and self.ik:getLast().left then
+		if self.b.left.ik:getLast() then
 			self:setState(self.run)
 			return
 		end
@@ -370,7 +370,7 @@ function Player:walk_update(dt)
 		self.face = 1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
-		if self.ik and self.ik:getLast().right then
+		if self.b.right.ik:getLast() then
 			self:setState(self.run)
 			return
 		end
@@ -378,14 +378,14 @@ function Player:walk_update(dt)
 	if self.b.up.down then
 		self.vertical = -1
 		self.vely = 50
-		if self.ik and self.ik:getLast().up then
+		if self.b.up.ik:getLast() then
 			self:setState(self.sideStepUp)
 			return
 		end
 	elseif self.b.down.down then
 		self.vertical = 1
 		self.vely = 50
-		if self.ik and self.ik:getLast().down then
+		if self.b.down.ik:getLast() then
 			self:setState(self.sideStepDown)
 			return
 		end
