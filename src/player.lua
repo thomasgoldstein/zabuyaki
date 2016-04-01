@@ -20,7 +20,7 @@ local function nop() --[[print "nop"]] end
 GLOBAL_PLAYER_ID = 1
 
 function Player:initialize(name, sprite, input, x, y, color)
-	self.sprite = sprite --GetInstance("res/man_template.lua")
+	self.sprite = sprite or {} --GetInstance("res/man_template.lua")
 	self.name = name or "Unknown"
 	self.type = "player"
     self.max_hp = 100
@@ -119,24 +119,31 @@ function Player:onHurt()
 	self.face = -h.source.face
 
 	self.hurt = nil --free hurt data
-    if h.type == "face" and self.hp > 0 and self.z <= 0 then
-        self:setState(self.hurtFace)
-    elseif h.type == "stomach" and self.hp > 0 and self.z <= 0 then
-        self:setState(self.hurtStomach)
-    else
-        -- fall
-        self.z = self.z + 1
-        self.velz = 220
-        if h.state == "combo" or h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown" then
-			if self.hp <= 0 then
-				self.velx = 120	-- dead body flies further
-			else
-            	self.velx = 60
+	if self.isGrabbed then
+		--TODO temp release
+		self.isGrabbed = false
+	else
+		if h.type == "face" and self.hp > 0 and self.z <= 0 then
+			self:setState(self.hurtFace)
+		elseif h.type == "stomach" and self.hp > 0 and self.z <= 0 then
+			self:setState(self.hurtStomach)
+		else
+			-- fall
+			self.z = self.z + 1
+			self.velz = 220
+			if h.state == "combo" or h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown" then
+				if self.hp <= 0 then
+					self.velx = 120	-- dead body flies further
+				else
+					self.velx = 60
+				end
 			end
+			self.velx = self.velx + 10 + love.math.random(10)
+			self:setState(self.fall)
 		end
-		self.velx = self.velx + 10 + love.math.random(10)
-        self:setState(self.fall)
-    end
+	end
+
+
 end
 
 function Player:onGetItem(item)
@@ -621,7 +628,7 @@ function Player:duck_start()
 	self.sprite.loop_count = 0
 	--TODO should I reset hurt here?
 	self.hurt = nil --free hurt data
-	self.z = 0;
+	self.z = 0
 end
 function Player:duck_update(dt)
 	--	print (self.name.." - duck update",dt)
@@ -1101,6 +1108,9 @@ function Player:grab_start()
 	--print (self.name.." - grab start")
 	self.sprite.curr_frame = 1
 	self.sprite.curr_anim = "grab"
+
+	self.can_jump = false
+	self.can_fire = false
 	if DEBUG then
 		print(self.name.." is grabing someone.")
 	end
@@ -1138,6 +1148,22 @@ function Player:grab_update(dt)
 		self.x = self.x - 1
 	elseif self.x >= g.target.x and self.x < g.target.x + 20 then
 		self.x = self.x + 1
+	end
+
+
+
+	if self.b.jump.down and self.can_jump then
+		--self:setState(self.jumpUp)
+		--return
+	elseif self.b.fire.down and self.can_fire then
+		--end
+	end
+
+	if not self.b.jump.down then
+		self.can_jump = true
+	end
+	if not self.b.fire.down then
+		self.can_fire = true
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
