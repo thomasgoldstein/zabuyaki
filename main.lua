@@ -36,6 +36,8 @@ function love.load(arg)
 	tactile = require 'lib/tactile'
 	KeyCombo = require 'src/KeyCombo'
 
+	KeyTrace = require 'src/KeyTrace'
+
 	--basic detectors
 	keyboardLeft  = tactile.key('left')
 	keyboardRight = tactile.key('right')
@@ -72,6 +74,14 @@ function love.load(arg)
 	axis.horizontal.deadzone = .25
 	axis.vertical.deadzone = .25
 
+	--add keyTrace into
+	for index,value in pairs(button) do
+		local b = button[index]
+		b.ik = KeyTrace:new(index, value)
+		--local upd = b.update
+		--button[index].update = function(dt) upd(b); b.ik.update(b, dt) end
+	end
+
 	--player 2
 	--basic detectors
 	keyboardA  = tactile.key('a')
@@ -88,6 +98,14 @@ function love.load(arg)
 	button2.down       = tactile.newButton(keyboardS)
 	button2.fire    = tactile.newButton(keyboardI) --mouseLeft
 	button2.jump    = tactile.newButton(keyboardO) --mouseRight
+
+	--add keyTrace into
+	for index,value in pairs(button2) do
+		local b = button2[index]
+		b.ik = KeyTrace:new(index, value)
+		--local upd = b.update
+		--button[index].update = function(dt) upd(b); b.ik.update(b, dt) end
+	end
 
 	--dummie player
 	button3 = {left = {down = false, released = function() return false end},
@@ -118,9 +136,13 @@ end
 function love.update(dt)
 	for k, v in pairs(button) do	-- update input
 		v:update()
+		v.ik:update(dt)
+		--v.ik:print()
 	end
 	for k, v in pairs(button2) do	-- update input
 		v:update()
+		v.ik:update(dt)
+		--v.ik:print()
 	end
 	playerKeyCombo:update(dt)
 	player2KeyCombo:update(dt)
