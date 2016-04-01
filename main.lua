@@ -34,7 +34,7 @@ function love.load(arg)
 
 
 	tactile = require 'lib/tactile'
-	KeyTrace = require 'src/KeyTrace'
+	KeyTrace = require 'src/keyTrace'
 
 	--basic detectors
 	keyboardLeft  = tactile.key('left')
