@@ -41,6 +41,9 @@ function Player:initialize(name, sprite, input, x, y, color)
     self.cool_down = 0  -- can't move
     self.cool_down_combo = 0    -- can cont combo
 
+	self.isGrabbed = false
+	self.hold = {source = nil, target = nil, cool_down = 0}
+
 	if color then
 		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
 	else
@@ -261,6 +264,9 @@ function Player:stand_start()
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
+	if self.isGrabbed then
+		self:setState(self.grabbed)
+	end
 	if self.cool_down_combo > 0 then
 		self.cool_down_combo = self.cool_down_combo - dt
 	else
@@ -325,6 +331,7 @@ function Player:stand_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
+
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
@@ -389,7 +396,6 @@ function Player:walk_update(dt)
 			return
 		end
 	end
-
 	if self.velx == 0 and self.vely == 0 then
 		self:setState(self.stand)
 		return
@@ -402,6 +408,16 @@ function Player:walk_update(dt)
 			TEsound.play("res/sfx/step.wav", nil, 0.5)
 		end
 	end
+
+	local grabbed = self:checkForGrab(9, 3)
+	if grabbed then
+		if self:doGrab(grabbed) then
+			--function Player:doGrab(target)
+			--self:setState(self.grab)
+			return
+		end
+	end
+
 	self:checkCollisionAndMove(dt)
 	if not self.b.jump.down then
 		self.can_jump = true
@@ -629,6 +645,9 @@ function Player:hurtFace_start()
 end
 function Player:hurtFace_update(dt)
 	--	print (self.name.." - hurtFace update",dt)
+	if self.isGrabbed then
+		self:setState(self.grabbed)
+	end
 	if self.sprite.loop_count > 0 then
 		if self.hp <= 0 then
 			self:setState(self.dead)
@@ -653,6 +672,9 @@ function Player:hurtStomach_start()
 end
 function Player:hurtStomach_update(dt)
 	--	print (self.name.." - hurtStomach update",dt)
+	if self.isGrabbed then
+		self:setState(self.grabbed)
+	end
 	if self.sprite.loop_count > 0 then
 		if self.hp <= 0 then
 			self:setState(self.dead)
@@ -1000,5 +1022,160 @@ function Player:combo_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
+
+-- GRABBING / HOLDING
+function Player:checkForGrab(w, h)
+	--got any players
+
+--	local items, len = world:queryRect(self.x + self.face*l - w/2, self.y + t - h/2, w, h,
+
+	local items, len = world:queryRect(self.x + self.face*w - w/2, self.y - h/2, w, h,
+		function(o)
+			if o ~= self and o.type == "player" then
+				return true
+			end
+		end)
+	if len > 0 then
+		return items[1]
+	end
+	return nil
+end
+
+function Player:onGrab(source)
+	-- hurt = {source, damage, velx,vely,x,y,z}
+	local g = self.hold
+	if DEBUG then
+		print(source.name .. " grabed me - "..self.name)
+	end
+	if self.isGrabbed then
+		return false	-- already grabbed
+	end
+	if self.state ~= "stand"
+		and self.state ~= "hurtFace"
+		and self.state ~= "hurtStomach"
+	then
+		return false	-- already grabbed
+	end
+	if g.target and g.target.isGrabbed then	-- your grab targed releases one it grabs
+		g.target.isGrabbed = false
+		--g.target.isGrabbed = false
+	end
+	g.source = source
+	g.target = nil
+	g.cool_down = 2
+	self.isGrabbed = true
+	--self:setState(self.grabbed)
+	return self.isGrabbed
+end
+
+function Player:doGrab(target)
+	if DEBUG then
+		print(target.name .. " is grabed by me - "..self.name)
+	end
+	local g = self.hold
+	if self.isGrabbed then
+		return false	-- i'm grabbed
+	end
+	if target.isGrabbed then
+		self.cool_down = 0.2
+		return false
+	end
+
+	if target:onGrab(self) then
+		g.source = nil
+		g.target = target
+		g.cool_down = 2.1
+		if g.target.x < self.x then
+			self.face = -1
+		else
+			self.face = 1
+		end
+		self:setState(self.grab)
+		return true
+	end
+	return false
+end
+
+
+function Player:grab_start()
+	--print (self.name.." - grab start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "grab"
+	if DEBUG then
+		print(self.name.." is grabing someone.")
+	end
+	--TEsound.play("res/sfx/grunt1.wav")
+end
+function Player:grab_update(dt)
+	--print(self.name .. " - grab update", dt)
+	local g = self.hold
+	if g.cool_down > 0 then
+		g.cool_down = g.cool_down - dt
+	else
+		--adjust victim
+		g.target.isGrabbed = false
+		--g.target.grab.cool_down = 0
+		--g.target.cool_down = 1	--cannot walk etc
+		--me
+		if g.target.x < self.x then
+			self.horizontal = 1
+		else
+			self.horizontal = -1
+		end
+		self.velx = 145 --move from source
+		self.cool_down = 0.35	--cannot walk etc
+		self:setState(self.stand)
+		return
+	end
+	--adjust both vertically
+	if self.y > g.target.y + 1 then
+		self.y = self.y - 1
+	elseif self.y < g.target.y then
+		self.y = self.y + 1
+	end
+	--adjust both horizontally
+	if self.x < g.target.x and self.x > g.target.x - 20 then
+		self.x = self.x - 1
+	elseif self.x >= g.target.x and self.x < g.target.x + 20 then
+		self.x = self.x + 1
+	end
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.grab = {name = "grab", start = Player.grab_start, exit = nop, update = Player.grab_update, draw = Player.default_draw}
+
+
+function Player:grabbed_start()
+	--print (self.name.." - grabbed start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "grabbed"
+	if DEBUG then
+		print(self.name.." is grabbed.")
+	end
+	--TEsound.play("res/sfx/grunt1.wav")
+end
+function Player:grabbed_update(dt)
+	--print(self.name .. " - grabbed update", dt)
+	local g = self.hold
+	if self.isGrabbed and g.cool_down > 0 then
+		g.cool_down = g.cool_down - dt
+	else
+		if g.source.x < self.x then
+			self.horizontal = 1
+		else
+			self.horizontal = -1
+		end
+		self.isGrabbed = false
+		self.cool_down = 0.1	--cannot walk etc
+		self.velx = 200 --move from source
+		self:setState(self.stand)
+		return
+	end
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.grabbed = {name = "grabbed", start = Player.grabbed_start, exit = nop, update = Player.grabbed_update, draw = Player.default_draw}
 
 return Player
