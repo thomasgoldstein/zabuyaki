@@ -71,10 +71,10 @@ return {
 			frame_duration = 0.5
 		},
 		pickup = {
-			{ q = q(2, 143, 35, 55), ox = 19, oy = 54, duration = 0.15 }, -- duck 1
-			{ q = q(39, 147, 31, 51), ox = 14, oy = 50}, -- duck 2
-			{ q = q(2, 143, 35, 55), ox = 19, oy = 54, duration = 0.15 }, -- duck 1
-			frame_duration = 0.25
+			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
+			{ q = q(39, 147, 31, 51), ox = 14, oy = 50, duration = 0.2 }, -- duck 2
+			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
+			frame_duration = 0.05
 		},
 		duck_ = {
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
