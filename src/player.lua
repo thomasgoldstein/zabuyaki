@@ -606,13 +606,18 @@ function Player:pickup_start()
 end
 function Player:pickup_update(dt)
 	--	print (self.name.." - pickup update",dt)
+	local item = self:checkForItem(9, 9)
 	if self.sprite.loop_count > 0 then
-		local item = self:checkForItem(9, 9)
+		item = self:checkForItem(9, 9)
 		if item then
 			self:onGetItem(item)
 		end
 		self:setState(self.stand)
 		return
+	end
+	if item and item.color.a > 50 then
+		item.color.a = item.color.a - 5
+		item.z = item.z + 0.5
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
