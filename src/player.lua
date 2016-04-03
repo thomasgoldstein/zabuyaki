@@ -122,28 +122,25 @@ function Player:onHurt()
 	if self.isGrabbed then
 		--TODO temp release
 		self.isGrabbed = false
-	else
-		if h.type == "face" and self.hp > 0 and self.z <= 0 then
-			self:setState(self.hurtFace)
-		elseif h.type == "stomach" and self.hp > 0 and self.z <= 0 then
-			self:setState(self.hurtStomach)
-		else
-			-- fall
-			self.z = self.z + 1
-			self.velz = 220
-			if h.state == "combo" or h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown" then
-				if self.hp <= 0 then
-					self.velx = 120	-- dead body flies further
-				else
-					self.velx = 60
-				end
-			end
-			self.velx = self.velx + 10 + love.math.random(10)
-			self:setState(self.fall)
-		end
 	end
-
-
+	if h.type == "face" and self.hp > 0 and self.z <= 0 then
+		self:setState(self.hurtFace)
+	elseif h.type == "stomach" and self.hp > 0 and self.z <= 0 then
+		self:setState(self.hurtStomach)
+	else
+		-- fall
+		self.z = self.z + 1
+		self.velz = 220
+		if h.state == "combo" or h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown" then
+			if self.hp <= 0 then
+				self.velx = 120	-- dead body flies further
+			else
+				self.velx = 60
+			end
+		end
+		self.velx = self.velx + 10 + love.math.random(10)
+		self:setState(self.fall)
+	end
 end
 
 function Player:onGetItem(item)
@@ -1133,9 +1130,9 @@ function Player:grab_update(dt)
 		--g.target.cool_down = 1	--cannot walk etc
 		--me
 		if g.target.x < self.x then
-			self.horizontal = 1
-		else
 			self.horizontal = -1
+		else
+			self.horizontal = 1
 		end
 		self.velx = 145 --move from source
 		self.cool_down = 0.35	--cannot walk etc
@@ -1154,8 +1151,6 @@ function Player:grab_update(dt)
 	elseif self.x >= g.target.x and self.x < g.target.x + 20 then
 		self.x = self.x + 1
 	end
-
-
 
 	if self.b.jump.down and self.can_jump then
 		--self:setState(self.jumpUp)
