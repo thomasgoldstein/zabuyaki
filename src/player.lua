@@ -64,6 +64,9 @@ function Player:initialize(name, sprite, input, x, y, color)
 	self.id = GLOBAL_PLAYER_ID --to stop Y coord sprites flickering
 	GLOBAL_PLAYER_ID = GLOBAL_PLAYER_ID + 1
 
+    self.infoBar = InfoBar:new(self)
+    self.victim_infoBar = nil
+
 	self:setState(Player.stand)
 end
 
@@ -72,6 +75,9 @@ function Player:revive()
 	self.hurt = nil
 	self.z = 0
 	self.isHidden = false
+    self.victims = {}
+    self.infoBar = InfoBar:new(self)
+    self.victim_infoBar = nil
 	--self.isEnabled = true
 	self:setState(Player.stand)
 end
@@ -112,6 +118,8 @@ function Player:onHurt()
         return
     end
     h.source.victims[self] = true
+
+    h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
 
 	self.hp = self.hp - h.damage
 	self.n_combo = 1	--if u get hit reset combo chain
