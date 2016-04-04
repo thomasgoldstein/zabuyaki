@@ -6,12 +6,12 @@ local class = require "lib/middleclass"
 
 local InfoBar = class("InfoBar")
 
-local v_g = 24 --vertical gap between bars
-local v_m = 16 --vert margin from the top
-local h_m = 16 --horizontal margin
-local bar_width = 116
-local bar_height = 8
-local screen_width = 320
+local v_g = 44 --vertical gap between bars
+local v_m = 32 --vert margin from the top
+local h_m = 32 --horizontal margin
+local bar_width = 240
+local bar_height = 16
+local screen_width = 640
 local norm_color = {255,200,40}
 local decr_color = {249,187,0} --{240,60,30}
 local incr_color = {255,217,102} --{140,240,50}
@@ -31,7 +31,7 @@ local bars_coords = {
     { x = h_m, y = v_m + 4 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 4 * v_g, face = -1 },
     { x = h_m, y = v_m + 5 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 5 * v_g, face = -1 },
 }
-function InfoBar:initialize(source)
+function InfoBar:initialize(source, attacker_source)
     self.source = source
     self.icon = nil --icon? TODO
     self.name = source.name or "Unknown"
@@ -42,7 +42,18 @@ function InfoBar:initialize(source)
     self.max_hp = 100
     self.id = self.source.id
     --print("src id", self.id)
-    self.x, self.y, self.face = bars_coords[self.id].x, bars_coords[self.id].y, bars_coords[self.id].face
+    if attacker_source then
+        --victim of the corresponded player
+        self.x, self.y, self.face = bars_coords[attacker_source.id].x, bars_coords[attacker_source.id].y + v_g, bars_coords[attacker_source.id].face
+    else
+        --player
+        self.x, self.y, self.face = bars_coords[self.id].x, bars_coords[self.id].y, bars_coords[self.id].face
+    end
+end
+
+function InfoBar:setAttacker(attacker_source)
+    self.x, self.y, self.face = bars_coords[attacker_source.id].x, bars_coords[attacker_source.id].y + v_g, bars_coords[attacker_source.id].face
+    return self
 end
 
 function InfoBar:draw(l,t,w,h)
@@ -56,11 +67,11 @@ function InfoBar:draw(l,t,w,h)
             else
                 love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_lost)
             end
-            love.graphics.rectangle("fill", l + self.x + 1, t + self.y +1, (bar_width -2) * self.old_hp / self.max_hp, 6 )
+            love.graphics.rectangle("fill", l + self.x + 2, t + self.y + 2, (bar_width - 2) * self.old_hp / self.max_hp, (bar_height - 4) )
         end
         if self.hp > 0 then
             love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bar)
-            love.graphics.rectangle("fill", l + self.x + 1, t + self.y +1, (bar_width -2) * self.hp / self.max_hp, 6 )
+            love.graphics.rectangle("fill", l + self.x + 2, t + self.y + 2, (bar_width - 2) * self.hp / self.max_hp, (bar_height - 4) )
         end
 
         love.graphics.setColor(255, 255, 255, transp_name)
@@ -75,11 +86,11 @@ function InfoBar:draw(l,t,w,h)
             else
                 love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_lost)
             end
-            love.graphics.rectangle("fill", l + self.x + 1, t + self.y +1, (bar_width -2) * self.old_hp / self.max_hp, 6 )
+            love.graphics.rectangle("fill", l + self.x + 2, t + self.y + 2, (bar_width -2) * self.old_hp / self.max_hp, (bar_height - 4) )
         end
         if self.hp > 0 then
             love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bar)
-            love.graphics.rectangle("fill", l + self.x + 1, t + self.y +1, (bar_width -2) * self.hp / self.max_hp, 6 )
+            love.graphics.rectangle("fill", l + self.x + 2, t + self.y + 2, (bar_width -2) * self.hp / self.max_hp, (bar_height - 4) )
         end
 
         love.graphics.setColor(255, 255, 255, transp_name)
