@@ -6,7 +6,7 @@ end
 function testState:enter()
     --create players
     player1 = Player:new("TEMPLATE MAN", GetInstance("res/man_template.lua"), button, 140, 200)
-    player2 = Player:new("RICK", GetInstance("res/rick.lua"), button2, 90, 180, {255,255,255, 255})
+    player2 = Rick:new("RICK", GetInstance("res/rick.lua"), button2, 90, 180, {255,255,255, 255})
 
 	dummy0 = Player:new("LOCKY", GetInstance("res/man_template.lua"), button2, 320, 200-24, {239,255,191, 255})
     ibar3 = InfoBar:new(dummy0)

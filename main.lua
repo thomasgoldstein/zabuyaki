@@ -29,6 +29,7 @@ function love.load(arg)
 	gamera = require "lib/gamera"
 	CompoundPicture = require "src/compoPic"
 	Player = require "src/player"
+	Rick = require "src/rick_player"
 	Item = require "src/item"
 	InfoBar = require "src/infoBar"
 
@@ -116,10 +117,6 @@ function love.load(arg)
 
 	--DEBUG libs
 	fancy = require "lib/fancy"	--we need this lib always
-
-	--Sprites definitions
- 	require "res/man_template"
-	require "res/rick"
 
 	--GameStates
 	require "src/states/testState"
