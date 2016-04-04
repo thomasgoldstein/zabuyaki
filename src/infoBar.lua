@@ -11,6 +11,8 @@ local v_m = 32 --vert margin from the top
 local h_m = 32 --horizontal margin
 local bar_width = 240
 local bar_height = 16
+local icon_width = 16
+local icon_height = 16
 local screen_width = 640
 local norm_color = {255,200,40}
 local decr_color = {249,187,0} --{240,60,30}
@@ -19,6 +21,7 @@ local lost_color = {164,0,0}
 local got_color = {0,164,0}
 local transp_bg = 200
 local transp_bar = 255
+local transp_icon = 255
 local transp_lost = 255
 local transp_got = 255
 local transp_name = 255
@@ -33,7 +36,9 @@ local bars_coords = {
 }
 function InfoBar:initialize(source, attacker_source)
     self.source = source
-    self.icon = nil --icon? TODO
+    self.icon_sprite = source.sprite.def.sprite_sheet
+    self.icon_q = source.sprite.def.animations["icon"][1].q  --quad
+    self.icon_color = source.color
     self.name = source.name or "Unknown"
     self.extra_text = "EXTRA TEXT"
     self.hp = 1
@@ -63,7 +68,8 @@ function InfoBar:draw(l,t,w,h)
     if self.face == 1 then
         --left side
         love.graphics.setColor(0, 50, 50, transp_bg)
-        love.graphics.rectangle("fill", l + self.x, t + self.y, bar_width, bar_height )
+        love.graphics.rectangle("fill", l + self.x, t + self.y - icon_height - 1, icon_width + 2, icon_height + 2 )
+        love.graphics.rectangle("fill", l + self.x, t + self.y , bar_width, bar_height )
         if self.old_hp > 0 then
             if self.source.hp > self.hp then
                 love.graphics.setColor(got_color[1], got_color[2], got_color[3], transp_got)
@@ -77,11 +83,18 @@ function InfoBar:draw(l,t,w,h)
             love.graphics.rectangle("fill", l + self.x + 2, t + self.y + 2, (bar_width - 2) * self.hp / self.max_hp, (bar_height - 4) )
         end
 
+        love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_icon)
+        love.graphics.draw (
+            image_bank[self.icon_sprite],
+            self.icon_q, --Current frame of the current animation
+            l + self.x + 1, t + self.y - icon_height
+        )
         love.graphics.setColor(255, 255, 255, transp_name)
-        love.graphics.print(self.name, l + self.x, t + self.y-13)
+        love.graphics.print(self.name, l + self.x + icon_width + 4, t + self.y-13)
     else
         --right side
         love.graphics.setColor(0, 50, 50, transp_bg)
+        love.graphics.rectangle("fill", l + self.x, t + self.y - icon_height - 1, icon_width + 2, icon_height + 2 )
         love.graphics.rectangle("fill", l + self.x, t + self.y, bar_width, bar_height )
         if self.old_hp > 0 then
             if self.source.hp > self.hp then
@@ -96,8 +109,14 @@ function InfoBar:draw(l,t,w,h)
             love.graphics.rectangle("fill", l + self.x + 2, t + self.y + 2, (bar_width -2) * self.hp / self.max_hp, (bar_height - 4) )
         end
 
+        love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_icon)
+        love.graphics.draw (
+            image_bank[self.icon_sprite],
+            self.icon_q, --Current frame of the current animation
+            l + self.x + 1, t + self.y - icon_height
+        )
         love.graphics.setColor(255, 255, 255, transp_name)
-        love.graphics.print(self.name, l + self.x, t + self.y-13)
+        love.graphics.print(self.name, l + self.x + icon_width + 4, t + self.y-13)
     end
 end
 
