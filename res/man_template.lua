@@ -20,6 +20,9 @@ return {
 	--  each one can be accessed like this:
 	--  mySprite.animations["idle"][1], or even
 	animations = {
+		icon  = {
+			{ q = q(184, 142, 16, 16) }
+		},
 		center = {
 			{q = q(155, 2, 41, 62), ox = 20, oy = 60, duration = 5, func = function() print("frame test") end }
 		},

@@ -20,6 +20,9 @@ return {
 	--  each one can be accessed like this:
 	--  mySprite.animations["idle"][1], or even
 	animations = {
+		icon  = {
+			{ q = q(21, 21, 16, 16) }
+		},
 		stand = {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad
