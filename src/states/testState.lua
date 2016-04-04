@@ -6,9 +6,7 @@ end
 function testState:enter()
     --create players
     player1 = Player:new("TEMPLATE MAN", GetInstance("res/man_template.lua"), button, 140, 200)
-    ibar1 = InfoBar:new(player1)
     player2 = Player:new("RICK", GetInstance("res/rick.lua"), button2, 90, 180, {255,255,255, 255})
-    ibar2 = InfoBar:new(player2)
 
 	dummy0 = Player:new("LOCKY", GetInstance("res/man_template.lua"), button2, 320, 200-24, {239,255,191, 255})
     ibar3 = InfoBar:new(dummy0)
@@ -17,20 +15,16 @@ function testState:enter()
     dummy1.horizontal = -1
     dummy1.face = -1
 	dummy2 = Player:new("DORMY", GetInstance("res/man_template.lua"), button3, 500, 200-4, {191,191,255, 255})
-    ibar5 = InfoBar:new(dummy2)
 	dummy3 = Player:new("UNNIE", GetInstance("res/man_template.lua"), button3, 600, 204, {239,191,255, 255})
-    ibar6 = InfoBar:new(dummy3)
     dummy4 = Player:new("Dummie RICK", GetInstance("res/rick.lua"), button3, 560, 200-24, {30,30,30, 255})
-    ibar7 = InfoBar:new(dummy4)
 
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
     item1 = Item:new("Apple 1", nil, 10, 1, nil, 200,160, {239,0,55, 255})
-    item2 = Item:new("Apple 2", nil, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 220,180, {239,0,155, 255})
-    item3 = Item:new("Coins 3", nil, 0, 100, nil, 250,200, {155,239,0, 255})
+    item2 = Item:new("Apple 2", nil, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 290,180, {239,0,155, 255})
+    item3 = Item:new("Coins 3", nil, 0, 100, nil, 350,200, {155,239,0, 255})
 
     self.entities = {player1, player2, dummy0, dummy1, dummy2, dummy3, dummy4,
         item1, item2, item3,
-        ibar1, ibar2, ibar3, ibar4, ibar5, ibar6, ibar7
     }
 
     --load level
@@ -53,9 +47,11 @@ end
 function testState:update(dt)
 	for _,player in ipairs(self.entities) do
 		player:update(dt)
+        if player.infoBar then
+            player.infoBar:update(dt)
+        end
     end
-	
-	--sort players + entities by y
+    --sort players + entities by y
 	table.sort(self.entities , function(a,b)
         if a.y == b.y then
             return a.id<b.id
@@ -64,9 +60,6 @@ function testState:update(dt)
 	
     background:update(dt)
     cam:setPosition(player1.x, player1.y)
-
-    --ibar1:update(dt)
-    --ibar2:update(dt)
 
     if DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
@@ -122,6 +115,16 @@ function testState:draw()
     end)
     if DEBUG then
         fancy.draw()	--DEBUG var show
+    end
+
+    --HP bars
+    player1.infoBar:draw(0,0)
+    if player1.victim_infoBar and player1.victim_infoBar.hp > 0 then
+        player1.victim_infoBar:draw(0,0)
+    end
+    player2.infoBar:draw(0,0)
+    if player2.victim_infoBar and player2.victim_infoBar.hp > 0 then
+        player2.victim_infoBar:draw(0,0)
     end
 end
 
