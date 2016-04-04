@@ -102,11 +102,9 @@ return {
 			frame_duration = 0.2
 		},
 		dead = {
-			{ q = q(113,68,35,54), ox = 17, oy = 53 }, --head
-			{ q = q(113,68,35,44), ox = 17, oy = 43 }, --head
-			{ q = q(113,68,35,33), ox = 17, oy = 32 }, --head
-			{ q = q(113,68,35,23), ox = 17, oy = 22,duration = 60 }, --head
-			frame_duration = 0.3
+			{ q = q(135,464,56,53), ox = 28, oy = 52, duration = 1 },
+			{ q = q(64,487,69,30), ox = 34, oy = 29 },
+			frame_duration = 65
 		},
 		hurtFace = {
 			{ q = q(2,330,45,63), ox = 24, oy = 62, duration = 0.01 }, --hf1
