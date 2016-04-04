@@ -162,9 +162,13 @@ end
 
 function Player:drawShadow(l,t,w,h)
 	--TODO adjust sprite dimensions
-	if CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
+	if CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
 		love.graphics.setColor(0, 0, 0, 200)
-		love.graphics.ellipse("fill", self.x, self.y, 18 - self.z/16, 6 - self.z/32)
+        if self.z < 4 and self.sprite.curr_frame == 2 and (self.state == "dead" or self.state == "fall") then
+            love.graphics.ellipse("fill", self.x, self.y, 36 - self.z/16, 4 - self.z/32)
+        else    --norm
+            love.graphics.ellipse("fill", self.x, self.y, 18 - self.z/16, 6 - self.z/32)
+        end
 	end
 end
 
