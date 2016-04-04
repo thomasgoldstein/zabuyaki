@@ -42,7 +42,8 @@ function Player:initialize(name, sprite, input, x, y, color)
     self.cool_down_combo = 0    -- can cont combo
 
 	self.isGrabbed = false
-	self.hold = {source = nil, target = nil, cool_down = 0}
+	self.hold = {source = nil, target = nil, cool_down = 0 }
+    self.victims = {} -- [victim] = true
 
 	if color then
 		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
@@ -106,7 +107,11 @@ function Player:onHurt()
     h.damage = h.damage or 0
 	if DEBUG then
 		print(h.source.name .. " damaged "..self.name.." by "..h.damage)
-	end
+    end
+    if h.source.victims[self] then  -- if I had dmg from this src already
+        return
+    end
+    h.source.victims[self] = true
 
 	self.hp = self.hp - h.damage
 	self.n_combo = 1	--if u get hit reset combo chain
@@ -228,7 +233,9 @@ function Player:checkAndAttack(l,t,w,h, damage, type)
     -- type = "face" "stomach" "fall"
 	local items, len = world:queryRect(self.x + self.face*l - w/2, self.y + t - h/2, w, h,
 		function(item)
-			if self ~= item and item.type ~= "wall" then
+			if self ~= item and item.type ~= "wall"
+                and not self.victims[item]
+            then
 				--print ("hit "..item.name)
 				return true
 			end
@@ -265,6 +272,7 @@ function Player:stand_start()
 	self.sprite.curr_anim = "stand"
 	self.can_jump = false
 	self.can_fire = false
+    self.victims = {}
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
@@ -630,6 +638,7 @@ function Player:duck_start()
 	self.sprite.loop_count = 0
 	--TODO should I reset hurt here?
 	self.hurt = nil --free hurt data
+    --self.victims = {}
 	self.z = 0
 end
 function Player:duck_update(dt)
