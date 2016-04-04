@@ -52,11 +52,11 @@ function InfoBar:initialize(source, attacker_source)
 end
 
 function InfoBar:setAttacker(attacker_source)
-    if attacker_source.id > 2 then
+    if self.id > 2 then
         --TODO we might have 4 players
         self.x, self.y, self.face = bars_coords[attacker_source.id].x, bars_coords[attacker_source.id].y + v_g, bars_coords[attacker_source.id].face
-        return self
     end
+    return self
 end
 
 function InfoBar:draw(l,t,w,h)
