@@ -40,6 +40,7 @@ function Player:initialize(name, sprite, input, x, y, color)
     self.n_combo = 1    -- n of the combo hit
     self.cool_down = 0  -- can't move
     self.cool_down_combo = 0    -- can cont combo
+    self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0 }
 
 	self.isGrabbed = false
 	self.hold = {source = nil, target = nil, cool_down = 0 }
@@ -107,6 +108,28 @@ function Player:checkHurt()
 	self:onHurt()
 end
 
+function Player:onShake(sx, sy, freq,cool_down)
+	--shaking sprite
+	self.shake = {x = 0, y = 0, sx = sx or 1, sy = sy or 1, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2 }
+end
+
+function Player:updateShake(dt)
+	if self.shake.cool_down > 0 then
+		self.shake.cool_down = self.shake.cool_down - dt
+
+		if self.shake.f > 0 then
+			self.shake.f = self.shake.f - dt
+		else
+			self.shake.f = self.shake.freq
+			self.shake.x = love.math.random(-self.shake.sx, self.shake.sx)
+			self.shake.y = love.math.random(0, self.shake.sy)
+		end
+		if self.shake.cool_down <= 0 then
+			self.shake.x, self.shake.y = 0, 0
+		end
+	end
+end
+
 function Player:onHurt()
 	-- hurt = {source, damage, velx,vely,x,y,z}
     local h = self.hurt
@@ -137,8 +160,10 @@ function Player:onHurt()
 		self.isGrabbed = false
 	end
 	if h.type == "face" and self.hp > 0 and self.z <= 0 then
+		self:onShake(2, 0, 0.03, 0.3)
 		self:setState(self.hurtFace)
 	elseif h.type == "stomach" and self.hp > 0 and self.z <= 0 then
+		self:onShake(0, 2, 0.03, 0.3)
 		self:setState(self.hurtStomach)
 	else
 		-- fall
@@ -152,6 +177,7 @@ function Player:onHurt()
 			end
 		end
 		self.velx = self.velx + 10 + love.math.random(10)
+		--self:onShake(10, 10, 0.12, 0.7)
 		self:setState(self.fall)
 	end
 end
@@ -165,9 +191,9 @@ function Player:drawShadow(l,t,w,h)
 	if CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
 		love.graphics.setColor(0, 0, 0, 200)
         if self.z < 4 and self.sprite.curr_frame == 2 and (self.state == "dead" or self.state == "fall") then
-            love.graphics.ellipse("fill", self.x, self.y, 36 - self.z/16, 4 - self.z/32)
+            love.graphics.ellipse("fill", self.x + self.shake.x, self.y, 36 - self.z/16, 4 - self.z/32)
         else    --norm
-            love.graphics.ellipse("fill", self.x, self.y, 18 - self.z/16, 6 - self.z/32)
+            love.graphics.ellipse("fill", self.x + self.shake.x, self.y, 18 - self.z/16, 6 - self.z/32)
         end
 	end
 end
@@ -177,7 +203,7 @@ function Player:default_draw(l,t,w,h)
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
 		self.sprite.flip_h = self.face  --TODO get rid of .face
 		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-		DrawInstance(self.sprite, self.x, self.y - self.z)
+		DrawInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
 	end
 end
 
@@ -359,6 +385,7 @@ function Player:stand_update(dt)
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Player.stand = {name = "stand", start = Player.stand_start, exit = nop, update = Player.stand_update, draw = Player.default_draw}
@@ -450,6 +477,7 @@ function Player:walk_update(dt)
 		self.can_fire = true
 	end
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.walk = {name = "walk", start = Player.walk_start, exit = nop, update = Player.walk_update, draw = Player.default_draw}
@@ -515,6 +543,7 @@ function Player:run_update(dt)
 	end
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.run = {name = "run", start = Player.run_start, exit = nop, update = Player.run_update, draw = Player.default_draw}
@@ -572,6 +601,7 @@ function Player:jumpUp_update(dt)
 		self.can_fire = true
 	end
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = nop, update = Player.jumpUp_update, draw = Player.default_draw}
@@ -610,6 +640,7 @@ function Player:jumpDown_update(dt)
 		self.can_fire = true
 	end
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = nop, update = Player.jumpDown_update, draw = Player.default_draw}
@@ -639,6 +670,7 @@ function Player:pickup_update(dt)
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
     self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.pickup = {name = "pickup", start = Player.pickup_start, exit = nop, update = Player.pickup_update, draw = Player.default_draw}
@@ -662,6 +694,7 @@ function Player:duck_update(dt)
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	--self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
@@ -689,6 +722,7 @@ function Player:hurtFace_update(dt)
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.hurtFace = {name = "hurtFace", start = Player.hurtFace_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
@@ -716,6 +750,7 @@ function Player:hurtStomach_update(dt)
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.hurtStomach = {name = "hurtStomach", start = Player.hurtStomach_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
@@ -741,6 +776,7 @@ function Player:sideStepDown_update(dt)
 		return
 	end
 	self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start, exit = nop, update = Player.sideStepDown_update, draw = Player.default_draw}
@@ -766,6 +802,7 @@ function Player:sideStepUp_update(dt)
         return
     end
 	self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = nop, update = Player.sideStepUp_update, draw = Player.default_draw}
@@ -791,6 +828,7 @@ function Player:dash_update(dt)
     end
     self:checkAndAttack(20,0, 20,12, 30, "fall")
 	self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.dash = {name = "dash", start = Player.dash_start, exit = nop, update = Player.dash_update, draw = Player.default_draw}
@@ -813,6 +851,7 @@ function Player:jumpAttackForwardUp_update(dt)
     self:checkAndAttack(24,0, 20,12, 20, "fall")
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackForwardUp = {name = "jumpAttackForwardUp", start = Player.jumpAttackForwardUp_start, exit = nop, update = Player.jumpAttackForwardUp_update, draw = Player.default_draw}
@@ -836,6 +875,7 @@ function Player:jumpAttackForwardDown_update(dt)
     self:checkAndAttack(24,0, 20,12, 20, "fall")
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackForwardDown = {name = "jumpAttackForwardDown", start = Player.jumpAttackForwardDown_start, exit = nop, update = Player.jumpAttackForwardDown_update, draw = Player.default_draw}
@@ -862,6 +902,7 @@ function Player:jumpAttackWeakUp_update(dt)
     end
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackWeakUp = {name = "jumpAttackWeakUp", start = Player.jumpAttackWeakUp_start, exit = nop, update = Player.jumpAttackWeakUp_update, draw = Player.default_draw}
@@ -889,6 +930,7 @@ function Player:jumpAttackWeakDown_update(dt)
     end
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackWeakDown = {name = "jumpAttackWeakDown", start = Player.jumpAttackWeakDown_start, exit = nop, update = Player.jumpAttackWeakDown_update, draw = Player.default_draw}
@@ -911,6 +953,7 @@ function Player:jumpAttackStillUp_update(dt)
     self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackStillUp = {name = "jumpAttackStillUp", start = Player.jumpAttackStillUp_start, exit = nop, update = Player.jumpAttackStillUp_update, draw = Player.default_draw}
@@ -934,6 +977,7 @@ function Player:jumpAttackStillDown_update(dt)
     self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackStillDown = {name = "jumpAttackStillDown", start = Player.jumpAttackStillDown_start, exit = nop, update = Player.jumpAttackStillDown_update, draw = Player.default_draw}
@@ -968,6 +1012,7 @@ function Player:fall_update(dt)
 		end
 	end
 	self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.fall = {name = "fall", start = Player.fall_start, exit = nop, update = Player.fall_update, draw = Player.default_draw}
@@ -979,6 +1024,7 @@ function Player:getup_start()
 	if self.z <= 0 then
 		self.z = 0
 	end
+	self:onShake(0, 1, 0.1, 0.5)
 end
 function Player:getup_update(dt)
 	--print(self.name .. " - getup update", dt)
@@ -987,6 +1033,7 @@ function Player:getup_update(dt)
 		return
 	end
 	self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.getup = {name = "getup", start = Player.getup_start, exit = nop, update = Player.getup_update, draw = Player.default_draw}
@@ -1004,12 +1051,14 @@ function Player:dead_start()
 	if self.z <= 0 then
 		self.z = 0
 	end
+	self:onShake(3, 0, 0.1, 0.7)
 	TEsound.play("res/sfx/grunt1.wav")
 end
 function Player:dead_update(dt)
 	--print(self.name .. " - dead update", dt)
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.dead = {name = "dead", start = Player.dead_start, exit = nop, update = Player.dead_update, draw = Player.default_draw}
@@ -1066,6 +1115,7 @@ function Player:combo_update(dt)
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
@@ -1205,6 +1255,7 @@ function Player:grab_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.grab = {name = "grab", start = Player.grab_start, exit = nop, update = Player.grab_update, draw = Player.default_draw}
@@ -1217,6 +1268,7 @@ function Player:grabbed_start()
 	if DEBUG then
 		print(self.name.." is grabbed.")
 	end
+	self:onShake(0.5, 2, 0.15, 1)
 	--TEsound.play("res/sfx/grunt1.wav")
 end
 function Player:grabbed_update(dt)
@@ -1238,6 +1290,7 @@ function Player:grabbed_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.grabbed = {name = "grabbed", start = Player.grabbed_start, exit = nop, update = Player.grabbed_update, draw = Player.default_draw}
