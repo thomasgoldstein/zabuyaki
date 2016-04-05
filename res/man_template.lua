@@ -23,9 +23,6 @@ return {
 		icon  = {
 			{ q = q(184, 142, 16, 16) }
 		},
-		center = {
-			{q = q(155, 2, 41, 62), ox = 20, oy = 60, duration = 5, func = function() print("frame test") end }
-		},
 		stand = {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad
@@ -70,7 +67,7 @@ return {
 		},
 		duck = {
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54, duration = 0.15 }, -- duck 1
-			--{ q = q(2, 143, 35, 55), ox = 19, oy = 54, duration = 0.1 }, -- duck 1
+			--{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
 			frame_duration = 0.5
 		},
 		pickup = {
@@ -79,35 +76,10 @@ return {
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
 			frame_duration = 0.05
 		},
-		duck_ = {
-			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
-			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
-			frame_duration = 0.2
-		},
 		dash = {
 			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
 			{ q = q(164,131,69,58), ox = 24, oy = 62, duration = 1 }, -- dash 1
 			frame_duration = 0.2
-		},
-		combo_ = {
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			{q = q(60, 265, 51, 62), ox = 20, oy = 61}, --p2
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --stand 1
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			{q = q(60, 265, 51, 62), ox = 20, oy = 61}, --p2
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --stand 1
-			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
-			{q = q(157, 265, 51, 62), ox = 20, oy = 61}, --p4 *
-			{q = q(113, 265, 42, 62), ox = 20, oy = 61}, --p3
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --stand 1
-			{q = q(2, 329, 33, 62), ox = 20, oy = 61}, --k1
-			{q = q(37, 329, 52, 62), ox = 20, oy = 61}, --k2 *
-			{q = q(2, 329, 33, 62), ox = 20, oy = 61, func = function(self) self.check_mash = true end}, --k1
-			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
-			{q = q(139, 331, 60, 60), ox = 20, oy = 59}, --k4*
-			{q = q(91, 330, 46, 61), ox = 20, oy = 60}, --k3
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61}, --stand 1 - extra frame for smooth transition to stand
-			frame_duration = 0.085
 		},
 		combo12 = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
@@ -133,30 +105,15 @@ return {
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60, duration = 0.2}, --k3
 			frame_duration = 0.05
 		},
-		punch_ = {
-			{q = q(2, 266, 56, 61), ox = 16, oy = 60}, --p1
-			{q = q(60, 265, 51, 62), ox = 16, oy = 60}, --p2
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
-			{q = q(2, 266, 56, 61), ox = 16, oy = 60}, --p1
-			{q = q(60, 265, 51, 62), ox = 16, oy = 60}, --p2
-			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
-			{q = q(113, 265, 42, 62), ox = 16, oy = 60}, --p3
-			{q = q(157, 265, 51, 62), ox = 16, oy = 60}, --p4
-			{q = q(113, 265, 42, 62), ox = 16, oy = 60}, --p3
-			frame_duration = 0.1
-		},
-		kick_ = {
-			{q = q(2, 329, 33, 62), ox = 16, oy = 60}, --k1
-			{q = q(37, 329, 52, 62), ox = 16, oy = 60}, --k1
-			{q = q(91, 330, 46, 61), ox = 16, oy = 60}, --k3
-			{q = q(139, 331, 60, 60), ox = 16, oy = 60}, --k4
-			{q = q(91, 330, 46, 61), ox = 16, oy = 60}, --k3
-			frame_duration = 0.1
-		},
 		fall = {
-			{q = q(2, 393, 53, 58), ox = 26, oy = 57, duration = 0.5},
-			{q = q(57, 416, 76, 34), ox = 38, oy = 33, duration = 1},
-			{q = q(135, 404, 62, 47), ox = 31, oy = 46},
+			{q = q(2, 393, 53, 58), ox = 26, oy = 57, duration = 0.8},
+			{q = q(57, 417, 76, 34), ox = 38, oy = 33, duration = 3},
+			{q = q(135, 404, 62, 47), ox = 31, oy = 46, duration = 1},
+			frame_duration = 0.2
+		},
+		getup = {
+			{ q = q(57, 417, 76, 34), ox = 38, oy = 33, duration = 1  },
+			{ q = q(135, 404, 62, 47), ox = 31, oy = 46 },
 			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
 			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2 (we dont draw it, need it for check for last frame)
 			frame_duration = 0.2
@@ -216,10 +173,6 @@ return {
 			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
 			{q = q(2, 582, 33, 65), ox = 14, oy = 64, duration = 0.2}, --jas 1
 			frame_duration = 0.4
-		},
-		jumpAttackStill_ = {
-			{q = q(2, 582, 33, 65), ox = 14, oy = 64}, --jas 1
-			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
 		},
 		sideStepUp = {
 			{q = q(90, 582, 42, 65), ox = 20, oy = 64}, --ssu
