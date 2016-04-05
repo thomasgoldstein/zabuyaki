@@ -22,7 +22,7 @@ end
 
 function Camera:onShake(sx, sy, freq,cool_down)
     --shaking sprite
-    self.shake = {x = 0, y = 0, sx = sx or 1, sy = sy or 1, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2 }
+    self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2 }
 end
 
 function Camera:update(dt, x, y)
