@@ -1101,6 +1101,7 @@ function Player:combo_start()
 end
 function Player:combo_update(dt)
 	if self.sprite.loop_count > 0 then
+	--if self.sprite.isLast then
 		self.n_combo = self.n_combo + 1
 		if self.n_combo > 5 then
 			self.n_combo = 1

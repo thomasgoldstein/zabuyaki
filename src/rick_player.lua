@@ -24,5 +24,31 @@ function Rick:initialize(name, sprite, input, x, y, color)
 
 end
 
+function Rick:combo_start()
+    --	print (self.name.." - combo start")
+    if self.n_combo > 5 then
+        self.n_combo = 1
+    end
+    self.sprite.curr_frame = 1
+    self.sprite.loop_count = 0
+
+    if self.n_combo == 1 then
+        self.sprite.curr_anim = "combo1"
+    elseif self.n_combo == 2 then
+        self.sprite.curr_anim = "combo2"
+    elseif self.n_combo == 3 then
+        self.sprite.curr_anim = "combo3"
+    elseif self.n_combo == 4 then
+        self.sprite.curr_anim = "combo4"
+    elseif self.n_combo == 5 then
+        self.sprite.curr_anim = "combo5"
+    else
+        self.sprite.curr_anim = "dead"	--TODO remove after debug
+    end
+    self.check_mash = false
+
+    self.cool_down = 0.2
+end
+Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
 
 return Rick
