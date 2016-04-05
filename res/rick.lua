@@ -1,7 +1,7 @@
 print("rick.lua loaded")
 
 local image_w = 224 --This info can be accessed with a Love2D call
-local image_h = 519 --after the image has been loaded
+local image_h = 584 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -77,24 +77,28 @@ return {
 			frame_duration = 0.2
 		},
 		combo12 = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 62 }, --walk 4
-			frame_duration = 0.1
+			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(2,519,59,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
+			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			frame_duration = 0.01
 		},
 		combo3 = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 62 }, --walk 4
-			frame_duration = 0.1
+			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(2,519,59,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
+			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			frame_duration = 0.01
 		},
 		combo4 = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 62 }, --walk 4
-			frame_duration = 0.1
+			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(2,519,59,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
+			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			frame_duration = 0.01
 		},
 		combo5 = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 62 }, --walk 4
-			frame_duration = 0.1
+			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(2,519,59,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
+			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			frame_duration = 0.01
 		},
 		fall = {
 			{ q = q(2,458,60,59), ox = 30, oy = 58, duration = 0.8 },
