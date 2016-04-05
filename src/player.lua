@@ -171,12 +171,12 @@ function Player:onHurt()
 	if self.id <= 2 then	--for player 1 + 2 only
 		mainCamera:onShake(5, 2, 0.03, 0.3)
 	end
-	if h.type == "face" and self.hp > 0 and self.z <= 0 then
+	if h.type == "high" and self.hp > 0 and self.z <= 0 then
 		self:onShake(1, 0, 0.03, 0.3)
-		self:setState(self.hurtFace)
-	elseif h.type == "stomach" and self.hp > 0 and self.z <= 0 then
+		self:setState(self.hurtHigh)
+	elseif h.type == "low" and self.hp > 0 and self.z <= 0 then
 		self:onShake(1, 0, 0.03, 0.3)
-		self:setState(self.hurtStomach)
+		self:setState(self.hurtLow)
 	else
 		-- fall
 		self.z = self.z + 1
@@ -280,7 +280,7 @@ function Player:countKeyPressesReset()
 end
 
 function Player:checkAndAttack(l,t,w,h, damage, type)
-    -- type = "face" "stomach" "fall"
+    -- type = "high" "low" "fall"
 	local items, len = world:queryRect(self.x + self.face*l - w/2, self.y + t - h/2, w, h,
 		function(item)
 			if self ~= item and item.type ~= "wall"
@@ -711,15 +711,15 @@ function Player:duck_update(dt)
 end
 Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
 
-function Player:hurtFace_start()
---		print (self.name.." - hurtFace start")
+function Player:hurtHigh_start()
+--		print (self.name.." - hurtHigh start")
 	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "hurtFace"
+	self.sprite.curr_anim = "hurtHigh"
 	self.sprite.loop_count = 0
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
-function Player:hurtFace_update(dt)
-	--	print (self.name.." - hurtFace update",dt)
+function Player:hurtHigh_update(dt)
+	--	print (self.name.." - hurtHigh update",dt)
 	if self.isGrabbed then
 		self:setState(self.grabbed)
 	end
@@ -737,17 +737,17 @@ function Player:hurtFace_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.hurtFace = {name = "hurtFace", start = Player.hurtFace_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
+Player.hurtHigh = {name = "hurtHigh", start = Player.hurtHigh_start, exit = nop, update = Player.hurtHigh_update, draw = Player.default_draw}
 
-function Player:hurtStomach_start()
-	--	print (self.name.." - hurtStomach start")
+function Player:hurtLow_start()
+	--	print (self.name.." - hurtLow start")
 	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "hurtStomach"
+	self.sprite.curr_anim = "hurtLow"
 	self.sprite.loop_count = 0
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
-function Player:hurtStomach_update(dt)
-	--	print (self.name.." - hurtStomach update",dt)
+function Player:hurtLow_update(dt)
+	--	print (self.name.." - hurtLow update",dt)
 	if self.isGrabbed then
 		self:setState(self.grabbed)
 	end
@@ -765,7 +765,7 @@ function Player:hurtStomach_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.hurtStomach = {name = "hurtStomach", start = Player.hurtStomach_start, exit = nop, update = Player.hurtFace_update, draw = Player.default_draw}
+Player.hurtLow = {name = "hurtLow", start = Player.hurtLow_start, exit = nop, update = Player.hurtHigh_update, draw = Player.default_draw}
 
 function Player:sideStepDown_start()
 --	print (self.name.." - sideStepDown start")
@@ -908,9 +908,9 @@ function Player:jumpAttackWeakUp_update(dt)
 		return
 	end
     if self.z > 30 then
-        self:checkAndAttack(10,0, 20,12, 11, "face")
+        self:checkAndAttack(10,0, 20,12, 11, "high")
     elseif self.z > 10 then
-        self:checkAndAttack(10,0, 20,12, 11, "stomach")
+        self:checkAndAttack(10,0, 20,12, 11, "low")
     end
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
@@ -936,9 +936,9 @@ function Player:jumpAttackWeakDown_update(dt)
 		return
 	end
     if self.z > 30 then
-        self:checkAndAttack(10,0, 20,12, 11, "face")
+        self:checkAndAttack(10,0, 20,12, 11, "high")
     elseif self.z > 10 then
-        self:checkAndAttack(10,0, 20,12, 11, "stomach")
+        self:checkAndAttack(10,0, 20,12, 11, "low")
     end
 	self:checkCollisionAndMove(dt)
 	self:checkHurt()
@@ -1112,16 +1112,16 @@ function Player:combo_update(dt)
 	if self.check_mash then
 		TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 		if self.n_combo == 3 then
-			self:checkAndAttack(25,0, 20,12, 10, "face")
+			self:checkAndAttack(25,0, 20,12, 10, "high")
 			self.cool_down_combo = 0.4
 		elseif self.n_combo == 4 then
-			self:checkAndAttack(25,0, 20,12, 10, "stomach")
+			self:checkAndAttack(25,0, 20,12, 10, "low")
 			self.cool_down_combo = 0.4
 		elseif self.n_combo == 5 then
 			self:checkAndAttack(25,0, 20,12, 15, "fall")
 			self.cool_down_combo = 0.4
 		else -- self.n_combo == 1 or 2
-			self:checkAndAttack(25,0, 20,12, 10, "face")
+			self:checkAndAttack(25,0, 20,12, 10, "high")
 			self.cool_down_combo = 0.4
 		end
 		self.check_mash = false
@@ -1162,8 +1162,8 @@ function Player:onGrab(source)
 		return false	-- already grabbed
 	end
 	if self.state ~= "stand"
-		and self.state ~= "hurtFace"
-		and self.state ~= "hurtStomach"
+		and self.state ~= "hurtHigh"
+		and self.state ~= "hurtLow"
 	then
 		return false	-- already grabbed
 	end

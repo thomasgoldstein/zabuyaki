@@ -123,13 +123,13 @@ return {
 			{q = q(57, 416, 76, 34), ox = 38, oy = 33},
 			frame_duration = 60
 		},
-		hurtFace = {
+		hurtHigh = {
 			{q = q(2, 453, 49, 62), ox = 21, oy = 61, duration = 0.01}, --hf1
 			{q = q(53, 454, 50, 61), ox = 23, oy = 60}, --hf2
 			{q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hf1
 			frame_duration = 0.1
 		},
-		hurtStomach = {
+		hurtLow = {
 			{q = q(105, 454, 41, 61), ox = 21, oy = 60, duration = 0.01}, --hs1
 			{q = q(148, 456, 36, 59), ox = 21, oy = 58}, --hs2
 			{q = q(105, 454, 41, 61), ox = 21, oy = 60}, --hs1
