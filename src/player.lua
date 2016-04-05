@@ -40,7 +40,7 @@ function Player:initialize(name, sprite, input, x, y, color)
     self.n_combo = 1    -- n of the combo hit
     self.cool_down = 0  -- can't move
     self.cool_down_combo = 0    -- can cont combo
-    self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0 }
+    self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
 
 	self.isGrabbed = false
 	self.hold = {source = nil, target = nil, cool_down = 0 }
@@ -110,7 +110,10 @@ end
 
 function Player:onShake(sx, sy, freq,cool_down)
 	--shaking sprite
-	self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2 }
+	self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0,
+		f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2,
+		--m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1}
+		m = {-1, 0, 1, 0}, i = 1}
 end
 
 function Player:updateShake(dt)
@@ -121,8 +124,14 @@ function Player:updateShake(dt)
 			self.shake.f = self.shake.f - dt
 		else
 			self.shake.f = self.shake.freq
-			self.shake.x = love.math.random(-self.shake.sx, self.shake.sx)
-			self.shake.y = love.math.random(0, self.shake.sy)
+			self.shake.x = self.shake.sx * self.shake.m[self.shake.i]
+			self.shake.y = self.shake.sy * self.shake.m[self.shake.i]
+			--self.shake.x = love.math.random(-self.shake.sx, self.shake.sx)
+			--self.shake.y = love.math.random(0, self.shake.sy)
+			self.shake.i = self.shake.i + 1
+			if self.shake.i > #self.shake.m then
+				self.shake.i = 1
+			end
 		end
 		if self.shake.cool_down <= 0 then
 			self.shake.x, self.shake.y = 0, 0

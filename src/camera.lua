@@ -22,7 +22,8 @@ end
 
 function Camera:onShake(sx, sy, freq,cool_down)
     --shaking sprite
-    self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2 }
+    self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2,
+        m = {-1, 0, 1, 0}, i = 1}
 end
 
 function Camera:update(dt, x, y)
@@ -33,8 +34,14 @@ function Camera:update(dt, x, y)
             self.shake.f = self.shake.f - dt
         else
             self.shake.f = self.shake.freq
-            self.shake.x = love.math.random(-self.shake.sx, self.shake.sx)
-            self.shake.y = love.math.random(-self.shake.sy, self.shake.sy)
+--            self.shake.x = love.math.random(-self.shake.sx, self.shake.sx)
+--            self.shake.y = love.math.random(-self.shake.sy, self.shake.sy)
+            self.shake.x = self.shake.sx * self.shake.m[self.shake.i]
+            self.shake.y = self.shake.sy * self.shake.m[self.shake.i]
+            self.shake.i = self.shake.i + 1
+            if self.shake.i > #self.shake.m then
+                self.shake.i = 1
+            end
         end
         if self.shake.cool_down <= 0 then
             self.shake.x, self.shake.y = 0, 0
