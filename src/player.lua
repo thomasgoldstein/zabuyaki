@@ -160,10 +160,10 @@ function Player:onHurt()
 		self.isGrabbed = false
 	end
 	if h.type == "face" and self.hp > 0 and self.z <= 0 then
-		self:onShake(2, 0, 0.03, 0.3)
+		self:onShake(1, 0, 0.03, 0.3)
 		self:setState(self.hurtFace)
 	elseif h.type == "stomach" and self.hp > 0 and self.z <= 0 then
-		self:onShake(0, 2, 0.03, 0.3)
+		self:onShake(1, 0, 0.03, 0.3)
 		self:setState(self.hurtStomach)
 	else
 		-- fall
