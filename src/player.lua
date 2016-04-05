@@ -110,7 +110,7 @@ end
 
 function Player:onShake(sx, sy, freq,cool_down)
 	--shaking sprite
-	self.shake = {x = 0, y = 0, sx = sx or 1, sy = sy or 1, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2 }
+	self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2 }
 end
 
 function Player:updateShake(dt)
@@ -158,6 +158,9 @@ function Player:onHurt()
 	if self.isGrabbed then
 		--TODO temp release
 		self.isGrabbed = false
+	end
+	if self.id <= 2 then	--for player 1 + 2 only
+		mainCamera:onShake(5, 2, 0.03, 0.3)
 	end
 	if h.type == "face" and self.hp > 0 and self.z <= 0 then
 		self:onShake(1, 0, 0.03, 0.3)
@@ -1002,6 +1005,7 @@ function Player:fall_update(dt)
             self.vely = 0
             self.velx = 0
             TEsound.play("res/sfx/fall.wav")
+			mainCamera:onShake(2, 5, 0.03, 0.3)
 			if self.hp <= 0 then
 				self:setState(self.dead)
 				return
