@@ -949,10 +949,6 @@ function Player:fall_start()
 end
 function Player:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
-	if self.sprite.isLast then
-		self:setState(self.duck)
-		return
-	end
     if self.z > 0 then
 		self.velz = self.velz - self.gravity * dt
 		self.z = self.z + dt * self.velz
@@ -962,17 +958,38 @@ function Player:fall_update(dt)
             self.vely = 0
             self.velx = 0
             TEsound.play("res/sfx/fall.wav")
-		end
-	else
-		if self.hp <= 0 then
-			self:setState(self.dead)
-			return
+			if self.hp <= 0 then
+				self:setState(self.dead)
+				return
+			else
+				self:setState(self.getup)
+				return
+			end
 		end
 	end
 	self:checkCollisionAndMove(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.fall = {name = "fall", start = Player.fall_start, exit = nop, update = Player.fall_update, draw = Player.default_draw}
+
+function Player:getup_start()
+	--print (self.name.." - getup start")
+	self.sprite.curr_frame = 1
+	self.sprite.curr_anim = "getup"
+	if self.z <= 0 then
+		self.z = 0
+	end
+end
+function Player:getup_update(dt)
+	--print(self.name .. " - getup update", dt)
+	if self.sprite.isLast then
+		self:setState(self.stand)
+		return
+	end
+	self:checkCollisionAndMove(dt)
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.getup = {name = "getup", start = Player.getup_start, exit = nop, update = Player.getup_update, draw = Player.default_draw}
 
 function Player:dead_start()
 	--print (self.name.." - dead start")
