@@ -36,12 +36,8 @@ function testState:enter()
     end
 
     --adding 1st wave of foes into collision world
-	
-	--set camera, scale
-    cam = gamera.new(0, 0, worldWidth, worldHeight)
-    cam:setWindow(0, 0, 640, 480)
-    cam:setScale(2)
-    --cam:setAngle(0.10)
+
+    mainCamera = Camera:new(worldWidth, worldHeight)
 end
 
 function testState:update(dt)
@@ -59,7 +55,7 @@ function testState:update(dt)
         return a.y<b.y end )
 	
     background:update(dt)
-    cam:setPosition(player1.x, player1.y)
+    mainCamera:update(dt, player1.x, player1.y)
 
     if DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
@@ -79,7 +75,7 @@ end
 
 function testState:draw()
     --love.graphics.setBackgroundColor(255, 255, 255)
-    cam:draw(function(l, t, w, h)
+    mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
         love.graphics.setColor(255, 255, 255, 255)
         background:draw(l, t, w, h)
@@ -138,11 +134,11 @@ function testState:keypressed(k, unicode)
 
     if DEBUG then
         if k == '1' then
-            cam:setScale(1)
+            mainCamera:setScale(1)
         elseif k == '2' then
-            cam:setScale(2)
+            mainCamera:setScale(2)
         elseif k == '3' then
-            cam:setScale(3)
+            mainCamera:setScale(3)
         elseif k == 'return' then
             for i, player in ipairs(self.entities) do
                 if player.type == "player" then
@@ -161,10 +157,10 @@ function testState:wheelmoved( dx, dy )
 
     local worldWidth = 4000
     if love.keyboard.isDown("lctrl") or love.keyboard.isDown("rctrl") then
-        if dy > 0 and cam:getScale() < 2 then
-            cam:setScale(cam:getScale() + 0.25 )
-        elseif dy < 0 and cam:getScale() > 0.25 then
-            cam:setScale(cam:getScale() - 0.25 )
+        if dy > 0 and mainCamera:getScale() < 2 then
+            mainCamera:setScale(mainCamera:getScale() + 0.25 )
+        elseif dy < 0 and mainCamera:getScale() > 0.25 then
+            mainCamera:setScale(mainCamera:getScale() - 0.25 )
         end
     else
         if dy > 0 and player1.x < worldWidth - 200 then

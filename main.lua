@@ -27,6 +27,7 @@ function love.load(arg)
 	require "src/AnimatedSprite"
 	bump = require "lib/bump"
 	gamera = require "lib/gamera"
+	Camera = require "src/camera"
 	CompoundPicture = require "src/compoPic"
 	Player = require "src/player"
 	Rick = require "src/rick_player"
