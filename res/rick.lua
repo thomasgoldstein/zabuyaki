@@ -77,33 +77,33 @@ return {
 			frame_duration = 0.2
 		},
 		combo1 = {
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
-			{ q = q(2,519,59,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(2,519,63,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
 			frame_duration = 0.01
 		},
 		combo2 = {
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
-			{ q = q(2,519,59,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(2,519,63,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
 			frame_duration = 0.01
 		},
 		combo3 = {
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
-			{ q = q(2,519,59,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(2,519,63,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
 			frame_duration = 0.01
 		},
 		combo4 = {
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
-			{ q = q(2,519,59,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(2,519,63,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
 			frame_duration = 0.01
 		},
 		combo5 = {
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
-			{ q = q(2,519,59,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
-			{ q = q(63,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(2,519,63,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
 			frame_duration = 0.01
 		},
 		fall = {
