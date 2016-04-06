@@ -9,9 +9,7 @@ function testState:enter()
     player2 = Rick:new("RICK", GetInstance("res/rick.lua"), button2, 90, 180, {255,255,255, 255})
 
 	dummy0 = Player:new("LOCKY", GetInstance("res/man_template.lua"), button2, 320, 200-24, {239,255,191, 255})
-    ibar3 = InfoBar:new(dummy0)
 	dummy1 = Player:new("DICKY", GetInstance("res/man_template.lua"), button2, 400, 200-30, {255,239,191, 255})
-    ibar4 = InfoBar:new(dummy1)
     dummy1.horizontal = -1
     dummy1.face = -1
 	dummy2 = Player:new("DORMY", GetInstance("res/man_template.lua"), button3, 500, 200-4, {191,191,255, 255})
@@ -118,11 +116,13 @@ function testState:draw()
 
     --HP bars
     player1.infoBar:draw(0,0)
-    if player1.victim_infoBar and player1.victim_infoBar.hp > 0 then
+    if player1.victim_infoBar then
+        --and player1.victim_infoBar.hp > 0 then
         player1.victim_infoBar:draw(0,0)
     end
     player2.infoBar:draw(0,0)
-    if player2.victim_infoBar and player2.victim_infoBar.hp > 0 then
+    if player2.victim_infoBar then
+        --and player2.victim_infoBar.hp > 0 then
         player2.victim_infoBar:draw(0,0)
     end
 end
