@@ -34,7 +34,7 @@ local bars_coords = {
     { x = h_m, y = v_m + 4 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 4 * v_g, face = -1 },
     { x = h_m, y = v_m + 5 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 5 * v_g, face = -1 },
 }
-function InfoBar:initialize(source, attacker_source)
+function InfoBar:initialize(source)
     self.source = source
     self.icon_sprite = source.sprite.def.sprite_sheet
     self.icon_q = source.sprite.def.animations["icon"][1].q  --quad
@@ -45,15 +45,9 @@ function InfoBar:initialize(source, attacker_source)
     self.old_hp = 1
     self.color = {155,110,20}
     self.max_hp = 100
+    self.cool_down = 0
     self.id = self.source.id
-    --print("src id", self.id)
-    if attacker_source then
-        --victim of the corresponded player
-        self.x, self.y, self.face = bars_coords[attacker_source.id].x, bars_coords[attacker_source.id].y + v_g, bars_coords[attacker_source.id].face
-    else
-        --player
-        self.x, self.y, self.face = bars_coords[self.id].x, bars_coords[self.id].y, bars_coords[self.id].face
-    end
+    self.x, self.y, self.face = bars_coords[self.id].x, bars_coords[self.id].y, bars_coords[self.id].face
 end
 
 function InfoBar:setAttacker(attacker_source)
@@ -65,6 +59,9 @@ function InfoBar:setAttacker(attacker_source)
 end
 
 function InfoBar:draw(l,t,w,h)
+    if self.cool_down <= 0 then
+        return
+    end
     if self.face == 1 then
         --left side
         love.graphics.setColor(0, 50, 50, transp_bg)
@@ -147,6 +144,14 @@ function InfoBar:update(dt)
         self.color[2] = norm_n(self.color[2],norm_color[2])
         self.color[3] = norm_n(self.color[3],norm_color[3])
         self.old_hp = self.hp
+    end
+
+    if self.hp > 0 then
+        self.cool_down = 3
+    else
+        if self.cool_down > 0 then
+            self.cool_down = self.cool_down - dt
+        end
     end
 end
 
