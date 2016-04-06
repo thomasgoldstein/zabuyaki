@@ -169,7 +169,7 @@ function Player:onHurt()
 		self.isGrabbed = false
 	end
 	if self.id <= 2 then	--for player 1 + 2 only
-		mainCamera:onShake(5, 2, 0.03, 0.3)
+		mainCamera:onShake(1, 1, 0.03, 0.3)
 	end
 	if h.type == "high" and self.hp > 0 and self.z <= 0 then
 		self:onShake(1, 0, 0.03, 0.3)
@@ -1014,7 +1014,7 @@ function Player:fall_update(dt)
             self.vely = 0
             self.velx = 0
             TEsound.play("res/sfx/fall.wav")
-			mainCamera:onShake(2, 5, 0.03, 0.3)
+			mainCamera:onShake(1, 1, 0.03, 0.3)
 			if self.hp <= 0 then
 				self:setState(self.dead)
 				return
