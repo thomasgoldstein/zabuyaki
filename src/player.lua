@@ -28,7 +28,7 @@ function Player:initialize(name, sprite, input, x, y, color)
     self.score = 0
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.x, self.y, self.z = x, y, 0
-	self.vertical, self.horizontal, self.face = 1, 1, 1; --movement and face directions
+	self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
 	self.gravity = 650
     self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
@@ -318,8 +318,7 @@ end
 
 function Player:stand_start()
 --	print (self.name.." - stand start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "stand"
+	SetSpriteAnim(self.sprite,"stand")
 	self.can_jump = false
 	self.can_fire = false
     self.victims = {}
@@ -404,17 +403,11 @@ Player.stand = {name = "stand", start = Player.stand_start, exit = nop, update =
 
 function Player:walk_start()
 --	print (self.name.." - walk start")
-	self.sprite.curr_frame = 1
-	self.sprite.loop_count = 0
+	SetSpriteAnim(self.sprite,"walk")
 	self.prev_frame = 0
 	self.can_jump = false
 	self.can_fire = false
-
 	self.n_combo = 1	--if u move reset combo chain
---	if not self.sprite.curr_anim then
---		self.sprite.curr_anim = "walk"
-		-- to prevent flashing 1 frame transition (when u instantly enter another stite)
---	end
 end
 function Player:walk_update(dt)
 	--	print (self.name.." - walk update",dt)
@@ -462,8 +455,6 @@ function Player:walk_update(dt)
 	if self.velx == 0 and self.vely == 0 then
 		self:setState(self.stand)
 		return
-	else
-		self.sprite.curr_anim = "walk" -- to prevent flashing frame after duck and instand jump
 	end
 	if self.prev_frame ~= self.sprite.curr_frame then
 		if self.sprite.curr_frame == 3 or self.sprite.curr_frame == 7 then
@@ -496,10 +487,8 @@ Player.walk = {name = "walk", start = Player.walk_start, exit = nop, update = Pl
 
 function Player:run_start()
 --	print (self.name.." - run start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "run"
-	self.sprite.loop_count = 0
-	self.prev_frame = 0
+	SetSpriteAnim(self.sprite,"run")
+	self.prev_frame = 0	--TODO use custom spr func for steps
 	self.can_jump = false
 	self.can_fire = false
 end
@@ -562,9 +551,8 @@ Player.run = {name = "run", start = Player.run_start, exit = nop, update = Playe
 
 function Player:jumpUp_start()
 --	print (self.name.." - jumpUp start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "jumpUp"
-	self.velz = 270;
+	SetSpriteAnim(self.sprite,"jumpUp")
+	self.velz = 270
 	if self.b.up.down then
 		self.vertical = -1
 	elseif self.b.down.down then
@@ -620,8 +608,7 @@ Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = nop, updat
 
 function Player:jumpDown_start()
 --	print (self.name.." - jumpDown start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "jumpDown"
+	SetSpriteAnim(self.sprite,"jumpDown")
 end
 function Player:jumpDown_update(dt)
 	--	print (self.name.." - jumpDown update",dt)
@@ -640,7 +627,7 @@ function Player:jumpDown_update(dt)
 	end
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
-		self.velz = self.velz - self.gravity * dt;
+		self.velz = self.velz - self.gravity * dt
 	else
 		self.z = 0
 		TEsound.play("res/sfx/land.wav")
@@ -659,10 +646,8 @@ Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = nop,
 
 function Player:pickup_start()
 	--	print (self.name.." - pickup start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "pickup"
-	self.sprite.loop_count = 0
-	self.z = 0;
+	SetSpriteAnim(self.sprite,"pickup")
+	self.z = 0
 end
 function Player:pickup_update(dt)
 	--	print (self.name.." - pickup update",dt)
@@ -689,9 +674,7 @@ Player.pickup = {name = "pickup", start = Player.pickup_start, exit = nop, updat
 
 function Player:duck_start()
 --	print (self.name.." - duck start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "duck"
-	self.sprite.loop_count = 0
+	SetSpriteAnim(self.sprite,"duck")
 	--TODO should I reset hurt here?
 	self.hurt = nil --free hurt data
     --self.victims = {}
@@ -713,9 +696,7 @@ Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Pl
 
 function Player:hurtHigh_start()
 --		print (self.name.." - hurtHigh start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "hurtHigh"
-	self.sprite.loop_count = 0
+	SetSpriteAnim(self.sprite,"hurtHigh")
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
 function Player:hurtHigh_update(dt)
@@ -741,9 +722,7 @@ Player.hurtHigh = {name = "hurtHigh", start = Player.hurtHigh_start, exit = nop,
 
 function Player:hurtLow_start()
 	--	print (self.name.." - hurtLow start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "hurtLow"
-	self.sprite.loop_count = 0
+	SetSpriteAnim(self.sprite,"hurtLow")
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
 function Player:hurtLow_update(dt)
@@ -769,16 +748,14 @@ Player.hurtLow = {name = "hurtLow", start = Player.hurtLow_start, exit = nop, up
 
 function Player:sideStepDown_start()
 --	print (self.name.." - sideStepDown start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "sideStepDown"
-
+	SetSpriteAnim(self.sprite,"sideStepDown")
     self.velx, self.vely = 0, 220
     TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfx
 end
 function Player:sideStepDown_update(dt)
 	--	print (self.name.." - sideStepDown update",dt)
 	if self.vely > 0 then
-		self.vely = self.vely - self.sideStepFriction * dt;
+		self.vely = self.vely - self.sideStepFriction * dt
 		self.z = self.vely / 24 --to show low leap
 	else
         self.vely = 0
@@ -795,16 +772,16 @@ Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start,
 
 function Player:sideStepUp_start()
     --	print (self.name.." - sideStepUp start")
-    self.sprite.curr_frame = 1
-    self.sprite.curr_anim = "sideStepUp"
-
+--    self.sprite.curr_frame = 1
+--    self.sprite.curr_anim = "sideStepUp"
+	SetSpriteAnim(self.sprite,"sideStepUp")
     self.velx, self.vely = 0, 220
     TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfx
 end
 function Player:sideStepUp_update(dt)
     --	print (self.name.." - sideStepUp update",dt)
     if self.vely > 0 then
-        self.vely = self.vely - self.sideStepFriction * dt;
+        self.vely = self.vely - self.sideStepFriction * dt
 		self.z = self.vely / 24 --to show low leap
     else
         self.vely = 0
@@ -821,9 +798,7 @@ Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit 
 
 function Player:dash_start()
 	--	print (self.name.." - dash start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "dash"
-	self.sprite.loop_count = 0
+	SetSpriteAnim(self.sprite,"dash")
 	self.vely = 0
 	self.velz = 10
 	TEsound.play("res/sfx/jump.wav")
@@ -831,7 +806,7 @@ end
 function Player:dash_update(dt)
 	if self.z < 6 then
 		self.z = self.z + dt * self.velz
-		self.velz = self.velz - 5 * dt;
+		self.velz = self.velz - 5 * dt
 	else
 		self.velz = self.velz / 2
 		--TODO what about hurt immunity?
@@ -847,8 +822,7 @@ Player.dash = {name = "dash", start = Player.dash_start, exit = nop, update = Pl
 
 function Player:jumpAttackForwardUp_start()
 	--	print (self.name.." - jumpAttackForwardUp start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "jumpAttackForwardUp"
+	SetSpriteAnim(self.sprite,"jumpAttackForwardUp")
 end
 function Player:jumpAttackForwardUp_update(dt)
 	--	print (self.name.." - jumpAttackForwardUp update",dt)
@@ -870,14 +844,13 @@ Player.jumpAttackForwardUp = {name = "jumpAttackForwardUp", start = Player.jumpA
 
 function Player:jumpAttackForwardDown_start()
 	--	print (self.name.." - jumpAttackForwardDown start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "jumpAttackForwardDown"
+	SetSpriteAnim(self.sprite,"jumpAttackForwardDown")
 end
 function Player:jumpAttackForwardDown_update(dt)
 	--	print (self.name.." - jumpAttackForwardDown update",dt)
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
-		self.velz = self.velz - self.gravity * dt;
+		self.velz = self.velz - self.gravity * dt
 	else
 		self.z = 0
 		TEsound.play("res/sfx/land.wav")
@@ -894,8 +867,7 @@ Player.jumpAttackForwardDown = {name = "jumpAttackForwardDown", start = Player.j
 
 function Player:jumpAttackWeakUp_start()
 	--	print (self.name.." - jumpAttackWeakUp start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "jumpAttackWeakUp"
+	SetSpriteAnim(self.sprite,"jumpAttackWeakUp")
 end
 function Player:jumpAttackWeakUp_update(dt)
 	--	print (self.name.." - jumpAttackWeakUp update",dt)
@@ -921,14 +893,13 @@ Player.jumpAttackWeakUp = {name = "jumpAttackWeakUp", start = Player.jumpAttackW
 
 function Player:jumpAttackWeakDown_start()
 	--	print (self.name.." - jumpAttackWeakDown start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "jumpAttackWeakDown"
+	SetSpriteAnim(self.sprite,"jumpAttackWeakDown")
 end
 function Player:jumpAttackWeakDown_update(dt)
 	--	print (self.name.." - jumpAttackWeakDown update",dt)
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
-		self.velz = self.velz - self.gravity * dt;
+		self.velz = self.velz - self.gravity * dt
 	else
 		self.z = 0
 		TEsound.play("res/sfx/land.wav")
@@ -949,8 +920,7 @@ Player.jumpAttackWeakDown = {name = "jumpAttackWeakDown", start = Player.jumpAtt
 
 function Player:jumpAttackStillUp_start()
 	--	print (self.name.." - jumpAttackStillUp start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "jumpAttackStillUp"
+	SetSpriteAnim(self.sprite,"jumpAttackStillUp")
 end
 function Player:jumpAttackStillUp_update(dt)
 	--	print (self.name.." - jumpAttackStillUp update",dt)
@@ -972,14 +942,13 @@ Player.jumpAttackStillUp = {name = "jumpAttackStillUp", start = Player.jumpAttac
 
 function Player:jumpAttackStillDown_start()
 	--	print (self.name.." - jumpAttackStillDown start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "jumpAttackStillDown"
+	SetSpriteAnim(self.sprite,"jumpAttackStillDown")
 end
 function Player:jumpAttackStillDown_update(dt)
 	--	print (self.name.." - jumpAttackStillDown update",dt)
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
-		self.velz = self.velz - self.gravity * dt;
+		self.velz = self.velz - self.gravity * dt
 	else
 		self.z = 0
 		TEsound.play("res/sfx/land.wav")
@@ -996,8 +965,7 @@ Player.jumpAttackStillDown = {name = "jumpAttackStillDown", start = Player.jumpA
 
 function Player:fall_start()
     --print (self.name.." - fall start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "fall"
+	SetSpriteAnim(self.sprite,"fall")
 	if self.z <= 0 then
 		self.z = 0
 	end
@@ -1032,8 +1000,7 @@ Player.fall = {name = "fall", start = Player.fall_start, exit = nop, update = Pl
 
 function Player:getup_start()
 	--print (self.name.." - getup start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "getup"
+	SetSpriteAnim(self.sprite,"getup")
 	if self.z <= 0 then
 		self.z = 0
 	end
@@ -1053,8 +1020,7 @@ Player.getup = {name = "getup", start = Player.getup_start, exit = nop, update =
 
 function Player:dead_start()
 	--print (self.name.." - dead start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "dead"
+	SetSpriteAnim(self.sprite,"dead")
 	if DEBUG then
 		print(self.name.." is dead.")
 	end
@@ -1081,19 +1047,24 @@ function Player:combo_start()
     if self.n_combo > 5 then
 		self.n_combo = 1
 	end
-	self.sprite.curr_frame = 1
-	self.sprite.loop_count = 0
+--	self.sprite.curr_frame = 1
+--	self.sprite.loop_count = 0
 
 	if self.n_combo == 1 or self.n_combo == 2 then
-		self.sprite.curr_anim = "combo12"
+--		self.sprite.curr_anim = "combo12"
+		SetSpriteAnim(self.sprite,"combo12")
 	elseif self.n_combo == 3 then
-		self.sprite.curr_anim = "combo3"
+--		self.sprite.curr_anim = "combo3"
+		SetSpriteAnim(self.sprite,"combo3")
 	elseif self.n_combo == 4 then
-		self.sprite.curr_anim = "combo4"
+--		self.sprite.curr_anim = "combo4"
+		SetSpriteAnim(self.sprite,"combo4")
 	elseif self.n_combo == 5 then
-		self.sprite.curr_anim = "combo5"
+--		self.sprite.curr_anim = "combo5"
+		SetSpriteAnim(self.sprite,"combo5")
 	else
-		self.sprite.curr_anim = "dead"	--TODO remove after debug
+--		self.sprite.curr_anim = "dead"	--TODO remove after debug
+		SetSpriteAnim(self.sprite,"dead")
 	end
 	self.check_mash = false
 
@@ -1137,9 +1108,6 @@ Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update =
 -- GRABBING / HOLDING
 function Player:checkForGrab(w, h)
 	--got any players
-
---	local items, len = world:queryRect(self.x + self.face*l - w/2, self.y + t - h/2, w, h,
-
 	local items, len = world:queryRect(self.x + self.face*w - w/2, self.y - h/2, w, h,
 		function(o)
 			if o ~= self and o.type == "player" then
@@ -1210,9 +1178,7 @@ end
 
 function Player:grab_start()
 	--print (self.name.." - grab start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "grab"
-
+	SetSpriteAnim(self.sprite,"grab")
 	self.can_jump = false
 	self.can_fire = false
 	if DEBUG then
@@ -1277,8 +1243,7 @@ Player.grab = {name = "grab", start = Player.grab_start, exit = nop, update = Pl
 
 function Player:grabbed_start()
 	--print (self.name.." - grabbed start")
-	self.sprite.curr_frame = 1
-	self.sprite.curr_anim = "grabbed"
+	SetSpriteAnim(self.sprite,"grabbed")
 	if DEBUG then
 		print(self.name.." is grabbed.")
 	end

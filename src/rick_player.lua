@@ -29,21 +29,18 @@ function Rick:combo_start()
     if self.n_combo > 5 then
         self.n_combo = 1
     end
-    self.sprite.curr_frame = 1
-    self.sprite.loop_count = 0
-
     if self.n_combo == 1 then
-        self.sprite.curr_anim = "combo1"
+        SetSpriteAnim(self.sprite,"combo1")
     elseif self.n_combo == 2 then
-        self.sprite.curr_anim = "combo2"
+        SetSpriteAnim(self.sprite,"combo2")
     elseif self.n_combo == 3 then
-        self.sprite.curr_anim = "combo3"
+        SetSpriteAnim(self.sprite,"combo3")
     elseif self.n_combo == 4 then
-        self.sprite.curr_anim = "combo4"
+        SetSpriteAnim(self.sprite,"combo4")
     elseif self.n_combo == 5 then
-        self.sprite.curr_anim = "combo5"
+        SetSpriteAnim(self.sprite,"combo5")
     else
-        self.sprite.curr_anim = "dead"	--TODO remove after debug
+        SetSpriteAnim(self.sprite,"dead") --TODO remove after debug
     end
     self.check_mash = false
 
