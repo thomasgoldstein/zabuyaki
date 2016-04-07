@@ -45,6 +45,9 @@ function testState:update(dt)
             player.infoBar:update(dt)
         end
     end
+    for _,player in ipairs(self.entities) do
+        player:onHurt()
+    end
     --sort players + entities by y
 	table.sort(self.entities , function(a,b)
         if a.y == b.y then
