@@ -96,9 +96,20 @@ function GetInstance (sprite_def)
 	}
 end
 
+function SetSpriteAnim(spr, anim)
+	spr.curr_frame = 1
+	spr.loop_count = 0
+	spr.curr_anim = anim
+	local s = spr.def.animations[spr.curr_anim]
+	local sc = s[spr.curr_frame]
+	for i=1,#s do
+		s[i].count = 0
+	end
+end
+
 function UpdateInstance(spr, dt, slf)
 	local s = spr.def.animations[spr.curr_anim]
-	local sc = spr.def.animations[spr.curr_anim][spr.curr_frame]
+	local sc = s[spr.curr_frame]
 --[[	there are 3 kinds of duration:
 	1) default for whole sprite animations 		: spr.def.default_frame_duration
 	2) default for all frames of 1 animation	: spr.def.animations.frame_duration
@@ -117,7 +128,10 @@ function UpdateInstance(spr, dt, slf)
 	spr.elapsed_time = spr.elapsed_time + dt
 
 	--We check we need to change the current frame.
-	if spr.elapsed_time > sc.duration * spr.time_scale then
+	if spr.elapsed_time > sc.duration * spr.time_scale
+		and sc.count > 0
+	then
+		sc.count = 0
 		--Check if we are at the last frame.
 		--  # returns the total entries of an array.
 		if spr.curr_frame < #s then
@@ -144,14 +158,15 @@ function UpdateInstance(spr, dt, slf)
 end
 
 function DrawInstance (spr, x, y)
-    local s = spr.def.animations[spr.curr_anim][spr.curr_frame]
+    local sc = spr.def.animations[spr.curr_anim][spr.curr_frame]
     love.graphics.draw (
 		image_bank[spr.def.sprite_sheet], --The image
-		s.q, --Current frame of the current animation
+		sc.q, --Current frame of the current animation
 		x, y,
 		spr.rotation,
 		spr.size_scale * spr.flip_h,
 		spr.size_scale * spr.flip_v,
-		s.ox, s.oy
+		sc.ox, sc.oy
 	)
+	sc.count = (sc.count or 0) + 1 --this frame was drawn
 end
