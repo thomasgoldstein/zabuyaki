@@ -99,15 +99,6 @@ function Player:setState(state)
 	end
 end
 
-function Player:checkHurt()
-	--print("Ck Hurt for "..self.name)
-    if not self.hurt then
-        return
-    end
-    -- do stuff
-	self:onHurt()
-end
-
 function Player:onShake(sx, sy, freq,cool_down)
 	--shaking sprite
 	self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0,
@@ -142,7 +133,14 @@ end
 function Player:onHurt()
 	-- hurt = {source, damage, velx,vely,x,y,z}
     local h = self.hurt
-    h.damage = h.damage or 0
+    if not h then
+        return
+    end
+    if self.state == "fall" or self.state == "dead" then
+        self.hurt = nil --free hurt data
+        return
+    end
+    h.damage = h.damage or 100  --TODO debug if u forgot
 	if DEBUG then
 		print(h.source.name .. " damaged "..self.name.." by "..h.damage)
     end
@@ -395,7 +393,7 @@ function Player:stand_update(dt)
 
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
@@ -479,7 +477,7 @@ function Player:walk_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -543,7 +541,7 @@ function Player:run_update(dt)
 		self.can_fire = true
 	end
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -600,7 +598,7 @@ function Player:jumpUp_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -638,7 +636,7 @@ function Player:jumpDown_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -666,7 +664,7 @@ function Player:pickup_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
-    self:checkHurt()
+--    self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -676,7 +674,7 @@ function Player:duck_start()
 --	print (self.name.." - duck start")
 	SetSpriteAnim(self.sprite,"duck")
 	--TODO should I reset hurt here?
-	self.hurt = nil --free hurt data
+	--self.hurt = nil --free hurt data
     --self.victims = {}
 	self.z = 0
 end
@@ -714,7 +712,7 @@ function Player:hurtHigh_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -740,7 +738,7 @@ function Player:hurtLow_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -836,7 +834,7 @@ function Player:jumpAttackForwardUp_update(dt)
 	end
     self:checkAndAttack(24,0, 20,12, 20, "fall")
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -859,7 +857,7 @@ function Player:jumpAttackForwardDown_update(dt)
 	end
     self:checkAndAttack(24,0, 20,12, 20, "fall")
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -885,7 +883,7 @@ function Player:jumpAttackWeakUp_update(dt)
         self:checkAndAttack(10,0, 20,12, 11, "low")
     end
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -912,7 +910,7 @@ function Player:jumpAttackWeakDown_update(dt)
         self:checkAndAttack(10,0, 20,12, 11, "low")
     end
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -934,7 +932,7 @@ function Player:jumpAttackStillUp_update(dt)
 	end
     self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -957,7 +955,7 @@ function Player:jumpAttackStillDown_update(dt)
 	end
     self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -1099,7 +1097,7 @@ function Player:combo_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
-	self:checkHurt()
+--	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -1123,9 +1121,6 @@ end
 function Player:onGrab(source)
 	-- hurt = {source, damage, velx,vely,x,y,z}
 	local g = self.hold
-	if DEBUG then
-		print(source.name .. " grabed me - "..self.name)
-	end
 	if self.isGrabbed then
 		return false	-- already grabbed
 	end
@@ -1133,8 +1128,11 @@ function Player:onGrab(source)
 		and self.state ~= "hurtHigh"
 		and self.state ~= "hurtLow"
 	then
-		return false	-- already grabbed
-	end
+		return false
+    end
+    if DEBUG then
+        print(source.name .. " grabed me - "..self.name)
+    end
 	if g.target and g.target.isGrabbed then	-- your grab targed releases one it grabs
 		g.target.isGrabbed = false
 		--g.target.isGrabbed = false
