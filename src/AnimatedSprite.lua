@@ -97,29 +97,30 @@ function GetInstance (sprite_def)
 end
 
 function UpdateInstance(spr, dt, slf)
-	local s = spr.def.animations[spr.curr_anim][spr.curr_frame]
+	local s = spr.def.animations[spr.curr_anim]
+	local sc = spr.def.animations[spr.curr_anim][spr.curr_frame]
 --[[	there are 3 kinds of duration:
 	1) default for whole sprite animations 		: spr.def.default_frame_duration
 	2) default for all frames of 1 animation	: spr.def.animations.frame_duration
 	3) custom duration per frame				: spr.def.animations[i].duration ]]
 
 	-- is there default delay for frames of 1 animation?
-	if not spr.def.animations[spr.curr_anim].frame_duration then
-		spr.def.animations[spr.curr_anim].frame_duration = spr.def.default_frame_duration
+	if not s.frame_duration then
+		s.frame_duration = spr.def.default_frame_duration
 	end
 	-- is there delay for this frame?
-	if not s.duration then
-		s.duration = spr.def.animations[spr.curr_anim].frame_duration
+	if not sc.duration then
+		sc.duration = s.frame_duration
 	end
 	--spr.def.animations[spr.curr_anim]
 	--Increment the internal counter.
 	spr.elapsed_time = spr.elapsed_time + dt
 
 	--We check we need to change the current frame.
-	if spr.elapsed_time > s.duration * spr.time_scale then
+	if spr.elapsed_time > sc.duration * spr.time_scale then
 		--Check if we are at the last frame.
 		--  # returns the total entries of an array.
-		if spr.curr_frame < #spr.def.animations[spr.curr_anim] then
+		if spr.curr_frame < #s then
 			-- Not on last frame, increment.
 			spr.curr_frame = spr.curr_frame + 1
 		else
@@ -129,16 +130,16 @@ function UpdateInstance(spr, dt, slf)
 		end
 		-- First or Last frames?
 		spr.isFirst = (spr.curr_frame == 1)
-		spr.isLast = (spr.curr_frame == #spr.def.animations[spr.curr_anim])
+		spr.isLast = (spr.curr_frame == #s)
 		-- Reset internal counter on frame change.
 		spr.elapsed_time = 0
-		if s.func then
-			return s.func(slf)
+		if sc.func then
+			return sc.func(slf)
 		end
 	end
 	-- First or Last frames?
 	spr.isFirst = (spr.curr_frame == 1)
-	spr.isLast = (spr.curr_frame == #spr.def.animations[spr.curr_anim])
+	spr.isLast = (spr.curr_frame == #s)
 	return nil
 end
 
