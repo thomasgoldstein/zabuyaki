@@ -325,6 +325,7 @@ function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
 	if self.isGrabbed then
 		self:setState(self.grabbed)
+        return
 	end
 	if self.cool_down_combo > 0 then
 		self.cool_down_combo = self.cool_down_combo - dt
@@ -708,6 +709,7 @@ function Player:hurtHigh_update(dt)
 			return
 		end
 		self:setState(self.stand)
+        UpdateInstance(self.sprite, dt, self)   --!!!
 		return
 	end
 	self:calcFriction(dt)
@@ -734,6 +736,7 @@ function Player:hurtLow_update(dt)
 			return
 		end
 		self:setState(self.stand)
+        UpdateInstance(self.sprite, dt, self)   --!!!
 		return
 	end
 	self:calcFriction(dt)
