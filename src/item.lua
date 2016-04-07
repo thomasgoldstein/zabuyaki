@@ -49,6 +49,9 @@ function Item:draw(l,t,w,h)
     end
 end
 
+function Item:onHurt()
+end
+
 function Item:update(dt)
     if self.isHidden then
         return
