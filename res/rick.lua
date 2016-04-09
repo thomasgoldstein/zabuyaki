@@ -90,9 +90,9 @@ return {
 		},
 		combo3 = {
 			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
-			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.08 }, --p3.2
+			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.1 }, --p3.2
 			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
-			frame_duration = 0.04
+			frame_duration = 0.06
 		},
 		combo4 = {
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
@@ -102,9 +102,9 @@ return {
 		},
 		combo5 = {
 			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
-			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.08 }, --p3.2
+			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.1 }, --p3.2
 			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
-			frame_duration = 0.04
+			frame_duration = 0.06
 		},
 		fall = {
 			{ q = q(2,458,60,59), ox = 30, oy = 58, duration = 0.8 },
