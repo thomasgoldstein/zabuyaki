@@ -93,7 +93,6 @@ return {
 			frame_duration = 0.04
 		},
 		combo3 = {
-			{ q = q(2,2,44,64), ox = 22, oy = 63, duration = 0.01 }, --stand 1 (hack)
 			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
 			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.1 }, --p3.2
 			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
@@ -108,7 +107,6 @@ return {
 			frame_duration = 0.04
 		},
 		combo5 = {
-			{ q = q(2,2,44,64), ox = 22, oy = 63, duration = 0.01 }, --stand 1 (hack)
 			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
 			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.1 }, --p3.2
 			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
