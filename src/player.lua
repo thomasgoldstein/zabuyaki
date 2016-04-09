@@ -136,7 +136,7 @@ function Player:onHurt()
     if not h then
         return
     end
-    if self.state == "fall" or self.state == "dead" then
+    if self.state == "fall" or self.state == "dead" or self.state == "getup" then
         self.hurt = nil --free hurt data
         return
     end
