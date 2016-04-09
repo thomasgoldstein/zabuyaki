@@ -10,7 +10,7 @@
 ]]
 print("AnimatedSprite.lua loaded")
 
-local ManagerVersion = 0.4
+local ManagerVersion = 0.41
 
 sprite_bank = {} --Map with all the sprite definitions
 image_bank = {} --Contains all images that were already loaded
@@ -110,25 +110,25 @@ end
 function UpdateInstance(spr, dt, slf)
 	local s = spr.def.animations[spr.curr_anim]
 	local sc = s[spr.curr_frame]
---[[	there are 3 kinds of duration:
-	1) default for whole sprite animations 		: spr.def.default_frame_duration
-	2) default for all frames of 1 animation	: spr.def.animations.frame_duration
-	3) custom duration per frame				: spr.def.animations[i].duration ]]
+--[[	there are 3 kinds of delay:
+	1) default for whole sprite animations 		: spr.def.default_frame_delay
+	2) default for all frames of 1 animation	: spr.def.animations.frame_delay
+	3) custom delay per frame				: spr.def.animations[i].delay ]]
 
 	-- is there default delay for frames of 1 animation?
-	if not s.frame_duration then
-		s.frame_duration = spr.def.default_frame_duration
+	if not s.delay then
+		s.delay = spr.def.delay
 	end
 	-- is there delay for this frame?
-	if not sc.duration then
-		sc.duration = s.frame_duration
+	if not sc.delay then
+		sc.delay = s.delay
 	end
 	--spr.def.animations[spr.curr_anim]
 	--Increment the internal counter.
 	spr.elapsed_time = spr.elapsed_time + dt
 
 	--We check we need to change the current frame.
-	if spr.elapsed_time > sc.duration * spr.time_scale
+	if spr.elapsed_time > sc.delay * spr.time_scale
 		and sc.count > 0
 	then
 		sc.count = 0

@@ -8,13 +8,13 @@ local function q(x,y,w,h)
 end
 
 return {
-	serialization_version = 0.4, -- The version of this serialization process
+	serialization_version = 0.41, -- The version of this serialization process
 
 	sprite_sheet = "res/man_template.png", -- The path to the spritesheet
 	--TODO read width/height of the sheet automatically.
 	sprite_name = "man_template", -- The name of the sprite
 
-	default_frame_duration = 0.20,
+	delay = 0.20,	--default delay for all animations
 
 	--The list with all the frames mapped to their respective animations
 	--  each one can be accessed like this:
@@ -26,12 +26,12 @@ return {
 		stand = {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad
-			-- duration = 0.1, func = fun
+			-- delay = 0.1, func = fun
 			{q = q(2, 2, 49, 62), ox = 20, oy = 61 }, --stand 1
 			{q = q(53, 3, 49, 61), ox = 20, oy = 60 }, --stand 2
 			{q = q(104, 4, 49, 60), ox = 20, oy = 59 }, --stand 3
 			{q = q(53, 3, 49, 61), ox = 20, oy = 60 }, --stand 2
-			frame_duration = 0.2
+			delay = 0.2
 		},
 		walk = { -- 1 2 3 2 1 4 5 4
 			{q = q(  2, 66, 31, 63), ox = 15, oy = 62},
@@ -42,7 +42,7 @@ return {
 			{q = q(108, 66, 31, 63), ox = 15, oy = 62},
 			{q = q(141, 67, 37, 62), ox = 17, oy = 61},
 			{q = q(108, 66, 31, 63), ox = 15, oy = 62},
-			frame_duration = 0.11
+			delay = 0.11
 		},
 		run = { -- 1 2 3 2 1 4 5 4
 			{q = q(2, 200, 33, 63), ox = 14, oy = 62},
@@ -53,93 +53,93 @@ return {
 			{q = q(140, 201, 45, 58), ox = 20, oy = 61},
 			{q = q(187, 202, 51, 55), ox = 23, oy = 60},
 			{q = q(140, 201, 45, 58), ox = 20, oy = 61},
-			frame_duration = 0.075
+			delay = 0.075
 		},
 		jumpUp = {
-			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 , duration = 0.2 }, -- duck 1
+			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 , delay = 0.2 }, -- duck 1
 			{ q = q(72, 132, 44, 66), ox = 23, oy = 65 }, --ju
-			frame_duration = 5
+			delay = 5
 		},
 		jumpDown = {
-			{ q = q(72, 132, 44, 66), ox = 23, oy = 65, duration = 0.5 }, --ju,
+			{ q = q(72, 132, 44, 66), ox = 23, oy = 65, delay = 0.5 }, --ju,
 			{ q = q(118, 131, 44, 67), ox = 19, oy = 66 }, --jd
-			frame_duration = 5
+			delay = 5
 		},
 		duck = {
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1 stop
 			--{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
-			frame_duration = 0.15
+			delay = 0.15
 		},
 		pickup = {
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
-			{ q = q(39, 147, 31, 51), ox = 14, oy = 50, duration = 0.2 }, -- duck 2
+			{ q = q(39, 147, 31, 51), ox = 14, oy = 50, delay = 0.2 }, -- duck 2
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1 stop
-			frame_duration = 0.05
+			delay = 0.05
 		},
 		dash = {
 			{q = q(2, 517, 46, 61), ox = 23, oy = 61}, --jaf 1
-			{ q = q(164,131,69,58), ox = 24, oy = 62, duration = 1 }, -- dash 1
-			frame_duration = 0.2
+			{ q = q(164,131,69,58), ox = 24, oy = 62, delay = 1 }, -- dash 1
+			delay = 0.2
 		},
 		combo12 = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end }, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 stop
-			frame_duration = 0.04
+			delay = 0.04
 		},
 		combo3 = {
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
-			{q = q(157, 265, 51, 62), ox = 14, oy = 61, func = function(self) self.check_mash = true end, duration = 0.08}, --p4 *
+			{q = q(157, 265, 51, 62), ox = 14, oy = 61, func = function(self) self.check_mash = true end, delay = 0.08}, --p4 *
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3 stop
-			frame_duration = 0.04
+			delay = 0.04
 		},
 		combo4 = {
 			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
-			{q = q(37, 329, 52, 62), ox = 15, oy = 61, func = function(self) self.check_mash = true end, duration = 0.1}, --k2 *
+			{q = q(37, 329, 52, 62), ox = 15, oy = 61, func = function(self) self.check_mash = true end, delay = 0.1}, --k2 *
 			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
 			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1 stop
-			frame_duration = 0.05
+			delay = 0.05
 		},
 		combo5 = {
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3
-			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, duration = 0.1}, --k4*
-			{q = q(91, 330, 46, 61), ox = 19, oy = 60, duration = 0.2}, --k3
+			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, delay = 0.1}, --k4*
+			{q = q(91, 330, 46, 61), ox = 19, oy = 60, delay = 0.2}, --k3
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3 stop
-			frame_duration = 0.05
+			delay = 0.05
 		},
 		fall = {
-			{q = q(2, 393, 53, 58), ox = 26, oy = 57, duration = 0.8},
-			{q = q(57, 417, 76, 34), ox = 38, oy = 33, duration = 3},
-			{q = q(135, 404, 62, 47), ox = 31, oy = 46, duration = 1},
-			frame_duration = 0.2
+			{q = q(2, 393, 53, 58), ox = 26, oy = 57, delay = 0.8},
+			{q = q(57, 417, 76, 34), ox = 38, oy = 33, delay = 3},
+			{q = q(135, 404, 62, 47), ox = 31, oy = 46, delay = 1},
+			delay = 0.2
 		},
 		getup = {
-			{ q = q(57, 417, 76, 34), ox = 38, oy = 33, duration = 1  },
+			{ q = q(57, 417, 76, 34), ox = 38, oy = 33, delay = 1  },
 			{ q = q(135, 404, 62, 47), ox = 31, oy = 46 },
 			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
 			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2 (we dont draw it, need it for check for last frame)
-			frame_duration = 0.2
+			delay = 0.2
 		},
 		dead = {
-			{q = q(135, 404, 62, 47), ox = 31, oy = 46, duration = 1},
+			{q = q(135, 404, 62, 47), ox = 31, oy = 46, delay = 1},
 			{q = q(57, 416, 76, 34), ox = 38, oy = 33},
-			frame_duration = 60
+			delay = 60
 		},
 		hurtHigh = {
 			{q = q(53, 454, 50, 61), ox = 23, oy = 60}, --hf2
 			{q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hf1
 			{q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hf1 stop
-			frame_duration = 0.1
+			delay = 0.1
 		},
 		hurtLow = {
 			{q = q(148, 456, 36, 59), ox = 21, oy = 58}, --hs2
 			{q = q(105, 454, 41, 61), ox = 21, oy = 60}, --hs1
 			{q = q(105, 454, 41, 61), ox = 21, oy = 60}, --hs1 stop
-			frame_duration = 0.1
+			delay = 0.1
 		},
 		jumpAttackForward_ = {
 			{q = q(2, 517, 46, 61), ox = 23, oy = 65}, --jaf 1
@@ -148,22 +148,22 @@ return {
 		jumpAttackForwardUp = {
 			{q = q(2, 517, 46, 61), ox = 23, oy = 65}, --jaf 1
 			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
-			frame_duration = 5
+			delay = 5
 		},
 		jumpAttackForwardDown = {
-			{q = q(2, 517, 46, 61), ox = 23, oy = 65, duration = 0.2}, --jaf 1
+			{q = q(2, 517, 46, 61), ox = 23, oy = 65, delay = 0.2}, --jaf 1
 			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
-			frame_duration = 5
+			delay = 5
 		},
 		jumpAttackWeakUp = {
 			{q = q(109, 517, 46, 63), ox = 22, oy = 65}, --jaw 1
 			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
-			frame_duration = 5
+			delay = 5
 		},
 		jumpAttackWeakDown = {
-			{q = q(109, 517, 46, 63), ox = 22, oy = 65, duration = 0.2}, --jaw 1
+			{q = q(109, 517, 46, 63), ox = 22, oy = 65, delay = 0.2}, --jaw 1
 			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
-			frame_duration = 5
+			delay = 5
 		},
 		jumpAttackWeak_ = {
 			{q = q(109, 517, 46, 63), ox = 23, oy = 60}, --jaw 1
@@ -172,13 +172,13 @@ return {
 		jumpAttackStillUp = {
 			{q = q(2, 582, 33, 65), ox = 14, oy = 64}, --jas 1
 			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
-			frame_duration = 5
+			delay = 5
 		},
 		jumpAttackStillDown = {
-			{q = q(2, 582, 33, 65), ox = 14, oy = 64, duration = 0.2}, --jas 1
+			{q = q(2, 582, 33, 65), ox = 14, oy = 64, delay = 0.2}, --jas 1
 			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
-			{q = q(2, 582, 33, 65), ox = 14, oy = 64, duration = 0.2}, --jas 1
-			frame_duration = 0.4
+			{q = q(2, 582, 33, 65), ox = 14, oy = 64, delay = 0.2}, --jas 1
+			delay = 0.4
 		},
 		sideStepUp = {
 			{q = q(90, 582, 42, 65), ox = 20, oy = 64}, --ssu
@@ -221,8 +221,9 @@ return {
         grabbed = {
             {q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hf1
             {q = q(53, 454, 50, 61), ox = 23, oy = 60}, --hf2
-            frame_duration = 0.1
+            delay = 0.1
         },
+
 } --offsets
 
 } --return (end of file)
