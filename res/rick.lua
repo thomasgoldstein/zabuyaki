@@ -62,13 +62,15 @@ return {
 			frame_duration = 5
 		},
 		duck = {
-			{ q = q(2,269,42,59), ox = 21, oy = 58, duration = 0.15 }, --duck
-			frame_duration = 0.5
+			{ q = q(2,269,42,59), ox = 21, oy = 58 }, --duck
+			{ q = q(2,269,42,59), ox = 21, oy = 58 }, --duck stop
+			frame_duration = 0.15
 		},
 		pickup = {
 			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
 			{ q = q(48,398,43,58), ox = 21, oy = 57, duration = 0.2 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
+			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1 stop
 			frame_duration = 0.05
 		},
 		dash = {
@@ -80,12 +82,14 @@ return {
 			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
 			{ q = q(2,519,63,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
 			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
+			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2 stop
 			frame_duration = 0.01
 		},
 		combo2 = {
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
 			{ q = q(159,519,60,63), ox = 18, oy = 62, func = function(self) self.check_mash = true end, duration = 0.08 }, --p2.1
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
+			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2 stop
 			frame_duration = 0.04
 		},
 		combo3 = {
@@ -93,12 +97,14 @@ return {
 			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
 			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.1 }, --p3.2
 			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
+			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3 stop
 			frame_duration = 0.06
 		},
 		combo4 = {
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
 			{ q = q(159,519,60,63), ox = 18, oy = 62, func = function(self) self.check_mash = true end, duration = 0.08 }, --p2.1
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
+			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2 stop
 			frame_duration = 0.04
 		},
 		combo5 = {
@@ -106,6 +112,7 @@ return {
 			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
 			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.1 }, --p3.2
 			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
+			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3 stop
 			frame_duration = 0.06
 		},
 		fall = {
@@ -128,15 +135,15 @@ return {
 			frame_duration = 65
 		},
 		hurtHigh = {
-			{ q = q(2,330,45,63), ox = 24, oy = 62, duration = 0.01 }, --hf1
 			{ q = q(49,331,47,62), ox = 27, oy = 61 }, --hf2
 			{ q = q(2,330,45,63), ox = 24, oy = 62 }, --hf1
+			{ q = q(2,330,45,63), ox = 24, oy = 62 }, --hf1 stop
 			frame_duration = 0.1
 		},
 		hurtLow = {
-			{ q = q(98,330,45,63), ox = 20, oy = 62, duration = 0.01 }, --hs1
 			{ q = q(145,331,44,62), ox = 18, oy = 61 }, --hs2
 			{ q = q(98,330,45,63), ox = 20, oy = 62 }, --hs1
+			{ q = q(98,330,45,63), ox = 20, oy = 62 }, --hs1 stop
 			frame_duration = 0.1
 		},
 		jumpAttackForwardUp = {

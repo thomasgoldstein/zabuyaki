@@ -656,7 +656,7 @@ function Player:pickup_update(dt)
 		item.color.a = item.color.a - 5
 		item.z = item.z + 0.5
 	end
-	if self.sprite.loop_count > 0 then
+	if self.sprite.isLast then
 		if item then
 			self:onGetItem(item)
 		end
@@ -681,7 +681,7 @@ function Player:duck_start()
 end
 function Player:duck_update(dt)
 	--	print (self.name.." - duck update",dt)
-	if self.sprite.loop_count > 0 then
+	if self.sprite.isLast then
 		self:setState(self.stand)
 		return
 	end
@@ -703,7 +703,7 @@ function Player:hurtHigh_update(dt)
 	if self.isGrabbed then
 		self:setState(self.grabbed)
 	end
-	if self.sprite.loop_count > 0 then
+	if self.sprite.isLast then
 		if self.hp <= 0 then
 			self:setState(self.dead)
 			return
@@ -730,7 +730,7 @@ function Player:hurtLow_update(dt)
 	if self.isGrabbed then
 		self:setState(self.grabbed)
 	end
-	if self.sprite.loop_count > 0 then
+	if self.sprite.isLast then
 		if self.hp <= 0 then
 			self:setState(self.dead)
 			return
@@ -1072,7 +1072,7 @@ function Player:combo_start()
 	self.cool_down = 0.2
 end
 function Player:combo_update(dt)
-	if self.sprite.loop_count > 0 then
+	if self.sprite.isLast then
 	--if self.sprite.isLast then
 		self.n_combo = self.n_combo + 1
 		if self.n_combo > 5 then
