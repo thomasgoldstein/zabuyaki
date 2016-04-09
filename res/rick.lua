@@ -1,7 +1,7 @@
 print("rick.lua loaded")
 
 local image_w = 224 --This info can be accessed with a Love2D call
-local image_h = 584 --after the image has been loaded
+local image_h = 649 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -89,10 +89,10 @@ return {
 			frame_duration = 0.04
 		},
 		combo3 = {
-			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
-			{ q = q(2,519,63,63), ox = 22, oy = 62, func = function(self) self.check_mash = true end, duration = 0.06 }, --p1.1
-			{ q = q(67,520,48,62), ox = 22, oy = 61 }, --p1.2
-			frame_duration = 0.01
+			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
+			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.08 }, --p3.2
+			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
+			frame_duration = 0.04
 		},
 		combo4 = {
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
@@ -101,9 +101,9 @@ return {
 			frame_duration = 0.04
 		},
 		combo5 = {
-			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
-			{ q = q(159,519,60,63), ox = 18, oy = 62, func = function(self) self.check_mash = true end, duration = 0.08 }, --p2.1
-			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
+			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
+			{ q = q(41,584,57,63), ox = 17, oy = 62, func = function(self) self.check_mash = true end, duration = 0.08 }, --p3.2
+			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
 			frame_duration = 0.04
 		},
 		fall = {
