@@ -8,6 +8,7 @@
     http://opensource.org/licenses/MIT
 ]]
 DEBUG = false
+REAL_SHADOWS = true
 attackHitBoxes = {} -- DEBUG
 
 function love.load(arg)
