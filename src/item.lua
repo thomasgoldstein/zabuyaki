@@ -35,8 +35,8 @@ end
 function Item:drawShadow(l,t,w,h)
     --TODO adjust sprite dimensions
     if not self.isHidden and CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
-        love.graphics.setColor(0, 0, 0, 200)
-        love.graphics.ellipse("fill", self.x, self.y, 9 - self.z/8, 3 - self.z/16)
+        love.graphics.setColor(0, 0, 0, 100)
+        love.graphics.ellipse("fill", self.x, self.y + 1, 8 - self.z/8, 2)
     end
 end
 
@@ -44,7 +44,7 @@ function Item:draw(l,t,w,h)
     --TODO adjust sprite dimensions.
     if not self.isHidden and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
         love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-        love.graphics.ellipse("fill", self.x, self.y - self.z - 9, 9, 9)
+        love.graphics.ellipse("fill", self.x, self.y - self.z - 8, 8, 8)
         --DrawInstance(self.sprite, self.x, self.y - self.z)
     end
 end
