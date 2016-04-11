@@ -8,7 +8,7 @@ local function q(x,y,w,h)
 end
 
 return {
-	serialization_version = 0.41, -- The version of this serialization process
+	serialization_version = 0.42, -- The version of this serialization process
 
 	sprite_sheet = "res/man_template.png", -- The path to the spritesheet
 	--TODO read width/height of the sheet automatically.
@@ -31,6 +31,7 @@ return {
 			{q = q(53, 3, 49, 61), ox = 20, oy = 60 }, --stand 2
 			{q = q(104, 4, 49, 60), ox = 20, oy = 59 }, --stand 3
 			{q = q(53, 3, 49, 61), ox = 20, oy = 60 }, --stand 2
+			loop = true,
 			delay = 0.2
 		},
 		walk = { -- 1 2 3 2 1 4 5 4
@@ -42,6 +43,7 @@ return {
 			{q = q(108, 66, 31, 63), ox = 15, oy = 62},
 			{q = q(141, 67, 37, 62), ox = 17, oy = 61},
 			{q = q(108, 66, 31, 63), ox = 15, oy = 62},
+			loop = true,
 			delay = 0.11
 		},
 		run = { -- 1 2 3 2 1 4 5 4
@@ -53,6 +55,7 @@ return {
 			{q = q(140, 201, 45, 58), ox = 20, oy = 61},
 			{q = q(187, 202, 51, 55), ox = 23, oy = 60},
 			{q = q(140, 201, 45, 58), ox = 20, oy = 61},
+			loop = true,
 			delay = 0.075
 		},
 		jumpUp = {
@@ -67,7 +70,6 @@ return {
 		},
 		duck = {
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
-			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1 stop
 			--{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
 			delay = 0.15
 		},
@@ -75,7 +77,6 @@ return {
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
 			{ q = q(39, 147, 31, 51), ox = 14, oy = 50, delay = 0.2 }, -- duck 2
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
-			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1 stop
 			delay = 0.05
 		},
 		dash = {
@@ -87,28 +88,24 @@ return {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end }, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 stop
 			delay = 0.04
 		},
 		combo3 = {
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
 			{q = q(157, 265, 51, 62), ox = 14, oy = 61, func = function(self) self.check_mash = true end, delay = 0.08}, --p4 *
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
-			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3 stop
 			delay = 0.04
 		},
 		combo4 = {
 			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
 			{q = q(37, 329, 52, 62), ox = 15, oy = 61, func = function(self) self.check_mash = true end, delay = 0.1}, --k2 *
 			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
-			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1 stop
 			delay = 0.05
 		},
 		combo5 = {
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3
 			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, delay = 0.1}, --k4*
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60, delay = 0.2}, --k3
-			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3 stop
 			delay = 0.05
 		},
 		fall = {
@@ -121,7 +118,6 @@ return {
 			{ q = q(57, 417, 76, 34), ox = 38, oy = 33, delay = 1  },
 			{ q = q(135, 404, 62, 47), ox = 31, oy = 46 },
 			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
-			{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2 (we dont draw it, need it for check for last frame)
 			delay = 0.2
 		},
 		dead = {
@@ -132,13 +128,11 @@ return {
 		hurtHigh = {
 			{q = q(53, 454, 50, 61), ox = 23, oy = 60}, --hf2
 			{q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hf1
-			{q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hf1 stop
 			delay = 0.1
 		},
 		hurtLow = {
 			{q = q(148, 456, 36, 59), ox = 21, oy = 58}, --hs2
 			{q = q(105, 454, 41, 61), ox = 21, oy = 60}, --hs1
-			{q = q(105, 454, 41, 61), ox = 21, oy = 60}, --hs1 stop
 			delay = 0.1
 		},
 		jumpAttackForward_ = {
@@ -199,6 +193,7 @@ return {
             { q = q(106,793,58,50), ox = 29, oy = 49 }, --grab 3 throw
         },
         grab = {
+			{ q = q(157, 265, 51, 62), ox = 14, oy = 61, delay = 0.2}, --p4 *
             { q = q(2,649,45,62), ox = 22, oy = 61 }, --grab 1
         },
         grabHit = {
