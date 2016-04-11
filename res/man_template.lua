@@ -8,6 +8,8 @@ local function q(x,y,w,h)
 end
 
 local check_mash = function(self) self.check_mash = true end	-- check if attack key pressed
+local step_sfx = function() TEsound.play("res/sfx/step.wav", nil, 0.5) end
+local step_sfx2 = function() TEsound.play("res/sfx/step.wav", nil, 1) end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
@@ -39,21 +41,21 @@ return {
 		walk = { -- 1 2 3 2 1 4 5 4
 			{q = q(  2, 66, 31, 63), ox = 15, oy = 62},
 			{q = q( 35, 66, 32, 63), ox = 16, oy = 62},
-			{q = q( 69, 67, 37, 62), ox = 17, oy = 61},
+			{q = q( 69, 67, 37, 62), ox = 17, oy = 61, func = step_sfx},
 			{q = q( 35, 66, 32, 63), ox = 16, oy = 62},
 			{q = q(  2, 66, 31, 63), ox = 15, oy = 62},
 			{q = q(108, 66, 31, 63), ox = 15, oy = 62},
-			{q = q(141, 67, 37, 62), ox = 17, oy = 61},
+			{q = q(141, 67, 37, 62), ox = 17, oy = 61, func = step_sfx},
 			{q = q(108, 66, 31, 63), ox = 15, oy = 62},
 			loop = true,
 			delay = 0.11
 		},
 		run = { -- 1 2 3 2 1 4 5 4
-			{q = q(2, 200, 33, 63), ox = 14, oy = 62},
+			{q = q(2, 200, 33, 63), ox = 14, oy = 62, func = step_sfx2},
 			{q = q(37, 201, 48, 61), ox = 21, oy = 61},
 			{q = q(87, 202, 51, 55), ox = 24, oy = 60},
 			{q = q(37, 201, 48, 61), ox = 21, oy = 61},
-			{q = q(2, 200, 33, 63), ox = 14, oy = 62},
+			{q = q(2, 200, 33, 63), ox = 14, oy = 62, func = step_sfx2},
 			{q = q(140, 201, 45, 58), ox = 20, oy = 61},
 			{q = q(187, 202, 51, 55), ox = 23, oy = 60},
 			{q = q(140, 201, 45, 58), ox = 20, oy = 61},
@@ -87,10 +89,10 @@ return {
 			delay = 0.2
 		},
 		combo12 = {
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
+			--{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = check_mash }, --p1 *
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			delay = 0.04
+			--{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
+			delay = 0.1
 		},
 		combo3 = {
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3

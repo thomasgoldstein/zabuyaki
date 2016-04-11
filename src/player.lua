@@ -51,9 +51,6 @@ function Player:initialize(name, sprite, input, x, y, color)
 	else
 		self.color = { r= 255, g = 255, b = 255, a = 255 }
 	end
-
-	self.prev_frame = 0 -- for SFX like steps self.sprite.curr_frame
-
 	self.isHidden = false
 	--self.isEnabled = true
 
@@ -403,7 +400,6 @@ Player.stand = {name = "stand", start = Player.stand_start, exit = nop, update =
 function Player:walk_start()
 --	print (self.name.." - walk start")
 	SetSpriteAnim(self.sprite,"walk")
-	self.prev_frame = 0
 	self.can_jump = false
 	self.can_fire = false
 	self.n_combo = 1	--if u move reset combo chain
@@ -455,13 +451,6 @@ function Player:walk_update(dt)
 		self:setState(self.stand)
 		return
 	end
-	if self.prev_frame ~= self.sprite.curr_frame then
-		if self.sprite.curr_frame == 3 or self.sprite.curr_frame == 7 then
-			self.prev_frame = self.sprite.curr_frame
-			TEsound.play("res/sfx/step.wav", nil, 0.5)
-		end
-	end
-
 	local grabbed = self:checkForGrab(9, 3)
 	if grabbed then
 		if self:doGrab(grabbed) then
@@ -487,7 +476,6 @@ Player.walk = {name = "walk", start = Player.walk_start, exit = nop, update = Pl
 function Player:run_start()
 --	print (self.name.." - run start")
 	SetSpriteAnim(self.sprite,"run")
-	self.prev_frame = 0	--TODO use custom spr func for steps
 	self.can_jump = false
 	self.can_fire = false
 end
@@ -528,12 +516,6 @@ function Player:run_update(dt)
 	if self.velx == 0 and self.vely == 0 then
 		self:setState(self.stand)
 		return
-	end
-	if self.prev_frame ~= self.sprite.curr_frame then
-		if self.sprite.curr_frame == 5 or self.sprite.curr_frame == 1 then
-			self.prev_frame = self.sprite.curr_frame
-			TEsound.play("res/sfx/step.wav", nil, 1)
-		end
 	end
 	if not self.b.jump.down then
 		self.can_jump = true
