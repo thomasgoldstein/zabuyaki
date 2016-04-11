@@ -200,10 +200,10 @@ function Player:drawShadow(l,t,w,h)
         --if self.z < 4 and self.sprite.curr_frame == 2 and (self.state == "dead" or self.state == "fall") then
         --    love.graphics.ellipse("fill", self.x + self.shake.x, self.y, 36 - self.z/16, 4 - self.z/32)
         --else    --norm
-			--local width = self.sprite.curr_frame
 			local _, _, width, _ = self.sprite.def.animations[self.sprite.curr_anim][self.sprite.curr_frame].q:getViewport( )
+            local ox = self.sprite.def.animations[self.sprite.curr_anim][self.sprite.curr_frame].ox
 --            love.graphics.ellipse("fill", self.x + self.shake.x, self.y, 18 - self.z/16, 6 - self.z/32)
-			local fx = 0 --(4 + self.z/16) * self.face
+			local fx = (width/2 - ox) * self.face
             love.graphics.ellipse("fill", self.x + self.shake.x + fx, self.y, math.max(16, width/2) - self.z/16, 6 - self.z/32)
         --end
 	end
