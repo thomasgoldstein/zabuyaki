@@ -7,6 +7,8 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
+local check_mash = function(self) self.check_mash = true end	-- check if attack key pressed
+
 return {
 	serialization_version = 0.42, -- The version of this serialization process
 
@@ -86,25 +88,25 @@ return {
 		},
 		combo12 = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = function(self) self.check_mash = true end }, --p1 *
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = check_mash }, --p1 *
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
 			delay = 0.04
 		},
 		combo3 = {
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
-			{q = q(157, 265, 51, 62), ox = 14, oy = 61, func = function(self) self.check_mash = true end, delay = 0.08}, --p4 *
+			{q = q(157, 265, 51, 62), ox = 14, oy = 61, func = check_mash, delay = 0.08}, --p4 *
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
 			delay = 0.04
 		},
 		combo4 = {
 			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
-			{q = q(37, 329, 52, 62), ox = 15, oy = 61, func = function(self) self.check_mash = true end, delay = 0.1}, --k2 *
+			{q = q(37, 329, 52, 62), ox = 15, oy = 61, func = check_mash, delay = 0.1}, --k2 *
 			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
 			delay = 0.05
 		},
 		combo5 = {
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3
-			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = function(self) self.check_mash = true end, delay = 0.1}, --k4*
+			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = check_mash, delay = 0.1}, --k4*
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60, delay = 0.2}, --k3
 			delay = 0.05
 		},
@@ -193,10 +195,16 @@ return {
             { q = q(106,793,58,50), ox = 29, oy = 49 }, --grab 3 throw
         },
         grab = {
-			{ q = q(157, 265, 51, 62), ox = 14, oy = 61, delay = 0.2}, --p4 *
+			{ q = q(113, 265, 42, 62), ox = 16, oy = 61 }, --p3
             { q = q(2,649,45,62), ox = 22, oy = 61 }, --grab 1
+			delay = 0.2
         },
-        grabHit = {
+		letGo = {
+--			{ q = q(2,649,45,62), ox = 22, oy = 61 }, --grab 1
+			{ q = q(113, 265, 42, 62), ox = 16, oy = 61 }, --p3
+			delay = 0.2
+		},
+		grabHit = {
             { q = q(49,649,44,62), ox = 22, oy = 61 }, --grab 2
             { q = q(95,649,39,62), ox = 19, oy = 61 },  -- grab 3
         },

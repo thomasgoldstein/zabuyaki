@@ -1202,9 +1202,7 @@ function Player:grab_update(dt)
 		else
 			self.horizontal = 1
 		end
-		self.velx = 145 --move from source
-		self.cool_down = 0.35	--cannot walk etc
-		self:setState(self.stand)
+		self:setState(self.letgo)
 		return
 	end
 	--adjust both vertically
@@ -1240,7 +1238,6 @@ function Player:grab_update(dt)
 end
 Player.grab = {name = "grab", start = Player.grab_start, exit = nop, update = Player.grab_update, draw = Player.default_draw}
 
-
 function Player:grabbed_start()
 	--print (self.name.." - grabbed start")
 	SetSpriteAnim(self.sprite,"grabbed")
@@ -1273,5 +1270,30 @@ function Player:grabbed_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.grabbed = {name = "grabbed", start = Player.grabbed_start, exit = nop, update = Player.grabbed_update, draw = Player.default_draw}
+
+function Player:letgo_start()
+	--print (self.name.." - letgo start")
+	SetSpriteAnim(self.sprite,"letGo")
+	if DEBUG then
+		print(self.name.." is letGo someone.")
+	end
+	self.horizontal = -self.horizontal
+	self.velx = 175 --move from source
+	self.cool_down = 0.35	--cannot walk etc
+	--TEsound.play("res/sfx/grunt1.wav")
+end
+function Player:letgo_update(dt)
+	--print(self.name .. " - letgo update", dt)
+	if self.sprite.isFinished then
+		self:setState(self.stand)
+		return
+	end
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
+	--self:checkHurt()
+	self:updateShake(dt)
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.letgo = {name = "letGo", start = Player.letgo_start, exit = nop, update = Player.letgo_update, draw = Player.default_draw}
 
 return Player
