@@ -196,7 +196,7 @@ end
 function Player:drawShadow(l,t,w,h)
 	--TODO adjust sprite dimensions
 	if CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
-		love.graphics.setColor(0, 0, 0, 200) --4th is the shadow transparency
+		love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
         --plain circle shadows:
         --if self.z < 4 and self.sprite.curr_frame == 2 and (self.state == "dead" or self.state == "fall") then
         --    love.graphics.ellipse("fill", self.x + self.shake.x, self.y, 36 - self.z/16, 4 - self.z/32)
@@ -209,7 +209,7 @@ function Player:drawShadow(l,t,w,h)
                 self.x + self.shake.x, self.y-2 + self.z/6,
                 0,
                 spr.flip_h,
-                -0.5,
+                -0.2,
                 sc.ox, sc.oy
             )
         else
