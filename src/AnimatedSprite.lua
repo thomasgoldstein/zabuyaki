@@ -10,7 +10,7 @@
 ]]
 print("AnimatedSprite.lua loaded")
 
-local ManagerVersion = 0.41
+local ManagerVersion = 0.42
 
 sprite_bank = {} --Map with all the sprite definitions
 image_bank = {} --Contains all images that were already loaded
@@ -86,6 +86,7 @@ function GetInstance (sprite_def)
 		curr_frame = 1,
 		isFirst = true, -- if the 1st frame
 		isLast = false, -- if the last frame
+		isFinished = false, -- last frame played till the end and the animation is not a loop
 		loop_count = 0, -- loop played times
 		elapsed_time = 0,
 		size_scale = 1,
@@ -100,21 +101,15 @@ function SetSpriteAnim(spr, anim)
 	spr.curr_frame = 1
 	spr.loop_count = 0
 	spr.curr_anim = anim
+	spr.isFinished = false
+	spr.func_called_at_frame = -1
 	local s = spr.def.animations[spr.curr_anim]
 	local sc = s[spr.curr_frame]
-	for i=1,#s do
-		s[i].count = 0
-	end
 end
 
 function UpdateInstance(spr, dt, slf)
 	local s = spr.def.animations[spr.curr_anim]
 	local sc = s[spr.curr_frame]
---[[	there are 3 kinds of delay:
-	1) default for whole sprite animations 		: spr.def.default_frame_delay
-	2) default for all frames of 1 animation	: spr.def.animations.frame_delay
-	3) custom delay per frame				: spr.def.animations[i].delay ]]
-
 	-- is there default delay for frames of 1 animation?
 	if not s.delay then
 		s.delay = spr.def.delay
@@ -123,33 +118,35 @@ function UpdateInstance(spr, dt, slf)
 	if not sc.delay then
 		sc.delay = s.delay
 	end
+	-- call custom frame func once per the frame
+	if sc.func and spr.func_called_at_frame ~= spr.curr_frame then
+		spr.func_called_at_frame = spr.curr_frame
+		sc.func(slf)
+	end
 	--spr.def.animations[spr.curr_anim]
 	--Increment the internal counter.
 	spr.elapsed_time = spr.elapsed_time + dt
 
 	--We check we need to change the current frame.
-	if spr.elapsed_time > sc.delay * spr.time_scale
-		and sc.count > 0
-	then
-		sc.count = 0
+	if spr.elapsed_time > sc.delay * spr.time_scale then
 		--Check if we are at the last frame.
-		--  # returns the total entries of an array.
 		if spr.curr_frame < #s then
 			-- Not on last frame, increment.
 			spr.curr_frame = spr.curr_frame + 1
 		else
 			-- Last frame, loop back to 1.
-			spr.curr_frame = 1
-			spr.loop_count = spr.loop_count + 1 --loop played times++
+			if s.loop then	--if cycled animation
+				spr.curr_frame = 1
+				spr.loop_count = spr.loop_count + 1 --loop played times++
+			else
+				spr.isFinished = true
+			end
 		end
 		-- First or Last frames?
 		spr.isFirst = (spr.curr_frame == 1)
 		spr.isLast = (spr.curr_frame == #s)
 		-- Reset internal counter on frame change.
 		spr.elapsed_time = 0
-		if sc.func then
-			return sc.func(slf)
-		end
 	end
 	-- First or Last frames?
 	spr.isFirst = (spr.curr_frame == 1)
@@ -168,5 +165,4 @@ function DrawInstance (spr, x, y)
 		spr.size_scale * spr.flip_v,
 		sc.ox, sc.oy
 	)
-	sc.count = (sc.count or 0) + 1 --this frame was drawn
 end
