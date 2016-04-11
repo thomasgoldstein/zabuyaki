@@ -137,6 +137,9 @@ function testState:keypressed(k, unicode)
     elseif k == '0' then
         DEBUG = not DEBUG
     end
+    if k == '9' then
+        REAL_SHADOWS = not REAL_SHADOWS
+    end
 
     if DEBUG then
         if k == '1' then
