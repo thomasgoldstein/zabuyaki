@@ -197,15 +197,28 @@ function Player:drawShadow(l,t,w,h)
 	--TODO adjust sprite dimensions
 	if CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
 		love.graphics.setColor(0, 0, 0, 200) --4th is the shadow transparency
+        --plain circle shadows:
         --if self.z < 4 and self.sprite.curr_frame == 2 and (self.state == "dead" or self.state == "fall") then
         --    love.graphics.ellipse("fill", self.x + self.shake.x, self.y, 36 - self.z/16, 4 - self.z/32)
-        --else    --norm
-			local _, _, width, _ = self.sprite.def.animations[self.sprite.curr_anim][self.sprite.curr_frame].q:getViewport( )
+        if REAL_SHADOWS then
+            local spr = self.sprite
+            local sc = spr.def.animations[spr.curr_anim][spr.curr_frame]
+            love.graphics.draw (
+                image_bank[spr.def.sprite_sheet], --The image
+                sc.q, --Current frame of the current animation
+                self.x + self.shake.x, self.y-2 + self.z/6,
+                0,
+                spr.flip_h,
+                -0.5,
+                sc.ox, sc.oy
+            )
+        else
+            local _, _, width, _ = self.sprite.def.animations[self.sprite.curr_anim][self.sprite.curr_frame].q:getViewport( )
             local ox = self.sprite.def.animations[self.sprite.curr_anim][self.sprite.curr_frame].ox
---            love.graphics.ellipse("fill", self.x + self.shake.x, self.y, 18 - self.z/16, 6 - self.z/32)
-			local fx = (width/2 - ox) * self.face
+            --            love.graphics.ellipse("fill", self.x + self.shake.x, self.y, 18 - self.z/16, 6 - self.z/32)
+            local fx = (width/2 - ox) * self.face
             love.graphics.ellipse("fill", self.x + self.shake.x + fx, self.y, math.max(16, width/2) - self.z/16, 6 - self.z/32)
-        --end
+        end
 	end
 end
 
