@@ -26,7 +26,7 @@ end
 
 function Rick:combo_start()
     --	print (self.name.." - combo start")
-    if self.n_combo > 5 then
+    if self.n_combo > 4 then
         self.n_combo = 1
     end
     if self.n_combo == 1 then
@@ -37,8 +37,6 @@ function Rick:combo_start()
         SetSpriteAnim(self.sprite,"combo3")
     elseif self.n_combo == 4 then
         SetSpriteAnim(self.sprite,"combo4")
-    elseif self.n_combo == 5 then
-        SetSpriteAnim(self.sprite,"combo5")
     else
         SetSpriteAnim(self.sprite,"dead") --TODO remove after debug
     end

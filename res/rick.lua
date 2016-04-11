@@ -1,7 +1,7 @@
 print("rick.lua loaded")
 
 local image_w = 224 --This info can be accessed with a Love2D call
-local image_h = 649 --after the image has been loaded
+local image_h = 714 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -102,15 +102,10 @@ return {
 			delay = 0.06
 		},
 		combo4 = {
-			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
-			{ q = q(159,519,60,63), ox = 18, oy = 62, func = check_mash, delay = 0.08 }, --p2.1
-			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
-			delay = 0.04
-		},
-		combo5 = {
-			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
-			{ q = q(41,584,57,63), ox = 17, oy = 62, func = check_mash, delay = 0.1 }, --p3.2
-			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
+			{ q = q(2,649,46,62), ox = 23, oy = 61, delay = 0.15 }, --k1.1
+			{ q = q(50,649,61,61), ox = 30, oy = 60, func = check_mash, delay = 0.15 }, --k1.2
+			{ q = q(113,649,49,62), ox = 24, oy = 61 }, --k1.3
+			{ q = q(164,649,42,63), ox = 21, oy = 62 }, --k1.4
 			delay = 0.06
 		},
 		fall = {
