@@ -65,6 +65,9 @@ function Player:initialize(name, sprite, input, x, y, color)
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
 
+	--Debug vars
+	self.hurted = false
+
 	self:setState(Player.stand)
 end
 
@@ -228,6 +231,10 @@ end
 function Player:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
+		if DEBUG and self.hurted then
+			self.hurted = false
+			love.graphics.ellipse("fill", self.x, self.y-30, 35, 40)
+		end
 		self.sprite.flip_h = self.face  --TODO get rid of .face
 		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 		DrawInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
@@ -696,8 +703,9 @@ end
 Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
 
 function Player:hurtHigh_start()
---		print (self.name.." - hurtHigh start")
+	print (self.name.." - hurtHigh start")
 	SetSpriteAnim(self.sprite,"hurtHigh")
+	self.hurted = true
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
 function Player:hurtHigh_update(dt)
@@ -723,8 +731,9 @@ end
 Player.hurtHigh = {name = "hurtHigh", start = Player.hurtHigh_start, exit = nop, update = Player.hurtHigh_update, draw = Player.default_draw}
 
 function Player:hurtLow_start()
-	--	print (self.name.." - hurtLow start")
+	print (self.name.." - hurtLow start")
 	SetSpriteAnim(self.sprite,"hurtLow")
+	self.hurted = true
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
 function Player:hurtLow_update(dt)
@@ -972,6 +981,7 @@ function Player:fall_start()
 	if self.z <= 0 then
 		self.z = 0
 	end
+	self.hurted = true
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
 function Player:fall_update(dt)
