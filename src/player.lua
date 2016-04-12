@@ -151,12 +151,7 @@ function Player:onHurt()
 	self.hp = self.hp - h.damage
 	self.n_combo = 1	--if u get hit reset combo chain
 
-	-- calc falling traectory
-	self.velx = h.velx
-	self.vely = h.vely
-	self.horizontal = h.horizontal
-	self.vertical = h.vertical
-	self.face = -h.source.face
+	self.face = -h.source.face	--turn face to the attacker
 
 	self.hurt = nil --free hurt data
 	if self.isGrabbed then
@@ -173,6 +168,14 @@ function Player:onHurt()
 		self:onShake(1, 0, 0.03, 0.3)
 		self:setState(self.hurtLow)
 	else
+		-- calc falling traectorym speed, direction
+		self.velx = h.velx
+		self.vely = 0	-- h.vely
+		if self.x < h.source.x then
+			self.horizontal = -1
+		else
+			self.horizontal = 1
+		end
 		-- fall
 		self.z = self.z + 1
 		self.velz = 220
