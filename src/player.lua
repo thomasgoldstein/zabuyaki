@@ -135,8 +135,11 @@ function Player:onHurt()
     local h = self.hurt
     if not h then
         return
-    end
+	end
     if self.state == "fall" or self.state == "dead" or self.state == "getup" then
+		if DEBUG then
+			print("Clear HURT due to state"..self.state)
+		end
         self.hurt = nil --free hurt data
         return
     end
@@ -145,6 +148,9 @@ function Player:onHurt()
 		print(h.source.name .. " damaged "..self.name.." by "..h.damage)
     end
     if h.source.victims[self] then  -- if I had dmg from this src already
+		if DEBUG then
+			print("MISS + not Clear HURT due victims list of "..h.source.name)
+		end
         return
     end
     h.source.victims[self] = true
@@ -167,9 +173,11 @@ function Player:onHurt()
 	if h.type == "high" and self.hp > 0 and self.z <= 0 then
 		self:onShake(1, 0, 0.03, 0.3)
 		self:setState(self.hurtHigh)
+		return
 	elseif h.type == "low" and self.hp > 0 and self.z <= 0 then
 		self:onShake(1, 0, 0.03, 0.3)
 		self:setState(self.hurtLow)
+		return
 	else
 		-- calc falling traectorym speed, direction
 		self.velx = h.velx
@@ -192,6 +200,7 @@ function Player:onHurt()
 		self.velx = self.velx + 10 + love.math.random(10)
 		--self:onShake(10, 10, 0.12, 0.7)
 		self:setState(self.fall)
+		return
 	end
 end
 
@@ -318,10 +327,11 @@ function Player:checkAndAttack(l,t,w,h, damage, type)
     	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.face*l - w/2, y = self.y + t - h/2, w = w, h = h }
     end
 	for i = 1,#items do
-		--player.hurt = {source = player2, damage = 1.5, velx = player2.velx+100, vely = player2.vely, x = player2.x, y = player2.y, z = love.math.random(10, 40)}
-		--print ("hit CHK "..items[i].name)
-		items[i].hurt = {source = self, state = self.state, damage = damage, type = type, velx = self.velx+30, vely = self.vely+10, horizontal = self.horizontal, vertical = self.vertical, x = self.x, y = self.y, z = z or self.z}
-    end
+		items[i].hurt = {source = self, state = self.state, damage = damage,
+			type = type, velx = self.velx+30,
+			horizontal = self.horizontal,
+			x = self.x, y = self.y, z = z or self.z}
+	end
 end
 
 function Player:checkForItem(w, h)
@@ -418,7 +428,6 @@ function Player:stand_update(dt)
 
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
@@ -494,7 +503,6 @@ function Player:walk_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -551,7 +559,6 @@ function Player:run_update(dt)
 		self.can_fire = true
 	end
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -608,7 +615,6 @@ function Player:jumpUp_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -646,7 +652,6 @@ function Player:jumpDown_update(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -674,7 +679,6 @@ function Player:pickup_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
---    self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -696,14 +700,13 @@ function Player:duck_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
-	--self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
 
 function Player:hurtHigh_start()
-	print (self.name.." - hurtHigh start")
+--	print (self.name.." - hurtHigh start")
 	SetSpriteAnim(self.sprite,"hurtHigh")
 	self.hurted = true
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
@@ -724,14 +727,13 @@ function Player:hurtHigh_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.hurtHigh = {name = "hurtHigh", start = Player.hurtHigh_start, exit = nop, update = Player.hurtHigh_update, draw = Player.default_draw}
 
 function Player:hurtLow_start()
-	print (self.name.." - hurtLow start")
+--	print (self.name.." - hurtLow start")
 	SetSpriteAnim(self.sprite,"hurtLow")
 	self.hurted = true
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
@@ -752,7 +754,6 @@ function Player:hurtLow_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -784,8 +785,6 @@ Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start,
 
 function Player:sideStepUp_start()
     --	print (self.name.." - sideStepUp start")
---    self.sprite.curr_frame = 1
---    self.sprite.curr_anim = "sideStepUp"
 	SetSpriteAnim(self.sprite,"sideStepUp")
     self.velx, self.vely = 0, 220
     TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfx
@@ -848,7 +847,6 @@ function Player:jumpAttackForwardUp_update(dt)
 	end
     self:checkAndAttack(24,0, 20,12, 20, "fall")
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -871,7 +869,6 @@ function Player:jumpAttackForwardDown_update(dt)
 	end
     self:checkAndAttack(24,0, 20,12, 20, "fall")
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -897,7 +894,6 @@ function Player:jumpAttackWeakUp_update(dt)
         self:checkAndAttack(10,0, 20,12, 11, "low")
     end
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -924,7 +920,6 @@ function Player:jumpAttackWeakDown_update(dt)
         self:checkAndAttack(10,0, 20,12, 11, "low")
     end
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -946,7 +941,6 @@ function Player:jumpAttackStillUp_update(dt)
 	end
     self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -969,14 +963,13 @@ function Player:jumpAttackStillDown_update(dt)
 	end
     self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.jumpAttackStillDown = {name = "jumpAttackStillDown", start = Player.jumpAttackStillDown_start, exit = nop, update = Player.jumpAttackStillDown_update, draw = Player.default_draw}
 
 function Player:fall_start()
-    --print (self.name.." - fall start")
+--    print (self.name.." - fall start")
 	SetSpriteAnim(self.sprite,"fall")
 	if self.z <= 0 then
 		self.z = 0
@@ -1060,24 +1053,14 @@ function Player:combo_start()
     if self.n_combo > 5 then
 		self.n_combo = 1
 	end
---	self.sprite.curr_frame = 1
---	self.sprite.loop_count = 0
-
 	if self.n_combo == 1 or self.n_combo == 2 then
---		self.sprite.curr_anim = "combo12"
 		SetSpriteAnim(self.sprite,"combo12")
 	elseif self.n_combo == 3 then
---		self.sprite.curr_anim = "combo3"
 		SetSpriteAnim(self.sprite,"combo3")
 	elseif self.n_combo == 4 then
---		self.sprite.curr_anim = "combo4"
 		SetSpriteAnim(self.sprite,"combo4")
 	elseif self.n_combo == 5 then
---		self.sprite.curr_anim = "combo5"
 		SetSpriteAnim(self.sprite,"combo5")
-	else
---		self.sprite.curr_anim = "dead"	--TODO remove after debug
-		SetSpriteAnim(self.sprite,"dead")
 	end
 	self.check_mash = false
 
@@ -1096,22 +1079,18 @@ function Player:combo_update(dt)
 		TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 		if self.n_combo == 3 then
 			self:checkAndAttack(25,0, 20,12, 10, "high")
-			self.cool_down_combo = 0.4
 		elseif self.n_combo == 4 then
 			self:checkAndAttack(25,0, 20,12, 10, "low")
-			self.cool_down_combo = 0.4
 		elseif self.n_combo == 5 then
 			self:checkAndAttack(25,0, 20,12, 15, "fall")
-			self.cool_down_combo = 0.4
 		else -- self.n_combo == 1 or 2
 			self:checkAndAttack(25,0, 20,12, 10, "high")
-			self.cool_down_combo = 0.4
 		end
+		self.cool_down_combo = 0.4
 		self.check_mash = false
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
---	self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
@@ -1302,7 +1281,6 @@ function Player:letgo_update(dt)
 	end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
-	--self:checkHurt()
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
