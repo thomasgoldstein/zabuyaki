@@ -84,8 +84,8 @@ function Player:revive()
 end
 
 function Player:setState(state)
-	assert(type(state) == "table", "setState expects a table")
-	if state and state.name ~= self.state then
+	--assert(type(state) == "table", "setState expects a table")
+	if state then
 		self.prev_state = self.last_state
 		self.last_state = self.state
 		--print (self.name.." -> Switching to ",state.name," Last:",self.last_state,"Prev:",self.prev_state)
