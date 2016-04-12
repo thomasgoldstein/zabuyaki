@@ -89,9 +89,8 @@ return {
 			delay = 0.2
 		},
 		combo12 = {
-			--{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = check_mash }, --p1 *
-			--{q = q(2, 266, 56, 61), ox = 20, oy = 60}, --p1 *
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = check_mash, delay = 0.06 }, --p1 *
+			{ q = q(60,265,51,62), ox = 20, oy = 61 }, --p2
 			delay = 0.1
 		},
 		combo3 = {
