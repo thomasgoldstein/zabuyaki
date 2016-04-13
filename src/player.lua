@@ -981,6 +981,8 @@ function Player:fall_update(dt)
             self.velz = 0
             self.vely = 0
             self.velx = 0
+            self.hurted = true
+            --TODO add dmg from the ground?
             TEsound.play("res/sfx/fall.wav")
 			mainCamera:onShake(1, 1, 0.03, 0.3)
 			if self.hp <= 0 then
@@ -1210,8 +1212,13 @@ function Player:grab_update(dt)
 	elseif self.b.fire.down and self.can_fire then
 		--end
         if self.sprite.isFinished then
-            self:setState(self.grabHit)
-            return
+            if self.b.up.down then
+                self:setState(self.grabThrow)
+                return
+            else
+                self:setState(self.grabHit)
+                return
+            end
         end
     end
 
@@ -1339,5 +1346,44 @@ function Player:grabHitEnd_update(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Player.grabHitEnd = {name = "grabHitEnd", start = Player.grabHitEnd_start, exit = nop, update = Player.grabHitEnd_update, draw = Player.default_draw}
+
+function Player:grabThrow_start()
+    --print (self.name.." - grabThrow start")
+    local g = self.hold
+    g.cool_down = 0
+    self.face = -self.face
+    SetSpriteAnim(self.sprite,"grabThrow")
+    if DEBUG then
+        print(self.name.." is grabThrow someone.")
+    end
+    local t = g.target
+    t.isGrabbed = false
+    t.z = t.z + 1
+    t.velx = 170
+    t.vely = 0
+    t.velz = 290
+    if self.x < t.x then
+        t.horizontal = -1
+        t.face = 1
+    else
+        t.horizontal = 1
+        t.face = -1
+    end
+    t:setState(self.fall)
+    --TEsound.play("res/sfx/grunt1.wav")
+end
+function Player:grabThrow_update(dt)
+    --print(self.name .. " - grabThrow update", dt)
+    if self.sprite.isFinished then
+        self.cool_down = 0.2
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+    self:updateShake(dt)
+    UpdateInstance(self.sprite, dt, self)
+end
+Player.grabThrow = {name = "grabThrow", start = Player.grabThrow_start, exit = nop, update = Player.grabThrow_update, draw = Player.default_draw}
 
 return Player
