@@ -138,7 +138,14 @@ function Player:onHurt()
     local h = self.hurt
     if not h then
         return
-	end
+    end
+    if self.state == "getup" and h.type == "throw" then
+        self.hp = self.hp - h.damage
+        if self.hp <= 0 then
+            self:setState(self.dead)
+            return
+        end
+    end
     if self.state == "fall" or self.state == "dead" or self.state == "getup" then
 		if DEBUG then
 			print("Clear HURT due to state"..self.state)
@@ -1014,6 +1021,14 @@ Player.fall = {name = "fall", start = Player.fall_start, exit = nop, update = Pl
 function Player:getup_start()
 	--print (self.name.." - getup start")
 	SetSpriteAnim(self.sprite,"getup")
+    if self.isThrown then
+        --TODO add proper dmg func
+        local src = self.thrower_id
+        self.hurt = {source = src, state = src.state, damage = 10,
+            type = "throw", velx = 0,
+            horizontal = src.horizontal,
+            x = src.x, y = src.y, z = 0}
+    end
     self.isThrown = false
 	if self.z <= 0 then
 		self.z = 0
@@ -1371,6 +1386,7 @@ function Player:grabThrow_start()
     local t = g.target
     t.isGrabbed = false
     t.isThrown = true
+    t.thrower_id = self
     t.z = t.z + 1
     t.velx = 170
     t.vely = 0
