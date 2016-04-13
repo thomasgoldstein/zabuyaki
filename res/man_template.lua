@@ -200,29 +200,33 @@ return {
         grab = {
 			{ q = q(113, 265, 42, 62), ox = 16, oy = 61 }, --p3
             { q = q(2,649,45,62), ox = 22, oy = 61 }, --grab 1
-			delay = 0.2
+			delay = 0.1
         },
 		letGo = {
 --			{ q = q(2,649,45,62), ox = 22, oy = 61 }, --grab 1
 			{ q = q(113, 265, 42, 62), ox = 16, oy = 61 }, --p3
-			delay = 0.2
+			delay = 0.1
 		},
 		grabHit = {
             { q = q(49,649,44,62), ox = 22, oy = 61 }, --grab 2
-            { q = q(95,649,39,62), ox = 19, oy = 61 },  -- grab 3
+            { q = q(95,649,39,62), ox = 19, oy = 61 },  --grab 3
+			{ q = q(49,649,44,62), ox = 22, oy = 61, delay = 0.2 }, --grab 2
+			delay = 0.05
         },
         grabHitEnd = {
             { q = q(2,714,49,64), ox = 24, oy = 63 }, --grab 1 head punch
             { q = q(53,713,56,65), ox = 28, oy = 64 }, --grab 2 head punch
-            { q = q(111,717,38,61), ox = 19, oy = 60 }, --grab 3 head punch
+            { q = q(111,717,38,61), ox = 19, oy = 60, delay = 0.2 }, --grab 3 head punch
+			delay = 0.05
         },
         grabThrow = {
             { q = q(2,783,42,60), ox = 21, oy = 59 }, --grab 1 throw
             { q = q(46,780,58,63), ox = 29, oy = 62 }, --grab 2 throw
             { q = q(106,793,58,50), ox = 29, oy = 49 }, --grab 3 throw
+			delay = 0.1
         },
         grabSwap = {
-            { q = q(136,651,41,60), ox = 20, oy = 59 }, --grab 3 swap
+            { q = q(136,651,41,60), ox = 20, oy = 59 } --grab 3 swap
         },
         grabbed = {
             {q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hf1
