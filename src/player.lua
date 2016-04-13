@@ -1272,7 +1272,7 @@ function Player:grabbed_start()
 	if DEBUG then
 		print(self.name.." is grabbed.")
 	end
-	self:onShake(0.5, 2, 0.15, 1)
+	--self:onShake(0.5, 2, 0.15, 1)
 	--TEsound.play("res/sfx/grunt1.wav")
 end
 function Player:grabbed_update(dt)
