@@ -1288,8 +1288,11 @@ Player.letgo = {name = "letGo", start = Player.letgo_start, exit = nop, update =
 function Player:grabHit_start()
     --print (self.name.." - grabhit start")
     local g = self.hold
-    g.cool_down = 1
-
+    if self.b.down.down then --press DOWN to finish early
+        g.cool_down = 0
+    else
+        g.cool_down = 1
+    end
     SetSpriteAnim(self.sprite,"grabHit")
     if DEBUG then
         print(self.name.." is grabhit someone.")
