@@ -44,6 +44,7 @@ function Player:initialize(name, sprite, input, x, y, color)
 
 	self.isGrabbed = false
 	self.hold = {source = nil, target = nil, cool_down = 0 }
+    self.n_grabhit = 0    -- n of the grab hits
     self.victims = {} -- [victim] = true
 
 	if color then
@@ -163,10 +164,10 @@ function Player:onHurt()
 	self.face = -h.source.face	--turn face to the attacker
 
 	self.hurt = nil --free hurt data
-	if self.isGrabbed then
+--[[	if self.isGrabbed then
 		--TODO temp release
 		self.isGrabbed = false
-	end
+	end]]
 	if self.id <= 2 then	--for player 1 + 2 only
 		mainCamera:onShake(1, 1, 0.03, 0.3)
 	end
@@ -199,7 +200,8 @@ function Player:onHurt()
 		end
 		self.velx = self.velx + 10 + love.math.random(10)
 		--self:onShake(10, 10, 0.12, 0.7)
-		self:setState(self.fall)
+		self.isGrabbed = false
+        self:setState(self.fall)
 		return
 	end
 end
@@ -343,6 +345,7 @@ function Player:stand_start()
 	self.can_jump = false
 	self.can_fire = false
     self.victims = {}
+    self.n_grabhit = 0
 end
 function Player:stand_update(dt)
     --	print (self.name," - stand update",dt)
@@ -702,15 +705,16 @@ function Player:hurtHigh_start()
 end
 function Player:hurtHigh_update(dt)
 	--	print (self.name.." - hurtHigh update",dt)
-	if self.isGrabbed then
-		self:setState(self.grabbed)
-	end
 	if self.sprite.isFinished then
 		if self.hp <= 0 then
 			self:setState(self.dead)
 			return
 		end
-		self:setState(self.stand)
+        if self.isGrabbed then
+            self:setState(self.grabbed)
+        else
+            self:setState(self.stand)
+        end
         UpdateInstance(self.sprite, dt, self)   --!!!
 		return
 	end
@@ -729,15 +733,16 @@ function Player:hurtLow_start()
 end
 function Player:hurtLow_update(dt)
 	--	print (self.name.." - hurtLow update",dt)
-	if self.isGrabbed then
-		self:setState(self.grabbed)
-	end
 	if self.sprite.isFinished then
 		if self.hp <= 0 then
 			self:setState(self.dead)
 			return
-		end
-		self:setState(self.stand)
+        end
+        if self.isGrabbed then
+            self:setState(self.grabbed)
+        else
+            self:setState(self.stand)
+        end
         UpdateInstance(self.sprite, dt, self)   --!!!
 		return
 	end
@@ -1161,9 +1166,10 @@ function Player:grab_start()
 	SetSpriteAnim(self.sprite,"grab")
 	self.can_jump = false
 	self.can_fire = false
+    self.victims = {}
 	if DEBUG then
 		print(self.name.." is grabing someone.")
-	end
+    end
 	--TEsound.play("res/sfx/grunt1.wav")
 end
 function Player:grab_update(dt)
@@ -1203,7 +1209,11 @@ function Player:grab_update(dt)
 		--return
 	elseif self.b.fire.down and self.can_fire then
 		--end
-	end
+        if self.sprite.isFinished then
+            self:setState(self.grabHit)
+            return
+        end
+    end
 
 	if not self.b.jump.down then
 		self.can_jump = true
@@ -1243,8 +1253,8 @@ function Player:grabbed_update(dt)
 		self.velx = 200 --move from source
 		self:setState(self.stand)
 		return
-	end
-	self:calcFriction(dt)
+    end
+    self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -1274,5 +1284,57 @@ function Player:letgo_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.letgo = {name = "letGo", start = Player.letgo_start, exit = nop, update = Player.letgo_update, draw = Player.default_draw}
+
+function Player:grabHit_start()
+    --print (self.name.." - grabhit start")
+    local g = self.hold
+    g.cool_down = 1
+
+    SetSpriteAnim(self.sprite,"grabHit")
+    if DEBUG then
+        print(self.name.." is grabhit someone.")
+    end
+    self.n_grabhit = self.n_grabhit + 1
+    if self.n_grabhit > 2 then
+        self:setState(self.grabHitEnd)
+        return
+    end
+    self:checkAndAttack(10,0, 20,12, 8, "low")
+    --TEsound.play("res/sfx/grunt1.wav")
+end
+function Player:grabHit_update(dt)
+    --print(self.name .. " - grabhit update", dt)
+    if self.sprite.isFinished then
+        self:setState(self.grab)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+    self:updateShake(dt)
+    UpdateInstance(self.sprite, dt, self)
+end
+Player.grabHit = {name = "grabHit", start = Player.grabHit_start, exit = nop, update = Player.grabHit_update, draw = Player.default_draw}
+
+function Player:grabHitEnd_start()
+    --print (self.name.." - grabhitend start")
+    SetSpriteAnim(self.sprite,"grabHitEnd")
+    if DEBUG then
+        print(self.name.." is grabhitend someone.")
+    end
+    --TEsound.play("res/sfx/grunt1.wav")
+    self:checkAndAttack(20,0, 20,12, 11, "fall")
+end
+function Player:grabHitEnd_update(dt)
+    --print(self.name .. " - grabhitend update", dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+    self:updateShake(dt)
+    UpdateInstance(self.sprite, dt, self)
+end
+Player.grabHitEnd = {name = "grabHitEnd", start = Player.grabHitEnd_start, exit = nop, update = Player.grabHitEnd_update, draw = Player.default_draw}
 
 return Player
