@@ -1322,8 +1322,10 @@ Player.letgo = {name = "letGo", start = Player.letgo_start, exit = nop, update =
 function Player:grabHit_start()
     --print (self.name.." - grabhit start")
     local g = self.hold
-    if self.b.down.down then --press DOWN to finish early
+    if self.b.down.down then --press DOWN to early headbutt
         g.cool_down = 0
+        self:setState(self.grabHitEnd)
+        return
     else
         g.cool_down = 1
     end
