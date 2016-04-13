@@ -44,6 +44,7 @@ function Player:initialize(name, sprite, input, x, y, color)
 
 	self.isGrabbed = false
 	self.hold = {source = nil, target = nil, cool_down = 0 }
+    self.isThrown = false
     self.n_grabhit = 0    -- n of the grab hits
     self.victims = {} -- [victim] = true
 
@@ -77,6 +78,7 @@ function Player:revive()
 	self.hurt = nil
 	self.z = 0
 	self.isHidden = false
+    self.isThrown = false
     self.victims = {}
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
@@ -303,7 +305,12 @@ end
 
 function Player:checkAndAttack(l,t,w,h, damage, type)
     -- type = "high" "low" "fall"
-	local items, len = world:queryRect(self.x + self.face*l - w/2, self.y + t - h/2, w, h,
+    local face = self.face
+    if self.isThrown then
+        face = -face    --TODO proper thrown enemy hitbox?
+        --TODO not needed since the hitbox is centered
+    end
+	local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
 		function(item)
 			if self ~= item and item.type ~= "wall"
                 and not self.victims[item]
@@ -315,7 +322,7 @@ function Player:checkAndAttack(l,t,w,h, damage, type)
     --DEBUG to show attack hitBoxes in green
 	if DEBUG then
 		--print("items: ".. #items)
-    	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.face*l - w/2, y = self.y + t - h/2, w = w, h = h }
+    	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
     end
 	for i = 1,#items do
 		items[i].hurt = {source = self, state = self.state, damage = damage,
@@ -992,7 +999,11 @@ function Player:fall_update(dt)
 				self:setState(self.getup)
 				return
 			end
-		end
+        end
+        if self.isThrown and self.z > 10 then
+            --TODO proper hitbox
+            self:checkAndAttack(0,0, 20,12, 10, "fall")
+        end
 	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
@@ -1003,6 +1014,7 @@ Player.fall = {name = "fall", start = Player.fall_start, exit = nop, update = Pl
 function Player:getup_start()
 	--print (self.name.." - getup start")
 	SetSpriteAnim(self.sprite,"getup")
+    self.isThrown = false
 	if self.z <= 0 then
 		self.z = 0
 	end
@@ -1358,10 +1370,12 @@ function Player:grabThrow_start()
     end
     local t = g.target
     t.isGrabbed = false
+    t.isThrown = true
     t.z = t.z + 1
     t.velx = 170
     t.vely = 0
     t.velz = 290
+    t.victims[self] = true
     if self.x < t.x then
         t.horizontal = -1
         t.face = 1
