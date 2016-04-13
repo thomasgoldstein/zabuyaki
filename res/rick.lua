@@ -194,6 +194,8 @@ return {
 		},
 		grabbed = {
 			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(48,134,50,62), ox = 18, oy = 60 }, --run 2*
+			loop = true,
 			delay = 0.1
 		},
 

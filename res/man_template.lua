@@ -231,6 +231,7 @@ return {
         grabbed = {
             {q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hf1
             {q = q(53, 454, 50, 61), ox = 23, oy = 60}, --hf2
+			loop = true,
             delay = 0.1
         },
 
