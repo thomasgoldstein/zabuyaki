@@ -190,8 +190,12 @@ function Player:onHurt()
 		return
 	else
 		-- calc falling traectorym speed, direction
-		self.velx = h.velx
-		self.vely = 0	-- h.vely
+		if h.type == "grabKO" then
+			self.velx = 60
+		else
+			self.velx = h.velx
+		end
+		--self.vely = 0	-- h.vely
 		if self.x < h.source.x then
 			self.horizontal = -1
 		else
@@ -207,7 +211,7 @@ function Player:onHurt()
 				self.velx = 60
 			end
 		end
-		self.velx = self.velx + 10 + love.math.random(10)
+		self.velx = self.velx + 1 + love.math.random(5)
 		--self:onShake(10, 10, 0.12, 0.7)
 		self.isGrabbed = false
         self:setState(self.fall)
@@ -1361,7 +1365,7 @@ function Player:grabHitEnd_start()
         print(self.name.." is grabhitend someone.")
     end
     --TEsound.play("res/sfx/grunt1.wav")
-    self:checkAndAttack(20,0, 20,12, 11, "fall")
+    self:checkAndAttack(20,0, 20,12, 11, "grabKO")
 end
 function Player:grabHitEnd_update(dt)
     --print(self.name .. " - grabhitend update", dt)
