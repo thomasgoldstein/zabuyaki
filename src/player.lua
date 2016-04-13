@@ -191,7 +191,7 @@ function Player:onHurt()
 	else
 		-- calc falling traectorym speed, direction
 		if h.type == "grabKO" then
-			self.velx = 60
+			self.velx = 110
 		else
 			self.velx = h.velx
 		end
@@ -206,9 +206,9 @@ function Player:onHurt()
 		self.velz = 220
 		if h.state == "combo" or h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown" then
 			if self.hp <= 0 then
-				self.velx = 120	-- dead body flies further
+				self.velx = 150	-- dead body flies further
 			else
-				self.velx = 60
+				self.velx = 110
 			end
 		end
 		self.velx = self.velx + 1 + love.math.random(5)
