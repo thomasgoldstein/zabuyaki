@@ -192,8 +192,10 @@ function Player:onHurt()
 		-- calc falling traectorym speed, direction
 		if h.type == "grabKO" then
 			self.velx = 110
+			TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hitKO sound
 		else
 			self.velx = h.velx
+			TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit sound
 		end
 		--self.vely = 0	-- h.vely
 		if self.x < h.source.x then
@@ -987,7 +989,7 @@ function Player:fall_start()
 		self.z = 0
 	end
 	self.hurted = true
-	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
+	--TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
 function Player:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
@@ -1406,7 +1408,7 @@ function Player:grabThrow_start()
         t.face = -1
     end
     t:setState(self.fall)
-    --TEsound.play("res/sfx/grunt1.wav")
+	TEsound.play("res/sfx/jump.wav", nil) -- throw sound
 end
 function Player:grabThrow_update(dt)
     --print(self.name .. " - grabThrow update", dt)
