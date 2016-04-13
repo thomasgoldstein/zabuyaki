@@ -53,7 +53,7 @@ function testState:update(dt)
         if math.floor(a.y) == math.floor(b.y) then
             return a.id > b.id
         end
-        return a.y < b.y end )
+        return math.floor(a.y) < math.floor(b.y) end )
 	
     background:update(dt)
     mainCamera:update(dt, player1.x, player1.y)
