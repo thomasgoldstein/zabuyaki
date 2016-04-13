@@ -50,10 +50,10 @@ function testState:update(dt)
     end
     --sort players + entities by y
 	table.sort(self.entities , function(a,b)
-        if a.y == b.y then
-            return a.id<b.id
+        if math.floor(a.y) == math.floor(b.y) then
+            return a.id > b.id
         end
-        return a.y<b.y end )
+        return a.y < b.y end )
 	
     background:update(dt)
     mainCamera:update(dt, player1.x, player1.y)
@@ -63,8 +63,6 @@ function testState:update(dt)
         fancy.watch("P1 y: ",player1.y, 3)
         fancy.watch("P2 y: ",player2.y, 3)
         fancy.watch("Player state: ",player1.state, 2)
-        --        fancy.watch("Mash Left #: ",player1.mash_count.left, 1)
-        --        fancy.watch("Mash Right #: ",player1.mash_count.right, 1)
         fancy.watch("CD Combo: ",player1.cool_down_combo, 2)
         fancy.watch("Cool Down: ",player1.cool_down, 2)
         fancy.watch("Velocity Z: ",player1.velz, 2)
