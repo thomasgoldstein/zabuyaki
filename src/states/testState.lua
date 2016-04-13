@@ -50,10 +50,10 @@ function testState:update(dt)
     end
     --sort players + entities by y
 	table.sort(self.entities , function(a,b)
-        if math.floor(a.y) == math.floor(b.y) then
+        if a.y == b.y then
             return a.id > b.id
         end
-        return math.floor(a.y) < math.floor(b.y) end )
+        return a.y < b.y end )
 	
     background:update(dt)
     mainCamera:update(dt, player1.x, player1.y)
