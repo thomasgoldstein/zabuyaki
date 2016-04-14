@@ -1061,6 +1061,7 @@ function Player:dead_start()
 	end
 	--TODO dead event
 	self.hp = 0
+
 	self.hurt = nil
 	if self.z <= 0 then
 		self.z = 0
@@ -1210,14 +1211,11 @@ end
 function Player:grab_update(dt)
 	--print(self.name .. " - grab update", dt)
 	local g = self.hold
-	if g.cool_down > 0 then
+	if g.cool_down > 0 and g.target.isGrabbed then
 		g.cool_down = g.cool_down - dt
 	else
 		--adjust victim
 		g.target.isGrabbed = false
-		--g.target.grab.cool_down = 0
-		--g.target.cool_down = 1	--cannot walk etc
-		--me
 		if g.target.x < self.x then
 			self.horizontal = -1
 		else
