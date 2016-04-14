@@ -30,6 +30,7 @@ function love.load(arg)
 	Camera = require "src/camera"
 	CompoundPicture = require "src/compoPic"
 	Player = require "src/player"
+	Particle = require "src/particle"
 	Rick = require "src/rick_player"
 	Item = require "src/item"
 	InfoBar = require "src/infoBar"
