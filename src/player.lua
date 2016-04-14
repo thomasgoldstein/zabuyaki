@@ -1009,7 +1009,12 @@ function Player:fall_update(dt)
 				self:setState(self.dead)
 				return
 			else
-				self:setState(self.getup)
+				-- hold UP+JUMP to get no damage after throw (land on feet)
+				if self.isThrown and self.b.up.down and self.b.jump.down then
+					self:setState(self.duck)
+				else
+					self:setState(self.getup)
+				end
 				return
 			end
         end
