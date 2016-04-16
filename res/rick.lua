@@ -1,7 +1,7 @@
 print("rick.lua loaded")
 
 local image_w = 224 --This info can be accessed with a Love2D call
-local image_h = 714 --after the image has been loaded
+local image_h = 778 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -139,33 +139,33 @@ return {
 			delay = 0.1
 		},
 		jumpAttackForwardUp = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
+			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
 			delay = 5
 		},
 		jumpAttackForwardDown = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(2,714,54,62), ox = 27, oy = 61, delay = 0.2 }, -- jaf1
+			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
 			delay = 5
 		},
 		jumpAttackWeakUp = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
+			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
 			delay = 5
 		},
 		jumpAttackWeakDown = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
+			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
 			delay = 5
 		},
 		jumpAttackStillUp = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
+			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
 			delay = 5
 		},
 		jumpAttackStillDown = {
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
-			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
+			{ q = q(2,714,54,62), ox = 27, oy = 61, delay = 0.2 }, -- jaf1
+			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
 			delay = 0.4
 		},
 		sideStepUp = {
