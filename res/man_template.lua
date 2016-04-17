@@ -68,7 +68,7 @@ return {
 			delay = 5
 		},
 		jumpDown = {
-			{ q = q(72, 132, 44, 66), ox = 23, oy = 65, delay = 0.5 }, --ju,
+			{ q = q(72, 132, 44, 66), ox = 23, oy = 65, delay = 0.4 }, --ju,
 			{ q = q(118, 131, 44, 67), ox = 19, oy = 66 }, --jd
 			delay = 5
 		},
