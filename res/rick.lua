@@ -150,7 +150,6 @@ return {
 		},
 		jumpAttackWeakUp = {
 			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
-			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
 			delay = 5
 		},
 		jumpAttackWeakDown = {
