@@ -1,7 +1,7 @@
 print("rick.lua loaded")
 
 local image_w = 224 --This info can be accessed with a Love2D call
-local image_h = 844 --after the image has been loaded
+local image_h = 913 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -140,7 +140,6 @@ return {
 		},
 		jumpAttackForwardUp = {
 			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
-			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
 			delay = 5
 		},
 		jumpAttackForwardDown = {
@@ -149,12 +148,12 @@ return {
 			delay = 5
 		},
 		jumpAttackWeakUp = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
+			{ q = q(2,844,43,67), ox = 21, oy = 66, delay = 0.2 }, -- jaw1
 			delay = 5
 		},
 		jumpAttackWeakDown = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
-			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
+			{ q = q(2,844,43,67), ox = 21, oy = 66, delay = 0.2 }, -- jaw1
+			{ q = q(47,844,47,63), ox = 23, oy = 62 }, -- jaw2
 			delay = 5
 		},
 		jumpAttackStillUp = {
