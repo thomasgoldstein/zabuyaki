@@ -38,7 +38,7 @@ function Rick:combo_start()
     elseif self.n_combo == 4 then
         SetSpriteAnim(self.sprite,"combo4")
     end
-    self.check_mash = false
+    --self.check_mash = false
 
     self.cool_down = 0.2
 end

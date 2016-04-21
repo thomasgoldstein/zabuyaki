@@ -7,17 +7,11 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local check_mash = function(slf) slf.check_mash = true end	-- check if attack key pressed
+--local check_mash = function(slf) slf.check_mash = true end	-- check if attack key pressed
 local step_sfx = function() TEsound.play("res/sfx/step.wav", nil, 0.5) end
 local step_sfx2 = function() TEsound.play("res/sfx/step.wav", nil, 1) end
---local dash_attack = function(self) self:checkAndAttack(20,0, 20,12, 30, "fall") end
-local jump_attack_weak = function(slf)
-	if slf.z > 30 then
-		slf:checkAndAttack(10,0, 20,12, 11, "high")
-	elseif slf.z > 10 then
-		slf:checkAndAttack(10,0, 20,12, 11, "low")
-	end
-end
+local grabKO_attack = function(self) self:checkAndAttack(20,0, 20,12, 11, "grabKO") end
+local grabLow_attack = function(self) self:checkAndAttack(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
 	TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 --	print(slf.n_combo)
@@ -231,13 +225,13 @@ return {
 		grabHit = {
             { q = q(49,649,44,62), ox = 22, oy = 61 }, --grab 2
             { q = q(95,649,39,62), ox = 19, oy = 61 },  --grab 3
-			{ q = q(49,649,44,62), ox = 22, oy = 61, delay = 0.2 }, --grab 2
+			{ q = q(49,649,44,62), ox = 22, oy = 61, func = grabLow_attack, delay = 0.2 }, --grab 2
 			delay = 0.05
         },
         grabHitEnd = {
             { q = q(2,714,49,64), ox = 24, oy = 63 }, --grab 1 head punch
             { q = q(53,713,56,65), ox = 28, oy = 64 }, --grab 2 head punch
-            { q = q(111,717,38,61), ox = 19, oy = 60, delay = 0.2 }, --grab 3 head punch
+            { q = q(111,717,38,61), ox = 19, oy = 60, func = grabKO_attack, delay = 0.2 }, --grab 3 head punch
 			delay = 0.05
         },
         grabThrow = {

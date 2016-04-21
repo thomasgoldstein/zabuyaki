@@ -1113,7 +1113,7 @@ function Player:combo_start()
 	elseif self.n_combo == 5 then
 		SetSpriteAnim(self.sprite,"combo5")
 	end
-	self.check_mash = false
+	--self.check_mash = false
 
 	self.cool_down = 0.2
 end
@@ -1363,7 +1363,7 @@ function Player:grabHit_start()
         self:setState(self.grabHitEnd)
         return
     end
-    self:checkAndAttack(10,0, 20,12, 8, "low")
+    --self:checkAndAttack(10,0, 20,12, 8, "low")
     --TEsound.play("res/sfx/grunt1.wav")
 end
 function Player:grabHit_update(dt)
@@ -1386,7 +1386,7 @@ function Player:grabHitEnd_start()
         print(self.name.." is grabhitend someone.")
     end
     --TEsound.play("res/sfx/grunt1.wav")
-    self:checkAndAttack(20,0, 20,12, 11, "grabKO")
+    --self:checkAndAttack(20,0, 20,12, 11, "grabKO")
 end
 function Player:grabHitEnd_update(dt)
     --print(self.name .. " - grabhitend update", dt)
