@@ -417,7 +417,7 @@ function Player:stand_update(dt)
     end
 
     if self.b.jump.down and self.can_jump then
-		self:setState(self.jumpUp)
+		self:setState(self.duck2jump)
 		return
 	elseif self.b.fire.down and self.can_fire then
 		if self.cool_down <= 0 then
@@ -458,7 +458,7 @@ function Player:walk_update(dt)
 		self:setState(self.combo)
 		return
 	elseif self.b.jump.down and self.can_jump then
-		self:setState(self.jumpUp)
+		self:setState(self.duck2jump)
 		return
 	end
 	self.velx = 0
@@ -557,7 +557,7 @@ function Player:run_update(dt)
 		self:setState(self.dash)
 		return
 	elseif self.b.jump.down and self.can_jump then
-		self:setState(self.jumpUp)
+		self:setState(self.duck2jump)
 		return
 	end
 	if self.velx == 0 and self.vely == 0 then
@@ -600,30 +600,28 @@ function Player:jumpUp_start()
 end
 function Player:jumpUp_update(dt)
 	--	print (self.name.." - jumpUp update",dt)
-	if self.sprite.curr_frame > 1 then -- should make duck before jumping
-		if self.b.fire.down and self.can_fire then
-			if (self.b.left.down and self.face == 1)
-				or (self.b.right.down and self.face == -1) then
-				self:setState(self.jumpAttackWeakUp)
-				return
-			elseif self.velx == 0 then
-				self:setState(self.jumpAttackStillUp)
-				return
-			else
-				self:setState(self.jumpAttackForwardUp)
-				return
-			end
-		end
-		if self.z < self.jumpHeight then
-			self.z = self.z + dt * self.velz
-			self.velz = self.velz - self.gravity * dt
+	if self.b.fire.down and self.can_fire then
+		if (self.b.left.down and self.face == 1)
+			or (self.b.right.down and self.face == -1) then
+			self:setState(self.jumpAttackWeakUp)
+			return
+		elseif self.velx == 0 then
+			self:setState(self.jumpAttackStillUp)
+			return
 		else
-			self.velz = self.velz / 2
-			self:setState(self.jumpDown)
+			self:setState(self.jumpAttackForwardUp)
 			return
 		end
-		self:checkCollisionAndMove(dt)
 	end
+	if self.z < self.jumpHeight then
+		self.z = self.z + dt * self.velz
+		self.velz = self.velz - self.gravity * dt
+	else
+		self.velz = self.velz / 2
+		self:setState(self.jumpDown)
+		return
+	end
+	self:checkCollisionAndMove(dt)
 	if not self.b.fire.down then
 		self.can_fire = true
 	end
@@ -716,6 +714,24 @@ function Player:duck_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
+
+function Player:duck2jump_start()
+	--	print (self.name.." - duck2jump start")
+	SetSpriteAnim(self.sprite,"duck")
+	self.z = 0
+end
+function Player:duck2jump_update(dt)
+	--	print (self.name.." - duck2jump update",dt)
+	if self.sprite.isFinished then
+		self:setState(self.jumpUp)
+		return
+	end
+	--self:calcFriction(dt)
+	--self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.duck2jump = {name = "duck2jump", start = Player.duck2jump_start, exit = nop, update = Player.duck2jump_update, draw = Player.default_draw}
 
 function Player:hurtHigh_start()
 --	print (self.name.." - hurtHigh start")

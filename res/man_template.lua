@@ -63,12 +63,12 @@ return {
 			delay = 0.075
 		},
 		jumpUp = {
-			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 , delay = 0.2 }, -- duck 1
+--			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 , delay = 0.2 }, -- duck 1
 			{ q = q(72, 132, 44, 66), ox = 23, oy = 65 }, --ju
 			delay = 5
 		},
 		jumpDown = {
-			{ q = q(72, 132, 44, 66), ox = 23, oy = 65, delay = 0.4 }, --ju,
+			{ q = q(72, 132, 44, 66), ox = 23, oy = 65, delay = 0.5 }, --ju,
 			{ q = q(118, 131, 44, 67), ox = 19, oy = 66 }, --jd
 			delay = 5
 		},

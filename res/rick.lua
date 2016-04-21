@@ -59,7 +59,7 @@ return {
             delay = 0.1
 		},
 		jumpUp = {
-			{ q = q(2,269,42,59), ox = 21, oy = 58, delay = 0.2 }, --duck
+--			{ q = q(2,269,42,59), ox = 21, oy = 58, delay = 0.2 }, --duck
 			{ q = q(46,262,44,66), ox = 22, oy = 65 }, --ju
 			delay = 5
 		},
