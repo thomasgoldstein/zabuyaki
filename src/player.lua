@@ -1126,7 +1126,7 @@ function Player:combo_update(dt)
 		self:setState(self.stand)
 		return
 	end
-	if self.check_mash then
+--[[	if self.check_mash then
 		TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 		if self.n_combo == 3 then
 			self:checkAndAttack(25,0, 20,12, 10, "high")
@@ -1139,7 +1139,7 @@ function Player:combo_update(dt)
 		end
 		self.cool_down_combo = 0.4
 		self.check_mash = false
-	end
+	end]]
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)

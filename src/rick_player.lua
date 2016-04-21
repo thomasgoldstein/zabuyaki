@@ -37,13 +37,43 @@ function Rick:combo_start()
         SetSpriteAnim(self.sprite,"combo3")
     elseif self.n_combo == 4 then
         SetSpriteAnim(self.sprite,"combo4")
-    else
-        SetSpriteAnim(self.sprite,"dead") --TODO remove after debug
     end
     self.check_mash = false
 
     self.cool_down = 0.2
 end
-Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
+function Rick:combo_update(dt)
+    if self.sprite.isFinished then
+        self.n_combo = self.n_combo + 1
+        if self.n_combo > 5 then
+            self.n_combo = 1
+        end
+        self:setState(self.stand)
+        return
+    end
+--[[    if self.check_mash then
+        TEsound.play("res/sfx/attack1.wav", nil, 2) --air
+        if self.n_combo == 1 then
+            self:checkAndAttack(25,0, 20,12, 10, "high")
+            self.cool_down_combo = 0.4
+        elseif self.n_combo == 4 then
+            self:checkAndAttack(25,0, 20,12, 10, "low")
+            self.cool_down_combo = 0.4
+        elseif self.n_combo == 4 then
+            self:checkAndAttack(25,0, 20,12, 15, "fall")
+            self.cool_down_combo = 0.4
+        else -- self.n_combo == 1 or 2
+        self:checkAndAttack(25,0, 20,12, 10, "high")
+        self.cool_down_combo = 0.4
+        end
+        self.check_mash = false
+    end]]
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+    --	self:checkHurt()
+    self:updateShake(dt)
+    UpdateInstance(self.sprite, dt, self)
+end
+Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Player.default_draw}
 
 return Rick

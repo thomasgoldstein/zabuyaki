@@ -7,9 +7,31 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local check_mash = function(self) self.check_mash = true end	-- check if attack key pressed
+local check_mash = function(slf) slf.check_mash = true end	-- check if attack key pressed
 local step_sfx = function() TEsound.play("res/sfx/step.wav", nil, 0.5) end
 local step_sfx2 = function() TEsound.play("res/sfx/step.wav", nil, 1) end
+--local dash_attack = function(self) self:checkAndAttack(20,0, 20,12, 30, "fall") end
+local jump_attack_weak = function(slf)
+	if slf.z > 30 then
+		slf:checkAndAttack(10,0, 20,12, 11, "high")
+	elseif slf.z > 10 then
+		slf:checkAndAttack(10,0, 20,12, 11, "low")
+	end
+end
+local combo_attack = function(slf)
+	TEsound.play("res/sfx/attack1.wav", nil, 2) --air
+--	print(slf.n_combo)
+	if slf.n_combo == 3 then
+		slf:checkAndAttack(25,0, 20,12, 10, "high")
+	elseif slf.n_combo == 4 then
+		slf:checkAndAttack(25,0, 20,12, 10, "low")
+	elseif slf.n_combo == 5 then
+		slf:checkAndAttack(25,0, 20,12, 15, "fall")
+	else -- self.n_combo == 1 or 2
+		slf:checkAndAttack(25,0, 20,12, 10, "high")
+	end
+	slf.cool_down_combo = 0.4
+end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
@@ -89,25 +111,25 @@ return {
 			delay = 0.2
 		},
 		combo12 = {
-			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = check_mash, delay = 0.06 }, --p1 *
+			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = combo_attack, delay = 0.06 }, --p1 *
 			{ q = q(60,265,51,62), ox = 20, oy = 61 }, --p2
 			delay = 0.1
 		},
 		combo3 = {
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
-			{q = q(157, 265, 51, 62), ox = 14, oy = 61, func = check_mash, delay = 0.08}, --p4 *
+			{q = q(157, 265, 51, 62), ox = 14, oy = 61, func = combo_attack, delay = 0.08}, --p4 *
 			{q = q(113, 265, 42, 62), ox = 16, oy = 61}, --p3
 			delay = 0.04
 		},
 		combo4 = {
 			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
-			{q = q(37, 329, 52, 62), ox = 15, oy = 61, func = check_mash, delay = 0.1}, --k2 *
+			{q = q(37, 329, 52, 62), ox = 15, oy = 61, func = combo_attack, delay = 0.1}, --k2 *
 			{q = q(2, 329, 33, 62), ox = 16, oy = 61}, --k1
 			delay = 0.05
 		},
 		combo5 = {
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60}, --k3
-			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = check_mash, delay = 0.1}, --k4*
+			{q = q(139, 331, 60, 60), ox = 20, oy = 59, func = combo_attack, delay = 0.1}, --k4*
 			{q = q(91, 330, 46, 61), ox = 19, oy = 60, delay = 0.2}, --k3
 			delay = 0.05
 		},
