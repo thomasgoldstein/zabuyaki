@@ -7,12 +7,13 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
---local check_mash = function(slf) slf.check_mash = true end	-- check if attack key pressed
 local step_sfx = function() TEsound.play("res/sfx/step.wav", nil, 0.5) end
 local step_sfx2 = function() TEsound.play("res/sfx/step.wav", nil, 1) end
+local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
+local grabKO_attack = function(self) self:checkAndAttack(20,0, 20,12, 11, "grabKO") end
+local grabLow_attack = function(self) self:checkAndAttack(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
         TEsound.play("res/sfx/attack1.wav", nil, 2) --air
---        print(slf.n_combo)
         if slf.n_combo == 3 then
             slf:checkAndAttack(25,0, 20,12, 10, "high")
         elseif slf.n_combo == 4 then
@@ -26,8 +27,18 @@ local combo_attack = function(slf)
             slf:checkAndAttack(25,0, 20,12, 10, "high")
         end
         slf.cool_down_combo = 0.4
---        slf.check_mash = false
-end	-- check if attack key pressed
+end
+local dash_attack = function(slf) slf.permAttack = slf:checkAndAttack(20,0, 20,12, 30, "fall") end
+local jump_forward_attack = function(slf) slf.permAttack = slf:checkAndAttack(24,0, 20,12, 20, "fall") end
+local jump_weak_attack = function(slf)
+	slf.permAttack = function(slf)
+		if slf.z > 30 then
+			slf:checkAndAttack(10,0, 20,12, 11, "high")
+		elseif slf.z > 10 then
+			slf:checkAndAttack(10,0, 20,12, 11, "low")
+		end
+	end
+end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
@@ -98,7 +109,7 @@ return {
 		},
 		dash = {
 			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
-			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
+			{ q = q(58,714,75,58), ox = 37, oy = 57, func = dash_attack }, -- jaf2
 			delay = 0.2
 		},
 		combo1 = {
@@ -157,20 +168,20 @@ return {
 			delay = 0.1
 		},
 		jumpAttackForwardUp = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
+			{ q = q(2,714,54,62), ox = 27, oy = 61, func = jump_forward_attack }, -- jaf1
 			delay = 5
 		},
 		jumpAttackForwardDown = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61, delay = 0.2 }, -- jaf1
+			{ q = q(2,714,54,62), ox = 27, oy = 61, func = jump_forward_attack, delay = 0.2 }, -- jaf1
 			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
 			delay = 5
 		},
 		jumpAttackWeakUp = {
-			{ q = q(2,844,43,67), ox = 21, oy = 66, delay = 0.2 }, -- jaw1
+			{ q = q(2,844,43,67), ox = 21, oy = 66, func = jump_weak_attack, delay = 0.2 }, -- jaw1
 			delay = 5
 		},
 		jumpAttackWeakDown = {
-			{ q = q(2,844,43,67), ox = 21, oy = 66, delay = 0.2 }, -- jaw1
+			{ q = q(2,844,43,67), ox = 21, oy = 66, func = jump_weak_attack, delay = 0.2 }, -- jaw1
 			{ q = q(47,844,47,63), ox = 23, oy = 62 }, -- jaw2
 			delay = 5
 		},
@@ -180,7 +191,7 @@ return {
 		},
 		jumpAttackStillDown = {
 			{ q = q(2,778,38,63), ox = 19, oy = 62, delay = 0.4 }, -- jas1
-			{ q = q(42,778,50,64), ox = 19, oy = 63, delay = 0.1 }, -- jas2
+			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack, delay = 0.1 }, -- jas2
 			{ q = q(94,778,43,62), ox = 19, oy = 61 }, -- jas3
 			delay = 5
 		},
@@ -197,10 +208,10 @@ return {
             { q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
         },
         grabHit = {
-			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(48,134,50,62), ox = 18, oy = 61, func = grabLow_attack }, --run 2
 		},
 		grabHitEnd = {
-			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(48,134,50,62), ox = 18, oy = 61, func = grabKO_attack }, --run 2
 		},
 		grabThrow = {
 			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
