@@ -55,6 +55,7 @@ function Player:initialize(name, sprite, input, x, y, color)
 	end
 	self.isHidden = false
 	--self.isEnabled = true
+	self.permAttack = nop
 
 	self.draw = nop
 	self.update = nop
@@ -365,6 +366,7 @@ function Player:stand_start()
 	self.can_jump = false
 	self.can_fire = false
     self.victims = {}
+	self.permAttack = nop
     self.n_grabhit = 0
 end
 function Player:stand_update(dt)
@@ -700,6 +702,7 @@ function Player:duck_start()
 	--TODO should I reset hurt here?
 	--self.hurt = nil --free hurt data
     --self.victims = {}
+	self.permAttack = nop
 	self.z = 0
 end
 function Player:duck_update(dt)
@@ -854,7 +857,9 @@ function Player:dash_update(dt)
 		self:setState(self.jumpDown)
 		return
     end
-    self:checkAndAttack(20,0, 20,12, 30, "fall")
+	if self.permAttack then
+		self.permAttack(self)
+	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -875,7 +880,9 @@ function Player:jumpAttackForwardUp_update(dt)
 		self:setState(self.jumpAttackForwardDown)
 		return
 	end
-    self:checkAndAttack(24,0, 20,12, 20, "fall")
+	if self.permAttack then
+		self.permAttack(self)
+	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -897,7 +904,9 @@ function Player:jumpAttackForwardDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-    self:checkAndAttack(24,0, 20,12, 20, "fall")
+	if self.permAttack then
+		self.permAttack(self)
+	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -918,11 +927,9 @@ function Player:jumpAttackWeakUp_update(dt)
 		self:setState(self.jumpAttackWeakDown)
 		return
 	end
-    if self.z > 30 then
-        self:checkAndAttack(10,0, 20,12, 11, "high")
-    elseif self.z > 10 then
-        self:checkAndAttack(10,0, 20,12, 11, "low")
-    end
+	if self.permAttack then
+		self.permAttack(self)
+	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -944,11 +951,9 @@ function Player:jumpAttackWeakDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-    if self.z > 30 then
-        self:checkAndAttack(10,0, 20,12, 11, "high")
-    elseif self.z > 10 then
-        self:checkAndAttack(10,0, 20,12, 11, "low")
-    end
+	if self.permAttack then
+		self.permAttack(self)
+	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -969,7 +974,6 @@ function Player:jumpAttackStillUp_update(dt)
 		self:setState(self.jumpAttackStillDown)
 		return
 	end
-    self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -991,7 +995,6 @@ function Player:jumpAttackStillDown_update(dt)
 		self:setState(self.duck)
 		return
 	end
-    self:checkAndAttack(28,0, 20,12, 13, "fall")
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -1126,20 +1129,6 @@ function Player:combo_update(dt)
 		self:setState(self.stand)
 		return
 	end
---[[	if self.check_mash then
-		TEsound.play("res/sfx/attack1.wav", nil, 2) --air
-		if self.n_combo == 3 then
-			self:checkAndAttack(25,0, 20,12, 10, "high")
-		elseif self.n_combo == 4 then
-			self:checkAndAttack(25,0, 20,12, 10, "low")
-		elseif self.n_combo == 5 then
-			self:checkAndAttack(25,0, 20,12, 15, "fall")
-		else -- self.n_combo == 1 or 2
-			self:checkAndAttack(25,0, 20,12, 10, "high")
-		end
-		self.cool_down_combo = 0.4
-		self.check_mash = false
-	end]]
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
@@ -1363,7 +1352,6 @@ function Player:grabHit_start()
         self:setState(self.grabHitEnd)
         return
     end
-    --self:checkAndAttack(10,0, 20,12, 8, "low")
     --TEsound.play("res/sfx/grunt1.wav")
 end
 function Player:grabHit_update(dt)
@@ -1386,7 +1374,6 @@ function Player:grabHitEnd_start()
         print(self.name.." is grabhitend someone.")
     end
     --TEsound.play("res/sfx/grunt1.wav")
-    --self:checkAndAttack(20,0, 20,12, 11, "grabKO")
 end
 function Player:grabHitEnd_update(dt)
     --print(self.name .. " - grabhitend update", dt)

@@ -38,8 +38,6 @@ function Rick:combo_start()
     elseif self.n_combo == 4 then
         SetSpriteAnim(self.sprite,"combo4")
     end
-    --self.check_mash = false
-
     self.cool_down = 0.2
 end
 function Rick:combo_update(dt)
@@ -51,23 +49,6 @@ function Rick:combo_update(dt)
         self:setState(self.stand)
         return
     end
---[[    if self.check_mash then
-        TEsound.play("res/sfx/attack1.wav", nil, 2) --air
-        if self.n_combo == 1 then
-            self:checkAndAttack(25,0, 20,12, 10, "high")
-            self.cool_down_combo = 0.4
-        elseif self.n_combo == 4 then
-            self:checkAndAttack(25,0, 20,12, 10, "low")
-            self.cool_down_combo = 0.4
-        elseif self.n_combo == 4 then
-            self:checkAndAttack(25,0, 20,12, 15, "fall")
-            self.cool_down_combo = 0.4
-        else -- self.n_combo == 1 or 2
-        self:checkAndAttack(25,0, 20,12, 10, "high")
-        self.cool_down_combo = 0.4
-        end
-        self.check_mash = false
-    end]]
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     --	self:checkHurt()
