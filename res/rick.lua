@@ -1,7 +1,7 @@
 print("rick.lua loaded")
 
 local image_w = 224 --This info can be accessed with a Love2D call
-local image_h = 913 --after the image has been loaded
+local image_h = 979 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -108,9 +108,12 @@ return {
 			delay = 0.05
 		},
 		dash = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61 }, -- jaf1
-			{ q = q(58,714,75,58), ox = 37, oy = 57, func = dash_attack }, -- jaf2
-			delay = 0.2
+			{ q = q(2,915,63,62), ox = 37, oy = 61, delay = 0.3 }, -- dash1
+			{ q = q(67,914,38,63), ox = 18, oy = 62, delay = 0.1 }, -- dash2
+			{ q = q(107,913,60,64), ox = 17, oy = 63 }, -- dash3
+			{ q = q(169,916,53,61), ox = 17, oy = 60 }, -- dash4
+			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
+			delay = 0.16
 		},
 		combo1 = {
 			{ q = q(67,519,48,63), ox = 22, oy = 62 }, --p1.2
