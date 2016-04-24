@@ -271,14 +271,15 @@ function Player:checkCollisionAndMove(dt)
 	self.y = actualY + 4
 end
 
-function Player:calcFriction(dt)
+function Player:calcFriction(dt, friction)
+	local frctn = friction or self.friction
 	if self.velx > 0 then
-		self.velx = self.velx - self.friction * dt
+		self.velx = self.velx - frctn * dt
 	else
 		self.velx = 0
 	end
 	if self.vely > 0 then
-		self.vely = self.vely - self.friction * dt
+		self.vely = self.vely - frctn * dt
 	else
 		self.vely = 0
 	end
@@ -856,6 +857,7 @@ function Player:dash_update(dt)
 	if self.permAttack then
 		self.permAttack(self)
 	end
+	self:calcFriction(dt, 250)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
