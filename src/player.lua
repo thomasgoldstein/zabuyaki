@@ -857,7 +857,7 @@ function Player:dash_update(dt)
 	if self.permAttack then
 		self.permAttack(self)
 	end
-	self:calcFriction(dt, 250)
+	self:calcFriction(dt, 150)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
