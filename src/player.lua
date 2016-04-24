@@ -843,20 +843,16 @@ Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit 
 function Player:dash_start()
 	--	print (self.name.." - dash start")
 	SetSpriteAnim(self.sprite,"dash")
+	self.velx = 150
 	self.vely = 0
-	self.velz = 10
+	self.velz = 0
 	TEsound.play("res/sfx/jump.wav")
 end
 function Player:dash_update(dt)
-	if self.z < 6 then
-		self.z = self.z + dt * self.velz
-		self.velz = self.velz - 5 * dt
-	else
-		self.velz = self.velz / 2
-		--TODO what about hurt immunity?
-		self:setState(self.jumpDown)
+	if self.sprite.isFinished then
+		self:setState(self.stand)
 		return
-    end
+	end
 	if self.permAttack then
 		self.permAttack(self)
 	end
