@@ -172,6 +172,11 @@ return {
 			{q = q(105, 454, 41, 61), ox = 21, oy = 60}, --hl1
 			delay = 0.1
 		},
+		jumpAttackForward = {
+			{q = q(2, 517, 46, 61), ox = 23, oy = 65, func = jump_forward_attack, delay = 0.2}, --jaf 1
+			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
+			delay = 5
+		},
 		jumpAttackForwardUp = {
 			{q = q(2, 517, 46, 61), ox = 23, oy = 65, func = jump_forward_attack}, --jaf 1
 			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
@@ -180,6 +185,11 @@ return {
 		jumpAttackForwardDown = {
 			{q = q(2, 517, 46, 61), ox = 23, oy = 65, func = jump_forward_attack, delay = 0.2}, --jaf 1
 			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
+			delay = 5
+		},
+		jumpAttackWeak = {
+			{q = q(109, 517, 46, 63), ox = 22, oy = 65, func = jump_weak_attack, delay = 0.2}, --jaw 1
+			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
 			delay = 5
 		},
 		jumpAttackWeakUp = {
@@ -191,6 +201,12 @@ return {
 			{q = q(109, 517, 46, 63), ox = 22, oy = 65, func = jump_weak_attack, delay = 0.2}, --jaw 1
 			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
 			delay = 5
+		},
+		jumpAttackStill = {
+			{q = q(2, 582, 33, 65), ox = 14, oy = 64, func = jump_still_attack, delay = 0.2}, --jas 1
+			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
+			{q = q(2, 582, 33, 65), ox = 14, oy = 64, delay = 0.2}, --jas 1
+			delay = 0.4
 		},
 		jumpAttackStillUp = {
 			{q = q(2, 582, 33, 65), ox = 14, oy = 64, func = jump_still_attack}, --jas 1
