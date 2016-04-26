@@ -14,28 +14,30 @@ local grabKO_attack = function(self) self:checkAndAttack(20,0, 20,12, 11, "grabK
 local grabLow_attack = function(self) self:checkAndAttack(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
         TEsound.play("res/sfx/attack1.wav", nil, 2) --air
-        if slf.n_combo == 3 then
-            slf:checkAndAttack(25,0, 20,12, 10, "high")
+		if slf.n_combo == 1 then
+            slf:checkAndAttack(30,0, 22,12, 10, "high")
+        elseif slf.n_combo == 2 then
+            slf:checkAndAttack(30,0, 22,12, 10, "high")
+        elseif slf.n_combo == 3 then
+            slf:checkAndAttack(30,0, 22,12, 10, "high")
         elseif slf.n_combo == 4 then
-            slf:checkAndAttack(25,0, 20,12, 10, "low")
+            slf:checkAndAttack(30,0, 22,12, 10, "low")
             slf.n_combo = 5
-        elseif slf.n_combo == 5 then
+        else -- self.n_combo == 5
             slf.victims = {}
-            slf:checkAndAttack(25,0, 20,12, 15, "fall")
+            slf:checkAndAttack(30,0, 22,12, 15, "fall")
             slf.n_combo = 6
-        else -- self.n_combo == 1 or 2
-            slf:checkAndAttack(25,0, 20,12, 10, "high")
         end
         slf.cool_down_combo = 0.4
 end
-local dash_attack = function(slf) slf.permAttack = slf:checkAndAttack(20,0, 20,12, 30, "fall") end
-local jump_forward_attack = function(slf) slf.permAttack = slf:checkAndAttack(24,0, 20,12, 20, "fall") end
+local dash_attack = function(slf) slf.permAttack = slf:checkAndAttack(35,0, 25,12, 30, "fall") end
+local jump_forward_attack = function(slf) slf.permAttack = slf:checkAndAttack(32,0, 25,12, 20, "fall") end
 local jump_weak_attack = function(slf)
 	slf.permAttack = function(slf)
 		if slf.z > 30 then
-			slf:checkAndAttack(10,0, 20,12, 11, "high")
+			slf:checkAndAttack(15,0, 22,12, 11, "high")
 		elseif slf.z > 10 then
-			slf:checkAndAttack(10,0, 20,12, 11, "low")
+			slf:checkAndAttack(15,0, 22,12, 11, "low")
 		end
 	end
 end
@@ -175,7 +177,7 @@ return {
 		},
 		jumpAttackForwardDown = {
 			{ q = q(2,714,54,62), ox = 27, oy = 61, func = jump_forward_attack, delay = 0.2 }, -- jaf1
-			{ q = q(58,714,75,58), ox = 37, oy = 57 }, -- jaf2
+			{ q = q(58,714,75,58), ox = 37, oy = 57, func = jump_forward_attack }, -- jaf2
 			delay = 5
 		},
 		jumpAttackWeakUp = {
@@ -184,7 +186,7 @@ return {
 		},
 		jumpAttackWeakDown = {
 			{ q = q(2,844,43,67), ox = 21, oy = 66, func = jump_weak_attack, delay = 0.2 }, -- jaw1
-			{ q = q(47,844,47,63), ox = 23, oy = 62 }, -- jaw2
+			{ q = q(47,844,47,63), ox = 23, oy = 62, func = jump_weak_attack }, -- jaw2
 			delay = 5
 		},
 		jumpAttackStillUp = {
