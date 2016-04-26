@@ -89,6 +89,11 @@ return {
             loop = true,
             delay = 0.1
 		},
+		jump = {
+			{ q = q(46,262,44,66), ox = 22, oy = 65, delay = 0.4 }, --ju
+			{ q = q(92,262,45,61), ox = 22, oy = 65 }, --jd
+			delay = 5
+		},
 		jumpUp = {
 			{ q = q(46,262,44,66), ox = 22, oy = 65 }, --ju
 			delay = 5

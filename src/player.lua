@@ -579,6 +579,63 @@ function Player:run_update(dt)
 end
 Player.run = {name = "run", start = Player.run_start, exit = nop, update = Player.run_update, draw = Player.default_draw}
 
+function Player:jump_start()
+    --	print (self.name.." - jump start")
+    SetSpriteAnim(self.sprite,"jump")
+    self.velz = 220
+    self.z = 0.1
+    if self.b.up.down then
+        self.vertical = -1
+    elseif self.b.down.down then
+        self.vertical = 1
+    else
+        self.vertical = 0
+    end
+    if self.b.left.down == false and self.b.right.down == false then
+        self.velx = 0
+    end
+    if self.velx ~= 0 then
+        self.velx = self.velx + 10 --make jump little faster than the walk/run speed
+    end
+    if self.vely ~= 0 then
+        self.vely = self.vely + 5 --make jump little faster than the walk/run speed
+    end
+    TEsound.play("res/sfx/jump.wav")
+end
+function Player:jump_update(dt)
+    --	print (self.name.." - jump update",dt)
+    if self.b.fire.down and self.can_fire then
+        if (self.b.left.down and self.face == 1)
+                or (self.b.right.down and self.face == -1) then
+            self:setState(self.jumpAttackWeakUp)
+            return
+        elseif self.velx == 0 then
+            self:setState(self.jumpAttackStillUp)
+            return
+        else
+            self:setState(self.jumpAttackForwardUp)
+            return
+        end
+    end
+    if self.z > 0 then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt
+    else
+        self.velz = 0
+        self.z = 0
+        self:setState(self.duck)
+        return
+    end
+    self:checkCollisionAndMove(dt)
+    if not self.b.fire.down then
+        self.can_fire = true
+    end
+    self:updateShake(dt)
+    UpdateInstance(self.sprite, dt, self)
+end
+Player.jump = {name = "jump", start = Player.jump_start, exit = nop, update = Player.jump_update, draw = Player.default_draw}
+
+
 function Player:jumpUp_start()
 --	print (self.name.." - jumpUp start")
 	SetSpriteAnim(self.sprite,"jumpUp")
@@ -727,7 +784,7 @@ end
 function Player:duck2jump_update(dt)
 	--	print (self.name.." - duck2jump update",dt)
 	if self.sprite.isFinished then
-		self:setState(self.jumpUp)
+		self:setState(self.jump)
 		return
 	end
 	--self:calcFriction(dt)
