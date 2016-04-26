@@ -88,7 +88,6 @@ return {
             delay = 0.1
 		},
 		jumpUp = {
---			{ q = q(2,269,42,59), ox = 21, oy = 58, delay = 0.2 }, --duck
 			{ q = q(46,262,44,66), ox = 22, oy = 65 }, --ju
 			delay = 5
 		},
@@ -108,10 +107,10 @@ return {
 			delay = 0.05
 		},
 		dash = {
-			{ q = q(2,915,63,62), ox = 37, oy = 61 }, -- dash1
-			{ q = q(67,914,38,63), ox = 18, oy = 62, delay = 0.1 }, -- dash2
-			{ q = q(107,913,60,64), ox = 17, oy = 63, func = dash_attack }, -- dash3
-			{ q = q(169,916,53,61), ox = 17, oy = 60 }, -- dash4
+			{ q = q(2,915,63,62), ox = 37, oy = 61 }, --dash1
+			{ q = q(67,914,38,63), ox = 18, oy = 62, delay = 0.1 }, --dash2
+			{ q = q(107,913,60,64), ox = 17, oy = 63, func = dash_attack }, --dash3
+			{ q = q(169,916,53,61), ox = 17, oy = 60 }, --dash4
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.2
 			delay = 0.16
 		},
