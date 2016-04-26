@@ -31,7 +31,7 @@ local combo_attack = function(slf)
         slf.cool_down_combo = 0.4
 end
 local dash_attack = function(slf) slf.permAttack = slf:checkAndAttack(20,0, 55,12, 20, "fall") end
-local jump_forward_attack = function(slf) slf.permAttack = slf:checkAndAttack(32,0, 25,12, 15, "fall") end
+local jump_forward_attack = function(slf) slf.permAttack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end end
 local jump_weak_attack = function(slf)
 	slf.permAttack = function(slf)
 		if slf.z > 30 then
