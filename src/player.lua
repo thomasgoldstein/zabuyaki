@@ -207,7 +207,7 @@ function Player:onHurt()
 		-- fall
 		self.z = self.z + 1
 		self.velz = 220
-		if h.state == "combo" or h.state == "jumpAttackStillUp" or h.state == "jumpAttackStillDown" then
+		if h.state == "combo" or h.state == "jumpAttackStill" then
 			if self.hp <= 0 then
 				self.velx = 150	-- dead body flies further
 			else
@@ -607,13 +607,13 @@ function Player:jump_update(dt)
     if self.b.fire.down and self.can_fire then
         if (self.b.left.down and self.face == 1)
                 or (self.b.right.down and self.face == -1) then
-            self:setState(self.jumpAttackWeakUp)
+            self:setState(self.jumpAttackWeak)
             return
         elseif self.velx == 0 then
-            self:setState(self.jumpAttackStillUp)
+            self:setState(self.jumpAttackStill)
             return
         else
-            self:setState(self.jumpAttackForwardUp)
+            self:setState(self.jumpAttackForward)
             return
         end
     end
@@ -623,6 +623,7 @@ function Player:jump_update(dt)
     else
         self.velz = 0
         self.z = 0
+        TEsound.play("res/sfx/land.wav")
         self:setState(self.duck)
         return
     end
@@ -634,98 +635,6 @@ function Player:jump_update(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Player.jump = {name = "jump", start = Player.jump_start, exit = nop, update = Player.jump_update, draw = Player.default_draw}
-
-
-function Player:jumpUp_start()
---	print (self.name.." - jumpUp start")
-	SetSpriteAnim(self.sprite,"jumpUp")
-	self.velz = 270
-	if self.b.up.down then
-		self.vertical = -1
-	elseif self.b.down.down then
-		self.vertical = 1
-	else
-		self.vertical = 0
-	end
-	if self.b.left.down == false and self.b.right.down == false then
-		self.velx = 0
-	end
-	if self.velx ~= 0 then
-		self.velx = self.velx + 10 --make jump little faster than the walk/run speed
-	end
-	if self.vely ~= 0 then
-		self.vely = self.vely + 5 --make jump little faster than the walk/run speed
-	end
-	TEsound.play("res/sfx/jump.wav")
-end
-function Player:jumpUp_update(dt)
-	--	print (self.name.." - jumpUp update",dt)
-	if self.b.fire.down and self.can_fire then
-		if (self.b.left.down and self.face == 1)
-			or (self.b.right.down and self.face == -1) then
-			self:setState(self.jumpAttackWeakUp)
-			return
-		elseif self.velx == 0 then
-			self:setState(self.jumpAttackStillUp)
-			return
-		else
-			self:setState(self.jumpAttackForwardUp)
-			return
-		end
-	end
-	if self.z < self.jumpHeight then
-		self.z = self.z + dt * self.velz
-		self.velz = self.velz - self.gravity * dt
-	else
-		self.velz = self.velz / 2
-		self:setState(self.jumpDown)
-		return
-	end
-	self:checkCollisionAndMove(dt)
-	if not self.b.fire.down then
-		self.can_fire = true
-	end
-	self:updateShake(dt)
-	UpdateInstance(self.sprite, dt, self)
-end
-Player.jumpUp = {name = "jumpUp", start = Player.jumpUp_start, exit = nop, update = Player.jumpUp_update, draw = Player.default_draw}
-
-function Player:jumpDown_start()
---	print (self.name.." - jumpDown start")
-	SetSpriteAnim(self.sprite,"jumpDown")
-end
-function Player:jumpDown_update(dt)
-	--	print (self.name.." - jumpDown update",dt)
-	if self.b.fire.down and self.can_fire then
-		if (self.b.left.down and self.face == 1)
-			or (self.b.right.down and self.face == -1) then
-				self:setState(self.jumpAttackWeakDown)
-			return
-		elseif self.velx == 0 then
-			self:setState(self.jumpAttackStillDown)
-			return
-		else
-			self:setState(self.jumpAttackForwardDown)
-			return
-		end
-	end
-	if self.z > 0 then
-		self.z = self.z + dt * self.velz
-		self.velz = self.velz - self.gravity * dt
-	else
-		self.z = 0
-		TEsound.play("res/sfx/land.wav")
-		self:setState(self.duck)
-		return
-	end
-	self:checkCollisionAndMove(dt)
-	if not self.b.fire.down then
-		self.can_fire = true
-	end
-	self:updateShake(dt)
-	UpdateInstance(self.sprite, dt, self)
-end
-Player.jumpDown = {name = "jumpDown", start = Player.jumpDown_start, exit = nop, update = Player.jumpDown_update, draw = Player.default_draw}
 
 function Player:pickup_start()
 	--	print (self.name.." - pickup start")
@@ -921,39 +830,17 @@ function Player:dash_update(dt)
 end
 Player.dash = {name = "dash", start = Player.dash_start, exit = nop, update = Player.dash_update, draw = Player.default_draw}
 
-function Player:jumpAttackForwardUp_start()
-	--	print (self.name.." - jumpAttackForwardUp start")
-	SetSpriteAnim(self.sprite,"jumpAttackForwardUp")
+function Player:jumpAttackForward_start()
+	--	print (self.name.." - jumpAttackForward start")
+	SetSpriteAnim(self.sprite,"jumpAttackForward")
 end
-function Player:jumpAttackForwardUp_update(dt)
-	--	print (self.name.." - jumpAttackForwardUp update",dt)
-	if self.z < self.jumpHeight then
-		self.z = self.z + dt * self.velz
-		self.velz = self.velz - self.gravity * dt
-	else
-		self.velz = self.velz / 2
-		self:setState(self.jumpAttackForwardDown)
-		return
-	end
-	if self.permAttack then
-		self.permAttack(self)
-	end
-	self:checkCollisionAndMove(dt)
-	self:updateShake(dt)
-	UpdateInstance(self.sprite, dt, self)
-end
-Player.jumpAttackForwardUp = {name = "jumpAttackForwardUp", start = Player.jumpAttackForwardUp_start, exit = nop, update = Player.jumpAttackForwardUp_update, draw = Player.default_draw}
-
-function Player:jumpAttackForwardDown_start()
-	--	print (self.name.." - jumpAttackForwardDown start")
-	SetSpriteAnim(self.sprite,"jumpAttackForwardDown")
-end
-function Player:jumpAttackForwardDown_update(dt)
-	--	print (self.name.." - jumpAttackForwardDown update",dt)
+function Player:jumpAttackForward_update(dt)
+	--	print (self.name.." - jumpAttackForward update",dt)
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
 		self.velz = self.velz - self.gravity * dt
 	else
+		self.velz = 0
 		self.z = 0
 		TEsound.play("res/sfx/land.wav")
 		self:setState(self.duck)
@@ -966,41 +853,19 @@ function Player:jumpAttackForwardDown_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.jumpAttackForwardDown = {name = "jumpAttackForwardDown", start = Player.jumpAttackForwardDown_start, exit = nop, update = Player.jumpAttackForwardDown_update, draw = Player.default_draw}
+Player.jumpAttackForward = {name = "jumpAttackForward", start = Player.jumpAttackForward_start, exit = nop, update = Player.jumpAttackForward_update, draw = Player.default_draw}
 
-function Player:jumpAttackWeakUp_start()
-	--	print (self.name.." - jumpAttackWeakUp start")
-	SetSpriteAnim(self.sprite,"jumpAttackWeakUp")
+function Player:jumpAttackWeak_start()
+	--	print (self.name.." - jumpAttackWeak start")
+	SetSpriteAnim(self.sprite,"jumpAttackWeak")
 end
-function Player:jumpAttackWeakUp_update(dt)
-	--	print (self.name.." - jumpAttackWeakUp update",dt)
-	if self.z < self.jumpHeight then
-		self.z = self.z + dt * self.velz
-		self.velz = self.velz - self.gravity * dt
-	else
-		self.velz = self.velz / 2
-		self:setState(self.jumpAttackWeakDown)
-		return
-	end
-	if self.permAttack then
-		self.permAttack(self)
-	end
-	self:checkCollisionAndMove(dt)
-	self:updateShake(dt)
-	UpdateInstance(self.sprite, dt, self)
-end
-Player.jumpAttackWeakUp = {name = "jumpAttackWeakUp", start = Player.jumpAttackWeakUp_start, exit = nop, update = Player.jumpAttackWeakUp_update, draw = Player.default_draw}
-
-function Player:jumpAttackWeakDown_start()
-	--	print (self.name.." - jumpAttackWeakDown start")
-	SetSpriteAnim(self.sprite,"jumpAttackWeakDown")
-end
-function Player:jumpAttackWeakDown_update(dt)
-	--	print (self.name.." - jumpAttackWeakDown update",dt)
+function Player:jumpAttackWeak_update(dt)
+	--	print (self.name.." - jumpAttackWeak update",dt)
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
 		self.velz = self.velz - self.gravity * dt
 	else
+		self.velz = 0
 		self.z = 0
 		TEsound.play("res/sfx/land.wav")
 		self:setState(self.duck)
@@ -1013,48 +878,32 @@ function Player:jumpAttackWeakDown_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.jumpAttackWeakDown = {name = "jumpAttackWeakDown", start = Player.jumpAttackWeakDown_start, exit = nop, update = Player.jumpAttackWeakDown_update, draw = Player.default_draw}
+Player.jumpAttackWeak = {name = "jumpAttackWeak", start = Player.jumpAttackWeak_start, exit = nop, update = Player.jumpAttackWeak_update, draw = Player.default_draw}
 
-function Player:jumpAttackStillUp_start()
-	--	print (self.name.." - jumpAttackStillUp start")
-	SetSpriteAnim(self.sprite,"jumpAttackStillUp")
+function Player:jumpAttackStill_start()
+	--	print (self.name.." - jumpAttackStill start")
+	SetSpriteAnim(self.sprite,"jumpAttackStill")
 end
-function Player:jumpAttackStillUp_update(dt)
-	--	print (self.name.." - jumpAttackStillUp update",dt)
-	if self.z < self.jumpHeight then
-		self.z = self.z + dt * self.velz
-		self.velz = self.velz - self.gravity * dt
-	else
-		self.velz = self.velz / 2
-		self:setState(self.jumpAttackStillDown)
-		return
-	end
-	self:checkCollisionAndMove(dt)
-	self:updateShake(dt)
-	UpdateInstance(self.sprite, dt, self)
-end
-Player.jumpAttackStillUp = {name = "jumpAttackStillUp", start = Player.jumpAttackStillUp_start, exit = nop, update = Player.jumpAttackStillUp_update, draw = Player.default_draw}
-
-function Player:jumpAttackStillDown_start()
-	--	print (self.name.." - jumpAttackStillDown start")
-	SetSpriteAnim(self.sprite,"jumpAttackStillDown")
-end
-function Player:jumpAttackStillDown_update(dt)
-	--	print (self.name.." - jumpAttackStillDown update",dt)
+function Player:jumpAttackStill_update(dt)
+	--	print (self.name.." - jumpAttackStill update",dt)
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
 		self.velz = self.velz - self.gravity * dt
 	else
+		self.velz = 0
 		self.z = 0
 		TEsound.play("res/sfx/land.wav")
 		self:setState(self.duck)
 		return
 	end
+	if self.permAttack then
+		self.permAttack(self)
+	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.jumpAttackStillDown = {name = "jumpAttackStillDown", start = Player.jumpAttackStillDown_start, exit = nop, update = Player.jumpAttackStillDown_update, draw = Player.default_draw}
+Player.jumpAttackStill = {name = "jumpAttackStill", start = Player.jumpAttackStill_start, exit = nop, update = Player.jumpAttackStill_update, draw = Player.default_draw}
 
 function Player:fall_start()
 --    print (self.name.." - fall start")

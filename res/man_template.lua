@@ -93,16 +93,6 @@ return {
 			{ q = q(118, 131, 44, 67), ox = 19, oy = 66 }, --jd
 			delay = 5
 		},
-		jumpUp = {
---			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 , delay = 0.2 }, -- duck 1
-			{ q = q(72, 132, 44, 66), ox = 23, oy = 65 }, --ju
-			delay = 5
-		},
-		jumpDown = {
-			{ q = q(72, 132, 44, 66), ox = 23, oy = 65, delay = 0.5 }, --ju,
-			{ q = q(118, 131, 44, 67), ox = 19, oy = 66 }, --jd
-			delay = 5
-		},
 		duck = {
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
 			--{ q = q(39, 147, 31, 51), ox = 14, oy = 50 }, -- duck 2
@@ -177,43 +167,12 @@ return {
 			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
 			delay = 5
 		},
-		jumpAttackForwardUp = {
-			{q = q(2, 517, 46, 61), ox = 23, oy = 65, func = jump_forward_attack}, --jaf 1
-			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
-			delay = 5
-		},
-		jumpAttackForwardDown = {
-			{q = q(2, 517, 46, 61), ox = 23, oy = 65, func = jump_forward_attack, delay = 0.2}, --jaf 1
-			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
-			delay = 5
-		},
 		jumpAttackWeak = {
 			{q = q(109, 517, 46, 63), ox = 22, oy = 65, func = jump_weak_attack, delay = 0.2}, --jaw 1
 			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
 			delay = 5
 		},
-		jumpAttackWeakUp = {
-			{q = q(109, 517, 46, 63), ox = 22, oy = 65, func = jump_weak_attack}, --jaw 1
-			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
-			delay = 5
-		},
-		jumpAttackWeakDown = {
-			{q = q(109, 517, 46, 63), ox = 22, oy = 65, func = jump_weak_attack, delay = 0.2}, --jaw 1
-			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
-			delay = 5
-		},
 		jumpAttackStill = {
-			{q = q(2, 582, 33, 65), ox = 14, oy = 64, func = jump_still_attack, delay = 0.2}, --jas 1
-			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
-			{q = q(2, 582, 33, 65), ox = 14, oy = 64, delay = 0.2}, --jas 1
-			delay = 0.4
-		},
-		jumpAttackStillUp = {
-			{q = q(2, 582, 33, 65), ox = 14, oy = 64, func = jump_still_attack}, --jas 1
-			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
-			delay = 5
-		},
-		jumpAttackStillDown = {
 			{q = q(2, 582, 33, 65), ox = 14, oy = 64, func = jump_still_attack, delay = 0.2}, --jas 1
 			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
 			{q = q(2, 582, 33, 65), ox = 14, oy = 64, delay = 0.2}, --jas 1
@@ -273,6 +232,6 @@ return {
             delay = 0.1
         },
 
-} --offsets
+	} --offsets
 
 } --return (end of file)

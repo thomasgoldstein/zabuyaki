@@ -94,15 +94,6 @@ return {
 			{ q = q(92,262,45,61), ox = 22, oy = 65 }, --jd
 			delay = 5
 		},
-		jumpUp = {
-			{ q = q(46,262,44,66), ox = 22, oy = 65 }, --ju
-			delay = 5
-		},
-		jumpDown = {
-			{ q = q(46,262,44,66), ox = 22, oy = 65, delay = 0.4 }, --ju
-			{ q = q(92,262,45,61), ox = 22, oy = 65 }, --jd
-            delay = 5
-		},
 		duck = {
 			{ q = q(2,269,42,59), ox = 21, oy = 58 }, --duck
 			delay = 0.15
@@ -181,40 +172,12 @@ return {
 			{ q = q(58,714,75,58), ox = 37, oy = 57, func = jump_forward_attack }, -- jaf2
 			delay = 5
 		},
-		jumpAttackForwardUp = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61, func = jump_forward_attack }, -- jaf1
-			delay = 5
-		},
-		jumpAttackForwardDown = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61, func = jump_forward_attack, delay = 0.2 }, -- jaf1
-			{ q = q(58,714,75,58), ox = 37, oy = 57, func = jump_forward_attack }, -- jaf2
-			delay = 5
-		},
 		jumpAttackWeak = {
 			{ q = q(2,844,43,67), ox = 21, oy = 66, func = jump_weak_attack, delay = 0.2 }, -- jaw1
 			{ q = q(47,844,47,63), ox = 23, oy = 62, func = jump_weak_attack }, -- jaw2
 			delay = 5
 		},
-		jumpAttackWeakUp = {
-			{ q = q(2,844,43,67), ox = 21, oy = 66, func = jump_weak_attack, delay = 0.2 }, -- jaw1
-			delay = 5
-		},
-		jumpAttackWeakDown = {
-			{ q = q(2,844,43,67), ox = 21, oy = 66, func = jump_weak_attack, delay = 0.2 }, -- jaw1
-			{ q = q(47,844,47,63), ox = 23, oy = 62, func = jump_weak_attack }, -- jaw2
-			delay = 5
-		},
 		jumpAttackStill = {
-			{ q = q(2,778,38,63), ox = 19, oy = 62, delay = 0.4 }, -- jas1
-			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack, delay = 0.1 }, -- jas2
-			{ q = q(94,778,43,62), ox = 19, oy = 61 }, -- jas3
-			delay = 5
-		},
-		jumpAttackStillUp = {
-			{ q = q(2,778,38,63), ox = 19, oy = 62 }, -- jas1
-			delay = 5
-		},
-		jumpAttackStillDown = {
 			{ q = q(2,778,38,63), ox = 19, oy = 62, delay = 0.4 }, -- jas1
 			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack, delay = 0.1 }, -- jas2
 			{ q = q(94,778,43,62), ox = 19, oy = 61 }, -- jas3
