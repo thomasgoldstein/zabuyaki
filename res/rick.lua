@@ -15,29 +15,29 @@ local grabLow_attack = function(self) self:checkAndAttack(10,0, 20,12, 8, "low")
 local combo_attack = function(slf)
         TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 		if slf.n_combo == 1 then
-            slf:checkAndAttack(30,0, 22,12, 10, "high")
+            slf:checkAndAttack(30,0, 22,12, 7, "high")
         elseif slf.n_combo == 2 then
-            slf:checkAndAttack(30,0, 22,12, 10, "high")
+            slf:checkAndAttack(30,0, 22,12, 8, "high")
         elseif slf.n_combo == 3 then
-            slf:checkAndAttack(30,0, 22,12, 10, "high")
+            slf:checkAndAttack(30,0, 22,12, 9, "high")
         elseif slf.n_combo == 4 then
-            slf:checkAndAttack(30,0, 22,12, 10, "low")
+            slf:checkAndAttack(30,0, 22,12, 7, "low")
             slf.n_combo = 5
         else -- self.n_combo == 5
             slf.victims = {}
-            slf:checkAndAttack(30,0, 22,12, 15, "fall")
+            slf:checkAndAttack(30,0, 22,12, 8, "fall")
             slf.n_combo = 6
         end
         slf.cool_down_combo = 0.4
 end
-local dash_attack = function(slf) slf.permAttack = slf:checkAndAttack(35,0, 25,12, 30, "fall") end
-local jump_forward_attack = function(slf) slf.permAttack = slf:checkAndAttack(32,0, 25,12, 20, "fall") end
+local dash_attack = function(slf) slf.permAttack = slf:checkAndAttack(35,0, 25,12, 20, "fall") end
+local jump_forward_attack = function(slf) slf.permAttack = slf:checkAndAttack(32,0, 25,12, 15, "fall") end
 local jump_weak_attack = function(slf)
 	slf.permAttack = function(slf)
 		if slf.z > 30 then
-			slf:checkAndAttack(15,0, 22,12, 11, "high")
+			slf:checkAndAttack(15,0, 22,12, 8, "high")
 		elseif slf.z > 10 then
-			slf:checkAndAttack(15,0, 22,12, 11, "low")
+			slf:checkAndAttack(15,0, 22,12, 8, "low")
 		end
 	end
 end
