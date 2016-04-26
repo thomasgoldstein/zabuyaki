@@ -168,12 +168,12 @@ return {
 			delay = 0.1
 		},
 		jumpAttackForward = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61, func = jump_forward_attack, delay = 0.2 }, -- jaf1
+			{ q = q(2,714,54,62), ox = 27, oy = 61, delay = 0.2 }, -- jaf1
 			{ q = q(58,714,75,58), ox = 37, oy = 57, func = jump_forward_attack }, -- jaf2
 			delay = 5
 		},
 		jumpAttackWeak = {
-			{ q = q(2,844,43,67), ox = 21, oy = 66, func = jump_weak_attack, delay = 0.2 }, -- jaw1
+			{ q = q(2,844,43,67), ox = 21, oy = 66, delay = 0.2 }, -- jaw1
 			{ q = q(47,844,47,63), ox = 23, oy = 62, func = jump_weak_attack }, -- jaw2
 			delay = 5
 		},
