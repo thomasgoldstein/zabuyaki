@@ -184,10 +184,10 @@ return {
 			delay = 5
 		},
 		sideStepUp = {
-			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(96,844,44,64), ox = 22, oy = 63 }, --ssu
 		},
 		sideStepDown = {
-			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(142,844,45,63), ox = 22, oy = 62 }, --ssd
 		},
 		grab = {
 			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
