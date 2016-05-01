@@ -1,7 +1,7 @@
 print("rick.lua loaded")
 
 local image_w = 224 --This info can be accessed with a Love2D call
-local image_h = 1043 --after the image has been loaded
+local image_h = 1044 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -190,16 +190,22 @@ return {
 			{ q = q(142,844,44,63), ox = 22, oy = 62 }, --ssd
 		},
 		grab = {
-			{ q = q(2,979,42,62), ox = 21, oy = 61 }, --grab
+			{ q = q(2,979,44,63), ox = 22, oy = 62 }, --grab
 		},
         letGo = {
             { q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
         },
         grabHit = {
-			{ q = q(48,134,50,62), ox = 18, oy = 61, func = grabLow_attack }, --run 2
+			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
+			{ q = q(92,980,49,62), ox = 18, oy = 61, func = grabLow_attack, delay = 0.2 }, --grab attack 1.2
+			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
+			delay = 0.05
 		},
 		grabHitEnd = {
-			{ q = q(48,134,50,62), ox = 18, oy = 61, func = grabKO_attack }, --run 2
+			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
+			{ q = q(92,980,49,62), ox = 18, oy = 61, func = grabKO_attack, delay = 0.2 }, --grab attack 1.2
+			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
+			delay = 0.05
 		},
 		grabThrow = {
 			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
