@@ -1,7 +1,7 @@
 print("rick.lua loaded")
 
 local image_w = 224 --This info can be accessed with a Love2D call
-local image_h = 979 --after the image has been loaded
+local image_h = 1043 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -190,7 +190,7 @@ return {
 			{ q = q(142,844,44,63), ox = 22, oy = 62 }, --ssd
 		},
 		grab = {
-			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(2,979,42,62), ox = 21, oy = 61 }, --grab
 		},
         letGo = {
             { q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
