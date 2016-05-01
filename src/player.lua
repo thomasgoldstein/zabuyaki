@@ -1139,11 +1139,21 @@ function Player:grab_update(dt)
 		return
 	end
 	--adjust both vertically
-	if self.y > g.target.y + 1 then
-		self.y = self.y - 1
-	elseif self.y < g.target.y then
-		self.y = self.y + 1
-	end
+    if self.face == g.target.face then
+        --grab from the back
+        if self.y > g.target.y  then
+            self.y = self.y - 1
+        elseif self.y < g.target.y - 1 then
+            self.y = self.y + 1
+        end
+    else
+        --grab from the front
+        if self.y > g.target.y + 1 then
+            self.y = self.y - 1
+        elseif self.y < g.target.y then
+            self.y = self.y + 1
+        end
+    end
 	--adjust both horizontally
 	if self.x < g.target.x and self.x > g.target.x - 20 then
 		self.x = self.x - 1
