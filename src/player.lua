@@ -43,6 +43,7 @@ function Player:initialize(name, sprite, input, x, y, color)
     self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
 
 	self.isGrabbed = false
+	self.cool_down_grab = 2
 	self.hold = {source = nil, target = nil, cool_down = 0 }
     self.isThrown = false
     self.n_grabhit = 0    -- n of the grab hits
@@ -1076,7 +1077,7 @@ function Player:onGrab(source)
 	end
 	g.source = source
 	g.target = nil
-	g.cool_down = 2
+	g.cool_down = self.cool_down_grab
 	self.isGrabbed = true
 	--self:setState(self.grabbed)
 	return self.isGrabbed
@@ -1098,7 +1099,7 @@ function Player:doGrab(target)
 	if target:onGrab(self) then
 		g.source = nil
 		g.target = target
-		g.cool_down = 2.1
+		g.cool_down = self.cool_down_grab + 0.1
 		if g.target.x < self.x then
 			self.face = -1
 		else
@@ -1224,7 +1225,8 @@ function Player:grabHit_start()
         self:setState(self.grabHitEnd)
         return
     else
-        g.cool_down = 1
+        g.cool_down = self.cool_down_grab + 0.1
+        g.target.hold.cool_down = self.cool_down_grab
     end
     SetSpriteAnim(self.sprite,"grabHit")
     if DEBUG then
