@@ -192,9 +192,6 @@ return {
 		grab = {
 			{ q = q(2,979,44,63), ox = 22, oy = 62 }, --grab
 		},
-        letGo = {
-            { q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
-        },
         grabHit = {
 			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
 			{ q = q(92,980,49,62), ox = 18, oy = 61, func = grabLow_attack, delay = 0.2 }, --grab attack 1.2
