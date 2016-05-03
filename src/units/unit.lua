@@ -20,7 +20,7 @@ local function nop() --[[print "nop"]] end
 GLOBAL_PLAYER_ID = 1
 
 function Player:initialize(name, sprite, input, x, y, color)
-	self.sprite = sprite or {} --GetInstance("res/man_template.lua")
+	self.sprite = sprite or {} --GetInstance("res/templateman.lua")
 	self.name = name or "Unknown"
 	self.type = "player"
     self.max_hp = 100

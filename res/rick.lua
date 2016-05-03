@@ -1,5 +1,3 @@
-print("rick.lua loaded")
-
 local image_w = 224 --This info can be accessed with a Love2D call
 local image_h = 1044 --after the image has been loaded
 

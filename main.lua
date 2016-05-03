@@ -29,9 +29,9 @@ function love.load(arg)
 	gamera = require "lib/gamera"
 	Camera = require "src/camera"
 	CompoundPicture = require "src/compoPic"
-	Player = require "src/player"
+	Player = require "src/units/unit"
 	Particle = require "src/particle"
-	Rick = require "src/rick_player"
+	Rick = require "src/units/rick_unit"
 	Item = require "src/item"
 	InfoBar = require "src/infoBar"
 

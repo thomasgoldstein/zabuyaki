@@ -8,7 +8,6 @@
     Visit for more information:
     http://opensource.org/licenses/MIT
 ]]
-print("AnimatedSprite.lua loaded")
 
 local ManagerVersion = 0.42
 

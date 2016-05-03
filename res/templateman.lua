@@ -1,5 +1,3 @@
-print("man_template.lua loaded")
-
 local image_w = 240 --This info can be accessed with a Love2D call
 local image_h = 845 --after the image has been loaded
 
@@ -40,9 +38,9 @@ end
 return {
 	serialization_version = 0.42, -- The version of this serialization process
 
-	sprite_sheet = "res/man_template.png", -- The path to the spritesheet
+	sprite_sheet = "res/templateman.png", -- The path to the spritesheet
 	--TODO read width/height of the sheet automatically.
-	sprite_name = "man_template", -- The name of the sprite
+	sprite_name = "templateman", -- The name of the sprite
 
 	delay = 0.20,	--default delay for all animations
 

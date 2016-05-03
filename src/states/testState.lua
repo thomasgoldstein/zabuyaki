@@ -6,13 +6,13 @@ end
 function testState:enter()
     --create players
     player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 90, 180, {255,255,255, 255})
-    player2 = Player:new("TEMPLATE MAN", GetInstance("res/man_template.lua"), button2, 140, 200)
- 	dummy0 = Player:new("LOCKY", GetInstance("res/man_template.lua"), button3, 320, 200-24, {239,255,191, 255})
+    player2 = Player:new("TEMPLATEMAN", GetInstance("res/templateman.lua"), button2, 140, 200)
+ 	dummy0 = Player:new("LOCKY", GetInstance("res/templateman.lua"), button3, 320, 200-24, {239,255,191, 255})
 	dummy1 = Player:new("DICKY", GetInstance("res/rick.lua"), button3, 400, 200-30, {255,239,191, 255})
     dummy1.horizontal = -1
     dummy1.face = -1
-	dummy2 = Player:new("DORMY", GetInstance("res/man_template.lua"), button3, 500, 200-4, {191,191,255, 255})
-	dummy3 = Player:new("UNNIE", GetInstance("res/man_template.lua"), button3, 600, 204, {239,191,255, 255})
+	dummy2 = Player:new("DORMY", GetInstance("res/templateman.lua"), button3, 500, 200-4, {191,191,255, 255})
+	dummy3 = Player:new("UNNIE", GetInstance("res/templateman.lua"), button3, 600, 204, {239,191,255, 255})
     dummy4 = Player:new("Dummie RICK", GetInstance("res/rick.lua"), button3, 560, 200-24, {230,230,230, 255})
 
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
