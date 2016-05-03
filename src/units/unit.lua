@@ -6,7 +6,7 @@
 
 local class = require "lib/middleclass"
 
-local Player = class("Player")
+local Unit = class("Unit")
 
 local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
 	return x1 < x2+w2 and
@@ -17,9 +17,9 @@ end
 
 local function nop() --[[print "nop"]] end
 
-GLOBAL_PLAYER_ID = 1
+GLOBAL_UNIT_ID = 1
 
-function Player:initialize(name, sprite, input, x, y, color)
+function Unit:initialize(name, sprite, input, x, y, color)
 	self.sprite = sprite or {} --GetInstance("res/templateman.lua")
 	self.name = name or "Unknown"
 	self.type = "player"
@@ -63,8 +63,8 @@ function Player:initialize(name, sprite, input, x, y, color)
 	self.start = nop
 	self.exit = nop
 
-	self.id = GLOBAL_PLAYER_ID --to stop Y coord sprites flickering
-	GLOBAL_PLAYER_ID = GLOBAL_PLAYER_ID + 1
+	self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
+	GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
 
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
@@ -72,10 +72,10 @@ function Player:initialize(name, sprite, input, x, y, color)
 	--Debug vars
 	self.hurted = false
 
-	self:setState(Player.stand)
+	self:setState(Unit.stand)
 end
 
-function Player:revive()
+function Unit:revive()
 	self.hp = 100
 	self.hurt = nil
 	self.z = 0
@@ -85,10 +85,10 @@ function Player:revive()
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
 	--self.isEnabled = true
-	self:setState(Player.stand)
+	self:setState(Unit.stand)
 end
 
-function Player:setState(state)
+function Unit:setState(state)
 	--assert(type(state) == "table", "setState expects a table")
 	if state then
 		self.prev_state = self.last_state
@@ -104,7 +104,7 @@ function Player:setState(state)
 	end
 end
 
-function Player:onShake(sx, sy, freq,cool_down)
+function Unit:onShake(sx, sy, freq,cool_down)
 	--shaking sprite
 	self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0,
 		f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2,
@@ -112,7 +112,7 @@ function Player:onShake(sx, sy, freq,cool_down)
 		m = {-1, 0, 1, 0}, i = 1}
 end
 
-function Player:updateShake(dt)
+function Unit:updateShake(dt)
 	if self.shake.cool_down > 0 then
 		self.shake.cool_down = self.shake.cool_down - dt
 
@@ -135,7 +135,7 @@ function Player:updateShake(dt)
 	end
 end
 
-function Player:onHurt()
+function Unit:onHurt()
 	-- hurt = {source, damage, velx,vely,x,y,z}
     local h = self.hurt
     if not h then
@@ -179,7 +179,7 @@ function Player:onHurt()
 		--TODO temp release
 		self.isGrabbed = false
 	end]]
-	if self.id <= 2 then	--for player 1 + 2 only
+	if self.id <= 2 then	--for Unit 1 + 2 only
 		mainCamera:onShake(1, 1, 0.03, 0.3)
 	end
 	if h.type == "high" and self.hp > 0 and self.z <= 0 then
@@ -223,11 +223,11 @@ function Player:onHurt()
 	end
 end
 
-function Player:onGetItem(item)
+function Unit:onGetItem(item)
     item:get(self)
 end
 
-function Player:drawShadow(l,t,w,h)
+function Unit:drawShadow(l,t,w,h)
 	--TODO adjust sprite dimensions
 	if CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
 		love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
@@ -245,7 +245,7 @@ function Player:drawShadow(l,t,w,h)
 	end
 end
 
-function Player:default_draw(l,t,w,h)
+function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
 		if DEBUG and self.hurted then
@@ -259,12 +259,12 @@ function Player:default_draw(l,t,w,h)
 end
 
 -- private
-function Player:checkCollisionAndMove(dt)
+function Unit:checkCollisionAndMove(dt)
 	local stepx = self.velx * dt * self.horizontal
 	local stepy = self.vely * dt * self.vertical
 	local actualX, actualY, cols, len = world:move(self, self.x + stepx - 8, self.y + stepy - 4,
-		function(player, item)
-            if player ~= item and item.type == "wall" then
+		function(Unit, item)
+            if Unit ~= item and item.type == "wall" then
 				return "slide"
 			end
 		end)
@@ -272,7 +272,7 @@ function Player:checkCollisionAndMove(dt)
 	self.y = actualY + 4
 end
 
-function Player:calcFriction(dt, friction)
+function Unit:calcFriction(dt, friction)
 	local frctn = friction or self.friction
 	if self.velx > 0 then
 		self.velx = self.velx - frctn * dt
@@ -286,7 +286,7 @@ function Player:calcFriction(dt, friction)
 	end
 end
 
-function Player:countKeyPresses()   --replaced with keyCombo
+function Unit:countKeyPresses()   --replaced with keyCombo
     if self.mash_count.left == 0 then
         if self.b.left.down then
             self.mash_count.left = 1
@@ -315,11 +315,11 @@ function Player:countKeyPresses()   --replaced with keyCombo
     end
 end
 
-function Player:countKeyPressesReset()
+function Unit:countKeyPressesReset()
      self.mash_count = {left = 0, right = 0, up = 0, down = 0, fire = 0, jump = 0}
 end
 
-function Player:checkAndAttack(l,t,w,h, damage, type)
+function Unit:checkAndAttack(l,t,w,h, damage, type)
     -- type = "high" "low" "fall"
     local face = self.face
     if self.isThrown then
@@ -348,7 +348,7 @@ function Player:checkAndAttack(l,t,w,h, damage, type)
 	end
 end
 
-function Player:checkForItem(w, h)
+function Unit:checkForItem(w, h)
 	--got any items near feet?
 	local items, len = world:queryRect(self.x - w/2, self.y - h/2, w, h,
 		function(item)
@@ -362,7 +362,7 @@ function Player:checkForItem(w, h)
 	return nil
 end
 
-function Player:stand_start()
+function Unit:stand_start()
 --	print (self.name.." - stand start")
 	SetSpriteAnim(self.sprite,"stand")
 	self.can_jump = false
@@ -371,7 +371,7 @@ function Player:stand_start()
 	self.permAttack = nop
     self.n_grabhit = 0
 end
-function Player:stand_update(dt)
+function Unit:stand_update(dt)
     --	print (self.name," - stand update",dt)
 	if self.isGrabbed then
 		self:setState(self.grabbed)
@@ -447,16 +447,16 @@ function Player:stand_update(dt)
 	self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Player.stand = {name = "stand", start = Player.stand_start, exit = nop, update = Player.stand_update, draw = Player.default_draw}
+Unit.stand = {name = "stand", start = Unit.stand_start, exit = nop, update = Unit.stand_update, draw = Unit.default_draw}
 
-function Player:walk_start()
+function Unit:walk_start()
 --	print (self.name.." - walk start")
 	SetSpriteAnim(self.sprite,"walk")
 	self.can_jump = false
 	self.can_fire = false
 	self.n_combo = 1	--if u move reset combo chain
 end
-function Player:walk_update(dt)
+function Unit:walk_update(dt)
 	--	print (self.name.." - walk update",dt)
 	if self.b.fire.down and self.can_fire then
 		self:setState(self.combo)
@@ -506,7 +506,7 @@ function Player:walk_update(dt)
 	local grabbed = self:checkForGrab(9, 3)
 	if grabbed then
 		if self:doGrab(grabbed) then
-			--function Player:doGrab(target)
+			--function Unit:doGrab(target)
 			--self:setState(self.grab)
 			return
 		end
@@ -522,15 +522,15 @@ function Player:walk_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.walk = {name = "walk", start = Player.walk_start, exit = nop, update = Player.walk_update, draw = Player.default_draw}
+Unit.walk = {name = "walk", start = Unit.walk_start, exit = nop, update = Unit.walk_update, draw = Unit.default_draw}
 
-function Player:run_start()
+function Unit:run_start()
 --	print (self.name.." - run start")
 	SetSpriteAnim(self.sprite,"run")
 	self.can_jump = false
 	self.can_fire = false
 end
-function Player:run_update(dt)
+function Unit:run_update(dt)
 	--	print (self.name.." - run update",dt)
 	self.velx = 0
 	self.vely = 0
@@ -578,9 +578,9 @@ function Player:run_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.run = {name = "run", start = Player.run_start, exit = nop, update = Player.run_update, draw = Player.default_draw}
+Unit.run = {name = "run", start = Unit.run_start, exit = nop, update = Unit.run_update, draw = Unit.default_draw}
 
-function Player:jump_start()
+function Unit:jump_start()
     --	print (self.name.." - jump start")
     SetSpriteAnim(self.sprite,"jump")
     self.velz = 220
@@ -603,7 +603,7 @@ function Player:jump_start()
     end
     TEsound.play("res/sfx/jump.wav")
 end
-function Player:jump_update(dt)
+function Unit:jump_update(dt)
     --	print (self.name.." - jump update",dt)
     if self.b.fire.down and self.can_fire then
         if (self.b.left.down and self.face == 1)
@@ -635,14 +635,14 @@ function Player:jump_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Player.jump = {name = "jump", start = Player.jump_start, exit = nop, update = Player.jump_update, draw = Player.default_draw}
+Unit.jump = {name = "jump", start = Unit.jump_start, exit = nop, update = Unit.jump_update, draw = Unit.default_draw}
 
-function Player:pickup_start()
+function Unit:pickup_start()
 	--	print (self.name.." - pickup start")
 	SetSpriteAnim(self.sprite,"pickup")
 	self.z = 0
 end
-function Player:pickup_update(dt)
+function Unit:pickup_update(dt)
 	--	print (self.name.." - pickup update",dt)
 	local item = self:checkForItem(9, 9)
 	if item and item.color.a > 50 then
@@ -662,9 +662,9 @@ function Player:pickup_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.pickup = {name = "pickup", start = Player.pickup_start, exit = nop, update = Player.pickup_update, draw = Player.default_draw}
+Unit.pickup = {name = "pickup", start = Unit.pickup_start, exit = nop, update = Unit.pickup_update, draw = Unit.default_draw}
 
-function Player:duck_start()
+function Unit:duck_start()
 --	print (self.name.." - duck start")
 	SetSpriteAnim(self.sprite,"duck")
 	--TODO should I reset hurt here?
@@ -673,7 +673,7 @@ function Player:duck_start()
 	self.permAttack = nop
 	self.z = 0
 end
-function Player:duck_update(dt)
+function Unit:duck_update(dt)
 	--	print (self.name.." - duck update",dt)
 	if self.sprite.isFinished then
 		self:setState(self.stand)
@@ -684,14 +684,14 @@ function Player:duck_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.duck = {name = "duck", start = Player.duck_start, exit = nop, update = Player.duck_update, draw = Player.default_draw}
+Unit.duck = {name = "duck", start = Unit.duck_start, exit = nop, update = Unit.duck_update, draw = Unit.default_draw}
 
-function Player:duck2jump_start()
+function Unit:duck2jump_start()
 	--	print (self.name.." - duck2jump start")
 	SetSpriteAnim(self.sprite,"duck")
 	self.z = 0
 end
-function Player:duck2jump_update(dt)
+function Unit:duck2jump_update(dt)
 	--	print (self.name.." - duck2jump update",dt)
 	if self.sprite.isFinished then
 		self:setState(self.jump)
@@ -702,15 +702,15 @@ function Player:duck2jump_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.duck2jump = {name = "duck2jump", start = Player.duck2jump_start, exit = nop, update = Player.duck2jump_update, draw = Player.default_draw}
+Unit.duck2jump = {name = "duck2jump", start = Unit.duck2jump_start, exit = nop, update = Unit.duck2jump_update, draw = Unit.default_draw}
 
-function Player:hurtHigh_start()
+function Unit:hurtHigh_start()
 --	print (self.name.." - hurtHigh start")
 	SetSpriteAnim(self.sprite,"hurtHigh")
 	self.hurted = true
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
-function Player:hurtHigh_update(dt)
+function Unit:hurtHigh_update(dt)
 	--	print (self.name.." - hurtHigh update",dt)
 	if self.sprite.isFinished then
 		if self.hp <= 0 then
@@ -730,15 +730,15 @@ function Player:hurtHigh_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.hurtHigh = {name = "hurtHigh", start = Player.hurtHigh_start, exit = nop, update = Player.hurtHigh_update, draw = Player.default_draw}
+Unit.hurtHigh = {name = "hurtHigh", start = Unit.hurtHigh_start, exit = nop, update = Unit.hurtHigh_update, draw = Unit.default_draw}
 
-function Player:hurtLow_start()
+function Unit:hurtLow_start()
 --	print (self.name.." - hurtLow start")
 	SetSpriteAnim(self.sprite,"hurtLow")
 	self.hurted = true
 	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
-function Player:hurtLow_update(dt)
+function Unit:hurtLow_update(dt)
 	--	print (self.name.." - hurtLow update",dt)
 	if self.sprite.isFinished then
 		if self.hp <= 0 then
@@ -758,15 +758,15 @@ function Player:hurtLow_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.hurtLow = {name = "hurtLow", start = Player.hurtLow_start, exit = nop, update = Player.hurtHigh_update, draw = Player.default_draw}
+Unit.hurtLow = {name = "hurtLow", start = Unit.hurtLow_start, exit = nop, update = Unit.hurtHigh_update, draw = Unit.default_draw}
 
-function Player:sideStepDown_start()
+function Unit:sideStepDown_start()
 --	print (self.name.." - sideStepDown start")
 	SetSpriteAnim(self.sprite,"sideStepDown")
     self.velx, self.vely = 0, 220
     TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfx
 end
-function Player:sideStepDown_update(dt)
+function Unit:sideStepDown_update(dt)
 	--	print (self.name.." - sideStepDown update",dt)
 	if self.vely > 0 then
 		self.vely = self.vely - self.sideStepFriction * dt
@@ -782,15 +782,15 @@ function Player:sideStepDown_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.sideStepDown = {name = "sideStepDown", start = Player.sideStepDown_start, exit = nop, update = Player.sideStepDown_update, draw = Player.default_draw}
+Unit.sideStepDown = {name = "sideStepDown", start = Unit.sideStepDown_start, exit = nop, update = Unit.sideStepDown_update, draw = Unit.default_draw}
 
-function Player:sideStepUp_start()
+function Unit:sideStepUp_start()
     --	print (self.name.." - sideStepUp start")
 	SetSpriteAnim(self.sprite,"sideStepUp")
     self.velx, self.vely = 0, 220
     TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfx
 end
-function Player:sideStepUp_update(dt)
+function Unit:sideStepUp_update(dt)
     --	print (self.name.." - sideStepUp update",dt)
     if self.vely > 0 then
         self.vely = self.vely - self.sideStepFriction * dt
@@ -806,9 +806,9 @@ function Player:sideStepUp_update(dt)
 	self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Player.sideStepUp = {name = "sideStepUp", start = Player.sideStepUp_start, exit = nop, update = Player.sideStepUp_update, draw = Player.default_draw}
+Unit.sideStepUp = {name = "sideStepUp", start = Unit.sideStepUp_start, exit = nop, update = Unit.sideStepUp_update, draw = Unit.default_draw}
 
-function Player:dash_start()
+function Unit:dash_start()
 	--	print (self.name.." - dash start")
 	SetSpriteAnim(self.sprite,"dash")
 	self.velx = 150
@@ -816,7 +816,7 @@ function Player:dash_start()
 	self.velz = 0
 	TEsound.play("res/sfx/jump.wav")
 end
-function Player:dash_update(dt)
+function Unit:dash_update(dt)
 	if self.sprite.isFinished then
 		self:setState(self.stand)
 		return
@@ -829,13 +829,13 @@ function Player:dash_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.dash = {name = "dash", start = Player.dash_start, exit = nop, update = Player.dash_update, draw = Player.default_draw}
+Unit.dash = {name = "dash", start = Unit.dash_start, exit = nop, update = Unit.dash_update, draw = Unit.default_draw}
 
-function Player:jumpAttackForward_start()
+function Unit:jumpAttackForward_start()
 	--	print (self.name.." - jumpAttackForward start")
 	SetSpriteAnim(self.sprite,"jumpAttackForward")
 end
-function Player:jumpAttackForward_update(dt)
+function Unit:jumpAttackForward_update(dt)
 	--	print (self.name.." - jumpAttackForward update",dt)
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
@@ -854,13 +854,13 @@ function Player:jumpAttackForward_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.jumpAttackForward = {name = "jumpAttackForward", start = Player.jumpAttackForward_start, exit = nop, update = Player.jumpAttackForward_update, draw = Player.default_draw}
+Unit.jumpAttackForward = {name = "jumpAttackForward", start = Unit.jumpAttackForward_start, exit = nop, update = Unit.jumpAttackForward_update, draw = Unit.default_draw}
 
-function Player:jumpAttackWeak_start()
+function Unit:jumpAttackWeak_start()
 	--	print (self.name.." - jumpAttackWeak start")
 	SetSpriteAnim(self.sprite,"jumpAttackWeak")
 end
-function Player:jumpAttackWeak_update(dt)
+function Unit:jumpAttackWeak_update(dt)
 	--	print (self.name.." - jumpAttackWeak update",dt)
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
@@ -879,13 +879,13 @@ function Player:jumpAttackWeak_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.jumpAttackWeak = {name = "jumpAttackWeak", start = Player.jumpAttackWeak_start, exit = nop, update = Player.jumpAttackWeak_update, draw = Player.default_draw}
+Unit.jumpAttackWeak = {name = "jumpAttackWeak", start = Unit.jumpAttackWeak_start, exit = nop, update = Unit.jumpAttackWeak_update, draw = Unit.default_draw}
 
-function Player:jumpAttackStill_start()
+function Unit:jumpAttackStill_start()
 	--	print (self.name.." - jumpAttackStill start")
 	SetSpriteAnim(self.sprite,"jumpAttackStill")
 end
-function Player:jumpAttackStill_update(dt)
+function Unit:jumpAttackStill_update(dt)
 	--	print (self.name.." - jumpAttackStill update",dt)
 	if self.z > 0 then
 		self.z = self.z + dt * self.velz
@@ -904,9 +904,9 @@ function Player:jumpAttackStill_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.jumpAttackStill = {name = "jumpAttackStill", start = Player.jumpAttackStill_start, exit = nop, update = Player.jumpAttackStill_update, draw = Player.default_draw}
+Unit.jumpAttackStill = {name = "jumpAttackStill", start = Unit.jumpAttackStill_start, exit = nop, update = Unit.jumpAttackStill_update, draw = Unit.default_draw}
 
-function Player:fall_start()
+function Unit:fall_start()
 --    print (self.name.." - fall start")
 	SetSpriteAnim(self.sprite,"fall")
 	if self.z <= 0 then
@@ -915,7 +915,7 @@ function Player:fall_start()
 	self.hurted = true
 	--TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
 end
-function Player:fall_update(dt)
+function Unit:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
     if self.z > 0 then
 		self.velz = self.velz - self.gravity * dt
@@ -951,9 +951,9 @@ function Player:fall_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.fall = {name = "fall", start = Player.fall_start, exit = nop, update = Player.fall_update, draw = Player.default_draw}
+Unit.fall = {name = "fall", start = Unit.fall_start, exit = nop, update = Unit.fall_update, draw = Unit.default_draw}
 
-function Player:getup_start()
+function Unit:getup_start()
 	--print (self.name.." - getup start")
 	SetSpriteAnim(self.sprite,"getup")
     if self.isThrown then
@@ -970,7 +970,7 @@ function Player:getup_start()
 	end
 	self:onShake(0, 1, 0.1, 0.5)
 end
-function Player:getup_update(dt)
+function Unit:getup_update(dt)
 	--print(self.name .. " - getup update", dt)
 	if self.sprite.isFinished then
 		self:setState(self.stand)
@@ -980,9 +980,9 @@ function Player:getup_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.getup = {name = "getup", start = Player.getup_start, exit = nop, update = Player.getup_update, draw = Player.default_draw}
+Unit.getup = {name = "getup", start = Unit.getup_start, exit = nop, update = Unit.getup_update, draw = Unit.default_draw}
 
-function Player:dead_start()
+function Unit:dead_start()
 	--print (self.name.." - dead start")
 	SetSpriteAnim(self.sprite,"dead")
 	if DEBUG then
@@ -998,16 +998,16 @@ function Player:dead_start()
 	self:onShake(3, 0, 0.1, 0.7)
 	TEsound.play("res/sfx/grunt1.wav")
 end
-function Player:dead_update(dt)
+function Unit:dead_update(dt)
 	--print(self.name .. " - dead update", dt)
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.dead = {name = "dead", start = Player.dead_start, exit = nop, update = Player.dead_update, draw = Player.default_draw}
+Unit.dead = {name = "dead", start = Unit.dead_start, exit = nop, update = Unit.dead_update, draw = Unit.default_draw}
 
-function Player:combo_start()
+function Unit:combo_start()
 	--	print (self.name.." - combo start")
     if self.n_combo > 5 then
 		self.n_combo = 1
@@ -1025,7 +1025,7 @@ function Player:combo_start()
 
 	self.cool_down = 0.2
 end
-function Player:combo_update(dt)
+function Unit:combo_update(dt)
 	if self.sprite.isFinished then
 		self.n_combo = self.n_combo + 1
 		if self.n_combo > 5 then
@@ -1039,14 +1039,14 @@ function Player:combo_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.combo = {name = "combo", start = Player.combo_start, exit = nop, update = Player.combo_update, draw = Player.default_draw}
+Unit.combo = {name = "combo", start = Unit.combo_start, exit = nop, update = Unit.combo_update, draw = Unit.default_draw}
 
 -- GRABBING / HOLDING
-function Player:checkForGrab(w, h)
-	--got any players
+function Unit:checkForGrab(w, h)
+	--got any Units
 	local items, len = world:queryRect(self.x + self.face*w - w/2, self.y - h/2, w, h,
 		function(o)
-			if o ~= self and o.type == "player" then
+			if o ~= self and o.type == "Player" then
 				return true
 			end
 		end)
@@ -1056,7 +1056,7 @@ function Player:checkForGrab(w, h)
 	return nil
 end
 
-function Player:onGrab(source)
+function Unit:onGrab(source)
 	-- hurt = {source, damage, velx,vely,x,y,z}
 	local g = self.hold
 	if self.isGrabbed then
@@ -1083,7 +1083,7 @@ function Player:onGrab(source)
 	return self.isGrabbed
 end
 
-function Player:doGrab(target)
+function Unit:doGrab(target)
 	if DEBUG then
 		print(target.name .. " is grabed by me - "..self.name)
 	end
@@ -1112,7 +1112,7 @@ function Player:doGrab(target)
 end
 
 
-function Player:grab_start()
+function Unit:grab_start()
 	--print (self.name.." - grab start")
 	SetSpriteAnim(self.sprite,"grab")
 	self.can_jump = false
@@ -1123,7 +1123,7 @@ function Player:grab_start()
     end
 	--TEsound.play("res/sfx/grunt1.wav")
 end
-function Player:grab_update(dt)
+function Unit:grab_update(dt)
 	--print(self.name .. " - grab update", dt)
 	local g = self.hold
 	if g.cool_down > 0 and g.target.isGrabbed then
@@ -1182,9 +1182,9 @@ function Player:grab_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.grab = {name = "grab", start = Player.grab_start, exit = nop, update = Player.grab_update, draw = Player.default_draw}
+Unit.grab = {name = "grab", start = Unit.grab_start, exit = nop, update = Unit.grab_update, draw = Unit.default_draw}
 
-function Player:grabbed_start()
+function Unit:grabbed_start()
 	--print (self.name.." - grabbed start")
 	SetSpriteAnim(self.sprite,"grabbed")
 	if DEBUG then
@@ -1193,7 +1193,7 @@ function Player:grabbed_start()
 	--self:onShake(0.5, 2, 0.15, 1)
 	--TEsound.play("res/sfx/grunt1.wav")
 end
-function Player:grabbed_update(dt)
+function Unit:grabbed_update(dt)
 	--print(self.name .. " - grabbed update", dt)
 	local g = self.hold
 	if self.isGrabbed and g.cool_down > 0 then
@@ -1215,9 +1215,9 @@ function Player:grabbed_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.grabbed = {name = "grabbed", start = Player.grabbed_start, exit = nop, update = Player.grabbed_update, draw = Player.default_draw}
+Unit.grabbed = {name = "grabbed", start = Unit.grabbed_start, exit = nop, update = Unit.grabbed_update, draw = Unit.default_draw}
 
-function Player:grabHit_start()
+function Unit:grabHit_start()
     --print (self.name.." - grabhit start")
     local g = self.hold
     if self.b.down.down then --press DOWN to early headbutt
@@ -1239,7 +1239,7 @@ function Player:grabHit_start()
 	end
     --TEsound.play("res/sfx/grunt1.wav")
 end
-function Player:grabHit_update(dt)
+function Unit:grabHit_update(dt)
     --print(self.name .. " - grabhit update", dt)
     if self.sprite.isFinished then
         self:setState(self.grab)
@@ -1250,9 +1250,9 @@ function Player:grabHit_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Player.grabHit = {name = "grabHit", start = Player.grabHit_start, exit = nop, update = Player.grabHit_update, draw = Player.default_draw}
+Unit.grabHit = {name = "grabHit", start = Unit.grabHit_start, exit = nop, update = Unit.grabHit_update, draw = Unit.default_draw}
 
-function Player:grabHitLast_start()
+function Unit:grabHitLast_start()
 	--print (self.name.." - grabHitLast start")
 	SetSpriteAnim(self.sprite,"grabHitLast")
 	if DEBUG then
@@ -1260,7 +1260,7 @@ function Player:grabHitLast_start()
 	end
 	--TEsound.play("res/sfx/grunt1.wav")
 end
-function Player:grabHitLast_update(dt)
+function Unit:grabHitLast_update(dt)
 	--print(self.name .. " - grabHitLast update", dt)
 	if self.sprite.isFinished then
 		self:setState(self.stand)
@@ -1271,9 +1271,9 @@ function Player:grabHitLast_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Player.grabHitLast = {name = "grabHitLast", start = Player.grabHitLast_start, exit = nop, update = Player.grabHitLast_update, draw = Player.default_draw }
+Unit.grabHitLast = {name = "grabHitLast", start = Unit.grabHitLast_start, exit = nop, update = Unit.grabHitLast_update, draw = Unit.default_draw }
 
-function Player:grabHitEnd_start()
+function Unit:grabHitEnd_start()
     --print (self.name.." - grabhitend start")
     SetSpriteAnim(self.sprite,"grabHitEnd")
     if DEBUG then
@@ -1281,7 +1281,7 @@ function Player:grabHitEnd_start()
     end
     --TEsound.play("res/sfx/grunt1.wav")
 end
-function Player:grabHitEnd_update(dt)
+function Unit:grabHitEnd_update(dt)
     --print(self.name .. " - grabhitend update", dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -1292,9 +1292,9 @@ function Player:grabHitEnd_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Player.grabHitEnd = {name = "grabHitEnd", start = Player.grabHitEnd_start, exit = nop, update = Player.grabHitEnd_update, draw = Player.default_draw}
+Unit.grabHitEnd = {name = "grabHitEnd", start = Unit.grabHitEnd_start, exit = nop, update = Unit.grabHitEnd_update, draw = Unit.default_draw}
 
-function Player:grabThrow_start()
+function Unit:grabThrow_start()
     --print (self.name.." - grabThrow start")
     local g = self.hold
     g.cool_down = 0
@@ -1322,7 +1322,7 @@ function Player:grabThrow_start()
     t:setState(self.fall)
 	TEsound.play("res/sfx/jump.wav", nil) -- throw sound
 end
-function Player:grabThrow_update(dt)
+function Unit:grabThrow_update(dt)
     --print(self.name .. " - grabThrow update", dt)
     if self.sprite.isFinished then
         self.cool_down = 0.2
@@ -1334,6 +1334,6 @@ function Player:grabThrow_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Player.grabThrow = {name = "grabThrow", start = Player.grabThrow_start, exit = nop, update = Player.grabThrow_update, draw = Player.default_draw}
+Unit.grabThrow = {name = "grabThrow", start = Unit.grabThrow_start, exit = nop, update = Unit.grabThrow_update, draw = Unit.default_draw}
 
-return Player
+return Unit

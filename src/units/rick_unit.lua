@@ -21,7 +21,6 @@ local function nop() --[[print "nop"]] end
 
 function Rick:initialize(name, sprite, input, x, y, color)
     Player.initialize(self, name, sprite, input, x, y, color)
-
 end
 
 function Rick:combo_start()

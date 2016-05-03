@@ -28,8 +28,8 @@ function Item:initialize(name, sprite, hp, score, func, x, y, color)
     end
     self.isHidden = false
     self.isEnabled = true
-    self.id = GLOBAL_PLAYER_ID --to stop Y coord sprites flickering
-    GLOBAL_PLAYER_ID = GLOBAL_PLAYER_ID + 1
+    self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
+    GLOBAL_UNIT_ID = GLOBAL_UNIT_ID + 1
 end
 
 function Item:drawShadow(l,t,w,h)
