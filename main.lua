@@ -32,7 +32,7 @@ function love.load(arg)
 	Player = require "src/units/unit"
 	Particle = require "src/particle"
 	Rick = require "src/units/rick_unit"
-	Item = require "src/item"
+	Item = require "src/units/item"
 	InfoBar = require "src/infoBar"
 
 
