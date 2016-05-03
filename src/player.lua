@@ -1228,15 +1228,15 @@ function Player:grabHit_start()
         g.cool_down = self.cool_down_grab + 0.1
         g.target.hold.cool_down = self.cool_down_grab
     end
-    SetSpriteAnim(self.sprite,"grabHit")
-    if DEBUG then
-        print(self.name.." is grabhit someone.")
-    end
     self.n_grabhit = self.n_grabhit + 1
     if self.n_grabhit > 2 then
-        self:setState(self.grabHitEnd)
+        self:setState(self.grabHitLast)
         return
-    end
+	end
+	SetSpriteAnim(self.sprite,"grabHit")
+	if DEBUG then
+		print(self.name.." is grabhit someone.")
+	end
     --TEsound.play("res/sfx/grunt1.wav")
 end
 function Player:grabHit_update(dt)
@@ -1251,6 +1251,27 @@ function Player:grabHit_update(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Player.grabHit = {name = "grabHit", start = Player.grabHit_start, exit = nop, update = Player.grabHit_update, draw = Player.default_draw}
+
+function Player:grabHitLast_start()
+	--print (self.name.." - grabHitLast start")
+	SetSpriteAnim(self.sprite,"grabHitLast")
+	if DEBUG then
+		print(self.name.." is grabHitLast someone.")
+	end
+	--TEsound.play("res/sfx/grunt1.wav")
+end
+function Player:grabHitLast_update(dt)
+	--print(self.name .. " - grabHitLast update", dt)
+	if self.sprite.isFinished then
+		self:setState(self.stand)
+		return
+	end
+	self:calcFriction(dt)
+	self:checkCollisionAndMove(dt)
+	self:updateShake(dt)
+	UpdateInstance(self.sprite, dt, self)
+end
+Player.grabHitLast = {name = "grabHitLast", start = Player.grabHitLast_start, exit = nop, update = Player.grabHitLast_update, draw = Player.default_draw }
 
 function Player:grabHitEnd_start()
     --print (self.name.." - grabhitend start")

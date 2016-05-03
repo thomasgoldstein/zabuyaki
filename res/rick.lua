@@ -198,6 +198,12 @@ return {
 			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
 			delay = 0.05
 		},
+		grabHitLast = {
+			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
+			{ q = q(92,980,49,62), ox = 18, oy = 61, func = grabKO_attack, delay = 0.2 }, --grab attack 1.2
+			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
+			delay = 0.05
+		},
 		grabHitEnd = {
 			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
 			{ q = q(92,980,49,62), ox = 18, oy = 61, func = grabKO_attack, delay = 0.2 }, --grab attack 1.2

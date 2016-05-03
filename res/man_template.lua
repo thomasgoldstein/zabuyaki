@@ -206,6 +206,12 @@ return {
 			{ q = q(49,649,44,62), ox = 22, oy = 61, delay = 0.2 }, --grab 2
 			delay = 0.05
         },
+		grabHitLast = {
+			{ q = q(2,714,49,64), ox = 24, oy = 63 }, --grab 1 head punch
+			{ q = q(53,713,56,65), ox = 28, oy = 64, func = grabKO_attack }, --grab 2 head punch
+			{ q = q(111,717,38,61), ox = 19, oy = 60, delay = 0.2 }, --grab 3 head punch
+			delay = 0.05
+		},
         grabHitEnd = {
             { q = q(2,714,49,64), ox = 24, oy = 63 }, --grab 1 head punch
             { q = q(53,713,56,65), ox = 28, oy = 64, func = grabKO_attack }, --grab 2 head punch
