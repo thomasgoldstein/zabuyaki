@@ -259,7 +259,7 @@ function Unit:default_draw(l,t,w,h)
 		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 		DrawInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
 
-		love.graphics.draw(self.particles, self.x, self.y)
+		love.graphics.draw(self.particles, self.x, self.y + 12)
 	end
 end
 
@@ -710,6 +710,9 @@ function Unit:duck_start()
     --self.victims = {}
 	self.permAttack = nop
 	self.z = 0
+
+	self.particles = PA_DUST_LANDING:clone()
+	self.particles:emit(30)
 end
 function Unit:duck_update(dt)
 	--	print (self.name.." - duck update",dt)

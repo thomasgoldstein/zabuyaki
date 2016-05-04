@@ -18,12 +18,17 @@ local dust_quad3 = q(20,32,7,7)
 local dust_quad4 = q(11,34,5,5)
 
 psystem = love.graphics.newParticleSystem( img, 32 )
-psystem:setParticleLifetime(0.5, 1) -- Particles live at least 2s and at most 5s.
+psystem:setParticleLifetime(0.3, 0.75) -- Particles live at least 2s and at most 5s.
 --psystem:setEmissionRate(5)
 psystem:setSizeVariation(1)
+psystem:setSpeed( 10, 20 )
 --psystem:setLinearAcceleration(-20, -20, 20, 20) -- Random movement in all directions.
-psystem:setColors(255, 255, 255, 255, 255, 255, 255, 0) -- Fade to transparency.
-psystem:setQuads( dust_quad1, dust_quad2, dust_quad3, dust_quad4 )
+psystem:setColors(255, 255, 255, 5, 255, 255, 255, 60, 255, 255, 255, 5) -- Fade to transparency.
+psystem:setQuads( dust_quad1, dust_quad2, dust_quad3, dust_quad4, dust_quad1 )
 --psystem:setQuads( quad1, quad2, quad3, quad4 )
-
 PA_DUST_STEPS = psystem
+
+psystem = psystem:clone()
+psystem:setParticleLifetime(0.2, 0.7) -- Particles live at least 2s and at most 5s.
+psystem:setLinearAcceleration(-200, -20, 200, 5) -- Random movement in all directions.
+PA_DUST_LANDING = psystem

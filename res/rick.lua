@@ -6,11 +6,12 @@ local function q(x,y,w,h)
 end
 
 local step_sfx = function(self) TEsound.play("res/sfx/step.wav", nil, 0.5)
-	self.particles:setLinearAcceleration(self.face * 10, 1, self.face * 20, 2)
-	self.particles:emit(1)
+	self.particles:setLinearAcceleration(-self.face * 60, 1, -self.face * 100, -15)
+	self.particles:emit(10)
 end
 local step_sfx2 = function(self) TEsound.play("res/sfx/step.wav", nil, 1)
-	self.particles:emit(2)
+self.particles:setLinearAcceleration(-self.face * 80, 1, -self.face * 120, -20)
+	self.particles:emit(20)
 end
 local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
