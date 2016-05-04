@@ -69,6 +69,8 @@ function Unit:initialize(name, sprite, input, x, y, color)
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
 
+	self.particles = PA_DUST_STEPS:clone()
+
 	--Debug vars
 	self.hurted = false
 
@@ -256,6 +258,8 @@ function Unit:default_draw(l,t,w,h)
 		self.sprite.flip_h = self.face  --TODO get rid of .face
 		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 		DrawInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
+
+		love.graphics.draw(self.particles, self.x, self.y)
 	end
 end
 
@@ -271,6 +275,8 @@ function Unit:checkCollisionAndMove(dt)
 		end)
 	self.x = actualX + 8
 	self.y = actualY + 4
+
+	self.particles:update( dt )
 end
 
 function Unit:calcFriction(dt, friction)

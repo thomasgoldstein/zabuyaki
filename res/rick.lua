@@ -5,8 +5,13 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function() TEsound.play("res/sfx/step.wav", nil, 0.5) end
-local step_sfx2 = function() TEsound.play("res/sfx/step.wav", nil, 1) end
+local step_sfx = function(self) TEsound.play("res/sfx/step.wav", nil, 0.5)
+	self.particles:setLinearAcceleration(self.face * 10, 1, self.face * 20, 2)
+	self.particles:emit(1)
+end
+local step_sfx2 = function(self) TEsound.play("res/sfx/step.wav", nil, 1)
+	self.particles:emit(2)
+end
 local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
