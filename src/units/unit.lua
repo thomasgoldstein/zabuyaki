@@ -1046,7 +1046,7 @@ function Unit:checkForGrab(w, h)
 	--got any Units
 	local items, len = world:queryRect(self.x + self.face*w - w/2, self.y - h/2, w, h,
 		function(o)
-			if o ~= self and o.type == "Player" then
+			if o ~= self and o.type == "player" then
 				return true
 			end
 		end)
