@@ -155,11 +155,7 @@ function Unit:onHurt()
         self.hurt = nil --free hurt data
         return
     end
-    h.damage = h.damage or 100  --TODO debug if u forgot
-	if DEBUG then
-		print(h.source.name .. " damaged "..self.name.." by "..h.damage)
-    end
-    if h.source.victims[self] then  -- if I had dmg from this src already
+	if h.source.victims[self] then  -- if I had dmg from this src already
 		if DEBUG then
 			print("MISS + not Clear HURT due victims list of "..h.source.name)
 		end
@@ -167,7 +163,12 @@ function Unit:onHurt()
     end
     h.source.victims[self] = true
 
-    h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
+	h.damage = h.damage or 100  --TODO debug if u forgot
+	if DEBUG then
+		print(h.source.name .. " damaged "..self.name.." by "..h.damage)
+	end
+
+	h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
 
 	self.hp = self.hp - h.damage
 	self.n_combo = 1	--if u get hit reset combo chain
@@ -325,12 +326,12 @@ function Unit:checkAndAttack(l,t,w,h, damage, type)
     if self.isThrown then
         face = -face    --TODO proper thrown enemy hitbox?
         --TODO not needed since the hitbox is centered
-    end
+	end
 	local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
 		function(item)
 			if self ~= item and item.type ~= "wall"
-                and not self.victims[item]
-            then
+				and not self.victims[item]
+			then
 				--print ("hit "..item.name)
 				return true
 			end
@@ -340,6 +341,37 @@ function Unit:checkAndAttack(l,t,w,h, damage, type)
 		--print("items: ".. #items)
     	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
     end
+	for i = 1,#items do
+		items[i].hurt = {source = self, state = self.state, damage = damage,
+			type = type, velx = self.velx+30,
+			horizontal = self.horizontal,
+			x = self.x, y = self.y, z = z or self.z}
+	end
+end
+
+function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type)
+	-- type = "high" "low" "fall"
+	local face = self.face
+	local g = self.hold
+	if self.isThrown then
+		face = -face    --TODO proper thrown enemy hitbox?
+		--TODO not needed since the hitbox is centered
+	end
+	if not g.target then --can attack only the 1 grabbed
+		return
+	end
+
+	local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+		function(item)
+			if item == g.target then
+				return true
+			end
+		end)
+	--DEBUG to show attack hitBoxes in green
+	if DEBUG then
+		--print("items: ".. #items)
+		attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
+	end
 	for i = 1,#items do
 		items[i].hurt = {source = self, state = self.state, damage = damage,
 			type = type, velx = self.velx+30,

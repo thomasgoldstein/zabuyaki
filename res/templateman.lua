@@ -8,8 +8,8 @@ end
 local step_sfx = function() TEsound.play("res/sfx/step.wav", nil, 0.5) end
 local step_sfx2 = function() TEsound.play("res/sfx/step.wav", nil, 1) end
 local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
-local grabKO_attack = function(self) self:checkAndAttack(20,0, 20,12, 11, "grabKO") end
-local grabLow_attack = function(self) self:checkAndAttack(10,0, 20,12, 8, "low") end
+local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
+local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
 	TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 	if slf.n_combo == 3 then
