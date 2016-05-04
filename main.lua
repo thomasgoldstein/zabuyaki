@@ -30,11 +30,10 @@ function love.load(arg)
 	Camera = require "src/camera"
 	CompoundPicture = require "src/compoPic"
 	Player = require "src/units/unit"
-	Particle = require "src/particle"
 	Rick = require "src/units/rick_unit"
 	Item = require "src/units/item"
 	InfoBar = require "src/infoBar"
-
+	require "res/particles"
 
 	tactile = require 'lib/tactile'
 	KeyTrace = require 'src/keyTrace'
