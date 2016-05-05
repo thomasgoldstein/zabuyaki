@@ -209,7 +209,7 @@ return {
 			delay = 0.05
 		},
 		grabHitEnd = {
-			{ q = q(2,1044,55,63), ox = 30, oy = 62, delay = 0.13 }, --grab end 1.1
+			{ q = q(2,1044,55,63), ox = 30, oy = 62, delay = 0.3 }, --grab end 1.1
 			{ q = q(2,979,44,63), ox = 22, oy = 62, delay = 0.01 }, --grab
 			{ q = q(59,1047,51,60), ox = 17, oy = 59, func = grabKO_attack, delay = 0.25 }, --grab end 1.2
 			{ q = q(112,1044,45,63), ox = 18, oy = 62 }, --grab end 1.3
