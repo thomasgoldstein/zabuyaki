@@ -32,6 +32,7 @@ function love.load(arg)
 	Player = require "src/units/unit"
 	Rick = require "src/units/rick_unit"
 	Item = require "src/units/item"
+	Gopper = require "src/units/gopper_enemy"
 	InfoBar = require "src/infoBar"
 	require "res/particles"
 
