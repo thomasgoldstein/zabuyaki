@@ -7,7 +7,6 @@ end
 
 local step_sfx = function(self) TEsound.play("res/sfx/step.wav", nil, 0.5)
 	self.particles:setLinearAcceleration(-self.face * 60, 1, -self.face * 100, -15)
-	self.particles:emit(10)
 end
 local step_sfx2 = function(self) TEsound.play("res/sfx/step.wav", nil, 1)
 self.particles:setLinearAcceleration(-self.face * 80, 1, -self.face * 120, -20)
