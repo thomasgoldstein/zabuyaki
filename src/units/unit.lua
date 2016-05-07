@@ -56,7 +56,6 @@ function Unit:initialize(name, sprite, input, x, y, color)
 	end
 	self.isHidden = false
 	--self.isEnabled = true
-	self.permAttack = nop
 
 	self.draw = nop
 	self.update = nop
@@ -406,7 +405,6 @@ function Unit:stand_start()
 	self.can_jump = false
 	self.can_fire = false
     self.victims = {}
-	self.permAttack = nop
     self.n_grabhit = 0
 end
 function Unit:stand_update(dt)
@@ -708,7 +706,6 @@ function Unit:duck_start()
 	--TODO should I reset hurt here?
 	--self.hurt = nil --free hurt data
     --self.victims = {}
-	self.permAttack = nop
 	self.z = 0
 
 	self.particles = PA_DUST_LANDING:clone()
@@ -862,9 +859,6 @@ function Unit:dash_update(dt)
 		self:setState(self.stand)
 		return
 	end
-	if self.permAttack then
-		self.permAttack(self)
-	end
 	self:calcFriction(dt, 150)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
@@ -888,9 +882,6 @@ function Unit:jumpAttackForward_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	if self.permAttack then
-		self.permAttack(self)
-	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -913,9 +904,6 @@ function Unit:jumpAttackWeak_update(dt)
 		self:setState(self.duck)
 		return
 	end
-	if self.permAttack then
-		self.permAttack(self)
-	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
@@ -937,9 +925,6 @@ function Unit:jumpAttackStill_update(dt)
 		TEsound.play("res/sfx/land.wav")
 		self:setState(self.duck)
 		return
-	end
-	if self.permAttack then
-		self.permAttack(self)
 	end
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
