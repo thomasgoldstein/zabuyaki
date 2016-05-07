@@ -117,10 +117,14 @@ function UpdateInstance(spr, dt, slf)
 	if not sc.delay then
 		sc.delay = s.delay
 	end
-	-- call custom frame func once per the frame
-	if sc.func and spr.func_called_at_frame ~= spr.curr_frame then
-		spr.func_called_at_frame = spr.curr_frame
+	-- call custom frame func every frame
+	if sc.func then
 		sc.func(slf)
+	end
+	-- call custom frame funcOnce once per the frame
+	if sc.funcOnce and spr.func_called_at_frame ~= spr.curr_frame then
+		spr.func_called_at_frame = spr.curr_frame
+		sc.funcOnce(slf)
 	end
 	--spr.def.animations[spr.curr_anim]
 	--Increment the internal counter.
