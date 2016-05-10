@@ -32,7 +32,7 @@ local combo_attack4 = function(slf)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack5 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 8, "fall", "res/sfx/hit3.wav", true)	-- clear victims
+	slf:checkAndAttack(30,0, 22,12, 8, "fall", nil, true)	-- clear victims
 	slf.cool_down_combo = 0.4
 end
 local dash_attack = function(slf) slf:checkAndAttack(20,0, 55,12, 20, "fall") end
