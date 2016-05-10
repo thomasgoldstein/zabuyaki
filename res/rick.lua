@@ -16,28 +16,22 @@ local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "f
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack1 = function(slf)
-	--TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 	slf:checkAndAttack(30,0, 22,12, 7, "high", "res/sfx/attack1.wav")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf)
-	--TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 	slf:checkAndAttack(30,0, 22,12, 8, "high", "res/sfx/attack1.wav")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf)
-	--TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 	slf:checkAndAttack(30,0, 22,12, 9, "high", "res/sfx/attack1.wav")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf)
-	--TEsound.play("res/sfx/attack1.wav", nil, 2) --air
 	slf:checkAndAttack(30,0, 22,12, 7, "low", "res/sfx/attack1.wav")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack5 = function(slf)
-	--TEsound.play("res/sfx/hit3.wav", nil, 2) --impact
-	--slf.victims = {}
 	slf:checkAndAttack(30,0, 22,12, 8, "fall", "res/sfx/hit3.wav", true)	-- clear victims
 	slf.cool_down_combo = 0.4
 end
