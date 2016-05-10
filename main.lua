@@ -26,7 +26,7 @@ function love.load(arg)
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
 	bump = require "lib/bump"
-	flux = require "lib/flux"
+	tween = require "lib/tween"
 	gamera = require "lib/gamera"
 	Camera = require "src/camera"
 	CompoundPicture = require "src/compoPic"
