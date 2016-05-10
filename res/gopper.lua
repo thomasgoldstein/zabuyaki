@@ -103,11 +103,11 @@ return {
         },
         hurtHigh = {
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
-            delay = 0.1
+            delay = 0.4
         },
         hurtLow = {
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
-            delay = 0.1
+            delay = 0.4
         },
         jumpAttackForward = {
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
