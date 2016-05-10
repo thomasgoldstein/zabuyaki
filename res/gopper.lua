@@ -1,5 +1,5 @@
 local image_w = 80 --This info can be accessed with a Love2D call
-local image_h = 130 --after the image has been loaded
+local image_h = 193 --after the image has been loaded
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -86,10 +86,8 @@ return {
             delay = 0.16
         },
         combo = {
-            { q = q(2,66,36,62), ox = 18, oy = 63 }, --walk 1
-            { q = q(40,67,38,61), ox = 18, oy = 64, func = combo_attack, delay = 0.06 }, --walk 2
-            { q = q(2,2,36,62), ox = 18, oy = 65 }, --stand 1
-            delay = 0.01
+            { q = q(2,130,62,61), ox = 18, oy = 60, func = combo_attack }, --punch
+            delay = 0.1
         },
         fall = {
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
