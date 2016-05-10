@@ -474,9 +474,9 @@ function Unit:stand_update(dt)
 				self:setState(self.pickup)
 				return
 			end
-			self:setState(self.combo)
-			return
 		end
+		self:setState(self.combo)
+		return
 	end
 
 	if not self.b.jump.down then
