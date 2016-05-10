@@ -43,13 +43,7 @@ local combo_attack5 = function(slf)
 end
 local dash_attack = function(slf) slf:checkAndAttack(20,0, 55,12, 20, "fall") end
 local jump_forward_attack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end
-local jump_weak_attack = function(slf)
-	if slf.z > 30 then
-		slf:checkAndAttack(15,0, 22,12, 8, "high")
-	elseif slf.z > 10 then
-		slf:checkAndAttack(15,0, 22,12, 8, "low")
-	end
-end
+local jump_weak_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 8, "high") end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
