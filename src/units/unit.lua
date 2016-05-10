@@ -325,17 +325,20 @@ function Unit:countKeyPressesReset()
      self.mash_count = {left = 0, right = 0, up = 0, down = 0, fire = 0, jump = 0}
 end
 
-function Unit:checkAndAttack(l,t,w,h, damage, type)
+function Unit:checkAndAttack(l,t,w,h, damage, type, sfx, init_victims_list)
     -- type = "high" "low" "fall"
     local face = self.face
     if self.isThrown then
         face = -face    --TODO proper thrown enemy hitbox?
         --TODO not needed since the hitbox is centered
 	end
+	if init_victims_list then
+		self.victims = {}
+	end
 	local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
-		function(item)
-			if self ~= item and item.type ~= "wall"
-				and not self.victims[item]
+		function(obj)
+			if self ~= obj and obj.type ~= "wall"
+				and not self.victims[obj]
 			then
 				--print ("hit "..item.name)
 				return true
@@ -352,9 +355,12 @@ function Unit:checkAndAttack(l,t,w,h, damage, type)
 			horizontal = self.horizontal,
 			x = self.x, y = self.y, z = z or self.z}
 	end
+	if sfx then	--TODO 2 SFX for holloow and hit
+		TEsound.play(sfx, nil, 1)
+	end
 end
 
-function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type)
+function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx)
 	-- type = "high" "low" "fall"
 	local face = self.face
 	local g = self.hold
@@ -367,8 +373,8 @@ function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type)
 	end
 
 	local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
-		function(item)
-			if item == g.target then
+		function(obj)
+			if obj == g.target then
 				return true
 			end
 		end)
@@ -382,6 +388,9 @@ function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type)
 			type = type, velx = self.velx+30,
 			horizontal = self.horizontal,
 			x = self.x, y = self.y, z = z or self.z}
+	end
+	if sfx then	--TODO 2 SFX for holloow and hit
+		TEsound.play(sfx, nil, 1)
 	end
 end
 
