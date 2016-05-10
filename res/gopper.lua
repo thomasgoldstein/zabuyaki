@@ -1,5 +1,5 @@
-local image_w = 40 --This info can be accessed with a Love2D call
-local image_h = 66 --after the image has been loaded
+local image_w = 80 --This info can be accessed with a Love2D call
+local image_h = 130 --after the image has been loaded
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -71,6 +71,9 @@ return {
             delay = 0.167
         },
         walk = { -- 1 2 3 4 5 6
+			{ q = q(2,66,36,62), ox = 18, oy = 61 }, --walk 1
+            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+			{ q = q(40,67,38,61), ox = 19, oy = 60 }, --walk 2
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
             loop = true,
             delay = 0.167
