@@ -18,7 +18,7 @@ local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11,
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
     slf:checkAndAttack(30,0, 22,12, 7, "high", "res/sfx/attack1.wav")
-    slf.cool_down_combo = 0.4
+    slf.cool_down = 0.8
 end
 local dash_attack = function(slf) slf.permAttack = slf:checkAndAttack(20,0, 55,12, 20, "fall") end
 local jump_forward_attack = function(slf) slf.permAttack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end end
@@ -87,7 +87,7 @@ return {
         },
         combo = {
             { q = q(2,130,62,61), ox = 18, oy = 60, func = combo_attack }, --punch
-            delay = 0.1
+            delay = 0.2
         },
         fall = {
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
