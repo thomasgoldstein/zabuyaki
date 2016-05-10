@@ -209,8 +209,8 @@ return {
 		},
 		grabHitLast = {
 			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
-			{ q = q(92,980,49,62), ox = 18, oy = 61, func = grabKO_attack, delay = 0.2 }, --grab attack 1.2
-			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
+			{ q = q(169,916,53,61), ox = 17, oy = 60, func = grabKO_attack, delay = 0.2 }, --dash4
+			{ q = q(117,519,40,63), ox = 17, oy = 62, delay = 0.16 }, --p2.1
 			delay = 0.05
 		},
 		grabHitEnd = {
