@@ -8,6 +8,8 @@ function testState:enter()
     player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 190, 180, {255,255,255, 255})
     player2 = Player:new("TEMPLATEMAN", GetInstance("res/templateman.lua"), button2, 140, 200)
  	gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 270, 204, {255,255,255, 255})
+ 	gopper2 = Gopper:new("GOPNIK 2", GetInstance("res/gopper.lua"), button3, 360, 184, {255,255,255, 255})
+ 	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 470, 190, {255,255,255, 255})
  	dummy0 = Player:new("LOCKY", GetInstance("res/templateman.lua"), button3, 320, 200-24, {239,255,191, 255})
 	dummy1 = Player:new("DICKY", GetInstance("res/rick.lua"), button3, 400, 200-30, {255,239,191, 255})
     dummy1.horizontal = -1
@@ -21,7 +23,9 @@ function testState:enter()
     item2 = Item:new("Apple 2", nil, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180, {239,0,155, 255})
     item3 = Item:new("Coins 3", nil, 0, 100, nil, 850,200, {155,239,0, 255})
 
-    self.entities = {player1, player2, gopper1, dummy0, dummy1, dummy2, dummy3, dummy4,
+    self.entities = {player1, player2,
+        gopper1, gopper2, gopper3,
+        dummy0, dummy1, dummy2, dummy3, dummy4,
         item1, item2, item3,
     }
 
