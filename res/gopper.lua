@@ -70,7 +70,7 @@ return {
             loop = true,
             delay = 0.167
         },
-        walk = { -- 1 2 3 4 5 6
+        walk = {
 			{ q = q(2,66,36,62), ox = 18, oy = 61 }, --walk 1
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
 			{ q = q(40,67,38,61), ox = 19, oy = 60 }, --walk 2
@@ -78,7 +78,7 @@ return {
             loop = true,
             delay = 0.167
         },
-        run = { -- 1 2 3 4 5 6
+        run = {
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
             loop = true,
             delay = 0.1
