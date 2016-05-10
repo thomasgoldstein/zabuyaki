@@ -13,8 +13,8 @@ local function dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
 local function nop() --[[print "nop"]] end
 
 function Gopper:initialize(name, sprite, input, x, y, color)
-    self.move = nil --tween object
     self.tx, self.ty = x, y
+    self.move = tween.new(0.01, self, {tx = x, ty = y})
     self.target = player1    --TODO temp
     Player.initialize(self, name, sprite, input, x, y, color)
     self.type = "enemy"
@@ -58,7 +58,7 @@ Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update =
 --States: Stand, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
 
 function Gopper:stand_start()
-    	print (self.name.." - stand start")
+--    	print (self.name.." - stand start")
     SetSpriteAnim(self.sprite,"stand")
     self.can_jump = false
     self.can_fire = false
@@ -83,7 +83,7 @@ function Gopper:stand_update(dt)
         --print(dist(Player.x, Player.y, self.x, self.y))
         --TODO !!!!!!!!! replace Player with curr target
         local t = dist(self.target.x, self.target.y, self.x, self.y)
-        print(t)
+        --print(t)
         if t < 200 then
             --set dest
             self.move = tween.new(1 + t/100, self, {tx = self.target.x, ty = self.target.y }, 'inOutQuad')
@@ -140,7 +140,7 @@ function Gopper:checkCollisionAndMove(dt)
 end
 
 function Gopper:walk_start()
-    	print (self.name.." - walk start")
+--    	print (self.name.." - walk start")
     SetSpriteAnim(self.sprite,"walk")
     self.can_jump = false
     self.can_fire = false
@@ -148,10 +148,11 @@ function Gopper:walk_start()
 end
 function Gopper:walk_update(dt)
 --    	print (self.name.." - walk update",dt)
-    if self.x == self.tx and self.y == self.ty then
-    end
-
-    if false and self.can_fire then --TODO
+--    if self.x == self.tx and self.y == self.ty then
+--    end
+    local t = dist(self.target.x, self.target.y, self.x, self.y)
+    if self.can_fire and t < 20 then
+        --set dest
         self:setState(self.combo)
         return
     end
@@ -169,16 +170,24 @@ function Gopper:walk_update(dt)
             return
         end
     end]]
-    if self.move then
-        self.move:update( dt )
+    local complete = self.move:update( dt )
+    if complete then
+        --print(t)
+        if t < 300 then
+            --set dest
+            self.move = tween.new(1 + t/100, self, {tx = self.target.x, ty = self.target.y }, 'inOutQuad')
+            --self:setState(self.walk)
+            --return
+        end
     end
+
     self:checkCollisionAndMove(dt)
-    if not self.b.jump.down then
+    --if not self.b.jump.down then
         self.can_jump = true
-    end
-    if not self.b.fire.down then
-        self.can_fire = true
-    end
+    --end
+    --if not self.b.fire.down then
+    self.can_fire = true
+    --end
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
