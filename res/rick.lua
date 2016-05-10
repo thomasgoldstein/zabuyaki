@@ -15,23 +15,31 @@ end
 local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
-local combo_attack = function(slf)
-        TEsound.play("res/sfx/attack1.wav", nil, 2) --air
-		if slf.n_combo == 1 then
-            slf:checkAndAttack(30,0, 22,12, 7, "high")
-        elseif slf.n_combo == 2 then
-            slf:checkAndAttack(30,0, 22,12, 8, "high")
-        elseif slf.n_combo == 3 then
-            slf:checkAndAttack(30,0, 22,12, 9, "high")
-        elseif slf.n_combo == 4 then
-            slf:checkAndAttack(30,0, 22,12, 7, "low")
-            slf.n_combo = 5
-        else -- self.n_combo == 5
-            slf.victims = {}
-            slf:checkAndAttack(30,0, 22,12, 8, "fall")
-            slf.n_combo = 6
-        end
-        slf.cool_down_combo = 0.4
+local combo_attack1 = function(slf)
+	TEsound.play("res/sfx/attack1.wav", nil, 2) --air
+	slf:checkAndAttack(30,0, 22,12, 7, "high")
+	slf.cool_down_combo = 0.4
+end
+local combo_attack2 = function(slf)
+	TEsound.play("res/sfx/attack1.wav", nil, 2) --air
+	slf:checkAndAttack(30,0, 22,12, 8, "high")
+	slf.cool_down_combo = 0.4
+end
+local combo_attack3 = function(slf)
+	TEsound.play("res/sfx/attack1.wav", nil, 2) --air
+	slf:checkAndAttack(30,0, 22,12, 9, "high")
+	slf.cool_down_combo = 0.4
+end
+local combo_attack4 = function(slf)
+	TEsound.play("res/sfx/attack1.wav", nil, 2) --air
+	slf:checkAndAttack(30,0, 22,12, 7, "low")
+	slf.cool_down_combo = 0.4
+end
+local combo_attack5 = function(slf)
+	TEsound.play("res/sfx/attack1.wav", nil, 2) --air
+	slf.victims = {}
+	slf:checkAndAttack(30,0, 22,12, 8, "fall")
+	slf.cool_down_combo = 0.4
 end
 local dash_attack = function(slf) slf:checkAndAttack(20,0, 55,12, 20, "fall") end
 local jump_forward_attack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end
@@ -115,25 +123,25 @@ return {
 		},
 		combo1 = {
 			{ q = q(67,519,48,63), ox = 22, oy = 62 }, --p1.2
-			{ q = q(2,519,63,63), ox = 22, oy = 62, func = combo_attack, delay = 0.06 }, --p1.1
+			{ q = q(2,519,63,63), ox = 22, oy = 62, func = combo_attack1, delay = 0.06 }, --p1.1
 			{ q = q(67,519,48,63), ox = 22, oy = 62 }, --p1.2
 			delay = 0.01
 		},
 		combo2 = {
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.1
-			{ q = q(159,519,60,63), ox = 18, oy = 62, func = combo_attack, delay = 0.08 }, --p2.2
+			{ q = q(159,519,60,63), ox = 18, oy = 62, func = combo_attack2, delay = 0.08 }, --p2.2
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.1
 			delay = 0.04
 		},
 		combo3 = {
 			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
-			{ q = q(41,584,57,63), ox = 17, oy = 62, func = combo_attack, delay = 0.1 }, --p3.2
+			{ q = q(41,584,57,63), ox = 17, oy = 62, func = combo_attack3, delay = 0.1 }, --p3.2
 			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
 			delay = 0.06
 		},
 		combo4 = {
-			{ q = q(2,649,46,62), ox = 15, oy = 62, func = combo_attack, delay = 0.15 }, --k1.1
-			{ q = q(50,650,61,61), ox = 19, oy = 61, func = combo_attack, delay = 0.15 }, --k1.2
+			{ q = q(2,649,46,62), ox = 15, oy = 62, func = combo_attack4, delay = 0.15 }, --k1.1
+			{ q = q(50,650,61,61), ox = 19, oy = 61, func = combo_attack5, delay = 0.15 }, --k1.2
 			{ q = q(113,649,49,62), ox = 14, oy = 62 }, --k1.3
 			{ q = q(164,649,42,63), ox = 16, oy = 62 }, --k1.4
 			delay = 0.06
