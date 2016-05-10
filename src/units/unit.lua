@@ -73,7 +73,7 @@ function Unit:initialize(name, sprite, input, x, y, color)
 	--Debug vars
 	self.hurted = false
 
-	self:setState(Unit.stand)
+	self:setState(self.stand)
 end
 
 function Unit:revive()
@@ -473,11 +473,10 @@ function Unit:stand_update(dt)
 			if self:checkForItem(9, 9) ~= nil then
 				self:setState(self.pickup)
 				return
-            end
-        end
-        self:setState(self.combo)
-        return
-		--end
+			end
+			self:setState(self.combo)
+			return
+		end
 	end
 
 	if not self.b.jump.down then
@@ -1081,7 +1080,7 @@ function Unit:checkForGrab(w, h)
 	--got any Units
 	local items, len = world:queryRect(self.x + self.face*w - w/2, self.y - h/2, w, h,
 		function(o)
-			if o ~= self and o.type == "player" then
+			if o ~= self and (o.type == "player" or o.type == "enemy") then
 				return true
 			end
 		end)
