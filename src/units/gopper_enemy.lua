@@ -23,27 +23,12 @@ function Gopper:initialize(name, sprite, input, x, y, color)
 end
 
 function Gopper:combo_start()
---    	print (self.name.." - combo start")
-    if self.n_combo > 4 then
-        self.n_combo = 1
-    end
-    if self.n_combo == 1 then
-        SetSpriteAnim(self.sprite,"combo1")
-    elseif self.n_combo == 2 then
-        SetSpriteAnim(self.sprite,"combo2")
-    elseif self.n_combo == 3 then
-        SetSpriteAnim(self.sprite,"combo3")
-    elseif self.n_combo == 4 then
-        SetSpriteAnim(self.sprite,"combo4")
-    end
+--  print (self.name.." - combo start")
+    SetSpriteAnim(self.sprite,"combo")
     self.cool_down = 0.2
 end
 function Gopper:combo_update(dt)
     if self.sprite.isFinished then
-        self.n_combo = self.n_combo + 1
-        if self.n_combo > 5 then
-            self.n_combo = 1
-        end
         self:setState(self.stand)
         return
     end

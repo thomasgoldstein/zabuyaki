@@ -17,21 +17,7 @@ local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "f
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
-    TEsound.play("res/sfx/attack1.wav", nil, 2) --air
-    if slf.n_combo == 1 then
-        slf:checkAndAttack(30,0, 22,12, 7, "high")
-    elseif slf.n_combo == 2 then
-        slf:checkAndAttack(30,0, 22,12, 8, "high")
-    elseif slf.n_combo == 3 then
-        slf:checkAndAttack(30,0, 22,12, 9, "high")
-    elseif slf.n_combo == 4 then
-        slf:checkAndAttack(30,0, 22,12, 7, "low")
-        slf.n_combo = 5
-    else -- self.n_combo == 5
-    slf.victims = {}
-    slf:checkAndAttack(30,0, 22,12, 8, "fall")
-    slf.n_combo = 6
-    end
+    slf:checkAndAttack(30,0, 22,12, 7, "high", "res/sfx/attack1.wav")
     slf.cool_down_combo = 0.4
 end
 local dash_attack = function(slf) slf.permAttack = slf:checkAndAttack(20,0, 55,12, 20, "fall") end
@@ -99,21 +85,11 @@ return {
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
             delay = 0.16
         },
-        combo1 = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+        combo = {
+            { q = q(2,66,36,62), ox = 18, oy = 63 }, --walk 1
+            { q = q(40,67,38,61), ox = 18, oy = 64, func = combo_attack, delay = 0.06 }, --walk 2
+            { q = q(2,2,36,62), ox = 18, oy = 65 }, --stand 1
             delay = 0.01
-        },
-        combo2 = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
-            delay = 0.04
-        },
-        combo3 = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
-            delay = 0.06
-        },
-        combo4 = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
-            delay = 0.06
         },
         fall = {
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
