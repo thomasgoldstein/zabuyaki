@@ -766,6 +766,7 @@ function Unit:hurtHigh_update(dt)
         if self.isGrabbed then
             self:setState(self.grabbed)
         else
+            self.cool_down = 0.1
             self:setState(self.stand)
         end
         UpdateInstance(self.sprite, dt, self)   --!!!
@@ -794,6 +795,7 @@ function Unit:hurtLow_update(dt)
         if self.isGrabbed then
             self:setState(self.grabbed)
         else
+            self.cool_down = 0.1
             self:setState(self.stand)
         end
         UpdateInstance(self.sprite, dt, self)   --!!!
