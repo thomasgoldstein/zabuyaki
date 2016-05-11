@@ -9,6 +9,13 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 local function dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
+local function rand1()
+    if love.math.random() < 0.5 then
+        return -1
+    else
+        return 1
+    end
+end
 
 local function nop() --[[print "nop"]] end
 
@@ -20,6 +27,21 @@ function Gopper:initialize(name, sprite, input, x, y, color)
     self.type = "enemy"
     --self:setState(Gopper.stand)
     --print (self.name.." - init 'ed")
+end
+
+function Gopper:checkCollisionAndMove(dt)
+    local stepx = self.velx * dt * self.horizontal
+    local stepy = self.vely * dt * self.vertical
+
+    local actualX, actualY, cols, len = world:move(self, self.tx + stepx - 8, self.ty + stepy- 4,
+        function(Unit, item)
+            if Unit ~= item and item.type == "wall" then
+                return "slide"
+            end
+        end)
+    self.x = actualX + 8
+    self.y = actualY + 4
+    self.particles:update( dt )
 end
 
 function Gopper:combo_start()
@@ -69,51 +91,14 @@ function Gopper:stand_update(dt)
 
     else
         self.cool_down = self.cool_down - dt    --when <=0 u can move
-        --can flip
-        if false then   --self.b.left.down
-            self.face = -1
-            self.horizontal = self.face
-        elseif false then --self.b.right.down
-            self.face = 1
-            self.horizontal = self.face
-        end
     end
-
-    if false and self.can_fire then --TODO can attack self.b.fire.down
-        if self.cool_down <= 0 then
-            self:setState(self.combo)
-            return
-        end
-    end
-
-    if not self.b.jump.down then
-        self.can_jump = true
-    end
-    if not self.b.fire.down then
-        self.can_fire = true
-    end
-
+    self.can_fire = true
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Gopper.stand = {name = "stand", start = Gopper.stand_start, exit = nop, update = Gopper.stand_update, draw = Player.default_draw}
-
-function Gopper:checkCollisionAndMove(dt)
-    local stepx = self.velx * dt * self.horizontal
-    local stepy = self.vely * dt * self.vertical
-
-    local actualX, actualY, cols, len = world:move(self, self.tx + stepx - 8, self.ty + stepy- 4,
-        function(Unit, item)
-            if Unit ~= item and item.type == "wall" then
-                return "slide"
-            end
-        end)
-    self.x = actualX + 8
-    self.y = actualY + 4
-    self.particles:update( dt )
-end
 
 function Gopper:walk_start()
 --    	print (self.name.." - walk start")
@@ -123,7 +108,33 @@ function Gopper:walk_start()
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 300 then
         --set dest
-        self.move = tween.new(1 + t/40, self, {tx = self.target.x + love.math.random( -1, 1 ) * 80 , ty = self.target.y + love.math.random( -1, 1 ) * 10 }, 'inOutQuad')
+        if love.math.random() < 0.25 then
+            --random move arond the player (far from)
+            self.move = tween.new(1 + t/40, self, {tx = self.target.x + rand1() * love.math.random( 70, 85 ) ,
+                ty = self.target.y + rand1() * love.math.random( 20, 35 ) }, 'inOutQuad')
+        else
+            if math.abs(self.x - self.target.x) <= 30
+               and math.abs(self.y - self.target.y) <= 10
+            then
+                --step back(too close)
+                if self.x < self.target.x then
+                    self.move = tween.new(1 + t/40, self, {tx = self.target.x - love.math.random( 40, 60 ) ,
+                        ty = self.target.y + love.math.random( -1, 1 ) * 20 }, 'inOutQuad')
+                else
+                    self.move = tween.new(1 + t/40, self, {tx = self.target.x + love.math.random( 40, 60 ) ,
+                        ty = self.target.y + love.math.random( -1, 1 ) * 20 }, 'inOutQuad')
+                end
+            else
+                --get to player(to fight)
+                if self.x < self.target.x then
+                    self.move = tween.new(1 + t/40, self, {tx = self.target.x - love.math.random( 25, 35 ) ,
+                        ty = self.target.y + love.math.random( -1, 1 ) * love.math.random( 6, 8 ) }, 'inOutQuad')
+                else
+                    self.move = tween.new(1 + t/40, self, {tx = self.target.x + love.math.random( 25, 35 ) ,
+                        ty = self.target.y + love.math.random( -1, 1 ) * love.math.random( 6, 8 ) }, 'inOutQuad')
+                end
+            end
+        end
     end
     if self.target.x < self.x then
         self.face = -1
@@ -137,15 +148,31 @@ end
 function Gopper:walk_update(dt)
 --    	print (self.name.." - walk update",dt)
     --local t = dist(self.target.x, self.target.y, self.x, self.y)
-    if self.can_fire
-            and math.abs(self.x - self.target.x) < 30
-            and math.abs(self.y - self.target.y) < 10
-            and love.math.random() < 0.3
-    then
-        self:setState(self.combo)
-        return
-    end
     local complete = self.move:update( dt )
+
+    if self.can_fire and not complete then
+        if math.abs(self.x - self.target.x) <= 30
+            and math.abs(self.y - self.target.y) <= 10
+            and love.math.random() < 0.005
+        then
+            self:setState(self.combo)
+            return
+        end
+    end
+    if self.can_fire and complete
+            and math.abs(self.x - self.target.x) < 40
+            and math.abs(self.y - self.target.y) < 10
+        --and love.math.random() < 0.3
+    then
+        if love.math.random() < 0.3 then
+            self:setState(self.walk)
+            return
+        else
+            self:setState(self.combo)
+            return
+        end
+    end
+
     if complete then
         if love.math.random() < 0.5 then
             self:setState(self.walk)
