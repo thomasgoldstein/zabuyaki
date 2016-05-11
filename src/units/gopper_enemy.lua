@@ -60,7 +60,6 @@ function Gopper:stand_update(dt)
     end
     if self.cool_down <= 0 then
         --can move
-        --print(dist(Player.x, Player.y, self.x, self.y))
         --TODO !!!!!!!!! replace Player with curr target
         local t = dist(self.target.x, self.target.y, self.x, self.y)
         if t < 100 then
@@ -124,7 +123,7 @@ function Gopper:walk_start()
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 300 then
         --set dest
-        self.move = tween.new(1 + t/50, self, {tx = self.target.x + love.math.random( -100, 100 ) , ty = self.target.y + love.math.random( -50, 50 ) }, 'inOutQuad')
+        self.move = tween.new(1 + t/40, self, {tx = self.target.x + love.math.random( -1, 1 ) * 80 , ty = self.target.y + love.math.random( -1, 1 ) * 10 }, 'inOutQuad')
     end
     if self.target.x < self.x then
         self.face = -1
@@ -139,15 +138,20 @@ function Gopper:walk_update(dt)
 --    	print (self.name.." - walk update",dt)
     --local t = dist(self.target.x, self.target.y, self.x, self.y)
     if self.can_fire
-            and math.abs(self.x - self.target.x) < 40
+            and math.abs(self.x - self.target.x) < 30
             and math.abs(self.y - self.target.y) < 10
+            and love.math.random() < 0.3
     then
         self:setState(self.combo)
         return
     end
     local complete = self.move:update( dt )
     if complete then
-        self:setState(self.walk)
+        if love.math.random() < 0.5 then
+            self:setState(self.walk)
+        else
+            self:setState(self.stand)
+        end
         return
     end
     self:checkCollisionAndMove(dt)
