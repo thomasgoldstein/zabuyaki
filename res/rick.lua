@@ -5,12 +5,12 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function(self) TEsound.play("res/sfx/step.wav", nil, 0.5)
-	self.particles:setLinearAcceleration(-self.face * 60, 1, -self.face * 100, -15)
+local step_sfx = function(self)
+	TEsound.play("res/sfx/step.wav", nil, 0.5)
 end
 local step_sfx2 = function(self) TEsound.play("res/sfx/step.wav", nil, 1)
-self.particles:setLinearAcceleration(-self.face * 80, 1, -self.face * 120, -20)
-	self.particles:emit(20)
+self.pa_dust:setLinearAcceleration(-self.face * 80, 1, -self.face * 120, -20)
+	self.pa_dust:emit(16)
 end
 local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
@@ -129,7 +129,8 @@ return {
 		},
 		combo4 = {
 			{ q = q(2,649,46,62), ox = 15, oy = 62, func = combo_attack4, delay = 0.15 }, --k1.1
-			{ q = q(50,650,61,61), ox = 19, oy = 61, func = combo_attack5, delay = 0.15 }, --k1.2
+			{ q = q(50,650,61,61), ox = 19, oy = 61 }, --k1.2
+			{ q = q(50,650,61,61), ox = 19, oy = 61, func = combo_attack5, delay = 0.09 }, --k1.2
 			{ q = q(113,649,49,62), ox = 14, oy = 62 }, --k1.3
 			{ q = q(164,649,42,63), ox = 16, oy = 62 }, --k1.4
 			delay = 0.06

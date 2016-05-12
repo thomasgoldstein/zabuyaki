@@ -68,7 +68,9 @@ function Unit:initialize(name, sprite, input, x, y, color)
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
 
-	self.particles = PA_DUST_STEPS:clone()
+	self.pa_dust = PA_DUST_STEPS:clone()
+	self.pa_impact_high = PA_IMPACT_BIG:clone()
+	self.pa_impact_low = PA_IMPACT_SMALL:clone()
 
 	--Debug vars
 	self.hurted = false
@@ -185,14 +187,19 @@ function Unit:onHurt()
 		mainCamera:onShake(1, 1, 0.03, 0.3)
 	end
 	if h.type == "high" and self.hp > 0 and self.z <= 0 then
+		self.pa_impact_high:setSpeed( -self.face * 30, -self.face * 60 )
+		self.pa_impact_high:emit(1)
 		self:onShake(1, 0, 0.03, 0.3)
 		self:setState(self.hurtHigh)
 		return
 	elseif h.type == "low" and self.hp > 0 and self.z <= 0 then
+		self.pa_impact_low:setSpeed( -self.face * 30, -self.face * 50 )
+		self.pa_impact_low:emit(1)
 		self:onShake(1, 0, 0.03, 0.3)
 		self:setState(self.hurtLow)
 		return
 	else
+		self.pa_impact_high:emit(1)
 		-- calc falling traectorym speed, direction
 		if h.type == "grabKO" then
 			self.velx = 110
@@ -258,7 +265,10 @@ function Unit:default_draw(l,t,w,h)
 		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 		DrawInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
 
-		love.graphics.draw(self.particles, self.x, self.y + 12)
+		love.graphics.setColor(255, 255, 255, 255)
+		love.graphics.draw(self.pa_dust, self.x, self.y + 12)
+		love.graphics.draw(self.pa_impact_low, self.x, self.y - 24)
+		love.graphics.draw(self.pa_impact_high, self.x, self.y - 48)
 	end
 end
 
@@ -275,7 +285,9 @@ function Unit:checkCollisionAndMove(dt)
 	self.x = actualX + 8
 	self.y = actualY + 4
 
-	self.particles:update( dt )
+	self.pa_dust:update( dt )
+	self.pa_impact_low:update( dt )
+	self.pa_impact_high:update( dt )
 end
 
 function Unit:calcFriction(dt, friction)
@@ -716,8 +728,8 @@ function Unit:duck_start()
     --self.victims = {}
 	self.z = 0
 
-	self.particles = PA_DUST_LANDING:clone()
-	self.particles:emit(30)
+	self.pa_dust = PA_DUST_LANDING:clone()
+	self.pa_dust:emit(30)
 end
 function Unit:duck_update(dt)
 	--	print (self.name.." - duck update",dt)
