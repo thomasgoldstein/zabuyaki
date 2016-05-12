@@ -261,18 +261,24 @@ end
 function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
-		if DEBUG and self.hurted then
+--[[		if DEBUG and self.hurted then
 			self.hurted = false
 			love.graphics.ellipse("fill", self.x, self.y-30, 35, 40)
-		end
+        end]]
+        if DEBUG then
+            love.graphics.setColor(255, 255, 255)
+            love.graphics.line( self.x, self.y+2, self.x, self.y-66 )
+        end
 		self.sprite.flip_h = self.face  --TODO get rid of .face
 		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 		DrawInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
 
 		love.graphics.setColor(255, 255, 255, 255)
-		love.graphics.draw(self.pa_dust, self.x, self.y + 12)
-		love.graphics.draw(self.pa_impact_low, self.x, self.y - 24)
-		love.graphics.draw(self.pa_impact_high, self.x, self.y - 48)
+		love.graphics.draw(self.pa_dust, self.x, self.y)
+		love.graphics.draw(self.pa_impact_low, self.x, self.y)
+		love.graphics.draw(self.pa_impact_high, self.x, self.y)
+--        love.graphics.draw(self.pa_impact_low, self.x, self.y - 24)
+--		love.graphics.draw(self.pa_impact_high, self.x, self.y - 48)
 	end
 end
 
