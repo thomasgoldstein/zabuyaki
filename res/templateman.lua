@@ -105,7 +105,7 @@ return {
 			{ q = q(164,131,69,58), ox = 24, oy = 62, funcCont = dash_attack, delay = 1 }, -- dash 1
 			delay = 0.2
 		},
-		combo12 = {
+		combo1 = {
 			{q = q(2, 266, 56, 61), ox = 20, oy = 60, func = combo_attack, delay = 0.06 }, --p1 *
 			{ q = q(60,265,51,62), ox = 20, oy = 61 }, --p2
 			delay = 0.1

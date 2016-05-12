@@ -32,13 +32,22 @@ end
 function Gopper:checkCollisionAndMove(dt)
     local stepx = self.velx * dt * self.horizontal
     local stepy = self.vely * dt * self.vertical
-
-    local actualX, actualY, cols, len = world:move(self, self.tx + stepx - 8, self.ty + stepy- 4,
-        function(Unit, item)
-            if Unit ~= item and item.type == "wall" then
-                return "slide"
-            end
-        end)
+    local actualX, actualY, cols, len
+    if self.state == "fall" then
+        actualX, actualY, cols, len = world:move(self, self.x + stepx - 8, self.y + stepy- 4,
+            function(Unit, obj)
+                if Unit ~= obj and obj.type == "wall" then
+                    return "slide"
+                end
+            end)
+    else
+        actualX, actualY, cols, len = world:move(self, self.tx + stepx - 8, self.ty + stepy- 4,
+            function(Unit, obj)
+                if Unit ~= obj and obj.type == "wall" then
+                    return "slide"
+                end
+            end)
+    end
     self.x = actualX + 8
     self.y = actualY + 4
 
@@ -49,7 +58,7 @@ end
 
 function Gopper:combo_start()
 --  print (self.name.." - combo start")
-    SetSpriteAnim(self.sprite,"combo")
+    SetSpriteAnim(self.sprite,"combo1")
     self.cool_down = 0.2
 end
 function Gopper:combo_update(dt)
@@ -131,10 +140,10 @@ function Gopper:walk_start()
                 --get to player(to fight)
                 if self.x < self.target.x then
                     self.move = tween.new(1 + t/40, self, {tx = self.target.x - love.math.random( 25, 35 ) ,
-                        ty = self.target.y + love.math.random( -1, 1 ) * love.math.random( 6, 8 ) }, 'inOutQuad')
+                        ty = self.target.y + 1 + love.math.random( -1, 1 ) * love.math.random( 6, 8 ) }, 'inOutQuad')
                 else
                     self.move = tween.new(1 + t/40, self, {tx = self.target.x + love.math.random( 25, 35 ) ,
-                        ty = self.target.y + love.math.random( -1, 1 ) * love.math.random( 6, 8 ) }, 'inOutQuad')
+                        ty = self.target.y + 1 + love.math.random( -1, 1 ) * love.math.random( 6, 8 ) }, 'inOutQuad')
                 end
             end
         end

@@ -199,6 +199,10 @@ function Unit:onHurt()
 		self:setState(self.hurtLow)
 		return
 	else
+		--disable AI movement (for cut scenes & enemy)
+		--self.move = tween.new(0.01, self, {tx = x, ty = y})
+		--self.velx = 200
+
 		self.pa_impact_high:emit(1)
 		-- calc falling traectorym speed, direction
 		if h.type == "grabKO" then
@@ -1061,7 +1065,7 @@ function Unit:combo_start()
 		self.n_combo = 1
 	end
 	if self.n_combo == 1 or self.n_combo == 2 then
-		SetSpriteAnim(self.sprite,"combo12")
+		SetSpriteAnim(self.sprite,"combo1")
 	elseif self.n_combo == 3 then
 		SetSpriteAnim(self.sprite,"combo3")
 	elseif self.n_combo == 4 then

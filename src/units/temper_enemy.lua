@@ -14,7 +14,7 @@ end
 
 function Temper:combo_start()
     --  print (self.name.." - combo start")
-    SetSpriteAnim(self.sprite,"combo12")
+    SetSpriteAnim(self.sprite,"combo1")
     self.cool_down = 0.25
 end
 Temper.combo = {name = "combo", start = Temper.combo_start, exit = nop, update = Gopper.combo_update, draw = Player.default_draw }

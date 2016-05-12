@@ -85,7 +85,7 @@ return {
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
             delay = 0.16
         },
-        combo = {
+        combo1 = {
             { q = q(2,130,62,61), ox = 18, oy = 60, func = combo_attack }, --punch
             delay = 0.2
         },
