@@ -36,7 +36,8 @@ local combo_attack5 = function(slf)
 	slf:checkAndAttack(30,0, 22,12, 8, "fall", nil, true)	-- clear victims
 	slf.cool_down_combo = 0.4
 end
-local dash_attack = function(slf) slf:checkAndAttack(20,0, 55,12, 20, "fall") end
+local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
+local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end
 local jump_weak_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 8, "high") end
 
@@ -105,7 +106,8 @@ return {
 		dash = {
 			{ q = q(2,915,63,62), ox = 37, oy = 61 }, --dash1
 			{ q = q(67,914,38,63), ox = 18, oy = 62, delay = 0.1 }, --dash2
-			{ q = q(107,913,60,64), ox = 17, oy = 63, funcCont = dash_attack }, --dash3
+			{ q = q(107,913,60,64), ox = 17, oy = 63, func = dash_attack1, delay = 0.08 }, --dash3
+			{ q = q(107,913,60,64), ox = 17, oy = 63, func = dash_attack2, delay = 0.08 }, --dash3
 			{ q = q(169,916,53,61), ox = 17, oy = 60 }, --dash4
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.1
 			delay = 0.16
