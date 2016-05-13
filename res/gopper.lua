@@ -5,31 +5,9 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function(self) TEsound.play("res/sfx/step.wav", nil, 0.5)
-self.particles:setLinearAcceleration(-self.face * 60, 1, -self.face * 100, -15)
-self.particles:emit(10)
-end
-local step_sfx2 = function(self) TEsound.play("res/sfx/step.wav", nil, 1)
-self.particles:setLinearAcceleration(-self.face * 80, 1, -self.face * 120, -20)
-self.particles:emit(20)
-end
-local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
-local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
-local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
     slf:checkAndAttack(30,0, 22,12, 7, "high", "res/sfx/attack1.wav")
     slf.cool_down = 0.8
-end
-local dash_attack = function(slf) slf.permAttack = slf:checkAndAttack(20,0, 55,12, 20, "fall") end
-local jump_forward_attack = function(slf) slf.permAttack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end end
-local jump_weak_attack = function(slf)
-    slf.permAttack = function(slf)
-        if slf.z > 30 then
-            slf:checkAndAttack(15,0, 22,12, 8, "high")
-        elseif slf.z > 10 then
-            slf:checkAndAttack(15,0, 22,12, 8, "low")
-        end
-    end
 end
 
 return {
