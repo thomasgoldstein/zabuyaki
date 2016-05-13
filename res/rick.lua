@@ -12,7 +12,8 @@ local step_sfx2 = function(self) TEsound.play("res/sfx/step.wav", nil, 1)
 self.pa_dust:setLinearAcceleration(-self.face * 80, 1, -self.face * 120, -20)
 	self.pa_dust:emit(16)
 end
-local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
+local jump_still_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
+local jump_still_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 12, "fall", nil, true) end
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack1 = function(slf)
@@ -177,8 +178,8 @@ return {
 		},
 		jumpAttackStill = {
 			{ q = q(2,778,38,63), ox = 19, oy = 62, delay = 0.4 }, -- jas1
-			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack, delay = 0.1 }, -- jas2
-			{ q = q(94,778,43,62), ox = 19, oy = 61 }, -- jas3
+			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack1, delay = 0.1 }, -- jas2
+			{ q = q(94,778,43,62), ox = 19, oy = 61, func = jump_still_attack2 }, -- jas3
 			delay = 5
 		},
 		sideStepUp = {
