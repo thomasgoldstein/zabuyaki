@@ -198,11 +198,12 @@ function Unit:onHurt()
 		self:onShake(1, 0, 0.03, 0.3)
 		self:setState(self.hurtLow)
 		return
-	else
-		--disable AI movement (for cut scenes & enemy)
-		--self.move = tween.new(0.01, self, {tx = x, ty = y})
-		--self.velx = 200
-
+    else
+        --disable AI movement (for cut scenes & enemy)
+--[[        if self.move then --disable AI x,y changing
+            print(self.name.." removed AI tween")
+            self.move:remove()
+        end]]
 		self.pa_impact_high:emit(1)
 		-- calc falling traectorym speed, direction
 		if h.type == "grabKO" then
@@ -984,6 +985,9 @@ function Unit:fall_update(dt)
             self.vely = 0
             self.velx = 0
             self.hurted = true
+
+            self.tx, self.ty = self.x, self.y --for enemy with AI movement
+
             --TODO add dmg from the ground?
             TEsound.play("res/sfx/fall.wav")
 			mainCamera:onShake(1, 1, 0.03, 0.3)

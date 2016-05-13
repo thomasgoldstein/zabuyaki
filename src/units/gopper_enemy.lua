@@ -56,6 +56,17 @@ function Gopper:checkCollisionAndMove(dt)
     self.pa_impact_high:update( dt )
 end
 
+--[[
+function Gopper:duck_start()
+    SetSpriteAnim(self.sprite,"duck")
+    self.z = 0
+    self.tx, self.ty = self.x, self.y
+
+    self.pa_dust = PA_DUST_LANDING:clone()
+    self.pa_dust:emit(30)
+end
+]]
+
 function Gopper:combo_start()
 --  print (self.name.." - combo start")
     SetSpriteAnim(self.sprite,"combo1")
@@ -84,7 +95,7 @@ function Gopper:stand_start()
     self.victims = {}
     self.n_grabhit = 0
 
-    self.tx, self.ty = self.x, self.y
+--    self.tx, self.ty = self.x, self.y
 end
 function Gopper:stand_update(dt)
 --    	print (self.name," - stand update",dt)
