@@ -1,5 +1,5 @@
 local tween = {
-    _VERSION     = 'tween 2.1.1',
+    _VERSION     = 'tween 2.2.0',
     _DESCRIPTION = 'tweening for lua',
     _URL         = 'https://github.com/kikito/tween.lua',
     _LICENSE     = [[
@@ -349,6 +349,14 @@ function Tween:update(dt)
     return self:set(self.clock + dt)
 end
 
+function Tween:remove()
+    self.update = function() end
+    self.duration  = nil
+    self.subject   = nil
+    self.target    = nil
+    self.easing    = nil
+    self.clock     = nil
+end
 
 -- Public interface
 
