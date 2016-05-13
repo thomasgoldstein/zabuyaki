@@ -13,7 +13,7 @@ self.pa_dust:setLinearAcceleration(-self.face * 80, 1, -self.face * 120, -20)
 	self.pa_dust:emit(16)
 end
 local jump_still_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
-local jump_still_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 12, "fall", nil, true) end
+local jump_still_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 8, "fall", nil, true) end
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack1 = function(slf)
