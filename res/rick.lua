@@ -139,21 +139,21 @@ return {
 			delay = 0.06
 		},
 		fall = {
-			{ q = q(2,458,60,59), ox = 30, oy = 58, delay = 0.8 },
-			{ q = q(64,487,69,30), ox = 34, oy = 29, delay = 3 },
-			{ q = q(135,464,56,53), ox = 28, oy = 52, delay = 1 },
+			{ q = q(2,458,60,59), ox = 30, oy = 58, delay = 0.8 }, --falling
+			{ q = q(64,487,69,30), ox = 34, oy = 29, delay = 3 }, --lying down
+			{ q = q(135,464,56,53), ox = 28, oy = 52, delay = 1 }, --getting up
 			delay = 0.2
 		},
 		getup = {
-			{ q = q(64,487,69,30), ox = 34, oy = 29, delay = 1 },
-			{ q = q(135,464,56,53), ox = 28, oy = 52 },
+			{ q = q(64,487,69,30), ox = 34, oy = 29, delay = 1 }, --lying down
+			{ q = q(135,464,56,53), ox = 28, oy = 52 }, --getting up
 			{ q = q(48,398,43,58), ox = 21, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
 			delay = 0.2
 		},
 		dead = {
-			{ q = q(135,464,56,53), ox = 28, oy = 52, delay = 1 },
-			{ q = q(64,487,69,30), ox = 34, oy = 29 },
+			{ q = q(135,464,56,53), ox = 28, oy = 52, delay = 1 }, --getting up
+			{ q = q(64,487,69,30), ox = 34, oy = 29 }, --lying down
 			delay = 65
 		},
 		hurtHigh = {
