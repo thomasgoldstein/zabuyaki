@@ -72,15 +72,15 @@ return {
         },
         fall = {
 			{ q = q(2,320,67,43), ox = 33, oy = 42, delay = 0.8 }, --falling
-            { q = q(71,320,66,41), ox = 33, oy = 29, delay = 3 }, --lying down
+            { q = q(71,320,65,42), ox = 32, oy = 29, delay = 3 }, --lying down
             delay = 0.2
         },
         getup = {
-            { q = q(71,320,66,41), ox = 33, oy = 29, delay = 1 }, --lying down
+            { q = q(71,320,65,42), ox = 32, oy = 29, delay = 1 }, --lying down
             delay = 0.2
         },
         dead = {
-            { q = q(71,320,66,41), ox = 33, oy = 29 }, --lying down
+            { q = q(71,320,65,42), ox = 32, oy = 29 }, --lying down
             delay = 65
         },
         hurtHigh = {
