@@ -1,5 +1,5 @@
-local image_w = 116 --This info can be accessed with a Love2D call
-local image_h = 320 --after the image has been loaded
+local image_w = 139 --This info can be accessed with a Love2D call
+local image_h = 365 --after the image has been loaded
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -71,15 +71,16 @@ return {
             delay = 0.2
         },
         fall = {
-            { q = q(43,193,44,62), ox = 26, oy = 61 }, --hh2
+			{ q = q(2,320,67,43), ox = 33, oy = 42, delay = 0.8 }, --falling
+            { q = q(71,320,66,41), ox = 33, oy = 29, delay = 3 }, --lying down
             delay = 0.2
         },
         getup = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(71,320,66,41), ox = 33, oy = 29, delay = 1 }, --lying down
             delay = 0.2
         },
         dead = {
-            { q = q(43,193,44,62), ox = 26, oy = 61 }, --hh2
+            { q = q(71,320,66,41), ox = 33, oy = 29 }, --lying down
             delay = 65
         },
         hurtHigh = {
