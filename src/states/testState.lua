@@ -40,22 +40,22 @@ function testState:enter()
  	gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 270, 204, {255,255,255, 255})
  	gopper2 = Gopper:new("GOPNIK 2", GetInstance("res/gopper.lua"), button3, 360, 184, {255,255,255, 255})
     gopper2.shader = sh_gopper2
- 	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 470, 190, {155,255,255, 255})
+ 	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 470, 190, {255,255,255, 255})
     gopper3.shader = sh_gopper3
     gopper4 = Gopper:new("GOPNIK 4", GetInstance("res/gopper.lua"), button3, 320, 200-24, {255,255,255, 255})
     gopper4.shader = sh_gopper4
 
-    dummy1 = Gopper:new("UNNIE", GetInstance("res/gopper.lua"), button3, 600, 204, {239,191,255, 255})
-	dummy2 = Gopper:new("DORMY", GetInstance("res/gopper.lua"), button3, 500, 200-4, {191,191,255, 255})
-    dummy3 = Gopper:new("RICKER 3", GetInstance("res/rick.lua"), button3, 400, 200-30, {255,239,191, 255})
+    dummy1 = Gopper:new("UNNIE", GetInstance("res/gopper.lua"), button3, 600, 204, {255,255,255, 255})
+	dummy2 = Gopper:new("DORMY", GetInstance("res/gopper.lua"), button3, 500, 200-4, {255,255,255, 255})
+    dummy3 = Gopper:new("RICKER 3", GetInstance("res/rick.lua"), button3, 400, 200-30, {255,255,255, 255})
     dummy3.shader = sh_rick3
     dummy3.horizontal = -1
     dummy3.face = -1
-    dummy4 = Rick:new("Dummie RICK 4", GetInstance("res/rick.lua"), button3, 220, 150, {230,230,230, 255})
+    dummy4 = Rick:new("Dummie RICK 4", GetInstance("res/rick.lua"), button3, 220, 150, {255,255,255, 255})
     dummy4.shader = sh_rick4
     dummy4.horizontal = -1
     dummy4.face = -1
-    dummy5 = Temper:new("LOCKY", GetInstance("res/rick.lua"), button3, 120, 200-24, {239,255,191, 255})
+    dummy5 = Temper:new("LOCKY", GetInstance("res/rick.lua"), button3, 120, 200-24, {255,255,255, 255})
     dummy5.shader = sh_rick5
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
     item1 = Item:new("Apple 1", nil, 10, 1, nil, 200,160, {239,0,55, 255})
