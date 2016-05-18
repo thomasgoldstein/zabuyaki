@@ -4,9 +4,36 @@ function testState:init()
 end
 
 function testState:enter()
+    --create shaders
+    sh_color_player2 = love.graphics.newShader[[
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
+      vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
+      return pixel * color;
+    }
+    ]]
+
+
+    sh_color_player2 = love.graphics.newShader[[
+   extern vec4 colors[3];
+   extern vec4 newColors[3];
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
+        vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
+    if (pixel == colors[0])
+        return newColors[0];
+    if (pixel == colors[1])
+        return newColors[1];
+    if (pixel == colors[2])
+        return newColors[2];
+    return pixel* 2.2;
+    }
+    ]]
+    sh_color_player2:send("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+    sh_color_player2:send("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
+
     --create players
     player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 190, 180, {255,255,255, 255})
     player2 = Player:new("RICK P2", GetInstance("res/rick.lua"), button2, 240, 200)
+    player2.shader = sh_color_player2
  	gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 270, 204, {255,255,255, 255})
  	gopper2 = Gopper:new("GOPNIK 2", GetInstance("res/gopper.lua"), button3, 360, 184, {255,255,255, 255})
  	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 470, 190, {155,255,-128, 255})

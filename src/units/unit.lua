@@ -41,6 +41,7 @@ function Unit:initialize(name, sprite, input, x, y, color)
     self.cool_down = 0  -- can't move
     self.cool_down_combo = 0    -- can cont combo
     self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
+	self.shader = nil	--change player colors
 
 	self.isGrabbed = false
 	self.cool_down_grab = 2
@@ -272,8 +273,13 @@ function Unit:default_draw(l,t,w,h)
         end
 		self.sprite.flip_h = self.face  --TODO get rid of .face
 		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+		if self.shader then
+			love.graphics.setShader(self.shader)
+		end
 		DrawInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
-
+		if self.shader then
+			love.graphics.setShader()
+		end
 		love.graphics.setColor(255, 255, 255, 255)
 		love.graphics.draw(self.pa_dust, self.x, self.y)
 		love.graphics.draw(self.pa_impact_low, self.x, self.y)
