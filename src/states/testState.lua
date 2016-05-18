@@ -22,17 +22,28 @@ function testState:enter()
     sh_rick5:sendColor("newColors", {77,158,111, 255},  {49,130,73, 255},  {28,73,42, 255})   --Emerald
 
     local sh_gopper2 = love.graphics.newShader(sh_replace_3_colors)
-    sh_gopper2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
-    sh_gopper2:sendColor("newColors", {77,158,111, 255},  {49,130,73, 255},  {28,73,42, 255})   --Emerald
+    sh_gopper2:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
+    sh_gopper2:sendColor("newColors", {53,53,53, 255},  {30,30,30, 255},  {15,15,15, 255})   --Black
 
-    --create players
+    local sh_gopper3 = love.graphics.newShader(sh_replace_3_colors)
+    sh_gopper3:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
+    sh_gopper3:sendColor("newColors", {112,48,61, 255},  {73,31,40, 255},  {40,17,22, 255})   --Red
+
+    local sh_gopper4 = love.graphics.newShader(sh_replace_3_colors)
+    sh_gopper4:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
+    sh_gopper4:sendColor("newColors", {56,84,57, 255},  {35,53,36, 255},  {20,30,20, 255})   --Green
+
+    -- create players
     player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 190, 180, {255,255,255, 255})
     player2 = Player:new("RICK P2", GetInstance("res/rick.lua"), button2, 240, 200)
     player2.shader = sh_rick2
  	gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 270, 204, {255,255,255, 255})
  	gopper2 = Gopper:new("GOPNIK 2", GetInstance("res/gopper.lua"), button3, 360, 184, {255,255,255, 255})
+    gopper2.shader = sh_gopper2
  	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 470, 190, {155,255,255, 255})
- 	dummy0 = Gopper:new("GOPNIK 4", GetInstance("res/gopper.lua"), button3, 320, 200-24, {255,255,255, 255})
+    gopper3.shader = sh_gopper3
+    gopper4 = Gopper:new("GOPNIK 4", GetInstance("res/gopper.lua"), button3, 320, 200-24, {255,255,255, 255})
+    gopper4.shader = sh_gopper4
 
     dummy1 = Gopper:new("UNNIE", GetInstance("res/gopper.lua"), button3, 600, 204, {239,191,255, 255})
 	dummy2 = Gopper:new("DORMY", GetInstance("res/gopper.lua"), button3, 500, 200-4, {191,191,255, 255})
@@ -52,8 +63,8 @@ function testState:enter()
     item3 = Item:new("Coins 3", nil, 0, 100, nil, 850,200, {155,239,0, 255})
 
     self.entities = {player1, player2,
-        gopper1, gopper2, gopper3,
-        dummy0, dummy1, dummy2, dummy3, dummy4, dummy5,
+        gopper1, gopper2, gopper3, gopper4,
+        dummy1, dummy2, dummy3, dummy4, dummy5,
         item1, item2, item3,
     }
 
