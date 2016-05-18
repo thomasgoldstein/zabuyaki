@@ -23,48 +23,62 @@ function testState:enter()
 
     local sh_gopper2 = love.graphics.newShader(sh_replace_3_colors)
     sh_gopper2:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
-    sh_gopper2:sendColor("newColors", {53,53,53, 255},  {30,30,30, 255},  {15,15,15, 255})   --Black
+    sh_gopper2:sendColor("newColors", {56,84,57, 255},  {35,53,36, 255},  {20,30,20, 255})   --Green
+
 
     local sh_gopper3 = love.graphics.newShader(sh_replace_3_colors)
     sh_gopper3:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
-    sh_gopper3:sendColor("newColors", {112,48,61, 255},  {73,31,40, 255},  {40,17,22, 255})   --Red
+    sh_gopper3:sendColor("newColors", {53,53,53, 255},  {30,30,30, 255},  {15,15,15, 255})   --Black
+
 
     local sh_gopper4 = love.graphics.newShader(sh_replace_3_colors)
     sh_gopper4:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
-    sh_gopper4:sendColor("newColors", {56,84,57, 255},  {35,53,36, 255},  {20,30,20, 255})   --Green
+    sh_gopper4:sendColor("newColors", {112,48,61, 255},  {73,31,40, 255},  {40,17,22, 255})   --Red
+
 
     -- create players
     player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 190, 180, {255,255,255, 255})
     player2 = Player:new("RICK P2", GetInstance("res/rick.lua"), button2, 240, 200)
     player2.shader = sh_rick2
- 	gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 270, 204, {255,255,255, 255})
+
+    gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 270, 204, {255,255,255, 255})
  	gopper2 = Gopper:new("GOPNIK 2", GetInstance("res/gopper.lua"), button3, 360, 184, {255,255,255, 255})
     gopper2.shader = sh_gopper2
+    gopper2.toughness = 1
  	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 470, 190, {255,255,255, 255})
     gopper3.shader = sh_gopper3
+    gopper3.toughness = 2
     gopper4 = Gopper:new("GOPNIK 4", GetInstance("res/gopper.lua"), button3, 320, 200-24, {255,255,255, 255})
     gopper4.shader = sh_gopper4
+    gopper4.toughness = 3
+    gopper5 = Gopper:new("UNNIE", GetInstance("res/gopper.lua"), button3, 600, 204, {255,255,255, 255})
+    gopper5.toughness = 4
+    gopper6 = Gopper:new("DORMY", GetInstance("res/gopper.lua"), button3, 500, 200-4, {255,255,255, 255})
+    gopper6.toughness = 5
 
-    dummy1 = Gopper:new("UNNIE", GetInstance("res/gopper.lua"), button3, 600, 204, {255,255,255, 255})
-	dummy2 = Gopper:new("DORMY", GetInstance("res/gopper.lua"), button3, 500, 200-4, {255,255,255, 255})
     dummy3 = Gopper:new("RICKER 3", GetInstance("res/rick.lua"), button3, 400, 200-30, {255,255,255, 255})
     dummy3.shader = sh_rick3
     dummy3.horizontal = -1
     dummy3.face = -1
+    dummy3.toughness = 5
+
     dummy4 = Rick:new("Dummie RICK 4", GetInstance("res/rick.lua"), button3, 220, 150, {255,255,255, 255})
     dummy4.shader = sh_rick4
     dummy4.horizontal = -1
     dummy4.face = -1
+    dummy4.toughness = 5
+
     dummy5 = Temper:new("LOCKY", GetInstance("res/rick.lua"), button3, 120, 200-24, {255,255,255, 255})
     dummy5.shader = sh_rick5
+
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
     item1 = Item:new("Apple 1", nil, 10, 1, nil, 200,160, {239,0,55, 255})
     item2 = Item:new("Apple 2", nil, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180, {239,0,155, 255})
     item3 = Item:new("Coins 3", nil, 0, 100, nil, 850,200, {155,239,0, 255})
 
     self.entities = {player1, player2,
-        gopper1, gopper2, gopper3, gopper4,
-        dummy1, dummy2, dummy3, dummy4, dummy5,
+        gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
+        dummy3, dummy4, dummy5,
         item1, item2, item3,
     }
 
