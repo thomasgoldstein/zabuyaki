@@ -5,41 +5,47 @@ end
 
 function testState:enter()
     --create shaders
-    sh_replace_3_colors = love.graphics.newShader[[
-   extern vec4 colors[3];
-   extern vec4 newColors[3];
-    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
-        vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
-    if (pixel == colors[0])
-        return newColors[0];
-    if (pixel == colors[1])
-        return newColors[1];
-    if (pixel == colors[2])
-        return newColors[2];
-    return pixel;
-    }
-    ]]
-    sh_replace_3_colors:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
-    sh_replace_3_colors:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
+    local sh_rick2 = love.graphics.newShader(sh_replace_3_colors)
+    sh_rick2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+    sh_rick2:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})   --Blue
+
+    local sh_rick3 = love.graphics.newShader(sh_replace_3_colors)
+    sh_rick3:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+    sh_rick3:sendColor("newColors", {111,77,158, 255},  {73,49,130, 255},  {42,28,73, 255}) --Purple
+
+    local sh_rick4 = love.graphics.newShader(sh_replace_3_colors)
+    sh_rick4:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+    sh_rick4:sendColor("newColors", {70,70,70, 255},  {45,45,45, 255},  {11,11,11, 255})   --Black
+
+    local sh_rick5 = love.graphics.newShader(sh_replace_3_colors)
+    sh_rick5:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+    sh_rick5:sendColor("newColors", {77,158,111, 255},  {49,130,73, 255},  {28,73,42, 255})   --Emerald
+
+    local sh_gopper2 = love.graphics.newShader(sh_replace_3_colors)
+    sh_gopper2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+    sh_gopper2:sendColor("newColors", {77,158,111, 255},  {49,130,73, 255},  {28,73,42, 255})   --Emerald
 
     --create players
     player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 190, 180, {255,255,255, 255})
     player2 = Player:new("RICK P2", GetInstance("res/rick.lua"), button2, 240, 200)
-    player2.shader = sh_replace_3_colors
+    player2.shader = sh_rick2
  	gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 270, 204, {255,255,255, 255})
  	gopper2 = Gopper:new("GOPNIK 2", GetInstance("res/gopper.lua"), button3, 360, 184, {255,255,255, 255})
- 	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 470, 190, {155,255,-128, 255})
- 	dummy0 = Gopper:new("GOPNIK 4", GetInstance("res/gopper.lua"), button3, 320, 200-24, {239,255,191, 255})
-	dummy1 = Gopper:new("ROPPER", GetInstance("res/rick.lua"), button3, 400, 200-30, {255,239,191, 255})
-    dummy1.horizontal = -1
-    dummy1.face = -1
+ 	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 470, 190, {155,255,255, 255})
+ 	dummy0 = Gopper:new("GOPNIK 4", GetInstance("res/gopper.lua"), button3, 320, 200-24, {255,255,255, 255})
+
+    dummy1 = Gopper:new("UNNIE", GetInstance("res/gopper.lua"), button3, 600, 204, {239,191,255, 255})
 	dummy2 = Gopper:new("DORMY", GetInstance("res/gopper.lua"), button3, 500, 200-4, {191,191,255, 255})
-	dummy3 = Gopper:new("UNNIE", GetInstance("res/gopper.lua"), button3, 600, 204, {239,191,255, 255})
-    dummy4 = Rick:new("Dummie RICK", GetInstance("res/rick.lua"), button3, 220, 150, {230,230,230, 255})
+    dummy3 = Gopper:new("RICKER 3", GetInstance("res/rick.lua"), button3, 400, 200-30, {255,239,191, 255})
+    dummy3.shader = sh_rick3
+    dummy3.horizontal = -1
+    dummy3.face = -1
+    dummy4 = Rick:new("Dummie RICK 4", GetInstance("res/rick.lua"), button3, 220, 150, {230,230,230, 255})
+    dummy4.shader = sh_rick4
     dummy4.horizontal = -1
     dummy4.face = -1
     dummy5 = Temper:new("LOCKY", GetInstance("res/rick.lua"), button3, 120, 200-24, {239,255,191, 255})
-
+    dummy5.shader = sh_rick5
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
     item1 = Item:new("Apple 1", nil, 10, 1, nil, 200,160, {239,0,55, 255})
     item2 = Item:new("Apple 2", nil, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180, {239,0,155, 255})
