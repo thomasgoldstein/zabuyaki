@@ -27,8 +27,8 @@ function testState:enter()
     return pixel* 2.2;
     }
     ]]
-    sh_color_player2:send("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
-    sh_color_player2:send("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
+    sh_color_player2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+    sh_color_player2:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
 
     --create players
     player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 190, 180, {255,255,255, 255})
