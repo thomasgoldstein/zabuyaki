@@ -29,6 +29,8 @@ function love.load(arg)
 	tween = require "lib/tween"
 	gamera = require "lib/gamera"
 	Camera = require "src/camera"
+	require "res/particles"
+	require "res/shaders"
 	CompoundPicture = require "src/compoPic"
 	Player = require "src/units/unit"
 	Rick = require "src/units/rick_unit"
@@ -36,7 +38,6 @@ function love.load(arg)
 	Gopper = require "src/units/gopper_enemy"
 	Temper = require "src/units/temper_enemy"
 	InfoBar = require "src/infoBar"
-	require "res/particles"
 
 	tactile = require 'lib/tactile'
 	KeyTrace = require 'src/keyTrace'
