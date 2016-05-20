@@ -84,7 +84,7 @@ return {
         },
         dead = {
 			{ q = q(138,194,56,49), ox = 25, oy = 48, delay = 1 }, --getting up
-            { q = q(71,264,65,42), ox = 32, oy = 29 }, --lying down
+            { q = q(71,201,65,42), ox = 32, oy = 29 }, --lying down
             delay = 65
         },
         hurtHigh = {
