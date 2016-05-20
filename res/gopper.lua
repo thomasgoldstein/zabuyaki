@@ -80,7 +80,7 @@ return {
             { q = q(71,201,65,42), ox = 32, oy = 29, delay = 1 }, --lying down
 			{ q = q(138,194,56,49), ox = 25, oy = 48 }, --getting up
 			{ q = q(66,72,38,56), ox = 19, oy = 55 }, --idle
-            delay = 0.2
+            delay = 0.3
         },
         dead = {
 			{ q = q(138,194,56,49), ox = 25, oy = 48, delay = 1 }, --getting up
