@@ -7,10 +7,6 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
---local check_mash = function(self) self.check_mash = true end	-- check if attack key pressed
---local step_sfx = function() TEsound.play("res/sfx/step.wav", nil, 0.5) end
---local step_sfx2 = function() TEsound.play("res/sfx/step.wav", nil, 1) end
-
 return {
     serialization_version = 0.42, -- The version of this serialization process
 

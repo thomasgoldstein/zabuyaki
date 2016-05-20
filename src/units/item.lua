@@ -67,9 +67,9 @@ function Item:get(taker)
         self:func(taker)
     end
     if self.hp > self.score then
-        TEsound.play("res/sfx/pickup1.wav", nil, 1)
+        sfx.play("pickup1")
     else
-        TEsound.play("res/sfx/pickup2.wav", nil, 1)
+        sfx.play("pickup2")
     end
     taker.hp = taker.hp + self.hp
     if taker.hp > taker.max_hp then

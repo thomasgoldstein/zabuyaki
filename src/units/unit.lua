@@ -209,10 +209,10 @@ function Unit:onHurt()
 		-- calc falling traectorym speed, direction
 		if h.type == "grabKO" then
 			self.velx = 110
-			TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hitKO sound
+			sfx.play("hit") -- hitKO sound
 		else
 			self.velx = h.velx
-			TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit sound
+			sfx.play("hit") -- hit sound
 		end
 		--self.vely = 0	-- h.vely
 		if self.x < h.source.x then
@@ -354,7 +354,7 @@ function Unit:countKeyPressesReset()
      self.mash_count = {left = 0, right = 0, up = 0, down = 0, fire = 0, jump = 0}
 end
 
-function Unit:checkAndAttack(l,t,w,h, damage, type, sfx, init_victims_list)
+function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
     -- type = "high" "low" "fall"
     local face = self.face
     if self.isThrown then
@@ -384,12 +384,12 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx, init_victims_list)
 			horizontal = self.horizontal,
 			x = self.x, y = self.y, z = z or self.z}
 	end
-	if sfx then	--TODO 2 SFX for holloow and hit
-		TEsound.play(sfx, nil, 1)
+	if sfx1 then	--TODO 2 SFX for holloow and hit
+		sfx.play(sfx1)
 	end
 end
 
-function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx)
+function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx1)
 	-- type = "high" "low" "fall"
 	local face = self.face
 	local g = self.hold
@@ -418,8 +418,8 @@ function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx)
 			horizontal = self.horizontal,
 			x = self.x, y = self.y, z = z or self.z}
 	end
-	if sfx then	--TODO 2 SFX for holloow and hit
-		TEsound.play(sfx, nil, 1)
+	if sfx1 then	--TODO 2 SFX for holloow and hit
+		sfx.play(sfx1)
 	end
 end
 
@@ -674,7 +674,7 @@ function Unit:jump_start()
     if self.vely ~= 0 then
         self.vely = self.vely + 5 --make jump little faster than the walk/run speed
     end
-    TEsound.play("res/sfx/jump.wav")
+	sfx.play("jump")
 end
 function Unit:jump_update(dt)
     --	print (self.name.." - jump update",dt)
@@ -697,7 +697,7 @@ function Unit:jump_update(dt)
     else
         self.velz = 0
         self.z = 0
-        TEsound.play("res/sfx/land.wav")
+		sfx.play("land")
         self:setState(self.duck)
         return
     end
@@ -783,7 +783,7 @@ function Unit:hurtHigh_start()
 --	print (self.name.." - hurtHigh start")
 	SetSpriteAnim(self.sprite,"hurtHigh")
 	self.hurted = true
-	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
+	sfx.play("hit")
 end
 function Unit:hurtHigh_update(dt)
 	--	print (self.name.." - hurtHigh update",dt)
@@ -812,7 +812,7 @@ function Unit:hurtLow_start()
 --	print (self.name.." - hurtLow start")
 	SetSpriteAnim(self.sprite,"hurtLow")
 	self.hurted = true
-	TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
+	sfx.play("hit")
 end
 function Unit:hurtLow_update(dt)
 	--	print (self.name.." - hurtLow update",dt)
@@ -841,7 +841,7 @@ function Unit:sideStepDown_start()
 --	print (self.name.." - sideStepDown start")
 	SetSpriteAnim(self.sprite,"sideStepDown")
     self.velx, self.vely = 0, 220
-    TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfx
+	sfx.play("jump")    --TODO replace to side step sfx
 end
 function Unit:sideStepDown_update(dt)
 	--	print (self.name.." - sideStepDown update",dt)
@@ -851,7 +851,7 @@ function Unit:sideStepDown_update(dt)
 	else
         self.vely = 0
 		self.z = 0
-		TEsound.play("res/sfx/land.wav", nil, 0.3)
+		sfx.play("land")
 		self:setState(self.duck)
 		return
 	end
@@ -865,7 +865,7 @@ function Unit:sideStepUp_start()
     --	print (self.name.." - sideStepUp start")
 	SetSpriteAnim(self.sprite,"sideStepUp")
     self.velx, self.vely = 0, 220
-    TEsound.play("res/sfx/jump.wav")    --TODO replace to side step sfx
+	sfx.play("jump")    --TODO replace to side step sfx
 end
 function Unit:sideStepUp_update(dt)
     --	print (self.name.." - sideStepUp update",dt)
@@ -875,7 +875,7 @@ function Unit:sideStepUp_update(dt)
     else
         self.vely = 0
 		self.z = 0
-        TEsound.play("res/sfx/land.wav", nil, 0.3)
+		sfx.play("land", nil, 0.3)
         self:setState(self.duck)
         return
     end
@@ -891,7 +891,7 @@ function Unit:dash_start()
 	self.velx = 150
 	self.vely = 0
 	self.velz = 0
-	TEsound.play("res/sfx/jump.wav")
+	sfx.play("jump")
 end
 function Unit:dash_update(dt)
 	if self.sprite.isFinished then
@@ -917,7 +917,7 @@ function Unit:jumpAttackForward_update(dt)
 	else
 		self.velz = 0
 		self.z = 0
-		TEsound.play("res/sfx/land.wav")
+		sfx.play("land")
 		self:setState(self.duck)
 		return
 	end
@@ -939,7 +939,7 @@ function Unit:jumpAttackWeak_update(dt)
 	else
 		self.velz = 0
 		self.z = 0
-		TEsound.play("res/sfx/land.wav")
+		sfx.play("land")
 		self:setState(self.duck)
 		return
 	end
@@ -961,7 +961,7 @@ function Unit:jumpAttackStill_update(dt)
 	else
 		self.velz = 0
 		self.z = 0
-		TEsound.play("res/sfx/land.wav")
+		sfx.play("land")
 		self:setState(self.duck)
 		return
 	end
@@ -978,7 +978,7 @@ function Unit:fall_start()
 		self.z = 0
 	end
 	self.hurted = true
-	--TEsound.play("res/sfx/hit3.wav", nil, 0.25) -- hit
+	--sfx.play("hit")
 end
 function Unit:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
@@ -995,7 +995,7 @@ function Unit:fall_update(dt)
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
             --TODO add dmg from the ground?
-            TEsound.play("res/sfx/fall.wav")
+			sfx.play("fall")
 			mainCamera:onShake(1, 1, 0.03, 0.3)
 			if self.hp <= 0 then
 				self:setState(self.dead)
@@ -1064,7 +1064,7 @@ function Unit:dead_start()
 		self.z = 0
 	end
 	self:onShake(3, 0, 0.1, 0.7)
-	TEsound.play("res/sfx/grunt1.wav")
+	sfx.play("grunt1")
 end
 function Unit:dead_update(dt)
 	--print(self.name .. " - dead update", dt)
@@ -1189,7 +1189,7 @@ function Unit:grab_start()
 	if DEBUG then
 		print(self.name.." is grabing someone.")
     end
-	--TEsound.play("res/sfx/grunt1.wav")
+	--sfx.play("?")
 end
 function Unit:grab_update(dt)
 	--print(self.name .. " - grab update", dt)
@@ -1259,7 +1259,7 @@ function Unit:grabbed_start()
 		print(self.name.." is grabbed.")
 	end
 	--self:onShake(0.5, 2, 0.15, 1)
-	--TEsound.play("res/sfx/grunt1.wav")
+	--sfx.play("?")
 end
 function Unit:grabbed_update(dt)
 	--print(self.name .. " - grabbed update", dt)
@@ -1305,7 +1305,7 @@ function Unit:grabHit_start()
 	if DEBUG then
 		print(self.name.." is grabhit someone.")
 	end
-    --TEsound.play("res/sfx/grunt1.wav")
+    --sfx.play("?")
 end
 function Unit:grabHit_update(dt)
     --print(self.name .. " - grabhit update", dt)
@@ -1326,7 +1326,7 @@ function Unit:grabHitLast_start()
 	if DEBUG then
 		print(self.name.." is grabHitLast someone.")
 	end
-	--TEsound.play("res/sfx/grunt1.wav")
+	--sfx.play("?")
 end
 function Unit:grabHitLast_update(dt)
 	--print(self.name .. " - grabHitLast update", dt)
@@ -1347,7 +1347,7 @@ function Unit:grabHitEnd_start()
     if DEBUG then
         print(self.name.." is grabhitend someone.")
     end
-    --TEsound.play("res/sfx/grunt1.wav")
+    --sfx.play("?")
 end
 function Unit:grabHitEnd_update(dt)
     --print(self.name .. " - grabhitend update", dt)
@@ -1388,7 +1388,7 @@ function Unit:grabThrow_start()
         t.face = -1
     end
     t:setState(self.fall)
-	TEsound.play("res/sfx/jump.wav", nil) -- throw sound
+	sfx.play("jump") --TODO add throw sound
 end
 function Unit:grabThrow_update(dt)
     --print(self.name .. " - grabThrow update", dt)

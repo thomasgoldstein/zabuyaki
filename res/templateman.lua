@@ -5,13 +5,12 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function() TEsound.play("res/sfx/step.wav", nil, 0.5) end
-local step_sfx2 = function() TEsound.play("res/sfx/step.wav", nil, 1) end
+local step_sfx = function() sfx.play("step") end
 local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
-	TEsound.play("res/sfx/attack1.wav", nil, 2) --air
+	sfx.play("air")
 	if slf.n_combo == 3 then
 		slf:checkAndAttack(25,0, 20,12, 10, "high")
 	elseif slf.n_combo == 4 then
@@ -73,11 +72,11 @@ return {
 			delay = 0.11
 		},
 		run = { -- 1 2 3 2 1 4 5 4
-			{q = q(2, 200, 33, 63), ox = 14, oy = 62, func = step_sfx2},
+			{q = q(2, 200, 33, 63), ox = 14, oy = 62, func = step_sfx},
 			{q = q(37, 201, 48, 61), ox = 21, oy = 61},
 			{q = q(87, 202, 51, 55), ox = 24, oy = 60},
 			{q = q(37, 201, 48, 61), ox = 21, oy = 61},
-			{q = q(2, 200, 33, 63), ox = 14, oy = 62, func = step_sfx2},
+			{q = q(2, 200, 33, 63), ox = 14, oy = 62, func = step_sfx},
 			{q = q(140, 201, 45, 58), ox = 20, oy = 61},
 			{q = q(187, 202, 51, 55), ox = 23, oy = 60},
 			{q = q(140, 201, 45, 58), ox = 20, oy = 61},

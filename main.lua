@@ -29,6 +29,7 @@ function love.load(arg)
 	tween = require "lib/tween"
 	gamera = require "lib/gamera"
 	Camera = require "src/camera"
+	sfx = require "res/preload_sfx"
 	require "res/particles"
 	require "res/shaders"
 	CompoundPicture = require "src/compoPic"

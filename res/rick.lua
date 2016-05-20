@@ -5,11 +5,10 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function(self)
-	TEsound.play("res/sfx/step.wav", nil, 0.5)
-end
-local step_sfx2 = function(self) TEsound.play("res/sfx/step.wav", nil, 1)
-self.pa_dust:setLinearAcceleration(-self.face * 80, 1, -self.face * 120, -20)
+local step_sfx = function() sfx.play("step") end
+local step_sfx2 = function(self)
+	sfx.play("step")
+	self.pa_dust:setLinearAcceleration(-self.face * 80, 1, -self.face * 120, -20)
 	self.pa_dust:emit(16)
 end
 local jump_still_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
@@ -17,19 +16,19 @@ local jump_still_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 8, "f
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack1 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 7, "high", "res/sfx/attack1.wav")
+	slf:checkAndAttack(30,0, 22,12, 7, "high", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 8, "high", "res/sfx/attack1.wav")
+	slf:checkAndAttack(30,0, 22,12, 8, "high", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 9, "high", "res/sfx/attack1.wav")
+	slf:checkAndAttack(30,0, 22,12, 9, "high", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 7, "low", "res/sfx/attack1.wav")
+	slf:checkAndAttack(30,0, 22,12, 7, "low", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack5 = function(slf)

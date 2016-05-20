@@ -25,8 +25,7 @@ function Gopper:initialize(name, sprite, input, x, y, color)
     self.target = player1    --TODO temp
     Player.initialize(self, name, sprite, input, x, y, color)
     self.type = "enemy"
-    --self:setState(Gopper.stand)
-    --print (self.name.." - init 'ed")
+    self.toughness = 0 --0 slow .. 5 fast, more aggressive
 end
 
 function Gopper:checkCollisionAndMove(dt)
@@ -55,17 +54,6 @@ function Gopper:checkCollisionAndMove(dt)
     self.pa_impact_low:update( dt )
     self.pa_impact_high:update( dt )
 end
-
---[[
-function Gopper:duck_start()
-    SetSpriteAnim(self.sprite,"duck")
-    self.z = 0
-    self.tx, self.ty = self.x, self.y
-
-    self.pa_dust = PA_DUST_LANDING:clone()
-    self.pa_dust:emit(30)
-end
-]]
 
 function Gopper:combo_start()
 --  print (self.name.." - combo start")
@@ -107,7 +95,7 @@ function Gopper:stand_update(dt)
         --can move
         --TODO !!!!!!!!! replace Player with curr target
         local t = dist(self.target.x, self.target.y, self.x, self.y)
-        if t < 100 then
+        if t < 100 + self.toughness * 10 then
             self:setState(self.walk)
             return
         end
@@ -133,7 +121,7 @@ function Gopper:walk_start()
         --set dest
         if love.math.random() < 0.25 then
             --random move arond the player (far from)
-            self.move = tween.new(1 + t/40, self, {tx = self.target.x + rand1() * love.math.random( 70, 85 ) ,
+            self.move = tween.new(1 + t/(40+self.toughness), self, {tx = self.target.x + rand1() * love.math.random( 70, 85 ) ,
                 ty = self.target.y + rand1() * love.math.random( 20, 35 ) }, 'inOutQuad')
         else
             if math.abs(self.x - self.target.x) <= 30
@@ -141,19 +129,19 @@ function Gopper:walk_start()
             then
                 --step back(too close)
                 if self.x < self.target.x then
-                    self.move = tween.new(1 + t/40, self, {tx = self.target.x - love.math.random( 40, 60 ) ,
+                    self.move = tween.new(1 + t/(40+self.toughness), self, {tx = self.target.x - love.math.random( 40, 60 ) ,
                         ty = self.target.y + love.math.random( -1, 1 ) * 20 }, 'inOutQuad')
                 else
-                    self.move = tween.new(1 + t/40, self, {tx = self.target.x + love.math.random( 40, 60 ) ,
+                    self.move = tween.new(1 + t/(40+self.toughness), self, {tx = self.target.x + love.math.random( 40, 60 ) ,
                         ty = self.target.y + love.math.random( -1, 1 ) * 20 }, 'inOutQuad')
                 end
             else
                 --get to player(to fight)
                 if self.x < self.target.x then
-                    self.move = tween.new(1 + t/40, self, {tx = self.target.x - love.math.random( 25, 35 ) ,
+                    self.move = tween.new(1 + t/(40+self.toughness), self, {tx = self.target.x - love.math.random( 25, 35 ) ,
                         ty = self.target.y + 1 + love.math.random( -1, 1 ) * love.math.random( 6, 8 ) }, 'inOutQuad')
                 else
-                    self.move = tween.new(1 + t/40, self, {tx = self.target.x + love.math.random( 25, 35 ) ,
+                    self.move = tween.new(1 + t/(40+self.toughness), self, {tx = self.target.x + love.math.random( 25, 35 ) ,
                         ty = self.target.y + 1 + love.math.random( -1, 1 ) * love.math.random( 6, 8 ) }, 'inOutQuad')
                 end
             end
@@ -176,7 +164,7 @@ function Gopper:walk_update(dt)
     if self.can_fire and not complete then
         if math.abs(self.x - self.target.x) <= 30
             and math.abs(self.y - self.target.y) <= 10
-            and love.math.random() < 0.005
+            and love.math.random() < 0.005 + self.toughness * 0.001
         then
             self:setState(self.combo)
             return
@@ -187,7 +175,7 @@ function Gopper:walk_update(dt)
             and math.abs(self.y - self.target.y) < 10
         --and love.math.random() < 0.3
     then
-        if love.math.random() < 0.3 then
+        if love.math.random() < 0.3 - self.toughness * 0.03 then
             self:setState(self.walk)
             return
         else
