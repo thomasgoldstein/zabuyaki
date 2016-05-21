@@ -164,9 +164,10 @@ function Unit:onHurt()
 			print("MISS + not Clear HURT due victims list of "..h.source.name)
 		end
         return
-    end
-    h.source.victims[self] = true
+	end
 
+    h.source.victims[self] = true
+	self:release_grabbed()
 	h.damage = h.damage or 100  --TODO debug if u forgot
 	if DEBUG then
 		print(h.source.name .. " damaged "..self.name.." by "..h.damage)
@@ -180,10 +181,7 @@ function Unit:onHurt()
 	self.face = -h.source.face	--turn face to the attacker
 
 	self.hurt = nil --free hurt data
---[[	if self.isGrabbed then
-		--TODO temp release
-		self.isGrabbed = false
-	end]]
+
 	if self.id <= 2 then	--for Unit 1 + 2 only
 		mainCamera:onShake(1, 1, 0.03, 0.3)
 	end
@@ -1058,8 +1056,8 @@ function Unit:dead_start()
 	end
 	--TODO dead event
 	self.hp = 0
-
 	self.hurt = nil
+	self:release_grabbed()
 	if self.z <= 0 then
 		self.z = 0
 	end
@@ -1251,6 +1249,17 @@ function Unit:grab_update(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
 Unit.grab = {name = "grab", start = Unit.grab_start, exit = nop, update = Unit.grab_update, draw = Unit.default_draw}
+
+function Unit:release_grabbed()
+	local g = self.hold
+	if g and g.target and g.target.isGrabbed then
+		g.target.isGrabbed = false
+		g.target.cool_down = 0.1
+		self.hold = {source = nil, target = nil, cool_down = 0 }	--release a grabbed person
+		return true
+	end
+	return false
+end
 
 function Unit:grabbed_start()
 	--print (self.name.." - grabbed start")
