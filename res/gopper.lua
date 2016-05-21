@@ -46,24 +46,24 @@ return {
             delay = 0.167
         },
         run = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             loop = true,
             delay = 0.1
         },
         jump = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
         duck = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.15
         },
         pickup = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
         dash = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.16
         },
         combo1 = {
@@ -100,43 +100,43 @@ return {
             delay = 0.3
         },
         jumpAttackForward = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
         jumpAttackWeak = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
         jumpAttackStill = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
         sideStepUp = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         sideStepDown = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grab = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabHit = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
         grabHitLast = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
         grabHitEnd = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.1
         },
         grabThrow = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabSwap = {
-            { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
+            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbed = {
             { q = q(43,129,44,62), ox = 26, oy = 61 }, --hh2
