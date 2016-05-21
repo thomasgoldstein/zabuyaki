@@ -138,10 +138,8 @@ return {
 			delay = 0.06
 		},
 		fall = {
-			{ q = q(2,458,60,59), ox = 30, oy = 58, delay = 0.8 }, --falling
-			{ q = q(64,487,69,30), ox = 34, oy = 29, delay = 3 }, --lying down
-			{ q = q(135,464,56,53), ox = 28, oy = 52, delay = 1 }, --getting up
-			delay = 0.2
+			{ q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
+			delay = 5
 		},
 		getup = {
 			{ q = q(64,487,69,30), ox = 34, oy = 29, delay = 1 }, --lying down

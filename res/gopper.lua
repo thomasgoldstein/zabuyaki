@@ -71,10 +71,8 @@ return {
             delay = 0.2
         },
         fall = {
-			{ q = q(2,199,67,43), ox = 33, oy = 42, delay = 0.8 }, --falling
-			{ q = q(71,200,65,42), ox = 32, oy = 31, delay = 3 }, --lying down
-			{ q = q(138,193,56,49), ox = 25, oy = 48 }, --getting up
-            delay = 0.2
+			{ q = q(2,199,67,43), ox = 33, oy = 42 }, --falling
+            delay = 5
         },
         getup = {
             { q = q(71,200,65,42), ox = 32, oy = 31, delay = 1 }, --lying down
