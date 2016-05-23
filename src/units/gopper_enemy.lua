@@ -25,7 +25,15 @@ function Gopper:initialize(name, sprite, input, x, y, color)
     self.target = player1    --TODO temp
     Player.initialize(self, name, sprite, input, x, y, color)
     self.type = "enemy"
-    self.toughness = 0 --0 slow .. 5 fast, more aggressive
+    self:setToughness(0)
+end
+
+function Gopper:setToughness(t)
+    self.toughness = t
+    self.max_hp = 40 + self.toughness
+    self.hp = self.max_hp
+    self.infoBar = InfoBar:new(self)
+    --print(self.name, self.hp, self.max_hp, self.toughness)
 end
 
 function Gopper:checkCollisionAndMove(dt)

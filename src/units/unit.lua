@@ -25,6 +25,7 @@ function Unit:initialize(name, sprite, input, x, y, color)
 	self.type = "player"
     self.max_hp = 100
     self.hp = self.max_hp
+	self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
 	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
 	self.x, self.y, self.z = x, y, 0
@@ -79,8 +80,12 @@ function Unit:initialize(name, sprite, input, x, y, color)
 	self:setState(self.stand)
 end
 
+function Unit:setToughness(t)
+	self.toughness = t
+end
+
 function Unit:revive()
-	self.hp = 100
+	self.hp = self.max_hp
 	self.hurt = nil
 	self.z = 0
 	self.isHidden = false
