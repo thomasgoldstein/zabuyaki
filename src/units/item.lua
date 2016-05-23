@@ -12,8 +12,12 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 
-function Item:initialize(name, sprite, hp, score, func, x, y, color)
-    self.sprite = sprite
+function Item:initialize(name, gfx, hp, score, func, x, y, color)
+    self.sprite = gfx.sprite
+    self.q = gfx.q
+    self.ox = gfx.ox
+    self.oy = gfx.oy
+
     self.name = name or "Unknown Item"
     self.type = "item"
     self.hp = hp
@@ -44,7 +48,15 @@ function Item:draw(l,t,w,h)
     --TODO adjust sprite dimensions.
     if not self.isHidden and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
         love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-        love.graphics.ellipse("fill", self.x, self.y - self.z - 8, 8, 8)
+--        love.graphics.ellipse("fill", self.x, self.y - self.z - 8, 8, 8)
+        love.graphics.draw (
+            self.sprite, --The image
+            self.q, --Current frame of the current animation
+            self.x, self.y - self.z,
+            0, --spr.rotation
+            1, 1, --spr.size_scale * spr.flip_h, spr.size_scale * spr.flip_v,
+            self.ox, self.oy
+        )
         --DrawInstance(self.sprite, self.x, self.y - self.z)
     end
 end
