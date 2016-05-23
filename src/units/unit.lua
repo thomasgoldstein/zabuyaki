@@ -717,9 +717,6 @@ function Unit:pickup_update(dt)
 		item.z = item.z + 0.5
 	end
 	if self.sprite.isFinished then
-		if item then
-			self:onGetItem(item)
-		end
 		self:setState(self.stand)
 		return
 	end
@@ -728,7 +725,14 @@ function Unit:pickup_update(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
 end
-Unit.pickup = {name = "pickup", start = Unit.pickup_start, exit = nop, update = Unit.pickup_update, draw = Unit.default_draw}
+function Unit:pickup_exit(dt)
+	--	print (self.name.." - pickup exit",dt)
+	local item = self:checkForItem(9, 9)
+	if item then
+		self:onGetItem(item)
+	end
+end
+Unit.pickup = {name = "pickup", start = Unit.pickup_start, exit = Unit.pickup_exit, update = Unit.pickup_update, draw = Unit.default_draw}
 
 function Unit:duck_start()
 --	print (self.name.." - duck start")
