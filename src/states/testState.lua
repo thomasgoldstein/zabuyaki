@@ -35,9 +35,12 @@ function testState:enter()
     sh_gopper4:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
     sh_gopper4:sendColor("newColors", {112,48,61, 255},  {73,31,40, 255},  {40,17,22, 255})   --Red
 
-
     -- create players
     player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 190, 180, {255,255,255, 255})
+--    player1.shader = sh_noise
+--    player1.shader = sh_screen
+--    player1.shader = sh_texture
+--    player1.shader = sh_outline
     player2 = Player:new("RICK P2", GetInstance("res/rick.lua"), button2, 240, 200)
     player2.shader = sh_rick2
 
@@ -93,6 +96,10 @@ function testState:enter()
     --adding 1st wave of foes into collision world
 
     mainCamera = Camera:new(worldWidth, worldHeight)
+
+    --start BGM
+    TEsound.stop("music")
+    TEsound.playLooping("res/bgm/testtrck.xm", "music")
 end
 
 function testState:update(dt)

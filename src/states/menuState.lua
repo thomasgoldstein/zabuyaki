@@ -1,6 +1,11 @@
 menuState = {}
 
+function menuState:enter()
+	TEsound.stop("music")
+end
+
 function menuState:update(dt)
+
 end
 
 function menuState:draw()
