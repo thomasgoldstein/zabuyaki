@@ -89,7 +89,7 @@ function Unit:revive()
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
 	--self.isEnabled = true
-	self:setState(Unit.stand)
+	self:setState(self.stand)
 end
 
 function Unit:setState(state)
