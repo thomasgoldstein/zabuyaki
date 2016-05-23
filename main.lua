@@ -30,6 +30,7 @@ function love.load(arg)
 	gamera = require "lib/gamera"
 	Camera = require "src/camera"
 	sfx = require "res/preload_sfx"
+	gfx = require "res/preload_gfx"
 	require "res/particles"
 	require "res/shaders"
 	CompoundPicture = require "src/compoPic"
