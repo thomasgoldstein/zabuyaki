@@ -1027,7 +1027,8 @@ function Unit:getup_start()
         self.hurt = {source = src, state = src.state, damage = 10,
             type = "throw", velx = 0,
             horizontal = src.horizontal,
-            x = src.x, y = src.y, z = 0}
+            x = src.x, y = src.y, z = 0 }
+		src.victim_infoBar = self.infoBar:setAttacker(src)
     end
     self.isThrown = false
 	if self.z <= 0 then
