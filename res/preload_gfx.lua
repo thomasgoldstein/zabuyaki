@@ -3,7 +3,7 @@
 local gfx = {items = {}}
 
 local image_w = 34 --This info can be accessed with a Love2D call
-local image_h = 42 --after the image has been loaded
+local image_h = 63 --after the image has been loaded
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
