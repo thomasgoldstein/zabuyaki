@@ -1014,7 +1014,7 @@ function Unit:fall_update(dt)
         end
         if self.isThrown and self.z > 10 then
             --TODO proper hitbox
-            self:checkAndAttack(0,0, 20,12, 10, "fall")
+            self:checkAndAttack(0,0, 20,12, 20, "fall")
         end
 	end
 	self:checkCollisionAndMove(dt)
