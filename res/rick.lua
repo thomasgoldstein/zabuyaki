@@ -13,8 +13,9 @@ local step_sfx2 = function(self)
 end
 local jump_still_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
 local jump_still_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 8, "fall", nil, true) end
-local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
-local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
+local grabHit_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
+local grabLast_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
+local grabEnd_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
 local combo_attack1 = function(slf)
 	slf:checkAndAttack(30,0, 22,12, 7, "high", "air")
 	slf.cool_down_combo = 0.4
@@ -192,20 +193,20 @@ return {
 		},
         grabHit = {
 			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
-			{ q = q(92,980,49,62), ox = 18, oy = 61, func = grabLow_attack, delay = 0.2 }, --grab attack 1.2
+			{ q = q(92,980,49,62), ox = 18, oy = 61, func = grabHit_attack, delay = 0.2 }, --grab attack 1.2
 			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
 			delay = 0.05
 		},
 		grabHitLast = {
 			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
-			{ q = q(169,916,53,61), ox = 17, oy = 60, func = grabKO_attack, delay = 0.2 }, --dash4
+			{ q = q(169,916,53,61), ox = 17, oy = 60, func = grabLast_attack, delay = 0.2 }, --dash4
 			{ q = q(117,519,40,63), ox = 17, oy = 62, delay = 0.16 }, --p2.1
 			delay = 0.05
 		},
 		grabHitEnd = {
 			{ q = q(2,1044,55,63), ox = 30, oy = 62, delay = 0.3 }, --grab end 1.1
 			{ q = q(2,979,44,63), ox = 22, oy = 62, delay = 0.01 }, --grab
-			{ q = q(59,1047,51,60), ox = 17, oy = 59, func = grabKO_attack, delay = 0.25 }, --grab end 1.2
+			{ q = q(59,1047,51,60), ox = 17, oy = 59, func = grabEnd_attack, delay = 0.25 }, --grab end 1.2
 			{ q = q(112,1044,45,63), ox = 18, oy = 62 }, --grab end 1.3
 			delay = 0.1
 		},
