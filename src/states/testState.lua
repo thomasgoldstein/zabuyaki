@@ -76,7 +76,7 @@ function testState:enter()
 
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
     item1 = Item:new("Apple", gfx.items.apple, 15, 1, nil, 200,170)
-    item2 = Item:new("Chicken", gfx.items.chicken, 50, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
+    item2 = Item:new("Chicken", gfx.items.chicken, 50, 0, nil, 460,180)
 --    item2 = Item:new("Custom func sample", gfx.items.apple, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
     item3 = Item:new("Beef", gfx.items.beef, 100, 0, nil, 850,200)
 
