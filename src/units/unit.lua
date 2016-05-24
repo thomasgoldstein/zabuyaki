@@ -1029,7 +1029,7 @@ function Unit:getup_start()
     if self.isThrown then
         --TODO add proper dmg func
         local src = self.thrower_id
-        self.hurt = {source = src, state = src.state, damage = 10,
+        self.hurt = {source = src, state = src.state, damage = 20,
             type = "throw", velx = 0,
             horizontal = src.horizontal,
             x = src.x, y = src.y, z = 0 }
