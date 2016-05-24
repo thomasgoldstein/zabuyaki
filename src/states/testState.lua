@@ -75,9 +75,10 @@ function testState:enter()
     dummy5.shader = sh_rick5
 
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
-    item1 = Item:new("Apple 1", gfx.items.apple, 10, 1, nil, 200,160)
-    item2 = Item:new("Apple 2", gfx.items.apple, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
-    item3 = Item:new("Meat 0", gfx.items.meat, 0, 100, nil, 850,200)
+    item1 = Item:new("Apple", gfx.items.apple, 15, 1, nil, 200,170)
+    item2 = Item:new("Chicken", gfx.items.chicken, 50, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
+--    item2 = Item:new("Custom func sample", gfx.items.apple, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
+    item3 = Item:new("Beef", gfx.items.beef, 100, 0, nil, 850,200)
 
     self.entities = {player1, player2,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
