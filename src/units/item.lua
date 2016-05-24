@@ -39,8 +39,15 @@ end
 function Item:drawShadow(l,t,w,h)
     --TODO adjust sprite dimensions
     if not self.isHidden and CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
-        love.graphics.setColor(0, 0, 0, 100)
-        love.graphics.ellipse("fill", self.x, self.y + 1, 8 - self.z/8, 2)
+        love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
+        love.graphics.draw (
+            self.sprite, --The image
+            self.q, --Current frame of the current animation
+            self.x, self.y - 2 + self.z/6,
+            0, --spr.rotation
+            1, -0.3, --spr.size_scale * spr.flip_h, spr.size_scale * spr.flip_v,
+            self.ox, self.oy
+        )
     end
 end
 
