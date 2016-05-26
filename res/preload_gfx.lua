@@ -15,8 +15,8 @@ end
 local image = love.graphics.newImage("res/items.png")
 
 gfx.items.apple = {sprite = image, q = q(2,2,18,17), ox = 9, oy = 16, icon_q = q(2, 2, icon_width, icon_height)}
-gfx.items.chicken = {sprite = image, q = q(2,21,30,19), ox = 12, oy = 18, icon_q = q(2, 21, icon_width, icon_height) }
-gfx.items.beef = {sprite = image, q = q(2,42,30,19), ox = 15, oy = 18, icon_q = q(2, 42, icon_width, icon_height) }
+gfx.items.chicken = {sprite = image, q = q(2,21,30,19), ox = 12, oy = 18, icon_q = q(15, 21, icon_width, icon_height) }
+gfx.items.beef = {sprite = image, q = q(2,42,30,19), ox = 15, oy = 18, icon_q = q(2, 44, icon_width, icon_height) }
 
 return gfx
 
