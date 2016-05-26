@@ -1,4 +1,5 @@
 # Zabuyaki #
+![Zabuyaki some screenshot](http://cdn-images-1.medium.com/max/800/1*i-SFHDu0iiAIQbkTCGjRtA.png)
 
 ## The Game ##
 Zabuyaki is a beat 'em up made using the [LÖVE framework](https://love2d.org/).
