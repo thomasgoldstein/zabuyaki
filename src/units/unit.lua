@@ -579,6 +579,8 @@ function Unit:walk_update(dt)
 		if self:doGrab(grabbed) then
 			--function Unit:doGrab(target)
 			--self:setState(self.grab)
+			local g = self.hold
+			self.victim_infoBar = g.target.infoBar:setAttacker(self)
 			return
 		end
 	end
