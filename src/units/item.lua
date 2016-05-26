@@ -12,13 +12,16 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 
-function Item:initialize(name, gfx, hp, score, func, x, y, color)
+function Item:initialize(name, note, gfx, hp, score, func, x, y, color)
     self.sprite = gfx.sprite
+    self.icon_sprite = gfx.sprite
+    self.icon_q = gfx.icon_q
     self.q = gfx.q
     self.ox = gfx.ox
     self.oy = gfx.oy
 
     self.name = name or "Unknown Item"
+    self.note = note or "???"
     self.type = "item"
     self.hp = hp
     self.score = score
