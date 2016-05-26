@@ -32,6 +32,9 @@ function Item:initialize(name, gfx, hp, score, func, x, y, color)
     end
     self.isHidden = false
     self.isEnabled = true
+
+    self.infoBar = InfoBar:new(self)
+
     self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
     GLOBAL_UNIT_ID = GLOBAL_UNIT_ID + 1
 end
