@@ -26,6 +26,8 @@ local transp_lost = 255
 local transp_got = 255
 local transp_name = 255
 
+local MAX_PLAYERS = 2
+
 local bars_coords = {
     { x = h_m, y = v_m + 0 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 0 * v_g, face = -1 },
     { x = h_m, y = v_m + 1 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 1 * v_g, face = -1 },
@@ -65,7 +67,7 @@ function InfoBar:setAttacker(attacker_source)
     else
         id = attacker_source.id
     end
-    if id <= 2 and self.id > 2 then
+    if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
         --TODO we might have 4 players
         self.x, self.y, self.face = bars_coords[id].x, bars_coords[id].y + v_g, bars_coords[id].face
     end
@@ -73,7 +75,7 @@ function InfoBar:setAttacker(attacker_source)
 end
 
 function InfoBar:draw(l,t,w,h)
-    if self.cool_down <= 0 then
+    if self.id > MAX_PLAYERS and self.cool_down <= 0 then
         return
     end
     if self.face == 1 then
