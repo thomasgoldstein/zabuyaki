@@ -47,14 +47,15 @@ end
 function InfoBar:initialize(source)
     self.source = source
     self.name = source.name or "Unknown"
-    self.extra_text = "EXTRA TEXT"
+    self.note = source.note or "EXTRA TEXT"
     self.color = {155,110,20}
     self.cool_down = 0
     self.id = self.source.id
     if source.type == "item" then
-        self.icon_sprite = source.sprite
-        self.icon_q = source.sprite.icon_q  --quad
+        self.icon_sprite = source.icon_sprite
+        self.icon_q = source.icon_q  --quad
         self.icon_color = { r= 255, g = 255, b = 255, a = 255 }
+        self.max_hp = 20
         self.hp = 1
         self.old_hp = 1
         self.x, self.y, self.face = 0, 0, 1
@@ -120,32 +121,39 @@ end
 function InfoBar:draw_item_bar(l,t,w,h)
     love.graphics.setColor(0, 50, 50, transp_bg)
     love.graphics.rectangle("fill", l + self.x, t + self.y - icon_height - 1, icon_width + 2, icon_height + 2 )
-    love.graphics.rectangle("fill", l + self.x, t + self.y , calcBarWidth(self), bar_height )
-    if self.hp > 0 then
-        love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bar)
-        love.graphics.rectangle("fill", l + self.x + 2, t + self.y + 2, (calcBarWidth(self) - 2) * self.hp / self.max_hp, (bar_height - 4) )
-    end
+    --love.graphics.rectangle("fill", l + self.x, t + self.y , calcBarWidth(self), bar_height )
 
     love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_icon)
     love.graphics.draw (
-        image_bank[self.icon_sprite],
+        self.icon_sprite,
         self.icon_q, --Current frame of the current animation
         l + self.x + 1, t + self.y - icon_height
     )
     love.graphics.setColor(255, 255, 255, transp_name)
-    love.graphics.print(self.name, l + self.x + icon_width + 4, t + self.y-13)
+    love.graphics.print(self.name.." "..self.note, l + self.x + icon_width + 4, t + self.y-13)
 end
 
 function InfoBar:draw(l,t,w,h)
-    if self.id > MAX_PLAYERS and self.cool_down <= 0 then
+--    if self.id > MAX_PLAYERS and self.cool_down <= 0 then
+--        return
+--    end
+    if self.cool_down <= 0 then
         return
     end
     if self.face == 1 then
         --left side
-        self:draw_enemy_bar(l,t,w,h)
+        if self.source.type == "item" then
+            self:draw_item_bar(l,t,w,h)
+        else
+            self:draw_enemy_bar(l,t,w,h)
+        end
     else
         --right side
-        self:draw_enemy_bar(l,t,w,h)
+        if self.source.type == "item" then
+            self:draw_item_bar(l,t,w,h)
+        else
+            self:draw_enemy_bar(l,t,w,h)
+        end
     end
 end
 
