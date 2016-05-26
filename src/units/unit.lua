@@ -713,6 +713,10 @@ Unit.jump = {name = "jump", start = Unit.jump_start, exit = nop, update = Unit.j
 function Unit:pickup_start()
 	--	print (self.name.." - pickup start")
 	SetSpriteAnim(self.sprite,"pickup")
+	local item = self:checkForItem(9, 9)
+	if item then
+		self.victim_infoBar = item.infoBar:setPicker(self)
+	end
 	self.z = 0
 end
 function Unit:pickup_update(dt)
