@@ -56,7 +56,7 @@ return {
 	--  mySprite.animations["idle"][1], or even
 	animations = {
 		icon  = {
-			{ q = q(21, 21, 16, 16) }
+			{ q = q(45, 598, 32, 24) }
 		},
 		stand = {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
