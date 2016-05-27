@@ -212,8 +212,8 @@ return {
 			delay = 0.1
 		},
 		grabThrow = {
-			{ q = q(2,1109,45,62), ox = 25, oy = 61 }, --throw 1.1
-			{ q = q(49,1111,42,60), ox = 18, oy = 59, func = grabThrow_now }, --throw 1.2
+			{ q = q(2,1109,45,62), ox = 25, oy = 61, delay = 0.3 }, --throw 1.1
+			{ q = q(49,1111,42,60), ox = 18, oy = 59, func = grabThrow_now, delay = 0.05 }, --throw 1.2
 			{ q = q(93,1112,42,59), ox = 17, oy = 58, delay = 0.2 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
 			delay = 0.1
