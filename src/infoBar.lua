@@ -160,18 +160,21 @@ function InfoBar:draw_item_bar(l,t,w,h)
     local transp_name = transp_name * cool_down_transparency
 
     love.graphics.setColor(0, 50, 50, transp_bg)
-    drawSBar(l + self.x, t + self.y, icon_width + 2, icon_height + 2, (icon_height + 2)/2)
+    local font = gfx.font.arcade3
+    love.graphics.setFont(font)
+    local bar_width = font:getWidth(self.name.." "..self.note)
+    drawSBar(l + self.x, t + self.y, icon_width*2 + bar_width - 4, icon_height + 2, (icon_height + 2)/2)
 
     love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_icon)
     love.graphics.draw (
         self.icon_sprite,
         self.icon_q, --Current frame of the current animation
         --l + self.x + 1, t + self.y - icon_height
-        l + self.x + 3 - icon_width/3, t + self.y + 4
+        l + self.x + icon_height/4, t + self.y + 4
     )
     love.graphics.setColor(255, 255, 255, transp_name)
 --    love.graphics.print(self.name.." "..self.note, l + self.x + icon_width + 4, t + self.y-17)
-    love.graphics.print(self.name.." "..self.note, l + self.x + icon_width - bar_height + 8, t + self.y + bar_height)
+    love.graphics.print(self.name.." "..self.note, l + self.x + icon_width + 8, t + self.y + bar_height/2)
 end
 
 function InfoBar:draw(l,t,w,h)
