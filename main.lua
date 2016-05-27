@@ -10,6 +10,8 @@
 DEBUG = false
 attackHitBoxes = {} -- DEBUG
 
+MAX_PLAYERS = 2
+
 function love.load(arg)
 	--TODO remove in release. Needed for ZeroBane Studio debugging
 	if arg[#arg] == "-debug" then
