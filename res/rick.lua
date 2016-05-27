@@ -40,6 +40,7 @@ local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") en
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end
 local jump_weak_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 8, "high") end
+local grabThrow_now = function(slf) slf.can_throw_now = true end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
@@ -212,7 +213,7 @@ return {
 		},
 		grabThrow = {
 			{ q = q(2,1109,45,62), ox = 25, oy = 61 }, --throw 1.1
-			{ q = q(49,1111,42,60), ox = 18, oy = 59 }, --throw 1.2
+			{ q = q(49,1111,42,60), ox = 18, oy = 59, func = grabThrow_now }, --throw 1.2
 			{ q = q(93,1112,42,59), ox = 17, oy = 58, delay = 0.2 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
 			delay = 0.1

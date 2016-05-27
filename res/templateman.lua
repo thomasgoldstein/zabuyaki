@@ -31,6 +31,7 @@ local jump_weak_attack = function(slf)
 		slf:checkAndAttack(10,0, 20,12, 11, "low")
 	end
 end
+local grabThrow_now = function(slf) slf.can_throw_now = true end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
@@ -215,7 +216,7 @@ return {
         },
         grabThrow = {
             { q = q(2,783,42,60), ox = 21, oy = 59 }, --grab 1 throw
-            { q = q(46,780,58,63), ox = 29, oy = 62 }, --grab 2 throw
+            { q = q(46,780,58,63), ox = 29, oy = 62, func = grabThrow_now }, --grab 2 throw
             { q = q(106,793,58,50), ox = 29, oy = 49 }, --grab 3 throw
 			delay = 0.1
         },
