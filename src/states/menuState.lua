@@ -9,7 +9,10 @@ function menuState:update(dt)
 end
 
 function menuState:draw()
-	love.graphics.print("press the Space Bar to go to the Game!", 64, 64)
+	local text = "Press SPACE to play"
+	local font = gfx.font.arcade3
+	love.graphics.setFont(font)
+	love.graphics.print(text, (640 - font:getWidth(text)) / 2, 400)
 end
 
 function menuState:keypressed(key, unicode)
