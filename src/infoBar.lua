@@ -6,7 +6,7 @@ local class = require "lib/middleclass"
 
 local InfoBar = class("InfoBar")
 
-local v_g = 32 --vertical gap between bars
+local v_g = 40 --vertical gap between bars
 local v_m = 32 --vert margin from the top
 local h_m = 48 --horizontal margin
 local bar_width = 220
@@ -114,8 +114,8 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.setColor(0, 50, 50, transp_bg)
     --love.graphics.rectangle("fill", l + self.x, t + self.y - icon_height - 1, icon_width + 2, icon_height + 2 )
     --love.graphics.rectangle("fill", l + self.x, t + self.y , calcBarWidth(self), bar_height )
-    drawSBar(l + self.x, t + self.y, icon_width + 2, icon_height + 2, icon_height + 2)
-    drawSBar(l + self.x + icon_width + 2, t + self.y, calcBarWidth(self), bar_height, bar_height)
+    drawSBar(l + self.x, t + self.y, icon_width + 2, icon_height + 2, (icon_height + 2)/2)
+    drawSBar(l + self.x + icon_width + 2, t + self.y, calcBarWidth(self), bar_height, bar_height/2)
 
     --love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_icon)
     love.graphics.setColor(255, 255, 255, transp_icon)
@@ -125,7 +125,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.draw (
         image_bank[self.icon_sprite],
         self.icon_q, --Current frame of the current animation
-        l + self.x + self.source.shake.x + 1 - icon_width/2, t + self.y + 1
+        l + self.x + self.source.shake.x + 6 - icon_width/2, t + self.y + 1
     )
     if self.source.shader then
         love.graphics.setShader()
@@ -138,19 +138,19 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_lost)
         end
 --        love.graphics.rectangle("fill", l + self.x + 2, t + self.y + 2, (calcBarWidth(self) - 2) * self.old_hp / self.max_hp, bar_height - 4 )
-                                 drawSBar(l + self.x + icon_width + 4, t + self.y + 2, (calcBarWidth(self) - 8) * self.old_hp / self.max_hp, bar_height - 4, bar_height - 4 )
+                                 drawSBar(l + self.x + icon_width + 4, t + self.y + 2, (calcBarWidth(self) - 6) * self.old_hp / self.max_hp, bar_height - 4, (bar_height - 4)/2 )
     end
     if self.hp > 0 then
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bar)
 --        love.graphics.rectangle("fill", l + self.x + 2, t + self.y + 2, (calcBarWidth(self) - 2) * self.hp / self.max_hp, (bar_height - 4) )
-                                 drawSBar(l + self.x + icon_width + 4, t + self.y + 2, (calcBarWidth(self) - 8) * self.hp / self.max_hp, bar_height - 4, bar_height - 4 )
+                                 drawSBar(l + self.x + icon_width + 4, t + self.y + 2, (calcBarWidth(self) - 6) * self.hp / self.max_hp, bar_height - 4, (bar_height - 4)/2 )
     end
 
     love.graphics.setColor(255, 255, 255, transp_name)
-    love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width - bar_height + 8, t + self.y + bar_height)
+    love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width - bar_height + 12, t + self.y + bar_height)
     if self.source.type == "player" then
-        love.graphics.print(self.source.pid, l + self.x , t + self.y - 9)
-        love.graphics.print(self.source.score, l + self.x + 32, t + self.y - 9)
+        love.graphics.print(self.source.pid, l + self.x, t + self.y - 9)
+        love.graphics.print(self.source.score, l + self.x + icon_width, t + self.y - 9)
     end
 end
 
@@ -160,7 +160,7 @@ function InfoBar:draw_item_bar(l,t,w,h)
     local transp_name = transp_name * cool_down_transparency
 
     love.graphics.setColor(0, 50, 50, transp_bg)
-    drawSBar(l + self.x, t + self.y, icon_width + 2, icon_height + 2, icon_height + 2)
+    drawSBar(l + self.x, t + self.y, icon_width + 2, icon_height + 2, (icon_height + 2)/2)
 
     love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_icon)
     love.graphics.draw (
