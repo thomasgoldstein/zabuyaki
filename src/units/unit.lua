@@ -355,10 +355,10 @@ end
 function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
     -- type = "high" "low" "fall"
     local face = self.face
-    if self.isThrown then
-        face = -face    --TODO proper thrown enemy hitbox?
+--[[    if self.isThrown then
+        --face = -face    --TODO proper thrown enemy hitbox?
         --TODO not needed since the hitbox is centered
-	end
+	end]]
 	if init_victims_list then
 		self.victims = {}
 	end
@@ -981,7 +981,11 @@ Unit.jumpAttackStill = {name = "jumpAttackStill", start = Unit.jumpAttackStill_s
 
 function Unit:fall_start()
 --    print (self.name.." - fall start")
-	SetSpriteAnim(self.sprite,"fall")
+	if self.isThrown then
+		SetSpriteAnim(self.sprite,"hurtLow")
+	else
+		SetSpriteAnim(self.sprite,"fall")
+	end
 	if self.z <= 0 then
 		self.z = 0
 	end
@@ -990,7 +994,13 @@ function Unit:fall_start()
 end
 function Unit:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
-    if self.z > 0 then
+	--self.isThrown and
+	if self.sprite.curr_anim == "hurtLow"
+		and self.sprite.isFinished then
+			SetSpriteAnim(self.sprite,"fall")
+
+	end
+	if self.z > 0 then
 		self.velz = self.velz - self.gravity * dt
 		self.z = self.z + dt * self.velz
 	    if self.z <= 0 then
@@ -1385,33 +1395,41 @@ Unit.grabHitEnd = {name = "grabHitEnd", start = Unit.grabHitEnd_start, exit = no
 function Unit:grabThrow_start()
     --print (self.name.." - grabThrow start")
     local g = self.hold
+	local t = g.target
+	t.isThrown = true
+	SetSpriteAnim(t.sprite,"hurtLow")
     g.cool_down = 0
     self.face = -self.face
     SetSpriteAnim(self.sprite,"grabThrow")
     if DEBUG then
         print(self.name.." is grabThrow someone.")
-    end
-    local t = g.target
-    t.isGrabbed = false
-    t.isThrown = true
-    t.thrower_id = self
-    t.z = t.z + 1
-    t.velx = 170
-    t.vely = 0
-    t.velz = 290
-    t.victims[self] = true
-    if self.x < t.x then
-        t.horizontal = -1
-        t.face = 1
-    else
-        t.horizontal = 1
-        t.face = -1
-    end
-    t:setState(self.fall)
-	sfx.play("jump") --TODO add throw sound
+	end
 end
 function Unit:grabThrow_update(dt)
     --print(self.name .. " - grabThrow update", dt)
+	if self.can_throw_now then	--set in the anm
+		self.can_throw_now = false
+		local g = self.hold
+		local t = g.target
+		t.isGrabbed = false
+		t.isThrown = true
+		t.thrower_id = self
+		t.z = t.z + 1
+		t.velx = 220 --170
+		t.vely = 0
+		t.velz = 200 --290
+		t.victims[self] = true
+		if self.x < t.x then
+			t.horizontal = -1
+			t.face = 1
+		else
+			t.horizontal = 1
+			t.face = -1
+		end
+		t:setState(self.fall)
+		sfx.play("jump") --TODO add throw sound
+		return
+	end
     if self.sprite.isFinished then
         self.cool_down = 0.2
         self:setState(self.stand)
