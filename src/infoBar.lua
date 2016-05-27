@@ -129,7 +129,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         l + self.x + 1, t + self.y - icon_height
     )
     love.graphics.setColor(255, 255, 255, transp_name)
-    love.graphics.print(self.name, l + self.x + icon_width + 4, t + self.y-13)
+    love.graphics.print(self.name, l + self.x + icon_width + 4, t + self.y-17)
 end
 
 function InfoBar:draw_item_bar(l,t,w,h)
@@ -147,7 +147,7 @@ function InfoBar:draw_item_bar(l,t,w,h)
         l + self.x + 1, t + self.y - icon_height
     )
     love.graphics.setColor(255, 255, 255, transp_name)
-    love.graphics.print(self.name.." "..self.note, l + self.x + icon_width + 4, t + self.y-13)
+    love.graphics.print(self.name.." "..self.note, l + self.x + icon_width + 4, t + self.y-17)
 end
 
 function InfoBar:draw(l,t,w,h)
@@ -157,6 +157,7 @@ function InfoBar:draw(l,t,w,h)
     if self.cool_down <= 0 then
         return
     end
+    love.graphics.setFont(gfx.font.arcade3)
     if self.face == 1 then
         --left side
         if self.source.type == "item" then
