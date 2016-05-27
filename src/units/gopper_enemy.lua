@@ -22,8 +22,8 @@ local function nop() --[[print "nop"]] end
 function Gopper:initialize(name, sprite, input, x, y, color)
     self.tx, self.ty = x, y
     self.move = tween.new(0.01, self, {tx = x, ty = y})
-    self.target = player1    --TODO temp
     Player.initialize(self, name, sprite, input, x, y, color)
+    self:pickAttackTarget()
     self.type = "enemy"
     self:setToughness(0)
 end
@@ -34,6 +34,23 @@ function Gopper:setToughness(t)
     self.hp = self.max_hp
     self.infoBar = InfoBar:new(self)
     --print(self.name, self.hp, self.max_hp, self.toughness)
+end
+
+function Gopper:pickAttackTarget(target)
+    local t = {player2}
+    if player1.hp > 0 then
+        t[#t] = player1
+    end
+    if target then
+        self.target = target
+    elseif love.math.random() < 0.3 then
+        self.target = t[love.math.random(1,#t)]
+    elseif math.abs(self.x - player1.x) < math.abs(self.x - player2.x) then
+        self.target = player1
+    else
+        self.target = player2
+    end
+    return self.target
 end
 
 function Gopper:checkCollisionAndMove(dt)
@@ -91,6 +108,7 @@ function Gopper:stand_start()
     self.victims = {}
     self.n_grabhit = 0
 
+    self:pickAttackTarget()
 --    self.tx, self.ty = self.x, self.y
 end
 function Gopper:stand_update(dt)
