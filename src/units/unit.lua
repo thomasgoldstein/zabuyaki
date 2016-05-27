@@ -67,6 +67,12 @@ function Unit:initialize(name, sprite, input, x, y, color)
 	self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
 	GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
 
+	if self.id <= MAX_PLAYERS then
+		self.pid = "P"..self.id
+	else
+		self.pid = ""
+	end
+
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
 
@@ -179,6 +185,9 @@ function Unit:onHurt()
 	end
 
 	h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
+
+	--Score TODO
+	h.source.score = h.source.score + love.math.random(1,10)*50
 
 	self.hp = self.hp - h.damage
 	self.n_combo = 1	--if u get hit reset combo chain
