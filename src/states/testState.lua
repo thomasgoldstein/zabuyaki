@@ -44,14 +44,14 @@ function testState:enter()
     player2 = Player:new("RICK P2", GetInstance("res/rick.lua"), button2, 240, 200)
     player2.shader = sh_rick2
 
-    gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 270, 204, {255,255,255, 255})
- 	gopper2 = Gopper:new("GOPNIK 2", GetInstance("res/gopper.lua"), button3, 360, 184, {255,255,255, 255})
+    gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 400, 204, {255,255,255, 255})
+ 	gopper2 = Gopper:new("GOPNIK 2", GetInstance("res/gopper.lua"), button3, 800, 184, {255,255,255, 255})
     gopper2.shader = sh_gopper2
     gopper2:setToughness(1)
- 	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 470, 190, {255,255,255, 255})
+ 	gopper3 = Gopper:new("GOPNIK 3", GetInstance("res/gopper.lua"), button3, 160, 190, {255,255,255, 255})
     gopper3.shader = sh_gopper3
     gopper3:setToughness(2)
-    gopper4 = Gopper:new("GOPNIK 4", GetInstance("res/gopper.lua"), button3, 320, 200-24, {255,255,255, 255})
+    gopper4 = Gopper:new("GOPNIK 4", GetInstance("res/gopper.lua"), button3, 1000, 200-24, {255,255,255, 255})
     gopper4.shader = sh_gopper4
     gopper4:setToughness(3)
     gopper5 = Gopper:new("UNNIE", GetInstance("res/gopper.lua"), button3, 600, 204, {255,255,255, 255})
@@ -59,7 +59,7 @@ function testState:enter()
     gopper6 = Gopper:new("DORMY", GetInstance("res/gopper.lua"), button3, 500, 200-4, {255,255,255, 255})
     gopper6:setToughness(5)
 
-    dummy3 = Gopper:new("RICKER 3", GetInstance("res/rick.lua"), button3, 400, 200-30, {255,255,255, 255})
+    dummy3 = Gopper:new("RICKER 3", GetInstance("res/rick.lua"), button3, 700, 200-30, {255,255,255, 255})
     dummy3.shader = sh_rick3
     dummy3.horizontal = -1
     dummy3.face = -1
@@ -71,7 +71,7 @@ function testState:enter()
     dummy4.face = -1
     dummy4:setToughness(5)
 
-    dummy5 = Temper:new("LOCKY", GetInstance("res/rick.lua"), button3, 120, 200-24, {255,255,255, 255})
+    dummy5 = Temper:new("LOCKY", GetInstance("res/rick.lua"), button3, 900, 200-24, {255,255,255, 255})
     dummy5.shader = sh_rick5
 
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
