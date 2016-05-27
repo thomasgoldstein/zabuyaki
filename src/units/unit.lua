@@ -1012,7 +1012,6 @@ function Unit:fall_update(dt)
 
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-            --TODO add dmg from the ground?
 			sfx.play("fall")
 			mainCamera:onShake(1, 1, 0.03, 0.3)
 			if self.hp <= 0 then
@@ -1029,6 +1028,7 @@ function Unit:fall_update(dt)
 			end
         end
         if self.isThrown and self.z > 10 then
+			--TODO dont check it on every FPS
             --TODO proper hitbox
             self:checkAndAttack(0,0, 20,12, 10, "fall")
         end
