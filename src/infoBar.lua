@@ -44,6 +44,13 @@ local function calcBarWidth(self)
     return bar_width
 end
 
+local function calcTransparency(cd)
+    if cd < 1 then
+        return 255 * cd
+    end
+    return 255
+end
+
 function InfoBar:initialize(source)
     self.source = source
     self.name = source.name or "Unknown"
@@ -92,6 +99,13 @@ function InfoBar:setPicker(picker_source)
     return self
 end
 function InfoBar:draw_enemy_bar(l,t,w,h)
+    local cool_down_transparency = calcTransparency(self.cool_down)
+    local transp_bg = transp_bg * cool_down_transparency
+    local transp_bar = transp_bar * cool_down_transparency
+    local transp_icon = transp_icon  * cool_down_transparency
+    local transp_lost = transp_lost * cool_down_transparency
+    local transp_got = transp_got * cool_down_transparency
+    local transp_name = transp_name * cool_down_transparency
     love.graphics.setColor(0, 50, 50, transp_bg)
     love.graphics.rectangle("fill", l + self.x, t + self.y - icon_height - 1, icon_width + 2, icon_height + 2 )
     love.graphics.rectangle("fill", l + self.x, t + self.y , calcBarWidth(self), bar_height )
@@ -119,9 +133,12 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
 end
 
 function InfoBar:draw_item_bar(l,t,w,h)
+    local cool_down_transparency = calcTransparency(self.cool_down)
+    local transp_icon = transp_icon  * cool_down_transparency
+    local transp_name = transp_name * cool_down_transparency
+
     love.graphics.setColor(0, 50, 50, transp_bg)
     love.graphics.rectangle("fill", l + self.x, t + self.y - icon_height - 1, icon_width + 2, icon_height + 2 )
-    --love.graphics.rectangle("fill", l + self.x, t + self.y , calcBarWidth(self), bar_height )
 
     love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_icon)
     love.graphics.draw (
@@ -186,11 +203,17 @@ function InfoBar:update(dt)
         self.old_hp = self.hp
     end
 
-    if self.hp > 0 then
-        self.cool_down = 3
-    else
+    if self.source.type == "item" then
         if self.cool_down > 0 then
             self.cool_down = self.cool_down - dt
+        end
+    else
+        if self.hp > 0 then
+            self.cool_down = 3
+        else
+            if self.cool_down > 0 then
+                self.cool_down = self.cool_down - dt
+            end
         end
     end
 end
