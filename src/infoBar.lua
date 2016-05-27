@@ -45,8 +45,8 @@ local function calcBarWidth(self)
 end
 
 local function calcTransparency(cd)
-    if cd < 1 then
-        return cd
+    if cd < 0.25 then
+        return cd * 4
     end
     return 1
 end
