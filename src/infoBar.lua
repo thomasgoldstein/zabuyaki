@@ -46,9 +46,9 @@ end
 
 local function calcTransparency(cd)
     if cd < 1 then
-        return 255 * cd
+        return cd
     end
-    return 255
+    return 1
 end
 
 function InfoBar:initialize(source)
