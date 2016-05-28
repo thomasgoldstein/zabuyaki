@@ -324,7 +324,7 @@ function Unit:default_draw(l,t,w,h)
 --        love.graphics.draw(self.pa_impact_low, self.x, self.y - 24)
 --		love.graphics.draw(self.pa_impact_high, self.x, self.y - 48)
 		if self.show_pid_cool_down > 0 then
-			self:drawPID(self.x, self.y - 80)
+			self:drawPID(self.x, self.y - self.z - 80)
 		end
 	end
 end
