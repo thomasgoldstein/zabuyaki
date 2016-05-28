@@ -7,9 +7,9 @@ local class = require "lib/middleclass"
 local InfoBar = class("InfoBar")
 
 local v_g = 40 --vertical gap between bars
-local v_m = 32 --vert margin from the top
+local v_m = 24 --vert margin from the top
 local h_m = 48 --horizontal margin
-local bar_width = 220
+local bar_width = 120
 local bar_height = 16
 local icon_width = 32
 local icon_height = 24
@@ -28,13 +28,12 @@ local transp_name = 255
 
 local MAX_PLAYERS = MAX_PLAYERS
 
-local bars_coords = {
-    { x = h_m, y = v_m + 0 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 0 * v_g, face = -1 },
-    { x = h_m, y = v_m + 1 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 1 * v_g, face = -1 },
-    { x = h_m, y = v_m + 2 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 2 * v_g, face = -1 },
-    { x = h_m, y = v_m + 3 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 3 * v_g, face = -1 },
-    { x = h_m, y = v_m + 4 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 4 * v_g, face = -1 },
-    { x = h_m, y = v_m + 5 * v_g, face = 1 }, { x = screen_width - bar_width - h_m, y = v_m + 5 * v_g, face = -1 },
+local max_bar_width = bar_width + icon_width + icon_height/2 + bar_height/2
+
+local bars_coords = {   --for players only 1..MAX_PLAYERS
+    { x = h_m, y = v_m + 0 * v_g, face = 1 },
+    { x = screen_width - max_bar_width - h_m/3, y = v_m + 0 * v_g, face = 11 },
+    { x = screen_width / 2 - max_bar_width/2 + icon_width/2, y = v_m + 0 * v_g, face = 1 }
 }
 
 local function calcBarWidth(self)
@@ -78,7 +77,11 @@ function InfoBar:initialize(source)
         self.max_hp = source.max_hp
         self.hp = 1
         self.old_hp = 1
-        self.x, self.y, self.face = bars_coords[self.id].x, bars_coords[self.id].y, bars_coords[self.id].face
+        if self.id <= MAX_PLAYERS then
+            self.x, self.y, self.face = bars_coords[self.id].x, bars_coords[self.id].y, bars_coords[self.id].face
+        else
+            self.x, self.y, self.face = 0, 0, 1
+        end
     end
 end
 
