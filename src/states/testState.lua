@@ -41,8 +41,13 @@ function testState:enter()
 --    player1.shader = sh_screen
 --    player1.shader = sh_texture
 --    player1.shader = sh_outline
-    player2 = Player:new("RICK P2", GetInstance("res/rick.lua"), button2, 240, 200)
+    player2 = Player:new("RIKO", GetInstance("res/rick.lua"), button2, 240, 200)
     player2.shader = sh_rick2
+
+    player3 = Player:new("RICKY", GetInstance("res/rick.lua"), button3, 380, 200-30, {255,255,255, 255})
+    player3.shader = sh_rick3
+    player3.horizontal = -1
+    player3.face = -1
 
     gopper1 = Gopper:new("GOPNIK", GetInstance("res/gopper.lua"), button3, 400, 204, {255,255,255, 255})
  	gopper2 = Gopper:new("GOPNIK 2", GetInstance("res/gopper.lua"), button3, 800, 184, {255,255,255, 255})
@@ -59,12 +64,6 @@ function testState:enter()
     gopper6 = Gopper:new("DORMY", GetInstance("res/gopper.lua"), button3, 500, 200-4, {255,255,255, 255})
     gopper6:setToughness(5)
 
-    dummy3 = Gopper:new("RICKER 3", GetInstance("res/rick.lua"), button3, 700, 200-30, {255,255,255, 255})
-    dummy3.shader = sh_rick3
-    dummy3.horizontal = -1
-    dummy3.face = -1
-    dummy3:setToughness(5)
-
     dummy4 = Rick:new("Dummie RICK 4", GetInstance("res/rick.lua"), button3, 220, 150, {255,255,255, 255})
     dummy4.shader = sh_rick4
     dummy4.horizontal = -1
@@ -80,9 +79,9 @@ function testState:enter()
 --    item2 = Item:new("Custom func sample", "+20 Pts.", gfx.items.apple, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
     item3 = Item:new("Beef", "+100 HP", gfx.items.beef, 100, 0, nil, 850,200)
 
-    self.entities = {player1, player2,
+    self.entities = {player1, player2, player3,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
-        dummy3, dummy4, dummy5,
+        dummy4, dummy5,
         item1, item2, item3,
     }
 
@@ -127,6 +126,7 @@ function testState:update(dt)
         fancy.watch("FPS", love.timer.getFPS())
         fancy.watch("P1 y: ",player1.y, 3)
         fancy.watch("P2 y: ",player2.y, 3)
+        fancy.watch("P3 y: ",player3.y, 3)
         fancy.watch("Player state: ",player1.state, 2)
         fancy.watch("CD Combo: ",player1.cool_down_combo, 2)
         fancy.watch("Cool Down: ",player1.cool_down, 2)
@@ -186,6 +186,11 @@ function testState:draw()
     if player2.victim_infoBar then
         --and player2.victim_infoBar.hp > 0 then
         player2.victim_infoBar:draw(0,0)
+    end
+    player3.infoBar:draw(0,0)
+    if player3.victim_infoBar then
+        --and player3.victim_infoBar.hp > 0 then
+        player3.victim_infoBar:draw(0,0)
     end
 end
 
