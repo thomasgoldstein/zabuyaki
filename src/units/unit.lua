@@ -274,24 +274,28 @@ function Unit:drawShadow(l,t,w,h)
 			-0.2,
 			sc.ox, sc.oy
 		)
-		if self.show_pid_cool_down > 0 then
-			local t = 255
-			if self.show_pid_cool_down < 1 then
-				t = self.show_pid_cool_down * 255
-			end
-			love.graphics.setColor(255, 255, 255, t)
-			love.graphics.circle( "line", self.x, self.y + 9, 10 + self.show_pid_cool_down  , 20 )
-		end
 	end
 end
 
 local function calcTransparency(cd)
-	if cd > 2 then
-		return love.math.random(0, 1) * 255
-	elseif cd < 1 then
+	if cd > 1 then
+		return math.sin(cd*10) * 55 + 200
+	end
+	if cd < 0.33 then
 		return cd * 255
 	end
 	return 255
+end
+function Unit:drawPID(x, y_)
+	local y = y_ - math.cos(self.show_pid_cool_down*6)
+	love.graphics.setColor(255,200,40, calcTransparency(self.show_pid_cool_down))
+	love.graphics.rectangle( "fill", x - 15, y, 30, 17 )
+	love.graphics.polygon( "fill", x, y + 20, x - 2 , y + 17, x + 2, y + 17 )
+	love.graphics.setColor(0, 0, 0, calcTransparency(self.show_pid_cool_down))
+	love.graphics.rectangle( "fill", x - 13, y + 2, 30-4, 13 )
+	love.graphics.setFont(gfx.font.arcade3)
+	love.graphics.setColor(255, 255, 255, calcTransparency(self.show_pid_cool_down))
+	love.graphics.print(self.pid, x - 7, y + 4)
 end
 function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
@@ -320,8 +324,7 @@ function Unit:default_draw(l,t,w,h)
 --        love.graphics.draw(self.pa_impact_low, self.x, self.y - 24)
 --		love.graphics.draw(self.pa_impact_high, self.x, self.y - 48)
 		if self.show_pid_cool_down > 0 then
-			love.graphics.setColor(255, 255, 255, calcTransparency(self.show_pid_cool_down))
-			love.graphics.print(self.pid, self.x - 8, self.y + 4)
+			self:drawPID(self.x, self.y - 80)
 		end
 	end
 end
