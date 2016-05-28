@@ -69,8 +69,10 @@ function Unit:initialize(name, sprite, input, x, y, color)
 
 	if self.id <= MAX_PLAYERS then
 		self.pid = "P"..self.id
+		self.show_pid_cool_down = 3
 	else
 		self.pid = ""
+		self.show_pid_cool_down = 0
 	end
 
     self.infoBar = InfoBar:new(self)
@@ -90,6 +92,10 @@ function Unit:setToughness(t)
 	self.toughness = t
 end
 
+function Unit:showPID(seconds)
+	self.show_pid_cool_down = seconds
+end
+
 function Unit:revive()
 	self.hp = self.max_hp
 	self.hurt = nil
@@ -101,6 +107,7 @@ function Unit:revive()
     self.victim_infoBar = nil
 	--self.isEnabled = true
 	self:setState(self.stand)
+	self:showPID(3)
 end
 
 function Unit:setState(state)
@@ -147,6 +154,9 @@ function Unit:updateShake(dt)
 		if self.shake.cool_down <= 0 then
 			self.shake.x, self.shake.y = 0, 0
 		end
+	end
+	if self.show_pid_cool_down > 0 then
+		self.show_pid_cool_down = self.show_pid_cool_down - dt
 	end
 end
 
@@ -264,9 +274,25 @@ function Unit:drawShadow(l,t,w,h)
 			-0.2,
 			sc.ox, sc.oy
 		)
+		if self.show_pid_cool_down > 0 then
+			local t = 255
+			if self.show_pid_cool_down < 1 then
+				t = self.show_pid_cool_down * 255
+			end
+			love.graphics.setColor(255, 255, 255, t)
+			love.graphics.circle( "line", self.x, self.y + 9, 10 + self.show_pid_cool_down  , 20 )
+		end
 	end
 end
 
+local function calcTransparency(cd)
+	if cd > 2 then
+		return love.math.random(0, 1) * 255
+	elseif cd < 1 then
+		return cd * 255
+	end
+	return 255
+end
 function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
@@ -293,6 +319,10 @@ function Unit:default_draw(l,t,w,h)
 		love.graphics.draw(self.pa_impact_high, self.x, self.y)
 --        love.graphics.draw(self.pa_impact_low, self.x, self.y - 24)
 --		love.graphics.draw(self.pa_impact_high, self.x, self.y - 48)
+		if self.show_pid_cool_down > 0 then
+			love.graphics.setColor(255, 255, 255, calcTransparency(self.show_pid_cool_down))
+			love.graphics.print(self.pid, self.x - 8, self.y + 4)
+		end
 	end
 end
 
