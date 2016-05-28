@@ -38,7 +38,7 @@ local bars_coords = {   --for players only 1..MAX_PLAYERS
 
 local function calcBarWidth(self)
     if self.max_hp < 100 then
-        return self.max_hp * 2.4
+        return (self.max_hp * bar_width) / 100
     end
     return bar_width
 end
