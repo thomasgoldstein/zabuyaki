@@ -23,6 +23,7 @@ function Unit:initialize(name, sprite, input, x, y, color)
 	self.sprite = sprite or {} --GetInstance("res/templateman.lua")
 	self.name = name or "Unknown"
 	self.type = "player"
+    self.lives = 3
     self.max_hp = 100
     self.hp = self.max_hp
 	self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
@@ -617,7 +618,7 @@ function Unit:walk_update(dt)
 		self:setState(self.stand)
 		return
 	end
-	local grabbed = self:checkForGrab(9, 3)
+	local grabbed = self:checkForGrab(12)
 	if grabbed then
 		if self:doGrab(grabbed) then
 			--function Unit:doGrab(target)
@@ -1172,9 +1173,10 @@ end
 Unit.combo = {name = "combo", start = Unit.combo_start, exit = nop, update = Unit.combo_update, draw = Unit.default_draw}
 
 -- GRABBING / HOLDING
-function Unit:checkForGrab(w, h)
+function Unit:checkForGrab(range)
 	--got any Units
-	local items, len = world:queryRect(self.x + self.face*w - w/2, self.y - h/2, w, h,
+	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.face*range, y = self.y - 1, w = 1, h = 3 }
+	local items, len = world:queryPoint(self.x + self.face*range, self.y,
 		function(o)
 			if o ~= self and (o.type == "player" or o.type == "enemy") then
 				return true
@@ -1286,11 +1288,14 @@ function Unit:grab_update(dt)
         self:setState(self.stand)
 		return
 	end
+	--TODO add collision check
 	--adjust both vertically
 	if self.y > g.target.y + 1 then
-		self.y = self.y - 1
+		self.y = self.y - 0.5
+		g.target.y = g.target.y + 0.5
 	elseif self.y < g.target.y then
-		self.y = self.y + 1
+		self.y = self.y + 0.5
+		g.target.y = g.target.y - 0.5
 	end
 	--adjust both horizontally
 	if self.x < g.target.x and self.x > g.target.x - 20 then
