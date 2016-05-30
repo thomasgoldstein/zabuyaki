@@ -168,7 +168,7 @@ function Unit:onHurt()
     if self.state == "getup" and h.type == "throw" then
         self.hp = self.hp - h.damage
         if self.hp <= 0 then
-            self:setState(self.dead)
+            self:setState(self.getup)
             return
         end
     end
@@ -833,7 +833,7 @@ function Unit:hurtHigh_update(dt)
 	--	print (self.name.." - hurtHigh update",dt)
 	if self.sprite.isFinished then
 		if self.hp <= 0 then
-			self:setState(self.dead)
+			self:setState(self.getup)
 			return
 		end
         if self.isGrabbed then
@@ -861,7 +861,7 @@ function Unit:hurtLow_update(dt)
 	--	print (self.name.." - hurtLow update",dt)
 	if self.sprite.isFinished then
 		if self.hp <= 0 then
-			self:setState(self.dead)
+			self:setState(self.getup)
 			return
         end
         if self.isGrabbed then
@@ -1054,18 +1054,15 @@ function Unit:fall_update(dt)
 
 			sfx.play("fall")
 			mainCamera:onShake(1, 1, 0.03, 0.3)
-			if self.hp <= 0 then
-				self:setState(self.dead)
-				return
-			else
-				-- hold UP+JUMP to get no damage after throw (land on feet)
-				if self.isThrown and self.b.up.down and self.b.jump.down then
-					self:setState(self.duck)
-				else
-					self:setState(self.getup)
-				end
-				return
-			end
+
+            -- hold UP+JUMP to get no damage after throw (land on feet)
+            if self.isThrown and self.b.up.down and self.b.jump.down and self.hp >0 then
+                self:setState(self.duck)
+            else
+                self:setState(self.getup)
+            end
+            return
+
         end
         if self.isThrown and self.z > 10 then
 			--TODO dont check it on every FPS
@@ -1100,6 +1097,10 @@ end
 function Unit:getup_update(dt)
 	--print(self.name .. " - getup update", dt)
 	if self.sprite.isFinished then
+        if self.hp <= 0 then
+            self:setState(self.dead)
+            return
+        end
 		self:setState(self.stand)
 		return
 	end
