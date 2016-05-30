@@ -84,9 +84,6 @@ function Unit:initialize(name, sprite, input, x, y, color)
 	self.pa_impact_high = PA_IMPACT_BIG:clone()
 	self.pa_impact_low = PA_IMPACT_SMALL:clone()
 
-	--Debug vars
-	self.hurted = false
-
 	self:setState(self.stand)
 end
 
@@ -302,10 +299,6 @@ end
 function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
---[[		if DEBUG and self.hurted then
-			self.hurted = false
-			love.graphics.ellipse("fill", self.x, self.y-30, 35, 40)
-        end]]
         if DEBUG then
             love.graphics.setColor(255, 255, 255)
             love.graphics.line( self.x, self.y+2, self.x, self.y-66 )
@@ -834,7 +827,6 @@ Unit.duck2jump = {name = "duck2jump", start = Unit.duck2jump_start, exit = nop, 
 function Unit:hurtHigh_start()
 --	print (self.name.." - hurtHigh start")
 	SetSpriteAnim(self.sprite,"hurtHigh")
-	self.hurted = true
 	sfx.play("hit")
 end
 function Unit:hurtHigh_update(dt)
@@ -863,7 +855,6 @@ Unit.hurtHigh = {name = "hurtHigh", start = Unit.hurtHigh_start, exit = nop, upd
 function Unit:hurtLow_start()
 --	print (self.name.." - hurtLow start")
 	SetSpriteAnim(self.sprite,"hurtLow")
-	self.hurted = true
 	sfx.play("hit")
 end
 function Unit:hurtLow_update(dt)
@@ -1033,7 +1024,6 @@ function Unit:fall_start()
 	if self.z <= 0 then
 		self.z = 0
 	end
-	self.hurted = true
 	--sfx.play("hit")
 end
 function Unit:fall_update(dt)
@@ -1059,7 +1049,6 @@ function Unit:fall_update(dt)
             self.velz = 0
             self.vely = 0
             self.velx = 0
-            self.hurted = true
 
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
