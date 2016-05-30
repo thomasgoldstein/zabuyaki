@@ -155,6 +155,10 @@ return {
 			{ q = q(64,487,69,30), ox = 34, oy = 29 }, --lying down
 			delay = 65
 		},
+		down = {
+			{ q = q(64,487,69,30), ox = 34, oy = 29 }, --lying down
+			delay = 5
+		},
 		hurtHigh = {
 			{ q = q(2,330,45,63), ox = 24, oy = 62 }, --hh1
 			{ q = q(49,331,47,62), ox = 27, oy = 61 }, --hh2

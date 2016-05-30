@@ -1052,6 +1052,7 @@ function Unit:fall_update(dt)
                 self.z = 0.01
                 self.velz = -self.velz/2
                 self.velx = self.velx * 0.5
+                SetSpriteAnim(self.sprite,"down")
                 return
             end
             self.z = 0
@@ -1181,7 +1182,7 @@ Unit.combo = {name = "combo", start = Unit.combo_start, exit = nop, update = Uni
 -- GRABBING / HOLDING
 function Unit:checkForGrab(range)
 	--got any Units
-	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.face*range, y = self.y - 1, w = 1, h = 3 }
+	--attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.face*range, y = self.y - 1, w = 1, h = 3 }
 	local items, len = world:queryPoint(self.x + self.face*range, self.y,
 		function(o)
 			if o ~= self and (o.type == "player" or o.type == "enemy") then
