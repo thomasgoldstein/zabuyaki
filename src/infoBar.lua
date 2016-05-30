@@ -165,7 +165,7 @@ function InfoBar:draw_item_bar(l,t,w,h)
     love.graphics.setColor(0, 50, 50, transp_bg)
     local font = gfx.font.arcade3
     love.graphics.setFont(font)
-    local bar_width = font:getWidth(self.name.." "..self.note)
+    local bar_width = math.max(font:getWidth(self.name), font:getWidth(self.note))
     drawSBar(l + self.x, t + self.y, icon_width*2 + bar_width - 4, icon_height + 2, (icon_height + 2)/2)
 
     love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_icon)
@@ -176,8 +176,9 @@ function InfoBar:draw_item_bar(l,t,w,h)
         l + self.x + icon_height/4, t + self.y + 4
     )
     love.graphics.setColor(255, 255, 255, transp_name)
---    love.graphics.print(self.name.." "..self.note, l + self.x + icon_width + 4, t + self.y-17)
-    love.graphics.print(self.name.." "..self.note, l + self.x + icon_width + 8, t + self.y + bar_height/2)
+--    love.graphics.print(self.name.." "..self.note, l + self.x + icon_width + 8, t + self.y + bar_height/2)
+    love.graphics.print(self.name, l + self.x + icon_width + 8, t + self.y + 4)
+    love.graphics.print(self.note, l + self.x + icon_width + 8, t + self.y + 14)
 end
 
 function InfoBar:draw(l,t,w,h)
