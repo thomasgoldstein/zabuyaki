@@ -1048,6 +1048,12 @@ function Unit:fall_update(dt)
 		self.velz = self.velz - self.gravity * dt
 		self.z = self.z + dt * self.velz
 	    if self.z <= 0 then
+            if self.velz < -100 then    --bounce up after fall
+                self.z = 0.01
+                self.velz = -self.velz/2
+                self.velx = self.velx * 0.5
+                return
+            end
             self.z = 0
             self.velz = 0
             self.vely = 0
