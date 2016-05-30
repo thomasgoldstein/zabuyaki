@@ -1290,7 +1290,7 @@ function Unit:grab_update(dt)
         end
         self.horizontal = -self.horizontal
         self.velx = 175 --move from source
-        self.cool_down = 0.35
+        self.cool_down = 0.1
         self:setState(self.stand)
 		return
 	end
