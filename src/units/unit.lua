@@ -46,6 +46,7 @@ function Unit:initialize(name, sprite, input, x, y, color)
 
 	self.isGrabbed = false
 	self.cool_down_grab = 2
+	self.grab_release_after = 0.35 --sec if u hold 'back'
 	self.hold = {source = nil, target = nil, cool_down = 0 }
     self.isThrown = false
     self.n_grabhit = 0    -- n of the grab hits
@@ -1246,6 +1247,7 @@ function Unit:grab_start()
 	SetSpriteAnim(self.sprite,"grab")
 	self.can_jump = false
 	self.can_fire = false
+	self.grab_release = 0
     self.victims = {}
 	if DEBUG then
 		print(self.name.." is grabing someone.")
@@ -1255,6 +1257,19 @@ end
 function Unit:grab_update(dt)
 	--print(self.name .. " - grab update", dt)
 	local g = self.hold
+
+	if (self.face == 1 and self.b.left.down) or
+			(self.face == -1 and self.b.right.down)
+	then
+		self.grab_release = self.grab_release + dt
+		if self.grab_release >= self.grab_release_after then
+			g.target.isGrabbed = false
+		end
+	else
+		self.grab_release = 0
+	end
+
+
 	if g.cool_down > 0 and g.target.isGrabbed then
 		g.cool_down = g.cool_down - dt
 	else
@@ -1298,7 +1313,7 @@ function Unit:grab_update(dt)
                 return
             end
         end
-    end
+	end
 
 	if not self.b.jump.down then
 		self.can_jump = true
