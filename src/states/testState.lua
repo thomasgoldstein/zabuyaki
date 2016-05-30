@@ -88,9 +88,9 @@ function testState:enter()
     --load level
     world, background, worldWidth, worldHeight = require("res/level_template")()
 
-    --adding players into collision world
+    --adding players into collision world 15x7
     for i,pl in pairs(self.entities) do
-        world:add(pl, pl.x-8, pl.y-4, 16, 8)
+        world:add(pl, pl.x-7, pl.y-3, 15, 7)
     end
 
     --adding 1st wave of foes into collision world
@@ -147,6 +147,10 @@ function testState:draw()
 			player:drawShadow(l,t,w,h)
 		end
 
+        for _,player in ipairs(self.entities) do
+            player:draw(l,t,w,h)
+        end
+
         -- debug draw bump boxes
         if DEBUG then
             local items, _ = world:getItems()
@@ -162,10 +166,6 @@ function testState:draw()
                 love.graphics.rectangle("line", a.x, a.y, a.w, a.h )
             end
             attackHitBoxes = {}
-        end
-
-		for _,player in ipairs(self.entities) do
-			player:draw(l,t,w,h)
         end
 
         --TODO add foreground parallax for levels
