@@ -47,7 +47,7 @@ function Unit:initialize(name, sprite, input, x, y, color)
 
 	self.isGrabbed = false
 	self.cool_down_grab = 2
-	self.grab_release_after = 0.35 --sec if u hold 'back'
+	self.grab_release_after = 0.25 --sec if u hold 'back'
 	self.hold = {source = nil, target = nil, cool_down = 0 }
     self.isThrown = false
     self.n_grabhit = 0    -- n of the grab hits
@@ -1290,7 +1290,7 @@ function Unit:grab_update(dt)
         end
         self.horizontal = -self.horizontal
         self.velx = 175 --move from source
-        self.cool_down = 0.1
+        self.cool_down = 0.0
         self:setState(self.stand)
 		return
 	end
