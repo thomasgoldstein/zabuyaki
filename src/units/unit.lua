@@ -1042,7 +1042,7 @@ function Unit:fall_update(dt)
                 self.z = 0.01
                 self.velz = -self.velz/2
                 self.velx = self.velx * 0.5
-                SetSpriteAnim(self.sprite,"down")
+                SetSpriteAnim(self.sprite,"fallen")
                 return
             end
             self.z = 0
@@ -1078,7 +1078,6 @@ Unit.fall = {name = "fall", start = Unit.fall_start, exit = nop, update = Unit.f
 
 function Unit:getup_start()
 	--print (self.name.." - getup start")
-	SetSpriteAnim(self.sprite,"getup")
     if self.isThrown then
         --TODO add proper dmg func
         local src = self.thrower_id
@@ -1088,6 +1087,11 @@ function Unit:getup_start()
             x = src.x, y = src.y, z = 0 }
 		src.victim_infoBar = self.infoBar:setAttacker(src)
     end
+    if self.hp <= 0 then
+        self:setState(self.dead)
+        return
+    end
+    SetSpriteAnim(self.sprite,"getup")
     self.isThrown = false
 	if self.z <= 0 then
 		self.z = 0
@@ -1097,10 +1101,6 @@ end
 function Unit:getup_update(dt)
 	--print(self.name .. " - getup update", dt)
 	if self.sprite.isFinished then
-        if self.hp <= 0 then
-            self:setState(self.dead)
-            return
-        end
 		self:setState(self.stand)
 		return
 	end
@@ -1112,7 +1112,7 @@ Unit.getup = {name = "getup", start = Unit.getup_start, exit = nop, update = Uni
 
 function Unit:dead_start()
 	--print (self.name.." - dead start")
-	SetSpriteAnim(self.sprite,"dead")
+    SetSpriteAnim(self.sprite,"fallen")
 	if DEBUG then
 		print(self.name.." is dead.")
 	end

@@ -150,14 +150,9 @@ return {
 			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
 			delay = 0.2
 		},
-		dead = {
-			{ q = q(135,464,56,53), ox = 28, oy = 52, delay = 1.2 }, --getting up
+		fallen = {
 			{ q = q(64,487,69,30), ox = 40, oy = 29 }, --lying down
 			delay = 65
-		},
-		down = {
-			{ q = q(64,487,69,30), ox = 40, oy = 29 }, --lying down
-			delay = 5
 		},
 		hurtHigh = {
 			{ q = q(2,330,45,63), ox = 24, oy = 62 }, --hh1

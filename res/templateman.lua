@@ -141,14 +141,9 @@ return {
 			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
 			delay = 0.2
 		},
-		dead = {
-			{q = q(135, 404, 62, 47), ox = 31, oy = 46, delay = 1},
+		fallen = {
 			{q = q(57, 417, 76, 34), ox = 38, oy = 33},
 			delay = 60
-		},
-		down = {
-			{q = q(57, 417, 76, 34), ox = 38, oy = 33},
-			delay = 5
 		},
 		hurtHigh = {
 			{q = q(2, 453, 49, 62), ox = 21, oy = 61}, --hh1
