@@ -144,7 +144,7 @@ return {
 			delay = 5
 		},
 		getup = {
-			{ q = q(64,487,69,30), ox = 34, oy = 29, delay = 1.2 }, --lying down
+			{ q = q(64,487,69,30), ox = 40, oy = 29, delay = 1.2 }, --lying down
 			{ q = q(135,464,56,53), ox = 28, oy = 52 }, --getting up
 			{ q = q(48,398,43,58), ox = 21, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
@@ -152,11 +152,11 @@ return {
 		},
 		dead = {
 			{ q = q(135,464,56,53), ox = 28, oy = 52, delay = 1.2 }, --getting up
-			{ q = q(64,487,69,30), ox = 34, oy = 29 }, --lying down
+			{ q = q(64,487,69,30), ox = 40, oy = 29 }, --lying down
 			delay = 65
 		},
 		down = {
-			{ q = q(64,487,69,30), ox = 34, oy = 29 }, --lying down
+			{ q = q(64,487,69,30), ox = 40, oy = 29 }, --lying down
 			delay = 5
 		},
 		hurtHigh = {
