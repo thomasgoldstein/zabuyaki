@@ -210,7 +210,7 @@ function testState:keypressed(k, unicode)
         Gamestate.switch(menuState)
     elseif k == '0' then
         DEBUG = not DEBUG
-    elseif k == 'f' then
+    elseif k == 'f11' then
         switchFullScreen()
     end
     if DEBUG then
