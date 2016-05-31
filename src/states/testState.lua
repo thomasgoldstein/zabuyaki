@@ -7,8 +7,7 @@ end
 
 function testState:resume()
     --start BGM
-    TEsound.stop("music")
-    TEsound.playLooping("res/bgm/testtrck.xm", "music")
+    TEsound.volume("music", 1)
 end
 
 function testState:enter()

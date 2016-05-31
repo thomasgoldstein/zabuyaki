@@ -12,7 +12,7 @@ SetSpriteAnim(rick_spr,"fallen")
 rick_spr.size_scale = 4
 
 function pauseState:enter()
-    TEsound.stop("music")
+    TEsound.volume("music", 0.4)
 end
 
 function pauseState:update(dt)
