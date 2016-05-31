@@ -118,11 +118,11 @@ function UpdateInstance(spr, dt, slf)
 		sc.delay = s.delay
 	end
 	-- call the custom frame func on every frame
-	if sc.funcCont then
+	if sc.funcCont and slf then
 		sc.funcCont(slf)
 	end
 	-- call custom frame funce once per the frame
-	if sc.func and spr.func_called_at_frame ~= spr.curr_frame then
+	if sc.func and spr.func_called_at_frame ~= spr.curr_frame and slf then
 		spr.func_called_at_frame = spr.curr_frame
 		sc.func(slf)
 	end
