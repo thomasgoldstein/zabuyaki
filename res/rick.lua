@@ -58,6 +58,12 @@ return {
 		icon  = {
 			{ q = q(45, 598, 32, 24) }
 		},
+		intro = {
+			{ q = q(48,398,43,58), ox = 21, oy = 57 }, --pickup 2
+			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
+			loop = true,
+			delay = 1
+		},
 		stand = {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad

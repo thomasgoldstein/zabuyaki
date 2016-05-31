@@ -49,6 +49,10 @@ return {
 		icon  = {
 			{ q = q(71, 70, 32, 24) }
 		},
+		intro = {
+			{ q = q(2, 143, 35, 55), ox = 19, oy = 54 }, -- duck 1
+			delay = 5
+		},
 		stand = {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad

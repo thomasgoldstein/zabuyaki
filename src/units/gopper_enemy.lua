@@ -25,7 +25,9 @@ function Gopper:initialize(name, sprite, input, x, y, color)
     Player.initialize(self, name, sprite, input, x, y, color)
     self:pickAttackTarget()
     self.type = "enemy"
+    self.face = -1
     self:setToughness(0)
+    self:setState(self.intro)
 end
 
 function Gopper:setToughness(t)
@@ -98,7 +100,30 @@ function Gopper:combo_update(dt)
 end
 Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Player.default_draw}
 
---States: Stand, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
+--States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
+function Gopper:intro_start()
+    --    	print (self.name.." - intro start")
+    SetSpriteAnim(self.sprite,"intro")
+end
+function Gopper:intro_update(dt)
+    --    	print (self.name," - intro update",dt)
+    if self.cool_down <= 0 then
+        --can move
+        local t1 = dist(self.x, self.y, player1.x, player1.y)
+        local t2 = dist(self.x, self.y, player2.x, player2.y)
+        local t3 = dist(self.x, self.y, player3.x, player3.y)
+        if math.min(t1,t2,t3) < 100 then
+            self.face = -player1.face   --face to player
+            self:setState(self.stand)
+            return
+        end
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+    self:updateShake(dt)
+    UpdateInstance(self.sprite, dt, self)
+end
+Gopper.intro = {name = "intro", start = Gopper.intro_start, exit = nop, update = Gopper.intro_update, draw = Player.default_draw}
 
 function Gopper:stand_start()
 --    	print (self.name.." - stand start")
