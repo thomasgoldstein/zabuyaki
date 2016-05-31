@@ -94,20 +94,20 @@ function love.load(arg)
 
 	--player 2
 	--basic detectors
-	keyboardA  = tactile.key('a')
+	keyboardA = tactile.key('a')
 	keyboardD = tactile.key('d')
-	keyboardW    = tactile.key('w')
-	keyboardS  = tactile.key('s')
-	keyboardI     = tactile.key('i')
-	keyboardO     = tactile.key('o')
+	keyboardW = tactile.key('w')
+	keyboardS = tactile.key('s')
+	keyboardI = tactile.key('i')
+	keyboardO = tactile.key('o')
 
 	button2 = {}
-	button2.left       = tactile.newButton(keyboardA)
-	button2.right      = tactile.newButton(keyboardD)
-	button2.up         = tactile.newButton(keyboardW)
-	button2.down       = tactile.newButton(keyboardS)
-	button2.fire    = tactile.newButton(keyboardI) --mouseLeft
-	button2.jump    = tactile.newButton(keyboardO) --mouseRight
+	button2.left   = tactile.newButton(keyboardA)
+	button2.right  = tactile.newButton(keyboardD)
+	button2.up     = tactile.newButton(keyboardW)
+	button2.down   = tactile.newButton(keyboardS)
+	button2.fire   = tactile.newButton(keyboardI) --mouseLeft
+	button2.jump   = tactile.newButton(keyboardO) --mouseRight
 
 	--add keyTrace into every player 2 button
 	for index,value in pairs(button2) do
@@ -130,13 +130,15 @@ function love.load(arg)
 	fancy = require "lib/fancy"	--we need this lib always
 
 	--GameStates
+	require "src/states/titleState"
+	require "src/states/optionsState"
+	require "src/states/pauseState"
 	require "src/states/testState"
-	require "src/states/gameState"
-	require "src/states/menuState"
-		
+	--require "src/states/gameState"
+
     --Add Gamestates Here
     Gamestate.registerEvents()
-    Gamestate.switch(testState)
+    Gamestate.switch(titleState)
 --    Gamestate.switch(menuState)
 end
 

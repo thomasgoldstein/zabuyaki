@@ -5,6 +5,12 @@ local DEBUG = GLOBAL_SETTING.DEBUG
 function testState:init()
 end
 
+function testState:resume()
+    --start BGM
+    TEsound.stop("music")
+    TEsound.playLooping("res/bgm/testtrck.xm", "music")
+end
+
 function testState:enter()
     --create shaders
     local sh_rick2 = love.graphics.newShader(sh_replace_3_colors)
@@ -207,11 +213,15 @@ end
 function testState:keypressed(k, unicode)
     if k == "escape" then
         GLOBAL_UNIT_ID = 1
-        Gamestate.switch(menuState)
+        Gamestate.switch(titleState)
     elseif k == '0' then
         DEBUG = not DEBUG
     elseif k == 'f11' then
         switchFullScreen()
+    end
+    if k == "return" then
+        Gamestate.push(pauseState)
+        return
     end
     if DEBUG then
         if k == '1' then
@@ -220,7 +230,7 @@ function testState:keypressed(k, unicode)
             mainCamera:setScale(2)
         elseif k == '3' then
             mainCamera:setScale(3)
-        elseif k == 'return' then
+        elseif k == 'f12' then
             for i, player in ipairs(self.entities) do
                 if player.type == "player" or player.type == "enemy" then
                     player:revive()
