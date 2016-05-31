@@ -12,6 +12,7 @@ attackHitBoxes = {} -- DEBUG
 GLOBAL_SETTING = {}
 GLOBAL_SETTING.MAX_PLAYERS = 3
 GLOBAL_SETTING.DEBUG = false
+GLOBAL_SETTING.FULL_SCREEN = false
 
 function love.load(arg)
 	--TODO remove in release. Needed for ZeroBane Studio debugging

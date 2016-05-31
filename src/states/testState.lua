@@ -196,12 +196,22 @@ function testState:draw()
     end
 end
 
+function switchFullScreen()
+    if GLOBAL_SETTING.FULL_SCREEN then
+        GLOBAL_SETTING.FULL_SCREEN = not love.window.setFullscreen( false )
+    else
+        GLOBAL_SETTING.FULL_SCREEN = love.window.setFullscreen( true )
+    end
+end
+
 function testState:keypressed(k, unicode)
     if k == "escape" then
         GLOBAL_UNIT_ID = 1
         Gamestate.switch(menuState)
     elseif k == '0' then
         DEBUG = not DEBUG
+    elseif k == 'f' then
+        switchFullScreen()
     end
     if DEBUG then
         if k == '1' then
