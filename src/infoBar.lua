@@ -26,7 +26,7 @@ local transp_lost = 255
 local transp_got = 255
 local transp_name = 255
 
-local MAX_PLAYERS = MAX_PLAYERS
+local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 
 local max_bar_width = bar_width + icon_width + icon_height/2 + bar_height/2
 

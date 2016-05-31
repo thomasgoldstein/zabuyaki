@@ -7,10 +7,11 @@
     Visit for more information:
     http://opensource.org/licenses/MIT
 ]]
-DEBUG = false
 attackHitBoxes = {} -- DEBUG
 
-MAX_PLAYERS = 3
+GLOBAL_SETTING = {}
+GLOBAL_SETTING.MAX_PLAYERS = 3
+GLOBAL_SETTING.DEBUG = false
 
 function love.load(arg)
 	--TODO remove in release. Needed for ZeroBane Studio debugging

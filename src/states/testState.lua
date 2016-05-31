@@ -1,5 +1,7 @@
 testState = {}
 
+local DEBUG = GLOBAL_SETTING.DEBUG
+
 function testState:init()
 end
 
