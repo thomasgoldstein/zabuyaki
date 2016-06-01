@@ -40,6 +40,10 @@ function testState:enter()
     sh_gopper4:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
     sh_gopper4:sendColor("newColors", {112,48,61, 255},  {73,31,40, 255},  {40,17,22, 255})   --Red
 
+    local sh_niko2 = love.graphics.newShader(sh_replace_4_colors)
+    sh_niko2:sendColor("colors", {222,230,239, 255},  {53,53,53, 255},  {30,30,30, 255}, {15,15,15, 255}) --White, DarkGray, Dark
+    sh_niko2:sendColor("newColors", {15,15,15, 255},  {198,198,198, 255},  {137,137,137, 255}, {84,84,84, 255})   --Black, LightGray, Gray, DarkGray
+
     -- create players
     player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 190, 180, {255,255,255, 255})
 --    player1.shader = sh_noise
@@ -78,13 +82,13 @@ function testState:enter()
 
     niko1 = Niko:new("niko", GetInstance("res/niko.lua"), button3, 500 + love.math.random(-20,20), 204, {255,255,255, 255})
     niko2 = Niko:new("niko2", GetInstance("res/niko.lua"), button3, 510 + love.math.random(-20,20), 184, {255,255,255, 255})
-    niko2.shader = sh_gopper2
+    niko2.shader = sh_niko2
     niko2:setToughness(1)
     niko3 = Niko:new("niko3", GetInstance("res/niko.lua"), button3, 560 + love.math.random(-20,20), 190, {255,255,255, 255})
-    niko3.shader = sh_gopper3
+    niko3.shader = sh_niko2
     niko3:setToughness(2)
     niko4 = Niko:new("niko4", GetInstance("res/niko.lua"), button3, 520 + love.math.random(-20,20), 200-24, {255,255,255, 255})
-    niko4.shader = sh_gopper4
+    niko4.shader = sh_niko2
     niko4:setToughness(3)
     niko5 = Niko:new("niko5", GetInstance("res/niko.lua"), button3, 540 + love.math.random(-20,20), 210, {255,255,255, 255})
     niko5:setToughness(4)
