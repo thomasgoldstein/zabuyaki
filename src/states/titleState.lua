@@ -42,6 +42,11 @@ end
 
 function titleState:enter()
     TEsound.stop("music")
+    mouse_x, mouse_y = 0,0
+end
+
+function titleState:resume()
+    mouse_x, mouse_y = 0,0
 end
 
 function titleState:update(dt)

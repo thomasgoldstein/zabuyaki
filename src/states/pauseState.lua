@@ -39,6 +39,7 @@ end
 function pauseState:enter()
     TEsound.volume("music", 0.75)
     menu_state = 1
+    mouse_x, mouse_y = 0,0
 end
 
 function pauseState:leave()

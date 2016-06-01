@@ -40,6 +40,7 @@ end
 
 function optionsState:enter()
     TEsound.stop("music")
+    mouse_x, mouse_y = 0,0
 end
 
 function optionsState:update(dt)
@@ -108,9 +109,9 @@ function optionsState:keypressed(key, unicode)
         return Gamestate.pop()
     end
 
-    if menu_state < 0 then
-        menu_state = 0
-    elseif menu_state > 3 then
-        menu_state = 3
+    if menu_state < 1 then
+        menu_state = 1
+    elseif menu_state > 4 then
+        menu_state = 4
     end
 end
