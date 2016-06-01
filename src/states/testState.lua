@@ -11,6 +11,7 @@ function testState:resume()
 end
 
 function testState:enter()
+    GLOBAL_UNIT_ID = 1  --recalc players IDs for proper life bar coords
     --create shaders
     local sh_rick2 = love.graphics.newShader(sh_replace_3_colors)
     sh_rick2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
@@ -226,17 +227,12 @@ function switchFullScreen()
 end
 
 function testState:keypressed(k, unicode)
-    if k == "escape" then
-        GLOBAL_UNIT_ID = 1
-        Gamestate.switch(titleState)
-    elseif k == '0' then
+    if k == '0' then
         DEBUG = not DEBUG
     elseif k == 'f11' then
         switchFullScreen()
-    end
-    if k == "return" then
-        Gamestate.push(pauseState)
-        return
+    elseif k == "escape" then
+        return Gamestate.push(pauseState)
     end
     if DEBUG then
         if k == '1' then
