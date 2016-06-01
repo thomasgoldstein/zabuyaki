@@ -76,6 +76,21 @@ function testState:enter()
     dummy5 = Temper:new("TEMPER", GetInstance("res/rick.lua"), button3, 670, 170, {255,255,255, 255})
     dummy5.shader = sh_rick5
 
+    niko1 = Niko:new("niko", GetInstance("res/niko.lua"), button3, 500 + love.math.random(-20,20), 204, {255,255,255, 255})
+    niko2 = Niko:new("niko2", GetInstance("res/niko.lua"), button3, 510 + love.math.random(-20,20), 184, {255,255,255, 255})
+    niko2.shader = sh_gopper2
+    niko2:setToughness(1)
+    niko3 = Niko:new("niko3", GetInstance("res/niko.lua"), button3, 560 + love.math.random(-20,20), 190, {255,255,255, 255})
+    niko3.shader = sh_gopper3
+    niko3:setToughness(2)
+    niko4 = Niko:new("niko4", GetInstance("res/niko.lua"), button3, 520 + love.math.random(-20,20), 200-24, {255,255,255, 255})
+    niko4.shader = sh_gopper4
+    niko4:setToughness(3)
+    niko5 = Niko:new("niko5", GetInstance("res/niko.lua"), button3, 540 + love.math.random(-20,20), 210, {255,255,255, 255})
+    niko5:setToughness(4)
+    niko6 = Niko:new("niko6", GetInstance("res/niko.lua"), button3, 525 + love.math.random(-20,20), 200-4, {255,255,255, 255})
+    niko6:setToughness(5)
+
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
     item1 = Item:new("Apple", "+15 HP", gfx.items.apple, 15, 0, nil, 130,180)
     item2 = Item:new("Chicken", "+50 HP", gfx.items.chicken, 50, 0, nil, 660,180)
@@ -84,6 +99,7 @@ function testState:enter()
 
     self.entities = {player1, player2, player3,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
+        niko1, niko2, niko3, niko4, niko5, niko6,
         dummy4, dummy5,
         item1, item2, item3,
     }
