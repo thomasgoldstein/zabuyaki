@@ -87,15 +87,16 @@ function optionsState:draw()
     DrawInstance(rick_spr, 200, 370)
     for i = 1,#menu do
         local m = menu[i]
+        if i == menu_state then
+            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
+            love.graphics.setColor(255,200,40, 255)
+            love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
+        end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(m.item, m.x, m.y )
         if CheckPointCollision(mouse_x, mouse_y, m.x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin ) then
             menu_state = i
-        end
-        if i == menu_state then
-            love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
-            love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
-            love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
         end
     end
     --header
