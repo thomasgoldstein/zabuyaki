@@ -9,6 +9,8 @@
 ]]
 attackHitBoxes = {} -- DEBUG
 
+GLOBAL_SCREENSHOT = false	--keep current screenshop
+
 GLOBAL_SETTING = {}
 GLOBAL_SETTING.MAX_PLAYERS = 3
 GLOBAL_SETTING.DEBUG = false

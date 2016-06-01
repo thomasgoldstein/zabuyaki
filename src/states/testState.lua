@@ -147,6 +147,15 @@ function testState:update(dt)
     background:update(dt)
     mainCamera:update(dt, player1.x, player1.y)
 
+--[[    local function cerp(a,b,t) local f=(1-math.cos(t*math.pi))*.5 return a*(1-f)+b*f end
+    local function clamp(low, n, high) return math.min(math.max(low, n), high) end
+    local minx = math.min(player1.x, (player1.x + player2.x)/2, player2.x)
+    local maxx = math.max(player1.x, (player1.x + player2.x)/2, player2.x)
+    local miny = math.min(player1.y, (player1.y + player2.y)/2, player2.y)
+    local maxy = math.max(player1.y, (player1.y + player2.y)/2, player2.y)]]
+--    mainCamera:update(dt, clamp(minx, player1.x, maxx),
+--        clamp(miny, player1.y, maxy))
+
     if DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
         fancy.watch("P1 y: ",player1.y, 3)
@@ -233,6 +242,7 @@ function testState:keypressed(k, unicode)
     elseif k == 'f11' then
         switchFullScreen()
     elseif k == "escape" then
+        GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
         return Gamestate.push(pauseState)
     end
     if DEBUG then

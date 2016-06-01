@@ -27,6 +27,10 @@ function pauseState:enter()
     menu_state = 0
 end
 
+function pauseState:leave()
+    GLOBAL_SCREENSHOT = nil
+end
+
 function pauseState:update(dt)
     time = time + dt
     UpdateInstance(rick_spr, dt)
@@ -36,6 +40,11 @@ function pauseState:update(dt)
 end
 
 function pauseState:draw()
+    if GLOBAL_SCREENSHOT then
+        love.graphics.setColor(255, 255, 255, 256/4)
+        love.graphics.draw(GLOBAL_SCREENSHOT, 0, 0)
+    end
+
     love.graphics.setColor(255, 255, 255, 255)
     DrawInstance(rick_spr, 200, 370)
 
