@@ -8,7 +8,13 @@ local screen_width = 640
 local screen_height = 480
 local menu_item_h = 40
 local menu_y_offset = 200 - menu_item_h
+local hint_y_offset = 80
 local menu_x_offset = 80
+
+local left_item_offset  = 6
+local top_item_offset  = 6
+local item_width_margin = left_item_offset * 2
+local item_height_margin = top_item_offset * 2 - 2
 
 local txt_zabuyaki_logo = love.graphics.newText( gfx.font.arcade2, "ZABUYAKI" )
 local txt_beatemup = love.graphics.newText( gfx.font.arcade4, "Beat'em All" )
@@ -28,7 +34,31 @@ SetSpriteAnim(rick_spr,"stand")
 rick_spr.size_scale = 4
 
 local txt_items = {txt_start, txt_locked, txt_options, txt_quit}
-local txt_hints = {txt_start_hint, txt_locked_hint, txt_options_hint, txt_quit_hint}
+local txt_hints = {txt_start_hint, txt_locked_hint, txt_options_hint, txt_quit_hint }
+
+local function fillMenu(txt_items, txt_hints)
+    local m = {}
+    local max_item_width, max_item_x = 8, 0
+    for i = 1,#txt_items do
+        local w = txt_items[i]:getDimensions()
+        if w > max_item_width then
+            max_item_x = menu_x_offset + screen_width / 2 - txt_items[i]:getWidth()/2
+            max_item_width = w
+        end
+    end
+    for i = 1,#txt_items do
+        local x = menu_x_offset + screen_width / 2 - txt_items[i]:getWidth()/2
+        local y = menu_y_offset + i * menu_item_h
+        local w, h = txt_items[i]:getDimensions()
+
+        m[#m+1] = {item = txt_items[i], hint = txt_hints[i],
+            x = x, y = y, rect_x = max_item_x,
+            w = max_item_width, h = h}
+    end
+    return m
+end
+
+local menu = fillMenu(txt_items, txt_hints)
 
 local menu_state = 1
 local mouse_x, mouse_y = 0,0
@@ -60,28 +90,24 @@ end
 function titleState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     DrawInstance(rick_spr, 200, 370)
-
-    love.graphics.setColor(255, 255, 255, 255)
-    for i = 1,#txt_items do
-        local x = menu_x_offset + screen_width / 2 - txt_items[i]:getWidth()/2
-        local y = menu_y_offset + i * menu_item_h
-        local w, h = txt_items[i]:getDimensions()
-        if i == menu_state then
-            love.graphics.rectangle("line", x - 6, y - 6, w + 12, h + 10 )
-        end
-        if CheckPointCollision(mouse_x, mouse_y, x - 6,y -6 , w + 12, h + 10) then
+    for i = 1,#menu do
+        local m = menu[i]
+        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.draw(m.item, m.x, m.y )
+        if CheckPointCollision(mouse_x, mouse_y, m.x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin ) then
             menu_state = i
         end
-        love.graphics.draw(txt_items[i], x, y )
+        if i == menu_state then
+            love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
+            love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
+            love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
+        end
     end
-
+    --header
     love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
     love.graphics.draw(txt_zabuyaki_logo, (screen_width - txt_zabuyaki_logo:getWidth()) / 2, 40)
     love.graphics.setColor(255, 255, 255, 100 - math.sin(time)*20)
     love.graphics.draw(txt_beatemup, 390, 110)
-
-    love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
-    love.graphics.draw(txt_hints[menu_state], (screen_width - txt_hints[menu_state]:getWidth()) / 2, screen_height - 80)
 end
 
 function titleState:mousepressed( x, y, button, istouch )
