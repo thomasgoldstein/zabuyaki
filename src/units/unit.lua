@@ -236,7 +236,17 @@ function Unit:onHurt()
 			self.velx = h.velx
 			sfx.play("hit") -- hit sound
 		end
-		self.horizontal = h.source.horizontal
+--		self.horizontal = h.source.horizontal
+		if h.source.velx > 0 then
+			--if running - dashing
+			self.horizontal = h.source.horizontal
+		else
+			if self.x < h.source.x then
+				self.horizontal = -1
+			else
+				self.horizontal = 1
+			end
+		end
 		-- fall
 		self.z = self.z + 1
 		self.velz = 220
