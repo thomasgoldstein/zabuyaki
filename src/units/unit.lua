@@ -1284,16 +1284,15 @@ function Unit:grab_update(dt)
 	if g.cool_down > 0 and g.target.isGrabbed then
 		g.cool_down = g.cool_down - dt
 	else
-		--adjust victim
-		g.target.isGrabbed = false
-		if g.target.x < self.x then
+		--adjust players backoff
+		if g.target.x > self.x then
 			self.horizontal = -1
 		else
 			self.horizontal = 1
-        end
-        self.horizontal = -self.horizontal
+		end
         self.velx = 175 --move from source
         self.cool_down = 0.0
+		self:release_grabbed()
         self:setState(self.stand)
 		return
 	end
