@@ -87,7 +87,7 @@ end
 
 function pauseState:draw()
     if GLOBAL_SCREENSHOT then
-        love.graphics.setColor(255, 255, 255, 256/4)
+        love.graphics.setColor(255, 255, 255, 256 * 0.75) --darkened screenshot
         love.graphics.draw(GLOBAL_SCREENSHOT, 0, 0)
     end
     for i = 1,#menu do
