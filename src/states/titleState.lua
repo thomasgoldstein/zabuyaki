@@ -25,16 +25,13 @@ local txt_options = love.graphics.newText( gfx.font.arcade4, "OPTIONS" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "QUIT" )
 
 local txt_start_hint = love.graphics.newText( gfx.font.arcade4, "Press ACTION ('X' key)" )
-local txt_locked_hint = love.graphics.newText( gfx.font.arcade4, "This option is locked" )
-local txt_options_hint = love.graphics.newText( gfx.font.arcade4, "Change the game options" )
-local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Exit the game" )
 
 local rick_spr = GetInstance("res/rick.lua")
 SetSpriteAnim(rick_spr,"stand")
 rick_spr.size_scale = 4
 
 local txt_items = {txt_start, txt_locked, txt_options, txt_quit}
-local txt_hints = {txt_start_hint, txt_locked_hint, txt_options_hint, txt_quit_hint }
+local txt_hints = {txt_start_hint, txt_start_hint, txt_start_hint, txt_start_hint }
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
