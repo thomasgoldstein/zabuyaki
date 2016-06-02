@@ -1296,7 +1296,6 @@ function Unit:grab_update(dt)
         self:setState(self.stand)
 		return
 	end
-	--TODO add collision check
 	--adjust both vertically
 	if self.y > g.target.y + 1 then
 		self.y = self.y - 0.5
@@ -1307,9 +1306,11 @@ function Unit:grab_update(dt)
 	end
 	--adjust both horizontally
 	if self.x < g.target.x and self.x > g.target.x - 20 then
-		self.x = self.x - 1
+		--self.x = self.x - 1
+		self.velx = 1
 	elseif self.x >= g.target.x and self.x < g.target.x + 20 then
-		self.x = self.x + 1
+		--self.x = self.x + 1
+		self.velx = 1
 	end
 
 	if self.b.jump.down and self.can_jump then
