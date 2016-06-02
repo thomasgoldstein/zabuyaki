@@ -16,6 +16,14 @@ GLOBAL_SETTING.MAX_PLAYERS = 3
 GLOBAL_SETTING.DEBUG = false
 GLOBAL_SETTING.FULL_SCREEN = false
 
+function switchFullScreen()
+	if GLOBAL_SETTING.FULL_SCREEN then
+		GLOBAL_SETTING.FULL_SCREEN = not love.window.setFullscreen( false )
+	else
+		GLOBAL_SETTING.FULL_SCREEN = love.window.setFullscreen( true )
+	end
+end
+
 function love.load(arg)
 	--TODO remove in release. Needed for ZeroBane Studio debugging
 	if arg[#arg] == "-debug" then
@@ -163,6 +171,9 @@ function love.draw()
 end
 
 function love.keypressed(key, unicode)
+	if key == 'f11' then
+		switchFullScreen()
+	end
 end
 
 function love.keyreleased(key, unicode)

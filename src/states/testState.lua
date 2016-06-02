@@ -228,19 +228,9 @@ function testState:draw()
     end
 end
 
-function switchFullScreen()
-    if GLOBAL_SETTING.FULL_SCREEN then
-        GLOBAL_SETTING.FULL_SCREEN = not love.window.setFullscreen( false )
-    else
-        GLOBAL_SETTING.FULL_SCREEN = love.window.setFullscreen( true )
-    end
-end
-
 function testState:keypressed(k, unicode)
     if k == '0' then
         DEBUG = not DEBUG
-    elseif k == 'f11' then
-        switchFullScreen()
     elseif k == "escape" then
         GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
         return Gamestate.push(pauseState)
