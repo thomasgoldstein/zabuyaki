@@ -1148,7 +1148,8 @@ function Unit:combo_start()
 	elseif self.n_combo == 4 then
 		SetSpriteAnim(self.sprite,"combo4")
 	elseif self.n_combo == 5 then
-		SetSpriteAnim(self.sprite,"combo5")
+		SetSpriteAnim(self.sprite,"combo4")	--TODO missing anim?
+		print("WARNING: Tried to do 5th attack w/o chain")
 	end
 	--self.check_mash = false
 
