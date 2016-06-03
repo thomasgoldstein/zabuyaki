@@ -94,12 +94,13 @@ function InfoBar:setAttacker(attacker_source)
     end
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
         self.x, self.y, self.face = bars_coords[id].x, bars_coords[id].y + v_g, bars_coords[id].face
+        return self
     end
-    return self
+    return nil
 end
 
 function InfoBar:setPicker(picker_source)
-    id = picker_source.id
+    local id = picker_source.id
     if id <= MAX_PLAYERS then
         self.x, self.y, self.face = bars_coords[id].x, bars_coords[id].y + v_g, bars_coords[id].face
     end
