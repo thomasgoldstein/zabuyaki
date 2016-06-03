@@ -1280,7 +1280,6 @@ function Unit:grab_update(dt)
 		self.grab_release = 0
 	end
 
-
 	if g.cool_down > 0 and g.target.isGrabbed then
 		g.cool_down = g.cool_down - dt
 	else
@@ -1319,7 +1318,9 @@ function Unit:grab_update(dt)
 	elseif self.b.fire.down and self.can_fire then
 		--end
         if self.sprite.isFinished then
-            if self.b.up.down then
+			if (self.face == 1 and self.b.left.down) or
+				(self.face == -1 and self.b.right.down)
+			then
                 self:setState(self.grabThrow)
                 return
             else
