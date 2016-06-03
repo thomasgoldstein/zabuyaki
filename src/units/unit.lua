@@ -1468,9 +1468,7 @@ function Unit:grabThrow_start()
     --print (self.name.." - grabThrow start")
     local g = self.hold
 	local t = g.target
-	t.isThrown = true
 	SetSpriteAnim(t.sprite,"hurtLow")
-    g.cool_down = 0
     self.face = -self.face
     SetSpriteAnim(self.sprite,"grabThrow")
     if DEBUG then
