@@ -121,7 +121,7 @@ function pauseState:mousepressed( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
-            sfx.play("menu_gamestart")
+            sfx.play("menu_select")
             return Gamestate.pop()
         elseif menu_state == 3 then
             sfx.play("menu_cancel")
@@ -145,7 +145,7 @@ function pauseState:keypressed(key, unicode)
     elseif key == "x" then
         return pauseState:mousepressed( mouse_x, mouse_y, 1)
     elseif key == 'c' or key == "escape" then
-        sfx.play("menu_gamestart")
+        sfx.play("menu_select")
         return Gamestate.pop()
     end
 
