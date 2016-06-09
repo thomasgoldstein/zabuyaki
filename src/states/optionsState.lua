@@ -59,7 +59,7 @@ end
 
 local menu = fillMenu(txt_items, txt_hints)
 
-local menu_state = 1
+local menu_state, old_menu_state = 1, 1
 local mouse_x, mouse_y = 0,0
 
 local function CheckPointCollision(x,y, x1,y1,w1,h1)
@@ -79,6 +79,10 @@ function optionsState:update(dt)
     UpdateInstance(rick_spr, dt)
     if rick_spr.cur_anim ~= "stand" and rick_spr.isFinished then
         SetSpriteAnim(rick_spr,"stand")
+    end
+    if menu_state ~= old_menu_state then
+        sfx.play("menu_move")
+        old_menu_state = menu_state
     end
 end
 
@@ -111,12 +115,16 @@ function optionsState:mousepressed( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
+            sfx.play("menu_select")
             SetSpriteAnim(rick_spr,"hurtHigh")
         elseif menu_state == 2 then
+            sfx.play("menu_select")
             SetSpriteAnim(rick_spr,"hurtLow")
         elseif menu_state == 3 then
+            sfx.play("menu_select")
             SetSpriteAnim(rick_spr,"pickup")
         elseif menu_state == 4 then
+            sfx.play("menu_cancel")
             return Gamestate.pop()
         end
     end
@@ -137,6 +145,7 @@ function optionsState:keypressed(key, unicode)
     elseif key == "x" then
         return optionsState:mousepressed( mouse_x, mouse_y, 1)
     elseif key == 'c' or key == "escape" then
+        sfx.play("menu_cancel")
         return Gamestate.pop()
     end
 

@@ -71,6 +71,7 @@ function pauseState:enter()
     TEsound.volume("music", 0.75)
     menu_state = 1
     mouse_x, mouse_y = 0,0
+    sfx.play("menu_cancel")
 end
 
 function pauseState:leave()
@@ -83,6 +84,10 @@ function pauseState:update(dt)
 --    if rick_spr.cur_anim ~= "stand" and rick_spr.isFinished then
 --        SetSpriteAnim(rick_spr,"stand")
 --    end
+    if menu_state ~= old_menu_state then
+        sfx.play("menu_move")
+        old_menu_state = menu_state
+    end
 end
 
 function pauseState:draw()
@@ -116,8 +121,10 @@ function pauseState:mousepressed( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
+            sfx.play("menu_gamestart")
             return Gamestate.pop()
         elseif menu_state == 3 then
+            sfx.play("menu_cancel")
             return Gamestate.switch(titleState)
         end
     end
@@ -138,6 +145,7 @@ function pauseState:keypressed(key, unicode)
     elseif key == "x" then
         return pauseState:mousepressed( mouse_x, mouse_y, 1)
     elseif key == 'c' or key == "escape" then
+        sfx.play("menu_gamestart")
         return Gamestate.pop()
     end
 
