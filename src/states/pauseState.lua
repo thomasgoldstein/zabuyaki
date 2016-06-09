@@ -57,7 +57,7 @@ local menu = fillMenu(txt_items, txt_hints)
 --SetSpriteAnim(rick_spr,"fallen")
 --rick_spr.size_scale = 4
 
-local menu_state = 1
+local menu_state, old_menu_state = 1, 1
 local mouse_x, mouse_y = 0,0
 
 local function CheckPointCollision(x,y, x1,y1,w1,h1)
@@ -97,7 +97,7 @@ function pauseState:draw()
     end
     for i = 1,#menu do
         local m = menu[i]
-        if i == menu_state then
+        if i == old_menu_state then
             love.graphics.setColor(255, 255, 255, 255)
             love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
             love.graphics.setColor(255,200,40, 255)

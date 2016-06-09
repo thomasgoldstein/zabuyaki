@@ -91,7 +91,7 @@ function optionsState:draw()
     DrawInstance(rick_spr, 200, 370)
     for i = 1,#menu do
         local m = menu[i]
-        if i == menu_state then
+        if i == old_menu_state then
             love.graphics.setColor(255, 255, 255, 255)
             love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
             love.graphics.setColor(255,200,40, 255)
