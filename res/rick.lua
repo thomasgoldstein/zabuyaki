@@ -87,11 +87,11 @@ return {
 		},
 		run = { -- 1 2 3 4 5 6
 			{ q = q(2,136,44,60), ox = 14, oy = 60 }, --run 1
-			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
-			{ q = q(100,134,48,62), ox = 17, oy = 60, func = step_sfx2 }, --run 3
+			{ q = q(48,134,49,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(99,134,48,62), ox = 17, oy = 60, func = step_sfx2 }, --run 3
 			{ q = q(2,200,42,60), ox = 12, oy = 60 }, --run 4
-			{ q = q(46,198,50,61), ox = 18, oy = 61 }, --run 5
-			{ q = q(98,198,48,62), ox = 17, oy = 60, func = step_sfx2 }, --run 6
+			{ q = q(46,198,49,61), ox = 18, oy = 61 }, --run 5
+			{ q = q(97,198,48,62), ox = 17, oy = 60, func = step_sfx2 }, --run 6
             loop = true,
             delay = 0.1
 		},
