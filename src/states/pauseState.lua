@@ -68,7 +68,7 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
 end
 
 function pauseState:enter()
-    TEsound.volume("music", 0.75)
+    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
     menu_state = 1
     mouse_x, mouse_y = 0,0
     sfx.play("menu_cancel")

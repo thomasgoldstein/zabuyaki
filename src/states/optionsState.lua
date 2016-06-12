@@ -18,12 +18,13 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_options_logo = love.graphics.newText( gfx.font.arcade2, "OPTIONS" )
-local txt_option1 = love.graphics.newText( gfx.font.arcade4, "OPTION 1" )
+local txt_option1 = love.graphics.newText( gfx.font.arcade4, "BGM OFF" )
+local txt_option1a = love.graphics.newText( gfx.font.arcade4, "BGM ON" )
 local txt_option2 = love.graphics.newText( gfx.font.arcade4, "OPTION 2" )
 local txt_option3 = love.graphics.newText( gfx.font.arcade4, "OPTION 3" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "Back" )
 
-local txt_option1_hint = love.graphics.newText( gfx.font.arcade4, "Option 1 is locked" )
+local txt_option1_hint = love.graphics.newText( gfx.font.arcade4, "Background Music" )
 local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "Option 2 is locked" )
 local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "Option 3 is locked" )
 local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Exit to the Title" )
@@ -117,6 +118,15 @@ function optionsState:mousepressed( x, y, button, istouch )
         if menu_state == 1 then
             sfx.play("menu_select")
             SetSpriteAnim(rick_spr,"hurtHigh")
+            if GLOBAL_SETTING.BGM_VOLUME == 1 then
+                GLOBAL_SETTING.BGM_VOLUME = 0
+                txt_items[1] = txt_option1a
+            else
+                GLOBAL_SETTING.BGM_VOLUME = 1
+                txt_items[1] = txt_option1
+            end
+            menu = fillMenu(txt_items, txt_hints)
+
         elseif menu_state == 2 then
             sfx.play("menu_select")
             SetSpriteAnim(rick_spr,"hurtLow")

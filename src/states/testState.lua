@@ -124,7 +124,7 @@ function testState:enter()
     --start BGM
     TEsound.stop("music")
     TEsound.playLooping("res/bgm/testtrck.xm", "music")
-    TEsound.volume("music", 1)
+    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
 function testState:update(dt)
