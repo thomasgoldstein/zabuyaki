@@ -75,7 +75,7 @@ return {
             delay = 0.2
         },
         fall = {
-			{ q = q(2,199,51,62), ox = 25, oy = 61 }, --falling
+			{ q = q(2,199,51,62), ox = 25, oy = 61, flip_v = -1 }, --falling
             delay = 5
         },
         getup = {
