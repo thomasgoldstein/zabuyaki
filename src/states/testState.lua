@@ -46,12 +46,12 @@ function testState:enter()
     sh_niko2:sendColor("newColors", {15,15,15, 255},  {198,198,198, 255},  {137,137,137, 255}, {84,84,84, 255})   --Black, LightGray, Gray, DarkGray
 
     -- create players
-    player1 = Rick:new("RICK", GetInstance("res/rick.lua"), button, 190, 180, {255,255,255, 255})
+    player1 = Rick:new("RICK", GetInstance("res/rick.lua"), Control1, 190, 180, {255,255,255, 255})
 --    player1.shader = sh_noise
 --    player1.shader = sh_screen
 --    player1.shader = sh_texture
 --    player1.shader = sh_outline
-    player2 = Player:new("RIKO", GetInstance("res/rick.lua"), button2, 240, 200)
+    player2 = Player:new("RIKO", GetInstance("res/rick.lua"), Control2, 240, 200)
     player2.shader = sh_rick2
 
     player3 = Player:new("RICKY", GetInstance("res/rick.lua"), button3, 220, 200-30, {255,255,255, 255})

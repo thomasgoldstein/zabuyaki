@@ -29,7 +29,8 @@ function Unit:initialize(name, sprite, input, x, y, color)
     self.hp = self.max_hp
 	self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
-	self.b = input or {up = {down = false}, down = {down = false}, left = {down = false}, right={down = false}, fire = {down = false}, jump = {down = false}}
+	self.b = input or DUMMY_CONTROL
+
 	self.x, self.y, self.z = x, y, 0
 	self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
@@ -369,28 +370,28 @@ end
 
 function Unit:countKeyPresses()   --replaced with keyCombo
     if self.mash_count.left == 0 then
-        if self.b.left.down then
+        if self.b.horizontal:isDown(-1) then
             self.mash_count.left = 1
         end
     elseif self.mash_count.left == 1 then
-        if not self.b.left.down then
+        if not self.b.horizontal:isDown(-1) then
             self.mash_count.left = 2
         end
     elseif self.mash_count.left == 2 then
-        if self.b.left.down then
+        if self.b.horizontal:isDown(-1) then
             self.mash_count.left = 3
         end
     end
     if self.mash_count.right == 0 then
-        if self.b.right.down then
+        if self.b.horizontal:isDown(1) then
             self.mash_count.right = 1
         end
     elseif self.mash_count.right == 1 then
-        if not self.b.right.down then
+        if not self.b.horizontal:isDown(1) then
             self.mash_count.right = 2
         end
     elseif self.mash_count.right == 2 then
-        if self.b.right.down then
+        if self.b.horizontal:isDown(1) then
             self.mash_count.right = 3
         end
     end
@@ -504,10 +505,8 @@ function Unit:stand_update(dt)
 	end
 	if self.cool_down <= 0 then
     --can move
-        if self.b.left.down or
-			self.b.right.down or
-			self.b.up.down or
-			self.b.down.down
+        if self.b.horizontal:getValue() ~= 0 or
+			self.b.vertical:getValue() ~= 0
 	    then
 		    self:setState(self.walk)
 		    return
@@ -515,23 +514,23 @@ function Unit:stand_update(dt)
     else
         self.cool_down = self.cool_down - dt    --when <=0 u can move
         --can flip
-        if self.b.left.down then
+        if self.b.horizontal:isDown(-1) then
             self.face = -1
             self.horizontal = self.face
             --dash from combo
-            if self.b.left.ik:getLast()
-                and self.b.fire.down and self.can_fire
+            if self.b.horizontal.ikn:getLast()
+                and self.b.fire:isDown() and self.can_fire
             then
                 self.velx = 130
                 self:setState(self.dash)
                 return
             end
-        elseif self.b.right.down then
+        elseif self.b.horizontal:isDown(1) then
             self.face = 1
             self.horizontal = self.face
             --dash from combo
-            if self.b.right.ik:getLast()
-                    and self.b.fire.down and self.can_fire
+            if self.b.horizontal.ikp:getLast()
+                    and self.b.fire:isDown() and self.can_fire
             then
                 self.velx = 130
                 self:setState(self.dash)
@@ -540,10 +539,10 @@ function Unit:stand_update(dt)
         end
     end
 
-    if self.b.jump.down and self.can_jump then
+    if self.b.jump:isDown() and self.can_jump then
 		self:setState(self.duck2jump)
 		return
-	elseif self.b.fire.down and self.can_fire then
+	elseif self.b.fire:isDown() and self.can_fire then
 		if self.cool_down <= 0 then
 			if self:checkForItem(9, 9) ~= nil then
 				self:setState(self.pickup)
@@ -554,10 +553,10 @@ function Unit:stand_update(dt)
 		return
 	end
 
-	if not self.b.jump.down then
+	if not self.b.jump:isDown() then
 		self.can_jump = true
 	end
-	if not self.b.fire.down then
+	if not self.b.fire:isDown() then
 		self.can_fire = true
 	end
 
@@ -577,43 +576,43 @@ function Unit:walk_start()
 end
 function Unit:walk_update(dt)
 	--	print (self.name.." - walk update",dt)
-	if self.b.fire.down and self.can_fire then
+	if self.b.fire:isDown() and self.can_fire then
 		self:setState(self.combo)
 		return
-	elseif self.b.jump.down and self.can_jump then
+	elseif self.b.jump:isDown() and self.can_jump then
 		self:setState(self.duck2jump)
 		return
 	end
 	self.velx = 0
 	self.vely = 0
-	if self.b.left.down then
+	if self.b.horizontal:isDown(-1) then
 		self.face = -1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
-		if self.b.left.ik:getLast() then
+		if self.b.horizontal.ikn:getLast() then
 			self:setState(self.run)
 			return
 		end
-	elseif self.b.right.down then
+	elseif self.b.horizontal:isDown(1) then
 		self.face = 1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
-		if self.b.right.ik:getLast() then
+		if self.b.horizontal.ikp:getLast() then
 			self:setState(self.run)
 			return
 		end
 	end
-	if self.b.up.down then
+	if self.b.vertical:isDown(-1) then
 		self.vertical = -1
 		self.vely = 50
-		if self.b.up.ik:getLast() then
+		if self.b.vertical.ikn:getLast() then
 			self:setState(self.sideStepUp)
 			return
 		end
-	elseif self.b.down.down then
+	elseif self.b.vertical:isDown(1) then
 		self.vertical = 1
 		self.vely = 50
-		if self.b.down.ik:getLast() then
+		if self.b.vertical.ikp:getLast() then
 			self:setState(self.sideStepDown)
 			return
 		end
@@ -634,10 +633,10 @@ function Unit:walk_update(dt)
 	end
 
 	self:checkCollisionAndMove(dt)
-	if not self.b.jump.down then
+	if not self.b.jump:isDown() then
 		self.can_jump = true
 	end
-	if not self.b.fire.down then
+	if not self.b.fire:isDown() then
 		self.can_fire = true
 	end
 	self:updateShake(dt)
@@ -655,33 +654,33 @@ function Unit:run_update(dt)
 	--	print (self.name.." - run update",dt)
 	self.velx = 0
 	self.vely = 0
-	if self.b.left.down then
+	if self.b.horizontal:isDown(-1) then
 		self.face = -1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 150
-	elseif self.b.right.down then
+	elseif self.b.horizontal:isDown(1) then
 		self.face = 1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 150
 	end
-	if self.b.up.down then
+	if self.b.vertical:isDown(-1) then
 		self.vertical = -1
 		self.vely = 25
-	elseif self.b.down.down then
+	elseif self.b.vertical:isDown(1) then
 		self.vertical = 1
 		self.vely = 25
 	end
-	if self.b.right.down == false and self.b.left.down == false
-		or (self.b.right.down and self.horizontal < 0)
-		or (self.b.left.down and self.horizontal > 0)
+	if (self.b.horizontal:isDown(1) == false and self.b.horizontal:isDown(-1) == false)
+		or (self.b.horizontal:isDown(1) and self.horizontal < 0)
+		or (self.b.horizontal:isDown(-1) and self.horizontal > 0)
 	then
 		self:setState(self.walk)
 		return
 	end
-	if self.b.fire.down and self.can_fire then
+	if self.b.fire:isDown() and self.can_fire then
 		self:setState(self.dash)
 		return
-	elseif self.b.jump.down and self.can_jump then
+	elseif self.b.jump:isDown() and self.can_jump then
 		self:setState(self.duck2jump)
 		return
 	end
@@ -689,10 +688,10 @@ function Unit:run_update(dt)
 		self:setState(self.stand)
 		return
 	end
-	if not self.b.jump.down then
+	if not self.b.jump:isDown() then
 		self.can_jump = true
 	end
-	if not self.b.fire.down then
+	if not self.b.fire:isDown() then
 		self.can_fire = true
 	end
 	self:checkCollisionAndMove(dt)
@@ -706,14 +705,14 @@ function Unit:jump_start()
     SetSpriteAnim(self.sprite,"jump")
     self.velz = 220
     self.z = 0.1
-    if self.b.up.down then
+    if self.b.vertical:isDown(-1) then
         self.vertical = -1
-    elseif self.b.down.down then
+    elseif self.b.vertical:isDown(1) then
         self.vertical = 1
     else
         self.vertical = 0
     end
-    if self.b.left.down == false and self.b.right.down == false then
+    if self.b.horizontal:isDown(-1) == false and self.b.horizontal:isDown(1) == false then
         self.velx = 0
     end
     if self.velx ~= 0 then
@@ -726,9 +725,9 @@ function Unit:jump_start()
 end
 function Unit:jump_update(dt)
     --	print (self.name.." - jump update",dt)
-    if self.b.fire.down and self.can_fire then
-        if (self.b.left.down and self.face == 1)
-                or (self.b.right.down and self.face == -1) then
+    if self.b.fire:isDown() and self.can_fire then
+        if (self.b.horizontal:isDown(-1) and self.face == 1)
+                or (self.b.horizontal:isDown(1) and self.face == -1) then
             self:setState(self.jumpAttackWeak)
             return
         elseif self.velx == 0 then
@@ -750,7 +749,7 @@ function Unit:jump_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    if not self.b.fire.down then
+    if not self.b.fire:isDown() then
         self.can_fire = true
     end
     self:updateShake(dt)
@@ -1067,7 +1066,7 @@ function Unit:fall_update(dt)
 			mainCamera:onShake(1, 1, 0.03, 0.3)
 
             -- hold UP+JUMP to get no damage after throw (land on feet)
-            if self.isThrown and self.b.up.down and self.b.jump.down and self.hp >0 then
+            if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
                 self:setState(self.duck)
             else
                 self:setState(self.getup)
@@ -1269,8 +1268,8 @@ function Unit:grab_update(dt)
 	--print(self.name .. " - grab update", dt)
 	local g = self.hold
 
-	if (self.face == 1 and self.b.left.down) or
-			(self.face == -1 and self.b.right.down)
+	if (self.face == 1 and self.b.horizontal:isDown(-1)) or
+			(self.face == -1 and self.b.horizontal:isDown(1))
 	then
 		self.grab_release = self.grab_release + dt
 		if self.grab_release >= self.grab_release_after then
@@ -1312,14 +1311,14 @@ function Unit:grab_update(dt)
 		self.velx = 1
 	end
 
-	if self.b.jump.down and self.can_jump then
+	if self.b.jump:isDown() and self.can_jump then
 		--self:setState(self.jumpUp)
 		--return
-	elseif self.b.fire.down and self.can_fire then
+	elseif self.b.fire:isDown() and self.can_fire then
 		--end
         if self.sprite.isFinished then
-			if (self.face == 1 and self.b.left.down) or
-				(self.face == -1 and self.b.right.down)
+			if (self.face == 1 and self.b.horizontal:isDown(-1)) or
+				(self.face == -1 and self.b.horizontal:isDown(1))
 			then
                 self:setState(self.grabThrow)
                 return
@@ -1330,10 +1329,10 @@ function Unit:grab_update(dt)
         end
 	end
 
-	if not self.b.jump.down then
+	if not self.b.jump:isDown() then
 		self.can_jump = true
 	end
-	if not self.b.fire.down then
+	if not self.b.fire:isDown() then
 		self.can_fire = true
 	end
 	self:calcFriction(dt)
@@ -1390,7 +1389,7 @@ Unit.grabbed = {name = "grabbed", start = Unit.grabbed_start, exit = nop, update
 function Unit:grabHit_start()
     --print (self.name.." - grabhit start")
     local g = self.hold
-    if self.b.down.down then --press DOWN to early headbutt
+    if self.b.vertical:isDown(1) then --press DOWN to early headbutt
         g.cool_down = 0
         self:setState(self.grabHitEnd)
         return

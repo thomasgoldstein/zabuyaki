@@ -8,7 +8,7 @@ class = require "lib/middleclass"
 local KeyTrace = class("KeyTrace")
 
 -- input = keyTrigger
-function KeyTrace:initialize(name, input)
+function KeyTrace:initialize(name, input, dir)
     self.key = {}
     self.curr_key = 0
     self.max_key = 10
@@ -17,23 +17,15 @@ function KeyTrace:initialize(name, input)
     end
     self.name = name
     self.input = input
+    self.dir = dir
     self.elapsed_time = 0
-end
-
-function KeyTrace:PushKey(k)
-    if self.curr_key >= self.max_key then
-        self.curr_key = 1
-    else
-        self.curr_key = self.curr_key + 1
-    end
-    self.key[self.curr_key] = k
 end
 
 function KeyTrace:update(dt)
     local t = false
     local triggered = false
     --	print("kku")
-    if self.input:released() then
+    if self.input:released(dir) then
         t = true
         triggered = true
         --print("released ",index,value)
@@ -62,6 +54,16 @@ end
 
 function KeyTrace:getPrev()
     return self:getNth(1)
+end
+
+-- private
+function KeyTrace:PushKey(k)
+    if self.curr_key >= self.max_key then
+        self.curr_key = 1
+    else
+        self.curr_key = self.curr_key + 1
+    end
+    self.key[self.curr_key] = k
 end
 
 function KeyTrace:print()
