@@ -59,84 +59,7 @@ function love.load(arg)
 
 	tactile = require 'lib/tactile'
 	KeyTrace = require 'src/keyTrace'
-
-	--basic detectors
-	keyboardLeft  = tactile.key('left')
-	keyboardRight = tactile.key('right')
-	keyboardUp    = tactile.key('up')
-	keyboardDown  = tactile.key('down')
-	keyboardX     = tactile.key('x')
-	keyboardC     = tactile.key('c')
-	gamepadA      = tactile.gamepadButton('a', 1)
-	gamepadB      = tactile.gamepadButton('b', 1)
-	gamepadXAxis  = tactile.analogStick('leftx', 1)
-	gamepadYAxis  = tactile.analogStick('lefty', 1)
---	mouseLeft     = tactile.mouseButton(1)
---	mouseRight    = tactile.mouseButton(2)
-
-	--weird detectors that depend on other detectors
-	gamepadLeft   = tactile.thresholdButton(gamepadXAxis, -.5)
-	gamepadRight  = tactile.thresholdButton(gamepadXAxis, .5)
-	gamepadUp     = tactile.thresholdButton(gamepadYAxis, -.5)
-	gamepadDown   = tactile.thresholdButton(gamepadYAxis, .5)
-	keyboardXAxis = tactile.binaryAxis(keyboardLeft, keyboardRight)
-	keyboardYAxis = tactile.binaryAxis(keyboardUp, keyboardDown)
-
-	button = {}
-	button.left       = tactile.newButton(keyboardLeft, gamepadLeft)
-	button.right      = tactile.newButton(keyboardRight, gamepadRight)
-	button.up         = tactile.newButton(keyboardUp, gamepadUp)
-	button.down       = tactile.newButton(keyboardDown, gamepadDown)
-	button.fire    = tactile.newButton(keyboardX, gamepadA) --mouseLeft
-	button.jump    = tactile.newButton(keyboardC, gamepadB) --mouseRight
-
-	axis = {}
-	axis.horizontal = tactile.newAxis(gamepadXAxis, keyboardXAxis)
-	axis.vertical   = tactile.newAxis(gamepadYAxis, keyboardYAxis)
-	axis.horizontal.deadzone = .25
-	axis.vertical.deadzone = .25
-
-	--add keyTrace into every player 1 button
-	for index,value in pairs(button) do
-		local b = button[index]
-		b.ik = KeyTrace:new(index, value)
-		--local upd = b.update
-		--button[index].update = function(dt) upd(b); b.ik.update(b, dt) end
-	end
-
-	--player 2
-	--basic detectors
-	keyboardA = tactile.key('a')
-	keyboardD = tactile.key('d')
-	keyboardW = tactile.key('w')
-	keyboardS = tactile.key('s')
-	keyboardI = tactile.key('i')
-	keyboardO = tactile.key('o')
-
-	button2 = {}
-	button2.left   = tactile.newButton(keyboardA)
-	button2.right  = tactile.newButton(keyboardD)
-	button2.up     = tactile.newButton(keyboardW)
-	button2.down   = tactile.newButton(keyboardS)
-	button2.fire   = tactile.newButton(keyboardI) --mouseLeft
-	button2.jump   = tactile.newButton(keyboardO) --mouseRight
-
-	--add keyTrace into every player 2 button
-	for index,value in pairs(button2) do
-		local b = button2[index]
-		b.ik = KeyTrace:new(index, value)
-		--local upd = b.update
-		--button[index].update = function(dt) upd(b); b.ik.update(b, dt) end
-	end
-
-	--dummie player
-	button3 = {left = {down = false, released = function() return false end},
-		right = {down = false,released = function() return false end},
-		up = {down = false,released = function() return false end},
-		down = {down = false,released = function() return false end},
-		fire = {down = false,released = function() return false end},
-		jump = {down = false,released = function() return false end},
-		update = function() end }
+	require 'src/controls'
 
 	--DEBUG libs
 	fancy = require "lib/fancy"	--we need this lib always
@@ -155,15 +78,35 @@ function love.load(arg)
 end
 
 function love.update(dt)
-	for k, v in pairs(button) do	-- update input
-		v:update()
-		v.ik:update(dt)
-		--v.ik:print()
+	--update P1/P2 controls
+	Control1.horizontal:update()
+	Control1.vertical:update()
+	Control1.fire:update()
+	Control1.jump:update()
+	Control2.horizontal:update()
+	Control2.vertical:update()
+	Control2.fire:update()
+	Control2.jump:update()
+	--check for double presses, etc
+	for index,value in pairs(Control1) do
+		local b = Control1[index]
+		if index == "horizontal" or index == "vertical" then
+			--for derections
+			b.ikn:update(dt)
+			b.ikp:update(dt)
+		else
+			b.ik:update(dt)
+		end
 	end
-	for k, v in pairs(button2) do	-- update input
-		v:update()
-		v.ik:update(dt)
-		--v.ik:print()
+	for index,value in pairs(Control2) do
+		local b = Control2[index]
+		if index == "horizontal" or index == "vertical" then
+			--for derections
+			b.ikn:update(dt)
+			b.ikp:update(dt)
+		else
+			b.ik:update(dt)
+		end
 	end
 	TEsound.cleanup()
 end
