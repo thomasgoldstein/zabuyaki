@@ -25,7 +25,7 @@ function KeyTrace:update(dt)
     local t = false
     local triggered = false
     --	print("kku")
-    if self.input:released(dir) then
+    if self.input:released(self.dir) then
         t = true
         triggered = true
         --print("released ",index,value)
@@ -38,6 +38,13 @@ function KeyTrace:update(dt)
         --print("push ",t)
         self:PushKey(t)
     end
+end
+
+function KeyTrace:clear()
+    for i=1,self.max_key do
+        self.key[#self.key+1] = false
+    end
+    self.elapsed_time = 0
 end
 
 function KeyTrace:getNth(n)
