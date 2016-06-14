@@ -7,7 +7,6 @@
 local class = require "lib/middleclass"
 local Unit = class("Unit")
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
-local DEBUG = GLOBAL_SETTING.DEBUG
 
 local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
 	return x1 < x2+w2 and
@@ -175,14 +174,14 @@ function Unit:onHurt()
         end
     end
     if self.state == "fall" or self.state == "dead" or self.state == "getup" then
-		if DEBUG then
+		if GLOBAL_SETTING.DEBUG then
 			print("Clear HURT due to state"..self.state)
 		end
         self.hurt = nil --free hurt data
         return
     end
 	if h.source.victims[self] then  -- if I had dmg from this src already
-		if DEBUG then
+		if GLOBAL_SETTING.DEBUG then
 			print("MISS + not Clear HURT due victims list of "..h.source.name)
 		end
         return
@@ -191,7 +190,7 @@ function Unit:onHurt()
     h.source.victims[self] = true
 	self:release_grabbed()
 	h.damage = h.damage or 100  --TODO debug if u forgot
-	if DEBUG then
+	if GLOBAL_SETTING.DEBUG then
 		print(h.source.name .. " damaged "..self.name.." by "..h.damage)
 	end
 
@@ -311,7 +310,7 @@ end
 function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
-        if DEBUG then
+        if GLOBAL_SETTING.DEBUG then
             love.graphics.setColor(255, 255, 255)
             love.graphics.line( self.x, self.y+2, self.x, self.y-66 )
         end
@@ -421,7 +420,7 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
 			end
 		end)
     --DEBUG to show attack hitBoxes in green
-	if DEBUG then
+	if GLOBAL_SETTING.DEBUG then
 		--print("items: ".. #items)
     	attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
     end
@@ -455,7 +454,7 @@ function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx1)
 			end
 		end)
 	--DEBUG to show attack hitBoxes in green
-	if DEBUG then
+	if GLOBAL_SETTING.DEBUG then
 		--print("items: ".. #items)
 		attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
 	end
@@ -1124,7 +1123,7 @@ Unit.getup = {name = "getup", start = Unit.getup_start, exit = nop, update = Uni
 function Unit:dead_start()
 	--print (self.name.." - dead start")
     SetSpriteAnim(self.sprite,"fallen")
-	if DEBUG then
+	if GLOBAL_SETTING.DEBUG then
 		print(self.name.." is dead.")
 	end
 	--TODO dead event
@@ -1209,7 +1208,7 @@ function Unit:onGrab(source)
 	then
 		return false
     end
-    if DEBUG then
+    if GLOBAL_SETTING.DEBUG then
         print(source.name .. " grabed me - "..self.name)
     end
 	if g.target and g.target.isGrabbed then	-- your grab targed releases one it grabs
@@ -1225,7 +1224,7 @@ function Unit:onGrab(source)
 end
 
 function Unit:doGrab(target)
-	if DEBUG then
+	if GLOBAL_SETTING.DEBUG then
 		print(target.name .. " is grabed by me - "..self.name)
 	end
 	local g = self.hold
@@ -1260,7 +1259,7 @@ function Unit:grab_start()
 	self.can_fire = false
 	self.grab_release = 0
     self.victims = {}
-	if DEBUG then
+	if GLOBAL_SETTING.DEBUG then
 		print(self.name.." is grabing someone.")
     end
 	--sfx.play("?")
@@ -1357,7 +1356,7 @@ end
 function Unit:grabbed_start()
 	--print (self.name.." - grabbed start")
 	SetSpriteAnim(self.sprite,"grabbed")
-	if DEBUG then
+	if GLOBAL_SETTING.DEBUG then
 		print(self.name.." is grabbed.")
 	end
 	--self:onShake(0.5, 2, 0.15, 1)
@@ -1404,7 +1403,7 @@ function Unit:grabHit_start()
         return
 	end
 	SetSpriteAnim(self.sprite,"grabHit")
-	if DEBUG then
+	if GLOBAL_SETTING.DEBUG then
 		print(self.name.." is grabhit someone.")
 	end
     --sfx.play("?")
@@ -1425,7 +1424,7 @@ Unit.grabHit = {name = "grabHit", start = Unit.grabHit_start, exit = nop, update
 function Unit:grabHitLast_start()
 	--print (self.name.." - grabHitLast start")
 	SetSpriteAnim(self.sprite,"grabHitLast")
-	if DEBUG then
+	if GLOBAL_SETTING.DEBUG then
 		print(self.name.." is grabHitLast someone.")
 	end
 	--sfx.play("?")
@@ -1446,7 +1445,7 @@ Unit.grabHitLast = {name = "grabHitLast", start = Unit.grabHitLast_start, exit =
 function Unit:grabHitEnd_start()
     --print (self.name.." - grabhitend start")
     SetSpriteAnim(self.sprite,"grabHitEnd")
-    if DEBUG then
+    if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabhitend someone.")
     end
     --sfx.play("?")
@@ -1471,7 +1470,7 @@ function Unit:grabThrow_start()
 	SetSpriteAnim(t.sprite,"hurtLow")
     self.face = -self.face
     SetSpriteAnim(self.sprite,"grabThrow")
-    if DEBUG then
+    if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabThrow someone.")
 	end
 end

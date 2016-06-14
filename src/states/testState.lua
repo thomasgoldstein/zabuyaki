@@ -1,7 +1,5 @@
 testState = {}
 
-local DEBUG = GLOBAL_SETTING.DEBUG
-
 function testState:init()
 end
 
@@ -60,40 +58,40 @@ function testState:enter()
     player3.face = -1
 
     gopper1 = Gopper:new("GOPPER", GetInstance("res/gopper.lua"), button3, 500, 204, {255,255,255, 255})
- 	gopper2 = Gopper:new("GOPPER2", GetInstance("res/gopper.lua"), button3, 510, 184, {255,255,255, 255})
+ 	gopper2 = Gopper:new("GOPPER2", GetInstance("res/gopper.lua"), button3, 1510, 184, {255,255,255, 255})
     gopper2.shader = sh_gopper2
     gopper2:setToughness(1)
- 	gopper3 = Gopper:new("GOPPER3", GetInstance("res/gopper.lua"), button3, 560, 190, {255,255,255, 255})
+ 	gopper3 = Gopper:new("GOPPER3", GetInstance("res/gopper.lua"), button3, 1560, 190, {255,255,255, 255})
     gopper3.shader = sh_gopper3
     gopper3:setToughness(2)
-    gopper4 = Gopper:new("GOPPER4", GetInstance("res/gopper.lua"), button3, 520, 200-24, {255,255,255, 255})
+    gopper4 = Gopper:new("GOPPER4", GetInstance("res/gopper.lua"), button3, 1520, 200-24, {255,255,255, 255})
     gopper4.shader = sh_gopper4
     gopper4:setToughness(3)
-    gopper5 = Gopper:new("GOPPER5", GetInstance("res/gopper.lua"), button3, 540, 210, {255,255,255, 255})
+    gopper5 = Gopper:new("GOPPER5", GetInstance("res/gopper.lua"), button3, 1540, 210, {255,255,255, 255})
     gopper5:setToughness(4)
-    gopper6 = Gopper:new("GOPPER6", GetInstance("res/gopper.lua"), button3, 525, 200-4, {255,255,255, 255})
+    gopper6 = Gopper:new("GOPPER6", GetInstance("res/gopper.lua"), button3, 1525, 200-4, {255,255,255, 255})
     gopper6:setToughness(5)
 
     dummy4 = Rick:new("Dummie4", GetInstance("res/rick.lua"), button3, 780, 180, {255,255,255, 255})
     dummy4.shader = sh_rick4
     dummy4:setToughness(5)
 
-    dummy5 = Temper:new("TEMPER", GetInstance("res/rick.lua"), button3, 670, 170, {255,255,255, 255})
+    dummy5 = Temper:new("TEMPER", GetInstance("res/rick.lua"), button3, 1670, 170, {255,255,255, 255})
     dummy5.shader = sh_rick5
 
-    niko1 = Niko:new("niko", GetInstance("res/niko.lua"), button3, 500 + love.math.random(-20,20), 204, {255,255,255, 255})
-    niko2 = Niko:new("niko2", GetInstance("res/niko.lua"), button3, 510 + love.math.random(-20,20), 184, {255,255,255, 255})
+    niko1 = Niko:new("niko", GetInstance("res/niko.lua"), button3, 550 + love.math.random(-20,20), 204, {255,255,255, 255})
+    niko2 = Niko:new("niko2", GetInstance("res/niko.lua"), button3, 1510 + love.math.random(-20,20), 184, {255,255,255, 255})
     niko2.shader = sh_niko2
     niko2:setToughness(1)
-    niko3 = Niko:new("niko3", GetInstance("res/niko.lua"), button3, 560 + love.math.random(-20,20), 190, {255,255,255, 255})
+    niko3 = Niko:new("niko3", GetInstance("res/niko.lua"), button3, 1560 + love.math.random(-20,20), 190, {255,255,255, 255})
     niko3.shader = sh_niko2
     niko3:setToughness(2)
-    niko4 = Niko:new("niko4", GetInstance("res/niko.lua"), button3, 520 + love.math.random(-20,20), 200-24, {255,255,255, 255})
+    niko4 = Niko:new("niko4", GetInstance("res/niko.lua"), button3, 1520 + love.math.random(-20,20), 200-24, {255,255,255, 255})
     niko4.shader = sh_niko2
     niko4:setToughness(3)
-    niko5 = Niko:new("niko5", GetInstance("res/niko.lua"), button3, 540 + love.math.random(-20,20), 210, {255,255,255, 255})
+    niko5 = Niko:new("niko5", GetInstance("res/niko.lua"), button3, 1540 + love.math.random(-20,20), 210, {255,255,255, 255})
     niko5:setToughness(4)
-    niko6 = Niko:new("niko6", GetInstance("res/niko.lua"), button3, 525 + love.math.random(-20,20), 200-4, {255,255,255, 255})
+    niko6 = Niko:new("niko6", GetInstance("res/niko.lua"), button3, 1525 + love.math.random(-20,20), 200-4, {255,255,255, 255})
     niko6:setToughness(5)
 
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
@@ -158,6 +156,10 @@ function testState:update(dt)
 
     if DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
+
+        fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
+--        fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
+
         fancy.watch("P1 y: ",player1.y, 3)
         fancy.watch("P2 y: ",player2.y, 3)
         fancy.watch("P3 y: ",player3.y, 3)
@@ -206,7 +208,7 @@ function testState:draw()
         --foreground:draw(l, t, w, h)
 
     end)
-    if DEBUG then
+    if GLOBAL_SETTING.DEBUG then
         fancy.draw()	--DEBUG var show
     end
 
@@ -230,12 +232,12 @@ end
 
 function testState:keypressed(k, unicode)
     if k == '0' then
-        DEBUG = not DEBUG
+        GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
     elseif k == "escape" then
         GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
         return Gamestate.push(pauseState)
     end
-    if DEBUG then
+    if GLOBAL_SETTING.DEBUG then
         if k == '1' then
             mainCamera:setScale(1)
         elseif k == '2' then
@@ -254,7 +256,7 @@ end
 
 function testState:wheelmoved( dx, dy )
     --TODO remove debug scale
-    if not DEBUG then
+    if not GLOBAL_SETTING.DEBUG then
         return
     end
 

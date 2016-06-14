@@ -1,8 +1,6 @@
 --
 -- Date: 29.03.2016
 --
-local DEBUG = GLOBAL_SETTING.DEBUG
-
 local class = require "lib/middleclass"
 
 local Item = class("Item")
@@ -87,7 +85,7 @@ function Item:update(dt)
 end
 
 function Item:get(taker)
-    if DEBUG then
+    if GLOBAL_SETTING.DEBUG then
         print(taker.name .. " got "..self.name.." HP+ ".. self.hp .. ", $+ " .. self.score)
     end
     if self.func then    --run custom function if there is
