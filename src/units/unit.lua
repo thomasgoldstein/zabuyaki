@@ -1492,10 +1492,10 @@ function Unit:grabThrow_update(dt)
 		t.victims[self] = true
 		if self.x < t.x then
 			t.horizontal = -1
-			t.face = 1
+			t.face = -1
 		else
 			t.horizontal = 1
-			t.face = -1
+			t.face = 1
 		end
 		t:setState(self.fall)
 		sfx.play("jump") --TODO add throw sound
