@@ -1027,7 +1027,8 @@ Unit.jumpAttackStill = {name = "jumpAttackStill", start = Unit.jumpAttackStill_s
 function Unit:fall_start()
 --    print (self.name.." - fall start")
 	if self.isThrown then
-		SetSpriteAnim(self.sprite,"hurtLow")
+        self.z = 20
+		SetSpriteAnim(self.sprite,"thrown")
 	else
 		SetSpriteAnim(self.sprite,"fall")
 	end
@@ -1039,7 +1040,7 @@ end
 function Unit:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
 	--self.isThrown and
-	if self.sprite.curr_anim == "hurtLow"
+	if self.sprite.curr_anim == "thrown"
 		and self.sprite.isFinished then
 			SetSpriteAnim(self.sprite,"fall")
 

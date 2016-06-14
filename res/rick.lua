@@ -146,7 +146,12 @@ return {
 			delay = 0.06
 		},
 		fall = {
-			{ q = q(2,458,60,59), ox = 30, oy = 58, flip_v = -1 }, --falling
+			{ q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
+			delay = 5
+		},
+		thrown = {
+			{ q = q(49,331,47,62), ox = 27, oy = 61, delay = 0.45, flip_v = -1 }, --hh2+
+			{ q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
 			delay = 5
 		},
 		getup = {
