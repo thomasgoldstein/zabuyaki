@@ -311,6 +311,8 @@ function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
         if GLOBAL_SETTING.DEBUG then
+			love.graphics.setColor(127, 127, 127)
+			love.graphics.line( self.x - 30, self.y - self.z, self.x + 30, self.y - self.z )
             love.graphics.setColor(255, 255, 255)
             love.graphics.line( self.x, self.y+2, self.x, self.y-66 )
         end
