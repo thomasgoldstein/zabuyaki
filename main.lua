@@ -61,6 +61,12 @@ function love.load(arg)
 	KeyTrace = require 'src/keyTrace'
 	require 'src/controls'
 
+	local joysticks = love.joystick.getJoysticks()
+	for i, joystick in ipairs(joysticks) do
+		print(joystick:getName())
+	end
+	bind_game_input()
+
 	--DEBUG libs
 	fancy = require "lib/fancy"	--we need this lib always
 
