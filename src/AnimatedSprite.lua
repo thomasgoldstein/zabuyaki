@@ -160,6 +160,7 @@ end
 function DrawInstance (spr, x, y)
     local sc = spr.def.animations[spr.curr_anim][spr.curr_frame]
 	local scale_h, scale_v, flip_h, flip_v = sc.scale_h or 1, sc.scale_v or 1, sc.flip_h or 1, sc.flip_v or 1
+	local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
 	local y_shift = y
 	if flip_v == -1 then
 		y_shift = y - sc.oy
@@ -167,8 +168,8 @@ function DrawInstance (spr, x, y)
     love.graphics.draw (
 		image_bank[spr.def.sprite_sheet], --The image
 		sc.q, --Current frame of the current animation
-		x, y_shift,
-		spr.rotation,
+		x + rx * spr.flip_h * flip_h, y_shift + ry,
+		(spr.rotation + rotate) * spr.flip_h * flip_h,
 		spr.size_scale * spr.flip_h * scale_h * flip_h,
 		spr.size_scale * spr.flip_v * scale_v * flip_v,
 		sc.ox, sc.oy
