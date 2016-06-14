@@ -1135,7 +1135,7 @@ function Unit:dead_start()
 	if self.z <= 0 then
 		self.z = 0
 	end
-	self:onShake(3, 0, 0.1, 0.7)
+	self:onShake(1, 0, 0.1, 0.7)
 	sfx.play("grunt1")
 end
 function Unit:dead_update(dt)
