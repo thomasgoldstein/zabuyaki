@@ -487,7 +487,10 @@ end
 
 function Unit:stand_start()
 --	print (self.name.." - stand start")
-	SetSpriteAnim(self.sprite,"stand")
+	if self.sprite.curr_anim ~= "walk" then
+		SetSpriteAnim(self.sprite,"stand")
+	end
+
 	self.can_jump = false
 	self.can_fire = false
     self.victims = {}
@@ -498,6 +501,10 @@ function Unit:stand_update(dt)
 	if self.isGrabbed then
 		self:setState(self.grabbed)
         return
+	end
+	if self.sprite.curr_anim == "walk"
+			and self.velx == 0 then
+		SetSpriteAnim(self.sprite,"stand")
 	end
 	if self.cool_down_combo > 0 then
 		self.cool_down_combo = self.cool_down_combo - dt
