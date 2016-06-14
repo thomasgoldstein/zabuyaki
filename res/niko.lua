@@ -79,8 +79,8 @@ return {
             delay = 5
         },
         thrown = {
-            { q = q(45,133,46,64), ox = 28, oy = 63, flip_v = -1, delay = 0.45 }, --hh2
-			{ q = q(2,199,51,62), ox = 25, oy = 61 }, --falling
+            --rx = oy / 2, ry = -ox for this rotation
+			{ q = q(2,199,51,62), ox = 25, oy = 61, rotate = -1.57, rx = 30, ry = -25}, --falling
             delay = 5
         },
         getup = {
