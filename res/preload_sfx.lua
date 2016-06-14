@@ -19,10 +19,10 @@ SFX.load = function(alias, s, pitch, volume)
     SFX[alias] = {src = s, pitch = pitch, volume = volume}
 --    return src
 end
-SFX.load("menu_select","res/sfx/menu_select.wav", nil, 1)
-SFX.load("menu_cancel","res/sfx/menu_cancel.wav", nil, 1)
-SFX.load("menu_move","res/sfx/menu_move.wav", nil, 1)
-SFX.load("menu_gamestart","res/sfx/menu_gamestart.wav", nil, 1)
+SFX.load("menu_select","res/sfx/menu_select.wav", nil, 0.5)
+SFX.load("menu_cancel","res/sfx/menu_cancel.wav", nil, 0.5)
+SFX.load("menu_move","res/sfx/menu_move.wav", nil, 0.5)
+SFX.load("menu_gamestart","res/sfx/menu_gamestart.wav", nil, 0.2)
 
 SFX.load("step","res/sfx/step.wav", nil, 0.5)
 SFX.load("air","res/sfx/attack1.wav", nil, 0.5)
