@@ -1094,7 +1094,7 @@ function Unit:fall_update(dt)
             return
 
         end
-        if self.isThrown and self.z > 10 then
+        if self.isThrown and self.velz < 0 then
 			--TODO dont check it on every FPS
             --TODO proper hitbox
             self:checkAndAttack(0,0, 20,12, 10, "fall")
