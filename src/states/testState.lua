@@ -154,7 +154,7 @@ function testState:update(dt)
 --    mainCamera:update(dt, clamp(minx, player1.x, maxx),
 --        clamp(miny, player1.y, maxy))
 
-    if DEBUG then
+    if GLOBAL_SETTING.DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
 
         fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
@@ -188,7 +188,7 @@ function testState:draw()
         end
 
         -- debug draw bump boxes
-        if DEBUG then
+        if GLOBAL_SETTING.DEBUG then
             local items, _ = world:getItems()
             love.graphics.setColor(255, 0, 0, 50)
             for i = 1, #items do
