@@ -5,7 +5,8 @@ end
 
 function testState:resume()
     --restore BGM music volume
-    TEsound.volume("music", 1)
+    TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
+    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
 function testState:enter()
@@ -122,6 +123,8 @@ function testState:enter()
     --start BGM
     TEsound.stop("music")
     TEsound.playLooping("res/bgm/testtrck.xm", "music")
+
+    TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
