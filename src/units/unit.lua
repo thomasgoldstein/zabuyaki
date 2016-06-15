@@ -487,10 +487,12 @@ end
 
 function Unit:stand_start()
 --	print (self.name.." - stand start")
-	if self.sprite.curr_anim ~= "walk" then
+	if self.sprite.curr_anim == "walk" then
+		self.delay_animation_cool_down = 0.12
+	else
 		SetSpriteAnim(self.sprite,"stand")
+		self.delay_animation_cool_down = 0
 	end
-
 	self.can_jump = false
 	self.can_fire = false
     self.victims = {}
@@ -502,8 +504,10 @@ function Unit:stand_update(dt)
 		self:setState(self.grabbed)
         return
 	end
+
+	self.delay_animation_cool_down = self.delay_animation_cool_down - dt
 	if self.sprite.curr_anim == "walk"
-			and self.velx == 0 then
+			and self.delay_animation_cool_down <= 0 then
 		SetSpriteAnim(self.sprite,"stand")
 	end
 	if self.cool_down_combo > 0 then
@@ -591,6 +595,8 @@ function Unit:walk_update(dt)
 		self:setState(self.duck2jump)
 		return
 	end
+	self.velx = 0
+	self.vely = 0
 	if self.b.horizontal:isDown(-1) then
 		self.face = -1 --face sprite left or right
 		self.horizontal = self.face --X direction
@@ -635,7 +641,7 @@ function Unit:walk_update(dt)
 			return
 		end
 	end
-	self:calcFriction(dt)
+	--self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	if not self.b.jump:isDown() then
 		self.can_jump = true
@@ -650,14 +656,19 @@ Unit.walk = {name = "walk", start = Unit.walk_start, exit = nop, update = Unit.w
 
 function Unit:run_start()
 --	print (self.name.." - run start")
-	SetSpriteAnim(self.sprite,"run")
+	self.delay_animation_cool_down = 0.06
 	self.can_jump = false
 	self.can_fire = false
 end
 function Unit:run_update(dt)
 	--	print (self.name.." - run update",dt)
-	--self.velx = 0
-	--self.vely = 0
+	self.velx = 0
+	self.vely = 0
+	self.delay_animation_cool_down = self.delay_animation_cool_down - dt
+	if self.sprite.curr_anim ~= "run"
+			and self.delay_animation_cool_down <= 0 then
+		SetSpriteAnim(self.sprite,"run")
+	end
 	if self.b.horizontal:isDown(-1) then
 		self.face = -1 --face sprite left or right
 		self.horizontal = self.face --X direction
@@ -678,7 +689,8 @@ function Unit:run_update(dt)
 		or (self.b.horizontal:isDown(1) and self.horizontal < 0)
 		or (self.b.horizontal:isDown(-1) and self.horizontal > 0)
 	then
-		self:setState(self.walk)
+--		self:setState(self.walk)
+		self:setState(self.stand)
 		return
 	end
 	if self.b.fire:isDown() and self.can_fire then
@@ -689,6 +701,8 @@ function Unit:run_update(dt)
 		return
 	end
 	if self.velx == 0 and self.vely == 0 then
+		self.b.horizontal.ikn:clear()
+		self.b.horizontal.ikp:clear()
 		self:setState(self.stand)
 		return
 	end
@@ -698,7 +712,7 @@ function Unit:run_update(dt)
 	if not self.b.fire:isDown() then
 		self.can_fire = true
 	end
-	self:calcFriction(dt)
+	--self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
