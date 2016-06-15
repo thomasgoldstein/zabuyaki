@@ -591,27 +591,22 @@ function Unit:walk_update(dt)
 		self:setState(self.duck2jump)
 		return
 	end
-	self.velx = 0
-	self.vely = 0
-	if self.b.horizontal:isDown(-1) and self.b.horizontal.ikn:getLast() and self.face == -1 then
---			self.b.horizontal.ikp:clear()
---			self.b.horizontal.ikn:clear()
-		self:setState(self.run)
-		return
-	elseif self.b.horizontal:isDown(1) and self.b.horizontal.ikp:getLast() and self.face == 1 then
---			self.b.horizontal.ikp:clear()
---			self.b.horizontal.ikn:clear()
-		self:setState(self.run)
-		return
-	end
 	if self.b.horizontal:isDown(-1) then
 		self.face = -1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
+		if self.b.horizontal:isDown(-1) and self.b.horizontal.ikn:getLast() and self.face == -1 then
+			self:setState(self.run)
+			return
+		end
 	elseif self.b.horizontal:isDown(1) then
 		self.face = 1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
+		if self.b.horizontal:isDown(1) and self.b.horizontal.ikp:getLast() and self.face == 1 then
+			self:setState(self.run)
+			return
+		end
 	end
 	if self.b.vertical:isDown(-1) then
 		self.vertical = -1
@@ -635,14 +630,12 @@ function Unit:walk_update(dt)
 	local grabbed = self:checkForGrab(12)
 	if grabbed then
 		if self:doGrab(grabbed) then
-			--function Unit:doGrab(target)
-			--self:setState(self.grab)
 			local g = self.hold
 			self.victim_infoBar = g.target.infoBar:setAttacker(self)
 			return
 		end
 	end
-
+	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	if not self.b.jump:isDown() then
 		self.can_jump = true
@@ -663,8 +656,8 @@ function Unit:run_start()
 end
 function Unit:run_update(dt)
 	--	print (self.name.." - run update",dt)
-	self.velx = 0
-	self.vely = 0
+	--self.velx = 0
+	--self.vely = 0
 	if self.b.horizontal:isDown(-1) then
 		self.face = -1 --face sprite left or right
 		self.horizontal = self.face --X direction
@@ -705,6 +698,7 @@ function Unit:run_update(dt)
 	if not self.b.fire:isDown() then
 		self.can_fire = true
 	end
+	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
 	UpdateInstance(self.sprite, dt, self)
