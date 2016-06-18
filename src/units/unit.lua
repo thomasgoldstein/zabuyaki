@@ -656,7 +656,7 @@ Unit.walk = {name = "walk", start = Unit.walk_start, exit = nop, update = Unit.w
 
 function Unit:run_start()
 --	print (self.name.." - run start")
-	self.delay_animation_cool_down = 0.06
+	self.delay_animation_cool_down = 0.01
 	self.can_jump = false
 	self.can_fire = false
 end
