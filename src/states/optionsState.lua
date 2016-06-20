@@ -18,8 +18,8 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_options_logo = love.graphics.newText( gfx.font.arcade2, "OPTIONS" )
-local txt_option1 = love.graphics.newText( gfx.font.arcade4, "BGM OFF" )
-local txt_option1a = love.graphics.newText( gfx.font.arcade4, "BGM ON" )
+local txt_option1 = love.graphics.newText( gfx.font.arcade4, "BGM ON" )
+local txt_option1a = love.graphics.newText( gfx.font.arcade4, "BGM OFF" )
 local txt_option2 = love.graphics.newText( gfx.font.arcade4, "OPTION 2" )
 local txt_option3 = love.graphics.newText( gfx.font.arcade4, "OPTION 3" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "Back" )
