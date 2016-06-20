@@ -923,7 +923,7 @@ function Unit:sideStepDown_update(dt)
 	else
         self.vely = 0
 		self.z = 0
-		sfx.play("land")
+		sfx.play("land", 0.3)
 		self:setState(self.duck)
 		return
 	end
@@ -947,7 +947,7 @@ function Unit:sideStepUp_update(dt)
     else
         self.vely = 0
 		self.z = 0
-		sfx.play("land", nil, 0.3)
+		sfx.play("land", 0.3)
         self:setState(self.duck)
         return
     end

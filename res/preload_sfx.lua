@@ -15,7 +15,7 @@ SFX.load = function(alias, s, volume, pitch)
     src:stop()
     src:setVolume(volume or 1)
     assert(SFX[alias] == nil, "Sound FX alias '"..alias.."' not found")
-    SFX[alias] = {src = s, pitch = pitch, volume = volume}
+    SFX[alias] = {src = s, pitch = pitch or 1, volume = volume or 1}
 --    return src
 end
 SFX.load("menu_select","res/sfx/menu_select.wav", 0.5)
@@ -34,7 +34,7 @@ SFX.load("land","res/sfx/land.wav", 1)
 SFX.load("fall","res/sfx/fall.wav", 1)
 SFX.load("grunt1","res/sfx/grunt1.wav", 1)
 
---[[local f2 = function() SFX.play("hit2",f3) end
+--[[local f2 = function() SFX.play("hit2",1,f3) end
 local f3 = function() SFX.play("hit3") end]]
 
 --SFX.play("hit")
