@@ -117,8 +117,9 @@ function titleState:mousepressed( x, y, button, istouch )
         mouse_x, mouse_y = x, y
 
         if menu_state == 1 then
-            sfx.play("menu_gamestart")
-            return Gamestate.switch(testState)
+            --sfx.play("menu_gamestart")
+            sfx.play("menu_select")
+            return Gamestate.switch(heroSelectState)
         elseif menu_state == 3 then
             sfx.play("menu_select")
             return Gamestate.push(optionsState)
