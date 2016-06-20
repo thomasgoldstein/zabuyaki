@@ -3,9 +3,9 @@
 --
 
 local SFX = {}
-SFX.play = function(alias, func)
+SFX.play = function(alias, volume, func)
     local s = SFX[alias]
-    TEsound.play(s.src, "sfx", s.volume, s.pitch, func)
+    TEsound.play(s.src, "sfx", s.volume * (volume or 1), s.pitch, func)
 end
 
 SFX.load = function(alias, s, volume, pitch)
