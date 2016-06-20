@@ -1,5 +1,24 @@
 testState = {}
 
+
+local function sortByY(entities)
+    table.sort(entities, function(a,b)
+        if not a then
+            return false
+        elseif not b then
+            return true
+        elseif a.y == b.y then
+            return a.id > b.id
+        end
+        return a.y < b.y end )
+end
+
+local function addToWorld(entities)
+    for i,obj in pairs(entities) do
+        world:add(obj, obj.x-7, obj.y-3, 15, 7)
+    end
+end
+
 function testState:init()
 end
 
@@ -58,65 +77,61 @@ function testState:enter()
     player3.horizontal = -1
     player3.face = -1
 
-    gopper1 = Gopper:new("GOPPER", GetInstance("res/gopper.lua"), button3, 500, 204, {255,255,255, 255})
- 	gopper2 = Gopper:new("GOPPER2", GetInstance("res/gopper.lua"), button3, 1510, 184, {255,255,255, 255})
+    local gopper1 = Gopper:new("GOPPER", GetInstance("res/gopper.lua"), button3, 500, 204, {255,255,255, 255})
+    local gopper2 = Gopper:new("GOPPER2", GetInstance("res/gopper.lua"), button3, 1510, 184, {255,255,255, 255})
     gopper2.shader = sh_gopper2
     gopper2:setToughness(1)
- 	gopper3 = Gopper:new("GOPPER3", GetInstance("res/gopper.lua"), button3, 1560, 190, {255,255,255, 255})
+    local gopper3 = Gopper:new("GOPPER3", GetInstance("res/gopper.lua"), button3, 1560, 190, {255,255,255, 255})
     gopper3.shader = sh_gopper3
     gopper3:setToughness(2)
-    gopper4 = Gopper:new("GOPPER4", GetInstance("res/gopper.lua"), button3, 1520, 200-24, {255,255,255, 255})
+    local gopper4 = Gopper:new("GOPPER4", GetInstance("res/gopper.lua"), button3, 1520, 200-24, {255,255,255, 255})
     gopper4.shader = sh_gopper4
     gopper4:setToughness(3)
-    gopper5 = Gopper:new("GOPPER5", GetInstance("res/gopper.lua"), button3, 1540, 210, {255,255,255, 255})
+    local gopper5 = Gopper:new("GOPPER5", GetInstance("res/gopper.lua"), button3, 1540, 210, {255,255,255, 255})
     gopper5:setToughness(4)
-    gopper6 = Gopper:new("GOPPER6", GetInstance("res/gopper.lua"), button3, 1525, 200-4, {255,255,255, 255})
+    local gopper6 = Gopper:new("GOPPER6", GetInstance("res/gopper.lua"), button3, 1525, 200-4, {255,255,255, 255})
     gopper6:setToughness(5)
 
-    dummy4 = Rick:new("Dummie4", GetInstance("res/rick.lua"), button3, 780, 180, {255,255,255, 255})
+    local dummy4 = Rick:new("Dummie4", GetInstance("res/rick.lua"), button3, 780, 180, {255,255,255, 255})
     dummy4.shader = sh_rick4
     dummy4:setToughness(5)
 
-    dummy5 = Temper:new("TEMPER", GetInstance("res/rick.lua"), button3, 1670, 170, {255,255,255, 255})
+    local dummy5 = Temper:new("TEMPER", GetInstance("res/rick.lua"), button3, 1670, 170, {255,255,255, 255})
     dummy5.shader = sh_rick5
 
-    niko1 = Niko:new("niko", GetInstance("res/niko.lua"), button3, 550 + love.math.random(-20,20), 204, {255,255,255, 255})
-    niko2 = Niko:new("niko2", GetInstance("res/niko.lua"), button3, 1510 + love.math.random(-20,20), 184, {255,255,255, 255})
+    local niko1 = Niko:new("niko", GetInstance("res/niko.lua"), button3, 550 + love.math.random(-20,20), 204, {255,255,255, 255})
+    local niko2 = Niko:new("niko2", GetInstance("res/niko.lua"), button3, 1510 + love.math.random(-20,20), 184, {255,255,255, 255})
     niko2.shader = sh_niko2
     niko2:setToughness(1)
-    niko3 = Niko:new("niko3", GetInstance("res/niko.lua"), button3, 1560 + love.math.random(-20,20), 190, {255,255,255, 255})
+    local niko3 = Niko:new("niko3", GetInstance("res/niko.lua"), button3, 1560 + love.math.random(-20,20), 190, {255,255,255, 255})
     niko3.shader = sh_niko2
     niko3:setToughness(2)
-    niko4 = Niko:new("niko4", GetInstance("res/niko.lua"), button3, 1520 + love.math.random(-20,20), 200-24, {255,255,255, 255})
+    local niko4 = Niko:new("niko4", GetInstance("res/niko.lua"), button3, 1520 + love.math.random(-20,20), 200-24, {255,255,255, 255})
     niko4.shader = sh_niko2
     niko4:setToughness(3)
-    niko5 = Niko:new("niko5", GetInstance("res/niko.lua"), button3, 1540 + love.math.random(-20,20), 210, {255,255,255, 255})
+    local niko5 = Niko:new("niko5", GetInstance("res/niko.lua"), button3, 1540 + love.math.random(-20,20), 210, {255,255,255, 255})
     niko5:setToughness(4)
-    niko6 = Niko:new("niko6", GetInstance("res/niko.lua"), button3, 1525 + love.math.random(-20,20), 200-4, {255,255,255, 255})
+    local niko6 = Niko:new("niko6", GetInstance("res/niko.lua"), button3, 1525 + love.math.random(-20,20), 200-4, {255,255,255, 255})
     niko6:setToughness(5)
 
     --Item:initialize(name, sprite, hp, money, func, x, y, color)
-    item1 = Item:new("Apple", "+15 HP", gfx.items.apple, 15, 0, nil, 130,180)
-    item2 = Item:new("Chicken", "+50 HP", gfx.items.chicken, 50, 0, nil, 660,180)
+    local item1 = Item:new("Apple", "+15 HP", gfx.items.apple, 15, 0, nil, 130,180)
+    local item2 = Item:new("Chicken", "+50 HP", gfx.items.chicken, 50, 0, nil, 660,180)
 --    item2 = Item:new("Custom func sample", "+20 Pts.", gfx.items.apple, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
-    item3 = Item:new("Beef", "+100 HP", gfx.items.beef, 100, 0, nil, 750,200)
+    local item3 = Item:new("Beef", "+100 HP", gfx.items.beef, 100, 0, nil, 750,200)
 
     self.entities = {player1, player2, player3,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
         niko1, niko2, niko3, niko4, niko5, niko6,
-        dummy4, dummy5,
-        item1, item2, item3,
+        dummy4,  dummy5,
+        item1, item2, item3
     }
 
     --load level
     world, background, worldWidth, worldHeight = require("res/level_template")()
 
     --adding players into collision world 15x7
-    for i,pl in pairs(self.entities) do
-        world:add(pl, pl.x-7, pl.y-3, 15, 7)
-    end
-
-    --adding 1st wave of foes into collision world
+    addToWorld(self.entities)
 
     mainCamera = Camera:new(worldWidth, worldHeight)
 
@@ -129,21 +144,17 @@ function testState:enter()
 end
 
 function testState:update(dt)
-	for _,player in ipairs(self.entities) do
-		player:update(dt)
-        if player.infoBar then
-            player.infoBar:update(dt)
+	for _,obj in ipairs(self.entities) do
+        obj:update(dt)
+        if obj.infoBar then
+            obj.infoBar:update(dt)
         end
     end
-    for _,player in ipairs(self.entities) do
-        player:onHurt()
+    for _,obj in ipairs(self.entities) do
+        obj:onHurt()
     end
     --sort players + entities by y
-	table.sort(self.entities , function(a,b)
-        if a.y == b.y then
-            return a.id > b.id
-        end
-        return a.y < b.y end )
+    sortByY(self.entities)
 	
     background:update(dt)
     mainCamera:update(dt, player1.x, player1.y)
@@ -182,20 +193,20 @@ function testState:draw()
         love.graphics.setColor(255, 255, 255, 255)
         background:draw(l, t, w, h)
 
-		for i,player in ipairs(self.entities) do
-			player:drawShadow(l,t,w,h)
+		for i,obj in ipairs(self.entities) do
+            obj:drawShadow(l,t,w,h)
 		end
 
-        for _,player in ipairs(self.entities) do
-            player:draw(l,t,w,h)
+        for _,obj in ipairs(self.entities) do
+            obj:draw(l,t,w,h)
         end
 
         -- debug draw bump boxes
         if GLOBAL_SETTING.DEBUG then
-            local items, _ = world:getItems()
+            local obj, _ = world:getItems()
             love.graphics.setColor(255, 0, 0, 50)
-            for i = 1, #items do
-                love.graphics.rectangle("line", world:getRect(items[i]))
+            for i = 1, #obj do
+                love.graphics.rectangle("line", world:getRect(obj[i]))
             end
             -- draw attack hitboxes
             love.graphics.setColor(0, 255, 0, 150)
@@ -236,6 +247,17 @@ end
 function testState:keypressed(k, unicode)
     if k == '0' then
         GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
+
+        local t = "* "
+        for i,obj in pairs(self.entities) do
+            if not obj then
+                t = t .. i .. ":<>, "
+            else
+                t = t .. i .. ":" .. obj.name .. ", "
+            end
+        end
+        print (t)
+
     elseif k == "escape" then
         GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
         return Gamestate.push(pauseState)
