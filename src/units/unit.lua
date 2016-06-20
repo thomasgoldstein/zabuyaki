@@ -1054,6 +1054,7 @@ function Unit:fall_start()
 	if self.z <= 0 then
 		self.z = 0
 	end
+	self.flag_fallen = 0
 	--sfx.play("hit")
 end
 function Unit:fall_update(dt)
@@ -1068,31 +1069,39 @@ function Unit:fall_update(dt)
 		self.velz = self.velz - self.gravity * dt
 		self.z = self.z + dt * self.velz
 	    if self.z <= 0 then
+			if self.z < 10 and self.sprite.curr_anim ~= "fallen" then
+				SetSpriteAnim(self.sprite,"fallen")
+			end
             if self.velz < -100 then    --bounce up after fall
                 self.z = 0.01
                 self.velz = -self.velz/2
                 self.velx = self.velx * 0.5
-                SetSpriteAnim(self.sprite,"fallen")
-                return
-            end
-            self.z = 0
-            self.velz = 0
-            self.vely = 0
-            self.velx = 0
 
-            self.tx, self.ty = self.x, self.y --for enemy with AI movement
+				if self.flag_fallen == 0 then
+					mainCamera:onShake(1, 1, 0.03, 0.3)	--shake on the 1st land touch
+				end
+				sfx.play("fall", 1 - self.flag_fallen)
+				self.flag_fallen = self.flag_fallen + 0.3
+				return
+			else
+				--final fall (no bouncing)
+				self.z = 0
+				self.velz = 0
+				self.vely = 0
+				self.velx = 0
 
-			sfx.play("fall")
-			mainCamera:onShake(1, 1, 0.03, 0.3)
+				self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-            -- hold UP+JUMP to get no damage after throw (land on feet)
-            if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
-                self:setState(self.duck)
-            else
-                self:setState(self.getup)
-            end
-            return
+				sfx.play("fall", 1 - self.flag_fallen)
 
+				-- hold UP+JUMP to get no damage after throw (land on feet)
+				if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
+					self:setState(self.duck)
+				else
+					self:setState(self.getup)
+				end
+				return
+			end
         end
         if self.isThrown and self.velz < 0 then
 			--TODO dont check it on every FPS
