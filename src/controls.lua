@@ -48,7 +48,7 @@ DUMMY_CONTROL.jump = {
 
 function bind_game_input()
     -- define Player 1 controls
-    print ("binding keys")
+    --print ("binding keys")
     Control1 = {
         horizontal = tactile.newControl()
         :addAxis(tactile.gamepadAxis(1, 'leftx'))
@@ -82,6 +82,17 @@ function bind_game_input()
         :addButton(tactile.gamepadButtons(2, 'b'))
         :addButton(tactile.keys 'o')
     }
+    -- define Player 3 controls
+    Control3 = {
+        horizontal = tactile.newControl()
+        :addButtonPair(tactile.keys('f'), tactile.keys('h')),
+        vertical = tactile.newControl()
+        :addButtonPair(tactile.keys('t'), tactile.keys('g')),
+        fire = tactile.newControl()
+        :addButton(tactile.keys 'r'),
+        jump = tactile.newControl()
+        :addButton(tactile.keys 'y')
+    }
 
     --add keyTrace into every player 1 button
     for index,value in pairs(Control1) do
@@ -97,6 +108,17 @@ function bind_game_input()
     --add keyTrace into every player 2 button
     for index,value in pairs(Control2) do
         local b = Control2[index]
+        if index == "horizontal" or index == "vertical" then
+            --for derections
+            b.ikn = KeyTrace:new(index, value, -1)  --negative dir
+            b.ikp = KeyTrace:new(index, value, 1)   --positive dir
+        else
+            b.ik = KeyTrace:new(index, value)
+        end
+    end
+    --add keyTrace into every player 3 button
+    for index,value in pairs(Control3) do
+        local b = Control3[index]
         if index == "horizontal" or index == "vertical" then
             --for derections
             b.ikn = KeyTrace:new(index, value, -1)  --negative dir

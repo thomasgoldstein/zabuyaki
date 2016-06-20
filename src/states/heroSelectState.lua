@@ -177,7 +177,7 @@ function heroSelectState:update(dt)
 
     player_input(players[1], Control1)
     player_input(players[2], Control2)
---    player_input(players[3], Control3) --not defined yet TODO
+    player_input(players[3], Control3)
 
 end
 

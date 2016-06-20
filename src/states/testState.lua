@@ -72,7 +72,7 @@ function testState:enter()
     player2 = Player:new("RIKO", GetInstance("res/rick.lua"), Control2, 240, 200)
     player2.shader = sh_rick2
 
-    player3 = Player:new("RICKY", GetInstance("res/rick.lua"), button3, 220, 200-30, {255,255,255, 255})
+    player3 = Player:new("RICKY", GetInstance("res/rick.lua"), Control3, 220, 200-30, {255,255,255, 255})
     player3.shader = sh_rick3
     player3.horizontal = -1
     player3.face = -1

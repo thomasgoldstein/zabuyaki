@@ -95,6 +95,10 @@ function love.update(dt)
 	Control2.vertical:update()
 	Control2.fire:update()
 	Control2.jump:update()
+	Control3.horizontal:update()
+	Control3.vertical:update()
+	Control3.fire:update()
+	Control3.jump:update()
 	--check for double presses, etc
 	for index,value in pairs(Control1) do
 		local b = Control1[index]
@@ -108,6 +112,16 @@ function love.update(dt)
 	end
 	for index,value in pairs(Control2) do
 		local b = Control2[index]
+		if index == "horizontal" or index == "vertical" then
+			--for derections
+			b.ikn:update(dt)
+			b.ikp:update(dt)
+		else
+			b.ik:update(dt)
+		end
+	end
+	for index,value in pairs(Control3) do
+		local b = Control3[index]
 		if index == "horizontal" or index == "vertical" then
 			--for derections
 			b.ikn:update(dt)
