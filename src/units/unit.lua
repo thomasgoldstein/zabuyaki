@@ -1176,21 +1176,18 @@ Unit.dead = {name = "dead", start = Unit.dead_start, exit = nop, update = Unit.d
 
 function Unit:combo_start()
 	--	print (self.name.." - combo start")
-    if self.n_combo > 5 then
+	if self.n_combo > 4 then
 		self.n_combo = 1
 	end
-	if self.n_combo == 1 or self.n_combo == 2 then
+	if self.n_combo == 1 then
 		SetSpriteAnim(self.sprite,"combo1")
+	elseif self.n_combo == 2 then
+		SetSpriteAnim(self.sprite,"combo2")
 	elseif self.n_combo == 3 then
 		SetSpriteAnim(self.sprite,"combo3")
 	elseif self.n_combo == 4 then
 		SetSpriteAnim(self.sprite,"combo4")
-	elseif self.n_combo == 5 then
-		SetSpriteAnim(self.sprite,"combo4")	--TODO missing anim?
-		print("WARNING: Tried to do 5th attack w/o chain")
 	end
-	--self.check_mash = false
-
 	self.cool_down = 0.2
 end
 function Unit:combo_update(dt)

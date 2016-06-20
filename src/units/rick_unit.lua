@@ -50,7 +50,6 @@ function Rick:combo_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    --	self:checkHurt()
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
