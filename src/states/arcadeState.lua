@@ -28,7 +28,20 @@ function arcadeState:resume()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
-function arcadeState:enter()
+function arcadeState:enter(_, players)
+    print("enter")
+    for i = 1,#players do
+        print(
+                players[i].hero,
+                players[i].shader,
+                players[i].name,
+                players[i].color
+        )
+    end
+    player1 = nil
+    player2 = nil
+    player3 = nil
+
     GLOBAL_UNIT_ID = 1  --recalc players IDs for proper life bar coords
     --create shaders
     local sh_rick2 = love.graphics.newShader(sh_replace_3_colors)
@@ -64,18 +77,42 @@ function arcadeState:enter()
     sh_niko2:sendColor("newColors", {15,15,15, 255},  {198,198,198, 255},  {137,137,137, 255}, {84,84,84, 255})   --Black, LightGray, Gray, DarkGray
 
     -- create players
-    player1 = Rick:new("RICK", GetInstance("res/rick.lua"), Control1, 190, 180, {255,255,255, 255})
+    if players[1] then
+--    player1 = Rick:new("RICK", GetInstance("res/rick.lua"), Control1, 190, 180, {255,255,255, 255})
+        player1 = players[1].hero:new(players[1].name,
+            GetInstance(players[1].sprite_instance),
+            Control1,
+            190, 180, {255,255,255, 255})
+    end
 --    player1.shader = sh_noise
 --    player1.shader = sh_screen
 --    player1.shader = sh_texture
 --    player1.shader = sh_outline
-    player2 = Chai:new("CHAI", GetInstance("res/chai.lua"), Control2, 240, 200)
-    player2.shader = sh_rick2
+    if players[2] then
+        --     player2 = Chai:new("CHAI", GetInstance("res/chai.lua"), Control2, 240, 200)
+        --     player2.shader = sh_rick2
 
-    player3 = Kisa:new("KISA", GetInstance("res/rick.lua"), Control3, 220, 200-30, {255,255,255, 255})
-    player3.shader = sh_rick3
-    player3.horizontal = -1
-    player3.face = -1
+        player2 = players[2].hero:new(players[2].name,
+            GetInstance(players[2].sprite_instance),
+            Control2,
+            240, 200)
+        player2.shader = players[2].shader
+    end
+
+    if players[3] then
+--        player3 = Kisa:new("KISA", GetInstance("res/rick.lua"), Control3, 220, 200-30, {255,255,255, 255})
+--        player3.shader = sh_rick3
+
+        player3 = players[3].hero:new(players[3].name,
+            GetInstance(players[3].sprite_instance),
+            Control3,
+            220, 200-30, {255,255,255, 255})
+        player3.shader = players[3].shader
+        player3.horizontal = -1
+        player3.face = -1
+    end
+
+    GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
     local gopper1 = Gopper:new("GOPPER", GetInstance("res/gopper.lua"), button3, 500, 204, {255,255,255, 255})
     local gopper2 = Gopper:new("GOPPER2", GetInstance("res/gopper.lua"), button3, 1510, 184, {255,255,255, 255})
@@ -120,12 +157,21 @@ function arcadeState:enter()
 --    item2 = Item:new("Custom func sample", "+20 Pts.", gfx.items.apple, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
     local item3 = Item:new("Beef", "+100 HP", gfx.items.beef, 100, 0, nil, 750,200)
 
-    self.entities = {player1, player2, player3,
+    self.entities = {
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
         niko1, niko2, niko3, niko4, niko5, niko6,
         dummy4,  dummy5,
         item1, item2, item3
     }
+    if player1 then
+        self.entities[#self.entities + 1] = player1
+    end
+    if player2 then
+        self.entities[#self.entities + 1] = player2
+    end
+    if player3 then
+        self.entities[#self.entities + 1] = player3
+    end
 
     --load level
     world, background, worldWidth, worldHeight = require("res/level_template")()
@@ -232,15 +278,19 @@ function arcadeState:draw()
         --and player1.victim_infoBar.hp > 0 then
         player1.victim_infoBar:draw(0,0)
     end
-    player2.infoBar:draw(0,0)
-    if player2.victim_infoBar then
-        --and player2.victim_infoBar.hp > 0 then
-        player2.victim_infoBar:draw(0,0)
+    if player2 then
+        player2.infoBar:draw(0,0)
+        if player2.victim_infoBar then
+            --and player2.victim_infoBar.hp > 0 then
+            player2.victim_infoBar:draw(0,0)
+        end
     end
-    player3.infoBar:draw(0,0)
-    if player3.victim_infoBar then
-        --and player3.victim_infoBar.hp > 0 then
-        player3.victim_infoBar:draw(0,0)
+    if player3 then
+        player3.infoBar:draw(0,0)
+        if player3.victim_infoBar then
+            --and player3.victim_infoBar.hp > 0 then
+            player3.victim_infoBar:draw(0,0)
+        end
     end
 end
 

@@ -183,7 +183,20 @@ local function player_input(player, controls)
             sfx.play("menu_cancel")
         elseif controls.fire:pressed() and all_confirmed() then
             sfx.play("menu_gamestart")
-            return Gamestate.switch(arcadeState)
+            local pl = {}
+            local sh = selected_heroes()
+            for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
+                if players[i].confirmed then
+                    pl[#pl + 1] = {
+                        hero = heroes[players[i].pos].hero,
+                        sprite_instance = heroes[players[i].pos].sprite_instance,
+                        shader = heroes[players[i].pos][sh[players[i].pos][2]].shader,
+                        name = heroes[players[i].pos][sh[players[i].pos][2]].name,
+                        color = heroes[players[i].pos][sh[players[i].pos][2]].color
+                    }
+                end
+            end
+            return Gamestate.switch(arcadeState, pl)
         end
     end
 end
