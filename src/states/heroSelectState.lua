@@ -307,11 +307,11 @@ function heroSelectState:mousepressed( x, y, button, istouch )
             end
         end
 
-        if not players[1].confirmed then
+        if not players[1].confirmed and mouse_pos >= 1 and mouse_pos <= 3 then
             players[1].pos = mouse_pos
             players[1].confirmed = true
             sfx.play("menu_select")
-            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].confirm_anim)
+            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].confirm_anim)    --TODO crashed?
         elseif mouse_pos == players[1].pos and all_confirmed() then
             sfx.play("menu_gamestart")
             local pl = {}
