@@ -226,7 +226,7 @@ function heroSelectState:draw()
         else
             love.graphics.setColor(255, 255, 255, 200 + math.sin(time * 4)*55)
             love.graphics.setFont(gfx.font.arcade3x2)
-            love.graphics.print(players[i].name..",\nPUSH\nANY\nBUTTON", h.x - portrait_width/2 + 20, h.y - portrait_height + 48)
+            love.graphics.print(players[i].name.."\nPUSH\nANY\nBUTTON", h.x - portrait_width/2 + 20, h.y - portrait_height + 48)
         end
         --P1 P2 P3 indicators
         love.graphics.setFont(gfx.font.arcade3x2)
