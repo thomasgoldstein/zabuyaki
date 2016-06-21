@@ -93,7 +93,7 @@ return {
 			{ q = q(40,200,46,64), ox = 22, oy = 63 }, --run 5
 			{ q = q(88,201,45,62), ox = 24, oy = 61, func = step_sfx2 }, --run 6
             loop = true,
-            delay = 0.1
+            delay = 0.117
 		},
 		jump = {
 			{ q = q(46,262,44,66), ox = 22, oy = 65, delay = 0.4 }, --ju
