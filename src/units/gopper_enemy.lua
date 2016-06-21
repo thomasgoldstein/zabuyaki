@@ -39,19 +39,24 @@ function Gopper:setToughness(t)
 end
 
 function Gopper:pickAttackTarget(target)
-    local t = {player2}
-    if player1.hp > 0 then
-        t[#t] = player1
-    end
-    if target then
-        self.target = target
-    elseif love.math.random() < 0.3 then
-        self.target = t[love.math.random(1,#t)]
-    elseif math.abs(self.x - player1.x) < math.abs(self.x - player2.x) then
-        self.target = player1
-    else
-        self.target = player2
-    end
+--    if not player2 then
+--        local player2 = player1
+--    end
+--    local t = {player2}
+--    local t = {}
+--    if player1.hp > 0 then
+--        t[#t] = player1
+--    end
+--    if target then
+--        self.target = target
+--    elseif love.math.random() < 0.3 then
+--        self.target = t[love.math.random(1,#t)]
+----    elseif math.abs(self.x - player1.x) < math.abs(self.x - player2.x) then
+----        self.target = player1
+----    else
+----        self.target = player2
+-- end
+    self.target = player1
     return self.target
 end
 
@@ -110,9 +115,10 @@ function Gopper:intro_update(dt)
     if self.cool_down <= 0 then
         --can move
         local t1 = dist(self.x, self.y, player1.x, player1.y)
-        local t2 = dist(self.x, self.y, player2.x, player2.y)
-        local t3 = dist(self.x, self.y, player3.x, player3.y)
-        if math.min(t1,t2,t3) < 100 then
+        --local t2 = dist(self.x, self.y, player2.x, player2.y)
+        --local t3 = dist(self.x, self.y, player3.x, player3.y)
+--        if math.min(t1,t2,t3) < 100 then
+        if math.min(t1) < 100 then
             self.face = -player1.face   --face to player
             self:setState(self.stand)
             return
