@@ -176,24 +176,22 @@ local function player_input(player, controls)
             player.visible = true
             player.pos = player.pos - 1
             if player.pos < 1 then
-                player.pos = 1
-            else
-                sfx.play("menu_move")
-                player.sprite = GetInstance(heroes[player.pos].sprite_instance)
-                player.sprite.size_scale = 2
-                SetSpriteAnim(player.sprite,"stand")
+                player.pos = GLOBAL_SETTING.MAX_PLAYERS
             end
+            sfx.play("menu_move")
+            player.sprite = GetInstance(heroes[player.pos].sprite_instance)
+            player.sprite.size_scale = 2
+            SetSpriteAnim(player.sprite,"stand")
         elseif controls.horizontal:pressed(1) then
             player.visible = true
             player.pos = player.pos + 1
             if player.pos > GLOBAL_SETTING.MAX_PLAYERS then
-                player.pos = GLOBAL_SETTING.MAX_PLAYERS
-            else
-                sfx.play("menu_move")
-                player.sprite = GetInstance(heroes[player.pos].sprite_instance)
-                player.sprite.size_scale = 2
-                SetSpriteAnim(player.sprite,"stand")
+                player.pos = 1
             end
+            sfx.play("menu_move")
+            player.sprite = GetInstance(heroes[player.pos].sprite_instance)
+            player.sprite.size_scale = 2
+            SetSpriteAnim(player.sprite,"stand")
         end
     else
         if controls.jump:pressed() then
