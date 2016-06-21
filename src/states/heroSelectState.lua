@@ -3,6 +3,13 @@
 --
 heroSelectState = {}
 
+local function CheckPointCollision(x,y, x1,y1,w1,h1)
+    return x < x1+w1 and
+            x >= x1 and
+            y < y1+h1 and
+            y >= y1
+end
+
 local time = 0
 local screen_width = 640
 local screen_height = 480
@@ -74,6 +81,8 @@ local players = {
     {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
     {name = "P3", pos = 3, visible = false, confirmed = false, sprite = nil}
 }
+local old_pos = 0
+local mouse_pos = 0
 
 local function selected_heroes()
 --P1 has the hero original color
@@ -124,6 +133,8 @@ function heroSelectState:enter()
         {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
         {name = "P3", pos = 3, visible = false, confirmed = false, sprite = nil}
     }
+    old_pos = 0
+    mouse_pos = 0
 end
 
 function heroSelectState:resume()
@@ -274,5 +285,69 @@ function heroSelectState:keypressed(key, unicode)
     if key == "escape" then
         sfx.play("menu_cancel")
         return Gamestate.switch(titleState)
+    end
+end
+
+function heroSelectState:mousepressed( x, y, button, istouch )
+    if button == 1 then
+
+        for i = 1, 3 do
+            if CheckPointCollision(x, y,  heroes[i].x - portrait_width/2, heroes[i].py, portrait_width, portrait_height ) then
+                mouse_pos = i
+                break
+            end
+        end
+
+        if not players[1].confirmed then
+            players[1].pos = mouse_pos
+            players[1].confirmed = true
+            sfx.play("menu_select")
+            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].confirm_anim)
+        elseif mouse_pos == players[1].pos and all_confirmed() then
+            sfx.play("menu_gamestart")
+            local pl = {}
+            local sh = selected_heroes()
+            for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
+                if players[i].confirmed then
+                    local pos = players[i].pos
+                    pl[#pl + 1] = {
+                        hero = heroes[pos].hero,
+                        sprite_instance = heroes[pos].sprite_instance,
+                        shader = heroes[pos][sh[i][2]].shader,
+                        name = heroes[pos][sh[i][2]].name,
+                        color = heroes[pos][sh[i][2]].color
+                    }
+                end
+            end
+            return Gamestate.switch(arcadeState, pl)
+        end
+
+    elseif button == 2 then
+        if players[1].confirmed then
+            players[1].confirmed = false
+            sfx.play("menu_cancel")
+            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].cancel_anim)
+        elseif all_unconfirmed() then
+            sfx.play("menu_cancel")
+            return Gamestate.switch(titleState)
+        end
+    end
+end
+
+function heroSelectState:mousemoved( x, y, dx, dy)
+    for i = 1, 3 do
+        if CheckPointCollision(x, y,  heroes[i].x - portrait_width/2, heroes[i].py, portrait_width, portrait_height ) then
+            mouse_pos = i
+            players[1].visible = true
+            break
+        end
+    end
+    if mouse_pos ~= old_pos and not players[1].confirmed then
+        old_pos = mouse_pos
+        players[1].pos = mouse_pos
+        sfx.play("menu_move")
+        players[1].sprite = GetInstance(heroes[players[1].pos].sprite_instance)
+        players[1].sprite.size_scale = 2
+        SetSpriteAnim(players[1].sprite,heroes[players[1].pos].default_anim)
     end
 end
