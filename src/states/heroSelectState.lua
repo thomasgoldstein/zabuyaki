@@ -12,9 +12,11 @@ local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
-local portrait_width = 120
-local portrait_height = 200
-local portrait_margin = 40
+local portrait_width = 140
+local portrait_height = 140
+local portrait_margin = 20
+
+local txt_player_select = love.graphics.newText( gfx.font.arcade2x15, "PLAYER SELECT" )
 
 --sprites and shaders
 local rick_spr = GetInstance("res/rick.lua")
@@ -32,46 +34,46 @@ sh_rick3:sendColor("newColors", {111,77,158, 255},  {73,49,130, 255},  {42,28,73
 --{name, shader, text color P1}..
 local heroes = {
     {
-        {name = "RICK", shader = nil, color = {255, 255, 255, 255}}, --{181, 81, 23, 255}
-        {name = "RICH", shader = sh_rick2, color = {77,111,158, 255}},
-        {name = "RICKY", shader = sh_rick3, color = {111,77,158, 255}},
+        {name = "KISA", shader = nil, color = {181, 81, 23, 255}},
+        {name = "KYSA", shader = sh_rick3, color = {111,77,158, 255}},
+        {name = "KEESA", shader = sh_rick2, color = {77,111,158, 255}},
         hero = Rick,
         sprite = rick_spr,
         x = screen_width / 2 - portrait_width - portrait_margin,
-        y = 400,
-        sy = 420,
-        ny = 240,
-        py = 32
+        y = 440,    --char sprite
+        sy = 280,   --selected P1 P2 P3
+        ny = 90,   --char name
+        py = 120    --Portrait
+    },
+    {
+        {name = "RICK", shader = sh_rick2, color = {77,111,158, 255}},
+        {name = "RICH", shader = nil, color = {181, 81, 23, 255}},
+        {name = "RICKY", shader = sh_rick3, color = {111,77,158, 255}},
+        hero = Rick,
+        sprite = rick_spr,
+        x = screen_width / 2,
+        y = 440,
+        sy = 280,
+        ny = 90,
+        py = 120
     },
     {
         {name = "CHAI", shader = sh_rick3, color = {111,77,158, 255}},
         {name = "CHI", shader = sh_rick2, color = {77,111,158, 255}},
-        {name = "CHE", shader = nil, color = {255, 255, 255, 255} },
-        hero = Rick,
-        sprite = rick_spr,
-        x = screen_width / 2,
-        y = 400,
-        sy = 420,
-        ny = 240,
-        py = 32
-    },
-    {
-        {name = "KISA", shader = nil, color = {255, 255, 255, 255}},
-        {name = "KYSA", shader = sh_rick3, color = {111,77,158, 255} },
-        {name = "KEESA", shader = sh_rick2, color = {77,111,158, 255} },
+        {name = "CHE", shader = nil, color = {181, 81, 23, 255}},
         hero = Rick,
         sprite = rick_spr,
         x = screen_width / 2 + portrait_width + portrait_margin,
-        y = 400,
-        sy = 420,
-        ny = 240,
-        py = 32
+        y = 440,
+        sy = 280,
+        ny = 90,
+        py = 120
     }
 }
 local players = {
-    {name = "P1", pos = 1, visible = true, confirmed = false},
-    {name = "P2", pos = 1, visible = false, confirmed = false},
-    {name = "P3", pos = 1, visible = false, confirmed = false}
+    {name = "P1", pos = 1, visible = false, confirmed = false},
+    {name = "P2", pos = 2, visible = false, confirmed = false},
+    {name = "P3", pos = 3, visible = false, confirmed = false}
 }
 
 local function selected_heroes()
@@ -124,9 +126,9 @@ function heroSelectState:enter()
     mouse_x, mouse_y = 0,0
 
     players = {
-        {name = "P1", pos = 1, visible = true, confirmed = false},
-        {name = "P2", pos = 1, visible = false, confirmed = false},
-        {name = "P3", pos = 1, visible = false, confirmed = false}
+        {name = "P1", pos = 1, visible = false, confirmed = false},
+        {name = "P2", pos = 2, visible = false, confirmed = false},
+        {name = "P3", pos = 3, visible = false, confirmed = false}
     }
 end
 
@@ -135,6 +137,13 @@ function heroSelectState:resume()
 end
 
 local function player_input(player, controls)
+    if not player.visible then
+        if controls.jump:pressed() or controls.fire:pressed()
+            or controls.horizontal:pressed() or controls.vertical:pressed() then
+            player.visible = true
+        end
+        return
+    end
     if not player.confirmed then
         if controls.jump:pressed() and all_unconfirmed() then
             sfx.play("menu_cancel")
@@ -182,44 +191,58 @@ function heroSelectState:update(dt)
 end
 
 function heroSelectState:draw()
-    love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.setFont(gfx.font.arcade3x2)
-
     local sh = selected_heroes()
     for i = 1,3  do
+        local curr_players_hero = heroes[players[i].pos]
+        local curr_players_hero_set = heroes[players[i].pos][sh[i][2]]
+        local curr_color_slot = sh[i][2]
         local h = heroes[i]
+
+        local original_char = 1
         love.graphics.setColor(255, 255, 255, 255)
+        --name
+        love.graphics.setFont(gfx.font.arcade3x3)
+        love.graphics.print(h[original_char].name, h.x - 24 * #h[original_char].name / 2, h.ny)
         --portrait
         love.graphics.rectangle("line", h.x - portrait_width/2, h.py, portrait_width, portrait_height )
-        love.graphics.print("Face\npic", h.x - portrait_width/2 + 4, h.py + 4)
-        --name
-        love.graphics.print(h[1].name, h.x, h.ny)
-        --hero sprite 1 2 3
-        --P1 P2 P3
-        for n = 3, 1, -1 do
-            if sh[n][1] == i then
-                local k = sh[n][2]
-                local c = h[k].color
-                love.graphics.setColor(255, 255, 255, 255)
-                if h[k].shader then
-                    love.graphics.setShader(h[k].shader)
-                end
-                DrawInstance(h.sprite, h.x + (k - 1) * 40 - 32, h.y - (k - 1) * 8)
-                if h[k].shader then
-                    love.graphics.setShader()
-                end
-                love.graphics.setColor(c[1], c[2], c[3], c[4])
-                local nx = h.x + (k - 1) * 34 - 32
-                local ny = h.sy - (k - 1) * 8
-                love.graphics.print(players[n].name, nx, ny)
+        love.graphics.setColor(255, 255, 255, 127)
+        love.graphics.setFont(gfx.font.arcade3)
+        love.graphics.print("PORTRAIT", h.x - portrait_width/2 + 6, h.py + 4)
+        --Players sprite
+        if players[i].visible then
+            --hero sprite 1 2 3
+            love.graphics.setColor(255, 255, 255, 255)
+            if curr_players_hero_set.shader then
+                love.graphics.setShader(curr_players_hero_set.shader)
+            end
+            DrawInstance(curr_players_hero.sprite, h.x, h.y)
+            if curr_players_hero_set.shader then
+                love.graphics.setShader()
+            end
+        else
+            love.graphics.setColor(255, 255, 255, 200 + math.sin(time * 4)*55)
+            love.graphics.setFont(gfx.font.arcade3)
+            love.graphics.print(players[i].name.." - Press\nany button", h.x - 40, h.y - 40)
+        end
+        --P1 P2 P3 indicators
+        love.graphics.setFont(gfx.font.arcade3x2)
+        if players[i].visible then
+            local c = curr_players_hero_set.color
 
-                if(players[n].confirmed) then
-                    love.graphics.rectangle("line", nx - 2, ny - 2, 32 + 4, 16 + 4 )
-                end
+            love.graphics.setColor(c[1], c[2], c[3], c[4])
+            local nx = curr_players_hero.x - portrait_width / 2 + (curr_color_slot - 1) * portrait_width / GLOBAL_SETTING.MAX_PLAYERS
+            local ny = curr_players_hero.sy
+            love.graphics.print(players[i].name, nx, ny)
+
+            if(players[i].confirmed) then
+                love.graphics.rectangle("line", nx - 2, ny - 2, 32 + 4, 16 + 4 )
             end
         end
-    end
 
+    end
+    --header
+    love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
+    love.graphics.draw(txt_player_select, (screen_width - txt_player_select:getWidth()) / 2, 24)
 end
 
 function heroSelectState:mousepressed( x, y, button, istouch )
