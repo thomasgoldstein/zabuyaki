@@ -139,8 +139,8 @@ function heroSelectState:enter()
         {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
         {name = "P3", pos = 3, visible = false, confirmed = false, sprite = nil}
     }
-    old_pos = 0
-    mouse_pos = 0
+    old_pos = 1
+    mouse_pos = 1
 
     for i = 1,3 do
       SetSpriteAnim(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
