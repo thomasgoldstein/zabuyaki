@@ -166,13 +166,6 @@ function Unit:onHurt()
     if not h then
         return
     end
-    if self.state == "getup" and h.type == "throw" then
-        self.hp = self.hp - h.damage
-        if self.hp <= 0 then
-            self:setState(self.getup)
-            return
-        end
-    end
     if self.state == "fall" or self.state == "dead" or self.state == "getup" then
 		if GLOBAL_SETTING.DEBUG then
 			print("Clear HURT due to state"..self.state)
@@ -1079,6 +1072,11 @@ function Unit:fall_update(dt)
 
 				if self.flag_fallen == 0 then
 					mainCamera:onShake(1, 1, 0.03, 0.3)	--shake on the 1st land touch
+					if self.isThrown then
+						local src = self.thrower_id
+						self.hp = self.hp - 20	--damage for throwned on landing
+						src.victim_infoBar = self.infoBar:setAttacker(src)
+					end
 				end
 				sfx.play("fall", 1 - self.flag_fallen)
 				self.flag_fallen = self.flag_fallen + 0.3
@@ -1117,24 +1115,15 @@ Unit.fall = {name = "fall", start = Unit.fall_start, exit = nop, update = Unit.f
 
 function Unit:getup_start()
 	--print (self.name.." - getup start")
-    if self.isThrown then
-        --TODO add proper dmg func
-        local src = self.thrower_id
-        self.hurt = {source = src, state = src.state, damage = 20,
-            type = "throw", velx = 0,
-            horizontal = src.horizontal,
-            x = src.x, y = src.y, z = 0 }
-		src.victim_infoBar = self.infoBar:setAttacker(src)
-    end
+	if self.z <= 0 then
+		self.z = 0
+	end
+	self.isThrown = false
     if self.hp <= 0 then
         self:setState(self.dead)
         return
     end
     SetSpriteAnim(self.sprite,"getup")
-    self.isThrown = false
-	if self.z <= 0 then
-		self.z = 0
-	end
 	self:onShake(0, 1, 0.1, 0.5)
 end
 function Unit:getup_update(dt)
