@@ -22,6 +22,9 @@ local txt_player_select = love.graphics.newText( gfx.font.arcade2x15, "PLAYER SE
 local rick_spr = GetInstance("res/rick.lua")
 SetSpriteAnim(rick_spr,"stand")
 rick_spr.size_scale = 2
+local chai_spr = GetInstance("res/chai.lua")
+SetSpriteAnim(chai_spr,"stand")
+chai_spr.size_scale = 2
 
 local sh_rick2 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
@@ -61,8 +64,8 @@ local heroes = {
         {name = "CHAI", shader = sh_rick3, color = {111,77,158, 255}},
         {name = "CHI", shader = sh_rick2, color = {77,111,158, 255}},
         {name = "CHE", shader = nil, color = {181, 81, 23, 255}},
-        hero = Rick,
-        sprite = rick_spr,
+        hero = Chai,
+        sprite = chai_spr,
         x = screen_width / 2 + portrait_width + portrait_margin,
         y = 440,
         sy = 280,
@@ -183,6 +186,7 @@ end
 function heroSelectState:update(dt)
     time = time + dt
     UpdateInstance(rick_spr, dt)    --todo add for all 3 heroes
+    UpdateInstance(chai_spr, dt)
 
     player_input(players[1], Control1)
     player_input(players[2], Control2)
