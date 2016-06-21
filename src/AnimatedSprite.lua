@@ -81,8 +81,8 @@ function GetInstance (sprite_def)
 	--default table.
 	return {
 		def = sprite_bank[sprite_def], --Sprite reference
-		curr_anim = nil,
-		curr_frame = 1,
+		cur_anim = nil,
+		cur_frame = 1,
 		isFirst = true, -- if the 1st frame
 		isLast = false, -- if the last frame
 		isFinished = false, -- last frame played till the end and the animation is not a loop
@@ -97,18 +97,18 @@ function GetInstance (sprite_def)
 end
 
 function SetSpriteAnim(spr, anim)
-	spr.curr_frame = 1
+	spr.cur_frame = 1
 	spr.loop_count = 0
-	spr.curr_anim = anim
+	spr.cur_anim = anim
 	spr.isFinished = false
 	spr.func_called_at_frame = -1
-	local s = spr.def.animations[spr.curr_anim]
-	local sc = s[spr.curr_frame]
+	local s = spr.def.animations[spr.cur_anim]
+	local sc = s[spr.cur_frame]
 end
 
 function UpdateInstance(spr, dt, slf)
-	local s = spr.def.animations[spr.curr_anim]
-	local sc = s[spr.curr_frame]
+	local s = spr.def.animations[spr.cur_anim]
+	local sc = s[spr.cur_frame]
 	-- is there default delay for frames of 1 animation?
 	if not s.delay then
 		s.delay = spr.def.delay
@@ -122,43 +122,43 @@ function UpdateInstance(spr, dt, slf)
 		sc.funcCont(slf)
 	end
 	-- call custom frame funce once per the frame
-	if sc.func and spr.func_called_at_frame ~= spr.curr_frame and slf then
-		spr.func_called_at_frame = spr.curr_frame
+	if sc.func and spr.func_called_at_frame ~= spr.cur_frame and slf then
+		spr.func_called_at_frame = spr.cur_frame
 		sc.func(slf)
 	end
-	--spr.def.animations[spr.curr_anim]
+	--spr.def.animations[spr.cur_anim]
 	--Increment the internal counter.
 	spr.elapsed_time = spr.elapsed_time + dt
 
 	--We check we need to change the current frame.
 	if spr.elapsed_time > sc.delay * spr.time_scale then
 		--Check if we are at the last frame.
-		if spr.curr_frame < #s then
+		if spr.cur_frame < #s then
 			-- Not on last frame, increment.
-			spr.curr_frame = spr.curr_frame + 1
+			spr.cur_frame = spr.cur_frame + 1
 		else
 			-- Last frame, loop back to 1.
 			if s.loop then	--if cycled animation
-				spr.curr_frame = 1
+				spr.cur_frame = 1
 				spr.loop_count = spr.loop_count + 1 --loop played times++
 			else
 				spr.isFinished = true
 			end
 		end
 		-- First or Last frames?
-		spr.isFirst = (spr.curr_frame == 1)
-		spr.isLast = (spr.curr_frame == #s)
+		spr.isFirst = (spr.cur_frame == 1)
+		spr.isLast = (spr.cur_frame == #s)
 		-- Reset internal counter on frame change.
 		spr.elapsed_time = 0
 	end
 	-- First or Last frames?
-	spr.isFirst = (spr.curr_frame == 1)
-	spr.isLast = (spr.curr_frame == #s)
+	spr.isFirst = (spr.cur_frame == 1)
+	spr.isLast = (spr.cur_frame == #s)
 	return nil
 end
 
 function DrawInstance (spr, x, y)
-    local sc = spr.def.animations[spr.curr_anim][spr.curr_frame]
+    local sc = spr.def.animations[spr.cur_anim][spr.cur_frame]
 	local scale_h, scale_v, flip_h, flip_v = sc.scale_h or 1, sc.scale_v or 1, sc.flip_h or 1, sc.flip_v or 1
 	local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
 	local y_shift = y

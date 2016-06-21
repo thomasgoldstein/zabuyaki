@@ -10,7 +10,7 @@ local KeyTrace = class("KeyTrace")
 -- input = keyTrigger
 function KeyTrace:initialize(name, input, dir)
     self.key = {}
-    self.curr_key = 0
+    self.cur_key = 0
     self.max_key = 10
     for i=1,self.max_key do
         self.key[#self.key+1] = false
@@ -48,7 +48,7 @@ function KeyTrace:clear()
 end
 
 function KeyTrace:getNth(n)
-    local i = self.curr_key - n
+    local i = self.cur_key - n
     if i < 1 then
         i = i + self.max_key
     end
@@ -65,12 +65,12 @@ end
 
 -- private
 function KeyTrace:PushKey(k)
-    if self.curr_key >= self.max_key then
-        self.curr_key = 1
+    if self.cur_key >= self.max_key then
+        self.cur_key = 1
     else
-        self.curr_key = self.curr_key + 1
+        self.cur_key = self.cur_key + 1
     end
-    self.key[self.curr_key] = k
+    self.key[self.cur_key] = k
 end
 
 function KeyTrace:print()

@@ -194,8 +194,8 @@ function heroSelectState:update(dt)
         if players[i].sprite then
             UpdateInstance(players[i].sprite, dt)
             if players[i].sprite.isFinished
-                    and (players[i].sprite.curr_anim == heroes[players[i].pos].cancel_anim
-                    or players[i].sprite.curr_anim == heroes[players[i].pos].confirm_anim)
+                    and (players[i].sprite.cur_anim == heroes[players[i].pos].cancel_anim
+                    or players[i].sprite.cur_anim == heroes[players[i].pos].confirm_anim)
             then
                 SetSpriteAnim(players[i].sprite,heroes[players[i].pos].default_anim)
             end
@@ -209,9 +209,9 @@ end
 function heroSelectState:draw()
     local sh = selected_heroes()
     for i = 1,3  do
-        local curr_players_hero = heroes[players[i].pos]
-        local curr_players_hero_set = heroes[players[i].pos][sh[i][2]]
-        local curr_color_slot = sh[i][2]
+        local cur_players_hero = heroes[players[i].pos]
+        local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
+        local cur_color_slot = sh[i][2]
         local h = heroes[i]
 
         local original_char = 1
@@ -228,12 +228,12 @@ function heroSelectState:draw()
         if players[i].visible then
             --hero sprite 1 2 3
             love.graphics.setColor(255, 255, 255, 255)
-            if curr_players_hero_set.shader then
-                love.graphics.setShader(curr_players_hero_set.shader)
+            if cur_players_hero_set.shader then
+                love.graphics.setShader(cur_players_hero_set.shader)
             end
-            --DrawInstance(curr_players_hero.sprite, h.x, h.y)
+            --DrawInstance(cur_players_hero.sprite, h.x, h.y)
             DrawInstance(players[i].sprite, h.x, h.y)
-            if curr_players_hero_set.shader then
+            if cur_players_hero_set.shader then
                 love.graphics.setShader()
             end
         else
@@ -244,10 +244,10 @@ function heroSelectState:draw()
         --P1 P2 P3 indicators
         love.graphics.setFont(gfx.font.arcade3x2)
         if players[i].visible then
-            local c = curr_players_hero_set.color
+            local c = cur_players_hero_set.color
             love.graphics.setColor(c[1], c[2], c[3], c[4])
-            local nx = curr_players_hero.x - portrait_width / 2 + (curr_color_slot - 1) * portrait_width / GLOBAL_SETTING.MAX_PLAYERS
-            local ny = curr_players_hero.sy
+            local nx = cur_players_hero.x - portrait_width / 2 + (cur_color_slot - 1) * portrait_width / GLOBAL_SETTING.MAX_PLAYERS
+            local ny = cur_players_hero.sy
             love.graphics.print(players[i].name, nx, ny)
             if(players[i].confirmed) then
                 love.graphics.rectangle("line", nx - 2, ny - 2, 32 + 4, 16 + 4 )

@@ -274,7 +274,7 @@ function Unit:drawShadow(l,t,w,h)
 	if CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
 		love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
 		local spr = self.sprite
-		local sc = spr.def.animations[spr.curr_anim][spr.curr_frame]
+		local sc = spr.def.animations[spr.cur_anim][spr.cur_frame]
 		love.graphics.draw (
 			image_bank[spr.def.sprite_sheet], --The image
 			sc.q, --Current frame of the current animation
@@ -487,7 +487,7 @@ end
 
 function Unit:stand_start()
 --	print (self.name.." - stand start")
-	if self.sprite.curr_anim == "walk" then
+	if self.sprite.cur_anim == "walk" then
 		self.delay_animation_cool_down = 0.12
 	else
 		SetSpriteAnim(self.sprite,"stand")
@@ -506,7 +506,7 @@ function Unit:stand_update(dt)
 	end
 
 	self.delay_animation_cool_down = self.delay_animation_cool_down - dt
-	if self.sprite.curr_anim == "walk"
+	if self.sprite.cur_anim == "walk"
 			and self.delay_animation_cool_down <= 0 then
 		SetSpriteAnim(self.sprite,"stand")
 	end
@@ -665,7 +665,7 @@ function Unit:run_update(dt)
 	self.velx = 0
 	self.vely = 0
 	self.delay_animation_cool_down = self.delay_animation_cool_down - dt
-	if self.sprite.curr_anim ~= "run"
+	if self.sprite.cur_anim ~= "run"
 			and self.delay_animation_cool_down <= 0 then
 		SetSpriteAnim(self.sprite,"run")
 	end
@@ -1060,7 +1060,7 @@ end
 function Unit:fall_update(dt)
 	--print(self.name .. " - fall update", dt)
 	--self.isThrown and
-	if self.sprite.curr_anim == "thrown"
+	if self.sprite.cur_anim == "thrown"
 		and self.sprite.isFinished then
 			SetSpriteAnim(self.sprite,"fall")
 
@@ -1068,7 +1068,7 @@ function Unit:fall_update(dt)
 	if self.z > 0 then
 		self.velz = self.velz - self.gravity * dt
 		self.z = self.z + dt * self.velz
-		if self.isThrown and self.z < 16 and self.sprite.curr_anim ~= "fallen" then
+		if self.isThrown and self.z < 16 and self.sprite.cur_anim ~= "fallen" then
 			SetSpriteAnim(self.sprite,"fallen")
 		end
 	    if self.z <= 0 then
