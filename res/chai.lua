@@ -81,17 +81,17 @@ return {
 			{ q = q(84,68,38,64), ox = 19, oy = 63, func = step_sfx, delay = 0.25 }, --walk 3
 			{ q = q(124,68,38,64), ox = 19, oy = 63 }, --walk 4
 			{ q = q(164,68,39,64), ox = 19, oy = 63 }, --walk 5
-			{ q = q(205,68,38,64), ox = 19, oy = 63, func = step_sfx, delay = 0.25 }, --walk 6
+			{ q = q(205,68,38,64), ox = 18, oy = 63, func = step_sfx, delay = 0.25 }, --walk 6
             loop = true,
             delay = 0.167
 		},
 		run = { -- 1 2 3 4 5 6
-			{ q = q(2,135,36,63), ox = 18, oy = 62 }, --run 1
-			{ q = q(40,134,45,63), ox = 22, oy = 62 }, --run 2
-			{ q = q(87,135,44,63), ox = 22, oy = 62, func = step_sfx2 }, --run 3
-			{ q = q(2,200,36,63), ox = 18, oy = 62 },  --run 4
-			{ q = q(40,200,46,64), ox = 23, oy = 63 }, --run 5
-			{ q = q(88,201,45,62), ox = 22, oy = 61, func = step_sfx2 }, --run 6
+			{ q = q(2,135,36,63), ox = 14, oy = 62 }, --run 1
+			{ q = q(40,134,45,63), ox = 23, oy = 62 }, --run 2
+			{ q = q(87,135,44,63), ox = 23, oy = 62, func = step_sfx2 }, --run 3
+			{ q = q(2,200,36,63), ox = 14, oy = 62 },  --run 4
+			{ q = q(40,200,46,64), ox = 22, oy = 63 }, --run 5
+			{ q = q(88,201,45,62), ox = 24, oy = 61, func = step_sfx2 }, --run 6
             loop = true,
             delay = 0.1
 		},
