@@ -7,11 +7,6 @@ local time = 0
 local screen_width = 640
 local screen_height = 480
 
-local left_item_offset  = 6
-local top_item_offset  = 6
-local item_width_margin = left_item_offset * 2
-local item_height_margin = top_item_offset * 2 - 2
-
 local portrait_width = 140
 local portrait_height = 140
 local portrait_margin = 20
@@ -19,17 +14,9 @@ local portrait_margin = 20
 local txt_player_select = love.graphics.newText( gfx.font.arcade2x15, "PLAYER SELECT" )
 
 --sprites and shaders
-local rick_spr = GetInstance("res/rick.lua")
-SetSpriteAnim(rick_spr,"stand")
-rick_spr.size_scale = 2
-local chai_spr = GetInstance("res/chai.lua")
-SetSpriteAnim(chai_spr,"stand")
-chai_spr.size_scale = 2
-
 local sh_rick2 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
 sh_rick2:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})   --Blue
-
 local sh_rick3 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick3:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
 sh_rick3:sendColor("newColors", {111,77,158, 255},  {73,49,130, 255},  {42,28,73, 255}) --Purple
@@ -41,8 +28,11 @@ local heroes = {
         {name = "KYSA", shader = nil, color = {181, 81, 23, 255}},
         {name = "KEESA", shader = sh_rick3, color = {111,77,158, 255}},
         hero = Rick,
-        sprite = rick_spr,
+        --sprite = rick_spr,
         sprite_instance = "res/rick.lua",
+        default_anim = "stand",
+        cancel_anim = "hurtLow",
+        confirm_anim = "walk",
         x = screen_width / 2 - portrait_width - portrait_margin,
         y = 440,    --char sprite
         sy = 280,   --selected P1 P2 P3
@@ -54,8 +44,11 @@ local heroes = {
         {name = "RICH", shader = sh_rick3, color = {111,77,158, 255}},
         {name = "RICKY", shader = sh_rick2, color = {77,111,158, 255}},
         hero = Rick,
-        sprite = rick_spr,
+        --sprite = rick_spr,
         sprite_instance = "res/rick.lua",
+        default_anim = "stand",
+        cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
         x = screen_width / 2,
         y = 440,
         sy = 280,
@@ -67,8 +60,11 @@ local heroes = {
         {name = "CHI", shader = sh_rick2, color = {77,111,158, 255}},
         {name = "CHE", shader = nil, color = {181, 81, 23, 255}},
         hero = Chai,
-        sprite = chai_spr,
+        --sprite = chai_spr,
         sprite_instance = "res/chai.lua",
+        default_anim = "stand",
+        cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
         x = screen_width / 2 + portrait_width + portrait_margin,
         y = 440,
         sy = 280,
@@ -117,9 +113,6 @@ local function all_unconfirmed()
     return not (players[1].confirmed or players[2].confirmed or players[3].confirmed)
 end
 
-local menu_state, old_menu_state = 1, 1
-local mouse_x, mouse_y = 0,0
-
 local function CheckPointCollision(x,y, x1,y1,w1,h1)
     return x < x1+w1 and
             x >= x1 and
@@ -129,7 +122,6 @@ end
 
 function heroSelectState:enter()
     TEsound.stop("music")
-    --mouse_x, mouse_y = 0,0
     players = {
         {name = "P1", pos = 1, visible = false, confirmed = false, sprite = nil},
         {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
@@ -148,7 +140,7 @@ local function player_input(player, controls)
             player.visible = true
             player.sprite = GetInstance(heroes[player.pos].sprite_instance)
             player.sprite.size_scale = 2
-            SetSpriteAnim(player.sprite,"stand")
+            SetSpriteAnim(player.sprite,heroes[player.pos].default_anim)
         end
         return
     end
@@ -159,6 +151,7 @@ local function player_input(player, controls)
         elseif controls.fire:pressed() then
             player.visible = true
             player.confirmed = true
+            SetSpriteAnim(player.sprite,heroes[player.pos].confirm_anim)
             sfx.play("menu_select")
         elseif controls.horizontal:pressed(-1) then
             player.visible = true
@@ -186,6 +179,7 @@ local function player_input(player, controls)
     else
         if controls.jump:pressed() then
             player.confirmed = false
+            SetSpriteAnim(player.sprite,heroes[player.pos].cancel_anim)
             sfx.play("menu_cancel")
         elseif controls.fire:pressed() and all_confirmed() then
             sfx.play("menu_gamestart")
@@ -199,13 +193,17 @@ function heroSelectState:update(dt)
     for i = 1,3 do
         if players[i].sprite then
             UpdateInstance(players[i].sprite, dt)
+            if players[i].sprite.isFinished
+                    and (players[i].sprite.curr_anim == heroes[players[i].pos].cancel_anim
+                    or players[i].sprite.curr_anim == heroes[players[i].pos].confirm_anim)
+            then
+                SetSpriteAnim(players[i].sprite,heroes[players[i].pos].default_anim)
+            end
         end
     end
-
     player_input(players[1], Control1)
     player_input(players[2], Control2)
     player_input(players[3], Control3)
-
 end
 
 function heroSelectState:draw()
@@ -247,28 +245,18 @@ function heroSelectState:draw()
         love.graphics.setFont(gfx.font.arcade3x2)
         if players[i].visible then
             local c = curr_players_hero_set.color
-
             love.graphics.setColor(c[1], c[2], c[3], c[4])
             local nx = curr_players_hero.x - portrait_width / 2 + (curr_color_slot - 1) * portrait_width / GLOBAL_SETTING.MAX_PLAYERS
             local ny = curr_players_hero.sy
             love.graphics.print(players[i].name, nx, ny)
-
             if(players[i].confirmed) then
                 love.graphics.rectangle("line", nx - 2, ny - 2, 32 + 4, 16 + 4 )
             end
         end
-
     end
     --header
     love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
     love.graphics.draw(txt_player_select, (screen_width - txt_player_select:getWidth()) / 2, 24)
-end
-
-function heroSelectState:mousepressed( x, y, button, istouch )
-end
-
-function heroSelectState:mousemoved( x, y, dx, dy)
-    mouse_x, mouse_y = x, y
 end
 
 function heroSelectState:keypressed(key, unicode)
