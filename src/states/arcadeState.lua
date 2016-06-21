@@ -1,4 +1,4 @@
-testState = {}
+arcadeState = {}
 
 
 local function sortByY(entities)
@@ -19,16 +19,16 @@ local function addToWorld(entities)
     end
 end
 
-function testState:init()
+function arcadeState:init()
 end
 
-function testState:resume()
+function arcadeState:resume()
     --restore BGM music volume
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
-function testState:enter()
+function arcadeState:enter()
     GLOBAL_UNIT_ID = 1  --recalc players IDs for proper life bar coords
     --create shaders
     local sh_rick2 = love.graphics.newShader(sh_replace_3_colors)
@@ -143,7 +143,7 @@ function testState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
-function testState:update(dt)
+function arcadeState:update(dt)
 	for _,obj in ipairs(self.entities) do
         obj:update(dt)
         if obj.infoBar then
@@ -186,7 +186,7 @@ function testState:update(dt)
     end
 end
 
-function testState:draw()
+function arcadeState:draw()
     --love.graphics.setBackgroundColor(255, 255, 255)
     mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
@@ -244,7 +244,7 @@ function testState:draw()
     end
 end
 
-function testState:keypressed(k, unicode)
+function arcadeState:keypressed(k, unicode)
     if k == '0' then
         GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
 
@@ -279,7 +279,7 @@ function testState:keypressed(k, unicode)
     end
 end
 
-function testState:wheelmoved( dx, dy )
+function arcadeState:wheelmoved( dx, dy )
     --TODO remove debug scale
     if not GLOBAL_SETTING.DEBUG then
         return
@@ -301,7 +301,14 @@ function testState:wheelmoved( dx, dy )
     end
 end
 
-function testState:mousepressed(x, y, button)
+function arcadeState:mousepressed(x, y, button)
     --player.x = x
     --player.y = y
 end
+
+--function arcadeState.visible(visible)
+--    if visible then
+--        GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
+--        return Gamestate.push(pauseState)
+--    end
+--end

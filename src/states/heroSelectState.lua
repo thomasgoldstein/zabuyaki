@@ -183,7 +183,7 @@ local function player_input(player, controls)
             sfx.play("menu_cancel")
         elseif controls.fire:pressed() and all_confirmed() then
             sfx.play("menu_gamestart")
-            return Gamestate.switch(testState)
+            return Gamestate.switch(arcadeState)
         end
     end
 end
