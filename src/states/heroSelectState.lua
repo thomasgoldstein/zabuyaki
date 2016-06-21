@@ -37,11 +37,12 @@ sh_rick3:sendColor("newColors", {111,77,158, 255},  {73,49,130, 255},  {42,28,73
 --{name, shader, text color P1}..
 local heroes = {
     {
-        {name = "KISA", shader = nil, color = {181, 81, 23, 255}},
-        {name = "KYSA", shader = sh_rick3, color = {111,77,158, 255}},
-        {name = "KEESA", shader = sh_rick2, color = {77,111,158, 255}},
+        {name = "KISA", shader = sh_rick2, color = {77,111,158, 255}},
+        {name = "KYSA", shader = nil, color = {181, 81, 23, 255}},
+        {name = "KEESA", shader = sh_rick3, color = {111,77,158, 255}},
         hero = Rick,
         sprite = rick_spr,
+        sprite_instance = "res/rick.lua",
         x = screen_width / 2 - portrait_width - portrait_margin,
         y = 440,    --char sprite
         sy = 280,   --selected P1 P2 P3
@@ -49,11 +50,12 @@ local heroes = {
         py = 120    --Portrait
     },
     {
-        {name = "RICK", shader = sh_rick2, color = {77,111,158, 255}},
-        {name = "RICH", shader = nil, color = {181, 81, 23, 255}},
-        {name = "RICKY", shader = sh_rick3, color = {111,77,158, 255}},
+        {name = "RICK", shader = nil, color = {181, 81, 23, 255}},
+        {name = "RICH", shader = sh_rick3, color = {111,77,158, 255}},
+        {name = "RICKY", shader = sh_rick2, color = {77,111,158, 255}},
         hero = Rick,
         sprite = rick_spr,
+        sprite_instance = "res/rick.lua",
         x = screen_width / 2,
         y = 440,
         sy = 280,
@@ -66,6 +68,7 @@ local heroes = {
         {name = "CHE", shader = nil, color = {181, 81, 23, 255}},
         hero = Chai,
         sprite = chai_spr,
+        sprite_instance = "res/chai.lua",
         x = screen_width / 2 + portrait_width + portrait_margin,
         y = 440,
         sy = 280,
@@ -74,9 +77,9 @@ local heroes = {
     }
 }
 local players = {
-    {name = "P1", pos = 1, visible = false, confirmed = false},
-    {name = "P2", pos = 2, visible = false, confirmed = false},
-    {name = "P3", pos = 3, visible = false, confirmed = false}
+    {name = "P1", pos = 1, visible = false, confirmed = false, sprite = nil},
+    {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
+    {name = "P3", pos = 3, visible = false, confirmed = false, sprite = nil}
 }
 
 local function selected_heroes()
@@ -126,12 +129,11 @@ end
 
 function heroSelectState:enter()
     TEsound.stop("music")
-    mouse_x, mouse_y = 0,0
-
+    --mouse_x, mouse_y = 0,0
     players = {
-        {name = "P1", pos = 1, visible = false, confirmed = false},
-        {name = "P2", pos = 2, visible = false, confirmed = false},
-        {name = "P3", pos = 3, visible = false, confirmed = false}
+        {name = "P1", pos = 1, visible = false, confirmed = false, sprite = nil},
+        {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
+        {name = "P3", pos = 3, visible = false, confirmed = false, sprite = nil}
     }
 end
 
@@ -144,6 +146,9 @@ local function player_input(player, controls)
         if controls.jump:pressed() or controls.fire:pressed()
             or controls.horizontal:pressed() or controls.vertical:pressed() then
             player.visible = true
+            player.sprite = GetInstance(heroes[player.pos].sprite_instance)
+            player.sprite.size_scale = 2
+            SetSpriteAnim(player.sprite,"stand")
         end
         return
     end
@@ -162,6 +167,9 @@ local function player_input(player, controls)
                 player.pos = 1
             else
                 sfx.play("menu_move")
+                player.sprite = GetInstance(heroes[player.pos].sprite_instance)
+                player.sprite.size_scale = 2
+                SetSpriteAnim(player.sprite,"stand")
             end
         elseif controls.horizontal:pressed(1) then
             player.visible = true
@@ -170,6 +178,9 @@ local function player_input(player, controls)
                 player.pos = GLOBAL_SETTING.MAX_PLAYERS
             else
                 sfx.play("menu_move")
+                player.sprite = GetInstance(heroes[player.pos].sprite_instance)
+                player.sprite.size_scale = 2
+                SetSpriteAnim(player.sprite,"stand")
             end
         end
     else
@@ -185,8 +196,11 @@ end
 
 function heroSelectState:update(dt)
     time = time + dt
-    UpdateInstance(rick_spr, dt)    --todo add for all 3 heroes
-    UpdateInstance(chai_spr, dt)
+    for i = 1,3 do
+        if players[i].sprite then
+            UpdateInstance(players[i].sprite, dt)
+        end
+    end
 
     player_input(players[1], Control1)
     player_input(players[2], Control2)
@@ -219,7 +233,8 @@ function heroSelectState:draw()
             if curr_players_hero_set.shader then
                 love.graphics.setShader(curr_players_hero_set.shader)
             end
-            DrawInstance(curr_players_hero.sprite, h.x, h.y)
+            --DrawInstance(curr_players_hero.sprite, h.x, h.y)
+            DrawInstance(players[i].sprite, h.x, h.y)
             if curr_players_hero_set.shader then
                 love.graphics.setShader()
             end
