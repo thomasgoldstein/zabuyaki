@@ -36,6 +36,8 @@ local heroes = {
         {name = "KEESA", shader = sh_rick3, color = {111,77,158, 255}},
         hero = Kisa,
         sprite_instance = "res/kisa.lua",
+        sprite_portrait = GetInstance("res/portraits.lua"),
+        sprite_portrait_anim = "kisa",
         default_anim = "stand",
         cancel_anim = "hurtLow",
         confirm_anim = "walk",
@@ -51,6 +53,8 @@ local heroes = {
         {name = "RICKY", shader = sh_rick2, color = {77,111,158, 255}},
         hero = Rick,
         sprite_instance = "res/rick.lua",
+        sprite_portrait = GetInstance("res/portraits.lua"),
+        sprite_portrait_anim = "rick",
         default_anim = "stand",
         cancel_anim = "hurtHigh",
         confirm_anim = "walk",
@@ -66,6 +70,8 @@ local heroes = {
         {name = "CHE", shader = nil, color = {181, 81, 23, 255}},
         hero = Chai,
         sprite_instance = "res/chai.lua",
+        sprite_portrait = GetInstance("res/portraits.lua"),
+        sprite_portrait_anim = "chai",
         default_anim = "stand",
         cancel_anim = "hurtHigh",
         confirm_anim = "walk",
@@ -135,6 +141,11 @@ function heroSelectState:enter()
     }
     old_pos = 0
     mouse_pos = 0
+
+    for i = 1,3 do
+      SetSpriteAnim(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
+      heroes[i].sprite_portrait.size_scale = 2
+    end
 end
 
 function heroSelectState:resume()
@@ -242,10 +253,11 @@ function heroSelectState:draw()
         love.graphics.setFont(gfx.font.arcade3x3)
         love.graphics.print(h[original_char].name, h.x - 24 * #h[original_char].name / 2, h.ny)
         --portrait
+        DrawInstance(heroes[i].sprite_portrait, h.x - portrait_width/2, h.py)
         love.graphics.rectangle("line", h.x - portrait_width/2, h.py, portrait_width, portrait_height )
-        love.graphics.setColor(255, 255, 255, 127)
-        love.graphics.setFont(gfx.font.arcade3)
-        love.graphics.print("PORTRAIT", h.x - portrait_width/2 + 6, h.py + 4)
+        --love.graphics.setColor(255, 255, 255, 127)
+        --love.graphics.setFont(gfx.font.arcade3)
+        --love.graphics.print("PORTRAIT", h.x - portrait_width/2 + 6, h.py + 4)
         --Players sprite
         if players[i].visible then
             --hero sprite 1 2 3
@@ -253,7 +265,6 @@ function heroSelectState:draw()
             if cur_players_hero_set.shader then
                 love.graphics.setShader(cur_players_hero_set.shader)
             end
-            --DrawInstance(cur_players_hero.sprite, h.x, h.y)
             DrawInstance(players[i].sprite, h.x, h.y)
             if cur_players_hero_set.shader then
                 love.graphics.setShader()
