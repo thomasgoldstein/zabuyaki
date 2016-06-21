@@ -212,8 +212,12 @@ function arcadeState:update(dt)
 --        fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
 
         fancy.watch("P1 y: ",player1.y, 3)
-        fancy.watch("P2 y: ",player2.y, 3)
-        fancy.watch("P3 y: ",player3.y, 3)
+        if player2 then
+            fancy.watch("P2 y: ",player2.y, 3)
+        end
+        if player3 then
+            fancy.watch("P3 y: ",player3.y, 3)
+        end
         fancy.watch("Player state: ",player1.state, 2)
         fancy.watch("CD Combo: ",player1.cool_down_combo, 2)
         fancy.watch("Cool Down: ",player1.cool_down, 2)
