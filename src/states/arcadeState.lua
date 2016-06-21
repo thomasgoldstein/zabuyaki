@@ -29,15 +29,6 @@ function arcadeState:resume()
 end
 
 function arcadeState:enter(_, players)
-    print("enter")
-    for i = 1,#players do
-        print(
-                players[i].hero,
-                players[i].shader,
-                players[i].name,
-                players[i].color
-        )
-    end
     player1 = nil
     player2 = nil
     player3 = nil
