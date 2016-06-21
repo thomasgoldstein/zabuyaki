@@ -1068,7 +1068,7 @@ function Unit:fall_update(dt)
 	if self.z > 0 then
 		self.velz = self.velz - self.gravity * dt
 		self.z = self.z + dt * self.velz
-		if self.isThrown and self.z < 16 and self.sprite.cur_anim ~= "fallen" then
+		if self.z < 16 and self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
 			SetSpriteAnim(self.sprite,"fallen")
 		end
 	    if self.z <= 0 then
