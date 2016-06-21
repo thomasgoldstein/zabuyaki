@@ -27,9 +27,8 @@ local heroes = {
         {name = "KISA", shader = sh_rick2, color = {77,111,158, 255}},
         {name = "KYSA", shader = nil, color = {181, 81, 23, 255}},
         {name = "KEESA", shader = sh_rick3, color = {111,77,158, 255}},
-        hero = Rick,
-        --sprite = rick_spr,
-        sprite_instance = "res/rick.lua",
+        hero = Kisa,
+        sprite_instance = "res/kisa.lua",
         default_anim = "stand",
         cancel_anim = "hurtLow",
         confirm_anim = "walk",
@@ -44,7 +43,6 @@ local heroes = {
         {name = "RICH", shader = sh_rick3, color = {111,77,158, 255}},
         {name = "RICKY", shader = sh_rick2, color = {77,111,158, 255}},
         hero = Rick,
-        --sprite = rick_spr,
         sprite_instance = "res/rick.lua",
         default_anim = "stand",
         cancel_anim = "hurtHigh",
@@ -60,7 +58,6 @@ local heroes = {
         {name = "CHI", shader = sh_rick2, color = {77,111,158, 255}},
         {name = "CHE", shader = nil, color = {181, 81, 23, 255}},
         hero = Chai,
-        --sprite = chai_spr,
         sprite_instance = "res/chai.lua",
         default_anim = "stand",
         cancel_anim = "hurtHigh",
@@ -187,12 +184,13 @@ local function player_input(player, controls)
             local sh = selected_heroes()
             for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
                 if players[i].confirmed then
+                    local pos = players[i].pos
                     pl[#pl + 1] = {
-                        hero = heroes[players[i].pos].hero,
-                        sprite_instance = heroes[players[i].pos].sprite_instance,
-                        shader = heroes[players[i].pos][sh[players[i].pos][2]].shader,
-                        name = heroes[players[i].pos][sh[players[i].pos][2]].name,
-                        color = heroes[players[i].pos][sh[players[i].pos][2]].color
+                        hero = heroes[pos].hero,
+                        sprite_instance = heroes[pos].sprite_instance,
+                        shader = heroes[pos][sh[i][2]].shader,
+                        name = heroes[pos][sh[i][2]].name,
+                        color = heroes[pos][sh[i][2]].color
                     }
                 end
             end
