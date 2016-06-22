@@ -13,7 +13,7 @@ end
 return {
     serialization_version = 0.42, -- The version of this serialization process
 
-    sprite_sheet = "res/niko.png", -- The path to the spritesheet
+    sprite_sheet = "res/img/char/niko.png", -- The path to the spritesheet
     --TODO read width/height of the sheet automatically.
     sprite_name = "niko", -- The name of the sprite
 

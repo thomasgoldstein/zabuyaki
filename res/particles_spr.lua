@@ -10,7 +10,7 @@ end
 return {
     serialization_version = 0.42, -- The version of this serialization process
 
-    sprite_sheet = "res/particles.png", -- The path to the spritesheet
+    sprite_sheet = "res/img/misc/particles.png", -- The path to the spritesheet
     --TODO read width/height of the sheet automatically.
     sprite_name = "particles", -- The name of the sprite
 

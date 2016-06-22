@@ -10,7 +10,7 @@ local function init_level()
     world:add({type = "wall"}, 0, worldHeight - 20, worldWidth, 40)
 
     --define sprites
-    local bgImg = love.graphics.newImage("res/test_bg.png")
+    local bgImg = love.graphics.newImage("res/img/misc/test_bg.png")
     local quadBldng01 = love.graphics.newQuad(1, 1, 356, 155, bgImg:getDimensions())
     local quadBldng02 = love.graphics.newQuad(1, 157, 356, 155, bgImg:getDimensions())
     local quadRoad01 = love.graphics.newQuad(1, 314, 404, 69, bgImg:getDimensions())

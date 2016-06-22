@@ -45,7 +45,7 @@ local grabThrow_now = function(slf) slf.can_throw_now = true end
 return {
 	serialization_version = 0.42, -- The version of this serialization process
 
-	sprite_sheet = "res/chai.png", -- The path to the spritesheet
+	sprite_sheet = "res/img/char/chai.png", -- The path to the spritesheet
 	--TODO read width/height of the sheet automatically.
 	sprite_name = "chai", -- The name of the sprite
 

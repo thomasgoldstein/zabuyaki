@@ -213,7 +213,7 @@ function arcadeState:update(dt)
 
         fancy.watch("P1 y: ",player1.y, 3)
         if player2 then
-            fancy.watch("P2 y: ",player2.y, 3)
+            xfancy.watch("P2 y: ",player2.y, 3)
         end
         if player3 then
             fancy.watch("P3 y: ",player3.y, 3)
