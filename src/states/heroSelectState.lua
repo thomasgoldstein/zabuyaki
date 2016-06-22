@@ -23,9 +23,9 @@ local txt_player_select = love.graphics.newText( gfx.font.arcade2x15, "PLAYER SE
 --{name, shader, text color P1}..
 local heroes = {
     {
-        {name = "KISA", shader = shaders.rick[2], color = {77,111,158, 255}},
-        {name = "KYSA", shader = nil, color = {181, 81, 23, 255}},
-        {name = "KEESA", shader = shaders.rick[3], color = {111,77,158, 255}},
+        {name = "KISA", shader = nil},
+        {name = "KYSA", shader = shaders.kisa[2]},
+        {name = "KEESA", shader = shaders.kisa[3]},
         hero = Kisa,
         sprite_instance = "src/def/char/kisa.lua",
         sprite_portrait = GetInstance("src/def/misc/portraits.lua"),
@@ -40,9 +40,9 @@ local heroes = {
         py = 120    --Portrait
     },
     {
-        {name = "RICK", shader = nil, color = {181, 81, 23, 255}},
-        {name = "RICH", shader = shaders.rick[2], color = {111,77,158, 255}},
-        {name = "RICKY", shader = shaders.rick[3], color = {77,111,158, 255}},
+        {name = "RICK", shader = nil},
+        {name = "RICH", shader = shaders.rick[2]},
+        {name = "RICKY", shader = shaders.rick[3]},
         hero = Rick,
         sprite_instance = "src/def/char/rick.lua",
         sprite_portrait = GetInstance("src/def/misc/portraits.lua"),
@@ -57,9 +57,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "CHAI", shader = nil, color = {111,77,158, 255}},
-        {name = "CHI", shader = shaders.chai[2], color = {77,111,158, 255}},
-        {name = "CHE", shader = shaders.chai[3], color = {181, 81, 23, 255}},
+        {name = "CHAI", shader = nil},
+        {name = "CHI", shader = shaders.chai[2]},
+        {name = "CHE", shader = shaders.chai[3]},
         hero = Chai,
         sprite_instance = "src/def/char/chai.lua",
         sprite_portrait = GetInstance("src/def/misc/portraits.lua"),
