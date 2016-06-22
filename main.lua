@@ -48,7 +48,7 @@ function love.load(arg)
 	sfx = require "src/def/misc/preload_sfx"
 	gfx = require "src/def/misc/preload_gfx"
 	require "src/def/misc/particles"
-	require "src/def/misc/shaders"
+	shaders = require "src/def/misc/shaders"
 	CompoundPicture = require "src/compoPic"
 	Player = require "src/units/unit"
 	Rick = require "src/units/rick_unit"
