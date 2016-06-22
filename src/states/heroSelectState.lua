@@ -176,7 +176,7 @@ function heroSelectState:enter()
 
     --start BGM
     TEsound.stop("music")
-    TEsound.playLooping("res/bgm/temp_select.mod", "music")
+    TEsound.playLooping("res/bgm/rockdrive.xm", "music")
 
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
