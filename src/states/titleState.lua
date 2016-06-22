@@ -26,7 +26,7 @@ local txt_quit = love.graphics.newText( gfx.font.arcade4, "QUIT" )
 
 local txt_start_hint = love.graphics.newText( gfx.font.arcade4, "Press ACTION ('X' key)" )
 
-local rick_spr = GetInstance("res/rick.lua")
+local rick_spr = GetInstance("src/def/char/rick.lua")
 SetSpriteAnim(rick_spr,"stand")
 rick_spr.size_scale = 4
 

@@ -29,7 +29,7 @@ local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "Option 2 is l
 local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "Option 3 is locked" )
 local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Exit to the Title" )
 
-local rick_spr = GetInstance("res/rick.lua")
+local rick_spr = GetInstance("src/def/char/rick.lua")
 SetSpriteAnim(rick_spr,"getup")
 rick_spr.size_scale = 4
 

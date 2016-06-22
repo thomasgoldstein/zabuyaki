@@ -53,10 +53,6 @@ end
 
 local menu = fillMenu(txt_items, txt_hints)
 
---local rick_spr = GetInstance("res/rick.lua")
---SetSpriteAnim(rick_spr,"fallen")
---rick_spr.size_scale = 4
-
 local menu_state, old_menu_state = 1, 1
 local mouse_x, mouse_y = 0,0
 
