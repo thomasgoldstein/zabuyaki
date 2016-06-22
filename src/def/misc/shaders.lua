@@ -1,4 +1,4 @@
-shaders = {kisa = {}, rick = {}, chai = {}}
+shaders = {kisa = {}, rick = {}, chai = {}, gopper = {}, niko = {}}
 
 local sh_swap_colors = [[
         extern number n = 1;
@@ -137,8 +137,28 @@ sh_rick3:sendColor("newColors", -- Rick P3 colors
     {86,135,97, 255}, {47,91,63, 255}, {24,53,35, 255},-- green hoodie
     {84,75,68, 255}, {51,45,41, 255}, {25,22,20, 255}) -- gray pants
 
-shaders.rick[2] = sh_rick2
-shaders.rick[3] = sh_rick3
+local sh_rick4 = love.graphics.newShader(sh_replace_3_colors)
+sh_rick4:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+sh_rick4:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})   --Blue
+
+local sh_rick5 = love.graphics.newShader(sh_replace_3_colors)
+sh_rick5:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+sh_rick5:sendColor("newColors", {111,77,158, 255},  {73,49,130, 255},  {42,28,73, 255}) --Purple
+
+local sh_rick6 = love.graphics.newShader(sh_replace_3_colors)
+sh_rick6:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+sh_rick6:sendColor("newColors", {70,70,70, 255},  {45,45,45, 255},  {11,11,11, 255})   --Black
+
+local sh_rick7 = love.graphics.newShader(sh_replace_3_colors)
+sh_rick7:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
+sh_rick7:sendColor("newColors", {77,158,111, 255},  {49,130,73, 255},  {28,73,42, 255})   --Emerald
+
+shaders.rick[2] = sh_rick2  --P2
+shaders.rick[3] = sh_rick3  --P3
+shaders.rick[4] = sh_rick4  --Extra colors for dummies
+shaders.rick[5] = sh_rick5
+shaders.rick[6] = sh_rick6
+shaders.rick[7] = sh_rick7
 
 local sh_chai2 = love.graphics.newShader(sh_swap_colors)
 sh_chai2:send("n", 10)
@@ -168,5 +188,30 @@ sh_chai3:sendColor("newColors", -- Chai P3 colors
 
 shaders.chai[2] = sh_chai2
 shaders.chai[3] = sh_chai3
+
+-- Enemy
+
+local sh_gopper2 = love.graphics.newShader(sh_replace_3_colors)
+sh_gopper2:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
+sh_gopper2:sendColor("newColors", {56,84,57, 255},  {35,53,36, 255},  {20,30,20, 255})   --Green
+
+local sh_gopper3 = love.graphics.newShader(sh_replace_3_colors)
+sh_gopper3:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
+sh_gopper3:sendColor("newColors", {53,53,53, 255},  {30,30,30, 255},  {15,15,15, 255})   --Black
+
+local sh_gopper4 = love.graphics.newShader(sh_replace_3_colors)
+sh_gopper4:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
+sh_gopper4:sendColor("newColors", {112,48,61, 255},  {73,31,40, 255},  {40,17,22, 255})   --Red
+
+shaders.gopper[2] = sh_gopper2
+shaders.gopper[3] = sh_gopper3
+shaders.gopper[4] = sh_gopper4
+
+local sh_niko2 = love.graphics.newShader(sh_replace_4_colors)
+sh_niko2:sendColor("colors", {222,230,239, 255},  {53,53,53, 255},  {30,30,30, 255}, {15,15,15, 255}) --White, DarkGray, Dark
+sh_niko2:sendColor("newColors", {15,15,15, 255},  {198,198,198, 255},  {137,137,137, 255}, {84,84,84, 255})   --Black, LightGray, Gray, DarkGray
+
+shaders.niko[2] = sh_niko2
+-- Misc
 
 return shaders
