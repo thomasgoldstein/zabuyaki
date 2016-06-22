@@ -12,7 +12,7 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 
-function Item:initialize(name, note, gfx, hp, score, func, x, y, color)
+function Item:initialize(name, note, gfx, hp, score, func, x, y, shader, color)
     self.sprite = gfx.sprite
     self.icon_sprite = gfx.sprite
     self.icon_q = gfx.icon_q
@@ -33,6 +33,7 @@ function Item:initialize(name, note, gfx, hp, score, func, x, y, color)
     else
         self.color = { r= 255, g = 255, b = 255, a = 255 }
     end
+    self.shader = shader
     self.isHidden = false
     self.isEnabled = true
 

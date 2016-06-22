@@ -15,8 +15,8 @@ end
 
 local function nop() --[[print "nop"]] end
 
-function Kisa:initialize(name, sprite, input, x, y, color)
-    Player.initialize(self, name, sprite, input, x, y, color)
+function Kisa:initialize(name, sprite, input, x, y, shader, color)
+    Player.initialize(self, name, sprite, input, x, y, shader, color)
 end
 
 function Kisa:combo_start()

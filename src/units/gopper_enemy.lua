@@ -19,10 +19,10 @@ end
 
 local function nop() --[[print "nop"]] end
 
-function Gopper:initialize(name, sprite, input, x, y, color)
+function Gopper:initialize(name, sprite, input, x, y, shader, color)
     self.tx, self.ty = x, y
     self.move = tween.new(0.01, self, {tx = x, ty = y})
-    Player.initialize(self, name, sprite, input, x, y, color)
+    Player.initialize(self, name, sprite, input, x, y, shader, color)
     self:pickAttackTarget()
     self.type = "enemy"
     self.face = -1

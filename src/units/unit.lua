@@ -19,7 +19,7 @@ local function nop() --[[print "nop"]] end
 
 GLOBAL_UNIT_ID = 1
 
-function Unit:initialize(name, sprite, input, x, y, color)
+function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self.sprite = sprite or {} --GetInstance("res/templateman.lua")
 	self.name = name or "Unknown"
 	self.type = "player"
@@ -44,7 +44,7 @@ function Unit:initialize(name, sprite, input, x, y, color)
     self.cool_down = 0  -- can't move
     self.cool_down_combo = 0    -- can cont combo
     self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
-	self.shader = nil	--change player colors
+	self.shader = shader  --change player colors
 
 	self.isGrabbed = false
 	self.cool_down_grab = 2

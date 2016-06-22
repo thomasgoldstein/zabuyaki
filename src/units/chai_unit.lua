@@ -15,8 +15,8 @@ end
 
 local function nop() --[[print "nop"]] end
 
-function Chai:initialize(name, sprite, input, x, y, color)
-    Player.initialize(self, name, sprite, input, x, y, color)
+function Chai:initialize(name, sprite, input, x, y, shader, color)
+    Player.initialize(self, name, sprite, input, x, y, shader, color)
 end
 
 function Chai:combo_start()

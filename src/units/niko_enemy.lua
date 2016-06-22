@@ -19,10 +19,10 @@ end
 
 local function nop() --[[print "nop"]] end
 
-function Niko:initialize(name, sprite, input, x, y, color)
+function Niko:initialize(name, sprite, input, x, y, shader, color)
     self.tx, self.ty = x, y
     self.move = tween.new(0.01, self, {tx = x, ty = y})
-    Gopper.initialize(self, name, sprite, input, x, y, color)
+    Gopper.initialize(self, name, sprite, input, x, y, shader, color)
     self:setState(self.intro)
 end
 
