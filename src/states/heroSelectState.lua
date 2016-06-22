@@ -135,12 +135,12 @@ end
 function heroSelectState:enter()
     TEsound.stop("music")
     players = {
-        {name = "P1", pos = 1, visible = false, confirmed = false, sprite = nil},
+        {name = "P1", pos = 1, visible = true, confirmed = false, sprite = nil},
         {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
         {name = "P3", pos = 3, visible = false, confirmed = false, sprite = nil}
     }
-    old_pos = 1
-    mouse_pos = 1
+    old_pos = 0
+    mouse_pos = 0
 
     for i = 1,3 do
       SetSpriteAnim(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
@@ -230,6 +230,13 @@ function heroSelectState:update(dt)
             then
                 SetSpriteAnim(players[i].sprite,heroes[players[i].pos].default_anim)
             end
+        else
+            if players[i].visible then
+                players[i].sprite = GetInstance(heroes[players[i].pos].sprite_instance)
+                players[i].sprite.size_scale = 2
+                SetSpriteAnim(players[i].sprite,heroes[players[i].pos].default_anim)
+            end
+
         end
     end
     player_input(players[1], Control1)
@@ -263,7 +270,9 @@ function heroSelectState:draw()
             if cur_players_hero_set.shader then
                 love.graphics.setShader(cur_players_hero_set.shader)
             end
-            DrawInstance(players[i].sprite, h.x, h.y)
+            if players[i].sprite then
+                DrawInstance(players[i].sprite, h.x, h.y)
+            end
             if cur_players_hero_set.shader then
                 love.graphics.setShader()
             end
@@ -300,11 +309,11 @@ end
 function heroSelectState:mousepressed( x, y, button, istouch )
     if button == 1 then
 
-        for i = 1, 3 do
-            if CheckPointCollision(x, y,  heroes[i].x - portrait_width/2, heroes[i].py, portrait_width, portrait_height ) then
-                mouse_pos = i
-                break
-            end
+        mouse_pos = 2
+        if x < heroes[2].x - portrait_width/2 - portrait_margin/2 then
+            mouse_pos = 1
+        elseif x > heroes[2].x + portrait_width/2 + portrait_margin/2 then
+            mouse_pos = 3
         end
 
         if not players[1].confirmed and mouse_pos >= 1 and mouse_pos <= 3 then
@@ -344,12 +353,11 @@ function heroSelectState:mousepressed( x, y, button, istouch )
 end
 
 function heroSelectState:mousemoved( x, y, dx, dy)
-    for i = 1, 3 do
-        if CheckPointCollision(x, y,  heroes[i].x - portrait_width/2, heroes[i].py, portrait_width, portrait_height ) then
-            mouse_pos = i
-            players[1].visible = true
-            break
-        end
+    mouse_pos = 2
+    if x < heroes[2].x - portrait_width/2 - portrait_margin/2 then
+        mouse_pos = 1
+    elseif x > heroes[2].x + portrait_width/2 + portrait_margin/2 then
+        mouse_pos = 3
     end
     if mouse_pos ~= old_pos and not players[1].confirmed then
         old_pos = mouse_pos
