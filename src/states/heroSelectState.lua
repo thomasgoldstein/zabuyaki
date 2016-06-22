@@ -158,8 +158,8 @@ end
 function heroSelectState:enter()
     players = {
         {pos = 1, visible = true, confirmed = false, sprite = nil},
-        {pos = 1, visible = false, confirmed = false, sprite = nil},
-        {pos = 1, visible = false, confirmed = false, sprite = nil}
+        {pos = 2, visible = false, confirmed = false, sprite = nil},
+        {pos = 3, visible = false, confirmed = false, sprite = nil}
     }
     old_pos = 0
     mouse_pos = 0
