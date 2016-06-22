@@ -71,7 +71,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
 
 	if self.id <= MAX_PLAYERS then
-		self.pid = "P"..self.id
+		self.pid = GLOBAL_SETTING.PLAYERS_NAMES[self.id]
 		self.show_pid_cool_down = 3
 	else
 		self.pid = ""
@@ -290,8 +290,13 @@ local function calcTransparency(cd)
 	return 255
 end
 function Unit:drawPID(x, y_)
+	if self.id > GLOBAL_SETTING.MAX_PLAYERS then
+		return
+	end
 	local y = y_ - math.cos(self.show_pid_cool_down*6)
-	love.graphics.setColor(255,200,40, calcTransparency(self.show_pid_cool_down))
+	local c = GLOBAL_SETTING.PLAYERS_COLORS[self.id]
+	love.graphics.setColor(c[1],c[2],c[3], calcTransparency(self.show_pid_cool_down))
+	--love.graphics.setColor(255,200,40, calcTransparency(self.show_pid_cool_down))
 	love.graphics.rectangle( "fill", x - 15, y, 30, 17 )
 	love.graphics.polygon( "fill", x, y + 20, x - 2 , y + 17, x + 2, y + 17 )
 	love.graphics.setColor(0, 0, 0, calcTransparency(self.show_pid_cool_down))
