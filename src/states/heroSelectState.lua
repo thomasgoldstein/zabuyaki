@@ -88,11 +88,11 @@ local function selected_heroes()
     local s2 = {players[2].pos, 1 }
     local s3 = {players[3].pos, 1 }
     --adjust P2
-    if s2[1] == s1[1] then
+    if s2[1] == s1[1]  then
         s2[2] = s1[2] + 1
     end
     --adjust P3
-    if s3[1] == s2[1] then
+    if s3[1] == s2[1] and players[2].visible then
         s3[2] = s2[2] + 1
     elseif s3[1] == s1[1] then
         s3[2] = s1[2] + 1
@@ -158,8 +158,8 @@ end
 function heroSelectState:enter()
     players = {
         {pos = 1, visible = true, confirmed = false, sprite = nil},
-        {pos = 2, visible = false, confirmed = false, sprite = nil},
-        {pos = 3, visible = false, confirmed = false, sprite = nil}
+        {pos = 1, visible = false, confirmed = false, sprite = nil},
+        {pos = 1, visible = false, confirmed = false, sprite = nil}
     }
     old_pos = 0
     mouse_pos = 0
