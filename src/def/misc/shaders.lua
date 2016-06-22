@@ -121,19 +121,19 @@ return resultCol;
 --Shaders
 local sh_rick2 = love.graphics.newShader(sh_swap_colors)
 sh_rick2:send("n", 6)
-sh_rick2:sendColor("colors", -- Rick P1 colors
+sh_rick2:sendColor("colors", -- Rick default color set
     {181, 81, 23, 255}, {122, 54, 15, 255}, {56, 27, 28, 255}, -- orange hoodie
     {53, 53, 53, 255}, {30, 30, 30, 255}, {15, 15, 15, 255}) -- black pants
-sh_rick2:sendColor("newColors", -- Rick P2 colors
+sh_rick2:sendColor("newColors", -- Rick alternate color set 1
     {188, 188, 188, 255}, {130, 130, 130, 255}, {73, 73, 73, 255}, -- white hoodie
     {39, 85, 135, 255}, {24, 53, 84, 255}, {11, 24, 38, 255}) -- blue pants
 
 local sh_rick3 = love.graphics.newShader(sh_swap_colors)
 sh_rick3:send("n", 6)
-sh_rick3:sendColor("colors", -- Rick P1 colors
+sh_rick3:sendColor("colors", -- Rick default color set
     {181, 81, 23, 255}, {122, 54, 15, 255}, {56, 27, 28, 255}, -- orange hoodie
     {53, 53, 53, 255}, {30, 30, 30, 255}, {15, 15, 15, 255}) -- black pants
-sh_rick3:sendColor("newColors", -- Rick P3 colors
+sh_rick3:sendColor("newColors", -- Rick alternate color set 2
     {86,135,97, 255}, {47,91,63, 255}, {24,53,35, 255},-- green hoodie
     {84,75,68, 255}, {51,45,41, 255}, {25,22,20, 255}) -- gray pants
 
@@ -162,12 +162,12 @@ shaders.rick[7] = sh_rick7
 
 local sh_chai2 = love.graphics.newShader(sh_swap_colors)
 sh_chai2:send("n", 10)
-sh_chai2:sendColor("colors", -- Chai P1 colors
+sh_chai2:sendColor("colors", -- Chai default color set
     {220, 206, 234, 255}, {145, 137, 153, 255}, {87, 82, 91, 255}, -- gray bandages
     {224, 208, 62, 255}, {158, 145, 34, 255}, {96, 71, 19, 255}, -- yellow shirt
     {126, 54, 130, 255}, {86, 11, 86, 255}, {33, 4, 33, 255}, -- purple shorts
     {51, 22, 27, 255}) -- brown hair
-sh_chai2:sendColor("newColors", -- Chai P2 colors
+sh_chai2:sendColor("newColors", -- Chai alternate color set 1
     {224, 208, 62, 255}, {158, 145, 34, 255}, {96, 71, 19, 255}, -- yellow bandages
     {193, 207, 244, 255}, {125, 142, 167, 255}, {65, 73, 86, 255}, -- light blue shirt
     {54, 104, 130, 255}, {11, 56, 86, 255}, {4, 21, 33, 255}, -- teal shorts
@@ -175,12 +175,12 @@ sh_chai2:sendColor("newColors", -- Chai P2 colors
 
 local sh_chai3 = love.graphics.newShader(sh_swap_colors)
 sh_chai3:send("n", 10)
-sh_chai3:sendColor("colors", -- Chai P1 colors
+sh_chai3:sendColor("colors", -- Chai default color set
     {220, 206, 234, 255}, {145, 137, 153, 255}, {87, 82, 91, 255}, -- gray bandages
     {224, 208, 62, 255}, {158, 145, 34, 255}, {96, 71, 19, 255}, -- yellow shirt
     {126, 54, 130, 255}, {86, 11, 86, 255}, {33, 4, 33, 255}, -- purple shorts
     {51, 22, 27, 255}) -- brown hair
-sh_chai3:sendColor("newColors", -- Chai P3 colors
+sh_chai3:sendColor("newColors", -- Chai alternate color set 2
     {226, 113, 113, 255}, {193, 44, 44, 255}, {112, 19, 19, 255}, -- red bandages
     {206, 196, 185, 255}, {154, 136, 119, 255}, {92, 72, 55, 255}, -- light sepia shirt
     {53, 53, 53, 255}, {30, 30, 30, 255}, {15, 15, 15, 255}, -- black shorts
