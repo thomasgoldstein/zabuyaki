@@ -169,6 +169,11 @@ function heroSelectState:enter()
       heroes[i].sprite_portrait.size_scale = 2
     end
 
+    -- Prevent double press at start (e.g. auto confirmation)
+    Control1.fire:update()
+    Control2.fire:update()
+    Control3.fire:update()
+
     --start BGM
     TEsound.stop("music")
     TEsound.playLooping("res/bgm/temp_select.mod", "music")
