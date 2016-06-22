@@ -35,7 +35,7 @@ local heroes = {
         confirm_anim = "walk",
         x = screen_width / 2 - portrait_width - portrait_margin,
         y = 440,    --char sprite
-        sy = 280,   --selected P1 P2 P3
+        sy = 276,   --selected P1 P2 P3
         ny = 90,   --char name
         py = 120    --Portrait
     },
@@ -52,7 +52,7 @@ local heroes = {
         confirm_anim = "walk",
         x = screen_width / 2,
         y = 440,
-        sy = 280,
+        sy = 276,
         ny = 90,
         py = 120
     },
@@ -69,15 +69,15 @@ local heroes = {
         confirm_anim = "walk",
         x = screen_width / 2 + portrait_width + portrait_margin,
         y = 440,
-        sy = 280,
+        sy = 276,
         ny = 90,
         py = 120
     }
 }
 local players = {
-    {name = "P1", pos = 1, visible = false, confirmed = false, sprite = nil},
-    {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
-    {name = "P3", pos = 3, visible = false, confirmed = false, sprite = nil}
+    {pos = 1, visible = false, confirmed = false, sprite = nil},
+    {pos = 2, visible = false, confirmed = false, sprite = nil},
+    {pos = 3, visible = false, confirmed = false, sprite = nil}
 }
 local old_pos = 0
 local mouse_pos = 0
@@ -124,11 +124,42 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
             y >= y1
 end
 
+local function calcTransparency(cd)
+--    if cd > 1 then
+--        return math.sin(cd*10) * 55 + 200
+--    end
+--    if cd < 0.33 then
+--        return cd * 255
+--    end
+    return 255
+end
+local show_pid_cool_down = 1
+local function drawPID(x, y_, i, confirmed)
+    if not x then
+        return
+    end
+    local y = y_ - math.cos(x+time*6)
+    local c = GLOBAL_SETTING.PLAYERS_COLORS[i]
+    love.graphics.setColor(c[1],c[2],c[3], calcTransparency(show_pid_cool_down))
+    love.graphics.rectangle( "fill", x - 30, y, 60, 34 )
+--    love.graphics.polygon( "fill", x, y + 40, x - 4 , y + 34, x + 4, y + 34 ) --arrow down
+    love.graphics.polygon( "fill", x, y - 6, x - 4 , y - 0, x + 4, y - 0 ) --arrow up
+    love.graphics.setColor(0, 0, 0, calcTransparency(show_pid_cool_down))
+    if confirmed then
+        love.graphics.rectangle( "fill", x - 26, y + 4, 52, 26 )    --bold outline
+    else
+        love.graphics.rectangle( "fill", x - 28, y + 2, 56, 30 )
+    end
+    love.graphics.setFont(gfx.font.arcade3x2)
+    love.graphics.setColor(255, 255, 255, calcTransparency(show_pid_cool_down))
+    love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i], x - 14, y + 8)
+end
+
 function heroSelectState:enter()
     players = {
-        {name = "P1", pos = 1, visible = true, confirmed = false, sprite = nil},
-        {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
-        {name = "P3", pos = 3, visible = false, confirmed = false, sprite = nil}
+        {pos = 1, visible = true, confirmed = false, sprite = nil},
+        {pos = 2, visible = false, confirmed = false, sprite = nil},
+        {pos = 3, visible = false, confirmed = false, sprite = nil}
     }
     old_pos = 0
     mouse_pos = 0
@@ -219,7 +250,11 @@ end
 
 function heroSelectState:update(dt)
     time = time + dt
+    local sh = selected_heroes()
     for i = 1,3 do
+        local cur_players_hero = heroes[players[i].pos]
+        local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
+        local cur_color_slot = sh[i][2]
         if players[i].sprite then
             UpdateInstance(players[i].sprite, dt)
             if players[i].sprite.isFinished
@@ -227,6 +262,22 @@ function heroSelectState:update(dt)
                     or players[i].sprite.cur_anim == heroes[players[i].pos].confirm_anim)
             then
                 SetSpriteAnim(players[i].sprite,heroes[players[i].pos].default_anim)
+            end
+            if players[i].visible then
+                --smooth indicators movement
+                local nx = cur_players_hero.x - portrait_width / 2 +4 + (cur_color_slot - 1) * 64
+                local ny = cur_players_hero.sy
+                --love.graphics.print(players[i].name, nx, ny)
+                if not players[i].nx then
+                    players[i].nx = nx
+                    players[i].ny = ny
+                else
+                    if players[i].nx < nx then
+                        players[i].nx = math.floor(players[i].nx + 0.5 + (nx - players[i].nx) / 2)
+                    elseif players[i].nx > nx then
+                        players[i].nx = math.floor(players[i].nx - 0.5 + (nx - players[i].nx) / 2)
+                    end
+                end
             end
         else
             if players[i].visible then
@@ -264,6 +315,11 @@ function heroSelectState:draw()
         --Players sprite
         if players[i].visible then
             --hero sprite 1 2 3
+--            if players[i].sprite then
+--                local c = GLOBAL_SETTING.PLAYERS_COLORS[i]
+--                love.graphics.setColor(c[1],c[2],c[3], 255)
+--                DrawInstance(players[i].sprite, h.x - 8, h.y - 0)
+--            end
             love.graphics.setColor(255, 255, 255, 255)
             if cur_players_hero_set.shader then
                 love.graphics.setShader(cur_players_hero_set.shader)
@@ -274,22 +330,13 @@ function heroSelectState:draw()
             if cur_players_hero_set.shader then
                 love.graphics.setShader()
             end
+            --P1 P2 P3 indicators
+            drawPID(players[i].nx, players[i].ny, i, players[i].confirmed)
         else
-            love.graphics.setColor(255, 255, 255, 200 + math.sin(time * 4)*55)
+            local c = GLOBAL_SETTING.PLAYERS_COLORS[i]
+            love.graphics.setColor(c[1], c[2], c[3], 230 + math.sin(time * 4)*25)
             love.graphics.setFont(gfx.font.arcade3x2)
-            love.graphics.print(players[i].name.."\nPUSH\nANY\nBUTTON", h.x - portrait_width/2 + 20, h.y - portrait_height + 48)
-        end
-        --P1 P2 P3 indicators
-        love.graphics.setFont(gfx.font.arcade3x2)
-        if players[i].visible then
-            local c = cur_players_hero_set.color
-            love.graphics.setColor(c[1], c[2], c[3], c[4])
-            local nx = cur_players_hero.x - portrait_width / 2 + (cur_color_slot - 1) * portrait_width / GLOBAL_SETTING.MAX_PLAYERS
-            local ny = cur_players_hero.sy
-            love.graphics.print(players[i].name, nx, ny)
-            if(players[i].confirmed) then
-                love.graphics.rectangle("line", nx - 2, ny - 2, 32 + 4, 16 + 4 )
-            end
+            love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPUSH\nANY\nBUTTON", h.x - portrait_width/2 + 20, h.y - portrait_height + 48)
         end
     end
     --header
