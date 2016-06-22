@@ -117,6 +117,11 @@ local function all_unconfirmed()
     return not (players[1].confirmed or players[2].confirmed or players[3].confirmed)
 end
 
+local function all_invisible()
+    --Active players confirmed their choice
+    return not (players[1].visible or players[2].visible or players[3].visible)
+end
+
 local function CheckPointCollision(x,y, x1,y1,w1,h1)
     return x < x1+w1 and
             x >= x1 and
@@ -188,6 +193,10 @@ end
 
 local function player_input(player, controls)
     if not player.visible then
+        if controls.jump:pressed() and all_invisible() then
+            sfx.play("menu_cancel")
+            return Gamestate.switch(titleState)
+        end
         if controls.jump:pressed() or controls.fire:pressed()
             or controls.horizontal:pressed() or controls.vertical:pressed() then
             player.visible = true
@@ -199,8 +208,12 @@ local function player_input(player, controls)
     end
     if not player.confirmed then
         if controls.jump:pressed() and all_unconfirmed() then
-            sfx.play("menu_cancel")
-            return Gamestate.switch(titleState)
+            if player.visible then
+                player.visible = false
+--            elseif all_unconfirmed() then
+--                sfx.play("menu_cancel")
+--                return Gamestate.switch(titleState)
+            end
         elseif controls.fire:pressed() then
             player.visible = true
             player.confirmed = true
@@ -366,11 +379,15 @@ function heroSelectState:mousepressed( x, y, button, istouch )
             mouse_pos = 3
         end
 
-        if not players[1].confirmed and mouse_pos >= 1 and mouse_pos <= 3 then
+        if not players[1].visible then
+            players[1].visible = true
+            sfx.play("menu_select")
+            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].default_anim)
+        elseif not players[1].confirmed then
             players[1].pos = mouse_pos
             players[1].confirmed = true
             sfx.play("menu_select")
-            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].confirm_anim)    --TODO crashed?
+            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].confirm_anim)
         elseif mouse_pos == players[1].pos and all_confirmed() then
             sfx.play("menu_gamestart")
             local pl = {}
@@ -391,11 +408,14 @@ function heroSelectState:mousepressed( x, y, button, istouch )
         end
 
     elseif button == 2 then
-        if players[1].confirmed then
+        if players[1].visible and not players[1].confirmed then
+            players[1].visible = false
+            sfx.play("menu_cancel")
+        elseif players[1].confirmed then
             players[1].confirmed = false
             sfx.play("menu_cancel")
             SetSpriteAnim(players[1].sprite,heroes[players[1].pos].cancel_anim)
-        elseif all_unconfirmed() then
+        elseif all_invisible() then
             sfx.play("menu_cancel")
             return Gamestate.switch(titleState)
         end
