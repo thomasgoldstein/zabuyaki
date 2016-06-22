@@ -71,7 +71,7 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
 end
 
 function optionsState:enter()
-    TEsound.stop("music")
+    --TEsound.stop("music")
     mouse_x, mouse_y = 0,0
 end
 
