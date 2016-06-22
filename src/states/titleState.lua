@@ -68,8 +68,12 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
 end
 
 function titleState:enter()
-    TEsound.stop("music")
     mouse_x, mouse_y = 0,0
+    TEsound.stop("music")
+    TEsound.playLooping("res/bgm/theme.xm", "music")
+
+    TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
+    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
 function titleState:resume()

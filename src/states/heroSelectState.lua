@@ -125,7 +125,6 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
 end
 
 function heroSelectState:enter()
-    TEsound.stop("music")
     players = {
         {name = "P1", pos = 1, visible = true, confirmed = false, sprite = nil},
         {name = "P2", pos = 2, visible = false, confirmed = false, sprite = nil},
@@ -138,6 +137,13 @@ function heroSelectState:enter()
       SetSpriteAnim(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
       heroes[i].sprite_portrait.size_scale = 2
     end
+
+    --start BGM
+    TEsound.stop("music")
+    TEsound.playLooping("res/bgm/temp_select.mod", "music")
+
+    TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
+    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
 function heroSelectState:resume()
