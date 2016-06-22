@@ -191,9 +191,10 @@ function heroSelectState:resume()
     heroSelectState:enter()
 end
 
-local function player_input(player, controls)
+local function player_input(player, controls, i)
     if not player.visible then
-        if controls.jump:pressed() and all_invisible() then
+        if controls.jump:pressed() and i == 1 then
+            --P1 can return to title
             sfx.play("menu_cancel")
             return Gamestate.switch(titleState)
         end
@@ -306,9 +307,9 @@ function heroSelectState:update(dt)
 
         end
     end
-    player_input(players[1], Control1)
-    player_input(players[2], Control2)
-    player_input(players[3], Control3)
+    player_input(players[1], Control1, 1)
+    player_input(players[2], Control2, 2)
+    player_input(players[3], Control3, 3)
 end
 
 function heroSelectState:draw()
@@ -415,7 +416,7 @@ function heroSelectState:mousepressed( x, y, button, istouch )
             players[1].confirmed = false
             sfx.play("menu_cancel")
             SetSpriteAnim(players[1].sprite,heroes[players[1].pos].cancel_anim)
-        elseif all_invisible() then
+        else    --if all_invisible() then
             sfx.play("menu_cancel")
             return Gamestate.switch(titleState)
         end
