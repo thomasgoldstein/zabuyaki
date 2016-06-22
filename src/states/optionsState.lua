@@ -125,6 +125,7 @@ function optionsState:mousepressed( x, y, button, istouch )
                 GLOBAL_SETTING.BGM_VOLUME = 1
                 txt_items[1] = txt_option1
             end
+            TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
             menu = fillMenu(txt_items, txt_hints)
 
         elseif menu_state == 2 then
