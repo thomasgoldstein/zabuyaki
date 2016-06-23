@@ -89,7 +89,6 @@ function Gopper:checkCollisionAndMove(dt)
     self.x = actualX + 8
     self.y = actualY + 4
 
-    self.pa_dust:update( dt )
     self.pa_impact_low:update( dt )
     self.pa_impact_high:update( dt )
 end

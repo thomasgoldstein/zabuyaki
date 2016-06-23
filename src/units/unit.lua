@@ -81,7 +81,6 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
 
-	self.pa_dust = PA_DUST_STEPS:clone()
 	self.pa_impact_high = PA_IMPACT_BIG:clone()
 	self.pa_impact_low = PA_IMPACT_SMALL:clone()
 
@@ -324,11 +323,8 @@ function Unit:default_draw(l,t,w,h)
 			love.graphics.setShader()
 		end
 		love.graphics.setColor(255, 255, 255, 255)
-		love.graphics.draw(self.pa_dust, self.x, self.y)
 		love.graphics.draw(self.pa_impact_low, self.x, self.y)
 		love.graphics.draw(self.pa_impact_high, self.x, self.y)
---        love.graphics.draw(self.pa_impact_low, self.x, self.y - 24)
---		love.graphics.draw(self.pa_impact_high, self.x, self.y - 48)
 		if self.show_pid_cool_down > 0 then
 			self:drawPID(self.x, self.y - self.z - 80)
 		end
@@ -348,7 +344,6 @@ function Unit:checkCollisionAndMove(dt)
 	self.x = actualX + 8
 	self.y = actualY + 4
 
-	self.pa_dust:update( dt )
 	self.pa_impact_low:update( dt )
 	self.pa_impact_high:update( dt )
 end
@@ -816,9 +811,10 @@ function Unit:duck_start()
 	--self.hurt = nil --free hurt data
     --self.victims = {}
 	self.z = 0
-
-	self.pa_dust = PA_DUST_LANDING:clone()
-	self.pa_dust:emit(30)
+	--landing dust clouds
+	local padust = PA_DUST_LANDING:clone()
+	padust:emit(30)
+	level_objects:add(Effect:new(padust, self.x, self.y+1))
 end
 function Unit:duck_update(dt)
 	--	print (self.name.." - duck update",dt)
@@ -1085,6 +1081,10 @@ function Unit:fall_update(dt)
 				end
 				sfx.play("fall", 1 - self.flag_fallen)
 				self.flag_fallen = self.flag_fallen + 0.3
+				--landing dust clouds
+				local padust = PA_DUST_LANDING:clone()
+				padust:emit(30)
+				level_objects:add(Effect:new(padust, self.x, self.y+1))
 				return
 			else
 				--final fall (no bouncing)
