@@ -43,6 +43,7 @@ function arcadeState:enter(_, players)
             players[1].shader,
             {255,255,255, 255})
     end
+    GLOBAL_UNIT_ID = 2  --recalc players IDs for proper life bar coords
     if players[2] then
         --     player2 = Chai:new("CHAI", GetInstance("src/def/char/chai.lua"), Control2, 240, 200, shader )
         player2 = players[2].hero:new(players[2].name,
@@ -53,6 +54,7 @@ function arcadeState:enter(_, players)
         player2.horizontal = -1
         player2.face = -1
     end
+    GLOBAL_UNIT_ID = 3  --recalc players IDs for proper life bar coords
     if players[3] then
 --        player3 = Kisa:new("KISA", GetInstance("src/def/char/rick.lua"), Control3, 220, 200-30, shader, {255,255,255, 255})
         player3 = players[3].hero:new(players[3].name,
