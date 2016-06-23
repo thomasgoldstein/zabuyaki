@@ -21,7 +21,7 @@ function Effect:initialize(particle, x, y, shader, color)
     self.name = "Particle"
     self.type = "effect"
     self.x, self.y, self.z = x, y, 0
-    self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
+    --self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
     if color then
         self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
     else
@@ -47,13 +47,22 @@ end
 function Effect:onHurt()
 end
 
-function Effect:update(dt)
-    if self.isHidden then
-        return
-    end
-    self.particle:update(dt)
+function Effect:onRemove()
+--    print("remove eff ", self.x, self.y)
+    self.isHidden = true
+    self.y = GLOBAL_SETTING.OFFSCREEN
 end
 
-
+function Effect:update(dt)
+    if self.isHidden then
+--        print("eff upd HIDDEN ", self.x, self.y)
+        return
+    end
+    --print("eff upd VISIBLE ", self.x, self.y)
+    self.particle:update(dt)
+    if self.particle:isStopped() then
+        self:onRemove()
+    end
+end
 
 return Effect
