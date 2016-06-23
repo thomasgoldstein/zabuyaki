@@ -102,14 +102,18 @@ local function selected_heroes()
 end
 
 local function all_confirmed()
-    --Active players confirmed their choice
-    return players[1].confirmed
-            and
-            ((players[2].visible and players[2].confirmed)
-                    or not players[2].visible)
-            and
-            ((players[3].visible and players[3].confirmed)
-                    or not players[3].visible)
+    --visible players confirmed their choice
+    local confirmed = false
+    for i = 1,3 do
+        if players[i].confirmed then
+            confirmed = true
+        else
+            if players[i].visible then
+                return false
+            end
+        end
+    end
+    return confirmed
 end
 
 local function all_unconfirmed()
@@ -208,7 +212,7 @@ local function player_input(player, controls, i)
         return
     end
     if not player.confirmed then
-        if controls.jump:pressed() and all_unconfirmed() then
+        if controls.jump:pressed() then
             if player.visible then
                 player.visible = false
 --            elseif all_unconfirmed() then
@@ -253,7 +257,8 @@ local function player_input(player, controls, i)
             for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
                 if players[i].confirmed then
                     local pos = players[i].pos
-                    pl[#pl + 1] = {
+                    pl[i] = {
+--                    pl[#pl + 1] = {
                         hero = heroes[pos].hero,
                         sprite_instance = heroes[pos].sprite_instance,
                         shader = heroes[pos][sh[i][2]].shader,
@@ -396,7 +401,8 @@ function heroSelectState:mousepressed( x, y, button, istouch )
             for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
                 if players[i].confirmed then
                     local pos = players[i].pos
-                    pl[#pl + 1] = {
+                    pl[i] = {
+--                    pl[#pl + 1] = {
                         hero = heroes[pos].hero,
                         sprite_instance = heroes[pos].sprite_instance,
                         shader = heroes[pos][sh[i][2]].shader,
