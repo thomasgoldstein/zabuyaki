@@ -146,7 +146,13 @@ function arcadeState:update(dt)
     sortByY(self.entities)
 	
     background:update(dt)
-    mainCamera:update(dt, player1.x, player1.y)
+    if player1 then
+        mainCamera:update(dt, player1.x, player1.y)
+    elseif player2 then
+        mainCamera:update(dt, player2.x, player2.y)
+    elseif player3 then
+        mainCamera:update(dt, player2.x, player2.y)
+    end
 
 --[[    local function cerp(a,b,t) local f=(1-math.cos(t*math.pi))*.5 return a*(1-f)+b*f end
     local function clamp(low, n, high) return math.min(math.max(low, n), high) end
@@ -163,19 +169,22 @@ function arcadeState:update(dt)
         fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
 --        fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
 
-        fancy.watch("P1 y: ",player1.y, 3)
+        if player1 then
+            fancy.watch("P1 y: ",player1.y, 3)
+            fancy.watch("Player state: ",player1.state, 2)
+            fancy.watch("CD Combo: ",player1.cool_down_combo, 2)
+            fancy.watch("Cool Down: ",player1.cool_down, 2)
+            fancy.watch("Velocity Z: ",player1.velz, 2)
+            fancy.watch("Velocity X: ",player1.velx, 2)
+            fancy.watch("Z: ",player1.z, 3)
+        end
         if player2 then
             xfancy.watch("P2 y: ",player2.y, 3)
         end
         if player3 then
             fancy.watch("P3 y: ",player3.y, 3)
         end
-        fancy.watch("Player state: ",player1.state, 2)
-        fancy.watch("CD Combo: ",player1.cool_down_combo, 2)
-        fancy.watch("Cool Down: ",player1.cool_down, 2)
-        fancy.watch("Velocity Z: ",player1.velz, 2)
-        fancy.watch("Velocity X: ",player1.velx, 2)
-        fancy.watch("Z: ",player1.z, 3)
+
     end
 end
 
@@ -220,9 +229,11 @@ function arcadeState:draw()
     end
 
     --HP bars
+    if player1 then
     player1.infoBar:draw(0,0)
-    if player1.victim_infoBar then
-        player1.victim_infoBar:draw(0,0)
+        if player1.victim_infoBar then
+            player1.victim_infoBar:draw(0,0)
+        end
     end
     if player2 then
         player2.infoBar:draw(0,0)
