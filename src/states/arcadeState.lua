@@ -1,23 +1,5 @@
 arcadeState = {}
 
-local function sortByY(entities)
-    table.sort(entities, function(a,b)
-        if not a then
-            return false
-        elseif not b then
-            return true
-        elseif a.y == b.y then
-            return a.id > b.id
-        end
-        return a.y < b.y end )
-end
-
-local function addToWorld(entities)
-    for i,obj in pairs(entities) do
-        world:add(obj, obj.x-7, obj.y-3, 15, 7)
-    end
-end
-
 function arcadeState:init()
 end
 
@@ -102,27 +84,46 @@ function arcadeState:enter(_, players)
 --    item2 = Item:new("Custom func sample", "+20 Pts.", gfx.items.apple, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
     local item3 = Item:new("Beef", "+100 HP", gfx.items.beef, 100, 0, nil, 750,200)
 
-    self.entities = {
+    local padust = PA_DUST_LANDING:clone()
+    padust:setParticleLifetime(1, 4) -- Particles live at least 2s and at most 5s.
+    padust:setEmitterLifetime(4)
+    padust:emit(20)
+
+    level_objects = Entity:new()
+    level_objects:addArray({
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
+        Effect:new(padust, 120, 180),
         niko1, niko2, niko3, niko4, niko5, niko6,
         dummy4, dummy5,
         item1, item2, item3
-    }
+    })
     if player1 then
-        self.entities[#self.entities + 1] = player1
+        level_objects:add(player1)
     end
     if player2 then
-        self.entities[#self.entities + 1] = player2
+        level_objects:add(player2)
     end
     if player3 then
-        self.entities[#self.entities + 1] = player3
+        level_objects:add(player3)
     end
+
+    local padust = PA_DUST_LANDING:clone()
+    padust:setParticleLifetime(2, 3) -- Particles live at least 2s and at most 5s.
+    padust:setEmitterLifetime(5)
+    padust:emit(30)
+    level_objects:add(Effect:new(padust, 200, 200))
+
+    local padust = PA_DUST_LANDING:clone()
+    padust:setParticleLifetime(1, 4) -- Particles live at least 2s and at most 5s.
+    padust:setEmitterLifetime(5)
+    padust:emit(30)
+    level_objects:add(Effect:new(padust, 220, 170))
 
     --load level
     world, background, worldWidth, worldHeight = require("src/def/level/level_template")()
 
     --adding players into collision world 15x7
-    addToWorld(self.entities)
+    level_objects:addToWorld()
 
     mainCamera = Camera:new(worldWidth, worldHeight)
 
@@ -135,17 +136,9 @@ function arcadeState:enter(_, players)
 end
 
 function arcadeState:update(dt)
-	for _,obj in ipairs(self.entities) do
-        obj:update(dt)
-        if obj.infoBar then
-            obj.infoBar:update(dt)
-        end
-    end
-    for _,obj in ipairs(self.entities) do
-        obj:onHurt()
-    end
-    --sort players + entities by y
-    sortByY(self.entities)
+    level_objects:update(dt)
+    --sort players by y
+    level_objects:sortByY()
 	
     background:update(dt)
     if player1 then
@@ -196,14 +189,7 @@ function arcadeState:draw()
         -- draw camera stuff here
         love.graphics.setColor(255, 255, 255, 255)
         background:draw(l, t, w, h)
-
-		for i,obj in ipairs(self.entities) do
-            obj:drawShadow(l,t,w,h)
-		end
-
-        for _,obj in ipairs(self.entities) do
-            obj:draw(l,t,w,h)
-        end
+        level_objects:draw(l,t,w,h)
 
         -- debug draw bump boxes
         if GLOBAL_SETTING.DEBUG then
@@ -254,17 +240,7 @@ end
 function arcadeState:keypressed(k, unicode)
     if k == '0' then
         GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
-
-        local t = "* "
-        for i,obj in pairs(self.entities) do
-            if not obj then
-                t = t .. i .. ":<>, "
-            else
-                t = t .. i .. ":" .. obj.name .. ", "
-            end
-        end
-        print (t)
-
+        level_objects:print()
     elseif k == "escape" then
         GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
         return Gamestate.push(pauseState)
@@ -277,11 +253,7 @@ function arcadeState:keypressed(k, unicode)
         elseif k == '3' then
             mainCamera:setScale(3)
         elseif k == 'f12' then
-            for i, player in ipairs(self.entities) do
-                if player.type == "player" or player.type == "enemy" then
-                    player:revive()
-                end
-            end
+            level_objects:revive()
         end
     end
 end
