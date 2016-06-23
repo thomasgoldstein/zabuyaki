@@ -52,6 +52,7 @@ function love.load(arg)
 	require "src/def/misc/particles"
 	shaders = require "src/def/misc/shaders"
 	CompoundPicture = require "src/compoPic"
+	Effect = require "src/units/effect"
 	Player = require "src/units/unit"
 	Rick = require "src/units/rick_unit"
 	Chai = require "src/units/chai_unit"
