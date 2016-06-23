@@ -3,13 +3,6 @@
 --
 heroSelectState = {}
 
-local function CheckPointCollision(x,y, x1,y1,w1,h1)
-    return x < x1+w1 and
-            x >= x1 and
-            y < y1+h1 and
-            y >= y1
-end
-
 local time = 0
 local screen_width = 640
 local screen_height = 480
@@ -20,12 +13,11 @@ local portrait_margin = 20
 
 local txt_player_select = love.graphics.newText( gfx.font.arcade2x15, "PLAYER SELECT" )
 
---{name, shader, text color P1}..
 local heroes = {
     {
         {name = "KISA", shader = nil},
-        {name = "KYSA", shader = shaders.kisa[2]},
-        {name = "KEESA", shader = shaders.kisa[3]},
+        {name = "KISA", shader = shaders.kisa[2]},
+        {name = "KISA", shader = shaders.kisa[3]},
         hero = Kisa,
         sprite_instance = "src/def/char/kisa.lua",
         sprite_portrait = GetInstance("src/def/misc/portraits.lua"),
@@ -41,8 +33,8 @@ local heroes = {
     },
     {
         {name = "RICK", shader = nil},
-        {name = "RICH", shader = shaders.rick[2]},
-        {name = "RICKY", shader = shaders.rick[3]},
+        {name = "RICK", shader = shaders.rick[2]},
+        {name = "RICK", shader = shaders.rick[3]},
         hero = Rick,
         sprite_instance = "src/def/char/rick.lua",
         sprite_portrait = GetInstance("src/def/misc/portraits.lua"),
@@ -58,8 +50,8 @@ local heroes = {
     },
     {
         {name = "CHAI", shader = nil},
-        {name = "CHI", shader = shaders.chai[2]},
-        {name = "CHE", shader = shaders.chai[3]},
+        {name = "CHAI", shader = shaders.chai[2]},
+        {name = "CHAI", shader = shaders.chai[3]},
         hero = Chai,
         sprite_instance = "src/def/char/chai.lua",
         sprite_portrait = GetInstance("src/def/misc/portraits.lua"),
@@ -111,7 +103,6 @@ local function selected_heroes()
             xshift[players[3].pos] = xshift[players[3].pos] + 1
         end
     end
-    --print(s1[1],s1[2],s2[1],s2[2],s3[1],s3[2])
     return {s1, s2, s3}, xshift
 end
 
@@ -132,50 +123,33 @@ local function all_confirmed()
 end
 
 local function all_unconfirmed()
-    --Active players confirmed their choice
+    --All active players did not confirm their choice
     return not (players[1].confirmed or players[2].confirmed or players[3].confirmed)
 end
 
 local function all_invisible()
-    --Active players confirmed their choice
+    --Active players are invisible "press any button"
     return not (players[1].visible or players[2].visible or players[3].visible)
 end
 
-local function CheckPointCollision(x,y, x1,y1,w1,h1)
-    return x < x1+w1 and
-            x >= x1 and
-            y < y1+h1 and
-            y >= y1
-end
-
-local function calcTransparency(cd)
---    if cd > 1 then
---        return math.sin(cd*10) * 55 + 200
---    end
---    if cd < 0.33 then
---        return cd * 255
---    end
-    return 255
-end
-local show_pid_cool_down = 1
 local function drawPID(x, y_, i, confirmed)
     if not x then
         return
     end
     local y = y_ - math.cos(x+time*6)
     local c = GLOBAL_SETTING.PLAYERS_COLORS[i]
-    love.graphics.setColor(c[1],c[2],c[3], calcTransparency(show_pid_cool_down))
+    love.graphics.setColor(c[1],c[2],c[3], 255)
     love.graphics.rectangle( "fill", x - 30, y, 60, 34 )
 --    love.graphics.polygon( "fill", x, y + 40, x - 4 , y + 34, x + 4, y + 34 ) --arrow down
     love.graphics.polygon( "fill", x, y - 6, x - 4 , y - 0, x + 4, y - 0 ) --arrow up
-    love.graphics.setColor(0, 0, 0, calcTransparency(show_pid_cool_down))
+    love.graphics.setColor(0, 0, 0, 255)
     if confirmed then
         love.graphics.rectangle( "fill", x - 26, y + 4, 52, 26 )    --bold outline
     else
         love.graphics.rectangle( "fill", x - 28, y + 2, 56, 30 )
     end
     love.graphics.setFont(gfx.font.arcade3x2)
-    love.graphics.setColor(255, 255, 255, calcTransparency(show_pid_cool_down))
+    love.graphics.setColor(255, 255, 255, 255)
     love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i], x - 14, y + 8)
 end
 
@@ -187,21 +161,17 @@ function heroSelectState:enter()
     }
     old_pos = 0
     mouse_pos = 0
-
     for i = 1,3 do
       SetSpriteAnim(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
       heroes[i].sprite_portrait.size_scale = 2
     end
-
     -- Prevent double press at start (e.g. auto confirmation)
     Control1.fire:update()
     Control2.fire:update()
     Control3.fire:update()
-
     --start BGM
     TEsound.stop("music")
     TEsound.playLooping("res/bgm/rockdrive.xm", "music")
-
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
@@ -213,12 +183,13 @@ end
 local function player_input(player, controls, i)
     if not player.visible then
         if controls.jump:pressed() and i == 1 then
-            --P1 can return to title
+            --Only P1 can return to title
             sfx.play("menu_cancel")
             return Gamestate.switch(titleState)
         end
         if controls.jump:pressed() or controls.fire:pressed()
             or controls.horizontal:pressed() or controls.vertical:pressed() then
+            sfx.play("menu_select")
             player.visible = true
             player.sprite = GetInstance(heroes[player.pos].sprite_instance)
             player.sprite.size_scale = 2
@@ -229,10 +200,8 @@ local function player_input(player, controls, i)
     if not player.confirmed then
         if controls.jump:pressed() then
             if player.visible then
+                sfx.play("menu_cancel")
                 player.visible = false
---            elseif all_unconfirmed() then
---                sfx.play("menu_cancel")
---                return Gamestate.switch(titleState)
             end
         elseif controls.fire:pressed() then
             player.visible = true
@@ -240,7 +209,6 @@ local function player_input(player, controls, i)
             SetSpriteAnim(player.sprite,heroes[player.pos].confirm_anim)
             sfx.play("menu_select")
         elseif controls.horizontal:pressed(-1) then
-            player.visible = true
             player.pos = player.pos - 1
             if player.pos < 1 then
                 player.pos = GLOBAL_SETTING.MAX_PLAYERS
@@ -250,7 +218,6 @@ local function player_input(player, controls, i)
             player.sprite.size_scale = 2
             SetSpriteAnim(player.sprite,"stand")
         elseif controls.horizontal:pressed(1) then
-            player.visible = true
             player.pos = player.pos + 1
             if player.pos > GLOBAL_SETTING.MAX_PLAYERS then
                 player.pos = 1
@@ -273,7 +240,6 @@ local function player_input(player, controls, i)
                 if players[i].confirmed then
                     local pos = players[i].pos
                     pl[i] = {
---                    pl[#pl + 1] = {
                         hero = heroes[pos].hero,
                         sprite_instance = heroes[pos].sprite_instance,
                         shader = heroes[pos][sh[i][2]].shader,
@@ -305,9 +271,7 @@ function heroSelectState:update(dt)
             if players[i].visible then
                 --smooth indicators movement
                 local nx = cur_players_hero.x - shiftx[players[i].pos] * 32 + (cur_color_slot - 1) * 64 -- * (i - 1)
---                local nx = cur_players_hero.x - portrait_width / 2 +4 + (cur_color_slot - 1) * 64
                 local ny = cur_players_hero.sy
-                --love.graphics.print(players[i].name, nx, ny)
                 if not players[i].nx then
                     players[i].nx = nx
                     players[i].ny = ny
@@ -340,7 +304,6 @@ function heroSelectState:draw()
         local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
         local cur_color_slot = sh[i][2]
         local h = heroes[i]
-
         local original_char = 1
         love.graphics.setColor(255, 255, 255, 255)
         --name
@@ -349,17 +312,9 @@ function heroSelectState:draw()
         --portrait
         DrawInstance(heroes[i].sprite_portrait, h.x - portrait_width/2, h.py)
         love.graphics.rectangle("line", h.x - portrait_width/2, h.py, portrait_width, portrait_height )
-        --love.graphics.setColor(255, 255, 255, 127)
-        --love.graphics.setFont(gfx.font.arcade3)
-        --love.graphics.print("PORTRAIT", h.x - portrait_width/2 + 6, h.py + 4)
         --Players sprite
         if players[i].visible then
-            --hero sprite 1 2 3
---            if players[i].sprite then
---                local c = GLOBAL_SETTING.PLAYERS_COLORS[i]
---                love.graphics.setColor(c[1],c[2],c[3], 255)
---                DrawInstance(players[i].sprite, h.x - 8, h.y - 0)
---            end
+            --hero sprite
             love.graphics.setColor(255, 255, 255, 255)
             if cur_players_hero_set.shader then
                 love.graphics.setShader(cur_players_hero_set.shader)
@@ -392,15 +347,14 @@ function heroSelectState:keypressed(key, unicode)
 end
 
 function heroSelectState:mousepressed( x, y, button, istouch )
+    -- P1 mouse control only
     if button == 1 then
-
         mouse_pos = 2
         if x < heroes[2].x - portrait_width/2 - portrait_margin/2 then
             mouse_pos = 1
         elseif x > heroes[2].x + portrait_width/2 + portrait_margin/2 then
             mouse_pos = 3
         end
-
         if not players[1].visible then
             players[1].visible = true
             sfx.play("menu_select")
@@ -418,7 +372,6 @@ function heroSelectState:mousepressed( x, y, button, istouch )
                 if players[i].confirmed then
                     local pos = players[i].pos
                     pl[i] = {
---                    pl[#pl + 1] = {
                         hero = heroes[pos].hero,
                         sprite_instance = heroes[pos].sprite_instance,
                         shader = heroes[pos][sh[i][2]].shader,
@@ -429,7 +382,6 @@ function heroSelectState:mousepressed( x, y, button, istouch )
             end
             return Gamestate.switch(arcadeState, pl)
         end
-
     elseif button == 2 then
         if players[1].visible and not players[1].confirmed then
             players[1].visible = false
@@ -438,7 +390,7 @@ function heroSelectState:mousepressed( x, y, button, istouch )
             players[1].confirmed = false
             sfx.play("menu_cancel")
             SetSpriteAnim(players[1].sprite,heroes[players[1].pos].cancel_anim)
-        else    --if all_invisible() then
+        else
             sfx.play("menu_cancel")
             return Gamestate.switch(titleState)
         end
