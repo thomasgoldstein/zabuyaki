@@ -35,7 +35,7 @@ local heroes = {
         confirm_anim = "walk",
         x = screen_width / 2 - portrait_width - portrait_margin,
         y = 440,    --char sprite
-        sy = 276,   --selected P1 P2 P3
+        sy = 272,   --selected P1 P2 P3
         ny = 90,   --char name
         py = 120    --Portrait
     },
@@ -52,7 +52,7 @@ local heroes = {
         confirm_anim = "walk",
         x = screen_width / 2,
         y = 440,
-        sy = 276,
+        sy = 272,
         ny = 90,
         py = 120
     },
@@ -69,7 +69,7 @@ local heroes = {
         confirm_anim = "walk",
         x = screen_width / 2 + portrait_width + portrait_margin,
         y = 440,
-        sy = 276,
+        sy = 272,
         ny = 90,
         py = 120
     }
@@ -83,24 +83,39 @@ local old_pos = 0
 local mouse_pos = 0
 
 local function selected_heroes()
---P1 has the hero original color
-    local s1 = {players[1].pos, 1 }
-    local s2 = {players[2].pos, 1 }
-    local s3 = {players[3].pos, 1 }
+    --calc P's indicators X position in the slot
+    --P1
+    local s1 = {players[1].pos, 1, 0}
+    local s2 = {players[2].pos, 1, 0}
+    local s3 = {players[3].pos, 1, 0}
+    local xshift = {0, 0, 0}
     --adjust P2
     if s2[1] == s1[1]  then
         s2[2] = s1[2] + 1
+        --x shift to center P indicator
+        if players[2].visible and players[1].visible then
+            xshift[players[2].pos] = xshift[players[2].pos] + 1
+        end
     end
     --adjust P3
     if s3[1] == s2[1] and players[2].visible then
         s3[2] = s2[2] + 1
+        --x shift to center P indicator
+        if players[3].visible and players[2].visible then
+            xshift[players[3].pos] = xshift[players[3].pos] + 1
+        end
     elseif s3[1] == s1[1] then
         s3[2] = s1[2] + 1
+        --x shift to center P indicator
+        if players[3].visible and players[1].visible then
+            xshift[players[3].pos] = xshift[players[3].pos] + 1
+        end
     end
     --print(s1[1],s1[2],s2[1],s2[2],s3[1],s3[2])
-    return {s1, s2, s3}
+    return {s1, s2, s3}, xshift
 end
 
+--TODO!!!
 local function all_confirmed()
     --visible players confirmed their choice
     local confirmed = false
@@ -274,7 +289,7 @@ end
 
 function heroSelectState:update(dt)
     time = time + dt
-    local sh = selected_heroes()
+    local sh,shiftx = selected_heroes()
     for i = 1,3 do
         local cur_players_hero = heroes[players[i].pos]
         local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
@@ -289,7 +304,8 @@ function heroSelectState:update(dt)
             end
             if players[i].visible then
                 --smooth indicators movement
-                local nx = cur_players_hero.x - portrait_width / 2 +4 + (cur_color_slot - 1) * 64
+                local nx = cur_players_hero.x - shiftx[players[i].pos] * 32 + (cur_color_slot - 1) * 64 -- * (i - 1)
+--                local nx = cur_players_hero.x - portrait_width / 2 +4 + (cur_color_slot - 1) * 64
                 local ny = cur_players_hero.sy
                 --love.graphics.print(players[i].name, nx, ny)
                 if not players[i].nx then
@@ -297,9 +313,9 @@ function heroSelectState:update(dt)
                     players[i].ny = ny
                 else
                     if players[i].nx < nx then
-                        players[i].nx = math.floor(players[i].nx + 0.5 + (nx - players[i].nx) / 2)
+                        players[i].nx = math.floor(players[i].nx + 0.5 + (nx - players[i].nx) / 3)
                     elseif players[i].nx > nx then
-                        players[i].nx = math.floor(players[i].nx - 0.5 + (nx - players[i].nx) / 2)
+                        players[i].nx = math.floor(players[i].nx - 0.5 + (nx - players[i].nx) / 3)
                     end
                 end
             end
