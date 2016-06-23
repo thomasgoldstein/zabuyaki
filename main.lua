@@ -14,6 +14,7 @@ GLOBAL_SCREENSHOT = false	--keep current screenshop
 GLOBAL_SETTING = {}
 GLOBAL_SETTING.MAX_PLAYERS = 3
 GLOBAL_SETTING.DEBUG = false
+GLOBAL_SETTING.OFFSCREEN = 1000
 GLOBAL_SETTING.FULL_SCREEN = false
 GLOBAL_SETTING.BGM_VOLUME = 1
 GLOBAL_SETTING.SFX_VOLUME = 1
@@ -53,6 +54,7 @@ function love.load(arg)
 	shaders = require "src/def/misc/shaders"
 	CompoundPicture = require "src/compoPic"
 	Effect = require "src/units/effect"
+	Entity = require "src/entity"
 	Player = require "src/units/unit"
 	Rick = require "src/units/rick_unit"
 	Chai = require "src/units/chai_unit"
