@@ -77,32 +77,32 @@ local mouse_pos = 0
 local function selected_heroes()
     --calc P's indicators X position in the slot
     --P1
-    local s1 = {players[1].pos, 1, 0}
-    local s2 = {players[2].pos, 1, 0}
-    local s3 = {players[3].pos, 1, 0}
-    local xshift = {0, 0, 0}
+    local s1 = {players[1].pos, 1}
+    local s2 = {players[2].pos, 1}
+    local s3 = {players[3].pos, 1}
+    local xshift = {0, 0, 0 }
     --adjust P2
-    if s2[1] == s1[1]  then
+    if s2[1] == s1[1] and players[2].visible and players[1].visible then
         s2[2] = s1[2] + 1
-        --x shift to center P indicator
-        if players[2].visible and players[1].visible then
-            xshift[players[2].pos] = xshift[players[2].pos] + 1
-        end
     end
     --adjust P3
-    if s3[1] == s2[1] and players[2].visible then
+    if s3[1] == s2[1] and players[2].visible and players[3].visible then
         s3[2] = s2[2] + 1
-        --x shift to center P indicator
-        if players[3].visible and players[2].visible then
-            xshift[players[3].pos] = xshift[players[3].pos] + 1
-        end
-    elseif s3[1] == s1[1] then
+    elseif s3[1] == s1[1] and players[3].visible and players[1].visible then
         s3[2] = s1[2] + 1
-        --x shift to center P indicator
-        if players[3].visible and players[1].visible then
-            xshift[players[3].pos] = xshift[players[3].pos] + 1
-        end
     end
+
+    --x shift to center P indicator
+    if players[1].visible then
+        xshift[players[1].pos] = xshift[players[1].pos] + 1
+    end
+    if players[2].visible then
+        xshift[players[2].pos] = xshift[players[2].pos] + 1
+    end
+    if players[3].visible then
+        xshift[players[3].pos] = xshift[players[3].pos] + 1
+    end
+    --print( players[1].pos, players[2].pos, players[3].pos, " pos -> ",xshift[players[1].pos], xshift[players[2].pos], xshift[players[3].pos], " - ", s1[2], s2[2], s3[2])
     return {s1, s2, s3}, xshift
 end
 
@@ -270,16 +270,16 @@ function heroSelectState:update(dt)
             end
             if players[i].visible then
                 --smooth indicators movement
-                local nx = cur_players_hero.x - shiftx[players[i].pos] * 32 + (cur_color_slot - 1) * 64 -- * (i - 1)
+                local nx = cur_players_hero.x - (shiftx[players[i].pos] - 1) * 32 + (cur_color_slot - 1) * 64 -- * (i - 1)
                 local ny = cur_players_hero.sy
                 if not players[i].nx then
                     players[i].nx = nx
                     players[i].ny = ny
                 else
                     if players[i].nx < nx then
-                        players[i].nx = math.floor(players[i].nx + 0.5 + (nx - players[i].nx) / 3)
+                        players[i].nx = math.floor(players[i].nx + 0.5 + (nx - players[i].nx) / 5)
                     elseif players[i].nx > nx then
-                        players[i].nx = math.floor(players[i].nx - 0.5 + (nx - players[i].nx) / 3)
+                        players[i].nx = math.floor(players[i].nx - 0.5 + (nx - players[i].nx) / 5)
                     end
                 end
             end
@@ -404,7 +404,7 @@ function heroSelectState:mousemoved( x, y, dx, dy)
     elseif x > heroes[2].x + portrait_width/2 + portrait_margin/2 then
         mouse_pos = 3
     end
-    if mouse_pos ~= old_pos and not players[1].confirmed then
+    if mouse_pos ~= old_pos and players[1].visible and not players[1].confirmed then
         old_pos = mouse_pos
         players[1].pos = mouse_pos
         sfx.play("menu_move")
