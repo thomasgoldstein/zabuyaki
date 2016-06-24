@@ -31,7 +31,7 @@ function Particle:initialize(sprite, x, y, color, type)
     else
         self.color = { r= 255, g = 255, b = 255, a = 255 }
     end
-    self.isHidden = false
+    self.isDisabled = false
 end
 
 function Particle:onShake(sx, sy, freq,cool_down)
@@ -69,7 +69,7 @@ function Particle:drawShadow(l,t,w,h)
 end
 
 function Particle:draw(l,t,w,h)
-    if self.isHidden then
+    if self.isDisabled then
         return
     end
     --TODO adjust sprite dimensions.
@@ -82,11 +82,11 @@ function Particle:draw(l,t,w,h)
 end
 
 function Particle:update(dt)
-    if self.isHidden then
+    if self.isDisabled then
         return
     end
     if self.sprite.isFinished then
-        self.isHidden = true
+        self.isDisabled = true
     end
     self:updateShake(dt)
 end

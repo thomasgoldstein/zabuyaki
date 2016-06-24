@@ -34,8 +34,7 @@ function Item:initialize(name, note, gfx, hp, score, func, x, y, shader, color)
         self.color = { r= 255, g = 255, b = 255, a = 255 }
     end
     self.shader = shader
-    self.isHidden = false
-    self.isEnabled = true
+    self.isDisabled = false
 
     self.infoBar = InfoBar:new(self)
 
@@ -45,7 +44,7 @@ end
 
 function Item:drawShadow(l,t,w,h)
     --TODO adjust sprite dimensions
-    if not self.isHidden and CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
+    if not self.isDisabled and CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
         love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
         love.graphics.draw (
             self.sprite, --The image
@@ -60,7 +59,7 @@ end
 
 function Item:draw(l,t,w,h)
     --TODO adjust sprite dimensions.
-    if not self.isHidden and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
+    if not self.isDisabled and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
         love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
 --        love.graphics.ellipse("fill", self.x, self.y - self.z - 8, 8, 8)
         love.graphics.draw (
@@ -79,7 +78,7 @@ function Item:onHurt()
 end
 
 function Item:update(dt)
-    if self.isHidden then
+    if self.isDisabled then
         return
     end
     --custom code here. e.g. for triggers / keys
@@ -102,7 +101,7 @@ function Item:get(taker)
         taker.hp = taker.max_hp
     end
     taker.score = taker.score + self.score
-    self.isHidden = true
+    self.isDisabled = true
     world:remove(self)  --world = global bump var
     self.y = GLOBAL_SETTING.OFFSCREEN
 end

@@ -28,9 +28,8 @@ function Effect:initialize(particle, x, y, shader, color)
         self.color = { r= 255, g = 255, b = 255, a = 255 }
     end
     self.shader = shader
-    self.isHidden = false
-    self.isEnabled = true
-    
+    self.isDisabled = false
+
     self.id = 0
 end
 
@@ -38,7 +37,7 @@ function Effect:drawShadow(l,t,w,h)
 end
 
 function Effect:draw(l,t,w,h)
-    if not self.isHidden and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
+    if not self.isDisabled and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
         love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
         love.graphics.draw(self.particle, self.x, self.y)
     end
@@ -49,12 +48,12 @@ end
 
 function Effect:onRemove()
 --    print("remove eff ", self.x, self.y)
-    self.isHidden = true
+    self.isDisabled = true
     self.y = GLOBAL_SETTING.OFFSCREEN
 end
 
 function Effect:update(dt)
-    if self.isHidden then
+    if self.isDisabled then
 --        print("eff upd HIDDEN ", self.x, self.y)
         return
     end
