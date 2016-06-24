@@ -11,6 +11,8 @@ local portrait_width = 140
 local portrait_height = 140
 local portrait_margin = 20
 
+local p1_old_pos = 0
+local p1_mouse_pos = 0
 local txt_player_select = love.graphics.newText( gfx.font.arcade2x15, "PLAYER SELECT" )
 
 local heroes = {
@@ -66,13 +68,12 @@ local heroes = {
         py = 120
     }
 }
+
 local players = {
     {pos = 1, visible = false, confirmed = false, sprite = nil},
     {pos = 2, visible = false, confirmed = false, sprite = nil},
     {pos = 3, visible = false, confirmed = false, sprite = nil}
 }
-local old_pos = 0
-local mouse_pos = 0
 
 local function selected_heroes()
     --calc P's indicators X position in the slot
@@ -159,8 +160,8 @@ function heroSelectState:enter()
         {pos = 2, visible = false, confirmed = false, sprite = nil},
         {pos = 3, visible = false, confirmed = false, sprite = nil}
     }
-    old_pos = 0
-    mouse_pos = 0
+    p1_old_pos = 0
+    p1_mouse_pos = 0
     for i = 1,3 do
       SetSpriteAnim(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
       heroes[i].sprite_portrait.size_scale = 2
@@ -349,22 +350,27 @@ end
 function heroSelectState:mousepressed( x, y, button, istouch )
     -- P1 mouse control only
     if button == 1 then
-        mouse_pos = 2
+        p1_mouse_pos = 2
         if x < heroes[2].x - portrait_width/2 - portrait_margin/2 then
-            mouse_pos = 1
+            p1_mouse_pos = 1
         elseif x > heroes[2].x + portrait_width/2 + portrait_margin/2 then
-            mouse_pos = 3
+            p1_mouse_pos = 3
         end
         if not players[1].visible then
             players[1].visible = true
             sfx.play("menu_select")
             SetSpriteAnim(players[1].sprite,heroes[players[1].pos].default_anim)
         elseif not players[1].confirmed then
-            players[1].pos = mouse_pos
+            if players[1].pos ~= p1_mouse_pos then
+                p1_old_pos = players[1].pos
+                players[1].pos = p1_mouse_pos
+                players[1].sprite = GetInstance(heroes[players[1].pos].sprite_instance)
+                players[1].sprite.size_scale = 2
+            end
             players[1].confirmed = true
             sfx.play("menu_select")
             SetSpriteAnim(players[1].sprite,heroes[players[1].pos].confirm_anim)
-        elseif mouse_pos == players[1].pos and all_confirmed() then
+        elseif p1_mouse_pos == players[1].pos and all_confirmed() then
             sfx.play("menu_gamestart")
             local pl = {}
             local sh = selected_heroes()
@@ -398,15 +404,15 @@ function heroSelectState:mousepressed( x, y, button, istouch )
 end
 
 function heroSelectState:mousemoved( x, y, dx, dy)
-    mouse_pos = 2
+    p1_mouse_pos = 2
     if x < heroes[2].x - portrait_width/2 - portrait_margin/2 then
-        mouse_pos = 1
+        p1_mouse_pos = 1
     elseif x > heroes[2].x + portrait_width/2 + portrait_margin/2 then
-        mouse_pos = 3
+        p1_mouse_pos = 3
     end
-    if mouse_pos ~= old_pos and players[1].visible and not players[1].confirmed then
-        old_pos = mouse_pos
-        players[1].pos = mouse_pos
+    if p1_mouse_pos ~= p1_old_pos and players[1].visible and not players[1].confirmed then
+        p1_old_pos = p1_mouse_pos
+        players[1].pos = p1_mouse_pos
         sfx.play("menu_move")
         players[1].sprite = GetInstance(heroes[players[1].pos].sprite_instance)
         players[1].sprite.size_scale = 2
