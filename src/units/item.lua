@@ -104,6 +104,7 @@ function Item:get(taker)
     taker.score = taker.score + self.score
     self.isHidden = true
     world:remove(self)  --world = global bump var
+    self.y = GLOBAL_SETTING.OFFSCREEN
 end
 
 return Item
