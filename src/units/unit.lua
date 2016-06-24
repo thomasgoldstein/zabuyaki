@@ -24,6 +24,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self.name = name or "Unknown"
 	self.type = "player"
     self.lives = 3
+    self.cool_down_death = 3 --seconds to remove
     self.max_hp = 100
     self.hp = self.max_hp
 	self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
@@ -59,8 +60,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	else
 		self.color = { r= 255, g = 255, b = 255, a = 255 }
 	end
-	self.isHidden = false
-	--self.isEnabled = true
+	self.isDisabled = false
 
 	self.draw = nop
 	self.update = nop
@@ -99,12 +99,12 @@ function Unit:revive()
 	self.hp = self.max_hp
 	self.hurt = nil
 	self.z = 0
-	self.isHidden = false
+    self.cool_down_death = 3 --seconds to remove
+	self.isDisabled = false
     self.isThrown = false
     self.victims = {}
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
-	--self.isEnabled = true
 	self:setState(self.stand)
 	self:showPID(3)
 end
@@ -314,7 +314,12 @@ function Unit:default_draw(l,t,w,h)
             love.graphics.line( self.x, self.y+2, self.x, self.y-66 )
         end
 		self.sprite.flip_h = self.face  --TODO get rid of .face
-		love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+        if self.cool_down_death < 2 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
+            love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a * math.sin(self.cool_down_death))
+        else
+            love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+        end
+
 		if self.shader then
 			love.graphics.setShader(self.shader)
 		end
@@ -1149,7 +1154,6 @@ function Unit:dead_start()
 	if GLOBAL_SETTING.DEBUG then
 		print(self.name.." is dead.")
 	end
-	--TODO dead event
 	self.hp = 0
 	self.hurt = nil
 	self:release_grabbed()
@@ -1158,9 +1162,21 @@ function Unit:dead_start()
 	end
 	self:onShake(1, 0, 0.1, 0.7)
 	sfx.play("grunt1")
+    --TODO dead event
 end
 function Unit:dead_update(dt)
+    if self.isDisabled then
+        return
+    end
 	--print(self.name .. " - dead update", dt)
+    if self.cool_down_death < 0 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
+        self.isDisabled = true
+        world:remove(self)  --world = global bump var
+        self.y = GLOBAL_SETTING.OFFSCREEN
+        return
+    else
+        self.cool_down_death = self.cool_down_death - dt
+    end
 	self:calcFriction(dt)
 	self:checkCollisionAndMove(dt)
 	self:updateShake(dt)
