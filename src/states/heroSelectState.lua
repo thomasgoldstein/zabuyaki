@@ -171,8 +171,8 @@ function heroSelectState:enter()
     Control2.fire:update()
     Control3.fire:update()
     --start BGM
-    TEsound.stop("music")
-    TEsound.playLooping("res/bgm/rockdrive.xm", "music")
+--    TEsound.stop("music")
+--    TEsound.playLooping("res/bgm/rockdrive.xm", "music")
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
@@ -186,7 +186,7 @@ local function player_input(player, controls, i)
         if controls.jump:pressed() and i == 1 then
             --Only P1 can return to title
             sfx.play("menu_cancel")
-            return Gamestate.switch(titleState)
+            return Gamestate.switch(titleState, "dontStartMusic")
         end
         if controls.jump:pressed() or controls.fire:pressed()
             or controls.horizontal:pressed() or controls.vertical:pressed() then
@@ -343,7 +343,7 @@ end
 function heroSelectState:keypressed(key, unicode)
     if key == "escape" then
         sfx.play("menu_cancel")
-        return Gamestate.switch(titleState)
+        return Gamestate.switch(titleState, "dontStartMusic")
     end
 end
 
@@ -398,7 +398,7 @@ function heroSelectState:mousepressed( x, y, button, istouch )
             SetSpriteAnim(players[1].sprite,heroes[players[1].pos].cancel_anim)
         else
             sfx.play("menu_cancel")
-            return Gamestate.switch(titleState)
+            return Gamestate.switch(titleState, "dontStartMusic")
         end
     end
 end
