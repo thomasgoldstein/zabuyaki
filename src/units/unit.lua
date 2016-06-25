@@ -264,7 +264,12 @@ end
 function Unit:drawShadow(l,t,w,h)
 	--TODO adjust sprite dimensions
 	if CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
-		love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
+		if self.cool_down_death < 2 then
+			love.graphics.setColor(0, 0, 0, 100 * math.sin(self.cool_down_death)) --4th is the shadow transparency
+		else
+			love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
+		end
+
 		local spr = self.sprite
 		local sc = spr.def.animations[spr.cur_anim][spr.cur_frame]
 		love.graphics.draw (
@@ -314,7 +319,7 @@ function Unit:default_draw(l,t,w,h)
             love.graphics.line( self.x, self.y+2, self.x, self.y-66 )
         end
 		self.sprite.flip_h = self.face  --TODO get rid of .face
-        if self.cool_down_death < 2 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
+        if self.cool_down_death < 2 then
             love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a * math.sin(self.cool_down_death))
         else
             love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
@@ -1169,7 +1174,7 @@ function Unit:dead_update(dt)
         return
     end
 	--print(self.name .. " - dead update", dt)
-    if self.cool_down_death < 0 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
+    if self.cool_down_death <= 0 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
         self.isDisabled = true
         world:remove(self)  --world = global bump var
         self.y = GLOBAL_SETTING.OFFSCREEN
