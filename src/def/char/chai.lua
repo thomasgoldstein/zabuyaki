@@ -91,7 +91,7 @@ return {
 			{ q = q(2,135,36,63), ox = 14, oy = 62 }, --run 1
 			{ q = q(40,134,45,63), ox = 23, oy = 63 }, --run 2
 			{ q = q(87,135,44,63), ox = 23, oy = 62, func = step_sfx2 }, --run 3
-			{ q = q(2,200,36,63), ox = 14, oy = 63 },  --run 4
+			{ q = q(2,201,36,63), ox = 14, oy = 62 }, --run 4
 			{ q = q(40,200,46,64), ox = 22, oy = 63 }, --run 5
 			{ q = q(88,201,45,62), ox = 24, oy = 62, func = step_sfx2 }, --run 6
             loop = true,
