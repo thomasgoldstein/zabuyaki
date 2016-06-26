@@ -99,7 +99,7 @@ return {
 		},
 		jump = {
 			{ q = q(44,266,39,67), ox = 23, oy = 66, delay = 0.4 }, --ju
-			{ q = q(85,266,44,62), ox = 22, oy = 66 }, --jd
+			{ q = q(85,266,43,63), ox = 21, oy = 67 }, --jd
 			delay = 5
 		},
 		duck = {
@@ -198,10 +198,10 @@ return {
 			delay = 5
 		},
 		sideStepUp = {
-			{ q = q(85,266,44,62), ox = 22, oy = 66 }, --ssu
+			{ q = q(85,266,43,63), ox = 21, oy = 67 }, --ssu
 		},
 		sideStepDown = {
-			{ q = q(85,266,44,62), ox = 22, oy = 66 }, --ssd
+			{ q = q(85,266,43,63), ox = 21, oy = 67 }, --ssd
 		},
 		grab = {
 			{ q = q(2,979,44,63), ox = 22, oy = 62 }, --grab
