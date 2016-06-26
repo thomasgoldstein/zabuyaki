@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 266 --after the image has been loaded
+local image_h = 335 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -98,12 +98,12 @@ return {
             delay = 0.117
 		},
 		jump = {
-			{ q = q(46,262,44,66), ox = 22, oy = 65, delay = 0.4 }, --ju
-			{ q = q(92,262,45,61), ox = 22, oy = 65 }, --jd
+			{ q = q(44,266,39,67), ox = 23, oy = 66, delay = 0.4 }, --ju
+			{ q = q(85,266,44,62), ox = 22, oy = 66 }, --jd
 			delay = 5
 		},
 		duck = {
-			{ q = q(2,269,42,59), ox = 21, oy = 58 }, --duck
+			{ q = q(2,274,40,59), ox = 20, oy = 58 }, --duck
 			delay = 0.15
 		},
 		pickup = {
@@ -198,10 +198,10 @@ return {
 			delay = 5
 		},
 		sideStepUp = {
-			{ q = q(96,844,44,64), ox = 22, oy = 63 }, --ssu
+			{ q = q(85,266,44,62), ox = 22, oy = 66 }, --ssu
 		},
 		sideStepDown = {
-			{ q = q(142,844,44,63), ox = 22, oy = 62 }, --ssd
+			{ q = q(85,266,44,62), ox = 22, oy = 66 }, --ssd
 		},
 		grab = {
 			{ q = q(2,979,44,63), ox = 22, oy = 62 }, --grab
