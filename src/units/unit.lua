@@ -319,7 +319,7 @@ function Unit:default_draw(l,t,w,h)
             love.graphics.line( self.x, self.y+2, self.x, self.y-66 )
         end
 		self.sprite.flip_h = self.face  --TODO get rid of .face
-        if self.cool_down_death < 2 then
+        if self.cool_down_death < 1 then
             love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a * math.sin(self.cool_down_death))
         else
             love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
