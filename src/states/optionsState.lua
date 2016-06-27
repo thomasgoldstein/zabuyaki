@@ -138,6 +138,9 @@ function optionsState:mousepressed( x, y, button, istouch )
             sfx.play("menu_cancel")
             return Gamestate.pop()
         end
+    elseif button == 2 then
+        sfx.play("menu_cancel")
+        return Gamestate.pop()
     end
 end
 
