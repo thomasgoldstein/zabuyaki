@@ -604,7 +604,7 @@ function Unit:walk_update(dt)
 		self.face = -1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
-		if self.b.horizontal:isDown(-1) and self.b.horizontal.ikn:getLast() and self.face == -1 then
+		if self.b.horizontal.ikn:getLast() and self.face == -1 then
 			self:setState(self.run)
 			return
 		end
@@ -612,7 +612,7 @@ function Unit:walk_update(dt)
 		self.face = 1 --face sprite left or right
 		self.horizontal = self.face --X direction
 		self.velx = 100
-		if self.b.horizontal:isDown(1) and self.b.horizontal.ikp:getLast() and self.face == 1 then
+		if self.b.horizontal.ikp:getLast() and self.face == 1 then
 			self:setState(self.run)
 			return
 		end
@@ -704,8 +704,8 @@ function Unit:run_update(dt)
 		return
 	end
 	if self.velx == 0 and self.vely == 0 then
-		self.b.horizontal.ikn:clear()
-		self.b.horizontal.ikp:clear()
+		--self.b.horizontal.ikn:clear()
+		--self.b.horizontal.ikp:clear()
 		self:setState(self.stand)
 		return
 	end
