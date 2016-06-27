@@ -4,12 +4,31 @@
 
 function love.joystickadded(joystick)
     p1joystick = joystick
-    print ("added joystick "..joystick:getName())
+    print (joystick:getGUID().." added joystick "..joystick:getName().." with "..joystick:getButtonCount().." buttons")
     if p1joystick then
         p2joystick = joystick
     elseif p2joystick then
         p3joystick = joystick
     end
+
+    print(joystick:getGUID())
+    love.joystick.setGamepadMapping( joystick:getGUID(), "a", "button", 1, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "b", "button", 2, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "x", "button", 3, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "y", "button", 4, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "back", "button", 5, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "guide", "button", 6, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "start", "button", 7, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "leftstick", "button", 8, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "rightstick", "button", 9, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "leftshoulder", "button", 10, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "rightshoulder", "button", 11, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "dpup", "button", 12, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "dpdown", "button", 13, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "dpleft", "button", 14, nil )
+    love.joystick.setGamepadMapping( joystick:getGUID(), "dpright", "button", 15, nil )
+
+    bind_game_input()
 end
 
 function love.joystickremoved( joystick )
@@ -48,7 +67,9 @@ DUMMY_CONTROL.jump = {
 
 function bind_game_input()
     -- define Player 1 controls
-    --print ("binding keys")
+
+
+    print ("binding keys")
     Control1 = {
         horizontal = tactile.newControl()
         :addAxis(tactile.gamepadAxis(1, 'leftx'))
@@ -94,15 +115,17 @@ function bind_game_input()
         :addButton(tactile.keys 'y')
     }
 
+    local double_press_delta = 0.25
+
     --add keyTrace into every player 1 button
     for index,value in pairs(Control1) do
         local b = Control1[index]
         if index == "horizontal" or index == "vertical" then
             --for derections
-            b.ikn = KeyTrace:new(index, value, -1)  --negative dir
-            b.ikp = KeyTrace:new(index, value, 1)   --positive dir
+            b.ikn = KeyTrace:new(index, value, -1, double_press_delta)  --negative dir
+            b.ikp = KeyTrace:new(index, value, 1, double_press_delta)   --positive dir
         else
-            b.ik = KeyTrace:new(index, value)
+            b.ik = KeyTrace:new(index, value, nil, double_press_delta)
         end
     end
     --add keyTrace into every player 2 button
@@ -110,10 +133,10 @@ function bind_game_input()
         local b = Control2[index]
         if index == "horizontal" or index == "vertical" then
             --for derections
-            b.ikn = KeyTrace:new(index, value, -1)  --negative dir
-            b.ikp = KeyTrace:new(index, value, 1)   --positive dir
+            b.ikn = KeyTrace:new(index, value, -1, double_press_delta)  --negative dir
+            b.ikp = KeyTrace:new(index, value, 1, double_press_delta)   --positive dir
         else
-            b.ik = KeyTrace:new(index, value)
+            b.ik = KeyTrace:new(index, value, nil, double_press_delta)
         end
     end
     --add keyTrace into every player 3 button
@@ -121,10 +144,10 @@ function bind_game_input()
         local b = Control3[index]
         if index == "horizontal" or index == "vertical" then
             --for derections
-            b.ikn = KeyTrace:new(index, value, -1)  --negative dir
-            b.ikp = KeyTrace:new(index, value, 1)   --positive dir
+            b.ikn = KeyTrace:new(index, value, -1, double_press_delta)  --negative dir
+            b.ikp = KeyTrace:new(index, value, 1, double_press_delta)   --positive dir
         else
-            b.ik = KeyTrace:new(index, value)
+            b.ik = KeyTrace:new(index, value, nil, double_press_delta)
         end
     end
 end
