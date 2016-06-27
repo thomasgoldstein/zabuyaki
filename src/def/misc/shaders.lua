@@ -8,10 +8,10 @@ local sh_swap_colors = [[
             vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
             for (int i = 0; i < n; i++) {
                 if(pixel == colors[i])
-                    return newColors[i];
+                    return newColors[i] * color;
             }
-        return pixel;
-    }    ]]
+            return pixel * color;
+        }   ]]
 
 --usage:
 --local sh_player2 = love.graphics.newShader(sh_swap_colors)
@@ -25,12 +25,12 @@ sh_replace_3_colors = [[
         vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
             vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
         if (pixel == colors[0])
-            return newColors[0];
+            return newColors[0] * color;
         if (pixel == colors[1])
-            return newColors[1];
+            return newColors[1] * color;
         if (pixel == colors[2])
-            return newColors[2];
-        return pixel;
+            return newColors[2] * color;
+        return pixel * color;
     }    ]]
 
 --usage:
@@ -44,14 +44,14 @@ sh_replace_4_colors = [[
         vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
             vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
         if (pixel == colors[0])
-            return newColors[0];
+            return newColors[0] * color;
         if (pixel == colors[1])
-            return newColors[1];
+            return newColors[1] * color;
         if (pixel == colors[2])
-            return newColors[2];
+            return newColors[2] * color;
         if (pixel == colors[3])
-            return newColors[3];
-        return pixel;
+            return newColors[3] * color;
+        return pixel * color;
     }    ]]
 
 sh_noise = love.graphics.newShader([[
