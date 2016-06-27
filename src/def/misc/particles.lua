@@ -20,12 +20,13 @@ local dust_quad4 = q(11,34,5,5)
 psystem = love.graphics.newParticleSystem( img, 32 )
 psystem:setEmitterLifetime(1)
 psystem:setParticleLifetime(0.3, 0.75) -- Particles live at least 2s and at most 5s.
---psystem:setEmissionRate(5)
-psystem:setSizeVariation(1)
+--psystem:setEmissionRate(15)
+psystem:setSizeVariation(0.7)
 psystem:setSizes(0.1, 0.3, 1)
 psystem:setSpeed( 15, 25 )
 psystem:setLinearAcceleration(-10, -1, 10, -50) -- Random movement in all directions.
-psystem:setColors(255, 255, 255, 5, 255, 255, 255, 60, 255, 255, 255, 5) -- Fade to transparency.
+--psystem:setColors(255, 255, 255, 5, 255, 255, 255, 60, 255, 255, 255, 5) -- Fade to transparency.
+psystem:setColors(255,232,183, 5, 255,232,183, 30, 255,232,183, 5) -- Fade to transparency.
 --psystem:setQuads( dust_quad1, dust_quad2, dust_quad3, dust_quad4, dust_quad1 )
 psystem:setOffset( 2, 2 )
 psystem:setQuads( dust_quad4 )
@@ -33,10 +34,23 @@ psystem:setQuads( dust_quad4 )
 PA_DUST_STEPS = psystem
 
 psystem = psystem:clone()
-psystem:setEmitterLifetime(2)
+psystem:setEmitterLifetime(1)
+psystem:setSizes(0.5, 3, 2, 1)
+psystem:setColors(255,232,183, 5, 255,232,183, 30, 255,232,183, 5) -- Fade to transparency.
 psystem:setParticleLifetime(0.2, 0.7) -- Particles live at least 2s and at most 5s.
 psystem:setLinearAcceleration(-500, -20, 500, -100) -- Random movement in all directions.
-psystem:setLinearDamping( 1, 5 )
+psystem:setLinearDamping( 10, 50 )
+psystem:setAreaSpread( "uniform", 30, 3 )
+PA_DUST_FALLING = psystem
+
+psystem = psystem:clone()
+psystem:setEmitterLifetime(1)
+psystem:setSizes(0.5, 3, 2, 1)
+psystem:setColors(255,232,183, 5, 255,232,183, 30, 255,232,183, 5) -- Fade to transparency.
+psystem:setParticleLifetime(0.2, 0.7) -- Particles live at least 2s and at most 5s.
+psystem:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
+psystem:setLinearDamping( 7, 40 )
+psystem:setAreaSpread( "uniform", 15, 5 )
 PA_DUST_LANDING = psystem
 
 psystem = love.graphics.newParticleSystem( img, 32 )
@@ -49,7 +63,7 @@ psystem:setColors(255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0) -- F
 psystem:setQuads( im_quad1, im_quad2 )
 PA_IMPACT_SMALL = psystem
 
-psystem = love.graphics.newParticleSystem( img, 32 )
+psystem = love.graphics.newParticleSystem( img, 4 )
 psystem:setPosition( 0, -40 )
 psystem:setOffset( 15, 15 )
 psystem:setParticleLifetime(0.2, 0.3) -- Particles live at least 2s and at most 5s.
