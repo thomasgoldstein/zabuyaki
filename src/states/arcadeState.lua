@@ -49,7 +49,7 @@ function arcadeState:enter(_, players)
 
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
-    local gopper1 = Gopper:new("GOPPER", GetInstance("src/def/char/gopper.lua"), button3, 500, 204, nil, {255,255,255, 255})
+    local gopper1 = Gopper:new("GOPPER", GetInstance("src/def/char/gopper.lua"), button3, 500, 204, shaders.gopper[4], {255,255,255, 255})
     local gopper2 = Gopper:new("GOPPER2", GetInstance("src/def/char/gopper.lua"), button3, 1510, 184, shaders.gopper[2], {255,255,255, 255})
     gopper2:setToughness(1)
     local gopper3 = Gopper:new("GOPPER3", GetInstance("src/def/char/gopper.lua"), button3, 1560, 190, shaders.gopper[3], {255,255,255, 255})
@@ -66,8 +66,8 @@ function arcadeState:enter(_, players)
 
     local dummy5 = Temper:new("TEMPER", GetInstance("src/def/char/rick.lua"), button3, 1670, 170, shaders.rick[5], {255,255,255, 255})
 
-    local niko1 = Niko:new("niko", GetInstance("src/def/char/niko.lua"), button3, 550 + love.math.random(-20,20), 204, nil, {255,255,255, 255})
-    local niko2 = Niko:new("niko2", GetInstance("src/def/char/niko.lua"), button3, 1510 + love.math.random(-20,20), 184, shaders.niko[2], {255,255,255, 255})
+    local niko1 = Niko:new("niko", GetInstance("src/def/char/niko.lua"), button3, 550 + love.math.random(-20,20), 204, shaders.niko[2], {255,255,255, 255})
+    local niko2 = Niko:new("niko2", GetInstance("src/def/char/niko.lua"), button3, 1510 + love.math.random(-20,20), 184, nil, {255,255,255, 255})
     niko2:setToughness(1)
     local niko3 = Niko:new("niko3", GetInstance("src/def/char/niko.lua"), button3, 1560 + love.math.random(-20,20), 190, shaders.niko[2], {255,255,255, 255})
     niko3:setToughness(2)
