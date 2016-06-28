@@ -89,21 +89,10 @@ end
 
 function love.update(dt)
 	--update P1/P2 controls
-	Control1.horizontal:update()
-	Control1.vertical:update()
-	Control1.fire:update()
-	Control1.jump:update()
-	Control2.horizontal:update()
-	Control2.vertical:update()
-	Control2.fire:update()
-	Control2.jump:update()
-	Control3.horizontal:update()
-	Control3.vertical:update()
-	Control3.fire:update()
-	Control3.jump:update()
 	--check for double presses, etc
 	for index,value in pairs(Control1) do
 		local b = Control1[index]
+		b:update(dt)
 		if index == "horizontal" or index == "vertical" then
 			--for derections
 			b.ikn:update(dt)
@@ -114,6 +103,7 @@ function love.update(dt)
 	end
 	for index,value in pairs(Control2) do
 		local b = Control2[index]
+		b:update(dt)
 		if index == "horizontal" or index == "vertical" then
 			--for derections
 			b.ikn:update(dt)
@@ -124,6 +114,7 @@ function love.update(dt)
 	end
 	for index,value in pairs(Control3) do
 		local b = Control3[index]
+		b:update(dt)
 		if index == "horizontal" or index == "vertical" then
 			--for derections
 			b.ikn:update(dt)
@@ -132,6 +123,12 @@ function love.update(dt)
 			b.ik:update(dt)
 		end
 	end
+
+	--Toggle Full Screen Mode (using P1's control)
+	if Control1.fullScreen:pressed() then
+		switchFullScreen()
+	end
+
 	TEsound.cleanup()
 end
 
@@ -139,9 +136,6 @@ function love.draw()
 end
 
 function love.keypressed(key, unicode)
-	if key == 'f11' then
-		switchFullScreen()
-	end
 end
 
 function love.keyreleased(key, unicode)
