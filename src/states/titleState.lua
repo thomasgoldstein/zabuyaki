@@ -75,10 +75,38 @@ function titleState:enter(_, param)
     end
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+
+    -- Prevent double press at start (e.g. auto confirmation)
+    --print(controls.jump:pressed(), controls.fire:pressed())
+    Control1.fire:update()
+    Control1.jump:update()
 end
 
 function titleState:resume()
     mouse_x, mouse_y = 0,0
+    --titleState:enter()
+end
+
+--Only P1 can use menu / options
+local function player_input(controls)
+    if controls.back:pressed() then
+        --Exit by "Back" button or "Esc" key
+        sfx.play("menu_cancel")
+        return love.event.quit()
+    elseif controls.fire:pressed() or controls.start:pressed() then
+        return titleState:mousepressed( mouse_x, mouse_y, 1)
+    end
+    if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
+        menu_state = menu_state - 1
+    elseif controls.horizontal:pressed(1) or controls.vertical:pressed(1) then
+        menu_state = menu_state + 1
+    end
+    if menu_state < 1 then
+        menu_state = #txt_items
+    end
+    if menu_state > #txt_items then
+        menu_state = 1
+    end
 end
 
 function titleState:update(dt)
@@ -91,6 +119,7 @@ function titleState:update(dt)
         sfx.play("menu_move")
         old_menu_state = menu_state
     end
+    player_input(Control1)
 end
 
 function titleState:draw()
@@ -120,9 +149,7 @@ end
 function titleState:mousepressed( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
-
         if menu_state == 1 then
-            --sfx.play("menu_gamestart")
             sfx.play("menu_select")
             return Gamestate.switch(heroSelectState)
         elseif menu_state == 3 then
@@ -140,23 +167,4 @@ function titleState:mousemoved( x, y, dx, dy)
 end
 
 function titleState:keypressed(key, unicode)
-    if menu_state > 10 then
-        return
-    end
-    if key == "up" then
-        menu_state = menu_state - 1
-    elseif key == 'down' then
-        menu_state = menu_state + 1
-    elseif key == "x" then
-        return titleState:mousepressed( mouse_x, mouse_y, 1)
-    elseif key == 'escape' then
-        sfx.play("menu_cancel")
-        return love.event.quit()
-    end
-
-    if menu_state < 1 then
-        menu_state = 1
-    elseif menu_state > 4 then
-        menu_state = 4
-    end
 end

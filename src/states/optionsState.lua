@@ -71,8 +71,34 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
 end
 
 function optionsState:enter()
-    --TEsound.stop("music")
     mouse_x, mouse_y = 0,0
+    --TEsound.stop("music")
+    -- Prevent double press at start (e.g. auto confirmation)
+    Control1.fire:update()
+    Control1.jump:update()
+    Control1.start:update()
+    Control1.back:update()
+end
+
+--Only P1 can use menu / options
+local function player_input(controls)
+    if controls.jump:pressed() or controls.back:pressed() then
+        sfx.play("menu_cancel")
+        return Gamestate.pop()
+    elseif controls.fire:pressed() or controls.start:pressed() then
+        return optionsState:mousepressed( mouse_x, mouse_y, 1)
+    end
+    if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
+        menu_state = menu_state - 1
+    elseif controls.horizontal:pressed(1) or controls.vertical:pressed(1) then
+        menu_state = menu_state + 1
+    end
+    if menu_state < 1 then
+        menu_state = #txt_items
+    end
+    if menu_state > #txt_items then
+        menu_state = 1
+    end
 end
 
 function optionsState:update(dt)
@@ -85,6 +111,7 @@ function optionsState:update(dt)
         sfx.play("menu_move")
         old_menu_state = menu_state
     end
+    player_input(Control1)
 end
 
 function optionsState:draw()
@@ -149,23 +176,4 @@ function optionsState:mousemoved( x, y, dx, dy)
 end
 
 function optionsState:keypressed(key, unicode)
-    if menu_state > 10 then
-        return
-    end
-    if key == "up" then
-        menu_state = menu_state - 1
-    elseif key == 'down' then
-        menu_state = menu_state + 1
-    elseif key == "x" then
-        return optionsState:mousepressed( mouse_x, mouse_y, 1)
-    elseif key == 'c' or key == "escape" then
-        sfx.play("menu_cancel")
-        return Gamestate.pop()
-    end
-
-    if menu_state < 1 then
-        menu_state = 1
-    elseif menu_state > 4 then
-        menu_state = 4
-    end
 end

@@ -68,22 +68,45 @@ function pauseState:enter()
     menu_state = 1
     mouse_x, mouse_y = 0,0
     sfx.play("menu_cancel")
+
+    Control1.fire:update()
+    Control1.jump:update()
+    Control1.start:update()
+    Control1.back:update()
 end
 
 function pauseState:leave()
     GLOBAL_SCREENSHOT = nil
 end
 
+--Only P1 can use menu / options
+local function player_input(controls)
+    if controls.jump:pressed() or controls.back:pressed() then
+        sfx.play("menu_select")
+        return Gamestate.pop()
+    elseif controls.fire:pressed() or controls.start:pressed() then
+        return pauseState:mousepressed( mouse_x, mouse_y, 1)
+    end
+    if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
+        menu_state = menu_state - 1
+    elseif controls.horizontal:pressed(1) or controls.vertical:pressed(1) then
+        menu_state = menu_state + 1
+    end
+    if menu_state < 1 then
+        menu_state = #txt_items
+    end
+    if menu_state > #txt_items then
+        menu_state = 1
+    end
+end
+
 function pauseState:update(dt)
     time = time + dt
---    UpdateInstance(rick_spr, dt)
---    if rick_spr.cur_anim ~= "stand" and rick_spr.isFinished then
---        SetSpriteAnim(rick_spr,"stand")
---    end
     if menu_state ~= old_menu_state then
         sfx.play("menu_move")
         old_menu_state = menu_state
     end
+    player_input(Control1)
 end
 
 function pauseState:draw()
@@ -131,23 +154,4 @@ function pauseState:mousemoved( x, y, dx, dy)
 end
 
 function pauseState:keypressed(key, unicode)
-    if menu_state > 10 then
-        return
-    end
-    if key == "up" then
-        menu_state = menu_state - 1
-    elseif key == 'down' then
-        menu_state = menu_state + 1
-    elseif key == "x" then
-        return pauseState:mousepressed( mouse_x, mouse_y, 1)
-    elseif key == 'c' or key == "escape" then
-        sfx.play("menu_select")
-        return Gamestate.pop()
-    end
-
-    if menu_state < 1 then
-        menu_state = 1
-    elseif menu_state > 3 then
-        menu_state = 3
-    end
 end

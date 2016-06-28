@@ -183,13 +183,14 @@ end
 
 local function player_input(player, controls, i)
     if not player.visible then
-        if controls.jump:pressed() and i == 1 then
+        if (controls.jump:pressed() or controls.back:pressed()) and i == 1 then
             --Only P1 can return to title
             sfx.play("menu_cancel")
             return Gamestate.switch(titleState, "dontStartMusic")
         end
         if controls.jump:pressed() or controls.fire:pressed()
-            or controls.horizontal:pressed() or controls.vertical:pressed() then
+                or controls.start:pressed() or controls.back:pressed()
+                or controls.horizontal:pressed() or controls.vertical:pressed() then
             sfx.play("menu_select")
             player.visible = true
             player.sprite = GetInstance(heroes[player.pos].sprite_instance)
@@ -199,12 +200,12 @@ local function player_input(player, controls, i)
         return
     end
     if not player.confirmed then
-        if controls.jump:pressed() then
+        if controls.jump:pressed() or controls.back:pressed() then
             if player.visible then
                 sfx.play("menu_cancel")
                 player.visible = false
             end
-        elseif controls.fire:pressed() then
+        elseif controls.fire:pressed() or controls.start:pressed() then
             player.visible = true
             player.confirmed = true
             SetSpriteAnim(player.sprite,heroes[player.pos].confirm_anim)
@@ -229,11 +230,11 @@ local function player_input(player, controls, i)
             SetSpriteAnim(player.sprite,"stand")
         end
     else
-        if controls.jump:pressed() then
+        if controls.jump:pressed() or controls.back:pressed() then
             player.confirmed = false
             SetSpriteAnim(player.sprite,heroes[player.pos].cancel_anim)
             sfx.play("menu_cancel")
-        elseif controls.fire:pressed() and all_confirmed() then
+        elseif (controls.fire:pressed() or controls.start:pressed()) and all_confirmed() then
             sfx.play("menu_gamestart")
             local pl = {}
             local sh = selected_heroes()
@@ -340,13 +341,6 @@ function heroSelectState:draw()
     love.graphics.draw(txt_player_select, (screen_width - txt_player_select:getWidth()) / 2, 24)
 end
 
-function heroSelectState:keypressed(key, unicode)
-    if key == "escape" then
-        sfx.play("menu_cancel")
-        return Gamestate.switch(titleState, "dontStartMusic")
-    end
-end
-
 function heroSelectState:mousepressed( x, y, button, istouch )
     -- P1 mouse control only
     if button == 1 then
@@ -418,4 +412,7 @@ function heroSelectState:mousemoved( x, y, dx, dy)
         players[1].sprite.size_scale = 2
         SetSpriteAnim(players[1].sprite,heroes[players[1].pos].default_anim)
     end
+end
+
+function heroSelectState:keypressed(key, unicode)
 end

@@ -158,6 +158,12 @@ function arcadeState:update(dt)
 --    mainCamera:update(dt, clamp(minx, player1.x, maxx),
 --        clamp(miny, player1.y, maxy))
 
+    -- PAUSE (only for P1)
+    if Control1.back:pressed() then
+        GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
+        return Gamestate.push(pauseState)
+    end
+
     if GLOBAL_SETTING.DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
 
@@ -241,9 +247,6 @@ function arcadeState:keypressed(k, unicode)
     if k == '0' then
         GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
         level_objects:print()
-    elseif k == "escape" then
-        GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
-        return Gamestate.push(pauseState)
     end
     if GLOBAL_SETTING.DEBUG then
         if k == '1' then
