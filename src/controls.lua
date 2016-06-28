@@ -177,7 +177,7 @@ function bind_game_input()
         :addButton(tactile.gamepadButtons(3, 'back'))
     }
 
-    local double_press_delta = 0.15
+    local double_press_delta = 0.25
     --add keyTrace into every player 1 button
     for index,value in pairs(Control1) do
         local b = Control1[index]
