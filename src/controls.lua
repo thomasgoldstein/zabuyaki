@@ -72,15 +72,51 @@ DUMMY_CONTROL.jump = {
     update = function() return false end
 }
 
+local function gamepadHat(num, hat, axis)
+    local joystick = love.joystick.getJoysticks()[num]
+    if not joystick then
+        return function()
+            return 0
+        end
+    end
+    if axis == "horizontal" then
+        return function()
+            local joystick = love.joystick.getJoysticks()[num]
+            local h = joystick:getHat(hat)
+            if h == "l" or h == "lu" or h == "ld" then
+                return -1
+            elseif h == "r" or h == "ru" or h == "rd" then
+                return 1
+            end
+            return 0
+        end
+    else
+        return function()
+            local joystick = love.joystick.getJoysticks()[num]
+            local h = joystick:getHat(hat)
+            if h == "u" or h == "ru" or h == "lu" then
+                return -1
+            elseif h == "d" or h == "rd" or h == "ld" then
+                return 1
+            end
+            return 0
+        end
+    end
+end
+
 function bind_game_input()
     -- define Player 1 controls
     print ("binding keys")
     Control1 = {
         horizontal = tactile.newControl()
         :addAxis(tactile.gamepadAxis(1, 'leftx'))
+        :addAxis(gamepadHat(1, 1, "horizontal"))
+        --:addAxis(tactile.gamepadAxis(1, 'rightx'))
         :addButtonPair(tactile.keys('left'), tactile.keys('right')),
         vertical = tactile.newControl()
         :addAxis(tactile.gamepadAxis(1, 'lefty'))
+        :addAxis(gamepadHat(1, 1, "vertical"))
+        --:addAxis(tactile.gamepadAxis(1, 'righty'))
         :addButtonPair(tactile.keys('up'), tactile.keys('down')),
         fire = tactile.newControl()
         :addButton(tactile.gamepadButtons(1, 'a'))
@@ -102,9 +138,11 @@ function bind_game_input()
     Control2 = {
         horizontal = tactile.newControl()
         :addAxis(tactile.gamepadAxis(2, 'leftx'))
+        :addAxis(gamepadHat(2, 1, "horizontal"))
         :addButtonPair(tactile.keys('a'), tactile.keys('d')),
         vertical = tactile.newControl()
         :addAxis(tactile.gamepadAxis(2, 'lefty'))
+        :addAxis(gamepadHat(2, 1, "vertical"))
         :addButtonPair(tactile.keys('w'), tactile.keys('s')),
         fire = tactile.newControl()
         :addButton(tactile.gamepadButtons(2, 'a'))
@@ -121,9 +159,11 @@ function bind_game_input()
     Control3 = {
         horizontal = tactile.newControl()
         :addAxis(tactile.gamepadAxis(3, 'leftx'))
+        :addAxis(gamepadHat(3, 1, "horizontal"))
         :addButtonPair(tactile.keys('f'), tactile.keys('h')),
         vertical = tactile.newControl()
         :addAxis(tactile.gamepadAxis(3, 'lefty'))
+        :addAxis(gamepadHat(3, 1, "vertical"))
         :addButtonPair(tactile.keys('t'), tactile.keys('g')),
         fire = tactile.newControl()
         :addButton(tactile.gamepadButtons(3, 'a'))
