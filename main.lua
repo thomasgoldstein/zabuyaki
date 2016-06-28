@@ -69,11 +69,6 @@ function love.load(arg)
 	KeyTrace = require 'src/keyTrace'
 	require 'src/controls'
 
-	love.joystick.loadGamepadMappings( "res/gamecontrollerdb.txt" )
-	local joysticks = love.joystick.getJoysticks()
-	for i, joystick in ipairs(joysticks) do
-		print(joystick:getName())
-	end
 	bind_game_input()
 
 	--DEBUG libs

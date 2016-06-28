@@ -1,6 +1,8 @@
 --
--- Date: 13.06.2016
+-- Date: 28.06.2016
 --
+
+--ff113133000000000000504944564944 Gembird
 
 function love.joystickadded(joystick)
     p1joystick = joystick
@@ -11,24 +13,29 @@ function love.joystickadded(joystick)
         p3joystick = joystick
     end
 
-    print(joystick:getGUID())
-    love.joystick.setGamepadMapping( joystick:getGUID(), "a", "button", 1, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "b", "button", 2, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "x", "button", 3, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "y", "button", 4, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "back", "button", 5, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "guide", "button", 6, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "start", "button", 7, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "leftstick", "button", 8, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "rightstick", "button", 9, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "leftshoulder", "button", 10, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "rightshoulder", "button", 11, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "dpup", "button", 12, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "dpdown", "button", 13, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "dpleft", "button", 14, nil )
-    love.joystick.setGamepadMapping( joystick:getGUID(), "dpright", "button", 15, nil )
+    love.joystick.loadGamepadMappings( "res/gamecontrollerdb.txt" )
+    local joysticks = love.joystick.getJoysticks()
+    for i, joystick in ipairs(joysticks) do
+        print("detected ",joystick:getName())
+    end
 
-    bind_game_input()
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "a", "button", 1, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "b", "button", 2, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "x", "button", 3, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "y", "button", 4, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "back", "button", 5, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "guide", "button", 6, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "start", "button", 7, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "leftstick", "button", 8, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "rightstick", "button", 9, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "leftshoulder", "button", 10, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "rightshoulder", "button", 11, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "dpup", "button", 12, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "dpdown", "button", 13, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "dpleft", "button", 14, nil )
+--    love.joystick.setGamepadMapping( joystick:getGUID(), "dpright", "button", 15, nil )
+
+    --bind_game_input()
 end
 
 function love.joystickremoved( joystick )
@@ -67,8 +74,6 @@ DUMMY_CONTROL.jump = {
 
 function bind_game_input()
     -- define Player 1 controls
-
-
     print ("binding keys")
     Control1 = {
         horizontal = tactile.newControl()
@@ -78,13 +83,23 @@ function bind_game_input()
         :addAxis(tactile.gamepadAxis(1, 'lefty'))
         :addButtonPair(tactile.keys('up'), tactile.keys('down')),
         fire = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(1, 'triggerleft'))
+--        :addAxis(tactile.gamepadAxis(1, 'triggerleft'))
         :addButton(tactile.gamepadButtons(1, 'a'))
         :addButton(tactile.keys 'x'),
         jump = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(1, 'triggerright'))
+--        :addAxis(tactile.gamepadAxis(1, 'triggerright'))
         :addButton(tactile.gamepadButtons(1, 'b'))
-        :addButton(tactile.keys 'c')
+        :addButton(tactile.keys 'c'),
+        --TODO test
+        start = tactile.newControl()
+        :addButton(tactile.gamepadButtons(1, "back"))
+        :addButton(tactile.keys 'enter'),
+        pause = tactile.newControl()
+        :addButton(tactile.gamepadButtons(1, "start"))
+        :addButton(tactile.keys 'escape'),
+        fullScreen = tactile.newControl()
+        --:addButton(tactile.gamepadButtons(1, "start"))
+        :addButton(tactile.keys 'f11')
     }
     -- define Player 2 controls
     Control2 = {
@@ -95,29 +110,32 @@ function bind_game_input()
         :addAxis(tactile.gamepadAxis(2, 'lefty'))
         :addButtonPair(tactile.keys('w'), tactile.keys('s')),
         fire = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(2, 'triggerleft'))
+--        :addAxis(tactile.gamepadAxis(2, 'triggerleft'))
         :addButton(tactile.gamepadButtons(2, 'a'))
         :addButton(tactile.keys 'i'),
         jump = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(2, 'triggerright'))
+--        :addAxis(tactile.gamepadAxis(2, 'triggerright'))
         :addButton(tactile.gamepadButtons(2, 'b'))
         :addButton(tactile.keys 'o')
     }
     -- define Player 3 controls
     Control3 = {
         horizontal = tactile.newControl()
+        :addAxis(tactile.gamepadAxis(3, 'leftx'))
         :addButtonPair(tactile.keys('f'), tactile.keys('h')),
         vertical = tactile.newControl()
+        :addAxis(tactile.gamepadAxis(3, 'lefty'))
         :addButtonPair(tactile.keys('t'), tactile.keys('g')),
         fire = tactile.newControl()
+        :addButton(tactile.gamepadButtons(3, 'a'))
         :addButton(tactile.keys 'r'),
         jump = tactile.newControl()
+        :addButton(tactile.gamepadButtons(3, 'b'))
         :addButton(tactile.keys 'y')
     }
 
-    local double_press_delta = 0.25
-
-    --add keyTrace into every player 1 button
+    local double_press_delta = 0.15
+      --add keyTrace into every player 1 button
     for index,value in pairs(Control1) do
         local b = Control1[index]
         if index == "horizontal" or index == "vertical" then
