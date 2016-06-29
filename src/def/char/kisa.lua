@@ -1,4 +1,4 @@
-local image_w = 51 --This info can be accessed with a Love2D call
+local image_w = 52 --This info can be accessed with a Love2D call
 local image_h = 64 --after the image has been loaded
 
 local function q(x,y,w,h)
