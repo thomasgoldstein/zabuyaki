@@ -192,18 +192,18 @@ shaders.chai[3] = sh_chai3
 local sh_kisa2 = love.graphics.newShader(sh_swap_colors)
 sh_kisa2:send("n", 6)
 sh_kisa2:sendColor("colors", -- Kisa default color set
-    {63, 135, 127, 255}, {45, 96, 92, 255}, {21, 45, 43, 255}, -- teal hat
+    {69, 145, 134, 255}, {45, 96, 92, 255}, {21, 45, 43, 255}, -- teal hat
     {133, 62, 65, 255}, {89, 39, 42, 255}, {41, 14, 16, 255}) -- maroon shoes
 sh_kisa2:sendColor("newColors", -- Kisa alternate color set 1
-    {70, 135, 51, 255}, {49, 91, 34, 255}, {19, 45, 24, 255}, -- green hat
-    {110, 70, 46, 255}, {74, 52, 39, 255}, {35, 25, 19, 255}) -- brown shoes
+    {76, 145, 55, 255}, {49, 91, 34, 255}, {19, 45, 24, 255}, -- green hat
+    {127, 80, 53, 255}, {74, 52, 39, 255}, {35, 25, 19, 255}) -- brown shoes
 local sh_kisa3 = love.graphics.newShader(sh_swap_colors)
 sh_kisa3:send("n", 6)
 sh_kisa3:sendColor("colors", -- Kisa default color set
-    {63, 135, 127, 255}, {45, 96, 92, 255}, {21, 45, 43, 255}, -- teal hat
+    {69, 145, 134, 255}, {45, 96, 92, 255}, {21, 45, 43, 255}, -- teal hat
     {133, 62, 65, 255}, {89, 39, 42, 255}, {41, 14, 16, 255}) -- maroon shoes
 sh_kisa3:sendColor("newColors", -- Kisa alternate color set 2
-    {167, 99, 216, 255}, {106, 63, 137, 255}, {47, 28, 61, 255}, -- lavander hat
+    {150, 90, 196, 255}, {92, 56, 122, 255}, {39, 23, 51, 255}, -- lavander hat
     {173, 100, 17, 255}, {99, 59, 9, 255}, {45, 26, 4, 255}) -- orange-brown shoes
 shaders.kisa[2] = sh_kisa2
 shaders.kisa[3] = sh_kisa3
