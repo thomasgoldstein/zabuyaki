@@ -40,6 +40,7 @@ function love.load(arg)
 	love.filesystem.setIdentity("Zabuyaki")
 	--Libraries
 	class = require "lib/middleclass"
+	i18n = require 'lib/i18n'
 	require "lib/TEsound"
 	tactile = require 'lib/tactile'
 	Gamestate = require "lib/hump.gamestate"
