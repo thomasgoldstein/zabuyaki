@@ -174,9 +174,9 @@ return {
 			delay = 0.05
 		},
 		hurtLow = {
-			{ q = q(2,335,48,64), ox = 26, oy = 63 }, --hh1
-			{ q = q(52,335,50,64), ox = 29, oy = 63, delay = 0.2 }, --hh2
-			{ q = q(2,335,48,64), ox = 26, oy = 63 }, --hh1
+			{ q = q(104,336,44,63), ox = 21, oy = 62 }, --hl1
+			{ q = q(150,337,42,62), ox = 19, oy = 61, delay = 0.2 }, --hl2
+			{ q = q(104,336,44,63), ox = 21, oy = 62 }, --hl1
 			delay = 0.05
 		},
 		jumpAttackForward = {
