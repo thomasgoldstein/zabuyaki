@@ -823,7 +823,7 @@ function Unit:duck_start()
 	self.z = 0
 	--landing dust clouds
 	local padust = PA_DUST_LANDING:clone()
-	padust:emit(30)
+	padust:emit(10)
 	level_objects:add(Effect:new(padust, self.x, self.y+1))
 end
 function Unit:duck_update(dt)
@@ -1092,9 +1092,9 @@ function Unit:fall_update(dt)
 				sfx.play("fall", 1 - self.flag_fallen)
 				self.flag_fallen = self.flag_fallen + 0.3
 				--landing dust clouds
-				local padust = PA_DUST_LANDING:clone()
-				padust:emit(30)
-				level_objects:add(Effect:new(padust, self.x, self.y+1))
+				local padust = PA_DUST_FALLING:clone()
+				padust:emit(50)
+				level_objects:add(Effect:new(padust, self.x + self.horizontal * 20, self.y+3))
 				return
 			else
 				--final fall (no bouncing)
