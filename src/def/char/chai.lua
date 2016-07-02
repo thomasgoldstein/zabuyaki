@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 335 --after the image has been loaded
+local image_h = 401 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -168,18 +168,16 @@ return {
 			delay = 65
 		},
 		hurtHigh = {
-			{ q = q(2,135,36,63), ox = 18, oy = 62 }, --run 1
-			{ q = q(40,134,45,63), ox = 22, oy = 62 }, --run 2
-			{ q = q(87,135,44,63), ox = 22, oy = 62 }, --run 3
-			{ q = q(40,134,45,63), ox = 22, oy = 62 }, --run 2
-			delay = 0.1
+			{ q = q(2,335,48,64), ox = 26, oy = 63 }, --hh1
+			{ q = q(52,335,50,64), ox = 29, oy = 63, delay = 0.2 }, --hh2
+			{ q = q(2,335,48,64), ox = 26, oy = 63 }, --hh1
+			delay = 0.05
 		},
 		hurtLow = {
-			{ q = q(2,135,36,63), ox = 18, oy = 62 }, --run 1
-			{ q = q(40,134,45,63), ox = 22, oy = 62 }, --run 2
-			{ q = q(87,135,44,63), ox = 22, oy = 62 }, --run 3
-			{ q = q(40,134,45,63), ox = 22, oy = 62 }, --run 2
-			delay = 0.1
+			{ q = q(2,335,48,64), ox = 26, oy = 63 }, --hh1
+			{ q = q(52,335,50,64), ox = 29, oy = 63, delay = 0.2 }, --hh2
+			{ q = q(2,335,48,64), ox = 26, oy = 63 }, --hh1
+			delay = 0.05
 		},
 		jumpAttackForward = {
 			{ q = q(2,714,54,62), ox = 27, oy = 61, delay = 0.2 }, -- jaf1
@@ -236,8 +234,8 @@ return {
 			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
 		},
 		grabbed = {
-			{ q = q(2,330,45,63), ox = 24, oy = 62 }, --hh1
-			{ q = q(49,331,47,62), ox = 27, oy = 61 }, --hh2
+			{ q = q(2,335,48,64), ox = 26, oy = 63 }, --hh1
+			{ q = q(52,335,50,64), ox = 29, oy = 63 }, --hh2
 			delay = 0.1
 		},
 
