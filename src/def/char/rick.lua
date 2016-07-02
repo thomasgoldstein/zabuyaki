@@ -9,9 +9,26 @@ local step_sfx = function() sfx.play("step") end
 local step_sfx2 = function(self)
 	sfx.play("step")
 	local padust = PA_DUST_STEPS:clone()
-	padust:setLinearAcceleration(-self.face * 80, -5, self.face * 80, -50)
-	padust:emit(15)
-	level_objects:add(Effect:new(padust, self.x - 5 * self.face, self.y-2))
+	padust:setLinearAcceleration(-self.face * 11, 1, -self.face * 50, -15)
+	if self.face == 1 then
+		padust:setDirection( 3.14 )
+	else
+		padust:setDirection( 0 )
+	end
+	padust:emit(10)
+	--level_objects:add(Effect:new(padust, self.x - 5 * self.face, self.y+2))
+	level_objects:add(Effect:new(padust, self.x - 2 * self.face, self.y+2))
+end
+local step_no_sfx2 = function(self)
+	local padust = PA_DUST_STEPS:clone()
+	padust:setLinearAcceleration(-self.face * 11, 1, -self.face * 50, -15)
+	if self.face == 1 then
+		padust:setDirection( 3.14 )
+	else
+		padust:setDirection( 0 )
+	end
+	padust:emit(10)
+	level_objects:add(Effect:new(padust, self.x - 2 * self.face, self.y+2))
 end
 local jump_still_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
 local jump_still_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 8, "fall", nil, true) end
@@ -88,11 +105,11 @@ return {
             delay = 0.167
 		},
 		run = { -- 1 2 3 4 5 6
-			{ q = q(2,136,44,60), ox = 14, oy = 60 }, --run 1
-			{ q = q(48,134,49,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(2,136,44,60), ox = 14, oy = 60, func = step_no_sfx2 }, --run 1
+			{ q = q(48,134,49,62), ox = 18, oy = 61, func = step_no_sfx2 }, --run 2
 			{ q = q(99,134,48,62), ox = 17, oy = 60, func = step_sfx2 }, --run 3
-			{ q = q(2,200,42,60), ox = 12, oy = 60 }, --run 4
-			{ q = q(46,198,49,61), ox = 18, oy = 61 }, --run 5
+			{ q = q(2,200,42,60), ox = 12, oy = 60, func = step_no_sfx2 }, --run 4
+			{ q = q(46,198,49,61), ox = 18, oy = 61, func = step_no_sfx2 }, --run 5
 			{ q = q(97,198,48,62), ox = 17, oy = 60, func = step_sfx2 }, --run 6
             loop = true,
             delay = 0.1
