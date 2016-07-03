@@ -23,8 +23,8 @@ psystem:setParticleLifetime(0.35, 0.74) -- Particles live at least 2s and at mos
 psystem:setSizes(0.01, 0.1, 0.4, 0.5, 0.01) -- Particles live at least 2s and at most 5s.
 --psystem:setEmissionRate(15)
 --psystem:setSizeVariation(0.7)
-psystem:setSpeed( 1, 10 )
---psystem:setDirection( 3.14/2 )
+psystem:setSpeed( 1, 5 )
+--psystem:setDirection( 3.14 )
 psystem:setLinearAcceleration(0, 0, 0, 0) -- Random movement in all directions.
 --psystem:setColors(255, 255, 255, 5, 255, 255, 255, 60, 255, 255, 255, 5) -- Fade to transparency.
 psystem:setColors(255,232,183, 10, 255,232,183, 20, 255,232,183, 10, 255,232,183, 5) -- Fade to transparency.
@@ -32,7 +32,7 @@ psystem:setColors(255,232,183, 10, 255,232,183, 20, 255,232,183, 10, 255,232,183
 psystem:setOffset( 15, 30 )
 psystem:setQuads( dust_quad1 )
 psystem:setLinearDamping( 7, 20 )
-psystem:setAreaSpread( "uniform", 6, 2 )
+psystem:setAreaSpread( "uniform", 12, 4 )
 --psystem:setSpin(20, 50)
 PA_DUST_STEPS = psystem
 
