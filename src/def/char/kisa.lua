@@ -1,4 +1,4 @@
-local image_w = 52 --This info can be accessed with a Love2D call
+local image_w = 153 --This info can be accessed with a Love2D call
 local image_h = 64 --after the image has been loaded
 
 local function q(x,y,w,h)
@@ -71,7 +71,9 @@ return {
 			-- ox,oy pivots offsets from the top left corner of the quad
 			-- delay = 0.1, func = func1, funcCont = func2
 			{ q = q(2,2,48,60), ox = 24, oy = 59 }, --stand 1
-			{ q = q(2,2,48,60), ox = 24, oy = 58 }, --stand 1shifted
+			{ q = q(52,3,48,59), ox = 24, oy = 58 }, --stand 2
+			{ q = q(102,3,49,59), ox = 25, oy = 58 }, --stand 3
+			{ q = q(52,3,48,59), ox = 24, oy = 58 }, --stand 2
             loop = true,
 			delay = 0.175
 		},
