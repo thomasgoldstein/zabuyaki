@@ -437,7 +437,7 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
 	end
 	if not GLOBAL_SETTING.AUTO_COMBO and #items < 1 then
 		-- reset combo attack N to 1
-		self.n_combo = 1
+		self.n_combo = 0
 	end
 end
 
