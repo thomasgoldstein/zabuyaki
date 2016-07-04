@@ -20,12 +20,13 @@ local item_height_margin = top_item_offset * 2 - 2
 local txt_options_logo = love.graphics.newText( gfx.font.arcade2, "OPTIONS" )
 local txt_option1 = love.graphics.newText( gfx.font.arcade4, "BGM ON" )
 local txt_option1a = love.graphics.newText( gfx.font.arcade4, "BGM OFF" )
-local txt_option2 = love.graphics.newText( gfx.font.arcade4, "OPTION 2" )
+local txt_option2 = love.graphics.newText( gfx.font.arcade4, "AUTO COMBO CHAIN" )
+local txt_option2a = love.graphics.newText( gfx.font.arcade4, "HIT TO CHAIN COMBO" )
 local txt_option3 = love.graphics.newText( gfx.font.arcade4, "OPTION 3" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "Back" )
 
 local txt_option1_hint = love.graphics.newText( gfx.font.arcade4, "Background Music" )
-local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "Option 2 is locked" )
+local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "Continue combo without attacks" )
 local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "Option 3 is locked" )
 local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Exit to the Title" )
 
@@ -120,6 +121,9 @@ function optionsState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == old_menu_state then
+            love.graphics.setColor(0, 0, 0, 80)
+            love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
+            love.graphics.draw(m.item, m.x, m.y )
             love.graphics.setColor(255, 255, 255, 255)
             love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
             love.graphics.setColor(255,200,40, 255)
@@ -158,6 +162,15 @@ function optionsState:mousepressed( x, y, button, istouch )
         elseif menu_state == 2 then
             sfx.play("menu_select")
             SetSpriteAnim(rick_spr,"hurtLow")
+            if GLOBAL_SETTING.COMBO_WITHOUT_HIT then
+                GLOBAL_SETTING.COMBO_WITHOUT_HIT = false
+                txt_items[2] = txt_option2a
+            else
+                GLOBAL_SETTING.COMBO_WITHOUT_HIT = true
+                txt_items[2] = txt_option2
+            end
+            menu = fillMenu(txt_items, txt_hints)
+
         elseif menu_state == 3 then
             sfx.play("menu_select")
             SetSpriteAnim(rick_spr,"pickup")
