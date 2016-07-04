@@ -9,14 +9,14 @@ local step_sfx = function() sfx.play("step") end
 local step_sfx2 = function(self)
 	sfx.play("step")
 	local padust = PA_DUST_STEPS:clone()
-	padust:setLinearAcceleration(-self.face * 50, 1, -self.face * 300, -15)
+	padust:setLinearAcceleration(-self.face * 50, 1, -self.face * 100, -15)
 	if self.face == 1 then
 		padust:setDirection( 3.14 )
 	else
 		padust:setDirection( 0 )
 	end
-	padust:emit(10)
-	level_objects:add(Effect:new(padust, self.x - 8 * self.face, self.y+2))
+	padust:emit(5)
+	level_objects:add(Effect:new(padust, self.x - 20 * self.face, self.y+2))
 end
 local step_no_sfx2 = function(self)
 	local padust = PA_DUST_STEPS:clone()
@@ -26,8 +26,8 @@ local step_no_sfx2 = function(self)
 	else
 		padust:setDirection( 0 )
 	end
-	padust:emit(10)
-	level_objects:add(Effect:new(padust, self.x - 8 * self.face, self.y+2))
+	padust:emit(5)
+	level_objects:add(Effect:new(padust, self.x - 20 * self.face, self.y+2))
 end
 local jump_still_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
 local jump_still_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 8, "fall", nil, true) end
