@@ -138,9 +138,9 @@ return {
 			delay = 0.16
 		},
 		combo1 = {
-			{ q = q(67,519,48,63), ox = 22, oy = 62 }, --p1.2
-			{ q = q(2,519,63,63), ox = 22, oy = 62, func = combo_attack1, delay = 0.06 }, --p1.1
-			{ q = q(67,519,48,63), ox = 22, oy = 62 }, --p1.2
+			{ q = q(2,519,48,63), ox = 22, oy = 62 }, --p1.1
+			{ q = q(52,519,63,63), ox = 22, oy = 62, func = combo_attack1, delay = 0.06 }, --p1.2
+			{ q = q(2,519,48,63), ox = 22, oy = 62 }, --p1.1
 			delay = 0.01
 		},
 		combo2 = {
