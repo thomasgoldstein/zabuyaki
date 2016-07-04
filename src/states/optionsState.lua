@@ -20,14 +20,14 @@ local item_height_margin = top_item_offset * 2 - 2
 local txt_options_logo = love.graphics.newText( gfx.font.arcade2, "OPTIONS" )
 local txt_option1 = love.graphics.newText( gfx.font.arcade4, "BGM ON" )
 local txt_option1a = love.graphics.newText( gfx.font.arcade4, "BGM OFF" )
-local txt_option2 = love.graphics.newText( gfx.font.arcade4, "AUTO COMBO CHAIN" )
-local txt_option2a = love.graphics.newText( gfx.font.arcade4, "HIT TO CHAIN COMBO" )
-local txt_option3 = love.graphics.newText( gfx.font.arcade4, "OPTION 3" )
+local txt_option2 = love.graphics.newText( gfx.font.arcade4, "AUTO COMBO" )
+local txt_option2a = love.graphics.newText( gfx.font.arcade4, "HIT TO COMBO" )
+local txt_option3 = love.graphics.newText( gfx.font.arcade4, "? ? ? ? ?" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "Back" )
 
 local txt_option1_hint = love.graphics.newText( gfx.font.arcade4, "Background Music" )
-local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "Continue combo without attacks" )
-local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "Option 3 is locked" )
+local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "Combo setting" )
+local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "Locked" )
 local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Exit to the Title" )
 
 local rick_spr = GetInstance("src/def/char/rick.lua")
@@ -36,6 +36,11 @@ rick_spr.size_scale = 4
 
 local txt_items = {txt_option1, txt_option2, txt_option3, txt_quit}
 local txt_hints = {txt_option1_hint, txt_option2_hint, txt_option3_hint, txt_quit_hint }
+if GLOBAL_SETTING.AUTO_COMBO then
+    txt_items[2] = txt_option2
+else
+    txt_items[2] = txt_option2a
+end
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -162,11 +167,11 @@ function optionsState:mousepressed( x, y, button, istouch )
         elseif menu_state == 2 then
             sfx.play("menu_select")
             SetSpriteAnim(rick_spr,"hurtLow")
-            if GLOBAL_SETTING.COMBO_WITHOUT_HIT then
-                GLOBAL_SETTING.COMBO_WITHOUT_HIT = false
+            if GLOBAL_SETTING.AUTO_COMBO then
+                GLOBAL_SETTING.AUTO_COMBO = false
                 txt_items[2] = txt_option2a
             else
-                GLOBAL_SETTING.COMBO_WITHOUT_HIT = true
+                GLOBAL_SETTING.AUTO_COMBO = true
                 txt_items[2] = txt_option2
             end
             menu = fillMenu(txt_items, txt_hints)
