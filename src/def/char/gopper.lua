@@ -1,4 +1,4 @@
-local image_w = 196 --This info can be accessed with a Love2D call
+local image_w = 195 --This info can be accessed with a Love2D call
 local image_h = 244 --after the image has been loaded
 
 local function q(x,y,w,h)
@@ -50,24 +50,24 @@ return {
             delay = 0.167
         },
         run = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             loop = true,
             delay = 0.1
         },
         jump = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
         duck = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.15
         },
         pickup = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
         dash = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.16
         },
         combo1 = {
@@ -85,7 +85,7 @@ return {
         },
         getup = {
             { q = q(71,200,65,42), ox = 32, oy = 31, delay = 1 }, --lying down
-			{ q = q(138,193,56,49), ox = 25, oy = 48 }, --getting up
+			{ q = q(138,193,55,49), ox = 24, oy = 48 }, --getting up
 			{ q = q(66,71,38,56), ox = 19, oy = 55 }, --idle
             delay = 0.3
         },
@@ -94,58 +94,58 @@ return {
             delay = 65
         },
         hurtHigh = {
-            { q = q(2,129,39,62), ox = 21, oy = 61, delay = 0.03 }, --hh1
-			{ q = q(43,129,44,62), ox = 26, oy = 61 }, --hh2
-            { q = q(2,129,39,62), ox = 21, oy = 61, delay = 0.1 }, --hh1
+            { q = q(2,129,38,62), ox = 20, oy = 61, delay = 0.03 }, --hh1
+			{ q = q(42,129,43,62), ox = 25, oy = 61 }, --hh2
+            { q = q(2,129,38,62), ox = 20, oy = 61, delay = 0.1 }, --hh1
             delay = 0.3
         },
         hurtLow = {
-            { q = q(89,130,37,61), ox = 19, oy = 60, delay = 0.03 }, --hl1
-			{ q = q(128,132,42,59), ox = 20, oy = 58 }, --hl2
-            { q = q(89,130,37,61), ox = 19, oy = 60, delay = 0.1 }, --hl1
+            { q = q(87,130,37,61), ox = 19, oy = 60, delay = 0.03 }, --hl1
+			{ q = q(126,132,42,59), ox = 20, oy = 58 }, --hl2
+            { q = q(87,130,37,61), ox = 19, oy = 60, delay = 0.1 }, --hl1
             delay = 0.3
         },
         jumpAttackForward = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
         jumpAttackWeak = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
         jumpAttackStill = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
         sideStepUp = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         sideStepDown = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grab = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabHit = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
         grabHitLast = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
         grabHitEnd = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.1
         },
         grabThrow = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabSwap = {
-            { q = q(136,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbed = {
-            { q = q(43,129,44,62), ox = 26, oy = 61 }, --hh2
+            { q = q(42,129,43,62), ox = 25, oy = 61 }, --hh2
             delay = 0.1
         },
 
