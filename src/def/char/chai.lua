@@ -70,18 +70,18 @@ return {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad
 			-- delay = 0.1, func = func1, funcCont = func2
-			{ q = q(2,2,44,64), ox = 25, oy = 63 }, --stand 1
-			{ q = q(48,2,46,64), ox = 25, oy = 63 }, --stand 2
-			{ q = q(96,3,45,63), ox = 24, oy = 62 }, --stand 3
-			{ q = q(48,2,46,64), ox = 25, oy = 63 }, --stand 2
+			{ q = q(2,2,41,64), ox = 23, oy = 63 }, --stand 1
+			{ q = q(45,2,43,64), ox = 23, oy = 63 }, --stand 2
+			{ q = q(90,3,43,63), ox = 23, oy = 62 }, --stand 3
+			{ q = q(45,2,43,64), ox = 23, oy = 63 }, --stand 2
             loop = true,
 			delay = 0.175
 		},
 		walk = { -- 1 2 3 4 5 6
 			{ q = q(2,68,39,64), ox = 21, oy = 63 }, --walk 1
 			{ q = q(43,68,39,64), ox = 21, oy = 63 }, --walk 2
-			{ q = q(84,68,38,64), ox = 21, oy = 63, func = step_sfx, delay = 0.25 }, --walk 3
-			{ q = q(124,68,38,64), ox = 21, oy = 63 }, --walk 4
+			{ q = q(84,68,38,64), ox = 20, oy = 63, func = step_sfx, delay = 0.25 }, --walk 3
+			{ q = q(123,68,39,64), ox = 21, oy = 63 }, --walk 4
 			{ q = q(164,68,39,64), ox = 21, oy = 63 }, --walk 5
 			{ q = q(205,68,38,64), ox = 20, oy = 63, func = step_sfx, delay = 0.25 }, --walk 6
             loop = true,
@@ -98,12 +98,12 @@ return {
             delay = 0.117
 		},
 		jump = {
-			{ q = q(44,266,39,67), ox = 25, oy = 66, delay = 0.4 }, --ju
-			{ q = q(85,266,43,63), ox = 23, oy = 67 }, --jd
+			{ q = q(43,266,39,67), ox = 25, oy = 66, delay = 0.4 }, --ju
+			{ q = q(84,266,43,63), ox = 22, oy = 62 }, --jd
 			delay = 5
 		},
 		duck = {
-			{ q = q(2,274,40,59), ox = 22, oy = 58 }, --duck
+			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
 			delay = 0.15
 		},
 		pickup = {
@@ -168,15 +168,15 @@ return {
 			delay = 65
 		},
 		hurtHigh = {
-			{ q = q(2,335,48,64), ox = 28, oy = 63 }, --hh1
-			{ q = q(52,335,50,64), ox = 31, oy = 63, delay = 0.2 }, --hh2
-			{ q = q(2,335,48,64), ox = 28, oy = 63 }, --hh1
+			{ q = q(2,335,48,64), ox = 29, oy = 63 }, --hh1
+			{ q = q(52,335,50,64), ox = 32, oy = 63, delay = 0.2 }, --hh2
+			{ q = q(2,335,48,64), ox = 29, oy = 63 }, --hh1
 			delay = 0.05
 		},
 		hurtLow = {
-			{ q = q(104,336,44,63), ox = 23, oy = 62 }, --hl1
-			{ q = q(150,337,42,62), ox = 21, oy = 61, delay = 0.2 }, --hl2
-			{ q = q(104,336,44,63), ox = 23, oy = 62 }, --hl1
+			{ q = q(104,336,42,63), ox = 22, oy = 62 }, --hl1
+			{ q = q(148,338,42,61), ox = 22, oy = 60, delay = 0.2 }, --hl2
+			{ q = q(104,336,42,63), ox = 22, oy = 62 }, --hl1
 			delay = 0.05
 		},
 		jumpAttackForward = {
@@ -196,10 +196,10 @@ return {
 			delay = 5
 		},
 		sideStepUp = {
-			{ q = q(85,266,43,63), ox = 21, oy = 67 }, --ssu
+			{ q = q(43,266,39,67), ox = 25, oy = 66 }, --ssu
 		},
 		sideStepDown = {
-			{ q = q(85,266,43,63), ox = 21, oy = 67 }, --ssd
+			{ q = q(43,266,39,67), ox = 25, oy = 66 }, --ssd
 		},
 		grab = {
 			{ q = q(2,979,44,63), ox = 22, oy = 62 }, --grab
@@ -234,8 +234,8 @@ return {
 			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
 		},
 		grabbed = {
-			{ q = q(2,335,48,64), ox = 28, oy = 63 }, --hh1
-			{ q = q(52,335,50,64), ox = 31, oy = 63 }, --hh2
+			{ q = q(2,335,48,64), ox = 29, oy = 63 }, --hh1
+			{ q = q(52,335,50,64), ox = 32, oy = 63 }, --hh2
 			delay = 0.1
 		},
 
