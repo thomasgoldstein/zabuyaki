@@ -20,7 +20,6 @@ local txt_zabuyaki_logo = love.graphics.newText( gfx.font.arcade2, "ZABUYAKI" )
 local txt_beatemup = love.graphics.newText( gfx.font.arcade4, "Beat'em All" )
 
 local txt_start = love.graphics.newText( gfx.font.arcade4, "START" )
-local txt_locked = love.graphics.newText( gfx.font.arcade4, "? ? ?" )
 local txt_options = love.graphics.newText( gfx.font.arcade4, "OPTIONS" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "QUIT" )
 
@@ -30,8 +29,8 @@ local rick_spr = GetInstance("src/def/char/rick.lua")
 SetSpriteAnim(rick_spr,"stand")
 rick_spr.size_scale = 4
 
-local txt_items = {txt_start, txt_locked, txt_options, txt_quit}
-local txt_hints = {txt_start_hint, txt_start_hint, txt_start_hint, txt_start_hint }
+local txt_items = {txt_start, txt_options, txt_quit}
+local txt_hints = {txt_start_hint, txt_start_hint, txt_start_hint }
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -128,6 +127,8 @@ function titleState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == old_menu_state then
+            love.graphics.setColor(0, 0, 0, 80)
+            love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
             love.graphics.setColor(255, 255, 255, 255)
             love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
             love.graphics.setColor(255,200,40, 255)
@@ -152,10 +153,10 @@ function titleState:mousepressed( x, y, button, istouch )
         if menu_state == 1 then
             sfx.play("menu_select")
             return Gamestate.switch(heroSelectState)
-        elseif menu_state == 3 then
+        elseif menu_state == 2 then
             sfx.play("menu_select")
             return Gamestate.push(optionsState)
-        elseif menu_state == 4 then
+        elseif menu_state == 3 then
             sfx.play("menu_cancel")
             return love.event.quit()
         end
