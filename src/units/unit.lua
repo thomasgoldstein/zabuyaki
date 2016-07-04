@@ -408,10 +408,7 @@ end
 function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
     -- type = "high" "low" "fall"
     local face = self.face
---[[    if self.isThrown then
-        --face = -face    --TODO proper thrown enemy hitbox?
-        --TODO not needed since the hitbox is centered
-	end]]
+
 	if init_victims_list then
 		self.victims = {}
 	end
@@ -435,8 +432,12 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
 			horizontal = self.horizontal,
 			x = self.x, y = self.y, z = z or self.z}
 	end
-	if sfx1 then	--TODO 2 SFX for holloow and hit
+	if sfx1 then
 		sfx.play(sfx1)
+	end
+	if not GLOBAL_SETTING.AUTO_COMBO and #items < 1 then
+		-- reset combo attack N to 1
+		self.n_combo = 1
 	end
 end
 
