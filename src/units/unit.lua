@@ -828,9 +828,16 @@ function Unit:duck_start()
     --self.victims = {}
 	self.z = 0
 	--landing dust clouds
-	local padust = PA_DUST_LANDING:clone()
+	local padust = PA_DUST_STEPS:clone()
+	padust:setLinearAcceleration(150, 1, 300, -35)
+	padust:setDirection( 0 )
+	padust:setPosition( 20, 0 )
 	padust:emit(10)
-	level_objects:add(Effect:new(padust, self.x, self.y+1))
+	padust:setLinearAcceleration(-150, 1, -300, -35)
+	padust:setDirection( 3.14 )
+	padust:setPosition( -20, 0 )
+	padust:emit(10)
+	level_objects:add(Effect:new(padust, self.x, self.y+2))
 end
 function Unit:duck_update(dt)
 	--	print (self.name.." - duck update",dt)
