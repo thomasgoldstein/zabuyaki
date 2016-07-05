@@ -413,9 +413,10 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
 		self.victims = {}
 	end
 	local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
-		function(obj)
-			if self ~= obj and obj.type ~= "wall"
-				and not self.victims[obj]
+		function(o)
+			--TODO add "destructable objects"
+			if self ~= o and (o.type == "enemy" or o.type == "player")
+				and not o.isDisabled and not self.victims[o]
 			then
 				--print ("hit "..item.name)
 				return true
@@ -479,7 +480,7 @@ function Unit:checkForItem(w, h)
 	--got any items near feet?
 	local items, len = world:queryRect(self.x - w/2, self.y - h/2, w, h,
 		function(item)
-			if item.type == "item" then
+			if item.type == "item" and not item.isEnabled then
 				return true
 			end
 		end)
@@ -1229,7 +1230,7 @@ function Unit:checkForGrab(range)
 	--attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.face*range, y = self.y - 1, w = 1, h = 3 }
 	local items, len = world:queryPoint(self.x + self.face*range, self.y,
 		function(o)
-			if o ~= self and (o.type == "player" or o.type == "enemy") then
+			if o ~= self and (o.type == "enemy" or o.type == "player") then
 				return true
 			end
 		end)
