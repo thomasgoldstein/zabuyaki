@@ -1116,7 +1116,7 @@ function Unit:fall_update(dt)
 				self.flag_fallen = self.flag_fallen + 0.3
 				--landing dust clouds
 				local padust = PA_DUST_FALLING:clone()
-				padust:emit(50)
+				padust:emit(25)
 				level_objects:add(Effect:new(padust, self.x + self.horizontal * 20, self.y+3))
 				return
 			else
