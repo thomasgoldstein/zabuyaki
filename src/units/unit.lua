@@ -1212,7 +1212,7 @@ Unit.dead = {name = "dead", start = Unit.dead_start, exit = nop, update = Unit.d
 function Unit:combo_start()
 	self.isHittable = true
 	--	print (self.name.." - combo start")
-	if self.n_combo > 4 then
+	if self.n_combo > 4 or self.n_combo < 1 then
 		self.n_combo = 1
 	end
 	if self.n_combo == 1 then
