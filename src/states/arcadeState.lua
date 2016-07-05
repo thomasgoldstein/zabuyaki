@@ -84,15 +84,9 @@ function arcadeState:enter(_, players)
 --    item2 = Item:new("Custom func sample", "+20 Pts.", gfx.items.apple, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
     local item3 = Item:new("Beef", "+100 HP", gfx.items.beef, 100, 0, nil, 750,200)
 
-    local padust = PA_DUST_LANDING:clone()
-    padust:setParticleLifetime(1, 4) -- Particles live at least 2s and at most 5s.
-    padust:setEmitterLifetime(4)
-    padust:emit(20)
-
     level_objects = Entity:new()
     level_objects:addArray({
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
-        Effect:new(padust, 120, 180),
         niko1, niko2, niko3, niko4, niko5, niko6,
         dummy4, dummy5,
         item1, item2, item3
@@ -106,18 +100,6 @@ function arcadeState:enter(_, players)
     if player3 then
         level_objects:add(player3)
     end
-
-    local padust = PA_DUST_LANDING:clone()
-    padust:setParticleLifetime(2, 3) -- Particles live at least 2s and at most 5s.
-    padust:setEmitterLifetime(5)
-    padust:emit(30)
-    level_objects:add(Effect:new(padust, 200, 200))
-
-    local padust = PA_DUST_LANDING:clone()
-    padust:setParticleLifetime(1, 4) -- Particles live at least 2s and at most 5s.
-    padust:setEmitterLifetime(5)
-    padust:emit(30)
-    level_objects:add(Effect:new(padust, 220, 170))
 
     --load level
     world, background, worldWidth, worldHeight = require("src/def/level/level_template")()
