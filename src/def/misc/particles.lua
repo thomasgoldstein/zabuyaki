@@ -109,3 +109,17 @@ psystem:setSizes(1, 1.1)
 psystem:setColors(255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0) -- Fade to transparency.
 psystem:setQuads( im_quad2, im_quad3, im_quad4 )
 PA_IMPACT_BIG = psystem
+
+psystem = love.graphics.newParticleSystem( img, 32 )
+psystem:setEmitterLifetime(1)
+psystem:setSizes(0.3, 0.6, 0.4, 0.1)
+psystem:setColors(135,115,105, 150, 135,115,105, 100, 135,115,105, 10, 135,115,105, 5) -- Fade to transparency.
+psystem:setParticleLifetime(0.2, 0.7) -- Particles live at least 2s and at most 5s.
+psystem:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
+psystem:setLinearDamping( 7, 20 )
+psystem:setAreaSpread( "uniform", 15, 5 )
+psystem:setPosition( 0, -4 )
+psystem:setParticleLifetime(1, 4) -- Particles live at least 2s and at most 5s.
+psystem:setEmitterLifetime(4)
+psystem:emit(20)
+PA_DUST_PUFF_LEVEL = psystem
