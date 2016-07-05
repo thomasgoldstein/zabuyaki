@@ -22,7 +22,7 @@ GLOBAL_UNIT_ID = 1
 function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self.sprite = sprite or {} --GetInstance("res/templateman.lua")
 	self.name = name or "Unknown"
-	self.type = "player"
+	self.type = "unit"
     self.lives = 3
     self.cool_down_death = 3 --seconds to remove
     self.max_hp = 100
@@ -1177,8 +1177,9 @@ function Unit:dead_update(dt)
 	--print(self.name .. " - dead update", dt)
     if self.cool_down_death <= 0 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
         self.isDisabled = true
+        -- dont remove dead body from the level for proper save/load
         world:remove(self)  --world = global bump var
-        self.y = GLOBAL_SETTING.OFFSCREEN
+        --self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
         self.cool_down_death = self.cool_down_death - dt

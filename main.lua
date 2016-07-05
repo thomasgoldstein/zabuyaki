@@ -57,7 +57,7 @@ function love.load(arg)
 	CompoundPicture = require "src/compoPic"
 	Effect = require "src/units/effect"
 	Entity = require "src/entity"
-	Player = require "src/units/unit"
+	Unit = require "src/units/unit"
 	Rick = require "src/units/rick_unit"
 	Chai = require "src/units/chai_unit"
 	Kisa = require "src/units/kisa_unit"
