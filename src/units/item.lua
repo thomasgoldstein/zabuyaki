@@ -34,6 +34,7 @@ function Item:initialize(name, note, gfx, hp, score, func, x, y, shader, color)
         self.color = { r= 255, g = 255, b = 255, a = 255 }
     end
     self.shader = shader
+    self.isHittable = false
     self.isDisabled = false
 
     self.infoBar = InfoBar:new(self)

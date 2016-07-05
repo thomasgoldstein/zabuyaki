@@ -21,12 +21,13 @@ function Chai:initialize(name, sprite, input, x, y, shader, color)
 end
 
 function Chai:combo_start()
+    self.isHittable = true
     --	print (self.name.." - combo start")
     self.cool_down = 0.2
 end
 function Chai:combo_update(dt)
-        self:setState(self.stand)
-        return
+    self:setState(self.stand)
+    return
 end
 Chai.combo = {name = "combo", start = Chai.combo_start, exit = nop, update = Chai.combo_update, draw = Unit.default_draw}
 

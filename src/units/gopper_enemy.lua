@@ -94,6 +94,7 @@ function Gopper:checkCollisionAndMove(dt)
 end
 
 function Gopper:combo_start()
+    self.isHittable = true
 --  print (self.name.." - combo start")
     SetSpriteAnim(self.sprite,"combo1")
     self.cool_down = 0.2
@@ -113,6 +114,7 @@ Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update =
 
 --States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
 function Gopper:intro_start()
+    self.isHittable = false
     --    	print (self.name.." - intro start")
     SetSpriteAnim(self.sprite,"intro")
 end
@@ -138,6 +140,7 @@ end
 Gopper.intro = {name = "intro", start = Gopper.intro_start, exit = nop, update = Gopper.intro_update, draw = Unit.default_draw}
 
 function Gopper:stand_start()
+    self.isHittable = true
 --    	print (self.name.." - stand start")
     SetSpriteAnim(self.sprite,"stand")
     self.can_jump = false
@@ -175,6 +178,7 @@ end
 Gopper.stand = {name = "stand", start = Gopper.stand_start, exit = nop, update = Gopper.stand_update, draw = Unit.default_draw}
 
 function Gopper:walk_start()
+    self.isHittable = true
 --    	print (self.name.." - walk start")
     SetSpriteAnim(self.sprite,"walk")
     self.can_jump = false

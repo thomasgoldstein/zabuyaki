@@ -13,6 +13,7 @@ function Temper:initialize(name, sprite, input, x, y, shader, color)
 end
 
 function Temper:combo_start()
+    self.isHittable = true
     --  print (self.name.." - combo start")
     SetSpriteAnim(self.sprite,"combo1")
     self.cool_down = 0.25

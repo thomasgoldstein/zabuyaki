@@ -21,6 +21,7 @@ function Kisa:initialize(name, sprite, input, x, y, shader, color)
 end
 
 function Kisa:combo_start()
+    self.isHittable = true
     --	print (self.name.." - combo start")
     self.cool_down = 0.2
 end

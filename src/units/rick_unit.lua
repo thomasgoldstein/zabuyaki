@@ -25,6 +25,7 @@ function Rick:initialize(name, sprite, input, x, y, shader, color)
 end
 
 function Rick:combo_start()
+    self.isHittable = true
     --	print (self.name.." - combo start")
     if self.n_combo > 4 then
         self.n_combo = 1

@@ -47,6 +47,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
     self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
 	self.shader = shader  --change player colors
 
+	self.isHittable = false
 	self.isGrabbed = false
 	self.cool_down_grab = 2
 	self.grab_release_after = 0.25 --sec if u hold 'back'
@@ -414,10 +415,7 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
 	end
 	local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
 		function(o)
-			--TODO add "destructable objects"
-			if self ~= o and (o.type == "enemy" or o.type == "player")
-				and not o.isDisabled and not self.victims[o]
-			then
+			if self ~= o and o.isHittable and not self.victims[o] then
 				--print ("hit "..item.name)
 				return true
 			end
@@ -492,6 +490,7 @@ end
 
 function Unit:stand_start()
 --	print (self.name.." - stand start")
+	self.isHittable = true
 	if self.sprite.cur_anim == "walk" then
 		self.delay_animation_cool_down = 0.12
 	else
@@ -585,6 +584,7 @@ end
 Unit.stand = {name = "stand", start = Unit.stand_start, exit = nop, update = Unit.stand_update, draw = Unit.default_draw}
 
 function Unit:walk_start()
+	self.isHittable = true
 --	print (self.name.." - walk start")
 	SetSpriteAnim(self.sprite,"walk")
 	self.can_jump = false
@@ -660,6 +660,7 @@ end
 Unit.walk = {name = "walk", start = Unit.walk_start, exit = nop, update = Unit.walk_update, draw = Unit.default_draw}
 
 function Unit:run_start()
+	self.isHittable = true
 --	print (self.name.." - run start")
 	self.delay_animation_cool_down = 0.01
 	self.can_jump = false
@@ -725,6 +726,7 @@ end
 Unit.run = {name = "run", start = Unit.run_start, exit = nop, update = Unit.run_update, draw = Unit.default_draw}
 
 function Unit:jump_start()
+	self.isHittable = true
     --	print (self.name.." - jump start")
     SetSpriteAnim(self.sprite,"jump")
     self.velz = 220
@@ -782,6 +784,7 @@ end
 Unit.jump = {name = "jump", start = Unit.jump_start, exit = nop, update = Unit.jump_update, draw = Unit.default_draw}
 
 function Unit:pickup_start()
+	self.isHittable = true
 	--	print (self.name.." - pickup start")
 	SetSpriteAnim(self.sprite,"pickup")
 	local item = self:checkForItem(9, 9)
@@ -817,6 +820,7 @@ end
 Unit.pickup = {name = "pickup", start = Unit.pickup_start, exit = Unit.pickup_exit, update = Unit.pickup_update, draw = Unit.default_draw}
 
 function Unit:duck_start()
+	self.isHittable = true
 --	print (self.name.." - duck start")
 	SetSpriteAnim(self.sprite,"duck")
 	--TODO should I reset hurt here?
@@ -842,6 +846,7 @@ end
 Unit.duck = {name = "duck", start = Unit.duck_start, exit = nop, update = Unit.duck_update, draw = Unit.default_draw}
 
 function Unit:duck2jump_start()
+	self.isHittable = true
 	--	print (self.name.." - duck2jump start")
 	SetSpriteAnim(self.sprite,"duck")
 	self.z = 0
@@ -860,6 +865,7 @@ end
 Unit.duck2jump = {name = "duck2jump", start = Unit.duck2jump_start, exit = nop, update = Unit.duck2jump_update, draw = Unit.default_draw}
 
 function Unit:hurtHigh_start()
+	self.isHittable = true
 --	print (self.name.." - hurtHigh start")
 	SetSpriteAnim(self.sprite,"hurtHigh")
 	sfx.play("hit")
@@ -888,6 +894,7 @@ end
 Unit.hurtHigh = {name = "hurtHigh", start = Unit.hurtHigh_start, exit = nop, update = Unit.hurtHigh_update, draw = Unit.default_draw}
 
 function Unit:hurtLow_start()
+	self.isHittable = true
 --	print (self.name.." - hurtLow start")
 	SetSpriteAnim(self.sprite,"hurtLow")
 	sfx.play("hit")
@@ -916,6 +923,7 @@ end
 Unit.hurtLow = {name = "hurtLow", start = Unit.hurtLow_start, exit = nop, update = Unit.hurtHigh_update, draw = Unit.default_draw}
 
 function Unit:sideStepDown_start()
+	self.isHittable = true
 --	print (self.name.." - sideStepDown start")
 	SetSpriteAnim(self.sprite,"sideStepDown")
     self.velx, self.vely = 0, 220
@@ -940,6 +948,7 @@ end
 Unit.sideStepDown = {name = "sideStepDown", start = Unit.sideStepDown_start, exit = nop, update = Unit.sideStepDown_update, draw = Unit.default_draw}
 
 function Unit:sideStepUp_start()
+	self.isHittable = true
     --	print (self.name.." - sideStepUp start")
 	SetSpriteAnim(self.sprite,"sideStepUp")
     self.velx, self.vely = 0, 220
@@ -964,6 +973,7 @@ end
 Unit.sideStepUp = {name = "sideStepUp", start = Unit.sideStepUp_start, exit = nop, update = Unit.sideStepUp_update, draw = Unit.default_draw}
 
 function Unit:dash_start()
+	self.isHittable = true
 	--	print (self.name.." - dash start")
 	SetSpriteAnim(self.sprite,"dash")
 	self.velx = 150
@@ -984,6 +994,7 @@ end
 Unit.dash = {name = "dash", start = Unit.dash_start, exit = nop, update = Unit.dash_update, draw = Unit.default_draw}
 
 function Unit:jumpAttackForward_start()
+	self.isHittable = true
 	--	print (self.name.." - jumpAttackForward start")
 	SetSpriteAnim(self.sprite,"jumpAttackForward")
 end
@@ -1006,6 +1017,7 @@ end
 Unit.jumpAttackForward = {name = "jumpAttackForward", start = Unit.jumpAttackForward_start, exit = nop, update = Unit.jumpAttackForward_update, draw = Unit.default_draw}
 
 function Unit:jumpAttackWeak_start()
+	self.isHittable = true
 	--	print (self.name.." - jumpAttackWeak start")
 	SetSpriteAnim(self.sprite,"jumpAttackWeak")
 end
@@ -1028,6 +1040,7 @@ end
 Unit.jumpAttackWeak = {name = "jumpAttackWeak", start = Unit.jumpAttackWeak_start, exit = nop, update = Unit.jumpAttackWeak_update, draw = Unit.default_draw}
 
 function Unit:jumpAttackStill_start()
+	self.isHittable = true
 	--	print (self.name.." - jumpAttackStill start")
 	SetSpriteAnim(self.sprite,"jumpAttackStill")
 end
@@ -1050,6 +1063,7 @@ end
 Unit.jumpAttackStill = {name = "jumpAttackStill", start = Unit.jumpAttackStill_start, exit = nop, update = Unit.jumpAttackStill_update, draw = Unit.default_draw}
 
 function Unit:fall_start()
+	self.isHittable = false
 --    print (self.name.." - fall start")
 	if self.isThrown then
         self.z = 20
@@ -1131,6 +1145,7 @@ end
 Unit.fall = {name = "fall", start = Unit.fall_start, exit = nop, update = Unit.fall_update, draw = Unit.default_draw}
 
 function Unit:getup_start()
+	self.isHittable = false
 	--print (self.name.." - getup start")
 	if self.z <= 0 then
 		self.z = 0
@@ -1156,6 +1171,7 @@ end
 Unit.getup = {name = "getup", start = Unit.getup_start, exit = nop, update = Unit.getup_update, draw = Unit.default_draw}
 
 function Unit:dead_start()
+	self.isHittable = false
 	--print (self.name.." - dead start")
     SetSpriteAnim(self.sprite,"fallen")
 	if GLOBAL_SETTING.DEBUG then
@@ -1178,6 +1194,7 @@ function Unit:dead_update(dt)
 	--print(self.name .. " - dead update", dt)
     if self.cool_down_death <= 0 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
         self.isDisabled = true
+		self.isHittable = false
         -- dont remove dead body from the level for proper save/load
         world:remove(self)  --world = global bump var
         --self.y = GLOBAL_SETTING.OFFSCREEN
@@ -1193,6 +1210,7 @@ end
 Unit.dead = {name = "dead", start = Unit.dead_start, exit = nop, update = Unit.dead_update, draw = Unit.default_draw}
 
 function Unit:combo_start()
+	self.isHittable = true
 	--	print (self.name.." - combo start")
 	if self.n_combo > 4 then
 		self.n_combo = 1
@@ -1230,7 +1248,7 @@ function Unit:checkForGrab(range)
 	--attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.face*range, y = self.y - 1, w = 1, h = 3 }
 	local items, len = world:queryPoint(self.x + self.face*range, self.y,
 		function(o)
-			if o ~= self and (o.type == "enemy" or o.type == "player") then
+			if o ~= self and o.isHittable then
 				return true
 			end
 		end)
@@ -1295,8 +1313,8 @@ function Unit:doGrab(target)
 	return false
 end
 
-
 function Unit:grab_start()
+	self.isHittable = true
 	--print (self.name.." - grab start")
 	SetSpriteAnim(self.sprite,"grab")
 	self.can_jump = false
@@ -1398,6 +1416,7 @@ function Unit:release_grabbed()
 end
 
 function Unit:grabbed_start()
+	self.isHittable = true
 	--print (self.name.." - grabbed start")
 	SetSpriteAnim(self.sprite,"grabbed")
 	if GLOBAL_SETTING.DEBUG then
@@ -1431,6 +1450,7 @@ end
 Unit.grabbed = {name = "grabbed", start = Unit.grabbed_start, exit = nop, update = Unit.grabbed_update, draw = Unit.default_draw}
 
 function Unit:grabHit_start()
+	self.isHittable = true
     --print (self.name.." - grabhit start")
     local g = self.hold
     if self.b.vertical:isDown(1) then --press DOWN to early headbutt
@@ -1466,6 +1486,7 @@ end
 Unit.grabHit = {name = "grabHit", start = Unit.grabHit_start, exit = nop, update = Unit.grabHit_update, draw = Unit.default_draw}
 
 function Unit:grabHitLast_start()
+	self.isHittable = true
 	--print (self.name.." - grabHitLast start")
 	SetSpriteAnim(self.sprite,"grabHitLast")
 	if GLOBAL_SETTING.DEBUG then
@@ -1487,6 +1508,7 @@ end
 Unit.grabHitLast = {name = "grabHitLast", start = Unit.grabHitLast_start, exit = nop, update = Unit.grabHitLast_update, draw = Unit.default_draw }
 
 function Unit:grabHitEnd_start()
+	self.isHittable = true
     --print (self.name.." - grabhitend start")
     SetSpriteAnim(self.sprite,"grabHitEnd")
     if GLOBAL_SETTING.DEBUG then
@@ -1508,6 +1530,7 @@ end
 Unit.grabHitEnd = {name = "grabHitEnd", start = Unit.grabHitEnd_start, exit = nop, update = Unit.grabHitEnd_update, draw = Unit.default_draw}
 
 function Unit:grabThrow_start()
+	self.isHittable = true
     --print (self.name.." - grabThrow start")
     local g = self.hold
 	local t = g.target
