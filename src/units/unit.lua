@@ -828,7 +828,7 @@ function Unit:duck_start()
     --self.victims = {}
 	self.z = 0
 	--landing dust clouds
-	local padust = PA_DUST_STEPS:clone()
+	local padust = PA_DUST_LANDING:clone()
 	padust:setLinearAcceleration(150, 1, 300, -35)
 	padust:setDirection( 0 )
 	padust:setPosition( 20, 0 )

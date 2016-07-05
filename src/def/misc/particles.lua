@@ -18,10 +18,10 @@ local dust_quad3 = q(70,36,32,32) --dust cloud 3
 local dust_quad4 = q(104,36,32,32) --dust cloud 3
 
 psystem = love.graphics.newParticleSystem( img, 32 )
-psystem:setPosition( 0, -5 )
+psystem:setPosition( 0, -2 )
 psystem:setEmitterLifetime(0.35)
 psystem:setParticleLifetime(0.5, 0.35) -- Particles live at least 2s and at most 5s.
-psystem:setSizes(0.2, 0.7) -- Particles live at least 2s and at most 5s.
+psystem:setSizes(0.2, 0.7)
 --psystem:setSizeVariation(0.7)
 psystem:setSpeed( 1, 5 )
 psystem:setLinearAcceleration(0, 0, 0, 0) -- Random movement in all directions.
@@ -32,6 +32,10 @@ psystem:setLinearDamping( 7, 20 )
 psystem:setAreaSpread( "uniform", 8, 4 )
 psystem:setSpin(0, -3)
 PA_DUST_STEPS = psystem
+
+psystem = PA_DUST_STEPS:clone()
+psystem:setSizes(0.15, 0.53)
+PA_DUST_LANDING = psystem
 
 --[[psystem = love.graphics.newParticleSystem( img, 32 )
 psystem:setPosition( 0, 0 )
@@ -88,7 +92,7 @@ psystem:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all di
 psystem:setLinearDamping( 7, 20 )
 psystem:setAreaSpread( "uniform", 15, 5 )
 psystem:setPosition( 0, -4 )
-PA_DUST_LANDING = psystem
+PA_DUST_LANDING_UNUSED = psystem
 
 psystem = love.graphics.newParticleSystem( img, 32 )
 psystem:setPosition( 0, -16 )
