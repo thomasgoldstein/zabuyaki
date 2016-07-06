@@ -4,7 +4,7 @@
 
 local class = require "lib/middleclass"
 
-local Kisa = class('Kisa', Unit)
+local Kisa = class('Kisa', Character)
 
 local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
     return x1 < x2+w2 and
@@ -16,7 +16,7 @@ end
 local function nop() --[[print "nop"]] end
 
 function Kisa:initialize(name, sprite, input, x, y, shader, color)
-    Unit.initialize(self, name, sprite, input, x, y, shader, color)
+    Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "player"
 end
 
@@ -29,6 +29,6 @@ function Kisa:combo_update(dt)
     self:setState(self.stand)
     return
 end
-Kisa.combo = {name = "combo", start = Kisa.combo_start, exit = nop, update = Kisa.combo_update, draw = Unit.default_draw}
+Kisa.combo = {name = "combo", start = Kisa.combo_start, exit = nop, update = Kisa.combo_update, draw = Character.default_draw}
 
 return Kisa

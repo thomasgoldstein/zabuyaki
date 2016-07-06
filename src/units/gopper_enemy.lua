@@ -1,6 +1,6 @@
 local class = require "lib/middleclass"
 
-local Gopper = class('Gopper', Unit)
+local Gopper = class('Gopper', Enemy)
 
 local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
     return x1 < x2+w2 and
@@ -22,7 +22,7 @@ local function nop() --[[print "nop"]] end
 function Gopper:initialize(name, sprite, input, x, y, shader, color)
     self.tx, self.ty = x, y
     self.move = tween.new(0.01, self, {tx = x, ty = y})
-    Unit.initialize(self, name, sprite, input, x, y, shader, color)
+    Enemy.initialize(self, name, sprite, input, x, y, shader, color)
     self:pickAttackTarget()
     self.type = "enemy"
     self.face = -1
@@ -73,15 +73,15 @@ function Gopper:checkCollisionAndMove(dt)
     local actualX, actualY, cols, len
     if self.state == "fall" then
         actualX, actualY, cols, len = world:move(self, self.x + stepx - 8, self.y + stepy- 4,
-            function(Unit, obj)
-                if Unit ~= obj and obj.type == "wall" then
+            function(subj, obj)
+                if subj ~= obj and obj.type == "wall" then
                     return "slide"
                 end
             end)
     else
         actualX, actualY, cols, len = world:move(self, self.tx + stepx - 8, self.ty + stepy- 4,
-            function(Unit, obj)
-                if Unit ~= obj and obj.type == "wall" then
+            function(subj, obj)
+                if subj ~= obj and obj.type == "wall" then
                     return "slide"
                 end
             end)
@@ -110,7 +110,7 @@ function Gopper:combo_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Unit.default_draw}
+Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Enemy.default_draw}
 
 --States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
 function Gopper:intro_start()
@@ -137,7 +137,7 @@ function Gopper:intro_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Gopper.intro = {name = "intro", start = Gopper.intro_start, exit = nop, update = Gopper.intro_update, draw = Unit.default_draw}
+Gopper.intro = {name = "intro", start = Gopper.intro_start, exit = nop, update = Gopper.intro_update, draw = Enemy.default_draw}
 
 function Gopper:stand_start()
     self.isHittable = true
@@ -175,7 +175,7 @@ function Gopper:stand_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Gopper.stand = {name = "stand", start = Gopper.stand_start, exit = nop, update = Gopper.stand_update, draw = Unit.default_draw}
+Gopper.stand = {name = "stand", start = Gopper.stand_start, exit = nop, update = Gopper.stand_update, draw = Enemy.default_draw}
 
 function Gopper:walk_start()
     self.isHittable = true
@@ -265,6 +265,6 @@ function Gopper:walk_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Gopper.walk = {name = "walk", start = Gopper.walk_start, exit = nop, update = Gopper.walk_update, draw = Unit.default_draw}
+Gopper.walk = {name = "walk", start = Gopper.walk_start, exit = nop, update = Gopper.walk_update, draw = Enemy.default_draw}
 
 return Gopper

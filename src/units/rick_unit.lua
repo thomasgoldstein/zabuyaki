@@ -8,7 +8,7 @@
 
 local class = require "lib/middleclass"
 
-local Rick = class('Rick', Unit)
+local Rick = class('Rick', Character)
 
 local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
     return x1 < x2+w2 and
@@ -20,7 +20,7 @@ end
 local function nop() --[[print "nop"]] end
 
 function Rick:initialize(name, sprite, input, x, y, shader, color)
-    Unit.initialize(self, name, sprite, input, x, y, shader, color)
+    Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "player"
 end
 
@@ -55,6 +55,6 @@ function Rick:combo_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Unit.default_draw}
+Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Character.default_draw}
 
 return Rick

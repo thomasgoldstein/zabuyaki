@@ -59,6 +59,8 @@ function love.load(arg)
 	Effect = require "src/units/effect"
 	Entity = require "src/entity"
 	Unit = require "src/units/unit"
+	Character = require "src/units/character"
+	Enemy = require "src/units/enemy"
 	Rick = require "src/units/rick_unit"
 	Chai = require "src/units/chai_unit"
 	Kisa = require "src/units/kisa_unit"
