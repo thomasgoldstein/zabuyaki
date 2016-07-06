@@ -21,7 +21,7 @@ function arcadeState:enter(_, players)
         player1 = players[1].hero:new(players[1].name,
             GetInstance(players[1].sprite_instance),
             Control1,
-            190, 180,
+            90, 180,
             players[1].shader,
             {255,255,255, 255})
     end
@@ -31,10 +31,10 @@ function arcadeState:enter(_, players)
         player2 = players[2].hero:new(players[2].name,
             GetInstance(players[2].sprite_instance),
             Control2,
-            240, 200,
+            60, 200,
             players[2].shader)
-        player2.horizontal = -1
-        player2.face = -1
+        --player2.horizontal = -1
+        --player2.face = -1
     end
     GLOBAL_UNIT_ID = 3  --recalc players IDs for proper life bar coords
     if players[3] then
@@ -42,7 +42,7 @@ function arcadeState:enter(_, players)
         player3 = players[3].hero:new(players[3].name,
             GetInstance(players[3].sprite_instance),
             Control3,
-            220, 200-30,
+            120, 160,
             players[3].shader,
             {255,255,255, 255})
     end
@@ -61,10 +61,16 @@ function arcadeState:enter(_, players)
     local gopper6 = Gopper:new("GOPPER6", GetInstance("src/def/char/gopper.lua"), button3, 1525, 200-4, nil, {255,255,255, 255})
     gopper6:setToughness(5)
 
-    local dummy4 = Rick:new("Dummie4", GetInstance("src/def/char/rick.lua"), button3, 780, 180, shaders.rick[4], {255,255,255, 255})
+    local dummy4 = Rick:new("Dummie4", GetInstance("src/def/char/rick.lua"), button3, 260, 170, shaders.rick[4], {255,255,255, 255})
     dummy4:setToughness(5)
+    dummy4.horizontal = -1
+    dummy4.face = -1
+    local dummy5 = Chai:new("Dummie5", GetInstance("src/def/char/chai.lua"), button3, 220, 200, shaders.chai[3], {255,255,255, 255})
+    dummy5:setToughness(5)
+    dummy5.horizontal = -1
+    dummy5.face = -1
 
-    local dummy5 = Temper:new("TEMPER", GetInstance("src/def/char/rick.lua"), button3, 1670, 170, shaders.rick[5], {255,255,255, 255})
+    local temper1 = Temper:new("TEMPER", GetInstance("src/def/char/rick.lua"), button3, 1670, 170, shaders.rick[5], {255,255,255, 255})
 
     local niko1 = Niko:new("niko", GetInstance("src/def/char/niko.lua"), button3, 550 + love.math.random(-20,20), 204, shaders.niko[2], {255,255,255, 255})
     local niko2 = Niko:new("niko2", GetInstance("src/def/char/niko.lua"), button3, 1510 + love.math.random(-20,20), 184, nil, {255,255,255, 255})
@@ -89,6 +95,7 @@ function arcadeState:enter(_, players)
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
         niko1, niko2, niko3, niko4, niko5, niko6,
         dummy4, dummy5,
+        temper1,
         item1, item2, item3
     })
     if player1 then
