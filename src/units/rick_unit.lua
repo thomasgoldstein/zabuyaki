@@ -22,6 +22,10 @@ local function nop() --[[print "nop"]] end
 function Rick:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "player"
+    self.max_hp = 100
+    self.hp = self.max_hp
+    self.infoBar = InfoBar:new(self)
+    self.victim_infoBar = nil
 end
 
 function Rick:combo_start()
