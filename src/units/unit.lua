@@ -862,6 +862,13 @@ function Unit:duck2jump_update(dt)
 	--	print (self.name.." - duck2jump update",dt)
 	if self.sprite.isFinished then
 		self:setState(self.jump)
+		--start jump dust clouds
+		local padust = PA_DUST_JUMP_START:clone()
+		--padust:setDirection( 3.14 )
+		--padust:setPosition( -20, 0 )
+		psystem:setLinearAcceleration(-self.face * (self.velx + 10) , -150, -self.face * (self.velx + 300), -700) -- Random movement in all directions.
+		padust:emit(5)
+		level_objects:add(Effect:new(padust, self.x, self.y-1))
 		return
 	end
 	--self:calcFriction(dt)
