@@ -41,8 +41,9 @@ psystem = PA_DUST_STEPS:clone()
 psystem:setEmitterLifetime(1)
 psystem:setParticleLifetime(0.5, 0.95) -- Particles live at least 2s and at most 5s.
 psystem:setSizes(0.15, 0.53)
-psystem:setAreaSpread( "uniform", 4, 16 )
-psystem:setPosition( 0, -16 )
+--psystem:setAreaSpread( "uniform", 4, 16 )
+--psystem:setPosition( 0, -16 )
+psystem:setPosition( 0, 0 )
 --psystem:setLinearAcceleration(-10, 10, 10, -200) -- Random movement in all directions.
 PA_DUST_JUMP_START = psystem
 

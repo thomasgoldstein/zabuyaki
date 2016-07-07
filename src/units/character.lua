@@ -354,16 +354,16 @@ function Character:duck_start()
     --self.victims = {}
     self.z = 0
     --landing dust clouds
-    local padust = PA_DUST_LANDING:clone()
-    padust:setLinearAcceleration(150, 1, 300, -35)
-    padust:setDirection( 0 )
-    padust:setPosition( 20, 0 )
-    padust:emit(5)
-    padust:setLinearAcceleration(-150, 1, -300, -35)
-    padust:setDirection( 3.14 )
-    padust:setPosition( -20, 0 )
-    padust:emit(5)
-    level_objects:add(Effect:new(padust, self.x, self.y+2))
+    local psystem = PA_DUST_LANDING:clone()
+    psystem:setLinearAcceleration(150, 1, 300, -35)
+    psystem:setDirection( 0 )
+    psystem:setPosition( 20, 0 )
+    psystem:emit(5)
+    psystem:setLinearAcceleration(-150, 1, -300, -35)
+    psystem:setDirection( 3.14 )
+    psystem:setPosition( -20, 0 )
+    psystem:emit(5)
+    level_objects:add(Effect:new(psystem, self.x, self.y+2))
 end
 function Character:duck_update(dt)
     --	print (self.name.." - duck update",dt)
@@ -384,17 +384,23 @@ function Character:duck2jump_start()
     SetSpriteAnim(self.sprite,"duck")
     self.z = 0
 end
+local function sign(x)
+    return x>0 and 1 or x<0 and -1 or 0
+end
 function Character:duck2jump_update(dt)
     --	print (self.name.." - duck2jump update",dt)
     if self.sprite.isFinished then
         self:setState(self.jump)
         --start jump dust clouds
-        local padust = PA_DUST_JUMP_START:clone()
-        --padust:setDirection( 3.14 )
-        --padust:setPosition( -20, 0 )
-        psystem:setLinearAcceleration(-self.face * (self.velx + 10) , -150, -self.face * (self.velx + 300), -700) -- Random movement in all directions.
-        padust:emit(5)
-        level_objects:add(Effect:new(padust, self.x, self.y-1))
+        local psystem = PA_DUST_JUMP_START:clone()
+        psystem:setAreaSpread( "uniform", 16, 4 )
+        psystem:setLinearAcceleration(-30 , 10, 30, -10)
+        psystem:emit(6)
+        psystem:setAreaSpread( "uniform", 4, 16 )
+        psystem:setPosition( 0, -16 )
+        psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
+        psystem:emit(5)
+        level_objects:add(Effect:new(psystem, self.x, self.y-1))
         return
     end
     --self:calcFriction(dt)
@@ -648,9 +654,9 @@ function Character:fall_update(dt)
             sfx.play("fall", 1 - self.flag_fallen)
             self.flag_fallen = self.flag_fallen + 0.3
             --landing dust clouds
-            local padust = PA_DUST_FALLING:clone()
-            padust:emit(25)
-            level_objects:add(Effect:new(padust, self.x + self.horizontal * 20, self.y+3))
+            local psystem = PA_DUST_FALLING:clone()
+            psystem:emit(20)
+            level_objects:add(Effect:new(psystem, self.x + self.horizontal * 20, self.y+3))
             return
             else
                 --final fall (no bouncing)
