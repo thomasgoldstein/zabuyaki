@@ -3,7 +3,7 @@
 --
 local img = love.graphics.newImage("res/img/misc/particles.png")
 local image_w = 138
-local image_h = 60
+local image_h = 70
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
@@ -109,7 +109,7 @@ psystem = love.graphics.newParticleSystem( img, 32 )
 psystem:setPosition( 0, -16 )
 psystem:setOffset( 15, 15 )
 psystem:setParticleLifetime(0.1, 0.2) -- Particles live at least 2s and at most 5s.
-psystem:setSizeVariation(1)
+--psystem:setSizeVariation(1)
 psystem:setSizes(1, 1.2)
 psystem:setColors(255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0) -- Fade to transparency.
 psystem:setQuads( im_quad1, im_quad2 )
@@ -119,7 +119,7 @@ psystem = love.graphics.newParticleSystem( img, 4 )
 psystem:setPosition( 0, -40 )
 psystem:setOffset( 15, 15 )
 psystem:setParticleLifetime(0.2, 0.3) -- Particles live at least 2s and at most 5s.
-psystem:setSizeVariation(1)
+--psystem:setSizeVariation(1)
 psystem:setSizes(1, 1.1)
 psystem:setColors(255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0) -- Fade to transparency.
 psystem:setQuads( im_quad2, im_quad3, im_quad4 )
