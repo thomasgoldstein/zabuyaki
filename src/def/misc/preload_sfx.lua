@@ -23,16 +23,16 @@ SFX.load("menu_cancel","res/sfx/menu_cancel.wav", 0.5)
 SFX.load("menu_move","res/sfx/menu_move.wav", 0.5)
 SFX.load("menu_gamestart","res/sfx/menu_gamestart.wav", 0.2)
 
-SFX.load("step","res/sfx/step.wav", 0.5)
-SFX.load("air","res/sfx/attack1.wav", 0.5)
-SFX.load("pickup1","res/sfx/pickup1.wav", 1)
-SFX.load("pickup2","res/sfx/pickup2.wav", 1)
+SFX.load("step","res/sfx/tmp/step.wav", 0.5)
+SFX.load("air","res/sfx/tmp/attack1.wav", 0.5)
+SFX.load("pickup1","res/sfx/tmp/pickup1.wav", 1)
+SFX.load("pickup2","res/sfx/tmp/pickup2.wav", 1)
 
-SFX.load("hit","res/sfx/hit3.wav", 0.5)
-SFX.load("jump","res/sfx/jump.wav", 1)
-SFX.load("land","res/sfx/land.wav", 1)
-SFX.load("fall","res/sfx/fall.wav", 1)
-SFX.load("grunt1","res/sfx/grunt1.wav", 1)
+SFX.load("hit","res/sfx/tmp/hit3.wav", 0.5)
+SFX.load("jump","res/sfx/tmp/jump.wav", 1)
+SFX.load("land","res/sfx/tmp/land.wav", 1)
+SFX.load("fall","res/sfx/tmp/fall.wav", 1)
+SFX.load("grunt1","res/sfx/tmp/grunt1.wav", 1)
 
 --[[local f2 = function() SFX.play("hit2",1,f3) end
 local f3 = function() SFX.play("hit3") end]]
