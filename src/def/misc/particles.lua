@@ -83,12 +83,13 @@ PA_DUST_STEPS_ORIG = psystem]]
 
 psystem = psystem:clone()
 psystem:setEmitterLifetime(1.5)
-psystem:setSizes(0.2, 0.7)
+--psystem:setSizes(0.2, 0.7)
+psystem:setSizes(0.15, 0.45)
 psystem:setColors(135,115,105, 150, 135,115,105, 100, 135,115,105, 10, 135,115,105, 5) -- Fade to transparency.
 psystem:setParticleLifetime(0.5, 1.3) -- Particles live at least 2s and at most 5s.
 psystem:setLinearAcceleration(-500, -20, 500, -100) -- Random movement in all directions.
 psystem:setLinearDamping( 10, 50 )
-psystem:setAreaSpread( "uniform", 30, 8 )
+psystem:setAreaSpread( "uniform", 30, 4 )
 psystem:setPosition( 0, -2 )
 PA_DUST_FALLING = psystem
 
