@@ -155,10 +155,15 @@ function arcadeState:update(dt)
 
     if GLOBAL_SETTING.DEBUG then
         fancy.watch("FPS", love.timer.getFPS())
-
         fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
---        fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
-
+        if player2 then
+            fancy.watch("P2 y: ",player2.y, 3)
+            fancy.watch("P2 state: ",player2.state, 2)
+        end
+        if player3 then
+            fancy.watch("P3 y: ",player3.y, 3)
+            fancy.watch("P3 state: ",player3.state, 2)
+        end
         if player1 then
             fancy.watch("P1 y: ",player1.y, 3)
             fancy.watch("Player state: ",player1.state, 2)
@@ -168,13 +173,6 @@ function arcadeState:update(dt)
             fancy.watch("Velocity X: ",player1.velx, 2)
             fancy.watch("Z: ",player1.z, 3)
         end
-        if player2 then
-            xfancy.watch("P2 y: ",player2.y, 3)
-        end
-        if player3 then
-            fancy.watch("P3 y: ",player3.y, 3)
-        end
-
     end
 end
 
@@ -238,6 +236,7 @@ function arcadeState:keypressed(k, unicode)
         level_objects:print()
     end
     if GLOBAL_SETTING.DEBUG then
+        fancy.key(k)
         if k == '1' then
             mainCamera:setScale(1)
         elseif k == '2' then
