@@ -141,13 +141,19 @@ function love.draw()
 end
 
 function love.keypressed(key, unicode)
+	fancy.key(key)
 end
 
 function love.keyreleased(key, unicode)
 end
 
 function love.mousepressed(x, y, button)
+	fancy.mouse(button)
 end
 
 function love.mousereleased(x, y, button)
+end
+
+function love.wheelmoved( dx, dy )
+	fancy.wheel(dy)
 end
