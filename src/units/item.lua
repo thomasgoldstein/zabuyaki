@@ -92,10 +92,12 @@ function Item:get(taker)
     if self.func then    --run custom function if there is
         self:func(taker)
     end
-    if self.hp > self.score then
-        sfx.play("pickup1")
+    if self.name == "Apple" then
+        sfx.play("pickup_apple")
+    elseif self.name == "Chicken" then
+        sfx.play("pickup_chicken")
     else
-        sfx.play("pickup2")
+        sfx.play("pickup_beef")
     end
     taker.hp = taker.hp + self.hp
     if taker.hp > taker.max_hp then
