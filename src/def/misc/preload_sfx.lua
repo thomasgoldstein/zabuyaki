@@ -4,7 +4,13 @@
 
 local SFX = {}
 SFX.play = function(alias, volume, func)
-    local s = SFX[alias]
+    local s
+    if type(alias) == "table" then
+        s = SFX[alias[love.math.random(1,#alias)]]
+    else
+        s = SFX[alias]
+    end
+    --print(s.src)
     TEsound.play(s.src, "sfx", s.volume * (volume or 1), s.pitch, func)
 end
 
@@ -25,8 +31,10 @@ SFX.load("menu_gamestart","res/sfx/menu_gamestart.wav", 0.2)
 
 SFX.load("step","res/sfx/tmp/step.wav", 0.5)
 SFX.load("air","res/sfx/tmp/attack1.wav", 0.5)
-SFX.load("pickup1","res/sfx/tmp/pickup1.wav", 1)
-SFX.load("pickup2","res/sfx/tmp/pickup2.wav", 1)
+
+SFX.load("pickup_apple","res/sfx/pickup_apple.wav", 1)
+SFX.load("pickup_chicken","res/sfx/pickup_chicken.wav", 1)
+SFX.load("pickup_beef","res/sfx/pickup_beef.wav", 1)
 
 SFX.load("hit","res/sfx/tmp/hit3.wav", 0.5)
 SFX.load("jump","res/sfx/tmp/jump.wav", 1)
@@ -34,9 +42,21 @@ SFX.load("land","res/sfx/tmp/land.wav", 1)
 SFX.load("fall","res/sfx/tmp/fall.wav", 1)
 SFX.load("grunt1","res/sfx/tmp/grunt1.wav", 1)
 
+SFX.load("punch1","res/sfx/punch1.wav", 1)
+SFX.load("punch2","res/sfx/punch2.wav", 1)
+SFX.load("punch3","res/sfx/punch3.wav", 1)
+SFX.load("punch4","res/sfx/punch4.wav", 1)
+SFX.load("punch5","res/sfx/punch5.wav", 1)
+SFX.load("punch6","res/sfx/punch6.wav", 1)
+SFX.punches = {"punch1","punch2","punch3","punch4","punch5","punch6" }
+
+--rick_jump.wav
+--rick_throw.wav
+
 --[[local f2 = function() SFX.play("hit2",1,f3) end
 local f3 = function() SFX.play("hit3") end]]
 
 --SFX.play("hit")
+--SFX.play({"hit1","boom3"})
 
 return SFX
