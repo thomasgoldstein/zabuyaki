@@ -414,7 +414,7 @@ function Character:hurtHigh_start()
     self.isHittable = true
     --	print (self.name.." - hurtHigh start")
     SetSpriteAnim(self.sprite,"hurtHigh")
-    sfx.play("hit")
+    sfx.play(sfx.punches) -- hit sound
 end
 function Character:hurtHigh_update(dt)
     --	print (self.name.." - hurtHigh update",dt)
@@ -443,7 +443,7 @@ function Character:hurtLow_start()
     self.isHittable = true
     --	print (self.name.." - hurtLow start")
     SetSpriteAnim(self.sprite,"hurtLow")
-    sfx.play("hit")
+    sfx.play(sfx.punches) -- hit sound
 end
 function Character:hurtLow_update(dt)
     --	print (self.name.." - hurtLow update",dt)

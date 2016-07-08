@@ -314,10 +314,10 @@ function Unit:onHurt()
         -- calc falling traectorym speed, direction
         if h.type == "grabKO" then
             self.velx = 110
-            sfx.play("hit") -- hitKO sound
+            sfx.play(sfx.punches) -- hitKO sound
         else
             self.velx = h.velx
-            sfx.play("hit") -- hit sound
+            sfx.play(sfx.punches) -- hit sound
         end
         --		self.horizontal = h.source.horizontal
         if h.source.velx > 0 then
