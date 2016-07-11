@@ -154,11 +154,11 @@ function optionsState:mousepressed( x, y, button, istouch )
         if menu_state == 1 then
             sfx.play("menu_select")
             SetSpriteAnim(rick_spr,"hurtHigh")
-            if GLOBAL_SETTING.BGM_VOLUME == 1 then
+            if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 GLOBAL_SETTING.BGM_VOLUME = 0
                 txt_items[1] = txt_option1a
             else
-                GLOBAL_SETTING.BGM_VOLUME = 1
+                GLOBAL_SETTING.BGM_VOLUME = 0.75
                 txt_items[1] = txt_option1
             end
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
