@@ -41,6 +41,10 @@ SFX.load("jump","res/sfx/tmp/jump.wav", 1)
 SFX.load("land","res/sfx/tmp/land.wav", 1)
 SFX.load("fall","res/sfx/tmp/fall.wav", 1)
 SFX.load("grunt1","res/sfx/tmp/grunt1.wav", 1)
+SFX.load("grunt2","res/sfx/tmp/grunt2.wav", 1)
+SFX.load("grunt3","res/sfx/tmp/grunt3.wav", 1)
+SFX.load("grunt4","res/sfx/tmp/grunt4.wav", 1)
+SFX.load("grunt5","res/sfx/tmp/grunt5.wav", 1)
 
 SFX.load("punch1","res/sfx/punch1.wav", 1)
 SFX.load("punch2","res/sfx/punch2.wav", 1)
@@ -50,8 +54,8 @@ SFX.load("punch5","res/sfx/punch5.wav", 1)
 SFX.load("punch6","res/sfx/punch6.wav", 1)
 SFX.punches = {"punch1","punch2","punch3","punch4","punch5","punch6" }
 
---rick_jump.wav
---rick_throw.wav
+SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
+SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
 
 --[[local f2 = function() SFX.play("hit2",1,f3) end
 local f3 = function() SFX.play("hit3") end]]
