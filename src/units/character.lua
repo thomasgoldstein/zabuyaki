@@ -10,6 +10,11 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     Unit.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "character"
 
+    self.sfx.jump = "jump"
+    self.sfx.throw = "air"
+    self.sfx.dash = "grunt3"
+    self.sfx.jump_attack = "grunt1"
+    self.sfx.dead = "grunt3"
 --    self.infoBar = InfoBar:new(self)
 --    self.victim_infoBar = nil
 end
@@ -273,7 +278,7 @@ function Character:jump_start()
     if self.vely ~= 0 then
         self.vely = self.vely + 5 --make jump little faster than the walk/run speed
     end
-    sfx.play("jump")
+    sfx.play(self.sfx.jump)
 end
 function Character:jump_update(dt)
     --	print (self.name.." - jump update",dt)
@@ -525,7 +530,7 @@ function Character:dash_start()
     self.velx = 150
     self.vely = 0
     self.velz = 0
-    sfx.play("jump")
+    sfx.play(self.sfx.dash)    --TODO add dash sound
 end
 function Character:dash_update(dt)
     if self.sprite.isFinished then
@@ -543,6 +548,7 @@ function Character:jumpAttackForward_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackForward start")
     SetSpriteAnim(self.sprite,"jumpAttackForward")
+    sfx.play(self.sfx.jump_attack)
 end
 function Character:jumpAttackForward_update(dt)
     --	print (self.name.." - jumpAttackForward update",dt)
@@ -566,6 +572,7 @@ function Character:jumpAttackWeak_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackWeak start")
     SetSpriteAnim(self.sprite,"jumpAttackWeak")
+    sfx.play(self.sfx.jump_attack)
 end
 function Character:jumpAttackWeak_update(dt)
     --	print (self.name.." - jumpAttackWeak update",dt)
@@ -589,6 +596,7 @@ function Character:jumpAttackStill_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackStill start")
     SetSpriteAnim(self.sprite,"jumpAttackStill")
+    sfx.play(self.sfx.jump_attack)
 end
 function Character:jumpAttackStill_update(dt)
     --	print (self.name.." - jumpAttackStill update",dt)
@@ -621,11 +629,9 @@ function Character:fall_start()
         self.z = 0
     end
     self.flag_fallen = 0
-    --sfx.play("hit")
 end
 function Character:fall_update(dt)
     --print(self.name .. " - fall update", dt)
-    --self.isThrown and
     if self.sprite.cur_anim == "thrown"
             and self.sprite.isFinished then
         SetSpriteAnim(self.sprite,"fall")
@@ -730,7 +736,7 @@ function Character:dead_start()
         self.z = 0
     end
     self:onShake(1, 0, 0.1, 0.7)
-    sfx.play("grunt1")
+    sfx.play(self.sfx.dead)
     --TODO dead event
 end
 function Character:dead_update(dt)
@@ -1109,7 +1115,7 @@ function Character:grabThrow_update(dt)
         t.face = 1
     end
     t:setState(self.fall)
-    sfx.play("jump") --TODO add throw sound
+    sfx.play(self.sfx.throw) --TODO add throw sound
     return
     end
     if self.sprite.isFinished then

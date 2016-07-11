@@ -42,7 +42,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
     self.cool_down_combo = 0    -- can cont combo
     self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
 	self.shader = shader  --change player colors
-
+    self.sfx = {}
 	self.isHittable = false
 	self.isGrabbed = false
 	self.cool_down_grab = 2

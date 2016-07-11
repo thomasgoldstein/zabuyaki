@@ -26,6 +26,12 @@ function Rick:initialize(name, sprite, input, x, y, shader, color)
     self.hp = self.max_hp
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
+
+    self.sfx.jump = "rick_jump"
+    self.sfx.throw = "rick_throw"
+    self.sfx.jump_attack = "rick_throw"
+--    self.sfx.dash = "jump"
+    self.sfx.dead = "grunt5"
 end
 
 function Rick:combo_start()
