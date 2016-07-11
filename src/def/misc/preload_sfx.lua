@@ -55,7 +55,9 @@ SFX.load("punch6","res/sfx/punch6.wav", 1)
 SFX.punches = {"punch1","punch2","punch3","punch4","punch5","punch6" }
 
 SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
+SFX.load("rick_jump2","res/sfx/rick_jump2.wav", 1)
 SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
+SFX.load("rick_throw2","res/sfx/rick_throw2.wav", 1)
 
 --[[local f2 = function() SFX.play("hit2",1,f3) end
 local f3 = function() SFX.play("hit3") end]]
