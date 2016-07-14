@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 401 --after the image has been loaded
+local image_h = 464 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -107,9 +107,9 @@ return {
 			delay = 0.15
 		},
 		pickup = {
-			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
-			{ q = q(48,398,43,58), ox = 21, oy = 57, delay = 0.2 }, --pickup 2
-			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
+			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
+			{ q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.2 }, --pickup 2
+			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
 			delay = 0.05
 		},
 		dash = {
@@ -159,8 +159,8 @@ return {
 		getup = {
 			{ q = q(64,487,69,30), ox = 40, oy = 29, delay = 1.2 }, --lying down
 			{ q = q(135,464,56,53), ox = 28, oy = 52 }, --getting up
-			{ q = q(48,398,43,58), ox = 21, oy = 57 }, --pickup 2
-			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
+			{ q = q(43,404,39,58), ox = 23, oy = 57 }, --pickup 2
+			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
 			delay = 0.2
 		},
 		fallen = {
