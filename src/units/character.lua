@@ -13,6 +13,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.sfx.jump = "jump"
     self.sfx.throw = "air"
     self.sfx.dash = "grunt3"
+    self.sfx.grab = "rick_grab2"
     self.sfx.jump_attack = "grunt1"
     self.sfx.dead = "grunt3"
 --    self.infoBar = InfoBar:new(self)
@@ -873,6 +874,7 @@ function Character:grab_start()
     self.can_fire = false
     self.grab_release = 0
     self.victims = {}
+    sfx.play(self.sfx.grab)
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabing someone.")
     end
@@ -1121,6 +1123,7 @@ function Character:grabThrow_update(dt)
     if self.sprite.isFinished then
         self.cool_down = 0.2
         self:setState(self.stand)
+        sfx.play("after_throw_flight")
         return
     end
     self:calcFriction(dt)
