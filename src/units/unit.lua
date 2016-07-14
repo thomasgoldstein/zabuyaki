@@ -412,7 +412,7 @@ function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx1)
             x = self.x, y = self.y, z = z or self.z}
     end
     if sfx1 then	--TODO 2 SFX for holloow and hit
-    sfx.play(sfx1)
+        sfx.play(sfx1)
     end
 end
 
