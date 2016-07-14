@@ -38,8 +38,9 @@ SFX.load("pickup_beef","res/sfx/pickup_beef.wav", 1)
 
 SFX.load("hit","res/sfx/tmp/hit3.wav", 0.5)
 SFX.load("jump","res/sfx/tmp/jump.wav", 1)
-SFX.load("land","res/sfx/tmp/land.wav", 1)
-SFX.load("fall","res/sfx/tmp/fall.wav", 1)
+SFX.load("land","res/sfx/tmp/land.wav", 0.5)
+--SFX.load("fall","res/sfx/tmp/fall.wav", 1)
+SFX.load("fall","res/sfx/fall_down.wav", 1)
 SFX.load("grunt1","res/sfx/tmp/grunt1.wav", 1)
 SFX.load("grunt2","res/sfx/tmp/grunt2.wav", 1)
 SFX.load("grunt3","res/sfx/tmp/grunt3.wav", 1)
@@ -56,8 +57,11 @@ SFX.punches = {"punch1","punch2","punch3","punch4","punch5","punch6" }
 
 SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
 SFX.load("rick_jump2","res/sfx/rick_jump2.wav", 1)
-SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
+--SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
 SFX.load("rick_throw2","res/sfx/rick_throw2.wav", 1)
+SFX.load("rick_throw3","res/sfx/rick_throw3.wav", 1)
+SFX.load("rick_grab2","res/sfx/rick_grab2.wav", 1)
+SFX.load("after_throw_flight","res/sfx/after_throw_flight.wav", 1)
 
 --[[local f2 = function() SFX.play("hit2",1,f3) end
 local f3 = function() SFX.play("hit3") end]]
