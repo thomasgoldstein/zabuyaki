@@ -28,9 +28,10 @@ function Rick:initialize(name, sprite, input, x, y, shader, color)
     self.victim_infoBar = nil
 
     self.sfx.jump = "rick_jump2"
-    self.sfx.throw = "rick_throw2"
+    self.sfx.throw = "rick_throw3"
     self.sfx.jump_attack = "rick_throw2"
     self.sfx.dash = "rick_throw2"
+    self.sfx.grab = "rick_grab2"
     self.sfx.dead = "grunt5"
 end
 
