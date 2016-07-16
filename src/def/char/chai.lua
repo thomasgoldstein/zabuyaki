@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 464 --after the image has been loaded
+local image_h = 521 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -148,23 +148,23 @@ return {
 			delay = 0.06
 		},
 		fall = {
-			{ q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
+			{ q = q(2,464,65,55), ox = 32, oy = 54 }, --falling
 			delay = 5
 		},
 		thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-			{ q = q(2,458,60,59), ox = 30, oy = 58, rotate = -1.57, rx = 29, ry = -30 }, --falling
+			{ q = q(2,464,65,55), ox = 32, oy = 54, rotate = -1.57, rx = 29, ry = -30 }, --falling
 			delay = 5
 		},
 		getup = {
-			{ q = q(64,487,69,30), ox = 40, oy = 29, delay = 1.2 }, --lying down
-			{ q = q(135,464,56,53), ox = 28, oy = 52 }, --getting up
+			{ q = q(69,489,67,29), ox = 33, oy = 28, delay = 1.2 }, --lying down
+			{ q = q(138,466,56,53), ox = 28, oy = 51 }, --getting up
 			{ q = q(43,404,39,58), ox = 23, oy = 57 }, --pickup 2
 			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
 			delay = 0.2
 		},
 		fallen = {
-			{ q = q(64,487,69,30), ox = 40, oy = 29 }, --lying down
+			{ q = q(69,489,67,29), ox = 33, oy = 28 }, --lying down
 			delay = 65
 		},
 		hurtHigh = {
