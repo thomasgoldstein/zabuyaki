@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 586 --after the image has been loaded
+local image_h = 587 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -124,27 +124,27 @@ return {
 			delay = 0.16
 		},
 		combo1 = {
-			{ q = q(2,521,56,63), ox = 23, oy = 62, func = footJab_move }, --c1.1
-			{ q = q(60,521,66,63), ox = 24, oy = 62, func = combo_attack1, delay = 0.1 }, --c1.2
-			{ q = q(2,521,56,63), ox = 23, oy = 62, func = footJab_move }, --c1.1
+			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move }, --c1.1
+			{ q = q(60,521,66,64), ox = 24, oy = 63, func = combo_attack1, delay = 0.1 }, --c1.2
+			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move }, --c1.1
 			delay = 0.04
 		},
 		combo2 = {
-			{ q = q(2,521,56,63), ox = 23, oy = 62 }, --c1.1
-			{ q = q(60,521,66,63), ox = 24, oy = 62, func = combo_attack2, delay = 0.1 }, --c1.2
-			{ q = q(2,521,56,63), ox = 23, oy = 62 }, --c1.1
+			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
+			{ q = q(60,521,66,64), ox = 24, oy = 63, func = combo_attack2, delay = 0.1 }, --c1.2
+			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
 			delay = 0.04
 		},
 		combo3 = {
-			{ q = q(2,521,56,63), ox = 23, oy = 62 }, --c1.1
-			{ q = q(60,521,66,63), ox = 24, oy = 62, func = combo_attack2, delay = 0.1 }, --c1.2
-			{ q = q(2,521,56,63), ox = 23, oy = 62 }, --c1.1
+			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
+			{ q = q(60,521,66,64), ox = 24, oy = 63, func = combo_attack2, delay = 0.1 }, --c1.2
+			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
 			delay = 0.04
 		},
 		combo4 = {
-			{ q = q(2,521,56,63), ox = 23, oy = 62 }, --c1.1
-			{ q = q(60,521,66,63), ox = 24, oy = 62, func = combo_attack2, delay = 0.1 }, --c1.2
-			{ q = q(2,521,56,63), ox = 23, oy = 62 }, --c1.1
+			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
+			{ q = q(60,521,66,64), ox = 24, oy = 63, func = combo_attack2, delay = 0.1 }, --c1.2
+			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
 			delay = 0.04
 		},
 		fall = {
