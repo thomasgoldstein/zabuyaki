@@ -125,7 +125,7 @@ return {
 		},
 		combo1 = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move }, --c1.1
-			{ q = q(60,521,65,64), ox = 24, oy = 63, funcCont = combo_attack1, delay = 0.1 }, --c1.2
+			{ q = q(60,521,65,64), ox = 24, oy = 63, func = combo_attack1, delay = 0.1 }, --c1.2
 			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move }, --c1.1
 			delay = 0.04
 		},
