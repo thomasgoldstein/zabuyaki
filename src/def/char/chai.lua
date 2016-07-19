@@ -20,24 +20,24 @@ local grabLast_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 1
 local grabEnd_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
 local footJab_move = function(self) self.x = self.x + self.horizontal end -- Chai's foot jab makes him move forward
 local combo_attack1 = function(slf)
-	slf:checkAndAttack(31,0, 22,12, 7, "low", "air")
+	slf:checkAndAttack(32,0, 22,12, 7, "low", "air")
 	footJab_move(slf)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf)
-	slf:checkAndAttack(31,0, 22,12, 8, "low", "air")
+	slf:checkAndAttack(32,0, 22,12, 8, "low", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf)
-	slf:checkAndAttack(31,0, 22,12, 9, "low", "air")
+	slf:checkAndAttack(32,0, 22,12, 9, "low", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf)
-	slf:checkAndAttack(31,0, 22,12, 7, "low", "air")
+	slf:checkAndAttack(32,0, 22,12, 7, "low", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack5 = function(slf)
-	slf:checkAndAttack(31,0, 22,12, 8, "fall", nil, true)	-- clear victims
+	slf:checkAndAttack(32,0, 22,12, 8, "fall", nil, true)	-- clear victims
 	slf.cool_down_combo = 0.4
 end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
