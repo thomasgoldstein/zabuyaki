@@ -23,19 +23,23 @@ local combo_attack1 = function(slf)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 8, "high", "air")
+	slf:checkAndAttack(30,0, 23,12, 8, "high", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 9, "high", "air")
+	slf:checkAndAttack(30,0, 23,12, 10, "low", "air")
 	slf.cool_down_combo = 0.4
 end
-local combo_attack4 = function(slf)
-	slf:checkAndAttack(30,0, 10,12, 7, "low", "air")
+local combo_attack4a = function(slf)
+	slf:checkAndAttack(30,0, 42,12, 15, "fall", nil, true)	-- clear victims
 	slf.cool_down_combo = 0.4
 end
-local combo_attack5 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 8, "fall", nil, true)	-- clear victims
+local combo_attack4b = function(slf)
+	slf:checkAndAttack(22,0, 30,12, 15, "fall", nil, true)	-- clear victims
+	slf.cool_down_combo = 0.4
+end
+local combo_attack4c = function(slf)
+	slf:checkAndAttack(15,0, 23,12, 15, "fall", nil, true)	-- clear victims
 	slf.cool_down_combo = 0.4
 end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
@@ -58,7 +62,7 @@ return {
 	--  mySprite.animations["idle"][1], or even
 	animations = {
 		icon  = {
-			{ q = q(45, 598, 32, 24) }
+			{ q = q(57, 600, 32, 24) }
 		},
 		intro = {
 			{ q = q(48,398,43,58), ox = 21, oy = 57 }, --pickup 2
@@ -122,30 +126,32 @@ return {
 			delay = 0.16
 		},
 		combo1 = {
-			{ q = q(2,519,48,63), ox = 22, oy = 62 }, --p1.1
-			{ q = q(52,519,63,63), ox = 22, oy = 62, func = combo_attack1, delay = 0.06 }, --p1.2
-			{ q = q(2,519,48,63), ox = 22, oy = 62 }, --p1.1
+			{ q = q(2,519,48,63), ox = 22, oy = 62 }, --c1.1
+			{ q = q(52,519,63,63), ox = 22, oy = 62, func = combo_attack1, delay = 0.06 }, --c1.2
+			{ q = q(2,519,48,63), ox = 22, oy = 62 }, --c1.1
 			delay = 0.01
 		},
 		combo2 = {
-			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.1
-			{ q = q(159,519,60,63), ox = 18, oy = 62, func = combo_attack2, delay = 0.08 }, --p2.2
-			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.1
+			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --c2.1
+			{ q = q(159,519,60,63), ox = 18, oy = 62, func = combo_attack2, delay = 0.08 }, --c2.2
+			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --c2.1
 			delay = 0.04
 		},
 		combo3 = {
-			{ q = q(2,584,37,63), ox = 17, oy = 62 }, --p3.1
-			{ q = q(41,584,57,63), ox = 17, oy = 62, func = combo_attack3, delay = 0.1 }, --p3.2
-			{ q = q(100,584,53,63), ox = 22, oy = 62 }, --p3.3
+			{ q = q(2,584,44,63), ox = 21, oy = 62 }, --c3.1
+			{ q = q(48,586,64,61), ox = 22, oy = 60, func = combo_attack3, delay = 0.1 }, --c3.2
+			{ q = q(2,584,44,63), ox = 21, oy = 62 }, --c3.1
 			delay = 0.06
 		},
 		combo4 = {
-			{ q = q(2,649,46,62), ox = 15, oy = 62, func = combo_attack4, delay = 0.15 }, --k1.1
-			{ q = q(50,650,61,61), ox = 19, oy = 61 }, --k1.2
-			{ q = q(50,650,61,61), ox = 19, oy = 61, func = combo_attack5, delay = 0.09 }, --k1.2
-			{ q = q(113,649,49,62), ox = 14, oy = 62 }, --k1.3
-			{ q = q(164,649,42,63), ox = 16, oy = 62 }, --k1.4
-			delay = 0.06
+			{ q = q(114,584,44,62), ox = 18, oy = 61 }, --c4.1
+			{ q = q(160,584,39,62), ox = 16, oy = 61 }, --c4.2
+			{ q = q(2,649,66,62), ox = 12, oy = 61, func = combo_attack4a, delay = 0.08 }, --c4.3
+			{ q = q(70,649,51,62), ox = 13, oy = 61, func = combo_attack4b }, --c4.4
+			{ q = q(123,649,55,62), ox = 22, oy = 61, func = combo_attack4c }, --c4.5
+			{ q = q(135,714,52,62), ox = 32, oy = 61 }, --c4.6
+			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --c4.7
+			delay = 0.04
 		},
 		fall = {
 			{ q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
