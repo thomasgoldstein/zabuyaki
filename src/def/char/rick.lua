@@ -31,16 +31,13 @@ local combo_attack3 = function(slf)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4a = function(slf)
-	slf:checkAndAttack(30,0, 42,12, 15, "fall", nil, true)	-- clear victims
-	slf.cool_down_combo = 0.4
+	slf:checkAndAttack(30,0, 42,12, 15, "fall", "air")
 end
 local combo_attack4b = function(slf)
-	slf:checkAndAttack(22,0, 30,12, 15, "fall", nil, true)	-- clear victims
-	slf.cool_down_combo = 0.4
+	slf:checkAndAttack(22,0, 30,12, 15, "fall", "air")
 end
 local combo_attack4c = function(slf)
-	slf:checkAndAttack(15,0, 23,12, 15, "fall", nil, true)	-- clear victims
-	slf.cool_down_combo = 0.4
+	slf:checkAndAttack(15,0, 23,12, 15, "fall", "air")
 end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
