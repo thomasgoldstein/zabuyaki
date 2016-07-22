@@ -30,7 +30,7 @@ local combo_attack3 = function(slf)
 	slf:checkAndAttack(30,0, 23,12, 10, "low", "air")
 	slf.cool_down_combo = 0.4
 end
-local combo_attack4a = function(slf)
+local combo_attack4 = function(slf)
 	slf:checkAndAttack(30,0, 42,12, 15, "fall", "air")
 end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
@@ -137,7 +137,7 @@ return {
 		combo4 = {
 			{ q = q(114,584,44,62), ox = 18, oy = 61 }, --c4.1
 			{ q = q(160,584,39,62), ox = 16, oy = 61 }, --c4.2
-			{ q = q(2,649,66,62), ox = 12, oy = 61, func = combo_attack4a, delay = 0.15 }, --c4.3
+			{ q = q(2,649,66,62), ox = 12, oy = 61, func = combo_attack4, delay = 0.15 }, --c4.3
 			{ q = q(160,584,39,62), ox = 16, oy = 61 }, --c4.2
 			delay = 0.06
 		},
