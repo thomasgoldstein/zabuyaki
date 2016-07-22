@@ -33,12 +33,6 @@ end
 local combo_attack4a = function(slf)
 	slf:checkAndAttack(30,0, 42,12, 15, "fall", "air")
 end
-local combo_attack4b = function(slf)
-	slf:checkAndAttack(22,0, 30,12, 15, "fall", nil)
-end
-local combo_attack4c = function(slf)
-	slf:checkAndAttack(15,0, 23,12, 15, "fall", nil)
-end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end
@@ -143,12 +137,9 @@ return {
 		combo4 = {
 			{ q = q(114,584,44,62), ox = 18, oy = 61 }, --c4.1
 			{ q = q(160,584,39,62), ox = 16, oy = 61 }, --c4.2
-			{ q = q(2,649,66,62), ox = 12, oy = 61, func = combo_attack4a, delay = 0.08 }, --c4.3
-			{ q = q(70,649,51,62), ox = 13, oy = 61, func = combo_attack4b }, --c4.4
-			{ q = q(123,649,55,62), ox = 22, oy = 61, func = combo_attack4c }, --c4.5
-			{ q = q(135,714,52,62), ox = 32, oy = 61 }, --c4.6
-			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --c4.7
-			delay = 0.04
+			{ q = q(2,649,66,62), ox = 12, oy = 61, func = combo_attack4a, delay = 0.15 }, --c4.3
+			{ q = q(160,584,39,62), ox = 16, oy = 61 }, --c4.2
+			delay = 0.06
 		},
 		fall = {
 			{ q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
