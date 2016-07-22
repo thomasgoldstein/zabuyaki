@@ -15,7 +15,7 @@ local step_sfx2 = function(self)
 end
 local jump_still_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
 local jump_still_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 8, "fall", nil, true) end
-local grabHit_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
+local grabHit_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 9, "low") end
 local grabLast_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabEnd_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
 local combo_attack1 = function(slf)
@@ -42,7 +42,7 @@ end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end
-local jump_weak_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 8, "high") end
+local jump_weak_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 9, "high") end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
 
 return {
