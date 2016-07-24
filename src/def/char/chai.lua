@@ -20,24 +20,20 @@ local grabLast_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 1
 local grabEnd_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
 local footJab_move = function(self) self.x = self.x + self.horizontal end -- Chai's foot jab makes him move forward
 local combo_attack1 = function(slf)
-	slf:checkAndAttack(32,0, 22,12, 7, "low", "air")
+	slf:checkAndAttack(32,0, 22,12, 6, "low", "air")
 	footJab_move(slf)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf)
-	slf:checkAndAttack(32,0, 22,12, 8, "low", "air")
+	slf:checkAndAttack(32,0, 22,12, 10, "low", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf)
-	slf:checkAndAttack(32,0, 22,12, 9, "low", "air")
+	slf:checkAndAttack(32,0, 22,12, 10, "low", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf)
-	slf:checkAndAttack(32,0, 22,12, 7, "low", "air")
-	slf.cool_down_combo = 0.4
-end
-local combo_attack5 = function(slf)
-	slf:checkAndAttack(32,0, 22,12, 8, "fall", nil, true)	-- clear victims
+	slf:checkAndAttack(32,0, 22,12, 10, "fall", "air")
 	slf.cool_down_combo = 0.4
 end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
@@ -130,22 +126,22 @@ return {
 			delay = 0.04
 		},
 		combo2 = {
-			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack2, delay = 0.1 }, --c1.2
-			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
-			delay = 0.04
+			{ q = q(127,521,41,64), ox = 19, oy = 63 }, --c2.1
+			{ q = q(170,521,65,64), ox = 21, oy = 63, func = combo_attack2, delay = 0.133 }, --c2.2
+			{ q = q(127,521,41,64), ox = 19, oy = 63 }, --c2.1
+			delay = 0.06
 		},
 		combo3 = {
-			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack2, delay = 0.1 }, --c1.2
-			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
-			delay = 0.04
+			{ q = q(127,521,41,64), ox = 19, oy = 63 }, --c2.1
+			{ q = q(170,521,65,64), ox = 21, oy = 63, func = combo_attack3, delay = 0.133 }, --c2.2
+			{ q = q(127,521,41,64), ox = 19, oy = 63 }, --c2.1
+			delay = 0.06
 		},
 		combo4 = {
-			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack2, delay = 0.1 }, --c1.2
-			{ q = q(2,521,56,64), ox = 23, oy = 63 }, --c1.1
-			delay = 0.04
+			{ q = q(127,521,41,64), ox = 19, oy = 63 }, --c2.1
+			{ q = q(170,521,65,64), ox = 21, oy = 63, func = combo_attack4, delay = 0.133 }, --c2.2
+			{ q = q(127,521,41,64), ox = 19, oy = 63 }, --c2.1
+			delay = 0.06
 		},
 		fall = {
 			{ q = q(2,464,65,55), ox = 32, oy = 54 }, --falling
