@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 653 --after the image has been loaded
+local image_h = 790 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -33,7 +33,7 @@ local combo_attack3 = function(slf)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf)
-	slf:checkAndAttack(32,0, 22,12, 12, "fall", "air")
+	slf:checkAndAttack(32,0, 22,12, 14, "fall", "air")
 end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
@@ -132,19 +132,22 @@ return {
 		},
 		combo3 = {
 			{ q = q(127,521,41,64), ox = 19, oy = 64 }, --c2.1
-			{ q = q(2,587,43,64), ox = 19, oy = 64 }, --c3.1
-			{ q = q(47,588,72,63), ox = 21, oy = 63, func = combo_attack3, delay = 0.13 }, --c3.2
-			{ q = q(2,587,43,64), ox = 19, oy = 64, delay = 0.05 }, --c3.1
+			{ q = q(2,589,43,64), ox = 19, oy = 64 }, --c3.1
+			{ q = q(47,590,72,63), ox = 21, oy = 63, func = combo_attack3, delay = 0.13 }, --c3.2
+			{ q = q(2,589,43,64), ox = 19, oy = 64, delay = 0.05 }, --c3.1
 			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.05 }, --c2.1
 			delay = 0.03
 		},
 		combo4 = {
-			{ q = q(127,521,41,64), ox = 19, oy = 64 }, --c2.1
-			{ q = q(2,587,43,64), ox = 19, oy = 64 }, --c3.1
-			{ q = q(47,588,72,63), ox = 21, oy = 63, func = combo_attack4, delay = 0.13 }, --c3.2
-			{ q = q(2,587,43,64), ox = 19, oy = 64, delay = 0.05 }, --c3.1
-			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.05 }, --c2.1
-			delay = 0.03
+			{ q = q(121,587,45,66), ox = 15, oy = 65, delay = 0.03 }, --c4.1
+			{ q = q(168,588,50,65), ox = 13, oy = 64, delay = 0.05 }, --c4.2
+			{ q = q(2,656,49,65), ox = 14, oy = 64 }, --c4.3
+			{ q = q(53,655,59,66), ox = 14, oy = 65, func = combo_attack4 }, --c4.4
+			{ q = q(114,660,60,61), ox = 14, oy = 60, func = combo_attack4 }, --c4.5
+			{ q = q(176,660,59,61), ox = 14, oy = 60, func = combo_attack4 }, --c4.6
+			{ q = q(2,727,50,61), ox = 14, oy = 60, delay = 0.1 }, --c4.7
+			{ q = q(54,723,49,65), ox = 14, oy = 64, delay = 0.05 }, --c4.8
+			delay = 0.01
 		},
 		fall = {
 			{ q = q(2,464,65,55), ox = 32, oy = 54 }, --falling
