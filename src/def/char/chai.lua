@@ -35,6 +35,9 @@ end
 local combo_attack4 = function(slf)
 	slf:checkAndAttack(32,0, 22,12, 14, "fall", "air")
 end
+local combo_attack4_nosfx = function(slf)
+	slf:checkAndAttack(32,0, 22,12, 14, "fall", null)
+end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall") end
@@ -143,8 +146,8 @@ return {
 			{ q = q(168,588,50,65), ox = 13, oy = 64, delay = 0.05 }, --c4.2
 			{ q = q(2,656,49,65), ox = 14, oy = 64 }, --c4.3
 			{ q = q(53,655,59,66), ox = 14, oy = 65, func = combo_attack4 }, --c4.4
-			{ q = q(114,660,60,61), ox = 14, oy = 60, func = combo_attack4 }, --c4.5
-			{ q = q(176,660,59,61), ox = 14, oy = 60, func = combo_attack4 }, --c4.6
+			{ q = q(114,660,60,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.5
+			{ q = q(176,660,59,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.6
 			{ q = q(2,727,50,61), ox = 14, oy = 60, delay = 0.1 }, --c4.7
 			{ q = q(54,723,49,65), ox = 14, oy = 64, delay = 0.05 }, --c4.8
 			delay = 0.01
