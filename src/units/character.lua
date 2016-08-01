@@ -1098,7 +1098,7 @@ end
 Character.grabHitEnd = {name = "grabHitEnd", start = Character.grabHitEnd_start, exit = nop, update = Character.grabHitEnd_update, draw = Character.default_draw}
 
 function Character:grabThrow_start()
-    self.isHittable = true
+    self.isHittable = false
     --print (self.name.." - grabThrow start")
     local g = self.hold
     local t = g.target
