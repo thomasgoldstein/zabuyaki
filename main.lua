@@ -29,6 +29,7 @@ function switchFullScreen()
 	else
 		GLOBAL_SETTING.FULL_SCREEN = love.window.setFullscreen( true )
 	end
+	love.mouse.setVisible( not GLOBAL_SETTING.FULL_SCREEN )
 end
 
 function love.load(arg)
