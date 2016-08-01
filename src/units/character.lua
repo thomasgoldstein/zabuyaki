@@ -330,7 +330,7 @@ end
 Character.jump = {name = "jump", start = Character.jump_start, exit = nop, update = Character.jump_update, draw = Character.default_draw}
 
 function Character:pickup_start()
-    self.isHittable = true
+    self.isHittable = false
     --	print (self.name.." - pickup start")
     SetSpriteAnim(self.sprite,"pickup")
     local item = self:checkForItem(9, 9)
