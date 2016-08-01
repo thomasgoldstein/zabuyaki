@@ -874,6 +874,7 @@ function Character:doGrab(target)
         else
             self.face = 1
         end
+        sfx.play(target.sfx.grab)   --target's clothes ruffling sound
         self:setState(self.grab)
         return true
     end
@@ -888,7 +889,6 @@ function Character:grab_start()
     self.can_fire = false
     self.grab_release = 0
     self.victims = {}
-    sfx.play(self.sfx.grab)
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabing someone.")
     end
