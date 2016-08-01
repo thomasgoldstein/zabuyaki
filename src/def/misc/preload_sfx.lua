@@ -11,6 +11,7 @@ SFX.play = function(actor, alias, volume, func)
         s = SFX[alias]
     end
     --print(s.src)
+    TEsound.stop(actor, false)
     TEsound.play(s.src, actor or "sfx", s.volume * (volume or 1), s.pitch, func)
 end
 
