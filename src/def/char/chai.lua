@@ -28,7 +28,7 @@ local combo_attack2 = function(slf)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf)
-	slf:checkAndAttack(32,0, 22,12, 12, "high", "air")
+	slf:checkAndAttack(36,0, 29,12, 12, "high", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf)
