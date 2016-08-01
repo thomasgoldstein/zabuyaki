@@ -54,7 +54,29 @@ SFX.load("punch3","res/sfx/punch3.wav", 1)
 SFX.load("punch4","res/sfx/punch4.wav", 1)
 SFX.load("punch5","res/sfx/punch5.wav", 1)
 SFX.load("punch6","res/sfx/punch6.wav", 1)
-SFX.punches = {"punch1","punch2","punch3","punch4","punch5","punch6" }
+SFX.punches = {"punch1","punch2","punch3","punch4","punch5","punch6"}
+
+SFX.load("hit_hard1","res/sfx/hit_hard1.wav", 1)
+SFX.load("hit_hard2","res/sfx/hit_hard2.wav", 1)
+SFX.load("hit_hard3","res/sfx/hit_hard3.wav", 1)
+SFX.load("hit_hard4","res/sfx/hit_hard4.wav", 1)
+SFX.load("hit_hard5","res/sfx/hit_hard5.wav", 1)
+SFX.load("hit_hard6","res/sfx/hit_hard6.wav", 1)
+SFX.hit_hard = {"hit_hard1","hit_hard2","hit_hard3","hit_hard4","hit_hard5","hit_hard6"}
+SFX.load("hit_medium1","res/sfx/hit_medium1.wav", 1)
+SFX.load("hit_medium2","res/sfx/hit_medium2.wav", 1)
+SFX.load("hit_medium3","res/sfx/hit_medium3.wav", 1)
+SFX.load("hit_medium4","res/sfx/hit_medium4.wav", 1)
+SFX.load("hit_medium5","res/sfx/hit_medium5.wav", 1)
+SFX.load("hit_medium6","res/sfx/hit_medium6.wav", 1)
+SFX.hit_hard = {"hit_medium1","hit_medium2","hit_medium3","hit_medium4","hit_medium5","hit_medium6"}
+SFX.load("hit_weak1","res/sfx/hit_weak1.wav", 1)
+SFX.load("hit_weak2","res/sfx/hit_weak2.wav", 1)
+SFX.load("hit_weak3","res/sfx/hit_weak3.wav", 1)
+SFX.load("hit_weak4","res/sfx/hit_weak4.wav", 1)
+SFX.load("hit_weak5","res/sfx/hit_weak5.wav", 1)
+SFX.load("hit_weak6","res/sfx/hit_weak6.wav", 1)
+SFX.hit_weak = {"hit_weak1","hit_weak2","hit_weak3","hit_weak4","hit_weak5","hit_weak6"}
 
 SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
 SFX.load("rick_jump2","res/sfx/rick_jump2.wav", 1)
