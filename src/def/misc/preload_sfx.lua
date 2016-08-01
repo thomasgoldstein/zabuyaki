@@ -3,7 +3,7 @@
 --
 
 local SFX = {}
-SFX.play = function(alias, volume, func)
+SFX.play = function(actor, alias, volume, func)
     local s
     if type(alias) == "table" then
         s = SFX[alias[love.math.random(1,#alias)]]
@@ -11,7 +11,7 @@ SFX.play = function(alias, volume, func)
         s = SFX[alias]
     end
     --print(s.src)
-    TEsound.play(s.src, "sfx", s.volume * (volume or 1), s.pitch, func)
+    TEsound.play(s.src, actor or "sfx", s.volume * (volume or 1), s.pitch, func)
 end
 
 SFX.load = function(alias, s, volume, pitch)
