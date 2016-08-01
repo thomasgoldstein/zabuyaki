@@ -5,8 +5,7 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function() sfx.play("step") end
-local step_sfx2 = function(self)
+local step_sfx = function(self)
 	sfx.play("step")
 	local padust = PA_DUST_STEPS:clone()
 	padust:setLinearAcceleration(-self.face * 50, 1, -self.face * 100, -15)
@@ -75,20 +74,20 @@ return {
 		walk = { -- 1 2 3 4 5 6
 			{ q = q(2,68,35,64), ox = 17, oy = 63 }, --walk 1
 			{ q = q(39,68,35,64), ox = 17, oy = 63 }, --walk 2
-			{ q = q(76,69,35,63), ox = 17, oy = 62, func = step_sfx, delay = 0.25 }, --walk 3
+			{ q = q(76,69,35,63), ox = 17, oy = 62, delay = 0.25 }, --walk 3
 			{ q = q(113,68,35,64), ox = 17, oy = 63 }, --walk 4
 			{ q = q(150,68,35,64), ox = 17, oy = 63 }, --walk 5
-			{ q = q(187,69,35,63), ox = 17, oy = 62, func = step_sfx, delay = 0.25 }, --walk 6
+			{ q = q(187,69,35,63), ox = 17, oy = 62, delay = 0.25 }, --walk 6
             loop = true,
             delay = 0.167
 		},
 		run = { -- 1 2 3 4 5 6
 			{ q = q(2,136,44,60), ox = 14, oy = 60 }, --run 1
 			{ q = q(48,134,49,62), ox = 18, oy = 61 }, --run 2
-			{ q = q(99,134,48,62), ox = 17, oy = 60, func = step_sfx2 }, --run 3
+			{ q = q(99,134,48,62), ox = 17, oy = 60, func = step_sfx }, --run 3
 			{ q = q(2,200,42,60), ox = 12, oy = 60 }, --run 4
 			{ q = q(46,198,49,61), ox = 18, oy = 61 }, --run 5
-			{ q = q(97,198,48,62), ox = 17, oy = 60, func = step_sfx2 }, --run 6
+			{ q = q(97,198,48,62), ox = 17, oy = 60, func = step_sfx }, --run 6
             loop = true,
             delay = 0.1
 		},
