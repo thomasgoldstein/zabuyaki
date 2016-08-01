@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 790 --after the image has been loaded
+local image_h = 787 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -141,15 +141,14 @@ return {
 			delay = 0.03
 		},
 		combo4 = {
-			{ q = q(121,587,45,66), ox = 15, oy = 65, delay = 0.03 }, --c4.1
-			{ q = q(168,588,50,65), ox = 13, oy = 64, delay = 0.05 }, --c4.2
-			{ q = q(2,656,49,65), ox = 14, oy = 64 }, --c4.3
-			{ q = q(53,655,59,66), ox = 14, oy = 65, func = combo_attack4 }, --c4.4
-			{ q = q(114,660,60,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.5
-			{ q = q(176,660,59,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.6
-			{ q = q(2,727,50,61), ox = 14, oy = 60, delay = 0.1 }, --c4.7
-			{ q = q(54,723,49,65), ox = 14, oy = 64, delay = 0.05 }, --c4.8
-			delay = 0.01
+			{ q = q(121,587,48,65), ox = 13, oy = 64, delay = 0.1 }, --c4.1
+			{ q = q(171,587,49,65), ox = 14, oy = 64 }, --c4.2
+			{ q = q(2,654,59,66), ox = 14, oy = 65, func = combo_attack4 }, --c4.3
+			{ q = q(63,659,60,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.4
+			{ q = q(125,659,59,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.5
+			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.1 }, --c4.6
+			{ q = q(2,722,49,63), ox = 14, oy = 62, delay = 0.05 }, --c4.7
+			delay = 0.02
 		},
 		fall = {
 			{ q = q(2,464,65,55), ox = 32, oy = 54 }, --falling
