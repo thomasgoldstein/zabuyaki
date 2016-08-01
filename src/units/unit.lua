@@ -314,10 +314,10 @@ function Unit:onHurt()
         -- calc falling traectorym speed, direction
         if h.type == "grabKO" then
             self.velx = 110
-            sfx.play(sfx.punches) -- hitKO sound
+            sfx.play(self.name,sfx.punches) -- hitKO sound
         else
             self.velx = h.velx
-            sfx.play(sfx.punches) -- hit sound
+            sfx.play(self.name,sfx.punches) -- hit sound
         end
         --		self.horizontal = h.source.horizontal
         if h.source.velx > 0 then
@@ -374,7 +374,7 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
             x = self.x, y = self.y, z = z or self.z}
     end
     if sfx1 then
-        sfx.play(sfx1)
+        sfx.play(self.name,sfx1)
     end
     if not GLOBAL_SETTING.AUTO_COMBO and #items < 1 then
         -- reset combo attack N to 1
@@ -412,7 +412,7 @@ function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx1)
             x = self.x, y = self.y, z = z or self.z}
     end
     if sfx1 then	--TODO 2 SFX for holloow and hit
-        sfx.play(sfx1)
+        sfx.play(self.name,sfx1)
     end
 end
 

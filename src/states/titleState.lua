@@ -90,7 +90,7 @@ end
 local function player_input(controls)
     if controls.back:pressed() then
         --Exit by "Back" button or "Esc" key
-        sfx.play("menu_cancel")
+        sfx.play("sfx","menu_cancel")
         return love.event.quit()
     elseif controls.fire:pressed() or controls.start:pressed() then
         return titleState:mousepressed( mouse_x, mouse_y, 1)
@@ -115,7 +115,7 @@ function titleState:update(dt)
         SetSpriteAnim(rick_spr,"stand")
     end
     if menu_state ~= old_menu_state then
-        sfx.play("menu_move")
+        sfx.play("sfx","menu_move")
         old_menu_state = menu_state
     end
     player_input(Control1)
@@ -151,13 +151,13 @@ function titleState:mousepressed( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
-            sfx.play("menu_select")
+            sfx.play("sfx","menu_select")
             return Gamestate.switch(heroSelectState)
         elseif menu_state == 2 then
-            sfx.play("menu_select")
+            sfx.play("sfx","menu_select")
             return Gamestate.push(optionsState)
         elseif menu_state == 3 then
-            sfx.play("menu_cancel")
+            sfx.play("sfx","menu_cancel")
             return love.event.quit()
         end
     end

@@ -93,11 +93,11 @@ function Item:get(taker)
         self:func(taker)
     end
     if self.name == "Apple" then
-        sfx.play("pickup_apple")
+        sfx.play(self.name,"pickup_apple")
     elseif self.name == "Chicken" then
-        sfx.play("pickup_chicken")
+        sfx.play(self.name,"pickup_chicken")
     else
-        sfx.play("pickup_beef")
+        sfx.play(self.name,"pickup_beef")
     end
     taker.hp = taker.hp + self.hp
     if taker.hp > taker.max_hp then

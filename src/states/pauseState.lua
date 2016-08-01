@@ -67,7 +67,7 @@ function pauseState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
     menu_state = 1
     mouse_x, mouse_y = 0,0
-    sfx.play("menu_cancel")
+    sfx.play("sfx","menu_cancel")
 
     Control1.fire:update()
     Control1.jump:update()
@@ -82,7 +82,7 @@ end
 --Only P1 can use menu / options
 local function player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
-        sfx.play("menu_select")
+        sfx.play("sfx","menu_select")
         return Gamestate.pop()
     elseif controls.fire:pressed() or controls.start:pressed() then
         return pauseState:mousepressed( mouse_x, mouse_y, 1)
@@ -103,7 +103,7 @@ end
 function pauseState:update(dt)
     time = time + dt
     if menu_state ~= old_menu_state then
-        sfx.play("menu_move")
+        sfx.play("sfx","menu_move")
         old_menu_state = menu_state
     end
     player_input(Control1)
@@ -142,10 +142,10 @@ function pauseState:mousepressed( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
-            sfx.play("menu_select")
+            sfx.play("sfx","menu_select")
             return Gamestate.pop()
         elseif menu_state == 3 then
-            sfx.play("menu_cancel")
+            sfx.play("sfx","menu_cancel")
             return Gamestate.switch(titleState)
         end
     end

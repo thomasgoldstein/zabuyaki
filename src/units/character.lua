@@ -293,7 +293,7 @@ function Character:jump_start()
     if self.vely ~= 0 then
         self.vely = self.vely + self.speed_jump_y_boost --make jump little faster than the walk/run speed
     end
-    sfx.play(self.sfx.jump)
+    sfx.play(self.name,self.sfx.jump)
 end
 function Character:jump_update(dt)
     --	print (self.name.." - jump update",dt)
@@ -316,7 +316,7 @@ function Character:jump_update(dt)
     else
         self.velz = 0
         self.z = 0
-        sfx.play("land")
+        sfx.play(self.name,"land")
         self:setState(self.duck)
         return
     end
@@ -434,7 +434,7 @@ function Character:hurtHigh_start()
     self.isHittable = true
     --	print (self.name.." - hurtHigh start")
     SetSpriteAnim(self.sprite,"hurtHigh")
-    sfx.play(sfx.punches) -- hit sound
+    sfx.play(self.name,sfx.punches) -- hit sound
 end
 function Character:hurtHigh_update(dt)
     --	print (self.name.." - hurtHigh update",dt)
@@ -463,7 +463,7 @@ function Character:hurtLow_start()
     self.isHittable = true
     --	print (self.name.." - hurtLow start")
     SetSpriteAnim(self.sprite,"hurtLow")
-    sfx.play(sfx.punches) -- hit sound
+    sfx.play(self.name,sfx.punches) -- hit sound
 end
 function Character:hurtLow_update(dt)
     --	print (self.name.." - hurtLow update",dt)
@@ -493,7 +493,7 @@ function Character:sideStepDown_start()
     --	print (self.name.." - sideStepDown start")
     SetSpriteAnim(self.sprite,"sideStepDown")
     self.velx, self.vely = 0, self.speed_step_down
-    sfx.play("jump")    --TODO replace to side step sfx
+    sfx.play(self.name,"jump")    --TODO replace to side step sfx
 end
 function Character:sideStepDown_update(dt)
     --	print (self.name.." - sideStepDown update",dt)
@@ -503,7 +503,7 @@ function Character:sideStepDown_update(dt)
     else
         self.vely = 0
         self.z = 0
-        sfx.play("land", 0.3)
+        sfx.play(self.name,"land", 0.3)
         self:setState(self.duck)
         return
     end
@@ -518,7 +518,7 @@ function Character:sideStepUp_start()
     --	print (self.name.." - sideStepUp start")
     SetSpriteAnim(self.sprite,"sideStepUp")
     self.velx, self.vely = 0, self.speed_step_down
-    sfx.play("jump")    --TODO replace to side step sfx
+    sfx.play(self.name,"jump")    --TODO replace to side step sfx
 end
 function Character:sideStepUp_update(dt)
     --	print (self.name.." - sideStepUp update",dt)
@@ -528,7 +528,7 @@ function Character:sideStepUp_update(dt)
     else
         self.vely = 0
         self.z = 0
-        sfx.play("land", 0.3)
+        sfx.play(self.name,"land", 0.3)
         self:setState(self.duck)
         return
     end
@@ -545,7 +545,7 @@ function Character:dash_start()
     self.velx = self.speed_dash
     self.vely = 0
     self.velz = 0
-    sfx.play(self.sfx.dash)    --TODO add dash sound
+    sfx.play(self.name,self.sfx.dash)    --TODO add dash sound
 end
 function Character:dash_update(dt)
     if self.sprite.isFinished then
@@ -563,7 +563,7 @@ function Character:jumpAttackForward_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackForward start")
     SetSpriteAnim(self.sprite,"jumpAttackForward")
-    sfx.play(self.sfx.jump_attack)
+    sfx.play(self.name,self.sfx.jump_attack)
 end
 function Character:jumpAttackForward_update(dt)
     --	print (self.name.." - jumpAttackForward update",dt)
@@ -573,7 +573,7 @@ function Character:jumpAttackForward_update(dt)
     else
         self.velz = 0
         self.z = 0
-        sfx.play("land")
+        sfx.play(self.name,"land")
         self:setState(self.duck)
         return
     end
@@ -587,7 +587,7 @@ function Character:jumpAttackWeak_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackWeak start")
     SetSpriteAnim(self.sprite,"jumpAttackWeak")
-    sfx.play(self.sfx.jump_attack)
+    sfx.play(self.name,self.sfx.jump_attack)
 end
 function Character:jumpAttackWeak_update(dt)
     --	print (self.name.." - jumpAttackWeak update",dt)
@@ -597,7 +597,7 @@ function Character:jumpAttackWeak_update(dt)
     else
         self.velz = 0
         self.z = 0
-        sfx.play("land")
+        sfx.play(self.name,"land")
         self:setState(self.duck)
         return
     end
@@ -611,7 +611,7 @@ function Character:jumpAttackStill_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackStill start")
     SetSpriteAnim(self.sprite,"jumpAttackStill")
-    sfx.play(self.sfx.jump_attack)
+    sfx.play(self.name,self.sfx.jump_attack)
 end
 function Character:jumpAttackStill_update(dt)
     --	print (self.name.." - jumpAttackStill update",dt)
@@ -621,7 +621,7 @@ function Character:jumpAttackStill_update(dt)
     else
         self.velz = 0
         self.z = 0
-        sfx.play("land")
+        sfx.play(self.name,"land")
         self:setState(self.duck)
         return
     end
@@ -672,7 +672,7 @@ function Character:fall_update(dt)
                     src.victim_infoBar = self.infoBar:setAttacker(src)
                 end
             end
-            sfx.play("fall", 1 - self.flag_fallen)
+            sfx.play(self.name,"fall", 1 - self.flag_fallen)
             self.flag_fallen = self.flag_fallen + 0.3
             --landing dust clouds
             local psystem = PA_DUST_FALLING:clone()
@@ -688,7 +688,7 @@ function Character:fall_update(dt)
 
                 self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-                sfx.play("fall", 1 - self.flag_fallen)
+                sfx.play(self.name,"fall", 1 - self.flag_fallen)
 
                 -- hold UP+JUMP to get no damage after throw (land on feet)
                 if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
@@ -751,7 +751,7 @@ function Character:dead_start()
         self.z = 0
     end
     self:onShake(1, 0, 0.1, 0.7)
-    sfx.play(self.sfx.dead)
+    sfx.play(self.name,self.sfx.dead)
     --TODO dead event
 end
 function Character:dead_update(dt)
@@ -874,7 +874,7 @@ function Character:doGrab(target)
         else
             self.face = 1
         end
-        sfx.play(target.sfx.grab)   --target's clothes ruffling sound
+        sfx.play(self.name,target.sfx.grab)   --target's clothes ruffling sound
         self:setState(self.grab)
         return true
     end
@@ -1131,13 +1131,13 @@ function Character:grabThrow_update(dt)
         t.face = 1
     end
     t:setState(self.fall)
-    sfx.play(self.sfx.throw) --TODO add throw sound
+    sfx.play(self.name,self.sfx.throw) --TODO add throw sound
     return
     end
     if self.sprite.isFinished then
         self.cool_down = 0.2
         self:setState(self.stand)
-        sfx.play("after_throw_flight")
+        sfx.play(self.name,"after_throw_flight")
         return
     end
     self:calcFriction(dt)

@@ -5,9 +5,8 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function() sfx.play("step") end
-local step_sfx2 = function(self)
-	sfx.play("step")
+local step_sfx = function(self)
+	sfx.play("sfx","step")
 	local padust = PA_DUST_STEPS:clone()
 	padust:setLinearAcceleration(-self.face * 80, -5, self.face * 80, -50)
 	padust:emit(15)

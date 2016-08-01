@@ -89,7 +89,7 @@ end
 --Only P1 can use menu / options
 local function player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
-        sfx.play("menu_cancel")
+        sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     elseif controls.fire:pressed() or controls.start:pressed() then
         return optionsState:mousepressed( mouse_x, mouse_y, 1)
@@ -114,7 +114,7 @@ function optionsState:update(dt)
         SetSpriteAnim(rick_spr,"stand")
     end
     if menu_state ~= old_menu_state then
-        sfx.play("menu_move")
+        sfx.play("sfx","menu_move")
         old_menu_state = menu_state
     end
     player_input(Control1)
@@ -152,7 +152,7 @@ function optionsState:mousepressed( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
-            sfx.play("menu_select")
+            sfx.play("sfx","menu_select")
             SetSpriteAnim(rick_spr,"hurtHigh")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 GLOBAL_SETTING.BGM_VOLUME = 0
@@ -165,7 +165,7 @@ function optionsState:mousepressed( x, y, button, istouch )
             menu = fillMenu(txt_items, txt_hints)
 
         elseif menu_state == 2 then
-            sfx.play("menu_select")
+            sfx.play("sfx","menu_select")
             SetSpriteAnim(rick_spr,"hurtLow")
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 GLOBAL_SETTING.DIFFICULTY = 2
@@ -177,14 +177,14 @@ function optionsState:mousepressed( x, y, button, istouch )
             menu = fillMenu(txt_items, txt_hints)
 
         elseif menu_state == 3 then
-            sfx.play("menu_select")
+            sfx.play("sfx","menu_select")
             SetSpriteAnim(rick_spr,"pickup")
         elseif menu_state == 4 then
-            sfx.play("menu_cancel")
+            sfx.play("sfx","menu_cancel")
             return Gamestate.pop()
         end
     elseif button == 2 then
-        sfx.play("menu_cancel")
+        sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     end
 end
