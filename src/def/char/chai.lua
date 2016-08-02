@@ -35,7 +35,7 @@ local combo_attack4 = function(slf)
 	slf:checkAndAttack(32,0, 22,12, 14, "fall", "air")
 end
 local combo_attack4_nosfx = function(slf)
-	slf:checkAndAttack(32,0, 22,12, 14, "fall", null)
+	slf:checkAndAttack(32,0, 22,12, 14, "fall", nil)
 end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
