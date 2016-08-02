@@ -48,14 +48,6 @@ SFX.load("grunt3","res/sfx/tmp/grunt3.wav", 1)
 SFX.load("grunt4","res/sfx/tmp/grunt4.wav", 1)
 SFX.load("grunt5","res/sfx/tmp/grunt5.wav", 1)
 
-SFX.load("punch1","res/sfx/punch1.wav", 1)
-SFX.load("punch2","res/sfx/punch2.wav", 1)
-SFX.load("punch3","res/sfx/punch3.wav", 1)
-SFX.load("punch4","res/sfx/punch4.wav", 1)
-SFX.load("punch5","res/sfx/punch5.wav", 1)
-SFX.load("punch6","res/sfx/punch6.wav", 1)
-SFX.punches = {"punch1","punch2","punch3","punch4","punch5","punch6"}
-
 SFX.load("hit_hard1","res/sfx/hit_hard1.wav", 1)
 SFX.load("hit_hard2","res/sfx/hit_hard2.wav", 1)
 SFX.load("hit_hard3","res/sfx/hit_hard3.wav", 1)
@@ -69,7 +61,7 @@ SFX.load("hit_medium3","res/sfx/hit_medium3.wav", 1)
 SFX.load("hit_medium4","res/sfx/hit_medium4.wav", 1)
 SFX.load("hit_medium5","res/sfx/hit_medium5.wav", 1)
 SFX.load("hit_medium6","res/sfx/hit_medium6.wav", 1)
-SFX.hit_hard = {"hit_medium1","hit_medium2","hit_medium3","hit_medium4","hit_medium5","hit_medium6"}
+SFX.hit_medium = {"hit_medium1","hit_medium2","hit_medium3","hit_medium4","hit_medium5","hit_medium6"}
 SFX.load("hit_weak1","res/sfx/hit_weak1.wav", 1)
 SFX.load("hit_weak2","res/sfx/hit_weak2.wav", 1)
 SFX.load("hit_weak3","res/sfx/hit_weak3.wav", 1)
