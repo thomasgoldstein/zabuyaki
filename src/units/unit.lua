@@ -81,6 +81,32 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self:setState(self.stand)
 end
 
+--plays sfx
+function Unit:playsfx(alias)
+    local s
+    if type(alias) == "table" then
+        s = sfx[alias[love.math.random(1,#alias)]]
+    else
+        s = sfx[alias]
+    end
+    TEsound.stop(self.name, false)
+    TEsound.play(s.src, self.name or "sfx", s.volume, s.pitch)
+end
+--plays sfx
+function Unit:playHitSfx(dmg)
+    local alias
+    if dmg < 9 then
+        alias = sfx.hit_weak
+    elseif dmg < 14 then
+        alias = sfx.hit_medium
+    else
+        alias = sfx.hit_hard
+    end
+    local s = sfx[alias[love.math.random(1,#alias)]]
+    TEsound.stop(self.name, false)
+    TEsound.play(s.src, self.name or "sfx", s.volume, s.pitch)
+end
+
 function Unit:setToughness(t)
 	self.toughness = t
 end
@@ -282,6 +308,7 @@ function Unit:onHurt()
     --Score TODO
     h.source.score = h.source.score + love.math.random(1,10)*50
 
+    self:playHitSfx(h.damage)
     self.hp = self.hp - h.damage
     self.n_combo = 1	--if u get hit reset combo chain
 
@@ -314,10 +341,8 @@ function Unit:onHurt()
         -- calc falling traectorym speed, direction
         if h.type == "grabKO" then
             self.velx = 110
-            sfx.play(self.name,sfx.punches) -- hitKO sound
         else
             self.velx = h.velx
-            sfx.play(self.name,sfx.punches) -- hit sound
         end
         --		self.horizontal = h.source.horizontal
         if h.source.velx > 0 then
