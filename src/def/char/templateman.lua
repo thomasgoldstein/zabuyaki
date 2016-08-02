@@ -10,7 +10,6 @@ local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "f
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
-	sfx.play("sfx","air")
 	if slf.n_combo == 3 then
 		slf:checkAndAttack(25,0, 20,12, 10, "high")
 	elseif slf.n_combo == 4 then
