@@ -22,6 +22,7 @@ GLOBAL_SETTING.PLAYERS_NAMES = {"P1", "P2", "P3"}
 GLOBAL_SETTING.PLAYERS_COLORS = {{204, 38, 26, 255}, {24, 137, 20, 255}, {23, 84, 216, 255} }
 GLOBAL_SETTING.AUTO_COMBO = false
 GLOBAL_SETTING.DIFFICULTY = 1 -- 1 = Normal, 2 = Hard
+GLOBAL_SETTING.MOUSE_ENABLED = true
 
 function switchFullScreen()
 	if GLOBAL_SETTING.FULL_SCREEN then
@@ -29,7 +30,8 @@ function switchFullScreen()
 	else
 		GLOBAL_SETTING.FULL_SCREEN = love.window.setFullscreen( true )
 	end
-	love.mouse.setVisible( not GLOBAL_SETTING.FULL_SCREEN )
+	GLOBAL_SETTING.MOUSE_ENABLED = not GLOBAL_SETTING.FULL_SCREEN
+	love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 end
 
 function love.load(arg)

@@ -341,7 +341,7 @@ function heroSelectState:draw()
     love.graphics.draw(txt_player_select, (screen_width - txt_player_select:getWidth()) / 2, 24)
 end
 
-function heroSelectState:mousepressed( x, y, button, istouch )
+function heroSelectState:confirm( x, y, button, istouch )
     -- P1 mouse control only
     if button == 1 then
         p1_mouse_pos = 2
@@ -397,7 +397,17 @@ function heroSelectState:mousepressed( x, y, button, istouch )
     end
 end
 
+function heroSelectState:mousepressed( x, y, button, istouch )
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
+        return
+    end
+    heroSelectState:confirm( x, y, button, istouch )
+end
+
 function heroSelectState:mousemoved( x, y, dx, dy)
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
+        return
+    end
     p1_mouse_pos = 2
     if x < heroes[2].x - portrait_width/2 - portrait_margin/2 then
         p1_mouse_pos = 1

@@ -85,7 +85,7 @@ local function player_input(controls)
         sfx.play("sfx","menu_select")
         return Gamestate.pop()
     elseif controls.fire:pressed() or controls.start:pressed() then
-        return pauseState:mousepressed( mouse_x, mouse_y, 1)
+        return pauseState:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
@@ -126,7 +126,8 @@ function pauseState:draw()
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(m.item, m.x, m.y )
-        if CheckPointCollision(mouse_x, mouse_y, m.x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin ) then
+        if GLOBAL_SETTING.MOUSE_ENABLED and
+                CheckPointCollision(mouse_x, mouse_y, m.x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin ) then
             menu_state = i
         end
     end
@@ -138,8 +139,8 @@ function pauseState:draw()
     love.graphics.draw(txt_hints[menu_state], (screen_width - txt_hints[menu_state]:getWidth()) / 2, screen_height - 80)
 end
 
-function pauseState:mousepressed( x, y, button, istouch )
-    if button == 1 then
+function pauseState:confirm( x, y, button, istouch )
+     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
@@ -151,7 +152,17 @@ function pauseState:mousepressed( x, y, button, istouch )
     end
 end
 
+function pauseState:mousepressed( x, y, button, istouch )
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
+        return
+    end
+    pauseState:confirm( x, y, button, istouch )
+end
+
 function pauseState:mousemoved( x, y, dx, dy)
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
+        return
+    end
     mouse_x, mouse_y = x, y
 end
 
