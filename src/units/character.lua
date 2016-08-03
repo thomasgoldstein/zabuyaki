@@ -105,11 +105,9 @@ function Character:stand_update(dt)
         self:setState(self.duck2jump)
         return
     elseif self.b.fire:isDown() and self.can_fire then
-        if self.cool_down <= 0 then
-            if self:checkForItem(9, 9) ~= nil then
-                self:setState(self.pickup)
-                return
-            end
+        if self:checkForItem(9, 9) ~= nil then
+            self:setState(self.pickup)
+            return
         end
         self:setState(self.combo)
         return
