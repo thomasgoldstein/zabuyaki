@@ -1133,7 +1133,7 @@ function Character:grabThrow_update(dt)
     if self.sprite.isFinished then
         self.cool_down = 0.2
         self:setState(self.stand)
-        sfx.play(self.name,"after_throw_flight")
+        sfx.play(self.name,"whoosh_heavy")
         return
     end
     self:calcFriction(dt)
