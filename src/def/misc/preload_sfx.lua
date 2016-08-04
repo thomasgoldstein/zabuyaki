@@ -31,7 +31,7 @@ SFX.load("menu_move","res/sfx/menu_move.wav", 0.5)
 SFX.load("menu_gamestart","res/sfx/menu_gamestart.wav", 0.2)
 
 SFX.load("step","res/sfx/tmp/step.wav", 0.5)
-SFX.load("air","res/sfx/tmp/attack1.wav", 0.5)
+SFX.load("air","res/sfx/attack1.wav", 0.5)
 
 SFX.load("pickup_apple","res/sfx/pickup_apple.wav", 1)
 SFX.load("pickup_chicken","res/sfx/pickup_chicken.wav", 1)
@@ -74,9 +74,10 @@ SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
 SFX.load("rick_jump2","res/sfx/rick_jump2.wav", 1)
 --SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
 SFX.load("rick_throw2","res/sfx/rick_throw2.wav", 1)
+SFX.load("rick_airattack","res/sfx/rick_airattack.wav", 1)
 SFX.load("rick_throw3","res/sfx/rick_throw3.wav", 1)
 SFX.load("rick_grab2","res/sfx/rick_grab2.wav", 1)
-SFX.load("after_throw_flight","res/sfx/after_throw_flight.wav", 1)
+SFX.load("whoosh_heavy","res/sfx/whoosh_heavy.wav", 1)
 
 --[[local f2 = function() SFX.play("hit2",1,f3) end
 local f3 = function() SFX.play("hit3") end]]
