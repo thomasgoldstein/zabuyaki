@@ -142,7 +142,7 @@ return {
 		},
 		combo4 = {
 			{ q = q(121,587,48,65), ox = 13, oy = 64, delay = 0.1 }, --c4.1
-			{ q = q(171,587,49,65), ox = 14, oy = 64 }, --c4.2
+			{ q = q(171,587,50,65), ox = 14, oy = 64 }, --c4.2
 			{ q = q(2,654,59,66), ox = 14, oy = 65, func = combo_attack4 }, --c4.3
 			{ q = q(63,659,60,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.4
 			{ q = q(125,659,59,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.5
