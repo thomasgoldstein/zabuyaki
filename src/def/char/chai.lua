@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 787 --after the image has been loaded
+local image_h = 789 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -147,7 +147,7 @@ return {
 			{ q = q(63,659,60,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.4
 			{ q = q(125,659,59,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.5
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.1 }, --c4.6
-			{ q = q(2,721,49,63), ox = 14, oy = 62, delay = 0.05 }, --c4.7
+			{ q = q(194,725,49,62), ox = 14, oy = 62, delay = 0.05 }, --c4.7
 			delay = 0.02
 		},
 		fall = {
@@ -183,19 +183,18 @@ return {
 			delay = 0.05
 		},
 		jumpAttackForward = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61, delay = 0.2 }, -- jaf1
-			{ q = q(58,714,75,58), ox = 37, oy = 57, funcCont = jump_forward_attack }, -- jaf2
+			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.2 }, -- jaf1
+			{ q = q(43,722,71,64), ox = 20, oy = 63, funcCont = jump_forward_attack }, -- jaf2
 			delay = 5
 		},
 		jumpAttackWeak = {
-			{ q = q(2,844,43,67), ox = 21, oy = 66, delay = 0.2 }, -- jaw1
-			{ q = q(47,844,47,63), ox = 23, oy = 62, funcCont = jump_weak_attack }, -- jaw2
+			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.2 }, -- jaf1
+			{ q = q(43,722,71,64), ox = 20, oy = 63, funcCont = jump_forward_attack }, -- jaf2
 			delay = 5
 		},
 		jumpAttackStill = {
-			{ q = q(2,778,38,63), ox = 19, oy = 62, delay = 0.4 }, -- jas1
-			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack1, delay = 0.1 }, -- jas2
-			{ q = q(94,778,43,62), ox = 19, oy = 61, func = jump_still_attack2 }, -- jas3
+			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.2 }, -- jaf1
+			{ q = q(43,722,71,64), ox = 20, oy = 63, funcCont = jump_forward_attack }, -- jaf2
 			delay = 5
 		},
 		sideStepUp = {
