@@ -147,7 +147,7 @@ return {
 			{ q = q(63,659,60,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.4
 			{ q = q(125,659,59,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.5
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.1 }, --c4.6
-			{ q = q(2,722,49,63), ox = 14, oy = 62, delay = 0.05 }, --c4.7
+			{ q = q(2,721,49,63), ox = 14, oy = 62, delay = 0.05 }, --c4.7
 			delay = 0.02
 		},
 		fall = {
