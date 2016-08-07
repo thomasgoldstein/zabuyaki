@@ -70,13 +70,9 @@ SFX.load("hit_weak5","res/sfx/hit_weak5.wav", 1)
 SFX.load("hit_weak6","res/sfx/hit_weak6.wav", 1)
 SFX.hit_weak = {"hit_weak1","hit_weak2","hit_weak3","hit_weak4","hit_weak5","hit_weak6"}
 
-SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
 SFX.load("rick_jump2","res/sfx/rick_jump2.wav", 1)
---SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
 SFX.load("rick_throw2","res/sfx/rick_throw2.wav", 1)
 SFX.load("rick_throw3_louder","res/sfx/rick_throw3_louder.wav", 1)
-SFX.load("rick_airattack","res/sfx/rick_airattack.wav", 1)
-SFX.load("rick_throw3","res/sfx/rick_throw3.wav", 1)
 SFX.load("rick_grab2","res/sfx/rick_grab2.wav", 1)
 SFX.load("whoosh_heavy","res/sfx/whoosh_heavy.wav", 1)
 
