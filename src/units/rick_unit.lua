@@ -36,7 +36,6 @@ function Rick:initialize(name, sprite, input, x, y, shader, color)
     self.sfx.throw = "rick_throw"
     self.sfx.jump_attack = "rick_attack"
     self.sfx.dash = "rick_attack"
-    self.sfx.grab = "grab"
     self.sfx.dead = "grunt5"
 end
 
