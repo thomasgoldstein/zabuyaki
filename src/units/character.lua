@@ -27,7 +27,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.sfx.jump = "jump"
     self.sfx.throw = "air"
     self.sfx.dash = "grunt3"
-    self.sfx.grab = "rick_grab2"
+    self.sfx.grab = "grab"
     self.sfx.jump_attack = "grunt1"
     self.sfx.dead = "grunt3"
 --    self.infoBar = InfoBar:new(self)
