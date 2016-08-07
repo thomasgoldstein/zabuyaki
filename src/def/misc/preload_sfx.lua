@@ -37,10 +37,8 @@ SFX.load("pickup_apple","res/sfx/pickup_apple.wav", 1)
 SFX.load("pickup_chicken","res/sfx/pickup_chicken.wav", 1)
 SFX.load("pickup_beef","res/sfx/pickup_beef.wav", 1)
 
-SFX.load("hit","res/sfx/tmp/hit3.wav", 0.5)
 SFX.load("jump","res/sfx/tmp/jump.wav", 1)
 SFX.load("land","res/sfx/tmp/land.wav", 0.5)
---SFX.load("fall","res/sfx/tmp/fall.wav", 1)
 SFX.load("fall","res/sfx/fall_down.wav", 1)
 SFX.load("grunt1","res/sfx/tmp/grunt1.wav", 1)
 SFX.load("grunt2","res/sfx/tmp/grunt2.wav", 1)
@@ -75,11 +73,5 @@ SFX.load("rick_attack","res/sfx/rick_attack.wav", 1)
 SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
 SFX.load("grab","res/sfx/grab.wav", 1)
 SFX.load("whoosh_heavy","res/sfx/whoosh_heavy.wav", 1)
-
---[[local f2 = function() SFX.play("hit2",1,f3) end
-local f3 = function() SFX.play("hit3") end]]
-
---SFX.play("hit")
---SFX.play({"hit1","boom3"})
 
 return SFX
