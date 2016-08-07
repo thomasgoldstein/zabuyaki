@@ -22,6 +22,11 @@ function Kisa:initialize(name, sprite, input, x, y, shader, color)
     self.hp = self.max_hp
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
+
+	self.sfx.jump = "kisa_jump"
+    self.sfx.throw = "kisa_throw"
+    self.sfx.jump_attack = "kisa_attack"
+    self.sfx.dash = "kisa_attack"
 end
 
 function Kisa:combo_start()

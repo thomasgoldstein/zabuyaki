@@ -22,6 +22,11 @@ function Chai:initialize(name, sprite, input, x, y, shader, color)
     self.hp = self.max_hp
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
+
+	self.sfx.jump = "chai_jump"
+    self.sfx.throw = "chai_throw"
+    self.sfx.jump_attack = "chai_attack"
+    self.sfx.dash = "chai_attack"
 end
 
 function Chai:combo_start()

@@ -32,6 +32,8 @@ SFX.load("menu_gamestart","res/sfx/menu_gamestart.wav", 0.2)
 
 SFX.load("step","res/sfx/tmp/step.wav", 0.5)
 SFX.load("air","res/sfx/whoosh_light.wav", 0.5)
+SFX.load("whoosh_heavy","res/sfx/whoosh_heavy.wav", 1)
+SFX.load("grab","res/sfx/grab.wav", 1)
 
 SFX.load("pickup_apple","res/sfx/pickup_apple.wav", 1)
 SFX.load("pickup_chicken","res/sfx/pickup_chicken.wav", 1)
@@ -68,11 +70,17 @@ SFX.load("hit_weak5","res/sfx/hit_weak5.wav", 1)
 SFX.load("hit_weak6","res/sfx/hit_weak6.wav", 1)
 SFX.hit_weak = {"hit_weak1","hit_weak2","hit_weak3","hit_weak4","hit_weak5","hit_weak6"}
 
+SFX.load("kisa_jump","res/sfx/kisa_jump.wav", 1)
+SFX.load("kisa_attack","res/sfx/kisa_attack.wav", 1)
+SFX.load("kisa_throw","res/sfx/kisa_throw.wav", 1)
+
 SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
 SFX.load("rick_attack","res/sfx/rick_attack.wav", 1)
 SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
 SFX.load("rick_step","res/sfx/rick_step.wav", 1)
-SFX.load("grab","res/sfx/grab.wav", 1)
-SFX.load("whoosh_heavy","res/sfx/whoosh_heavy.wav", 1)
+
+SFX.load("chai_jump","res/sfx/chai_jump.wav", 1)
+SFX.load("chai_attack","res/sfx/chai_attack.wav", 1)
+SFX.load("chai_throw","res/sfx/chai_throw.wav", 1)
 
 return SFX
