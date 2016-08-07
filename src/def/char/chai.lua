@@ -183,19 +183,21 @@ return {
 			delay = 0.05
 		},
 		jumpAttackForward = {
-			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.2 }, -- jaf1
-			{ q = q(43,722,71,64), ox = 20, oy = 63, funcCont = jump_forward_attack }, -- jaf2
-			delay = 5
+			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jaf1
+			{ q = q(43,722,37,64), ox = 13, oy = 63 }, --jaf2
+			{ q = q(82,722,71,64), ox = 20, oy = 63, funcCont = jump_forward_attack, delay = 5 }, --jaf3
+			delay = 0.1
 		},
 		jumpAttackWeak = {
-			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.2 }, -- jaf1
-			{ q = q(43,722,71,64), ox = 20, oy = 63, funcCont = jump_forward_attack }, -- jaf2
-			delay = 5
+			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jaf1
+			{ q = q(43,722,37,64), ox = 13, oy = 63, funcCont = jump_weak_attack, delay = 5 }, --jaf2
+			delay = 0.2
 		},
 		jumpAttackStill = {
-			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.2 }, -- jaf1
-			{ q = q(43,722,71,64), ox = 20, oy = 63, funcCont = jump_forward_attack }, -- jaf2
-			delay = 5
+			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jaf1
+			{ q = q(43,722,37,64), ox = 13, oy = 63 }, --jaf2
+			{ q = q(82,722,71,64), ox = 20, oy = 63, funcCont = jump_forward_attack, delay = 5 }, --jaf3
+			delay = 0.1
 		},
 		sideStepUp = {
 			{ q = q(43,266,39,67), ox = 25, oy = 66 }, --ssu
