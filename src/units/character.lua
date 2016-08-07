@@ -583,7 +583,6 @@ function Character:jumpAttackWeak_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackWeak start")
     SetSpriteAnim(self.sprite,"jumpAttackWeak")
-    sfx.play(self.name,self.sfx.jump_attack)
 end
 function Character:jumpAttackWeak_update(dt)
     --	print (self.name.." - jumpAttackWeak update",dt)
