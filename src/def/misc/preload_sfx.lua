@@ -71,6 +71,7 @@ SFX.hit_weak = {"hit_weak1","hit_weak2","hit_weak3","hit_weak4","hit_weak5","hit
 SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
 SFX.load("rick_attack","res/sfx/rick_attack.wav", 1)
 SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
+SFX.load("rick_step","res/sfx/rick_step.wav", 1)
 SFX.load("grab","res/sfx/grab.wav", 1)
 SFX.load("whoosh_heavy","res/sfx/whoosh_heavy.wav", 1)
 
