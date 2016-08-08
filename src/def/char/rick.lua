@@ -6,7 +6,7 @@ local function q(x,y,w,h)
 end
 
 local step_sfx = function(self)
-	sfx.play("sfx","rick_step")
+	sfx.play("sfx", self.sfx.step)
 	local padust = PA_DUST_STEPS:clone()
 	padust:setLinearAcceleration(-self.face * 50, 1, -self.face * 100, -15)
 	padust:emit(3)

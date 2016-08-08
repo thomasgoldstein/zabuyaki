@@ -27,6 +27,7 @@ function Chai:initialize(name, sprite, input, x, y, shader, color)
     self.sfx.throw = "chai_throw"
     self.sfx.jump_attack = "chai_attack"
     self.sfx.dash = "chai_attack"
+    self.sfx.step = "step"
 end
 
 function Chai:combo_start()
