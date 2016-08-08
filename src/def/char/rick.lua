@@ -34,7 +34,7 @@ local combo_attack4 = function(slf)
 end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
-local jump_forward_attack = function(slf) slf:checkAndAttack(28,0, 25,12, 15, "fall") end
+local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall") end
 local jump_weak_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 9, "high") end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
 
@@ -183,19 +183,19 @@ return {
 			delay = 0.05
 		},
 		jumpAttackForward = {
-			{ q = q(2,714,54,62), ox = 27, oy = 61, delay = 0.2 }, -- jaf1
-			{ q = q(58,714,75,58), ox = 37, oy = 57, funcCont = jump_forward_attack }, -- jaf2
+			{ q = q(2,714,54,62), ox = 23, oy = 61, delay = 0.2 }, --jaf1
+			{ q = q(58,714,75,58), ox = 33, oy = 57, funcCont = jump_forward_attack }, --jaf2
 			delay = 5
 		},
 		jumpAttackWeak = {
-			{ q = q(2,844,43,67), ox = 21, oy = 66, delay = 0.2 }, -- jaw1
-			{ q = q(47,844,47,63), ox = 23, oy = 62, funcCont = jump_weak_attack }, -- jaw2
+			{ q = q(2,844,43,67), ox = 21, oy = 66, delay = 0.2 }, --jaw1
+			{ q = q(47,844,47,63), ox = 23, oy = 62, funcCont = jump_weak_attack }, --jaw2
 			delay = 5
 		},
 		jumpAttackStill = {
-			{ q = q(2,778,38,63), ox = 19, oy = 62, delay = 0.4 }, -- jas1
-			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack1, delay = 0.1 }, -- jas2
-			{ q = q(94,778,43,62), ox = 19, oy = 61, func = jump_still_attack2 }, -- jas3
+			{ q = q(2,778,38,63), ox = 19, oy = 62, delay = 0.4 }, --jas1
+			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack1, delay = 0.1 }, --jas2
+			{ q = q(94,778,43,62), ox = 19, oy = 61, func = jump_still_attack2 }, --jas3
 			delay = 5
 		},
 		sideStepUp = {
