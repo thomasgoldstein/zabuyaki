@@ -30,7 +30,6 @@ SFX.load("menu_cancel","res/sfx/menu_cancel.wav", 0.5)
 SFX.load("menu_move","res/sfx/menu_move.wav", 0.5)
 SFX.load("menu_gamestart","res/sfx/menu_gamestart.wav", 0.2)
 
-SFX.load("step","res/sfx/tmp/step.wav", 0.5)
 SFX.load("air","res/sfx/whoosh_light.wav", 0.5)
 SFX.load("whoosh_heavy","res/sfx/whoosh_heavy.wav", 1)
 SFX.load("grab","res/sfx/grab.wav", 1)
