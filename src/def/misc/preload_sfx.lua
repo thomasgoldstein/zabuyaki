@@ -73,14 +73,19 @@ SFX.hit_weak = {"hit_weak1","hit_weak2","hit_weak3","hit_weak4","hit_weak5","hit
 SFX.load("kisa_jump","res/sfx/kisa_jump.wav", 1)
 SFX.load("kisa_attack","res/sfx/kisa_attack.wav", 1)
 SFX.load("kisa_throw","res/sfx/kisa_throw.wav", 1)
+SFX.load("kisa_step","res/sfx/kisa_step.wav", 1)
+SFX.load("kisa_death","res/sfx/kisa_death.wav", 1)
 
 SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
 SFX.load("rick_attack","res/sfx/rick_attack.wav", 1)
 SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
 SFX.load("rick_step","res/sfx/rick_step.wav", 1)
+SFX.load("rick_death","res/sfx/rick_death.wav", 1)
 
 SFX.load("chai_jump","res/sfx/chai_jump.wav", 1)
 SFX.load("chai_attack","res/sfx/chai_attack.wav", 1)
 SFX.load("chai_throw","res/sfx/chai_throw.wav", 1)
+SFX.load("chai_step","res/sfx/chai_step.wav", 1)
+SFX.load("chai_death","res/sfx/chai_death.wav", 1)
 
 return SFX

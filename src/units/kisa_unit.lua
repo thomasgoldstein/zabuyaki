@@ -27,7 +27,8 @@ function Kisa:initialize(name, sprite, input, x, y, shader, color)
     self.sfx.throw = "kisa_throw"
     self.sfx.jump_attack = "kisa_attack"
     self.sfx.dash = "kisa_attack"
-    self.sfx.step = "step"
+    self.sfx.step = "kisa_step"
+    self.sfx.dead = "kisa_death"
 end
 
 function Kisa:combo_start()
