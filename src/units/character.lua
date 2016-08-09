@@ -500,7 +500,7 @@ function Character:sideStepDown_update(dt)
     else
         self.vely = 0
         self.z = 0
-        sfx.play(self.name, self.sfx.step)
+        sfx.play(self.name, self.sfx.step, 0.75)
         self:setState(self.duck)
         return
     end
@@ -525,7 +525,7 @@ function Character:sideStepUp_update(dt)
     else
         self.vely = 0
         self.z = 0
-        sfx.play(self.name, self.sfx.step)
+        sfx.play(self.name, self.sfx.step, 0.75)
         self:setState(self.duck)
         return
     end
