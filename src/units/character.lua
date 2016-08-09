@@ -24,7 +24,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.speed_jump_x_boost = 10
     self.speed_jump_y_boost = 5
 
-    self.sfx.jump = "jump"
+    self.sfx.jump = "whoosh_heavy"
     self.sfx.throw = "air"
     self.sfx.dash = "grunt3"
     self.sfx.grab = "grab"
@@ -489,7 +489,7 @@ function Character:sideStepDown_start()
     --	print (self.name.." - sideStepDown start")
     SetSpriteAnim(self.sprite,"sideStepDown")
     self.velx, self.vely = 0, self.speed_step_down
-    sfx.play(self.name,"jump")    --TODO replace to side step sfx
+    sfx.play(self.name, "whoosh_heavy")
 end
 function Character:sideStepDown_update(dt)
     --	print (self.name.." - sideStepDown update",dt)
@@ -514,7 +514,7 @@ function Character:sideStepUp_start()
     --	print (self.name.." - sideStepUp start")
     SetSpriteAnim(self.sprite,"sideStepUp")
     self.velx, self.vely = 0, self.speed_step_down
-    sfx.play(self.name,"jump")    --TODO replace to side step sfx
+    sfx.play(self.name, "whoosh_heavy")
 end
 function Character:sideStepUp_update(dt)
     --	print (self.name.." - sideStepUp update",dt)
@@ -1132,7 +1132,7 @@ function Character:grabThrow_update(dt)
     if self.sprite.isFinished then
         self.cool_down = 0.2
         self:setState(self.stand)
-        sfx.play(self.name,"whoosh_heavy")
+        sfx.play(self.name, "whoosh_heavy")
         return
     end
     self:calcFriction(dt)

@@ -38,7 +38,6 @@ SFX.load("pickup_apple","res/sfx/pickup_apple.wav", 1)
 SFX.load("pickup_chicken","res/sfx/pickup_chicken.wav", 1)
 SFX.load("pickup_beef","res/sfx/pickup_beef.wav", 1)
 
-SFX.load("jump","res/sfx/tmp/jump.wav", 1)
 SFX.load("land","res/sfx/tmp/land.wav", 0.5)
 SFX.load("fall","res/sfx/fall_down.wav", 1)
 SFX.load("grunt1","res/sfx/tmp/grunt1.wav", 1)
