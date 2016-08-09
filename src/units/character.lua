@@ -29,6 +29,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.sfx.dash = "grunt3"
     self.sfx.grab = "grab"
     self.sfx.jump_attack = "grunt1"
+    self.sfx.step = "kisa_step"
     self.sfx.dead = "grunt3"
 --    self.infoBar = InfoBar:new(self)
 --    self.victim_infoBar = nil
@@ -314,7 +315,7 @@ function Character:jump_update(dt)
     else
         self.velz = 0
         self.z = 0
-        sfx.play(self.name,"land")
+        sfx.play(self.name, self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -499,7 +500,7 @@ function Character:sideStepDown_update(dt)
     else
         self.vely = 0
         self.z = 0
-        sfx.play(self.name,"land", 0.3)
+        sfx.play(self.name, self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -524,7 +525,7 @@ function Character:sideStepUp_update(dt)
     else
         self.vely = 0
         self.z = 0
-        sfx.play(self.name,"land", 0.3)
+        sfx.play(self.name, self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -569,7 +570,7 @@ function Character:jumpAttackForward_update(dt)
     else
         self.velz = 0
         self.z = 0
-        sfx.play(self.name,"land")
+        sfx.play(self.name, self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -592,7 +593,7 @@ function Character:jumpAttackWeak_update(dt)
     else
         self.velz = 0
         self.z = 0
-        sfx.play(self.name,"land")
+        sfx.play(self.name, self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -616,7 +617,7 @@ function Character:jumpAttackStill_update(dt)
     else
         self.velz = 0
         self.z = 0
-        sfx.play(self.name,"land")
+        sfx.play(self.name, self.sfx.step)
         self:setState(self.duck)
         return
     end
