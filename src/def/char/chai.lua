@@ -39,7 +39,7 @@ local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") en
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall") end
 local jump_weak_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high") end
-local jump_still_attack = function(slf) slf:checkAndAttack(20,0, 20,12, 15, "fall") end
+local jump_still_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall") end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
 
 return {
