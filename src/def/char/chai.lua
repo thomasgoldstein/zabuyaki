@@ -199,10 +199,10 @@ return {
 			delay = 0.1
 		},
 		sideStepUp = {
-			{ q = q(43,266,39,67), ox = 25, oy = 66 }, --ssu
+			{ q = q(133,789,44,62), ox = 23, oy = 61 }, --ssu
 		},
 		sideStepDown = {
-			{ q = q(43,266,39,67), ox = 25, oy = 66 }, --ssd
+			{ q = q(179,789,45,64), ox = 26, oy = 63 }, --ssd
 		},
 		grab = {
 			{ q = q(2,979,44,63), ox = 22, oy = 62 }, --grab
