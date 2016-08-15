@@ -202,7 +202,7 @@ return {
 			{ q = q(179,789,45,64), ox = 26, oy = 63 }, --ssd
 		},
 		grab = {
-			{ q = q(2,979,44,63), ox = 22, oy = 62 }, --grab
+			{ q = q(49,862,45,64), ox = 23, oy = 63 }, --grab
 		},
         grabHit = {
 			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
