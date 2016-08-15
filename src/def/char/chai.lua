@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 858 --after the image has been loaded
+local image_h = 928 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -35,8 +35,7 @@ end
 local combo_attack4_nosfx = function(slf)
 	slf:checkAndAttack(32,0, 22,12, 14, "fall", nil)
 end
-local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
-local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
+local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall") end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall") end
 local jump_weak_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high") end
 local jump_still_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall") end
@@ -111,13 +110,11 @@ return {
 			delay = 0.05
 		},
 		dash = {
-			{ q = q(2,915,63,62), ox = 37, oy = 61 }, --dash1
-			{ q = q(67,914,38,63), ox = 18, oy = 62, delay = 0.1 }, --dash2
-			{ q = q(107,913,60,64), ox = 17, oy = 63, func = dash_attack1, delay = 0.08 }, --dash3
-			{ q = q(107,913,60,64), ox = 17, oy = 63, func = dash_attack2, delay = 0.08 }, --dash3
-			{ q = q(169,916,53,61), ox = 17, oy = 60 }, --dash4
-			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --p2.1
-			delay = 0.16
+			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
+			{ q = q(2,722,39,65), ox = 20, oy = 64, delay = 0.1 }, --jaf1 (shifted left by 2px)
+			{ q = q(2,858,45,68), ox = 22, oy = 67, funcCont = dash_attack, delay = 0.8 }, --dash1
+			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
+			delay = 0.15
 		},
 		combo1 = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move }, --c1.1
