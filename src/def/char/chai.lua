@@ -12,7 +12,7 @@ local step_sfx = function(self)
 	padust:emit(3)
 	level_objects:add(Effect:new(padust, self.x - 20 * self.face, self.y+2))
 end
-local grabHit_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
+local grabHit_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 9, "low") end
 local grabLast_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabEnd_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
 local footJab_move = function(self) self.x = self.x + self.horizontal end -- Chai's foot jab makes him move forward
