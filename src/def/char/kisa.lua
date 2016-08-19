@@ -164,7 +164,7 @@ return {
 		grab = {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
 		},
-        grabHit = {
+		grabHit = {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
 			delay = 0.05
 		},
