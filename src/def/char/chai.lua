@@ -204,16 +204,16 @@ return {
 		grab = {
 			{ q = q(49,862,45,64), ox = 23, oy = 63 }, --grab
 		},
-        grabHit = {
+		grabHit = {
 			{ q = q(96,862,44,64), ox = 22, oy = 63 }, --grab attack 1.1
-			{ q = q(142,863,42,63), ox = 20, oy = 62, func = grabHit_attack, delay = 0.24 }, --grab attack 1.2
-			{ q = q(96,862,44,64), ox = 22, oy = 63, delay = 0.04 }, --grab attack 1.1
+			{ q = q(142,863,42,63), ox = 20, oy = 62, func = grabHit_attack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(96,862,44,64), ox = 22, oy = 63 }, --grab attack 1.1
 			delay = 0.02
 		},
 		grabHitLast = {
 			{ q = q(96,862,44,64), ox = 22, oy = 63 }, --grab attack 1.1
-			{ q = q(142,863,42,63), ox = 20, oy = 62, func = grabLast_attack, delay = 0.24 }, --grab attack 1.2
-			{ q = q(96,862,44,64), ox = 22, oy = 63, delay = 0.16 }, --grab attack 1.1
+			{ q = q(142,863,42,63), ox = 20, oy = 62, func = grabLast_attack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(96,862,44,64), ox = 22, oy = 63, delay = 0.1 }, --grab attack 1.1
 			delay = 0.02
 		},
 		grabHitEnd = {
