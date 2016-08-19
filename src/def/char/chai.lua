@@ -211,9 +211,9 @@ return {
 			delay = 0.02
 		},
 		grabHitLast = {
-			{ q = q(96,862,44,64), ox = 22, oy = 63 }, --grab attack 1.1
-			{ q = q(142,863,42,63), ox = 20, oy = 62, func = grabLast_attack, delay = 0.18 }, --grab attack 1.2
-			{ q = q(96,862,44,64), ox = 22, oy = 63, delay = 0.1 }, --grab attack 1.1
+			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jaf1
+			{ q = q(43,722,37,64), ox = 13, oy = 63, func = grabLast_attack, delay = 0.18 }, --jaf2
+			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.1 }, --grab attack 1.1
 			delay = 0.02
 		},
 		grabHitEnd = {
