@@ -217,10 +217,11 @@ return {
 			delay = 0.02
 		},
 		grabHitEnd = {
-			{ q = q(96,862,44,64), ox = 22, oy = 63, delay = 0.3 }, --grab attack 1.1
-			{ q = q(142,863,42,63), ox = 20, oy = 62, func = grabEnd_attack, delay = 0.25 }, --grab attack 1.2
-			{ q = q(96,862,44,64), ox = 22, oy = 63 }, --grab attack 1.1
-			delay = 0.1
+			{ q = q(121,587,48,65), ox = 13, oy = 64, delay = 0.2 }, --c4.1
+			{ q = q(171,587,50,65), ox = 14, oy = 64 }, --c4.2
+			{ q = q(194,725,49,62), ox = 14, oy = 62, func = grabEnd_attack }, --c4.7
+			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.35 }, --c4.6
+			delay = 0.05
 		},
 		grabThrow = {
 			{ q = q(2,1109,45,62), ox = 25, oy = 61, delay = 0.3 }, --throw 1.1
