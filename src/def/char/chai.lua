@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 928 --after the image has been loaded
+local image_h = 994 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -224,10 +224,11 @@ return {
 			delay = 0.05
 		},
 		grabThrow = {
-			{ q = q(2,1109,45,62), ox = 25, oy = 61, delay = 0.3 }, --throw 1.1
-			{ q = q(49,1111,42,60), ox = 18, oy = 59, func = grabThrow_now, delay = 0.05 }, --throw 1.2
-			{ q = q(93,1112,42,59), ox = 17, oy = 58, delay = 0.2 }, --throw 1.3
-			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
+			{ q = q(96,862,44,64), ox = 22, oy = 63, flip_h = -1 }, --grab attack 1.1
+			{ q = q(2,928,40,63), ox = 20, oy = 63, flip_h = -1 }, --throw 1.1
+			{ q = q(44,928,50,64), ox = 24, oy = 63 }, --throw 1.2
+			{ q = q(96,929,53,63), ox = 26, oy = 62, func = grabThrow_now, delay = 0.2 }, --throw 1.3
+			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
 			delay = 0.1
 		},
 		grabSwap = {
