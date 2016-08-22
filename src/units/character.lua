@@ -677,31 +677,32 @@ function Character:fall_update(dt)
         end
         if self.z <= 0 then
             if self.velz < -100 then    --bounce up after fall
-            self.z = 0.01
-            self.velz = -self.velz/2
-            self.velx = self.velx * 0.5
+                self.z = 0.01
+                self.velz = -self.velz/2
+                self.velx = self.velx * 0.5
 
-            if self.flag_fallen == 0 then
-                mainCamera:onShake(1, 1, 0.03, 0.3)	--shake on the 1st land touch
-                if self.isThrown then
-                    local src = self.thrower_id
-                    self.hp = self.hp - 20	--damage for throwned on landing
-                    src.victim_infoBar = self.infoBar:setAttacker(src)
+                if self.flag_fallen == 0 then
+                    mainCamera:onShake(1, 1, 0.03, 0.3)	--shake on the 1st land touch
+                    if self.isThrown then
+                        local src = self.thrower_id
+                        self.hp = self.hp - 20	--damage for throwned on landing
+                        src.victim_infoBar = self.infoBar:setAttacker(src)
+                    end
                 end
-            end
-            sfx.play(self.name,"fall", 1 - self.flag_fallen)
-            self.flag_fallen = self.flag_fallen + 0.3
-            --landing dust clouds
-            local psystem = PA_DUST_FALLING:clone()
-            psystem:emit(20)
-            level_objects:add(Effect:new(psystem, self.x + self.horizontal * 20, self.y+3))
-            return
+                sfx.play(self.name,"fall", 1 - self.flag_fallen)
+                self.flag_fallen = self.flag_fallen + 0.3
+                --landing dust clouds
+                local psystem = PA_DUST_FALLING:clone()
+                psystem:emit(20)
+                level_objects:add(Effect:new(psystem, self.x + self.horizontal * 20, self.y+3))
+                return
             else
                 --final fall (no bouncing)
                 self.z = 0
                 self.velz = 0
                 self.vely = 0
                 self.velx = 0
+                self.horizontal = self.face
 
                 self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
