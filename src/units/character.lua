@@ -66,6 +66,19 @@ function Character:stand_update(dt)
     else
         self.n_combo = 1
     end
+    
+    if self.b.jump:isDown() and self.can_jump then
+        self:setState(self.duck2jump)
+        return
+    elseif self.b.fire:isDown() and self.can_fire then
+        if self:checkForItem(9, 9) ~= nil then
+            self:setState(self.pickup)
+            return
+        end
+        self:setState(self.combo)
+        return
+    end
+    
     if self.cool_down <= 0 then
         --can move
         if self.b.horizontal:getValue() ~= 0 or
@@ -100,18 +113,6 @@ function Character:stand_update(dt)
                 return
             end
         end
-    end
-
-    if self.b.jump:isDown() and self.can_jump then
-        self:setState(self.duck2jump)
-        return
-    elseif self.b.fire:isDown() and self.can_fire then
-        if self:checkForItem(9, 9) ~= nil then
-            self:setState(self.pickup)
-            return
-        end
-        self:setState(self.combo)
-        return
     end
 
     if not self.b.jump:isDown() then
@@ -421,6 +422,28 @@ function Character:duck2jump_update(dt)
         psystem:emit(5)
         level_objects:add(Effect:new(psystem, self.x, self.y-1))
         return
+    end
+    if self.velx == 0 then
+        self.velx = 0
+        if self.b.horizontal:isDown(-1) then
+            self.face = -1 --face sprite left or right
+            self.horizontal = self.face --X direction
+            self.velx = self.speed_walk
+        elseif self.b.horizontal:isDown(1) then
+            self.face = 1 --face sprite left or right
+            self.horizontal = self.face --X direction
+            self.velx = self.speed_walk
+        end
+    end
+    if self.vely == 0 then
+        self.vely = 0
+        if self.b.vertical:isDown(-1) then
+            self.vertical = -1
+            self.vely = self.speed_walk_y
+        elseif self.b.vertical:isDown(1) then
+            self.vertical = 1
+            self.vely = self.speed_walk_y
+        end
     end
     --self:calcFriction(dt)
     --self:checkCollisionAndMove(dt)
