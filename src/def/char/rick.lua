@@ -194,7 +194,7 @@ return {
 			delay = 0.2
 		},
 		jumpAttackStill = {
-			{ q = q(2,778,38,63), ox = 19, oy = 62, delay = 0.4 }, --jas1
+			{ q = q(2,778,38,63), ox = 19, oy = 62, delay = 0.3 }, --jas1
 			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack1 }, --jas2
 			{ q = q(94,778,43,62), ox = 19, oy = 61, funcCont = jump_still_attack2, delay = 5 }, --jas3
 			delay = 0.1
