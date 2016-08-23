@@ -201,7 +201,7 @@ return {
 		},
 		jumpAttackRun = {
 			{ q = q(2,714,54,62), ox = 23, oy = 61 }, --jaf1
-			{ q = q(143,2,75,58), ox = 33, oy = 57, funcCont = jump_run_attack, delay = 5 }, --jar
+			{ q = q(143,2,75,55), ox = 33, oy = 57, funcCont = jump_run_attack, delay = 5 }, --jar
 			delay = 0.2
 		},
 		sideStepUp = {
