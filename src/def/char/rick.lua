@@ -33,6 +33,7 @@ end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall") end
+local jump_run_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 17, "fall") end
 local jump_weak_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 9, "high") end
 local jump_still_attack1 = function(self) self:checkAndAttack(20,0, 25,12, 8, "high") end
 local jump_still_attack2 = function(self) self:checkAndAttack(20,0, 25,12, 8, "fall", nil, true) end
@@ -197,6 +198,11 @@ return {
 			{ q = q(42,778,50,64), ox = 19, oy = 63, func = jump_still_attack1 }, --jas2
 			{ q = q(94,778,43,62), ox = 19, oy = 61, funcCont = jump_still_attack2, delay = 5 }, --jas3
 			delay = 0.1
+		},
+		jumpAttackRun = {
+			{ q = q(2,714,54,62), ox = 23, oy = 61 }, --jaf1
+			{ q = q(143,2,75,58), ox = 33, oy = 57, funcCont = jump_run_attack, delay = 5 }, --jar
+			delay = 0.2
 		},
 		sideStepUp = {
 			{ q = q(96,844,44,64), ox = 22, oy = 63 }, --ssu
