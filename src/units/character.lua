@@ -1127,35 +1127,36 @@ function Character:grabThrow_start()
         print(self.name.." is grabThrow someone.")
     end
 end
+
 function Character:grabThrow_update(dt)
     --print(self.name .. " - grabThrow update", dt)
-    if self.can_throw_now then	--set in the anm
-    self.can_throw_now = false
-    local g = self.hold
-    local t = g.target
-    t.isGrabbed = false
-    t.isThrown = true
-    t.thrower_id = self
-    t.z = t.z + 1
-    t.velx = self.speed_grab_throw_x
-    t.vely = 0
-    t.velz = self.speed_grab_throw_z
-    t.victims[self] = true
-    if self.x < t.x then
-        t.horizontal = -1
-        t.face = -1
-    else
-        t.horizontal = 1
-        t.face = 1
-    end
-    t:setState(self.fall)
-    sfx.play(self.name,self.sfx.throw) --TODO add throw sound
-    return
+    if self.can_throw_now then --set in the anm
+        self.can_throw_now = false
+        local g = self.hold
+        local t = g.target
+        t.isGrabbed = false
+        t.isThrown = true
+        t.thrower_id = self
+        t.z = t.z + 1
+        t.velx = self.speed_grab_throw_x
+        t.vely = 0
+        t.velz = self.speed_grab_throw_z
+        t.victims[self] = true
+        if self.x < t.x then
+            t.horizontal = -1
+            t.face = -1
+        else
+            t.horizontal = 1
+            t.face = 1
+        end
+        t:setState(self.fall)
+        sfx.play("sfx", "whoosh_heavy")
+        sfx.play(self.name, self.sfx.throw)
+        return
     end
     if self.sprite.isFinished then
         self.cool_down = 0.2
         self:setState(self.stand)
-        sfx.play(self.name, "whoosh_heavy")
         return
     end
     self:calcFriction(dt)
