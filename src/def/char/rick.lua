@@ -16,19 +16,19 @@ local grabHit_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 9,
 local grabLast_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabEnd_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
 local combo_attack1 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 7, "high", "air")
+	slf:checkAndAttack(28,0, 26,12, 7, "high", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf)
-	slf:checkAndAttack(30,0, 23,12, 8, "high", "air")
+	slf:checkAndAttack(28,0, 27,12, 8, "high", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf)
-	slf:checkAndAttack(30,0, 23,12, 10, "low", "air")
+	slf:checkAndAttack(28,0, 27,12, 10, "low", "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf)
-	slf:checkAndAttack(36,0, 35,12, 15, "fall", "air")
+	slf:checkAndAttack(34,0, 39,12, 15, "fall", "air")
 end
 local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") end
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end

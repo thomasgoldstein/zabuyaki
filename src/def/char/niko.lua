@@ -6,7 +6,7 @@ local function q(x,y,w,h)
 end
 
 local combo_attack = function(slf)
-    slf:checkAndAttack(30,0, 22,12, 7, "high", "air")
+    slf:checkAndAttack(28,0, 26,12, 7, "high", "air")
     slf.cool_down = 0.8
 end
 
