@@ -226,8 +226,8 @@ return {
 		grabThrow = {
 			{ q = q(96,862,44,64), ox = 22, oy = 63, flip_h = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,63), ox = 20, oy = 63, flip_h = -1 }, --throw 1.1
-			{ q = q(44,928,50,64), ox = 24, oy = 63 }, --throw 1.2
-			{ q = q(96,929,53,63), ox = 26, oy = 62, func = grabThrow_now, delay = 0.2 }, --throw 1.3
+			{ q = q(44,928,51,64), ox = 24, oy = 63 }, --throw 1.2
+			{ q = q(97,929,53,63), ox = 26, oy = 62, func = grabThrow_now, delay = 0.2 }, --throw 1.3
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
 			delay = 0.1
 		},
