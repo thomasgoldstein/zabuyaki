@@ -109,7 +109,7 @@ return {
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
-        jumpAttackWeak = {
+        jumpAttackLight = {
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },

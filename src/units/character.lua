@@ -300,7 +300,7 @@ function Character:jump_update(dt)
     if self.b.fire:isDown() and self.can_fire then
         if (self.b.horizontal:isDown(-1) and self.face == 1)
                 or (self.b.horizontal:isDown(1) and self.face == -1) then
-            self:setState(self.jumpAttackWeak)
+            self:setState(self.jumpAttackLight)
             return
         elseif self.velx == 0 then
             self:setState(self.jumpAttackStill)
@@ -601,13 +601,13 @@ function Character:jumpAttackForward_update(dt)
 end
 Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.jumpAttackForward_update, draw = Character.default_draw}
 
-function Character:jumpAttackWeak_start()
+function Character:jumpAttackLight_start()
     self.isHittable = true
-    --	print (self.name.." - jumpAttackWeak start")
-    SetSpriteAnim(self.sprite,"jumpAttackWeak")
+    --	print (self.name.." - jumpAttackLight start")
+    SetSpriteAnim(self.sprite,"jumpAttackLight")
 end
-function Character:jumpAttackWeak_update(dt)
-    --	print (self.name.." - jumpAttackWeak update",dt)
+function Character:jumpAttackLight_update(dt)
+    --	print (self.name.." - jumpAttackLight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt
@@ -622,7 +622,7 @@ function Character:jumpAttackWeak_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Character.jumpAttackWeak = {name = "jumpAttackWeak", start = Character.jumpAttackWeak_start, exit = nop, update = Character.jumpAttackWeak_update, draw = Character.default_draw}
+Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAttackLight_start, exit = nop, update = Character.jumpAttackLight_update, draw = Character.default_draw}
 
 function Character:jumpAttackStill_start()
     self.isHittable = true

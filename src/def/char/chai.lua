@@ -37,7 +37,7 @@ local combo_attack4_nosfx = function(slf)
 end
 local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall") end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall") end
-local jump_weak_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high") end
+local jump_light_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high") end
 local jump_still_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall") end
 local jump_run_attack = function(self) self:checkAndAttack(25,0, 35,12, 6, "high", nil, true) end
 local jump_run_attack_last = function(slf) slf:checkAndAttack(25,0, 35,12, 8, "fall", nil, true) end
@@ -186,9 +186,9 @@ return {
 			{ q = q(82,722,71,64), ox = 26, oy = 63, funcCont = jump_forward_attack, delay = 5 }, --jaf3
 			delay = 0.1
 		},
-		jumpAttackWeak = {
-			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jaf1
-			{ q = q(43,722,37,64), ox = 13, oy = 63, funcCont = jump_weak_attack, delay = 5 }, --jaf2
+		jumpAttackLight = {
+			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jal1
+			{ q = q(43,722,37,64), ox = 13, oy = 63, funcCont = jump_light_attack, delay = 5 }, --jal2
 			delay = 0.2
 		},
 		jumpAttackStill = {

@@ -34,7 +34,7 @@ local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high") en
 local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", nil, true) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall") end
 local jump_run_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 17, "fall") end
-local jump_weak_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 9, "high") end
+local jump_light_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 9, "high") end
 local jump_still_attack1 = function(self) self:checkAndAttack(20,0, 25,12, 8, "high") end
 local jump_still_attack2 = function(self) self:checkAndAttack(20,0, 25,12, 8, "fall", nil, true) end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
@@ -188,9 +188,9 @@ return {
 			{ q = q(58,714,75,58), ox = 33, oy = 57, funcCont = jump_forward_attack, delay = 5 }, --jaf2
 			delay = 0.2
 		},
-		jumpAttackWeak = {
+		jumpAttackLight = {
 			{ q = q(2,844,43,67), ox = 21, oy = 66 }, --jaw1
-			{ q = q(47,844,47,63), ox = 23, oy = 62, funcCont = jump_weak_attack, delay = 5 }, --jaw2
+			{ q = q(47,844,47,63), ox = 23, oy = 62, funcCont = jump_light_attack, delay = 5 }, --jaw2
 			delay = 0.2
 		},
 		jumpAttackStill = {

@@ -23,7 +23,7 @@ local combo_attack = function(slf)
 end
 local dash_attack = function(slf) slf:checkAndAttack(20,0, 20,12, 30, "fall") end
 local jump_forward_attack = function(slf) slf:checkAndAttack(24,0, 20,12, 20, "fall") end
-local jump_weak_attack = function(slf)
+local jump_light_attack = function(slf)
 	if slf.z > 30 then
 		slf:checkAndAttack(10,0, 20,12, 11, "high")
 	elseif slf.z > 10 then
@@ -165,8 +165,8 @@ return {
 			{q = q(50, 517, 57, 54), ox = 22, oy = 65}, --jaf 2
 			delay = 5
 		},
-		jumpAttackWeak = {
-			{q = q(109, 517, 46, 63), ox = 22, oy = 65, funcCont = jump_weak_attack, delay = 0.2}, --jaw 1
+		jumpAttackLight = {
+			{q = q(109, 517, 46, 63), ox = 22, oy = 65, funcCont = jump_light_attack, delay = 0.2}, --jaw 1
 			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
 			delay = 5
 		},
