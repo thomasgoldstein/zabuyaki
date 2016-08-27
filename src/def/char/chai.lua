@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 994 --after the image has been loaded
+local image_h = 1199 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -39,6 +39,8 @@ local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall") en
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall") end
 local jump_weak_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high") end
 local jump_still_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall") end
+local jump_run_attack = function(self) self:checkAndAttack(25,0, 35,12, 6, "high", nil, true) end
+local jump_run_attack_last = function(slf) slf:checkAndAttack(25,0, 35,12, 8, "fall", nil, true) end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
 
 return {
@@ -194,6 +196,18 @@ return {
 			{ q = q(46,789,41,63), ox = 22, oy = 62 }, --jas2
 			{ q = q(89,789,42,61), ox = 22, oy = 60, funcCont = jump_still_attack, delay = 5 }, --jas3
 			delay = 0.1
+		},
+		jumpAttackRun = {
+			{ q = q(2,994,63,66), ox = 26, oy = 65, delay = 0.08 }, --jar1.1
+			{ q = q(67,994,63,66), ox = 22, oy = 65, func = jump_run_attack, delay = 0.08 }, --jar1.2
+			{ q = q(132,994,64,66), ox = 22, oy = 65, delay = 0.02 }, --jar2.1
+			{ q = q(2,1062,65,66), ox = 22, oy = 65, func = jump_run_attack, delay = 0.02 }, --jar2.2
+			{ q = q(69,1062,66,66), ox = 22, oy = 65, delay = 0.02 }, --jar2.3
+			{ q = q(137,1062,64,66), ox = 20, oy = 65, func = jump_run_attack_last, delay = 0.02 }, --jar3.1
+			{ q = q(2,1130,61,67), ox = 20, oy = 66, func = jump_run_attack_last, delay = 0.02 }, --jar3.2
+			{ q = q(65,1130,58,67), ox = 20, oy = 66, func = jump_run_attack_last, delay = 0.02 }, --jar3.3
+			{ q = q(125,1130,42,67), ox = 23, oy = 66 }, --jar4
+			delay = 5
 		},
 		sideStepUp = {
 			{ q = q(133,789,44,62), ox = 23, oy = 61 }, --ssu
