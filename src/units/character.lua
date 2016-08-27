@@ -303,7 +303,7 @@ function Character:jump_update(dt)
             self:setState(self.jumpAttackLight)
             return
         elseif self.velx == 0 then
-            self:setState(self.jumpAttackStill)
+            self:setState(self.jumpAttackStraight)
             return
         else
             self:setState(self.jumpAttackForward)
@@ -624,14 +624,14 @@ function Character:jumpAttackLight_update(dt)
 end
 Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAttackLight_start, exit = nop, update = Character.jumpAttackLight_update, draw = Character.default_draw}
 
-function Character:jumpAttackStill_start()
+function Character:jumpAttackStraight_start()
     self.isHittable = true
-    --	print (self.name.." - jumpAttackStill start")
-    SetSpriteAnim(self.sprite,"jumpAttackStill")
+    --	print (self.name.." - jumpAttackStraight start")
+    SetSpriteAnim(self.sprite,"jumpAttackStraight")
     sfx.play(self.name,self.sfx.jump_attack)
 end
-function Character:jumpAttackStill_update(dt)
-    --	print (self.name.." - jumpAttackStill update",dt)
+function Character:jumpAttackStraight_update(dt)
+    --	print (self.name.." - jumpAttackStraight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt
@@ -646,7 +646,7 @@ function Character:jumpAttackStill_update(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
 end
-Character.jumpAttackStill = {name = "jumpAttackStill", start = Character.jumpAttackStill_start, exit = nop, update = Character.jumpAttackStill_update, draw = Character.default_draw}
+Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.jumpAttackStraight_update, draw = Character.default_draw}
 
 function Character:fall_start()
     self.isHittable = false

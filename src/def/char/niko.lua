@@ -113,7 +113,7 @@ return {
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
-        jumpAttackStill = {
+        jumpAttackStraight = {
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },

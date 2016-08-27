@@ -12,8 +12,8 @@ local step_sfx = function(self)
 	padust:emit(15)
 	level_objects:add(Effect:new(padust, self.x - 5 * self.face, self.y-2))
 end
-local jump_still_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
-local jump_still_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 8, "fall", nil, true) end
+local jump_straight_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
+local jump_straight_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 8, "fall", nil, true) end
 local grabHit_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local grabLast_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabEnd_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
@@ -151,7 +151,7 @@ return {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
 			delay = 5
 		},
-		jumpAttackStill = {
+		jumpAttackStraight = {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
 			delay = 5
 		},

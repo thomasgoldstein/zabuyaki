@@ -358,7 +358,7 @@ function Unit:onHurt()
         -- fall
         self.z = self.z + 1
         self.velz = 220
-        if h.state == "combo" or h.state == "jumpAttackStill" then
+        if h.state == "combo" or h.state == "jumpAttackStraight" then
             if self.hp <= 0 then
                 self.velx = 150	-- dead body flies further
             else

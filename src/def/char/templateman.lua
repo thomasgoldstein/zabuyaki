@@ -6,7 +6,7 @@ local function q(x,y,w,h)
 end
 
 local step_sfx = function() sfx.play("sfx", "rick_step") end
-local jump_still_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
+local jump_straight_attack = function(self) self:checkAndAttack(28,0, 20,12, 13, "fall") end
 local grabKO_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
 local grabLow_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
 local combo_attack = function(slf)
@@ -170,8 +170,8 @@ return {
 			{q = q(157, 517, 47, 60), ox = 22, oy = 65}, --jaw 2
 			delay = 5
 		},
-		jumpAttackStill = {
-			{q = q(2, 582, 33, 65), ox = 14, oy = 64, func = jump_still_attack, delay = 0.2}, --jas 1
+		jumpAttackStraight = {
+			{q = q(2, 582, 33, 65), ox = 14, oy = 64, func = jump_straight_attack, delay = 0.2}, --jas 1
 			{q = q(37, 582, 51, 60), ox = 14, oy = 64}, --jas 2
 			{q = q(2, 582, 33, 65), ox = 14, oy = 64, delay = 0.2}, --jas 1
 			delay = 0.4
