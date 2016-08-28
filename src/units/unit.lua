@@ -16,7 +16,7 @@ local function nop() --[[print "nop"]] end
 GLOBAL_UNIT_ID = 1
 
 function Unit:initialize(name, sprite, input, x, y, shader, color)
-	self.sprite = sprite or {} --GetInstance("res/templateman.lua")
+	self.sprite = sprite or {}
 	self.name = name or "Unknown"
 	self.type = "unit"
     self.lives = 3
