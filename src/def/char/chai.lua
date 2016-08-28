@@ -1,5 +1,5 @@
 local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 1199 --after the image has been loaded
+local image_h = 1198 --after the image has been loaded
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -198,15 +198,15 @@ return {
 			delay = 0.1
 		},
 		jumpAttackRun = {
-			{ q = q(2,994,63,66), ox = 26, oy = 65, delay = 0.08 }, --jar1.1
-			{ q = q(67,994,63,66), ox = 22, oy = 65, func = jump_run_attack, delay = 0.08 }, --jar1.2
-			{ q = q(132,994,64,66), ox = 22, oy = 65, delay = 0.02 }, --jar2.1
-			{ q = q(2,1062,65,66), ox = 22, oy = 65, func = jump_run_attack, delay = 0.02 }, --jar2.2
-			{ q = q(69,1062,66,66), ox = 22, oy = 65, delay = 0.02 }, --jar2.3
-			{ q = q(137,1062,63,66), ox = 20, oy = 65, func = jump_run_attack_last, delay = 0.02 }, --jar3.1
-			{ q = q(2,1130,61,67), ox = 20, oy = 66, func = jump_run_attack_last, delay = 0.02 }, --jar3.2
-			{ q = q(65,1130,57,67), ox = 20, oy = 66, func = jump_run_attack_last, delay = 0.02 }, --jar3.3
-			{ q = q(124,1130,42,67), ox = 23, oy = 66 }, --jar4
+			{ q = q(2,993,63,66), ox = 26, oy = 65, delay = 0.08 }, --jar1.1
+			{ q = q(67,993,63,66), ox = 22, oy = 65, func = jump_run_attack, delay = 0.08 }, --jar1.2
+			{ q = q(132,993,64,66), ox = 22, oy = 65, delay = 0.02 }, --jar2.1
+			{ q = q(2,1061,65,66), ox = 22, oy = 65, func = jump_run_attack, delay = 0.02 }, --jar2.2
+			{ q = q(69,1061,66,66), ox = 22, oy = 65, delay = 0.02 }, --jar2.3
+			{ q = q(137,1061,63,66), ox = 20, oy = 65, func = jump_run_attack_last, delay = 0.02 }, --jar3.1
+			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jump_run_attack_last, delay = 0.02 }, --jar3.2
+			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jump_run_attack_last, delay = 0.02 }, --jar3.3
+			{ q = q(124,1129,42,67), ox = 23, oy = 66 }, --jar4
 			delay = 5
 		},
 		sideStepUp = {
@@ -219,15 +219,15 @@ return {
 			{ q = q(49,862,45,64), ox = 23, oy = 63 }, --grab
 		},
 		grabHit = {
-			{ q = q(96,862,44,64), ox = 22, oy = 63 }, --grab attack 1.1
-			{ q = q(142,863,42,63), ox = 20, oy = 62, func = grabHit_attack, delay = 0.18 }, --grab attack 1.2
-			{ q = q(96,862,44,64), ox = 22, oy = 63 }, --grab attack 1.1
+			{ q = q(96,863,44,63), ox = 22, oy = 62 }, --grab attack 1.1
+			{ q = q(142,865,42,61), ox = 20, oy = 60, func = grabHit_attack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(96,863,44,63), ox = 22, oy = 62 }, --grab attack 1.1
 			delay = 0.02
 		},
 		grabHitLast = {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jaf1
 			{ q = q(43,722,37,64), ox = 13, oy = 63, func = grabLast_attack, delay = 0.18 }, --jaf2
-			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.1 }, --grab attack 1.1
+			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.1 }, --jaf1
 			delay = 0.02
 		},
 		grabHitEnd = {
@@ -238,10 +238,10 @@ return {
 			delay = 0.05
 		},
 		grabThrow = {
-			{ q = q(96,862,44,64), ox = 22, oy = 63, flip_h = -1 }, --grab attack 1.1
-			{ q = q(2,928,40,63), ox = 20, oy = 63, flip_h = -1 }, --throw 1.1
-			{ q = q(44,928,51,64), ox = 24, oy = 63 }, --throw 1.2
-			{ q = q(97,929,53,63), ox = 26, oy = 62, func = grabThrow_now, delay = 0.2 }, --throw 1.3
+			{ q = q(96,863,44,63), ox = 22, oy = 62, flip_h = -1 }, --grab attack 1.1
+			{ q = q(2,928,40,62), ox = 20, oy = 62, flip_h = -1 }, --throw 1.1
+			{ q = q(44,928,51,63), ox = 24, oy = 62 }, --throw 1.2
+			{ q = q(97,928,53,63), ox = 26, oy = 62, func = grabThrow_now, delay = 0.2 }, --throw 1.3
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
 			delay = 0.1
 		},
