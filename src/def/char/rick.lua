@@ -109,10 +109,10 @@ return {
 		},
 		dash = {
 			{ q = q(2,915,63,62), ox = 37, oy = 61 }, --dash1
-			{ q = q(67,914,38,63), ox = 18, oy = 62, delay = 0.1 }, --dash2
-			{ q = q(107,913,60,64), ox = 17, oy = 63, func = dash_attack1, delay = 0.08 }, --dash3
-			{ q = q(107,913,60,64), ox = 17, oy = 63, func = dash_attack2, delay = 0.08 }, --dash3
-			{ q = q(169,916,53,61), ox = 17, oy = 60 }, --dash4
+			{ q = q(67,914,37,63), ox = 17, oy = 62, delay = 0.1 }, --dash2
+			{ q = q(106,913,61,64), ox = 17, oy = 63, func = dash_attack1, delay = 0.08 }, --dash3
+			{ q = q(106,913,61,64), ox = 17, oy = 63, func = dash_attack2, delay = 0.08 }, --dash3
+			{ q = q(168,916,53,61), ox = 17, oy = 60 }, --dash4
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --c2.1
 			delay = 0.16
 		},
@@ -221,7 +221,7 @@ return {
 		},
 		grabHitLast = {
 			{ q = q(48,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
-			{ q = q(169,916,53,61), ox = 17, oy = 60, func = grabLast_attack, delay = 0.18 }, --dash4
+			{ q = q(168,916,53,61), ox = 17, oy = 60, func = grabLast_attack, delay = 0.18 }, --dash4
 			{ q = q(117,519,40,63), ox = 17, oy = 62, delay = 0.1 }, --c2.1
 			delay = 0.02
 		},
