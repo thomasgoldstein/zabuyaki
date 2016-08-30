@@ -154,7 +154,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width - bar_height + 12, t + self.y + bar_height)
     if self.source.type == "player" then
         love.graphics.print(self.source.pid, l + self.x, t + self.y - 9)
-        love.graphics.print(self.source.score, l + self.x + icon_width, t + self.y - 9)
+        love.graphics.print(string.format("%06d", self.source.score), l + self.x + icon_width, t + self.y - 9)
     end
 end
 
