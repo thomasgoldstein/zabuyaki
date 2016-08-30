@@ -936,7 +936,7 @@ function Character:grab_update(dt)
         else
             self.horizontal = 1
         end
-        self.velx = velocity_back_off --move from source
+        self.velx = self.velocity_back_off --move from source
         self.cool_down = 0.0
         self:release_grabbed()
         self:setState(self.stand)
