@@ -62,8 +62,8 @@ function InfoBar:initialize(source)
     self.color = {155,110,20}
     self.cool_down = 0
     self.id = self.source.id
-    self.score = nil
-    self.displayed_score = nil
+    self.score = -1
+    self.displayed_score = ""
     if source.type == "item" then
         self.icon_sprite = source.icon_sprite
         self.icon_q = source.icon_q  --quad
