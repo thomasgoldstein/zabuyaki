@@ -312,8 +312,8 @@ function Unit:onHurt()
 
     h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
 
-    --Score TODO
-    h.source.score = h.source.score + love.math.random(1,10)*50
+    -- Score
+    h.source.score = h.source.score + h.damage * 10
 
     self:playHitSfx(h.damage)
     self.hp = self.hp - h.damage
