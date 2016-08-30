@@ -685,7 +685,8 @@ function Character:fall_update(dt)
                     mainCamera:onShake(1, 1, 0.03, 0.3)	--shake on the 1st land touch
                     if self.isThrown then
                         local src = self.thrower_id
-                        self.hp = self.hp - 20	--damage for throwned on landing
+                        self.hp = self.hp - self.thrown_land_damage	--damage for throwned on landing
+                        src.score = src.score + self.thrown_land_damage * 10
                         src.victim_infoBar = self.infoBar:setAttacker(src)
                     end
                 end
@@ -720,7 +721,7 @@ function Character:fall_update(dt)
         if self.isThrown and self.velz < 0 then
             --TODO dont check it on every FPS
             --TODO proper hitbox
-            self:checkAndAttack(0,0, 20,12, 10, "fall")
+            self:checkAndAttack(0,0, 20,12, self.my_thrown_body_damage, "fall")
         end
     end
     self:checkCollisionAndMove(dt)

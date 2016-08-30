@@ -40,6 +40,8 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_fall_x = 110
     self.velocity_fall_random_x = 5
     self.velocity_bonus_on_attack_x = 30
+    self.my_thrown_body_damage = 10  --eg like a weight of the thrown body that makes dmg to others
+    self.thrown_land_damage = 20  --dmg from the thrown-fall
 
 	self.state = "nop"
 	self.prev_state = "" -- text name
@@ -398,10 +400,17 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
     end
     for i = 1,#items do
-        items[i].hurt = {source = self, state = self.state, damage = damage,
+        if self.isThrown then
+            items[i].hurt = {source = self.thrower_id, state = self.state, damage = damage,
             type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
             horizontal = self.horizontal,
-            x = self.x, y = self.y, z = z or self.z}
+            x = self.x, y = self.y, z = z or self.z }
+        else
+            items[i].hurt = {source = self, state = self.state, damage = damage,
+                type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+                horizontal = self.horizontal,
+                x = self.x, y = self.y, z = z or self.z }
+        end
     end
     if sfx1 then
         sfx.play(self.name,sfx1)
@@ -421,7 +430,7 @@ function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx1)
         --TODO not needed since the hitbox is centered
     end
     if not g.target then --can attack only the 1 grabbed
-    return
+        return
     end
 
     local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
