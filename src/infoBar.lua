@@ -62,8 +62,6 @@ function InfoBar:initialize(source)
     self.color = {155,110,20}
     self.cool_down = 0
     self.id = self.source.id
-    self.score = -1
-    self.displayed_score = ""
     if source.type == "item" then
         self.icon_sprite = source.icon_sprite
         self.icon_q = source.icon_q  --quad
@@ -73,6 +71,10 @@ function InfoBar:initialize(source)
         self.old_hp = 1
         self.x, self.y, self.face = 0, 0, 1
     else --Player / enemy / object
+        if source.type == "player" then
+            self.score = -1
+            self.displayed_score = ""
+        end
         self.icon_sprite = source.sprite.def.sprite_sheet
         self.icon_q = source.sprite.def.animations["icon"][1].q  --quad
         self.icon_color = source.color
