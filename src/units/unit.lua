@@ -327,13 +327,11 @@ function Unit:onHurt()
     mainCamera:onShake(1, 1, 0.03, 0.3)
     end
     if h.type == "high" and self.hp > 0 and self.z <= 0 then
-        self.pa_impact_high:setSpeed( -self.face * 30, -self.face * 60 )
         self.pa_impact_high:emit(1)
         self:onShake(1, 0, 0.03, 0.3)
         self:setState(self.hurtHigh)
         return
     elseif h.type == "low" and self.hp > 0 and self.z <= 0 then
-        self.pa_impact_low:setSpeed( -self.face * 30, -self.face * 50 )
         self.pa_impact_low:emit(1)
         self:onShake(1, 0, 0.03, 0.3)
         self:setState(self.hurtLow)
