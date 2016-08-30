@@ -62,6 +62,8 @@ function InfoBar:initialize(source)
     self.color = {155,110,20}
     self.cool_down = 0
     self.id = self.source.id
+    self.score = nil
+    self.displayed_score = nil
     if source.type == "item" then
         self.icon_sprite = source.icon_sprite
         self.icon_q = source.icon_q  --quad
@@ -154,7 +156,11 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width - bar_height + 12, t + self.y + bar_height)
     if self.source.type == "player" then
         love.graphics.print(self.source.pid, l + self.x, t + self.y - 9)
-        love.graphics.print(string.format("%06d", self.source.score), l + self.x + icon_width, t + self.y - 9)
+        if self.score ~= self.source.score then
+            self.score = self.source.score
+            self.displayed_score = string.format("%06d", self.score)
+        end
+        love.graphics.print(self.displayed_score, l + self.x + icon_width, t + self.y - 9)
     end
 end
 
