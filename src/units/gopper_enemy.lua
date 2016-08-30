@@ -88,9 +88,6 @@ function Gopper:checkCollisionAndMove(dt)
     end
     self.x = actualX + 8
     self.y = actualY + 4
-
-    self.pa_impact_low:update( dt )
-    self.pa_impact_high:update( dt )
 end
 
 function Gopper:combo_start()
@@ -184,7 +181,7 @@ function Gopper:walk_start()
     self.can_jump = false
     self.can_fire = false
     local t = dist(self.target.x, self.target.y, self.x, self.y)
-    if t < 300 then
+    if t < 600 then
         --set dest
         if love.math.random() < 0.25 then
             --random move arond the player (far from)

@@ -81,10 +81,6 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 		self.pid = ""
 		self.show_pid_cool_down = 0
 	end
-
-	self.pa_impact_high = PA_IMPACT_BIG:clone()
-	self.pa_impact_low = PA_IMPACT_SMALL:clone()
-
 	self:setState(self.stand)
 end
 
@@ -244,8 +240,6 @@ function Unit:default_draw(l,t,w,h)
 			love.graphics.setShader()
 		end
 		love.graphics.setColor(255, 255, 255, 255)
-		love.graphics.draw(self.pa_impact_low, self.x, self.y)
-		love.graphics.draw(self.pa_impact_high, self.x, self.y)
 		if self.show_pid_cool_down > 0 then
 			self:drawPID(self.x, self.y - self.z - 80)
 		end
@@ -264,9 +258,6 @@ function Unit:checkCollisionAndMove(dt)
 		end)
 	self.x = actualX + 8
 	self.y = actualY + 4
-
-	self.pa_impact_low:update( dt )
-	self.pa_impact_high:update( dt )
 end
 
 function Unit:calcFriction(dt, friction)
@@ -327,12 +318,18 @@ function Unit:onHurt()
     mainCamera:onShake(1, 1, 0.03, 0.3)
     end
     if h.type == "high" and self.hp > 0 and self.z <= 0 then
-        self.pa_impact_high:emit(1)
+        local pa_hitMark = PA_IMPACT_BIG:clone()
+        pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+        pa_hitMark:emit(1)
+        level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
         self:onShake(1, 0, 0.03, 0.3)
         self:setState(self.hurtHigh)
         return
     elseif h.type == "low" and self.hp > 0 and self.z <= 0 then
-        self.pa_impact_low:emit(1)
+        local pa_hitMark = PA_IMPACT_SMALL:clone()
+        pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+        pa_hitMark:emit(1)
+        level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
         self:onShake(1, 0, 0.03, 0.3)
         self:setState(self.hurtLow)
         return
@@ -342,7 +339,10 @@ function Unit:onHurt()
                     print(self.name.." removed AI tween")
                     self.move:remove()
                 end]]
-        self.pa_impact_high:emit(1)
+        local pa_hitMark = PA_IMPACT_BIG:clone()
+        pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+        pa_hitMark:emit(1)
+        level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
         -- calc falling traectorym speed, direction
         if h.type == "grabKO" then
             self.velx = self.velocity_throw_x
