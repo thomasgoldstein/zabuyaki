@@ -34,6 +34,13 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
     self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
     self.sideStepFriction = 650 -- velocity penalty for sideStepUp Down (when u slide on ground)
     self.jumpHeight = 40 -- in pixels
+    self.velocity_throw_x = 110
+    self.velocity_fall_z = 220
+    self.velocity_fall_dead_x = 150
+    self.velocity_fall_x = 110
+    self.velocity_fall_random_x = 5
+    self.velocity_bonus_on_attack_x = 30
+
 	self.state = "nop"
 	self.prev_state = "" -- text name
     self.last_state = "" -- text name
@@ -340,7 +347,7 @@ function Unit:onHurt()
         self.pa_impact_high:emit(1)
         -- calc falling traectorym speed, direction
         if h.type == "grabKO" then
-            self.velx = 110
+            self.velx = self.velocity_throw_x
         else
             self.velx = h.velx
         end
@@ -357,15 +364,15 @@ function Unit:onHurt()
         end
         -- fall
         self.z = self.z + 1
-        self.velz = 220
+        self.velz = self.velocity_fall_z
         if h.state == "combo" or h.state == "jumpAttackStraight" then
             if self.hp <= 0 then
-                self.velx = 150	-- dead body flies further
+                self.velx = self.velocity_fall_dead_x	-- dead body flies further
             else
-                self.velx = 110
+                self.velx = self.velocity_fall_x
             end
         end
-        self.velx = self.velx + 1 + love.math.random(5)
+        self.velx = self.velx + love.math.random(1, self.velocity_fall_random_x)
         --self:onShake(10, 10, 0.12, 0.7)
         self.isGrabbed = false
         self:setState(self.fall)
@@ -394,7 +401,7 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
     end
     for i = 1,#items do
         items[i].hurt = {source = self, state = self.state, damage = damage,
-            type = type, velx = self.velx+30,
+            type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
             horizontal = self.horizontal,
             x = self.x, y = self.y, z = z or self.z}
     end
@@ -432,7 +439,7 @@ function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx1)
     end
     for i = 1,#items do
         items[i].hurt = {source = self, state = self.state, damage = damage,
-            type = type, velx = self.velx+30,
+            type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
             horizontal = self.horizontal,
             x = self.x, y = self.y, z = z or self.z}
     end

@@ -10,19 +10,19 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     Unit.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "character"
 
-    self.speed_walk = 100
-    self.speed_walk_y = 50
-    self.speed_run = 150
-    self.speed_run_y = 25
-    self.speed_dash = 150
-    self.speed_step_down = 220
-    self.speed_grab_throw_x = 220
-    self.speed_grab_throw_z = 200
-    self.speed_back_off = 175 --when ungrab
-    self.speed_back_off2 = 200 --when ungrabbed
-    self.speed_jump = 220 --Z coord
-    self.speed_jump_x_boost = 10
-    self.speed_jump_y_boost = 5
+    self.velocity_walk = 100
+    self.velocity_walk_y = 50
+    self.velocity_run = 150
+    self.velocity_run_y = 25
+    self.velocity_dash = 150
+    self.velocity_step_down = 220
+    self.velocity_grab_throw_x = 220
+    self.velocity_grab_throw_z = 200
+    self.velocity_back_off = 175 --when ungrab
+    self.velocity_back_off2 = 200 --when ungrabbed
+    self.velocity_jump = 220 --Z coord
+    self.velocity_jump_x_boost = 10
+    self.velocity_jump_y_boost = 5
 
     self.sfx.jump = "whoosh_heavy"
     self.sfx.throw = "air"
@@ -97,7 +97,7 @@ function Character:stand_update(dt)
             if self.b.horizontal.ikn:getLast()
                     and self.b.fire:isDown() and self.can_fire
             then
-                self.velx = self.speed_dash
+                self.velx = self.velocity_dash
                 self:setState(self.dash)
                 return
             end
@@ -108,7 +108,7 @@ function Character:stand_update(dt)
             if self.b.horizontal.ikp:getLast()
                     and self.b.fire:isDown() and self.can_fire
             then
-                self.velx = self.speed_dash
+                self.velx = self.velocity_dash
                 self:setState(self.dash)
                 return
             end
@@ -151,7 +151,7 @@ function Character:walk_update(dt)
     if self.b.horizontal:isDown(-1) then
         self.face = -1 --face sprite left or right
         self.horizontal = self.face --X direction
-        self.velx = self.speed_walk
+        self.velx = self.velocity_walk
         if self.b.horizontal.ikn:getLast() and self.face == -1 then
             self:setState(self.run)
             return
@@ -159,7 +159,7 @@ function Character:walk_update(dt)
     elseif self.b.horizontal:isDown(1) then
         self.face = 1 --face sprite left or right
         self.horizontal = self.face --X direction
-        self.velx = self.speed_walk
+        self.velx = self.velocity_walk
         if self.b.horizontal.ikp:getLast() and self.face == 1 then
             self:setState(self.run)
             return
@@ -167,14 +167,14 @@ function Character:walk_update(dt)
     end
     if self.b.vertical:isDown(-1) then
         self.vertical = -1
-        self.vely = self.speed_walk_y
+        self.vely = self.velocity_walk_y
         if self.b.vertical.ikn:getLast() then
             self:setState(self.sideStepUp)
             return
         end
     elseif self.b.vertical:isDown(1) then
         self.vertical = 1
-        self.vely = self.speed_walk_y
+        self.vely = self.velocity_walk_y
         if self.b.vertical.ikp:getLast() then
             self:setState(self.sideStepDown)
             return
@@ -224,18 +224,18 @@ function Character:run_update(dt)
     if self.b.horizontal:isDown(-1) then
         self.face = -1 --face sprite left or right
         self.horizontal = self.face --X direction
-        self.velx = self.speed_run
+        self.velx = self.velocity_run
     elseif self.b.horizontal:isDown(1) then
         self.face = 1 --face sprite left or right
         self.horizontal = self.face --X direction
-        self.velx = self.speed_run
+        self.velx = self.velocity_run
     end
     if self.b.vertical:isDown(-1) then
         self.vertical = -1
-        self.vely = self.speed_run_y
+        self.vely = self.velocity_run_y
     elseif self.b.vertical:isDown(1) then
         self.vertical = 1
-        self.vely = self.speed_run_y
+        self.vely = self.velocity_run_y
     end
     if (self.b.horizontal:isDown(1) == false and self.b.horizontal:isDown(-1) == false)
             or (self.b.horizontal:isDown(1) and self.horizontal < 0)
@@ -275,7 +275,7 @@ function Character:jump_start()
     self.isHittable = true
     --	print (self.name.." - jump start")
     SetSpriteAnim(self.sprite,"jump")
-    self.velz = self.speed_jump
+    self.velz = self.velocity_jump
     self.z = 0.1
     if self.b.vertical:isDown(-1) then
         self.vertical = -1
@@ -288,10 +288,10 @@ function Character:jump_start()
         self.velx = 0
     end
     if self.velx ~= 0 then
-        self.velx = self.velx + self.speed_jump_x_boost --make jump little faster than the walk/run speed
+        self.velx = self.velx + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
     end
     if self.vely ~= 0 then
-        self.vely = self.vely + self.speed_jump_y_boost --make jump little faster than the walk/run speed
+        self.vely = self.vely + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
     end
     sfx.play(self.name,self.sfx.jump)
 end
@@ -423,24 +423,24 @@ function Character:duck2jump_update(dt)
         level_objects:add(Effect:new(psystem, self.x, self.y-1))
         return
     end
-    if self.velx < self.speed_walk then
+    if self.velx < self.velocity_walk then
         if self.b.horizontal:isDown(-1) then
             self.face = -1 --face sprite left or right
             self.horizontal = self.face --X direction
-            self.velx = self.speed_walk
+            self.velx = self.velocity_walk
         elseif self.b.horizontal:isDown(1) then
             self.face = 1 --face sprite left or right
             self.horizontal = self.face --X direction
-            self.velx = self.speed_walk
+            self.velx = self.velocity_walk
         end
     end
-    if self.vely < self.speed_walk_y then
+    if self.vely < self.velocity_walk_y then
         if self.b.vertical:isDown(-1) then
             self.vertical = -1
-            self.vely = self.speed_walk_y
+            self.vely = self.velocity_walk_y
         elseif self.b.vertical:isDown(1) then
             self.vertical = 1
-            self.vely = self.speed_walk_y
+            self.vely = self.velocity_walk_y
         end
     end
     --self:calcFriction(dt)
@@ -510,7 +510,7 @@ function Character:sideStepDown_start()
     self.isHittable = false
     --	print (self.name.." - sideStepDown start")
     SetSpriteAnim(self.sprite,"sideStepDown")
-    self.velx, self.vely = 0, self.speed_step_down
+    self.velx, self.vely = 0, self.velocity_step_down
     sfx.play(self.name, "whoosh_heavy")
 end
 function Character:sideStepDown_update(dt)
@@ -535,7 +535,7 @@ function Character:sideStepUp_start()
     self.isHittable = false
     --	print (self.name.." - sideStepUp start")
     SetSpriteAnim(self.sprite,"sideStepUp")
-    self.velx, self.vely = 0, self.speed_step_down
+    self.velx, self.vely = 0, self.velocity_step_down
     sfx.play(self.name, "whoosh_heavy")
 end
 function Character:sideStepUp_update(dt)
@@ -560,7 +560,7 @@ function Character:dash_start()
     self.isHittable = true
     --	print (self.name.." - dash start")
     SetSpriteAnim(self.sprite,"dash")
-    self.velx = self.speed_dash
+    self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
     sfx.play(self.name,self.sfx.dash)    --TODO add dash sound
@@ -936,7 +936,7 @@ function Character:grab_update(dt)
         else
             self.horizontal = 1
         end
-        self.velx = speed_back_off --move from source
+        self.velx = velocity_back_off --move from source
         self.cool_down = 0.0
         self:release_grabbed()
         self:setState(self.stand)
@@ -1024,7 +1024,7 @@ function Character:grabbed_update(dt)
         end
         self.isGrabbed = false
         self.cool_down = 0.1	--cannot walk etc
-        self.velx = self.speed_back_off2 --move from source
+        self.velx = self.velocity_back_off2 --move from source
         self:setState(self.stand)
         return
     end
@@ -1138,9 +1138,9 @@ function Character:grabThrow_update(dt)
         t.isThrown = true
         t.thrower_id = self
         t.z = t.z + 1
-        t.velx = self.speed_grab_throw_x
+        t.velx = self.velocity_grab_throw_x
         t.vely = 0
-        t.velz = self.speed_grab_throw_z
+        t.velz = self.velocity_grab_throw_z
         t.victims[self] = true
         if self.x < t.x then
             t.horizontal = -1

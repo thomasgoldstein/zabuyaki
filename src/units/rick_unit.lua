@@ -27,10 +27,10 @@ function Rick:initialize(name, sprite, input, x, y, shader, color)
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
 
-    self.speed_walk = 90
-    self.speed_walk_y = 45
-    self.speed_run = 140
-    self.speed_run_y = 23
+    self.velocity_walk = 90
+    self.velocity_walk_y = 45
+    self.velocity_run = 140
+    self.velocity_run_y = 23
 
     self.sfx.jump = "rick_jump"
     self.sfx.throw = "rick_throw"
