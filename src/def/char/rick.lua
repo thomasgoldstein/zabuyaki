@@ -5,16 +5,16 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function(self)
-	sfx.play("sfx", self.sfx.step, 0.5)
+local step_sfx = function(slf)
+	sfx.play("sfx", slf.sfx.step, 0.5)
 	local padust = PA_DUST_STEPS:clone()
-	padust:setLinearAcceleration(-self.face * 50, 1, -self.face * 100, -15)
+	padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
 	padust:emit(3)
-	level_objects:add(Effect:new(padust, self.x - 20 * self.face, self.y+2))
+	level_objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local grabHit_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 9, "low") end
-local grabLast_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
-local grabEnd_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
+local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low") end
+local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
+local grabEnd_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
 local combo_attack1 = function(slf)
 	slf:checkAndAttack(28,0, 26,12, 7, "high", "air")
 	slf.cool_down_combo = 0.4
@@ -35,8 +35,8 @@ local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", ni
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall") end
 local jump_run_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 17, "fall") end
 local jump_light_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 9, "high") end
-local jump_straight_attack1 = function(self) self:checkAndAttack(20,0, 25,12, 8, "high") end
-local jump_straight_attack2 = function(self) self:checkAndAttack(20,0, 25,12, 8, "fall", nil, true) end
+local jump_straight_attack1 = function(slf) slf:checkAndAttack(20,0, 25,12, 8, "high") end
+local jump_straight_attack2 = function(slf) slf:checkAndAttack(20,0, 25,12, 8, "fall", nil, true) end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
 
 return {

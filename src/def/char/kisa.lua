@@ -5,18 +5,18 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function(self)
-	sfx.play("sfx", self.sfx.step, 0.5)
+local step_sfx = function(slf)
+	sfx.play("sfx", slf.sfx.step, 0.5)
 	local padust = PA_DUST_STEPS:clone()
-	padust:setLinearAcceleration(-self.face * 80, -5, self.face * 80, -50)
+	padust:setLinearAcceleration(-slf.face * 80, -5, slf.face * 80, -50)
 	padust:emit(15)
-	level_objects:add(Effect:new(padust, self.x - 5 * self.face, self.y-2))
+	level_objects:add(Effect:new(padust, slf.x - 5 * slf.face, slf.y-2))
 end
-local jump_straight_attack1 = function(self) self:checkAndAttack(28,0, 20,12, 8, "high") end
-local jump_straight_attack2 = function(self) self:checkAndAttack(28,0, 20,12, 8, "fall", nil, true) end
-local grabHit_attack = function(self) self:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
-local grabLast_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
-local grabEnd_attack = function(self) self:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
+local jump_straight_attack1 = function(slf) slf:checkAndAttack(28,0, 20,12, 8, "high") end
+local jump_straight_attack2 = function(slf) slf:checkAndAttack(28,0, 20,12, 8, "fall", nil, true) end
+local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 8, "low") end
+local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
+local grabEnd_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
 local combo_attack1 = function(slf)
 	slf:checkAndAttack(30,0, 22,12, 7, "high", "air")
 	slf.cool_down_combo = 0.4
