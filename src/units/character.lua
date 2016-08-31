@@ -721,9 +721,8 @@ function Character:fall_update(dt)
                 return
             end
         end
-        if self.isThrown and self.velz < 0 then
+        if self.isThrown and self.velz < 0 and self.flag_fallen == 0 then
             --TODO dont check it on every FPS
-            --TODO proper hitbox
             self:checkAndAttack(0,0, 20,12, self.my_thrown_body_damage, "fall")
         end
     end
