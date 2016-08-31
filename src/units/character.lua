@@ -16,6 +16,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_run_y = 25
     self.velocity_dash = 150
     self.friction_dash = 150
+    self.throw_start_z = 20
     self.velocity_step_down = 220
     self.velocity_grab_throw_x = 220
     self.velocity_grab_throw_z = 200
@@ -653,7 +654,7 @@ function Character:fall_start()
     self.isHittable = false
     --    print (self.name.." - fall start")
     if self.isThrown then
-        self.z = 20
+        self.z = self.thrower_id.throw_start_z or 0
         SetSpriteAnim(self.sprite,"thrown")
     else
         SetSpriteAnim(self.sprite,"fall")
