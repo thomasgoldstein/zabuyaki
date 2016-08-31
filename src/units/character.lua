@@ -15,6 +15,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_run = 150
     self.velocity_run_y = 25
     self.velocity_dash = 150
+    self.friction_dash = 150
     self.velocity_step_down = 220
     self.velocity_grab_throw_x = 220
     self.velocity_grab_throw_z = 200
@@ -570,7 +571,7 @@ function Character:dash_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt, 150)
+    self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
     UpdateInstance(self.sprite, dt, self)
