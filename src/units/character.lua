@@ -972,8 +972,9 @@ function Character:grab_update(dt)
     elseif self.b.fire:isDown() and self.can_fire then
         --end
         if self.sprite.isFinished then
-            if (self.face == 1 and self.b.horizontal:isDown(-1)) or
-                    (self.face == -1 and self.b.horizontal:isDown(1))
+            if self.b.horizontal:isDown(1) or self.b.horizontal:isDown(-1)
+--            if (self.face == 1 and self.b.horizontal:isDown(-1)) or
+--                    (self.face == -1 and self.b.horizontal:isDown(1))
             then
                 self:setState(self.grabThrow)
                 return
@@ -1128,7 +1129,6 @@ function Character:grabThrow_start()
     local g = self.hold
     local t = g.target
     SetSpriteAnim(t.sprite,"hurtLow")
-    self.face = -self.face
     SetSpriteAnim(self.sprite,"grabThrow")
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabThrow someone.")
@@ -1149,12 +1149,21 @@ function Character:grabThrow_update(dt)
         t.vely = 0
         t.velz = self.velocity_grab_throw_z
         t.victims[self] = true
-        if self.x < t.x then
+        if self.b.horizontal:isDown(-1) then
+            --throw left
+            self.face = -1
             t.horizontal = -1
             t.face = -1
-        else
+        elseif self.b.horizontal:isDown(1) then
+            --throw right
+            self.face = 1
             t.horizontal = 1
             t.face = 1
+        else
+            --throw up
+            t.horizontal = self.horizontal
+            t.velx = self.velocity_grab_throw_x / 10
+            t.velz = self.velocity_grab_throw_z * 2
         end
         t:setState(self.fall)
         sfx.play("sfx", "whoosh_heavy")
