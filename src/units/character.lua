@@ -143,7 +143,11 @@ end
 function Character:walk_update(dt)
     --	print (self.name.." - walk update",dt)
     if self.b.fire:isDown() and self.can_fire then
-        self:setState(self.combo)
+        if self:checkForItem(9, 9) ~= nil then
+            self:setState(self.pickup)
+        else
+            self:setState(self.combo)
+        end
         return
     elseif self.b.jump:isDown() and self.can_jump then
         self:setState(self.duck2jump)
