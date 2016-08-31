@@ -111,7 +111,7 @@ Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update =
 
 --States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
 function Gopper:intro_start()
-    self.isHittable = false
+    self.isHittable = true
     --    	print (self.name.." - intro start")
     SetSpriteAnim(self.sprite,"intro")
 end
