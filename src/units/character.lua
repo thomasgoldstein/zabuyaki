@@ -1126,6 +1126,7 @@ function Character:grabThrow_start()
     --print (self.name.." - grabThrow start")
     local g = self.hold
     local t = g.target
+    self.face = -self.face
     SetSpriteAnim(t.sprite,"hurtLow")
     SetSpriteAnim(self.sprite,"grabThrow")
     if GLOBAL_SETTING.DEBUG then
