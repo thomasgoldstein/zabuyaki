@@ -1086,9 +1086,9 @@ function Character:grabHit_start()
     --print (self.name.." - grabhit start")
     local g = self.hold
     if self.b.vertical:isDown(1) then --press DOWN to early headbutt
-    g.cool_down = 0
-    self:setState(self.grabHitEnd)
-    return
+        g.cool_down = 0
+        self:setState(self.grabHitEnd)
+        return
     else
         g.cool_down = self.cool_down_grab + 0.1
         g.target.hold.cool_down = self.cool_down_grab
@@ -1188,11 +1188,11 @@ function Character:grabThrow_update(dt)
         t.vely = 0
         t.velz = self.velocity_grab_throw_z
         t.victims[self] = true
-        if self.b.vertical:isDown(-1) then
-            --throw up
-            t.horizontal = self.horizontal
-            t.velx = self.velocity_grab_throw_x / 10
-            t.velz = self.velocity_grab_throw_z * 2
+        if self.b.horizontal:isDown(1) then
+            --throw right
+            self.face = 1
+            t.horizontal = 1
+            t.face = 1
             t:setState(self.fall)
             sfx.play("sfx", "whoosh_heavy")
             sfx.play(self.name, self.sfx.throw)
@@ -1204,11 +1204,11 @@ function Character:grabThrow_update(dt)
             t:setState(self.fall)
             sfx.play("sfx", "whoosh_heavy")
             sfx.play(self.name, self.sfx.throw)
-        elseif self.b.horizontal:isDown(1) then
-            --throw right
-            self.face = 1
-            t.horizontal = 1
-            t.face = 1
+        elseif self.b.vertical:isDown(-1) then
+            --throw up
+            t.horizontal = self.horizontal
+            t.velx = self.velocity_grab_throw_x / 10
+            t.velz = self.velocity_grab_throw_z * 2
             t:setState(self.fall)
             sfx.play("sfx", "whoosh_heavy")
             sfx.play(self.name, self.sfx.throw)
