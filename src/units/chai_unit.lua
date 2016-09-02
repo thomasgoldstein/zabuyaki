@@ -64,4 +64,26 @@ function Chai:combo_update(dt)
 end
 Chai.combo = {name = "combo", start = Chai.combo_start, exit = nop, update = Chai.combo_update, draw = Character.default_draw}
 
+function Chai:dash_start()
+    self.isHittable = true
+    --	print (self.name.." - dash start")
+    SetSpriteAnimation(self.sprite,"dash")
+    self.velx = self.velocity_dash
+    self.vely = 0
+    self.velz = 0
+    sfx.play(self.name,self.sfx.dash)    --TODO add dash sound
+end
+function Chai:dash_update(dt)
+    if self.sprite.isFinished then
+        self:setState(self.fall)
+        return
+    end
+    self.z = self.z + 1
+    self:calcFriction(dt, self.friction_dash)
+    self:checkCollisionAndMove(dt)
+    self:updateShake(dt)
+    UpdateSpriteInstance(self.sprite, dt, self)
+end
+Chai.dash = {name = "dash", start = Chai.dash_start, exit = nop, update = Chai.dash_update, draw = Character.default_draw }
+
 return Chai
