@@ -5,6 +5,9 @@ local class = require "lib/middleclass"
 local Character = class('Character', Unit)
 
 local function nop() --[[print "nop"]] end
+local function sign(x)
+    return x>0 and 1 or x<0 and -1 or 0
+end
 
 function Character:initialize(name, sprite, input, x, y, shader, color)
     Unit.initialize(self, name, sprite, input, x, y, shader, color)
@@ -256,6 +259,16 @@ function Character:run_update(dt)
         self:setState(self.dash)
         return
     elseif self.b.jump:isDown() and self.can_jump then
+        --start jump dust clouds
+        local psystem = PA_DUST_JUMP_START:clone()
+        psystem:setAreaSpread( "uniform", 16, 4 )
+        psystem:setLinearAcceleration(-30 , 10, 30, -10)
+        psystem:emit(6)
+        psystem:setAreaSpread( "uniform", 4, 16 )
+        psystem:setPosition( 0, -16 )
+        psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
+        psystem:emit(5)
+        level_objects:add(Effect:new(psystem, self.x, self.y-1))
         self:setState(self.jump)
         return
     end
@@ -416,9 +429,6 @@ function Character:duck2jump_start()
     --	print (self.name.." - duck2jump start")
     SetSpriteAnimation(self.sprite,"duck")
     self.z = 0
-end
-local function sign(x)
-    return x>0 and 1 or x<0 and -1 or 0
 end
 function Character:duck2jump_update(dt)
     --	print (self.name.." - duck2jump update",dt)
