@@ -72,7 +72,7 @@ function LoadSprite (sprite_def)
 	return sprite_bank [sprite_def]
 end
 
-function GetInstance (sprite_def)
+function GetSpriteInstance (sprite_def)
 	if sprite_def == nil then return nil end -- invalid use
 	if sprite_bank[sprite_def] == nil then
 		--Sprite not loaded attempting to load; abort on failure.
@@ -96,7 +96,7 @@ function GetInstance (sprite_def)
 	}
 end
 
-function SetSpriteAnim(spr, anim)
+function SetSpriteAnimation(spr, anim)
 	spr.cur_frame = 1
 	spr.loop_count = 0
 	spr.cur_anim = anim
@@ -106,7 +106,7 @@ function SetSpriteAnim(spr, anim)
 	local sc = s[spr.cur_frame]
 end
 
-function UpdateInstance(spr, dt, slf)
+function UpdateSpriteInstance(spr, dt, slf)
 	local s = spr.def.animations[spr.cur_anim]
 	local sc = s[spr.cur_frame]
 	-- is there default delay for frames of 1 animation?
@@ -157,7 +157,7 @@ function UpdateInstance(spr, dt, slf)
 	return nil
 end
 
-function DrawInstance (spr, x, y)
+function DrawSpriteInstance (spr, x, y)
     local sc = spr.def.animations[spr.cur_anim][spr.cur_frame]
 	local scale_h, scale_v, flip_h, flip_v = sc.scale_h or 1, sc.scale_v or 1, sc.flip_h or 1, sc.flip_v or 1
 	local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos

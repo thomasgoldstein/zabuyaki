@@ -237,7 +237,7 @@ function Unit:default_draw(l,t,w,h)
 		if self.shader then
 			love.graphics.setShader(self.shader)
 		end
-		DrawInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
+		DrawSpriteInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
 		if self.shader then
 			love.graphics.setShader()
 		end

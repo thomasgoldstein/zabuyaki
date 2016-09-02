@@ -71,7 +71,7 @@ function Item:draw(l,t,w,h)
             1, 1, --spr.size_scale * spr.flip_h, spr.size_scale * spr.flip_v,
             self.ox, self.oy
         )
-        --DrawInstance(self.sprite, self.x, self.y - self.z)
+        --DrawSpriteInstance(self.sprite, self.x, self.y - self.z)
     end
 end
 

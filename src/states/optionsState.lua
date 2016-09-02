@@ -30,8 +30,8 @@ local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "Game Difficul
 local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "Locked" )
 local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Exit to the Title" )
 
-local rick_spr = GetInstance("src/def/char/rick.lua")
-SetSpriteAnim(rick_spr,"getup")
+local rick_spr = GetSpriteInstance("src/def/char/rick.lua")
+SetSpriteAnimation(rick_spr,"getup")
 rick_spr.size_scale = 4
 
 local txt_items = {txt_option1, txt_option2, txt_option3, txt_quit}
@@ -109,9 +109,9 @@ end
 
 function optionsState:update(dt)
     time = time + dt
-    UpdateInstance(rick_spr, dt)
+    UpdateSpriteInstance(rick_spr, dt)
     if rick_spr.cur_anim ~= "stand" and rick_spr.isFinished then
-        SetSpriteAnim(rick_spr,"stand")
+        SetSpriteAnimation(rick_spr,"stand")
     end
     if menu_state ~= old_menu_state then
         sfx.play("sfx","menu_move")
@@ -122,7 +122,7 @@ end
 
 function optionsState:draw()
     love.graphics.setColor(255, 255, 255, 255)
-    DrawInstance(rick_spr, 200, 370)
+    DrawSpriteInstance(rick_spr, 200, 370)
     for i = 1,#menu do
         local m = menu[i]
         if i == old_menu_state then
@@ -154,7 +154,7 @@ function optionsState:confirm( x, y, button, istouch )
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
-            SetSpriteAnim(rick_spr,"hurtHigh")
+            SetSpriteAnimation(rick_spr,"hurtHigh")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 GLOBAL_SETTING.BGM_VOLUME = 0
                 txt_items[1] = txt_option1a
@@ -167,7 +167,7 @@ function optionsState:confirm( x, y, button, istouch )
 
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
-            SetSpriteAnim(rick_spr,"hurtLow")
+            SetSpriteAnimation(rick_spr,"hurtLow")
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 GLOBAL_SETTING.DIFFICULTY = 2
                 txt_items[2] = txt_option2a
@@ -179,7 +179,7 @@ function optionsState:confirm( x, y, button, istouch )
 
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
-            SetSpriteAnim(rick_spr,"pickup")
+            SetSpriteAnimation(rick_spr,"pickup")
         elseif menu_state == 4 then
             sfx.play("sfx","menu_cancel")
             return Gamestate.pop()

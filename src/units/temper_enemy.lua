@@ -15,9 +15,10 @@ end
 function Temper:combo_start()
     self.isHittable = true
     --  print (self.name.." - combo start")
-    SetSpriteAnim(self.sprite,"combo1")
+    SetSpriteAnimation(self.sprite,"combo1")
     self.cool_down = 0.25
 end
+
 Temper.combo = {name = "combo", start = Temper.combo_start, exit = nop, update = Gopper.combo_update, draw = Enemy.default_draw }
 
 return Temper

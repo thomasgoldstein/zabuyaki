@@ -93,7 +93,7 @@ end
 function Gopper:combo_start()
     self.isHittable = true
 --  print (self.name.." - combo start")
-    SetSpriteAnim(self.sprite,"combo1")
+    SetSpriteAnimation(self.sprite,"combo1")
     self.cool_down = 0.2
 end
 function Gopper:combo_update(dt)
@@ -105,7 +105,7 @@ function Gopper:combo_update(dt)
     self:checkCollisionAndMove(dt)
     --	self:checkHurt()
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Enemy.default_draw}
 
@@ -113,7 +113,7 @@ Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update =
 function Gopper:intro_start()
     self.isHittable = true
     --    	print (self.name.." - intro start")
-    SetSpriteAnim(self.sprite,"intro")
+    SetSpriteAnimation(self.sprite,"intro")
 end
 function Gopper:intro_update(dt)
     --    	print (self.name," - intro update",dt)
@@ -132,14 +132,14 @@ function Gopper:intro_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Gopper.intro = {name = "intro", start = Gopper.intro_start, exit = nop, update = Gopper.intro_update, draw = Enemy.default_draw}
 
 function Gopper:stand_start()
     self.isHittable = true
 --    	print (self.name.." - stand start")
-    SetSpriteAnim(self.sprite,"stand")
+    SetSpriteAnimation(self.sprite,"stand")
     self.can_jump = false
     self.can_fire = false
     self.victims = {}
@@ -170,14 +170,14 @@ function Gopper:stand_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Gopper.stand = {name = "stand", start = Gopper.stand_start, exit = nop, update = Gopper.stand_update, draw = Enemy.default_draw}
 
 function Gopper:walk_start()
     self.isHittable = true
 --    	print (self.name.." - walk start")
-    SetSpriteAnim(self.sprite,"walk")
+    SetSpriteAnimation(self.sprite,"walk")
     self.can_jump = false
     self.can_fire = false
     local t = dist(self.target.x, self.target.y, self.x, self.y)
@@ -260,7 +260,7 @@ function Gopper:walk_update(dt)
     self.can_jump = true
     self.can_fire = true
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Gopper.walk = {name = "walk", start = Gopper.walk_start, exit = nop, update = Gopper.walk_update, draw = Enemy.default_draw}
 

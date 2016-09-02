@@ -25,8 +25,8 @@ local txt_quit = love.graphics.newText( gfx.font.arcade4, "QUIT" )
 
 local txt_start_hint = love.graphics.newText( gfx.font.arcade4, "Press ACTION ('X' key)" )
 
-local rick_spr = GetInstance("src/def/char/rick.lua")
-SetSpriteAnim(rick_spr,"stand")
+local rick_spr = GetSpriteInstance("src/def/char/rick.lua")
+SetSpriteAnimation(rick_spr,"stand")
 rick_spr.size_scale = 4
 
 local txt_items = {txt_start, txt_options, txt_quit}
@@ -110,9 +110,9 @@ end
 
 function titleState:update(dt)
     time = time + dt
-    UpdateInstance(rick_spr, dt)
+    UpdateSpriteInstance(rick_spr, dt)
     if rick_spr.cur_anim ~= "stand" and rick_spr.isFinished then
-        SetSpriteAnim(rick_spr,"stand")
+        SetSpriteAnimation(rick_spr,"stand")
     end
     if menu_state ~= old_menu_state then
         sfx.play("sfx","menu_move")
@@ -123,7 +123,7 @@ end
 
 function titleState:draw()
     love.graphics.setColor(255, 255, 255, 255)
-    DrawInstance(rick_spr, 200, 370)
+    DrawSpriteInstance(rick_spr, 200, 370)
     for i = 1,#menu do
         local m = menu[i]
         if i == old_menu_state then

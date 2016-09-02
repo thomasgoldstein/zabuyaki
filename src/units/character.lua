@@ -44,7 +44,7 @@ function Character:stand_start()
     if self.sprite.cur_anim == "walk" then
         self.delay_animation_cool_down = 0.12
     else
-        SetSpriteAnim(self.sprite,"stand")
+        SetSpriteAnimation(self.sprite,"stand")
         self.delay_animation_cool_down = 0
     end
     self.can_jump = false
@@ -62,7 +62,7 @@ function Character:stand_update(dt)
     self.delay_animation_cool_down = self.delay_animation_cool_down - dt
     if self.sprite.cur_anim == "walk"
             and self.delay_animation_cool_down <= 0 then
-        SetSpriteAnim(self.sprite,"stand")
+        SetSpriteAnimation(self.sprite,"stand")
     end
     if self.cool_down_combo > 0 then
         self.cool_down_combo = self.cool_down_combo - dt
@@ -128,14 +128,14 @@ function Character:stand_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.stand = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
 
 function Character:walk_start()
     self.isHittable = true
     --	print (self.name.." - walk start")
-    SetSpriteAnim(self.sprite,"walk")
+    SetSpriteAnimation(self.sprite,"walk")
     self.can_jump = false
     self.can_fire = false
     self.n_combo = 1	--if u move reset combo chain
@@ -208,7 +208,7 @@ function Character:walk_update(dt)
         self.can_fire = true
     end
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.walk = {name = "walk", start = Character.walk_start, exit = nop, update = Character.walk_update, draw = Character.default_draw}
 
@@ -226,7 +226,7 @@ function Character:run_update(dt)
     self.delay_animation_cool_down = self.delay_animation_cool_down - dt
     if self.sprite.cur_anim ~= "run"
             and self.delay_animation_cool_down <= 0 then
-        SetSpriteAnim(self.sprite,"run")
+        SetSpriteAnimation(self.sprite,"run")
     end
     if self.b.horizontal:isDown(-1) then
         self.face = -1 --face sprite left or right
@@ -274,14 +274,14 @@ function Character:run_update(dt)
     --self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.run = {name = "run", start = Character.run_start, exit = nop, update = Character.run_update, draw = Character.default_draw}
 
 function Character:jump_start()
     self.isHittable = true
     --	print (self.name.." - jump start")
-    SetSpriteAnim(self.sprite,"jump")
+    SetSpriteAnimation(self.sprite,"jump")
     self.velz = self.velocity_jump
     self.z = 0.1
     if self.prev_state ~= "run" then
@@ -338,14 +338,14 @@ function Character:jump_update(dt)
         self.can_fire = true
     end
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jump = {name = "jump", start = Character.jump_start, exit = nop, update = Character.jump_update, draw = Character.default_draw}
 
 function Character:pickup_start()
     self.isHittable = false
     --	print (self.name.." - pickup start")
-    SetSpriteAnim(self.sprite,"pickup")
+    SetSpriteAnimation(self.sprite,"pickup")
     local item = self:checkForItem(9, 9)
     if item then
         self.victim_infoBar = item.infoBar:setPicker(self)
@@ -367,7 +367,7 @@ function Character:pickup_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 function Character:pickup_exit(dt)
     --	print (self.name.." - pickup exit",dt)
@@ -381,7 +381,7 @@ Character.pickup = {name = "pickup", start = Character.pickup_start, exit = Char
 function Character:duck_start()
     self.isHittable = true
     --	print (self.name.." - duck start")
-    SetSpriteAnim(self.sprite,"duck")
+    SetSpriteAnimation(self.sprite,"duck")
     --TODO should I reset hurt here?
     --self.hurt = nil --free hurt data
     --self.victims = {}
@@ -407,14 +407,14 @@ function Character:duck_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.duck = {name = "duck", start = Character.duck_start, exit = nop, update = Character.duck_update, draw = Character.default_draw}
 
 function Character:duck2jump_start()
     self.isHittable = true
     --	print (self.name.." - duck2jump start")
-    SetSpriteAnim(self.sprite,"duck")
+    SetSpriteAnimation(self.sprite,"duck")
     self.z = 0
 end
 local function sign(x)
@@ -461,14 +461,14 @@ function Character:duck2jump_update(dt)
     --self:calcFriction(dt)
     --self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.duck2jump = {name = "duck2jump", start = Character.duck2jump_start, exit = nop, update = Character.duck2jump_update, draw = Character.default_draw}
 
 function Character:hurtHigh_start()
     self.isHittable = true
     --	print (self.name.." - hurtHigh start")
-    SetSpriteAnim(self.sprite,"hurtHigh")
+    SetSpriteAnimation(self.sprite,"hurtHigh")
 end
 function Character:hurtHigh_update(dt)
     --	print (self.name.." - hurtHigh update",dt)
@@ -483,20 +483,20 @@ function Character:hurtHigh_update(dt)
             self.cool_down = 0.1
             self:setState(self.stand)
         end
-        UpdateInstance(self.sprite, dt, self)   --!!!
+        UpdateSpriteInstance(self.sprite, dt, self)   --!!!
         return
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.hurtHigh = {name = "hurtHigh", start = Character.hurtHigh_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
 
 function Character:hurtLow_start()
     self.isHittable = true
     --	print (self.name.." - hurtLow start")
-    SetSpriteAnim(self.sprite,"hurtLow")
+    SetSpriteAnimation(self.sprite,"hurtLow")
 end
 function Character:hurtLow_update(dt)
     --	print (self.name.." - hurtLow update",dt)
@@ -511,20 +511,20 @@ function Character:hurtLow_update(dt)
             self.cool_down = 0.1
             self:setState(self.stand)
         end
-        UpdateInstance(self.sprite, dt, self)   --!!!
+        UpdateSpriteInstance(self.sprite, dt, self)   --!!!
         return
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
 
 function Character:sideStepDown_start()
     self.isHittable = false
     --	print (self.name.." - sideStepDown start")
-    SetSpriteAnim(self.sprite,"sideStepDown")
+    SetSpriteAnimation(self.sprite,"sideStepDown")
     self.velx, self.vely = 0, self.velocity_step_down
     sfx.play(self.name, "whoosh_heavy")
 end
@@ -542,14 +542,14 @@ function Character:sideStepDown_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.sideStepDown = {name = "sideStepDown", start = Character.sideStepDown_start, exit = nop, update = Character.sideStepDown_update, draw = Character.default_draw}
 
 function Character:sideStepUp_start()
     self.isHittable = false
     --	print (self.name.." - sideStepUp start")
-    SetSpriteAnim(self.sprite,"sideStepUp")
+    SetSpriteAnimation(self.sprite,"sideStepUp")
     self.velx, self.vely = 0, self.velocity_step_down
     sfx.play(self.name, "whoosh_heavy")
 end
@@ -567,14 +567,14 @@ function Character:sideStepUp_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.sideStepUp = {name = "sideStepUp", start = Character.sideStepUp_start, exit = nop, update = Character.sideStepUp_update, draw = Character.default_draw}
 
 function Character:dash_start()
     self.isHittable = true
     --	print (self.name.." - dash start")
-    SetSpriteAnim(self.sprite,"dash")
+    SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
@@ -588,14 +588,14 @@ function Character:dash_update(dt)
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.dash = {name = "dash", start = Character.dash_start, exit = nop, update = Character.dash_update, draw = Character.default_draw}
 
 function Character:jumpAttackForward_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackForward start")
-    SetSpriteAnim(self.sprite,"jumpAttackForward")
+    SetSpriteAnimation(self.sprite,"jumpAttackForward")
     sfx.play(self.name,self.sfx.jump_attack)
 end
 function Character:jumpAttackForward_update(dt)
@@ -612,14 +612,14 @@ function Character:jumpAttackForward_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.jumpAttackForward_update, draw = Character.default_draw}
 
 function Character:jumpAttackLight_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackLight start")
-    SetSpriteAnim(self.sprite,"jumpAttackLight")
+    SetSpriteAnimation(self.sprite,"jumpAttackLight")
 end
 function Character:jumpAttackLight_update(dt)
     --	print (self.name.." - jumpAttackLight update",dt)
@@ -635,14 +635,14 @@ function Character:jumpAttackLight_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAttackLight_start, exit = nop, update = Character.jumpAttackLight_update, draw = Character.default_draw}
 
 function Character:jumpAttackStraight_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackStraight start")
-    SetSpriteAnim(self.sprite,"jumpAttackStraight")
+    SetSpriteAnimation(self.sprite,"jumpAttackStraight")
     sfx.play(self.name,self.sfx.jump_attack)
 end
 function Character:jumpAttackStraight_update(dt)
@@ -659,14 +659,14 @@ function Character:jumpAttackStraight_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.jumpAttackStraight_update, draw = Character.default_draw}
 
 function Character:jumpAttackRun_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackRun start")
-    SetSpriteAnim(self.sprite,"jumpAttackRun")
+    SetSpriteAnimation(self.sprite,"jumpAttackRun")
     sfx.play(self.name,self.sfx.jump_attack)
 end
 function Character:jumpAttackRun_update(dt)
@@ -683,7 +683,7 @@ function Character:jumpAttackRun_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRun_start, exit = nop, update = Character.jumpAttackRun_update, draw = Character.default_draw}
 
@@ -692,9 +692,9 @@ function Character:fall_start()
     --    print (self.name.." - fall start")
     if self.isThrown then
         self.z = self.thrower_id.throw_start_z or 0
-        SetSpriteAnim(self.sprite,"thrown")
+        SetSpriteAnimation(self.sprite,"thrown")
     else
-        SetSpriteAnim(self.sprite,"fall")
+        SetSpriteAnimation(self.sprite,"fall")
     end
     if self.z <= 0 then
         self.z = 0
@@ -705,14 +705,14 @@ function Character:fall_update(dt)
     --print(self.name .. " - fall update", dt)
     if self.sprite.cur_anim == "thrown"
             and self.sprite.isFinished then
-        SetSpriteAnim(self.sprite,"fall")
+        SetSpriteAnimation(self.sprite,"fall")
 
     end
     if self.z > 0 then
         self.velz = self.velz - self.gravity * dt
         self.z = self.z + dt * self.velz
         if self.z < self.to_fallen_anim_z and self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
-            SetSpriteAnim(self.sprite,"fallen")
+            SetSpriteAnimation(self.sprite,"fallen")
         end
         if self.z <= 0 then
             if self.velz < -100 then    --bounce up after fall
@@ -764,7 +764,7 @@ function Character:fall_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.fall = {name = "fall", start = Character.fall_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
 
@@ -779,7 +779,7 @@ function Character:getup_start()
         self:setState(self.dead)
         return
     end
-    SetSpriteAnim(self.sprite,"getup")
+    SetSpriteAnimation(self.sprite,"getup")
     self:onShake(0, 1, 0.1, 0.5)
 end
 function Character:getup_update(dt)
@@ -790,14 +790,14 @@ function Character:getup_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.getup = {name = "getup", start = Character.getup_start, exit = nop, update = Character.getup_update, draw = Character.default_draw}
 
 function Character:dead_start()
     self.isHittable = false
     --print (self.name.." - dead start")
-    SetSpriteAnim(self.sprite,"fallen")
+    SetSpriteAnimation(self.sprite,"fallen")
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is dead.")
     end
@@ -829,7 +829,7 @@ function Character:dead_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.dead = {name = "dead", start = Character.dead_start, exit = nop, update = Character.dead_update, draw = Character.default_draw}
 
@@ -840,13 +840,13 @@ function Character:combo_start()
         self.n_combo = 1
     end
     if self.n_combo == 1 then
-        SetSpriteAnim(self.sprite,"combo1")
+        SetSpriteAnimation(self.sprite,"combo1")
     elseif self.n_combo == 2 then
-        SetSpriteAnim(self.sprite,"combo2")
+        SetSpriteAnimation(self.sprite,"combo2")
     elseif self.n_combo == 3 then
-        SetSpriteAnim(self.sprite,"combo3")
+        SetSpriteAnimation(self.sprite,"combo3")
     elseif self.n_combo == 4 then
-        SetSpriteAnim(self.sprite,"combo4")
+        SetSpriteAnimation(self.sprite,"combo4")
     end
     self.cool_down = 0.2
 end
@@ -862,7 +862,7 @@ function Character:combo_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.combo = {name = "combo", start = Character.combo_start, exit = nop, update = Character.combo_update, draw = Character.default_draw}
 
@@ -941,7 +941,7 @@ end
 function Character:grab_start()
     self.isHittable = true
     --print (self.name.." - grab start")
-    SetSpriteAnim(self.sprite,"grab")
+    SetSpriteAnimation(self.sprite,"grab")
     self.can_jump = false
     self.can_fire = false
     self.grab_release = 0
@@ -1024,7 +1024,7 @@ function Character:grab_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grab = {name = "grab", start = Character.grab_start, exit = nop, update = Character.grab_update, draw = Character.default_draw}
 
@@ -1042,7 +1042,7 @@ end
 function Character:grabbed_start()
     self.isHittable = true
     --print (self.name.." - grabbed start")
-    SetSpriteAnim(self.sprite,"grabbed")
+    SetSpriteAnimation(self.sprite,"grabbed")
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabbed.")
     end
@@ -1069,7 +1069,7 @@ function Character:grabbed_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabbed = {name = "grabbed", start = Character.grabbed_start, exit = nop, update = Character.grabbed_update, draw = Character.default_draw}
 
@@ -1090,7 +1090,7 @@ function Character:grabHit_start()
         self:setState(self.grabHitLast)
         return
     end
-    SetSpriteAnim(self.sprite,"grabHit")
+    SetSpriteAnimation(self.sprite,"grabHit")
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabhit someone.")
     end
@@ -1105,14 +1105,14 @@ function Character:grabHit_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabHit = {name = "grabHit", start = Character.grabHit_start, exit = nop, update = Character.grabHit_update, draw = Character.default_draw}
 
 function Character:grabHitLast_start()
     self.isHittable = true
     --print (self.name.." - grabHitLast start")
-    SetSpriteAnim(self.sprite,"grabHitLast")
+    SetSpriteAnimation(self.sprite,"grabHitLast")
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabHitLast someone.")
     end
@@ -1127,14 +1127,14 @@ function Character:grabHitLast_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabHitLast = {name = "grabHitLast", start = Character.grabHitLast_start, exit = nop, update = Character.grabHitLast_update, draw = Character.default_draw }
 
 function Character:grabHitEnd_start()
     self.isHittable = true
     --print (self.name.." - grabhitend start")
-    SetSpriteAnim(self.sprite,"grabHitEnd")
+    SetSpriteAnimation(self.sprite,"grabHitEnd")
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabhitend someone.")
     end
@@ -1149,7 +1149,7 @@ function Character:grabHitEnd_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabHitEnd = {name = "grabHitEnd", start = Character.grabHitEnd_start, exit = nop, update = Character.grabHitEnd_update, draw = Character.default_draw}
 
@@ -1159,8 +1159,8 @@ function Character:grabThrow_start()
     local g = self.hold
     local t = g.target
     self.face = -self.face
-    SetSpriteAnim(t.sprite,"hurtLow")
-    SetSpriteAnim(self.sprite,"grabThrow")
+    SetSpriteAnimation(t.sprite,"hurtLow")
+    SetSpriteAnimation(self.sprite,"grabThrow")
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabThrow someone.")
     end
@@ -1215,7 +1215,7 @@ function Character:grabThrow_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabThrow = {name = "grabThrow", start = Character.grabThrow_start, exit = nop, update = Character.grabThrow_update, draw = Character.default_draw}
 

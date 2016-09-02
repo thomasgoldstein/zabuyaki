@@ -17,9 +17,9 @@ function arcadeState:enter(_, players)
     GLOBAL_UNIT_ID = 1  --recalc players IDs for proper life bar coords
     -- create players
     if players[1] then
---    player1 = Rick:new("RICK", GetInstance("src/def/char/rick.lua"), Control1, 190, 180, shader, {255,255,255, 255})
+--    player1 = Rick:new("RICK", GetSpriteInstance("src/def/char/rick.lua"), Control1, 190, 180, shader, {255,255,255, 255})
         player1 = players[1].hero:new(players[1].name,
-            GetInstance(players[1].sprite_instance),
+            GetSpriteInstance(players[1].sprite_instance),
             Control1,
             90, 180,
             players[1].shader,
@@ -27,9 +27,9 @@ function arcadeState:enter(_, players)
     end
     GLOBAL_UNIT_ID = 2  --recalc players IDs for proper life bar coords
     if players[2] then
-        --     player2 = Chai:new("CHAI", GetInstance("src/def/char/chai.lua"), Control2, 240, 200, shader )
+        --     player2 = Chai:new("CHAI", GetSpriteInstance("src/def/char/chai.lua"), Control2, 240, 200, shader )
         player2 = players[2].hero:new(players[2].name,
-            GetInstance(players[2].sprite_instance),
+            GetSpriteInstance(players[2].sprite_instance),
             Control2,
             60, 200,
             players[2].shader)
@@ -38,9 +38,9 @@ function arcadeState:enter(_, players)
     end
     GLOBAL_UNIT_ID = 3  --recalc players IDs for proper life bar coords
     if players[3] then
---        player3 = Kisa:new("KISA", GetInstance("src/def/char/rick.lua"), Control3, 220, 200-30, shader, {255,255,255, 255})
+--        player3 = Kisa:new("KISA", GetSpriteInstance("src/def/char/rick.lua"), Control3, 220, 200-30, shader, {255,255,255, 255})
         player3 = players[3].hero:new(players[3].name,
-            GetInstance(players[3].sprite_instance),
+            GetSpriteInstance(players[3].sprite_instance),
             Control3,
             120, 160,
             players[3].shader,
@@ -49,39 +49,39 @@ function arcadeState:enter(_, players)
 
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
-    local gopper1 = Gopper:new("GOPPER", GetInstance("src/def/char/gopper.lua"), button3, 500, 204, shaders.gopper[4], {255,255,255, 255})
-    local gopper2 = Gopper:new("GOPPER2", GetInstance("src/def/char/gopper.lua"), button3, 1510, 184, shaders.gopper[2], {255,255,255, 255})
+    local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), button3, 500, 204, shaders.gopper[4], {255,255,255, 255})
+    local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1510, 184, shaders.gopper[2], {255,255,255, 255})
     gopper2:setToughness(1)
-    local gopper3 = Gopper:new("GOPPER3", GetInstance("src/def/char/gopper.lua"), button3, 1560, 190, shaders.gopper[3], {255,255,255, 255})
+    local gopper3 = Gopper:new("GOPPER3", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1560, 190, shaders.gopper[3], {255,255,255, 255})
     gopper3:setToughness(2)
-    local gopper4 = Gopper:new("GOPPER4", GetInstance("src/def/char/gopper.lua"), button3, 1520, 200-24, shaders.gopper[4], {255,255,255, 255})
+    local gopper4 = Gopper:new("GOPPER4", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1520, 200-24, shaders.gopper[4], {255,255,255, 255})
     gopper4:setToughness(3)
-    local gopper5 = Gopper:new("GOPPER5", GetInstance("src/def/char/gopper.lua"), button3, 1540, 210, nil, {255,255,255, 255})
+    local gopper5 = Gopper:new("GOPPER5", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1540, 210, nil, {255,255,255, 255})
     gopper5:setToughness(4)
-    local gopper6 = Gopper:new("GOPPER6", GetInstance("src/def/char/gopper.lua"), button3, 1525, 200-4, nil, {255,255,255, 255})
+    local gopper6 = Gopper:new("GOPPER6", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1525, 200-4, nil, {255,255,255, 255})
     gopper6:setToughness(5)
 
-    local dummy4 = Rick:new("Dummie4", GetInstance("src/def/char/rick.lua"), button3, 260, 170, shaders.rick[4], {255,255,255, 255})
+    local dummy4 = Rick:new("Dummie4", GetSpriteInstance("src/def/char/rick.lua"), button3, 260, 170, shaders.rick[4], {255,255,255, 255})
     dummy4:setToughness(5)
     dummy4.horizontal = -1
     dummy4.face = -1
-    local dummy5 = Chai:new("Dummie5", GetInstance("src/def/char/chai.lua"), button3, 220, 200, shaders.chai[3], {255,255,255, 255})
+    local dummy5 = Chai:new("Dummie5", GetSpriteInstance("src/def/char/chai.lua"), button3, 220, 200, shaders.chai[3], {255,255,255, 255})
     dummy5:setToughness(5)
     dummy5.horizontal = -1
     dummy5.face = -1
 
-    local temper1 = Temper:new("TEMPER", GetInstance("src/def/char/rick.lua"), button3, 1670, 170, shaders.rick[5], {255,255,255, 255})
+    local temper1 = Temper:new("TEMPER", GetSpriteInstance("src/def/char/rick.lua"), button3, 1670, 170, shaders.rick[5], {255,255,255, 255})
 
-    local niko1 = Niko:new("niko", GetInstance("src/def/char/niko.lua"), button3, 550 + love.math.random(-20,20), 204, shaders.niko[2], {255,255,255, 255})
-    local niko2 = Niko:new("niko2", GetInstance("src/def/char/niko.lua"), button3, 1510 + love.math.random(-20,20), 184, nil, {255,255,255, 255})
+    local niko1 = Niko:new("niko", GetSpriteInstance("src/def/char/niko.lua"), button3, 550 + love.math.random(-20,20), 204, shaders.niko[2], {255,255,255, 255})
+    local niko2 = Niko:new("niko2", GetSpriteInstance("src/def/char/niko.lua"), button3, 1510 + love.math.random(-20,20), 184, nil, {255,255,255, 255})
     niko2:setToughness(1)
-    local niko3 = Niko:new("niko3", GetInstance("src/def/char/niko.lua"), button3, 1560 + love.math.random(-20,20), 190, shaders.niko[2], {255,255,255, 255})
+    local niko3 = Niko:new("niko3", GetSpriteInstance("src/def/char/niko.lua"), button3, 1560 + love.math.random(-20,20), 190, shaders.niko[2], {255,255,255, 255})
     niko3:setToughness(2)
-    local niko4 = Niko:new("niko4", GetInstance("src/def/char/niko.lua"), button3, 1520 + love.math.random(-20,20), 200-24, shaders.niko[2], {255,255,255, 255})
+    local niko4 = Niko:new("niko4", GetSpriteInstance("src/def/char/niko.lua"), button3, 1520 + love.math.random(-20,20), 200-24, shaders.niko[2], {255,255,255, 255})
     niko4:setToughness(3)
-    local niko5 = Niko:new("niko5", GetInstance("src/def/char/niko.lua"), button3, 1540 + love.math.random(-20,20), 210, nil, {255,255,255, 255})
+    local niko5 = Niko:new("niko5", GetSpriteInstance("src/def/char/niko.lua"), button3, 1540 + love.math.random(-20,20), 210, nil, {255,255,255, 255})
     niko5:setToughness(4)
-    local niko6 = Niko:new("niko6", GetInstance("src/def/char/niko.lua"), button3, 1525 + love.math.random(-20,20), 200-4, nil, {255,255,255, 255})
+    local niko6 = Niko:new("niko6", GetSpriteInstance("src/def/char/niko.lua"), button3, 1525 + love.math.random(-20,20), 200-4, nil, {255,255,255, 255})
     niko6:setToughness(5)
 
     --Item:initialize(name, sprite, hp, money, func, x, y, shader, color)

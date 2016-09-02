@@ -47,13 +47,13 @@ function Rick:combo_start()
         self.n_combo = 1
     end
     if self.n_combo == 1 then
-        SetSpriteAnim(self.sprite,"combo1")
+        SetSpriteAnimation(self.sprite,"combo1")
     elseif self.n_combo == 2 then
-        SetSpriteAnim(self.sprite,"combo2")
+        SetSpriteAnimation(self.sprite,"combo2")
     elseif self.n_combo == 3 then
-        SetSpriteAnim(self.sprite,"combo3")
+        SetSpriteAnimation(self.sprite,"combo3")
     elseif self.n_combo == 4 then
-        SetSpriteAnim(self.sprite,"combo4")
+        SetSpriteAnimation(self.sprite,"combo4")
     end
     self.cool_down = 0.2
 end
@@ -69,7 +69,7 @@ function Rick:combo_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
-    UpdateInstance(self.sprite, dt, self)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Character.default_draw}
 

@@ -22,7 +22,7 @@ local heroes = {
         {name = "KISA", shader = shaders.kisa[3]},
         hero = Kisa,
         sprite_instance = "src/def/char/kisa.lua",
-        sprite_portrait = GetInstance("src/def/misc/portraits.lua"),
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portrait_anim = "kisa",
         default_anim = "stand",
         cancel_anim = "hurtLow",
@@ -39,7 +39,7 @@ local heroes = {
         {name = "RICK", shader = shaders.rick[3]},
         hero = Rick,
         sprite_instance = "src/def/char/rick.lua",
-        sprite_portrait = GetInstance("src/def/misc/portraits.lua"),
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portrait_anim = "rick",
         default_anim = "stand",
         cancel_anim = "hurtHigh",
@@ -56,7 +56,7 @@ local heroes = {
         {name = "CHAI", shader = shaders.chai[3]},
         hero = Chai,
         sprite_instance = "src/def/char/chai.lua",
-        sprite_portrait = GetInstance("src/def/misc/portraits.lua"),
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portrait_anim = "chai",
         default_anim = "stand",
         cancel_anim = "hurtHigh",
@@ -163,7 +163,7 @@ function heroSelectState:enter()
     p1_old_pos = 0
     p1_mouse_pos = 0
     for i = 1,3 do
-      SetSpriteAnim(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
+      SetSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
       heroes[i].sprite_portrait.size_scale = 2
     end
     -- Prevent double press at start (e.g. auto confirmation)
@@ -193,9 +193,9 @@ local function player_input(player, controls, i)
                 or controls.horizontal:pressed() or controls.vertical:pressed() then
             sfx.play("sfx","menu_select")
             player.visible = true
-            player.sprite = GetInstance(heroes[player.pos].sprite_instance)
+            player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
             player.sprite.size_scale = 2
-            SetSpriteAnim(player.sprite,heroes[player.pos].default_anim)
+            SetSpriteAnimation(player.sprite,heroes[player.pos].default_anim)
         end
         return
     end
@@ -208,7 +208,7 @@ local function player_input(player, controls, i)
         elseif controls.fire:pressed() or controls.start:pressed() then
             player.visible = true
             player.confirmed = true
-            SetSpriteAnim(player.sprite,heroes[player.pos].confirm_anim)
+            SetSpriteAnimation(player.sprite,heroes[player.pos].confirm_anim)
             sfx.play("sfx","menu_select")
         elseif controls.horizontal:pressed(-1) then
             player.pos = player.pos - 1
@@ -216,23 +216,23 @@ local function player_input(player, controls, i)
                 player.pos = GLOBAL_SETTING.MAX_PLAYERS
             end
             sfx.play("sfx","menu_move")
-            player.sprite = GetInstance(heroes[player.pos].sprite_instance)
+            player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
             player.sprite.size_scale = 2
-            SetSpriteAnim(player.sprite,"stand")
+            SetSpriteAnimation(player.sprite,"stand")
         elseif controls.horizontal:pressed(1) then
             player.pos = player.pos + 1
             if player.pos > GLOBAL_SETTING.MAX_PLAYERS then
                 player.pos = 1
             end
             sfx.play("sfx","menu_move")
-            player.sprite = GetInstance(heroes[player.pos].sprite_instance)
+            player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
             player.sprite.size_scale = 2
-            SetSpriteAnim(player.sprite,"stand")
+            SetSpriteAnimation(player.sprite,"stand")
         end
     else
         if controls.jump:pressed() or controls.back:pressed() then
             player.confirmed = false
-            SetSpriteAnim(player.sprite,heroes[player.pos].cancel_anim)
+            SetSpriteAnimation(player.sprite,heroes[player.pos].cancel_anim)
             sfx.play("sfx","menu_cancel")
         elseif (controls.fire:pressed() or controls.start:pressed()) and all_confirmed() then
             sfx.play("sfx","menu_gamestart")
@@ -263,12 +263,12 @@ function heroSelectState:update(dt)
         local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
         local cur_color_slot = sh[i][2]
         if players[i].sprite then
-            UpdateInstance(players[i].sprite, dt)
+            UpdateSpriteInstance(players[i].sprite, dt)
             if players[i].sprite.isFinished
                     and (players[i].sprite.cur_anim == heroes[players[i].pos].cancel_anim
                     or players[i].sprite.cur_anim == heroes[players[i].pos].confirm_anim)
             then
-                SetSpriteAnim(players[i].sprite,heroes[players[i].pos].default_anim)
+                SetSpriteAnimation(players[i].sprite,heroes[players[i].pos].default_anim)
             end
             if players[i].visible then
                 --smooth indicators movement
@@ -287,9 +287,9 @@ function heroSelectState:update(dt)
             end
         else
             if players[i].visible then
-                players[i].sprite = GetInstance(heroes[players[i].pos].sprite_instance)
+                players[i].sprite = GetSpriteInstance(heroes[players[i].pos].sprite_instance)
                 players[i].sprite.size_scale = 2
-                SetSpriteAnim(players[i].sprite,heroes[players[i].pos].default_anim)
+                SetSpriteAnimation(players[i].sprite,heroes[players[i].pos].default_anim)
             end
 
         end
@@ -312,7 +312,7 @@ function heroSelectState:draw()
         love.graphics.setFont(gfx.font.arcade3x3)
         love.graphics.print(h[original_char].name, h.x - 24 * #h[original_char].name / 2, h.ny)
         --portrait
-        DrawInstance(heroes[i].sprite_portrait, h.x - portrait_width/2, h.py)
+        DrawSpriteInstance(heroes[i].sprite_portrait, h.x - portrait_width/2, h.py)
         love.graphics.rectangle("line", h.x - portrait_width/2, h.py, portrait_width, portrait_height )
         --Players sprite
         if players[i].visible then
@@ -322,7 +322,7 @@ function heroSelectState:draw()
                 love.graphics.setShader(cur_players_hero_set.shader)
             end
             if players[i].sprite then
-                DrawInstance(players[i].sprite, h.x, h.y)
+                DrawSpriteInstance(players[i].sprite, h.x, h.y)
             end
             if cur_players_hero_set.shader then
                 love.graphics.setShader()
@@ -353,17 +353,17 @@ function heroSelectState:confirm( x, y, button, istouch )
         if not players[1].visible then
             players[1].visible = true
             sfx.play("sfx","menu_select")
-            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].default_anim)
+            SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].default_anim)
         elseif not players[1].confirmed then
             if players[1].pos ~= p1_mouse_pos then
                 p1_old_pos = players[1].pos
                 players[1].pos = p1_mouse_pos
-                players[1].sprite = GetInstance(heroes[players[1].pos].sprite_instance)
+                players[1].sprite = GetSpriteInstance(heroes[players[1].pos].sprite_instance)
                 players[1].sprite.size_scale = 2
             end
             players[1].confirmed = true
             sfx.play("sfx","menu_select")
-            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].confirm_anim)
+            SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].confirm_anim)
         elseif p1_mouse_pos == players[1].pos and all_confirmed() then
             sfx.play("sfx","menu_gamestart")
             local pl = {}
@@ -389,7 +389,7 @@ function heroSelectState:confirm( x, y, button, istouch )
         elseif players[1].confirmed then
             players[1].confirmed = false
             sfx.play("sfx","menu_cancel")
-            SetSpriteAnim(players[1].sprite,heroes[players[1].pos].cancel_anim)
+            SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].cancel_anim)
         else
             sfx.play("sfx","menu_cancel")
             return Gamestate.switch(titleState, "dontStartMusic")
@@ -418,9 +418,9 @@ function heroSelectState:mousemoved( x, y, dx, dy)
         p1_old_pos = p1_mouse_pos
         players[1].pos = p1_mouse_pos
         sfx.play("sfx","menu_move")
-        players[1].sprite = GetInstance(heroes[players[1].pos].sprite_instance)
+        players[1].sprite = GetSpriteInstance(heroes[players[1].pos].sprite_instance)
         players[1].sprite.size_scale = 2
-        SetSpriteAnim(players[1].sprite,heroes[players[1].pos].default_anim)
+        SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].default_anim)
     end
 end
 
