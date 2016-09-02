@@ -256,7 +256,7 @@ function Character:run_update(dt)
         self:setState(self.dash)
         return
     elseif self.b.jump:isDown() and self.can_jump then
-        self:setState(self.duck2jump)
+        self:setState(self.jump)
         return
     end
     if self.velx == 0 and self.vely == 0 then
@@ -284,21 +284,23 @@ function Character:jump_start()
     SetSpriteAnim(self.sprite,"jump")
     self.velz = self.velocity_jump
     self.z = 0.1
-    if self.b.vertical:isDown(-1) then
-        self.vertical = -1
-    elseif self.b.vertical:isDown(1) then
-        self.vertical = 1
-    else
-        self.vertical = 0
-    end
-    if self.b.horizontal:isDown(-1) == false and self.b.horizontal:isDown(1) == false then
-        self.velx = 0
-    end
-    if self.velx ~= 0 then
-        self.velx = self.velx + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
-    end
-    if self.vely ~= 0 then
-        self.vely = self.vely + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
+    if self.prev_state ~= "run" then
+        if self.b.vertical:isDown(-1) then
+            self.vertical = -1
+        elseif self.b.vertical:isDown(1) then
+            self.vertical = 1
+        else
+            self.vertical = 0
+        end
+        if self.b.horizontal:isDown(-1) == false and self.b.horizontal:isDown(1) == false then
+            self.velx = 0
+        end
+        if self.velx ~= 0 then
+            self.velx = self.velx + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
+        end
+        if self.vely ~= 0 then
+            self.vely = self.vely + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
+        end
     end
     sfx.play(self.name,self.sfx.jump)
 end
@@ -313,7 +315,11 @@ function Character:jump_update(dt)
             self:setState(self.jumpAttackStraight)
             return
         else
-            self:setState(self.jumpAttackForward)
+            if self.velx >= self.velocity_run then
+                self:setState(self.jumpAttackRun)
+            else
+                self:setState(self.jumpAttackForward)
+            end
             return
         end
     end
@@ -430,24 +436,26 @@ function Character:duck2jump_update(dt)
         level_objects:add(Effect:new(psystem, self.x, self.y-1))
         return
     end
-    if self.velx < self.velocity_walk then
-        if self.b.horizontal:isDown(-1) then
-            self.face = -1 --face sprite left or right
-            self.horizontal = self.face --X direction
-            self.velx = self.velocity_walk
-        elseif self.b.horizontal:isDown(1) then
-            self.face = 1 --face sprite left or right
-            self.horizontal = self.face --X direction
-            self.velx = self.velocity_walk
+    if self.last_state ~= "run" then
+        if self.velx < self.velocity_walk then
+            if self.b.horizontal:isDown(-1) then
+                self.face = -1 --face sprite left or right
+                self.horizontal = self.face --X direction
+                self.velx = self.velocity_walk
+            elseif self.b.horizontal:isDown(1) then
+                self.face = 1 --face sprite left or right
+                self.horizontal = self.face --X direction
+                self.velx = self.velocity_walk
+            end
         end
-    end
-    if self.vely < self.velocity_walk_y then
-        if self.b.vertical:isDown(-1) then
-            self.vertical = -1
-            self.vely = self.velocity_walk_y
-        elseif self.b.vertical:isDown(1) then
-            self.vertical = 1
-            self.vely = self.velocity_walk_y
+        if self.vely < self.velocity_walk_y then
+            if self.b.vertical:isDown(-1) then
+                self.vertical = -1
+                self.vely = self.velocity_walk_y
+            elseif self.b.vertical:isDown(1) then
+                self.vertical = 1
+                self.vely = self.velocity_walk_y
+            end
         end
     end
     --self:calcFriction(dt)
@@ -654,6 +662,30 @@ function Character:jumpAttackStraight_update(dt)
     UpdateInstance(self.sprite, dt, self)
 end
 Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.jumpAttackStraight_update, draw = Character.default_draw}
+
+function Character:jumpAttackRun_start()
+    self.isHittable = true
+    --	print (self.name.." - jumpAttackRun start")
+    SetSpriteAnim(self.sprite,"jumpAttackRun")
+    sfx.play(self.name,self.sfx.jump_attack)
+end
+function Character:jumpAttackRun_update(dt)
+    --	print (self.name.." - jumpAttackRun update",dt)
+    if self.z > 0 then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt
+    else
+        self.velz = 0
+        self.z = 0
+        sfx.play(self.name, self.sfx.step)
+        self:setState(self.duck)
+        return
+    end
+    self:checkCollisionAndMove(dt)
+    self:updateShake(dt)
+    UpdateInstance(self.sprite, dt, self)
+end
+Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRun_start, exit = nop, update = Character.jumpAttackRun_update, draw = Character.default_draw}
 
 function Character:fall_start()
     self.isHittable = false
