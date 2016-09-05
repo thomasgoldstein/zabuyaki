@@ -69,17 +69,28 @@ function Chai:dash_start()
     --	print (self.name.." - dash start")
     SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash
-    self.vely = 0
-    self.velz = 0
-    sfx.play(self.name,self.sfx.dash)    --TODO add dash sound
+    self.velz = self.velocity_jump
+    self.z = 0.1
+    sfx.play(self.name,self.sfx.dash)
 end
 function Chai:dash_update(dt)
     if self.sprite.isFinished then
         self:setState(self.fall)
         return
     end
-    self.z = self.z + 1
-    self:calcFriction(dt, self.friction_dash)
+    if self.z > 0 then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt
+        if self.velz < 0 then
+            self:calcFriction(dt)
+        end
+    else
+        self.velz = 0
+        self.z = 0
+        sfx.play(self.name, self.sfx.step)
+        self:setState(self.stand)
+        return
+    end
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
