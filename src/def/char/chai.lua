@@ -103,10 +103,10 @@ return {
 		},
 		duck = {
 			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
-			delay = 0.15
+			delay = 0.06
 		},
 		pickup = {
-			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
+			{ q = q(2,401,39,61), ox = 23, oy = 60, delay = 0.03 }, --pickup 1
 			{ q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.2 }, --pickup 2
 			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
 			delay = 0.05
@@ -122,13 +122,13 @@ return {
 			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move }, --c1.1
 			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1, delay = 0.1 }, --c1.2
 			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move, delay = 0.06 }, --c1.1
-			delay = 0.02
+			delay = 0.01
 		},
 		combo2 = {
 			{ q = q(127,521,41,64), ox = 19, oy = 64 }, --c2.1
 			{ q = q(170,521,65,64), ox = 21, oy = 64, func = combo_attack2, delay = 0.1 }, --c2.2
 			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.06 }, --c2.1
-			delay = 0.02
+			delay = 0.015
 		},
 		combo3 = {
 			{ q = q(127,521,41,64), ox = 19, oy = 64 }, --c2.1
@@ -136,17 +136,17 @@ return {
 			{ q = q(47,590,72,63), ox = 21, oy = 63, func = combo_attack3, delay = 0.12 }, --c3.2
 			{ q = q(2,589,43,64), ox = 19, oy = 64, delay = 0.05 }, --c3.1
 			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.05 }, --c2.1
-			delay = 0.02
+			delay = 0.015
 		},
 		combo4 = {
-			{ q = q(121,587,48,65), ox = 13, oy = 64 }, --c4.1
-			{ q = q(171,587,50,65), ox = 14, oy = 64, delay = 0.02 }, --c4.2
+			{ q = q(121,587,48,65), ox = 13, oy = 64, delay = 0.02 }, --c4.1
+			{ q = q(171,587,50,65), ox = 14, oy = 64, delay = 0.01 }, --c4.2
 			{ q = q(2,654,59,66), ox = 14, oy = 65, func = combo_attack4 }, --c4.3
 			{ q = q(63,659,60,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.4
 			{ q = q(125,659,59,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --c4.5
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.09 }, --c4.6
 			{ q = q(194,725,49,62), ox = 14, oy = 62 }, --c4.7
-			delay = 0.04
+			delay = 0.03
 		},
 		fall = {
 			{ q = q(2,464,65,55), ox = 32, oy = 54 }, --falling
@@ -158,7 +158,7 @@ return {
 			delay = 5
 		},
 		getup = {
-			{ q = q(69,489,67,29), ox = 33, oy = 28, delay = 1.2 }, --lying down
+			{ q = q(69,489,67,29), ox = 33, oy = 28 }, --lying down
 			{ q = q(138,466,56,53), ox = 28, oy = 51 }, --getting up
 			{ q = q(43,404,39,58), ox = 23, oy = 57 }, --pickup 2
 			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
@@ -169,13 +169,13 @@ return {
 			delay = 65
 		},
 		hurtHigh = {
-			{ q = q(2,335,48,64), ox = 29, oy = 63 }, --hh1
+			{ q = q(2,335,48,64), ox = 29, oy = 63, delay = 0.02 }, --hh1
 			{ q = q(52,335,50,64), ox = 32, oy = 63, delay = 0.2 }, --hh2
 			{ q = q(2,335,48,64), ox = 29, oy = 63 }, --hh1
 			delay = 0.05
 		},
 		hurtLow = {
-			{ q = q(104,336,42,63), ox = 22, oy = 62 }, --hl1
+			{ q = q(104,336,42,63), ox = 22, oy = 62, delay = 0.02 }, --hl1
 			{ q = q(148,338,42,61), ox = 22, oy = 60, delay = 0.2 }, --hl2
 			{ q = q(104,336,42,63), ox = 22, oy = 62 }, --hl1
 			delay = 0.05
@@ -184,30 +184,30 @@ return {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jaf1
 			{ q = q(43,722,37,64), ox = 13, oy = 63 }, --jaf2
 			{ q = q(82,722,71,64), ox = 26, oy = 63, funcCont = jump_forward_attack, delay = 5 }, --jaf3
-			delay = 0.1
+			delay = 0.05
 		},
 		jumpAttackLight = {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jal1
 			{ q = q(43,722,37,64), ox = 13, oy = 63, funcCont = jump_light_attack, delay = 5 }, --jal2
-			delay = 0.2
-		},
-		jumpAttackStraight = {
-			{ q = q(2,789,42,67), ox = 26, oy = 66, delay = 0.2 }, --jas1
-			{ q = q(46,789,41,63), ox = 22, oy = 62 }, --jas2
-			{ q = q(89,789,42,61), ox = 22, oy = 60, funcCont = jump_straight_attack, delay = 5 }, --jas3
 			delay = 0.1
 		},
+		jumpAttackStraight = {
+			{ q = q(2,789,42,67), ox = 26, oy = 66 }, --jas1
+			{ q = q(46,789,41,63), ox = 22, oy = 62, delay = 0.1 }, --jas2
+			{ q = q(89,789,42,61), ox = 22, oy = 60, funcCont = jump_straight_attack, delay = 5 }, --jas3
+			delay = 0.15
+		},
 		jumpAttackRun = {
-			{ q = q(2,993,63,66), ox = 26, oy = 65, delay = 0.08 }, --jar1.1
-			{ q = q(67,993,63,66), ox = 22, oy = 65, func = jump_run_attack, delay = 0.08 }, --jar1.2
-			{ q = q(132,993,64,66), ox = 22, oy = 65, delay = 0.02 }, --jar2.1
-			{ q = q(2,1061,65,66), ox = 22, oy = 65, func = jump_run_attack, delay = 0.02 }, --jar2.2
-			{ q = q(69,1061,66,66), ox = 22, oy = 65, delay = 0.02 }, --jar2.3
-			{ q = q(137,1061,63,66), ox = 20, oy = 65, func = jump_run_attack_last, delay = 0.02 }, --jar3.1
-			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jump_run_attack_last, delay = 0.02 }, --jar3.2
-			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jump_run_attack_last, delay = 0.02 }, --jar3.3
-			{ q = q(124,1129,42,67), ox = 23, oy = 66 }, --jar4
-			delay = 5
+			{ q = q(2,993,63,66), ox = 26, oy = 65 }, --jar1.1
+			{ q = q(67,993,63,66), ox = 22, oy = 65, func = jump_run_attack }, --jar1.2
+			{ q = q(132,993,64,66), ox = 22, oy = 65 }, --jar2.1
+			{ q = q(2,1061,65,66), ox = 22, oy = 65, func = jump_run_attack }, --jar2.2
+			{ q = q(69,1061,66,66), ox = 22, oy = 65 }, --jar2.3
+			{ q = q(137,1061,63,66), ox = 20, oy = 65, func = jump_run_attack_last }, --jar3.1
+			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jump_run_attack_last }, --jar3.2
+			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jump_run_attack_last }, --jar3.3
+			{ q = q(124,1129,42,67), ox = 23, oy = 66, delay = 5 }, --jar4
+			delay = 0.02
 		},
 		sideStepUp = {
 			{ q = q(133,789,44,62), ox = 23, oy = 61 }, --ssu
@@ -221,8 +221,8 @@ return {
 		grabHit = {
 			{ q = q(96,863,44,63), ox = 22, oy = 62 }, --grab attack 1.1
 			{ q = q(142,865,42,61), ox = 20, oy = 60, func = grabHit_attack, delay = 0.18 }, --grab attack 1.2
-			{ q = q(96,863,44,63), ox = 22, oy = 62 }, --grab attack 1.1
-			delay = 0.02
+			{ q = q(96,863,44,63), ox = 22, oy = 62, delay = 0.01 }, --grab attack 1.1
+			delay = 0.005
 		},
 		grabHitLast = {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jaf1
@@ -231,7 +231,7 @@ return {
 			delay = 0.02
 		},
 		grabHitEnd = {
-			{ q = q(121,587,48,65), ox = 13, oy = 64, delay = 0.2 }, --c4.1
+			{ q = q(121,587,48,65), ox = 13, oy = 64, delay = 0.15 }, --c4.1
 			{ q = q(171,587,50,65), ox = 14, oy = 64 }, --c4.2
 			{ q = q(194,725,49,62), ox = 14, oy = 62, func = grabEnd_attack }, --c4.7
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.35 }, --c4.6
@@ -243,7 +243,7 @@ return {
 			{ q = q(44,928,51,63), ox = 24, oy = 62 }, --throw 1.2
 			{ q = q(97,928,53,63), ox = 26, oy = 62, func = grabThrow_now, delay = 0.2 }, --throw 1.3
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
-			delay = 0.1
+			delay = 0.07
 		},
 		grabSwap = {
 			{ q = q(48,134,50,62), ox = 18, oy = 61 }, --run 2
