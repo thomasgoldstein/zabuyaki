@@ -70,22 +70,20 @@ end
 function Gopper:checkCollisionAndMove(dt)
     local stepx = self.velx * dt * self.horizontal
     local stepy = self.vely * dt * self.vertical
-    local actualX, actualY, cols, len
+    local actualX, actualY, cols, len, x, y
     if self.state == "fall" then
-        actualX, actualY, cols, len = world:move(self, self.x + stepx - 8, self.y + stepy- 4,
-            function(subj, obj)
-                if subj ~= obj and obj.type == "wall" then
-                    return "slide"
-                end
-            end)
+        x = self.x
+        y = self.y
     else
-        actualX, actualY, cols, len = world:move(self, self.tx + stepx - 8, self.ty + stepy- 4,
-            function(subj, obj)
-                if subj ~= obj and obj.type == "wall" then
-                    return "slide"
-                end
-            end)
+        x = self.tx
+        y = self.ty
     end
+    actualX, actualY, cols, len = world:move(self, x + stepx - 8, y + stepy- 4,
+        function(subj, obj)
+            if subj ~= obj and obj.type == "wall" then
+                return "slide"
+            end
+        end)
     self.x = actualX + 8
     self.y = actualY + 4
 end
