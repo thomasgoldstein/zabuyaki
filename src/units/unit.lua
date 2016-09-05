@@ -133,6 +133,8 @@ function Unit:setState(state)
 		self.start = state.start
 		self.exit = state.exit
 		self:start()
+        --TODO temp?
+        UpdateSpriteInstance(self.sprite, 0, self)
 	end
 end
 
@@ -282,18 +284,11 @@ function Unit:onHurt()
     if not h then
         return
     end
-    if self.state == "fall" or self.state == "dead" or self.state == "getup" then
-        if GLOBAL_SETTING.DEBUG then
-            print("Clear HURT due to state"..self.state)
-        end
-        self.hurt = nil --free hurt data
-        return
-    end
     if h.source.victims[self] then  -- if I had dmg from this src already
-    if GLOBAL_SETTING.DEBUG then
-        print("MISS + not Clear HURT due victims list of "..h.source.name)
-    end
-    return
+        if GLOBAL_SETTING.DEBUG then
+            print("MISS + not Clear HURT due victims list of "..h.source.name)
+        end
+        return
     end
 
     h.source.victims[self] = true
