@@ -243,6 +243,22 @@ function arcadeState:keypressed(k, unicode)
             mainCamera:setScale(2)
         elseif k == '3' then
             mainCamera:setScale(3)
+        elseif k == '4' then
+            print("set default jump / gravity")
+            --Unit
+            player1.gravity = 650
+            player1.velocity_fall_z = 220
+            --Character
+            player1.velocity_jump = 220 --Z coord
+            player1.velocity_jump_x_boost = 10
+        elseif k == '5' then
+            print("boost jump / gravity 1.5x")
+            --Unit
+            player1.gravity = 1250
+            player1.velocity_fall_z = 330
+            --Character
+            player1.velocity_jump = 330 --Z coord
+            player1.velocity_jump_x_boost = 50
         elseif k == 'f12' then
             level_objects:revive()
         end
