@@ -102,8 +102,9 @@ function SetSpriteAnimation(spr, anim)
 	spr.cur_anim = anim
 	spr.isFinished = false
 	spr.func_called_at_frame = -1
-	local s = spr.def.animations[spr.cur_anim]
-	local sc = s[spr.cur_frame]
+	--local s = spr.def.animations[spr.cur_anim]
+	--local sc = s[spr.cur_frame]
+	spr.elapsed_time = -love.timer.getDelta() / 2
 end
 
 function UpdateSpriteInstance(spr, dt, slf)
@@ -121,7 +122,7 @@ function UpdateSpriteInstance(spr, dt, slf)
 	if sc.funcCont and slf then
 		sc.funcCont(slf)
 	end
-	-- call custom frame funce once per the frame
+	-- call custom frame func once per the frame
 	if sc.func and spr.func_called_at_frame ~= spr.cur_frame and slf then
 		spr.func_called_at_frame = spr.cur_frame
 		sc.func(slf)
