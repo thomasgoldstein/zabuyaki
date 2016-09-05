@@ -88,7 +88,7 @@ function Chai:dash_update(dt)
         self.velz = 0
         self.z = 0
         sfx.play(self.name, self.sfx.step)
-        self:setState(self.stand)
+        self:setState(self.duck)
         return
     end
     self:checkCollisionAndMove(dt)
