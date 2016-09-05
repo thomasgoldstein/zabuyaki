@@ -191,7 +191,7 @@ return {
 		jumpAttackLight = {
 			{ q = q(2,844,43,67), ox = 21, oy = 66 }, --jal1
 			{ q = q(47,844,47,63), ox = 23, oy = 62, funcCont = jump_light_attack, delay = 5 }, --jal2
-			delay = 0.1
+			delay = 0.05
 		},
 		jumpAttackStraight = {
 			{ q = q(2,778,38,63), ox = 19, oy = 62 }, --jas1
