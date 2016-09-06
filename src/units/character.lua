@@ -584,7 +584,7 @@ function Character:dash_start()
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play(self.name,self.sfx.dash)    --TODO add dash sound
+    sfx.play(self.name,self.sfx.dash)
 end
 function Character:dash_update(dt)
     if self.sprite.isFinished then

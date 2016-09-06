@@ -75,4 +75,25 @@ function Rick:combo_update(dt)
 end
 Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Character.default_draw}
 
+function Rick:dash_start()
+    self.isHittable = true
+    --	print (self.name.." - dash start")
+    SetSpriteAnimation(self.sprite,"dash")
+    self.velx = self.velocity_dash
+    self.vely = 0
+    self.velz = 0
+    sfx.play(self.name,self.sfx.dash)
+end
+function Rick:dash_update(dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt, self.friction_dash)
+    self:checkCollisionAndMove(dt)
+    self:updateShake(dt)
+    UpdateSpriteInstance(self.sprite, dt, self)
+end
+Rick.dash = {name = "dash", start = Rick.dash_start, exit = nop, update = Rick.dash_update, draw = Character.default_draw}
+
 return Rick
