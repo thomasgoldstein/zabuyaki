@@ -36,8 +36,8 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
     self.jumpHeight = 40 -- in pixels
     self.velocity_throw_x = 110
     self.velocity_fall_z = 220
-    self.velocity_fall_dead_x = 150
-    self.velocity_fall_x = 110
+    self.velocity_fall_dead_x = 160
+    self.velocity_fall_x = 130
     self.velocity_fall_add_x = 5
     self.velocity_bonus_on_attack_x = 30
     self.my_thrown_body_damage = 10  --eg like a weight of the thrown body that makes dmg to others
