@@ -312,8 +312,11 @@ function Unit:onHurt()
     self.hurt = nil --free hurt data
 
     if self.id <= 2 then	--for Unit 1 + 2 only
-    mainCamera:onShake(1, 1, 0.03, 0.3)
+        mainCamera:onShake(1, 1, 0.03, 0.3)
     end
+
+    --"blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
+    --"high", "low", "fall"(replaced by blows)
     if h.type == "high" and self.hp > 0 and self.z <= 0 then
         local pa_hitMark = PA_IMPACT_BIG:clone()
         pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
@@ -368,8 +371,8 @@ function Unit:onHurt()
     end
 end
 
-function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
-    -- type = "high" "low" "fall"
+function Unit:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_victims_list)
+    -- type = "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     local face = self.face
 
     if init_victims_list then
@@ -390,12 +393,14 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
     for i = 1,#items do
         if self.isThrown then
             items[i].hurt = {source = self.thrower_id, state = self.state, damage = damage,
-            type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+--            type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+            type = type, velx = velocity or self.velocity_bonus_on_attack_x,
             horizontal = self.horizontal,
             x = self.x, y = self.y, z = z or self.z }
         else
             items[i].hurt = {source = self, state = self.state, damage = damage,
-                type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+--                type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+                type = type, velx = velocity or self.velocity_bonus_on_attack_x,
                 horizontal = self.horizontal,
                 x = self.x, y = self.y, z = z or self.z }
         end
@@ -409,8 +414,8 @@ function Unit:checkAndAttack(l,t,w,h, damage, type, sfx1, init_victims_list)
     end
 end
 
-function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx1)
-    -- type = "high" "low" "fall"
+function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
+    -- type = "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     local face = self.face
     local g = self.hold
     if self.isThrown then
@@ -434,7 +439,8 @@ function Unit:checkAndAttackGrabbed(l,t,w,h, damage, type, sfx1)
     end
     for i = 1,#items do
         items[i].hurt = {source = self, state = self.state, damage = damage,
-            type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+            --type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+            type = type, velx = velocity or self.velocity_bonus_on_attack_x,
             horizontal = self.horizontal,
             x = self.x, y = self.y, z = z or self.z}
     end

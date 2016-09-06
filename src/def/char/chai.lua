@@ -12,35 +12,35 @@ local step_sfx = function(slf)
 	padust:emit(3)
 	level_objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low") end
-local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO") end
-local grabEnd_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO") end
+local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low", slf.velx) end
+local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
+local grabEnd_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
 local footJab_move = function(slf) slf.x = slf.x + slf.horizontal end -- Chai's foot jab makes him move forward
 local combo_attack1 = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 6, "low", "air")
+	slf:checkAndAttack(30,0, 26,12, 6, "low", slf.velx, "air")
 	footJab_move(slf)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 10, "low", "air")
+	slf:checkAndAttack(30,0, 26,12, 10, "low", slf.velx, "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf)
-	slf:checkAndAttack(34,0, 33,12, 12, "high", "air")
+	slf:checkAndAttack(34,0, 33,12, 12, "high", slf.velx, "air")
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 14, "fall", "air")
+	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velx, "air")
 end
 local combo_attack4_nosfx = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 14, "fall", nil)
+	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velx, nil)
 end
-local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall") end
-local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall") end
-local jump_light_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high") end
-local jump_straight_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall") end
-local jump_run_attack = function(slf) slf:checkAndAttack(25,0, 35,12, 6, "high", nil, true) end
-local jump_run_attack_last = function(slf) slf:checkAndAttack(25,0, 35,12, 8, "fall", nil, true) end
+local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall", slf.velocity_fall_x) end
+local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall", slf.velocity_fall_x) end
+local jump_light_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high", slf.velx) end
+local jump_straight_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall", slf.velocity_fall_x) end
+local jump_run_attack = function(slf) slf:checkAndAttack(25,0, 35,12, 6, "high", slf.velocity_fall_x, nil, true) end
+local jump_run_attack_last = function(slf) slf:checkAndAttack(25,0, 35,12, 8, "fall", slf.velocity_fall_x, nil, true) end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
 
 return {
