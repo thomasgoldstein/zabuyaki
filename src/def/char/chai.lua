@@ -30,10 +30,10 @@ local combo_attack3 = function(slf)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velx, "air")
+	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velocity_fall_x, "air")
 end
 local combo_attack4_nosfx = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velx, nil)
+	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velocity_fall_x, nil)
 end
 local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall", slf.velocity_dash_fall) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall", slf.velocity_fall_x) end
