@@ -21,6 +21,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_jump_x_boost = 10
     self.velocity_jump_y_boost = 5
     self.velocity_dash = 150
+    self.velocity_dash_fall = 180
     self.friction_dash = self.velocity_dash
     self.throw_start_z = 20
     self.to_fallen_anim_z = 40

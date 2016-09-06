@@ -35,7 +35,7 @@ end
 local combo_attack4_nosfx = function(slf)
 	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velx, nil)
 end
-local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall", slf.velocity_fall_x) end
+local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall", slf.velocity_dash_fall) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall", slf.velocity_fall_x) end
 local jump_light_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high", slf.velx) end
 local jump_straight_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall", slf.velocity_fall_x) end
