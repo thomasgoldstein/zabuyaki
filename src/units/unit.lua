@@ -345,6 +345,9 @@ function Unit:onHurt()
             self.velx = self.velocity_throw_x
         else
             self.velx = h.velx
+            if self.velx < self.velocity_fall_x / 2 then
+                self.velx = self.velocity_fall_x / 2 + love.math.random(1,self.velocity_fall_random_x)
+            end
         end
         --		self.horizontal = h.source.horizontal
         if h.source.velx > 0 then
