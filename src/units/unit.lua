@@ -344,26 +344,23 @@ function Unit:onHurt()
         pa_hitMark:emit(1)
         level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
         -- calc falling traectorym speed, direction
+        self.z = self.z + 1
+        self.velz = self.velocity_fall_z
         if h.type == "grabKO" then
+            --when u throw a grabbed one
             self.velx = self.velocity_throw_x
         else
+            --use fall speed from the agument
             self.velx = h.velx
+            --it cannot be too short
             if self.velx < self.velocity_fall_x / 2 then
                 self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
             end
         end
-        self.horizontal = h.source.horizontal
-        -- fall
-        self.z = self.z + 1
-        self.velz = self.velocity_fall_z
-        if h.state == "combo" or h.state == "jumpAttackStraight" then
-            if self.hp <= 0 then
-                self.velx = self.velocity_fall_dead_x	-- dead body flies further
-            else
-                self.velx = self.velocity_fall_x
-            end
+        if self.hp <= 0 then
+            self.velx = self.velocity_fall_dead_x	-- dead body flies further
         end
-        self.velx = self.velx + self.velocity_fall_add_x
+        self.horizontal = h.source.horizontal
         --self:onShake(10, 10, 0.12, 0.7)
         self.isGrabbed = false
         self:setState(self.fall)
