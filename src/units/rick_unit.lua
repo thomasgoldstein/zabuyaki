@@ -31,9 +31,9 @@ function Rick:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_walk_y = 45
     self.velocity_run = 140
     self.velocity_run_y = 23
-    self.velocity_dash = 220
+    self.velocity_dash = 150
     self.friction_dash = self.velocity_dash
-
+    
     self.sfx.jump = "rick_jump"
     self.sfx.throw = "rick_throw"
     self.sfx.jump_attack = "rick_attack"
