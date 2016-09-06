@@ -349,17 +349,7 @@ function Unit:onHurt()
                 self.velx = self.velocity_fall_x / 2 + love.math.random(1,self.velocity_fall_random_x)
             end
         end
-        --		self.horizontal = h.source.horizontal
-        if h.source.velx > 0 then
-            --if running - dashing
-            self.horizontal = h.source.horizontal
-        else
-            if self.x < h.source.x then
-                self.horizontal = -1
-            else
-                self.horizontal = 1
-            end
-        end
+        self.horizontal = h.source.horizontal
         -- fall
         self.z = self.z + 1
         self.velz = self.velocity_fall_z
