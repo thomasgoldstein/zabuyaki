@@ -84,7 +84,7 @@ return {
             delay = 5
         },
         getup = {
-            { q = q(71,200,65,42), ox = 32, oy = 31, delay = 1 }, --lying down
+            { q = q(71,200,65,42), ox = 32, oy = 31, delay = 0.2 }, --lying down
 			{ q = q(138,193,55,49), ox = 24, oy = 48 }, --getting up
 			{ q = q(66,71,38,56), ox = 19, oy = 55 }, --idle
             delay = 0.3
