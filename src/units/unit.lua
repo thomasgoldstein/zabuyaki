@@ -38,7 +38,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_fall_z = 220
     self.velocity_fall_dead_x = 150
     self.velocity_fall_x = 110
-    self.velocity_fall_random_x = 5
+    self.velocity_fall_add_x = 5
     self.velocity_bonus_on_attack_x = 30
     self.my_thrown_body_damage = 10  --eg like a weight of the thrown body that makes dmg to others
     self.thrown_land_damage = 20  --dmg from the thrown-fall
@@ -349,7 +349,7 @@ function Unit:onHurt()
         else
             self.velx = h.velx
             if self.velx < self.velocity_fall_x / 2 then
-                self.velx = self.velocity_fall_x / 2 + love.math.random(1,self.velocity_fall_random_x)
+                self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
             end
         end
         self.horizontal = h.source.horizontal
@@ -363,7 +363,7 @@ function Unit:onHurt()
                 self.velx = self.velocity_fall_x
             end
         end
-        self.velx = self.velx + love.math.random(1, self.velocity_fall_random_x)
+        self.velx = self.velx + self.velocity_fall_add_x
         --self:onShake(10, 10, 0.12, 0.7)
         self.isGrabbed = false
         self:setState(self.fall)
