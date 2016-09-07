@@ -942,7 +942,7 @@ function Character:fall_update(dt)
                         src.victim_infoBar = self.infoBar:setAttacker(src)
                     end
                 end
-                sfx.play(self.name,"fall", 1 - self.flag_fallen, love.math.random(0.92, 1.08))
+            sfx.play(self.name,"fall", 1 - self.flag_fallen, 1 * (1 - self.flag_fallen))
                 self.flag_fallen = self.flag_fallen + 0.2
                 --landing dust clouds
                 local psystem = PA_DUST_FALLING:clone()
@@ -959,7 +959,7 @@ function Character:fall_update(dt)
 
                 self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-                sfx.play(self.name,"fall", 1 - self.flag_fallen, love.math.random(0.92, 1.08))
+                sfx.play(self.name,"fall", 1 - self.flag_fallen, 1 * (1 - self.flag_fallen))
 
                 -- hold UP+JUMP to get no damage after throw (land on feet)
                 if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
