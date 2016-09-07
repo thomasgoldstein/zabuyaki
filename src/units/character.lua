@@ -644,7 +644,7 @@ function Character:duck2jump_update(dt)
         level_objects:add(Effect:new(psystem, self.x, self.y-1))
         return
     end
-	if self.velx < self.velocity_walk then
+	--if self.velx < self.velocity_walk / 2 then
 		if self.b.horizontal:isDown(-1) then
 			self.face = -1 --face sprite left or right
 			self.horizontal = self.face --X direction
@@ -654,8 +654,8 @@ function Character:duck2jump_update(dt)
 			self.horizontal = self.face --X direction
 			self.velx = self.velocity_walk
 		end
-	end
-	if self.vely < self.velocity_walk_y then
+	--end
+	--if self.vely < self.velocity_walk_y / 2 then
 		if self.b.vertical:isDown(-1) then
 			self.vertical = -1
 			self.vely = self.velocity_walk_y
@@ -663,7 +663,7 @@ function Character:duck2jump_update(dt)
 			self.vertical = 1
 			self.vely = self.velocity_walk_y
 		end
-	end
+	--end
     --self:calcFriction(dt)
     --self:checkCollisionAndMove(dt)
     self:updateShake(dt)
