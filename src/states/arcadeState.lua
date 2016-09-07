@@ -269,6 +269,8 @@ function arcadeState:draw()
     end
 end
 
+local pitch = 1
+local volume = 1
 function arcadeState:keypressed(k, unicode)
     if k == '0' then
         GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
@@ -298,6 +300,26 @@ function arcadeState:keypressed(k, unicode)
             --Character
             player1.velocity_jump = 330 --Z coord
             player1.velocity_jump_x_boost = 50
+        elseif k == '6' then
+            sfx.play("sfx","rick_step", 1, pitch)
+            pitch = pitch + 0.01
+            if pitch > 1.05 then
+                pitch = 0.9
+            end
+            volume = volume - 0.2
+            if volume < 0.5 then
+                volume = 1
+            end
+        elseif k == '7' then
+            sfx.play("sfx","fall", 1, pitch)
+            pitch = pitch + 0.01
+            if pitch > 1.05 then
+                pitch = 0.9
+            end
+            volume = volume - 0.2
+            if volume < 0.5 then
+                volume = 1
+            end
         elseif k == 'f12' then
             level_objects:revive()
         end
