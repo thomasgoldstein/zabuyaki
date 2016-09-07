@@ -17,20 +17,40 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_walk_y = 50
     self.velocity_run = 150
     self.velocity_run_y = 25
+    --self.jumpHeight = 40 -- in pixels
     self.velocity_jump = 220 --Z coord
     self.velocity_jump_x_boost = 10
     self.velocity_jump_y_boost = 5
-    self.velocity_dash = 150
-    self.velocity_dash_fall = 180
+    self.velocity_fall_z = 220
+    self.velocity_fall_dead_x = 160
+    self.velocity_fall_x = 120
+    self.velocity_fall_add_x = 5
+    self.velocity_dash = 150 --speed of the character
+    self.velocity_dash_fall = 180 --speed caused by dash to others fall
     self.friction_dash = self.velocity_dash
-    self.throw_start_z = 20
+    self.throw_start_z = 20 --lift up a body to throw at this Z
     self.to_fallen_anim_z = 40
     self.velocity_step_down = 220
-    self.velocity_grab_throw_x = 220
-    self.velocity_grab_throw_z = 200
-    self.velocity_back_off = 175 --when ungrab
-    self.velocity_back_off2 = 200 --when ungrabbed
-
+    self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
+    self.velocity_grab_throw_x = 220 --my throwing speed
+    self.velocity_grab_throw_z = 200 --my throwing speed
+    self.velocity_back_off = 175 --when you ungrab someone
+    self.velocity_back_off2 = 200 --when you are released
+    self.velocity_bonus_on_attack_x = 30
+    self.velocity_throw_x = 110 --attack speed that causes my thrown body to the victims
+    self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+    --Inner char vars
+    self.lives = 3
+    self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
+    self.score = 0
+    self.n_combo = 1    -- n of the combo hit
+    self.cool_down = 0  -- can't move
+    self.cool_down_combo = 0    -- can cont combo
+    self.cool_down_grab = 2
+    self.grab_release_after = 0.25 --sec if u hold 'back'
+    self.n_grabhit = 0    -- n of the grab hits
+    --Character default sfx
     self.sfx.jump = "whoosh_heavy"
     self.sfx.throw = "air"
     self.sfx.dash = "grunt3"
@@ -40,6 +60,192 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.sfx.dead = "grunt3"
 --    self.infoBar = InfoBar:new(self)
 --    self.victim_infoBar = nil
+end
+
+function Character:onHurt()
+    -- hurt = {source, damage, velx,vely,x,y,z}
+    local h = self.hurt
+    if not h then
+        return
+    end
+    if h.source.victims[self] then  -- if I had dmg from this src already
+    if GLOBAL_SETTING.DEBUG then
+        print("MISS + not Clear HURT due victims list of "..h.source.name)
+    end
+    return
+    end
+
+    h.source.victims[self] = true
+    self:release_grabbed()
+    h.damage = h.damage or 100  --TODO debug if u forgot
+    if GLOBAL_SETTING.DEBUG then
+        print(h.source.name .. " damaged "..self.name.." by "..h.damage)
+    end
+
+    h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
+
+    -- Score
+    h.source.score = h.source.score + h.damage * 10
+
+    self:playHitSfx(h.damage)
+    self.hp = self.hp - h.damage
+    self.n_combo = 1	--if u get hit reset combo chain
+
+    self.face = -h.source.face	--turn face to the attacker
+
+    self.hurt = nil --free hurt data
+
+    if self.id <= 2 then	--for Unit 1 + 2 only
+    mainCamera:onShake(1, 1, 0.03, 0.3)
+    end
+
+    --"blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
+    --"high", "low", "fall"(replaced by blows)
+    if h.type == "high" and self.hp > 0 and self.z <= 0 then
+        local pa_hitMark = PA_IMPACT_BIG:clone()
+        pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+        pa_hitMark:emit(1)
+        level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
+        self:onShake(1, 0, 0.03, 0.3)
+        self:setState(self.hurtHigh)
+        return
+    elseif h.type == "low" and self.hp > 0 and self.z <= 0 then
+        local pa_hitMark = PA_IMPACT_SMALL:clone()
+        pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+        pa_hitMark:emit(1)
+        level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
+        self:onShake(1, 0, 0.03, 0.3)
+        self:setState(self.hurtLow)
+        return
+    else
+        --disable AI movement (for cut scenes & enemy)
+        --[[        if self.move then --disable AI x,y changing
+                    print(self.name.." removed AI tween")
+                    self.move:remove()
+                end]]
+        local pa_hitMark = PA_IMPACT_BIG:clone()
+        pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+        pa_hitMark:emit(1)
+        level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
+        -- calc falling traectorym speed, direction
+        self.z = self.z + 1
+        self.velz = self.velocity_fall_z
+        if h.type == "grabKO" then
+            --when u throw a grabbed one
+            self.velx = self.velocity_throw_x
+        else
+            --use fall speed from the agument
+            self.velx = h.velx
+            --it cannot be too short
+            if self.velx < self.velocity_fall_x / 2 then
+                self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
+            end
+        end
+        if self.hp <= 0 then
+            self.velx = self.velocity_fall_dead_x	-- dead body flies further
+        end
+        self.horizontal = h.source.horizontal
+        --self:onShake(10, 10, 0.12, 0.7)
+        self.isGrabbed = false
+        self:setState(self.fall)
+        return
+    end
+end
+
+function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_victims_list)
+    -- type = "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
+    local face = self.face
+
+    if init_victims_list then
+        self.victims = {}
+    end
+    local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+        function(o)
+            if self ~= o and o.isHittable and not self.victims[o] then
+                --print ("hit "..item.name)
+                return true
+            end
+        end)
+    --DEBUG to show attack hitBoxes in green
+    if GLOBAL_SETTING.DEBUG then
+        --print("items: ".. #items)
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
+    end
+    for i = 1,#items do
+        if self.isThrown then
+            items[i].hurt = {source = self.thrower_id, state = self.state, damage = damage,
+                --            type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+                type = type, velx = velocity or self.velocity_bonus_on_attack_x,
+                horizontal = self.horizontal,
+                x = self.x, y = self.y, z = z or self.z }
+        else
+            items[i].hurt = {source = self, state = self.state, damage = damage,
+                --                type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+                type = type, velx = velocity or self.velocity_bonus_on_attack_x,
+                horizontal = self.horizontal,
+                x = self.x, y = self.y, z = z or self.z }
+        end
+    end
+    if sfx1 then
+        sfx.play(self.name,sfx1)
+    end
+    if not GLOBAL_SETTING.AUTO_COMBO and #items < 1 then
+        -- reset combo attack N to 1
+        self.n_combo = 0
+    end
+end
+
+function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
+    -- type = "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
+    local face = self.face
+    local g = self.hold
+    if self.isThrown then
+        face = -face    --TODO proper thrown enemy hitbox?
+        --TODO not needed since the hitbox is centered
+    end
+    if not g.target then --can attack only the 1 grabbed
+    return
+    end
+
+    local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+        function(obj)
+            if obj == g.target then
+                return true
+            end
+        end)
+    --DEBUG to show attack hitBoxes in green
+    if GLOBAL_SETTING.DEBUG then
+        --print("items: ".. #items)
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
+    end
+    for i = 1,#items do
+        items[i].hurt = {source = self, state = self.state, damage = damage,
+            --type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
+            type = type, velx = velocity or self.velocity_bonus_on_attack_x,
+            horizontal = self.horizontal,
+            x = self.x, y = self.y, z = z or self.z}
+    end
+    if sfx1 then	--TODO 2 SFX for holloow and hit
+    sfx.play(self.name,sfx1)
+    end
+end
+
+function Character:checkForItem(w, h)
+    --got any items near feet?
+    local items, len = world:queryRect(self.x - w/2, self.y - h/2, w, h,
+        function(item)
+            if item.type == "item" and not item.isEnabled then
+                return true
+            end
+        end)
+    if len > 0 then
+        return items[1]
+    end
+    return nil
+end
+
+function Character:onGetItem(item)
+    item:get(self)
 end
 
 function Character:stand_start()
@@ -1225,6 +1431,20 @@ function Character:grabThrow_update(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabThrow = {name = "grabThrow", start = Character.grabThrow_start, exit = nop, update = Character.grabThrow_update, draw = Character.default_draw}
+
+function Character:revive()
+    self.hp = self.max_hp
+    self.hurt = nil
+    self.z = 0
+    self.cool_down_death = 3 --seconds to remove
+    self.isDisabled = false
+    self.isThrown = false
+    self.victims = {}
+    self.infoBar = InfoBar:new(self)
+    self.victim_infoBar = nil
+    self:setState(self.stand)
+    self:showPID(3)
+end
 
 return Character
 
