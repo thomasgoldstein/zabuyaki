@@ -320,6 +320,8 @@ function arcadeState:keypressed(k, unicode)
             if volume < 0.5 then
                 volume = 1
             end
+        elseif k == '8' then
+            sfx.play("sfx","hit_medium1", 1, 1 + 0.02 * love.math.random(-10, 10))
         elseif k == 'f12' then
             level_objects:revive()
         end
