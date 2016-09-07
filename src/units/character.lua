@@ -264,6 +264,13 @@ function Character:stand_start()
 end
 function Character:stand_update(dt)
     --	print (self.name," - stand update",dt)
+    if not self.b.jump:isDown() then
+        self.can_jump = true
+    end
+    if not self.b.fire:isDown() then
+        self.can_fire = true
+    end
+
     if self.isGrabbed then
         self:setState(self.grabbed)
         return
@@ -325,14 +332,6 @@ function Character:stand_update(dt)
             end
         end
     end
-
-    if not self.b.jump:isDown() then
-        self.can_jump = true
-    end
-    if not self.b.fire:isDown() then
-        self.can_fire = true
-    end
-
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
@@ -344,12 +343,18 @@ function Character:walk_start()
     self.isHittable = true
     --	print (self.name.." - walk start")
     SetSpriteAnimation(self.sprite,"walk")
-    self.can_jump = false
+    --self.can_jump = false
     self.can_fire = false
     self.n_combo = 1	--if u move reset combo chain
 end
 function Character:walk_update(dt)
     --	print (self.name.." - walk update",dt)
+    if not self.b.jump:isDown() then
+        self.can_jump = true
+    end
+    if not self.b.fire:isDown() then
+        self.can_fire = true
+    end
     if self.b.fire:isDown() and self.can_fire then
         if self:checkForItem(9, 9) ~= nil then
             self:setState(self.pickup)
@@ -395,10 +400,6 @@ function Character:walk_update(dt)
             return
         end
     end
-    if self.velx == 0 and self.vely == 0 then
-        self:setState(self.stand)
-        return
-    end
     local grabbed = self:checkForGrab(12)
     if grabbed then
         if self:doGrab(grabbed) then
@@ -407,14 +408,12 @@ function Character:walk_update(dt)
             return
         end
     end
+    if self.velx == 0 and self.vely == 0 then
+        self:setState(self.stand)
+        return
+    end
     --self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    if not self.b.jump:isDown() then
-        self.can_jump = true
-    end
-    if not self.b.fire:isDown() then
-        self.can_fire = true
-    end
     self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
@@ -424,11 +423,17 @@ function Character:run_start()
     self.isHittable = true
     --	print (self.name.." - run start")
     self.delay_animation_cool_down = 0.01
-    self.can_jump = false
+    --self.can_jump = false
     self.can_fire = false
 end
 function Character:run_update(dt)
     --	print (self.name.." - run update",dt)
+    if not self.b.jump:isDown() then
+        self.can_jump = true
+    end
+    if not self.b.fire:isDown() then
+        self.can_fire = true
+    end
     self.velx = 0
     self.vely = 0
     self.delay_animation_cool_down = self.delay_animation_cool_down - dt
@@ -452,18 +457,18 @@ function Character:run_update(dt)
         self.vertical = 1
         self.vely = self.velocity_run_y
     end
-    if (self.b.horizontal:isDown(1) == false and self.b.horizontal:isDown(-1) == false)
-            or (self.b.horizontal:isDown(1) and self.horizontal < 0)
-            or (self.b.horizontal:isDown(-1) and self.horizontal > 0)
+    if (self.velx == 0 and self.vely == 0) or
+        (self.b.horizontal:isDown(1) == false and self.b.horizontal:isDown(-1) == false)
+        or (self.b.horizontal:isDown(1) and self.horizontal < 0)
+        or (self.b.horizontal:isDown(-1) and self.horizontal > 0)
     then
-        --		self:setState(self.walk)
         self:setState(self.stand)
         return
     end
     if self.b.fire:isDown() and self.can_fire then
         self:setState(self.dash)
         return
-    elseif self.b.jump:isDown() and self.can_jump then
+    elseif self.can_jump and self.b.jump:isDown() then
         --start jump dust clouds
         local psystem = PA_DUST_JUMP_START:clone()
         psystem:setAreaSpread( "uniform", 16, 4 )
@@ -476,18 +481,6 @@ function Character:run_update(dt)
         level_objects:add(Effect:new(psystem, self.x, self.y-1))
         self:setState(self.jump)
         return
-    end
-    if self.velx == 0 and self.vely == 0 then
-        --self.b.horizontal.ikn:clear()
-        --self.b.horizontal.ikp:clear()
-        self:setState(self.stand)
-        return
-    end
-    if not self.b.jump:isDown() then
-        self.can_jump = true
-    end
-    if not self.b.fire:isDown() then
-        self.can_fire = true
     end
     --self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
