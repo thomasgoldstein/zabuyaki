@@ -960,7 +960,7 @@ function Character:fall_update(dt)
 
                 self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-                sfx.play(self.name,"fall", 1 - self.bounced * 0.2, 1 * (1 - self.bounced * 0.2))
+                sfx.play(self.name,"fall", 0.5, 1 * (1 - self.bounced * 0.2))
 
                 -- hold UP+JUMP to get no damage after throw (land on feet)
                 if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
