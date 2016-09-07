@@ -912,14 +912,12 @@ function Character:fall_start()
     if self.z <= 0 then
         self.z = 0
     end
-    self.flag_fallen = 0
+    self.bounced = 0
 end
 function Character:fall_update(dt)
     --print(self.name .. " - fall update", dt)
-    if self.sprite.cur_anim == "thrown"
-            and self.sprite.isFinished then
+    if self.sprite.cur_anim == "thrown" and self.sprite.isFinished then
         SetSpriteAnimation(self.sprite,"fall")
-
     end
     if self.z > 0 then
         self.velz = self.velz - self.gravity * dt
@@ -928,12 +926,15 @@ function Character:fall_update(dt)
             SetSpriteAnimation(self.sprite,"fallen")
         end
         if self.z <= 0 then
-            if self.velz < -100 then    --bounce up after fall
+            if self.velz < -100 and self.bounced < 1 then    --bounce up after fall (not )
+                if self.velz < -300 then
+                    self.velz = -300
+                end
                 self.z = 0.01
                 self.velz = -self.velz/2
                 self.velx = self.velx * 0.5
 
-                if self.flag_fallen == 0 then
+                if self.bounced == 0 then
                     mainCamera:onShake(1, 1, 0.03, 0.3)	--shake on the 1st land touch
                     if self.isThrown then
                         local src = self.thrower_id
@@ -942,8 +943,8 @@ function Character:fall_update(dt)
                         src.victim_infoBar = self.infoBar:setAttacker(src)
                     end
                 end
-            sfx.play(self.name,"fall", 1 - self.flag_fallen, 1 * (1 - self.flag_fallen))
-                self.flag_fallen = self.flag_fallen + 0.2
+                sfx.play(self.name,"fall", 1 - self.bounced * 0.2, 1 * (1 - self.bounced * 0.2))
+                self.bounced = self.bounced + 1
                 --landing dust clouds
                 local psystem = PA_DUST_FALLING:clone()
                 psystem:emit(20)
@@ -959,7 +960,7 @@ function Character:fall_update(dt)
 
                 self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-                sfx.play(self.name,"fall", 1 - self.flag_fallen, 1 * (1 - self.flag_fallen))
+                sfx.play(self.name,"fall", 1 - self.bounced * 0.2, 1 * (1 - self.bounced * 0.2))
 
                 -- hold UP+JUMP to get no damage after throw (land on feet)
                 if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
@@ -970,7 +971,7 @@ function Character:fall_update(dt)
                 return
             end
         end
-        if self.isThrown and self.velz < 0 and self.flag_fallen == 0 then
+        if self.isThrown and self.velz < 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
             self:checkAndAttack(0,0, 20,12, self.my_thrown_body_damage, "fall", self.velocity_throw_x)
         end
