@@ -50,7 +50,10 @@ return {
             delay = 0.167
         },
         run = {
-            { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(116,2,36,64), ox = 18, oy = 63 }, --walk 1
+            { q = q(2,2,36,64), ox = 18, oy = 63 }, --stand 1
+            { q = q(154,3,38,63), ox = 18, oy = 62 }, --walk 2
+            { q = q(2,2,36,64), ox = 18, oy = 63 }, --stand 1
             loop = true,
             delay = 0.1
         },
