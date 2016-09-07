@@ -913,7 +913,7 @@ function Character:fall_start()
         self.z = 0
     end
     self.bounced = 0
-    self.bounced_pitch = 1 + 0.02 * love.math.random(-2,2)
+    self.bounced_pitch = 1 + 0.05 * love.math.random(-4,4)
 end
 function Character:fall_update(dt)
     --print(self.name .. " - fall update", dt)
