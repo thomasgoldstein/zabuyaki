@@ -899,6 +899,7 @@ function Character:fall_start()
     if self.isThrown then
         self.z = self.thrower_id.throw_start_z or 0
         SetSpriteAnimation(self.sprite,"thrown")
+        print("is--- ".. self.sprite.cur_anim)
     else
         SetSpriteAnimation(self.sprite,"fall")
     end
@@ -910,14 +911,17 @@ function Character:fall_start()
 end
 function Character:fall_update(dt)
     --print(self.name .. " - fall update", dt)
-    if self.sprite.cur_anim == "thrown" and self.sprite.isFinished then
-        SetSpriteAnimation(self.sprite,"fall")
-    end
     if self.z > 0 then
         self.velz = self.velz - self.gravity * dt
         self.z = self.z + dt * self.velz
-        if self.z < self.to_fallen_anim_z and self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
-            SetSpriteAnimation(self.sprite,"fallen")
+        if self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
+            if self.isThrown and self.z <= self.to_fallen_anim_z / 4 then
+                SetSpriteAnimation(self.sprite,"fallen")
+                --print("thrown -> fallen ".. self.z)
+            elseif self.isThrown == false and self.z < self.to_fallen_anim_z then
+                SetSpriteAnimation(self.sprite,"fallen")
+                --print("fall -> fallen ".. self.z )
+            end
         end
         if self.z <= 0 then
             if self.velz < -100 and self.bounced < 1 then    --bounce up after fall (not )
