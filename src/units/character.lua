@@ -915,12 +915,12 @@ function Character:fall_update(dt)
         self.velz = self.velz - self.gravity * dt
         self.z = self.z + dt * self.velz
         if self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
-            if self.isThrown and self.z <= self.to_fallen_anim_z / 4 then
+            if self.isThrown and self.z < self.to_fallen_anim_z then
                 SetSpriteAnimation(self.sprite,"fallen")
-                --print("thrown -> fallen ".. self.z)
-            elseif self.isThrown == false and self.z < self.to_fallen_anim_z then
+                print("thrown -> fallen ".. self.z)
+            elseif self.isThrown == false and self.z < self.to_fallen_anim_z / 4 then
                 SetSpriteAnimation(self.sprite,"fallen")
-                --print("fall -> fallen ".. self.z )
+                print("fall -> fallen ".. self.z )
             end
         end
         if self.z <= 0 then
