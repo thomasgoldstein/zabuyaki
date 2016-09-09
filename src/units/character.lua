@@ -154,7 +154,7 @@ function Character:onHurt()
             self.velx = self.velx + self.velocity_fall_dead_add_x
         end
     end
-    self.horizontal = h.source.horizontal
+    self.horizontal = h.horizontal
     --self:onShake(10, 10, 0.12, 0.7)
     self.isGrabbed = false
     self:setState(self.fall)
@@ -185,13 +185,13 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
             items[i].hurt = {source = self.thrower_id, state = self.state, damage = damage,
                 --            type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
                 type = type, velx = velocity or self.velocity_bonus_on_attack_x,
-                horizontal = self.horizontal,
+                horizontal = self.horizontal, isThrown = true,
                 x = self.x, y = self.y, z = z or self.z }
         else
             items[i].hurt = {source = self, state = self.state, damage = damage,
                 --                type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
                 type = type, velx = velocity or self.velocity_bonus_on_attack_x,
-                horizontal = self.horizontal,
+                horizontal = self.horizontal, isThrown = false,
                 x = self.x, y = self.y, z = z or self.z }
         end
     end
