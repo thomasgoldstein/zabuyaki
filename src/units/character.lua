@@ -101,22 +101,28 @@ function Character:onHurt()
 
     --"blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
     --"high", "low", "fall"(replaced by blows)
-    if h.type == "high" and self.hp > 0 and self.z <= 0 then
-        local pa_hitMark = PA_IMPACT_BIG:clone()
-        pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
-        pa_hitMark:emit(1)
-        level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-        self:onShake(1, 0, 0.03, 0.3)
-        self:setState(self.hurtHigh)
-        return
-    elseif h.type == "low" and self.hp > 0 and self.z <= 0 then
-        local pa_hitMark = PA_IMPACT_SMALL:clone()
-        pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
-        pa_hitMark:emit(1)
-        level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-        self:onShake(1, 0, 0.03, 0.3)
-        self:setState(self.hurtLow)
-        return
+    if h.type == "high" then
+        if self.hp > 0 and self.z <= 0 then
+            local pa_hitMark = PA_IMPACT_BIG:clone()
+            pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+            pa_hitMark:emit(1)
+            level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
+            self:onShake(1, 0, 0.03, 0.3)
+            self:setState(self.hurtHigh)
+            return
+        end
+        --then it does to "fall dead"
+    elseif h.type == "low" then
+        if self.hp > 0 and self.z <= 0 then
+            local pa_hitMark = PA_IMPACT_SMALL:clone()
+            pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+            pa_hitMark:emit(1)
+            level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
+            self:onShake(1, 0, 0.03, 0.3)
+            self:setState(self.hurtLow)
+            return
+        end
+        --then it does to "fall dead"
     elseif h.type == "grabKO" then
         --when u throw a grabbed one
         self.velx = self.velocity_throw_x
@@ -128,7 +134,7 @@ function Character:onHurt()
             self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
         end
     else
-        print("OnHurt - unknown h.type = "..h.type)
+        error("OnHurt - unknown h.type = "..h.type)
     end
     --disable AI movement (for cut scenes & enemy)
     --[[        if self.move then --disable AI x,y changing
@@ -924,12 +930,10 @@ function Character:fall_update(dt)
         self.velz = self.velz - self.gravity * dt
         self.z = self.z + dt * self.velz
         if self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
-            if self.isThrown and self.z < self.to_fallen_anim_z then
+            if (self.isThrown and self.z < self.to_fallen_anim_z)
+                or (not self.isThrown and self.z < self.to_fallen_anim_z / 4)
+            then
                 SetSpriteAnimation(self.sprite,"fallen")
-                print("thrown -> fallen ".. self.z)
-            elseif self.isThrown == false and self.z < self.to_fallen_anim_z / 4 then
-                SetSpriteAnimation(self.sprite,"fallen")
-                print("fall -> fallen ".. self.z )
             end
         end
         if self.z <= 0 then
