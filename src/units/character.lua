@@ -159,6 +159,8 @@ function Character:onHurt()
         else
             self.velx = self.velx + self.velocity_fall_dead_add_x
         end
+    elseif self.velx < self.velocity_fall_x then --alive bodies
+        self.velx = self.velocity_fall_x
     end
     self.horizontal = h.horizontal
     --self:onShake(10, 10, 0.12, 0.7)
