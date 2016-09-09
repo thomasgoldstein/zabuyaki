@@ -22,9 +22,9 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_jump_x_boost = 10
     self.velocity_jump_y_boost = 5
     self.velocity_fall_z = 220
-    self.velocity_fall_dead_x = 160
     self.velocity_fall_x = 120
     self.velocity_fall_add_x = 5
+    self.velocity_fall_dead_add_x = 20
     self.velocity_dash = 150 --speed of the character
     self.velocity_dash_fall = 180 --speed caused by dash to others fall
     self.friction_dash = self.velocity_dash
@@ -69,10 +69,10 @@ function Character:onHurt()
         return
     end
     if h.source.victims[self] then  -- if I had dmg from this src already
-    if GLOBAL_SETTING.DEBUG then
-        print("MISS + not Clear HURT due victims list of "..h.source.name)
-    end
-    return
+        if GLOBAL_SETTING.DEBUG then
+            print("MISS + not Clear HURT due victims list of "..h.source.name)
+        end
+        return
     end
 
     h.source.victims[self] = true
@@ -96,7 +96,7 @@ function Character:onHurt()
     self.hurt = nil --free hurt data
 
     if self.id <= 2 then	--for Unit 1 + 2 only
-    mainCamera:onShake(1, 1, 0.03, 0.3)
+        mainCamera:onShake(1, 1, 0.03, 0.3)
     end
 
     --"blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
@@ -117,39 +117,48 @@ function Character:onHurt()
         self:onShake(1, 0, 0.03, 0.3)
         self:setState(self.hurtLow)
         return
+    elseif h.type == "grabKO" then
+        --when u throw a grabbed one
+        self.velx = self.velocity_throw_x
+    elseif h.type == "fall" then
+        --use fall speed from the agument
+        self.velx = h.velx
+        --it cannot be too short
+        if self.velx < self.velocity_fall_x / 2 then
+            self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
+        end
     else
-        --disable AI movement (for cut scenes & enemy)
-        --[[        if self.move then --disable AI x,y changing
-                    print(self.name.." removed AI tween")
-                    self.move:remove()
-                end]]
-        local pa_hitMark = PA_IMPACT_BIG:clone()
-        pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
-        pa_hitMark:emit(1)
-        level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-        -- calc falling traectorym speed, direction
-        self.z = self.z + 1
-        self.velz = self.velocity_fall_z
-        if h.type == "grabKO" then
-            --when u throw a grabbed one
-            self.velx = self.velocity_throw_x
-        else
-            --use fall speed from the agument
-            self.velx = h.velx
-            --it cannot be too short
-            if self.velx < self.velocity_fall_x / 2 then
-                self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
-            end
-        end
-        if self.hp <= 0 then
-            self.velx = self.velocity_fall_dead_x	-- dead body flies further
-        end
-        self.horizontal = h.source.horizontal
-        --self:onShake(10, 10, 0.12, 0.7)
-        self.isGrabbed = false
-        self:setState(self.fall)
-        return
+        print("OnHurt - unknown h.type = "..h.type)
     end
+    --disable AI movement (for cut scenes & enemy)
+    --[[        if self.move then --disable AI x,y changing
+                print(self.name.." removed AI tween")
+                self.move:remove()--]]
+
+    --finish calcs before the fall state
+
+    --hit mark (common for all attacks that are followed by fall)
+    local pa_hitMark = PA_IMPACT_BIG:clone()
+    pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+    pa_hitMark:emit(1)
+    level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
+
+    -- calc falling traectorym speed, direction
+    self.z = self.z + 1
+    self.velz = self.velocity_fall_z
+
+    if self.hp <= 0 then -- dead body flies further
+        if self.velx < self.velocity_fall_x then
+            self.velx = self.velocity_fall_x + self.velocity_fall_dead_add_x
+        else
+            self.velx = self.velx + self.velocity_fall_dead_add_x
+        end
+    end
+    self.horizontal = h.source.horizontal
+    --self:onShake(10, 10, 0.12, 0.7)
+    self.isGrabbed = false
+    self:setState(self.fall)
+    return
 end
 
 function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_victims_list)
