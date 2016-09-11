@@ -95,10 +95,6 @@ function Character:onHurt()
 
     self.hurt = nil --free hurt data
 
-    if self.id <= 2 then	--for Unit 1 + 2 only
-        mainCamera:onShake(1, 1, 0.03, 0.3)
-    end
-
     --"blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
     --"high", "low", "fall"(replaced by blows)
     if h.type == "high" then
@@ -107,7 +103,10 @@ function Character:onHurt()
             pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
             pa_hitMark:emit(1)
             level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-            self:onShake(1, 0, 0.03, 0.3)
+            if self.id <= 2 then	--for Unit 1 + 2 shake the screen
+                mainCamera:onShake(1, 0, 0.03, 0.3)
+            end
+            self:onShake(1, 0, 0.03, 0.3)   --shake a character
             self:setState(self.hurtHigh)
             return
         end
@@ -118,7 +117,10 @@ function Character:onHurt()
             pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
             pa_hitMark:emit(1)
             level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-            self:onShake(1, 0, 0.03, 0.3)
+            if self.id <= 2 then	--for Unit 1 + 2 shake the screen
+                mainCamera:onShake(1, 0, 0.03, 0.3)
+            end
+            self:onShake(1, 0, 0.03, 0.3)   --shake a character
             self:setState(self.hurtLow)
             return
         end
@@ -948,7 +950,7 @@ function Character:fall_update(dt)
                 self.velx = self.velx * 0.5
 
                 if self.bounced == 0 then
-                    mainCamera:onShake(1, 1, 0.03, 0.3)	--shake on the 1st land touch
+                    mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                     if self.isThrown then
                         local src = self.thrower_id
                         self.hp = self.hp - self.thrown_land_damage	--damage for throwned on landing
@@ -1007,7 +1009,7 @@ function Character:getup_start()
         return
     end
     SetSpriteAnimation(self.sprite,"getup")
-    self:onShake(0, 1, 0.1, 0.5)
+    --self:onShake(0, 1, 0.1, 0.5)
 end
 function Character:getup_update(dt)
     --print(self.name .. " - getup update", dt)
@@ -1034,7 +1036,7 @@ function Character:dead_start()
     if self.z <= 0 then
         self.z = 0
     end
-    self:onShake(1, 0, 0.1, 0.7)
+    --self:onShake(1, 0, 0.1, 0.7)
     sfx.play(self.name,self.sfx.dead)
     --TODO dead event
 end
