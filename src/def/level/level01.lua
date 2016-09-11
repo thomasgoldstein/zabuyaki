@@ -7,7 +7,7 @@ local function init_level()
     world:add({type = "wall"}, -20, 0, 40, worldHeight) --left
     world:add({type = "wall"}, worldWidth - 20, 0, 40, worldHeight) --right
     world:add({type = "wall"}, 0, 410, worldWidth, 40)  --top
-    world:add({type = "wall"}, 0, 516, worldWidth, 40) --bottom
+    world:add({type = "wall"}, 0, 546, worldWidth, 40) --bottom
 --    world:add({type = "wall"}, 0, worldHeight - 20, worldWidth, 40) --bottom
 
     --define sprites

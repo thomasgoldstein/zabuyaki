@@ -23,7 +23,7 @@ function arcadeState:enter(_, players)
         player1 = players[1].hero:new(players[1].name,
             GetSpriteInstance(players[1].sprite_instance),
             Control1,
-            60, top_floor_y + 45,
+            60, top_floor_y + 65,
             players[1].shader,
             {255,255,255, 255})
     end
@@ -33,7 +33,7 @@ function arcadeState:enter(_, players)
         player2 = players[2].hero:new(players[2].name,
             GetSpriteInstance(players[2].sprite_instance),
             Control2,
-            90, top_floor_y + 25,
+            90, top_floor_y + 35,
             players[2].shader)
         --player2.horizontal = -1
         --player2.face = -1
@@ -136,7 +136,7 @@ function arcadeState:update(dt)
     --center camera over all players
     local pc = 0
     local mx = 0
-    local my = 400 -- const vertical Y (no scroll)
+    local my = 430 -- const vertical Y (no scroll)
     if player1 then
         pc = pc + 1
         mx = mx + player1.x
