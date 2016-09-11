@@ -4,10 +4,11 @@ local function init_level()
     --define obstacles
     local worldWidth, worldHeight = 4000, 800
     local world = bump.newWorld(64)
-    world:add({type = "wall"}, -20, 0, 40, worldHeight)
-    world:add({type = "wall"}, worldWidth - 20, 0, 40, worldHeight)
-    world:add({type = "wall"}, 0, 420, worldWidth, 40)
-    world:add({type = "wall"}, 0, worldHeight - 20, worldWidth, 40)
+    world:add({type = "wall"}, -20, 0, 40, worldHeight) --left
+    world:add({type = "wall"}, worldWidth - 20, 0, 40, worldHeight) --right
+    world:add({type = "wall"}, 0, 410, worldWidth, 40)  --top
+    world:add({type = "wall"}, 0, 516, worldWidth, 40) --bottom
+--    world:add({type = "wall"}, 0, worldHeight - 20, worldWidth, 40) --bottom
 
     --define sprites
     local bgRoad = love.graphics.newImage("res/img/stages/stage1/road.png")
