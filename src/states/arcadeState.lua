@@ -23,7 +23,7 @@ function arcadeState:enter(_, players)
         player1 = players[1].hero:new(players[1].name,
             GetSpriteInstance(players[1].sprite_instance),
             Control1,
-            90, top_floor_y + 6,
+            60, top_floor_y + 45,
             players[1].shader,
             {255,255,255, 255})
     end
@@ -33,7 +33,7 @@ function arcadeState:enter(_, players)
         player2 = players[2].hero:new(players[2].name,
             GetSpriteInstance(players[2].sprite_instance),
             Control2,
-            60, top_floor_y + 46,
+            90, top_floor_y + 25,
             players[2].shader)
         --player2.horizontal = -1
         --player2.face = -1
@@ -44,7 +44,7 @@ function arcadeState:enter(_, players)
         player3 = players[3].hero:new(players[3].name,
             GetSpriteInstance(players[3].sprite_instance),
             Control3,
-            120, top_floor_y + 86,
+            120, top_floor_y + 5,
             players[3].shader,
             {255,255,255, 255})
     end
