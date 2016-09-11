@@ -132,22 +132,25 @@ function arcadeState:update(dt)
     level_objects:sortByY()
 	
     background:update(dt)
-    if player1 then
-        mainCamera:update(dt, player1.x, player1.y)
-    elseif player2 then
-        mainCamera:update(dt, player2.x, player2.y)
-    elseif player3 then
-        mainCamera:update(dt, player2.x, player2.y)
-    end
 
---[[    local function cerp(a,b,t) local f=(1-math.cos(t*math.pi))*.5 return a*(1-f)+b*f end
-    local function clamp(low, n, high) return math.min(math.max(low, n), high) end
-    local minx = math.min(player1.x, (player1.x + player2.x)/2, player2.x)
-    local maxx = math.max(player1.x, (player1.x + player2.x)/2, player2.x)
-    local miny = math.min(player1.y, (player1.y + player2.y)/2, player2.y)
-    local maxy = math.max(player1.y, (player1.y + player2.y)/2, player2.y)]]
---    mainCamera:update(dt, clamp(minx, player1.x, maxx),
---        clamp(miny, player1.y, maxy))
+    --center camera over all players
+    local pc = 0
+    local mx = 0
+    local my = 400 -- const vertical Y (no scroll)
+    if player1 then
+        pc = pc + 1
+        mx = mx + player1.x
+    end
+    if player2 then
+        pc = pc + 1
+        mx = mx + player2.x
+    end
+    if player3 then
+        pc = pc + 1
+        mx = mx + player3.x
+    end
+    mainCamera:update(dt,mx / pc, my)
+--    mainCamera:update(dt, player1.x, player1.y)
 
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
