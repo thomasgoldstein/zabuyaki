@@ -114,7 +114,7 @@ return {
 		dash = {
 			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
 			{ q = q(2,722,39,65), ox = 22, oy = 64 }, --jaf1 (shifted left by 4px)
-			{ q = q(2,858,45,68), ox = 26, oy = 67, funcCont = dash_attack, delay = 0.3 }, --dash1
+			{ q = q(2,858,45,68), ox = 26, oy = 65, funcCont = dash_attack, delay = 0.3 }, --dash1
 			{ q = q(84,266,43,63), ox = 22, oy = 62, delay = 5 }, --jd
 			delay = 0.1
 		},
