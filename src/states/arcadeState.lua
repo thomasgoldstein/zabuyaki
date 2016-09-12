@@ -137,18 +137,37 @@ function arcadeState:update(dt)
     local pc = 0
     local mx = 0
     local my = 430 -- const vertical Y (no scroll)
+    local x1, x2, x3
     if player1 then
         pc = pc + 1
         mx = mx + player1.x
+        x1 = player1.x
     end
     if player2 then
         pc = pc + 1
         mx = mx + player2.x
+        x2 = player2.x
     end
     if player3 then
         pc = pc + 1
         mx = mx + player3.x
+        x3 = player3.x
     end
+    -- Stage Scale
+    x1 = x1 or x2 or x3 or 0
+    x2 = x2 or x1 or x3 or 0
+    x3 = x3 or x1 or x2 or 0
+
+    local minx = math.min(x1, x2, x3)
+    local maxx = math.max(x1, x2, x3)
+    if maxx - minx > 320 - 100 and mainCamera:getScale() > 1 then
+        --print("zoom -0.05", mainCamera:getScale(), maxx - minx)
+        mainCamera:setScale(mainCamera:getScale() - 0.05 )
+    elseif maxx - minx < 320 - 100 and mainCamera:getScale() < 2 then
+        --print("zoom +0.05", mainCamera:getScale(), maxx - minx)
+        mainCamera:setScale(mainCamera:getScale() + 0.05 )
+    end
+
     mainCamera:update(dt,mx / pc, my)
 --    mainCamera:update(dt, player1.x, player1.y)
 
