@@ -123,7 +123,6 @@ function Unit:onShake(sx, sy, freq,cool_down)
 	--shaking sprite
 	self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0,
 		f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2,
-		--m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1}
 		m = {-1, 0, 1, 0}, i = 1}
 end
 
@@ -137,8 +136,6 @@ function Unit:updateShake(dt)
 			self.shake.f = self.shake.freq
 			self.shake.x = self.shake.sx * self.shake.m[self.shake.i]
 			self.shake.y = self.shake.sy * self.shake.m[self.shake.i]
-			--self.shake.x = love.math.random(-self.shake.sx, self.shake.sx)
-			--self.shake.y = love.math.random(0, self.shake.sy)
 			self.shake.i = self.shake.i + 1
 			if self.shake.i > #self.shake.m then
 				self.shake.i = 1
@@ -192,7 +189,6 @@ function Unit:drawPID(x, y_)
 	local y = y_ - math.cos(self.show_pid_cool_down*6)
 	local c = GLOBAL_SETTING.PLAYERS_COLORS[self.id]
 	love.graphics.setColor(c[1],c[2],c[3], calcTransparency(self.show_pid_cool_down))
-	--love.graphics.setColor(255,200,40, calcTransparency(self.show_pid_cool_down))
 	love.graphics.rectangle( "fill", x - 15, y, 30, 17 )
 	love.graphics.polygon( "fill", x, y + 20, x - 2 , y + 17, x + 2, y + 17 )
 	love.graphics.setColor(0, 0, 0, calcTransparency(self.show_pid_cool_down))

@@ -103,7 +103,7 @@ function Character:onHurt()
             pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
             pa_hitMark:emit(1)
             level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-            if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--for Unit 1 + 2 shake the screen
+            if self.id <= GLOBAL_SETTING.MAX_PLAYERS then --shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
             self:onShake(1, 0, 0.03, 0.3)   --shake a character
@@ -117,7 +117,7 @@ function Character:onHurt()
             pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
             pa_hitMark:emit(1)
             level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-            if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--for Unit 1 + 2 shake the screen
+            if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
             self:onShake(1, 0, 0.03, 0.3)   --shake a character
@@ -138,7 +138,7 @@ function Character:onHurt()
     else
         error("OnHurt - unknown h.type = "..h.type)
     end
-    --disable AI movement (for cut scenes & enemy)
+    --TODO disable AI movement (for cut scenes & enemy)
     --[[        if self.move then --disable AI x,y changing
                 print(self.name.." removed AI tween")
                 self.move:remove()--]]
@@ -165,7 +165,6 @@ function Character:onHurt()
         self.velx = self.velocity_fall_x
     end
     self.horizontal = h.horizontal
-    --self:onShake(10, 10, 0.12, 0.7)
     self.isGrabbed = false
     self:setState(self.fall)
     return
@@ -193,13 +192,11 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
     for i = 1,#items do
         if self.isThrown then
             items[i].hurt = {source = self.thrower_id, state = self.state, damage = damage,
-                --            type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
                 type = type, velx = velocity or self.velocity_bonus_on_attack_x,
                 horizontal = self.horizontal, isThrown = true,
                 x = self.x, y = self.y, z = z or self.z }
         else
             items[i].hurt = {source = self, state = self.state, damage = damage,
-                --                type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
                 type = type, velx = velocity or self.velocity_bonus_on_attack_x,
                 horizontal = self.horizontal, isThrown = false,
                 x = self.x, y = self.y, z = z or self.z }
@@ -234,12 +231,10 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
         end)
     --DEBUG to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
-        --print("items: ".. #items)
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
     end
     for i = 1,#items do
         items[i].hurt = {source = self, state = self.state, damage = damage,
-            --type = type, velx = self.velx + self.velocity_bonus_on_attack_x,
             type = type, velx = velocity or self.velocity_bonus_on_attack_x,
             horizontal = self.horizontal,
             x = self.x, y = self.y, z = z or self.z}
@@ -362,7 +357,6 @@ function Character:walk_start()
     self.isHittable = true
     --	print (self.name.." - walk start")
     SetSpriteAnimation(self.sprite,"walk")
-    --self.can_jump = false
     self.can_fire = false
     self.n_combo = 1	--if u move reset combo chain
 end
@@ -442,7 +436,6 @@ function Character:run_start()
     self.isHittable = true
     --	print (self.name.." - run start")
     self.delay_animation_cool_down = 0.01
-    --self.can_jump = false
     self.can_fire = false
 end
 function Character:run_update(dt)
@@ -612,9 +605,6 @@ function Character:duck_start()
     self.isHittable = true
     --	print (self.name.." - duck start")
     SetSpriteAnimation(self.sprite,"duck")
-    --TODO should I reset hurt here?
-    --self.hurt = nil --free hurt data
-    --self.victims = {}
     self.z = 0
     --landing dust clouds
     local psystem = PA_DUST_LANDING:clone()
@@ -663,26 +653,22 @@ function Character:duck2jump_update(dt)
         level_objects:add(Effect:new(psystem, self.x, self.y-1))
         return
     end
-	--if self.velx < self.velocity_walk / 2 then
-		if self.b.horizontal:isDown(-1) then
-			self.face = -1 --face sprite left or right
-			self.horizontal = self.face --X direction
-			self.velx = self.velocity_walk
-		elseif self.b.horizontal:isDown(1) then
-			self.face = 1 --face sprite left or right
-			self.horizontal = self.face --X direction
-			self.velx = self.velocity_walk
-		end
-	--end
-	--if self.vely < self.velocity_walk_y / 2 then
-		if self.b.vertical:isDown(-1) then
-			self.vertical = -1
-			self.vely = self.velocity_walk_y
-		elseif self.b.vertical:isDown(1) then
-			self.vertical = 1
-			self.vely = self.velocity_walk_y
-		end
-	--end
+    if self.b.horizontal:isDown(-1) then
+        self.face = -1 --face sprite left or right
+        self.horizontal = self.face --X direction
+        self.velx = self.velocity_walk
+    elseif self.b.horizontal:isDown(1) then
+        self.face = 1 --face sprite left or right
+        self.horizontal = self.face --X direction
+        self.velx = self.velocity_walk
+    end
+    if self.b.vertical:isDown(-1) then
+        self.vertical = -1
+        self.vely = self.velocity_walk_y
+    elseif self.b.vertical:isDown(1) then
+        self.vertical = 1
+        self.vely = self.velocity_walk_y
+    end
     --self:calcFriction(dt)
     --self:checkCollisionAndMove(dt)
     self:updateShake(dt)
@@ -1009,7 +995,6 @@ function Character:getup_start()
         return
     end
     SetSpriteAnimation(self.sprite,"getup")
-    --self:onShake(0, 1, 0.1, 0.5)
 end
 function Character:getup_update(dt)
     --print(self.name .. " - getup update", dt)
@@ -1098,7 +1083,6 @@ Character.combo = {name = "combo", start = Character.combo_start, exit = nop, up
 -- GRABBING / HOLDING
 function Character:checkForGrab(range)
     --got any Characters
-    --attackHitBoxes[#attackHitBoxes+1] = {x = self.x + self.face*range, y = self.y - 1, w = 1, h = 3 }
     local items, len = world:queryPoint(self.x + self.face*range, self.y,
         function(o)
             if o ~= self and o.isHittable then
@@ -1127,14 +1111,12 @@ function Character:onGrab(source)
         print(source.name .. " grabed me - "..self.name)
     end
     if g.target and g.target.isGrabbed then	-- your grab targed releases one it grabs
-    g.target.isGrabbed = false
-    --g.target.isGrabbed = false
+        g.target.isGrabbed = false
     end
     g.source = source
     g.target = nil
     g.cool_down = self.cool_down_grab
     self.isGrabbed = true
-    --self:setState(self.grabbed)
     return self.isGrabbed
 end
 
@@ -1178,7 +1160,6 @@ function Character:grab_start()
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabing someone.")
     end
-    --sfx.play("?")
 end
 function Character:grab_update(dt)
     --print(self.name .. " - grab update", dt)
@@ -1227,11 +1208,7 @@ function Character:grab_update(dt)
         self.velx = 1
     end
 
-    if self.b.jump:isDown() and self.can_jump then
-        --self:setState(self.jumpUp)
-        --return
-    elseif self.b.fire:isDown() and self.can_fire then
-        --end
+    if self.b.fire:isDown() and self.can_fire then
         if self.sprite.isFinished then
             if self.b.horizontal:isDown(1) or self.b.horizontal:isDown(-1) or self.b.vertical:isDown(-1)
             then
@@ -1275,8 +1252,6 @@ function Character:grabbed_start()
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabbed.")
     end
-    --self:onShake(0.5, 2, 0.15, 1)
-    --sfx.play("?")
 end
 function Character:grabbed_update(dt)
     --print(self.name .. " - grabbed update", dt)
@@ -1345,7 +1320,6 @@ function Character:grabHitLast_start()
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabHitLast someone.")
     end
-    --sfx.play("?")
 end
 function Character:grabHitLast_update(dt)
     --print(self.name .. " - grabHitLast update", dt)
@@ -1367,7 +1341,6 @@ function Character:grabHitEnd_start()
     if GLOBAL_SETTING.DEBUG then
         print(self.name.." is grabhitend someone.")
     end
-    --sfx.play("?")
 end
 function Character:grabHitEnd_update(dt)
     --print(self.name .. " - grabhitend update", dt)
@@ -1463,4 +1436,3 @@ function Character:revive()
 end
 
 return Character
-
