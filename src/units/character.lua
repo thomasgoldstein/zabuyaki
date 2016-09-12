@@ -103,7 +103,7 @@ function Character:onHurt()
             pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
             pa_hitMark:emit(1)
             level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-            if self.id <= 2 then	--for Unit 1 + 2 shake the screen
+            if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--for Unit 1 + 2 shake the screen
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
             self:onShake(1, 0, 0.03, 0.3)   --shake a character
@@ -117,7 +117,7 @@ function Character:onHurt()
             pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
             pa_hitMark:emit(1)
             level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-            if self.id <= 2 then	--for Unit 1 + 2 shake the screen
+            if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--for Unit 1 + 2 shake the screen
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
             self:onShake(1, 0, 0.03, 0.3)   --shake a character
