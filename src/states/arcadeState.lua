@@ -9,6 +9,10 @@ function arcadeState:resume()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
+-- blocking walls
+local left_block_wall = {type = "wall"}
+local right_block_wall = {type = "wall"}
+
 function arcadeState:enter(_, players)
     player1 = nil
     player2 = nil
@@ -113,6 +117,10 @@ function arcadeState:enter(_, players)
     --load level
     world, background, worldWidth, worldHeight = require("src/def/level/level01")()
 
+    --adding BLOCKING left-right walls
+    world:add(left_block_wall, -10, 0, 40, worldHeight) --left
+    world:add(right_block_wall, 820, 0, 40, worldHeight) --right
+
     --adding players into collision world 15x7
     level_objects:addToWorld()
 
@@ -130,7 +138,7 @@ function arcadeState:update(dt)
     level_objects:update(dt)
     --sort players by y
     level_objects:sortByY()
-	
+
     background:update(dt)
 
     --center camera over all players
@@ -154,7 +162,7 @@ function arcadeState:update(dt)
         x3 = player3.x
     end
     -- Stage Scale
-    local max_distance = 640 - 50
+    local max_distance = 320+160 - 50
     local min_distance = 320 - 50
     local min_zoom = 1.5
     local max_zoom = 2
@@ -166,6 +174,19 @@ function arcadeState:update(dt)
     local maxx = math.max(x1, x2, x3)
     local dist = maxx - minx
     local scale = max_zoom
+
+    if dist > max_distance - 60 then
+        -- move block walls
+        local actualX, actualY, cols, len = world:move(left_block_wall, maxx - max_distance - 40, 0, function() return "cross" end)
+        local actualX2, actualY2, cols2, len2 = world:move(right_block_wall, minx + max_distance +1, 0, function() return "cross" end)
+        --print(actualX, actualX2, player1.x, player2.x)
+    else
+        -- move block walls
+        local actualX, actualY, cols, len = world:move(left_block_wall, -100, 0, function() return "cross" end)
+        local actualX2, actualY2, cols2, len2 = world:move(right_block_wall, 4400, 0, function() return "cross" end)
+        --print(actualX, actualX2, player1.x, player2.x)
+    end
+
     if dist > min_distance then
         if dist > max_distance then
             scale = min_zoom
@@ -214,6 +235,11 @@ function arcadeState:draw()
         love.graphics.setColor(255, 255, 255, 255)
         background:draw(l, t, w, h)
         level_objects:draw(l,t,w,h)
+
+        -- draw block walls
+        love.graphics.setColor(0, 0, 0, 100)
+        love.graphics.rectangle("fill", world:getRect(left_block_wall))
+        love.graphics.rectangle("fill", world:getRect(right_block_wall))
 
         if GLOBAL_SETTING.DEBUG then
             -- debug draw bump boxes
