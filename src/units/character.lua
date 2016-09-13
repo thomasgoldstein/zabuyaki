@@ -198,7 +198,7 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
         else
             items[i].hurt = {source = self, state = self.state, damage = damage,
                 type = type, velx = velocity or self.velocity_bonus_on_attack_x,
-                horizontal = self.horizontal, isThrown = false,
+                horizontal = face, isThrown = false,
                 x = self.x, y = self.y, z = z or self.z }
         end
     end
