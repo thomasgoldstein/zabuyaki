@@ -154,22 +154,29 @@ function arcadeState:update(dt)
         x3 = player3.x
     end
     -- Stage Scale
+    local max_distance = 640 - 100
+    local min_distance = 320 - 100
+    local delta = max_distance - min_distance
     x1 = x1 or x2 or x3 or 0
     x2 = x2 or x1 or x3 or 0
     x3 = x3 or x1 or x2 or 0
-
     local minx = math.min(x1, x2, x3)
     local maxx = math.max(x1, x2, x3)
-    if maxx - minx > 320 - 100 and mainCamera:getScale() > 1 then
-        --print("zoom -0.05", mainCamera:getScale(), maxx - minx)
-        mainCamera:setScale(mainCamera:getScale() - 0.05 )
-    elseif maxx - minx < 320 - 100 and mainCamera:getScale() < 2 then
-        --print("zoom +0.05", mainCamera:getScale(), maxx - minx)
-        mainCamera:setScale(mainCamera:getScale() + 0.05 )
+    local dist = maxx - minx
+    local scale = 2
+    if dist > min_distance then
+        if dist > max_distance then
+            scale = 1
+        elseif dist < max_distance then
+            scale = ((max_distance - dist) / delta) * 2
+        end
     end
-
+    if mainCamera:getScale() ~= scale then
+        mainCamera:setScale( math.max(scale, 1) )
+        -- correct Y scroll
+        --my = my - math.max(scale, 1) * 528
+    end
     mainCamera:update(dt,mx / pc, my)
---    mainCamera:update(dt, player1.x, player1.y)
 
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
