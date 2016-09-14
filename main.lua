@@ -23,6 +23,7 @@ GLOBAL_SETTING.PLAYERS_COLORS = {{204, 38, 26, 255}, {24, 137, 20, 255}, {23, 84
 GLOBAL_SETTING.AUTO_COMBO = false
 GLOBAL_SETTING.DIFFICULTY = 1 -- 1 = Normal, 2 = Hard
 GLOBAL_SETTING.MOUSE_ENABLED = true
+GLOBAL_SETTING.SHADERS_ENABLED = true
 
 function switchFullScreen()
 	if GLOBAL_SETTING.FULL_SCREEN then
@@ -92,12 +93,11 @@ function love.load(arg)
     --Add Gamestates Here
     Gamestate.registerEvents()
     Gamestate.switch(titleState)
---    Gamestate.switch(menuState)
 end
 
 function love.update(dt)
-	--update P1/P2 controls
-	--check for double presses, etc
+	--update P1..P3 controls
+	--check for double taps, etc
 	for index,value in pairs(Control1) do
 		local b = Control1[index]
 		b:update(dt)

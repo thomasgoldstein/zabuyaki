@@ -1,4 +1,15 @@
-shaders = {kisa = {}, rick = {}, chai = {}, gopper = {}, niko = {}}
+shaders = {kisa = {}, rick = {}, chai = {}, gopper = {}, niko = {} }
+
+-- use main.lua constant to disable shaders for web Love2d runtime
+if not GLOBAL_SETTING.SHADERS_ENABLED then
+    love.graphics.newShader = function()
+        return {
+            send = function() end,
+            sendColor = function() end
+        }
+    end
+    love.graphics.setShader = function() end
+end
 
 local sh_swap_colors = [[
         extern number n = 1;
