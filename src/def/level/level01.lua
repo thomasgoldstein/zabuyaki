@@ -1,4 +1,4 @@
-﻿-- level 1 (temp gfx)
+-- level 1 (temp gfx)
 
 local function init_level()
     --define obstacles

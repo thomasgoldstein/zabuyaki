@@ -1,4 +1,4 @@
-﻿-- test level
+-- test level
 
 local function init_level()
     --define obstacles
