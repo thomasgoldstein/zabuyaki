@@ -1,4 +1,4 @@
-﻿--    compoPic.lua
+--    compoPic.lua
 --    Copyright Don Miguel, 2016
 --	draws a big picture that consists of many pieces
 
