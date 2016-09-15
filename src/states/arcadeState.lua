@@ -229,6 +229,7 @@ function arcadeState:update(dt)
 end
 
 function arcadeState:draw()
+    love.graphics.setCanvas(canvas)
     --love.graphics.setBackgroundColor(255, 255, 255)
     mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
@@ -262,13 +263,17 @@ function arcadeState:draw()
         --foreground:draw(l, t, w, h)
 
     end)
+    love.graphics.setCanvas()
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(canvas)
+
     if GLOBAL_SETTING.DEBUG then
         fancy.draw()	--DEBUG var show
     end
 
     --HP bars
     if player1 then
-    player1.infoBar:draw(0,0)
+        player1.infoBar:draw(0,0)
         if player1.victim_infoBar then
             player1.victim_infoBar:draw(0,0)
         end
@@ -285,7 +290,6 @@ function arcadeState:draw()
             player3.victim_infoBar:draw(0,0)
         end
     end
-
     if GLOBAL_SETTING.DEBUG then
         --debug draw P1 / P2 pressed buttons
         local players = {player1, player2, player3}

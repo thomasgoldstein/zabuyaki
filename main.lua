@@ -40,6 +40,8 @@ function love.load(arg)
 	if arg[#arg] == "-debug" then
 		require("mobdebug").start()
 	end
+
+	canvas = love.graphics.newCanvas(640, 480)
 	love.graphics.setDefaultFilter("nearest", "nearest")
 
 	--Working folder for writing data
