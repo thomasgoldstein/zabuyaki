@@ -41,8 +41,10 @@ function love.load(arg)
 		require("mobdebug").start()
 	end
 
-	canvas = love.graphics.newCanvas(640, 480)
 	love.graphics.setDefaultFilter("nearest", "nearest")
+	love.graphics.setBackgroundColor(0, 0, 0, 255)
+	canvas = love.graphics.newCanvas(640, 480)
+	--canvas:setFilter("nearest", "linear", 2)
 
 	--Working folder for writing data
 	love.filesystem.setIdentity("Zabuyaki")
