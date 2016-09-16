@@ -211,8 +211,12 @@ function Unit:default_draw(l,t,w,h)
             love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a * math.sin(self.cool_down_death))
         else
             love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
-        end
-
+		end
+		if mainCamera:getScale() < 2 then
+			image_bank[self.sprite.def.sprite_sheet]:setFilter("linear", "linear", 2)
+		else
+			image_bank[self.sprite.def.sprite_sheet]:setFilter("nearest", "nearest")
+		end
 		if self.shader then
 			love.graphics.setShader(self.shader)
 		end
