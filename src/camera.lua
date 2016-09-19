@@ -15,8 +15,8 @@ function Camera:initialize(worldWidth, worldHeight)
     self.spin = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0 }
 
     self.cam = gamera.new(0, 0, worldWidth, worldHeight)
-    self.cam:setWindow(0, 0, 640, 480)
-    self.cam:setScale(2)
+    self.cam:setWindow(0, 0, 640*2, 480*2)
+    self.cam:setScale(4)
     --self.cam:setAngle(0.10)
 end
 

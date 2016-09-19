@@ -195,7 +195,12 @@ function arcadeState:update(dt)
         end
     end
     if mainCamera:getScale() ~= scale then
-        mainCamera:setScale( math.max(scale, min_zoom) )
+        mainCamera:setScale( 2 * math.max(scale, min_zoom) )
+		if math.max(scale, min_zoom) < max_zoom then
+			canvas:setFilter("linear", "linear", 4)
+		else
+            canvas:setFilter("nearest", "nearest")
+		end
     end
     mainCamera:update(dt,mx / pc, my)
 
@@ -265,7 +270,8 @@ function arcadeState:draw()
     end)
     love.graphics.setCanvas()
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(canvas)
+--    love.graphics.draw(canvas)
+    love.graphics.draw(canvas, 0,0, 0, 0.5,0.5)
 
     if GLOBAL_SETTING.DEBUG then
         fancy.draw()	--DEBUG var show
