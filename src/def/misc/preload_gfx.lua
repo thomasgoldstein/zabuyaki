@@ -23,13 +23,16 @@ gfx.font.pixel = love.graphics.newFont( "res/font/pixeldart.ttf", 36 )
 gfx.font.arcade = love.graphics.newFont( "res/font/karmatic_arcade.ttf", 12 )
 --title Zabu logo
 gfx.font.arcade2 = love.graphics.newFont( "res/font/arcade_i.ttf", 64 )
+gfx.font.arcade2:setFilter( "nearest", "nearest" )
 gfx.font.arcade2x15 = love.graphics.newFont( "res/font/arcade_i.ttf", 44 )
 --info bars
 gfx.font.arcade3 = love.graphics.newFont( "res/font/arcade_n.ttf", 8 )
+gfx.font.arcade3:setFilter( "nearest", "nearest" )
 gfx.font.arcade3x2 = love.graphics.newFont( "res/font/arcade_n.ttf", 16 )
 gfx.font.arcade3x3 = love.graphics.newFont( "res/font/arcade_n.ttf", 24 )
 --title - press space
 gfx.font.arcade4 = love.graphics.newFont( "res/font/arcade_n.ttf", 16 )
+gfx.font.arcade4:setFilter( "nearest", "nearest" )
 gfx.font.arcade5 = love.graphics.newFont( "res/font/arcade_r.ttf", 16 )
 
 return gfx
