@@ -158,8 +158,8 @@ function arcadeState:update(dt)
     -- Stage Scale
     local max_distance = 320+160 - 50
     local min_distance = 320 - 50
-    local min_zoom = 1.5
-    local max_zoom = 2
+    local min_zoom = 0.75
+    local max_zoom = 1
     local delta = max_distance - min_distance
     x1 = x1 or x2 or x3 or 0
     x2 = x2 or x1 or x3 or 0
@@ -185,13 +185,13 @@ function arcadeState:update(dt)
         if dist > max_distance then
             scale = min_zoom
         elseif dist < max_distance then
-            scale = ((max_distance - dist) / delta) * 2
+            scale = ((max_distance - dist) / delta)
         end
     end
     if mainCamera:getScale() ~= scale then
-        mainCamera:setScale( 2 * math.max(scale, min_zoom) )
+        mainCamera:setScale( math.max(scale, min_zoom) )
 		if math.max(scale, min_zoom) < max_zoom then
-			canvas:setFilter("linear", "linear", 16)
+			canvas:setFilter("linear", "linear", 2)
 		else
             canvas:setFilter("nearest", "nearest")
 		end
@@ -268,7 +268,8 @@ function arcadeState:draw()
     love.graphics.setCanvas()
     love.graphics.setColor(255, 255, 255, 255)
 --    love.graphics.draw(canvas)
-    love.graphics.draw(canvas, 0,0, 0, 0.5,0.5)
+--    love.graphics.draw(canvas, 0,0, 0, 0.5,0.5)
+    love.graphics.draw(canvas, 0,0, 0, 2,2)
 
     if GLOBAL_SETTING.DEBUG then
         fancy.draw()	--DEBUG var show

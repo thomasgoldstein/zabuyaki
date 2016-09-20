@@ -15,8 +15,9 @@ function Camera:initialize(worldWidth, worldHeight)
     self.spin = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0 }
 
     self.cam = gamera.new(0, 0, worldWidth, worldHeight)
-    self.cam:setWindow(0, 0, 640*2, 480*2)
-    self.cam:setScale(4)
+--    self.cam:setWindow(0, 0, 640*2, 480*2)
+    self.cam:setWindow(0, 0, 320, 240)
+    self.cam:setScale(1)
     --self.cam:setAngle(0.10)
 end
 
@@ -48,7 +49,8 @@ function Camera:update(dt, x, y)
         end
     end
 
-    self.cam:setPosition(math.max(x, 160) + self.shake.x, y + self.shake.y)
+    --self.cam:setPosition(math.max(x, 160) + self.shake.x, y + self.shake.y)
+    self.cam:setPosition(x + self.shake.x, y + self.shake.y)
 end
 
 function Camera:draw(...)
