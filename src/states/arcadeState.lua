@@ -147,18 +147,12 @@ function arcadeState:update(dt)
     local my = 430 -- const vertical Y (no scroll)
     local x1, x2, x3
     if player1 then
-        pc = pc + 1
-        mx = mx + player1.x
         x1 = player1.x
     end
     if player2 then
-        pc = pc + 1
-        mx = mx + player2.x
         x2 = player2.x
     end
     if player3 then
-        pc = pc + 1
-        mx = mx + player3.x
         x3 = player3.x
     end
     -- Stage Scale
@@ -197,12 +191,12 @@ function arcadeState:update(dt)
     if mainCamera:getScale() ~= scale then
         mainCamera:setScale( 2 * math.max(scale, min_zoom) )
 		if math.max(scale, min_zoom) < max_zoom then
-			canvas:setFilter("linear", "linear", 4)
+			canvas:setFilter("linear", "linear", 16)
 		else
             canvas:setFilter("nearest", "nearest")
 		end
     end
-    mainCamera:update(dt,mx / pc, my)
+    mainCamera:update(dt,(minx + maxx) / 2, my)
 
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
@@ -211,23 +205,26 @@ function arcadeState:update(dt)
     end
 
     if GLOBAL_SETTING.DEBUG then
-        fancy.watch("FPS", love.timer.getFPS())
-        fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
+        --fancy.watch("FPS", love.timer.getFPS())
+        --fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
         if player2 then
-            fancy.watch("P2 y: ",player2.y, 3)
-            fancy.watch("P2 state: ",player2.state, 2)
+            fancy.watch("P2 x: ",player2.x, 3)
+--            fancy.watch("P2 y: ",player2.y, 3)
+            --fancy.watch("P2 state: ",player2.state, 2)
         end
         if player3 then
-            fancy.watch("P3 y: ",player3.y, 3)
-            fancy.watch("P3 state: ",player3.state, 2)
+            fancy.watch("P3 x: ",player3.x, 3)
+--            fancy.watch("P3 y: ",player3.y, 3)
+            --fancy.watch("P3 state: ",player3.state, 2)
         end
         if player1 then
-            fancy.watch("P1 y: ",player1.y, 3)
-            fancy.watch("Player state: ",player1.state, 2)
-            fancy.watch("CD Combo: ",player1.cool_down_combo, 2)
-            fancy.watch("Cool Down: ",player1.cool_down, 2)
-            fancy.watch("Velocity Z: ",player1.velz, 2)
-            fancy.watch("Velocity X: ",player1.velx, 2)
+            fancy.watch("P1 x: ",player1.x, 3)
+--            fancy.watch("P1 y: ",player1.y, 3)
+--            fancy.watch("Player state: ",player1.state, 2)
+--            fancy.watch("CD Combo: ",player1.cool_down_combo, 2)
+--            fancy.watch("Cool Down: ",player1.cool_down, 2)
+--            fancy.watch("Velocity Z: ",player1.velz, 2)
+--            fancy.watch("Velocity X: ",player1.velx, 2)
             fancy.watch("Z: ",player1.z, 3)
         end
     end
