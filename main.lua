@@ -43,7 +43,7 @@ function love.load(arg)
 
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.setBackgroundColor(0, 0, 0, 255)
-	canvas = love.graphics.newCanvas(640, 480)
+	canvas = love.graphics.newCanvas(640 * 2, 480 * 2)
 	--canvas:setFilter("nearest", "linear", 2)
 
 	--Working folder for writing data
