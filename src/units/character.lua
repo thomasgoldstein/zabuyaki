@@ -70,7 +70,7 @@ function Character:onHurt()
     end
     if h.source.victims[self] then  -- if I had dmg from this src already
         if GLOBAL_SETTING.DEBUG then
-            print("MISS + not Clear HURT due victims list of "..h.source.name)
+            dp("MISS + not Clear HURT due victims list of "..h.source.name)
         end
         return
     end
@@ -79,7 +79,7 @@ function Character:onHurt()
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
     if GLOBAL_SETTING.DEBUG then
-        print(h.source.name .. " damaged "..self.name.." by "..h.damage)
+        dp(h.source.name .. " damaged "..self.name.." by "..h.damage)
     end
 
     h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
@@ -140,7 +140,7 @@ function Character:onHurt()
     end
     --TODO disable AI movement (for cut scenes & enemy)
     --[[        if self.move then --disable AI x,y changing
-                print(self.name.." removed AI tween")
+                dp(self.name.." removed AI tween")
                 self.move:remove()--]]
 
     --finish calcs before the fall state
@@ -186,7 +186,7 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
         end)
     --DEBUG to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
-        --print("items: ".. #items)
+        --dp("items: ".. #items)
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
     end
     for i = 1,#items do
@@ -904,7 +904,7 @@ function Character:fall_start()
     if self.isThrown then
         self.z = self.thrower_id.throw_start_z or 0
         SetSpriteAnimation(self.sprite,"thrown")
-        print("is--- ".. self.sprite.cur_anim)
+        dp("is--- ".. self.sprite.cur_anim)
     else
         SetSpriteAnimation(self.sprite,"fall")
     end
@@ -915,7 +915,7 @@ function Character:fall_start()
     self.bounced_pitch = 1 + 0.05 * love.math.random(-4,4)
 end
 function Character:fall_update(dt)
-    --print(self.name .. " - fall update", dt)
+    --dp(self.name .. " - fall update", dt)
     if self.z > 0 then
         self.velz = self.velz - self.gravity * dt
         self.z = self.z + dt * self.velz
@@ -997,7 +997,7 @@ function Character:getup_start()
     SetSpriteAnimation(self.sprite,"getup")
 end
 function Character:getup_update(dt)
-    --print(self.name .. " - getup update", dt)
+    --dp(self.name .. " - getup update", dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1013,7 +1013,7 @@ function Character:dead_start()
     --print (self.name.." - dead start")
     SetSpriteAnimation(self.sprite,"fallen")
     if GLOBAL_SETTING.DEBUG then
-        print(self.name.." is dead.")
+        dp(self.name.." is dead.")
     end
     self.hp = 0
     self.hurt = nil
@@ -1029,7 +1029,7 @@ function Character:dead_update(dt)
     if self.isDisabled then
         return
     end
-    --print(self.name .. " - dead update", dt)
+    --dp(self.name .. " - dead update", dt)
     if self.cool_down_death <= 0 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
         self.isDisabled = true
         self.isHittable = false
@@ -1108,7 +1108,7 @@ function Character:onGrab(source)
         return false
     end
     if GLOBAL_SETTING.DEBUG then
-        print(source.name .. " grabed me - "..self.name)
+        dp(source.name .. " grabed me - "..self.name)
     end
     if g.target and g.target.isGrabbed then	-- your grab targed releases one it grabs
         g.target.isGrabbed = false
@@ -1122,7 +1122,7 @@ end
 
 function Character:doGrab(target)
     if GLOBAL_SETTING.DEBUG then
-        print(target.name .. " is grabed by me - "..self.name)
+        dp(target.name .. " is grabed by me - "..self.name)
     end
     local g = self.hold
     if self.isGrabbed then
@@ -1158,11 +1158,11 @@ function Character:grab_start()
     self.grab_release = 0
     self.victims = {}
     if GLOBAL_SETTING.DEBUG then
-        print(self.name.." is grabing someone.")
+        dp(self.name.." is grabing someone.")
     end
 end
 function Character:grab_update(dt)
-    --print(self.name .. " - grab update", dt)
+    --dp(self.name .. " - grab update", dt)
     local g = self.hold
 
     if (self.face == 1 and self.b.horizontal:isDown(-1)) or
@@ -1250,11 +1250,11 @@ function Character:grabbed_start()
     --print (self.name.." - grabbed start")
     SetSpriteAnimation(self.sprite,"grabbed")
     if GLOBAL_SETTING.DEBUG then
-        print(self.name.." is grabbed.")
+        dp(self.name.." is grabbed.")
     end
 end
 function Character:grabbed_update(dt)
-    --print(self.name .. " - grabbed update", dt)
+    --dp(self.name .. " - grabbed update", dt)
     local g = self.hold
     if self.isGrabbed and g.cool_down > 0 then
         g.cool_down = g.cool_down - dt
@@ -1296,12 +1296,12 @@ function Character:grabHit_start()
     end
     SetSpriteAnimation(self.sprite,"grabHit")
     if GLOBAL_SETTING.DEBUG then
-        print(self.name.." is grabhit someone.")
+        dp(self.name.." is grabhit someone.")
     end
     --sfx.play("?")
 end
 function Character:grabHit_update(dt)
-    --print(self.name .. " - grabhit update", dt)
+    --dp(self.name .. " - grabhit update", dt)
     if self.sprite.isFinished then
         self:setState(self.grab)
         return
@@ -1318,11 +1318,11 @@ function Character:grabHitLast_start()
     --print (self.name.." - grabHitLast start")
     SetSpriteAnimation(self.sprite,"grabHitLast")
     if GLOBAL_SETTING.DEBUG then
-        print(self.name.." is grabHitLast someone.")
+        dp(self.name.." is grabHitLast someone.")
     end
 end
 function Character:grabHitLast_update(dt)
-    --print(self.name .. " - grabHitLast update", dt)
+    --dp(self.name .. " - grabHitLast update", dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1339,11 +1339,11 @@ function Character:grabHitEnd_start()
     --print (self.name.." - grabhitend start")
     SetSpriteAnimation(self.sprite,"grabHitEnd")
     if GLOBAL_SETTING.DEBUG then
-        print(self.name.." is grabhitend someone.")
+        dp(self.name.." is grabhitend someone.")
     end
 end
 function Character:grabHitEnd_update(dt)
-    --print(self.name .. " - grabhitend update", dt)
+    --dp(self.name .. " - grabhitend update", dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1364,12 +1364,12 @@ function Character:grabThrow_start()
     SetSpriteAnimation(t.sprite,"hurtLow")
     SetSpriteAnimation(self.sprite,"grabThrow")
     if GLOBAL_SETTING.DEBUG then
-        print(self.name.." is grabThrow someone.")
+        dp(self.name.." is grabThrow someone.")
     end
 end
 
 function Character:grabThrow_update(dt)
-    --print(self.name .. " - grabThrow update", dt)
+    --dp(self.name .. " - grabThrow update", dt)
     if self.can_throw_now then --set in the anm
         self.can_throw_now = false
         local g = self.hold
