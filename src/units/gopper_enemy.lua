@@ -35,7 +35,7 @@ function Gopper:setToughness(t)
     self.max_hp = 40 + self.toughness
     self.hp = self.max_hp
     self.infoBar = InfoBar:new(self)
-    --print(self.name, self.hp, self.max_hp, self.toughness)
+    --dp(self.name, self.hp, self.max_hp, self.toughness)
 end
 
 function Gopper:pickAttackTarget(target)

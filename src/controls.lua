@@ -6,7 +6,7 @@
 
 function love.joystickadded(joystick)
     p1joystick = joystick
-    print (joystick:getGUID().." added joystick "..joystick:getName().." with "..joystick:getButtonCount().." buttons")
+    dp(joystick:getGUID().." added joystick "..joystick:getName().." with "..joystick:getButtonCount().." buttons")
     if p1joystick then
         p2joystick = joystick
     elseif p2joystick then
@@ -16,7 +16,7 @@ function love.joystickadded(joystick)
     love.joystick.loadGamepadMappings( "res/gamecontrollerdb.txt" )
     local joysticks = love.joystick.getJoysticks()
     for i, joystick in ipairs(joysticks) do
-        print("detected ",joystick:getName())
+        dp("detected ",joystick:getName())
     end
 
 --    love.joystick.setGamepadMapping( joystick:getGUID(), "a", "button", 1, nil )
@@ -39,7 +39,7 @@ function love.joystickadded(joystick)
 end
 
 function love.joystickremoved( joystick )
-    print ("removed joystick "..joystick:getName())
+    dp("removed joystick "..joystick:getName())
 end
 
 DUMMY_CONTROL = {}
@@ -109,7 +109,7 @@ function bind_game_input()
     local gamepad1 = 2
     local gamepad2 = 1
     local gamepad3 = 3
-    print ("binding keys")
+    dp("binding keys")
     Control1 = {
         horizontal = tactile.newControl()
         :addAxis(tactile.gamepadAxis(gamepad1, 'leftx'))
@@ -179,7 +179,7 @@ function bind_game_input()
         back = tactile.newControl()
         :addButton(tactile.gamepadButtons(gamepad3, 'back'))
     }
-    
+
     local double_press_delta = 0.25
     --add keyTrace into every player 1 button
     for index,value in pairs(Control1) do

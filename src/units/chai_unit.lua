@@ -13,7 +13,7 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 
-local function nop() --[[print "nop"]] end
+local function nop() --[[dp "nop"]] end
 
 function Chai:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
@@ -45,7 +45,7 @@ end
 
 function Chai:combo_start()
     self.isHittable = true
-    --	print (self.name.." - combo start")
+    --	dp(self.name.." - combo start")
     if self.n_combo > 4 or self.n_combo < 1 then
         self.n_combo = 1
     end
@@ -78,7 +78,7 @@ Chai.combo = {name = "combo", start = Chai.combo_start, exit = nop, update = Cha
 
 function Chai:dash_start()
     self.isHittable = true
-    --	print (self.name.." - dash start")
+    --	dp(self.name.." - dash start")
     SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash
     self.velz = self.velocity_jump

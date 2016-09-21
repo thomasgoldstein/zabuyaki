@@ -93,7 +93,7 @@ function arcadeState:enter(_, players)
     --Item:initialize(name, sprite, hp, money, func, x, y, shader, color)
     local item1 = Item:new("Apple", "+15 HP", gfx.items.apple, 15, 0, nil, 130,top_floor_y + 30)
     local item2 = Item:new("Chicken", "+50 HP", gfx.items.chicken, 50, 0, nil, 660,top_floor_y + 50)
---    item2 = Item:new("Custom func sample", "+20 Pts.", gfx.items.apple, 20, 0, function(s, t) print (t.name .. " called custom item ("..s.name..") func") end, 460,180)
+--    item2 = Item:new("Custom func sample", "+20 Pts.", gfx.items.apple, 20, 0, function(s, t) dp(t.name .. " called custom item ("..s.name..") func") end, 460,180)
     local item3 = Item:new("Beef", "+100 HP", gfx.items.beef, 100, 0, nil, 750,top_floor_y + 40 )
 
     level_objects = Entity:new()
@@ -173,12 +173,12 @@ function arcadeState:update(dt)
         -- move block walls
         local actualX, actualY, cols, len = world:move(left_block_wall, maxx - max_distance - 40, 0, function() return "cross" end)
         local actualX2, actualY2, cols2, len2 = world:move(right_block_wall, minx + max_distance +1, 0, function() return "cross" end)
-        --print(actualX, actualX2, player1.x, player2.x)
+        --dp(actualX, actualX2, player1.x, player2.x)
     else
         -- move block walls
         local actualX, actualY, cols, len = world:move(left_block_wall, -100, 0, function() return "cross" end)
         local actualX2, actualY2, cols2, len2 = world:move(right_block_wall, 4400, 0, function() return "cross" end)
-        --print(actualX, actualX2, player1.x, player2.x)
+        --dp(actualX, actualX2, player1.x, player2.x)
     end
 
     if dist > min_distance then
@@ -255,7 +255,7 @@ function arcadeState:draw()
             love.graphics.setColor(0, 255, 0, 150)
             for i = 1, #attackHitBoxes do
                 local a = attackHitBoxes[i]
-                --print("fill", a.x, a.y, a.w, a.h )
+                --dp("fill", a.x, a.y, a.w, a.h )
                 love.graphics.rectangle("line", a.x, a.y, a.w, a.h )
             end
             attackHitBoxes = {}
@@ -338,7 +338,7 @@ local volume = 1
 function arcadeState:keypressed(k, unicode)
     if k == '0' then
         GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
-        level_objects:print()
+        level_objects:dp()
     end
     if GLOBAL_SETTING.DEBUG then
         fancy.key(k)
@@ -349,7 +349,7 @@ function arcadeState:keypressed(k, unicode)
         elseif k == '3' then
             mainCamera:setScale(3)
         elseif k == '4' then
-            print("set default jump / gravity")
+            dp("set default jump / gravity")
             --Unit
             player1.gravity = 650
             player1.velocity_fall_z = 220
@@ -357,7 +357,7 @@ function arcadeState:keypressed(k, unicode)
             player1.velocity_jump = 220 --Z coord
             player1.velocity_jump_x_boost = 10
         elseif k == '5' then
-            print("boost jump / gravity 1.5x")
+            dp("boost jump / gravity 1.5x")
             --Unit
             player1.gravity = 1250
             player1.velocity_fall_z = 330

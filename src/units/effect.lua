@@ -47,17 +47,17 @@ function Effect:onHurt()
 end
 
 function Effect:onRemove()
---    print("remove eff ", self.x, self.y)
+--    dp("remove eff ", self.x, self.y)
     self.isDisabled = true
     self.y = GLOBAL_SETTING.OFFSCREEN
 end
 
 function Effect:update(dt)
     if self.isDisabled then
---        print("eff upd HIDDEN ", self.x, self.y)
+--        dp("eff upd HIDDEN ", self.x, self.y)
         return
     end
-    --print("eff upd VISIBLE ", self.x, self.y)
+    --dp("eff upd VISIBLE ", self.x, self.y)
     self.particle:update(dt)
     if self.particle:isStopped() then
         self:onRemove()

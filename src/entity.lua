@@ -7,7 +7,7 @@ local Entity = class("Entity")
 
 function Entity:initialize()
     self.entities = {}
---    print("Entitiy new")
+--    dp("Entitiy new")
 end
 
 function Entity:add(e)
@@ -62,6 +62,14 @@ function Entity:addToWorld()
     end
 end
 
+function Entity:remove(e)
+    if not e then
+        return self.entities
+    end
+    self.entities[#self.entities+1] = e
+    return self.entities
+end
+
 function Entity:update(dt)
     for _,obj in ipairs(self.entities) do
         obj:update(dt)
@@ -95,7 +103,7 @@ function Entity:revive()
     end
 end
 
-function Entity:print()
+function Entity:dp()
     local t = "* "
     for i,obj in pairs(self.entities) do
         if not obj then
@@ -104,7 +112,7 @@ function Entity:print()
             t = t .. i .. ":" .. obj.name .. ", "
         end
     end
-    print (t)
+    dp(t)
 end
 
 return Entity

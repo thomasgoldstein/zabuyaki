@@ -103,7 +103,7 @@ local function selected_heroes()
     if players[3].visible then
         xshift[players[3].pos] = xshift[players[3].pos] + 1
     end
-    --print( players[1].pos, players[2].pos, players[3].pos, " pos -> ",xshift[players[1].pos], xshift[players[2].pos], xshift[players[3].pos], " - ", s1[2], s2[2], s3[2])
+    --dp( players[1].pos, players[2].pos, players[3].pos, " pos -> ",xshift[players[1].pos], xshift[players[2].pos], xshift[players[3].pos], " - ", s1[2], s2[2], s3[2])
     return {s1, s2, s3}, xshift
 end
 

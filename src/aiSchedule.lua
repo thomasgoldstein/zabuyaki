@@ -13,7 +13,7 @@ function Schedule:new(tasks, interrupts)
 	--        return
 	--    end
 	for i, task in ipairs(tasks) do
---		print("*** " .. i .. " " .. task)
+--		dp("*** " .. i .. " " .. task)
 		table.insert(self.tasks, task)
 	end
 	for j, interrupt in ipairs(interrupts) do
@@ -23,25 +23,25 @@ function Schedule:new(tasks, interrupts)
 end
 
 function Schedule:trace()
-	print("trace currTask:" .. self.currentTask .. " Done:", self.done)
+	dp("trace currTask:" .. self.currentTask .. " Done:", self.done)
 	for i, task in ipairs(self.tasks) do
-		print(i, task)
+		dp(i, task)
 	end
 	for j, interrupt in ipairs(self.interrupts) do
-		print(j, interrupt)
+		dp(j, interrupt)
 	end
 end
 
 function Schedule:reset()
 	self.currentTask = 1
 	self.done = false
-	print(" reset tasks que")
+	dp(" reset tasks que")
 end
 
 function Schedule:stop()
 	self.currentTask = 1
 	self.done = true
-	print(" stop tasks que")
+	dp(" stop tasks que")
 end
 
 function Schedule:addTask(f)
@@ -49,7 +49,7 @@ function Schedule:addTask(f)
 		throw "argument should be a function"
 	end
 	table.insert(self.tasks, f)
-	print(" added " .. f .. " to tasks")
+	dp(" added " .. f .. " to tasks")
 end
 
 function Schedule:addInterrupt(t)
@@ -57,48 +57,48 @@ function Schedule:addInterrupt(t)
 		throw "argument should be a string with interrupt condition name"
 	end
 	table.insert(self.interrupts, t)
-	print(" added " .. t .. " to interrupts")
+	dp(" added " .. t .. " to interrupts")
 end
 
 function Schedule:isDone(conditions)
-	print(" isDone?")
+	dp(" isDone?")
 	if self.done then
 		self:reset()
-		print(" all tasks are done")
+		dp(" all tasks are done")
 		return true
 	end
 	if(conditions) then
 --		if(self.interrupts) then
 --			for i,inter in ipairs(self.interrupts) do
---				print(" 00interrupt '"..inter.."'")
+--				dp(" 00interrupt '"..inter.."'")
 --			end
 --		end
 		for i,cond in ipairs(conditions) do
-			print("condition to interrupt interrupt '"..cond.."'") --.. " " .. self.interrupts[condition])
+			dp("condition to interrupt interrupt '"..cond.."'") --.. " " .. self.interrupts[condition])
 			if self.interrupts[cond] or false then
-				print(" !!all tasks are done by right interrupt")
+				dp(" !!all tasks are done by right interrupt")
 				self:reset()
 				return true
 			end
 		end
 	end
-	--print(" nope")
+	--dp(" nope")
 	return false
 end
 
 function Schedule:update(env)
-	print(" tasks len " .. #self.tasks .. ", interrupts len " .. #self.interrupts)
+	dp(" tasks len " .. #self.tasks .. ", interrupts len " .. #self.interrupts)
 	if self.done then
-		print(" no update: all tasks are done")
+		dp(" no update: all tasks are done")
 		return false
 	end
 	if #self.tasks < 1 then
-		print(" no tasks")
+		dp(" no tasks")
 		return false
 	end
-	print("try tun task:" .. self.currentTask)
+	dp("try tun task:" .. self.currentTask)
 	if self.tasks[self.currentTask](env) then --if func returns true, delete this from the que
-		print(" que func run with true")
+		dp(" que func run with true")
 		self.currentTask = self.currentTask + 1
 
 		if self.currentTask > #self.tasks - 1 then
@@ -106,27 +106,27 @@ function Schedule:update(env)
 		end
 		return true
 	end
-	print(" que func run with false")
+	dp(" que func run with false")
 	return false
 end
 
 
-print("start")
+dp("start")
 local my_tasks = {
 	function()
-		print("1f")
+		dp("1f")
 		return true
 	end,
 	function()
-		print("2f")
+		dp("2f")
 		return true
 	end,
 	function()
-		print("3Ff")
+		dp("3Ff")
 		return false
 	end,
 	function()
-		print("4f")
+		dp("4f")
 		return true
 	end
 }
@@ -137,7 +137,7 @@ local q
 Schedule:new(my_tasks, my_interrupts)
 q = Schedule
 
---print(q)
+--dp(q)
 q:trace()
 
 q:update()

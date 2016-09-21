@@ -24,7 +24,7 @@ function LoadSprite (sprite_def)
 	--If the file doesn't exist or has syntax errors, it'll be nil.
 	if definition_file == nil then
 		--Spit out a warning and return nil.
-		print("Attempt to load an invalid file (inexistent or syntax errors?): "
+		dp("Attempt to load an invalid file (inexistent or syntax errors?): "
 			..sprite_def)
 		return nil
 	end
@@ -44,8 +44,8 @@ function LoadSprite (sprite_def)
 
 	--Check the version to verify if it is compatible with this one.
 	if sprite_bank[sprite_def].serialization_version ~= ManagerVersion then
-		print("Attempt to load file with incompatible versions: "..sprite_def)
-		print("Expected version "..ManagerVersion..", got version "
+		dp("Attempt to load file with incompatible versions: "..sprite_def)
+		dp("Expected version "..ManagerVersion..", got version "
 			..sprite_bank[sprite_def].serialization_version.." .")
 		sprite_bank[sprite_def] = old_sprite -- Undo the changes due to error
 		-- Return old value (nil if not previously loaded)
@@ -65,7 +65,7 @@ function LoadSprite (sprite_def)
 		image_bank [sprite_sheet] = old_image   -- Revert image
 		sprite_bank[sprite_def] = old_sprite    -- Revert sprite
 
-		print("Failed loading sprite "..sprite_def..", invalid image path ( "
+		dp("Failed loading sprite "..sprite_def..", invalid image path ( "
 			..sprite_sheet.." ).")
 	end
 

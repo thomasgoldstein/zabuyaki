@@ -76,7 +76,7 @@ function titleState:enter(_, param)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 
     -- Prevent double press at start (e.g. auto confirmation)
-    --print(controls.jump:pressed(), controls.fire:pressed())
+    --dp(controls.jump:pressed(), controls.fire:pressed())
     Control1.fire:update()
     Control1.jump:update()
 end
