@@ -139,6 +139,7 @@ function Character:onHurt()
     else
         error("OnHurt - unknown h.type = "..h.type)
     end
+    dpo(self, self.state)
     --TODO disable AI movement (for cut scenes & enemy)
     --[[        if self.move then --disable AI x,y changing
                 dp(self.name.." removed AI tween")
@@ -505,6 +506,7 @@ Character.run = {name = "run", start = Character.run_start, exit = nop, update =
 function Character:jump_start()
     self.isHittable = true
     --	print (self.name.." - jump start")
+    dpo(self, self.state)
     SetSpriteAnimation(self.sprite,"jump")
     self.velz = self.velocity_jump
     self.z = 0.1
@@ -604,6 +606,7 @@ Character.pickup = {name = "pickup", start = Character.pickup_start, exit = Char
 
 function Character:duck_start()
     self.isHittable = true
+    dpo(self, self.state)
     --	print (self.name.." - duck start")
     SetSpriteAnimation(self.sprite,"duck")
     self.z = 0
@@ -987,6 +990,7 @@ Character.fall = {name = "fall", start = Character.fall_start, exit = nop, updat
 function Character:getup_start()
     self.isHittable = false
     --print (self.name.." - getup start")
+    dpo(self, self.state)
     if self.z <= 0 then
         self.z = 0
     end
