@@ -40,6 +40,7 @@ function love.load(arg)
 	if arg[#arg] == "-debug" then
 		require("mobdebug").start()
 	end
+	require "src/debug"
 
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.setBackgroundColor(0, 0, 0, 255)
