@@ -184,18 +184,18 @@ return {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jaf1
 			{ q = q(43,722,37,64), ox = 13, oy = 63 }, --jaf2
 			{ q = q(82,722,71,64), ox = 26, oy = 63, funcCont = jump_forward_attack, delay = 5 }, --jaf3
-			delay = 0.05
+			delay = 0.03
 		},
 		jumpAttackLight = {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jal1
 			{ q = q(43,722,37,64), ox = 13, oy = 63, funcCont = jump_light_attack, delay = 5 }, --jal2
-			delay = 0.05
+			delay = 0.03
 		},
 		jumpAttackStraight = {
 			{ q = q(2,789,42,67), ox = 26, oy = 66 }, --jas1
-			{ q = q(46,789,41,63), ox = 22, oy = 62, delay = 0.1 }, --jas2
+			{ q = q(46,789,41,63), ox = 22, oy = 62, delay = 0.07 }, --jas2
 			{ q = q(89,789,42,61), ox = 22, oy = 60, funcCont = jump_straight_attack, delay = 5 }, --jas3
-			delay = 0.15
+			delay = 0.1
 		},
 		jumpAttackRun = {
 			{ q = q(2,993,63,66), ox = 26, oy = 65 }, --jar1.1
