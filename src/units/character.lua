@@ -19,6 +19,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_run_y = 25
     --self.jumpHeight = 40 -- in pixels
     self.velocity_jump = 220 --Z coord
+    self.velocity_jump_speed = 1.25
     self.velocity_jump_x_boost = 10
     self.velocity_jump_y_boost = 5
     self.velocity_fall_z = 220
@@ -508,7 +509,7 @@ function Character:jump_start()
     --	print (self.name.." - jump start")
     dpo(self, self.state)
     SetSpriteAnimation(self.sprite,"jump")
-    self.velz = self.velocity_jump
+    self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
     if self.prev_state ~= "run" then
         if self.b.vertical:isDown(-1) then
@@ -523,9 +524,11 @@ function Character:jump_start()
         end
         if self.velx ~= 0 then
             self.velx = self.velx + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
+--            self.velx = self.velx * self.velocity_jump_speed + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
         end
         if self.vely ~= 0 then
             self.vely = self.vely + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
+--            self.vely = self.vely * self.velocity_jump_speed + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
         end
     end
     sfx.play(self.name,self.sfx.jump)
@@ -551,7 +554,7 @@ function Character:jump_update(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
     else
         self.velz = 0
         self.z = 0
@@ -817,7 +820,7 @@ function Character:jumpAttackForward_update(dt)
     --	print (self.name.." - jumpAttackForward update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
     else
         self.velz = 0
         self.z = 0
@@ -840,7 +843,7 @@ function Character:jumpAttackLight_update(dt)
     --	print (self.name.." - jumpAttackLight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
     else
         self.velz = 0
         self.z = 0
@@ -864,7 +867,7 @@ function Character:jumpAttackStraight_update(dt)
     --	print (self.name.." - jumpAttackStraight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
     else
         self.velz = 0
         self.z = 0
@@ -888,7 +891,7 @@ function Character:jumpAttackRun_update(dt)
     --	print (self.name.." - jumpAttackRun update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
     else
         self.velz = 0
         self.z = 0
@@ -921,7 +924,7 @@ end
 function Character:fall_update(dt)
     --dp(self.name .. " - fall update", dt)
     if self.z > 0 then
-        self.velz = self.velz - self.gravity * dt
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
         self.z = self.z + dt * self.velz
         if self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
             if (self.isThrown and self.z < self.to_fallen_anim_z)
