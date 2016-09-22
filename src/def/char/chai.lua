@@ -36,11 +36,11 @@ local combo_attack4_nosfx = function(slf)
 	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velocity_fall_x, nil)
 end
 local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall", slf.velocity_dash_fall) end
-local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall", slf.velocity_fall_x) end
+local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall", slf.velx) end
 local jump_light_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high", slf.velx) end
 local jump_straight_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall", slf.velocity_fall_x) end
-local jump_run_attack = function(slf) slf:checkAndAttack(25,0, 35,12, 6, "high", slf.velocity_fall_x, nil, true) end
-local jump_run_attack_last = function(slf) slf:checkAndAttack(25,0, 35,12, 8, "fall", slf.velocity_fall_x, nil, true) end
+local jump_run_attack = function(slf) slf:checkAndAttack(25,0, 35,12, 6, "high", slf.velx, nil, true) end
+local jump_run_attack_last = function(slf) slf:checkAndAttack(25,0, 35,12, 8, "fall", slf.velx, nil, true) end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
 
 return {
