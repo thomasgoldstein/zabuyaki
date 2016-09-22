@@ -27,7 +27,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self.x, self.y, self.z = x, y, 0
 	self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
 	self.velx, self.vely, self.velz, self.gravity = 0, 0, 0, 0
-	self.gravity = 900 --650 * 2
+	self.gravity = 800 --650 * 2
     self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
 
 	self.state = "nop"
