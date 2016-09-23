@@ -147,6 +147,10 @@ function optionsState:draw()
 
     love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
     love.graphics.draw(txt_hints[menu_state], (screen_width - txt_hints[menu_state]:getWidth()) / 2, screen_height - 80)
+    --DEBUG indicator
+    if GLOBAL_SETTING.DEBUG then
+        love.graphics.print("DEBUG", 2, 2)
+    end
 end
 
 function optionsState:confirm( x, y, button, istouch )
