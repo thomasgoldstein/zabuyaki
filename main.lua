@@ -75,6 +75,7 @@ function love.load(arg)
 	Kisa = require "src/units/kisa_unit"
 	Item = require "src/units/item"
 	Gopper = require "src/units/gopper_enemy"
+	PGopper = require "src/units/gopper_player"
 	Niko = require "src/units/niko_enemy"
 	Temper = require "src/units/temper_enemy"
 	InfoBar = require "src/infoBar"
