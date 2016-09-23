@@ -156,7 +156,7 @@ function Character:onHurt()
 
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
-    self.velz = self.velocity_fall_z
+    self.velz = self.velocity_fall_z * self.velocity_jump_speed
 
     if self.hp <= 0 then -- dead body flies further
         if self.velx < self.velocity_fall_x then
@@ -924,8 +924,8 @@ end
 function Character:fall_update(dt)
     --dp(self.name .. " - fall update", dt)
     if self.z > 0 then
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
         self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
         if self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
             if (self.isThrown and self.z < self.to_fallen_anim_z)
                 or (not self.isThrown and self.z < self.to_fallen_anim_z / 4)
