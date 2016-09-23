@@ -66,6 +66,23 @@ local heroes = {
         sy = 272,
         ny = 90,
         py = 120
+    },
+    {
+        {name = "GOPPER3", shader = shaders.gopper[3]},
+        {name = "GOPPER2", shader = shaders.gopper[2]},
+        {name = "GOPPER4", shader = shaders.gopper[4]},
+        hero = PGopper,
+        sprite_instance = "src/def/char/gopper.lua",
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
+        sprite_portrait_anim = "rick",  --NO OWN PORTRAIT
+        default_anim = "stand",
+        cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
+        x = screen_width / 2,
+        y = 440 + 80,
+        sy = 272,
+        ny = 90,
+        py = 120
     }
 }
 
@@ -111,7 +128,7 @@ end
 local function all_confirmed()
     --visible players confirmed their choice
     local confirmed = false
-    for i = 1,3 do
+    for i = 1,#players do
         if players[i].confirmed then
             confirmed = true
         else
@@ -162,7 +179,7 @@ function heroSelectState:enter()
     }
     p1_old_pos = 0
     p1_mouse_pos = 0
-    for i = 1,3 do
+    for i = 1,#players do
       SetSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
       heroes[i].sprite_portrait.size_scale = 2
     end
@@ -179,6 +196,37 @@ end
 
 function heroSelectState:resume()
     heroSelectState:enter()
+end
+
+local function GameStart()
+    --All characters confirmed, pass them into the level
+    sfx.play("sfx","menu_gamestart")
+    local pl = {}
+    local sh = selected_heroes()
+    for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
+        if players[i].confirmed then
+            local pos = players[i].pos
+            if GLOBAL_SETTING.DEBUG then --DEBUG =use Gopper as P1
+                pos = 4 --Gopper Player
+                pl[i] = {
+                    hero = heroes[pos].hero,
+                    sprite_instance = heroes[pos].sprite_instance,
+                    shader = heroes[pos][i].shader, --debug shader = slot N
+                    name = heroes[pos][i].name, --debug name = slot N
+                    color = heroes[pos][i].color --debug color = slot N
+                }
+            else
+                pl[i] = {
+                    hero = heroes[pos].hero,
+                    sprite_instance = heroes[pos].sprite_instance,
+                    shader = heroes[pos][sh[i][2]].shader,
+                    name = heroes[pos][sh[i][2]].name,
+                    color = heroes[pos][sh[i][2]].color
+                }
+            end
+        end
+    end
+    return Gamestate.switch(arcadeState, pl)
 end
 
 local function player_input(player, controls, i)
@@ -235,22 +283,8 @@ local function player_input(player, controls, i)
             SetSpriteAnimation(player.sprite,heroes[player.pos].cancel_anim)
             sfx.play("sfx","menu_cancel")
         elseif (controls.fire:pressed() or controls.start:pressed()) and all_confirmed() then
-            sfx.play("sfx","menu_gamestart")
-            local pl = {}
-            local sh = selected_heroes()
-            for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
-                if players[i].confirmed then
-                    local pos = players[i].pos
-                    pl[i] = {
-                        hero = heroes[pos].hero,
-                        sprite_instance = heroes[pos].sprite_instance,
-                        shader = heroes[pos][sh[i][2]].shader,
-                        name = heroes[pos][sh[i][2]].name,
-                        color = heroes[pos][sh[i][2]].color
-                    }
-                end
-            end
-            return Gamestate.switch(arcadeState, pl)
+            GameStart()
+            return
         end
     end
 end
@@ -258,7 +292,7 @@ end
 function heroSelectState:update(dt)
     time = time + dt
     local sh,shiftx = selected_heroes()
-    for i = 1,3 do
+    for i = 1,#players do
         local cur_players_hero = heroes[players[i].pos]
         local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
         local cur_color_slot = sh[i][2]
@@ -301,7 +335,7 @@ end
 
 function heroSelectState:draw()
     local sh = selected_heroes()
-    for i = 1,3  do
+    for i = 1,#players do
         local cur_players_hero = heroes[players[i].pos]
         local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
         local cur_color_slot = sh[i][2]
@@ -365,22 +399,8 @@ function heroSelectState:confirm( x, y, button, istouch )
             sfx.play("sfx","menu_select")
             SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].confirm_anim)
         elseif p1_mouse_pos == players[1].pos and all_confirmed() then
-            sfx.play("sfx","menu_gamestart")
-            local pl = {}
-            local sh = selected_heroes()
-            for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
-                if players[i].confirmed then
-                    local pos = players[i].pos
-                    pl[i] = {
-                        hero = heroes[pos].hero,
-                        sprite_instance = heroes[pos].sprite_instance,
-                        shader = heroes[pos][sh[i][2]].shader,
-                        name = heroes[pos][sh[i][2]].name,
-                        color = heroes[pos][sh[i][2]].color
-                    }
-                end
-            end
-            return Gamestate.switch(arcadeState, pl)
+            GameStart()
+            return
         end
     elseif button == 2 then
         if players[1].visible and not players[1].confirmed then
