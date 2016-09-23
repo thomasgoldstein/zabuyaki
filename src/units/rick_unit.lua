@@ -82,6 +82,7 @@ Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Ric
 
 function Rick:dash_start()
     self.isHittable = true
+    dpo(self, self.state)
     --	print (self.name.." - dash start")
     SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash
@@ -91,6 +92,7 @@ function Rick:dash_start()
 end
 function Rick:dash_update(dt)
     if self.sprite.isFinished then
+        dpo(self, self.state)
         self:setState(self.stand)
         return
     end
