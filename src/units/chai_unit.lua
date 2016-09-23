@@ -78,10 +78,11 @@ Chai.combo = {name = "combo", start = Chai.combo_start, exit = nop, update = Cha
 
 function Chai:dash_start()
     self.isHittable = true
+    dpo(self, self.state)
     --	dp(self.name.." - dash start")
     SetSpriteAnimation(self.sprite,"dash")
-    self.velx = self.velocity_dash
-    self.velz = self.velocity_jump
+    self.velx = self.velocity_dash * self.velocity_jump_speed
+    self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
     sfx.play(self.name,self.sfx.dash)
 end
@@ -92,7 +93,7 @@ function Chai:dash_update(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
         if self.velz < 0 then
             self:calcFriction(dt)
         end
