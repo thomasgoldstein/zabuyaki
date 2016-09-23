@@ -335,20 +335,20 @@ end
 
 local pitch = 1
 local volume = 1
-function arcadeState:keypressed(k, unicode)
-    if k == '0' then
-        GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
-        level_objects:dp()
-    end
+function arcadeState:keypressed(key, unicode)
+--    if k == '0' then
+--        GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
+--        level_objects:dp()
+--    end
     if GLOBAL_SETTING.DEBUG then
-        fancy.key(k)
-        if k == '1' then
+        fancy.key(key)
+        if key == '1' then
             mainCamera:setScale(1)
-        elseif k == '2' then
+        elseif key == '2' then
             mainCamera:setScale(2)
-        elseif k == '3' then
+        elseif key == '3' then
             mainCamera:setScale(3)
-        elseif k == '4' then
+        elseif key == '4' then
             dp("set default jump / gravity")
             --Unit
             player1.gravity = 650
@@ -356,7 +356,7 @@ function arcadeState:keypressed(k, unicode)
             --Character
             player1.velocity_jump = 220 --Z coord
             player1.velocity_jump_x_boost = 10
-        elseif k == '5' then
+        elseif key == '5' then
             dp("boost jump / gravity 1.5x")
             --Unit
             player1.gravity = 1250
@@ -364,7 +364,7 @@ function arcadeState:keypressed(k, unicode)
             --Character
             player1.velocity_jump = 330 --Z coord
             player1.velocity_jump_x_boost = 50
-        elseif k == '6' then
+        elseif key == '6' then
             sfx.play("sfx","rick_step", 1, pitch)
             pitch = pitch + 0.01
             if pitch > 1.05 then
@@ -374,7 +374,7 @@ function arcadeState:keypressed(k, unicode)
             if volume < 0.5 then
                 volume = 1
             end
-        elseif k == '7' then
+        elseif key == '7' then
             sfx.play("sfx","fall", 1, pitch)
             pitch = pitch + 0.01
             if pitch > 1.05 then
@@ -384,9 +384,9 @@ function arcadeState:keypressed(k, unicode)
             if volume < 0.5 then
                 volume = 1
             end
-        elseif k == '8' then
+        elseif key == '8' then
             sfx.play("sfx","hit_medium1", 1, 1 + 0.01 * love.math.random(-10, 10))
-        elseif k == 'f12' then
+        elseif key == 'f12' then
             level_objects:revive()
         end
     end
