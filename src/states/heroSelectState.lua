@@ -68,9 +68,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "GOPPER3", shader = shaders.gopper[3]},
-        {name = "GOPPER2", shader = shaders.gopper[2]},
+        {name = "GOPPER", shader = nil},
         {name = "GOPPER4", shader = shaders.gopper[4]},
+        {name = "GOPPER2", shader = shaders.gopper[2]},
         hero = PGopper,
         sprite_instance = "src/def/char/gopper.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
