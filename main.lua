@@ -151,6 +151,10 @@ end
 
 function love.keypressed(key, unicode)
 	fancy.key(key)
+	if key == '0' then
+		GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
+		sfx.play("sfx","menu_move")
+	end
 end
 
 function love.keyreleased(key, unicode)
