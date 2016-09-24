@@ -40,7 +40,6 @@ function love.load(arg)
 	if arg[#arg] == "-debug" then
 		require("mobdebug").start()
 	end
-	require "src/debug"
 
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.setBackgroundColor(0, 0, 0, 255)
@@ -62,6 +61,7 @@ function love.load(arg)
 	Camera = require "src/camera"
 	sfx = require "src/def/misc/preload_sfx"
 	gfx = require "src/def/misc/preload_gfx"
+	require "src/debug"
 	require "src/def/misc/particles"
 	shaders = require "src/def/misc/shaders"
 	CompoundPicture = require "src/compoPic"
