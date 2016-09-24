@@ -27,7 +27,7 @@ return {
             { q = q(68, 84, 32, 24) }
         },
         intro = {
-            { q = q(66,71,38,56), ox = 18, oy = 55 }, --idle
+            { q = q(66,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 5
         },
         stand = {
@@ -35,27 +35,27 @@ return {
             -- ox,oy pivots offsets from the top left corner of the quad
             -- delay = 0.1, func = fun
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
-			{ q = q(40,3,36,61), ox = 18, oy = 60 }, --stand 2
-			{ q = q(78,4,36,60), ox = 18, oy = 59 }, --stand 3
-			{ q = q(40,3,36,61), ox = 18, oy = 60 }, --stand 2
+            { q = q(40,3,36,61), ox = 18, oy = 60 }, --stand 2
+            { q = q(78,4,36,60), ox = 18, oy = 59 }, --stand 3
+            { q = q(40,3,36,61), ox = 18, oy = 60 }, --stand 2
             loop = true,
             delay = 0.167
         },
         walk = {
-			{ q = q(116,2,36,62), ox = 18, oy = 61 }, --walk 1
+            { q = q(116,2,36,62), ox = 18, oy = 61 }, --walk 1
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
-			{ q = q(154,3,38,61), ox = 18, oy = 60 }, --walk 2
+            { q = q(154,3,38,61), ox = 18, oy = 60 }, --walk 2
             { q = q(2,2,36,62), ox = 18, oy = 61 }, --stand 1
             loop = true,
             delay = 0.167
         },
         run = {
             { q = q(2,246,48,59), ox = 23, oy = 59 }, --run 1
-			{ q = q(52,244,46,61), ox = 23, oy = 61, delay = 0.13 }, --run 2
-			{ q = q(100,245,48,60), ox = 23, oy = 60 }, --run 3
-			{ q = q(2,310,48,60), ox = 23, oy = 59 }, --run 4
-			{ q = q(52,308,47,62), ox = 23, oy = 61, delay = 0.13 }, --run 5
-			{ q = q(101,309,50,60), ox = 23, oy = 59 }, --run 6
+            { q = q(52,244,46,61), ox = 23, oy = 61, delay = 0.13 }, --run 2
+            { q = q(100,245,48,60), ox = 23, oy = 60 }, --run 3
+            { q = q(2,310,48,60), ox = 23, oy = 59 }, --run 4
+            { q = q(52,308,47,62), ox = 23, oy = 61, delay = 0.13 }, --run 5
+            { q = q(101,309,50,60), ox = 23, oy = 59 }, --run 6
             loop = true,
             delay = 0.08
         },
@@ -64,12 +64,12 @@ return {
             delay = 5
         },
         duck = {
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(66,71,38,56), ox = 19, oy = 55 }, --duck
             delay = 0.15
         },
         pickup = {
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.05
+            { q = q(66,71,38,56), ox = 19, oy = 55 }, --duck
+            delay = 0.28
         },
         dash = {
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
@@ -80,18 +80,18 @@ return {
             delay = 0.2
         },
         fall = {
-			{ q = q(2,199,67,43), ox = 33, oy = 42 }, --falling
+            { q = q(2,199,67,43), ox = 33, oy = 42 }, --falling
             delay = 5
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-			{ q = q(2,199,67,43), ox = 33, oy = 42 }, --falling
+            { q = q(2,199,67,43), ox = 33, oy = 42 }, --falling
             delay = 5
         },
         getup = {
             { q = q(71,199,65,43), ox = 32, oy = 32, delay = 0.2 }, --lying down
-			{ q = q(138,193,55,49), ox = 24, oy = 48 }, --getting up
-			{ q = q(66,71,38,56), ox = 19, oy = 55 }, --idle
+            { q = q(138,193,55,49), ox = 24, oy = 48 }, --getting up
+            { q = q(66,71,38,56), ox = 19, oy = 55 }, --duck
             delay = 0.3
         },
         fallen = {
@@ -100,13 +100,13 @@ return {
         },
         hurtHigh = {
             { q = q(2,129,38,62), ox = 20, oy = 61, delay = 0.03 }, --hh1
-			{ q = q(42,129,43,62), ox = 25, oy = 61 }, --hh2
+            { q = q(42,129,43,62), ox = 25, oy = 61 }, --hh2
             { q = q(2,129,38,62), ox = 20, oy = 61, delay = 0.1 }, --hh1
             delay = 0.3
         },
         hurtLow = {
             { q = q(87,130,37,61), ox = 19, oy = 60, delay = 0.03 }, --hl1
-			{ q = q(126,132,42,59), ox = 20, oy = 58 }, --hl2
+            { q = q(126,132,42,59), ox = 20, oy = 58 }, --hl2
             { q = q(87,130,37,61), ox = 19, oy = 60, delay = 0.1 }, --hl1
             delay = 0.3
         },

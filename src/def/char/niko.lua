@@ -27,7 +27,7 @@ return {
             { q = q(68, 88, 32, 24) }
         },
         intro = {
-            { q = q(66,73,38,58), ox = 18, oy = 57 }, --idle
+            { q = q(66,73,38,58), ox = 18, oy = 57 }, --duck
             delay = 5
         },
         stand = {
@@ -35,16 +35,16 @@ return {
             -- ox,oy pivots offsets from the top left corner of the quad
             -- delay = 0.1, func = fun
             { q = q(2,2,36,64), ox = 18, oy = 63 }, --stand 1
-			{ q = q(40,3,36,63), ox = 18, oy = 62 }, --stand 2
-			{ q = q(78,4,36,62), ox = 18, oy = 61 }, --stand 3
-			{ q = q(40,3,36,63), ox = 18, oy = 62 }, --stand 2
+            { q = q(40,3,36,63), ox = 18, oy = 62 }, --stand 2
+            { q = q(78,4,36,62), ox = 18, oy = 61 }, --stand 3
+            { q = q(40,3,36,63), ox = 18, oy = 62 }, --stand 2
             loop = true,
             delay = 0.167
         },
         walk = {
-			{ q = q(116,2,36,64), ox = 18, oy = 63 }, --walk 1
+            { q = q(116,2,36,64), ox = 18, oy = 63 }, --walk 1
             { q = q(2,2,36,64), ox = 18, oy = 63 }, --stand 1
-			{ q = q(154,3,38,63), ox = 18, oy = 62 }, --walk 2
+            { q = q(154,3,38,63), ox = 18, oy = 62 }, --walk 2
             { q = q(2,2,36,64), ox = 18, oy = 63 }, --stand 1
             loop = true,
             delay = 0.167
@@ -62,12 +62,12 @@ return {
             delay = 5
         },
         duck = {
-            { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(66,73,38,58), ox = 19, oy = 57 }, --duck
             delay = 0.15
         },
         pickup = {
-            { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.05
+            { q = q(66,73,38,58), ox = 19, oy = 57 }, --duck
+            delay = 0.28
         },
         dash = {
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
@@ -78,18 +78,18 @@ return {
             delay = 0.2
         },
         fall = {
-			{ q = q(2,199,51,62), ox = 25, oy = 61 }, --falling
+            { q = q(2,199,51,62), ox = 25, oy = 61 }, --falling
             delay = 5
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-			{ q = q(2,199,51,62), ox = 25, oy = 61, rotate = -1.57, rx = 30, ry = -25}, --falling
+            { q = q(2,199,51,62), ox = 25, oy = 61, rotate = -1.57, rx = 30, ry = -25}, --falling
             delay = 5
         },
         getup = {
             { q = q(55,218,75,43), ox = 42, oy = 32, delay = 0.2 }, --lying down
-			{ q = q(132,209,58,52), ox = 35, oy = 48 }, --getting up
-			{ q = q(66,73,38,58), ox = 19, oy = 57 }, --idle
+            { q = q(132,209,58,52), ox = 35, oy = 48 }, --getting up
+            { q = q(66,73,38,58), ox = 19, oy = 57 }, --duck
             delay = 0.3
         },
         fallen = {
@@ -98,13 +98,13 @@ return {
         },
         hurtHigh = {
             { q = q(2,133,41,64), ox = 23, oy = 63, delay = 0.03 }, --hh1
-			{ q = q(45,133,46,64), ox = 28, oy = 63 }, --hh2
+            { q = q(45,133,46,64), ox = 28, oy = 63 }, --hh2
             { q = q(2,133,41,64), ox = 23, oy = 63, delay = 0.1 }, --hh1
             delay = 0.3
         },
         hurtLow = {
             { q = q(93,134,40,63), ox = 19, oy = 62, delay = 0.03 }, --hl1
-			{ q = q(135,136,44,61), ox = 20, oy = 60 }, --hl2
+            { q = q(135,136,44,61), ox = 20, oy = 60 }, --hl2
             { q = q(93,134,40,63), ox = 19, oy = 62, delay = 0.1 }, --hl1
             delay = 0.3
         },
@@ -149,7 +149,7 @@ return {
         },
         grabbed = {
             { q = q(2,133,41,64), ox = 23, oy = 63 }, --hh1
-			{ q = q(45,133,46,64), ox = 28, oy = 63 }, --hh2
+            { q = q(45,133,46,64), ox = 28, oy = 63 }, --hh2
             delay = 0.1
         },
 
