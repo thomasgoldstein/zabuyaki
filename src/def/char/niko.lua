@@ -27,7 +27,7 @@ return {
             { q = q(68, 88, 32, 24) }
         },
         intro = {
-            { q = q(66,73,38,58), ox = 19, oy = 57 }, --idle
+            { q = q(66,73,38,58), ox = 18, oy = 57 }, --idle
             delay = 5
         },
         stand = {
