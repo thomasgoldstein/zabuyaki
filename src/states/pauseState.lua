@@ -137,6 +137,7 @@ function pauseState:draw()
 
     love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
     love.graphics.draw(txt_hints[menu_state], (screen_width - txt_hints[menu_state]:getWidth()) / 2, screen_height - 80)
+    show_debug_indicator()
 end
 
 function pauseState:confirm( x, y, button, istouch )

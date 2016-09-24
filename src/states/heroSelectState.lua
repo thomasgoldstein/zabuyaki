@@ -373,10 +373,7 @@ function heroSelectState:draw()
     --header
     love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
     love.graphics.draw(txt_player_select, (screen_width - txt_player_select:getWidth()) / 2, 24)
-    --DEBUG indicator
-    if GLOBAL_SETTING.DEBUG then
-        love.graphics.print("DEBUG", 2, 2)
-    end
+    show_debug_indicator()
 end
 
 function heroSelectState:confirm( x, y, button, istouch )

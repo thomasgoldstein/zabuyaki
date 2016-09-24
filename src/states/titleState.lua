@@ -146,10 +146,7 @@ function titleState:draw()
     love.graphics.draw(txt_zabuyaki_logo, (screen_width - txt_zabuyaki_logo:getWidth()) / 2, 40)
     love.graphics.setColor(255, 255, 255, 100 - math.sin(time)*20)
     love.graphics.draw(txt_beatemup, 390, 110)
-    --DEBUG indicator
-    if GLOBAL_SETTING.DEBUG then
-        love.graphics.print("DEBUG", 2, 2)
-    end
+    show_debug_indicator()
 end
 
 function titleState:confirm( x, y, button, istouch )
