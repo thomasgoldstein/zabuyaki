@@ -4,7 +4,13 @@ local image_h = 372 --after the image has been loaded
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-
+local step_sfx = function(slf)
+    sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
+    local padust = PA_DUST_STEPS:clone()
+    padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
+    padust:emit(3)
+    level_objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
+end
 local combo_attack = function(slf)
     slf:checkAndAttack(28,0, 26,12, 7, "high", slf.velx, "air")
     slf.cool_down = 0.8
@@ -52,10 +58,10 @@ return {
         run = {
             { q = q(2,246,48,59), ox = 23, oy = 59 }, --run 1
             { q = q(52,244,46,61), ox = 23, oy = 61, delay = 0.13 }, --run 2
-            { q = q(100,245,48,60), ox = 23, oy = 60 }, --run 3
+            { q = q(100,245,48,60), ox = 23, oy = 60, func = step_sfx }, --run 3
             { q = q(2,310,48,60), ox = 23, oy = 59 }, --run 4
             { q = q(52,308,47,62), ox = 23, oy = 61, delay = 0.13 }, --run 5
-            { q = q(101,309,50,60), ox = 23, oy = 59 }, --run 6
+            { q = q(101,309,50,60), ox = 23, oy = 59, func = step_sfx }, --run 6
             loop = true,
             delay = 0.08
         },
