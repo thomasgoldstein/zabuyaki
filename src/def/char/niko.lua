@@ -1,5 +1,5 @@
 local image_w = 194 --This info can be accessed with a Love2D call
-local image_h = 263 --after the image has been loaded
+local image_h = 332 --after the image has been loaded
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -9,6 +9,7 @@ local combo_attack = function(slf)
     slf:checkAndAttack(28,0, 26,12, 7, "high", slf.velx, "air")
     slf.cool_down = 0.8
 end
+local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 22,12, 14, "fall", slf.velx) end --slf.velocity_fall_x
 
 return {
     serialization_version = 0.42, -- The version of this serialization process
@@ -58,7 +59,7 @@ return {
             delay = 0.1
         },
         jump = {
-            { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
+            { q = q(2,264,57,66), ox = 18, oy = 65 }, --jump
             delay = 5
         },
         duck = {
@@ -109,16 +110,19 @@ return {
             delay = 0.3
         },
         jumpAttackForward = {
-            { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 5
+            { q = q(61,265,56,63), ox = 21, oy = 64 }, --jaf1
+            { q = q(119,263,64,67), ox = 22, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            delay = 0.12
         },
         jumpAttackLight = {
-            { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 5
+            { q = q(61,265,56,63), ox = 21, oy = 64 }, --jaf1
+            { q = q(119,263,64,67), ox = 22, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            delay = 0.12
         },
         jumpAttackStraight = {
-            { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 5
+            { q = q(61,265,56,63), ox = 21, oy = 64 }, --jaf1
+            { q = q(119,263,64,67), ox = 22, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            delay = 0.12
         },
         sideStepUp = {
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
