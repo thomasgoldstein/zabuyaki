@@ -78,7 +78,6 @@ function GetSpriteInstance (sprite_def)
 		--Sprite not loaded attempting to load; abort on failure.
 		if LoadSprite (sprite_def) == nil then return nil end
 	end
-	--default table.
 	return {
 		def = sprite_bank[sprite_def], --Sprite reference
 		cur_anim = nil,
@@ -102,9 +101,7 @@ function SetSpriteAnimation(spr, anim)
 	spr.cur_anim = anim
 	spr.isFinished = false
 	spr.func_called_at_frame = -1
-	--local s = spr.def.animations[spr.cur_anim]
-	--local sc = s[spr.cur_frame]
-	spr.elapsed_time = -love.timer.getDelta() / 2
+	spr.elapsed_time = -math.min(love.timer.getDelta() / 2, 0.1)
 end
 
 function UpdateSpriteInstance(spr, dt, slf)
