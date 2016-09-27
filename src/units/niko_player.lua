@@ -96,9 +96,9 @@ end
 PNiko.dash = {name = "dash", start = PNiko.dash_start, exit = nop, update = PNiko.dash_update, draw = Character.default_draw}
 
 --Block unused moves
-PNiko.sideStepDown = {name = "walk", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
-PNiko.sideStepUp = {name = "walk", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---PNiko.duck2jump = {name = "jump", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-PNiko.dash = {name = "jump", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+PNiko.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
+PNiko.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+PNiko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
+PNiko.dash = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 
 return PNiko
