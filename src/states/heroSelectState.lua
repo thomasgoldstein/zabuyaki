@@ -83,6 +83,23 @@ local heroes = {
         sy = 272,
         ny = 90,
         py = 120
+    },
+    {
+        {name = "NIKO", shader = nil},
+        {name = "NIKO4", shader = shaders.niko[2]},
+        {name = "NIKO2", shader = shaders.niko[2]},
+        hero = PNiko,
+        sprite_instance = "src/def/char/niko.lua",
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
+        sprite_portrait_anim = "rick",  --NO OWN PORTRAIT
+        default_anim = "stand",
+        cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
+        x = screen_width / 2 - 80,
+        y = 440 + 80,
+        sy = 272,
+        ny = 90,
+        py = 120
     }
 }
 
@@ -207,7 +224,11 @@ local function GameStart()
         if players[i].confirmed then
             local pos = players[i].pos
             if GLOBAL_SETTING.DEBUG then --DEBUG =use Gopper as P1
-                pos = 4 --Gopper Player
+                if pos == 3 then
+                    pos = 5 --Noko Player
+                else
+                    pos = 4 --Gopper Player
+                end
                 pl[i] = {
                     hero = heroes[pos].hero,
                     sprite_instance = heroes[pos].sprite_instance,
