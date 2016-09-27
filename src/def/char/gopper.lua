@@ -1,5 +1,5 @@
 local image_w = 195 --This info can be accessed with a Love2D call
-local image_h = 372 --after the image has been loaded
+local image_h = 426 --after the image has been loaded
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -15,6 +15,7 @@ local combo_attack = function(slf)
     slf:checkAndAttack(28,0, 26,12, 7, "high", slf.velx, "air")
     slf.cool_down = 0.8
 end
+local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 14, "fall", slf.velocity_dash_fall) end
 
 return {
     serialization_version = 0.42, -- The version of this serialization process
@@ -78,8 +79,12 @@ return {
             delay = 0.28
         },
         dash = {
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.16
+            { q = q(2,372,58,52), ox = 24, oy = 51, funcCont = dash_attack, delay = 0.5 }, --dash
+            -- below: temporary frames, move elsewhere later
+            { q = q(62,389,68,35), ox = 28, oy = 27, delay = 0.8 }, --lying down on belly
+            { q = q(132,372,56,48), ox = 22, oy = 44 }, --getting up on belly
+            { q = q(66,71,38,56), ox = 19, oy = 55 }, --duck
+            delay = 0.3
         },
         combo1 = {
             { q = q(2,66,62,61), ox = 18, oy = 60, func = combo_attack }, --punch
