@@ -95,4 +95,10 @@ function PGopper:dash_update(dt)
 end
 PGopper.dash = {name = "dash", start = PGopper.dash_start, exit = nop, update = PGopper.dash_update, draw = Character.default_draw}
 
+--Block unused moves
+PGopper.sideStepDown = {name = "walk", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
+PGopper.sideStepUp = {name = "walk", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+PGopper.duck2jump = {name = "jump", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+PGopper.jump = {name = "jump", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+
 return PGopper
