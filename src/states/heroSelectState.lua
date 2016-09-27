@@ -225,7 +225,7 @@ local function GameStart()
             local pos = players[i].pos
             if GLOBAL_SETTING.DEBUG then --DEBUG =use Gopper as P1
                 if pos == 3 then
-                    pos = 5 --Noko Player
+                    pos = 5 --Niko Player
                 else
                     pos = 4 --Gopper Player
                 end
