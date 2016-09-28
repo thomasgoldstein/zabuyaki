@@ -88,7 +88,7 @@ function Rick:dash_start()
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play(self.name,self.sfx.dash)
+    sfx.play("voice"..self.id, self.sfx.dash)
 end
 function Rick:dash_update(dt)
     if self.sprite.isFinished then

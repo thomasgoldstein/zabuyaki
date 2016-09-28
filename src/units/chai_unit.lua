@@ -84,7 +84,7 @@ function Chai:dash_start()
     self.velx = self.velocity_dash * self.velocity_jump_speed
     self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
-    sfx.play(self.name,self.sfx.dash)
+    sfx.play("sfx"..self.id, self.sfx.dash)
 end
 function Chai:dash_update(dt)
     if self.sprite.isFinished then
@@ -100,7 +100,7 @@ function Chai:dash_update(dt)
     else
         self.velz = 0
         self.z = 0
-        sfx.play(self.name, self.sfx.step)
+        sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
         return
     end

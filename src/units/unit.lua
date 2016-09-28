@@ -68,16 +68,16 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 end
 
 --plays sfx
-function Unit:playsfx(alias)
-    local s
-    if type(alias) == "table" then
-        s = sfx[alias[love.math.random(1,#alias)]]
-    else
-        s = sfx[alias]
-    end
-    TEsound.stop(self.name, false)
-    TEsound.play(s.src, self.name or "sfx", s.volume, s.pitch)
-end
+--function Unit:playsfx(alias)
+--    local s
+--    if type(alias) == "table" then
+--        s = sfx[alias[love.math.random(1,#alias)]]
+--    else
+--        s = sfx[alias]
+--    end
+--    TEsound.stop(self.name, false)
+--    TEsound.play(s.src, self.id or "sfx", s.volume, s.pitch)
+--end
 --plays sfx
 function Unit:playHitSfx(dmg)
     local alias
@@ -90,7 +90,7 @@ function Unit:playHitSfx(dmg)
     end
     local s = sfx[alias[love.math.random(1,#alias)]]
     TEsound.stop(self.name, false)
-    TEsound.play(s.src, self.name or "sfx", s.volume, s.pitch)
+    TEsound.play(s.src, self.id or "sfx", s.volume, s.pitch)
 end
 
 function Unit:setToughness(t)
