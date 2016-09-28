@@ -138,3 +138,12 @@ psystem:setParticleLifetime(1, 4) -- Particles live at least 2s and at most 5s.
 psystem:setEmitterLifetime(4)
 psystem:emit(20)
 PA_DUST_PUFF_LEVEL = psystem
+
+psystem = love.graphics.newParticleSystem( gfx.items.image, 1 )
+psystem:setLinearAcceleration(0, -65, 0, -75)
+psystem:setDirection( 4.71 )
+psystem:setParticleLifetime(1) -- Particles live at least 2s and at most 5s.
+--psystem:setSizes(1, 1, 1.1)
+psystem:setColors(255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0) -- Fade to transparency.
+--psystem:setQuads( im_quad2, im_quad3, im_quad4 )
+PA_ITEM_GET = psystem
