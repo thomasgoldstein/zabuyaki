@@ -13,11 +13,10 @@ local step_sfx = function(slf)
 end
 local combo_punch = function(slf)
     slf:checkAndAttack(28,0, 26,12, 7, "high", slf.velx, "air")
-    slf.cool_down = 0.8
+    slf.cool_down = 0.4
 end
 local combo_kick = function(slf)
     slf:checkAndAttack(30,0, 26,12, 9, "fall", slf.velx, "air")
-    slf.cool_down = 0.8
 end
 local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 14, "fall", slf.velocity_dash_fall) end
 
