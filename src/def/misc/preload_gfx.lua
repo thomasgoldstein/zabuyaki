@@ -1,4 +1,4 @@
--- Date: 23.05.2016
+-- Date: 28.09.2016
 -- Preload common gfx and fonts
 local gfx = {items = {}, font = {}}
 
@@ -17,6 +17,7 @@ local image = love.graphics.newImage("res/img/misc/items.png")
 gfx.items.apple = {sprite = image, q = q(2,2,18,17), ox = 9, oy = 16, icon_q = q(2, 2, 18, 17)}
 gfx.items.chicken = {sprite = image, q = q(2,21,30,19), ox = 12, oy = 18, icon_q = q(2, 21, 30, 19) }
 gfx.items.beef = {sprite = image, q = q(2,42,30,19), ox = 15, oy = 18, icon_q = q(2, 42, 30, 19) }
+gfx.items.image = image --for items particles
 
 gfx.font.clock = love.graphics.newFont( "res/font/alarm clock.ttf", 36 )
 gfx.font.pixel = love.graphics.newFont( "res/font/pixeldart.ttf", 36 )
