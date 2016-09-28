@@ -42,7 +42,7 @@ end
 function PGopper:combo_start()
     self.isHittable = true
     --	print (self.name.." - combo start")
-    if self.n_combo > 4 or self.n_combo < 1 then
+    if self.n_combo > 3 or self.n_combo < 1 then
         self.n_combo = 1
     end
     if self.n_combo == 1 then
@@ -51,15 +51,13 @@ function PGopper:combo_start()
         SetSpriteAnimation(self.sprite,"combo2")
     elseif self.n_combo == 3 then
         SetSpriteAnimation(self.sprite,"combo3")
-    elseif self.n_combo == 4 then
-        SetSpriteAnimation(self.sprite,"combo4")
     end
     self.cool_down = 0.2
 end
 function PGopper:combo_update(dt)
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
-        if self.n_combo > 5 then
+        if self.n_combo > 4 then
             self.n_combo = 1
         end
         self:setState(self.stand)
