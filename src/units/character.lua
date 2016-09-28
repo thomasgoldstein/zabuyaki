@@ -574,6 +574,18 @@ Character.jump = {name = "jump", start = Character.jump_start, exit = nop, updat
 function Character:pickup_start()
     self.isHittable = false
     --	print (self.name.." - pickup start")
+    local item = self:checkForItem(9, 9)
+    if item then
+        self.victim_infoBar = item.infoBar:setPicker(self)
+        --disappearing item
+        local psystem = PA_ITEM_GET:clone()
+        psystem:setQuads( item.q )
+        psystem:setOffset( item.ox, item.oy )
+        psystem:setPosition( item.x - self.x, item.y - self.y - 10 )
+        psystem:emit(1)
+        level_objects:add(Effect:new(psystem, self.x, self.y + 10))
+        self:onGetItem(item)
+    end
     SetSpriteAnimation(self.sprite,"pickup")
     self.z = 0
 end
@@ -588,22 +600,7 @@ function Character:pickup_update(dt)
     self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
-function Character:pickup_exit(dt)
-    --	print (self.name.." - pickup exit",dt)
-    local item = self:checkForItem(9, 9)
-    if item then
-        self.victim_infoBar = item.infoBar:setPicker(self)
-        --disappearing item
-        local psystem = PA_ITEM_GET:clone()
-        psystem:setQuads( item.q )
-        psystem:setOffset( item.ox, item.oy )
-        psystem:setPosition( item.x - self.x, item.y - self.y - 10 )
-        psystem:emit(1)
-        level_objects:add(Effect:new(psystem, self.x, self.y + 10))
-        self:onGetItem(item)
-    end
-end
-Character.pickup = {name = "pickup", start = Character.pickup_start, exit = Character.pickup_exit, update = Character.pickup_update, draw = Character.default_draw}
+Character.pickup = {name = "pickup", start = Character.pickup_start, exit = nop, update = Character.pickup_update, draw = Character.default_draw}
 
 function Character:duck_start()
     self.isHittable = true
