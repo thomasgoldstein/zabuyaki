@@ -31,10 +31,10 @@ return {
     --  mySprite.animations["idle"][1], or even
     animations = {
         icon  = {
-            { q = q(68, 84, 32, 24) }
+            { q = q(116, 84, 32, 24) }
         },
         intro = {
-            { q = q(66,71,38,56), ox = 18, oy = 55 }, --duck
+            { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 5
         },
         stand = {
@@ -71,11 +71,11 @@ return {
             delay = 5
         },
         duck = {
-            { q = q(66,71,38,56), ox = 19, oy = 55 }, --duck
+            { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 0.15
         },
         pickup = {
-            { q = q(66,71,38,56), ox = 19, oy = 55 }, --duck
+            { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 0.28
         },
         dash = {
@@ -83,12 +83,14 @@ return {
             -- below: temporary frames, move elsewhere later
             { q = q(62,389,68,35), ox = 28, oy = 27, delay = 0.8 }, --lying down on belly
             { q = q(132,372,56,48), ox = 22, oy = 44 }, --getting up on belly
-            { q = q(66,71,38,56), ox = 19, oy = 55 }, --duck
+            { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 0.3
         },
         combo1 = {
-            { q = q(2,66,62,61), ox = 18, oy = 60, func = combo_attack }, --punch
-            delay = 0.2
+            { q = q(2,66,46,61), ox = 18, oy = 60 }, --c1.1
+            { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_attack, delay = 0.2 }, --c1.2
+            { q = q(2,66,46,61), ox = 18, oy = 60, delay = 0.01 }, --c1.1
+            delay = 0.005
         },
         fall = {
             { q = q(2,199,67,43), ox = 33, oy = 42 }, --falling
@@ -102,7 +104,7 @@ return {
         getup = {
             { q = q(71,199,65,43), ox = 32, oy = 32, delay = 0.2 }, --lying down
             { q = q(138,193,55,49), ox = 24, oy = 48 }, --getting up
-            { q = q(66,71,38,56), ox = 19, oy = 55 }, --duck
+            { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 0.3
         },
         fallen = {

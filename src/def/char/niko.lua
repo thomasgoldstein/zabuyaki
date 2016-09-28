@@ -25,10 +25,10 @@ return {
     --  mySprite.animations["idle"][1], or even
     animations = {
         icon  = {
-            { q = q(68, 88, 32, 24) }
+            { q = q(116, 88, 32, 24) }
         },
         intro = {
-            { q = q(66,73,38,58), ox = 18, oy = 57 }, --duck
+            { q = q(114,73,38,58), ox = 18, oy = 57 }, --duck
             delay = 5
         },
         stand = {
@@ -63,11 +63,11 @@ return {
             delay = 5
         },
         duck = {
-            { q = q(66,73,38,58), ox = 19, oy = 57 }, --duck
+            { q = q(114,73,38,58), ox = 19, oy = 57 }, --duck
             delay = 0.15
         },
         pickup = {
-            { q = q(66,73,38,58), ox = 19, oy = 57 }, --duck
+            { q = q(114,73,38,58), ox = 19, oy = 57 }, --duck
             delay = 0.28
         },
         dash = {
@@ -75,8 +75,10 @@ return {
             delay = 0.16
         },
         combo1 = {
-            { q = q(2,68,62,63), ox = 18, oy = 62, func = combo_attack }, --punch
-            delay = 0.2
+            { q = q(2,68,46,63), ox = 18, oy = 62 }, --c1.1
+            { q = q(50,68,62,63), ox = 18, oy = 62, func = combo_attack, delay = 0.2 }, --c1.2
+            { q = q(2,68,46,63), ox = 18, oy = 62, delay = 0.01 }, --c1.1
+            delay = 0.005
         },
         fall = {
             { q = q(2,199,51,62), ox = 25, oy = 61 }, --falling
@@ -90,7 +92,7 @@ return {
         getup = {
             { q = q(55,218,75,43), ox = 42, oy = 32, delay = 0.2 }, --lying down
             { q = q(132,209,58,52), ox = 35, oy = 48 }, --getting up
-            { q = q(66,73,38,58), ox = 19, oy = 57 }, --duck
+            { q = q(114,73,38,58), ox = 19, oy = 57 }, --duck
             delay = 0.3
         },
         fallen = {
