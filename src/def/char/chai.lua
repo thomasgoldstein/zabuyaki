@@ -35,7 +35,8 @@ end
 local combo_attack4_nosfx = function(slf)
 	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velocity_fall_x, nil)
 end
-local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall", slf.velocity_dash_fall) end
+local dash_attack1 = function(slf) slf:checkAndAttack(8,0, 22,12, 17, "fall", slf.velocity_dash_fall) end
+local dash_attack2 = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall", slf.velocity_dash_fall) end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall", slf.velx) end
 local jump_light_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high", slf.velx) end
 local jump_straight_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall", slf.velocity_fall_x) end
@@ -113,8 +114,8 @@ return {
 		},
 		dash = {
 			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
-			{ q = q(2,722,39,65), ox = 22, oy = 64 }, --jaf1 (shifted left by 4px)
-			{ q = q(2,858,45,68), ox = 26, oy = 65, funcCont = dash_attack, delay = 0.3 }, --dash1
+			{ q = q(2,722,39,65), ox = 22, oy = 64, funcCont = dash_attack1 }, --jaf1 (shifted left by 4px)
+			{ q = q(2,858,45,68), ox = 26, oy = 65, funcCont = dash_attack2, delay = 0.3 }, --dash1
 			{ q = q(84,266,43,63), ox = 22, oy = 62, delay = 5 }, --jd
 			delay = 0.1
 		},
