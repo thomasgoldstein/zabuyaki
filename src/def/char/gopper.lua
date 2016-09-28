@@ -1,5 +1,5 @@
 local image_w = 195 --This info can be accessed with a Love2D call
-local image_h = 426 --after the image has been loaded
+local image_h = 489 --after the image has been loaded
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -11,8 +11,12 @@ local step_sfx = function(slf)
     padust:emit(3)
     level_objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local combo_attack = function(slf)
+local combo_punch = function(slf)
     slf:checkAndAttack(28,0, 26,12, 7, "high", slf.velx, "air")
+    slf.cool_down = 0.8
+end
+local combo_kick = function(slf)
+    slf:checkAndAttack(30,0, 26,12, 9, "fall", slf.velx, "air")
     slf.cool_down = 0.8
 end
 local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 14, "fall", slf.velocity_dash_fall) end
@@ -87,10 +91,22 @@ return {
             delay = 0.3
         },
         combo1 = {
-            { q = q(2,66,46,61), ox = 18, oy = 60 }, --c1.1
-            { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_attack, delay = 0.2 }, --c1.2
-            { q = q(2,66,46,61), ox = 18, oy = 60, delay = 0.01 }, --c1.1
+            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch1
+            { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_punch, delay = 0.2 }, --punch2
+            { q = q(2,66,46,61), ox = 18, oy = 60, delay = 0.01 }, --punch1
             delay = 0.005
+        },
+        combo2 = {
+            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch1
+            { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_punch, delay = 0.2 }, --punch2
+            { q = q(2,66,46,61), ox = 18, oy = 60, delay = 0.01 }, --punch1
+            delay = 0.005
+        },
+        combo3 = {
+            { q = q(2,426,40,61), ox = 16, oy = 60 }, --kick1
+            { q = q(44,426,60,61), ox = 15, oy = 60, func = combo_kick, delay = 0.23 }, --kick2
+            { q = q(2,426,40,61), ox = 16, oy = 60, delay = 0.015 }, --kick1
+            delay = 0.01
         },
         fall = {
             { q = q(2,199,67,43), ox = 33, oy = 42 }, --falling

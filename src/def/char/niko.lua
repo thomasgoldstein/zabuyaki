@@ -1,12 +1,15 @@
 local image_w = 194 --This info can be accessed with a Love2D call
-local image_h = 332 --after the image has been loaded
+local image_h = 397 --after the image has been loaded
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-
-local combo_attack = function(slf)
-    slf:checkAndAttack(28,0, 26,12, 7, "high", slf.velx, "air")
+local combo_kick = function(slf)
+    slf:checkAndAttack(30,0, 26,12, 7, "low", slf.velx, "air")
+    slf.cool_down = 0.8
+end
+local combo_punch = function(slf)
+    slf:checkAndAttack(30,0, 26,12, 9, "fall", slf.velx, "air")
     slf.cool_down = 0.8
 end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 22,12, 14, "fall", slf.velx) end --slf.velocity_fall_x
@@ -75,9 +78,21 @@ return {
             delay = 0.16
         },
         combo1 = {
-            { q = q(2,68,46,63), ox = 18, oy = 62 }, --c1.1
-            { q = q(50,68,62,63), ox = 18, oy = 62, func = combo_attack, delay = 0.2 }, --c1.2
-            { q = q(2,68,46,63), ox = 18, oy = 62, delay = 0.01 }, --c1.1
+            { q = q(2,332,40,63), ox = 16, oy = 62 }, --kick1
+            { q = q(44,332,60,63), ox = 15, oy = 62, func = combo_kick, delay = 0.23 }, --kick2
+            { q = q(2,332,40,63), ox = 16, oy = 62, delay = 0.015 }, --kick1
+            delay = 0.01
+        },
+        combo2 = {
+            { q = q(2,332,40,63), ox = 16, oy = 62 }, --kick1
+            { q = q(44,332,60,63), ox = 15, oy = 62, func = combo_kick, delay = 0.23 }, --kick2
+            { q = q(2,332,40,63), ox = 16, oy = 62, delay = 0.015 }, --kick1
+            delay = 0.01
+        },
+        combo3 = {
+            { q = q(2,68,46,63), ox = 18, oy = 62 }, --punch1
+            { q = q(50,68,62,63), ox = 18, oy = 62, func = combo_punch, delay = 0.2 }, --punch2
+            { q = q(2,68,46,63), ox = 18, oy = 62, delay = 0.01 }, --punch1
             delay = 0.005
         },
         fall = {
