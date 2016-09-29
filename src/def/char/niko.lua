@@ -10,7 +10,6 @@ local combo_kick = function(slf)
 end
 local combo_punch = function(slf)
     slf:checkAndAttack(30,0, 26,12, 9, "fall", slf.velx, "air")
-    slf.cool_down_combo = 0.4
 end
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 22,12, 14, "fall", slf.velx) end --slf.velocity_fall_x
 
