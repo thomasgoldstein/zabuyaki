@@ -84,6 +84,9 @@ function Character:onHurt()
     end
 
     h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
+    if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
+        self.victim_infoBar = h.source.infoBar:setAttacker(self)
+    end
 
     -- Score
     h.source.score = h.source.score + h.damage * 10
