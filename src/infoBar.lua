@@ -60,7 +60,7 @@ function InfoBar:initialize(source)
     self.name = source.name or "Unknown"
     self.note = source.note or "EXTRA TEXT"
     self.color = {155,110,20}
-    self.cool_down = 0
+    self.cool_down = 1
     self.id = self.source.id
     if source.type == "item" then
         self.icon_sprite = source.icon_sprite
@@ -96,6 +96,7 @@ function InfoBar:setAttacker(attacker_source)
     else
         id = attacker_source.id
     end
+    self.cool_down = 3
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
         self.x, self.y, self.face = bars_coords[id].x, bars_coords[id].y + v_g, bars_coords[id].face
         return self
@@ -233,19 +234,8 @@ function InfoBar:update(dt)
         self.color[3] = norm_n(self.color[3],norm_color[3])
         self.old_hp = self.hp
     end
-
-    if self.source.type == "item" then
-        if self.cool_down > 0 then
-            self.cool_down = self.cool_down - dt
-        end
-    else
-        if self.hp > 0 then
-            self.cool_down = 3
-        else
-            if self.cool_down > 0 then
-                self.cool_down = self.cool_down - dt
-            end
-        end
+    if self.source.id > GLOBAL_SETTING.MAX_PLAYERS and self.cool_down > 0 then
+        self.cool_down = self.cool_down - dt
     end
 end
 
