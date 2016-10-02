@@ -17,23 +17,6 @@ local txt_player_select = love.graphics.newText( gfx.font.arcade2x15, "PLAYER SE
 
 local heroes = {
     {
-        {name = "KISA", shader = nil},
-        {name = "KISA", shader = shaders.kisa[2]},
-        {name = "KISA", shader = shaders.kisa[3]},
-        hero = Kisa,
-        sprite_instance = "src/def/char/kisa.lua",
-        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "kisa",
-        default_anim = "stand",
-        cancel_anim = "hurtLow",
-        confirm_anim = "walk",
-        x = screen_width / 2 - portrait_width - portrait_margin,
-        y = 440,    --char sprite
-        sy = 272,   --selected P1 P2 P3
-        ny = 90,   --char name
-        py = 120    --Portrait
-    },
-    {
         {name = "RICK", shader = nil},
         {name = "RICK", shader = shaders.rick[2]},
         {name = "RICK", shader = shaders.rick[3]},
@@ -43,6 +26,23 @@ local heroes = {
         sprite_portrait_anim = "rick",
         default_anim = "stand",
         cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
+        x = screen_width / 2 - portrait_width - portrait_margin,
+        y = 440,    --char sprite
+        sy = 272,   --selected P1 P2 P3
+        ny = 90,   --char name
+        py = 120    --Portrait
+    },
+    {
+        {name = "KISA", shader = nil},
+        {name = "KISA", shader = shaders.kisa[2]},
+        {name = "KISA", shader = shaders.kisa[3]},
+        hero = Kisa,
+        sprite_instance = "src/def/char/kisa.lua",
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
+        sprite_portrait_anim = "kisa",
+        default_anim = "stand",
+        cancel_anim = "hurtLow",
         confirm_anim = "walk",
         x = screen_width / 2,
         y = 440,
