@@ -46,10 +46,14 @@ local function calcBarWidth(self)
 end
 
 local function calcTransparency(cd)
-    if cd < 0.25 then
-        return cd * 4
+--    if cd < 0.25 then
+--        return cd * 4
+--    end
+--    return 1
+    if cd < 0 then
+        return -cd * 4
     end
-    return 1
+    return cd * 4
 end
 
 local function drawSBar(x, y, width, height, shift_x)
@@ -115,7 +119,10 @@ function InfoBar:setPicker(picker_source)
     return self
 end
 function InfoBar:draw_enemy_bar(l,t,w,h)
-    local cool_down_transparency = calcTransparency(self.cool_down)
+    local cool_down_transparency = 1
+    if self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
+        cool_down_transparency = calcTransparency(self.cool_down)
+    end
     local transp_bg = transp_bg * cool_down_transparency
     local transp_bar = transp_bar * cool_down_transparency
     local transp_icon = transp_icon  * cool_down_transparency
@@ -153,6 +160,14 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     if self.hp > 0 then
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bar)
         drawSBar(l + self.x + icon_width + 4, t + self.y + 2, (calcBarWidth(self) - 6) * self.hp / self.max_hp, bar_height - 4, (bar_height - 4)/2 )
+    else
+        love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*10) * cool_down_transparency)
+        love.graphics.draw (
+            gfx.ui.dead_icon.sprite,
+            gfx.ui.dead_icon.q,
+            l + self.x + self.source.shake.x + 6 - icon_width/2, t + self.y + 1
+        )
+        --love.graphics.rectangle("line", l + self.x + self.source.shake.x + 6 - icon_width/2, t + self.y + 1, 32, 24)
     end
 
     love.graphics.setColor(255, 255, 255, transp_name)
@@ -190,7 +205,7 @@ function InfoBar:draw_item_bar(l,t,w,h)
 end
 
 function InfoBar:draw(l,t,w,h)
-    if self.cool_down <= 0 then
+    if self.cool_down <= 0 and self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
         return
     end
     love.graphics.setFont(gfx.font.arcade3)
@@ -239,9 +254,7 @@ function InfoBar:update(dt)
         self.color[3] = norm_n(self.color[3],norm_color[3])
         self.old_hp = self.hp
     end
-    if self.source.id > GLOBAL_SETTING.MAX_PLAYERS and self.cool_down > 0 then
-        self.cool_down = self.cool_down - dt
-    end
+    self.cool_down = self.cool_down - dt
 end
 
 function InfoBar:drawShadow(l,t,w,h)
