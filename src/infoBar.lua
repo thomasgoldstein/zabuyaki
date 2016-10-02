@@ -18,6 +18,7 @@ local norm_color = {255,200,40}
 local decr_color = norm_color --{249,187,0}
 local incr_color = norm_color --{255,217,102}
 local lost_color = {164,0,0}
+local missing_color = {0,0,0}
 local got_color = {0,164,0}
 local transp_bg = 200
 local transp_bar = 255
@@ -123,6 +124,8 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.setColor(0, 50, 50, transp_bg)
     drawSBar(l + self.x, t + self.y, icon_width + 2, icon_height + 2, (icon_height + 2)/2)
     drawSBar(l + self.x + icon_width + 2, t + self.y, calcBarWidth(self), bar_height, bar_height/2)
+    love.graphics.setColor(missing_color[1], missing_color[2], missing_color[3], transp_bg)
+    drawSBar(l + self.x + icon_width + 4, t + self.y + 2, calcBarWidth(self) - 6, bar_height - 4, (bar_height - 4)/2)
 
     love.graphics.setColor(255, 255, 255, transp_icon)
     if self.source.shader then
