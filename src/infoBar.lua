@@ -17,14 +17,14 @@ local screen_width = 640
 local norm_color = {230,200,30}
 local decr_color = norm_color --{249,187,0}
 local incr_color = norm_color --{255,217,102}
-local lost_color = {210,100,30}
-local missing_color = {180,35,30}
+local losing_color = {210,100,30}
+local lost_color = {180,35,30}
 local got_color = {40,160,20}
 local transp_bg = 200
 local transp_bar = 255
 local transp_icon = 255
+local transp_losing = 255
 local transp_lost = 255
-local transp_missing = 255
 local transp_got = 255
 local transp_name = 255
 
@@ -126,14 +126,14 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     local transp_bg = transp_bg * cool_down_transparency
     local transp_bar = transp_bar * cool_down_transparency
     local transp_icon = transp_icon  * cool_down_transparency
-    local transp_lost = transp_lost * cool_down_transparency
-    local transp_missing = transp_missing * cool_down_transparency
+    local transp_lost = transp_losing * cool_down_transparency
+    local transp_missing = transp_lost * cool_down_transparency
     local transp_got = transp_got * cool_down_transparency
     local transp_name = transp_name * cool_down_transparency
     love.graphics.setColor(0, 50, 50, transp_bg)
     drawSBar(l + self.x, t + self.y, icon_width + 2, icon_height + 2, (icon_height + 2)/2)
     drawSBar(l + self.x + icon_width + 2, t + self.y, calcBarWidth(self), bar_height, bar_height/2)
-    love.graphics.setColor(missing_color[1], missing_color[2], missing_color[3], transp_missing)
+    love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_missing)
     drawSBar(l + self.x + icon_width + 4, t + self.y + 2, calcBarWidth(self) - 6, bar_height - 4, (bar_height - 4)/2)
 
     love.graphics.setColor(255, 255, 255, transp_icon)
@@ -153,7 +153,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         if self.source.hp > self.hp then
             love.graphics.setColor(got_color[1], got_color[2], got_color[3], transp_got)
         else
-            love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_lost)
+            love.graphics.setColor(losing_color[1], losing_color[2], losing_color[3], transp_lost)
         end
         drawSBar(l + self.x + icon_width + 4, t + self.y + 2, (calcBarWidth(self) - 6) * self.old_hp / self.max_hp, bar_height - 4, (bar_height - 4)/2 )
     end
