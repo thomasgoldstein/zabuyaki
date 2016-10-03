@@ -166,7 +166,7 @@ function DrawSpriteInstance (spr, x, y)
     love.graphics.draw (
 		image_bank[spr.def.sprite_sheet], --The image
 		sc.q, --Current frame of the current animation
-		x + rx * spr.flip_h * flip_h, y_shift + ry,
+		math.floor(x + rx * spr.flip_h * flip_h), math.floor(y_shift + ry),
 		(spr.rotation + rotate) * spr.flip_h * flip_h,
 		spr.size_scale * spr.flip_h * scale_h * flip_h,
 		spr.size_scale * spr.flip_v * scale_v * flip_v,
