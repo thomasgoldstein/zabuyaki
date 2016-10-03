@@ -269,7 +269,26 @@ function arcadeState:draw()
     love.graphics.setCanvas()
     love.graphics.setColor(255, 255, 255, 255)
 --    love.graphics.draw(canvas)
-    love.graphics.draw(canvas, 0,0, 0, 0.5,0.5)
+--    love.graphics.draw(canvas, 0,0, 0, 0.5,0.5)
+    love.graphics.draw(canvas, 0,0, nil, 0.5)
+
+    -- debug draw grid
+--    love.graphics.setColor(255,255,255, 55)
+    love.graphics.setColor(0,0,0, 55)
+--    love.graphics.line(0, 0, 320, 240)
+    if GLOBAL_SETTING.SHOW_GRID then
+        for i = 1, 320*2,2 do
+            love.graphics.rectangle("fill", i, 0, 1, 240*2)
+            --love.graphics.rectangle("fill", 20, 20, 20, 40)
+            --print("1")
+        end
+        for i = 1, 240*2, 2 do
+            love.graphics.rectangle("fill", 0, i, 320*2, 1)
+            --love.graphics.rectangle("fill", 120, 120, 50, 40)
+            --print("2")
+        end
+    end
+
 
     if GLOBAL_SETTING.DEBUG then
         fancy.draw()	--DEBUG var show
@@ -353,6 +372,8 @@ function arcadeState:keypressed(key, unicode)
             sfx.play("sfx","hit_medium1", 1, 1 + 0.01 * love.math.random(-10, 10))
         elseif key == 'f12' then
             level_objects:revive()
+        elseif key == '-' then
+            GLOBAL_SETTING.SHOW_GRID = not GLOBAL_SETTING.SHOW_GRID
         end
     end
 end
