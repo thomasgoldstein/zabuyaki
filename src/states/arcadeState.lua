@@ -196,7 +196,7 @@ function arcadeState:update(dt)
             canvas:setFilter("nearest", "nearest")
 		end
     end
-    mainCamera:update(dt,(minx + maxx) / 2, my)
+    mainCamera:update(dt,math.floor((minx + maxx) / 2), math.floor(my))
 
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
