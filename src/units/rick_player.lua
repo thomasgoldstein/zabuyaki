@@ -114,8 +114,8 @@ function Rick:dash_update(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 function Rick:dash_exit()
-    --self.pa_dash:stop()
-    --self.pa_dash = nil
+    self.pa_dash:stop()
+    self.pa_dash = nil
     print("dash exit")
 end
 
