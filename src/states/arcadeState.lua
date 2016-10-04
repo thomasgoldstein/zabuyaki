@@ -317,62 +317,16 @@ function arcadeState:draw()
     show_debug_indicator()
 end
 
-local pitch = 1
-local volume = 1
 function arcadeState:keypressed(key, unicode)
---    if k == '0' then
---        GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
---        level_objects:dp()
---    end
+    if key == '0' then
+        --GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
+        level_objects:dp()
+    end
     if GLOBAL_SETTING.DEBUG then
         fancy.key(key)
-        if key == '1' then
-            mainCamera:setScale(1)
-        elseif key == '2' then
-            mainCamera:setScale(2)
-        elseif key == '3' then
-            mainCamera:setScale(3)
-        elseif key == '4' then
-            dp("set default jump / gravity")
-            --Unit
-            player1.gravity = 650
-            player1.velocity_fall_z = 220
-            --Character
-            player1.velocity_jump = 220 --Z coord
-            player1.velocity_jump_x_boost = 10
-        elseif key == '5' then
-            dp("boost jump / gravity 1.5x")
-            --Unit
-            player1.gravity = 1250
-            player1.velocity_fall_z = 330
-            --Character
-            player1.velocity_jump = 330 --Z coord
-            player1.velocity_jump_x_boost = 50
-        elseif key == '6' then
-            sfx.play("sfx","rick_step", 1, pitch)
-            pitch = pitch + 0.01
-            if pitch > 1.05 then
-                pitch = 0.9
-            end
-            volume = volume - 0.2
-            if volume < 0.5 then
-                volume = 1
-            end
-        elseif key == '7' then
-            sfx.play("sfx","fall", 1, pitch)
-            pitch = pitch + 0.01
-            if pitch > 1.05 then
-                pitch = 0.9
-            end
-            volume = volume - 0.2
-            if volume < 0.5 then
-                volume = 1
-            end
-        elseif key == '8' then
-            sfx.play("sfx","hit_medium1", 1, 1 + 0.01 * love.math.random(-10, 10))
-        elseif key == 'f12' then
+        if key == 'f12' then
             level_objects:revive()
-        elseif key == '-' then
+        elseif key == '1' then
             GLOBAL_SETTING.SHOW_GRID = not GLOBAL_SETTING.SHOW_GRID
         end
     end
