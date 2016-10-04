@@ -19,8 +19,8 @@ local dust_quad4 = q(104,36,32,32) --dust cloud 3
 
 psystem = love.graphics.newParticleSystem( img, 32 )
 psystem:setPosition( 0, -2 )
-psystem:setEmitterLifetime(0.35)
-psystem:setParticleLifetime(0.5, 0.35) -- Particles live at least 2s and at most 5s.
+psystem:setEmitterLifetime(0.6)
+psystem:setParticleLifetime(0.35, 0.5) -- Particles live at least 2s and at most 5s.
 psystem:setSizes(0.2, 0.7)
 --psystem:setSizeVariation(0.7)
 psystem:setSpeed( 1, 5 )
