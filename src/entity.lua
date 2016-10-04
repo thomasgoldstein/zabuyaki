@@ -62,13 +62,13 @@ function Entity:addToWorld()
     end
 end
 
-function Entity:remove(e)
-    if not e then
-        return self.entities
-    end
-    self.entities[#self.entities+1] = e
-    return self.entities
-end
+--function Entity:remove(e)
+--    if not e then
+--        return self.entities
+--    end
+--    self.entities[#self.entities+1] = e
+--    return self.entities
+--end
 
 function Entity:update(dt)
     for _,obj in ipairs(self.entities) do
