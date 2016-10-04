@@ -1216,8 +1216,13 @@ function Character:grab_update(dt)
 
     if self.b.fire:isDown() and self.can_fire then
         if self.sprite.isFinished then
-            if self.b.horizontal:isDown(1) or self.b.horizontal:isDown(-1) or self.b.vertical:isDown(-1)
+            if self.b.horizontal:getValue() ~= 0 or self.b.horizontal:isDown(-1) or self.b.vertical:isDown(-1)
             then
+                if not self.throw_direction then
+                    self.throw_direction = {}
+                end
+                self.throw_direction.horizontal = self.b.horizontal:getValue()
+                self.throw_direction.vertical = self.b.vertical:isDown(-1)
                 self:setState(self.grabThrow)
                 return
             else
@@ -1388,23 +1393,15 @@ function Character:grabThrow_update(dt)
         t.vely = 0
         t.velz = self.velocity_grab_throw_z
         t.victims[self] = true
-        if self.b.horizontal:isDown(1) then
-            --throw right
-            self.face = 1
-            t.horizontal = 1
-            t.face = 1
+        if self.throw_direction.horizontal ~= 0 then
+            dp("throw right left", self.throw_direction.horizontal)
+            self.face = self.throw_direction.horizontal
+            t.horizontal = self.throw_direction.horizontal
+            t.face = self.throw_direction.horizontal
             t:setState(self.fall)
             sfx.play("sfx", "whoosh_heavy")
             sfx.play("voice"..self.id, self.sfx.throw)
-        elseif self.b.horizontal:isDown(-1) then
-            --throw left
-            self.face = -1
-            t.horizontal = -1
-            t.face = -1
-            t:setState(self.fall)
-            sfx.play("sfx", "whoosh_heavy")
-            sfx.play("voice"..self.id, self.sfx.throw)
-        elseif self.b.vertical:isDown(-1) then
+        elseif self.throw_direction.vertical then
             --throw up
             t.horizontal = self.horizontal
             t.velx = self.velocity_grab_throw_x / 10
