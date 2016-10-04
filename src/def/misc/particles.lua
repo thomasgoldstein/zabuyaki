@@ -104,19 +104,20 @@ PA_DUST_PUFF_LEVEL = psystem
 psystem = love.graphics.newParticleSystem( img, 50 )
 --psystem:setPosition( 0, -2 )
 psystem:setEmitterLifetime(5)
-psystem:setParticleLifetime(0.1, 0.5) -- Particles live at least 2s and at most 5s.
-psystem:setSizes(0.2, 0.7, 0.1)
+psystem:setParticleLifetime(0.3, 2) -- Particles live at least 2s and at most 5s.
+psystem:setSizes(0.2, 0.5, 0.1)
 --psystem:setSizeVariation(0.7)
-psystem:setSpeed( 1, 15 )
-psystem:setLinearAcceleration(0, 10, 0, 50) -- Random movement in all directions.
+--psystem:setSpeed( 1, 1 )
+psystem:setDirection(2.71)
+psystem:setLinearAcceleration(0, -10, 0, -50) -- Random movement in all directions.
 psystem:setColors(135,115,105, 150, 135,115,105, 100, 135,115,105, 10, 135,115,105, 5) -- Fade to transparency.
 --psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0) -- Fade to transparency.
 psystem:setOffset( 15, 15 )
 psystem:setQuads( dust_quad4 )
 --psystem:setQuads( im_quad4 )
-psystem:setLinearDamping( 7, 20 )
+psystem:setLinearDamping( 7, 10 )
 --psystem:setAreaSpread( "uniform", 80, 40 )
-psystem:setSpin(0, -3)
+--psystem:setSpin(0, -3)
 PA_DASH = psystem
 
 psystem = love.graphics.newParticleSystem( gfx.items.image, 1 )
