@@ -14,6 +14,9 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
 end
 
 local function nop() --[[dp "nop"]] end
+local function sign(x)
+    return x>0 and 1 or x<0 and -1 or 0
+end
 
 function Chai:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
@@ -85,6 +88,16 @@ function Chai:dash_start()
     self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
     sfx.play("sfx"..self.id, self.sfx.dash)
+    --start Chai's dust clouds (used jump particles)
+    local psystem = PA_DUST_JUMP_START:clone()
+    psystem:setAreaSpread( "uniform", 16, 4 )
+    psystem:setLinearAcceleration(-30 , 10, 30, -10)
+    psystem:emit(6)
+    psystem:setAreaSpread( "uniform", 4, 16 )
+    psystem:setPosition( 0, -16 )
+    psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
+    psystem:emit(5)
+    level_objects:add(Effect:new(psystem, self.x, self.y-1))
 end
 function Chai:dash_update(dt)
     if self.sprite.isFinished then
