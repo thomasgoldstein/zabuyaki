@@ -91,8 +91,7 @@ function Rick:dash_start()
     sfx.play("voice"..self.id, self.sfx.dash)
 
     local psystem = PA_DASH:clone()
-    psystem:setSpeed( -self.face * 30, -self.face * 60 )
-    psystem:emit(1)
+    psystem:setSpin(0, -3 * self.face)
     self.pa_dash = psystem
     self.pa_dash_x = self.x
     self.pa_dash_y = self.y
@@ -105,20 +104,16 @@ function Rick:dash_update(dt)
         self:setState(self.stand)
         return
     end
-    self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
-    self.pa_dash:emit(1)
-
+    if math.random() < 0.3 and self.velx >= self.velocity_dash * 0.5 then
+        self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
+        self.pa_dash:emit(1)
+    end
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
-function Rick:dash_exit()
-    self.pa_dash:stop()
-    self.pa_dash = nil
-    print("dash exit")
-end
 
-Rick.dash = {name = "dash", start = Rick.dash_start, exit = Rick.dash_exit, update = Rick.dash_update, draw = Character.default_draw}
+Rick.dash = {name = "dash", start = Rick.dash_start, exit = nop, update = Rick.dash_update, draw = Character.default_draw}
 
 return Rick
