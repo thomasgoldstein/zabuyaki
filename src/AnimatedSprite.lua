@@ -137,21 +137,19 @@ function UpdateSpriteInstance(spr, dt, slf)
 		else
 			-- Last frame, loop back to 1.
 			if s.loop then	--if cycled animation
-				spr.cur_frame = 1
+				spr.cur_frame = s.loopFrom or 1
 				spr.loop_count = spr.loop_count + 1 --loop played times++
 			else
 				spr.isFinished = true
 			end
 		end
-		-- First or Last frames?
-		spr.isFirst = (spr.cur_frame == 1)
-		spr.isLast = (spr.cur_frame == #s)
 		-- Reset internal counter on frame change.
 		spr.elapsed_time = 0
 	end
-	-- First or Last frames?
+	-- First or Last frames or the 1st start frame after the loop?
 	spr.isFirst = (spr.cur_frame == 1)
 	spr.isLast = (spr.cur_frame == #s)
+	spr.isLoopFrom = (spr.cur_frame == (s.loopFrom or 1))
 	return nil
 end
 
