@@ -9,10 +9,10 @@ local InfoBar = class("InfoBar")
 local v_g = 40 --vertical gap between bars
 local v_m = 24 --vert margin from the top
 local h_m = 48 --horizontal margin
-local bar_width = 120
+local bar_width = 140
 local bar_height = 16
-local icon_width = 32
-local icon_height = 24
+local icon_width = 40
+local icon_height = 17
 local screen_width = 640
 local norm_color = {230,200,30}
 local decr_color = norm_color --{249,187,0}
@@ -119,6 +119,94 @@ function InfoBar:setPicker(picker_source)
     return self
 end
 function InfoBar:draw_enemy_bar(l,t,w,h)
+    local cool_down_transparency = 1
+    if self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
+        cool_down_transparency = calcTransparency(self.cool_down)
+    end
+    local transp_bg = transp_bg * cool_down_transparency
+    local transp_bar = transp_bar * cool_down_transparency
+    local transp_icon = transp_icon  * cool_down_transparency
+    local transp_lost = transp_losing * cool_down_transparency
+    local transp_missing = transp_lost * cool_down_transparency
+    local transp_got = transp_got * cool_down_transparency
+    local transp_name = transp_name * cool_down_transparency
+
+    love.graphics.setColor(0, 50, 50, transp_bg)
+    love.graphics.rectangle( 'line',l + self.x, t + self.y + icon_height + 3, calcBarWidth(self), bar_height )
+    love.graphics.setColor(255, 255, 255, transp_bg)
+    love.graphics.rectangle( 'fill',l + self.x + 1, t + self.y + icon_height + 4, calcBarWidth(self) - 2, bar_height - 2 )
+    love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_missing)
+    love.graphics.rectangle( 'fill',l + self.x + 3, t + self.y + icon_height + 6, calcBarWidth(self) - 6, bar_height - 6 )
+
+    love.graphics.setColor(255, 255, 255, transp_icon)
+    if self.source.shader then
+        love.graphics.setShader(self.source.shader)
+    end
+    love.graphics.draw (
+        image_bank[self.icon_sprite],
+        self.icon_q, --Current frame of the current animation
+        l + self.x + self.source.shake.x, t + self.y
+    )
+    if self.source.shader then
+        love.graphics.setShader()
+    end
+
+    if self.old_hp > 0 then
+        if self.source.hp > self.hp then
+            love.graphics.setColor(got_color[1], got_color[2], got_color[3], transp_got)
+        else
+            love.graphics.setColor(losing_color[1], losing_color[2], losing_color[3], transp_lost)
+        end
+        --drawSBar(l + self.x + icon_width + 4, t + self.y + 2, (calcBarWidth(self) - 6) * self.old_hp / self.max_hp, bar_height - 4, (bar_height - 4)/2 )
+        love.graphics.rectangle( 'fill',l + self.x + 4, t + self.y + icon_height + 7, (calcBarWidth(self) - 6) * self.old_hp / self.max_hp, bar_height - 8 )
+    end
+    if self.hp > 0 then
+        love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bar)
+        love.graphics.rectangle( 'fill',l + self.x + 4, t + self.y + icon_height + 7, (calcBarWidth(self) - 6) * self.old_hp / self.max_hp, bar_height - 8 )
+    else
+        love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*20 + 17) * cool_down_transparency)
+        love.graphics.draw (
+            gfx.ui.dead_icon.sprite,
+            gfx.ui.dead_icon.q,
+            l + self.x + self.source.shake.x, t + self.y - 2
+        )
+    end
+
+    for i = 0, 1 do
+        if i == 0 then  --shadow
+            love.graphics.setColor(0, 0, 0, transp_name)
+            love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width + 2 + 1, t + self.y + 9 - 1)
+            if self.source.type == "player" then
+                love.graphics.print(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2 + 1, t + self.y - 1 - 1)
+                if self.score ~= self.source.score then
+                    self.score = self.source.score
+                    self.displayed_score = string.format("%06d", self.score)
+                end
+                love.graphics.print(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 32 + 1, t + self.y - 1 - 1)
+            end
+        else
+            love.graphics.setColor(255, 255, 255, transp_name)
+            love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9)
+            if self.source.type == "player" then
+                local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
+                if c then
+                    love.graphics.setColor(c[1],c[2],c[3], transp_name)
+                end
+                love.graphics.print(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1)
+                if self.score ~= self.source.score then
+                    self.score = self.source.score
+                    self.displayed_score = string.format("%06d", self.score)
+                end
+                love.graphics.setColor(230,200,30, transp_name)
+                love.graphics.print(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 32, t + self.y - 1)
+            end
+        end
+
+    end
+end
+
+--old
+function InfoBar:_draw_enemy_bar(l,t,w,h)
     local cool_down_transparency = 1
     if self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
         cool_down_transparency = calcTransparency(self.cool_down)
