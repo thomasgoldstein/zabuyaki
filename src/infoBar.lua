@@ -174,6 +174,8 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
 
     for i = 0, 1 do
         if i == 0 then  --shadow
+            local font = gfx.font.arcade3
+            love.graphics.setFont(font)
             love.graphics.setColor(0, 0, 0, transp_name)
             love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width + 2 + 1, t + self.y + 9 - 1)
             if self.source.type == "player" then
@@ -183,22 +185,36 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
                     self.displayed_score = string.format("%06d", self.score)
                 end
                 love.graphics.print(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 32 + 1, t + self.y - 1 - 1)
+
+                love.graphics.setColor(0, 0, 0, transp_name)
+                love.graphics.print("x", l + self.x + self.source.shake.x + icon_width + 2 + 82 + 1, t + self.y + 9 - 1)
+                local font = gfx.font.arcade3x2
+                love.graphics.setFont(font)
+                love.graphics.print("3", l + self.x + self.source.shake.x + icon_width + 2 + 90 + 1, t + self.y + 1 - 1)
             end
         else
+            local font = gfx.font.arcade3
+            love.graphics.setFont(font)
             love.graphics.setColor(255, 255, 255, transp_name)
-            love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9)
+            love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width + 2 + 0, t + self.y + 9 - 0)
             if self.source.type == "player" then
                 local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
                 if c then
                     love.graphics.setColor(c[1],c[2],c[3], transp_name)
                 end
-                love.graphics.print(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1)
+                love.graphics.print(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2 + 0, t + self.y - 1 - 0)
                 if self.score ~= self.source.score then
                     self.score = self.source.score
                     self.displayed_score = string.format("%06d", self.score)
                 end
                 love.graphics.setColor(230,200,30, transp_name)
-                love.graphics.print(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 32, t + self.y - 1)
+                love.graphics.print(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 32 + 0, t + self.y - 1 - 0)
+
+                love.graphics.setColor(255, 255, 255, transp_name)
+                love.graphics.print("x", l + self.x + self.source.shake.x + icon_width + 2 + 82 + 0, t + self.y + 9 - 0)
+                local font = gfx.font.arcade3x2
+                love.graphics.setFont(font)
+                love.graphics.print("3", l + self.x + self.source.shake.x + icon_width + 2 + 90 + 0, t + self.y + 1 - 0)
             end
         end
 
@@ -206,7 +222,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
 end
 
 --old
-function InfoBar:_draw_enemy_bar(l,t,w,h)
+--[[function InfoBar:_draw_enemy_bar(l,t,w,h)
     local cool_down_transparency = 1
     if self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
         cool_down_transparency = calcTransparency(self.cool_down)
@@ -267,7 +283,7 @@ function InfoBar:_draw_enemy_bar(l,t,w,h)
         end
         love.graphics.print(self.displayed_score, l + self.x + icon_width, t + self.y - 9)
     end
-end
+end]]
 
 function InfoBar:draw_item_bar(l,t,w,h)
     local cool_down_transparency = calcTransparency(self.cool_down)
