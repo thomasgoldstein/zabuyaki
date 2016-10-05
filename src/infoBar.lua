@@ -161,13 +161,12 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bar)
         drawSBar(l + self.x + icon_width + 4, t + self.y + 2, (calcBarWidth(self) - 6) * self.hp / self.max_hp, bar_height - 4, (bar_height - 4)/2 )
     else
-        love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*20) * cool_down_transparency)
+        love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*20 + 17) * cool_down_transparency)
         love.graphics.draw (
             gfx.ui.dead_icon.sprite,
             gfx.ui.dead_icon.q,
             l + self.x + self.source.shake.x + 6 - icon_width/2, t + self.y + 1
         )
-        --love.graphics.rectangle("line", l + self.x + self.source.shake.x + 6 - icon_width/2, t + self.y + 1, 32, 24)
     end
 
     love.graphics.setColor(255, 255, 255, transp_name)
