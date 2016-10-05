@@ -34,8 +34,8 @@ local max_bar_width = bar_width + icon_width + icon_height/2 + bar_height/2
 
 local bars_coords = {   --for players only 1..MAX_PLAYERS
     { x = h_m, y = v_m + 0 * v_g, face = 1 },
-    { x = screen_width - max_bar_width - h_m/3, y = v_m + 0 * v_g, face = 11 },
-    { x = screen_width / 2 - max_bar_width/2 + icon_width/2, y = v_m + 0 * v_g, face = 1 }
+    { x = screen_width / 2 - max_bar_width/2 + icon_width/2, y = v_m + 0 * v_g, face = 1 },
+    { x = screen_width - max_bar_width - h_m/3, y = v_m + 0 * v_g, face = 11 }
 }
 
 local function calcBarWidth(self)
