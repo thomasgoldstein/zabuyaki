@@ -14,9 +14,9 @@ gfx.items.beef = {sprite = image, q = q(2,42,30,19), ox = 15, oy = 18, icon_q = 
 gfx.items.image = image --for items particles
 
 image_w = 36
-image_h = 28
+image_h = 46
 local ui = love.graphics.newImage("res/img/misc/ui.png")
-gfx.ui.dead_icon = {sprite = ui, q = q(2,2,32,24), ox = 16, oy = 23, icon_q = q(2,2,32,24)}
+gfx.ui.dead_icon = {sprite = ui, q = q(2,20,32,24), ox = 16, oy = 23, icon_q = q(2,20,32,24)}
 gfx.ui.image = ui
 
 gfx.font.clock = love.graphics.newFont( "res/font/alarm clock.ttf", 36 )
