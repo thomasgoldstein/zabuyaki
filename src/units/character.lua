@@ -12,7 +12,7 @@ end
 function Character:initialize(name, sprite, input, x, y, shader, color)
     Unit.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "character"
-
+    self.height = 40
     self.velocity_walk = 100
     self.velocity_walk_y = 50
     self.velocity_run = 150
@@ -185,7 +185,9 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
     end
     local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
         function(o)
-            if self ~= o and o.isHittable and not self.victims[o] then
+            if self ~= o and o.isHittable and not self.victims[o]
+                    and o.z <= self.z + o.height and o.z >= self.z - self.height
+            then
                 --print ("hit "..item.name)
                 return true
             end

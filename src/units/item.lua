@@ -27,6 +27,7 @@ function Item:initialize(name, note, gfx, hp, score, func, x, y, shader, color)
     self.score = score
     self.func = func
     self.x, self.y, self.z = x, y, 0
+    self.height = 17
     self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
     if color then
         self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }

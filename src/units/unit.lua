@@ -25,6 +25,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self.b = input or DUMMY_CONTROL
 
 	self.x, self.y, self.z = x, y, 0
+	self.height = 62
 	self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
 	self.velx, self.vely, self.velz = 0, 0, 0
 	self.gravity = 800 --650 * 2
