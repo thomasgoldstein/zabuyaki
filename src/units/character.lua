@@ -22,6 +22,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_jump_speed = 1.25
     self.velocity_jump_x_boost = 10
     self.velocity_jump_y_boost = 5
+    self.velocity_jump_z_run_boost = 10
     self.velocity_fall_z = 220
     self.velocity_fall_x = 120
     self.velocity_fall_add_x = 5
@@ -535,6 +536,9 @@ function Character:jump_start()
             self.vely = self.vely + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
 --            self.vely = self.vely * self.velocity_jump_speed + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
         end
+    else
+        -- from run
+        self.velz = (self.velocity_jump + self.velocity_jump_z_run_boost) * self.velocity_jump_speed
     end
     sfx.play("voice"..self.id, self.sfx.jump)
 end
