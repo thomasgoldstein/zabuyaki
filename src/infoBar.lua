@@ -50,10 +50,12 @@ local function calcTransparency(cd)
     return cd * 4
 end
 
-local function slantedRectangle(x, y, width, height, shift_x)
-    shift_x = shift_x or 4
-    love.graphics.polygon('fill', x, y, x + width , y,
-            x + width - shift_x, y + height, x - shift_x, y + height)
+local function printWithShadow(text, x, y)
+    local r, g, b, a = love.graphics.getColor( )
+    love.graphics.setColor(0, 0, 0, transp_bg)
+    love.graphics.print(text, x + 1, y - 1)
+    love.graphics.setColor(r, g, b, a)
+    love.graphics.print(text, x, y)
 end
 
 local function slantedRectangle2(x, y, width, height)
@@ -61,6 +63,7 @@ local function slantedRectangle2(x, y, width, height)
         love.graphics.rectangle('fill', x-i/2, y+i, width , 2)
     end
 end
+
 function InfoBar:initialize(source)
     self.source = source
     self.name = source.name or "Unknown"
@@ -123,7 +126,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     if self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
         cool_down_transparency = calcTransparency(self.cool_down)
     end
-    local transp_bg = transp_bg * cool_down_transparency
+    transp_bg = 255 * cool_down_transparency
 
     love.graphics.setColor(64, 64, 64, transp_bg)
     slantedRectangle2( l + self.x + 6, t + self.y + icon_height + 3, calcBarWidth(self) - 8, bar_height )
@@ -176,55 +179,29 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         self.score = self.source.score
         self.displayed_score = string.format("%06d", self.score)
     end
-    for i = 0, 1 do
-        if i == 0 then  --shadow
-            local font = gfx.font.arcade3
-            love.graphics.setFont(font)
-            love.graphics.setColor(0, 0, 0, transp_bg)
-            love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width + 4 + 1, t + self.y + 9 - 1)
-            if self.source.type == "player" then
-                love.graphics.print(self.source.pid, l + self.x + self.source.shake.x + icon_width + 4 + 1, t + self.y - 1 - 1)
-                love.graphics.print(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 34 + 1, t + self.y - 1 - 1)
-                love.graphics.setColor(0, 0, 0, transp_bg)
-                love.graphics.print("x", l + self.x + self.source.shake.x + icon_width + 2 + 85 + 1, t + self.y + 9 - 1)
-                local font = gfx.font.arcade3x2
-                love.graphics.setFont(font)
-                love.graphics.print("3", l + self.x + self.source.shake.x + icon_width + 2 + 94 + 1, t + self.y + 1 - 1)
-            end
-        else
-            local font = gfx.font.arcade3
-            love.graphics.setFont(font)
-            love.graphics.setColor(255, 255, 255, transp_bg)
-            love.graphics.print(self.name, l + self.x + self.source.shake.x + icon_width + 4 + 0, t + self.y + 9 - 0)
-            if self.source.type == "player" then
-                local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
-                if c then
-                    love.graphics.setColor(c[1],c[2],c[3], transp_bg)
-                end
-                love.graphics.print(self.source.pid, l + self.x + self.source.shake.x + icon_width + 4 + 0, t + self.y - 1 - 0)
-                love.graphics.setColor(230,200,30, transp_bg)
-                love.graphics.print(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 34 + 0, t + self.y - 1 - 0)
-
-                love.graphics.setColor(255, 255, 255, transp_bg)
-                love.graphics.print("x", l + self.x + self.source.shake.x + icon_width + 2 + 85 + 0, t + self.y + 9 - 0)
-                local font = gfx.font.arcade3x2
-                love.graphics.setFont(font)
-                love.graphics.print("3", l + self.x + self.source.shake.x + icon_width + 2 + 94 + 0, t + self.y + 1 - 0)
-            end
+    local font = gfx.font.arcade3
+    love.graphics.setFont(font)
+    love.graphics.setColor(255, 255, 255, transp_bg)
+    printWithShadow(self.name, l + self.x + self.source.shake.x + icon_width + 4 + 0, t + self.y + 9 - 0)
+    if self.source.type == "player" then
+        local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
+        if c then
+            love.graphics.setColor(c[1],c[2],c[3], transp_bg)
         end
-
+        printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 4 + 0, t + self.y - 1 - 0)
+        love.graphics.setColor(230,200,30, transp_bg)
+        printWithShadow(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 34 + 0, t + self.y - 1 - 0)
+        love.graphics.setColor(255, 255, 255, transp_bg)
+        printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 2 + 85 + 0, t + self.y + 9 - 0)
+        local font = gfx.font.arcade3x2
+        love.graphics.setFont(font)
+        printWithShadow("3", l + self.x + self.source.shake.x + icon_width + 2 + 94 + 0, t + self.y + 1 - 0)
     end
 end
 
 function InfoBar:draw_item_bar(l,t,w,h)
     local cool_down_transparency = calcTransparency(self.cool_down)
-    local transp_bg = transp_bg  * cool_down_transparency
-
-    local font = gfx.font.arcade3
-    love.graphics.setFont(font)
-    local bar_width = math.max(font:getWidth(self.name), font:getWidth(self.note))
-    love.graphics.setColor(64, 64, 64, transp_bg)
-    slantedRectangle(l + self.x, t + self.y, icon_width*2 + bar_width - 4, icon_height + 2, (icon_height + 2)/2)
+    transp_bg = 255  * cool_down_transparency
 
     love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_bg)
     love.graphics.draw (
@@ -232,9 +209,12 @@ function InfoBar:draw_item_bar(l,t,w,h)
         self.icon_q, --Current frame of the current animation
         l + self.x + icon_height/4, t + self.y + 4
     )
+    local font = gfx.font.arcade3
+    love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)
-    love.graphics.print(self.name, l + self.x + icon_width + 8, t + self.y + 4)
-    love.graphics.print(self.note, l + self.x + icon_width + 8, t + self.y + 14)
+    printWithShadow(self.name, l + self.x + icon_width + 4 + 0, t + self.y + 9 - 0)
+    love.graphics.setColor(230,200,30, transp_bg)
+    printWithShadow(self.note, l + self.x + icon_width + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0)
 end
 
 function InfoBar:draw(l,t,w,h)
