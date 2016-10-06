@@ -6,9 +6,9 @@ local class = require "lib/middleclass"
 
 local InfoBar = class("InfoBar")
 
-local v_g = 40 --vertical gap between bars
-local v_m = 24 --vert margin from the top
-local h_m = 48 --horizontal margin
+local v_g = 40-2 --vertical gap between bars
+local v_m = 24-11 --vert margin from the top
+local h_m = 48-12 --horizontal margin
 local bar_width = 160
 local bar_height = 16
 local icon_width = 40
@@ -24,12 +24,12 @@ local transp_bg = 255
 
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 
-local max_bar_width = bar_width + icon_width + icon_height/2 + bar_height/2
+local max_bar_width = bar_width - 4
 
 local bars_coords = {   --for players only 1..MAX_PLAYERS
     { x = h_m, y = v_m + 0 * v_g },
-    { x = screen_width / 2 - max_bar_width/2 + icon_width/2, y = v_m + 0 * v_g },
-    { x = screen_width - max_bar_width - h_m/3, y = v_m + 0 * v_g }
+    { x = math.floor(screen_width / 2 - max_bar_width/2), y = v_m + 0 * v_g },
+    { x = math.floor(screen_width - max_bar_width - h_m), y = v_m + 0 * v_g }
 }
 
 local function calcBarWidth(self)
