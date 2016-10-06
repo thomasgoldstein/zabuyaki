@@ -15,11 +15,11 @@ local icon_width = 40
 local icon_height = 17
 local screen_width = 640
 local norm_color = {230,200,30}
-local decr_color = norm_color --{249,187,0}
-local incr_color = norm_color --{255,217,102}
 local losing_color = {210,100,30}
 local lost_color = {180,35,30}
 local got_color = {40,160,20}
+local bar_gray_color = {64,64,64}
+local bar_yellow_color = {230,200,30}
 local transp_bg = 255
 
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
@@ -40,10 +40,6 @@ local function calcBarWidth(self)
 end
 
 local function calcTransparency(cd)
---    if cd < 0.25 then
---        return cd * 4
---    end
---    return 1
     if cd < 0 then
         return -cd * 4
     end
@@ -68,7 +64,7 @@ function InfoBar:initialize(source)
     self.source = source
     self.name = source.name or "Unknown"
     self.note = source.note or "EXTRA TEXT"
-    self.color = {155,110,20}
+    self.color = norm_color
     self.cool_down = 1
     self.id = self.source.id
     if source.type == "item" then
@@ -128,7 +124,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     end
     transp_bg = 255 * cool_down_transparency
 
-    love.graphics.setColor(64, 64, 64, transp_bg)
+    love.graphics.setColor(bar_gray_color[1], bar_gray_color[2], bar_gray_color[3], transp_bg)
     slantedRectangle2( l + self.x + 6, t + self.y + icon_height + 3, calcBarWidth(self) - 8, bar_height )
     love.graphics.setColor(255, 255, 255, transp_bg)
     slantedRectangle2( l + self.x + 5, t + self.y + icon_height + 4, calcBarWidth(self) - 7, bar_height - 2 )
@@ -189,7 +185,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             love.graphics.setColor(c[1],c[2],c[3], transp_bg)
         end
         printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 4 + 0, t + self.y - 1 - 0)
-        love.graphics.setColor(230,200,30, transp_bg)
+        love.graphics.setColor(bar_yellow_color[1], bar_yellow_color[2], bar_yellow_color[3], transp_bg)
         printWithShadow(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 34 + 0, t + self.y - 1 - 0)
         love.graphics.setColor(255, 255, 255, transp_bg)
         printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 2 + 85 + 0, t + self.y + 9 - 0)
@@ -213,7 +209,7 @@ function InfoBar:draw_item_bar(l,t,w,h)
     love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.x + icon_width + 4 + 0, t + self.y + 9 - 0)
-    love.graphics.setColor(230,200,30, transp_bg)
+    love.graphics.setColor(bar_yellow_color[1], bar_yellow_color[2], bar_yellow_color[3], transp_bg)
     printWithShadow(self.note, l + self.x + icon_width + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0)
 end
 
@@ -253,14 +249,14 @@ end
 function InfoBar:update(dt)
     self.hp = norm_n(self.hp, self.source.hp)
     if self.hp > self.source.hp then
-        self.color[1] = norm_n(self.color[1],decr_color[1],10)
-        self.color[2] = norm_n(self.color[2],decr_color[2],10)
-        self.color[3] = norm_n(self.color[3],decr_color[3],10)
+        self.color[1] = norm_n(self.color[1],norm_color[1],10)
+        self.color[2] = norm_n(self.color[2],norm_color[2],10)
+        self.color[3] = norm_n(self.color[3],norm_color[3],10)
     elseif self.hp < self.source.hp then
         self.old_hp = self.source.hp
-        self.color[1] = norm_n(self.color[1],incr_color[1],10)
-        self.color[2] = norm_n(self.color[2],incr_color[2],10)
-        self.color[3] = norm_n(self.color[3],incr_color[3],10)
+        self.color[1] = norm_n(self.color[1],norm_color[1],10)
+        self.color[2] = norm_n(self.color[2],norm_color[2],10)
+        self.color[3] = norm_n(self.color[3],norm_color[3],10)
     else
         self.color[1] = norm_n(self.color[1],norm_color[1])
         self.color[2] = norm_n(self.color[2],norm_color[2])
