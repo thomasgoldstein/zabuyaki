@@ -170,6 +170,10 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         self.score = self.source.score
         self.displayed_score = string.format("%06d", self.score)
     end
+    love.graphics.setColor(229,110,29, transp_bg/4)
+    love.graphics.rectangle('fill', l + self.x + 6, t + self.y + icon_height + 6, calcBarWidth(self) - 8 - 2, 1)
+    love.graphics.rectangle('fill', l + self.x + 2, t + self.y + icon_height + bar_height - 1, calcBarWidth(self) - 8 - 2, 1)
+
     local font = gfx.font.arcade3
     love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)
