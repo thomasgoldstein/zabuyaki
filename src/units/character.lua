@@ -17,12 +17,11 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_walk_y = 50
     self.velocity_run = 150
     self.velocity_run_y = 25
-    --self.jumpHeight = 40 -- in pixels
     self.velocity_jump = 220 --Z coord
     self.velocity_jump_speed = 1.25
     self.velocity_jump_x_boost = 10
     self.velocity_jump_y_boost = 5
-    self.velocity_jump_z_run_boost = 10
+    self.velocity_jump_z_run_boost = 24
     self.velocity_fall_z = 220
     self.velocity_fall_x = 120
     self.velocity_fall_add_x = 5
@@ -517,28 +516,25 @@ function Character:jump_start()
     SetSpriteAnimation(self.sprite,"jump")
     self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
-    if self.prev_state ~= "run" then
-        if self.b.vertical:isDown(-1) then
-            self.vertical = -1
-        elseif self.b.vertical:isDown(1) then
-            self.vertical = 1
-        else
-            self.vertical = 0
-        end
-        if self.b.horizontal:isDown(-1) == false and self.b.horizontal:isDown(1) == false then
-            self.velx = 0
-        end
-        if self.velx ~= 0 then
-            self.velx = self.velx + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
---            self.velx = self.velx * self.velocity_jump_speed + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
-        end
-        if self.vely ~= 0 then
-            self.vely = self.vely + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
---            self.vely = self.vely * self.velocity_jump_speed + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
-        end
-    else
-        -- from run
+    if self.last_state == "run" then
+        -- jump higher from run
         self.velz = (self.velocity_jump + self.velocity_jump_z_run_boost) * self.velocity_jump_speed
+    end
+    if self.b.vertical:isDown(-1) then
+        self.vertical = -1
+    elseif self.b.vertical:isDown(1) then
+        self.vertical = 1
+    else
+        self.vertical = 0
+    end
+    if self.b.horizontal:isDown(-1) == false and self.b.horizontal:isDown(1) == false then
+        self.velx = 0
+    end
+    if self.velx ~= 0 then
+        self.velx = self.velx + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
+    end
+    if self.vely ~= 0 then
+        self.vely = self.vely + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
     end
     sfx.play("voice"..self.id, self.sfx.jump)
 end
