@@ -13,10 +13,10 @@ gfx.items.chicken = {sprite = image, q = q(2,21,30,19), ox = 12, oy = 18, icon_q
 gfx.items.beef = {sprite = image, q = q(2,42,30,19), ox = 15, oy = 18, icon_q = q(2, 42, 30, 19) }
 gfx.items.image = image --for items particles
 
-image_w = 36
-image_h = 46
+image_w = 35
+image_h = 43
 local ui = love.graphics.newImage("res/img/misc/ui.png")
-gfx.ui.dead_icon = {sprite = ui, q = q(2,20,32,24), ox = 16, oy = 23, icon_q = q(2,20,32,24)}
+gfx.ui.dead_icon = {sprite = ui, q = q(2,20,31,21), ox = 15, oy = 20, icon_q = q(2,20,31,21)}
 gfx.ui.left_slant = {sprite = ui, q = q(2,2,9,16), ox = 0, oy = 0, icon_q = q(2,2,9,16)}
 gfx.ui.right_slant = {sprite = ui, q = q(12,2,9,16), ox = 0, oy = 0, icon_q = q(12,2,9,16)}
 gfx.ui.image = ui
