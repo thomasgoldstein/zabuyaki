@@ -45,8 +45,8 @@ function show_debug_controls()
         for i = 1, #players do
             local p = players[i]
             local c = GLOBAL_SETTING.PLAYERS_COLORS[p.id]
-            local x = p.infoBar.x + 80
-            local y = p.infoBar.y + 18
+            local x = p.infoBar.x + 76
+            local y = p.infoBar.y + 36
             love.graphics.setColor(0, 0, 0, 150)
             love.graphics.rectangle("fill", x-2, y, 61, 9 )
             love.graphics.setColor(c[1], c[2], c[3])
