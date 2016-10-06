@@ -152,7 +152,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         love.graphics.draw (
             gfx.ui.dead_icon.sprite,
             gfx.ui.dead_icon.q,
-            l + self.x + self.source.shake.x, t + self.y - 2
+            l + self.x + self.source.shake.x + 3, t + self.y - 2
         )
     end
     love.graphics.setColor(255,255,255, transp_bg)
