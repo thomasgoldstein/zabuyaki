@@ -126,7 +126,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     else
         cool_down_transparency = calcTransparency(3)
     end
-    transp_bg = 255 * cool_down_transparency
+    transp_bg = math.max(255, 255 * cool_down_transparency)
     love.graphics.setColor(bar_gray_color[1], bar_gray_color[2], bar_gray_color[3], transp_bg)
     slantedRectangle2( l + self.x + 6, t + self.y + icon_height + 3, calcBarWidth(self) - 8, bar_height )
     love.graphics.setColor(255, 255, 255, transp_bg)
@@ -199,7 +199,7 @@ end
 
 function InfoBar:draw_item_bar(l,t,w,h)
     local cool_down_transparency = calcTransparency(self.cool_down)
-    transp_bg = 255  * cool_down_transparency
+    transp_bg = math.max(255, 255 * cool_down_transparency)
 
     love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_bg)
     love.graphics.draw (
