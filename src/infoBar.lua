@@ -173,7 +173,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         self.score = self.source.score
         self.displayed_score = string.format("%06d", self.score)
     end
-    love.graphics.setColor(bar_top_bottom_smooth_color[1], bar_top_bottom_smooth_color[2], bar_top_bottom_smooth_color[3], transp_bg - 100)
+    love.graphics.setColor(bar_top_bottom_smooth_color[1], bar_top_bottom_smooth_color[2], bar_top_bottom_smooth_color[3], math.min(255,transp_bg) - 127)
     love.graphics.rectangle('fill', l + self.x + 6, t + self.y + icon_height + 6, calcBarWidth(self) - 8 - 2, 1)
     love.graphics.rectangle('fill', l + self.x + 2, t + self.y + icon_height + bar_height - 1, calcBarWidth(self) - 8 - 2, 1)
 
