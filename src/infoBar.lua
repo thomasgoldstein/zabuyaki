@@ -6,9 +6,9 @@ local class = require "lib/middleclass"
 
 local InfoBar = class("InfoBar")
 
-local v_g = 40-1 --vertical gap between bars
-local v_m = 24-11 --vert margin from the top
-local h_m = 48-12 --horizontal margin
+local v_g = 39 --vertical gap between bars
+local v_m = 13 --vert margin from the top
+local h_m = 42 --horizontal margin
 local bar_width = 160
 local bar_height = 16
 local icon_width = 40
