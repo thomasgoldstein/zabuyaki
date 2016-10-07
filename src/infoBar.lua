@@ -20,6 +20,7 @@ local lost_color = {180,35,30}
 local got_color = {40,160,20}
 local bar_gray_color = {64,64,64}
 local bar_yellow_color = {230,200,30}
+local bar_top_bottom_smooth_color = {100,50,50}
 local transp_bg = 255
 
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
@@ -118,10 +119,12 @@ function InfoBar:setPicker(picker_source)
     return self
 end
 
+local cool_down_transparency = 0
 function InfoBar:draw_enemy_bar(l,t,w,h)
-    local cool_down_transparency = 1
     if self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
         cool_down_transparency = calcTransparency(self.cool_down)
+    else
+        cool_down_transparency = calcTransparency(3)
     end
     transp_bg = 255 * cool_down_transparency
     love.graphics.setColor(bar_gray_color[1], bar_gray_color[2], bar_gray_color[3], transp_bg)
@@ -170,7 +173,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         self.score = self.source.score
         self.displayed_score = string.format("%06d", self.score)
     end
-    love.graphics.setColor(229,110,29, transp_bg/4)
+    love.graphics.setColor(bar_top_bottom_smooth_color[1], bar_top_bottom_smooth_color[2], bar_top_bottom_smooth_color[3], transp_bg/20)
     love.graphics.rectangle('fill', l + self.x + 6, t + self.y + icon_height + 6, calcBarWidth(self) - 8 - 2, 1)
     love.graphics.rectangle('fill', l + self.x + 2, t + self.y + icon_height + bar_height - 1, calcBarWidth(self) - 8 - 2, 1)
 
