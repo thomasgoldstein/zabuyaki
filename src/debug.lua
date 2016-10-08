@@ -31,8 +31,7 @@ local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
 function show_debug_indicator(size, x, y)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 255)
-        size = size or 1
-        love.graphics.setFont(fonts[size])
+        love.graphics.setFont(fonts[size or 1])
         love.graphics.print("DEBUG", x or 2, y or love.graphics.getHeight() - 9)
     end
 end
@@ -88,10 +87,13 @@ function show_debug_boxes()
             love.graphics.rectangle("line", world:getRect(obj[i]))
         end
         -- draw attack hitboxes
-        love.graphics.setColor(0, 255, 0, 150)
         for i = 1, #attackHitBoxes do
             local a = attackHitBoxes[i]
             --dp("fill", a.x, a.y, a.w, a.h )
+            love.graphics.setColor(255, 255, 0, 150)
+            love.graphics.rectangle("line", a.x, a.y - a.height - a.z + a.h/2, a.w, a.height)
+
+            love.graphics.setColor(0, 255, 0, 150)
             love.graphics.rectangle("line", a.x, a.y, a.w, a.h)
         end
         attackHitBoxes = {}
@@ -161,9 +163,18 @@ end
 
 function draw_debug_unit_cross(slf)
     if GLOBAL_SETTING.DEBUG then
-        love.graphics.setColor(127, 127, 127)
+        love.graphics.setColor(127, 127, 127, 127)
         love.graphics.line( slf.x - 30, slf.y - slf.z, slf.x + 30, slf.y - slf.z )
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(255, 255, 255, 127)
         love.graphics.line( slf.x, slf.y+2, slf.x, slf.y-66 )
     end
 end
+
+function draw_debug_unit_hitbox(a)
+    if GLOBAL_SETTING.DEBUG then
+        love.graphics.setColor(255, 255, 255, 150)
+--        world:add(obj, obj.x-7, obj.y-3, 15, 7)
+        love.graphics.rectangle("line", a.x - 7, a.y - a.height - a.z, 15, a.height)
+    end
+end
+

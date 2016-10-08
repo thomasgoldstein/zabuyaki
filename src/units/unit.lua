@@ -201,7 +201,7 @@ end
 function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
-		draw_debug_unit_cross(self)
+		--draw_debug_unit_cross(self)
 		self.sprite.flip_h = self.face  --TODO get rid of .face
         if self.cool_down_death < 1 then
             love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a * math.sin(self.cool_down_death))
@@ -219,6 +219,7 @@ function Unit:default_draw(l,t,w,h)
 		if self.show_pid_cool_down > 0 then
 			self:drawPID(self.x, self.y - self.z - 80)
 		end
+		draw_debug_unit_hitbox(self)
 	end
 end
 

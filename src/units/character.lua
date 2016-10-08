@@ -190,7 +190,7 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
         end)
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
     end
     for i = 1,#items do
         if self.isThrown then
@@ -234,7 +234,7 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
         end)
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h }
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
     end
     for i = 1,#items do
         items[i].hurt = {source = self, state = self.state, damage = damage,
