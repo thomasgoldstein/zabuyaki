@@ -87,9 +87,7 @@ function Item:update(dt)
 end
 
 function Item:get(taker)
-    if GLOBAL_SETTING.DEBUG then
-        dp(taker.name .. " got "..self.name.." HP+ ".. self.hp .. ", $+ " .. self.score)
-    end
+    dp(taker.name .. " got "..self.name.." HP+ ".. self.hp .. ", $+ " .. self.score)
     if self.func then    --run custom function if there is
         self:func(taker)
     end

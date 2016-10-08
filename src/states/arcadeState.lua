@@ -203,32 +203,7 @@ function arcadeState:update(dt)
         GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
         return Gamestate.push(pauseState)
     end
-
-    if GLOBAL_SETTING.DEBUG then
-        --fancy.watch("FPS", love.timer.getFPS())
-        --fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
-        if player2 then
-            fancy.watch("P2 x: ",player2.x, 3)
---            fancy.watch("P2 y: ",player2.y, 3)
-            --fancy.watch("P2 state: ",player2.state, 2)
-        end
-        if player3 then
-            fancy.watch("P3 x: ",player3.x, 3)
---            fancy.watch("P3 y: ",player3.y, 3)
-            --fancy.watch("P3 state: ",player3.state, 2)
-        end
-        if player1 then
-            fancy.watch("P1 x: ",player1.x, 3)
---            fancy.watch("P1 y: ",player1.y, 3)
---            fancy.watch("Player state: ",player1.state, 2)
-            fancy.watch("N Combo: ",player1.n_combo, 2)
-            fancy.watch("CD Combo: ",player1.cool_down_combo, 2)
-            fancy.watch("Cool Down: ",player1.cool_down, 2)
---            fancy.watch("Velocity Z: ",player1.velz, 2)
---            fancy.watch("Velocity X: ",player1.velx, 2)
-            fancy.watch("Z: ",player1.z, 3)
-        end
-    end
+    watch_debug_variables()
 end
 
 function arcadeState:draw()
@@ -245,54 +220,16 @@ function arcadeState:draw()
         love.graphics.rectangle("fill", world:getRect(left_block_wall))
         love.graphics.rectangle("fill", world:getRect(right_block_wall))
 
-        if GLOBAL_SETTING.DEBUG then
-            -- debug draw bump boxes
-            local obj, _ = world:getItems()
-            love.graphics.setColor(255, 0, 0, 50)
-            for i = 1, #obj do
-                love.graphics.rectangle("line", world:getRect(obj[i]))
-            end
-            -- draw attack hitboxes
-            love.graphics.setColor(0, 255, 0, 150)
-            for i = 1, #attackHitBoxes do
-                local a = attackHitBoxes[i]
-                --dp("fill", a.x, a.y, a.w, a.h )
-                love.graphics.rectangle("line", a.x, a.y, a.w, a.h )
-            end
-            attackHitBoxes = {}
-        end
+        show_debug_boxes() -- debug draw bump boxes
 
         --TODO add foreground parallax for levels
         --foreground:draw(l, t, w, h)
-
     end)
     love.graphics.setCanvas()
     love.graphics.setColor(255, 255, 255, 255)
 --    love.graphics.draw(canvas)
 --    love.graphics.draw(canvas, 0,0, 0, 0.5,0.5)
     love.graphics.draw(canvas, 0,0, nil, 0.5)
-
-    -- debug draw grid
---    love.graphics.setColor(255,255,255, 55)
-    love.graphics.setColor(0,0,0, 55)
---    love.graphics.line(0, 0, 320, 240)
-    if GLOBAL_SETTING.SHOW_GRID then
-        for i = 1, 320*2,2 do
-            love.graphics.rectangle("fill", i, 0, 1, 240*2)
-            --love.graphics.rectangle("fill", 20, 20, 20, 40)
-            --print("1")
-        end
-        for i = 1, 240*2, 2 do
-            love.graphics.rectangle("fill", 0, i, 320*2, 1)
-            --love.graphics.rectangle("fill", 120, 120, 50, 40)
-            --print("2")
-        end
-    end
-
-
-    if GLOBAL_SETTING.DEBUG then
-        fancy.draw()	--DEBUG var show
-    end
 
     --HP bars
     if player1 then
@@ -313,43 +250,15 @@ function arcadeState:draw()
             player3.victim_infoBar:draw(0,0)
         end
     end
+    show_debug_grid()
     show_debug_controls()
+    show_debug_variables()
     show_debug_indicator()
 end
 
 function arcadeState:keypressed(key, unicode)
-    if key == '0' then
-        --GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
-        level_objects:dp()
-    end
-    if GLOBAL_SETTING.DEBUG then
-        fancy.key(key)
-        if key == 'f12' then
-            level_objects:revive()
-        elseif key == '1' then
-            GLOBAL_SETTING.SHOW_GRID = not GLOBAL_SETTING.SHOW_GRID
-        end
-    end
+    check_debug_keys(key)
 end
 
 function arcadeState:wheelmoved( dx, dy )
-    --TODO remove debug scale
-    if not GLOBAL_SETTING.DEBUG then
-        return
-    end
-
-    local worldWidth = 4000
-    if love.keyboard.isDown("lctrl") or love.keyboard.isDown("rctrl") then
-        if dy > 0 and mainCamera:getScale() < 2 then
-            mainCamera:setScale(mainCamera:getScale() + 0.25 )
-        elseif dy < 0 and mainCamera:getScale() > 0.25 then
-            mainCamera:setScale(mainCamera:getScale() - 0.25 )
-        end
-    else
-        if dy > 0 and player1.x < worldWidth - 200 then
-            player1.x = player1.x + 200
-        elseif dy < 0 and player1.x > 200 then
-            player1.x = player1.x - 200
-        end
-    end
 end

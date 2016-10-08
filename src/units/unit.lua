@@ -201,12 +201,7 @@ end
 function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
 	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
-        if GLOBAL_SETTING.DEBUG then
-			love.graphics.setColor(127, 127, 127)
-			love.graphics.line( self.x - 30, self.y - self.z, self.x + 30, self.y - self.z )
-            love.graphics.setColor(255, 255, 255)
-            love.graphics.line( self.x, self.y+2, self.x, self.y-66 )
-        end
+		draw_debug_unit_cross(self)
 		self.sprite.flip_h = self.face  --TODO get rid of .face
         if self.cool_down_death < 1 then
             love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a * math.sin(self.cool_down_death))
