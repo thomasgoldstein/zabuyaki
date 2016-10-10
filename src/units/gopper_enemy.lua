@@ -88,13 +88,11 @@ function Gopper:intro_update(dt)
     --    	print (self.name," - intro update",dt)
     if self.cool_down <= 0 then
         --can move
-        if self.target then
-            local t1 = dist(self.x, self.y, self.target.x, self.target.y)
-            if math.min(t1) < 100 then
-                self.face = -self.target.face   --face to player
-                self:setState(self.stand)
-                return
-            end
+        local t1 = dist(self.x, self.y, self.target.x, self.target.y)
+        if math.min(t1) < 100 then
+            self.face = -self.target.face   --face to player
+            self:setState(self.stand)
+            return
         end
     end
     self:calcFriction(dt)
@@ -124,12 +122,10 @@ function Gopper:stand_update(dt)
     end
     if self.cool_down <= 0 then
         --can move
-        if self.target then
-            local t = dist(self.target.x, self.target.y, self.x, self.y)
-            if t < 100 + self.toughness * 10 then
-                self:setState(self.walk)
-                return
-            end
+        local t = dist(self.target.x, self.target.y, self.x, self.y)
+        if t < 100 + self.toughness * 10 then
+            self:setState(self.walk)
+            return
         end
     else
         self.cool_down = self.cool_down - dt    --when <=0 u can move
@@ -148,10 +144,6 @@ function Gopper:walk_start()
     SetSpriteAnimation(self.sprite,"walk")
     self.can_jump = false
     self.can_fire = false
-    if not self.target then
-        self:setState(self.stand)
-        return
-    end
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 600 then
         --set dest
