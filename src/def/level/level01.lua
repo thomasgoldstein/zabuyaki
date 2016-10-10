@@ -6,12 +6,12 @@ function Level01:initialize(players)
     Level.initialize(self, "Level 01")
     self.scrolling = {commonY = 430, chunksX = {} }
     self.scrolling.chunks = {
-        {startX = 0, endX = 320, startY = 430, endY = 430},
-        {startX = 320, endX = 640, startY = 430, endY = 430-40},
-        {startX = 640, endX = 900, startY = 430-40, endY = 430},
-        {startX = 1400, endX = 1600, startY = 430, endY = 430+20},
-        {startX = 1600, endX = 1800, startY = 430+20, endY = 430+20},
-        {startX = 1800, endX = 2000, startY = 430+20, endY = 430}
+--        {startX = 0, endX = 320, startY = 430, endY = 430},
+--        {startX = 320, endX = 640, startY = 430, endY = 430-40},
+--        {startX = 640, endX = 900, startY = 430-40, endY = 430},
+--        {startX = 1400, endX = 1600, startY = 430, endY = 430+20},
+--        {startX = 1600, endX = 1800, startY = 430+20, endY = 430+20},
+--        {startX = 1800, endX = 2000, startY = 430+20, endY = 430}
     }
 
     player1 = nil
