@@ -38,35 +38,6 @@ function Gopper:setToughness(t)
     --dp(self.name, self.hp, self.max_hp, self.toughness)
 end
 
-function Gopper:pickAttackTarget(target)
---    if not player2 then
---        local player2 = player1
---    end
---    local t = {player2}
---    local t = {}
---    if player1.hp > 0 then
---        t[#t] = player1
---    end
---    if target then
---        self.target = target
---    elseif love.math.random() < 0.3 then
---        self.target = t[love.math.random(1,#t)]
---    elseif math.abs(self.x - player1.x) < math.abs(self.x - player2.x) then
---        self.target = player1
---    else
---        self.target = player2
--- end
---and love.math.random(2) == 2
-    if player1 then
-        self.target = player1
-    elseif player2 then
-        self.target = player2
-    elseif player3 then
-        self.target = player3
-    end
-    return self.target
-end
-
 function Gopper:checkCollisionAndMove(dt)
     local stepx = self.velx * dt * self.horizontal
     local stepy = self.vely * dt * self.vertical
@@ -117,14 +88,13 @@ function Gopper:intro_update(dt)
     --    	print (self.name," - intro update",dt)
     if self.cool_down <= 0 then
         --can move
-        local t1 = dist(self.x, self.y, self.target.x, self.target.y)
-        --local t2 = dist(self.x, self.y, player2.x, player2.y)
-        --local t3 = dist(self.x, self.y, player3.x, player3.y)
---        if math.min(t1,t2,t3) < 100 then
-        if math.min(t1) < 100 then
-            self.face = -self.target.face   --face to player
-            self:setState(self.stand)
-            return
+        if self.target then
+            local t1 = dist(self.x, self.y, self.target.x, self.target.y)
+            if math.min(t1) < 100 then
+                self.face = -self.target.face   --face to player
+                self:setState(self.stand)
+                return
+            end
         end
     end
     self:calcFriction(dt)
@@ -154,13 +124,13 @@ function Gopper:stand_update(dt)
     end
     if self.cool_down <= 0 then
         --can move
-        --TODO !!!!!!!!! replace Player with curr target
-        local t = dist(self.target.x, self.target.y, self.x, self.y)
-        if t < 100 + self.toughness * 10 then
-            self:setState(self.walk)
-            return
+        if self.target then
+            local t = dist(self.target.x, self.target.y, self.x, self.y)
+            if t < 100 + self.toughness * 10 then
+                self:setState(self.walk)
+                return
+            end
         end
-
     else
         self.cool_down = self.cool_down - dt    --when <=0 u can move
     end
@@ -178,6 +148,10 @@ function Gopper:walk_start()
     SetSpriteAnimation(self.sprite,"walk")
     self.can_jump = false
     self.can_fire = false
+    if not self.target then
+        self:setState(self.stand)
+        return
+    end
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 600 then
         --set dest
@@ -220,7 +194,6 @@ function Gopper:walk_start()
 end
 function Gopper:walk_update(dt)
 --    	print (self.name.." - walk update",dt)
-    --local t = dist(self.target.x, self.target.y, self.x, self.y)
     local complete = self.move:update( dt )
 
     if self.can_fire and not complete then
