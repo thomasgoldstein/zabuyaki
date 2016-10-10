@@ -73,6 +73,8 @@ function Level01:initialize(players)
     self.background:add(bgBuilding2V, qBuilding2V, -74 + 2 * (525 - 90), 67)
     self.background:add(bgBuilding1A, qBuilding1A, -74 + 3 * (525 - 90), 67)
 
+    GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
+
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), button3, 500, top_floor_y + 20, shaders.gopper[4], {255,255,255, 255})
     local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1510, top_floor_y + 20, shaders.gopper[2], {255,255,255, 255})
     gopper2:setToughness(1)
