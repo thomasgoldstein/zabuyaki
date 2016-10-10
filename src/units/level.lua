@@ -38,7 +38,7 @@ function Level:update(dt)
         self.foreground:update(dt)
     end
 
-    self:calcScrolling()
+    self:calcScrolling(dt)
 end
 
 function Level:draw(l, t, w, h)
@@ -55,7 +55,7 @@ function Level:draw(l, t, w, h)
     love.graphics.rectangle("fill", self.world:getRect(self.right_block_wall))
 end
 
-function Level:calcScrolling()
+function Level:calcScrolling(dt)
     --center camera over all players
     --local pc = 0
     --local mx = 0
@@ -86,13 +86,13 @@ function Level:calcScrolling()
 
     if dist > max_distance - 60 then
         -- move block walls
-        local actualX, actualY, cols, len = level.world:move(level.left_block_wall, maxx - max_distance - 40, 0, function() return "cross" end)
-        local actualX2, actualY2, cols2, len2 = level.world:move(level.right_block_wall, minx + max_distance +1, 0, function() return "cross" end)
+        local actualX, actualY, cols, len = self.world:move(self.left_block_wall, maxx - max_distance - 40, 0, function() return "cross" end)
+        local actualX2, actualY2, cols2, len2 = self.world:move(self.right_block_wall, minx + max_distance +1, 0, function() return "cross" end)
         --dp(actualX, actualX2, player1.x, player2.x)
     else
         -- move block walls
-        local actualX, actualY, cols, len = level.world:move(level.left_block_wall, -100, 0, function() return "cross" end)
-        local actualX2, actualY2, cols2, len2 = level.world:move(level.right_block_wall, 4400, 0, function() return "cross" end)
+        local actualX, actualY, cols, len = self.world:move(self.left_block_wall, -100, 0, function() return "cross" end)
+        local actualX2, actualY2, cols2, len2 = self.world:move(self.right_block_wall, 4400, 0, function() return "cross" end)
         --dp(actualX, actualX2, player1.x, player2.x)
     end
 
