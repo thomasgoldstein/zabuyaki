@@ -7,7 +7,6 @@
     Visit for more information:
     http://opensource.org/licenses/MIT
 ]]
-attackHitBoxes = {} -- DEBUG
 
 GLOBAL_SCREENSHOT = false	--keep current screenshop
 
@@ -25,6 +24,13 @@ GLOBAL_SETTING.DIFFICULTY = 1 -- 1 = Normal, 2 = Hard
 GLOBAL_SETTING.MOUSE_ENABLED = true
 GLOBAL_SETTING.SHADERS_ENABLED = true
 GLOBAL_SETTING.SHOW_GRID = false
+
+-- global vars
+level = nil
+player1 = nil
+player2 = nil
+player3 = nil
+attackHitBoxes = {} -- DEBUG
 
 function switchFullScreen()
 	if GLOBAL_SETTING.FULL_SCREEN then
