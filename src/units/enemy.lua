@@ -10,6 +10,7 @@ local function dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
 function Enemy:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "enemy"
+    self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
 end
 
 local next_to_pick_target_id = 1
@@ -27,7 +28,7 @@ function Enemy:pickAttackTarget(how)
     if player3 then
         p[#p +1] = {player = player3, score = 0}
     end
-    how = how or "random"
+    how = how or self.whichPlayerAttack
     for i = 1, #p do
         if how == "close" then
             p[i].score = dist(self.x, self.y, p[i].player.x, p[i].player.y)
