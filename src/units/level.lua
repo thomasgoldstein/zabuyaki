@@ -11,7 +11,11 @@ function Level:initialize(name)
     self.worldHeight = 800
     self.background = nil
     self.foreground = nil
-    self.scrolling = {commonY = 200}
+    self.scrolling = {commonY = 430, chunksX = {} }
+--    self.scrolling.chunks = {
+--        {startX = 0, endX = 320, startY = 430, endY = 430},
+--        {startX = 321, endX = 321+320, startY = 430, endY = 430-100}
+--    }
 
     self.world = bump.newWorld(64)
     self.world:add({type = "wall"}, -20, 0, 40, self.worldHeight) --left
@@ -59,7 +63,8 @@ function Level:calcScrolling(dt)
     --center camera over all players
     --local pc = 0
     --local mx = 0
-    local my = 430 -- const vertical Y (no scroll)
+    local coord_y = 430 -- const vertical Y (no scroll)
+    local coord_x = 1
     local x1, x2, x3
     if player1 then
         x1 = player1.x
@@ -111,7 +116,21 @@ function Level:calcScrolling(dt)
             canvas:setFilter("nearest", "nearest")
         end
     end
-    mainCamera:update(dt,math.floor((minx + maxx) / 2), math.floor(my))
+    -- Vertical scroll
+    coord_y = self.scrolling.commonY
+    coord_x = (minx + maxx) / 2
+    local ty, tx, cx = 0, 0, 0
+    for i=1,#self.scrolling.chunks do
+        local c = self.scrolling.chunks[i]
+        if coord_x >= c.startX and coord_x <= c.endX then
+            ty = c.endY - c.startY
+            tx = c.endX - c.startX
+            cx = coord_x - c.startX
+            coord_y = (cx * ty) / tx + c.startY
+            break
+        end
+    end
+    mainCamera:update(dt,math.floor(coord_x), math.floor(coord_y))
 end
 
 return Level
