@@ -49,7 +49,7 @@ function Gopper:checkCollisionAndMove(dt)
         x = self.tx
         y = self.ty
     end
-    actualX, actualY, cols, len = world:move(self, x + stepx - 8, y + stepy- 4,
+    actualX, actualY, cols, len = level.world:move(self, x + stepx - 8, y + stepy- 4,
         function(subj, obj)
             if subj ~= obj and obj.type == "wall" then
                 return "slide"

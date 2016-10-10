@@ -115,16 +115,16 @@ function arcadeState:enter(_, players)
     end
 
     --load level
-    world, background, worldWidth, worldHeight = require("src/def/level/level01")()
+    level = Level01:new()
 
     --adding BLOCKING left-right walls
-    world:add(left_block_wall, -10, 0, 40, worldHeight) --left
-    world:add(right_block_wall, 820, 0, 40, worldHeight) --right
+    level.world:add(left_block_wall, -10, 0, 40, level.worldHeight) --left
+    level.world:add(right_block_wall, level.worldWidth+20, 0, 40, level.worldHeight) --right
 
     --adding players into collision world 15x7
     level_objects:addToWorld()
 
-    mainCamera = Camera:new(worldWidth, worldHeight)
+    mainCamera = Camera:new(level.worldWidth, level.worldHeight)
 
     --start BGM
     TEsound.stop("music")
@@ -139,7 +139,7 @@ function arcadeState:update(dt)
     --sort players by y
     level_objects:sortByY()
 
-    background:update(dt)
+    level:update(dt)
 
     --center camera over all players
     local pc = 0
@@ -171,13 +171,13 @@ function arcadeState:update(dt)
 
     if dist > max_distance - 60 then
         -- move block walls
-        local actualX, actualY, cols, len = world:move(left_block_wall, maxx - max_distance - 40, 0, function() return "cross" end)
-        local actualX2, actualY2, cols2, len2 = world:move(right_block_wall, minx + max_distance +1, 0, function() return "cross" end)
+        local actualX, actualY, cols, len = level.world:move(left_block_wall, maxx - max_distance - 40, 0, function() return "cross" end)
+        local actualX2, actualY2, cols2, len2 = level.world:move(right_block_wall, minx + max_distance +1, 0, function() return "cross" end)
         --dp(actualX, actualX2, player1.x, player2.x)
     else
         -- move block walls
-        local actualX, actualY, cols, len = world:move(left_block_wall, -100, 0, function() return "cross" end)
-        local actualX2, actualY2, cols2, len2 = world:move(right_block_wall, 4400, 0, function() return "cross" end)
+        local actualX, actualY, cols, len = level.world:move(left_block_wall, -100, 0, function() return "cross" end)
+        local actualX2, actualY2, cols2, len2 = level.world:move(right_block_wall, 4400, 0, function() return "cross" end)
         --dp(actualX, actualX2, player1.x, player2.x)
     end
 
@@ -212,13 +212,13 @@ function arcadeState:draw()
     mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
         love.graphics.setColor(255, 255, 255, 255)
-        background:draw(l, t, w, h)
+        level.background:draw(l, t, w, h)
         level_objects:draw(l,t,w,h)
 
         -- draw block walls
         love.graphics.setColor(0, 0, 0, 100)
-        love.graphics.rectangle("fill", world:getRect(left_block_wall))
-        love.graphics.rectangle("fill", world:getRect(right_block_wall))
+        love.graphics.rectangle("fill", level.world:getRect(left_block_wall))
+        love.graphics.rectangle("fill", level.world:getRect(right_block_wall))
 
         show_debug_boxes() -- debug draw bump boxes
 

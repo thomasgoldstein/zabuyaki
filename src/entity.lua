@@ -58,7 +58,7 @@ end
 function Entity:addToWorld()
     for i,obj in pairs(self.entities) do
         --global var 'word'
-        world:add(obj, obj.x-7, obj.y-3, 15, 7)
+        level.world:add(obj, obj.x-7, obj.y-3, 15, 7)
     end
 end
 

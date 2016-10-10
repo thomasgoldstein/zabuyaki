@@ -82,6 +82,7 @@ function love.load(arg)
 	PNiko = require "src/units/niko_player"
 	Temper = require "src/units/temper_enemy"
 	InfoBar = require "src/infoBar"
+	Level01 = require "src/def/level/level01"
 
 	tactile = require 'lib/tactile'
 	KeyTrace = require 'src/keyTrace'

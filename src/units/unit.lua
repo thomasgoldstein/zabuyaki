@@ -227,7 +227,7 @@ end
 function Unit:checkCollisionAndMove(dt)
 	local stepx = self.velx * dt * self.horizontal
 	local stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = world:move(self, self.x + stepx - 8, self.y + stepy - 4,
+	local actualX, actualY, cols, len = level.world:move(self, self.x + stepx - 8, self.y + stepy - 4,
 		function(Unit, item)
             if Unit ~= item and item.type == "wall" then
 				return "slide"

@@ -179,7 +179,7 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
     if init_victims_list then
         self.victims = {}
     end
-    local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+    local items, len = level.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
         function(o)
             if self ~= o and o.isHittable and not self.victims[o]
                     and o.z <= self.z + o.height and o.z >= self.z - self.height
@@ -226,7 +226,7 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
     return
     end
 
-    local items, len = world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+    local items, len = level.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
         function(obj)
             if obj == g.target then
                 return true
@@ -249,7 +249,7 @@ end
 
 function Character:checkForItem(w, h)
     --got any items near feet?
-    local items, len = world:queryRect(self.x - w/2, self.y - h/2, w, h,
+    local items, len = level.world:queryRect(self.x - w/2, self.y - h/2, w, h,
         function(item)
             if item.type == "item" and not item.isEnabled then
                 return true
@@ -1035,7 +1035,7 @@ function Character:dead_update(dt)
         self.isDisabled = true
         self.isHittable = false
         -- dont remove dead body from the level for proper save/load
-        world:remove(self)  --world = global bump var
+        level.world:remove(self)  --world = global bump var
         --self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
@@ -1084,7 +1084,7 @@ Character.combo = {name = "combo", start = Character.combo_start, exit = nop, up
 -- GRABBING / HOLDING
 function Character:checkForGrab(range)
     --got any Characters
-    local items, len = world:queryPoint(self.x + self.face*range, self.y,
+    local items, len = level.world:queryPoint(self.x + self.face*range, self.y,
         function(o)
             if o ~= self and o.isHittable then
                 return true
