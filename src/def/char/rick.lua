@@ -10,7 +10,7 @@ local step_sfx = function(slf)
 	local padust = PA_DUST_STEPS:clone()
 	padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
 	padust:emit(3)
-	level_objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
+	level.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
 local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low", slf.velx) end
 local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end

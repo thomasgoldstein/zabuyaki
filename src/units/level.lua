@@ -20,11 +20,25 @@ function Level:initialize(name)
 end
 
 function Level:update(dt)
+    self.objects:update(dt)
+    --sort players by y
+    self.objects:sortByY()
+
     if self.background then
         self.background:update(dt)
     end
     if self.foreground then
         self.foreground:update(dt)
+    end
+end
+
+function Level:draw(l, t, w, h)
+    if self.background then
+        self.background:draw(l, t, w, h)
+    end
+    self.objects:draw(l,t,w,h)
+    if self.foreground then
+        self.foreground:draw(l, t, w, h)
     end
 end
 

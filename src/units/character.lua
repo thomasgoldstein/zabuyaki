@@ -103,7 +103,7 @@ function Character:onHurt()
             local pa_hitMark = PA_IMPACT_BIG:clone()
             pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
             pa_hitMark:emit(1)
-            level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
+            level.objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
             if self.id <= GLOBAL_SETTING.MAX_PLAYERS then --shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
@@ -117,7 +117,7 @@ function Character:onHurt()
             local pa_hitMark = PA_IMPACT_SMALL:clone()
             pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
             pa_hitMark:emit(1)
-            level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
+            level.objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
             if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
@@ -151,7 +151,7 @@ function Character:onHurt()
     local pa_hitMark = PA_IMPACT_BIG:clone()
     pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
     pa_hitMark:emit(1)
-    level_objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
+    level.objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
 
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
@@ -493,7 +493,7 @@ function Character:run_update(dt)
         psystem:setPosition( 0, -16 )
         psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
         psystem:emit(5)
-        level_objects:add(Effect:new(psystem, self.x, self.y-1))
+        level.objects:add(Effect:new(psystem, self.x, self.y-1))
         self:setState(self.jump)
         return
     end
@@ -583,7 +583,7 @@ function Character:pickup_start()
         psystem:setOffset( item.ox, item.oy )
         psystem:setPosition( item.x - self.x, item.y - self.y - 10 )
         psystem:emit(1)
-        level_objects:add(Effect:new(psystem, self.x, self.y + 10))
+        level.objects:add(Effect:new(psystem, self.x, self.y + 10))
         self:onGetItem(item)
     end
     SetSpriteAnimation(self.sprite,"pickup")
@@ -618,7 +618,7 @@ function Character:duck_start()
     psystem:setDirection( 3.14 )
     psystem:setPosition( -20, 0 )
     psystem:emit(5)
-    level_objects:add(Effect:new(psystem, self.x, self.y+2))
+    level.objects:add(Effect:new(psystem, self.x, self.y+2))
 end
 function Character:duck_update(dt)
     --	print (self.name.." - duck update",dt)
@@ -652,7 +652,7 @@ function Character:duck2jump_update(dt)
         psystem:setPosition( 0, -16 )
         psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
         psystem:emit(5)
-        level_objects:add(Effect:new(psystem, self.x, self.y-1))
+        level.objects:add(Effect:new(psystem, self.x, self.y-1))
         return
     end
     if self.b.horizontal:isDown(-1) then
@@ -951,7 +951,7 @@ function Character:fall_update(dt)
                 --landing dust clouds
                 local psystem = PA_DUST_FALLING:clone()
                 psystem:emit(20)
-                level_objects:add(Effect:new(psystem, self.x + self.horizontal * 20, self.y+3))
+                level.objects:add(Effect:new(psystem, self.x + self.horizontal * 20, self.y+3))
                 return
             else
                 --final fall (no bouncing)

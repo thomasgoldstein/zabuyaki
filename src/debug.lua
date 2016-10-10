@@ -150,10 +150,10 @@ function check_debug_keys(key)
     if GLOBAL_SETTING.DEBUG then
         fancy.key(key)
         if key == '0' then
-            level_objects:dp()
+            level.objects:dp()
         end
         if key == 'f12' then
-            level_objects:revive()  -- revive Players & other units
+            level.objects:revive()  -- revive Players & other units
         end
         if key == '1' then
             GLOBAL_SETTING.SHOW_GRID = not GLOBAL_SETTING.SHOW_GRID
