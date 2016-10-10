@@ -12,7 +12,7 @@ end
 function Character:initialize(name, sprite, input, x, y, shader, color)
     Unit.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "character"
-    self.height = 40
+    self.height = 50
     self.velocity_walk = 100
     self.velocity_walk_y = 50
     self.velocity_run = 150
