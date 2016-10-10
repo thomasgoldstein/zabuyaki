@@ -17,6 +17,12 @@ function Level:initialize(name)
     self.world:add({type = "wall"}, self.worldWidth - 20, 0, 40, self.worldHeight) --right
     self.world:add({type = "wall"}, 0, 410, self.worldWidth, 40)  --top
     self.world:add({type = "wall"}, 0, 546, self.worldWidth, 40) --bottom
+
+    --adding BLOCKING left-right walls
+    self.left_block_wall = {type = "wall"}
+    self.right_block_wall = {type = "wall" }
+    self.world:add(self.left_block_wall, -10, 0, 40, self.worldHeight) --left
+    self.world:add(self.right_block_wall, self.worldWidth+20, 0, 40, self.worldHeight) --right
 end
 
 function Level:update(dt)

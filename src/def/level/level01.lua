@@ -44,9 +44,6 @@ function Level01:initialize(players)
             {255,255,255, 255})
     end
     --define obstacles
-    -- blocking walls
-    self.left_block_wall = {type = "wall"}
-    self.right_block_wall = {type = "wall"}
 
     --define sprites
     local bgRoad = love.graphics.newImage("res/img/stages/stage1/road.png")
@@ -134,10 +131,6 @@ function Level01:initialize(players)
     if player3 then
         self.objects:add(player3)
     end
-
-    --adding BLOCKING left-right walls
-    self.world:add(self.left_block_wall, -10, 0, 40, self.worldHeight) --left
-    self.world:add(self.right_block_wall, self.worldWidth+20, 0, 40, self.worldHeight) --right
 
     --adding players into collision world 15x7
     self.objects:addToWorld(self)
