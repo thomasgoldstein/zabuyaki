@@ -123,7 +123,7 @@ function Gopper:stand_update(dt)
     if self.cool_down <= 0 then
         --can move
         local t = dist(self.target.x, self.target.y, self.x, self.y)
-        if t < 100 + self.toughness * 10 then
+        if t < 300 + self.toughness * 10 then
             self:setState(self.walk)
             return
         end
