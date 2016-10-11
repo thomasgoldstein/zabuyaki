@@ -155,6 +155,10 @@ return {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
 			delay = 5
 		},
+		jumpAttackRun = {
+			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
+			delay = 5
+		},
 		sideStepUp = {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
 		},
