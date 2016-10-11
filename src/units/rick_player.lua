@@ -80,6 +80,24 @@ function Rick:combo_update(dt)
 end
 Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Character.default_draw}
 
+function Rick:special_start()
+    self.isHittable = false
+    --	print (self.name.." - special start")
+    SetSpriteAnimation(self.sprite,"special")
+    self.cool_down = 0.2
+end
+function Rick:special_update(dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+    self:updateShake(dt)
+    UpdateSpriteInstance(self.sprite, dt, self)
+end
+Rick.special = {name = "special", start = Rick.special_start, exit = nop, update = Rick.special_update, draw = Character.default_draw }
+
 function Rick:dash_start()
     self.isHittable = true
     dpo(self, self.state)

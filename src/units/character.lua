@@ -303,11 +303,14 @@ function Character:stand_update(dt)
     else
         self.n_combo = 1
     end
-    
-    if self.b.jump:isDown() and self.can_jump then
+
+    if self.can_jump and self.can_fire and self.b.jump:isDown() and self.b.fire:isDown() then
+        self:setState(self.special)
+        return
+    elseif self.can_jump and self.b.jump:isDown() then
         self:setState(self.duck2jump)
         return
-    elseif self.b.fire:isDown() and self.can_fire then
+    elseif self.can_fire and self.b.fire:isDown() then
         if self:checkForItem(9, 9) ~= nil then
             self:setState(self.pickup)
             return
@@ -1401,6 +1404,11 @@ function Character:grabThrow_update(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabThrow = {name = "grabThrow", start = Character.grabThrow_start, exit = nop, update = Character.grabThrow_update, draw = Character.default_draw}
+
+function Character:special_start() -- Special attack plug
+    self:setState(self.stand)
+end
+Character.special = {name = "special", start = Character.special_start, exit = nop, update = nop, draw = Character.default_draw }
 
 function Character:revive()
     self.hp = self.max_hp
