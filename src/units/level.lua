@@ -119,6 +119,9 @@ function Level:setCamera(dt)
             break
         end
     end
+    -- Correct coord_y according to the zoom level
+    coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
+
     mainCamera:update(dt, math.floor(coord_x), math.floor(coord_y))
 
     -- Move block walls
