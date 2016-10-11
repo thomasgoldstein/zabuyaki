@@ -304,7 +304,8 @@ function Character:stand_update(dt)
         self.n_combo = 1
     end
 
-    if self.can_jump and self.can_fire and self.b.jump:isDown() and self.b.fire:isDown() then
+    if (self.can_jump or self.can_fire) and
+            self.b.jump:isDown() and self.b.fire:isDown() then
         self:setState(self.special)
         return
     elseif self.can_jump and self.b.jump:isDown() then
