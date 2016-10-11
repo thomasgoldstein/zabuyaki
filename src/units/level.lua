@@ -122,7 +122,8 @@ function Level:setCamera(dt)
     -- Correct coord_y according to the zoom level
     coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
 
-    mainCamera:update(dt, math.floor(coord_x), math.floor(coord_y))
+    mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
+--  mainCamera:update(dt, math.ceil(coord_x * 2 - 0.5)/2, math.ceil(coord_y * 2 - 0.5 )/2)
 
     -- Move block walls
     if dist > max_distance - 60 then
