@@ -64,14 +64,18 @@ function Level:setCamera(dt)
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
     local x1, x2, x3
-    if player1 then
+    if player1 and player1.hp > 0 then
         x1 = player1.x
     end
-    if player2 then
+    if player2 and player2.hp > 0 then
         x2 = player2.x
     end
-    if player3 then
+    if player3 and player3.hp > 0 then
         x3 = player3.x
+    end
+    if not (x1 or x2 or x3) then
+        -- All the players are dead. Don't move camera
+        return
     end
     -- Camera Zoom
     local max_distance = 320 + 160 - 50
