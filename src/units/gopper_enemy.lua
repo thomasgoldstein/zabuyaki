@@ -85,11 +85,10 @@ function Gopper:intro_start()
     SetSpriteAnimation(self.sprite,"intro")
 end
 function Gopper:intro_update(dt)
-    --    	print (self.name," - intro update",dt)
+    -- print (self.name," - intro update",dt)
     if self.cool_down <= 0 then
-        --can move
-        local t1 = dist(self.x, self.y, self.target.x, self.target.y)
-        if math.min(t1) < 100 then
+        -- can move?
+        if self:getDistanceToClosestPlayer() < 100 then
             self.face = -self.target.face   --face to player
             self:setState(self.stand)
             return
