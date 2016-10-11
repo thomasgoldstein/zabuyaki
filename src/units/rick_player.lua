@@ -84,6 +84,7 @@ function Rick:special_start()
     self.isHittable = false
     --	print (self.name.." - special start")
     SetSpriteAnimation(self.sprite,"special")
+    sfx.play("voice"..self.id, self.sfx.throw)
     self.cool_down = 0.2
 end
 function Rick:special_update(dt)
