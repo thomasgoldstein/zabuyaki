@@ -13,6 +13,31 @@ function Enemy:initialize(name, sprite, input, x, y, shader, color)
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
 end
 
+function Enemy:getDistanceToClosestPlayer()
+    local p = {}
+    if player1 then
+        p[#p +1] = {player = player1, score = 0 }
+    end
+    if player2 then
+        p[#p +1] = {player = player2, score = 0 }
+    end
+    if player3 then
+        p[#p +1] = {player = player3, score = 0}
+    end
+    for i = 1, #p do
+        p[i].score = dist(self.x, self.y, p[i].player.x, p[i].player.y)
+    end
+
+    table.sort(p, function(a,b)
+        return a.score < b.score
+    end )
+
+    if #p < 1 then
+        return 9000
+    end
+    return p[1].score
+end
+
 local next_to_pick_target_id = 1
 ---
 -- @param how - "random" far close weak healthy fast slow
@@ -31,9 +56,9 @@ function Enemy:pickAttackTarget(how)
     how = how or self.whichPlayerAttack
     for i = 1, #p do
         if how == "close" then
-            p[i].score = dist(self.x, self.y, p[i].player.x, p[i].player.y)
-        elseif how == "far" then
             p[i].score = -dist(self.x, self.y, p[i].player.x, p[i].player.y)
+        elseif how == "far" then
+            p[i].score = dist(self.x, self.y, p[i].player.x, p[i].player.y)
         elseif how == "weak" then
             p[i].score = -p[i].player.hp
         elseif how == "healthy" then
