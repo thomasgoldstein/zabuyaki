@@ -94,6 +94,23 @@ function Unit:playHitSfx(dmg)
     TEsound.play(s.src, self.id or "sfx", s.volume, s.pitch)
 end
 
+function Unit:showHitMarks(dmg, z)
+	local pa_hitMark
+	if dmg < 9 then
+		pa_hitMark = PA_IMPACT_SMALL:clone()
+		pa_hitMark:setPosition( 0, -z - 16 )
+	elseif dmg < 14 then
+		pa_hitMark = PA_IMPACT_MEDIUM:clone()
+		pa_hitMark:setPosition( 0, -z - 28 )
+	else
+		pa_hitMark = PA_IMPACT_BIG:clone()
+		pa_hitMark:setPosition( 0, -z - 40 )
+	end
+	pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+	pa_hitMark:emit(1)
+	level.objects:add(Effect:new(pa_hitMark, self.x, self.y + 3))
+end
+
 function Unit:setToughness(t)
 	self.toughness = t
 end

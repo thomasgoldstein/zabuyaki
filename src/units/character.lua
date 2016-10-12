@@ -88,6 +88,7 @@ function Character:onHurt()
     h.source.score = h.source.score + h.damage * 10
 
     self:playHitSfx(h.damage)
+    self:showHitMarks(h.damage, h.source.z)
     self.hp = self.hp - h.damage
     self.n_combo = 1	--if u get hit reset combo chain
 
@@ -100,10 +101,6 @@ function Character:onHurt()
     --"high", "low", "fall"(replaced by blows)
     if h.type == "high" then
         if self.hp > 0 and self.z <= 0 then
-            local pa_hitMark = PA_IMPACT_BIG:clone()
-            pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
-            pa_hitMark:emit(1)
-            level.objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
             if self.id <= GLOBAL_SETTING.MAX_PLAYERS then --shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
@@ -114,10 +111,6 @@ function Character:onHurt()
         --then it does to "fall dead"
     elseif h.type == "low" then
         if self.hp > 0 and self.z <= 0 then
-            local pa_hitMark = PA_IMPACT_SMALL:clone()
-            pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
-            pa_hitMark:emit(1)
-            level.objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
             if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
@@ -144,15 +137,7 @@ function Character:onHurt()
     --[[        if self.move then --disable AI x,y changing
                 dp(self.name.." removed AI tween")
                 self.move:remove()--]]
-
     --finish calcs before the fall state
-
-    --hit mark (common for all attacks that are followed by fall)
-    local pa_hitMark = PA_IMPACT_BIG:clone()
-    pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
-    pa_hitMark:emit(1)
-    level.objects:add(Effect:new(pa_hitMark, self.x, self.y+3))
-
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
     self.velz = self.velocity_fall_z * self.velocity_jump_speed
