@@ -66,7 +66,7 @@ psystem:setPosition( 0, -4 )
 PA_DUST_LANDING_UNUSED = psystem
 
 psystem = love.graphics.newParticleSystem( img, 4 )
-psystem:setPosition( 0, -16 )
+--psystem:setPosition( 0, -16 )
 psystem:setOffset( 15, 15 )
 psystem:setParticleLifetime(0.1, 0.2)
 psystem:setSizes(1, 1.2)
@@ -75,7 +75,7 @@ psystem:setQuads( im_quad1, im_quad2 )
 PA_IMPACT_SMALL = psystem
 
 psystem = love.graphics.newParticleSystem( img, 4 )
-psystem:setPosition( 0, -28 )
+--psystem:setPosition( 0, -16 )
 psystem:setOffset( 15, 15 )
 psystem:setParticleLifetime(0.15, 0.25)
 psystem:setSizes(1, 1.2)
@@ -84,7 +84,7 @@ psystem:setQuads( im_quad1, im_quad2, im_quad3 )
 PA_IMPACT_MEDIUM = psystem
 
 psystem = love.graphics.newParticleSystem( img, 4 )
-psystem:setPosition( 0, -40 )
+--psystem:setPosition( 0, -40 )
 psystem:setOffset( 15, 15 )
 psystem:setParticleLifetime(0.2, 0.3)
 psystem:setSizes(1, 1.1)

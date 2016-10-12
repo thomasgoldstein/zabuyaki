@@ -88,7 +88,6 @@ function Character:onHurt()
     h.source.score = h.source.score + h.damage * 10
 
     self:playHitSfx(h.damage)
-    self:showHitMarks(h.damage, h.source.z)
     self.hp = self.hp - h.damage
     self.n_combo = 1	--if u get hit reset combo chain
 
@@ -101,6 +100,7 @@ function Character:onHurt()
     --"high", "low", "fall"(replaced by blows)
     if h.type == "high" then
         if self.hp > 0 and self.z <= 0 then
+            self:showHitMarks(h.damage, 40)
             if self.id <= GLOBAL_SETTING.MAX_PLAYERS then --shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
@@ -111,6 +111,7 @@ function Character:onHurt()
         --then it does to "fall dead"
     elseif h.type == "low" then
         if self.hp > 0 and self.z <= 0 then
+            self:showHitMarks(h.damage, 16)
             if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
@@ -138,6 +139,7 @@ function Character:onHurt()
                 dp(self.name.." removed AI tween")
                 self.move:remove()--]]
     --finish calcs before the fall state
+    self:showHitMarks(h.damage, 40)
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
     self.velz = self.velocity_fall_z * self.velocity_jump_speed

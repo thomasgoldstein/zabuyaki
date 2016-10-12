@@ -98,13 +98,13 @@ function Unit:showHitMarks(dmg, z)
 	local pa_hitMark
 	if dmg < 9 then
 		pa_hitMark = PA_IMPACT_SMALL:clone()
-		pa_hitMark:setPosition( 0, -z - 16 )
+		pa_hitMark:setPosition( 0, -z )
 	elseif dmg < 14 then
 		pa_hitMark = PA_IMPACT_MEDIUM:clone()
-		pa_hitMark:setPosition( 0, -z - 28 )
+		pa_hitMark:setPosition( 0, -z )
 	else
 		pa_hitMark = PA_IMPACT_BIG:clone()
-		pa_hitMark:setPosition( 0, -z - 40 )
+		pa_hitMark:setPosition( 0, -z )
 	end
 	pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
 	pa_hitMark:emit(1)
