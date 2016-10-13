@@ -52,7 +52,6 @@ function Level01:initialize(players)
             players[3].shader,
             {255,255,255, 255})
     end
-    --define obstacles
 
     --define sprites
     local bgRoad = love.graphics.newImage("res/img/stages/stage1/road.png")
