@@ -127,7 +127,7 @@ return {
         },
         jumpAttackForward = {
             { q = q(61,265,56,63), ox = 21, oy = 64 }, --jaf1
-            { q = q(119,263,64,67), ox = 22, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(119,263,64,67), ox = 22, oy = 66, funcCont = jump_forward_attack, delay = 0.3 }, --jaf2
             delay = 0.12
         },
         jumpAttackLight = {

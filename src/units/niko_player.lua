@@ -70,28 +70,24 @@ function PNiko:combo_update(dt)
 end
 PNiko.combo = {name = "combo", start = PNiko.combo_start, exit = nop, update = PNiko.combo_update, draw = Character.default_draw}
 
-function PNiko:dash_start()
-    self.isHittable = true
-    dpo(self, self.state)
-    --	print (self.name.." - dash start")
-    SetSpriteAnimation(self.sprite,"dash")
-    self.velx = self.velocity_dash
-    self.vely = 0
-    self.velz = 0
-    sfx.play("voice"..self.id, self.sfx.dash)
-end
-function PNiko:dash_update(dt)
-    if self.sprite.isFinished then
-        dpo(self, self.state)
-        self:setState(self.stand)
+function PNiko:jumpAttackForward_update(dt)
+    --	print (self.name.." - jumpAttackForward update",dt)
+    if self.z > 0 and not self.sprite.isFinished then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+    end
+    if self.sprite.isFinished or self.z <= 1 then
+        if self.z <= 0 then
+            self.z = 1
+        end
+        self:setState(self.fall)
         return
     end
-    self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
     self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
-PNiko.dash = {name = "dash", start = PNiko.dash_start, exit = nop, update = PNiko.dash_update, draw = Character.default_draw}
+PNiko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = PNiko.jumpAttackForward_update, draw = Character.default_draw}
 
 --Block unused moves
 PNiko.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
