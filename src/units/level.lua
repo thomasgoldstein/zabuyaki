@@ -20,7 +20,7 @@ function Level:initialize(name)
     self.world = bump.newWorld(64)
     self.world:add({ type = "wall" }, -20, 0, 40, self.worldHeight) --left
     self.world:add({ type = "wall" }, self.worldWidth - 20, 0, 40, self.worldHeight) --right
-    self.world:add({ type = "wall" }, 0, 410, self.worldWidth, 40) --top
+    self.world:add({ type = "wall" }, 0, 420, self.worldWidth, 40) --top
     self.world:add({ type = "wall" }, 0, 546, self.worldWidth, 40) --bottom
 
     --adding BLOCKING left-right walls
