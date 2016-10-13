@@ -36,6 +36,7 @@ end
 
 function arcadeState:draw()
     love.graphics.setCanvas(canvas)
+    love.graphics.clear( 190, 200, 210, 255 )
     --love.graphics.setBackgroundColor(255, 255, 255)
     mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
