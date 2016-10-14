@@ -70,6 +70,26 @@ function PNiko:combo_update(dt)
 end
 PNiko.combo = {name = "combo", start = PNiko.combo_start, exit = nop, update = PNiko.combo_update, draw = Character.default_draw}
 
+function PNiko:fall_start()
+    self.isHittable = false
+    --    print (self.name.." - fall start")
+    if self.sprite.cur_anim == "jumpAttackForward" then
+        SetSpriteAnimation(self.sprite,"fallen")
+    elseif self.isThrown then
+        self.z = self.thrower_id.throw_start_z or 0
+        SetSpriteAnimation(self.sprite,"thrown")
+        dp("is--- ".. self.sprite.cur_anim)
+    else
+        SetSpriteAnimation(self.sprite,"fall")
+    end
+    if self.z <= 0 then
+        self.z = 0
+    end
+    self.bounced = 0
+    self.bounced_pitch = 1 + 0.05 * love.math.random(-4,4)
+end
+Character.fall = {name = "fall", start = PNiko.fall_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
+
 function PNiko:jumpAttackForward_update(dt)
     --	print (self.name.." - jumpAttackForward update",dt)
     if self.z > 0 and not self.sprite.isFinished then
