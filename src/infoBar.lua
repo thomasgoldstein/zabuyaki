@@ -193,7 +193,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 2 + 85 + 0, t + self.y + 9 - 0)
         local font = gfx.font.arcade3x2
         love.graphics.setFont(font)
-        printWithShadow("3", l + self.x + self.source.shake.x + icon_width + 2 + 94 + 0, t + self.y + 1 - 0)
+        printWithShadow(self.source.lives, l + self.x + self.source.shake.x + icon_width + 2 + 94 + 0, t + self.y + 1 - 0)
     end
 end
 
