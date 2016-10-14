@@ -86,6 +86,11 @@ function Item:update(dt)
     --custom code here. e.g. for triggers / keys
 end
 
+function Item:updateAI(dt)
+    --    Unit.updateAI(self, dt)
+--     print("updateAI "..self.type.." "..self.name)
+end
+
 function Item:get(taker)
     dp(taker.name .. " got "..self.name.." HP+ ".. self.hp .. ", $+ " .. self.score)
     if self.func then    --run custom function if there is

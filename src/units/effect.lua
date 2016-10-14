@@ -64,4 +64,8 @@ function Effect:update(dt)
     end
 end
 
+function Effect:updateAI(dt)
+    --    Unit.updateAI(self, dt)
+end
+
 return Effect

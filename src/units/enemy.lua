@@ -14,6 +14,11 @@ function Enemy:initialize(name, sprite, input, x, y, shader, color)
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
 end
 
+function Enemy:updateAI(dt)
+--    Unit.updateAI(self, dt)
+--    print("updateAI "..self.type.." "..self.name)
+end
+
 function Enemy:getDistanceToClosestPlayer()
     local p = {}
     if player1 then

@@ -240,6 +240,10 @@ function Unit:default_draw(l,t,w,h)
 	end
 end
 
+function Unit:updateAI(dt)
+	--print("updateAI "..self.type.." "..self.name)
+end
+
 -- private
 function Unit:checkCollisionAndMove(dt)
 	local stepx = self.velx * dt * self.horizontal
