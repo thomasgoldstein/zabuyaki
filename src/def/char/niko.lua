@@ -11,7 +11,7 @@ end
 local combo_punch = function(slf)
     slf:checkAndAttack(30,0, 26,12, 9, "fall", slf.velx, "air")
 end
-local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 22,12, 14, "fall", slf.velx) end --slf.velocity_fall_x
+local jump_forward_attack = function(slf) slf:checkAndAttack(16,0, 22,12, 14, "fall", slf.velx) end
 
 return {
     serialization_version = 0.42, -- The version of this serialization process
@@ -126,18 +126,18 @@ return {
             delay = 0.3
         },
         jumpAttackForward = {
-            { q = q(61,265,56,63), ox = 21, oy = 64 }, --jaf1
-            { q = q(119,263,64,67), ox = 22, oy = 66, funcCont = jump_forward_attack, delay = 0.3 }, --jaf2
+            { q = q(61,265,56,63), ox = 28, oy = 64 }, --jaf1
+            { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
         jumpAttackLight = {
-            { q = q(61,265,56,63), ox = 21, oy = 64 }, --jaf1
-            { q = q(119,263,64,67), ox = 22, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(61,265,56,63), ox = 28, oy = 64 }, --jaf1
+            { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
         jumpAttackStraight = {
-            { q = q(61,265,56,63), ox = 21, oy = 64 }, --jaf1
-            { q = q(119,263,64,67), ox = 22, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(61,265,56,63), ox = 28, oy = 64 }, --jaf1
+            { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
         sideStepUp = {
