@@ -104,7 +104,7 @@ psystem:setPosition( 0, -4 )
 psystem:setParticleLifetime(1, 4)
 psystem:setEmitterLifetime(4)
 psystem:emit(20)
-PA_DUST_PUFF_LEVEL = psystem
+PA_DUST_PUFF_STAGE = psystem
 
 psystem = love.graphics.newParticleSystem( img, 50 )
 --psystem:setPosition( 0, -2 )

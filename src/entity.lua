@@ -55,10 +55,10 @@ function Entity:sortByY()
         return a.y < b.y end )
 end
 
-function Entity:addToWorld(level)
+function Entity:addToWorld(stage)
     for i,obj in pairs(self.entities) do
         --global var 'word'
-        level.world:add(obj, obj.x-7, obj.y-3, 15, 7)
+        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
     end
 end
 

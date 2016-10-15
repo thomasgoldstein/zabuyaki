@@ -10,10 +10,10 @@ function arcadeState:resume()
 end
 
 function arcadeState:enter(_, players)
-    --load level
-    level = Level01:new(players)
+    --load stage
+    stage = Stage01:new(players)
 
-    mainCamera = Camera:new(level.worldWidth, level.worldHeight)
+    mainCamera = Camera:new(stage.worldWidth, stage.worldHeight)
 
     --start BGM
     TEsound.stop("music")
@@ -24,7 +24,7 @@ function arcadeState:enter(_, players)
 end
 
 function arcadeState:update(dt)
-    level:update(dt)
+    stage:update(dt)
 
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
@@ -46,13 +46,13 @@ function arcadeState:draw()
     mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
         love.graphics.setColor(255, 255, 255, 255)
---        level.background:draw(l, t, w, h)
---        level.objects:draw(l,t,w,h)
-        level:draw(l,t,w,h)
+--        stage.background:draw(l, t, w, h)
+--        stage.objects:draw(l,t,w,h)
+        stage:draw(l,t,w,h)
 
         show_debug_boxes() -- debug draw bump boxes
 
-        --TODO add foreground parallax for levels
+        --TODO add foreground parallax for stages
         --foreground:draw(l, t, w, h)
     end)
     love.graphics.setCanvas()

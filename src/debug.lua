@@ -81,10 +81,10 @@ end
 function show_debug_boxes()
     if GLOBAL_SETTING.DEBUG then
         -- debug draw bump boxes
-        local obj, _ = level.world:getItems()
+        local obj, _ = stage.world:getItems()
         love.graphics.setColor(255, 0, 0, 50)
         for i = 1, #obj do
-            love.graphics.rectangle("line", level.world:getRect(obj[i]))
+            love.graphics.rectangle("line", stage.world:getRect(obj[i]))
         end
         -- draw attack hitboxes
         for i = 1, #attackHitBoxes do
@@ -150,10 +150,10 @@ function check_debug_keys(key)
     if GLOBAL_SETTING.DEBUG then
         fancy.key(key)
         if key == '0' then
-            level.objects:dp()
+            stage.objects:dp()
         end
         if key == 'f12' then
-            level.objects:revive()  -- revive Players & other units
+            stage.objects:revive()  -- revive Players & other units
         end
         if key == '1' then
             GLOBAL_SETTING.SHOW_GRID = not GLOBAL_SETTING.SHOW_GRID
@@ -173,7 +173,7 @@ end
 function draw_debug_unit_hitbox(a)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 150)
---        level.world:add(obj, obj.x-7, obj.y-3, 15, 7)
+--        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
         love.graphics.rectangle("line", a.x - 7, a.y - a.height - a.z, 15, a.height)
     end
 end

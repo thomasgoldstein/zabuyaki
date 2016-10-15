@@ -3,10 +3,10 @@
 --
 
 local class = require "lib/middleclass"
-local Level = class('Level')
+local Stage = class('Stage')
 
-function Level:initialize(name)
-    self.name = name or "Level NoName"
+function Stage:initialize(name)
+    self.name = name or "Stage NoName"
     self.worldWidth = 4000
     self.worldHeight = 800
     self.background = nil
@@ -30,7 +30,7 @@ function Level:initialize(name)
     self.world:add(self.right_block_wall, self.worldWidth + 20, 0, 40, self.worldHeight) --right
 end
 
-function Level:update(dt)
+function Stage:update(dt)
     self.objects:update(dt)
     --sort players by y
     self.objects:sortByY()
@@ -45,7 +45,7 @@ function Level:update(dt)
     self:setCamera(dt)
 end
 
-function Level:draw(l, t, w, h)
+function Stage:draw(l, t, w, h)
     if self.background then
         self.background:draw(l, t, w, h)
     end
@@ -59,7 +59,7 @@ function Level:draw(l, t, w, h)
     love.graphics.rectangle("fill", self.world:getRect(self.right_block_wall))
 end
 
-function Level:setCamera(dt)
+function Stage:setCamera(dt)
     -- center camera over all players
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
@@ -119,7 +119,7 @@ function Level:setCamera(dt)
             break
         end
     end
-    -- Correct coord_y according to the zoom level
+    -- Correct coord_y according to the zoom stage
     coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
 
     mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
@@ -137,5 +137,5 @@ function Level:setCamera(dt)
     end
 end
 
-return Level
+return Stage
 

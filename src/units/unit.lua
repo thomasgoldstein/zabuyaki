@@ -108,7 +108,7 @@ function Unit:showHitMarks(dmg, z)
 	end
 	pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
 	pa_hitMark:emit(1)
-	level.objects:add(Effect:new(pa_hitMark, self.x, self.y + 3))
+	stage.objects:add(Effect:new(pa_hitMark, self.x, self.y + 3))
 end
 
 function Unit:setToughness(t)
@@ -248,7 +248,7 @@ end
 function Unit:checkCollisionAndMove(dt)
 	local stepx = self.velx * dt * self.horizontal
 	local stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = level.world:move(self, self.x + stepx - 8, self.y + stepy - 4,
+	local actualX, actualY, cols, len = stage.world:move(self, self.x + stepx - 8, self.y + stepy - 4,
 		function(Unit, item)
             if Unit ~= item and item.type == "wall" then
 				return "slide"

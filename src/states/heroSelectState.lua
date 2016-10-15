@@ -216,7 +216,7 @@ function heroSelectState:resume()
 end
 
 local function GameStart()
-    --All characters confirmed, pass them into the level
+    --All characters confirmed, pass them into the stage
     sfx.play("sfx","menu_gamestart")
     local pl = {}
     local sh = selected_heroes()

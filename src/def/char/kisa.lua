@@ -10,7 +10,7 @@ local step_sfx = function(slf)
 	local padust = PA_DUST_STEPS:clone()
 	padust:setLinearAcceleration(-slf.face * 80, -5, slf.face * 80, -50)
 	padust:emit(15)
-	level.objects:add(Effect:new(padust, slf.x - 5 * slf.face, slf.y-2))
+	stage.objects:add(Effect:new(padust, slf.x - 5 * slf.face, slf.y-2))
 end
 local jump_straight_attack1 = function(slf) slf:checkAndAttack(28,0, 20,12, 8, "high", slf.velx) end
 local jump_straight_attack2 = function(slf) slf:checkAndAttack(28,0, 20,12, 8, "fall", slf.velocity_fall_x, nil, true) end

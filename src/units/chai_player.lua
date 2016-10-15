@@ -97,7 +97,7 @@ function Chai:dash_start()
     psystem:setPosition( 0, -16 )
     psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
     psystem:emit(5)
-    level.objects:add(Effect:new(psystem, self.x, self.y-1))
+    stage.objects:add(Effect:new(psystem, self.x, self.y-1))
 end
 function Chai:dash_update(dt)
     if self.sprite.isFinished then

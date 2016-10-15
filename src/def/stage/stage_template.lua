@@ -1,6 +1,6 @@
--- test level
+-- test stage
 
-local function init_level()
+local function init_stage()
     --define obstacles
     local worldWidth, worldHeight = 4000, 240
     local world = bump.newWorld(64)
@@ -20,7 +20,7 @@ local function init_level()
     local quadCloud02 = love.graphics.newQuad(399, 245, 67, 7, bgImg:getDimensions())
     local quadCustomShit01 = love.graphics.newQuad(1, 314, 50, 50, bgImg:getDimensions())
     --bg as a big picture
-    local background = CompoundPicture:new("Test Level Background", worldWidth, worldHeight)
+    local background = CompoundPicture:new("Test Stage Background", worldWidth, worldHeight)
     --arrange sprites along the big picture
     background:add(bgImg, quadSkyWater01, 0, 0, 0.1, 0, -1, 0)
     background:add(bgImg, quadSkyWater01, 0 + 402, 0, 0.1, 0, -1, 0)
@@ -84,4 +84,4 @@ local function init_level()
     return world, background, worldWidth, worldHeight
 end
 
-return init_level
+return init_stage

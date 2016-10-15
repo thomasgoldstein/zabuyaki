@@ -9,7 +9,7 @@ local step_sfx = function(slf)
     local padust = PA_DUST_STEPS:clone()
     padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
     padust:emit(3)
-    level.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
+    stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
 local combo_punch = function(slf)
     slf:checkAndAttack(28,0, 26,12, 7, "high", slf.velx, "air")

@@ -166,7 +166,7 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
     if init_victims_list then
         self.victims = {}
     end
-    local items, len = level.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+    local items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
         function(o)
             if self ~= o and o.isHittable and not self.victims[o]
                     and o.z <= self.z + o.height and o.z >= self.z - self.height
@@ -213,7 +213,7 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
     return
     end
 
-    local items, len = level.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+    local items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
         function(obj)
             if obj == g.target then
                 return true
@@ -236,7 +236,7 @@ end
 
 function Character:checkForItem(w, h)
     --got any items near feet?
-    local items, len = level.world:queryRect(self.x - w/2, self.y - h/2, w, h,
+    local items, len = stage.world:queryRect(self.x - w/2, self.y - h/2, w, h,
         function(item)
             if item.type == "item" and not item.isEnabled then
                 return true
@@ -484,7 +484,7 @@ function Character:run_update(dt)
         psystem:setPosition( 0, -16 )
         psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
         psystem:emit(5)
-        level.objects:add(Effect:new(psystem, self.x, self.y-1))
+        stage.objects:add(Effect:new(psystem, self.x, self.y-1))
         self:setState(self.jump)
         return
     end
@@ -576,7 +576,7 @@ function Character:pickup_start()
         psystem:setOffset( item.ox, item.oy )
         psystem:setPosition( item.x - self.x, item.y - self.y - 10 )
         psystem:emit(1)
-        level.objects:add(Effect:new(psystem, self.x, self.y + 10))
+        stage.objects:add(Effect:new(psystem, self.x, self.y + 10))
         self:onGetItem(item)
     end
     SetSpriteAnimation(self.sprite,"pickup")
@@ -611,7 +611,7 @@ function Character:duck_start()
     psystem:setDirection( 3.14 )
     psystem:setPosition( -20, 0 )
     psystem:emit(5)
-    level.objects:add(Effect:new(psystem, self.x, self.y+2))
+    stage.objects:add(Effect:new(psystem, self.x, self.y+2))
 end
 function Character:duck_update(dt)
     --	print (self.name.." - duck update",dt)
@@ -645,7 +645,7 @@ function Character:duck2jump_update(dt)
         psystem:setPosition( 0, -16 )
         psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
         psystem:emit(5)
-        level.objects:add(Effect:new(psystem, self.x, self.y-1))
+        stage.objects:add(Effect:new(psystem, self.x, self.y-1))
         return
     end
     if self.b.horizontal:isDown(-1) then
@@ -944,7 +944,7 @@ function Character:fall_update(dt)
                 --landing dust clouds
                 local psystem = PA_DUST_FALLING:clone()
                 psystem:emit(20)
-                level.objects:add(Effect:new(psystem, self.x + self.horizontal * 20, self.y+3))
+                stage.objects:add(Effect:new(psystem, self.x + self.horizontal * 20, self.y+3))
                 return
             else
                 --final fall (no bouncing)
@@ -1027,8 +1027,8 @@ function Character:dead_update(dt)
     if self.cool_down_death <= 0 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
         self.isDisabled = true
         self.isHittable = false
-        -- dont remove dead body from the level for proper save/load
-        level.world:remove(self)  --world = global bump var
+        -- dont remove dead body from the stage for proper save/load
+        stage.world:remove(self)  --world = global bump var
         --self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
@@ -1077,7 +1077,7 @@ Character.combo = {name = "combo", start = Character.combo_start, exit = nop, up
 -- GRABBING / HOLDING
 function Character:checkForGrab(range)
     --got any Characters
-    local items, len = level.world:queryPoint(self.x + self.face*range, self.y,
+    local items, len = stage.world:queryPoint(self.x + self.face*range, self.y,
         function(o)
             if o ~= self and o.isHittable then
                 return true

@@ -26,7 +26,7 @@ GLOBAL_SETTING.SHADERS_ENABLED = true
 GLOBAL_SETTING.SHOW_GRID = false
 
 -- global vars
-level = nil
+stage = nil
 player1 = nil
 player2 = nil
 player3 = nil
@@ -72,7 +72,7 @@ function love.load(arg)
 	require "src/def/misc/particles"
 	shaders = require "src/def/misc/shaders"
 	CompoundPicture = require "src/compoPic"
-	Level = require "src/units/level"
+	Stage = require "src/units/stage"
 	Effect = require "src/units/effect"
 	Entity = require "src/entity"
 	Unit = require "src/units/unit"
@@ -88,7 +88,7 @@ function love.load(arg)
 	PNiko = require "src/units/niko_player"
 	Temper = require "src/units/temper_enemy"
 	InfoBar = require "src/infoBar"
-	Level01 = require "src/def/level/level01"
+	Stage01 = require "src/def/stage/stage01"
 
 	tactile = require 'lib/tactile'
 	KeyTrace = require 'src/keyTrace'

@@ -1,9 +1,9 @@
--- level 1
+-- stage 1
 local class = require "lib/middleclass"
-local Level01 = class('Level01', Level)
+local Stage01 = class('Stage01', Stage)
 
-function Level01:initialize(players)
-    Level.initialize(self, "Level 01")
+function Stage01:initialize(players)
+    Stage.initialize(self, "Stage 01")
     self.scrolling = {commonY = 430, chunksX = {} }
     self.scrolling.chunks = {
 --        {startX = 0, endX = 320, startY = 430, endY = 430},
@@ -146,4 +146,4 @@ function Level01:initialize(players)
     self.objects:addToWorld(self)
 end
 
-return Level01
+return Stage01

@@ -109,7 +109,7 @@ function Item:get(taker)
     end
     taker.score = taker.score + self.score
     self.isDisabled = true
-    level.world:remove(self)  --world = global bump var
+    stage.world:remove(self)  --world = global bump var
     --self.y = GLOBAL_SETTING.OFFSCREEN --keep in the stage for proper save/load
 end
 

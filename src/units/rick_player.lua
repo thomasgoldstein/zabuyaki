@@ -115,7 +115,7 @@ function Rick:dash_start()
     self.pa_dash_x = self.x
     self.pa_dash_y = self.y
 
-    level.objects:add(Effect:new(psystem, self.x, self.y + 2))
+    stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
 end
 function Rick:dash_update(dt)
     if self.sprite.isFinished then
