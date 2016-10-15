@@ -135,7 +135,9 @@ function bind_game_input()
         :addButton(tactile.keys('escape'))
         :addButton(tactile.gamepadButtons(gamepad1, 'back')),
         fullScreen = tactile.newControl()
-        :addButton(tactile.keys('f11'))
+        :addButton(tactile.keys('f11')),
+        screenshot = tactile.newControl()
+        :addButton(tactile.keys('p'))
     }
     -- define Player 2 controls
     Control2 = {
