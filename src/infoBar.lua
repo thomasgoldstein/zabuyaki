@@ -134,11 +134,17 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_bg)
     slantedRectangle2( l + self.x + 5, t + self.y + icon_height + 6, calcBarWidth(self) - 7 , bar_height - 6 )
     love.graphics.setColor(255, 255, 255, transp_bg)
+    if self.source.shader then
+        love.graphics.setShader(self.source.shader)
+    end
     love.graphics.draw (
         image_bank[self.icon_sprite],
         self.icon_q, --Current frame of the current animation
         l + self.x + self.source.shake.x, t + self.y
     )
+    if self.source.shader then
+        love.graphics.setShader()
+    end
     if self.old_hp > 0 then
         if self.source.hp > self.hp then
             love.graphics.setColor(got_color[1], got_color[2], got_color[3], transp_bg)
