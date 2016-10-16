@@ -10,6 +10,7 @@ function Temper:initialize(name, sprite, input, x, y, shader, color)
     self.target = self:pickAttackTarget()    --TODO temp
     Gopper.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "enemy"
+    self.lives = 3
 end
 
 function Temper:combo_start()
