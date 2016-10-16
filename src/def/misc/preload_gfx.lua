@@ -19,6 +19,7 @@ local ui = love.graphics.newImage("res/img/misc/ui.png")
 gfx.ui.dead_icon = {sprite = ui, q = q(2,20,31,21), ox = 15, oy = 20, icon_q = q(2,20,31,21)}
 gfx.ui.left_slant = {sprite = ui, q = q(2,2,12,16), ox = 0, oy = 0, icon_q = q(2,2,12,16)}
 gfx.ui.right_slant = {sprite = ui, q = q(11,2,12,16), ox = 0, oy = 0, icon_q = q(11,2,12,16)}
+gfx.ui.middle_slant = {sprite = ui, q = q(10,2,4,16), ox = 0, oy = 0, icon_q = q(10,2,4,16)}
 gfx.ui.image = ui
 
 gfx.font.clock = love.graphics.newFont( "res/font/alarm clock.ttf", 36 )

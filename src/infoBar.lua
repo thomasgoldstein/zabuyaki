@@ -19,7 +19,6 @@ local norm_color = {230,200,30}
 local losing_color = {210,100,30}
 local lost_color = {180,35,30}
 local got_color = {40,160,20}
-local bar_gray_color = {64,64,64}
 local bar_yellow_color = {230,200,30}
 local bar_top_bottom_smooth_color = {100,50,50}
 local transp_bg = 255
@@ -126,10 +125,6 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         cool_down_transparency = calcTransparency(3)
     end
     transp_bg = 255 * cool_down_transparency
-    love.graphics.setColor(bar_gray_color[1], bar_gray_color[2], bar_gray_color[3], transp_bg)
-    slantedRectangle2( l + self.x + 6, t + self.y + icon_height + 3, calcBarWidth(self) - 8, bar_height )
-    love.graphics.setColor(242, 242, 242, transp_bg)
-    slantedRectangle2( l + self.x + 5, t + self.y + icon_height + 4, calcBarWidth(self) - 7, bar_height - 2 )
     love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_bg)
     slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) - 6 , bar_height - 6 )
     love.graphics.setColor(255, 255, 255, transp_bg)
@@ -164,6 +159,11 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         )
     end
     love.graphics.setColor(255,255,255, transp_bg)
+    love.graphics.draw (
+        gfx.ui.middle_slant.sprite,
+        gfx.ui.middle_slant.q,
+        l + self.x - 4 + 12, t + self.y + icon_height + 3, 0, calcBarWidth(self) / 4 - 4, 1
+    )
     love.graphics.draw (
         gfx.ui.left_slant.sprite,
         gfx.ui.left_slant.q,
