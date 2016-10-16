@@ -8,7 +8,7 @@ local InfoBar = class("InfoBar")
 
 local v_g = 39 --vertical gap between bars
 local v_m = 13 --vert margin from the top
-local h_m = 41 --horizontal margin
+local h_m = 42 --horizontal margin
 local bar_width = 150
 local bar_width_with_lr = bar_width + 6
 local bar_height = 16
