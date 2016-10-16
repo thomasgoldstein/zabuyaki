@@ -34,7 +34,7 @@ local bars_coords = {   --for players only 1..MAX_PLAYERS
 
 local function calcBarWidth(self)
     if self.max_hp < 100 and self.source.lives <= 1 then
-        return (self.max_hp * bar_width) / 100
+        return math.floor((self.max_hp * bar_width) / 100)
     end
     return bar_width
 end
