@@ -89,6 +89,10 @@ function Character:onHurt()
 
     self:playHitSfx(h.damage)
     self.hp = self.hp - h.damage
+    if self.hp <= 0 then
+        self.hp = self.max_hp + self.hp
+        self.lives = self.lives - 1
+    end
     self.n_combo = 1	--if u get hit reset combo chain
 
     self.face = -h.source.face	--turn face to the attacker
