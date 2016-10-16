@@ -10,7 +10,7 @@ local v_g = 39 --vertical gap between bars
 local v_m = 13 --vert margin from the top
 local h_m = 42 --horizontal margin
 local bar_width = 150
-local bar_width_with_lr = bar_width + 6
+local bar_width_with_lr = bar_width + 8
 local bar_height = 16
 local icon_width = 40
 local icon_height = 17
@@ -26,9 +26,9 @@ local transp_bg = 255
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 
 local bars_coords = {   --for players only 1..MAX_PLAYERS
-    { x = h_m + 5, y = v_m + 0 * v_g },
-    { x = math.floor(screen_width / 2 - bar_width_with_lr/2) + 4, y = v_m + 0 * v_g },
-    { x = math.floor(screen_width - bar_width_with_lr - h_m + 3), y = v_m + 0 * v_g }
+    { x = h_m + 4, y = v_m + 0 * v_g },
+    { x = math.floor(screen_width / 2 - bar_width_with_lr / 2) + 2, y = v_m + 0 * v_g },
+    { x = math.floor(screen_width - bar_width_with_lr - h_m + 0), y = v_m + 0 * v_g }
 }
 
 local function calcBarWidth(self)
@@ -126,7 +126,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     end
     transp_bg = 255 * cool_down_transparency
     love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_bg)
-    slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) - 6 , bar_height - 6 )
+    slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) , bar_height - 6 )
     love.graphics.setColor(255, 255, 255, transp_bg)
     if self.source.shader then
         love.graphics.setShader(self.source.shader)
@@ -134,7 +134,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.draw (
         image_bank[self.icon_sprite],
         self.icon_q, --Current frame of the current animation
-        l + self.x + self.source.shake.x, t + self.y
+        l + self.x - 2 + self.source.shake.x, t + self.y
     )
     if self.source.shader then
         love.graphics.setShader()
@@ -145,11 +145,11 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         else
             love.graphics.setColor(losing_color[1], losing_color[2], losing_color[3], transp_bg)
         end
-        slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, (calcBarWidth(self) - 6) * self.old_hp / self.max_hp , bar_height - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self)  * self.old_hp / self.max_hp , bar_height - 6 )
     end
     if self.hp > 0 then
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bg)
-        slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, (calcBarWidth(self) - 6) * self.hp / self.max_hp , bar_height - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) * self.hp / self.max_hp , bar_height - 6 )
     else
         love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*20 + 17) * cool_down_transparency)
         love.graphics.draw (
@@ -162,7 +162,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.draw (
         gfx.ui.middle_slant.sprite,
         gfx.ui.middle_slant.q,
-        l + self.x - 4 + 12, t + self.y + icon_height + 3, 0, calcBarWidth(self) / 4 - 4, 1
+        l + self.x - 4 + 12, t + self.y + icon_height + 3, 0, (calcBarWidth(self) - 12) / 4, 1
     )
     love.graphics.draw (
         gfx.ui.left_slant.sprite,
@@ -172,33 +172,33 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.draw (
         gfx.ui.right_slant.sprite,
         gfx.ui.right_slant.q,
-        l + self.x - 4 - 6 + calcBarWidth(self), t + self.y + icon_height + 3
+        l + self.x - 4 + calcBarWidth(self), t + self.y + icon_height + 3
     )
     if self.score ~= self.source.score then
         self.score = self.source.score
         self.displayed_score = string.format("%06d", self.score)
     end
     love.graphics.setColor(bar_top_bottom_smooth_color[1], bar_top_bottom_smooth_color[2], bar_top_bottom_smooth_color[3], math.min(255,transp_bg) - 127)
-    love.graphics.rectangle('fill', l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) - 6, 1)
-    love.graphics.rectangle('fill', l + self.x + 0, t + self.y + icon_height + bar_height - 1, calcBarWidth(self) - 6, 1)
+    love.graphics.rectangle('fill', l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self), 1)
+    love.graphics.rectangle('fill', l + self.x + 0, t + self.y + icon_height + bar_height - 1, calcBarWidth(self), 1)
 
     local font = gfx.font.arcade3
     love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)
-    printWithShadow(self.name, l + self.x + self.source.shake.x + icon_width + 4 + 0, t + self.y + 9 - 0)
+    printWithShadow(self.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9 )
     if self.source.type == "player" or self.source.lives > 1 then
         local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
         if c then
             love.graphics.setColor(c[1],c[2],c[3], transp_bg)
         end
-        printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 4 + 0, t + self.y - 1 - 0)
+        printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1 )
         love.graphics.setColor(bar_yellow_color[1], bar_yellow_color[2], bar_yellow_color[3], transp_bg)
-        printWithShadow(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 2 + 34 + 0, t + self.y - 1 - 0)
+        printWithShadow(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 34, t + self.y - 1 )
         love.graphics.setColor(255, 255, 255, transp_bg)
-        printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 2 + 85 + 0, t + self.y + 9 - 0)
+        printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 85, t + self.y + 9 )
         local font = gfx.font.arcade3x2
         love.graphics.setFont(font)
-        printWithShadow(self.source.lives, l + self.x + self.source.shake.x + icon_width + 2 + 94 + 0, t + self.y + 1 - 0)
+        printWithShadow(self.source.lives, l + self.x + self.source.shake.x + icon_width + 94, t + self.y + 1 )
     end
 end
 
