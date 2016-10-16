@@ -71,6 +71,7 @@ function Character:decreaseHp(damage)
         if self.lives <= 0 then
             self.hp = 0
         end
+        self.infoBar.hp = self.hp -- prevent green fill up
     end
 end
 
