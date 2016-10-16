@@ -10,7 +10,7 @@ local function dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
 function Enemy:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "enemy"
-    self.lives = 1
+    self.lives = 2
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
 end
 
