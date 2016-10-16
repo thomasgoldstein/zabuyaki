@@ -8,8 +8,9 @@ local InfoBar = class("InfoBar")
 
 local v_g = 39 --vertical gap between bars
 local v_m = 13 --vert margin from the top
-local h_m = 42 --horizontal margin
+local h_m = 41 --horizontal margin
 local bar_width = 150
+local bar_width_with_lr = bar_width + 6
 local bar_height = 16
 local icon_width = 40
 local icon_height = 17
@@ -25,12 +26,10 @@ local transp_bg = 255
 
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 
-local max_bar_width = bar_width - 0
-
 local bars_coords = {   --for players only 1..MAX_PLAYERS
-    { x = h_m, y = v_m + 0 * v_g },
-    { x = math.floor(screen_width / 2 - max_bar_width/2), y = v_m + 0 * v_g },
-    { x = math.floor(screen_width - max_bar_width - h_m), y = v_m + 0 * v_g }
+    { x = h_m + 5, y = v_m + 0 * v_g },
+    { x = math.floor(screen_width / 2 - bar_width_with_lr/2) + 4, y = v_m + 0 * v_g },
+    { x = math.floor(screen_width - bar_width_with_lr - h_m + 3), y = v_m + 0 * v_g }
 }
 
 local function calcBarWidth(self)
