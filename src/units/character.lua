@@ -63,6 +63,17 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
 --    self.victim_infoBar = nil
 end
 
+function Character:decreaseHp(damage)
+    self.hp = self.hp - damage
+    if self.hp <= 0 then
+        self.hp = self.max_hp + self.hp
+        self.lives = self.lives - 1
+        if self.lives <= 0 then
+            self.hp = 0
+        end
+    end
+end
+
 function Character:onHurt()
     -- hurt = {source, damage, velx,vely,x,y,z}
     local h = self.hurt
@@ -88,11 +99,7 @@ function Character:onHurt()
     h.source.score = h.source.score + h.damage * 10
 
     self:playHitSfx(h.damage)
-    self.hp = self.hp - h.damage
-    if self.hp <= 0 then
-        self.hp = self.max_hp + self.hp
-        self.lives = self.lives - 1
-    end
+    self:decreaseHp(h.damage)
     self.n_combo = 1	--if u get hit reset combo chain
 
     self.face = -h.source.face	--turn face to the attacker
@@ -938,7 +945,7 @@ function Character:fall_update(dt)
                     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                     if self.isThrown then
                         local src = self.thrower_id
-                        self.hp = self.hp - self.thrown_land_damage	--damage for throwned on landing
+                        self:decreaseHp(self.thrown_land_damage) --damage for throwned on landing
                         src.score = src.score + self.thrown_land_damage * 10
                         src.victim_infoBar = self.infoBar:setAttacker(src)
                     end

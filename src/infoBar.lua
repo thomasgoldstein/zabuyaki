@@ -33,7 +33,7 @@ local bars_coords = {   --for players only 1..MAX_PLAYERS
 }
 
 local function calcBarWidth(self)
-    if self.max_hp < 100 then
+    if self.max_hp < 100 and self.source.lives <= 1 then
         return (self.max_hp * bar_width) / 100
     end
     return bar_width
@@ -186,7 +186,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.x + self.source.shake.x + icon_width + 4 + 0, t + self.y + 9 - 0)
-    if self.source.type == "player" then
+    if self.source.type == "player" or self.source.lives > 1 then
         local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
         if c then
             love.graphics.setColor(c[1],c[2],c[3], transp_bg)
