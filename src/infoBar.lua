@@ -194,11 +194,13 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1 )
         love.graphics.setColor(bar_yellow_color[1], bar_yellow_color[2], bar_yellow_color[3], transp_bg)
         printWithShadow(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 34, t + self.y - 1 )
-        love.graphics.setColor(255, 255, 255, transp_bg)
-        printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 91, t + self.y + 9 )
-        local font = gfx.font.arcade3x2
-        love.graphics.setFont(font)
-        printWithShadow(self.source.lives, l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1 )
+        if self.source.lives >= 1 then
+            love.graphics.setColor(255, 255, 255, transp_bg)
+            printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 91, t + self.y + 9 )
+            local font = gfx.font.arcade3x2
+            love.graphics.setFont(font)
+            printWithShadow(self.source.lives - 1, l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1 )
+        end
     end
 end
 
