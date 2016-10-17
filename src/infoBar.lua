@@ -262,10 +262,6 @@ function InfoBar:update(dt)
         self.old_hp = self.hp
     end
     self.cool_down = self.cool_down - dt
-
-    if self.hp <= 0 and self.source.lives <= 0 and self.source.type == "enemy" and self.max_hp > 5 then
-        self.max_hp = self.max_hp - dt * 10
-    end
 end
 
 function InfoBar:drawShadow(l,t,w,h)
