@@ -154,6 +154,7 @@ function Character:onHurt()
                 self.move:remove()--]]
     --finish calcs before the fall state
     self:showHitMarks(h.damage, 40)
+    self:onShake(1, 0, 0.03, 0.3)   --shake a character
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
     self.velz = self.velocity_fall_z * self.velocity_jump_speed
