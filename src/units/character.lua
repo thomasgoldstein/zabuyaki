@@ -105,17 +105,22 @@ function Character:onHurt()
 
     -- Score
     h.source.score = h.source.score + h.damage * 10
+    self:decreaseHp(h.damage)
+    self:onShake(1, 0, 0.03, 0.3)   --shake a character
+    if h.type == "simple" then
+        self.hurt = nil --free hurt data
+        return
+    end
 
     self:playHitSfx(h.damage)
-    self:decreaseHp(h.damage)
     self.n_combo = 1	--if u get hit reset combo chain
 
     self.face = -h.source.face	--turn face to the attacker
     --self.horizontal = h.horizontal  --
 
     self.hurt = nil --free hurt data
-    self:onShake(1, 0, 0.03, 0.3)   --shake a character
-    --"blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
+
+    --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
     --"high", "low", "fall"(replaced by blows)
     if h.type == "high" then
         if self.hp > 0 and self.z <= 0 then
@@ -174,6 +179,16 @@ function Character:onHurt()
     self.isGrabbed = false
     self:setState(self.fall)
     return
+end
+
+function Character:applyDamage(damage, type, source, velocity, sfx1)
+    self.hurt = {source = source or self, state = self.state, damage = damage,
+        type = type, velx = velocity or 0,
+        horizontal = self.face, isThrown = false,
+        x = self.x, y = self.y, z = self.z }
+    if sfx1 then
+        sfx.play("sfx"..self.id,sfx1)
+    end
 end
 
 function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_victims_list)
@@ -917,8 +932,9 @@ function Character:fall_update(dt)
                     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                     if self.isThrown then
                         local src = self.thrower_id
-                        self:decreaseHp(self.thrown_land_damage) --damage for throwned on landing
-                        src.score = src.score + self.thrown_land_damage * 10
+                        --self:decreaseHp(self.thrown_land_damage) --damage for throwned on landing
+                        --src.score = src.score + self.thrown_land_damage * 10
+                        self:applyDamage(self.thrown_land_damage, "simple", src)
                         src.victim_infoBar = self.infoBar:setAttacker(src)
                     end
                 end
