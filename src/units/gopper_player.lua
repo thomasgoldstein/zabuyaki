@@ -65,7 +65,6 @@ function PGopper:combo_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    UpdateSpriteInstance(self.sprite, dt, self)
 end
 PGopper.combo = {name = "combo", start = PGopper.combo_start, exit = nop, update = PGopper.combo_update, draw = Character.default_draw}
 
@@ -87,7 +86,6 @@ function PGopper:dash_update(dt)
     end
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
-    UpdateSpriteInstance(self.sprite, dt, self)
 end
 PGopper.dash = {name = "dash", start = PGopper.dash_start, exit = nop, update = PGopper.dash_update, draw = Character.default_draw}
 

@@ -242,6 +242,7 @@ end
 
 function Unit:updateAI(dt)
 	--print("updateAI "..self.type.." "..self.name)
+	UpdateSpriteInstance(self.sprite, dt, self)
 end
 
 -- private

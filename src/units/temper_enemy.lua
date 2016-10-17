@@ -105,7 +105,6 @@ function Temper:walk_update(dt)
     self:checkCollisionAndMove(dt)
     self.can_jump = true
     self.can_fire = true
-    UpdateSpriteInstance(self.sprite, dt, self)
 end
 
 Temper.combo = {name = "combo", start = Temper.combo_start, exit = nop, update = Gopper.combo_update, draw = Enemy.default_draw }

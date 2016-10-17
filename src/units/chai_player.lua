@@ -74,7 +74,6 @@ function Chai:combo_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Chai.combo = {name = "combo", start = Chai.combo_start, exit = nop, update = Chai.combo_update, draw = Character.default_draw}
 
@@ -117,7 +116,6 @@ function Chai:dash_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Chai.dash = {name = "dash", start = Chai.dash_start, exit = nop, update = Chai.dash_update, draw = Character.default_draw }
 

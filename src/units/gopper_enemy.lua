@@ -72,8 +72,6 @@ function Gopper:combo_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    --	self:checkHurt()
-    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Enemy.default_draw}
 
@@ -95,7 +93,6 @@ function Gopper:intro_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Gopper.intro = {name = "intro", start = Gopper.intro_start, exit = nop, update = Gopper.intro_update, draw = Enemy.default_draw}
 
@@ -130,7 +127,6 @@ function Gopper:stand_update(dt)
     self.can_fire = true
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Gopper.stand = {name = "stand", start = Gopper.stand_start, exit = nop, update = Gopper.stand_update, draw = Enemy.default_draw}
 
@@ -218,7 +214,6 @@ function Gopper:walk_update(dt)
     self:checkCollisionAndMove(dt)
     self.can_jump = true
     self.can_fire = true
-    UpdateSpriteInstance(self.sprite, dt, self)
 end
 Gopper.walk = {name = "walk", start = Gopper.walk_start, exit = nop, update = Gopper.walk_update, draw = Enemy.default_draw}
 
