@@ -932,9 +932,9 @@ function Character:fall_update(dt)
                     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                     if self.isThrown then
                         local src = self.thrower_id
-                        --self:decreaseHp(self.thrown_land_damage) --damage for throwned on landing
-                        --src.score = src.score + self.thrown_land_damage * 10
+                        --damage for throwned on landing
                         self:applyDamage(self.thrown_land_damage, "simple", src)
+                        --TODO can move in onHurt?
                         src.victim_infoBar = self.infoBar:setAttacker(src)
                     end
                 end
