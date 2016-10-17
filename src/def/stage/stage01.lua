@@ -127,6 +127,10 @@ function Stage01:initialize(players)
     local item3 = Item:new("Beef", "+100 HP", gfx.items.beef, 100, 0, nil, 750,top_floor_y + 40 )
 
     local temper1 = Temper:new("TEMPER", GetSpriteInstance("src/def/char/rick.lua"), button3, 167, top_floor_y + 40, shaders.rick[5], {255,255,255, 255})
+    -- 3 lives: 100hp+100hp+50hp sample
+    temper1.max_hp = 100
+    temper1.hp = 50
+    temper1.infoBar = InfoBar:new(temper1)
 
     self.objects = Entity:new()
     self.objects:addArray({
