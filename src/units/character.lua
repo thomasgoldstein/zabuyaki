@@ -77,6 +77,11 @@ function Character:decreaseHp(damage)
     end
 end
 
+function Character:updateAI(dt)
+    Unit.updateAI(self, dt)
+    self:updateShake(dt)
+end
+
 function Character:onHurt()
     -- hurt = {source, damage, velx,vely,x,y,z}
     local h = self.hurt
@@ -109,7 +114,7 @@ function Character:onHurt()
     --self.horizontal = h.horizontal  --
 
     self.hurt = nil --free hurt data
-
+    self:onShake(1, 0, 0.03, 0.3)   --shake a character
     --"blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
     --"high", "low", "fall"(replaced by blows)
     if h.type == "high" then
@@ -118,7 +123,6 @@ function Character:onHurt()
             if self.id <= GLOBAL_SETTING.MAX_PLAYERS then --shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
-            self:onShake(1, 0, 0.03, 0.3)   --shake a character
             self:setState(self.hurtHigh)
             return
         end
@@ -129,7 +133,6 @@ function Character:onHurt()
             if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--shake the screen for Players only
                 mainCamera:onShake(0, 1, 0.03, 0.3)
             end
-            self:onShake(1, 0, 0.03, 0.3)   --shake a character
             self:setState(self.hurtLow)
             return
         end
@@ -154,7 +157,6 @@ function Character:onHurt()
                 self.move:remove()--]]
     --finish calcs before the fall state
     self:showHitMarks(h.damage, 40)
-    self:onShake(1, 0, 0.03, 0.3)   --shake a character
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
     self.velz = self.velocity_fall_z * self.velocity_jump_speed
@@ -357,7 +359,6 @@ function Character:stand_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.stand = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
@@ -436,7 +437,6 @@ function Character:walk_update(dt)
     end
     --self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.walk = {name = "walk", start = Character.walk_start, exit = nop, update = Character.walk_update, draw = Character.default_draw}
@@ -505,7 +505,6 @@ function Character:run_update(dt)
     end
     --self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.run = {name = "run", start = Character.run_start, exit = nop, update = Character.run_update, draw = Character.default_draw}
@@ -574,7 +573,6 @@ function Character:jump_update(dt)
     if not self.b.fire:isDown() then
         self.can_fire = true
     end
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jump = {name = "jump", start = Character.jump_start, exit = nop, update = Character.jump_update, draw = Character.default_draw}
@@ -605,7 +603,6 @@ function Character:pickup_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.pickup = {name = "pickup", start = Character.pickup_start, exit = nop, update = Character.pickup_update, draw = Character.default_draw}
@@ -636,7 +633,6 @@ function Character:duck_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.duck = {name = "duck", start = Character.duck_start, exit = nop, update = Character.duck_update, draw = Character.default_draw}
@@ -681,7 +677,6 @@ function Character:duck2jump_update(dt)
     end
     --self:calcFriction(dt)
     --self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.duck2jump = {name = "duck2jump", start = Character.duck2jump_start, exit = nop, update = Character.duck2jump_update, draw = Character.default_draw}
@@ -709,7 +704,6 @@ function Character:hurtHigh_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.hurtHigh = {name = "hurtHigh", start = Character.hurtHigh_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
@@ -737,7 +731,6 @@ function Character:hurtLow_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
@@ -762,7 +755,6 @@ function Character:sideStepDown_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.sideStepDown = {name = "sideStepDown", start = Character.sideStepDown_start, exit = nop, update = Character.sideStepDown_update, draw = Character.default_draw}
@@ -787,7 +779,6 @@ function Character:sideStepUp_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.sideStepUp = {name = "sideStepUp", start = Character.sideStepUp_start, exit = nop, update = Character.sideStepUp_update, draw = Character.default_draw}
@@ -808,7 +799,6 @@ function Character:dash_update(dt)
     end
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.dash = {name = "dash", start = Character.dash_start, exit = nop, update = Character.dash_update, draw = Character.default_draw}
@@ -832,7 +822,6 @@ function Character:jumpAttackForward_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.jumpAttackForward_update, draw = Character.default_draw}
@@ -855,7 +844,6 @@ function Character:jumpAttackLight_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAttackLight_start, exit = nop, update = Character.jumpAttackLight_update, draw = Character.default_draw}
@@ -879,7 +867,6 @@ function Character:jumpAttackStraight_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.jumpAttackStraight_update, draw = Character.default_draw}
@@ -903,7 +890,6 @@ function Character:jumpAttackRun_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRun_start, exit = nop, update = Character.jumpAttackRun_update, draw = Character.default_draw}
@@ -988,7 +974,6 @@ function Character:fall_update(dt)
         end
     end
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.fall = {name = "fall", start = Character.fall_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
@@ -1014,7 +999,6 @@ function Character:getup_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.getup = {name = "getup", start = Character.getup_start, exit = nop, update = Character.getup_update, draw = Character.default_draw}
@@ -1051,7 +1035,6 @@ function Character:dead_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.dead = {name = "dead", start = Character.dead_start, exit = nop, update = Character.dead_update, draw = Character.default_draw}
@@ -1084,7 +1067,6 @@ function Character:combo_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.combo = {name = "combo", start = Character.combo_start, exit = nop, update = Character.combo_update, draw = Character.default_draw}
@@ -1237,7 +1219,6 @@ function Character:grab_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grab = {name = "grab", start = Character.grab_start, exit = nop, update = Character.grab_update, draw = Character.default_draw}
@@ -1278,7 +1259,6 @@ function Character:grabbed_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabbed = {name = "grabbed", start = Character.grabbed_start, exit = nop, update = Character.grabbed_update, draw = Character.default_draw}
@@ -1311,7 +1291,6 @@ function Character:grabHit_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabHit = {name = "grabHit", start = Character.grabHit_start, exit = nop, update = Character.grabHit_update, draw = Character.default_draw}
@@ -1330,7 +1309,6 @@ function Character:grabHitLast_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabHitLast = {name = "grabHitLast", start = Character.grabHitLast_start, exit = nop, update = Character.grabHitLast_update, draw = Character.default_draw }
@@ -1349,7 +1327,6 @@ function Character:grabHitEnd_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabHitEnd = {name = "grabHitEnd", start = Character.grabHitEnd_start, exit = nop, update = Character.grabHitEnd_update, draw = Character.default_draw}
@@ -1405,7 +1382,6 @@ function Character:grabThrow_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Character.grabThrow = {name = "grabThrow", start = Character.grabThrow_start, exit = nop, update = Character.grabThrow_update, draw = Character.default_draw}

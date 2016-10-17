@@ -105,7 +105,6 @@ function Temper:walk_update(dt)
     self:checkCollisionAndMove(dt)
     self.can_jump = true
     self.can_fire = true
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 

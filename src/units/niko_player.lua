@@ -65,7 +65,6 @@ function PNiko:combo_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 PNiko.combo = {name = "combo", start = PNiko.combo_start, exit = nop, update = PNiko.combo_update, draw = Character.default_draw}

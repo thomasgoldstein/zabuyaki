@@ -15,7 +15,7 @@ function Enemy:initialize(name, sprite, input, x, y, shader, color)
 end
 
 function Enemy:updateAI(dt)
---    Unit.updateAI(self, dt)
+    Character.updateAI(self, dt)
 --    print("updateAI "..self.type.." "..self.name)
 end
 

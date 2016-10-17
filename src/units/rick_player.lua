@@ -75,7 +75,6 @@ function Rick:combo_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Character.default_draw}
@@ -94,7 +93,6 @@ function Rick:special_update(dt)
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 Rick.special = {name = "special", start = Rick.special_start, exit = nop, update = Rick.special_update, draw = Character.default_draw }
@@ -129,7 +127,6 @@ function Rick:dash_update(dt)
     end
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
-    self:updateShake(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 
