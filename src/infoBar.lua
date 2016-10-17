@@ -47,9 +47,8 @@ end
 
 local function printWithShadow(text, x, y)
     local r, g, b, a = love.graphics.getColor( )
-    --print(x,y)
     love.graphics.setColor(0, 0, 0, transp_bg)
-    love.graphics.print(text, x + 2, y - 2)
+    love.graphics.print(text, x + 1, y - 1)
     love.graphics.setColor(r, g, b, a)
     love.graphics.print(text, x, y)
 end
