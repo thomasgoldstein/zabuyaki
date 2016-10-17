@@ -201,12 +201,12 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
             items[i].hurt = {source = self.thrower_id, state = self.state, damage = damage,
                 type = type, velx = velocity or self.velocity_bonus_on_attack_x,
                 horizontal = self.horizontal, isThrown = true,
-                x = self.x, y = self.y, z = z or self.z }
+                x = self.x, y = self.y, z = self.z }
         else
             items[i].hurt = {source = self, state = self.state, damage = damage,
                 type = type, velx = velocity or self.velocity_bonus_on_attack_x,
                 horizontal = face, isThrown = false,
-                x = self.x, y = self.y, z = z or self.z }
+                x = self.x, y = self.y, z = self.z }
         end
     end
     if sfx1 then
@@ -244,7 +244,7 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
         items[i].hurt = {source = self, state = self.state, damage = damage,
             type = type, velx = velocity or self.velocity_bonus_on_attack_x,
             horizontal = self.horizontal,
-            x = self.x, y = self.y, z = z or self.z}
+            x = self.x, y = self.y, z = self.z}
     end
     if sfx1 then	--TODO 2 SFX for holloow and hit
         sfx.play("sfx"..self.id,sfx1)
