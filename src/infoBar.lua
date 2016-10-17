@@ -149,7 +149,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     end
     if self.hp > 0 then
         love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bg)
-        slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) * self.hp / self.max_hp , bar_height - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) * self.hp / self.max_hp + 1, bar_height - 6 )
     else
         love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*20 + 17) * cool_down_transparency)
         love.graphics.draw (
