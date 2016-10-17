@@ -934,8 +934,6 @@ function Character:fall_update(dt)
                         local src = self.thrower_id
                         --damage for throwned on landing
                         self:applyDamage(self.thrown_land_damage, "simple", src)
-                        --TODO can move in onHurt?
-                        src.victim_infoBar = self.infoBar:setAttacker(src)
                     end
                 end
                 sfx.play("sfx"..self.id,"fall", 1 - self.bounced * 0.2, self.bounced_pitch - self.bounced * 0.2)
