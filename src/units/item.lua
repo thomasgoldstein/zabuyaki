@@ -14,8 +14,6 @@ end
 
 function Item:initialize(name, note, gfx, hp, score, func, x, y, shader, color)
     self.sprite = gfx.sprite
-    self.icon_sprite = gfx.sprite
-    self.icon_q = gfx.icon_q
     self.q = gfx.q
     self.ox = gfx.ox
     self.oy = gfx.oy

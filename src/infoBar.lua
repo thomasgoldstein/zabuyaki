@@ -47,8 +47,9 @@ end
 
 local function printWithShadow(text, x, y)
     local r, g, b, a = love.graphics.getColor( )
+    --print(x,y)
     love.graphics.setColor(0, 0, 0, transp_bg)
-    love.graphics.print(text, x + 1, y - 1)
+    love.graphics.print(text, x + 2, y - 2)
     love.graphics.setColor(r, g, b, a)
     love.graphics.print(text, x, y)
 end
@@ -67,8 +68,8 @@ function InfoBar:initialize(source)
     self.cool_down = 1
     self.id = self.source.id
     if source.type == "item" then
-        self.icon_sprite = source.icon_sprite
-        self.icon_q = source.icon_q  --quad
+        self.icon_sprite = source.sprite
+        self.q = source.q  --quad
         self.icon_color = { r= 255, g = 255, b = 255, a = 255 }
         self.max_hp = 20
         self.hp = 1
@@ -80,7 +81,7 @@ function InfoBar:initialize(source)
             self.displayed_score = ""
         end
         self.icon_sprite = source.sprite.def.sprite_sheet
-        self.icon_q = source.sprite.def.animations["icon"][1].q  --quad
+        self.q = source.sprite.def.animations["icon"][1].q  --quad
         self.icon_color = source.color
         self.max_hp = source.max_hp
         self.hp = 1
@@ -133,7 +134,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     end
     love.graphics.draw (
         image_bank[self.icon_sprite],
-        self.icon_q, --Current frame of the current animation
+        self.q, --Current frame of the current animation
         l + self.x - 2 + self.source.shake.x, t + self.y
     )
     if self.source.shader then
@@ -209,7 +210,7 @@ function InfoBar:draw_item_bar(l,t,w,h)
     love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_bg)
     love.graphics.draw (
         self.icon_sprite,
-        self.icon_q, --Current frame of the current animation
+        self.q, --Current frame of the current animation
         l + self.x + icon_height/4, t + self.y + 4
     )
     local font = gfx.font.arcade3
