@@ -66,14 +66,7 @@ end
 function Character:decreaseHp(damage)
     self.hp = self.hp - damage
     if self.hp <= 0 then
-        self.hp = self.max_hp + self.hp
-        self.lives = self.lives - 1
-        if self.lives <= 0 then
-            self.hp = 0
-        else
-            self.infoBar.hp = self.max_hp -- prevent green fill up
-            self.infoBar.old_hp = self.max_hp
-        end
+        self.hp = 0
     end
 end
 
@@ -105,11 +98,11 @@ function Character:onHurt()
 
     -- Score
     h.source.score = h.source.score + h.damage * 10
-    self:decreaseHp(h.damage)
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
     if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
         mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
     end
+    self:decreaseHp(h.damage)
     if h.type == "simple" then
         self.hurt = nil --free hurt data
         return
@@ -149,8 +142,8 @@ function Character:onHurt()
         if self.velx < self.velocity_fall_x / 2 then
             self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
         end
-    else
-        error("OnHurt - unknown h.type = "..h.type)
+--    else
+--        error("OnHurt - unknown h.type = "..h.type)
     end
     dpo(self, self.state)
     --TODO disable AI movement (for cut scenes & enemy)
@@ -1036,23 +1029,25 @@ Character.dead = {name = "dead", start = Character.dead_start, exit = nop, updat
 
 function Character:useCredit_start()
     self.isHittable = false
-    if credits <= 0 then
-        self.isDisabled = true
-        self.isHittable = false
-        -- dont remove dead body from the stage for proper save/load
-        stage.world:remove(self)  --world = global bump var
-        --self.y = GLOBAL_SETTING.OFFSCREEN
-        return
+    self.lives = self.lives - 1
+    if self.lives <= 0 then
+        credits = credits - 1
+        if credits <= 0 then
+            self.isDisabled = true
+            -- dont remove dead body from the stage for proper save/load
+            stage.world:remove(self)  --world = global bump var
+            --self.y = GLOBAL_SETTING.OFFSCREEN
+            return
+        else
+            self.score = self.score + 1 -- like CAPCM
+            self.lives = GLOBAL_SETTING.MAX_LIVES
+        end
     end
     dp(self.name.." is useCredit.")
     self.cool_down_death = 3 --seconds to remove
-    credits = credits - 1
-    self.score = self.score + 1 -- like CAPCM
-    self.lives = GLOBAL_SETTING.MAX_LIVES
     self.hp = self.max_hp
     self.z = 240
-    --self:onShake(1, 0, 0.1, 0.7)
-    --sfx.play("voice"..self.id, self.sfx.dead)
+    sfx.play("sfx","menu_select")
     self:setState(self.fall)
     return
 end

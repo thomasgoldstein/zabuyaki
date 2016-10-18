@@ -19,6 +19,54 @@ function Enemy:updateAI(dt)
 --    print("updateAI "..self.type.." "..self.name)
 end
 
+function Enemy:decreaseHp(damage)
+    self.hp = self.hp - damage
+    if self.hp <= 0 then
+        self.hp = self.max_hp + self.hp
+        self.lives = self.lives - 1
+        if self.lives <= 0 then
+            self.hp = 0
+        else
+            self.infoBar.hp = self.max_hp -- prevent green fill up
+            self.infoBar.old_hp = self.max_hp
+        end
+    end
+end
+
+function Enemy:dead_start()
+    self.isHittable = false
+    --print (self.name.." - dead start")
+    SetSpriteAnimation(self.sprite,"fallen")
+    dp(self.name.." is dead.")
+    self.hp = 0
+    self.hurt = nil
+    self:release_grabbed()
+    if self.z <= 0 then
+        self.z = 0
+    end
+    sfx.play("voice"..self.id, self.sfx.dead)
+    --TODO dead event
+end
+function Enemy:dead_update(dt)
+    if self.isDisabled then
+        return
+    end
+    --dp(self.name .. " - dead update", dt)
+    if self.cool_down_death <= 0 then
+        self.isDisabled = true
+        self.isHittable = false
+        -- dont remove dead body from the stage for proper save/load
+        stage.world:remove(self)  --world = global bump var
+        --self.y = GLOBAL_SETTING.OFFSCREEN
+        return
+    else
+        self.cool_down_death = self.cool_down_death - dt
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Enemy.dead = {name = "dead", start = Character.dead_start, exit = nop, update = Character.dead_update, draw = Character.default_draw}
+
 function Enemy:getDistanceToClosestPlayer()
     local p = {}
     if player1 then
