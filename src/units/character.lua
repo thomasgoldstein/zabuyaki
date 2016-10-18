@@ -1032,7 +1032,7 @@ function Character:useCredit_start()
     self.lives = self.lives - 1
     if self.lives <= 0 then
         credits = credits - 1
-        if credits <= 0 then
+        if credits < 0 then
             self.isDisabled = true
             -- dont remove dead body from the stage for proper save/load
             stage.world:remove(self)  --world = global bump var
