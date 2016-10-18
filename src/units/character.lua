@@ -107,6 +107,9 @@ function Character:onHurt()
     h.source.score = h.source.score + h.damage * 10
     self:decreaseHp(h.damage)
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
+    if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
+        mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
+    end
     if h.type == "simple" then
         self.hurt = nil --free hurt data
         return
@@ -125,9 +128,6 @@ function Character:onHurt()
     if h.type == "high" then
         if self.hp > 0 and self.z <= 0 then
             self:showHitMarks(h.damage, 40)
-            if self.id <= GLOBAL_SETTING.MAX_PLAYERS then --shake the screen for Players only
-                mainCamera:onShake(0, 1, 0.03, 0.3)
-            end
             self:setState(self.hurtHigh)
             return
         end
@@ -135,9 +135,6 @@ function Character:onHurt()
     elseif h.type == "low" then
         if self.hp > 0 and self.z <= 0 then
             self:showHitMarks(h.damage, 16)
-            if self.id <= GLOBAL_SETTING.MAX_PLAYERS then	--shake the screen for Players only
-                mainCamera:onShake(0, 1, 0.03, 0.3)
-            end
             self:setState(self.hurtLow)
             return
         end
