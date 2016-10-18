@@ -134,7 +134,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         -- CONTINUE
         love.graphics.setColor(255, 255, 255, transp_bg)
         if credits > 0 then
-            printWithShadow("CONTINUE ("..tonumber(credits)..")", l + self.x + 2, t + self.y + 9 )
+            printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*2 + 17))
             printWithShadow(self.source.pid .. " PRESS ACTION", l + self.x + 2, t + self.y + 9 + 11 )
         else
@@ -213,9 +213,10 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             if self.source.lives >= 1 then
                 love.graphics.setColor(255, 255, 255, transp_bg)
                 printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 91, t + self.y + 9 )
-                local font = gfx.font.arcade3x2
-                love.graphics.setFont(font)
-                printWithShadow(self.source.lives - 1, l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1 )
+                --local font = gfx.font.arcade3x2
+--                love.graphics.setFont(font)
+                love.graphics.setFont(gfx.font.clock)
+                printWithShadow(self.source.lives - 1, l + self.x + self.source.shake.x + icon_width + 100 + 2, t + self.y + 1 - 6 )
             end
         end
     end
