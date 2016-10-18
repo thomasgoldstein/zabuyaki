@@ -1031,8 +1031,8 @@ function Character:useCredit_start()
     self.isHittable = false
     self.lives = self.lives - 1
     if self.lives <= 0 then
-        credits = credits - 1
-        if credits < 0 then
+ --       credits = credits - 1
+--[[        if credits < 0 then
             self.isDisabled = true
             -- dont remove dead body from the stage for proper save/load
             stage.world:remove(self)  --world = global bump var
@@ -1041,18 +1041,43 @@ function Character:useCredit_start()
         else
             self.score = self.score + 1 -- like CAPCM
             self.lives = GLOBAL_SETTING.MAX_LIVES
-        end
+        end]]
+    else
+        dp(self.name.." is useCredit.")
+        self.cool_down_death = 3 --seconds to remove
+        self.hp = self.max_hp
+        self.z = 240
+        sfx.play("sfx","menu_select")
+        self:setState(self.fall)
+        return
     end
-    dp(self.name.." is useCredit.")
-    self.cool_down_death = 3 --seconds to remove
-    self.hp = self.max_hp
-    self.z = 240
-    sfx.play("sfx","menu_select")
-    self:setState(self.fall)
-    return
+    self.can_fire = false
 end
 function Character:useCredit_update(dt)
     if self.isDisabled then
+        return
+    end
+    if not self.b.fire:isDown() then
+        self.can_fire = true
+    end
+    if self.b.fire:isDown() and self.can_fire and credits > 0 then
+
+        credits = credits - 1
+--        if credits < 0 then
+--            self.isDisabled = true
+--            -- dont remove dead body from the stage for proper save/load
+--            stage.world:remove(self)  --world = global bump var
+--            --self.y = GLOBAL_SETTING.OFFSCREEN
+--            return
+--        end
+        self.score = self.score + 1 -- like CAPCM
+        self.lives = GLOBAL_SETTING.MAX_LIVES
+        dp(self.name.." is useCredit.")
+        self.cool_down_death = 3 --seconds to remove
+        self.hp = self.max_hp
+        self.z = 240
+        sfx.play("sfx","menu_select")
+        self:setState(self.fall)
         return
     end
 end
