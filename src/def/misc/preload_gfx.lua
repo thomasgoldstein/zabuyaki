@@ -25,7 +25,8 @@ gfx.ui.right_slant = {sprite = ui, q = q(11,2,12,16), ox = 0, oy = 0 }
 gfx.ui.middle_slant = {sprite = ui, q = q(10,2,4,16), ox = 0, oy = 0 }
 gfx.ui.image = ui
 
-gfx.font.clock = love.graphics.newFont( "res/font/alarm clock.ttf", 36 )
+gfx.font.clock = love.graphics.newFont( "res/font/alarm clock.ttf", 24 )
+gfx.font.clock:setFilter( "nearest", "nearest" )
 gfx.font.pixel = love.graphics.newFont( "res/font/pixeldart.ttf", 36 )
 gfx.font.arcade = love.graphics.newFont( "res/font/karmatic_arcade.ttf", 12 )
 --title Zabu logo
