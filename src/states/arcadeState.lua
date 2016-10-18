@@ -1,5 +1,10 @@
 arcadeState = {}
 
+local time = 0
+local screen_width = 640
+local screen_height = 480
+local txt_game_over = love.graphics.newText( gfx.font.arcade2, "GAME OVER" )
+
 function arcadeState:init()
 end
 
@@ -25,8 +30,8 @@ function arcadeState:enter(_, players)
 end
 
 function arcadeState:update(dt)
+    time = time + dt
     stage:update(dt)
-
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
         GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
@@ -62,29 +67,38 @@ function arcadeState:draw()
 --    love.graphics.draw(canvas, 0,0, 0, 0.5,0.5)
     love.graphics.draw(canvas, 0,0, nil, 0.5)
 
+    local is_alive = 0
     --HP bars
     if player1 then
         player1.infoBar:draw(0,0)
         if player1.victim_infoBar then
             player1.victim_infoBar:draw(0,0)
         end
+        is_alive = is_alive + player1.hp + player1.lives
     end
     if player2 then
         player2.infoBar:draw(0,0)
         if player2.victim_infoBar then
             player2.victim_infoBar:draw(0,0)
         end
+        is_alive = is_alive + player2.hp + player2.lives
     end
     if player3 then
         player3.infoBar:draw(0,0)
         if player3.victim_infoBar then
             player3.victim_infoBar:draw(0,0)
         end
+        is_alive = is_alive + player3.hp + player3.lives
     end
     show_debug_grid()
     show_debug_controls()
     show_debug_variables()
     show_debug_indicator()
+    -- GAME OVER
+    if credits <= 0 and is_alive <= 0 then
+        love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
+        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
+    end
 end
 
 function arcadeState:keypressed(key, unicode)
