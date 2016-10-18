@@ -1047,7 +1047,6 @@ function Character:useCredit_start()
         self.cool_down_death = 3 --seconds to remove
         self.hp = self.max_hp
         self.z = 240
-        sfx.play("sfx","menu_select")
         self:setState(self.fall)
         return
     end
@@ -1061,7 +1060,6 @@ function Character:useCredit_update(dt)
         self.can_fire = true
     end
     if self.b.fire:isDown() and self.can_fire and credits > 0 then
-
         credits = credits - 1
 --        if credits < 0 then
 --            self.isDisabled = true
