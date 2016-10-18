@@ -134,7 +134,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         -- CONTINUE
         love.graphics.setColor(255, 255, 255, transp_bg)
         if credits > 0 then
-            printWithShadow("CONTINUES ("..tonumber(credits)..")", l + self.x + 2, t + self.y + 9 )
+            printWithShadow("CONTINUE ("..tonumber(credits)..")", l + self.x + 2, t + self.y + 9 )
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*2 + 17))
             printWithShadow(self.source.pid .. " PRESS ACTION", l + self.x + 2, t + self.y + 9 + 11 )
         else
