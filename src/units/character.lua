@@ -42,7 +42,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
     --Inner char vars
-    self.lives = 3
+    self.lives = GLOBAL_SETTING.MAX_LIVES
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
     self.n_combo = 1    -- n of the combo hit
@@ -1017,7 +1017,12 @@ function Character:dead_update(dt)
         return
     end
     --dp(self.name .. " - dead update", dt)
-    if self.cool_down_death <= 0 and self.id > GLOBAL_SETTING.MAX_PLAYERS then
+    if self.cool_down_death <= 0 then
+        if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
+            -- Player?
+            self:setState(self.useCredit)
+            return
+        end
         self.isDisabled = true
         self.isHittable = false
         -- dont remove dead body from the stage for proper save/load
@@ -1031,6 +1036,35 @@ function Character:dead_update(dt)
     self:checkCollisionAndMove(dt)
 end
 Character.dead = {name = "dead", start = Character.dead_start, exit = nop, update = Character.dead_update, draw = Character.default_draw}
+
+function Character:useCredit_start()
+    self.isHittable = false
+    if credits <= 0 then
+        self.isDisabled = true
+        self.isHittable = false
+        -- dont remove dead body from the stage for proper save/load
+        stage.world:remove(self)  --world = global bump var
+        --self.y = GLOBAL_SETTING.OFFSCREEN
+        return
+    end
+    dp(self.name.." is useCredit.")
+    self.cool_down_death = 3 --seconds to remove
+    credits = credits - 1
+    self.score = self.score + 1 -- like CAPCM
+    self.lives = GLOBAL_SETTING.MAX_LIVES
+    self.hp = self.max_hp
+    self.z = 240
+    --self:onShake(1, 0, 0.1, 0.7)
+    --sfx.play("voice"..self.id, self.sfx.dead)
+    self:setState(self.fall)
+    return
+end
+function Character:useCredit_update(dt)
+    if self.isDisabled then
+        return
+    end
+end
+Character.useCredit = {name = "useCredit", start = Character.useCredit_start, exit = nop, update = Character.useCredit_update, draw = Character.default_draw}
 
 function Character:combo_start()
     self.isHittable = true
