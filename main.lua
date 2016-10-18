@@ -21,6 +21,7 @@ GLOBAL_SETTING.PLAYERS_NAMES = {"P1", "P2", "P3"}
 GLOBAL_SETTING.PLAYERS_COLORS = {{204, 38, 26, 255}, {24, 137, 20, 255}, {23, 84, 216, 255} }
 GLOBAL_SETTING.AUTO_COMBO = false
 GLOBAL_SETTING.DIFFICULTY = 1 -- 1 = Normal, 2 = Hard
+GLOBAL_SETTING.MAX_CREDITS = 3
 GLOBAL_SETTING.MOUSE_ENABLED = true
 GLOBAL_SETTING.SHADERS_ENABLED = true
 GLOBAL_SETTING.SHOW_GRID = false
@@ -30,6 +31,7 @@ stage = nil
 player1 = nil
 player2 = nil
 player3 = nil
+credits = GLOBAL_SETTING.MAX_CREDITS
 attackHitBoxes = {} -- DEBUG
 
 function switchFullScreen()

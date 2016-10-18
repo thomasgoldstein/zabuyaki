@@ -33,6 +33,7 @@ function show_debug_indicator(size, x, y)
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
         love.graphics.print("DEBUG", x or 2, y or love.graphics.getHeight() - 9)
+        love.graphics.print("CREDITS:"..tonumber(credits), x or 2, y or love.graphics.getHeight() - 9 * 2)
     end
 end
 

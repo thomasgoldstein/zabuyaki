@@ -10,6 +10,7 @@ function arcadeState:resume()
 end
 
 function arcadeState:enter(_, players)
+    credits = GLOBAL_SETTING.MAX_CREDITS
     --load stage
     stage = Stage01:new(players)
 
