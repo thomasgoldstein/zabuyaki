@@ -85,11 +85,11 @@ function Character:onHurt()
         dp("MISS + not Clear HURT due victims list of "..h.source.name)
         return
     end
-    if self.type == h.source.type then
-        -- cannot attack the same type: Players -> Players
-        self.hurt = nil --free hurt data
-        return
-    end
+--    if self.type == h.source.type then
+--        -- cannot attack the same type: Players -> Players
+--        self.hurt = nil --free hurt data
+--        return
+--    end
     h.source.victims[self] = true
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
