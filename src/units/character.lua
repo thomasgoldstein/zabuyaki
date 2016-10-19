@@ -1095,7 +1095,7 @@ function Character:respawn_update(dt)
         self:checkAndAttack(0,0, 100,50, 0, "fallAround", 0)
         self.bounced = 1
     elseif self.bounced == 1 and self.sprite.cur_frame == 3 then
-        self:checkAndAttack(0,0, 100,50, 0, "fallAround", 0)
+        self:checkAndAttack(0,0, 320 * 2, 240 * 2, 0, "fallAround", 0)
         self.bounced = 2
     end
     self:checkCollisionAndMove(dt)
