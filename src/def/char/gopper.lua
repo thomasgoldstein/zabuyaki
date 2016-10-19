@@ -74,7 +74,7 @@ return {
             delay = 5
         },
         respawn = {
-            { q = q(2,372,58,52), ox = 24, oy = 51, funcCont = dash_attack, delay = 5 }, --dash
+            { q = q(2,372,58,52), ox = 24, oy = 51, delay = 5 }, --dash
             { q = q(62,389,68,35), ox = 28, oy = 27, delay = 0.5 }, --lying down on belly
             { q = q(132,372,56,48), ox = 22, oy = 44 }, --getting up on belly
             { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
