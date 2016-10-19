@@ -106,7 +106,7 @@ return {
 			{ q = q(84,266,43,63), ox = 22, oy = 62, delay = 5 }, --jump down
 			{ q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.5 }, --pickup 2
 			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
-			delay = 0.03
+			delay = 0.1
 		},
 		duck = {
 			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
