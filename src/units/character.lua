@@ -1092,11 +1092,8 @@ function Character:respawn_update(dt)
         if self.sprite.cur_frame == 1 then
             self.sprite.elapsed_time = 10 -- seconds. skip to pickup 2 frame
         end
-        self:checkAndAttack(0,0, 100,50, 0, "fallAround", 0)
-        self.bounced = 1
-    elseif self.bounced == 1 and self.sprite.cur_frame == 3 then
         self:checkAndAttack(0,0, 320 * 2, 240 * 2, 0, "fallAround", 0)
-        self.bounced = 2
+        self.bounced = 1
     end
     self:checkCollisionAndMove(dt)
 end
