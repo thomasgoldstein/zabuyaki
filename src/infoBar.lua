@@ -213,9 +213,12 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             if self.source.lives >= 1 then
                 love.graphics.setColor(255, 255, 255, transp_bg)
                 printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 91, t + self.y + 9 )
-                local font = gfx.font.arcade3x2
-                love.graphics.setFont(font)
-                printWithShadow(self.source.lives - 1, l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1 )
+                love.graphics.setFont(gfx.font.arcade3x2)
+                if self.source.lives > 10 then
+                    printWithShadow("9+", l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1 )
+                else
+                    printWithShadow(self.source.lives - 1, l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1 )
+                end
             end
         end
     end
