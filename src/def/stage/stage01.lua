@@ -80,10 +80,10 @@ function Stage01:initialize(players)
     self.background:add(bgRoad, qRoad, 6 * 360 - 2, 432)
     self.background:add(bgRoad, qRoad, 7 * 360 - 2, 432)
 
-    self.background:add(bgBuilding1V, qBuilding1V, -74 + 0 * (525 - 90), 67)
-    self.background:add(bgBuilding1A, qBuilding1A, -74 + 1 * (525 - 90), 67)
-    self.background:add(bgBuilding1V, qBuilding1V, -74 + 2 * (525 - 90), 67)
-    self.background:add(bgBuilding1A, qBuilding1A, -74 + 3 * (525 - 90), 67)
+    self.background:add(bgBuilding1V, qBuilding1V, -20 + 0 * (10 + (525 - 90)), 67)
+    self.background:add(bgBuilding1A, qBuilding1A, -20 + 1 * (10 + (525 - 90)), 67)
+    self.background:add(bgBuilding1V, qBuilding1V, -20 + 2 * (10 + (525 - 90)), 67)
+    self.background:add(bgBuilding1A, qBuilding1A, -20 + 3 * (10 + (525 - 90)), 67)
 
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
