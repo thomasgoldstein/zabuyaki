@@ -1083,11 +1083,9 @@ function Character:respawn_update(dt)
         return
     end
     if self.z > 0 then
-        print("self.z > 0")
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
     elseif self.bounced == 0 then
-        print("self.z <= 0")
         self.velz = 0
         self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
