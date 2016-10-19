@@ -85,7 +85,6 @@ function Character:onHurt()
         dp("MISS + not Clear HURT due victims list of "..h.source.name)
         return
     end
-
     h.source.victims[self] = true
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
@@ -144,6 +143,12 @@ function Character:onHurt()
         end
 --    else
 --        error("OnHurt - unknown h.type = "..h.type)
+    elseif h.type == "fallAround" then
+        if h.source.x < self.x then
+            h.horizontal = 1
+        else
+            h.horizontal = -1
+        end
     end
     dpo(self, self.state)
     --TODO disable AI movement (for cut scenes & enemy)
@@ -1073,6 +1078,7 @@ function Character:useCredit_update(dt)
         dp(self.name.." is useCredit.")
         self.cool_down_death = 3 --seconds to remove
         self.hp = self.max_hp
+        self:checkAndAttack(0,0, 100,50, 0, "fallAround", 0)
         self.z = 240
         sfx.play("sfx","menu_select")
         self:setState(self.fall)
