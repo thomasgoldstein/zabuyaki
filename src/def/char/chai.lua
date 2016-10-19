@@ -98,9 +98,15 @@ return {
             delay = 0.117
 		},
 		jump = {
-			{ q = q(43,266,39,67), ox = 25, oy = 66, delay = 0.4 }, --ju
-			{ q = q(84,266,43,63), ox = 22, oy = 62 }, --jd
+			{ q = q(43,266,39,67), ox = 25, oy = 66, delay = 0.4 }, --jump up
+			{ q = q(84,266,43,63), ox = 22, oy = 62 }, --jump down
 			delay = 5
+		},
+		jumpIn = {
+			{ q = q(84,266,43,63), ox = 22, oy = 62, delay = 5 }, --jump down
+			{ q = q(43,404,39,58), ox = 23, oy = 57 }, --pickup 2
+			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
+			delay = 0.2
 		},
 		duck = {
 			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck

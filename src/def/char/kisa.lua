@@ -90,6 +90,11 @@ return {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
 			delay = 5
 		},
+		jumpIn = {
+			{ q = q(2,2,47,60), ox = 23, oy = 59, delay = 5 }, --stand 1
+			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
+			delay = 0.2
+		},
 		duck = {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
 			delay = 0.15
