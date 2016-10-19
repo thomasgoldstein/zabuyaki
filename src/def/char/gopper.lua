@@ -73,7 +73,7 @@ return {
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
-        jumpIn = {
+        respawn = {
             { q = q(135,66,60,60), ox = 30, oy = 59, delay = 5 }, --no frame
             { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck

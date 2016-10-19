@@ -64,7 +64,7 @@ return {
             { q = q(2,264,57,66), ox = 18, oy = 65 }, --jump
             delay = 5
         },
-        jumpIn = {
+        respawn = {
             { q = q(2,264,57,66), ox = 18, oy = 65, delay = 5 }, --jump
             { q = q(114,73,38,58), ox = 18, oy = 57 }, --duck
             { q = q(114,73,38,58), ox = 18, oy = 57 }, --duck
