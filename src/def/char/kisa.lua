@@ -93,6 +93,7 @@ return {
 		respawn = {
 			{ q = q(2,2,47,60), ox = 23, oy = 59, delay = 5 }, --stand 1
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
+			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1 (need 3 frames)
 			delay = 0.2
 		},
 		duck = {
