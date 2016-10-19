@@ -1040,24 +1040,9 @@ Character.dead = {name = "dead", start = Character.dead_start, exit = nop, updat
 function Character:useCredit_start()
     self.isHittable = false
     self.lives = self.lives - 1
-    if self.lives <= 0 then
- --       credits = credits - 1
---[[        if credits < 0 then
-            self.isDisabled = true
-            -- dont remove dead body from the stage for proper save/load
-            stage.world:remove(self)  --world = global bump var
-            --self.y = GLOBAL_SETTING.OFFSCREEN
-            return
-        else
-            self.score = self.score + 1 -- like CAPCM
-            self.lives = GLOBAL_SETTING.MAX_LIVES
-        end]]
-    else
-        dp(self.name.." is useCredit.")
-        self.cool_down_death = 3 --seconds to remove
-        self.hp = self.max_hp
-        self.z = 240
-        self:setState(self.fall)
+    if self.lives > 0 then
+        dp(self.name.." used 1 life to respawn")
+        self:setState(self.respawn)
         return
     end
     self.can_fire = false
@@ -1070,27 +1055,54 @@ function Character:useCredit_update(dt)
         self.can_fire = true
     end
     if self.b.fire:isDown() and self.can_fire and credits > 0 then
+        dp(self.name.." used 1 Credit to respawn")
         credits = credits - 1
---        if credits < 0 then
---            self.isDisabled = true
---            -- dont remove dead body from the stage for proper save/load
---            stage.world:remove(self)  --world = global bump var
---            --self.y = GLOBAL_SETTING.OFFSCREEN
---            return
---        end
         self.score = self.score + 1 -- like CAPCM
         self.lives = GLOBAL_SETTING.MAX_LIVES
-        dp(self.name.." is useCredit.")
-        self.cool_down_death = 3 --seconds to remove
-        self.hp = self.max_hp
-        self:checkAndAttack(0,0, 100,50, 0, "fallAround", 0)
-        self.z = 240
         sfx.play("sfx","menu_select")
-        self:setState(self.fall)
+        self:setState(self.respawn)
         return
     end
 end
 Character.useCredit = {name = "useCredit", start = Character.useCredit_start, exit = nop, update = Character.useCredit_update, draw = Character.default_draw}
+
+function Character:respawn_start()
+    self.isHittable = false
+    dpo(self, self.state)
+    SetSpriteAnimation(self.sprite,"respawn")
+    self.cool_down_death = 3 --seconds to remove
+    self.hp = self.max_hp
+    self.bounced = 0
+    self.velz = 0
+    self.z = math.random( 235, 245 )
+end
+function Character:respawn_update(dt)
+--    print (self.name.." - respawn update", self.z, self.sprite.cur_frame, self.sprite.elapsed_time)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    if self.z > 0 then
+        print("self.z > 0")
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+    elseif self.bounced == 0 then
+        print("self.z <= 0")
+        self.velz = 0
+        self.z = 0
+        sfx.play("sfx"..self.id, self.sfx.step)
+        if self.sprite.cur_frame == 1 then
+            self.sprite.elapsed_time = 10 -- seconds. skip to pickup 2 frame
+        end
+        self:checkAndAttack(0,0, 100,50, 0, "fallAround", 0)
+        self.bounced = 1
+    elseif self.bounced == 1 and self.sprite.cur_frame == 3 then
+        self:checkAndAttack(0,0, 100,50, 0, "fallAround", 0)
+        self.bounced = 2
+    end
+    self:checkCollisionAndMove(dt)
+end
+Character.respawn = {name = "respawn", start = Character.respawn_start, exit = nop, update = Character.respawn_update, draw = Character.default_draw}
 
 function Character:combo_start()
     self.isHittable = true
