@@ -1043,6 +1043,7 @@ function Character:dead_update(dt)
 end
 Character.dead = {name = "dead", start = Character.dead_start, exit = nop, update = Character.dead_update, draw = Character.default_draw}
 
+local players_list = {RICK = 1, KISA = 2, CHAI = 3, GOPPER = 4, NIKO = 5}
 function Character:useCredit_start()
     self.isHittable = false
     self.lives = self.lives - 1
@@ -1053,6 +1054,10 @@ function Character:useCredit_start()
     end
     self.can_fire = false
     self.cool_down = 0
+    -- Player select
+    self.player_select_mode = 0
+    self.player_select_cur = players_list[self.name]
+    print("self.player_select_cur",self.player_select_cur)
 end
 function Character:useCredit_update(dt)
     if self.isDisabled then
@@ -1061,21 +1066,45 @@ function Character:useCredit_update(dt)
     if not self.b.fire:isDown() then
         self.can_fire = true
     end
-    if self.cool_down > 0 then
-        -- wait before respawn / char select
-        self.cool_down = self.cool_down - dt
-        if self.cool_down <= 0 then
-            self.score = self.score + 1 -- like CAPCM
-            self.lives = GLOBAL_SETTING.MAX_LIVES
-            self:setState(self.respawn)
+
+    if self.player_select_mode == 0 then
+        if credits <= 0 then
+            -- n credits -> game over
+            self.player_select_mode = 4
+            return
         end
+        -- wait press to use credit
+        -- add countdown 9 .. 0 -> Game Over
+        if self.b.fire:isDown() and self.can_fire then
+            --dp(self.name.." used 1 Credit to respawn")
+            credits = credits - 1
+            self.score = self.score + 1 -- like CAPCM
+            sfx.play("sfx","menu_select")
+            self.cool_down = 1 -- delay before respawn
+            self.player_select_mode = 1
+        end
+    elseif self.player_select_mode == 1 then
+        -- wait 1 sec before player select
+        if self.cool_down > 0 then
+            -- wait before respawn / char select
+            self.cool_down = self.cool_down - dt
+            if self.cool_down <= 0 then
+                self.can_fire = false
+                self.player_select_mode = 2
+            end
+        end
+    elseif self.player_select_mode == 2 then
+        -- Select Player
+        if self.b.fire:isDown() and self.can_fire then
+            self.player_select_mode = 3
+        end
+    elseif self.player_select_mode == 3 then
+        -- Spawn selecterd player
+        self.lives = GLOBAL_SETTING.MAX_LIVES
+        self:setState(self.respawn)
         return
-    end
-    if self.b.fire:isDown() and self.can_fire and credits > 0 then
-        dp(self.name.." used 1 Credit to respawn")
-        credits = credits - 1
-        sfx.play("sfx","menu_select")
-        self.cool_down = 1 -- delay before respawn
+    elseif self.player_select_mode == 4 then
+        -- Game Over
     end
 end
 Character.useCredit = {name = "useCredit", start = Character.useCredit_start, exit = nop, update = Character.useCredit_update, draw = Character.default_draw}
@@ -1100,6 +1129,7 @@ function Character:respawn_update(dt)
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
     elseif self.bounced == 0 then
+        self.player_select_mode = 0 -- remove player select text
         self.velz = 0
         self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)

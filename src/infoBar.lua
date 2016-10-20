@@ -127,21 +127,39 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         cool_down_transparency = calcTransparency(3)
     end
     transp_bg = 255 * cool_down_transparency
-
+    local player_select_mode = self.source.player_select_mode
     if self.source.id <= GLOBAL_SETTING.MAX_PLAYERS
         and self.source.lives <= 0
     then
-        -- CONTINUE
         love.graphics.setColor(255, 255, 255, transp_bg)
-        if credits > 0 then
+        if player_select_mode == 0 then
+            -- wait press to use credit
+            -- add countdown 9 .. 0 -> Game Over
             printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*2 + 17))
             printWithShadow(self.source.pid .. " PRESS ACTION", l + self.x + 2, t + self.y + 9 + 11 )
-        else
+        elseif player_select_mode == 1 then
+            -- wait 1 sec before player select
+            printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )
+        elseif player_select_mode == 2 then
+            -- Select Player
+            printWithShadow(self.source.pid .. " SELECT PLAYER", l + self.x + 2, t + self.y + 9 )
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*3 + 17))
-            printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9 + 11 )
+            printWithShadow("<- " .. self.source.name .. " ->", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )
+        elseif player_select_mode == 3 then
+            -- Spawn selecterd player
+            --printWithShadow(self.source.pid .. " GET READY!", l + self.x + 2, t + self.y + 9 )
+        elseif player_select_mode == 4 then
+            -- Game Over (too late)
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*0.5 + 17))
+            printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9 )
         end
     else
+        if player_select_mode == 3 then
+            -- Fade-in and drop down bar while player falls (respawns)
+            transp_bg = 255 - self.source.z
+            t = t - self.source.z / 2
+        end
         -- Normal lifebar
         love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_bg)
         slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) , bar_height - 6 )
