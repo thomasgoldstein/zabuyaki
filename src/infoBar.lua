@@ -145,7 +145,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             -- Select Player
             printWithShadow(self.source.pid .. " SELECT PLAYER", l + self.x + 2, t + self.y + 9 )
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*3 + 17))
-            printWithShadow("<- " .. self.source.name .. " ->", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )
+            printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )
         elseif player_select_mode == 3 then
             -- Spawn selecterd player
             --printWithShadow(self.source.pid .. " GET READY!", l + self.x + 2, t + self.y + 9 )
