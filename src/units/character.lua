@@ -90,6 +90,11 @@ function Character:onHurt()
 --        self.hurt = nil --free hurt data
 --        return
 --    end
+    if h.type == "shockWave" and self.type == "player" then
+        -- shockWave has no effect on players
+        self.hurt = nil --free hurt data
+        return
+    end
     h.source.victims[self] = true
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
