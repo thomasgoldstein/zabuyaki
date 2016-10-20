@@ -137,7 +137,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             -- add countdown 9 .. 0 -> Game Over
             printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*2 + 17))
-            printWithShadow(self.source.pid .. " PRESS ACTION", l + self.x + 2, t + self.y + 9 + 11 )
+            printWithShadow(self.source.pid .. " PRESS ACTION (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 9 + 11 )
         elseif player_select_mode == 1 then
             -- wait 1 sec before player select
             printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )

@@ -1054,11 +1054,11 @@ function Character:useCredit_start()
         return
     end
     self.can_fire = false
-    self.cool_down = 0
+    self.cool_down = 10
     -- Player select
     self.player_select_mode = 0
     self.player_select_cur = players_list[self.name]
-    print("self.player_select_cur",self.player_select_cur)
+    --print("self.player_select_cur",self.player_select_cur)
 end
 function Character:useCredit_update(dt)
     if self.isDisabled then
@@ -1069,7 +1069,9 @@ function Character:useCredit_update(dt)
     end
 
     if self.player_select_mode == 0 then
-        if credits <= 0 then
+        -- 10 seconds to choose
+        self.cool_down = self.cool_down - dt
+        if credits <= 0 or self.cool_down <= 0 then
             -- n credits -> game over
             self.player_select_mode = 4
             return
@@ -1077,7 +1079,7 @@ function Character:useCredit_update(dt)
         -- wait press to use credit
         -- add countdown 9 .. 0 -> Game Over
         if self.b.fire:isDown() and self.can_fire then
-            --dp(self.name.." used 1 Credit to respawn")
+            dp(self.name.." used 1 Credit to respawn")
             credits = credits - 1
             self.score = self.score + 1 -- like CAPCM
             sfx.play("sfx","menu_select")
