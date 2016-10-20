@@ -51,6 +51,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.cool_down_grab = 2
     self.grab_release_after = 0.25 --sec if u hold 'back'
     self.n_grabhit = 0    -- n of the grab hits
+    self.player_select_mode = 0
     --Character default sfx
     self.sfx.jump = "whoosh_heavy"
     self.sfx.throw = "air"
@@ -1097,6 +1098,7 @@ function Character:useCredit_update(dt)
         -- Select Player
         if self.b.fire:isDown() and self.can_fire then
             self.player_select_mode = 3
+            sfx.play("sfx","menu_select")
         end
     elseif self.player_select_mode == 3 then
         -- Spawn selecterd player
