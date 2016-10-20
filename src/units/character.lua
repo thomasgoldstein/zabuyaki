@@ -146,14 +146,15 @@ function Character:onHurt()
         if self.velx < self.velocity_fall_x / 2 then
             self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
         end
---    else
---        error("OnHurt - unknown h.type = "..h.type)
-    elseif h.type == "fallAround" then
+    elseif h.type == "shockWave" then
         if h.source.x < self.x then
             h.horizontal = 1
         else
             h.horizontal = -1
         end
+        self.face = -h.horizontal	--turn face to the epicenter
+    else
+        error("OnHurt - unknown h.type = "..h.type)
     end
     dpo(self, self.state)
     --TODO disable AI movement (for cut scenes & enemy)
@@ -1092,7 +1093,7 @@ function Character:respawn_update(dt)
         if self.sprite.cur_frame == 1 then
             self.sprite.elapsed_time = 10 -- seconds. skip to pickup 2 frame
         end
-        self:checkAndAttack(0,0, 320 * 2, 240 * 2, 0, "fallAround", 0)
+        self:checkAndAttack(0,0, 320 * 2, 240 * 2, 0, "shockWave", 0)
         self.bounced = 1
     end
     self:checkCollisionAndMove(dt)
