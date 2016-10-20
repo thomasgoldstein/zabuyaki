@@ -75,6 +75,9 @@ function arcadeState:draw()
             player1.victim_infoBar:draw(0,0)
         end
         is_alive = is_alive + player1.hp + player1.lives
+        if player1.player_select_mode >=1 and player1.player_select_mode < 4 then
+            is_alive = 1
+        end
     end
     if player2 then
         player2.infoBar:draw(0,0)
@@ -82,6 +85,9 @@ function arcadeState:draw()
             player2.victim_infoBar:draw(0,0)
         end
         is_alive = is_alive + player2.hp + player2.lives
+        if player2.player_select_mode >=1 and player2.player_select_mode < 4 then
+            is_alive = 1
+        end
     end
     if player3 then
         player3.infoBar:draw(0,0)
@@ -89,6 +95,9 @@ function arcadeState:draw()
             player3.victim_infoBar:draw(0,0)
         end
         is_alive = is_alive + player3.hp + player3.lives
+        if player3.player_select_mode >=1 and player3.player_select_mode < 4 then
+            is_alive = 1
+        end
     end
     show_debug_grid()
     show_debug_controls()
