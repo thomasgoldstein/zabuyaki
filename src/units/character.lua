@@ -1052,6 +1052,7 @@ function Character:useCredit_start()
         return
     end
     self.can_fire = false
+    self.cool_down = 0
 end
 function Character:useCredit_update(dt)
     if self.isDisabled then
@@ -1060,14 +1061,21 @@ function Character:useCredit_update(dt)
     if not self.b.fire:isDown() then
         self.can_fire = true
     end
+    if self.cool_down > 0 then
+        -- wait before respawn / char select
+        self.cool_down = self.cool_down - dt
+        if self.cool_down <= 0 then
+            self.score = self.score + 1 -- like CAPCM
+            self.lives = GLOBAL_SETTING.MAX_LIVES
+            self:setState(self.respawn)
+        end
+        return
+    end
     if self.b.fire:isDown() and self.can_fire and credits > 0 then
         dp(self.name.." used 1 Credit to respawn")
         credits = credits - 1
-        self.score = self.score + 1 -- like CAPCM
-        self.lives = GLOBAL_SETTING.MAX_LIVES
         sfx.play("sfx","menu_select")
-        self:setState(self.respawn)
-        return
+        self.cool_down = 1 -- delay before respawn
     end
 end
 Character.useCredit = {name = "useCredit", start = Character.useCredit_start, exit = nop, update = Character.useCredit_update, draw = Character.default_draw}
