@@ -1119,15 +1119,13 @@ function Character:useCredit_update(dt)
     elseif self.player_select_mode == 2 then
         -- Select Player
         -- 10 sec countdown before auto confirm
-        if self.cool_down > 0 then
-            self.cool_down = self.cool_down - dt
+        if (self.b.fire:isDown() and self.can_fire)
+                or self.cool_down <= 0
+        then
+            self.player_select_mode = 3
+            sfx.play("sfx","menu_select")
         else
-            self.player_select_mode = 3
-            sfx.play("sfx","menu_select")
-        end
-        if self.b.fire:isDown() and self.can_fire then
-            self.player_select_mode = 3
-            sfx.play("sfx","menu_select")
+            self.cool_down = self.cool_down - dt
         end
         ---
         if self.b.horizontal:pressed(-1) then
@@ -1143,8 +1141,18 @@ function Character:useCredit_update(dt)
             self:onShake(-1, 0, 0.03, 0.3)   --shake name + face icon
             self.name = HEROES[self.player_select_cur][1].name
             self.shader = HEROES[self.player_select_cur][1].shader
-           --self.player_select_cur = players_list[self.name]
-           --print("self.player_select_cur",self.player_select_cur)
+            self.sprite = GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance)
+            SetSpriteAnimation(self.sprite,"stand")
+            self.infoBar.icon_sprite = self.sprite.def.sprite_sheet
+            self.infoBar.q = self.sprite.def.animations["icon"][1].q  --quad
+            self.infoBar.icon_color = self.color
+
+--            player2 = players[2].hero:new(players[2].name,
+--                GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
+--                self.b,
+--                self.x, self.y,
+--                players[2].shader)
+
         elseif self.b.horizontal:pressed(1) then
             self.player_select_cur = self.player_select_cur + 1
             if GLOBAL_SETTING.DEBUG then
@@ -1160,8 +1168,11 @@ function Character:useCredit_update(dt)
             self:onShake(1, 0, 0.03, 0.3)   --shake name + face icon
             self.name = HEROES[self.player_select_cur][1].name
             self.shader = HEROES[self.player_select_cur][1].shader
-            --self.player_select_cur = players_list[self.name]
-            --print("self.player_select_cur",self.player_select_cur)
+            self.sprite = GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance)
+            SetSpriteAnimation(self.sprite,"stand")
+            self.infoBar.icon_sprite = self.sprite.def.sprite_sheet
+            self.infoBar.q = self.sprite.def.animations["icon"][1].q  --quad
+            self.infoBar.icon_color = self.color
         end
         ---
 
