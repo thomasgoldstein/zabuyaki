@@ -1105,6 +1105,7 @@ function Character:useCredit_update(dt)
         end
     elseif self.player_select_mode == 3 then
         -- Spawn selecterd player
+        self.lives = GLOBAL_SETTING.MAX_LIVES
         self:setState(self.respawn)
         return
     elseif self.player_select_mode == 4 then
@@ -1118,7 +1119,6 @@ function Character:respawn_start()
     dpo(self, self.state)
     SetSpriteAnimation(self.sprite,"respawn")
     self.cool_down_death = 3 --seconds to remove
-    self.lives = GLOBAL_SETTING.MAX_LIVES
     self.hp = self.max_hp
     self.bounced = 0
     self.velz = 0
