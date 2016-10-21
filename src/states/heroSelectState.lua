@@ -102,6 +102,7 @@ local heroes = {
         py = 120
     }
 }
+HEROES = heroes -- global var for in-game player select
 
 local players = {
     {pos = 1, visible = false, confirmed = false, sprite = nil},
