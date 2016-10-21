@@ -153,17 +153,14 @@ function check_debug_keys(key)
         if key == '0' then
             stage.objects:dp()
         end
-        if key == 'f4' and player1 then
+        if key == 'f8' and player1 then
             player1:setState(player1.dead)
         end
-        if key == 'f5' and player2 then
+        if key == 'f9' and player2 then
             player2:setState(player2.dead)
         end
-        if key == 'f6' and player3 then
+        if key == 'f10' and player3 then
             player3:setState(player3.dead)
-        end
-        if key == 'f12' then
-            stage.objects:revive() -- revive Players & other units
         end
         if key == '1' then
             GLOBAL_SETTING.SHOW_GRID = not GLOBAL_SETTING.SHOW_GRID
