@@ -1122,13 +1122,15 @@ function Character:useCredit_update(dt)
         if (self.b.fire:isDown() and self.can_fire)
                 or self.cool_down <= 0
         then
+            self.cool_down = 0
             self.player_select_mode = 3
             sfx.play("sfx","menu_select")
+            return
         else
             self.cool_down = self.cool_down - dt
         end
         ---
-        if self.b.horizontal:pressed(-1) then
+        if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1) then
             self.player_select_cur = self.player_select_cur - 1
             if self.player_select_cur < 1 then
                 if GLOBAL_SETTING.DEBUG then
@@ -1138,7 +1140,7 @@ function Character:useCredit_update(dt)
                 end
             end
             sfx.play("sfx","menu_move")
-            self:onShake(-1, 0, 0.03, 0.3)   --shake name + face icon
+            self:onShake(1, 0, 0.03, 0.3)   --shake name + face icon
             self.name = HEROES[self.player_select_cur][1].name
             self.shader = HEROES[self.player_select_cur][1].shader
             self.sprite = GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance)
@@ -1153,7 +1155,7 @@ function Character:useCredit_update(dt)
 --                self.x, self.y,
 --                players[2].shader)
 
-        elseif self.b.horizontal:pressed(1) then
+        elseif self.b.horizontal:pressed(1) or self.b.vertical:pressed(1) then
             self.player_select_cur = self.player_select_cur + 1
             if GLOBAL_SETTING.DEBUG then
                 if self.player_select_cur > players_list.NIKO then
@@ -1165,7 +1167,7 @@ function Character:useCredit_update(dt)
                 end
             end
             sfx.play("sfx","menu_move")
-            self:onShake(1, 0, 0.03, 0.3)   --shake name + face icon
+            self:onShake(-1, 0, 0.03, 0.3)   --shake name + face icon
             self.name = HEROES[self.player_select_cur][1].name
             self.shader = HEROES[self.player_select_cur][1].shader
             self.sprite = GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance)
