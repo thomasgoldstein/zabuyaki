@@ -100,13 +100,14 @@ function Character:onHurt()
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage)
-
-    h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
-    if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
-        self.victim_infoBar = h.source.infoBar:setAttacker(self)
+    if h.type ~= "shockWave" then
+        -- show enemy bar for other attacks
+        h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
+        if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
+            self.victim_infoBar = h.source.infoBar:setAttacker(self)
+        end
     end
-
-    -- Score
+-- Score
     h.source.score = h.source.score + h.damage * 10
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
     if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
@@ -199,7 +200,7 @@ function Character:applyDamage(damage, type, source, velocity, sfx1)
 end
 
 function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_victims_list)
-    -- type = "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
+    -- type = "high" "low" "fall" "shockWave" "simple" ""blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     local face = self.face
 
     if init_victims_list then
@@ -1104,7 +1105,6 @@ function Character:useCredit_update(dt)
         end
     elseif self.player_select_mode == 3 then
         -- Spawn selecterd player
-        self.lives = GLOBAL_SETTING.MAX_LIVES
         self:setState(self.respawn)
         return
     elseif self.player_select_mode == 4 then
@@ -1118,6 +1118,7 @@ function Character:respawn_start()
     dpo(self, self.state)
     SetSpriteAnimation(self.sprite,"respawn")
     self.cool_down_death = 3 --seconds to remove
+    self.lives = GLOBAL_SETTING.MAX_LIVES
     self.hp = self.max_hp
     self.bounced = 0
     self.velz = 0
@@ -1143,6 +1144,7 @@ function Character:respawn_update(dt)
         self:checkAndAttack(0,0, 320 * 2, 240 * 2, 0, "shockWave", 0)
         self.bounced = 1
     end
+    --self.victim_infoBar = nil   -- remove enemy bar under yours
     self:checkCollisionAndMove(dt)
 end
 Character.respawn = {name = "respawn", start = Character.respawn_start, exit = nop, update = Character.respawn_update, draw = Character.default_draw}
@@ -1492,18 +1494,18 @@ function Character:special_start() -- Special attack plug
 end
 Character.special = {name = "special", start = Character.special_start, exit = nop, update = nop, draw = Character.default_draw }
 
-function Character:revive()
-    self.hp = self.max_hp
-    self.hurt = nil
-    self.z = 0
-    self.cool_down_death = 3 --seconds to remove
-    self.isDisabled = false
-    self.isThrown = false
-    self.victims = {}
-    self.infoBar = InfoBar:new(self)
-    self.victim_infoBar = nil
-    self:setState(self.stand)
-    self:showPID(3)
-end
+--function Character:revive()
+--    self.hp = self.max_hp
+--    self.hurt = nil
+--    self.z = 0
+--    self.cool_down_death = 3 --seconds to remove
+--    self.isDisabled = false
+--    self.isThrown = false
+--    self.victims = {}
+--    self.infoBar = InfoBar:new(self)
+--    self.victim_infoBar = nil
+--    self:setState(self.stand)
+--    self:showPID(3)
+--end
 
 return Character
