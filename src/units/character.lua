@@ -64,11 +64,29 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
 --    self.victim_infoBar = nil
 end
 
+function Character:addHp(hp)
+    self.hp = self.hp + hp
+    if self.hp > self.max_hp then
+        self.hp = self.max_hp
+    end
+end
 function Character:decreaseHp(damage)
     self.hp = self.hp - damage
     if self.hp <= 0 then
         self.hp = 0
     end
+end
+
+function Character:addScore(score)
+    self.score = self.score + score
+end
+
+function Character:isAlive()
+    -- Just used 1 credit
+    if self.player_select_mode >= 1 and self.player_select_mode < 4 then
+        return true
+    end
+    return self.hp + self.lives > 0
 end
 
 function Character:updateAI(dt)
@@ -108,7 +126,7 @@ function Character:onHurt()
         end
     end
 -- Score
-    h.source.score = h.source.score + h.damage * 10
+    h.source:addScore( h.damage * 10 )
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
     if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
         mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
@@ -1082,7 +1100,7 @@ function Character:useCredit_update(dt)
         if self.b.fire:isDown() and self.can_fire then
             dp(self.name.." used 1 Credit to respawn")
             credits = credits - 1
-            self.score = self.score + 1 -- like CAPCM
+            self:addScore(1) -- like CAPCM
             sfx.play("sfx","menu_select")
             self.cool_down = 1 -- delay before respawn
             self.player_select_mode = 1

@@ -101,11 +101,8 @@ function Item:get(taker)
     else
         sfx.play("sfx"..self.id,"pickup_beef")
     end
-    taker.hp = taker.hp + self.hp
-    if taker.hp > taker.max_hp then
-        taker.hp = taker.max_hp
-    end
-    taker.score = taker.score + self.score
+    taker:addHp(self.hp)
+    taker:addScore(self.score)
     self.isDisabled = true
     stage.world:remove(self)  --world = global bump var
     --self.y = GLOBAL_SETTING.OFFSCREEN --keep in the stage for proper save/load
