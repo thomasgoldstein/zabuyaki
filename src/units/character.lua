@@ -1125,18 +1125,39 @@ function Character:useCredit_update(dt)
             self.cool_down = 0
             self.player_select_mode = 3
             sfx.play("sfx","menu_select")
+            --            player2 = players[2].hero:new(players[2].name,
+            --                GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
+            --                self.b,
+            --                self.x, self.y,
+            --                players[2].shader)
             return
         else
             self.cool_down = self.cool_down - dt
         end
         ---
-        if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1) then
-            self.player_select_cur = self.player_select_cur - 1
-            if self.player_select_cur < 1 then
+        if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1)
+            or self.b.horizontal:pressed(1) or self.b.vertical:pressed(1)
+        then
+            if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1) then
+                -- browse left
+                self.player_select_cur = self.player_select_cur - 1
+                if self.player_select_cur < 1 then
+                    if GLOBAL_SETTING.DEBUG then
+                        self.player_select_cur = players_list.NIKO
+                    else
+                        self.player_select_cur = players_list.CHAI
+                    end
+                end
+            else -- browse right
+                self.player_select_cur = self.player_select_cur + 1
                 if GLOBAL_SETTING.DEBUG then
-                    self.player_select_cur = players_list.NIKO
+                    if self.player_select_cur > players_list.NIKO then
+                        self.player_select_cur = 1
+                    end
                 else
-                    self.player_select_cur = players_list.CHAI
+                    if self.player_select_cur > players_list.CHAI then
+                        self.player_select_cur = 1
+                    end
                 end
             end
             sfx.play("sfx","menu_move")
@@ -1148,36 +1169,7 @@ function Character:useCredit_update(dt)
             self.infoBar.icon_sprite = self.sprite.def.sprite_sheet
             self.infoBar.q = self.sprite.def.animations["icon"][1].q  --quad
             self.infoBar.icon_color = self.color
-
---            player2 = players[2].hero:new(players[2].name,
---                GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
---                self.b,
---                self.x, self.y,
---                players[2].shader)
-
-        elseif self.b.horizontal:pressed(1) or self.b.vertical:pressed(1) then
-            self.player_select_cur = self.player_select_cur + 1
-            if GLOBAL_SETTING.DEBUG then
-                if self.player_select_cur > players_list.NIKO then
-                    self.player_select_cur = 1
-                end
-            else
-                if self.player_select_cur > players_list.CHAI then
-                    self.player_select_cur = 1
-                end
-            end
-            sfx.play("sfx","menu_move")
-            self:onShake(-1, 0, 0.03, 0.3)   --shake name + face icon
-            self.name = HEROES[self.player_select_cur][1].name
-            self.shader = HEROES[self.player_select_cur][1].shader
-            self.sprite = GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance)
-            SetSpriteAnimation(self.sprite,"stand")
-            self.infoBar.icon_sprite = self.sprite.def.sprite_sheet
-            self.infoBar.q = self.sprite.def.animations["icon"][1].q  --quad
-            self.infoBar.icon_color = self.color
         end
-        ---
-
     elseif self.player_select_mode == 3 then
         -- Spawn selecterd player
         self.lives = GLOBAL_SETTING.MAX_LIVES
