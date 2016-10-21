@@ -1112,15 +1112,59 @@ function Character:useCredit_update(dt)
             self.cool_down = self.cool_down - dt
             if self.cool_down <= 0 then
                 self.can_fire = false
+                self.cool_down = 100    --TODO debug. return to 10
                 self.player_select_mode = 2
             end
         end
     elseif self.player_select_mode == 2 then
         -- Select Player
+        -- 10 sec countdown before auto confirm
+        if self.cool_down > 0 then
+            self.cool_down = self.cool_down - dt
+        else
+            self.player_select_mode = 3
+            sfx.play("sfx","menu_select")
+        end
         if self.b.fire:isDown() and self.can_fire then
             self.player_select_mode = 3
             sfx.play("sfx","menu_select")
         end
+        ---
+        if self.b.horizontal:pressed(-1) then
+            self.player_select_cur = self.player_select_cur - 1
+            if self.player_select_cur < 1 then
+                if GLOBAL_SETTING.DEBUG then
+                    self.player_select_cur = players_list.NIKO
+                else
+                    self.player_select_cur = players_list.CHAI
+                end
+            end
+            sfx.play("sfx","menu_move")
+            self:onShake(-1, 0, 0.03, 0.3)   --shake name + face icon
+            self.name = HEROES[self.player_select_cur][1].name
+            self.shader = HEROES[self.player_select_cur][1].shader
+           --self.player_select_cur = players_list[self.name]
+           --print("self.player_select_cur",self.player_select_cur)
+        elseif self.b.horizontal:pressed(1) then
+            self.player_select_cur = self.player_select_cur + 1
+            if GLOBAL_SETTING.DEBUG then
+                if self.player_select_cur > players_list.NIKO then
+                    self.player_select_cur = 1
+                end
+            else
+                if self.player_select_cur > players_list.CHAI then
+                    self.player_select_cur = 1
+                end
+            end
+            sfx.play("sfx","menu_move")
+            self:onShake(1, 0, 0.03, 0.3)   --shake name + face icon
+            self.name = HEROES[self.player_select_cur][1].name
+            self.shader = HEROES[self.player_select_cur][1].shader
+            --self.player_select_cur = players_list[self.name]
+            --print("self.player_select_cur",self.player_select_cur)
+        end
+        ---
+
     elseif self.player_select_mode == 3 then
         -- Spawn selecterd player
         self.lives = GLOBAL_SETTING.MAX_LIVES
