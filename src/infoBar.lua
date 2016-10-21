@@ -231,7 +231,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )
         elseif player_select_mode == 2 then
             -- Select Player
-            printWithShadow("< " .. self.source.name .. " >", l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9 )
+            printWithShadow(self.source.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9 )
             local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
             if c then
                 love.graphics.setColor(c[1],c[2],c[3], transp_bg)
