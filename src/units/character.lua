@@ -1139,25 +1139,23 @@ function Character:useCredit_update(dt)
             or self.b.horizontal:pressed(1) or self.b.vertical:pressed(1)
         then
             if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1) then
-                -- browse left
                 self.player_select_cur = self.player_select_cur - 1
-                if self.player_select_cur < 1 then
-                    if GLOBAL_SETTING.DEBUG then
-                        self.player_select_cur = players_list.NIKO
-                    else
-                        self.player_select_cur = players_list.CHAI
-                    end
-                end
-            else -- browse right
+            else
                 self.player_select_cur = self.player_select_cur + 1
-                if GLOBAL_SETTING.DEBUG then
-                    if self.player_select_cur > players_list.NIKO then
-                        self.player_select_cur = 1
-                    end
-                else
-                    if self.player_select_cur > players_list.CHAI then
-                        self.player_select_cur = 1
-                    end
+            end
+            if GLOBAL_SETTING.DEBUG then
+                if self.player_select_cur > players_list.NIKO then
+                    self.player_select_cur = 1
+                end
+                if self.player_select_cur < 1 then
+                    self.player_select_cur = players_list.NIKO
+                end
+            else
+                if self.player_select_cur > players_list.CHAI then
+                    self.player_select_cur = 1
+                end
+                if self.player_select_cur < 1 then
+                    self.player_select_cur = players_list.CHAI
                 end
             end
             sfx.play("sfx","menu_move")
@@ -1167,7 +1165,7 @@ function Character:useCredit_update(dt)
             self.sprite = GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance)
             SetSpriteAnimation(self.sprite,"stand")
             self.infoBar.icon_sprite = self.sprite.def.sprite_sheet
-            self.infoBar.q = self.sprite.def.animations["icon"][1].q  --quad
+            self.infoBar.q = self.sprite.def.animations["icon"][1].q  --face icon quad
             self.infoBar.icon_color = self.color
         end
     elseif self.player_select_mode == 3 then
