@@ -96,7 +96,9 @@ end
 
 function Unit:showHitMarks(dmg, z)
 	local pa_hitMark
-	if dmg < 9 then
+	if dmg < 1 then
+		return	-- e.g. ShockWave with 0 DMG
+	elseif dmg < 9 then
 		pa_hitMark = PA_IMPACT_SMALL:clone()
 		pa_hitMark:setPosition( 0, -z )
 	elseif dmg < 14 then
