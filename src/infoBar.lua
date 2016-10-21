@@ -131,7 +131,11 @@ function InfoBar:draw_face_icon(l, t, transp_bg)
     if self.source.shader then
         love.graphics.setShader()
     end
+end
+
+function InfoBar:draw_dead_cross(l, t, transp_bg)
     if self.hp <= 0 then
+        --    if not self.source:isAlive() then
         love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*20 + 17) * cool_down_transparency)
         love.graphics.draw (
             gfx.ui.dead_icon.sprite,
@@ -219,7 +223,6 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         love.graphics.setColor(255, 255, 255, transp_bg)
         if player_select_mode == 0 then
             -- wait press to use credit
-            -- add countdown 9 .. 0 -> Game Over
             printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*2 + 17))
             printWithShadow(self.source.pid .. " PRESS ACTION (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 9 + 11 )
@@ -228,9 +231,16 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )
         elseif player_select_mode == 2 then
             -- Select Player
-            printWithShadow(self.source.pid .. " SELECT PLAYER", l + self.x + 2, t + self.y + 9 )
+            printWithShadow("< " .. self.source.name .. " >", l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9 )
+            local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
+            if c then
+                love.graphics.setColor(c[1],c[2],c[3], transp_bg)
+            end
+            printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1 )
+            --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )
+            self:draw_face_icon(l, t, transp_bg)
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*3 + 17))
-            printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )
+            printWithShadow("SELECT PLAYER", l + self.x + 2, t + self.y + 19 )
         elseif player_select_mode == 3 then
             -- Spawn selecterd player
             --printWithShadow(self.source.pid .. " GET READY!", l + self.x + 2, t + self.y + 9 )
@@ -240,6 +250,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9 )
         end
     else
+        -- Default draw
         if player_select_mode == 3 then
             -- Fade-in and drop down bar while player falls (respawns)
             transp_bg = 255 - self.source.z
@@ -247,7 +258,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         end
         self:draw_lifebar(l, t, transp_bg)
         self:draw_face_icon(l, t, transp_bg)
-
+        self:draw_dead_cross(l, t, transp_bg)
         if self.score ~= self.source.score then
             self.score = self.source.score
             self.displayed_score = string.format("%06d", self.score)
