@@ -32,6 +32,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
     self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
 
 	self.state = "nop"
+	self.time_state = love.timer.getTime()
 	self.prev_state = "" -- text name
     self.last_state = "" -- text name
     self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
@@ -124,6 +125,7 @@ end
 function Unit:setState(state)
 	--assert(type(state) == "table", "setState expects a table")
 	if state then
+		self.time_state = love.timer.getTime()
 		self.prev_state = self.last_state
 		self.last_state = self.state
 		--print (self.name.." -> Switching to ",state.name," Last:",self.last_state,"Prev:",self.prev_state)
@@ -137,6 +139,10 @@ function Unit:setState(state)
         --TODO temp?
         UpdateSpriteInstance(self.sprite, 0, self)
 	end
+end
+function Unit:getStateTimee()
+	-- time from the switching to current frame
+	return love.timer.getTime() - self.time_state
 end
 
 function Unit:onShake(sx, sy, freq,cool_down)
