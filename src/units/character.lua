@@ -350,7 +350,7 @@ function Character:stand_update(dt)
     end
 
     if (self.can_jump or self.can_fire) and
-            self.b.jump:isDown() and self.b.fire:isDown() then
+            (self.b.jump:isDown() and self.b.fire:isDown()) then
         self:setState(self.special)
         return
     elseif self.can_jump and self.b.jump:isDown() then
@@ -677,14 +677,10 @@ function Character:duck2jump_start()
     --	print (self.name.." - duck2jump start")
     SetSpriteAnimation(self.sprite,"duck")
     self.z = 0
-    self.can_fire = false
 end
 function Character:duck2jump_update(dt)
     --	print (self.name.." - duck2jump update",dt)
-    if not self.b.fire:isDown() then
-        self.can_fire = true
-    end
-    if self.b.fire:isDown() and self.can_fire then
+    if self.b.fire:isDown() then
         self:setState(self.special)
         return
     end
