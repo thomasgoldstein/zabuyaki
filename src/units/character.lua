@@ -849,10 +849,6 @@ function Character:jumpAttackForward_start()
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackForward_update(dt)
-    if self.b.fire:isDown() and self:getStateTime() < 0.06 then
-        self:setState(self.special)
-        return
-    end
     --	print (self.name.." - jumpAttackForward update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
@@ -874,10 +870,6 @@ function Character:jumpAttackLight_start()
     SetSpriteAnimation(self.sprite,"jumpAttackLight")
 end
 function Character:jumpAttackLight_update(dt)
-    if self.b.fire:isDown() and self:getStateTime() < 0.06 then
-        self:setState(self.special)
-        return
-    end
     --	print (self.name.." - jumpAttackLight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
@@ -900,10 +892,6 @@ function Character:jumpAttackStraight_start()
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackStraight_update(dt)
-    if self.b.fire:isDown() and self:getStateTime() < 0.06 then
-        self:setState(self.special)
-        return
-    end
     --	print (self.name.." - jumpAttackStraight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
