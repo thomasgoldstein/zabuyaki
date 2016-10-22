@@ -677,9 +677,17 @@ function Character:duck2jump_start()
     --	print (self.name.." - duck2jump start")
     SetSpriteAnimation(self.sprite,"duck")
     self.z = 0
+    self.can_fire = false
 end
 function Character:duck2jump_update(dt)
     --	print (self.name.." - duck2jump update",dt)
+    if not self.b.fire:isDown() then
+        self.can_fire = true
+    end
+    if self.b.fire:isDown() and self.can_fire then
+        self:setState(self.special)
+        return
+    end
     if self.sprite.isFinished then
         self:setState(self.jump)
         --start jump dust clouds
@@ -1125,11 +1133,14 @@ function Character:useCredit_update(dt)
             self.cool_down = 0
             self.player_select_mode = 3
             sfx.play("sfx","menu_select")
-            --            player2 = players[2].hero:new(players[2].name,
-            --                GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
-            --                self.b,
-            --                self.x, self.y,
-            --                players[2].shader)
+            local id = self.id
+            player1 = HEROES[self.player_select_cur].hero:new(self.name,
+                            GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
+                            self.b,
+                            self.x, self.y,
+                            self.shader,
+                            {255,255,255, 255})
+            player1.id = id
             return
         else
             self.cool_down = self.cool_down - dt
