@@ -829,6 +829,12 @@ function Character:dash_start()
     sfx.play("voice"..self.id, self.sfx.dash)
 end
 function Character:dash_update(dt)
+    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+        self.z = 0
+        self.velz = 0
+        self:setState(self.special)
+        return
+    end
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -845,6 +851,12 @@ function Character:jumpAttackForward_start()
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackForward_update(dt)
+    if self.b.fire:isDown() and self:getStateTime() < 0.06 then
+        self.z = 0
+        self.velz = 0
+        self:setState(self.special)
+        return
+    end
     --	print (self.name.." - jumpAttackForward update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
@@ -866,6 +878,12 @@ function Character:jumpAttackLight_start()
     SetSpriteAnimation(self.sprite,"jumpAttackLight")
 end
 function Character:jumpAttackLight_update(dt)
+    if self.b.fire:isDown() and self:getStateTime() < 0.06 then
+        self.z = 0
+        self.velz = 0
+        self:setState(self.special)
+        return
+    end
     --	print (self.name.." - jumpAttackLight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
@@ -888,6 +906,12 @@ function Character:jumpAttackStraight_start()
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackStraight_update(dt)
+    if self.b.fire:isDown() and self:getStateTime() < 0.06 then
+        self.z = 0
+        self.velz = 0
+        self:setState(self.special)
+        return
+    end
     --	print (self.name.." - jumpAttackStraight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
@@ -1243,6 +1267,10 @@ function Character:combo_start()
     self.cool_down = 0.2
 end
 function Character:combo_update(dt)
+    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+        self:setState(self.special)
+        return
+    end
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
         if self.n_combo > 5 then
@@ -1467,6 +1495,12 @@ function Character:grabHit_start()
     dp(self.name.." is grabhit someone.")
 end
 function Character:grabHit_update(dt)
+    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+        self.z = 0
+        self.velz = 0
+        self:setState(self.special)
+        return
+    end
     --dp(self.name .. " - grabhit update", dt)
     if self.sprite.isFinished then
         self:setState(self.grab)
@@ -1484,6 +1518,12 @@ function Character:grabHitLast_start()
     dp(self.name.." is grabHitLast someone.")
 end
 function Character:grabHitLast_update(dt)
+    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+        self.z = 0
+        self.velz = 0
+        self:setState(self.special)
+        return
+    end
     --dp(self.name .. " - grabHitLast update", dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
