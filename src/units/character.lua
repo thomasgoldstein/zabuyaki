@@ -830,8 +830,6 @@ function Character:dash_start()
 end
 function Character:dash_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < 0.06 then
-        self.z = 0
-        self.velz = 0
         self:setState(self.special)
         return
     end
@@ -852,8 +850,6 @@ function Character:jumpAttackForward_start()
 end
 function Character:jumpAttackForward_update(dt)
     if self.b.fire:isDown() and self:getStateTime() < 0.06 then
-        self.z = 0
-        self.velz = 0
         self:setState(self.special)
         return
     end
@@ -879,8 +875,6 @@ function Character:jumpAttackLight_start()
 end
 function Character:jumpAttackLight_update(dt)
     if self.b.fire:isDown() and self:getStateTime() < 0.06 then
-        self.z = 0
-        self.velz = 0
         self:setState(self.special)
         return
     end
@@ -907,8 +901,6 @@ function Character:jumpAttackStraight_start()
 end
 function Character:jumpAttackStraight_update(dt)
     if self.b.fire:isDown() and self:getStateTime() < 0.06 then
-        self.z = 0
-        self.velz = 0
         self:setState(self.special)
         return
     end
@@ -1496,8 +1488,6 @@ function Character:grabHit_start()
 end
 function Character:grabHit_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < 0.06 then
-        self.z = 0
-        self.velz = 0
         self:setState(self.special)
         return
     end
@@ -1519,8 +1509,6 @@ function Character:grabHitLast_start()
 end
 function Character:grabHitLast_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < 0.06 then
-        self.z = 0
-        self.velz = 0
         self:setState(self.special)
         return
     end

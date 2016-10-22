@@ -90,6 +90,13 @@ function Rick:special_start()
     self.cool_down = 0.2
 end
 function Rick:special_update(dt)
+    if self.z > 0 then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt
+        if self.z < 0 then
+            self.z = 0
+        end
+    end
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
