@@ -140,7 +140,7 @@ function Unit:setState(state)
         UpdateSpriteInstance(self.sprite, 0, self)
 	end
 end
-function Unit:getStateTimee()
+function Unit:getStateTime()
 	-- time from the switching to current frame
 	return love.timer.getTime() - self.time_state
 end
