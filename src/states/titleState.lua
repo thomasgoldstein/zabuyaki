@@ -24,6 +24,7 @@ local txt_options = love.graphics.newText( gfx.font.arcade4, "OPTIONS" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "QUIT" )
 
 local txt_start_hint = love.graphics.newText( gfx.font.arcade4, "Press ACTION ('X' key)" )
+local txt_site = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 
 local rick_spr = GetSpriteInstance("src/def/char/rick.lua")
 SetSpriteAnimation(rick_spr,"stand")
@@ -142,6 +143,8 @@ function titleState:draw()
         end
     end
     --header
+    love.graphics.setColor(100, 100, 100, 255)
+    love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, 460)
     love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
     love.graphics.draw(txt_zabuyaki_logo, (screen_width - txt_zabuyaki_logo:getWidth()) / 2, 40)
     love.graphics.setColor(255, 255, 255, 100 - math.sin(time)*20)
