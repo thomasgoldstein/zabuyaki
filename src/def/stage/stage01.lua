@@ -136,8 +136,8 @@ function Stage01:initialize(players)
     local new_gopper2 = NGopper:new("N.GOP2", GetSpriteInstance("src/def/char/gopper.lua"), button3, 177, top_floor_y + 43, shaders.gopper[1], {255,255,255, 255})
     local new_gopper3 = NGopper:new("N.GOP3", GetSpriteInstance("src/def/char/gopper.lua"), button3, 199, top_floor_y + 47, shaders.gopper[3], {255,255,255, 255})
     local new_gopper4 = NGopper:new("N.GOP4", GetSpriteInstance("src/def/char/gopper.lua"), button3, 210, top_floor_y + 40, shaders.gopper[4], {255,255,255, 255})
-    local new_gopper5 = NGopper:new("N.GOP5", GetSpriteInstance("src/def/char/gopper.lua"), button3, 230, top_floor_y + 43, shaders.gopper[1], {255,111,255, 255})
-    local new_gopper6 = NGopper:new("N.GOP6", GetSpriteInstance("src/def/char/gopper.lua"), button3, 250, top_floor_y + 47, shaders.gopper[1], {255,255,111, 255})
+    local new_gopper5 = NGopper:new("N.GOP5", GetSpriteInstance("src/def/char/gopper.lua"), button3, 230, top_floor_y + 43, shaders.gopper[2], {255,255,255, 255})
+    local new_gopper6 = NGopper:new("N.GOP6", GetSpriteInstance("src/def/char/gopper.lua"), button3, 250, top_floor_y + 47, shaders.gopper[3], {255,255,255, 255})
 
     self.objects = Entity:new()
     self.objects:addArray({
