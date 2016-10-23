@@ -16,7 +16,7 @@ local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
-local txt_zabuyaki_logo = love.graphics.newText( gfx.font.arcade2, "ZABUYAKI" )
+local txt_zabuyaki_logo = love.graphics.newText( gfx.font.kimberley, "ZABUYAKI" )
 local txt_beatemup = love.graphics.newText( gfx.font.arcade4, "Beat'em All" )
 
 local txt_start = love.graphics.newText( gfx.font.arcade4, "START" )

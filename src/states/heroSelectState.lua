@@ -13,7 +13,7 @@ local portrait_margin = 20
 
 local p1_old_pos = 0
 local p1_mouse_pos = 0
-local txt_player_select = love.graphics.newText( gfx.font.arcade2x15, "PLAYER SELECT" )
+local txt_player_select = love.graphics.newText( gfx.font.kimberley, "PLAYER SELECT" )
 
 local heroes = {
     {

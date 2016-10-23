@@ -16,7 +16,7 @@ local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
-local txt_paused = love.graphics.newText( gfx.font.arcade2, "PAUSED" )
+local txt_paused = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
 local txt_continue = love.graphics.newText( gfx.font.arcade4, "Continue" )
 local txt_quick_save = love.graphics.newText( gfx.font.arcade4, "Quick Save" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "Quit" )
