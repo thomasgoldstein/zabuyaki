@@ -11,16 +11,19 @@ function Enemy:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "enemy"
     self.lives = 1
-    self.max_ai_poll_1 = 1
+    self.max_ai_poll_1 = 0.5
     self.ai_poll_1 = self.max_ai_poll_1
-    self.max_ai_poll_2 = 3
+    self.max_ai_poll_2 = 5
     self.ai_poll_2 = self.max_ai_poll_2
-    self.max_ai_poll_3 = 6
+    self.max_ai_poll_3 = 11
     self.ai_poll_3 = self.max_ai_poll_3
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
 end
 
 function Enemy:updateAI(dt)
+    if self.isDisabled then
+        return
+    end
     Character.updateAI(self, dt)
     --print("updateAI "..self.type.." "..self.name)
 end
@@ -76,26 +79,26 @@ Enemy.dead = {name = "dead", start = Character.dead_start, exit = nop, update = 
 function Enemy:getDistanceToClosestPlayer()
     local p = {}
     if player1 then
-        p[#p +1] = {player = player1, score = 0 }
+        p[#p +1] = {player = player1, points = 0 }
     end
     if player2 then
-        p[#p +1] = {player = player2, score = 0 }
+        p[#p +1] = {player = player2, points = 0 }
     end
     if player3 then
-        p[#p +1] = {player = player3, score = 0}
+        p[#p +1] = {player = player3, points = 0}
     end
     for i = 1, #p do
-        p[i].score = dist(self.x, self.y, p[i].player.x, p[i].player.y)
+        p[i].points = dist(self.x, self.y, p[i].player.x, p[i].player.y)
     end
 
     table.sort(p, function(a,b)
-        return a.score < b.score
+        return a.points < b.points
     end )
 
     if #p < 1 then
         return 9000
     end
-    return p[1].score
+    return p[1].points
 end
 
 local next_to_pick_target_id = 1
@@ -105,35 +108,35 @@ local next_to_pick_target_id = 1
 function Enemy:pickAttackTarget(how)
     local p = {}
     if player1 then
-        p[#p +1] = {player = player1, score = 0 }
+        p[#p +1] = {player = player1, points = 0 }
     end
     if player2 then
-        p[#p +1] = {player = player2, score = 0 }
+        p[#p +1] = {player = player2, points = 0 }
     end
     if player3 then
-        p[#p +1] = {player = player3, score = 0}
+        p[#p +1] = {player = player3, points = 0}
     end
     how = how or self.whichPlayerAttack
     for i = 1, #p do
         if how == "close" then
-            p[i].score = -dist(self.x, self.y, p[i].player.x, p[i].player.y)
+            p[i].points = -dist(self.x, self.y, p[i].player.x, p[i].player.y)
         elseif how == "far" then
-            p[i].score = dist(self.x, self.y, p[i].player.x, p[i].player.y)
+            p[i].points = dist(self.x, self.y, p[i].player.x, p[i].player.y)
         elseif how == "weak" then
-            p[i].score = -p[i].player.hp
+            p[i].points = -p[i].player.hp
         elseif how == "healthy" then
-            p[i].score = p[i].player.hp
+            p[i].points = p[i].player.hp
         elseif how == "slow" then
-            p[i].score = -p[i].player.velocity_walk
+            p[i].points = -p[i].player.velocity_walk
         elseif how == "fast" then
-            p[i].score = p[i].player.velocity_walk
+            p[i].points = p[i].player.velocity_walk
         else -- "random"
-            p[i].score = math.random()
+            p[i].points = math.random()
         end
     end
 
     table.sort(p, function(a,b)
-            return a.score > b.score
+            return a.points > b.points
     end )
 
     if #p < 1 then

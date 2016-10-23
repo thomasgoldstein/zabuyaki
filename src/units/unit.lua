@@ -250,6 +250,9 @@ function Unit:default_draw(l,t,w,h)
 end
 
 function Unit:updateAI(dt)
+	if self.isDisabled then
+		return
+	end
 	--print("updateAI "..self.type.." "..self.name)
 	UpdateSpriteInstance(self.sprite, dt, self)
 end

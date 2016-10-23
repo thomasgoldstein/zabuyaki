@@ -91,6 +91,9 @@ function Character:isAlive()
 end
 
 function Character:updateAI(dt)
+    if self.isDisabled then
+        return
+    end
     Unit.updateAI(self, dt)
     self:updateShake(dt)
 end
@@ -183,10 +186,6 @@ function Character:onHurt()
         error("OnHurt - unknown h.type = "..h.type)
     end
     dpo(self, self.state)
-    --TODO disable AI movement (for cut scenes & enemy)
-    --[[        if self.move then --disable AI x,y changing
-                dp(self.name.." removed AI tween")
-                self.move:remove()--]]
     --finish calcs before the fall state
     self:showHitMarks(h.damage, 40)
     -- calc falling traectorym speed, direction
