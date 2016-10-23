@@ -22,6 +22,7 @@ local function rand1()
 end
 
 local function nop() --[[print "nop"]] end
+
 function Gopper:remove_tween_move() self.move = nil end
 
 function Gopper:initialize(name, sprite, input, x, y, shader, color)
@@ -83,7 +84,7 @@ function Gopper:updateAI(dt)
                 self:setState(self.stand)
             end
         elseif self.state == "stand" then
-            if self.cool_down <= 0 and self.state == "stand" then
+            if self.cool_down <= 0 then
                 --can move
                 local t = dist(self.target.x, self.target.y, self.x, self.y)
                 if t < 300 then
@@ -108,32 +109,26 @@ function Gopper:updateAI(dt)
             --self:setState(self.stand)
             --return
         end
-        -- Can attack?
-        --        if math.abs(self.x - self.target.x) <= 100
-        --                and math.abs(self.y - self.target.y) <= 6
-        --        then
-        --            self:setState(self.run)
-        --            return
-        --        end
+        -- Facing towards the target
+        if self.z == 0 then
+            if self.target.x < self.x then
+                self.face = -1
+                self.horizontal = self.face
+            else
+                self.face = 1
+                self.horizontal = self.face
+            end
+        end
     end
     if self.ai_poll_2 < 0 then
         self.ai_poll_2 = self.max_ai_poll_2 + math.random()
         --        print("ai poll 2", self.name)
-        -- Facing towards the target
-        if self.target.x < self.x then
-            self.face = -1
-            self.horizontal = self.face
-        else
-            self.face = 1
-            self.horizontal = self.face
-        end
     end
     if self.ai_poll_3 < 0 then
         self.ai_poll_3 = self.max_ai_poll_3 + math.random()
         --        print("ai poll 3", self.name)
 
         if self.state == "walk" then
-
         elseif self.state == "run" then
         end
 
