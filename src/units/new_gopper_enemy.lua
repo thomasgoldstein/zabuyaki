@@ -46,7 +46,9 @@ function Gopper:checkCollisionAndMove(dt)
     local stepx = self.velx * dt * self.horizontal
     local stepy = self.vely * dt * self.vertical
     local actualX, actualY, cols, len, x, y
-    if self.state == "fall" then
+    if self.state == "fall"
+            or self.state == "dash" then
+--    if self.move then
         x = self.x
         y = self.y
     else
@@ -229,6 +231,7 @@ Gopper.intro = { name = "intro", start = Gopper.intro_start, exit = nop, update 
 
 function Gopper:stand_start()
     self.isHittable = true
+    self.tx, self.ty = self.x, self.y
     --    	print (self.name.." - stand start")
     SetSpriteAnimation(self.sprite, "stand")
     self.victims = {}
@@ -327,13 +330,17 @@ function Gopper:run_start()
     if self.x < self.target.x then
         self.move = tween.new(0.3 + t / 100, self, {
             tx = self.target.x - love.math.random(25, 35),
-            ty = self.target.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        }, 'inOutQuad')
+            ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+        }, 'inQuad')
+        self.face = 1
+        self.horizontal = self.face
     else
         self.move = tween.new(0.3 + t / 100, self, {
             tx = self.target.x + love.math.random(25, 35),
-            ty = self.target.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        }, 'inOutQuad')
+            ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+        }, 'inQuad')
+        self.face = -1
+        self.horizontal = self.face
     end
 
 
@@ -372,6 +379,6 @@ function Gopper:dash_update(dt)
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
 end
-Gopper.dash = {name = "dash", start = Gopper.dash_start, exit = nop, update = Gopper.dash_update, draw = Character.default_draw}
+Gopper.dash = {name = "dash", start = Gopper.dash_start, exit = Gopper.remove_tween_move, update = Gopper.dash_update, draw = Character.default_draw}
 
 return Gopper
