@@ -10,9 +10,7 @@ local function CheckCollision(x1, y1, w1, h1, x2, y2, w2, h2)
             y1 < y2 + h2 and
             y2 < y1 + h1
 end
-
 local function dist(x1, y1, x2, y2) return ((x2 - x1) ^ 2 + (y2 - y1) ^ 2) ^ 0.5 end
-
 local function rand1()
     if love.math.random() < 0.5 then
         return -1
@@ -20,8 +18,10 @@ local function rand1()
         return 1
     end
 end
-
 local function nop() --[[print "nop"]] end
+local function sign(x)
+    return x>0 and 1 or x<0 and -1 or 0
+end
 
 function Gopper:remove_tween_move() self.move = nil end
 
@@ -368,17 +368,19 @@ function Gopper:dash_start()
     SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash
     self.vely = 0
---    self.velz = 0
-    self.velz = self.velocity_jump / 3
+    self.velz = self.velocity_jump / 4
     self.z = 0.1
     sfx.play("voice"..self.id, self.sfx.dash)
-    local psystem = PA_DASH:clone()
-    psystem:setSpin(0, -3 * self.face)
-    self.pa_dash = psystem
-    self.pa_dash_x = self.x
-    self.pa_dash_y = self.y
-
-    stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
+    --start jump dust clouds
+    local psystem = PA_DUST_JUMP_START:clone()
+    psystem:setAreaSpread( "uniform", 16, 4 )
+    psystem:setLinearAcceleration(-30 , 10, 30, -10)
+    psystem:emit(4)
+    psystem:setAreaSpread( "uniform", 4, 4 )
+    psystem:setPosition( 0, -16 )
+    psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
+    psystem:emit(2)
+    stage.objects:add(Effect:new(psystem, self.x, self.y-1))
 end
 function Gopper:dash_update(dt)
     if self.sprite.isFinished then
@@ -387,18 +389,14 @@ function Gopper:dash_update(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt
+        self.velz = self.velz - self.gravity/4 * dt
     else
         self.velz = 0
         self.z = 0
     end
-    if math.random() < 0.2 and self.velx >= self.velocity_dash * 0.5 then
-        self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
-        self.pa_dash:emit(1)
-    end
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
 end
-Gopper.dash = {name = "dash", start = Gopper.dash_start, exit = Gopper.remove_tween_move, update = Gopper.dash_update, draw = Character.default_draw}
+Gopper.dash = {name = "dash", start = Gopper.dash_start, exit = nop, update = Gopper.dash_update, draw = Character.default_draw }
 
 return Gopper

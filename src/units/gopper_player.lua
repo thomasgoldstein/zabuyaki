@@ -1,6 +1,6 @@
 local class = require "lib/middleclass"
 
-local PGopper = class('PGopper', Character)
+local Gopper = class('PGopper', Character)
 
 local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
     return x1 < x2+w2 and
@@ -10,8 +10,11 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
 end
 
 local function nop() --[[print "nop"]] end
+local function sign(x)
+    return x>0 and 1 or x<0 and -1 or 0
+end
 
-function PGopper:initialize(name, sprite, input, x, y, shader, color)
+function Gopper:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "player"
     self.max_hp = 100
@@ -36,10 +39,10 @@ function PGopper:initialize(name, sprite, input, x, y, shader, color)
 --    self.sfx.jump_attack = "rick_attack"
 --    self.sfx.dash = "rick_attack"
 --    self.sfx.step = "rick_step"
---    self.sfx.dead = "PGopper_death"
+--    self.sfx.dead = "Gopper_death"
 end
 
-function PGopper:combo_start()
+function Gopper:combo_start()
     self.isHittable = true
     --	print (self.name.." - combo start")
     if self.n_combo > 3 or self.n_combo < 1 then
@@ -54,7 +57,7 @@ function PGopper:combo_start()
     end
     self.cool_down = 0.2
 end
-function PGopper:combo_update(dt)
+function Gopper:combo_update(dt)
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
         if self.n_combo > 4 then
@@ -66,33 +69,49 @@ function PGopper:combo_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
-PGopper.combo = {name = "combo", start = PGopper.combo_start, exit = nop, update = PGopper.combo_update, draw = Character.default_draw}
+Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Character.default_draw}
 
-function PGopper:dash_start()
+function Gopper:dash_start()
     self.isHittable = true
-    dpo(self, self.state)
     --	print (self.name.." - dash start")
     SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash
     self.vely = 0
-    self.velz = 0
+    self.velz = self.velocity_jump / 4
+    self.z = 0.1
     sfx.play("voice"..self.id, self.sfx.dash)
+    --start jump dust clouds
+    local psystem = PA_DUST_JUMP_START:clone()
+    psystem:setAreaSpread( "uniform", 16, 4 )
+    psystem:setLinearAcceleration(-30 , 10, 30, -10)
+    psystem:emit(4)
+    psystem:setAreaSpread( "uniform", 4, 4 )
+    psystem:setPosition( 0, -16 )
+    psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
+    psystem:emit(2)
+    stage.objects:add(Effect:new(psystem, self.x, self.y-1))
 end
-function PGopper:dash_update(dt)
+function Gopper:dash_update(dt)
     if self.sprite.isFinished then
-        dpo(self, self.state)
         self:setState(self.stand)
         return
+    end
+    if self.z > 0 then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity/4 * dt
+    else
+        self.velz = 0
+        self.z = 0
     end
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
 end
-PGopper.dash = {name = "dash", start = PGopper.dash_start, exit = nop, update = PGopper.dash_update, draw = Character.default_draw}
+Gopper.dash = {name = "dash", start = Gopper.dash_start, exit = nop, update = Gopper.dash_update, draw = Character.default_draw }
 
 --Block unused moves
-PGopper.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
-PGopper.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-PGopper.duck2jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-PGopper.jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Gopper.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
+Gopper.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Gopper.duck2jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Gopper.jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 
-return PGopper
+return Gopper
