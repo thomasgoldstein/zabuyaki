@@ -26,6 +26,9 @@ local dash_belly_clouds = function(slf)
     psystem:emit(5)
     stage.objects:add(Effect:new(psystem, slf.x + 10 * slf.face, slf.y+2))
 end
+local isHittable_false = function(slf)
+    slf.isHittable = false
+end
 
 local combo_punch = function(slf)
     slf:checkAndAttack(28,0, 26,12, 7, "high", slf.velx, "air")
@@ -108,7 +111,7 @@ return {
             { q = q(2,372,58,52), ox = 24, oy = 51, funcCont = dash_attack, delay = 0.5 }, --dash
             -- below: temporary frames, move elsewhere later
             { q = q(62,389,68,35), ox = 28, oy = 27, func = dash_belly_clouds, delay = 0.8 }, --lying down on belly
-            { q = q(132,372,56,48), ox = 22, oy = 44 }, --getting up on belly
+            { q = q(132,372,56,48), ox = 22, oy = 44, func = isHittable_false }, --getting up on belly
             { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 0.3
         },
