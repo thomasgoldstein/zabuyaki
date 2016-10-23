@@ -126,14 +126,19 @@ function Stage01:initialize(players)
     --    item2 = Item:new("Custom func sample", "+20 Pts.", gfx.items.apple, 20, 0, function(s, t) dp(t.name .. " called custom item ("..s.name..") func") end, 460,180)
     local item3 = Item:new("Beef", "+100 HP", gfx.items.beef, 100, 0, nil, 750,top_floor_y + 40 )
 
-    local temper1 = Temper:new("TEMPER", GetSpriteInstance("src/def/char/rick.lua"), button3, 167, top_floor_y + 40, shaders.rick[5], {255,255,255, 255})
+    local temper1 = Temper:new("TEMPER", GetSpriteInstance("src/def/char/rick.lua"), button3, 367, top_floor_y + 40, shaders.rick[5], {255,255,255, 255})
     -- 3 lives: 100hp+100hp+50hp sample
     temper1.max_hp = 100
     temper1.hp = 50
     temper1.infoBar = InfoBar:new(temper1)
 
+    local new_gopper1 = NGopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), button3, 167, top_floor_y + 40, shaders.gopper[2], {255,255,255, 255})
+    local new_gopper2 = NGopper:new("N.GOP2", GetSpriteInstance("src/def/char/gopper.lua"), button3, 177, top_floor_y + 43, shaders.gopper[1], {255,255,255, 255})
+    local new_gopper3 = NGopper:new("N.GOP3", GetSpriteInstance("src/def/char/gopper.lua"), button3, 169, top_floor_y + 47, shaders.gopper[3], {255,255,255, 255})
+
     self.objects = Entity:new()
     self.objects:addArray({
+        new_gopper1, new_gopper2, new_gopper3,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
         niko1, niko2, niko3, niko4, niko5, niko6,
         dummy4, dummy5,

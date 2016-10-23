@@ -11,12 +11,18 @@ function Enemy:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "enemy"
     self.lives = 1
+    self.max_ai_poll_1 = 1
+    self.ai_poll_1 = self.max_ai_poll_1
+    self.max_ai_poll_2 = 3
+    self.ai_poll_2 = self.max_ai_poll_2
+    self.max_ai_poll_3 = 6
+    self.ai_poll_3 = self.max_ai_poll_3
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
 end
 
 function Enemy:updateAI(dt)
     Character.updateAI(self, dt)
---    print("updateAI "..self.type.." "..self.name)
+    --print("updateAI "..self.type.." "..self.name)
 end
 
 function Enemy:decreaseHp(damage)
