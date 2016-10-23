@@ -245,6 +245,7 @@ function Unit:default_draw(l,t,w,h)
 			self:drawPID(self.x, self.y - self.z - 80)
 		end
 		draw_debug_unit_hitbox(self)
+		draw_debug_unit_info(self)
 	end
 end
 
