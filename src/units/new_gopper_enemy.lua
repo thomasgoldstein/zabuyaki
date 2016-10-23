@@ -87,6 +87,11 @@ function Gopper:updateAI(dt)
             if self.cool_down <= 0 then
                 --can move
                 local t = dist(self.target.x, self.target.y, self.x, self.y)
+                if t < 400 and t >= 100 and
+                        math.floor(self.y / 4) == math.floor(self.target.y / 4) then
+                    self:setState(self.run)
+                    return
+                end
                 if t < 300 then
                     self:setState(self.walk)
                     return
@@ -96,6 +101,12 @@ function Gopper:updateAI(dt)
             --self:pickAttackTarget()
             --self:setState(self.stand)
             --return
+            local t = dist(self.target.x, self.target.y, self.x, self.y)
+            if t < 400 and t >= 100
+                    and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
+                self:setState(self.run)
+                return
+            end
             if self.cool_down <= 0 then
                 if math.abs(self.x - self.target.x) <= 50
                         and math.abs(self.y - self.target.y) <= 6
@@ -110,7 +121,10 @@ function Gopper:updateAI(dt)
             --return
         end
         -- Facing towards the target
-        if self.z == 0 then
+        if self.z == 0
+                and self.state ~= "run"
+                and self.state ~= "dash"
+        then
             if self.target.x < self.x then
                 self.face = -1
                 self.horizontal = self.face
@@ -171,7 +185,7 @@ function Gopper:combo_update(dt)
     self:checkCollisionAndMove(dt)
 end
 
-Gopper.combo = { name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Character.default_draw }
+Gopper.combo = { name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Gopper.default_draw }
 
 function Gopper:dash_start()
     self.isHittable = true
@@ -269,19 +283,18 @@ function Gopper:walk_start()
             --get to player(to fight)
             if self.x < self.target.x then
                 self.move = tween.new(1 + t / (40 + self.toughness), self, {
-                    tx = self.target.x - love.math.random(25, 35),
-                    ty = self.target.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+                    tx = self.target.x - love.math.random(25, 30),
+                    ty = self.target.y + 1
                 }, 'inOutQuad')
             else
                 self.move = tween.new(1 + t / (40 + self.toughness), self, {
-                    tx = self.target.x + love.math.random(25, 35),
-                    ty = self.target.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+                    tx = self.target.x + love.math.random(25, 30),
+                    ty = self.target.y + 1
                 }, 'inOutQuad')
             end
         end
     end
 end
-
 function Gopper:walk_update(dt)
     --    	print (self.name.." - walk update",dt)
     local complete
@@ -302,7 +315,63 @@ function Gopper:walk_update(dt)
     self.can_jump = true
     self.can_fire = true
 end
-
 Gopper.walk = { name = "walk", start = Gopper.walk_start, exit = Gopper.remove_tween_move, update = Gopper.walk_update, draw = Enemy.default_draw }
+
+function Gopper:run_start()
+    self.isHittable = true
+    --	print (self.name.." - run start")
+    SetSpriteAnimation(self.sprite, "run")
+    local t = dist(self.target.x, self.y, self.x, self.y)
+
+    --get to player(to fight)
+    if self.x < self.target.x then
+        self.move = tween.new(0.3 + t / 100, self, {
+            tx = self.target.x - love.math.random(25, 35),
+            ty = self.target.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+        }, 'inOutQuad')
+    else
+        self.move = tween.new(0.3 + t / 100, self, {
+            tx = self.target.x + love.math.random(25, 35),
+            ty = self.target.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+        }, 'inOutQuad')
+    end
+
+
+    self.can_fire = false
+end
+function Gopper:run_update(dt)
+    --	print (self.name.." - run update",dt)
+    local complete
+    if self.move then
+        complete = self.move:update(dt)
+    else
+        complete = true
+    end
+    if complete then
+        self:setState(self.dash)
+        return
+    end
+    self:checkCollisionAndMove(dt)
+end
+Gopper.run = {name = "run", start = Gopper.run_start, exit = Gopper.remove_tween_move, update = Gopper.run_update, draw = Gopper.default_draw}
+
+function Gopper:dash_start()
+    self.isHittable = true
+    --	print (self.name.." - dash start")
+    SetSpriteAnimation(self.sprite,"dash")
+    self.velx = self.velocity_dash
+    self.vely = 0
+    self.velz = 0
+    sfx.play("voice"..self.id, self.sfx.dash)
+end
+function Gopper:dash_update(dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt, self.friction_dash)
+    self:checkCollisionAndMove(dt)
+end
+Gopper.dash = {name = "dash", start = Gopper.dash_start, exit = nop, update = Gopper.dash_update, draw = Character.default_draw}
 
 return Gopper
