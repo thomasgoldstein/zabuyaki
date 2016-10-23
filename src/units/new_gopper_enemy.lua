@@ -368,13 +368,33 @@ function Gopper:dash_start()
     SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash
     self.vely = 0
-    self.velz = 0
+--    self.velz = 0
+    self.velz = self.velocity_jump / 3
+    self.z = 0.1
     sfx.play("voice"..self.id, self.sfx.dash)
+    local psystem = PA_DASH:clone()
+    psystem:setSpin(0, -3 * self.face)
+    self.pa_dash = psystem
+    self.pa_dash_x = self.x
+    self.pa_dash_y = self.y
+
+    stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
 end
 function Gopper:dash_update(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
+    end
+    if self.z > 0 then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt
+    else
+        self.velz = 0
+        self.z = 0
+    end
+    if math.random() < 0.2 and self.velx >= self.velocity_dash * 0.5 then
+        self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
+        self.pa_dash:emit(1)
     end
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
