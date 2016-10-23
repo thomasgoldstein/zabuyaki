@@ -113,7 +113,9 @@ function Rick:dash_start()
     SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash
     self.vely = 0
-    self.velz = 0
+--    self.velz = 0
+    self.velz = self.velocity_jump / 3
+    self.z = 0.1
     sfx.play("voice"..self.id, self.sfx.dash)
 
     local psystem = PA_DASH:clone()
@@ -128,6 +130,13 @@ function Rick:dash_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
+    end
+    if self.z > 0 then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt
+    else
+        self.velz = 0
+        self.z = 0
     end
     if self.sprite.isFinished then
         dpo(self, self.state)
