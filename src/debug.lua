@@ -188,7 +188,7 @@ end
 function draw_debug_unit_info(a)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setFont(gfx.font.debug)
-        love.graphics.setColor(255, 255, 255, 220)
+        love.graphics.setColor(0, 0, 0, 120)
         love.graphics.print( a.state, a.x - 14, a.y)
         love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7)
     end
