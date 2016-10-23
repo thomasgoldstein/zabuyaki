@@ -132,9 +132,9 @@ function Stage01:initialize(players)
     temper1.hp = 50
     temper1.infoBar = InfoBar:new(temper1)
 
-    local new_gopper1 = NGopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), button3, 167, top_floor_y + 40, shaders.gopper[2], {255,255,255, 255})
+    local new_gopper1 = NGopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), button3, 157, top_floor_y + 40, shaders.gopper[2], {255,255,255, 255})
     local new_gopper2 = NGopper:new("N.GOP2", GetSpriteInstance("src/def/char/gopper.lua"), button3, 177, top_floor_y + 43, shaders.gopper[1], {255,255,255, 255})
-    local new_gopper3 = NGopper:new("N.GOP3", GetSpriteInstance("src/def/char/gopper.lua"), button3, 169, top_floor_y + 47, shaders.gopper[3], {255,255,255, 255})
+    local new_gopper3 = NGopper:new("N.GOP3", GetSpriteInstance("src/def/char/gopper.lua"), button3, 199, top_floor_y + 47, shaders.gopper[3], {255,255,255, 255})
 
     self.objects = Entity:new()
     self.objects:addArray({
