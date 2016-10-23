@@ -44,6 +44,8 @@ gfx.font.arcade3x3:setFilter( "nearest", "nearest" )
 gfx.font.arcade4 = love.graphics.newFont( "res/font/arcade_n.ttf", 16 )
 gfx.font.arcade4:setFilter( "nearest", "nearest" )
 gfx.font.arcade5 = love.graphics.newFont( "res/font/arcade_r.ttf", 16 )
-
+--tiny font for debug info
+gfx.font.debug = love.graphics.newFont( "res/font/slkscr.ttf", 7 )
+gfx.font.debug:setFilter( "linear", "linear" )
 return gfx
 

@@ -33,7 +33,7 @@ function show_debug_indicator(size, x, y)
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
         love.graphics.print("DEBUG", x or 2, y or love.graphics.getHeight() - 9)
-        love.graphics.print("CREDITS:"..tonumber(credits), x or 2, y or love.graphics.getHeight() - 9 * 2)
+        --love.graphics.print("CREDITS:"..tonumber(credits), x or 2, y or love.graphics.getHeight() - 9 * 2)
     end
 end
 
@@ -142,9 +142,9 @@ function watch_debug_variables()
 end
 
 function show_debug_variables()
-    if GLOBAL_SETTING.DEBUG then
-        fancy.draw() --DEBUG var show
-    end
+--    if GLOBAL_SETTING.DEBUG then
+--        fancy.draw() --DEBUG var show
+--    end
 end
 
 function check_debug_keys(key)
@@ -185,3 +185,10 @@ function draw_debug_unit_hitbox(a)
     end
 end
 
+function draw_debug_unit_info(a)
+    if GLOBAL_SETTING.DEBUG then
+        love.graphics.setFont(gfx.font.debug)
+        love.graphics.setColor(255, 255, 255, 220)
+        love.graphics.print( ""..a.state.." "..math.floor(a.x)..","..math.floor(a.y)..","..math.floor(a.z), a.x - 10, a.y + 12)
+    end
+end
