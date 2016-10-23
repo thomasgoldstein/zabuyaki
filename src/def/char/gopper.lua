@@ -14,12 +14,17 @@ end
 local dash_belly_clouds = function(slf)
     --sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
     slf:playHitSfx(1)
+    --landing dust clouds
     local psystem = PA_DUST_LANDING:clone()
-    psystem:setLinearAcceleration(-150 * slf.face, 1, -300 * slf.face, -35)
-    --psystem:setDirection( 3.14 )
-    psystem:setPosition( 30 * slf.face, 0 )
-    psystem:emit(10)
-    stage.objects:add(Effect:new(psystem, slf.x, slf.y+2))
+    psystem:setLinearAcceleration(150, 1, 300, -35)
+    psystem:setDirection( 0 )
+    psystem:setPosition( 20, 0 )
+    psystem:emit(5)
+    psystem:setLinearAcceleration(-150, 1, -300, -35)
+    psystem:setDirection( 3.14 )
+    psystem:setPosition( -20, 0 )
+    psystem:emit(5)
+    stage.objects:add(Effect:new(psystem, slf.x + 10 * slf.face, slf.y+2))
 end
 
 local combo_punch = function(slf)
