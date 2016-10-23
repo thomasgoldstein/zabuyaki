@@ -51,6 +51,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.cool_down_grab = 2
     self.grab_release_after = 0.25 --sec if u hold 'back'
     self.n_grabhit = 0    -- n of the grab hits
+    self.special_tolerance_delay = 0.02 -- between pressing Fire & Jump
     self.player_select_mode = 0
     --Character default sfx
     self.sfx.jump = "whoosh_heavy"
@@ -680,7 +681,7 @@ function Character:duck2jump_start()
 end
 function Character:duck2jump_update(dt)
     --	print (self.name.." - duck2jump update",dt)
-    if self.b.fire:isDown() then
+    if self.b.fire:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
     end
@@ -825,7 +826,7 @@ function Character:dash_start()
     sfx.play("voice"..self.id, self.sfx.dash)
 end
 function Character:dash_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
     end
@@ -1243,7 +1244,7 @@ function Character:combo_start()
     self.cool_down = 0.2
 end
 function Character:combo_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
     end
@@ -1471,7 +1472,7 @@ function Character:grabHit_start()
     dp(self.name.." is grabhit someone.")
 end
 function Character:grabHit_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
     end
@@ -1492,7 +1493,7 @@ function Character:grabHitLast_start()
     dp(self.name.." is grabHitLast someone.")
 end
 function Character:grabHitLast_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
     end

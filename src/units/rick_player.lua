@@ -65,7 +65,7 @@ function Rick:combo_start()
     self.cool_down = 0.2
 end
 function Rick:combo_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
     end
@@ -125,7 +125,7 @@ function Rick:dash_start()
     stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
 end
 function Rick:dash_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < 0.06 then
+    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
     end
