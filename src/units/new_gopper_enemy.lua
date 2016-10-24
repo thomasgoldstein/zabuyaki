@@ -353,7 +353,12 @@ function Gopper:run_update(dt)
         complete = true
     end
     if complete then
-        self:setState(self.dash)
+        local t = dist(self.target.x, self.target.y, self.x, self.y)
+        if t > 100 then
+            self:setState(self.walk)
+        else
+            self:setState(self.dash)
+        end
         return
     end
     self:checkCollisionAndMove(dt)
