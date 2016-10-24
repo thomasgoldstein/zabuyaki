@@ -36,6 +36,8 @@ function Niko:checkCollisionAndMove(dt)
     local actualX, actualY, cols, len, x, y
     if self.state == "fall"
             or self.state == "jump"
+            or self.state == "jumpAttackForward"
+            or self.state == "jumpAttackStraight"
             or self.state == "duck"
     then
         --    if self.move then
@@ -147,6 +149,34 @@ function Niko:updateAI(dt)
         end
     end
 end
+
+function Niko:jump_update(dt)
+    --	print (self.name.." - jump update",dt)
+    local t = dist(self.target.x, self.target.y, self.x, self.y)
+    if t < 60 and t >= 10
+        and math.floor(self.y / 4) == math.floor(self.target.y / 4)
+    then
+        if self.velx == 0 then
+            self:setState(self.jumpAttackStraight)
+            return
+        else
+            self:setState(self.jumpAttackForward)
+            return
+        end
+    end
+    if self.z > 0 then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+    else
+        self.velz = 0
+        self.z = 0
+        sfx.play("sfx"..self.id, self.sfx.step)
+        self:setState(self.duck)
+        return
+    end
+    self:checkCollisionAndMove(dt)
+end
+Niko.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Niko.jump_update, draw = Character.default_draw }
 
 -- Niko's JumpAttacks should end with Fall
 Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}
