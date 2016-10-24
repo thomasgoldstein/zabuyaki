@@ -1287,7 +1287,7 @@ function Character:onGrab(source)
     then
         return false
     end
-    self.move = nil -- stop Enemy tween movement if there is any
+    self:remove_tween_move()
     dp(source.name .. " grabed me - "..self.name)
     if g.target and g.target.isGrabbed then	-- your grab targed releases one it grabs
         g.target.isGrabbed = false

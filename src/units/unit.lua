@@ -257,6 +257,9 @@ function Unit:updateAI(dt)
 	UpdateSpriteInstance(self.sprite, dt, self)
 end
 
+-- stop unit from moving by tweening
+function Unit:remove_tween_move() self.move = nil end
+
 -- private
 function Unit:checkCollisionAndMove(dt)
 	local stepx = self.velx * dt * self.horizontal
