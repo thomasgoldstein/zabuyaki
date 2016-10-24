@@ -143,7 +143,7 @@ function Stage01:initialize(players)
 
     self.objects = Entity:new()
     self.objects:addArray({
-        new_gopper1, new_gopper2, new_gopper3, new_gopper4,
+--        new_gopper1, new_gopper2, new_gopper3, new_gopper4,
         new_niko1, new_niko2, new_niko3, new_niko4,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
         niko1, niko2, niko3, niko4, niko5, niko6,
