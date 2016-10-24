@@ -366,7 +366,7 @@ function Gopper:dash_start()
     self.isHittable = true
     --	print (self.name.." - dash start")
     SetSpriteAnimation(self.sprite,"dash")
-    self.velx = self.velocity_dash
+    self.velx = self.velocity_dash * 2
     self.vely = 0
     self.velz = self.velocity_jump / 4
     self.z = 0.1
@@ -389,12 +389,13 @@ function Gopper:dash_update(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity/4 * dt
+        self.velz = self.velz - self.gravity / 2 * dt
     else
         self.velz = 0
+        self.velx = 0
         self.z = 0
     end
-    self:calcFriction(dt, self.friction_dash)
+    self:calcFriction(dt, self.friction_dash * 2)
     self:checkCollisionAndMove(dt)
 end
 Gopper.dash = {name = "dash", start = Gopper.dash_start, exit = nop, update = Gopper.dash_update, draw = Character.default_draw }
