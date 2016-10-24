@@ -71,13 +71,14 @@ function Gopper:combo_update(dt)
 end
 Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Character.default_draw}
 
+local dash_speed = 0.75
 function Gopper:dash_start()
     self.isHittable = true
     --	print (self.name.." - dash start")
     SetSpriteAnimation(self.sprite,"dash")
-    self.velx = self.velocity_dash * 2
+    self.velx = self.velocity_dash * 2 * dash_speed
     self.vely = 0
-    self.velz = self.velocity_jump / 4
+    self.velz = self.velocity_jump / 2 * dash_speed
     self.z = 0.1
     sfx.play("voice"..self.id, self.sfx.dash)
     --start jump dust clouds
@@ -98,13 +99,13 @@ function Gopper:dash_update(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity / 2 * dt
+        self.velz = self.velz - self.gravity * dt * dash_speed
     else
         self.velz = 0
         self.velx = 0
         self.z = 0
     end
-    self:calcFriction(dt, self.friction_dash * 2)
+    self:calcFriction(dt, self.friction_dash * dash_speed)
     self:checkCollisionAndMove(dt)
 end
 Gopper.dash = {name = "dash", start = Gopper.dash_start, exit = nop, update = Gopper.dash_update, draw = Character.default_draw }
