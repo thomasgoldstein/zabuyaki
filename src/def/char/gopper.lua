@@ -13,7 +13,7 @@ local step_sfx = function(slf)
 end
 local dash_belly_clouds = function(slf)
     slf.isHittable = false
-    sfx.play("sfx", "fall", 0.5, 1 + 0.02 * love.math.random(-2,2))
+    sfx.play("sfx", "fall", 1, 1 + 0.02 * love.math.random(-2,2))
     --landing dust clouds
     local psystem = PA_DUST_LANDING:clone()
     psystem:setLinearAcceleration(150, 1, 300, -35)
