@@ -147,5 +147,24 @@ function Enemy:pickAttackTarget(how)
     return self.target
 end
 
+function Enemy:jump_start()
+    self.isHittable = true
+    --	print (self.name.." - jump start")
+    dpo(self, self.state)
+    SetSpriteAnimation(self.sprite,"jump")
+    self.velz = self.velocity_jump * self.velocity_jump_speed
+    self.z = 0.1
+    self.bounced = 0
+    self.bounced_pitch = 1 + 0.05 * love.math.random(-4,4)
+    if self.last_state == "run" then
+        -- jump higher from run
+        self.velz = (self.velocity_jump + self.velocity_jump_z_run_boost) * self.velocity_jump_speed
+    end
+    self.vertical = 0
+    sfx.play("voice"..self.id, self.sfx.jump)
+    --print(self.velx)
+end
+Enemy.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Character.jump_update, draw = Character.default_draw }
+
 return Enemy
 

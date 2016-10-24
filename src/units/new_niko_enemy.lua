@@ -35,7 +35,9 @@ function Niko:checkCollisionAndMove(dt)
     local stepy = self.vely * dt * self.vertical
     local actualX, actualY, cols, len, x, y
     if self.state == "fall"
-            or self.state == "jump" then
+            or self.state == "jump"
+            or self.state == "duck"
+    then
         --    if self.move then
         x = self.x
         y = self.y
