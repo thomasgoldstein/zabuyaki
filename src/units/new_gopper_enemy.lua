@@ -23,8 +23,6 @@ local function sign(x)
     return x>0 and 1 or x<0 and -1 or 0
 end
 
-function Gopper:remove_tween_move() self.move = nil end
-
 function Gopper:initialize(name, sprite, input, x, y, shader, color)
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, input, x, y, shader, color)
@@ -318,7 +316,7 @@ function Gopper:walk_update(dt)
     self.can_jump = true
     self.can_fire = true
 end
-Gopper.walk = { name = "walk", start = Gopper.walk_start, exit = Gopper.remove_tween_move, update = Gopper.walk_update, draw = Enemy.default_draw }
+Gopper.walk = { name = "walk", start = Gopper.walk_start, exit = Unit.remove_tween_move, update = Gopper.walk_update, draw = Enemy.default_draw }
 
 function Gopper:run_start()
     self.isHittable = true
@@ -360,7 +358,7 @@ function Gopper:run_update(dt)
     end
     self:checkCollisionAndMove(dt)
 end
-Gopper.run = {name = "run", start = Gopper.run_start, exit = Gopper.remove_tween_move, update = Gopper.run_update, draw = Gopper.default_draw}
+Gopper.run = {name = "run", start = Gopper.run_start, exit = Unit.remove_tween_move, update = Gopper.run_update, draw = Gopper.default_draw}
 
 local dash_speed = 0.75
 function Gopper:dash_start()
