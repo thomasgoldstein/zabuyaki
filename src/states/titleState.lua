@@ -146,9 +146,14 @@ end
 function titleState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     if mode == "movie" then
+        love.graphics.setCanvas(canvas)
         intro:draw(0,0,320,240)
+        love.graphics.setCanvas()
+        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.draw(canvas, 0,0, nil, 2)
         return
     end
+    love.graphics.setCanvas()
     DrawSpriteInstance(rick_spr, 200, 370)
     for i = 1,#menu do
         local m = menu[i]
