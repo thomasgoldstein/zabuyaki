@@ -20,14 +20,13 @@ local txt_paused = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
 local txt_continue = love.graphics.newText( gfx.font.arcade4, "Continue" )
 local txt_quick_save = love.graphics.newText( gfx.font.arcade4, "Quick Save" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "Quit" )
---local txt_press_action = love.graphics.newText( gfx.font.arcade4, "Press ACTION ('X' key)" )
 
 local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Are you sure you want to exit\nthe current game and go back\nto the title screen?" )
 local txt_quick_save_hint = love.graphics.newText( gfx.font.arcade4, "quick save doesn't let you choose\na save, there is only one at most" )
-local txt_press_action_hint = love.graphics.newText( gfx.font.arcade4, "Return to the game" )
+local txt_press_attack_hint = love.graphics.newText( gfx.font.arcade4, "Return to the game" )
 
-local txt_items = {txt_continue, txt_quick_save, txt_quit}
-local txt_hints = {txt_press_action_hint, txt_quick_save_hint, txt_quit_hint}
+local txt_items = { txt_continue, txt_quick_save, txt_quit }
+local txt_hints = { txt_press_attack_hint, txt_quick_save_hint, txt_quit_hint }
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
