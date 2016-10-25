@@ -77,8 +77,8 @@ function titleState:enter(_, param)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 
     -- Prevent double press at start (e.g. auto confirmation)
-    --dp(controls.jump:pressed(), controls.fire:pressed())
-    Control1.fire:update()
+    --dp(controls.jump:pressed(), controls.attack:pressed())
+    Control1.attack:update()
     Control1.jump:update()
 end
 
@@ -93,7 +93,7 @@ local function player_input(controls)
         --Exit by "Back" button or "Esc" key
         sfx.play("sfx","menu_cancel")
         return love.event.quit()
-    elseif controls.fire:pressed() or controls.start:pressed() then
+    elseif controls.attack:pressed() or controls.start:pressed() then
         return titleState:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then

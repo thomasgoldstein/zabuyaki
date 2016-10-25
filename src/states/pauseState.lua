@@ -68,7 +68,7 @@ function pauseState:enter()
     mouse_x, mouse_y = 0,0
     sfx.play("sfx","menu_cancel")
 
-    Control1.fire:update()
+    Control1.attack:update()
     Control1.jump:update()
     Control1.start:update()
     Control1.back:update()
@@ -83,7 +83,7 @@ local function player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx","menu_select")
         return Gamestate.pop()
-    elseif controls.fire:pressed() or controls.start:pressed() then
+    elseif controls.attack:pressed() or controls.start:pressed() then
         return pauseState:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then

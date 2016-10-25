@@ -51,7 +51,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.cool_down_grab = 2
     self.grab_release_after = 0.25 --sec if u hold 'back'
     self.n_grabhit = 0    -- n of the grab hits
-    self.special_tolerance_delay = 0.02 -- between pressing Fire & Jump
+    self.special_tolerance_delay = 0.02 -- between pressing attack & Jump
     self.player_select_mode = 0
     --Character default sfx
     self.sfx.jump = "whoosh_heavy"
@@ -320,7 +320,7 @@ function Character:stand_start()
         self.delay_animation_cool_down = 0
     end
     self.can_jump = false
-    self.can_fire = false
+    self.can_attack = false
     self.victims = {}
     self.n_grabhit = 0
 end
@@ -329,8 +329,8 @@ function Character:stand_update(dt)
     if not self.b.jump:isDown() then
         self.can_jump = true
     end
-    if not self.b.fire:isDown() then
-        self.can_fire = true
+    if not self.b.attack:isDown() then
+        self.can_attack = true
     end
 
     if self.isGrabbed then
@@ -349,14 +349,14 @@ function Character:stand_update(dt)
         self.n_combo = 1
     end
 
-    if (self.can_jump or self.can_fire) and
-            (self.b.jump:isDown() and self.b.fire:isDown()) then
+    if (self.can_jump or self.can_attack) and
+            (self.b.jump:isDown() and self.b.attack:isDown()) then
         self:setState(self.special)
         return
     elseif self.can_jump and self.b.jump:isDown() then
         self:setState(self.duck2jump)
         return
-    elseif self.can_fire and self.b.fire:isDown() then
+    elseif self.can_attack and self.b.attack:isDown() then
         if self:checkForItem(9, 9) ~= nil then
             self:setState(self.pickup)
             return
@@ -381,7 +381,7 @@ function Character:stand_update(dt)
             self.horizontal = self.face
             --dash from combo
             if self.b.horizontal.ikn:getLast()
-                    and self.b.fire:isDown() and self.can_fire
+                    and self.b.attack:isDown() and self.can_attack
             then
                 self:setState(self.dash)
                 return
@@ -391,7 +391,7 @@ function Character:stand_update(dt)
             self.horizontal = self.face
             --dash from combo
             if self.b.horizontal.ikp:getLast()
-                    and self.b.fire:isDown() and self.can_fire
+                    and self.b.attack:isDown() and self.can_attack
             then
                 self:setState(self.dash)
                 return
@@ -407,7 +407,7 @@ function Character:walk_start()
     self.isHittable = true
     --	print (self.name.." - walk start")
     SetSpriteAnimation(self.sprite,"walk")
-    self.can_fire = false
+    self.can_attack = false
     self.n_combo = 1	--if u move reset combo chain
 end
 function Character:walk_update(dt)
@@ -415,10 +415,10 @@ function Character:walk_update(dt)
     if not self.b.jump:isDown() then
         self.can_jump = true
     end
-    if not self.b.fire:isDown() then
-        self.can_fire = true
+    if not self.b.attack:isDown() then
+        self.can_attack = true
     end
-    if self.b.fire:isDown() and self.can_fire then
+    if self.b.attack:isDown() and self.can_attack then
         if self:checkForItem(9, 9) ~= nil then
             self:setState(self.pickup)
         else
@@ -484,15 +484,15 @@ function Character:run_start()
     self.isHittable = true
     --	print (self.name.." - run start")
     self.delay_animation_cool_down = 0.01
-    self.can_fire = false
+    self.can_attack = false
 end
 function Character:run_update(dt)
     --	print (self.name.." - run update",dt)
     if not self.b.jump:isDown() then
         self.can_jump = true
     end
-    if not self.b.fire:isDown() then
-        self.can_fire = true
+    if not self.b.attack:isDown() then
+        self.can_attack = true
     end
     self.velx = 0
     self.vely = 0
@@ -525,7 +525,7 @@ function Character:run_update(dt)
         self:setState(self.stand)
         return
     end
-    if self.b.fire:isDown() and self.can_fire then
+    if self.b.attack:isDown() and self.can_attack then
         self:setState(self.dash)
         return
     elseif self.can_jump and self.b.jump:isDown() then
@@ -580,7 +580,7 @@ function Character:jump_start()
 end
 function Character:jump_update(dt)
     --	print (self.name.." - jump update",dt)
-    if self.b.fire:isDown() and self.can_fire then
+    if self.b.attack:isDown() and self.can_attack then
         if (self.b.horizontal:isDown(-1) and self.face == 1)
                 or (self.b.horizontal:isDown(1) and self.face == -1) then
             self:setState(self.jumpAttackLight)
@@ -608,8 +608,8 @@ function Character:jump_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    if not self.b.fire:isDown() then
-        self.can_fire = true
+    if not self.b.attack:isDown() then
+        self.can_attack = true
     end
 end
 Character.jump = {name = "jump", start = Character.jump_start, exit = nop, update = Character.jump_update, draw = Character.default_draw}
@@ -680,7 +680,7 @@ function Character:duck2jump_start()
 end
 function Character:duck2jump_update(dt)
     --	print (self.name.." - duck2jump update",dt)
-    if self.b.fire:isDown() and self:getStateTime() < self.special_tolerance_delay then
+    if self.b.attack:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
     end
@@ -1080,7 +1080,7 @@ function Character:useCredit_start()
         self:setState(self.respawn)
         return
     end
-    self.can_fire = false
+    self.can_attack = false
     self.cool_down = 10
     -- Player select
     self.player_select_mode = 0
@@ -1091,8 +1091,8 @@ function Character:useCredit_update(dt)
     if self.isDisabled then
         return
     end
-    if not self.b.fire:isDown() then
-        self.can_fire = true
+    if not self.b.attack:isDown() then
+        self.can_attack = true
     end
 
     if self.player_select_mode == 0 then
@@ -1105,7 +1105,7 @@ function Character:useCredit_update(dt)
         end
         -- wait press to use credit
         -- add countdown 9 .. 0 -> Game Over
-        if self.b.fire:isDown() and self.can_fire then
+        if self.b.attack:isDown() and self.can_attack then
             dp(self.name.." used 1 Credit to respawn")
             credits = credits - 1
             self:addScore(1) -- like CAPCM
@@ -1119,7 +1119,7 @@ function Character:useCredit_update(dt)
             -- wait before respawn / char select
             self.cool_down = self.cool_down - dt
             if self.cool_down <= 0 then
-                self.can_fire = false
+                self.can_attack = false
                 self.cool_down = 100    --TODO debug. return to 10
                 self.player_select_mode = 2
             end
@@ -1127,7 +1127,7 @@ function Character:useCredit_update(dt)
     elseif self.player_select_mode == 2 then
         -- Select Player
         -- 10 sec countdown before auto confirm
-        if (self.b.fire:isDown() and self.can_fire)
+        if (self.b.attack:isDown() and self.can_attack)
                 or self.cool_down <= 0
         then
             self.cool_down = 0
@@ -1331,7 +1331,7 @@ function Character:grab_start()
     --print (self.name.." - grab start")
     SetSpriteAnimation(self.sprite,"grab")
     self.can_jump = false
-    self.can_fire = false
+    self.can_attack = false
     self.grab_release = 0
     self.victims = {}
     dp(self.name.." is grabing someone.")
@@ -1383,7 +1383,7 @@ function Character:grab_update(dt)
         self.velx = 1
     end
 
-    if self.b.fire:isDown() and self.can_fire then
+    if self.b.attack:isDown() and self.can_attack then
         if self.sprite.isFinished then
             if self.b.horizontal:getValue() ~= 0 or self.b.horizontal:isDown(-1) or self.b.vertical:isDown(-1)
             then
@@ -1404,8 +1404,8 @@ function Character:grab_update(dt)
     if not self.b.jump:isDown() then
         self.can_jump = true
     end
-    if not self.b.fire:isDown() then
-        self.can_fire = true
+    if not self.b.attack:isDown() then
+        self.can_attack = true
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)

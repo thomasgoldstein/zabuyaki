@@ -4,7 +4,7 @@ function screenshotState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
     sfx.play("sfx","menu_cancel")
 
-    Control1.fire:update()
+    Control1.attack:update()
     Control1.jump:update()
     Control1.start:update()
     Control1.back:update()

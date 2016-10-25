@@ -51,7 +51,7 @@ function show_debug_controls()
             love.graphics.rectangle("fill", x - 2, y, 61, 9)
             love.graphics.setColor(c[1], c[2], c[3])
 
-            if p.b.fire:isDown() then
+            if p.b.attack:isDown() then
                 love.graphics.print("F", x, y)
             end
             x = x + 10

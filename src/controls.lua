@@ -2,8 +2,6 @@
 -- Date: 28.06.2016
 --
 
---ff113133000000000000504944564944 Gembird
-
 function love.joystickadded(joystick)
     p1joystick = joystick
     dp(joystick:getGUID().." added joystick "..joystick:getName().." with "..joystick:getButtonCount().." buttons")
@@ -18,24 +16,6 @@ function love.joystickadded(joystick)
     for i, joystick in ipairs(joysticks) do
         dp("detected ",joystick:getName())
     end
-
---    love.joystick.setGamepadMapping( joystick:getGUID(), "a", "button", 1, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "b", "button", 2, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "x", "button", 3, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "y", "button", 4, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "back", "button", 5, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "guide", "button", 6, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "start", "button", 7, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "leftstick", "button", 8, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "rightstick", "button", 9, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "leftshoulder", "button", 10, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "rightshoulder", "button", 11, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "dpup", "button", 12, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "dpdown", "button", 13, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "dpleft", "button", 14, nil )
---    love.joystick.setGamepadMapping( joystick:getGUID(), "dpright", "button", 15, nil )
-
-    --bind_game_input()
 end
 
 function love.joystickremoved( joystick )
@@ -57,7 +37,7 @@ DUMMY_CONTROL.vertical = {
     released = function() return false end,
     update = function() return false end
 }
-DUMMY_CONTROL.fire = {
+DUMMY_CONTROL.attack = {
     getValue = function() return 0 end,
     isDown = function() return false end,
     pressed = function() return false end,
@@ -121,7 +101,7 @@ function bind_game_input()
         :addAxis(gamepadHat(gamepad1, 1, "vertical"))
         --:addAxis(tactile.gamepadAxis(1, 'righty'))
         :addButtonPair(tactile.keys('up'), tactile.keys('down')),
-        fire = tactile.newControl()
+        attack = tactile.newControl()
         :addButton(tactile.gamepadButtons(gamepad1, 'a'))
         :addButton(tactile.keys('x')),
         jump = tactile.newControl()
@@ -149,7 +129,7 @@ function bind_game_input()
         :addAxis(tactile.gamepadAxis(gamepad2, 'lefty'))
         :addAxis(gamepadHat(gamepad2, 1, "vertical"))
         :addButtonPair(tactile.keys('w'), tactile.keys('s')),
-        fire = tactile.newControl()
+        attack = tactile.newControl()
         :addButton(tactile.gamepadButtons(gamepad2, 'a'))
         :addButton(tactile.keys 'i'),
         jump = tactile.newControl()
@@ -170,7 +150,7 @@ function bind_game_input()
         :addAxis(tactile.gamepadAxis(gamepad3, 'lefty'))
         :addAxis(gamepadHat(gamepad3, 1, "vertical"))
         :addButtonPair(tactile.keys('t'), tactile.keys('g')),
-        fire = tactile.newControl()
+        attack = tactile.newControl()
         :addButton(tactile.gamepadButtons(gamepad3, 'a'))
         :addButton(tactile.keys 'r'),
         jump = tactile.newControl()

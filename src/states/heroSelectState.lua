@@ -202,9 +202,9 @@ function heroSelectState:enter()
       heroes[i].sprite_portrait.size_scale = 2
     end
     -- Prevent double press at start (e.g. auto confirmation)
-    Control1.fire:update()
-    Control2.fire:update()
-    Control3.fire:update()
+    Control1.attack:update()
+    Control2.attack:update()
+    Control3.attack:update()
     --start BGM
 --    TEsound.stop("music")
 --    TEsound.playLooping("res/bgm/rockdrive.xm", "music")
@@ -258,7 +258,7 @@ local function player_input(player, controls, i)
             sfx.play("sfx","menu_cancel")
             return Gamestate.switch(titleState, "dontStartMusic")
         end
-        if controls.jump:pressed() or controls.fire:pressed()
+        if controls.jump:pressed() or controls.attack:pressed()
                 or controls.start:pressed() or controls.back:pressed()
                 or controls.horizontal:pressed() or controls.vertical:pressed() then
             sfx.play("sfx","menu_select")
@@ -275,7 +275,7 @@ local function player_input(player, controls, i)
                 sfx.play("sfx","menu_cancel")
                 player.visible = false
             end
-        elseif controls.fire:pressed() or controls.start:pressed() then
+        elseif controls.attack:pressed() or controls.start:pressed() then
             player.visible = true
             player.confirmed = true
             SetSpriteAnimation(player.sprite,heroes[player.pos].confirm_anim)
@@ -304,7 +304,7 @@ local function player_input(player, controls, i)
             player.confirmed = false
             SetSpriteAnimation(player.sprite,heroes[player.pos].cancel_anim)
             sfx.play("sfx","menu_cancel")
-        elseif (controls.fire:pressed() or controls.start:pressed()) and all_confirmed() then
+        elseif (controls.attack:pressed() or controls.start:pressed()) and all_confirmed() then
             GameStart()
             return
         end

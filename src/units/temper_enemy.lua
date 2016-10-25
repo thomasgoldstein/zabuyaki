@@ -25,7 +25,7 @@ function Temper:walk_start()
     --    	print (self.name.." - walk start")
     SetSpriteAnimation(self.sprite,"walk")
     self.can_jump = false
-    self.can_fire = false
+    self.can_attack = false
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 700 then
         --set dest
@@ -71,7 +71,7 @@ function Temper:walk_update(dt)
     --local t = dist(self.target.x, self.target.y, self.x, self.y)
     local complete = self.move:update( dt )
 
-    if self.can_fire and not complete then
+    if self.can_attack and not complete then
         if math.abs(self.x - self.target.x) <= 30
                 and math.abs(self.y - self.target.y) <= 10
                 and love.math.random() < 0.05 + self.toughness * 0.01
@@ -80,7 +80,7 @@ function Temper:walk_update(dt)
             return
         end
     end
-    if self.can_fire and complete
+    if self.can_attack and complete
             and math.abs(self.x - self.target.x) < 40
             and math.abs(self.y - self.target.y) < 10
         --and love.math.random() < 0.3
@@ -104,7 +104,7 @@ function Temper:walk_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self.can_jump = true
-    self.can_fire = true
+    self.can_attack = true
 end
 
 Temper.combo = {name = "combo", start = Temper.combo_start, exit = nop, update = Gopper.combo_update, draw = Enemy.default_draw }

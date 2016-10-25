@@ -256,7 +256,7 @@ function Gopper:walk_start()
     --    	print (self.name.." - walk start")
     SetSpriteAnimation(self.sprite, "walk")
     self.can_jump = false
-    self.can_fire = false
+    self.can_attack = false
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if love.math.random() < 0.25 then
         --random move arond the player (far from)
@@ -314,7 +314,7 @@ function Gopper:walk_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self.can_jump = true
-    self.can_fire = true
+    self.can_attack = true
 end
 Gopper.walk = { name = "walk", start = Gopper.walk_start, exit = Unit.remove_tween_move, update = Gopper.walk_update, draw = Enemy.default_draw }
 
@@ -342,7 +342,7 @@ function Gopper:run_start()
     end
 
 
-    self.can_fire = false
+    self.can_attack = false
 end
 function Gopper:run_update(dt)
     --	print (self.name.." - run update",dt)

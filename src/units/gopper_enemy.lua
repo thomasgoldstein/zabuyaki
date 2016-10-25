@@ -101,7 +101,7 @@ function Gopper:stand_start()
 --    	print (self.name.." - stand start")
     SetSpriteAnimation(self.sprite,"stand")
     self.can_jump = false
-    self.can_fire = false
+    self.can_attack = false
     self.victims = {}
     self.n_grabhit = 0
 
@@ -124,7 +124,7 @@ function Gopper:stand_update(dt)
     else
         self.cool_down = self.cool_down - dt    --when <=0 u can move
     end
-    self.can_fire = true
+    self.can_attack = true
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
@@ -135,7 +135,7 @@ function Gopper:walk_start()
 --    	print (self.name.." - walk start")
     SetSpriteAnimation(self.sprite,"walk")
     self.can_jump = false
-    self.can_fire = false
+    self.can_attack = false
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 600 then
         --set dest
@@ -180,7 +180,7 @@ function Gopper:walk_update(dt)
 --    	print (self.name.." - walk update",dt)
     local complete = self.move:update( dt )
 
-    if self.can_fire and not complete then
+    if self.can_attack and not complete then
         if math.abs(self.x - self.target.x) <= 30
             and math.abs(self.y - self.target.y) <= 10
             and love.math.random() < 0.005 + self.toughness * 0.001
@@ -189,7 +189,7 @@ function Gopper:walk_update(dt)
             return
         end
     end
-    if self.can_fire and complete
+    if self.can_attack and complete
             and math.abs(self.x - self.target.x) < 40
             and math.abs(self.y - self.target.y) < 10
         --and love.math.random() < 0.3
@@ -213,7 +213,7 @@ function Gopper:walk_update(dt)
     end
     self:checkCollisionAndMove(dt)
     self.can_jump = true
-    self.can_fire = true
+    self.can_attack = true
 end
 Gopper.walk = {name = "walk", start = Gopper.walk_start, exit = nop, update = Gopper.walk_update, draw = Enemy.default_draw}
 
