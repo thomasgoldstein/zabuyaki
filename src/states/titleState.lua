@@ -75,6 +75,7 @@ end
 
 function titleState:enter(_, param)
     mouse_x, mouse_y = 0,0
+    time = 0
     if param ~= "dontStartMusic" then
         TEsound.stop("music")
         TEsound.playLooping("res/bgm/theme.xm", "music")
@@ -181,9 +182,11 @@ function titleState:confirm( x, y, button, istouch )
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
+            time = 0
             return Gamestate.switch(heroSelectState)
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
+            time = 0
             return Gamestate.push(optionsState)
         elseif menu_state == 3 then
             sfx.play("sfx","menu_cancel")
