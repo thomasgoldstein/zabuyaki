@@ -68,27 +68,29 @@ function arcadeState:draw()
     love.graphics.draw(canvas, 0,0, nil, 0.5)
 
     local is_alive = false
-    --HP bars
-    if player1 then
-        player1.infoBar:draw(0,0)
-        if player1.victim_infoBar then
-            player1.victim_infoBar:draw(0,0)
+    if stage.mode == "normal" then
+        --HP bars
+        if player1 then
+            player1.infoBar:draw(0,0)
+            if player1.victim_infoBar then
+                player1.victim_infoBar:draw(0,0)
+            end
+            is_alive = is_alive or player1:isAlive()
         end
-        is_alive = is_alive or player1:isAlive()
-    end
-    if player2 then
-        player2.infoBar:draw(0,0)
-        if player2.victim_infoBar then
-            player2.victim_infoBar:draw(0,0)
+        if player2 then
+            player2.infoBar:draw(0,0)
+            if player2.victim_infoBar then
+                player2.victim_infoBar:draw(0,0)
+            end
+            is_alive = is_alive or player2:isAlive()
         end
-        is_alive = is_alive or player2:isAlive()
-    end
-    if player3 then
-        player3.infoBar:draw(0,0)
-        if player3.victim_infoBar then
-            player3.victim_infoBar:draw(0,0)
+        if player3 then
+            player3.infoBar:draw(0,0)
+            if player3.victim_infoBar then
+                player3.victim_infoBar:draw(0,0)
+            end
+            is_alive = is_alive or player3:isAlive()
         end
-        is_alive = is_alive or player3:isAlive()
     end
     show_debug_grid()
     show_debug_controls()
