@@ -27,5 +27,6 @@ then fight for your life...]],
         delay = 4
     },
     autoSkip = false, --true,
-    delayAfterFrame = 3
+    delayAfterFrame = 3,
+    music = "res/bgm/rockdrive.xm"
 }

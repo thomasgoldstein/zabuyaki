@@ -124,6 +124,8 @@ function titleState:update(dt)
             self:enter()
             mode = "normal"
             time = 0
+            TEsound.stop("music")
+            TEsound.playLooping("res/bgm/theme.xm", "music")
         end
         return
     end
