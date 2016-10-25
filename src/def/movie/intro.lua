@@ -7,20 +7,22 @@ movie_intro = {
     {
         slide = slide1,
         q = slide1q,
-        text = "Long time ago there was\na country of SD gnomes...",
-        delay = 5
+        text =
+        [[This city has one rule:
+fight for everything...]],
+        delay = 4
     },
     {
         slide = slide1,
-        q = love.graphics.newQuad(120, 130, 240, 80, slide1:getDimensions()),
-        text = "and here GOES other text\nand more of it\n...",
-        delay = 2
+        q = love.graphics.newQuad(160, 170, 240, 80, slide1:getDimensions()),
+        text = "And if you have nothing\nthen fight for your life...",
+        delay = 4
     },
     {
         slide = slide1,
-        q = love.graphics.newQuad(180, 170, 100, 100, slide1:getDimensions()),
-        text = "This is the last\nslide here..",
-        delay = 1.5
+        q = love.graphics.newQuad(230, 290, 220, 100, slide1:getDimensions()),
+        text = "And the last.\nDon't let down your friends!",
+        delay = 4
     },
 }
 --self.movie = Movie:new(movie_intro)
