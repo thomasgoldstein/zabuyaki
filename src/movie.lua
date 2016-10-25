@@ -35,7 +35,7 @@ function Movie:update(dt)
     if self.b.attack:pressed() or love.mouse.isDown(1) then
         self.time = self.time + dt  -- Speed Up
     end
-    if self.b.jump:pressed() or love.mouse.isDown(2) then
+    if self.b.back:pressed() or self.b.jump:pressed() or love.mouse.isDown(2) then
         return true -- Interrupt
     end
     if not self.frames or not self.frames[self.frame] then
