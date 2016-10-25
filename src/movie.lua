@@ -10,38 +10,41 @@ local slide_text_gap = 10
 local Movie = class('Movie')
 
 --[[ table = {
-            {
-                slide = slide1,
-                q = love.graphics.newQuad(120, 130, 240, 80, slide1:getDimensions()),
-                text = "and here GOES other text\nand more of it\n...",
-                delay = 2
-            },
-            }
+    {
+        slide = slide1,
+        q = love.graphics.newQuad(120, 130, 240, 80, slide1:getDimensions()),
+        text = "and here GOES other text\nand more of it\n...",
+        delay = 2
+    },
+    }
 --]]
 
 function Movie:initialize(t)
     self.type = "movie"
     self.font = gfx.font.arcade3
     self.frame = 1
+    self.add_chars = 1
     self.frames = t
-    self.time = self.frames[self.frame].delay
+    self.time = 0 --self.frames[self.frame].delay
     print(self.frames[self.frame].text)
 end
 
 function Movie:update(dt)
-    self.time = self.time - dt
+    self.time = self.time + dt
     if not self.frames or not self.frames[self.frame] then
         dp("Movie is empty")
         return true
     end
-    if self.time <= 0 then
+    if self.time >= self.frames[self.frame].delay then
         self.frame = self.frame + 1
         if not self.frames[self.frame] then
             dp("Movie ended on the enmpty frame "..self.frame)
             return true
         end
-        self.time = self.frames[self.frame].delay
+        self.time = 0
     end
+
+    self.add_chars = 1 + self.time * #self.frames[self.frame].text / self.frames[self.frame].delay
     -- Movie is in process
     return false
 end
@@ -59,7 +62,7 @@ function Movie:draw(l, t, w, h)
         l + x , t + y - screen_gap )
     -- Text
     love.graphics.setFont(self.font)
-    love.graphics.print( f.text, l + x, t + y + h + slide_text_gap - screen_gap )
+    love.graphics.print( string.sub(f.text, 1, self.add_chars), l + x, t + y + h + slide_text_gap - screen_gap )
 end
 
 return Movie
