@@ -26,7 +26,7 @@ then fight for your life...]],
         text = "And the last.\nDon't let down your friends!",
         delay = 4
     },
-    autoSkip = false, --true,
+    autoSkip = true,
     delayAfterFrame = 3,
     music = "res/bgm/rockdrive.xm"
 }
