@@ -83,7 +83,12 @@ function Movie:draw(l, t, w, h)
         l + x , t + y - screen_gap )
     -- Text
     love.graphics.setFont(self.font)
-    love.graphics.print( string.sub(f.text, 1, self.add_chars), l + x, t + y + h + slide_text_gap - screen_gap )
+    love.graphics.print( string.sub(f.text, 1, self.add_chars), r(l + x), r(t + y + h + slide_text_gap - screen_gap) )
+
+    if self.time >= self.frames[self.frame].delay and not self.autoSkip then
+        love.graphics.setColor(255, 255, 255, 200 + 55 * math.sin(self.time * 2))
+        love.graphics.print( "PRESS ATTACK", r(320 - 12*9), r(228 + math.sin(self.time*6)) )
+    end
 end
 
 return Movie
