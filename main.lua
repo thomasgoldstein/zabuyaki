@@ -97,6 +97,7 @@ function love.load(arg)
 	Temper = require "src/units/temper_enemy"
 	InfoBar = require "src/infoBar"
 	Stage01 = require "src/def/stage/stage01"
+	require "src/def/movie/intro"
 
 	tactile = require 'lib/tactile'
 	KeyTrace = require 'src/keyTrace'

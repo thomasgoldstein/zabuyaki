@@ -163,33 +163,6 @@ function Stage01:initialize(players)
 
     --adding players into collision world 15x7
     self.objects:addToWorld(self)
-
-    -- Intro Movie
-    local slide1 = love.graphics.newImage("res/img/stages/stage1/building1_V.png")
-    local slide1q = love.graphics.newQuad(60, 70, 200, 120, slide1:getDimensions())
-    self.movie = Movie:new(
-        {
-            {
-                slide = slide1,
-                q = slide1q,
-                text = "Long time ago there was\na country of SD gnomes...",
-                delay = 1
-            },
-            {
-                slide = slide1,
-                q = love.graphics.newQuad(120, 130, 240, 80, slide1:getDimensions()),
-                text = "and here GOES other text\nand more of it\n...",
-                delay = 2
-            },
-            {
-                slide = slide1,
-                q = love.graphics.newQuad(180, 170, 100, 100, slide1:getDimensions()),
-                text = "This is the last\nslide here..",
-                delay = 1.5
-            },
-        }
-    )
-    self.mode = "movie"
 end
 
 return Stage01

@@ -4,6 +4,7 @@
 titleState = {}
 
 local time = 0
+local time_to_intro = 5
 local screen_width = 640
 local screen_height = 480
 local menu_item_h = 40
@@ -32,6 +33,11 @@ rick_spr.size_scale = 4
 
 local txt_items = {txt_start, txt_options, txt_quit}
 local txt_hints = {txt_start_hint, txt_start_hint, txt_start_hint }
+
+-- Intro
+local intro = nil
+local mode = "normal"
+--self.movie = Movie:new(movie_intro)
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -98,8 +104,10 @@ local function player_input(controls)
     end
     if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
+        time = 0
     elseif controls.horizontal:pressed(1) or controls.vertical:pressed(1) then
         menu_state = menu_state + 1
+        time = 0
     end
     if menu_state < 1 then
         menu_state = #txt_items
@@ -110,7 +118,19 @@ local function player_input(controls)
 end
 
 function titleState:update(dt)
+    if mode == "movie" then
+        if intro:update(dt) then
+            self:enter()
+            mode = "normal"
+            time = 0
+        end
+        return
+    end
     time = time + dt
+    if time > time_to_intro then
+        intro = Movie:new(movie_intro)
+        mode = "movie"
+    end
     UpdateSpriteInstance(rick_spr, dt)
     if rick_spr.cur_anim ~= "stand" and rick_spr.isFinished then
         SetSpriteAnimation(rick_spr,"stand")
@@ -124,6 +144,10 @@ end
 
 function titleState:draw()
     love.graphics.setColor(255, 255, 255, 255)
+    if mode == "movie" then
+        intro:draw(0,0,320,240)
+        return
+    end
     DrawSpriteInstance(rick_spr, 200, 370)
     for i = 1,#menu do
         local m = menu[i]
@@ -172,11 +196,17 @@ function titleState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
+    if mode == "movie" then
+        return
+    end
     titleState:confirm( x, y, button, istouch )
 end
 
 function titleState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
+        return
+    end
+    if mode == "movie" then
         return
     end
     mouse_x, mouse_y = x, y

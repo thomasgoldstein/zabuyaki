@@ -15,7 +15,7 @@ local Movie = class('Movie')
         q = love.graphics.newQuad(120, 130, 240, 80, slide1:getDimensions()),
         text = "and here GOES other text\nand more of it\n...",
         delay = 2
-    },
+    }, music = "dddd"
     }
 --]]
 
@@ -32,10 +32,10 @@ end
 
 function Movie:update(dt)
     self.time = self.time + dt
-    if self.b.attack:isDown() or love.mouse.isDown(1) then
+    if self.b.attack:pressed() or love.mouse.isDown(1) then
         self.time = self.time + dt  -- Speed Up
     end
-    if self.b.jump:isDown() or love.mouse.isDown(2) then
+    if self.b.jump:pressed() or love.mouse.isDown(2) then
         return true -- Interrupt
     end
     if not self.frames or not self.frames[self.frame] then
