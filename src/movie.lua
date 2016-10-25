@@ -19,21 +19,22 @@ local Movie = class('Movie')
     }
 --]]
 
-function Movie:initialize(t)
+function Movie:initialize(frames)
     self.type = "movie"
     self.font = gfx.font.arcade3
     self.b = Control1 -- Use P1 controls
     self.frame = 1
     self.add_chars = 1
-    self.frames = t
-    self.add_delay = 1
+    self.frames = frames
+    self.autoSkip = frames.autoSkip or false
+    self.delayAfterFrame = frames.delayAfterFrame or 3
     self.time = 0 --self.frames[self.frame].delay
 end
 
 function Movie:update(dt)
     self.time = self.time + dt
     if self.b.attack:isDown() or love.mouse.isDown(1) then
-        self.time = self.time + dt  -- Speed Up
+        self.time = self.time + dt * 3  -- Speed Up
     end
     if self.b.back:pressed() or self.b.jump:pressed() or love.mouse.isDown(2) then
         return true -- Interrupt
@@ -42,7 +43,9 @@ function Movie:update(dt)
         dp("Movie is empty")
         return true
     end
-    if self.time >= self.frames[self.frame].delay + self.add_delay then
+    if (self.time >= self.frames[self.frame].delay + self.delayAfterFrame and self.autoSkip)
+        or (self.time >= self.frames[self.frame].delay and self.b.attack:released() )
+    then
         self.frame = self.frame + 1
         if not self.frames[self.frame] then
             dp("Movie ended on the enmpty frame "..self.frame)

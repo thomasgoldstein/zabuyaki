@@ -8,14 +8,16 @@ movie_intro = {
         slide = slide1,
         q = slide1q,
         text =
-        [[This city has one rule:
+[[This city has one rule:
 fight for everything...]],
         delay = 4
     },
     {
         slide = slide1,
         q = love.graphics.newQuad(160, 170, 240, 80, slide1:getDimensions()),
-        text = "And if you have nothing\nthen fight for your life...",
+        text =
+[[And if you have nothing
+then fight for your life...]],
         delay = 4
     },
     {
@@ -24,6 +26,6 @@ fight for everything...]],
         text = "And the last.\nDon't let down your friends!",
         delay = 4
     },
+    autoSkip = false, --true,
+    delayAfterFrame = 3
 }
---self.movie = Movie:new(movie_intro)
---self.mode = "movie"
