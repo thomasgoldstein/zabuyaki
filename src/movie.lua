@@ -54,7 +54,7 @@ function Movie:update(dt)
     if (self.time >= self.frames[self.frame].delay + self.delayAfterFrame and self.autoSkip)
         or (self.time >= self.frames[self.frame].delay and self.b.attack:released() )
     then
-        if self.b.attack:released() then
+        if self.b.attack:released() or self.b.attack:pressed() then
             sfx.play("sfx","menu_select")
         end
         self.frame = self.frame + 1

@@ -4,7 +4,7 @@
 titleState = {}
 
 local time = 0
-local time_to_intro = 15 -- idle to show intro
+local time_to_intro = 10 -- idle to show intro
 local screen_width = 640
 local screen_height = 480
 local menu_item_h = 40
