@@ -26,8 +26,8 @@ function Movie:initialize(t)
     self.frame = 1
     self.add_chars = 1
     self.frames = t
+    self.add_delay = 1
     self.time = 0 --self.frames[self.frame].delay
-    print(self.frames[self.frame].text)
 end
 
 function Movie:update(dt)
@@ -42,7 +42,7 @@ function Movie:update(dt)
         dp("Movie is empty")
         return true
     end
-    if self.time >= self.frames[self.frame].delay then
+    if self.time >= self.frames[self.frame].delay + self.add_delay then
         self.frame = self.frame + 1
         if not self.frames[self.frame] then
             dp("Movie ended on the enmpty frame "..self.frame)
