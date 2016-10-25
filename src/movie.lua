@@ -22,6 +22,7 @@ local Movie = class('Movie')
 function Movie:initialize(t)
     self.type = "movie"
     self.font = gfx.font.arcade3
+    self.b = Control1 -- Use P1 controls
     self.frame = 1
     self.add_chars = 1
     self.frames = t
@@ -31,6 +32,12 @@ end
 
 function Movie:update(dt)
     self.time = self.time + dt
+    if self.b.attack:isDown() or love.mouse.isDown(1) then
+        self.time = self.time + dt  -- Speed Up
+    end
+    if self.b.jump:isDown() or love.mouse.isDown(2) then
+        return true -- Interrupt
+    end
     if not self.frames or not self.frames[self.frame] then
         dp("Movie is empty")
         return true
