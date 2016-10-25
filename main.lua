@@ -76,6 +76,8 @@ function love.load(arg)
 	require "src/def/misc/particles"
 	shaders = require "src/def/misc/shaders"
 	CompoundPicture = require "src/compoPic"
+	Movie = require "src/movie"
+	Event = require "src/event"
 	Stage = require "src/units/stage"
 	Effect = require "src/units/effect"
 	Entity = require "src/entity"

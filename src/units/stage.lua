@@ -7,6 +7,9 @@ local Stage = class('Stage')
 
 function Stage:initialize(name)
     self.name = name or "Stage NoName"
+    self.mode = "normal"
+    self.event = nil
+    self.movie = nil
     self.worldWidth = 4000
     self.worldHeight = 800
     self.background = nil
@@ -31,32 +34,75 @@ function Stage:initialize(name)
 end
 
 function Stage:update(dt)
-    self.objects:update(dt)
-    --sort players by y
-    self.objects:sortByY()
+    if self.mode == "normal" then
+        self.objects:update(dt)
+        --sort players by y
+        self.objects:sortByY()
 
-    if self.background then
-        self.background:update(dt)
-    end
-    if self.foreground then
-        self.foreground:update(dt)
-    end
+        if self.background then
+            self.background:update(dt)
+        end
+        if self.foreground then
+            self.foreground:update(dt)
+        end
+        self:setCamera(dt)
+    elseif self.mode == "event" then
+        if self.event then
+            self.event:update(dt)
+        end
+        self.objects:update(dt)
+        --sort players by y
+        self.objects:sortByY()
 
-    self:setCamera(dt)
+        if self.background then
+            self.background:update(dt)
+        end
+        if self.foreground then
+            self.foreground:update(dt)
+        end
+        self:setCamera(dt)
+    elseif self.mode == "movie" then
+        if self.movie then
+            if self.movie:update(dt) then
+                self.mode = "normal"
+                self.movie = nil
+            end
+        end
+    end
 end
 
 function Stage:draw(l, t, w, h)
-    if self.background then
-        self.background:draw(l, t, w, h)
+    if self.mode == "normal" then
+        if self.background then
+            self.background:draw(l, t, w, h)
+        end
+        self.objects:draw(l, t, w, h) -- units
+        if self.foreground then
+            self.foreground:draw(l, t, w, h)
+        end
+        -- draw block walls
+        love.graphics.setColor(0, 0, 0, 100)
+        love.graphics.rectangle("fill", self.world:getRect(self.left_block_wall))
+        love.graphics.rectangle("fill", self.world:getRect(self.right_block_wall))
+    elseif self.mode == "event" then
+        if self.background then
+            self.background:draw(l, t, w, h)
+        end
+        self.objects:draw(l, t, w, h) -- units
+        if self.foreground then
+            self.foreground:draw(l, t, w, h)
+        end
+        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.rectangle("fill", 0,0,640,40)
+        love.graphics.rectangle("fill", 0,440-1,640,40)
+        if self.event then
+            self.event:draw(l, t, w, h)
+        end
+    elseif self.mode == "movie" then
+        if self.movie then
+            self.movie:draw(l, t, w, h)
+        end
     end
-    self.objects:draw(l, t, w, h) -- units
-    if self.foreground then
-        self.foreground:draw(l, t, w, h)
-    end
-    -- draw block walls
-    love.graphics.setColor(0, 0, 0, 100)
-    love.graphics.rectangle("fill", self.world:getRect(self.left_block_wall))
-    love.graphics.rectangle("fill", self.world:getRect(self.right_block_wall))
 end
 
 function Stage:setCamera(dt)

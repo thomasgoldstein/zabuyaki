@@ -163,6 +163,10 @@ function Stage01:initialize(players)
 
     --adding players into collision world 15x7
     self.objects:addToWorld(self)
+
+    -- Intro Movie
+    self.movie = Movie:new()
+    self.mode = "movie"
 end
 
 return Stage01
