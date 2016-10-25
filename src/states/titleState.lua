@@ -24,7 +24,7 @@ local txt_start = love.graphics.newText( gfx.font.arcade4, "START" )
 local txt_options = love.graphics.newText( gfx.font.arcade4, "OPTIONS" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "QUIT" )
 
-local txt_start_hint = love.graphics.newText( gfx.font.arcade4, "Press ATTACK ('X' key)" )
+local txt_start_hint = love.graphics.newText( gfx.font.arcade4, "Press ATTACK" )
 local txt_site = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 
 local rick_spr = GetSpriteInstance("src/def/char/rick.lua")
