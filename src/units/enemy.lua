@@ -147,6 +147,22 @@ function Enemy:pickAttackTarget(how)
     return self.target
 end
 
+function Enemy:faceToTarget(x, y)
+    -- Facing towards the target
+    if self.z <= 0
+            and self.isHittable
+            and self.state ~= "run"
+            and self.state ~= "dash"
+    then
+        if x or self.target.x < self.x then
+            self.face = -1
+        else
+            self.face = 1
+        end
+        self.horizontal = self.face
+    end
+end
+
 function Enemy:jump_start()
     self.isHittable = true
     --	print (self.name.." - jump start")

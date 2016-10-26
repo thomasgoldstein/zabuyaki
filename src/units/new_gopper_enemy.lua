@@ -121,18 +121,7 @@ function Gopper:updateAI(dt)
             --return
         end
         -- Facing towards the target
-        if self.z == 0
-                and self.state ~= "run"
-                and self.state ~= "dash"
-        then
-            if self.target.x < self.x then
-                self.face = -1
-                self.horizontal = self.face
-            else
-                self.face = 1
-                self.horizontal = self.face
-            end
-        end
+        self:faceToTarget(x, y)
     end
     if self.ai_poll_2 < 0 then
         self.ai_poll_2 = self.max_ai_poll_2 + math.random()
