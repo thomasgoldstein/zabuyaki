@@ -40,29 +40,6 @@ function Gopper:setToughness(t)
     self.infoBar = InfoBar:new(self)
 end
 
-function Gopper:checkCollisionAndMove(dt)
-    local stepx = self.velx * dt * self.horizontal
-    local stepy = self.vely * dt * self.vertical
-    local actualX, actualY, cols, len, x, y
-    if self.state == "fall"
-            or self.state == "dash" then
---    if self.move then
-        x = self.x
-        y = self.y
-    else
-        x = self.tx
-        y = self.ty
-    end
-    actualX, actualY, cols, len = stage.world:move(self, x + stepx - 8, y + stepy - 4,
-        function(subj, obj)
-            if subj ~= obj and obj.type == "wall" then
-                return "slide"
-            end
-        end)
-    self.x = actualX + 8
-    self.y = actualY + 4
-end
-
 function Gopper:updateAI(dt)
     Enemy.updateAI(self, dt)
 
