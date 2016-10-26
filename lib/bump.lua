@@ -442,7 +442,7 @@ function World:addResponse(name, response)
 end
 
 function World:project(item, x,y,w,h, goalX, goalY, filter)
-  assertIsRect(x,y,w,h)
+  --assertIsRect(x,y,w,h)
 
   goalX = goalX or x
   goalY = goalY or y
@@ -613,7 +613,7 @@ function World:add(item, x,y,w,h)
   if rect then
     error('Item ' .. tostring(item) .. ' added to the world twice.')
   end
-  assertIsRect(x,y,w,h)
+  --assertIsRect(x,y,w,h)
 
   self.rects[item] = {x=x,y=y,w=w,h=h}
 
@@ -642,7 +642,7 @@ end
 function World:update(item, x2,y2,w2,h2)
   local x1,y1,w1,h1 = self:getRect(item)
   w2,h2 = w2 or w1, h2 or h1
-  assertIsRect(x2,y2,w2,h2)
+  --assertIsRect(x2,y2,w2,h2)
 
   if x1 ~= x2 or y1 ~= y2 or w1 ~= w2 or h1 ~= h2 then
 
@@ -731,7 +731,7 @@ end
 
 bump.newWorld = function(cellSize)
   cellSize = cellSize or 64
-  assertIsPositiveNumber(cellSize, 'cellSize')
+  --assertIsPositiveNumber(cellSize, 'cellSize')
   local world = setmetatable({
     cellSize       = cellSize,
     rects          = {},
