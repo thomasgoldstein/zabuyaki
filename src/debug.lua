@@ -93,8 +93,9 @@ function show_debug_boxes()
             love.graphics.rectangle("line", stage.world:getRect(obj[i]))
         end
         -- draw attack hitboxes
+        local a
         for i = 1, #attackHitBoxes do
-            local a = attackHitBoxes[i]
+            a = attackHitBoxes[i]
             --dp("fill", a.x, a.y, a.w, a.h )
             love.graphics.setColor(255, 255, 0, 150)
             love.graphics.rectangle("line", a.x, a.y - a.height - a.z + a.h/2, a.w, a.height)
