@@ -103,9 +103,12 @@ function arcadeState:draw()
         love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
         love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
     end
+    -- Profiler Pie Graph
     if ProfOn then
 --        Prof:draw({50})
     end
+    -- FPS (in ms) graph
+    framerateGraph.draw()
 end
 
 function arcadeState:keypressed(key, unicode)

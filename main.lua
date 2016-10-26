@@ -73,6 +73,8 @@ function love.load(arg)
 	sfx = require "src/def/misc/preload_sfx"
 	gfx = require "src/def/misc/preload_gfx"
 	require "src/debug"
+	framerateGraph = require "lib/framerateGraph"
+	framerateGraph.load()
 	require "src/def/misc/particles"
 	shaders = require "src/def/misc/shaders"
 	CompoundPicture = require "src/compoPic"
@@ -173,6 +175,9 @@ function love.keypressed(key, unicode)
 	if key == '0' then
 		GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
 		sfx.play("sfx","menu_move")
+	end
+	if framerateGraph.keypressed(key) then
+		return
 	end
 end
 
