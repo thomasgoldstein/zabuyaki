@@ -170,6 +170,7 @@ function love.draw()
 end
 
 function love.keypressed(key, unicode)
+	Prof:keypressed(key, unicode)
 	fancy.key(key)
 	if key == '0' then
 		GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
@@ -181,6 +182,7 @@ function love.keyreleased(key, unicode)
 end
 
 function love.mousepressed(x, y, button)
+	Prof:mousepressed(x, y, button)
 	fancy.mouse(button)
 end
 

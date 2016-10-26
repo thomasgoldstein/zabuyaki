@@ -31,7 +31,9 @@ end
 
 function arcadeState:update(dt)
     time = time + dt
+--    Prof:attach()
     stage:update(dt)
+--    Prof:detach()
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
         GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
@@ -101,10 +103,15 @@ function arcadeState:draw()
         love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
         love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
     end
+    if ProfOn then
+--        Prof:draw({50})
+    end
 end
 
 function arcadeState:keypressed(key, unicode)
+    Prof:attach()
     check_debug_keys(key)
+    Prof:detach()
 end
 
 function arcadeState:wheelmoved( dx, dy )
