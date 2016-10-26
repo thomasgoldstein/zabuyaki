@@ -59,17 +59,28 @@ function Stage01:initialize(players)
     local bgBuilding1A = love.graphics.newImage("res/img/stages/stage1/building1_A.png")
     --local bgBuilding2V = love.graphics.newImage("res/img/stages/stage1/building2_V.png")
     --local bgBuilding2A = love.graphics.newImage("res/img/stages/stage1/building2_A.png")
+    local bgSky = love.graphics.newImage("res/img/stages/stage1/sky.png")
 
     local qRoad = love.graphics.newQuad(0, 0, 360, 120, bgRoad:getDimensions())
     local qBuilding1V = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1V:getDimensions())
     local qBuilding1A = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1A:getDimensions())
     --local qBuilding2V = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2V:getDimensions())
     --local qBuilding2A = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2A:getDimensions())
+    local qSky = love.graphics.newQuad(1, 0, 33, 130, bgSky:getDimensions())
 
     --bg as a big picture
     print(self.name .. " Background", self.worldWidth, self.worldHeight)
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
     --arrange sprites along the big picture
+
+    for i = 0, 15 do
+        --(bgSky, qSky, x, y, slow_down_parallaxX, slow_down_parallaxY, auto_scroll_x, scroll_y
+        self.background:add(bgSky, qSky, i * 32 - 2 , 302,
+            1, 0) --keep still horizontally despite of the scrolling
+        -- Temp cover of the gap in the sky (when zoom out)
+        self.background:add(bgSky, qSky, i * 32 - 2 , 302 - 129,
+            1, 0)
+    end
 
     self.background:add(bgRoad, qRoad, 0 * 360 - 2, 432)
     self.background:add(bgRoad, qRoad, 1 * 360 - 2, 432)
