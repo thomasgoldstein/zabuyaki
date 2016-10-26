@@ -31,9 +31,13 @@ end
 
 function arcadeState:update(dt)
     time = time + dt
---    Prof:attach()
+    if GLOBAL_SETTING.PROFILER_ENABLED then
+        Prof:attach()
+    end
     stage:update(dt)
---    Prof:detach()
+    if GLOBAL_SETTING.PROFILER_ENABLED then
+        Prof:detach()
+    end
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
         GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
@@ -104,17 +108,17 @@ function arcadeState:draw()
         love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
     end
     -- Profiler Pie Graph
-    if ProfOn then
---        Prof:draw({50})
+    if GLOBAL_SETTING.PROFILER_ENABLED and ProfOn then
+        Prof:draw({50})
     end
     -- FPS (in ms) graph
-    framerateGraph.draw()
+    if GLOBAL_SETTING.FPSRATE_ENABLED then
+        framerateGraph.draw()
+    end
 end
 
 function arcadeState:keypressed(key, unicode)
-    Prof:attach()
     check_debug_keys(key)
-    Prof:detach()
 end
 
 function arcadeState:wheelmoved( dx, dy )

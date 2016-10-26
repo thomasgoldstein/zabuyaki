@@ -1,7 +1,9 @@
 -- Load PRofiler
-Profiler  = require "lib/piefiller"
-ProfOn = false
-Prof = Profiler:new()
+if GLOBAL_SETTING.PROFILER_ENABLED then
+    Profiler  = require "lib/piefiller"
+    ProfOn = false
+    Prof = Profiler:new()
+end
 
 --Debug console output
 function dp(...)

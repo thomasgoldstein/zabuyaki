@@ -26,6 +26,8 @@ GLOBAL_SETTING.MAX_CREDITS = 3
 GLOBAL_SETTING.MAX_LIVES = 3
 GLOBAL_SETTING.MOUSE_ENABLED = true
 GLOBAL_SETTING.SHADERS_ENABLED = true
+GLOBAL_SETTING.PROFILER_ENABLED = false
+GLOBAL_SETTING.FPSRATE_ENABLED = false
 GLOBAL_SETTING.SHOW_GRID = false
 
 -- global vars
@@ -73,8 +75,10 @@ function love.load(arg)
 	sfx = require "src/def/misc/preload_sfx"
 	gfx = require "src/def/misc/preload_gfx"
 	require "src/debug"
-	framerateGraph = require "lib/framerateGraph"
-	framerateGraph.load()
+	if GLOBAL_SETTING.FPSRATE_ENABLED then
+		framerateGraph = require "lib/framerateGraph"
+		framerateGraph.load()
+	end
 	require "src/def/misc/particles"
 	shaders = require "src/def/misc/shaders"
 	CompoundPicture = require "src/compoPic"
@@ -170,13 +174,15 @@ function love.draw()
 end
 
 function love.keypressed(key, unicode)
-	Prof:keypressed(key, unicode)
+	if GLOBAL_SETTING.PROFILER_ENABLED then
+		Prof:keypressed(key, unicode)
+	end
 	fancy.key(key)
 	if key == '0' then
 		GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
 		sfx.play("sfx","menu_move")
 	end
-	if framerateGraph.keypressed(key) then
+	if GLOBAL_SETTING.FPSRATE_ENABLED and framerateGraph.keypressed(key) then
 		return
 	end
 end
@@ -185,7 +191,9 @@ function love.keyreleased(key, unicode)
 end
 
 function love.mousepressed(x, y, button)
-	Prof:mousepressed(x, y, button)
+	if GLOBAL_SETTING.PROFILER_ENABLED then
+		Prof:mousepressed(x, y, button)
+	end
 	fancy.mouse(button)
 end
 
