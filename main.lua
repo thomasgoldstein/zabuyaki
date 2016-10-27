@@ -15,6 +15,8 @@ GLOBAL_SETTING.MAX_PLAYERS = 3
 GLOBAL_SETTING.DEBUG = false
 GLOBAL_SETTING.OFFSCREEN = 1000
 GLOBAL_SETTING.FULL_SCREEN = false
+GLOBAL_SETTING.WINDOW_WIDTH = 640
+GLOBAL_SETTING.WINDOW_HEIGHT = 480
 GLOBAL_SETTING.BGM_VOLUME = 0.75
 GLOBAL_SETTING.SFX_VOLUME = 1
 GLOBAL_SETTING.CENSORSHIP = true
@@ -39,13 +41,9 @@ credits = GLOBAL_SETTING.MAX_CREDITS
 attackHitBoxes = {} -- DEBUG
 
 function switchFullScreen()
-	if GLOBAL_SETTING.FULL_SCREEN then
-		GLOBAL_SETTING.FULL_SCREEN = not love.window.setFullscreen( false )
-	else
-		GLOBAL_SETTING.FULL_SCREEN = love.window.setFullscreen( true )
-	end
-	GLOBAL_SETTING.MOUSE_ENABLED = not GLOBAL_SETTING.FULL_SCREEN
-	love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
+    push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT)
+    GLOBAL_SETTING.MOUSE_ENABLED = not push._fullscreen
+    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 end
 
 function love.load(arg)
@@ -68,12 +66,9 @@ function love.load(arg)
 	tactile = require 'lib/tactile'
 
 	push = require "lib/push"
-	  local gameWidth, gameHeight = 640, 480
-	  local windowWidth, windowHeight = love.window.getDesktopDimensions()
-	  windowWidth, windowHeight = windowWidth*.5, windowHeight*.5
-
-	  push:setupScreen(gameWidth, gameHeight, 640, 480, {fullscreen = false, resizable = true})
-	  push:setBorderColor{255, 255, 0} --default value
+    push:setupScreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
+        GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
+        {fullscreen = GLOBAL_SETTING.FULL_SCREEN, resizable = false})
 
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
@@ -118,7 +113,11 @@ function love.load(arg)
 
 	bind_game_input()
 
-	--DEBUG libs
+    -- Hide mouse cursor if Fullscreen by default
+    GLOBAL_SETTING.MOUSE_ENABLED = not push._fullscreen
+    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
+
+    --DEBUG libs
 	fancy = require "lib/fancy"	--we need this lib always
 
 	--GameStates
@@ -173,9 +172,7 @@ function love.update(dt)
 
 	--Toggle Full Screen Mode (using P1's control)
 	if Control1.fullScreen:pressed() then
-		--switchFullScreen()
-		push:switchFullscreen()
-        --push:initValues()
+		switchFullScreen()
 	end
 
 	TEsound.cleanup()

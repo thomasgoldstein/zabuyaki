@@ -36,10 +36,7 @@ end
 function push:initValues()
   self._SCALEX, self._SCALEY = self._RWIDTH/self._WWIDTH, self._RHEIGHT/self._WHEIGHT
   self._SCALE = math.min(self._SCALEX, self._SCALEY)
-  print(self._SCALEX, self._SCALEY,self._SCALE)
   self._OFFSET = {x = (self._SCALEX - self._SCALE) * (self._WWIDTH/2), y = (self._SCALEY - self._SCALE) * (self._WHEIGHT/2) }
-  print(self._OFFSET.x, self._OFFSET.y)
---  self._OFFSET = {x = 0, y = (self._SCALEY - self._SCALE) * (self._WHEIGHT/2)}
   self._GWIDTH, self._GHEIGHT = self._RWIDTH-self._OFFSET.x*2, self._RHEIGHT-self._OFFSET.y*2
 
   self._INV_SCALE = 1/self._SCALE
@@ -114,6 +111,7 @@ function push:switchFullscreen(winw, winh)
   local windowWidth, windowHeight = love.window.getDesktopDimensions()
   self._RWIDTH = self._fullscreen and windowWidth or winw or windowWidth*.5
   self._RHEIGHT = self._fullscreen and windowHeight or winh or windowHeight*.5
+  print("rw rh: ", self._RWIDTH,self._RHEIGHT, windowWidth, windowHeight)
   self:initValues()
   love.window.setFullscreen(self._fullscreen, "desktop")
 end
