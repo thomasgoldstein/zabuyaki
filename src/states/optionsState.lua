@@ -121,6 +121,7 @@ function optionsState:update(dt)
 end
 
 function optionsState:draw()
+    push:apply("start")
     love.graphics.setColor(255, 255, 255, 255)
     DrawSpriteInstance(rick_spr, 200, 370)
     for i = 1,#menu do
@@ -148,6 +149,7 @@ function optionsState:draw()
     love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
     love.graphics.draw(txt_hints[menu_state], (screen_width - txt_hints[menu_state]:getWidth()) / 2, screen_height - 80)
     show_debug_indicator()
+    push:apply("end")
 end
 
 function optionsState:confirm( x, y, button, istouch )

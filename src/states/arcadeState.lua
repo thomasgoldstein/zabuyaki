@@ -67,11 +67,14 @@ function arcadeState:draw()
         --TODO add foreground parallax for stages
         --foreground:draw(l, t, w, h)
     end)
+
     love.graphics.setCanvas()
+    push:apply("start")
     love.graphics.setColor(255, 255, 255, 255)
 --    love.graphics.draw(canvas)
 --    love.graphics.draw(canvas, 0,0, 0, 0.5,0.5)
-    love.graphics.draw(canvas, 0,0, nil, 0.5)
+    --local fullscreen, fstype = love.window.getFullscreen( )
+        love.graphics.draw(canvas, 0,0, nil, 0.5)
 
     local is_alive = false
     if stage.mode == "normal" then
@@ -115,6 +118,7 @@ function arcadeState:draw()
     if GLOBAL_SETTING.FPSRATE_ENABLED then
         framerateGraph.draw()
     end
+    push:apply("end")
 end
 
 function arcadeState:keypressed(key, unicode)

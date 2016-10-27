@@ -66,6 +66,15 @@ function love.load(arg)
 	i18n = require 'lib/i18n'
 	require "lib/TEsound"
 	tactile = require 'lib/tactile'
+
+	push = require "lib/push"
+	  local gameWidth, gameHeight = 640, 480
+	  local windowWidth, windowHeight = love.window.getDesktopDimensions()
+	  windowWidth, windowHeight = windowWidth*.5, windowHeight*.5
+
+	  push:setupScreen(gameWidth, gameHeight, 640, 480, {fullscreen = false, resizable = true})
+	  push:setBorderColor{255, 255, 0} --default value
+
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
 	bump = require "lib/bump"
@@ -164,14 +173,16 @@ function love.update(dt)
 
 	--Toggle Full Screen Mode (using P1's control)
 	if Control1.fullScreen:pressed() then
-		switchFullScreen()
+		--switchFullScreen()
+		push:switchFullscreen()
+        --push:initValues()
 	end
 
 	TEsound.cleanup()
 end
 
-function love.draw()
-end
+--function love.draw()
+--end
 
 function love.keypressed(key, unicode)
 	if GLOBAL_SETTING.PROFILER_ENABLED then

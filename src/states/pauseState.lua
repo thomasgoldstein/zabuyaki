@@ -109,6 +109,7 @@ function pauseState:update(dt)
 end
 
 function pauseState:draw()
+    push:apply("start")
     if GLOBAL_SCREENSHOT then
         love.graphics.setColor(255, 255, 255, 256 * 0.75) --darkened screenshot
         love.graphics.draw(GLOBAL_SCREENSHOT, 0, 0)
@@ -137,6 +138,7 @@ function pauseState:draw()
     love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
     love.graphics.draw(txt_hints[menu_state], (screen_width - txt_hints[menu_state]:getWidth()) / 2, screen_height - 80)
     show_debug_indicator()
+    push:apply("end")
 end
 
 function pauseState:confirm( x, y, button, istouch )

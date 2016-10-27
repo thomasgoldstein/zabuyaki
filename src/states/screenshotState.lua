@@ -28,7 +28,9 @@ end
 
 function screenshotState:draw()
     if GLOBAL_SCREENSHOT then
+        push:apply("start")
         love.graphics.setColor(255, 255, 255, 255) --darkened screenshot
-        love.graphics.draw(GLOBAL_SCREENSHOT, 0, 0)
+        love.graphics.draw(GLOBAL_SCREENSHOT, 0, 0, 0, 0.5, 0.5)
+        push:apply("end")
     end
 end

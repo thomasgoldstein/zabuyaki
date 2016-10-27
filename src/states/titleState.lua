@@ -148,14 +148,18 @@ end
 function titleState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     if mode == "movie" then
+    
         love.graphics.setCanvas(canvas)
         intro:draw(0,0,320,240)
         love.graphics.setCanvas()
+	push:apply("start")
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(canvas, 0,0, nil, 2)
+	push:apply("end")
         return
     end
     love.graphics.setCanvas()
+    push:apply("start")
     DrawSpriteInstance(rick_spr, 200, 370)
     for i = 1,#menu do
         local m = menu[i]
@@ -182,6 +186,7 @@ function titleState:draw()
     love.graphics.setColor(255, 255, 255, 100 - math.sin(time)*20)
     love.graphics.draw(txt_beatemup, 390, 110)
     show_debug_indicator()
+    push:apply("end")
 end
 
 function titleState:confirm( x, y, button, istouch )
