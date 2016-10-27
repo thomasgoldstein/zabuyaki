@@ -117,9 +117,6 @@ function love.load(arg)
     GLOBAL_SETTING.MOUSE_ENABLED = not push._fullscreen
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 
-    --DEBUG libs
-	fancy = require "lib/fancy"	--we need this lib always
-
 	--GameStates
 	require "src/states/titleState"
 	require "src/states/optionsState"
@@ -178,14 +175,13 @@ function love.update(dt)
 	TEsound.cleanup()
 end
 
---function love.draw()
---end
+function love.draw()
+end
 
 function love.keypressed(key, unicode)
 	if GLOBAL_SETTING.PROFILER_ENABLED then
 		Prof:keypressed(key, unicode)
 	end
-	fancy.key(key)
 	if key == '0' then
 		GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
 		sfx.play("sfx","menu_move")
@@ -202,12 +198,10 @@ function love.mousepressed(x, y, button)
 	if GLOBAL_SETTING.PROFILER_ENABLED then
 		Prof:mousepressed(x, y, button)
 	end
-	fancy.mouse(button)
 end
 
 function love.mousereleased(x, y, button)
 end
 
 function love.wheelmoved( dx, dy )
-	fancy.wheel(dy)
 end

@@ -39,8 +39,8 @@ function show_debug_indicator(size, x, y)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
+        love.graphics.print("FPS:"..tonumber(love.timer.getFPS()), x or 2, y or love.graphics.getHeight() - 9 * 2)
         love.graphics.print("DEBUG", x or 2, y or love.graphics.getHeight() - 9)
-        --love.graphics.print("CREDITS:"..tonumber(credits), x or 2, y or love.graphics.getHeight() - 9 * 2)
     end
 end
 
@@ -123,41 +123,11 @@ end
 
 function watch_debug_variables()
     if GLOBAL_SETTING.DEBUG then
-        --fancy.watch("FPS", love.timer.getFPS())
-        --fancy.watch("# Joysticks: ",love.joystick.getJoystickCount( ), 1)
-        if player2 then
-            fancy.watch("P2 x: ", player2.x, 3)
-            --            fancy.watch("P2 y: ",player2.y, 3)
-            --fancy.watch("P2 state: ",player2.state, 2)
-        end
-        if player3 then
-            fancy.watch("P3 x: ", player3.x, 3)
-            --            fancy.watch("P3 y: ",player3.y, 3)
-            --fancy.watch("P3 state: ",player3.state, 2)
-        end
-        if player1 then
-            fancy.watch("P1 x: ", player1.x, 3)
-            --            fancy.watch("P1 y: ",player1.y, 3)
-            --            fancy.watch("Player state: ",player1.state, 2)
-            fancy.watch("N Combo: ", player1.n_combo, 2)
-            fancy.watch("CD Combo: ", player1.cool_down_combo, 2)
-            fancy.watch("Cool Down: ", player1.cool_down, 2)
-            --            fancy.watch("Velocity Z: ",player1.velz, 2)
-            --            fancy.watch("Velocity X: ",player1.velx, 2)
-            fancy.watch("Z: ", player1.z, 3)
-        end
     end
-end
-
-function show_debug_variables()
---    if GLOBAL_SETTING.DEBUG then
---        fancy.draw() --DEBUG var show
---    end
 end
 
 function check_debug_keys(key)
     if GLOBAL_SETTING.DEBUG then
-        fancy.key(key)
         if key == '0' then
             stage.objects:dp()
         end

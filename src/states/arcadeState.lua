@@ -58,23 +58,14 @@ function arcadeState:draw()
     mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
         love.graphics.setColor(255, 255, 255, 255)
---        stage.background:draw(l, t, w, h)
---        stage.objects:draw(l,t,w,h)
         stage:draw(l,t,w,h)
-
         show_debug_boxes() -- debug draw bump boxes
-
-        --TODO add foreground parallax for stages
-        --foreground:draw(l, t, w, h)
     end)
 
     love.graphics.setCanvas()
     push:apply("start")
     love.graphics.setColor(255, 255, 255, 255)
---    love.graphics.draw(canvas)
---    love.graphics.draw(canvas, 0,0, 0, 0.5,0.5)
-    --local fullscreen, fstype = love.window.getFullscreen( )
-        love.graphics.draw(canvas, 0,0, nil, 0.5)
+    love.graphics.draw(canvas, 0,0, nil, 0.5)
 
     local is_alive = false
     if stage.mode == "normal" then
@@ -103,7 +94,6 @@ function arcadeState:draw()
     end
     show_debug_grid()
     show_debug_controls()
-    show_debug_variables()
     show_debug_indicator()
     -- GAME OVER
     if credits <= 0 and not is_alive then
