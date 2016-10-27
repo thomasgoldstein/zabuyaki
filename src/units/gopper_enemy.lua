@@ -29,6 +29,7 @@ function Gopper:initialize(name, sprite, input, x, y, shader, color)
     self:pickAttackTarget()
     self.type = "enemy"
     self.face = -1
+    self.sfx.dead = sfx.gopper_death
     self:setToughness(0)
     self:setState(self.intro)
 end

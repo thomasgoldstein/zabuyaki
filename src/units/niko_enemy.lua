@@ -27,6 +27,7 @@ function Niko:initialize(name, sprite, input, x, y, shader, color)
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, shader, color)
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
+    self.sfx.dead = sfx.gopper_death
     self:setState(self.intro)
 end
 

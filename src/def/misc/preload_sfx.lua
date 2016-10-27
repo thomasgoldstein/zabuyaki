@@ -96,4 +96,15 @@ SFX.load("chai_throw","res/sfx/chai_throw.wav", 1)
 SFX.load("chai_step","res/sfx/chai_step.wav", 1)
 SFX.load("chai_death","res/sfx/chai_death.wav", 1)
 
+SFX.load("scream1","res/sfx/scream1.wav", 1)
+SFX.load("scream2","res/sfx/scream2.wav", 1)
+SFX.load("scream3","res/sfx/scream3.wav", 1)
+SFX.load("scream4","res/sfx/scream4.wav", 1)
+SFX.load("scream5","res/sfx/scream5.wav", 1)
+SFX.load("scream6","res/sfx/scream6.wav", 1)
+SFX.load("scream7","res/sfx/scream7.wav", 1)
+
+SFX.gopper_death = {"scream2","scream3","scream4","scream5","scream6","scream7"}
+SFX.niko_death = {"scream1","scream2","scream3","scream4","scream5","scream6"}
+
 return SFX
