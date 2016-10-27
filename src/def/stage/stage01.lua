@@ -61,7 +61,7 @@ function Stage01:initialize(players)
     --local bgBuilding2A = love.graphics.newImage("res/img/stages/stage1/building2_A.png")
     local bgSky = love.graphics.newImage("res/img/stages/stage1/sky.png")
 
-    local qRoad = love.graphics.newQuad(0, 0, 360, 120, bgRoad:getDimensions())
+    local qRoad = love.graphics.newQuad(2, 0, 360, 121, bgRoad:getDimensions())
     local qBuilding1V = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1V:getDimensions())
     local qBuilding1A = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1A:getDimensions())
     --local qBuilding2V = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2V:getDimensions())
@@ -82,15 +82,9 @@ function Stage01:initialize(players)
             1, 0)
     end
 
-    self.background:add(bgRoad, qRoad, 0 * 360 - 2, 432)
-    self.background:add(bgRoad, qRoad, 1 * 360 - 2, 432)
-    self.background:add(bgRoad, qRoad, 2 * 360 - 2, 432)
-    self.background:add(bgRoad, qRoad, 3 * 360 - 2, 432)
-    self.background:add(bgRoad, qRoad, 4 * 360 - 2, 432)
-    self.background:add(bgRoad, qRoad, 5 * 360 - 2, 432)
-    self.background:add(bgRoad, qRoad, 6 * 360 - 2, 432)
-    self.background:add(bgRoad, qRoad, 7 * 360 - 2, 432)
-
+    for i = 0, 7 do
+        self.background:add(bgRoad, qRoad, i * 360, 432)
+    end
     self.background:add(bgBuilding1V, qBuilding1V, -20 + 0 * (10 + (525 - 90)), 67)
     self.background:add(bgBuilding1A, qBuilding1A, -20 + 1 * (10 + (525 - 90)), 67)
     self.background:add(bgBuilding1V, qBuilding1V, -20 + 2 * (10 + (525 - 90)), 67)
