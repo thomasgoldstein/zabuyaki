@@ -57,15 +57,11 @@ function Stage01:initialize(players)
     local bgRoad = love.graphics.newImage("res/img/stages/stage1/road.png")
     local bgBuilding1V = love.graphics.newImage("res/img/stages/stage1/building1_V.png")
     local bgBuilding1A = love.graphics.newImage("res/img/stages/stage1/building1_A.png")
-    --local bgBuilding2V = love.graphics.newImage("res/img/stages/stage1/building2_V.png")
-    --local bgBuilding2A = love.graphics.newImage("res/img/stages/stage1/building2_A.png")
     local bgSky = love.graphics.newImage("res/img/stages/stage1/sky.png")
 
     local qRoad = love.graphics.newQuad(2, 0, 360, 121, bgRoad:getDimensions())
     local qBuilding1V = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1V:getDimensions())
     local qBuilding1A = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1A:getDimensions())
-    --local qBuilding2V = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2V:getDimensions())
-    --local qBuilding2A = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2A:getDimensions())
     local qSky = love.graphics.newQuad(1, 0, 33, 130, bgSky:getDimensions())
 
     --bg as a big picture
