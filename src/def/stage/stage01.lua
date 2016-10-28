@@ -3,7 +3,7 @@ local class = require "lib/middleclass"
 local Stage01 = class('Stage01', Stage)
 
 function Stage01:initialize(players)
-    Stage.initialize(self, "Stage 01")
+    Stage.initialize(self, "Stage 01", {231, 207, 157})
     self.scrolling = {commonY = 430, chunksX = {} }
     self.scrolling.chunks = {
 --        {startX = 0, endX = 320, startY = 430, endY = 430},
@@ -77,9 +77,6 @@ function Stage01:initialize(players)
         --(bgSky, qSky, x, y, slow_down_parallaxX, slow_down_parallaxY, auto_scroll_x, scroll_y
         self.background:add(bgSky, qSky, i * 32 - 2 , 302,
             1, 0) --keep still horizontally despite of the scrolling
-        -- Temp cover of the gap in the sky (when zoom out)
-        self.background:add(bgSky, qSky, i * 32 - 2 , 302 - 129,
-            1, 0)
     end
 
     for i = 0, 7 do

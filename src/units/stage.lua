@@ -5,9 +5,10 @@
 local class = require "lib/middleclass"
 local Stage = class('Stage')
 
-function Stage:initialize(name)
+function Stage:initialize(name, bgColor)
     self.name = name or "Stage NoName"
     self.mode = "normal"
+    self.bgColor = bgColor
     self.event = nil
     self.movie = nil
     self.worldWidth = 4000
@@ -72,6 +73,7 @@ function Stage:update(dt)
 end
 
 function Stage:draw(l, t, w, h)
+    love.graphics.clear(unpack(self.bgColor))
     if self.mode == "normal" then
         if self.background then
             self.background:draw(l, t, w, h)
