@@ -48,6 +48,8 @@ function Movie:initialize(frames)
     self.b = Control1 -- Use P1 controls
     self.frame = 1
     self.add_chars = 1
+    self.hScroll = 0
+    self.vScroll = 0
     self.frames = frames
     self.autoSkip = frames.autoSkip or false
     self.delayAfterFrame = frames.delayAfterFrame or 3
@@ -82,12 +84,28 @@ function Movie:update(dt)
             sfx.play("sfx", "menu_select")
         end
         self.frame = self.frame + 1
+        self.hScroll, self.vScroll = 0, 0
         if not self.frames[self.frame] then
             --dp("Movie ended on the enmpty frame "..self.frame)
             return true
         end
         self.time = 0
     end
+    local f = self.frames[self.frame]
+    -- h/vScroll
+    if self.time < self.frames[self.frame].delay then
+        if f.hScroll then
+            self.hScroll = self.time * f.hScroll / self.frames[self.frame].delay
+        else
+            self.hScroll = 0
+        end
+        if f.vScroll then
+            self.vScroll = self.time * f.vScroll / self.frames[self.frame].delay
+        else
+            self.vScroll = 0
+        end
+    end
+    -- Type text
     self.add_chars = 1 + self.time * #self.frames[self.frame].text / self.frames[self.frame].delay
     -- Movie is in process
     return false
@@ -101,7 +119,7 @@ function Movie:draw(l, t, w, h)
     -- Show Picture
     local w, h = f.q[3], f.q[4]
     local x, y = (screen_width - w) / 2, (screen_height - h) / 2
-    local q = { f.q[1], f.q[2], w, h }
+    local q = { r(f.q[1] + self.hScroll), r(f.q[2] + self.vScroll), w, h }
     q[5], q[6] = f.slide:getDimensions()
 
     love.graphics.draw(f.slide,

@@ -8,15 +8,17 @@ movie_intro = {
         q = { 60, 70, 200, 120 }, -- Initial quad
         text =
         [[This city has one rule:
-        fight for everything...]],
+fight for everything...]],
+        hScroll = -10,
         delay = 4 -- How long to type th text
     },
     {
         slide = slide1,
         q = { 160, 170, 240, 80 },
+        vScroll = 20,
         text =
         [[And if you have nothing
-        then fight for your life...]],
+then fight for your life...]],
         delay = 4
     },
     {
