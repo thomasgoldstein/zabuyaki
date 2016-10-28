@@ -7,17 +7,40 @@ local function r(x) return math.floor(x) end
 local screen_gap = 12
 local slide_text_gap = 10
 
+local screen_width = 640 / 2
+local screen_height = 480 / 2
+
 local Movie = class('Movie')
 
---[[ table = {
+--[[
+table = {
+    {
+        slide = slide1, -- Picture
+        q = { 60, 70, 200, 120 }, -- Initial quad
+        text =
+        "This city has one rule:fight for everything...]",
+        delay = 4 -- How long to type th text
+    },
     {
         slide = slide1,
-        q = love.graphics.newQuad(120, 130, 240, 80, slide1:getDimensions()),
-        text = "and here GOES other text\nand more of it\n...",
-        delay = 2
-    }, music = "dddd"
-    }
---]]
+        q = { 160, 170, 240, 80 },
+        text =
+        "And if you have nothing then fight for your life...",
+        delay = 4
+    },
+    {
+        slide = slide1,
+        q = { 230, 290, 220, 100 },
+        text = "And the last.\nDon't let down your friends!",
+        delay = 4
+    },
+    bgColor = { 0, 0, 0 },
+    autoSkip = true,
+    delayAfterFrame = 3, -- Wait after all the text is shown
+    music = "res/bgm/rockdrive.xm"
+}
+]]
+
 
 function Movie:initialize(frames)
     self.type = "movie"
@@ -28,6 +51,7 @@ function Movie:initialize(frames)
     self.frames = frames
     self.autoSkip = frames.autoSkip or false
     self.delayAfterFrame = frames.delayAfterFrame or 3
+    self.bgColor = frames.bgColor or { 0, 0, 0 }
     self.time = 0 --self.frames[self.frame].delay
     if frames.music then
         TEsound.stop("music")
@@ -38,13 +62,13 @@ end
 function Movie:update(dt)
     self.time = self.time + dt
     if self.b.attack:isDown() or love.mouse.isDown(1) then
-        self.time = self.time + dt * 3  -- Speed Up
+        self.time = self.time + dt * 3 -- Speed Up
         if self.b.attack:pressed() then
-            sfx.play("sfx","menu_move")
+            sfx.play("sfx", "menu_move")
         end
     end
     if self.b.back:pressed() or self.b.jump:pressed() or love.mouse.isDown(2) then
-        sfx.play("sfx","menu_cancel")
+        sfx.play("sfx", "menu_cancel")
         return true -- Interrupt
     end
     if not self.frames or not self.frames[self.frame] then
@@ -52,10 +76,10 @@ function Movie:update(dt)
         return true
     end
     if (self.time >= self.frames[self.frame].delay + self.delayAfterFrame and self.autoSkip)
-        or (self.time >= self.frames[self.frame].delay and self.b.attack:released() )
+            or (self.time >= self.frames[self.frame].delay and self.b.attack:released())
     then
         if self.b.attack:released() or self.b.attack:pressed() then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx", "menu_select")
         end
         self.frame = self.frame + 1
         if not self.frames[self.frame] then
@@ -64,30 +88,32 @@ function Movie:update(dt)
         end
         self.time = 0
     end
-
     self.add_chars = 1 + self.time * #self.frames[self.frame].text / self.frames[self.frame].delay
     -- Movie is in process
     return false
 end
 
 function Movie:draw(l, t, w, h)
-    love.graphics.clear(0, 0, 0, 255)
+    love.graphics.clear(unpack(self.bgColor))
     -- Flick Perforations
     love.graphics.setColor(255, 255, 255, 255)
     local f = self.frames[self.frame]
     -- Show Picture
-    local _, _, w, h = f.q:getViewport( )
-    local x,y = (320 - w) / 2, (240 - h) / 2
+    local w, h = f.q[3], f.q[4]
+    local x, y = (screen_width - w) / 2, (screen_height - h) / 2
+    local q = { f.q[1], f.q[2], w, h }
+    q[5], q[6] = f.slide:getDimensions()
+
     love.graphics.draw(f.slide,
-        f.q,
-        l + x , t + y - screen_gap )
+        love.graphics.newQuad(unpack(q)),
+        l + x, t + y - screen_gap)
     -- Text
     love.graphics.setFont(self.font)
-    love.graphics.print( string.sub(f.text, 1, self.add_chars), r(l + x), r(t + y + h + slide_text_gap - screen_gap) )
+    love.graphics.print(string.sub(f.text, 1, self.add_chars), r(l + x), r(t + y + h + slide_text_gap - screen_gap))
 
     if self.time >= self.frames[self.frame].delay and not self.autoSkip then
         love.graphics.setColor(255, 255, 255, 200 + 55 * math.sin(self.time * 2))
-        love.graphics.print( "PRESS ATTACK", r(320 - 12*9), r(228 + math.sin(self.time*6)) )
+        love.graphics.print("PRESS ATTACK", r(screen_width - 12 * 9), r(screen_height - 12 + math.sin(self.time * 6)))
     end
 end
 
