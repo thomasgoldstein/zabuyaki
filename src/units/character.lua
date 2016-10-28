@@ -157,6 +157,7 @@ function Character:onHurt()
             self:setState(self.hurtHigh)
             return
         end
+        self.velx = h.velx --use fall speed from the agument
         --then it does to "fall dead"
     elseif h.type == "low" then
         if self.hp > 0 and self.z <= 0 then
@@ -164,6 +165,7 @@ function Character:onHurt()
             self:setState(self.hurtLow)
             return
         end
+        self.velx = h.velx --use fall speed from the agument
         --then it does to "fall dead"
     elseif h.type == "grabKO" then
         --when u throw a grabbed one
@@ -191,7 +193,6 @@ function Character:onHurt()
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
     self.velz = self.velocity_fall_z * self.velocity_jump_speed
-
     if self.hp <= 0 then -- dead body flies further
         if self.velx < self.velocity_fall_x then
             self.velx = self.velocity_fall_x + self.velocity_fall_dead_add_x
