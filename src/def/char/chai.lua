@@ -70,12 +70,12 @@ return {
 			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
 			-- ox,oy pivots offsets from the top left corner of the quad
 			-- delay = 0.1, func = func1, funcCont = func2
-			{ q = q(2,2,41,64), ox = 23, oy = 63 }, --stand 1
+			{ q = q(2,2,41,64), ox = 23, oy = 63, delay = 0.25 }, --stand 1
 			{ q = q(45,2,43,64), ox = 23, oy = 63 }, --stand 2
 			{ q = q(90,3,43,63), ox = 23, oy = 62 }, --stand 3
 			{ q = q(45,2,43,64), ox = 23, oy = 63 }, --stand 2
             loop = true,
-			delay = 0.175
+			delay = 0.155
 		},
 		walk = { -- 1 2 3 4 5 6
 			{ q = q(2,68,39,64), ox = 21, oy = 63 }, --walk 1
