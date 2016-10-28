@@ -127,8 +127,8 @@ return {
 		},
 		combo1 = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move }, --c1.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1, delay = 0.1 }, --c1.2
-			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move, delay = 0.06 }, --c1.1
+			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1, delay = 0.09 }, --c1.2
+			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move, delay = 0.05 }, --c1.1
 			delay = 0.01
 		},
 		combo2 = {
@@ -140,9 +140,9 @@ return {
 		combo3 = {
 			{ q = q(127,521,41,64), ox = 19, oy = 64 }, --c2.1
 			{ q = q(2,589,43,64), ox = 19, oy = 64 }, --c3.1
-			{ q = q(47,590,72,63), ox = 21, oy = 63, func = combo_attack3, delay = 0.12 }, --c3.2
-			{ q = q(2,589,43,64), ox = 19, oy = 64, delay = 0.05 }, --c3.1
-			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.05 }, --c2.1
+			{ q = q(47,590,72,63), ox = 21, oy = 63, func = combo_attack3, delay = 0.11 }, --c3.2
+			{ q = q(2,589,43,64), ox = 19, oy = 64, delay = 0.04 }, --c3.1
+			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.04 }, --c2.1
 			delay = 0.015
 		},
 		combo4 = {
