@@ -55,13 +55,13 @@ function Stage01:initialize(players)
 
     --define sprites
     local bgRoad = love.graphics.newImage("res/img/stages/stage1/road.png")
-    local bgBuilding1V = love.graphics.newImage("res/img/stages/stage1/building1_V.png")
-    local bgBuilding1A = love.graphics.newImage("res/img/stages/stage1/building1_A.png")
+    local bgBuilding1 = love.graphics.newImage("res/img/stages/stage1/building1.png")
+    local bgBuilding2 = love.graphics.newImage("res/img/stages/stage1/building2.png")
     local bgSky = love.graphics.newImage("res/img/stages/stage1/sky.png")
 
     local qRoad = love.graphics.newQuad(2, 0, 360, 121, bgRoad:getDimensions())
-    local qBuilding1V = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1V:getDimensions())
-    local qBuilding1A = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1A:getDimensions())
+    local qBuilding1 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1:getDimensions())
+    local qBuilding2 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2:getDimensions())
     local qSky = love.graphics.newQuad(1, 0, 33, 130, bgSky:getDimensions())
 
     --bg as a big picture
@@ -78,10 +78,10 @@ function Stage01:initialize(players)
     for i = 0, 7 do
         self.background:add(bgRoad, qRoad, i * 360, 432)
     end
-    self.background:add(bgBuilding1V, qBuilding1V, -20 + 0 * (10 + (525 - 90)), 67)
-    self.background:add(bgBuilding1A, qBuilding1A, -20 + 1 * (10 + (525 - 90)), 67)
-    self.background:add(bgBuilding1V, qBuilding1V, -20 + 2 * (10 + (525 - 90)), 67)
-    self.background:add(bgBuilding1A, qBuilding1A, -20 + 3 * (10 + (525 - 90)), 67)
+    self.background:add(bgBuilding1, qBuilding1, -20 + 0 * (10 + (525 - 90)), 67)
+    self.background:add(bgBuilding2, qBuilding2, -20 + 1 * (10 + (525 - 90)), 67)
+    self.background:add(bgBuilding1, qBuilding1, -20 + 2 * (10 + (525 - 90)), 67)
+    self.background:add(bgBuilding2, qBuilding2, -20 + 3 * (10 + (525 - 90)), 67)
 
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
