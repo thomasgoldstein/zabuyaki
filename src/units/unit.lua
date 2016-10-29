@@ -104,7 +104,6 @@ function Unit:showHitMarks(dmg, z)
 		pa_hitMark = PA_IMPACT_BIG:clone()
 		pa_hitMark:setPosition( 0, -z )
 	end
-	pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
 	pa_hitMark:emit(1)
 	stage.objects:add(Effect:new(pa_hitMark, self.x, self.y + 3))
 end

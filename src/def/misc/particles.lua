@@ -2,20 +2,25 @@
 -- Date: 04.05.2016
 --
 local img = love.graphics.newImage("res/img/misc/particles.png")
-local image_w = 138
-local image_h = 70
+local image_w = 101
+local image_h = 120
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-local im_quad1 = q(2,2,32,32)  --impact 1
-local im_quad2 = q(36,2,32,32)  --impact 2
-local im_quad3 = q(70,2,32,32)  --impact 3
-local im_quad4 = q(104,2,32,32)  --impact 4
 
-local dust_quad1 = q(2,36,32,32) --dust cloud 1
-local dust_quad2 = q(36,36,32,32) --dust cloud 2
-local dust_quad3 = q(70,36,32,32) --dust cloud 3
-local dust_quad4 = q(104,36,32,32) --dust cloud 3
+local imp_small_quad1 = q(2,2,19,22) -- impact small 1/3
+local imp_small_quad2 = q(23,2,19,22) -- impact small 2/3
+local imp_small_quad3 = q(44,2,19,22) -- impact small 3/3
+
+local imp_medium_quad1 = q(2,26,27,26) -- impact medium 1/3
+local imp_medium_quad2 = q(31,26,27,26) -- impact medium 2/3
+local imp_medium_quad3 = q(60,26,27,26) -- impact medium 3/3
+
+local imp_big_quad1 = q(2,54,31,30) -- impact big 1/3
+local imp_big_quad2 = q(35,54,31,30) -- impact big 2/3
+local imp_big_quad3 = q(68,54,31,30) -- impact big 3/3
+
+local dust_quad = q(2,86,32,32) --dust cloud
 
 psystem = love.graphics.newParticleSystem( img, 32 )
 psystem:setPosition( 0, -2 )
@@ -26,7 +31,7 @@ psystem:setSpeed( 1, 5 )
 psystem:setLinearAcceleration(0, 0, 0, 0) -- Random movement in all directions.
 psystem:setColors(214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188, 10, 214, 205, 188, 5)
 psystem:setOffset( 15, 15 )
-psystem:setQuads( dust_quad4 )
+psystem:setQuads( dust_quad )
 psystem:setLinearDamping( 7, 20 )
 psystem:setAreaSpread( "uniform", 8, 4 )
 psystem:setSpin(0, -3)
@@ -66,30 +71,24 @@ psystem:setPosition( 0, -4 )
 PA_DUST_LANDING_UNUSED = psystem
 
 psystem = love.graphics.newParticleSystem( img, 4 )
---psystem:setPosition( 0, -16 )
-psystem:setOffset( 15, 15 )
-psystem:setParticleLifetime(0.1, 0.2)
-psystem:setSizes(1, 1.2)
-psystem:setColors(255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0)
-psystem:setQuads( im_quad1, im_quad2 )
+psystem:setOffset( 9, 11 )
+psystem:setParticleLifetime(0.15)
+psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
+psystem:setQuads( imp_small_quad1, imp_small_quad2, imp_small_quad3 )
 PA_IMPACT_SMALL = psystem
 
 psystem = love.graphics.newParticleSystem( img, 4 )
---psystem:setPosition( 0, -16 )
-psystem:setOffset( 15, 15 )
-psystem:setParticleLifetime(0.15, 0.25)
-psystem:setSizes(1, 1.2)
-psystem:setColors(255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0)
-psystem:setQuads( im_quad1, im_quad2, im_quad3 )
+psystem:setOffset( 13, 13 )
+psystem:setParticleLifetime(0.15)
+psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
+psystem:setQuads( imp_medium_quad1, imp_medium_quad2, imp_medium_quad3 )
 PA_IMPACT_MEDIUM = psystem
 
 psystem = love.graphics.newParticleSystem( img, 4 )
---psystem:setPosition( 0, -40 )
 psystem:setOffset( 15, 15 )
-psystem:setParticleLifetime(0.2, 0.3)
-psystem:setSizes(1, 1.1)
-psystem:setColors(255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0)
-psystem:setQuads( im_quad2, im_quad3, im_quad4 )
+psystem:setParticleLifetime(0.15)
+psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
+psystem:setQuads( imp_big_quad1, imp_big_quad2, imp_big_quad3 )
 PA_IMPACT_BIG = psystem
 
 psystem = love.graphics.newParticleSystem( img, 32 )
@@ -118,8 +117,7 @@ psystem:setLinearAcceleration(0, -10, 0, -50) -- Random movement in all directio
 psystem:setColors(214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188, 10, 214, 205, 188, 5)
 --psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0)
 psystem:setOffset( 15, 15 )
-psystem:setQuads( dust_quad4 )
---psystem:setQuads( im_quad4 )
+psystem:setQuads( dust_quad )
 psystem:setLinearDamping( 7, 10 )
 --psystem:setAreaSpread( "uniform", 80, 40 )
 --psystem:setSpin(0, -3)
@@ -131,5 +129,4 @@ psystem:setDirection( 4.71 )
 psystem:setParticleLifetime(1)
 --psystem:setSizes(1, 1, 1.1)
 psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0)
---psystem:setQuads( im_quad2, im_quad3, im_quad4 )
 PA_ITEM_GET = psystem
