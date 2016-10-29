@@ -69,7 +69,7 @@ function InfoBar:initialize(source)
     if source.type == "item" then
         self.icon_sprite = source.sprite
         self.q = source.q  --quad
-        self.icon_color = { r= 255, g = 255, b = 255, a = 255 }
+        self.icon_color = { 255, 255, 255, 255 }
         self.max_hp = 20
         self.hp = 1
         self.old_hp = 1
@@ -81,7 +81,7 @@ function InfoBar:initialize(source)
         end
         self.icon_sprite = source.sprite.def.sprite_sheet
         self.q = source.sprite.def.animations["icon"][1].q  --quad
-        self.icon_color = source.color
+        self.icon_color = source.color or { 255, 255, 255, 255 }
         self.max_hp = source.max_hp
         self.hp = 1
         self.old_hp = 1
@@ -172,19 +172,23 @@ end
 
 function InfoBar:draw_lifebar(l, t, transp_bg)
     -- Normal lifebar
-    love.graphics.setColor(lost_color[1], lost_color[2], lost_color[3], transp_bg)
+    lost_color[4] = transp_bg
+    love.graphics.setColor( unpack( lost_color ) )
     slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) , bar_height - 6 )
 
     if self.old_hp > 0 then
         if self.source.hp > self.hp then
-            love.graphics.setColor(got_color[1], got_color[2], got_color[3], transp_bg)
+            got_color[4] = transp_bg
+            love.graphics.setColor( unpack( got_color ) )
         else
-            love.graphics.setColor(losing_color[1], losing_color[2], losing_color[3], transp_bg)
+            losing_color[4] = transp_bg
+            love.graphics.setColor( unpack( losing_color ) )
         end
         slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self)  * self.old_hp / self.max_hp , bar_height - 6 )
     end
     if self.hp > 0 then
-        love.graphics.setColor(self.color[1], self.color[2], self.color[3], transp_bg)
+        self.color[4] = transp_bg
+        love.graphics.setColor( unpack( self.color ) )
         slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) * self.hp / self.max_hp + 1, bar_height - 6 )
     end
     love.graphics.setColor(255,255,255, transp_bg)
@@ -203,7 +207,8 @@ function InfoBar:draw_lifebar(l, t, transp_bg)
         gfx.ui.right_slant.q,
         l + self.x - 4 + calcBarWidth(self), t + self.y + icon_height + 3
     )
-    love.graphics.setColor(bar_top_bottom_smooth_color[1], bar_top_bottom_smooth_color[2], bar_top_bottom_smooth_color[3], math.min(255,transp_bg) - 127)
+    bar_top_bottom_smooth_color[4] = math.min(255,transp_bg) - 127
+    love.graphics.setColor( unpack( bar_top_bottom_smooth_color ) )
     love.graphics.rectangle('fill', l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self), 1)
     love.graphics.rectangle('fill', l + self.x + 0, t + self.y + icon_height + bar_height - 1, calcBarWidth(self), 1)
 end
@@ -274,8 +279,8 @@ end
 function InfoBar:draw_item_bar(l,t,w,h)
     local cool_down_transparency = calcTransparency(self.cool_down)
     transp_bg = 255 * cool_down_transparency
-
-    love.graphics.setColor(self.icon_color.r, self.icon_color.g, self.icon_color.b, transp_bg)
+    self.icon_color[4] = transp_bg
+    love.graphics.setColor( unpack( self.icon_color ) )
     love.graphics.draw (
         self.icon_sprite,
         self.q, --Current frame of the current animation
@@ -285,7 +290,8 @@ function InfoBar:draw_item_bar(l,t,w,h)
     love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.x + icon_width + 4 + 0, t + self.y + 9 - 0)
-    love.graphics.setColor(bar_yellow_color[1], bar_yellow_color[2], bar_yellow_color[3], transp_bg)
+    bar_yellow_color[4] = transp_bg
+    love.graphics.setColor( unpack( bar_yellow_color ) )
     printWithShadow(self.note, l + self.x + icon_width + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0)
 end
 

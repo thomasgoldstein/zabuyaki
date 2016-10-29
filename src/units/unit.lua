@@ -43,12 +43,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self.hold = {source = nil, target = nil, cool_down = 0 }
     self.isThrown = false
     self.victims = {} -- [victim] = true
-
-	if color then
-		self.color = { r = color[1], g = color[2], b = color[3], a = color[4] }
-	else
-		self.color = { r= 255, g = 255, b = 255, a = 255 }
-	end
+	self.color = color or { 255, 255, 255, 255 }
 	self.isDisabled = false
 
 	self.draw = nop
@@ -230,10 +225,11 @@ function Unit:default_draw(l,t,w,h)
 		--draw_debug_unit_cross(self)
 		self.sprite.flip_h = self.face  --TODO get rid of .face
         if self.cool_down_death < 1 then
-            love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a * math.sin(self.cool_down_death))
-        else
-            love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
+            self.color[4] = 255 * math.sin( self.cool_down_death )
+		else
+			self.color[4] = 255
 		end
+		love.graphics.setColor( unpack( self.color ) )
 		if self.shader then
 			love.graphics.setShader(self.shader)
 		end
