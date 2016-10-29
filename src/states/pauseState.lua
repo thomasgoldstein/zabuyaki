@@ -109,11 +109,11 @@ function pauseState:update(dt)
 end
 
 function pauseState:draw()
-    push:apply("start")
     if GLOBAL_SCREENSHOT then
         love.graphics.setColor(255, 255, 255, 256 * 0.75) --darkened screenshot
         love.graphics.draw(GLOBAL_SCREENSHOT, 0, 0)
     end
+    push:apply("start")
     for i = 1,#menu do
         local m = menu[i]
         if i == old_menu_state then
