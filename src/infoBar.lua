@@ -151,7 +151,8 @@ function InfoBar:draw_name(l, t, transp_bg)
     if self.source.type == "player" or self.source.lives > 1 then
         local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
         if c then
-            love.graphics.setColor(c[1],c[2],c[3], transp_bg)
+            c[4] = transp_bg
+            love.graphics.setColor(unpack( c ))
         end
         printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1 )
         love.graphics.setColor(bar_yellow_color[1], bar_yellow_color[2], bar_yellow_color[3], transp_bg)
@@ -234,7 +235,8 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             printWithShadow(self.source.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9 )
             local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
             if c then
-                love.graphics.setColor(c[1],c[2],c[3], transp_bg)
+                c[4] = transp_bg
+                love.graphics.setColor(unpack( c ))
             end
             printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1 )
             --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )

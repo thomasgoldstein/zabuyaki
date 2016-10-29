@@ -214,7 +214,8 @@ function Unit:drawPID(x, y_)
 	end
 	local y = y_ - math.cos(self.show_pid_cool_down*6)
 	local c = GLOBAL_SETTING.PLAYERS_COLORS[self.id]
-	love.graphics.setColor(c[1],c[2],c[3], calcTransparency(self.show_pid_cool_down))
+	c[4] = calcTransparency(self.show_pid_cool_down)
+	love.graphics.setColor( unpack( c ) )
 	love.graphics.rectangle( "fill", x - 15, y, 30, 17 )
 	love.graphics.polygon( "fill", x, y + 20, x - 2 , y + 17, x + 2, y + 17 )
 	love.graphics.setColor(0, 0, 0, calcTransparency(self.show_pid_cool_down))

@@ -173,10 +173,8 @@ local function drawPID(x, y_, i, confirmed)
         return
     end
     local y = y_ - math.cos(x+time*6)
-    local c = GLOBAL_SETTING.PLAYERS_COLORS[i]
-    love.graphics.setColor(c[1],c[2],c[3], 255)
+    love.graphics.setColor( unpack( GLOBAL_SETTING.PLAYERS_COLORS[i] ) )
     love.graphics.rectangle( "fill", x - 30, y, 60, 34 )
---    love.graphics.polygon( "fill", x, y + 40, x - 4 , y + 34, x + 4, y + 34 ) --arrow down
     love.graphics.polygon( "fill", x, y - 6, x - 4 , y - 0, x + 4, y - 0 ) --arrow up
     love.graphics.setColor(0, 0, 0, 255)
     if confirmed then
@@ -388,7 +386,8 @@ function heroSelectState:draw()
             drawPID(players[i].nx, players[i].ny, i, players[i].confirmed)
         else
             local c = GLOBAL_SETTING.PLAYERS_COLORS[i]
-            love.graphics.setColor(c[1], c[2], c[3], 230 + math.sin(time * 4)*25)
+            c[4] = 230 + math.sin(time * 4)*25
+            love.graphics.setColor( unpack( c ) )
             love.graphics.setFont(gfx.font.arcade3x2)
             love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPUSH\nANY\nBUTTON", h.x - portrait_width/2 + 20, h.y - portrait_height + 48)
         end
