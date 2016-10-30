@@ -93,17 +93,15 @@ end
 function Unit:showHitMarks(dmg, z)
 	local pa_hitMark
 	if dmg < 1 then
-		return	-- e.g. ShockWave with 0 DMG
+		return	-- e.g. Respawn ShockWave with 0 DMG
 	elseif dmg < 9 then
 		pa_hitMark = PA_IMPACT_SMALL:clone()
-		pa_hitMark:setPosition( 0, -z )
 	elseif dmg < 14 then
 		pa_hitMark = PA_IMPACT_MEDIUM:clone()
-		pa_hitMark:setPosition( 0, -z )
 	else
 		pa_hitMark = PA_IMPACT_BIG:clone()
-		pa_hitMark:setPosition( 0, -z )
 	end
+	pa_hitMark:setPosition( self.face * 4, -z )
 	pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
 	pa_hitMark:emit(1)
 	stage.objects:add(Effect:new(pa_hitMark, self.x, self.y + 3))
