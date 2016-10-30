@@ -35,8 +35,8 @@ local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 9, "fall", sl
 local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall", slf.velx) end --slf.velocity_fall_x
 local jump_run_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 17, "fall", slf.velx) end --slf.velocity_fall_x
 local jump_light_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 9, "high", slf.velx) end
-local jump_straight_attack1 = function(slf) slf:checkAndAttack(20,0, 25,12, 8, "high", slf.velx) end
-local jump_straight_attack2 = function(slf) slf:checkAndAttack(20,0, 25,12, 8, "fall", slf.velocity_fall_x, nil, true) end
+local jump_straight_attack1 = function(slf) slf:checkAndAttack(20,0, 25,12, 7, "high", slf.velx) end
+local jump_straight_attack2 = function(slf) slf:checkAndAttack(20,0, 25,12, 9, "fall", slf.velocity_fall_x, nil, true) end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
 
 return {
