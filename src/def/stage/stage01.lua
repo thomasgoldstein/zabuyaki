@@ -69,10 +69,10 @@ function Stage01:initialize(players)
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
     --arrange sprites along the big picture
 
-    for i = 0, 13 do
+    for i = 0, 33 do
         --(bgSky, qSky, x, y, slow_down_parallaxX, slow_down_parallaxY, auto_scroll_x, scroll_y
         self.background:add(bgSky, qSky, i * 32 - 2 , 302,
-            1, 0) --keep still horizontally despite of the scrolling
+            0.75, 0) --keep still vertically despite of the scrolling
     end
 
     for i = 0, 7 do
