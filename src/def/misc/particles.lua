@@ -8,9 +8,9 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local imp_small_quad1 = q(2,2,19,22) -- impact small 1/3
-local imp_small_quad2 = q(23,2,19,22) -- impact small 2/3
-local imp_small_quad3 = q(44,2,19,22) -- impact small 3/3
+local imp_small_quad1 = q(2,2,21,22) -- impact small 1/3
+local imp_small_quad2 = q(25,2,21,22) -- impact small 2/3
+local imp_small_quad3 = q(48,2,21,22) -- impact small 3/3
 
 local imp_medium_quad1 = q(2,26,27,26) -- impact medium 1/3
 local imp_medium_quad2 = q(31,26,27,26) -- impact medium 2/3
@@ -71,7 +71,7 @@ psystem:setPosition( 0, -4 )
 PA_DUST_LANDING_UNUSED = psystem
 
 psystem = love.graphics.newParticleSystem( img, 4 )
-psystem:setOffset( 9, 11 )
+psystem:setOffset( 10, 11 )
 psystem:setParticleLifetime(0.15)
 psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
 psystem:setQuads( imp_small_quad1, imp_small_quad2, imp_small_quad3 )
