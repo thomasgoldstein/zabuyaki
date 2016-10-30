@@ -40,12 +40,12 @@ function arcadeState:update(dt)
     end
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
-        GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
+        GLOBAL_SCREENSHOT = canvas
         return Gamestate.push(pauseState)
     end
     -- Screenshot Pause
     if Control1.screenshot:pressed() then
-        GLOBAL_SCREENSHOT = love.graphics.newImage(love.graphics.newScreenshot(false))
+        GLOBAL_SCREENSHOT = canvas
         return Gamestate.push(screenshotState)
     end
     watch_debug_variables()

@@ -111,7 +111,11 @@ end
 function pauseState:draw()
     if GLOBAL_SCREENSHOT then
         love.graphics.setColor(255, 255, 255, 256 * 0.75) --darkened screenshot
-        love.graphics.draw(GLOBAL_SCREENSHOT, 0, 0)
+        if push._fullscreen then
+            love.graphics.draw(GLOBAL_SCREENSHOT, push._OFFSET.x, push._OFFSET.y, nil, push._SCALE * 0.5)
+        else
+            love.graphics.draw(GLOBAL_SCREENSHOT, 0, 0, nil, 0.5)
+        end
     end
     push:apply("start")
     for i = 1,#menu do
