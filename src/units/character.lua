@@ -225,15 +225,27 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
     if init_victims_list then
         self.victims = {}
     end
-    local items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
-        function(o)
-            if self ~= o and o.isHittable and not self.victims[o]
-                    and o.z <= self.z + o.height and o.z >= self.z - self.height
-            then
-                --print ("hit "..item.name)
-                return true
-            end
-        end)
+    local items, len
+    if type == "shockWave" then
+        items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+            function(o)
+                if self ~= o and not o.isDisabled
+                then
+                    --print ("hit "..item.name)
+                    return true
+                end
+            end)
+    else
+        items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+            function(o)
+                if self ~= o and o.isHittable and not o.isDisabled and not self.victims[o]
+                        and o.z <= self.z + o.height and o.z >= self.z - self.height
+                then
+                    --print ("hit "..item.name)
+                    return true
+                end
+            end)
+    end
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
