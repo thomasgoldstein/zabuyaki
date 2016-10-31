@@ -43,15 +43,15 @@ local save_entries = { --only entries should be saved
 configuration.defaults = {}
 for k, v in ipairs(save_entries) do
     configuration.defaults[v] = GLOBAL_SETTING[v]
+    print(k,v,configuration.defaults[v])
 end
 
 -- Reset to defaults
 function configuration:reset()
-    GLOBAL_SETTING = {}
-    for k, v in ipairs(self.defaults) do
+    for k, v in ipairs(save_entries) do
         GLOBAL_SETTING[v] = self.defaults[v]
     end
-    self.dirty = false
+    --self.dirty = false
 end
 
 function configuration:set(key, value)
@@ -59,7 +59,6 @@ function configuration:set(key, value)
         GLOBAL_SETTING[key] = value
         self.dirty = true
     end
-    self:save()
 end
 
 function configuration:get(key)
