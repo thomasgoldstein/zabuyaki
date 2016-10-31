@@ -22,12 +22,12 @@ local txt_option1 = love.graphics.newText( gfx.font.arcade4, "BGM ON" )
 local txt_option1a = love.graphics.newText( gfx.font.arcade4, "BGM OFF" )
 local txt_option2 = love.graphics.newText( gfx.font.arcade4, "NORMAL" )
 local txt_option2a = love.graphics.newText( gfx.font.arcade4, "HARD" )
-local txt_option3 = love.graphics.newText( gfx.font.arcade4, "? ? ? ? ?" )
+local txt_option3 = love.graphics.newText( gfx.font.arcade4, "DEFAULTS" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "Back" )
 
 local txt_option1_hint = love.graphics.newText( gfx.font.arcade4, "Background Music" )
 local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "Game Difficulty Mode" )
-local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "Locked" )
+local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "Reset To Defaults Options" )
 local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Exit to the Title" )
 
 local rick_spr = GetSpriteInstance("src/def/char/rick.lua")
@@ -36,11 +36,21 @@ rick_spr.size_scale = 4
 
 local txt_items = {txt_option1, txt_option2, txt_option3, txt_quit}
 local txt_hints = {txt_option1_hint, txt_option2_hint, txt_option3_hint, txt_quit_hint }
-if GLOBAL_SETTING.DIFFICULTY == 1 then
-    txt_items[2] = txt_option2
-else
-    txt_items[2] = txt_option2a
+
+local function set_items_according_the_options()
+    if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
+        txt_items[1] = txt_option1
+    else
+        txt_items[1] = txt_option1a
+    end
+    if GLOBAL_SETTING.DIFFICULTY == 1 then
+        txt_items[2] = txt_option2
+    else
+        txt_items[2] = txt_option2a
+    end
+    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
+set_items_according_the_options()
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -183,12 +193,19 @@ function optionsState:confirm( x, y, button, istouch )
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
             SetSpriteAnimation(rick_spr,"pickup")
+            configuration:reset()
+            configuration.dirty = true
+            set_items_according_the_options()
+            menu = fillMenu(txt_items, txt_hints)
+
         elseif menu_state == 4 then
             sfx.play("sfx","menu_cancel")
+            configuration:save()
             return Gamestate.pop()
         end
     elseif button == 2 then
         sfx.play("sfx","menu_cancel")
+        self:save()
         return Gamestate.pop()
     end
 end
