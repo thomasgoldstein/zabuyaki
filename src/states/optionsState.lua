@@ -205,7 +205,7 @@ function optionsState:confirm( x, y, button, istouch )
         end
     elseif button == 2 then
         sfx.play("sfx","menu_cancel")
-        self:save()
+        configuration:save()
         return Gamestate.pop()
     end
 end
