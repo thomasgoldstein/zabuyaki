@@ -43,7 +43,6 @@ local save_entries = { --only entries should be saved
 configuration.defaults = {}
 for k, v in ipairs(save_entries) do
     configuration.defaults[v] = GLOBAL_SETTING[v]
-    print(k,v,configuration.defaults[v])
 end
 
 -- Reset to defaults
