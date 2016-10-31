@@ -10,27 +10,9 @@
 
 GLOBAL_SCREENSHOT = false	--keep current screenshop
 
-GLOBAL_SETTING = {}
-GLOBAL_SETTING.MAX_PLAYERS = 3
-GLOBAL_SETTING.DEBUG = false
-GLOBAL_SETTING.OFFSCREEN = 1000
-GLOBAL_SETTING.FULL_SCREEN = false
-GLOBAL_SETTING.WINDOW_WIDTH = 640
-GLOBAL_SETTING.WINDOW_HEIGHT = 480
-GLOBAL_SETTING.BGM_VOLUME = 0.75
-GLOBAL_SETTING.SFX_VOLUME = 1
-GLOBAL_SETTING.CENSORSHIP = true
-GLOBAL_SETTING.PLAYERS_NAMES = {"P1", "P2", "P3"}
-GLOBAL_SETTING.PLAYERS_COLORS = {{204, 38, 26}, {24, 137, 20}, {23, 84, 216} } -- Don't add the transparency
-GLOBAL_SETTING.AUTO_COMBO = false
-GLOBAL_SETTING.DIFFICULTY = 1 -- 1 = Normal, 2 = Hard
-GLOBAL_SETTING.MAX_CREDITS = 3
-GLOBAL_SETTING.MAX_LIVES = 3
-GLOBAL_SETTING.MOUSE_ENABLED = true
-GLOBAL_SETTING.SHADERS_ENABLED = true
-GLOBAL_SETTING.PROFILER_ENABLED = false
-GLOBAL_SETTING.FPSRATE_ENABLED = false
-GLOBAL_SETTING.SHOW_GRID = false
+configuration = require "src/configuration"
+configuration:load()
+configuration:save()
 
 -- global vars
 stage = nil
@@ -42,8 +24,8 @@ attackHitBoxes = {} -- DEBUG
 
 function switchFullScreen()
     push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT)
-    GLOBAL_SETTING.MOUSE_ENABLED = not push._fullscreen
-    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
+	configuration:set("MOUSE_ENABLED",not push._fullscreen)
+    love.mouse.setVisible( configuration:get("MOUSE_ENABLED") )
 end
 
 function love.load(arg)
@@ -114,8 +96,8 @@ function love.load(arg)
 	bind_game_input()
 
     -- Hide mouse cursor if Fullscreen by default
-    GLOBAL_SETTING.MOUSE_ENABLED = not push._fullscreen
-    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
+	configuration:set("MOUSE_ENABLED",not push._fullscreen)
+    love.mouse.setVisible( configuration:get("MOUSE_ENABLED") )
 
 	--GameStates
 	require "src/states/titleState"

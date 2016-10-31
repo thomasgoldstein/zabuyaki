@@ -130,7 +130,7 @@ function pauseState:draw()
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(m.item, m.x, m.y )
-        if GLOBAL_SETTING.MOUSE_ENABLED and
+        if configuration:get("MOUSE_ENABLED") and
                 CheckPointCollision(mouse_x, mouse_y, m.x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin ) then
             menu_state = i
         end
@@ -159,14 +159,14 @@ function pauseState:confirm( x, y, button, istouch )
 end
 
 function pauseState:mousepressed( x, y, button, istouch )
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
+    if not configuration:get("MOUSE_ENABLED") then
         return
     end
     pauseState:confirm( x, y, button, istouch )
 end
 
 function pauseState:mousemoved( x, y, dx, dy)
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
+    if not configuration:get("MOUSE_ENABLED") then
         return
     end
     mouse_x, mouse_y = x, y

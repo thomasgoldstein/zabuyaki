@@ -137,7 +137,7 @@ function optionsState:draw()
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(m.item, m.x, m.y )
-        if GLOBAL_SETTING.MOUSE_ENABLED and
+        if configuration:get("MOUSE_ENABLED") and
                 CheckPointCollision(mouse_x, mouse_y, m.x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin ) then
             menu_state = i
         end
@@ -158,24 +158,24 @@ function optionsState:confirm( x, y, button, istouch )
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
             SetSpriteAnimation(rick_spr,"hurtHigh")
-            if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
-                GLOBAL_SETTING.BGM_VOLUME = 0
+            if configuration:get("BGM_VOLUME") ~= 0 then
+                configuration:set("BGM_VOLUME", 0)
                 txt_items[1] = txt_option1a
             else
-                GLOBAL_SETTING.BGM_VOLUME = 0.75
+                configuration:set("BGM_VOLUME", 0.75)
                 txt_items[1] = txt_option1
             end
-            TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+            TEsound.volume("music", configuration:get("BGM_VOLUME"))
             menu = fillMenu(txt_items, txt_hints)
 
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
             SetSpriteAnimation(rick_spr,"hurtLow")
-            if GLOBAL_SETTING.DIFFICULTY == 1 then
-                GLOBAL_SETTING.DIFFICULTY = 2
+            if configuration:get("DIFFICULTY") == 1 then
+                configuration:set("DIFFICULTY", 2)
                 txt_items[2] = txt_option2a
             else
-                GLOBAL_SETTING.DIFFICULTY = 1
+                configuration:set("DIFFICULTY", 1)
                 txt_items[2] = txt_option2
             end
             menu = fillMenu(txt_items, txt_hints)
@@ -194,7 +194,7 @@ function optionsState:confirm( x, y, button, istouch )
 end
 
 function optionsState:mousepressed( x, y, button, istouch )
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
+    if not configuration:get("MOUSE_ENABLED") then
         return
     end
     optionsState:confirm( x, y, button, istouch )
@@ -202,7 +202,7 @@ end
 
 
 function optionsState:mousemoved( x, y, dx, dy)
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
+    if not configuration:get("MOUSE_ENABLED") then
         return
     end
     mouse_x, mouse_y = x, y
