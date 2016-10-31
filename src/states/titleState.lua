@@ -173,7 +173,7 @@ function titleState:draw()
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(m.item, m.x, m.y )
-        if configuration:get("MOUSE_ENABLED") and
+        if GLOBAL_SETTING.MOUSE_ENABLED and
                 CheckPointCollision(mouse_x, mouse_y, m.x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin ) then
             menu_state = i
         end
@@ -208,7 +208,7 @@ function titleState:confirm( x, y, button, istouch )
 end
 
 function titleState:mousepressed( x, y, button, istouch )
-    if not configuration:get("MOUSE_ENABLED") then
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
     if mode == "movie" then
@@ -218,7 +218,7 @@ function titleState:mousepressed( x, y, button, istouch )
 end
 
 function titleState:mousemoved( x, y, dx, dy)
-    if not configuration:get("MOUSE_ENABLED") then
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
     if mode == "movie" then

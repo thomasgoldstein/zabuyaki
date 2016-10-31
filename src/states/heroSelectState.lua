@@ -442,14 +442,14 @@ function heroSelectState:confirm( x, y, button, istouch )
 end
 
 function heroSelectState:mousepressed( x, y, button, istouch )
-    if not configuration:get("MOUSE_ENABLED") then
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
     heroSelectState:confirm( x, y, button, istouch )
 end
 
 function heroSelectState:mousemoved( x, y, dx, dy)
-    if not configuration:get("MOUSE_ENABLED") then
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
     p1_mouse_pos = 2

@@ -12,7 +12,7 @@ GLOBAL_SCREENSHOT = false	--keep current screenshop
 
 configuration = require "src/configuration"
 configuration:load()
-configuration:save()
+--configuration:save()
 
 -- global vars
 stage = nil
@@ -23,9 +23,9 @@ credits = GLOBAL_SETTING.MAX_CREDITS
 attackHitBoxes = {} -- DEBUG
 
 function switchFullScreen()
-    push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT)
+    push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH,GLOBAL_SETTING.WINDOW_HEIGHT)
 	configuration:set("MOUSE_ENABLED",not push._fullscreen)
-    love.mouse.setVisible( configuration:get("MOUSE_ENABLED") )
+    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 end
 
 function love.load(arg)
@@ -48,8 +48,9 @@ function love.load(arg)
 	tactile = require 'lib/tactile'
 
 	push = require "lib/push"
+	--push._fullscreen = not GLOBAL_SETTING.FULL_SCREEN) -- fix push library if start from FS
     push:setupScreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
-        GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
+	GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
         {fullscreen = GLOBAL_SETTING.FULL_SCREEN, resizable = false})
 
 	Gamestate = require "lib/hump.gamestate"
@@ -97,7 +98,7 @@ function love.load(arg)
 
     -- Hide mouse cursor if Fullscreen by default
 	configuration:set("MOUSE_ENABLED",not push._fullscreen)
-    love.mouse.setVisible( configuration:get("MOUSE_ENABLED") )
+    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 
 	--GameStates
 	require "src/states/titleState"
@@ -165,7 +166,7 @@ function love.keypressed(key, unicode)
 		Prof:keypressed(key, unicode)
 	end
 	if key == '0' then
-		GLOBAL_SETTING.DEBUG = not GLOBAL_SETTING.DEBUG
+		configuration:set("DEBUG", not GLOBAL_SETTING.DEBUG)
 		sfx.play("sfx","menu_move")
 	end
 	if GLOBAL_SETTING.FPSRATE_ENABLED and framerateGraph.keypressed(key) then

@@ -5,6 +5,11 @@ local configuration = {
     defaults = {}
 }
 
+--[[
+configuration:get(key)
+configuration:set(key, value)
+ ]]
+
 -- must be global
 magic_string, magic_string_def = "", "EOF42"
 GLOBAL_SETTING = {
@@ -30,7 +35,8 @@ GLOBAL_SETTING = {
     SHOW_GRID = false,
 }
 local save_entries = { --only entries should be saved
-    "DEBUG", "FULL_SCREEN", "BGM_VOLUME", "SFX_VOLUME", "CENSORSHIP", "DIFFICULTY",
+--    "FULL_SCREEN",
+    "DEBUG", "BGM_VOLUME", "SFX_VOLUME", "CENSORSHIP", "DIFFICULTY",
     "MAX_CREDITS", "MAX_LIVES", "MOUSE_ENABLED", "SHADERS_ENABLED"
 }
 -- save defaults
@@ -70,7 +76,6 @@ function configuration:save()
         t[v] = GLOBAL_SETTING[v]
     end
     for k, v in pairs(t) do
-        --print ("save ", k, v)
         s = s .. "GLOBAL_SETTING."..k.."="..tostring(v)..";"
     end
     s = s .. "magic_string='"..magic_string_def.."'"
@@ -79,7 +84,6 @@ function configuration:save()
     else
         print("FAIL writing to file '"..self.file_name.."' ")
     end
-    --print (s)
     self.dirty = false
 end
 
@@ -91,10 +95,7 @@ function configuration:load()
             print("Error reading file '"..self.file_name.."' may be broken")
         else
             print("Read file '"..self.file_name.."' OK.")
-            --print (s)
-            --print(magic_string,magic_string_def)
             if pcall(loadstring(s)) then
-                --print(magic_string,magic_string_def)
                 print("Parse its content OK.")
                 if magic_string == magic_string_def then
                     print("Magic string OK.")
@@ -105,9 +106,6 @@ function configuration:load()
                 print("Parse its content FAIL.")
             end
         end
---        for k, v in pairs(GLOBAL_SETTING) do
---            print (k, v)
---        end
     else
         print("FAIL No file '"..self.file_name.."' to load")
     end
