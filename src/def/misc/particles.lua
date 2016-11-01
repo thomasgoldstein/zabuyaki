@@ -123,10 +123,10 @@ psystem:setLinearDamping( 7, 10 )
 --psystem:setSpin(0, -3)
 PA_DASH = psystem
 
-psystem = love.graphics.newParticleSystem( gfx.food.image, 1 )
+psystem = love.graphics.newParticleSystem( gfx.loot.image, 1 )
 psystem:setLinearAcceleration(0, -75, 0, -85)
 psystem:setDirection( 4.71 )
 psystem:setParticleLifetime(1)
 --psystem:setSizes(1, 1, 1.1)
 psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0)
-PA_FOOD_GET = psystem
+PA_LOOT_GET = psystem

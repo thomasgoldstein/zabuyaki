@@ -305,22 +305,22 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
     end
 end
 
-function Character:checkForFood(w, h)
-    --got any food near feet?
-    local food, len = stage.world:queryRect(self.x - w/2, self.y - h/2, w, h,
-        function(food)
-            if food.type == "food" and not food.isEnabled then
+function Character:checkForLoot(w, h)
+    --got any loot near feet?
+    local loot, len = stage.world:queryRect(self.x - w/2, self.y - h/2, w, h,
+        function(loot)
+            if loot.type == "loot" and not loot.isEnabled then
                 return true
             end
         end)
     if len > 0 then
-        return food[1]
+        return loot[1]
     end
     return nil
 end
 
-function Character:onGetFood(food)
-    food:get(self)
+function Character:onGetLoot(loot)
+    loot:get(self)
 end
 
 function Character:stand_start()
@@ -370,7 +370,7 @@ function Character:stand_update(dt)
         self:setState(self.duck2jump)
         return
     elseif self.can_attack and self.b.attack:isDown() then
-        if self:checkForFood(9, 9) ~= nil then
+        if self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
             return
         end
@@ -432,7 +432,7 @@ function Character:walk_update(dt)
         self.can_attack = true
     end
     if self.b.attack:isDown() and self.can_attack then
-        if self:checkForFood(9, 9) ~= nil then
+        if self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
         else
             self:setState(self.combo)
@@ -630,17 +630,17 @@ Character.jump = {name = "jump", start = Character.jump_start, exit = nop, updat
 function Character:pickup_start()
     self.isHittable = false
     --	print (self.name.." - pickup start")
-    local food = self:checkForFood(9, 9)
-    if food then
-        self.victim_infoBar = food.infoBar:setPicker(self)
-        --disappearing food
-        local psystem = PA_FOOD_GET:clone()
-        psystem:setQuads( food.q )
-        psystem:setOffset( food.ox, food.oy )
-        psystem:setPosition( food.x - self.x, food.y - self.y - 10 )
+    local loot = self:checkForLoot(9, 9)
+    if loot then
+        self.victim_infoBar = loot.infoBar:setPicker(self)
+        --disappearing loot
+        local psystem = PA_LOOT_GET:clone()
+        psystem:setQuads( loot.q )
+        psystem:setOffset( loot.ox, loot.oy )
+        psystem:setPosition( loot.x - self.x, loot.y - self.y - 10 )
         psystem:emit(1)
         stage.objects:add(Effect:new(psystem, self.x, self.y + 10))
-        self:onGetFood(food)
+        self:onGetLoot(loot)
     end
     SetSpriteAnimation(self.sprite,"pickup")
     self.z = 0

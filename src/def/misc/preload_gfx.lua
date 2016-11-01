@@ -1,6 +1,6 @@
 -- Date: 28.09.2016
 -- Preload common gfx and fonts
-local gfx = {food = {}, ui = {}, font = {}}
+local gfx = {loot = {}, ui = {}, font = {}}
 
 local image_w
 local image_h
@@ -8,13 +8,13 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local image = love.graphics.newImage("res/img/misc/food.png")
+local image = love.graphics.newImage("res/img/misc/loot.png")
 image_w = 34 --This info can be accessed with a Love2D call
 image_h = 63 --after the image has been loaded
-gfx.food.apple = {sprite = image, q = q(2,2,18,17), ox = 9, oy = 16 }
-gfx.food.chicken = {sprite = image, q = q(2,21,30,19), ox = 12, oy = 18 }
-gfx.food.beef = {sprite = image, q = q(2,42,30,19), ox = 15, oy = 18 }
-gfx.food.image = image --for food particles
+gfx.loot.apple = {sprite = image, q = q(2,2,18,17), ox = 9, oy = 16 }
+gfx.loot.chicken = {sprite = image, q = q(2,21,30,19), ox = 12, oy = 18 }
+gfx.loot.beef = {sprite = image, q = q(2,42,30,19), ox = 15, oy = 18 }
+gfx.loot.image = image --for loot particles
 
 local ui = love.graphics.newImage("res/img/misc/ui.png")
 image_w = 35

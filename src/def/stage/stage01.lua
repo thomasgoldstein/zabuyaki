@@ -118,11 +118,11 @@ function Stage01:initialize(players)
     local niko6 = Niko:new("niko6", GetSpriteInstance("src/def/char/niko.lua"), button3, 1525 + love.math.random(-20,20), top_floor_y + 50, nil, {255,255,255, 255})
     niko6:setToughness(5)
 
-    --Food:initialize(name, sprite, hp, money, func, x, y, shader, color)
-    local food1 = Food:new("Apple", "+15 HP", gfx.food.apple, 15, 0, nil, 130,top_floor_y + 30)
-    local food2 = Food:new("Chicken", "+50 HP", gfx.food.chicken, 50, 0, nil, 660,top_floor_y + 50)
-    --    food2 = Food:new("Custom func sample", "+20 Pts.", gfx.food.apple, 20, 0, function(s, t) dp(t.name .. " called custom food ("..s.name..") func") end, 460,180)
-    local food3 = Food:new("Beef", "+100 HP", gfx.food.beef, 100, 0, nil, 750,top_floor_y + 40 )
+    --Loot:initialize(name, sprite, hp, money, func, x, y, shader, color)
+    local loot1 = Loot:new("Apple", "+15 HP", gfx.loot.apple, 15, 0, nil, 130,top_floor_y + 30)
+    local loot2 = Loot:new("Chicken", "+50 HP", gfx.loot.chicken, 50, 0, nil, 660,top_floor_y + 50)
+    --    loot2 = Loot:new("Custom func sample", "+20 Pts.", gfx.loot.apple, 20, 0, function(s, t) dp(t.name .. " called custom loot ("..s.name..") func") end, 460,180)
+    local loot3 = Loot:new("Beef", "+100 HP", gfx.loot.beef, 100, 0, nil, 750,top_floor_y + 40 )
 
     local temper1 = Temper:new("TEMPER", GetSpriteInstance("src/def/char/rick.lua"), button3, 567, top_floor_y + 40, shaders.rick[5], {255,255,255, 255})
     -- 3 lives: 100hp+100hp+50hp sample
@@ -147,7 +147,7 @@ function Stage01:initialize(players)
         niko1, niko2, niko3, niko4, niko5, niko6,
         dummy4, dummy5,
         temper1,
-        food1, food2, food3
+        loot1, loot2, loot3
     })
     if player1 then
         self.objects:add(player1)
