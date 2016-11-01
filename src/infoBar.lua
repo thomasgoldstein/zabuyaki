@@ -66,7 +66,7 @@ function InfoBar:initialize(source)
     self.color = norm_color
     self.cool_down = 1
     self.id = self.source.id
-    if source.type == "item" then
+    if source.type == "food" then
         self.icon_sprite = source.sprite
         self.q = source.q  --quad
         self.icon_color = { 255, 255, 255, 255 }
@@ -276,7 +276,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     end
 end
 
-function InfoBar:draw_item_bar(l,t,w,h)
+function InfoBar:draw_food_bar(l,t,w,h)
     local cool_down_transparency = calcTransparency(self.cool_down)
     transp_bg = 255 * cool_down_transparency
     self.icon_color[4] = transp_bg
@@ -299,8 +299,8 @@ function InfoBar:draw(l,t,w,h)
     if self.cool_down <= 0 and self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
         return
     end
-    if self.source.type == "item" then
-        self:draw_item_bar(l,t,w,h)
+    if self.source.type == "food" then
+        self:draw_food_bar(l,t,w,h)
     else
         self:draw_enemy_bar(l,t,w,h)
     end

@@ -3,7 +3,7 @@
 --
 local class = require "lib/middleclass"
 
-local Item = class("Item", Unit)
+local Food = class("Food", Unit)
 
 local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
     return x1 < x2+w2 and
@@ -12,15 +12,15 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 
-function Item:initialize(name, note, gfx, hp, score, func, x, y, shader, color)
+function Food:initialize(name, note, gfx, hp, score, func, x, y, shader, color)
     self.sprite = gfx.sprite
     self.q = gfx.q
     self.ox = gfx.ox
     self.oy = gfx.oy
 
-    self.name = name or "Unknown Item"
+    self.name = name or "Unknown Food"
     self.note = note or "???"
-    self.type = "item"
+    self.type = "food"
     self.hp = hp
     self.score = score
     self.func = func
@@ -38,7 +38,7 @@ function Item:initialize(name, note, gfx, hp, score, func, x, y, shader, color)
     GLOBAL_UNIT_ID = GLOBAL_UNIT_ID + 1
 end
 
-function Item:drawShadow(l,t,w,h)
+function Food:drawShadow(l,t,w,h)
     --TODO adjust sprite dimensions
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
         love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
@@ -53,7 +53,7 @@ function Item:drawShadow(l,t,w,h)
     end
 end
 
-function Item:draw(l,t,w,h)
+function Food:draw(l,t,w,h)
     --TODO adjust sprite dimensions.
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
         love.graphics.setColor( unpack( self.color ) )
@@ -68,22 +68,22 @@ function Item:draw(l,t,w,h)
     end
 end
 
-function Item:onHurt()
+function Food:onHurt()
 end
 
-function Item:update(dt)
+function Food:update(dt)
     if self.isDisabled then
         return
     end
     --custom code here. e.g. for triggers / keys
 end
 
-function Item:updateAI(dt)
+function Food:updateAI(dt)
     --    Unit.updateAI(self, dt)
 --     print("updateAI "..self.type.." "..self.name)
 end
 
-function Item:get(taker)
+function Food:get(taker)
     dp(taker.name .. " got "..self.name.." HP+ ".. self.hp .. ", $+ " .. self.score)
     if self.func then    --run custom function if there is
         self:func(taker)
@@ -102,4 +102,4 @@ function Item:get(taker)
     --self.y = GLOBAL_SETTING.OFFSCREEN --keep in the stage for proper save/load
 end
 
-return Item
+return Food
