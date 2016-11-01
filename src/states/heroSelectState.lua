@@ -205,7 +205,7 @@ function heroSelectState:enter()
     Control3.attack:update()
     --start BGM
 --    TEsound.stop("music")
---    TEsound.playLooping("res/bgm/rockdrive.xm", "music")
+--    TEsound.playLooping(bgm.intro, "music")
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end

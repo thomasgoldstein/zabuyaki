@@ -78,7 +78,7 @@ function titleState:enter(_, param)
     time = 0
     if param ~= "dontStartMusic" then
         TEsound.stop("music")
-        TEsound.playLooping("res/bgm/theme.xm", "music")
+        TEsound.playLooping(bgm.title, "music")
     end
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
@@ -125,7 +125,7 @@ function titleState:update(dt)
             mode = "normal"
             time = 0
             TEsound.stop("music")
-            TEsound.playLooping("res/bgm/theme.xm", "music")
+            TEsound.playLooping(bgm.title, "music")
         end
         return
     end
