@@ -23,7 +23,7 @@ function arcadeState:enter(_, players)
 
     --start BGM
     TEsound.stop("music")
-    TEsound.playLooping("res/bgm/testtrck.xm", "music")
+    TEsound.playLooping(bgm.level01, "music")
 
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)

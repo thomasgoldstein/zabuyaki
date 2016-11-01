@@ -30,5 +30,5 @@ then fight for your life...]],
     bgColor = { 0, 0, 0 },
     autoSkip = true,
     delayAfterFrame = 3, -- Wait after all the text is shown
-    music = "res/bgm/rockdrive.xm"
+    music = bgm.intro
 }
