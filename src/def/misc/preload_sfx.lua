@@ -50,11 +50,6 @@ SFX.load("pickup_chicken","res/sfx/pickup_chicken.wav", 1)
 SFX.load("pickup_beef","res/sfx/pickup_beef.wav", 1)
 
 SFX.load("fall","res/sfx/fall_down.wav", 1)
-SFX.load("grunt1","res/sfx/tmp/grunt1.wav", 1)
-SFX.load("grunt2","res/sfx/tmp/grunt2.wav", 1)
-SFX.load("grunt3","res/sfx/tmp/grunt3.wav", 1)
-SFX.load("grunt4","res/sfx/tmp/grunt4.wav", 1)
-SFX.load("grunt5","res/sfx/tmp/grunt5.wav", 1)
 
 SFX.load("hit_hard1","res/sfx/hit_hard1.wav", 1)
 SFX.load("hit_hard2","res/sfx/hit_hard2.wav", 1)
