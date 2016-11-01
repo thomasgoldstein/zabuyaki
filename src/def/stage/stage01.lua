@@ -139,7 +139,11 @@ function Stage01:initialize(players)
     local new_niko3 = Niko:new("N.NIK3", GetSpriteInstance("src/def/char/niko.lua"), button3, 260, top_floor_y + 47, shaders.niko[1], {255,255,255, 255})
     local new_niko4 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), button3, 280, top_floor_y + 40, shaders.niko[2], {255,255,255, 255})
 
-    local can1 = Rick:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), nil, 150, top_floor_y + 60)
+    local can2 = Rick:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), nil, 337, top_floor_y + 10)
+    local can1 = Rick:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), nil, 46, top_floor_y + 10)
+    can1.max_hp = 100
+    can1.hp = 49
+    can1.infoBar = InfoBar:new(can1)
 
     self.objects = Entity:new()
     self.objects:addArray({
@@ -150,7 +154,7 @@ function Stage01:initialize(players)
         dummy4, dummy5,
         temper1,
         loot1, loot2, loot3,
-        can1
+        can1, can2
     })
     if player1 then
         self.objects:add(player1)
