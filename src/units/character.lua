@@ -56,11 +56,11 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     --Character default sfx
     self.sfx.jump = "whoosh_heavy"
     self.sfx.throw = "air"
-    self.sfx.dash = "grunt3"
+    self.sfx.dash = "scream1"
     self.sfx.grab = "grab"
-    self.sfx.jump_attack = "grunt1"
+    self.sfx.jump_attack = "scream1"
     self.sfx.step = "kisa_step"
-    self.sfx.dead = "grunt3"
+    self.sfx.dead = "scream1"
 --    self.infoBar = InfoBar:new(self)
 --    self.victim_infoBar = nil
 end
