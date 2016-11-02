@@ -167,5 +167,6 @@ function draw_debug_unit_info(a)
         love.graphics.setColor(0, 0, 0, 120)
         love.graphics.print( a.state, a.x - 14, a.y)
         love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7)
+        love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14)
     end
 end
