@@ -179,6 +179,7 @@ function Enemy:faceToTarget(x, y)
     -- Facing towards the target
     if self.z <= 0
             and self.isHittable
+            and not self.isGrabbed
             and self.state ~= "run"
             and self.state ~= "dash"
     then
