@@ -115,5 +115,9 @@ Gopper.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop
 Gopper.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 Gopper.duck2jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 Gopper.jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+--Disable grabbing
+function Gopper:checkForGrab(range)
+    return nil
+end
 
 return Gopper

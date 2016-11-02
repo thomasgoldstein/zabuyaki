@@ -77,5 +77,9 @@ Niko.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, 
 Niko.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 Niko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
 Niko.dash = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+--Disable grabbing
+function Niko:checkForGrab(range)
+    return nil
+end
 
 return Niko
