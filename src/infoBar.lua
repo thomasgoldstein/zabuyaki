@@ -74,6 +74,14 @@ function InfoBar:initialize(source)
         self.hp = 1
         self.old_hp = 1
         self.x, self.y = 0, 0
+    elseif source.type == "obstacle" then
+        self.icon_sprite = source.sprite.def.sprite_sheet
+        self.q = source.sprite.def.animations["icon"][1].q  --quad
+        self.icon_color = source.color or { 255, 255, 255, 255 }
+        self.max_hp = source.max_hp
+        self.hp = 1
+        self.old_hp = 1
+        self.x, self.y = 0, 0
     else --Player / enemy / object
         if source.type == "player" then
             self.score = -1

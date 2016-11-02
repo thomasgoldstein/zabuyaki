@@ -82,6 +82,7 @@ function love.load(arg)
 	Chai = require "src/units/chai_player"
 	Kisa = require "src/units/kisa_player"
 	Loot = require "src/units/loot"
+	Obstacle = require "src/units/obstacle"
 	Gopper = require "src/units/gopper_enemy"
 	PGopper = require "src/units/gopper_player"
 	Niko = require "src/units/niko_enemy"
