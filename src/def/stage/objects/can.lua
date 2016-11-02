@@ -35,33 +35,33 @@ return {
         },
         hurtLow = {
             { q = q(60,5,27,39), ox = 13, oy = 38 },
-            { q = q(89,9,27,35), ox = 13, oy = 34 }, -- 0 HP
+            { q = q(89,9,27,35), ox = 13, oy = 34 },
             delay = 0.05
         },
         fall = {
-            { q = q(60,5,27,39), ox = 13, oy = 38 }, -- 0 HP
-            delay = 0.05
+            { q = q(2,2,27,42), ox = 13, oy = 41 }, --100% hp
+            delay = 0.15
         },
         thrown = {
-            { q = q(60,5,27,39), ox = 13, oy = 38 }, -- 0 HP
+            { q = q(2,2,27,42), ox = 13, oy = 41 }, --100% hp
             delay = 0.05
         },
         duck = {
             { q = q(89,9,27,35), ox = 13, oy = 34 }, -- 0 HP
-            delay = 0.15
+            delay = 0.06
         },
         fallen = {
-            { q = q(89,9,27,35), ox = 13, oy = 34 }, -- 0 HP
+            { q = q(60,5,27,39), ox = 13, oy = 38 },
             delay = 0.15
         },
         getup = {
             { q = q(89,9,27,35), ox = 13, oy = 34 }, -- 0 HP
-            delay = 0.15
+            delay = 0.06
         },
         grabbed = {
             { q = q(2,2,27,42), ox = 13, oy = 43 }, --100% hp+++
             { q = q(2,2,27,42), ox = 13, oy = 45 }, --100% hp+++
-            delay = 0.05
+            delay = 0.06
         },
     } --offsets
 
