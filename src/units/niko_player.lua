@@ -1,6 +1,6 @@
 local class = require "lib/middleclass"
 
-local PNiko = class('PNiko', Character)
+local Niko = class('PNiko', Character)
 
 local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
     return x1 < x2+w2 and
@@ -11,7 +11,7 @@ end
 
 local function nop() --[[print "nop"]] end
 
-function PNiko:initialize(name, sprite, input, x, y, shader, color)
+function Niko:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "player"
     self.max_hp = 100
@@ -36,10 +36,10 @@ function PNiko:initialize(name, sprite, input, x, y, shader, color)
     --    self.sfx.jump_attack = "rick_attack"
     --    self.sfx.dash = "rick_attack"
     --    self.sfx.step = "rick_step"
-    --    self.sfx.dead = "PNiko_death"
+    --    self.sfx.dead = "Niko_death"
 end
 
-function PNiko:combo_start()
+function Niko:combo_start()
     self.isHittable = true
     --	print (self.name.." - combo start")
     if self.n_combo > 3 or self.n_combo < 1 then
@@ -54,7 +54,7 @@ function PNiko:combo_start()
     end
     self.cool_down = 0.2
 end
-function PNiko:combo_update(dt)
+function Niko:combo_update(dt)
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
         if self.n_combo > 4 then
@@ -66,16 +66,16 @@ function PNiko:combo_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
-PNiko.combo = {name = "combo", start = PNiko.combo_start, exit = nop, update = PNiko.combo_update, draw = Character.default_draw}
+Niko.combo = {name = "combo", start = Niko.combo_start, exit = nop, update = Niko.combo_update, draw = Character.default_draw}
 
 -- Niko's JumpAttacks should end with Fall
-PNiko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
-PNiko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
+Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
+Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
 
 --Block unused moves
-PNiko.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
-PNiko.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-PNiko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
-PNiko.dash = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Niko.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
+Niko.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Niko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
+Niko.dash = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 
-return PNiko
+return Niko
