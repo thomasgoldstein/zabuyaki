@@ -19,6 +19,7 @@ function Obstacle:initialize(name, sprite, hp, score, func, x, y, shader, color)
     self.type = "obstacle"
     self.hp = hp
     self.max_hp = self.hp
+    self.lives = 0
     self.score = score
     self.func = func
     --self.x, self.y, self.z = x, y, 0

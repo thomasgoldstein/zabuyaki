@@ -75,6 +75,8 @@ function InfoBar:initialize(source)
         self.old_hp = 1
         self.x, self.y = 0, 0
     elseif source.type == "obstacle" then
+        self.score = -1
+        self.displayed_score = ""
         self.icon_sprite = source.sprite.def.sprite_sheet
         self.q = source.sprite.def.animations["icon"][1].q  --quad
         self.icon_color = source.color or { 255, 255, 255, 255 }
