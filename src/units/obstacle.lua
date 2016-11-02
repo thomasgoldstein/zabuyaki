@@ -29,25 +29,26 @@ function Obstacle:initialize(name, sprite, hp, score, func, x, y, shader, color)
     self.shader = shader
     self.isHittable = false
     self.isDisabled = false
+    self.sfx.dead = "menu_cancel"
 
     self.infoBar = InfoBar:new(self)
-
-    self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
-    GLOBAL_UNIT_ID = GLOBAL_UNIT_ID + 1
 
     self:setState(self.stand)
 end
 
-function Obstacle:update(dt)
+--function Obstacle:update(dt)
+--    if self.isDisabled then
+--        return
+--    end
+--    --custom code here. e.g. for triggers / keys
+--end
+
+function Obstacle:updateAI(dt)
     if self.isDisabled then
         return
     end
-    --custom code here. e.g. for triggers / keys
-end
-
-function Obstacle:updateAI(dt)
-    --    Unit.updateAI(self, dt)
-    --     print("updateAI "..self.type.." "..self.name)
+    --print("updateAI "..self.type.." "..self.name)
+    UpdateSpriteInstance(self.sprite, dt, self)
 end
 
 function Obstacle:stand_start()
@@ -65,5 +66,30 @@ function Obstacle:stand_update(dt)
     self:checkCollisionAndMove(dt)
 end
 Obstacle.stand = {name = "stand", start = Obstacle.stand_start, exit = nop, update = Obstacle.stand_update, draw = Unit.default_draw}
+
+--function Obstacle:getup_start()
+--    self.isHittable = false
+--    print (self.name.." - getup start")
+--    dpo(self, self.state)
+--    if self.z <= 0 then
+--        self.z = 0
+--    end
+--    self.isThrown = false
+--    if self.hp <= 0 then
+--        self:setState(self.dead)
+--        return
+--    end
+--    SetSpriteAnimation(self.sprite,"getup")
+--end
+--function Obstacle:getup_update(dt)
+--    --dp(self.name .. " - getup update", dt)
+--    if self.sprite.isFinished then
+--        self:setState(self.stand)
+--        return
+--    end
+--    self:checkCollisionAndMove(dt)
+--end
+--Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
+
 
 return Obstacle
