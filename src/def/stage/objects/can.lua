@@ -43,7 +43,7 @@ return {
             delay = 0.15
         },
         thrown = {
-            { q = q(2,2,27,42), ox = 13, oy = 41 }, --100% hp
+            { q = q(2,2,27,42), rotate = -0.785, ox = 13, oy = 41 }, --100% hp
             delay = 0.05
         },
         duck = {

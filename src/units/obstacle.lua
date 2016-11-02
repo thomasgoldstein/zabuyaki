@@ -51,6 +51,19 @@ function Obstacle:updateAI(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
 
+function Obstacle:onHurt()
+    local h = self.hurt
+    if not h then
+        return
+    end
+    if math.random() < 0.5 then
+        sfx.play("sfx"..self.id,"metal1")
+    else
+        sfx.play("sfx"..self.id,"metal2")
+    end
+    Character.onHurt(self)
+end
+
 function Obstacle:stand_start()
     --	print (self.name.." - stand start")
     self.isHittable = true
