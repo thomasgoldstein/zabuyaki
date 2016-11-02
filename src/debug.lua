@@ -164,9 +164,14 @@ end
 function draw_debug_unit_info(a)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setFont(gfx.font.debug)
-        love.graphics.setColor(0, 0, 0, 120)
+        if a.hp <= 0 then
+            love.graphics.setColor(0, 0, 0, 50)
+            love.graphics.print( a.name, a.x - 16 , a.y - 7)
+        else
+            love.graphics.setColor(0, 0, 0, 120)
+            love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14)
+        end
         love.graphics.print( a.state, a.x - 14, a.y)
         love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7)
-        love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14)
     end
 end
