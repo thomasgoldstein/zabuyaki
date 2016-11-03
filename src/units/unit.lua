@@ -130,12 +130,22 @@ function Unit:setState(state)
 		self.exit = state.exit
 		self:start()
         --TODO temp?
-        UpdateSpriteInstance(self.sprite, 0, self)
+        self:UpdateSpriteInstance(self.sprite, 0, self)
 	end
 end
 function Unit:getStateTime()
 	-- time from the switching to current frame
 	return love.timer.getTime() - self.time_state
+end
+
+function Unit:UpdateSpriteInstance(...)
+	UpdateSpriteInstance(...)
+end
+function Unit:SetSpriteAnimation(...)
+	SetSpriteAnimation(...)
+end
+function Unit:DrawSpriteInstance(...)
+	DrawSpriteInstance(...)
 end
 
 function Unit:onShake(sx, sy, freq,cool_down)
@@ -231,7 +241,7 @@ function Unit:default_draw(l,t,w,h)
 		if self.shader then
 			love.graphics.setShader(self.shader)
 		end
-		DrawSpriteInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
+		self:DrawSpriteInstance(self.sprite, self.x + self.shake.x, self.y - self.z - self.shake.y)
 		if self.shader then
 			love.graphics.setShader()
 		end
@@ -249,7 +259,7 @@ function Unit:updateAI(dt)
 		return
 	end
 	--print("updateAI "..self.type.." "..self.name)
-	UpdateSpriteInstance(self.sprite, dt, self)
+	self:UpdateSpriteInstance(self.sprite, dt, self)
 end
 
 -- stop unit from moving by tweening

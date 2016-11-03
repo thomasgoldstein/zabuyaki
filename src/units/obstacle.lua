@@ -48,7 +48,7 @@ function Obstacle:updateAI(dt)
         return
     end
     --print("updateAI "..self.type.." "..self.name)
-    UpdateSpriteInstance(self.sprite, dt, self)
+    self:UpdateSpriteInstance(self.sprite, dt, self)
 end
 
 function Obstacle:onHurt()
@@ -56,6 +56,7 @@ function Obstacle:onHurt()
     if not h then
         return
     end
+    --TODO add such sfx in Unit class
     if math.random() < 0.5 then
         sfx.play("sfx"..self.id,"metal1")
     else
@@ -67,7 +68,7 @@ end
 function Obstacle:stand_start()
     --	print (self.name.." - stand start")
     self.isHittable = true
-    SetSpriteAnimation(self.sprite,"stand")
+    self:SetSpriteAnimation(self.sprite,"stand")
 end
 function Obstacle:stand_update(dt)
     --	print (self.name," - stand update",dt)
@@ -92,7 +93,7 @@ Obstacle.stand = {name = "stand", start = Obstacle.stand_start, exit = nop, upda
 --        self:setState(self.dead)
 --        return
 --    end
---    SetSpriteAnimation(self.sprite,"getup")
+--    self:SetSpriteAnimation(self.sprite,"getup")
 --end
 --function Obstacle:getup_update(dt)
 --    --dp(self.name .. " - getup update", dt)

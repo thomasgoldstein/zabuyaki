@@ -54,13 +54,13 @@ function Rick:combo_start()
         self.n_combo = 1
     end
     if self.n_combo == 1 then
-        SetSpriteAnimation(self.sprite,"combo1")
+        self:SetSpriteAnimation(self.sprite,"combo1")
     elseif self.n_combo == 2 then
-        SetSpriteAnimation(self.sprite,"combo2")
+        self:SetSpriteAnimation(self.sprite,"combo2")
     elseif self.n_combo == 3 then
-        SetSpriteAnimation(self.sprite,"combo3")
+        self:SetSpriteAnimation(self.sprite,"combo3")
     elseif self.n_combo == 4 then
-        SetSpriteAnimation(self.sprite,"combo4")
+        self:SetSpriteAnimation(self.sprite,"combo4")
     end
     self.cool_down = 0.2
 end
@@ -85,7 +85,7 @@ Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Ric
 function Rick:special_start()
     self.isHittable = false
     --	print (self.name.." - special start")
-    SetSpriteAnimation(self.sprite,"special")
+    self:SetSpriteAnimation(self.sprite,"special")
     sfx.play("voice"..self.id, self.sfx.throw)
     self.cool_down = 0.2
 end
@@ -110,7 +110,7 @@ function Rick:dash_start()
     self.isHittable = true
     dpo(self, self.state)
     --	print (self.name.." - dash start")
-    SetSpriteAnimation(self.sprite,"dash")
+    self:SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0

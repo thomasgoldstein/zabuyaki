@@ -73,7 +73,7 @@ end
 function Enemy:dead_start()
     self.isHittable = false
     --print (self.name.." - dead start")
-    SetSpriteAnimation(self.sprite,"fallen")
+    self:SetSpriteAnimation(self.sprite,"fallen")
     dp(self.name.." is dead.")
     self.hp = 0
     self.hurt = nil
@@ -196,7 +196,7 @@ function Enemy:jump_start()
     self.isHittable = true
     --	print (self.name.." - jump start")
     dpo(self, self.state)
-    SetSpriteAnimation(self.sprite,"jump")
+    self:SetSpriteAnimation(self.sprite,"jump")
     self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
     self.bounced = 0

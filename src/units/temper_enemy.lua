@@ -16,14 +16,14 @@ end
 function Temper:combo_start()
     self.isHittable = true
     --  print (self.name.." - combo start")
-    SetSpriteAnimation(self.sprite,"combo1")
+    self:SetSpriteAnimation(self.sprite,"combo1")
     self.cool_down = 0.15
 end
 
 function Temper:walk_start()
     self.isHittable = true
     --    	print (self.name.." - walk start")
-    SetSpriteAnimation(self.sprite,"walk")
+    self:SetSpriteAnimation(self.sprite,"walk")
     self.can_jump = false
     self.can_attack = false
     local t = dist(self.target.x, self.target.y, self.x, self.y)

@@ -49,11 +49,11 @@ function Gopper:combo_start()
         self.n_combo = 1
     end
     if self.n_combo == 1 then
-        SetSpriteAnimation(self.sprite,"combo1")
+        self:SetSpriteAnimation(self.sprite,"combo1")
     elseif self.n_combo == 2 then
-        SetSpriteAnimation(self.sprite,"combo2")
+        self:SetSpriteAnimation(self.sprite,"combo2")
     elseif self.n_combo == 3 then
-        SetSpriteAnimation(self.sprite,"combo3")
+        self:SetSpriteAnimation(self.sprite,"combo3")
     end
     self.cool_down = 0.2
 end
@@ -75,7 +75,7 @@ local dash_speed = 0.75
 function Gopper:dash_start()
     self.isHittable = true
     --	print (self.name.." - dash start")
-    SetSpriteAnimation(self.sprite,"dash")
+    self:SetSpriteAnimation(self.sprite,"dash")
     self.velx = self.velocity_dash * 2 * dash_speed
     self.vely = 0
     self.velz = self.velocity_jump / 2 * dash_speed

@@ -46,11 +46,11 @@ function Niko:combo_start()
         self.n_combo = 1
     end
     if self.n_combo == 1 then
-        SetSpriteAnimation(self.sprite,"combo1")
+        self:SetSpriteAnimation(self.sprite,"combo1")
     elseif self.n_combo == 2 then
-        SetSpriteAnimation(self.sprite,"combo2")
+        self:SetSpriteAnimation(self.sprite,"combo2")
     elseif self.n_combo == 3 then
-        SetSpriteAnimation(self.sprite,"combo3")
+        self:SetSpriteAnimation(self.sprite,"combo3")
     end
     self.cool_down = 0.2
 end
