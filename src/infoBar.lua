@@ -101,6 +101,9 @@ function InfoBar:initialize(source)
             self.x, self.y = 0, 0
         end
     end
+    local _, _, w, _ = self.q:getViewport( )
+    self.icon_x_offset = math.floor((38 - w)/2)
+    print(self.source.name, self.icon_x_offset)
 end
 
 function InfoBar:setAttacker(attacker_source)
@@ -136,7 +139,7 @@ function InfoBar:draw_face_icon(l, t, transp_bg)
     love.graphics.draw (
         image_bank[self.icon_sprite],
         self.q, --Current frame of the current animation
-        l + self.x - 2 + self.source.shake.x, t + self.y
+        l + self.icon_x_offset + self.x - 2 + self.source.shake.x, t + self.y
     )
     if self.source.shader then
         love.graphics.setShader()
