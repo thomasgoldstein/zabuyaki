@@ -6,24 +6,28 @@ local SFX = {}
 --Stop other sounds in the channel before playing
 SFX.play = function(actor, alias, volume, pitch, func)
     local s
-    if type(alias) == "table" then
-        s = SFX[alias[love.math.random(1,#alias)]]
-    else
-        s = SFX[alias]
+    if alias then
+        if type(alias) == "table" then
+            s = SFX[alias[love.math.random(1,#alias)]]
+        else
+            s = SFX[alias]
+        end
+        TEsound.stop(actor or "sfx", false)
+        TEsound.play(s.src, actor or "sfx", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
     end
-    TEsound.stop(actor or "sfx", false)
-    TEsound.play(s.src, actor or "sfx", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
 end
 
 --Don't stop other sounds in the channel
 SFX.playMix = function(actor, alias, volume, pitch, func)
     local s
-    if type(alias) == "table" then
-        s = SFX[alias[love.math.random(1,#alias)]]
-    else
-        s = SFX[alias]
+    if alias then
+        if type(alias) == "table" then
+            s = SFX[alias[love.math.random(1,#alias)]]
+        else
+            s = SFX[alias]
+        end
+        TEsound.play(s.src, actor or "sfx", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
     end
-    TEsound.play(s.src, actor or "sfx", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
 end
 
 SFX.load = function(alias, s, volume, pitch)
