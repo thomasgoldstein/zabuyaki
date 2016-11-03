@@ -108,15 +108,10 @@ function Character:onHurt()
         dp("MISS + not Clear HURT due victims list of "..h.source.name)
         return
     end
---    if self.type == h.source.type then
---        -- cannot attack the same type: Players -> Players
---        self.hurt = nil --free hurt data
---        return
---    end
     if h.type == "shockWave" and
-            ( self.type == "player" or not self.isMovable )
+            ( self.type == "player" or self.type == "obstacle" )
     then
-        -- shockWave has no effect on players
+        -- shockWave has no effect on players & obstacles
         self.hurt = nil --free hurt data
         return
     end

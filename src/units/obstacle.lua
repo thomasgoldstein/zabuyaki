@@ -89,7 +89,9 @@ function Obstacle:onHurt()
         self.horizontal = h.horizontal
     end
     --TODO add such IMPACT sfx in Unit class
-    sfx.play("sfx"..self.id,sfx.metal)
+    if h.type ~= "shockWave" then
+        sfx.play("sfx"..self.id,sfx.metal)
+    end
     Character.onHurt(self)
 end
 
