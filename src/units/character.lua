@@ -41,6 +41,7 @@ function Character:initialize(name, sprite, input, x, y, shader, color)
     self.velocity_throw_x = 110 --attack speed that causes my thrown body to the victims
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+    self.isMovable = true --can be moved by attacks / can be grabbed
     --Inner char vars
     self.lives = GLOBAL_SETTING.MAX_LIVES
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
