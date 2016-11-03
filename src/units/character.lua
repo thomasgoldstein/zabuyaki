@@ -329,7 +329,7 @@ function Character:stand_start()
     if self.sprite.cur_anim == "walk" then
         self.delay_animation_cool_down = 0.12
     else
-        self:SetSpriteAnimation(self.sprite,"stand")
+        self:setSprite("stand")
         self.delay_animation_cool_down = 0
     end
     self.can_jump = false
@@ -354,7 +354,7 @@ function Character:stand_update(dt)
     self.delay_animation_cool_down = self.delay_animation_cool_down - dt
     if self.sprite.cur_anim == "walk"
             and self.delay_animation_cool_down <= 0 then
-        self:SetSpriteAnimation(self.sprite,"stand")
+        self:setSprite("stand")
     end
     if self.cool_down_combo > 0 then
         self.cool_down_combo = self.cool_down_combo - dt
@@ -419,7 +419,7 @@ Character.stand = {name = "stand", start = Character.stand_start, exit = nop, up
 function Character:walk_start()
     self.isHittable = true
     --	print (self.name.." - walk start")
-    self:SetSpriteAnimation(self.sprite,"walk")
+    self:setSprite("walk")
     self.can_attack = false
     self.n_combo = 1	--if u move reset combo chain
 end
@@ -512,7 +512,7 @@ function Character:run_update(dt)
     self.delay_animation_cool_down = self.delay_animation_cool_down - dt
     if self.sprite.cur_anim ~= "run"
             and self.delay_animation_cool_down <= 0 then
-        self:SetSpriteAnimation(self.sprite,"run")
+        self:setSprite("run")
     end
     if self.b.horizontal:isDown(-1) then
         self.face = -1 --face sprite left or right
@@ -564,7 +564,7 @@ function Character:jump_start()
     self.isHittable = true
     --	print (self.name.." - jump start")
     dpo(self, self.state)
-    self:SetSpriteAnimation(self.sprite,"jump")
+    self:setSprite("jump")
     self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
     self.bounced = 0
@@ -642,7 +642,7 @@ function Character:pickup_start()
         stage.objects:add(Effect:new(psystem, self.x, self.y + 10))
         self:onGetLoot(loot)
     end
-    self:SetSpriteAnimation(self.sprite,"pickup")
+    self:setSprite("pickup")
     self.z = 0
 end
 function Character:pickup_update(dt)
@@ -660,7 +660,7 @@ function Character:duck_start()
     self.isHittable = true
     dpo(self, self.state)
     --	print (self.name.." - duck start")
-    self:SetSpriteAnimation(self.sprite,"duck")
+    self:setSprite("duck")
     self.z = 0
     --landing dust clouds
     local psystem = PA_DUST_LANDING:clone()
@@ -688,7 +688,7 @@ Character.duck = {name = "duck", start = Character.duck_start, exit = nop, updat
 function Character:duck2jump_start()
     self.isHittable = true
     --	print (self.name.." - duck2jump start")
-    self:SetSpriteAnimation(self.sprite,"duck")
+    self:setSprite("duck")
     self.z = 0
 end
 function Character:duck2jump_update(dt)
@@ -735,7 +735,7 @@ Character.duck2jump = {name = "duck2jump", start = Character.duck2jump_start, ex
 function Character:hurtHigh_start()
     self.isHittable = true
     --	print (self.name.." - hurtHigh start")
-    self:SetSpriteAnimation(self.sprite,"hurtHigh")
+    self:setSprite("hurtHigh")
 end
 function Character:hurtHigh_update(dt)
     --	print (self.name.." - hurtHigh update",dt)
@@ -760,7 +760,7 @@ Character.hurtHigh = {name = "hurtHigh", start = Character.hurtHigh_start, exit 
 function Character:hurtLow_start()
     self.isHittable = true
     --	print (self.name.." - hurtLow start")
-    self:SetSpriteAnimation(self.sprite,"hurtLow")
+    self:setSprite("hurtLow")
 end
 function Character:hurtLow_update(dt)
     --	print (self.name.." - hurtLow update",dt)
@@ -785,7 +785,7 @@ Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = n
 function Character:sideStepDown_start()
     self.isHittable = false
     --	print (self.name.." - sideStepDown start")
-    self:SetSpriteAnimation(self.sprite,"sideStepDown")
+    self:setSprite("sideStepDown")
     self.velx, self.vely = 0, self.velocity_step_down
     sfx.play("sfx"..self.id, "whoosh_heavy")
 end
@@ -808,7 +808,7 @@ Character.sideStepDown = {name = "sideStepDown", start = Character.sideStepDown_
 function Character:sideStepUp_start()
     self.isHittable = false
     --	print (self.name.." - sideStepUp start")
-    self:SetSpriteAnimation(self.sprite,"sideStepUp")
+    self:setSprite("sideStepUp")
     self.velx, self.vely = 0, self.velocity_step_down
     sfx.play("sfx"..self.id, "whoosh_heavy")
 end
@@ -831,7 +831,7 @@ Character.sideStepUp = {name = "sideStepUp", start = Character.sideStepUp_start,
 function Character:dash_start()
     self.isHittable = true
     --	print (self.name.." - dash start")
-    self:SetSpriteAnimation(self.sprite,"dash")
+    self:setSprite("dash")
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
@@ -854,7 +854,7 @@ Character.dash = {name = "dash", start = Character.dash_start, exit = nop, updat
 function Character:jumpAttackForward_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackForward start")
-    self:SetSpriteAnimation(self.sprite,"jumpAttackForward")
+    self:setSprite("jumpAttackForward")
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackForward_update(dt)
@@ -876,7 +876,7 @@ Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jum
 function Character:jumpAttackLight_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackLight start")
-    self:SetSpriteAnimation(self.sprite,"jumpAttackLight")
+    self:setSprite("jumpAttackLight")
 end
 function Character:jumpAttackLight_update(dt)
     --	print (self.name.." - jumpAttackLight update",dt)
@@ -897,7 +897,7 @@ Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAtt
 function Character:jumpAttackStraight_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackStraight start")
-    self:SetSpriteAnimation(self.sprite,"jumpAttackStraight")
+    self:setSprite("jumpAttackStraight")
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackStraight_update(dt)
@@ -919,7 +919,7 @@ Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.j
 function Character:jumpAttackRun_start()
     self.isHittable = true
     --	print (self.name.." - jumpAttackRun start")
-    self:SetSpriteAnimation(self.sprite,"jumpAttackRun")
+    self:setSprite("jumpAttackRun")
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackRun_update(dt)
@@ -943,10 +943,10 @@ function Character:fall_start()
     --    print (self.name.." - fall start")
     if self.isThrown then
         self.z = self.thrower_id.throw_start_z or 0
-        self:SetSpriteAnimation(self.sprite,"thrown")
+        self:setSprite("thrown")
         dp("is--- ".. self.sprite.cur_anim)
     else
-        self:SetSpriteAnimation(self.sprite,"fall")
+        self:setSprite("fall")
     end
     if self.z <= 0 then
         self.z = 0
@@ -963,7 +963,7 @@ function Character:fall_update(dt)
             if (self.isThrown and self.z < self.to_fallen_anim_z)
                 or (not self.isThrown and self.z < self.to_fallen_anim_z / 4)
             then
-                self:SetSpriteAnimation(self.sprite,"fallen")
+                self:setSprite("fallen")
             end
         end
         if self.z <= 0 then
@@ -1032,7 +1032,7 @@ function Character:getup_start()
         self:setState(self.dead)
         return
     end
-    self:SetSpriteAnimation(self.sprite,"getup")
+    self:setSprite("getup")
 end
 function Character:getup_update(dt)
     --dp(self.name .. " - getup update", dt)
@@ -1047,7 +1047,7 @@ Character.getup = {name = "getup", start = Character.getup_start, exit = nop, up
 function Character:dead_start()
     self.isHittable = false
     --print (self.name.." - dead start")
-    self:SetSpriteAnimation(self.sprite,"fallen")
+    self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
     self.hurt = nil
@@ -1187,7 +1187,7 @@ function Character:useCredit_update(dt)
             self.name = HEROES[self.player_select_cur][1].name
             self.shader = HEROES[self.player_select_cur][1].shader
             self.sprite = GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance)
-            self:SetSpriteAnimation(self.sprite,"stand")
+            self:setSprite("stand")
             self.infoBar.icon_sprite = self.sprite.def.sprite_sheet
             self.infoBar.q = self.sprite.def.animations["icon"][1].q  --face icon quad
             self.infoBar.icon_color = self.color
@@ -1206,7 +1206,7 @@ Character.useCredit = {name = "useCredit", start = Character.useCredit_start, ex
 function Character:respawn_start()
     self.isHittable = false
     dpo(self, self.state)
-    self:SetSpriteAnimation(self.sprite,"respawn")
+    self:setSprite("respawn")
     self.cool_down_death = 3 --seconds to remove
     self.hp = self.max_hp
     self.bounced = 0
@@ -1245,13 +1245,13 @@ function Character:combo_start()
         self.n_combo = 1
     end
     if self.n_combo == 1 then
-        self:SetSpriteAnimation(self.sprite,"combo1")
+        self:setSprite("combo1")
     elseif self.n_combo == 2 then
-        self:SetSpriteAnimation(self.sprite,"combo2")
+        self:setSprite("combo2")
     elseif self.n_combo == 3 then
-        self:SetSpriteAnimation(self.sprite,"combo3")
+        self:setSprite("combo3")
     elseif self.n_combo == 4 then
-        self:SetSpriteAnimation(self.sprite,"combo4")
+        self:setSprite("combo4")
     end
     self.cool_down = 0.2
 end
@@ -1342,7 +1342,7 @@ end
 function Character:grab_start()
     self.isHittable = true
     --print (self.name.." - grab start")
-    self:SetSpriteAnimation(self.sprite,"grab")
+    self:setSprite("grab")
     self.can_jump = false
     self.can_attack = false
     self.grab_release = 0
@@ -1439,7 +1439,7 @@ end
 function Character:grabbed_start()
     self.isHittable = true
     --print (self.name.." - grabbed start")
-    self:SetSpriteAnimation(self.sprite,"grabbed")
+    self:setSprite("grabbed")
     dp(self.name.." is grabbed.")
 end
 function Character:grabbed_update(dt)
@@ -1481,7 +1481,7 @@ function Character:grabHit_start()
         self:setState(self.grabHitLast)
         return
     end
-    self:SetSpriteAnimation(self.sprite,"grabHit")
+    self:setSprite("grabHit")
     dp(self.name.." is grabhit someone.")
 end
 function Character:grabHit_update(dt)
@@ -1502,7 +1502,7 @@ Character.grabHit = {name = "grabHit", start = Character.grabHit_start, exit = n
 function Character:grabHitLast_start()
     self.isHittable = true
     --print (self.name.." - grabHitLast start")
-    self:SetSpriteAnimation(self.sprite,"grabHitLast")
+    self:setSprite("grabHitLast")
     dp(self.name.." is grabHitLast someone.")
 end
 function Character:grabHitLast_update(dt)
@@ -1523,7 +1523,7 @@ Character.grabHitLast = {name = "grabHitLast", start = Character.grabHitLast_sta
 function Character:grabHitEnd_start()
     self.isHittable = true
     --print (self.name.." - grabhitend start")
-    self:SetSpriteAnimation(self.sprite,"grabHitEnd")
+    self:setSprite("grabHitEnd")
     dp(self.name.." is grabhitend someone.")
 end
 function Character:grabHitEnd_update(dt)
@@ -1543,8 +1543,8 @@ function Character:grabThrow_start()
     local g = self.hold
     local t = g.target
     self.face = -self.face
-    self:SetSpriteAnimation(t.sprite,"hurtLow")
-    self:SetSpriteAnimation(self.sprite,"grabThrow")
+    self:setSprite(t.sprite,"hurtLow")
+    self:setSprite("grabThrow")
     dp(self.name.." is grabThrow someone.")
 end
 

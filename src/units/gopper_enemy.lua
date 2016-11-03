@@ -130,11 +130,11 @@ function Gopper:combo_start()
         self.n_combo = 1
     end
     if self.n_combo == 1 then
-        self:SetSpriteAnimation(self.sprite, "combo1")
+        self:setSprite("combo1")
     elseif self.n_combo == 2 then
-        self:SetSpriteAnimation(self.sprite, "combo2")
+        self:setSprite("combo2")
     elseif self.n_combo == 3 then
-        self:SetSpriteAnimation(self.sprite, "combo3")
+        self:setSprite("combo3")
     end
     self.cool_down = 0.2
 end
@@ -159,7 +159,7 @@ function Gopper:dash_start()
     self.move = nil
     dpo(self, self.state)
     --	print (self.name.." - dash start")
-    self:SetSpriteAnimation(self.sprite, "dash")
+    self:setSprite("dash")
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
@@ -183,7 +183,7 @@ Gopper.dash = { name = "dash", start = Gopper.dash_start, exit = nop, update = G
 function Gopper:intro_start()
     self.isHittable = true
     --    	print (self.name.." - intro start")
-    self:SetSpriteAnimation(self.sprite, "intro")
+    self:setSprite("intro")
 end
 
 function Gopper:intro_update(dt)
@@ -198,7 +198,7 @@ function Gopper:stand_start()
     self.isHittable = true
     self.tx, self.ty = self.x, self.y
     --    	print (self.name.." - stand start")
-    self:SetSpriteAnimation(self.sprite, "stand")
+    self:setSprite("stand")
     self.victims = {}
     self.n_grabhit = 0
 
@@ -221,7 +221,7 @@ Gopper.stand = { name = "stand", start = Gopper.stand_start, exit = nop, update 
 function Gopper:walk_start()
     self.isHittable = true
     --    	print (self.name.." - walk start")
-    self:SetSpriteAnimation(self.sprite, "walk")
+    self:setSprite("walk")
     self.can_jump = false
     self.can_attack = false
     local t = dist(self.target.x, self.target.y, self.x, self.y)
@@ -288,7 +288,7 @@ Gopper.walk = { name = "walk", start = Gopper.walk_start, exit = Unit.remove_twe
 function Gopper:run_start()
     self.isHittable = true
     --	print (self.name.." - run start")
-    self:SetSpriteAnimation(self.sprite, "run")
+    self:setSprite("run")
     local t = dist(self.target.x, self.y, self.x, self.y)
 
     --get to player(to fight)
@@ -336,7 +336,7 @@ local dash_speed = 0.75
 function Gopper:dash_start()
     self.isHittable = true
     --	print (self.name.." - dash start")
-    self:SetSpriteAnimation(self.sprite,"dash")
+    self:setSprite("dash")
     self.velx = self.velocity_dash * 2 * dash_speed
     self.vely = 0
     self.velz = self.velocity_jump / 2 * dash_speed

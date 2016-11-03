@@ -53,13 +53,13 @@ function Chai:combo_start()
         self.n_combo = 1
     end
     if self.n_combo == 1 then
-        self:SetSpriteAnimation(self.sprite,"combo1")
+        self:setSprite("combo1")
     elseif self.n_combo == 2 then
-        self:SetSpriteAnimation(self.sprite,"combo2")
+        self:setSprite("combo2")
     elseif self.n_combo == 3 then
-        self:SetSpriteAnimation(self.sprite,"combo3")
+        self:setSprite("combo3")
     elseif self.n_combo == 4 then
-        self:SetSpriteAnimation(self.sprite,"combo4")
+        self:setSprite("combo4")
     end
     self.cool_down = 0.2
 end
@@ -81,7 +81,7 @@ function Chai:dash_start()
     self.isHittable = true
     dpo(self, self.state)
     --	dp(self.name.." - dash start")
-    self:SetSpriteAnimation(self.sprite,"dash")
+    self:setSprite("dash")
     self.velx = self.velocity_dash * self.velocity_jump_speed
     self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1

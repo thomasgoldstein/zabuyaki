@@ -48,7 +48,7 @@ function Obstacle:updateAI(dt)
         return
     end
     --print("updateAI "..self.type.." "..self.name)
-    self:UpdateSpriteInstance(self.sprite, dt, self)
+    self:updateSprite(dt)
 end
 
 function Obstacle:onHurt()
@@ -68,7 +68,7 @@ end
 function Obstacle:stand_start()
     --	print (self.name.." - stand start")
     self.isHittable = true
-    self:SetSpriteAnimation(self.sprite,"stand")
+    self:setSprite("stand")
 end
 function Obstacle:stand_update(dt)
     --	print (self.name," - stand update",dt)
@@ -93,7 +93,7 @@ Obstacle.stand = {name = "stand", start = Obstacle.stand_start, exit = nop, upda
 --        self:setState(self.dead)
 --        return
 --    end
---    self:SetSpriteAnimation(self.sprite,"getup")
+--    self:setSprite("getup")
 --end
 --function Obstacle:getup_update(dt)
 --    --dp(self.name .. " - getup update", dt)
