@@ -113,7 +113,9 @@ function Character:onHurt()
 --        self.hurt = nil --free hurt data
 --        return
 --    end
-    if h.type == "shockWave" and self.type == "player" then
+    if h.type == "shockWave" and
+            ( self.type == "player" or not self.isMovable )
+    then
         -- shockWave has no effect on players
         self.hurt = nil --free hurt data
         return
