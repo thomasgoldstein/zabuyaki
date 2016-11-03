@@ -77,7 +77,7 @@ function InfoBar:initialize(source)
     elseif source.type == "obstacle" then
         self.score = -1
         self.displayed_score = ""
-        self.icon_sprite = source.sprite.def.sprite_sheet
+        self.icon_sprite = image_bank[source.sprite.def.sprite_sheet]
         self.q = source.sprite.def.animations["icon"][1].q  --quad
         self.icon_color = source.color or { 255, 255, 255, 255 }
         self.max_hp = source.max_hp
@@ -89,7 +89,7 @@ function InfoBar:initialize(source)
             self.score = -1
             self.displayed_score = ""
         end
-        self.icon_sprite = source.sprite.def.sprite_sheet
+        self.icon_sprite = image_bank[source.sprite.def.sprite_sheet]
         self.q = source.sprite.def.animations["icon"][1].q  --quad
         self.icon_color = source.color or { 255, 255, 255, 255 }
         self.max_hp = source.max_hp
@@ -103,7 +103,7 @@ function InfoBar:initialize(source)
     end
     local _, _, w, _ = self.q:getViewport( )
     self.icon_x_offset = math.floor((38 - w)/2)
-    print(self.source.name, self.icon_x_offset)
+    --print(self.source.name, self.icon_x_offset)
 end
 
 function InfoBar:setAttacker(attacker_source)
@@ -132,14 +132,15 @@ end
 
 local cool_down_transparency = 0
 function InfoBar:draw_face_icon(l, t, transp_bg)
-    love.graphics.setColor(255, 255, 255, transp_bg)
+    self.icon_color[4] = transp_bg
+    love.graphics.setColor( unpack( self.icon_color ) )
     if self.source.shader then
         love.graphics.setShader(self.source.shader)
     end
     love.graphics.draw (
-        image_bank[self.icon_sprite],
+        self.icon_sprite,
         self.q, --Current frame of the current animation
-        l + self.icon_x_offset + self.x - 2 + self.source.shake.x, t + self.y
+        l + self.icon_x_offset + self.x - 2, t + self.y
     )
     if self.source.shader then
         love.graphics.setShader()
@@ -153,7 +154,7 @@ function InfoBar:draw_dead_cross(l, t, transp_bg)
         love.graphics.draw (
             gfx.ui.dead_icon.sprite,
             gfx.ui.dead_icon.q,
-            l + self.x + self.source.shake.x + 3, t + self.y - 2
+            l + self.x + self.source.shake.x + 1, t + self.y - 2
         )
     end
 end
@@ -258,7 +259,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             end
             printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1 )
             --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )
-            self:draw_face_icon(l, t, transp_bg)
+            self:draw_face_icon(l + self.source.shake.x, t, transp_bg)
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*3 + 17))
             printWithShadow("SELECT PLAYER (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 19 )
         elseif player_select_mode == 3 then
@@ -277,7 +278,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             t = t - self.source.z / 2
         end
         self:draw_lifebar(l, t, transp_bg)
-        self:draw_face_icon(l, t, transp_bg)
+        self:draw_face_icon(l + self.source.shake.x, t, transp_bg)
         self:draw_dead_cross(l, t, transp_bg)
         if self.score ~= self.source.score then
             self.score = self.source.score
@@ -292,13 +293,7 @@ end
 function InfoBar:draw_loot_bar(l,t,w,h)
     local cool_down_transparency = calcTransparency(self.cool_down)
     transp_bg = 255 * cool_down_transparency
-    self.icon_color[4] = transp_bg
-    love.graphics.setColor( unpack( self.icon_color ) )
-    love.graphics.draw (
-        self.icon_sprite,
-        self.q, --Current frame of the current animation
-        l + self.x + icon_height/4, t + self.y + 4
-    )
+    self:draw_face_icon(l, t, transp_bg)
     local font = gfx.font.arcade3
     love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)
