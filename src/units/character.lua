@@ -118,6 +118,10 @@ function Character:onHurt()
         self.hurt = nil --free hurt data
         return
     end
+    --Block "fall" attack if isMovable false
+    if not self.isMovable and h.type == "fall" then
+        h.type = "high"
+    end
     h.source.victims[self] = true
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
@@ -204,7 +208,12 @@ function Character:onHurt()
     end
     self.horizontal = h.horizontal
     self.isGrabbed = false
-    self:setState(self.fall)
+    if not self.isMovable and self.hp <=0 then
+        self.velx = 0
+        self:setState(self.dead)
+    else
+        self:setState(self.fall)
+    end
     return
 end
 
@@ -281,7 +290,7 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
         --TODO not needed since the hitbox is centered
     end
     if not g.target then --can attack only the 1 grabbed
-    return
+        return
     end
 
     local items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
@@ -1278,7 +1287,10 @@ function Character:checkForGrab(range)
     --got any Characters
     local items, len = stage.world:queryPoint(self.x + self.face*range, self.y,
         function(o)
-            if o ~= self and o.isHittable then
+            if o ~= self and o.isHittable
+                and not o.isGrabbed
+                and o.isMovable
+            then
                 return true
             end
         end)
@@ -1291,9 +1303,9 @@ end
 function Character:onGrab(source)
     -- hurt = {source, damage, velx,vely,x,y,z}
     local g = self.hold
-    if self.isGrabbed then
-        return false	-- already grabbed
-    end
+--    if self.isGrabbed then
+--        return false	-- already grabbed
+--    end
     if self.state ~= "stand"
             and self.state ~= "hurtHigh"
             and self.state ~= "hurtLow"
