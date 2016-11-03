@@ -23,7 +23,7 @@ local function clamp(val, min, max)
 end
 
 function Obstacle:initialize(name, sprite, x, y, f)
-    --hp, score, shader, color,isMovable, sfxDead, func, face, horizontal
+    --hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight
     if not f then
         f = {}
     end
@@ -41,6 +41,9 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.isDisabled = false
     self.sfx.dead = f.sfxDead --on death sfx
     self.isMovable = f.isMovable --on death sfx
+
+    self.weight = f.weight or 1.5
+    self.gravity = self.gravity * self.weight
 
     self.infoBar = InfoBar:new(self)
 
