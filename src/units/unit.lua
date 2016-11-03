@@ -30,7 +30,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self.velx, self.vely, self.velz = 0, 0, 0
 	self.gravity = 800 --650 * 2
     self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
-	self.isMovable = true --can be moved by attacks / can be grabbed
+	self.isMovable = false --can be moved by attacks / can be grabbed
 
 	self.state = "nop"
 	self.time_state = love.timer.getTime()
