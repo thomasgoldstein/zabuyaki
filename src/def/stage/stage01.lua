@@ -139,14 +139,15 @@ function Stage01:initialize(players)
     local new_niko3 = Niko:new("N.NIK3", GetSpriteInstance("src/def/char/niko.lua"), button3, 260, top_floor_y + 47, shaders.niko[1], {255,255,255, 255})
     local new_niko4 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), button3, 280, top_floor_y + 40, shaders.niko[2], {255,255,255, 255})
 
---    local can2 = Rick:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), nil, 337, top_floor_y + 10)
---    local can1 = Rick:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), nil, 46, top_floor_y + 10)
---    can1.max_hp = 100
---    can1.hp = 49
---    can1.infoBar = InfoBar:new(can1)
-    local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), 49,0, nil, 46, top_floor_y + 30)
-    local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), 49,0, nil, 79, top_floor_y + 20)
-    local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), 49,0, nil, 430, top_floor_y + 10)
+    local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
+        46, top_floor_y + 30, {hp = 49, score = 100, shader = nil, color = nil,
+            isMovable = false, sfxDead = nil, func = nil} )
+    local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
+        79, top_floor_y + 20, {hp = 49, score = 100, shader = nil, color = nil,
+            isMovable = true, sfxDead = nil, func = nil} )
+    local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
+        430, top_floor_y + 10, {hp = 49, score = 100, shader = nil, color = nil,
+            isMovable = true, sfxDead = nil, func = nil} )
 
     self.objects = Entity:new()
     self.objects:addArray({
