@@ -87,12 +87,16 @@ function Obstacle:onHurt()
     if not h then
         return
     end
-    --TODO add such sfx in Unit class
-    if math.random() < 0.5 then
-        sfx.play("sfx"..self.id,"metal1")
-    else
-        sfx.play("sfx"..self.id,"metal2")
+    --Move it after hits
+    --TODO should we have such flag?
+    if not self.isGrabbed then
+        self.velx = h.damage * 10
+        self.horizontal = h.horizontal
     end
+
+    --TODO add such IMPACT sfx in Unit class
+    sfx.play("sfx"..self.id,sfx.metal)
+
     Character.onHurt(self)
 end
 
@@ -114,25 +118,23 @@ Obstacle.stand = {name = "stand", start = Obstacle.stand_start, exit = nop, upda
 
 function Obstacle:getup_start()
     self.isHittable = false
+    self.isThrown = false
 --    print (self.name.." - getup start")
     dpo(self, self.state)
     if self.z <= 0 then
         self.z = 0
     end
-    self.isThrown = false
     if self.hp <= 0 then
         self:setState(self.dead)
         return
     end
-    self.cool_down = 0.2
 end
 function Obstacle:getup_update(dt)
-    --dp(self.name .. " - getup update", dt)
-    self.cool_down = self.cool_down - dt
-    if self.cool_down <= 0 then
+    if self.velx <= 0 then
         self:setState(self.stand)
         return
     end
+    self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
 Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
