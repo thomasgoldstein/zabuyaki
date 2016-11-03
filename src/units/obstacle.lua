@@ -38,7 +38,7 @@ function Obstacle:initialize(name, sprite, hp, score, func, x, y, shader, color)
     self.shader = shader
     self.isHittable = false
     self.isDisabled = false
-    self.sfx.dead = "menu_cancel"
+    self.sfx.dead = nil --disable death sound
 
     self.infoBar = InfoBar:new(self)
 
