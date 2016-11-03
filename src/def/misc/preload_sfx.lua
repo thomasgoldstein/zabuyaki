@@ -99,5 +99,6 @@ SFX.niko_death = {"scream1","scream2" }
 
 SFX.load("metal1","res/sfx/tmp/metal1.wav", 1)
 SFX.load("metal2","res/sfx/tmp/metal2.wav", 1)
+SFX.metal = {"metal1","metal2"}
 
 return SFX
