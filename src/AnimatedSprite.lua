@@ -104,6 +104,11 @@ function SetSpriteAnimation(spr, anim)
 	spr.elapsed_time = -math.min(love.timer.getDelta() / 2, 0.1)
 end
 
+function GetSpriteQuad(spr, frame_n)
+	local sc = spr.def.animations[spr.cur_anim][frame_n or spr.cur_frame]
+	return sc.q
+end
+
 function UpdateSpriteInstance(spr, dt, slf)
 	local s = spr.def.animations[spr.cur_anim]
 	local sc = s[spr.cur_frame]
