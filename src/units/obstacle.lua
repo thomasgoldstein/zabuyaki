@@ -22,35 +22,31 @@ local function clamp(val, min, max)
     return val
 end
 
-function Obstacle:initialize(name, sprite, hp, score, func, x, y, shader, color)
-    Character.initialize(self, name, sprite, nil, x, y, shader, color)
+function Obstacle:initialize(name, sprite, x, y, f)
+    --hp, score, shader, color,isMovable, sfxDead, func, face, horizontal
+    if not f then
+        f = {}
+    end
+    Character.initialize(self, name, sprite, nil, x, y, f.shader, f.color)
     self.name = name or "Unknown Obstacle"
     self.type = "obstacle"
-    self.hp = hp
+    self.hp = f.hp or 50
     self.max_hp = self.hp
     self.lives = 0
-    self.score = score
-    self.func = func
-    --self.x, self.y, self.z = x, y, 0
+    self.score = f.score or 10
+    self.func = f.func
     self.height = 40
-    self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
-    self.color = color or { 255, 255, 255, 255 }
-    self.shader = shader
+    self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false
-    self.sfx.dead = nil --disable death sound
+    self.sfx.dead = f.sfxDead --on death sfx
+    self.isMovable = f.isMovable --on death sfx
 
     self.infoBar = InfoBar:new(self)
 
     self:setState(self.stand)
 end
 
---function Obstacle:update(dt)
---    if self.isDisabled then
---        return
---    end
---    --custom code here. e.g. for triggers / keys
---end
 function Obstacle:updateSprite(dt)
     local spr = self.sprite
     local s = spr.def.animations[spr.cur_anim]
@@ -88,8 +84,7 @@ function Obstacle:onHurt()
         return
     end
     --Move it after hits
-    --TODO should we have such flag?
-    if not self.isGrabbed then
+    if not self.isGrabbed and self.isMovable then
         self.velx = h.damage * 10
         self.horizontal = h.horizontal
     end
@@ -138,6 +133,5 @@ function Obstacle:getup_update(dt)
     self:checkCollisionAndMove(dt)
 end
 Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
-
 
 return Obstacle
