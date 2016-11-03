@@ -144,8 +144,9 @@ function Stage01:initialize(players)
 --    can1.max_hp = 100
 --    can1.hp = 49
 --    can1.infoBar = InfoBar:new(can1)
-    local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), 49,0, nil, 79, top_floor_y + 20)
     local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), 49,0, nil, 46, top_floor_y + 30)
+    local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), 49,0, nil, 79, top_floor_y + 20)
+    local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"), 49,0, nil, 430, top_floor_y + 10)
 
     self.objects = Entity:new()
     self.objects:addArray({
@@ -156,7 +157,7 @@ function Stage01:initialize(players)
         dummy4, dummy5,
         temper1,
         loot1, loot2, loot3,
-        can1, can2
+        can1, can2, can3
     })
     if player1 then
         self.objects:add(player1)
