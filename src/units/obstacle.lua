@@ -88,7 +88,10 @@ function Obstacle:onHurt()
         self.velx = h.damage * 10
         self.horizontal = h.horizontal
     end
-
+    --Block "fall" attack if isMovable false
+    if not self.isMovable and h.type == "fall" then
+        h.type = "high"
+    end
     --TODO add such IMPACT sfx in Unit class
     sfx.play("sfx"..self.id,sfx.metal)
 
@@ -133,5 +136,17 @@ function Obstacle:getup_update(dt)
     self:checkCollisionAndMove(dt)
 end
 Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
+
+function Obstacle:fall_start()
+    --Block "fall" attack if isMovable false
+    if self.hp <= 0 and not self.isMovable then
+        self.velx = 0
+        self:setState(self.dead)
+        return
+    end
+    Character.fall_start(self)
+end
+Obstacle.fall = {name = "fall", start = Obstacle.fall_start, exit = nop, update = Character.fall_update, draw = Unit.default_draw}
+
 
 return Obstacle
