@@ -12,6 +12,15 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 local function nop() --[[print "nop"]] end
+local function clamp(val, min, max)
+    if min - val > 0 then
+        return min
+    end
+    if max - val < 0 then
+        return max
+    end
+    return val
+end
 
 function Obstacle:initialize(name, sprite, hp, score, func, x, y, shader, color)
     Character.initialize(self, name, sprite, nil, x, y, shader, color)
@@ -42,6 +51,28 @@ end
 --    end
 --    --custom code here. e.g. for triggers / keys
 --end
+function Obstacle:updateSprite(dt)
+    local spr = self.sprite
+    local s = spr.def.animations[spr.cur_anim]
+    --    print(spr.cur_frame, #s)
+    UpdateSpriteInstance(self.sprite, dt, self)
+end
+
+function Obstacle:setSprite(anim)
+    if anim ~= "stand" then
+        return
+    end
+    SetSpriteAnimation(self.sprite, anim)
+end
+
+function Obstacle:drawSprite(x, y)
+    local spr = self.sprite
+    local s = spr.def.animations[spr.cur_anim]
+    local n = clamp(math.floor(#s - #s * self.hp / self.max_hp),
+        1, #s)
+    --print(n, spr.cur_frame, #s)
+    DrawSpriteInstance(self.sprite, x, y, n)
+end
 
 function Obstacle:updateAI(dt)
     if self.isDisabled then
@@ -81,29 +112,30 @@ function Obstacle:stand_update(dt)
 end
 Obstacle.stand = {name = "stand", start = Obstacle.stand_start, exit = nop, update = Obstacle.stand_update, draw = Unit.default_draw}
 
---function Obstacle:getup_start()
---    self.isHittable = false
+function Obstacle:getup_start()
+    self.isHittable = false
 --    print (self.name.." - getup start")
---    dpo(self, self.state)
---    if self.z <= 0 then
---        self.z = 0
---    end
---    self.isThrown = false
---    if self.hp <= 0 then
---        self:setState(self.dead)
---        return
---    end
---    self:setSprite("getup")
---end
---function Obstacle:getup_update(dt)
---    --dp(self.name .. " - getup update", dt)
---    if self.sprite.isFinished then
---        self:setState(self.stand)
---        return
---    end
---    self:checkCollisionAndMove(dt)
---end
---Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
+    dpo(self, self.state)
+    if self.z <= 0 then
+        self.z = 0
+    end
+    self.isThrown = false
+    if self.hp <= 0 then
+        self:setState(self.dead)
+        return
+    end
+    self.cool_down = 0.2
+end
+function Obstacle:getup_update(dt)
+    --dp(self.name .. " - getup update", dt)
+    self.cool_down = self.cool_down - dt
+    if self.cool_down <= 0 then
+        self:setState(self.stand)
+        return
+    end
+    self:checkCollisionAndMove(dt)
+end
+Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
 
 
 return Obstacle
