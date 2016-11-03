@@ -40,6 +40,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
     self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
 	self.shader = shader  --change player colors
     self.sfx = {}
+	self.sfx.onHit = nil
 	self.isHittable = false
 	self.isGrabbed = false
 	self.hold = {source = nil, target = nil, cool_down = 0 }
@@ -80,7 +81,9 @@ end
 --plays sfx
 function Unit:playHitSfx(dmg)
     local alias
-    if dmg < 9 then
+    if self.sfx.onHit then
+		alias = self.sfx.onHit
+    elseif dmg < 9 then
         alias = sfx.hit_weak
     elseif dmg < 14 then
         alias = sfx.hit_medium

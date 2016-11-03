@@ -23,7 +23,7 @@ local function clamp(val, min, max)
 end
 
 function Obstacle:initialize(name, sprite, x, y, f)
-    --hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight
+    --hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit
     if not f then
         f = {}
     end
@@ -40,6 +40,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.isHittable = false
     self.isDisabled = false
     self.sfx.dead = f.sfxDead --on death sfx
+    self.sfx.onHit = f.sfxOnHit
     self.isMovable = f.isMovable --on death sfx
 
     self.weight = f.weight or 1.5
@@ -86,14 +87,10 @@ function Obstacle:onHurt()
     if not h then
         return
     end
-    --Move it after hits
+    --Move obstacle after hits
     if not self.isGrabbed and self.isMovable then
         self.velx = h.damage * 10
         self.horizontal = h.horizontal
-    end
-    --TODO add such IMPACT sfx in Unit class
-    if h.type ~= "shockWave" then
-        sfx.play("sfx"..self.id,sfx.metal)
     end
     Character.onHurt(self)
 end

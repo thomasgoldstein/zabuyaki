@@ -141,13 +141,13 @@ function Stage01:initialize(players)
 
     local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         46, top_floor_y + 30, {hp = 49, score = 100, shader = nil, color = nil,
-            isMovable = false, sfxDead = nil, func = nil} )
+            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = sfx.metal} )
     local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         79, top_floor_y + 20, {hp = 49, score = 100, shader = nil, color = nil,
-            isMovable = true, sfxDead = nil, func = nil} )
+            isMovable = true, sfxDead = nil, func = nil, sfxOnHit = sfx.metal} )
     local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         430, top_floor_y + 10, {hp = 49, score = 100, shader = nil, color = nil,
-            isMovable = true, sfxDead = nil, func = nil} )
+            isMovable = true, sfxDead = nil, func = nil, sfxOnHit = sfx.metal} )
 
     self.objects = Entity:new()
     self.objects:addArray({
