@@ -8,6 +8,8 @@
     http://opensource.org/licenses/MIT
 ]]
 
+--require 'lib/strict'
+
 GLOBAL_SCREENSHOT = false	--keep current screenshop
 
 configuration = require "src/configuration"
@@ -16,6 +18,13 @@ configuration:load()
 
 -- global vars
 stage = nil
+canvas = nil
+class = nil
+bump = nil
+push = nil
+sfx = nil
+gfx = nil
+bgm = nil
 player1 = nil
 player2 = nil
 player3 = nil
