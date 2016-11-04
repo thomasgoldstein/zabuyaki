@@ -98,6 +98,7 @@ end
 function Obstacle:stand_start()
     --	print (self.name.." - stand start")
     self.isHittable = true
+    self.victims = {}
     self:setSprite("stand")
 end
 function Obstacle:stand_update(dt)
@@ -133,5 +134,32 @@ function Obstacle:getup_update(dt)
     self:checkCollisionAndMove(dt)
 end
 Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
+
+function Obstacle:hurtHigh_start()
+    self.isHittable = true
+end
+function Obstacle:hurtHigh_update(dt)
+    if self.velx <= 0 then
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Obstacle.hurtHigh = {name = "hurtHigh", start = Obstacle.hurtHigh_start, exit = nop, update = Obstacle.hurtHigh_update, draw = Unit.default_draw}
+
+function Obstacle:hurtLow_start()
+    self.isHittable = true
+end
+function Obstacle:hurtLow_update(dt)
+    --	print (self.name.." - hurtLow update",dt)
+    if self.velx <= 0 then
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Obstacle.hurtLow = {name = "hurtLow", start = Obstacle.hurtLow_start, exit = nop, update = Obstacle.hurtHigh_update, draw = Unit.default_draw}
 
 return Obstacle
