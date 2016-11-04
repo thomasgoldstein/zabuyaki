@@ -52,8 +52,8 @@ function Obstacle:initialize(name, sprite, x, y, f)
 end
 
 function Obstacle:updateSprite(dt)
-    local spr = self.sprite
-    local s = spr.def.animations[spr.cur_anim]
+--    local spr = self.sprite
+--    local s = spr.def.animations[spr.cur_anim]
     --    print(spr.cur_frame, #s)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
@@ -68,8 +68,9 @@ end
 function Obstacle:drawSprite(x, y)
     local spr = self.sprite
     local s = spr.def.animations[spr.cur_anim]
-    local n = clamp(math.floor(#s - #s * self.hp / self.max_hp),
+    local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
         1, #s)
+--    print((#s-1) - (#s-1) * self.hp / self.max_hp+1)
     --print(n, spr.cur_frame, #s)
     DrawSpriteInstance(self.sprite, x, y, n)
 end
