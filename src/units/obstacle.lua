@@ -89,7 +89,7 @@ function Obstacle:onHurt()
         return
     end
     --Move obstacle after hits
-    if not self.isGrabbed and self.isMovable then
+    if not self.isGrabbed and self.isMovable and self.velx <= 0 then
         self.velx = h.damage * 10
         self.horizontal = h.horizontal
     end
