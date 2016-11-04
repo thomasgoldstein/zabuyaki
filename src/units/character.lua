@@ -1392,6 +1392,7 @@ function Character:grab_update(dt)
     --adjust both vertically
     if self.y > g.target.y + 1 then
         self.y = self.y - 0.5
+        self.y = self.y - 0.5
         g.target.y = g.target.y + 0.5
     elseif self.y < g.target.y then
         self.y = self.y + 0.5
@@ -1400,10 +1401,12 @@ function Character:grab_update(dt)
     --adjust both horizontally
     if self.x < g.target.x and self.x > g.target.x - 20 then
         --self.x = self.x - 1
-        self.velx = 1
+        self.x = self.x - self.velocity_run / 2 * dt
+        g.target.x = g.target.x + self.velocity_run * dt
     elseif self.x >= g.target.x and self.x < g.target.x + 20 then
         --self.x = self.x + 1
-        self.velx = 1
+        self.x = self.x + self.velocity_run / 2 * dt
+        g.target.x = g.target.x - g.target.velocity_run * dt
     end
 
     if self.b.attack:isDown() and self.can_attack then
