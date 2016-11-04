@@ -31,6 +31,16 @@ local bars_coords = {   --for players only 1..MAX_PLAYERS
     { x = math.floor(screen_width - bar_width_with_lr - h_m + 0), y = v_m + 0 * v_g }
 }
 
+local function clamp(val, min, max)
+    if min - val > 0 then
+        return min
+    end
+    if max - val < 0 then
+        return max
+    end
+    return val
+end
+
 local function calcBarWidth(self)
     if self.max_hp < 100 and self.source.lives <= 1 then
         return math.floor((self.max_hp * bar_width) / 100)
@@ -79,6 +89,7 @@ function InfoBar:initialize(source)
         self.displayed_score = ""
         self.icon_sprite = image_bank[source.sprite.def.sprite_sheet]
         self.q = source.sprite.def.animations["icon"][1].q  --quad
+        self.qa = source.sprite.def.animations["icon"]  --quad array
         self.icon_color = source.color or { 255, 255, 255, 255 }
         self.max_hp = source.max_hp
         self.hp = 1
@@ -91,6 +102,7 @@ function InfoBar:initialize(source)
         end
         self.icon_sprite = image_bank[source.sprite.def.sprite_sheet]
         self.q = source.sprite.def.animations["icon"][1].q  --quad
+        self.qa = source.sprite.def.animations["icon"]  --quad array
         self.icon_color = source.color or { 255, 255, 255, 255 }
         self.max_hp = source.max_hp
         self.hp = 1
@@ -137,11 +149,22 @@ function InfoBar:draw_face_icon(l, t, transp_bg)
     if self.source.shader then
         love.graphics.setShader(self.source.shader)
     end
-    love.graphics.draw (
-        self.icon_sprite,
-        self.q, --Current frame of the current animation
-        l + self.icon_x_offset + self.x - 2, t + self.y
-    )
+    if self.source.type == "loot" then
+        love.graphics.draw (
+            self.icon_sprite,
+            self.q, --Current frame of the current animation
+            l + self.icon_x_offset + self.x - 2, t + self.y
+        )
+    else    --Face Icon depends on hp/max_hp
+        local s = self.qa
+        local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
+            1, #s)
+        love.graphics.draw (
+            self.icon_sprite,
+            self.qa[n].q, --Current frame of the current animation
+            l + self.icon_x_offset + self.x - 2, t + self.y
+        )
+    end
     if self.source.shader then
         love.graphics.setShader()
     end
