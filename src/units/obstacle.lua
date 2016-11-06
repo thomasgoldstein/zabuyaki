@@ -79,8 +79,7 @@ function Obstacle:updateAI(dt)
     if self.isDisabled then
         return
     end
-    --print("updateAI "..self.type.." "..self.name)
-    self:updateSprite(dt)
+    Character.updateAI(self, dt)
 end
 
 function Obstacle:onHurt()

@@ -96,7 +96,6 @@ function Character:updateAI(dt)
         return
     end
     Unit.updateAI(self, dt)
-    self:updateShake(dt)
 end
 
 function Character:onHurt()

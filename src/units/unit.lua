@@ -263,8 +263,8 @@ function Unit:updateAI(dt)
 	if self.isDisabled then
 		return
 	end
-	--print("updateAI "..self.type.." "..self.name)
 	self:updateSprite(dt)
+	self:updateShake(dt)
 end
 
 -- stop unit from moving by tweening
