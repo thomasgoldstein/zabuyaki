@@ -264,7 +264,6 @@ function Unit:updateAI(dt)
 		return
 	end
 	self:updateSprite(dt)
-	self:updateShake(dt)
 end
 
 -- stop unit from moving by tweening

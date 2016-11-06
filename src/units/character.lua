@@ -95,6 +95,7 @@ function Character:updateAI(dt)
     if self.isDisabled then
         return
     end
+    self:updateShake(dt)
     Unit.updateAI(self, dt)
 end
 
