@@ -22,6 +22,11 @@ local imp_big_quad3 = q(68,54,31,30) -- impact big 3/3
 
 local dust_quad = q(2,86,32,32) --dust cloud
 
+local triangle_small_quad = q(71,2,9,8) -- crashing debris 1/2
+local triangle_big_quad = q(71,12,12,11) -- crashing debris 2/2
+
+quads ={ triangle_small_quad = triangle_small_quad, triangle_big_quad = triangle_big_quad}
+
 psystem = love.graphics.newParticleSystem( img, 32 )
 psystem:setPosition( 0, -2 )
 psystem:setEmitterLifetime(0.6)
