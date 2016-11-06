@@ -85,10 +85,16 @@ function Obstacle:updateAI(dt)
     if self.old_frame ~= cur_frame then
         --start particles
         local psystem = PA_DUST_JUMP_START:clone()
-        psystem:setAreaSpread( "uniform", 4, 16 )
+        psystem:setQuads( quads.triangle_small_quad )
+        psystem:setSizes(1)
+        psystem:setAreaSpread( "uniform", 16, 28 )
         psystem:setPosition( 0, - self.height / 2 )
-        psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
-        psystem:emit(5)
+        psystem:setLinearAcceleration(sign(self.face) * 20 , -50, sign(self.face) * 50, 700) -- Random movement in all directions.
+        psystem:emit(15)
+        psystem:setQuads( quads.triangle_big_quad )
+        psystem:setLinearAcceleration(sign(-self.face) * 20 , -50, sign(-self.face) * 50, 700) -- Random movement in all directions.
+        psystem:setPosition( sign(-self.face) * 20, - self.height / 2 )
+        psystem:emit(3)
         stage.objects:add(Effect:new(psystem, self.x, self.y + 3))
     end
     self.old_frame = cur_frame
