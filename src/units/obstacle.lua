@@ -12,6 +12,9 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 local function nop() --[[print "nop"]] end
+local function sign(x)
+    return x>0 and 1 or x<0 and -1 or 0
+end
 local function clamp(val, min, max)
     if min - val > 0 then
         return min
@@ -46,6 +49,8 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.weight = f.weight or 1.5
     self.gravity = self.gravity * self.weight
 
+    self.old_frame = 1 --Old sprite frame N to start particles on change
+
     self.infoBar = InfoBar:new(self)
 
     self:setState(self.stand)
@@ -66,13 +71,7 @@ function Obstacle:setSprite(anim)
 end
 
 function Obstacle:drawSprite(x, y)
-    local spr = self.sprite
-    local s = spr.def.animations[spr.cur_anim]
-    local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
-        1, #s)
---    print((#s-1) - (#s-1) * self.hp / self.max_hp+1)
-    --print(n, spr.cur_frame, #s)
-    DrawSpriteInstance(self.sprite, x, y, n)
+    DrawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
 end
 
 function Obstacle:updateAI(dt)
@@ -82,6 +81,18 @@ function Obstacle:updateAI(dt)
     if not self.isMovable then
         self:updateShake(dt)
     end
+    local cur_frame = self:calcDamageFrame()
+    if self.old_frame ~= cur_frame then
+        --start particles
+        local psystem = PA_DUST_JUMP_START:clone()
+        psystem:setAreaSpread( "uniform", 4, 16 )
+        psystem:setPosition( 0, - self.height / 2 )
+        psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
+        psystem:emit(5)
+        stage.objects:add(Effect:new(psystem, self.x, self.y + 3))
+    end
+    self.old_frame = cur_frame
+
     Unit.updateAI(self, dt)
 end
 

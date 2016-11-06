@@ -10,7 +10,15 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
 			y1 < y2+h2 and
 			y2 < y1+h1
 end
-
+local function clamp(val, min, max)
+	if min - val > 0 then
+		return min
+	end
+	if max - val < 0 then
+		return max
+	end
+	return val
+end
 local function nop() --[[print "nop"]] end
 
 GLOBAL_UNIT_ID = 1
@@ -295,6 +303,15 @@ function Unit:calcFriction(dt, friction)
 	else
 		self.vely = 0
 	end
+end
+
+function Unit:calcDamageFrame()
+	-- HP max..0 / Frame 1..#max
+	local spr = self.sprite
+	local s = spr.def.animations[spr.cur_anim]
+	local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
+		1, #s)
+	return n
 end
 
 return Unit
