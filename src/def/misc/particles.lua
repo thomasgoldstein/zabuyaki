@@ -1,8 +1,7 @@
 --
 -- Date: 04.05.2016
 --
-local img = love.graphics.newImage("res/img/misc/particles.png")
-gfx.particles = img
+gfx.particles = love.graphics.newImage("res/img/misc/particles.png")
 local image_w = 101
 local image_h = 120
 local function q(x,y,w,h)
@@ -28,7 +27,7 @@ local triangle_big_quad = q(71,12,12,11) -- crashing debris 2/2
 
 quads ={ triangle_small_quad = triangle_small_quad, triangle_big_quad = triangle_big_quad}
 
-psystem = love.graphics.newParticleSystem( img, 32 )
+psystem = love.graphics.newParticleSystem( gfx.particles, 32 )
 psystem:setPosition( 0, -2 )
 psystem:setEmitterLifetime(0.6)
 psystem:setParticleLifetime(0.35, 0.5) 
@@ -76,28 +75,28 @@ psystem:setAreaSpread( "uniform", 15, 5 )
 psystem:setPosition( 0, -4 )
 PA_DUST_LANDING_UNUSED = psystem
 
-psystem = love.graphics.newParticleSystem( img, 4 )
+psystem = love.graphics.newParticleSystem( gfx.particles, 4 )
 psystem:setOffset( 10, 11 )
 psystem:setParticleLifetime(0.15)
 psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
 psystem:setQuads( imp_small_quad1, imp_small_quad2, imp_small_quad3 )
 PA_IMPACT_SMALL = psystem
 
-psystem = love.graphics.newParticleSystem( img, 4 )
+psystem = love.graphics.newParticleSystem( gfx.particles, 4 )
 psystem:setOffset( 13, 13 )
 psystem:setParticleLifetime(0.15)
 psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
 psystem:setQuads( imp_medium_quad1, imp_medium_quad2, imp_medium_quad3 )
 PA_IMPACT_MEDIUM = psystem
 
-psystem = love.graphics.newParticleSystem( img, 4 )
+psystem = love.graphics.newParticleSystem( gfx.particles, 4 )
 psystem:setOffset( 15, 15 )
 psystem:setParticleLifetime(0.15)
 psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
 psystem:setQuads( imp_big_quad1, imp_big_quad2, imp_big_quad3 )
 PA_IMPACT_BIG = psystem
 
-psystem = love.graphics.newParticleSystem( img, 32 )
+psystem = love.graphics.newParticleSystem( gfx.particles, 32 )
 psystem:setEmitterLifetime(1)
 psystem:setSizes(0.3, 0.6, 0.4, 0.1)
 psystem:setColors(214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188, 10, 214, 205, 188, 5)
@@ -111,7 +110,7 @@ psystem:setEmitterLifetime(4)
 psystem:emit(20)
 PA_DUST_PUFF_STAGE = psystem
 
-psystem = love.graphics.newParticleSystem( img, 50 )
+psystem = love.graphics.newParticleSystem( gfx.particles, 50 )
 --psystem:setPosition( 0, -2 )
 psystem:setEmitterLifetime(5)
 psystem:setParticleLifetime(0.3, 2)
@@ -129,10 +128,27 @@ psystem:setLinearDamping( 7, 10 )
 --psystem:setSpin(0, -3)
 PA_DASH = psystem
 
-psystem = love.graphics.newParticleSystem( gfx.loot.image, 1 )
+psystem = love.graphics.newParticleSystem(gfx.loot.image, 1)
 psystem:setLinearAcceleration(0, -75, 0, -85)
-psystem:setDirection( 4.71 )
+psystem:setDirection(4.71)
 psystem:setParticleLifetime(1)
 --psystem:setSizes(1, 1, 1.1)
-psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55,  255, 255, 255, 0)
+psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55, 255, 255, 255, 0)
 PA_LOOT_GET = psystem
+
+psystem = love.graphics.newParticleSystem(gfx.particles, 32)
+psystem:setEmitterLifetime(0.3)
+psystem:setParticleLifetime(0.15, 0.25)
+psystem:setOffset(4.5, 4.5)
+psystem:setQuads(quads.triangle_small_quad)
+psystem:setSizes(0.7, 0.5)
+PA_OBSTACLE_BREAK_SMALL = psystem
+
+psystem = love.graphics.newParticleSystem(gfx.particles, 32)
+psystem:setEmitterLifetime(0.4)
+psystem:setParticleLifetime(0.17, 0.33)
+psystem:setOffset(6, 6)
+psystem:setQuads(quads.triangle_big_quad)
+psystem:setSizes(0.7, 0.5)
+psystem:setLinearDamping(0.1, 2)
+PA_OBSTACLE_BREAK_BIG = psystem

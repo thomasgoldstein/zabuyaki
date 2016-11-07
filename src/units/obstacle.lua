@@ -83,14 +83,8 @@ function Obstacle:updateAI(dt)
     end
     local cur_frame = self:calcDamageFrame()
     if self.old_frame ~= cur_frame then
-        --start particles
-        psystem = love.graphics.newParticleSystem( gfx.particles, 32 )
+        local psystem = PA_OBSTACLE_BREAK_SMALL:clone()
         psystem:setPosition( 0, -self.height + self.height / 3 )
-        psystem:setEmitterLifetime(0.3)
-        psystem:setParticleLifetime(0.15, 0.25)
-        psystem:setOffset( 5, 5 )
-        psystem:setQuads( quads.triangle_small_quad )
-        psystem:setSizes(0.7, 0.5)
         --psystem:setAreaSpread( "uniform", 2, 8 )
         if self.colorParticle then
             psystem:setColors( unpack(self.colorParticle) )
@@ -101,13 +95,8 @@ function Obstacle:updateAI(dt)
         psystem:emit(2)
         stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
 
-        psystem = love.graphics.newParticleSystem( gfx.particles, 32 )
+        local psystem = PA_OBSTACLE_BREAK_BIG:clone()
         psystem:setPosition( 0, -self.height + self.height / 3 )
-        psystem:setEmitterLifetime(0.4)
-        psystem:setParticleLifetime(0.17, 0.33)
-        psystem:setOffset( 7, 7 )
-        psystem:setQuads( quads.triangle_big_quad )
-        psystem:setSizes(0.7, 0.5)
         if self.colorParticle then
             psystem:setColors( unpack(self.colorParticle) )
         end
