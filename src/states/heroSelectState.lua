@@ -369,7 +369,7 @@ function heroSelectState:draw()
         love.graphics.print(h[original_char].name, h.x - 24 * #h[original_char].name / 2, h.ny)
         --portrait
         DrawSpriteInstance(heroes[i].sprite_portrait, h.x - portrait_width/2, h.py)
-        love.graphics.rectangle("line", h.x - portrait_width/2, h.py, portrait_width, portrait_height )
+        love.graphics.rectangle("line", h.x - portrait_width/2, h.py, portrait_width, portrait_height, 4,4,1)
         --Players sprite
         if players[i].visible then
             --hero sprite
