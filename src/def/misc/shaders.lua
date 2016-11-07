@@ -1,4 +1,6 @@
-shaders = {kisa = {}, rick = {}, chai = {}, gopper = {}, niko = {} }
+shaders = { kisa = {}, rick = {}, chai = {},
+    gopper = {}, niko = {},
+    trashcan = {} }
 
 -- use main.lua constant to disable shaders for web Love2d runtime
 if not GLOBAL_SETTING.SHADERS_ENABLED then
@@ -30,7 +32,7 @@ local sh_swap_colors = [[
 --sh_player2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
 --sh_player2:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
 
-sh_replace_3_colors = [[
+local sh_replace_3_colors = [[
         extern vec4 colors[3];
         extern vec4 newColors[3];
         vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
@@ -49,7 +51,7 @@ sh_replace_3_colors = [[
 --sh_player2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
 --sh_player2:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
 
-sh_replace_4_colors = [[
+local sh_replace_4_colors = [[
         extern vec4 colors[4];
         extern vec4 newColors[4];
         vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
@@ -65,7 +67,7 @@ sh_replace_4_colors = [[
         return pixel * color;
     }    ]]
 
-sh_noise = love.graphics.newShader([[
+local sh_noise = love.graphics.newShader([[
 extern float factor = 1;
 extern float addPercent = 0.1;
 extern float clamp = 0.85;
@@ -85,7 +87,7 @@ vec4 effect(vec4 color, Image tex, vec2 tc, vec2 sc)
     return (Texel(tex, tc) * clampedNoise * (1 - addPercent) + noise * addPercent) * color;
 }   ]])
 
-sh_screen = love.graphics.newShader([[
+local sh_screen = love.graphics.newShader([[
         vec4 effect(vec4 colour, Image image, vec2 local, vec2 screen)
         {
             // red and green scale with proportion of screen coordinates
@@ -98,7 +100,7 @@ sh_screen = love.graphics.newShader([[
         }
     ]])
 
-sh_texture = love.graphics.newShader([[
+local sh_texture = love.graphics.newShader([[
         vec4 effect(vec4 colour, Image image, vec2 local, vec2 screen)
         {
             // red and green components scale with texture coordinates
@@ -110,7 +112,7 @@ sh_texture = love.graphics.newShader([[
         }
     ]])
 
-sh_outline = love.graphics.newShader([[vec4 resultCol;
+local sh_outline = love.graphics.newShader([[vec4 resultCol;
 extern number stepSize;
 number alpha;
 
@@ -138,7 +140,6 @@ sh_rick2:sendColor("colors", -- Rick default color set
 sh_rick2:sendColor("newColors", -- Rick alternate color set 1
     {188, 188, 188, 255}, {130, 130, 130, 255}, {73, 73, 73, 255}, -- white hoodie
     {39, 85, 135, 255}, {24, 53, 84, 255}, {11, 24, 38, 255}) -- blue pants
-
 local sh_rick3 = love.graphics.newShader(sh_swap_colors)
 sh_rick3:send("n", 6)
 sh_rick3:sendColor("colors", -- Rick default color set
@@ -147,23 +148,18 @@ sh_rick3:sendColor("colors", -- Rick default color set
 sh_rick3:sendColor("newColors", -- Rick alternate color set 2
     {86,135,97, 255}, {47,91,63, 255}, {24,53,35, 255},-- green hoodie
     {84,75,68, 255}, {51,45,41, 255}, {25,22,20, 255}) -- gray pants
-
 local sh_rick4 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick4:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
 sh_rick4:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})   --Blue
-
 local sh_rick5 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick5:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
 sh_rick5:sendColor("newColors", {111,77,158, 255},  {73,49,130, 255},  {42,28,73, 255}) --Purple
-
 local sh_rick6 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick6:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
 sh_rick6:sendColor("newColors", {70,70,70, 255},  {45,45,45, 255},  {11,11,11, 255})   --Black
-
 local sh_rick7 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick7:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
 sh_rick7:sendColor("newColors", {77,158,111, 255},  {49,130,73, 255},  {28,73,42, 255})   --Emerald
-
 shaders.rick[2] = sh_rick2  --P2
 shaders.rick[3] = sh_rick3  --P3
 shaders.rick[4] = sh_rick4  --Extra colors for dummies
@@ -183,7 +179,6 @@ sh_chai2:sendColor("newColors", -- Chai alternate color set 1
     {193, 207, 244, 255}, {125, 142, 167, 255}, {65, 73, 86, 255}, -- light blue shirt
     {54, 104, 130, 255}, {11, 56, 86, 255}, {4, 21, 33, 255}, -- teal shorts
     {34, 29, 57, 255}) -- purple hair
-
 local sh_chai3 = love.graphics.newShader(sh_swap_colors)
 sh_chai3:send("n", 10)
 sh_chai3:sendColor("colors", -- Chai default color set
@@ -196,7 +191,6 @@ sh_chai3:sendColor("newColors", -- Chai alternate color set 2
     {206, 196, 185, 255}, {154, 136, 119, 255}, {92, 72, 55, 255}, -- light sepia shirt
     {53, 53, 53, 255}, {30, 30, 30, 255}, {15, 15, 15, 255}, -- black shorts
     {51, 35, 22, 255}) -- sand hair
-
 shaders.chai[2] = sh_chai2
 shaders.chai[3] = sh_chai3
 
@@ -224,15 +218,12 @@ shaders.kisa[3] = sh_kisa3
 local sh_gopper2 = love.graphics.newShader(sh_replace_3_colors)
 sh_gopper2:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
 sh_gopper2:sendColor("newColors", {56,84,57, 255},  {35,53,36, 255},  {20,30,20, 255})   --Green
-
 local sh_gopper3 = love.graphics.newShader(sh_replace_3_colors)
 sh_gopper3:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
 sh_gopper3:sendColor("newColors", {53,53,53, 255},  {30,30,30, 255},  {15,15,15, 255})   --Black
-
 local sh_gopper4 = love.graphics.newShader(sh_replace_3_colors)
 sh_gopper4:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
 sh_gopper4:sendColor("newColors", {112,48,61, 255},  {73,31,40, 255},  {40,17,22, 255})   --Red
-
 shaders.gopper[2] = sh_gopper2
 shaders.gopper[3] = sh_gopper3
 shaders.gopper[4] = sh_gopper4
@@ -240,8 +231,19 @@ shaders.gopper[4] = sh_gopper4
 local sh_niko2 = love.graphics.newShader(sh_replace_4_colors)
 sh_niko2:sendColor("colors", {222,230,239, 255},  {53,53,53, 255},  {30,30,30, 255}, {15,15,15, 255}) --White, DarkGray, Dark
 sh_niko2:sendColor("newColors", {15,15,15, 255},  {198,198,198, 255},  {137,137,137, 255}, {84,84,84, 255})   --Black, LightGray, Gray, DarkGray
-
 shaders.niko[2] = sh_niko2
+
+-- Obstacles
+local sh_trashcan = love.graphics.newShader(sh_swap_colors)
+sh_trashcan:send("n", 7)
+sh_trashcan:sendColor("colors", -- Trash can default color set
+    {118, 109, 100, 255}, {89, 74, 72, 255}, {65, 44, 45, 255}, {22, 18, 17, 255}, -- main color
+    {57, 76, 94, 255}, {40, 41, 35, 255}, {19, 20, 18, 255}) -- inner bag color
+sh_trashcan:sendColor("newColors", -- Trash can alternate color set 1
+    {87, 116, 130, 255}, {63, 88, 99, 255}, {37, 55, 63, 255}, {13, 20, 22, 255}, -- main color
+    {58, 91, 56, 255}, {33, 40, 32, 255}, {18, 22, 17, 255}) -- inner bag color
+shaders.trashcan[2] = sh_trashcan
+
 -- Misc
 
 return shaders
