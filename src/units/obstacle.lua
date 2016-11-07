@@ -31,9 +31,6 @@ function Obstacle:initialize(name, sprite, x, y, f)
         f = {}
     end
     Character.initialize(self, name, sprite, nil, x, y, f.shader, f.color)
-    if f.colorParticle then
-    print(unpack(f.colorParticle))
-    end
     self.name = name or "Unknown Obstacle"
     self.type = "obstacle"
     self.hp = f.hp or 50
