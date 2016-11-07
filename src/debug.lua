@@ -87,18 +87,19 @@ end
 function show_debug_boxes()
     if GLOBAL_SETTING.DEBUG then
         -- debug draw bump boxes
+        local a, x, y, w, h
         local obj, _ = stage.world:getItems()
         love.graphics.setColor(255, 0, 0, 50)
         for i = 1, #obj do
-            love.graphics.rectangle("line", stage.world:getRect(obj[i]))
+            x, y, w, h = stage.world:getRect(obj[i])
+            love.graphics.rectangle("line", x + 1, y + 1, w - 1, h - 1)
         end
         -- draw attack hitboxes
-        local a
         for i = 1, #attackHitBoxes do
             a = attackHitBoxes[i]
             --dp("fill", a.x, a.y, a.w, a.h )
             love.graphics.setColor(255, 255, 0, 150)
-            love.graphics.rectangle("line", a.x, a.y - a.height - a.z + a.h/2, a.w, a.height)
+            love.graphics.rectangle("line", a.x, a.y - a.height - a.z + a.h / 2, a.w, a.height)
 
             love.graphics.setColor(0, 255, 0, 150)
             love.graphics.rectangle("line", a.x, a.y, a.w, a.h)
@@ -157,7 +158,7 @@ function draw_debug_unit_hitbox(a)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 150)
 --        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
-        love.graphics.rectangle("line", a.x - 7, a.y - a.height - a.z, 15, a.height)
+        love.graphics.rectangle("line", a.x - 7, a.y - a.height - a.z + 1, 14, a.height-1)
     end
 end
 

@@ -42,7 +42,7 @@ function love.load(arg)
 	if arg[#arg] == "-debug" then
 		require("mobdebug").start()
 	end
-
+	love.graphics.setLineStyle("rough")
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.setBackgroundColor(0, 0, 0, 255)
 	canvas = love.graphics.newCanvas(640 * 2, 480 * 2)
