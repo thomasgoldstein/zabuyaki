@@ -140,17 +140,18 @@ function Stage01:initialize(players)
     local new_niko3 = Niko:new("N.NIK3", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 260, top_floor_y + 47, shaders.niko[1], {255,255,255, 255})
     local new_niko4 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 280, top_floor_y + 40, shaders.niko[2], {255,255,255, 255})
 
+    local canColor = {118,109,100, 255}
     local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        76, top_floor_y + 40, {hp = 49, score = 100, shader = nil, color = nil,
+        76, top_floor_y + 40, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = sfx.metal} )
     local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        109, top_floor_y + 20, {hp = 49, score = 100, shader = nil, color = nil,
+        109, top_floor_y + 20, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = sfx.metal} )
     local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        150, top_floor_y + 10, {hp = 49, score = 100, shader = nil, color = nil,
+        150, top_floor_y + 10, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = sfx.metal} )
     local can4 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        81, top_floor_y + 65, {hp = 49, score = 100, shader = nil, color = nil,
+        81, top_floor_y + 65, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = sfx.metal} )
 
     self.objects = Entity:new()

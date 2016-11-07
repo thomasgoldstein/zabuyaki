@@ -45,7 +45,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.sfx.dead = f.sfxDead --on death sfx
     self.sfx.onHit = f.sfxOnHit
     self.isMovable = f.isMovable --on death sfx
-
+    self.colorParticle = f.colorParticle
     self.weight = f.weight or 1.5
     self.gravity = self.gravity * self.weight
 
@@ -92,14 +92,13 @@ function Obstacle:updateAI(dt)
         psystem:setQuads( quads.triangle_small_quad )
         psystem:setSizes(0.7, 0.5)
         --psystem:setAreaSpread( "uniform", 2, 8 )
-        psystem:setColors(118,109,100, 255)
---        psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255 ,255, 255 ,55)
-        --psystem:setLinearDamping( 0.1, 3 )
+        if self.colorParticle then
+            psystem:setColors( unpack(self.colorParticle) )
+        end
         psystem:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
-        psystem:emit(5)
+        psystem:emit(4)
         psystem:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
         psystem:emit(2)
-        --psystem:setQuads( quads.triangle_big_quad )
         stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
 
         psystem = love.graphics.newParticleSystem( gfx.particles, 32 )
@@ -109,15 +108,15 @@ function Obstacle:updateAI(dt)
         psystem:setOffset( 7, 7 )
         psystem:setQuads( quads.triangle_big_quad )
         psystem:setSizes(0.7, 0.5)
-        psystem:setColors(118,109,100, 255)
+        if self.colorParticle then
+            psystem:setColors( unpack(self.colorParticle) )
+        end
         --psystem:setAreaSpread( "uniform", 2, 8 )
-        --psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255 ,255, 255 ,55)
         psystem:setLinearDamping( 0.1, 2 )
         psystem:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
         psystem:emit(2)
         psystem:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
         psystem:emit(1)
-        --psystem:setQuads( quads.triangle_big_quad )
         stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
     end
     self.old_frame = cur_frame
