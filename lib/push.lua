@@ -18,7 +18,8 @@ function push:setupScreen(WWIDTH, WHEIGHT, RWIDTH, RHEIGHT, f)
   self._resizable = f.resizable or self._resizable or false
   if f.canvas == nil then f.canvas = true end
 
-  love.window.setMode( self._RWIDTH, self._RHEIGHT, {fullscreen = self._fullscreen, borderless = false, resizable = self._resizable} )
+  local width, height, flags = love.window.getMode( )
+  love.window.setMode( self._RWIDTH, self._RHEIGHT, {fullscreen = self._fullscreen, borderless = false, resizable = self._resizable, display = flags.display} )
 
   self:initValues()
 
