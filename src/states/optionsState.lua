@@ -94,6 +94,7 @@ function optionsState:enter()
     Control1.jump:update()
     Control1.start:update()
     Control1.back:update()
+    love.graphics.setLineWidth( 2 )
 end
 
 --Only P1 can use menu / options

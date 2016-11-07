@@ -9,6 +9,7 @@ function arcadeState:init()
 end
 
 function arcadeState:resume()
+    love.graphics.setLineWidth( 1 )
     --restore BGM music volume
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
@@ -20,7 +21,7 @@ function arcadeState:enter(_, players)
     stage = Stage01:new(players)
 
     mainCamera = Camera:new(stage.worldWidth, stage.worldHeight)
-
+    love.graphics.setLineWidth( 1 )
     --start BGM
     TEsound.stop("music")
     TEsound.playLooping(bgm.level01, "music")

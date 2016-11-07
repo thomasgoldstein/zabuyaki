@@ -72,6 +72,7 @@ function pauseState:enter()
     Control1.jump:update()
     Control1.start:update()
     Control1.back:update()
+    love.graphics.setLineWidth( 2 )
 end
 
 function pauseState:leave()

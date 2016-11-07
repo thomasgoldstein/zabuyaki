@@ -87,11 +87,12 @@ function titleState:enter(_, param)
     --dp(controls.jump:pressed(), controls.attack:pressed())
     Control1.attack:update()
     Control1.jump:update()
+    love.graphics.setLineWidth( 2 )
 end
 
 function titleState:resume()
     mouse_x, mouse_y = 0,0
-    --titleState:enter()
+    love.graphics.setLineWidth( 2 )
 end
 
 --Only P1 can use menu / options

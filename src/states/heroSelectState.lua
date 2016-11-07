@@ -203,6 +203,7 @@ function heroSelectState:enter()
     Control1.attack:update()
     Control2.attack:update()
     Control3.attack:update()
+    love.graphics.setLineWidth( 2 )
     --start BGM
 --    TEsound.stop("music")
 --    TEsound.playLooping(bgm.intro, "music")
