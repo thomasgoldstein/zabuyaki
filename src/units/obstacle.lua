@@ -85,18 +85,36 @@ function Obstacle:updateAI(dt)
     if self.old_frame ~= cur_frame then
         --start particles
         psystem = love.graphics.newParticleSystem( gfx.particles, 32 )
-        psystem:setPosition( 0, -self.height + self.height / 4 )
-        psystem:setEmitterLifetime(1)
+        psystem:setPosition( 0, -self.height + self.height / 3 )
+        psystem:setEmitterLifetime(0.3)
         psystem:setParticleLifetime(0.12, 0.25)
         psystem:setOffset( 5, 5 )
         psystem:setQuads( quads.triangle_small_quad )
         psystem:setSizes(0.7, 0.5)
         --psystem:setAreaSpread( "uniform", 2, 8 )
         --psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255 ,255, 255 ,55)
+        --psystem:setLinearDamping( 0.1, 3 )
         psystem:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
-        psystem:emit(7)
+        psystem:emit(5)
         psystem:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
-        psystem:emit(4)
+        psystem:emit(2)
+        --psystem:setQuads( quads.triangle_big_quad )
+        stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
+
+        psystem = love.graphics.newParticleSystem( gfx.particles, 32 )
+        psystem:setPosition( 0, -self.height + self.height / 3 )
+        psystem:setEmitterLifetime(0.4)
+        psystem:setParticleLifetime(0.17, 0.29)
+        psystem:setOffset( 7, 7 )
+        psystem:setQuads( quads.triangle_big_quad )
+        psystem:setSizes(0.7, 0.5)
+        --psystem:setAreaSpread( "uniform", 2, 8 )
+        --psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255 ,255, 255 ,55)
+        psystem:setLinearDamping( 0.1, 2 )
+        psystem:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
+        psystem:emit(2)
+        psystem:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
+        psystem:emit(1)
         --psystem:setQuads( quads.triangle_big_quad )
         stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
     end
