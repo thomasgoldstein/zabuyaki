@@ -2,6 +2,7 @@
 -- Date: 04.05.2016
 --
 local img = love.graphics.newImage("res/img/misc/particles.png")
+gfx.particles = img
 local image_w = 101
 local image_h = 120
 local function q(x,y,w,h)

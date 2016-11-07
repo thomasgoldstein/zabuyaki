@@ -84,18 +84,21 @@ function Obstacle:updateAI(dt)
     local cur_frame = self:calcDamageFrame()
     if self.old_frame ~= cur_frame then
         --start particles
-        local psystem = PA_DUST_JUMP_START:clone()
+        psystem = love.graphics.newParticleSystem( gfx.particles, 32 )
+        psystem:setPosition( 0, -self.height + self.height / 4 )
+        psystem:setEmitterLifetime(1)
+        psystem:setParticleLifetime(0.12, 0.25)
+        psystem:setOffset( 5, 5 )
         psystem:setQuads( quads.triangle_small_quad )
-        psystem:setSizes(1)
-        psystem:setAreaSpread( "uniform", 16, 28 )
-        psystem:setPosition( 0, - self.height / 2 )
-        psystem:setLinearAcceleration(sign(self.face) * 20 , -50, sign(self.face) * 50, 700) -- Random movement in all directions.
-        psystem:emit(15)
-        psystem:setQuads( quads.triangle_big_quad )
-        psystem:setLinearAcceleration(sign(-self.face) * 20 , -50, sign(-self.face) * 50, 700) -- Random movement in all directions.
-        psystem:setPosition( sign(-self.face) * 20, - self.height / 2 )
-        psystem:emit(3)
-        stage.objects:add(Effect:new(psystem, self.x, self.y + 3))
+        psystem:setSizes(0.7, 0.5)
+        --psystem:setAreaSpread( "uniform", 2, 8 )
+        --psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255 ,255, 255 ,55)
+        psystem:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
+        psystem:emit(7)
+        psystem:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
+        psystem:emit(4)
+        --psystem:setQuads( quads.triangle_big_quad )
+        stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
     end
     self.old_frame = cur_frame
 
