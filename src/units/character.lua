@@ -326,13 +326,15 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
 --                return true
 --            end
 --        end)
-    for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+    local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
+    for other, separating_vector in pairs(stage.world:collisions(a)) do
         local o = other.obj
         if o == g.target then
             items[#items+1] = o
         end
     end
-
+    stage.world:remove(a)
+    a = nil
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
@@ -366,7 +368,6 @@ function Character:checkForLoot(w, h)
             loot[#loot+1] = o
         end
     end
-
 
     if #loot > 0 then
         return loot[1]
