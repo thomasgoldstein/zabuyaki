@@ -60,9 +60,11 @@ function Entity:addToWorld(stage)
         --global var 'word'
 --        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
 --        local o = stage.world:rectangle(obj.x-7, obj.y-3, 15, 7)
-        local o = stage.world:rectangle(obj.x, obj.y, 15, 7)
-        o.obj = obj
-        obj.shape = o
+        if not obj.shape then
+            local o = stage.world:rectangle(obj.x, obj.y, 15, 7)
+            o.obj = obj
+            obj.shape = o
+        end
     end
 end
 
