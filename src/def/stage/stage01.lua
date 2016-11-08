@@ -83,7 +83,30 @@ function Stage01:initialize(players)
     self.background:add(bgBuilding1, qBuilding1, -20 + 2 * (10 + (525 - 90)), 67)
     self.background:add(bgBuilding2, qBuilding2, -20 + 3 * (10 + (525 - 90)), 67)
 
+    -- Walls around the level
+--    local wall1 = HC.rectangle(-20, 0, 40, self.worldHeight) --left
+--    wall1.obj = {type = "wall", shape = wall1}
+--    local wall2 = HC.rectangle(self.worldWidth - 20, 0, 40, self.worldHeight) --right
+--    wall2.obj = {type = "wall", shape = wall2}
+--    local wall3 = HC.rectangle(0, 420, self.worldWidth, 40) --top
+--    wall3.obj = {type = "wall", shape = wall3}
+--    local wall4 = HC.rectangle(0, 546, self.worldWidth, 40) --bottom
+--    wall4.obj = {type = "wall", shape = wall4 }
+
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
+
+    local wall1 = Wall:new("wall1", nil, -20, 0)
+    wall1.shape = self.world:rectangle(-20, 0, 40, self.worldHeight) --left
+    wall1.shape.obj = wall1
+    local wall2 = Wall:new("wall2", nil, self.worldWidth - 20, 0)
+    wall2.shape = self.world:rectangle(self.worldWidth - 20, 0, 40, self.worldHeight) --right
+    wall2.shape.obj = wall2
+    local wall3 = Wall:new("wall3", nil, 0, 420)
+    wall3.shape = self.world:rectangle(0, 420, self.worldWidth, 40) --top
+    wall3.shape.obj = wall3
+    local wall4 = Wall:new("wall4", nil, 0, 546)
+    wall4.shape = self.world:rectangle(0, 546, self.worldWidth, 40) --bottom
+    wall4.shape.obj = wall4
 
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), button3, 500, top_floor_y + 20, shaders.gopper[4], {255,255,255, 255})
     local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1510, top_floor_y + 20, shaders.gopper[2], {255,255,255, 255})
@@ -164,7 +187,8 @@ function Stage01:initialize(players)
         dummy4, dummy5,
         temper1,
         loot1, loot2, loot3,
-        can1, can2, can3, can4
+        can1, can2, can3, can4,
+        wall1,wall2,wall3,wall4
     })
     if player1 then
         self.objects:add(player1)

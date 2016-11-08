@@ -23,15 +23,16 @@ function Stage:initialize(name, bgColor)
 
 --    self.world = bump.newWorld(64)
     self.world = HC.new(40*4)
+
 --    self.world:add({ type = "wall" }, -20, 0, 40, self.worldHeight) --left
-    local wall1 = HC.rectangle(-20, 0, 40, self.worldHeight) --left
+--[[    local wall1 = HC.rectangle(-20, 0, 40, self.worldHeight) --left
     wall1.obj = {type = "wall", shape = wall1}
     local wall2 = HC.rectangle(self.worldWidth - 20, 0, 40, self.worldHeight) --right
     wall2.obj = {type = "wall", shape = wall2}
     local wall3 = HC.rectangle(0, 420, self.worldWidth, 40) --top
     wall3.obj = {type = "wall", shape = wall3}
     local wall4 = HC.rectangle(0, 546, self.worldWidth, 40) --bottom
-    wall4.obj = {type = "wall", shape = wall4}
+    wall4.obj = {type = "wall", shape = wall4}]]
 
     --self.world:
     --adding BLOCKING left-right walls
