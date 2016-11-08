@@ -89,8 +89,10 @@ end
 --plays sfx
 function Unit:playHitSfx(dmg)
     local alias
+	TEsound.stop(""..(self.id or "sfx"), false)
     if self.sfx.onHit then
-		alias = self.sfx.onHit
+		sfx.play("sfx", self.sfx.onHit, nil, 1 + 0.008 * love.math.random(-1,1))
+		return
     elseif dmg < 9 then
         alias = sfx.hit_weak
     elseif dmg < 14 then
@@ -99,7 +101,6 @@ function Unit:playHitSfx(dmg)
         alias = sfx.hit_hard
     end
     local s = sfx[alias[love.math.random(1,#alias)]]
-    TEsound.stop(self.name, false)
     TEsound.play(s.src, self.id or "sfx", s.volume, s.pitch)
 end
 
