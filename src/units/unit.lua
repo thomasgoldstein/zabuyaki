@@ -75,21 +75,9 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self:setState(self.stand)
 end
 
---plays sfx
---function Unit:playsfx(alias)
---    local s
---    if type(alias) == "table" then
---        s = sfx[alias[love.math.random(1,#alias)]]
---    else
---        s = sfx[alias]
---    end
---    TEsound.stop(self.name, false)
---    TEsound.play(s.src, self.id or "sfx", s.volume, s.pitch)
---end
---plays sfx
 function Unit:playHitSfx(dmg)
     local alias
-	TEsound.stop(""..(self.id or "sfx"), false)
+	TEsound.stop("sfx"..self.id, false)
     if self.sfx.onHit then
 		sfx.play("sfx", self.sfx.onHit, nil, 1 + 0.008 * love.math.random(-1,1))
 		return
@@ -101,7 +89,7 @@ function Unit:playHitSfx(dmg)
         alias = sfx.hit_hard
     end
     local s = sfx[alias[love.math.random(1,#alias)]]
-    TEsound.play(s.src, self.id or "sfx", s.volume, s.pitch)
+    TEsound.play(s.src, "sfx"..self.id, s.volume, s.pitch)
 end
 
 function Unit:showHitMarks(dmg, z)
