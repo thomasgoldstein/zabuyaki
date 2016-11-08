@@ -549,6 +549,10 @@ function Character:run_update(dt)
         self:setState(self.dash)
         return
     elseif self.can_jump and self.b.jump:isDown() then
+        if self.b.attack:isDown() then
+            self:setState(self.special)
+            return
+        end
         --start jump dust clouds
         local psystem = PA_DUST_JUMP_START:clone()
         psystem:setAreaSpread( "uniform", 16, 4 )
