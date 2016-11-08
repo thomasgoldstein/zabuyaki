@@ -242,13 +242,18 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
 --                    return true
 --                end
 --            end)
+        local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
 
-        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        for other, separating_vector in pairs(stage.world:collisions(a)) do
             local o = other.obj
-            if not o.isDisabled then
+            if not o.isDisabled
+                and o ~= self
+            then
                 items[#items+1] = o
             end
         end
+        stage.world:remove(a)
+        a = nil
     else
 --        items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
 --            function(o)
@@ -259,18 +264,22 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
 --                    return true
 --                end
 --            end)
+        local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
 
-        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        for other, separating_vector in pairs(stage.world:collisions(a)) do
             local o = other.obj
             if o.isHittable
                     and not o.isGrabbed
                     and not o.isDisabled
+                    and o ~= self
                     and not self.victims[o]
                     and o.z <= self.z + o.height and o.z >= self.z - self.height
             then
                 items[#items+1] = o
             end
         end
+        stage.world:remove(a)
+        a = nil
     end
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
