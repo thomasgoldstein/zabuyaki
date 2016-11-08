@@ -42,6 +42,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false
+    self.faceFix = nil   --keep the same facing after 1st hit
     self.sfx.dead = f.sfxDead --on death sfx
     self.sfx.onHit = f.sfxOnHit
     self.sfx.onBreak = f.sfxOnBreak
@@ -72,6 +73,9 @@ function Obstacle:setSprite(anim)
 end
 
 function Obstacle:drawSprite(x, y)
+    if self.faceFix then    -- fixed facing
+        self.sprite.flip_h = self.faceFix
+    end
     DrawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
 end
 
@@ -124,6 +128,9 @@ function Obstacle:onHurt()
     if not self.isGrabbed and self.isMovable and self.velx <= 0 then
         self.velx = h.damage * 10
         self.horizontal = h.horizontal
+    end
+    if not self.faceFix then -- fix facing on 1st hit
+        self.faceFix = -h.horizontal
     end
     Character.onHurt(self)
 end
