@@ -232,26 +232,45 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
     if init_victims_list then
         self.victims = {}
     end
-    local items, len
+    local items = {}
     if type == "shockWave" then
-        items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
-            function(o)
-                if self ~= o and not o.isDisabled
-                then
-                    --print ("hit "..item.name)
-                    return true
-                end
-            end)
+--        items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+--            function(o)
+--                if self ~= o and not o.isDisabled
+--                then
+--                    --print ("hit "..item.name)
+--                    return true
+--                end
+--            end)
+
+        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+            local o = other.obj
+            if not o.isDisabled then
+                items[#items+1] = o
+            end
+        end
     else
-        items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
-            function(o)
-                if self ~= o and o.isHittable and not o.isDisabled and not self.victims[o]
-                        and o.z <= self.z + o.height and o.z >= self.z - self.height
-                then
-                    --print ("hit "..item.name)
-                    return true
-                end
-            end)
+--        items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+--            function(o)
+--                if self ~= o and o.isHittable and not o.isDisabled and not self.victims[o]
+--                        and o.z <= self.z + o.height and o.z >= self.z - self.height
+--                then
+--                    --print ("hit "..item.name)
+--                    return true
+--                end
+--            end)
+
+        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+            local o = other.obj
+            if o.isHittable
+                    and not o.isGrabbed
+                    and not o.isDisabled
+                    and not self.victims[o]
+                    and o.z <= self.z + o.height and o.z >= self.z - self.height
+            then
+                items[#items+1] = o
+            end
+        end
     end
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
@@ -291,12 +310,20 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
         return
     end
 
-    local items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
-        function(obj)
-            if obj == g.target then
-                return true
-            end
-        end)
+    local items = {}
+--    local items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
+--        function(obj)
+--            if obj == g.target then
+--                return true
+--            end
+--        end)
+    for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        local o = other.obj
+        if o == g.target then
+            items[#items+1] = o
+        end
+    end
+
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
@@ -314,13 +341,25 @@ end
 
 function Character:checkForLoot(w, h)
     --got any loot near feet?
-    local loot, len = stage.world:queryRect(self.x - w/2, self.y - h/2, w, h,
-        function(loot)
-            if loot.type == "loot" and not loot.isEnabled then
-                return true
-            end
-        end)
-    if len > 0 then
+    local loot = {}
+--    local loot, len = stage.world:queryRect(self.x - w/2, self.y - h/2, w, h,
+--        function(loot)
+--            if loot.type == "loot" and not loot.isEnabled then
+--                return true
+--            end
+--        end)
+
+    for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        local o = other.obj
+        if o.type == "loot"
+                and not o.isEnabled
+        then
+            loot[#loot+1] = o
+        end
+    end
+
+
+    if #loot > 0 then
         return loot[1]
     end
     return nil
@@ -1084,7 +1123,8 @@ function Character:dead_update(dt)
         self.isDisabled = true
         self.isHittable = false
         -- dont remove dead body from the stage for proper save/load
-        stage.world:remove(self)  --world = global bump var
+        stage.world:remove(self.shape)  --world = global bump var
+        self.shape = nil
         --self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
@@ -1287,16 +1327,29 @@ Character.combo = {name = "combo", start = Character.combo_start, exit = nop, up
 -- GRABBING / HOLDING
 function Character:checkForGrab(range)
     --got any Characters
-    local items, len = stage.world:queryPoint(self.x + self.face*range, self.y,
-        function(o)
-            if o ~= self and o.isHittable
+    local items = {}
+    --self.shape:moveTo(x + stepx - 8, y + stepy - 4)
+    for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        local o = other.obj
+        if o.isHittable
                 and not o.isGrabbed
                 and o.isMovable
-            then
-                return true
-            end
-        end)
-    if len > 0 then
+        then
+            items[#items+1] = o
+        end
+    end
+    --print(#items)
+
+--    local items, len = stage.world:queryPoint(self.x + self.face*range, self.y,
+--        function(o)
+--            if o ~= self and o.isHittable
+--                and not o.isGrabbed
+--                and o.isMovable
+--            then
+--                return true
+--            end
+--        end)
+    if #items > 0 then
         return items[1]
     end
     return nil

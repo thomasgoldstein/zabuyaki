@@ -40,7 +40,7 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self.weight = 1
 	self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
 	self.isMovable = false --cannot be moved by attacks / can be grabbed
-
+	self.shape = nil
 	self.state = "nop"
 	self.time_state = love.timer.getTime()
 	self.prev_state = "" -- text name
@@ -270,14 +270,29 @@ function Unit:remove_tween_move() self.move = nil end
 function Unit:checkCollisionAndMove(dt)
 	local stepx = self.velx * dt * self.horizontal
 	local stepy = self.vely * dt * self.vertical
-	local actualX, actualY, cols, len = stage.world:move(self, self.x + stepx - 8, self.y + stepy - 4,
-		function(Unit, item)
-            if Unit ~= item and item.type == "wall" then
-				return "slide"
-			end
-		end)
-	self.x = actualX + 8
-	self.y = actualY + 4
+
+	self.shape:moveTo(self.x + stepx, self.y + stepy)
+	for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+		local o = other.obj
+		if o.type == "wall" then
+			print(" bump  ")
+			self.shape:move(separating_vector.x, separating_vector.y)
+			--other:move( separating_vector.x/2,  separating_vector.y/2)
+		end
+	end
+	local cx,cy = self.shape:center()
+	self.x = cx
+	self.y = cy
+
+
+--	local actualX, actualY, cols, len = stage.world:move(self, self.x + stepx - 8, self.y + stepy - 4,
+--		function(Unit, item)
+--            if Unit ~= item and item.type == "wall" then
+--				return "slide"
+--			end
+--		end)
+--	self.x = actualX + 8
+--	self.y = actualY + 4
 end
 
 function Unit:calcFriction(dt, friction)

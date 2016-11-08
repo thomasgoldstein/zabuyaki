@@ -20,7 +20,7 @@ configuration:load()
 stage = nil
 canvas = nil
 class = nil
-bump = nil
+--bump = nil
 push = nil
 sfx = nil
 gfx = nil
@@ -64,7 +64,8 @@ function love.load(arg)
 
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
-	bump = require "lib/bump"
+	--bump = require "lib/bump"
+	HC = require "lib/HC"
 	tween = require "lib/tween"
 	gamera = require "lib/gamera"
 	Camera = require "src/camera"

@@ -58,7 +58,11 @@ end
 function Entity:addToWorld(stage)
     for i,obj in pairs(self.entities) do
         --global var 'word'
-        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
+--        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
+--        local o = stage.world:rectangle(obj.x-7, obj.y-3, 15, 7)
+        local o = stage.world:rectangle(obj.x, obj.y, 15, 7)
+        o.obj = obj
+        obj.shape = o
     end
 end
 
@@ -93,6 +97,10 @@ function Entity:draw(l,t,w,h)
     end
     for _,obj in ipairs(self.entities) do
         obj:draw(l,t,w,h)
+        if GLOBAL_SETTING.DEBUG and obj.shape then
+            love.graphics.setColor(0, 255, 255, 50)
+            obj.shape:draw()
+        end
     end
 end
 

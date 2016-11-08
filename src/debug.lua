@@ -88,12 +88,12 @@ function show_debug_boxes()
     if GLOBAL_SETTING.DEBUG then
         -- debug draw bump boxes
         local a, x, y, w, h
-        local obj, _ = stage.world:getItems()
-        love.graphics.setColor(255, 0, 0, 50)
-        for i = 1, #obj do
-            x, y, w, h = stage.world:getRect(obj[i])
-            love.graphics.rectangle("line", x + 1, y + 1, w - 1, h - 1)
-        end
+        --local obj, _ = stage.world:getItems()
+--        love.graphics.setColor(255, 0, 0, 50)
+--        for i = 1, #obj do
+--            x, y, w, h = stage.world:getRect(obj[i])
+--            love.graphics.rectangle("line", x + 1, y + 1, w - 1, h - 1)
+--        end
         -- draw attack hitboxes
         for i = 1, #attackHitBoxes do
             a = attackHitBoxes[i]
