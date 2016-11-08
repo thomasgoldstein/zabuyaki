@@ -84,6 +84,7 @@ function Obstacle:updateAI(dt)
     end
     local cur_frame = self:calcDamageFrame()
     if self.old_frame ~= cur_frame then
+        sfx.play("sfx"..self.id, self.sfx.onBreak)
         local psystem = PA_OBSTACLE_BREAK_SMALL:clone()
         psystem:setPosition( 0, -self.height + self.height / 3 )
         --psystem:setAreaSpread( "uniform", 2, 8 )
