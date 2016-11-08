@@ -1408,7 +1408,10 @@ function Character:grab_update(dt)
         self.x = self.x + self.velocity_run / 2 * dt
         g.target.x = g.target.x - g.target.velocity_run * dt
     end
-
+    if self.b.attack:isDown() and self.can_jump and self.b.jump:isDown() then
+        self:setState(self.special)
+        return
+    end
     if self.b.attack:isDown() and self.can_attack then
         if self.sprite.isFinished then
             if self.b.horizontal:getValue() ~= 0 or self.b.horizontal:isDown(-1) or self.b.vertical:isDown(-1)
