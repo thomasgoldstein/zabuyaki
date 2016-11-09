@@ -77,6 +77,7 @@ PA_DUST_LANDING_UNUSED = psystem
 
 psystem = love.graphics.newParticleSystem( gfx.particles, 4 )
 psystem:setOffset( 10, 11 )
+psystem:setEmitterLifetime(0.2)
 psystem:setParticleLifetime(0.15)
 psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
 psystem:setQuads( imp_small_quad1, imp_small_quad2, imp_small_quad3 )
@@ -84,6 +85,7 @@ PA_IMPACT_SMALL = psystem
 
 psystem = love.graphics.newParticleSystem( gfx.particles, 4 )
 psystem:setOffset( 13, 13 )
+psystem:setEmitterLifetime(0.2)
 psystem:setParticleLifetime(0.15)
 psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
 psystem:setQuads( imp_medium_quad1, imp_medium_quad2, imp_medium_quad3 )
@@ -91,16 +93,15 @@ PA_IMPACT_MEDIUM = psystem
 
 psystem = love.graphics.newParticleSystem( gfx.particles, 4 )
 psystem:setOffset( 15, 15 )
+psystem:setEmitterLifetime(0.2)
 psystem:setParticleLifetime(0.15)
 psystem:setColors(255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55)
 psystem:setQuads( imp_big_quad1, imp_big_quad2, imp_big_quad3 )
 PA_IMPACT_BIG = psystem
 
 psystem = love.graphics.newParticleSystem( gfx.particles, 32 )
-psystem:setEmitterLifetime(1)
 psystem:setSizes(0.3, 0.6, 0.4, 0.1)
 psystem:setColors(214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188, 10, 214, 205, 188, 5)
-psystem:setParticleLifetime(0.2, 0.7)
 psystem:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
 psystem:setLinearDamping( 7, 20 )
 psystem:setAreaSpread( "uniform", 15, 5 )
@@ -112,7 +113,7 @@ PA_DUST_PUFF_STAGE = psystem
 
 psystem = love.graphics.newParticleSystem( gfx.particles, 50 )
 --psystem:setPosition( 0, -2 )
-psystem:setEmitterLifetime(5)
+psystem:setEmitterLifetime(2.1)
 psystem:setParticleLifetime(0.3, 2)
 psystem:setSizes(0.2, 0.5, 0.1)
 --psystem:setSizeVariation(0.7)
@@ -131,6 +132,7 @@ PA_DASH = psystem
 psystem = love.graphics.newParticleSystem(gfx.loot.image, 1)
 psystem:setLinearAcceleration(0, -75, 0, -85)
 psystem:setDirection(4.71)
+psystem:setEmitterLifetime(1)
 psystem:setParticleLifetime(1)
 --psystem:setSizes(1, 1, 1.1)
 psystem:setColors(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55, 255, 255, 255, 0)
