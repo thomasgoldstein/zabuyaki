@@ -101,7 +101,7 @@ SFX.load("scream2","res/sfx/scream2.wav", 1)
 SFX.gopper_death = {"scream1","scream2"}
 SFX.niko_death = {"scream1","scream2" }
 
-SFX.load("metalHit","res/sfx/tmp/metalHit.wav", 1)
-SFX.load("metalBreak","res/sfx/tmp/metalBreak.wav", 1)
+SFX.load("metal_hit","res/sfx/tmp/metal_hit.wav", 1)
+SFX.load("metal_break","res/sfx/tmp/metal_break.wav", 1)
 
 return SFX
