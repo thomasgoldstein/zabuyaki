@@ -42,8 +42,10 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false
-    self.flipOnBreak = f.flipOnBreak or true --flip face to the attacker on break (true by default)
-    self.faceFix = nil   --keep the same facing after 1st hit
+    if f.flipOnBreak ~= false then
+        self.flipOnBreak = true --flip face to the attacker on break (true by default)
+    end
+    self.faceFix = self.face   --keep the same facing after 1st hit
     self.sfx.dead = f.sfxDead --on death sfx
     self.sfx.onHit = f.sfxOnHit --on hurt sfx
     self.sfx.onBreak = f.sfxOnBreak --on sprite change/fall sfx
@@ -83,9 +85,7 @@ function Obstacle:setSprite(anim)
 end
 
 function Obstacle:drawSprite(x, y)
-    if self.faceFix then    -- fixed facing
-        self.sprite.flip_h = self.faceFix
-    end
+    self.sprite.flip_h = self.faceFix
     DrawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
 end
 
@@ -114,7 +114,9 @@ function Obstacle:onHurt()
     --Check for breaking change
     local cur_frame = self:calcDamageFrame()
     if self.old_frame ~= cur_frame then
-        self.faceFix = newFacing --Change facing
+        if self.flipOnBreak then
+            self.faceFix = newFacing --Change facing
+        end
         sfx.play("sfx"..self.id, self.sfx.onBreak)
         local psystem = PA_OBSTACLE_BREAK_SMALL:clone()
         psystem:setPosition( 0, -self.height + self.height / 3 )
