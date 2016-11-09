@@ -26,7 +26,7 @@ local function clamp(val, min, max)
 end
 
 function Obstacle:initialize(name, sprite, x, y, f)
-    --f options {}: hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak
+    --f options {}: hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak, sfxGrab
     if not f then
         f = {}
     end
@@ -44,9 +44,10 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.isDisabled = false
     self.faceFix = nil   --keep the same facing after 1st hit
     self.sfx.dead = f.sfxDead --on death sfx
-    self.sfx.onHit = f.sfxOnHit
-    self.sfx.onBreak = f.sfxOnBreak
-    self.isMovable = f.isMovable --on death sfx
+    self.sfx.onHit = f.sfxOnHit --on hurt sfx
+    self.sfx.onBreak = f.sfxOnBreak --on sprite change/fall sfx
+    self.sfx.grab = f.sfxGrab --on being grabbed sfx
+    self.isMovable = f.isMovable
     self.colorParticle = f.colorParticle
     self.weight = f.weight or 1.5
     self.gravity = self.gravity * self.weight
