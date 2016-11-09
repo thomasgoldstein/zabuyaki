@@ -1338,7 +1338,7 @@ Character.combo = {name = "combo", start = Character.combo_start, exit = nop, up
 function Character:checkForGrab(range)
     --got any Characters
     local items = {}
-    --self.shape:moveTo(x + stepx - 8, y + stepy - 4)
+    self.shape:moveTo(self.x + self.horizontal, self.y + self.vertical)
     for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
         local o = other.obj
         if o.isHittable
@@ -1348,17 +1348,6 @@ function Character:checkForGrab(range)
             items[#items+1] = o
         end
     end
-    --print(#items)
-
---    local items, len = stage.world:queryPoint(self.x + self.face*range, self.y,
---        function(o)
---            if o ~= self and o.isHittable
---                and not o.isGrabbed
---                and o.isMovable
---            then
---                return true
---            end
---        end)
     if #items > 0 then
         return items[1]
     end
@@ -1368,9 +1357,6 @@ end
 function Character:onGrab(source)
     -- hurt = {source, damage, velx,vely,x,y,z}
     local g = self.hold
---    if self.isGrabbed then
---        return false	-- already grabbed
---    end
     if self.state ~= "stand"
             and self.state ~= "hurtHigh"
             and self.state ~= "hurtLow"
