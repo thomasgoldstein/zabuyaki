@@ -159,8 +159,9 @@ function Stage01:initialize(players)
 
     local canColor = {118,109,100, 255}
     local canColor2 = {87, 116, 130, 255}
-    local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
+    local can1 = Obstacle:new("NF TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         76, top_floor_y + 40, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
+            flipOnBreak = false,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         109, top_floor_y + 20, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
