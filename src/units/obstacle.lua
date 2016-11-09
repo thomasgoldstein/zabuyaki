@@ -55,7 +55,18 @@ function Obstacle:initialize(name, sprite, x, y, f)
 
     self.infoBar = InfoBar:new(self)
 
+    self:addShape(self.x, self.y, 5)
+
     self:setState(self.stand)
+end
+
+function Obstacle:addShape(x, y, r, h)
+    if not self.shape then
+        self.shape = stage.world:circle(x, y, r)
+        self.shape.obj = self
+    else
+        print(self.name.."("..self.id..") has predefined shape")
+    end
 end
 
 function Obstacle:updateSprite(dt)
