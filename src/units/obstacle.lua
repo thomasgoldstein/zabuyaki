@@ -56,7 +56,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
 
     self.infoBar = InfoBar:new(self)
 
-    self:addShape(self.x, self.y, 5)
+    self:addShape(self.x, self.y, 7.5)
 
     self:setState(self.stand)
 end
