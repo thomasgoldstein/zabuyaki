@@ -14,6 +14,7 @@ function Stage01:initialize(players)
 --        {startX = 1600, endX = 1800, startY = 430+20, endY = 430+20},
 --        {startX = 1800, endX = 2000, startY = 430+20, endY = 430}
     }
+    self.objects = Entity:new()
 
     player1 = nil
     player2 = nil
@@ -157,21 +158,20 @@ function Stage01:initialize(players)
     local new_niko4 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 280, top_floor_y + 40, shaders.niko[2], {255,255,255, 255})
 
     local canColor = {118,109,100, 255}
+    local canColor2 = {87, 116, 130, 255}
     local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         76, top_floor_y + 40, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         109, top_floor_y + 20, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
-    local canColor2 = {87, 116, 130, 255}
     local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        150, top_floor_y + 10, {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
+        310, top_floor_y + 10, {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can4 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        81, top_floor_y + 65, {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
+        320, top_floor_y + 65, {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
-    self.objects = Entity:new()
     self.objects:addArray({
 --        new_gopper1, new_gopper2, new_gopper3, new_gopper4,
         new_niko1, new_niko2, new_niko3, new_niko4,
@@ -183,6 +183,20 @@ function Stage01:initialize(players)
         can1, can2, can3, can4,
         wall1,wall2,wall3,wall4
     })
+
+    local a, sx  = {}, 0
+    for i = 0, 6 do
+        a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/objects/can.lua"),
+            180 + sx , top_floor_y + 11 + i * 13, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
+                isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+        if sx == 0 then
+            sx = 6
+        else
+            sx = 0
+        end
+    end
+    self.objects:addArray(a)
+
     if player1 then
         self.objects:add(player1)
     end
