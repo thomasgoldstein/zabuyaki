@@ -26,7 +26,7 @@ local function clamp(val, min, max)
 end
 
 function Obstacle:initialize(name, sprite, x, y, f)
-    --f options {}: hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak, sfxGrab
+    --f options {}: hp, score, shader, color,isMovable, flipOnBreak, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak, sfxGrab
     if not f then
         f = {}
     end
@@ -42,6 +42,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false
+    self.flipOnBreak = f.flipOnBreak or true --flip face to the attacker on break (true by default)
     self.faceFix = nil   --keep the same facing after 1st hit
     self.sfx.dead = f.sfxDead --on death sfx
     self.sfx.onHit = f.sfxOnHit --on hurt sfx
@@ -71,10 +72,7 @@ function Obstacle:addShape(x, y, r, h)
 end
 
 function Obstacle:updateSprite(dt)
---    local spr = self.sprite
---    local s = spr.def.animations[spr.cur_anim]
-    --    print(spr.cur_frame, #s)
-    UpdateSpriteInstance(self.sprite, dt, self)
+--    UpdateSpriteInstance(self.sprite, dt, self)
 end
 
 function Obstacle:setSprite(anim)
@@ -98,8 +96,25 @@ function Obstacle:updateAI(dt)
     if not self.isMovable then
         self:updateShake(dt)
     end
+    Unit.updateAI(self, dt)
+end
+
+function Obstacle:onHurt()
+    local h = self.hurt
+    if not h then
+        return
+    end
+    local newFacing = -h.horizontal
+    --Move obstacle after hits
+    if not self.isGrabbed and self.isMovable and self.velx <= 0 then
+        self.velx = h.damage * 10
+        self.horizontal = h.horizontal
+    end
+    Character.onHurt(self)
+    --Check for breaking change
     local cur_frame = self:calcDamageFrame()
     if self.old_frame ~= cur_frame then
+        self.faceFix = newFacing --Change facing
         sfx.play("sfx"..self.id, self.sfx.onBreak)
         local psystem = PA_OBSTACLE_BREAK_SMALL:clone()
         psystem:setPosition( 0, -self.height + self.height / 3 )
@@ -127,24 +142,6 @@ function Obstacle:updateAI(dt)
         stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
     end
     self.old_frame = cur_frame
-
-    Unit.updateAI(self, dt)
-end
-
-function Obstacle:onHurt()
-    local h = self.hurt
-    if not h then
-        return
-    end
-    --Move obstacle after hits
-    if not self.isGrabbed and self.isMovable and self.velx <= 0 then
-        self.velx = h.damage * 10
-        self.horizontal = h.horizontal
-    end
-    if not self.faceFix then -- fix facing on 1st hit
-        self.faceFix = -h.horizontal
-    end
-    Character.onHurt(self)
 end
 
 function Obstacle:stand_start()
