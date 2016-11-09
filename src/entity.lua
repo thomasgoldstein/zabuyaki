@@ -61,9 +61,12 @@ function Entity:addToWorld(stage)
 --        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
 --        local o = stage.world:rectangle(obj.x-7, obj.y-3, 15, 7)
         if not obj.shape then
-            local o = stage.world:rectangle(obj.x, obj.y, 15, 7)
-            o.obj = obj
-            obj.shape = o
+--            local o = stage.world:rectangle(obj.x, obj.y, 15, 7)
+--            o.obj = obj
+--            obj.shape = o
+            obj:addShape(obj.x, obj.y, 15, 7)
+        else
+            print(obj.name.." has shape already")
         end
     end
 end
@@ -106,13 +109,13 @@ function Entity:draw(l,t,w,h)
     end
 end
 
-function Entity:revive()
-    for i, player in ipairs(self.entities) do
-        if player.type == "player" or player.type == "enemy" then
-            player:revive()
-        end
-    end
-end
+--function Entity:revive()
+--    for i, player in ipairs(self.entities) do
+--        if player.type == "player" or player.type == "enemy" then
+--            player:revive()
+--        end
+--    end
+--end
 
 function Entity:dp()
     local t = "* "
