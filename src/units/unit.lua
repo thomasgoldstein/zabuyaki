@@ -71,8 +71,17 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	else
 		self.pid = ""
 		self.show_pid_cool_down = 0
-	end
+    end
 	self:setState(self.stand)
+end
+
+function Unit:addShape(x, y, w, h)
+    if not self.shape then
+        self.shape = stage.world:rectangle(x, y, w or 10, h or 10)
+        self.shape.obj = self
+    else
+        print(self.name.."("..self.id..") has predefined shape")
+    end
 end
 
 function Unit:playHitSfx(dmg)
