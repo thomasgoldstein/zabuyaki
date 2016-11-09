@@ -283,7 +283,8 @@ function Unit:checkCollisionAndMove(dt)
 	self.shape:moveTo(self.x + stepx, self.y + stepy)
 	for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
 		local o = other.obj
-		if o.type == "wall" then
+		if o.type == "wall"
+		or (o.type == "obstacle" and not o.isMovable) then
 			self.shape:move(separating_vector.x, separating_vector.y)
 			--other:move( separating_vector.x/2,  separating_vector.y/2)
 		end
