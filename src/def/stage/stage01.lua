@@ -4,6 +4,7 @@ local Stage01 = class('Stage01', Stage)
 
 function Stage01:initialize(players)
     Stage.initialize(self, "Stage 01", {231, 207, 157})
+    stage = self
     self.scrolling = {commonY = 430, chunksX = {} }
     self.scrolling.chunks = {
 --        {startX = 0, endX = 320, startY = 430, endY = 430},
@@ -95,18 +96,10 @@ function Stage01:initialize(players)
 
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
-    local wall1 = Wall:new("wall1", nil, -20, 0)
-    wall1.shape = self.world:rectangle(-20, 0, 40, self.worldHeight) --left
-    wall1.shape.obj = wall1
-    local wall2 = Wall:new("wall2", nil, self.worldWidth - 20, 0)
-    wall2.shape = self.world:rectangle(self.worldWidth - 20, 0, 40, self.worldHeight) --right
-    wall2.shape.obj = wall2
-    local wall3 = Wall:new("wall3", nil, 0, 420)
-    wall3.shape = self.world:rectangle(0, 420, self.worldWidth, 40) --top
-    wall3.shape.obj = wall3
-    local wall4 = Wall:new("wall4", nil, 0, 546)
-    wall4.shape = self.world:rectangle(0, 546, self.worldWidth, 40) --bottom
-    wall4.shape.obj = wall4
+    local wall1 = Wall:new("wall1", -20, 0, 40, self.worldHeight) --left
+    local wall2 = Wall:new("wall2", self.worldWidth - 20, 0, 40, self.worldHeight) --right
+    local wall3 = Wall:new("wall3", 0, 420, self.worldWidth, 40) --top
+    local wall4 = Wall:new("wall4", 0, 546, self.worldWidth, 40) --bottom
 
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), button3, 500, top_floor_y + 20, shaders.gopper[4], {255,255,255, 255})
     local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1510, top_floor_y + 20, shaders.gopper[2], {255,255,255, 255})
