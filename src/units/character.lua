@@ -1043,7 +1043,7 @@ function Character:fall_update(dt)
                         self:applyDamage(self.thrown_land_damage, "simple", src)
                     end
                 end
-                sfx.play("sfx"..self.id,"fall", 1 - self.bounced * 0.2, self.bounced_pitch - self.bounced * 0.2)
+                sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bounced_pitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
                 --landing dust clouds
                 local psystem = PA_DUST_FALLING:clone()
