@@ -7,37 +7,39 @@ local function nop() --[[print "nop"]] end
 
 local Wall = class("Wall", Unit)
 
-function Wall:initialize(name, sprite, x, y, f)
+function Wall:initialize(name, x, y, w, h, f)
     --f options {}: hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak
     if not f then
         f = {}
     end
-    Unit.initialize(self, name, sprite, nil, x, y)
+    Unit.initialize(self, name, nil, nil, x, y)
     self.name = name or "Unknown Wall"
     self.type = "wall"
-    self.hp = f.hp or 50
+    self.hp = f.hp or 1
     self.max_hp = self.hp
     self.lives = 0
-    self.score = f.score or 10
+    self.score = f.score or 0
     self.func = f.func
     self.height = 40
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false
-    self.faceFix = nil   --keep the same facing after 1st hit
-    self.sfx.dead = f.sfxDead --on death sfx
-    self.sfx.onHit = f.sfxOnHit
-    self.sfx.onBreak = f.sfxOnBreak
     self.isMovable = f.isMovable --on death sfx
-    self.colorParticle = f.colorParticle
-    self.weight = f.weight or 1.5
-    self.gravity = self.gravity * self.weight
-
-    self.old_frame = 1 --Old sprite frame N to start particles on change
 
     self.infoBar = nil
 
+    self:addShape(x, y, w, h)
+
     self:setState(self.stand)
+end
+
+function Wall:addShape(x, y, w, h)
+    if not self.shape then
+        self.shape = stage.world:rectangle(x, y, w or 10, h or 10)
+        self.shape.obj = self
+    else
+        print(self.name.."("..self.id..") has predefined shape")
+    end
 end
 
 function Wall:updateSprite(dt)
