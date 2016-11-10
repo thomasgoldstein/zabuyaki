@@ -532,12 +532,14 @@ function Character:walk_update(dt)
             return
         end
     end
-    local grabbed = self:checkForGrab(12)
-    if grabbed then
-        if self:doGrab(grabbed) then
-            local g = self.hold
-            self.victim_infoBar = g.target.infoBar:setAttacker(self)
-            return
+    if self.b.attack:isDown() then
+        local grabbed = self:checkForGrab(12)
+        if grabbed then
+            if self:doGrab(grabbed) then
+                local g = self.hold
+                self.victim_infoBar = g.target.infoBar:setAttacker(self)
+                return
+            end
         end
     end
     if self.velx == 0 and self.vely == 0 then
