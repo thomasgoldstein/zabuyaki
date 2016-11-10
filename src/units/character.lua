@@ -234,14 +234,6 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
     end
     local items = {}
     if type == "shockWave" then
---        items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
---            function(o)
---                if self ~= o and not o.isDisabled
---                then
---                    --print ("hit "..item.name)
---                    return true
---                end
---            end)
         local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
 
         for other, separating_vector in pairs(stage.world:collisions(a)) do
@@ -255,15 +247,6 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
         stage.world:remove(a)
         a = nil
     else
---        items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
---            function(o)
---                if self ~= o and o.isHittable and not o.isDisabled and not self.victims[o]
---                        and o.z <= self.z + o.height and o.z >= self.z - self.height
---                then
---                    --print ("hit "..item.name)
---                    return true
---                end
---            end)
         local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
 
         for other, separating_vector in pairs(stage.world:collisions(a)) do
@@ -320,12 +303,6 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
     end
 
     local items = {}
---    local items, len = stage.world:queryRect(self.x + face*l - w/2, self.y + t - h/2, w, h,
---        function(obj)
---            if obj == g.target then
---                return true
---            end
---        end)
     local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
     for other, separating_vector in pairs(stage.world:collisions(a)) do
         local o = other.obj
@@ -353,13 +330,6 @@ end
 function Character:checkForLoot(w, h)
     --got any loot near feet?
     local loot = {}
---    local loot, len = stage.world:queryRect(self.x - w/2, self.y - h/2, w, h,
---        function(loot)
---            if loot.type == "loot" and not loot.isEnabled then
---                return true
---            end
---        end)
-
     for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
         local o = other.obj
         if o.type == "loot"
@@ -1120,7 +1090,7 @@ function Character:dead_start()
     --self:onShake(1, 0, 0.1, 0.7)
     sfx.play("voice"..self.id, self.sfx.dead)
     if self.func then   -- custom function on death
-        self.func()
+        self:func(self)
     end
 end
 function Character:dead_update(dt)
