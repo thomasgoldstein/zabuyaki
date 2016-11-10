@@ -84,9 +84,13 @@ function Character:addScore(score)
 end
 
 function Character:isAlive()
-    -- Just used 1 credit
-    if self.player_select_mode >= 1 and self.player_select_mode < 4 then
+    if (self.player_select_mode == 0 and credits > 0 and self.state == "useCredit")
+        or (self.player_select_mode >= 1 and self.player_select_mode < 4)
+    then
         return true
+    elseif self.player_select_mode >= 4 then
+        -- Did not use continue
+        return false
     end
     return self.hp + self.lives > 0
 end

@@ -3,7 +3,7 @@ arcadeState = {}
 local time = 0
 local screen_width = 640
 local screen_height = 480
-local txt_game_over = love.graphics.newText( gfx.font.arcade2, "GAME OVER" )
+local txt_game_over = love.graphics.newText( gfx.font.kimberley, "GAME OVER" )
 
 function arcadeState:init()
 end
@@ -97,8 +97,13 @@ function arcadeState:draw()
     show_debug_controls()
     show_debug_indicator()
     -- GAME OVER
-    if credits <= 0 and not is_alive then
-        love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
+    if not is_alive then
+        love.graphics.setColor(55, 55, 55, 255)
+        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 + 1, (screen_height - txt_game_over:getHeight()) / 2 + 1 )
+        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 + 1 )
+        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 + 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
+        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
+        love.graphics.setColor(255, 255, 255, 220 + math.sin(time)*35)
         love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
     end
     -- Profiler Pie Graph
