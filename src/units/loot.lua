@@ -17,13 +17,14 @@ function Loot:initialize(name, gfx, x, y, f)
         f = {}
     end
     Unit.initialize(self, name, nil, nil, x, y, f)
-
+    self.draw = Loot.draw
     self.sprite = gfx.sprite
     self.q = gfx.q
     self.ox = gfx.ox
     self.oy = gfx.oy
 
     self.note = f.note or "???"
+    self.pickupSfx = f.pickupSfx
     self.type = "loot"
     self.x, self.y, self.z = x, y, 0
     self.height = 17
@@ -94,6 +95,8 @@ function Loot:get(taker)
     else
         sfx.play("sfx"..self.id,"pickup_beef")
     end
+    --sfx.play("sfx"..self.id,self.pickupSfx)
+
     taker:addHp(self.hp)
     taker:addScore(self.score)
     self.isDisabled = true
