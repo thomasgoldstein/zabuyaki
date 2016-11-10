@@ -14,8 +14,8 @@ local function sign(x)
     return x>0 and 1 or x<0 and -1 or 0
 end
 
-function Gopper:initialize(name, sprite, input, x, y, shader, color)
-    Character.initialize(self, name, sprite, input, x, y, shader, color)
+function Gopper:initialize(name, sprite, input, x, y, f)
+    Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "player"
     self.max_hp = 100
     self.hp = self.max_hp

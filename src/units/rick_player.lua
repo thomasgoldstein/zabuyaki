@@ -19,8 +19,8 @@ end
 
 local function nop() --[[print "nop"]] end
 
-function Rick:initialize(name, sprite, input, x, y, shader, color)
-    Character.initialize(self, name, sprite, input, x, y, shader, color)
+function Rick:initialize(name, sprite, input, x, y, f)
+    Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "player"
     self.max_hp = 100
     self.hp = self.max_hp

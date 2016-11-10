@@ -23,9 +23,9 @@ local function sign(x)
     return x>0 and 1 or x<0 and -1 or 0
 end
 
-function Gopper:initialize(name, sprite, input, x, y, shader, color)
+function Gopper:initialize(name, sprite, input, x, y, f)
     self.tx, self.ty = x, y
-    Enemy.initialize(self, name, sprite, input, x, y, shader, color)
+    Enemy.initialize(self, name, sprite, input, x, y, f)
     self:pickAttackTarget()
     self.type = "enemy"
     self.face = -1

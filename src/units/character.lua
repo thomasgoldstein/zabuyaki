@@ -9,8 +9,8 @@ local function sign(x)
     return x>0 and 1 or x<0 and -1 or 0
 end
 
-function Character:initialize(name, sprite, input, x, y, shader, color)
-    Unit.initialize(self, name, sprite, input, x, y, shader, color)
+function Character:initialize(name, sprite, input, x, y, f)
+    Unit.initialize(self, name, sprite, input, x, y, f)
     self.type = "character"
     self.height = 50
     self.velocity_walk = 100

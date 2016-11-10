@@ -23,13 +23,18 @@ local function nop() --[[print "nop"]] end
 
 GLOBAL_UNIT_ID = 1
 
-function Unit:initialize(name, sprite, input, x, y, shader, color)
+function Unit:initialize(name, sprite, input, x, y, f)
+    --f options {}: hp, score, shader, color, sfxOnHit, sfxDead, func
+    if not f then
+        f = {}
+    end
 	self.sprite = sprite or {}
 	self.name = name or "Unknown"
 	self.type = "unit"
     self.cool_down_death = 3 --seconds to remove
-    self.max_hp = 1
+    self.max_hp = f.hp or 1
     self.hp = self.max_hp
+	self.score = f.score or 0
 	self.b = input or DUMMY_CONTROL
 
 	self.x, self.y, self.z = x, y, 0
@@ -46,17 +51,18 @@ function Unit:initialize(name, sprite, input, x, y, shader, color)
 	self.prev_state = "" -- text name
     self.last_state = "" -- text name
     self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
-	self.shader = shader  --change player colors
     self.sfx = {}
-	self.sfx.onHit = nil
+    self.sfx.onHit = f.sfxOnHit --on hurt sfx
+    self.sfx.dead = f.sfxDead --on death sfx
 	self.isHittable = false
 	self.isGrabbed = false
 	self.hold = {source = nil, target = nil, cool_down = 0 }
-    self.isThrown = false
     self.victims = {} -- [victim] = true
-	self.color = color or { 255, 255, 255, 255 }
-	self.isDisabled = false
-
+    self.isThrown = false
+    self.isDisabled = false
+    self.shader = f.shader  --change player colors
+	self.color = f.color or { 255, 255, 255, 255 }
+    self.func = f.func
 	self.draw = nop
 	self.update = nop
 	self.start = nop

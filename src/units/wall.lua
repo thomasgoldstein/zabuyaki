@@ -12,14 +12,10 @@ function Wall:initialize(name, x, y, w, h, f)
     if not f then
         f = {}
     end
-    Unit.initialize(self, name, nil, nil, x, y)
+    Unit.initialize(self, name, nil, nil, x, y, f)
     self.name = name or "Unknown Wall"
     self.type = "wall"
-    self.hp = f.hp or 1
-    self.max_hp = self.hp
     self.lives = 0
-    self.score = f.score or 0
-    self.func = f.func
     self.height = 40
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
     self.isHittable = false

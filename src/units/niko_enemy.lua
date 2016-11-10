@@ -23,9 +23,9 @@ end
 
 local function nop() --[[print "nop"]] end
 
-function Niko:initialize(name, sprite, input, x, y, shader, color)
+function Niko:initialize(name, sprite, input, x, y, f)
     self.tx, self.ty = x, y
-    Gopper.initialize(self, name, sprite, input, x, y, shader, color)
+    Gopper.initialize(self, name, sprite, input, x, y, f)
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self.sfx.dead = sfx.gopper_death
     self:setState(self.intro)

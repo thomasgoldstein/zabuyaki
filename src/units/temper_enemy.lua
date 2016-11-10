@@ -4,11 +4,11 @@ local Temper = class('Temper', Gopper)
 
 local function nop() --[[print "nop"]] end
 
-function Temper:initialize(name, sprite, input, x, y, shader, color)
+function Temper:initialize(name, sprite, input, x, y, f)
     self.tx, self.ty = x, y
     self.move = tween.new(0.01, self, {tx = x, ty = y})
     self.target = self:pickAttackTarget()    --TODO temp
-    Gopper.initialize(self, name, sprite, input, x, y, shader, color)
+    Gopper.initialize(self, name, sprite, input, x, y, f)
     self.type = "enemy"
     self.lives = 3
 end
