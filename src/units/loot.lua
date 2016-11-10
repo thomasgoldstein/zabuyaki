@@ -88,15 +88,7 @@ function Loot:get(taker)
     if self.func then    --run custom function if there is
         self:func(taker)
     end
-    if self.name == "Apple" then
-        sfx.play("sfx"..self.id,"pickup_apple")
-    elseif self.name == "Chicken" then
-        sfx.play("sfx"..self.id,"pickup_chicken")
-    else
-        sfx.play("sfx"..self.id,"pickup_beef")
-    end
-    --sfx.play("sfx"..self.id,self.pickupSfx)
-
+    sfx.play("sfx"..self.id, self.pickupSfx)
     taker:addHp(self.hp)
     taker:addScore(self.score)
     self.isDisabled = true

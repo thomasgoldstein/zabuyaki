@@ -149,16 +149,16 @@ function Stage01:initialize(players)
     -- Loot
     local loot1 = Loot:new("Apple", gfx.loot.apple,
         130,top_floor_y + 30,
-        { hp = 15, score = 0, note = "+15 HP" }
+        { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickup_apple"}
     )
     local loot2 = Loot:new("Chicken", gfx.loot.chicken,
         660,top_floor_y + 50,
-        { hp = 50, score = 0, note = "+50 HP"}
+        { hp = 50, score = 0, note = "+50 HP", pickupSfx = "pickup_chicken"}
     )
     --    Custom func sample func = function(s, t) dp(t.name .. " called custom loot ("..s.name..") func") end
     local loot3 = Loot:new("Beef", gfx.loot.beef,
         750,top_floor_y + 40,
-        { hp = 100, score = 0, note = "+100 HP"}
+        { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickup_beef"}
     )
 
     local temper1 = Temper:new("TEMPER", GetSpriteInstance("src/def/char/rick.lua"), button3, 567, top_floor_y + 40,
