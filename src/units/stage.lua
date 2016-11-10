@@ -20,26 +20,7 @@ function Stage:initialize(name, bgColor)
     --        {startX = 0, endX = 320, startY = 430, endY = 430},
     --        {startX = 321, endX = 321+320, startY = 430, endY = 430-100}
     --    }
-
---    self.world = bump.newWorld(64)
     self.world = HC.new(40*4)
-
---    self.world:add({ type = "wall" }, -20, 0, 40, self.worldHeight) --left
---[[    local wall1 = HC.rectangle(-20, 0, 40, self.worldHeight) --left
-    wall1.obj = {type = "wall", shape = wall1}
-    local wall2 = HC.rectangle(self.worldWidth - 20, 0, 40, self.worldHeight) --right
-    wall2.obj = {type = "wall", shape = wall2}
-    local wall3 = HC.rectangle(0, 420, self.worldWidth, 40) --top
-    wall3.obj = {type = "wall", shape = wall3}
-    local wall4 = HC.rectangle(0, 546, self.worldWidth, 40) --bottom
-    wall4.obj = {type = "wall", shape = wall4}]]
-
-    --self.world:
-    --adding BLOCKING left-right walls
---    self.left_block_wall = { type = "wall" }
---    self.right_block_wall = { type = "wall" }
---    self.world:add(self.left_block_wall, -10, 0, 40, self.worldHeight) --left
---    self.world:add(self.right_block_wall, self.worldWidth + 20, 0, 40, self.worldHeight) --right
 end
 
 function Stage:update(dt)
@@ -182,15 +163,6 @@ function Stage:setCamera(dt)
 --  mainCamera:update(dt, math.ceil(coord_x * 2 - 0.5)/2, math.ceil(coord_y * 2 - 0.5 )/2)
 
     -- Move block walls
---    if dist > max_distance - 60 then
---        local actualX, actualY, cols, len = self.world:move(self.left_block_wall, maxx - max_distance - 40, 0, function() return "cross" end)
---        local actualX2, actualY2, cols2, len2 = self.world:move(self.right_block_wall, minx + max_distance + 1, 0, function() return "cross" end)
---        --dp(actualX, actualX2, player1.x, player2.x)
---    else
---        local actualX, actualY, cols, len = self.world:move(self.left_block_wall, -100, 0, function() return "cross" end)
---        local actualX2, actualY2, cols2, len2 = self.world:move(self.right_block_wall, 4400, 0, function() return "cross" end)
---        --dp(actualX, actualX2, player1.x, player2.x)
---    end
 end
 
 return Stage

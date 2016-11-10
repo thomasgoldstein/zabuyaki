@@ -30,8 +30,8 @@ function Stage01:initialize(players)
             GetSpriteInstance(players[1].sprite_instance),
             Control1,
             60, top_floor_y + 65,
-            players[1].shader,
-            {255,255,255, 255})
+            { shader = players[1].shader, color = {255,255,255, 255} }
+        )
     end
     GLOBAL_UNIT_ID = 2  --recalc players IDs for proper life bar coords
     if players[2] then
@@ -40,9 +40,8 @@ function Stage01:initialize(players)
             GetSpriteInstance(players[2].sprite_instance),
             Control2,
             90, top_floor_y + 35,
-            players[2].shader)
-        --player2.horizontal = -1
-        --player2.face = -1
+            { shader = players[2].shader }
+        )
     end
     GLOBAL_UNIT_ID = 3  --recalc players IDs for proper life bar coords
     if players[3] then
@@ -51,11 +50,11 @@ function Stage01:initialize(players)
             GetSpriteInstance(players[3].sprite_instance),
             Control3,
             120, top_floor_y + 5,
-            players[3].shader,
-            {255,255,255, 255})
+            { shader = players[3].shader }
+        )
     end
 
-    --define sprites
+    --define bg sprites
     local bgRoad = love.graphics.newImage("res/img/stages/stage1/road.png")
     local bgBuilding1 = love.graphics.newImage("res/img/stages/stage1/building1.png")
     local bgBuilding2 = love.graphics.newImage("res/img/stages/stage1/building2.png")
@@ -85,92 +84,127 @@ function Stage01:initialize(players)
     self.background:add(bgBuilding1, qBuilding1, -20 + 2 * (10 + (525 - 90)), 67)
     self.background:add(bgBuilding2, qBuilding2, -20 + 3 * (10 + (525 - 90)), 67)
 
-    -- Walls around the level
---    local wall1 = HC.rectangle(-20, 0, 40, self.worldHeight) --left
---    wall1.obj = {type = "wall", shape = wall1}
---    local wall2 = HC.rectangle(self.worldWidth - 20, 0, 40, self.worldHeight) --right
---    wall2.obj = {type = "wall", shape = wall2}
---    local wall3 = HC.rectangle(0, 420, self.worldWidth, 40) --top
---    wall3.obj = {type = "wall", shape = wall3}
---    local wall4 = HC.rectangle(0, 546, self.worldWidth, 40) --bottom
---    wall4.obj = {type = "wall", shape = wall4 }
-
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
+    -- Walls around the level
     local wall1 = Wall:new("wall1", -20, 0, 40, self.worldHeight) --left
     local wall2 = Wall:new("wall2", self.worldWidth - 20, 0, 40, self.worldHeight) --right
     local wall3 = Wall:new("wall3", 0, 420, self.worldWidth, 40) --top
     local wall4 = Wall:new("wall4", 0, 546, self.worldWidth, 40) --bottom
 
-    local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), button3, 500, top_floor_y + 20, shaders.gopper[4], {255,255,255, 255})
-    local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1510, top_floor_y + 20, shaders.gopper[2], {255,255,255, 255})
+    -- Enemy
+    local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), button3, 500, top_floor_y + 20,
+        { shader = shaders.gopper[4], color = {255,255,255, 255}})
+    local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1510, top_floor_y + 20,
+        { shader = shaders.gopper[2], color = {255,255,255, 255}})
     gopper2:setToughness(1)
-    local gopper3 = Gopper:new("GOPPER3", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1560, top_floor_y + 40, shaders.gopper[3], {255,255,255, 255})
+    local gopper3 = Gopper:new("GOPPER3", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1560, top_floor_y + 40,
+        { shader = shaders.gopper[3], color = {255,255,255, 255}})
     gopper3:setToughness(2)
-    local gopper4 = Gopper:new("GOPPER4", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1520, top_floor_y + 30, shaders.gopper[4], {255,255,255, 255})
+    local gopper4 = Gopper:new("GOPPER4", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1520, top_floor_y + 30,
+        { shader = shaders.gopper[4], color = {255,255,255, 255}})
     gopper4:setToughness(3)
-    local gopper5 = Gopper:new("GOPPER5", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1540, top_floor_y + 25, nil, {255,255,255, 255})
+    local gopper5 = Gopper:new("GOPPER5", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1540, top_floor_y + 25,
+        { shader = nil, color = {255,255,255, 255}})
     gopper5:setToughness(4)
-    local gopper6 = Gopper:new("GOPPER6", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1525, top_floor_y + 35, nil, {255,255,255, 255})
+    local gopper6 = Gopper:new("GOPPER6", GetSpriteInstance("src/def/char/gopper.lua"), button3, 1525, top_floor_y + 35,
+        { shader = nil, color = {255,255,255, 255}})
     gopper6:setToughness(5)
 
-    local dummy4 = Rick:new("Dummie4", GetSpriteInstance("src/def/char/rick.lua"), button3, 260, top_floor_y + 20, shaders.rick[4], {255,255,255, 255})
+    local dummy4 = Rick:new("Dummie4", GetSpriteInstance("src/def/char/rick.lua"), button3, 260, top_floor_y + 20,
+        { shader = shaders.rick[4], color = {255,255,255, 255}})
     dummy4:setToughness(5)
     dummy4.horizontal = -1
     dummy4.face = -1
-    local dummy5 = Chai:new("Dummie5", GetSpriteInstance("src/def/char/chai.lua"), button3, 220, top_floor_y + 20, shaders.chai[3], {255,255,255, 255})
+    local dummy5 = Chai:new("Dummie5", GetSpriteInstance("src/def/char/chai.lua"), button3, 220, top_floor_y + 20,
+        { shader = shaders.chai[3], color = {255,255,255, 255}})
     dummy5:setToughness(5)
     dummy5.horizontal = -1
     dummy5.face = -1
 
-    local niko1 = Niko:new("niko", GetSpriteInstance("src/def/char/niko.lua"), button3, 550 + love.math.random(-20,20), top_floor_y + 0, shaders.niko[2], {255,255,255, 255})
-    local niko2 = Niko:new("niko2", GetSpriteInstance("src/def/char/niko.lua"), button3, 1510 + love.math.random(-20,20), top_floor_y + 10, nil, {255,255,255, 255})
+    local niko1 = Niko:new("niko", GetSpriteInstance("src/def/char/niko.lua"), button3,
+        550 + love.math.random(-20,20), top_floor_y + 0,
+        { shader = shaders.niko[2], color = {255,255,255, 255}})
+    local niko2 = Niko:new("niko2", GetSpriteInstance("src/def/char/niko.lua"), button3,
+        1510 + love.math.random(-20,20), top_floor_y + 10,
+        { shader = nil, color = {255,255,255, 255}})
     niko2:setToughness(1)
-    local niko3 = Niko:new("niko3", GetSpriteInstance("src/def/char/niko.lua"), button3, 1560 + love.math.random(-20,20), top_floor_y + 20, shaders.niko[2], {255,255,255, 255})
+    local niko3 = Niko:new("niko3", GetSpriteInstance("src/def/char/niko.lua"), button3,
+        1560 + love.math.random(-20,20), top_floor_y + 20,
+        { shader = shaders.niko[2], color = {255,255,255, 255}})
     niko3:setToughness(2)
-    local niko4 = Niko:new("niko4", GetSpriteInstance("src/def/char/niko.lua"), button3, 1520 + love.math.random(-20,20), top_floor_y + 30, shaders.niko[2], {255,255,255, 255})
+    local niko4 = Niko:new("niko4", GetSpriteInstance("src/def/char/niko.lua"), button3,
+        1520 + love.math.random(-20,20), top_floor_y + 30,
+        { shader = shaders.niko[2], color = {255,255,255, 255}})
     niko4:setToughness(3)
-    local niko5 = Niko:new("niko5", GetSpriteInstance("src/def/char/niko.lua"), button3, 1540 + love.math.random(-20,20), top_floor_y + 40, nil, {255,255,255, 255})
+    local niko5 = Niko:new("niko5", GetSpriteInstance("src/def/char/niko.lua"), button3,
+        1540 + love.math.random(-20,20), top_floor_y + 40,
+        { shader = nil, color = {255,255,255, 255}})
     niko5:setToughness(4)
-    local niko6 = Niko:new("niko6", GetSpriteInstance("src/def/char/niko.lua"), button3, 1525 + love.math.random(-20,20), top_floor_y + 50, nil, {255,255,255, 255})
+    local niko6 = Niko:new("niko6", GetSpriteInstance("src/def/char/niko.lua"), button3,
+        1525 + love.math.random(-20,20), top_floor_y + 50,
+        { shader = nil, color = {255,255,255, 255}})
     niko6:setToughness(5)
 
-    --Loot:initialize(name, sprite, hp, money, func, x, y, shader, color)
-    local loot1 = Loot:new("Apple", "+15 HP", gfx.loot.apple, 15, 0, nil, 130,top_floor_y + 30)
-    local loot2 = Loot:new("Chicken", "+50 HP", gfx.loot.chicken, 50, 0, nil, 660,top_floor_y + 50)
-    --    loot2 = Loot:new("Custom func sample", "+20 Pts.", gfx.loot.apple, 20, 0, function(s, t) dp(t.name .. " called custom loot ("..s.name..") func") end, 460,180)
-    local loot3 = Loot:new("Beef", "+100 HP", gfx.loot.beef, 100, 0, nil, 750,top_floor_y + 40 )
+    -- Loot
+    local loot1 = Loot:new("Apple", gfx.loot.apple,
+        130,top_floor_y + 30,
+        { hp = 15, score = 0, note = "+15 HP" }
+    )
+    local loot2 = Loot:new("Chicken", gfx.loot.chicken,
+        660,top_floor_y + 50,
+        { hp = 50, score = 0, note = "+50 HP"}
+    )
+    --    Custom func sample func = function(s, t) dp(t.name .. " called custom loot ("..s.name..") func") end
+    local loot3 = Loot:new("Beef", gfx.loot.beef,
+        750,top_floor_y + 40,
+        { hp = 100, score = 0, note = "+100 HP"}
+    )
 
-    local temper1 = Temper:new("TEMPER", GetSpriteInstance("src/def/char/rick.lua"), button3, 567, top_floor_y + 40, shaders.rick[5], {255,255,255, 255})
+    local temper1 = Temper:new("TEMPER", GetSpriteInstance("src/def/char/rick.lua"), button3, 567, top_floor_y + 40,
+        { shader = shaders.rick[5], color = {255,255,255, 255}})
     -- 3 lives: 100hp+100hp+50hp sample
     temper1.max_hp = 100
     temper1.hp = 50
-    temper1.infoBar = InfoBar:new(temper1)
+    temper1.infoBar = InfoBar:new(temper1) -- Have to init
 
     local gop_x = 300
-    local new_gopper1 = Gopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), button3, gop_x + 157, top_floor_y + 40, shaders.gopper[2], {255,255,255, 255})
-    local new_gopper2 = Gopper:new("N.GOP2", GetSpriteInstance("src/def/char/gopper.lua"), button3, gop_x + 177, top_floor_y + 43, shaders.gopper[1], {255,255,255, 255})
-    local new_gopper3 = Gopper:new("N.GOP3", GetSpriteInstance("src/def/char/gopper.lua"), button3, gop_x + 199, top_floor_y + 47, shaders.gopper[3], {255,255,255, 255})
-    local new_gopper4 = Gopper:new("N.GOP4", GetSpriteInstance("src/def/char/gopper.lua"), button3, gop_x + 210, top_floor_y + 40, shaders.gopper[4], {255,255,255, 255})
-    local new_niko1 = Niko:new("N.NIK1", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 220, top_floor_y + 40, shaders.niko[1], {255,255,255, 255})
-    local new_niko2 = Niko:new("N.NIK2", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 240, top_floor_y + 43, shaders.niko[2], {255,255,255, 255})
-    local new_niko3 = Niko:new("N.NIK3", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 260, top_floor_y + 47, shaders.niko[1], {255,255,255, 255})
-    local new_niko4 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 280, top_floor_y + 40, shaders.niko[2], {255,255,255, 255})
+    local new_gopper1 = Gopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), button3, gop_x + 157, top_floor_y + 40,
+        { shader = shaders.gopper[2], color = {255,255,255, 255}})
+    local new_gopper2 = Gopper:new("N.GOP2", GetSpriteInstance("src/def/char/gopper.lua"), button3, gop_x + 177, top_floor_y + 43,
+        { shader = shaders.gopper[1], color = {255,255,255, 255}})
+    local new_gopper3 = Gopper:new("N.GOP3", GetSpriteInstance("src/def/char/gopper.lua"), button3, gop_x + 199, top_floor_y + 47,
+        { shader = shaders.gopper[3], color = {255,255,255, 255}})
+    local new_gopper4 = Gopper:new("N.GOP4", GetSpriteInstance("src/def/char/gopper.lua"), button3, gop_x + 210, top_floor_y + 40,
+        { shader = shaders.gopper[4], color = {255,255,255, 255}})
+    local new_niko1 = Niko:new("N.NIK1", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 220, top_floor_y + 40,
+        { shader = shaders.niko[1], color = {255,255,255, 255}})
+    local new_niko2 = Niko:new("N.NIK2", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 240, top_floor_y + 43,
+        { shader = shaders.niko[2], color = {255,255,255, 255}})
+    local new_niko3 = Niko:new("N.NIK3", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 260, top_floor_y + 47,
+        { shader = shaders.niko[1], color = {255,255,255, 255}})
+    local new_niko4 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), button3, gop_x + 280, top_floor_y + 40,
+        { shader = shaders.niko[2], color = {255,255,255, 255}})
 
+    -- Obstacles
     local canColor = {118,109,100, 255}
     local canColor2 = {87, 116, 130, 255}
     local can1 = Obstacle:new("NF TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        76, top_floor_y + 40, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
+        76, top_floor_y + 40,
+        {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
             flipOnBreak = false,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        109, top_floor_y + 20, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
+        109, top_floor_y + 20,
+        {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        310, top_floor_y + 10, {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
+        310, top_floor_y + 10,
+        {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can4 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
-        320, top_floor_y + 65, {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
+        320, top_floor_y + 65,
+        {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
@@ -188,7 +222,8 @@ function Stage01:initialize(players)
     local a, sx  = {}, 0
     for i = 0, 6 do
         a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/objects/can.lua"),
-            180 + sx , top_floor_y + 11 + i * 13, {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
+            180 + sx , top_floor_y + 11 + i * 13,
+            {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
                 isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
         if sx == 0 then
             sx = 6

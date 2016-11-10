@@ -25,9 +25,9 @@ local function sign(x)
     return x>0 and 1 or x<0 and -1 or 0
 end
 
-function Event:initialize(name, sprite, input, x, y, shader, color)
+function Event:initialize(name, sprite, input, x, y, f)
     --self.tx, self.ty = x, y
-    Unit.initialize(self, name, sprite, input, x, y, shader, color)
+    Unit.initialize(self, name, sprite, input, x, y, f)
     self:pickAttackTarget()
     self.type = "event"
 end

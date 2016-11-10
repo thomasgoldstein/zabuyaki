@@ -12,7 +12,10 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 
-function Loot:initialize(name, note, gfx, x, y, f)
+function Loot:initialize(name, gfx, x, y, f)
+    if not f then
+        f = {}
+    end
     Unit.initialize(self, name, nil, nil, x, y, f)
 
     self.sprite = gfx.sprite
@@ -20,7 +23,7 @@ function Loot:initialize(name, note, gfx, x, y, f)
     self.ox = gfx.ox
     self.oy = gfx.oy
 
-    self.note = note or "???"
+    self.note = f.note or "???"
     self.type = "loot"
     self.x, self.y, self.z = x, y, 0
     self.height = 17

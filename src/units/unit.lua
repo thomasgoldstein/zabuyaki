@@ -28,7 +28,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     if not f then
         f = {}
     end
-	self.sprite = sprite or {}
+	self.sprite = sprite --or {}
 	self.name = name or "Unknown"
 	self.type = "unit"
     self.cool_down_death = 3 --seconds to remove
