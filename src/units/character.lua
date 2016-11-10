@@ -1119,7 +1119,9 @@ function Character:dead_start()
     end
     --self:onShake(1, 0, 0.1, 0.7)
     sfx.play("voice"..self.id, self.sfx.dead)
-    --TODO dead event
+    if self.func then   -- custom function on death
+        self.func()
+    end
 end
 function Character:dead_update(dt)
     if self.isDisabled then
