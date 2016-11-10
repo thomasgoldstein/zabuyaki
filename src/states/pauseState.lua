@@ -137,7 +137,12 @@ function pauseState:draw()
         end
     end
     --header
-    love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
+    love.graphics.setColor(55, 55, 55, 255)
+    love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2 + 1, 40 + 1 )
+    love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2 - 1, 40 + 1 )
+    love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2 + 1, 40 - 1 )
+    love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2 - 1, 40 - 1 )
+    love.graphics.setColor(255, 255, 255, 220 + math.sin(time)*35)
     love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2, 40)
 
     love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
