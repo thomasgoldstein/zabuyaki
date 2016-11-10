@@ -92,7 +92,7 @@ function Loot:get(taker)
     taker:addHp(self.hp)
     taker:addScore(self.score)
     self.isDisabled = true
-    stage.world:remove(self.shape)  --world = global bump var
+    stage.world:remove(self.shape)  --stage.world = global collision shapes pool
     self.shape = nil
     --self.y = GLOBAL_SETTING.OFFSCREEN --keep in the stage for proper save/load
 end

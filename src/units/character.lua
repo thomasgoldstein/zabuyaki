@@ -1137,7 +1137,7 @@ function Character:dead_update(dt)
         self.isDisabled = true
         self.isHittable = false
         -- dont remove dead body from the stage for proper save/load
-        stage.world:remove(self.shape)  --world = global bump var
+        stage.world:remove(self.shape)  --stage.world = global collision shapes pool
         self.shape = nil
         --self.y = GLOBAL_SETTING.OFFSCREEN
         return
