@@ -43,6 +43,9 @@ function Wall:addShape(shapeType, shargs)
         else
             error(sself.name.."("..self.id.."): Unknown shape type -"..shapeType)
         end
+        if shargs.rotate then
+            self.shape:rotate(shargs.rotate)
+        end
         self.shape.obj = self
     else
         print(self.name.."("..self.id..") has predefined shape")
