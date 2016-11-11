@@ -38,7 +38,7 @@ function Enemy:checkCollisionAndMove(dt)
         x = self.tx
         y = self.ty
     end
-    self.shape:moveTo(x, y)
+    self.shape:moveTo(x + stepx, y + stepy)
     for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
         local o = other.obj
         if o.type == "wall"
