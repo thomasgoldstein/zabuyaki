@@ -87,10 +87,11 @@ function Stage01:initialize(players)
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
     -- Walls around the level
-    local wall1 = Wall:new("wall1", -20, 0, 40, self.worldHeight) --left
-    local wall2 = Wall:new("wall2", self.worldWidth - 20, 0, 40, self.worldHeight) --right
-    local wall3 = Wall:new("wall3", 0, 420, self.worldWidth, 40) --top
-    local wall4 = Wall:new("wall4", 0, 546, self.worldWidth, 40) --bottom
+    local wall1 = Wall:new("wall1", "rectangle", { -20, 0, 40, self.worldHeight }) --left
+    local wall2 = Wall:new("wall2", "rectangle", { self.worldWidth - 20, 0, 40, self.worldHeight }) --right
+    local wall3 = Wall:new("wall3", "rectangle", { 0, 420, self.worldWidth, 40 }) --top
+    local wall4 = Wall:new("wall4", "rectangle", { 0, 546, self.worldWidth, 40 }) --bottom
+    --local wall5 = Wall:new("wall4", "rectangle", { 0, 546, self.worldWidth, 40 }) --bottom
 
     local testDeathFunc = function(s, t) print(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
