@@ -15,7 +15,10 @@ end
 local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low", slf.velx) end
 local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
 local grabEnd_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
-local footJab_move = function(slf) slf.x = slf.x + slf.horizontal end -- Chai's foot jab makes him move forward
+local footJab_move = function(slf)
+	-- Chai's foot jab makes him move forward
+	slf.velx = 60 -- horizontal velocity
+end
 local combo_attack1 = function(slf)
 	slf:checkAndAttack(30,0, 26,12, 6, "low", slf.velx, "air")
 	footJab_move(slf)
