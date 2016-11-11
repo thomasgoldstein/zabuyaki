@@ -1,5 +1,5 @@
 shaders = { kisa = {}, rick = {}, chai = {},
-    gopper = {}, niko = {},
+    gopper = {}, niko = {}, satoff = {},
     trashcan = {} }
 
 -- use main.lua constant to disable shaders for web Love2d runtime
@@ -232,6 +232,20 @@ local sh_niko2 = love.graphics.newShader(sh_replace_4_colors)
 sh_niko2:sendColor("colors", {222,230,239, 255},  {53,53,53, 255},  {30,30,30, 255}, {15,15,15, 255}) --White, DarkGray, Dark
 sh_niko2:sendColor("newColors", {15,15,15, 255},  {198,198,198, 255},  {137,137,137, 255}, {84,84,84, 255})   --Black, LightGray, Gray, DarkGray
 shaders.niko[2] = sh_niko2
+
+local sh_satoff = love.graphics.newShader(sh_swap_colors)
+sh_satoff:send("n", 10)
+sh_satoff:sendColor("colors", -- Satoff default color set
+    {181, 47, 51, 255}, {119, 31, 34, 255}, {53, 20, 21, 255}, -- red suit
+    {95, 40, 45, 255}, {55, 23, 28, 255}, {38, 16, 19, 255}, -- maroon shoes
+    {51, 32, 29, 255}, {33, 20, 18, 255}, {22, 14, 12, 255}, -- brown pants
+    {172, 129, 113, 255}) -- face scar
+sh_satoff:sendColor("newColors", -- Satoff alternate color set 1
+    {62, 97, 145, 255}, {39, 61, 91, 255}, {19, 30, 45, 255}, -- blue suit
+    {49, 53, 94, 255}, {29, 31, 56, 255}, {17, 18, 33, 255}, -- midnight blue shoes
+    {37, 37, 48, 255}, {23, 23, 30, 255}, {16, 16, 21, 255}, -- cool gray pants
+    {226, 173, 158, 255}) -- no face scar
+shaders.satoff[2] = sh_satoff
 
 -- Obstacles
 local sh_trashcan = love.graphics.newShader(sh_swap_colors)
