@@ -91,8 +91,10 @@ function Stage01:initialize(players)
     local wall2 = Wall:new("wall2", "rectangle", { self.worldWidth - 20, 0, 40, self.worldHeight }) --right
     local wall3 = Wall:new("wall3", "rectangle", { 0, 420, self.worldWidth, 40 }) --top
     local wall4 = Wall:new("wall4", "rectangle", { 0, 546, self.worldWidth, 40 }) --bottom
-    local wall5 = Wall:new("wall4", "circle", { 27, 560, 40 }) --test circle
-    local wall6 = Wall:new("wall4", "rectangle", { 60, 546, 100, 20, rotate = -0.3 }) --rotated rectangle
+    local wall5 = Wall:new("wall5", "circle", { 27, 560, 40 }) --test circle
+    local wall6 = Wall:new("wall6", "rectangle", { 60, 546, 100, 20, rotate = -0.3 }) --rotated rectangle
+    local ppx, ppy = 170, 500
+    local wall7 = Wall:new("wall7", "polygon", { ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }) --polygon
 
     local testDeathFunc = function(s, t) print(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
@@ -227,7 +229,7 @@ function Stage01:initialize(players)
         temper1,
         loot1, loot2, loot3,
         can1, can2, can3, can4,
-        wall1,wall2,wall3,wall4,wall5,wall6
+        wall1,wall2,wall3,wall4,wall5,wall6,wall7
     })
 
     local a, sx  = {}, 0

@@ -41,7 +41,7 @@ function Wall:addShape(shapeType, shargs)
         elseif shapeType == "point" then
             self.shape = stage.world:point(unpack(shargs))
         else
-            error(sself.name.."("..self.id.."): Unknown shape type -"..shapeType)
+            error(self.name.."("..self.id.."): Unknown shape type -"..shapeType)
         end
         if shargs.rotate then
             self.shape:rotate(shargs.rotate)
