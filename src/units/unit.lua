@@ -299,16 +299,6 @@ function Unit:checkCollisionAndMove(dt)
 	local cx,cy = self.shape:center()
 	self.x = cx
 	self.y = cy
-
-
---	local actualX, actualY, cols, len = stage.world:move(self, self.x + stepx - 8, self.y + stepy - 4,
---		function(Unit, item)
---            if Unit ~= item and item.type == "wall" then
---				return "slide"
---			end
---		end)
---	self.x = actualX + 8
---	self.y = actualY + 4
 end
 
 function Unit:calcFriction(dt, friction)
