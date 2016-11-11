@@ -92,7 +92,8 @@ function Stage01:initialize(players)
     local wall3 = Wall:new("wall3", "rectangle", { 0, 420, self.worldWidth, 40 }) --top
     local wall4 = Wall:new("wall4", "rectangle", { 0, 546, self.worldWidth, 40 }) --bottom
     local wall5 = Wall:new("wall5", "circle", { 27, 560, 40 }) --test circle
-    local wall6 = Wall:new("wall6", "rectangle", { 60, 546, 100, 20, rotate = -0.3 }) --rotated rectangle
+    local wall6 = Wall:new("wall6", "rectangle", { 90, 526, 60, 10, rotate = -0.3 }) --rotated rectangle
+    self.rotate_wall = wall6.shape --test rotation of walls
     local ppx, ppy = 170, 500
     local wall7 = Wall:new("wall7", "polygon", { ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }) --polygon
 
@@ -258,6 +259,13 @@ function Stage01:initialize(players)
 
     --adding players into collision world 15x7
     self.objects:addToWorld(self)
+end
+
+function Stage01:update(dt)
+    if self.rotate_wall then    --test wall rotation
+        self.rotate_wall:rotate(dt)
+    end
+    Stage.update(self, dt)
 end
 
 return Stage01
