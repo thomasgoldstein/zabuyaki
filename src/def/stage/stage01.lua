@@ -91,11 +91,11 @@ function Stage01:initialize(players)
     local wall2 = Wall:new("wall2", "rectangle", { self.worldWidth - 20, 0, 40, self.worldHeight }) --right
     local wall3 = Wall:new("wall3", "rectangle", { 0, 360, self.worldWidth, 100 }) --top
     local wall4 = Wall:new("wall4", "rectangle", { 0, 546, self.worldWidth, 100 }) --bottom
-    local wall5 = Wall:new("wall5", "circle", { 27, 560, 40 }) --test circle
-    local wall6 = Wall:new("wall6", "rectangle", { 90, 526, 60, 10, rotate = -0.3 }) --rotated rectangle
-    self.rotate_wall = wall6.shape --test rotation of walls
-    local ppx, ppy = 170, 500
-    local wall7 = Wall:new("wall7", "polygon", { ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }) --polygon
+--    local wall5 = Wall:new("wall5", "circle", { 27, 560, 40 }) --test circle
+--    local wall6 = Wall:new("wall6", "rectangle", { 90, 526, 60, 10, rotate = -0.3 }) --rotated rectangle
+--    self.rotate_wall = wall6.shape --test rotation of walls
+--    local ppx, ppy = 170, 500
+--    local wall7 = Wall:new("wall7", "polygon", { ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }) --polygon
 
     local testDeathFunc = function(s, t) print(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
@@ -230,13 +230,13 @@ function Stage01:initialize(players)
         temper1,
         loot1, loot2, loot3,
         can1, can2, can3, can4,
-        wall1,wall2,wall3,wall4,wall5,wall6,wall7
+        wall1,wall2,wall3,wall4 --,wall5,wall6,wall7
     })
 
     local a, sx  = {}, 0
     for i = 0, 6 do
         a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/objects/can.lua"),
-            180 + sx , top_floor_y + 11 + i * 13,
+            474 + sx , top_floor_y + 11 + i * 13,
             {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor, func = testDeathFunc,
                 isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
         if sx == 0 then
