@@ -1060,6 +1060,7 @@ function Character:getup_start()
     self.isHittable = false
     --print (self.name.." - getup start")
     dpo(self, self.state)
+    self.hurt = nil
     if self.z <= 0 then
         self.z = 0
     end
