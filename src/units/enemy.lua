@@ -38,26 +38,19 @@ function Enemy:checkCollisionAndMove(dt)
         x = self.tx
         y = self.ty
     end
-
-    self.shape:moveTo(x + stepx - 8, y + stepy - 4)
+    self.shape:moveTo(x, y)
     for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
-        if other.type == "wall" then
+        local o = other.obj
+        if o.type == "wall"
+                or (o.type == "obstacle" and o.z <= 0)
+        then
             self.shape:move(separating_vector.x, separating_vector.y)
-        --other:move( separating_vector.x/2,  separating_vector.y/2)
+            --other:move( separating_vector.x/2,  separating_vector.y/2)
         end
     end
     local cx,cy = self.shape:center()
-    self.x = cx + 8
-    self.y = cy + 4
-
---    actualX, actualY, cols, len = stage.world:move(self, x + stepx - 8, y + stepy - 4,
---        function(subj, obj)
---            if subj ~= obj and obj.type == "wall" then
---                return "slide"
---            end
---        end)
---    self.x = actualX + 8
---    self.y = actualY + 4
+    self.x = cx
+    self.y = cy
 end
 
 function Enemy:updateAI(dt)

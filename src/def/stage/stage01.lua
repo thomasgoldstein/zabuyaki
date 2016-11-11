@@ -89,8 +89,8 @@ function Stage01:initialize(players)
     -- Walls around the level
     local wall1 = Wall:new("wall1", "rectangle", { -20, 0, 40, self.worldHeight }) --left
     local wall2 = Wall:new("wall2", "rectangle", { self.worldWidth - 20, 0, 40, self.worldHeight }) --right
-    local wall3 = Wall:new("wall3", "rectangle", { 0, 420, self.worldWidth, 40 }) --top
-    local wall4 = Wall:new("wall4", "rectangle", { 0, 546, self.worldWidth, 40 }) --bottom
+    local wall3 = Wall:new("wall3", "rectangle", { 0, 360, self.worldWidth, 100 }) --top
+    local wall4 = Wall:new("wall4", "rectangle", { 0, 546, self.worldWidth, 100 }) --bottom
     local wall5 = Wall:new("wall5", "circle", { 27, 560, 40 }) --test circle
     local wall6 = Wall:new("wall6", "rectangle", { 90, 526, 60, 10, rotate = -0.3 }) --rotated rectangle
     self.rotate_wall = wall6.shape --test rotation of walls
