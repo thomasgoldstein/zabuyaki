@@ -26,9 +26,13 @@ local function clamp(val, min, max)
 end
 
 function Obstacle:initialize(name, sprite, x, y, f)
-    --f options {}: hp, score, shader, color,isMovable, flipOnBreak, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak, sfxGrab
+    --f options {}: shapeType, shapeArgs, hp, score, shader, color,isMovable, flipOnBreak, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak, sfxGrab
     if not f then
         f = {}
+    end
+    if not f.shapeType then
+        f.shapeType = "circle"
+        f.shapeArgs = { x, y, 7.5 }
     end
     Character.initialize(self, name, sprite, nil, x, y, f)
     self.name = name or "Unknown Obstacle"
@@ -55,18 +59,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
 
     self.infoBar = InfoBar:new(self)
 
-    self:addShape(self.x, self.y, 7.5)
-
     self:setState(self.stand)
-end
-
-function Obstacle:addShape(x, y, r, h)
-    if not self.shape then
-        self.shape = stage.world:circle(x, y, r)
-        self.shape.obj = self
-    else
-        print(self.name.."("..self.id..") has predefined shape")
-    end
 end
 
 function Obstacle:updateSprite(dt)
