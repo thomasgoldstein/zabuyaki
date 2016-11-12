@@ -24,7 +24,7 @@ local function nop() --[[print "nop"]] end
 GLOBAL_UNIT_ID = 1
 
 function Unit:initialize(name, sprite, input, x, y, f)
-    --f options {}: hp, score, shader, color, sfxOnHit, sfxDead, func
+    --f options {}: shapeType, shapeArgs, hp, score, shader, color, sfxOnHit, sfxDead, func
     if not f then
         f = {}
     end
@@ -77,17 +77,32 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	else
 		self.pid = ""
 		self.show_pid_cool_down = 0
-    end
+	end
+	self:addShape(f.shapeType or "rectangle", f.shapeArgs or {self.x, self.y, 15, 7})
+
 	self:setState(self.stand)
 end
 
-function Unit:addShape(x, y, w, h)
-    if not self.shape then
-        self.shape = stage.world:rectangle(x, y, w or 10, h or 10)
-        self.shape.obj = self
-    else
-        print(self.name.."("..self.id..") has predefined shape")
-    end
+function Unit:addShape(shapeType, shapeArgs)
+	if not self.shape then
+		if shapeType == "rectangle" then
+			self.shape = stage.world:rectangle(unpack(shapeArgs))
+		elseif shapeType == "circle" then
+			self.shape = stage.world:circle(unpack(shapeArgs))
+		elseif shapeType == "polygon" then
+			self.shape = stage.world:polygon(unpack(shapeArgs))
+		elseif shapeType == "point" then
+			self.shape = stage.world:point(unpack(shapeArgs))
+		else
+			print(self.name.."("..self.id.."): Unknown shape type -"..shapeType)
+		end
+		if shapeArgs.rotate then
+			self.shape:rotate(shapeArgs.rotate)
+		end
+		self.shape.obj = self
+	else
+		print(self.name.."("..self.id..") has predefined shape")
+	end
 end
 
 function Unit:playHitSfx(dmg)
