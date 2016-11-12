@@ -170,6 +170,20 @@ function Stage01:initialize(players)
         )
         stage.objects:add(loot)
     end
+        local func_dropChicken = function(slf)
+        local loot = Loot:new("Chicken", gfx.loot.chicken,
+            slf.x, slf.y + 1,
+            { hp = 50, score = 0, note = "+50 HP (Dropped)", pickupSfx = "pickup_chicken", func = testDeathFunc}
+        )
+        stage.objects:add(loot)
+        end
+    local func_dropBeef = function(slf)
+        local loot = Loot:new("Beef", gfx.loot.beef,
+            slf.x, slf.y + 1,
+            { hp = 100, score = 0, note = "+100 HP (Dropped)", pickupSfx = "pickup_beef", func = testDeathFunc}
+        )
+        stage.objects:add(loot)
+    end
     local loot1 = Loot:new("Apple", gfx.loot.apple,
         130,top_floor_y + 30,
         { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickup_apple", func = testDeathFunc}
@@ -224,10 +238,12 @@ function Stage01:initialize(players)
     local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         310, top_floor_y + 10,
         {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
+            func = func_dropChicken,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can4 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         320, top_floor_y + 65,
         {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
+            func = func_dropBeef,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
