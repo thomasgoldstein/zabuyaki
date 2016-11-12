@@ -13,6 +13,7 @@ local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
 end
 
 function Loot:initialize(name, gfx, x, y, f)
+    --f options {}: shapeType, shapeArgs, hp, score, shader, color, sfxOnHit, sfxDead, func
     if not f then
         f = {}
     end
@@ -36,6 +37,10 @@ function Loot:initialize(name, gfx, x, y, f)
 
     self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
     GLOBAL_UNIT_ID = GLOBAL_UNIT_ID + 1
+end
+
+function Loot:addShape()
+    Unit.addShape(self, "circle", { self.x, self.y, 7.5 })
 end
 
 function Loot:drawShadow(l,t,w,h)
