@@ -7,12 +7,12 @@ local function nop() --[[print "nop"]] end
 
 local Wall = class("Wall", Unit)
 
-function Wall:initialize(name, shapeType, shargs, f)
-    --f options {}: hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak
+function Wall:initialize(name, f)
+    --f options {}: shapeType, shapeArgs, hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak
     if not f then
-        f = {}
+        f = { shapeType = "circle", shapeArgs = { 0, 0, 10 } }
     end
-    local x,y = shargs[1], shargs[2]
+    local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
     Unit.initialize(self, name, nil, nil, x, y, f)
     self.name = name or "Unknown Wall"
     self.type = "wall"
@@ -25,31 +25,9 @@ function Wall:initialize(name, shapeType, shargs, f)
 
     self.infoBar = nil
 
-    self:addShape(shapeType or "rectangle", shargs)
+    --self:addShape(f.shapeType or "rectangle", f.shapeArgs)
 
     self:setState(self.stand)
-end
-
-function Wall:addShape(shapeType, shargs)
-    if not self.shape then
-        if shapeType == "rectangle" then
-            self.shape = stage.world:rectangle(unpack(shargs))
-        elseif shapeType == "circle" then
-            self.shape = stage.world:circle(unpack(shargs))
-        elseif shapeType == "polygon" then
-            self.shape = stage.world:polygon(unpack(shargs))
-        elseif shapeType == "point" then
-            self.shape = stage.world:point(unpack(shargs))
-        else
-            error(self.name.."("..self.id.."): Unknown shape type -"..shapeType)
-        end
-        if shargs.rotate then
-            self.shape:rotate(shargs.rotate)
-        end
-        self.shape.obj = self
-    else
-        print(self.name.."("..self.id..") has predefined shape")
-    end
 end
 
 function Wall:updateSprite(dt)
