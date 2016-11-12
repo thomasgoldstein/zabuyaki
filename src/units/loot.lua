@@ -27,11 +27,12 @@ function Loot:initialize(name, gfx, x, y, f)
     self.note = f.note or "???"
     self.pickupSfx = f.pickupSfx
     self.type = "loot"
-    self.x, self.y, self.z = x, y, 0
+    self.x, self.y, self.z = x, y, 20
     self.height = 17
     self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false
+    self.bounced = 0
 
     self.infoBar = InfoBar:new(self)
 
@@ -76,16 +77,47 @@ end
 function Loot:onHurt()
 end
 
-function Loot:update(dt)
+--function Loot:update(dt)
+--    if self.isDisabled then
+--        return
+--    end
+--    --custom code here. e.g. for triggers / keys
+--end
+
+function Loot:updateAI(dt)
     if self.isDisabled then
         return
     end
-    --custom code here. e.g. for triggers / keys
-end
-
-function Loot:updateAI(dt)
     --    Unit.updateAI(self, dt)
 --     print("updateAI "..self.type.." "..self.name)
+    if self.z > 0 then
+        self.z = self.z + dt * self.velz
+        self.velz = self.velz - self.gravity * dt
+        if self.z <= 0 then
+            if self.velz < -100 and self.bounced < 1 then    --bounce up after fall (not )
+                if self.velz < -300 then
+                    self.velz = -300
+                end
+                self.z = 0.01
+                self.velz = -self.velz/2
+                --sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bounced_pitch - self.bounced * 0.2)
+                self.bounced = self.bounced + 1
+                --landing dust clouds
+                local psystem = PA_DUST_FALLING:clone()
+                psystem:setAreaSpread( "uniform", 4, 1 )
+                psystem:setLinearAcceleration(-50, -10, 50, -20) -- Random movement in all directions.
+                psystem:emit(3)
+                stage.objects:add(Effect:new(psystem, self.x, self.y+3))
+                return
+            else
+                --final fall (no bouncing)
+                self.z = 0
+                self.velz = 0
+                --sfx.play("sfx"..self.id,"fall", 0.5, self.bounced_pitch - self.bounced * 0.2)
+                return
+            end
+        end
+    end
 end
 
 function Loot:get(taker)
