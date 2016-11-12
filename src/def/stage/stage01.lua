@@ -87,15 +87,15 @@ function Stage01:initialize(players)
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
     -- Walls around the level
-    local wall1 = Wall:new("wall1", "rectangle", { -20, 0, 40, self.worldHeight }) --left
-    local wall2 = Wall:new("wall2", "rectangle", { self.worldWidth - 20, 0, 40, self.worldHeight }) --right
-    local wall3 = Wall:new("wall3", "rectangle", { 0, 360, self.worldWidth, 100 }) --top
-    local wall4 = Wall:new("wall4", "rectangle", { 0, 546, self.worldWidth, 100 }) --bottom
---    local wall5 = Wall:new("wall5", "circle", { 27, 560, 40 }) --test circle
---    local wall6 = Wall:new("wall6", "rectangle", { 90, 526, 60, 10, rotate = -0.3 }) --rotated rectangle
---    self.rotate_wall = wall6.shape --test rotation of walls
---    local ppx, ppy = 170, 500
---    local wall7 = Wall:new("wall7", "polygon", { ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }) --polygon
+    local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -20, 0, 40, self.worldHeight }}) --left
+    local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
+    local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, self.worldWidth, 100 }}) --top
+    local wall4 = Wall:new("wall4", { shapeType = "rectangle", shapeArgs = { 0, 546, self.worldWidth, 100 }}) --bottom
+    local wall5 = Wall:new("wall5", { shapeType = "circle", shapeArgs = { 27, 560, 40 }}) --test circle
+    local wall6 = Wall:new("wall6", { shapeType = "rectangle", shapeArgs = { 90, 526, 60, 10, rotate = -0.3 }}) --rotated rectangle
+    self.rotate_wall = wall6.shape --test rotation of walls
+    local ppx, ppy = 170, 500
+    local wall7 = Wall:new("wall7", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }}) --polygon
 
     local testDeathFunc = function(s, t) print(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
@@ -161,6 +161,13 @@ function Stage01:initialize(players)
     niko6:setToughness(5)
 
     -- Loot
+    local func_dropApple = function(slf)
+        local loot = Loot:new("Apple", gfx.loot.apple,
+            slf.x, slf.y,
+            { hp = 15, score = 0, note = "+15 HP (Dropped)", pickupSfx = "pickup_apple", func = testDeathFunc}
+        )
+        stage.objects:add(loot)
+    end
     local loot1 = Loot:new("Apple", gfx.loot.apple,
         130,top_floor_y + 30,
         { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickup_apple", func = testDeathFunc}
@@ -230,14 +237,14 @@ function Stage01:initialize(players)
         temper1,
         loot1, loot2, loot3,
         can1, can2, can3, can4,
-        wall1,wall2,wall3,wall4 --,wall5,wall6,wall7
+        wall1,wall2,wall3,wall4,wall5,wall6,wall7
     })
 
     local a, sx  = {}, 0
     for i = 0, 6 do
         a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/objects/can.lua"),
             474 + sx , top_floor_y + 11 + i * 13,
-            {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor, func = testDeathFunc,
+            {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor, func = func_dropApple,
                 isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
         if sx == 0 then
             sx = 6
@@ -256,9 +263,6 @@ function Stage01:initialize(players)
     if player3 then
         self.objects:add(player3)
     end
-
-    --adding players into collision world 15x7
-    self.objects:addToWorld(self)
 end
 
 function Stage01:update(dt)
