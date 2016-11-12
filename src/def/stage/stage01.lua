@@ -91,11 +91,13 @@ function Stage01:initialize(players)
     local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
     local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, self.worldWidth, 100 }}) --top
     local wall4 = Wall:new("wall4", { shapeType = "rectangle", shapeArgs = { 0, 546, self.worldWidth, 100 }}) --bottom
-    local wall5 = Wall:new("wall5", { shapeType = "circle", shapeArgs = { 27, 560, 40 }}) --test circle
+
+--[[    local wall5 = Wall:new("wall5", { shapeType = "circle", shapeArgs = { 27, 560, 40 }}) --test circle
     local wall6 = Wall:new("wall6", { shapeType = "rectangle", shapeArgs = { 90, 526, 60, 10, rotate = -0.3 }}) --rotated rectangle
     self.rotate_wall = wall6.shape --test rotation of walls
     local ppx, ppy = 170, 500
     local wall7 = Wall:new("wall7", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }}) --polygon
+]]
 
     local testDeathFunc = function(s, t) print(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
@@ -237,7 +239,7 @@ function Stage01:initialize(players)
         temper1,
         loot1, loot2, loot3,
         can1, can2, can3, can4,
-        wall1,wall2,wall3,wall4,wall5,wall6,wall7
+        wall1,wall2,wall3,wall4 --,wall5,wall6,wall7
     })
 
     local a, sx  = {}, 0
