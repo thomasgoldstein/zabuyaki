@@ -28,6 +28,9 @@ function Effect:initialize(particle, x, y, shader, color)
     self.id = 0
 end
 
+function Effect:addShape()
+end
+
 function Effect:drawShadow(l,t,w,h)
 end
 
