@@ -165,7 +165,7 @@ function Stage01:initialize(players)
     -- Loot
     local func_dropApple = function(slf)
         local loot = Loot:new("Apple", gfx.loot.apple,
-            slf.x, slf.y,
+            slf.x, slf.y + 1,
             { hp = 15, score = 0, note = "+15 HP (Dropped)", pickupSfx = "pickup_apple", func = testDeathFunc}
         )
         stage.objects:add(loot)
