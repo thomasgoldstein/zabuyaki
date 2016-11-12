@@ -11,9 +11,7 @@ function Entity:initialize()
 end
 
 function Entity:add(e)
---    if not e then
---        return self.entities
---    end
+    --TODO refactor addArr to 1 func
     if false and type(e) == "table" then
         for i=1,#e do
             self.entities[#self.entities+1] = e[i]
@@ -21,14 +19,6 @@ function Entity:add(e)
     else
         self.entities[#self.entities+1] = e
     end
-    return self.entities
-end
-
-function Entity:addOne(e)
-    if not e then
-        return self.entities
-    end
-    self.entities[#self.entities+1] = e
     return self.entities
 end
 
@@ -53,22 +43,6 @@ function Entity:sortByY()
             return a.id > b.id
         end
         return a.y < b.y end )
-end
-
-function Entity:addToWorld(stage)
-    for i,obj in pairs(self.entities) do
-        --global var 'word'
---        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
---        local o = stage.world:rectangle(obj.x-7, obj.y-3, 15, 7)
-        if not obj.shape then
---            local o = stage.world:rectangle(obj.x, obj.y, 15, 7)
---            o.obj = obj
---            obj.shape = o
-            obj:addShape(obj.x, obj.y, 15, 7)
-        else
-            print(obj.name.." has shape already")
-        end
-    end
 end
 
 --function Entity:remove(e)
