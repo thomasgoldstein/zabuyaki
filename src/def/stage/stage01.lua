@@ -229,21 +229,21 @@ function Stage01:initialize(players)
     local canColor2 = {87, 116, 130, 255}
     local can1 = Obstacle:new("NF TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         76, top_floor_y + 40,
-        {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor, func = testDeathFunc,
+        {hp = 39, score = 100, shader = nil, color = nil, colorParticle = canColor, func = testDeathFunc,
             flipOnBreak = false,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         109, top_floor_y + 20,
-        {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor,
+        {hp = 39, score = 100, shader = nil, color = nil, colorParticle = canColor,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         310, top_floor_y + 10,
-        {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
+        {hp = 39, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             func = func_dropChicken,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can4 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         320, top_floor_y + 65,
-        {hp = 49, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
+        {hp = 39, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             func = func_dropBeef,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
@@ -275,7 +275,7 @@ function Stage01:initialize(players)
     for i = 0, 6 do
         a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/objects/can.lua"),
             474 + sx , top_floor_y + 11 + i * 13,
-            {hp = 49, score = 100, shader = nil, color = nil, colorParticle = canColor, func = func_dropApple,
+            {hp = 39, score = 100, shader = nil, color = nil, colorParticle = canColor, func = func_dropApple,
                 isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
         if sx == 0 then
             sx = 6
