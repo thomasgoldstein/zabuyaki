@@ -252,12 +252,12 @@ function Stage01:initialize(players)
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
             func = func_dropApple,
             shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
-            isMovable = false, flipOnBreak = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = false, flipOnBreak = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local no_entry_sign2 = Obstacle:new("NO ENTRY", GetSpriteInstance("src/def/stage/objects/sign.lua"),
         1126, top_floor_y + 9,
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
             func = func_dropBeef,
-            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = false, flipOnBreak = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
 --        new_gopper1, new_gopper2, new_gopper3, new_gopper4,
@@ -267,7 +267,7 @@ function Stage01:initialize(players)
         dummy4, dummy5,
         temper1,
         loot1, loot2, loot3,
-        can1, can2, can3, can4, no_entry_sign1,
+        can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
         wall1,wall2,wall3,wall4 --,wall5,wall6,wall7
     })
 
