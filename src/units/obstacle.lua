@@ -31,8 +31,10 @@ function Obstacle:initialize(name, sprite, x, y, f)
         f = {}
     end
     if not f.shapeType then
-        f.shapeType = "circle"
-        f.shapeArgs = { x, y, 7.5 }
+        --f.shapeType = "circle"
+        --f.shapeArgs = { x, y, 7.5 }
+        f.shapeType = "polygon"
+        f.shapeArgs = { 4, 0, 9, 0, 14, 5, 9, 12, 4, 12, 0, 5 }
     end
     Character.initialize(self, name, sprite, nil, x, y, f)
     self.name = name or "Unknown Obstacle"
