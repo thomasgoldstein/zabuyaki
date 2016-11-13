@@ -30,7 +30,8 @@ function Stage01:initialize(players)
             GetSpriteInstance(players[1].sprite_instance),
             Control1,
             60, top_floor_y + 65,
-            { shader = players[1].shader, color = {255,255,255, 255} }
+            { shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 },
+                shader = players[1].shader, color = {255,255,255, 255} }
         )
     end
     GLOBAL_UNIT_ID = 2  --recalc players IDs for proper life bar coords
