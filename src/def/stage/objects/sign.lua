@@ -8,7 +8,7 @@ end
 return {
     serialization_version = 0.42, -- The version of this serialization process
 
-    sprite_sheet = "res/img/stages/stage1/can.png", -- The path to the spritesheet
+    sprite_sheet = "res/img/stages/stage1/sign.png", -- The path to the spritesheet
     --TODO read width/height of the sheet automatically.
     sprite_name = "can", -- sprite name
 
