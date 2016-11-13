@@ -251,11 +251,11 @@ shaders.satoff[2] = sh_satoff
 local sh_trashcan = love.graphics.newShader(sh_swap_colors)
 sh_trashcan:send("n", 7)
 sh_trashcan:sendColor("colors", -- Trash can default color set
-    {118, 109, 100, 255}, {89, 74, 72, 255}, {65, 44, 45, 255}, {22, 18, 17, 255}, -- main color
-    {57, 76, 94, 255}, {40, 41, 35, 255}, {19, 20, 18, 255}) -- inner bag color
+    {118, 109, 100, 255}, {89, 74, 72, 255}, {65, 44, 45, 255}, {30, 25, 23, 255}, -- main color
+    {57, 76, 94, 255}, {40, 41, 35, 255}, {24, 25, 22, 255}) -- inner bag color
 sh_trashcan:sendColor("newColors", -- Trash can alternate color set 1
-    {87, 116, 130, 255}, {63, 88, 99, 255}, {37, 55, 63, 255}, {13, 20, 22, 255}, -- main color
-    {58, 91, 56, 255}, {33, 40, 32, 255}, {18, 22, 17, 255}) -- inner bag color
+    {87, 116, 130, 255}, {63, 88, 99, 255}, {37, 55, 63, 255}, {20, 27, 30, 255}, -- main color
+    {58, 91, 66, 255}, {37, 44, 36, 255}, {23, 26, 21, 255}) -- inner bag color
 shaders.trashcan[2] = sh_trashcan
 
 -- Misc
