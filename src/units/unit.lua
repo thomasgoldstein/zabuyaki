@@ -213,7 +213,7 @@ end
 
 function Unit:drawShadow(l,t,w,h)
 	--TODO adjust sprite dimensions
-	if CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
+	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
 		if self.cool_down_death < 2 then
 			love.graphics.setColor(0, 0, 0, 100 * math.sin(self.cool_down_death)) --4th is the shadow transparency
 		else
@@ -261,8 +261,7 @@ function Unit:drawPID(x, y_)
 end
 function Unit:default_draw(l,t,w,h)
 	--TODO adjust sprite dimensions.
-	if CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
-		--draw_debug_unit_cross(self)
+	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
 		self.sprite.flip_h = self.face  --TODO get rid of .face
         if self.cool_down_death < 1 then
             self.color[4] = 255 * math.sin( self.cool_down_death )
