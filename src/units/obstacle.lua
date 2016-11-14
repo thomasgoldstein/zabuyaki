@@ -80,6 +80,27 @@ function Obstacle:drawSprite(x, y)
     DrawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
 end
 
+function Obstacle:drawShadow(l,t,w,h)
+    if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
+        if self.cool_down_death < 2 then
+            love.graphics.setColor(0, 0, 0, 100 * math.sin(self.cool_down_death)) --4th is the shadow transparency
+        else
+            love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
+        end
+        local spr = self.sprite
+        local sc = spr.def.animations[spr.cur_anim][self:calcDamageFrame()]
+        love.graphics.draw (
+            image_bank[spr.def.sprite_sheet],
+            sc.q,
+            self.x + self.shake.x, self.y-2 + self.z/6,
+            0,
+            self.faceFix,
+            -0.2,
+            sc.ox, sc.oy
+        )
+    end
+end
+
 function Obstacle:updateAI(dt)
     if self.isDisabled then
         return
