@@ -10,7 +10,7 @@ local screen_height = 480
 local menu_item_h = 40
 local menu_y_offset = 200 - menu_item_h
 local hint_y_offset = 80
-local menu_x_offset = 80
+local menu_x_offset = 0 --80
 
 local left_item_offset  = 6
 local top_item_offset  = 6
@@ -18,18 +18,13 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_zabuyaki_logo = love.graphics.newText( gfx.font.kimberley, "ZABUYAKI" )
-local txt_beatemup = love.graphics.newText( gfx.font.arcade4, "Beat'em All" )
 
 local txt_start = love.graphics.newText( gfx.font.arcade4, "START" )
 local txt_options = love.graphics.newText( gfx.font.arcade4, "OPTIONS" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "QUIT" )
 
-local txt_start_hint = love.graphics.newText( gfx.font.arcade4, "Press ATTACK" )
+local txt_start_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Press Attack
 local txt_site = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
-
-local rick_spr = GetSpriteInstance("src/def/char/rick.lua")
-SetSpriteAnimation(rick_spr,"stand")
-rick_spr.size_scale = 4
 
 local txt_items = {txt_start, txt_options, txt_quit}
 local txt_hints = {txt_start_hint, txt_start_hint, txt_start_hint }
@@ -135,10 +130,6 @@ function titleState:update(dt)
         intro = Movie:new(movie_intro)
         mode = "movie"
     end
-    UpdateSpriteInstance(rick_spr, dt)
-    if rick_spr.cur_anim ~= "stand" and rick_spr.isFinished then
-        SetSpriteAnimation(rick_spr,"stand")
-    end
     if menu_state ~= old_menu_state then
         sfx.play("sfx","menu_move")
         old_menu_state = menu_state
@@ -161,7 +152,6 @@ function titleState:draw()
     end
     love.graphics.setCanvas()
     push:apply("start")
-    DrawSpriteInstance(rick_spr, 200, 370)
     for i = 1,#menu do
         local m = menu[i]
         if i == old_menu_state then
@@ -180,12 +170,10 @@ function titleState:draw()
         end
     end
     --header
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(txt_zabuyaki_logo, (screen_width - txt_zabuyaki_logo:getWidth()) / 2, 40)
     love.graphics.setColor(100, 100, 100, 255)
     love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, 460)
-    love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
-    love.graphics.draw(txt_zabuyaki_logo, (screen_width - txt_zabuyaki_logo:getWidth()) / 2, 40)
-    love.graphics.setColor(255, 255, 255, 100 - math.sin(time)*20)
-    love.graphics.draw(txt_beatemup, 390, 110)
     show_debug_indicator()
     push:apply("end")
 end
