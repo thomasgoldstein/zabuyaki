@@ -167,21 +167,21 @@ function Stage01:initialize(players)
     local func_dropApple = function(slf)
         local loot = Loot:new("Apple", gfx.loot.apple,
             slf.x, slf.y + 1,
-            { hp = 15, score = 0, note = "+15 HP (Dropped)", pickupSfx = "pickup_apple", func = testDeathFunc}
+            { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickup_apple", func = testDeathFunc}
         )
         stage.objects:add(loot)
     end
         local func_dropChicken = function(slf)
         local loot = Loot:new("Chicken", gfx.loot.chicken,
             slf.x, slf.y + 1,
-            { hp = 50, score = 0, note = "+50 HP (Dropped)", pickupSfx = "pickup_chicken", func = testDeathFunc}
+            { hp = 50, score = 0, note = "+50 HP", pickupSfx = "pickup_chicken", func = testDeathFunc}
         )
         stage.objects:add(loot)
         end
     local func_dropBeef = function(slf)
         local loot = Loot:new("Beef", gfx.loot.beef,
             slf.x, slf.y + 1,
-            { hp = 100, score = 0, note = "+100 HP (Dropped)", pickupSfx = "pickup_beef", func = testDeathFunc}
+            { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickup_beef", func = testDeathFunc}
         )
         stage.objects:add(loot)
     end
@@ -227,7 +227,7 @@ function Stage01:initialize(players)
     -- Obstacles
     local canColor = {118,109,100, 255}
     local canColor2 = {87, 116, 130, 255}
-    local can1 = Obstacle:new("NF TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
+    local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
         76, top_floor_y + 40,
         {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor, func = testDeathFunc,
             flipOnBreak = false,
@@ -247,16 +247,17 @@ function Stage01:initialize(players)
             func = func_dropBeef,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
-    local no_entry_sign1 = Obstacle:new("NO ENTRY", GetSpriteInstance("src/def/stage/objects/sign.lua"),
+    local no_entry_sign1 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/objects/sign.lua"),
         230, top_floor_y + 8,
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
             func = func_dropApple,
             shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
             isMovable = false, flipOnBreak = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
-    local no_entry_sign2 = Obstacle:new("NO ENTRY", GetSpriteInstance("src/def/stage/objects/sign.lua"),
-        1126, top_floor_y + 9,
+    local no_entry_sign2 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/objects/sign.lua"),
+        1126, top_floor_y + 8,
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
             func = func_dropBeef,
+            shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
             isMovable = false, flipOnBreak = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
