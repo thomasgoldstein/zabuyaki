@@ -135,6 +135,28 @@ function pauseState:draw()
         end
     end
     push:apply("start")
+    if stage.mode == "normal" then
+        --HP bars
+        if player1 then
+            player1.infoBar:draw(0,0)
+            if player1.victim_infoBar then
+                player1.victim_infoBar:draw(0,0)
+            end
+        end
+        if player2 then
+            player2.infoBar:draw(0,0)
+            if player2.victim_infoBar then
+                player2.victim_infoBar:draw(0,0)
+            end
+        end
+        if player3 then
+            player3.infoBar:draw(0,0)
+            if player3.victim_infoBar then
+                player3.victim_infoBar:draw(0,0)
+            end
+        end
+    end
+
     for i = 1,#menu do
         local m = menu[i]
         if i == old_menu_state then
