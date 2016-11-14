@@ -10,8 +10,6 @@
 
 --require 'lib/strict'
 
-GLOBAL_SCREENSHOT = false	--keep current screenshop
-
 configuration = require "src/configuration"
 configuration:load()
 --configuration:save()

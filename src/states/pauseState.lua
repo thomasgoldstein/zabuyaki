@@ -76,7 +76,6 @@ function pauseState:enter()
 end
 
 function pauseState:leave()
-    GLOBAL_SCREENSHOT = nil
 end
 
 --Only P1 can use menu / options
@@ -110,12 +109,29 @@ function pauseState:update(dt)
 end
 
 function pauseState:draw()
-    if GLOBAL_SCREENSHOT then
-        love.graphics.setColor(255, 255, 255, 256 * 0.75) --darkened screenshot
+    if canvas[1] then
+        local darken_screen = 0.75
+        love.graphics.setBlendMode("alpha")
         if push._fullscreen then
-            love.graphics.draw(GLOBAL_SCREENSHOT, push._OFFSET.x, push._OFFSET.y, nil, push._SCALE * 0.5)
+            love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
+            love.graphics.draw(canvas[1], push._OFFSET.x, push._OFFSET.y, nil, push._SCALE * 0.5) --bg
+            love.graphics.setColor(GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
+                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
+                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
+                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen)
+            love.graphics.draw(canvas[2], push._OFFSET.x, push._OFFSET.y, nil, push._SCALE * 0.5) --shadows
+            love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
+            love.graphics.draw(canvas[3], push._OFFSET.x, push._OFFSET.y, nil, push._SCALE * 0.5) --sprites + fg
         else
-            love.graphics.draw(GLOBAL_SCREENSHOT, 0, 0, nil, 0.5)
+            love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
+            love.graphics.draw(canvas[1], 0, 0, nil, 0.5) --bg
+            love.graphics.setColor(GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
+                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
+                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
+                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen)
+            love.graphics.draw(canvas[2], 0, 0, nil, 0.5) --shadows
+            love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
+            love.graphics.draw(canvas[3], 0, 0, nil, 0.5) --sprites + fg
         end
     end
     push:apply("start")
