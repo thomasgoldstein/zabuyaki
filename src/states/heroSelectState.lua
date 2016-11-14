@@ -6,7 +6,7 @@ heroSelectState = {}
 local time = 0
 local screen_width = 640
 local screen_height = 480
-
+local title_y_offset = 24
 local portrait_width = 140
 local portrait_height = 140
 local portrait_margin = 20
@@ -394,8 +394,8 @@ function heroSelectState:draw()
         end
     end
     --header
-    love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
-    love.graphics.draw(txt_player_select, (screen_width - txt_player_select:getWidth()) / 2, 24)
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(txt_player_select, (screen_width - txt_player_select:getWidth()) / 2, title_y_offset)
     show_debug_indicator()
     push:apply("end")
 end
@@ -428,15 +428,13 @@ function heroSelectState:confirm( x, y, button, istouch )
             return
         end
     elseif button == 2 then
+        sfx.play("sfx","menu_cancel")
         if players[1].visible and not players[1].confirmed then
             players[1].visible = false
-            sfx.play("sfx","menu_cancel")
         elseif players[1].confirmed then
             players[1].confirmed = false
-            sfx.play("sfx","menu_cancel")
             SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].cancel_anim)
         else
-            sfx.play("sfx","menu_cancel")
             return Gamestate.switch(titleState, "dontStartMusic")
         end
     end

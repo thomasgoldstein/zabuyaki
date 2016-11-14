@@ -9,9 +9,9 @@ local screen_width = 640
 local screen_height = 480
 local menu_item_h = 40
 local menu_y_offset = 200 - menu_item_h
+local menu_x_offset = 0
 local hint_y_offset = 80
-local menu_x_offset = 0 --80
-
+local title_y_offset = 24
 local left_item_offset  = 6
 local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
@@ -32,7 +32,6 @@ local txt_hints = {txt_start_hint, txt_start_hint, txt_start_hint }
 -- Intro
 local intro = nil
 local mode = "normal"
---self.movie = Movie:new(movie_intro)
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -140,14 +139,13 @@ end
 function titleState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     if mode == "movie" then
-    
         love.graphics.setCanvas(canvas[1])
         intro:draw(0,0,320,240)
         love.graphics.setCanvas()
-	push:apply("start")
+	    push:apply("start")
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(canvas[1], 0,0, nil, 2)
-	push:apply("end")
+	    push:apply("end")
         return
     end
     love.graphics.setCanvas()
@@ -171,9 +169,9 @@ function titleState:draw()
     end
     --header
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_zabuyaki_logo, (screen_width - txt_zabuyaki_logo:getWidth()) / 2, 40)
+    love.graphics.draw(txt_zabuyaki_logo, (screen_width - txt_zabuyaki_logo:getWidth()) / 2, title_y_offset)
     love.graphics.setColor(100, 100, 100, 255)
-    love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, 460)
+    love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, screen_height - 20)
     show_debug_indicator()
     push:apply("end")
 end

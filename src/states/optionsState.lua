@@ -8,31 +8,26 @@ local screen_width = 640
 local screen_height = 480
 local menu_item_h = 40
 local menu_y_offset = 200 - menu_item_h
-local menu_x_offset = 80
+local menu_x_offset = 0
 local hint_y_offset = 80
-local menu_x_offset = 80
-
+local title_y_offset = 24
 local left_item_offset  = 6
 local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
-local txt_option1 = love.graphics.newText( gfx.font.arcade4, "BGM ON" )
-local txt_option1a = love.graphics.newText( gfx.font.arcade4, "BGM OFF" )
-local txt_option2 = love.graphics.newText( gfx.font.arcade4, "NORMAL" )
-local txt_option2a = love.graphics.newText( gfx.font.arcade4, "HARD" )
+local txt_option1 = love.graphics.newText( gfx.font.arcade4, "BG MUSIC ON" )
+local txt_option1a = love.graphics.newText( gfx.font.arcade4, "BG MUSIC OFF" )
+local txt_option2 = love.graphics.newText( gfx.font.arcade4,  "DIFFICULTY NORMAL" )
+local txt_option2a = love.graphics.newText( gfx.font.arcade4, "DIFFICULTY HARD" )
 local txt_option3 = love.graphics.newText( gfx.font.arcade4, "DEFAULTS" )
-local txt_quit = love.graphics.newText( gfx.font.arcade4, "Back" )
+local txt_quit = love.graphics.newText( gfx.font.arcade4, "BACK" )
 
-local txt_option1_hint = love.graphics.newText( gfx.font.arcade4, "Background Music" )
-local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "Game Difficulty Mode" )
-local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "Reset To Defaults Options" )
-local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Exit to the Title" )
-
-local rick_spr = GetSpriteInstance("src/def/char/rick.lua")
-SetSpriteAnimation(rick_spr,"getup")
-rick_spr.size_scale = 4
+local txt_option1_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Background Music
+local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Game Difficulty Mode
+local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Reset To Defaults Options
+local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Exit to the Title
 
 local txt_items = {txt_option1, txt_option2, txt_option3, txt_quit}
 local txt_hints = {txt_option1_hint, txt_option2_hint, txt_option3_hint, txt_quit_hint }
@@ -120,10 +115,6 @@ end
 
 function optionsState:update(dt)
     time = time + dt
-    UpdateSpriteInstance(rick_spr, dt)
-    if rick_spr.cur_anim ~= "stand" and rick_spr.isFinished then
-        SetSpriteAnimation(rick_spr,"stand")
-    end
     if menu_state ~= old_menu_state then
         sfx.play("sfx","menu_move")
         old_menu_state = menu_state
@@ -134,7 +125,6 @@ end
 function optionsState:draw()
     push:apply("start")
     love.graphics.setColor(255, 255, 255, 255)
-    DrawSpriteInstance(rick_spr, 200, 370)
     for i = 1,#menu do
         local m = menu[i]
         if i == old_menu_state then
@@ -154,10 +144,8 @@ function optionsState:draw()
         end
     end
     --header
-    love.graphics.setColor(255, 255, 255, 200 + math.sin(time)*55)
-    love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, 40)
-
-    love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, title_y_offset)
     love.graphics.draw(txt_hints[menu_state], (screen_width - txt_hints[menu_state]:getWidth()) / 2, screen_height - 80)
     show_debug_indicator()
     push:apply("end")
@@ -168,7 +156,6 @@ function optionsState:confirm( x, y, button, istouch )
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
-            SetSpriteAnimation(rick_spr,"hurtHigh")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 configuration:set("BGM_VOLUME", 0)
                 txt_items[1] = txt_option1a
@@ -181,7 +168,6 @@ function optionsState:confirm( x, y, button, istouch )
 
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
-            SetSpriteAnimation(rick_spr,"hurtLow")
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 configuration:set("DIFFICULTY", 2)
                 txt_items[2] = txt_option2a
@@ -193,7 +179,6 @@ function optionsState:confirm( x, y, button, istouch )
 
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
-            SetSpriteAnimation(rick_spr,"pickup")
             configuration:reset()
             configuration.dirty = true
             set_items_according_the_options()
