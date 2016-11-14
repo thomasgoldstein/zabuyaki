@@ -71,15 +71,18 @@ function Entity:update(dt)
 end
 
 function Entity:draw(l,t,w,h)
-    for i,obj in ipairs(self.entities) do
-        obj:drawShadow(l,t,w,h)
-    end
     for _,obj in ipairs(self.entities) do
         obj:draw(l,t,w,h)
         if GLOBAL_SETTING.DEBUG and obj.shape then
             love.graphics.setColor(0, 255, 255, 50)
             obj.shape:draw()
         end
+    end
+end
+
+function Entity:drawShadows(l,t,w,h)
+    for i,obj in ipairs(self.entities) do
+        obj:drawShadow(l,t,w,h)
     end
 end
 

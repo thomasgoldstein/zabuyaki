@@ -41,19 +41,19 @@ function arcadeState:update(dt)
     end
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
-        GLOBAL_SCREENSHOT = canvas
+        GLOBAL_SCREENSHOT = canvas[1]
         return Gamestate.push(pauseState)
     end
     -- Screenshot Pause
     if Control1.screenshot:pressed() then
-        GLOBAL_SCREENSHOT = canvas
+        GLOBAL_SCREENSHOT = canvas[1]
         return Gamestate.push(screenshotState)
     end
     watch_debug_variables()
 end
 
 function arcadeState:draw()
-    love.graphics.setCanvas(canvas)
+    love.graphics.setCanvas(canvas[1])
     --love.graphics.clear( 190, 200, 210, 255 )
     --love.graphics.setBackgroundColor(255, 255, 255)
     mainCamera:draw(function(l, t, w, h)
@@ -65,8 +65,14 @@ function arcadeState:draw()
 
     love.graphics.setCanvas()
     push:apply("start")
+    love.graphics.setBlendMode("alpha", "premultiplied")
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(canvas, 0,0, nil, 0.5)
+    love.graphics.draw(canvas[1], 0,0, nil, 0.5) --bg
+    love.graphics.setColor(255, 255, 255, 100)
+    love.graphics.draw(canvas[2], 0,0, nil, 0.5) --shadows
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(canvas[3], 0,0, nil, 0.5) --sprites + fg
+    love.graphics.setBlendMode("alpha")
 
     local is_alive = false
     if stage.mode == "normal" then

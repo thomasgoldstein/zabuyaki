@@ -18,7 +18,7 @@ configuration:load()
 
 -- global vars
 stage = nil
-canvas = nil
+canvas = {}
 class = nil
 push = nil
 sfx = nil
@@ -44,7 +44,9 @@ function love.load(arg)
 	love.graphics.setLineStyle("rough")
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.setBackgroundColor(0, 0, 0, 255)
-	canvas = love.graphics.newCanvas(640 * 2, 480 * 2)
+	for i=1,3 do
+		canvas[i] = love.graphics.newCanvas(640 * 2, 480 * 2)
+	end
 	--canvas:setFilter("nearest", "linear", 2)
 
 	--Working folder for writing data

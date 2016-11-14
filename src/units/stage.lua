@@ -62,11 +62,19 @@ function Stage:update(dt)
 end
 
 function Stage:draw(l, t, w, h)
+    love.graphics.setBlendMode("alpha")
+    love.graphics.setCanvas(canvas[1])
     love.graphics.clear(unpack(self.bgColor))
+--    love.graphics.clear(unpack(self.bgColor))
     if self.mode == "normal" then
         if self.background then
             self.background:draw(l, t, w, h)
         end
+        love.graphics.setCanvas(canvas[2])
+        love.graphics.clear()
+        self.objects:drawShadows(l, t, w, h) -- units shadows
+        love.graphics.setCanvas(canvas[3])
+        love.graphics.clear()
         self.objects:draw(l, t, w, h) -- units
         if self.foreground then
             self.foreground:draw(l, t, w, h)
@@ -79,6 +87,11 @@ function Stage:draw(l, t, w, h)
         if self.background then
             self.background:draw(l, t, w, h)
         end
+        love.graphics.setCanvas(canvas[2])
+        love.graphics.clear()
+        self.objects:drawShadows(l, t, w, h) -- units shadows
+        love.graphics.setCanvas(canvas[3])
+        love.graphics.clear()
         self.objects:draw(l, t, w, h) -- units
         if self.foreground then
             self.foreground:draw(l, t, w, h)
@@ -137,9 +150,13 @@ function Stage:setCamera(dt)
     if mainCamera:getScale() ~= scale then
         mainCamera:setScale(2 * math.max(scale, min_zoom))
         if math.max(scale, min_zoom) < max_zoom then
-            canvas:setFilter("linear", "linear", 2)
+            for i=1,#canvas do
+                canvas[i]:setFilter("linear", "linear", 2)
+            end
         else
-            canvas:setFilter("nearest", "nearest")
+            for i=1,#canvas do
+                canvas[i]:setFilter("nearest", "nearest")
+            end
         end
     end
     -- Camera position

@@ -83,9 +83,9 @@ end
 function Obstacle:drawShadow(l,t,w,h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
         if self.cool_down_death < 2 then
-            love.graphics.setColor(0, 0, 0, 100 * math.sin(self.cool_down_death)) --4th is the shadow transparency
+            love.graphics.setColor(0, 0, 0, 255 * math.sin(self.cool_down_death)) --4th is the shadow transparency
         else
-            love.graphics.setColor(0, 0, 0, 100) --4th is the shadow transparency
+            love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
         end
         local spr = self.sprite
         local sc = spr.def.animations[spr.cur_anim][self:calcDamageFrame()]

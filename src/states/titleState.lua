@@ -150,12 +150,12 @@ function titleState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     if mode == "movie" then
     
-        love.graphics.setCanvas(canvas)
+        love.graphics.setCanvas(canvas[1])
         intro:draw(0,0,320,240)
         love.graphics.setCanvas()
 	push:apply("start")
         love.graphics.setColor(255, 255, 255, 255)
-        love.graphics.draw(canvas, 0,0, nil, 2)
+        love.graphics.draw(canvas[1], 0,0, nil, 2)
 	push:apply("end")
         return
     end
