@@ -1,6 +1,6 @@
 shaders = { kisa = {}, rick = {}, chai = {},
     gopper = {}, niko = {}, satoff = {},
-    trashcan = {} }
+    trashcan = {}, shadow }
 
 -- use main.lua constant to disable shaders for web Love2d runtime
 if not GLOBAL_SETTING.SHADERS_ENABLED then
@@ -111,6 +111,27 @@ local sh_texture = love.graphics.newShader([[
             return mix(coord_colour, image_colour, 0.5);
         }
     ]])
+
+--love_ScreenSize.x or love_ScreenSize.y
+--vec4 love_ScreenSize
+local sh_shadow = love.graphics.newShader([[
+//        extern number id = 0;
+        number y_offs = 0.5;
+        number old_id = 100000;
+        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
+        {
+//            if (id != old_id) {
+//                old_id = id;
+//                y_offs = texture_coords.y;
+            //}
+            vec4 c = Texel(texture, texture_coords );
+            if (c.a > 0)
+               //return vec4( 0.0, 0.0, 0.0, 1 - (texture_coords.y - y_offs)/10 );
+               return vec4( 0.0, 0.0, 0.0, 1.0 - screen_coords.y ) * color;
+            return c;
+        }
+    ]])
+shaders.shadow = sh_shadow
 
 local sh_outline = love.graphics.newShader([[vec4 resultCol;
 extern number stepSize;
