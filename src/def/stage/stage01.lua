@@ -138,6 +138,7 @@ function Stage01:initialize(players)
     dummy5:setToughness(5)
     dummy5.horizontal = -1
     dummy5.face = -1
+    local dummy6 = Chai:new("Dummie5", GetSpriteInstance("src/def/char/satoff.lua"), nil, 173, top_floor_y + 80)
 
     local niko1 = Niko:new("niko", GetSpriteInstance("src/def/char/niko.lua"), nil,
         550 + love.math.random(-20,20), top_floor_y + 0,
@@ -265,7 +266,7 @@ function Stage01:initialize(players)
         new_niko1, new_niko2, new_niko3, new_niko4,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
         niko1, niko2, niko3, niko4, niko5, niko6,
-        dummy4, dummy5,
+        dummy4, dummy5, dummy6,
         temper1,
         loot1, loot2, loot3,
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
