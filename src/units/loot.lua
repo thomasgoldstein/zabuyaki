@@ -54,7 +54,7 @@ function Loot:drawShadow(l,t,w,h)
             0, --spr.rotation
             1, -0.3, --spr.size_scale * spr.flip_h, spr.size_scale * spr.flip_v,
             self.ox, self.oy,
-            stage.shadowAngle
+            -stage.shadowAngle
         )
     end
 end

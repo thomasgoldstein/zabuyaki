@@ -89,7 +89,7 @@ function Obstacle:drawShadow(l,t,w,h)
         end
         local spr = self.sprite
         local sc = spr.def.animations[spr.cur_anim][self:calcDamageFrame()]
-        local shadowAngle = stage.shadowAngle * spr.flip_h
+        local shadowAngle = -stage.shadowAngle * spr.flip_h
         love.graphics.draw (
             image_bank[spr.def.sprite_sheet],
             sc.q,

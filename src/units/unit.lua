@@ -220,7 +220,7 @@ function Unit:drawShadow(l,t,w,h)
 		end
 		local spr = self.sprite
 		local sc = spr.def.animations[spr.cur_anim][spr.cur_frame]
-		local shadowAngle = stage.shadowAngle * spr.flip_h
+		local shadowAngle = -stage.shadowAngle * spr.flip_h
 		love.graphics.draw (
 			image_bank[spr.def.sprite_sheet], --The image
 			sc.q, --Current frame of the current animation

@@ -4,7 +4,7 @@ local Stage01 = class('Stage01', Stage)
 
 function Stage01:initialize(players)
     Stage.initialize(self, "Stage 01", {231, 207, 157})
-    self.shadowAngle = 0.2
+    self.shadowAngle = -0.2
     stage = self
     self.scrolling = {commonY = 430, chunksX = {} }
     self.scrolling.chunks = {
