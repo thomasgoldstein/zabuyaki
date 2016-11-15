@@ -138,7 +138,6 @@ function Stage01:initialize(players)
     dummy5:setToughness(5)
     dummy5.horizontal = -1
     dummy5.face = -1
-    local dummy6 = Chai:new("Dummie5", GetSpriteInstance("src/def/char/satoff.lua"), nil, 173, top_floor_y + 80)
 
     local niko1 = Niko:new("niko", GetSpriteInstance("src/def/char/niko.lua"), nil,
         550 + love.math.random(-20,20), top_floor_y + 0,
@@ -172,13 +171,13 @@ function Stage01:initialize(players)
         )
         stage.objects:add(loot)
     end
-        local func_dropChicken = function(slf)
+    local func_dropChicken = function(slf)
         local loot = Loot:new("Chicken", gfx.loot.chicken,
             slf.x, slf.y + 1,
             { hp = 50, score = 0, note = "+50 HP", pickupSfx = "pickup_chicken", func = testDeathFunc}
         )
         stage.objects:add(loot)
-        end
+    end
     local func_dropBeef = function(slf)
         local loot = Loot:new("Beef", gfx.loot.beef,
             slf.x, slf.y + 1,
@@ -274,6 +273,7 @@ function Stage01:initialize(players)
     })
 
     local a, sx  = {}, 0
+    -- 7 Trash Cans
     for i = 0, 6 do
         a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/objects/can.lua"),
             474 + sx , top_floor_y + 11 + i * 13,
@@ -284,6 +284,12 @@ function Stage01:initialize(players)
         else
             sx = 0
         end
+    end
+    -- 4 Satoffs
+    for i = 0, 3 do
+        a[#a+1] = Chai:new("Satoff"..i, GetSpriteInstance("src/def/char/satoff.lua"), nil,
+            714 + 70 * i, top_floor_y + 10 + i*4,
+            {hp = 35, score = 300, shader = shaders.satoff[i + 1]} )
     end
     self.objects:addArray(a)
 
