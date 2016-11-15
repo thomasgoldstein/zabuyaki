@@ -265,7 +265,7 @@ function Stage01:initialize(players)
         new_niko1, new_niko2, new_niko3, new_niko4,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
         niko1, niko2, niko3, niko4, niko5, niko6,
-        dummy4, dummy5, dummy6,
+        dummy4, dummy5,
         temper1,
         loot1, loot2, loot3,
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
@@ -287,7 +287,7 @@ function Stage01:initialize(players)
     end
     -- 4 Satoffs
     for i = 0, 3 do
-        a[#a+1] = Chai:new("Satoff"..i, GetSpriteInstance("src/def/char/satoff.lua"), nil,
+        a[#a+1] = Rick:new("Satoff"..i, GetSpriteInstance("src/def/char/satoff.lua"), nil,
             714 + 70 * i, top_floor_y + 10 + i*4,
             {hp = 35, score = 300, shader = shaders.satoff[i + 1]} )
     end
