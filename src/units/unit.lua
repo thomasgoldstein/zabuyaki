@@ -212,15 +212,15 @@ function Unit:updateShake(dt)
 end
 
 function Unit:drawShadow(l,t,w,h)
-	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-10, 70, 20) then
+	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-45, self.y-10, 90, 20) then
 		if self.cool_down_death < 2 then
 			love.graphics.setColor(0, 0, 0, 255 * math.sin(self.cool_down_death)) --4th is the shadow transparency
 		else
 			love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
 		end
-
 		local spr = self.sprite
 		local sc = spr.def.animations[spr.cur_anim][spr.cur_frame]
+		local shadowAngle = stage.shadowAngle * spr.flip_h
 		love.graphics.draw (
 			image_bank[spr.def.sprite_sheet], --The image
 			sc.q, --Current frame of the current animation
@@ -228,7 +228,8 @@ function Unit:drawShadow(l,t,w,h)
 			0,
 			spr.flip_h,
 			-0.2,
-			sc.ox, sc.oy
+			sc.ox, sc.oy,
+			shadowAngle
 		)
 	end
 end
