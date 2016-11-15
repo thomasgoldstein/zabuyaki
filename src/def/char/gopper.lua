@@ -1,5 +1,5 @@
-local image_w = 195 --This info can be accessed with a Love2D call
-local image_h = 489 --after the image has been loaded
+local sprite_sheet = "res/img/char/gopper.png"
+local image_w,image_h = LoadSpriteSheet(sprite_sheet)
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -38,7 +38,7 @@ local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 14, "fall", sl
 return {
     serialization_version = 0.42, -- The version of this serialization process
 
-    sprite_sheet = "res/img/char/gopper.png", -- The path to the spritesheet
+    sprite_sheet = sprite_sheet, -- The path to the spritesheet
     --TODO read width/height of the sheet automatically.
     sprite_name = "gopper", -- The name of the sprite
 

@@ -1,5 +1,5 @@
-local image_w = 245 --This info can be accessed with a Love2D call
-local image_h = 1198 --after the image has been loaded
+local sprite_sheet = "res/img/char/chai.png"
+local image_w,image_h = LoadSpriteSheet(sprite_sheet)
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -50,7 +50,7 @@ local grabThrow_now = function(slf) slf.can_throw_now = true end
 return {
 	serialization_version = 0.42, -- The version of this serialization process
 
-	sprite_sheet = "res/img/char/chai.png", -- The path to the spritesheet
+	sprite_sheet = sprite_sheet, -- The path to the spritesheet
 	--TODO read width/height of the sheet automatically.
 	sprite_name = "chai", -- The name of the sprite
 

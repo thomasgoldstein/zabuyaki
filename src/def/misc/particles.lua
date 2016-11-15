@@ -1,9 +1,10 @@
 --
 -- Date: 04.05.2016
 --
-gfx.particles = love.graphics.newImage("res/img/misc/particles.png")
-local image_w = 101
-local image_h = 120
+local sprite_sheet = "res/img/misc/particles.png"
+local image_w, image_h = LoadSpriteSheet(sprite_sheet)
+gfx.particles = image_bank[sprite_sheet] --it is not a character. work around
+
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end

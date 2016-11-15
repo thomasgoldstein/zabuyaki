@@ -72,6 +72,22 @@ local function LoadSprite (sprite_def)
 	return sprite_bank [sprite_def]
 end
 
+function LoadSpriteSheet(sprite_sheet)
+	--Load the image into image bank.
+	--returns width, height, image
+	local old_image = image_bank[sprite_sheet]
+	image_bank[sprite_sheet] = love.graphics.newImage(sprite_sheet)
+
+	--Check if the loaded image is valid.
+	if image_bank[sprite_sheet] == nil then
+		-- Invalid image, reverting all changes
+		image_bank[sprite_sheet] = old_image -- Revert image
+		dp("Failed loading sprite " .. sprite_def .. ", invalid image path ( "
+				.. sprite_sheet .. " ).")
+	end
+	return image_bank[sprite_sheet]:getDimensions()
+end
+
 function GetSpriteInstance (sprite_def)
 	if sprite_def == nil then return nil end -- invalid use
 	if sprite_bank[sprite_def] == nil then
