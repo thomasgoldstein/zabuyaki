@@ -299,8 +299,7 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
     local face = self.face
     local g = self.hold
     if self.isThrown then
-        face = -face    --TODO proper thrown enemy hitbox?
-        --TODO not needed since the hitbox is centered
+        face = -face
     end
     if not g.target then --can attack only the 1 grabbed
         return

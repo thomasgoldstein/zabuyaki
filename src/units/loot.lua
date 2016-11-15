@@ -45,7 +45,6 @@ function Loot:addShape()
 end
 
 function Loot:drawShadow(l,t,w,h)
-    --TODO adjust sprite dimensions
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
         love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
         love.graphics.draw (
@@ -60,7 +59,6 @@ function Loot:drawShadow(l,t,w,h)
 end
 
 function Loot:draw(l,t,w,h)
-    --TODO adjust sprite dimensions.
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
         love.graphics.setColor( unpack( self.color ) )
         love.graphics.draw (

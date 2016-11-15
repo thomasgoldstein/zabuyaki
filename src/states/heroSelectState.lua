@@ -142,7 +142,6 @@ local function selected_heroes()
     return {s1, s2, s3}, xshift
 end
 
---TODO!!!
 local function all_confirmed()
     --visible players confirmed their choice
     local confirmed = false

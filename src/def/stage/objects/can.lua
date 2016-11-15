@@ -9,7 +9,6 @@ return {
     serialization_version = 0.42, -- The version of this serialization process
 
     sprite_sheet = sprite_sheet, -- The path to the spritesheet
-    --TODO read width/height of the sheet automatically.
     sprite_name = "can", -- sprite name
 
     delay = 9000000,	--default delay for all
