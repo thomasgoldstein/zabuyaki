@@ -50,9 +50,10 @@ function Loot:drawShadow(l,t,w,h)
         love.graphics.draw (
             self.sprite, --The image
             self.q, --Current frame of the current animation
-            self.x, self.y - 2 + self.z/6,
+            self.x, self.y + self.z/6,
             0, --spr.rotation
-            1, -0.3, --spr.size_scale * spr.flip_h, spr.size_scale * spr.flip_v,
+            1,
+            -stage.shadowHeight,
             self.ox, self.oy,
             -stage.shadowAngle
         )

@@ -10,6 +10,7 @@ function Stage:initialize(name, bgColor)
     self.mode = "normal"
     self.bgColor = bgColor
     self.shadowAngle = 0 --vertical shadow. Range -1..1
+    self.shadowHeight = 0.2 --Range 0.2..1
     self.event = nil
     self.movie = nil
     self.worldWidth = 4000

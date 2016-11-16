@@ -93,10 +93,10 @@ function Obstacle:drawShadow(l,t,w,h)
         love.graphics.draw (
             image_bank[spr.def.sprite_sheet],
             sc.q,
-            self.x + self.shake.x, self.y-2 + self.z/6,
+            self.x + self.shake.x, self.y - 2 + self.z/6,
             0,
             self.faceFix,
-            -0.2,
+            -stage.shadowHeight,
             sc.ox, sc.oy,
             shadowAngle
         )

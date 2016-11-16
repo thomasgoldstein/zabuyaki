@@ -224,10 +224,10 @@ function Unit:drawShadow(l,t,w,h)
 		love.graphics.draw (
 			image_bank[spr.def.sprite_sheet], --The image
 			sc.q, --Current frame of the current animation
-			self.x + self.shake.x, self.y-2 + self.z/6,
+			self.x + self.shake.x, self.y - 2 + self.z/6,
 			0,
 			spr.flip_h,
-			-0.2,
+			-stage.shadowHeight,
 			sc.ox, sc.oy,
 			shadowAngle
 		)
