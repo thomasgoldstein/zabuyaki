@@ -68,9 +68,9 @@ local heroes = {
         py = 120
     },
     {
+        {name = "GOPPER", shader = shaders.gopper[2]},
+        {name = "GOPPER", shader = shaders.gopper[3]},
         {name = "GOPPER", shader = nil},
-        {name = "GOPPER4", shader = shaders.gopper[4]},
-        {name = "GOPPER2", shader = shaders.gopper[2]},
         hero = PGopper,
         sprite_instance = "src/def/char/gopper.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -85,9 +85,9 @@ local heroes = {
         py = 120
     },
     {
+        {name = "NIKO", shader = shaders.niko[2]},
+        {name = "NIKO", shader = shaders.niko[3]},
         {name = "NIKO", shader = nil},
-        {name = "NIKO4", shader = shaders.niko[2]},
-        {name = "NIKO2", shader = shaders.niko[2]},
         hero = PNiko,
         sprite_instance = "src/def/char/niko.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
