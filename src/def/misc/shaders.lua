@@ -40,10 +40,8 @@ local sh_swap_colors = [[
 --sh_player2:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
 
 local function swapColors(colors_default, alternate_colors)
-    local colors_default = colors_default
-    local alternate_colors = alternate_colors
     local shader = love.graphics.newShader(sh_swap_colors)
-    shader:send("n", #colors_default - 1)
+    shader:send("n", #alternate_colors)
     shader:sendColor("colors", unpack(colors_default))
     shader:sendColor("newColors", unpack(alternate_colors))
     return shader
@@ -206,6 +204,9 @@ shaders.rick[4] = sh_rick4 --Blue (3 colors)
 shaders.rick[5] = sh_rick5 --Purple (3 colors)
 shaders.rick[6] = sh_rick6 --Black (3 colors)
 shaders.rick[7] = sh_rick7 --Emerald (3 colors)
+--local bug_def_color = {{ 181, 81, 23, 255 }, { 122, 54, 15, 255 }, { 56, 27, 28, 255 }} -- orange hoodie
+--local bug_purple = {{ 111, 77, 158, 255 }, { 73, 49, 130, 255 }, { 42, 28, 73, 255 }} --Purple
+--shaders.rick[5] = swapColors(bug_def_color, bug_purple)
 --Buggy END
 
 local chai_colors_default = {
