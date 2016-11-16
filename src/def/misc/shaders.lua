@@ -196,55 +196,56 @@ shaders.rick[4] = sh_rick4 --Blue (3 colors)
 shaders.rick[5] = sh_rick5 --Purple (3 colors)
 shaders.rick[6] = sh_rick6 --Black (3 colors)
 shaders.rick[7] = sh_rick7 --Emerald (3 colors)
+
 --Chai
-local sh_chai2 = love.graphics.newShader(sh_swap_colors)
-sh_chai2:send("n", 10)
-sh_chai2:sendColor("colors", -- Chai default color set
+local sh_chai_default_colors = {"colors", -- Chai default color set
     {220, 206, 234, 255}, {145, 137, 153, 255}, {87, 82, 91, 255}, -- gray bandages
     {224, 208, 62, 255}, {158, 145, 34, 255}, {96, 71, 19, 255}, -- yellow shirt
     {126, 54, 130, 255}, {86, 11, 86, 255}, {33, 4, 33, 255}, -- purple shorts
-    {51, 22, 27, 255}) -- brown hair
-sh_chai2:sendColor("newColors", -- Chai alternate color set 1
+    {51, 22, 27, 255}} -- brown hair
+local sh_chai_alternative_colors_1 = {"newColors", -- Chai alternate color set 1
     {224, 208, 62, 255}, {158, 145, 34, 255}, {96, 71, 19, 255}, -- yellow bandages
     {193, 207, 244, 255}, {125, 142, 167, 255}, {65, 73, 86, 255}, -- light blue shirt
     {54, 104, 130, 255}, {11, 56, 86, 255}, {4, 21, 33, 255}, -- teal shorts
-    {34, 29, 57, 255}) -- purple hair
-local sh_chai3 = love.graphics.newShader(sh_swap_colors)
-sh_chai3:send("n", 10)
-sh_chai3:sendColor("colors", -- Chai default color set
-    {220, 206, 234, 255}, {145, 137, 153, 255}, {87, 82, 91, 255}, -- gray bandages
-    {224, 208, 62, 255}, {158, 145, 34, 255}, {96, 71, 19, 255}, -- yellow shirt
-    {126, 54, 130, 255}, {86, 11, 86, 255}, {33, 4, 33, 255}, -- purple shorts
-    {51, 22, 27, 255}) -- brown hair
-sh_chai3:sendColor("newColors", -- Chai alternate color set 2
+    {34, 29, 57, 255}} -- purple hair
+local sh_chai_alternative_colors_2 = {"newColors", -- Chai alternate color set 2
     {226, 113, 113, 255}, {193, 44, 44, 255}, {112, 19, 19, 255}, -- red bandages
     {206, 196, 185, 255}, {154, 136, 119, 255}, {92, 72, 55, 255}, -- light sepia shirt
     {53, 53, 53, 255}, {30, 30, 30, 255}, {15, 15, 15, 255}, -- black shorts
-    {51, 35, 22, 255}) -- sand hair
+    {51, 35, 22, 255}} -- sand hair
+local sh_chai2 = love.graphics.newShader(sh_swap_colors)
+sh_chai2:send("n", #sh_chai_default_colors - 1)
+sh_chai2:sendColor(unpack(sh_chai_default_colors))
+sh_chai2:sendColor(unpack(sh_chai_alternative_colors_1))
+local sh_chai3 = love.graphics.newShader(sh_swap_colors)
+sh_chai3:send("n", #sh_chai_default_colors - 1)
+sh_chai3:sendColor(unpack(sh_chai_default_colors))
+sh_chai3:sendColor(unpack(sh_chai_alternative_colors_2))
 shaders.chai[2] = sh_chai2
 shaders.chai[3] = sh_chai3
+
 --Kisa
-local sh_kisa2 = love.graphics.newShader(sh_swap_colors)
-sh_kisa2:send("n", 6)
-sh_kisa2:sendColor("colors", -- Kisa default color set
+local sh_kisa_default_colors = {"colors", -- Kisa default color set
     {69, 145, 134, 255}, {45, 96, 92, 255}, {21, 45, 43, 255}, -- teal hat
-    {133, 62, 65, 255}, {89, 39, 42, 255}, {41, 14, 16, 255}) -- maroon shoes
-sh_kisa2:sendColor("newColors", -- Kisa alternate color set 1
+    {133, 62, 65, 255}, {89, 39, 42, 255}, {41, 14, 16, 255}} -- maroon shoes
+local sh_kisa_alternative_colors_1 = {"newColors", -- Kisa alternate color set 1
     {76, 145, 55, 255}, {49, 91, 34, 255}, {19, 45, 24, 255}, -- green hat
-    {127, 80, 53, 255}, {74, 52, 39, 255}, {35, 25, 19, 255}) -- brown shoes
-local sh_kisa3 = love.graphics.newShader(sh_swap_colors)
-sh_kisa3:send("n", 6)
-sh_kisa3:sendColor("colors", -- Kisa default color set
-    {69, 145, 134, 255}, {45, 96, 92, 255}, {21, 45, 43, 255}, -- teal hat
-    {133, 62, 65, 255}, {89, 39, 42, 255}, {41, 14, 16, 255}) -- maroon shoes
-sh_kisa3:sendColor("newColors", -- Kisa alternate color set 2
+    {127, 80, 53, 255}, {74, 52, 39, 255}, {35, 25, 19, 255}} -- brown shoes
+local sh_kisa_alternative_colors_2 = {"newColors", -- Kisa alternate color set 2
     {150, 90, 196, 255}, {92, 56, 122, 255}, {39, 23, 51, 255}, -- lavander hat
-    {173, 100, 17, 255}, {99, 59, 9, 255}, {45, 26, 4, 255}) -- orange-brown shoes
+    {173, 100, 17, 255}, {99, 59, 9, 255}, {45, 26, 4, 255}} -- orange-brown shoes
+local sh_kisa2 = love.graphics.newShader(sh_swap_colors)
+sh_kisa2:send("n", #sh_kisa_default_colors - 1)
+sh_kisa2:sendColor(unpack(sh_kisa_default_colors))
+sh_kisa2:sendColor(unpack(sh_kisa_alternative_colors_1))
+local sh_kisa3 = love.graphics.newShader(sh_swap_colors)
+sh_kisa3:send("n", #sh_kisa_default_colors - 1)
+sh_kisa3:sendColor(unpack(sh_kisa_default_colors))
+sh_kisa3:sendColor(unpack(sh_kisa_alternative_colors_2))
 shaders.kisa[2] = sh_kisa2
 shaders.kisa[3] = sh_kisa3
 
 -- Enemy
-
 local sh_gopper2 = love.graphics.newShader(sh_replace_3_colors)
 sh_gopper2:sendColor("colors", {51,63,105, 255},  {31,41,76, 255},  {19,25,40, 255})
 sh_gopper2:sendColor("newColors", {56,84,57, 255},  {35,53,36, 255},  {20,30,20, 255})   --Green
