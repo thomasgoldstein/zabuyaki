@@ -184,34 +184,16 @@ local rick_colors_3 = {
 shaders.rick[2] = swapColors(rick_colors_default, rick_colors_2) --P2
 shaders.rick[3] = swapColors(rick_colors_default, rick_colors_3) --P3
 
---Buggy START. Keep for Love2D bug report
-local rick_colors_default0 = {"colors",
-    { 181, 81, 23, 255 }, { 122, 54, 15, 255 }, { 56, 27, 28, 255 }, -- orange hoodie
-    { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 } } -- black pants
-local rick_colors_blue = { "newColors", { 77, 111, 158, 255 }, { 49, 73, 130, 255 }, { 28, 42, 73, 255 } } --Blue
-local rick_colors_purple = { "newColors", { 111, 77, 158, 255 }, { 73, 49, 130, 255 }, { 42, 28, 73, 255 } } --Purple
-local rick_colors_black = { "newColors", { 70, 70, 70, 255 }, { 45, 45, 45, 255 }, { 11, 11, 11, 255 } } --Black
-local rick_colors_emerald = { "newColors", { 77, 158, 111, 255 }, { 49, 130, 73, 255 }, { 28, 73, 42, 255 } } --Emerald
-local sh_rick4 = love.graphics.newShader(sh_replace_3_colors)
-sh_rick4:sendColor(unpack(rick_colors_default0))
-sh_rick4:sendColor(unpack(rick_colors_blue))
-local sh_rick5 = love.graphics.newShader(sh_replace_3_colors)
-sh_rick5:sendColor(unpack(rick_colors_default0))
-sh_rick5:sendColor(unpack(rick_colors_purple))
-local sh_rick6 = love.graphics.newShader(sh_replace_3_colors)
-sh_rick6:sendColor(unpack(rick_colors_default0))
-sh_rick6:sendColor(unpack(rick_colors_black))
-local sh_rick7 = love.graphics.newShader(sh_replace_3_colors)
-sh_rick7:sendColor(unpack(rick_colors_default0))
-sh_rick7:sendColor(unpack(rick_colors_emerald))
-shaders.rick[4] = sh_rick4 --Blue (3 colors)
-shaders.rick[5] = sh_rick5 --Purple (3 colors)
-shaders.rick[6] = sh_rick6 --Black (3 colors)
-shaders.rick[7] = sh_rick7 --Emerald (3 colors)
---local bug_def_color = {{ 181, 81, 23, 255 }, { 122, 54, 15, 255 }, { 56, 27, 28, 255 }} -- orange hoodie
---local bug_purple = {{ 111, 77, 158, 255 }, { 73, 49, 130, 255 }, { 42, 28, 73, 255 }} --Purple
---shaders.rick[5] = swapColors(bug_def_color, bug_purple)
---Buggy END
+local rick_colors_default_short = { { 181, 81, 23, 255 }, { 122, 54, 15, 255 }, { 56, 27, 28, 255 } } -- orange hoodie
+local rick_colors_blue = { { 77, 111, 158, 255 }, { 49, 73, 130, 255 }, { 28, 42, 73, 255 } } --Blue
+local rick_colors_purple = { { 111, 77, 158, 255 }, { 73, 49, 130, 255 }, { 42, 28, 73, 255 } } --Purple
+local rick_colors_black = { { 70, 70, 70, 255 }, { 45, 45, 45, 255 }, { 11, 11, 11, 255 } } --Black
+local rick_colors_emerald = { { 77, 158, 111, 255 }, { 49, 130, 73, 255 }, { 28, 73, 42, 255 } } --Emerald
+
+shaders.rick[4] = swapColors(rick_colors_default_short, rick_colors_blue)
+shaders.rick[5] = swapColors(rick_colors_default_short, rick_colors_purple)
+shaders.rick[6] = swapColors(rick_colors_default_short, rick_colors_black)
+shaders.rick[7] = swapColors(rick_colors_default_short, rick_colors_emerald)
 
 local chai_colors_default = {
     { 220, 206, 234, 255 }, { 145, 137, 153, 255 }, { 87, 82, 91, 255 }, -- gray bandages
