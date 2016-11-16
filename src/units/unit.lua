@@ -107,7 +107,7 @@ end
 
 function Unit:playHitSfx(dmg)
     local alias
-	TEsound.stop("sfx"..self.id, false)
+	--TEsound.stop("sfx"..self.id, false)
     if self.sfx.onHit then
 		sfx.play("sfx"..self.id, self.sfx.onHit, nil, 1 + 0.008 * love.math.random(-1,1))
 		return
