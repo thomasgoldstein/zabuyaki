@@ -213,17 +213,43 @@ shaders.kisa[2] = swapColors(kisa_colors_default, kisa_colors_2)
 shaders.kisa[3] = swapColors(kisa_colors_default, kisa_colors_3)
 
 -- Enemy
-local gopper_colors_default = {{51, 63, 105, 255 }, { 31, 41, 76, 255 }, { 19, 25, 40, 255 } }
-local gopper_colors_2 = {{ 56, 84, 57, 255 }, { 35, 53, 36, 255 }, { 20, 30, 20, 255 } } --Green
-local gopper_colors_3 = {{ 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 } } --Black
-local gopper_colors_4 = {{ 112, 48, 61, 255 }, { 73, 31, 40, 255 }, { 40, 17, 22, 255 } } --Red
+local gopper_colors_default = {
+    { 223, 221, 235, 255 }, { 167, 156, 188, 255 }, { 102, 96, 114, 255 }, -- white top
+    { 51, 63, 105, 255 }, { 31, 41, 76, 255 }, { 19, 25, 40, 255 }, -- blue pants
+    { 105, 108, 112, 255 }, { 81, 83, 86, 255 }, -- top gray stripes
+    { 222, 230, 239, 255 }, { 161, 167, 173, 255 }, -- bottom white stripes
+    { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 } } -- black shoes
+local gopper_colors_2 = {
+    { 51, 63, 105, 255 }, { 31, 41, 76, 255 }, { 19, 25, 40, 255 }, -- blue top
+    { 51, 63, 105, 255 }, { 31, 41, 76, 255 }, { 19, 25, 40, 255 }, -- blue pants
+    { 222, 230, 239, 255 }, { 161, 167, 173, 255 } } -- top white stripes
+local gopper_colors_3 = {
+    { 56, 84, 57, 255 }, { 35, 53, 36, 255 }, { 20, 30, 20, 255 }, -- green top
+    { 56, 84, 57, 255 }, { 35, 53, 36, 255 }, { 20, 30, 20, 255 }, -- green pants
+    { 222, 230, 239, 255 }, { 161, 167, 173, 255 } } -- top white stripes
+local gopper_colors_4 = {
+    { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 }, -- black top
+    { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 }, -- black pants
+    { 222, 230, 239, 255 }, { 161, 167, 173, 255 } } -- top white stripes
+local gopper_colors_5 = {
+    { 112, 48, 61, 255 }, { 73, 31, 40, 255 }, { 40, 17, 22, 255 }, -- red top
+    { 112, 48, 61, 255 }, { 73, 31, 40, 255 }, { 40, 17, 22, 255 }, -- red pants
+    { 222, 230, 239, 255 }, { 161, 167, 173, 255 } } -- top white stripes
 shaders.gopper[2] = swapColors(gopper_colors_default, gopper_colors_2)
 shaders.gopper[3] = swapColors(gopper_colors_default, gopper_colors_3)
 shaders.gopper[4] = swapColors(gopper_colors_default, gopper_colors_4)
+shaders.gopper[5] = swapColors(gopper_colors_default, gopper_colors_5)
 
-local niko_colors_default = {{ 222, 230, 239, 255 }, { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 }} --White, DarkGray, Dark
-local niko_colors_2 = {{ 15, 15, 15, 255 }, { 198, 198, 198, 255 }, { 137, 137, 137, 255 }, { 84, 84, 84, 255 }} --Black, LightGray, Gray, DarkGray
+local niko_colors_default = gopper_colors_default
+local niko_colors_2 = gopper_colors_2
+local niko_colors_3 = {
+    { 51, 63, 105, 255 }, { 31, 41, 76, 255 }, { 19, 25, 40, 255 }, -- blue top
+    { 51, 63, 105, 255 }, { 31, 41, 76, 255 }, { 19, 25, 40, 255 }, -- blue pants
+    { 30, 30, 30, 255 }, { 15, 15, 15, 255 }, -- top black stripes
+    { 30, 30, 30, 255 }, { 15, 15, 15, 255 }, -- bottom black stripes
+    { 198, 198, 198, 255 }, { 137, 137, 137, 255 }, { 84, 84, 84, 255 } } -- white shoes
 shaders.niko[2] = swapColors(niko_colors_default, niko_colors_2)
+shaders.niko[3] = swapColors(niko_colors_default, niko_colors_3)
 
 local satoff_colors_default = {
     { 181, 47, 51, 255 }, { 119, 31, 34, 255 }, { 53, 20, 21, 255 }, -- red suit

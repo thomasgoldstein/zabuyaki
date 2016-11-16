@@ -106,26 +106,26 @@ function Stage01:initialize(players)
     -- Enemy
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         500, top_floor_y + 20,
-        { shader = shaders.gopper[4], color = {255,255,255, 255}})
+        { shader = shaders.gopper[5], color = {255,255,255, 255}})
     local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         1510, top_floor_y + 20,
-        { shader = shaders.gopper[2], color = {255,255,255, 255}})
+        { shader = shaders.gopper[3], color = {255,255,255, 255}})
     gopper2:setToughness(1)
     local gopper3 = Gopper:new("GOPPER3", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         1560, top_floor_y + 40,
-        { shader = shaders.gopper[3], color = {255,255,255, 255}})
+        { shader = shaders.gopper[4], color = {255,255,255, 255}})
     gopper3:setToughness(2)
     local gopper4 = Gopper:new("GOPPER4", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         1520, top_floor_y + 30,
-        { shader = shaders.gopper[4], color = {255,255,255, 255}})
+        { shader = shaders.gopper[5], color = {255,255,255, 255}})
     gopper4:setToughness(3)
     local gopper5 = Gopper:new("GOPPER5", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         1540, top_floor_y + 25,
-        { shader = nil, color = {255,255,255, 255}})
+        { shader = shaders.gopper[2], color = {255,255,255, 255}})
     gopper5:setToughness(4)
     local gopper6 = Gopper:new("GOPPER6", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         1525, top_floor_y + 35,
-        { shader = nil, color = {255,255,255, 255}})
+        { shader = shaders.gopper[2], color = {255,255,255, 255}})
     gopper6:setToughness(5)
 
     local dummy4 = Rick:new("Dummie4", GetSpriteInstance("src/def/char/rick.lua"), nil,
@@ -143,26 +143,26 @@ function Stage01:initialize(players)
 
     local niko1 = Niko:new("niko", GetSpriteInstance("src/def/char/niko.lua"), nil,
         550 + love.math.random(-20,20), top_floor_y + 0,
-        { shader = shaders.niko[2], color = {255,255,255, 255}, func = testDeathFunc})
+        { shader = shaders.niko[3], color = {255,255,255, 255}, func = testDeathFunc})
     local niko2 = Niko:new("niko2", GetSpriteInstance("src/def/char/niko.lua"), nil,
         1510 + love.math.random(-20,20), top_floor_y + 10,
-        { shader = nil, color = {255,255,255, 255}})
+        { shader = shaders.niko[2], color = {255,255,255, 255}})
     niko2:setToughness(1)
     local niko3 = Niko:new("niko3", GetSpriteInstance("src/def/char/niko.lua"), nil,
         1560 + love.math.random(-20,20), top_floor_y + 20,
-        { shader = shaders.niko[2], color = {255,255,255, 255}})
+        { shader = shaders.niko[3], color = {255,255,255, 255}})
     niko3:setToughness(2)
     local niko4 = Niko:new("niko4", GetSpriteInstance("src/def/char/niko.lua"), nil,
         1520 + love.math.random(-20,20), top_floor_y + 30,
-        { shader = shaders.niko[2], color = {255,255,255, 255}})
+        { shader = shaders.niko[3], color = {255,255,255, 255}})
     niko4:setToughness(3)
     local niko5 = Niko:new("niko5", GetSpriteInstance("src/def/char/niko.lua"), nil,
         1540 + love.math.random(-20,20), top_floor_y + 40,
-        { shader = nil, color = {255,255,255, 255}})
+        { shader = shaders.niko[2], color = {255,255,255, 255}})
     niko5:setToughness(4)
     local niko6 = Niko:new("niko6", GetSpriteInstance("src/def/char/niko.lua"), nil,
         1525 + love.math.random(-20,20), top_floor_y + 50,
-        { shader = nil, color = {255,255,255, 255}})
+        { shader = shaders.niko[2], color = {255,255,255, 255}})
     niko6:setToughness(5)
 
     -- Loot
@@ -210,21 +210,21 @@ function Stage01:initialize(players)
 
     local gop_x = 300
     local new_gopper1 = Gopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 157, top_floor_y + 40,
-        { shader = shaders.gopper[2], color = {255,255,255, 255}, func = testDeathFunc})
+        { shader = shaders.gopper[3], color = {255,255,255, 255}, func = testDeathFunc})
     local new_gopper2 = Gopper:new("N.GOP2", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 177, top_floor_y + 43,
-        { shader = shaders.gopper[1], color = {255,255,255, 255}})
+        { shader = shaders.gopper[2], color = {255,255,255, 255}})
     local new_gopper3 = Gopper:new("N.GOP3", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 199, top_floor_y + 47,
-        { shader = shaders.gopper[3], color = {255,255,255, 255}})
-    local new_gopper4 = Gopper:new("N.GOP4", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 210, top_floor_y + 40,
         { shader = shaders.gopper[4], color = {255,255,255, 255}})
+    local new_gopper4 = Gopper:new("N.GOP4", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 210, top_floor_y + 40,
+        { shader = shaders.gopper[5], color = {255,255,255, 255}})
     local new_niko1 = Niko:new("N.NIK1", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 220, top_floor_y + 40,
-        { shader = shaders.niko[1], color = {255,255,255, 255}})
+        { shader = shaders.niko[2], color = {255,255,255, 255}})
     local new_niko2 = Niko:new("N.NIK2", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 240, top_floor_y + 43,
-        { shader = shaders.niko[2], color = {255,255,255, 255}})
+        { shader = shaders.niko[3], color = {255,255,255, 255}})
     local new_niko3 = Niko:new("N.NIK3", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 260, top_floor_y + 47,
-        { shader = shaders.niko[1], color = {255,255,255, 255}})
-    local new_niko4 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 280, top_floor_y + 40,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
+    local new_niko4 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 280, top_floor_y + 40,
+        { shader = shaders.niko[3], color = {255,255,255, 255}})
 
     -- Obstacles
     local canColor = {118,109,100, 255}
