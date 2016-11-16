@@ -33,12 +33,6 @@ local sh_swap_colors = [[
             return pixel * color;
         }   ]]
 
---usage:
---local sh_player2 = love.graphics.newShader(sh_swap_colors)
---sh_player2:send("n", 3)
---sh_player2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
---sh_player2:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
-
 local function swapColors(colors_default, alternate_colors)
     local shader = love.graphics.newShader(sh_swap_colors)
     alternate_colors[#alternate_colors+1] = {0,0,0,0}   --TODO: Remove on fix of Love2D 0.10.2 shaders send bug
@@ -64,11 +58,6 @@ local sh_replace_3_colors = [[
             return newColors[2] * color;
         return pixel * color;
     }    ]]
-
---usage:
---local sh_player2 = love.graphics.newShader(sh_replace_3_colors)
---sh_player2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
---sh_player2:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
 
 local sh_replace_4_colors = [[
         extern vec4 colors[4];
@@ -181,8 +170,8 @@ local rick_colors_2 = {
 local rick_colors_3 = {
     { 86, 135, 97, 255 }, { 47, 91, 63, 255 }, { 24, 53, 35, 255 }, -- green hoodie
     { 84, 75, 68, 255 }, { 51, 45, 41, 255 }, { 25, 22, 20, 255 } } -- gray pants
-shaders.rick[2] = swapColors(rick_colors_default, rick_colors_2) --P2
-shaders.rick[3] = swapColors(rick_colors_default, rick_colors_3) --P3
+shaders.rick[2] = swapColors(rick_colors_default, rick_colors_2)
+shaders.rick[3] = swapColors(rick_colors_default, rick_colors_3)
 
 local rick_colors_default_short = { { 181, 81, 23, 255 }, { 122, 54, 15, 255 }, { 56, 27, 28, 255 } } -- orange hoodie
 local rick_colors_blue = { { 77, 111, 158, 255 }, { 49, 73, 130, 255 }, { 28, 42, 73, 255 } } --Blue
