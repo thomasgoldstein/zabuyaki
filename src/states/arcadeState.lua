@@ -60,7 +60,7 @@ function arcadeState:update(dt)
 
     if not is_alive then
         game_over_delay = game_over_delay + dt
-        if game_over_delay > 10
+        if game_over_delay > 4
                 and (Control1.back:pressed() or
                 Control1.attack:pressed() or
                 Control1.jump:pressed()) then
