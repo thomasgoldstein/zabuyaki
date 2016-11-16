@@ -131,7 +131,7 @@ function Obstacle:onHurt()
         if self.flipOnBreak then
             self.faceFix = newFacing --Change facing
         end
-        sfx.play("sfx"..self.id, self.sfx.onBreak)
+        sfx.play("voice"..self.id, self.sfx.onBreak)
         local psystem = PA_OBSTACLE_BREAK_SMALL:clone()
         psystem:setPosition( 0, -self.height + self.height / 3 )
         --psystem:setAreaSpread( "uniform", 2, 8 )
