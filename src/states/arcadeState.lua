@@ -4,11 +4,14 @@ local time = 0
 local screen_width = 640
 local screen_height = 480
 local txt_game_over = love.graphics.newText( gfx.font.kimberley, "GAME OVER" )
+local is_alive
+local game_over_delay = 0
 
 function arcadeState:init()
 end
 
 function arcadeState:resume()
+    game_over_delay = 0
     love.graphics.setLineWidth( 1 )
     --restore BGM music volume
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
@@ -19,7 +22,7 @@ function arcadeState:enter(_, players)
     credits = GLOBAL_SETTING.MAX_CREDITS
     --load stage
     stage = Stage01:new(players)
-
+    game_over_delay = 0
     mainCamera = Camera:new(stage.worldWidth, stage.worldHeight)
     love.graphics.setLineWidth( 1 )
     --start BGM
@@ -39,13 +42,39 @@ function arcadeState:update(dt)
     if GLOBAL_SETTING.PROFILER_ENABLED then
         Prof:detach()
     end
+
+    if stage.mode == "normal" then
+        is_alive = false
+        if player1 then
+            is_alive = is_alive or player1:isAlive()
+        end
+        if player2 then
+            is_alive = is_alive or player2:isAlive()
+        end
+        if player3 then
+            is_alive = is_alive or player3:isAlive()
+        end
+    else
+        is_alive = true
+    end
+
+    if not is_alive then
+        game_over_delay = game_over_delay + dt
+        if game_over_delay > 10
+                and (Control1.back:pressed() or
+                Control1.attack:pressed() or
+                Control1.jump:pressed()) then
+            return Gamestate.switch(titleState)
+        end
+    else
+        -- Screenshot Pause
+        if Control1.screenshot:pressed() then
+            return Gamestate.push(screenshotState)
+        end
+    end
     -- PAUSE (only for P1)
     if Control1.back:pressed() then
         return Gamestate.push(pauseState)
-    end
-    -- Screenshot Pause
-    if Control1.screenshot:pressed() then
-        return Gamestate.push(screenshotState)
     end
     watch_debug_variables()
 end
@@ -72,7 +101,6 @@ function arcadeState:draw()
     love.graphics.draw(canvas[3], 0,0, nil, 0.5) --sprites + fg
     love.graphics.setBlendMode("alpha")
 
-    local is_alive = false
     if stage.mode == "normal" then
         --HP bars
         if player1 then
@@ -80,21 +108,18 @@ function arcadeState:draw()
             if player1.victim_infoBar then
                 player1.victim_infoBar:draw(0,0)
             end
-            is_alive = is_alive or player1:isAlive()
         end
         if player2 then
             player2.infoBar:draw(0,0)
             if player2.victim_infoBar then
                 player2.victim_infoBar:draw(0,0)
             end
-            is_alive = is_alive or player2:isAlive()
         end
         if player3 then
             player3.infoBar:draw(0,0)
             if player3.victim_infoBar then
                 player3.victim_infoBar:draw(0,0)
             end
-            is_alive = is_alive or player3:isAlive()
         end
     end
     show_debug_grid()
@@ -107,7 +132,7 @@ function arcadeState:draw()
         love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 + 1 )
         love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 + 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
         love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
-        love.graphics.setColor(255, 255, 255, 220 + math.sin(time)*35)
+        love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
     end
     -- Profiler Pie Graph
