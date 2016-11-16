@@ -154,15 +154,22 @@ return resultCol;
 
 --Shaders
 --Rick
-local sh_rick_default_colors = {"colors", -- Rick default color set
-    {181, 81, 23, 255}, {122, 54, 15, 255}, {56, 27, 28, 255}, -- orange hoodie
-    {53, 53, 53, 255}, {30, 30, 30, 255}, {15, 15, 15, 255}} -- black pants
-local sh_rick_alternative_colors_1 = {"newColors", -- Rick alternate color set 1
-    {188, 188, 188, 255}, {130, 130, 130, 255}, {73, 73, 73, 255}, -- white hoodie
-    {39, 85, 135, 255}, {24, 53, 84, 255}, {11, 24, 38, 255}} -- blue pants
-local sh_rick_alternative_colors_2 = {"newColors", -- Rick alternate color set 2
-    {86,135,97, 255}, {47,91,63, 255}, {24,53,35, 255},-- green hoodie
-    {84,75,68, 255}, {51,45,41, 255}, {25,22,20, 255}} -- gray pants
+local sh_rick_default_colors = {
+    "colors", -- Rick default color set
+    { 181, 81, 23, 255 }, { 122, 54, 15, 255 }, { 56, 27, 28, 255 }, -- orange hoodie
+    { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 } } -- black pants
+local sh_rick_alternative_colors_1 = {
+    "newColors", -- Rick alternate color set 1
+    { 188, 188, 188, 255 }, { 130, 130, 130, 255 }, { 73, 73, 73, 255 }, -- white hoodie
+    { 39, 85, 135, 255 }, { 24, 53, 84, 255 }, { 11, 24, 38, 255 } } -- blue pants
+local sh_rick_alternative_colors_2 = {
+    "newColors", -- Rick alternate color set 2
+    { 86, 135, 97, 255 }, { 47, 91, 63, 255 }, { 24, 53, 35, 255 }, -- green hoodie
+    { 84, 75, 68, 255 }, { 51, 45, 41, 255 }, { 25, 22, 20, 255 } } -- gray pants
+local sh_rick_alternative_colors_blue = { "newColors", { 77, 111, 158, 255 }, { 49, 73, 130, 255 }, { 28, 42, 73, 255 } } --Blue
+local sh_rick_alternative_colors_purple = { "newColors", { 111, 77, 158, 255 }, { 73, 49, 130, 255 }, { 42, 28, 73, 255 } } --Purple
+local sh_rick_alternative_colors_black = { "newColors", { 70, 70, 70, 255 }, { 45, 45, 45, 255 }, { 11, 11, 11, 255 } } --Black
+local sh_rick_alternative_colors_emerald = { "newColors", { 77, 158, 111, 255 }, { 49, 130, 73, 255 }, { 28, 73, 42, 255 } } --Emerald
 local sh_rick2 = love.graphics.newShader(sh_swap_colors)
 sh_rick2:send("n", #sh_rick_default_colors - 1)
 sh_rick2:sendColor(unpack(sh_rick_default_colors))
@@ -173,22 +180,22 @@ sh_rick3:sendColor(unpack(sh_rick_default_colors))
 sh_rick3:sendColor(unpack(sh_rick_alternative_colors_2))
 local sh_rick4 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick4:sendColor(unpack(sh_rick_default_colors))
-sh_rick4:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})   --Blue
+sh_rick4:sendColor(unpack(sh_rick_alternative_colors_blue))
 local sh_rick5 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick5:sendColor(unpack(sh_rick_default_colors))
-sh_rick5:sendColor("newColors", {111,77,158, 255},  {73,49,130, 255},  {42,28,73, 255}) --Purple
+sh_rick5:sendColor(unpack(sh_rick_alternative_colors_purple))
 local sh_rick6 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick6:sendColor(unpack(sh_rick_default_colors))
-sh_rick6:sendColor("newColors", {70,70,70, 255},  {45,45,45, 255},  {11,11,11, 255})   --Black
+sh_rick6:sendColor(unpack(sh_rick_alternative_colors_black))
 local sh_rick7 = love.graphics.newShader(sh_replace_3_colors)
 sh_rick7:sendColor(unpack(sh_rick_default_colors))
-sh_rick7:sendColor("newColors", {77,158,111, 255},  {49,130,73, 255},  {28,73,42, 255})   --Emerald
-shaders.rick[2] = sh_rick2  --P2
-shaders.rick[3] = sh_rick3  --P3
-shaders.rick[4] = sh_rick4  --Extra colors for dummies
-shaders.rick[5] = sh_rick5
-shaders.rick[6] = sh_rick6
-shaders.rick[7] = sh_rick7
+sh_rick7:sendColor(unpack(sh_rick_alternative_colors_emerald))
+shaders.rick[2] = sh_rick2 --P2
+shaders.rick[3] = sh_rick3 --P3
+shaders.rick[4] = sh_rick4 --Blue (3 colors)
+shaders.rick[5] = sh_rick5 --Purple (3 colors)
+shaders.rick[6] = sh_rick6 --Black (3 colors)
+shaders.rick[7] = sh_rick7 --Emerald (3 colors)
 --Chai
 local sh_chai2 = love.graphics.newShader(sh_swap_colors)
 sh_chai2:send("n", 10)
