@@ -256,9 +256,7 @@ local function player_input(player, controls, i)
             sfx.play("sfx","menu_cancel")
             return Gamestate.switch(titleState, "dontStartMusic")
         end
-        if controls.jump:pressed() or controls.attack:pressed()
-                or controls.start:pressed() or controls.back:pressed()
-                or controls.horizontal:pressed() or controls.vertical:pressed() then
+        if controls.attack:pressed() or controls.start:pressed()then
             sfx.play("sfx","menu_select")
             player.visible = true
             player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
@@ -389,7 +387,7 @@ function heroSelectState:draw()
             c[4] = 230 + math.sin(time * 4)*25
             love.graphics.setColor( unpack( c ) )
             love.graphics.setFont(gfx.font.arcade3x2)
-            love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPUSH\nANY\nBUTTON", h.x - portrait_width/2 + 20, h.y - portrait_height + 48)
+            love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPRESS\nATTACK", h.x - portrait_width/2 + 20, h.y - portrait_height + 48)
         end
     end
     --header
