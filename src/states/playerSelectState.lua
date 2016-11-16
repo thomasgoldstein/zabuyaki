@@ -1,7 +1,7 @@
 --
 -- Date: 20.06.2016
 --
-heroSelectState = {}
+playerSelectState = {}
 
 local time = 0
 local screen_width = 640
@@ -186,7 +186,7 @@ local function drawPID(x, y_, i, confirmed)
     love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i], x - 14, y + 8)
 end
 
-function heroSelectState:enter()
+function playerSelectState:enter()
     players = {
         {pos = 1, visible = true, confirmed = false, sprite = nil},
         {pos = 2, visible = false, confirmed = false, sprite = nil},
@@ -210,8 +210,8 @@ function heroSelectState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
-function heroSelectState:resume()
-    heroSelectState:enter()
+function playerSelectState:resume()
+    playerSelectState:enter()
 end
 
 local function GameStart()
@@ -307,7 +307,7 @@ local function player_input(player, controls, i)
     end
 end
 
-function heroSelectState:update(dt)
+function playerSelectState:update(dt)
     time = time + dt
     local sh,shiftx = selected_heroes()
     for i = 1,#players do
@@ -351,7 +351,7 @@ function heroSelectState:update(dt)
     player_input(players[3], Control3, 3)
 end
 
-function heroSelectState:draw()
+function playerSelectState:draw()
     push:apply("start")
     local sh = selected_heroes()
     for i = 1,#players do
@@ -397,7 +397,7 @@ function heroSelectState:draw()
     push:apply("end")
 end
 
-function heroSelectState:confirm( x, y, button, istouch )
+function playerSelectState:confirm( x, y, button, istouch )
     -- P1 mouse control only
     if button == 1 then
         p1_mouse_pos = 2
@@ -437,14 +437,14 @@ function heroSelectState:confirm( x, y, button, istouch )
     end
 end
 
-function heroSelectState:mousepressed( x, y, button, istouch )
+function playerSelectState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    heroSelectState:confirm( x, y, button, istouch )
+    playerSelectState:confirm( x, y, button, istouch )
 end
 
-function heroSelectState:mousemoved( x, y, dx, dy)
+function playerSelectState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
@@ -464,5 +464,5 @@ function heroSelectState:mousemoved( x, y, dx, dy)
     end
 end
 
-function heroSelectState:keypressed(key, unicode)
+function playerSelectState:keypressed(key, unicode)
 end

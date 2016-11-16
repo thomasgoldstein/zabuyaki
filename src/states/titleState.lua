@@ -182,7 +182,7 @@ function titleState:confirm( x, y, button, istouch )
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
             time = 0
-            return Gamestate.switch(heroSelectState)
+            return Gamestate.switch(playerSelectState)
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
             time = 0

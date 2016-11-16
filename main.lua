@@ -116,7 +116,7 @@ function love.load(arg)
 	require "src/states/optionsState"
 	require "src/states/pauseState"
 	require "src/states/screenshotState"
-	require "src/states/heroSelectState"
+	require "src/states/playerSelectState"
 	require "src/states/arcadeState"
 
     --Add Gamestates Here
