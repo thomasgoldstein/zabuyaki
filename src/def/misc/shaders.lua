@@ -38,6 +38,16 @@ local sh_swap_colors = [[
 --sh_player2:sendColor("colors", {181, 81, 23, 255},  {122, 54, 15, 255},  {56, 27, 28, 255})
 --sh_player2:sendColor("newColors", {77,111,158, 255},  {49,73,130, 255},  {28,42,73, 255})
 
+local function colorSwap(colors_default, alternative_colors)
+    local colors_default = colors_default
+    local alternative_colors = alternative_colors
+    local shader = love.graphics.newShader(sh_swap_colors)
+    shader:send("n", #colors_default - 1)
+    shader:sendColor("colors", unpack(colors_default))
+    shader:sendColor("newColors", unpack(alternative_colors))
+    return shader
+end
+
 local sh_replace_3_colors = [[
         extern vec4 colors[3];
         extern vec4 newColors[3];
@@ -160,185 +170,122 @@ return resultCol;
 
 --Shaders
 --Rick
-local sh_rick_default_colors = {
+local rick_colors_default = { -- Rick default color set
+    { 181, 81, 23, 255 }, { 122, 54, 15, 255 }, { 56, 27, 28, 255 }, -- orange hoodie
+    { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 } } -- black pants
+local rick_colors_2 = { -- Rick alternate color set 1
+    { 188, 188, 188, 255 }, { 130, 130, 130, 255 }, { 73, 73, 73, 255 }, -- white hoodie
+    { 39, 85, 135, 255 }, { 24, 53, 84, 255 }, { 11, 24, 38, 255 } } -- blue pants
+local rick_colors_3 = { -- Rick alternate color set 2
+    { 86, 135, 97, 255 }, { 47, 91, 63, 255 }, { 24, 53, 35, 255 }, -- green hoodie
+    { 84, 75, 68, 255 }, { 51, 45, 41, 255 }, { 25, 22, 20, 255 } } -- gray pants
+shaders.rick[2] = colorSwap(rick_colors_default, rick_colors_2) --P2
+shaders.rick[3] = colorSwap(rick_colors_default, rick_colors_3) --P3
+
+--Buggy START. Keep for Love2D bug report
+local rick_colors_default0 = {
     "colors", -- Rick default color set
     { 181, 81, 23, 255 }, { 122, 54, 15, 255 }, { 56, 27, 28, 255 }, -- orange hoodie
-    { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 }
-} -- black pants
-local sh_rick_alternative_colors_2 = {
-    "newColors", -- Rick alternate color set 1
-    { 188, 188, 188, 255 }, { 130, 130, 130, 255 }, { 73, 73, 73, 255 }, -- white hoodie
-    { 39, 85, 135, 255 }, { 24, 53, 84, 255 }, { 11, 24, 38, 255 }
-} -- blue pants
-local sh_rick_alternative_colors_3 = {
-    "newColors", -- Rick alternate color set 2
-    { 86, 135, 97, 255 }, { 47, 91, 63, 255 }, { 24, 53, 35, 255 }, -- green hoodie
-    { 84, 75, 68, 255 }, { 51, 45, 41, 255 }, { 25, 22, 20, 255 }
-} -- gray pants
-local sh_rick_alternative_colors_blue = { "newColors", { 77, 111, 158, 255 }, { 49, 73, 130, 255 }, { 28, 42, 73, 255 } } --Blue
-local sh_rick_alternative_colors_purple = { "newColors", { 111, 77, 158, 255 }, { 73, 49, 130, 255 }, { 42, 28, 73, 255 } } --Purple
-local sh_rick_alternative_colors_black = { "newColors", { 70, 70, 70, 255 }, { 45, 45, 45, 255 }, { 11, 11, 11, 255 } } --Black
-local sh_rick_alternative_colors_emerald = { "newColors", { 77, 158, 111, 255 }, { 49, 130, 73, 255 }, { 28, 73, 42, 255 } } --Emerald
-local sh_rick2 = love.graphics.newShader(sh_swap_colors)
-sh_rick2:send("n", #sh_rick_default_colors - 1)
-sh_rick2:sendColor(unpack(sh_rick_default_colors))
-sh_rick2:sendColor(unpack(sh_rick_alternative_colors_2))
-local sh_rick3 = love.graphics.newShader(sh_swap_colors)
-sh_rick3:send("n", #sh_rick_default_colors - 1)
-sh_rick3:sendColor(unpack(sh_rick_default_colors))
-sh_rick3:sendColor(unpack(sh_rick_alternative_colors_3))
+    { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 } } -- black pants
+local rick_colors_blue = { "newColors", { 77, 111, 158, 255 }, { 49, 73, 130, 255 }, { 28, 42, 73, 255 } } --Blue
+local rick_colors_purple = { "newColors", { 111, 77, 158, 255 }, { 73, 49, 130, 255 }, { 42, 28, 73, 255 } } --Purple
+local rick_colors_black = { "newColors", { 70, 70, 70, 255 }, { 45, 45, 45, 255 }, { 11, 11, 11, 255 } } --Black
+local rick_colors_emerald = { "newColors", { 77, 158, 111, 255 }, { 49, 130, 73, 255 }, { 28, 73, 42, 255 } } --Emerald
 local sh_rick4 = love.graphics.newShader(sh_replace_3_colors)
-sh_rick4:sendColor(unpack(sh_rick_default_colors))
-sh_rick4:sendColor(unpack(sh_rick_alternative_colors_blue))
+sh_rick4:sendColor(unpack(rick_colors_default0))
+sh_rick4:sendColor(unpack(rick_colors_blue))
 local sh_rick5 = love.graphics.newShader(sh_replace_3_colors)
-sh_rick5:sendColor(unpack(sh_rick_default_colors))
-sh_rick5:sendColor(unpack(sh_rick_alternative_colors_purple))
+sh_rick5:sendColor(unpack(rick_colors_default0))
+sh_rick5:sendColor(unpack(rick_colors_purple))
 local sh_rick6 = love.graphics.newShader(sh_replace_3_colors)
-sh_rick6:sendColor(unpack(sh_rick_default_colors))
-sh_rick6:sendColor(unpack(sh_rick_alternative_colors_black))
+sh_rick6:sendColor(unpack(rick_colors_default0))
+sh_rick6:sendColor(unpack(rick_colors_black))
 local sh_rick7 = love.graphics.newShader(sh_replace_3_colors)
-sh_rick7:sendColor(unpack(sh_rick_default_colors))
-sh_rick7:sendColor(unpack(sh_rick_alternative_colors_emerald))
-shaders.rick[2] = sh_rick2 --P2
-shaders.rick[3] = sh_rick3 --P3
+sh_rick7:sendColor(unpack(rick_colors_default0))
+sh_rick7:sendColor(unpack(rick_colors_emerald))
 shaders.rick[4] = sh_rick4 --Blue (3 colors)
 shaders.rick[5] = sh_rick5 --Purple (3 colors)
 shaders.rick[6] = sh_rick6 --Black (3 colors)
 shaders.rick[7] = sh_rick7 --Emerald (3 colors)
+--Buggy END
 
 --Chai
-local sh_chai_default_colors = {
-    "colors", -- Chai default color set
+local chai_colors_default = { -- Chai default color set
     { 220, 206, 234, 255 }, { 145, 137, 153, 255 }, { 87, 82, 91, 255 }, -- gray bandages
     { 224, 208, 62, 255 }, { 158, 145, 34, 255 }, { 96, 71, 19, 255 }, -- yellow shirt
     { 126, 54, 130, 255 }, { 86, 11, 86, 255 }, { 33, 4, 33, 255 }, -- purple shorts
-    { 51, 22, 27, 255 }
-} -- brown hair
-local sh_chai_alternative_colors_2 = {
-    "newColors", -- Chai alternate color set 1
+    { 51, 22, 27, 255 } } -- brown hair
+local chai_colors_2 = { -- Chai alternate color set 1
     { 224, 208, 62, 255 }, { 158, 145, 34, 255 }, { 96, 71, 19, 255 }, -- yellow bandages
     { 193, 207, 244, 255 }, { 125, 142, 167, 255 }, { 65, 73, 86, 255 }, -- light blue shirt
     { 54, 104, 130, 255 }, { 11, 56, 86, 255 }, { 4, 21, 33, 255 }, -- teal shorts
-    { 34, 29, 57, 255 }
-} -- purple hair
-local sh_chai_alternative_colors_3 = {
-    "newColors", -- Chai alternate color set 2
+    { 34, 29, 57, 255 } } -- purple hair
+local chai_colors_3 = { -- Chai alternate color set 2
     { 226, 113, 113, 255 }, { 193, 44, 44, 255 }, { 112, 19, 19, 255 }, -- red bandages
     { 206, 196, 185, 255 }, { 154, 136, 119, 255 }, { 92, 72, 55, 255 }, -- light sepia shirt
     { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 }, -- black shorts
-    { 51, 35, 22, 255 }
-} -- sand hair
-local sh_chai2 = love.graphics.newShader(sh_swap_colors)
-sh_chai2:send("n", #sh_chai_default_colors - 1)
-sh_chai2:sendColor(unpack(sh_chai_default_colors))
-sh_chai2:sendColor(unpack(sh_chai_alternative_colors_2))
-local sh_chai3 = love.graphics.newShader(sh_swap_colors)
-sh_chai3:send("n", #sh_chai_default_colors - 1)
-sh_chai3:sendColor(unpack(sh_chai_default_colors))
-sh_chai3:sendColor(unpack(sh_chai_alternative_colors_3))
-shaders.chai[2] = sh_chai2
-shaders.chai[3] = sh_chai3
+    { 51, 35, 22, 255 } } -- sand hair
+shaders.chai[2] = colorSwap(chai_colors_default, chai_colors_2)
+shaders.chai[3] = colorSwap(chai_colors_default, chai_colors_3)
 
 --Kisa
-local sh_kisa_default_colors = {
-    "colors", -- Kisa default color set
+local kisa_colors_default = { -- Kisa default color set
     { 69, 145, 134, 255 }, { 45, 96, 92, 255 }, { 21, 45, 43, 255 }, -- teal hat
-    { 133, 62, 65, 255 }, { 89, 39, 42, 255 }, { 41, 14, 16, 255 }
-} -- maroon shoes
-local sh_kisa_alternative_colors_2 = {
-    "newColors", -- Kisa alternate color set 1
+    { 133, 62, 65, 255 }, { 89, 39, 42, 255 }, { 41, 14, 16, 255 } } -- maroon shoes
+local kisa_colors_2 = { -- Kisa alternate color set 1
     { 76, 145, 55, 255 }, { 49, 91, 34, 255 }, { 19, 45, 24, 255 }, -- green hat
-    { 127, 80, 53, 255 }, { 74, 52, 39, 255 }, { 35, 25, 19, 255 }
-} -- brown shoes
-local sh_kisa_alternative_colors_3 = {
-    "newColors", -- Kisa alternate color set 2
+    { 127, 80, 53, 255 }, { 74, 52, 39, 255 }, { 35, 25, 19, 255 } } -- brown shoes
+local kisa_colors_3 = { -- Kisa alternate color set 2
     { 150, 90, 196, 255 }, { 92, 56, 122, 255 }, { 39, 23, 51, 255 }, -- lavander hat
-    { 173, 100, 17, 255 }, { 99, 59, 9, 255 }, { 45, 26, 4, 255 }
-} -- orange-brown shoes
-local sh_kisa2 = love.graphics.newShader(sh_swap_colors)
-sh_kisa2:send("n", #sh_kisa_default_colors - 1)
-sh_kisa2:sendColor(unpack(sh_kisa_default_colors))
-sh_kisa2:sendColor(unpack(sh_kisa_alternative_colors_2))
-local sh_kisa3 = love.graphics.newShader(sh_swap_colors)
-sh_kisa3:send("n", #sh_kisa_default_colors - 1)
-sh_kisa3:sendColor(unpack(sh_kisa_default_colors))
-sh_kisa3:sendColor(unpack(sh_kisa_alternative_colors_3))
-shaders.kisa[2] = sh_kisa2
-shaders.kisa[3] = sh_kisa3
+    { 173, 100, 17, 255 }, { 99, 59, 9, 255 }, { 45, 26, 4, 255 } } -- orange-brown shoes
+shaders.kisa[2] = colorSwap(kisa_colors_default, kisa_colors_2)
+shaders.kisa[3] = colorSwap(kisa_colors_default, kisa_colors_3)
 
 -- Enemy
-local sh_gopper_default_colors = { "colors", { 51, 63, 105, 255 }, { 31, 41, 76, 255 }, { 19, 25, 40, 255 } }
-local sh_gopper_alternative_colors_2 = { "newColors", { 56, 84, 57, 255 }, { 35, 53, 36, 255 }, { 20, 30, 20, 255 } } --Green
-local sh_gopper_alternative_colors_3 = { "newColors", { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 } } --Black
-local sh_gopper_alternative_colors_4 = { "newColors", { 112, 48, 61, 255 }, { 73, 31, 40, 255 }, { 40, 17, 22, 255 } } --Red
-local sh_gopper2 = love.graphics.newShader(sh_replace_3_colors)
-sh_gopper2:sendColor(unpack(sh_gopper_default_colors))
-sh_gopper2:sendColor(unpack(sh_gopper_alternative_colors_2))
-local sh_gopper3 = love.graphics.newShader(sh_replace_3_colors)
-sh_gopper3:sendColor(unpack(sh_gopper_default_colors))
-sh_gopper3:sendColor(unpack(sh_gopper_alternative_colors_3))
-local sh_gopper4 = love.graphics.newShader(sh_replace_3_colors)
-sh_gopper4:sendColor(unpack(sh_gopper_default_colors))
-sh_gopper4:sendColor(unpack(sh_gopper_alternative_colors_4))
-shaders.gopper[2] = sh_gopper2
-shaders.gopper[3] = sh_gopper3
-shaders.gopper[4] = sh_gopper4
+local gopper_colors_default = {{51, 63, 105, 255 }, { 31, 41, 76, 255 }, { 19, 25, 40, 255 } }
+local gopper_colors_2 = {{ 56, 84, 57, 255 }, { 35, 53, 36, 255 }, { 20, 30, 20, 255 } } --Green
+local gopper_colors_3 = {{ 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 } } --Black
+local gopper_colors_4 = {{ 112, 48, 61, 255 }, { 73, 31, 40, 255 }, { 40, 17, 22, 255 } } --Red
+shaders.gopper[2] = colorSwap(gopper_colors_default, gopper_colors_2)
+shaders.gopper[3] = colorSwap(gopper_colors_default, gopper_colors_3)
+shaders.gopper[4] = colorSwap(gopper_colors_default, gopper_colors_4)
 
-local sh_niko_default_colors = {"colors", { 222, 230, 239, 255 }, { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 }} --White, DarkGray, Dark
-local sh_niko_alternative_colors_2 = {"newColors", { 15, 15, 15, 255 }, { 198, 198, 198, 255 }, { 137, 137, 137, 255 }, { 84, 84, 84, 255 }} --Black, LightGray, Gray, DarkGray
-local sh_niko2 = love.graphics.newShader(sh_replace_4_colors)
-sh_niko2:sendColor(unpack(sh_niko_default_colors))
-sh_niko2:sendColor(unpack(sh_niko_alternative_colors_2))
-shaders.niko[2] = sh_niko2
+local niko_colors_default = {{ 222, 230, 239, 255 }, { 53, 53, 53, 255 }, { 30, 30, 30, 255 }, { 15, 15, 15, 255 }} --White, DarkGray, Dark
+local niko_colors_2 = {{ 15, 15, 15, 255 }, { 198, 198, 198, 255 }, { 137, 137, 137, 255 }, { 84, 84, 84, 255 }} --Black, LightGray, Gray, DarkGray
+shaders.niko[2] = colorSwap(niko_colors_default, niko_colors_2)
 
-local sh_satoff_default_colors = {"colors", -- Satoff default color set
+local satoff_colors_default = { -- Satoff default color set
     { 181, 47, 51, 255 }, { 119, 31, 34, 255 }, { 53, 20, 21, 255 }, -- red suit
     { 95, 40, 45, 255 }, { 55, 23, 28, 255 }, { 38, 16, 19, 255 }, -- maroon shoes
     { 51, 32, 29, 255 }, { 33, 20, 18, 255 }, { 22, 14, 12, 255 }, -- brown pants
     { 172, 129, 113, 255 }} -- face scar
-local sh_satoff_alternative_colors_2 = {"newColors", -- Satoff alternate color set 1
+local satoff_colors_2 = { -- Satoff alternate color set 1
     { 62, 97, 145, 255 }, { 39, 61, 91, 255 }, { 19, 30, 45, 255 }, -- blue suit
     { 49, 53, 94, 255 }, { 29, 31, 56, 255 }, { 17, 18, 33, 255 }, -- midnight blue shoes
     { 37, 37, 48, 255 }, { 23, 23, 30, 255 }, { 16, 16, 21, 255 }, -- cool gray pants
     { 226, 173, 158, 255 }} -- no face scar
-local sh_satoff_alternative_colors_3 = {"newColors", -- Satoff alternate color set 2
+local satoff_colors_3 = { -- Satoff alternate color set 2
     { 238, 227, 224, 255 }, { 173, 159, 150, 255 }, { 96, 88, 83, 255 }, -- white suit
     { 67, 55, 52, 255 }, { 39, 38, 35, 255 }, { 25, 21, 20, 255 }, -- taupe shoes
     { 111, 48, 119, 255 }, { 71, 31, 76, 255 }, { 43, 22, 45, 255 }, -- purple pants
     { 226, 173, 158, 255 }} -- no face scar
-local sh_satoff_alternative_colors_4 = {"newColors", -- Satoff alternate color set 3
+local satoff_colors_4 = { -- Satoff alternate color set 3
     { 44, 44, 36, 255 }, { 29, 25, 22, 255 }, { 24, 17, 11, 255 }, -- black suit
     { 44, 44, 36, 255 }, { 29, 25, 22, 255 }, { 24, 17, 11, 255 }, -- black shoes
     { 160, 32, 62, 255 }, { 104, 20, 40, 255 }, { 56, 14, 24, 255 }, -- bordeaux pants
     { 226, 173, 158, 255 }} -- no face scar
-local sh_satoff2 = love.graphics.newShader(sh_swap_colors)
-sh_satoff2:send("n", #sh_satoff_default_colors - 1)
-sh_satoff2:sendColor(unpack(sh_satoff_default_colors))
-sh_satoff2:sendColor(unpack(sh_satoff_alternative_colors_2))
-local sh_satoff3 = love.graphics.newShader(sh_swap_colors)
-sh_satoff3:send("n", #sh_satoff_default_colors - 1)
-sh_satoff3:sendColor(unpack(sh_satoff_default_colors))
-sh_satoff3:sendColor(unpack(sh_satoff_alternative_colors_3))
-local sh_satoff4 = love.graphics.newShader(sh_swap_colors)
-sh_satoff4:send("n", #sh_satoff_default_colors - 1)
-sh_satoff4:sendColor(unpack(sh_satoff_default_colors))
-sh_satoff4:sendColor(unpack(sh_satoff_alternative_colors_4))
-shaders.satoff[2] = sh_satoff2
-shaders.satoff[3] = sh_satoff3
-shaders.satoff[4] = sh_satoff4
+shaders.satoff[2] = colorSwap(satoff_colors_default, satoff_colors_2)
+shaders.satoff[3] = colorSwap(satoff_colors_default, satoff_colors_3)
+shaders.satoff[4] = colorSwap(satoff_colors_default, satoff_colors_4)
 
 -- Obstacles
-local sh_trashcan_default_colors = {"colors", -- Trash can default color set
+local trashcan_colors_default = { -- Trash can default color set
     { 118, 109, 100, 255 }, { 89, 74, 72, 255 }, { 65, 44, 45, 255 }, { 30, 25, 23, 255 }, -- main color
     { 57, 76, 94, 255 }, { 40, 41, 35, 255 }, { 24, 25, 22, 255 }} -- inner bag color
-local sh_trashcan_alternative_colors_2 = {"newColors", -- Trash can alternate color set 1
+local trashcan_colors_2 = { -- Trash can alternate color set 1
     { 87, 116, 130, 255 }, { 63, 88, 99, 255 }, { 37, 55, 63, 255 }, { 20, 27, 30, 255 }, -- main color
     { 58, 91, 66, 255 }, { 37, 44, 36, 255 }, { 23, 26, 21, 255 }} -- inner bag color
-local sh_trashcan = love.graphics.newShader(sh_swap_colors)
-sh_trashcan:send("n", #sh_trashcan_default_colors - 1)
-sh_trashcan:sendColor(unpack(sh_trashcan_default_colors))
-sh_trashcan:sendColor(unpack(sh_trashcan_alternative_colors_2))
-shaders.trashcan[2] = sh_trashcan
+shaders.trashcan[2] = colorSwap(trashcan_colors_default, trashcan_colors_2)
 
 -- Misc
 
