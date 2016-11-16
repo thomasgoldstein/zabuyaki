@@ -35,9 +35,9 @@ local sh_swap_colors = [[
 
 local function swapColors(colors_default, alternate_colors)
     local shader = love.graphics.newShader(sh_swap_colors)
-    alternate_colors[#alternate_colors+1] = {0,0,0,0}   --TODO: Remove on fix of Love2D 0.10.2 shaders send bug
-    colors_default[#colors_default+1] = {0,0,0,0} --Love2D 0.10.2 shaders send bug workaround
-    shader:send("n", #alternate_colors-1)
+    shader:send("n", #alternate_colors)
+    alternate_colors[#alternate_colors+1] = {} --TODO: Remove on fix of Love2D 0.10.2 shaders send bug
+    colors_default[#colors_default+1] = {} --Love2D 0.10.2 shaders send bug workaround
     shader:sendColor("colors", unpack(colors_default))
     shader:sendColor("newColors", unpack(alternate_colors))
     alternate_colors[#alternate_colors] = nil --Love2D 0.10.2 shaders send bug workaround
