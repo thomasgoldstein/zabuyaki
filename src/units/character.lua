@@ -1327,10 +1327,7 @@ end
 function Character:onGrab(source)
     -- hurt = {source, damage, velx,vely,x,y,z}
     local g = self.hold
-    if self.state ~= "stand"
-            and self.state ~= "hurtHigh"
-            and self.state ~= "hurtLow"
-    then
+    if not self.isHittable or self.z > 0 then
         return false
     end
     self:remove_tween_move()
