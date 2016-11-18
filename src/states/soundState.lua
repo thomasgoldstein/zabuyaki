@@ -85,7 +85,9 @@ local function player_input(controls)
         elseif menu_state == 2 then
             TEsound.volume("music", 1)
             TEsound.stop("music")
-            TEsound.playLooping(bgm[menu[menu_state].n].filePath, "music")
+            if menu[menu_state].n > 0 then
+                TEsound.playLooping(bgm[menu[menu_state].n].filePath, "music")
+            end
         elseif menu_state == 3 then
             TEsound.stop("music")
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
@@ -99,7 +101,7 @@ local function player_input(controls)
                 menu[menu_state].n = #sfx
             end
         elseif menu_state == 2 then
-            if menu[menu_state].n < 1 then
+            if menu[menu_state].n < 0 then
                 menu[menu_state].n = #bgm
             end
         end
@@ -111,7 +113,7 @@ local function player_input(controls)
             end
         elseif menu_state == 2 then
             if menu[menu_state].n > #bgm then   --TODO add Music track names table
-                menu[menu_state].n = 1
+                menu[menu_state].n = 0
             end
         end
     elseif controls.vertical:pressed(-1) then
@@ -146,8 +148,13 @@ function soundState:draw()
             m.item = "SFX #"..m.n.." "..sfx[m.n].alias
             m.hint = "by "..sfx[m.n].copyright
         elseif i == 2 then
-            m.item = "MUSIC #"..m.n.." "..bgm[m.n].fileName
-            m.hint = "by "..bgm[m.n].copyright
+            if m.n == 0 then
+                m.item = "STOP MUSIC"
+                m.hint = ""
+            else
+                m.item = "MUSIC #"..m.n.." "..bgm[m.n].fileName
+                m.hint = "by "..bgm[m.n].copyright
+            end
         end
         local w = gfx.font.arcade4:getWidth(m.item)
         local wb = w + item_width_margin
