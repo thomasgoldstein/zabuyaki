@@ -114,6 +114,7 @@ function love.load(arg)
 	--GameStates
 	require "src/states/titleState"
 	require "src/states/optionsState"
+	require "src/states/soundState"
 	require "src/states/pauseState"
 	require "src/states/screenshotState"
 	require "src/states/playerSelectState"

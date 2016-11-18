@@ -37,7 +37,8 @@ SFX.load = function(alias, s, volume, pitch)
     src:stop()
     src:setVolume(volume or 1)
     assert(SFX[alias] == nil, "Sound FX alias '"..alias.."' not found")
-    SFX[alias] = {src = s, pitch = pitch or 1, volume = volume or 1}
+    SFX[alias] = {src = s, pitch = pitch or 1, volume = volume or 1, copyright = copyright or "Juhani Junkala" }
+    SFX[#SFX + 1] = SFX[alias]
 --    return src
 end
 SFX.load("menu_select","res/sfx/menu_select.wav", 0.5)

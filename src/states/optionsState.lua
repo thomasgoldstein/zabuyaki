@@ -21,12 +21,14 @@ local txt_option1 = love.graphics.newText( gfx.font.arcade4, "BG MUSIC ON" )
 local txt_option1a = love.graphics.newText( gfx.font.arcade4, "BG MUSIC OFF" )
 local txt_option2 = love.graphics.newText( gfx.font.arcade4,  "DIFFICULTY NORMAL" )
 local txt_option2a = love.graphics.newText( gfx.font.arcade4, "DIFFICULTY HARD" )
-local txt_option3 = love.graphics.newText( gfx.font.arcade4, "DEFAULTS" )
+local txt_option3 = love.graphics.newText( gfx.font.arcade4, "SOUND TEST" )
+local txt_option4 = love.graphics.newText( gfx.font.arcade4, "DEFAULTS" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "BACK" )
 
 local txt_option1_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Background Music
 local txt_option2_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Game Difficulty Mode
-local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Reset To Defaults Options
+local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Sound Test
+local txt_option4_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Reset To Defaults Options
 local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Exit to the Title
 
 local txt_items = {txt_option1, txt_option2, txt_option3, txt_quit}
@@ -179,12 +181,16 @@ function optionsState:confirm( x, y, button, istouch )
 
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
+            return Gamestate.push(soundState)
+
+        elseif menu_state == 4 then
+            sfx.play("sfx","menu_select")
             configuration:reset()
             configuration.dirty = true
             set_items_according_the_options()
             menu = fillMenu(txt_items, txt_hints)
 
-        elseif menu_state == 4 then
+        elseif menu_state == 5 then
             sfx.play("sfx","menu_cancel")
             configuration:save()
             return Gamestate.pop()
