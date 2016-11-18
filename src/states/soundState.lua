@@ -80,8 +80,13 @@ local function player_input(controls)
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        sfx.play("sfx", menu[menu_state].n)
-        return nil
+        if menu_state == 1 then
+            sfx.play("sfx", menu[menu_state].n)
+        elseif menu_state == 2 then
+            sfx.play("sfx", "menu_cancel")  --TODO add BGM play
+        elseif menu_state == 3 then
+            return Gamestate.pop()
+        end
     end
     if controls.horizontal:pressed(-1)then
         menu[menu_state].n = menu[menu_state].n - 1
@@ -145,7 +150,7 @@ function soundState:draw()
         local h = gfx.font.arcade4:getHeight(m.item)
 
         if i == old_menu_state then
-            love.graphics.setColor(110, 244, 0, 80)
+            love.graphics.setColor(0, 0, 0, 80)
             love.graphics.rectangle("fill",
                 (screen_width - wb) / 2, m.y - top_item_offset,
                 wb, h + item_height_margin, 4,4,1)
