@@ -237,22 +237,21 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
         self.victims = {}
     end
     local items = {}
+    local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
     if type == "shockWave" then
-        local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
-
         for other, separating_vector in pairs(stage.world:collisions(a)) do
             local o = other.obj
             if not o.isDisabled
                 and o ~= self
             then
+                o.hurt = {source = self, state = self.state, damage = damage,
+                    type = type, velx = velocity or self.velocity_bonus_on_attack_x,
+                    horizontal = face, isThrown = false,
+                    x = self.x, y = self.y, z = self.z }
                 items[#items+1] = o
             end
         end
-        stage.world:remove(a)
-        a = nil
     else
-        local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
-
         for other, separating_vector in pairs(stage.world:collisions(a)) do
             local o = other.obj
             if o.isHittable
@@ -262,28 +261,26 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
                     and not self.victims[o]
                     and o.z <= self.z + o.height and o.z >= self.z - self.height
             then
+                if self.isThrown then
+                    o.hurt = {source = self.thrower_id, state = self.state, damage = damage,
+                        type = type, velx = velocity or self.velocity_bonus_on_attack_x,
+                        horizontal = self.horizontal, isThrown = true,
+                        x = self.x, y = self.y, z = self.z }
+                else
+                    o.hurt = {source = self, state = self.state, damage = damage,
+                        type = type, velx = velocity or self.velocity_bonus_on_attack_x,
+                        horizontal = face, isThrown = false,
+                        x = self.x, y = self.y, z = self.z }
+                end
                 items[#items+1] = o
             end
         end
-        stage.world:remove(a)
-        a = nil
     end
+    stage.world:remove(a)
+    a = nil
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
-    end
-    for i = 1,#items do
-        if self.isThrown then
-            items[i].hurt = {source = self.thrower_id, state = self.state, damage = damage,
-                type = type, velx = velocity or self.velocity_bonus_on_attack_x,
-                horizontal = self.horizontal, isThrown = true,
-                x = self.x, y = self.y, z = self.z }
-        else
-            items[i].hurt = {source = self, state = self.state, damage = damage,
-                type = type, velx = velocity or self.velocity_bonus_on_attack_x,
-                horizontal = face, isThrown = false,
-                x = self.x, y = self.y, z = self.z }
-        end
     end
     if sfx1 then
         sfx.play("sfx"..self.id,sfx1)
@@ -292,6 +289,7 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
         -- reset combo attack N to 1
         self.n_combo = 0
     end
+    items = nil
 end
 
 function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
