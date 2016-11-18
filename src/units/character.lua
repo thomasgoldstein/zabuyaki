@@ -302,6 +302,10 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
     if not g.target then --can attack only the 1 grabbed
         return
     end
+    --DEBUG collect data to show attack hitBoxes in green
+    if GLOBAL_SETTING.DEBUG then
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
+    end
     local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
     if a:collidesWith(g.target.shape) then
         g.target.hurt = {source = self, state = self.state, damage = damage,
@@ -310,10 +314,6 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
             x = self.x, y = self.y, z = self.z }
         if sfx1 then	--TODO 2 SFX for holloow and hit
             sfx.play("sfx"..self.id,sfx1)
-        end
-        --DEBUG collect data to show attack hitBoxes in green
-        if GLOBAL_SETTING.DEBUG then
-            attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
         end
     end
     stage.world:remove(a)
