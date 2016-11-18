@@ -388,7 +388,7 @@ function Character:stand_update(dt)
     elseif self.can_jump and self.b.jump:isDown() then
         self:setState(self.duck2jump)
         return
-    elseif self.can_attack and self.b.attack:isDown() then
+    elseif self.can_attack and self.b.attack:pressed() then
         if self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
             return
