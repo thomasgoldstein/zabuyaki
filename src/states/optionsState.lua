@@ -31,8 +31,8 @@ local txt_option3_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Sound T
 local txt_option4_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Reset To Defaults Options
 local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Exit to the Title
 
-local txt_items = {txt_option1, txt_option2, txt_option3, txt_quit}
-local txt_hints = {txt_option1_hint, txt_option2_hint, txt_option3_hint, txt_quit_hint }
+local txt_items = {txt_option1, txt_option2, txt_option3, txt_option4, txt_quit}
+local txt_hints = {txt_option1_hint, txt_option2_hint, txt_option3_hint, txt_option4_hint, txt_quit_hint }
 
 local function set_items_according_the_options()
     if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
