@@ -1,9 +1,9 @@
 local BGM = {}
 
-BGM.load = function(alias, file, copyright)
-    BGM[alias] = file
-    local _, fileName, _ = string.match(file, "(.-)([^\\/]-%.?([^%.\\/]*))$")
-    BGM[#BGM + 1] = {file = file, alias = alias, fileName = fileName, copyright = copyright or "SubspaceAudio" }
+BGM.load = function(alias, filePath, copyright)
+    BGM[alias] = filePath
+    local _, fileName, _ = string.match(filePath, "(.-)([^\\/]-%.?([^%.\\/]*))$")
+    BGM[#BGM + 1] = {filePath = filePath, alias = alias, fileName = fileName, copyright = copyright or "SubspaceAudio" }
 end
 
 --BGM.level01 = BGM.test
