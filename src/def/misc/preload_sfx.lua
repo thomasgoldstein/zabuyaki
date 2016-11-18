@@ -30,20 +30,20 @@ SFX.playMix = function(actor, alias, volume, pitch, func)
     end
 end
 
-SFX.load = function(alias, s, volume, pitch)
+SFX.load = function(alias, s, volume, pitch, copyright)
     local src = love.audio.newSource(s, "static")
     src:setVolume(0)
     src:play()
     src:stop()
     src:setVolume(volume or 1)
     assert(SFX[alias] == nil, "Sound FX alias '"..alias.."' not found")
-    SFX[alias] = {src = s, pitch = pitch or 1, volume = volume or 1, copyright = copyright or "Juhani Junkala" }
+    SFX[alias] = {src = s, pitch = pitch or 1, volume = volume or 1, alias = alias, copyright = copyright or "SubspaceAudio" }
     SFX[#SFX + 1] = SFX[alias]
 --    return src
 end
-SFX.load("menu_select","res/sfx/menu_select.wav", 0.5)
-SFX.load("menu_cancel","res/sfx/menu_cancel.wav", 0.5)
-SFX.load("menu_move","res/sfx/menu_move.wav", 0.5)
+SFX.load("menu_select","res/sfx/menu_select.wav", 0.5, nil, "Stifu")
+SFX.load("menu_cancel","res/sfx/menu_cancel.wav", 0.5, nil, "Don Miguel")
+SFX.load("menu_move","res/sfx/menu_move.wav", 0.5, nil, "J.J")
 SFX.load("menu_gamestart","res/sfx/menu_gamestart.wav", 0.2)
 
 SFX.load("air","res/sfx/whoosh_light.wav", 0.5)
