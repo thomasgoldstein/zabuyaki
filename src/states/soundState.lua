@@ -18,8 +18,8 @@ local item_height_margin = top_item_offset * 2 - 2
 
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SOUND TEST" )
 
-local txt_items = {"SFX N 000", "MUSIC TRACK N 000", "BACK"}
-local txt_hints = {"<, >, ATTACK", "<, >, ATTACK", ""}
+local txt_items = {"SFX N", "MUSIC N", "BACK"}
+local txt_hints = {"", "", "" }
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -83,8 +83,12 @@ local function player_input(controls)
         if menu_state == 1 then
             sfx.play("sfx", menu[menu_state].n)
         elseif menu_state == 2 then
-            sfx.play("sfx", "menu_cancel")  --TODO add BGM play
+            TEsound.volume("music", 1)
+            TEsound.stop("music")
+            TEsound.playLooping(bgm[menu[menu_state].n].filePath, "music")
         elseif menu_state == 3 then
+            TEsound.stop("music")
+            TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
             return Gamestate.pop()
         end
     end
@@ -96,7 +100,7 @@ local function player_input(controls)
             end
         elseif menu_state == 2 then
             if menu[menu_state].n < 1 then
-                menu[menu_state].n = 5  --TODO add Music track names table
+                menu[menu_state].n = #bgm
             end
         end
     elseif controls.horizontal:pressed(1) then
@@ -106,7 +110,7 @@ local function player_input(controls)
                 menu[menu_state].n = 1
             end
         elseif menu_state == 2 then
-            if menu[menu_state].n > 5 then   --TODO add Music track names table
+            if menu[menu_state].n > #bgm then   --TODO add Music track names table
                 menu[menu_state].n = 1
             end
         end
@@ -142,8 +146,8 @@ function soundState:draw()
             m.item = "SFX #"..m.n.." "..sfx[m.n].alias
             m.hint = "by "..sfx[m.n].copyright
         elseif i == 2 then
-            m.item = "MUSIC #"..m.n
-            m.hint = "by SubspaceAudio"
+            m.item = "MUSIC #"..m.n.." "..bgm[m.n].fileName
+            m.hint = "by "..bgm[m.n].copyright
         end
         local w = gfx.font.arcade4:getWidth(m.item)
         local wb = w + item_width_margin
@@ -179,5 +183,7 @@ function soundState:mousepressed( x, y, button, istouch )
         return
     end
     sfx.play("sfx","menu_cancel")
+    TEsound.stop("music")
+    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
     return Gamestate.pop()
 end
