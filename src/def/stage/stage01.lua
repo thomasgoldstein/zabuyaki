@@ -90,8 +90,8 @@ function Stage01:initialize(players)
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
     -- Walls around the level
-    local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -20, 0, 40, self.worldHeight }}) --left
-    local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
+    local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -80, 0, 100, self.worldHeight }}) --left
+    local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 100, self.worldHeight }}) --right
     local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, self.worldWidth, 100 }}) --top
     local wall4 = Wall:new("wall4", { shapeType = "rectangle", shapeArgs = { 0, 546, self.worldWidth, 100 }}) --bottom
 
