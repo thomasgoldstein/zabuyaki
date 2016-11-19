@@ -31,12 +31,12 @@ function Niko:initialize(name, sprite, input, x, y, f)
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
-    --    self.sfx.jump = "rick_jump"
-    --    self.sfx.throw = "rick_throw"
-    --    self.sfx.jump_attack = "rick_attack"
-    --    self.sfx.dash = "rick_attack"
-    --    self.sfx.step = "rick_step"
-    --    self.sfx.dead = "Niko_death"
+--    self.sfx.jump = "rick_jump"
+--    self.sfx.throw = "rick_throw"
+--    self.sfx.dash = "rick_attack"
+    self.sfx.dead = sfx.niko_death
+    self.sfx.jump_attack = sfx.niko_attack
+    self.sfx.step = "kisa_step"
 end
 
 function Niko:combo_start()

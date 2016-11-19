@@ -37,9 +37,10 @@ function Gopper:initialize(name, sprite, input, x, y, f)
 --    self.sfx.jump = "rick_jump"
 --    self.sfx.throw = "rick_throw"
 --    self.sfx.jump_attack = "rick_attack"
---    self.sfx.dash = "rick_attack"
---    self.sfx.step = "rick_step"
---    self.sfx.dead = "Gopper_death"
+    self.sfx.dead = sfx.gopper_death
+    self.sfx.dash = sfx.gopper_attack
+    self.sfx.step = "kisa_step"
+
 end
 
 function Gopper:combo_start()
