@@ -49,7 +49,8 @@ function Camera:update(dt, x, y)
         end
     end
 
---    self.cam:setPosition(math.max(x, 160) + self.shake.x, y + self.shake.y)
+    self.cam:setPosition(math.max(x, 160) + self.shake.x, y + self.shake.y)
+--[[
     local scroll_speed = 100
     local scroll_fast_speed = 160
     local scroll_x_min_dist = 40
@@ -79,7 +80,9 @@ function Camera:update(dt, x, y)
         end
         self.y = self.y - dt * scroll_speed
     end
-    self.cam:setPosition(math.floor(self.x + self.shake.x), math.floor(self.y + self.shake.y))
+        self.cam:setPosition((self.x + self.shake.x), (self.y + self.shake.y))
+]]
+--    self.cam:setPosition(math.floor(self.x + self.shake.x), math.floor(self.y + self.shake.y))
 end
 
 function Camera:draw(...)
