@@ -209,21 +209,21 @@ function Stage01:initialize(players)
     temper1.infoBar = InfoBar:new(temper1) -- Have to init
 
     local gop_x = 300
-    local new_gopper1 = Gopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 157, top_floor_y + 40,
+    local gopper7 = Gopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 157, top_floor_y + 40,
         { shader = shaders.gopper[3], color = {255,255,255, 255}, func = testDeathFunc})
-    local new_gopper2 = Gopper:new("N.GOP2", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 177, top_floor_y + 43,
+    local gopper8 = Gopper:new("N.GOP2", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 177, top_floor_y + 43,
         { shader = shaders.gopper[2], color = {255,255,255, 255}})
-    local new_gopper3 = Gopper:new("N.GOP3", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 199, top_floor_y + 47,
+    local gopper9 = Gopper:new("N.GOP3", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 199, top_floor_y + 47,
         { shader = shaders.gopper[4], color = {255,255,255, 255}})
-    local new_gopper4 = Gopper:new("N.GOP4", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 210, top_floor_y + 40,
+    local gopper10 = Gopper:new("N.GOP4", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 210, top_floor_y + 40,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
-    local new_niko1 = Niko:new("N.NIK1", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 220, top_floor_y + 40,
+    local niko7 = Niko:new("N.NIK1", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 220, top_floor_y + 40,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
-    local new_niko2 = Niko:new("N.NIK2", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 240, top_floor_y + 43,
+    local niko8 = Niko:new("N.NIK2", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 240, top_floor_y + 43,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
-    local new_niko3 = Niko:new("N.NIK3", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 260, top_floor_y + 47,
+    local niko9 = Niko:new("N.NIK3", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 260, top_floor_y + 47,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
-    local new_niko4 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 280, top_floor_y + 40,
+    local niko10 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 280, top_floor_y + 40,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
 
     -- Obstacles
@@ -263,10 +263,10 @@ function Stage01:initialize(players)
             isMovable = false, flipOnBreak = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
---        new_gopper1, new_gopper2, new_gopper3, new_gopper4,
-        new_niko1, new_niko2, new_niko3, new_niko4,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
+--        gopper7, gopper8, gopper9, gopper10,
         niko1, niko2, niko3, niko4, niko5, niko6,
+        niko7, niko8, niko9, niko10,
         dummy4, dummy5,
         temper1,
         loot1, loot2, loot3,
