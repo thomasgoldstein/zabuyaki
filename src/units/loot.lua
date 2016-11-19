@@ -77,19 +77,10 @@ end
 function Loot:onHurt()
 end
 
---function Loot:update(dt)
---    if self.isDisabled then
---        return
---    end
---    --custom code here. e.g. for triggers / keys
---end
-
 function Loot:updateAI(dt)
     if self.isDisabled then
         return
     end
-    --    Unit.updateAI(self, dt)
---     print("updateAI "..self.type.." "..self.name)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt
@@ -113,7 +104,6 @@ function Loot:updateAI(dt)
                 --final fall (no bouncing)
                 self.z = 0
                 self.velz = 0
-                --sfx.play("sfx"..self.id,"fall", 0.5, self.bounced_pitch - self.bounced * 0.2)
                 return
             end
         end
@@ -121,13 +111,13 @@ function Loot:updateAI(dt)
 end
 
 function Loot:get(taker)
-    dp(taker.name .. " got "..self.name.." HP+ ".. self.hp .. ", $+ " .. self.score)
+    dp(taker.name .. " got "..self.name.." HP+ ".. self.hp .. ", $+ " .. self.score_bonus)
     if self.func then    --run custom function if there is
         self:func(taker)
     end
     sfx.play("sfx"..self.id, self.pickupSfx)
     taker:addHp(self.hp)
-    taker:addScore(self.score)
+    taker:addScore(self.score_bonus)
     self.isDisabled = true
     stage.world:remove(self.shape)  --stage.world = global collision shapes pool
     self.shape = nil

@@ -137,6 +137,7 @@ function Character:onHurt()
     end
 -- Score
     h.source:addScore( h.damage * 10 )
+    self.killer_id = h.source
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
     if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
         mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
@@ -1100,6 +1101,9 @@ function Character:dead_update(dt)
         end
         self.isDisabled = true
         self.isHittable = false
+        if self.killer_id then
+            self.killer_id:addScore( self.score_bonus )
+        end
         -- dont remove dead body from the stage for proper save/load
         stage.world:remove(self.shape)  --stage.world = global collision shapes pool
         self.shape = nil

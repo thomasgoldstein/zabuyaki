@@ -34,7 +34,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.cool_down_death = 3 --seconds to remove
     self.max_hp = f.hp or 1
     self.hp = self.max_hp
-	self.score = f.score or 0
+	self.score_bonus = f.score or 0 --goes to your killer
 	self.b = input or DUMMY_CONTROL
 
 	self.x, self.y, self.z = x, y, 0
