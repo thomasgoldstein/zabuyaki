@@ -75,12 +75,12 @@ return {
             loop = true,
 			delay = 0.18
 		},
-		walk = { -- 1 2 3 4 5 6
+		walk = {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
             loop = true,
             delay = 0.167
 		},
-		run = { -- 1 2 3 4 5 6
+		run = {
 			{ q = q(2,2,47,60), ox = 23, oy = 59 }, --stand 1
             loop = true,
             delay = 0.117

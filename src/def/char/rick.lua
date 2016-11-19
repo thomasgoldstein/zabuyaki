@@ -71,7 +71,7 @@ return {
             loop = true,
 			delay = 0.167
 		},
-		walk = { -- 1 2 3 4 5 6
+		walk = {
 			{ q = q(2,68,35,64), ox = 17, oy = 63 }, --walk 1
 			{ q = q(39,68,35,64), ox = 17, oy = 63 }, --walk 2
 			{ q = q(76,69,35,63), ox = 17, oy = 62, delay = 0.25 }, --walk 3
@@ -82,7 +82,7 @@ return {
 			--loopFrom = 5, --start animation from 5th frame on loop
             delay = 0.167
 		},
-		run = { -- 1 2 3 4 5 6
+		run = {
 			{ q = q(2,136,44,60), ox = 14, oy = 60 }, --run 1
 			{ q = q(48,134,49,62), ox = 18, oy = 61 }, --run 2
 			{ q = q(99,134,48,62), ox = 17, oy = 60, func = step_sfx }, --run 3
