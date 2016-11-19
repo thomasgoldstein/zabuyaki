@@ -1084,6 +1084,9 @@ function Character:dead_start()
     end
     --self:onShake(1, 0, 0.1, 0.7)
     sfx.play("voice"..self.id, self.sfx.dead)
+    if self.killer_id then
+        self.killer_id:addScore( self.score_bonus )
+    end
     if self.func then   -- custom function on death
         self:func(self)
     end
@@ -1101,9 +1104,6 @@ function Character:dead_update(dt)
         end
         self.isDisabled = true
         self.isHittable = false
-        if self.killer_id then
-            self.killer_id:addScore( self.score_bonus )
-        end
         -- dont remove dead body from the stage for proper save/load
         stage.world:remove(self.shape)  --stage.world = global collision shapes pool
         self.shape = nil
