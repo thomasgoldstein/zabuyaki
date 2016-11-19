@@ -201,13 +201,6 @@ function Stage01:initialize(players)
         { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickup_beef", func = testDeathFunc}
     )
 
-    local temper1 = Temper:new("TEMPER", GetSpriteInstance("src/def/char/rick.lua"), nil, 567, top_floor_y + 40,
-        { shader = shaders.rick[5], color = {255,255,255, 255}})
-    -- 3 lives: 100hp+100hp+50hp sample
-    temper1.max_hp = 100
-    temper1.hp = 50
-    temper1.infoBar = InfoBar:new(temper1) -- Have to init
-
     local gop_x = 300
     local gopper7 = Gopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 157, top_floor_y + 40,
         { shader = shaders.gopper[3], color = {255,255,255, 255}, func = testDeathFunc})
@@ -268,7 +261,6 @@ function Stage01:initialize(players)
         niko1, niko2, niko3, niko4, niko5, niko6,
         niko7, niko8, niko9, niko10,
         dummy4, dummy5,
-        temper1,
         loot1, loot2, loot3,
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
         wall1,wall2,wall3,wall4 --,wall5,wall6,wall7
