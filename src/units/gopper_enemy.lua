@@ -29,7 +29,12 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self:pickAttackTarget()
     self.type = "enemy"
     self.face = -1
+
     self.sfx.dead = sfx.gopper_death
+    self.sfx.dash = sfx.gopper_attack
+--    self.sfx.jump_attack =
+    self.sfx.step = "kisa_step"
+
     self:setToughness(0)
     self:setState(self.intro)
 end
