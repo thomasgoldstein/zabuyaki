@@ -132,6 +132,15 @@ return {
 			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --c4.7
 			delay = 0.04
 		},
+		dashSpecial = {
+			{ q = q(2,1181,49,59), ox = 18, oy = 58, delay = 0.167 }, --dash special 1
+			{ q = q(53,1178,49,62), ox = 17, oy = 61, func = dash_attack1, delay = 0.05 }, --dash special 2
+			{ q = q(104,1178,49,62), ox = 15, oy = 61, func = dash_attack1, delay = 0.05 }, --dash special 3
+			{ q = q(155,1173,54,67), ox = 20, oy = 66, func = dash_attack2 }, --dash special 4
+			{ q = q(2,1242,54,66), ox = 20, oy = 65, func = dash_attack2 }, --dash special 5
+			{ q = q(58,1242,54,66), ox = 20, oy = 65, func = dash_attack2 }, --dash special 6
+			delay = 0.117
+		},
 		combo1 = {
 			{ q = q(2,519,48,63), ox = 22, oy = 62 }, --c1.1
 			{ q = q(52,519,63,63), ox = 22, oy = 62, func = combo_attack1, delay = 0.06 }, --c1.2
