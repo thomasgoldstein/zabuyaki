@@ -100,6 +100,23 @@ local heroes = {
         sy = 272,
         ny = 90,
         py = 120
+    },
+    {
+        {name = "SATOFF", shader = nil},
+        {name = "SATOFF", shader = shaders.satoff[2]},
+        {name = "SATOFF", shader = shaders.satoff[3]},
+        hero = PSatoff,
+        sprite_instance = "src/def/char/satoff.lua",
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
+        sprite_portrait_anim = "rick",  --NO OWN PORTRAIT
+        default_anim = "stand",
+        cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
+        x = screen_width / 2 - 80,
+        y = 440 + 80,
+        sy = 272,
+        ny = 90,
+        py = 120
     }
 }
 HEROES = heroes -- global var for in-game player select
@@ -222,12 +239,8 @@ local function GameStart()
     for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
         if players[i].confirmed then
             local pos = players[i].pos
-            if GLOBAL_SETTING.DEBUG then --DEBUG =use Gopper as P1
-                if pos == 3 then
-                    pos = 5 --Niko Player
-                else
-                    pos = 4 --Gopper Player
-                end
+            if GLOBAL_SETTING.DEBUG then --DEBUG ==> Slots 1 2 3: Gopper, Niko, Satoff
+                pos = pos + 3
                 pl[i] = {
                     hero = heroes[pos].hero,
                     sprite_instance = heroes[pos].sprite_instance,

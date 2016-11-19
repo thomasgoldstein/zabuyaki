@@ -93,6 +93,7 @@ function love.load(arg)
 	Obstacle = require "src/units/obstacle"
 	Gopper = require "src/units/gopper_enemy"
 	PGopper = require "src/units/gopper_player"
+	PSatoff = require "src/units/satoff_player"
 	Niko = require "src/units/niko_enemy"
 	PNiko = require "src/units/niko_player"
 	Wall = require "src/units/wall"
