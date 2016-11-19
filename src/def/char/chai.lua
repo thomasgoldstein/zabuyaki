@@ -79,7 +79,7 @@ return {
             loop = true,
 			delay = 0.155
 		},
-		walk = { -- 1 2 3 4 5 6
+		walk = {
 			{ q = q(2,68,39,64), ox = 21, oy = 63 }, --walk 1
 			{ q = q(43,68,39,64), ox = 21, oy = 63 }, --walk 2
 			{ q = q(84,68,38,64), ox = 20, oy = 63, delay = 0.25 }, --walk 3
@@ -89,7 +89,7 @@ return {
             loop = true,
             delay = 0.167
 		},
-		run = { -- 1 2 3 4 5 6
+		run = {
 			{ q = q(2,134,35,64), ox = 16, oy = 63 }, --run 1
 			{ q = q(39,134,50,63), ox = 26, oy = 63 }, --run 2
 			{ q = q(91,134,44,64), ox = 25, oy = 63, func = step_sfx }, --run 3
