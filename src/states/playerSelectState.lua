@@ -239,24 +239,16 @@ local function GameStart()
     for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
         if players[i].confirmed then
             local pos = players[i].pos
-            if GLOBAL_SETTING.DEBUG then --DEBUG ==> Slots 1 2 3: Gopper, Niko, Satoff
-                pos = pos + 3
-                pl[i] = {
-                    hero = heroes[pos].hero,
-                    sprite_instance = heroes[pos].sprite_instance,
-                    shader = heroes[pos][i].shader, --debug shader = slot N
-                    name = heroes[pos][i].name, --debug name = slot N
-                    color = heroes[pos][i].color --debug color = slot N
-                }
-            else
-                pl[i] = {
-                    hero = heroes[pos].hero,
-                    sprite_instance = heroes[pos].sprite_instance,
-                    shader = heroes[pos][sh[i][2]].shader,
-                    name = heroes[pos][sh[i][2]].name,
-                    color = heroes[pos][sh[i][2]].color
-                }
+            if GLOBAL_SETTING.DEBUG then
+                pos = pos + 3  --DEBUG ==> Slots 1 2 3: Gopper, Niko, Satoff
             end
+            pl[i] = {
+                hero = heroes[pos].hero,
+                sprite_instance = heroes[pos].sprite_instance,
+                shader = heroes[pos][sh[i][2]].shader,
+                name = heroes[pos][sh[i][2]].name,
+                color = heroes[pos][sh[i][2]].color
+            }
         end
     end
     return Gamestate.switch(arcadeState, pl)
