@@ -1,7 +1,7 @@
 -- Date: 28.10.2016
 
 -- Intro Movie
-local slide1 = love.graphics.newImage("res/img/stages/stage1/building1.png")
+local slide1 = love.graphics.newImage("res/img/stage/stage1/building1.png")
 movie_intro = {
     {
         slide = slide1, -- Picture

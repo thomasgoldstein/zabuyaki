@@ -1,9 +1,9 @@
 -- stage 1
 local class = require "lib/middleclass"
-local Stage01 = class('Stage01', Stage)
+local Stage1 = class('Stage1', Stage)
 
-function Stage01:initialize(players)
-    Stage.initialize(self, "Stage 01", {231, 207, 157})
+function Stage1:initialize(players)
+    Stage.initialize(self, "Stage 1", {231, 207, 157})
     self.shadowAngle = -0.2
     self.shadowHeight = 0.3 --Range 0.2..1
     stage = self
@@ -58,10 +58,10 @@ function Stage01:initialize(players)
     end
 
     --define bg sprites
-    local bgRoad = love.graphics.newImage("res/img/stages/stage1/road.png")
-    local bgBuilding1 = love.graphics.newImage("res/img/stages/stage1/building1.png")
-    local bgBuilding2 = love.graphics.newImage("res/img/stages/stage1/building2.png")
-    local bgSky = love.graphics.newImage("res/img/stages/stage1/sky.png")
+    local bgRoad = love.graphics.newImage("res/img/stage/stage1/road.png")
+    local bgBuilding1 = love.graphics.newImage("res/img/stage/stage1/building1.png")
+    local bgBuilding2 = love.graphics.newImage("res/img/stage/stage1/building2.png")
+    local bgSky = love.graphics.newImage("res/img/stage/stage1/sky.png")
 
     local qRoad = love.graphics.newQuad(2, 0, 360, 121, bgRoad:getDimensions())
     local qBuilding1 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1:getDimensions())
@@ -222,33 +222,33 @@ function Stage01:initialize(players)
     -- Obstacles
     local canColor = {118,109,100, 255}
     local canColor2 = {87, 116, 130, 255}
-    local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
+    local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         76, top_floor_y + 40,
         {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor, func = testDeathFunc,
             flipOnBreak = false,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
-    local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
+    local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         109, top_floor_y + 20,
         {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
-    local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
+    local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         310, top_floor_y + 10,
         {hp = 35, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             func = func_dropChicken,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
-    local can4 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/objects/can.lua"),
+    local can4 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         320, top_floor_y + 65,
         {hp = 35, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             func = func_dropBeef,
             isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
-    local no_entry_sign1 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/objects/sign.lua"),
+    local no_entry_sign1 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/object/sign.lua"),
         230, top_floor_y + 8,
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
             func = func_dropApple,
             shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
             isMovable = false, flipOnBreak = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
-    local no_entry_sign2 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/objects/sign.lua"),
+    local no_entry_sign2 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/object/sign.lua"),
         1126, top_floor_y + 8,
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
             func = func_dropBeef,
@@ -269,7 +269,7 @@ function Stage01:initialize(players)
     local a, sx  = {}, 0
     -- 7 Trash Cans
     for i = 0, 6 do
-        a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/objects/can.lua"),
+        a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/object/can.lua"),
             474 + sx , top_floor_y + 11 + i * 13,
             {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor, func = func_dropApple,
                 isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
@@ -298,11 +298,11 @@ function Stage01:initialize(players)
     end
 end
 
-function Stage01:update(dt)
+function Stage1:update(dt)
     if self.rotate_wall then    --test wall rotation
         self.rotate_wall:rotate(dt)
     end
     Stage.update(self, dt)
 end
 
-return Stage01
+return Stage1

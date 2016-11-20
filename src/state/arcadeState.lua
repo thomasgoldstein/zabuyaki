@@ -21,7 +21,7 @@ end
 function arcadeState:enter(_, players)
     credits = GLOBAL_SETTING.MAX_CREDITS
     --load stage
-    stage = Stage01:new(players)
+    stage = Stage1:new(players)
     game_over_delay = 0
     mainCamera = Camera:new(stage.worldWidth, stage.worldHeight)
     love.graphics.setLineWidth( 1 )

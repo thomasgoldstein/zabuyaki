@@ -1,4 +1,4 @@
-local sprite_sheet = "res/img/stages/stage1/can.png"
+local sprite_sheet = "res/img/stage/stage1/sign.png"
 local image_w,image_h = LoadSpriteSheet(sprite_sheet)
 
 local function q(x,y,w,h)
@@ -15,16 +15,16 @@ return {
 
     animations = {
         icon  = {
-            { q = q(2, 2, 27, 17) },
-            { q = q(31, 2, 27, 17) },
-            { q = q(60, 5, 27, 17) },
-            { q = q(89, 9, 27, 17) }
+            { q = q(2, 10, 34, 17) },
+            { q = q(38, 11, 34, 17) },
+            { q = q(74, 16, 34, 17) },
+            { q = q(2, 80, 34, 17) }
         },
         stand = {
-            { q = q(2,2,27,42), ox = 13.5, oy = 41 }, --100% hp
-            { q = q(31,2,27,42), ox = 13.5, oy = 41 },
-            { q = q(60,5,27,39), ox = 13.5, oy = 38 },
-            { q = q(89,9,27,35), ox = 13.5, oy = 34 } -- 0 HP
+            { q = q(2,2,34,75), ox = 17, oy = 74 }, --100% hp
+            { q = q(38,3,34,74), ox = 28, oy = 73 },
+            { q = q(74,7,42,70), ox = 39, oy = 69 },
+            { q = q(2,79,77,23), ox = 74, oy = 12 }, -- 0 HP
         },
     } --offsets
 
