@@ -213,13 +213,9 @@ function optionsState:mousepressed( x, y, button, istouch )
     optionsState:confirm( x, y, button, istouch )
 end
 
-
 function optionsState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
     mouse_x, mouse_y = x, y
-end
-
-function optionsState:keypressed(key, unicode)
 end
