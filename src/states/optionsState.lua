@@ -94,6 +94,10 @@ function optionsState:enter()
     love.graphics.setLineWidth( 2 )
 end
 
+function optionsState:resume()
+    mouse_x, mouse_y = 0,0
+end
+
 --Only P1 can use menu / options
 local function player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
