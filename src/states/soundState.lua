@@ -80,42 +80,12 @@ local function player_input(controls)
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        if menu_state == 1 then
-            sfx.play("sfx", menu[menu_state].n)
-        elseif menu_state == 2 then
-            TEsound.volume("music", 1)
-            TEsound.stop("music")
-            if menu[menu_state].n > 0 then
-                TEsound.playLooping(bgm[menu[menu_state].n].filePath, "music")
-            end
-        elseif menu_state == 3 then
-            TEsound.stop("music")
-            TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-            return Gamestate.pop()
-        end
+        return soundState:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1)then
-        menu[menu_state].n = menu[menu_state].n - 1
-        if menu_state == 1 then
-            if menu[menu_state].n < 1 then
-                menu[menu_state].n = #sfx
-            end
-        elseif menu_state == 2 then
-            if menu[menu_state].n < 0 then
-                menu[menu_state].n = #bgm
-            end
-        end
-    elseif controls.horizontal:pressed(1) then
-        menu[menu_state].n = menu[menu_state].n + 1
-        if menu_state == 1 then
-            if menu[menu_state].n > #sfx then
-                menu[menu_state].n = 1
-            end
-        elseif menu_state == 2 then
-            if menu[menu_state].n > #bgm then   --TODO add Music track names table
-                menu[menu_state].n = 0
-            end
-        end
+        soundState:wheelmoved(0, -1)
+    elseif controls.horizontal:pressed(1)then
+        soundState:wheelmoved(0, 1)
     elseif controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
     elseif controls.vertical:pressed(1) then
@@ -177,6 +147,12 @@ function soundState:draw()
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, (screen_width - w) / 2, m.y )
+        if GLOBAL_SETTING.MOUSE_ENABLED and
+                CheckPointCollision(mouse_x, mouse_y, (screen_width - wb) / 2, m.y - top_item_offset,
+                    wb, h + item_height_margin )
+        then
+            menu_state = i
+        end
     end
     --header
     love.graphics.setColor(255, 255, 255, 255)
@@ -185,12 +161,64 @@ function soundState:draw()
     push:apply("end")
 end
 
+function soundState:confirm( x, y, button, istouch )
+    if (button == 1 and menu_state == 3) or button == 2 then
+        sfx.play("sfx","menu_cancel")
+        TEsound.stop("music")
+        TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+        return Gamestate.pop()
+    end
+    if button == 1 then
+        if menu_state == 1 then
+            sfx.play("sfx", menu[menu_state].n)
+        elseif menu_state == 2 then
+            TEsound.volume("music", 1)
+            TEsound.stop("music")
+            if menu[menu_state].n > 0 then
+                TEsound.playLooping(bgm[menu[menu_state].n].filePath, "music")
+            end
+        end
+    end
+end
+
 function soundState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    sfx.play("sfx","menu_cancel")
-    TEsound.stop("music")
-    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-    return Gamestate.pop()
+    soundState:confirm( x, y, button, istouch )
+end
+
+function soundState:mousemoved( x, y, dx, dy)
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
+        return
+    end
+    mouse_x, mouse_y = x, y
+end
+
+function soundState:wheelmoved(x, y)
+    local i = 0
+    if y > 0 then
+        i = 1
+    elseif y < 0 then
+        i = -1
+    end
+    menu[menu_state].n = menu[menu_state].n + i
+    if menu_state == 1 then
+        if menu[menu_state].n < 1 then
+            menu[menu_state].n = #sfx
+        end
+        if menu[menu_state].n > #sfx then
+            menu[menu_state].n = 1
+        end
+    elseif menu_state == 2 then
+        if menu[menu_state].n < 0 then
+            menu[menu_state].n = #bgm
+        end
+        if menu[menu_state].n > #bgm then
+            menu[menu_state].n = 0
+        end
+    end
+    if menu_state ~= 3 then
+        sfx.play("sfx","menu_move")
+    end
 end
