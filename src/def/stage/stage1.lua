@@ -130,7 +130,7 @@ function Stage1:initialize(players)
 
     local dummy4 = Rick:new("Dummie4", GetSpriteInstance("src/def/char/rick.lua"), nil,
         260, top_floor_y + 20,
-        { shader = shaders.rick[4], color = {255,255,255, 255}})
+        { shader = shaders.rick[3], color = {255,255,255, 255}})
     dummy4:setToughness(5)
     dummy4.horizontal = -1
     dummy4.face = -1

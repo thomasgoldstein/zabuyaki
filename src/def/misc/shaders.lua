@@ -173,15 +173,6 @@ local rick_colors_3 = {
 shaders.rick[2] = swapColors(rick_colors_default, rick_colors_2)
 shaders.rick[3] = swapColors(rick_colors_default, rick_colors_3)
 
-local rick_colors_blue = { { 77, 111, 158, 255 }, { 49, 73, 130, 255 }, { 28, 42, 73, 255 } } --Blue
-local rick_colors_purple = { { 111, 77, 158, 255 }, { 73, 49, 130, 255 }, { 42, 28, 73, 255 } } --Purple
-local rick_colors_black = { { 70, 70, 70, 255 }, { 45, 45, 45, 255 }, { 11, 11, 11, 255 } } --Black
-local rick_colors_emerald = { { 77, 158, 111, 255 }, { 49, 130, 73, 255 }, { 28, 73, 42, 255 } } --Emerald
-shaders.rick[4] = swapColors(rick_colors_default, rick_colors_blue)
-shaders.rick[5] = swapColors(rick_colors_default, rick_colors_purple)
-shaders.rick[6] = swapColors(rick_colors_default, rick_colors_black)
-shaders.rick[7] = swapColors(rick_colors_default, rick_colors_emerald)
-
 local chai_colors_default = {
     { 220, 206, 234, 255 }, { 145, 137, 153, 255 }, { 87, 82, 91, 255 }, -- gray bandages
     { 224, 208, 62, 255 }, { 158, 145, 34, 255 }, { 96, 71, 19, 255 }, -- yellow shirt
