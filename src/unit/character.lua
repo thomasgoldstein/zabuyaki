@@ -564,21 +564,7 @@ function Character:run_update(dt)
         self:setState(self.dash)
         return
     elseif self.can_jump and self.b.jump:isDown() then
-        if self.b.attack:isDown() then
-            self:setState(self.special)
-            return
-        end
-        --start jump dust clouds
-        local psystem = PA_DUST_JUMP_START:clone()
-        psystem:setAreaSpread( "uniform", 16, 4 )
-        psystem:setLinearAcceleration(-30 , 10, 30, -10)
-        psystem:emit(6)
-        psystem:setAreaSpread( "uniform", 4, 16 )
-        psystem:setPosition( 0, -16 )
-        psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
-        psystem:emit(5)
-        stage.objects:add(Effect:new(psystem, self.x, self.y-1))
-        self:setState(self.jump)
+         self:setState(self.duck2jump, true) --pass condition to block dir changing
         return
     end
     --self:calcFriction(dt)
@@ -737,21 +723,24 @@ function Character:duck2jump_update(dt)
         stage.objects:add(Effect:new(psystem, self.x, self.y-1))
         return
     end
-    if self.b.horizontal:isDown(-1) then
-        self.face = -1 --face sprite left or right
-        self.horizontal = self.face --X direction
-        self.velx = self.velocity_walk
-    elseif self.b.horizontal:isDown(1) then
-        self.face = 1 --face sprite left or right
-        self.horizontal = self.face --X direction
-        self.velx = self.velocity_walk
-    end
-    if self.b.vertical:isDown(-1) then
-        self.vertical = -1
-        self.vely = self.velocity_walk_y
-    elseif self.b.vertical:isDown(1) then
-        self.vertical = 1
-        self.vely = self.velocity_walk_y
+    if not self.condition then
+        --duck2jump can change direction
+        if self.b.horizontal:isDown(-1) then
+            self.face = -1 --face sprite left or right
+            self.horizontal = self.face --X direction
+            self.velx = self.velocity_walk
+        elseif self.b.horizontal:isDown(1) then
+            self.face = 1 --face sprite left or right
+            self.horizontal = self.face --X direction
+            self.velx = self.velocity_walk
+        end
+        if self.b.vertical:isDown(-1) then
+            self.vertical = -1
+            self.vely = self.velocity_walk_y
+        elseif self.b.vertical:isDown(1) then
+            self.vertical = 1
+            self.vely = self.velocity_walk_y
+        end
     end
     --self:calcFriction(dt)
     --self:checkCollisionAndMove(dt)
