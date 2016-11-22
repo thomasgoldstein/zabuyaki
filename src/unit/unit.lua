@@ -147,7 +147,7 @@ function Unit:showPID(seconds)
 	self.show_pid_cool_down = seconds
 end
 
-function Unit:setState(state)
+function Unit:setState(state, condition)
 	--assert(type(state) == "table", "setState expects a table")
 	if state then
 		self.time_state = love.timer.getTime()
@@ -160,6 +160,7 @@ function Unit:setState(state)
 		self.update = state.update
 		self.start = state.start
 		self.exit = state.exit
+		self.condition = condition
 		self:start()
         --TODO temp?
         self:updateSprite(0)
