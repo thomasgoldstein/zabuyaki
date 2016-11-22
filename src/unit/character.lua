@@ -384,7 +384,11 @@ function Character:stand_update(dt)
 
     if (self.can_jump or self.can_attack) and
             (self.b.jump:isDown() and self.b.attack:isDown()) then
-        self:setState(self.special)
+        if self.b.horizontal:getValue() ~= 0 then
+            self:setState(self.dashSpecial)
+        else
+            self:setState(self.special)
+        end
         return
     elseif self.can_jump and self.b.jump:isDown() then
         self:setState(self.duck2jump)
@@ -706,7 +710,11 @@ end
 function Character:duck2jump_update(dt)
     --	print (self.name.." - duck2jump update",dt)
     if self.b.attack:isDown() and self:getStateTime() < self.special_tolerance_delay then
-        self:setState(self.special)
+        if self.b.horizontal:getValue() == self.horizontal then
+            self:setState(self.dashSpecial)
+        else
+            self:setState(self.special)
+        end
         return
     end
     if self.sprite.isFinished then
@@ -865,6 +873,12 @@ function Character:dash_update(dt)
     self:checkCollisionAndMove(dt)
 end
 Character.dash = {name = "dash", start = Character.dash_start, exit = nop, update = Character.dash_update, draw = Character.default_draw}
+
+function Character:dashSpecial_start()
+    --no move by default
+    self:setState(self.stand)
+end
+Character.dashSpecial = {name = "dashSpecial", start = Character.dashSpecial_start, exit = nop, update = nop, draw = Character.default_draw}
 
 function Character:jumpAttackForward_start()
     self.isHittable = true
@@ -1279,7 +1293,11 @@ function Character:combo_start()
 end
 function Character:combo_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
-        self:setState(self.special)
+        if self.b.horizontal:getValue() == self.horizontal then
+            self:setState(self.dashSpecial)
+        else
+            self:setState(self.special)
+        end
         return
     end
     if self.sprite.isFinished then
@@ -1420,7 +1438,11 @@ function Character:grab_update(dt)
         g.target.x = g.target.x - g.target.velocity_run * dt
     end
     if self.b.attack:isDown() and self.can_jump and self.b.jump:isDown() then
-        self:setState(self.special)
+        if self.b.horizontal:getValue() == self.horizontal then
+            self:setState(self.dashSpecial)
+        else
+            self:setState(self.special)
+        end
         return
     end
     if self.b.attack:isDown() and self.can_attack then
@@ -1513,7 +1535,11 @@ function Character:grabHit_start()
 end
 function Character:grabHit_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
-        self:setState(self.special)
+        if self.b.horizontal:getValue() == self.horizontal then
+            self:setState(self.dashSpecial)
+        else
+            self:setState(self.special)
+        end
         return
     end
     --dp(self.name .. " - grabhit update", dt)
@@ -1534,7 +1560,11 @@ function Character:grabHitLast_start()
 end
 function Character:grabHitLast_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
-        self:setState(self.special)
+        if self.b.horizontal:getValue() == self.horizontal then
+            self:setState(self.dashSpecial)
+        else
+            self:setState(self.special)
+        end
         return
     end
     --dp(self.name .. " - grabHitLast update", dt)

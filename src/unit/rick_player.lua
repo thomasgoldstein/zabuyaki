@@ -66,7 +66,11 @@ function Rick:combo_start()
 end
 function Rick:combo_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
-        self:setState(self.special)
+        if self.b.horizontal:getValue() == self.horizontal then
+            self:setState(self.dashSpecial)
+        else
+            self:setState(self.special)
+        end
         return
     end
     if self.sprite.isFinished then
@@ -143,5 +147,27 @@ function Rick:dash_update(dt)
 end
 
 Rick.dash = {name = "dash", start = Rick.dash_start, exit = nop, update = Rick.dash_update, draw = Character.default_draw}
+
+function Rick:dashSpecial_start()
+    self.isHittable = true
+    dpo(self, self.state)
+    --	print (self.name.." - dashSpecial start")
+    self:setSprite("dashSpecial")
+    self.velx = self.velocity_dash
+    self.vely = 0
+    self.velz = 0
+    sfx.play("voice"..self.id, self.sfx.dash)
+end
+function Rick:dashSpecial_update(dt)
+    if self.sprite.isFinished then
+        dpo(self, self.state)
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt, self.velocity_dash)
+    self:checkCollisionAndMove(dt)
+end
+
+Rick.dashSpecial = {name = "dashSpecial", start = Rick.dashSpecial_start, exit = nop, update = Rick.dashSpecial_update, draw = Character.default_draw}
 
 return Rick
