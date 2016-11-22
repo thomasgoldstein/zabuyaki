@@ -268,11 +268,11 @@ shaders.satoff[4] = swapColors(satoff_colors_default, satoff_colors_4)
 
 -- Obstacles
 local trashcan_colors_default = {
-    { 118, 109, 100, 255 }, { 89, 74, 72, 255 }, { 65, 44, 45, 255 }, { 30, 25, 23, 255 }, -- main color
-    { 57, 76, 94, 255 }, { 40, 41, 35, 255 }, { 24, 25, 22, 255 }} -- inner bag color
+    { 118, 109, 100, 255 }, { 96, 81, 78, 255 }, { 73, 53, 54, 255 }, { 40, 30, 30, 255 }, -- brown metal
+    { 60, 80, 99, 255 }, { 49, 51, 43, 255 }, { 29, 30, 26, 255 }} -- inner blue bag
 local trashcan_colors_2 = {
-    { 87, 116, 130, 255 }, { 63, 88, 99, 255 }, { 37, 55, 63, 255 }, { 20, 27, 30, 255 }, -- main color
-    { 58, 91, 66, 255 }, { 37, 44, 36, 255 }, { 23, 26, 21, 255 }} -- inner bag color
+    { 87, 116, 130, 255 }, { 66, 93, 104, 255 }, { 45, 66, 76, 255 }, { 27, 36, 40, 255 }, -- blue metal
+    { 63, 99, 72, 255 }, { 45, 53, 43, 255 }, { 29, 33, 26, 255 }} -- inner green bag
 shaders.trashcan[2] = swapColors(trashcan_colors_default, trashcan_colors_2)
 
 -- Misc
