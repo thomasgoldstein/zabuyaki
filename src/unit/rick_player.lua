@@ -157,12 +157,25 @@ function Rick:dashSpecial_start()
     self.vely = 0
     self.velz = 0
     sfx.play("voice"..self.id, self.sfx.dash)
+
+    local psystem = PA_DASH:clone()
+    psystem:setSpin(0, -2 * self.face)
+    psystem:setLinearAcceleration(0, -110, 0, -250) -- Random movement in all directions.
+    self.pa_dash = psystem
+    self.pa_dash_x = self.x
+    self.pa_dash_y = self.y
+
+    stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
 end
 function Rick:dashSpecial_update(dt)
     if self.sprite.isFinished then
         dpo(self, self.state)
         self:setState(self.stand)
         return
+    end
+    if math.random() < 0.5 and self.velx >= self.velocity_dash * 0.5 then
+        self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
+        self.pa_dash:emit(1)
     end
     self:calcFriction(dt, self.velocity_dash)
     self:checkCollisionAndMove(dt)
