@@ -708,13 +708,13 @@ function Character:duck2jump_start()
 end
 function Character:duck2jump_update(dt)
     --	print (self.name.." - duck2jump update",dt)
-    if self.b.attack:isDown() and self:getStateTime() < self.special_tolerance_delay then
-        if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dashSpecial)
-        else
-            self:setState(self.special)
-        end
-        return
+    if self:getStateTime() < self.special_tolerance_delay then
+        --time for other move
+--            if self.b.attack:isDown() then
+--                self:setState(self.dashSpecial)
+--                return
+--            end
+        --end
     end
     if self.sprite.isFinished then
         self:setState(self.jump)

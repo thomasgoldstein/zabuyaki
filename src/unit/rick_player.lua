@@ -130,7 +130,7 @@ function Rick:dash_start()
 end
 function Rick:dash_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
-        self:setState(self.special)
+        self:setState(self.dashSpecial)
         return
     end
     if self.sprite.isFinished then
