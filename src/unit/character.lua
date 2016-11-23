@@ -556,10 +556,9 @@ function Character:run_update(dt)
         self.vertical = 1
         self.vely = self.velocity_run_y
     end
-    if (self.velx == 0 and self.vely == 0) or
-        (self.b.horizontal:isDown(1) == false and self.b.horizontal:isDown(-1) == false)
-        or (self.b.horizontal:isDown(1) and self.horizontal < 0)
-        or (self.b.horizontal:isDown(-1) and self.horizontal > 0)
+    if (self.velx == 0 and self.vely == 0)
+        or (self.b.horizontal:getValue() == 0)
+        or (self.b.horizontal:getValue() == -self.horizontal)
     then
         self:setState(self.stand)
         return
