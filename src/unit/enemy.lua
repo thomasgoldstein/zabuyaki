@@ -1,11 +1,12 @@
--- Date: 06.07.2016
-
 local class = require "lib/middleclass"
-
 local Enemy = class('Enemy', Character)
 
-local function nop() --[[print "nop"]] end
-local function dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
+local function nop() end
+local sign = sign
+local clamp = clamp
+local dist = dist
+local rand1 = rand1
+local CheckCollision = CheckCollision
 
 function Enemy:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)

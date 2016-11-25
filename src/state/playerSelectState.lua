@@ -1,6 +1,3 @@
---
--- Date: 20.06.2016
---
 playerSelectState = {}
 
 local time = 0

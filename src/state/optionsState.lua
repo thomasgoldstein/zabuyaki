@@ -1,6 +1,3 @@
---
--- Date: 31.05.2016
---
 optionsState = {}
 
 local time = 0

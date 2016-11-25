@@ -1,11 +1,7 @@
---
--- Date: 09.11.2016
---
 local class = require "lib/middleclass"
-
-local function nop() --[[print "nop"]] end
-
 local Wall = class("Wall", Unit)
+
+local function nop() end
 
 function Wall:initialize(name, f)
     --f options {}: shapeType, shapeArgs, hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak

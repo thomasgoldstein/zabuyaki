@@ -1,6 +1,6 @@
 -- Date: 25.10.2016
-
 local class = require "lib/middleclass"
+local Movie = class('Movie')
 
 local function r(x) return math.floor(x) end
 
@@ -9,8 +9,6 @@ local slide_text_gap = 10
 
 local screen_width = 640 / 2
 local screen_height = 480 / 2
-
-local Movie = class('Movie')
 
 --[[
 table = {

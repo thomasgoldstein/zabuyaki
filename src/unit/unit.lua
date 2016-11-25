@@ -1,25 +1,14 @@
--- Date: 16.02.2016
-
 local class = require "lib/middleclass"
 local Unit = class("Unit")
-local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 
-local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
-	return x1 < x2+w2 and
-			x2 < x1+w1 and
-			y1 < y2+h2 and
-			y2 < y1+h1
-end
-local function clamp(val, min, max)
-	if min - val > 0 then
-		return min
-	end
-	if max - val < 0 then
-		return max
-	end
-	return val
-end
-local function nop() --[[print "nop"]] end
+local function nop() end
+local sign = sign
+local clamp = clamp
+local dist = dist
+local rand1 = rand1
+local CheckCollision = CheckCollision
+
+local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 
 GLOBAL_UNIT_ID = 1
 

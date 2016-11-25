@@ -1,19 +1,8 @@
---
--- Date: 04.04.2016
---
-
 local class = require "lib/middleclass"
-
 local Player = class('Player', Character)
 
-local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
-    return x1 < x2+w2 and
-            x2 < x1+w1 and
-            y1 < y2+h2 and
-            y2 < y1+h1
-end
-
-local function nop() --[[print "nop"]] end
+local function nop() end
+local CheckCollision = CheckCollision
 
 function Player:initialize(name, sprite, input, x, y, f)
     Character.initialize(self, name, sprite, input, x, y, f)

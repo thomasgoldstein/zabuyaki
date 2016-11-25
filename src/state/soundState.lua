@@ -1,6 +1,3 @@
---
--- Date: 18.11.2016
---
 soundState = {}
 
 local time = 0

@@ -1,22 +1,9 @@
--- Date: 06.07.2016
-
 local class = require "lib/middleclass"
-
 local Character = class('Character', Unit)
 
-local function nop() --[[print "nop"]] end
-local function sign(x)
-    return x>0 and 1 or x<0 and -1 or 0
-end
-local function clamp(val, min, max)
-    if min - val > 0 then
-        return min
-    end
-    if max - val < 0 then
-        return max
-    end
-    return val
-end
+local function nop() end
+local sign = sign
+local clamp = clamp
 
 function Character:initialize(name, sprite, input, x, y, f)
     Unit.initialize(self, name, sprite, input, x, y, f)

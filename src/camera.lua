@@ -1,13 +1,4 @@
---
--- Created by IntelliJ IDEA.
--- User: DON
--- Date: 05.04.2016
--- Time: 22:19
--- To change this template use File | Settings | File Templates.
---
-
 local class = require "lib/middleclass"
-
 local Camera = class("Camera")
 
 function Camera:initialize(worldWidth, worldHeight, x, y)

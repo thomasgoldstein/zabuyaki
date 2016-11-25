@@ -1,20 +1,7 @@
---
--- Date: 23.06.2016
---
-
---
--- Date: 29.03.2016
---
 local class = require "lib/middleclass"
-
 local Effect = class("Effect")
 
-local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
-    return x1 < x2+w2 and
-            x2 < x1+w1 and
-            y1 < y2+h2 and
-            y2 < y1+h1
-end
+local CheckCollision = CheckCollision
 
 function Effect:initialize(particle, x, y, shader, color)
     self.particle = particle

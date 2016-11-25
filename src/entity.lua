@@ -2,7 +2,6 @@
 -- Date: 23.06.2016
 --
 local class = require "lib/middleclass"
-
 local Entity = class("Entity")
 
 function Entity:initialize()

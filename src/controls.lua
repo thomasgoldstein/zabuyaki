@@ -1,7 +1,3 @@
---
--- Date: 28.06.2016
---
-
 function love.joystickadded(joystick)
     p1joystick = joystick
     dp(joystick:getGUID().." added joystick "..joystick:getName().." with "..joystick:getButtonCount().." buttons")

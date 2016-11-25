@@ -1,10 +1,6 @@
---
--- Date: 25.03.2016
---
-
 local class = require "lib/middleclass"
-
 local InfoBar = class("InfoBar")
+
 local printWithShadow = printWithShadow
 
 local v_g = 39 --vertical gap between bars
@@ -31,16 +27,6 @@ local bars_coords = {   --for players only 1..MAX_PLAYERS
     { x = math.floor(screen_width / 2 - bar_width_with_lr / 2) + 2, y = v_m + 0 * v_g },
     { x = math.floor(screen_width - bar_width_with_lr - h_m + 0), y = v_m + 0 * v_g }
 }
-
-local function clamp(val, min, max)
-    if min - val > 0 then
-        return min
-    end
-    if max - val < 0 then
-        return max
-    end
-    return val
-end
 
 local function calcBarWidth(self)
     if self.max_hp < 100 and self.source.lives <= 1 then

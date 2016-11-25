@@ -1,7 +1,3 @@
---
--- Date: 10.10.2016
---
-
 local class = require "lib/middleclass"
 local Stage = class('Stage')
 
