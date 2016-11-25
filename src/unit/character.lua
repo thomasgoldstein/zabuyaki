@@ -80,15 +80,6 @@ function Character:initialize(name, sprite, input, x, y, f)
 --    self.victim_infoBar = nil
 end
 
-function Character:initFaceIcon(target)
-    print(self.name, "init bar")
-    target.icon_sprite = image_bank[self.sprite.def.sprite_sheet]
-    target.q = self.sprite.def.animations["icon"][1].q  --quad
-    target.qa = self.sprite.def.animations["icon"]  --quad array
-    target.icon_color = self.color or { 255, 255, 255, 255 }
-    target.shader = self.shader
-end
-
 function Character:addHp(hp)
     self.hp = self.hp + hp
     if self.hp > self.max_hp then
@@ -104,6 +95,14 @@ end
 
 function Character:addScore(score)
     self.score = self.score + score
+end
+
+function Character:initFaceIcon(target)
+    target.icon_sprite = image_bank[self.sprite.def.sprite_sheet]
+    target.q = self.sprite.def.animations["icon"][1].q  --quad
+    target.qa = self.sprite.def.animations["icon"]  --quad array
+    target.icon_color = self.color or { 255, 255, 255, 255 }
+    target.shader = self.shader
 end
 
 function Character:drawFaceIcon(l, t)

@@ -289,7 +289,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     end
 end
 
-function InfoBar:draw_loot_bar_(l,t,w,h)
+function InfoBar:draw_loot_bar(l,t,w,h)
     local cool_down_transparency = calcTransparency(self.cool_down)
     transp_bg = 255 * cool_down_transparency
     self:drawFaceIcon(l, t, transp_bg)
