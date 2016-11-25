@@ -22,7 +22,7 @@ local got_color = {40,160,20}
 local bar_yellow_color = {230,200,30}
 local bar_top_bottom_smooth_color = {100,50,50}
 local transp_bg = 255
-
+local cool_down_transparency = 0
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 
 local bars_coords = {   --for players only 1..MAX_PLAYERS
@@ -148,34 +148,6 @@ function InfoBar:draw_face_icon(l, t, transp_bg)
     love.graphics.setColor( unpack( self.icon_color ) )
     if self.source.draw_face_icon then
         self.source:draw_face_icon(l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
-    end
-end
-
-local cool_down_transparency = 0
-function InfoBar:draw_face_icon_(l, t, transp_bg)
-    self.icon_color[4] = transp_bg
-    love.graphics.setColor( unpack( self.icon_color ) )
-    if self.source.shader then
-        love.graphics.setShader(self.source.shader)
-    end
-    if self.source.type == "loot" then
-        love.graphics.draw (
-            self.icon_sprite,
-            self.q, --Current frame of the current animation
-            l + self.icon_x_offset + self.x - 2, t + self.y
-        )
-    else    --Face Icon depends on hp/max_hp
-        local s = self.qa
-        local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
-            1, #s)
-        love.graphics.draw (
-            self.icon_sprite,
-            self.qa[n].q, --Current frame of the current animation
-            l + self.icon_x_offset + self.x - 2, t + self.y
-        )
-    end
-    if self.source.shader then
-        love.graphics.setShader()
     end
 end
 

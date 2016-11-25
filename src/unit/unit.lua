@@ -29,11 +29,6 @@ function Unit:initialize(name, sprite, input, x, y, f)
         f = {}
     end
 	self.sprite = sprite
-	if sprite then
-		self.icon_sprite = image_bank[sprite.def.sprite_sheet]
-		self.q = sprite.def.animations["icon"][1].q  --quad
-		self.qa = sprite.def.animations["icon"]  --quad array
-	end
 	self.name = name or "Unknown"
 	self.type = "unit"
     self.cool_down_death = 3 --seconds to remove

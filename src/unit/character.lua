@@ -21,6 +21,11 @@ end
 function Character:initialize(name, sprite, input, x, y, f)
     Unit.initialize(self, name, sprite, input, x, y, f)
     self.type = "character"
+    if sprite then
+        self.icon_sprite = image_bank[sprite.def.sprite_sheet]
+        self.q = sprite.def.animations["icon"][1].q  --quad
+        self.qa = sprite.def.animations["icon"]  --quad array
+    end
     self.height = 50
     self.velocity_walk = 100
     self.velocity_walk_y = 50
