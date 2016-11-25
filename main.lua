@@ -85,6 +85,7 @@ function love.load(arg)
 	Entity = require "src/entity"
 	Unit = require "src/unit/unit"
 	Character = require "src/unit/character"
+	Player = require "src/unit/player"
 	Enemy = require "src/unit/enemy"
 	Rick = require "src/unit/rick_player"
 	Chai = require "src/unit/chai_player"

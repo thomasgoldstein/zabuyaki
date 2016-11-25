@@ -4,7 +4,7 @@
 
 local class = require "lib/middleclass"
 
-local Chai = class('Chai', Character)
+local Chai = class('Chai', Player)
 
 local function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
     return x1 < x2+w2 and
@@ -19,8 +19,7 @@ local function sign(x)
 end
 
 function Chai:initialize(name, sprite, input, x, y, f)
-    Character.initialize(self, name, sprite, input, x, y, f)
-    self.type = "player"
+    Player.initialize(self, name, sprite, input, x, y, f)
     self.max_hp = 100
     self.hp = self.max_hp
     self.infoBar = InfoBar:new(self)
