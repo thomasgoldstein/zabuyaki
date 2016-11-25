@@ -74,20 +74,19 @@ function Loot:draw(l,t,w,h)
     end
 end
 
-function Loot:draw_face_icon(l, t, transp_bg)
-    --self.icon_color[4] = transp_bg
-    --love.graphics.setColor( unpack( self.icon_color ) )
-    if self.shader then
-        love.graphics.setShader(self.shader)
-    end
+function Loot:initFaceIcon(target)
+    print(self.name, "init bar")
+    target.icon_sprite = self.sprite
+    target.q = self.q  --quad
+    target.icon_color = { 255, 255, 255, 255 }
+end
+
+function Loot:draw_face_icon(l, t)
     love.graphics.draw (
         self.sprite,
         self.q, --Current frame of the current animation
             l, t
         )
-    if self.shader then
-        love.graphics.setShader()
-    end
 end
 
 function Loot:onHurt()

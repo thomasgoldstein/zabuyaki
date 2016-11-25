@@ -76,10 +76,8 @@ function InfoBar:initialize(source)
     self.color = norm_color
     self.cool_down = 1
     self.id = self.source.id
+    self.source:initFaceIcon(self)
     if source.type == "loot" then
-        self.icon_sprite = source.sprite
-        self.q = source.q  --quad
-        self.icon_color = { 255, 255, 255, 255 }
         self.max_hp = 20
         self.hp = 1
         self.old_hp = 1
@@ -87,10 +85,6 @@ function InfoBar:initialize(source)
     elseif source.type == "obstacle" then
         self.score = -1
         self.displayed_score = ""
-        self.icon_sprite = image_bank[source.sprite.def.sprite_sheet]
-        self.q = source.sprite.def.animations["icon"][1].q  --quad
-        self.qa = source.sprite.def.animations["icon"]  --quad array
-        self.icon_color = source.color or { 255, 255, 255, 255 }
         self.max_hp = source.max_hp
         self.hp = 1
         self.old_hp = 1
@@ -100,10 +94,6 @@ function InfoBar:initialize(source)
             self.score = -1
             self.displayed_score = ""
         end
-        self.icon_sprite = image_bank[source.sprite.def.sprite_sheet]
-        self.q = source.sprite.def.animations["icon"][1].q  --quad
-        self.qa = source.sprite.def.animations["icon"]  --quad array
-        self.icon_color = source.color or { 255, 255, 255, 255 }
         self.max_hp = source.max_hp
         self.hp = 1
         self.old_hp = 1
@@ -142,12 +132,17 @@ function InfoBar:setPicker(picker_source)
     return self
 end
 
-
 function InfoBar:draw_face_icon(l, t, transp_bg)
     self.icon_color[4] = transp_bg
     love.graphics.setColor( unpack( self.icon_color ) )
-    if self.source.draw_face_icon then
-        self.source:draw_face_icon(l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
+    if self.shader then
+        love.graphics.setShader(self.shader)
+    end
+    --if self.source.draw_face_icon then
+    self.source:draw_face_icon(l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
+    --end
+    if self.shader then
+        love.graphics.setShader()
     end
 end
 
