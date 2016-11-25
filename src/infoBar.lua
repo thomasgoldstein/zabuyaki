@@ -142,8 +142,17 @@ function InfoBar:setPicker(picker_source)
     return self
 end
 
-local cool_down_transparency = 0
+
 function InfoBar:draw_face_icon(l, t, transp_bg)
+    self.icon_color[4] = transp_bg
+    love.graphics.setColor( unpack( self.icon_color ) )
+    if self.source.draw_face_icon then
+        self.source:draw_face_icon(l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
+    end
+end
+
+local cool_down_transparency = 0
+function InfoBar:draw_face_icon_(l, t, transp_bg)
     self.icon_color[4] = transp_bg
     love.graphics.setColor( unpack( self.icon_color ) )
     if self.source.shader then

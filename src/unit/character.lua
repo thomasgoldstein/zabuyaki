@@ -8,6 +8,15 @@ local function nop() --[[print "nop"]] end
 local function sign(x)
     return x>0 and 1 or x<0 and -1 or 0
 end
+local function clamp(val, min, max)
+    if min - val > 0 then
+        return min
+    end
+    if max - val < 0 then
+        return max
+    end
+    return val
+end
 
 function Character:initialize(name, sprite, input, x, y, f)
     Unit.initialize(self, name, sprite, input, x, y, f)
@@ -81,6 +90,17 @@ end
 
 function Character:addScore(score)
     self.score = self.score + score
+end
+
+function Character:draw_face_icon(l, t)
+    local s = self.qa
+    local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
+        1, #s)
+    love.graphics.draw (
+        self.icon_sprite,
+        self.qa[n].q, --Current frame of the current animation
+        l, t
+    )
 end
 
 function Character:updateAI(dt)
