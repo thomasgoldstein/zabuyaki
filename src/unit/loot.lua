@@ -75,7 +75,7 @@ function Loot:draw(l,t,w,h)
 end
 
 function Loot:initFaceIcon(target)
-    target.icon_sprite = self.sprite
+    target.sprite = self.sprite
     target.q = self.q  --quad
     target.icon_color = { 255, 255, 255, 255 }
 end

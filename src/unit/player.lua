@@ -18,6 +18,7 @@ local function nop() --[[print "nop"]] end
 function Player:initialize(name, sprite, input, x, y, f)
     Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "player"
+    self.lives = GLOBAL_SETTING.MAX_LIVES
 end
 
 function Player:isAlive()

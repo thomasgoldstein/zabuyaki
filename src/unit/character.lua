@@ -21,11 +21,6 @@ end
 function Character:initialize(name, sprite, input, x, y, f)
     Unit.initialize(self, name, sprite, input, x, y, f)
     self.type = "character"
-    if sprite then
-        self.icon_sprite = image_bank[sprite.def.sprite_sheet]
-        self.q = sprite.def.animations["icon"][1].q  --quad
-        self.qa = sprite.def.animations["icon"]  --quad array
-    end
     self.height = 50
     self.velocity_walk = 100
     self.velocity_walk_y = 50
@@ -57,7 +52,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
     self.isMovable = true --can be moved by attacks / can be grabbed
     --Inner char vars
-    self.lives = GLOBAL_SETTING.MAX_LIVES
+    self.lives = 0
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
     self.n_combo = 1    -- n of the combo hit
@@ -98,7 +93,7 @@ function Character:addScore(score)
 end
 
 function Character:initFaceIcon(target)
-    target.icon_sprite = image_bank[self.sprite.def.sprite_sheet]
+    target.sprite = image_bank[self.sprite.def.sprite_sheet]
     target.q = self.sprite.def.animations["icon"][1].q  --quad
     target.qa = self.sprite.def.animations["icon"]  --quad array
     target.icon_color = self.color or { 255, 255, 255, 255 }
@@ -110,7 +105,7 @@ function Character:drawFaceIcon(l, t)
     local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
         1, #s)
     love.graphics.draw (
-        self.icon_sprite,
+        self.sprite,
         self.qa[n].q, --Current frame of the current animation
         l, t
     )
@@ -1513,19 +1508,5 @@ function Character:special_start() -- Special attack plug
     self:setState(self.stand)
 end
 Character.special = {name = "special", start = Character.special_start, exit = nop, update = nop, draw = Character.default_draw }
-
---function Character:revive()
---    self.hp = self.max_hp
---    self.hurt = nil
---    self.z = 0
---    self.cool_down_death = 3 --seconds to remove
---    self.isDisabled = false
---    self.isThrown = false
---    self.victims = {}
---    self.infoBar = InfoBar:new(self)
---    self.victim_infoBar = nil
---    self:setState(self.stand)
---    self:showPID(3)
---end
 
 return Character
