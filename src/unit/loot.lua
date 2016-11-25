@@ -81,7 +81,7 @@ function Loot:initFaceIcon(target)
     target.icon_color = { 255, 255, 255, 255 }
 end
 
-function Loot:draw_face_icon(l, t)
+function Loot:drawFaceIcon(l, t)
     love.graphics.draw (
         self.sprite,
         self.q, --Current frame of the current animation

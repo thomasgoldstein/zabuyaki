@@ -132,14 +132,14 @@ function InfoBar:setPicker(picker_source)
     return self
 end
 
-function InfoBar:draw_face_icon(l, t, transp_bg)
+function InfoBar:drawFaceIcon(l, t, transp_bg)
     self.icon_color[4] = transp_bg
     love.graphics.setColor( unpack( self.icon_color ) )
     if self.shader then
         love.graphics.setShader(self.shader)
     end
-    --if self.source.draw_face_icon then
-    self.source:draw_face_icon(l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
+    --if self.source.drawFaceIcon then
+    self.source:drawFaceIcon(l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
     --end
     if self.shader then
         love.graphics.setShader()
@@ -258,7 +258,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             end
             printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1 )
             --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )
-            self:draw_face_icon(l + self.source.shake.x, t, transp_bg)
+            self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*3 + 17))
             printWithShadow("SELECT PLAYER (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 19 )
         elseif player_select_mode == 3 then
@@ -277,7 +277,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             t = t - self.source.z / 2
         end
         self:draw_lifebar(l, t, transp_bg)
-        self:draw_face_icon(l + self.source.shake.x, t, transp_bg)
+        self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
         self:draw_dead_cross(l, t, transp_bg)
         if self.score ~= self.source.score then
             self.score = self.source.score
@@ -289,10 +289,10 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     end
 end
 
-function InfoBar:draw_loot_bar(l,t,w,h)
+function InfoBar:draw_loot_bar_(l,t,w,h)
     local cool_down_transparency = calcTransparency(self.cool_down)
     transp_bg = 255 * cool_down_transparency
-    self:draw_face_icon(l, t, transp_bg)
+    self:drawFaceIcon(l, t, transp_bg)
     local font = gfx.font.arcade3
     love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)

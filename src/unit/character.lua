@@ -106,7 +106,7 @@ function Character:addScore(score)
     self.score = self.score + score
 end
 
-function Character:draw_face_icon(l, t)
+function Character:drawFaceIcon(l, t)
     local s = self.qa
     local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
         1, #s)
