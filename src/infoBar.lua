@@ -116,7 +116,7 @@ function InfoBar:drawFaceIcon(l, t, transp_bg)
     if self.shader then
         love.graphics.setShader(self.shader)
     end
-    self.source:drawFaceIcon(l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
+    self.source.drawFaceIcon(self, l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
     if self.shader then
         love.graphics.setShader()
     end
