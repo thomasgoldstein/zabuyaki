@@ -5,6 +5,7 @@
 local class = require "lib/middleclass"
 
 local InfoBar = class("InfoBar")
+local printWithShadow = printWithShadow
 
 local v_g = 39 --vertical gap between bars
 local v_m = 13 --vert margin from the top
@@ -53,14 +54,6 @@ local function calcTransparency(cd)
         return -cd * 4
     end
     return cd * 4
-end
-
-local function printWithShadow(text, x, y)
-    local r, g, b, a = love.graphics.getColor( )
-    love.graphics.setColor(0, 0, 0, transp_bg)
-    love.graphics.print(text, x + 1, y - 1)
-    love.graphics.setColor(r, g, b, a)
-    love.graphics.print(text, x, y)
 end
 
 local function slantedRectangle2(x, y, width, height)
@@ -143,24 +136,30 @@ end
 
 function InfoBar:draw_name(l, t, transp_bg)
     love.graphics.setColor(255, 255, 255, transp_bg)
-    printWithShadow(self.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9 )
+    printWithShadow(self.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9,
+        transp_bg)
     if self.source.type == "player" or self.source.lives > 1 then
         local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
         if c then
             c[4] = transp_bg
             love.graphics.setColor(unpack( c ))
         end
-        printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1 )
+        printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1,
+            transp_bg)
         love.graphics.setColor(bar_yellow_color[1], bar_yellow_color[2], bar_yellow_color[3], transp_bg)
-        printWithShadow(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 34, t + self.y - 1 )
+        printWithShadow(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 34, t + self.y - 1,
+            transp_bg)
         if self.source.lives >= 1 then
             love.graphics.setColor(255, 255, 255, transp_bg)
-            printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 91, t + self.y + 9 )
+            printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 91, t + self.y + 9,
+                transp_bg)
             love.graphics.setFont(gfx.font.arcade3x2)
             if self.source.lives > 10 then
-                printWithShadow("9+", l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1 )
+                printWithShadow("9+", l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1,
+                    transp_bg)
             else
-                printWithShadow(self.source.lives - 1, l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1 )
+                printWithShadow(self.source.lives - 1, l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1,
+                    transp_bg)
             end
         end
     end
@@ -225,32 +224,39 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
         love.graphics.setColor(255, 255, 255, transp_bg)
         if player_select_mode == 0 then
             -- wait press to use credit
-            printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )
+            printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9,
+                transp_bg)
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*2 + 17))
-            printWithShadow(self.source.pid .. " PRESS ATTACK (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 9 + 11 )
+            printWithShadow(self.source.pid .. " PRESS ATTACK (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 9 + 11,
+                transp_bg)
         elseif player_select_mode == 1 then
             -- wait 1 sec before player select
-            printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9 )
+            printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9,
+                transp_bg)
         elseif player_select_mode == 2 then
             -- Select Player
-            printWithShadow(self.source.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9 )
+            printWithShadow(self.source.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9,
+                transp_bg)
             local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
             if c then
                 c[4] = transp_bg
                 love.graphics.setColor(unpack( c ))
             end
-            printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1 )
+            printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1,
+                transp_bg)
             --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )
             self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*3 + 17))
-            printWithShadow("SELECT PLAYER (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 19 )
+            printWithShadow("SELECT PLAYER (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 19,
+                transp_bg)
         elseif player_select_mode == 3 then
             -- Spawn selecterd player
             --printWithShadow(self.source.pid .. " GET READY!", l + self.x + 2, t + self.y + 9 )
         elseif player_select_mode == 4 then
             -- Game Over (too late)
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*0.5 + 17))
-            printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9 )
+            printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9,
+                transp_bg)
         end
     else
         -- Default draw
@@ -279,10 +285,10 @@ function InfoBar:draw_loot_bar(l,t,w,h)
     local font = gfx.font.arcade3
     love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)
-    printWithShadow(self.name, l + self.x + icon_width + 4 + 0, t + self.y + 9 - 0)
+    printWithShadow(self.name, l + self.x + icon_width + 4 + 0, t + self.y + 9 - 0, transp_bg)
     bar_yellow_color[4] = transp_bg
     love.graphics.setColor( unpack( bar_yellow_color ) )
-    printWithShadow(self.note, l + self.x + icon_width + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0)
+    printWithShadow(self.note, l + self.x + icon_width + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transp_bg)
 end
 
 function InfoBar:draw(l,t,w,h)
@@ -325,9 +331,6 @@ function InfoBar:update(dt)
         self.old_hp = self.hp
     end
     self.cool_down = self.cool_down - dt
-end
-
-function InfoBar:drawShadow(l,t,w,h)
 end
 
 return InfoBar
