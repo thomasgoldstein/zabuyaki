@@ -77,35 +77,20 @@ function InfoBar:initialize(source)
     self.cool_down = 1
     self.id = self.source.id
     self.source:initFaceIcon(self)
-    if source.type == "loot" then
-        self.max_hp = 20
-        self.hp = 1
-        self.old_hp = 1
-        self.x, self.y = 0, 0
-    elseif source.type == "obstacle" then
+    self.hp = 1
+    self.old_hp = 1
+    self.max_hp = source.max_hp
+    if source.type == "player" then
         self.score = -1
         self.displayed_score = ""
-        self.max_hp = source.max_hp
-        self.hp = 1
-        self.old_hp = 1
+    end
+    if self.id <= MAX_PLAYERS then
+        self.x, self.y = bars_coords[self.id].x, bars_coords[self.id].y
+    else
         self.x, self.y = 0, 0
-    else --Player / enemy / object
-        if source.type == "player" then
-            self.score = -1
-            self.displayed_score = ""
-        end
-        self.max_hp = source.max_hp
-        self.hp = 1
-        self.old_hp = 1
-        if self.id <= MAX_PLAYERS then
-            self.x, self.y = bars_coords[self.id].x, bars_coords[self.id].y
-        else
-            self.x, self.y = 0, 0
-        end
     end
     local _, _, w, _ = self.q:getViewport( )
     self.icon_x_offset = math.floor((38 - w)/2)
-    --print(self.source.name, self.icon_x_offset)
 end
 
 function InfoBar:setAttacker(attacker_source)
@@ -138,9 +123,7 @@ function InfoBar:drawFaceIcon(l, t, transp_bg)
     if self.shader then
         love.graphics.setShader(self.shader)
     end
-    --if self.source.drawFaceIcon then
     self.source:drawFaceIcon(l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
-    --end
     if self.shader then
         love.graphics.setShader()
     end
