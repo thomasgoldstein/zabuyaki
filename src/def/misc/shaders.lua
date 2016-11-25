@@ -272,7 +272,7 @@ local trashcan_colors_default = {
     { 60, 80, 99, 255 }, { 49, 51, 43, 255 }, { 29, 30, 26, 255 }} -- inner blue bag
 local trashcan_colors_2 = {
     { 87, 116, 130, 255 }, { 66, 93, 104, 255 }, { 45, 66, 76, 255 }, { 27, 36, 40, 255 }, -- blue metal
-    { 63, 99, 72, 255 }, { 45, 53, 43, 255 }, { 29, 33, 26, 255 }} -- inner green bag
+    { 63, 91, 72, 255 }, { 45, 53, 43, 255 }, { 29, 33, 26, 255 }} -- inner green bag
 shaders.trashcan[2] = swapColors(trashcan_colors_default, trashcan_colors_2)
 
 -- Misc
