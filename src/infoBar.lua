@@ -16,7 +16,6 @@ local norm_color = {244,210,14}
 local losing_color = {228,102,21}
 local lost_color = {199,32,26}
 local got_color = {34,172,11}
-local bar_yellow_color = {244,210,14}
 local bar_top_bottom_smooth_color = {100,50,50}
 local transp_bg = 255
 local cool_down_transparency = 0
@@ -132,7 +131,7 @@ function InfoBar:draw_name(l, t, transp_bg)
         end
         printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1,
             transp_bg)
-        love.graphics.setColor(bar_yellow_color[1], bar_yellow_color[2], bar_yellow_color[3], transp_bg)
+        love.graphics.setColor(norm_color[1], norm_color[2], norm_color[3], transp_bg)
         printWithShadow(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 34, t + self.y - 1,
             transp_bg)
         if self.source.lives >= 1 then
@@ -272,8 +271,8 @@ function InfoBar:draw_loot_bar(l,t,w,h)
     love.graphics.setFont(font)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.x + icon_width + 4 + 0, t + self.y + 9 - 0, transp_bg)
-    bar_yellow_color[4] = transp_bg
-    love.graphics.setColor( unpack( bar_yellow_color ) )
+    norm_color[4] = transp_bg
+    love.graphics.setColor( unpack( norm_color ) )
     printWithShadow(self.note, l + self.x + icon_width + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transp_bg)
 end
 
