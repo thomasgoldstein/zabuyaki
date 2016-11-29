@@ -95,14 +95,14 @@ function Character:drawFaceIcon(l, t)
     love.graphics.draw (
         self.sprite,
         self.qa[n].q, --Current frame of the current animation
-        l, t
+        l + self.source.shake.x / 2, t
     )
 end
 
 local printWithShadow = printWithShadow
-function Character:drawTextInfo(l, t, transp_bg, bar, icon_width, norm_color)
+function Character:drawTextInfo(l, t, transp_bg, icon_width)
     love.graphics.setColor(255, 255, 255, transp_bg)
-    printWithShadow(self.name, l + bar.x + self.shake.x + icon_width + 2, t + bar.y + 9,
+    printWithShadow(self.name, l + self.shake.x + icon_width + 2, t + 9,
         transp_bg)
 end
 -- End of Lifebar elements
