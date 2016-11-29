@@ -65,6 +65,7 @@ function Loot:draw(l,t,w,h)
     end
 end
 
+-- Start of Lifebar elements
 function Loot:initFaceIcon(target)
     target.sprite = self.sprite
     target.q = self.q  --quad
@@ -78,6 +79,7 @@ function Loot:drawFaceIcon(l, t)
             l, t
         )
 end
+-- End of Lifebar elements
 
 function Loot:onHurt()
 end

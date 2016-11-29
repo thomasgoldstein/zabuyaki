@@ -119,7 +119,7 @@ function InfoBar:draw_dead_cross(l, t, transp_bg)
     end
 end
 
-function InfoBar:draw_name(l, t, transp_bg)
+function InfoBar:draw_name_(l, t, transp_bg)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9,
         transp_bg)
@@ -257,9 +257,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             self.score = self.source.score
             self.displayed_score = string.format("%06d", self.score)
         end
-
-        self:draw_name(l, t, transp_bg)
-
+        self.source:drawTextInfo(l, t, transp_bg, self, icon_width, norm_color)
     end
 end
 

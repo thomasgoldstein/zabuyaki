@@ -79,6 +79,7 @@ function Character:addScore(score)
     self.score = self.score + score
 end
 
+-- Start of Lifebar elements
 function Character:initFaceIcon(target)
     target.sprite = image_bank[self.sprite.def.sprite_sheet]
     target.q = self.sprite.def.animations["icon"][1].q  --quad
@@ -97,6 +98,14 @@ function Character:drawFaceIcon(l, t)
         l, t
     )
 end
+
+local printWithShadow = printWithShadow
+function Character:drawTextInfo(l, t, transp_bg, bar, icon_width, norm_color)
+    love.graphics.setColor(255, 255, 255, transp_bg)
+    printWithShadow(self.name, l + bar.x + self.shake.x + icon_width + 2, t + bar.y + 9,
+        transp_bg)
+end
+-- End of Lifebar elements
 
 function Character:updateAI(dt)
     if self.isDisabled then

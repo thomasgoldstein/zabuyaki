@@ -45,6 +45,38 @@ function Player:drawShadow(l,t,w,h)
     end
 end
 
+-- Start of Lifebar elements
+local printWithShadow = printWithShadow
+function Player:drawTextInfo(l, t, transp_bg, bar, icon_width, norm_color)
+    love.graphics.setColor(255, 255, 255, transp_bg)
+    printWithShadow(self.name, l + bar.x + self.shake.x + icon_width + 2, t + bar.y + 9,
+        transp_bg)
+    local c = GLOBAL_SETTING.PLAYERS_COLORS[self.id]
+    if c then
+        c[4] = transp_bg
+        love.graphics.setColor(unpack( c ))
+    end
+    printWithShadow(self.pid, l + bar.x + self.shake.x + icon_width + 2, t + bar.y - 1,
+        transp_bg)
+    love.graphics.setColor(norm_color[1], norm_color[2], norm_color[3], transp_bg)
+    printWithShadow(bar.displayed_score, l + bar.x + self.shake.x + icon_width + 34, t + bar.y - 1,
+        transp_bg)
+    if self.lives >= 1 then
+        love.graphics.setColor(255, 255, 255, transp_bg)
+        printWithShadow("x", l + bar.x + self.shake.x + icon_width + 91, t + bar.y + 9,
+            transp_bg)
+        love.graphics.setFont(gfx.font.arcade3x2)
+        if self.lives > 10 then
+            printWithShadow("9+", l + bar.x + self.shake.x + icon_width + 100, t + bar.y + 1,
+                transp_bg)
+        else
+            printWithShadow(self.lives - 1, l + bar.x + self.shake.x + icon_width + 100, t + bar.y + 1,
+                transp_bg)
+        end
+    end
+end
+-- End of Lifebar elements
+
 function Player:onHurt()
     -- hurt = {source, damage, velx,vely,x,y,z}
     local h = self.hurt
