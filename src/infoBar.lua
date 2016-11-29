@@ -34,12 +34,7 @@ local function calcBarWidth(self)
     return bar_width
 end
 
-local function calcTransparency(cd)
-    if cd < 0 then
-        return -cd * 4
-    end
-    return cd * 4
-end
+local calcBarTransparency = calcBarTransparency
 
 local function slantedRectangle2(x, y, width, height)
     for i = 0, height-1, 2 do
@@ -119,37 +114,6 @@ function InfoBar:draw_dead_cross(l, t, transp_bg)
     end
 end
 
-function InfoBar:draw_name_(l, t, transp_bg)
-    love.graphics.setColor(255, 255, 255, transp_bg)
-    printWithShadow(self.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9,
-        transp_bg)
-    if self.source.type == "player" or self.source.lives > 1 then
-        local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
-        if c then
-            c[4] = transp_bg
-            love.graphics.setColor(unpack( c ))
-        end
-        printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1,
-            transp_bg)
-        love.graphics.setColor(norm_color[1], norm_color[2], norm_color[3], transp_bg)
-        printWithShadow(self.displayed_score, l + self.x + self.source.shake.x + icon_width + 34, t + self.y - 1,
-            transp_bg)
-        if self.source.lives >= 1 then
-            love.graphics.setColor(255, 255, 255, transp_bg)
-            printWithShadow("x", l + self.x + self.source.shake.x + icon_width + 91, t + self.y + 9,
-                transp_bg)
-            love.graphics.setFont(gfx.font.arcade3x2)
-            if self.source.lives > 10 then
-                printWithShadow("9+", l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1,
-                    transp_bg)
-            else
-                printWithShadow(self.source.lives - 1, l + self.x + self.source.shake.x + icon_width + 100, t + self.y + 1,
-                    transp_bg)
-            end
-        end
-    end
-end
-
 function InfoBar:draw_lifebar(l, t, transp_bg)
     -- Normal lifebar
     lost_color[4] = transp_bg
@@ -197,9 +161,9 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     local font = gfx.font.arcade3
     love.graphics.setFont(font)
     if self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
-        cool_down_transparency = calcTransparency(self.cool_down)
+        cool_down_transparency = calcBarTransparency(self.cool_down)
     else
-        cool_down_transparency = calcTransparency(3)
+        cool_down_transparency = calcBarTransparency(3)
     end
     transp_bg = 255 * cool_down_transparency
     local player_select_mode = self.source.player_select_mode
@@ -261,25 +225,12 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
     end
 end
 
-function InfoBar:draw_loot_bar(l,t,w,h)
-    local cool_down_transparency = calcTransparency(self.cool_down)
-    transp_bg = 255 * cool_down_transparency
-    self:drawFaceIcon(l, t, transp_bg)
-    local font = gfx.font.arcade3
-    love.graphics.setFont(font)
-    love.graphics.setColor(255, 255, 255, transp_bg)
-    printWithShadow(self.name, l + self.x + icon_width + 4 + 0, t + self.y + 9 - 0, transp_bg)
-    norm_color[4] = transp_bg
-    love.graphics.setColor( unpack( norm_color ) )
-    printWithShadow(self.note, l + self.x + icon_width + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transp_bg)
-end
-
 function InfoBar:draw(l,t,w,h)
     if self.cool_down <= 0 and self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
         return
     end
     if self.source.type == "loot" then
-        self:draw_loot_bar(l,t,w,h)
+        self.source.drawBar(self, l,t,w,h, icon_width, norm_color)
     else
         self:draw_enemy_bar(l,t,w,h)
     end
