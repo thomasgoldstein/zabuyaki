@@ -1,6 +1,7 @@
 local class = require "lib/middleclass"
 local InfoBar = class("InfoBar")
 
+local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
 
@@ -18,7 +19,6 @@ local losing_color = {228,102,21}
 local lost_color = {199,32,26}
 local got_color = {34,172,11}
 local bar_top_bottom_smooth_color = {100,50,50}
-local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 
 local bars_coords = {   --for players only 1..MAX_PLAYERS
     { x = h_m + 4, y = v_m + 0 * v_g },
@@ -50,13 +50,9 @@ function InfoBar:initialize(source)
     self.hp = 1
     self.old_hp = 1
     self.max_hp = source.max_hp
-    if source.type == "player" then
-        self.score = -1
-    end
+    self.x, self.y = 0, 0
     if self.id <= MAX_PLAYERS then
         self.x, self.y = bars_coords[self.id].x, bars_coords[self.id].y
-    else
-        self.x, self.y = 0, 0
     end
     local _, _, w, _ = self.q:getViewport( )
     self.icon_x_offset = math.floor((38 - w)/2)
