@@ -149,7 +149,7 @@ function InfoBar:draw_lifebar(l, t, transp_bg)
 end
 
 function InfoBar:draw(l,t,w,h)
-    if self.cool_down <= 0 and self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
+    if self.cool_down <= 0 and self.source.id > MAX_PLAYERS then
         return
     end
     self.source.drawBar(self, l,t,w,h, icon_width, norm_color)
