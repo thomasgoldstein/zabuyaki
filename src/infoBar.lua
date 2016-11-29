@@ -257,7 +257,7 @@ function InfoBar:draw_enemy_bar(l,t,w,h)
             self.score = self.source.score
             self.displayed_score = string.format("%06d", self.score)
         end
-        self.source:drawTextInfo(l, t, transp_bg, self, icon_width, norm_color)
+        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color, self.displayed_score)
     end
 end
 
