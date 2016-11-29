@@ -161,6 +161,10 @@ function InfoBar:draw(l,t,w,h)
     if self.cool_down <= 0 and self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
         return
     end
+    if self.score ~= self.source.score then
+        self.score = self.source.score
+        self.displayed_score = string.format("%06d", self.score)
+    end
     self.source.drawBar(self, l,t,w,h, icon_width, norm_color)
 end
 
