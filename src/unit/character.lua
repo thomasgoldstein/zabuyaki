@@ -99,11 +99,79 @@ function Character:drawFaceIcon(l, t)
     )
 end
 
+local calcBarTransparency = calcBarTransparency
 local printWithShadow = printWithShadow
 function Character:drawTextInfo(l, t, transp_bg, icon_width)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.shake.x + icon_width + 2, t + 9,
         transp_bg)
+end
+
+function Character:drawBar(l,t,w,h, icon_width, norm_color)
+    love.graphics.setFont(gfx.font.arcade3)
+    local transp_bg
+    if self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
+        transp_bg = 255 * calcBarTransparency(self.cool_down)
+    else
+        transp_bg = 255 * calcBarTransparency(3)
+    end
+    local player_select_mode = self.source.player_select_mode
+    if self.source.id <= GLOBAL_SETTING.MAX_PLAYERS
+            and self.source.lives <= 0
+    then
+        love.graphics.setColor(255, 255, 255, transp_bg)
+        if player_select_mode == 0 then
+            -- wait press to use credit
+            printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9,
+                transp_bg)
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*2 + 17))
+            printWithShadow(self.source.pid .. " PRESS ATTACK (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 9 + 11,
+                transp_bg)
+        elseif player_select_mode == 1 then
+            -- wait 1 sec before player select
+            printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9,
+                transp_bg)
+        elseif player_select_mode == 2 then
+            -- Select Player
+            printWithShadow(self.source.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9,
+                transp_bg)
+            local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
+            if c then
+                c[4] = transp_bg
+                love.graphics.setColor(unpack( c ))
+            end
+            printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1,
+                transp_bg)
+            --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cool_down*4)), t + self.y + 9 + 11 )
+            self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*3 + 17))
+            printWithShadow("SELECT PLAYER (".. math.floor(self.source.cool_down) ..")", l + self.x + 2, t + self.y + 19,
+                transp_bg)
+        elseif player_select_mode == 3 then
+            -- Spawn selecterd player
+            --printWithShadow(self.source.pid .. " GET READY!", l + self.x + 2, t + self.y + 9 )
+        elseif player_select_mode == 4 then
+            -- Game Over (too late)
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*0.5 + 17))
+            printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9,
+                transp_bg)
+        end
+    else
+        -- Default draw
+        if player_select_mode == 3 then
+            -- Fade-in and drop down bar while player falls (respawns)
+            transp_bg = 255 - self.source.z
+            t = t - self.source.z / 2
+        end
+        self:draw_lifebar(l, t, transp_bg)
+        self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
+        self:draw_dead_cross(l, t, transp_bg)
+        if self.score ~= self.source.score then
+            self.score = self.source.score
+            self.displayed_score = string.format("%06d", self.score)
+        end
+        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color, self.displayed_score)
+    end
 end
 -- End of Lifebar elements
 
