@@ -48,7 +48,7 @@ end
 -- Start of Lifebar elements
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Player:drawTextInfo(l, t, transp_bg, icon_width, norm_color, displayed_score)
+function Player:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.shake.x + icon_width + 2, t + 9,
         transp_bg)
@@ -60,7 +60,7 @@ function Player:drawTextInfo(l, t, transp_bg, icon_width, norm_color, displayed_
     printWithShadow(self.pid, l + self.shake.x + icon_width + 2, t - 1,
         transp_bg)
     love.graphics.setColor(norm_color[1], norm_color[2], norm_color[3], transp_bg)
-    printWithShadow(displayed_score, l + self.shake.x + icon_width + 34, t - 1,
+    printWithShadow(string.format("%06d", self.score), l + self.shake.x + icon_width + 34, t - 1,
         transp_bg)
     if self.lives >= 1 then
         love.graphics.setColor(255, 255, 255, transp_bg)
@@ -136,7 +136,7 @@ function Player:drawBar(l,t,w,h, icon_width, norm_color)
         self:draw_lifebar(l, t, transp_bg)
         self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
         self:draw_dead_cross(l, t, transp_bg)
-        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color, self.displayed_score)
+        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color)
     end
 end
 -- End of Lifebar elements

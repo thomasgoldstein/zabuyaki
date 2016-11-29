@@ -113,7 +113,7 @@ function Character:drawBar(l,t,w,h, icon_width, norm_color)
     self:draw_lifebar(l, t, transp_bg)
     self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
     self:draw_dead_cross(l, t, transp_bg)
-    self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color, self.displayed_score)
+    self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color)
 end
 -- End of Lifebar elements
 

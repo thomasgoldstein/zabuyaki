@@ -2,6 +2,7 @@ local class = require "lib/middleclass"
 local InfoBar = class("InfoBar")
 
 local printWithShadow = printWithShadow
+local calcBarTransparency = calcBarTransparency
 
 local v_g = 39 --vertical gap between bars
 local v_m = 13 --vert margin from the top
@@ -17,8 +18,6 @@ local losing_color = {228,102,21}
 local lost_color = {199,32,26}
 local got_color = {34,172,11}
 local bar_top_bottom_smooth_color = {100,50,50}
-local transp_bg = 255
-local cool_down_transparency = 0
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 
 local bars_coords = {   --for players only 1..MAX_PLAYERS
@@ -33,8 +32,6 @@ local function calcBarWidth(self)
     end
     return bar_width
 end
-
-local calcBarTransparency = calcBarTransparency
 
 local function slantedRectangle2(x, y, width, height)
     for i = 0, height-1, 2 do
@@ -55,7 +52,6 @@ function InfoBar:initialize(source)
     self.max_hp = source.max_hp
     if source.type == "player" then
         self.score = -1
-        self.displayed_score = ""
     end
     if self.id <= MAX_PLAYERS then
         self.x, self.y = bars_coords[self.id].x, bars_coords[self.id].y
@@ -104,8 +100,7 @@ end
 
 function InfoBar:draw_dead_cross(l, t, transp_bg)
     if self.hp <= 0 then
-        --    if not self.source:isAlive() then
-        love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*20 + 17) * cool_down_transparency)
+        love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*20 + 17) * transp_bg)
         love.graphics.draw (
             gfx.ui.dead_icon.sprite,
             gfx.ui.dead_icon.q,
@@ -160,10 +155,6 @@ end
 function InfoBar:draw(l,t,w,h)
     if self.cool_down <= 0 and self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
         return
-    end
-    if self.score ~= self.source.score then
-        self.score = self.source.score
-        self.displayed_score = string.format("%06d", self.score)
     end
     self.source.drawBar(self, l,t,w,h, icon_width, norm_color)
 end
