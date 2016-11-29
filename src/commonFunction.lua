@@ -36,3 +36,10 @@ function printWithShadow(text, x, y, transp_bg)
     love.graphics.setColor(r, g, b, a)
     love.graphics.print(text, x, y)
 end
+
+function calcBarTransparency(cd)
+    if cd < 0 then
+        return -cd * 4
+    end
+    return cd * 4
+end
