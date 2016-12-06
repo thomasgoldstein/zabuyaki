@@ -12,10 +12,10 @@ end
 
 function Player:isAlive()
     if (self.player_select_mode == 0 and credits > 0 and self.state == "useCredit")
-            or (self.player_select_mode >= 1 and self.player_select_mode < 4)
+            or (self.player_select_mode >= 1 and self.player_select_mode < 5)
     then
         return true
-    elseif self.player_select_mode >= 4 then
+    elseif self.player_select_mode >= 5 then
         -- Did not use continue
         return false
     end
@@ -119,8 +119,9 @@ function Player:drawBar(l,t,w,h, icon_width, norm_color)
                 transp_bg)
         elseif player_select_mode == 3 then
             -- Spawn selecterd player
-            --printWithShadow(self.source.pid .. " GET READY!", l + self.x + 2, t + self.y + 9 )
         elseif player_select_mode == 4 then
+            -- Replace this player with the new character
+        elseif player_select_mode == 5 then
             -- Game Over (too late)
             love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cool_down*0.5 + 17))
             printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9,
@@ -265,7 +266,7 @@ function Player:useCredit_start()
     self.cool_down = 10
     -- Player select
     self.player_select_mode = 0
-    self.player_select_cur = players_list[self.name]
+    self.player_select_cur = players_list[self.name] or 1
     --print("self.player_select_cur",self.player_select_cur)
 end
 function Player:useCredit_update(dt)
@@ -281,7 +282,7 @@ function Player:useCredit_update(dt)
         self.cool_down = self.cool_down - dt
         if credits <= 0 or self.cool_down <= 0 then
             -- n credits -> game over
-            self.player_select_mode = 4
+            self.player_select_mode = 5
             return
         end
         -- wait press to use credit
@@ -312,16 +313,19 @@ function Player:useCredit_update(dt)
                 or self.cool_down <= 0
         then
             self.cool_down = 0
-            self.player_select_mode = 3
+            self.player_select_mode = 4
             sfx.play("sfx","menu_select")
-            local player = HEROES[self.player_select_cur].hero:new(self.name,
+            local player = HEROES[self.player_select_cur].hero:new(self.name.."!R",
                 GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
                 self.b,
                 self.x, self.y,
-                self.shader,
-                {255,255,255, 255})
+                { shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 },
+                    shader = nil }
+            )
+            player.player_select_mode = 3
             player.id = self.id
-            SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player}
+            print(player.x, player.y, player.name, player.player_select_mode)
+            SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player}
             return
         else
             self.cool_down = self.cool_down - dt
@@ -360,10 +364,12 @@ function Player:useCredit_update(dt)
         end
     elseif self.player_select_mode == 3 then
         -- Spawn selecterd player
-        self.lives = GLOBAL_SETTING.MAX_LIVES
+        --self.lives = GLOBAL_SETTING.MAX_LIVES
         self:setState(self.respawn)
         return
     elseif self.player_select_mode == 4 then
+        -- Deleate on Selecting a new Character
+    elseif self.player_select_mode == 5 then
         -- Game Over
     end
 end
