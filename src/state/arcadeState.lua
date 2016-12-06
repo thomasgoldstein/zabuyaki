@@ -7,6 +7,8 @@ local txt_game_over = love.graphics.newText( gfx.font.kimberley, "GAME OVER" )
 local is_alive
 local game_over_delay = 0
 
+SELECT_NEW_PLAYER = {} --{id, player}
+
 function arcadeState:init()
 end
 
@@ -41,6 +43,23 @@ function arcadeState:update(dt)
     stage:update(dt)
     if GLOBAL_SETTING.PROFILER_ENABLED then
         Prof:detach()
+    end
+
+    --Select Player and respawn
+    local p = SELECT_NEW_PLAYER
+    if p[#p] then
+
+        if p.id == 1 then
+            stage.world:remove(player1)
+            player1 = p.player
+        elseif p.id == 2 then
+            stage.world:remove(player2)
+            player2 = p.player
+        elseif p.id == 3 then
+            stage.world:remove(player3)
+            player3 = p.player
+        end
+        p[#p] = nil
     end
 
     if stage.mode == "normal" then

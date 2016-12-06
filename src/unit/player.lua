@@ -314,14 +314,14 @@ function Player:useCredit_update(dt)
             self.cool_down = 0
             self.player_select_mode = 3
             sfx.play("sfx","menu_select")
-            local id = self.id
-            player1 = HEROES[self.player_select_cur].hero:new(self.name,
+            local player = HEROES[self.player_select_cur].hero:new(self.name,
                 GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
                 self.b,
                 self.x, self.y,
                 self.shader,
                 {255,255,255, 255})
-            player1.id = id
+            player.id = self.id
+            SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player}
             return
         else
             self.cool_down = self.cool_down - dt
