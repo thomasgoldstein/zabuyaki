@@ -44,13 +44,13 @@ function Entity:sortByY()
         return a.y < b.y end )
 end
 
---function Entity:remove(e)
---    if not e then
---        return self.entities
---    end
---    self.entities[#self.entities+1] = e
---    return self.entities
---end
+function Entity:remove(e)
+    if not e then
+        return flase
+    end
+    e.y = GLOBAL_SETTING.OFFSCREEN
+    return true
+end
 
 function Entity:update(dt)
     for _,obj in ipairs(self.entities) do
