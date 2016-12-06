@@ -1219,6 +1219,9 @@ function Character:doGrab(target)
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
+    if self.z ~= 0 or self.velz ~= 0 then
+        return false
+    end
     if target.isGrabbed then
         self.cool_down = 0.2
         return false
