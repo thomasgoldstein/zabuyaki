@@ -1230,8 +1230,10 @@ function Character:doGrab(target)
         g.cool_down = self.cool_down_grab + 0.1
         if g.target.x < self.x then
             self.face = -1
+            self.horizontal = -1
         else
             self.face = 1
+            self.horizontal = 1
         end
         sfx.play("voice"..self.id, target.sfx.grab)   --target's clothes ruffling sound
         self:setState(self.grab)
