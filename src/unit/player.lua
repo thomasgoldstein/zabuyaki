@@ -301,7 +301,7 @@ function Player:useCredit_update(dt)
             self.cool_down = self.cool_down - dt
             if self.cool_down <= 0 then
                 self.can_attack = false
-                self.cool_down = 100    --TODO debug. return to 10
+                self.cool_down = 10
                 self.player_select_mode = 2
             end
         end
