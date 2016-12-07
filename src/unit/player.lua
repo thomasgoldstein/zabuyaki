@@ -315,7 +315,7 @@ function Player:useCredit_update(dt)
             self.cool_down = 0
             self.player_select_mode = 4
             sfx.play("sfx","menu_select")
-            local player = HEROES[self.player_select_cur].hero:new(self.name.."!R",
+            local player = HEROES[self.player_select_cur].hero:new(self.name,
                 GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
                 self.b,
                 self.x, self.y,
@@ -323,6 +323,7 @@ function Player:useCredit_update(dt)
                     shader = nil }
             )
             player.player_select_mode = 3
+            player:setState(self.respawn)
             player.id = self.id
             print(player.x, player.y, player.name, player.player_select_mode)
             SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player}
@@ -364,9 +365,6 @@ function Player:useCredit_update(dt)
         end
     elseif self.player_select_mode == 3 then
         -- Spawn selecterd player
-        --self.lives = GLOBAL_SETTING.MAX_LIVES
-        self:setState(self.respawn)
-        return
     elseif self.player_select_mode == 4 then
         -- Deleate on Selecting a new Character
     elseif self.player_select_mode == 5 then
