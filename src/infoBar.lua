@@ -152,7 +152,7 @@ function InfoBar:draw(l,t,w,h)
     if self.cool_down <= 0 and self.source.id > MAX_PLAYERS then
         return
     end
-    self.source.drawBar(self, l,t,w,h, icon_width, norm_color)
+    self.source.drawBar(self, 0,0,w,h, icon_width, norm_color)
 end
 
 local function norm_n(curr, target, n)
