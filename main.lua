@@ -72,6 +72,7 @@ function love.load(arg)
 	sfx = require "src/def/misc/preload_sfx"
 	gfx = require "src/def/misc/preload_gfx"
 	require "src/debug"
+	inspect = require 'lib/inspect'
 	if GLOBAL_SETTING.FPSRATE_ENABLED then
 		framerateGraph = require "lib/framerateGraph"
 		framerateGraph.load()
