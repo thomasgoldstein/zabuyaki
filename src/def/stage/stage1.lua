@@ -108,13 +108,14 @@ function Stage1:initialize(players)
     local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 100, self.worldHeight }}) --right
 --    local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, self.worldWidth, 100 }}) --top
     local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, 1800, 100 }}) --top
-    local wall3a = Wall:new("wall3a", { shapeType = "rectangle", shapeArgs = { 1800, 180, 1800, 100 }}) --top
+    local wall3a = Wall:new("wall3a", { shapeType = "rectangle", shapeArgs = { 2170, 170, 1800, 100 }}) --top
     local ppx, ppy = 1800, 546
     local walld1 = Wall:new("walld1", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 370, ppy - 190, ppx + 370, ppy + 100, ppx + 0, ppy + 100 }}) --polygon
     local wall4 = Wall:new("wall4", { shapeType = "rectangle", shapeArgs = { 0, 546, 1800
         , 100 }}) --bottom
     local wall4a = Wall:new("wall4a", { shapeType = "rectangle", shapeArgs = { 1800 + 370, 356, 1800, 100 }}) --bottom
-
+    local ppx, ppy = 1800, 546 - 91 + 5
+    local walld2 = Wall:new("walld2", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 370, ppy - 190, ppx + 370, ppy - 290, ppx + 0, ppy - 290 }}) --polygon
 --[[    local wall5 = Wall:new("wall5", { shapeType = "circle", shapeArgs = { 27, 560, 40 }}) --test circle
     local wall6 = Wall:new("wall6", { shapeType = "rectangle", shapeArgs = { 90, 526, 60, 10, rotate = -0.3 }}) --rotated rectangle
     self.rotate_wall = wall6.shape --test rotation of walls
@@ -283,7 +284,7 @@ function Stage1:initialize(players)
         dummy4, dummy5,
         loot1, loot2, loot3,
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
-        wall1,wall2,wall3,wall3a,walld1,wall4,wall4a --,wall5,wall6,wall7
+        wall1,wall2,wall3,wall3a,walld1,wall4,wall4a,walld2 --,wall5,wall6,wall7
     })
 
     local a, sx  = {}, 0
