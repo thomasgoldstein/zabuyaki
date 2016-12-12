@@ -27,7 +27,6 @@ function Stage1:initialize(players)
     GLOBAL_UNIT_ID = 1  --recalc players IDs for proper life bar coords
     -- create players
     if players[1] then
-        --    player1 = Rick:new("RICK", GetSpriteInstance("src/def/char/rick.lua"), Control1, 190, 180, shader, {255,255,255, 255})
         player1 = players[1].hero:new(players[1].name,
             GetSpriteInstance(players[1].sprite_instance),
             Control1,
@@ -38,7 +37,6 @@ function Stage1:initialize(players)
     end
     GLOBAL_UNIT_ID = 2  --recalc players IDs for proper life bar coords
     if players[2] then
-        --     player2 = Chai:new("CHAI", GetSpriteInstance("src/def/char/chai.lua"), Control2, 240, 200, shader )
         player2 = players[2].hero:new(players[2].name,
             GetSpriteInstance(players[2].sprite_instance),
             Control2,
@@ -48,7 +46,6 @@ function Stage1:initialize(players)
     end
     GLOBAL_UNIT_ID = 3  --recalc players IDs for proper life bar coords
     if players[3] then
-        --        player3 = Kisa:new("KISA", GetSpriteInstance("src/def/char/rick.lua"), Control3, 220, 200-30, shader, {255,255,255, 255})
         player3 = players[3].hero:new(players[3].name,
             GetSpriteInstance(players[3].sprite_instance),
             Control3,
@@ -63,7 +60,8 @@ function Stage1:initialize(players)
     local bgBuilding2 = love.graphics.newImage("res/img/stage/stage1/building2.png")
     local bgSky = love.graphics.newImage("res/img/stage/stage1/sky.png")
 
-    local qRoad = love.graphics.newQuad(2, 0, 360, 121, bgRoad:getDimensions())
+    local qRoad = love.graphics.newQuad(1, 0, 364 - 2, 120, bgRoad:getDimensions())
+    local qRoadDiagUp = love.graphics.newQuad(0 + 2, 120 + 1, 390 - 4, 299 - 2, bgRoad:getDimensions())
     local qBuilding1 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1:getDimensions())
     local qBuilding2 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2:getDimensions())
     local qSky = love.graphics.newQuad(1, 0, 33, 130, bgSky:getDimensions())
@@ -80,8 +78,11 @@ function Stage1:initialize(players)
     end
 
     for i = 0, 7 do
-        self.background:add(bgRoad, qRoad, i * 360, 432)
+        self.background:add(bgRoad, qRoad, i * 360 - 2 , 432)
     end
+    self.background:add(bgRoad, qRoadDiagUp, 1814 , 432 - 178)
+
+
     self.background:add(bgBuilding1, qBuilding1, -20 + 0 * (10 + (525 - 90)), 67)
     self.background:add(bgBuilding2, qBuilding2, -20 + 1 * (10 + (525 - 90)), 67)
     self.background:add(bgBuilding1, qBuilding1, -20 + 2 * (10 + (525 - 90)), 67)
@@ -268,17 +269,17 @@ function Stage1:initialize(players)
 
     local a, sx  = {}, 0
     -- 7 Trash Cans
-    for i = 0, 6 do
-        a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/object/can.lua"),
-            474 + sx , top_floor_y + 11 + i * 13,
-            {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor, func = func_dropApple,
-                isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
-        if sx == 0 then
-            sx = 6
-        else
-            sx = 0
-        end
-    end
+--    for i = 0, 6 do
+--        a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/object/can.lua"),
+--            474 + sx , top_floor_y + 11 + i * 13,
+--            {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor, func = func_dropApple,
+--                isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+--        if sx == 0 then
+--            sx = 6
+--        else
+--            sx = 0
+--        end
+--    end
     -- 4 Satoffs
     for i = 0, 3 do
         a[#a+1] = Rick:new("Satoff"..i, GetSpriteInstance("src/def/char/satoff.lua"), nil,
