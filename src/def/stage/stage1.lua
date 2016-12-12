@@ -9,7 +9,9 @@ function Stage1:initialize(players)
     stage = self
     self.scrolling = {commonY = 430, chunksX = {} }
     self.scrolling.chunks = {
---        {startX = 0, endX = 320, startY = 430, endY = 430},
+        {startX = 0, endX = 1814, startY = 430, endY = 430},
+        {startX = 1814, endX = 1814 + 360, startY = 430, endY = 430 - 177},
+        {startX = 1814 + 360, endX = 4000, startY = 430 - 177, endY = 430 - 177}
 --        {startX = 320, endX = 640, startY = 430, endY = 430-40},
 --        {startX = 640, endX = 900, startY = 430-40, endY = 430},
 --        {startX = 1400, endX = 1600, startY = 430, endY = 430+20},
@@ -17,6 +19,8 @@ function Stage1:initialize(players)
 --        {startX = 1800, endX = 2000, startY = 430+20, endY = 430}
     }
     self.objects = Entity:new()
+
+--    1814 + 386 + i * 360 - 2 , 432 - 177
 
     player1 = nil
     player2 = nil
@@ -76,24 +80,35 @@ function Stage1:initialize(players)
         self.background:add(bgSky, qSky, i * 32 - 2 , 302,
             0.75, 0) --keep still vertically despite of the scrolling
     end
-
-    for i = 0, 7 do
+    for i = 0, 33 do
+        --(bgSky, qSky, x, y, slow_down_parallaxX, slow_down_parallaxY, auto_scroll_x, scroll_y
+        self.background:add(bgSky, qSky, 240 + i * 32 - 2 , 302 - 178,
+            0.75, 0) --keep still vertically despite of the scrolling
+    end
+    -- Road
+    for i = 0, 5 do
         self.background:add(bgRoad, qRoad, i * 360 - 2 , 432)
     end
+    for i = 0, 4 do
+        self.background:add(bgRoad, qRoad, 1813 + 388 + i * 360 - 2 , 432 - 179)
+    end
     self.background:add(bgRoad, qRoadDiagUp, 1814 , 432 - 178)
-
 
     self.background:add(bgBuilding1, qBuilding1, -20 + 0 * (10 + (525 - 90)), 67)
     self.background:add(bgBuilding2, qBuilding2, -20 + 1 * (10 + (525 - 90)), 67)
     self.background:add(bgBuilding1, qBuilding1, -20 + 2 * (10 + (525 - 90)), 67)
     self.background:add(bgBuilding2, qBuilding2, -20 + 3 * (10 + (525 - 90)), 67)
 
+    self.background:add(bgBuilding1, qBuilding1, 2000, 67 - 179)
+
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
     -- Walls around the level
     local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -80, 0, 100, self.worldHeight }}) --left
     local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 100, self.worldHeight }}) --right
-    local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, self.worldWidth, 100 }}) --top
+--    local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, self.worldWidth, 100 }}) --top
+    local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, 1800, 100 }}) --top
+    local wall3a = Wall:new("wall3a", { shapeType = "rectangle", shapeArgs = { 1800, 180, 1800, 100 }}) --top
     local wall4 = Wall:new("wall4", { shapeType = "rectangle", shapeArgs = { 0, 546, self.worldWidth, 100 }}) --bottom
 
 --[[    local wall5 = Wall:new("wall5", { shapeType = "circle", shapeArgs = { 27, 560, 40 }}) --test circle
@@ -264,7 +279,7 @@ function Stage1:initialize(players)
         dummy4, dummy5,
         loot1, loot2, loot3,
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
-        wall1,wall2,wall3,wall4 --,wall5,wall6,wall7
+        wall1,wall2,wall3,wall3a,wall4 --,wall5,wall6,wall7
     })
 
     local a, sx  = {}, 0
