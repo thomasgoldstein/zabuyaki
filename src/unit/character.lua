@@ -163,6 +163,9 @@ end
 
 function Character:onHurtDamage()
     local h = self.hurt
+    if not h then
+        return
+    end
     h.source.victims[self] = true
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
@@ -195,6 +198,9 @@ end
 
 function Character:afterOnHurt()
     local h = self.hurt
+    if not h then
+        return
+    end
     --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
     --"high", "low", "fall"(replaced by blows)
     if h.type == "high" then
