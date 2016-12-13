@@ -131,21 +131,38 @@ function Character:onHurt()
     if not h then
         return
     end
+    -- got Immunity?
+    if self:isImmune() then
+        self.hurt = nil
+        return
+    end
+    self:onHurtDamage()
+    self:afterOnHurt()
+    self.hurt = nil --free hurt data
+end
+
+function Character:isImmune()   --Immune to the attack?
+    local h = self.hurt
     if h.source.victims[self] then  -- if I had dmg from this src already
         dp("MISS + not Clear HURT due victims list of "..h.source.name)
-        return
+        return true
     end
     if h.type == "shockWave" and
             ( self.type == "player" or self.type == "obstacle" )
     then
         -- shockWave has no effect on players & obstacles
         self.hurt = nil --free hurt data
-        return
+        return true
     end
     --Block "fall" attack if isMovable false
     if not self.isMovable and h.type == "fall" then
         h.type = "high"
     end
+    return false
+end
+
+function Character:onHurtDamage()
+    local h = self.hurt
     h.source.victims[self] = true
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
@@ -157,7 +174,7 @@ function Character:onHurt()
             self.victim_infoBar = h.source.infoBar:setAttacker(self)
         end
     end
--- Score
+    -- Score
     h.source:addScore( h.damage * 10 )
     self.killer_id = h.source
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
@@ -166,18 +183,18 @@ function Character:onHurt()
     end
     self:decreaseHp(h.damage)
     if h.type == "simple" then
-        self.hurt = nil --free hurt data
+        --self.hurt = nil --free hurt data
         return
     end
-
     self:playHitSfx(h.damage)
     self.n_combo = 1	--if u get hit reset combo chain
-
     self.face = -h.source.face	--turn face to the attacker
     --self.horizontal = h.horizontal  --
+    --self.hurt = nil --free hurt data
+end
 
-    self.hurt = nil --free hurt data
-
+function Character:afterOnHurt()
+    local h = self.hurt
     --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
     --"high", "low", "fall"(replaced by blows)
     if h.type == "high" then
@@ -213,6 +230,8 @@ function Character:onHurt()
             h.horizontal = -1
         end
         self.face = -h.horizontal	--turn face to the epicenter
+    elseif h.type == "simple" then
+        return
     else
         error("OnHurt - unknown h.type = "..h.type)
     end
@@ -239,7 +258,6 @@ function Character:onHurt()
     else
         self:setState(self.fall)
     end
-    return
 end
 
 function Character:applyDamage(damage, type, source, velocity, sfx1)
