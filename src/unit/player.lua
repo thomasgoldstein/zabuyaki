@@ -142,8 +142,7 @@ function Player:drawBar(l,t,w,h, icon_width, norm_color)
 end
 -- End of Lifebar elements
 
-function Player:onHurt()
-    -- hurt = {source, damage, velx,vely,x,y,z}
+function Player:isImmune()   --Immune to the attack?
     local h = self.hurt
     if not h then
         return
@@ -159,6 +158,13 @@ function Player:onHurt()
     --Block "fall" attack if isMovable false
     if not self.isMovable and h.type == "fall" then
         h.type = "high"
+    end
+end
+
+function Player:onHurtDamage()
+    local h = self.hurt
+    if not h then
+        return
     end
     h.source.victims[self] = true
     self:release_grabbed()
@@ -187,9 +193,13 @@ function Player:onHurt()
 
     self.face = -h.source.face	--turn face to the attacker
     --self.horizontal = h.horizontal  --
+end
 
-    self.hurt = nil --free hurt data
-
+function Player:afterOnHurt()
+    local h = self.hurt
+    if not h then
+        return
+    end
     --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
     --"high", "low", "fall"(replaced by blows)
     if h.type == "high" then
