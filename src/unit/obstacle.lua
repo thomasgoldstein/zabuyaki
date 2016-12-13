@@ -99,13 +99,19 @@ function Obstacle:onHurt()
     if not h then
         return
     end
+    -- got Immunity?
+    if self:isImmune() then
+        self.hurt = nil
+        return
+    end
     local newFacing = -h.horizontal
     --Move obstacle after hits
     if not self.isGrabbed and self.isMovable and self.velx <= 0 then
         self.velx = h.damage * 10
         self.horizontal = h.horizontal
     end
-    Character.onHurt(self)
+    Character.onHurtDamage(self)
+    Character.afterOnHurt(self)
     --Check for breaking change
     local cur_frame = self:calcDamageFrame()
     if self.old_frame ~= cur_frame then
@@ -139,6 +145,7 @@ function Obstacle:onHurt()
         stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
     end
     self.old_frame = cur_frame
+    self.hurt = nil --free hurt data
 end
 
 function Obstacle:stand_start()
