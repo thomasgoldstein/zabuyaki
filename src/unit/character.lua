@@ -191,8 +191,7 @@ function Character:onHurtDamage()
     end
     self:playHitSfx(h.damage)
     self.n_combo = 1	--if u get hit reset combo chain
-    self.face = -h.source.face	--turn face to the attacker
-    --self.horizontal = h.horizontal  --
+    self.face = -h.source.horizontal	--turn face to the attacker
     --self.hurt = nil --free hurt data
 end
 
@@ -255,6 +254,7 @@ function Character:afterOnHurt()
         end
     elseif self.velx < self.velocity_fall_x then --alive bodies
         self.velx = self.velocity_fall_x
+        --self.face = -h.horizontal	--turn face to the epicenter
     end
     self.horizontal = h.horizontal
     self.isGrabbed = false
@@ -1018,7 +1018,7 @@ function Character:fall_start()
     if self.isThrown then
         self.z = self.thrower_id.throw_start_z or 0
         self:setSprite("thrown")
-        dp("is--- ".. self.sprite.cur_anim)
+        dp("is ".. self.sprite.cur_anim)
     else
         self:setSprite("fall")
     end
