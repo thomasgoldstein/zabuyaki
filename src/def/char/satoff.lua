@@ -72,7 +72,7 @@ return {
             delay = 0.06
         },
         fall = {
-            { q = q(2,4,68,68), ox = 34, oy = 67 }, --stand 1
+            { q = q(72,144,69,68), ox = 37, oy = 67 }, --hh2
             delay = 5
         },
         thrown = {
@@ -89,11 +89,15 @@ return {
             delay = 65
         },
         hurtHigh = {
-            { q = q(2,4,68,68), ox = 34, oy = 67 }, --stand 1
+            { q = q(2,144,68,68), ox = 35, oy = 67, delay = 0.03 }, --hh1
+            { q = q(72,144,69,68), ox = 37, oy = 67 }, --hh2
+            { q = q(2,144,68,68), ox = 35, oy = 67, delay = 0.1 }, --hh1
             delay = 0.3
         },
         hurtLow = {
-            { q = q(2,4,68,68), ox = 34, oy = 67 }, --stand 1
+            { q = q(2,144,68,68), ox = 35, oy = 67, delay = 0.03 }, --hh1
+            { q = q(72,144,69,68), ox = 37, oy = 67 }, --hh2
+            { q = q(2,144,68,68), ox = 35, oy = 67, delay = 0.1 }, --hh1
             delay = 0.3
         },
         jumpAttackForward = {
