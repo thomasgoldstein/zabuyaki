@@ -126,7 +126,7 @@ function Stage1:initialize(players)
     local testDeathFunc = function(s, t) print(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        500, top_floor_y + 20,
+        300, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
     local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         1510, top_floor_y + 20,
