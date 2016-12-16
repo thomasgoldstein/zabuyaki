@@ -586,20 +586,13 @@ function Character:run_update(dt)
             and self.delay_animation_cool_down <= 0 then
         self:setSprite("run")
     end
-    if self.b.horizontal:isDown(-1) then
-        self.face = -1 --face sprite left or right
-        self.horizontal = self.face --X direction
-        self.velx = self.velocity_run
-    elseif self.b.horizontal:isDown(1) then
-        self.face = 1 --face sprite left or right
+    if self.b.horizontal:getValue() ~= 0 then
+        self.face = self.b.horizontal:getValue() --face sprite left or right
         self.horizontal = self.face --X direction
         self.velx = self.velocity_run
     end
-    if self.b.vertical:isDown(-1) then
-        self.vertical = -1
-        self.vely = self.velocity_run_y
-    elseif self.b.vertical:isDown(1) then
-        self.vertical = 1
+    if self.b.vertical:getValue() ~= 0 then
+        self.vertical = self.b.vertical:getValue()
         self.vely = self.velocity_run_y
     end
     if (self.velx == 0 and self.vely == 0)
@@ -634,14 +627,8 @@ function Character:jump_start()
         -- jump higher from run
         self.velz = (self.velocity_jump + self.velocity_jump_z_run_boost) * self.velocity_jump_speed
     end
-    if self.b.vertical:isDown(-1) then
-        self.vertical = -1
-    elseif self.b.vertical:isDown(1) then
-        self.vertical = 1
-    else
-        self.vertical = 0
-    end
-    if self.b.horizontal:isDown(-1) == false and self.b.horizontal:isDown(1) == false then
+    self.vertical = self.b.vertical:getValue()
+    if self.b.horizontal:getValue() == 0 then
         self.velx = 0
     end
     if self.velx ~= 0 then
@@ -655,8 +642,7 @@ end
 function Character:jump_update(dt)
     --	print (self.name.." - jump update",dt)
     if self.b.attack:isDown() and self.can_attack then
-        if (self.b.horizontal:isDown(-1) and self.face == 1)
-                or (self.b.horizontal:isDown(1) and self.face == -1) then
+        if (self.b.horizontal:getValue() == -self.face) then
             self:setState(self.jumpAttackLight)
             return
         elseif self.velx == 0 then
@@ -778,20 +764,13 @@ function Character:duck2jump_update(dt)
     end
     if not self.condition then
         --duck2jump can change direction
-        if self.b.horizontal:isDown(-1) then
-            self.face = -1 --face sprite left or right
-            self.horizontal = self.face --X direction
-            self.velx = self.velocity_walk
-        elseif self.b.horizontal:isDown(1) then
-            self.face = 1 --face sprite left or right
+        if self.b.horizontal:getValue() ~= 0 then
+            self.face = self.b.horizontal:getValue() --face sprite left or right
             self.horizontal = self.face --X direction
             self.velx = self.velocity_walk
         end
-        if self.b.vertical:isDown(-1) then
-            self.vertical = -1
-            self.vely = self.velocity_walk_y
-        elseif self.b.vertical:isDown(1) then
-            self.vertical = 1
+        if self.b.vertical:getValue() ~= 0 then
+            self.vertical = self.b.vertical:getValue()
             self.vely = self.velocity_walk_y
         end
     end
@@ -1283,9 +1262,7 @@ function Character:grab_update(dt)
     --dp(self.name .. " - grab update", dt)
     local g = self.hold
 
-    if (self.face == 1 and self.b.horizontal:isDown(-1)) or
-            (self.face == -1 and self.b.horizontal:isDown(1))
-    then
+    if ( self.b.horizontal:getValue() == -self.face ) then
         self.grab_release = self.grab_release + dt
         if self.grab_release >= self.grab_release_after then
             g.target.isGrabbed = false
@@ -1338,8 +1315,7 @@ function Character:grab_update(dt)
     end
     if self.b.attack:isDown() and self.can_attack then
         if self.sprite.isFinished then
-            if self.b.horizontal:getValue() ~= 0 or self.b.horizontal:isDown(-1) or self.b.vertical:isDown(-1)
-            then
+            if self.b.horizontal:getValue() ~= 0 or self.b.vertical:isDown(-1) then
                 if not self.throw_direction then
                     self.throw_direction = {}
                 end
