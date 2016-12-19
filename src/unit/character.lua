@@ -647,6 +647,8 @@ function Character:jump_update(dt)
         else
             if self.velx >= self.velocity_run then
                 self:setState(self.jumpAttackRun)
+            elseif self.horizontal ~= self.face then
+                self:setState(self.jumpAttackStraight)
             else
                 self:setState(self.jumpAttackForward)
             end
