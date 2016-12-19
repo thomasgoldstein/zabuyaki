@@ -627,9 +627,6 @@ function Character:jump_start()
         -- jump higher from run
         self.velz = (self.velocity_jump + self.velocity_jump_z_run_boost) * self.velocity_jump_speed
     end
-    if self.b.horizontal:getValue() == 0 then
-        self.velx = 0
-    end
     if self.velx ~= 0 then
         self.velx = self.velx + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
     end
