@@ -763,10 +763,11 @@ function Character:duck2jump_update(dt)
         return
     end
     if not self.condition then
-        --duck2jump can change direction
-        if self.b.horizontal:getValue() ~= 0 then
-            self.face = self.b.horizontal:getValue() --face sprite left or right
-            self.horizontal = self.face --X direction
+        --duck2jump can change direction of the jump
+        local hv = self.b.horizontal:getValue()
+        if hv ~= 0 then
+            --self.face = hv --face sprite left or right
+            self.horizontal = hv
             self.velx = self.velocity_walk
         end
         if self.b.vertical:getValue() ~= 0 then
