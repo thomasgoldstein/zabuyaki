@@ -627,7 +627,6 @@ function Character:jump_start()
         -- jump higher from run
         self.velz = (self.velocity_jump + self.velocity_jump_z_run_boost) * self.velocity_jump_speed
     end
-    self.vertical = self.b.vertical:getValue()
     if self.b.horizontal:getValue() == 0 then
         self.velx = 0
     end
