@@ -740,7 +740,11 @@ function Character:duck2jump_update(dt)
     if self:getStateTime() < self.special_tolerance_delay then
         --time for other move
         if self.b.attack:isDown() then
-            self:setState(self.dashSpecial)
+            if self.velx ~= 0 then
+                self:setState(self.dashSpecial)
+            else
+                self:setState(self.special)
+            end
             return
         end
     end
