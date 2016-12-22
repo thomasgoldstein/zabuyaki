@@ -24,14 +24,18 @@ DUMMY_CONTROL.horizontal = {
     isDown = function() return false end,
     pressed = function() return false end,
     released = function() return false end,
-    update = function() return false end
+    update = function() return false end,
+    ikp = {getLast = function() return false end},
+    ikn = {getLast = function() return false end}
 }
 DUMMY_CONTROL.vertical = {
     getValue = function() return 0 end,
     isDown = function() return false end,
     pressed = function() return false end,
     released = function() return false end,
-    update = function() return false end
+    update = function() return false end,
+    ikp = {getLast = function() return false end},
+    ikn = {getLast = function() return false end}
 }
 DUMMY_CONTROL.attack = {
     getValue = function() return 0 end,
