@@ -597,11 +597,15 @@ function Character:run_update(dt)
         self:setState(self.stand)
         return
     end
-    if self.b.attack:isDown() and self.can_attack then
-        self:setState(self.dash)
+    if self.can_jump and self.b.jump:isDown() then
+        if self.b.attack:isDown() then
+            self:setState(self.dashSpecial)
+        else
+            self:setState(self.duck2jump, true) --pass condition to block dir changing
+        end
         return
-    elseif self.can_jump and self.b.jump:isDown() then
-         self:setState(self.duck2jump, true) --pass condition to block dir changing
+    elseif self.b.attack:isDown() and self.can_attack then
+        self:setState(self.dash)
         return
     end
     --self:calcFriction(dt)
@@ -735,11 +739,10 @@ function Character:duck2jump_update(dt)
     --	print (self.name.." - duck2jump update",dt)
     if self:getStateTime() < self.special_tolerance_delay then
         --time for other move
---            if self.b.attack:isDown() then
---                self:setState(self.dashSpecial)
---                return
---            end
-        --end
+        if self.b.attack:isDown() then
+            self:setState(self.dashSpecial)
+            return
+        end
     end
     if self.sprite.isFinished then
         self:setState(self.jump)
