@@ -605,7 +605,11 @@ function Character:run_update(dt)
         end
         return
     elseif self.b.attack:isDown() and self.can_attack then
-        self:setState(self.dash)
+        if self.b.jump:isDown() then
+            self:setState(self.dashSpecial)
+        else
+            self:setState(self.dash)
+        end
         return
     end
     --self:calcFriction(dt)
