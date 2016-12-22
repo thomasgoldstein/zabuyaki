@@ -500,7 +500,11 @@ function Character:walk_update(dt)
         end
         return
     elseif self.b.jump:isDown() and self.can_jump then
-        self:setState(self.duck2jump)
+        if self.b.attack:isDown() then
+            self:setState(self.special)
+        else
+            self:setState(self.duck2jump)
+        end
         return
     end
     self.velx = 0
