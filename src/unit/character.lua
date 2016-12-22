@@ -458,27 +458,18 @@ function Character:stand_update(dt)
         end
     else
         self.cool_down = self.cool_down - dt    --when <=0 u can move
-        --can flip
+        --can flip while you cannot move
         if self.b.horizontal:isDown(-1) then
             self.face = -1
             self.horizontal = self.face
-            --dash from combo
-            if self.b.horizontal.ikn:getLast()
-                    and self.b.attack:isDown() and self.can_attack
-            then
-                self:setState(self.dash)
-                return
-            end
         elseif self.b.horizontal:isDown(1) then
             self.face = 1
             self.horizontal = self.face
-            --dash from combo
-            if self.b.horizontal.ikp:getLast()
-                    and self.b.attack:isDown() and self.can_attack
-            then
-                self:setState(self.dash)
-                return
-            end
+        end
+        --dash from combo
+        if self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast() then
+            self:setState(self.dash)
+            return
         end
     end
     self:calcFriction(dt)
