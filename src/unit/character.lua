@@ -501,7 +501,7 @@ function Character:walk_update(dt)
         return
     elseif self.b.jump:isDown() and self.can_jump then
         if self.b.attack:isDown() then
-            self:setState(self.special)
+            self:setState(self.dashSpecial)
         else
             self:setState(self.duck2jump)
         end
