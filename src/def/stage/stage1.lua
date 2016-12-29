@@ -250,21 +250,21 @@ function Stage1:initialize(players)
     local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         76, top_floor_y + 40,
         {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor, func = testDeathFunc,
-            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         109, top_floor_y + 20,
         {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor,
-            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can3 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         310, top_floor_y + 10,
         {hp = 35, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             func = func_dropChicken,
-            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can4 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         320, top_floor_y + 65,
         {hp = 35, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             func = func_dropBeef,
-            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     local no_entry_sign1 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/object/sign.lua"),
         230, top_floor_y + 8,
