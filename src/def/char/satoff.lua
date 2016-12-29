@@ -145,7 +145,8 @@ return {
             { q = q(2,4,68,68), ox = 34, oy = 67 }, --stand 1
         },
         grabbed = {
-            { q = q(2,4,68,68), ox = 34, oy = 67 }, --stand 1
+            { q = q(72,4,68,68), ox = 35, oy = 67 }, --grabbed1
+            { q = q(142,4,69,68), ox = 37, oy = 67 }, --grabbed2
             delay = 0.1
         },
     }
