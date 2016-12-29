@@ -240,6 +240,10 @@ function Stage1:initialize(players)
     local niko10 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 280, top_floor_y + 40,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
 
+    local satoff1 = Rick:new("Satoff", GetSpriteInstance("src/def/char/satoff.lua"), nil,
+        178 , top_floor_y + 80 ,
+        {hp = 35, score = 300, shader = shaders.satoff[1]} )
+
     -- Obstacles
     local canColor = {118,109,100, 255}
     local canColor2 = {87, 116, 130, 255}
@@ -276,6 +280,7 @@ function Stage1:initialize(players)
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
+        satoff1,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
 --        gopper7, gopper8, gopper9, gopper10,
         niko1, niko2, niko3, niko4, niko5, niko6,
@@ -285,15 +290,6 @@ function Stage1:initialize(players)
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
         wall1,wall2,wall3,wall3a,walld1,wall4,wall4a,walld2 --,wall5,wall6,wall7
     })
-
-    local a, sx  = {}, 0
-    -- 4 Satoffs
-    for i = 0, 3 do
-        a[#a+1] = Rick:new("Satoff"..i, GetSpriteInstance("src/def/char/satoff.lua"), nil,
-            714 + 70 * i, top_floor_y + 10 + i*4,
-            {hp = 35, score = 300, shader = shaders.satoff[i + 1]} )
-    end
-    self.objects:addArray(a)
 
     if player1 then
         self.objects:add(player1)
