@@ -287,18 +287,6 @@ function Stage1:initialize(players)
     })
 
     local a, sx  = {}, 0
-    -- 7 Trash Cans
---    for i = 0, 6 do
---        a[#a+1] = Obstacle:new("TRASH CAN"..i, GetSpriteInstance("src/def/stage/object/can.lua"),
---            474 + sx , top_floor_y + 11 + i * 13,
---            {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor, func = func_dropApple,
---                isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
---        if sx == 0 then
---            sx = 6
---        else
---            sx = 0
---        end
---    end
     -- 4 Satoffs
     for i = 0, 3 do
         a[#a+1] = Rick:new("Satoff"..i, GetSpriteInstance("src/def/char/satoff.lua"), nil,
