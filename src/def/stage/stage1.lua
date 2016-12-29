@@ -246,7 +246,6 @@ function Stage1:initialize(players)
     local can1 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         76, top_floor_y + 40,
         {hp = 35, score = 100, shader = nil, color = nil, colorParticle = canColor, func = testDeathFunc,
-            flipOnBreak = false,
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can2 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         109, top_floor_y + 20,
@@ -256,25 +255,25 @@ function Stage1:initialize(players)
         310, top_floor_y + 10,
         {hp = 35, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             func = func_dropChicken,
-            isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local can4 = Obstacle:new("TRASH CAN", GetSpriteInstance("src/def/stage/object/can.lua"),
         320, top_floor_y + 65,
         {hp = 35, score = 100, shader = shaders.trashcan[2], color = nil, colorParticle = canColor2,
             func = func_dropBeef,
-            isMovable = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     local no_entry_sign1 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/object/sign.lua"),
         230, top_floor_y + 8,
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
             func = func_dropApple,
             shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
-            isMovable = false, flipOnBreak = true, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local no_entry_sign2 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/object/sign.lua"),
         1126, top_floor_y + 8,
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
             func = func_dropBeef,
             shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
-            isMovable = false, flipOnBreak = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+            isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
