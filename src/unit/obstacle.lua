@@ -100,9 +100,7 @@ function Obstacle:isImmune()   --Immune to the attack?
         dp("MISS + not Clear HURT due victims list of "..h.source.name)
         return true
     end
-    if h.type == "shockWave" and
-            ( self.type == "player" or self.type == "obstacle" )
-    then
+    if h.type == "shockWave" then
         -- shockWave has no effect on players & obstacles
         self.hurt = nil --free hurt data
         return true
