@@ -147,16 +147,10 @@ function Character:isImmune()   --Immune to the attack?
         dp("MISS + not Clear HURT due victims list of "..h.source.name)
         return true
     end
-    if h.type == "shockWave" and
-            ( self.type == "player" or self.type == "obstacle" )
-    then
+    if h.type == "shockWave" and ( self.isDisabled or self.sprite.cur_anim == "fallen" ) then
         -- shockWave has no effect on players & obstacles
         self.hurt = nil --free hurt data
         return true
-    end
-    --Block "fall" attack if isMovable false
-    if not self.isMovable and h.type == "fall" then
-        h.type = "high"
     end
     return false
 end
