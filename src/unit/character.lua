@@ -463,11 +463,6 @@ function Character:stand_update(dt)
             self.face = 1
             self.horizontal = self.face
         end
-        --dash from combo
-        if self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast() then
-            self:setState(self.dash)
-            return
-        end
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)

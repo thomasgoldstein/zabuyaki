@@ -61,6 +61,11 @@ function Rick:combo_update(dt)
         end
         return
     end
+    if self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast() then
+        --dash from combo
+        self:setState(self.dash)
+        return
+    end
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
         if self.n_combo > 5 then
