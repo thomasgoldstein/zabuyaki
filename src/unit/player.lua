@@ -187,8 +187,11 @@ function Player:onHurtDamage()
 
     self:playHitSfx(h.damage)
     self.n_combo = 1	--if u get hit reset combo chain
-
-    self.face = -h.source.horizontal	--turn face to the attacker
+    if h.source.velx == 0 then
+        self.face = -h.source.face	--turn face to the still(pulled back) attacker
+    else
+        self.face = -h.source.horizontal	--turn face to the attacker
+    end
 end
 
 function Player:afterOnHurt()
