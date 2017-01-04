@@ -5,6 +5,7 @@ local Movie = class('Movie')
 local function r(x) return math.floor(x) end
 
 local seconds_per_char = 0.05
+local text_line_height = 1.5 -- 1 default
 
 local screen_gap = 12
 local slide_text_gap = 10
@@ -45,6 +46,7 @@ table = {
 function Movie:initialize(frames)
     self.type = "movie"
     self.font = gfx.font.arcade3
+    self.font:setLineHeight(text_line_height)
     self.b = Control1 -- Use P1 controls
     self.frame = 1
     self.add_chars = 1
