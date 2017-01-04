@@ -98,14 +98,14 @@ function Movie:update(dt)
     end
     local f = self.frames[self.frame]
     -- h/vScroll
-    if self.time < self.frames[self.frame].delay then
+    if self.time < self.frames[self.frame].delay + self.delayAfterFrame then
         if f.hScroll then
-            self.hScroll = self.time * f.hScroll / self.frames[self.frame].delay
+            self.hScroll = self.time * f.hScroll / ( self.frames[self.frame].delay + self.delayAfterFrame )
         else
             self.hScroll = 0
         end
         if f.vScroll then
-            self.vScroll = self.time * f.vScroll / self.frames[self.frame].delay
+            self.vScroll = self.time * f.vScroll / ( self.frames[self.frame].delay + self.delayAfterFrame )
         else
             self.vScroll = 0
         end
