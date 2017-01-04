@@ -57,10 +57,12 @@ function Movie:initialize(frames)
     self.delayAfterFrame = frames.delayAfterFrame or 3
     self.bgColor = frames.bgColor or { 0, 0, 0 }
     self.time = 0 --self.frames[self.frame].delay
-    for i = 1, #frames do
+    for i = 1, #frames do -- calc delay and text's x offset
         if not self.frames[i].delay then
             self.frames[i].delay = #self.frames[i].text * seconds_per_char
         end
+        local width, _ = self.font:getWrap( self.frames[i].text, screen_width )
+        self.frames[i].x =  r( (screen_width - width) / 2 )
     end
     if frames.music then
         TEsound.stop("music")
@@ -134,7 +136,7 @@ function Movie:draw(l, t, w, h)
         l + x, t + y - screen_gap)
     -- Text
     love.graphics.setFont(self.font)
-    love.graphics.print(string.sub(f.text, 1, self.add_chars), r(l + x), r(t + y + h + slide_text_gap - screen_gap))
+    love.graphics.print(string.sub(f.text, 1, self.add_chars), l + f.x, r(t + y + h + slide_text_gap - screen_gap))
 
     if self.time >= self.frames[self.frame].delay and not self.autoSkip then
         love.graphics.setColor(255, 255, 255, 200 + 55 * math.sin(self.time * 2))
