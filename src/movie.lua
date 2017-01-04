@@ -4,6 +4,8 @@ local Movie = class('Movie')
 
 local function r(x) return math.floor(x) end
 
+local seconds_per_char = 0.05
+
 local screen_gap = 12
 local slide_text_gap = 10
 
@@ -53,6 +55,11 @@ function Movie:initialize(frames)
     self.delayAfterFrame = frames.delayAfterFrame or 3
     self.bgColor = frames.bgColor or { 0, 0, 0 }
     self.time = 0 --self.frames[self.frame].delay
+    for i = 1, #frames do
+        if not self.frames[i].delay then
+            self.frames[i].delay = #self.frames[i].text * seconds_per_char
+        end
+    end
     if frames.music then
         TEsound.stop("music")
         TEsound.playLooping(frames.music, "music")
@@ -134,4 +141,3 @@ function Movie:draw(l, t, w, h)
 end
 
 return Movie
-
