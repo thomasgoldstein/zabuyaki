@@ -87,7 +87,7 @@ function Stage1:initialize(players)
     end
     -- Road
     for i = 0, 5 do
-        self.background:add(bgRoad, qRoad, i * 360, 432)
+        self.background:add(bgRoad, qRoad, i * 360 - 1, 432)
     end
     for i = 0, 4 do
         self.background:add(bgRoad, qRoad, 1813 + 386 + i * 360, 432 - 179)
