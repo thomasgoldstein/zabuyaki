@@ -239,7 +239,11 @@ function Character:afterOnHurt()
     end
     dpo(self, self.state)
     --finish calcs before the fall state
-    self:showHitMarks(h.damage, 16)
+    if h.type == "low" then
+        self:showHitMarks(h.damage, 16)
+    else
+        self:showHitMarks(h.damage, 40)
+    end
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
     self.velz = self.velocity_fall_z * self.velocity_jump_speed
