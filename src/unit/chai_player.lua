@@ -53,6 +53,11 @@ function Chai:combo_start()
     self.cool_down = 0.2
 end
 function Chai:combo_update(dt)
+    if self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast() then
+        --dash from combo
+        self:setState(self.dash)
+        return
+    end
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
         if self.n_combo > 5 then
