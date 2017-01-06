@@ -72,22 +72,22 @@ return {
             delay = 0.06
         },
         fall = {
-            { q = q(2,214,71,57), ox = 34, oy = 56 }, --falling
+            { q = q(2,219,71,57), ox = 34, oy = 56 }, --falling
             delay = 5
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,214,71,57), ox = 34, oy = 56, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            { q = q(2,219,71,57), ox = 34, oy = 56, rotate = -1.57, rx = 29, ry = -30 }, --falling
             delay = 5
         },
         getup = {
-            { q = q(75,234,79,37), ox = 47, oy = 32, delay = 0.2 }, --lying down
-            --{ q = q(138,193,55,49), ox = 24, oy = 48 }, --getting up
+            { q = q(75,239,79,37), ox = 47, oy = 34, delay = 0.2 }, --lying down
+            { q = q(156,214,69,62), ox = 34, oy = 59 }, --getting up
             --{ q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 0.3
         },
         fallen = {
-            { q = q(75,234,79,37), ox = 47, oy = 32 }, --lying down
+            { q = q(75,239,79,37), ox = 47, oy = 34 }, --lying down
             delay = 65
         },
         hurtHigh = {
