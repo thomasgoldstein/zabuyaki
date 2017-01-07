@@ -133,7 +133,7 @@ function Character:onHurt()
     end
     -- got Immunity?
     if self:isImmune() then
-        --self.hurt = nil
+        self.hurt = nil
         return
     end
     self:onHurtDamage()
