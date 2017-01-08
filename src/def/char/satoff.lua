@@ -24,7 +24,7 @@ return {
 			{ q = q(142,4,67,66), ox = 34, oy = 65 }, --stand 3
 			{ q = q(72,3,68,67), ox = 34, oy = 66 }, --stand 2
             loop = true,
-            delay = 0.167
+            delay = 0.15
         },
         walk = {
             { q = q(2,72,74,68), ox = 34, oy = 67 },
@@ -32,7 +32,7 @@ return {
             { q = q(153,73,71,67), ox = 34, oy = 66 },
             { q = q(226,72,73,68), ox = 34, oy = 67 },
             loop = true,
-            delay = 0.167
+            delay = 0.15
         },
         run = {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
