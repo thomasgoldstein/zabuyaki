@@ -44,11 +44,11 @@ return {
             delay = 0.1
         },
         duck = {
-            { q = q(227,214,69,64), ox = 35, oy = 63 }, --duck
+            { q = q(227,214,70,64), ox = 35, oy = 63 }, --duck
             delay = 0.15
         },
         pickup = {
-            { q = q(227,214,69,64), ox = 35, oy = 63 }, --duck
+            { q = q(227,214,70,64), ox = 35, oy = 63 }, --duck
             delay = 0.28
         },
         dash = {
@@ -83,7 +83,7 @@ return {
         getup = {
             { q = q(75,241,79,37), ox = 47, oy = 34, delay = 0.2 }, --lying down
             { q = q(156,216,69,62), ox = 34, oy = 59 }, --getting up
-            { q = q(227,214,69,64), ox = 35, oy = 63 }, --duck
+            { q = q(227,214,70,64), ox = 35, oy = 63 }, --duck
             delay = 0.3
         },
         fallen = {
