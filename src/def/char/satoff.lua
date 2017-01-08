@@ -20,7 +20,11 @@ return {
         },
         stand = {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 1
+			{ q = q(72,3,68,67), ox = 34, oy = 66 }, --stand 2
+			{ q = q(142,4,67,66), ox = 34, oy = 65 }, --stand 3
+			{ q = q(72,3,68,67), ox = 34, oy = 66 }, --stand 2
+            loop = true,
+            delay = 0.167
         },
         walk = {
             { q = q(2,72,74,68), ox = 34, oy = 67 },
@@ -147,8 +151,8 @@ return {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
         },
         grabbed = {
-            { q = q(72,2,68,68), ox = 35, oy = 67 }, --grabbed1
-            { q = q(142,2,69,68), ox = 37, oy = 67 }, --grabbed2
+            { q = q(2,278,68,68), ox = 35, oy = 67 }, --grabbed1
+            { q = q(72,278,69,68), ox = 37, oy = 67 }, --grabbed2
             delay = 0.1
         },
     }
