@@ -3,7 +3,7 @@
 
 ## The Game ##
 Zabuyaki is a beat 'em up made using the [LÖVE framework](https://love2d.org/).  
-[Read our Zabuyaki gamedev blog here.](https://medium.com/zabuyaki)
+[Read our Zabuyaki gamedev blog here.](https://blog.zabuyaki.com/)
 
 ## The Team ##
 * Coding guy: [Don Miguel](https://github.com/D0NM)
