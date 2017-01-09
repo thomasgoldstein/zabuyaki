@@ -41,7 +41,7 @@ return {
             { q = q(78,4,36,62), ox = 18, oy = 61 }, --stand 3
             { q = q(40,3,36,63), ox = 18, oy = 62 }, --stand 2
             loop = true,
-            delay = 0.167
+            delay = 0.175
         },
         walk = {
             { q = q(116,2,36,64), ox = 18, oy = 63 }, --walk 1
@@ -49,7 +49,7 @@ return {
             { q = q(154,3,38,63), ox = 18, oy = 62 }, --walk 2
             { q = q(2,2,36,64), ox = 18, oy = 63 }, --stand 1
             loop = true,
-            delay = 0.167
+            delay = 0.175
         },
         run = {
             { q = q(116,2,36,64), ox = 18, oy = 63 }, --walk 1
