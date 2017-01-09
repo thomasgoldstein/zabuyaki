@@ -37,6 +37,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.colorParticle = f.colorParticle
     self.weight = f.weight or 1.5
     self.gravity = self.gravity * self.weight
+    self.cool_down_death = 1 --seconds to remove
 
     self.old_frame = 1 --Old sprite frame N to start particles on change
 
