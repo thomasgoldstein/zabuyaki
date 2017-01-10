@@ -269,14 +269,12 @@ function Stage1:initialize(players)
     local no_entry_sign1 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/object/sign.lua"),
         230, top_floor_y + 8,
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
-            func = func_dropApple,
-            shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
+            func = nil, shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
     local no_entry_sign2 = Obstacle:new("SIGN", GetSpriteInstance("src/def/stage/object/sign.lua"),
         1126, top_floor_y + 8,
         {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
-            func = func_dropBeef,
-            shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
+            func = nil, shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
