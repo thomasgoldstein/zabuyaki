@@ -47,6 +47,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.isGrabbed = false
 	self.hold = {source = nil, target = nil, cool_down = 0 }
     self.victims = {} -- [victim] = true
+	self.can_reset_victims = true
     self.isThrown = false
     self.isDisabled = false
     self.shader = f.shader  --change player colors

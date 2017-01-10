@@ -125,6 +125,20 @@ function Character:updateAI(dt)
     Unit.updateAI(self, dt)
 end
 
+function Character:isImmune()   --Immune to the attack?
+    local h = self.hurt
+    if h.source.victims[self] then  -- if I had dmg from this src already
+        dp("MISS + not Clear HURT due victims list of "..h.source.name)
+        return true
+    end
+    if h.type == "shockWave" and ( self.isDisabled or self.sprite.cur_anim == "fallen" ) then
+        -- shockWave has no effect on players & obstacles
+        self.hurt = nil --free hurt data
+        return true
+    end
+    return false
+end
+
 function Character:onHurt()
     -- hurt = {source, damage, velx,vely,x,y,z}
     local h = self.hurt
@@ -139,20 +153,6 @@ function Character:onHurt()
     self:onHurtDamage()
     self:afterOnHurt()
     self.hurt = nil --free hurt data
-end
-
-function Character:isImmune()   --Immune to the attack?
-    local h = self.hurt
-    if h.source.victims[self] then  -- if I had dmg from this src already
-        dp("MISS + not Clear HURT due victims list of "..h.source.name)
-        return true
-    end
-    if h.type == "shockWave" and ( self.isDisabled or self.sprite.cur_anim == "fallen" ) then
-        -- shockWave has no effect on players & obstacles
-        self.hurt = nil --free hurt data
-        return true
-    end
-    return false
 end
 
 function Character:onHurtDamage()
@@ -281,8 +281,9 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
     -- type = "high" "low" "fall" "shockWave" "simple" ""blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     local face = self.face
 
-    if init_victims_list then
+    if init_victims_list and self.can_reset_victims then
         self.victims = {}
+        self.can_reset_victims = false
     end
     local items = {}
     local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
@@ -401,6 +402,7 @@ function Character:stand_start()
     end
     self.can_jump = false
     self.can_attack = false
+    self.can_reset_victims = true
     self.victims = {}
     self.n_grabhit = 0
 end
@@ -1142,6 +1144,7 @@ Character.dead = {name = "dead", start = Character.dead_start, exit = nop, updat
 
 function Character:combo_start()
     self.isHittable = true
+    self.can_reset_victims = true
     --	print (self.name.." - combo start")
     if self.n_combo > 4 or self.n_combo < 1 then
         self.n_combo = 1
@@ -1256,6 +1259,7 @@ function Character:grab_start()
     self.can_jump = false
     self.can_attack = false
     self.grab_release = 0
+    self.can_reset_victims = true
     self.victims = {}
     dp(self.name.." is grabing someone.")
 end

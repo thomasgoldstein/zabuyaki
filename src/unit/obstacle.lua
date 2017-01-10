@@ -95,6 +95,27 @@ function Obstacle:updateAI(dt)
     Unit.updateAI(self, dt)
 end
 
+function Obstacle:isImmune()   --Immune to the attack?
+    local h = self.hurt
+    if h.source.victims[self] then  -- if I had dmg from this src already
+        dp("MISS + not Clear HURT due victims list of "..h.source.name)
+        return true
+    end
+    if h.type == "shockWave" then
+        -- shockWave has no effect on players & obstacles
+        self.hurt = nil --free hurt data
+        return true
+    end
+    --Block "fall" attack if isMovable false
+    if not self.isMovable and h.type == "fall" then
+        h.type = "high"
+        h.source.victims[self] = true
+        --h.source.victims[self] = true
+        --return true
+    end
+    return false
+end
+
 function Obstacle:onHurt()
     local h = self.hurt
     if not h then
@@ -149,29 +170,10 @@ function Obstacle:onHurt()
     self.hurt = nil --free hurt data
 end
 
-function Obstacle:isImmune()   --Immune to the attack?
-    local h = self.hurt
-    if h.source.victims[self] then  -- if I had dmg from this src already
-        dp("MISS + not Clear HURT due victims list of "..h.source.name)
-        return true
-    end
-    if h.type == "shockWave" then
-        -- shockWave has no effect on players & obstacles
-        self.hurt = nil --free hurt data
-        return true
-    end
-    --Block "fall" attack if isMovable false
-    if not self.isMovable and h.type == "fall" then
-        h.type = "high"
-        h.source.victims[self] = true
-        return true
-    end
-    return false
-end
-
 function Obstacle:stand_start()
     --	print (self.name.." - stand start")
     self.isHittable = true
+    self.can_reset_victims = true
     self.victims = {}
     self:setSprite("stand")
 end

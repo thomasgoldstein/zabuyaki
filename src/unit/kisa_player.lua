@@ -37,11 +37,13 @@ end
 
 function Kisa:combo_start()
     self.isHittable = true
+    self.can_reset_victims = true
     --	print (self.name.." - combo start")
     self.cool_down = 0.2
 end
 function Kisa:combo_update(dt)
     self:setState(self.stand)
+    --TODO add DASH -> -> A
     return
 end
 Kisa.combo = {name = "combo", start = Kisa.combo_start, exit = nop, update = Kisa.combo_update, draw = Character.default_draw}
