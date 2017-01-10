@@ -147,10 +147,6 @@ function Player:isImmune()   --Immune to the attack?
     if not h then
         return true
     end
-    if h.source.victims[self] then  -- if I had dmg from this src already
-        dp("MISS + not Clear HURT due victims list of "..h.source.name)
-        return true
-    end
     if h.type == "shockWave" then
         self.hurt = nil --free hurt data
         return false

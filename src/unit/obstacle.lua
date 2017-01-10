@@ -97,10 +97,6 @@ end
 
 function Obstacle:isImmune()   --Immune to the attack?
     local h = self.hurt
-    if h.source.victims[self] then  -- if I had dmg from this src already
-        dp("MISS + not Clear HURT due victims list of "..h.source.name)
-        return true
-    end
     if h.type == "shockWave" then
         -- shockWave has no effect on players & obstacles
         self.hurt = nil --free hurt data
