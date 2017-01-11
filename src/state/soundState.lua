@@ -159,7 +159,7 @@ function soundState:draw()
 end
 
 function soundState:confirm( x, y, button, istouch )
-    if (button == 1 and menu_state == 3) or button == 2 then
+    if (button == 1 and menu_state == #menu) or button == 2 then
         sfx.play("sfx","menu_cancel")
         TEsound.stop("music")
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)

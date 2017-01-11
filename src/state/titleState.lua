@@ -103,9 +103,9 @@ local function player_input(controls)
         time = 0
     end
     if menu_state < 1 then
-        menu_state = #txt_items
+        menu_state = #menu
     end
-    if menu_state > #txt_items then
+    if menu_state > #menu then
         menu_state = 1
     end
 end
@@ -184,7 +184,7 @@ function titleState:confirm( x, y, button, istouch )
             sfx.play("sfx","menu_select")
             time = 0
             return Gamestate.push(optionsState)
-        elseif menu_state == 3 then
+        elseif menu_state == #menu then
             sfx.play("sfx","menu_cancel")
             return love.event.quit()
         end
