@@ -27,6 +27,7 @@ local txt_hints = {"", "", "", "" }
 
 local hero = nil
 local sprite = nil
+local animations = nil
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -70,12 +71,21 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
             y >= y1
 end
 
+
+local sort_abc_func = function( a, b ) return a.bName < b.bName end
+
 function spriteEditorState:enter(_, _hero)
     hero = _hero
     sprite = GetSpriteInstance(hero.sprite_instance)
     sprite.size_scale = 2
-    SetSpriteAnimation(sprite,"stand")
-
+    animations = {}
+    for key, val in pairs(sprite.def.animations) do
+        --print(key, val)
+        animations[#animations + 1] = key
+    end
+    table.sort( animations )
+    menu[menu_state].n = 1
+    SetSpriteAnimation(sprite,animations[menu[menu_state].n])
     mouse_x, mouse_y = 0,0
     --TEsound.stop("music")
     -- Prevent double press at start (e.g. auto confirmation)
@@ -133,7 +143,7 @@ function spriteEditorState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == 1 then
-            m.item = "#"..m.n --.." "..heroes[m.n].name.." ("..#heroes[m.n].shaders.." shaders)"
+            m.item = "#"..m.n.." "..animations[m.n]
             m.hint = "" --..heroes[m.n].sprite_instance
         elseif i == 2 then
             m.item = " #"..m.n.." "
@@ -173,7 +183,7 @@ function spriteEditorState:draw()
 
     --sprite
     local sc = sprite.def.animations[sprite.cur_anim][1]
-    local x_step = sc.ox * 4 + 8 or 100
+    local x_step = (sc.ox or 20) * 4 + 8 or 100
     local x = screen_width /2 - (#hero.shaders - 1) * x_step / 2
     love.graphics.setColor(255, 255, 255, 255)
     for i = 1, #hero.shaders do
@@ -235,22 +245,20 @@ function spriteEditorState:wheelmoved(x, y)
     end
     menu[menu_state].n = menu[menu_state].n + i
     if menu_state == 1 then
---        if menu[menu_state].n < 1 then
---            menu[menu_state].n = #heroes
---        end
---        if menu[menu_state].n > #heroes then
+        if menu[menu_state].n < 1 then
+            menu[menu_state].n = #animations
+        end
+        if menu[menu_state].n > #animations then
             menu[menu_state].n = 1
---        end
-        --sprite = GetSpriteInstance(heroes[menu[menu_state].n].sprite_instance)
-        --sprite.size_scale = 2
-        --SetSpriteAnimation(sprite,"stand")
+        end
+        SetSpriteAnimation(sprite, animations[menu[menu_state].n])
 
     elseif menu_state == 2 then
 --        if menu[menu_state].n < 0 then
 --            menu[menu_state].n = #weapons
 --        end
 --        if menu[menu_state].n > #weapons then
-            menu[menu_state].n = 0
+            menu[menu_state].n = 1
 --        end
     end
     if menu_state ~= 3 then
