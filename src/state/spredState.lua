@@ -17,7 +17,61 @@ local item_height_margin = top_item_offset * 2 - 2
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SPRITE EDITOR" )
 
 local txt_items = {"FRAME POSITIONING", "WEAPON POSITIONING", "EXPORT", "BACK"}
-local txt_hints = {"", "", "", ""}
+local txt_hints = {"", "", "", "" }
+
+local heroes = {
+    {
+        name = "RICK",
+        shaders = { nil, shaders.rick[2], shaders.rick[3] },
+        sprite_instance = "src/def/char/rick.lua",
+    },
+    {
+        name = "CHAI",
+        shaders = { nil, shaders.chai[2], shaders.chai[3] },
+        sprite_instance = "src/def/char/chai.lua",
+    },
+    {
+        name = "KISA",
+        shaders = { nil, shaders.kisa[2], shaders.kisa[3] },
+        sprite_instance = "src/def/char/kisa.lua",
+    },
+    {
+        name = "NIKO",
+        shaders = { nil, shaders.niko[2], shaders.niko[3] },
+        sprite_instance = "src/def/char/niko.lua",
+    },
+    {
+        name = "GOPPER",
+        shaders = { nil, shaders.gopper[2], shaders.gopper[3], shaders.gopper[4], shaders.gopper[5] },
+        sprite_instance = "src/def/char/gopper.lua",
+    },
+    {
+        name = "SATOFF",
+        shaders = { nil, shaders.satoff[2], shaders.satoff[3], shaders.satoff[4] },
+        sprite_instance = "src/def/char/satoff.lua",
+    },
+    {
+        name = "CAN",
+        shaders = {},
+        sprite_instance = "src/def/stage/object/can.lua",
+    },
+    {
+        name = "SIGN",
+        shaders = {},
+        sprite_instance = "src/def/stage/object/sign.lua",
+    }
+}
+
+local weapons = {
+--    {
+--        name = "N/A WEAPON",
+--        shaders = {},
+--        sprite_instance = "",
+--        sprite_portrait = nil
+--    }
+}
+
+local sprite = nil
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -70,6 +124,7 @@ function spredState:enter()
     Control1.start:update()
     Control1.back:update()
     love.graphics.setLineWidth( 2 )
+    self:wheelmoved(0, 0)   --pick 1st sprite to draw
 end
 
 --Only P1 can use menu / options
@@ -103,6 +158,11 @@ function spredState:update(dt)
         sfx.play("sfx","menu_move")
         old_menu_state = menu_state
     end
+
+    if sprite then
+        UpdateSpriteInstance(sprite, dt)
+    end
+
     player_input(Control1)
 end
 
@@ -113,15 +173,18 @@ function spredState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == 1 then
-            m.item = "SFX #"..m.n.." "..sfx[m.n].alias
-            m.hint = "by "..sfx[m.n].copyright
+            m.item = "#"..m.n.." "..heroes[m.n].name.." ("..#heroes[m.n].shaders.." shaders)"
+            m.hint = ""..heroes[m.n].sprite_instance
         elseif i == 2 then
+            if m.n > #weapons then  --TODO plug while dont have any wep
+                m.n = #weapons
+            end
             if m.n == 0 then
-                m.item = "STOP MUSIC"
-                m.hint = ""
+                m.item = "N/A"
+                m.hint = "NO WEAPONS"
             else
-                m.item = "MUSIC #"..m.n.." "..bgm[m.n].fileName
-                m.hint = "by "..bgm[m.n].copyright
+                m.item = "WEAPON #"..m.n.." "..weapons[m.n].name
+                m.hint = "..."
             end
         end
         local w = gfx.font.arcade4:getWidth(m.item)
@@ -155,6 +218,18 @@ function spredState:draw()
     --header
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, title_y_offset)
+
+    --sprite
+    love.graphics.setColor(255, 255, 255, 255)
+--    if cur_players_hero_set.shader then
+--        love.graphics.setShader(cur_players_hero_set.shader)
+--    end
+    if sprite then
+        DrawSpriteInstance(sprite, screen_width / 2, menu_y_offset + menu_item_h / 2)
+    end
+--    if cur_players_hero_set.shader then
+--        love.graphics.setShader()
+--    end
     show_debug_indicator()
     push:apply("end")
 end
@@ -203,16 +278,20 @@ function spredState:wheelmoved(x, y)
     menu[menu_state].n = menu[menu_state].n + i
     if menu_state == 1 then
         if menu[menu_state].n < 1 then
-            menu[menu_state].n = #sfx
+            menu[menu_state].n = #heroes
         end
-        if menu[menu_state].n > #sfx then
+        if menu[menu_state].n > #heroes then
             menu[menu_state].n = 1
         end
+        sprite = GetSpriteInstance(heroes[menu[menu_state].n].sprite_instance)
+        --sprite.size_scale = 2
+        SetSpriteAnimation(sprite,"stand")
+
     elseif menu_state == 2 then
         if menu[menu_state].n < 0 then
-            menu[menu_state].n = #bgm
+            menu[menu_state].n = #weapons
         end
-        if menu[menu_state].n > #bgm then
+        if menu[menu_state].n > #weapons then
             menu[menu_state].n = 0
         end
     end
