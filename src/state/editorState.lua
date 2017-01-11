@@ -1,5 +1,5 @@
 ﻿-- Sprite Editor
-spredState = {}
+editorState = {}
 
 local time = 0
 local screen_width = 640
@@ -14,7 +14,7 @@ local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
-local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SPRITE EDITOR" )
+local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "EDITORS" )
 
 local txt_items = {"FRAME POSITIONING", "WEAPON POSITIONING", "EXPORT", "BACK"}
 local txt_hints = {"", "", "", "" }
@@ -115,7 +115,7 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
             y >= y1
 end
 
-function spredState:enter()
+function editorState:enter()
     mouse_x, mouse_y = 0,0
     --TEsound.stop("music")
     -- Prevent double press at start (e.g. auto confirmation)
@@ -133,12 +133,12 @@ local function player_input(controls)
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return spredState:confirm( mouse_x, mouse_y, 1)
+        return editorState:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1)then
-        spredState:wheelmoved(0, -1)
+        editorState:wheelmoved(0, -1)
     elseif controls.horizontal:pressed(1)then
-        spredState:wheelmoved(0, 1)
+        editorState:wheelmoved(0, 1)
     elseif controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
     elseif controls.vertical:pressed(1) then
@@ -152,7 +152,7 @@ local function player_input(controls)
     end
 end
 
-function spredState:update(dt)
+function editorState:update(dt)
     time = time + dt
     if menu_state ~= old_menu_state then
         sfx.play("sfx","menu_move")
@@ -166,7 +166,7 @@ function spredState:update(dt)
     player_input(Control1)
 end
 
-function spredState:draw()
+function editorState:draw()
     push:apply("start")
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.setFont(gfx.font.arcade4)
@@ -234,7 +234,7 @@ function spredState:draw()
     push:apply("end")
 end
 
-function spredState:confirm( x, y, button, istouch )
+function editorState:confirm( x, y, button, istouch )
     if (button == 1 and menu_state == #menu) or button == 2 then
         sfx.play("sfx","menu_cancel")
         TEsound.stop("music")
@@ -254,21 +254,21 @@ function spredState:confirm( x, y, button, istouch )
     end
 end
 
-function spredState:mousepressed( x, y, button, istouch )
+function editorState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    spredState:confirm( x, y, button, istouch )
+    editorState:confirm( x, y, button, istouch )
 end
 
-function spredState:mousemoved( x, y, dx, dy)
+function editorState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
     mouse_x, mouse_y = x, y
 end
 
-function spredState:wheelmoved(x, y)
+function editorState:wheelmoved(x, y)
     local i = 0
     if y > 0 then
         i = 1

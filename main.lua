@@ -123,7 +123,7 @@ function love.load(arg)
 	require "src/state/playerSelectState"
 	require "src/state/arcadeState"
 	--Developers GameStates
-	require "src/state/spredState"
+	require "src/state/editorState"
 
     --Add Gamestates Here
     Gamestate.registerEvents()
