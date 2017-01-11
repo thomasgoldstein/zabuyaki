@@ -9,11 +9,11 @@ local function q(x,y,w,h)
 end
 
 local image = love.graphics.newImage("res/img/misc/loot.png")
-image_w = 34 --This info can be accessed with a Love2D call
-image_h = 63 --after the image has been loaded
+image_w = 148 --This info can be accessed with a Love2D call
+image_h = 80 --after the image has been loaded
 gfx.loot.apple = {sprite = image, q = q(2,2,18,17), ox = 9, oy = 16 }
-gfx.loot.chicken = {sprite = image, q = q(2,21,30,19), ox = 12, oy = 18 }
-gfx.loot.beef = {sprite = image, q = q(2,42,30,19), ox = 15, oy = 18 }
+gfx.loot.chicken = {sprite = image, q = q(22,2,30,19), ox = 12, oy = 18 }
+gfx.loot.beef = {sprite = image, q = q(54,2,30,19), ox = 15, oy = 18 }
 gfx.loot.image = image --for loot particles
 
 local ui = love.graphics.newImage("res/img/misc/ui.png")
