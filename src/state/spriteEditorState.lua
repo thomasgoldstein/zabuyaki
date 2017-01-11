@@ -172,7 +172,8 @@ function spriteEditorState:draw()
     love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, title_y_offset)
 
     --sprite
-    local x_step = 120
+    local sc = sprite.def.animations[sprite.cur_anim][1]
+    local x_step = sc.ox * 4 + 8 or 100
     local x = screen_width /2 - (#hero.shaders - 1) * x_step / 2
     love.graphics.setColor(255, 255, 255, 255)
     for i = 1, #hero.shaders do
