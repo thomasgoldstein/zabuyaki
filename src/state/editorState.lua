@@ -246,11 +246,7 @@ function editorState:confirm( x, y, button, istouch )
             sfx.play("sfx","menu_select")
             return Gamestate.push(spriteEditorState, heroes[menu[menu_state].n])
         elseif menu_state == 2 then
-            TEsound.volume("music", 1)
-            TEsound.stop("music")
-            if menu[menu_state].n > 0 then
-                TEsound.playLooping(bgm[menu[menu_state].n].filePath, "music")
-            end
+            --
         end
     end
 end
