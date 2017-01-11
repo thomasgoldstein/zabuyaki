@@ -20,11 +20,11 @@ local txt_start = love.graphics.newText( gfx.font.arcade4, "START" )
 local txt_options = love.graphics.newText( gfx.font.arcade4, "OPTIONS" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "QUIT" )
 
-local txt_start_hint = love.graphics.newText( gfx.font.arcade4, "" ) --Press Attack
+local txt_empty_hint = love.graphics.newText( gfx.font.arcade4, "" ) --No hint text
 local txt_site = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 
 local txt_items = {txt_start, txt_options, txt_quit}
-local txt_hints = {txt_start_hint, txt_start_hint, txt_start_hint }
+local txt_hints = {txt_empty_hint, txt_empty_hint, txt_empty_hint }
 
 -- Intro
 local intro = nil
