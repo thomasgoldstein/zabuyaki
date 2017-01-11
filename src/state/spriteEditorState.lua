@@ -1,5 +1,5 @@
-﻿-- Editor State
-editorState = {}
+-- Sprite Editor
+spriteEditorState = {}
 
 local time = 0
 local screen_width = 640
@@ -14,63 +14,18 @@ local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
-local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "EDITORS" )
+local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 
-local txt_items = {"FRAME POSITIONING", "WEAPON POSITIONING", "EXPORT", "BACK"}
+local txt_items = {"ANIMATIONS", "SHADERS", "EXPORT", "BACK"}
 local txt_hints = {"", "", "", "" }
 
 local heroes = {
-    {
-        name = "RICK",
-        shaders = { nil, shaders.rick[2], shaders.rick[3] },
-        sprite_instance = "src/def/char/rick.lua",
-    },
-    {
-        name = "CHAI",
-        shaders = { nil, shaders.chai[2], shaders.chai[3] },
-        sprite_instance = "src/def/char/chai.lua",
-    },
-    {
-        name = "KISA",
-        shaders = { nil, shaders.kisa[2], shaders.kisa[3] },
-        sprite_instance = "src/def/char/kisa.lua",
-    },
-    {
-        name = "NIKO",
-        shaders = { nil, shaders.niko[2], shaders.niko[3] },
-        sprite_instance = "src/def/char/niko.lua",
-    },
-    {
-        name = "GOPPER",
-        shaders = { nil, shaders.gopper[2], shaders.gopper[3], shaders.gopper[4], shaders.gopper[5] },
-        sprite_instance = "src/def/char/gopper.lua",
-    },
-    {
-        name = "SATOFF",
-        shaders = { nil, shaders.satoff[2], shaders.satoff[3], shaders.satoff[4] },
-        sprite_instance = "src/def/char/satoff.lua",
-    },
-    {
-        name = "CAN",
-        shaders = {},
-        sprite_instance = "src/def/stage/object/can.lua",
-    },
-    {
-        name = "SIGN",
-        shaders = {},
-        sprite_instance = "src/def/stage/object/sign.lua",
-    }
 }
 
 local weapons = {
---    {
---        name = "N/A WEAPON",
---        shaders = {},
---        sprite_instance = "",
---        sprite_portrait = nil
---    }
 }
 
+local hero = nil
 local sprite = nil
 
 local function fillMenu(txt_items, txt_hints)
@@ -115,7 +70,12 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
             y >= y1
 end
 
-function editorState:enter()
+function spriteEditorState:enter(_, hero)
+    hero = hero
+    sprite = GetSpriteInstance(hero.sprite_instance)
+    sprite.size_scale = 2
+    SetSpriteAnimation(sprite,"stand")
+
     mouse_x, mouse_y = 0,0
     --TEsound.stop("music")
     -- Prevent double press at start (e.g. auto confirmation)
@@ -133,12 +93,12 @@ local function player_input(controls)
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return editorState:confirm( mouse_x, mouse_y, 1)
+        return spriteEditorState:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1)then
-        editorState:wheelmoved(0, -1)
+        spriteEditorState:wheelmoved(0, -1)
     elseif controls.horizontal:pressed(1)then
-        editorState:wheelmoved(0, 1)
+        spriteEditorState:wheelmoved(0, 1)
     elseif controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
     elseif controls.vertical:pressed(1) then
@@ -152,7 +112,7 @@ local function player_input(controls)
     end
 end
 
-function editorState:update(dt)
+function spriteEditorState:update(dt)
     time = time + dt
     if menu_state ~= old_menu_state then
         sfx.play("sfx","menu_move")
@@ -166,15 +126,15 @@ function editorState:update(dt)
     player_input(Control1)
 end
 
-function editorState:draw()
+function spriteEditorState:draw()
     push:apply("start")
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
         if i == 1 then
-            m.item = "#"..m.n.." "..heroes[m.n].name.." ("..#heroes[m.n].shaders.." shaders)"
-            m.hint = ""..heroes[m.n].sprite_instance
+            m.item = "#"..m.n --.." "..heroes[m.n].name.." ("..#heroes[m.n].shaders.." shaders)"
+            m.hint = "" --..heroes[m.n].sprite_instance
         elseif i == 2 then
             if m.n > #weapons then  --TODO plug while dont have any wep
                 m.n = #weapons
@@ -221,20 +181,20 @@ function editorState:draw()
 
     --sprite
     love.graphics.setColor(255, 255, 255, 255)
---    if cur_players_hero_set.shader then
---        love.graphics.setShader(cur_players_hero_set.shader)
---    end
+    --    if cur_players_hero_set.shader then
+    --        love.graphics.setShader(cur_players_hero_set.shader)
+    --    end
     if sprite then
         DrawSpriteInstance(sprite, screen_width / 2, menu_y_offset + menu_item_h / 2)
     end
---    if cur_players_hero_set.shader then
---        love.graphics.setShader()
---    end
+    --    if cur_players_hero_set.shader then
+    --        love.graphics.setShader()
+    --    end
     show_debug_indicator()
     push:apply("end")
 end
 
-function editorState:confirm( x, y, button, istouch )
+function spriteEditorState:confirm( x, y, button, istouch )
     if (button == 1 and menu_state == #menu) or button == 2 then
         sfx.play("sfx","menu_cancel")
         TEsound.stop("music")
@@ -243,8 +203,7 @@ function editorState:confirm( x, y, button, istouch )
     end
     if button == 1 then
         if menu_state == 1 then
-            sfx.play("sfx","menu_select")
-            return Gamestate.push(spriteEditorState, heroes[menu[menu_state].n])
+            sfx.play("sfx", menu[menu_state].n)
         elseif menu_state == 2 then
             TEsound.volume("music", 1)
             TEsound.stop("music")
@@ -255,21 +214,21 @@ function editorState:confirm( x, y, button, istouch )
     end
 end
 
-function editorState:mousepressed( x, y, button, istouch )
+function spriteEditorState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    editorState:confirm( x, y, button, istouch )
+    spriteEditorState:confirm( x, y, button, istouch )
 end
 
-function editorState:mousemoved( x, y, dx, dy)
+function spriteEditorState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
     mouse_x, mouse_y = x, y
 end
 
-function editorState:wheelmoved(x, y)
+function spriteEditorState:wheelmoved(x, y)
     local i = 0
     if y > 0 then
         i = 1
@@ -284,9 +243,9 @@ function editorState:wheelmoved(x, y)
         if menu[menu_state].n > #heroes then
             menu[menu_state].n = 1
         end
-        sprite = GetSpriteInstance(heroes[menu[menu_state].n].sprite_instance)
+        --sprite = GetSpriteInstance(heroes[menu[menu_state].n].sprite_instance)
         --sprite.size_scale = 2
-        SetSpriteAnimation(sprite,"stand")
+        --SetSpriteAnimation(sprite,"stand")
 
     elseif menu_state == 2 then
         if menu[menu_state].n < 0 then
