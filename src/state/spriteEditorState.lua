@@ -203,13 +203,9 @@ function spriteEditorState:confirm( x, y, button, istouch )
     end
     if button == 1 then
         if menu_state == 1 then
-            sfx.play("sfx", menu[menu_state].n)
+            sfx.play("sfx","menu_select")
         elseif menu_state == 2 then
-            TEsound.volume("music", 1)
-            TEsound.stop("music")
-            if menu[menu_state].n > 0 then
-                TEsound.playLooping(bgm[menu[menu_state].n].filePath, "music")
-            end
+            sfx.play("sfx","menu_select")
         end
     end
 end
