@@ -19,11 +19,11 @@ local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 local txt_items = {"ANIMATIONS", "SHADERS", "EXPORT", "BACK"}
 local txt_hints = {"", "", "", "" }
 
-local heroes = {
-}
+--local heroes = {
+--}
 
-local weapons = {
-}
+--local weapons = {
+--}
 
 local hero = nil
 local sprite = nil
@@ -70,8 +70,8 @@ local function CheckPointCollision(x,y, x1,y1,w1,h1)
             y >= y1
 end
 
-function spriteEditorState:enter(_, hero)
-    hero = hero
+function spriteEditorState:enter(_, _hero)
+    hero = _hero
     sprite = GetSpriteInstance(hero.sprite_instance)
     sprite.size_scale = 2
     SetSpriteAnimation(sprite,"stand")
@@ -136,16 +136,8 @@ function spriteEditorState:draw()
             m.item = "#"..m.n --.." "..heroes[m.n].name.." ("..#heroes[m.n].shaders.." shaders)"
             m.hint = "" --..heroes[m.n].sprite_instance
         elseif i == 2 then
-            if m.n > #weapons then  --TODO plug while dont have any wep
-                m.n = #weapons
-            end
-            if m.n == 0 then
-                m.item = "N/A"
-                m.hint = "NO WEAPONS"
-            else
-                m.item = "WEAPON #"..m.n.." "..weapons[m.n].name
-                m.hint = "..."
-            end
+            m.item = " #"..m.n.." "
+            m.hint = "..."
         end
         local w = gfx.font.arcade4:getWidth(m.item)
         local wb = w + item_width_margin
@@ -180,16 +172,25 @@ function spriteEditorState:draw()
     love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, title_y_offset)
 
     --sprite
+    local x_step = 120
+    local x = screen_width /2 - (#hero.shaders - 1) * x_step / 2
     love.graphics.setColor(255, 255, 255, 255)
-    --    if cur_players_hero_set.shader then
-    --        love.graphics.setShader(cur_players_hero_set.shader)
-    --    end
-    if sprite then
-        DrawSpriteInstance(sprite, screen_width / 2, menu_y_offset + menu_item_h / 2)
+    for i = 1, #hero.shaders do
+        if hero.shaders[i] then
+            love.graphics.setShader(hero.shaders[i])
+        end
+        if sprite then
+            DrawSpriteInstance(sprite, x + (i - 1) * x_step , menu_y_offset + menu_item_h / 2)
+        end
+        if hero.shaders[i] then
+            love.graphics.setShader()
+        end
     end
-    --    if cur_players_hero_set.shader then
-    --        love.graphics.setShader()
-    --    end
+    if #hero.shaders < 1 then
+        if sprite then --for Obstacles w/o shaders
+            DrawSpriteInstance(sprite, screen_width /2, menu_y_offset + menu_item_h / 2)
+        end
+    end
     show_debug_indicator()
     push:apply("end")
 end
@@ -233,23 +234,23 @@ function spriteEditorState:wheelmoved(x, y)
     end
     menu[menu_state].n = menu[menu_state].n + i
     if menu_state == 1 then
-        if menu[menu_state].n < 1 then
-            menu[menu_state].n = #heroes
-        end
-        if menu[menu_state].n > #heroes then
+--        if menu[menu_state].n < 1 then
+--            menu[menu_state].n = #heroes
+--        end
+--        if menu[menu_state].n > #heroes then
             menu[menu_state].n = 1
-        end
+--        end
         --sprite = GetSpriteInstance(heroes[menu[menu_state].n].sprite_instance)
         --sprite.size_scale = 2
         --SetSpriteAnimation(sprite,"stand")
 
     elseif menu_state == 2 then
-        if menu[menu_state].n < 0 then
-            menu[menu_state].n = #weapons
-        end
-        if menu[menu_state].n > #weapons then
+--        if menu[menu_state].n < 0 then
+--            menu[menu_state].n = #weapons
+--        end
+--        if menu[menu_state].n > #weapons then
             menu[menu_state].n = 0
-        end
+--        end
     end
     if menu_state ~= 3 then
         sfx.play("sfx","menu_move")
