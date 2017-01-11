@@ -52,12 +52,12 @@ local heroes = {
     },
     {
         name = "CAN",
-        shaders = {},
+        shaders = { nil },
         sprite_instance = "src/def/stage/object/can.lua",
     },
     {
         name = "SIGN",
-        shaders = {},
+        shaders = { nil },
         sprite_instance = "src/def/stage/object/sign.lua",
     }
 }
