@@ -26,24 +26,24 @@ local heroes = {
         sprite_instance = "src/def/char/rick.lua",
     },
     {
-        name = "CHAI",
-        shaders = { nil, shaders.chai[2], shaders.chai[3] },
-        sprite_instance = "src/def/char/chai.lua",
-    },
-    {
         name = "KISA",
         shaders = { nil, shaders.kisa[2], shaders.kisa[3] },
         sprite_instance = "src/def/char/kisa.lua",
     },
     {
-        name = "NIKO",
-        shaders = { nil, shaders.niko[2], shaders.niko[3] },
-        sprite_instance = "src/def/char/niko.lua",
+        name = "CHAI",
+        shaders = { nil, shaders.chai[2], shaders.chai[3] },
+        sprite_instance = "src/def/char/chai.lua",
     },
     {
         name = "GOPPER",
         shaders = { nil, shaders.gopper[2], shaders.gopper[3], shaders.gopper[4], shaders.gopper[5] },
         sprite_instance = "src/def/char/gopper.lua",
+    },
+    {
+        name = "NIKO",
+        shaders = { nil, shaders.niko[2], shaders.niko[3] },
+        sprite_instance = "src/def/char/niko.lua",
     },
     {
         name = "SATOFF",
