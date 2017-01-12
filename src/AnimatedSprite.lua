@@ -209,6 +209,7 @@ function ParseSpriteAnimation(spr, cur_anim)
 	local sc
 	local scale_h, scale_v, flip_h, flip_v
 	local ox, oy, delay
+	local x, y, w, h
 	local rotate, rx, ry
 
 	for i = 1, #animations do
@@ -217,8 +218,9 @@ function ParseSpriteAnimation(spr, cur_anim)
 		scale_h, scale_v, flip_h, flip_v = sc.scale_h or 1, sc.scale_v or 1, sc.flip_h or 1, sc.flip_v or 1
 		rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0
 		ox, oy = sc.ox or 0, sc.oy or 0
+		x, y, w, h = sc.q:getViewport( )
 
-		o = o .. "    { q = q(?,?,?,?), ox = "..ox..", oy = "..oy
+		o = o .. "    { q = q("..x..","..y..","..w..","..h.."), ox = "..ox..", oy = "..oy
 		if delay ~= animations.delay then
 			o = o .. ", delay = "..delay
 		end
