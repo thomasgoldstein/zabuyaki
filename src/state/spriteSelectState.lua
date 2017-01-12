@@ -106,7 +106,7 @@ end
 local menu = fillMenu(txt_items, txt_hints)
 
 local menu_state, old_menu_state = 1, 1
-local mouse_x, mouse_y = 0,0
+local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
 
 local function CheckPointCollision(x,y, x1,y1,w1,h1)
     return x < x1+w1 and
@@ -212,10 +212,11 @@ function spriteSelectState:draw()
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, (screen_width - w) / 2, m.y )
-        if GLOBAL_SETTING.MOUSE_ENABLED and
+        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
                 CheckPointCollision(mouse_x, mouse_y, (screen_width - wb) / 2, m.y - top_item_offset,
-                    wb, h + item_height_margin )
+                wb, h + item_height_margin )
         then
+            old_mouse_y = mouse_y
             menu_state = i
         end
     end

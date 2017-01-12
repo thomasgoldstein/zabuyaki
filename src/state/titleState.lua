@@ -55,7 +55,7 @@ end
 local menu = fillMenu(txt_items, txt_hints)
 
 local menu_state, old_menu_state = 1, 1
-local mouse_x, mouse_y = 0,0
+local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
 
 local function CheckPointCollision(x,y, x1,y1,w1,h1)
     return x < x1+w1 and
@@ -149,6 +149,9 @@ function titleState:draw()
     push:apply("start")
     for i = 1,#menu do
         local m = menu[i]
+        local w = m.item:getWidth()
+        local wb = w + item_width_margin
+        local h = m.item:getHeight()
         if i == old_menu_state then
             love.graphics.setColor(0, 0, 0, 80)
             love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
@@ -159,8 +162,11 @@ function titleState:draw()
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(m.item, m.x, m.y )
-        if GLOBAL_SETTING.MOUSE_ENABLED and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin ) then
+        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
+                CheckPointCollision(mouse_x, mouse_y, (screen_width - wb) / 2, m.y - top_item_offset,
+                    wb, h + item_height_margin )
+        then
+            old_mouse_y = mouse_y
             menu_state = i
         end
     end
