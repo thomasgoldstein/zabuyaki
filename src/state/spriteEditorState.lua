@@ -99,6 +99,34 @@ end
 
 --Only P1 can use menu / options
 local function player_input(controls)
+    if love.keyboard.isDown('lshift') then
+        --change ox, oy offset of the sprite frame
+        local s = sprite.def.animations[sprite.cur_anim]
+        local m = menu[menu_state]
+        if menu_state == 2 then
+            if controls.horizontal:pressed() then
+                s[m.n].ox = s[m.n].ox + controls.horizontal:getValue()
+            end
+            if controls.vertical:pressed() then
+                s[m.n].oy = s[m.n].oy + controls.vertical:getValue()
+            end
+        end
+        return
+    end
+    if love.keyboard.isDown('lalt') then
+        --change rotation of the sprite frame
+        local s = sprite.def.animations[sprite.cur_anim]
+        local m = menu[menu_state]
+        if menu_state == 2 then
+            if not s[m.n].rotate then
+                s[m.n].rotate = 0
+            end
+            if controls.horizontal:pressed() then
+                s[m.n].rotate = s[m.n].rotate + controls.horizontal:getValue() / 10
+            end
+        end
+        return
+    end
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
