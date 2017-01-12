@@ -159,9 +159,25 @@ function spriteEditorState:draw()
             elseif s.delay then
                 m.hint = m.hint .. "DELAY "..s.delay.." "
             end
-            if s[m.n].ox and s[m.n].oy then
-                m.hint = m.hint .. "\nOXY:"..s[m.n].ox..","..s[m.n].oy.." "
+            if s.loop then
+                m.hint = m.hint .. "LOOP "
             end
+            if s[m.n].ox and s[m.n].oy then
+                m.hint = m.hint .. "\nOX,Y:"..s[m.n].ox..","..s[m.n].oy.." "
+            end
+            if s[m.n].flip_h then
+                m.hint = m.hint .. "flip_h "
+            end
+            if s[m.n].flip_v then
+                m.hint = m.hint .. "flip_v "
+            end
+            if s[m.n].rotate then
+                m.hint = m.hint .. "R:"..s[m.n].rotate.." "
+            end
+            if s[m.n].func then
+                m.hint = m.hint .. "FUNC "
+            end
+
         elseif i == 3 then
             if #hero.shaders < 1 then
                 m.item = "NO SHADERS"
@@ -220,14 +236,12 @@ function spriteEditorState:draw()
     end
     if sprite then --for Obstacles w/o shaders
         if menu_state == 2 then
+            --1 frame
             love.graphics.setColor(255, 0, 0, 150)
             love.graphics.rectangle("fill", 0, y, screen_width, 2)
             love.graphics.setColor(0, 0, 255, 150)
             love.graphics.rectangle("fill", x, 0, 2, menu_y_offset + menu_item_h)
-            --1 frame
             if menu[menu_state].n > #sprite.def.animations[sprite.cur_anim] then
---                menu[menu_state].n = #sprite.def.animations[sprite.cur_anim]
---            else
                 menu[menu_state].n = 1
             end
             love.graphics.setColor(255, 255, 255, 150)
@@ -236,9 +250,6 @@ function spriteEditorState:draw()
             end
             love.graphics.setColor(255, 255, 255, 255)
             DrawSpriteInstance(sprite, x, y, menu[menu_state].n)
---            for i = menu[menu_state].n , 1, -1 do
---                DrawSpriteInstance(sprite, x - (i - 1) * x_step, y, i )
---            end
         else
             --animation
             DrawSpriteInstance(sprite, x, y)
