@@ -213,9 +213,9 @@ return {
 			{ q = q(2,1061,65,66), ox = 22, oy = 65, func = jump_run_attack }, --jar2.2
 			{ q = q(69,1061,66,66), ox = 22, oy = 65 }, --jar2.3
 			{ q = q(137,1061,63,66), ox = 20, oy = 65, func = jump_run_attack_last }, --jar3.1
-			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jump_run_attack_last }, --jar3.2
-			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jump_run_attack_last }, --jar3.3
-			{ q = q(124,1129,42,67), ox = 23, oy = 66, delay = 5 }, --jar4
+			{ q = q(2,1129,61,67), ox = 20, oy = 65, func = jump_run_attack_last }, --jar3.2
+			{ q = q(65,1129,57,67), ox = 20, oy = 65, func = jump_run_attack_last }, --jar3.3
+			{ q = q(124,1129,42,67), ox = 23, oy = 65, delay = 5 }, --jar4
 			delay = 0.02
 		},
 		sideStepUp = {
