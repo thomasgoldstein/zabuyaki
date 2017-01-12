@@ -173,7 +173,11 @@ function editorState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == 1 then
-            m.item = "#"..m.n.." "..heroes[m.n].name.." ("..#heroes[m.n].shaders.." shaders)"
+            if #heroes[m.n].shaders > 0 then
+                m.item = heroes[m.n].name.." - "..#heroes[m.n].shaders.." shaders"
+            else
+                m.item = heroes[m.n].name.." - no shaders"
+            end
             m.hint = ""..heroes[m.n].sprite_instance
         elseif i == 2 then
             if m.n > #weapons then  --TODO plug while dont have any wep
