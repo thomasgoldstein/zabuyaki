@@ -200,12 +200,19 @@ function spriteEditorState:draw()
     local x_step = 140 --(sc.ox or 20) * 4 + 8 or 100
     local x = screen_width /2
     local y = menu_y_offset + menu_item_h / 2
+    if sprite.cur_anim == "icon" then --normalize icon's pos
+        y = y - 40
+        x = x - 20
+    end
     love.graphics.setColor(255, 255, 255, 255)
     if hero.shaders[menu[3].n] then
         love.graphics.setShader(hero.shaders[menu[3].n])
     end
     if sprite then --for Obstacles w/o shaders
         if menu_state == 2 then
+            love.graphics.setColor(255, 0, 0, 100)
+            love.graphics.rectangle("line", 0, y + 1, screen_width, 1)
+            love.graphics.rectangle("line", x - 1, 0, 1, menu_y_offset)
             --1 frame
             if menu[menu_state].n > #sprite.def.animations[sprite.cur_anim] then
 --                menu[menu_state].n = #sprite.def.animations[sprite.cur_anim]
