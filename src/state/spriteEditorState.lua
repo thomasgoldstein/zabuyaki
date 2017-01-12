@@ -151,7 +151,17 @@ function spriteEditorState:draw()
             end
             m2.item = "FRAME #"..m2.n.." of "..#sprite.def.animations[sprite.cur_anim]
         elseif i == 2 then
+            local s = sprite.def.animations[sprite.cur_anim]
             m.item = "FRAME #"..m.n.." of "..#sprite.def.animations[sprite.cur_anim]
+            m.hint = ""
+            if s[m.n].delay then
+                m.hint = m.hint .. "FR.DELAY "..s[m.n].delay.." "
+            elseif s.delay then
+                m.hint = m.hint .. "DELAY "..s.delay.." "
+            end
+            if s[m.n].ox and s[m.n].oy then
+                m.hint = m.hint .. "\nOXY:"..s[m.n].ox..","..s[m.n].oy.." "
+            end
         elseif i == 3 then
             if #hero.shaders < 1 then
                 m.item = "NO SHADERS"
