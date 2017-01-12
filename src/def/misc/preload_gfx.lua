@@ -1,24 +1,20 @@
--- Date: 28.09.2016
 -- Preload common gfx and fonts
 local gfx = {loot = {}, ui = {}, font = {}}
 
-local image_w
-local image_h
+local image_w, image_h
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
 local image = love.graphics.newImage("res/img/misc/loot.png")
-image_w = 148 --This info can be accessed with a Love2D call
-image_h = 80 --after the image has been loaded
+image_w, image_h = image:getDimensions( )
 gfx.loot.apple = {sprite = image, q = q(2,2,18,17), ox = 9, oy = 16 }
 gfx.loot.chicken = {sprite = image, q = q(22,2,30,19), ox = 12, oy = 18 }
 gfx.loot.beef = {sprite = image, q = q(54,2,30,19), ox = 15, oy = 18 }
 gfx.loot.image = image --for loot particles
 
 local ui = love.graphics.newImage("res/img/misc/ui.png")
-image_w = 35
-image_h = 43
+image_w, image_h = ui:getDimensions( )
 gfx.ui.dead_icon = {sprite = ui, q = q(2,20,31,21), ox = 15, oy = 20 }
 gfx.ui.left_slant = {sprite = ui, q = q(2,2,12,16), ox = 0, oy = 0 }
 gfx.ui.right_slant = {sprite = ui, q = q(11,2,12,16), ox = 0, oy = 0 }
@@ -48,4 +44,3 @@ gfx.font.arcade5 = love.graphics.newFont( "res/font/arcade_r.ttf", 16 )
 gfx.font.debug = love.graphics.newFont( "res/font/slkscr.ttf", 7 )
 gfx.font.debug:setFilter( "linear", "linear" )
 return gfx
-
