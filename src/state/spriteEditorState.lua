@@ -220,9 +220,10 @@ function spriteEditorState:draw()
     end
     if sprite then --for Obstacles w/o shaders
         if menu_state == 2 then
-            love.graphics.setColor(255, 0, 0, 100)
-            love.graphics.rectangle("line", 0, y + 1, screen_width, 1)
-            love.graphics.rectangle("line", x - 1, 0, 1, menu_y_offset)
+            love.graphics.setColor(255, 0, 0, 150)
+            love.graphics.rectangle("fill", 0, y, screen_width, 2)
+            love.graphics.setColor(0, 0, 255, 150)
+            love.graphics.rectangle("fill", x, 0, 2, menu_y_offset + menu_item_h)
             --1 frame
             if menu[menu_state].n > #sprite.def.animations[sprite.cur_anim] then
 --                menu[menu_state].n = #sprite.def.animations[sprite.cur_anim]
