@@ -20,7 +20,7 @@ local txt_option2 = love.graphics.newText( gfx.font.arcade4,  "DIFFICULTY NORMAL
 local txt_option2a = love.graphics.newText( gfx.font.arcade4, "DIFFICULTY HARD" )
 local txt_option3 = love.graphics.newText( gfx.font.arcade4, "SOUND TEST" )
 local txt_option4 = love.graphics.newText( gfx.font.arcade4, "DEFAULTS" )
-local txt_option5 = love.graphics.newText( gfx.font.arcade4, "EDITORS" )
+local txt_option5 = love.graphics.newText( gfx.font.arcade4, "SPRITE EDITOR" )
 local txt_quit = love.graphics.newText( gfx.font.arcade4, "BACK" )
 
 local txt_empty_hint = love.graphics.newText( gfx.font.arcade4, "" ) --No hint text
@@ -190,7 +190,7 @@ function optionsState:confirm( x, y, button, istouch )
 
         elseif menu_state == 5 then
             sfx.play("sfx","menu_select")
-            return Gamestate.push(editorState)
+            return Gamestate.push(spriteSelectState)
 
         elseif menu_state == #menu then
             sfx.play("sfx","menu_cancel")
