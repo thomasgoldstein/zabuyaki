@@ -17,7 +17,7 @@ local item_height_margin = top_item_offset * 2 - 2
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 
 local txt_items = {"ANIMATIONS", "FRAMES", "SHADERS", "BACK"}
-local txt_hints = {"SPR ANIMATION", "FRAMES OF ANIM", "SHADERS", "" }
+local txt_hints = {"ANIMATION SEQUENCE", "FRAMES OF THE ANIMATION", "SHADERS", "" }
 
 --local heroes = {
 --}
@@ -80,7 +80,6 @@ function spriteEditorState:enter(_, _hero)
     sprite.size_scale = 2
     animations = {}
     for key, val in pairs(sprite.def.animations) do
-        --print(key, val)
         animations[#animations + 1] = key
     end
     table.sort( animations )
@@ -146,8 +145,13 @@ function spriteEditorState:draw()
         if i == 1 then
             m.item = animations[m.n].." #"..m.n
             --m.hint = "" --..heroes[m.n].sprite_instance
+            local m2 = menu[2]
+            if m2.n > #sprite.def.animations[sprite.cur_anim] then
+                m2.n = #sprite.def.animations[sprite.cur_anim]
+            end
+            m2.item = "FRAME #"..m2.n.." of "..#sprite.def.animations[sprite.cur_anim]
         elseif i == 2 then
-            m.item = "FRAME #"..m.n.." "
+            m.item = "FRAME #"..m.n.." of "..#sprite.def.animations[sprite.cur_anim]
         elseif i == 3 then
             if #hero.shaders < 1 then
                 m.item = "NO SHADERS"
@@ -193,8 +197,9 @@ function spriteEditorState:draw()
 
     --sprite
     local sc = sprite.def.animations[sprite.cur_anim][1]
-    local x_step = (sc.ox or 20) * 4 + 8 or 100
-    local x = screen_width /2 - (#hero.shaders - 1) * x_step / 2
+    local x_step = 140 --(sc.ox or 20) * 4 + 8 or 100
+    local x = screen_width /2
+    local y = menu_y_offset + menu_item_h / 2
     love.graphics.setColor(255, 255, 255, 255)
     if hero.shaders[menu[3].n] then
         love.graphics.setShader(hero.shaders[menu[3].n])
@@ -202,9 +207,23 @@ function spriteEditorState:draw()
     if sprite then --for Obstacles w/o shaders
         if menu_state == 2 then
             --1 frame
-            DrawSpriteInstance(sprite, screen_width /2, menu_y_offset + menu_item_h / 2, menu[menu_state].n)
+            if menu[menu_state].n > #sprite.def.animations[sprite.cur_anim] then
+--                menu[menu_state].n = #sprite.def.animations[sprite.cur_anim]
+--            else
+                menu[menu_state].n = 1
+            end
+            love.graphics.setColor(255, 255, 255, 150)
+            for i = 1, #sprite.def.animations[sprite.cur_anim] do
+                DrawSpriteInstance(sprite, x - (menu[menu_state].n - i) * x_step, y, i )
+            end
+            love.graphics.setColor(255, 255, 255, 255)
+            DrawSpriteInstance(sprite, x, y, menu[menu_state].n)
+--            for i = menu[menu_state].n , 1, -1 do
+--                DrawSpriteInstance(sprite, x - (i - 1) * x_step, y, i )
+--            end
         else
-            DrawSpriteInstance(sprite, screen_width /2, menu_y_offset + menu_item_h / 2)
+            --animation
+            DrawSpriteInstance(sprite, x, y)
         end
     end
     if hero.shaders[menu[3].n] then
@@ -271,7 +290,6 @@ function spriteEditorState:wheelmoved(x, y)
         if menu[menu_state].n > #sprite.def.animations[sprite.cur_anim] then
             menu[menu_state].n = 1
         end
-
 
     elseif menu_state == 3 then
         --shaders
