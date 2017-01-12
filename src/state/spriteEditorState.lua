@@ -127,6 +127,9 @@ local function player_input(controls)
         end
         return
     end
+    if love.keyboard.isDown('lctrl') and love.keyboard.isDown('c') then
+        print(ParseSpriteAnimation(sprite))
+    end
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
