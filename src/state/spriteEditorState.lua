@@ -16,8 +16,8 @@ local item_height_margin = top_item_offset * 2 - 2
 
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 
-local txt_items = {"ANIMATIONS", "SHADERS", "EXPORT", "BACK"}
-local txt_hints = {"", "", "", "" }
+local txt_items = {"ANIMATIONS", "FRAMES", "SHADERS", "BACK"}
+local txt_hints = {"SPR ANIMATION", "FRAMES OF ANIM", "SHADERS", "" }
 
 --local heroes = {
 --}
@@ -84,8 +84,9 @@ function spriteEditorState:enter(_, _hero)
         animations[#animations + 1] = key
     end
     table.sort( animations )
-    menu[menu_state].n = 1
+    menu[1].n = 1
     SetSpriteAnimation(sprite,animations[menu[menu_state].n])
+    menu[3].n = 1
     mouse_x, mouse_y = 0,0
     --TEsound.stop("music")
     -- Prevent double press at start (e.g. auto confirmation)
@@ -143,11 +144,20 @@ function spriteEditorState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == 1 then
-            m.item = "#"..m.n.." "..animations[m.n]
-            m.hint = "" --..heroes[m.n].sprite_instance
+            m.item = animations[m.n].." #"..m.n
+            --m.hint = "" --..heroes[m.n].sprite_instance
         elseif i == 2 then
-            m.item = " #"..m.n.." "
-            m.hint = "..."
+            m.item = "FRAME #"..m.n.." "
+        elseif i == 3 then
+            if #hero.shaders < 1 then
+                m.item = "NO SHADERS"
+            else
+                if not hero.shaders[m.n] then
+                    m.item = "ORIGINAL COLORS"
+                else
+                    m.item = "SHADER #"..m.n.." "
+                end
+            end
         end
         local w = gfx.font.arcade4:getWidth(m.item)
         local wb = w + item_width_margin
@@ -186,21 +196,19 @@ function spriteEditorState:draw()
     local x_step = (sc.ox or 20) * 4 + 8 or 100
     local x = screen_width /2 - (#hero.shaders - 1) * x_step / 2
     love.graphics.setColor(255, 255, 255, 255)
-    for i = 1, #hero.shaders do
-        if hero.shaders[i] then
-            love.graphics.setShader(hero.shaders[i])
-        end
-        if sprite then
-            DrawSpriteInstance(sprite, x + (i - 1) * x_step , menu_y_offset + menu_item_h / 2)
-        end
-        if hero.shaders[i] then
-            love.graphics.setShader()
-        end
+    if hero.shaders[menu[3].n] then
+        love.graphics.setShader(hero.shaders[menu[3].n])
     end
-    if #hero.shaders < 1 then
-        if sprite then --for Obstacles w/o shaders
+    if sprite then --for Obstacles w/o shaders
+        if menu_state == 2 then
+            --1 frame
+            DrawSpriteInstance(sprite, screen_width /2, menu_y_offset + menu_item_h / 2, menu[menu_state].n)
+        else
             DrawSpriteInstance(sprite, screen_width /2, menu_y_offset + menu_item_h / 2)
         end
+    end
+    if hero.shaders[menu[3].n] then
+            love.graphics.setShader()
     end
     show_debug_indicator()
     push:apply("end")
@@ -217,6 +225,8 @@ function spriteEditorState:confirm( x, y, button, istouch )
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
         elseif menu_state == 2 then
+            sfx.play("sfx","menu_select")
+        elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
         end
     end
@@ -254,12 +264,23 @@ function spriteEditorState:wheelmoved(x, y)
         SetSpriteAnimation(sprite, animations[menu[menu_state].n])
 
     elseif menu_state == 2 then
---        if menu[menu_state].n < 0 then
---            menu[menu_state].n = #weapons
---        end
---        if menu[menu_state].n > #weapons then
+        --frames
+        if menu[menu_state].n < 1 then
+            menu[menu_state].n = #sprite.def.animations[sprite.cur_anim]
+        end
+        if menu[menu_state].n > #sprite.def.animations[sprite.cur_anim] then
             menu[menu_state].n = 1
---        end
+        end
+
+
+    elseif menu_state == 3 then
+        --shaders
+        if menu[menu_state].n < 1 then
+            menu[menu_state].n = #hero.shaders
+        end
+        if menu[menu_state].n > #hero.shaders then
+            menu[menu_state].n = 1
+        end
     end
     if menu_state ~= 3 then
         sfx.play("sfx","menu_move")
