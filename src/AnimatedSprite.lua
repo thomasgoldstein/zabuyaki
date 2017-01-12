@@ -192,3 +192,67 @@ function DrawSpriteInstance (spr, x, y, frame)
 		sc.ox, sc.oy
 	)
 end
+
+--jumpAttackForward = {
+--	{ q = q(2,714,54,62), ox = 23, oy = 61 }, --jaf1
+--	{ q = q(58,714,75,58), ox = 33, oy = 57, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+--	delay = 0.06
+--},
+
+function ParseSpriteAnimation(spr, cur_anim)
+	if (cur_anim or spr.cur_anim) == "icon" then
+		return "Cannot parse icons"
+	end
+	local o = (cur_anim or spr.cur_anim).." = {\n"
+
+	local animations = spr.def.animations[cur_anim or spr.cur_anim]
+	local sc
+	local scale_h, scale_v, flip_h, flip_v
+	local ox, oy, delay
+	local rotate, rx, ry
+
+	for i = 1, #animations do
+		sc = animations[i]
+		delay = sc.delay or 100
+		scale_h, scale_v, flip_h, flip_v = sc.scale_h or 1, sc.scale_v or 1, sc.flip_h or 1, sc.flip_v or 1
+		rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0
+		ox, oy = sc.ox or 0, sc.oy or 0
+
+		o = o .. "    { q = q(?,?,?,?), ox = "..ox..", oy = "..oy
+		if delay ~= animations.delay then
+			o = o .. ", delay = "..delay
+		end
+		if rotate ~= 0 then
+			o = o .. ", rotate = "..rotate
+		end
+		if rx ~= 0 then
+			o = o .. ", rx = "..rx
+		end
+		if ry ~= 0 then
+			o = o .. ", ry = "..ry
+		end
+		if flip_h ~= 1 then
+			o = o .. ", flip_h = "..flip_h
+		end
+		if flip_v ~= 1 then
+			o = o .. ", flip_v = "..flip_v
+		end
+--		if i ~= #animations then
+--			o = o .. " },\n"
+--		else
+--			o = o .. " }\n"
+--		end
+		o = o .. " },\n"
+	end
+	if animations.loop then
+		o = o .. "    loop = true,\n"
+	end
+	if animations.loopFrom then
+		o = o .. "    loopFrom = "..animations.loopFrom..",\n"
+	end
+	if animations.delay then
+		o = o .. "    delay = "..animations.delay..",\n"
+	end
+	o = o .. "},\n"
+	return o
+end
