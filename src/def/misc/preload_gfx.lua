@@ -6,12 +6,12 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local image = love.graphics.newImage("res/img/misc/loot.png")
-image_w, image_h = image:getDimensions( )
-gfx.loot.apple = {sprite = image, q = q(2,2,18,17), ox = 9, oy = 16 }
-gfx.loot.chicken = {sprite = image, q = q(22,2,30,19), ox = 12, oy = 18 }
-gfx.loot.beef = {sprite = image, q = q(54,2,30,19), ox = 15, oy = 18 }
-gfx.loot.image = image --for loot particles
+local loot = love.graphics.newImage("res/img/misc/loot.png")
+image_w, image_h = loot:getDimensions( )
+gfx.loot.apple = {sprite = loot, q = q(2,2,18,17), ox = 9, oy = 16 }
+gfx.loot.chicken = {sprite = loot, q = q(22,2,30,19), ox = 12, oy = 18 }
+gfx.loot.beef = {sprite = loot, q = q(54,2,30,19), ox = 15, oy = 18 }
+gfx.loot.image = loot --for loot particles
 
 local ui = love.graphics.newImage("res/img/misc/ui.png")
 image_w, image_h = ui:getDimensions( )
