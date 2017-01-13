@@ -59,6 +59,11 @@ local heroes = {
         name = "SIGN",
         shaders = { },
         sprite_instance = "src/def/stage/object/sign.lua",
+    },
+    {
+        name = "BAT",
+        shaders = { },
+        sprite_instance = "src/def/misc/bat.lua",
     }
 }
 
