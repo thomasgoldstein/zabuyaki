@@ -115,6 +115,7 @@ function love.load(arg)
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 
 	--GameStates
+	require "src/state/logoState"
 	require "src/state/titleState"
 	require "src/state/optionsState"
 	require "src/state/soundState"
@@ -126,9 +127,8 @@ function love.load(arg)
 	require "src/state/spriteSelectState"
 	require "src/state/spriteEditorState"
 
-    --Add Gamestates Here
     Gamestate.registerEvents()
-    Gamestate.switch(titleState)
+    Gamestate.switch(logoState)
 end
 
 function love.update(dt)
