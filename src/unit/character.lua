@@ -1534,7 +1534,7 @@ function Character:grabSwap_start()
     self.grab_release = 0
     local g = self.hold
     g.can_grabSwap = false
-    self.grabSwap_x = self.hold.target.x + self.face * 20
+    self.grabSwap_x = self.hold.target.x + self.face * 22
     self.can_flip_after = math.abs(self.x - self.grabSwap_x) / 2
     dp(self.name.." is grabSwapping someone.")
 end
