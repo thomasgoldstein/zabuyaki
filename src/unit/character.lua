@@ -1241,6 +1241,7 @@ function Character:doGrab(target)
             self.face = 1
             self.horizontal = 1
         end
+        g.can_grabSwap = true   --can do 1 grabSwap
         sfx.play("voice"..self.id, target.sfx.grab)   --target's clothes ruffling sound
         self:setState(self.grab)
         return true
@@ -1252,7 +1253,6 @@ function Character:grab_start()
     self.isHittable = true
     --print (self.name.." - grab start")
     self:setSprite("grab")
-    self.can_grabSwap = true
     self.can_jump = false
     self.can_attack = false
     self.grab_release = 0
@@ -1273,8 +1273,10 @@ function Character:grab_update(dt)
         if ( self.face == 1 and self.b.horizontal.ikp:getLast() )
             or ( self.face == -1 and self.b.horizontal.ikn:getLast() )
         then
-            self:setState(self.grabSwap)
-            return
+            if g.can_grabSwap then
+                self:setState(self.grabSwap)
+                return
+            end
         end
         self.grab_release = 0
     end
@@ -1528,13 +1530,13 @@ function Character:grabSwap_start()
     self.isHittable = false
     --print (self.name.." - grab start")
     self:setSprite("grabSwap")
-    self.can_grabSwap = false
     self.can_jump = false
     self.can_attack = false
     self.grab_release = 0
     --self.can_reset_victims = true
     --self.victims = {}
     local g = self.hold
+    g.can_grabSwap = false
     self.grabSwap_x = self.hold.target.x + self.face * 20
     dp(self.name.." is grabSwapping someone.")
 end
@@ -1561,6 +1563,12 @@ function Character:grabSwap_update(dt)
         self.face = -self.face
         self:setState(self.grab)
         return
+    end
+    if not self.b.jump:isDown() then
+        self.can_jump = true
+    end
+    if not self.b.attack:isDown() then
+        self.can_attack = true
     end
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
