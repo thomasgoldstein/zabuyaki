@@ -1561,6 +1561,7 @@ function Character:grabSwap_update(dt)
         end
     else
         self.face = -self.face
+        self.horizontal = self.face
         self:setState(self.grab)
         return
     end
