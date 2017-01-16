@@ -1571,7 +1571,7 @@ function Character:grabSwap_update(dt)
         self.can_attack = true
     end
     self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+--    self:checkCollisionAndMove(dt)
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwap_start, exit = nop, update = Character.grabSwap_update, draw = Character.default_draw}
 
