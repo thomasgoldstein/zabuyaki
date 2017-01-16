@@ -1525,7 +1525,6 @@ function Character:grabThrow_update(dt)
 end
 Character.grabThrow = {name = "grabThrow", start = Character.grabThrow_start, exit = nop, update = Character.grabThrow_update, draw = Character.default_draw}
 
---===========
 function Character:grabSwap_start()
     self.isHittable = false
     --print (self.name.." - grab start")
@@ -1533,11 +1532,10 @@ function Character:grabSwap_start()
     self.can_jump = false
     self.can_attack = false
     self.grab_release = 0
-    --self.can_reset_victims = true
-    --self.victims = {}
     local g = self.hold
     g.can_grabSwap = false
     self.grabSwap_x = self.hold.target.x + self.face * 20
+    self.can_flip_after = math.abs(self.x - self.grabSwap_x) / 2
     dp(self.name.." is grabSwapping someone.")
 end
 function Character:grabSwap_update(dt)
@@ -1552,16 +1550,19 @@ function Character:grabSwap_update(dt)
         self.y = self.y + 0.5
         g.target.y = g.target.y - 0.5
     end
-    --adjust horizontally
-    if math.abs(self.x - self.grabSwap_x) > 4 then
+    --adjust char horizontally
+    if math.abs(self.x - self.grabSwap_x) > 2 then
         if self.x < self.grabSwap_x then
             self.x = self.x + self.velocity_run * dt
         elseif self.x >= self.grabSwap_x then
             self.x = self.x - self.velocity_run * dt
         end
+        if math.abs(self.x - self.grabSwap_x) <= self.can_flip_after then
+            self.can_flip_after = -1 --block other flipping
+            self.face = -self.face
+        end
     else
-        self.face = -self.face
-        self.horizontal = self.face
+        self.horizontal = -self.horizontal
         self:setState(self.grab)
         return
     end
@@ -1575,8 +1576,6 @@ function Character:grabSwap_update(dt)
 --    self:checkCollisionAndMove(dt)
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwap_start, exit = nop, update = Character.grabSwap_update, draw = Character.default_draw}
-
---=============
 
 function Character:special_start() -- Special attack plug
     self:setState(self.stand)
