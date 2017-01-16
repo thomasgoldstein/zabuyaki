@@ -1252,6 +1252,7 @@ function Character:grab_start()
     self.isHittable = true
     --print (self.name.." - grab start")
     self:setSprite("grab")
+    self.can_grabSwap = true
     self.can_jump = false
     self.can_attack = false
     self.grab_release = 0
@@ -1269,6 +1270,12 @@ function Character:grab_update(dt)
             g.target.isGrabbed = false
         end
     else
+        if ( self.face == 1 and self.b.horizontal.ikp:getLast() )
+            or ( self.face == -1 and self.b.horizontal.ikn:getLast() )
+        then
+            self:setState(self.grabSwap)
+            return
+        end
         self.grab_release = 0
     end
 
@@ -1515,6 +1522,52 @@ function Character:grabThrow_update(dt)
     self:checkCollisionAndMove(dt)
 end
 Character.grabThrow = {name = "grabThrow", start = Character.grabThrow_start, exit = nop, update = Character.grabThrow_update, draw = Character.default_draw}
+
+--===========
+function Character:grabSwap_start()
+    self.isHittable = false
+    --print (self.name.." - grab start")
+    self:setSprite("grabSwap")
+    self.can_grabSwap = false
+    self.can_jump = false
+    self.can_attack = false
+    self.grab_release = 0
+    --self.can_reset_victims = true
+    --self.victims = {}
+    local g = self.hold
+    self.grabSwap_x = self.hold.target.x + self.face * 20
+    dp(self.name.." is grabSwapping someone.")
+end
+function Character:grabSwap_update(dt)
+    --dp(self.name .. " - grab update", dt)
+    local g = self.hold
+    --adjust both vertically
+    if self.y > g.target.y + 1 then
+        self.y = self.y - 0.5
+        self.y = self.y - 0.5
+        g.target.y = g.target.y + 0.5
+    elseif self.y < g.target.y then
+        self.y = self.y + 0.5
+        g.target.y = g.target.y - 0.5
+    end
+    --adjust horizontally
+    if math.abs(self.x - self.grabSwap_x) > 4 then
+        if self.x < self.grabSwap_x then
+            self.x = self.x + self.velocity_run * dt
+        elseif self.x >= self.grabSwap_x then
+            self.x = self.x - self.velocity_run * dt
+        end
+    else
+        self.face = -self.face
+        self:setState(self.grab)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Character.grabSwap = {name = "grabSwap", start = Character.grabSwap_start, exit = nop, update = Character.grabSwap_update, draw = Character.default_draw}
+
+--=============
 
 function Character:special_start() -- Special attack plug
     self:setState(self.stand)
