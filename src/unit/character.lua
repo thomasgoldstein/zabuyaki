@@ -1533,6 +1533,8 @@ function Character:grabSwap_start()
     self.can_attack = false
     self.grab_release = 0
     local g = self.hold
+    self.cool_down = self.cool_down_grab
+    g.cool_down = self.cool_down_grab + 0.1
     g.can_grabSwap = false
     self.grabSwap_x = self.hold.target.x + self.face * 22
     self.can_flip_after = math.abs(self.x - self.grabSwap_x) / 2
