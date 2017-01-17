@@ -1538,6 +1538,7 @@ function Character:grabSwap_start()
     self.grabSwap_flipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 22
     self.grabSwap_x_fin_dist = math.abs( self.x - self.grabSwap_x )
+    sfx.play("sfx", "whoosh_heavy")
     dp(self.name.." is grabSwapping someone.")
 end
 function Character:grabSwap_update(dt)
