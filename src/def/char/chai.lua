@@ -257,6 +257,7 @@ return {
 		grabSwap = {
 			{ q = q(152,928,44,63), ox = 22, oy = 63 }, --grab swap 1.1
 			{ q = q(198,928,38,59), ox = 19, oy = 63 }, --grab swap 1.2
+			delay = 3
 		},
 		grabbed = {
 			{ q = q(2,335,48,64), ox = 29, oy = 63 }, --hh1

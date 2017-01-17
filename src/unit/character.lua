@@ -1525,6 +1525,7 @@ function Character:grabThrow_update(dt)
 end
 Character.grabThrow = {name = "grabThrow", start = Character.grabThrow_start, exit = nop, update = Character.grabThrow_update, draw = Character.default_draw}
 
+local grabSwap_frames = { 1, 2, 2, 1 }
 function Character:grabSwap_start()
     self.isHittable = false
     --print (self.name.." - grab start")
@@ -1534,8 +1535,9 @@ function Character:grabSwap_start()
     local g = self.hold
     g.cool_down = g.cool_down + 0.2
     g.can_grabSwap = false
+    self.grabSwap_flipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 22
-    self.can_flip_after = math.abs(self.x - self.grabSwap_x) / 2
+    self.grabSwap_x_fin_dist = math.abs( self.x - self.grabSwap_x )
     dp(self.name.." is grabSwapping someone.")
 end
 function Character:grabSwap_update(dt)
@@ -1557,8 +1559,9 @@ function Character:grabSwap_update(dt)
         elseif self.x >= self.grabSwap_x then
             self.x = self.x - self.velocity_run * dt
         end
-        if math.abs(self.x - self.grabSwap_x) <= self.can_flip_after then
-            self.can_flip_after = -1 --block other flipping
+        self.sprite.cur_frame = grabSwap_frames[ math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwap_x_fin_dist) * #grabSwap_frames ) ]
+        if not self.grabSwap_flipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwap_x_fin_dist / 2 then
+            self.grabSwap_flipped = true
             self.face = -self.face
         end
     else
