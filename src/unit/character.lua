@@ -884,6 +884,7 @@ function Character:dash_start()
     sfx.play("voice"..self.id, self.sfx.dash)
 end
 function Character:dash_update(dt)
+    self.can_reset_victims = true
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
@@ -910,6 +911,7 @@ function Character:jumpAttackForward_start()
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackForward_update(dt)
+    self.can_reset_victims = true
     --	print (self.name.." - jumpAttackForward update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
@@ -931,6 +933,7 @@ function Character:jumpAttackLight_start()
     self:setSprite("jumpAttackLight")
 end
 function Character:jumpAttackLight_update(dt)
+    self.can_reset_victims = true
     --	print (self.name.." - jumpAttackLight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
@@ -953,6 +956,7 @@ function Character:jumpAttackStraight_start()
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackStraight_update(dt)
+    self.can_reset_victims = true
     --	print (self.name.." - jumpAttackStraight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
@@ -975,6 +979,7 @@ function Character:jumpAttackRun_start()
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackRun_update(dt)
+    self.can_reset_victims = true
     --	print (self.name.." - jumpAttackRun update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
