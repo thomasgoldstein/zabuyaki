@@ -138,12 +138,12 @@ function UpdateSpriteInstance(spr, dt, slf)
 	end
 	-- call the custom frame func on every frame
 	if sc.funcCont and slf then
-		sc.funcCont(slf)
+		sc.funcCont(slf, true) --isfuncCont = true
 	end
 	-- call custom frame func once per the frame
 	if sc.func and spr.func_called_at_frame ~= spr.cur_frame and slf then
 		spr.func_called_at_frame = spr.cur_frame
-		sc.func(slf)
+		sc.func(slf, false) --isfuncCont = false
 	end
 	--spr.def.animations[spr.cur_anim]
 	--Increment the internal counter.
