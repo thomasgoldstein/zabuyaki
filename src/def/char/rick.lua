@@ -15,58 +15,60 @@ end
 local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low", slf.velx) end
 local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
 local grabEnd_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
-local combo_attack1 = function(slf)
-    --28,0, 26,12, 7, "high", slf.velx, "air"
+local combo_attack1 = function(slf, cont)
 	slf:checkAndAttackN(
-        {l = 28, w = 26, h = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" }
+        {l = 28, w = 26, h = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
+        cont
     )
 	slf.cool_down_combo = 0.4
 end
-local combo_attack2 = function(slf)
-    --28,0, 27,12, 8, "high", slf.velx, "air"
+local combo_attack2 = function(slf, cont)
 	slf:checkAndAttackN(
-        {l = 28, w = 27, h = 12, damage = 8, type = "high", velocity = slf.velx, sfx = "air" }
+        {l = 28, w = 27, h = 12, damage = 8, type = "high", velocity = slf.velx, sfx = "air" },
+        cont
     )
 	slf.cool_down_combo = 0.4
 end
-local combo_attack3 = function(slf)
-    --28,0, 27,12, 10, "low", slf.velx, "air"
+local combo_attack3 = function(slf, cont)
 	slf:checkAndAttackN(
-        {l = 28, w = 27, h = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" }
+        {l = 28, w = 27, h = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" },
+        cont
     )
 	slf.cool_down_combo = 0.4
 end
-local combo_attack4 = function(slf)
-    --34,0, 39,12, 15, "fall", slf.velocity_fall_x, "air"
+local combo_attack4 = function(slf, cont)
 	slf:checkAndAttackN(
-        {l = 34, w = 39, h = 12, damage = 15, type = "fall", velocity = slf.velx, sfx = "air" }
+        {l = 34, w = 39, h = 12, damage = 15, type = "fall", velocity = slf.velx, sfx = "air" },
+        cont
     )
 end
-local dash_attack1 = function(slf) slf:checkAndAttackN(
-    {l = 20, w = 55, h = 12, damage = 8, type = "high", velocity = slf.velocity_dash_fall, init_victims_list = true }
+local dash_attack1 = function(slf, cont) slf:checkAndAttackN(
+    {l = 20, w = 55, h = 12, damage = 8, type = "high", velocity = slf.velocity_dash_fall },
+    cont
 ) end
-local dash_attack2 = function(slf) slf:checkAndAttackN(
-    {l = 20, w = 55, h = 12, damage = 9, type = "fall", velocity = slf.velocity_dash_fall, init_victims_list = true }
+local dash_attack2 = function(slf, cont) slf:checkAndAttackN(
+    {l = 20, w = 55, h = 12, damage = 9, type = "fall", velocity = slf.velocity_dash_fall },
+    cont
 ) end
---    30,0, 25,12, 15, "fall", slf.velx
-local jump_forward_attack = function(slf) slf:checkAndAttackN(
-    {l = 30, w = 25, h = 12, damage = 15, type = "fall", velocity = slf.velx }
+local jump_forward_attack = function(slf, cont) slf:checkAndAttackN(
+    {l = 30, w = 25, h = 12, damage = 15, type = "fall", velocity = slf.velx },
+    cont
 ) end
---30,0, 25,12, 17, "fall", slf.velx
- local jump_run_attack = function(slf) slf:checkAndAttackN(
-    {l = 30, w = 25, h = 12, damage = 17, type = "fall", velocity = slf.velx }
+ local jump_run_attack = function(slf, cont) slf:checkAndAttackN(
+    {l = 30, w = 25, h = 12, damage = 17, type = "fall", velocity = slf.velx },
+     cont
  ) end
- --15,0, 22,12, 9, "high", slf.velx
-local jump_light_attack = function(slf) slf:checkAndAttackN(
-    {l = 15, w = 22, h = 12, damage = 9, type = "high", velocity = slf.velx }
+local jump_light_attack = function(slf, cont) slf:checkAndAttackN(
+    {l = 15, w = 22, h = 12, damage = 9, type = "high", velocity = slf.velx },
+    cont
 ) end
---20,0, 25,12, 7, "high", slf.velx
-local jump_straight_attack1 = function(slf) slf:checkAndAttackN(
-    {l = 20, w = 25, h = 12, damage = 7, type = "high", velocity = slf.velx }
+local jump_straight_attack1 = function(slf, cont) slf:checkAndAttackN(
+    {l = 20, w = 25, h = 12, damage = 7, type = "high", velocity = slf.velx },
+    cont
 ) end
---20,0, 25,12, 9, "fall", slf.velocity_fall_x, nil, true
-local jump_straight_attack2 = function(slf) slf:checkAndAttackN(
-    {l = 20, w = 25, h = 12, damage = 9, type = "fall", velocity = slf.velocity_fall_x, init_victims_list = true }
+local jump_straight_attack2 = function(slf, cont) slf:checkAndAttackN(
+    {l = 20, w = 25, h = 12, damage = 9, type = "fall", velocity = slf.velocity_fall_x },
+    cont
 ) end
 local grabThrow_now = function(slf) slf.can_throw_now = true end
 
