@@ -105,9 +105,7 @@ function Obstacle:isImmune()   --Immune to the attack?
     --Block "fall" attack if isMovable false
     if not self.isMovable and h.type == "fall" then
         h.type = "high"
-        h.source.victims[self] = true
-        --h.source.victims[self] = true
-        --return true
+        return false
     end
     return false
 end
@@ -167,9 +165,7 @@ function Obstacle:onHurt()
 end
 
 function Obstacle:stand_start()
-    --	print (self.name.." - stand start")
     self.isHittable = true
-    self.can_reset_victims = true
     self.victims = {}
     self:setSprite("stand")
 end
