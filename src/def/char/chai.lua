@@ -5,47 +5,84 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function(slf)
+local step_sfx = function(slf, cont)
 	sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
 	local padust = PA_DUST_STEPS:clone()
 	padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
 	padust:emit(3)
 	stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low", slf.velx) end
-local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
-local grabEnd_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
-local footJab_move = function(slf)
+local grabHit_attack = function(slf, cont) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low", slf.velx) end
+local grabLast_attack = function(slf, cont) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
+local grabEnd_attack = function(slf, cont) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
+local footJab_move = function(slf, cont)
 	-- Chai's foot jab makes him move forward
 	slf.velx = 60 -- horizontal velocity
 end
-local combo_attack1 = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 6, "low", slf.velx, "air")
+local combo_attack1 = function(slf, cont)
+	slf:checkAndAttackN(
+		{l = 30, w = 26, h = 12, damage = 6, type = "low", velocity = slf.velx, sfx = "air" },
+		cont
+	)
 	footJab_move(slf)
 	slf.cool_down_combo = 0.4
 end
-local combo_attack2 = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 10, "low", slf.velx, "air")
+local combo_attack2 = function(slf, cont)
+	slf:checkAndAttackN(
+		{l = 30, w = 26, h = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" },
+		cont
+	)
 	slf.cool_down_combo = 0.4
 end
-local combo_attack3 = function(slf)
-	slf:checkAndAttack(34,0, 33,12, 12, "high", slf.velx, "air")
+local combo_attack3 = function(slf, cont)
+	slf:checkAndAttackN(
+		{l = 34, w = 33, h = 12, damage = 12, type = "high", velocity = slf.velx, sfx = "air" },
+		cont
+	)
 	slf.cool_down_combo = 0.4
 end
-local combo_attack4 = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velocity_fall_x, "air")
+local combo_attack4 = function(slf, cont)
+	slf:checkAndAttackN(
+		{l = 30, w = 26, h = 12, damage = 14, type = "fall", velocity = slf.velocity_fall_x, sfx = "air" },
+		cont
+	)
 end
-local combo_attack4_nosfx = function(slf)
-	slf:checkAndAttack(30,0, 26,12, 14, "fall", slf.velocity_fall_x, nil)
+local combo_attack4_nosfx = function(slf, cont)
+	--TODO check if it makes default sound still
+	slf:checkAndAttackN(
+		{l = 30, w = 26, h = 12, damage = 14, type = "fall", velocity = slf.velocity_fall_x, sfx = nil },
+		cont
+	)
 end
-local dash_attack1 = function(slf) slf:checkAndAttack(8,0, 22,12, 17, "fall", slf.velocity_dash_fall, nil, true) end
-local dash_attack2 = function(slf) slf:checkAndAttack(12,0, 30,12, 17, "fall", slf.velocity_dash_fall) end
-local jump_forward_attack = function(slf) slf:checkAndAttack(30,0, 25,12, 15, "fall", slf.velx) end
-local jump_light_attack = function(slf) slf:checkAndAttack(12,0, 22,12, 8, "high", slf.velx) end
-local jump_straight_attack = function(slf) slf:checkAndAttack(15,0, 25,12, 15, "fall", slf.velocity_fall_x) end
-local jump_run_attack = function(slf) slf:checkAndAttack(25,0, 35,12, 6, "high", slf.velx, nil, true) end
-local jump_run_attack_last = function(slf) slf:checkAndAttack(25,0, 35,12, 8, "fall", slf.velx, nil, true) end
-local grabThrow_now = function(slf) slf.can_throw_now = true end
+local dash_attack1 = function(slf, cont) slf:checkAndAttackN(
+	{l = 8, w = 22, h = 12, damage = 17, type = "fall", velocity = slf.velocity_dash_fall },
+	cont
+) end
+local dash_attack2 = function(slf, cont) slf:checkAndAttackN(
+	{l = 12, w = 30, h = 12, damage = 17, type = "fall", velocity = slf.velocity_dash_fall },
+	cont
+) end
+local jump_forward_attack = function(slf, cont) slf:checkAndAttackN(
+	{l = 30, w = 25, h = 12, damage = 15, type = "fall", velocity = slf.velx },
+	cont
+) end
+local jump_light_attack = function(slf, cont) slf:checkAndAttackN(
+	{l = 12, w = 22, h = 12, damage = 8, type = "high", velocity = slf.velx },
+	cont
+) end
+local jump_straight_attack = function(slf, cont) slf:checkAndAttackN(
+	{l = 15, w = 25, h = 12, damage = 15, type = "fall", velocity = slf.velocity_fall_x },
+	cont
+) end
+local jump_run_attack = function(slf, cont) slf:checkAndAttackN(
+	{l = 25, w = 35, h = 12, damage = 6, type = "high", velocity = slf.velx },
+	cont
+) end
+local jump_run_attack_last = function(slf, cont) slf:checkAndAttackN(
+	{l = 25, w = 35, h = 12, damage = 8, type = "fall", velocity = slf.velx },
+	cont
+) end
+local grabThrow_now = function(slf, cont) slf.can_throw_now = true end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
