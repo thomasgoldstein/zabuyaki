@@ -24,23 +24,14 @@ streets are no longer safe.]]
         q = { 230, 290, 220, 100 },
         hScroll = -10,
         text =
-[[The mayor, Hyke Magger, failed
-to clean up the city.          
-Literally.]]
+[[Corruption suspicions grow
+toward mayor Hyke Magger,
+accused of ties to the mafia.]]
     },
     {
         slide = slide1,
         q = { 160, 170, 240, 80 },
         vScroll = 20,
-        text =
-[[Corruption suspicions grow
-toward mayor Magger, accused
-of ties to the local mafia.]]
-    },
-    {
-        slide = slide1,
-        q = { 60, 70, 200, 120 },
-        hScroll = -10,
         text =
 [[The public waste collection
 service has even been replaced
@@ -48,8 +39,8 @@ by a shady private company.]]
     },
     {
         slide = slide1,
-        q = { 230, 290, 220, 100 },
-        vScroll = 20,
+        q = { 60, 70, 200, 120 },
+        hScroll = -10,
         text =
 [[After having lost their job,
 the ex-garbage collectors saw
@@ -57,7 +48,7 @@ their city turn into a landfill.]]
     },
     {
         slide = slide1,
-        q = { 60, 70, 200, 120 },
+        q = { 230, 290, 220, 100 },
         text =
 [[Some of them decided
 to stand up and take out
