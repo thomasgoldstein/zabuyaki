@@ -4,6 +4,7 @@ local time = 0
 local time_to_intro = 10 -- idle to show intro
 local screen_width = 640
 local screen_height = 480
+local zabuyaki_title
 local menu_item_h = 40
 local menu_y_offset = 200 - menu_item_h
 local menu_x_offset = 0
@@ -13,8 +14,6 @@ local left_item_offset  = 6
 local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
-
-local txt_zabuyaki_logo = love.graphics.newText( gfx.font.kimberley, "ZABUYAKI" )
 
 local txt_start = love.graphics.newText( gfx.font.arcade4, "START" )
 local txt_options = love.graphics.newText( gfx.font.arcade4, "OPTIONS" )
@@ -75,9 +74,9 @@ function titleState:enter(_, param)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 
     -- Prevent double press at start (e.g. auto confirmation)
-    --dp(controls.jump:pressed(), controls.attack:pressed())
     Control1.attack:update()
     Control1.jump:update()
+    zabuyaki_title = love.graphics.newImage( "res/img/misc/title.png" )
     love.graphics.setLineWidth( 2 )
 end
 
@@ -147,6 +146,10 @@ function titleState:draw()
     end
     love.graphics.setCanvas()
     push:apply("start")
+    love.graphics.setColor(255, 255, 255, 255 * time)
+    love.graphics.draw(zabuyaki_title, 0, 0, 0, 2, 2)
+    love.graphics.setColor(100, 100, 100, 255 * time)
+    love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, screen_height - 20)
     for i = 1,#menu do
         local m = menu[i]
         local w = m.item:getWidth()
@@ -170,11 +173,6 @@ function titleState:draw()
             menu_state = i
         end
     end
-    --header
-    love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_zabuyaki_logo, (screen_width - txt_zabuyaki_logo:getWidth()) / 2, title_y_offset)
-    love.graphics.setColor(100, 100, 100, 255)
-    love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, screen_height - 20)
     show_debug_indicator()
     push:apply("end")
 end
