@@ -5,16 +5,16 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function(slf)
+local step_sfx = function(slf, cont)
 	sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
 	local padust = PA_DUST_STEPS:clone()
 	padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
 	padust:emit(3)
 	stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low", slf.velx) end
-local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
-local grabEnd_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
+local grabHit_attack = function(slf, cont) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low", slf.velx) end
+local grabLast_attack = function(slf, cont) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
+local grabEnd_attack = function(slf, cont) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
 local combo_attack1 = function(slf, cont)
 	slf:checkAndAttackN(
         {l = 28, w = 26, h = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
@@ -70,7 +70,7 @@ local jump_straight_attack2 = function(slf, cont) slf:checkAndAttackN(
     {l = 20, w = 25, h = 12, damage = 9, type = "fall", velocity = slf.velocity_fall_x },
     cont
 ) end
-local grabThrow_now = function(slf) slf.can_throw_now = true end
+local grabThrow_now = function(slf, cont) slf.can_throw_now = true end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
