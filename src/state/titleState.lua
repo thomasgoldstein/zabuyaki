@@ -1,6 +1,7 @@
 titleState = {}
 
 local time = 0
+local fade_in_time = 0
 local time_to_intro = 10 -- idle to show intro
 local screen_width = 640
 local screen_height = 480
@@ -9,7 +10,7 @@ local menu_item_h = 40
 local menu_y_offset = 200 - menu_item_h
 local menu_x_offset = 0
 local hint_y_offset = 80
-local title_y_offset = 24
+--local title_y_offset = 24
 local left_item_offset  = 6
 local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
@@ -66,6 +67,7 @@ end
 function titleState:enter(_, param)
     mouse_x, mouse_y = 0,0
     time = 0
+    fade_in_time = 0
     if param ~= "dontStartMusic" then
         TEsound.stop("music")
         TEsound.playLooping(bgm.title, "music")
@@ -125,6 +127,7 @@ function titleState:update(dt)
         intro = Movie:new(movie_intro)
         mode = "movie"
     end
+    fade_in_time = clamp(fade_in_time + dt, 0 , 1)
     if menu_state ~= old_menu_state then
         sfx.play("sfx","menu_move")
         old_menu_state = menu_state
@@ -146,9 +149,9 @@ function titleState:draw()
     end
     love.graphics.setCanvas()
     push:apply("start")
-    love.graphics.setColor(255, 255, 255, 255 * time)
+    love.graphics.setColor(255, 255, 255, 255 * fade_in_time)
     love.graphics.draw(zabuyaki_title, 0, 0, 0, 2, 2)
-    love.graphics.setColor(100, 100, 100, 255 * time)
+    love.graphics.setColor(100, 100, 100, 255 * fade_in_time)
     love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, screen_height - 20)
     for i = 1,#menu do
         local m = menu[i]
@@ -156,14 +159,14 @@ function titleState:draw()
         local wb = w + item_width_margin
         local h = m.item:getHeight()
         if i == old_menu_state then
-            love.graphics.setColor(0, 0, 0, 80)
+            love.graphics.setColor(0, 0, 0, 80 * fade_in_time)
             love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(255, 255, 255, 255 * fade_in_time)
             love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
-            love.graphics.setColor(255,200,40, 255)
+            love.graphics.setColor(255,200,40, 255 * fade_in_time)
             love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(255, 255, 255, 255 * fade_in_time)
         love.graphics.draw(m.item, m.x, m.y )
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
                 CheckPointCollision(mouse_x, mouse_y, (screen_width - wb) / 2, m.y - top_item_offset,
