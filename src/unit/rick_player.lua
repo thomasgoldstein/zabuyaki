@@ -37,8 +37,6 @@ end
 
 function Rick:combo_start()
     self.isHittable = true
---    self.can_reset_victims = true
-    --	print (self.name.." - combo start")
     if self.n_combo > 4 or self.n_combo < 1 then
         self.n_combo = 1
     end
@@ -54,7 +52,6 @@ function Rick:combo_start()
     self.cool_down = 0.2
 end
 function Rick:combo_update(dt)
-    self.can_reset_victims = true
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.dashSpecial)
@@ -107,9 +104,7 @@ Rick.special = {name = "special", start = Rick.special_start, exit = nop, update
 
 function Rick:dash_start()
     self.isHittable = true
---    self.can_reset_victims = true
     dpo(self, self.state)
-    --	print (self.name.." - dash start")
     self:setSprite("dash")
     self.velx = self.velocity_dash
     self.vely = 0
@@ -125,7 +120,6 @@ function Rick:dash_start()
     stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
 end
 function Rick:dash_update(dt)
-    self.can_reset_victims = true
     if self.sprite.isFinished then
         dpo(self, self.state)
         self:setState(self.stand)

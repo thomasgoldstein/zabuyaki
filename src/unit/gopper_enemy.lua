@@ -114,9 +114,7 @@ end
 
 function Gopper:combo_start()
     self.isHittable = true
-    self.can_reset_victims = true
     self.move = nil
-    --	print (self.name.." - combo start")
     if self.n_combo > 3 or self.n_combo < 1 then
         self.n_combo = 1
     end
@@ -188,9 +186,7 @@ Gopper.intro = { name = "intro", start = Gopper.intro_start, exit = nop, update 
 function Gopper:stand_start()
     self.isHittable = true
     self.tx, self.ty = self.x, self.y
-    --    	print (self.name.." - stand start")
     self:setSprite("stand")
-    self.can_reset_victims = true
     self.victims = {}
     self.n_grabhit = 0
 

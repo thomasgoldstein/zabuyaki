@@ -37,8 +37,6 @@ end
 
 function Satoff:combo_start()
     self.isHittable = true
-    self.can_reset_victims = true
-    --	print (self.name.." - combo start")
     if self.n_combo > 3 or self.n_combo < 1 then
         self.n_combo = 1
     end
