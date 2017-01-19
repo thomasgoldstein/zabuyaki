@@ -58,8 +58,6 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.sfx.jump_attack = self.sfx.jump_attack or "scream1"
     self.sfx.step = self.sfx.step or "kisa_step"
     self.sfx.dead = self.sfx.dead or "scream1"
---    self.infoBar = InfoBar:new(self)
---    self.victim_infoBar = nil
 end
 
 function Character:addHp(hp)
@@ -156,7 +154,9 @@ function Character:onHurtDamage()
     if not h then
         return
     end
-    h.source.victims[self] = true
+    if h.continuous then
+        h.source.victims[self] = true
+    end
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage)
@@ -176,7 +176,6 @@ function Character:onHurtDamage()
     end
     self:decreaseHp(h.damage)
     if h.type == "simple" then
-        --self.hurt = nil --free hurt data
         return
     end
     self:playHitSfx(h.damage)
@@ -273,20 +272,15 @@ function Character:applyDamage(damage, type, source, velocity, sfx1)
     end
 end
 
-function Character:checkAndAttackN(f, aType)
+function Character:checkAndAttackN(f, isFuncCont)
     --f options {}: l,t,w,h, damage, type, velocity, sfx, init_victims_list
     if not f then
         f = {}
     end
     local l,t,w,h = f.left or 20, f.top or 0, f.width or 25, f.height or 12
     local damage, type, velocity = f.damage or 1, f.type or "low", f.velocity or 0
-
     local face = self.face
 
-    if f.init_victims_list and self.can_reset_victims then
-        self.victims = {}
-        self.can_reset_victims = false
-    end
     local items = {}
     local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
     if type == "shockWave" then
@@ -321,6 +315,7 @@ function Character:checkAndAttackN(f, aType)
                     o.hurt = {source = self, state = self.state, damage = damage,
                         type = type, velx = velocity or self.velocity_bonus_on_attack_x,
                         horizontal = face, isThrown = false,
+                        continuous = isFuncCont,
                         x = self.x, y = self.y, z = self.z }
                 end
                 items[#items+1] = o
@@ -347,10 +342,6 @@ function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_vi
     -- type = "high" "low" "fall" "shockWave" "simple" ""blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     local face = self.face
 
-    if init_victims_list and self.can_reset_victims then
-        self.victims = {}
-        self.can_reset_victims = false
-    end
     local items = {}
     local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
     if type == "shockWave" then
@@ -458,7 +449,6 @@ function Character:onGetLoot(loot)
 end
 
 function Character:stand_start()
-    --	print (self.name.." - stand start")
     self.isHittable = true
     if self.sprite.cur_anim == "walk" then
         self.delay_animation_cool_down = 0.12
@@ -468,12 +458,10 @@ function Character:stand_start()
     end
     self.can_jump = false
     self.can_attack = false
-    self.can_reset_victims = true
     self.victims = {}
     self.n_grabhit = 0
 end
 function Character:stand_update(dt)
-    --	print (self.name," - stand update",dt)
     if not self.b.jump:isDown() then
         self.can_jump = true
     end
@@ -543,13 +531,11 @@ Character.stand = {name = "stand", start = Character.stand_start, exit = nop, up
 
 function Character:walk_start()
     self.isHittable = true
-    --	print (self.name.." - walk start")
     self:setSprite("walk")
     self.can_attack = false
     self.n_combo = 1	--if u move reset combo chain
 end
 function Character:walk_update(dt)
-    --	print (self.name.." - walk update",dt)
     if not self.b.jump:isDown() then
         self.can_jump = true
     end
@@ -626,12 +612,10 @@ Character.walk = {name = "walk", start = Character.walk_start, exit = nop, updat
 
 function Character:run_start()
     self.isHittable = true
-    --	print (self.name.." - run start")
     self.delay_animation_cool_down = 0.01
     self.can_attack = false
 end
 function Character:run_update(dt)
-    --	print (self.name.." - run update",dt)
     if not self.b.jump:isDown() then
         self.can_jump = true
     end
@@ -683,7 +667,6 @@ Character.run = {name = "run", start = Character.run_start, exit = nop, update =
 
 function Character:jump_start()
     self.isHittable = true
-    --	print (self.name.." - jump start")
     dpo(self, self.state)
     self:setSprite("jump")
     self.velz = self.velocity_jump * self.velocity_jump_speed
@@ -703,7 +686,6 @@ function Character:jump_start()
     sfx.play("voice"..self.id, self.sfx.jump)
 end
 function Character:jump_update(dt)
-    --	print (self.name.." - jump update",dt)
     if self.b.attack:isDown() and self.can_attack then
         if (self.b.horizontal:getValue() == -self.face) then
             self:setState(self.jumpAttackLight)
@@ -741,7 +723,6 @@ Character.jump = {name = "jump", start = Character.jump_start, exit = nop, updat
 
 function Character:pickup_start()
     self.isHittable = false
-    --	print (self.name.." - pickup start")
     local loot = self:checkForLoot(9, 9)
     if loot then
         self.victim_infoBar = loot.infoBar:setPicker(self)
@@ -758,7 +739,6 @@ function Character:pickup_start()
     self.z = 0
 end
 function Character:pickup_update(dt)
-    --	print (self.name.." - pickup update",dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -771,7 +751,6 @@ Character.pickup = {name = "pickup", start = Character.pickup_start, exit = nop,
 function Character:duck_start()
     self.isHittable = true
     dpo(self, self.state)
-    --	print (self.name.." - duck start")
     self:setSprite("duck")
     self.z = 0
     --landing dust clouds
@@ -787,7 +766,6 @@ function Character:duck_start()
     stage.objects:add(Effect:new(psystem, self.x, self.y+2))
 end
 function Character:duck_update(dt)
-    --	print (self.name.." - duck update",dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -799,12 +777,10 @@ Character.duck = {name = "duck", start = Character.duck_start, exit = nop, updat
 
 function Character:duck2jump_start()
     self.isHittable = true
-    --	print (self.name.." - duck2jump start")
     self:setSprite("duck")
     self.z = 0
 end
 function Character:duck2jump_update(dt)
-    --	print (self.name.." - duck2jump update",dt)
     if self:getStateTime() < self.special_tolerance_delay then
         --time for other move
         if self.b.attack:isDown() then
@@ -850,11 +826,9 @@ Character.duck2jump = {name = "duck2jump", start = Character.duck2jump_start, ex
 
 function Character:hurtHigh_start()
     self.isHittable = true
-    --	print (self.name.." - hurtHigh start")
     self:setSprite("hurtHigh")
 end
 function Character:hurtHigh_update(dt)
-    --	print (self.name.." - hurtHigh update",dt)
     if self.sprite.isFinished then
         if self.hp <= 0 then
             self:setState(self.getup)
@@ -875,11 +849,9 @@ Character.hurtHigh = {name = "hurtHigh", start = Character.hurtHigh_start, exit 
 
 function Character:hurtLow_start()
     self.isHittable = true
-    --	print (self.name.." - hurtLow start")
     self:setSprite("hurtLow")
 end
 function Character:hurtLow_update(dt)
-    --	print (self.name.." - hurtLow update",dt)
     if self.sprite.isFinished then
         if self.hp <= 0 then
             self:setState(self.getup)
@@ -900,13 +872,11 @@ Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = n
 
 function Character:sideStepDown_start()
     self.isHittable = false
-    --	print (self.name.." - sideStepDown start")
     self:setSprite("sideStepDown")
     self.velx, self.vely = 0, self.velocity_step_down
     sfx.play("sfx"..self.id, "whoosh_heavy")
 end
 function Character:sideStepDown_update(dt)
-    --	print (self.name.." - sideStepDown update",dt)
     if self.vely > 0 then
         self.vely = self.vely - self.sideStepFriction * dt
         self.z = self.vely / 24 --to show low leap
@@ -923,13 +893,11 @@ Character.sideStepDown = {name = "sideStepDown", start = Character.sideStepDown_
 
 function Character:sideStepUp_start()
     self.isHittable = false
-    --	print (self.name.." - sideStepUp start")
     self:setSprite("sideStepUp")
     self.velx, self.vely = 0, self.velocity_step_down
     sfx.play("sfx"..self.id, "whoosh_heavy")
 end
 function Character:sideStepUp_update(dt)
-    --	print (self.name.." - sideStepUp update",dt)
     if self.vely > 0 then
         self.vely = self.vely - self.sideStepFriction * dt
         self.z = self.vely / 24 --to show low leap
@@ -946,7 +914,6 @@ Character.sideStepUp = {name = "sideStepUp", start = Character.sideStepUp_start,
 
 function Character:dash_start()
     self.isHittable = true
-    --	print (self.name.." - dash start")
     self:setSprite("dash")
     self.velx = self.velocity_dash
     self.vely = 0
@@ -954,7 +921,6 @@ function Character:dash_start()
     sfx.play("voice"..self.id, self.sfx.dash)
 end
 function Character:dash_update(dt)
-    self.can_reset_victims = true
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
@@ -976,13 +942,10 @@ Character.dashSpecial = {name = "dashSpecial", start = Character.dashSpecial_sta
 
 function Character:jumpAttackForward_start()
     self.isHittable = true
-    --	print (self.name.." - jumpAttackForward start")
     self:setSprite("jumpAttackForward")
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackForward_update(dt)
-    self.can_reset_victims = true
-    --	print (self.name.." - jumpAttackForward update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
@@ -999,12 +962,9 @@ Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jum
 
 function Character:jumpAttackLight_start()
     self.isHittable = true
-    --	print (self.name.." - jumpAttackLight start")
     self:setSprite("jumpAttackLight")
 end
 function Character:jumpAttackLight_update(dt)
-    self.can_reset_victims = true
-    --	print (self.name.." - jumpAttackLight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
@@ -1021,13 +981,10 @@ Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAtt
 
 function Character:jumpAttackStraight_start()
     self.isHittable = true
-    --	print (self.name.." - jumpAttackStraight start")
     self:setSprite("jumpAttackStraight")
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackStraight_update(dt)
-    self.can_reset_victims = true
-    --	print (self.name.." - jumpAttackStraight update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
@@ -1044,13 +1001,10 @@ Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.j
 
 function Character:jumpAttackRun_start()
     self.isHittable = true
-    --	print (self.name.." - jumpAttackRun start")
     self:setSprite("jumpAttackRun")
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
 function Character:jumpAttackRun_update(dt)
-    self.can_reset_victims = true
-    --	print (self.name.." - jumpAttackRun update",dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
@@ -1067,7 +1021,6 @@ Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackR
 
 function Character:fall_start()
     self.isHittable = false
-    --    print (self.name.." - fall start")
     if self.isThrown then
         self.z = self.thrower_id.throw_start_z or 0
         self:setSprite("thrown")
@@ -1082,7 +1035,6 @@ function Character:fall_start()
     self.bounced_pitch = 1 + 0.05 * love.math.random(-4,4)
 end
 function Character:fall_update(dt)
-    --dp(self.name .. " - fall update", dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
@@ -1149,7 +1101,6 @@ Character.fall = {name = "fall", start = Character.fall_start, exit = nop, updat
 
 function Character:getup_start()
     self.isHittable = false
-    --print (self.name.." - getup start")
     dpo(self, self.state)
     self.hurt = nil
     if self.z <= 0 then
@@ -1163,7 +1114,6 @@ function Character:getup_start()
     self:setSprite("getup")
 end
 function Character:getup_update(dt)
-    --dp(self.name .. " - getup update", dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1174,7 +1124,6 @@ Character.getup = {name = "getup", start = Character.getup_start, exit = nop, up
 
 function Character:dead_start()
     self.isHittable = false
-    --print (self.name.." - dead start")
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
@@ -1183,7 +1132,6 @@ function Character:dead_start()
     if self.z <= 0 then
         self.z = 0
     end
-    --self:onShake(1, 0, 0.1, 0.7)
     sfx.play("voice"..self.id, self.sfx.dead)
     if self.killer_id then
         self.killer_id:addScore( self.score_bonus )
@@ -1196,7 +1144,6 @@ function Character:dead_update(dt)
     if self.isDisabled then
         return
     end
-    --dp(self.name .. " - dead update", dt)
     if self.cool_down_death <= 0 then
         self.isDisabled = true
         self.isHittable = false
@@ -1215,8 +1162,6 @@ Character.dead = {name = "dead", start = Character.dead_start, exit = nop, updat
 
 function Character:combo_start()
     self.isHittable = true
-    self.can_reset_victims = true
-    --	print (self.name.." - combo start")
     if self.n_combo > 4 or self.n_combo < 1 then
         self.n_combo = 1
     end
@@ -1326,17 +1271,13 @@ end
 
 function Character:grab_start()
     self.isHittable = true
-    --print (self.name.." - grab start")
     self:setSprite("grab")
     self.can_jump = false
     self.can_attack = false
     self.grab_release = 0
-    self.can_reset_victims = true
     self.victims = {}
-    dp(self.name.." is grabing someone.")
 end
 function Character:grab_update(dt)
-    --dp(self.name .. " - grab update", dt)
     local g = self.hold
 
     if ( self.b.horizontal:getValue() == -self.face ) then
@@ -1444,7 +1385,6 @@ function Character:grabbed_start()
     dp(self.name.." is grabbed.")
 end
 function Character:grabbed_update(dt)
-    --dp(self.name .. " - grabbed update", dt)
     local g = self.hold
     if self.isGrabbed and g.cool_down > 0 then
         g.cool_down = g.cool_down - dt
@@ -1467,7 +1407,6 @@ Character.grabbed = {name = "grabbed", start = Character.grabbed_start, exit = n
 
 function Character:grabHit_start()
     self.isHittable = true
-    --print (self.name.." - grabhit start")
     local g = self.hold
     if self.b.vertical:isDown(1) then --press DOWN to early headbutt
         g.cool_down = 0
@@ -1494,7 +1433,6 @@ function Character:grabHit_update(dt)
         end
         return
     end
-    --dp(self.name .. " - grabhit update", dt)
     if self.sprite.isFinished then
         self:setState(self.grab)
         return
@@ -1506,7 +1444,6 @@ Character.grabHit = {name = "grabHit", start = Character.grabHit_start, exit = n
 
 function Character:grabHitLast_start()
     self.isHittable = true
-    --print (self.name.." - grabHitLast start")
     self:setSprite("grabHitLast")
     dp(self.name.." is grabHitLast someone.")
 end
@@ -1519,7 +1456,6 @@ function Character:grabHitLast_update(dt)
         end
         return
     end
-    --dp(self.name .. " - grabHitLast update", dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1531,12 +1467,10 @@ Character.grabHitLast = {name = "grabHitLast", start = Character.grabHitLast_sta
 
 function Character:grabHitEnd_start()
     self.isHittable = true
-    --print (self.name.." - grabhitend start")
     self:setSprite("grabHitEnd")
     dp(self.name.." is grabhitend someone.")
 end
 function Character:grabHitEnd_update(dt)
-    --dp(self.name .. " - grabhitend update", dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1548,7 +1482,6 @@ Character.grabHitEnd = {name = "grabHitEnd", start = Character.grabHitEnd_start,
 
 function Character:grabThrow_start()
     self.isHittable = false
-    --print (self.name.." - grabThrow start")
     local g = self.hold
     local t = g.target
     self.face = -self.face
@@ -1558,7 +1491,6 @@ function Character:grabThrow_start()
 end
 
 function Character:grabThrow_update(dt)
-    --dp(self.name .. " - grabThrow update", dt)
     if self.can_throw_now then --set in the anm
         self.can_throw_now = false
         local g = self.hold
