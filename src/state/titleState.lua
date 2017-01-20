@@ -4,6 +4,7 @@ local time_to_title_fadein = 1
 local time_to_fadein = 1
 local time_to_intro = 10 -- idle to show intro
 local time_to_fadeout = 1
+local title_sfx = "whoosh_heavy"
 
 local time = 0
 local transparency = 0
@@ -75,6 +76,7 @@ function titleState:enter(_, param)
     end
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+    sfx.play("sfx",title_sfx)
 
     -- Prevent double press at start (e.g. auto confirmation)
     Control1.attack:update()
@@ -84,6 +86,7 @@ function titleState:enter(_, param)
 end
 
 function titleState:resume()
+    sfx.play("sfx",title_sfx)
     mouse_x, mouse_y = 0,0
     time = 0
     transparency = 0

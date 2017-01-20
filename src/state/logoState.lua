@@ -16,7 +16,6 @@ end
 function logoState:update(dt)
     time_left = time_left - dt
     if time_left <= 0 then
-        sfx.play("sfx","whoosh_heavy")
         return Gamestate.switch(titleState)
     end
 end
