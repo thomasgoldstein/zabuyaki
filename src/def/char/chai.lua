@@ -12,9 +12,25 @@ local step_sfx = function(slf, cont)
 	padust:emit(3)
 	stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local grabHit_attack = function(slf, cont) slf:checkAndAttackGrabbed(10,0, 20,12, 9, "low", slf.velx) end
-local grabLast_attack = function(slf, cont) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
-local grabEnd_attack = function(slf, cont) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
+local grabHit_attack = function(slf, cont)
+	--default values: 10,0,20,12, "low", slf.velx
+	slf:checkAndAttackGrabbed(
+		{ damage = 9, type = "low" },
+		cont
+	)
+end
+local grabLast_attack = function(slf, cont)
+	slf:checkAndAttackGrabbed(
+		{ left = 20, damage = 11, type = "grabKO" },
+		cont
+	)
+end
+local grabEnd_attack = function(slf, cont)
+	slf:checkAndAttackGrabbed(
+		{ left = 20, damage = 15, type = "grabKO" },
+		cont
+	)
+end
 local footJab_move = function(slf, cont)
 	-- Chai's foot jab makes him move forward
 	slf.velx = 60 -- horizontal velocity

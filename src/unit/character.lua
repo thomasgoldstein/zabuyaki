@@ -274,6 +274,7 @@ end
 
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: l,t,w,h, damage, type, velocity, sfx, init_victims_list
+    --type = "shockWave" "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     if not f then
         f = {}
     end
@@ -338,13 +339,22 @@ function Character:checkAndAttack(f, isFuncCont)
     items = nil
 end
 
-function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
-    -- type = "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
-    local face = self.face
-    local g = self.hold
+function Character:checkAndAttackGrabbed(f, isFuncCont)
+    --f options {}: l,t,w,h, damage, type, velocity, sfx
+    --type = "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
+    if not f then
+        f = {}
+    end
+    local face
     if self.isThrown then
         face = -face
+    else
+        face = self.face
     end
+    local l,t,w,h = f.left or 10, f.top or 0, f.width or 20, f.height or 12
+    local damage, type, velocity = f.damage or 1, f.type or "low", f.velocity or self.velx
+
+    local g = self.hold
     if not g.target then --can attack only the 1 grabbed
         return
     end
@@ -357,9 +367,10 @@ function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
         g.target.hurt = {source = self, state = self.state, damage = damage,
             type = type, velx = velocity or self.velocity_bonus_on_attack_x,
             horizontal = self.horizontal,
+            continuous = isFuncCont,
             x = self.x, y = self.y, z = self.z }
-        if sfx1 then	--TODO 2 SFX for holloow and hit
-            sfx.play("sfx"..self.id,sfx1)
+        if f.sfx then	--TODO 2 SFX for hollow and hit
+            sfx.play("sfx"..self.id, f.sfx)
         end
     end
     stage.world:remove(a)
