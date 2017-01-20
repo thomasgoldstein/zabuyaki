@@ -42,7 +42,6 @@ table = {
 }
 ]]
 
-
 function Movie:initialize(frames)
     self.type = "movie"
     self.font = gfx.font.arcade3
@@ -75,12 +74,12 @@ function Movie:update(dt)
     self.time = self.time + dt
     if self.b.attack:isDown() or love.mouse.isDown(1) then
         self.time = self.time + dt * 3 -- Speed Up
-        if self.b.attack:pressed() then
-            sfx.play("sfx", "menu_move")
-        end
+--        if self.b.attack:pressed() then
+--            sfx.play("sfx", "menu_move")
+--        end
     end
     if self.b.back:pressed() or self.b.jump:pressed() or love.mouse.isDown(2) then
-        sfx.play("sfx", "menu_cancel")
+        --sfx.play("sfx", "menu_cancel")
         return true -- Interrupt
     end
     if not self.frames or not self.frames[self.frame] then
@@ -98,9 +97,9 @@ function Movie:update(dt)
     if (self.time >= self.frames[self.frame].delay + self.delayAfterFrame and self.autoSkip)
             or (self.time >= self.frames[self.frame].delay and self.b.attack:released())
     then
-        if self.b.attack:released() or self.b.attack:pressed() then
-            sfx.play("sfx", "menu_select")
-        end
+--        if self.b.attack:released() or self.b.attack:pressed() then
+--            sfx.play("sfx", "menu_select")
+--        end
         self.frame = self.frame + 1
         self.hScroll, self.vScroll = 0, 0
         if not self.frames[self.frame] then
