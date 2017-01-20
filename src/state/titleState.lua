@@ -1,11 +1,13 @@
 titleState = {}
 
+local time_to_title_fadein = 1
 local time_to_fadein = 1
 local time_to_intro = 10 -- idle to show intro
 local time_to_fadeout = 1
 
 local time = 0
 local transparency = 0
+local title_transparency = 0
 
 local screen_width = 640
 local screen_height = 480
@@ -32,7 +34,7 @@ local txt_hints = {txt_empty_hint, txt_empty_hint, txt_empty_hint }
 
 -- Intro
 local intro = nil
-local mode = "fadein"
+local mode = nil
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -65,6 +67,7 @@ function titleState:enter(_, param)
     mouse_x, mouse_y = 0,0
     time = 0
     transparency = 0
+    title_transparency = 0
     mode = "fadein"
     if param ~= "dontStartMusic" then
         TEsound.stop("music")
@@ -81,6 +84,11 @@ function titleState:enter(_, param)
 end
 
 function titleState:resume()
+    mouse_x, mouse_y = 0,0
+    time = 0
+    transparency = 0
+    title_transparency = 0
+    mode = "fadein"
     mouse_x, mouse_y = 0,0
     love.graphics.setLineWidth( 2 )
 end
@@ -112,20 +120,29 @@ end
 function titleState:update(dt)
     time = time + dt
     if mode == "fadein" then
+        title_transparency = clamp(time, 0 , 1)
+        transparency = 0
+        if time > time_to_title_fadein  then
+            mode = "menufadein"
+            time = 0
+            return
+        end
+    elseif mode == "menufadein" then
+        title_transparency = 1
         transparency = clamp(time, 0 , 1)
         if time > time_to_fadein then
             mode = "menu"
             time = 0
             return
-        end         
+        end
     elseif mode == "fadeout" then
         transparency = clamp(time_to_fadeout - time, 0 , 1)
+        title_transparency = transparency
         if time > time_to_fadeout then
             mode = "movie"
             time = 0
             return
         end
-
     elseif mode == "movie" then
         if intro:update(dt) then
             self:enter()
@@ -162,7 +179,7 @@ function titleState:draw()
     end
     love.graphics.setCanvas()
     push:apply("start")
-    love.graphics.setColor(255, 255, 255, 255 * transparency)
+    love.graphics.setColor(255, 255, 255, 255 * title_transparency)
     love.graphics.draw(zabuyaki_title, 0, 0, 0, 2, 2)
     love.graphics.setColor(100, 100, 100, 255 * transparency)
     love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, screen_height - 20)
