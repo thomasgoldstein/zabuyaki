@@ -33,7 +33,7 @@ local txt_items = {txt_start, txt_options, txt_quit}
 local txt_hints = {txt_empty_hint, txt_empty_hint, txt_empty_hint }
 
 -- Intro
-local intro = nil
+local intro_movie = nil
 local mode = nil
 
 local function fillMenu(txt_items, txt_hints)
@@ -144,7 +144,7 @@ function titleState:update(dt)
             return
         end
     elseif mode == "movie" then
-        if intro:update(dt) then
+        if intro_movie:update(dt) then
             self:enter()
             TEsound.stop("music")
             TEsound.playLooping(bgm.title, "music")
@@ -153,7 +153,7 @@ function titleState:update(dt)
     else
         --mode == "menu"
         if time > time_to_intro then
-            intro = Movie:new(movie_intro)
+            intro_movie = Movie:new(movie_intro)
             mode = "fadeout"
             time = 0
         end
@@ -169,7 +169,7 @@ function titleState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     if mode == "movie" then
         love.graphics.setCanvas(canvas[1])
-        intro:draw(0,0,320,240)
+        intro_movie:draw(0,0,320,240)
         love.graphics.setCanvas()
 	    push:apply("start")
         love.graphics.setColor(255, 255, 255, 255)
