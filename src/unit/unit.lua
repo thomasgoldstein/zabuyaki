@@ -282,7 +282,10 @@ function Unit:updateAI(dt)
 end
 
 -- stop unit from moving by tweening
-function Unit:remove_tween_move() self.move = nil end
+function Unit:remove_tween_move()
+	dp(self.name.." removed tween move")
+	self.move = nil
+end
 
 -- private
 function Unit:checkCollisionAndMove(dt)

@@ -114,7 +114,7 @@ end
 
 function Gopper:combo_start()
     self.isHittable = true
-    self.move = nil
+    self:remove_tween_move()
     if self.n_combo > 3 or self.n_combo < 1 then
         self.n_combo = 1
     end
@@ -145,7 +145,7 @@ Gopper.combo = { name = "combo", start = Gopper.combo_start, exit = nop, update 
 
 function Gopper:dash_start()
     self.isHittable = true
-    self.move = nil
+    self:remove_tween_move()
     dpo(self, self.state)
     --	print (self.name.." - dash start")
     self:setSprite("dash")
