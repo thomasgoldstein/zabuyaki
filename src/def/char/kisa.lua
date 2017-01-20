@@ -5,44 +5,6 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function(slf)
-	sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
-	local padust = PA_DUST_STEPS:clone()
-	padust:setLinearAcceleration(-slf.face * 80, -5, slf.face * 80, -50)
-	padust:emit(15)
-	stage.objects:add(Effect:new(padust, slf.x - 5 * slf.face, slf.y-2))
-end
-local jump_straight_attack1 = function(slf) slf:checkAndAttack(28,0, 20,12, 8, "high", slf.velx) end
-local jump_straight_attack2 = function(slf) slf:checkAndAttack(28,0, 20,12, 8, "fall", slf.velocity_fall_x, nil, true) end
-local grabHit_attack = function(slf) slf:checkAndAttackGrabbed(10,0, 20,12, 8, "low", slf.velx) end
-local grabLast_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
-local grabEnd_attack = function(slf) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
-local combo_attack1 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 7, "high", slf.velx, "air")
-	slf.cool_down_combo = 0.4
-end
-local combo_attack2 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 8, "high", slf.velx, "air")
-	slf.cool_down_combo = 0.4
-end
-local combo_attack3 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 9, "high", slf.velx, "air")
-	slf.cool_down_combo = 0.4
-end
-local combo_attack4 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 7, "low", slf.velx, "air")
-	slf.cool_down_combo = 0.4
-end
-local combo_attack5 = function(slf)
-	slf:checkAndAttack(30,0, 22,12, 8, "fall", slf.velocity_fall_x, nil, true)	-- clear victims
-	slf.cool_down_combo = 0.4
-end
-local dash_attack1 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "high", slf.velx) end
-local dash_attack2 = function(slf) slf:checkAndAttack(20,0, 55,12, 7, "fall", slf.velocity_fall_x, nil, true) end
-local jump_forward_attack = function(slf) slf:checkAndAttack(32,0, 25,12, 15, "fall", slf.velocity_fall_x) end
-local jump_light_attack = function(slf) slf:checkAndAttack(15,0, 22,12, 8, "high", slf.velx) end
-local grabThrow_now = function(slf) slf.can_throw_now = true end
-
 return {
 	serialization_version = 0.42, -- The version of this serialization process
 

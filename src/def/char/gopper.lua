@@ -4,14 +4,14 @@ local image_w,image_h = LoadSpriteSheet(sprite_sheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-local step_sfx = function(slf)
+local step_sfx = function(slf, cont)
     sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
     local padust = PA_DUST_STEPS:clone()
     padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
     padust:emit(3)
     stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local dash_belly_clouds = function(slf)
+local dash_belly_clouds = function(slf, cont)
     slf.isHittable = false
     sfx.play("sfx", "fall", 1, 1 + 0.02 * love.math.random(-2,2))
     --landing dust clouds
@@ -26,14 +26,24 @@ local dash_belly_clouds = function(slf)
     psystem:emit(5)
     stage.objects:add(Effect:new(psystem, slf.x + 10 * slf.face, slf.y+2))
 end
-local combo_punch = function(slf)
-    slf:checkAndAttack(28,0, 26,12, 7, "high", slf.velx, "air")
+local combo_punch = function(slf, cont)
+    slf:checkAndAttackN(
+        {l = 28, w = 26, h = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
+        cont
+    )
     slf.cool_down_combo = 0.4
 end
-local combo_kick = function(slf)
-    slf:checkAndAttack(30,0, 26,12, 9, "fall", slf.velx, "air")
+local combo_kick = function(slf, cont)
+    slf:checkAndAttackN(
+        {l = 30, w = 26, h = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
+        cont
+    )
 end
-local dash_attack = function(slf) slf:checkAndAttack(12,0, 30,12, 14, "fall", slf.velocity_dash_fall) end
+local dash_attack = function(slf, cont)
+    slf:checkAndAttackN(
+    {l = 12, w = 30, h = 12, damage = 14, type = "fall", velocity = slf.velocity_dash_fall },
+    cont
+) end
 
 return {
     serialization_version = 0.42, -- The version of this serialization process

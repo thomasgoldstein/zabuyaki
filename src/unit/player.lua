@@ -411,7 +411,10 @@ function Player:respawn_update(dt)
         if self.sprite.cur_frame == 1 then
             self.sprite.elapsed_time = 10 -- seconds. skip to pickup 2 frame
         end
-        self:checkAndAttack(0,0, 320 * 2, 240 * 2, 0, "shockWave", 0)
+        self:checkAndAttackN(
+            {l = 0, w = 320 * 2, h = 240 * 2, damage = 0, type = "shockWave", velocity = 0 },
+            false
+        )
         self.bounced = 1
     end
     --self.victim_infoBar = nil   -- remove enemy bar under yours

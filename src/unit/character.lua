@@ -338,66 +338,6 @@ function Character:checkAndAttackN(f, isFuncCont)
     items = nil
 end
 
-function Character:checkAndAttack(l,t,w,h, damage, type, velocity, sfx1, init_victims_list)
-    -- type = "high" "low" "fall" "shockWave" "simple" ""blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
-    local face = self.face
-
-    local items = {}
-    local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
-    if type == "shockWave" then
-        for other, separating_vector in pairs(stage.world:collisions(a)) do
-            local o = other.obj
-            if not o.isDisabled
-                and o ~= self
-            then
-                o.hurt = {source = self, state = self.state, damage = damage,
-                    type = type, velx = velocity or self.velocity_bonus_on_attack_x,
-                    horizontal = face, isThrown = false,
-                    x = self.x, y = self.y, z = self.z }
-                items[#items+1] = o
-            end
-        end
-    else
-        for other, separating_vector in pairs(stage.world:collisions(a)) do
-            local o = other.obj
-            if o.isHittable
-                    and not o.isGrabbed
-                    and not o.isDisabled
-                    and o ~= self
-                    and not self.victims[o]
-                    and o.z <= self.z + o.height and o.z >= self.z - self.height
-            then
-                if self.isThrown then
-                    o.hurt = {source = self.thrower_id, state = self.state, damage = damage,
-                        type = type, velx = velocity or self.velocity_bonus_on_attack_x,
-                        horizontal = self.horizontal, isThrown = true,
-                        x = self.x, y = self.y, z = self.z }
-                else
-                    o.hurt = {source = self, state = self.state, damage = damage,
-                        type = type, velx = velocity or self.velocity_bonus_on_attack_x,
-                        horizontal = face, isThrown = false,
-                        x = self.x, y = self.y, z = self.z }
-                end
-                items[#items+1] = o
-            end
-        end
-    end
-    stage.world:remove(a)
-    a = nil
-    --DEBUG collect data to show attack hitBoxes in green
-    if GLOBAL_SETTING.DEBUG then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
-    end
-    if sfx1 then
-        sfx.play("sfx"..self.id,sfx1)
-    end
-    if not GLOBAL_SETTING.AUTO_COMBO and #items < 1 then
-        -- reset combo attack N to 1
-        self.n_combo = 0
-    end
-    items = nil
-end
-
 function Character:checkAndAttackGrabbed(l,t,w,h, damage, type, velocity, sfx1)
     -- type = "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     local face = self.face
@@ -1092,7 +1032,11 @@ function Character:fall_update(dt)
         end
         if self.isThrown and self.velz < 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
-            self:checkAndAttack(0,0, 20,12, self.my_thrown_body_damage, "fall", self.velocity_throw_x)
+            self:checkAndAttackN(
+                {l = 0, w = 20, h = 12, damage = self.my_thrown_body_damage, type = "fall", velocity = self.velocity_throw_x },
+                false
+            )
+
         end
     end
     self:checkCollisionAndMove(dt)

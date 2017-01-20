@@ -4,14 +4,25 @@ local image_w,image_h = LoadSpriteSheet(sprite_sheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-local combo_kick = function(slf)
-    slf:checkAndAttack(30,0, 26,12, 7, "low", slf.velx, "air")
+local combo_kick = function(slf, cont)
+    slf:checkAndAttackN(
+        {l = 30, w = 26, h = 12, damage = 7, type = "low", velocity = slf.velx, sfx = "air" },
+        cont
+    )
     slf.cool_down_combo = 0.4
 end
-local combo_punch = function(slf)
-    slf:checkAndAttack(30,0, 26,12, 9, "fall", slf.velx, "air")
+local combo_punch = function(slf, cont)
+    slf:checkAndAttackN(
+        {l = 30, w = 26, h = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
+        cont
+    )
 end
-local jump_forward_attack = function(slf) slf:checkAndAttack(16,0, 22,12, 14, "fall", slf.velx) end
+local jump_forward_attack = function(slf, cont)
+    slf:checkAndAttackN(
+        {l = 16, w = 22, h = 12, damage = 14, type = "fall", velocity = slf.velx },
+        cont
+    )
+end
 
 return {
     serialization_version = 0.42, -- The version of this serialization process
