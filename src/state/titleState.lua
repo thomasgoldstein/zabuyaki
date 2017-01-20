@@ -1,8 +1,12 @@
 titleState = {}
 
-local time = 0
-local fade_in_time = 0
+local time_to_fadein = 1
 local time_to_intro = 10 -- idle to show intro
+local time_to_fadeout = 1
+
+local time = 0
+local transparency = 0
+
 local screen_width = 640
 local screen_height = 480
 local zabuyaki_title
@@ -28,7 +32,7 @@ local txt_hints = {txt_empty_hint, txt_empty_hint, txt_empty_hint }
 
 -- Intro
 local intro = nil
-local mode = "normal"
+local mode = "fadein"
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -57,17 +61,11 @@ local menu = fillMenu(txt_items, txt_hints)
 local menu_state, old_menu_state = 1, 1
 local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
 
-local function CheckPointCollision(x,y, x1,y1,w1,h1)
-    return x < x1+w1 and
-            x >= x1 and
-            y < y1+h1 and
-            y >= y1
-end
-
 function titleState:enter(_, param)
     mouse_x, mouse_y = 0,0
     time = 0
-    fade_in_time = 0
+    transparency = 0
+    mode = "fadein"
     if param ~= "dontStartMusic" then
         TEsound.stop("music")
         TEsound.playLooping(bgm.title, "music")
@@ -112,27 +110,42 @@ local function player_input(controls)
 end
 
 function titleState:update(dt)
-    if mode == "movie" then
+    time = time + dt
+    if mode == "fadein" then
+        transparency = clamp(time, 0 , 1)
+        if time > time_to_fadein then
+            mode = "menu"
+            time = 0
+            return
+        end         
+    elseif mode == "fadeout" then
+        transparency = clamp(time_to_fadeout - time, 0 , 1)
+        if time > time_to_fadeout then
+            mode = "movie"
+            time = 0
+            return
+        end
+
+    elseif mode == "movie" then
         if intro:update(dt) then
             self:enter()
-            mode = "normal"
-            time = 0
             TEsound.stop("music")
             TEsound.playLooping(bgm.title, "music")
         end
         return
+    else
+        --mode == "menu"
+        if time > time_to_intro then
+            intro = Movie:new(movie_intro)
+            mode = "fadeout"
+            time = 0
+        end
+        if menu_state ~= old_menu_state then
+            sfx.play("sfx","menu_move")
+            old_menu_state = menu_state
+        end
+        player_input(Control1)
     end
-    time = time + dt
-    if time > time_to_intro then
-        intro = Movie:new(movie_intro)
-        mode = "movie"
-    end
-    fade_in_time = clamp(fade_in_time + dt, 0 , 1)
-    if menu_state ~= old_menu_state then
-        sfx.play("sfx","menu_move")
-        old_menu_state = menu_state
-    end
-    player_input(Control1)
 end
 
 function titleState:draw()
@@ -149,9 +162,9 @@ function titleState:draw()
     end
     love.graphics.setCanvas()
     push:apply("start")
-    love.graphics.setColor(255, 255, 255, 255 * fade_in_time)
+    love.graphics.setColor(255, 255, 255, 255 * transparency)
     love.graphics.draw(zabuyaki_title, 0, 0, 0, 2, 2)
-    love.graphics.setColor(100, 100, 100, 255 * fade_in_time)
+    love.graphics.setColor(100, 100, 100, 255 * transparency)
     love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, screen_height - 20)
     for i = 1,#menu do
         local m = menu[i]
@@ -159,14 +172,14 @@ function titleState:draw()
         local wb = w + item_width_margin
         local h = m.item:getHeight()
         if i == old_menu_state then
-            love.graphics.setColor(0, 0, 0, 80 * fade_in_time)
+            love.graphics.setColor(0, 0, 0, 80 * transparency)
             love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
-            love.graphics.setColor(255, 255, 255, 255 * fade_in_time)
+            love.graphics.setColor(255, 255, 255, 255 * transparency)
             love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
-            love.graphics.setColor(255,200,40, 255 * fade_in_time)
+            love.graphics.setColor(255,200,40, 255 * transparency)
             love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
         end
-        love.graphics.setColor(255, 255, 255, 255 * fade_in_time)
+        love.graphics.setColor(255, 255, 255, 255 * transparency)
         love.graphics.draw(m.item, m.x, m.y )
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
                 CheckPointCollision(mouse_x, mouse_y, (screen_width - wb) / 2, m.y - top_item_offset,
@@ -205,7 +218,10 @@ function titleState:mousepressed( x, y, button, istouch )
     if mode == "movie" then
         return
     end
-    titleState:confirm( x, y, button, istouch )
+    if mode == "menu" then
+        titleState:confirm( x, y, button, istouch )
+        return
+    end
 end
 
 function titleState:mousemoved( x, y, dx, dy)
