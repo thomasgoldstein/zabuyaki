@@ -52,13 +52,6 @@ local menu = fillMenu(txt_items, txt_hints)
 local menu_state, old_menu_state = 1, 1
 local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
 
-local function CheckPointCollision(x,y, x1,y1,w1,h1)
-    return x < x1+w1 and
-            x >= x1 and
-            y < y1+h1 and
-            y >= y1
-end
-
 function pauseState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
     menu_state = 1
