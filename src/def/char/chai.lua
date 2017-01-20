@@ -20,7 +20,7 @@ local footJab_move = function(slf, cont)
 	slf.velx = 60 -- horizontal velocity
 end
 local combo_attack1 = function(slf, cont)
-	slf:checkAndAttackN(
+	slf:checkAndAttack(
 		{l = 30, w = 26, h = 12, damage = 6, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
 	)
@@ -28,57 +28,57 @@ local combo_attack1 = function(slf, cont)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf, cont)
-	slf:checkAndAttackN(
+	slf:checkAndAttack(
 		{l = 30, w = 26, h = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
 	)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf, cont)
-	slf:checkAndAttackN(
+	slf:checkAndAttack(
 		{l = 34, w = 33, h = 12, damage = 12, type = "high", velocity = slf.velx, sfx = "air" },
 		cont
 	)
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf, cont)
-	slf:checkAndAttackN(
+	slf:checkAndAttack(
 		{l = 30, w = 26, h = 12, damage = 14, type = "fall", velocity = slf.velocity_fall_x, sfx = "air" },
 		cont
 	)
 end
 local combo_attack4_nosfx = function(slf, cont)
 	--TODO check if it makes default sound still
-	slf:checkAndAttackN(
+	slf:checkAndAttack(
 		{l = 30, w = 26, h = 12, damage = 14, type = "fall", velocity = slf.velocity_fall_x, sfx = nil },
 		cont
 	)
 end
-local dash_attack1 = function(slf, cont) slf:checkAndAttackN(
+local dash_attack1 = function(slf, cont) slf:checkAndAttack(
 	{l = 8, w = 22, h = 12, damage = 17, type = "fall", velocity = slf.velocity_dash_fall },
 	cont
 ) end
-local dash_attack2 = function(slf, cont) slf:checkAndAttackN(
+local dash_attack2 = function(slf, cont) slf:checkAndAttack(
 	{l = 12, w = 30, h = 12, damage = 17, type = "fall", velocity = slf.velocity_dash_fall },
 	cont
 ) end
-local jump_forward_attack = function(slf, cont) slf:checkAndAttackN(
+local jump_forward_attack = function(slf, cont) slf:checkAndAttack(
 	{l = 30, w = 25, h = 12, damage = 15, type = "fall", velocity = slf.velx },
 	cont
 ) end
-local jump_light_attack = function(slf, cont) slf:checkAndAttackN(
+local jump_light_attack = function(slf, cont) slf:checkAndAttack(
 	{l = 12, w = 22, h = 12, damage = 8, type = "high", velocity = slf.velx },
 	cont
 ) end
-local jump_straight_attack = function(slf, cont) slf:checkAndAttackN(
+local jump_straight_attack = function(slf, cont) slf:checkAndAttack(
 	{l = 15, w = 25, h = 12, damage = 15, type = "fall", velocity = slf.velocity_fall_x },
 	cont
 ) end
-local jump_run_attack = function(slf, cont) slf:checkAndAttackN(
+local jump_run_attack = function(slf, cont) slf:checkAndAttack(
 	{l = 25, w = 35, h = 12, damage = 6, type = "high", velocity = slf.velx },
 	cont
 ) end
-local jump_run_attack_last = function(slf, cont) slf:checkAndAttackN(
+local jump_run_attack_last = function(slf, cont) slf:checkAndAttack(
 	{l = 25, w = 35, h = 12, damage = 8, type = "fall", velocity = slf.velx },
 	cont
 ) end

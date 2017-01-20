@@ -411,7 +411,7 @@ function Player:respawn_update(dt)
         if self.sprite.cur_frame == 1 then
             self.sprite.elapsed_time = 10 -- seconds. skip to pickup 2 frame
         end
-        self:checkAndAttackN(
+        self:checkAndAttack(
             {l = 0, w = 320 * 2, h = 240 * 2, damage = 0, type = "shockWave", velocity = 0 },
             false
         )

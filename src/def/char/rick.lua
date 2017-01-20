@@ -16,57 +16,57 @@ local grabHit_attack = function(slf, cont) slf:checkAndAttackGrabbed(10,0, 20,12
 local grabLast_attack = function(slf, cont) slf:checkAndAttackGrabbed(20,0, 20,12, 11, "grabKO", slf.velx) end
 local grabEnd_attack = function(slf, cont) slf:checkAndAttackGrabbed(20,0, 20,12, 15, "grabKO", slf.velx) end
 local combo_attack1 = function(slf, cont)
-	slf:checkAndAttackN(
+	slf:checkAndAttack(
         {l = 28, w = 26, h = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf, cont)
-	slf:checkAndAttackN(
+	slf:checkAndAttack(
         {l = 28, w = 27, h = 12, damage = 8, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
 	slf.cool_down_combo = 0.4
 end
 local combo_attack3 = function(slf, cont)
-	slf:checkAndAttackN(
+	slf:checkAndAttack(
         {l = 28, w = 27, h = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" },
         cont
     )
 	slf.cool_down_combo = 0.4
 end
 local combo_attack4 = function(slf, cont)
-	slf:checkAndAttackN(
+	slf:checkAndAttack(
         {l = 34, w = 39, h = 12, damage = 15, type = "fall", velocity = slf.velx, sfx = "air" },
         cont
     )
 end
-local dash_attack1 = function(slf, cont) slf:checkAndAttackN(
+local dash_attack1 = function(slf, cont) slf:checkAndAttack(
     {l = 20, w = 55, h = 12, damage = 8, type = "high", velocity = slf.velocity_dash_fall },
     cont
 ) end
-local dash_attack2 = function(slf, cont) slf:checkAndAttackN(
+local dash_attack2 = function(slf, cont) slf:checkAndAttack(
     {l = 20, w = 55, h = 12, damage = 9, type = "fall", velocity = slf.velocity_dash_fall },
     cont
 ) end
-local jump_forward_attack = function(slf, cont) slf:checkAndAttackN(
+local jump_forward_attack = function(slf, cont) slf:checkAndAttack(
     {l = 30, w = 25, h = 12, damage = 15, type = "fall", velocity = slf.velx },
     cont
 ) end
- local jump_run_attack = function(slf, cont) slf:checkAndAttackN(
+ local jump_run_attack = function(slf, cont) slf:checkAndAttack(
     {l = 30, w = 25, h = 12, damage = 17, type = "fall", velocity = slf.velx },
      cont
  ) end
-local jump_light_attack = function(slf, cont) slf:checkAndAttackN(
+local jump_light_attack = function(slf, cont) slf:checkAndAttack(
     {l = 15, w = 22, h = 12, damage = 9, type = "high", velocity = slf.velx },
     cont
 ) end
-local jump_straight_attack1 = function(slf, cont) slf:checkAndAttackN(
+local jump_straight_attack1 = function(slf, cont) slf:checkAndAttack(
     {l = 20, w = 25, h = 12, damage = 7, type = "high", velocity = slf.velx },
     cont
 ) end
-local jump_straight_attack2 = function(slf, cont) slf:checkAndAttackN(
+local jump_straight_attack2 = function(slf, cont) slf:checkAndAttack(
     {l = 20, w = 25, h = 12, damage = 9, type = "fall", velocity = slf.velocity_fall_x },
     cont
 ) end

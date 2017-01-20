@@ -272,7 +272,7 @@ function Character:applyDamage(damage, type, source, velocity, sfx1)
     end
 end
 
-function Character:checkAndAttackN(f, isFuncCont)
+function Character:checkAndAttack(f, isFuncCont)
     --f options {}: l,t,w,h, damage, type, velocity, sfx, init_victims_list
     if not f then
         f = {}
@@ -1032,7 +1032,7 @@ function Character:fall_update(dt)
         end
         if self.isThrown and self.velz < 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
-            self:checkAndAttackN(
+            self:checkAndAttack(
                 {l = 0, w = 20, h = 12, damage = self.my_thrown_body_damage, type = "fall", velocity = self.velocity_throw_x },
                 false
             )
