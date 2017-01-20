@@ -57,6 +57,7 @@ function Movie:initialize(frames)
     self.delayAfterFrame = frames.delayAfterFrame or 3
     self.bgColor = frames.bgColor or { 0, 0, 0 }
     self.time = 0 --self.frames[self.frame].delay
+    self.transparency = 0
     for i = 1, #frames do -- calc delay and text's x offset
         if not self.frames[i].delay then
             self.frames[i].delay = #self.frames[i].text * seconds_per_char
@@ -85,6 +86,14 @@ function Movie:update(dt)
     if not self.frames or not self.frames[self.frame] then
         dp("Movie is empty")
         return true
+    end
+    local time_to_fadeout = self.frames[self.frame].delay + self.delayAfterFrame - 1
+    if self.time <= 1 then
+        self.transparency = clamp(self.time, 0, 1)
+    elseif self.time >= time_to_fadeout then
+        self.transparency = clamp(1 - (self.time - time_to_fadeout), 0, 1)
+    else
+        self.transparency = 1
     end
     if (self.time >= self.frames[self.frame].delay + self.delayAfterFrame and self.autoSkip)
             or (self.time >= self.frames[self.frame].delay and self.b.attack:released())
@@ -123,7 +132,7 @@ end
 function Movie:draw(l, t, w, h)
     love.graphics.clear(unpack(self.bgColor))
     -- Flick Perforations
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(255, 255, 255, 255 * self.transparency)
     local f = self.frames[self.frame]
     -- Show Picture
     local w, h = f.q[3], f.q[4]
