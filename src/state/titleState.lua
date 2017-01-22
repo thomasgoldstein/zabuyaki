@@ -1,9 +1,9 @@
 titleState = {}
 
 local time_to_title_fadein = 1
-local time_to_fadein = 1
+local time_to_fadein = 0.5
 local time_to_intro = 10 -- idle to show intro
-local time_to_fadeout = 1
+local time_to_fadeout = 0.5
 local title_sfx = "whoosh_heavy"
 
 local time = 0
@@ -86,12 +86,11 @@ function titleState:enter(_, param)
 end
 
 function titleState:resume()
-    sfx.play("sfx",title_sfx)
     mouse_x, mouse_y = 0,0
     time = 0
     transparency = 0
-    title_transparency = 0
-    mode = "fadein"
+    title_transparency = 1
+    mode = "menufadein"
     mouse_x, mouse_y = 0,0
     love.graphics.setLineWidth( 2 )
 end
@@ -132,14 +131,14 @@ function titleState:update(dt)
         end
     elseif mode == "menufadein" then
         title_transparency = 1
-        transparency = clamp(time, 0 , 1)
+        transparency = clamp(time * 2, 0 , 1)
         if time > time_to_fadein then
             mode = "menu"
             time = 0
             return
         end
     elseif mode == "fadeout" then
-        transparency = clamp(time_to_fadeout - time, 0 , 1)
+        transparency = clamp((time_to_fadeout - time) * 2, 0 , 1)
         title_transparency = transparency
         if time > time_to_fadeout then
             mode = "movie"
@@ -158,6 +157,7 @@ function titleState:update(dt)
         if time > time_to_intro then
             intro_movie = Movie:new(movie_intro)
             mode = "fadeout"
+            time = 0
         end
         if menu_state ~= old_menu_state then
             sfx.play("sfx","menu_move")
@@ -218,7 +218,7 @@ function titleState:confirm( x, y, button, istouch )
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
             time = 0
-            return Gamestate.switch(playerSelectState)
+            return Gamestate.push(playerSelectState)
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
             time = 0

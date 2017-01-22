@@ -256,7 +256,7 @@ local function player_input(player, controls, i)
         if (controls.jump:pressed() or controls.back:pressed()) and i == 1 then
             --Only P1 can return to title
             sfx.play("sfx","menu_cancel")
-            return Gamestate.switch(titleState, "dontStartMusic")
+            return Gamestate.pop()
         end
         if controls.attack:pressed() or controls.start:pressed()then
             sfx.play("sfx","menu_select")
@@ -434,7 +434,7 @@ function playerSelectState:confirm( x, y, button, istouch )
             players[1].confirmed = false
             SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].cancel_anim)
         else
-            return Gamestate.switch(titleState, "dontStartMusic")
+            return Gamestate.pop()
         end
     end
 end
