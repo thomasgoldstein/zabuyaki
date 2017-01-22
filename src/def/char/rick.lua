@@ -63,7 +63,7 @@ local dash_attack1 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local dash_attack2 = function(slf, cont) slf:checkAndAttack(
-    { left = 20, width = 55, height = 12, damage = 9, type = "fall", velocity = slf.velocity_dash_fall },
+    { left = 20, width = 55, height = 12, damage = 10, type = "fall", velocity = slf.velocity_dash_fall },
     cont
 ) end
 local jump_forward_attack = function(slf, cont) slf:checkAndAttack(
