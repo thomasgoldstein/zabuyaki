@@ -158,11 +158,11 @@ function titleState:update(dt)
         if time > time_to_intro then
             intro_movie = Movie:new(movie_intro)
             mode = "fadeout"
-            time = 0
         end
         if menu_state ~= old_menu_state then
             sfx.play("sfx","menu_move")
             old_menu_state = menu_state
+            time = 0
         end
         player_input(Control1)
     end
