@@ -14,35 +14,33 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_paused = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
-local txt_continue = love.graphics.newText( gfx.font.arcade4, "Continue" )
-local txt_quick_save = love.graphics.newText( gfx.font.arcade4, "Quick Save" )
-local txt_quit = love.graphics.newText( gfx.font.arcade4, "Quit" )
-
-local txt_quit_hint = love.graphics.newText( gfx.font.arcade4, "Are you sure you want to exit\nthe current game and go back\nto the title screen?" )
-local txt_quick_save_hint = love.graphics.newText( gfx.font.arcade4, "quick save doesn't let you choose\na save, there is only one at most" )
-local txt_press_attack_hint = love.graphics.newText( gfx.font.arcade4, "Return to the game" )
-
-local txt_items = { txt_continue, txt_quick_save, txt_quit }
-local txt_hints = { txt_press_attack_hint, txt_quick_save_hint, txt_quit_hint }
+local txt_items = {"Continue", "Quick Save", "Quit"}
+local txt_hints = {"Are you sure you want to exit\nthe current game and go back\nto the title screen?", "quick save doesn't let you choose\na save, there is only one at most", "Return to the game" }
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
     local max_item_width, max_item_x = 8, 0
-    for i = 1,#txt_items do
-        local w = txt_items[i]:getDimensions()
+    for i = 1, #txt_items do
+        local w = gfx.font.arcade4:getWidth(txt_items[i])
         if w > max_item_width then
-            max_item_x = menu_x_offset + screen_width / 2 - txt_items[i]:getWidth()/2
+            max_item_x = menu_x_offset + screen_width / 2 - w / 2
             max_item_width = w
         end
     end
-    for i = 1,#txt_items do
-        local x = menu_x_offset + screen_width / 2 - txt_items[i]:getWidth()/2
-        local y = menu_y_offset + i * menu_item_h
-        local w, h = txt_items[i]:getDimensions()
-
-        m[#m+1] = {item = txt_items[i], hint = txt_hints[i],
-            x = x, y = y, rect_x = max_item_x,
-            w = max_item_width, h = h}
+    for i = 1, #txt_items do
+        local w = gfx.font.arcade4:getWidth(txt_items[i])
+        m[#m + 1] = {
+            item = txt_items[i],
+            hint = txt_hints[i],
+            x = menu_x_offset + screen_width / 2 - w / 2,
+            y = menu_y_offset + i * menu_item_h,
+            rect_x = max_item_x,
+            w = max_item_width,
+            h = gfx.font.arcade4:getHeight(txt_items[i]),
+            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i])) / 2,
+            wy = screen_height - hint_y_offset,
+            n = 1
+        }
     end
     return m
 end
@@ -149,19 +147,18 @@ function pauseState:draw()
 
     for i = 1,#menu do
         local m = menu[i]
-        local w = m.item:getWidth()
-        local wb = w + item_width_margin
-        local h = m.item:getHeight()
         if i == old_menu_state then
             love.graphics.setColor(0, 0, 0, 80)
             love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
             love.graphics.setColor(255, 255, 255, 255)
-            love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
+            love.graphics.print(m.hint, m.wx, m.wy )
+
             love.graphics.setColor(255,200,40, 255)
             love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
         end
         love.graphics.setColor(255, 255, 255, 255)
-        love.graphics.draw(m.item, m.x, m.y )
+        love.graphics.print(m.item, m.x, m.y )
+
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
                 CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
         then
@@ -178,8 +175,6 @@ function pauseState:draw()
     love.graphics.setColor(255, 255, 255, 220 + math.sin(time)*35)
     love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2, 40)
 
-    love.graphics.setColor(255, 255, 255, 200 - math.sin(time)*55)
-    love.graphics.draw(txt_hints[menu_state], (screen_width - txt_hints[menu_state]:getWidth()) / 2, screen_height - 80)
     show_debug_indicator()
     push:apply("end")
 end
