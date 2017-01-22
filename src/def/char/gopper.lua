@@ -28,20 +28,20 @@ local dash_belly_clouds = function(slf, cont)
 end
 local combo_punch = function(slf, cont)
     slf:checkAndAttack(
-        {l = 28, w = 26, h = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
+        { left = 28, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
     slf.cool_down_combo = 0.4
 end
 local combo_kick = function(slf, cont)
     slf:checkAndAttack(
-        {l = 30, w = 26, h = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
+        { left = 30, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
         cont
     )
 end
 local dash_attack = function(slf, cont)
     slf:checkAndAttack(
-    {l = 12, w = 30, h = 12, damage = 14, type = "fall", velocity = slf.velocity_dash_fall },
+    { left = 12, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocity_dash_fall },
     cont
 ) end
 
