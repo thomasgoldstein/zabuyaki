@@ -104,8 +104,8 @@ return {
 			{ q = q(55, 597, 38, 17) }
 		},
 		intro = {
-			{ q = q(48,398,43,58), ox = 21, oy = 57 }, --pickup 2
-			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
+			{ q = q(48,398,43,58), ox = 18, oy = 57 }, --pickup 2
+			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			loop = true,
 			delay = 1
 		},
@@ -142,14 +142,14 @@ return {
             delay = 0.1
 		},
 		jump = {
-			{ q = q(46,262,44,66), ox = 22, oy = 65, delay = 0.4 }, --jump up
-			{ q = q(92,262,45,61), ox = 22, oy = 65 }, --jump down
+			{ q = q(46,262,44,66), ox = 23, oy = 65, delay = 0.4 }, --jump up
+			{ q = q(92,262,45,61), ox = 23, oy = 65 }, --jump down
 			delay = 5
 		},
 		respawn = {
-			{ q = q(92,262,45,61), ox = 22, oy = 65, delay = 5 }, --jump down
-			{ q = q(48,398,43,58), ox = 21, oy = 57, delay = 0.5 }, --pickup 2
-			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
+			{ q = q(92,262,45,61), ox = 23, oy = 65, delay = 5 }, --jump down
+			{ q = q(48,398,43,58), ox = 18, oy = 57, delay = 0.5 }, --pickup 2
+			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.1
 		},
 		duck = {
@@ -157,9 +157,9 @@ return {
 			delay = 0.06
 		},
 		pickup = {
-			{ q = q(2,395,44,61), ox = 22, oy = 60, delay = 0.03 }, --pickup 1
-			{ q = q(48,398,43,58), ox = 21, oy = 57, delay = 0.2 }, --pickup 2
-			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
+			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.03 }, --pickup 1
+			{ q = q(48,398,43,58), ox = 18, oy = 57, delay = 0.2 }, --pickup 2
+			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.05
 		},
 		dash = {
@@ -225,14 +225,14 @@ return {
 			delay = 5
 		},
 		getup = {
-			{ q = q(64,486,69,31), ox = 40, oy = 30 }, --lying down
-			{ q = q(135,464,56,53), ox = 28, oy = 52 }, --getting up
-			{ q = q(48,398,43,58), ox = 21, oy = 57 }, --pickup 2
-			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
+			{ q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
+			{ q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
+			{ q = q(48,398,43,58), ox = 18, oy = 57 }, --pickup 2
+			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.2
 		},
 		fallen = {
-			{ q = q(64,486,69,31), ox = 40, oy = 30 }, --lying down
+			{ q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
 			delay = 65
 		},
 		hurtHigh = {
@@ -275,36 +275,36 @@ return {
 			{ q = q(142,844,44,63), ox = 22, oy = 62 }, --ssd
 		},
 		grab = {
-			{ q = q(2,979,45,63), ox = 22, oy = 62 }, --grab
+			{ q = q(2,979,45,63), ox = 19, oy = 62 }, --grab
 		},
 		grabHit = {
-			{ q = q(49,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
+			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
 			{ q = q(93,980,49,62), ox = 18, oy = 61, func = grabHit_attack, delay = 0.18 }, --grab attack 1.2
-			{ q = q(49,980,42,62), ox = 21, oy = 61, delay = 0.01 }, --grab attack 1.1
+			{ q = q(49,980,42,62), ox = 19, oy = 61, delay = 0.01 }, --grab attack 1.1
 			delay = 0.005
 		},
 		grabHitLast = {
-			{ q = q(49,980,42,62), ox = 21, oy = 61 }, --grab attack 1.1
+			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
 			{ q = q(168,916,53,61), ox = 17, oy = 60, func = grabLast_attack, delay = 0.18 }, --dash4
 			{ q = q(117,519,40,63), ox = 17, oy = 62, delay = 0.1 }, --c2.1
 			delay = 0.02
 		},
 		grabHitEnd = {
 			{ q = q(2,1044,56,63), ox = 30, oy = 62, delay = 0.25 }, --grab end 1.1
-			{ q = q(2,979,45,63), ox = 22, oy = 62, delay = 0.01 }, --grab
+			{ q = q(2,979,45,63), ox = 19, oy = 62, delay = 0.01 }, --grab
 			{ q = q(60,1047,51,60), ox = 17, oy = 59, func = grabEnd_attack, delay = 0.25 }, --grab end 1.2
 			{ q = q(113,1044,45,63), ox = 18, oy = 62 }, --grab end 1.3
 			delay = 0.1
 		},
 		grabThrow = {
-			{ q = q(2,1109,45,62), ox = 25, oy = 61, delay = 0.2 }, --throw 1.1
-			{ q = q(49,1111,42,60), ox = 18, oy = 59, func = grabThrow_now, delay = 0.05 }, --throw 1.2
-			{ q = q(93,1112,42,59), ox = 17, oy = 58, delay = 0.2 }, --throw 1.3
-			{ q = q(2,395,44,61), ox = 22, oy = 60 }, --pickup 1
+			{ q = q(2,1109,45,62), ox = 27, oy = 61, delay = 0.2 }, --throw 1.1
+			{ q = q(49,1111,42,60), ox = 23, oy = 59, func = grabThrow_now, delay = 0.05 }, --throw 1.2
+			{ q = q(93,1112,42,59), ox = 22, oy = 58, delay = 0.2 }, --throw 1.3
+			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.1
 		},
 		grabSwap = {
-			{ q = q(137,1109,44,62), ox = 22, oy = 62 }, --grab swap 1.1
+			{ q = q(137,1109,44,62), ox = 18, oy = 62 }, --grab swap 1.1
 			{ q = q(183,1109,37,62), ox = 18, oy = 62 }, --grab swap 1.2
 			delay = 5
 		},
