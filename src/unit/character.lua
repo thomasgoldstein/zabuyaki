@@ -1044,7 +1044,7 @@ function Character:fall_update(dt)
         if self.isThrown and self.velz < 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
             self:checkAndAttack(
-                {l = 0, w = 20, h = 12, damage = self.my_thrown_body_damage, type = "fall", velocity = self.velocity_throw_x },
+                { left = 0, width = 20, height = 12, damage = self.my_thrown_body_damage, type = "fall", velocity = self.velocity_throw_x },
                 false
             )
 

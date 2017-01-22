@@ -412,7 +412,7 @@ function Player:respawn_update(dt)
             self.sprite.elapsed_time = 10 -- seconds. skip to pickup 2 frame
         end
         self:checkAndAttack(
-            {l = 0, w = 320 * 2, h = 240 * 2, damage = 0, type = "shockWave", velocity = 0 },
+            { left = 0, width = 320 * 2, height = 240 * 2, damage = 0, type = "shockWave", velocity = 0 },
             false
         )
         self.bounced = 1
