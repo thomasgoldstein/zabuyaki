@@ -88,9 +88,9 @@ end
 function titleState:resume()
     mouse_x, mouse_y = 0,0
     time = 0
-    transparency = 0
+    transparency = 1
     title_transparency = 1
-    mode = "menufadein"
+    mode = "menu"
     mouse_x, mouse_y = 0,0
     love.graphics.setLineWidth( 2 )
 end
