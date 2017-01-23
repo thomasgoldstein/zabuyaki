@@ -14,13 +14,14 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SOUND TEST" )
-
 local txt_items = {"SFX N", "MUSIC N", "BACK"}
-local txt_hints = {"", "", "" }
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
     local max_item_width, max_item_x = 8, 0
+    if not txt_hints then
+        txt_hints = {}
+    end
     for i = 1, #txt_items do
         local w = gfx.font.arcade4:getWidth(txt_items[i])
         if w > max_item_width then
@@ -32,13 +33,13 @@ local function fillMenu(txt_items, txt_hints)
         local w = gfx.font.arcade4:getWidth(txt_items[i])
         m[#m + 1] = {
             item = txt_items[i],
-            hint = txt_hints[i],
+            hint = txt_hints[i] or "",
             x = menu_x_offset + screen_width / 2 - w / 2,
             y = menu_y_offset + i * menu_item_h,
             rect_x = max_item_x,
             w = max_item_width,
             h = gfx.font.arcade4:getHeight(txt_items[i]),
-            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i])) / 2,
+            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i] or "")) / 2,
             wy = screen_height - hint_y_offset,
             n = 1
         }

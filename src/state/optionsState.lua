@@ -24,7 +24,6 @@ local txt_option5 = "SPRITE EDITOR"
 local txt_quit = "BACK"
 
 local txt_items = {txt_option1, txt_option2, txt_option3, txt_option4, txt_option5, txt_quit}
-local txt_hints = { "", "", "", "", "", "" }
 
 local function set_items_according_the_options()
     if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
@@ -44,6 +43,9 @@ set_items_according_the_options()
 local function fillMenu(txt_items, txt_hints)
     local m = {}
     local max_item_width, max_item_x = 8, 0
+    if not txt_hints then
+        txt_hints = {}
+    end
     for i = 1, #txt_items do
         local w = gfx.font.arcade4:getWidth(txt_items[i])
         if w > max_item_width then
@@ -55,13 +57,13 @@ local function fillMenu(txt_items, txt_hints)
         local w = gfx.font.arcade4:getWidth(txt_items[i])
         m[#m + 1] = {
             item = txt_items[i],
-            hint = txt_hints[i],
+            hint = txt_hints[i] or "",
             x = menu_x_offset + screen_width / 2 - w / 2,
             y = menu_y_offset + i * menu_item_h,
             rect_x = max_item_x,
             w = max_item_width,
             h = gfx.font.arcade4:getHeight(txt_items[i]),
-            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i])) / 2,
+            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i] or "")) / 2,
             wy = screen_height - hint_y_offset,
             n = 1
         }

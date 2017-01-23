@@ -9,6 +9,8 @@ local title_sfx = "whoosh_heavy"
 local time = 0
 local transparency = 0
 local title_transparency = 0
+local intro_movie = nil
+local mode = nil
 
 local screen_width = 640
 local screen_height = 480
@@ -24,17 +26,14 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_gfx_site = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
-
 local txt_items = {"START", "OPTIONS", "QUIT"}
-local txt_hints = {"", "", "" }
-
--- Intro
-local intro_movie = nil
-local mode = nil
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
     local max_item_width, max_item_x = 8, 0
+    if not txt_hints then
+        txt_hints = {}
+    end
     for i = 1, #txt_items do
         local w = gfx.font.arcade4:getWidth(txt_items[i])
         if w > max_item_width then
@@ -46,13 +45,13 @@ local function fillMenu(txt_items, txt_hints)
         local w = gfx.font.arcade4:getWidth(txt_items[i])
         m[#m + 1] = {
             item = txt_items[i],
-            hint = txt_hints[i],
+            hint = txt_hints[i] or "",
             x = menu_x_offset + screen_width / 2 - w / 2,
             y = menu_y_offset + i * menu_item_h,
             rect_x = max_item_x,
             w = max_item_width,
             h = gfx.font.arcade4:getHeight(txt_items[i]),
-            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i])) / 2,
+            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i] or "")) / 2,
             wy = screen_height - hint_y_offset,
             n = 1
         }
