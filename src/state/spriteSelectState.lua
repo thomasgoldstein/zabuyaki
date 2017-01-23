@@ -90,22 +90,32 @@ local function fillMenu(txt_items, txt_hints)
     end
     for i = 1, #txt_items do
         local w = gfx.font.arcade4:getWidth(txt_items[i])
-        local h = gfx.font.arcade4:getHeight(txt_items[i])
-        local x = menu_x_offset + screen_width / 2 - w / 2
-        local y = menu_y_offset + i * menu_item_h
-
         m[#m + 1] = {
             item = txt_items[i],
             hint = txt_hints[i],
-            x = x,
-            y = y,
+            x = menu_x_offset + screen_width / 2 - w / 2,
+            y = menu_y_offset + i * menu_item_h,
             rect_x = max_item_x,
             w = max_item_width,
-            h = h,
+            h = gfx.font.arcade4:getHeight(txt_items[i]),
+            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i])) / 2,
+            wy = screen_height - hint_y_offset,
             n = 1
         }
     end
     return m
+end
+
+local function calcMenuItem(menu, i)
+    assert(menu and menu[i], "menu item error")
+    local m = menu[i]
+    m.w = gfx.font.arcade4:getWidth(m.item)
+    m.h = gfx.font.arcade4:getHeight(m.item)
+    m.wy = screen_height - hint_y_offset
+    m.x = menu_x_offset + screen_width / 2 - m.w / 2
+    m.y = menu_y_offset + i * menu_item_h
+    m.rect_x = menu_x_offset + screen_width / 2 - m.w / 2
+    m.wx = (screen_width - gfx.font.arcade4:getWidth(m.hint)) / 2
 end
 
 local menu = fillMenu(txt_items, txt_hints)
@@ -166,7 +176,6 @@ end
 
 function spriteSelectState:draw()
     push:apply("start")
-    love.graphics.setColor(255, 255, 255, 255)
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
@@ -189,30 +198,20 @@ function spriteSelectState:draw()
                 m.hint = "..."
             end
         end
-        local w = gfx.font.arcade4:getWidth(m.item)
-        local wb = w + item_width_margin
-        local h = gfx.font.arcade4:getHeight(m.item)
-
+        calcMenuItem(menu, i)
         if i == old_menu_state then
-            love.graphics.setColor(0, 0, 0, 80)
-            love.graphics.rectangle("fill",
-                (screen_width - wb) / 2, m.y - top_item_offset,
-                wb, h + item_height_margin, 4,4,1)
-            love.graphics.setColor(255,200,40, 255)
-            love.graphics.rectangle("line",
-                (screen_width - wb) / 2, m.y - top_item_offset,
-                wb, h + item_height_margin, 4,4,1)
-
             love.graphics.setColor(255, 255, 255, 255)
-            local w = gfx.font.arcade4:getWidth( m.hint )
-            love.graphics.print(m.hint, (screen_width - w) / 2, screen_height - hint_y_offset)
-
+            love.graphics.print(m.hint, m.wx, m.wy)
+            love.graphics.setColor(0, 0, 0, 80)
+            love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
+            love.graphics.setColor(255,200,40, 255)
+            love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
         end
         love.graphics.setColor(255, 255, 255, 255)
-        love.graphics.print(m.item, (screen_width - w) / 2, m.y )
+        love.graphics.print(m.item, m.x, m.y )
+
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
-                CheckPointCollision(mouse_x, mouse_y, (screen_width - wb) / 2, m.y - top_item_offset,
-                wb, h + item_height_margin )
+                CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
         then
             old_mouse_y = mouse_y
             menu_state = i

@@ -17,21 +17,16 @@ local menu_item_h = 40
 local menu_y_offset = 200 - menu_item_h
 local menu_x_offset = 0
 local hint_y_offset = 80
---local title_y_offset = 24
+local title_y_offset = 0
 local left_item_offset  = 6
 local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
-local txt_start = love.graphics.newText( gfx.font.arcade4, "START" )
-local txt_options = love.graphics.newText( gfx.font.arcade4, "OPTIONS" )
-local txt_quit = love.graphics.newText( gfx.font.arcade4, "QUIT" )
+local txt_gfx_site = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 
-local txt_empty_hint = love.graphics.newText( gfx.font.arcade4, "" ) --No hint text
-local txt_site = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
-
-local txt_items = {txt_start, txt_options, txt_quit}
-local txt_hints = {txt_empty_hint, txt_empty_hint, txt_empty_hint }
+local txt_items = {"START", "OPTIONS", "QUIT"}
+local txt_hints = {"", "", "" }
 
 -- Intro
 local intro_movie = nil
@@ -40,21 +35,27 @@ local mode = nil
 local function fillMenu(txt_items, txt_hints)
     local m = {}
     local max_item_width, max_item_x = 8, 0
-    for i = 1,#txt_items do
-        local w = txt_items[i]:getDimensions()
+    for i = 1, #txt_items do
+        local w = gfx.font.arcade4:getWidth(txt_items[i])
         if w > max_item_width then
-            max_item_x = menu_x_offset + screen_width / 2 - txt_items[i]:getWidth()/2
+            max_item_x = menu_x_offset + screen_width / 2 - w / 2
             max_item_width = w
         end
     end
-    for i = 1,#txt_items do
-        local x = menu_x_offset + screen_width / 2 - txt_items[i]:getWidth()/2
-        local y = menu_y_offset + i * menu_item_h
-        local w, h = txt_items[i]:getDimensions()
-
-        m[#m+1] = {item = txt_items[i], hint = txt_hints[i],
-            x = x, y = y, rect_x = max_item_x,
-            w = max_item_width, h = h}
+    for i = 1, #txt_items do
+        local w = gfx.font.arcade4:getWidth(txt_items[i])
+        m[#m + 1] = {
+            item = txt_items[i],
+            hint = txt_hints[i],
+            x = menu_x_offset + screen_width / 2 - w / 2,
+            y = menu_y_offset + i * menu_item_h,
+            rect_x = max_item_x,
+            w = max_item_width,
+            h = gfx.font.arcade4:getHeight(txt_items[i]),
+            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i])) / 2,
+            wy = screen_height - hint_y_offset,
+            n = 1
+        }
     end
     return m
 end
@@ -183,7 +184,6 @@ function titleState:update(dt)
 end
 
 function titleState:draw()
-    love.graphics.setColor(255, 255, 255, 255)
     if mode == "movie" then
         love.graphics.setCanvas(canvas[1])
         intro_movie:draw(0,0,320,240)
@@ -196,22 +196,25 @@ function titleState:draw()
     end
     love.graphics.setCanvas()
     push:apply("start")
+    --header
     love.graphics.setColor(255, 255, 255, 255 * title_transparency)
-    love.graphics.draw(zabuyaki_title, 0, 0, 0, 2, 2)
+    love.graphics.draw(zabuyaki_title, 0, title_y_offset, 0, 2, 2)
     love.graphics.setColor(100, 100, 100, 255 * transparency)
-    love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, screen_height - 20)
+    love.graphics.draw(txt_gfx_site, (screen_width - txt_gfx_site:getWidth())/2, screen_height - 20)
+    love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
         if i == old_menu_state then
+            love.graphics.setColor(255, 255, 255, 255 * transparency)
+            love.graphics.print(m.hint, m.wx, m.wy)
             love.graphics.setColor(0, 0, 0, 80 * transparency)
             love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
-            love.graphics.setColor(255, 255, 255, 255 * transparency)
-            love.graphics.draw(m.hint, (screen_width - m.hint:getWidth()) / 2, screen_height - hint_y_offset)
             love.graphics.setColor(255,200,40, 255 * transparency)
             love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
         end
         love.graphics.setColor(255, 255, 255, 255 * transparency)
-        love.graphics.draw(m.item, m.x, m.y )
+        love.graphics.print(m.item, m.x, m.y )
+
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
                 CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
         then
