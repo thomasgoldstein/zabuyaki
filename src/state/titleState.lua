@@ -1,9 +1,9 @@
 titleState = {}
 
-local time_to_title_fadein = 1
-local time_to_fadein = 0.5
-local time_to_intro = 10 -- idle to show intro
-local time_to_fadeout = 0.5
+local time_to_title_fade = 1.25 --title fadein
+local time_to_menu_fade = 0.5 --menu fadein & menu+title fadeout before intro
+local time_to_menu_move = 0.25 --can move/select menu
+local time_to_intro = 10 --idle to show intro
 local title_sfx = "whoosh_heavy"
 
 local time = 0
@@ -95,8 +95,21 @@ function titleState:resume()
     love.graphics.setLineWidth( 2 )
 end
 
+local function reset_time()
+    if mode == "menufadein" then
+        if time > time_to_menu_fade then
+            time = time_to_menu_fade
+        end
+    else
+        time = 0
+    end
+end
+
 --Only P1 can use menu / options
 local function player_input(controls)
+    if mode == "menufadein" and time < time_to_menu_move then
+        return
+    end
     if controls.back:pressed() then
         --Exit by "Back" button or "Esc" key
         sfx.play("sfx","menu_cancel")
@@ -106,10 +119,8 @@ local function player_input(controls)
     end
     if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
-        time = 0
     elseif controls.horizontal:pressed(1) or controls.vertical:pressed(1) then
         menu_state = menu_state + 1
-        time = 0
     end
     if menu_state < 1 then
         menu_state = #menu
@@ -122,25 +133,17 @@ end
 function titleState:update(dt)
     time = time + dt
     if mode == "fadein" then
-        title_transparency = clamp(time, 0 , 1)
+        title_transparency = clamp(time * (1 / time_to_title_fade), 0 , 1)
         transparency = 0
-        if time > time_to_title_fadein  then
+        if time > time_to_title_fade  then
             mode = "menufadein"
             time = 0
             return
         end
-    elseif mode == "menufadein" then
-        title_transparency = 1
-        transparency = clamp(time * 2, 0 , 1)
-        if time > time_to_fadein then
-            mode = "menu"
-            time = 0
-            return
-        end
     elseif mode == "fadeout" then
-        transparency = clamp((time_to_fadeout - time) * 2, 0 , 1)
+        transparency = clamp((time_to_menu_fade - time) * (1 / time_to_menu_fade), 0 , 1)
         title_transparency = transparency
-        if time > time_to_fadeout then
+        if time > time_to_menu_fade then
             mode = "movie"
             time = 0
             return
@@ -154,15 +157,26 @@ function titleState:update(dt)
         return
     else
         --mode == "menu"
+        if mode == "menufadein" then
+            title_transparency = 1
+            transparency = clamp(time * (1 / time_to_menu_fade), 0, 1)
+            if time > time_to_menu_fade then
+                mode = "menu"
+            end
+        elseif mode == "menu" then
+            title_transparency = 1
+            transparency = 1
+        end
         if time > time_to_intro then
             intro_movie = Movie:new(movie_intro)
             mode = "fadeout"
             time = 0
+            return
         end
         if menu_state ~= old_menu_state then
             sfx.play("sfx","menu_move")
             old_menu_state = menu_state
-            time = 0
+            reset_time()
         end
         player_input(Control1)
     end
@@ -188,9 +202,6 @@ function titleState:draw()
     love.graphics.draw(txt_site, (640 - txt_site:getWidth())/2, screen_height - 20)
     for i = 1,#menu do
         local m = menu[i]
-        --local w = m.item:getWidth()
-        --local wb = w + item_width_margin
-        --local h = m.item:getHeight()
         if i == old_menu_state then
             love.graphics.setColor(0, 0, 0, 80 * transparency)
             love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
@@ -213,6 +224,9 @@ function titleState:draw()
 end
 
 function titleState:confirm( x, y, button, istouch )
+    if mode == "menufadein" and time < time_to_menu_move then
+        return
+    end
     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
@@ -237,7 +251,7 @@ function titleState:mousepressed( x, y, button, istouch )
     if mode == "movie" then
         return
     end
-    if mode == "menu" then
+    if mode == "menu" or mode == "menufadein" then
         titleState:confirm( x, y, button, istouch )
         return
     end
