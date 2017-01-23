@@ -14,8 +14,8 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_paused = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
-local txt_items = {"Continue", "Quick Save", "Quit"}
-local txt_hints = {"Return to the game", "quick save doesn't let you choose\na save, there is only one at most", "Are you sure you want to exit\nthe current game and go back\nto the title screen?" }
+local txt_items = { "Continue", "Quick Save", "Quit" }
+local txt_hints = { "", "", "" }
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
