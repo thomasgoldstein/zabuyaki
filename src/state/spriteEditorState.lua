@@ -216,13 +216,10 @@ function spriteEditorState:draw()
                 if not hero.shaders[m.n] then
                     m.item = "ORIGINAL COLORS"
                 else
-                    m.item = "SHADER #"..m.n.." "
+                    m.item = "SHADER #"..m.n
                 end
             end
         end
---        local w = gfx.font.arcade4:getWidth(m.item)
---        local wb = w + item_width_margin
---        local h = gfx.font.arcade4:getHeight(m.item)
         calcMenuItem(menu, i)
         if i == old_menu_state then
             love.graphics.setColor(255, 255, 255, 255)
@@ -296,6 +293,7 @@ function spriteEditorState:confirm( x, y, button, istouch )
     end
     if button == 1 then
         if menu_state == 1 then
+            SetSpriteAnimation(sprite, animations[menu[menu_state].n])
             sfx.play("sfx","menu_select")
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
