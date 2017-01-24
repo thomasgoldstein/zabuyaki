@@ -24,7 +24,16 @@ return {
             { q = q(15,23,28,54), ox = 8, oy = 40 } --a22 /-
         },
         angle45 = {
-            { q = q(45,23,44,44), ox = 11, oy = 32 } --a45 //
+            { q = q(45,23,44,44), ox = 11, oy = 32 } --a45 /+
+        },
+        angle0_equipped = {
+            { q = q(2,80,11,55), ox = 5, oy = 42 }  --a0 eq |
+        },
+        angle22_equipped = {
+            { q = q(15,80,28,54), ox = 8, oy = 40 } --a22 eq /-
+        },
+        angle45_equipped = {
+            { q = q(45,80,44,44), ox = 11, oy = 32 } --a45 eq /+
         },
     }
 } --return (end of file)
