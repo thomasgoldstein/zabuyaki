@@ -17,15 +17,13 @@ local item_height_margin = top_item_offset * 2 - 2
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 local txt_items = {"ANIMATIONS", "FRAMES", "SHADERS", "BACK"}
 
---local heroes = {
---}
-
---local weapons = {
---}
-
 local hero = nil
 local sprite = nil
 local animations = nil
+
+local weapon = nil
+local sprite_weapon = nil
+local animations_weapon = {}
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -77,7 +75,7 @@ local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
 
 local sort_abc_func = function( a, b ) return a.bName < b.bName end
 
-function spriteEditorState:enter(_, _hero)
+function spriteEditorState:enter(_, _hero, _weapon)
     hero = _hero
     sprite = GetSpriteInstance(hero.sprite_instance)
     sprite.size_scale = 2
@@ -86,10 +84,26 @@ function spriteEditorState:enter(_, _hero)
         animations[#animations + 1] = key
     end
     table.sort( animations )
+    SetSpriteAnimation(sprite,animations[1])
+
+    weapon = _weapon
+    if weapon then
+        sprite_weapon = GetSpriteInstance(weapon.sprite_instance)
+        sprite_weapon.size_scale = 2
+        animations_weapon = {}
+        for key, val in pairs(sprite_weapon.def.animations) do
+            animations_weapon[#animations_weapon + 1] = key
+        end
+        table.sort( animations_weapon )
+        SetSpriteAnimation(sprite_weapon,"stand")
+    else
+        sprite_weapon = nil
+        animations_weapon = {}
+    end
     menu[1].n = 1
-    SetSpriteAnimation(sprite,animations[menu[menu_state].n])
     menu[3].n = 1
     mouse_x, mouse_y = 0,0
+
     --TEsound.stop("music")
     -- Prevent double press at start (e.g. auto confirmation)
     Control1.attack:update()
@@ -165,6 +179,9 @@ function spriteEditorState:update(dt)
 
     if sprite then
         UpdateSpriteInstance(sprite, dt)
+    end
+    if sprite_weapon then
+        UpdateSpriteInstance(sprite_weapon, dt)
     end
 
     player_input(Control1)
@@ -245,6 +262,11 @@ function spriteEditorState:draw()
     love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, title_y_offset)
 
     --sprite
+    --weapon
+    if sprite_weapon then
+        DrawSpriteInstance(sprite_weapon, 0 + 60, screen_height - 4)
+    end
+    --character
     local sc = sprite.def.animations[sprite.cur_anim][1]
     local x_step = 140 --(sc.ox or 20) * 4 + 8 or 100
     local x = screen_width /2
