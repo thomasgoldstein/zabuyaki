@@ -19,10 +19,14 @@ return {
             delay = 1
         },
         stand = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-			{ q = q(72,3,68,67), ox = 34, oy = 66 }, --stand 2
-			{ q = q(142,4,67,66), ox = 34, oy = 65 }, --stand 3
-			{ q = q(72,3,68,67), ox = 34, oy = 66 }, --stand 2
+            { q = q(2,2,68,68), ox = 34, oy = 67,
+                wx = -11, wy = -35, wRotate = 0, wAnimation = "angle0" }, --stand 1
+			{ q = q(72,3,68,67), ox = 34, oy = 66,
+                wx = -10, wy = -34, wRotate = 0.1, wAnimation = "angle0"  }, --stand 2
+			{ q = q(142,4,67,66), ox = 34, oy = 65,
+                wx = -11, wy = -34, wRotate = 0.2, wAnimation = "angle0"  }, --stand 3
+			{ q = q(72,3,68,67), ox = 34, oy = 66,
+                wx = -12, wy = -35, wRotate = 0.1, wAnimation = "angle0"  }, --stand 2
             loop = true,
             delay = 0.15
         },
