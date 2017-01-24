@@ -274,7 +274,7 @@ function spriteEditorState:draw()
     local y = menu_y_offset + menu_item_h / 2
     if sprite.cur_anim == "icon" then --normalize icon's pos
         y = y - 40
-        x = x - 20
+        x = x - 40
     end
     love.graphics.setColor(255, 255, 255, 255)
     if hero.shaders[menu[3].n] then
