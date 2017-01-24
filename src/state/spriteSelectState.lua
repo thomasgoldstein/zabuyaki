@@ -63,6 +63,11 @@ local weapons = {
         name = "BAT",
         shaders = { },
         sprite_instance = "src/def/misc/bat.lua",
+    },
+    {
+        name = "KNIFE",
+        shaders = { },
+        sprite_instance = "src/def/misc/knife.lua",
     }
 }
 
