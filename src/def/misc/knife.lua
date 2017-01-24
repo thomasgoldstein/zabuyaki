@@ -12,10 +12,10 @@ return {
     delay = 5.4,	--default delay for all animations
     animations = {
         icon  = {
-            { q = q(91,66,55,11) } -- default 38x17
+            { q = q(54,2,55,11) } -- default 38x17
         },
         stand = {
-            { q = q(91,66,55-2,11), ox = 27, oy = 10 }  --on the ground
+            { q = q(2,2,18,17), ox = 9, oy = 16 }  --on the ground
         },
         angle0 = {
             { q = q(2,23,11-2,55), ox = 5, oy = 42 }  --a0 |
