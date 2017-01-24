@@ -14,7 +14,7 @@ local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
-local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SPRITE" )
+local txt_current_sprite = nil --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 local txt_items = {"ANIMATIONS", "FRAMES", "SHADERS", "BACK"}
 
 local hero = nil
@@ -79,6 +79,7 @@ function spriteEditorState:enter(_, _hero, _weapon)
     hero = _hero
     sprite = GetSpriteInstance(hero.sprite_instance)
     sprite.size_scale = 2
+    txt_current_sprite = love.graphics.newText( gfx.font.kimberley, hero.name )
     animations = {}
     for key, val in pairs(sprite.def.animations) do
         animations[#animations + 1] = key
@@ -258,15 +259,15 @@ function spriteEditorState:draw()
         end
     end
     --header
-    love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, title_y_offset)
+    love.graphics.setColor(255, 255, 255, 120)
+    love.graphics.draw(txt_current_sprite, (screen_width - txt_current_sprite:getWidth()) / 2, title_y_offset)
 
-    --sprite
-    --weapon
+    --current weapon sprite
     if sprite_weapon then
+        love.graphics.setColor(255, 255, 255, 255)
         DrawSpriteInstance(sprite_weapon, 0 + 60, screen_height - 4)
     end
-    --character
+    --character sprite
     local sc = sprite.def.animations[sprite.cur_anim][1]
     local x_step = 140 --(sc.ox or 20) * 4 + 8 or 100
     local x = screen_width /2
