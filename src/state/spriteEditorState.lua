@@ -201,11 +201,12 @@ local function DrawSpriteWeapon(sprite, x, y, i)
             if sprite_weapon.cur_anim ~= wAnimation then
                 SetSpriteAnimation(sprite_weapon, wAnimation)
             end
---            love.graphics.setColor(255, 0, 0, 150)
-            love.graphics.rectangle("fill", x + wx - 6, y + wy, 10, 4)
-            --love.graphics.setColor(0, 0, 255, 150)
-            love.graphics.rectangle("fill", x + wx, y + wy - 6, 4, 10)
             DrawSpriteInstance(sprite_weapon, x + wx, y + wy)
+            if GLOBAL_SETTING.DEBUG then
+                --center of the weapon animation
+                love.graphics.rectangle("fill", x + wx - 2, y + wy, 6, 2)
+                love.graphics.rectangle("fill", x + wx, y + wy - 2, 2, 6)
+            end
         end
     end
 end
