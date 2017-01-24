@@ -96,7 +96,7 @@ function spriteEditorState:enter(_, _hero, _weapon)
             animations_weapon[#animations_weapon + 1] = key
         end
         table.sort( animations_weapon )
-        SetSpriteAnimation(sprite_weapon,"stand")
+        SetSpriteAnimation(sprite_weapon,"angle0")
     else
         sprite_weapon = nil
         animations_weapon = {}
@@ -188,6 +188,28 @@ function spriteEditorState:update(dt)
     player_input(Control1)
 end
 
+local cur_scale = 2
+local function DrawSpriteWeapon(sprite, x, y, i)
+    if sprite_weapon then
+        local s = sprite.def.animations[sprite.cur_anim][i or sprite.cur_frame]
+        local wx, wy, wRotate, wAnimation
+        if s.wx and s.wy then
+            wx = s.wx * cur_scale or 0
+            wy = s.wy * cur_scale or 0
+            wRotate = s.wRotate or 0
+            wAnimation = s.wAnimation or "angle0"
+            if sprite_weapon.cur_anim ~= wAnimation then
+                SetSpriteAnimation(sprite_weapon, wAnimation)
+            end
+--            love.graphics.setColor(255, 0, 0, 150)
+            love.graphics.rectangle("fill", x + wx - 6, y + wy, 10, 4)
+            --love.graphics.setColor(0, 0, 255, 150)
+            love.graphics.rectangle("fill", x + wx, y + wy - 6, 4, 10)
+            DrawSpriteInstance(sprite_weapon, x + wx, y + wy)
+        end
+    end
+end
+
 function spriteEditorState:draw()
     push:apply("start")
     love.graphics.setFont(gfx.font.arcade4)
@@ -265,7 +287,7 @@ function spriteEditorState:draw()
     --current weapon sprite
     if sprite_weapon then
         love.graphics.setColor(255, 255, 255, 255)
-        DrawSpriteInstance(sprite_weapon, 0 + 60, screen_height - 4)
+        DrawSpriteInstance(sprite_weapon, 0 + 60, screen_height - 30)
     end
     --character sprite
     local sc = sprite.def.animations[sprite.cur_anim][1]
@@ -293,12 +315,15 @@ function spriteEditorState:draw()
             love.graphics.setColor(255, 255, 255, 150)
             for i = 1, #sprite.def.animations[sprite.cur_anim] do
                 DrawSpriteInstance(sprite, x - (menu[menu_state].n - i) * x_step, y, i )
+                DrawSpriteWeapon(sprite, x - (menu[menu_state].n - i) * x_step, y, i )
             end
             love.graphics.setColor(255, 255, 255, 255)
             DrawSpriteInstance(sprite, x, y, menu[menu_state].n)
+            DrawSpriteWeapon(sprite, x, y, menu[menu_state].n)
         else
             --animation
             DrawSpriteInstance(sprite, x, y)
+            DrawSpriteWeapon(sprite, x, y)
         end
     end
     if hero.shaders[menu[3].n] then
