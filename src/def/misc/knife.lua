@@ -15,16 +15,16 @@ return {
             { q = q(54,2,55,11) } -- default 38x17
         },
         stand = {
-            { q = q(2,2,18,17), ox = 9, oy = 16 }  --on the ground
+            { q = q(2,23,11,55), ox = 5, oy = 42, rotate = 1.57 } --on the ground
         },
         angle0 = {
             { q = q(2,23,11-2,55), ox = 5, oy = 42 }  --a0 |
         },
-        angle45 = {
-            { q = q(45,23,44-2,44), ox = 11, oy = 32 } --a45 /
+        angle22 = {
+            { q = q(15,23,28,54), ox = 8, oy = 40 } --a22 /-
         },
-        angle90 = {
-            { q = q(91,53,55-2,11), ox = 12, oy = 5 } --a90 --
+        angle45 = {
+            { q = q(45,23,44-2,44), ox = 11, oy = 32 } --a45 //
         },
     }
 } --return (end of file)
