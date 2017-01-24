@@ -131,6 +131,20 @@ local function player_input(controls)
         end
         return
     end
+    if love.keyboard.isDown('rshift') then
+        --change ox, oy offset of the sprite frame
+        local s = sprite.def.animations[sprite.cur_anim]
+        local m = menu[menu_state]
+        if menu_state == 2 then
+            if controls.horizontal:pressed() then
+                s[m.n].wx = s[m.n].wx + controls.horizontal:getValue()
+            end
+            if controls.vertical:pressed() then
+                s[m.n].wy = s[m.n].wy + controls.vertical:getValue()
+            end
+        end
+        return
+    end
     if love.keyboard.isDown('lalt') then
         --change rotation of the sprite frame
         local s = sprite.def.animations[sprite.cur_anim]
