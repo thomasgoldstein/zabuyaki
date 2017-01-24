@@ -136,6 +136,9 @@ local function player_input(controls)
         local s = sprite.def.animations[sprite.cur_anim]
         local m = menu[menu_state]
         if menu_state == 2 then
+            if not sprite_weapon or not s[m.n].wx then
+                return
+            end
             if controls.horizontal:pressed() then
                 s[m.n].wx = s[m.n].wx + controls.horizontal:getValue()
             end
