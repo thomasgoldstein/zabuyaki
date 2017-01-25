@@ -18,8 +18,7 @@ function push:setupScreen(WWIDTH, WHEIGHT, RWIDTH, RHEIGHT, f)
   self._resizable = f.resizable or self._resizable or false
   if f.canvas == nil then f.canvas = true end
 
-  local width, height, flags = love.window.getMode( )
-  love.window.setMode( self._RWIDTH, self._RHEIGHT, {fullscreen = self._fullscreen, borderless = false, resizable = self._resizable, display = flags.display} )
+  love.window.setMode( self._RWIDTH, self._RHEIGHT, {fullscreen = self._fullscreen, borderless = false, resizable = self._resizable} )
 
   self:initValues()
 
@@ -37,7 +36,7 @@ end
 function push:initValues()
   self._SCALEX, self._SCALEY = self._RWIDTH/self._WWIDTH, self._RHEIGHT/self._WHEIGHT
   self._SCALE = math.min(self._SCALEX, self._SCALEY)
-  self._OFFSET = {x = (self._SCALEX - self._SCALE) * (self._WWIDTH/2), y = (self._SCALEY - self._SCALE) * (self._WHEIGHT/2) }
+  self._OFFSET = {x = (self._SCALEX - self._SCALE) * (self._WWIDTH/2), y = (self._SCALEY - self._SCALE) * (self._WHEIGHT/2)}
   self._GWIDTH, self._GHEIGHT = self._RWIDTH-self._OFFSET.x*2, self._RHEIGHT-self._OFFSET.y*2
 
   self._INV_SCALE = 1/self._SCALE
@@ -47,30 +46,33 @@ function push:setShader(shader)
   self._shader = shader
 end
 
+--[[ DEPRECATED ]]--
 function push:apply(operation, shader)
-  -- deprecated
-  if self._drawFunctions[operation] then
-    self._drawFunctions[operation](self, shader)
+  if operation == "start" then
+    self:start()
+  elseif operation == "finish" or operation == "end" then
+    self:finish(shader)
   end
 end
 
 function push:finish(shader)
-    if self._canvas then
-      love.graphics.pop()
-      love.graphics.setCanvas()
+  love.graphics.setBackgroundColor(unpack(self._borderColor))
+  if self._canvas then
+    love.graphics.pop()
+    love.graphics.setCanvas()
 
-      love.graphics.translate(self._OFFSET.x, self._OFFSET.y)
-      love.graphics.setColor(255, 255, 255)
-      love.graphics.setShader(shader or self._shader)
-      love.graphics.draw(self._canvas, 0, 0, 0, self._SCALE, self._SCALE)
-      love.graphics.setCanvas(self._canvas)
-      love.graphics.clear()
-      love.graphics.setCanvas()
-      love.graphics.setShader()
-    else
-      love.graphics.pop()
-      love.graphics.setScissor()
-    end
+    love.graphics.translate(self._OFFSET.x, self._OFFSET.y)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setShader(shader or self._shader)
+    love.graphics.draw(self._canvas, 0, 0, 0, self._SCALE, self._SCALE)
+    love.graphics.setCanvas(self._canvas)
+    love.graphics.clear()
+    love.graphics.setCanvas()
+    love.graphics.setShader()
+  else
+    love.graphics.pop()
+    love.graphics.setScissor()
+  end
 end
 
 function push:start()
@@ -91,8 +93,8 @@ function push:calculateScale(offset)
   self._OFFSET = {x = (self._SCALEX - self._SCALE) * (self._WWIDTH/2), y = (self._SCALEY - self._SCALE) * (self._WHEIGHT/2)}
 end
 
-function push:setBorderColor(color)
-  self._borderColor = color
+function push:setBorderColor(color, g, b)
+  self._borderColor = g and {color, g, b} or color
 end
 
 function push:toGame(x, y)
@@ -112,7 +114,6 @@ function push:switchFullscreen(winw, winh)
   local windowWidth, windowHeight = love.window.getDesktopDimensions()
   self._RWIDTH = self._fullscreen and windowWidth or winw or windowWidth*.5
   self._RHEIGHT = self._fullscreen and windowHeight or winh or windowHeight*.5
-  print("rw rh: ", self._RWIDTH,self._RHEIGHT, windowWidth, windowHeight)
   self:initValues()
   love.window.setFullscreen(self._fullscreen, "desktop")
 end
