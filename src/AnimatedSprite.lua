@@ -207,18 +207,21 @@ function ParseSpriteAnimation(spr, cur_anim)
 
 	local animations = spr.def.animations[cur_anim or spr.cur_anim]
 	local sc
-	local scale_h, scale_v, flip_h, flip_v
+	local scale_h, scale_v, flip_h, flip_v, funcCont, func
 	local ox, oy, delay
 	local x, y, w, h
 	local rotate, rx, ry
+	local wRotate, wx, wy, wAnimation
 
 	for i = 1, #animations do
 		sc = animations[i]
 		delay = sc.delay or 100
 		scale_h, scale_v, flip_h, flip_v = sc.scale_h or 1, sc.scale_v or 1, sc.flip_h or 1, sc.flip_v or 1
 		rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0
+		wRotate, wx, wy, wAnimation = sc.wRotate or 0, sc.wx, sc.wy or 0, sc.wAnimation or "?"
 		ox, oy = sc.ox or 0, sc.oy or 0
 		x, y, w, h = sc.q:getViewport( )
+		func, funcCont = sc.func, sc.funcCont
 
 		o = o .. "    { q = q("..x..","..y..","..w..","..h.."), ox = "..ox..", oy = "..oy
 		if delay ~= animations.delay then
@@ -239,12 +242,17 @@ function ParseSpriteAnimation(spr, cur_anim)
 		if flip_v ~= 1 then
 			o = o .. ", flip_v = "..flip_v
 		end
---		if i ~= #animations then
---			o = o .. " },\n"
---		else
---			o = o .. " }\n"
---		end
-		o = o .. " },\n"
+		if func then
+			o = o .. ", func = FUNC0"
+		end
+		if funcCont then
+			o = o .. ", funcCont = FUNC1"
+		end
+		if wx then
+			o = o .. ",\n        wx = "..wx..", wy = "..wy..", wRotate = "..wRotate..", wAnimation = '"..wAnimation.."' },\n"
+		else
+			o = o .. " },\n"
+		end
 	end
 	if animations.loop then
 		o = o .. "    loop = true,\n"
