@@ -249,12 +249,12 @@ function spriteEditorState:draw()
         local m = menu[i]
         if i == 1 then
             m.item = animations[m.n].." #"..m.n
-            --m.hint = "" --..heroes[m.n].sprite_instance
             local m2 = menu[2]
             if m2.n > #sprite.def.animations[sprite.cur_anim] then
                 m2.n = #sprite.def.animations[sprite.cur_anim]
             end
             m2.item = "FRAME #"..m2.n.." of "..#sprite.def.animations[sprite.cur_anim]
+            m.hint = "SELECT ANIMATION\n<= =>"
         elseif i == 2 then
             local s = sprite.def.animations[sprite.cur_anim]
             m.item = "FRAME #"..m.n.." of "..#sprite.def.animations[sprite.cur_anim]
@@ -286,18 +286,19 @@ function spriteEditorState:draw()
                 m.hint = m.hint .. "\nWXY:"..s[m.n].wx..","..s[m.n].wy.." WR:"..(s[m.n].wRotate or 0).." "..(s[m.n].wAnimation or "?")
             end
         elseif i == 3 then
-            --local s = sprite_weapon.def.animations[sprite_weapon.cur_anim]
-            m.item = "WPN ANIMATION #"..m.n.." of "..#sprite_weapon.def.animations
-            m.hint = ""
+            m.item = animations_weapon[m.n].." - #"..m.n.." of "..#animations_weapon
+            m.hint = "SELECT WEAPON ANIMATION\n<= =>"
         elseif i == 4 then
             if #hero.shaders < 1 then
                 m.item = "NO SHADERS"
+                m.hint = ""
             else
                 if not hero.shaders[m.n] then
                     m.item = "ORIGINAL COLORS"
                 else
                     m.item = "SHADER #"..m.n
                 end
+                m.hint = "SELECT SHADER\n<= =>"
             end
         end
         calcMenuItem(menu, i)
@@ -393,20 +394,6 @@ function spriteEditorState:confirm( x, y, button, istouch )
     end
 end
 
-function spriteEditorState:mousepressed( x, y, button, istouch )
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    spriteEditorState:confirm( x, y, button, istouch )
-end
-
-function spriteEditorState:mousemoved( x, y, dx, dy)
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    mouse_x, mouse_y = x, y
-end
-
 function spriteEditorState:wheelmoved(x, y)
     local i = 0
     if y > 0 then
@@ -454,4 +441,18 @@ function spriteEditorState:wheelmoved(x, y)
     if menu_state ~= 3 then
         sfx.play("sfx","menu_move")
     end
+end
+
+function spriteEditorState:mousepressed( x, y, button, istouch )
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
+        return
+    end
+    spriteEditorState:confirm( x, y, button, istouch )
+end
+
+function spriteEditorState:mousemoved( x, y, dx, dy)
+    if not GLOBAL_SETTING.MOUSE_ENABLED then
+        return
+    end
+    mouse_x, mouse_y = x, y
 end
