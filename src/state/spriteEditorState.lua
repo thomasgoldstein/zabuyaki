@@ -204,15 +204,12 @@ function spriteEditorState:update(dt)
         sfx.play("sfx","menu_move")
         old_menu_state = menu_state
     end
-    local save_sprite_weapon = sprite_weapon
     if sprite then
         UpdateSpriteInstance(sprite, dt)
     end
-    if save_sprite_weapon then
-        sprite_weapon = save_sprite_weapon
+    if sprite_weapon then
         UpdateSpriteInstance(sprite_weapon, dt)
     end
-
     player_input(Control1)
 end
 
@@ -290,6 +287,10 @@ function spriteEditorState:draw()
             else
                 m.item = animations_weapon[m.n].." - #"..m.n.." of "..#animations_weapon
                 m.hint = "SELECT WEAPON ANIMATION\n<= =>"
+                local s = sprite.def.animations[sprite.cur_anim]
+                if sprite_weapon.cur_anim ~= animations_weapon[menu[menu_state].n] then
+                    SetSpriteAnimation(sprite_weapon, animations_weapon[menu[menu_state].n])
+                end
             end
         elseif i == 4 then
             if #hero.shaders < 1 then
@@ -361,6 +362,7 @@ function spriteEditorState:draw()
         elseif menu_state == 3 then
             if sprite_weapon then
                 love.graphics.setColor(255, 255, 255, 255)
+                sprite_weapon.rotation = 0
                 DrawSpriteInstance(sprite_weapon, x, y)
             end
         else
@@ -391,7 +393,15 @@ function spriteEditorState:confirm( x, y, button, istouch )
             print(ParseSpriteAnimation(sprite))
             sfx.play("sfx","menu_select")
         elseif menu_state == 3 then
-            sfx.play("sfx","menu_select")
+            --set current characters frame weapon anim
+            if sprite_weapon then
+                local s = sprite.def.animations[sprite.cur_anim]
+                local f = s[menu[2].n]    --current char-sprite frame
+                f.wAnimation = animations_weapon[menu[menu_state].n]
+                sfx.play("sfx","menu_select")
+            else
+                sfx.play("sfx","menu_cancel")
+            end
         elseif menu_state == 4 then
             sfx.play("sfx","menu_select")
         end
@@ -433,15 +443,6 @@ function spriteEditorState:wheelmoved(x, y)
             menu[menu_state].n = 1
         end
         SetSpriteAnimation(sprite_weapon, animations_weapon[menu[menu_state].n])
-        if love.keyboard.isDown('rshift') then
-            --set current characters frame weapon anim
-            if not sprite_weapon then
-                return
-            end
-            local s = sprite.def.animations[sprite.cur_anim]
-            local f = s[menu[2].n]    --current char-sprite frame
-            f.wAnimation = animations_weapon[menu[menu_state].n]
-        end
 
     elseif menu_state == 4 then
         --shaders
