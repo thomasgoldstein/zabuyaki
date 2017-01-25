@@ -208,7 +208,7 @@ function spriteEditorState:update(dt)
         UpdateSpriteInstance(sprite, dt)
     end
     if sprite_weapon then
-        UpdateSpriteInstance(sprite_weapon, dt)
+--        UpdateSpriteInstance(sprite_weapon, dt)
     end
     player_input(Control1)
 end
@@ -433,9 +433,15 @@ function spriteEditorState:wheelmoved(x, y)
         if menu[menu_state].n > #sprite.def.animations[sprite.cur_anim] then
             menu[menu_state].n = 1
         end
+        if #sprite.def.animations[sprite.cur_anim] <= 1 then
+            return
+        end
 
     elseif menu_state == 3 then
-        --frames
+        --weapon frames
+        if not sprite_weapon then
+            return
+        end
         if menu[menu_state].n < 1 then
             menu[menu_state].n = #animations_weapon
         end
@@ -446,6 +452,9 @@ function spriteEditorState:wheelmoved(x, y)
 
     elseif menu_state == 4 then
         --shaders
+        if #hero.shaders < 1 then
+            return
+        end
         if menu[menu_state].n < 1 then
             menu[menu_state].n = #hero.shaders
         end
@@ -453,7 +462,7 @@ function spriteEditorState:wheelmoved(x, y)
             menu[menu_state].n = 1
         end
     end
-    if menu_state ~= 3 then
+    if menu_state ~= #menu then
         sfx.play("sfx","menu_move")
     end
 end
