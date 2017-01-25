@@ -173,9 +173,6 @@ local function player_input(controls)
             end
             return
         end
-        if love.keyboard.isDown('lctrl') and love.keyboard.isDown('c') then
-            print(ParseSpriteAnimation(sprite))
-        end
     end
 
     if controls.jump:pressed() or controls.back:pressed() then
@@ -390,6 +387,7 @@ function spriteEditorState:confirm( x, y, button, istouch )
             SetSpriteAnimation(sprite, animations[menu[menu_state].n])
             sfx.play("sfx","menu_select")
         elseif menu_state == 2 then
+            print(ParseSpriteAnimation(sprite))
             sfx.play("sfx","menu_select")
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
