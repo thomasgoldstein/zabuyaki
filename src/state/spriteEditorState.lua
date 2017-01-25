@@ -204,11 +204,12 @@ function spriteEditorState:update(dt)
         sfx.play("sfx","menu_move")
         old_menu_state = menu_state
     end
-
+    local save_sprite_weapon = sprite_weapon
     if sprite then
         UpdateSpriteInstance(sprite, dt)
     end
-    if sprite_weapon then
+    if save_sprite_weapon then
+        sprite_weapon = save_sprite_weapon
         UpdateSpriteInstance(sprite_weapon, dt)
     end
 
@@ -326,11 +327,6 @@ function spriteEditorState:draw()
     love.graphics.setColor(255, 255, 255, 120)
     love.graphics.draw(txt_current_sprite, (screen_width - txt_current_sprite:getWidth()) / 2, title_y_offset)
 
-    --current weapon sprite
-    if sprite_weapon then
-        love.graphics.setColor(255, 255, 255, 255)
-        DrawSpriteInstance(sprite_weapon, 0 + 60, screen_height - 30)
-    end
     --character sprite
     local sc = sprite.def.animations[sprite.cur_anim][1]
     local x_step = 140 --(sc.ox or 20) * 4 + 8 or 100
@@ -362,6 +358,11 @@ function spriteEditorState:draw()
             love.graphics.setColor(255, 255, 255, 255)
             DrawSpriteInstance(sprite, x, y, menu[menu_state].n)
             DrawSpriteWeapon(sprite, x, y, menu[menu_state].n)
+        elseif menu_state == 3 then
+            if sprite_weapon then
+                love.graphics.setColor(255, 255, 255, 255)
+                DrawSpriteInstance(sprite_weapon, x, y)
+            end
         else
             --animation
             DrawSpriteInstance(sprite, x, y)
