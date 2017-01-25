@@ -15,7 +15,7 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_current_sprite = nil --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
-local txt_items = {"ANIMATIONS", "FRAMES", "SHADERS", "BACK"}
+local txt_items = {"ANIMATIONS", "FRAMES", "WEAPON ANIMATIONS", "SHADERS", "BACK"}
 
 local hero = nil
 local sprite = nil
@@ -286,6 +286,10 @@ function spriteEditorState:draw()
                 m.hint = m.hint .. "\nWXY:"..s[m.n].wx..","..s[m.n].wy.." WR:"..(s[m.n].wRotate or 0).." "..(s[m.n].wAnimation or "?")
             end
         elseif i == 3 then
+            --local s = sprite_weapon.def.animations[sprite_weapon.cur_anim]
+            m.item = "WPN ANIMATION #"..m.n.." of "..#sprite_weapon.def.animations
+            m.hint = ""
+        elseif i == 4 then
             if #hero.shaders < 1 then
                 m.item = "NO SHADERS"
             else
@@ -334,8 +338,8 @@ function spriteEditorState:draw()
         x = x - 40
     end
     love.graphics.setColor(255, 255, 255, 255)
-    if hero.shaders[menu[3].n] then
-        love.graphics.setShader(hero.shaders[menu[3].n])
+    if hero.shaders[menu[4].n] then
+        love.graphics.setShader(hero.shaders[menu[4].n])
     end
     if sprite then --for Obstacles w/o shaders
         if menu_state == 2 then
@@ -383,6 +387,8 @@ function spriteEditorState:confirm( x, y, button, istouch )
             sfx.play("sfx","menu_select")
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
+        elseif menu_state == 4 then
+            sfx.play("sfx","menu_select")
         end
     end
 end
@@ -428,6 +434,15 @@ function spriteEditorState:wheelmoved(x, y)
         end
 
     elseif menu_state == 3 then
+        --frames
+        if menu[menu_state].n < 1 then
+            menu[menu_state].n = #animations_weapon
+        end
+        if menu[menu_state].n > #animations_weapon then
+            menu[menu_state].n = 1
+        end
+
+    elseif menu_state == 4 then
         --shaders
         if menu[menu_state].n < 1 then
             menu[menu_state].n = #hero.shaders
