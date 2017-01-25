@@ -59,7 +59,7 @@ function love.load(arg)
 	--push._fullscreen = not GLOBAL_SETTING.FULL_SCREEN) -- fix push library if start from FS
     push:setupScreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
 	GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
-        {fullscreen = GLOBAL_SETTING.FULL_SCREEN, resizable = false})
+        {fullscreen = GLOBAL_SETTING.FULL_SCREEN, resizable = false, pixelperfect = true})
 
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
