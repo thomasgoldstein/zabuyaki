@@ -119,50 +119,57 @@ end
 local function player_input(controls)
     local s = sprite.def.animations[sprite.cur_anim]
     local m = menu[menu_state]
+    local f = s[m.n]    --current frame
     if menu_state == 2 then --static frame
         if love.keyboard.isDown('lshift') then
             --change ox, oy offset of the sprite frame
             if controls.horizontal:pressed() then
-                s[m.n].ox = s[m.n].ox + controls.horizontal:getValue()
+                f.ox = f.ox + controls.horizontal:getValue()
             end
             if controls.vertical:pressed() then
-                s[m.n].oy = s[m.n].oy + controls.vertical:getValue()
+                f.oy = f.oy + controls.vertical:getValue()
             end
             return
         end
         if love.keyboard.isDown('rshift') then
             --change ox, oy offset of the weapon
-            if not sprite_weapon or not s[m.n].wx then
+            if not sprite_weapon then
                 return
             end
+            if not f.wx then
+                f.wx = 0
+                f.wy = -20
+                f.wAnimation = "angle0"
+                f.wRotation = 0
+            end
             if controls.horizontal:pressed() then
-                s[m.n].wx = s[m.n].wx + controls.horizontal:getValue()
+                f.wx = f.wx + controls.horizontal:getValue()
             end
             if controls.vertical:pressed() then
-                s[m.n].wy = s[m.n].wy + controls.vertical:getValue()
+                f.wy = f.wy + controls.vertical:getValue()
             end
             return
         end
         if love.keyboard.isDown('lalt') then
             --change rotation of the sprite frame
-            if not s[m.n].rotate then
-                s[m.n].rotate = 0
+            if not f.rotate then
+                f.rotate = 0
             end
             if controls.horizontal:pressed() then
-                s[m.n].rotate = s[m.n].rotate + controls.horizontal:getValue() / 10
+                f.rotate = f.rotate + controls.horizontal:getValue() / 10
             end
             return
         end
         if love.keyboard.isDown('ralt') then
             --change rotation of the weapon
-            if not sprite_weapon or not s[m.n].wx then
+            if not sprite_weapon or not f.wx then
                 return
             end
-            if not s[m.n].wRotate then
-                s[m.n].wRotate = 0
+            if not f.wRotate then
+                f.wRotate = 0
             end
             if controls.horizontal:pressed() then
-                s[m.n].wRotate = s[m.n].wRotate + controls.horizontal:getValue() / 10
+                f.wRotate = f.wRotate + controls.horizontal:getValue() / 10
             end
             return
         end
