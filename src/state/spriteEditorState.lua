@@ -260,8 +260,8 @@ function spriteEditorState:draw()
             if s.loop then
                 m.hint = m.hint .. "LOOP "
             end
-            if s[m.n].ox and s[m.n].oy then
-                m.hint = m.hint .. "\nOX,Y:"..s[m.n].ox..","..s[m.n].oy.." "
+            if s[m.n].func then
+                m.hint = m.hint .. "FUNC "
             end
             if s[m.n].flip_h then
                 m.hint = m.hint .. "flip_h "
@@ -269,11 +269,14 @@ function spriteEditorState:draw()
             if s[m.n].flip_v then
                 m.hint = m.hint .. "flip_v "
             end
-            if s[m.n].rotate then
-                m.hint = m.hint .. "R:"..s[m.n].rotate.." "
+            if s[m.n].ox and s[m.n].oy then
+                m.hint = m.hint .. "\nOXY:"..s[m.n].ox..","..s[m.n].oy.." "
             end
-            if s[m.n].func then
-                m.hint = m.hint .. "FUNC "
+            if s[m.n].rotate then
+                m.hint = m.hint .. "R:"..s[m.n].rotate.." RXY:"..s[m.n].rx..","..s[m.n].ry.." "
+            end
+            if s[m.n].wx then
+                m.hint = m.hint .. "\nWXY:"..s[m.n].wx..","..s[m.n].wy.." WR:"..(s[m.n].wRotate or 0).." "..(s[m.n].wAnimation or "?")
             end
         elseif i == 3 then
             if #hero.shaders < 1 then
