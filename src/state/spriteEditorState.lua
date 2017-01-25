@@ -139,7 +139,7 @@ local function player_input(controls)
             if not f.wx then
                 f.wx = 0
                 f.wy = -20
-                f.wAnimation = "angle0"
+                f.wAnimation = animations_weapon[menu[3].n]
                 f.wRotation = 0
             end
             if controls.horizontal:pressed() then
@@ -430,6 +430,16 @@ function spriteEditorState:wheelmoved(x, y)
         end
         if menu[menu_state].n > #animations_weapon then
             menu[menu_state].n = 1
+        end
+        SetSpriteAnimation(sprite_weapon, animations_weapon[menu[menu_state].n])
+        if love.keyboard.isDown('rshift') then
+            --set current characters frame weapon anim
+            if not sprite_weapon then
+                return
+            end
+            local s = sprite.def.animations[sprite.cur_anim]
+            local f = s[menu[2].n]    --current char-sprite frame
+            f.wAnimation = animations_weapon[menu[menu_state].n]
         end
 
     elseif menu_state == 4 then
