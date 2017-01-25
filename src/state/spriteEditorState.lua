@@ -322,6 +322,7 @@ end
 
 function spriteEditorState:draw()
     push:apply("start")
+    displayHelp()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
@@ -368,7 +369,7 @@ function spriteEditorState:draw()
                 m.item = "N/A"
                 m.hint = ""
             else
-                m.item = animations_weapon[m.n].." - #"..m.n.." of "..#animations_weapon
+                m.item = animations_weapon[m.n].." #"..m.n.." of "..#animations_weapon
                 m.hint = ""
                 local s = sprite.def.animations[sprite.cur_anim]
                 if sprite_weapon.cur_anim ~= animations_weapon[menu[menu_state].n] then
@@ -399,8 +400,6 @@ function spriteEditorState:draw()
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, m.x, m.y )
-
-        displayHelp()
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
                 CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
