@@ -117,25 +117,21 @@ end
 
 --Only P1 can use menu / options
 local function player_input(controls)
-    if love.keyboard.isDown('lshift') then
-        --change ox, oy offset of the sprite frame
-        local s = sprite.def.animations[sprite.cur_anim]
-        local m = menu[menu_state]
-        if menu_state == 2 then
+    local s = sprite.def.animations[sprite.cur_anim]
+    local m = menu[menu_state]
+    if menu_state == 2 then --static frame
+        if love.keyboard.isDown('lshift') then
+            --change ox, oy offset of the sprite frame
             if controls.horizontal:pressed() then
                 s[m.n].ox = s[m.n].ox + controls.horizontal:getValue()
             end
             if controls.vertical:pressed() then
                 s[m.n].oy = s[m.n].oy + controls.vertical:getValue()
             end
+            return
         end
-        return
-    end
-    if love.keyboard.isDown('rshift') then
-        --change ox, oy offset of the sprite frame
-        local s = sprite.def.animations[sprite.cur_anim]
-        local m = menu[menu_state]
-        if menu_state == 2 then
+        if love.keyboard.isDown('rshift') then
+            --change ox, oy offset of the weapon
             if not sprite_weapon or not s[m.n].wx then
                 return
             end
@@ -145,26 +141,36 @@ local function player_input(controls)
             if controls.vertical:pressed() then
                 s[m.n].wy = s[m.n].wy + controls.vertical:getValue()
             end
+            return
         end
-        return
-    end
-    if love.keyboard.isDown('lalt') then
-        --change rotation of the sprite frame
-        local s = sprite.def.animations[sprite.cur_anim]
-        local m = menu[menu_state]
-        if menu_state == 2 then
+        if love.keyboard.isDown('lalt') then
+            --change rotation of the sprite frame
             if not s[m.n].rotate then
                 s[m.n].rotate = 0
             end
             if controls.horizontal:pressed() then
                 s[m.n].rotate = s[m.n].rotate + controls.horizontal:getValue() / 10
             end
+            return
         end
-        return
+        if love.keyboard.isDown('ralt') then
+            --change rotation of the weapon
+            if not sprite_weapon or not s[m.n].wx then
+                return
+            end
+            if not s[m.n].wRotate then
+                s[m.n].wRotate = 0
+            end
+            if controls.horizontal:pressed() then
+                s[m.n].wRotate = s[m.n].wRotate + controls.horizontal:getValue() / 10
+            end
+            return
+        end
+        if love.keyboard.isDown('lctrl') and love.keyboard.isDown('c') then
+            print(ParseSpriteAnimation(sprite))
+        end
     end
-    if love.keyboard.isDown('lctrl') and love.keyboard.isDown('c') then
-        print(ParseSpriteAnimation(sprite))
-    end
+
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
@@ -218,6 +224,7 @@ local function DrawSpriteWeapon(sprite, x, y, i)
             if sprite_weapon.cur_anim ~= wAnimation then
                 SetSpriteAnimation(sprite_weapon, wAnimation)
             end
+            sprite_weapon.rotation = wRotate
             DrawSpriteInstance(sprite_weapon, x + wx, y + wy)
             if GLOBAL_SETTING.DEBUG then
                 --center of the weapon animation
