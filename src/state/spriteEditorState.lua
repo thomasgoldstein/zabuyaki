@@ -115,6 +115,89 @@ function spriteEditorState:enter(_, _hero, _weapon)
     self:wheelmoved(0, 0)   --pick 1st sprite to draw
 end
 
+local function displayHelp()
+    local font = love.graphics.getFont()
+    local x, y = left_item_offset, menu_y_offset + menu_item_h
+    love.graphics.setFont(gfx.font.arcade3)
+    love.graphics.setColor(100, 100, 100, 255)
+    if not weapon then
+        if menu_state == 1 then
+            love.graphics.print(
+[[<- -> / Mouse wheel :
+    Select weapon
+    animation
+
+Attack/Enter :
+    Replay animation]], x, y)
+        elseif menu_state == 2 then
+            love.graphics.print(
+[[<- -> / Mouse wheel :
+    Select frame
+
+L-Shift + Arrows :
+    Weapon Position
+
+L-Alt + <- -> :
+    Rotate Weapon
+
+Attack/Enter :
+    Dump to Console]], x, y)
+        elseif menu_state == 4 then
+            love.graphics.print(
+[[<- -> / Mouse wheel :
+    Select shader]], x, y)
+        end
+    else
+        if menu_state == 1 then
+            love.graphics.print(
+[[<- -> / Mouse wheel :
+    Select character
+    animation
+
+Attack/Enter :
+    Replay animation]], x, y)
+        elseif menu_state == 2 then
+            love.graphics.print(
+[[<- -> / Mouse wheel :
+    Select frame
+
+L-Shift + Arrows :
+    Char Position
+
+L-Alt + <- -> :
+    Rotate Character
+
+R-Shift + Arrows :
+    Weapon Position
+
+R-Alt + <- -> :
+    Rotate Weapon
+
+0 : Show/hide center
+    of weapon sprite
+
+Attack/Enter :
+    Dump to Console]], x, y)
+        elseif menu_state == 3 then
+            love.graphics.print(
+[[Attack/Enter :
+     Set this weapon
+     animation to
+     the current
+     character's frame
+
+<- -> / Mouse wheel :
+    Select weapon
+    animation]], x, y)
+        elseif menu_state == 4 then
+            love.graphics.print(
+[[<- -> / Mouse wheel :
+    Select shader]], x, y)
+        end
+    end
+    love.graphics.setFont(font)
+end
+
 --Only P1 can use menu / options
 local function player_input(controls)
     local s = sprite.def.animations[sprite.cur_anim]
@@ -249,7 +332,7 @@ function spriteEditorState:draw()
                 m2.n = #sprite.def.animations[sprite.cur_anim]
             end
             m2.item = "FRAME #"..m2.n.." of "..#sprite.def.animations[sprite.cur_anim]
-            m.hint = "SELECT ANIMATION\n<= =>"
+            m.hint = ""
         elseif i == 2 then
             local s = sprite.def.animations[sprite.cur_anim]
             m.item = "FRAME #"..m.n.." of "..#sprite.def.animations[sprite.cur_anim]
@@ -286,7 +369,7 @@ function spriteEditorState:draw()
                 m.hint = ""
             else
                 m.item = animations_weapon[m.n].." - #"..m.n.." of "..#animations_weapon
-                m.hint = "SELECT WEAPON ANIMATION\n<= =>"
+                m.hint = ""
                 local s = sprite.def.animations[sprite.cur_anim]
                 if sprite_weapon.cur_anim ~= animations_weapon[menu[menu_state].n] then
                     SetSpriteAnimation(sprite_weapon, animations_weapon[menu[menu_state].n])
@@ -302,12 +385,12 @@ function spriteEditorState:draw()
                 else
                     m.item = "SHADER #"..m.n
                 end
-                m.hint = "SELECT SHADER\n<= =>"
+                m.hint = ""
             end
         end
         calcMenuItem(menu, i)
         if i == old_menu_state then
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(200, 200, 200, 255)
             love.graphics.print(m.hint, m.wx, m.wy)
             love.graphics.setColor(0, 0, 0, 80)
             love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
@@ -316,6 +399,8 @@ function spriteEditorState:draw()
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, m.x, m.y )
+
+        displayHelp()
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
                 CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
