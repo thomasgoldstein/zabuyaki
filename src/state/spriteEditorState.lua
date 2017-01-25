@@ -280,14 +280,19 @@ function spriteEditorState:draw()
                 m.hint = m.hint .. "\nOXY:"..s[m.n].ox..","..s[m.n].oy.." "
             end
             if s[m.n].rotate then
-                m.hint = m.hint .. "R:"..s[m.n].rotate.." RXY:"..s[m.n].rx..","..s[m.n].ry.." "
+                m.hint = m.hint .. "R:"..s[m.n].rotate.." RXY:"..(s[m.n].rx or 0)..","..(s[m.n].ry or 0).." "
             end
             if s[m.n].wx then
                 m.hint = m.hint .. "\nWXY:"..s[m.n].wx..","..s[m.n].wy.." WR:"..(s[m.n].wRotate or 0).." "..(s[m.n].wAnimation or "?")
             end
         elseif i == 3 then
-            m.item = animations_weapon[m.n].." - #"..m.n.." of "..#animations_weapon
-            m.hint = "SELECT WEAPON ANIMATION\n<= =>"
+            if not animations_weapon or #animations_weapon < 1 then
+                m.item = "N/A"
+                m.hint = ""
+            else
+                m.item = animations_weapon[m.n].." - #"..m.n.." of "..#animations_weapon
+                m.hint = "SELECT WEAPON ANIMATION\n<= =>"
+            end
         elseif i == 4 then
             if #hero.shaders < 1 then
                 m.item = "NO SHADERS"
