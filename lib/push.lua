@@ -16,6 +16,7 @@ function push:setupScreen(WWIDTH, WHEIGHT, RWIDTH, RHEIGHT, f)
   self._RWIDTH, self._RHEIGHT = RWIDTH, RHEIGHT
   self._fullscreen = f.fullscreen or self._fullscreen or  false
   self._resizable = f.resizable or self._resizable or false
+  self._pixelperfect = f.pixelperfect or self._pixelperfect or false
   if f.canvas == nil then f.canvas = true end
 
   love.window.setMode( self._RWIDTH, self._RHEIGHT, {fullscreen = self._fullscreen, borderless = false, resizable = self._resizable} )
@@ -35,7 +36,10 @@ end
 
 function push:initValues()
   self._SCALEX, self._SCALEY = self._RWIDTH/self._WWIDTH, self._RHEIGHT/self._WHEIGHT
+  
   self._SCALE = math.min(self._SCALEX, self._SCALEY)
+  if self._pixelperfect then self._SCALE = math.floor(self._SCALE) end
+  
   self._OFFSET = {x = (self._SCALEX - self._SCALE) * (self._WWIDTH/2), y = (self._SCALEY - self._SCALE) * (self._WHEIGHT/2)}
   self._GWIDTH, self._GHEIGHT = self._RWIDTH-self._OFFSET.x*2, self._RHEIGHT-self._OFFSET.y*2
 
@@ -52,6 +56,18 @@ function push:apply(operation, shader)
     self:start()
   elseif operation == "finish" or operation == "end" then
     self:finish(shader)
+  end
+end
+
+function push:start()
+  if self._canvas then
+    love.graphics.push()
+    love.graphics.setCanvas(self._canvas)
+  else
+    love.graphics.translate(self._OFFSET.x, self._OFFSET.y)
+    love.graphics.setScissor(self._OFFSET.x, self._OFFSET.y, self._WWIDTH*self._SCALE, self._WHEIGHT*self._SCALE)
+    love.graphics.push()
+    love.graphics.scale(self._SCALE)
   end
 end
 
@@ -72,18 +88,6 @@ function push:finish(shader)
   else
     love.graphics.pop()
     love.graphics.setScissor()
-  end
-end
-
-function push:start()
-  if self._canvas then
-    love.graphics.push()
-    love.graphics.setCanvas(self._canvas)
-  else
-    love.graphics.translate(self._OFFSET.x, self._OFFSET.y)
-    love.graphics.setScissor(self._OFFSET.x, self._OFFSET.y, self._WWIDTH*self._SCALE, self._WHEIGHT*self._SCALE)
-    love.graphics.push()
-    love.graphics.scale(self._SCALE)
   end
 end
 
@@ -112,10 +116,22 @@ end
 function push:switchFullscreen(winw, winh)
   self._fullscreen = not self._fullscreen
   local windowWidth, windowHeight = love.window.getDesktopDimensions()
-  self._RWIDTH = self._fullscreen and windowWidth or winw or windowWidth*.5
-  self._RHEIGHT = self._fullscreen and windowHeight or winh or windowHeight*.5
+  
+  if self._fullscreen then --save windowed dimensions for later
+    self._WINWIDTH, self._WINHEIGHT = self._RWIDTH, self._RHEIGHT
+  elseif not self._WINWIDTH or not self._WINHEIGHT then
+    self._WINWIDTH, self._WINHEIGHT = windowWidth * .5, windowHeight * .5
+  end
+  
+  self._RWIDTH = self._fullscreen and windowWidth or winw or self._WINWIDTH
+  self._RHEIGHT = self._fullscreen and windowHeight or winh or self._WINHEIGHT
+  
   self:initValues()
+  
   love.window.setFullscreen(self._fullscreen, "desktop")
+  if not self._fullscreen and (winw or winh) then
+    love.window.setMode(self._RWIDTH, self._RHEIGHT) --set window dimensions
+  end
 end
 
 function push:resize(w, h)

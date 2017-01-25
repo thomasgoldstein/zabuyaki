@@ -29,9 +29,7 @@ credits = GLOBAL_SETTING.MAX_CREDITS
 attackHitBoxes = {} -- DEBUG
 
 function switchFullScreen()
-	--this workaround makes PUSH lib switch full screen/window w/o problems
-	--passing the screen resolution every time
-    push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH,GLOBAL_SETTING.WINDOW_HEIGHT)
+    push:switchFullscreen()
 	configuration:set("MOUSE_ENABLED",not push._fullscreen)
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 end
