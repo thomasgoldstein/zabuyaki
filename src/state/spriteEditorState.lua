@@ -160,22 +160,20 @@ Attack/Enter :
             love.graphics.print(
 [[<- -> / Mouse wheel :
     Select frame
-
 L-Shift + Arrows :
     Char Position
-
 L-Alt + <- -> :
     Rotate Character
-
+L-Ctrl + Arrows :
+    Flip Character
 R-Shift + Arrows :
     Weapon Position
-
 R-Alt + <- -> :
     Rotate Weapon
-
+R-Ctrl + Arrows :
+    Flip Weapon
 0 : Show/hide center
     of weapon sprite
-
 Attack/Enter :
     Dump to Console]], x, y)
         elseif menu_state == 3 then
@@ -204,6 +202,26 @@ function spriteEditorState:player_input(controls)
     local m = menu[menu_state]
     local f = s[m.n]    --current frame
     if menu_state == 2 then --static frame
+        if love.keyboard.isDown('lctrl') then
+            --flip sprite frame horizontally & vertically
+            if controls.horizontal:pressed() then
+                f.flip_h = controls.horizontal:getValue()
+            end
+            if controls.vertical:pressed() then
+                f.flip_v = controls.vertical:getValue()
+            end
+            return
+        end
+        if love.keyboard.isDown('rctrl') then
+            --flip weapon frame horizontally & vertically
+            if controls.horizontal:pressed() then
+                f.wFlip_h = controls.horizontal:getValue()
+            end
+            if controls.vertical:pressed() then
+                f.wFlip_v = controls.vertical:getValue()
+            end
+            return
+        end
         if love.keyboard.isDown('lshift') then
             --change ox, oy offset of the sprite frame
             if controls.horizontal:pressed() then
