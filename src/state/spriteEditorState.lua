@@ -314,20 +314,20 @@ function spriteEditorState:update(dt)
     self:player_input(Control1)
 end
 
-local cur_scale = 2
 local function DrawSpriteWeapon(sprite, x, y, i)
     if sprite_weapon then
         local s = sprite.def.animations[sprite.cur_anim][i or sprite.cur_frame]
-        local wx, wy, wRotate, wAnimation
+        local wx, wy, wAnimation
         if s.wx and s.wy then
-            wx = s.wx * cur_scale or 0
-            wy = s.wy * cur_scale or 0
-            wRotate = s.wRotate or 0
+            wx = s.wx * sprite_weapon.size_scale or 0
+            wy = s.wy * sprite_weapon.size_scale or 0
             wAnimation = s.wAnimation or "angle0"
             if sprite_weapon.cur_anim ~= wAnimation then
                 SetSpriteAnimation(sprite_weapon, wAnimation)
             end
-            sprite_weapon.rotation = wRotate
+            sprite_weapon.rotation = s.wRotate or 0
+            sprite_weapon.flip_h = s.wFlip_h or 1
+            sprite_weapon.flip_v = s.wFlip_v or 1
             DrawSpriteInstance(sprite_weapon, x + wx, y + wy)
             if GLOBAL_SETTING.DEBUG then
                 --center of the weapon animation
