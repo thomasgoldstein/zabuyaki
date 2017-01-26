@@ -498,6 +498,8 @@ function spriteEditorState:wheelmoved(x, y)
         i = 1
     elseif y < 0 then
         i = -1
+    else
+        return
     end
     menu[menu_state].n = menu[menu_state].n + i
     if menu_state == 1 then
