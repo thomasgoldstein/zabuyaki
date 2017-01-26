@@ -175,7 +175,7 @@ function UpdateSpriteInstance(spr, dt, slf)
 end
 
 function DrawSpriteInstance (spr, x, y, frame)
-    local sc = spr.def.animations[spr.cur_anim][frame or spr.cur_frame]
+    local sc = spr.def.animations[spr.cur_anim][frame or spr.cur_frame or 1]
 	local scale_h, scale_v, flip_h, flip_v = sc.scale_h or 1, sc.scale_v or 1, sc.flip_h or 1, sc.flip_v or 1
 	local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
 	local y_shift = y

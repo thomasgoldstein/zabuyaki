@@ -316,7 +316,7 @@ end
 
 local function DrawSpriteWeapon(sprite, x, y, i)
     if sprite_weapon then
-        local s = sprite.def.animations[sprite.cur_anim][i or sprite.cur_frame]
+        local s = sprite.def.animations[sprite.cur_anim][i or sprite.cur_frame or 1]
         local wx, wy, wAnimation
         if s.wx and s.wy then
             wx = s.wx * sprite_weapon.size_scale or 0
