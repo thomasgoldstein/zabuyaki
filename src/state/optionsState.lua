@@ -4,7 +4,7 @@ local time = 0
 local screen_width = 640
 local screen_height = 480
 local menu_item_h = 40
-local menu_y_offset = 200 - menu_item_h
+local menu_y_offset = 80 -- menu_item_h
 local menu_x_offset = 0
 local hint_y_offset = 80
 local title_y_offset = 24
@@ -14,31 +14,7 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
-local txt_option1 = "BG MUSIC ON"
-local txt_option1a = "BG MUSIC OFF"
-local txt_option2 = "DIFFICULTY NORMAL"
-local txt_option2a = "DIFFICULTY HARD"
-local txt_option3 = "SOUND TEST"
-local txt_option4 = "DEFAULTS"
-local txt_option5 = "SPRITE EDITOR"
-local txt_quit = "BACK"
-
-local txt_items = {txt_option1, txt_option2, txt_option3, txt_option4, txt_option5, txt_quit}
-
-local function set_items_according_the_options()
-    if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
-        txt_items[1] = txt_option1
-    else
-        txt_items[1] = txt_option1a
-    end
-    if GLOBAL_SETTING.DIFFICULTY == 1 then
-        txt_items[2] = txt_option2
-    else
-        txt_items[2] = txt_option2a
-    end
-    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-end
-set_items_according_the_options()
+local txt_items = {"BG MUSIC", "DIFFICULTY", "SOUND TEST", "DEFAULTS", "SPRITE EDITOR", "LOCKED", "LOCKED", "BACK"}
 
 local function fillMenu(txt_items, txt_hints)
     local m = {}
@@ -71,7 +47,19 @@ local function fillMenu(txt_items, txt_hints)
     return m
 end
 
-local menu = fillMenu(txt_items, txt_hints)
+local function calcMenuItem(menu, i)
+    assert(menu and menu[i], "menu item error")
+    local m = menu[i]
+    m.w = gfx.font.arcade4:getWidth(m.item)
+    m.h = gfx.font.arcade4:getHeight(m.item)
+    m.wy = screen_height - hint_y_offset
+    m.x = menu_x_offset + screen_width / 2 - m.w / 2
+    m.y = menu_y_offset + i * menu_item_h
+    m.rect_x = menu_x_offset + screen_width / 2 - m.w / 2
+    m.wx = (screen_width - gfx.font.arcade4:getWidth(m.hint)) / 2
+end
+
+local menu = fillMenu(txt_items)
 
 local menu_state, old_menu_state = 1, 1
 local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
@@ -85,6 +73,7 @@ function optionsState:enter()
     Control1.start:update()
     Control1.back:update()
     love.graphics.setLineWidth( 2 )
+    self:wheelmoved(0, 0)   --pick 1st sprite to draw
 end
 
 function optionsState:resume()
@@ -92,16 +81,20 @@ function optionsState:resume()
 end
 
 --Only P1 can use menu / options
-local function player_input(controls)
+function optionsState:player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return optionsState:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( mouse_x, mouse_y, 1)
     end
-    if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
+    if controls.horizontal:pressed(-1)then
+        self:wheelmoved(0, -1)
+    elseif controls.horizontal:pressed(1)then
+        self:wheelmoved(0, 1)
+    elseif controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
-    elseif controls.horizontal:pressed(1) or controls.vertical:pressed(1) then
+    elseif controls.vertical:pressed(1) then
         menu_state = menu_state + 1
     end
     if menu_state < 1 then
@@ -118,7 +111,7 @@ function optionsState:update(dt)
         sfx.play("sfx","menu_move")
         old_menu_state = menu_state
     end
-    player_input(Control1)
+    self:player_input(Control1)
 end
 
 function optionsState:draw()
@@ -126,6 +119,22 @@ function optionsState:draw()
     love.graphics.setFont(gfx.font.arcade3x2)
     for i = 1,#menu do
         local m = menu[i]
+        if i == 1 then
+            if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
+                m.item = "BG MUSIC ON"
+            else
+                m.item = "BG MUSIC OFF"
+            end
+            m.hint = ""
+        elseif i == 2 then
+            if GLOBAL_SETTING.DIFFICULTY == 1 then
+                m.item = "DIFFICULTY NORMAL"
+            else
+                m.item = "DIFFICULTY HARD"
+            end
+            m.hint = ""
+        end
+        calcMenuItem(menu, i)
         if i == old_menu_state then
             love.graphics.setColor(255, 255, 255, 255)
             love.graphics.print(m.hint, m.wx, m.wy)
@@ -158,24 +167,18 @@ function optionsState:confirm( x, y, button, istouch )
             sfx.play("sfx","menu_select")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 configuration:set("BGM_VOLUME", 0)
-                txt_items[1] = txt_option1a
             else
                 configuration:set("BGM_VOLUME", 0.75)
-                txt_items[1] = txt_option1
             end
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-            menu = fillMenu(txt_items, txt_hints)
 
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 configuration:set("DIFFICULTY", 2)
-                txt_items[2] = txt_option2a
             else
                 configuration:set("DIFFICULTY", 1)
-                txt_items[2] = txt_option2
             end
-            menu = fillMenu(txt_items, txt_hints)
 
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
@@ -185,8 +188,6 @@ function optionsState:confirm( x, y, button, istouch )
             sfx.play("sfx","menu_select")
             configuration:reset()
             configuration.dirty = true
-            set_items_according_the_options()
-            menu = fillMenu(txt_items, txt_hints)
 
         elseif menu_state == 5 then
             sfx.play("sfx","menu_select")
@@ -208,7 +209,7 @@ function optionsState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    optionsState:confirm( x, y, button, istouch )
+    self:confirm( x, y, button, istouch )
 end
 
 function optionsState:mousemoved( x, y, dx, dy)
@@ -216,4 +217,24 @@ function optionsState:mousemoved( x, y, dx, dy)
         return
     end
     mouse_x, mouse_y = x, y
+end
+
+function optionsState:wheelmoved(x, y)
+    local i = 0
+    if y > 0 then
+        i = 1
+    elseif y < 0 then
+        i = -1
+    else
+        return
+    end
+    menu[menu_state].n = menu[menu_state].n + i
+    if menu_state == 1 then
+        return self:confirm( mouse_x, mouse_y, 1)
+    elseif menu_state == 2 then
+        return self:confirm( mouse_x, mouse_y, 1)
+    end
+    if menu_state ~= #menu then
+        sfx.play("sfx","menu_move")
+    end
 end
