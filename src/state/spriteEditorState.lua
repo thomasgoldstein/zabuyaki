@@ -199,7 +199,7 @@ Attack/Enter :
 end
 
 --Only P1 can use menu / options
-local function player_input(controls)
+function spriteEditorState:player_input(controls)
     local s = sprite.def.animations[sprite.cur_anim]
     local m = menu[menu_state]
     local f = s[m.n]    --current frame
@@ -262,12 +262,12 @@ local function player_input(controls)
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return spriteEditorState:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1)then
-        spriteEditorState:wheelmoved(0, -1)
+        self:wheelmoved(0, -1)
     elseif controls.horizontal:pressed(1)then
-        spriteEditorState:wheelmoved(0, 1)
+        self:wheelmoved(0, 1)
     elseif controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
     elseif controls.vertical:pressed(1) then
@@ -293,7 +293,7 @@ function spriteEditorState:update(dt)
     if sprite_weapon then
 --        UpdateSpriteInstance(sprite_weapon, dt)
     end
-    player_input(Control1)
+    self:player_input(Control1)
 end
 
 local cur_scale = 2
@@ -557,7 +557,7 @@ function spriteEditorState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    spriteEditorState:confirm( x, y, button, istouch )
+    self:confirm( x, y, button, istouch )
 end
 
 function spriteEditorState:mousemoved( x, y, dx, dy)

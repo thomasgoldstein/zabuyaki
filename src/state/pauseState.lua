@@ -69,7 +69,7 @@ function pauseState:leave()
 end
 
 --Only P1 can use menu / options
-local function player_input(controls)
+function pauseState:player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx","menu_select")
         return Gamestate.pop()
@@ -95,7 +95,7 @@ function pauseState:update(dt)
         sfx.play("sfx","menu_move")
         old_menu_state = menu_state
     end
-    player_input(Control1)
+    self:player_input(Control1)
 end
 
 function pauseState:draw()
@@ -197,7 +197,7 @@ function pauseState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    pauseState:confirm( x, y, button, istouch )
+    self:confirm( x, y, button, istouch )
 end
 
 function pauseState:mousemoved( x, y, dx, dy)

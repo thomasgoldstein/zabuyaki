@@ -225,7 +225,7 @@ function playerSelectState:enter()
 end
 
 function playerSelectState:resume()
-    playerSelectState:enter()
+    self:enter()
 end
 
 local function GameStart()
@@ -251,7 +251,7 @@ local function GameStart()
     return Gamestate.switch(arcadeState, pl)
 end
 
-local function player_input(player, controls, i)
+function playerSelectState:player_input(player, controls, i)
     if not player.visible then
         if (controls.jump:pressed() or controls.back:pressed()) and i == 1 then
             --Only P1 can return to title
@@ -348,9 +348,9 @@ function playerSelectState:update(dt)
 
         end
     end
-    player_input(players[1], Control1, 1)
-    player_input(players[2], Control2, 2)
-    player_input(players[3], Control3, 3)
+    self:player_input(players[1], Control1, 1)
+    self:player_input(players[2], Control2, 2)
+    self:player_input(players[3], Control3, 3)
 end
 
 function playerSelectState:draw()
@@ -443,7 +443,7 @@ function playerSelectState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    playerSelectState:confirm( x, y, button, istouch )
+    self:confirm( x, y, button, istouch )
 end
 
 function playerSelectState:mousemoved( x, y, dx, dy)

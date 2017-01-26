@@ -106,7 +106,7 @@ local function reset_time()
 end
 
 --Only P1 can use menu / options
-local function player_input(controls)
+function titleState:player_input(controls)
     if mode == "menufadein" and time < time_to_menu_move then
         return
     end
@@ -115,7 +115,7 @@ local function player_input(controls)
         sfx.play("sfx","menu_cancel")
         return love.event.quit()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return titleState:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
@@ -178,7 +178,7 @@ function titleState:update(dt)
             old_menu_state = menu_state
             reset_time()
         end
-        player_input(Control1)
+        self:player_input(Control1)
     end
 end
 
@@ -254,7 +254,7 @@ function titleState:mousepressed( x, y, button, istouch )
         return
     end
     if mode == "menu" or mode == "menufadein" then
-        titleState:confirm( x, y, button, istouch )
+        self:confirm( x, y, button, istouch )
         return
     end
 end

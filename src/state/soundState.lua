@@ -76,17 +76,17 @@ function soundState:enter()
 end
 
 --Only P1 can use menu / options
-local function player_input(controls)
+function soundState:player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return soundState:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1)then
-        soundState:wheelmoved(0, -1)
+        self:wheelmoved(0, -1)
     elseif controls.horizontal:pressed(1)then
-        soundState:wheelmoved(0, 1)
+        self:wheelmoved(0, 1)
     elseif controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
     elseif controls.vertical:pressed(1) then
@@ -106,7 +106,7 @@ function soundState:update(dt)
         sfx.play("sfx","menu_move")
         old_menu_state = menu_state
     end
-    player_input(Control1)
+    self:player_input(Control1)
 end
 
 function soundState:draw()
@@ -176,7 +176,7 @@ function soundState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    soundState:confirm( x, y, button, istouch )
+    self:confirm( x, y, button, istouch )
 end
 
 function soundState:mousemoved( x, y, dx, dy)
