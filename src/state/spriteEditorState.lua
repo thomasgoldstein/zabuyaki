@@ -465,6 +465,8 @@ function spriteEditorState:draw()
             if sprite_weapon then
                 love.graphics.setColor(255, 255, 255, 255)
                 sprite_weapon.rotation = 0
+                sprite_weapon.flip_v = 1
+                sprite_weapon.flip_h = 1
                 DrawSpriteInstance(sprite_weapon, x, y)
             end
         else
