@@ -135,17 +135,17 @@ function spriteSelectState:enter()
 end
 
 --Only P1 can use menu / options
-local function player_input(controls)
+function spriteSelectState:player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx","menu_cancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return spriteSelectState:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1)then
-        spriteSelectState:wheelmoved(0, -1)
+        self:wheelmoved(0, -1)
     elseif controls.horizontal:pressed(1)then
-        spriteSelectState:wheelmoved(0, 1)
+        self:wheelmoved(0, 1)
     elseif controls.vertical:pressed(-1) then
         menu_state = menu_state - 1
     elseif controls.vertical:pressed(1) then
@@ -171,7 +171,7 @@ function spriteSelectState:update(dt)
         UpdateSpriteInstance(sprite, dt)
     end
 
-    player_input(Control1)
+    self:player_input(Control1)
 end
 
 function spriteSelectState:draw()
@@ -262,7 +262,7 @@ function spriteSelectState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    spriteSelectState:confirm( x, y, button, istouch )
+    self:confirm( x, y, button, istouch )
 end
 
 function spriteSelectState:mousemoved( x, y, dx, dy)
