@@ -258,6 +258,11 @@ function spriteEditorState:player_input(controls)
             end
             if controls.horizontal:pressed() then
                 f.rotate = f.rotate + controls.horizontal:getValue() / 10
+                if ( f.rotate ~= 0 and f.rotate > -0.1 and f.rotate < 0.1 )
+                    or f.rotate > math.pi * 2 or f.rotate < -math.pi * 2
+                then
+                    f.rotate = 0
+                end
             end
             return
         end
@@ -271,6 +276,11 @@ function spriteEditorState:player_input(controls)
             end
             if controls.horizontal:pressed() then
                 f.wRotate = f.wRotate + controls.horizontal:getValue() / 10
+                if ( f.wRotate ~= 0 and f.wRotate > -0.1 and f.wRotate < 0.1 )
+                    or f.wRotate > math.pi * 2 or f.wRotate < -math.pi * 2
+                then
+                    f.wRotate = 0
+                end
             end
             return
         end
