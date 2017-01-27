@@ -1,8 +1,14 @@
 local sprite_sheet = "res/img/char/satoff.png"
 local image_w,image_h = LoadSpriteSheet(sprite_sheet)
+
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
+
+local combo_uppercut = function(slf, cont) slf:checkAndAttack(
+	{ left = 21, width = 30, height = 12, damage = 24, type = "fall", velocity = slf.velocity_dash_fall },
+	cont
+) end
 
 return {
     serialization_version = 0.42, -- version
@@ -68,20 +74,11 @@ return {
             delay = 0.16
         },
         combo1 = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 0.01
-        },
-        combo2 = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 0.04
-        },
-        combo3 = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 0.06
-        },
-        combo4 = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 0.06
+            { q = q(2,355,64,65), ox = 31, oy = 64 }, --c1.1
+			{ q = q(68,355,51,65), ox = 21, oy = 64, delay = 0.06 }, --c1.2
+			{ q = q(121,348,60,72), ox = 23, oy = 71, func = combo_uppercut, delay = 0.33 }, --c1.3
+			{ q = q(68,355,51,65), ox = 21, oy = 64, delay = 0.13 }, --c1.2
+            delay = 0.16
         },
         fall = {
             { q = q(2,219,71,57), ox = 34, oy = 56 }, --falling
