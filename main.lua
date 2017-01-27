@@ -103,7 +103,7 @@ function love.load(arg)
 	InfoBar = require "src/infoBar"
 	Stage1 = require "src/def/stage/stage1"
 	require "src/def/movie/intro"
-
+	require 'src/menu'
 	tactile = require 'lib/tactile'
 	KeyTrace = require 'src/keyTrace'
 	require 'src/controls'

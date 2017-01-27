@@ -16,37 +16,6 @@ local item_height_margin = top_item_offset * 2 - 2
 local txt_paused = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
 local txt_items = { "CONTINUE", "QUICK SAVE", "QUIT" }
 
-local function fillMenu(txt_items, txt_hints)
-    local m = {}
-    local max_item_width, max_item_x = 8, 0
-    if not txt_hints then
-        txt_hints = {}
-    end
-    for i = 1, #txt_items do
-        local w = gfx.font.arcade4:getWidth(txt_items[i])
-        if w > max_item_width then
-            max_item_x = menu_x_offset + screen_width / 2 - w / 2
-            max_item_width = w
-        end
-    end
-    for i = 1, #txt_items do
-        local w = gfx.font.arcade4:getWidth(txt_items[i])
-        m[#m + 1] = {
-            item = txt_items[i],
-            hint = txt_hints[i] or "",
-            x = menu_x_offset + screen_width / 2 - w / 2,
-            y = menu_y_offset + i * menu_item_h,
-            rect_x = max_item_x,
-            w = max_item_width,
-            h = gfx.font.arcade4:getHeight(txt_items[i]),
-            wx = (screen_width - gfx.font.arcade4:getWidth(txt_hints[i] or "")) / 2,
-            wy = screen_height - hint_y_offset,
-            n = 1
-        }
-    end
-    return m
-end
-
 local menu = fillMenu(txt_items, txt_hints)
 
 local menu_state, old_menu_state = 1, 1
