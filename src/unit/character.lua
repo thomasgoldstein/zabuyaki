@@ -1297,15 +1297,17 @@ function Character:grab_update(dt)
     if self.b.attack:isDown() and self.can_attack then
         if self.sprite.isFinished then
             if self.b.horizontal:getValue() ~= 0 or self.b.vertical:isDown(-1) then
-                if not self.throw_direction then
-                    self.throw_direction = {}
-                end
-                self.throw_direction.horizontal = self.b.horizontal:getValue()
-                self.throw_direction.vertical = self.b.vertical:isDown(-1)
+                self.throw_direction = { horizontal = self.b.horizontal:getValue(), vertical = self.b.vertical:isDown(-1) }
                 self:setState(self.grabThrow)
                 return
             else
-                self:setState(self.grabHit)
+                if self.face == g.target.face then
+                    --grabber char from behind
+                    self.throw_direction = { horizontal = -self.face, vertical = 0 }
+                    self:setState(self.grabThrow)
+                else
+                    self:setState(self.grabHit)
+                end
                 return
             end
         end
