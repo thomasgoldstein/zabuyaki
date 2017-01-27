@@ -169,6 +169,8 @@ function optionsState:confirm( x, y, button, istouch )
                 configuration:set("BGM_VOLUME", 0)
             else
                 configuration:set("BGM_VOLUME", 0.75)
+                TEsound.stop("music")
+                TEsound.playLooping(bgm.title, "music")
             end
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 
@@ -188,6 +190,9 @@ function optionsState:confirm( x, y, button, istouch )
             sfx.play("sfx","menu_select")
             configuration:reset()
             configuration.dirty = true
+            TEsound.stop("music")
+            TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+            TEsound.playLooping(bgm.title, "music")
 
         elseif menu_state == 5 then
             sfx.play("sfx","menu_select")

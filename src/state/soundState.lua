@@ -78,8 +78,7 @@ end
 --Only P1 can use menu / options
 function soundState:player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
-        sfx.play("sfx","menu_cancel")
-        return Gamestate.pop()
+        return self:confirm( mouse_x, mouse_y, 2)
     elseif controls.attack:pressed() or controls.start:pressed() then
         return self:confirm( mouse_x, mouse_y, 1)
     end
@@ -156,6 +155,7 @@ function soundState:confirm( x, y, button, istouch )
     if (button == 1 and menu_state == #menu) or button == 2 then
         sfx.play("sfx","menu_cancel")
         TEsound.stop("music")
+        TEsound.playLooping(bgm.title, "music")
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
         return Gamestate.pop()
     end
