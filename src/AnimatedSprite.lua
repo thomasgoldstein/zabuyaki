@@ -180,7 +180,7 @@ function DrawSpriteInstance (spr, x, y, frame)
 	local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
 	local y_shift = y
 	if flip_v == -1 then
-		y_shift = y - sc.oy
+		y_shift = y - sc.oy * spr.size_scale
 	end
     love.graphics.draw (
 		image_bank[spr.def.sprite_sheet], --The image
