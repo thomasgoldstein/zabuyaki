@@ -5,8 +5,13 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local combo_uppercut = function(slf, cont) slf:checkAndAttack(
-	{ left = 21, width = 30, height = 12, damage = 24, type = "fall", velocity = slf.velocity_dash_fall, sfx = "whoosh_heavy" },
+local combo_uppercut1 = function(slf, cont) slf:checkAndAttack(
+	{ left = 15, width = 30, height = 12, damage = 12, type = "low", velocity = slf.velocity_dash_fall, sfx = "whoosh_heavy" },
+	cont
+) end
+
+local combo_uppercut2 = function(slf, cont) slf:checkAndAttack(
+	{ left = 21, width = 30, height = 12, damage = 16, type = "fall", velocity = slf.velocity_dash_fall },
 	cont
 ) end
 
@@ -75,8 +80,8 @@ return {
         },
         combo1 = {
             { q = q(2,355,64,65), ox = 31, oy = 64 }, --c1.1
-			{ q = q(68,355,51,65), ox = 21, oy = 64, delay = 0.06 }, --c1.2
-			{ q = q(121,348,60,72), ox = 23, oy = 71, func = combo_uppercut, delay = 0.33 }, --c1.3
+			{ q = q(68,355,51,65), ox = 21, oy = 64, func = combo_uppercut1, delay = 0.06 }, --c1.2
+			{ q = q(121,348,60,72), ox = 23, oy = 71, func = combo_uppercut2, delay = 0.33 }, --c1.3
 			{ q = q(68,355,51,65), ox = 21, oy = 64, delay = 0.13 }, --c1.2
             delay = 0.16
         },
