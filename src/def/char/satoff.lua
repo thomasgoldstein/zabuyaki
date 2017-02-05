@@ -59,7 +59,7 @@ return {
             delay = 0.117
         },
         jump = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
+            { q = q(183,348,55,70), ox = 33, oy = 69 }, --jump
             delay = 5
         },
         respawn = {
