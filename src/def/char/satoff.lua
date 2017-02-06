@@ -63,8 +63,9 @@ return {
             delay = 5
         },
         respawn = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 },--stand 1
-            delay = 0.1
+            { q = q(183,348,55,70), ox = 33, oy = 69, delay = 5 }, --jump
+            { q = q(227,212,70,64), ox = 35, oy = 63 }, --duck
+            delay = 0.6
         },
         duck = {
             { q = q(227,212,70,64), ox = 35, oy = 63 }, --duck
