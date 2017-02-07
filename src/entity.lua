@@ -44,6 +44,23 @@ function Entity:sortByY()
         return a.y < b.y end )
 end
 
+function Entity:sortByY_()
+    table.sort(self.entities, function(a,b)
+        if not a then
+            return false
+        elseif not b then
+            return true
+        end
+        local ay, by = a.y - a.id / 100, b.y - b.id / 100
+        if b.isGrabbed then
+            by = by - 1
+        end
+        if ay == by then
+            return a.id > b.id
+        end
+        return ay < by end )
+end
+
 function Entity:remove(e)
     if not e then
         return flase
