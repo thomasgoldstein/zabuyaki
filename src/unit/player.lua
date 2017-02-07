@@ -415,6 +415,7 @@ function Player:respawn_update(dt)
             { left = 0, width = 320 * 2, height = 240 * 2, damage = 0, type = "shockWave", velocity = 0 },
             false
         )
+        mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen on respawn
         self.bounced = 1
     end
     --self.victim_infoBar = nil   -- remove enemy bar under yours
