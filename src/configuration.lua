@@ -17,6 +17,8 @@ GLOBAL_SETTING = {
     DEBUG = false,
     OFFSCREEN = 1000,
     FULL_SCREEN = false,
+    PIXEL_PREFECT = false,
+    FILTERING = 0,
     WINDOW_WIDTH = 640,
     WINDOW_HEIGHT = 480,
     BGM_VOLUME = 0.75,
@@ -37,6 +39,7 @@ GLOBAL_SETTING = {
 }
 local save_entries = { --only entries should be saved
 --    "FULL_SCREEN",
+    "PIXEL_PREFECT", "FILTERING",
     "DEBUG", "BGM_VOLUME", "SFX_VOLUME", "CENSORSHIP", "DIFFICULTY",
     "MAX_CREDITS", "MAX_LIVES", "MOUSE_ENABLED", "SHADERS_ENABLED"
 }

@@ -118,6 +118,7 @@ function love.load(arg)
 	require "src/state/logoState"
 	require "src/state/titleState"
 	require "src/state/optionsState"
+	require "src/state/videoModeState"
 	require "src/state/soundState"
 	require "src/state/pauseState"
 	require "src/state/screenshotState"
