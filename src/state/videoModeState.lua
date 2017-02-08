@@ -14,7 +14,7 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_video_logo = love.graphics.newText( gfx.font.kimberley, "VIDEO OPTIONS" )
-local txt_items = {"PIXEL PERFECT ON", "FILTERING OFF", "BACK"}
+local txt_items = {"FULL SCREEN", "PIXEL PERFECT ON", "FILTERING OFF", "BACK"}
 
 local menu = fillMenu(txt_items)
 
@@ -77,13 +77,20 @@ function videoModeState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == 1 then
+            if GLOBAL_SETTING.FULL_SCREEN then
+                m.item = "FULL SCREEN"
+            else
+                m.item = "WINDOWED MODE"
+            end
+            m.hint = ""
+        elseif i == 2 then
             if GLOBAL_SETTING.PIXEL_PREFECT then
                 m.item = "PIXEL PREFECT ON"
             else
                 m.item = "PIXEL PREFECT OFF"
             end
             m.hint = ""
-        elseif i == 2 then
+        elseif i == 3 then
             if GLOBAL_SETTING.FILTERING > 0 then
                 m.item = "FILTERING #"..GLOBAL_SETTING.FILTERING
             else
@@ -122,9 +129,16 @@ function videoModeState:confirm( x, y, button, istouch )
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
-            GLOBAL_SETTING.PIXEL_PREFECT = not GLOBAL_SETTING.PIXEL_PREFECT
+            GLOBAL_SETTING.FULL_SCREEN = not GLOBAL_SETTING.FULL_SCREEN
+            switchFullScreen()
             configuration.dirty = true
         elseif menu_state == 2 then
+            sfx.play("sfx","menu_select")
+            GLOBAL_SETTING.PIXEL_PREFECT = not GLOBAL_SETTING.PIXEL_PREFECT
+            push._pixelperfect = GLOBAL_SETTING.PIXEL_PREFECT
+            push:initValues()
+            configuration.dirty = true
+        elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
             GLOBAL_SETTING.FILTERING = GLOBAL_SETTING.FILTERING + 1
             if GLOBAL_SETTING.FILTERING > 1 then
@@ -170,6 +184,8 @@ function videoModeState:wheelmoved(x, y)
     if menu_state == 1 then
         return self:confirm( mouse_x, mouse_y, 1)
     elseif menu_state == 2 then
+        return self:confirm( mouse_x, mouse_y, 1)
+    elseif menu_state == 3 then
         return self:confirm( mouse_x, mouse_y, 1)
     end
     if menu_state ~= #menu then

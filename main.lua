@@ -60,7 +60,6 @@ function love.load(arg)
     push:setupScreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
 	GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
         {fullscreen = GLOBAL_SETTING.FULL_SCREEN, resizable = false, pixelperfect = GLOBAL_SETTING.PIXEL_PREFECT})
-
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
 	HC = require "lib/HC"
