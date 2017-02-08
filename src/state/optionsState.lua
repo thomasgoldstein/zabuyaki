@@ -14,7 +14,7 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
-local txt_items = {"BG MUSIC", "DIFFICULTY", "SOUND TEST", "DEFAULTS", "SPRITE EDITOR", "LOCKED", "BACK"}
+local txt_items = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE EDITOR", "LOCKED", "BACK"}
 
 local menu = fillMenu(txt_items)
 
@@ -77,13 +77,6 @@ function optionsState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == 1 then
-            if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
-                m.item = "BG MUSIC ON"
-            else
-                m.item = "BG MUSIC OFF"
-            end
-            m.hint = ""
-        elseif i == 2 then
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 m.item = "DIFFICULTY NORMAL"
             else
@@ -122,22 +115,14 @@ function optionsState:confirm( x, y, button, istouch )
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
-            if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
-                configuration:set("BGM_VOLUME", 0)
-            else
-                configuration:set("BGM_VOLUME", 0.75)
-                TEsound.stop("music")
-                TEsound.playLooping(bgm.title, "music")
-            end
-            TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-
-        elseif menu_state == 2 then
-            sfx.play("sfx","menu_select")
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 configuration:set("DIFFICULTY", 2)
             else
                 configuration:set("DIFFICULTY", 1)
             end
+        elseif menu_state == 2 then
+            sfx.play("sfx","menu_select")
+            return Gamestate.push(videoModeState)
 
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
@@ -192,8 +177,6 @@ function optionsState:wheelmoved(x, y)
     end
     menu[menu_state].n = menu[menu_state].n + i
     if menu_state == 1 then
-        return self:confirm( mouse_x, mouse_y, 1)
-    elseif menu_state == 2 then
         return self:confirm( mouse_x, mouse_y, 1)
     end
     if menu_state ~= #menu then
