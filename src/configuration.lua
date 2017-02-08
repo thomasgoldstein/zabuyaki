@@ -38,8 +38,7 @@ GLOBAL_SETTING = {
     SHOW_GRID = false,
 }
 local save_entries = { --only entries should be saved
---    "FULL_SCREEN",
-    "PIXEL_PREFECT", "FILTERING",
+    "FULL_SCREEN", "PIXEL_PREFECT", "FILTERING",
     "DEBUG", "BGM_VOLUME", "SFX_VOLUME", "CENSORSHIP", "DIFFICULTY",
     "MAX_CREDITS", "MAX_LIVES", "MOUSE_ENABLED", "SHADERS_ENABLED"
 }
