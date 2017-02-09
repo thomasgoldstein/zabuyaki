@@ -15,6 +15,13 @@ local combo_uppercut2 = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 
+local jump_forward_attack = function(slf, cont)
+    slf:checkAndAttack(
+        { left = 5, width = 48, height = 12, damage = 28, type = "fall", velocity = slf.velx },
+        cont
+    )
+end
+
 return {
     serialization_version = 0.42, -- version
     sprite_sheet = sprite_sheet, -- path to spritesheet
@@ -59,11 +66,11 @@ return {
             delay = 0.117
         },
         jump = {
-            { q = q(183,348,55,70), ox = 33, oy = 69 }, --jump
+            { q = q(2,426,55,70), ox = 33, oy = 69 }, --jump
             delay = 5
         },
         respawn = {
-            { q = q(183,348,55,70), ox = 33, oy = 69, delay = 5 }, --jump
+            { q = q(2,426,55,70), ox = 33, oy = 69, delay = 5 }, --jump
             { q = q(227,212,70,64), ox = 35, oy = 63 }, --duck
             delay = 0.6
         },
@@ -118,16 +125,19 @@ return {
             delay = 0.3
         },
         jumpAttackForward = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 5
+            { q = q(59,422,60,74), ox = 32, oy = 75 }, --jaf1
+            { q = q(121,429,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            delay = 0.12
         },
         jumpAttackLight = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 5
+            { q = q(59,422,60,74), ox = 32, oy = 75 }, --jaf1
+            { q = q(121,429,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            delay = 0.12
         },
         jumpAttackStraight = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 5
+            { q = q(59,422,60,74), ox = 32, oy = 75 }, --jaf1
+            { q = q(121,429,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            delay = 0.12
         },
         jumpAttackRun = {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
