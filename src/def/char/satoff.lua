@@ -66,11 +66,11 @@ return {
             delay = 0.117
         },
         jump = {
-            { q = q(2,426,55,70), ox = 33, oy = 69 }, --jump
+            { q = q(2,356,55,70), ox = 33, oy = 69 }, --jump
             delay = 5
         },
         respawn = {
-            { q = q(2,426,55,70), ox = 33, oy = 69, delay = 5 }, --jump
+            { q = q(2,356,55,70), ox = 33, oy = 69, delay = 5 }, --jump
             { q = q(227,212,70,64), ox = 35, oy = 63 }, --duck
             delay = 0.6
         },
@@ -87,10 +87,10 @@ return {
             delay = 0.16
         },
         combo1 = {
-            { q = q(2,355,64,65), ox = 31, oy = 64 }, --c1.1
-			{ q = q(68,355,51,65), ox = 21, oy = 64, func = combo_uppercut1, delay = 0.06 }, --c1.2
-			{ q = q(121,348,60,72), ox = 23, oy = 71, func = combo_uppercut2, delay = 0.33 }, --c1.3
-			{ q = q(68,355,51,65), ox = 21, oy = 64, delay = 0.13 }, --c1.2
+            { q = q(2,285,64,65), ox = 31, oy = 64 }, --c1.1
+			{ q = q(68,285,51,65), ox = 21, oy = 64, func = combo_uppercut1, delay = 0.06 }, --c1.2
+			{ q = q(121,278,60,72), ox = 23, oy = 71, func = combo_uppercut2, delay = 0.33 }, --c1.3
+			{ q = q(68,285,51,65), ox = 21, oy = 64, delay = 0.13 }, --c1.2
             delay = 0.16
         },
         fall = {
@@ -125,18 +125,18 @@ return {
             delay = 0.3
         },
         jumpAttackForward = {
-            { q = q(59,422,60,74), ox = 32, oy = 75 }, --jaf1
-            { q = q(121,429,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(59,352,60,74), ox = 32, oy = 75 }, --jaf1
+            { q = q(121,359,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
         jumpAttackLight = {
-            { q = q(59,422,60,74), ox = 32, oy = 75 }, --jaf1
-            { q = q(121,429,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(59,352,60,74), ox = 32, oy = 75 }, --jaf1
+            { q = q(121,359,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
         jumpAttackStraight = {
-            { q = q(59,422,60,74), ox = 32, oy = 75 }, --jaf1
-            { q = q(121,429,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(59,352,60,74), ox = 32, oy = 75 }, --jaf1
+            { q = q(121,359,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
         jumpAttackRun = {
@@ -172,8 +172,8 @@ return {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
         },
         grabbed = {
-            { q = q(2,278,68,68), ox = 35, oy = 67 }, --grabbed1
-            { q = q(72,278,69,68), ox = 37, oy = 67 }, --grabbed2
+            { q = q(183,282,68,68), ox = 35, oy = 67 }, --grabbed1
+            { q = q(181,358,69,68), ox = 37, oy = 67 }, --grabbed2
             delay = 0.1
         },
     }
