@@ -129,8 +129,7 @@ function videoModeState:confirm( x, y, button, istouch )
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
-            GLOBAL_SETTING.FULL_SCREEN = not GLOBAL_SETTING.FULL_SCREEN
-            switchFullScreen()
+            switchFullScreen(true)
             configuration.dirty = true
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
