@@ -28,9 +28,17 @@ player3 = nil
 credits = GLOBAL_SETTING.MAX_CREDITS
 attackHitBoxes = {} -- DEBUG
 
-function switchFullScreen()
-    push:switchFullscreen()
-	configuration:set("MOUSE_ENABLED",not push._fullscreen)
+function switchFullScreen(triggerMode)
+    if triggerMode then
+        if GLOBAL_SETTING.FULL_SCREEN then
+            GLOBAL_SETTING.FULL_SCREEN = false --to windowed
+        else
+            GLOBAL_SETTING.FULL_SCREEN = true --to full screen
+        end
+    end
+    push._fullscreen = not GLOBAL_SETTING.FULL_SCREEN
+    push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT)
+	configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 end
 
@@ -56,10 +64,10 @@ function love.load(arg)
 	tactile = require 'lib/tactile'
 
 	push = require "lib/push"
-	--push._fullscreen = not GLOBAL_SETTING.FULL_SCREEN) -- fix push library if start from FS
-    push:setupScreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
-	GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
+    push:setupScreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,	GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
         {fullscreen = GLOBAL_SETTING.FULL_SCREEN, resizable = false, pixelperfect = GLOBAL_SETTING.PIXEL_PREFECT})
+    switchFullScreen(false)
+
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
 	HC = require "lib/HC"
@@ -108,10 +116,6 @@ function love.load(arg)
 	require 'src/controls'
 
 	bind_game_input()
-
-    -- Hide mouse cursor if Fullscreen by default
-	configuration:set("MOUSE_ENABLED",not push._fullscreen)
-    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 
 	--GameStates
 	require "src/state/logoState"
@@ -170,7 +174,7 @@ function love.update(dt)
 
 	--Toggle Full Screen Mode (using P1's control)
 	if Control1.fullScreen:pressed() then
-		switchFullScreen()
+		switchFullScreen(true)
 	end
 
 	TEsound.cleanup()
