@@ -14,7 +14,7 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_video_logo = love.graphics.newText( gfx.font.kimberley, "VIDEO OPTIONS" )
-local txt_items = {"FULL SCREEN", "PIXEL PERFECT ON", "FILTERING OFF", "BACK"}
+local txt_items = {"FULL SCREEN", "PIXEL PERFECT ON", "VIDEO FILTER", "BACK"}
 
 local menu = fillMenu(txt_items)
 
@@ -82,7 +82,7 @@ function videoModeState:draw()
             else
                 m.item = "WINDOWED MODE"
             end
-            m.hint = ""
+            m.hint = "USE F11 TO TOGGLE SCREEN MODE"
         elseif i == 2 then
             if GLOBAL_SETTING.PIXEL_PREFECT then
                 m.item = "PIXEL PREFECT ON"
@@ -92,9 +92,9 @@ function videoModeState:draw()
             m.hint = ""
         elseif i == 3 then
             if GLOBAL_SETTING.FILTERING > 0 then
-                m.item = "FILTERING #"..GLOBAL_SETTING.FILTERING
+                m.item = "VIDEO FILTER "..GLOBAL_SETTING.FILTERING.."xBR"
             else
-                m.item = "FILTERING OFF"
+                m.item = "VIDEO FILTER OFF"
             end
             m.hint = ""
         end
