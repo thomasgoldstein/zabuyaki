@@ -32,7 +32,7 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     --    self.sfx.dash = "rick_attack"
     -- self.sfx.dead = sfx.Satoff_death
     -- self.sfx.jump_attack = sfx.Satoff_attack
-    self.sfx.step = "kisa_step"
+    self.sfx.step = "rick_step"
 end
 
 function Satoff:combo_start()
