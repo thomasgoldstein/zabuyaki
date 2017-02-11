@@ -34,7 +34,9 @@ function switchFullScreen(triggerMode)
             GLOBAL_SETTING.FULL_SCREEN = false --to windowed
         else
             GLOBAL_SETTING.FULL_SCREEN = true --to full screen
-        end
+		end
+		configuration.dirty = true
+		configuration:save()
     end
     push._fullscreen = not GLOBAL_SETTING.FULL_SCREEN
     push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT)
