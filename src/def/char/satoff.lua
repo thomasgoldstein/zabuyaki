@@ -93,6 +93,13 @@ return {
 			{ q = q(68,285,51,65), ox = 21, oy = 64, delay = 0.13 }, --c1.2
             delay = 0.16
         },
+        batAttack = {
+            { q = q(2,461,55,67), ox = 29, oy = 66 }, --bat attack 1
+            { q = q(59,463,95,65), ox = 22, oy = 64, delay = 0.11 }, --bat attack 2
+            { q = q(156,428,86,100), ox = 23, oy = 99, delay = 0.05 }, --bat attack 3
+            { q = q(244,457,50,71), ox = 23, oy = 70 }, --bat attack 4
+            delay = 0.25
+        },
         fall = {
             { q = q(2,219,71,57), ox = 34, oy = 56 }, --falling
             delay = 5
