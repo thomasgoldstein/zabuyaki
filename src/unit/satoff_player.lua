@@ -72,9 +72,5 @@ Satoff.combo = {name = "combo", start = Satoff.combo_start, exit = nop, update =
 --Satoff.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 --Satoff.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
 --Satoff.dash = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---Disable grabbing
-function Satoff:checkForGrab(range)
-    return nil
-end
 
 return Satoff
