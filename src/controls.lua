@@ -89,7 +89,6 @@ function bind_game_input()
     local gamepad1 = 2
     local gamepad2 = 1
     local gamepad3 = 3
-    dp("binding keys")
     Control1 = {
         horizontal = tactile.newControl()
         :addAxis(tactile.gamepadAxis(gamepad1, 'leftx'))
