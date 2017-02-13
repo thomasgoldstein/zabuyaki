@@ -5,6 +5,12 @@ local configuration = {
     defaults = {}
 }
 
+local function dp(...)
+    if GLOBAL_SETTING and GLOBAL_SETTING.DEBUG then
+        print(...)
+    end
+end
+
 --[[
 configuration:get(key)
 configuration:set(key, value)
@@ -81,9 +87,9 @@ function configuration:save()
     end
     s = s .. "magic_string='"..magic_string_def.."'"
     if love.filesystem.write( self.file_name, s ) then
-        print("OK Wrote file '"..self.file_name.."' ")
+        dp("Saving Configuration... Done")
     else
-        print("FAIL writing to file '"..self.file_name.."' ")
+        dp("Saving Configuration to '"..self.file_name.."'... Error")
     end
     self.dirty = false
 end
@@ -92,23 +98,18 @@ function configuration:load()
     if love.filesystem.exists( self.file_name ) then
         local s, size = love.filesystem.read( self.file_name )
         magic_string = ""
-        if not s or size < 6 then
-            print("Error reading file '"..self.file_name.."' may be broken")
-        else
-            print("Read file '"..self.file_name.."' OK.")
+        if s and size >= 6 then
+            dp("Reading configuration... Done")
             if pcall(loadstring(s)) then
-                print("Parse its content OK.")
                 if magic_string == magic_string_def then
-                    print("Magic string OK.")
-                else
-                    print("Magic string FAIL.")
+                    --dp("Magic string OK.")
                 end
             else
-                print("Parse its content FAIL.")
+                dp("Parsing configuration... Error.")
             end
         end
     else
-        print("FAIL No file '"..self.file_name.."' to load")
+        --dp("No config file '"..self.file_name.."' to load")
     end
 end
 
