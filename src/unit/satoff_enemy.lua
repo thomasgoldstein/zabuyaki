@@ -112,15 +112,9 @@ end
 function Satoff:combo_start()
     self.isHittable = true
     self:remove_tween_move()
-    if self.n_combo > 3 or self.n_combo < 1 then
-        self.n_combo = 1
-    end
+    self.n_combo = 1
     if self.n_combo == 1 then
         self:setSprite("combo1")
-    elseif self.n_combo == 2 then
-        self:setSprite("combo2")
-    elseif self.n_combo == 3 then
-        self:setSprite("combo3")
     end
     self.cool_down = 0.2
 end
