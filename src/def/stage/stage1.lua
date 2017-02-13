@@ -240,9 +240,9 @@ function Stage1:initialize(players)
     local niko10 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 280, top_floor_y + 40,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
 
-    local satoff1 = Rick:new("Satoff", GetSpriteInstance("src/def/char/satoff.lua"), nil,
+    local satoff1 = Satoff:new("Satoff", GetSpriteInstance("src/def/char/satoff.lua"), nil,
         178 , top_floor_y + 80 ,
-        {hp = 35, score = 300, shader = shaders.satoff[1]} )
+        {hp = 135, score = 300, shader = shaders.satoff[1]} )
 
     -- Obstacles
     local canColor = {118,109,100, 255}
