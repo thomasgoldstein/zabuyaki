@@ -1337,7 +1337,6 @@ end
 
 function Character:grabbed_start()
     self.isHittable = true
-    --print (self.name.." - grabbed start")
     self:setSprite("grabbed")
     dp(self.name.." is grabbed.")
 end
@@ -1492,7 +1491,6 @@ Character.grabThrow = {name = "grabThrow", start = Character.grabThrow_start, ex
 local grabSwap_frames = { 1, 2, 2, 1 }
 function Character:grabSwap_start()
     self.isHittable = false
-    --print (self.name.." - grab start")
     self:setSprite("grabSwap")
     self.can_jump = false
     self.can_attack = false

@@ -278,7 +278,6 @@ function Player:useCredit_start()
     -- Player select
     self.player_select_mode = 0
     self.player_select_cur = players_list[self.name] or 1
-    --print("self.player_select_cur",self.player_select_cur)
 end
 function Player:useCredit_update(dt)
     if self.isDisabled then
@@ -395,7 +394,6 @@ function Player:respawn_start()
     self.z = math.random( 235, 245 )
 end
 function Player:respawn_update(dt)
-    --    print (self.name.." - respawn update", self.z, self.sprite.cur_frame, self.sprite.elapsed_time)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -425,7 +423,6 @@ Player.respawn = {name = "respawn", start = Player.respawn_start, exit = nop, up
 
 function Player:dead_start()
     self.isHittable = false
-    --print (self.name.." - dead start")
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0

@@ -67,7 +67,6 @@ Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update =
 local dash_speed = 0.75
 function Gopper:dash_start()
     self.isHittable = true
-    --	print (self.name.." - dash start")
     self:setSprite("dash")
     self.velx = self.velocity_dash * 2 * dash_speed
     self.vely = 0

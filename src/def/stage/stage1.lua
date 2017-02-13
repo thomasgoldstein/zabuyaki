@@ -71,7 +71,7 @@ function Stage1:initialize(players)
     local qSky = love.graphics.newQuad(1, 0, 33, 130, bgSky:getDimensions())
 
     --bg as a big picture
-    print(self.name .. " Background", self.worldWidth, self.worldHeight)
+    dp(self.name .. " Background", self.worldWidth, self.worldHeight)
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
     --arrange sprites along the big picture
 
@@ -123,7 +123,7 @@ function Stage1:initialize(players)
     local wall7 = Wall:new("wall7", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }}) --polygon
 ]]
 
-    local testDeathFunc = function(s, t) print(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
+    local testDeathFunc = function(s, t) dp(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         300, 479,

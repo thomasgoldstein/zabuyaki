@@ -83,14 +83,14 @@ function Unit:addShape(shapeType, shapeArgs)
 		elseif shapeType == "point" then
 			self.shape = stage.world:point(unpack(shapeArgs))
 		else
-			print(self.name.."("..self.id.."): Unknown shape type -"..shapeType)
+			dp(self.name.."("..self.id.."): Unknown shape type -"..shapeType)
 		end
 		if shapeArgs.rotate then
 			self.shape:rotate(shapeArgs.rotate)
 		end
 		self.shape.obj = self
 	else
-		print(self.name.."("..self.id..") has predefined shape")
+		dp(self.name.."("..self.id..") has predefined shape")
 	end
 end
 
@@ -137,12 +137,10 @@ function Unit:showPID(seconds)
 end
 
 function Unit:setState(state, condition)
-	--assert(type(state) == "table", "setState expects a table")
 	if state then
 		self.time_state = love.timer.getTime()
 		self.prev_state = self.last_state
 		self.last_state = self.state
-		--print (self.name.." -> Switching to ",state.name," Last:",self.last_state,"Prev:",self.prev_state)
 		self:exit()
 		self.state = state.name
 		self.draw = state.draw
@@ -151,7 +149,6 @@ function Unit:setState(state, condition)
 		self.exit = state.exit
 		self.condition = condition
 		self:start()
-        --TODO temp?
         self:updateSprite(0)
 	end
 end

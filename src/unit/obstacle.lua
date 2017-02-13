@@ -170,7 +170,6 @@ function Obstacle:stand_start()
     self:setSprite("stand")
 end
 function Obstacle:stand_update(dt)
-    --	print (self.name," - stand update",dt)
     if self.isGrabbed then
         self:setState(self.grabbed)
         return
@@ -183,7 +182,6 @@ Obstacle.stand = {name = "stand", start = Obstacle.stand_start, exit = nop, upda
 function Obstacle:getup_start()
     self.isHittable = false
     self.isThrown = false
---    print (self.name.." - getup start")
     dpo(self, self.state)
     if self.z <= 0 then
         self.z = 0
@@ -220,7 +218,6 @@ function Obstacle:hurtLow_start()
     self.isHittable = true
 end
 function Obstacle:hurtLow_update(dt)
-    --	print (self.name.." - hurtLow update",dt)
     if self.velx <= 0 then
         self:setState(self.stand)
         return

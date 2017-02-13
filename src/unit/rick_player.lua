@@ -80,7 +80,6 @@ Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Ric
 
 function Rick:special_start()
     self.isHittable = false
-    --	print (self.name.." - special start")
     self:setSprite("special")
     sfx.play("voice"..self.id, self.sfx.throw)
     self.cool_down = 0.2
@@ -138,7 +137,6 @@ Rick.dash = {name = "dash", start = Rick.dash_start, exit = nop, update = Rick.d
 function Rick:dashSpecial_start()
     self.isHittable = true
     dpo(self, self.state)
-    --	print (self.name.." - dashSpecial start")
     self:setSprite("dashSpecial")
     self.velx = self.velocity_dash
     self.vely = 0

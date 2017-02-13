@@ -26,13 +26,11 @@ function Niko:updateAI(dt)
     self.cool_down = self.cool_down - dt --when <=0 u can move
 
     --local complete_movement = self.move:update(dt)
-    --    print("Gopper updateAI "..self.type.." "..self.name)
     self.ai_poll_1 = self.ai_poll_1 - dt
     self.ai_poll_2 = self.ai_poll_2 - dt
     self.ai_poll_3 = self.ai_poll_3 - dt
     if self.ai_poll_1 < 0 then
         self.ai_poll_1 = self.max_ai_poll_1 + math.random()
-        --        print("ai poll 1", self.name)
         -- Intro -> Stand
         if self.state == "intro" then
             -- see near players?
@@ -83,11 +81,9 @@ function Niko:updateAI(dt)
     end
     if self.ai_poll_2 < 0 then
         self.ai_poll_2 = self.max_ai_poll_2 + math.random()
-        --        print("ai poll 2", self.name)
     end
     if self.ai_poll_3 < 0 then
         self.ai_poll_3 = self.max_ai_poll_3 + math.random()
-        --        print("ai poll 3", self.name)
 
         if self.state == "walk" then
         elseif self.state == "run" then
@@ -103,7 +99,6 @@ function Niko:updateAI(dt)
 end
 
 function Niko:jump_update(dt)
-    --	print (self.name.." - jump update",dt)
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 60 and t >= 10
         and math.floor(self.y / 4) == math.floor(self.target.y / 4)

@@ -39,7 +39,6 @@ function Wall:drawShadow(l,t,w,h)
 end
 
 function Wall:updateAI(dt)
---    print(self.name, self.shape:center())
 end
 
 function Wall:onHurt()

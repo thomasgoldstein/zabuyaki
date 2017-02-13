@@ -38,13 +38,11 @@ function Satoff:updateAI(dt)
     self.cool_down = self.cool_down - dt --when <=0 u can move
 
     --local complete_movement = self.move:update(dt)
-    --    print("Satoff updateAI "..self.type.." "..self.name)
     self.ai_poll_1 = self.ai_poll_1 - dt
     self.ai_poll_2 = self.ai_poll_2 - dt
     self.ai_poll_3 = self.ai_poll_3 - dt
     if self.ai_poll_1 < 0 then
         self.ai_poll_1 = self.max_ai_poll_1 + math.random()
-        --        print("ai poll 1", self.name)
         -- Intro -> Stand
         if self.state == "intro" then
             -- see near players?
@@ -94,11 +92,9 @@ function Satoff:updateAI(dt)
     end
     if self.ai_poll_2 < 0 then
         self.ai_poll_2 = self.max_ai_poll_2 + math.random()
-        --        print("ai poll 2", self.name)
     end
     if self.ai_poll_3 < 0 then
         self.ai_poll_3 = self.max_ai_poll_3 + math.random()
-        --        print("ai poll 3", self.name)
 
         if self.state == "walk" then
         elseif self.state == "run" then
@@ -148,7 +144,6 @@ function Satoff:dash_start()
     self.isHittable = true
     self:remove_tween_move()
     dpo(self, self.state)
-    --	print (self.name.." - dash start")
     self:setSprite("dash")
     self.velx = self.velocity_dash
     self.vely = 0
@@ -172,12 +167,10 @@ Satoff.dash = { name = "dash", start = Satoff.dash_start, exit = nop, update = S
 --States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
 function Satoff:intro_start()
     self.isHittable = true
-    --    	print (self.name.." - intro start")
     self:setSprite("intro")
 end
 
 function Satoff:intro_update(dt)
-    -- print (self.name," - intro update",dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
@@ -196,7 +189,6 @@ function Satoff:stand_start()
 end
 
 function Satoff:stand_update(dt)
-    --    	print (self.name," - stand update",dt)
     if self.isGrabbed then
         self:setState(self.grabbed)
         return
@@ -209,7 +201,6 @@ Satoff.stand = { name = "stand", start = Satoff.stand_start, exit = nop, update 
 
 function Satoff:walk_start()
     self.isHittable = true
-    --    	print (self.name.." - walk start")
     self:setSprite("walk")
     self.can_jump = false
     self.can_attack = false
@@ -253,7 +244,6 @@ function Satoff:walk_start()
     end
 end
 function Satoff:walk_update(dt)
-    --    	print (self.name.." - walk update",dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
@@ -276,7 +266,6 @@ Satoff.walk = { name = "walk", start = Satoff.walk_start, exit = Unit.remove_twe
 
 function Satoff:run_start()
     self.isHittable = true
-    --	print (self.name.." - run start")
     self:setSprite("run")
     local t = dist(self.target.x, self.y, self.x, self.y)
 
@@ -301,7 +290,6 @@ function Satoff:run_start()
     self.can_attack = false
 end
 function Satoff:run_update(dt)
-    --	print (self.name.." - run update",dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
@@ -324,7 +312,6 @@ Satoff.run = {name = "run", start = Satoff.run_start, exit = Unit.remove_tween_m
 local dash_speed = 0.75
 function Satoff:dash_start()
     self.isHittable = true
-    --	print (self.name.." - dash start")
     self:setSprite("dash")
     self.velx = self.velocity_dash * 2 * dash_speed
     self.vely = 0

@@ -59,7 +59,6 @@ function Enemy:updateAI(dt)
         return
     end
     Character.updateAI(self, dt)
-    --print("updateAI "..self.type.." "..self.name)
 end
 
 function Enemy:decreaseHp(damage)
@@ -78,7 +77,6 @@ end
 
 function Enemy:dead_start()
     self.isHittable = false
-    --print (self.name.." - dead start")
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
@@ -202,7 +200,6 @@ end
 
 function Enemy:jump_start()
     self.isHittable = true
-    --	print (self.name.." - jump start")
     dpo(self, self.state)
     self:setSprite("jump")
     self.velz = self.velocity_jump * self.velocity_jump_speed
@@ -215,7 +212,6 @@ function Enemy:jump_start()
     end
     self.vertical = 0
     sfx.play("voice"..self.id, self.sfx.jump)
-    --print(self.velx)
 end
 Enemy.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Character.jump_update, draw = Character.default_draw }
 
