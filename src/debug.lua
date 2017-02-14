@@ -150,7 +150,7 @@ function draw_debug_unit_hitbox(a)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 150)
 --        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
-        love.graphics.rectangle("line", a.x - 7, a.y - a.height - a.z + 1, 14, a.height-1)
+        love.graphics.rectangle("line", a.x - a.width / 2, a.y - a.height - a.z + 1, a.width, a.height-1)
     end
 end
 

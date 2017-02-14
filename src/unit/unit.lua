@@ -28,6 +28,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 
 	self.x, self.y, self.z = x, y, 0
 	self.height = 62
+	self.width = 10 --calcs from the hitbox
 	self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
 	self.velx, self.vely, self.velz = 0, 0, 0
 	self.gravity = 800 --650 * 2
@@ -76,12 +77,26 @@ function Unit:addShape(shapeType, shapeArgs)
 	if not self.shape then
 		if shapeType == "rectangle" then
 			self.shape = stage.world:rectangle(unpack(shapeArgs))
+            self.width = shapeArgs[3] or 1
 		elseif shapeType == "circle" then
 			self.shape = stage.world:circle(unpack(shapeArgs))
+            self.width = shapeArgs[3] * 2 or 1
 		elseif shapeType == "polygon" then
 			self.shape = stage.world:polygon(unpack(shapeArgs))
+            local xMin, xMax = shapeArgs[1], shapeArgs[1]
+            for i = 1, #shapeArgs, 2 do
+                local x = shapeArgs[i]
+                if x < xMin then
+                    xMin = x
+                end
+                if x > xMax then
+                    xMax = x
+                end
+            end
+            self.width = xMax - xMin
 		elseif shapeType == "point" then
 			self.shape = stage.world:point(unpack(shapeArgs))
+            self.width = 1
 		else
 			dp(self.name.."("..self.id.."): Unknown shape type -"..shapeType)
 		end
@@ -91,7 +106,8 @@ function Unit:addShape(shapeType, shapeArgs)
 		self.shape.obj = self
 	else
 		dp(self.name.."("..self.id..") has predefined shape")
-	end
+    end
+    --dp(self.name.." CALC width: "..self.width.." from shape "..shapeType.." ->", unpack(shapeArgs) )
 end
 
 function Unit:playHitSfx(dmg)
