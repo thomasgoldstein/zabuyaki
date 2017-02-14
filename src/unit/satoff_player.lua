@@ -10,6 +10,7 @@ local CheckCollision = CheckCollision
 
 function Satoff:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
+    self.height = 60
     self.max_hp = 100
     self.hp = self.max_hp
     self.infoBar = InfoBar:new(self)
