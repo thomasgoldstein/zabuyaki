@@ -201,7 +201,7 @@ return {
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.1
         },
-        grabThrow = {
+        throwForward = {
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabSwap = {

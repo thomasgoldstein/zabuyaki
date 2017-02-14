@@ -86,7 +86,7 @@ local jump_straight_attack2 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 25, height = 12, damage = 9, type = "fall", velocity = slf.velocity_fall_x },
     cont
 ) end
-local grabThrow_now = function(slf, cont) slf.can_throw_now = true end
+local throw_now = function(slf, cont) slf.can_throw_now = true end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
@@ -299,9 +299,23 @@ return {
 			{ q = q(113,1044,45,63), ox = 18, oy = 62 }, --grab end 1.3
 			delay = 0.1
 		},
-		grabThrow = {
+		throwUp = {
 			{ q = q(2,1109,45,62), ox = 27, oy = 61, delay = 0.2 }, --throw 1.1
-			{ q = q(49,1111,42,60), ox = 23, oy = 59, func = grabThrow_now, delay = 0.05 }, --throw 1.2
+			{ q = q(49,1111,42,60), ox = 23, oy = 59, func = throw_now, delay = 0.05 }, --throw 1.2
+			{ q = q(93,1112,42,59), ox = 22, oy = 58, delay = 0.2 }, --throw 1.3
+			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
+			delay = 0.1
+		},
+		throwBack = {
+			{ q = q(2,1109,45,62), ox = 27, oy = 61, delay = 0.2 }, --throw 1.1
+			{ q = q(49,1111,42,60), ox = 23, oy = 59, func = throw_now, delay = 0.05 }, --throw 1.2
+			{ q = q(93,1112,42,59), ox = 22, oy = 58, delay = 0.2 }, --throw 1.3
+			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
+			delay = 0.1
+		},
+		throwForward = {
+			{ q = q(2,1109,45,62), ox = 27, oy = 61, delay = 0.2 }, --throw 1.1
+			{ q = q(49,1111,42,60), ox = 23, oy = 59, func = throw_now, delay = 0.05 }, --throw 1.2
 			{ q = q(93,1112,42,59), ox = 22, oy = 58, delay = 0.2 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.1

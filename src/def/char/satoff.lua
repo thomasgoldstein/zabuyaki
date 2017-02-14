@@ -171,7 +171,7 @@ return {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
             delay = 0.1
         },
-        grabThrow = {
+        throwForward = {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
             delay = 0.1
         },
