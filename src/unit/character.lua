@@ -1299,13 +1299,13 @@ function Character:grab_update(dt)
         if self.sprite.isFinished then
             if self.b.horizontal:getValue() ~= 0 or self.b.vertical:isDown(-1) then
                 self.throw_direction = { horizontal = self.b.horizontal:getValue(), vertical = self.b.vertical:isDown(-1) }
-                self:setState(self.grabThrow)
+                self:setState(self.throw)
                 return
             else
                 if self.face == g.target.face then
                     --grabber char from behind
                     self.throw_direction = { horizontal = -self.face, vertical = 0 }
-                    self:setState(self.grabThrow)
+                    self:setState(self.throw)
                 else
                     self:setState(self.grabHit)
                 end
@@ -1437,17 +1437,25 @@ function Character:grabHitEnd_update(dt)
 end
 Character.grabHitEnd = {name = "grabHitEnd", start = Character.grabHitEnd_start, exit = nop, update = Character.grabHitEnd_update, draw = Character.default_draw}
 
-function Character:grabThrow_start()
+function Character:throw_start()
     self.isHittable = false
     local g = self.hold
     local t = g.target
     self.face = -self.face
     self:setSprite(t.sprite,"hurtLow")
-    self:setSprite("grabThrow")
-    dp(self.name.." is grabThrow someone.")
+    if self.throw_direction.horizontal == -self.face then
+        self:setSprite("throwForward")
+    elseif self.throw_direction.horizontal == self.face then
+        self:setSprite("throwBack")
+    elseif self.throw_direction.vertical then
+        self:setSprite("throwUp")
+    else
+        self:setSprite("throwForward")
+    end
+    dp(self.name.." is throw someone.")
 end
 
-function Character:grabThrow_update(dt)
+function Character:throw_update(dt)
     if self.can_throw_now then --set in the anm
         self.can_throw_now = false
         local g = self.hold
@@ -1470,6 +1478,7 @@ function Character:grabThrow_update(dt)
             sfx.play("voice"..self.id, self.sfx.throw)
         elseif self.throw_direction.vertical then
             --throw up
+            dp("throw up", self.throw_direction.vertical)
             t.horizontal = self.horizontal
             t.velx = self.velocity_grab_throw_x / 10
             t.velz = self.velocity_grab_throw_z * 2
@@ -1487,7 +1496,7 @@ function Character:grabThrow_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
-Character.grabThrow = {name = "grabThrow", start = Character.grabThrow_start, exit = nop, update = Character.grabThrow_update, draw = Character.default_draw}
+Character.throw = {name = "throw", start = Character.throw_start, exit = nop, update = Character.throw_update, draw = Character.default_draw}
 
 local grabSwap_frames = { 1, 2, 2, 1 }
 function Character:grabSwap_start()
