@@ -246,6 +246,9 @@ function Player:afterOnHurt()
     self.z = self.z + 1
     self.velz = self.velocity_fall_z * self.velocity_jump_speed
     if self.hp <= 0 then -- dead body flies further
+        if self.func then   -- custom function on death
+            self:func(self)
+        end
         if self.velx < self.velocity_fall_x then
             self.velx = self.velocity_fall_x + self.velocity_fall_dead_add_x
         else
@@ -335,7 +338,7 @@ function Player:useCredit_update(dt)
             player.player_select_mode = 3
             player:setState(self.respawn)
             player.id = self.id
-            print(player.x, player.y, player.name, player.player_select_mode)
+            dp(player.x, player.y, player.name, player.player_select_mode)
             SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player}
             return
         else
@@ -435,9 +438,6 @@ function Player:dead_start()
     sfx.play("voice"..self.id, self.sfx.dead)
     if self.killer_id then
         self.killer_id:addScore( self.score_bonus )
-    end
-    if self.func then   -- custom function on death
-    self:func(self)
     end
 end
 function Player:dead_update(dt)

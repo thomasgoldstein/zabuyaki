@@ -86,9 +86,6 @@ function Enemy:dead_start()
         self.z = 0
     end
     sfx.play("voice"..self.id, self.sfx.dead)
-    if self.func then   -- custom function on death
-        self:func(self)
-    end
 end
 function Enemy:dead_update(dt)
     if self.isDisabled then

@@ -243,6 +243,9 @@ function Character:afterOnHurt()
     self.z = self.z + 1
     self.velz = self.velocity_fall_z * self.velocity_jump_speed
     if self.hp <= 0 then -- dead body flies further
+        if self.func then   -- custom function on death
+            self:func(self)
+        end
         if self.velx < self.velocity_fall_x then
             self.velx = self.velocity_fall_x + self.velocity_fall_dead_add_x
         else
@@ -1090,9 +1093,6 @@ function Character:dead_start()
     sfx.play("voice"..self.id, self.sfx.dead)
     if self.killer_id then
         self.killer_id:addScore( self.score_bonus )
-    end
-    if self.func then   -- custom function on death
-        self:func(self)
     end
 end
 function Character:dead_update(dt)
