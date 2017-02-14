@@ -246,9 +246,6 @@ function Player:afterOnHurt()
     self.z = self.z + 1
     self.velz = self.velocity_fall_z * self.velocity_jump_speed
     if self.hp <= 0 then -- dead body flies further
-        if self.func then   -- custom function on death
-            self:func(self)
-        end
         if self.velx < self.velocity_fall_x then
             self.velx = self.velocity_fall_x + self.velocity_fall_dead_add_x
         else
