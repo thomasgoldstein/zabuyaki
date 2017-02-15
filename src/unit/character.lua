@@ -1442,7 +1442,6 @@ function Character:throw_start()
     local g = self.hold
     local t = g.target
     self.face = -self.face
-    self:setSprite(t.sprite,"hurtLow")
     if self.throw_direction.horizontal == -self.face then
         self:setSprite("throwForward")
     elseif self.throw_direction.horizontal == self.face then
