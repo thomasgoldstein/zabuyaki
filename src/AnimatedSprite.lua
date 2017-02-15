@@ -120,6 +120,13 @@ function SetSpriteAnimation(spr, anim)
 	spr.elapsed_time = -math.min(love.timer.getDelta() / 2, 0.1)
 end
 
+function SpriteHasAnimation(spr, anim)
+	if spr.def.animations[anim] then
+		return true
+	end
+	return false
+end
+
 function GetSpriteQuad(spr, frame_n)
 	local sc = spr.def.animations[spr.cur_anim][frame_n or spr.cur_frame]
 	return sc.q
