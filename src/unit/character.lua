@@ -1367,7 +1367,7 @@ function Character:grabHit_start()
     local g = self.hold
     if self.b.vertical:isDown(1) then --press DOWN to early headbutt
         g.cool_down = 0
-        self:setState(self.grabHitEnd)
+        self:setState(self.shove)
         return
     else
         g.cool_down = self.cool_down_grab + 0.1
@@ -1422,12 +1422,12 @@ function Character:grabHitLast_update(dt)
 end
 Character.grabHitLast = {name = "grabHitLast", start = Character.grabHitLast_start, exit = nop, update = Character.grabHitLast_update, draw = Character.default_draw }
 
-function Character:grabHitEnd_start()
+function Character:shove_start()
     self.isHittable = true
-    self:setSprite("grabHitEnd")
-    dp(self.name.." is grabhitend someone.")
+    self:setSprite("shove")
+    dp(self.name.." is shove someone.")
 end
-function Character:grabHitEnd_update(dt)
+function Character:shove_update(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1435,7 +1435,7 @@ function Character:grabHitEnd_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
-Character.grabHitEnd = {name = "grabHitEnd", start = Character.grabHitEnd_start, exit = nop, update = Character.grabHitEnd_update, draw = Character.default_draw}
+Character.shove = {name = "shove", start = Character.shove_start, exit = nop, update = Character.shove_update, draw = Character.default_draw}
 
 function Character:throw_start()
     self.isHittable = false

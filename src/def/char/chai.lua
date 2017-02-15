@@ -295,7 +295,7 @@ return {
 			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.1 }, --jaf1
 			delay = 0.02
 		},
-		grabHitEnd = {
+		shove = {
 			{ q = q(121,587,48,65), ox = 13, oy = 64, delay = 0.15 }, --c4.1
 			{ q = q(171,587,50,65), ox = 14, oy = 64 }, --c4.2
 			{ q = q(194,725,49,62), ox = 14, oy = 61, func = grabEnd_attack }, --c4.7
