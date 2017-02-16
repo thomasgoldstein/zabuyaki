@@ -1,5 +1,4 @@
 shaders = {
-    screen = {},
     kisa = {},
     rick = {},
     chai = {},
