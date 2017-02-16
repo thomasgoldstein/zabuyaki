@@ -146,7 +146,6 @@ function videoModeState:confirm( x, y, button, istouch )
             end
             local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
             if sh then
-                print(inspect(sh))
                 if sh.func then
                     sh.func(sh.shader)
                 end

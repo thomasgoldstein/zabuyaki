@@ -132,7 +132,6 @@ function love.load(arg)
     if GLOBAL_SETTING.FILTERING and shaders.screen[GLOBAL_SETTING.FILTERING] then
         local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
         if sh then
-            print(inspect(sh))
             if sh.func then
                 sh.func(sh.shader)
             end
