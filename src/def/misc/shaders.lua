@@ -351,10 +351,39 @@ shaders.screen = {
             shader:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
             shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
         end },
+    { name = "CRT", shader = load_frag_shader("CRT.frag"),
+        func = function(shader)
+            shader:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+        end },
+    { name = "curvature", shader = load_frag_shader("curvature.frag"),
+        func = function(shader)
+            shader:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+        end },
     { name = "4xBR", shader = load_frag_shader("4xBR.frag"),
         func = function(shader)
             shader:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
         end },
+    { name = "phosphor", shader = load_frag_shader("phosphor.frag"),
+        func = function(shader)
+            shader:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
+        end },
+    { name = "phosphorish", shader = load_frag_shader("phosphorish.frag"),
+        func = function(shader)
+            shader:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
+        end },
+    { name = "scanlines2", shader = load_frag_shader("scanlines2.frag"),
+        func = function(shader)
+            shader:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+        end },
+    { name = "scanline-3x", shader = load_frag_shader("scanline-3x.frag"),
+        func = nil },
+    { name = "scanline-4x", shader = load_frag_shader("scanline-4x.frag"),
+        func = nil },
     { name = "hq4x", shader = load_frag_shader("hq4x.frag"),
         func = function(shader)
             shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
