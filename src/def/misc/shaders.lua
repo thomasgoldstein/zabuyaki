@@ -1,4 +1,5 @@
 shaders = {
+    screen = {},
     kisa = {},
     rick = {},
     chai = {},
@@ -95,7 +96,7 @@ vec4 effect(vec4 color, Image tex, vec2 tc, vec2 sc)
     return (Texel(tex, tc) * clampedNoise * (1 - addPercent) + noise * addPercent) * color;
 }   ]])
 
-local sh_screen = love.graphics.newShader([[
+local sh_screen = love.graphics.newShader [[
         vec4 effect(vec4 colour, Image image, vec2 local, vec2 screen)
         {
             // red and green scale with proportion of screen coordinates
@@ -106,7 +107,20 @@ local sh_screen = love.graphics.newShader([[
 
             return screen_colour;
         }
-    ]])
+    ]]
+
+local sh_CGA_screen = love.graphics.newShader [[
+extern number screenWidth;
+vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
+    vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
+    number average = (pixel.r+pixel.b+pixel.g)/3.0;
+    number factor = screen_coords.x/screenWidth;
+    pixel.r = pixel.r + (average-pixel.r) * factor;
+    pixel.g = pixel.g + (average-pixel.g) * factor;
+    pixel.b = pixel.b + (average-pixel.b) * factor;
+    return pixel;
+}
+]]
 
 local sh_texture = love.graphics.newShader([[
         vec4 effect(vec4 colour, Image image, vec2 local, vec2 screen)
@@ -276,5 +290,7 @@ local trashcan_colors_2 = {
 shaders.trashcan[2] = swapColors(trashcan_colors_default, trashcan_colors_2)
 
 -- Misc
+
+shaders.screen[1] = sh_CGA_screen
 
 return shaders

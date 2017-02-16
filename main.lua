@@ -119,6 +119,7 @@ function love.load(arg)
 	require 'src/controls'
 
 	bind_game_input()
+	push:setShader(shaders.screen[GLOBAL_SETTING.FILTERING])	--apply current filter
 
 	--GameStates
 	require "src/state/logoState"
