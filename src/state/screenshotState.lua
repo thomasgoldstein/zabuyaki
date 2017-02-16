@@ -26,32 +26,17 @@ function screenshotState:update(dt)
 end
 
 function screenshotState:draw()
-    if canvas[1] then
-        local darken_screen = 1
-        love.graphics.setBlendMode("alpha")
-        if push._fullscreen then
-            love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
-            love.graphics.draw(canvas[1], push._OFFSET.x, push._OFFSET.y, nil, push._SCALE * 0.5) --bg
-            love.graphics.setColor(GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
-                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
-                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
-                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen)
-            love.graphics.draw(canvas[2], push._OFFSET.x, push._OFFSET.y, nil, push._SCALE * 0.5) --shadows
-            love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
-            love.graphics.draw(canvas[3], push._OFFSET.x, push._OFFSET.y, nil, push._SCALE * 0.5) --sprites + fg
-        else
-            love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
-            love.graphics.draw(canvas[1], 0, 0, nil, 0.5) --bg
-            love.graphics.setColor(GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
-                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
-                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
-                GLOBAL_SETTING.SHADOW_OPACITY * darken_screen)
-            love.graphics.draw(canvas[2], 0, 0, nil, 0.5) --shadows
-            love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
-            love.graphics.draw(canvas[3], 0, 0, nil, 0.5) --sprites + fg
-        end
-    end
+    love.graphics.setCanvas()
     push:start()
+    if canvas[1] then
+        love.graphics.setBlendMode("alpha", "premultiplied")
+        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.draw(canvas[1], 0,0, nil, 0.5) --bg
+        love.graphics.setColor(255, 255, 255, GLOBAL_SETTING.SHADOW_OPACITY)        love.graphics.draw(canvas[2], 0,0, nil, 0.5) --shadows
+        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.draw(canvas[3], 0,0, nil, 0.5) --sprites + fg
+        love.graphics.setBlendMode("alpha")
+    end
     if stage.mode == "normal" then
         --HP bars
         if player1 then
