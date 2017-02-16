@@ -300,12 +300,12 @@ return {
 			delay = 0.1
 		},
 		shoveUp = {
-			{ q = q(2,1181,49,59), ox = 18, oy = 58, delay = 0.167, flip_h = -1 }, --dash special 1
-			{ q = q(53,1178,49,62), ox = 17, oy = 61, func = shove_now, delay = 0.05, flip_h = -1 }, --dash special 2
-			{ q = q(104,1178,49,62), ox = 15, oy = 61, delay = 0.05, flip_h = -1 }, --dash special 3
-			{ q = q(155,1173,54,67), ox = 20, oy = 66, flip_h = -1 }, --dash special 4
-			{ q = q(2,1242,54,66), ox = 20, oy = 65, flip_h = -1 }, --dash special 5
-			{ q = q(58,1242,54,66), ox = 20, oy = 65, flip_h = -1 }, --dash special 6
+			{ q = q(2,1181,49,59), ox = 18, oy = 58, delay = 0.167 }, --dash special 1
+			{ q = q(53,1178,49,62), ox = 17, oy = 61, func = shove_now, delay = 0.05 }, --dash special 2
+			{ q = q(104,1178,49,62), ox = 15, oy = 61, delay = 0.05 }, --dash special 3
+			{ q = q(155,1173,54,67), ox = 20, oy = 66 }, --dash special 4
+			{ q = q(2,1242,54,66), ox = 20, oy = 65 }, --dash special 5
+			{ q = q(58,1242,54,66), ox = 20, oy = 65 }, --dash special 6
 			delay = 0.117
 		},
 		shoveBack = {
