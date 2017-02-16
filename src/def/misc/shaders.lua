@@ -337,30 +337,28 @@ shaders.trashcan[2] = swapColors(trashcan_colors_default, trashcan_colors_2)
 
 -- Misc
 
-local s = love.filesystem.read("src/def/misc/shaders/HDR-TV.frag")
-shaders.screen[1] = love.graphics.newShader(s)
+local function load_frag_shader(file)
+    local s = love.filesystem.read("src/def/misc/shaders/"..file)
+    return love.graphics.newShader(s)
+end
 
-local s = love.filesystem.read("src/def/misc/shaders/4xBR.frag")
-shaders.screen[2] = love.graphics.newShader(s)
---shaders.screen[2]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-shaders.screen[2]:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
-
-local s = love.filesystem.read("src/def/misc/shaders/CRT-Simple.frag")
-shaders.screen[3] = love.graphics.newShader(s)
-shaders.screen[3]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-shaders.screen[3]:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-shaders.screen[3]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-
-local s = love.filesystem.read("src/def/misc/shaders/CRT.frag")
-shaders.screen[4] = love.graphics.newShader(s)
-shaders.screen[4]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-shaders.screen[4]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-
-local s = love.filesystem.read("src/def/misc/shaders/hq4x.frag")
-shaders.screen[5] = love.graphics.newShader(s)
-shaders.screen[5]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-
-
-
+shaders.screen = {
+    { name = "HDR-TV", shader = load_frag_shader("HDR-TV.frag"),
+        func = nil },
+    { name = "CRT-Simple", shader = load_frag_shader("CRT-Simple.frag"),
+        func = function(shader)
+            shader:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+        end },
+    { name = "4xBR", shader = load_frag_shader("4xBR.frag"),
+        func = function(shader)
+            shader:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
+        end },
+    { name = "hq4x", shader = load_frag_shader("hq4x.frag"),
+        func = function(shader)
+            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+        end }
+}
 
 return shaders

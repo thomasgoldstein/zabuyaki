@@ -92,7 +92,8 @@ function videoModeState:draw()
             m.hint = ""
         elseif i == 3 then
             if GLOBAL_SETTING.FILTERING > 0 then
-                m.item = "VIDEO FILTER "..GLOBAL_SETTING.FILTERING.."xBR"
+                local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
+                m.item = "VIDEO FILTER "..sh.name
             else
                 m.item = "VIDEO FILTER OFF"
             end
@@ -143,7 +144,16 @@ function videoModeState:confirm( x, y, button, istouch )
             if GLOBAL_SETTING.FILTERING > #shaders.screen then
                 GLOBAL_SETTING.FILTERING = 0
             end
-            push:setShader(shaders.screen[GLOBAL_SETTING.FILTERING])
+            local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
+            if sh then
+                print(inspect(sh))
+                if sh.func then
+                    sh.func(sh.shader)
+                end
+                push:setShader(sh.shader)
+            else
+                push:setShader( nil )
+            end
             configuration.dirty = true
         elseif menu_state == #menu then
             sfx.play("sfx","menu_cancel")

@@ -44,23 +44,11 @@ function switchFullScreen(triggerMode)
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 
 	if shaders then
-		if shaders.screen[1] then
-			--shaders.screen[1]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-		end
-		if shaders.screen[2] then
-			shaders.screen[2]:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
-		end
-		if shaders.screen[3] then
-			shaders.screen[3]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-			shaders.screen[3]:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-			shaders.screen[3]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-		end
-		if shaders.screen[4] then
-			shaders.screen[4]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-			shaders.screen[4]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-		end
-		if shaders.screen[5] then
-			shaders.screen[5]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+		if GLOBAL_SETTING.FILTERING and shaders.screen[GLOBAL_SETTING.FILTERING] then
+			local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
+			if sh and sh.func then
+				sh.func(sh.shader)
+			end
 		end
 	end
 end
@@ -140,7 +128,17 @@ function love.load(arg)
 	require 'src/controls'
 
 	bind_game_input()
-	push:setShader(shaders.screen[GLOBAL_SETTING.FILTERING])	--apply current filter
+
+    if GLOBAL_SETTING.FILTERING and shaders.screen[GLOBAL_SETTING.FILTERING] then
+        local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
+        if sh then
+            print(inspect(sh))
+            if sh.func then
+                sh.func(sh.shader)
+            end
+            push:setShader(sh.shader)	--apply current filter
+        end
+    end
 
 	--GameStates
 	require "src/state/logoState"
