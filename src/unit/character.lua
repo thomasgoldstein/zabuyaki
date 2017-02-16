@@ -1440,23 +1440,34 @@ Character.shoveDown = {name = "shoveDown", start = Character.shoveDown_start, ex
 
 function Character:shove_start()
     self.isHittable = false
-    local g = self.hold
-    local t = g.target
-    self.face = -self.face
     if self.shove_direction.horizontal == -self.face then
-        self:setSprite("shoveForward")
+        self:setState(self.shoveForward)
     elseif self.shove_direction.horizontal == self.face then
-        self:setSprite("shoveBack")
+        self:setState(self.shoveBack)
     elseif self.shove_direction.vertical then
-        self:setSprite("shoveUp")
+        self:setState(self.shoveUp)
     else
-        self:setSprite("shoveForward")
+        self:setState(self.shoveForward)
     end
-    dp(self.name.." is throw someone.")
+    dp(self.name.." shove someone to direction.")
 end
 
 function Character:shove_update(dt)
-    if self.can_shove_now then --set in the anm
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Character.shove = {name = "shove", start = Character.shove_start, exit = nop, update = Character.shove_update, draw = Character.default_draw}
+
+function Character:shoveUp_start()
+    self.isHittable = false
+    local g = self.hold
+    local t = g.target
+    self:setSprite("shoveUp")
+    dp(self.name.." shoveUp someone.")
+end
+
+function Character:shoveUp_update(dt)
+    if self.can_shove_now then --set in the animation
         self.can_shove_now = false
         local g = self.hold
         local t = g.target
@@ -1468,24 +1479,14 @@ function Character:shove_update(dt)
         t.vely = 0
         t.velz = self.velocity_grab_throw_z
         t.victims[self] = true
-        if self.shove_direction.horizontal ~= 0 then
-            dp("shove right left", self.shove_direction.horizontal)
-            self.face = self.shove_direction.horizontal
-            t.horizontal = self.shove_direction.horizontal
-            t.face = self.shove_direction.horizontal
-            t:setState(self.fall)
-            sfx.play("sfx", "whoosh_heavy")
-            sfx.play("voice"..self.id, self.sfx.throw)
-        elseif self.shove_direction.vertical then
-            --throw up
-            dp("shove up", self.shove_direction.vertical)
-            t.horizontal = self.horizontal
-            t.velx = self.velocity_grab_throw_x / 10
-            t.velz = self.velocity_grab_throw_z * 2
-            t:setState(self.fall)
-            sfx.play("sfx", "whoosh_heavy")
-            sfx.play("voice"..self.id, self.sfx.throw)
-        end
+        --throw up
+        dp("shove up", self.shove_direction.vertical)
+        t.horizontal = self.horizontal
+        t.velx = self.velocity_grab_throw_x / 10
+        t.velz = self.velocity_grab_throw_z * 2
+        t:setState(self.fall)
+        sfx.play("sfx", "whoosh_heavy")
+        sfx.play("voice"..self.id, self.sfx.throw)
         return
     end
     if self.sprite.isFinished then
@@ -1496,7 +1497,87 @@ function Character:shove_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
-Character.shove = {name = "shove", start = Character.shove_start, exit = nop, update = Character.shove_update, draw = Character.default_draw}
+Character.shoveUp = {name = "shoveUp", start = Character.shoveUp_start, exit = nop, update = Character.shoveUp_update, draw = Character.default_draw}
+
+function Character:shoveForward_start()
+    self.isHittable = false
+    local g = self.hold
+    local t = g.target
+    self:setSprite("shoveForward")
+    dp(self.name.." shoveForward someone.")
+end
+
+function Character:shoveForward_update(dt)
+    if self.can_shove_now then --set in the animation
+        self.can_shove_now = false
+        local g = self.hold
+        local t = g.target
+        t.isGrabbed = false
+        t.isThrown = true
+        t.thrower_id = self
+        t.z = t.z + 1
+        t.velx = self.velocity_grab_throw_x
+        t.vely = 0
+        t.velz = self.velocity_grab_throw_z
+        t.victims[self] = true
+        dp("shoveForward", self.shove_direction.horizontal)
+        self.face = self.shove_direction.horizontal
+        t.horizontal = self.shove_direction.horizontal
+        t.face = self.shove_direction.horizontal
+        t:setState(self.fall)
+        sfx.play("sfx", "whoosh_heavy")
+        sfx.play("voice"..self.id, self.sfx.throw)
+        return
+    end
+    if self.sprite.isFinished then
+        self.cool_down = 0.2
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Character.shoveForward = {name = "shoveForward", start = Character.shoveForward_start, exit = nop, update = Character.shoveForward_update, draw = Character.default_draw}
+
+function Character:shoveBack_start()
+    self.isHittable = false
+    local g = self.hold
+    local t = g.target
+    self:setSprite("shoveBack")
+    dp(self.name.." shoveBack someone.")
+end
+
+function Character:shoveBack_update(dt)
+    if self.can_shove_now then --set in the animation
+        self.can_shove_now = false
+        local g = self.hold
+        local t = g.target
+        t.isGrabbed = false
+        t.isThrown = true
+        t.thrower_id = self
+        t.z = t.z + 1
+        t.velx = self.velocity_grab_throw_x
+        t.vely = 0
+        t.velz = self.velocity_grab_throw_z
+        t.victims[self] = true
+        dp("shoveBack", self.shove_direction.horizontal)
+        self.face = self.shove_direction.horizontal
+        t.horizontal = self.shove_direction.horizontal
+        t.face = self.shove_direction.horizontal
+        t:setState(self.fall)
+        sfx.play("sfx", "whoosh_heavy")
+        sfx.play("voice"..self.id, self.sfx.throw)
+        return
+    end
+    if self.sprite.isFinished then
+        self.cool_down = 0.2
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Character.shoveBack = {name = "shoveBack", start = Character.shoveBack_start, exit = nop, update = Character.shoveBack_update, draw = Character.default_draw}
 
 local grabSwap_frames = { 1, 2, 2, 1 }
 function Character:grabSwap_start()
