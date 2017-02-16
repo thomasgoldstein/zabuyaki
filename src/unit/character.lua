@@ -1298,20 +1298,19 @@ function Character:grab_update(dt)
     end
     if self.b.attack:isDown() and self.can_attack then
         if self.sprite.isFinished then
-            if self.b.horizontal:getValue() ~= 0 or self.b.vertical:isDown(-1) then
-                self.shove_direction = { horizontal = self.b.horizontal:getValue(), vertical = self.b.vertical:isDown(-1) }
-                self:setState(self.shove)
-                return
+            if self.b.horizontal:getValue() == self.face then
+                self:setState(self.shoveForward)
+            elseif self.b.horizontal:getValue() == -self.face then
+                self:setState(self.shoveBack)
+            elseif self.b.vertical:isDown(-1) then
+                self:setState(self.shoveUp)
+            elseif self.face == g.target.face then
+                --if u grab char from behind
+                self:setState(self.shoveBack)
             else
-                if self.face == g.target.face then
-                    --grabber char from behind
-                    self.shove_direction = { horizontal = -self.face, vertical = 0 }
-                    self:setState(self.shove)
-                else
-                    self:setState(self.grabHit)
-                end
-                return
+                self:setState(self.grabHit)
             end
+            return
         end
     end
 
@@ -1438,26 +1437,6 @@ function Character:shoveDown_update(dt)
 end
 Character.shoveDown = {name = "shoveDown", start = Character.shoveDown_start, exit = nop, update = Character.shoveDown_update, draw = Character.default_draw}
 
-function Character:shove_start()
-    self.isHittable = false
-    if self.shove_direction.horizontal == -self.face then
-        self:setState(self.shoveForward)
-    elseif self.shove_direction.horizontal == self.face then
-        self:setState(self.shoveBack)
-    elseif self.shove_direction.vertical then
-        self:setState(self.shoveUp)
-    else
-        self:setState(self.shoveForward)
-    end
-    dp(self.name.." shove someone to direction.")
-end
-
-function Character:shove_update(dt)
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
-end
-Character.shove = {name = "shove", start = Character.shove_start, exit = nop, update = Character.shove_update, draw = Character.default_draw}
-
 function Character:shoveUp_start()
     self.isHittable = false
     local g = self.hold
@@ -1480,7 +1459,6 @@ function Character:shoveUp_update(dt)
         t.velz = self.velocity_grab_throw_z
         t.victims[self] = true
         --throw up
-        dp("shove up", self.shove_direction.vertical)
         t.horizontal = self.horizontal
         t.velx = self.velocity_grab_throw_x / 10
         t.velz = self.velocity_grab_throw_z * 2
@@ -1520,10 +1498,8 @@ function Character:shoveForward_update(dt)
         t.vely = 0
         t.velz = self.velocity_grab_throw_z
         t.victims[self] = true
-        dp("shoveForward", self.shove_direction.horizontal)
-        self.face = self.shove_direction.horizontal
-        t.horizontal = self.shove_direction.horizontal
-        t.face = self.shove_direction.horizontal
+        t.horizontal = self.face
+        t.face = self.face
         t:setState(self.fall)
         sfx.play("sfx", "whoosh_heavy")
         sfx.play("voice"..self.id, self.sfx.throw)
@@ -1560,10 +1536,9 @@ function Character:shoveBack_update(dt)
         t.vely = 0
         t.velz = self.velocity_grab_throw_z
         t.victims[self] = true
-        dp("shoveBack", self.shove_direction.horizontal)
-        self.face = self.shove_direction.horizontal
-        t.horizontal = self.shove_direction.horizontal
-        t.face = self.shove_direction.horizontal
+        self.face = -self.face
+        t.horizontal = self.face
+        t.face = self.face
         t:setState(self.fall)
         sfx.play("sfx", "whoosh_heavy")
         sfx.play("voice"..self.id, self.sfx.throw)
