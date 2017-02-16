@@ -140,7 +140,7 @@ function videoModeState:confirm( x, y, button, istouch )
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
             GLOBAL_SETTING.FILTERING = GLOBAL_SETTING.FILTERING + 1
-            if GLOBAL_SETTING.FILTERING > 1 then
+            if GLOBAL_SETTING.FILTERING > #shaders.screen then
                 GLOBAL_SETTING.FILTERING = 0
             end
             push:setShader(shaders.screen[GLOBAL_SETTING.FILTERING])

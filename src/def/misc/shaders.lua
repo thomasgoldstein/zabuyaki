@@ -122,6 +122,52 @@ vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords 
 }
 ]]
 
+local sh_voronoice = love.graphics.newShader [[
+extern float time;
+
+vec3 hash3( vec2 p )
+{
+    vec3 q = vec3( dot(p,vec2(127.1,311.7)),
+				   dot(p,vec2(269.5,183.3)),
+				   dot(p,vec2(419.2,371.9)) );
+	return fract(sin(q)*43758.5453);
+}
+
+vec4 effect(vec4 vcolor, Image texture, vec2 texture_coords, vec2 pixel_coords)
+{
+  vec2 size = vec2(800.0, 600.0); // screen size
+  vec2 scaledSize = size/10.0;
+	vec2 x = scaledSize * texture_coords;
+
+  float u = 0.375*sin(time/2); // amount of 'voronoiification'
+  vec2 p = floor(x);
+  vec2 f = fract(x);
+
+	float k = 64.0;
+
+  float va = 0.0;
+	float wt = 0.0;
+    for( int j=-2; j<=2; j++ )
+        for( int i=-2; i<=2; i++ )
+        {
+            vec2 g = vec2( (i+0.5),(j+0.5) );
+            vec3 o = hash3( p + g )*vec3(u,u,1.0);
+            vec2 r = g - f + o.xy;
+            float d = dot(r,r);
+            float ww = pow( 1.0-smoothstep(0.0,1.414,sqrt(d)), k );
+            va += o.z*ww;
+            wt += ww;
+        }
+
+  float c = va/wt;
+
+  vec4 txl = Texel(texture, texture_coords);
+
+
+	return vec4( c, c, c, 1.0 );
+}
+]]
+
 local sh_texture = love.graphics.newShader([[
         vec4 effect(vec4 colour, Image image, vec2 local, vec2 screen)
         {
@@ -291,6 +337,30 @@ shaders.trashcan[2] = swapColors(trashcan_colors_default, trashcan_colors_2)
 
 -- Misc
 
-shaders.screen[1] = sh_CGA_screen
+local s = love.filesystem.read("src/def/misc/shaders/HDR-TV.frag")
+shaders.screen[1] = love.graphics.newShader(s)
+
+local s = love.filesystem.read("src/def/misc/shaders/4xBR.frag")
+shaders.screen[2] = love.graphics.newShader(s)
+--shaders.screen[2]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+shaders.screen[2]:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
+
+local s = love.filesystem.read("src/def/misc/shaders/CRT-Simple.frag")
+shaders.screen[3] = love.graphics.newShader(s)
+shaders.screen[3]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+shaders.screen[3]:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+shaders.screen[3]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+
+local s = love.filesystem.read("src/def/misc/shaders/CRT.frag")
+shaders.screen[4] = love.graphics.newShader(s)
+shaders.screen[4]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+shaders.screen[4]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+
+local s = love.filesystem.read("src/def/misc/shaders/hq4x.frag")
+shaders.screen[5] = love.graphics.newShader(s)
+shaders.screen[5]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+
+
+
 
 return shaders

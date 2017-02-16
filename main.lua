@@ -42,6 +42,27 @@ function switchFullScreen(triggerMode)
     push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT)
 	configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
+
+	if shaders then
+		if shaders.screen[1] then
+			--shaders.screen[1]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+		end
+		if shaders.screen[2] then
+			shaders.screen[2]:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
+		end
+		if shaders.screen[3] then
+			shaders.screen[3]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+			shaders.screen[3]:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+			shaders.screen[3]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+		end
+		if shaders.screen[4] then
+			shaders.screen[4]:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+			shaders.screen[4]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+		end
+		if shaders.screen[5] then
+			shaders.screen[5]:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+		end
+	end
 end
 
 function love.load(arg)
