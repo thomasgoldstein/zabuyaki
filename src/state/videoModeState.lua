@@ -72,7 +72,7 @@ function videoModeState:update(dt)
 end
 
 function videoModeState:draw()
-    push:apply("start")
+    push:start()
     love.graphics.setFont(gfx.font.arcade3x2)
     for i = 1,#menu do
         local m = menu[i]
@@ -121,7 +121,7 @@ function videoModeState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(txt_video_logo, (screen_width - txt_video_logo:getWidth()) / 2, title_y_offset)
     show_debug_indicator()
-    push:apply("end")
+    push:finish()
 end
 
 function videoModeState:confirm( x, y, button, istouch )

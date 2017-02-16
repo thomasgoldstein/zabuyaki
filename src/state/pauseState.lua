@@ -93,7 +93,7 @@ function pauseState:draw()
             love.graphics.draw(canvas[3], 0, 0, nil, 0.5) --sprites + fg
         end
     end
-    push:apply("start")
+    push:start()
     if stage.mode == "normal" then
         --HP bars
         if player1 then
@@ -146,7 +146,7 @@ function pauseState:draw()
     love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2, 40)
 
     show_debug_indicator()
-    push:apply("end")
+    push:finish()
 end
 
 function pauseState:confirm( x, y, button, istouch )

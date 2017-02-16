@@ -132,7 +132,7 @@ function spriteSelectState:update(dt)
 end
 
 function spriteSelectState:draw()
-    push:apply("start")
+    push:start()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
@@ -190,7 +190,7 @@ function spriteSelectState:draw()
 --        love.graphics.setShader()
 --    end
     show_debug_indicator()
-    push:apply("end")
+    push:finish()
 end
 
 function spriteSelectState:confirm( x, y, button, istouch )

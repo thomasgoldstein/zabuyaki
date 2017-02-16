@@ -306,7 +306,7 @@ local function DrawSpriteWeapon(sprite, x, y, i)
 end
 
 function spriteEditorState:draw()
-    push:apply("start")
+    push:start()
     displayHelp()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
@@ -446,7 +446,7 @@ function spriteEditorState:draw()
             love.graphics.setShader()
     end
     show_debug_indicator()
-    push:apply("end")
+    push:finish()
 end
 
 function spriteEditorState:confirm( x, y, button, istouch )

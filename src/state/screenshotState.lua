@@ -51,7 +51,7 @@ function screenshotState:draw()
             love.graphics.draw(canvas[3], 0, 0, nil, 0.5) --sprites + fg
         end
     end
-    push:apply("start")
+    push:start()
     if stage.mode == "normal" then
         --HP bars
         if player1 then
@@ -73,5 +73,5 @@ function screenshotState:draw()
             end
         end
     end
-    push:apply("end")
+    push:finish()
 end

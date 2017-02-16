@@ -66,7 +66,7 @@ function soundState:update(dt)
 end
 
 function soundState:draw()
-    push:apply("start")
+    push:start()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
@@ -112,7 +112,7 @@ function soundState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, title_y_offset)
     show_debug_indicator()
-    push:apply("end")
+    push:finish()
 end
 
 function soundState:confirm( x, y, button, istouch )

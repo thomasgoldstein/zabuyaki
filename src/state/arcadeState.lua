@@ -117,7 +117,7 @@ function arcadeState:draw()
     end)
 
     love.graphics.setCanvas()
-    push:apply("start")
+    push:start()
     love.graphics.setBlendMode("alpha", "premultiplied")
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(canvas[1], 0,0, nil, 0.5) --bg
@@ -169,7 +169,7 @@ function arcadeState:draw()
     if GLOBAL_SETTING.FPSRATE_ENABLED then
         framerateGraph.draw()
     end
-    push:apply("end")
+    push:finish()
 end
 
 function arcadeState:keypressed(key, unicode)

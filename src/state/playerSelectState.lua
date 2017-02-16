@@ -354,7 +354,7 @@ function playerSelectState:update(dt)
 end
 
 function playerSelectState:draw()
-    push:apply("start")
+    push:start()
     local sh = selected_heroes()
     for i = 1,#players do
         local cur_players_hero = heroes[players[i].pos]
@@ -396,7 +396,7 @@ function playerSelectState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(txt_player_select, (screen_width - txt_player_select:getWidth()) / 2, title_y_offset)
     show_debug_indicator()
-    push:apply("end")
+    push:finish()
 end
 
 function playerSelectState:confirm( x, y, button, istouch )

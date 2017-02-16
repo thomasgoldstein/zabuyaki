@@ -21,9 +21,9 @@ function logoState:update(dt)
 end
 
 function logoState:draw()
-    push:apply("start")
+    push:start()
     show_debug_indicator()
     love.graphics.setColor(255, 255, 255, 255 * time_left)
     love.graphics.draw(logo, 0, 0, 0, 2, 2)
-    push:apply("end")
+    push:finish()
 end
