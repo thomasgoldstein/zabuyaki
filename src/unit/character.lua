@@ -1,4 +1,5 @@
 local class = require "lib/middleclass"
+local class = require "lib/middleclass"
 local Character = class('Character', Unit)
 
 local function nop() end
@@ -1443,13 +1444,13 @@ function Character:shove_start()
     local t = g.target
     self.face = -self.face
     if self.shove_direction.horizontal == -self.face then
-        self:setSprite("throwForward")
+        self:setSprite("shoveForward")
     elseif self.shove_direction.horizontal == self.face then
-        self:setSprite("throwBack")
+        self:setSprite("shoveBack")
     elseif self.shove_direction.vertical then
-        self:setSprite("throwUp")
+        self:setSprite("shoveUp")
     else
-        self:setSprite("throwForward")
+        self:setSprite("shoveForward")
     end
     dp(self.name.." is throw someone.")
 end
