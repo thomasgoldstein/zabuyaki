@@ -342,43 +342,49 @@ local function load_frag_shader(file)
     return love.graphics.newShader(s)
 end
 
+--["textureSize"] = {po2xr/scale, po2yr/scale},
+-- ["textureSizeReal"] = {po2xr, po2yr},
+--["inputSize"] = {shaders.xres/scale, shaders.yres/scale},
+--["outputSize"] = {shaders.xres, shaders.yres},
+--["time"] = love.timer.getTime()
+
 shaders.screen = {
     { name = "HDR-TV", shader = load_frag_shader("HDR-TV.frag"),
         func = nil },
     { name = "CRT-Simple", shader = load_frag_shader("CRT-Simple.frag"),
         func = function(shader)
-            shader:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('inputSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
             shader:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('textureSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
         end },
     { name = "CRT", shader = load_frag_shader("CRT.frag"),
         func = function(shader)
-            shader:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('inputSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
             shader:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('textureSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
         end },
     { name = "curvature", shader = load_frag_shader("curvature.frag"),
         func = function(shader)
-            shader:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('inputSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
+            shader:send('textureSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
         end },
     { name = "4xBR", shader = load_frag_shader("4xBR.frag"),
         func = function(shader)
-            shader:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
+            shader:send('textureSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
         end },
     { name = "phosphor", shader = load_frag_shader("phosphor.frag"),
         func = function(shader)
-            shader:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
+            shader:send('textureSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
         end },
     { name = "phosphorish", shader = load_frag_shader("phosphorish.frag"),
         func = function(shader)
-            shader:send('textureSize', {love.graphics.getWidth()/2, love.graphics.getHeight()/2})
+            shader:send('textureSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
         end },
     { name = "scanlines2", shader = load_frag_shader("scanlines2.frag"),
         func = function(shader)
-            shader:send('inputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('inputSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
             shader:send('outputSize', {love.graphics.getWidth(), love.graphics.getHeight()})
-            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('textureSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
         end },
     { name = "scanline-3x", shader = load_frag_shader("scanline-3x.frag"),
         func = nil },
@@ -386,7 +392,7 @@ shaders.screen = {
         func = nil },
     { name = "hq4x", shader = load_frag_shader("hq4x.frag"),
         func = function(shader)
-            shader:send('textureSize', {love.graphics.getWidth(), love.graphics.getHeight()})
+            shader:send('textureSize', {love.graphics.getWidth()/push._SCALEX, love.graphics.getHeight()/push._SCALEY})
         end }
 }
 
