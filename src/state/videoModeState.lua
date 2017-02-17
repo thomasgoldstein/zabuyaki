@@ -144,6 +144,7 @@ function videoModeState:confirm( x, y, button, istouch )
                 GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = #txt_full_screen_fill
             end
             push._pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2   --for Pixel Perfect mode
+            push._stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3   --stretched fill
             push:initValues()
             configuration.dirty = true
         elseif menu_state == 3 then

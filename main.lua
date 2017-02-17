@@ -76,7 +76,10 @@ function love.load(arg)
 
 	push = require "lib/push"
     push:setupScreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,	GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
-        {fullscreen = GLOBAL_SETTING.FULL_SCREEN, resizable = false, pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2})
+        {fullscreen = GLOBAL_SETTING.FULL_SCREEN, canvas = false, resizable = false,
+			pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2,
+			stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3
+		})
     switchFullScreen(false)
 
 	Gamestate = require "lib/hump.gamestate"
