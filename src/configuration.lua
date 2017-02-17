@@ -17,7 +17,7 @@ configuration:set(key, value)
  ]]
 
 -- must be global
-magic_string, magic_string_def = "", "EOF42"
+magic_string, magic_string_def = "", "EOF42N"
 GLOBAL_SETTING = {
     MAX_PLAYERS = 3,
     DEBUG = false,
@@ -83,7 +83,7 @@ function configuration:save()
         t[v] = GLOBAL_SETTING[v]
     end
     for k, v in pairs(t) do
-        s = s .. "GLOBAL_SETTING."..k.."="..tostring(v)..";"
+        s = s .. "GLOBAL_SETTING."..k.."="..tostring(v)..";\n"
     end
     s = s .. "magic_string='"..magic_string_def.."'"
     if love.filesystem.write( self.file_name, s ) then
