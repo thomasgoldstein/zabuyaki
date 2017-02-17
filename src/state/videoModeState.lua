@@ -14,7 +14,8 @@ local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
 local txt_video_logo = love.graphics.newText( gfx.font.kimberley, "VIDEO OPTIONS" )
-local txt_items = {"FULL SCREEN", "PIXEL PERFECT ON", "VIDEO FILTER", "BACK"}
+local txt_items = {"FULL SCREEN", "FULL SCREEN MODES", "VIDEO FILTER", "BACK" }
+local txt_full_screen_fill = {"KEEP RATIO", "PIXEL PERFECT", "FILL STRETCHED" }
 
 local menu = fillMenu(txt_items)
 
@@ -84,11 +85,7 @@ function videoModeState:draw()
             end
             m.hint = "USE F11 TO TOGGLE SCREEN MODE"
         elseif i == 2 then
-            if GLOBAL_SETTING.PIXEL_PREFECT then
-                m.item = "PIXEL PREFECT ON"
-            else
-                m.item = "PIXEL PREFECT OFF"
-            end
+            m.item = txt_full_screen_fill[GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE]
             m.hint = ""
         elseif i == 3 then
             if GLOBAL_SETTING.FILTERING > 0 then
@@ -140,8 +137,13 @@ function videoModeState:confirm( x, y, button, istouch )
             configuration.dirty = true
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
-            GLOBAL_SETTING.PIXEL_PREFECT = not GLOBAL_SETTING.PIXEL_PREFECT
-            push._pixelperfect = GLOBAL_SETTING.PIXEL_PREFECT
+            GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE + i
+            if GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE > #txt_full_screen_fill then
+                GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = 1
+            elseif GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE < 1 then
+                GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = #txt_full_screen_fill
+            end
+            push._pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2   --for Pixel Perfect mode
             push:initValues()
             configuration.dirty = true
         elseif menu_state == 3 then
