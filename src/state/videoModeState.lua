@@ -86,7 +86,11 @@ function videoModeState:draw()
             m.hint = "USE F11 TO TOGGLE SCREEN MODE"
         elseif i == 2 then
             m.item = txt_full_screen_fill[GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE]
-            m.hint = ""
+            if GLOBAL_SETTING.FULL_SCREEN then
+                m.hint = "FULL SCREEN FILLING MODES"
+            else
+                m.hint = "FOR WINDOWED MODE ONLY"
+            end
         elseif i == 3 then
             if GLOBAL_SETTING.FILTERING > 0 then
                 local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
@@ -162,7 +166,7 @@ function videoModeState:confirm( x, y, button, istouch )
                 end
                 push:setShader(sh.shader)
             else
-                push:setShader( nil )
+                push:setShader()
             end
             configuration.dirty = true
         elseif menu_state == #menu then
