@@ -1519,6 +1519,7 @@ function Character:shoveBack_start()
     self.isHittable = false
     local g = self.hold
     local t = g.target
+    self.face = -self.face
     self:setSprite("shoveBack")
     dp(self.name.." shoveBack someone.")
 end
@@ -1536,7 +1537,6 @@ function Character:shoveBack_update(dt)
         t.vely = 0
         t.velz = self.velocity_grab_throw_z
         t.victims[self] = true
-        self.face = -self.face
         t.horizontal = self.face
         t.face = self.face
         t:setState(self.fall)
