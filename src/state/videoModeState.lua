@@ -126,8 +126,14 @@ function videoModeState:draw()
 end
 
 function videoModeState:confirm( x, y, button, istouch )
+    local i = 0
+    if y > 0 then
+        i = 1
+    elseif y < 0 then
+        i = -1
+    end
     if button == 1 then
-        mouse_x, mouse_y = x, y
+        --mouse_x, mouse_y = x, y
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
             switchFullScreen(true)
@@ -140,9 +146,11 @@ function videoModeState:confirm( x, y, button, istouch )
             configuration.dirty = true
         elseif menu_state == 3 then
             sfx.play("sfx","menu_select")
-            GLOBAL_SETTING.FILTERING = GLOBAL_SETTING.FILTERING + 1
+            GLOBAL_SETTING.FILTERING = GLOBAL_SETTING.FILTERING + i
             if GLOBAL_SETTING.FILTERING > #shaders.screen then
                 GLOBAL_SETTING.FILTERING = 0
+            elseif GLOBAL_SETTING.FILTERING < 0 then
+                GLOBAL_SETTING.FILTERING = #shaders.screen
             end
             local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
             if sh then
@@ -191,11 +199,11 @@ function videoModeState:wheelmoved(x, y)
     end
     menu[menu_state].n = menu[menu_state].n + i
     if menu_state == 1 then
-        return self:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( mouse_x, y, 1)
     elseif menu_state == 2 then
-        return self:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( mouse_x, y, 1)
     elseif menu_state == 3 then
-        return self:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( mouse_x, y, 1)
     end
     if menu_state ~= #menu then
         sfx.play("sfx","menu_move")
