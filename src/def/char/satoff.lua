@@ -22,6 +22,20 @@ local jump_forward_attack = function(slf, cont)
     )
 end
 
+local grabHit_attack = function(slf, cont)
+	slf:checkAndAttackGrabbed(
+		{ damage = 12, type = "high" },
+		cont
+	)
+end
+
+local grabLast_attack = function(slf, cont)
+	slf:checkAndAttackGrabbed(
+		{ left = 20, damage = 18, type = "grabKO" },
+		cont
+	)
+end
+
 return {
     serialization_version = 0.42, -- version
     sprite_sheet = sprite_sheet, -- path to spritesheet
@@ -160,16 +174,21 @@ return {
             { q = q(68,285,51,65), ox = 21, oy = 64 }, --c1.2
         },
         grabHit = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 0.05
+            { q = q(2,530,60,66), ox = 27, oy = 65 }, --grab attack 1
+            { q = q(133,535,59,61), ox = 25, oy = 60, func = grabHit_attack, delay = 0.18 }, --grab attack 3
+            delay = 0.015
         },
         grabHitLast = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 0.05
+            { q = q(2,530,60,66), ox = 27, oy = 65 }, --grab attack 1
+            { q = q(64,530,67,66), ox = 34, oy = 65, delay = 0.16 }, --grab attack 2
+            { q = q(133,535,59,61), ox = 25, oy = 60, func = grabLast_attack, delay = 0.25 }, --grab attack 3
+            delay = 0.03
         },
         shoveDown = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 0.1
+            { q = q(2,530,60,66), ox = 27, oy = 65 }, --grab attack 1
+            { q = q(64,530,67,66), ox = 34, oy = 65, delay = 0.16 }, --grab attack 2
+            { q = q(133,535,59,61), ox = 25, oy = 60, func = grabLast_attack, delay = 0.25 }, --grab attack 3
+            delay = 0.03
         },
         shoveForward = {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
@@ -179,8 +198,8 @@ return {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
         },
         grabbed = {
-            { q = q(183,282,68,68), ox = 35, oy = 67 }, --grabbed1
-            { q = q(181,358,69,68), ox = 37, oy = 67 }, --grabbed2
+            { q = q(183,282,68,68), ox = 35, oy = 67 }, --grabbed 1
+            { q = q(181,358,69,68), ox = 37, oy = 67 }, --grabbed 2
             delay = 0.1
         },
     }
