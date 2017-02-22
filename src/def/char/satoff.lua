@@ -194,6 +194,10 @@ return {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
             delay = 0.1
         },
+        shoveBack = {
+            { q = q(2,530,60,66), ox = 27, oy = 65 }, --grab attack 1
+            delay = 0.1
+        },
         grabSwap = {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
         },
