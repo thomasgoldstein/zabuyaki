@@ -76,6 +76,8 @@ function love.load(arg)
 			pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2,
 			stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3
 		})
+    configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
+    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
 
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
