@@ -72,7 +72,6 @@ function love.load(arg)
 	class = require "lib/middleclass"
 	i18n = require 'lib/i18n'
 	require "lib/TEsound"
-	tactile = require 'lib/tactile'
 
 	push = require "lib/push"
     push:setupScreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,	GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
