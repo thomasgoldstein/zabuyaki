@@ -120,6 +120,7 @@ function optionsState:confirm( x, y, button, istouch )
             else
                 configuration:set("DIFFICULTY", 1)
             end
+            configuration:save(true)
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
             return Gamestate.push(videoModeState)
@@ -131,7 +132,7 @@ function optionsState:confirm( x, y, button, istouch )
         elseif menu_state == 4 then
             sfx.play("sfx","menu_select")
             configuration:reset()
-            configuration.dirty = true
+            configuration:save(true)
             TEsound.stop("music")
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
             TEsound.playLooping(bgm.title, "music")
@@ -142,12 +143,10 @@ function optionsState:confirm( x, y, button, istouch )
 
         elseif menu_state == #menu then
             sfx.play("sfx","menu_cancel")
-            configuration:save()
             return Gamestate.pop()
         end
     elseif button == 2 then
         sfx.play("sfx","menu_cancel")
-        configuration:save()
         return Gamestate.pop()
     end
 end

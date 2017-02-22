@@ -134,6 +134,7 @@ function soundState:confirm( x, y, button, istouch )
                 TEsound.playLooping(bgm.title, "music")
             end
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+            configuration:save(true)
         elseif menu_state == 2 then
             sfx.play("sfx", menu[menu_state].n)
         elseif menu_state == 3 then

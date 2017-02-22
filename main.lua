@@ -12,7 +12,6 @@
 
 configuration = require "src/configuration"
 configuration:load()
---configuration:save()
 
 -- global vars
 stage = nil
@@ -35,8 +34,7 @@ function switchFullScreen(triggerMode)
         else
             GLOBAL_SETTING.FULL_SCREEN = true --to full screen
 		end
-		configuration.dirty = true
-		configuration:save()
+		configuration:save(true)
     end
     push._fullscreen = not GLOBAL_SETTING.FULL_SCREEN
     push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT)
