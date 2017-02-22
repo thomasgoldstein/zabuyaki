@@ -35,8 +35,7 @@ function switchFullScreen(triggerMode)
             GLOBAL_SETTING.FULL_SCREEN = true --to full screen
 		end
 		configuration:save(true)
-    end
-    push._fullscreen = not GLOBAL_SETTING.FULL_SCREEN
+	end
     push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT)
 	configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
@@ -77,7 +76,6 @@ function love.load(arg)
 			pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2,
 			stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3
 		})
-    switchFullScreen(false)
 
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
