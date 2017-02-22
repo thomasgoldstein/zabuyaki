@@ -59,7 +59,6 @@ function configuration:reset()
     for k, v in ipairs(save_entries) do
         GLOBAL_SETTING[v] = self.defaults[v]
     end
-    --self.dirty = false
 end
 
 function configuration:set(key, value)
@@ -73,8 +72,8 @@ function configuration:get(key)
     return GLOBAL_SETTING[key]
 end
 
-function configuration:save()
-    if not self.dirty then -- no changed entries
+function configuration:save(override_dirty)
+    if not override_dirty and not self.dirty then -- no changed entries
         return
     end
     local t = {}
