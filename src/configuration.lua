@@ -25,8 +25,8 @@ GLOBAL_SETTING = {
     FULL_SCREEN = true,
     FULL_SCREEN_FILLING_MODE = 1,
     FILTERING = 0,
-    WINDOW_WIDTH = 640,
-    WINDOW_HEIGHT = 480,
+    GAME_WIDTH = 640,
+    GAME_HEIGHT = 480,
     BGM_VOLUME = 0.75,
     SFX_VOLUME = 1,
     CENSORSHIP = true,
@@ -43,7 +43,7 @@ GLOBAL_SETTING = {
     FPSRATE_ENABLED = false,
     SHOW_GRID = false,
 }
-local save_entries = { --only entries should be saved
+local save_entries = { --the only entries should be saved
     "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTERING",
     "DEBUG", "BGM_VOLUME", "SFX_VOLUME", "CENSORSHIP", "DIFFICULTY",
     "MAX_CREDITS", "MAX_LIVES", "MOUSE_ENABLED", "SHADERS_ENABLED"
