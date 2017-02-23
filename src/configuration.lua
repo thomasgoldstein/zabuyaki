@@ -1,6 +1,6 @@
 -- Read / Save configuration
 local configuration = {
-    file_name = "zabu_cfg.txt",
+    file_name = "zabuyaki.config",
     dirty = false,
     defaults = {}
 }
