@@ -1,8 +1,6 @@
 logoState = {}
 
 local time_left = 1.5
-local screen_width = 640
-local screen_height = 480
 local logo
 
 function logoState:enter()
