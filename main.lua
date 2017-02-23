@@ -27,27 +27,23 @@ player3 = nil
 credits = GLOBAL_SETTING.MAX_CREDITS
 attackHitBoxes = {} -- DEBUG
 
-function switchFullScreen(triggerMode)
-    if triggerMode then
-        if GLOBAL_SETTING.FULL_SCREEN then
-            GLOBAL_SETTING.FULL_SCREEN = false --to windowed
-        else
-            GLOBAL_SETTING.FULL_SCREEN = true --to full screen
-		end
-		configuration:save(true)
-	end
-    push:switchFullscreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT)
-	configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
+function setupScreen()
+    configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
-
-	if shaders then
-		if GLOBAL_SETTING.FILTERING and shaders.screen[GLOBAL_SETTING.FILTERING] then
-			local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
-			if sh and sh.func then
-				sh.func(sh.shader)
-			end
-		end
-	end
+    if shaders then
+        if GLOBAL_SETTING.FILTERING and shaders.screen[GLOBAL_SETTING.FILTERING] then
+            local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
+            if sh and sh.func then
+                sh.func(sh.shader)
+            end
+        end
+    end
+end
+function switchFullScreen()
+    GLOBAL_SETTING.FULL_SCREEN = not GLOBAL_SETTING.FULL_SCREEN
+    configuration:save(true)
+	push:switchFullscreen(GLOBAL_SETTING.GAME_WIDTH, GLOBAL_SETTING.GAME_HEIGHT)
+    setupScreen()
 end
 
 function love.load(arg)
@@ -70,14 +66,19 @@ function love.load(arg)
 	i18n = require 'lib/i18n'
 	require "lib/TEsound"
 
+	local windowWidth, windowHeight = love.window.getDesktopDimensions()
+	if not GLOBAL_SETTING.FULL_SCREEN then
+		windowWidth, windowHeight = GLOBAL_SETTING.GAME_WIDTH, GLOBAL_SETTING.GAME_HEIGHT
+	end
 	push = require "lib/push"
-    push:setupScreen(GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,	GLOBAL_SETTING.WINDOW_WIDTH, GLOBAL_SETTING.WINDOW_HEIGHT,
-        {fullscreen = GLOBAL_SETTING.FULL_SCREEN, resizable = false,
+    push:setupScreen(GLOBAL_SETTING.GAME_WIDTH, GLOBAL_SETTING.GAME_HEIGHT,	windowWidth, windowHeight,
+        {fullscreen = GLOBAL_SETTING.FULL_SCREEN,
+			resizable = false,
+			highdpi = true,
 			pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2,
 			stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3
 		})
-    configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
-    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
+    setupScreen()
 
 	Gamestate = require "lib/hump.gamestate"
 	require "src/AnimatedSprite"
@@ -196,7 +197,7 @@ function love.update(dt)
 
 	--Toggle Full Screen Mode (using P1's control)
 	if Control1.fullScreen:pressed() then
-		switchFullScreen(true)
+		switchFullScreen()
 	end
 
 	TEsound.cleanup()
