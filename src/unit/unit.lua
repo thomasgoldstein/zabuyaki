@@ -176,10 +176,15 @@ end
 function Unit:updateSprite(dt)
 	UpdateSpriteInstance(self.sprite, dt, self)
 end
-function Unit:setSprite(anim)
+function Unit:setSpriteIfExists(anim)
 	if SpriteHasAnimation(self.sprite, anim) then
 		SetSpriteAnimation(self.sprite, anim)
-	else
+		return true
+	end
+	return false
+end
+function Unit:setSprite(anim)
+	if not self:setSpriteIfExists(anim) then
 		error("Missing animation '"..anim.."' in '"..self.sprite.def.sprite_name.."' definition.")
 	end
 end
