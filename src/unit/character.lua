@@ -894,10 +894,11 @@ function Character:dashSpecial_start()
     --no move by default
     self:setState(self.stand)
 end
-Character.dashSpecial = {name = "dashSpecial", start = Character.dashSpecial_start, exit = nop, update = nop, draw = Character.default_draw}
+Character.dashSpecial = {name = "dashSpecial", start = Character.dashSpecial_start, exit = nop, update = nop, draw = Character.default_draw }
 
 function Character:jumpAttackForward_start()
     self.isHittable = true
+    self.played_landing_anim = false
     self:setSprite("jumpAttackForward")
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
@@ -905,6 +906,10 @@ function Character:jumpAttackForward_update(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
+            self:setSpriteIfExists("jumpAttackForwardEnd")
+            self.played_landing_anim = true
+        end
     else
         self.velz = 0
         self.z = 0
@@ -918,12 +923,17 @@ Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jum
 
 function Character:jumpAttackLight_start()
     self.isHittable = true
+    self.played_landing_anim = false
     self:setSprite("jumpAttackLight")
 end
 function Character:jumpAttackLight_update(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
+            self:setSpriteIfExists("jumpAttackLightEnd")
+            self.played_landing_anim = true
+        end
     else
         self.velz = 0
         self.z = 0
@@ -937,6 +947,7 @@ Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAtt
 
 function Character:jumpAttackStraight_start()
     self.isHittable = true
+    self.played_landing_anim = false
     self:setSprite("jumpAttackStraight")
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
@@ -944,6 +955,10 @@ function Character:jumpAttackStraight_update(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
+            self:setSpriteIfExists("jumpAttackStraightEnd")
+            self.played_landing_anim = true
+        end
     else
         self.velz = 0
         self.z = 0
@@ -957,6 +972,7 @@ Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.j
 
 function Character:jumpAttackRun_start()
     self.isHittable = true
+    self.played_landing_anim = false
     self:setSprite("jumpAttackRun")
     sfx.play("voice"..self.id, self.sfx.jump_attack)
 end
@@ -964,6 +980,10 @@ function Character:jumpAttackRun_update(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
+            self:setSpriteIfExists("jumpAttackRunEnd")
+            self.played_landing_anim = true
+        end
     else
         self.velz = 0
         self.z = 0
