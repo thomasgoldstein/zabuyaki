@@ -255,10 +255,18 @@ return {
 			{ q = q(58,714,75,58), ox = 33, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
 			delay = 0.06
 		},
+		jumpAttackForwardEnd = {
+			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jaf1
+			delay = 5
+		},
 		jumpAttackLight = {
 			{ q = q(2,844,43,67), ox = 21, oy = 66 }, --jal1
 			{ q = q(47,844,47,63), ox = 23, oy = 66, funcCont = jump_light_attack, delay = 5 }, --jal2
 			delay = 0.03
+		},
+		jumpAttackLightEnd = {
+			{ q = q(2,844,43,67), ox = 21, oy = 66 }, --jal1
+			delay = 5
 		},
 		jumpAttackStraight = {
 			{ q = q(2,778,38,63), ox = 19, oy = 66 }, --jas1
@@ -270,6 +278,10 @@ return {
 			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jaf1
 			{ q = q(143,2,75,55), ox = 33, oy = 66, funcCont = jump_run_attack, delay = 5 }, --jar
 			delay = 0.06
+		},
+		jumpAttackRunEnd = {
+			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jaf1
+			delay = 5
 		},
 		sideStepUp = {
 			{ q = q(96,844,44,64), ox = 22, oy = 63 }, --ssu
