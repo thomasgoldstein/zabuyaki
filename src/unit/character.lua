@@ -1324,7 +1324,7 @@ function Character:grab_update(dt)
                 self:setState(self.shoveBack)
             elseif self.b.vertical:isDown(-1) then
                 self:setState(self.shoveUp)
-            elseif self.face == g.target.face then
+            elseif self.face == g.target.face and g.target.type ~= "obstacle" then
                 --if u grab char from behind
                 self:setState(self.shoveBack)
             else
