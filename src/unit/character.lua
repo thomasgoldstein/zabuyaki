@@ -43,7 +43,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.lives = 0
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
-    self.charged_at = 1    -- define # seconds when chargeAttack is ready
+    self.charged_at = 1    -- define # seconds when holdAttack is ready
     self.charge = 0    -- seconds of changing
     self.n_combo = 1    -- n of the combo hit
     self.cool_down = 0  -- can't move

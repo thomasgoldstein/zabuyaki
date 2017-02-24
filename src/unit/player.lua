@@ -142,18 +142,17 @@ function Player:drawBar(l,t,w,h, icon_width, norm_color)
 end
 -- End of Lifebar elements
 
-local possible_charged_attack = {stand = true, walk = true, run = true}
+local states_for_hold_attack = {stand = true, walk = true, run = true}
 function Player:updateAI(dt)
     if self.isDisabled then
         return
     end
-    --chargeAttack
-    if self.b.attack:isDown() then
+    if self.b.attack:isDown() then --holdAttack
         self.charge = self.charge + dt
     else
         if self.charge >= self.charged_at then
-            if possible_charged_attack[self.state] and self.chargeAttack then
-                self:setState(self.chargeAttack)
+            if states_for_hold_attack[self.state] and self.holdAttack then
+                self:setState(self.holdAttack)
             end
         end
         self.charge = 0
