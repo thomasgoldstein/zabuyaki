@@ -168,4 +168,19 @@ end
 
 Rick.dashSpecial = {name = "dashSpecial", start = Rick.dashSpecial_start, exit = nop, update = Rick.dashSpecial_update, draw = Character.default_draw}
 
+function Rick:chargeAttack_start()
+    self.isHittable = true
+    self:setSprite("combo4")
+    self.cool_down = 0.2
+end
+function Rick:chargeAttack_update(dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Rick.chargeAttack = {name = "chargeAttack", start = Rick.chargeAttack_start, exit = nop, update = Rick.chargeAttack_update, draw = Character.default_draw}
+
 return Rick

@@ -113,4 +113,19 @@ function Chai:dash_update(dt)
 end
 Chai.dash = {name = "dash", start = Chai.dash_start, exit = nop, update = Chai.dash_update, draw = Character.default_draw }
 
+function Chai:chargeAttack_start()
+    self.isHittable = true
+    self:setSprite("combo4")
+    self.cool_down = 0.2
+end
+function Chai:chargeAttack_update(dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Chai.chargeAttack = {name = "chargeAttack", start = Chai.chargeAttack_start, exit = nop, update = Chai.chargeAttack_update, draw = Character.default_draw}
+
 return Chai
