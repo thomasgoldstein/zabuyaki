@@ -58,6 +58,24 @@ local combo_attack4 = function(slf, cont)
         cont
     )
 end
+local hold_attack1 = function(slf, cont)
+	slf:checkAndAttack(
+        { left = 34, width = 39, height = 12, damage = 15, type = "fall", velocity = slf.velx, sfx = "air" },
+        cont
+    )
+end
+local hold_attack2 = function(slf, cont)
+	slf:checkAndAttack(
+        { left = 24, width = 39, height = 12, damage = 15, type = "fall", velocity = slf.velx },
+        cont
+    )
+end
+local hold_attack3 = function(slf, cont)
+	slf:checkAndAttack(
+        { left = 14, width = 39, height = 12, damage = 15, type = "fall", velocity = slf.velx },
+        cont
+    )
+end
 local dash_attack1 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 55, height = 12, damage = 8, type = "high", velocity = slf.velocity_dash_fall },
     cont
@@ -177,9 +195,9 @@ return {
 		special = {
 			{ q = q(114,584,44,62), ox = 18, oy = 61 }, --c4.1
 			{ q = q(160,584,39,62), ox = 16, oy = 61 }, --c4.2
-			{ q = q(2,649,66,62), ox = 12, oy = 61, func = combo_attack4, delay = 0.08 }, --c4.3
-			{ q = q(70,649,51,62), ox = 13, oy = 61, func = combo_attack4 }, --c4.4
-			{ q = q(123,649,55,62), ox = 22, oy = 61, func = combo_attack4 }, --c4.5
+			{ q = q(2,649,66,62), ox = 12, oy = 61, func = hold_attack1, delay = 0.08 }, --c4.3
+			{ q = q(70,649,51,62), ox = 13, oy = 61, func = hold_attack2 }, --c4.4
+			{ q = q(123,649,55,62), ox = 22, oy = 61, func = hold_attack3 }, --c4.5
 			{ q = q(135,714,52,62), ox = 32, oy = 61 }, --c4.6
 			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --c4.7
 			delay = 0.04
@@ -220,10 +238,13 @@ return {
 		},
 		holdAttack = {
 			{ q = q(114,584,44,62), ox = 18, oy = 61 }, --c4.1
-			{ q = q(160,584,39,62), ox = 16, oy = 61, delay = 0.06 }, --c4.2
-			{ q = q(2,649,66,62), ox = 12, oy = 61, func = combo_attack4, delay = 0.15 }, --c4.3
-			{ q = q(160,584,39,62), ox = 16, oy = 61, delay = 0.11 }, --c4.2
-			delay = 0.03
+			{ q = q(160,584,39,62), ox = 16, oy = 61 }, --c4.2
+			{ q = q(2,649,66,62), ox = 12, oy = 61, func = hold_attack1, delay = 0.08 }, --c4.3
+			{ q = q(70,649,51,62), ox = 13, oy = 61, func = hold_attack2 }, --c4.4
+			{ q = q(123,649,55,62), ox = 22, oy = 61, func = hold_attack3 }, --c4.5
+			{ q = q(135,714,52,62), ox = 32, oy = 61 }, --c4.6
+			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --c4.7
+			delay = 0.04
 		},
 		fall = {
 			{ q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
