@@ -14,7 +14,6 @@ function Rick:initialize(name, sprite, input, x, y, f)
     self.hp = self.max_hp
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
-
     self.velocity_walk = 90
     self.velocity_walk_y = 45
     self.velocity_run = 140
@@ -109,13 +108,11 @@ function Rick:dash_start()
     self.vely = 0
     self.velz = 0
     sfx.play("voice"..self.id, self.sfx.dash)
-
     local psystem = PA_DASH:clone()
     psystem:setSpin(0, -3 * self.face)
     self.pa_dash = psystem
     self.pa_dash_x = self.x
     self.pa_dash_y = self.y
-
     stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
 end
 function Rick:dash_update(dt)
@@ -131,7 +128,6 @@ function Rick:dash_update(dt)
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
 end
-
 Rick.dash = {name = "dash", start = Rick.dash_start, exit = nop, update = Rick.dash_update, draw = Character.default_draw}
 
 function Rick:dashSpecial_start()
@@ -165,7 +161,6 @@ function Rick:dashSpecial_update(dt)
     self:calcFriction(dt, self.velocity_dash)
     self:checkCollisionAndMove(dt)
 end
-
 Rick.dashSpecial = {name = "dashSpecial", start = Rick.dashSpecial_start, exit = nop, update = Rick.dashSpecial_update, draw = Character.default_draw}
 
 function Rick:holdAttack_start()

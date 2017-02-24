@@ -14,7 +14,6 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.hp = self.max_hp
     self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
-
     self.velocity_walk = 100
     self.velocity_walk_y = 50
     self.velocity_run = 150
