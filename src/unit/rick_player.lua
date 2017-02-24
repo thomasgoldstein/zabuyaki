@@ -170,7 +170,7 @@ Rick.dashSpecial = {name = "dashSpecial", start = Rick.dashSpecial_start, exit =
 
 function Rick:holdAttack_start()
     self.isHittable = true
-    self:setSprite("combo4")
+    self:setSprite("holdAttack")
     self.cool_down = 0.2
 end
 function Rick:holdAttack_update(dt)

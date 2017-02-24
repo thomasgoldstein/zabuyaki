@@ -115,7 +115,7 @@ Chai.dash = {name = "dash", start = Chai.dash_start, exit = nop, update = Chai.d
 
 function Chai:holdAttack_start()
     self.isHittable = true
-    self:setSprite("combo4")
+    self:setSprite("holdAttack")
     self.cool_down = 0.2
 end
 function Chai:holdAttack_update(dt)

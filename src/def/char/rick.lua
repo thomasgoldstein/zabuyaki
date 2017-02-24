@@ -218,6 +218,13 @@ return {
 			{ q = q(160,584,39,62), ox = 16, oy = 61, delay = 0.11 }, --c4.2
 			delay = 0.03
 		},
+		holdAttack = {
+			{ q = q(114,584,44,62), ox = 18, oy = 61 }, --c4.1
+			{ q = q(160,584,39,62), ox = 16, oy = 61, delay = 0.06 }, --c4.2
+			{ q = q(2,649,66,62), ox = 12, oy = 61, func = combo_attack4, delay = 0.15 }, --c4.3
+			{ q = q(160,584,39,62), ox = 16, oy = 61, delay = 0.11 }, --c4.2
+			delay = 0.03
+		},
 		fall = {
 			{ q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
 			delay = 5
