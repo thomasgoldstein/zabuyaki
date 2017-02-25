@@ -210,10 +210,10 @@ function love.keypressed(key, unicode)
 	if GLOBAL_SETTING.PROFILER_ENABLED then
 		Prof:keypressed(key, unicode)
 	end
-	if key == '0' then
+	if key == 'kp*' then
 		configuration:set("DEBUG", not GLOBAL_SETTING.DEBUG)
 		sfx.play("sfx","menu_move")
-	elseif key == '=' then
+	elseif key == 'kp+' then
 		GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO + 1
 		if GLOBAL_SETTING.SLOW_MO > GLOBAL_SETTING.MAX_SLOW_MO then
 			GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.MAX_SLOW_MO
@@ -221,7 +221,7 @@ function love.keypressed(key, unicode)
 		else
 			sfx.play("sfx","menu_move")
 		end
-	elseif key == '-' then
+	elseif key == 'kp-' then
 		GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO - 1
 		if GLOBAL_SETTING.SLOW_MO < 0 then
 			GLOBAL_SETTING.SLOW_MO = 0
