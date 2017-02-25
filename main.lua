@@ -213,6 +213,22 @@ function love.keypressed(key, unicode)
 	if key == '0' then
 		configuration:set("DEBUG", not GLOBAL_SETTING.DEBUG)
 		sfx.play("sfx","menu_move")
+	elseif key == '=' then
+		GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO + 1
+		if GLOBAL_SETTING.SLOW_MO > GLOBAL_SETTING.MAX_SLOW_MO then
+			GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.MAX_SLOW_MO
+			sfx.play("sfx","menu_cancel")
+		else
+			sfx.play("sfx","menu_move")
+		end
+	elseif key == '-' then
+		GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO - 1
+		if GLOBAL_SETTING.SLOW_MO < 0 then
+			GLOBAL_SETTING.SLOW_MO = 0
+			sfx.play("sfx","menu_cancel")
+		else
+			sfx.play("sfx","menu_move")
+		end
 	end
 	if GLOBAL_SETTING.FPSRATE_ENABLED and framerateGraph.keypressed(key) then
 		return
