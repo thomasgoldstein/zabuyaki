@@ -36,6 +36,8 @@ local grabLast_attack = function(slf, cont)
 	)
 end
 
+local shove_now = function(slf, cont) slf.can_shove_now = true end
+
 return {
     serialization_version = 0.42, -- version
     sprite_sheet = sprite_sheet, -- path to spritesheet
@@ -195,8 +197,10 @@ return {
             delay = 0.1
         },
         shoveBack = {
-            { q = q(2,530,60,66), ox = 27, oy = 65 }, --grab attack 1
-            delay = 0.1
+            { q = q(2,461,55,67), ox = 29, oy = 66 }, --bat attack 1
+            { q = q(194,534,70,62), ox = 35, oy = 61, func = shove_now, delay = 0.5 }, --throw
+            { q = q(68,285,51,65), ox = 21, oy = 64 }, --c1.2
+            delay = 0.2
         },
         grabSwap = {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
