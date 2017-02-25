@@ -103,18 +103,6 @@ function show_debug_boxes()
     end
 end
 
-function show_debug_grid()
-    if GLOBAL_SETTING.SHOW_GRID then
-        love.graphics.setColor(0, 0, 0, 55)
-        for i = 1, 320 * 2, 2 do
-            love.graphics.rectangle("fill", i, 0, 1, 240 * 2)
-        end
-        for i = 1, 240 * 2, 2 do
-            love.graphics.rectangle("fill", 0, i, 320 * 2, 1)
-        end
-    end
-end
-
 function watch_debug_variables()
     if GLOBAL_SETTING.DEBUG then
     end

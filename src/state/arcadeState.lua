@@ -159,7 +159,6 @@ function arcadeState:draw()
             end
         end
     end
-    show_debug_grid()
     show_debug_controls()
     show_debug_indicator()
     -- GAME OVER
