@@ -40,7 +40,10 @@ function show_debug_indicator(size, x, y)
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
         love.graphics.print("DEBUG", x or 2, y or 2)
-        love.graphics.print("FPS:"..tonumber(love.timer.getFPS()), x or 2, y or 11)
+        love.graphics.print("FPS:"..tonumber(love.timer.getFPS()), x or 2, y or 2 + 9 * 1)
+        if GLOBAL_SETTING.SLOW_MO > 0 then
+            love.graphics.print("SLOW:"..GLOBAL_SETTING.SLOW_MO, x or 2, y or 2 + 9 * 2)
+        end
     end
 end
 
