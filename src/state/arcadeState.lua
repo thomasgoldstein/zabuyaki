@@ -35,13 +35,12 @@ function arcadeState:enter(_, players)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
-local prolong_update_by = 3 --3x slower
-local prolong_update = 0
+local slow_mo = 0
 function arcadeState:update(dt)
-    if GLOBAL_SETTING.DEBUG then
-        prolong_update = prolong_update + 1
-        if prolong_update >= prolong_update_by then
-            prolong_update = 0
+    if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0 then
+        slow_mo = slow_mo + 1
+        if slow_mo >= GLOBAL_SETTING.SLOW_MO then
+            slow_mo = 0
             time = time + dt
         else
             return

@@ -42,6 +42,8 @@ GLOBAL_SETTING = {
     PROFILER_ENABLED = false,
     FPSRATE_ENABLED = false,
     SHOW_GRID = false,
+    MAX_SLOW_MO = 5, -- max possible slow mo x
+    SLOW_MO = 0, -- cureent slow mo rate. 0 = off
 }
 local save_entries = { --the only entries should be saved
     "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTERING",
