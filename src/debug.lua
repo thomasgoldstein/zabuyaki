@@ -99,6 +99,11 @@ function show_debug_boxes()
             love.graphics.setColor(0, 255, 0, 150)
             love.graphics.rectangle("line", a.x, a.y, a.w, a.h)
         end
+    end
+end
+
+function clear_debug_boxes()
+    if GLOBAL_SETTING.DEBUG then
         attackHitBoxes = {}
     end
 end

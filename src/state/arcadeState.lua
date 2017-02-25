@@ -42,11 +42,13 @@ function arcadeState:update(dt)
         if slow_mo >= GLOBAL_SETTING.SLOW_MO then
             slow_mo = 0
             time = time + dt
+            clear_debug_boxes()
         else
             return
         end
     else
         time = time + dt
+        clear_debug_boxes()
     end
     if GLOBAL_SETTING.PROFILER_ENABLED then
         Prof:attach()
