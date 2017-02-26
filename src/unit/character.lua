@@ -433,10 +433,18 @@ function Character:stand_update(dt)
     end
 
     self.delay_animation_cool_down = self.delay_animation_cool_down - dt
-    if self.sprite.cur_anim == "walk"
-            and self.delay_animation_cool_down <= 0 then
-        self:setSprite("stand")
+    if self.delay_animation_cool_down <= 0 then
+        if self.b.attack:isDown() then
+            if self.sprite.cur_anim ~= "standHold" then
+                self:setSpriteIfExists("standHold")
+            end
+        else
+            if self.sprite.cur_anim ~= "stand" then
+                self:setSprite("stand")
+            end
+        end
     end
+
     if self.cool_down_combo > 0 then
         self.cool_down_combo = self.cool_down_combo - dt
     else
@@ -557,6 +565,13 @@ function Character:walk_update(dt)
                 self.victim_infoBar = g.target.infoBar:setAttacker(self)
                 return
             end
+        end
+        if self.sprite.cur_anim ~= "walkHold" then
+            self:setSpriteIfExists("walkHold")
+        end
+    else
+        if self.sprite.cur_anim ~= "walk" then
+            self:setSprite("walk")
         end
     end
     if self.velx == 0 and self.vely == 0 then
