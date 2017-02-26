@@ -271,6 +271,7 @@ function Unit:drawPID(x, y_)
 	love.graphics.setColor(255, 255, 255, calcTransparency(self.show_pid_cool_down))
 	love.graphics.print(self.pid, x - 7, y + 4)
 end
+local states_for_hold_attack = {stand = true, walk = true, run = true}
 function Unit:default_draw(l,t,w,h)
 	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
 		self.sprite.flip_h = self.face  --TODO get rid of .face
@@ -278,6 +279,17 @@ function Unit:default_draw(l,t,w,h)
             self.color[4] = 255 * math.sin( self.cool_down_death )
 		else
 			self.color[4] = 255
+		end
+		if self.charge >= self.charged_at / 2 then
+			if states_for_hold_attack[self.state] and self.holdAttack then
+				love.graphics.setColor(255, 255, 255, 63)
+				local width = clamp(self.charge, 0.5, 1) * self.width
+				if self.charge >= self.charged_at then
+					love.graphics.ellipse( "fill", self.x, self.y, width, width / 2 )
+				else
+					love.graphics.ellipse( "line", self.x, self.y, width, width / 2 )
+				end
+			end
 		end
 		love.graphics.setColor( unpack( self.color ) )
 		if self.shader then
