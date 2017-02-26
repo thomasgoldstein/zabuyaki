@@ -360,7 +360,7 @@ return {
 			{ q = q(49,1111,42,60), ox = 23, oy = 59, func = shove_now, delay = 0.05 }, --throw 1.2
 			{ q = q(93,1112,42,59), ox = 22, oy = 58 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.1 }, --pickup 1
-			delay = 0.1
+			delay = 0.2
 		},
 		grabSwap = {
 			{ q = q(137,1109,44,62), ox = 18, oy = 62 }, --grab swap 1.1
