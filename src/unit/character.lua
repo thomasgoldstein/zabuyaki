@@ -1274,7 +1274,7 @@ end
 function Character:grab_update(dt)
     local g = self.hold
 
-    if ( self.b.horizontal:getValue() == -self.face ) then
+    if ( self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() ) then
         self.grab_release = self.grab_release + dt
         if self.grab_release >= self.grab_release_after then
             g.target.isGrabbed = false
