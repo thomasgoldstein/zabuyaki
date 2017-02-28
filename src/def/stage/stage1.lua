@@ -242,7 +242,7 @@ function Stage1:initialize(players)
 
     local satoff1 = Satoff:new("Satoff", GetSpriteInstance("src/def/char/satoff.lua"), nil,
         178 , top_floor_y + 80 ,
-        { hp = 135, score = 300,
+        { hp = 100, score = 300,
             shapeType = "polygon", shapeArgs = { 1, 0, 27, 0, 28, 3, 27, 6, 1, 6, 0, 3 },
             shader = shaders.satoff[1] } )
 
