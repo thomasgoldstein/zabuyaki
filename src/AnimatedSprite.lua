@@ -139,6 +139,9 @@ function UpdateSpriteInstance(spr, dt, slf)
 	if not s.delay then
 		s.delay = spr.def.delay
 	end
+	if not sc then
+		error("Missing frame #"..spr.cur_frame.." in "..spr.cur_anim.." animation")
+	end
 	-- is there delay for this frame?
 	if not sc.delay then
 		sc.delay = s.delay
