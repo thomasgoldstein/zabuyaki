@@ -499,6 +499,7 @@ function Character:walk_start()
     self.isHittable = true
     self:setSprite("walk")
     self.can_attack = false
+    self.can_jump = false
     self.n_combo = 1	--if u move reset combo chain
 end
 function Character:walk_update(dt)
