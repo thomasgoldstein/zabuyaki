@@ -182,7 +182,7 @@ function Player:onHurtDamage()
     end
     self:release_grabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
-    dp(h.source.name .. " damaged "..self.name.." by "..h.damage)
+    dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..self.hp)
     if h.type ~= "shockWave" then
         -- show enemy bar for other attacks
         h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
