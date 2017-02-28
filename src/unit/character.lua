@@ -61,6 +61,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.sfx.jump_attack = self.sfx.jump_attack or "scream1"
     self.sfx.step = self.sfx.step or "kisa_step"
     self.sfx.dead = self.sfx.dead or "scream1"
+    self.infoBar = InfoBar:new(self)
 end
 
 function Character:addHp(hp)

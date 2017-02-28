@@ -9,14 +9,17 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Satoff:initialize(name, sprite, input, x, y, f)
+    self.hp = 100
+    self.score_bonus = 300
+    self.height = 60
+    f.shapeType = f.shapeType or "polygon"
+    f.shapeArgs = f.shapeArgs or { 1, 0, 27, 0, 28, 3, 27, 6, 1, 6, 0, 3 }
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, input, x, y, f)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
     self:pickAttackTarget()
     self.type = "enemy"
     self.face = -1
-    self.height = 60
-    self.score_bonus = 300
     self.sfx.dead = sfx.gopper_death
     self.sfx.dash = sfx.gopper_attack
     --    self.sfx.jump_attack =
@@ -24,13 +27,6 @@ function Satoff:initialize(name, sprite, input, x, y, f)
 
     self:setToughness(0)
     self:setState(self.intro)
-end
-
-function Satoff:setToughness(t)
-    self.toughness = t
-    self.max_hp = 135 + self.toughness
-    self.hp = self.max_hp
-    self.infoBar = InfoBar:new(self)
 end
 
 function Satoff:updateAI(dt)

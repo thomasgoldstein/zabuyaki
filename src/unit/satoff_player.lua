@@ -9,12 +9,11 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Satoff:initialize(name, sprite, input, x, y, f)
-    f.shapeArgs = { 1, 0, 27, 0, 28, 3, 27, 6, 1, 6, 0, 3 }
-    Player.initialize(self, name, sprite, input, x, y, f)
+    self.hp = 100
     self.height = 60
-    self.max_hp = 100
-    self.hp = self.max_hp
-    self.infoBar = InfoBar:new(self)
+    f.shapeType = f.shapeType or "polygon"
+    f.shapeArgs = f.shapeArgs or { 1, 0, 27, 0, 28, 3, 27, 6, 1, 6, 0, 3 }
+    Player.initialize(self, name, sprite, input, x, y, f)
     self.victim_infoBar = nil
 
     self.velocity_walk = 90

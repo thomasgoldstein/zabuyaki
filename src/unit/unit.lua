@@ -21,13 +21,13 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.name = name or "Unknown"
 	self.type = "unit"
     self.cool_down_death = 3 --seconds to remove
-    self.max_hp = f.hp or 1
+    self.max_hp = f.hp or self.hp or 1
     self.hp = self.max_hp
-	self.score_bonus = f.score or 0 --goes to your killer
+	self.score_bonus = f.score or self.score or 0 --goes to your killer
 	self.b = input or DUMMY_CONTROL
 
 	self.x, self.y, self.z = x, y, 0
-	self.height = 62
+	self.height = self.height or 62
 	self.width = 10 --calcs from the hitbox
 	self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
 	self.velx, self.vely, self.velz = 0, 0, 0

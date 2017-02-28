@@ -9,12 +9,13 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Gopper:initialize(name, sprite, input, x, y, f)
+    self.hp = 40
+    self.score_bonus = 200
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, input, x, y, f)
     self:pickAttackTarget()
     self.type = "enemy"
     self.face = -1
-    self.score_bonus = 200
     self.sfx.dead = sfx.gopper_death
     self.sfx.dash = sfx.gopper_attack
 --    self.sfx.jump_attack =
@@ -22,13 +23,6 @@ function Gopper:initialize(name, sprite, input, x, y, f)
 
     self:setToughness(0)
     self:setState(self.intro)
-end
-
-function Gopper:setToughness(t)
-    self.toughness = t
-    self.max_hp = 40 + self.toughness
-    self.hp = self.max_hp
-    self.infoBar = InfoBar:new(self)
 end
 
 function Gopper:updateAI(dt)
