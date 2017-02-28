@@ -740,7 +740,11 @@ function Character:duck_start()
 end
 function Character:duck_update(dt)
     if self.sprite.isFinished then
-        self:setState(self.stand)
+        if self.b.horizontal:getValue() ~= 0 then
+            self:setState(self.walk)
+        else
+            self:setState(self.stand)
+        end
         return
     end
     self:calcFriction(dt)
