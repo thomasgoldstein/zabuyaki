@@ -84,7 +84,11 @@ function configuration:save(override_dirty)
         t[v] = GLOBAL_SETTING[v]
     end
     for k, v in pairs(t) do
-        s = s .. "GLOBAL_SETTING."..k.."="..tostring(v)..";\n"
+        if type(v) == "string" then
+            s = s .. "GLOBAL_SETTING."..k.."='"..tostring(v).."';\n"
+        else
+            s = s .. "GLOBAL_SETTING."..k.."="..tostring(v)..";\n"
+        end
     end
     s = s .. "magic_string='"..magic_string_def.."'"
     if love.filesystem.write( self.file_name, s ) then
