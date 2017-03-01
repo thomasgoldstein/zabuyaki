@@ -18,9 +18,9 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.velocity_walk_y = 45
     self.velocity_run = 140
     self.velocity_run_y = 23
-    self.velocity_dash = 150 --speed of the character
-    self.velocity_dash_fall = 180 --speed caused by dash to others fall
-    self.friction_dash = self.velocity_dash
+    self.velocity_dash = 190 --speed of the character
+--    self.velocity_dash_fall = 180 --speed caused by dash to others fall
+    self.friction_dash = self.velocity_dash * 3
 --    self.velocity_shove_x = 220 --my throwing speed
 --    self.velocity_shove_z = 200 --my throwing speed
 --    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
@@ -37,29 +37,21 @@ end
 
 function Satoff:combo_start()
     self.isHittable = true
-    if self.n_combo > 3 or self.n_combo < 1 then
-        self.n_combo = 1
-    end
+    self.n_combo = 1
+    self.velx = self.velocity_dash
     if self.n_combo == 1 then
         self:setSprite("combo1")
-    elseif self.n_combo == 2 then
-        self:setSprite("combo2")
-    elseif self.n_combo == 3 then
-        self:setSprite("combo3")
     end
     self.cool_down = 0.2
 end
 function Satoff:combo_update(dt)
     if self.sprite.isFinished then
-        self.n_combo = self.n_combo + 1
-        if self.n_combo > 4 then
-            self.n_combo = 1
-        end
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
+    self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
+    print(self.tween)
 end
 Satoff.combo = {name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Character.default_draw}
 

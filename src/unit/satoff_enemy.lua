@@ -21,6 +21,20 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self:pickAttackTarget()
     self.type = "enemy"
     self.face = -1
+
+    self.velocity_walk = 90
+    self.velocity_walk_y = 45
+    self.velocity_run = 140
+    self.velocity_run_y = 23
+    self.velocity_dash = 190 --speed of the character
+--    self.velocity_dash_fall = 180 --speed caused by dash to others fall
+    self.friction_dash = self.velocity_dash * 3
+    --    self.velocity_shove_x = 220 --my throwing speed
+    --    self.velocity_shove_z = 200 --my throwing speed
+    --    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
+    self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+
     self.sfx.dead = sfx.gopper_death
     self.sfx.dash = sfx.gopper_attack
     --    self.sfx.jump_attack =
@@ -111,6 +125,7 @@ function Satoff:combo_start()
     self.isHittable = true
     self:remove_tween_move()
     self.n_combo = 1
+    self.velx = self.velocity_dash
     if self.n_combo == 1 then
         self:setSprite("combo1")
     end
@@ -119,14 +134,10 @@ end
 
 function Satoff:combo_update(dt)
     if self.sprite.isFinished then
-        self.n_combo = self.n_combo + 1
-        if self.n_combo > 4 then
-            self.n_combo = 1
-        end
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
+    self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
 end
 
