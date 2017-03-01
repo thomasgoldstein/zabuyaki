@@ -9,6 +9,7 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Satoff:initialize(name, sprite, input, x, y, f)
+    self.lives = 2
     self.hp = 100
     self.score_bonus = 300
     self.height = 60
