@@ -11,7 +11,6 @@ local CheckCollision = CheckCollision
 function Enemy:initialize(name, sprite, input, x, y, shader, color)
     Character.initialize(self, name, sprite, input, x, y, shader, color)
     self.type = "enemy"
-    self.lives = 1
     self.max_ai_poll_1 = 0.5
     self.ai_poll_1 = self.max_ai_poll_1
     self.max_ai_poll_2 = 5

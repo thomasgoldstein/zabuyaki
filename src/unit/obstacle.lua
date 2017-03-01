@@ -20,7 +20,6 @@ function Obstacle:initialize(name, sprite, x, y, f)
     Character.initialize(self, name, sprite, nil, x, y, f)
     self.name = name or "Unknown Obstacle"
     self.type = "obstacle"
-    self.lives = 0
     self.height = 40
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
     self.isHittable = false
