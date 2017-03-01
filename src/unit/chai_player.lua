@@ -9,11 +9,8 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Chai:initialize(name, sprite, input, x, y, f)
+    self.hp = 100
     Player.initialize(self, name, sprite, input, x, y, f)
-    self.max_hp = 100
-    self.hp = self.max_hp
-    self.infoBar = InfoBar:new(self)
-    self.victim_infoBar = nil
     self.velocity_walk = 100
     self.velocity_walk_y = 50
     self.velocity_run = 150
@@ -21,8 +18,9 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.velocity_dash = 150 --speed of the character
     self.velocity_dash_fall = 180 --speed caused by dash to others fall
     self.friction_dash = self.velocity_dash
-    self.velocity_grab_throw_x = 220 --my throwing speed
-    self.velocity_grab_throw_z = 200 --my throwing speed
+--    self.velocity_shove_x = 220 --my throwing speed
+--    self.velocity_shove_z = 200 --my throwing speed
+--    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx

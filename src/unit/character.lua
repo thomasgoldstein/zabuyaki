@@ -30,8 +30,9 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.to_fallen_anim_z = 40
     self.velocity_step_down = 220
     self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
-    self.velocity_grab_throw_x = 220 --my throwing speed
-    self.velocity_grab_throw_z = 200 --my throwing speed
+    self.velocity_shove_x = 220 --my throwing speed
+    self.velocity_shove_z = 200 --my throwing speed
+    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
     self.velocity_back_off = 175 --when you ungrab someone
     self.velocity_back_off2 = 200 --when you are released
     self.velocity_bonus_on_attack_x = 30
@@ -61,6 +62,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.sfx.step = self.sfx.step or "kisa_step"
     self.sfx.dead = self.sfx.dead or "scream1"
     self.infoBar = InfoBar:new(self)
+    self.victim_infoBar = nil
 end
 
 function Character:addHp(hp)
@@ -1496,14 +1498,14 @@ function Character:shoveUp_update(dt)
         t.isThrown = true
         t.thrower_id = self
         t.z = t.z + 1
-        t.velx = self.velocity_grab_throw_x
+        t.velx = self.velocity_shove_x
         t.vely = 0
-        t.velz = self.velocity_grab_throw_z
+        t.velz = self.velocity_shove_z
         t.victims[self] = true
         --throw up
         t.horizontal = self.horizontal
-        t.velx = self.velocity_grab_throw_x / 10
-        t.velz = self.velocity_grab_throw_z * 2
+        t.velx = self.velocity_shove_x / 10
+        t.velz = self.velocity_shove_z * 2
         t:setState(self.fall)
         sfx.play("sfx", "whoosh_heavy")
         sfx.play("voice"..self.id, self.sfx.throw)
@@ -1536,9 +1538,9 @@ function Character:shoveForward_update(dt)
         t.isThrown = true
         t.thrower_id = self
         t.z = t.z + 1
-        t.velx = self.velocity_grab_throw_x
+        t.velx = self.velocity_shove_x
         t.vely = 0
-        t.velz = self.velocity_grab_throw_z
+        t.velz = self.velocity_shove_z
         t.victims[self] = true
         t.horizontal = self.face
         t.face = self.face
@@ -1575,9 +1577,9 @@ function Character:shoveBack_update(dt)
         t.isThrown = true
         t.thrower_id = self
         t.z = t.z + 1
-        t.velx = self.velocity_grab_throw_x
+        t.velx = self.velocity_shove_x
         t.vely = 0
-        t.velz = self.velocity_grab_throw_z
+        t.velz = self.velocity_shove_z
         t.victims[self] = true
         t.horizontal = self.face
         t.face = self.face
