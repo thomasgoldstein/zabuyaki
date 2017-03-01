@@ -24,7 +24,8 @@ GLOBAL_SETTING = {
     OFFSCREEN = 1000,
     FULL_SCREEN = true,
     FULL_SCREEN_FILLING_MODE = 1,
-    FILTERING = 0,
+    FILTER_N = 0,
+    FILTER = "",
     GAME_WIDTH = 640,
     GAME_HEIGHT = 480,
     BGM_VOLUME = 0.75,
@@ -46,7 +47,7 @@ GLOBAL_SETTING = {
     SLOW_MO = 0, -- cureent slow mo rate. 0 = off
 }
 local save_entries = { --the only entries should be saved
-    "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTERING",
+    "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTER",
     "DEBUG", "BGM_VOLUME", "SFX_VOLUME", "CENSORSHIP", "DIFFICULTY",
     "MAX_CREDITS", "MAX_LIVES", "MOUSE_ENABLED", "SHADERS_ENABLED"
 }

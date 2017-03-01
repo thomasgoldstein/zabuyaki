@@ -395,5 +395,11 @@ shaders.screen = {
             shader:send('textureSize', {love.graphics.getWidth()/push._SCALE.x, love.graphics.getHeight()/push._SCALE.y})
         end }
 }
+GLOBAL_SETTING.FILTER_N = 0
+for i = #shaders.screen, 1, -1 do
+    if GLOBAL_SETTING.FILTER == shaders.screen[i].name then
+        GLOBAL_SETTING.FILTER_N = i
+    end
+end
 
 return shaders

@@ -12,7 +12,6 @@
 
 configuration = require "src/configuration"
 configuration:load()
-
 -- global vars
 stage = nil
 canvas = {}
@@ -31,8 +30,8 @@ function setupScreen()
     configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
     if shaders then
-        if GLOBAL_SETTING.FILTERING and shaders.screen[GLOBAL_SETTING.FILTERING] then
-            local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
+        if GLOBAL_SETTING.FILTER_N and shaders.screen[GLOBAL_SETTING.FILTER_N] then
+            local sh = shaders.screen[GLOBAL_SETTING.FILTER_N]
             if sh and sh.func then
                 sh.func(sh.shader)
             end
@@ -42,7 +41,11 @@ end
 function switchFullScreen()
     GLOBAL_SETTING.FULL_SCREEN = not GLOBAL_SETTING.FULL_SCREEN
     configuration:save(true)
-	push:switchFullscreen(GLOBAL_SETTING.GAME_WIDTH, GLOBAL_SETTING.GAME_HEIGHT)
+	if GLOBAL_SETTING.FULL_SCREEN then
+		push:switchFullscreen()
+	else
+		push:switchFullscreen(GLOBAL_SETTING.GAME_WIDTH, GLOBAL_SETTING.GAME_HEIGHT)
+	end
     setupScreen()
 end
 
@@ -130,8 +133,8 @@ function love.load(arg)
 
 	bind_game_input()
 
-    if GLOBAL_SETTING.FILTERING and shaders.screen[GLOBAL_SETTING.FILTERING] then
-        local sh = shaders.screen[GLOBAL_SETTING.FILTERING]
+    if GLOBAL_SETTING.FILTER_N and shaders.screen[GLOBAL_SETTING.FILTER_N] then
+        local sh = shaders.screen[GLOBAL_SETTING.FILTER_N]
         if sh then
             if sh.func then
                 sh.func(sh.shader)
