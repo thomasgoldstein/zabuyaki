@@ -38,6 +38,7 @@ end
 function Satoff:combo_start()
     self.isHittable = true
     self.n_combo = 1
+    self.horizontal = self.face
     self.velx = self.velocity_dash
     if self.n_combo == 1 then
         self:setSprite("combo1")
