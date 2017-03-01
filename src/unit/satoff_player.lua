@@ -23,6 +23,7 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.friction_dash = self.velocity_dash
 --    self.velocity_shove_x = 220 --my throwing speed
 --    self.velocity_shove_z = 200 --my throwing speed
+--    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx

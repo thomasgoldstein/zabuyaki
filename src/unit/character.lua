@@ -1538,9 +1538,9 @@ function Character:shoveForward_update(dt)
         t.isThrown = true
         t.thrower_id = self
         t.z = t.z + 1
-        t.velx = self.velocity_shove_x
+        t.velx = self.velocity_shove_x * self.velocity_shove_horizontal
         t.vely = 0
-        t.velz = self.velocity_shove_z
+        t.velz = self.velocity_shove_z * self.velocity_shove_horizontal
         t.victims[self] = true
         t.horizontal = self.face
         t.face = self.face
@@ -1577,9 +1577,9 @@ function Character:shoveBack_update(dt)
         t.isThrown = true
         t.thrower_id = self
         t.z = t.z + 1
-        t.velx = self.velocity_shove_x
+        t.velx = self.velocity_shove_x * self.velocity_shove_horizontal
         t.vely = 0
-        t.velz = self.velocity_shove_z
+        t.velz = self.velocity_shove_z * self.velocity_shove_horizontal
         t.victims[self] = true
         t.horizontal = self.face
         t.face = self.face
