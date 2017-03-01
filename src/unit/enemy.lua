@@ -80,7 +80,7 @@ function Enemy:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.shake.x + icon_width + 2, t + 9,
         transp_bg)
-    if self.lives >= 1 then
+    if self.lives > 1 then
         love.graphics.setColor(255, 255, 255, transp_bg)
         printWithShadow("x", l + self.shake.x + icon_width + 91, t + 9,
             transp_bg)
