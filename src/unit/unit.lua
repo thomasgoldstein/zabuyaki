@@ -24,7 +24,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.lives = f.lives or self.lives or 0
     self.max_hp = f.hp or self.hp or 1
     self.hp = self.max_hp
-	self.score_bonus = f.score or self.score or 0 --goes to your killer
+	self.score_bonus = f.score or self.score_bonus or 0 --goes to your killer
 	self.b = input or DUMMY_CONTROL
 
 	self.x, self.y, self.z = x, y, 0
