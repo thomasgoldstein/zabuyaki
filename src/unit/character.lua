@@ -413,8 +413,13 @@ function Character:stand_start()
     if self.sprite.cur_anim == "walk" then
         self.delay_animation_cool_down = 0.12
     else
-        self:setSprite("stand")
-        self.delay_animation_cool_down = 0
+        if self.sprite.cur_anim == "walkHold" then
+            self:setSprite("standHold")
+            self.delay_animation_cool_down = 0.12
+        else
+            self:setSprite("stand")
+            self.delay_animation_cool_down = 0
+        end
     end
     self.can_jump = false
     self.can_attack = false
@@ -499,7 +504,11 @@ Character.stand = {name = "stand", start = Character.stand_start, exit = nop, up
 
 function Character:walk_start()
     self.isHittable = true
-    self:setSprite("walk")
+    if self.sprite.cur_anim == "standHold" then
+        self:setSprite("walkHold")
+    else
+        self:setSprite("walk")
+    end
     self.can_attack = false
     self.can_jump = false
     self.n_combo = 1	--if u move reset combo chain
