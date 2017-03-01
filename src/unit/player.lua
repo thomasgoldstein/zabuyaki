@@ -5,9 +5,9 @@ local function nop() end
 local CheckCollision = CheckCollision
 
 function Player:initialize(name, sprite, input, x, y, f)
+    self.lives = GLOBAL_SETTING.MAX_LIVES
     Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "player"
-    self.lives = GLOBAL_SETTING.MAX_LIVES
 end
 
 function Player:isAlive()
