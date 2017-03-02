@@ -522,8 +522,7 @@ function Character:walk_start()
     else
         self:setSprite("walk")
     end
-    self.can_attack = false
-    self.can_jump = false
+    --can_jump & can_attack are set in the prev state
     self.n_combo = 1	--if u move reset combo chain
 end
 function Character:walk_update(dt)
@@ -611,7 +610,7 @@ Character.walk = {name = "walk", start = Character.walk_start, exit = nop, updat
 function Character:run_start()
     self.isHittable = true
     self.delay_animation_cool_down = 0.01
-    self.can_attack = false
+    --can_jump & self.can_attack are set in the prev state
 end
 function Character:run_update(dt)
     if not self.b.jump:isDown() then
