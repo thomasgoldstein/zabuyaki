@@ -522,7 +522,8 @@ function Character:walk_start()
     else
         self:setSprite("walk")
     end
-    --can_jump & can_attack are set in the prev state
+    self.can_jump = false
+    self.can_attack = false
     self.n_combo = 1	--if u move reset combo chain
 end
 function Character:walk_update(dt)
