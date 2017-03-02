@@ -133,16 +133,8 @@ return {
 			delay = 0.155
 		},
 		standHold = {
-			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
-			-- ox,oy pivots offsets from the top left corner of the quad
-			-- delay = 0.1, func = func1, funcCont = func2
-			{ q = q(2,2,41,64), ox = 23, oy = 63, delay = 0.25, flip_v = -1 }, --stand 1
-			{ q = q(45,2,43,64), ox = 23, oy = 63, flip_v = -1 }, --stand 2
-			{ q = q(90,3,43,63), ox = 23, oy = 62, flip_v = -1 }, --stand 3
-			{ q = q(45,2,43,64), ox = 23, oy = 63, flip_v = -1 }, --stand 2
-            loop = true,
-			delay = 0.155
-		},
+            { q = q(49,862,45,64), ox = 23, oy = 63 }, --grab
+        },
 		walk = {
 			{ q = q(2,68,39,64), ox = 21, oy = 63 }, --walk 1
 			{ q = q(43,68,39,64), ox = 21, oy = 63 }, --walk 2
@@ -154,14 +146,7 @@ return {
             delay = 0.167
 		},
 		walkHold = {
-			{ q = q(2,68,39,64), ox = 21, oy = 63, flip_v = -1 }, --walk 1
-			{ q = q(43,68,39,64), ox = 21, oy = 63, flip_v = -1 }, --walk 2
-			{ q = q(84,68,38,64), ox = 20, oy = 63, delay = 0.25, flip_v = -1 }, --walk 3
-			{ q = q(123,68,39,64), ox = 21, oy = 63, flip_v = -1 }, --walk 4
-			{ q = q(164,68,39,64), ox = 21, oy = 63, flip_v = -1 }, --walk 5
-			{ q = q(205,68,38,64), ox = 20, oy = 63, delay = 0.25, flip_v = -1 }, --walk 6
-            loop = true,
-            delay = 0.167
+			{ q = q(84,68,38,64), ox = 20, oy = 63 }, --walk 3
 		},
 		run = {
 			{ q = q(2,134,35,64), ox = 16, oy = 63 }, --run 1

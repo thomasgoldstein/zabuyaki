@@ -139,12 +139,7 @@ return {
 			delay = 0.167
 		},
 		standHold = {
-			{ q = q(2,2,44,64), ox = 22, oy = 63, flip_v = -1 }, --stand 1
-			{ q = q(48,3,45,63), ox = 22, oy = 62, flip_v = -1 }, --stand 2
-			{ q = q(95,4,46,62), ox = 22, oy = 61, flip_v = -1 }, --stand 3
-			{ q = q(48,3,45,63), ox = 22, oy = 62, flip_v = -1 }, --stand 2
-			loop = true,
-			delay = 0.167
+			{ q = q(2,979,45,63), ox = 19, oy = 62 }, --grab
 		},
 		walk = {
 			{ q = q(2,68,35,64), ox = 17, oy = 63 }, --walk 1
@@ -158,15 +153,7 @@ return {
             delay = 0.167
 		},
 		walkHold = {
-			{ q = q(2,68,35,64), ox = 17, oy = 63, flip_v = -1 }, --walk 1
-			{ q = q(39,68,35,64), ox = 17, oy = 63, flip_v = -1 }, --walk 2
-			{ q = q(76,69,35,63), ox = 17, oy = 62, delay = 0.25, flip_v = -1 }, --walk 3
-			{ q = q(113,68,35,64), ox = 17, oy = 63, flip_v = -1 }, --walk 4
-			{ q = q(150,68,35,64), ox = 17, oy = 63, flip_v = -1 }, --walk 5
-			{ q = q(187,69,35,63), ox = 17, oy = 62, delay = 0.25, flip_v = -1 }, --walk 6
-			loop = true,
-			--loopFrom = 5, --start animation from 5th frame on loop
-			delay = 0.167
+			{ q = q(76,69,35,63), ox = 17, oy = 62, delay = 0.25 }, --walk 3
 		},
 		run = {
 			{ q = q(2,136,44,60), ox = 14, oy = 59 }, --run 1
