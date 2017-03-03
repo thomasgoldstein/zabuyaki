@@ -82,7 +82,15 @@ function show_debug_controls()
             if p.b.vertical:isDown(1) then
                 love.graphics.print("V", x, y)
             end
+            x = p.infoBar.x + 76
+            y = y - 12
+            if p.can_attack then
+                love.graphics.print("F", x, y)
+            end
             x = x + 10
+            if p.can_jump then
+                love.graphics.print("J", x, y)
+            end
         end
     end
 end
