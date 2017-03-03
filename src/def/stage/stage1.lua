@@ -241,7 +241,7 @@ function Stage1:initialize(players)
         { shader = shaders.niko[3], color = {255,255,255, 255}})
 
     local satoff1 = Satoff:new("Satoff", GetSpriteInstance("src/def/char/satoff.lua"), nil,
-        178 , top_floor_y + 80 ,
+        278 , top_floor_y + 80 ,
         { lives = 3, hp = 100, score = 300, shader = shaders.satoff[1] } )
 
     -- Obstacles
