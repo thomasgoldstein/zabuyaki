@@ -14,6 +14,16 @@ end
 
 dboc = {}
 dboc[0] = { x = 0, y = 0, z = 0, time = 0 }
+function dpo_init(o)
+    if not GLOBAL_SETTING.DEBUG then
+        return
+    end
+    if not GLOBAL_SETTING.DEBUG then
+        return
+    end
+    dboc[o.name] = { x = o.x, y = o.y, z = o.z, time = love.timer.getTime() }
+end
+local r = round
 function dpo(o, txt)
     if not GLOBAL_SETTING.DEBUG then
         return
@@ -29,8 +39,12 @@ function dpo(o, txt)
         oz = dboc[o.name].z or 0
         time = dboc[o.name].time or love.timer.getTime()
     end
-    print(o.name .. "(" .. o.type .. ") x:" .. o.x .. ",y:" .. o.y .. ",z:" .. o.z .. " ->" .. (txt or ""))
-    print("DELTA x: " .. math.abs(o.x - ox) .. " y: " .. math.abs(o.y - oy) .. " z: " .. math.abs(o.z - oz) .. " t(ms):" .. (love.timer.getTime() - time))
+--    print(o.name .. "(" .. o.type .. ") x:" .. o.x .. ",y:" .. o.y .. ",z:" .. o.z .. " ->" .. (txt or ""))
+--    print("DELTA x: " .. r(math.abs(o.x - ox), 2) .. " y: " .. r(math.abs(o.y - oy), 2) .. " z: " .. math.abs(o.z - oz) .. " t(ms):" .. r(love.timer.getTime() - time, 3))
+    print(o.name
+            .." Dxyz: " .. r(math.abs(o.x - ox), 2) .. "," .. r(math.abs(o.y - oy), 2) .. "," .. math.abs(o.z - oz)
+            .." xyz: " .. r(o.x, 2) .. "," .. r(o.y, 2) .. "," .. r(o.z, 2)
+            .. " ".. o.type .. " t(ms): " .. r(love.timer.getTime() - time, 2) .." -> " .. (txt or ""))
     dboc[o.name] = { x = o.x, y = o.y, z = o.z, time = love.timer.getTime() }
 end
 

@@ -72,6 +72,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self:addShape(f.shapeType or "rectangle", f.shapeArgs or {self.x, self.y, 15, 7})
 
 	self:setState(self.stand)
+	dpo_init(self)
 end
 
 function Unit:addShape(shapeType, shapeArgs)
