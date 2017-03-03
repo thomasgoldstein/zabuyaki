@@ -428,10 +428,10 @@ function Character:stand_start()
 --    else
         if self.sprite.cur_anim == "walkHold" then
             self:setSprite("standHold")
-            self.delay_animation_cool_down = 0.12
+--            self.delay_animation_cool_down = 0.12
         else
             self:setSprite("stand")
-            self.delay_animation_cool_down = 0
+--            self.delay_animation_cool_down = 0
         end
 --    end
     self.can_jump = false
