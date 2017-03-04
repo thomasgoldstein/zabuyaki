@@ -93,11 +93,16 @@ return {
             delay = 0.15
         },
         run = {
-            { q = q(59,352,60,74), ox = 32, oy = 73 }, --jaf1
-            { q = q(121,359,58,58), ox = 29, oy = 57, funcCont = jump_forward_attack }, --jaf2
+            { q = q(2,356,55,70), ox = 33, oy = 69 }, --jump
+            { q = q(59,352,60,74), ox = 32, oy = 73 }, --jaf1 (lowered)
+            { q = q(121,359,58,58), ox = 29, oy = 59 }, --jaf2 (lowered)
+			{ q = q(2,744,56,43), ox = 31, oy = 40, funcCont = jump_forward_attack }, --run 1
+			{ q = q(60,741,50,46), ox = 30, oy = 43, funcCont = jump_forward_attack }, --run 2
+			{ q = q(112,744,53,43), ox = 30, oy = 40, funcCont = jump_forward_attack }, --run 3
+			{ q = q(167,734,52,53), ox = 29, oy = 50, funcCont = jump_forward_attack }, --run 4
             loop = true,
-			loopFrom = 2,
-            delay = 0.117
+			loopFrom = 4,
+            delay = 0.1
         },
         jump = {
             { q = q(2,356,55,70), ox = 33, oy = 69 }, --jump
