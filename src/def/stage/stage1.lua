@@ -242,7 +242,7 @@ function Stage1:initialize(players)
 
     local satoff1 = Satoff:new("Satoff", GetSpriteInstance("src/def/char/satoff.lua"), nil,
         278 , top_floor_y + 80 ,
-        { lives = 3, hp = 100, score = 300, shader = shaders.satoff[1] } )
+        { lives = 3, hp = 100, score = 300, shader = shaders.satoff[2] } )
 
     -- Obstacles
     local canColor = {118,109,100, 255}
