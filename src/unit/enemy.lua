@@ -24,12 +24,11 @@ function Enemy:checkCollisionAndMove(dt)
     local stepx = self.velx * dt * self.horizontal
     local stepy = self.vely * dt * self.vertical
     local actualX, actualY, cols, len, x, y
-    if self.state == "fall"
-            or self.state == "jump"
-            or self.state == "jumpAttackForward"
-            or self.state == "jumpAttackStraight"
-            or self.state == "duck"
-            or self.state == "dash"
+    if self.state == "duck"
+        or self.state == "combo"
+        or self.state == "dash"
+        or self.isGrabbed
+        or self.z > 0
     then
         --    if self.move then
         x = self.x
