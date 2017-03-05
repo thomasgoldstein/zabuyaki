@@ -23,6 +23,7 @@ function Gopper:initialize(name, sprite, input, x, y, f)
 
     self:setToughness(0)
     self.walk_speed = 80
+    self.run_speed = 100
     self:setState(self.intro)
 end
 
@@ -265,14 +266,14 @@ function Gopper:run_start()
 
     --get to player(to fight)
     if self.x < self.target.x then
-        self.move = tween.new(0.3 + t / 100, self, {
+        self.move = tween.new(0.3 + t / self.run_speed, self, {
             tx = self.target.x - love.math.random(25, 35),
             ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
         }, 'inQuad')
         self.face = 1
         self.horizontal = self.face
     else
-        self.move = tween.new(0.3 + t / 100, self, {
+        self.move = tween.new(0.3 + t / self.run_speed, self, {
             tx = self.target.x + love.math.random(25, 35),
             ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
         }, 'inQuad')
