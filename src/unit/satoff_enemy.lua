@@ -41,6 +41,8 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.sfx.step = "rick_step" --TODO refactor def files
 
     self:setToughness(0)
+    self.walk_speed = 80
+    self.run_speed = 100
     self:setState(self.intro)
 end
 
@@ -66,7 +68,7 @@ function Satoff:updateAI(dt)
             if self.cool_down <= 0 then
                 --can move
                 local t = dist(self.target.x, self.target.y, self.x, self.y)
-                if t < 400 and t >= 100 and
+                if t < 500 and t >= 300 and
                         math.floor(self.y / 4) == math.floor(self.target.y / 4) then
                     self:setState(self.run)
                     return
@@ -81,14 +83,14 @@ function Satoff:updateAI(dt)
             --self:setState(self.stand)
             --return
             local t = dist(self.target.x, self.target.y, self.x, self.y)
-            if t < 400 and t >= 100
+            if t < 500 and t >= 180
                     and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
                 self:setState(self.run)
                 return
             end
             if self.cool_down <= 0 then
-                if math.abs(self.x - self.target.x) <= 50
-                        and math.abs(self.y - self.target.y) <= 6
+                if math.abs(self.x - self.target.x) <= 60
+                    and math.abs(self.y - self.target.y) <= 6
                 then
                     self:setState(self.combo)
                     return
@@ -144,6 +146,7 @@ end
 
 Satoff.combo = { name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Satoff.default_draw }
 
+--[[
 function Satoff:dash_start()
     self.isHittable = true
     self:remove_tween_move()
@@ -166,7 +169,7 @@ function Satoff:dash_update(dt)
 end
 
 Satoff.dash = { name = "dash", start = Satoff.dash_start, exit = nop, update = Satoff.dash_update, draw = Character.default_draw }
-
+]]
 
 --States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
 function Satoff:intro_start()
@@ -209,42 +212,17 @@ function Satoff:walk_start()
     self.can_jump = false
     self.can_attack = false
     local t = dist(self.target.x, self.target.y, self.x, self.y)
-    if love.math.random() < 0.25 then
-        --random move arond the player (far from)
-        self.move = tween.new(1 + t / (40 + self.toughness), self, {
-            tx = self.target.x + rand1() * love.math.random(70, 85),
-            ty = self.target.y + rand1() * love.math.random(20, 35)
+    --get to player(to fight)
+    if self.x < self.target.x then
+        self.move = tween.new(1 + t / self.walk_speed, self, {
+            tx = self.target.x - love.math.random(40, 60),
+            ty = self.target.y + 1
         }, 'inOutQuad')
     else
-        if math.abs(self.x - self.target.x) <= 30
-                and math.abs(self.y - self.target.y) <= 10
-        then
-            --step back(too close)
-            if self.x < self.target.x then
-                self.move = tween.new(1 + t / (40 + self.toughness), self, {
-                    tx = self.target.x - love.math.random(40, 60),
-                    ty = self.target.y + love.math.random(-1, 1) * 20
-                }, 'inOutQuad')
-            else
-                self.move = tween.new(1 + t / (40 + self.toughness), self, {
-                    tx = self.target.x + love.math.random(40, 60),
-                    ty = self.target.y + love.math.random(-1, 1) * 20
-                }, 'inOutQuad')
-            end
-        else
-            --get to player(to fight)
-            if self.x < self.target.x then
-                self.move = tween.new(1 + t / (40 + self.toughness), self, {
-                    tx = self.target.x - love.math.random(25, 30),
-                    ty = self.target.y + 1
-                }, 'inOutQuad')
-            else
-                self.move = tween.new(1 + t / (40 + self.toughness), self, {
-                    tx = self.target.x + love.math.random(25, 30),
-                    ty = self.target.y + 1
-                }, 'inOutQuad')
-            end
-        end
+        self.move = tween.new(1 + t / self.walk_speed, self, {
+            tx = self.target.x + love.math.random(40, 60),
+            ty = self.target.y + 1
+        }, 'inOutQuad')
     end
 end
 function Satoff:walk_update(dt)
@@ -275,14 +253,14 @@ function Satoff:run_start()
 
     --get to player(to fight)
     if self.x < self.target.x then
-        self.move = tween.new(0.3 + t / 100, self, {
+        self.move = tween.new(0.3 + t / self.run_speed, self, {
             tx = self.target.x - love.math.random(25, 35),
             ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
         }, 'inQuad')
         self.face = 1
         self.horizontal = self.face
     else
-        self.move = tween.new(0.3 + t / 100, self, {
+        self.move = tween.new(0.3 + t / self.run_speed, self, {
             tx = self.target.x + love.math.random(25, 35),
             ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
         }, 'inQuad')
@@ -302,10 +280,10 @@ function Satoff:run_update(dt)
     end
     if complete then
         local t = dist(self.target.x, self.target.y, self.x, self.y)
-        if t > 100 then
+        if t > 200 then
             self:setState(self.walk)
         else
-            self:setState(self.dash)
+            self:setState(self.combo)
         end
         return
     end
