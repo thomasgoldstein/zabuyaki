@@ -22,6 +22,7 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.sfx.step = "kisa_step"
 
     self:setToughness(0)
+    self.walk_speed = 80
     self:setState(self.intro)
 end
 
@@ -200,7 +201,7 @@ function Gopper:walk_start()
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if love.math.random() < 0.25 then
         --random move arond the player (far from)
-        self.move = tween.new(1 + t / (40 + self.toughness), self, {
+        self.move = tween.new(1 + t / self.walk_speed, self, {
             tx = self.target.x + rand1() * love.math.random(70, 85),
             ty = self.target.y + rand1() * love.math.random(20, 35)
         }, 'inOutQuad')
@@ -210,12 +211,12 @@ function Gopper:walk_start()
         then
             --step back(too close)
             if self.x < self.target.x then
-                self.move = tween.new(1 + t / (40 + self.toughness), self, {
+                self.move = tween.new(1 + t / self.walk_speed, self, {
                     tx = self.target.x - love.math.random(40, 60),
                     ty = self.target.y + love.math.random(-1, 1) * 20
                 }, 'inOutQuad')
             else
-                self.move = tween.new(1 + t / (40 + self.toughness), self, {
+                self.move = tween.new(1 + t / self.walk_speed, self, {
                     tx = self.target.x + love.math.random(40, 60),
                     ty = self.target.y + love.math.random(-1, 1) * 20
                 }, 'inOutQuad')
@@ -223,12 +224,12 @@ function Gopper:walk_start()
         else
             --get to player(to fight)
             if self.x < self.target.x then
-                self.move = tween.new(1 + t / (40 + self.toughness), self, {
+                self.move = tween.new(1 + t / self.walk_speed, self, {
                     tx = self.target.x - love.math.random(25, 30),
                     ty = self.target.y + 1
                 }, 'inOutQuad')
             else
-                self.move = tween.new(1 + t / (40 + self.toughness), self, {
+                self.move = tween.new(1 + t / self.walk_speed, self, {
                     tx = self.target.x + love.math.random(25, 30),
                     ty = self.target.y + 1
                 }, 'inOutQuad')
