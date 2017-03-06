@@ -154,7 +154,7 @@ return {
         },
         getup = {
             { q = q(75,239,79,37), ox = 47, oy = 34 }, --lying down
-            { q = q(156,214,69,62), ox = 34, oy = 59 }, --getting up
+            { q = q(156,217,69,59), ox = 34, oy = 56 }, --getting up
             { q = q(206,671,66,61), ox = 31, oy = 60 }, --pickup
             { q = q(206,600,69,64), ox = 35, oy = 63 }, --duck
             delay = 0.2
