@@ -93,7 +93,7 @@ return {
             loop = true,
             delay = 0.08
         },
-        jump = {
+        jump = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
@@ -168,43 +168,43 @@ return {
             { q = q(87,130,37,61), ox = 19, oy = 60, delay = 0.1 }, --hl1
             delay = 0.3
         },
-        jumpAttackForward = {
+        jumpAttackForward = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
-        jumpAttackLight = {
+        jumpAttackLight = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
-        jumpAttackStraight = {
+        jumpAttackStraight = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
-        sideStepUp = {
+        sideStepUp = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
-        sideStepDown = {
+        sideStepDown = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
-        grab = {
+        grab = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
-        grabHit = {
+        grabHit = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
-        grabHitLast = {
+        grabHitLast = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
-        shoveDown = {
+        shoveDown = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.1
         },
-        shoveForward = {
+        shoveForward = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
-        grabSwap = {
+        grabSwap = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbed = {

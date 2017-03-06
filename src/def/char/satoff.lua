@@ -125,7 +125,7 @@ return {
             { q = q(206,595,69,64), ox = 35, oy = 63 }, --duck
             delay = 0.05
         },
-        dash = {
+        dash = { --TODO: Remove
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
             delay = 0.16
         },
@@ -180,7 +180,7 @@ return {
             { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
-        jumpAttackLight = {
+        jumpAttackLight = { --TODO: Remove
             { q = q(59,347,60,74), ox = 32, oy = 75 }, --jaf1
             { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
@@ -195,10 +195,10 @@ return {
             { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
-        sideStepUp = {
+        sideStepUp = { --TODO: Remove
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
         },
-        sideStepDown = {
+        sideStepDown = { --TODO: Remove
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
         },
         grab = {
@@ -221,7 +221,7 @@ return {
             { q = q(133,530,59,61), ox = 25, oy = 60, func = grabLast_attack, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
-        shoveForward = {
+        shoveForward = { --TODO: Remove
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
             delay = 0.1
         },
@@ -231,7 +231,7 @@ return {
             { q = q(68,280,51,65), ox = 21, oy = 64 }, --c1.2
             delay = 0.2
         },
-        grabSwap = {
+        grabSwap = { --TODO: Remove
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
         },
         grabbed = {

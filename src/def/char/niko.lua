@@ -62,7 +62,7 @@ return {
             loop = true,
             delay = 0.175
         },
-        run = {
+        run = { --TODO: Remove
             { q = q(116,2,36,64), ox = 18, oy = 63 }, --walk 1
             { q = q(2,2,36,64), ox = 18, oy = 63 }, --stand 1
             { q = q(154,3,38,63), ox = 18, oy = 62 }, --walk 2
@@ -89,7 +89,7 @@ return {
             { q = q(114,73,38,58), ox = 18, oy = 57 }, --duck
             delay = 0.28
         },
-        dash = {
+        dash = { --TODO: Remove
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.16
         },
@@ -147,7 +147,7 @@ return {
             { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
-        jumpAttackLight = {
+        jumpAttackLight = { --TODO: Remove
             { q = q(61,265,56,63), ox = 28, oy = 64 }, --jaf1
             { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
@@ -157,31 +157,31 @@ return {
             { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
             delay = 0.12
         },
-        sideStepUp = {
+        sideStepUp = { --TODO: Remove
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
         },
-        sideStepDown = {
+        sideStepDown = { --TODO: Remove
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
         },
-        grab = {
+        grab = { --TODO: Remove
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
         },
-        grabHit = {
-            { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.05
-        },
-        grabHitLast = {
+        grabHit = { --TODO: Remove
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
-        shoveDown = {
+        grabHitLast = { --TODO: Remove
+            { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
+            delay = 0.05
+        },
+        shoveDown = { --TODO: Remove
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.1
         },
-        shoveForward = {
+        shoveForward = { --TODO: Remove
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
         },
-        grabSwap = {
+        grabSwap = { --TODO: Remove
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbed = {
