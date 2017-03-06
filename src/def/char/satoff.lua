@@ -191,8 +191,9 @@ return {
             delay = 0.12
         },
         jumpAttackRun = {
-            { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
-            delay = 5
+            { q = q(59,347,60,74), ox = 32, oy = 75 }, --jaf1
+            { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            delay = 0.12
         },
         sideStepUp = {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
