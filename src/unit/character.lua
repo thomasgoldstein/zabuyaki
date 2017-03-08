@@ -323,7 +323,6 @@ function Character:checkAndAttack(f, isFuncCont)
         for other, separating_vector in pairs(stage.world:collisions(a)) do
             local o = other.obj
             if o.isHittable
-                    and not o.isGrabbed
                     and not o.isDisabled
                     and o ~= self
                     and not self.victims[o]
@@ -359,44 +358,6 @@ function Character:checkAndAttack(f, isFuncCont)
         self.n_combo = 0
     end
     items = nil
-end
-
-function Character:checkAndAttackGrabbed(f, isFuncCont)
-    --f options {}: l,t,w,h, damage, type, velocity, sfx
-    --type = "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
-    if not f then
-        f = {}
-    end
-    local face
-    if self.isThrown then
-        face = -face
-    else
-        face = self.face
-    end
-    local l,t,w,h = f.left or 10, f.top or 0, f.width or 20, f.height or 12
-    local damage, type, velocity = f.damage or 1, f.type or "low", f.velocity or self.velx
-
-    local g = self.hold
-    if not g.target then --can attack only the 1 grabbed
-        return
-    end
-    --DEBUG collect data to show attack hitBoxes in green
-    if GLOBAL_SETTING.DEBUG then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
-    end
-    local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
-    if a:collidesWith(g.target.shape) then
-        g.target.hurt = {source = self, state = self.state, damage = damage,
-            type = type, velx = velocity or self.velocity_bonus_on_attack_x,
-            horizontal = self.horizontal,
-            continuous = isFuncCont,
-            x = self.x, y = self.y, z = self.z }
-        if f.sfx then	--TODO 2 SFX for hollow and hit
-            sfx.play("sfx"..self.id, f.sfx)
-        end
-    end
-    stage.world:remove(a)
-    a = nil
 end
 
 function Character:checkForLoot(w, h)

@@ -23,15 +23,15 @@ local jump_forward_attack = function(slf, cont)
 end
 
 local grabHit_attack = function(slf, cont)
-	slf:checkAndAttackGrabbed(
-		{ damage = 12, type = "high" },
+	slf:checkAndAttack(
+        { left = 15, width = 30, height = 12, damage = 12, type = "high" },
 		cont
 	)
 end
 
 local grabLast_attack = function(slf, cont)
-	slf:checkAndAttackGrabbed(
-		{ left = 20, damage = 18, type = "grabKO" },
+	slf:checkAndAttack(
+        { left = 15, width = 30, height = 12, damage = 18, type = "grabKO" },
 		cont
 	)
 end

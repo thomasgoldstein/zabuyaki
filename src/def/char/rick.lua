@@ -14,20 +14,20 @@ local step_sfx = function(slf, cont)
 end
 local grabHit_attack = function(slf, cont)
 	--default values: 10,0,20,12, "low", slf.velx
-	slf:checkAndAttackGrabbed(
-		{ damage = 9, type = "low" },
+	slf:checkAndAttack(
+		{ left = 28, width = 27, height = 12, damage = 9, type = "low" },
 		cont
 	)
 end
 local grabLast_attack = function(slf, cont)
-	slf:checkAndAttackGrabbed(
-		{ left = 20, damage = 11, type = "grabKO" },
+	slf:checkAndAttack(
+		{ left = 20, width = 27, height = 12, damage = 11, type = "grabKO" },
 		cont
 	)
 end
 local grabEnd_attack = function(slf, cont)
-	slf:checkAndAttackGrabbed(
-		{ left = 20, damage = 15, type = "grabKO" },
+	slf:checkAndAttack(
+		{ left = 20, width = 27, height = 12, damage = 15, type = "grabKO" },
 		cont
 	)
 end
