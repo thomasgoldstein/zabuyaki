@@ -139,7 +139,12 @@ return {
 			delay = 0.167
 		},
 		standHold = {
-			{ q = q(2,979,45,63), ox = 19, oy = 62 }, --grab
+			{ q = q(2,1310,50,62), ox = 22, oy = 61, delay = 0.267 }, --stand hold 1
+			{ q = q(54,1311,50,61), ox = 22, oy = 60 }, --stand hold 2
+			{ q = q(106,1311,49,61), ox = 22, oy = 60, delay = 0.2 }, --stand hold 3
+			{ q = q(54,1311,50,61), ox = 22, oy = 60 }, --stand hold 2
+            loop = true,
+			delay = 0.167
 		},
 		walk = {
 			{ q = q(2,68,35,64), ox = 17, oy = 63 }, --walk 1
