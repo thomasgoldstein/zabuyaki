@@ -66,10 +66,10 @@ return {
             delay = 0.15
         },
         standHold = {
-            { q = q(2,593,66,66), ox = 27, oy = 65 }, --standHold 1
-            { q = q(70,593,66,66), ox = 27, oy = 65 }, --standHold 2
-            { q = q(138,594,66,65), ox = 27, oy = 64 }, --standHold 3
-            { q = q(70,593,66,66), ox = 27, oy = 65 }, --standHold 2
+            { q = q(2,593,66,66), ox = 27, oy = 65 }, --stand hold 1
+            { q = q(70,593,66,66), ox = 27, oy = 65 }, --stand hold 2
+            { q = q(138,594,66,65), ox = 27, oy = 64 }, --stand hold 3
+            { q = q(70,593,66,66), ox = 27, oy = 65 }, --stand hold 2
             loop = true,
             delay = 0.15
         },
@@ -86,10 +86,10 @@ return {
             delay = 0.15
         },
         walkHold = {
-            { q = q(2,661,66,66), ox = 27, oy = 65 }, --walkHold 1
-            { q = q(70,661,66,66), ox = 27, oy = 65 }, --walkHold 2
-            { q = q(138,662,66,65), ox = 27, oy = 64 }, --walkHold 3
-            { q = q(70,661,66,66), ox = 27, oy = 65 }, --walkHold 2
+            { q = q(2,661,66,66), ox = 27, oy = 65 }, --walk hold 1
+            { q = q(70,661,66,66), ox = 27, oy = 65 }, --walk hold 2
+            { q = q(138,662,66,65), ox = 27, oy = 64 }, --walk hold 3
+            { q = q(70,661,66,66), ox = 27, oy = 65 }, --walk hold 2
             loop = true,
             delay = 0.15
         },
