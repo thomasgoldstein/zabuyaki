@@ -8,6 +8,7 @@ function Player:initialize(name, sprite, input, x, y, f)
     self.lives = GLOBAL_SETTING.MAX_LIVES
     Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "player"
+    self.friendly_damage = 1 --1 = full damage on other players
 end
 
 function Player:isAlive()
