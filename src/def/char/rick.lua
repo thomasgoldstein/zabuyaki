@@ -161,12 +161,12 @@ return {
 			{ q = q(76,69,35,63), ox = 17, oy = 62, delay = 0.25 }, --walk 3
 		},
 		run = {
-			{ q = q(2,136,44,60), ox = 14, oy = 59 }, --run 1
-			{ q = q(48,134,49,62), ox = 18, oy = 61 }, --run 2
-			{ q = q(99,134,48,62), ox = 17, oy = 61, func = step_sfx }, --run 3
-			{ q = q(2,200,42,60), ox = 12, oy = 59 }, --run 4
-			{ q = q(46,198,49,61), ox = 18, oy = 61 }, --run 5
-			{ q = q(97,198,48,62), ox = 17, oy = 61, func = step_sfx }, --run 6
+			{ q = q(2,136,43,60), ox = 14, oy = 59 }, --run 1
+			{ q = q(47,134,48,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(97,134,47,62), ox = 17, oy = 61, func = step_sfx }, --run 3
+			{ q = q(2,200,41,60), ox = 12, oy = 59 }, --run 4
+			{ q = q(45,198,48,61), ox = 18, oy = 61 }, --run 5
+			{ q = q(95,198,47,62), ox = 17, oy = 61, func = step_sfx }, --run 6
             loop = true,
             delay = 0.1
 		},
@@ -174,7 +174,7 @@ return {
 			{ q = q(46,262,44,66), ox = 22, oy = 65, delay = 0.15 }, --jump up
 			{ q = q(92,262,44,64), ox = 22, oy = 65 }, --jump up/top
 			{ q = q(138,262,45,61), ox = 22, oy = 66, delay = 0.2 }, --jump top
-			{ q = q(147,195,44,65), ox = 22, oy = 66 }, --jump down/top
+			{ q = q(146,195,44,65), ox = 22, oy = 66 }, --jump down/top
 			{ q = q(178,395,44,68), ox = 22, oy = 67, delay = 5 }, --jump down
 			delay = 0.03
 		},
