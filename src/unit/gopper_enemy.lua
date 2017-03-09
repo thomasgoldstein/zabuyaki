@@ -15,6 +15,8 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     Enemy.initialize(self, name, sprite, input, x, y, f)
     self:pickAttackTarget()
     self.type = "enemy"
+    self.subtype = "gopper"
+    self.friendly_damage = 2 --divide friendly damage
     self.face = -1
     self.sfx.dead = sfx.gopper_death
     self.sfx.dash = sfx.gopper_attack
