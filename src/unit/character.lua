@@ -156,12 +156,13 @@ function Character:isImmune()   --Immune to the attack?
     return false
 end
 
-function Character:isFriendlyAttack()   --Players attack players, enemy attack enemy
+function Character:onFriendlyAttack()   --Players attack players, enemy attack enemy
     local h = self.hurt
     if self.type == h.source.type then
-        return true
+        h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
+    else
+        h.damage = h.damage or 0
     end
-    return false
 end
 
 function Character:onHurt()
@@ -175,11 +176,7 @@ function Character:onHurt()
         self.hurt = nil
         return
     end
-    if self:isFriendlyAttack() then
-        h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
-    else
-        h.damage = h.damage or 0
-    end
+    self:onFriendlyAttack()
     self:onHurtDamage()
     self:afterOnHurt()
     self.hurt = nil --free hurt data
