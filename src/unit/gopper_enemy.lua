@@ -106,6 +106,21 @@ function Gopper:updateAI(dt)
     end
 end
 
+function Gopper:onFriendlyAttack()   --Players attack players, enemy attack enemy
+    local h = self.hurt
+    if h.source.subtype == self.subtype then
+        --full damage from other goppers/nikos
+        h.damage = h.damage or 0
+        return
+    end
+    if self.type == h.source.type then
+        --reduce damage from other enemy
+        h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
+    else
+        h.damage = h.damage or 0
+    end
+end
+
 function Gopper:combo_start()
     self.isHittable = true
     self:remove_tween_move()
