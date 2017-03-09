@@ -39,6 +39,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.velocity_throw_x = 110 --attack speed that causes my thrown body to the victims
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+    self.friendly_damage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
     --Inner char vars
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
@@ -155,6 +156,14 @@ function Character:isImmune()   --Immune to the attack?
     return false
 end
 
+function Character:isFriendlyAttack()   --Players attack players, enemy attack enemy
+    local h = self.hurt
+    if self.type == h.source.type then
+        return true
+    end
+    return false
+end
+
 function Character:onHurt()
     -- hurt = {source, damage, velx,vely,x,y,z}
     local h = self.hurt
@@ -165,6 +174,11 @@ function Character:onHurt()
     if self:isImmune() then
         self.hurt = nil
         return
+    end
+    if self:isFriendlyAttack() then
+        h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
+    else
+        h.damage = h.damage or 0
     end
     self:onHurtDamage()
     self:afterOnHurt()
@@ -180,7 +194,6 @@ function Character:onHurtDamage()
         h.source.victims[self] = true
     end
     self:release_grabbed()
-    h.damage = h.damage or 100  --TODO debug if u forgot
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
     if h.type ~= "shockWave" then
         -- show enemy bar for other attacks
