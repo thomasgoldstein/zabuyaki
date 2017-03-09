@@ -156,9 +156,13 @@ function Character:isImmune()   --Immune to the attack?
     return false
 end
 
-function Character:onFriendlyAttack()   --Players attack players, enemy attack enemy
+function Character:onFriendlyAttack()
     local h = self.hurt
+    if not h then
+        return
+    end
     if self.type == h.source.type and not h.isThrown then
+        --friendly attack is lower by default
         h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
     else
         h.damage = h.damage or 0

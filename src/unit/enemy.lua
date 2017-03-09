@@ -59,6 +59,18 @@ function Enemy:updateAI(dt)
     Character.updateAI(self, dt)
 end
 
+function Enemy:onFriendlyAttack()
+    local h = self.hurt
+    if not h then
+        return
+    end
+    if self.type == h.source.type and not h.isThrown then
+        self.hurt = nil   --enemy doesn't attack enemy
+    else
+        h.damage = h.damage or 0
+    end
+end
+
 function Enemy:decreaseHp(damage)
     self.hp = self.hp - damage
     if self.hp <= 0 then

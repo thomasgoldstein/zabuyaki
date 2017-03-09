@@ -106,18 +106,18 @@ function Gopper:updateAI(dt)
     end
 end
 
-function Gopper:onFriendlyAttack()   --Players attack players, enemy attack enemy
+function Gopper:onFriendlyAttack()
     local h = self.hurt
-    if h.source.subtype == self.subtype then
-        --full damage from other goppers/nikos
-        h.damage = h.damage or 0
+    if not h then
         return
     end
-    if self.type == h.source.type and not h.isThrown then
-        --reduce damage from other enemy
+    if h.isThrown or h.source.type == "player" then
+        h.damage = h.damage or 0
+    elseif h.source.subtype == self.subtype then
+        --Gopper can attack Gopper and Niko, too
         h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
     else
-        h.damage = h.damage or 0
+        self.hurt = nil
     end
 end
 
