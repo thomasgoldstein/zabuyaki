@@ -113,7 +113,7 @@ function Gopper:onFriendlyAttack()   --Players attack players, enemy attack enem
         h.damage = h.damage or 0
         return
     end
-    if self.type == h.source.type then
+    if self.type == h.source.type and not h.isThrown then
         --reduce damage from other enemy
         h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
     else

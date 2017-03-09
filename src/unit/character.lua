@@ -158,7 +158,7 @@ end
 
 function Character:onFriendlyAttack()   --Players attack players, enemy attack enemy
     local h = self.hurt
-    if self.type == h.source.type then
+    if self.type == h.source.type and not h.isThrown then
         h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
     else
         h.damage = h.damage or 0
