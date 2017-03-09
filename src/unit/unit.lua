@@ -320,7 +320,7 @@ end
 
 -- stop unit from moving by tweening
 function Unit:remove_tween_move()
-	dp(self.name.." removed tween move")
+	--dp(self.name.." removed tween move")
 	self.move = nil
 end
 
