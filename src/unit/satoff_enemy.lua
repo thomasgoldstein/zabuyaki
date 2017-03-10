@@ -266,7 +266,6 @@ function Satoff:run_start()
         self.face = -1
         self.horizontal = self.face
     end
-    self:checkStuckButtons()
 end
 function Satoff:run_update(dt)
     local complete
