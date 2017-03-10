@@ -422,7 +422,6 @@ function Character:stand_start()
 --            self.delay_animation_cool_down = 0
         end
 --    end
-    self:checkStuckButtons()
     self.victims = {}
     self.n_grabhit = 0
 end
@@ -509,7 +508,6 @@ function Character:walk_start()
     else
         self:setSprite("walk")
     end
-    self:checkStuckButtons()
     self.n_combo = 1	--if u move reset combo chain
 end
 function Character:walk_update(dt)
@@ -1281,7 +1279,6 @@ end
 function Character:grab_start()
     self.isHittable = true
     self:setSprite("grab")
-    self:checkStuckButtons()
     self.grab_release = 0
     self.victims = {}
 end
@@ -1609,7 +1606,6 @@ local grabSwap_frames = { 1, 2, 2, 1 }
 function Character:grabSwap_start()
     self.isHittable = false
     self:setSprite("grabSwap")
-    self:checkStuckButtons()
     local g = self.hold
     g.cool_down = g.cool_down + 0.2
     g.can_grabSwap = false

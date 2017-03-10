@@ -23,6 +23,24 @@ function Player:isAlive()
     return self.hp + self.lives > 0
 end
 
+function Player:setState(state, condition)
+    if state then
+        self.time_state = love.timer.getTime()
+        self.prev_state = self.last_state
+        self.last_state = self.state
+        self:exit()
+        self:checkStuckButtons()
+        self.state = state.name
+        self.draw = state.draw
+        self.update = state.update
+        self.start = state.start
+        self.exit = state.exit
+        self.condition = condition
+        self:start()
+        self:updateSprite(0)
+    end
+end
+
 function Player:drawShadow(l,t,w,h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-45, self.y-10, 90, 20) then
         if self.cool_down_death < 2 then
@@ -292,7 +310,6 @@ function Player:useCredit_start()
         self:setState(self.respawn)
         return
     end
-    self:checkStuckButtons()
     self.cool_down = 10
     -- Player select
     self.player_select_mode = 0
