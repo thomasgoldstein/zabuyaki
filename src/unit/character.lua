@@ -668,8 +668,8 @@ function Character:jump_start()
     sfx.play("voice"..self.id, self.sfx.jump)
 end
 function Character:jump_update(dt)
-    if self.b.attack:isDown() and self.can_attack then
-        if (self.b.horizontal:getValue() == -self.face) then
+    if self.b.attack:isDown() then
+        if self.b.horizontal:getValue() == -self.face then
             self:setState(self.jumpAttackLight)
             return
         elseif self.velx == 0 then
@@ -697,9 +697,6 @@ function Character:jump_update(dt)
         return
     end
     self:checkCollisionAndMove(dt)
-    if not self.b.attack:isDown() then
-        self.can_attack = true
-    end
 end
 Character.jump = {name = "jump", start = Character.jump_start, exit = nop, update = Character.jump_update, draw = Character.default_draw}
 
