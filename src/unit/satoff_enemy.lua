@@ -210,8 +210,6 @@ Satoff.stand = { name = "stand", start = Satoff.stand_start, exit = nop, update 
 function Satoff:walk_start()
     self.isHittable = true
     self:setSprite("walk")
-    self.can_jump = false
-    self.can_attack = false
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     --get to player(to fight)
     if self.x < self.target.x then
@@ -268,9 +266,7 @@ function Satoff:run_start()
         self.face = -1
         self.horizontal = self.face
     end
-
-
-    self.can_attack = false
+    self:checkStuckButtons()
 end
 function Satoff:run_update(dt)
     local complete

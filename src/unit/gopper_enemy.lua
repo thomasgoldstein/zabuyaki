@@ -214,8 +214,7 @@ Gopper.stand = { name = "stand", start = Gopper.stand_start, exit = nop, update 
 function Gopper:walk_start()
     self.isHittable = true
     self:setSprite("walk")
-    self.can_jump = false
-    self.can_attack = false
+    self:checkStuckButtons()
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if love.math.random() < 0.25 then
         --random move arond the player (far from)
@@ -297,9 +296,6 @@ function Gopper:run_start()
         self.face = -1
         self.horizontal = self.face
     end
-
-
-    self.can_attack = false
 end
 function Gopper:run_update(dt)
     local complete
