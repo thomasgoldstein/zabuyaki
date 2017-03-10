@@ -292,7 +292,7 @@ function Player:useCredit_start()
         self:setState(self.respawn)
         return
     end
-    self.can_attack = false
+    self:checkStuckButtons()
     self.cool_down = 10
     -- Player select
     self.player_select_mode = 0
