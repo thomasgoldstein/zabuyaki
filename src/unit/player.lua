@@ -148,15 +148,15 @@ function Player:updateAI(dt)
     if self.isDisabled then
         return
     end
-    if self.b.attack:isDown() then --holdAttack
-        self.charge = self.charge + dt
-    else
-        if self.charge >= self.charged_at then
-            if states_for_hold_attack[self.state] and self.holdAttack then
+    if self.holdAttack then
+        if self.b.attack:isDown() and states_for_hold_attack[self.state] then
+            self.charge = self.charge + dt
+        else
+            if self.charge >= self.charged_at then
                 self:setState(self.holdAttack)
             end
+            self.charge = 0
         end
-        self.charge = 0
     end
     Character.updateAI(self, dt)
 end
