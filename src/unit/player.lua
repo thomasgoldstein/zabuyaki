@@ -171,7 +171,9 @@ function Player:updateAI(dt)
             self.charge = self.charge + dt
         else
             if self.charge >= self.charged_at then
-                self:setState(self.holdAttack)
+                if states_for_hold_attack[self.state] then
+                    self:setState(self.holdAttack)
+                end
             end
             self.charge = 0
         end
