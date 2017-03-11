@@ -268,6 +268,7 @@ return {
 			delay = 0.03
 		},
 		jumpAttackForwardEnd = {
+			{ q = q(43,722,37,64), ox = 13, oy = 66, delay = 0.03 }, --jaf2
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jaf1
 			delay = 5
 		},
