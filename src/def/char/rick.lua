@@ -158,7 +158,14 @@ return {
             delay = 0.167
 		},
 		walkHold = {
-			{ q = q(76,69,35,63), ox = 17, oy = 62, delay = 0.25 }, --walk 3
+			{ q = q(2,1374,52,62), ox = 22, oy = 62 }, --walk hold 1
+			{ q = q(56,1375,51,62), ox = 22, oy = 61 }, --walk hold 2
+			{ q = q(109,1374,51,63), ox = 22, oy = 62 }, --walk hold 3
+			{ q = q(2,1439,52,63), ox = 22, oy = 62 }, --walk hold 4
+			{ q = q(56,1440,52,62), ox = 22, oy = 61 }, --walk hold 5
+			{ q = q(110,1439,52,63), ox = 22, oy = 62 }, --walk hold 6
+            loop = true,
+            delay = 0.2
 		},
 		run = {
 			{ q = q(2,136,43,60), ox = 14, oy = 59 }, --run 1
