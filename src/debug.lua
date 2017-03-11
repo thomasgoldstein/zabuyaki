@@ -106,6 +106,10 @@ function show_debug_controls()
                 if p.can_jump then
                     love.graphics.print("J", x, y)
                 end
+                x = x + 10
+                if p.charge >= p.charged_at then
+                    love.graphics.print("H", x, y)
+                end
             end
         end
     end
