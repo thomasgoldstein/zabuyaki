@@ -15,19 +15,19 @@ end
 local grabHit_attack = function(slf, cont)
 	--default values: 10,0,20,12, "low", slf.velx
 	slf:checkAndAttack(
-		{ left = 28, width = 27, height = 12, damage = 9, type = "low" },
+		{ left = 18, width = 26, height = 12, damage = 9, type = "low" },
 		cont
 	)
 end
 local grabLast_attack = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 20, width = 27, height = 12, damage = 11, type = "grabKO" },
+		{ left = 25, width = 26, height = 12, damage = 11, type = "grabKO" },
 		cont
 	)
 end
 local grabEnd_attack = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 20, width = 27, height = 12, damage = 15, type = "grabKO" },
+		{ left = 20, width = 26, height = 12, damage = 15, type = "grabKO" },
 		cont
 	)
 end

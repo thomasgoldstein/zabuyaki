@@ -24,14 +24,14 @@ end
 
 local grabHit_attack = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 15, width = 30, height = 12, damage = 12, type = "high" },
+        { left = 20, width = 26, height = 12, damage = 12, type = "high" },
 		cont
 	)
 end
 
 local grabLast_attack = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 15, width = 30, height = 12, damage = 18, type = "grabKO" },
+        { left = 20, width = 26, height = 12, damage = 18, type = "grabKO" },
 		cont
 	)
 end
