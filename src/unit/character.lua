@@ -500,7 +500,9 @@ Character.stand = {name = "stand", start = Character.stand_start, exit = nop, up
 
 function Character:walk_start()
     self.isHittable = true
-    if self.sprite.cur_anim == "standHold" then
+    if self.sprite.cur_anim == "standHold"
+        or ( self.sprite.cur_anim == "duck" and self.b.attack:isDown() )
+        then
         self:setSprite("walkHold")
     else
         self:setSprite("walk")
