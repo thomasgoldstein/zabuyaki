@@ -411,17 +411,14 @@ end
 
 function Character:stand_start()
     self.isHittable = true
---    if self.sprite.cur_anim == "walk" then
---        self.delay_animation_cool_down = 0.12
---    else
-        if self.sprite.cur_anim == "walkHold" then
-            self:setSprite("standHold")
---            self.delay_animation_cool_down = 0.12
-        else
+    if self.sprite.cur_anim == "walk" or self.sprite.cur_anim == "walkHold" then
+        self.delay_animation_cool_down = 0.12
+    else
+        if not self.sprite.cur_anim then
             self:setSprite("stand")
---            self.delay_animation_cool_down = 0
         end
---    end
+        self.delay_animation_cool_down = 0.06
+    end
     self.victims = {}
     self.n_grabhit = 0
 end
@@ -438,8 +435,8 @@ function Character:stand_update(dt)
         return
     end
 
-    --self.delay_animation_cool_down = self.delay_animation_cool_down - dt
-    --if self.delay_animation_cool_down <= 0 then
+    self.delay_animation_cool_down = self.delay_animation_cool_down - dt
+    if self.delay_animation_cool_down <= 0 then
         if self.b.attack:isDown() then
             if self.sprite.cur_anim ~= "standHold" then
                 self:setSpriteIfExists("standHold")
@@ -449,7 +446,7 @@ function Character:stand_update(dt)
                 self:setSprite("stand")
             end
         end
-    --end
+    end
 
     if self.cool_down_combo > 0 then
         self.cool_down_combo = self.cool_down_combo - dt
