@@ -161,44 +161,60 @@ function love.load(arg)
     Gamestate.switch(logoState)
 end
 
-function love.update(dt)
-	--update P1..P3 controls
-	--check for double taps, etc
-	for index,value in pairs(Control1) do
-		local b = Control1[index]
-		b:update(dt)
-		if index == "horizontal" or index == "vertical" then
-			--for derections
-			b.ikn:update(dt)
-			b.ikp:update(dt)
-		else
-			b.ik:update(dt)
-		end
-	end
-	for index,value in pairs(Control2) do
-		local b = Control2[index]
-		b:update(dt)
-		if index == "horizontal" or index == "vertical" then
-			--for derections
-			b.ikn:update(dt)
-			b.ikp:update(dt)
-		else
-			b.ik:update(dt)
-		end
-	end
-	for index,value in pairs(Control3) do
-		local b = Control3[index]
-		b:update(dt)
-		if index == "horizontal" or index == "vertical" then
-			--for derections
-			b.ikn:update(dt)
-			b.ikp:update(dt)
-		else
-			b.ik:update(dt)
-		end
-	end
+local function poll_controls(dt)
+    --update P1..P3 controls
+    --check for double taps, etc
+    for index,value in pairs(Control1) do
+        local b = Control1[index]
+        b:update(dt)
+        if index == "horizontal" or index == "vertical" then
+            --for directions
+            b.ikn:update(dt)
+            b.ikp:update(dt)
+        else
+            b.ik:update(dt)
+        end
+    end
+    for index,value in pairs(Control2) do
+        local b = Control2[index]
+        b:update(dt)
+        if index == "horizontal" or index == "vertical" then
+            --for directions
+            b.ikn:update(dt)
+            b.ikp:update(dt)
+        else
+            b.ik:update(dt)
+        end
+    end
+    for index,value in pairs(Control3) do
+        local b = Control3[index]
+        b:update(dt)
+        if index == "horizontal" or index == "vertical" then
+            --for directions
+            b.ikn:update(dt)
+            b.ikp:update(dt)
+        else
+            b.ik:update(dt)
+        end
+    end
+end
 
-	--Toggle Full Screen Mode (using P1's control)
+slow_mo_counter = 0
+function love.update(dt)
+    if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0
+        and Gamestate.current() == arcadeState
+    then
+        slow_mo_counter = slow_mo_counter + 1
+        if slow_mo_counter >= GLOBAL_SETTING.SLOW_MO then
+            slow_mo_counter = 0
+            poll_controls(dt)
+        else
+            return
+        end
+    else
+        poll_controls(dt)
+    end
+    --Toggle Full Screen Mode (using P1's control)
 	if Control1.fullScreen:pressed() then
 		switchFullScreen()
 	end
