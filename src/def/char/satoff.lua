@@ -207,7 +207,8 @@ return {
         grabHit = {
             { q = q(2,525,60,66), ox = 27, oy = 65 }, --grab attack 1
             { q = q(133,530,59,61), ox = 25, oy = 60, func = grabHit_attack, delay = 0.18 }, --grab attack 3
-            delay = 0.015
+            { q = q(68,280,51,65), ox = 21, oy = 64, delay = 0.07 }, --c1.2
+            delay = 0.1
         },
         grabHitLast = {
             { q = q(2,525,60,66), ox = 27, oy = 65 }, --grab attack 1
