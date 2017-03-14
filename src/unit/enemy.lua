@@ -24,18 +24,13 @@ function Enemy:checkCollisionAndMove(dt)
     local stepx = self.velx * dt * self.horizontal
     local stepy = self.vely * dt * self.vertical
     local actualX, actualY, cols, len, x, y
-    if self.state == "duck"
-        or self.state == "combo"
-        or self.state == "dash"
-        or self.isGrabbed
-        or self.z > 0
-    then
-        --    if self.move then
-        x = self.x
-        y = self.y
-    else
+    if self.state == "walk" or self.state == "run"
+    then --enemy uses tween movement
         x = self.tx
         y = self.ty
+    else
+        x = self.x
+        y = self.y
     end
     self.shape:moveTo(x + stepx, y + stepy)
     for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
