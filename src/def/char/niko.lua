@@ -106,10 +106,9 @@ return {
             delay = 0.01
         },
         combo3 = {
-            { q = q(2,68,46,63), ox = 18, oy = 62 }, --punch1
             { q = q(50,68,62,63), ox = 18, oy = 62, func = combo_punch, delay = 0.2 }, --punch2
-            { q = q(2,68,46,63), ox = 18, oy = 62, delay = 0.01 }, --punch1
-            delay = 0.005
+            { q = q(2,68,46,63), ox = 18, oy = 62 }, --punch1
+            delay = 0.01
         },
         fall = {
             { q = q(2,199,51,62), ox = 25, oy = 61 }, --falling

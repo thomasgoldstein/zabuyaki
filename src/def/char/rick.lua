@@ -230,10 +230,9 @@ return {
 			delay = 0.117
 		},
 		combo1 = {
-			{ q = q(2,519,48,63), ox = 22, oy = 62 }, --c1.1
 			{ q = q(52,519,63,63), ox = 22, oy = 62, func = combo_attack1, delay = 0.06 }, --c1.2
-			{ q = q(2,519,48,63), ox = 22, oy = 62, delay = 0.01 }, --c1.1
-			delay = 0.005
+			{ q = q(2,519,48,63), ox = 22, oy = 62 }, --c1.1
+			delay = 0.01
 		},
 		combo2 = {
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --c2.1
@@ -341,8 +340,8 @@ return {
 		grabHit = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
 			{ q = q(93,980,49,62), ox = 18, oy = 61, func = grabHit_attack, delay = 0.18 }, --grab attack 1.2
-			{ q = q(49,980,42,62), ox = 19, oy = 61, delay = 0.01 }, --grab attack 1.1
-			delay = 0.005
+			{ q = q(49,980,42,62), ox = 19, oy = 61, delay = 0.02 }, --grab attack 1.1
+			delay = 0.01
 		},
 		grabHitLast = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1

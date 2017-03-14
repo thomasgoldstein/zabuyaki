@@ -120,16 +120,14 @@ return {
             delay = 0.3
         },
         combo1 = {
-            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch1
             { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_punch, delay = 0.2 }, --punch2
-            { q = q(2,66,46,61), ox = 18, oy = 60, delay = 0.01 }, --punch1
-            delay = 0.005
+            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch1
+            delay = 0.01
         },
         combo2 = {
-            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch1
             { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_punch, delay = 0.2 }, --punch2
-            { q = q(2,66,46,61), ox = 18, oy = 60, delay = 0.01 }, --punch1
-            delay = 0.005
+            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch1
+            delay = 0.01
         },
         combo3 = {
             { q = q(2,426,40,61), ox = 16, oy = 60 }, --kick1
