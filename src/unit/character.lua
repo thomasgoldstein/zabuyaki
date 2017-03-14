@@ -1341,7 +1341,7 @@ function Character:grab_update(dt)
         return
     end
     if self.b.attack:isDown() and self.can_attack then
-        if self.sprite.isFinished then
+        --if self.sprite.isFinished then
             if self.b.horizontal:getValue() == self.face then
                 self:setState(self.shoveForward)
             elseif self.b.horizontal:getValue() == -self.face then
@@ -1355,7 +1355,7 @@ function Character:grab_update(dt)
                 self:setState(self.grabHit)
             end
             return
-        end
+        --end
     end
 
     if not self.b.jump:isDown() then
