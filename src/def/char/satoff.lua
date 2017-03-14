@@ -203,6 +203,7 @@ return {
         },
         grab = {
             { q = q(68,280,51,65), ox = 21, oy = 64 }, --c1.2
+            delay = 0.20
         },
         grabHit = {
             { q = q(2,525,60,66), ox = 27, oy = 65 }, --grab attack 1
