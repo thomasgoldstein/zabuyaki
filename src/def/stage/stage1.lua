@@ -189,21 +189,21 @@ function Stage1:initialize(players)
     -- Loot
     local func_dropApple = function(slf)
         local loot = Loot:new("Apple", gfx.loot.apple,
-            slf.x, slf.y + 1,
+            math.floor(slf.x), math.floor(slf.y) + 1,
             { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickup_apple", func = testDeathFunc}
         )
         stage.objects:add(loot)
     end
     local func_dropChicken = function(slf)
         local loot = Loot:new("Chicken", gfx.loot.chicken,
-            slf.x, slf.y + 1,
+            math.floor(slf.x), math.floor(slf.y) + 1,
             { hp = 50, score = 0, note = "+50 HP", pickupSfx = "pickup_chicken", func = testDeathFunc}
         )
         stage.objects:add(loot)
     end
     local func_dropBeef = function(slf)
         local loot = Loot:new("Beef", gfx.loot.beef,
-            slf.x, slf.y + 1,
+            math.floor(slf.x), math.floor(slf.y) + 1,
             { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickup_beef", func = testDeathFunc}
         )
         stage.objects:add(loot)
