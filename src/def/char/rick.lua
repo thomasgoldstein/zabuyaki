@@ -350,11 +350,11 @@ return {
 			delay = 0.02
 		},
 		shoveDown = {
-			{ q = q(2,1044,56,63), ox = 30, oy = 62, delay = 0.25 }, --grab end 1.1
+			{ q = q(2,1044,56,63), ox = 30, oy = 62 }, --grab end 1.1
 			{ q = q(2,979,45,63), ox = 19, oy = 62, delay = 0.01 }, --grab
-			{ q = q(60,1047,51,60), ox = 17, oy = 59, func = grabEnd_attack, delay = 0.25 }, --grab end 1.2
-			{ q = q(113,1044,45,63), ox = 18, oy = 62 }, --grab end 1.3
-			delay = 0.1
+			{ q = q(60,1047,51,60), ox = 17, oy = 59, func = grabEnd_attack }, --grab end 1.2
+			{ q = q(113,1044,45,63), ox = 18, oy = 62, delay = 0.1 }, --grab end 1.3
+			delay = 0.25
 		},
 		shoveUp = {
 			{ q = q(2,1181,49,59), ox = 18, oy = 58, delay = 0.167 }, --dash special 1
