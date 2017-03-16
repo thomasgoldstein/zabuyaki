@@ -1485,6 +1485,7 @@ function Character:shoveUp_start()
     self.isHittable = false
     local g = self.hold
     local t = g.target
+    t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("shoveUp")
     dp(self.name.." shoveUp someone.")
 end
@@ -1525,6 +1526,7 @@ function Character:shoveForward_start()
     self.isHittable = false
     local g = self.hold
     local t = g.target
+    t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("shoveForward")
     dp(self.name.." shoveForward someone.")
 end
@@ -1563,6 +1565,7 @@ function Character:shoveBack_start()
     self.isHittable = false
     local g = self.hold
     local t = g.target
+    t.isHittable = false    --protect grabbed enemy from hits
     self.face = -self.face
     self:setSprite("shoveBack")
     dp(self.name.." shoveBack someone.")
