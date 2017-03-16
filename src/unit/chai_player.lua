@@ -127,4 +127,97 @@ function Chai:holdAttack_update(dt)
 end
 Chai.holdAttack = {name = "holdAttack", start = Chai.holdAttack_start, exit = nop, update = Chai.holdAttack_update, draw = Character.default_draw}
 
+local shoveForward_obj = {
+    { ox = 20, oy = 10, oz = 3, face = 1 },
+    { ox = 10, oy = 10, oz = 10, face = -1 },
+    { ox = -10, oy = 10, oz = 15, face = -1 },
+    { ox = 0, oy = 10, oz = 25, face = 1 }
+}
+
+function Chai:moveStates_init()
+    local g = self.hold
+    local t = g.target
+    if not g then
+        dpo("ERROR: No target for init")
+    end
+    g.init = {
+        x = self.x, y = self.y, z = self.z, face = self.face,
+        tx = t.x, ty = t.y, tz = t.z, tface = t.face,
+        lastFrame = -1
+    }
+end
+
+function Chai:moveStates_apply(moves, frame)
+    local g = self.hold
+    local t = g.target
+    if not g then
+        dpo("ERROR: No target for apply")
+    end
+    local i = g.init
+    frame = frame or self.sprite.cur_frame
+    if not moves or not moves[frame] then
+        return
+    end
+    if i.lastFrame ~= frame then
+        local m = moves[frame]
+        if m.face then
+            self.face = m.face
+        end
+        if m.tFace then
+            t.face = self.face * m.tFace
+        end
+        if m.ox then
+            t.x = self.x + m.ox * (self.face * ( m.face or 1))
+        end
+        if m.oy then
+            t.y = self.y - m.oy
+        end
+        if m.oz then
+            t.z = self.z + m.oz
+        end
+        i.lastFrame = frame
+    end
+end
+
+function Chai:shoveForward_start()
+    self.isHittable = false
+    local g = self.hold
+    local t = g.target
+    self:moveStates_init()
+    t.isHittable = false    --protect grabbed enemy from hits
+    self:setSprite("shoveForward")
+    dp(self.name.." shoveForward someone.")
+end
+
+function Chai:shoveForward_update(dt)
+    self:moveStates_apply(shoveForward_obj)
+    if self.can_shove_now then --set in the animation
+        self.can_shove_now = false
+        local g = self.hold
+        local t = g.target
+        t.isGrabbed = false
+        t.isThrown = true
+        t.thrower_id = self
+        t.z = t.z + 1
+        t.velx = self.velocity_shove_x * self.velocity_shove_horizontal
+        t.vely = 0
+        t.velz = self.velocity_shove_z * self.velocity_shove_horizontal
+        t.victims[self] = true
+        t.horizontal = self.face
+        t.face = self.face
+        t:setState(self.fall)
+        sfx.play("sfx", "whoosh_heavy")
+        sfx.play("voice"..self.id, self.sfx.throw)
+        return
+    end
+    if self.sprite.isFinished then
+        self.cool_down = 0.2
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Chai.shoveForward = {name = "shoveForward", start = Chai.shoveForward_start, exit = nop, update = Chai.shoveForward_update, draw = Character.default_draw}
+
 return Chai
