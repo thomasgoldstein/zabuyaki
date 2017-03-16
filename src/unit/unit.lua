@@ -367,4 +367,49 @@ function Unit:calcDamageFrame()
 	return n
 end
 
+function Unit:moveStates_init()
+	local g = self.hold
+	local t = g.target
+	if not g then
+		error("ERROR: No target for init")
+	end
+	g.init = {
+		x = self.x, y = self.y, z = self.z, face = self.face,
+		tx = t.x, ty = t.y, tz = t.z, tFace = t.face,
+		lastFrame = -1
+	}
+end
+
+function Unit:moveStates_apply(moves, frame)
+	local g = self.hold
+	local t = g.target
+	if not g then
+		error("ERROR: No target for apply")
+	end
+	local i = g.init
+	frame = frame or self.sprite.cur_frame
+	if not moves or not moves[frame] then
+		return
+	end
+	if i.lastFrame ~= frame then
+		local m = moves[frame]
+		if m.face then
+			self.face = i.face * m.face
+		end
+		if m.tFace then
+			t.face = i.tFace * m.tFace
+		end
+		if m.ox then
+			t.x = self.x + m.ox * self.face
+		end
+		if m.oy then --rarely used
+			t.y = self.y + m.oy
+		end
+		if m.oz then
+			t.z = self.z + m.oz
+		end
+		i.lastFrame = frame
+	end
+end
+
 return Unit
