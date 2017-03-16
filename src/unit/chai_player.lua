@@ -127,58 +127,18 @@ function Chai:holdAttack_update(dt)
 end
 Chai.holdAttack = {name = "holdAttack", start = Chai.holdAttack_start, exit = nop, update = Chai.holdAttack_update, draw = Character.default_draw}
 
-local shoveForward_obj = {
-    { ox = 20, oy = 10, oz = 3, face = 1 },
-    { ox = 10, oy = 10, oz = 10, face = -1 },
-    { ox = -10, oy = 10, oz = 15, face = -1 },
-    { ox = 0, oy = 10, oz = 25, face = 1 }
+local shoveForward_chai = {
+    -- face - u can flip Chai horizontally with option face = -1
+    -- flip him to the initial horizontal face direction with option face = 1
+    -- tFace flips horizontally the grabbed enemy
+    -- if you flip Chai, then ox value multiplies with -1 (horizontal mirroring)
+    -- ox, oy(do not use it), oz - offsets of the grabbed enemy from the players x,y
+    { ox = -20, oz = 5 },
+    { ox = -10, oz = 10 },
+    { ox = -5, oz = 15 },
+    { ox = 0, oz = 25, face = 1, tFace = -1 }, --throw function
+    { } --last frame
 }
-
-function Chai:moveStates_init()
-    local g = self.hold
-    local t = g.target
-    if not g then
-        dpo("ERROR: No target for init")
-    end
-    g.init = {
-        x = self.x, y = self.y, z = self.z, face = self.face,
-        tx = t.x, ty = t.y, tz = t.z, tface = t.face,
-        lastFrame = -1
-    }
-end
-
-function Chai:moveStates_apply(moves, frame)
-    local g = self.hold
-    local t = g.target
-    if not g then
-        dpo("ERROR: No target for apply")
-    end
-    local i = g.init
-    frame = frame or self.sprite.cur_frame
-    if not moves or not moves[frame] then
-        return
-    end
-    if i.lastFrame ~= frame then
-        local m = moves[frame]
-        if m.face then
-            self.face = m.face
-        end
-        if m.tFace then
-            t.face = self.face * m.tFace
-        end
-        if m.ox then
-            t.x = self.x + m.ox * (self.face * ( m.face or 1))
-        end
-        if m.oy then
-            t.y = self.y - m.oy
-        end
-        if m.oz then
-            t.z = self.z + m.oz
-        end
-        i.lastFrame = frame
-    end
-end
-
 function Chai:shoveForward_start()
     self.isHittable = false
     local g = self.hold
@@ -188,9 +148,8 @@ function Chai:shoveForward_start()
     self:setSprite("shoveForward")
     dp(self.name.." shoveForward someone.")
 end
-
 function Chai:shoveForward_update(dt)
-    self:moveStates_apply(shoveForward_obj)
+    self:moveStates_apply(shoveForward_chai)
     if self.can_shove_now then --set in the animation
         self.can_shove_now = false
         local g = self.hold
@@ -204,7 +163,7 @@ function Chai:shoveForward_update(dt)
         t.velz = self.velocity_shove_z * self.velocity_shove_horizontal
         t.victims[self] = true
         t.horizontal = self.face
-        t.face = self.face
+        --t.face = self.face -- we have the grabbed enemy's facing from shoveForward_chai table
         t:setState(self.fall)
         sfx.play("sfx", "whoosh_heavy")
         sfx.play("voice"..self.id, self.sfx.throw)
