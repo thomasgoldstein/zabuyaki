@@ -337,6 +337,7 @@ function Character:checkAndAttack(f, isFuncCont)
         for other, separating_vector in pairs(stage.world:collisions(a)) do
             local o = other.obj
             if not o.isDisabled
+                    and not o.isGrabbed
                     and o ~= self
             then
                 o.hurt = {source = self, state = self.state, damage = damage,
