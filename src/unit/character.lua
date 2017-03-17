@@ -411,6 +411,7 @@ end
 
 function Character:stand_start()
     self.isHittable = true
+    self.z = 0 --TODO add fall if z > 0
     if self.sprite.cur_anim == "walk" or self.sprite.cur_anim == "walkHold" then
         self.delay_animation_cool_down = 0.12
     else
