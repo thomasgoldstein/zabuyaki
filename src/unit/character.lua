@@ -410,6 +410,19 @@ function Character:onGetLoot(loot)
     loot:get(self)
 end
 
+function Character:slide_start()
+    self.isHittable = false
+end
+function Character:slide_update(dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcFriction(dt)
+    self:checkCollisionAndMove(dt)
+end
+Character.slide = {name = "slide", start = Character.slide_start, exit = nop, update = Character.slide_update, draw = Character.default_draw}
+
 function Character:stand_start()
     self.isHittable = true
     self.z = 0 --TODO add fall if z > 0
@@ -570,6 +583,28 @@ function Character:walk_update(dt)
     if self.b.attack:isDown() then
         local grabbed = self:checkForGrab(6)
         if grabbed then
+            if grabbed.face == -self.face
+                and ( self.sprite.cur_anim == "walkHold" or self.sprite.cur_anim == "standHold" )
+                and ( grabbed.sprite.cur_anim == "walkHold" or grabbed.sprite.cur_anim == "standHold" )
+            then
+                --back off 2 simultaneous grabbers
+                if self.x < grabbed.x then
+                    self.horizontal = -1
+                else
+                    self.horizontal = 1
+                end
+                grabbed.horizontal = -self.horizontal
+                self:showHitMarks(1, 40)
+                self.velx = self.velocity_back_off --move from source
+                self.cool_down = 0.0
+                self:setSprite("hurtHigh")
+                self:setState(self.slide)
+                grabbed.velx = grabbed.velocity_back_off --move from source
+                grabbed.cool_down = 0.0
+                grabbed:setSprite("hurtHigh")
+                grabbed:setState(grabbed.slide)
+                return
+            end
             if self:doGrab(grabbed) then
                 local g = self.hold
                 self.victim_infoBar = g.target.infoBar:setAttacker(self)
