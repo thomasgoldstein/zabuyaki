@@ -583,9 +583,7 @@ function Character:walk_update(dt)
     if self.b.attack:isDown() then
         local grabbed = self:checkForGrab(6)
         if grabbed then
-            if grabbed.face == -self.face
-                and ( self.sprite.cur_anim == "walkHold" or self.sprite.cur_anim == "standHold" )
-                and ( grabbed.sprite.cur_anim == "walkHold" or grabbed.sprite.cur_anim == "standHold" )
+            if grabbed.face == -self.face and grabbed.sprite.cur_anim == "walkHold"
             then
                 --back off 2 simultaneous grabbers
                 if self.x < grabbed.x then
