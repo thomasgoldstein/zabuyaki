@@ -399,6 +399,15 @@ function Unit:moveStates_apply(moves, frame)
 		if m.tFace then
 			t.face = i.tFace * m.tFace
 		end
+		if m.x then
+            self.x = i.x + m.x * self.face
+		end
+		if m.y then --rarely used
+            self.y = i.y + m.y
+		end
+		if m.z then
+            self.z = i.z + m.z
+		end
 		if m.ox then
 			t.x = self.x + m.ox * self.face
 		end
