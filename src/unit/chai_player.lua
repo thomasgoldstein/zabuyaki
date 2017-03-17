@@ -133,11 +133,11 @@ local shoveForward_chai = {
     -- tFace flips horizontally the grabbed enemy
     -- if you flip Chai, then ox value multiplies with -1 (horizontal mirroring)
     -- ox, oy(do not use it), oz - offsets of the grabbed enemy from the players x,y
-    { ox = -20, oz = 5 },
-    { ox = -10, oz = 10 },
-    { ox = -5, oz = 15 },
-    { ox = 0, oz = 25, face = 1, tFace = -1 }, --throw function
-    { } --last frame
+    { ox = -20, oz = 5, z = 4 },
+    { ox = -10, oz = 10, oy = 1, z = 6 },
+    { ox = -5, oz = 15, z = 8 },
+    { ox = 0, oz = 25, oy = -1, z = 6, face = 1, tFace = -1 }, --throw function
+    { z = 2 } --last frame
 }
 function Chai:shoveForward_start()
     self.isHittable = false
