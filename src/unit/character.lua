@@ -1384,6 +1384,8 @@ function Character:grab_update(dt)
     end
     if self.b.attack:isDown() and self.can_attack then
         --if self.sprite.isFinished then
+            g.target:remove_tween_move()
+            self:remove_tween_move()
             if self.b.horizontal:getValue() == self.face then
                 self:setState(self.shoveForward)
             elseif self.b.horizontal:getValue() == -self.face then
@@ -1416,6 +1418,7 @@ function Character:release_grabbed()
     if g and g.target and g.target.isGrabbed then
         g.target.isGrabbed = false
         g.target.cool_down = 0.1
+        g.target:remove_tween_move()
         self:remove_tween_move()
         self.hold = {source = nil, target = nil, cool_down = 0 }	--release a grabbed person
         return true
