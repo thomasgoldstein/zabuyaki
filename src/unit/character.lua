@@ -1279,10 +1279,34 @@ function Character:grab_start()
     self:setSprite("grab")
     self.grab_release = 0
     self.victims = {}
+    local g = self.hold
+    local time_to_move = 0.1
+    local to_common_y = math.floor((self.y + g.target.y) / 2 )
+    if self.x < g.target.x then
+        self.move = tween.new(time_to_move, self, {
+            x = self.x - 4,
+            y = to_common_y + 0.5
+        }, 'outQuad')
+        g.target.move = tween.new(time_to_move, g.target, {
+            x = self.x + 20,
+            y = to_common_y - 0.5
+        }, 'outQuad')
+    else
+        self.move = tween.new(time_to_move, self, {
+            x = self.x + 4,
+            y = to_common_y + 0.5
+        }, 'outQuad')
+        g.target.move = tween.new(time_to_move, g.target, {
+            x = self.x - 20,
+            y = to_common_y - 0.5
+        }, 'outQuad')
+    end
 end
 function Character:grab_update(dt)
     local g = self.hold
-
+    if self.move then
+        self.move:update(dt)
+    end
     if ( self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() ) then
         self.grab_release = self.grab_release + dt
         if self.grab_release >= self.grab_release_after then
@@ -1314,25 +1338,6 @@ function Character:grab_update(dt)
         self:release_grabbed()
         self:setState(self.stand)
         return
-    end
-    --adjust both vertically
-    if self.y > g.target.y + 1 then
-        self.y = self.y - 0.5
-        self.y = self.y - 0.5
-        g.target.y = g.target.y + 0.5
-    elseif self.y < g.target.y then
-        self.y = self.y + 0.5
-        g.target.y = g.target.y - 0.5
-    end
-    --adjust both horizontally
-    if self.x < g.target.x and self.x > g.target.x - 20 then
-        --self.x = self.x - 1
-        self.x = self.x - self.velocity_run / 2 * dt
-        g.target.x = g.target.x + self.velocity_run * dt
-    elseif self.x >= g.target.x and self.x < g.target.x + 20 then
-        --self.x = self.x + 1
-        self.x = self.x + self.velocity_run / 2 * dt
-        g.target.x = g.target.x - g.target.velocity_run * dt
     end
     if self.b.attack:isDown() and self.can_jump and self.b.jump:isDown() then
         if self.b.horizontal:getValue() == self.horizontal then
@@ -1366,8 +1371,8 @@ function Character:grab_update(dt)
     if not self.b.attack:isDown() then
         self.can_attack = true
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    --self:calcFriction(dt)
+    --self:checkCollisionAndMove(dt)
 end
 Character.grab = {name = "grab", start = Character.grab_start, exit = nop, update = Character.grab_update, draw = Character.default_draw}
 
@@ -1376,6 +1381,7 @@ function Character:release_grabbed()
     if g and g.target and g.target.isGrabbed then
         g.target.isGrabbed = false
         g.target.cool_down = 0.1
+        self:remove_tween_move()
         self.hold = {source = nil, target = nil, cool_down = 0 }	--release a grabbed person
         return true
     end
@@ -1389,6 +1395,9 @@ function Character:grabbed_start()
 end
 function Character:grabbed_update(dt)
     local g = self.hold
+    if self.move then
+        self.move:update(dt)
+    end
     if self.isGrabbed and g.cool_down > 0 then
         g.cool_down = g.cool_down - dt
     else
@@ -1403,8 +1412,8 @@ function Character:grabbed_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    --self:calcFriction(dt)
+    --self:checkCollisionAndMove(dt)
 end
 Character.grabbed = {name = "grabbed", start = Character.grabbed_start, exit = nop, update = Character.grabbed_update, draw = Character.default_draw}
 
