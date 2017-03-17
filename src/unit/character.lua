@@ -568,7 +568,7 @@ function Character:walk_update(dt)
         end
     end
     if self.b.attack:isDown() then
-        local grabbed = self:checkForGrab(12)
+        local grabbed = self:checkForGrab(6)
         if grabbed then
             if self:doGrab(grabbed) then
                 local g = self.hold
