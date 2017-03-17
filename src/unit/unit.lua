@@ -374,8 +374,9 @@ function Unit:moveStates_init()
 		error("ERROR: No target for init")
 	end
 	g.init = {
-		x = self.x, y = self.y, z = self.z, face = self.face,
-		tx = t.x, ty = t.y, tz = t.z, tFace = t.face,
+		x = self.x, y = self.y, z = self.z,
+        face = self.face, tFace = t.face,
+		--tx = t.x, ty = t.y, tz = t.z,
 		lastFrame = -1
 	}
 end
