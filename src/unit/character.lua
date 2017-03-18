@@ -592,7 +592,7 @@ function Character:walk_update(dt)
                     self.horizontal = 1
                 end
                 grabbed.horizontal = -self.horizontal
-                self:showHitMarks(1, 40)
+                self:showHitMarks(22, 40) --big hitmark
                 self.velx = self.velocity_back_off --move from source
                 self.cool_down = 0.0
                 self:setSprite("hurtHigh")
