@@ -31,7 +31,7 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     --Character default sfx
     --    self.sfx.jump = "rick_jump"
     --    self.sfx.throw = "rick_throw"
-    --    self.sfx.dashAttack = "rick_attack"
+    --    self.sfx.dash_attack = "rick_attack"
     -- self.sfx.dead = sfx.Satoff_death
     -- self.sfx.jump_attack = sfx.Satoff_attack
     self.sfx.step = "rick_step"

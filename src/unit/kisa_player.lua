@@ -26,7 +26,7 @@ function Kisa:initialize(name, sprite, input, x, y, f)
 	self.sfx.jump = "kisa_jump"
     self.sfx.throw = "kisa_throw"
     self.sfx.jump_attack = "kisa_attack"
-    self.sfx.dashAttack = "kisa_attack"
+    self.sfx.dash_attack = "kisa_attack"
     self.sfx.step = "kisa_step"
     self.sfx.dead = "kisa_death"
 end

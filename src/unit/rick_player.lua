@@ -29,7 +29,7 @@ function Rick:initialize(name, sprite, input, x, y, f)
     self.sfx.jump = "rick_jump"
     self.sfx.throw = "rick_throw"
     self.sfx.jump_attack = "rick_attack"
-    self.sfx.dashAttack = "rick_attack"
+    self.sfx.dash_attack = "rick_attack"
     self.sfx.step = "rick_step"
     self.sfx.dead = "rick_death"
 end
@@ -109,7 +109,7 @@ function Rick:dashAttack_start()
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    sfx.play("voice"..self.id, self.sfx.dash_attack)
     local psystem = PA_DASH:clone()
     psystem:setSpin(0, -3 * self.face)
     self.pa_dash = psystem
@@ -139,7 +139,7 @@ function Rick:dashSpecial_start()
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    sfx.play("voice"..self.id, self.sfx.dash_attack)
 
     local psystem = PA_DASH:clone()
     psystem:setSpin(0, -2 * self.face)

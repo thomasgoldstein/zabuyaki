@@ -39,7 +39,7 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
 
     self.sfx.dead = sfx.gopper_death
-    self.sfx.dashAttack = sfx.gopper_attack
+    self.sfx.dash_attack = sfx.gopper_attack
     --    self.sfx.jump_attack =
     self.sfx.step = "rick_step" --TODO refactor def files
 
@@ -272,7 +272,7 @@ function Satoff:dashAttack_start()
     self.vely = 0
     self.velz = self.velocity_jump / 2 * dashAttack_speed
     self.z = 0.1
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    sfx.play("voice"..self.id, self.sfx.dash_attack)
     --start jump dust clouds
     local psystem = PA_DUST_JUMP_START:clone()
     psystem:setAreaSpread( "uniform", 16, 4 )

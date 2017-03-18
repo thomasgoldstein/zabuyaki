@@ -19,7 +19,7 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.friendly_damage = 2 --divide friendly damage
     self.face = -1
     self.sfx.dead = sfx.gopper_death
-    self.sfx.dashAttack = sfx.gopper_attack
+    self.sfx.dash_attack = sfx.gopper_attack
 --    self.sfx.jump_attack =
     self.sfx.step = "kisa_step"
 
@@ -160,7 +160,7 @@ function Gopper:dashAttack_start()
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play("voice" .. self.id, self.sfx.dashAttack)
+    sfx.play("voice" .. self.id, self.sfx.dash_attack)
 end
 
 function Gopper:dashAttack_update(dt)
@@ -324,7 +324,7 @@ function Gopper:dashAttack_start()
     self.vely = 0
     self.velz = self.velocity_jump / 2 * dashAttack_speed
     self.z = 0.1
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    sfx.play("voice"..self.id, self.sfx.dash_attack)
     --start jump dust clouds
     local psystem = PA_DUST_JUMP_START:clone()
     psystem:setAreaSpread( "uniform", 16, 4 )

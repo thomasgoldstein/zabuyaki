@@ -29,7 +29,7 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.sfx.jump = "chai_jump"
     self.sfx.throw = "chai_throw"
     self.sfx.jump_attack = "chai_attack"
-    self.sfx.dashAttack = "chai_attack"
+    self.sfx.dash_attack = "chai_attack"
     self.sfx.step = "chai_step"
     self.sfx.dead = "chai_death"
 end
@@ -80,7 +80,7 @@ function Chai:dashAttack_start()
     self.velx = self.velocity_dash * self.velocity_jump_speed
     self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
-    sfx.play("sfx"..self.id, self.sfx.dashAttack)
+    sfx.play("sfx"..self.id, self.sfx.dash_attack)
     --start Chai's dust clouds (used jump particles)
     local psystem = PA_DUST_JUMP_START:clone()
     psystem:setAreaSpread( "uniform", 16, 4 )

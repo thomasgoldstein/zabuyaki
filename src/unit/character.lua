@@ -59,7 +59,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     --Character default sfx
     self.sfx.jump = "whoosh_heavy"
     self.sfx.throw = "air"
-    self.sfx.dashAttack = "scream1"
+    self.sfx.dash_attack = "scream1"
     self.sfx.grab = "grab"
     self.sfx.jump_attack = self.sfx.jump_attack or "scream1"
     self.sfx.step = self.sfx.step or "kisa_step"
@@ -937,7 +937,7 @@ function Character:dashAttack_start()
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    sfx.play("voice"..self.id, self.sfx.dash_attack)
 end
 function Character:dashAttack_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
