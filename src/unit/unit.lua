@@ -130,7 +130,7 @@ function Unit:playHitSfx(dmg)
     TEsound.play(s.src, "sfx"..self.id, s.volume, s.pitch)
 end
 
-function Unit:showHitMarks(dmg, z)
+function Unit:showHitMarks(dmg, z, x_offset)
 	local pa_hitMark
 	if dmg < 1 then
 		return	-- e.g. Respawn ShockWave with 0 DMG
@@ -141,8 +141,10 @@ function Unit:showHitMarks(dmg, z)
 	else
 		pa_hitMark = PA_IMPACT_BIG:clone()
 	end
-	pa_hitMark:setPosition( self.face * 4, -z )
-	pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )
+	pa_hitMark:setPosition( self.face * (x_offset or 4), -z )
+	if not x_offset then --still mark e.g. for clashing
+		pa_hitMark:setSpeed( -self.face * 30, -self.face * 600 )	--move the marks from the attacker by default
+	end
 	pa_hitMark:emit(1)
 	stage.objects:add(Effect:new(pa_hitMark, self.x, self.y + 3))
 end
