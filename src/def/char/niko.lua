@@ -94,20 +94,20 @@ return {
             delay = 0.16
         },
         combo1 = {
-            { q = q(2,332,40,63), ox = 16, oy = 62 }, --kick1
-            { q = q(44,332,60,63), ox = 15, oy = 62, func = combo_kick, delay = 0.23 }, --kick2
-            { q = q(2,332,40,63), ox = 16, oy = 62, delay = 0.015 }, --kick1
+            { q = q(2,332,40,63), ox = 16, oy = 62 }, --kick 1
+            { q = q(44,332,60,63), ox = 15, oy = 62, func = combo_kick, delay = 0.23 }, --kick 2
+            { q = q(2,332,40,63), ox = 16, oy = 62, delay = 0.015 }, --kick 1
             delay = 0.01
         },
         combo2 = {
-            { q = q(2,332,40,63), ox = 16, oy = 62 }, --kick1
-            { q = q(44,332,60,63), ox = 15, oy = 62, func = combo_kick, delay = 0.23 }, --kick2
-            { q = q(2,332,40,63), ox = 16, oy = 62, delay = 0.015 }, --kick1
+            { q = q(2,332,40,63), ox = 16, oy = 62 }, --kick 1
+            { q = q(44,332,60,63), ox = 15, oy = 62, func = combo_kick, delay = 0.23 }, --kick 2
+            { q = q(2,332,40,63), ox = 16, oy = 62, delay = 0.015 }, --kick 1
             delay = 0.01
         },
         combo3 = {
-            { q = q(50,68,62,63), ox = 18, oy = 62, func = combo_punch, delay = 0.2 }, --punch2
-            { q = q(2,68,46,63), ox = 18, oy = 62 }, --punch1
+            { q = q(50,68,62,63), ox = 18, oy = 62, func = combo_punch, delay = 0.2 }, --punch 2
+            { q = q(2,68,46,63), ox = 18, oy = 62 }, --punch 1
             delay = 0.01
         },
         fall = {
@@ -130,30 +130,30 @@ return {
             delay = 65
         },
         hurtHigh = {
-            { q = q(2,133,41,64), ox = 23, oy = 63, delay = 0.03 }, --hh1
-            { q = q(45,133,46,64), ox = 28, oy = 63 }, --hh2
-            { q = q(2,133,41,64), ox = 23, oy = 63, delay = 0.1 }, --hh1
+            { q = q(2,133,41,64), ox = 23, oy = 63, delay = 0.03 }, --hurt high 1
+            { q = q(45,133,46,64), ox = 28, oy = 63 }, --hurt high 2
+            { q = q(2,133,41,64), ox = 23, oy = 63, delay = 0.1 }, --hurt high 1
             delay = 0.3
         },
         hurtLow = {
-            { q = q(93,134,40,63), ox = 19, oy = 62, delay = 0.03 }, --hl1
-            { q = q(135,136,44,61), ox = 20, oy = 60 }, --hl2
-            { q = q(93,134,40,63), ox = 19, oy = 62, delay = 0.1 }, --hl1
+            { q = q(93,134,40,63), ox = 19, oy = 62, delay = 0.03 }, --hurt low 1
+            { q = q(135,136,44,61), ox = 20, oy = 60 }, --hurt low 2
+            { q = q(93,134,40,63), ox = 19, oy = 62, delay = 0.1 }, --hurt low 1
             delay = 0.3
         },
         jumpAttackForward = {
-            { q = q(61,265,56,63), ox = 28, oy = 64 }, --jaf1
-            { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(61,265,56,63), ox = 28, oy = 64 }, --jump attack forward 1
+            { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackLight = { --TODO: Remove
-            { q = q(61,265,56,63), ox = 28, oy = 64 }, --jaf1
-            { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(61,265,56,63), ox = 28, oy = 64 }, --jump attack forward 1
+            { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackStraight = {
-            { q = q(61,265,56,63), ox = 28, oy = 64 }, --jaf1
-            { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(61,265,56,63), ox = 28, oy = 64 }, --jump attack forward 1
+            { q = q(119,263,64,67), ox = 36, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         sideStepUp = { --TODO: Remove
@@ -184,8 +184,8 @@ return {
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbed = {
-            { q = q(2,133,41,64), ox = 23, oy = 63 }, --hh1
-            { q = q(45,133,46,64), ox = 28, oy = 63 }, --hh2
+            { q = q(2,133,41,64), ox = 23, oy = 63 }, --hurt high 1
+            { q = q(45,133,46,64), ox = 28, oy = 63 }, --hurt high 2
             delay = 0.1
         },
 

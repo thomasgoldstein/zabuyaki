@@ -95,8 +95,8 @@ return {
         },
         run = {
             { q = q(2,351,55,70), ox = 33, oy = 69 }, --jump
-            { q = q(59,347,60,74), ox = 32, oy = 73 }, --jaf1 (lowered)
-            { q = q(121,354,58,58), ox = 29, oy = 59 }, --jaf2 (lowered)
+            { q = q(59,347,60,74), ox = 32, oy = 73 }, --jump attack forward 1 (lowered)
+            { q = q(121,354,58,58), ox = 29, oy = 59 }, --jump attack forward 2 (lowered)
 			{ q = q(2,739,56,43), ox = 31, oy = 40, funcCont = jump_forward_attack }, --run 1
 			{ q = q(60,736,50,46), ox = 30, oy = 43, funcCont = jump_forward_attack }, --run 2
 			{ q = q(112,739,53,43), ox = 30, oy = 40, funcCont = jump_forward_attack }, --run 3
@@ -130,10 +130,10 @@ return {
             delay = 0.16
         },
         combo1 = {
-            { q = q(2,280,64,65), ox = 31, oy = 64 }, --c1.1
-			{ q = q(68,280,51,65), ox = 21, oy = 64, func = combo_uppercut1, delay = 0.06 }, --c1.2
-			{ q = q(121,273,60,72), ox = 23, oy = 71, func = combo_uppercut2, delay = 0.33 }, --c1.3
-			{ q = q(68,280,51,65), ox = 21, oy = 64, delay = 0.13 }, --c1.2
+            { q = q(2,280,64,65), ox = 31, oy = 64 }, --uppercut 1
+			{ q = q(68,280,51,65), ox = 21, oy = 64, func = combo_uppercut1, delay = 0.06 }, --uppercut 2
+			{ q = q(121,273,60,72), ox = 23, oy = 71, func = combo_uppercut2, delay = 0.33 }, --uppercut 3
+			{ q = q(68,280,51,65), ox = 21, oy = 64, delay = 0.13 }, --uppercut 2
             delay = 0.16
         },
         batAttack = {
@@ -164,35 +164,35 @@ return {
             delay = 65
         },
         hurtHigh = {
-            { q = q(2,142,68,68), ox = 35, oy = 67, delay = 0.03 }, --hh1
-            { q = q(72,142,69,68), ox = 37, oy = 67 }, --hh2
-            { q = q(2,142,68,68), ox = 35, oy = 67, delay = 0.1 }, --hh1
+            { q = q(2,142,68,68), ox = 35, oy = 67, delay = 0.03 }, --hurt high 1
+            { q = q(72,142,69,68), ox = 37, oy = 67 }, --hurt high 2
+            { q = q(2,142,68,68), ox = 35, oy = 67, delay = 0.1 }, --hurt high 1
             delay = 0.3
         },
         hurtLow = {
-            { q = q(143,143,69,67), ox = 34, oy = 66, delay = 0.03 }, --hl1
-            { q = q(214,146,72,64), ox = 34, oy = 63 }, --hl2
-            { q = q(143,143,69,67), ox = 34, oy = 66, delay = 0.1 }, --hl1
+            { q = q(143,143,69,67), ox = 34, oy = 66, delay = 0.03 }, --hurt low 1
+            { q = q(214,146,72,64), ox = 34, oy = 63 }, --hurt low 2
+            { q = q(143,143,69,67), ox = 34, oy = 66, delay = 0.1 }, --hurt low 1
             delay = 0.3
         },
         jumpAttackForward = {
-            { q = q(59,347,60,74), ox = 32, oy = 75 }, --jaf1
-            { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(59,347,60,74), ox = 32, oy = 75 }, --jump attack forward 1
+            { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackLight = { --TODO: Remove
-            { q = q(59,347,60,74), ox = 32, oy = 75 }, --jaf1
-            { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(59,347,60,74), ox = 32, oy = 75 }, --jump attack forward 1
+            { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackStraight = {
-            { q = q(59,347,60,74), ox = 32, oy = 75 }, --jaf1
-            { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(59,347,60,74), ox = 32, oy = 75 }, --jump attack forward 1
+            { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackRun = {
-            { q = q(59,347,60,74), ox = 32, oy = 75 }, --jaf1
-            { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jaf2
+            { q = q(59,347,60,74), ox = 32, oy = 75 }, --jump attack forward 1
+            { q = q(121,354,58,58), ox = 29, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         sideStepUp = { --TODO: Remove
@@ -202,12 +202,12 @@ return {
             { q = q(2,2,68,68), ox = 34, oy = 67 }, --stand 1
         },
         grab = {
-            { q = q(68,280,51,65), ox = 21, oy = 64 }, --c1.2
+            { q = q(68,280,51,65), ox = 21, oy = 64 }, --uppercut 2
         },
         grabAttack = {
             { q = q(2,525,60,66), ox = 27, oy = 65 }, --grab attack 1
             { q = q(133,530,59,61), ox = 25, oy = 60, func = grab_attack, delay = 0.18 }, --grab attack 3
-            { q = q(68,280,51,65), ox = 21, oy = 64, delay = 0.07 }, --c1.2
+            { q = q(68,280,51,65), ox = 21, oy = 64, delay = 0.07 }, --uppercut 2
             delay = 0.1
         },
         grabAttackLast = {
@@ -229,7 +229,7 @@ return {
         shoveBack = {
             { q = q(1,456,56,67), ox = 29, oy = 66 }, --bat attack 1
             { q = q(194,529,70,62), ox = 35, oy = 61, func = shove_now, delay = 0.5 }, --throw
-            { q = q(68,280,51,65), ox = 21, oy = 64 }, --c1.2
+            { q = q(68,280,51,65), ox = 21, oy = 64 }, --uppercut 2
             delay = 0.2
         },
         grabSwap = { --TODO: Remove

@@ -113,26 +113,26 @@ return {
             delay = 0.28
         },
         dashAttack = {
-            { q = q(2,372,58,52), ox = 24, oy = 51, funcCont = dash_attack, delay = 0.25 }, --dashAttack
+            { q = q(2,372,58,52), ox = 24, oy = 51, funcCont = dash_attack, delay = 0.25 }, --dash attack
             { q = q(62,389,68,35), ox = 28, oy = 27, func = dash_belly_clouds, delay = 0.8 }, --lying down on belly
             { q = q(132,372,56,48), ox = 22, oy = 44 }, --getting up on belly
             { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 0.3
         },
         combo1 = {
-            { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_punch, delay = 0.2 }, --punch2
-            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch1
+            { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_punch, delay = 0.2 }, --punch 2
+            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch 1
             delay = 0.01
         },
         combo2 = {
-            { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_punch, delay = 0.2 }, --punch2
-            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch1
+            { q = q(50,66,62,61), ox = 18, oy = 60, func = combo_punch, delay = 0.2 }, --punch 2
+            { q = q(2,66,46,61), ox = 18, oy = 60 }, --punch 1
             delay = 0.01
         },
         combo3 = {
-            { q = q(2,426,40,61), ox = 16, oy = 60 }, --kick1
-            { q = q(44,426,60,61), ox = 15, oy = 60, func = combo_kick, delay = 0.23 }, --kick2
-            { q = q(2,426,40,61), ox = 16, oy = 60, delay = 0.015 }, --kick1
+            { q = q(2,426,40,61), ox = 16, oy = 60 }, --kick 1
+            { q = q(44,426,60,61), ox = 15, oy = 60, func = combo_kick, delay = 0.23 }, --kick 2
+            { q = q(2,426,40,61), ox = 16, oy = 60, delay = 0.015 }, --kick 1
             delay = 0.01
         },
         fall = {
@@ -155,15 +155,15 @@ return {
             delay = 65
         },
         hurtHigh = {
-            { q = q(2,129,38,62), ox = 20, oy = 61, delay = 0.03 }, --hh1
-            { q = q(42,129,43,62), ox = 25, oy = 61 }, --hh2
-            { q = q(2,129,38,62), ox = 20, oy = 61, delay = 0.1 }, --hh1
+            { q = q(2,129,38,62), ox = 20, oy = 61, delay = 0.03 }, --hurt high 1
+            { q = q(42,129,43,62), ox = 25, oy = 61 }, --hurt high 2
+            { q = q(2,129,38,62), ox = 20, oy = 61, delay = 0.1 }, --hurt high 1
             delay = 0.3
         },
         hurtLow = {
-            { q = q(87,130,37,61), ox = 19, oy = 60, delay = 0.03 }, --hl1
-            { q = q(126,132,42,59), ox = 20, oy = 58 }, --hl2
-            { q = q(87,130,37,61), ox = 19, oy = 60, delay = 0.1 }, --hl1
+            { q = q(87,130,37,61), ox = 19, oy = 60, delay = 0.03 }, --hurt low 1
+            { q = q(126,132,42,59), ox = 20, oy = 58 }, --hurt low 2
+            { q = q(87,130,37,61), ox = 19, oy = 60, delay = 0.1 }, --hurt low 1
             delay = 0.3
         },
         jumpAttackForward = { --TODO: Remove
@@ -206,8 +206,8 @@ return {
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbed = {
-            { q = q(2,129,38,62), ox = 20, oy = 61 }, --hh1
-            { q = q(42,129,43,62), ox = 25, oy = 61 }, --hh2
+            { q = q(2,129,38,62), ox = 20, oy = 61 }, --hurt high 1
+            { q = q(42,129,43,62), ox = 25, oy = 61 }, --hurt high 2
             delay = 0.1
         },
 
