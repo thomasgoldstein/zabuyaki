@@ -16,8 +16,8 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.velocity_walk = 90
     self.velocity_walk_y = 45
-    self.velocity_walkHold = self.velocity_walk * 0.75
-    self.velocity_walkHold_y = self.velocity_walk_y * 0.75
+    self.velocity_walkHold = 80
+    self.velocity_walkHold_y = 40
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 190 --speed of the character
