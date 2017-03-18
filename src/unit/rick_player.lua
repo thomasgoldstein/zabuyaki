@@ -13,6 +13,8 @@ function Rick:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.velocity_walk = 90
     self.velocity_walk_y = 45
+    self.velocity_walkHold = self.velocity_walk * 0.75
+    self.velocity_walkHold_y = self.velocity_walk_y * 0.75
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 150 --speed of the character

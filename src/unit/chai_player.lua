@@ -13,6 +13,8 @@ function Chai:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.velocity_walk = 100
     self.velocity_walk_y = 50
+    self.velocity_walkHold = self.velocity_walk * 0.75
+    self.velocity_walkHold_y = self.velocity_walk_y * 0.75
     self.velocity_run = 150
     self.velocity_run_y = 25
     self.velocity_dash = 150 --speed of the character

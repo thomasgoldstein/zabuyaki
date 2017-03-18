@@ -149,6 +149,18 @@ function Unit:showHitMarks(dmg, z, x_offset)
 	stage.objects:add(Effect:new(pa_hitMark, self.x, self.y + 3))
 end
 
+function Unit:getMovementSpeed()
+    if self.sprite.cur_anim == "walk" then
+        return self.velocity_walk, self.velocity_walk_y
+    elseif self.sprite.cur_anim == "walkHold" then
+        return self.velocity_walkHold, self.velocity_walkHold_y
+    elseif self.sprite.cur_anim == "run" then
+        return self.velocity_run, self.velocity_run_y
+    end
+    --TODO add jumps or refactor
+    return 0, 0
+end
+
 function Unit:setToughness(t)
 	self.toughness = t
 end

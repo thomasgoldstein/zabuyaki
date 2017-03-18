@@ -12,6 +12,8 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.height = 50
     self.velocity_walk = 100
     self.velocity_walk_y = 50
+    self.velocity_walkHold = self.velocity_walk * 0.75
+    self.velocity_walkHold_y = self.velocity_walk_y * 0.75
     self.velocity_run = 150
     self.velocity_run_y = 25
     self.velocity_jump = 220 --Z coord
@@ -551,7 +553,7 @@ function Character:walk_update(dt)
     if self.b.horizontal:isDown(-1) then
         self.face = -1 --face sprite left or right
         self.horizontal = self.face --X direction
-        self.velx = self.velocity_walk
+        self.velx, _ = self:getMovementSpeed()
         if self.b.horizontal.ikn:getLast() and self.face == -1 then
             self:setState(self.run)
             return
@@ -559,7 +561,7 @@ function Character:walk_update(dt)
     elseif self.b.horizontal:isDown(1) then
         self.face = 1 --face sprite left or right
         self.horizontal = self.face --X direction
-        self.velx = self.velocity_walk
+        self.velx, _ = self:getMovementSpeed()
         if self.b.horizontal.ikp:getLast() and self.face == 1 then
             self:setState(self.run)
             return
@@ -567,14 +569,14 @@ function Character:walk_update(dt)
     end
     if self.b.vertical:isDown(-1) then
         self.vertical = -1
-        self.vely = self.velocity_walk_y
+        _, self.vely = self:getMovementSpeed()
         if self.b.vertical.ikn:getLast() then
             self:setState(self.sideStepUp)
             return
         end
     elseif self.b.vertical:isDown(1) then
         self.vertical = 1
-        self.vely = self.velocity_walk_y
+        _, self.vely = self:getMovementSpeed()
         if self.b.vertical.ikp:getLast() then
             self:setState(self.sideStepDown)
             return
