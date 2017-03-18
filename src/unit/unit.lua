@@ -143,7 +143,7 @@ function Unit:showHitMarks(dmg, z, x_offset)
 	end
 	pa_hitMark:setPosition( self.face * (x_offset or 4), -z )
 	if not x_offset then --still mark e.g. for clashing
-		pa_hitMark:setSpeed( -self.face * 30, -self.face * 600 )	--move the marks from the attacker by default
+		pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )	--move the marks from the attacker by default
 	end
 	pa_hitMark:emit(1)
 	stage.objects:add(Effect:new(pa_hitMark, self.x, self.y + 3))
