@@ -29,7 +29,7 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.sfx.jump = "chai_jump"
     self.sfx.throw = "chai_throw"
     self.sfx.jump_attack = "chai_attack"
-    self.sfx.dash = "chai_attack"
+    self.sfx.dashAttack = "chai_attack"
     self.sfx.step = "chai_step"
     self.sfx.dead = "chai_death"
 end
