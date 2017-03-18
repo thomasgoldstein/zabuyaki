@@ -201,6 +201,9 @@ return {
 			{ q = q(84,266,43,63), ox = 22, oy = 62, delay = 5 }, --jd
 			delay = 0.1
 		},
+		dashHold = {
+			{ q = q(181,863,48,63), ox = 26, oy = 63 }, --dash hold
+		},
 		combo1 = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move }, --c1.1
 			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1, delay = 0.09 }, --c1.2
