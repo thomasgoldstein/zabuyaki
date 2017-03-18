@@ -158,7 +158,7 @@ return {
 			{ q = q(105,1263,50,63), ox = 22, oy = 63 }, --walk hold 5
 			{ q = q(157,1263,50,64), ox = 22, oy = 63 }, --walk hold 6
             loop = true,
-            delay = 0.1
+            delay = 0.117
 		},
 		run = {
 			{ q = q(2,134,35,64), ox = 16, oy = 63 }, --run 1
