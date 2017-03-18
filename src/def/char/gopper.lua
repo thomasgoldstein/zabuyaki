@@ -112,8 +112,8 @@ return {
             { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck
             delay = 0.28
         },
-        dash = {
-            { q = q(2,372,58,52), ox = 24, oy = 51, funcCont = dash_attack, delay = 0.25 }, --dash
+        dashAttack = {
+            { q = q(2,372,58,52), ox = 24, oy = 51, funcCont = dash_attack, delay = 0.25 }, --dashAttack
             { q = q(62,389,68,35), ox = 28, oy = 27, func = dash_belly_clouds, delay = 0.8 }, --lying down on belly
             { q = q(132,372,56,48), ox = 22, oy = 44 }, --getting up on belly
             { q = q(114,71,38,56), ox = 18, oy = 55 }, --duck

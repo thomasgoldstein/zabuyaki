@@ -29,7 +29,7 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     --Character default sfx
     --    self.sfx.jump = "rick_jump"
     --    self.sfx.throw = "rick_throw"
-    --    self.sfx.dash = "rick_attack"
+    --    self.sfx.dashAttack = "rick_attack"
     -- self.sfx.dead = sfx.Satoff_death
     -- self.sfx.jump_attack = sfx.Satoff_attack
     self.sfx.step = "rick_step"
@@ -63,6 +63,6 @@ Satoff.combo = {name = "combo", start = Satoff.combo_start, exit = nop, update =
 --Satoff.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
 --Satoff.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 --Satoff.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
---Satoff.dash = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+--Satoff.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 
 return Satoff

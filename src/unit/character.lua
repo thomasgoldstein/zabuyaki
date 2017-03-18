@@ -57,7 +57,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     --Character default sfx
     self.sfx.jump = "whoosh_heavy"
     self.sfx.throw = "air"
-    self.sfx.dash = "scream1"
+    self.sfx.dashAttack = "scream1"
     self.sfx.grab = "grab"
     self.sfx.jump_attack = self.sfx.jump_attack or "scream1"
     self.sfx.step = self.sfx.step or "kisa_step"
@@ -672,7 +672,7 @@ function Character:run_update(dt)
         if self.b.jump:isDown() then
             self:setState(self.dashSpecial)
         else
-            self:setState(self.dash)
+            self:setState(self.dashAttack)
         end
         return
     end
@@ -929,15 +929,15 @@ function Character:sideStepUp_update(dt)
 end
 Character.sideStepUp = {name = "sideStepUp", start = Character.sideStepUp_start, exit = nop, update = Character.sideStepUp_update, draw = Character.default_draw}
 
-function Character:dash_start()
+function Character:dashAttack_start()
     self.isHittable = true
-    self:setSprite("dash")
+    self:setSprite("dashAttack")
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play("voice"..self.id, self.sfx.dash)
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
 end
-function Character:dash_update(dt)
+function Character:dashAttack_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         self:setState(self.special)
         return
@@ -949,7 +949,7 @@ function Character:dash_update(dt)
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
 end
-Character.dash = {name = "dash", start = Character.dash_start, exit = nop, update = Character.dash_update, draw = Character.default_draw}
+Character.dashAttack = {name = "dashAttack", start = Character.dashAttack_start, exit = nop, update = Character.dashAttack_update, draw = Character.default_draw}
 
 function Character:dashSpecial_start()
     --no move by default

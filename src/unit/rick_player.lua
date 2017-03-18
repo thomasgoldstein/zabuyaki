@@ -27,7 +27,7 @@ function Rick:initialize(name, sprite, input, x, y, f)
     self.sfx.jump = "rick_jump"
     self.sfx.throw = "rick_throw"
     self.sfx.jump_attack = "rick_attack"
-    self.sfx.dash = "rick_attack"
+    self.sfx.dashAttack = "rick_attack"
     self.sfx.step = "rick_step"
     self.sfx.dead = "rick_death"
 end
@@ -58,9 +58,9 @@ function Rick:combo_update(dt)
         return
     end
     if self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast() then
-        --dash from combo
+        --dashAttack from combo
         if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dash)
+            self:setState(self.dashAttack)
             return
         end
     end
@@ -100,14 +100,14 @@ function Rick:special_update(dt)
 end
 Rick.special = {name = "special", start = Rick.special_start, exit = nop, update = Rick.special_update, draw = Character.default_draw }
 
-function Rick:dash_start()
+function Rick:dashAttack_start()
     self.isHittable = true
     dpo(self, self.state)
-    self:setSprite("dash")
+    self:setSprite("dashAttack")
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play("voice"..self.id, self.sfx.dash)
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
     local psystem = PA_DASH:clone()
     psystem:setSpin(0, -3 * self.face)
     self.pa_dash = psystem
@@ -115,7 +115,7 @@ function Rick:dash_start()
     self.pa_dash_y = self.y
     stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
 end
-function Rick:dash_update(dt)
+function Rick:dashAttack_update(dt)
     if self.sprite.isFinished then
         dpo(self, self.state)
         self:setState(self.stand)
@@ -128,7 +128,7 @@ function Rick:dash_update(dt)
     self:calcFriction(dt, self.friction_dash)
     self:checkCollisionAndMove(dt)
 end
-Rick.dash = {name = "dash", start = Rick.dash_start, exit = nop, update = Rick.dash_update, draw = Character.default_draw}
+Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttack_start, exit = nop, update = Rick.dashAttack_update, draw = Character.default_draw}
 
 function Rick:dashSpecial_start()
     self.isHittable = true
@@ -137,7 +137,7 @@ function Rick:dashSpecial_start()
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play("voice"..self.id, self.sfx.dash)
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
 
     local psystem = PA_DASH:clone()
     psystem:setSpin(0, -2 * self.face)

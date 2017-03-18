@@ -26,7 +26,7 @@ function Kisa:initialize(name, sprite, input, x, y, f)
 	self.sfx.jump = "kisa_jump"
     self.sfx.throw = "kisa_throw"
     self.sfx.jump_attack = "kisa_attack"
-    self.sfx.dash = "kisa_attack"
+    self.sfx.dashAttack = "kisa_attack"
     self.sfx.step = "kisa_step"
     self.sfx.dead = "kisa_death"
 end
@@ -37,7 +37,7 @@ function Kisa:combo_start()
 end
 function Kisa:combo_update(dt)
     self:setState(self.stand)
-    --TODO add DASH -> -> A
+    --TODO add dashAttack -> -> A
     return
 end
 Kisa.combo = {name = "combo", start = Kisa.combo_start, exit = nop, update = Kisa.combo_update, draw = Character.default_draw}

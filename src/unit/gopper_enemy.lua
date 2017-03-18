@@ -19,7 +19,7 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.friendly_damage = 2 --divide friendly damage
     self.face = -1
     self.sfx.dead = sfx.gopper_death
-    self.sfx.dash = sfx.gopper_attack
+    self.sfx.dashAttack = sfx.gopper_attack
 --    self.sfx.jump_attack =
     self.sfx.step = "kisa_step"
 
@@ -152,18 +152,18 @@ end
 
 Gopper.combo = { name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Gopper.default_draw }
 
-function Gopper:dash_start()
+function Gopper:dashAttack_start()
     self.isHittable = true
     self:remove_tween_move()
     dpo(self, self.state)
-    self:setSprite("dash")
+    self:setSprite("dashAttack")
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
-    sfx.play("voice" .. self.id, self.sfx.dash)
+    sfx.play("voice" .. self.id, self.sfx.dashAttack)
 end
 
-function Gopper:dash_update(dt)
+function Gopper:dashAttack_update(dt)
     if self.sprite.isFinished then
         dpo(self, self.state)
         self:setState(self.stand)
@@ -173,7 +173,7 @@ function Gopper:dash_update(dt)
     self:checkCollisionAndMove(dt)
 end
 
-Gopper.dash = { name = "dash", start = Gopper.dash_start, exit = nop, update = Gopper.dash_update, draw = Character.default_draw }
+Gopper.dashAttack = { name = "dashAttack", start = Gopper.dashAttack_start, exit = nop, update = Gopper.dashAttack_update, draw = Character.default_draw }
 
 
 --States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
@@ -308,7 +308,7 @@ function Gopper:run_update(dt)
         if t > 100 then
             self:setState(self.walk)
         else
-            self:setState(self.dash)
+            self:setState(self.dashAttack)
         end
         return
     end
@@ -316,15 +316,15 @@ function Gopper:run_update(dt)
 end
 Gopper.run = {name = "run", start = Gopper.run_start, exit = Unit.remove_tween_move, update = Gopper.run_update, draw = Gopper.default_draw}
 
-local dash_speed = 0.75
-function Gopper:dash_start()
+local dashAttack_speed = 0.75
+function Gopper:dashAttack_start()
     self.isHittable = true
-    self:setSprite("dash")
-    self.velx = self.velocity_dash * 2 * dash_speed
+    self:setSprite("dashAttack")
+    self.velx = self.velocity_dash * 2 * dashAttack_speed
     self.vely = 0
-    self.velz = self.velocity_jump / 2 * dash_speed
+    self.velz = self.velocity_jump / 2 * dashAttack_speed
     self.z = 0.1
-    sfx.play("voice"..self.id, self.sfx.dash)
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
     --start jump dust clouds
     local psystem = PA_DUST_JUMP_START:clone()
     psystem:setAreaSpread( "uniform", 16, 4 )
@@ -336,22 +336,22 @@ function Gopper:dash_start()
     psystem:emit(2)
     stage.objects:add(Effect:new(psystem, self.x, self.y-1))
 end
-function Gopper:dash_update(dt)
+function Gopper:dashAttack_update(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * dash_speed
+        self.velz = self.velz - self.gravity * dt * dashAttack_speed
     else
         self.velz = 0
         self.velx = 0
         self.z = 0
     end
-    self:calcFriction(dt, self.friction_dash * dash_speed)
+    self:calcFriction(dt, self.friction_dash * dashAttack_speed)
     self:checkCollisionAndMove(dt)
 end
-Gopper.dash = {name = "dash", start = Gopper.dash_start, exit = nop, update = Gopper.dash_update, draw = Character.default_draw }
+Gopper.dashAttack = {name = "dashAttack", start = Gopper.dashAttack_start, exit = nop, update = Gopper.dashAttack_update, draw = Character.default_draw }
 
 return Gopper

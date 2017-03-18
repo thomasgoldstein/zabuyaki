@@ -53,7 +53,7 @@ function Chai:combo_update(dt)
     if self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast() then
         --dash from combo
         if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dash)
+            self:setState(self.dashAttack)
             return
         end
     end
@@ -70,15 +70,15 @@ function Chai:combo_update(dt)
 end
 Chai.combo = {name = "combo", start = Chai.combo_start, exit = nop, update = Chai.combo_update, draw = Character.default_draw}
 
-function Chai:dash_start()
+function Chai:dashAttack_start()
     self.isHittable = true
     dpo(self, self.state)
-    --	dp(self.name.." - dash start")
-    self:setSprite("dash")
+    --	dp(self.name.." - dashAttack start")
+    self:setSprite("dashAttack")
     self.velx = self.velocity_dash * self.velocity_jump_speed
     self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
-    sfx.play("sfx"..self.id, self.sfx.dash)
+    sfx.play("sfx"..self.id, self.sfx.dashAttack)
     --start Chai's dust clouds (used jump particles)
     local psystem = PA_DUST_JUMP_START:clone()
     psystem:setAreaSpread( "uniform", 16, 4 )
@@ -90,7 +90,7 @@ function Chai:dash_start()
     psystem:emit(5)
     stage.objects:add(Effect:new(psystem, self.x, self.y-1))
 end
-function Chai:dash_update(dt)
+function Chai:dashAttack_update(dt)
     if self.sprite.isFinished then
         self:setState(self.fall)
         return
@@ -110,7 +110,7 @@ function Chai:dash_update(dt)
     end
     self:checkCollisionAndMove(dt)
 end
-Chai.dash = {name = "dash", start = Chai.dash_start, exit = nop, update = Chai.dash_update, draw = Character.default_draw }
+Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttack_start, exit = nop, update = Chai.dashAttack_update, draw = Character.default_draw }
 
 function Chai:holdAttack_start()
     self.isHittable = true

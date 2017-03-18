@@ -25,7 +25,7 @@ function Niko:initialize(name, sprite, input, x, y, f)
     --Character default sfx
 --    self.sfx.jump = "rick_jump"
 --    self.sfx.throw = "rick_throw"
---    self.sfx.dash = "rick_attack"
+--    self.sfx.dashAttack = "rick_attack"
     self.sfx.dead = sfx.niko_death
     self.sfx.jump_attack = sfx.niko_attack
     self.sfx.step = "kisa_step"
@@ -67,7 +67,7 @@ Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAt
 Niko.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
 Niko.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 Niko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
-Niko.dash = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Niko.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 --Disable grabbing
 function Niko:checkForGrab(range)
     return nil

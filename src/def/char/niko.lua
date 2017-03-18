@@ -89,7 +89,7 @@ return {
             { q = q(114,73,38,58), ox = 18, oy = 57 }, --duck
             delay = 0.28
         },
-        dash = { --TODO: Remove
+        dashAttack = { --TODO: Remove
             { q = q(134,68,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.16
         },

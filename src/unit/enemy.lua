@@ -210,7 +210,7 @@ function Enemy:faceToTarget(x, y)
             and self.isHittable
             and not self.isGrabbed
             and self.state ~= "run"
-            and self.state ~= "dash"
+            and self.state ~= "dashAttack"
     then
         if x or self.target.x < self.x then
             self.face = -1

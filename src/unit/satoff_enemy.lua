@@ -37,7 +37,7 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
 
     self.sfx.dead = sfx.gopper_death
-    self.sfx.dash = sfx.gopper_attack
+    self.sfx.dashAttack = sfx.gopper_attack
     --    self.sfx.jump_attack =
     self.sfx.step = "rick_step" --TODO refactor def files
 
@@ -146,31 +146,6 @@ function Satoff:combo_update(dt)
 end
 
 Satoff.combo = { name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Satoff.default_draw }
-
---[[
-function Satoff:dash_start()
-    self.isHittable = true
-    self:remove_tween_move()
-    dpo(self, self.state)
-    self:setSprite("dash")
-    self.velx = self.velocity_dash
-    self.vely = 0
-    self.velz = 0
-    sfx.play("voice" .. self.id, self.sfx.dash)
-end
-
-function Satoff:dash_update(dt)
-    if self.sprite.isFinished then
-        dpo(self, self.state)
-        self:setState(self.stand)
-        return
-    end
-    self:calcFriction(dt, self.friction_dash)
-    self:checkCollisionAndMove(dt)
-end
-
-Satoff.dash = { name = "dash", start = Satoff.dash_start, exit = nop, update = Satoff.dash_update, draw = Character.default_draw }
-]]
 
 --States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
 function Satoff:intro_start()
@@ -287,15 +262,15 @@ function Satoff:run_update(dt)
 end
 Satoff.run = {name = "run", start = Satoff.run_start, exit = Unit.remove_tween_move, update = Satoff.run_update, draw = Satoff.default_draw}
 
-local dash_speed = 0.75
-function Satoff:dash_start()
+local dashAttack_speed = 0.75
+function Satoff:dashAttack_start()
     self.isHittable = true
-    self:setSprite("dash")
-    self.velx = self.velocity_dash * 2 * dash_speed
+    self:setSprite("dashAttack")
+    self.velx = self.velocity_dash * 2 * dashAttack_speed
     self.vely = 0
-    self.velz = self.velocity_jump / 2 * dash_speed
+    self.velz = self.velocity_jump / 2 * dashAttack_speed
     self.z = 0.1
-    sfx.play("voice"..self.id, self.sfx.dash)
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
     --start jump dust clouds
     local psystem = PA_DUST_JUMP_START:clone()
     psystem:setAreaSpread( "uniform", 16, 4 )
@@ -307,7 +282,7 @@ function Satoff:dash_start()
     psystem:emit(2)
     stage.objects:add(Effect:new(psystem, self.x, self.y-1))
 end
-function Satoff:dash_update(dt)
+function Satoff:dashAttack_update(dt)
     if self.sprite.isFinished then
         self.z = 0
         self:setState(self.stand)
@@ -315,15 +290,15 @@ function Satoff:dash_update(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * dash_speed
+        self.velz = self.velz - self.gravity * dt * dashAttack_speed
     else
         self.velz = 0
         self.velx = 0
         self.z = 0
     end
-    self:calcFriction(dt, self.friction_dash * dash_speed)
+    self:calcFriction(dt, self.friction_dash * dashAttack_speed)
     self:checkCollisionAndMove(dt)
 end
-Satoff.dash = {name = "dash", start = Satoff.dash_start, exit = nop, update = Satoff.dash_update, draw = Character.default_draw }
+Satoff.dashAttack = {name = "dashAttack", start = Satoff.dashAttack_start, exit = nop, update = Satoff.dashAttack_update, draw = Character.default_draw }
 
 return Satoff
