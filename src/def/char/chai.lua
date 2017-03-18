@@ -198,7 +198,7 @@ return {
 			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
 			{ q = q(2,722,39,65), ox = 22, oy = 64, funcCont = dash_attack1 }, --jaf1 (shifted left by 4px)
 			{ q = q(2,858,45,68), ox = 26, oy = 65, funcCont = dash_attack2, delay = 0.3 }, --dashAttack1
-			{ q = q(84,266,43,63), ox = 22, oy = 62, delay = 5 }, --jd
+			{ q = q(137,196,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
 			delay = 0.1
 		},
 		dashHold = {
