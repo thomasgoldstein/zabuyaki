@@ -1336,52 +1336,56 @@ function Character:grab_start()
     end
 end
 function Character:grab_update(dt)
-    local g = self.hold
     if self.move then
         self.move:update(dt)
     end
-    if ( self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() ) then
-        self.grab_release = self.grab_release + dt
-        if self.grab_release >= self.grab_release_after then
-            g.target.isGrabbed = false
-        end
-    else
-        if ( self.face == 1 and self.b.horizontal.ikp:getLast() )
-            or ( self.face == -1 and self.b.horizontal.ikn:getLast() )
-        then
-            if g.can_grabSwap then
-                self:setState(self.grabSwap)
-                return
+    local g = self.hold
+    if g and g.target then
+        --controlled release
+        if ( self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() ) then
+            self.grab_release = self.grab_release + dt
+            if self.grab_release >= self.grab_release_after then
+                g.target.isGrabbed = false
             end
-        end
-        self.grab_release = 0
-    end
-
-    if g.cool_down > 0 and g.target.isGrabbed then
-        g.cool_down = g.cool_down - dt
-    else
-        --adjust players backoff
-        if g.target.x > self.x then
-            self.horizontal = -1
         else
-            self.horizontal = 1
+            if ( self.face == 1 and self.b.horizontal.ikp:getLast() )
+                    or ( self.face == -1 and self.b.horizontal.ikn:getLast() )
+            then
+                if g.can_grabSwap then
+                    self:setState(self.grabSwap)
+                    return
+                end
+            end
+            self.grab_release = 0
         end
-        self.velx = self.velocity_back_off --move from source
-        self.cool_down = 0.0
-        self:release_grabbed()
-        self:setState(self.stand)
-        return
-    end
-    if self.b.attack:isDown() and self.can_jump and self.b.jump:isDown() then
-        if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dashSpecial)
+        --auto release after time
+        if g.cool_down > 0 and g.target.isGrabbed then
+            g.cool_down = g.cool_down - dt
         else
-            self:setState(self.special)
+            if g.target.x > self.x then --adjust players backoff
+                self.horizontal = -1
+            else
+                self.horizontal = 1
+            end
+            self.velx = self.velocity_back_off --move from source
+            self.cool_down = 0.0
+            self:release_grabbed()
+            self:setState(self.stand)
+            return
         end
-        return
-    end
-    if self.b.attack:isDown() and self.can_attack then
-        --if self.sprite.isFinished then
+        --special attacks
+        if self.b.attack:isDown() and self.can_jump and self.b.jump:isDown() then
+            self:release_grabbed()
+            if self.b.horizontal:getValue() == self.horizontal then
+                self:setState(self.dashSpecial)
+            else
+                self:setState(self.special)
+            end
+            return
+        end
+        --normal attacks
+        if self.b.attack:isDown() and self.can_attack then
+            --if self.sprite.isFinished then
             g.target:remove_tween_move()
             self:remove_tween_move()
             if self.b.horizontal:getValue() == self.face then
@@ -1397,7 +1401,13 @@ function Character:grab_update(dt)
                 self:setState(self.grabHit)
             end
             return
-        --end
+            --end
+        end
+    else
+        -- release (when not grabbing anything)
+        self.cool_down = 0.0
+        self:release_grabbed()
+        self:setState(self.stand)
     end
 
     if not self.b.jump:isDown() then
