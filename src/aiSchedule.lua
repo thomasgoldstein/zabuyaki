@@ -12,11 +12,11 @@ function Schedule:new(tasks, interrupts)
 	--    if arguments.length < 1 then
 	--        return
 	--    end
-	for i, task in ipairs(tasks) do
+	for _, task in ipairs(tasks) do
 --		dp("*** " .. i .. " " .. task)
 		table.insert(self.tasks, task)
 	end
-	for j, interrupt in ipairs(interrupts) do
+	for _, interrupt in ipairs(interrupts) do
 		table.insert(self.interrupts, interrupt)
 	end
 	return self
@@ -73,7 +73,7 @@ function Schedule:isDone(conditions)
 --				dp(" 00interrupt '"..inter.."'")
 --			end
 --		end
-		for i,cond in ipairs(conditions) do
+		for _,cond in ipairs(conditions) do
 			dp("condition to interrupt interrupt '"..cond.."'") --.. " " .. self.interrupts[condition])
 			if self.interrupts[cond] or false then
 				dp(" !!all tasks are done by right interrupt")
