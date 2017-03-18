@@ -195,10 +195,10 @@ return {
 			delay = 0.05
 		},
 		dashAttack = {
-			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
+			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
 			{ q = q(2,722,39,65), ox = 22, oy = 64, funcCont = dash_attack1 }, --jaf1 (shifted left by 4px)
-			{ q = q(2,858,45,68), ox = 26, oy = 65, funcCont = dash_attack2, delay = 0.3 }, --dashAttack1
-			{ q = q(137,196,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
+			{ q = q(2,858,45,68), ox = 26, oy = 65, funcCont = dash_attack2, delay = 0.3 }, --dash attack
+			{ q = q(128,266,44,62), ox = 23, oy = 65, delay = 5 }, --jump top
 			delay = 0.1
 		},
 		dashHold = {
