@@ -187,11 +187,11 @@ return {
         grab = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
-        grabHit = { --TODO: Remove
+        grabAttack = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },
-        grabHitLast = { --TODO: Remove
+        grabAttackLast = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },

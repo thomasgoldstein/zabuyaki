@@ -12,7 +12,7 @@ local step_sfx = function(slf, cont)
 	padust:emit(3)
 	stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local grabHit_attack = function(slf, cont)
+local grab_attack = function(slf, cont)
 	--default values: 10,0,20,12, "low", slf.velx
 	slf:checkAndAttack(
 		{ left = 18, width = 26, height = 12, damage = 9, type = "low" },
@@ -340,13 +340,13 @@ return {
 		grab = {
 			{ q = q(2,979,45,63), ox = 19, oy = 62 }, --grab
 		},
-		grabHit = {
+		grabAttack = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
-			{ q = q(93,980,49,62), ox = 18, oy = 61, func = grabHit_attack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(93,980,49,62), ox = 18, oy = 61, func = grab_attack, delay = 0.18 }, --grab attack 1.2
 			{ q = q(49,980,42,62), ox = 19, oy = 61, delay = 0.02 }, --grab attack 1.1
 			delay = 0.01
 		},
-		grabHitLast = {
+		grabAttackLast = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
 			{ q = q(168,916,53,61), ox = 16, oy = 60, func = grabLast_attack, delay = 0.18 }, --dash4
 			{ q = q(117,519,40,63), ox = 17, oy = 62, delay = 0.1 }, --c2.1

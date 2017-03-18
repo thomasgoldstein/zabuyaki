@@ -190,7 +190,7 @@ function Satoff:stand_start()
     self.tx, self.ty = self.x, self.y
     self:setSprite("stand")
     self.victims = {}
-    self.n_grabhit = 0
+    self.n_grabAttack = 0
 
     --self:pickAttackTarget()
     --    self.tx, self.ty = self.x, self.y

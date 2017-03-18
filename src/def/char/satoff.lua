@@ -22,7 +22,7 @@ local jump_forward_attack = function(slf, cont)
     )
 end
 
-local grabHit_attack = function(slf, cont)
+local grab_attack = function(slf, cont)
 	slf:checkAndAttack(
         { left = 20, width = 26, height = 12, damage = 12, type = "high" },
 		cont
@@ -204,13 +204,13 @@ return {
         grab = {
             { q = q(68,280,51,65), ox = 21, oy = 64 }, --c1.2
         },
-        grabHit = {
+        grabAttack = {
             { q = q(2,525,60,66), ox = 27, oy = 65 }, --grab attack 1
-            { q = q(133,530,59,61), ox = 25, oy = 60, func = grabHit_attack, delay = 0.18 }, --grab attack 3
+            { q = q(133,530,59,61), ox = 25, oy = 60, func = grab_attack, delay = 0.18 }, --grab attack 3
             { q = q(68,280,51,65), ox = 21, oy = 64, delay = 0.07 }, --c1.2
             delay = 0.1
         },
-        grabHitLast = {
+        grabAttackLast = {
             { q = q(2,525,60,66), ox = 27, oy = 65 }, --grab attack 1
             { q = q(64,525,67,66), ox = 34, oy = 65, delay = 0.16 }, --grab attack 2
             { q = q(133,530,59,61), ox = 25, oy = 60, func = grabLast_attack, delay = 0.25 }, --grab attack 3

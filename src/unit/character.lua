@@ -51,7 +51,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.cool_down_combo = 0    -- can cont combo
     self.cool_down_grab = 2
     self.grab_release_after = 0.35 --sec if u hold 'back'
-    self.n_grabhit = 0    -- n of the grab hits
+    self.n_grabAttack = 0    -- n of the grab hits
     self.special_tolerance_delay = 0.02 -- between pressing attack & Jump
     self.player_select_mode = 0
     --Character default sfx
@@ -435,7 +435,7 @@ function Character:stand_start()
         self.delay_animation_cool_down = 0.06
     end
     self.victims = {}
-    self.n_grabhit = 0
+    self.n_grabAttack = 0
 end
 function Character:stand_update(dt)
     if not self.b.jump:isDown() then
@@ -1398,7 +1398,7 @@ function Character:grab_update(dt)
                 --if u grab char from behind
                 self:setState(self.shoveBack)
             else
-                self:setState(self.grabHit)
+                self:setState(self.grabAttack)
             end
             return
             --end
@@ -1463,7 +1463,7 @@ function Character:grabbed_update(dt)
 end
 Character.grabbed = {name = "grabbed", start = Character.grabbed_start, exit = nop, update = Character.grabbed_update, draw = Character.default_draw}
 
-function Character:grabHit_start()
+function Character:grabAttack_start()
     self.isHittable = true
     local g = self.hold
     if self.b.vertical:isDown(1) then --press DOWN to early headbutt
@@ -1474,15 +1474,15 @@ function Character:grabHit_start()
         g.cool_down = self.cool_down_grab + 0.1
         g.target.hold.cool_down = self.cool_down_grab
     end
-    self.n_grabhit = self.n_grabhit + 1
-    if self.n_grabhit > 2 then
-        self:setState(self.grabHitLast)
+    self.n_grabAttack = self.n_grabAttack + 1
+    if self.n_grabAttack > 2 then
+        self:setState(self.grabAttackLast)
         return
     end
-    self:setSprite("grabHit")
-    dp(self.name.." is grabhit someone.")
+    self:setSprite("grabAttack")
+    dp(self.name.." is grabAttack someone.")
 end
-function Character:grabHit_update(dt)
+function Character:grabAttack_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.dashSpecial)
@@ -1498,14 +1498,14 @@ function Character:grabHit_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
-Character.grabHit = {name = "grabHit", start = Character.grabHit_start, exit = nop, update = Character.grabHit_update, draw = Character.default_draw}
+Character.grabAttack = {name = "grabAttack", start = Character.grabAttack_start, exit = nop, update = Character.grabAttack_update, draw = Character.default_draw}
 
-function Character:grabHitLast_start()
+function Character:grabAttackLast_start()
     self.isHittable = true
-    self:setSprite("grabHitLast")
-    dp(self.name.." is grabHitLast someone.")
+    self:setSprite("grabAttackLast")
+    dp(self.name.." is grabAttackLast someone.")
 end
-function Character:grabHitLast_update(dt)
+function Character:grabAttackLast_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.dashSpecial)
@@ -1521,7 +1521,7 @@ function Character:grabHitLast_update(dt)
     self:calcFriction(dt)
     self:checkCollisionAndMove(dt)
 end
-Character.grabHitLast = {name = "grabHitLast", start = Character.grabHitLast_start, exit = nop, update = Character.grabHitLast_update, draw = Character.default_draw }
+Character.grabAttackLast = {name = "grabAttackLast", start = Character.grabAttackLast_start, exit = nop, update = Character.grabAttackLast_update, draw = Character.default_draw }
 
 function Character:shoveDown_start()
     self.isHittable = true
