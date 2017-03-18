@@ -154,8 +154,8 @@ return {
 			{ q = q(168,1132,50,64), ox = 22, oy = 63 }, --walk hold 1
 			{ q = q(157,1198,49,63), ox = 21, oy = 62 }, --walk hold 2
 			{ q = q(2,1264,49,63), ox = 21, oy = 62 }, --walk hold 3
-			{ q = q(53,1263,50,63), ox = 22, oy = 62 }, --walk hold 4
-			{ q = q(105,1263,50,63), ox = 22, oy = 62 }, --walk hold 5
+			{ q = q(53,1263,50,63), ox = 22, oy = 63 }, --walk hold 4
+			{ q = q(105,1263,50,63), ox = 22, oy = 63 }, --walk hold 5
 			{ q = q(157,1263,50,64), ox = 22, oy = 63 }, --walk hold 6
             loop = true,
             delay = 0.1
