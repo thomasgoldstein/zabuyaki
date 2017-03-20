@@ -84,6 +84,29 @@ function Obstacle:drawShadow(l,t,w,h)
     end
 end
 
+function Obstacle:checkCollisionAndMove(dt)
+    if self.move then
+        self.move:update(dt) --tweening
+        self.shape:moveTo(self.x, self.y)
+    else
+        local stepx = self.velx * dt * self.horizontal
+        local stepy = self.vely * dt * self.vertical
+        self.shape:moveTo(self.x + stepx, self.y + stepy)
+    end
+    if self.z <= 0 then
+        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+            local o = other.obj
+            if o.type == "wall"
+            then
+                self.shape:move(separating_vector.x, separating_vector.y)
+            end
+        end
+    end
+    local cx,cy = self.shape:center()
+    self.x = cx
+    self.y = cy
+end
+
 function Obstacle:updateAI(dt)
     if self.isDisabled then
         return
@@ -173,8 +196,7 @@ function Obstacle:stand_update(dt)
         self:setState(self.grabbed)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Obstacle.stand = {name = "stand", start = Obstacle.stand_start, exit = nop, update = Obstacle.stand_update, draw = Unit.default_draw}
 
@@ -195,8 +217,7 @@ function Obstacle:getup_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
 
@@ -208,8 +229,7 @@ function Obstacle:hurtHigh_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Obstacle.hurtHigh = {name = "hurtHigh", start = Obstacle.hurtHigh_start, exit = nop, update = Obstacle.hurtHigh_update, draw = Unit.default_draw}
 
@@ -221,8 +241,7 @@ function Obstacle:hurtLow_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Obstacle.hurtLow = {name = "hurtLow", start = Obstacle.hurtLow_start, exit = nop, update = Obstacle.hurtHigh_update, draw = Unit.default_draw}
 

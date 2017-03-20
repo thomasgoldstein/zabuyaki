@@ -67,8 +67,7 @@ function Chai:combo_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Chai.combo = {name = "combo", start = Chai.combo_start, exit = nop, update = Chai.combo_update, draw = Character.default_draw}
 
@@ -101,7 +100,7 @@ function Chai:dashAttack_update(dt)
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
         if self.velz < 0 then
-            self:calcFriction(dt)
+            self:calcMovement(dt, true)
         end
     else
         self.velz = 0
@@ -110,7 +109,7 @@ function Chai:dashAttack_update(dt)
         self:setState(self.duck)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false, nil)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttack_start, exit = nop, update = Chai.dashAttack_update, draw = Character.default_draw }
 
@@ -124,8 +123,7 @@ function Chai:holdAttack_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Chai.holdAttack = {name = "holdAttack", start = Chai.holdAttack_start, exit = nop, update = Chai.holdAttack_update, draw = Character.default_draw}
 
@@ -176,8 +174,7 @@ function Chai:shoveForward_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Chai.shoveForward = {name = "shoveForward", start = Chai.shoveForward_start, exit = nop, update = Chai.shoveForward_update, draw = Character.default_draw}
 

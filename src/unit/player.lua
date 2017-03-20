@@ -455,7 +455,7 @@ function Player:respawn_update(dt)
         self.bounced = 1
     end
     --self.victim_infoBar = nil   -- remove enemy bar under yours
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt)
 end
 Player.respawn = {name = "respawn", start = Player.respawn_start, exit = nop, update = Player.respawn_update, draw = Unit.default_draw}
 
@@ -486,8 +486,7 @@ function Player:dead_update(dt)
     else
         self.cool_down_death = self.cool_down_death - dt
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt)
 end
 Player.dead = {name = "dead", start = Player.dead_start, exit = nop, update = Player.dead_update, draw = Unit.default_draw}
 

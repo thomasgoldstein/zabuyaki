@@ -183,6 +183,7 @@ function Character:onHurt()
         self.hurt = nil
         return
     end
+    self:remove_tween_move()
     self:onFriendlyAttack()
     self:onHurtDamage()
     self:afterOnHurt()
@@ -421,8 +422,7 @@ function Character:slide_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.slide = {name = "slide", start = Character.slide_start, exit = nop, update = Character.slide_update, draw = Character.default_draw}
 
@@ -437,6 +437,7 @@ function Character:stand_start()
         end
         self.delay_animation_cool_down = 0.06
     end
+    self:remove_tween_move()
     self.victims = {}
     self.n_grabAttack = 0
 end
@@ -511,8 +512,7 @@ function Character:stand_update(dt)
             self.horizontal = self.face
         end
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.stand = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
 
@@ -625,8 +625,7 @@ function Character:walk_update(dt)
         self:setState(self.stand)
         return
     end
-    --self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false)
 end
 Character.walk = {name = "walk", start = Character.walk_start, exit = nop, update = Character.walk_update, draw = Character.default_draw}
 
@@ -680,8 +679,7 @@ function Character:run_update(dt)
         end
         return
     end
-    --self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false)
 end
 Character.run = {name = "run", start = Character.run_start, exit = nop, update = Character.run_update, draw = Character.default_draw}
 
@@ -734,7 +732,7 @@ function Character:jump_update(dt)
         self:setState(self.duck)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false)
 end
 Character.jump = {name = "jump", start = Character.jump_start, exit = nop, update = Character.jump_update, draw = Character.default_draw}
 
@@ -760,8 +758,7 @@ function Character:pickup_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.pickup = {name = "pickup", start = Character.pickup_start, exit = nop, update = Character.pickup_update, draw = Character.default_draw}
 
@@ -791,8 +788,7 @@ function Character:duck_update(dt)
         end
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Character.duck = {name = "duck", start = Character.duck_start, exit = nop, update = Character.duck_update, draw = Character.default_draw}
 
@@ -840,8 +836,7 @@ function Character:duck2jump_update(dt)
             self.vely = self.velocity_walk_y
         end
     end
-    --self:calcFriction(dt)
-    --self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false) -- TODO no movement here
 end
 Character.duck2jump = {name = "duck2jump", start = Character.duck2jump_start, exit = nop, update = Character.duck2jump_update, draw = Character.default_draw}
 
@@ -863,8 +858,7 @@ function Character:hurtHigh_update(dt)
         end
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Character.hurtHigh = {name = "hurtHigh", start = Character.hurtHigh_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
 
@@ -886,8 +880,7 @@ function Character:hurtLow_update(dt)
         end
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
 
@@ -908,7 +901,7 @@ function Character:sideStepDown_update(dt)
         self:setState(self.duck)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false, nil)
 end
 Character.sideStepDown = {name = "sideStepDown", start = Character.sideStepDown_start, exit = nop, update = Character.sideStepDown_update, draw = Character.default_draw}
 
@@ -929,7 +922,7 @@ function Character:sideStepUp_update(dt)
         self:setState(self.duck)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false, nil)
 end
 Character.sideStepUp = {name = "sideStepUp", start = Character.sideStepUp_start, exit = nop, update = Character.sideStepUp_update, draw = Character.default_draw}
 
@@ -950,8 +943,7 @@ function Character:dashAttack_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt, self.friction_dash)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, self.friction_dash)
 end
 Character.dashAttack = {name = "dashAttack", start = Character.dashAttack_start, exit = nop, update = Character.dashAttack_update, draw = Character.default_draw}
 
@@ -982,7 +974,7 @@ function Character:jumpAttackForward_update(dt)
         self:setState(self.duck)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false)
 end
 Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.jumpAttackForward_update, draw = Character.default_draw}
 
@@ -1006,7 +998,7 @@ function Character:jumpAttackLight_update(dt)
         self:setState(self.duck)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false)
 end
 Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAttackLight_start, exit = nop, update = Character.jumpAttackLight_update, draw = Character.default_draw}
 
@@ -1031,7 +1023,7 @@ function Character:jumpAttackStraight_update(dt)
         self:setState(self.duck)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false)
 end
 Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.jumpAttackStraight_update, draw = Character.default_draw}
 
@@ -1056,7 +1048,7 @@ function Character:jumpAttackRun_update(dt)
         self:setState(self.duck)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false)
 end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRun_start, exit = nop, update = Character.jumpAttackRun_update, draw = Character.default_draw}
 
@@ -1140,7 +1132,7 @@ function Character:fall_update(dt)
 
         end
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false) --TODO ?
 end
 Character.fall = {name = "fall", start = Character.fall_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
 
@@ -1163,7 +1155,7 @@ function Character:getup_update(dt)
         self:setState(self.stand)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.getup = {name = "getup", start = Character.getup_start, exit = nop, update = Character.getup_update, draw = Character.default_draw}
 
@@ -1197,8 +1189,7 @@ function Character:dead_update(dt)
     else
         self.cool_down_death = self.cool_down_death - dt
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.dead = {name = "dead", start = Character.dead_start, exit = nop, update = Character.dead_update, draw = Character.default_draw}
 
@@ -1235,8 +1226,7 @@ function Character:combo_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.combo = {name = "combo", start = Character.combo_start, exit = nop, update = Character.combo_update, draw = Character.default_draw}
 
@@ -1338,11 +1328,9 @@ function Character:grab_start()
             y = to_common_y - 0
         }, 'outQuad')
     end
+    --self.velx, self.vely = 0, 0
 end
 function Character:grab_update(dt)
-    if self.move then
-        self.move:update(dt)
-    end
     local g = self.hold
     if g and g.target then
         --controlled release
@@ -1420,8 +1408,7 @@ function Character:grab_update(dt)
     if not self.b.attack:isDown() then
         self.can_attack = true
     end
-    --self:calcFriction(dt)
-    --self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.grab = {name = "grab", start = Character.grab_start, exit = nop, update = Character.grab_update, draw = Character.default_draw}
 
@@ -1462,8 +1449,7 @@ function Character:grabbed_update(dt)
         self:setState(self.stand)
         return
     end
-    --self:calcFriction(dt)
-    --self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.grabbed = {name = "grabbed", start = Character.grabbed_start, exit = nop, update = Character.grabbed_update, draw = Character.default_draw}
 
@@ -1499,8 +1485,7 @@ function Character:grabAttack_update(dt)
         self:setState(self.grab)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.grabAttack = {name = "grabAttack", start = Character.grabAttack_start, exit = nop, update = Character.grabAttack_update, draw = Character.default_draw}
 
@@ -1522,8 +1507,7 @@ function Character:grabAttackLast_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.grabAttackLast = {name = "grabAttackLast", start = Character.grabAttackLast_start, exit = nop, update = Character.grabAttackLast_update, draw = Character.default_draw }
 
@@ -1537,8 +1521,7 @@ function Character:shoveDown_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.shoveDown = {name = "shoveDown", start = Character.shoveDown_start, exit = nop, update = Character.shoveDown_update, draw = Character.default_draw}
 
@@ -1578,8 +1561,7 @@ function Character:shoveUp_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.shoveUp = {name = "shoveUp", start = Character.shoveUp_start, exit = nop, update = Character.shoveUp_update, draw = Character.default_draw}
 
@@ -1617,8 +1599,7 @@ function Character:shoveForward_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.shoveForward = {name = "shoveForward", start = Character.shoveForward_start, exit = nop, update = Character.shoveForward_update, draw = Character.default_draw}
 
@@ -1657,8 +1638,7 @@ function Character:shoveBack_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Character.shoveBack = {name = "shoveBack", start = Character.shoveBack_start, exit = nop, update = Character.shoveBack_update, draw = Character.default_draw}
 
@@ -1710,8 +1690,7 @@ function Character:grabSwap_update(dt)
     if not self.b.attack:isDown() then
         self.can_attack = true
     end
-    self:calcFriction(dt)
---    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false) --TODO stuck
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwap_start, exit = nop, update = Character.grabSwap_update, draw = Character.default_draw}
 

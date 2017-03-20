@@ -143,8 +143,7 @@ function Satoff:combo_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt, self.friction_dash)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, self.friction_dash)
 end
 
 Satoff.combo = { name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Satoff.default_draw }
@@ -156,8 +155,7 @@ function Satoff:intro_start()
 end
 
 function Satoff:intro_update(dt)
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 
 Satoff.intro = { name = "intro", start = Satoff.intro_start, exit = nop, update = Satoff.intro_update, draw = Enemy.default_draw }
@@ -178,8 +176,7 @@ function Satoff:stand_update(dt)
         self:setState(self.grabbed)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 
 Satoff.stand = { name = "stand", start = Satoff.stand_start, exit = nop, update = Satoff.stand_update, draw = Enemy.default_draw }
@@ -216,9 +213,9 @@ function Satoff:walk_update(dt)
         --        end
         return
     end
-    self:checkCollisionAndMove(dt)
     self.can_jump = true
     self.can_attack = true
+    self:calcMovement(dt, true, nil)
 end
 Satoff.walk = { name = "walk", start = Satoff.walk_start, exit = Unit.remove_tween_move, update = Satoff.walk_update, draw = Enemy.default_draw }
 
@@ -260,7 +257,7 @@ function Satoff:run_update(dt)
         end
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Satoff.run = {name = "run", start = Satoff.run_start, exit = Unit.remove_tween_move, update = Satoff.run_update, draw = Satoff.default_draw}
 
@@ -298,8 +295,7 @@ function Satoff:dashAttack_update(dt)
         self.velx = 0
         self.z = 0
     end
-    self:calcFriction(dt, self.friction_dash * dashAttack_speed)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, self.friction_dash * dashAttack_speed)
 end
 Satoff.dashAttack = {name = "dashAttack", start = Satoff.dashAttack_start, exit = nop, update = Satoff.dashAttack_update, draw = Character.default_draw }
 

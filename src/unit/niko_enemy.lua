@@ -121,7 +121,7 @@ function Niko:jump_update(dt)
         self:setState(self.duck)
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false, nil)
 end
 Niko.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Niko.jump_update, draw = Character.default_draw }
 

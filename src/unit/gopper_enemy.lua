@@ -146,8 +146,7 @@ function Gopper:combo_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 
 Gopper.combo = { name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Gopper.default_draw }
@@ -169,8 +168,7 @@ function Gopper:dashAttack_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt, self.friction_dash)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, self.friction_dash)
 end
 
 Gopper.dashAttack = { name = "dashAttack", start = Gopper.dashAttack_start, exit = nop, update = Gopper.dashAttack_update, draw = Character.default_draw }
@@ -183,8 +181,7 @@ function Gopper:intro_start()
 end
 
 function Gopper:intro_update(dt)
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 
 Gopper.intro = { name = "intro", start = Gopper.intro_start, exit = nop, update = Gopper.intro_update, draw = Enemy.default_draw }
@@ -205,8 +202,7 @@ function Gopper:stand_update(dt)
         self:setState(self.grabbed)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 
 Gopper.stand = { name = "stand", start = Gopper.stand_start, exit = nop, update = Gopper.stand_update, draw = Enemy.default_draw }
@@ -268,9 +264,9 @@ function Gopper:walk_update(dt)
         --        end
         return
     end
-    self:checkCollisionAndMove(dt)
     self.can_jump = true
     self.can_attack = true
+    self:calcMovement(dt, false, nil)
 end
 Gopper.walk = { name = "walk", start = Gopper.walk_start, exit = Unit.remove_tween_move, update = Gopper.walk_update, draw = Enemy.default_draw }
 
@@ -312,7 +308,7 @@ function Gopper:run_update(dt)
         end
         return
     end
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, false, nil)
 end
 Gopper.run = {name = "run", start = Gopper.run_start, exit = Unit.remove_tween_move, update = Gopper.run_update, draw = Gopper.default_draw}
 
@@ -349,8 +345,7 @@ function Gopper:dashAttack_update(dt)
         self.velx = 0
         self.z = 0
     end
-    self:calcFriction(dt, self.friction_dash * dashAttack_speed)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, self.friction_dash * dashAttack_speed)
 end
 Gopper.dashAttack = {name = "dashAttack", start = Gopper.dashAttack_start, exit = nop, update = Gopper.dashAttack_update, draw = Character.default_draw }
 

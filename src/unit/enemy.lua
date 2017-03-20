@@ -33,13 +33,23 @@ function Enemy:checkCollisionAndMove(dt)
         y = self.y
     end
     self.shape:moveTo(x + stepx, y + stepy)
-    for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
-        local o = other.obj
-        if o.type == "wall"
-                or (o.type == "obstacle" and o.z <= 0)
-        then
-            self.shape:move(separating_vector.x, separating_vector.y)
-            --other:move( separating_vector.x/2,  separating_vector.y/2)
+    if self.z <= 0 then
+        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+            local o = other.obj
+            if o.type == "wall"
+                    or (o.type == "obstacle" and o.z <= 0)
+            then
+                self.shape:move(separating_vector.x, separating_vector.y)
+                --other:move( separating_vector.x/2,  separating_vector.y/2)
+            end
+        end
+    else
+        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+            local o = other.obj
+            if o.type == "wall"
+            then
+                self.shape:move(separating_vector.x, separating_vector.y)
+            end
         end
     end
     local cx,cy = self.shape:center()
@@ -128,8 +138,7 @@ function Enemy:dead_update(dt)
     else
         self.cool_down_death = self.cool_down_death - dt
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Enemy.dead = {name = "dead", start = Character.dead_start, exit = nop, update = Character.dead_update, draw = Character.default_draw}
 

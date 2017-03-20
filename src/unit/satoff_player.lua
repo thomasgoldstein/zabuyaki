@@ -52,8 +52,7 @@ function Satoff:combo_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt, self.friction_dash)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, self.friction_dash)
 end
 Satoff.combo = {name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Character.default_draw}
 

@@ -74,8 +74,7 @@ function Rick:combo_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Character.default_draw}
 
@@ -97,8 +96,7 @@ function Rick:special_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Rick.special = {name = "special", start = Rick.special_start, exit = nop, update = Rick.special_update, draw = Character.default_draw }
 
@@ -127,8 +125,7 @@ function Rick:dashAttack_update(dt)
         self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
         self.pa_dash:emit(1)
     end
-    self:calcFriction(dt, self.friction_dash)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, self.friction_dash)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttack_start, exit = nop, update = Rick.dashAttack_update, draw = Character.default_draw}
 
@@ -160,8 +157,7 @@ function Rick:dashSpecial_update(dt)
         self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
         self.pa_dash:emit(1)
     end
-    self:calcFriction(dt, self.velocity_dash)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, self.velocity_dash)
 end
 Rick.dashSpecial = {name = "dashSpecial", start = Rick.dashSpecial_start, exit = nop, update = Rick.dashSpecial_update, draw = Character.default_draw}
 
@@ -175,8 +171,7 @@ function Rick:holdAttack_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true)
 end
 Rick.holdAttack = {name = "holdAttack", start = Rick.holdAttack_start, exit = nop, update = Rick.holdAttack_update, draw = Character.default_draw}
 

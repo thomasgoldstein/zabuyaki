@@ -340,17 +340,30 @@ end
 
 -- private
 function Unit:checkCollisionAndMove(dt)
-	local stepx = self.velx * dt * self.horizontal
-	local stepy = self.vely * dt * self.vertical
-
-	self.shape:moveTo(self.x + stepx, self.y + stepy)
-	for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
-		local o = other.obj
-		if o.type == "wall"
-		or (o.type == "obstacle" and o.z <= 0 and o.hp > 0)
-        then
-			self.shape:move(separating_vector.x, separating_vector.y)
-			--other:move( separating_vector.x/2,  separating_vector.y/2)
+	if self.move then
+		self.move:update(dt) --tweening
+		self.shape:moveTo(self.x, self.y)
+	else
+		local stepx = self.velx * dt * self.horizontal
+		local stepy = self.vely * dt * self.vertical
+		self.shape:moveTo(self.x + stepx, self.y + stepy)
+	end
+	if self.z <= 0 then
+		for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+			local o = other.obj
+			if o.type == "wall"
+			or (o.type == "obstacle" and o.z <= 0 and o.hp > 0)
+			then
+				self.shape:move(separating_vector.x, separating_vector.y)
+				--other:move( separating_vector.x/2,  separating_vector.y/2)
+			end
+		end
+	else
+		for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+			local o = other.obj
+			if o.type == "wall"	then
+				self.shape:move(separating_vector.x, separating_vector.y)
+			end
 		end
 	end
 	local cx,cy = self.shape:center()
@@ -371,6 +384,14 @@ function Unit:calcFriction(dt, friction)
 		self.vely = 0
 	end
 end
+
+function Unit:calcMovement(dt, use_friction, friction)
+	if self.z <= 0 and use_friction then
+		self:calcFriction(dt, friction)
+	end
+	self:checkCollisionAndMove(dt)
+end
+
 
 function Unit:calcDamageFrame()
 	-- HP max..0 / Frame 1..#max

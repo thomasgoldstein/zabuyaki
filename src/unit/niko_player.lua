@@ -54,8 +54,7 @@ function Niko:combo_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Niko.combo = {name = "combo", start = Niko.combo_start, exit = nop, update = Niko.combo_update, draw = Character.default_draw}
 

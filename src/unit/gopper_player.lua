@@ -55,8 +55,7 @@ function Gopper:combo_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcFriction(dt)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, nil)
 end
 Gopper.combo = {name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Character.default_draw}
 
@@ -93,8 +92,7 @@ function Gopper:dashAttack_update(dt)
         self.velx = 0
         self.z = 0
     end
-    self:calcFriction(dt, self.friction_dash * dashAttack_speed)
-    self:checkCollisionAndMove(dt)
+    self:calcMovement(dt, true, self.friction_dash * dashAttack_speed)
 end
 Gopper.dashAttack = {name = "dashAttack", start = Gopper.dashAttack_start, exit = nop, update = Gopper.dashAttack_update, draw = Character.default_draw }
 
