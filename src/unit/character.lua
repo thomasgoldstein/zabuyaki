@@ -1322,20 +1322,20 @@ function Character:grab_start()
     if self.x < g.target.x then
         self.move = tween.new(time_to_move, self, {
             x = self.x - 4,
-            y = to_common_y + 0.5
+            y = to_common_y + 0
         }, 'outQuad')
         g.target.move = tween.new(time_to_move, g.target, {
             x = self.x + 20,
-            y = to_common_y - 0.5
+            y = to_common_y - 0
         }, 'outQuad')
     else
         self.move = tween.new(time_to_move, self, {
             x = self.x + 4,
-            y = to_common_y + 0.5
+            y = to_common_y + 0
         }, 'outQuad')
         g.target.move = tween.new(time_to_move, g.target, {
             x = self.x - 20,
-            y = to_common_y - 0.5
+            y = to_common_y - 0
         }, 'outQuad')
     end
 end
