@@ -61,6 +61,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.sfx.throw = "air"
     self.sfx.dash_attack = "scream1"
     self.sfx.grab = "grab"
+    self.sfx.grab_clash = "hit_weak6"
     self.sfx.jump_attack = self.sfx.jump_attack or "scream1"
     self.sfx.step = self.sfx.step or "kisa_step"
     self.sfx.dead = self.sfx.dead or "scream1"
@@ -603,6 +604,7 @@ function Character:walk_update(dt)
                 grabbed.cool_down = 0.0
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
+                sfx.play("sfx"..self.id, self.sfx.grab_clash)
                 return
             end
             if self:doGrab(grabbed) then
