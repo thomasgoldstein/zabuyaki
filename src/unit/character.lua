@@ -1053,6 +1053,7 @@ end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRun_start, exit = nop, update = Character.jumpAttackRun_update, draw = Character.default_draw}
 
 function Character:fall_start()
+    self:remove_tween_move()
     self.isHittable = false
     if self.isThrown then
         self.z = self.thrower_id.throw_start_z or 0
@@ -1650,7 +1651,7 @@ function Character:grabSwap_start()
     g.cool_down = g.cool_down + 0.2
     g.can_grabSwap = false
     self.grabSwap_flipped = false
-    self.grabSwap_x = self.hold.target.x + self.face * 22
+    self.grabSwap_x = self.hold.target.x + self.face * 18
     self.grabSwap_x_fin_dist = math.abs( self.x - self.grabSwap_x )
     sfx.play("sfx", "whoosh_heavy")
     dp(self.name.." is grabSwapping someone.")
@@ -1659,6 +1660,7 @@ function Character:grabSwap_update(dt)
     --dp(self.name .. " - grab update", dt)
     local g = self.hold
     --adjust both vertically
+--[[
     if self.y > g.target.y + 1 then
         self.y = self.y - 0.5
         self.y = self.y - 0.5
@@ -1667,6 +1669,7 @@ function Character:grabSwap_update(dt)
         self.y = self.y + 0.5
         g.target.y = g.target.y - 0.5
     end
+]]
     --adjust char horizontally
     if math.abs(self.x - self.grabSwap_x) > 2 then
         if self.x < self.grabSwap_x then
@@ -1690,7 +1693,7 @@ function Character:grabSwap_update(dt)
     if not self.b.attack:isDown() then
         self.can_attack = true
     end
-    self:calcMovement(dt, false) --TODO stuck
+    --self:calcMovement(dt, false) --do not need.
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwap_start, exit = nop, update = Character.grabSwap_update, draw = Character.default_draw}
 
