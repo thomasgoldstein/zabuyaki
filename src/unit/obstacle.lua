@@ -148,6 +148,7 @@ function Obstacle:onHurt()
         self.velx = h.damage * 10
         self.horizontal = h.horizontal
     end
+    self:remove_tween_move()
     self:onHurtDamage()
     self:afterOnHurt()
     --Check for breaking change
