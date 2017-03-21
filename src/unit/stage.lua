@@ -2,6 +2,7 @@ local class = require "lib/middleclass"
 local Stage = class('Stage')
 
 function Stage:initialize(name, bgColor)
+    stage = self
     self.name = name or "Stage NoName"
     self.mode = "normal"
     self.bgColor = bgColor
@@ -19,6 +20,16 @@ function Stage:initialize(name, bgColor)
     --        {startX = 321, endX = 321+320, startY = 430, endY = 430-100}
     --    }
     self.world = HC.new(40*4)
+    self.objects = Entity:new()
+    --Left and right players stoppers
+    local x = 80
+    local x_gap = 320
+    local left_stopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { x, 0, 100, self.worldHeight }}) --left
+    local right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { x + x_gap, 0, 100, self.worldHeight }}) --right
+    self.objects:addArray({
+        left_stopper, right_stopper
+    })
+
 end
 
 function Stage:update(dt)

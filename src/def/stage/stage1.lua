@@ -6,7 +6,7 @@ function Stage1:initialize(players)
     Stage.initialize(self, "Stage 1", {231, 207, 157})
     self.shadowAngle = -0.2
     self.shadowHeight = 0.3 --Range 0.2..1
-    stage = self
+    --stage = self
     self.scrolling = {commonY = 430, chunksX = {} }
     self.scrolling.chunks = {
         {startX = 0, endX = 1814, startY = 430, endY = 430},
@@ -18,7 +18,7 @@ function Stage1:initialize(players)
 --        {startX = 1600, endX = 1800, startY = 430+20, endY = 430+20},
 --        {startX = 1800, endX = 2000, startY = 430+20, endY = 430}
     }
-    self.objects = Entity:new()
+    --self.objects = Entity:new()
 
 --    1814 + 386 + i * 360 - 2 , 432 - 177
 

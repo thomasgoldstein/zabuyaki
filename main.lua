@@ -123,6 +123,7 @@ function love.load(arg)
 	Niko = require "src/unit/niko_enemy"
 	PNiko = require "src/unit/niko_player"
 	Wall = require "src/unit/wall"
+	Stopper = require "src/unit/stopper"
 	InfoBar = require "src/infoBar"
 	Stage1 = require "src/def/stage/stage1"
 	require "src/def/movie/intro"
