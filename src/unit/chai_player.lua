@@ -99,9 +99,6 @@ function Chai:dashAttack_update(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
-        if self.velz < 0 then
-            self:calcMovement(dt, true)
-        end
     else
         self.velz = 0
         self.z = 0
@@ -109,7 +106,7 @@ function Chai:dashAttack_update(dt)
         self:setState(self.duck)
         return
     end
-    self:calcMovement(dt, false, nil)
+    self:calcMovement(dt, true)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttack_start, exit = nop, update = Chai.dashAttack_update, draw = Character.default_draw }
 
