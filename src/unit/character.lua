@@ -448,12 +448,6 @@ function Character:stand_update(dt)
     if not self.b.attack:isDown() then
         self.can_attack = true
     end
-
-    if self.isGrabbed then
-        self:setState(self.grabbed)
-        return
-    end
-
     self.delay_animation_cool_down = self.delay_animation_cool_down - dt
     if self.delay_animation_cool_down <= 0 then
         if self.b.attack:isDown() then
@@ -850,12 +844,8 @@ function Character:hurtHigh_update(dt)
             self:setState(self.getup)
             return
         end
-        if self.isGrabbed then
-            self:setState(self.grabbed)
-        else
-            self.cool_down = 0.1
-            self:setState(self.stand)
-        end
+        self.cool_down = 0.1
+        self:setState(self.stand)
         return
     end
     self:calcMovement(dt, true, nil)
@@ -872,12 +862,8 @@ function Character:hurtLow_update(dt)
             self:setState(self.getup)
             return
         end
-        if self.isGrabbed then
-            self:setState(self.grabbed)
-        else
-            self.cool_down = 0.1
-            self:setState(self.stand)
-        end
+        self.cool_down = 0.1
+        self:setState(self.stand)
         return
     end
     self:calcMovement(dt, true, nil)
@@ -1257,13 +1243,9 @@ function Character:onGrab(source)
     if not self.isHittable or self.z > 0 then
         return false
     end
-    self:remove_tween_move()
+    self:release_grabbed()	-- your grab targed releases one it grabs
     dp(source.name .. " grabed me - "..self.name)
-    if g.target and g.target.isGrabbed then	-- your grab targed releases one it grabs
-        g.target.isGrabbed = false
-    end
     g.source = source
-    g.target = nil
     g.cool_down = self.cool_down_grab
     self.isGrabbed = true
     return self.isGrabbed
@@ -1295,7 +1277,7 @@ function Character:doGrab(target)
             self.horizontal = 1
         end
         g.can_grabSwap = true   --can do 1 grabSwap
-        sfx.play("voice"..self.id, target.sfx.grab)   --target's clothes ruffling sound
+        target:setState(target.grabbed)
         self:setState(self.grab)
         return true
     end
@@ -1430,6 +1412,7 @@ function Character:grabbed_start()
     self.isHittable = true
     self:setSprite("grabbed")
     dp(self.name.." is grabbed.")
+    sfx.play("voice"..self.id, self.sfx.grab)   --clothes ruffling
 end
 function Character:grabbed_update(dt)
     local g = self.hold
