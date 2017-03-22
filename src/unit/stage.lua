@@ -1,6 +1,8 @@
 local class = require "lib/middleclass"
 local Stage = class('Stage')
 
+local min_gap_between_stoppers = 420
+
 function Stage:initialize(name, bgColor)
     stage = self
     self.name = name or "Stage NoName"
@@ -22,14 +24,39 @@ function Stage:initialize(name, bgColor)
     self.world = HC.new(40*4)
     self.objects = Entity:new()
     --Left and right players stoppers
-    local x = 80
-    local x_gap = 320
-    local left_stopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { x, 0, 100, self.worldHeight }}) --left
-    local right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { x + x_gap, 0, 100, self.worldHeight }}) --right
+    local x = 0
+    self.left_stopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
+    self.right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
     self.objects:addArray({
-        left_stopper, right_stopper
+        self.left_stopper, self.right_stopper
     })
 
+end
+
+function Stage:moveStoppers(x1, x2)
+    if x1 < 0 - self.left_stopper.width then
+        x1 = 0 - self.left_stopper.width
+    elseif x1 > self.worldWidth - min_gap_between_stoppers then
+        x1 = x1 > self.worldWidth - min_gap_between_stoppers
+    end
+    if not x2 then
+        x2 = x1 + min_gap_between_stoppers
+    else
+        if x2 < x1 then
+            x2 = x1 + min_gap_between_stoppers
+        end
+        if x2 > self.worldWidth then
+            x2 = self.worldWidth
+        end
+    end
+    self.left_stopper:moveTo(x1, self.worldHeight / 2)
+    self.right_stopper:moveTo(x2, self.worldHeight / 2)
+end
+
+function Stage:updateForwardStoppers(x)
+    if x > self.right_stopper.x - min_gap_between_stoppers * 0.67 then
+        self.left_stopper:moveTo(self.right_stopper.x - min_gap_between_stoppers, self.worldHeight / 2)
+    end
 end
 
 function Stage:update(dt)

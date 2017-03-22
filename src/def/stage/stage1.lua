@@ -104,8 +104,8 @@ function Stage1:initialize(players)
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 
     -- Walls around the level
-    local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -80, 0, 100, self.worldHeight }}) --left
-    local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 100, self.worldHeight }}) --right
+    local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
+    local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
 --    local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, self.worldWidth, 100 }}) --top
     local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, 1800, 100 }}) --top
     local wall3a = Wall:new("wall3a", { shapeType = "rectangle", shapeArgs = { 2170, 170, 1800, 100 }}) --top
@@ -300,12 +300,16 @@ function Stage1:initialize(players)
     if player3 then
         self.objects:add(player3)
     end
+
+    self:moveStoppers(0, 520)
 end
 
 function Stage1:update(dt)
     if self.rotate_wall then    --test wall rotation
         self.rotate_wall:rotate(dt)
     end
+    self:updateForwardStoppers(player1.x)
+
     Stage.update(self, dt)
 end
 
