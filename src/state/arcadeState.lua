@@ -25,7 +25,6 @@ function arcadeState:enter(_, players)
     --load stage
     stage = Stage1:new(players)
     game_over_delay = 0
-    mainCamera = Camera:new(stage.worldWidth, stage.worldHeight)
     love.graphics.setLineWidth( 1 )
     --start BGM
     TEsound.stop("music")
