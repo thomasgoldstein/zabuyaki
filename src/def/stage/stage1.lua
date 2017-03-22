@@ -125,6 +125,9 @@ function Stage1:initialize(players)
 
     local testDeathFunc = function(s, t) dp(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
+    local sveta1 = Gopper:new("SVETA", GetSpriteInstance("src/def/char/sveta.lua"), nil,
+        330, 490,
+        { shader = shaders.gopper[5], color = {255,255,255, 255}})
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         300, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
@@ -280,6 +283,7 @@ function Stage1:initialize(players)
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
+        sveta1,
         satoff1,
         gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
 --        gopper7, gopper8, gopper9, gopper10,
