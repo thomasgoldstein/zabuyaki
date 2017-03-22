@@ -23,6 +23,7 @@ function Stage:initialize(name, bgColor)
     --    }
     self.world = HC.new(40*4)
     self.objects = Entity:new()
+    mainCamera = Camera:new(self.worldWidth, self.worldHeight)
     --Left and right players stoppers
     local x = 0
     self.left_stopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
@@ -51,12 +52,14 @@ function Stage:moveStoppers(x1, x2)
     end
     self.left_stopper:moveTo(x1, self.worldHeight / 2)
     self.right_stopper:moveTo(x2, self.worldHeight / 2)
+    mainCamera:setWorld(self.left_stopper.x, 0, self.right_stopper.x - self.left_stopper.x, self.worldHeight)
 end
 
 function Stage:updateForwardStoppers(x)
-    if x > self.right_stopper.x - min_gap_between_stoppers * 0.67 then
+    if x > self.right_stopper.x - min_gap_between_stoppers * 0.15 then
         self.left_stopper:moveTo(self.right_stopper.x - min_gap_between_stoppers, self.worldHeight / 2)
     end
+    mainCamera:setWorld(self.left_stopper.x, 0, self.right_stopper.x - self.left_stopper.x, self.worldHeight)
 end
 
 function Stage:update(dt)
@@ -212,7 +215,12 @@ function Stage:setCamera(dt)
     -- Correct coord_y according to the zoom stage
     coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
 
+--OK
     mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
+--    mainCamera:update(dt, self.left_stopper.x, math.floor(coord_y * 2)/2)
+--    mainCamera:update(dt, player1.x, math.floor(coord_y * 2)/2)
+--print(self.left_stopper.x, self.left_stopper.y)
+
 --  mainCamera:update(dt, math.ceil(coord_x * 2 - 0.5)/2, math.ceil(coord_y * 2 - 0.5 )/2)
 
     -- Move block walls
