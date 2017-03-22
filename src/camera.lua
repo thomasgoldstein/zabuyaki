@@ -12,6 +12,10 @@ function Camera:initialize(worldWidth, worldHeight, x, y)
     --self.cam:setAngle(0.10)
 end
 
+function Camera:setWorld(x, y, worldWidth, worldHeight)
+    self.cam:setWorld(x, y, worldWidth, worldHeight)
+end
+
 function Camera:onShake(sx, sy, freq,cool_down)
     --shaking sprite
     self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2,
