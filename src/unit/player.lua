@@ -161,6 +161,41 @@ function Player:drawBar(l,t,w,h, icon_width, norm_color)
 end
 -- End of Lifebar elements
 
+function Unit:checkCollisionAndMove(dt)
+    if self.move then
+        self.move:update(dt) --tweening
+        self.shape:moveTo(self.x, self.y)
+    else
+        local stepx = self.velx * dt * self.horizontal
+        local stepy = self.vely * dt * self.vertical
+        self.shape:moveTo(self.x + stepx, self.y + stepy)
+    end
+    if self.z <= 0 then
+        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+            local o = other.obj
+            if o.type == "wall"
+                    or (o.type == "obstacle" and o.z <= 0 and o.hp > 0)
+                or o.type == "stopper"
+            then
+                self.shape:move(separating_vector.x, separating_vector.y)
+                --other:move( separating_vector.x/2,  separating_vector.y/2)
+            end
+        end
+    else
+        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+            local o = other.obj
+            if o.type == "wall"
+                or o.type == "stopper"
+            then
+                self.shape:move(separating_vector.x, separating_vector.y)
+            end
+        end
+    end
+    local cx,cy = self.shape:center()
+    self.x = cx
+    self.y = cy
+end
+
 local states_for_hold_attack = {stand = true, walk = true, run = true}
 function Player:updateAI(dt)
     if self.isDisabled then

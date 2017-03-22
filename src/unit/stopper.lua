@@ -6,7 +6,7 @@ local function nop() end
 function Stopper:initialize(name, f)
     --f options {}: shapeType, shapeArgs, hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak
     if not f then
-        f = { shapeType = "rectangle", shapeArgs = { 0, -10, 40, 260 } }
+        f = { shapeType = "rectangle", shapeArgs = { 0, 0, 20, 100 } }
     end
     local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
     local width, height = f.shapeArgs[3] or 20, f.shapeArgs[4] or 240
@@ -22,6 +22,11 @@ function Stopper:initialize(name, f)
     self.infoBar = nil
 
     self:setState(self.stand)
+end
+
+function Stopper:moveTo(x, y)
+    self.shape:moveTo(x, y)
+    self.x, self.y = x, y
 end
 
 function Stopper:updateSprite(dt)
