@@ -44,7 +44,7 @@ function Batch:load()
     --self.delay = b.delay or 0
     for i = 1, #b.units do
         local u = b.units[i]
-        u.spawned = false
+        u.isSpawned = false
         --print("units in batch:",u.unit.name)
     end
     return true
@@ -63,7 +63,7 @@ function Batch:spawn()
     local all_dead = true
     for i = 1, #b.units do
         local u = b.units[i]
-        if not u.spawned then
+        if not u.isSpawned then
             if self.time - b.delay >= u.delay then --delay before the unit's spawn
                 --TODO spawn
                 print("spawn ", u.unit.name, u.unit.type, u.unit.hp, self.time)
@@ -71,7 +71,7 @@ function Batch:spawn()
                 --self:ps(" enSpawn Unit #"..i)
                 self.stage.objects:add(u.unit)
 
-                u.spawned = true
+                u.isSpawned = true
             end
             all_spawned = false
             all_dead = false --not yet spawned = alive

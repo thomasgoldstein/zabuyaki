@@ -17,6 +17,8 @@ function Unit:initialize(name, sprite, input, x, y, f)
     if not f then
         f = {}
     end
+    self.isSpawned = false
+    self.isDisabled = true
 	self.sprite = sprite
 	self.name = name or "Unknown"
 	self.type = "unit"
@@ -51,7 +53,6 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.hold = {source = nil, target = nil, cool_down = 0 }
     self.victims = {} -- [victim] = true
     self.isThrown = false
-    self.isDisabled = false
     self.shader = f.shader  --change player colors
 	self.color = f.color or { 255, 255, 255, 255 }
     self.func = f.func
@@ -70,13 +71,22 @@ function Unit:initialize(name, sprite, input, x, y, f)
 		self.pid = ""
 		self.show_pid_cool_down = 0
 	end
+--	self.shapeType = f.shapeType or "rectangle"
+--	self.shapeArgs = f.shapeArgs or {self.x, self.y, 15, 7}
 	self:addShape(f.shapeType or "rectangle", f.shapeArgs or {self.x, self.y, 15, 7})
-
+--	self:addShape()
 	self:setState(self.stand)
 	dpo_init(self)
 end
 
+function Unit:setOnStage(stage)
+	--self:addShape(self.shapeType, self.shapeArgs)
+	stage.objects:add(self)
+    self.isSpawned = true
+end
+
 function Unit:addShape(shapeType, shapeArgs)
+    shapeType, shapeArgs = shapeType or self.shapeType, shapeArgs or self.shapeArgs
 	if not self.shape then
 		if shapeType == "rectangle" then
 			self.shape = stage.world:rectangle(unpack(shapeArgs))

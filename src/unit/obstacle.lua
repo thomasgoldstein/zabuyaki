@@ -119,7 +119,7 @@ end
 
 function Obstacle:isImmune()   --Immune to the attack?
     local h = self.hurt
-    if h.type == "shockWave" then
+    if h.type == "shockWave" or self.isDisabled then
         -- shockWave has no effect on players & obstacles
         self.hurt = nil --free hurt data
         return true

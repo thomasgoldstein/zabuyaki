@@ -221,7 +221,7 @@ function Player:isImmune()   --Immune to the attack?
     if not h then
         return true
     end
-    if h.type == "shockWave" then
+    if h.type == "shockWave" or self.isDisabled then
         self.hurt = nil --free hurt data
         return false
     end

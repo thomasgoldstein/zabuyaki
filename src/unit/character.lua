@@ -1225,6 +1225,7 @@ function Character:checkForGrab(range)
     for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
         local o = other.obj
         if o.isHittable
+                and not o.isDisabled
                 and not o.isGrabbed
                 and o.isMovable
         then

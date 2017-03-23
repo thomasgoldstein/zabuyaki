@@ -13,21 +13,24 @@ function Entity:add(e)
     --TODO refactor addArr to 1 func
     if false and type(e) == "table" then
         for i=1,#e do
+            e[i].isDisabled = false
             self.entities[#self.entities+1] = e[i]
         end
     else
+        e.isDisabled = false
         self.entities[#self.entities+1] = e
     end
     return self.entities
 end
 
-function Entity:addArray(a)
-    if not a then
+function Entity:addArray(e)
+    if not e then
         return self.entities
     end
     --    if type(e) == "table" then
-    for i=1,#a do
-        self.entities[#self.entities+1] = a[i]
+    for i=1,#e do
+        e[i].isDisabled = false
+        self.entities[#self.entities+1] = e[i]
     end
     return self.entities
 end
