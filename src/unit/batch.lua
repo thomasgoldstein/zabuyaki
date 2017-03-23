@@ -41,6 +41,9 @@ function Batch:load()
     end
     print("load Batch #",n)
     local b = self.batches[n]
+    self.left_stopper = b.left_stopper or 0
+    self.right_stopper = b.right_stopper or 320
+
     --self.delay = b.delay or 0
     for i = 1, #b.units do
         local u = b.units[i]
@@ -50,14 +53,26 @@ function Batch:load()
     return true
 end
 
-function Batch:spawn()
+function Batch:spawn(dt)
     local b = self.batches[self.n]
     if self.time < b.delay then --delay before the whole batch
         return false
     end
+
     -- left_stopper, right_stopper
     --move?
     --self:ps(" unitss #"..#b.units)
+    local x1, x2 = self.stage.left_stopper.x, self.stage.right_stopper.x
+--    self.left_stopper = b.left_stopper or 0
+--    self.right_stopper = b.right_stopper or 320
+
+    if x1 < self.left_stopper then
+        x1 = x1 + dt * 200
+    end
+    if x2 < self.right_stopper then
+        x2 = x2 + dt * 200
+    end
+    self.stage:moveStoppers(x1, x2)
 
     local all_spawned = true
     local all_dead = true
@@ -96,7 +111,7 @@ function Batch:update(dt)
     self.time = self.time + dt
 --    self:ps()
     if self.state == "spawn" then
-        self:spawn()
+        self:spawn(dt)
         return
     elseif self.state == "next" then
 --        self:ps()

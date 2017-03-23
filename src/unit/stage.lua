@@ -52,7 +52,7 @@ function Stage:moveStoppers(x1, x2)
     end
     self.left_stopper:moveTo(x1, self.worldHeight / 2)
     self.right_stopper:moveTo(x2, self.worldHeight / 2)
-    mainCamera:setWorld(self.left_stopper.x, 0, self.right_stopper.x - self.left_stopper.x, self.worldHeight)
+    mainCamera:setWorld(math.floor(self.left_stopper.x), 0, math.floor(self.right_stopper.x - self.left_stopper.x), self.worldHeight)
 end
 
 function Stage:updateForwardStoppers(x)

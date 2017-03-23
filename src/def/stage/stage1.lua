@@ -126,7 +126,7 @@ function Stage1:initialize(players)
     local testDeathFunc = function(s, t) dp(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
     local sveta1 = Sveta:new("SVETA", GetSpriteInstance("src/def/char/sveta.lua"), nil,
-        330, 490,
+        900, 490,
         { shader = shaders.sveta[2], color = {255,255,255, 255}})
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         300, 479,
@@ -244,7 +244,7 @@ function Stage1:initialize(players)
         { shader = shaders.niko[3], color = {255,255,255, 255}})
 
     local satoff1 = Satoff:new("Satoff", GetSpriteInstance("src/def/char/satoff.lua"), nil,
-        278 , top_floor_y + 80 ,
+        920 , top_floor_y + 80 ,
         { lives = 3, hp = 100, score = 300, shader = shaders.satoff[2] } )
 
     -- Obstacles
@@ -353,7 +353,7 @@ function Stage1:update(dt)
     if self.rotate_wall then    --test wall rotation
         self.rotate_wall:rotate(dt)
     end
-    self:updateForwardStoppers(player1.x)
+    --self:updateForwardStoppers(player1.x)
     self.batch:update(dt)
     Stage.update(self, dt)
 end
