@@ -105,6 +105,7 @@ function love.load(arg)
 	Movie = require "src/movie"
 	Event = require "src/event"
 	Stage = require "src/unit/stage"
+	Batch = require "src/unit/batch"
 	Effect = require "src/unit/effect"
 	Entity = require "src/entity"
 	Unit = require "src/unit/unit"

@@ -132,23 +132,23 @@ function Stage1:initialize(players)
         300, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
     local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        1510, top_floor_y + 20,
+        280, top_floor_y + 20,
         { shader = shaders.gopper[3], color = {255,255,255, 255}})
     gopper2:setToughness(1)
     local gopper3 = Gopper:new("GOPPER3", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        1560, top_floor_y + 40,
+        260, top_floor_y + 40,
         { shader = shaders.gopper[4], color = {255,255,255, 255}})
     gopper3:setToughness(2)
     local gopper4 = Gopper:new("GOPPER4", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        1520, top_floor_y + 30,
+        300, top_floor_y + 30,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
     gopper4:setToughness(3)
     local gopper5 = Gopper:new("GOPPER5", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        1540, top_floor_y + 25,
+        310, top_floor_y + 25,
         { shader = shaders.gopper[2], color = {255,255,255, 255}})
     gopper5:setToughness(4)
     local gopper6 = Gopper:new("GOPPER6", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        1525, top_floor_y + 35,
+        370, top_floor_y + 35,
         { shader = shaders.gopper[2], color = {255,255,255, 255}})
     gopper6:setToughness(5)
 
@@ -166,28 +166,28 @@ function Stage1:initialize(players)
     dummy5.face = -1
 
     local niko1 = Niko:new("niko", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        550 + love.math.random(-20,20), top_floor_y + 0,
+        510, top_floor_y + 0,
         { shader = shaders.niko[3], color = {255,255,255, 255}, func = testDeathFunc})
     local niko2 = Niko:new("niko2", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        1510 + love.math.random(-20,20), top_floor_y + 10,
+        510, top_floor_y + 10,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
-    niko2:setToughness(1)
+    --niko2:setToughness(1)
     local niko3 = Niko:new("niko3", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        1560 + love.math.random(-20,20), top_floor_y + 20,
+        500, top_floor_y + 20,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
-    niko3:setToughness(2)
+    --niko3:setToughness(2)
     local niko4 = Niko:new("niko4", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        1520 + love.math.random(-20,20), top_floor_y + 30,
+        540, top_floor_y + 30,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
-    niko4:setToughness(3)
+    --niko4:setToughness(3)
     local niko5 = Niko:new("niko5", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        1540 + love.math.random(-20,20), top_floor_y + 40,
+        530, top_floor_y + 40,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
-    niko5:setToughness(4)
+    --niko5:setToughness(4)
     local niko6 = Niko:new("niko6", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        1525 + love.math.random(-20,20), top_floor_y + 50,
+        525, top_floor_y + 50,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
-    niko6:setToughness(5)
+    --niko6:setToughness(5)
 
     -- Loot
     local func_dropApple = function(slf)
@@ -283,13 +283,13 @@ function Stage1:initialize(players)
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
-        sveta1,
-        satoff1,
-        gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
+--        sveta1,
+--        satoff1,
+--        gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
 --        gopper7, gopper8, gopper9, gopper10,
-        niko1, niko2, niko3, niko4, niko5, niko6,
-        niko7, niko8, niko9, niko10,
-        dummy4, dummy5,
+--        niko1, niko2, niko3, niko4, niko5, niko6,
+--        niko7, niko8, niko9, niko10,
+--        dummy4, dummy5,
         loot1, loot2, loot3,
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
         wall1,wall2,wall3,wall3a,walld1,wall4,wall4a,walld2 --,wall5,wall6,wall7
@@ -306,6 +306,47 @@ function Stage1:initialize(players)
     end
 
     self:moveStoppers(0, 520)
+
+    self.batch = Batch:new(self, {
+        {
+            -- 1st batch
+            delay = 2,
+            left_stopper = 0,
+            right_stopper = 520,
+            units = {
+                { unit = gopper1, delay = 3 },
+                { unit = gopper2, delay = 3.5 },
+                { unit = gopper3, delay = 4 },
+                { unit = gopper4, delay = 5 },
+                { unit = gopper5, delay = 5.25 },
+                { unit = gopper6, delay = 5.758 }
+            }
+        },
+        {
+            -- 2nd batch
+            delay = 1,
+            left_stopper = 520 - 320,
+            right_stopper = 520 + 500,
+            units = {
+                { unit = niko1, delay = 1 },
+                { unit = niko2, delay = 2 },
+                { unit = niko3, delay = 3 },
+                { unit = niko4, delay = 4 },
+                { unit = niko5, delay = 5 },
+                { unit = niko6, delay = 6 }
+            }
+        },
+        {
+            -- 3st batch Mid-Boss
+            delay = 0,
+            left_stopper = 520 - 320 + 320,
+            right_stopper = 520 + 500 + 320,
+            units = {
+                { unit = satoff1, delay = 1 },
+                { unit = sveta1, delay = 2 }
+            }
+        }
+    })
 end
 
 function Stage1:update(dt)
@@ -313,7 +354,7 @@ function Stage1:update(dt)
         self.rotate_wall:rotate(dt)
     end
     self:updateForwardStoppers(player1.x)
-
+    self.batch:update(dt)
     Stage.update(self, dt)
 end
 
