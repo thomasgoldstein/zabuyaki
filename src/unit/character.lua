@@ -9,6 +9,7 @@ local clamp = clamp
 function Character:initialize(name, sprite, input, x, y, f)
     Unit.initialize(self, name, sprite, input, x, y, f)
     self.type = "character"
+    self.time = 0
     self.height = 50
     self.velocity_walk = 100
     self.velocity_walk_y = 50
@@ -145,6 +146,7 @@ function Character:updateAI(dt)
     if self.isDisabled then
         return
     end
+    self.time = self.time + dt
     self:updateShake(dt)
     Unit.updateAI(self, dt)
 end

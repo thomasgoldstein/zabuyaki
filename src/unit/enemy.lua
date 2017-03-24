@@ -18,6 +18,9 @@ function Enemy:initialize(name, sprite, input, x, y, shader, color)
     self.max_ai_poll_3 = 11
     self.ai_poll_3 = self.max_ai_poll_3
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
+    self.wakeup_range = 100 --instantly wakeup if the player is close
+    self.wakeup_delay = 3
+    self.delayed_wakeup_range = 150 --wakeup after wakeup_delay if the player is close
 end
 
 function Enemy:checkCollisionAndMove(dt)

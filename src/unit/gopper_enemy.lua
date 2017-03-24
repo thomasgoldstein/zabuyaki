@@ -43,7 +43,10 @@ function Gopper:updateAI(dt)
         -- Intro -> Stand
         if self.state == "intro" then
             -- see near players?
-            if self:getDistanceToClosestPlayer() < 100 then
+            local dist = self:getDistanceToClosestPlayer()
+            if dist < self.wakeup_range
+                or (dist < self.delayed_wakeup_range and self.time > self.wakeup_delay )
+            then
                 self.face = -self.target.face --face to player
                 self:setState(self.stand)
             end
