@@ -315,11 +315,11 @@ function Stage1:initialize(players)
             right_stopper = 520,
             units = {
                 { unit = gopper1, delay = 0 },
-                { unit = gopper2, delay = 0 },
-                { unit = gopper3, delay = 3, state = "stand" },
-                { unit = gopper4, delay = 0 },
-                { unit = gopper5, delay = 1, state = "stand" },
-                { unit = gopper6, delay = 5, state = "stand" }
+--                { unit = gopper2, delay = 0 },
+--                { unit = gopper3, delay = 3, state = "stand" },
+--                { unit = gopper4, delay = 0 },
+--                { unit = gopper5, delay = 1, state = "stand" },
+--                { unit = gopper6, delay = 5, state = "stand" }
             }
         },
         {
@@ -329,21 +329,31 @@ function Stage1:initialize(players)
             right_stopper = 520 + 500,
             units = {
                 { unit = niko1, delay = 1 },
-                { unit = niko2, delay = 2 },
-                { unit = niko3, delay = 3 },
-                { unit = niko4, delay = 4 },
-                { unit = niko5, delay = 5 },
-                { unit = niko6, delay = 6 }
+--                { unit = niko2, delay = 2 },
+--                { unit = niko3, delay = 3 },
+--                { unit = niko4, delay = 4 },
+--                { unit = niko5, delay = 5 },
+--                { unit = niko6, delay = 6 }
             }
         },
         {
-            -- 3st batch Mid-Boss
+            -- 3rd batch Mid-Boss
+            delay = 0,
+            left_stopper = 520 - 320 + 320,
+            right_stopper = 520 + 500 + 320,
+            units = {
+--                { unit = satoff1, delay = 1 },
+                { unit = sveta1, delay = 2 }
+            }
+        },
+        {
+            -- 4th batch Mid-Boss
             delay = 0,
             left_stopper = 520 - 320 + 320,
             right_stopper = 520 + 500 + 320,
             units = {
                 { unit = satoff1, delay = 1 },
-                { unit = sveta1, delay = 2 }
+--                { unit = sveta1, delay = 2 }
             }
         }
     })
