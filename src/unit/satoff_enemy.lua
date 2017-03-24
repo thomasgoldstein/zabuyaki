@@ -63,7 +63,10 @@ function Satoff:updateAI(dt)
         -- Intro -> Stand
         if self.state == "intro" then
             -- see near players?
-            if self:getDistanceToClosestPlayer() < 100 then
+            local dist = self:getDistanceToClosestPlayer()
+            if dist < self.wakeup_range
+                    or (dist < self.delayed_wakeup_range and self.time > self.wakeup_delay )
+            then
                 self.face = -self.target.face --face to player
                 self:setState(self.stand)
             end
@@ -71,12 +74,10 @@ function Satoff:updateAI(dt)
             if self.cool_down <= 0 then
                 --can move
                 local t = dist(self.target.x, self.target.y, self.x, self.y)
-                if t < 500 and t >= 300 and
-                        math.floor(self.y / 4) == math.floor(self.target.y / 4) then
+                if t >= 250 and math.floor(self.y / 6) == math.floor(self.target.y / 6) then
                     self:setState(self.run)
                     return
-                end
-                if t < 300 then
+                else
                     self:setState(self.walk)
                     return
                 end

@@ -41,16 +41,16 @@ function Niko:updateAI(dt)
         elseif self.state == "stand" then
             if self.cool_down <= 0 then
                 --can move
-                local t = dist(self.target.x, self.target.y, self.x, self.y)
+                --local t = dist(self.target.x, self.target.y, self.x, self.y)
 --                if t < 400 and t >= 100 and
 --                        math.floor(self.y / 4) == math.floor(self.target.y / 4) then
 --                    self:setState(self.run)
 --                    return
 --                end
-                if t < 300 then
+                --if t < 300 then
                     self:setState(self.walk)
                     return
-                end
+                --end
             end
         elseif self.state == "walk" then
             --self:pickAttackTarget()
