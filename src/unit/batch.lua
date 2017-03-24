@@ -24,12 +24,11 @@ function Batch:initialize(stage, batches)
     self.n = 1 --1st batch
     self.batches = batches
     print("Stage has #",#batches,"batches of enemy")
-    --self.objects = {}
-    --self.units = {}
     if self:load() then
         self.state = "spawn"
         -- left_stopper, right_stopper
     else
+        -- the last batch is done
         self.state = "done"
     end
 end
@@ -44,7 +43,6 @@ function Batch:load()
     self.left_stopper = b.left_stopper or 0
     self.right_stopper = b.right_stopper or 320
 
-    --self.delay = b.delay or 0
     for i = 1, #b.units do
         local u = b.units[i]
         u.isSpawned = false
@@ -53,25 +51,59 @@ function Batch:load()
     return true
 end
 
+local _minx, _maxx, _dist
+local function getDistanceBetweenPlayers()
+    local coord_x
+    local x1, x2, x3 = 0, 0, 0
+    local minx, maxx = 0, 0
+
+    local n = 0
+    if player1 and player1.hp > 0 then
+        x1 = player1.x
+        minx = x1
+        maxx = x1
+        n = n + 1
+    end
+    if player2 and player2.hp > 0 then
+        x2 = player2.x
+        minx = math.min(x2, minx)
+        maxx = math.max(x2, maxx)
+        n = n + 1
+    end
+    if player3 and player3.hp > 0 then
+        x3 = player3.x
+        minx = math.min(x3, minx)
+        maxx = math.max(x3, maxx)
+        n = n + 1
+    end
+    local dist = maxx - minx
+    if n > 0 then
+        _minx, _maxx, _dist = minx, maxx, dist
+    else
+        minx, maxx, dist = _minx, _maxx, _dist
+    end
+    return minx, maxx, dist
+end
+
 function Batch:spawn(dt)
     local b = self.batches[self.n]
     if self.time < b.delay then --delay before the whole batch
         return false
     end
-
-    -- left_stopper, right_stopper
-    --move?
-    --self:ps(" unitss #"..#b.units)
+    --move left_stopper, right_stopper
+    local minx, maxx, dist = getDistanceBetweenPlayers()
     local x1, x2 = self.stage.left_stopper.x, self.stage.right_stopper.x
---    self.left_stopper = b.left_stopper or 0
---    self.right_stopper = b.right_stopper or 320
-
-    if x1 < self.left_stopper then
+    if x1 < self.left_stopper
+        and minx > x1 + 320/2 --half screen width
+    then
         x1 = x1 + dt * 200
     end
-    if x2 < self.right_stopper then
-        x2 = x2 + dt * 200
-    end
+--    if x2 < self.right_stopper
+--        and dist < 320
+--    then
+--        x2 = x2 + dt * 200
+--    end
+    x2 = math.min( self.right_stopper, x1 + 320 + 160 - 50 )    --max possible dist between players
     self.stage:moveStoppers(x1, x2)
 
     local all_spawned = true
