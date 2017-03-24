@@ -85,8 +85,10 @@ function Batch:spawn(dt)
                 --add to stage / bump
                 --self:ps(" enSpawn Unit #"..i)
                 self.stage.objects:add(u.unit)
-
                 u.isSpawned = true
+                if u.state == "stand" then
+                    u.unit:setState(u.unit.stand)
+                end
             end
             all_spawned = false
             all_dead = false --not yet spawned = alive

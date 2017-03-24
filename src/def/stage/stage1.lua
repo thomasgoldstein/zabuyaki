@@ -136,7 +136,7 @@ function Stage1:initialize(players)
         { shader = shaders.gopper[3], color = {255,255,255, 255}})
     gopper2:setToughness(1)
     local gopper3 = Gopper:new("GOPPER3", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        260, top_floor_y + 40,
+        395, top_floor_y + 40,
         { shader = shaders.gopper[4], color = {255,255,255, 255}})
     gopper3:setToughness(2)
     local gopper4 = Gopper:new("GOPPER4", GetSpriteInstance("src/def/char/gopper.lua"), nil,
@@ -144,11 +144,11 @@ function Stage1:initialize(players)
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
     gopper4:setToughness(3)
     local gopper5 = Gopper:new("GOPPER5", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        310, top_floor_y + 25,
+        -40, top_floor_y + 25,
         { shader = shaders.gopper[2], color = {255,255,255, 255}})
     gopper5:setToughness(4)
     local gopper6 = Gopper:new("GOPPER6", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        370, top_floor_y + 35,
+        -40, 525,
         { shader = shaders.gopper[2], color = {255,255,255, 255}})
     gopper6:setToughness(5)
 
@@ -310,16 +310,16 @@ function Stage1:initialize(players)
     self.batch = Batch:new(self, {
         {
             -- 1st batch
-            delay = 2,
+            delay = 0,
             left_stopper = 0,
             right_stopper = 520,
             units = {
-                { unit = gopper1, delay = 3 },
-                { unit = gopper2, delay = 3.5 },
-                { unit = gopper3, delay = 4 },
-                { unit = gopper4, delay = 5 },
-                { unit = gopper5, delay = 5.25 },
-                { unit = gopper6, delay = 5.758 }
+                { unit = gopper1, delay = 0 },
+                { unit = gopper2, delay = 0 },
+                { unit = gopper3, delay = 3, state = "stand" },
+                { unit = gopper4, delay = 0 },
+                { unit = gopper5, delay = 1, state = "stand" },
+                { unit = gopper6, delay = 5, state = "stand" }
             }
         },
         {
