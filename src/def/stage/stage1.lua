@@ -128,6 +128,9 @@ function Stage1:initialize(players)
     local sveta1 = Sveta:new("SVETA", GetSpriteInstance("src/def/char/sveta.lua"), nil,
         900, 490,
         { shader = shaders.sveta[2], color = {255,255,255, 255}})
+    local zeena1 = Sveta:new("ZEENA", GetSpriteInstance("src/def/char/zeena.lua"), nil,
+        900, 480,
+        { shader = shaders.sveta[2], color = {255,255,255, 255}})
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         300, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
@@ -337,12 +340,13 @@ function Stage1:initialize(players)
             }
         },
         {
-            -- 3rd batch Mid-Boss
+            -- 3rd batch
             delay = 0,
             left_stopper = 520 - 320 + 320,
             right_stopper = 520 + 500 + 320,
             units = {
 --                { unit = satoff1, delay = 1 },
+                { unit = zeena1, delay = 0 },
                 { unit = sveta1, delay = 2 }
             }
         },
