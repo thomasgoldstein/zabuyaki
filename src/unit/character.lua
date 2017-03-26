@@ -1596,6 +1596,7 @@ function Character:shoveBack_start()
     local t = g.target
     t.isHittable = false    --protect grabbed enemy from hits
     self.face = -self.face
+    self.horizontal = self.face
     self:setSprite("shoveBack")
     dp(self.name.." shoveBack someone.")
 end
