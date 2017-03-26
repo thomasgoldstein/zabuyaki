@@ -4,7 +4,9 @@ shaders = {
     chai = {},
     gopper = {},
     niko = {},
+    beatnick = {},
     sveta = {},
+    zeena = {},
     satoff = {},
     trashcan = {},
     shadow = {}
@@ -327,6 +329,10 @@ shaders.satoff[3] = swapColors(satoff_colors_default, satoff_colors_3)
 shaders.satoff[4] = swapColors(satoff_colors_default, satoff_colors_4)
 
 shaders.sveta[2] = nil
+
+shaders.zeena[2] = nil
+
+shaders.beatnick[2] = nil
 
 -- Obstacles
 local trashcan_colors_default = {

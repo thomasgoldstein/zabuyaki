@@ -123,6 +123,7 @@ function love.load(arg)
 	PSatoff = require "src/unit/satoff_player"
 	Niko = require "src/unit/niko_enemy"
 	PNiko = require "src/unit/niko_player"
+	Beatnick = require "src/unit/beatnick_enemy"
 	Sveta = require "src/unit/sveta_enemy"
 	Zeena = require "src/unit/zeena_enemy"
 	Wall = require "src/unit/wall"

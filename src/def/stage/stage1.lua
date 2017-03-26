@@ -131,6 +131,9 @@ function Stage1:initialize(players)
     local zeena1 = Sveta:new("ZEENA", GetSpriteInstance("src/def/char/zeena.lua"), nil,
         900, 480,
         { shader = shaders.sveta[2], color = {255,255,255, 255}})
+    local beatnick1 = Beatnick:new("BEATNICK", GetSpriteInstance("src/def/char/beatnick.lua"), nil,
+        270, 464,
+        { shader = shaders.beatnick[2], color = {255,255,255, 255}})
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         300, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
@@ -317,6 +320,7 @@ function Stage1:initialize(players)
             left_stopper = 0,
             right_stopper = 520,
             units = {
+                { unit = beatnick1, delay = 0 },
                 { unit = gopper1, delay = 0 },
 --                { unit = gopper2, delay = 0 },
 --                { unit = gopper3, delay = 3, state = "stand" },
