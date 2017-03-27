@@ -323,9 +323,9 @@ function Stage1:initialize(players)
                 { unit = gopper1, delay = 0, state = "intro" },
                 { unit = gopper2, delay = 0, state = "stand" },
                 { unit = gopper3, delay = 0, state = "walk" },
---                { unit = gopper4, delay = 0 },
---                { unit = gopper5, delay = 1, state = "stand" },
---                { unit = gopper6, delay = 5, state = "stand" }
+                { unit = gopper4, delay = 0, state = "intro" },
+                { unit = gopper5, delay = 1, state = "walk" },
+                { unit = gopper6, delay = 5, state = "walk" }
             }
         },
         {
@@ -336,11 +336,11 @@ function Stage1:initialize(players)
             units = {
                 { unit = beatnick1, delay = 0 },
                 { unit = niko1, delay = 1 },
---                { unit = niko2, delay = 2 },
---                { unit = niko3, delay = 3 },
---                { unit = niko4, delay = 4 },
---                { unit = niko5, delay = 5 },
---                { unit = niko6, delay = 6 }
+                { unit = niko2, delay = 0 },
+                { unit = niko3, delay = 0, state = "intro" },
+                { unit = niko4, delay = 0 },
+                { unit = niko5, delay = 0 },
+                { unit = niko6, delay = 1, state = "walk" }
             }
         },
         {
