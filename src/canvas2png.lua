@@ -11,6 +11,7 @@ function saveAllCanvasesToPng()
     end
 end
 
+local max_coord = 100000
 function saveStageToPng()
     if not stage then
         return
@@ -21,7 +22,10 @@ function saveStageToPng()
     --love.graphics.setBlendMode("alpha", "premultiplied")
     --love.graphics.setColor(255, 255, 255, 255)
     --love.graphics.setBackgroundColor(255, 255, 255)
-    cp:drawAll()
+--    cp:drawAll()
+    cp:draw(0,0, max_coord, max_coord) --all bg
+    stage.objects:draw(0,0, max_coord, max_coord) --all active units
+
     saveCanvas(canvas, "stage")
     love.graphics.setCanvas()
     canvas = nil
