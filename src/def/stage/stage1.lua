@@ -365,6 +365,7 @@ function Stage1:initialize(players)
             }
         }
     })
+    saveStageToPng()
 end
 
 function Stage1:update(dt)
