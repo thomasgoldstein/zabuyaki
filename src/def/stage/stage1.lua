@@ -58,8 +58,8 @@ function Stage1:initialize(players)
         )
     end
 
-    if GLOBAL_SETTING.DEBUG then
-        --Let select player in the beginning for debug
+    if playerSelectState.enable_player_select_on_start then
+        --Let select 3 players in the beginning for DEBUG
         if players[1] then
             player1.lives = 0
             player1.hp = 0
