@@ -236,9 +236,6 @@ function playerSelectState:GameStart()
     for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
         if players[i].confirmed then
             local pos = players[i].pos
-            if GLOBAL_SETTING.DEBUG then
-                pos = pos + 3  --DEBUG ==> Slots 1 2 3: Gopper, Niko, Satoff
-            end
             pl[i] = {
                 hero = heroes[pos].hero,
                 sprite_instance = heroes[pos].sprite_instance,
