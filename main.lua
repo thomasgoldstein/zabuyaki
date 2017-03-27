@@ -68,6 +68,7 @@ function love.load(arg)
 	class = require "lib/middleclass"
 	i18n = require 'lib/i18n'
 	require "lib/TEsound"
+	require "src/canvas2png"
 
 	local windowWidth, windowHeight = love.window.getDesktopDimensions()
 	if not GLOBAL_SETTING.FULL_SCREEN then
@@ -253,6 +254,8 @@ function love.keypressed(key, unicode)
 		else
 			sfx.play("sfx","menu_move")
 		end
+	elseif key == 'f12' then
+		saveAllCanvasesToPng()
 	end
 	if GLOBAL_SETTING.FPSRATE_ENABLED and framerateGraph.keypressed(key) then
 		return
