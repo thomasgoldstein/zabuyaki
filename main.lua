@@ -256,6 +256,7 @@ function love.keypressed(key, unicode)
 		end
 	elseif key == 'f12' then
 		saveAllCanvasesToPng()
+		saveStageToPng()
 	end
 	if GLOBAL_SETTING.FPSRATE_ENABLED and framerateGraph.keypressed(key) then
 		return
