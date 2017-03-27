@@ -58,6 +58,23 @@ function Stage1:initialize(players)
         )
     end
 
+    if GLOBAL_SETTING.DEBUG then
+        --Let select player in the beginning for debug
+        if players[1] then
+            player1.lives = 0
+            player1.hp = 0
+            player1:setState(player1.useCredit)
+        end
+        if players[2] then
+            player2.lives = 0
+            player2:setState(player2.useCredit)
+        end
+        if players[3] then
+            player3.lives = 0
+            player3:setState(player3.useCredit)
+        end
+    end
+
     --define bg sprites
     local bgRoad = love.graphics.newImage("res/img/stage/stage1/road.png")
     local bgBuilding1 = love.graphics.newImage("res/img/stage/stage1/building1.png")
