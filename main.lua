@@ -68,7 +68,6 @@ function love.load(arg)
 	class = require "lib/middleclass"
 	i18n = require 'lib/i18n'
 	require "lib/TEsound"
-	require "src/canvas2png"
 
 	local windowWidth, windowHeight = love.window.getDesktopDimensions()
 	if not GLOBAL_SETTING.FULL_SCREEN then
@@ -136,8 +135,8 @@ function love.load(arg)
 	tactile = require 'lib/tactile'
 	KeyTrace = require 'src/keyTrace'
 	require 'src/controls'
-
 	bind_game_input()
+	require "src/canvas2png"
 
     if GLOBAL_SETTING.FILTER_N and shaders.screen[GLOBAL_SETTING.FILTER_N] then
         local sh = shaders.screen[GLOBAL_SETTING.FILTER_N]
@@ -255,7 +254,7 @@ function love.keypressed(key, unicode)
 			sfx.play("sfx","menu_move")
 		end
 	elseif key == 'f12' then
-		saveAllCanvasesToPng()
+		--saveAllCanvasesToPng()
 		saveStageToPng()
 	end
 	if GLOBAL_SETTING.FPSRATE_ENABLED and framerateGraph.keypressed(key) then
