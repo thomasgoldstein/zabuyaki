@@ -228,7 +228,7 @@ function playerSelectState:resume()
     self:enter()
 end
 
-local function GameStart()
+function playerSelectState:GameStart()
     --All characters confirmed, pass them into the stage
     sfx.play("sfx","menu_gamestart")
     local pl = {}
@@ -303,7 +303,7 @@ function playerSelectState:player_input(player, controls, i)
             SetSpriteAnimation(player.sprite,heroes[player.pos].cancel_anim)
             sfx.play("sfx","menu_cancel")
         elseif (controls.attack:pressed() or controls.start:pressed()) and all_confirmed() then
-            GameStart()
+            self:GameStart()
             return
         end
     end
@@ -423,7 +423,7 @@ function playerSelectState:confirm( x, y, button, istouch )
             sfx.play("sfx","menu_select")
             SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].confirm_anim)
         elseif p1_mouse_pos == players[1].pos and all_confirmed() then
-            GameStart()
+            self:GameStart()
             return
         end
     elseif button == 2 then
@@ -467,4 +467,12 @@ function playerSelectState:mousemoved( x, y, dx, dy)
 end
 
 function playerSelectState:keypressed(key, unicode)
+end
+
+function playerSelectState:confirm_all_players()
+    --visible players confirmed their choice
+    for i = 1,#players do
+        players[i].confirmed = true
+        players[i].visible = true
+    end
 end
