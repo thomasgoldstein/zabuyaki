@@ -99,6 +99,13 @@ function Chai:dashAttack_update(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        if self.velz > 0 then
+            if self.velx > 0 then
+                self.velx = self.velx - (self.velocity_dash * dt)
+            else
+                self.velx = 0
+            end
+        end
     else
         self.velz = 0
         self.z = 0
