@@ -61,84 +61,84 @@ return {
             { q = q(19, 18, 31, 17) }
         },
         intro = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 5
         },
         stand = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
-            { q = q(2,2,62,66), ox = 31, oy = 64 },  --stand 1*
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
-            { q = q(2,2,62,66), ox = 31, oy = 64 },  --stand 1*
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 64 },  --stand 1*
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 64 },  --stand 1*
             loop = true,
             delay = 0.175
         },
         walk = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             loop = true,
             delay = 0.175
         },
         run = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             loop = true,
             delay = 0.08
         },
         jump = { --TODO: Remove
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 5
         },
         respawn = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.3
         },
         duck = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.15
         },
         pickup = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.28
         },
         dashAttack = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.3
         },
         combo1 = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.01
         },
         combo2 = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.01
         },
         combo3 = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.01
         },
         fall = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 5
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 5
         },
         getup = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.3
         },
         fallen = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 65
         },
         hurtHigh = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.3
         },
         hurtLow = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.3
         },
         jumpAttackForward = { --TODO: Remove
@@ -181,8 +181,8 @@ return {
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbed = {
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
-            { q = q(2,2,62,66), ox = 31, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
+            { q = q(2,2,62,66), ox = 35, oy = 65 },  --stand 1
             delay = 0.1
         },
 
