@@ -118,7 +118,12 @@ function Batch:spawn(dt)
                 --self:ps(" enSpawn Unit #"..i)
                 self.stage.objects:add(u.unit)
                 u.isSpawned = true
-                if u.state == "stand" then
+                if u.state == "intro" then
+                    u.unit:setState(u.unit.intro)
+                elseif u.state == "stand" then
+                    u.unit:setState(u.unit.intro)
+                    u.unit:setSprite("stand")
+                elseif u.state == "walk" then
                     u.unit:setState(u.unit.stand)
                 end
             end

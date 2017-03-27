@@ -135,14 +135,14 @@ function Stage1:initialize(players)
         270, 464,
         { shader = shaders.beatnick[2], color = {255,255,255, 255}})
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        300, 479,
+        280, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
     local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        280, top_floor_y + 20,
+        290, 460,
         { shader = shaders.gopper[3], color = {255,255,255, 255}})
     gopper2:setToughness(1)
     local gopper3 = Gopper:new("GOPPER3", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        395, top_floor_y + 40,
+        300, 490,
         { shader = shaders.gopper[4], color = {255,255,255, 255}})
     gopper3:setToughness(2)
     local gopper4 = Gopper:new("GOPPER4", GetSpriteInstance("src/def/char/gopper.lua"), nil,
@@ -320,10 +320,9 @@ function Stage1:initialize(players)
             left_stopper = 0,
             right_stopper = 520,
             units = {
-                { unit = beatnick1, delay = 0 },
-                { unit = gopper1, delay = 0 },
---                { unit = gopper2, delay = 0 },
---                { unit = gopper3, delay = 3, state = "stand" },
+                { unit = gopper1, delay = 0, state = "intro" },
+                { unit = gopper2, delay = 0, state = "stand" },
+                { unit = gopper3, delay = 0, state = "walk" },
 --                { unit = gopper4, delay = 0 },
 --                { unit = gopper5, delay = 1, state = "stand" },
 --                { unit = gopper6, delay = 5, state = "stand" }
@@ -332,9 +331,10 @@ function Stage1:initialize(players)
         {
             -- 2nd batch
             delay = 1,
-            left_stopper = 520 - 320,
+            left_stopper = 520 - 400,
             right_stopper = 520 + 500,
             units = {
+                { unit = beatnick1, delay = 0 },
                 { unit = niko1, delay = 1 },
 --                { unit = niko2, delay = 2 },
 --                { unit = niko3, delay = 3 },
@@ -346,7 +346,7 @@ function Stage1:initialize(players)
         {
             -- 3rd batch
             delay = 0,
-            left_stopper = 520 - 320 + 320,
+            left_stopper = 520 + 100,
             right_stopper = 520 + 500 + 320,
             units = {
 --                { unit = satoff1, delay = 1 },
@@ -357,8 +357,8 @@ function Stage1:initialize(players)
         {
             -- 4th batch Mid-Boss
             delay = 0,
-            left_stopper = 520 - 320 + 320,
-            right_stopper = 520 + 500 + 320,
+            left_stopper = 520 + 500 + 120,
+            right_stopper = 520 + 500 + 520,
             units = {
                 { unit = satoff1, delay = 1 },
 --                { unit = sveta1, delay = 2 }
