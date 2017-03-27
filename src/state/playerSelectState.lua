@@ -186,6 +186,7 @@ local function drawPID(x, y_, i, confirmed)
         return
     end
     local y = y_ - math.cos(x+time*6)
+    GLOBAL_SETTING.PLAYERS_COLORS[i][4] = 255 -- remove transparends of the red/green/blue edge around P
     love.graphics.setColor( unpack( GLOBAL_SETTING.PLAYERS_COLORS[i] ) )
     love.graphics.rectangle( "fill", x - 30, y, 60, 34 )
     love.graphics.polygon( "fill", x, y - 6, x - 4 , y - 0, x + 4, y - 0 ) --arrow up
