@@ -147,7 +147,7 @@ function Stage1:initialize(players)
         { shader = shaders.sveta[2], color = {255,255,255, 255}})
     local zeena1 = Sveta:new("ZEENA", GetSpriteInstance("src/def/char/zeena.lua"), nil,
         900, 480,
-        { shader = shaders.sveta[2], color = {255,255,255, 255}})
+        { shader = shaders.zeena[2], color = {255,255,255, 255}})
     local beatnick1 = Beatnick:new("BEATNICK", GetSpriteInstance("src/def/char/beatnick.lua"), nil,
         270, 464,
         { shader = shaders.beatnick[2], color = {255,255,255, 255}})

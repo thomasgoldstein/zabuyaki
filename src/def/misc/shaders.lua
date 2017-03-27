@@ -304,6 +304,27 @@ local niko_colors_3 = {
 shaders.niko[2] = swapColors(niko_colors_default, niko_colors_2)
 shaders.niko[3] = swapColors(niko_colors_default, niko_colors_3)
 
+local sveta_colors_default = {
+    { 138, 142, 149, 255 }, { 64, 78, 120, 255 }, { 32, 43, 65, 255 }, -- blue-gray vest
+    { 51, 65, 113, 255 }, { 31, 42, 83, 255 }, { 19, 26, 43, 255 }, -- blue pants
+    { 165, 124, 69, 255 }, { 133, 77, 17, 255 }, { 56, 37, 29, 255 } } -- chestnut hair
+local sveta_colors_2 = {
+    { 138, 142, 149, 255 }, { 64, 78, 120, 255 }, { 32, 43, 65, 255 }, -- blue-gray vest
+    { 55, 55, 55, 255 }, { 31, 31, 31, 255 }, { 15, 15, 15, 255 } } -- black pants
+shaders.sveta[2] = swapColors(sveta_colors_default, sveta_colors_2)
+
+local zeena_colors_default = {
+    { 138, 142, 149, 255 }, { 64, 78, 120, 255 }, { 32, 43, 65, 255 }, -- blue-gray vest
+    { 51, 65, 113, 255 }, { 31, 42, 83, 255 }, { 19, 26, 43, 255 }, -- blue pants
+    { 165, 124, 69, 255 }, { 133, 77, 17, 255 }, { 56, 37, 29, 255 } } -- chestnut hair
+local zeena_colors_2 = {
+    { 245, 171, 196, 255 }, { 176, 103, 146, 255 }, { 83, 42, 102, 255 }, -- pink vest
+    { 55, 55, 55, 255 }, { 31, 31, 31, 255 }, { 15, 15, 15, 255 }, -- black pants
+    { 50, 67, 93, 255 }, { 18, 30, 80, 255 }, { 16, 12, 53, 255 } } -- dark blue hair
+shaders.zeena[2] = swapColors(zeena_colors_default, zeena_colors_2)
+
+shaders.beatnick[2] = nil
+
 local satoff_colors_default = {
     { 199, 45, 50, 255 }, { 130, 29, 33, 255 }, { 58, 20, 21, 255 }, -- red suit
     { 102, 39, 45, 255 }, { 59, 22, 28, 255 }, { 41, 16, 19, 255 }, -- maroon shoes
@@ -327,12 +348,6 @@ local satoff_colors_4 = {
 shaders.satoff[2] = swapColors(satoff_colors_default, satoff_colors_2)
 shaders.satoff[3] = swapColors(satoff_colors_default, satoff_colors_3)
 shaders.satoff[4] = swapColors(satoff_colors_default, satoff_colors_4)
-
-shaders.sveta[2] = nil
-
-shaders.zeena[2] = nil
-
-shaders.beatnick[2] = nil
 
 -- Obstacles
 local trashcan_colors_default = {
