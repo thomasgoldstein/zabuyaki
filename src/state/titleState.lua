@@ -203,7 +203,14 @@ function titleState:confirm( x, y, button, istouch )
         if menu_state == 1 then
             sfx.play("sfx","menu_select")
             time = 0
-            return Gamestate.push(playerSelectState)
+            if GLOBAL_SETTING.DEBUG then
+                playerSelectState:confirm_all_players()
+                playerSelectState:GameStart()
+                return
+            else
+                return Gamestate.push(playerSelectState)
+            end
+
         elseif menu_state == 2 then
             sfx.play("sfx","menu_select")
             time = 0
