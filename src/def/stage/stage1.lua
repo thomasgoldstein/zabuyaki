@@ -320,21 +320,21 @@ function Stage1:initialize(players)
             player1:setState(player1.useCredit)
             player1.isDisabled = true
             player1.cool_down = 10
-            player1.player_select_mode = 2
+            player1.player_select_mode = 0
         end
         if players[2] then
             player2.lives = 0
             player2:setState(player2.useCredit)
             player2.isDisabled = true
             player2.cool_down = 10
-            player2.player_select_mode = 2
+            player2.player_select_mode = 0
         end
         if players[3] then
             player3.lives = 0
             player3:setState(player3.useCredit)
             player3.isDisabled = true
             player3.cool_down = 10
-            player3.player_select_mode = 2
+            player3.player_select_mode = 0
         end
     end
 
