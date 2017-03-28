@@ -40,6 +40,46 @@ function createSelectedPlayers(players)
     end
 end
 
+function addPlayersToStage(stage)
+    if player1 then
+        stage.objects:add(player1)
+    end
+    if player2 then
+        stage.objects:add(player2)
+    end
+    if player3 then
+        stage.objects:add(player3)
+    end
+end
+
+function allowPlayersSelect(players)
+    if playerSelectState.enable_player_select_on_start then
+        --Let select 3 players in the beginning of the stage for DEBUG
+        if players[1] then
+            player1.lives = 0
+            player1:setState(player1.useCredit)
+            player1.isDisabled = true
+            player1.cool_down = 10
+            player1.player_select_mode = 0
+        end
+        if players[2] then
+            player2.lives = 0
+            player2:setState(player2.useCredit)
+            player2.isDisabled = true
+            player2.cool_down = 10
+            player2.player_select_mode = 0
+        end
+        if players[3] then
+            player3.lives = 0
+            player3:setState(player3.useCredit)
+            player3.isDisabled = true
+            player3.cool_down = 10
+            player3.player_select_mode = 0
+        end
+    end
+end
+
+
 function _getDistanceToClosestPlayer()
     local p = {}
     if player1 then

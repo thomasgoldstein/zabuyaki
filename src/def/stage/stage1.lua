@@ -20,6 +20,8 @@ function Stage1:initialize(players)
     }
 
     createSelectedPlayers(players)
+    addPlayersToStage(self)
+    allowPlayersSelect(players)
 
     --define bg sprites
     local bgRoad = love.graphics.newImage("res/img/stage/stage1/road.png")
@@ -263,41 +265,6 @@ function Stage1:initialize(players)
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
         wall1,wall2,wall3,wall3a,walld1,wall4,wall4a,walld2 --,wall5,wall6,wall7
     })
-
-    if player1 then
-        self.objects:add(player1)
-    end
-    if player2 then
-        self.objects:add(player2)
-    end
-    if player3 then
-        self.objects:add(player3)
-    end
-
-    if playerSelectState.enable_player_select_on_start then
-        --Let select 3 players in the beginning for DEBUG
-        if players[1] then
-            player1.lives = 0
-            player1:setState(player1.useCredit)
-            player1.isDisabled = true
-            player1.cool_down = 10
-            player1.player_select_mode = 0
-        end
-        if players[2] then
-            player2.lives = 0
-            player2:setState(player2.useCredit)
-            player2.isDisabled = true
-            player2.cool_down = 10
-            player2.player_select_mode = 0
-        end
-        if players[3] then
-            player3.lives = 0
-            player3:setState(player3.useCredit)
-            player3.isDisabled = true
-            player3.cool_down = 10
-            player3.player_select_mode = 0
-        end
-    end
 
     self:moveStoppers(0, 520)
 
