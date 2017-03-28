@@ -79,6 +79,26 @@ function allowPlayersSelect(players)
     end
 end
 
+function drawPlayersBars()
+    if player1 then
+        player1.infoBar:draw(0,0)
+        if player1.victim_infoBar then
+            player1.victim_infoBar:draw(0,0)
+        end
+    end
+    if player2 then
+        player2.infoBar:draw(0,0)
+        if player2.victim_infoBar then
+            player2.victim_infoBar:draw(0,0)
+        end
+    end
+    if player3 then
+        player3.infoBar:draw(0,0)
+        if player3.victim_infoBar then
+            player3.victim_infoBar:draw(0,0)
+        end
+    end
+end
 
 function _getDistanceToClosestPlayer()
     local p = {}

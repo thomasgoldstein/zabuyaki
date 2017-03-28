@@ -137,25 +137,7 @@ function arcadeState:draw()
     love.graphics.setBlendMode("alpha")
 
     if stage.mode == "normal" then
-        --HP bars
-        if player1 then
-            player1.infoBar:draw(0,0)
-            if player1.victim_infoBar then
-                player1.victim_infoBar:draw(0,0)
-            end
-        end
-        if player2 then
-            player2.infoBar:draw(0,0)
-            if player2.victim_infoBar then
-                player2.victim_infoBar:draw(0,0)
-            end
-        end
-        if player3 then
-            player3.infoBar:draw(0,0)
-            if player3.victim_infoBar then
-                player3.victim_infoBar:draw(0,0)
-            end
-        end
+        drawPlayersBars()
     end
     show_debug_controls()
     show_debug_indicator()
