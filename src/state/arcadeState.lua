@@ -79,16 +79,7 @@ function arcadeState:update(dt)
     end
 
     if stage.mode == "normal" then
-        is_alive = false
-        if player1 then
-            is_alive = is_alive or player1:isAlive()
-        end
-        if player2 then
-            is_alive = is_alive or player2:isAlive()
-        end
-        if player3 then
-            is_alive = is_alive or player3:isAlive()
-        end
+        is_alive = areAllPlayersAlive()
     else
         is_alive = true
     end

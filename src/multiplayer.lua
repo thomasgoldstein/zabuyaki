@@ -79,6 +79,20 @@ function allowPlayersSelect(players)
     end
 end
 
+function areAllPlayersAlive()
+    local is_alive = false
+    if player1 then
+        is_alive = is_alive or player1:isAlive()
+    end
+    if player2 then
+        is_alive = is_alive or player2:isAlive()
+    end
+    if player3 then
+        is_alive = is_alive or player3:isAlive()
+    end
+    return is_alive
+end
+
 function drawPlayersBars()
     if player1 then
         player1.infoBar:draw(0,0)
