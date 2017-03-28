@@ -52,6 +52,32 @@ function addPlayersToStage(stage)
     end
 end
 
+function checkPlayersRespawn(stage)
+    local p = SELECT_NEW_PLAYER
+    if p[#p] then
+        p[#p].player.player_select_mode = 3 -- Respawn mode
+        p[#p].player.infoBar = InfoBar:new(p[#p].player)
+        if p[#p].id == 1 then
+            stage.world:remove(player1.shape)
+            stage.objects:remove(player1)
+            player1 = p[#p].player
+            stage.objects:add(player1)
+        elseif p[#p].id == 2 then
+            stage.world:remove(player2.shape)
+            stage.objects:remove(player2)
+            player2 = p[#p].player
+            stage.objects:add(player2)
+        elseif p[#p].id == 3 then
+            stage.world:remove(player3.shape)
+            stage.objects:remove(player3)
+            player3 = p[#p].player
+            stage.objects:add(player3)
+        end
+        p[#p] = nil
+    end
+end
+
+
 function allowPlayersSelect(players)
     if playerSelectState.enable_player_select_on_start then
         --Let select 3 players in the beginning of the stage for DEBUG
