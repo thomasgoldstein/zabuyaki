@@ -353,7 +353,7 @@ function Player:useCredit_start()
     self.player_select_cur = players_list[self.name] or 1
 end
 function Player:useCredit_update(dt)
-    if self.isDisabled then
+    if self.player_select_mode == 5 then --self.isDisabled then
         return
     end
     if not self.b.attack:isDown() then
@@ -452,10 +452,6 @@ function Player:useCredit_update(dt)
         -- Deleate on Selecting a new Character
     elseif self.player_select_mode == 5 then
         -- Game Over
-        self.isDisabled = true
-        self.isHittable = false
-        stage.world:remove(self.shape)  --stage.world = global collision shapes pool
-        self.shape = nil
     end
 end
 Player.useCredit = {name = "useCredit", start = Player.useCredit_start, exit = nop, update = Player.useCredit_update, draw = Unit.default_draw}
