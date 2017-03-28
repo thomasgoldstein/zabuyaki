@@ -4,6 +4,15 @@ local time = 0
 local screen_width = 640
 local screen_height = 480
 local txt_game_over = love.graphics.newText( gfx.font.kimberley, "GAME OVER" )
+local function drawGameOver()
+    love.graphics.setColor(55, 55, 55, 255)
+    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 + 1, (screen_height - txt_game_over:getHeight()) / 2 + 1 )
+    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 + 1 )
+    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 + 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
+    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
+end
 local is_alive
 local game_over_delay = 0
 
@@ -113,13 +122,7 @@ function arcadeState:draw()
     show_debug_indicator()
     -- GAME OVER
     if not is_alive then
-        love.graphics.setColor(55, 55, 55, 255)
-        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 + 1, (screen_height - txt_game_over:getHeight()) / 2 + 1 )
-        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 + 1 )
-        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 + 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
-        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
-        love.graphics.setColor(255, 255, 255, 255)
-        love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
+        drawGameOver()
     end
     -- Profiler Pie Graph
     if GLOBAL_SETTING.PROFILER_ENABLED and ProfOn then
