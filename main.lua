@@ -124,6 +124,7 @@ function love.load(arg)
 	Niko = require "src/unit/niko_enemy"
 	PNiko = require "src/unit/niko_player"
 	Beatnick = require "src/unit/beatnick_enemy"
+	PBeatnick = require "src/unit/beatnick_player"
 	Sveta = require "src/unit/sveta_enemy"
 	PSveta = require "src/unit/sveta_player"
 	Zeena = require "src/unit/zeena_enemy"
