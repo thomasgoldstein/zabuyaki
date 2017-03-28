@@ -155,9 +155,6 @@ function check_debug_keys(key)
         if key == 'f10' and player3 then
             player3:setState(player3.dead)
         end
-        if key == '1' then
-            GLOBAL_SETTING.SHOW_GRID = not GLOBAL_SETTING.SHOW_GRID
-        end
     end
 end
 
