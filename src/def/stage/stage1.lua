@@ -35,8 +35,8 @@ function Stage1:initialize(players)
             GetSpriteInstance(players[1].sprite_instance),
             Control1,
             60, top_floor_y + 65,
-            { shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 },
-                shader = players[1].shader, color = {255,255,255, 255} }
+--            { shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 },
+            { shader = players[1].shader, color = {255,255,255, 255} }
         )
     end
     GLOBAL_UNIT_ID = 2  --recalc players IDs for proper life bar coords
@@ -56,23 +56,6 @@ function Stage1:initialize(players)
             120, top_floor_y + 5,
             { shader = players[3].shader }
         )
-    end
-
-    if playerSelectState.enable_player_select_on_start then
-        --Let select 3 players in the beginning for DEBUG
-        if players[1] then
-            player1.lives = 0
-            player1.hp = 0
-            player1:setState(player1.useCredit)
-        end
-        if players[2] then
-            player2.lives = 0
-            player2:setState(player2.useCredit)
-        end
-        if players[3] then
-            player3.lives = 0
-            player3:setState(player3.useCredit)
-        end
     end
 
     --define bg sprites
@@ -326,6 +309,31 @@ function Stage1:initialize(players)
     end
     if player3 then
         self.objects:add(player3)
+    end
+
+    if playerSelectState.enable_player_select_on_start then
+        --Let select 3 players in the beginning for DEBUG
+        if players[1] then
+            player1.lives = 0
+            player1.isDisabled = true
+--            stage.world:remove(player1.shape)
+--            player1.shape = nil
+            player1:setState(player1.useCredit)
+        end
+        if players[2] then
+            player2.lives = 0
+            player2.isDisabled = true
+--            stage.world:remove(player2.shape)
+--            player2.shape = nil
+            player2:setState(player2.useCredit)
+        end
+        if players[3] then
+            player3.lives = 0
+            player3.isDisabled = true
+--            stage.world:remove(player3.shape)
+--            player3.shape = nil
+            player3:setState(player3.useCredit)
+        end
     end
 
     self:moveStoppers(0, 520)
