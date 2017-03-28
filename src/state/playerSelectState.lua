@@ -114,6 +114,40 @@ local heroes = {
         sy = 272,
         ny = 90,
         py = 120
+    },
+    {
+        {name = "SVETA", shader = nil},
+        {name = "SVETA", shader = shaders.sveta[2]},
+        {name = "SVETA", shader = shaders.sveta[3]},
+        hero = PSveta,
+        sprite_instance = "src/def/char/sveta.lua",
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
+        sprite_portrait_anim = "rick",  --NO OWN PORTRAIT
+        default_anim = "stand",
+        cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
+        x = screen_width / 2 - 80,
+        y = 440 + 80,
+        sy = 272,
+        ny = 90,
+        py = 120
+    },
+    {
+        {name = "ZEENA", shader = nil},
+        {name = "ZEENA", shader = shaders.zeena[2]},
+        {name = "ZEENA", shader = shaders.zeena[3]},
+        hero = PZeena,
+        sprite_instance = "src/def/char/zeena.lua",
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
+        sprite_portrait_anim = "rick",  --NO OWN PORTRAIT
+        default_anim = "stand",
+        cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
+        x = screen_width / 2 - 80,
+        y = 440 + 80,
+        sy = 272,
+        ny = 90,
+        py = 120
     }
 }
 HEROES = heroes -- global var for in-game player select

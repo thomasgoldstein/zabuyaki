@@ -338,7 +338,7 @@ function Player:afterOnHurt()
     end
 end
 
-local players_list = {RICK = 1, KISA = 2, CHAI = 3, GOPPER = 4, NIKO = 5, SATOFF = 6}
+local players_list = {RICK = 1, KISA = 2, CHAI = 3, GOPPER = 4, NIKO = 5, SATOFF = 6, SVETA = 7, ZEENA = 8}
 function Player:useCredit_start()
     self.isHittable = false
     self.lives = self.lives - 1
@@ -424,11 +424,11 @@ function Player:useCredit_update(dt)
                 self.player_select_cur = self.player_select_cur + 1
             end
             if GLOBAL_SETTING.DEBUG then
-                if self.player_select_cur > players_list.SATOFF then
+                if self.player_select_cur > players_list.ZEENA then
                     self.player_select_cur = 1
                 end
                 if self.player_select_cur < 1 then
-                    self.player_select_cur = players_list.SATOFF
+                    self.player_select_cur = players_list.ZEENA
                 end
             else
                 if self.player_select_cur > players_list.CHAI then
