@@ -7,6 +7,11 @@ local sign = sign
 local clamp = clamp
 
 function Character:initialize(name, sprite, input, x, y, f)
+    if not f then
+        f = {}
+    end
+    f.shapeType = f.shapeType or "polygon"
+    f.shapeArgs = f.shapeArgs or { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 }
     Unit.initialize(self, name, sprite, input, x, y, f)
     self.type = "character"
     self.time = 0
