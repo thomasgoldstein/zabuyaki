@@ -151,6 +151,7 @@ function love.load(arg)
         end
     end
 
+	require "src/multiplayer"
 	--GameStates
 	require "src/state/logoState"
 	require "src/state/titleState"

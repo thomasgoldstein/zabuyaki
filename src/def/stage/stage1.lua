@@ -18,47 +18,8 @@ function Stage1:initialize(players)
 --        {startX = 1600, endX = 1800, startY = 430+20, endY = 430+20},
 --        {startX = 1800, endX = 2000, startY = 430+20, endY = 430}
     }
-    --self.objects = Entity:new()
 
---    1814 + 386 + i * 360 - 2 , 432 - 177
-
-    player1 = nil
-    player2 = nil
-    player3 = nil
-
-    local top_floor_y = 454
-
-    GLOBAL_UNIT_ID = 1  --recalc players IDs for proper life bar coords
-    -- create players
-    if players[1] then
-        player1 = players[1].hero:new(players[1].name,
-            GetSpriteInstance(players[1].sprite_instance),
-            Control1,
-            60, top_floor_y + 65,
-            {
-                --shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 },
-                shader = players[1].shader, color = {255,255,255, 255 }
-             }
-        )
-    end
-    GLOBAL_UNIT_ID = 2  --recalc players IDs for proper life bar coords
-    if players[2] then
-        player2 = players[2].hero:new(players[2].name,
-            GetSpriteInstance(players[2].sprite_instance),
-            Control2,
-            90, top_floor_y + 35,
-            { shader = players[2].shader }
-        )
-    end
-    GLOBAL_UNIT_ID = 3  --recalc players IDs for proper life bar coords
-    if players[3] then
-        player3 = players[3].hero:new(players[3].name,
-            GetSpriteInstance(players[3].sprite_instance),
-            Control3,
-            120, top_floor_y + 5,
-            { shader = players[3].shader }
-        )
-    end
+    createSelectedPlayers(players)
 
     --define bg sprites
     local bgRoad = love.graphics.newImage("res/img/stage/stage1/road.png")
@@ -104,7 +65,7 @@ function Stage1:initialize(players)
     self.background:add(bgBuilding1, qBuilding1, 2000, 67 - 179)
 
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
-
+    local top_floor_y = 454
     -- Walls around the level
     local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
     local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
