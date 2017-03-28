@@ -1,6 +1,6 @@
 logoState = {}
 
-local time_left = 1.5
+local logo_time_left = 1.5
 local logo
 
 function logoState:enter()
@@ -12,8 +12,8 @@ function logoState:leave()
 end
 
 function logoState:update(dt)
-    time_left = time_left - dt
-    if time_left <= 0 then
+    logo_time_left = logo_time_left - dt
+    if logo_time_left <= 0 then
         return Gamestate.switch(titleState)
     end
 end
