@@ -11,6 +11,9 @@ local CheckCollision = CheckCollision
 function Satoff:initialize(name, sprite, input, x, y, f)
     self.hp = 100
     self.height = 60
+    if not f then
+        f = {}
+    end
     f.shapeType = f.shapeType or "polygon"
     f.shapeArgs = f.shapeArgs or { 1, 0, 27, 0, 28, 3, 27, 6, 1, 6, 0, 3 }
     Player.initialize(self, name, sprite, input, x, y, f)
