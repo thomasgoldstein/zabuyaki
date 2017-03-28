@@ -361,7 +361,7 @@ shaders.trashcan[2] = swapColors(trashcan_colors_default, trashcan_colors_2)
 -- Misc
 
 local function load_frag_shader(file)
-    dp(".frag shader file loading: "..file)
+    --dp(".frag shader file loading: "..file)
     local s = love.filesystem.read("src/def/misc/shaders/"..file)
     return love.graphics.newShader(s)
 end
