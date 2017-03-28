@@ -109,12 +109,14 @@ SFX.gopper_attack = {"gopper_attack1","gopper_attack2"}
 SFX.gopper_death = {"scream1","scream2"}
 SFX.niko_attack = {"niko_attack1","niko_attack2"}
 SFX.niko_death = {"scream1","scream2" }
-SFX.beatnick_attack = {"niko_attack1","niko_attack2"}
-SFX.beatnick_death = {"scream1","scream2" }
 SFX.sveta_attack = {"kisa_attack"}
 SFX.sveta_death = {"kisa_death" }
 SFX.zeena_attack = {"kisa_attack"}
 SFX.zeena_death = {"kisa_death" }
+SFX.beatnick_attack = {"niko_attack1","niko_attack2"}
+SFX.beatnick_death = {"scream1","scream2" }
+SFX.satoff_attack = {"gopper_attack1","gopper_attack2"}
+SFX.satoff_death = {"scream1","scream2" }
 
 SFX.load("metal_grab","res/sfx/tmp/metal_break2.wav", 0.5)
 SFX.load("metal_hit","res/sfx/tmp/metal_hit2.wav", 1)
