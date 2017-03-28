@@ -99,26 +99,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "SATOFF", shader = nil},
-        {name = "SATOFF", shader = shaders.satoff[2]},
-        {name = "SATOFF", shader = shaders.satoff[3]},
-        hero = PSatoff,
-        sprite_instance = "src/def/char/satoff.lua",
-        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "rick",  --NO OWN PORTRAIT
-        default_anim = "stand",
-        cancel_anim = "hurtHigh",
-        confirm_anim = "walk",
-        x = screen_width / 2 - 80,
-        y = 440 + 80,
-        sy = 272,
-        ny = 90,
-        py = 120
-    },
-    {
-        {name = "SVETA", shader = nil},
         {name = "SVETA", shader = shaders.sveta[2]},
-        {name = "SVETA", shader = shaders.sveta[3]},
+        {name = "SVETA", shader = shaders.sveta[2]},
+        {name = "SVETA", shader = shaders.sveta[2]},
         hero = PSveta,
         sprite_instance = "src/def/char/sveta.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -133,11 +116,45 @@ local heroes = {
         py = 120
     },
     {
-        {name = "ZEENA", shader = nil},
         {name = "ZEENA", shader = shaders.zeena[2]},
-        {name = "ZEENA", shader = shaders.zeena[3]},
+        {name = "ZEENA", shader = shaders.zeena[2]},
+        {name = "ZEENA", shader = shaders.zeena[2]},
         hero = PZeena,
         sprite_instance = "src/def/char/zeena.lua",
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
+        sprite_portrait_anim = "rick",  --NO OWN PORTRAIT
+        default_anim = "stand",
+        cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
+        x = screen_width / 2 - 80,
+        y = 440 + 80,
+        sy = 272,
+        ny = 90,
+        py = 120
+    },
+    {
+        {name = "BEATNICK", shader = nil},
+        {name = "BEATNICK", shader = shaders.beatnick[2]},
+        {name = "BEATNICK", shader = shaders.beatnick[3]},
+        hero = PBeatnick,
+        sprite_instance = "src/def/char/beatnick.lua",
+        sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
+        sprite_portrait_anim = "rick",  --NO OWN PORTRAIT
+        default_anim = "stand",
+        cancel_anim = "hurtHigh",
+        confirm_anim = "walk",
+        x = screen_width / 2 - 80,
+        y = 440 + 80,
+        sy = 272,
+        ny = 90,
+        py = 120
+    },
+    {
+        {name = "SATOFF", shader = nil},
+        {name = "SATOFF", shader = shaders.satoff[2]},
+        {name = "SATOFF", shader = shaders.satoff[3]},
+        hero = PSatoff,
+        sprite_instance = "src/def/char/satoff.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portrait_anim = "rick",  --NO OWN PORTRAIT
         default_anim = "stand",

@@ -33,13 +33,28 @@ local heroes = {
     },
     {
         name = "GOPPER",
-        shaders = { nil, shaders.gopper[2], shaders.gopper[3], shaders.gopper[4], shaders.gopper[5] },
+        shaders = { shaders.gopper[2], shaders.gopper[3], shaders.gopper[4], shaders.gopper[5] },
         sprite_instance = "src/def/char/gopper.lua",
     },
     {
         name = "NIKO",
-        shaders = { nil, shaders.niko[2], shaders.niko[3] },
+        shaders = { shaders.niko[2], shaders.niko[3] },
         sprite_instance = "src/def/char/niko.lua",
+    },
+    {
+        name = "SVETA",
+        shaders = { shaders.sveta[2] },
+        sprite_instance = "src/def/char/sveta.lua",
+    },
+    {
+        name = "ZEENA",
+        shaders = { shaders.zeena[2] },
+        sprite_instance = "src/def/char/zeena.lua",
+    },
+    {
+        name = "BEATNICK",
+        shaders = { nil },
+        sprite_instance = "src/def/char/beatnick.lua",
     },
     {
         name = "SATOFF",
