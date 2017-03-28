@@ -338,7 +338,7 @@ function Player:afterOnHurt()
     end
 end
 
-local players_list = {RICK = 1, KISA = 2, CHAI = 3, GOPPER = 4, NIKO = 5, SATOFF = 6, SVETA = 7, ZEENA = 8}
+local players_list = { RICK = 1, KISA = 2, CHAI = 3, GOPPER = 4, NIKO = 5, SVETA = 6, ZEENA = 7, BEATNICK = 8, SATOFF = 9 }
 function Player:useCredit_start()
     self.isHittable = false
     self.lives = self.lives - 1
@@ -401,9 +401,9 @@ function Player:useCredit_update(dt)
             local player = HEROES[self.player_select_cur].hero:new(self.name,
                 GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
                 self.b,
-                self.x, self.y,
-                { shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 },
-                    shader = nil }
+                self.x, self.y
+                --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 },
+                --    shader = nil }
             )
             player.player_select_mode = 3
             player:setState(self.respawn)
@@ -424,11 +424,11 @@ function Player:useCredit_update(dt)
                 self.player_select_cur = self.player_select_cur + 1
             end
             if GLOBAL_SETTING.DEBUG then
-                if self.player_select_cur > players_list.ZEENA then
+                if self.player_select_cur > players_list.SATOFF then
                     self.player_select_cur = 1
                 end
                 if self.player_select_cur < 1 then
-                    self.player_select_cur = players_list.ZEENA
+                    self.player_select_cur = players_list.SATOFF
                 end
             else
                 if self.player_select_cur > players_list.CHAI then
