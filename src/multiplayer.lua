@@ -140,7 +140,7 @@ function drawPlayersBars()
     end
 end
 
--- Returns Center X, disnace between players, minX, maxX
+-- Returns Center X, distance between players, minX, maxX
 local old_minx, old_maxx
 function getDistanceBetweenPlayers()
     local minx, maxx = nil, nil
@@ -148,7 +148,7 @@ function getDistanceBetweenPlayers()
     local n = 0
     for i = 1, #p do
         local player = p[i]
-        if player and not player.isDisabled and player.hp > 0 then
+        if player and player:isAlive() then
             n = n + 1
             if minx then
                 minx = math.min(player.x, minx)
