@@ -11,7 +11,7 @@ return {
 	sprite_sheet = sprite_sheet, -- The path to the spritesheet
 	sprite_name = "portraits", -- The name of the sprite
 
-	delay = 0.20,	--default delay for all animations
+	delay = 0.2,	--default delay for all animations
 
 	--The list with all the frames mapped to their respective animations
 	--  each one can be accessed like this:
