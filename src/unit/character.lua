@@ -1274,6 +1274,7 @@ function Character:doGrab(target)
     end
 
     if target:onGrab(self) then
+        sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
         g.source = nil
         g.target = target
         g.cool_down = self.cool_down_grab + 0.1
@@ -1420,7 +1421,6 @@ function Character:grabbed_start()
     self.isHittable = true
     self:setSprite("grabbed")
     dp(self.name.." is grabbed.")
-    sfx.play("voice"..self.id, self.sfx.grab)   --clothes ruffling
 end
 function Character:grabbed_update(dt)
     local g = self.hold
