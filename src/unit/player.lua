@@ -406,6 +406,7 @@ function Player:useCredit_update(dt)
                 --    shader = nil }
             )
             player.player_select_mode = 3
+            correctPlayersRespawnPos(player)
             player:setState(self.respawn)
             player.id = self.id
             dp(player.x, player.y, player.name, player.player_select_mode)
