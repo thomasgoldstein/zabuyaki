@@ -51,60 +51,29 @@ function Batch:load()
     return true
 end
 
-local _minx, _maxx, _dist
-local function getDistanceBetweenPlayers()
-    local coord_x
-    local x1, x2, x3 = 0, 0, 0
-    local minx, maxx = 0, 0
-
-    local n = 0
-    if player1 and player1.hp > 0 then
-        x1 = player1.x
-        minx = x1
-        maxx = x1
-        n = n + 1
-    end
-    if player2 and player2.hp > 0 then
-        x2 = player2.x
-        minx = math.min(x2, minx)
-        maxx = math.max(x2, maxx)
-        n = n + 1
-    end
-    if player3 and player3.hp > 0 then
-        x3 = player3.x
-        minx = math.min(x3, minx)
-        maxx = math.max(x3, maxx)
-        n = n + 1
-    end
-    local dist = maxx - minx
-    if n > 0 then
-        _minx, _maxx, _dist = minx, maxx, dist
-    else
-        minx, maxx, dist = _minx, _maxx, _dist
-    end
-    return minx, maxx, dist
-end
-
 function Batch:spawn(dt)
     local b = self.batches[self.n]
+    --move left_stopper, right_stopper
+    local centerX, dist, minx, maxx = getDistanceBetweenPlayers()
+    --print(centerX, minx, maxx, dist )
+    local lx, rx = self.stage.left_stopper.x, self.stage.right_stopper.x    --current in the stage
+    --print("LX"..lx.."->"..self.left_stopper..", RX "..rx.." -> "..self.right_stopper, minx, maxx )
+    if lx < self.left_stopper
+        and minx > self.left_stopper + 320
+    then
+        lx = self.left_stopper
+    end
+    if rx < self.right_stopper then
+        rx = rx + dt * 300 -- speed of the right Stopper movement > char's run
+    end
+    --rx = math.min( self.right_stopper, lx + 320 + 160 - 50 )    --max possible dist between players
+    if lx ~= self.stage.left_stopper.x or rx ~= self.stage.right_stopper.x then
+        self.stage:moveStoppers(lx, rx)
+    end
+
     if self.time < b.delay then --delay before the whole batch
         return false
     end
-    --move left_stopper, right_stopper
-    local minx, maxx, dist = getDistanceBetweenPlayers()
-    local x1, x2 = self.stage.left_stopper.x, self.stage.right_stopper.x
-    if x1 < self.left_stopper
-        and minx > x1 + 320/2 --half screen width
-    then
-        x1 = x1 + dt * 200
-    end
---    if x2 < self.right_stopper
---        and dist < 320
---    then
---        x2 = x2 + dt * 200
---    end
-    x2 = math.min( self.right_stopper, x1 + 320 + 160 - 50 )    --max possible dist between players
-    self.stage:moveStoppers(x1, x2)
 
     local all_spawned = true
     local all_dead = true
@@ -124,6 +93,7 @@ function Batch:spawn(dt)
                     u.unit:setState(u.unit.intro)
                     u.unit:setSprite("stand")
                 elseif u.state == "walk" then
+                    u.unit:pickAttackTarget("close")
                     u.unit:setState(u.unit.stand)
                 end
             end
