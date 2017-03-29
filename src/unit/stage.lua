@@ -153,31 +153,16 @@ function Stage:setCamera(dt)
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
     local x1, x2, x3
-    if player1 and player1.hp > 0 then
-        x1 = player1.x
-    end
-    if player2 and player2.hp > 0 then
-        x2 = player2.x
-    end
-    if player3 and player3.hp > 0 then
-        x3 = player3.x
-    end
-    if not (x1 or x2 or x3) then
-        -- All the players are dead. Don't move camera
-        return
-    end
+
     -- Camera Zoom
     local max_distance = 320 + 160 - 50
     local min_distance = 320 - 50
+    local delta = max_distance - min_distance
     local min_zoom = 1.5
     local max_zoom = 2
-    local delta = max_distance - min_distance
-    x1 = x1 or x2 or x3 or 0
-    x2 = x2 or x1 or x3 or 0
-    x3 = x3 or x1 or x2 or 0
-    local minx = math.min(x1, x2, x3)
-    local maxx = math.max(x1, x2, x3)
-    local dist = maxx - minx
+
+    local centerX, dist, minx, maxx = getDistanceBetweenPlayers()
+
     local scale = max_zoom
     if dist > min_distance then
         if dist > max_distance then
@@ -199,7 +184,7 @@ function Stage:setCamera(dt)
         end
     end
     -- Camera position
-    coord_x = (minx + maxx) / 2
+    coord_x = centerX --(minx + maxx) / 2
     coord_y = self.scrolling.commonY or coord_y
     local ty, tx, cx = 0, 0, 0
     for i = 1, #self.scrolling.chunks do
@@ -215,15 +200,7 @@ function Stage:setCamera(dt)
     -- Correct coord_y according to the zoom stage
     coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
 
---OK
     mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
---    mainCamera:update(dt, self.left_stopper.x, math.floor(coord_y * 2)/2)
---    mainCamera:update(dt, player1.x, math.floor(coord_y * 2)/2)
---print(self.left_stopper.x, self.left_stopper.y)
-
---  mainCamera:update(dt, math.ceil(coord_x * 2 - 0.5)/2, math.ceil(coord_y * 2 - 0.5 )/2)
-
-    -- Move block walls
 end
 
 return Stage
