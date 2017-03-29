@@ -23,7 +23,7 @@ return {
 			delay = 10
 		},
 		rick = {
-			{ q = q(2,74,70,70), ox = 0, oy = 0 },  --Rick default
+			{ q = q(2,74,70,70), ox = 0, oy = 0 }, --Rick default
 			loop = true,
 			delay = 10
 		},
