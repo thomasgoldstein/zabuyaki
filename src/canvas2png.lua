@@ -85,10 +85,10 @@ function saveStageToPng()
     cp:draw(0,0, max_coord, max_coord) --all bg
     stage.objects:draw(0,0, max_coord, max_coord) --all active units
     stage.batch:draw()
---    for i = 1, #stage.batch do
-
---    end
-
+    love.graphics.setColor(255, 255, 255)
+    for x = 0, cp.width, 100 do
+        love.graphics.print( x, x, 1 )
+    end
     saveCanvas(canvas, "stage")
     love.graphics.setCanvas()
     canvas = nil
