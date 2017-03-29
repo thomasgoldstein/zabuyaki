@@ -147,13 +147,13 @@ Enemy.dead = {name = "dead", start = Character.dead_start, exit = nop, update = 
 
 function Enemy:getDistanceToClosestPlayer()
     local p = {}
-    if player1 then
+    if player1 and not player1.isDisabled then
         p[#p +1] = {player = player1, points = 0 }
     end
-    if player2 then
+    if player2 and not player2.isDisabled then
         p[#p +1] = {player = player2, points = 0 }
     end
-    if player3 then
+    if player3 and not player3.isDisabled then
         p[#p +1] = {player = player3, points = 0}
     end
     for i = 1, #p do
@@ -176,13 +176,13 @@ local next_to_pick_target_id = 1
 --
 function Enemy:pickAttackTarget(how)
     local p = {}
-    if player1 then
+    if player1 and not player1.isDisabled then
         p[#p +1] = {player = player1, points = 0 }
     end
-    if player2 then
+    if player2 and not player2.isDisabled then
         p[#p +1] = {player = player2, points = 0 }
     end
-    if player3 then
+    if player3 and not player3.isDisabled then
         p[#p +1] = {player = player3, points = 0}
     end
     how = how or self.whichPlayerAttack
@@ -224,7 +224,9 @@ function Enemy:faceToTarget(x, y)
             and self.state ~= "run"
             and self.state ~= "dashAttack"
     then
-        if x or self.target.x < self.x then
+        if not self.target and not x then
+            self.face = rand1()
+        elseif x or self.target.x < self.x then
             self.face = -1
         else
             self.face = 1

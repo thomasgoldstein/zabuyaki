@@ -47,12 +47,20 @@ function Gopper:updateAI(dt)
             if dist < self.wakeup_range
                 or (dist < self.delayed_wakeup_range and self.time > self.wakeup_delay )
             then
+                if not self.target then
+                    self:setState(self.intro)
+                    return
+                end
                 self.face = -self.target.face --face to player
                 self:setState(self.stand)
             end
         elseif self.state == "stand" then
             if self.cool_down <= 0 then
                 --can move
+                if not self.target then
+                    self:setState(self.intro)
+                    return
+                end
                 local t = dist(self.target.x, self.target.y, self.x, self.y)
                 if t >= 300 and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
                     self:setState(self.run)
@@ -66,6 +74,10 @@ function Gopper:updateAI(dt)
             --self:pickAttackTarget()
             --self:setState(self.stand)
             --return
+            if not self.target then
+                self:setState(self.intro)
+                return
+            end
             local t = dist(self.target.x, self.target.y, self.x, self.y)
             if t < 400 and t >= 100
                     and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
@@ -86,7 +98,7 @@ function Gopper:updateAI(dt)
             --return
         end
         -- Facing towards the target
-        self:faceToTarget(x, y)
+        self:faceToTarget()
     end
     if self.ai_poll_2 < 0 then
         self.ai_poll_2 = self.max_ai_poll_2 + math.random()
@@ -99,7 +111,10 @@ function Gopper:updateAI(dt)
         end
 
         self:pickAttackTarget()
-
+        if not self.target then
+            self:setState(self.intro)
+            return
+        end
         local t = dist(self.target.x, self.target.y, self.x, self.y)
         if t < 600 and self.state == "walk" then
             --set dest
@@ -211,6 +226,10 @@ Gopper.stand = { name = "stand", start = Gopper.stand_start, exit = nop, update 
 function Gopper:walk_start()
     self.isHittable = true
     self:setSprite("walk")
+    if not self.target then
+        self:setState(self.intro)
+        return
+    end
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if love.math.random() < 0.25 then
         --random move arond the player (far from)
@@ -301,6 +320,10 @@ function Gopper:run_update(dt)
         complete = true
     end
     if complete then
+        if not self.target then
+            self:setState(self.intro)
+            return
+        end
         local t = dist(self.target.x, self.target.y, self.x, self.y)
         if t > 100 then
             self:setState(self.walk)
