@@ -141,7 +141,7 @@ function drawPlayersBars()
 end
 
 -- Returns Center X, distance between players, minX, maxX
-local old_minx, old_maxx
+local old_minx, old_maxx, old_y
 function getDistanceBetweenPlayers()
     local minx, maxx = nil, nil
     local p = { player1, player2, player3 }
@@ -150,6 +150,7 @@ function getDistanceBetweenPlayers()
         local player = p[i]
         if player and player:isAlive() then
             n = n + 1
+            old_y = player.y
             if minx then
                 minx = math.min(player.x, minx)
                 maxx = math.max(player.x, maxx)
@@ -168,6 +169,16 @@ function getDistanceBetweenPlayers()
     end
     old_minx, old_maxx = minx, maxx
     return minx + (maxx - minx) / 2, maxx - minx, minx, maxx
+end
+
+function correctPlayersRespawnPos(player)
+    print(player.x, player.y, " CORRECT -> ")
+    if old_y then
+        player.x = (old_maxx - old_minx) / 2
+        player.y = old_y
+        player:checkCollisionAndMove(0)
+        print(" -> ",player.x, player.y)
+    end
 end
 
 function _getDistanceToClosestPlayer()
