@@ -88,17 +88,6 @@ function Stage1:initialize(players)
     local wall7 = Wall:new("wall7", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }}) --polygon
 ]]
 
-    local testDeathFunc = function(s, t) dp(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
-    -- Enemy
-    local sveta1 = Sveta:new("SVETA", GetSpriteInstance("src/def/char/sveta.lua"), nil,
-        900, 490,
-        { shader = shaders.sveta[2], color = {255,255,255, 255}})
-    local zeena1 = Sveta:new("ZEENA", GetSpriteInstance("src/def/char/zeena.lua"), nil,
-        900, 480,
-        { shader = shaders.zeena[2], color = {255,255,255, 255}})
-    local beatnick1 = Beatnick:new("BEATNICK", GetSpriteInstance("src/def/char/beatnick.lua"), nil,
-        270, 464,
-        { shader = shaders.beatnick[2], color = {255,255,255, 255}})
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         280, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
@@ -137,26 +126,26 @@ function Stage1:initialize(players)
     dummy5.face = -1
 
     local niko1 = Niko:new("niko", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        510, top_floor_y + 0,
+        810, top_floor_y + 0,
         { shader = shaders.niko[3], color = {255,255,255, 255}, func = testDeathFunc})
     local niko2 = Niko:new("niko2", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        510, top_floor_y + 10,
+        800, top_floor_y + 10,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
     --niko2:setToughness(1)
     local niko3 = Niko:new("niko3", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        500, top_floor_y + 20,
+        790, top_floor_y + 20,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
     --niko3:setToughness(2)
     local niko4 = Niko:new("niko4", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        540, top_floor_y + 30,
+        780, top_floor_y + 30,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
     --niko4:setToughness(3)
     local niko5 = Niko:new("niko5", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        530, top_floor_y + 40,
+        770, top_floor_y + 40,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
     --niko5:setToughness(4)
     local niko6 = Niko:new("niko6", GetSpriteInstance("src/def/char/niko.lua"), nil,
-        525, top_floor_y + 50,
+        1000, top_floor_y + 50,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
     --niko6:setToughness(5)
 
@@ -214,8 +203,20 @@ function Stage1:initialize(players)
     local niko10 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 280, top_floor_y + 40,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
 
+    local testDeathFunc = function(s, t) dp(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
+    -- Enemy
+    local sveta1 = Sveta:new("SVETA", GetSpriteInstance("src/def/char/sveta.lua"), nil,
+        1250, 490,
+        { shader = shaders.sveta[2], color = {255,255,255, 255}})
+    local zeena1 = Sveta:new("ZEENA", GetSpriteInstance("src/def/char/zeena.lua"), nil,
+        1300, 470,
+        { shader = shaders.zeena[2], color = {255,255,255, 255}})
+    local beatnick1 = Beatnick:new("BEATNICK", GetSpriteInstance("src/def/char/beatnick.lua"), nil,
+        890, 480,
+        { shader = shaders.beatnick[2], color = {255,255,255, 255}})
+
     local satoff1 = Satoff:new("Satoff", GetSpriteInstance("src/def/char/satoff.lua"), nil,
-        920 , top_floor_y + 80 ,
+        1750 , top_floor_y + 80 ,
         { lives = 3, hp = 100, score = 300, shader = shaders.satoff[2] } )
 
     -- Obstacles
@@ -273,7 +274,7 @@ function Stage1:initialize(players)
             -- 1st batch
             delay = 0,
             left_stopper = 0,
-            right_stopper = 520,
+            right_stopper = 500,
             units = {
                 { unit = gopper1, delay = 0, state = "intro" },
                 { unit = gopper2, delay = 0, state = "stand" },
@@ -286,10 +287,9 @@ function Stage1:initialize(players)
         {
             -- 2nd batch
             delay = 1,
-            left_stopper = 520 - 400,
-            right_stopper = 520 + 500,
+            left_stopper = 500 - 100,
+            right_stopper = 1000,
             units = {
-                { unit = beatnick1, delay = 0 },
                 { unit = niko1, delay = 1 },
                 { unit = niko2, delay = 0 },
                 { unit = niko3, delay = 0, state = "intro" },
@@ -301,19 +301,19 @@ function Stage1:initialize(players)
         {
             -- 3rd batch
             delay = 0,
-            left_stopper = 520 + 100,
-            right_stopper = 520 + 500 + 320,
+            left_stopper = 1000 - 100,
+            right_stopper = 1500,
             units = {
---                { unit = satoff1, delay = 1 },
+                { unit = beatnick1, delay = 3, state = "walk" },
                 { unit = zeena1, delay = 0 },
-                { unit = sveta1, delay = 2 }
+                { unit = sveta1, delay = 0 }
             }
         },
         {
             -- 4th batch Mid-Boss
             delay = 0,
-            left_stopper = 520 + 500 + 120,
-            right_stopper = 520 + 500 + 520,
+            left_stopper = 1500 - 100,
+            right_stopper = 2000,
             units = {
                 { unit = satoff1, delay = 1 },
 --                { unit = sveta1, delay = 2 }
