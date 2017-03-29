@@ -141,7 +141,7 @@ function Enemy:dead_update(dt)
     else
         self.cool_down_death = self.cool_down_death - dt
     end
-    self:calcMovement(dt, true)
+    --self:calcMovement(dt, true)
 end
 Enemy.dead = {name = "dead", start = Character.dead_start, exit = nop, update = Character.dead_update, draw = Character.default_draw}
 
