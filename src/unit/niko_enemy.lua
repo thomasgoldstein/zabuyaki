@@ -35,6 +35,10 @@ function Niko:updateAI(dt)
         if self.state == "intro" then
             -- see near players?
             if self:getDistanceToClosestPlayer() < 100 then
+                if not self.target then
+                    self:setState(self.intro)
+                    return
+                end
                 self.face = -self.target.face --face to player
                 self:setState(self.stand)
             end
@@ -53,9 +57,10 @@ function Niko:updateAI(dt)
                 --end
             end
         elseif self.state == "walk" then
-            --self:pickAttackTarget()
-            --self:setState(self.stand)
-            --return
+            if not self.target then
+                self:setState(self.intro)
+                return
+            end
             local t = dist(self.target.x, self.target.y, self.x, self.y)
             if t < 100 and t >= 30
                     and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
@@ -77,7 +82,7 @@ function Niko:updateAI(dt)
             --return
         end
         -- Facing towards the target
-        self:faceToTarget(x, y)
+        self:faceToTarget()
     end
     if self.ai_poll_2 < 0 then
         self.ai_poll_2 = self.max_ai_poll_2 + math.random()
