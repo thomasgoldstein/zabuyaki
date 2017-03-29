@@ -140,6 +140,36 @@ function drawPlayersBars()
     end
 end
 
+-- Returns Center X, disnace between players, minX, maxX
+local old_minx, old_maxx
+function getDistanceBetweenPlayers()
+    local minx, maxx = nil, nil
+    local p = { player1, player2, player3 }
+    local n = 0
+    for i = 1, #p do
+        local player = p[i]
+        if player and not player.isDisabled and player.hp > 0 then
+            n = n + 1
+            if minx then
+                minx = math.min(player.x, minx)
+                maxx = math.max(player.x, maxx)
+            else
+                minx = player.x
+                maxx = player.x
+            end
+        end
+    end
+    if n < 1 then
+        if not old_minx then
+            old_minx = 0
+            old_maxx = 0
+        end
+        return old_minx + (old_maxx - old_minx) / 2, old_maxx - old_minx, old_minx, old_maxx
+    end
+    old_minx, old_maxx = minx, maxx
+    return minx + (maxx - minx) / 2, maxx - minx, minx, maxx
+end
+
 function _getDistanceToClosestPlayer()
     local p = {}
     if player1 then
