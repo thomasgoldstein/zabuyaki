@@ -21,7 +21,7 @@ function Stage:initialize(name, bgColor)
     --        {startX = 0, endX = 320, startY = 430, endY = 430},
     --        {startX = 321, endX = 321+320, startY = 430, endY = 430-100}
     --    }
-    self.centerX, self.dist, self.minx, self.maxx = getDistanceBetweenPlayers()
+    self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
 
     self.world = HC.new(40*4)
     self.objects = Entity:new()
@@ -31,14 +31,14 @@ function Stage:initialize(name, bgColor)
     self.z_stoppers_mode = "check"
     self.left_stopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
     self.right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
-    self.left_z_stopper = Stopper:new("LEFT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
-    self.right_z_stopper = Stopper:new("RIGHT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
+    self.left_player_group_limit_stopper = Stopper:new("LEFT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
+    self.right_player_group_limit_stopper = Stopper:new("RIGHT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
     self.objects:addArray({
         self.left_stopper, self.right_stopper,
-        self.left_z_stopper, self.right_z_stopper
+        self.left_player_group_limit_stopper, self.right_player_group_limit_stopper
     })
-    self.left_z_stopper:moveTo(0, self.worldHeight / 2)
-    self.right_z_stopper:moveTo(self.worldWidth, self.worldHeight / 2)
+    self.left_player_group_limit_stopper:moveTo(0, self.worldHeight / 2)
+    self.right_player_group_limit_stopper:moveTo(self.worldWidth, self.worldHeight / 2)
 end
 
 function Stage:moveStoppers(x1, x2)
@@ -63,33 +63,33 @@ function Stage:moveStoppers(x1, x2)
 end
 
 local z_stoppers_time = 0
-local max_distance = 320 + 160 - 90
-local min_distance = 320 + 160 - 90
+local max_player_group_distance = 320 + 160 - 90
+local min_player_group_distance = 320 + 160 - 90
 function Stage:updateZStoppers(dt)
     if self.z_stoppers_mode == "check" then
-        if self.dist > max_distance then
+        if self.player_group_distance > max_player_group_distance then
             self.z_stoppers_mode = "set"
         end
     elseif self.z_stoppers_mode == "set" then
-        self.left_z_stopper:moveTo(self.minx - 30, self.worldHeight / 2)
-        self.right_z_stopper:moveTo(self.maxx + 30, self.worldHeight / 2)
+        self.left_player_group_limit_stopper:moveTo(self.minx - 30, self.worldHeight / 2)
+        self.right_player_group_limit_stopper:moveTo(self.maxx + 30, self.worldHeight / 2)
         z_stoppers_time = 0.1
         self.z_stoppers_mode = "wait"
     elseif self.z_stoppers_mode == "wait" then
         z_stoppers_time = z_stoppers_time - dt
-        if z_stoppers_time < 0 and self.dist < min_distance then
+        if z_stoppers_time < 0 and self.player_group_distance < min_player_group_distance then
             self.z_stoppers_mode = "release"
         end
     else --if self.z_stoppers_mode == "release" then
-        self.left_z_stopper:moveTo(0, self.worldHeight / 2)
-        self.right_z_stopper:moveTo(self.worldWidth, self.worldHeight / 2)
+        self.left_player_group_limit_stopper:moveTo(0, self.worldHeight / 2)
+        self.right_player_group_limit_stopper:moveTo(self.worldWidth, self.worldHeight / 2)
         self.z_stoppers_mode = "check"
     end
 end
 
 function Stage:update(dt)
     if self.mode == "normal" then
-        self.centerX, self.dist, self.minx, self.maxx = getDistanceBetweenPlayers()
+        self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
         self.batch:update(dt)
         self:updateZStoppers(dt)
         self.objects:update(dt)
@@ -183,20 +183,20 @@ function Stage:setCamera(dt)
     local x1, x2, x3
 
     -- Camera Zoom
-    local max_distance = 320 + 160 - 50
-    local min_distance = 320 - 50
-    local delta = max_distance - min_distance
+    local max_player_group_distance = 320 + 160 - 50
+    local min_player_group_distance = 320 - 50
+    local delta = max_player_group_distance - min_player_group_distance
     local min_zoom = 1.5
     local max_zoom = 2
 
-    local centerX, dist, minx, maxx = self.centerX, self.dist, self.minx, self.maxx
+    local centerX, player_group_distance, minx, maxx = self.centerX, self.player_group_distance, self.minx, self.maxx
 
     local scale = max_zoom
-    if dist > min_distance then
-        if dist > max_distance then
+    if player_group_distance > min_player_group_distance then
+        if player_group_distance > max_player_group_distance then
             scale = min_zoom
-        elseif dist < max_distance then
-            scale = ((max_distance - dist) / delta) * 2
+        elseif player_group_distance < max_player_group_distance then
+            scale = ((max_player_group_distance - player_group_distance) / delta) * 2
         end
     end
     if mainCamera:getScale() ~= scale then
