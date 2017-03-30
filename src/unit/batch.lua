@@ -54,7 +54,7 @@ end
 function Batch:spawn(dt)
     local b = self.batches[self.n]
     --move left_stopper, right_stopper
-    local centerX, dist, minx, maxx = getDistanceBetweenPlayers()
+    local centerX, dist, minx, maxx = self.stage.centerX, self.stage.dist, self.stage.minx, self.stage.maxx
     --print(centerX, minx, maxx, dist )
     local lx, rx = self.stage.left_stopper.x, self.stage.right_stopper.x    --current in the stage
     --print("LX"..lx.."->"..self.left_stopper..", RX "..rx.." -> "..self.right_stopper, minx, maxx )

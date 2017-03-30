@@ -21,6 +21,8 @@ function Stage:initialize(name, bgColor)
     --        {startX = 0, endX = 320, startY = 430, endY = 430},
     --        {startX = 321, endX = 321+320, startY = 430, endY = 430-100}
     --    }
+    self.centerX, self.dist, self.minx, self.maxx = getDistanceBetweenPlayers()
+
     self.world = HC.new(40*4)
     self.objects = Entity:new()
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
@@ -72,6 +74,7 @@ end
 
 function Stage:update(dt)
     if self.mode == "normal" then
+        self.centerX, self.dist, self.minx, self.maxx = getDistanceBetweenPlayers()
         self.batch:update(dt)
         self.objects:update(dt)
         --sort players by y
@@ -170,7 +173,7 @@ function Stage:setCamera(dt)
     local min_zoom = 1.5
     local max_zoom = 2
 
-    local centerX, dist, minx, maxx = getDistanceBetweenPlayers()
+    local centerX, dist, minx, maxx = self.centerX, self.dist, self.minx, self.maxx
 
     local scale = max_zoom
     if dist > min_distance then
