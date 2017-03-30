@@ -25,11 +25,15 @@ function Stage:initialize(name, bgColor)
     self.objects = Entity:new()
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
     --Left and right players stoppers
-    local x = 0
+    --local x = 0
+    self.z_stoppers_mode = "absent"
     self.left_stopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
-    self.right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
+    self.right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { self.worldWidth, 0, 40, self.worldHeight }}) --right
+    self.left_z_stopper = Stopper:new("LEFT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
+    self.right_z_stopper = Stopper:new("RIGHT.D", { shapeType = "rectangle", shapeArgs = { self.worldWidth, 0, 40, self.worldHeight }}) --right
     self.objects:addArray({
-        self.left_stopper, self.right_stopper
+        self.left_stopper, self.right_stopper,
+        self.left_z_stopper, self.right_z_stopper
     })
 
 end
@@ -55,15 +59,20 @@ function Stage:moveStoppers(x1, x2)
     mainCamera:setWorld(math.floor(self.left_stopper.x), 0, math.floor(self.right_stopper.x - self.left_stopper.x), self.worldHeight)
 end
 
-function Stage:updateForwardStoppers(x)
-    if x > self.right_stopper.x - min_gap_between_stoppers * 0.15 then
-        self.left_stopper:moveTo(self.right_stopper.x - min_gap_between_stoppers, self.worldHeight / 2)
+
+function Stage:updateZStoppers(dt)
+    if self.z_stoppers_mode == "absent" then
+
+    elseif self.z_stoppers_mode == "set" then
     end
-    mainCamera:setWorld(self.left_stopper.x, 0, self.right_stopper.x - self.left_stopper.x, self.worldHeight)
+--    self.left_z_stopper:moveTo(x1, self.worldHeight / 2)
+--    self.right_z_stopper:moveTo(x2, self.worldHeight / 2)
 end
+
 
 function Stage:update(dt)
     if self.mode == "normal" then
+        self.batch:update(dt)
         self.objects:update(dt)
         --sort players by y
         self.objects:sortByY()
