@@ -30,14 +30,15 @@ function Stage:initialize(name, bgColor)
     --local x = 0
     self.z_stoppers_mode = "check"
     self.left_stopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
-    self.right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { self.worldWidth, 0, 40, self.worldHeight }}) --right
+    self.right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
     self.left_z_stopper = Stopper:new("LEFT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
-    self.right_z_stopper = Stopper:new("RIGHT.D", { shapeType = "rectangle", shapeArgs = { self.worldWidth, 0, 40, self.worldHeight }}) --right
+    self.right_z_stopper = Stopper:new("RIGHT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
     self.objects:addArray({
         self.left_stopper, self.right_stopper,
         self.left_z_stopper, self.right_z_stopper
     })
-
+    self.left_z_stopper:moveTo(0, self.worldHeight / 2)
+    self.right_z_stopper:moveTo(self.worldWidth, self.worldHeight / 2)
 end
 
 function Stage:moveStoppers(x1, x2)
@@ -63,7 +64,7 @@ end
 
 local z_stoppers_time = 0
 local max_distance = 320 + 160 - 90
-local min_distance = 320 - 50
+local min_distance = 320 + 160 - 90
 function Stage:updateZStoppers(dt)
     if self.z_stoppers_mode == "check" then
         if self.dist > max_distance then
@@ -72,7 +73,7 @@ function Stage:updateZStoppers(dt)
     elseif self.z_stoppers_mode == "set" then
         self.left_z_stopper:moveTo(self.minx - 30, self.worldHeight / 2)
         self.right_z_stopper:moveTo(self.maxx + 30, self.worldHeight / 2)
-        z_stoppers_time = 5
+        z_stoppers_time = 0.1
         self.z_stoppers_mode = "wait"
     elseif self.z_stoppers_mode == "wait" then
         z_stoppers_time = z_stoppers_time - dt
