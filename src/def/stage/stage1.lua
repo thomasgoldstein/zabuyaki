@@ -324,11 +324,9 @@ function Stage1:initialize(players)
 end
 
 function Stage1:update(dt)
-    if self.rotate_wall then    --test wall rotation
-        self.rotate_wall:rotate(dt)
-    end
-    --self:updateForwardStoppers(player1.x)
-    self.batch:update(dt)
+--    if self.rotate_wall then    --test wall rotation
+--        self.rotate_wall:rotate(dt)
+--    end
     Stage.update(self, dt)
 end
 
