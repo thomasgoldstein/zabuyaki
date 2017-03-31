@@ -10,8 +10,8 @@ local min_player_group_distance = 320 + 160 - 90
 local max_zoom = 4 -- zoom in. default value
 local min_zoom = 3 -- zoom out
 local zoom_speed = 5 -- speed of zoom-in-out transition
-local keep_zoom_out_delay = 5 -- seconds
-local max_distance_no_zoom = 320 - 50   --between players
+local max_distance_no_zoom = 250   --between players
+local min_distance_to_keep_zoom = 180   --between players
 
 function Stage:initialize(name, bgColor)
     stage = self
@@ -53,21 +53,14 @@ function Stage:initialize(name, bgColor)
     self.right_player_group_limit_stopper:moveTo(self.worldWidth, self.worldHeight / 2)
 end
 
-local cur_keep_zoom_out_delay = 0
 function Stage:updateZoom(dt)
     if self.zoom_mode == "check" then
         if self.player_group_distance > max_distance_no_zoom then
             self.zoom_mode = "zoomout"
-            cur_keep_zoom_out_delay = keep_zoom_out_delay
         end
     elseif self.zoom_mode == "zoomout" then
-        cur_keep_zoom_out_delay = cur_keep_zoom_out_delay - dt
-        if cur_keep_zoom_out_delay < 0 then
-            if self.player_group_distance < max_distance_no_zoom then
-                self.zoom_mode = "zoomin"
-            else
-                cur_keep_zoom_out_delay = keep_zoom_out_delay
-            end
+        if self.player_group_distance < min_distance_to_keep_zoom then
+            self.zoom_mode = "zoomin"
         end
         if self.zoom > min_zoom then
             self.zoom = self.zoom - dt * zoom_speed
