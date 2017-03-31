@@ -7,8 +7,8 @@ local max_player_group_distance = 320 + 160 - 90
 local min_player_group_distance = 320 + 160 - 90
 
 -- Zooming
-local max_zoom = 4 -- zoom in. default value
-local min_zoom = 3 -- zoom out
+local max_zoom = display.inner.min_scale --4 -- zoom in. default value
+local min_zoom = display.inner.max_scale --3 -- zoom out
 local zoom_speed = 5 -- speed of zoom-in-out transition
 local max_distance_no_zoom = 250   --between players
 local min_distance_to_keep_zoom = 180   --between players
@@ -36,7 +36,7 @@ function Stage:initialize(name, bgColor)
     self.world = HC.new(40*4)
     self.objects = Entity:new()
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
-    self.zoom = 4
+    self.zoom = max_zoom
     self.zoom_mode = "check"
     self.player_group_stoppers_mode = "check"
     -- Left and right players stoppers
@@ -242,8 +242,10 @@ function Stage:setCamera(dt)
         end
     end
     -- Correct coord_y according to the zoom stage
-    coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
-     mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
+    --coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
+    local delta_y = display.inner.resolution.height * display.inner.min_scale - display.inner.resolution.height * display.inner.max_scale
+    coord_y = coord_y - 2 * delta_y * (display.inner.min_scale - mainCamera:getScale()) * display.inner.min_scale / display.inner.max_scale
+    mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
 end
 
 return Stage

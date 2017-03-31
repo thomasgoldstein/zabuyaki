@@ -108,11 +108,11 @@ function arcadeState:draw()
     push:start()
     love.graphics.setBlendMode("alpha", "premultiplied")
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(canvas[1], 0,0, nil, 0.5) --bg
+    love.graphics.draw(canvas[1], 0,0, nil, display.final.scale) --bg
     love.graphics.setColor(255, 255, 255, GLOBAL_SETTING.SHADOW_OPACITY)
-    love.graphics.draw(canvas[2], 0,0, nil, 0.5) --shadows
+    love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) --shadows
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(canvas[3], 0,0, nil, 0.5) --sprites + fg
+    love.graphics.draw(canvas[3], 0,0, nil, display.final.scale) --sprites + fg
     love.graphics.setBlendMode("alpha")
 
     if stage.mode == "normal" then
