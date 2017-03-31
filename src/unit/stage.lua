@@ -9,7 +9,6 @@ local min_player_group_distance = 320 + 160 - 90
 -- Zooming
 local max_zoom = display.inner.min_scale --4 -- zoom in. default value
 local min_zoom = display.inner.max_scale --3 -- zoom out
-
 local zoom_speed = 2 -- speed of zoom-in-out transition
 local max_distance_no_zoom = 200   --between players
 local min_distance_to_keep_zoom = 190   --between players
