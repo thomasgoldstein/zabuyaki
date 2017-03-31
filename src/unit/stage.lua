@@ -55,7 +55,6 @@ end
 
 local cur_zoom_delay_time = 0
 function Stage:updateZoom(dt)
-    print("Zoom", self.zoom_mode, self.zoom, max_distance_no_zoom, "time:"..zoom_delay_time)
     if self.zoom_mode == "check" then
         if self.player_group_distance > max_distance_no_zoom then
             self.zoom_mode = "zoomout"
