@@ -9,9 +9,9 @@ local min_player_group_distance = 320 + 160 - 90
 -- Zooming
 local max_zoom = 4 -- zoom in. default value
 local min_zoom = 3 -- zoom out
-local zoom_speed = 5 -- speed of zoom-in-out transition
-local max_distance_no_zoom = 250   --between players
-local min_distance_to_keep_zoom = 180   --between players
+local zoom_speed = 2 -- speed of zoom-in-out transition
+local max_distance_no_zoom = 200   --between players
+local min_distance_to_keep_zoom = 190   --between players
 
 function Stage:initialize(name, bgColor)
     stage = self
