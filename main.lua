@@ -10,6 +10,7 @@
 
 --require 'lib/strict'
 
+display = require "src/display"
 configuration = require "src/configuration"
 configuration:load()
 -- global vars
