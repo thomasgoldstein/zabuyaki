@@ -1,15 +1,25 @@
 local class = require "lib/middleclass"
 local Stage = class('Stage')
 
+-- Blocking far players movement
 local min_gap_between_stoppers = 420
+local max_player_group_distance = 320 + 160 - 90
+local min_player_group_distance = 320 + 160 - 90
+
+-- Zooming
+local max_zoom = 4 -- zoom in. default value
+local min_zoom = 3 -- zoom out
+local zoom_speed = 5 -- speed of zoom-in-out transition
+local zoom_delay_time = 5 -- seconds
+local max_distance_no_zoom = 320 - 50   --between players
 
 function Stage:initialize(name, bgColor)
     stage = self
     self.name = name or "Stage NoName"
     self.mode = "normal"
     self.bgColor = bgColor
-    self.shadowAngle = 0 --vertical shadow. Range -1..1
-    self.shadowHeight = 0.2 --Range 0.2..1
+    self.shadowAngle = 0 -- vertical shadow. Range -1..1
+    self.shadowHeight = 0.2 -- Range 0.2..1
     self.event = nil
     self.movie = nil
     self.worldWidth = 4000
@@ -26,11 +36,13 @@ function Stage:initialize(name, bgColor)
     self.world = HC.new(40*4)
     self.objects = Entity:new()
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
-    --Left and right players stoppers
-    --local x = 0
+    self.zoom = 4
+    self.zoom_mode = "check"
     self.player_group_stoppers_mode = "check"
+    -- Left and right players stoppers
     self.left_stopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
     self.right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
+    -- Left and right players group stoppers
     self.left_player_group_limit_stopper = Stopper:new("LEFT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
     self.right_player_group_limit_stopper = Stopper:new("RIGHT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
     self.objects:addArray({
@@ -39,6 +51,42 @@ function Stage:initialize(name, bgColor)
     })
     self.left_player_group_limit_stopper:moveTo(0, self.worldHeight / 2)
     self.right_player_group_limit_stopper:moveTo(self.worldWidth, self.worldHeight / 2)
+end
+
+local cur_zoom_delay_time = 0
+function Stage:updateZoom(dt)
+    print("Zoom", self.zoom_mode, self.zoom, max_distance_no_zoom, "time:"..zoom_delay_time)
+    if self.zoom_mode == "check" then
+        if self.player_group_distance > max_distance_no_zoom then
+            self.zoom_mode = "zoomout"
+            cur_zoom_delay_time = zoom_delay_time
+        end
+    elseif self.zoom_mode == "zoomout" then
+        cur_zoom_delay_time = cur_zoom_delay_time - dt
+        if cur_zoom_delay_time < 0 then
+            if self.player_group_distance < max_distance_no_zoom then
+                self.zoom_mode = "zoomin"
+            else
+                cur_zoom_delay_time = zoom_delay_time
+            end
+        end
+        if self.zoom > min_zoom then
+            self.zoom = self.zoom - dt * zoom_speed
+        else
+            self.zoom = min_zoom
+        end
+    elseif self.zoom_mode == "zoomin" then
+        if self.player_group_distance < max_distance_no_zoom then
+            if self.zoom < max_zoom then
+                self.zoom = self.zoom + dt * zoom_speed
+            else
+                self.zoom = max_zoom
+                self.zoom_mode = "check"
+            end
+        else
+            self.zoom_mode = "zoomout"
+        end
+    end
 end
 
 function Stage:moveStoppers(x1, x2)
@@ -63,8 +111,6 @@ function Stage:moveStoppers(x1, x2)
 end
 
 local player_group_stoppers_time = 0
-local max_player_group_distance = 320 + 160 - 90
-local min_player_group_distance = 320 + 160 - 90
 function Stage:updateZStoppers(dt)
     if self.player_group_stoppers_mode == "check" then
         if self.player_group_distance > max_player_group_distance then
@@ -147,10 +193,6 @@ function Stage:draw(l, t, w, h)
         if self.foreground then
             self.foreground:draw(l, t, w, h)
         end
-        -- draw block walls
-        --love.graphics.setColor(0, 0, 0, 100)
-        --love.graphics.rectangle("fill", self.world:getRect(self.left_block_wall))
-        --love.graphics.rectangle("fill", self.world:getRect(self.right_block_wall))
     elseif self.mode == "event" then
         if self.background then
             self.background:draw(l, t, w, h)
@@ -178,31 +220,12 @@ function Stage:draw(l, t, w, h)
 end
 
 function Stage:setCamera(dt)
-    -- center camera over all players
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
-    local x1, x2, x3
-
-    -- Camera Zoom
-    local max_player_group_distance = 320 + 160 - 50
-    local min_player_group_distance = 320 - 50
-    local delta = max_player_group_distance - min_player_group_distance
-    local min_zoom = 1.5
-    local max_zoom = 2
-
     local centerX, player_group_distance, minx, maxx = self.centerX, self.player_group_distance, self.minx, self.maxx
-
-    local scale = max_zoom
-    if player_group_distance > min_player_group_distance then
-        if player_group_distance > max_player_group_distance then
-            scale = min_zoom
-        elseif player_group_distance < max_player_group_distance then
-            scale = ((max_player_group_distance - player_group_distance) / delta) * 2
-        end
-    end
-    if mainCamera:getScale() ~= scale then
-        mainCamera:setScale(2 * math.max(scale, min_zoom))
-        if math.max(scale, min_zoom) < max_zoom then
+    if mainCamera:getScale() ~= self.zoom then
+        mainCamera:setScale(self.zoom)
+        if self.zoom < max_zoom then
             for i=1,#canvas do
                 canvas[i]:setFilter("linear", "linear", 2)
             end
@@ -212,8 +235,8 @@ function Stage:setCamera(dt)
             end
         end
     end
-    -- Camera position
-    coord_x = centerX --(minx + maxx) / 2
+    -- Camera positioning
+    coord_x = centerX
     coord_y = self.scrolling.commonY or coord_y
     local ty, tx, cx = 0, 0, 0
     for i = 1, #self.scrolling.chunks do
@@ -228,9 +251,7 @@ function Stage:setCamera(dt)
     end
     -- Correct coord_y according to the zoom stage
     coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
-
-    mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
+     mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
 end
 
 return Stage
-
