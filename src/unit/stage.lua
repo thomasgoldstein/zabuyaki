@@ -242,9 +242,9 @@ function Stage:setCamera(dt)
         end
     end
     -- Correct coord_y according to the zoom stage
-    --coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
-    local delta_y = display.inner.resolution.height * display.inner.min_scale - display.inner.resolution.height * display.inner.max_scale
-    coord_y = coord_y - 2 * delta_y * (display.inner.min_scale - mainCamera:getScale()) * display.inner.min_scale / display.inner.max_scale
+    coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
+--    local delta_y = display.inner.resolution.height * display.inner.min_scale - display.inner.resolution.height * display.inner.max_scale
+--    coord_y = coord_y - 2 * delta_y * (display.inner.min_scale - mainCamera:getScale()) * display.inner.min_scale / display.inner.max_scale
      mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
 end
 
