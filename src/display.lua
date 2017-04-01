@@ -26,5 +26,18 @@ local disp640x480 = {
     }
 }
 
-return disp320x240
+local disp1280x960 = {
+    inner = {
+        resolution = { width = 1280, height = 968 },
+        min_scale = 4,
+        max_scale = 3,
+        y_divider = 2
+    },
+    final = {
+        resolution = { width = 640, height = 480 },
+        scale = 0.5
+    }
+}
+--return disp320x240
 --return disp640x480
+return disp1280x960
