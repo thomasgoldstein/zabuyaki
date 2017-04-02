@@ -70,7 +70,7 @@ return {
             { q = q(130,3,62,66), ox = 35, oy = 65 }, --stand 3
             { q = q(194,3,62,66), ox = 35, oy = 65 }, --stand 4
             { q = q(130,3,62,66), ox = 35, oy = 65 }, --stand 3
-            { q = q(66,3,62,66), ox = 35, oy = 65, delay = 0.1 }, --stand 2
+            { q = q(66,3,62,66), ox = 35, oy = 65, delay = 0.13 }, --stand 2
             loop = true,
             delay = 0.06
         },
@@ -80,7 +80,7 @@ return {
             { q = q(130,3,62,66), ox = 35, oy = 65 }, --stand 3
             { q = q(194,3,62,66), ox = 35, oy = 65 }, --stand 4
             { q = q(130,3,62,66), ox = 35, oy = 65 }, --stand 3
-            { q = q(66,3,62,66), ox = 35, oy = 65, delay = 0.1 }, --stand 2
+            { q = q(66,3,62,66), ox = 35, oy = 65, delay = 0.13 }, --stand 2
             loop = true,
             delay = 0.06
         },
