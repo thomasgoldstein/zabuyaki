@@ -45,7 +45,7 @@ return {
     delay = 0.2,	--default delay for all animations
     animations = {
         icon  = {
-            { q = q(20, 15, 38, 17) } -- default 38x17
+            { q = q(20, 9, 38, 17) } -- default 38x17
         },
         intro = {
             { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1
