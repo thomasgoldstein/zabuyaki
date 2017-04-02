@@ -43,6 +43,14 @@ return {
             { q = q(114,73,38,58), ox = 21, oy = 57 }, --duck
             delay = 5
         },
+        intro2 = {
+            { q = q(2,397,39,65), ox = 23, oy = 64 }, --intro 1
+            { q = q(43,398,39,64), ox = 23, oy = 63, delay = 0.13 }, --intro 2
+            { q = q(84,399,39,63), ox = 23, oy = 62 }, --intro 3
+            { q = q(43,398,39,64), ox = 23, oy = 63, delay = 0.05 }, --intro 2
+            loop = true,
+            delay = 0.16
+        },
         stand = {
             -- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
             -- ox,oy pivots offsets from the top left corner of the quad
