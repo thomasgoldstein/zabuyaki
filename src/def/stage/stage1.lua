@@ -10,8 +10,8 @@ function Stage1:initialize(players)
     self.scrolling = {commonY = 430, chunksX = {} }
     self.scrolling.chunks = {
         {startX = 0, endX = 1814, startY = 430, endY = 430},
-        {startX = 1814 + 16, endX = 1814 + 360 + 16, startY = 430, endY = 430 - 177 + 1},
-        {startX = 1814 + 360 + 16, endX = 4000, startY = 430 - 177 + 1, endY = 430 - 177 + 1}
+        {startX = 1814 + 16, endX = 1814 + 360 + 16, startY = 430, endY = 430 - 177 - 1},
+        {startX = 1814 + 360 + 16, endX = 4000, startY = 430 - 177 - 1, endY = 430 - 177 - 1}
 --        {startX = 320, endX = 640, startY = 430, endY = 430-40},
 --        {startX = 640, endX = 900, startY = 430-40, endY = 430},
 --        {startX = 1400, endX = 1600, startY = 430, endY = 430+20},
