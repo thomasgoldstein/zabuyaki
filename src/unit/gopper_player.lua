@@ -9,7 +9,6 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Gopper:initialize(name, sprite, input, x, y, f)
-    self.hp = 40
     Player.initialize(self, name, sprite, input, x, y, f)
     self.velocity_walk = 90
     self.velocity_walk_y = 45

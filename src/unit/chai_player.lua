@@ -9,7 +9,6 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Chai:initialize(name, sprite, input, x, y, f)
-    self.hp = 100
     Player.initialize(self, name, sprite, input, x, y, f)
     self.velocity_walk = 100
     self.velocity_walk_y = 50

@@ -5,7 +5,11 @@ local function nop() end
 local CheckCollision = CheckCollision
 
 function Player:initialize(name, sprite, input, x, y, f)
+    if not f then
+        f = {}
+    end
     self.lives = GLOBAL_SETTING.MAX_LIVES
+    self.hp = f.hp or self.hp or 100
     Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "player"
     self.friendly_damage = 1 --1 = full damage on other players
