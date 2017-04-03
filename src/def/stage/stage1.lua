@@ -10,8 +10,8 @@ function Stage1:initialize(players)
     self.scrolling = {commonY = 430, chunksX = {} }
     self.scrolling.chunks = {
         {startX = 0, endX = 1814, startY = 430, endY = 430},
-        {startX = 1814 + 16, endX = 1814 + 360 + 16, startY = 430, endY = 430 - 177},
-        {startX = 1814 + 360 + 16, endX = 4000, startY = 430 - 177, endY = 430 - 177}
+        {startX = 1814 + 16, endX = 1814 + 360 + 16, startY = 430, endY = 430 - 177 - 1},
+        {startX = 1814 + 360 + 16, endX = 4000, startY = 430 - 177 - 1, endY = 430 - 177 - 1}
 --        {startX = 320, endX = 640, startY = 430, endY = 430-40},
 --        {startX = 640, endX = 900, startY = 430-40, endY = 430},
 --        {startX = 1400, endX = 1600, startY = 430, endY = 430+20},
@@ -72,13 +72,14 @@ function Stage1:initialize(players)
     local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
     local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
     local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, 1835, 100 }}) --top road 1
-    local wall3a = Wall:new("wall3a", { shapeType = "rectangle", shapeArgs = { 2205, 170, 1800, 100 }}) --top road 2
     local ppx, ppy = 1835, 546 - 86
     local walld2 = Wall:new("walld2", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 370, ppy - 190, ppx + 370, ppy - 290, ppx + 0, ppy - 290 }}) --top road diagonal 1
+    local wall3a = Wall:new("wall3a", { shapeType = "rectangle", shapeArgs = { 2205, 170, 1800, 100 }}) --top road 2
     local wall4 = Wall:new("wall4", { shapeType = "rectangle", shapeArgs = { 0, 546, 1835, 100 }}) --bottom road 1
-    local wall4a = Wall:new("wall4a", { shapeType = "rectangle", shapeArgs = { 1835 + 370, 356, 1800, 100 }}) --bottom road 2
     local ppx, ppy = 1835, 546
-    local walld1 = Wall:new("walld1", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 370, ppy - 190, ppx + 370, ppy + 100, ppx + 0, ppy + 100 }}) --bottom road diagonal 1
+    local walld1 = Wall:new("walld1", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 370, ppy - 190 + 13, ppx + 370, ppy + 100, ppx + 0, ppy + 100 }}) --bottom road diagonal 1
+    local wall4a = Wall:new("wall4a", { shapeType = "rectangle", shapeArgs = { 1835 + 370, 356 + 13, 1800, 100 }}) --bottom road 2
+
 --[[    local wall5 = Wall:new("wall5", { shapeType = "circle", shapeArgs = { 27, 560, 40 }}) --test circle
     local wall6 = Wall:new("wall6", { shapeType = "rectangle", shapeArgs = { 90, 526, 60, 10, rotate = -0.3 }}) --rotated rectangle
     self.rotate_wall = wall6.shape --test rotation of walls
