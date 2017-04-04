@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" nextobjectid="11">
- <imagelayer name="diag road" offsetx="1811.33" offsety="245.333">
+ <imagelayer name="road0" offsetx="12" offsety="430">
+  <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
+ </imagelayer>
+ <imagelayer name="road1" offsetx="-348" offsety="430">
+  <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
+ </imagelayer>
+ <imagelayer name="road2" offsetx="372" offsety="430">
+  <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
+ </imagelayer>
+ <imagelayer name="road3" offsetx="732" offsety="430">
+  <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
+ </imagelayer>
+ <imagelayer name="road4" offsetx="1092" offsety="430">
+  <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
+ </imagelayer>
+ <imagelayer name="road5" offsetx="1452" offsety="430">
+  <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
+ </imagelayer>
+ <imagelayer name="diag road" offsetx="1812" offsety="251">
   <image source="res/img/stage/stage1/road2.png" width="390" height="303"/>
  </imagelayer>
- <imagelayer name="road1" offsetx="11" offsety="430">
-  <image source="res/img/stage/stage1/road1.png" width="351" height="124"/>
- </imagelayer>
- <imagelayer name="road2" offsetx="354.25" offsety="428.25">
-  <image source="res/img/stage/stage1/road1.png" width="351" height="124"/>
- </imagelayer>
- <imagelayer name="road3" offsetx="700.106" offsety="428.091">
-  <image source="res/img/stage/stage1/road1.png" width="351" height="124"/>
- </imagelayer>
- <imagelayer name="building2" offsetx="425" offsety="67">
+ <imagelayer name="building2" offsetx="425" offsety="69">
   <image source="res/img/stage/stage1/building2.png" width="525" height="385"/>
  </imagelayer>
- <imagelayer name="building4" offsetx="1315" offsety="67">
+ <imagelayer name="building4" offsetx="1315" offsety="69">
   <image source="res/img/stage/stage1/building2.png" width="525" height="385"/>
  </imagelayer>
- <imagelayer name="building1" offsetx="-20.1667" offsety="67">
+ <imagelayer name="building1" offsetx="-20" offsety="69">
   <image source="res/img/stage/stage1/building1.png" width="525" height="385"/>
  </imagelayer>
- <imagelayer name="building3" offsetx="869.958" offsety="65.875">
+ <imagelayer name="building3" offsetx="870" offsety="69">
   <image source="res/img/stage/stage1/building1.png" width="525" height="385"/>
  </imagelayer>
  <imagelayer name="bg template" visible="0" opacity="0.6">

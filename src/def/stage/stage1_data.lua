@@ -14,12 +14,12 @@ return {
   layers = {
     {
       type = "imagelayer",
-      name = "diag road",
+      name = "road0",
       visible = true,
       opacity = 1,
-      offsetx = 1811.33,
-      offsety = 245.333,
-      image = "res/img/stage/stage1/road2.png",
+      offsetx = 12,
+      offsety = 430,
+      image = "res/img/stage/stage1/road1.png",
       properties = {}
     },
     {
@@ -27,7 +27,7 @@ return {
       name = "road1",
       visible = true,
       opacity = 1,
-      offsetx = 11,
+      offsetx = -348,
       offsety = 430,
       image = "res/img/stage/stage1/road1.png",
       properties = {}
@@ -37,8 +37,8 @@ return {
       name = "road2",
       visible = true,
       opacity = 1,
-      offsetx = 354.25,
-      offsety = 428.25,
+      offsetx = 372,
+      offsety = 430,
       image = "res/img/stage/stage1/road1.png",
       properties = {}
     },
@@ -47,9 +47,39 @@ return {
       name = "road3",
       visible = true,
       opacity = 1,
-      offsetx = 700.106,
-      offsety = 428.091,
+      offsetx = 732,
+      offsety = 430,
       image = "res/img/stage/stage1/road1.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "road4",
+      visible = true,
+      opacity = 1,
+      offsetx = 1092,
+      offsety = 430,
+      image = "res/img/stage/stage1/road1.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "road5",
+      visible = true,
+      opacity = 1,
+      offsetx = 1452,
+      offsety = 430,
+      image = "res/img/stage/stage1/road1.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "diag road",
+      visible = true,
+      opacity = 1,
+      offsetx = 1812,
+      offsety = 251,
+      image = "res/img/stage/stage1/road2.png",
       properties = {}
     },
     {
@@ -58,7 +88,7 @@ return {
       visible = true,
       opacity = 1,
       offsetx = 425,
-      offsety = 67,
+      offsety = 69,
       image = "res/img/stage/stage1/building2.png",
       properties = {}
     },
@@ -68,7 +98,7 @@ return {
       visible = true,
       opacity = 1,
       offsetx = 1315,
-      offsety = 67,
+      offsety = 69,
       image = "res/img/stage/stage1/building2.png",
       properties = {}
     },
@@ -77,8 +107,8 @@ return {
       name = "building1",
       visible = true,
       opacity = 1,
-      offsetx = -20.1667,
-      offsety = 67,
+      offsetx = -20,
+      offsety = 69,
       image = "res/img/stage/stage1/building1.png",
       properties = {}
     },
@@ -87,8 +117,8 @@ return {
       name = "building3",
       visible = true,
       opacity = 1,
-      offsetx = 869.958,
-      offsety = 65.875,
+      offsetx = 870,
+      offsety = 69,
       image = "res/img/stage/stage1/building1.png",
       properties = {}
     },
