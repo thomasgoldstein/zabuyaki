@@ -434,7 +434,7 @@ function spriteEditorState:draw()
                 sprite_weapon.rotation = 0
                 sprite_weapon.flip_v = 1
                 sprite_weapon.flip_h = 1
-                DrawSpriteInstance(sprite_weapon, x, y)
+                DrawSpriteInstance(sprite_weapon, x, y, 1)
             end
         else
             --animation
