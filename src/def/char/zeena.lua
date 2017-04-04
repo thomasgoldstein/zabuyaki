@@ -137,11 +137,15 @@ return {
             delay = 65
         },
         hurtHigh = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
+            { q = q(2,124,43,60), ox = 25, oy = 59, delay = 0.03 }, --hurt high 1
+            { q = q(47,125,48,59), ox = 29, oy = 58 }, --hurt high 2
+            { q = q(2,124,43,60), ox = 25, oy = 59, delay = 0.1 }, --hurt high 1
             delay = 0.3
         },
         hurtLow = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
+            { q = q(2,124,43,60), ox = 25, oy = 59, delay = 0.03 }, --hurt high 1
+            { q = q(47,125,48,59), ox = 29, oy = 58 }, --hurt high 2
+            { q = q(2,124,43,60), ox = 25, oy = 59, delay = 0.1 }, --hurt high 1
             delay = 0.3
         },
         jumpAttackForward = { --TODO: Remove
