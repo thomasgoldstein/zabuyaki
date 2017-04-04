@@ -4,74 +4,14 @@ return {
   tiledversion = "0.18.2",
   orientation = "orthogonal",
   renderorder = "left-up",
-  width = 160,
+  width = 140,
   height = 70,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 4,
+  nextobjectid = 11,
   properties = {},
-  tilesets = {
-    {
-      name = "coll",
-      firstgid = 1,
-      tilewidth = 74,
-      tileheight = 218,
-      spacing = 0,
-      margin = 0,
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      properties = {},
-      terrains = {},
-      tilecount = 2,
-      tiles = {
-        {
-          id = 0,
-          image = "../Zabuyaki/res/img/misc/ui.png",
-          width = 35,
-          height = 43
-        },
-        {
-          id = 1,
-          image = "../Zabuyaki/res/img/misc/portraits.png",
-          width = 74,
-          height = 218
-        }
-      }
-    }
-  },
+  tilesets = {},
   layers = {
-    {
-      type = "imagelayer",
-      name = "bg image",
-      visible = false,
-      opacity = 1,
-      offsetx = 3,
-      offsety = -3,
-      image = "stage.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "road1",
-      visible = true,
-      opacity = 1,
-      offsetx = 51,
-      offsety = 427,
-      image = "stage1/road.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "building 1",
-      visible = true,
-      opacity = 1,
-      offsetx = -16,
-      offsety = 64,
-      image = "stage1/building1.png",
-      properties = {}
-    },
     {
       type = "objectgroup",
       name = "collision",
@@ -83,91 +23,106 @@ return {
       properties = {},
       objects = {
         {
-          id = 1,
-          name = "bottom road 1",
+          id = 4,
+          name = "bottom road 2",
           type = "wall",
           shape = "rectangle",
-          x = 19,
-          y = 545,
-          width = 730,
+          x = -13,
+          y = 546,
+          width = 1848,
+          height = 94,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 6,
+          name = "top road 1",
+          type = "wall",
+          shape = "rectangle",
+          x = 5,
+          y = 358,
+          width = 1818.91,
+          height = 101,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 7,
+          name = "bottom road 2",
+          type = "wall",
+          shape = "rectangle",
+          x = 2205.27,
+          y = 368,
+          width = 1777,
           height = 98,
           rotation = 0,
           visible = true,
           properties = {}
         },
         {
-          id = 2,
-          name = "som1",
+          id = 8,
+          name = "top road 2",
+          type = "wall",
+          shape = "rectangle",
+          x = 2186,
+          y = 180,
+          width = 1794,
+          height = 100,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 9,
+          name = "upper diag road",
           type = "wall",
           shape = "polygon",
-          x = 1823,
-          y = 459,
+          x = 1822.5,
+          y = 458.5,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polygon = {
             { x = 0, y = 0 },
-            { x = -5, y = -277 },
-            { x = 362, y = -275 },
-            { x = 359, y = -174 }
+            { x = -4, y = -289 },
+            { x = 363, y = -288 },
+            { x = 365, y = -180 }
           },
           properties = {}
         },
         {
-          id = 3,
-          name = "some2",
+          id = 10,
+          name = "bott diag road",
           type = "wall",
           shape = "polygon",
-          x = 1837,
-          y = 544,
+          x = 1834.18,
+          y = 547.409,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polygon = {
-            { x = 0, y = 0 },
-            { x = 370, y = -178 },
-            { x = 372, y = 87 },
-            { x = -3, y = 87 }
+            { x = 0.1875, y = -1.1875 },
+            { x = 371.497, y = -179.5 },
+            { x = 370.995, y = 93 },
+            { x = -1.00269, y = 93 }
           },
           properties = {}
         }
       }
     },
     {
-      type = "tilelayer",
-      name = "Слой тайлов 1",
-      x = 0,
-      y = 0,
-      width = 160,
-      height = 70,
+      type = "imagelayer",
+      name = "bg template",
       visible = true,
-      opacity = 1,
+      opacity = 0.6,
       offsetx = 0,
       offsety = 0,
-      properties = {},
-      encoding = "base64",
-      compression = "zlib",
-      data = "eJztzjEBAAAEADD0D80jA8eWYBEAAAAAAACsvA7AqOsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbzVrWgAE"
-    },
-    {
-      type = "tilelayer",
-      name = "batch",
-      x = 0,
-      y = 0,
-      width = 160,
-      height = 70,
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      properties = {
-        ["n"] = "1"
-      },
-      encoding = "base64",
-      compression = "zlib",
-      data = "eJztzkERAAAEADD0Dy2CJ3e2BIsAAAAAAAAArqvtAAA8kdsBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg0YSIABA=="
+      image = "../../../../ZabuTiled/stage.png",
+      properties = {}
     }
   }
 }
