@@ -188,8 +188,8 @@ return {
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbed = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
+            { q = q(2,124,43,60), ox = 25, oy = 59 }, --hurt high 1
+            { q = q(47,125,48,59), ox = 29, oy = 58 }, --hurt high 2
             delay = 0.1
         },
 
