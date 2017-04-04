@@ -71,10 +71,10 @@ function Stage1:initialize(players)
     -- Walls around the level
     loadStageData("src/def/stage/stage1_data.lua")
 
-    local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
-    local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
+    --local wall1 = Wall:new("left wall 1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
+    --local wall2 = Wall:new("right wall 1", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
 
-    local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, 1825, 100 }}) --top road 1
+   --[[ local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, 1825, 100 }}) --top road 1
     local ppx, ppy = 1825, 460
     local walld2 = Wall:new("walld2", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 360 , ppy - 190 + 11, ppx + 360, ppy - 290, ppx + 0, ppy - 290 }}) --top road diagonal 1
     local wall3a = Wall:new("wall3a", { shapeType = "rectangle", shapeArgs = { 2185, 181, 1800, 100 }}) --top road 2
@@ -82,7 +82,7 @@ function Stage1:initialize(players)
     local ppx, ppy = 1835, 546
     local walld1 = Wall:new("walld1", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 370, ppy - 178, ppx + 370, ppy + 100, ppx + 0, ppy + 100 }}) --bottom road diagonal 1
     local wall4a = Wall:new("wall4a", { shapeType = "rectangle", shapeArgs = { 1835 + 370, 368, 1800, 100 }}) --bottom road 2
-
+]]
 --[[    local wall5 = Wall:new("wall5", { shapeType = "circle", shapeArgs = { 27, 560, 40 }}) --test circle
     local wall6 = Wall:new("wall6", { shapeType = "rectangle", shapeArgs = { 90, 526, 60, 10, rotate = -0.3 }}) --rotated rectangle
     self.rotate_wall = wall6.shape --test rotation of walls
