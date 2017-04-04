@@ -24,16 +24,16 @@ function Stage1:initialize(players)
     allowPlayersSelect(players)
 
     --define bg sprites
-    local bgRoad = love.graphics.newImage("res/img/stage/stage1/road.png")
-    local bgBuilding1 = love.graphics.newImage("res/img/stage/stage1/building1.png")
-    local bgBuilding2 = love.graphics.newImage("res/img/stage/stage1/building2.png")
-    local bgSky = love.graphics.newImage("res/img/stage/stage1/sky.png")
+--    local bgRoad = love.graphics.newImage("res/img/stage/stage1/road.png")
+--    local bgBuilding1 = love.graphics.newImage("res/img/stage/stage1/building1.png")
+--    local bgBuilding2 = love.graphics.newImage("res/img/stage/stage1/building2.png")
+--    local bgSky = love.graphics.newImage("res/img/stage/stage1/sky.png")
 
-    local qRoad = love.graphics.newQuad(2, 0, 360, 120, bgRoad:getDimensions())
-    local qRoadDiagUp = love.graphics.newQuad(0 + 2, 120 + 1, 390 - 4, 299 - 2, bgRoad:getDimensions())
-    local qBuilding1 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1:getDimensions())
-    local qBuilding2 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2:getDimensions())
-    local qSky = love.graphics.newQuad(1, 0, 33, 130, bgSky:getDimensions())
+--    local qRoad = love.graphics.newQuad(2, 0, 360, 120, bgRoad:getDimensions())
+--    local qRoadDiagUp = love.graphics.newQuad(0 + 2, 120 + 1, 390 - 4, 299 - 2, bgRoad:getDimensions())
+--    local qBuilding1 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1:getDimensions())
+--    local qBuilding2 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2:getDimensions())
+--    local qSky = love.graphics.newQuad(1, 0, 33, 130, bgSky:getDimensions())
 
     --bg as a big picture
     dp(self.name .. " Background", self.worldWidth, self.worldHeight)
