@@ -105,6 +105,7 @@ function love.load(arg)
 	CompoundPicture = require "src/compoPic"
 	Movie = require "src/movie"
 	Event = require "src/event"
+	require "src/loadStage"
 	Stage = require "src/unit/stage"
 	Batch = require "src/unit/batch"
 	Effect = require "src/unit/effect"

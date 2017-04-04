@@ -69,8 +69,11 @@ function Stage1:initialize(players)
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
     local top_floor_y = 454
     -- Walls around the level
+    loadStageData("src/def/stage/stage1_data.lua")
+
     local wall1 = Wall:new("wall1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
     local wall2 = Wall:new("wall2", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
+
     local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, 1825, 100 }}) --top road 1
     local ppx, ppy = 1825, 460
     local walld2 = Wall:new("walld2", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 360 , ppy - 190 + 11, ppx + 360, ppy - 290, ppx + 0, ppy - 290 }}) --top road diagonal 1
