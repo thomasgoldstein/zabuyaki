@@ -273,7 +273,7 @@ function Stage1:initialize(players)
     self:moveStoppers(0, 520)
 
     self.batch = Batch:new(self, {
---[[        {
+        {
             -- 1st batch
             delay = 0,
             left_stopper = 0,
@@ -311,7 +311,7 @@ function Stage1:initialize(players)
                 { unit = zeena1, delay = 0 },
                 { unit = sveta1, delay = 0 }
             }
-        },]]
+        },
         {
             -- 4th batch Mid-Boss
             delay = 0,
