@@ -39,7 +39,7 @@ function Stage1:initialize(players)
     dp(self.name .. " Background", self.worldWidth, self.worldHeight)
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
     --arrange sprites along the big picture
-
+--[[
     for i = 0, 33 do
         --(bgSky, qSky, x, y, slow_down_parallaxX, slow_down_parallaxY, auto_scroll_x, scroll_y
         self.background:add(bgSky, qSky, i * 32 - 2 , 302,
@@ -65,11 +65,12 @@ function Stage1:initialize(players)
     self.background:add(bgBuilding2, qBuilding2, -20 + 3 * (10 + (525 - 90)), 67)
 
     self.background:add(bgBuilding1, qBuilding1, 2000, 67 - 179)
+]]
 
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
     local top_floor_y = 454
     -- Walls around the level
-    loadStageData("src/def/stage/stage1_data.lua")
+    loadStageData("src/def/stage/stage1_data.lua",self.background)
 
     --local wall1 = Wall:new("left wall 1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
     --local wall2 = Wall:new("right wall 1", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
