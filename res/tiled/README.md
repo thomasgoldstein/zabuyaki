@@ -5,10 +5,10 @@ Download Tiled [Tiled Map Editor](http://www.mapeditor.org) or [GitHub](https://
 Default stage name template: StageX_data.tmx
 
 ## Export stages to Zabuyaki ##
-Use File/Export as... stageX_data.lua 
+Use File/Export as... stageX_data.lua, and save the file in the tiled folder. Then cut and paste it to \src\def\stage\ (needed to have correct image paths).
 
 ## Creating a new file ##
-Press Ctrl + N. Set the orientation to Orthogonal. LAyer format to CSV and Tile order to Left Up.
+Press Ctrl + N. Set the orientation to Orthogonal. Layer format to CSV and Tile order to Left Up.
 
 Zabuyaki uses no tile layer. But you can set tile size to use it as a grid for aligning images and objects.
 
