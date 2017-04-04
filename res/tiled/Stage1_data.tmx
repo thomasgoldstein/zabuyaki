@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" nextobjectid="11">
+ <imagelayer name="diag road" offsetx="1811.33" offsety="245.333">
+  <image source="res/img/stage/stage1/road2.png" width="390" height="303"/>
+ </imagelayer>
+ <imagelayer name="road1" offsetx="11" offsety="430">
+  <image source="res/img/stage/stage1/road1.png" width="351" height="124"/>
+ </imagelayer>
+ <imagelayer name="road2" offsetx="354.25" offsety="428.25">
+  <image source="res/img/stage/stage1/road1.png" width="351" height="124"/>
+ </imagelayer>
+ <imagelayer name="road3" offsetx="700.106" offsety="428.091">
+  <image source="res/img/stage/stage1/road1.png" width="351" height="124"/>
+ </imagelayer>
+ <imagelayer name="building2" offsetx="425" offsety="67">
+  <image source="res/img/stage/stage1/building2.png" width="525" height="385"/>
+ </imagelayer>
+ <imagelayer name="building4" offsetx="1315" offsety="67">
+  <image source="res/img/stage/stage1/building2.png" width="525" height="385"/>
+ </imagelayer>
+ <imagelayer name="building1" offsetx="-20.1667" offsety="67">
+  <image source="res/img/stage/stage1/building1.png" width="525" height="385"/>
+ </imagelayer>
+ <imagelayer name="building3" offsetx="869.958" offsety="65.875">
+  <image source="res/img/stage/stage1/building1.png" width="525" height="385"/>
+ </imagelayer>
+ <imagelayer name="bg template" visible="0" opacity="0.6">
+  <image source="stage.png" width="4000" height="800"/>
+ </imagelayer>
+ <objectgroup name="collision">
+  <object id="4" name="bottom road 2" type="wall" x="-13" y="546" width="1848" height="94"/>
+  <object id="6" name="top road 1" type="wall" x="5" y="358" width="1818.91" height="101"/>
+  <object id="7" name="bottom road 2" type="wall" x="2205.27" y="368" width="1777" height="98"/>
+  <object id="8" name="top road 2" type="wall" x="2186" y="180" width="1794" height="100"/>
+  <object id="9" name="upper diag road" type="wall" x="1822.5" y="458.5">
+   <polygon points="0,0 -4,-289 363,-288 365,-180"/>
+  </object>
+  <object id="10" name="bott diag road" type="wall" x="1834.18" y="547.409">
+   <polygon points="0.1875,-1.1875 371.497,-179.5 370.995,93 -1.00269,93"/>
+  </object>
+ </objectgroup>
+</map>
