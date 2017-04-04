@@ -13,6 +13,96 @@ return {
   tilesets = {},
   layers = {
     {
+      type = "imagelayer",
+      name = "diag road",
+      visible = true,
+      opacity = 1,
+      offsetx = 1811.33,
+      offsety = 245.333,
+      image = "res/img/stage/stage1/road2.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "road1",
+      visible = true,
+      opacity = 1,
+      offsetx = 11,
+      offsety = 430,
+      image = "res/img/stage/stage1/road1.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "road2",
+      visible = true,
+      opacity = 1,
+      offsetx = 354.25,
+      offsety = 428.25,
+      image = "res/img/stage/stage1/road1.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "road3",
+      visible = true,
+      opacity = 1,
+      offsetx = 700.106,
+      offsety = 428.091,
+      image = "res/img/stage/stage1/road1.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "building2",
+      visible = true,
+      opacity = 1,
+      offsetx = 425,
+      offsety = 67,
+      image = "res/img/stage/stage1/building2.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "building4",
+      visible = true,
+      opacity = 1,
+      offsetx = 1315,
+      offsety = 67,
+      image = "res/img/stage/stage1/building2.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "building1",
+      visible = true,
+      opacity = 1,
+      offsetx = -20.1667,
+      offsety = 67,
+      image = "res/img/stage/stage1/building1.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "building3",
+      visible = true,
+      opacity = 1,
+      offsetx = 869.958,
+      offsety = 65.875,
+      image = "res/img/stage/stage1/building1.png",
+      properties = {}
+    },
+    {
+      type = "imagelayer",
+      name = "bg template",
+      visible = false,
+      opacity = 0.6,
+      offsetx = 0,
+      offsety = 0,
+      image = "stage.png",
+      properties = {}
+    },
+    {
       type = "objectgroup",
       name = "collision",
       visible = true,
@@ -113,16 +203,6 @@ return {
           properties = {}
         }
       }
-    },
-    {
-      type = "imagelayer",
-      name = "bg template",
-      visible = true,
-      opacity = 0.6,
-      offsetx = 0,
-      offsety = 0,
-      image = "../../../../ZabuTiled/stage.png",
-      properties = {}
     }
   }
 }
