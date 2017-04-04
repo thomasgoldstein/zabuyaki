@@ -53,7 +53,7 @@ local function loadImageLayer(items, background)
         if v.type == "imagelayer" then
             if v.visible then
                 local image, quad = cacheImage(v.image)
-                background:add(image, quad, v.offsetx, v.offsety)
+                background:add(image, quad, v.offsetx + 2, v.offsety + 2)
             end
         end
     end
