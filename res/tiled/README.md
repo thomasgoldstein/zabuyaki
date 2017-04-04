@@ -27,6 +27,8 @@ You can setup Tiled to show different types of the objects with different colour
  
 To select / edit certain objects go to he "Objects" tab (at the right) and expand the collision layer list.
 
+Hint: To pixel-wise positioning use the property window at the left. You can use up/down arrows near the coordinates properties 
+
 ## Background images ##
 Every BG image goes into its own layer. Go to the Layers tab. Create Image layer.
 
@@ -36,6 +38,13 @@ Set property Visible to false if you don't want to see this image in the game. Y
   
 e.g. I use a big stage picture as a template. You can vary its transparency level.
 It is good for positioning. But this property value is ignored in Zabuyaki.
+
+Hint: You can duplicate layers. They would keep its properties and the image reference. Just move it and rename.
+  
+## Background image file format ##
+Supported image formats: PNG, JPEG, TGA, and BMP.
+
+Use PNG 8-bit with indexed transparency. Leave 2 transparent pixels at every side of the image. They are cropped automatically. 
 
 ## Stage BG color ##
 Soon
