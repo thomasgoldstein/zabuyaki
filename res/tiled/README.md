@@ -31,13 +31,17 @@ Hint: To pixel-wise positioning use the property window at the left. You can use
 
 ## Vertical Camera Positioning ##
 Go to the layers tab. Create "Object layer". Rename it to "camera".
-Only the first "camera" layer and the 1st "camera" object will be used.
+Only the first "camera" layer and the 1st "camera" ензу object will be used.
 All the rest object layers and objects named "camera" will be ignored. 
 
 Select "Polyline" drawing tool and draw the line with some segments.
 This polyline sets the bottom of the center of the camera view window (320x240 pixels).
+The polyline should be longer than the width of the stage.
 
-TODO...
+Horizontal parts of the polyline fix vertical camera position. Descending and ascending parts make
+the camera follow the path.
+
+Hint: Hold SPACE key while drawing with the left mouse button pressed to pan the stage.
 
 ## Background images ##
 Every BG image goes into its own layer. Go to the Layers tab. Create Image layer.
