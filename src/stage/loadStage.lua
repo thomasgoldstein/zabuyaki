@@ -59,9 +59,43 @@ local function loadImageLayer(items, background)
     end
 end
 
+local y_shift = 240 / 2
+local function loadCameraScrolling(items, scrolling)
+    print("Load Camera Scrolling...")
+    scrolling = { chunks = {} }
+    local t = extractTable(items.layers, "camera")
+    for i, v in ipairs(t.objects) do
+        if v.type == "camera" then
+            if v.shape == "polyline" then
+                local shapeArgs = {}
+                for k = 1, #v.polyline - 1 do
+                    scrolling.chunks[#scrolling.chunks + 1] =
+                    {startX = v.x + v.polyline[k].x, endX = v.x + v.polyline[k + 1].x,
+                        startY = v.y + v.polyline[k].y - y_shift, endY = v.y + v.polyline[k + 1].y - y_shift }
+                    if not scrolling.commonY then
+                        scrolling.commonY = v.y + v.polyline[k].y - y_shift or 0
+                    end
+                end
+            else
+                error("Wrong Camera Scrolling object shape #"..i..":"..inspect(v))
+            end
+        else
+            error("Wrong Camera Scrolling object type #"..i..":"..inspect(v))
+        end
+    end
+    if not scrolling.chunks or #scrolling.chunks < 1 then
+        print(" Camera Scrolling is missing... set to Y = 0")
+        scrolling.chunks[#scrolling.chunks + 1] =
+        {startX = 0, endX = 10000, startY = 0, endY = 0 }
+        scrolling.commonY = 0
+    end
+    return scrolling
+end
+
 function loadStageData(file, stage)
     local d = dofile(file)
     loadCollision(d, stage)
+    stage.scrolling = loadCameraScrolling(d)
     loadImageLayer(d, stage.background)
     if d.backgroundcolor then
         stage.bgColor = d.backgroundcolor

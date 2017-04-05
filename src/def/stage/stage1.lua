@@ -6,39 +6,17 @@ function Stage1:initialize(players)
     Stage.initialize(self, "Stage 1")
     self.shadowAngle = -0.2
     self.shadowHeight = 0.3 --Range 0.2..1
-    --stage = self
-    self.scrolling = {commonY = 430, chunksX = {} }
-    self.scrolling.chunks = {
-        {startX = 0, endX = 1814, startY = 430, endY = 430},
-        {startX = 1814 + 16, endX = 1814 + 360 + 16, startY = 430, endY = 430 - 177},
-        {startX = 1814 + 360 + 16, endX = 4000, startY = 430 - 177, endY = 430 - 177}
---        {startX = 320, endX = 640, startY = 430, endY = 430-40},
---        {startX = 640, endX = 900, startY = 430-40, endY = 430},
---        {startX = 1400, endX = 1600, startY = 430, endY = 430+20},
---        {startX = 1600, endX = 1800, startY = 430+20, endY = 430+20},
---        {startX = 1800, endX = 2000, startY = 430+20, endY = 430}
-    }
 
     createSelectedPlayers(players)
     addPlayersToStage(self)
     allowPlayersSelect(players)
 
-    --define bg sprites
+--    define bg sprites
 --    local bgRoad = love.graphics.newImage("res/img/stage/stage1/road.png")
---    local bgBuilding1 = love.graphics.newImage("res/img/stage/stage1/building1.png")
---    local bgBuilding2 = love.graphics.newImage("res/img/stage/stage1/building2.png")
---    local bgSky = love.graphics.newImage("res/img/stage/stage1/sky.png")
-
 --    local qRoad = love.graphics.newQuad(2, 0, 360, 120, bgRoad:getDimensions())
---    local qRoadDiagUp = love.graphics.newQuad(0 + 2, 120 + 1, 390 - 4, 299 - 2, bgRoad:getDimensions())
---    local qBuilding1 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding1:getDimensions())
---    local qBuilding2 = love.graphics.newQuad(0, 0, 525, 385, bgBuilding2:getDimensions())
---    local qSky = love.graphics.newQuad(1, 0, 33, 130, bgSky:getDimensions())
-
-    --bg as a big picture
-    dp(self.name .. " Background", self.worldWidth, self.worldHeight)
+--    bg as a big picture
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
-    --arrange sprites along the big picture
+--    arrange sprites along the big picture
 --[[
     for i = 0, 33 do
         --(bgSky, qSky, x, y, slow_down_parallaxX, slow_down_parallaxY, auto_scroll_x, scroll_y
@@ -54,34 +32,19 @@ function Stage1:initialize(players)
     for i = 0, 5 do
         self.background:add(bgRoad, qRoad, i * (360 - 1), 432)
     end
-    for i = 0, 4 do
-        self.background:add(bgRoad, qRoad, 1813 + 386 + i * (360 - 1), 432 - 179)
-    end
     self.background:add(bgRoad, qRoadDiagUp, 1814 , 432 - 178)
 
     self.background:add(bgBuilding1, qBuilding1, -20 + 0 * (10 + (525 - 90)), 67)
-    self.background:add(bgBuilding2, qBuilding2, -20 + 1 * (10 + (525 - 90)), 67)
-    self.background:add(bgBuilding1, qBuilding1, -20 + 2 * (10 + (525 - 90)), 67)
-    self.background:add(bgBuilding2, qBuilding2, -20 + 3 * (10 + (525 - 90)), 67)
-
     self.background:add(bgBuilding1, qBuilding1, 2000, 67 - 179)
 ]]
 
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
-    local top_floor_y = 454
     -- Walls around the level
     loadStageData("src/def/stage/stage1_data.lua", self)
-
     --local wall1 = Wall:new("left wall 1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
     --local wall2 = Wall:new("right wall 1", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
 
---[[    local wall5 = Wall:new("wall5", { shapeType = "circle", shapeArgs = { 27, 560, 40 }}) --test circle
-    local wall6 = Wall:new("wall6", { shapeType = "rectangle", shapeArgs = { 90, 526, 60, 10, rotate = -0.3 }}) --rotated rectangle
-    self.rotate_wall = wall6.shape --test rotation of walls
-    local ppx, ppy = 170, 500
-    local wall7 = Wall:new("wall7", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 100, ppy + 0, ppx + 100, ppy + 30 }}) --polygon
-]]
-
+    local top_floor_y = 454
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         380, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})

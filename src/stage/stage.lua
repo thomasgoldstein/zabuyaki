@@ -26,13 +26,8 @@ function Stage:initialize(name, bgColor)
     self.worldHeight = 800
     self.background = nil
     self.foreground = nil
-    self.scrolling = { commonY = 430, chunksX = {} }
-    --    self.scrolling.chunks = {
-    --        {startX = 0, endX = 320, startY = 430, endY = 430},
-    --        {startX = 321, endX = 321+320, startY = 430, endY = 430-100}
-    --    }
+    self.scrolling = {}
     self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
-
     self.world = HC.new(40*4)
     self.objects = Entity:new()
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)

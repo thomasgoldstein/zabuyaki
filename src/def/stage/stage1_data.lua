@@ -8,7 +8,7 @@ return {
   height = 70,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 11,
+  nextobjectid = 12,
   backgroundcolor = { 231, 207, 157 },
   properties = {},
   tilesets = {},
@@ -230,6 +230,37 @@ return {
             { x = 371.497, y = -179.5 },
             { x = 370.995, y = 93 },
             { x = -1.00269, y = 93 }
+          },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "camera",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 11,
+          name = "vert pos of camera",
+          type = "camera",
+          shape = "polyline",
+          x = -4,
+          y = 551,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 1830, y = 0 },
+            { x = 2208, y = -180 },
+            { x = 4034, y = -180 }
           },
           properties = {}
         }

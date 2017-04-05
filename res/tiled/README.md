@@ -29,6 +29,16 @@ To select / edit certain objects go to he "Objects" tab (at the right) and expan
 
 Hint: To pixel-wise positioning use the property window at the left. You can use up/down arrows near the coordinates properties 
 
+## Vertical Camera Positioning ##
+Go to the layers tab. Create "Object layer". Rename it to "camera".
+Only the first "camera" layer and the 1st "camera" object will be used.
+All the rest object layers and objects named "camera" will be ignored. 
+
+Select "Polyline" drawing tool and draw the line with some segments.
+This polyline sets the bottom of the center of the camera view window (320x240 pixels).
+
+TODO...
+
 ## Background images ##
 Every BG image goes into its own layer. Go to the Layers tab. Create Image layer.
 
