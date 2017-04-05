@@ -3,7 +3,7 @@ local class = require "lib/middleclass"
 local Stage1 = class('Stage1', Stage)
 
 function Stage1:initialize(players)
-    Stage.initialize(self, "Stage 1", {231, 207, 157})
+    Stage.initialize(self, "Stage 1")
     self.shadowAngle = -0.2
     self.shadowHeight = 0.3 --Range 0.2..1
     --stage = self
