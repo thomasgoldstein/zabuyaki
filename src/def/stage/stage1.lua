@@ -70,7 +70,7 @@ function Stage1:initialize(players)
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
     local top_floor_y = 454
     -- Walls around the level
-    loadStageData("src/def/stage/stage1_data.lua",self.background)
+    loadStageData("src/def/stage/stage1_data.lua", self)
 
     --local wall1 = Wall:new("left wall 1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
     --local wall2 = Wall:new("right wall 1", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right

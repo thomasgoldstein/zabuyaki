@@ -10,7 +10,7 @@ local function extractTable(tab, val)
     return nil
 end
 
-local function loadCollision(items)
+local function loadCollision(items, stage)
     print("Load collisions...")
     local t = extractTable(items.layers, "collision")
     for i, v in ipairs(t.objects) do
@@ -59,8 +59,8 @@ local function loadImageLayer(items, background)
     end
 end
 
-function loadStageData(file, background)
+function loadStageData(file, stage)
     local d = dofile(file)
-    loadCollision(d)
-    loadImageLayer(d, background)
+    loadCollision(d, stage)
+    loadImageLayer(d, stage.background)
 end
