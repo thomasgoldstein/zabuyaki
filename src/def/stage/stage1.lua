@@ -75,15 +75,6 @@ function Stage1:initialize(players)
     --local wall1 = Wall:new("left wall 1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
     --local wall2 = Wall:new("right wall 1", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
 
-   --[[ local wall3 = Wall:new("wall3", { shapeType = "rectangle", shapeArgs = { 0, 360, 1825, 100 }}) --top road 1
-    local ppx, ppy = 1825, 460
-    local walld2 = Wall:new("walld2", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 360 , ppy - 190 + 11, ppx + 360, ppy - 290, ppx + 0, ppy - 290 }}) --top road diagonal 1
-    local wall3a = Wall:new("wall3a", { shapeType = "rectangle", shapeArgs = { 2185, 181, 1800, 100 }}) --top road 2
-    local wall4 = Wall:new("wall4", { shapeType = "rectangle", shapeArgs = { 0, 546, 1835, 100 }}) --bottom road 1
-    local ppx, ppy = 1835, 546
-    local walld1 = Wall:new("walld1", { shapeType = "polygon", shapeArgs ={ ppx + 0, ppy + 0, ppx + 370, ppy - 178, ppx + 370, ppy + 100, ppx + 0, ppy + 100 }}) --bottom road diagonal 1
-    local wall4a = Wall:new("wall4a", { shapeType = "rectangle", shapeArgs = { 1835 + 370, 368, 1800, 100 }}) --bottom road 2
-]]
 --[[    local wall5 = Wall:new("wall5", { shapeType = "circle", shapeArgs = { 27, 560, 40 }}) --test circle
     local wall6 = Wall:new("wall6", { shapeType = "rectangle", shapeArgs = { 90, 526, 60, 10, rotate = -0.3 }}) --rotated rectangle
     self.rotate_wall = wall6.shape --test rotation of walls
@@ -92,26 +83,26 @@ function Stage1:initialize(players)
 ]]
 
     local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        280, 479,
+        380, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
     local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        290, 460,
+        390, 460,
         { shader = shaders.gopper[3], color = {255,255,255, 255}})
     gopper2:setToughness(1)
     local gopper3 = Gopper:new("GOPPER3", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        300, 490,
+        400, 490,
         { shader = shaders.gopper[4], color = {255,255,255, 255}})
     gopper3:setToughness(2)
     local gopper4 = Gopper:new("GOPPER4", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        300, top_floor_y + 30,
+        280, top_floor_y + 30,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
     gopper4:setToughness(3)
     local gopper5 = Gopper:new("GOPPER5", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        -40, top_floor_y + 25,
+        440, top_floor_y + 25,
         { shader = shaders.gopper[2], color = {255,255,255, 255}})
     gopper5:setToughness(4)
     local gopper6 = Gopper:new("GOPPER6", GetSpriteInstance("src/def/char/gopper.lua"), nil,
-        -40, 525,
+        430, 525,
         { shader = shaders.gopper[2], color = {255,255,255, 255}})
     gopper6:setToughness(5)
 
@@ -258,16 +249,8 @@ function Stage1:initialize(players)
             isMovable = false, sfxDead = nil, func = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
 
     self.objects:addArray({
---        sveta1,
---        satoff1,
---        gopper1, gopper2, gopper3, gopper4, gopper5, gopper6,
---        gopper7, gopper8, gopper9, gopper10,
---        niko1, niko2, niko3, niko4, niko5, niko6,
---        niko7, niko8, niko9, niko10,
---        dummy4, dummy5,
         loot1, loot2, loot3,
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
-        wall1,wall2,wall3,wall3a,walld1,wall4,wall4a,walld2 --,wall5,wall6,wall7
     })
 
     self:moveStoppers(0, 520)
@@ -283,8 +266,8 @@ function Stage1:initialize(players)
                 { unit = gopper2, delay = 0, state = "stand" },
                 { unit = gopper3, delay = 0, state = "walk" },
                 { unit = gopper4, delay = 0, state = "intro" },
-                { unit = gopper5, delay = 1, state = "walk" },
-                { unit = gopper6, delay = 5, state = "walk" }
+                { unit = gopper5, delay = 0, state = "walk" },
+                { unit = gopper6, delay = 0, state = "walk" }
             }
         },
         {
