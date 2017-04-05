@@ -59,3 +59,9 @@ function round(val, decimal)
         return math.floor(val+0.5)
     end
 end
+
+function hex2color(hex)
+    local _,_,r,g,b,a = hex:find('(%x%x)(%x%x)(%x%x)(%x%x)')
+    print(r,g,b,a)
+    return {tonumber(r,16),tonumber(g,16),tonumber(b,16),tonumber(a,16)}
+end
