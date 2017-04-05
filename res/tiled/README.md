@@ -2,20 +2,21 @@
 Download Tiled [Tiled Map Editor](http://www.mapeditor.org) or [GitHub](https://github.com/bjorn/tiled)
 
 ## Stages naming ##
-Default stage name template: StageX_data.tmx
+Default stage name template: **StageX_data.tmx**
 
 ## Export stages to Zabuyaki ##
-Use File/Export as... stageX_data.lua, and save the file in the tiled folder. Then cut and paste it to \src\def\stage\ (needed to have correct image paths).
+Use File/Export as... **stageX_data.lua**, and save the file in the tiled folder.
+Then cut and paste it to \src\def\stage\ (needed to have correct image paths).
 
 ## Creating a new file ##
-Press Ctrl + N. Set the orientation to Orthogonal. Layer format to CSV and Tile order to Left Up.
+Press **Ctrl + N**. Set the _orientation_ to **Orthogonal**. _Layer format_ to **CSV** and _Tile order_ to **Left Up**.
 
-Zabuyaki uses no tile layer. But you can set tile size to use it as a grid for aligning images and objects.
+Zabuyaki uses no tile layers. But you can set the _tile size_ to use it as a grid for aligning images and objects.
 
-Then press Ok. Now you should delete default Tile Layer.
+Then press **Ok**. Now you should delete default **Tile Layer**.
 
 ## Collision objects (walls) ##
-Go to the layers tab. Create "Object layer". Rename it to "collision".
+Go to the layers tab. Create **Object layer**. Rename it to "collision".
 Only the first "collision" layer will be used. All the rest object layers named "collision" will be ignored. 
 
 Now you can add collision objects into the game.
@@ -23,14 +24,18 @@ Name them properly. Try to use different names for repeating pieces.
 
 Zabuyaki accepts 1 type of the objects: "wall". On adding an object you should fill in its type property with "wall".
 
-You can setup Tiled to show different types of the objects with different colours. Use menu View / Object types editor to set the colours. They are kept for a local user/PC only.
+You can setup Tiled to show different types of the objects with different colours. 
+Use menu **View / Object Types Editor** to set the colours. They are kept for a local user/PC only.
  
-To select / edit certain objects go to he "Objects" tab (at the right) and expand the collision layer list.
+To select / edit certain objects go to the **Objects** tab (at the right) and expand 
+the collision layer list.
 
-Hint: To pixel-wise positioning use the property window at the left. You can use up/down arrows near the coordinates properties 
+> Hint: Use menu **View / Object Types Editor** to set the colour of the walls (e.g. blue).
+
+> Hint: To pixel-wise positioning use the property window at the left. You can use up/down arrows near the coordinates properties 
 
 ## Vertical Camera Positioning ##
-Go to the layers tab. Create "Object layer". Rename it to "camera".
+Go to the layers tab. Create **Object layer**. Rename it to "camera".
 Only the first "camera" layer and the 1st "camera" ензу object will be used.
 All the rest object layers and objects named "camera" will be ignored. 
 
@@ -41,10 +46,12 @@ The polyline should be longer than the width of the stage.
 Horizontal parts of the polyline fix vertical camera position. Descending and ascending parts make
 the camera follow the path.
 
-Hint: Hold SPACE key while drawing with the left mouse button pressed to pan the stage.
+> Hint: Use menu **View / Object Types Editor** to set the colour of the camera object (e.g. red).
+
+> Hint: Hold SPACE key while drawing with the left mouse button pressed to pan the stage.
 
 ## Background images ##
-Every BG image goes into its own layer. Go to the Layers tab. Create Image layer.
+Every BG image goes into its own layer. Go to the **Layers tab**. Create **Image layer**.
 
 Name bg images for your easy editing.
  
@@ -56,12 +63,13 @@ It is good for positioning. But this property value is ignored in Zabuyaki.
 Hint: You can duplicate layers. They would keep its properties and the image reference. Just move it and rename.
   
 ## Background image file format ##
-Supported image formats: PNG, JPEG, TGA, and BMP.
+Supported image formats: **PNG, JPEG, TGA,** and **BMP**.
 
 Use PNG 8-bit with indexed transparency. Leave 2 transparent pixels at every side of the image. They are cropped automatically. 
 
 ## Stage BG color ##
-Soon
+Use menu **Map / Map Properties** to see the **Background color** map property. 
+Expand the property and edit R G B and Alpha(transparency) entries.
 
 ## Define enemy batches ##
 Not implemented yet
