@@ -77,9 +77,6 @@ Not implemented yet
 ## Define enemy withing a batch ##
 Not implemented yet
 
-## Define Y coordinate camera posotioning ##
-Not implemented yet
-
 ## In-Game drawing order ##
 The BG images are drawn starting from the very last item in the list back to the top.
 
