@@ -63,4 +63,7 @@ function loadStageData(file, stage)
     local d = dofile(file)
     loadCollision(d, stage)
     loadImageLayer(d, stage.background)
+    if d.backgroundcolor then
+        stage.bgColor = d.backgroundcolor
+    end
 end
