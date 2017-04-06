@@ -110,16 +110,15 @@ local function loadBatch(items, stage)
             error("Wrong batch object type #"..i..":"..inspect(v))
         end
     end
-    --sort batch by name: 1 2 3...
     table.sort(batch, function(a,b)
         if not a then
             return false
         elseif not b then
             return true
-        elseif tonumber(a.name) == tonumber(b.name) then
-            return tonumber(a.name) > tonumber(b.name)
+        elseif a.left_stopper == b.left_stopper then
+            return a.left_stopper > b.left_stopper
         end
-        return tonumber(a.name) < tonumber(b.name) end )
+        return a.left_stopper < b.left_stopper end )
 --    print(inspect(batch, {depth = 4}))
     return Batch:new(stage, batch)
 end
