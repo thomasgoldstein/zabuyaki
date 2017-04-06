@@ -144,7 +144,7 @@ return {
         },
         hurtLow = {
             { q = q(2,186,36,58), ox = 21, oy = 57, delay = 0.03 }, --hurt low 1
-            { q = q(40,190,40,54), ox = 21, oy = 53 }, --hurt low 2
+            { q = q(40,188,39,56), ox = 21, oy = 55 }, --hurt low 2
             { q = q(2,186,36,58), ox = 21, oy = 57, delay = 0.1 }, --hurt low 1
             delay = 0.3
         },

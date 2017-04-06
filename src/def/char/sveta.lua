@@ -143,9 +143,9 @@ return {
             delay = 0.3
         },
         hurtLow = {
-            { q = q(2,199,44,65), ox = 29, oy = 64, delay = 0.03 }, --hurt low 1
-            { q = q(48,199,44,65), ox = 25, oy = 64 }, --hurt low 2
-            { q = q(94,198,49,66), ox = 34, oy = 65, delay = 0.1 }, --hurt low 3
+            { q = q(2,200,44,65), ox = 29, oy = 64, delay = 0.03 }, --hurt low 1
+            { q = q(48,198,46,67), ox = 28, oy = 66 }, --hurt low 2
+            { q = q(96,199,49,66), ox = 34, oy = 65, delay = 0.1 }, --hurt low 3
             delay = 0.3
         },
         jumpAttackForward = { --TODO: Remove
