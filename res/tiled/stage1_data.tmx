@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="12">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="17">
  <imagelayer name="road0" offsetx="12" offsety="430">
   <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
  </imagelayer>
@@ -37,7 +37,7 @@
   <image source="stage.png" width="4000" height="800"/>
  </imagelayer>
  <objectgroup name="collision">
-  <object id="4" name="bottom road 2" type="wall" x="-13" y="546" width="1848" height="94"/>
+  <object id="4" name="bottom road 1" type="wall" x="-13" y="546" width="1848" height="94"/>
   <object id="6" name="top road 1" type="wall" x="5" y="358" width="1818.91" height="101"/>
   <object id="7" name="bottom road 2" type="wall" x="2205.27" y="368" width="1777" height="98"/>
   <object id="8" name="top road 2" type="wall" x="2186" y="180" width="1794" height="100"/>
@@ -52,5 +52,11 @@
   <object id="11" name="vert pos of camera" type="camera" x="-4" y="551">
    <polyline points="0,0 1830,0 2208,-180 4034,-180"/>
   </object>
+ </objectgroup>
+ <objectgroup name="batch" opacity="0.33">
+  <object id="12" name="1" type="batch" x="-62.6667" y="69.3333" width="500" height="621.333"/>
+  <object id="14" name="2" type="batch" x="400" y="34" width="600" height="678"/>
+  <object id="15" name="3" type="batch" x="900" y="64" width="600" height="598"/>
+  <object id="16" name="4" type="batch" x="1440" y="22" width="2700" height="686"/>
  </objectgroup>
 </map>

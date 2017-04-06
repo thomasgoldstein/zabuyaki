@@ -8,7 +8,7 @@ return {
   height = 70,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 12,
+  nextobjectid = 17,
   backgroundcolor = { 231, 207, 157 },
   properties = {},
   tilesets = {},
@@ -145,7 +145,7 @@ return {
       objects = {
         {
           id = 4,
-          name = "bottom road 2",
+          name = "bottom road 1",
           type = "wall",
           shape = "rectangle",
           x = -13,
@@ -262,6 +262,70 @@ return {
             { x = 2208, y = -180 },
             { x = 4034, y = -180 }
           },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "batch",
+      visible = true,
+      opacity = 0.33,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 12,
+          name = "1",
+          type = "batch",
+          shape = "rectangle",
+          x = -62.6667,
+          y = 69.3333,
+          width = 500,
+          height = 621.333,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 14,
+          name = "2",
+          type = "batch",
+          shape = "rectangle",
+          x = 400,
+          y = 34,
+          width = 600,
+          height = 678,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 15,
+          name = "3",
+          type = "batch",
+          shape = "rectangle",
+          x = 900,
+          y = 64,
+          width = 600,
+          height = 598,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 16,
+          name = "4",
+          type = "batch",
+          shape = "rectangle",
+          x = 1440,
+          y = 22,
+          width = 2700,
+          height = 686,
+          rotation = 0,
+          visible = true,
           properties = {}
         }
       }
