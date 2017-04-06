@@ -1,6 +1,8 @@
 -- Load and correct objects from various Tiled export files
 --to load stage1_data.lua
 
+local r = math.floor
+
 local function extractTable(tab, val)
     for i, value in ipairs(tab) do
         if value and value.name == val then
@@ -35,6 +37,44 @@ local function loadCollision(items, stage)
     end
 end
 
+local function loadUnit(items, stage, batch_name)
+    local units = {}
+    print("Load units...")
+    local t = extractTable(items.layers, "unit")
+--    print(inspect(t))
+    for i, v in ipairs(t.objects) do
+        if v.type == "unit" then
+            if v.properties.batch == batch_name then
+                local u = {}
+                u.delay = tonumber(v.properties.delay or 0)
+                if not v.properties.class then
+                    error("Missing enemy class instance name :"..inspect(v))
+                end
+                u.unit = loadstring("return "..v.properties.class)()
+--                u.unit = gopper1
+--                print(u.unit)
+--                print(inspect(u.unit))
+                if not u.unit then
+                    error("Wrong enemy class instance name (or missing instance def in def//stageX.lua) :"..inspect(v))
+                end
+                if u.name then  --use enemy name from the editor
+                    u.unit.name = u.name
+                else
+                    u.name = "none"
+                end
+                u.unit.x, u.unit.y = r(v.x + v.width / 2), r(v.y + v.height / 2)
+                u.unit:checkCollisionAndMove(0)
+                print(inspect(u))
+                units[#units + 1] = u
+            end
+        else
+            error("Wrong unit object type #"..i..":"..inspect(v))
+        end
+    end
+    --sort batch by x
+    return units
+end
+
 local function loadBatch(items, stage)
     local batch = {}
     print("Load batch...")
@@ -45,9 +85,9 @@ local function loadBatch(items, stage)
                 local b = {}
                 b.name = v.name
                 b.delay = tonumber(v.properties.delay or 0)
-                b.units = {}
+                b.units = loadUnit(items, stage, b.name)
                 batch[#batch + 1] = b
-                print(inspect(b))
+                --print(inspect(b))
             else
                 error("Wrong batch object shape #"..i..":"..inspect(v).." it should be 'rectangle'")
             end
