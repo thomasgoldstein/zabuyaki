@@ -37,47 +37,61 @@ local function loadCollision(items, stage)
     end
 end
 
+local function getClassByName(name)
+    if not name then
+        name = ""
+    end
+    name = name:lower()
+    if name == "gopper" then
+        return Gopper
+    elseif name == "niko" then
+        return Niko
+    elseif name == "sveta" then
+        return Sveta
+    elseif name == "zeena" then
+        return Zeena
+    elseif name == "beatnick" then
+        return Beatnick
+    elseif name == "satoff" then
+        return Satoff
+    end
+    error("Wrong class name: "..tostring(name))
+    return nil
+end
+
 local function loadUnit(items, stage, batch_name)
     local units = {}
-    print("Load units...")
+    print("Load units of batch "..batch_name.."...")
     local t = extractTable(items.layers, "unit")
---    print(inspect(t))
     for i, v in ipairs(t.objects) do
         if v.type == "unit" then
             if v.properties.batch == batch_name then
                 local u = {}
-                u.delay = tonumber(v.properties.delay or 0)
-                if not v.properties.class then
+                local inst = getClassByName(v.properties.class)
+                if not inst then
                     error("Missing enemy class instance name :"..inspect(v))
                 end
-                u.unit = loadstring("return "..v.properties.class)()
---                u.unit = gopper1
---                print(u.unit)
---                print(inspect(u.unit))
-                if not u.unit then
-                    error("Wrong enemy class instance name (or missing instance def in def//stageX.lua) :"..inspect(v))
-                end
-                if u.name then  --use enemy name from the editor
-                    u.unit.name = u.name
-                else
+                if not u.name then  --use enemy name from the editor
                     u.name = "none"
                 end
-                u.unit.x, u.unit.y = r(v.x + v.width / 2), r(v.y + v.height / 2)
-                u.unit:checkCollisionAndMove(0)
-                print(inspect(u))
+                u.delay = tonumber(v.properties.delay or 0)
+                u.unit = inst:new(
+                    u.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
+                    nil,
+                    r(v.x + v.width / 2), r(v.y + v.height / 2)
+                )
                 units[#units + 1] = u
             end
         else
             error("Wrong unit object type #"..i..":"..inspect(v))
         end
     end
-    --sort batch by x
     return units
 end
 
 local function loadBatch(items, stage)
     local batch = {}
-    print("Load batch...")
+    print("Load batches...")
     local t = extractTable(items.layers, "batch")
     for i, v in ipairs(t.objects) do
         if v.type == "batch" then
@@ -85,9 +99,10 @@ local function loadBatch(items, stage)
                 local b = {}
                 b.name = v.name
                 b.delay = tonumber(v.properties.delay or 0)
+                b.left_stopper = tonumber(r(v.x) or 0)
+                b.right_stopper = tonumber(r(v.x + v.width) or 500)
                 b.units = loadUnit(items, stage, b.name)
                 batch[#batch + 1] = b
-                --print(inspect(b))
             else
                 error("Wrong batch object shape #"..i..":"..inspect(v).." it should be 'rectangle'")
             end
@@ -95,7 +110,17 @@ local function loadBatch(items, stage)
             error("Wrong batch object type #"..i..":"..inspect(v))
         end
     end
-    --sort batch by x
+    --sort batch by name: 1 2 3...
+    table.sort(batch, function(a,b)
+        if not a then
+            return false
+        elseif not b then
+            return true
+        elseif tonumber(a.name) == tonumber(b.name) then
+            return tonumber(a.name) > tonumber(b.name)
+        end
+        return tonumber(a.name) < tonumber(b.name) end )
+--    print(inspect(batch, {depth = 4}))
     return Batch:new(stage, batch)
 end
 
@@ -112,7 +137,6 @@ end
 
 local function loadImageLayer(items, background)
     print("Load ImageLayer...")
---    local t = extractTable(items.layers, "collision")
     for i, v in ipairs(items.layers) do
         if v.type == "imagelayer" then
             if v.visible then
