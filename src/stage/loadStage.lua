@@ -35,6 +35,30 @@ local function loadCollision(items, stage)
     end
 end
 
+local function loadBatch(items, stage)
+    local batch = {}
+    print("Load batch...")
+    local t = extractTable(items.layers, "batch")
+    for i, v in ipairs(t.objects) do
+        if v.type == "batch" then
+            if v.shape == "rectangle" then
+                local b = {}
+                b.name = v.name
+                b.delay = tonumber(v.properties.delay or 0)
+                b.units = {}
+                batch[#batch + 1] = b
+                print(inspect(b))
+            else
+                error("Wrong batch object shape #"..i..":"..inspect(v).." it should be 'rectangle'")
+            end
+        else
+            error("Wrong batch object type #"..i..":"..inspect(v))
+        end
+    end
+    --sort batch by x
+    return Batch:new(stage, batch)
+end
+
 local loaded_images = {}
 local loaded_images_quads = {}
 local function cacheImage(path_to_image)
@@ -95,6 +119,7 @@ end
 function loadStageData(file, stage)
     local d = dofile(file)
     loadCollision(d, stage)
+    stage.batch = loadBatch(d, stage)
     stage.scrolling = loadCameraScrolling(d)
     loadImageLayer(d, stage.background)
     if d.backgroundcolor then
