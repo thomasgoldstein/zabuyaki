@@ -8,7 +8,7 @@ return {
   height = 70,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 17,
+  nextobjectid = 28,
   backgroundcolor = { 231, 207, 157 },
   properties = {},
   tilesets = {},
@@ -287,7 +287,9 @@ return {
           height = 621.333,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["delay"] = "0"
+          }
         },
         {
           id = 14,
@@ -300,7 +302,9 @@ return {
           height = 678,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["delay"] = "0"
+          }
         },
         {
           id = 15,
@@ -313,7 +317,9 @@ return {
           height = 598,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["delay"] = "0"
+          }
         },
         {
           id = 16,
@@ -326,7 +332,121 @@ return {
           height = 686,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["delay"] = "0"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "unit",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 17,
+          name = "Gopper",
+          type = "unit",
+          shape = "ellipse",
+          x = 203.917,
+          y = 471.917,
+          width = 17.3333,
+          height = 17.3333,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "1",
+            ["class"] = "gopper",
+            ["delay"] = "0",
+            ["state"] = "intro"
+          }
+        },
+        {
+          id = 22,
+          name = "Niko",
+          type = "unit",
+          shape = "ellipse",
+          x = 202,
+          y = 526.083,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "1",
+            ["class"] = "niko",
+            ["delay"] = "0",
+            ["state"] = "walk"
+          }
+        },
+        {
+          id = 23,
+          name = "Sveta",
+          type = "unit",
+          shape = "ellipse",
+          x = 260,
+          y = 482.25,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "1",
+            ["class"] = "sveta"
+          }
+        },
+        {
+          id = 25,
+          name = "Zeena",
+          type = "unit",
+          shape = "ellipse",
+          x = 238.833,
+          y = 508.417,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "1",
+            ["class"] = "zeena"
+          }
+        },
+        {
+          id = 26,
+          name = "Beatnick",
+          type = "unit",
+          shape = "ellipse",
+          x = 534,
+          y = 498.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "2",
+            ["class"] = "beatnick"
+          }
+        },
+        {
+          id = 27,
+          name = "Satoff",
+          type = "unit",
+          shape = "ellipse",
+          x = 1247.33,
+          y = 505.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "3",
+            ["class"] = "satoff"
+          }
         }
       }
     }

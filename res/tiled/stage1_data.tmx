@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="17">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="28">
  <imagelayer name="road0" offsetx="12" offsety="430">
   <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
  </imagelayer>
@@ -54,9 +54,73 @@
   </object>
  </objectgroup>
  <objectgroup name="batch" opacity="0.33">
-  <object id="12" name="1" type="batch" x="-62.6667" y="69.3333" width="500" height="621.333"/>
-  <object id="14" name="2" type="batch" x="400" y="34" width="600" height="678"/>
-  <object id="15" name="3" type="batch" x="900" y="64" width="600" height="598"/>
-  <object id="16" name="4" type="batch" x="1440" y="22" width="2700" height="686"/>
+  <object id="12" name="1" type="batch" x="-62.6667" y="69.3333" width="500" height="621.333">
+   <properties>
+    <property name="delay" value="0"/>
+   </properties>
+  </object>
+  <object id="14" name="2" type="batch" x="400" y="34" width="600" height="678">
+   <properties>
+    <property name="delay" value="0"/>
+   </properties>
+  </object>
+  <object id="15" name="3" type="batch" x="900" y="64" width="600" height="598">
+   <properties>
+    <property name="delay" value="0"/>
+   </properties>
+  </object>
+  <object id="16" name="4" type="batch" x="1440" y="22" width="2700" height="686">
+   <properties>
+    <property name="delay" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="unit">
+  <object id="17" name="Gopper" type="unit" x="203.917" y="471.917" width="17.3333" height="17.3333">
+   <properties>
+    <property name="batch" value="1"/>
+    <property name="class" value="gopper"/>
+    <property name="delay" value="0"/>
+    <property name="state" value="intro"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="22" name="Niko" type="unit" x="202" y="526.083">
+   <properties>
+    <property name="batch" value="1"/>
+    <property name="class" value="niko"/>
+    <property name="delay" value="0"/>
+    <property name="state" value="walk"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="23" name="Sveta" type="unit" x="260" y="482.25">
+   <properties>
+    <property name="batch" value="1"/>
+    <property name="class" value="sveta"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="25" name="Zeena" type="unit" x="238.833" y="508.417">
+   <properties>
+    <property name="batch" value="1"/>
+    <property name="class" value="zeena"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="26" name="Beatnick" type="unit" x="534" y="498.667">
+   <properties>
+    <property name="batch" value="2"/>
+    <property name="class" value="beatnick"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="27" name="Satoff" type="unit" x="1247.33" y="505.333">
+   <properties>
+    <property name="batch" value="3"/>
+    <property name="class" value="satoff"/>
+   </properties>
+   <ellipse/>
+  </object>
  </objectgroup>
 </map>
