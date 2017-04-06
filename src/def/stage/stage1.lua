@@ -40,12 +40,12 @@ function Stage1:initialize(players)
 
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
     -- Walls around the level
-    loadStageData("src/def/stage/stage1_data.lua", self)
     --local wall1 = Wall:new("left wall 1", { shapeType = "rectangle", shapeArgs = { -80, 0, 40, self.worldHeight }}) --left
     --local wall2 = Wall:new("right wall 1", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
 
     local top_floor_y = 454
-    local gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
+--[[
+    gopper1 = Gopper:new("GOPPER", GetSpriteInstance("src/def/char/gopper.lua"), nil,
         380, 479,
         { shader = shaders.gopper[5], color = {255,255,255, 255}})
     local gopper2 = Gopper:new("GOPPER2", GetSpriteInstance("src/def/char/gopper.lua"), nil,
@@ -104,7 +104,7 @@ function Stage1:initialize(players)
     local niko6 = Niko:new("niko6", GetSpriteInstance("src/def/char/niko.lua"), nil,
         1000, top_floor_y + 50,
         { shader = shaders.niko[2], color = {255,255,255, 255}})
-    --niko6:setToughness(5)
+    --niko6:setToughness(5)]]
 
     -- Loot
     local func_dropApple = function(slf)
@@ -142,6 +142,7 @@ function Stage1:initialize(players)
         { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickup_beef", func = testDeathFunc}
     )
 
+--[[
     local gop_x = 300
     local gopper7 = Gopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 157, top_floor_y + 40,
         { shader = shaders.gopper[3], color = {255,255,255, 255}, func = testDeathFunc})
@@ -159,6 +160,7 @@ function Stage1:initialize(players)
         { shader = shaders.niko[2], color = {255,255,255, 255}})
     local niko10 = Niko:new("N.NIK4", GetSpriteInstance("src/def/char/niko.lua"), nil, gop_x + 280, top_floor_y + 40,
         { shader = shaders.niko[3], color = {255,255,255, 255}})
+]]
 
     local testDeathFunc = function(s, t) dp(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
@@ -216,60 +218,9 @@ function Stage1:initialize(players)
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
     })
 
-    self:moveStoppers(0, 520)
-
-    self.batch = Batch:new(self, {
-        {
-            -- 1st batch
-            delay = 0,
-            left_stopper = 0,
-            right_stopper = 500,
-            units = {
-                { unit = gopper1, delay = 0, state = "intro" },
-                { unit = gopper2, delay = 0, state = "stand" },
-                { unit = gopper3, delay = 0, state = "walk" },
-                { unit = gopper4, delay = 0, state = "intro" },
-                { unit = gopper5, delay = 0, state = "walk" },
-                { unit = gopper6, delay = 0, state = "walk" }
-            }
-        },
-        {
-            -- 2nd batch
-            delay = 1,
-            left_stopper = 500 - 100,
-            right_stopper = 1000,
-            units = {
-                { unit = niko1, delay = 1 },
-                { unit = niko2, delay = 0 },
-                { unit = niko3, delay = 0, state = "intro" },
-                { unit = niko4, delay = 0 },
-                { unit = niko5, delay = 0 },
-                { unit = niko6, delay = 1, state = "walk" }
-            }
-        },
-        {
-            -- 3rd batch
-            delay = 0,
-            left_stopper = 1000 - 100,
-            right_stopper = 1500,
-            units = {
-                { unit = beatnick1, delay = 3, state = "walk" },
-                { unit = zeena1, delay = 0 },
-                { unit = sveta1, delay = 0 }
-            }
-        },
-        {
-            -- 4th batch Mid-Boss
-            delay = 0,
-            left_stopper = 1500 - 100,
-            right_stopper = 5000, --TODO 2000
-            units = {
-                { unit = satoff1, delay = 1 },
---                { unit = sveta1, delay = 2 }
-            }
-        }
-    })
-    saveStageToPng()
+    self:moveStoppers(0, 520)   --must be here
+    loadStageData("src/def/stage/stage1_data.lua", self)
+    --saveStageToPng()
 end
 
 function Stage1:update(dt)
