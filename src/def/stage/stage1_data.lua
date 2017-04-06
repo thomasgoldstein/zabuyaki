@@ -8,7 +8,7 @@ return {
   height = 70,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 28,
+  nextobjectid = 32,
   backgroundcolor = { 231, 207, 157 },
   properties = {},
   tilesets = {},
@@ -421,7 +421,7 @@ return {
           name = "Beatnick",
           type = "unit",
           shape = "ellipse",
-          x = 534,
+          x = 692.667,
           y = 498.667,
           width = 0,
           height = 0,
@@ -446,6 +446,74 @@ return {
           properties = {
             ["batch"] = "3",
             ["class"] = "satoff"
+          }
+        },
+        {
+          id = 28,
+          name = "Gopper",
+          type = "unit",
+          shape = "ellipse",
+          x = 614,
+          y = 492,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "2",
+            ["class"] = "niko"
+          }
+        },
+        {
+          id = 29,
+          name = "Niko",
+          type = "unit",
+          shape = "ellipse",
+          x = 638,
+          y = 473.333,
+          width = 27.3333,
+          height = 22.6809,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "2",
+            ["class"] = "niko",
+            ["state"] = "stand"
+          }
+        },
+        {
+          id = 30,
+          name = "Zeena",
+          type = "unit",
+          shape = "ellipse",
+          x = 700,
+          y = 504.667,
+          width = 21.3333,
+          height = 22.6667,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "2",
+            ["class"] = "zeena",
+            ["delay"] = "5",
+            ["state"] = "walk"
+          }
+        },
+        {
+          id = 31,
+          name = "Sveta",
+          type = "unit",
+          shape = "ellipse",
+          x = 1365.33,
+          y = 492.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "3",
+            ["class"] = "sveta",
+            ["state"] = "intro"
           }
         }
       }
