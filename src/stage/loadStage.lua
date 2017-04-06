@@ -71,12 +71,12 @@ local function loadUnit(items, stage, batch_name)
                 if not inst then
                     error("Missing enemy class instance name :"..inspect(v))
                 end
-                if not u.name then  --use enemy name from the editor
-                    u.name = "none"
+                if not v.name then  --use enemy name from the editor
+                    v.name = "none"
                 end
                 u.delay = tonumber(v.properties.delay or 0)
                 u.unit = inst:new(
-                    u.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
+                    v.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
                     nil,
                     r(v.x + v.width / 2), r(v.y + v.height / 2)
                 )
