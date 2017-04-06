@@ -72,18 +72,49 @@ Use menu **Map / Map Properties** to see the **Background color** map property.
 Expand the property and edit R G B and Alpha(transparency) entries.
 
 ## Define enemy batches ##
-Not implemented yet
+Go to the layers tab. Create **Object layer**. Rename it to "batch".
+Only the first "batch" layer will be used. All the rest object layers named "batch" will be ignored. 
 
-## Define enemy withing a batch ##
-Not implemented yet
+Now you can add enemy batches into the game.
+ 
+Every batch should contain these properties
+* Name <- Every enemy on the stage has a property **batch** with his batch name. 
+           Use simple batch naming, such as 1 2 3 4 etc.
+* Type <- **"batch"**
+
+Custom properties:
+* delay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
+ 
+The left and the right sides of the batch are used as the horizontal positions the players stoppers.
+
+> Hint: The height of the batch shape is ignored. 
+
+## Define enemy units to a batch ##
+Go to the layers tab. Create **Object layer**. Rename it to "unit".
+Only the first "unit" layer will be used. All the rest object layers named "unit" will be ignored. 
+
+Now you can add enemy into the game.
+Every enemy should contain these properties
+* Name <- enemy's name
+* Type <- **"unit"**
+
+Custom properties:
+* batch <- enemy batch name. Usually a number
+* class <- Gopper, Niko, Sveta, Zeena, Beatnick or Satoff  
+* delay <- delay before its appearance in seconds (float numbers are fine, too). This property is optional.
+
+Enemy unit's x,y coords equal to coords of the shape center. You can use any shapes: Oval, Rectangle. 
+> Hint: The size of the shape is ignored.
 
 ## In-Game drawing order ##
 The BG images are drawn starting from the very last item in the list back to the top.
 
 10 -> 9 -> 8 ... -> 1
 
-Use it to arrange items.
-
+How to move image layers up/down
+ * Use menu **Layer / Rize Layer / Lower Layer** 
+ * Use buttons at the bottom of the layers window
+ * Use **Ctrl+Shift+Up / Down** hot keys
 ## Controls ##
 Use Ctrl + Up/Down to move current object/layer up/down withing the list.
 
