@@ -154,7 +154,8 @@ local function loadUnit(items, stage, batch_name)
                     u.unit = inst:new(
                         v.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
                         nil,
-                        r(v.x + v.width / 2), r(v.y + v.height / 2), { func = getUnitFunction(v) }
+                        r(v.x + v.width / 2), r(v.y + v.height / 2),
+                        { func = getUnitFunction(v) }
                     )
                     units[#units + 1] = u
                 else
