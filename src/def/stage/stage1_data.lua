@@ -8,11 +8,53 @@ return {
   height = 70,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 32,
+  nextobjectid = 40,
   backgroundcolor = { 231, 207, 157 },
   properties = {},
   tilesets = {},
   layers = {
+    {
+      type = "objectgroup",
+      name = "trash",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {}
+    },
+    {
+      type = "objectgroup",
+      name = "camera",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 11,
+          name = "vert pos of camera",
+          type = "camera",
+          shape = "polyline",
+          x = -4,
+          y = 551,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 1830, y = 0 },
+            { x = 2208, y = -180 },
+            { x = 4034, y = -180 }
+          },
+          properties = {}
+        }
+      }
+    },
     {
       type = "imagelayer",
       name = "road0",
@@ -237,37 +279,6 @@ return {
     },
     {
       type = "objectgroup",
-      name = "camera",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      draworder = "topdown",
-      properties = {},
-      objects = {
-        {
-          id = 11,
-          name = "vert pos of camera",
-          type = "camera",
-          shape = "polyline",
-          x = -4,
-          y = 551,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 1830, y = 0 },
-            { x = 2208, y = -180 },
-            { x = 4034, y = -180 }
-          },
-          properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
       name = "batch",
       visible = true,
       opacity = 0.33,
@@ -363,6 +374,7 @@ return {
             ["batch"] = "1",
             ["class"] = "gopper",
             ["delay"] = "0",
+            ["flip"] = true,
             ["state"] = "intro"
           }
         },
@@ -413,7 +425,9 @@ return {
           visible = true,
           properties = {
             ["batch"] = "1",
-            ["class"] = "zeena"
+            ["class"] = "zeena",
+            ["drop"] = "apple",
+            ["state"] = "stand"
           }
         },
         {
@@ -496,6 +510,7 @@ return {
             ["batch"] = "2",
             ["class"] = "zeena",
             ["delay"] = "5",
+            ["drop"] = "apple",
             ["state"] = "walk"
           }
         },
@@ -514,6 +529,55 @@ return {
             ["batch"] = "3",
             ["class"] = "sveta",
             ["state"] = "intro"
+          }
+        },
+        {
+          id = 32,
+          name = "Can",
+          type = "unit",
+          shape = "rectangle",
+          x = 96,
+          y = 472,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "can",
+            ["drop"] = "chicken"
+          }
+        },
+        {
+          id = 33,
+          name = "Stop Sign",
+          type = "unit",
+          shape = "rectangle",
+          x = 152,
+          y = 464,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "sign",
+            ["drop"] = "apple"
+          }
+        },
+        {
+          id = 39,
+          name = "Сan 2",
+          type = "unit",
+          shape = "rectangle",
+          x = 128,
+          y = 504,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "can",
+            ["drop"] = "beef",
+            ["flip"] = true
           }
         }
       }

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="32">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="40">
+ <objectgroup name="trash"/>
+ <objectgroup name="camera">
+  <object id="11" name="vert pos of camera" type="camera" x="-4" y="551">
+   <polyline points="0,0 1830,0 2208,-180 4034,-180"/>
+  </object>
+ </objectgroup>
  <imagelayer name="road0" offsetx="12" offsety="430">
   <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
  </imagelayer>
@@ -48,11 +54,6 @@
    <polygon points="0.1875,-1.1875 371.497,-179.5 370.995,93 -1.00269,93"/>
   </object>
  </objectgroup>
- <objectgroup name="camera">
-  <object id="11" name="vert pos of camera" type="camera" x="-4" y="551">
-   <polyline points="0,0 1830,0 2208,-180 4034,-180"/>
-  </object>
- </objectgroup>
  <objectgroup name="batch" opacity="0.33">
   <object id="12" name="1" type="batch" x="-62.6667" y="69.3333" width="500" height="621.333">
    <properties>
@@ -81,6 +82,7 @@
     <property name="batch" value="1"/>
     <property name="class" value="gopper"/>
     <property name="delay" value="0"/>
+    <property name="flip" type="bool" value="true"/>
     <property name="state" value="intro"/>
    </properties>
    <ellipse/>
@@ -105,6 +107,8 @@
    <properties>
     <property name="batch" value="1"/>
     <property name="class" value="zeena"/>
+    <property name="drop" value="apple"/>
+    <property name="state" value="stand"/>
    </properties>
    <ellipse/>
   </object>
@@ -142,6 +146,7 @@
     <property name="batch" value="2"/>
     <property name="class" value="zeena"/>
     <property name="delay" value="5"/>
+    <property name="drop" value="apple"/>
     <property name="state" value="walk"/>
    </properties>
    <ellipse/>
@@ -153,6 +158,25 @@
     <property name="state" value="intro"/>
    </properties>
    <ellipse/>
+  </object>
+  <object id="32" name="Can" type="unit" x="96" y="472" width="16" height="16">
+   <properties>
+    <property name="class" value="can"/>
+    <property name="drop" value="chicken"/>
+   </properties>
+  </object>
+  <object id="33" name="Stop Sign" type="unit" x="152" y="464" width="16" height="16">
+   <properties>
+    <property name="class" value="sign"/>
+    <property name="drop" value="apple"/>
+   </properties>
+  </object>
+  <object id="39" name="Сan 2" type="unit" x="128" y="504" width="16" height="16">
+   <properties>
+    <property name="class" value="can"/>
+    <property name="drop" value="beef"/>
+    <property name="flip" type="bool" value="true"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
