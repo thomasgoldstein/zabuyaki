@@ -8,8 +8,8 @@ local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
 
-function Enemy:initialize(name, sprite, input, x, y, shader, color)
-    Character.initialize(self, name, sprite, input, x, y, shader, color)
+function Enemy:initialize(name, sprite, input, x, y, f)
+    Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "enemy"
     self.max_ai_poll_1 = 0.5
     self.ai_poll_1 = self.max_ai_poll_1
