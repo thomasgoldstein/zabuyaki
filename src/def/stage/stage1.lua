@@ -107,7 +107,7 @@ function Stage1:initialize(players)
     --niko6:setToughness(5)]]
 
     -- Loot
-    local func_dropApple = function(slf)
+  --[[  local func_dropApple = function(slf)
         local loot = Loot:new("Apple", gfx.loot.apple,
             math.floor(slf.x), math.floor(slf.y) + 1,
             { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickup_apple", func = testDeathFunc}
@@ -141,7 +141,7 @@ function Stage1:initialize(players)
         750,top_floor_y + 40,
         { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickup_beef", func = testDeathFunc}
     )
-
+]]
 --[[
     local gop_x = 300
     local gopper7 = Gopper:new("N.GOP1", GetSpriteInstance("src/def/char/gopper.lua"), nil, gop_x + 157, top_floor_y + 40,
@@ -162,7 +162,7 @@ function Stage1:initialize(players)
         { shader = shaders.niko[3], color = {255,255,255, 255}})
 ]]
 
-    local testDeathFunc = function(s, t) dp(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
+ --[[   local testDeathFunc = function(s, t) dp(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
     -- Enemy
     local sveta1 = Sveta:new("SVETA", GetSpriteInstance("src/def/char/sveta.lua"), nil,
         1250, 490,
@@ -216,7 +216,7 @@ function Stage1:initialize(players)
     self.objects:addArray({
         loot1, loot2, loot3,
         can1, can2, can3, can4, no_entry_sign1,no_entry_sign2,
-    })
+    })]]
 
     self:moveStoppers(0, 520)   --must be here
     loadStageData("src/def/stage/stage1_data.lua", self)
