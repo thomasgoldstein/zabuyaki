@@ -61,7 +61,11 @@ end
 
 local function loadUnit(items, stage, batch_name)
     local units = {}
-    print("Load units of batch "..batch_name.."...")
+    if batch_name and batch_name ~= "" then
+        print("Load units of batch "..batch_name.."...")
+    else
+        batch_name = nil
+    end
     local t = extractTable(items.layers, "unit")
     for i, v in ipairs(t.objects) do
         if v.type == "unit" then
@@ -71,8 +75,8 @@ local function loadUnit(items, stage, batch_name)
                 if not inst then
                     error("Missing enemy class instance name :"..inspect(v))
                 end
-                if not v.name then  --use enemy name from the editor
-                    v.name = "none"
+                if not v.name then  --use class name and enemy's name if not set
+                    v.name = v.properties.class
                 end
                 u.delay = tonumber(v.properties.delay or 0)
                 u.unit = inst:new(
@@ -80,13 +84,24 @@ local function loadUnit(items, stage, batch_name)
                     nil,
                     r(v.x + v.width / 2), r(v.y + v.height / 2)
                 )
-                units[#units + 1] = u
+                if batch_name then
+                    units[#units + 1] = u
+                else
+                    --for permanent units that belong to no batch
+                    units[#units + 1] = u.unit
+                end
             end
         else
             error("Wrong unit object type #"..i..":"..inspect(v))
         end
     end
     return units
+end
+
+local function loadPermanentUnits(items, stage)
+    print("Load permanent units...")
+    local units = loadUnit(items, stage)
+    stage.objects:addArray(units)
 end
 
 local function loadBatch(items, stage)
@@ -182,6 +197,7 @@ end
 function loadStageData(file, stage)
     local d = dofile(file)
     loadCollision(d, stage)
+    loadPermanentUnits(d, stage)
     stage.batch = loadBatch(d, stage)
     stage.scrolling = loadCameraScrolling(d)
     loadImageLayer(d, stage.background)
