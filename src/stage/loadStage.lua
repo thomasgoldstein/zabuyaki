@@ -37,6 +37,27 @@ local function loadCollision(items, stage)
     end
 end
 
+--[[local ok_class = {
+    gopper = Gopper,
+    niko = Niko,
+    sveta = Sveta,
+    zeena = Zeena,
+    beatnick = Beatnick,
+    satoff = Satoff,
+    can = Obstacle,
+    sign = Obstacle
+}
+local function getClassByName(name)
+    if name then
+        name = name:lower()
+    end
+    --    if not ok_class[name] then
+    --        error("Wrong class name: "..tostring(name))
+    --        return nil
+    --    end
+    return ok_class[name]
+end]]
+
 local function getClassByName(name)
     if not name then
         name = ""
@@ -54,6 +75,8 @@ local function getClassByName(name)
         return Beatnick
     elseif name == "satoff" then
         return Satoff
+    elseif name == "can" or name == "sign" then
+        return Obstacle
     end
     error("Wrong class name: "..tostring(name))
     return nil
@@ -79,15 +102,28 @@ local function loadUnit(items, stage, batch_name)
                     v.name = v.properties.class
                 end
                 u.delay = tonumber(v.properties.delay or 0)
-                u.unit = inst:new(
-                    v.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
-                    nil,
-                    r(v.x + v.width / 2), r(v.y + v.height / 2)
-                )
                 if batch_name then
+                    u.unit = inst:new(
+                        v.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
+                        nil,
+                        r(v.x + v.width / 2), r(v.y + v.height / 2)
+                    )
                     units[#units + 1] = u
                 else
                     --for permanent units that belong to no batch
+                    if v.properties.class == "can" then
+                        u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
+                            r(v.x + v.width / 2), r(v.y + v.height / 2),
+                            {hp = 35, score = 100, shader = nil, color = nil, colorParticle = nil,
+                                isMovable = true, sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+                    elseif v.properties.class == "sign" then
+                        u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
+                            r(v.x + v.width / 2), r(v.y + v.height / 2),
+                            {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
+                                shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
+                                isMovable = false, func = nil,
+                                sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+                    end
                     units[#units + 1] = u.unit
                 end
             end
