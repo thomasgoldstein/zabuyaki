@@ -254,18 +254,18 @@ shaders.chai[2] = swapColors(chai_colors_default, chai_colors_2)
 shaders.chai[3] = swapColors(chai_colors_default, chai_colors_3)
 
 local kisa_colors_default = {
-    { 66, 153, 140, 255 }, { 43, 101, 97, 255 }, { 20, 47, 45, 255 }, -- teal hat
-    { 144, 62, 65, 255 }, { 96, 39, 42, 255 }, { 44, 13, 15, 255 } } -- maroon shoes
+    { 66, 153, 140, 255 }, { 43, 101, 97, 255 }, { 20, 47, 45, 255 }, -- teal headscarf
+    { 238, 213, 129, 255 }, { 182, 157, 73, 255 }, { 96, 83, 35, 255 } } -- sand shirt
 local kisa_colors_2 = {
-    { 75, 154, 51, 255 }, { 49, 97, 32, 255 }, { 18, 48, 24, 255 }, -- green hat
-    { 137, 83, 52, 255 }, { 78, 53, 38, 255 }, { 36, 25, 18, 255 } } -- brown shoes
+    { 219, 93, 67, 255 }, { 160, 49, 27, 255 }, { 81, 17, 4, 255 }, -- red-orange headscarf
+    { 234, 198, 79, 255 }, { 193, 136, 23, 255 }, { 122, 69, 9, 255 } } -- yellow-orange shirt
 local kisa_colors_3 = {
-    { 159, 90, 212, 255 }, { 97, 56, 132, 255 }, { 42, 23, 56, 255 }, -- lavander hat
-    { 187, 103, 8, 255 }, { 106, 60, 2, 255 }, { 48, 26, 1, 255 } } -- orange-brown shoes
+    { 175, 202, 221, 255 }, { 80, 150, 196, 255 }, { 39, 79, 107, 255 }, -- sky blue headscarf
+    { 101, 105, 216, 255 }, { 59, 63, 145, 255 }, { 26, 27, 56, 255 } } -- violet-blue shirt
 shaders.kisa[2] = swapColors(kisa_colors_default, kisa_colors_2)
 shaders.kisa[3] = swapColors(kisa_colors_default, kisa_colors_3)
 
--- Enemy
+-- Enemies
 local gopper_colors_default = {
     { 233, 230, 246, 255 }, { 175, 163, 199, 255 }, { 107, 100, 121, 255 }, -- white top
     { 51, 65, 113, 255 }, { 31, 42, 83, 255 }, { 19, 26, 43, 255 }, -- blue pants
