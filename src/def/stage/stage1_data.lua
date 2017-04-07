@@ -14,48 +14,6 @@ return {
   tilesets = {},
   layers = {
     {
-      type = "objectgroup",
-      name = "trash",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      draworder = "topdown",
-      properties = {},
-      objects = {}
-    },
-    {
-      type = "objectgroup",
-      name = "camera",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      draworder = "topdown",
-      properties = {},
-      objects = {
-        {
-          id = 11,
-          name = "vert pos of camera",
-          type = "camera",
-          shape = "polyline",
-          x = -4,
-          y = 551,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 1830, y = 0 },
-            { x = 2208, y = -180 },
-            { x = 4034, y = -180 }
-          },
-          properties = {}
-        }
-      }
-    },
-    {
       type = "imagelayer",
       name = "road0",
       visible = true,
@@ -174,6 +132,37 @@ return {
       offsety = 0,
       image = "stage.png",
       properties = {}
+    },
+    {
+      type = "objectgroup",
+      name = "camera",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 11,
+          name = "vert pos of camera",
+          type = "camera",
+          shape = "polyline",
+          x = -4,
+          y = 551,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 1830, y = 0 },
+            { x = 2208, y = -180 },
+            { x = 4034, y = -180 }
+          },
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -581,6 +570,17 @@ return {
           }
         }
       }
+    },
+    {
+      type = "objectgroup",
+      name = "trash",
+      visible = false,
+      opacity = 0.11,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {}
     }
   }
 }
