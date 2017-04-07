@@ -82,6 +82,54 @@ local function getClassByName(name)
     return nil
 end
 
+local function applyUnitProperties(v, unit)
+    if v.properties.flip then
+        unit.horizontal = -1
+        unit.face = -1
+        print("flip "..unit.name)
+    end
+end
+
+local func_dropApple = function(slf)
+    local loot = Loot:new("Apple", gfx.loot.apple,
+        math.floor(slf.x), math.floor(slf.y) + 1,
+        { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickup_apple"} --, func = testDeathFunc
+    )
+    stage.objects:add(loot)
+end
+local func_dropChicken = function(slf)
+    local loot = Loot:new("Chicken", gfx.loot.chicken,
+        math.floor(slf.x), math.floor(slf.y) + 1,
+        { hp = 50, score = 0, note = "+50 HP", pickupSfx = "pickup_chicken"}
+    )
+    stage.objects:add(loot)
+end
+local func_dropBeef = function(slf)
+    local loot = Loot:new("Beef", gfx.loot.beef,
+        math.floor(slf.x), math.floor(slf.y) + 1,
+        { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickup_beef"}
+    )
+    stage.objects:add(loot)
+end
+
+local function getUnitFunction(v)
+    if not v.properties.drop then
+        return nil
+    end
+    local drop = v.properties.drop:lower()
+    if drop then
+        print("func DROP ->"..drop)
+        if drop == "apple" then
+            return func_dropApple
+        elseif drop == "chicken" then
+            return func_dropChicken
+        elseif drop == "beef" then
+            return func_dropBeef
+        end
+    end
+    return nil
+end
+
 local function loadUnit(items, stage, batch_name)
     local units = {}
     if batch_name and batch_name ~= "" then
@@ -106,7 +154,7 @@ local function loadUnit(items, stage, batch_name)
                     u.unit = inst:new(
                         v.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
                         nil,
-                        r(v.x + v.width / 2), r(v.y + v.height / 2)
+                        r(v.x + v.width / 2), r(v.y + v.height / 2), { func = getUnitFunction(v) }
                     )
                     units[#units + 1] = u
                 else
@@ -115,17 +163,19 @@ local function loadUnit(items, stage, batch_name)
                         u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
                             {hp = 35, score = 100, shader = nil, color = nil, colorParticle = nil,
-                                isMovable = true, sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+                                isMovable = true, func = getUnitFunction(v),
+                                sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
                     elseif v.properties.class == "sign" then
                         u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
                             {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
                                 shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
-                                isMovable = false, func = nil,
+                                isMovable = false, func = getUnitFunction(v),
                                 sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
                     end
                     units[#units + 1] = u.unit
                 end
+                applyUnitProperties(v, u.unit)
             end
         else
             error("Wrong unit object type #"..i..":"..inspect(v))
