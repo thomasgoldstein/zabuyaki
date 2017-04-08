@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="40">
- <objectgroup name="trash"/>
- <objectgroup name="camera">
-  <object id="11" name="vert pos of camera" type="camera" x="-4" y="551">
-   <polyline points="0,0 1830,0 2208,-180 4034,-180"/>
-  </object>
- </objectgroup>
  <imagelayer name="road0" offsetx="12" offsety="430">
   <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
  </imagelayer>
@@ -42,6 +36,11 @@
  <imagelayer name="bg template" visible="0" opacity="0.6">
   <image source="stage.png" width="4000" height="800"/>
  </imagelayer>
+ <objectgroup name="camera">
+  <object id="11" name="vert pos of camera" type="camera" x="-4" y="551">
+   <polyline points="0,0 1830,0 2208,-180 4034,-180"/>
+  </object>
+ </objectgroup>
  <objectgroup name="collision">
   <object id="4" name="bottom road 1" type="wall" x="-13" y="546" width="1848" height="94"/>
   <object id="6" name="top road 1" type="wall" x="5" y="358" width="1818.91" height="101"/>
@@ -179,4 +178,5 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="trash" visible="0" opacity="0.11"/>
 </map>
