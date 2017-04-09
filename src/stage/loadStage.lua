@@ -282,7 +282,8 @@ local function loadCameraScrolling(items, scrolling)
 end
 
 function loadStageData(file, stage)
-    local d = dofile(file)
+    local chunk = love.filesystem.load( file )
+    local d = chunk()
     loadCollision(d, stage)
     loadPermanentUnits(d, stage)
     stage.batch = loadBatch(d, stage)
