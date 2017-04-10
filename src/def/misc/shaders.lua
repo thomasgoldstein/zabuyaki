@@ -9,7 +9,13 @@ shaders = {
     zeena = {},
     satoff = {},
     trashcan = {},
-    shadow = {}
+    shadow = {},
+    get = function(name, n)
+        if shaders[name] then
+            return shaders[name][n or shaders[name].default or 1]
+        end
+        return nil
+    end
 }
 
 -- use main.lua constant to disable shaders for web Love2d runtime
@@ -234,6 +240,7 @@ local rick_colors_3 = {
     { 89, 78, 70, 255 }, { 53, 46, 41, 255 }, { 26, 22, 20, 255 } } -- gray pants
 shaders.rick[2] = swapColors(rick_colors_default, rick_colors_2)
 shaders.rick[3] = swapColors(rick_colors_default, rick_colors_3)
+shaders.rick.default = 1
 
 local chai_colors_default = {
     { 236, 217, 50, 255 }, { 166, 151, 23, 255 }, { 103, 74, 14, 255 }, -- yellow shirt
@@ -252,6 +259,7 @@ local chai_colors_3 = {
     { 54, 35, 20, 255 } } -- sand hair
 shaders.chai[2] = swapColors(chai_colors_default, chai_colors_2)
 shaders.chai[3] = swapColors(chai_colors_default, chai_colors_3)
+shaders.chai.default = 1
 
 local kisa_colors_default = {
     { 66, 153, 140, 255 }, { 43, 101, 97, 255 }, { 20, 47, 45, 255 }, -- teal headscarf
@@ -264,6 +272,7 @@ local kisa_colors_3 = {
     { 101, 105, 216, 255 }, { 59, 63, 145, 255 }, { 26, 27, 56, 255 } } -- violet-blue shirt
 shaders.kisa[2] = swapColors(kisa_colors_default, kisa_colors_2)
 shaders.kisa[3] = swapColors(kisa_colors_default, kisa_colors_3)
+shaders.kisa.default = 1
 
 -- Enemies
 local gopper_colors_default = {
@@ -292,6 +301,7 @@ shaders.gopper[2] = swapColors(gopper_colors_default, gopper_colors_2)
 shaders.gopper[3] = swapColors(gopper_colors_default, gopper_colors_3)
 shaders.gopper[4] = swapColors(gopper_colors_default, gopper_colors_4)
 shaders.gopper[5] = swapColors(gopper_colors_default, gopper_colors_5)
+shaders.gopper.default = 2
 
 local niko_colors_default = gopper_colors_default
 local niko_colors_2 = gopper_colors_2
@@ -303,6 +313,7 @@ local niko_colors_3 = {
     { 207, 207, 207, 255 }, { 142, 142, 142, 255 }, { 87, 87, 87, 255 } } -- white shoes
 shaders.niko[2] = swapColors(niko_colors_default, niko_colors_2)
 shaders.niko[3] = swapColors(niko_colors_default, niko_colors_3)
+shaders.niko.default = 2
 
 local sveta_colors_default = {
     { 138, 142, 149, 255 }, { 64, 78, 120, 255 }, { 32, 43, 65, 255 }, -- blue-gray vest
@@ -312,6 +323,7 @@ local sveta_colors_2 = {
     { 138, 142, 149, 255 }, { 64, 78, 120, 255 }, { 32, 43, 65, 255 }, -- blue-gray vest
     { 55, 55, 55, 255 }, { 31, 31, 31, 255 }, { 15, 15, 15, 255 } } -- black pants
 shaders.sveta[2] = swapColors(sveta_colors_default, sveta_colors_2)
+shaders.sveta.default = 2
 
 local zeena_colors_default = {
     { 138, 142, 149, 255 }, { 64, 78, 120, 255 }, { 32, 43, 65, 255 }, -- blue-gray vest
@@ -322,9 +334,10 @@ local zeena_colors_2 = {
     { 55, 55, 55, 255 }, { 31, 31, 31, 255 }, { 15, 15, 15, 255 }, -- black pants
     { 50, 67, 93, 255 }, { 18, 30, 80, 255 }, { 16, 12, 53, 255 } } -- dark blue hair
 shaders.zeena[2] = swapColors(zeena_colors_default, zeena_colors_2)
+shaders.zeena.default = 2
 
 shaders.beatnick[2] = nil
-
+shaders.beatnick.default = 1
 local satoff_colors_default = {
     { 199, 45, 50, 255 }, { 130, 29, 33, 255 }, { 58, 20, 21, 255 }, -- red suit
     { 102, 39, 45, 255 }, { 59, 22, 28, 255 }, { 41, 16, 19, 255 }, -- maroon shoes
@@ -348,7 +361,7 @@ local satoff_colors_4 = {
 shaders.satoff[2] = swapColors(satoff_colors_default, satoff_colors_2)
 shaders.satoff[3] = swapColors(satoff_colors_default, satoff_colors_3)
 shaders.satoff[4] = swapColors(satoff_colors_default, satoff_colors_4)
-
+shaders.satoff.default = 2
 -- Obstacles
 local trashcan_colors_default = {
     { 118, 109, 100, 255 }, { 96, 81, 78, 255 }, { 73, 53, 54, 255 }, { 40, 30, 30, 255 }, -- brown metal
@@ -357,7 +370,7 @@ local trashcan_colors_2 = {
     { 87, 116, 130, 255 }, { 66, 93, 104, 255 }, { 45, 66, 76, 255 }, { 27, 36, 40, 255 }, -- blue metal
     { 63, 91, 72, 255 }, { 45, 53, 43, 255 }, { 29, 33, 26, 255 }} -- inner green bag
 shaders.trashcan[2] = swapColors(trashcan_colors_default, trashcan_colors_2)
-
+shaders.trashcan.default = 1
 -- Misc
 
 local function load_frag_shader(file)
