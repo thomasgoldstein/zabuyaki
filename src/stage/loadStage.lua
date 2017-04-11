@@ -13,7 +13,7 @@ local function extractTable(tab, val)
 end
 
 local function loadCollision(items, stage)
-    print("Load collisions...")
+    dp("Load collisions...")
     local t = extractTable(items.layers, "collision")
     for i, v in ipairs(t.objects) do
         if v.type == "wall" then
@@ -86,7 +86,6 @@ local function applyUnitProperties(v, unit)
     if v.properties.flip then
         unit.horizontal = -1
         unit.face = -1
-        print("flip "..unit.name)
     end
 end
 
@@ -118,7 +117,7 @@ local function getUnitFunction(v)
     end
     local drop = v.properties.drop:lower()
     if drop then
-        print("func DROP ->"..drop)
+        dp("func DROP ->"..drop)
         if drop == "apple" then
             return func_dropApple
         elseif drop == "chicken" then
@@ -133,7 +132,7 @@ end
 local function loadUnit(items, stage, batch_name)
     local units = {}
     if batch_name and batch_name ~= "" then
-        print("Load units of batch "..batch_name.."...")
+        dp("Load units of batch "..batch_name.."...")
     else
         batch_name = nil
     end
@@ -189,7 +188,7 @@ local function loadUnit(items, stage, batch_name)
 end
 
 local function loadPermanentUnits(items, stage)
-    print("Load permanent units...")
+    dp("Load permanent units...")
     local units = loadUnit(items, stage)
     for _,unit in ipairs(units) do
         unit:setOnStage(stage)
@@ -198,7 +197,7 @@ end
 
 local function loadBatch(items, stage)
     local batch = {}
-    print("Load batches...")
+    dp("Load batches...")
     local t = extractTable(items.layers, "batch")
     for i, v in ipairs(t.objects) do
         if v.type == "batch" then
@@ -226,7 +225,7 @@ local function loadBatch(items, stage)
             return a.left_stopper > b.left_stopper
         end
         return a.left_stopper < b.left_stopper end )
---    print(inspect(batch, {depth = 4}))
+--    dp(inspect(batch, {depth = 4}))
     return Batch:new(stage, batch)
 end
 
@@ -242,7 +241,7 @@ local function cacheImage(path_to_image)
 end
 
 local function loadImageLayer(items, background)
-    print("Load ImageLayer...")
+    dp("Load ImageLayer...")
     for i, v in ipairs(items.layers) do
         if v.type == "imagelayer" then
             if v.visible then
@@ -255,7 +254,7 @@ end
 
 local y_shift = 240 / 2
 local function loadCameraScrolling(items, scrolling)
-    print("Load Camera Scrolling...")
+    dp("Load Camera Scrolling...")
     scrolling = { chunks = {} }
     local t = extractTable(items.layers, "camera")
     for i, v in ipairs(t.objects) do
@@ -278,7 +277,7 @@ local function loadCameraScrolling(items, scrolling)
         end
     end
     if not scrolling.chunks or #scrolling.chunks < 1 then
-        print(" Camera Scrolling is missing... set to Y = 0")
+        dp(" Camera Scrolling is missing... set to Y = 0")
         scrolling.chunks[#scrolling.chunks + 1] =
         {startX = 0, endX = 10000, startY = 0, endY = 0 }
         scrolling.commonY = 0

@@ -15,7 +15,7 @@ local Batch = class('Batch')
     }
 ]]
 function Batch:ps(t)
-    print("BATCH #"..self.n.." State:"..self.state.." "..(t or ""))
+    dp("BATCH #"..self.n.." State:"..self.state.." "..(t or ""))
 end
 
 function Batch:initialize(stage, batches)
@@ -23,7 +23,7 @@ function Batch:initialize(stage, batches)
     self.time = 0
     self.n = 1 --1st batch
     self.batches = batches
-    print("Stage has #",#batches,"batches of enemy")
+    dp("Stage has #",#batches,"batches of enemy")
     if self:load() then
         self.state = "spawn"
         -- left_stopper, right_stopper
@@ -38,7 +38,7 @@ function Batch:load()
     if n > #self.batches then
         return false
     end
-    print("load Batch #",n)
+    dp("load Batch #",n)
     local b = self.batches[n]
     self.left_stopper = b.left_stopper or 0
     self.right_stopper = b.right_stopper or 320
@@ -46,7 +46,7 @@ function Batch:load()
     for i = 1, #b.units do
         local u = b.units[i]
         u.isSpawned = false
-        --print("units in batch:",u.unit.name)
+        --dp("units in batch:",u.unit.name)
     end
     return true
 end
@@ -55,9 +55,9 @@ function Batch:spawn(dt)
     local b = self.batches[self.n]
     --move left_stopper, right_stopper
     local centerX, player_group_distance, minx, maxx = self.stage.centerX, self.stage.player_group_distance, self.stage.minx, self.stage.maxx
-    --print(centerX, minx, maxx, player_group_distance )
+    --dp(centerX, minx, maxx, player_group_distance )
     local lx, rx = self.stage.left_stopper.x, self.stage.right_stopper.x    --current in the stage
-    --print("LX"..lx.."->"..self.left_stopper..", RX "..rx.." -> "..self.right_stopper, minx, maxx )
+    --dp("LX"..lx.."->"..self.left_stopper..", RX "..rx.." -> "..self.right_stopper, minx, maxx )
     if lx < self.left_stopper
         and minx > self.left_stopper + 320
     then
@@ -82,7 +82,7 @@ function Batch:spawn(dt)
         if not u.isSpawned then
             if self.time - b.delay >= u.delay then --delay before the unit's spawn
                 --TODO spawn
-                print("spawn ", u.unit.name, u.unit.type, u.unit.hp, self.time)
+                dp("spawn ", u.unit.name, u.unit.type, u.unit.hp, self.time)
                 --add to stage / bump
                 --self:ps(" enSpawn Unit #"..i)
                 u.unit:setOnStage(stage)
@@ -113,7 +113,7 @@ function Batch:spawn(dt)
         self.state = "next"
         self.time = 0
     end
-    --print("all spawned", all_spawned, "all dead", all_dead)
+    --dp("all spawned", all_spawned, "all dead", all_dead)
     return true
 end
 
