@@ -31,6 +31,10 @@ function Loot:initialize(name, gfx, x, y, f)
     GLOBAL_UNIT_ID = GLOBAL_UNIT_ID + 1
 end
 
+function Loot:setOnStage(stage)
+    stage.objects:add(self)
+end
+
 function Loot:addShape()
     Unit.addShape(self, "circle", { self.x, self.y, 7.5 })
 end
