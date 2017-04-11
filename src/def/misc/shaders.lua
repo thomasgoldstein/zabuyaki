@@ -15,8 +15,8 @@ shaders = {
 getShader = function(name, n)
     --print("shaders.get",name,n)
     if shaders[name] then
-        --print("ok ", shaders[name][n or shaders[name].default or 1])
-        return shaders[name][n or shaders[name].default or 1]
+        --print("ok ", shaders[name][n or 1])
+        return shaders[name][n or 1]
     end
     return nil
 end
