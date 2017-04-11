@@ -54,8 +54,9 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.victims = {} -- [victim] = true
     self.isThrown = false
     self.shader = f.shader  --change player colors
+	self.palette = f.palette  --unit's shader/palette number
 	self.color = f.color or { 255, 255, 255, 255 }
-    self.func = f.func
+    self.func = f.func  --custom function call onDeath
 	self.draw = nop
 	self.update = nop
 	self.start = nop

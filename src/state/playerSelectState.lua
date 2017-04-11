@@ -14,9 +14,9 @@ local txt_player_select = love.graphics.newText( gfx.font.kimberley, "PLAYER SEL
 
 local heroes = {
     {
-        {name = "RICK", shader = nil},
-        {name = "RICK", shader = shaders.rick[2]},
-        {name = "RICK", shader = shaders.rick[3]},
+        {name = "RICK", palette = 0},
+        {name = "RICK", palette = 1},
+        {name = "RICK", palette = 2},
         hero = Rick,
         sprite_instance = "src/def/char/rick.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -31,9 +31,9 @@ local heroes = {
         py = 120    --Portrait
     },
     {
-        {name = "KISA", shader = nil},
-        {name = "KISA", shader = shaders.kisa[2]},
-        {name = "KISA", shader = shaders.kisa[3]},
+        {name = "KISA", palette = 0},
+        {name = "KISA", palette = 1},
+        {name = "KISA", palette = 2},
         hero = Kisa,
         sprite_instance = "src/def/char/kisa.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -48,9 +48,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "CHAI", shader = nil},
-        {name = "CHAI", shader = shaders.chai[2]},
-        {name = "CHAI", shader = shaders.chai[3]},
+        {name = "CHAI", palette = 0},
+        {name = "CHAI", palette = 1},
+        {name = "CHAI", palette = 2},
         hero = Chai,
         sprite_instance = "src/def/char/chai.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -65,9 +65,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "GOPPER", shader = shaders.gopper[2]},
-        {name = "GOPPER", shader = shaders.gopper[3]},
-        {name = "GOPPER", shader = nil},
+        {name = "GOPPER", palette = 1},
+        {name = "GOPPER", palette = 2},
+        {name = "GOPPER", palette = 0},
         hero = PGopper,
         sprite_instance = "src/def/char/gopper.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -82,9 +82,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "NIKO", shader = shaders.niko[2]},
-        {name = "NIKO", shader = shaders.niko[3]},
-        {name = "NIKO", shader = nil},
+        {name = "NIKO", palette = 1},
+        {name = "NIKO", palette = 2},
+        {name = "NIKO", palette = 0},
         hero = PNiko,
         sprite_instance = "src/def/char/niko.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -99,9 +99,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "SVETA", shader = shaders.sveta[2]},
-        {name = "SVETA", shader = shaders.sveta[2]},
-        {name = "SVETA", shader = shaders.sveta[2]},
+        {name = "SVETA", palette = 0},
+        {name = "SVETA", palette = 1},
+        {name = "SVETA", palette = 2},
         hero = PSveta,
         sprite_instance = "src/def/char/sveta.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -116,9 +116,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "ZEENA", shader = shaders.zeena[2]},
-        {name = "ZEENA", shader = shaders.zeena[2]},
-        {name = "ZEENA", shader = shaders.zeena[2]},
+        {name = "ZEENA", palette = 0},
+        {name = "ZEENA", palette = 1},
+        {name = "ZEENA", palette = 2},
         hero = PZeena,
         sprite_instance = "src/def/char/zeena.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -133,9 +133,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "BEATNICK", shader = nil},
-        {name = "BEATNICK", shader = shaders.beatnick[2]},
-        {name = "BEATNICK", shader = shaders.beatnick[3]},
+        {name = "BEATNICK", palette = 0},
+        {name = "BEATNICK", palette = 1},
+        {name = "BEATNICK", palette = 2},
         hero = PBeatnick,
         sprite_instance = "src/def/char/beatnick.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -150,9 +150,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "SATOFF", shader = nil},
-        {name = "SATOFF", shader = shaders.satoff[2]},
-        {name = "SATOFF", shader = shaders.satoff[3]},
+        {name = "SATOFF", palette = 0},
+        {name = "SATOFF", palette = 1},
+        {name = "SATOFF", palette = 2},
         hero = PSatoff,
         sprite_instance = "src/def/char/satoff.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
@@ -292,10 +292,13 @@ function playerSelectState:GameStart()
             pl[i] = {
                 hero = heroes[pos].hero,
                 sprite_instance = heroes[pos].sprite_instance,
-                shader = heroes[pos][sh[i][2]].shader,
+                palette = heroes[pos][sh[i][2]].palette,
                 name = heroes[pos][sh[i][2]].name,
                 color = heroes[pos][sh[i][2]].color
             }
+            --TODO remove (should use palette value)
+            pl[i].shader = getShader(pl[i].hero.name:lower(), pl[i].palette)
+            --print(pl[i].shader)
         end
     end
     return Gamestate.switch(arcadeState, pl)
@@ -423,13 +426,9 @@ function playerSelectState:draw()
         if players[i].visible then
             --hero sprite
             love.graphics.setColor(255, 255, 255, 255)
-            if cur_players_hero_set.shader then
-                love.graphics.setShader(cur_players_hero_set.shader)
-            end
             if players[i].sprite then
+                love.graphics.setShader(getShader(cur_players_hero_set.name:lower(), cur_players_hero_set.palette))
                 DrawSpriteInstance(players[i].sprite, h.x, h.y)
-            end
-            if cur_players_hero_set.shader then
                 love.graphics.setShader()
             end
             --P1 P2 P3 indicators

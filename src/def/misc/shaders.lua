@@ -13,9 +13,9 @@ shaders = {
 }
 
 getShader = function(name, n)
-    print("shaders.get",name,n)
+    --print("shaders.get",name,n)
     if shaders[name] then
-        print("ok ", shaders[name][n or shaders[name].default or 1])
+        --print("ok ", shaders[name][n or shaders[name].default or 1])
         return shaders[name][n or shaders[name].default or 1]
     end
     return nil
@@ -418,7 +418,7 @@ end
 --print(name, getShader(name, 2))
 
 function reloadShaders()
-    print("reloadShaders")
+    --print("reloadShaders")
     shaders.rick[1] = swapColors(rick_colors_default, rick_colors_2)
     shaders.rick[2] = swapColors(rick_colors_default, rick_colors_3)
     shaders.chai[1] = swapColors(chai_colors_default, chai_colors_2)

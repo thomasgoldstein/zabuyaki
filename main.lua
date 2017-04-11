@@ -27,6 +27,8 @@ player3 = nil
 credits = GLOBAL_SETTING.MAX_CREDITS
 attackHitBoxes = {} -- DEBUG
 
+shaders = require "src/def/misc/shaders"
+
 function setupScreen()
     configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
     love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
@@ -38,6 +40,7 @@ function setupScreen()
             end
         end
     end
+    reloadShaders()
 end
 function switchFullScreen()
     GLOBAL_SETTING.FULL_SCREEN = not GLOBAL_SETTING.FULL_SCREEN
@@ -101,7 +104,6 @@ function love.load(arg)
 		framerateGraph.load()
 	end
 	require "src/def/misc/particles"
-	shaders = require "src/def/misc/shaders"
 	CompoundPicture = require "src/compoPic"
 	Movie = require "src/movie"
 	Event = require "src/unit/event"
