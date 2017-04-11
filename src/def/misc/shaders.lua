@@ -437,7 +437,8 @@ function reloadShaders()
     shaders.satoff[1] = swapColors(satoff_colors_default, satoff_colors_2)
     shaders.satoff[2] = swapColors(satoff_colors_default, satoff_colors_3)
     shaders.satoff[3] = swapColors(satoff_colors_default, satoff_colors_4)
-    shaders.trashcan[1] = swapColors(trashcan_colors_default, trashcan_colors_2)
+    shaders.trashcan[1] = nil
+    shaders.trashcan[2] = swapColors(trashcan_colors_default, trashcan_colors_2)
 end
 --reloadShaders()
 

@@ -1,4 +1,4 @@
-local sprite_sheet = "res/img/stage/stage1/can.png"
+local sprite_sheet = "res/img/stage/stage1/trashcan.png"
 local image_w,image_h = LoadSpriteSheet(sprite_sheet)
 
 local function q(x,y,w,h)
@@ -9,7 +9,7 @@ return {
     serialization_version = 0.42, -- The version of this serialization process
 
     sprite_sheet = sprite_sheet, -- The path to the spritesheet
-    sprite_name = "can", -- sprite name
+    sprite_name = "trashcan", -- sprite name
 
     delay = 9000000,	--default delay for all
 

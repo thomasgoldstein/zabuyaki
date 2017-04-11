@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="40">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="43">
  <imagelayer name="road0" offsetx="12" offsety="430">
   <image source="res/img/stage/stage1/road1.png" width="365" height="124"/>
  </imagelayer>
@@ -76,17 +76,18 @@
   </object>
  </objectgroup>
  <objectgroup name="unit">
-  <object id="17" name="Gopper" type="unit" x="203.917" y="471.917" width="17.3333" height="17.3333">
+  <object id="17" name="Gopper" type="unit" x="224" y="492" width="16" height="16">
    <properties>
     <property name="batch" value="1"/>
     <property name="class" value="gopper"/>
     <property name="delay" value="0"/>
     <property name="flip" type="bool" value="true"/>
+    <property name="palette" value="2"/>
     <property name="state" value="intro"/>
    </properties>
    <ellipse/>
   </object>
-  <object id="22" name="Niko" type="unit" x="202" y="526.083">
+  <object id="22" name="Niko" type="unit" x="184" y="468">
    <properties>
     <property name="batch" value="1"/>
     <property name="class" value="niko"/>
@@ -95,14 +96,14 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="23" name="Sveta" type="unit" x="260" y="482.25">
+  <object id="23" name="Sveta" type="unit" x="152" y="468">
    <properties>
     <property name="batch" value="1"/>
     <property name="class" value="sveta"/>
    </properties>
    <ellipse/>
   </object>
-  <object id="25" name="Zeena" type="unit" x="238.833" y="508.417">
+  <object id="25" name="Zeena" type="unit" x="132" y="464">
    <properties>
     <property name="batch" value="1"/>
     <property name="class" value="zeena"/>
@@ -158,24 +159,49 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="32" name="Can" type="unit" x="96" y="472" width="16" height="16">
+  <object id="32" name="Trash Can" type="unit" x="72" y="516" width="16" height="16">
    <properties>
-    <property name="class" value="can"/>
+    <property name="class" value="trashcan"/>
     <property name="drop" value="chicken"/>
    </properties>
   </object>
-  <object id="33" name="Stop Sign" type="unit" x="152" y="464" width="16" height="16">
+  <object id="33" name="Stop Sign" type="unit" x="232" y="460" width="16" height="16">
    <properties>
     <property name="class" value="sign"/>
     <property name="drop" value="apple"/>
    </properties>
   </object>
-  <object id="39" name="Сan 2" type="unit" x="128" y="504" width="16" height="16">
+  <object id="39" name="Trash Can" type="unit" x="108" y="492" width="16" height="16">
    <properties>
-    <property name="class" value="can"/>
+    <property name="class" value="trashcan"/>
     <property name="drop" value="beef"/>
     <property name="flip" type="bool" value="true"/>
+    <property name="palette" value="2"/>
    </properties>
+  </object>
+  <object id="40" name="Gopper" type="unit" x="140" y="492" width="16" height="16">
+   <properties>
+    <property name="batch" value="1"/>
+    <property name="class" value="gopper"/>
+    <property name="palette" value="3"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="41" name="Gopper" type="unit" x="168" y="492" width="16" height="16">
+   <properties>
+    <property name="batch" value="1"/>
+    <property name="class" value="gopper"/>
+    <property name="palette" value="4"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="42" name="Gopper" type="unit" x="196" y="492" width="16" height="16">
+   <properties>
+    <property name="batch" value="1"/>
+    <property name="class" value="gopper"/>
+    <property name="palette" value="1"/>
+   </properties>
+   <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="trash" visible="0" opacity="0.11"/>

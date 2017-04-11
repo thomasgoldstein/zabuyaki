@@ -62,9 +62,9 @@ local heroes = {
         sprite_instance = "src/def/char/satoff.lua",
     },
     {
-        name = "CAN",
+        name = "TRASHCAN",
         shaders = { nil, shaders.trashcan[2] },
-        sprite_instance = "src/def/stage/object/can.lua",
+        sprite_instance = "src/def/stage/object/trashcan.lua",
     },
     {
         name = "SIGN",

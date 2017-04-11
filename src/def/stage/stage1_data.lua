@@ -8,7 +8,7 @@ return {
   height = 70,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 40,
+  nextobjectid = 43,
   backgroundcolor = { 231, 207, 157 },
   properties = {},
   tilesets = {},
@@ -353,10 +353,10 @@ return {
           name = "Gopper",
           type = "unit",
           shape = "ellipse",
-          x = 203.917,
-          y = 471.917,
-          width = 17.3333,
-          height = 17.3333,
+          x = 224,
+          y = 492,
+          width = 16,
+          height = 16,
           rotation = 0,
           visible = true,
           properties = {
@@ -364,6 +364,7 @@ return {
             ["class"] = "gopper",
             ["delay"] = "0",
             ["flip"] = true,
+            ["palette"] = "2",
             ["state"] = "intro"
           }
         },
@@ -372,8 +373,8 @@ return {
           name = "Niko",
           type = "unit",
           shape = "ellipse",
-          x = 202,
-          y = 526.083,
+          x = 184,
+          y = 468,
           width = 0,
           height = 0,
           rotation = 0,
@@ -390,8 +391,8 @@ return {
           name = "Sveta",
           type = "unit",
           shape = "ellipse",
-          x = 260,
-          y = 482.25,
+          x = 152,
+          y = 468,
           width = 0,
           height = 0,
           rotation = 0,
@@ -406,8 +407,8 @@ return {
           name = "Zeena",
           type = "unit",
           shape = "ellipse",
-          x = 238.833,
-          y = 508.417,
+          x = 132,
+          y = 464,
           width = 0,
           height = 0,
           rotation = 0,
@@ -522,17 +523,17 @@ return {
         },
         {
           id = 32,
-          name = "Can",
+          name = "Trash Can",
           type = "unit",
           shape = "rectangle",
-          x = 96,
-          y = 472,
+          x = 72,
+          y = 516,
           width = 16,
           height = 16,
           rotation = 0,
           visible = true,
           properties = {
-            ["class"] = "can",
+            ["class"] = "trashcan",
             ["drop"] = "chicken"
           }
         },
@@ -541,8 +542,8 @@ return {
           name = "Stop Sign",
           type = "unit",
           shape = "rectangle",
-          x = 152,
-          y = 464,
+          x = 232,
+          y = 460,
           width = 16,
           height = 16,
           rotation = 0,
@@ -554,19 +555,71 @@ return {
         },
         {
           id = 39,
-          name = "Сan 2",
+          name = "Trash Can",
           type = "unit",
           shape = "rectangle",
-          x = 128,
-          y = 504,
+          x = 108,
+          y = 492,
           width = 16,
           height = 16,
           rotation = 0,
           visible = true,
           properties = {
-            ["class"] = "can",
+            ["class"] = "trashcan",
             ["drop"] = "beef",
-            ["flip"] = true
+            ["flip"] = true,
+            ["palette"] = "2"
+          }
+        },
+        {
+          id = 40,
+          name = "Gopper",
+          type = "unit",
+          shape = "ellipse",
+          x = 140,
+          y = 492,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "1",
+            ["class"] = "gopper",
+            ["palette"] = "3"
+          }
+        },
+        {
+          id = 41,
+          name = "Gopper",
+          type = "unit",
+          shape = "ellipse",
+          x = 168,
+          y = 492,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "1",
+            ["class"] = "gopper",
+            ["palette"] = "4"
+          }
+        },
+        {
+          id = 42,
+          name = "Gopper",
+          type = "unit",
+          shape = "ellipse",
+          x = 196,
+          y = 492,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["batch"] = "1",
+            ["class"] = "gopper",
+            ["palette"] = "1"
           }
         }
       }
