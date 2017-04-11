@@ -19,7 +19,7 @@ local function loadCollision(items, stage)
         if v.type == "wall" then
             if v.shape == "rectangle" then
                 local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
-                stage.objects:add(wall)
+                wall:setOnStage(stage)
             elseif v.shape == "polygon" then
                 local shapeArgs = {}
                 for k = 1, #v.polygon do
@@ -27,7 +27,7 @@ local function loadCollision(items, stage)
                     shapeArgs[#shapeArgs + 1] = v.y + v.polygon[k].y
                 end
                 local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = shapeArgs })
-                stage.objects:add(wall)
+                wall:setOnStage(stage)
             else
                 error("Wrong Tiled object shape #"..i..":"..inspect(v))
             end
@@ -95,21 +95,21 @@ local func_dropApple = function(slf)
         math.floor(slf.x), math.floor(slf.y) + 1,
         { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickup_apple"} --, func = testDeathFunc
     )
-    stage.objects:add(loot)
+    loot:setOnStage(stage)
 end
 local func_dropChicken = function(slf)
     local loot = Loot:new("Chicken", gfx.loot.chicken,
         math.floor(slf.x), math.floor(slf.y) + 1,
         { hp = 50, score = 0, note = "+50 HP", pickupSfx = "pickup_chicken"}
     )
-    stage.objects:add(loot)
+    loot:setOnStage(stage)
 end
 local func_dropBeef = function(slf)
     local loot = Loot:new("Beef", gfx.loot.beef,
         math.floor(slf.x), math.floor(slf.y) + 1,
         { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickup_beef"}
     )
-    stage.objects:add(loot)
+    loot:setOnStage(stage)
 end
 
 local function getUnitFunction(v)
