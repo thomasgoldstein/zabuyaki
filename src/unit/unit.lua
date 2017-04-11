@@ -13,11 +13,10 @@ local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 GLOBAL_UNIT_ID = 1
 
 function Unit:initialize(name, sprite, input, x, y, f)
-    --f options {}: shapeType, shapeArgs, hp, score, shader, color, sfxOnHit, sfxDead, func
+    --f options {}: shapeType, shapeArgs, hp, score, shader, palette, color, sfxOnHit, sfxDead, func
     if not f then
         f = {}
     end
-    self.isSpawned = false
     self.isDisabled = true
 	self.sprite = sprite
 	self.name = name or "Unknown"
@@ -53,9 +52,9 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.hold = {source = nil, target = nil, cool_down = 0 }
     self.victims = {} -- [victim] = true
     self.isThrown = false
-    self.shader = f.shader  --change player colors
+    self.shader = f.shader  --it is set on spawn (alter unit's colors)
 	self.palette = f.palette  --unit's shader/palette number
-	self.color = f.color or { 255, 255, 255, 255 }
+	self.color = f.color or { 255, 255, 255, 255 } --suppot additional color tone. Not uset now
     self.func = f.func  --custom function call onDeath
 	self.draw = nop
 	self.update = nop
@@ -72,18 +71,14 @@ function Unit:initialize(name, sprite, input, x, y, f)
 		self.pid = ""
 		self.show_pid_cool_down = 0
 	end
---	self.shapeType = f.shapeType or "rectangle"
---	self.shapeArgs = f.shapeArgs or {self.x, self.y, 15, 7}
 	self:addShape(f.shapeType or "rectangle", f.shapeArgs or {self.x, self.y, 15, 7})
---	self:addShape()
 	self:setState(self.stand)
 	dpo_init(self)
 end
 
 function Unit:setOnStage(stage)
-	--self:addShape(self.shapeType, self.shapeArgs)
 	stage.objects:add(self)
-    self.isSpawned = true
+	self.shader = getShader(self.sprite.def.sprite_name:lower(), self.palette)
 end
 
 function Unit:addShape(shapeType, shapeArgs)
@@ -121,7 +116,6 @@ function Unit:addShape(shapeType, shapeArgs)
 	else
 		dp(self.name.."("..self.id..") has predefined shape")
     end
-    --dp(self.name.." CALC width: "..self.width.." from shape "..shapeType.." ->", unpack(shapeArgs) )
 end
 
 function Unit:playHitSfx(dmg)
