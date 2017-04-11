@@ -24,6 +24,10 @@ function Wall:initialize(name, f)
     self:setState(self.stand)
 end
 
+function Wall:setOnStage(stage)
+    stage.objects:add(self)
+end
+
 function Wall:updateSprite(dt)
 end
 
