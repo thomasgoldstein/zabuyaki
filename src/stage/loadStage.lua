@@ -44,7 +44,7 @@ end
     zeena = Zeena,
     beatnick = Beatnick,
     satoff = Satoff,
-    can = Obstacle,
+    trashcan = Obstacle,
     sign = Obstacle
 }
 local function getClassByName(name)
@@ -75,7 +75,7 @@ local function getClassByName(name)
         return Beatnick
     elseif name == "satoff" then
         return Satoff
-    elseif name == "can" or name == "sign" then
+    elseif name == "trashcan" or name == "sign" then
         return Obstacle
     end
     error("Wrong class name: "..tostring(name))
@@ -160,19 +160,22 @@ local function loadUnit(items, stage, batch_name)
                     units[#units + 1] = u
                 else
                     --for permanent units that belong to no batch
-                    if v.properties.class == "can" then
+                --TODO add proper colorParticle!
+                    if v.properties.class == "trashcan" then
                         u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
                             {hp = 35, score = 100, shader = nil, color = nil, colorParticle = nil,
-                                isMovable = true, func = getUnitFunction(v),
+                                isMovable = true, func = getUnitFunction(v), palette = tonumber(v.properties.palette or 1),
                                 sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
                     elseif v.properties.class == "sign" then
                         u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
                             {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
                                 shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
-                                isMovable = false, func = getUnitFunction(v),
-                                sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+                                isMovable = false, func = getUnitFunction(v), palette = tonumber(v.properties.palette or 1),
+                        sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+                    else
+                        error("Wrong obstacle class "..v.properties.class)
                     end
                     units[#units + 1] = u.unit
                 end
@@ -188,7 +191,9 @@ end
 local function loadPermanentUnits(items, stage)
     print("Load permanent units...")
     local units = loadUnit(items, stage)
-    stage.objects:addArray(units)
+    for _,unit in ipairs(units) do
+        unit:setOnStage(stage)
+    end
 end
 
 local function loadBatch(items, stage)
