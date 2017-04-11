@@ -85,8 +85,9 @@ function Batch:spawn(dt)
                 print("spawn ", u.unit.name, u.unit.type, u.unit.hp, self.time)
                 --add to stage / bump
                 --self:ps(" enSpawn Unit #"..i)
-                self.stage.objects:add(u.unit)
+                u.unit:setOnStage(stage)
                 u.isSpawned = true
+
                 if u.state == "intro" then
                     u.unit:setState(u.unit.intro)
                 elseif u.state == "stand" then
