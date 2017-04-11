@@ -80,7 +80,7 @@ Now you can add enemy batches into the game.
 Every batch should contain these properties
 * Name <- Every enemy on the stage has a property **batch** with his batch name. 
            Use simple batch naming, such as 1 2 3 4 etc.
-* Type <- **"batch"**
+* Type <- **batch**
 
 Custom properties:
 * delay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
@@ -101,10 +101,19 @@ Every enemy should contain these properties
 Custom properties:
 * batch <- enemy batch name. Usually a number
 * class <- Gopper, Niko, Sveta, Zeena, Beatnick or Satoff  
-* delay <- delay before its appearance in seconds (float numbers are fine, too). This property is optional.
+
+The unit without **batch** property is called permanent. It is spawed on loading the stage.
 
 Enemy unit's x,y coords equal to coords of the shape center. You can use any shapes: Oval, Rectangle. 
 > Hint: The size of the shape is ignored.
+
+## Optional units properties ##
+Optional properties:
+* delay <- delay before its appearance in seconds (float numbers are fine, too)
+* state <- units state on spawn: intro, stand, walk (aim to players)
+* palette <- select unit's coloring number (shaders). 1 - default.
+* flip <- turn units face to the left  
+* drop <- which loot to drop. It can be one **apple**, **chicken** or **beef** 
 
 ## In-Game drawing order ##
 The BG images are drawn starting from the very last item in the list back to the top.
