@@ -14,10 +14,7 @@ function createSelectedPlayers(players)
             GetSpriteInstance(players[1].sprite_instance),
             Control1,
             60, top_floor_y + 65,
-            {
-                --shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 },
-                shader = players[1].shader, color = {255,255,255, 255 }
-            }
+            { palette = players[1].palette }
         )
     end
     GLOBAL_UNIT_ID = 2  --recalc players IDs for proper life bar coords
@@ -26,7 +23,7 @@ function createSelectedPlayers(players)
             GetSpriteInstance(players[2].sprite_instance),
             Control2,
             90, top_floor_y + 35,
-            { shader = players[2].shader }
+            { palette = players[2].palette }
         )
     end
     GLOBAL_UNIT_ID = 3  --recalc players IDs for proper life bar coords
@@ -35,20 +32,20 @@ function createSelectedPlayers(players)
             GetSpriteInstance(players[3].sprite_instance),
             Control3,
             120, top_floor_y + 5,
-            { shader = players[3].shader }
+            { palette = players[3].palette }
         )
     end
 end
 
 function addPlayersToStage(stage)
     if player1 then
-        stage.objects:add(player1)
+        player1:setOnStage(stage)
     end
     if player2 then
-        stage.objects:add(player2)
+        player2:setOnStage(stage)
     end
     if player3 then
-        stage.objects:add(player3)
+        player3:setOnStage(stage)
     end
 end
 
