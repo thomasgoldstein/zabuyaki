@@ -296,9 +296,6 @@ function playerSelectState:GameStart()
                 name = heroes[pos][sh[i][2]].name,
                 color = heroes[pos][sh[i][2]].color
             }
-            --TODO remove (should use palette value)
-            pl[i].shader = getShader(pl[i].hero.name:lower(), pl[i].palette)
-            --print(pl[i].shader)
         end
     end
     return Gamestate.switch(arcadeState, pl)
