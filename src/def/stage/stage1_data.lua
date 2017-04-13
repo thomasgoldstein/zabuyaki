@@ -8,7 +8,7 @@ return {
   height = 70,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 43,
+  nextobjectid = 46,
   backgroundcolor = { 231, 207, 157 },
   properties = {},
   tilesets = {},
@@ -620,6 +620,63 @@ return {
             ["batch"] = "1",
             ["class"] = "gopper",
             ["palette"] = "1"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "player",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 43,
+          name = "1",
+          type = "player",
+          shape = "ellipse",
+          x = 50.5,
+          y = 462.5,
+          width = 23.25,
+          height = 21.75,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["state"] = "walk"
+          }
+        },
+        {
+          id = 44,
+          name = "3",
+          type = "player",
+          shape = "ellipse",
+          x = 10,
+          y = 503.25,
+          width = 24.75,
+          height = 24,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["state"] = "walk"
+          }
+        },
+        {
+          id = 45,
+          name = "2",
+          type = "player",
+          shape = "ellipse",
+          x = 31.75,
+          y = 481.75,
+          width = 24.75,
+          height = 23,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["state"] = "walk"
           }
         }
       }
