@@ -33,7 +33,6 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.sfx.onBreak = f.sfxOnBreak --on sprite change/fall sfx
     self.sfx.grab = f.sfxGrab --on being grabbed sfx
     self.isMovable = f.isMovable
-    self.colorParticle = f.colorParticle
     self.weight = f.weight or 1.5
     self.gravity = self.gravity * self.weight
     self.cool_down_death = 1 --seconds to remove
@@ -161,8 +160,8 @@ function Obstacle:onHurt()
         local psystem = PA_OBSTACLE_BREAK_SMALL:clone()
         psystem:setPosition( 0, -self.height + self.height / 3 )
         --psystem:setAreaSpread( "uniform", 2, 8 )
-        if self.colorParticle then
-            psystem:setColors( unpack(self.colorParticle) )
+        if self.particleColor then
+            psystem:setColors( unpack(self.particleColor) )
         end
         psystem:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
         psystem:emit(4)
@@ -172,8 +171,8 @@ function Obstacle:onHurt()
 
         local psystem = PA_OBSTACLE_BREAK_BIG:clone()
         psystem:setPosition( 0, -self.height + self.height / 3 )
-        if self.colorParticle then
-            psystem:setColors( unpack(self.colorParticle) )
+        if self.particleColor then
+            psystem:setColors( unpack(self.particleColor) )
         end
         --psystem:setAreaSpread( "uniform", 2, 8 )
         psystem:setLinearDamping( 0.1, 2 )

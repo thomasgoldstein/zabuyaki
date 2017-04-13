@@ -55,6 +55,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.shader = f.shader  --it is set on spawn (alter unit's colors)
 	self.palette = f.palette  --unit's shader/palette number
 	self.color = f.color or { 255, 255, 255, 255 } --suppot additional color tone. Not uset now
+	self.particleColor = f.particleColor
     self.func = f.func  --custom function call onDeath
 	self.draw = nop
 	self.update = nop

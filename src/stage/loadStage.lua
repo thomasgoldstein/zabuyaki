@@ -142,6 +142,7 @@ local function loadUnit(items, stage, batch_name)
             if v.properties.batch == batch_name then
                 local u = {}
                 local inst = getClassByName(v.properties.class)
+                local palette = tonumber(v.properties.palette or 1)
                 if not inst then
                     error("Missing enemy class instance name :"..inspect(v))
                 end
@@ -154,24 +155,25 @@ local function loadUnit(items, stage, batch_name)
                         v.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
                         nil,
                         r(v.x + v.width / 2), r(v.y + v.height / 2),
-                        { func = getUnitFunction(v), palette = tonumber(v.properties.palette or 1) }
+                        { func = getUnitFunction(v), palette = palette }
                     )
                     units[#units + 1] = u
                 else
                     --for permanent units that belong to no batch
-                --TODO add proper colorParticle!
                     if v.properties.class == "trashcan" then
                         u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
-                            {hp = 35, score = 100, shader = nil, color = nil, colorParticle = nil,
-                                isMovable = true, func = getUnitFunction(v), palette = tonumber(v.properties.palette or 1),
+                            {hp = 35, score = 100,
+                                isMovable = true, func = getUnitFunction(v),
+                                palette = palette, particleColor = shaders.trashcan_particle_color[palette],
                                 sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
                     elseif v.properties.class == "sign" then
                         u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
-                            {hp = 89, score = 120, shader = nil, color = nil, colorParticle = nil,
+                            {hp = 89, score = 120,
                                 shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
-                                isMovable = false, func = getUnitFunction(v), palette = tonumber(v.properties.palette or 1),
+                                isMovable = false, func = getUnitFunction(v),
+                                palette = palette,
                         sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
                     else
                         error("Wrong obstacle class "..v.properties.class)
