@@ -287,10 +287,56 @@ local function loadCameraScrolling(items, scrolling)
     return scrolling
 end
 
-function loadStageData(file, stage)
+local function addPlayersToStage(items, players, stage)
+    player1 = nil
+    player2 = nil
+    player3 = nil
+    local controls = {Control1, Control2, Control3}
+
+    dp("Set players to start positions...")
+    local t = extractTable(items.layers, "player")
+    for i, v in ipairs(t.objects) do
+        if v.type == "player" then
+            --print(v.name, inspect(players))
+            --local n = tonumber(v.name or 0)
+            local p = players[i]
+            if p then
+                GLOBAL_UNIT_ID = i
+                p.x = r(v.x + v.width / 2)
+                p.y = r(v.y + v.height / 2)
+                local player = players[i].hero:new(players[i].name,
+                    GetSpriteInstance(players[i].sprite_instance),
+                    controls[i],
+                    players[i].x, players[i].y,
+                    { palette = players[i].palette, id = i }
+                )
+                player:setOnStage(stage)
+                if i == 1 then
+                    player1 = player
+                elseif i == 2 then
+                    player2 = player
+                elseif i == 3 then
+                    player3 = player
+                else
+                    error("Wrong player number")
+                end
+
+            else
+                error("Wrong Player number. Name property should be 1, 2 or 3:"..inspect(v))
+            end
+        else
+            error("Wrong Tiled object type #"..i..":"..inspect(v))
+        end
+    end
+    GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
+end
+
+function loadStageData(file, stage, players)
     local chunk = love.filesystem.load( file )
     local d = chunk()
     loadCollision(d, stage)
+    addPlayersToStage(d, players, stage)
+    allowPlayersSelect(players) -- if debug, you can select char on start
     loadPermanentUnits(d, stage)
     stage.batch = loadBatch(d, stage)
     stage.scrolling = loadCameraScrolling(d)
