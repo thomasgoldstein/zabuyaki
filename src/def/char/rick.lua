@@ -122,7 +122,7 @@ return {
 			{ q = q(55, 597, 38, 17) }
 		},
 		intro = {
-			{ q = q(48,398,43,58), ox = 18, oy = 57 }, --pickup 2
+			{ q = q(48,398,43,58), ox = 19, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			loop = true,
 			delay = 1
@@ -168,9 +168,9 @@ return {
             delay = 0.2
 		},
 		run = {
-			{ q = q(2,136,43,60), ox = 14, oy = 59 }, --run 1
-			{ q = q(47,134,48,62), ox = 18, oy = 61 }, --run 2
-			{ q = q(97,134,47,62), ox = 17, oy = 61, func = step_sfx }, --run 3
+			{ q = q(2,136,42,60), ox = 13, oy = 59 }, --run 1
+			{ q = q(46,134,48,62), ox = 18, oy = 61 }, --run 2
+			{ q = q(96,134,47,62), ox = 17, oy = 61, func = step_sfx }, --run 3
 			{ q = q(2,200,41,60), ox = 12, oy = 59 }, --run 4
 			{ q = q(45,198,48,61), ox = 18, oy = 61 }, --run 5
 			{ q = q(95,198,47,62), ox = 17, oy = 61, func = step_sfx }, --run 6
@@ -181,13 +181,13 @@ return {
 			{ q = q(46,262,44,66), ox = 22, oy = 65, delay = 0.15 }, --jump up
 			{ q = q(92,262,44,64), ox = 22, oy = 65 }, --jump up/top
 			{ q = q(138,262,45,61), ox = 22, oy = 66, delay = 0.2 }, --jump top
-			{ q = q(146,195,44,65), ox = 22, oy = 66 }, --jump down/top
+			{ q = q(145,195,44,65), ox = 22, oy = 66 }, --jump down/top
 			{ q = q(178,395,44,68), ox = 22, oy = 67, delay = 5 }, --jump down
 			delay = 0.03
 		},
 		respawn = {
 			{ q = q(178,395,44,68), ox = 22, oy = 67, delay = 5 }, --jump down
-			{ q = q(48,398,43,58), ox = 18, oy = 57, delay = 0.5 }, --pickup 2
+			{ q = q(48,398,43,58), ox = 19, oy = 57, delay = 0.5 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.1
 		},
@@ -197,15 +197,15 @@ return {
 		},
 		pickup = {
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.03 }, --pickup 1
-			{ q = q(48,398,43,58), ox = 18, oy = 57, delay = 0.2 }, --pickup 2
+			{ q = q(48,398,43,58), ox = 19, oy = 57, delay = 0.2 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.05
 		},
 		dashAttack = {
 			{ q = q(2,915,63,62), ox = 38, oy = 61, delay = 0.07 }, --dash attack 1
 			{ q = q(67,914,37,63), ox = 17, oy = 62, delay = 0.1 }, --dash attack 2
-			{ q = q(106,913,61,64), ox = 17, oy = 63, func = dash_attack1, delay = 0.08 }, --dash attack 3
-			{ q = q(106,913,61,64), ox = 17, oy = 63, func = dash_attack2, delay = 0.08 }, --dash attack 3
+			{ q = q(106,913,60,64), ox = 17, oy = 63, func = dash_attack1, delay = 0.08 }, --dash attack 3
+			{ q = q(106,913,60,64), ox = 17, oy = 63, func = dash_attack2, delay = 0.08 }, --dash attack 3
 			{ q = q(168,916,53,61), ox = 16, oy = 60 }, --dash attack 4
 			{ q = q(117,519,40,63), ox = 17, oy = 62 }, --combo 2.1
 			delay = 0.16
@@ -224,10 +224,10 @@ return {
 			delay = 0.04
 		},
 		dashSpecial = {
-			{ q = q(2,1181,49,59), ox = 18, oy = 58, delay = 0.167 }, --dash special 1
-			{ q = q(53,1178,49,62), ox = 17, oy = 61, func = dash_attack1, delay = 0.05 }, --dash special 2
-			{ q = q(104,1178,49,62), ox = 15, oy = 61, func = dash_attack1, delay = 0.05 }, --dash special 3
-			{ q = q(155,1173,54,67), ox = 20, oy = 66, func = dash_attack2 }, --dash special 4
+			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --dash special 1
+			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = dash_attack1, delay = 0.05 }, --dash special 2
+			{ q = q(100,1178,49,62), ox = 15, oy = 61, func = dash_attack1, delay = 0.05 }, --dash special 3
+			{ q = q(151,1173,54,67), ox = 20, oy = 66, func = dash_attack2 }, --dash special 4
 			{ q = q(2,1242,54,66), ox = 20, oy = 65, func = dash_attack2 }, --dash special 5
 			{ q = q(58,1242,54,66), ox = 20, oy = 65, func = dash_attack2 }, --dash special 6
 			delay = 0.117
@@ -278,7 +278,7 @@ return {
 		getup = {
 			{ q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
 			{ q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
-			{ q = q(48,398,43,58), ox = 18, oy = 57 }, --pickup 2
+			{ q = q(48,398,43,58), ox = 19, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.2
 		},
@@ -317,7 +317,7 @@ return {
 			delay = 5
 		},
 		jumpAttackStraight = {
-			{ q = q(2,778,38,63), ox = 19, oy = 66 }, --jump attack straight 1
+			{ q = q(2,778,38,64), ox = 19, oy = 66 }, --jump attack straight 1
 			{ q = q(42,778,50,64), ox = 19, oy = 66, func = jump_straight_attack1, delay = 0.07 }, --jump attack straight 2
 			{ q = q(94,778,43,62), ox = 19, oy = 66, funcCont = jump_straight_attack2, delay = 5 }, --jump attack straight 3
 			delay = 0.1
@@ -355,15 +355,15 @@ return {
 		shoveDown = {
 			{ q = q(2,1044,56,63), ox = 30, oy = 62 }, --grab end 1.1
 			{ q = q(2,979,45,63), ox = 19, oy = 62, delay = 0.01 }, --grab
-			{ q = q(60,1047,51,60), ox = 17, oy = 59, func = grabEnd_attack }, --grab end 1.2
-			{ q = q(113,1044,45,63), ox = 18, oy = 62, delay = 0.1 }, --grab end 1.3
+			{ q = q(60,1047,50,60), ox = 16, oy = 59, func = grabEnd_attack }, --grab end 1.2
+			{ q = q(112,1044,45,63), ox = 18, oy = 62, delay = 0.1 }, --grab end 1.3
 			delay = 0.25
 		},
 		shoveUp = {
-			{ q = q(2,1181,49,59), ox = 18, oy = 58, delay = 0.167 }, --dash special 1
-			{ q = q(53,1178,49,62), ox = 17, oy = 61, func = shove_now, delay = 0.05 }, --dash special 2
-			{ q = q(104,1178,49,62), ox = 15, oy = 61, delay = 0.05 }, --dash special 3
-			{ q = q(155,1173,54,67), ox = 20, oy = 66 }, --dash special 4
+			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --dash special 1
+			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = shove_now, delay = 0.05 }, --dash special 2
+			{ q = q(100,1178,49,62), ox = 15, oy = 61, delay = 0.05 }, --dash special 3
+			{ q = q(151,1173,54,67), ox = 20, oy = 66 }, --dash special 4
 			{ q = q(2,1242,54,66), ox = 20, oy = 65 }, --dash special 5
 			{ q = q(58,1242,54,66), ox = 20, oy = 65 }, --dash special 6
 			delay = 0.117
