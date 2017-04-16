@@ -320,9 +320,6 @@ local function addPlayersToStage(items, players, stage)
                 else
                     error("Wrong player number")
                 end
-
-            else
-                error("Wrong Player number. Name property should be 1, 2 or 3:"..inspect(v))
             end
         else
             error("Wrong Tiled object type #"..i..":"..inspect(v))
