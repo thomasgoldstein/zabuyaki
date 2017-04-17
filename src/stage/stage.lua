@@ -151,6 +151,7 @@ function Stage:displayTime(screen_width, screen_height)
     love.graphics.draw(txt_time, x, y )
 end
 
+local beep_timer = 0
 function Stage:update(dt)
     if self.mode == "normal" then
         self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
@@ -173,6 +174,17 @@ function Stage:update(dt)
             if self.time_left <= 0 and self.time_left > -math.pi then
                 killAllPlayers()
                 self.time_left = -math.pi
+            end
+        end
+        if self.time_left <= 10 and self.time_left >= 0 then
+            beep_timer = beep_timer + dt
+            if beep_timer > 1 then
+                sfx.play("sfx", "menu_move")
+                if self.time_left > 1 then
+                    beep_timer = -0.5
+                else
+                    beep_timer = 0
+                end
             end
         end
     elseif self.mode == "event" then
