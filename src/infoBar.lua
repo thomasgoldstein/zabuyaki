@@ -7,9 +7,10 @@ local calcBarTransparency = calcBarTransparency
 
 local v_g = 39 --vertical gap between bars
 local v_m = 13 --vert margin from the top
-local h_m = 42 --horizontal margin
+local h_m = 16 --horizontal margin
+local h_g = 32 --horizontal gap between bars
 local bar_width = 150
-local bar_width_with_lr = bar_width + 8
+local bar_width_with_lr = bar_width + 16
 local bar_height = 16
 local icon_width = 40
 local icon_height = 17
@@ -21,9 +22,9 @@ local got_color = {34,172,11}
 local bar_top_bottom_smooth_color = {100,50,50}
 
 local bars_coords = {   --for players only 1..MAX_PLAYERS
-    { x = h_m + 4, y = v_m + 0 * v_g },
-    { x = math.floor(screen_width / 2 - bar_width_with_lr / 2) + 2, y = v_m + 0 * v_g },
-    { x = math.floor(screen_width - bar_width_with_lr - h_m + 0), y = v_m + 0 * v_g }
+    { x = h_m , y = v_m + 0 * v_g },
+    { x = h_m + bar_width_with_lr + h_g, y = v_m + 0 * v_g },
+    { x = h_m + bar_width_with_lr * 2 + h_g * 2, y = v_m + 0 * v_g }
 }
 
 local function calcBarWidth(self)
