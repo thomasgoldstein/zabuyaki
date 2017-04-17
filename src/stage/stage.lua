@@ -129,21 +129,14 @@ function Stage:resetTime()
     self.time_left = GLOBAL_SETTING.TIMER
 end
 
-local txt_time = love.graphics.newText( gfx.font.clock, "TIME" )
-local txt_time_seconds
-local outline_shift = { {x = 1, y = 1}, {x = -1, y = 1}, {x = 1, y = -1}, {x = -1, y = -1} }
+local txt_time
 function Stage:displayTime(screen_width, screen_height)
-    txt_time_seconds = love.graphics.newText( gfx.font.clock, string.format( "%02d", self.time_left ) )
-    local x, y = (screen_width - txt_time:getWidth()) / 2, screen_height - txt_time:getHeight()
-    local xs = x + (txt_time:getWidth() - txt_time_seconds:getWidth() ) / 2
+    txt_time = love.graphics.newText( gfx.font.clock, string.format( "%02d", self.time_left ) )
+    local x, y = screen_width - txt_time:getWidth() - 4, 4
     love.graphics.setColor(55, 55, 55, 255)
-    for i = 1, #outline_shift do
-        love.graphics.draw(txt_time, x + outline_shift[i].x, y + outline_shift[i].y - txt_time:getHeight())
-        love.graphics.draw(txt_time_seconds, xs + outline_shift[i].x, y + outline_shift[i].y)
-    end
+    love.graphics.draw(txt_time, x - 2, y - 2 )
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_time, x, y - txt_time:getHeight() )
-    love.graphics.draw(txt_time_seconds, xs, y )
+    love.graphics.draw(txt_time, x, y )
 end
 
 function Stage:update(dt)
