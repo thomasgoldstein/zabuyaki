@@ -157,7 +157,7 @@ function Stage:update(dt)
         end
         self:setCamera(dt)
         if self.time_left > 0 then
-            self.time_left = self.time_left - dt
+            self.time_left = self.time_left - dt / 5
             if self.time_left <= 0 then
                 self.time_left = 0
                 killAllPlayers()
