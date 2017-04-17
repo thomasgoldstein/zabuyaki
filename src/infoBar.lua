@@ -7,8 +7,8 @@ local calcBarTransparency = calcBarTransparency
 
 local v_g = 39 --vertical gap between bars
 local v_m = 13 --vert margin from the top
-local h_m = 16 --horizontal margin
-local h_g = 32 --horizontal gap between bars
+local h_m = 28 --horizontal margin
+local h_g = 20 --horizontal gap between bars
 local bar_width = 150
 local bar_width_with_lr = bar_width + 16
 local bar_height = 16
