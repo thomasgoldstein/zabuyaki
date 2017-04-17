@@ -27,6 +27,13 @@ function Player:isAlive()
     return self.hp + self.lives > 0
 end
 
+function Player:isInUseCreditMode()
+    if self.state ~= "useCredit" then
+        return false
+    end
+    return true
+end
+
 function Player:setState(state, condition)
     if state then
         self.time_state = love.timer.getTime()

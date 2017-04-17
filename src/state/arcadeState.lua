@@ -120,8 +120,9 @@ function arcadeState:draw()
     end
     show_debug_controls()
     show_debug_indicator()
-    -- GAME OVER
-    if not is_alive then
+    if is_alive then
+        stage:displayTime(screen_width, screen_height)
+    else -- GAME OVER
         drawGameOver()
     end
     -- Profiler Pie Graph

@@ -27,6 +27,7 @@ function Stage:initialize(name, bgColor)
     self.background = nil
     self.foreground = nil
     self.scrolling = {}
+    self.time_left = GLOBAL_SETTING.TIMER
     self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
     self.world = HC.new(40*4)
     self.objects = Entity:new()
@@ -120,6 +121,31 @@ function Stage:updateZStoppers(dt)
     end
 end
 
+function Stage:isTimeOut()
+    return self.time_left <= 0
+end
+
+function Stage:resetTime()
+    self.time_left = GLOBAL_SETTING.TIMER
+end
+
+local txt_time = love.graphics.newText( gfx.font.clock, "TIME" )
+local txt_time_seconds
+local outline_shift = { {x = 1, y = 1}, {x = -1, y = 1}, {x = 1, y = -1}, {x = -1, y = -1} }
+function Stage:displayTime(screen_width, screen_height)
+    txt_time_seconds = love.graphics.newText( gfx.font.clock, string.format( "%02d", self.time_left ) )
+    local x, y = (screen_width - txt_time:getWidth()) / 2, screen_height - txt_time:getHeight()
+    local xs = x + (txt_time:getWidth() - txt_time_seconds:getWidth() ) / 2
+    love.graphics.setColor(55, 55, 55, 255)
+    for i = 1, #outline_shift do
+        love.graphics.draw(txt_time, x + outline_shift[i].x, y + outline_shift[i].y - txt_time:getHeight())
+        love.graphics.draw(txt_time_seconds, xs + outline_shift[i].x, y + outline_shift[i].y)
+    end
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(txt_time, x, y - txt_time:getHeight() )
+    love.graphics.draw(txt_time_seconds, xs, y )
+end
+
 function Stage:update(dt)
     if self.mode == "normal" then
         self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
@@ -137,6 +163,16 @@ function Stage:update(dt)
             self.foreground:update(dt)
         end
         self:setCamera(dt)
+        if self.time_left > 0 then
+            self.time_left = self.time_left - dt
+            if self.time_left <= 0 then
+                self.time_left = 0
+                killAllPlayers()
+                if areAllPlayersAlive() then
+                    self:resetTime()
+                end
+            end
+        end
     elseif self.mode == "event" then
         if self.event then
             self.event:update(dt)

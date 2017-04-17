@@ -25,7 +25,6 @@ function checkPlayersRespawn(stage)
     end
 end
 
-
 function allowPlayersSelect(players)
     if playerSelectState.enable_player_select_on_start then
         --Let select 3 players in the beginning of the stage for DEBUG
@@ -65,6 +64,24 @@ function areAllPlayersAlive()
         is_alive = is_alive or player3:isAlive()
     end
     return is_alive
+end
+
+function killAllPlayers()
+    if player1 then
+        if player1:isAlive() and not player1:isInUseCreditMode() then
+            player1:applyDamage(player1.hp + 1, "fall", nil)
+        end
+    end
+    if player2 then
+        if player2:isAlive() and not player2:isInUseCreditMode() then
+            player2:applyDamage(player2.hp, "fall", nil)
+        end
+    end
+    if player3 then
+        if player3:isAlive() and not player3:isInUseCreditMode() then
+            player3:applyDamage(player3.hp, "fall", nil)
+        end
+    end
 end
 
 function drawPlayersBars()
