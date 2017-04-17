@@ -144,7 +144,7 @@ function Stage:displayTime(screen_width, screen_height)
     love.graphics.setColor(55, 55, 55, transp)
     love.graphics.draw(txt_time, x + 1, y - 1 )
     if self.time_left < 5 then
-        love.graphics.setColor(255, 0, 0, transp)
+        love.graphics.setColor(240, 40, 40, transp)
     else
         love.graphics.setColor(255, 255, 255, transp)
     end
@@ -170,7 +170,7 @@ function Stage:update(dt)
         end
         self:setCamera(dt)
         if self.time_left > 0 or self.time_left <= -math.pi then
-            self.time_left = self.time_left - dt / 3
+            self.time_left = self.time_left - dt / 2
             if self.time_left <= 0 and self.time_left > -math.pi then
                 killAllPlayers()
                 self.time_left = -math.pi
