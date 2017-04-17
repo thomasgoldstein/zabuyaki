@@ -521,6 +521,7 @@ function Player:dead_start()
     if self.killer_id then
         self.killer_id:addScore( self.score_bonus )
     end
+    stage:resetTime()
 end
 function Player:dead_update(dt)
     if self.isDisabled then
