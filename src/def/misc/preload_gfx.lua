@@ -23,7 +23,7 @@ gfx.ui.right_slant = {sprite = ui, q = q(11,2,12,16), ox = 0, oy = 0 }
 gfx.ui.middle_slant = {sprite = ui, q = q(10,2,4,16), ox = 0, oy = 0 }
 gfx.ui.image = ui
 
-gfx.font.clock = love.graphics.newFont( "res/font/Digital Dismay.otf", 44 )
+gfx.font.clock = love.graphics.newFont( "res/font/Digital Dismay.otf", 46 )
 gfx.font.clock:setFilter( "nearest", "nearest" )
 --title Zabu logo
 gfx.font.arcade2 = love.graphics.newFont( "res/font/arcade_i.ttf", 64 )
