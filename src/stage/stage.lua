@@ -131,11 +131,23 @@ end
 
 local txt_time
 function Stage:displayTime(screen_width, screen_height)
-    txt_time = love.graphics.newText( gfx.font.clock, string.format( "%02d", self.time_left ) )
+    local time = 0
+    if self.time_left > 0 then
+        time = self.time_left
+    end
+    txt_time = love.graphics.newText( gfx.font.clock, string.format( "%02d", time ) )
+    local transp = 255
     local x, y = screen_width - txt_time:getWidth() - 26, 6
-    love.graphics.setColor(55, 55, 55, 255)
+    if self.time_left <= 10 then
+        transp = 155 + 100 * math.cos(10 - self.time_left * 40)
+    end
+    love.graphics.setColor(55, 55, 55, transp)
     love.graphics.draw(txt_time, x + 1, y - 1 )
-    love.graphics.setColor(255, 255, 255, 255)
+    if self.time_left < 5 then
+        love.graphics.setColor(255, 0, 0, transp)
+    else
+        love.graphics.setColor(255, 255, 255, transp)
+    end
     love.graphics.draw(txt_time, x, y )
 end
 
@@ -156,11 +168,11 @@ function Stage:update(dt)
             self.foreground:update(dt)
         end
         self:setCamera(dt)
-        if self.time_left > 0 then
-            self.time_left = self.time_left - dt / 5
-            if self.time_left <= 0 then
-                self.time_left = 0
+        if self.time_left > 0 or self.time_left <= -math.pi then
+            self.time_left = self.time_left - dt / 3
+            if self.time_left <= 0 and self.time_left > -math.pi then
                 killAllPlayers()
+                self.time_left = -math.pi
             end
         end
     elseif self.mode == "event" then
