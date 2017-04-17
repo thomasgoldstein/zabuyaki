@@ -86,6 +86,7 @@ function pauseState:draw()
     end
     if stage.mode == "normal" then
         drawPlayersBars()
+        stage:displayTime(screen_width, screen_height)
     end
     love.graphics.setFont(gfx.font.arcade3x2)
     for i = 1,#menu do

@@ -1,5 +1,8 @@
 screenshotState = {}
 
+local screen_width = 640
+local screen_height = 480
+
 function screenshotState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
     sfx.play("sfx","menu_cancel")
@@ -39,6 +42,7 @@ function screenshotState:draw()
     end
     if stage.mode == "normal" then
         drawPlayersBars()
+        stage:displayTime(screen_width, screen_height)
     end
     push:finish()
 end

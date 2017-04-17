@@ -120,11 +120,10 @@ function arcadeState:draw()
     end
     show_debug_controls()
     show_debug_indicator()
-    if is_alive then
-        stage:displayTime(screen_width, screen_height)
-    else -- GAME OVER
+    if not is_alive then
         drawGameOver()
     end
+    stage:displayTime(screen_width, screen_height)
     -- Profiler Pie Graph
     if GLOBAL_SETTING.PROFILER_ENABLED and ProfOn then
         Prof:draw({50})
