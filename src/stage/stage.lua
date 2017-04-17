@@ -161,9 +161,6 @@ function Stage:update(dt)
             if self.time_left <= 0 then
                 self.time_left = 0
                 killAllPlayers()
-                if areAllPlayersAlive() then
-                    self:resetTime()
-                end
             end
         end
     elseif self.mode == "event" then

@@ -476,7 +476,8 @@ function Player:respawn_start()
     self.hp = self.max_hp
     self.bounced = 0
     self.velz = 0
-    self.z = math.random( 235, 245 )
+    self.z = math.random( 235, 245 )    --TODO get Z from the Tiled
+    stage:resetTime()
 end
 function Player:respawn_update(dt)
     if self.sprite.isFinished then
@@ -521,7 +522,6 @@ function Player:dead_start()
     if self.killer_id then
         self.killer_id:addScore( self.score_bonus )
     end
-    stage:resetTime()
 end
 function Player:dead_update(dt)
     if self.isDisabled then
