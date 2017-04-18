@@ -18,17 +18,17 @@ local sprite = nil
 local heroes = {
     {
         name = "RICK",
-        shaders = shaders.rick,
+        shaders = {nil, shaders.rick[1], shaders.rick[2]},
         sprite_instance = "src/def/char/rick.lua",
     },
     {
         name = "KISA",
-        shaders = shaders.kisa,
+        shaders = {shaders.kisa, shaders.kisa[1], shaders.kisa[2]},
         sprite_instance = "src/def/char/kisa.lua",
     },
     {
         name = "CHAI",
-        shaders = shaders.chai,
+        shaders = {shaders.chai, shaders.chai[1], shaders.chai[2]},
         sprite_instance = "src/def/char/chai.lua",
     },
     {
