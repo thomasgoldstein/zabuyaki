@@ -528,11 +528,11 @@ function spriteEditorState:wheelmoved(x, y)
         if #hero.shaders < 1 then
             return
         end
-        if menu[menu_state].n < 1 then
+        if menu[menu_state].n < 0 then
             menu[menu_state].n = #hero.shaders
         end
         if menu[menu_state].n > #hero.shaders then
-            menu[menu_state].n = 1
+            menu[menu_state].n = 0
         end
     end
     if menu_state ~= #menu then

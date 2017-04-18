@@ -18,52 +18,52 @@ local sprite = nil
 local heroes = {
     {
         name = "RICK",
-        shaders = { nil, shaders.rick[2], shaders.rick[3] },
+        shaders = shaders.rick,
         sprite_instance = "src/def/char/rick.lua",
     },
     {
         name = "KISA",
-        shaders = { nil, shaders.kisa[2], shaders.kisa[3] },
+        shaders = shaders.kisa,
         sprite_instance = "src/def/char/kisa.lua",
     },
     {
         name = "CHAI",
-        shaders = { nil, shaders.chai[2], shaders.chai[3] },
+        shaders = shaders.chai,
         sprite_instance = "src/def/char/chai.lua",
     },
     {
         name = "GOPPER",
-        shaders = { shaders.gopper[2], shaders.gopper[3], shaders.gopper[4], shaders.gopper[5] },
+        shaders = shaders.gopper,
         sprite_instance = "src/def/char/gopper.lua",
     },
     {
         name = "NIKO",
-        shaders = { shaders.niko[2], shaders.niko[3] },
+        shaders = shaders.niko,
         sprite_instance = "src/def/char/niko.lua",
     },
     {
         name = "SVETA",
-        shaders = { shaders.sveta[2] },
+        shaders = shaders.sveta,
         sprite_instance = "src/def/char/sveta.lua",
     },
     {
         name = "ZEENA",
-        shaders = { shaders.zeena[2] },
+        shaders = shaders.zeena,
         sprite_instance = "src/def/char/zeena.lua",
     },
     {
         name = "BEATNICK",
-        shaders = { nil },
+        shaders = shaders.beatnick,
         sprite_instance = "src/def/char/beatnick.lua",
     },
     {
         name = "SATOFF",
-        shaders = { nil, shaders.satoff[2], shaders.satoff[3], shaders.satoff[4] },
+        shaders = shaders.satoff,
         sprite_instance = "src/def/char/satoff.lua",
     },
     {
         name = "TRASHCAN",
-        shaders = { nil, shaders.trashcan[2] },
+        shaders = shaders.trashcan,
         sprite_instance = "src/def/stage/object/trashcan.lua",
     },
     {
