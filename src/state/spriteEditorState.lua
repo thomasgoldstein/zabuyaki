@@ -362,12 +362,15 @@ function spriteEditorState:draw()
                 end
             end
         elseif i == 4 then
+            if m.n > #hero.shaders then
+                m.n = #hero.shaders
+            end
             if #hero.shaders < 1 then
                 m.item = "NO SHADERS"
                 m.hint = ""
             else
                 if not hero.shaders[m.n] then
-                    m.item = "ORIGINAL COLORS"
+                    m.item = "SHADER #"..m.n.." (ORIGINAL)"
                 else
                     m.item = "SHADER #"..m.n
                 end
