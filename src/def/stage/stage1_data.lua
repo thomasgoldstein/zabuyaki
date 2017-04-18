@@ -534,7 +534,8 @@ return {
           visible = true,
           properties = {
             ["class"] = "trashcan",
-            ["drop"] = "chicken"
+            ["drop"] = "chicken",
+            ["palette"] = "0"
           }
         },
         {
@@ -567,8 +568,7 @@ return {
           properties = {
             ["class"] = "trashcan",
             ["drop"] = "beef",
-            ["flip"] = true,
-            ["palette"] = "2"
+            ["flip"] = true
           }
         },
         {

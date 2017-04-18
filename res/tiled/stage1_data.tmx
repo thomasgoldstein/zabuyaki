@@ -163,6 +163,7 @@
    <properties>
     <property name="class" value="trashcan"/>
     <property name="drop" value="chicken"/>
+    <property name="palette" value="0"/>
    </properties>
   </object>
   <object id="33" name="Stop Sign" type="unit" x="232" y="460" width="16" height="16">
@@ -176,7 +177,6 @@
     <property name="class" value="trashcan"/>
     <property name="drop" value="beef"/>
     <property name="flip" type="bool" value="true"/>
-    <property name="palette" value="2"/>
    </properties>
   </object>
   <object id="40" name="Gopper" type="unit" x="140" y="492" width="16" height="16">
