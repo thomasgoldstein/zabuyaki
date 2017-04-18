@@ -70,18 +70,21 @@ function killAllPlayers()
     if player1 then
         if player1:isAlive() and not player1:isInUseCreditMode() then
             player1.hp = 0
+            player1.face = -player1.face
             player1:applyDamage(0, "fall", nil)
         end
     end
     if player2 then
         if player2:isAlive() and not player2:isInUseCreditMode() then
             player2.hp = 0
+            player2.face = -player2.face
             player2:applyDamage(0, "fall", nil)
         end
     end
     if player3 then
         if player3:isAlive() and not player3:isInUseCreditMode() then
             player3.hp = 0
+            player3.face = -player3.face
             player3:applyDamage(0, "fall", nil)
         end
     end
