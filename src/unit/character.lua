@@ -1302,27 +1302,29 @@ function Character:grab_start()
     self:setSprite("grab")
     self.grab_release = 0
     self.victims = {}
-    local g = self.hold
-    local time_to_move = 0.1
-    local to_common_y = math.floor((self.y + g.target.y) / 2 )
-    if self.x < g.target.x then
-        self.move = tween.new(time_to_move, self, {
-            x = self.x - 4,
-            y = to_common_y + 0.5
-        }, 'outQuad')
-        g.target.move = tween.new(time_to_move, g.target, {
-            x = self.x + 20,
-            y = to_common_y - 0.5
-        }, 'outQuad')
-    else
-        self.move = tween.new(time_to_move, self, {
-            x = self.x + 4,
-            y = to_common_y + 0.5
-        }, 'outQuad')
-        g.target.move = tween.new(time_to_move, g.target, {
-            x = self.x - 20,
-            y = to_common_y - 0.5
-        }, 'outQuad')
+    if not self.condition then
+        local g = self.hold
+        local time_to_move = 0.1
+        local to_common_y = math.floor((self.y + g.target.y) / 2 )
+        if self.x < g.target.x then
+            self.move = tween.new(time_to_move, self, {
+                x = self.x - 4,
+                y = to_common_y + 0.5
+            }, 'outQuad')
+            g.target.move = tween.new(time_to_move, g.target, {
+                x = self.x + 20,
+                y = to_common_y - 0.5
+            }, 'outQuad')
+        else
+            self.move = tween.new(time_to_move, self, {
+                x = self.x + 4,
+                y = to_common_y + 0.5
+            }, 'outQuad')
+            g.target.move = tween.new(time_to_move, g.target, {
+                x = self.x - 20,
+                y = to_common_y - 0.5
+            }, 'outQuad')
+        end
     end
     --self.velx, self.vely = 0, 0
 end
@@ -1478,7 +1480,7 @@ function Character:grabAttack_update(dt)
         return
     end
     if self.sprite.isFinished then
-        self:setState(self.grab)
+        self:setState(self.grab, true) --do not adjust positions of player and the grabbed
         return
     end
     self:calcMovement(dt, true)
