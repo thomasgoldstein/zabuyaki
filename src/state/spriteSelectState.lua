@@ -23,12 +23,12 @@ local heroes = {
     },
     {
         name = "KISA",
-        shaders = {shaders.kisa, shaders.kisa[1], shaders.kisa[2]},
+        shaders = {nil, shaders.kisa[1], shaders.kisa[2]},
         sprite_instance = "src/def/char/kisa.lua",
     },
     {
         name = "CHAI",
-        shaders = {shaders.chai, shaders.chai[1], shaders.chai[2]},
+        shaders = {nil, shaders.chai[1], shaders.chai[2]},
         sprite_instance = "src/def/char/chai.lua",
     },
     {
