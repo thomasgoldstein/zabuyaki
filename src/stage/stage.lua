@@ -139,11 +139,11 @@ function Stage:displayTime(screen_width, screen_height)
     local transp = 255
     local x, y = screen_width - txt_time:getWidth() - 26, 6
     if self.time_left <= 10 then
-        transp = 155 + 100 * math.cos(10 - self.time_left * 40)
+        transp = 255 * math.abs(math.cos(10 - self.time_left * math.pi * 2))
     end
     love.graphics.setColor(55, 55, 55, transp)
     love.graphics.draw(txt_time, x + 1, y - 1 )
-    if self.time_left < 5 then
+    if self.time_left < 5.5 then
         love.graphics.setColor(240, 40, 40, transp)
     else
         love.graphics.setColor(255, 255, 255, transp)
