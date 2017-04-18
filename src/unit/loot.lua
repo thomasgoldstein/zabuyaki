@@ -25,14 +25,13 @@ function Loot:initialize(name, gfx, x, y, f)
     self.isDisabled = false
     self.bounced = 0
 
-    self.infoBar = InfoBar:new(self)
-
     self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
     GLOBAL_UNIT_ID = GLOBAL_UNIT_ID + 1
 end
 
 function Loot:setOnStage(stage)
     stage.objects:add(self)
+    self.infoBar = InfoBar:new(self)
 end
 
 function Loot:addShape()

@@ -80,6 +80,7 @@ end
 function Unit:setOnStage(stage)
 	stage.objects:add(self)
 	self.shader = getShader(self.sprite.def.sprite_name:lower(), self.palette)
+	self.infoBar = InfoBar:new(self)
 end
 
 function Unit:addShape(shapeType, shapeArgs)

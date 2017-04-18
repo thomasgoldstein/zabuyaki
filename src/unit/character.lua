@@ -71,7 +71,6 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.sfx.jump_attack = self.sfx.jump_attack or "scream1"
     self.sfx.step = self.sfx.step or "kisa_step"
     self.sfx.dead = self.sfx.dead or "scream1"
-    self.infoBar = InfoBar:new(self)
     self.victim_infoBar = nil
 end
 
@@ -1480,7 +1479,7 @@ function Character:grabAttack_update(dt)
         return
     end
     if self.sprite.isFinished then
-        self:setState(self.grab, true) --do not adjust positions of player and the grabbed
+        self:setState(self.grab, true) --do not adjust positions of pl
         return
     end
     self:calcMovement(dt, true)

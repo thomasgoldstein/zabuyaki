@@ -39,8 +39,6 @@ function Obstacle:initialize(name, sprite, x, y, f)
 
     self.old_frame = 1 --Old sprite frame N to start particles on change
 
-    self.infoBar = InfoBar:new(self)
-
     self:setState(self.stand)
 end
 
