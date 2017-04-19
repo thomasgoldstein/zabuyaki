@@ -31,16 +31,13 @@ local grabEnd_attack = function(slf, cont)
 		cont
 	)
 end
-local footJab_move = function(slf, cont)
-	-- Chai's foot jab makes him move forward
-	slf.velx = 60 -- horizontal velocity
-end
 local combo_attack1 = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 30, width = 26, height = 12, damage = 6, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
 	)
-	footJab_move(slf)
+	-- Chai's foot jab makes him move forward
+	slf.velx = slf.velocity_jab -- horizontal velocity
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf, cont)
@@ -205,9 +202,9 @@ return {
 			{ q = q(181,863,48,63), ox = 26, oy = 63 }, --dash hold
 		},
 		combo1 = {
-			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move }, --combo 1.1
+			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo 1.1
 			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1, delay = 0.09 }, --combo 1.2
-			{ q = q(2,521,56,64), ox = 23, oy = 63, func = footJab_move, delay = 0.05 }, --combo 1.1
+			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo 1.1
 			delay = 0.01
 		},
 		combo2 = {
