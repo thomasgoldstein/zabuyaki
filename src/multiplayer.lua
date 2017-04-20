@@ -4,22 +4,21 @@ function checkPlayersRespawn(stage)
     local p = SELECT_NEW_PLAYER
     if p[#p] then
         p[#p].player.player_select_mode = 3 -- Respawn mode
-        p[#p].player.infoBar = InfoBar:new(p[#p].player)
         if p[#p].id == 1 then
             stage.world:remove(player1.shape)
             stage.objects:remove(player1)
             player1 = p[#p].player
-            stage.objects:add(player1)
+            player1:setOnStage(stage)
         elseif p[#p].id == 2 then
             stage.world:remove(player2.shape)
             stage.objects:remove(player2)
             player2 = p[#p].player
-            stage.objects:add(player2)
+            player2:setOnStage(stage)
         elseif p[#p].id == 3 then
             stage.world:remove(player3.shape)
             stage.objects:remove(player3)
             player3 = p[#p].player
-            stage.objects:add(player3)
+            player3:setOnStage(stage)
         end
         p[#p] = nil
     end
@@ -109,6 +108,48 @@ function drawPlayersBars()
             player3.victim_infoBar:draw(0,0)
         end
     end
+end
+
+local max_player_palette = 2
+local function shift_palette_up(n)
+    local old_n = n
+    if not n or n < 0 then
+        n = 0
+    end
+    n = n + 1
+    if n > max_player_palette then
+        n = 0
+    end
+--    print(" ==> "..old_n.." shift palette to "..n)
+    return n
+end
+function fixPlayersPalette(player)
+    local n = player.palette
+--    print("!!! "..player.name.." ",n, player1.name, player2.name, player3.name)
+--    print("!! ID "..player.id.." ", player1.id, player2.id, player3.id)
+    if not n or n < 0 or n > max_player_palette then
+        n = 0
+    end
+    if player1 and player.id ~= player1.id
+            and player.name == player1.name --and player1:isAlive() --and not player1:isInUseCreditMode()
+            and n == player1.palette
+    then
+        n = shift_palette_up(n)
+    end
+    if player2 and player.id ~= player2.id
+            and player.name == player2.name --and player2:isAlive() --and not player2:isInUseCreditMode()
+            and n == player2.palette
+    then
+        n = shift_palette_up(n)
+    end
+    if player3 and player.id ~= player3.id
+            and player.name == player3.name --and player3:isAlive() --and not player3:isInUseCreditMode()
+            and n == player3.palette
+    then
+        n = shift_palette_up(n)
+    end
+    player.palette = n
+    player.shader = getShader(player.sprite.def.sprite_name:lower(), player.palette)
 end
 
 -- Returns Center X, distance between players, minX, maxX
