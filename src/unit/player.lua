@@ -415,14 +415,14 @@ function Player:useCredit_update(dt)
                 GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
                 self.b,
                 self.x, self.y
-                --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 },
-                --    shader = nil }
+                --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 } }
             )
             player.player_select_mode = 3
             correctPlayersRespawnPos(player)
             player:setState(self.respawn)
             player.id = self.id
-            dp(player.x, player.y, player.name, player.player_select_mode)
+            fixPlayersPalette(self)
+            dp(player.x, player.y, player.name, player.player_select_mode, "Palette:", player.palette)
             SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player}
             return
         else
@@ -455,9 +455,10 @@ function Player:useCredit_update(dt)
             sfx.play("sfx","menu_move")
             self:onShake(1, 0, 0.03, 0.3)   --shake name + face icon
             self.name = HEROES[self.player_select_cur][1].name
-            self.shader = HEROES[self.player_select_cur][1].shader
             self.sprite = GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance)
             self:setSprite("stand")
+            fixPlayersPalette(self)
+            self.shader = getShader(self.sprite.def.sprite_name:lower(), self.palette)
             self.infoBar = InfoBar:new(self)
         end
     elseif self.player_select_mode == 3 then
