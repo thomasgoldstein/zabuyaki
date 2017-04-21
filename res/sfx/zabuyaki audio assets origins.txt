@@ -1,0 +1,127 @@
+
+rick_attack:
+the Atribution License
+by plagasul
+source: http://freesound.org/people/plagasul/sounds/78/
+
+rick_throw:
+the Atribution License
+http://freesound.org/people/plagasul/sounds/84/
+
+rick_death:
+CC0
+by Under7dude
+source: http://freesound.org/people/Under7dude/sounds/163442/
+
+rick_jump:
+CC0
+by Christopherderp
+http://freesound.org/people/Christopherderp/sounds/342229/
+
+scream1.wav
+CC0
+by oldedgar
+source: http://freesound.org/people/oldedgar/sounds/131710/
+
+scream2.wav
+CC0
+by oldedgar
+source: http://freesound.org/people/oldedgar/sounds/131710/
+
+
+chai_attack:
+CC0
+by AbuNijmeh
+Source: http://freesound.org/people/AbuNijmeh/sounds/319104/
+
+chai_jump:
+CC0
+by AbuNijmeh
+Source: http://freesound.org/people/AbuNijmeh/sounds/319104/
+
+chai_throw:
+CC0
+by AbuNijmeh
+Source: http://freesound.org/people/AbuNijmeh/sounds/319104/
+
+chai_death:
+CC0
+by waxsocks
+http://freesound.org/people/waxsocks/sounds/255322/
+
+
+kisa_attack:
+the Atribution License
+by LukeSharples
+http://freesound.org/people/LukeSharples/sounds/209192/
+
+kisa_death:
+the Atribution License
+by AderuMoro
+http://freesound.org/people/AderuMoro/sounds/213295/
+
+kisa_jump:
+the Atribution License
+by LukeSharples
+http://freesound.org/people/LukeSharples/sounds/209191/
+
+kisa_throw:
+the Atribution License
+by LukeSharples
+http://freesound.org/people/LukeSharples/sounds/209189/
+
+
+
+
+gopper_attack*.wav:
+CC0
+by Juhani Junkala
+
+hit_hard*.wav:
+CC0
+by Juhani Junkala
+
+hit_weak*.wav:
+CC0
+by Juhani Junkala
+
+hit_medium*.wav:
+CC0
+by Juhani Junkala
+
+
+hit_hard*.wav:
+CC0
+by Juhani Junkala
+
+menu*.wav
+CC0
+by Juhani Junkala
+
+pickup*.wav
+CC0
+by Juhani Junkala
+
+
+fall_down:
+
+lifted from the free library "Sonniss.com - GDC - Game Audio Bundle"
+
+whoosh_heavy:
+
+lifted from the free library "Sonniss.com - GDC - Game Audio Bundle"
+
+whoosh_light:
+
+lifted from the free library "Sonniss.com - GDC - Game Audio Bundle"
+
+
+
+
+not yet found sources:
+
+chai_step
+grab
+kisa_step
+rick_step
+rick_throw
