@@ -125,7 +125,7 @@ return {
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
+            { q = q(2,246,65,49), ox = 39, oy = 48, rotate = -1.57, rx = 29, ry = -30 }, --falling
             delay = 5
         },
         getup = {
