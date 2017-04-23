@@ -61,7 +61,7 @@ return {
             { q = q(11, 17, 31, 17) }
         },
         intro = {
-            { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1
+            { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
             delay = 5
         },
         stand = {
@@ -96,7 +96,7 @@ return {
             delay = 0.3
         },
         duck = {
-            { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1
+            { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
             delay = 0.15
         },
         pickup = {
@@ -120,7 +120,7 @@ return {
             delay = 0.01
         },
         fall = {
-            { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1
+            { q = q(2,267,75,54), ox = 49, oy = 53 }, --falling
             delay = 5
         },
         thrown = {
@@ -129,11 +129,13 @@ return {
             delay = 5
         },
         getup = {
-            { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1
+            { q = q(79,288,96,33), ox = 70, oy = 29, delay = 0.2 }, --lying down
+            { q = q(177,273,63,45), ox = 40, oy = 44 }, --getting up
+            { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
             delay = 0.3
         },
         fallen = {
-            { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1
+            { q = q(79,288,96,33), ox = 70, oy = 29 }, --lying down
             delay = 65
         },
         hurtHigh = {
