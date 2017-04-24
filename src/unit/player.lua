@@ -15,6 +15,11 @@ function Player:initialize(name, sprite, input, x, y, f)
     self.friendly_damage = 1 --1 = full damage on other players
 end
 
+function Player:setOnStage(stage)
+    Unit.setOnStage(self, stage)
+    registerPlayer(self)
+end
+
 function Player:isAlive()
     if (self.player_select_mode == 0 and credits > 0 and self.state == "useCredit")
             or (self.player_select_mode >= 1 and self.player_select_mode < 5)
@@ -379,6 +384,7 @@ function Player:useCredit_update(dt)
         if credits <= 0 or self.cool_down <= 0 then
             -- n credits -> game over
             self.player_select_mode = 5
+            unregisterPlayer(self)
             return
         end
         -- wait press to use credit
@@ -421,6 +427,7 @@ function Player:useCredit_update(dt)
             correctPlayersRespawnPos(player)
             player:setState(self.respawn)
             player.id = self.id
+            registerPlayer(player)
             fixPlayersPalette(self)
             dp(player.x, player.y, player.name, player.player_select_mode, "Palette:", player.palette)
             SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player}
@@ -464,7 +471,7 @@ function Player:useCredit_update(dt)
     elseif self.player_select_mode == 3 then
         -- Spawn selecterd player
     elseif self.player_select_mode == 4 then
-        -- Deleate on Selecting a new Character
+        -- Delete on Selecting a new Character
     elseif self.player_select_mode == 5 then
         -- Game Over
     end
