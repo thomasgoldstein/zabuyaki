@@ -1,5 +1,37 @@
 -- Common multiplayer routines
 
+local players = {}
+function registerPlayer(player)
+    print("registerPlayer id:"..player.id)
+    if not player then
+        error("no player data")
+    elseif player.id and player.id < 1 or player.id > GLOBAL_SETTING.MAX_PLAYERS then
+        return
+        --error("wrong player id:"..player.id)
+    end
+    players[player.id] = player
+end
+
+function unregisterPlayer(player)
+    print("unregisterPlayer id:"..player.id)
+    if not player then
+        error("no player data")
+    elseif player.id < 1 or player.id > GLOBAL_SETTING.MAX_PLAYERS then
+        error("wrong player id:"..player.id)
+    end
+    players[player.id] = nil
+end
+
+function cleanRegisteredPlayers()
+    print("cleanRegisteredPlayers")
+    players = {}
+end
+
+function getRegisteredPlayer(id)
+    print("getRegisteredPlayer id:"..id)
+    return players[id]
+end
+
 function checkPlayersRespawn(stage)
     local p = SELECT_NEW_PLAYER
     if p[#p] then
@@ -110,7 +142,7 @@ function drawPlayersBars()
     end
 end
 
-local max_player_palette = 2
+local max_player_palette = 6
 local function shift_palette_up(n)
     local old_n = n
     if not n or n < 0 then
@@ -125,10 +157,44 @@ local function shift_palette_up(n)
 end
 function fixPlayersPalette(player)
     local n = player.palette
+    --    print("!!! "..player.name.." ",n, player1.name, player2.name, player3.name)
+    --    print("!! ID "..player.id.." ", player1.id, player2.id, player3.id)
+--    if not n or n < 0 or n > max_player_palette then
+--        n = 0
+--        player.palette = n
+--    end
+    local palettes = {}
+    if player1 and player1.palette then
+--        palettes[player1.id] = player1.palette
+        palettes[player1.palette] = true
+    end
+    if player2 and player2.palette then
+--        palettes[player2.id] = player2.palette
+        palettes[player2.palette] = true
+    end
+    if player3 and player3.palette then
+--        palettes[player3.id] = player3.palette
+        palettes[player3.palette] = true
+    end
+    print("PALS", inspect(palettes))
+    --n = 0
+    for i = 1, max_player_palette do
+        if (n and n == i and palettes[i]) or not palettes[i] then
+            n = i
+            break
+        end
+    end
+    player.palette = n
+    player.shader = getShader(player.sprite.def.sprite_name:lower(), player.palette)
+end
+
+function fixPlayersPalette_(player)
+    local n = player.palette
 --    print("!!! "..player.name.." ",n, player1.name, player2.name, player3.name)
 --    print("!! ID "..player.id.." ", player1.id, player2.id, player3.id)
     if not n or n < 0 or n > max_player_palette then
         n = 0
+        player.palette = n
     end
     if player1 and player.id ~= player1.id
             and player.name == player1.name --and player1:isAlive() --and not player1:isInUseCreditMode()
