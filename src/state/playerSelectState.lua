@@ -286,6 +286,7 @@ function playerSelectState:GameStart()
     sfx.play("sfx","menu_gamestart")
     local pl = {}
     local sh = selected_heroes()
+    cleanRegisteredPlayers()
     for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
         if players[i].confirmed then
             local pos = players[i].pos
