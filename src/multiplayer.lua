@@ -156,32 +156,25 @@ local function shift_palette_up(n)
     return n
 end
 function fixPlayersPalette(player)
+--    print("FIX PAL!")
     local n = player.palette
-    --    print("!!! "..player.name.." ",n, player1.name, player2.name, player3.name)
-    --    print("!! ID "..player.id.." ", player1.id, player2.id, player3.id)
---    if not n or n < 0 or n > max_player_palette then
---        n = 0
---        player.palette = n
---    end
     local palettes = {}
-    if player1 and player1.palette then
---        palettes[player1.id] = player1.palette
-        palettes[player1.palette] = true
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local p = getRegisteredPlayer(i)
+        print("p.palette = ", p.palette)
+        if p and p.palette then
+            if p ~= player then
+                palettes[p.palette] = true
+            end
+        end
     end
-    if player2 and player2.palette then
---        palettes[player2.id] = player2.palette
-        palettes[player2.palette] = true
-    end
-    if player3 and player3.palette then
---        palettes[player3.id] = player3.palette
-        palettes[player3.palette] = true
-    end
-    print("PALS", inspect(palettes))
-    --n = 0
-    for i = 1, max_player_palette do
-        if (n and n == i and palettes[i]) or not palettes[i] then
-            n = i
-            break
+--    print("PALS", inspect(palettes))
+    if palettes[n] then --this palette is used by others already
+        for i = 1, max_player_palette do
+            if not palettes[i] then
+                n = i
+                break
+            end
         end
     end
     player.palette = n
