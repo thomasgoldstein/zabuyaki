@@ -88,12 +88,13 @@ return {
             delay = 0.08
         },
         jump = { --TODO: Remove
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
+            { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
             delay = 5
         },
         respawn = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
-            delay = 0.3
+            { q = q(2,297,38,61), ox = 22, oy = 60, delay = 5 }, --jump
+            { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
+            delay = 0.6
         },
         duck = {
             { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
@@ -162,11 +163,11 @@ return {
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 5
         },
-        sideStepUp = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
+        sideStepUp = {
+            { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
         },
-        sideStepDown = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
+        sideStepDown = {
+            { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
         },
         grab = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
