@@ -11,6 +11,7 @@ local CheckCollision = CheckCollision
 function Zeena:initialize(name, sprite, input, x, y, f)
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
+    self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self.score_bonus = 250
     self.sfx.dead = sfx.zeena_death
@@ -19,6 +20,8 @@ function Zeena:initialize(name, sprite, input, x, y, f)
 
     self:setState(self.intro)
 end
+
+Zeena.onFriendlyAttack = Enemy.onFriendlyAttack
 
 function Zeena:updateAI(dt)
     Enemy.updateAI(self, dt)

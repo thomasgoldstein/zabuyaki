@@ -129,8 +129,8 @@ function Gopper:onFriendlyAttack()
     end
     if h.isThrown or h.source.type == "player" then
         h.damage = h.damage or 0
-    elseif h.source.subtype == self.subtype then
-        --Gopper can attack Gopper and Niko, too
+    elseif h.source.subtype == "gopnik" then
+        --Gopper can attack Gopper and Niko only
         h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
     else
         self.hurt = nil

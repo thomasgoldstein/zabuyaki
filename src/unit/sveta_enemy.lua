@@ -11,6 +11,7 @@ local CheckCollision = CheckCollision
 function Sveta:initialize(name, sprite, input, x, y, f)
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
+    self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self.score_bonus = 250
     self.sfx.dead = sfx.sveta_death
@@ -19,6 +20,8 @@ function Sveta:initialize(name, sprite, input, x, y, f)
 
     self:setState(self.intro)
 end
+
+Sveta.onFriendlyAttack = Enemy.onFriendlyAttack
 
 function Sveta:updateAI(dt)
     Enemy.updateAI(self, dt)
