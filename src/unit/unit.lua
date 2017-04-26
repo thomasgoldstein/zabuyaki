@@ -393,11 +393,13 @@ function Unit:calcFriction(dt, friction)
 	end
 end
 
-function Unit:calcMovement(dt, use_friction, friction)
+function Unit:calcMovement(dt, use_friction, friction, do_not_move_unit)
 	if self.z <= 0 and use_friction then
 		self:calcFriction(dt, friction)
 	end
-	self:checkCollisionAndMove(dt)
+	if not do_not_move_unit then
+		self:checkCollisionAndMove(dt)
+	end
 end
 
 

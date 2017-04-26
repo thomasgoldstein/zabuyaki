@@ -786,11 +786,13 @@ function Character:duck_update(dt)
         if self.b.horizontal:getValue() ~= 0 then
             self:setState(self.walk)
         else
+            self.velx = 0
+            self.vely = 0
             self:setState(self.stand)
         end
         return
     end
-    self:calcMovement(dt, true, nil)
+    self:calcMovement(dt, false, nil, true)
 end
 Character.duck = {name = "duck", start = Character.duck_start, exit = nop, update = Character.duck_update, draw = Character.default_draw}
 
@@ -838,7 +840,7 @@ function Character:duck2jump_update(dt)
             self.vely = self.velocity_walk_y
         end
     end
-    self:calcMovement(dt, false) -- TODO no movement here
+    self:calcMovement(dt, false, nil, true)
 end
 Character.duck2jump = {name = "duck2jump", start = Character.duck2jump_start, exit = nop, update = Character.duck2jump_update, draw = Character.default_draw}
 
