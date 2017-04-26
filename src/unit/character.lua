@@ -12,10 +12,10 @@ function Character:initialize(name, sprite, input, x, y, f)
     end
     f.shapeType = f.shapeType or "polygon"
     f.shapeArgs = f.shapeArgs or { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 }
+    self.height = self.height or 50
     Unit.initialize(self, name, sprite, input, x, y, f)
     self.type = "character"
     self.time = 0
-    self.height = 50
     self.velocity_walk = 100
     self.velocity_walk_y = 50
     self.velocity_walkHold = self.velocity_walk * 0.75
