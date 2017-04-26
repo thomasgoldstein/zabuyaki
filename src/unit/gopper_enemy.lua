@@ -11,7 +11,6 @@ local CheckCollision = CheckCollision
 function Gopper:initialize(name, sprite, input, x, y, f)
     self.hp = self.hp or 40
     self.score_bonus = self.score_bonus or 200
-    self.height = self.height or 62
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, input, x, y, f)
     self:pickAttackTarget()
