@@ -9,6 +9,8 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Niko:initialize(name, sprite, input, x, y, f)
+    self.hp = self.hp or 45
+    self.height = self.height or 63
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
