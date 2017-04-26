@@ -9,11 +9,12 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Zeena:initialize(name, sprite, input, x, y, f)
+    self.hp = self.hp or 50
+    self.score_bonus = self.score_bonus or 300
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
-    self.score_bonus = 250
     self.sfx.dead = sfx.zeena_death
     self.sfx.jump_attack = sfx.zeena_attack
     self.sfx.step = "kisa_step"

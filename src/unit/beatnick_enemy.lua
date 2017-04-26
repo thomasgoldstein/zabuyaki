@@ -9,10 +9,13 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Beatnick:initialize(name, sprite, input, x, y, f)
+    self.lives = self.lives or 2
+    self.hp = self.hp or 100
+    self.score_bonus = self.score_bonus or 800
+    self.height = self.height or 55
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
-    self.score_bonus = 250
     self.sfx.dead = sfx.beatnick_death
     self.sfx.jump_attack = sfx.beatnick_attack
     self.sfx.step = "kisa_step"
