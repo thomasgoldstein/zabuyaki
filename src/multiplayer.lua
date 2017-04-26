@@ -161,11 +161,13 @@ function fixPlayersPalette(player)
     local palettes = {}
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local p = getRegisteredPlayer(i)
-        print("p.palette = ", p.palette)
         if p and p.palette then
+            print("p.palette = ", p.palette)
             if p ~= player then
                 palettes[p.palette] = true
             end
+        else
+            print("p.palette = nil")
         end
     end
 --    print("PALS", inspect(palettes))
