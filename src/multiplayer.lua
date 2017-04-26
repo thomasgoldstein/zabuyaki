@@ -146,7 +146,7 @@ local max_player_palette = 6
 local function shift_palette_up(n)
     local old_n = n
     if not n or n < 0 then
-        n = 0
+        n = -1
     end
     n = n + 1
     if n > max_player_palette then
@@ -162,17 +162,17 @@ function fixPlayersPalette(player)
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local p = getRegisteredPlayer(i)
         if p and p.palette then
-            print("p.palette = ", p.palette)
-            if p ~= player then
+--            print("p.palette = ", p.palette)
+            if p ~= player and p.name == player.name then
                 palettes[p.palette] = true
             end
         else
-            print("p.palette = nil")
+--            print("p.palette = nil")
         end
     end
 --    print("PALS", inspect(palettes))
     if palettes[n] then --this palette is used by others already
-        for i = 1, max_player_palette do
+        for i = 0, max_player_palette do
             if not palettes[i] then
                 n = i
                 break
