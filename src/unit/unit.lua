@@ -61,17 +61,10 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.update = nop
 	self.start = nop
 	self.exit = nop
-
 	self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
 	GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
-
-	if self.id <= MAX_PLAYERS then
-		self.pid = GLOBAL_SETTING.PLAYERS_NAMES[self.id]
-		self.show_pid_cool_down = 3
-	else
-		self.pid = ""
-		self.show_pid_cool_down = 0
-	end
+	self.pid = ""
+	self.show_pid_cool_down = 0
 	self:addShape(f.shapeType or "rectangle", f.shapeArgs or {self.x, self.y, 15, 7})
 	self:setState(self.stand)
 	dpo_init(self)

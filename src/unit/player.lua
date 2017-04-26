@@ -16,6 +16,8 @@ function Player:initialize(name, sprite, input, x, y, f)
 end
 
 function Player:setOnStage(stage)
+    self.pid = GLOBAL_SETTING.PLAYERS_NAMES[self.id] or "P?"
+    self.show_pid_cool_down = 3
     Unit.setOnStage(self, stage)
     registerPlayer(self)
 end
