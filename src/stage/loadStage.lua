@@ -235,7 +235,7 @@ local loaded_images = {}
 local loaded_images_quads = {}
 local function cacheImage(path_to_image)
     if not loaded_images[path_to_image] then
-        loaded_images[path_to_image] = love.graphics.newImage("res"..path_to_image:sub(3))
+        loaded_images[path_to_image] = love.graphics.newImage(path_to_image:sub(10))
         local width, height = loaded_images[path_to_image]:getDimensions()
         loaded_images_quads[path_to_image] = love.graphics.newQuad(2, 2, width - 4, height - 4, width, height)
     end
