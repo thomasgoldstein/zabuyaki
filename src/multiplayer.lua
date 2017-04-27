@@ -156,21 +156,18 @@ local function shift_palette_up(n)
     return n
 end
 function fixPlayersPalette(player)
---    print("FIX PAL!")
     local n = player.palette
     local palettes = {}
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local p = getRegisteredPlayer(i)
-        if p and p.palette then
---            print("p.palette = ", p.palette)
-            if p ~= player and p.name == player.name then
-                palettes[p.palette] = true
-            end
-        else
---            print("p.palette = nil")
+        if p and p.palette
+            and p ~= player and p.name == player.name
+                --other player selecting on respawning
+            and ( p.state ~= "useCredit" or ( p.player_select_mode == 2 and p.player_select_mode == 3 ) )
+        then
+            palettes[p.palette] = true
         end
     end
---    print("PALS", inspect(palettes))
     if palettes[n] then --this palette is used by others already
         for i = 0, max_player_palette do
             if not palettes[i] then
