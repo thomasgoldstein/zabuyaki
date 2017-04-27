@@ -37,7 +37,13 @@ local combo_attack1 = function(slf, cont)
 		cont
 	)
 	-- Chai's foot jab makes him move forward
-	slf.velx = slf.velocity_jab -- horizontal velocity
+	if slf.b.vertical:getValue() ~= 0 then
+		slf.vertical = slf.b.vertical:getValue()
+		slf.vely = slf.velocity_jab_y -- vertical velocity
+		slf.velx = slf.velocity_jab_y -- reduced horizontal velocity
+	else
+		slf.velx = slf.velocity_jab -- horizontal velocity
+	end
 	slf.cool_down_combo = 0.4
 end
 local combo_attack2 = function(slf, cont)
