@@ -5,8 +5,8 @@ Download Tiled [Tiled Map Editor](http://www.mapeditor.org) or [GitHub](https://
 Default stage name template: **StageX_data.tmx**
 
 ## Export stages to Zabuyaki ##
-Use File/Export as... **stageX_data.lua**, and save the file in the tiled folder.
-Then cut and paste it to \src\def\stage\ (needed to have correct image paths).
+Use menu **File / Export as...** **stageN_data.lua** to _\src\def\stage\_ .
+Where N is the stage number.
 
 ## Creating a new file ##
 Press **Ctrl + N**. Set the _orientation_ to **Orthogonal**. _Layer format_ to **CSV** and _Tile order_ to **Left Up**.
