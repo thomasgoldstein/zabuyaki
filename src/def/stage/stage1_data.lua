@@ -124,16 +124,6 @@ return {
       properties = {}
     },
     {
-      type = "imagelayer",
-      name = "bg template",
-      visible = false,
-      opacity = 0.6,
-      offsetx = 0,
-      offsety = 0,
-      image = "stage.png",
-      properties = {}
-    },
-    {
       type = "objectgroup",
       name = "camera",
       visible = true,

@@ -33,9 +33,6 @@
  <imagelayer name="building3" offsetx="870" offsety="69">
   <image source="res/img/stage/stage1/building1.png" width="525" height="385"/>
  </imagelayer>
- <imagelayer name="bg template" visible="0" opacity="0.6">
-  <image source="stage.png" width="4000" height="800"/>
- </imagelayer>
  <objectgroup name="camera">
   <object id="11" name="vert pos of camera" type="camera" x="-4" y="551">
    <polyline points="0,0 1830,0 2208,-180 4034,-180"/>
