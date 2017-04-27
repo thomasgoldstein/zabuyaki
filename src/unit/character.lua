@@ -881,7 +881,7 @@ end
 Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
 
 function Character:sideStepDown_start()
-    self.isHittable = false
+    self.isHittable = true
     self:setSprite("sideStepDown")
     self.velx, self.vely = 0, self.velocity_step_down
     sfx.play("sfx"..self.id, "whoosh_heavy")
@@ -902,7 +902,7 @@ end
 Character.sideStepDown = {name = "sideStepDown", start = Character.sideStepDown_start, exit = nop, update = Character.sideStepDown_update, draw = Character.default_draw}
 
 function Character:sideStepUp_start()
-    self.isHittable = false
+    self.isHittable = true
     self:setSprite("sideStepUp")
     self.velx, self.vely = 0, self.velocity_step_down
     sfx.play("sfx"..self.id, "whoosh_heavy")
