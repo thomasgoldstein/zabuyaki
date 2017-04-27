@@ -20,7 +20,7 @@ return {
       opacity = 1,
       offsetx = 12,
       offsety = 430,
-      image = "res/img/stage/stage1/road1.png",
+      image = "../../../res/img/stage/stage1/road1.png",
       properties = {}
     },
     {
@@ -30,7 +30,7 @@ return {
       opacity = 1,
       offsetx = -348,
       offsety = 430,
-      image = "res/img/stage/stage1/road1.png",
+      image = "../../../res/img/stage/stage1/road1.png",
       properties = {}
     },
     {
@@ -40,7 +40,7 @@ return {
       opacity = 1,
       offsetx = 372,
       offsety = 430,
-      image = "res/img/stage/stage1/road1.png",
+      image = "../../../res/img/stage/stage1/road1.png",
       properties = {}
     },
     {
@@ -50,7 +50,7 @@ return {
       opacity = 1,
       offsetx = 732,
       offsety = 430,
-      image = "res/img/stage/stage1/road1.png",
+      image = "../../../res/img/stage/stage1/road1.png",
       properties = {}
     },
     {
@@ -60,7 +60,7 @@ return {
       opacity = 1,
       offsetx = 1092,
       offsety = 430,
-      image = "res/img/stage/stage1/road1.png",
+      image = "../../../res/img/stage/stage1/road1.png",
       properties = {}
     },
     {
@@ -70,7 +70,7 @@ return {
       opacity = 1,
       offsetx = 1452,
       offsety = 430,
-      image = "res/img/stage/stage1/road1.png",
+      image = "../../../res/img/stage/stage1/road1.png",
       properties = {}
     },
     {
@@ -80,7 +80,7 @@ return {
       opacity = 1,
       offsetx = 1812,
       offsety = 251,
-      image = "res/img/stage/stage1/road2.png",
+      image = "../../../res/img/stage/stage1/road2.png",
       properties = {}
     },
     {
@@ -90,7 +90,7 @@ return {
       opacity = 1,
       offsetx = 425,
       offsety = 69,
-      image = "res/img/stage/stage1/building2.png",
+      image = "../../../res/img/stage/stage1/building2.png",
       properties = {}
     },
     {
@@ -100,7 +100,7 @@ return {
       opacity = 1,
       offsetx = 1315,
       offsety = 69,
-      image = "res/img/stage/stage1/building2.png",
+      image = "../../../res/img/stage/stage1/building2.png",
       properties = {}
     },
     {
@@ -110,7 +110,7 @@ return {
       opacity = 1,
       offsetx = -20,
       offsety = 69,
-      image = "res/img/stage/stage1/building1.png",
+      image = "../../../res/img/stage/stage1/building1.png",
       properties = {}
     },
     {
@@ -120,7 +120,7 @@ return {
       opacity = 1,
       offsetx = 870,
       offsety = 69,
-      image = "res/img/stage/stage1/building1.png",
+      image = "../../../res/img/stage/stage1/building1.png",
       properties = {}
     },
     {
@@ -674,7 +674,7 @@ return {
     {
       type = "objectgroup",
       name = "trash",
-      visible = false,
+      visible = true,
       opacity = 0.11,
       offsetx = 0,
       offsety = 0,
