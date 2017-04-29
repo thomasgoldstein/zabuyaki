@@ -31,6 +31,13 @@ local grabEnd_attack = function(slf, cont)
 		cont
 	)
 end
+local combo_attack1a = function(slf, cont)
+	slf:checkAndAttack(
+		{ left = 26, width = 26, height = 12, damage = 7, type = "low", velocity = slf.velx, sfx = "air" },
+		cont
+	)
+	slf.cool_down_combo = 0.4
+end
 local combo_attack1 = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 30, width = 26, height = 12, damage = 6, type = "low", velocity = slf.velx, sfx = "air" },
@@ -206,6 +213,11 @@ return {
 		},
 		dashHold = {
 			{ q = q(181,863,48,63), ox = 26, oy = 63 }, --dash hold
+		},
+		combo1a = {
+			{ q = q(183,3,60,63), ox = 30, oy = 62, func = combo_attack1a, delay = 0.1 }, --combo 1a.2
+			{ q = q(135,2,46,64), ox = 23, oy = 63 }, --combo 1a.1
+			delay = 0.03
 		},
 		combo1 = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo 1.1
