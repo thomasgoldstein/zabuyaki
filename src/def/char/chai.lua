@@ -31,19 +31,19 @@ local grabEnd_attack = function(slf, cont)
 		cont
 	)
 end
-local combo_attack1a = function(slf, cont)
+local combo_attack1_jab = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 26, width = 26, height = 12, damage = 7, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
 	)
 	slf.cool_down_combo = 0.4
 end
-local combo_attack1 = function(slf, cont)
+local combo_attack1_teep = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 30, width = 26, height = 12, damage = 6, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
 	)
-	-- Chai's foot jab makes him move forward
+	-- Chai's teep makes him move forward
 	if slf.b.vertical:getValue() ~= 0 then
 		slf.vertical = slf.b.vertical:getValue()
 		slf.vely = slf.velocity_jab_y -- vertical velocity
@@ -214,15 +214,21 @@ return {
 		dashHold = {
 			{ q = q(181,863,48,63), ox = 26, oy = 63 }, --dash hold
 		},
-		combo1a = {
-			{ q = q(183,3,60,63), ox = 30, oy = 62, func = combo_attack1a, delay = 0.1 }, --combo 1a.2
-			{ q = q(135,2,46,64), ox = 23, oy = 63 }, --combo 1a.1
+		combo1 = {
+			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo 1_teep.1
+			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1_teep, delay = 0.09 }, --combo 1_teep.2
+			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo 1_teep.1
+			delay = 0.01
+		},
+		combo1Jab = {
+			{ q = q(183,3,60,63), ox = 30, oy = 62, func = combo_attack1_jab, delay = 0.1 }, --combo 1_jab.2
+			{ q = q(135,2,46,64), ox = 23, oy = 63 }, --combo 1_jab.1
 			delay = 0.03
 		},
-		combo1 = {
-			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo 1.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1, delay = 0.09 }, --combo 1.2
-			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo 1.1
+		combo1Teep = {
+			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo 1_teep.1
+			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1_teep, delay = 0.09 }, --combo 1_teep.2
+			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo 1_teep.1
 			delay = 0.01
 		},
 		combo2 = {
