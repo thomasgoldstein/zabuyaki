@@ -84,23 +84,23 @@ local dash_attack2 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 55, height = 12, damage = 10, type = "fall", velocity = slf.velocity_dash_fall },
     cont
 ) end
-local jump_forward_attack = function(slf, cont) slf:checkAndAttack(
+local jump_attack_forward = function(slf, cont) slf:checkAndAttack(
     { left = 30, width = 25, height = 12, damage = 15, type = "fall", velocity = slf.velx },
     cont
 ) end
- local jump_run_attack = function(slf, cont) slf:checkAndAttack(
+ local jump_attack_run = function(slf, cont) slf:checkAndAttack(
     { left = 30, width = 25, height = 12, damage = 17, type = "fall", velocity = slf.velx },
      cont
  ) end
-local jump_light_attack = function(slf, cont) slf:checkAndAttack(
+local jump_attack_light = function(slf, cont) slf:checkAndAttack(
     { left = 15, width = 22, height = 12, damage = 9, type = "high", velocity = slf.velx },
     cont
 ) end
-local jump_straight_attack1 = function(slf, cont) slf:checkAndAttack(
+local jump_attack_straight1 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 25, height = 12, damage = 7, type = "high", velocity = slf.velx },
     cont
 ) end
-local jump_straight_attack2 = function(slf, cont) slf:checkAndAttack(
+local jump_attack_straight2 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 25, height = 12, damage = 9, type = "fall", velocity = slf.velocity_fall_x },
     cont
 ) end
@@ -300,7 +300,7 @@ return {
 		},
 		jumpAttackForward = {
 			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
-			{ q = q(58,714,75,58), ox = 33, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
+			{ q = q(58,714,75,58), ox = 33, oy = 66, funcCont = jump_attack_forward, delay = 5 }, --jump attack forward 2
 			delay = 0.06
 		},
 		jumpAttackForwardEnd = {
@@ -309,7 +309,7 @@ return {
 		},
 		jumpAttackLight = {
 			{ q = q(2,844,43,67), ox = 21, oy = 66 }, --jump attack light 1
-			{ q = q(47,844,47,63), ox = 23, oy = 66, funcCont = jump_light_attack, delay = 5 }, --jump attack light 2
+			{ q = q(47,844,47,63), ox = 23, oy = 66, funcCont = jump_attack_light, delay = 5 }, --jump attack light 2
 			delay = 0.03
 		},
 		jumpAttackLightEnd = {
@@ -318,13 +318,13 @@ return {
 		},
 		jumpAttackStraight = {
 			{ q = q(2,778,38,64), ox = 19, oy = 66 }, --jump attack straight 1
-			{ q = q(42,778,50,64), ox = 19, oy = 66, func = jump_straight_attack1, delay = 0.07 }, --jump attack straight 2
-			{ q = q(94,778,43,62), ox = 19, oy = 66, funcCont = jump_straight_attack2, delay = 5 }, --jump attack straight 3
+			{ q = q(42,778,50,64), ox = 19, oy = 66, func = jump_attack_straight1, delay = 0.07 }, --jump attack straight 2
+			{ q = q(94,778,43,62), ox = 19, oy = 66, funcCont = jump_attack_straight2, delay = 5 }, --jump attack straight 3
 			delay = 0.1
 		},
 		jumpAttackRun = {
 			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
-			{ q = q(143,2,75,55), ox = 33, oy = 66, funcCont = jump_run_attack, delay = 5 }, --jump attack running
+			{ q = q(143,2,75,55), ox = 33, oy = 66, funcCont = jump_attack_run, delay = 5 }, --jump attack running
 			delay = 0.06
 		},
 		jumpAttackRunEnd = {

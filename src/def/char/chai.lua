@@ -88,23 +88,23 @@ local dash_attack2 = function(slf, cont) slf:checkAndAttack(
 	{ left = 12, width = 30, height = 12, damage = 17, type = "fall", velocity = slf.velocity_dash_fall },
 	cont
 ) end
-local jump_forward_attack = function(slf, cont) slf:checkAndAttack(
+local jump_attack_forward = function(slf, cont) slf:checkAndAttack(
 	{ left = 30, width = 25, height = 12, damage = 15, type = "fall", velocity = slf.velx },
 	cont
 ) end
-local jump_light_attack = function(slf, cont) slf:checkAndAttack(
+local jump_attack_light = function(slf, cont) slf:checkAndAttack(
 	{ left = 12, width = 22, height = 12, damage = 8, type = "high", velocity = slf.velx },
 	cont
 ) end
-local jump_straight_attack = function(slf, cont) slf:checkAndAttack(
+local jump_attack_straight = function(slf, cont) slf:checkAndAttack(
 	{ left = 15, width = 25, height = 12, damage = 15, type = "fall", velocity = slf.velocity_fall_x },
 	cont
 ) end
-local jump_run_attack = function(slf, cont) slf:checkAndAttack(
+local jump_attack_run = function(slf, cont) slf:checkAndAttack(
 	{ left = 25, width = 35, height = 12, damage = 6, type = "high", velocity = slf.velx },
 	cont
 ) end
-local jump_run_attack_last = function(slf, cont) slf:checkAndAttack(
+local jump_attack_run_last = function(slf, cont) slf:checkAndAttack(
 	{ left = 25, width = 35, height = 12, damage = 8, type = "fall", velocity = slf.velx },
 	cont
 ) end
@@ -300,7 +300,7 @@ return {
 		jumpAttackForward = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
 			{ q = q(43,722,37,64), ox = 13, oy = 66 }, --jump attack forward 2
-			{ q = q(82,722,71,64), ox = 26, oy = 66, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 3
+			{ q = q(82,722,71,64), ox = 26, oy = 66, funcCont = jump_attack_forward, delay = 5 }, --jump attack forward 3
 			delay = 0.03
 		},
 		jumpAttackForwardEnd = {
@@ -310,7 +310,7 @@ return {
 		},
 		jumpAttackLight = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 13, oy = 66, funcCont = jump_light_attack, delay = 5 }, --jump attack forward 2
+			{ q = q(43,722,37,64), ox = 13, oy = 66, funcCont = jump_attack_light, delay = 5 }, --jump attack forward 2
 			delay = 0.03
 		},
 		jumpAttackLightEnd = {
@@ -320,18 +320,18 @@ return {
 		jumpAttackStraight = {
 			{ q = q(2,789,42,67), ox = 26, oy = 66 }, --jump attack straight 1
 			{ q = q(46,789,41,63), ox = 22, oy = 66, delay = 0.07 }, --jump attack straight 2
-			{ q = q(89,789,42,61), ox = 22, oy = 66, funcCont = jump_straight_attack, delay = 5 }, --jump attack straight 3
+			{ q = q(89,789,42,61), ox = 22, oy = 66, funcCont = jump_attack_straight, delay = 5 }, --jump attack straight 3
 			delay = 0.1
 		},
 		jumpAttackRun = {
 			{ q = q(2,993,63,66), ox = 26, oy = 66 }, --jump attack running 1.1
-			{ q = q(67,993,63,66), ox = 22, oy = 66, func = jump_run_attack }, --jump attack running 1.2
+			{ q = q(67,993,63,66), ox = 22, oy = 66, func = jump_attack_run }, --jump attack running 1.2
 			{ q = q(132,993,64,66), ox = 22, oy = 66 }, --jump attack running 2.1
-			{ q = q(2,1061,65,66), ox = 22, oy = 66, func = jump_run_attack }, --jump attack running 2.2
+			{ q = q(2,1061,65,66), ox = 22, oy = 66, func = jump_attack_run }, --jump attack running 2.2
 			{ q = q(69,1061,66,66), ox = 22, oy = 66 }, --jump attack running 2.3
-			{ q = q(137,1061,63,66), ox = 20, oy = 66, func = jump_run_attack_last }, --jump attack running 3.1
-			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jump_run_attack_last }, --jump attack running 3.2
-			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jump_run_attack_last }, --jump attack running 3.3
+			{ q = q(137,1061,63,66), ox = 20, oy = 66, func = jump_attack_run_last }, --jump attack running 3.1
+			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jump_attack_run_last }, --jump attack running 3.2
+			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jump_attack_run_last }, --jump attack running 3.3
 			{ q = q(124,1129,42,67), ox = 23, oy = 66, delay = 5 }, --jump attack running 4
 			delay = 0.02
 		},

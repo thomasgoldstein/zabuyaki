@@ -15,7 +15,7 @@ local combo_uppercut2 = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 
-local jump_forward_attack = function(slf, cont)
+local jump_attack = function(slf, cont)
     slf:checkAndAttack(
         { left = 4, width = 48, height = 12, damage = 28, type = "fall", velocity = slf.velx },
         cont
@@ -97,10 +97,10 @@ return {
             { q = q(2,351,55,70), ox = 35, oy = 69 }, --jump
             { q = q(59,347,60,74), ox = 34, oy = 73 }, --jump attack forward 1 (lowered)
             { q = q(121,354,58,58), ox = 31, oy = 59 }, --jump attack forward 2 (lowered)
-			{ q = q(2,739,56,43), ox = 33, oy = 40, funcCont = jump_forward_attack }, --run 1
-			{ q = q(60,736,50,46), ox = 32, oy = 43, funcCont = jump_forward_attack }, --run 2
-			{ q = q(112,739,53,43), ox = 32, oy = 40, funcCont = jump_forward_attack }, --run 3
-			{ q = q(167,729,52,53), ox = 31, oy = 50, funcCont = jump_forward_attack }, --run 4
+			{ q = q(2,739,56,43), ox = 33, oy = 40, funcCont = jump_attack }, --run 1
+			{ q = q(60,736,50,46), ox = 32, oy = 43, funcCont = jump_attack }, --run 2
+			{ q = q(112,739,53,43), ox = 32, oy = 40, funcCont = jump_attack }, --run 3
+			{ q = q(167,729,52,53), ox = 31, oy = 50, funcCont = jump_attack }, --run 4
             loop = true,
 			loopFrom = 4,
             delay = 0.1
@@ -177,22 +177,22 @@ return {
         },
         jumpAttackForward = {
             { q = q(59,347,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
+            { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackLight = { --TODO: Remove
             { q = q(59,347,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
+            { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackStraight = {
             { q = q(59,347,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
+            { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackRun = {
             { q = q(59,347,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_forward_attack, delay = 5 }, --jump attack forward 2
+            { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         sideStepUp = { --TODO: Remove
