@@ -22,13 +22,12 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
---    self.sfx.jump = "rick_jump"
---    self.sfx.throw = "rick_throw"
---    self.sfx.jump_attack = "rick_attack"
+--    self.sfx.jump = "kisa_jump"
+--    self.sfx.throw = "kisa_throw"
     self.sfx.dead = sfx.zeena_death
-    self.sfx.dash_attack = sfx.zeena_attack
+    self.sfx.jump_attack = sfx.zeena_attack
+--    self.sfx.dash_attack = sfx.zeena_attack
     self.sfx.step = "kisa_step"
-
 end
 
 function Zeena:combo_start()
@@ -95,11 +94,13 @@ function Zeena:dashAttack_update(dt)
 end
 Zeena.dashAttack = {name = "dashAttack", start = Zeena.dashAttack_start, exit = nop, update = Zeena.dashAttack_update, draw = Character.default_draw }
 
+-- Zeena's JumpAttacks should end with Fall
+Zeena.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
+Zeena.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
+
 --Block unused moves
-Zeena.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
-Zeena.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-Zeena.duck2jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-Zeena.jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Zeena.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
+Zeena.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 --Disable grabbing
 function Zeena:checkForGrab(range)
     return nil

@@ -39,9 +39,9 @@ local combo_kick = function(slf, cont)
         cont
     )
 end
-local dash_attack = function(slf, cont)
+local jump_forward_attack = function(slf, cont)
     slf:checkAndAttack(
-    { left = 12, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocity_dash_fall },
+    { left = 21, width = 25, height = 12, damage = 13, type = "fall", velocity = slf.velocity_dash_fall },
     cont
 ) end
 
@@ -87,7 +87,7 @@ return {
             loop = true,
             delay = 0.08
         },
-        jump = { --TODO: Remove
+        jump = {
             { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
             delay = 5
         },
@@ -151,18 +151,33 @@ return {
             { q = q(2,186,36,58), ox = 21, oy = 57, delay = 0.1 }, --hurt low 1
             delay = 0.3
         },
-        jumpAttackForward = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 5
+        jumpAttackForward = {
+            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
+            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jump_forward_attack, delay = 5 }, --jump attack 2
+            delay = 0.06
         },
+		jumpAttackForwardEnd = {
+            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
+			delay = 5
+		},
         jumpAttackLight = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 5
+            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
+            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jump_forward_attack, delay = 5 }, --jump attack 2
+            delay = 0.06
         },
-        jumpAttackStraight = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 5
+		jumpAttackLightEnd = {
+            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
+			delay = 5
+		},
+        jumpAttackStraight = {
+            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
+            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jump_forward_attack, delay = 5 }, --jump attack 2
+            delay = 0.06
         },
+		jumpAttackStraightEnd = {
+            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
+			delay = 5
+		},
         sideStepUp = {
             { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
         },

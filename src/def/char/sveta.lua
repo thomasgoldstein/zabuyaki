@@ -41,7 +41,7 @@ local combo_kick = function(slf, cont)
 end
 local dash_attack = function(slf, cont)
     slf:checkAndAttack(
-    { left = 12, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocity_dash_fall },
+    { left = 21, width = 25, height = 12, damage = 14, type = "fall", velocity = slf.velocity_dash_fall },
     cont
 ) end
 
@@ -87,7 +87,7 @@ return {
             loop = true,
             delay = 0.08
         },
-        jump = {
+        jump = { --TODO: Remove
             { q = q(2,323,38,67), ox = 23, oy = 66 }, --jump
             delay = 5
         },
@@ -105,8 +105,9 @@ return {
             delay = 0.28
         },
         dashAttack = {
-            { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1
-            delay = 0.3
+            { q = q(42,323,52,63), ox = 34, oy = 62 }, --dash attack 1
+            { q = q(96,323,71,60), ox = 37, oy = 59, funcCont = dash_attack, delay = 5 }, --dash attack 2
+            delay = 0.06
         },
         combo1 = {
             { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1

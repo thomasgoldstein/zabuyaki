@@ -22,11 +22,11 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
---    self.sfx.jump = "rick_jump"
---    self.sfx.throw = "rick_throw"
---    self.sfx.dash_attack = "rick_attack"
+--    self.sfx.jump = "kisa_jump"
+--    self.sfx.throw = "kisa_throw"
     self.sfx.dead = sfx.sveta_death
-    self.sfx.jump_attack = sfx.sveta_attack
+--    self.sfx.jump_attack = sfx.sveta_attack
+    self.sfx.dash_attack = sfx.sveta_attack
     self.sfx.step = "kisa_step"
 end
 
@@ -57,15 +57,10 @@ function Sveta:combo_update(dt)
 end
 Sveta.combo = {name = "combo", start = Sveta.combo_start, exit = nop, update = Sveta.combo_update, draw = Character.default_draw}
 
--- Sveta's JumpAttacks should end with Fall
-Sveta.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
-Sveta.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
-
 --Block unused moves
-Sveta.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
-Sveta.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 Sveta.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
-Sveta.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Sveta.duck2jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Sveta.jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 --Disable grabbing
 function Sveta:checkForGrab(range)
     return nil
