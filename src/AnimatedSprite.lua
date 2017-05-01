@@ -203,12 +203,6 @@ function DrawSpriteInstance (spr, x, y, frame)
 	)
 end
 
---jumpAttackForward = {
---	{ q = q(2,714,54,62), ox = 23, oy = 61 }, --jaf1
---	{ q = q(58,714,75,58), ox = 33, oy = 57, funcCont = jump_forward_attack, delay = 5 }, --jaf2
---	delay = 0.06
---},
-
 function ParseSpriteAnimation(spr, cur_anim)
 	if (cur_anim or spr.cur_anim) == "icon" then
 		return "Cannot parse icons"
