@@ -58,27 +58,17 @@ function Obstacle:drawSprite(x, y)
     DrawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
 end
 
-function Obstacle:drawShadow(l,t,w,h)
-    if not self.isDisabled and CheckCollision(l, t, w, h, self.x-50, self.y-10, 80, 20) then
-        if self.cool_down_death < 1 then
-            love.graphics.setColor(0, 0, 0, 255 * math.sin(self.cool_down_death)) --4th is the shadow transparency
-        else
-            love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
-        end
-        local spr = self.sprite
-        local sc = spr.def.animations[spr.cur_anim][self:calcDamageFrame()]
-        local shadowAngle = -stage.shadowAngle * spr.flip_h
-        love.graphics.draw (
-            image_bank[spr.def.sprite_sheet],
-            sc.q,
-            self.x + self.shake.x, self.y - 2 + self.z/6,
-            0,
-            self.faceFix,
-            -stage.shadowHeight,
-            sc.ox, sc.oy,
-            shadowAngle
-        )
+function Obstacle:calcShadowSpriteAndTransparency()
+    if self.cool_down_death < 1 then
+        love.graphics.setColor(0, 0, 0, 255 * math.sin(self.cool_down_death)) --4th is the shadow transparency
+    else
+        love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
     end
+    local spr = self.sprite
+    local image = image_bank[spr.def.sprite_sheet]
+    local sc = spr.def.animations[spr.cur_anim][self:calcDamageFrame()]
+    local shadowAngle = -stage.shadowAngle * spr.flip_h
+    return image, spr, sc, shadowAngle, -2
 end
 
 function Obstacle:checkCollisionAndMove(dt)

@@ -38,20 +38,9 @@ function Loot:addShape()
     Unit.addShape(self, "circle", { self.x, self.y, 7.5 })
 end
 
-function Loot:drawShadow(l,t,w,h)
-    if not self.isDisabled and CheckCollision(l, t, w, h, self.x-16, self.y-10, 32, 20) then
-        love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
-        love.graphics.draw (
-            self.sprite, --The image
-            self.q, --Current frame of the current animation
-            self.x, self.y + self.z/6,
-            0, --spr.rotation
-            1,
-            -stage.shadowHeight,
-            self.ox, self.oy,
-            -stage.shadowAngle
-        )
-    end
+function Loot:calcShadowSpriteAndTransparency()
+    love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
+    return self.sprite, self.sprite, self, -stage.shadowAngle, 0
 end
 
 function Loot:draw(l,t,w,h)
