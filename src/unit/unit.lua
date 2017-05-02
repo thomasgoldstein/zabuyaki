@@ -376,14 +376,20 @@ function Unit:calcFriction(dt, friction)
 	local frctn = friction or self.friction
 	if self.velx > 0 then
 		self.velx = self.velx - frctn * dt
+        if self.velx < 0 then
+            self.velx = 0
+        end
 	else
 		self.velx = 0
 	end
 	if self.vely > 0 then
 		self.vely = self.vely - frctn * dt
-	else
+        if self.vely < 0 then
+            self.vely = 0
+        end
+    else
 		self.vely = 0
-	end
+    end
 end
 
 function Unit:calcMovement(dt, use_friction, friction, do_not_move_unit)
