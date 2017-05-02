@@ -60,7 +60,7 @@ end
 
 function Obstacle:drawShadow(l,t,w,h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-50, self.y-10, 80, 20) then
-        if self.cool_down_death < 2 then
+        if self.cool_down_death < 1 then
             love.graphics.setColor(0, 0, 0, 255 * math.sin(self.cool_down_death)) --4th is the shadow transparency
         else
             love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
