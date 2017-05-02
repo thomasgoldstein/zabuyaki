@@ -179,7 +179,7 @@ function Player:drawBar(l,t,w,h, icon_width, norm_color)
 end
 -- End of Lifebar elements
 
-function Unit:checkCollisionAndMove(dt)
+function Player:checkCollisionAndMove(dt)
     if self.move then
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
