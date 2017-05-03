@@ -498,7 +498,7 @@ function Character:stand_update(dt)
     if self.cool_down <= 0 then
         --can move
         if self.b.horizontal:getValue() ~=0 then
-            if self:getStateTime() < 0.2 and self.last_face == self.b.horizontal:getValue()
+            if self:getPrevStateTime() < 0.2 and self.last_face == self.b.horizontal:getValue()
                     and (self.last_state == "walk" or self.last_state == "run" )
             then
                 self:setState(self.run)
@@ -508,7 +508,7 @@ function Character:stand_update(dt)
             return
         end
         if self.b.vertical:getValue() ~= 0 then
-            if self:getStateTime() < 0.2 and self.last_vertical == self.b.vertical:getValue()
+            if self:getPrevStateTime() < 0.2 and self.last_vertical == self.b.vertical:getValue()
                     and (self.last_state == "walk" )
             then
                 self.vertical = self.b.vertical:getValue()
@@ -799,7 +799,7 @@ function Character:duck2jump_start()
     self.z = 0
 end
 function Character:duck2jump_update(dt)
-    if self:getStateTime() < self.special_tolerance_delay then
+    if self:getLastStateTime() < self.special_tolerance_delay then
         --time for other move
         if self.b.attack:isDown() then
             if self.velx ~= 0 then
@@ -911,7 +911,7 @@ function Character:dashAttack_start()
     sfx.play("voice"..self.id, self.sfx.dash_attack)
 end
 function Character:dashAttack_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
+    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
         self:setState(self.defensiveSpecial)
         return
     end
@@ -1189,7 +1189,7 @@ function Character:combo_start()
     self.cool_down = 0.2
 end
 function Character:combo_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
+    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
         else
@@ -1452,7 +1452,7 @@ function Character:grabAttack_start()
     dp(self.name.." is grabAttack someone.")
 end
 function Character:grabAttack_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
+    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
         else
@@ -1474,7 +1474,7 @@ function Character:grabAttackLast_start()
     dp(self.name.." is grabAttackLast someone.")
 end
 function Character:grabAttackLast_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
+    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
         else
