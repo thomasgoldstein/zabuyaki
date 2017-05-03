@@ -497,13 +497,23 @@ function Character:stand_update(dt)
     
     if self.cool_down <= 0 then
         --can move
-        if self.b.horizontal:getValue() ~= 0 or
-                self.b.vertical:getValue() ~= 0
-        then
+        if self.b.horizontal:getValue() ~=0 then
             if self:getStateTime() < 0.2 and self.last_face == self.b.horizontal:getValue()
                     and (self.last_state == "walk" or self.last_state == "run" )
             then
                 self:setState(self.run)
+            else
+                self:setState(self.walk)
+            end
+            return
+        end
+        if self.b.vertical:getValue() ~= 0 then
+            if self:getStateTime() < 0.2 and self.last_vertical == self.b.vertical:getValue()
+                    and (self.last_state == "walk" )
+            then
+                self.vertical = self.b.vertical:getValue()
+                _, self.vely = self:getMovementSpeed()
+                self:setState(self.sideStepUp)
             else
                 self:setState(self.walk)
             end
@@ -568,20 +578,9 @@ function Character:walk_update(dt)
         self.horizontal = self.face --X direction
         self.velx, _ = self:getMovementSpeed()
     end
-    if self.b.vertical:isDown(-1) then
-        self.vertical = -1
+    if self.b.vertical:getValue() ~= 0 then
+        self.vertical = self.b.vertical:getValue()
         _, self.vely = self:getMovementSpeed()
-        if self.b.vertical.ikn:getLast() then
-            self:setState(self.sideStepUp)
-            return
-        end
-    elseif self.b.vertical:isDown(1) then
-        self.vertical = 1
-        _, self.vely = self:getMovementSpeed()
-        if self.b.vertical.ikp:getLast() then
-            self:setState(self.sideStepDown)
-            return
-        end
     end
     if self.b.attack:isDown() then
         local grabbed = self:checkForGrab(6)

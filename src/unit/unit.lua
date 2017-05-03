@@ -176,6 +176,7 @@ function Unit:setState(state, condition)
 		self.prev_state = self.last_state
 		self.last_state = self.state
 		self.last_face = self.face
+		self.last_vertical = self.vertical
 		self:exit()
 		self.state = state.name
 		self.draw = state.draw
