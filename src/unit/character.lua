@@ -513,7 +513,7 @@ function Character:stand_update(dt)
             then
                 self.vertical = self.b.vertical:getValue()
                 _, self.vely = self:getMovementSpeed()
-                self:setState(self.sideStepUp)
+                self:setState(self.sideStep)
             else
                 self:setState(self.walk)
             end
@@ -877,13 +877,17 @@ function Character:hurtLow_update(dt)
 end
 Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
 
-function Character:sideStepDown_start()
+function Character:sideStep_start()
     self.isHittable = true
-    self:setSprite("sideStepDown")
+    if self.vertical > 0 then
+        self:setSprite("sideStepDown")
+    else
+        self:setSprite("sideStepUp")
+    end
     self.velx, self.vely = 0, self.velocity_step_down
     sfx.play("sfx"..self.id, "whoosh_heavy")
 end
-function Character:sideStepDown_update(dt)
+function Character:sideStep_update(dt)
     if self.vely > 0 then
         self.vely = self.vely - self.sideStepFriction * dt
         self.z = self.vely / 24 --to show low leap
@@ -896,28 +900,7 @@ function Character:sideStepDown_update(dt)
     end
     self:calcMovement(dt, false, nil)
 end
-Character.sideStepDown = {name = "sideStepDown", start = Character.sideStepDown_start, exit = nop, update = Character.sideStepDown_update, draw = Character.default_draw}
-
-function Character:sideStepUp_start()
-    self.isHittable = true
-    self:setSprite("sideStepUp")
-    self.velx, self.vely = 0, self.velocity_step_down
-    sfx.play("sfx"..self.id, "whoosh_heavy")
-end
-function Character:sideStepUp_update(dt)
-    if self.vely > 0 then
-        self.vely = self.vely - self.sideStepFriction * dt
-        self.z = self.vely / 24 --to show low leap
-    else
-        self.vely = 0
-        self.z = 0
-        sfx.play("sfx"..self.id, self.sfx.step, 0.75)
-        self:setState(self.duck)
-        return
-    end
-    self:calcMovement(dt, false, nil)
-end
-Character.sideStepUp = {name = "sideStepUp", start = Character.sideStepUp_start, exit = nop, update = Character.sideStepUp_update, draw = Character.default_draw}
+Character.sideStep = {name = "sideStep", start = Character.sideStep_start, exit = nop, update = Character.sideStep_update, draw = Character.default_draw}
 
 function Character:dashAttack_start()
     self.isHittable = true

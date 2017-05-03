@@ -62,8 +62,7 @@ Beatnick.jumpAttackForward = {name = "jumpAttackForward", start = Character.jump
 Beatnick.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
 
 --Block unused moves
-Beatnick.sideStepDown = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
-Beatnick.sideStepUp = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+Beatnick.sideStep = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
 Beatnick.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
 Beatnick.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 --Disable grabbing
