@@ -213,7 +213,7 @@ return {
 		dashHold = {
 			{ q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
 		},
-		special = {
+		defensiveSpecial = {
 			{ q = q(114,584,44,62), ox = 18, oy = 61 }, --combo 4.1
 			{ q = q(160,584,39,62), ox = 16, oy = 61 }, --combo 4.2
 			{ q = q(2,649,66,62), ox = 12, oy = 61, func = hold_attack1, delay = 0.08 }, --combo 4.3
@@ -223,13 +223,13 @@ return {
 			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --combo 4.7
 			delay = 0.04
 		},
-		dashSpecial = {
-			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --dash special 1
-			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = dash_attack1, delay = 0.05 }, --dash special 2
-			{ q = q(100,1178,49,62), ox = 15, oy = 61, func = dash_attack1, delay = 0.05 }, --dash special 3
-			{ q = q(151,1173,54,67), ox = 20, oy = 66, func = dash_attack2 }, --dash special 4
-			{ q = q(2,1242,54,66), ox = 20, oy = 65, func = dash_attack2 }, --dash special 5
-			{ q = q(58,1242,54,66), ox = 20, oy = 65, func = dash_attack2 }, --dash special 6
+		offensiveSpecial = {
+			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --offensive special 1
+			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = dash_attack1, delay = 0.05 }, --offensive special 2
+			{ q = q(100,1178,49,62), ox = 15, oy = 61, func = dash_attack1, delay = 0.05 }, --offensive special 3
+			{ q = q(151,1173,54,67), ox = 20, oy = 66, func = dash_attack2 }, --offensive special 4
+			{ q = q(2,1242,54,66), ox = 20, oy = 65, func = dash_attack2 }, --offensive special 5
+			{ q = q(58,1242,54,66), ox = 20, oy = 65, func = dash_attack2 }, --offensive special 6
 			delay = 0.117
 		},
 		combo1 = {
@@ -360,12 +360,12 @@ return {
 			delay = 0.25
 		},
 		shoveUp = {
-			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --dash special 1
-			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = shove_now, delay = 0.05 }, --dash special 2
-			{ q = q(100,1178,49,62), ox = 15, oy = 61, delay = 0.05 }, --dash special 3
-			{ q = q(151,1173,54,67), ox = 20, oy = 66 }, --dash special 4
-			{ q = q(2,1242,54,66), ox = 20, oy = 65 }, --dash special 5
-			{ q = q(58,1242,54,66), ox = 20, oy = 65 }, --dash special 6
+			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --offensive special 1
+			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = shove_now, delay = 0.05 }, --offensive special 2
+			{ q = q(100,1178,49,62), ox = 15, oy = 61, delay = 0.05 }, --offensive special 3
+			{ q = q(151,1173,54,67), ox = 20, oy = 66 }, --offensive special 4
+			{ q = q(2,1242,54,66), ox = 20, oy = 65 }, --offensive special 5
+			{ q = q(58,1242,54,66), ox = 20, oy = 65 }, --offensive special 6
 			delay = 0.117
 		},
 		shoveBack = {

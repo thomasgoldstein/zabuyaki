@@ -478,9 +478,9 @@ function Character:stand_update(dt)
     if (self.can_jump or self.can_attack) and
             (self.b.jump:isDown() and self.b.attack:isDown()) then
         if self.b.horizontal:getValue() ~= 0 then
-            self:setState(self.dashSpecial)
+            self:setState(self.offensiveSpecial)
         else
-            self:setState(self.special)
+            self:setState(self.defensiveSpecial)
         end
         return
     elseif self.can_jump and self.b.jump:isDown() then
@@ -561,7 +561,7 @@ function Character:walk_update(dt)
         return
     elseif self.b.jump:isDown() and self.can_jump then
         if self.b.attack:isDown() then
-            self:setState(self.dashSpecial)
+            self:setState(self.offensiveSpecial)
         else
             self:setState(self.duck2jump)
         end
@@ -665,14 +665,14 @@ function Character:run_update(dt)
     end
     if self.can_jump and self.b.jump:isDown() then
         if self.b.attack:isDown() then
-            self:setState(self.dashSpecial)
+            self:setState(self.offensiveSpecial)
         else
             self:setState(self.duck2jump, true) --pass condition to block dir changing
         end
         return
     elseif self.b.attack:isDown() and self.can_attack then
         if self.b.jump:isDown() then
-            self:setState(self.dashSpecial)
+            self:setState(self.offensiveSpecial)
         else
             self:setState(self.dashAttack)
         end
@@ -803,9 +803,9 @@ function Character:duck2jump_update(dt)
         --time for other move
         if self.b.attack:isDown() then
             if self.velx ~= 0 then
-                self:setState(self.dashSpecial)
+                self:setState(self.offensiveSpecial)
             else
-                self:setState(self.special)
+                self:setState(self.defensiveSpecial)
             end
             return
         end
@@ -912,7 +912,7 @@ function Character:dashAttack_start()
 end
 function Character:dashAttack_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
-        self:setState(self.special)
+        self:setState(self.defensiveSpecial)
         return
     end
     if self.sprite.isFinished then
@@ -923,11 +923,11 @@ function Character:dashAttack_update(dt)
 end
 Character.dashAttack = {name = "dashAttack", start = Character.dashAttack_start, exit = nop, update = Character.dashAttack_update, draw = Character.default_draw}
 
-function Character:dashSpecial_start()
+function Character:offensiveSpecial_start()
     --no move by default
     self:setState(self.stand)
 end
-Character.dashSpecial = {name = "dashSpecial", start = Character.dashSpecial_start, exit = nop, update = nop, draw = Character.default_draw }
+Character.offensiveSpecial = {name = "offensiveSpecial", start = Character.offensiveSpecial_start, exit = nop, update = nop, draw = Character.default_draw }
 
 function Character:jumpAttackForward_start()
     self.isHittable = true
@@ -1191,9 +1191,9 @@ end
 function Character:combo_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dashSpecial)
+            self:setState(self.offensiveSpecial)
         else
-            self:setState(self.special)
+            self:setState(self.defensiveSpecial)
         end
         return
     end
@@ -1348,9 +1348,9 @@ function Character:grab_update(dt)
         if self.b.attack:isDown() and self.can_jump and self.b.jump:isDown() then
             self:release_grabbed()
             if self.b.horizontal:getValue() == self.horizontal then
-                self:setState(self.dashSpecial)
+                self:setState(self.offensiveSpecial)
             else
-                self:setState(self.special)
+                self:setState(self.defensiveSpecial)
             end
             return
         end
@@ -1454,9 +1454,9 @@ end
 function Character:grabAttack_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dashSpecial)
+            self:setState(self.offensiveSpecial)
         else
-            self:setState(self.special)
+            self:setState(self.defensiveSpecial)
         end
         return
     end
@@ -1476,9 +1476,9 @@ end
 function Character:grabAttackLast_update(dt)
     if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dashSpecial)
+            self:setState(self.offensiveSpecial)
         else
-            self:setState(self.special)
+            self:setState(self.defensiveSpecial)
         end
         return
     end
@@ -1676,9 +1676,9 @@ function Character:grabSwap_update(dt)
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwap_start, exit = nop, update = Character.grabSwap_update, draw = Character.default_draw}
 
-function Character:special_start() -- Special attack plug
+function Character:defensiveSpecial_start() -- Special attack plug
     self:setState(self.stand)
 end
-Character.special = {name = "special", start = Character.special_start, exit = nop, update = nop, draw = Character.default_draw }
+Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecial_start, exit = nop, update = nop, draw = Character.default_draw }
 
 return Character
