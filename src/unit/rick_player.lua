@@ -52,9 +52,9 @@ end
 function Rick:combo_update(dt)
     if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dashSpecial)
+            self:setState(self.offensiveSpecial)
         else
-            self:setState(self.special)
+            self:setState(self.defensiveSpecial)
         end
         return
     end
@@ -77,13 +77,13 @@ function Rick:combo_update(dt)
 end
 Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Character.default_draw}
 
-function Rick:special_start()
+function Rick:defensiveSpecial_start()
     self.isHittable = false
-    self:setSprite("special")
+    self:setSprite("defensiveSpecial")
     sfx.play("voice"..self.id, self.sfx.throw)
     self.cool_down = 0.2
 end
-function Rick:special_update(dt)
+function Rick:defensiveSpecial_update(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt
@@ -97,7 +97,7 @@ function Rick:special_update(dt)
     end
     self:calcMovement(dt, true)
 end
-Rick.special = {name = "special", start = Rick.special_start, exit = nop, update = Rick.special_update, draw = Character.default_draw }
+Rick.defensiveSpecial = {name = "defensiveSpecial", start = Rick.defensiveSpecial_start, exit = nop, update = Rick.defensiveSpecial_update, draw = Character.default_draw }
 
 function Rick:dashAttack_start()
     self.isHittable = true
@@ -128,10 +128,10 @@ function Rick:dashAttack_update(dt)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttack_start, exit = nop, update = Rick.dashAttack_update, draw = Character.default_draw}
 
-function Rick:dashSpecial_start()
+function Rick:offensiveSpecial_start()
     self.isHittable = true
     dpo(self, self.state)
-    self:setSprite("dashSpecial")
+    self:setSprite("offensiveSpecial")
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
@@ -146,7 +146,7 @@ function Rick:dashSpecial_start()
 
     stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
 end
-function Rick:dashSpecial_update(dt)
+function Rick:offensiveSpecial_update(dt)
     if self.sprite.isFinished then
         dpo(self, self.state)
         self:setState(self.stand)
@@ -158,7 +158,7 @@ function Rick:dashSpecial_update(dt)
     end
     self:calcMovement(dt, true, self.velocity_dash)
 end
-Rick.dashSpecial = {name = "dashSpecial", start = Rick.dashSpecial_start, exit = nop, update = Rick.dashSpecial_update, draw = Character.default_draw}
+Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecial_start, exit = nop, update = Rick.offensiveSpecial_update, draw = Character.default_draw}
 
 function Rick:holdAttack_start()
     self.isHittable = true
