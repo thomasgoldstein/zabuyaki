@@ -500,7 +500,13 @@ function Character:stand_update(dt)
         if self.b.horizontal:getValue() ~= 0 or
                 self.b.vertical:getValue() ~= 0
         then
-            self:setState(self.walk)
+            if self:getStateTime() < 0.2 and self.last_face == self.b.horizontal:getValue()
+                    and (self.last_state == "walk" or self.last_state == "run" )
+            then
+                self:setState(self.run)
+            else
+                self:setState(self.walk)
+            end
             return
         end
     else
@@ -557,18 +563,10 @@ function Character:walk_update(dt)
         self.face = -1 --face sprite left or right
         self.horizontal = self.face --X direction
         self.velx, _ = self:getMovementSpeed()
-        if self.b.horizontal.ikn:getLast() and self.face == -1 then
-            self:setState(self.run)
-            return
-        end
     elseif self.b.horizontal:isDown(1) then
         self.face = 1 --face sprite left or right
         self.horizontal = self.face --X direction
         self.velx, _ = self:getMovementSpeed()
-        if self.b.horizontal.ikp:getLast() and self.face == 1 then
-            self:setState(self.run)
-            return
-        end
     end
     if self.b.vertical:isDown(-1) then
         self.vertical = -1

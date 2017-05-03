@@ -175,6 +175,7 @@ function Unit:setState(state, condition)
 		self.time_state = love.timer.getTime()
 		self.prev_state = self.last_state
 		self.last_state = self.state
+		self.last_face = self.face
 		self:exit()
 		self.state = state.name
 		self.draw = state.draw
