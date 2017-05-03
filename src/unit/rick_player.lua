@@ -50,7 +50,7 @@ function Rick:combo_start()
     self.cool_down = 0.2
 end
 function Rick:combo_update(dt)
-    if self.b.jump:isDown() and self:getStateTime() < self.special_tolerance_delay then
+    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.dashSpecial)
         else
