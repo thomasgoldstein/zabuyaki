@@ -106,6 +106,7 @@ function Rick:dashAttack_start()
     self.velx = self.velocity_dash
     self.vely = 0
     self.velz = 0
+    self.horizontal = self.face
     sfx.play("voice"..self.id, self.sfx.dash_attack)
     local psystem = PA_DASH:clone()
     psystem:setSpin(0, -3 * self.face)
