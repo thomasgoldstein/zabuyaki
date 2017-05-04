@@ -35,6 +35,7 @@ end
 
 function Rick:combo_start()
     self.isHittable = true
+    self.horizontal = self.face
     if self.n_combo > 4 or self.n_combo < 1 then
         self.n_combo = 1
     end
@@ -131,6 +132,7 @@ Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttack_start, exit = no
 
 function Rick:offensiveSpecial_start()
     self.isHittable = true
+    self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("offensiveSpecial")
     self.velx = self.velocity_dash

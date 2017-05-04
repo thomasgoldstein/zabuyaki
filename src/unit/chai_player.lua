@@ -38,6 +38,7 @@ end
 
 function Chai:combo_start()
     self.isHittable = true
+    self.horizontal = self.face
     --	dp(self.name.." - combo start")
     if self.n_combo > 4 or self.n_combo < 1 then
         self.n_combo = 1
@@ -75,6 +76,7 @@ Chai.combo = {name = "combo", start = Chai.combo_start, exit = nop, update = Cha
 
 function Chai:dashAttack_start()
     self.isHittable = true
+    self.horizontal = self.face
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
