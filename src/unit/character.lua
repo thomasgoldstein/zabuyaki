@@ -5,6 +5,7 @@ local Character = class('Character', Unit)
 local function nop() end
 local sign = sign
 local clamp = clamp
+local double_tap_delta = 0.25
 
 function Character:initialize(name, sprite, input, x, y, f)
     if not f then
@@ -502,7 +503,7 @@ function Character:stand_update(dt)
     if self.cool_down <= 0 then
         --can move
         if self.b.horizontal:getValue() ~=0 then
-            if self:getPrevStateTime() < 0.2 and self.last_face == self.b.horizontal:getValue()
+            if self:getPrevStateTime() < double_tap_delta and self.last_face == self.b.horizontal:getValue()
                     and (self.last_state == "walk" or self.last_state == "run" )
             then
                 self:setState(self.run)
@@ -512,7 +513,7 @@ function Character:stand_update(dt)
             return
         end
         if self.b.vertical:getValue() ~= 0 then
-            if self:getPrevStateTime() < 0.2 and self.last_vertical == self.b.vertical:getValue()
+            if self:getPrevStateTime() < double_tap_delta and self.last_vertical == self.b.vertical:getValue()
                     and (self.last_state == "walk" )
             then
                 self.vertical = self.b.vertical:getValue()
