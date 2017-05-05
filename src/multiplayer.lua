@@ -180,36 +180,6 @@ function fixPlayersPalette(player)
     player.shader = getShader(player.sprite.def.sprite_name:lower(), player.palette)
 end
 
-function fixPlayersPalette_(player)
-    local n = player.palette
---    print("!!! "..player.name.." ",n, player1.name, player2.name, player3.name)
---    print("!! ID "..player.id.." ", player1.id, player2.id, player3.id)
-    if not n or n < 0 or n > max_player_palette then
-        n = 0
-        player.palette = n
-    end
-    if player1 and player.id ~= player1.id
-            and player.name == player1.name --and player1:isAlive() --and not player1:isInUseCreditMode()
-            and n == player1.palette
-    then
-        n = shift_palette_up(n)
-    end
-    if player2 and player.id ~= player2.id
-            and player.name == player2.name --and player2:isAlive() --and not player2:isInUseCreditMode()
-            and n == player2.palette
-    then
-        n = shift_palette_up(n)
-    end
-    if player3 and player.id ~= player3.id
-            and player.name == player3.name --and player3:isAlive() --and not player3:isInUseCreditMode()
-            and n == player3.palette
-    then
-        n = shift_palette_up(n)
-    end
-    player.palette = n
-    player.shader = getShader(player.sprite.def.sprite_name:lower(), player.palette)
-end
-
 -- Returns Center X, distance between players, minX, maxX
 local old_minx, old_maxx, old_y
 function getDistanceBetweenPlayers()
