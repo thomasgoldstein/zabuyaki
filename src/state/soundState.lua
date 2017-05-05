@@ -181,6 +181,7 @@ function soundState:wheelmoved(x, y)
             TEsound.playLooping(bgm.title, "music")
         end
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+        configuration:save(true)
     elseif menu_state == 2 then
         if menu[menu_state].n < 1 then
             menu[menu_state].n = #sfx
