@@ -1,37 +1,5 @@
 -- Common multiplayer routines
 
-local players = {}
-function registerPlayer(player)
-    print("registerPlayer id:"..player.id)
-    if not player then
-        error("no player data")
-    elseif player.id and player.id < 1 or player.id > GLOBAL_SETTING.MAX_PLAYERS then
-        return
-        --error("wrong player id:"..player.id)
-    end
-    players[player.id] = player
-end
-
-function unregisterPlayer(player)
-    print("unregisterPlayer id:"..player.id)
-    if not player then
-        error("no player data")
-    elseif player.id < 1 or player.id > GLOBAL_SETTING.MAX_PLAYERS then
-        error("wrong player id:"..player.id)
-    end
-    players[player.id] = nil
-end
-
-function cleanRegisteredPlayers()
-    print("cleanRegisteredPlayers")
-    players = {}
-end
-
-function getRegisteredPlayer(id)
-    print("getRegisteredPlayer id:"..id)
-    return players[id]
-end
-
 function checkPlayersRespawn(stage)
     local p = SELECT_NEW_PLAYER
     if p[#p] then
@@ -221,6 +189,7 @@ function correctPlayersRespawnPos(player)
     end
 end
 
+--[[
 function _getDistanceToClosestPlayer()
     local p = {}
     if player1 then
@@ -244,4 +213,38 @@ function _getDistanceToClosestPlayer()
         return 9000
     end
     return p[1].points
+end
+]]
+
+local players = {}
+function registerPlayer(player)
+    print("registerPlayer id:"..player.id)
+    if not player then
+        error("no player data")
+    elseif player.id and player.id < 1 or player.id > GLOBAL_SETTING.MAX_PLAYERS then
+        return
+        --error("wrong player id:"..player.id)
+    end
+    players[player.id] = player
+end
+
+function unregisterPlayer(player)
+    print("unregisterPlayer id:"..player.id)
+    if not player then
+        error("no player data")
+    elseif player.id < 1 or player.id > GLOBAL_SETTING.MAX_PLAYERS then
+        error("wrong player id:"..player.id)
+    end
+    players[player.id] = nil
+end
+
+function cleanRegisteredPlayers()
+    print("cleanRegisteredPlayers")
+    players = {}
+    old_minx, old_maxx, old_y = nil, nil, nil
+end
+
+function getRegisteredPlayer(id)
+    print("getRegisteredPlayer id:"..id)
+    return players[id]
 end
