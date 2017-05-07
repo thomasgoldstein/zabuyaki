@@ -112,25 +112,25 @@ return {
             { q = q(2,392,55,64), ox = 35, oy = 63 }, --slap 1
             { q = q(59,392,72,64), ox = 34, oy = 63, func = combo_slap }, --slap 2
             { q = q(133,392,51,64), ox = 31, oy = 63 }, --slap 3
-            delay = 0.083
+            delay = 0.067
         },
         combo2 = {
             { q = q(133,392,51,64), ox = 31, oy = 63 }, --slap 3
             { q = q(59,392,72,64), ox = 34, oy = 63, func = combo_slap }, --slap 2
             { q = q(2,392,55,64), ox = 35, oy = 63 }, --slap 1
-            delay = 0.083
+            delay = 0.067
         },
         combo3 = {
             { q = q(2,392,55,64), ox = 35, oy = 63 }, --slap 1
             { q = q(59,392,72,64), ox = 34, oy = 63, func = combo_slap }, --slap 2
             { q = q(133,392,51,64), ox = 31, oy = 63 }, --slap 3
-            delay = 0.083
+            delay = 0.067
         },
         combo4 = {
             { q = q(42,323,52,63), ox = 34, oy = 62 }, --dash attack 1
             { q = q(96,323,71,60), ox = 37, oy = 59, funcCont = combo_kick, delay = 0.167 }, --dash attack 2
             { q = q(42,323,52,63), ox = 34, oy = 62, delay = 0.117 }, --dash attack 1
-            delay = 0.083
+            delay = 0.067
         },
         fall = {
             { q = q(2,267,75,54), ox = 49, oy = 53 }, --falling
