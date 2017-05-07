@@ -54,8 +54,8 @@ return {
 			delay = 5
 		},
 		respawn = {
-			{ q = q(2,2,47,60), ox = 23, oy = 59, delay = 5 }, --stand 1
-			{ q = q(2,2,47,60), ox = 23, oy = 59, delay = 0.5 }, --stand 1
+			{ q = q(2,2,38,60), ox = 23, oy = 59, delay = 5 }, --stand 1
+			{ q = q(2,2,38,60), ox = 23, oy = 59, delay = 0.5 }, --stand 1
 			{ q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1 (need 3 frames)
 			delay = 0.1
 		},
@@ -105,11 +105,11 @@ return {
 			delay = 65
 		},
 		hurtHigh = {
-			{ q = q(2,2,47,60), ox = 22, oy = 59 }, --stand 1
+			{ q = q(2,2,38,60), ox = 22, oy = 59 }, --stand 1
 			delay = 0.3
 		},
 		hurtLow = {
-			{ q = q(2,2,47,60), ox = 24, oy = 59 }, --stand 1
+			{ q = q(2,2,38,60), ox = 24, oy = 59 }, --stand 1
 			delay = 0.3
 		},
 		jumpAttackForward = {
