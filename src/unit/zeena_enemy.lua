@@ -141,8 +141,4 @@ function Zeena:jump_update(dt)
 end
 Zeena.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Zeena.jump_update, draw = Character.default_draw }
 
--- Zeena's JumpAttacks should end with Fall
-Zeena.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}
-Zeena.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}
-
 return Zeena
