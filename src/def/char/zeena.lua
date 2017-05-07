@@ -26,23 +26,22 @@ local dash_belly_clouds = function(slf, cont)
     psystem:emit(5)
     stage.objects:add(Effect:new(psystem, slf.x + 10 * slf.face, slf.y+2))
 end
-local combo_punch = function(slf, cont)
+local combo_slap = function(slf, cont)
     slf:checkAndAttack(
-        { left = 28, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
+        { left = 25, width = 26, height = 12, damage = 5, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
     slf.cool_down_combo = 0.4
 end
 local combo_kick = function(slf, cont)
     slf:checkAndAttack(
-        { left = 30, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
+        { left = 21, width = 25, height = 12, damage = 8, type = "fall", velocity = slf.velocity_dash_fall },
         cont
-    )
-end
+) end
 local jump_attack = function(slf, cont)
     slf:checkAndAttack(
-    { left = 21, width = 25, height = 12, damage = 13, type = "fall", velocity = slf.velocity_dash_fall },
-    cont
+        { left = 21, width = 25, height = 12, damage = 13, type = "fall", velocity = slf.velocity_dash_fall },
+        cont
 ) end
 
 return {
@@ -109,16 +108,28 @@ return {
             delay = 0.3
         },
         combo1 = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
-            delay = 0.01
+            { q = q(115,360,40,58), ox = 20, oy = 57 }, --slap 3
+            { q = q(59,360,55,58), ox = 17, oy = 57, func = combo_slap }, --slap 2
+            { q = q(2,360,55,58), ox = 35, oy = 57 }, --slap 1
+            delay = 0.083
         },
         combo2 = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
-            delay = 0.01
+            { q = q(2,360,55,58), ox = 35, oy = 57 }, --slap 1
+            { q = q(59,360,55,58), ox = 17, oy = 57, func = combo_slap }, --slap 2
+            { q = q(115,360,40,58), ox = 20, oy = 57 }, --slap 3
+            delay = 0.083
         },
         combo3 = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
-            delay = 0.01
+            { q = q(115,360,40,58), ox = 20, oy = 57 }, --slap 3
+            { q = q(59,360,55,58), ox = 17, oy = 57, func = combo_slap }, --slap 2
+            { q = q(2,360,55,58), ox = 35, oy = 57 }, --slap 1
+            delay = 0.083
+        },
+        combo4 = {
+            { q = q(42,297,38,56), ox = 20, oy = 55 }, --jump attack 1
+            { q = q(82,297,56,52), ox = 22, oy = 51, funcCont = combo_kick, delay = 0.167 }, --jump attack 2
+            { q = q(42,297,38,56), ox = 20, oy = 55, delay = 0.117 }, --jump attack 1
+            delay = 0.083
         },
         fall = {
             { q = q(2,246,65,49), ox = 39, oy = 48 }, --falling

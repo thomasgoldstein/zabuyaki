@@ -32,7 +32,7 @@ end
 
 function Sveta:combo_start()
     self.isHittable = true
-    if self.n_combo > 3 or self.n_combo < 1 then
+    if self.n_combo > 4 or self.n_combo < 1 then
         self.n_combo = 1
     end
     if self.n_combo == 1 then
@@ -41,6 +41,8 @@ function Sveta:combo_start()
         self:setSprite("combo2")
     elseif self.n_combo == 3 then
         self:setSprite("combo3")
+    elseif self.n_combo == 4 then
+        self:setSprite("combo4")
     end
     self.cool_down = 0.2
 end
