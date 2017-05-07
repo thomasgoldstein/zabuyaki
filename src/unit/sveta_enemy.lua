@@ -141,8 +141,4 @@ function Sveta:jump_update(dt)
 end
 Sveta.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Sveta.jump_update, draw = Character.default_draw }
 
--- Sveta's JumpAttacks should end with Fall
-Sveta.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}
-Sveta.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}
-
 return Sveta
