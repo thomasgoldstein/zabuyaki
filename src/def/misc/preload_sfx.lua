@@ -118,8 +118,8 @@ SFX.beatnick_death = {"scream1","scream2" }
 SFX.satoff_attack = {"gopper_attack1","gopper_attack2"}
 SFX.satoff_death = {"scream1","scream2" }
 
-SFX.load("metal_grab","res/sfx/tmp/metal_break2.wav", 0.5)
-SFX.load("metal_hit","res/sfx/tmp/metal_hit2.wav", 1)
-SFX.load("metal_break","res/sfx/tmp/metal_break2.wav", 1)
+SFX.load("metal_grab","res/sfx/metal_break2.wav", 0.5)
+SFX.load("metal_hit","res/sfx/metal_hit2.wav", 1)
+SFX.load("metal_break","res/sfx/metal_break2.wav", 1)
 
 return SFX
