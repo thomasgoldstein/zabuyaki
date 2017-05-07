@@ -105,18 +105,29 @@ SFX.load("niko_attack2","res/sfx/niko_attack2.wav", 1)
 SFX.load("gopnik_death1","res/sfx/gopnik_death1.wav", 1)
 SFX.load("gopnik_death2","res/sfx/gopnik_death2.wav", 1)
 
+SFX.load("gopnitsa_attack1","res/sfx/gopnitsa_attack1.wav", 1)
+SFX.load("gopnitsa_attack2","res/sfx/gopnitsa_attack2.wav", 1)
+SFX.load("gopnitsa_death1","res/sfx/gopnitsa_death1.wav", 1)
+SFX.load("gopnitsa_death2","res/sfx/gopnitsa_death2.wav", 1)
+
+SFX.load("beatnick_attack1","res/sfx/beatnick_attack1.wav", 1)
+SFX.load("beatnick_death1","res/sfx/beatnick_death1.wav", 1)
+
+SFX.load("satoff_attack1","res/sfx/satoff_attack1.wav", 1)
+SFX.load("satoff_death1","res/sfx/satoff_death1.wav", 1)
+
 SFX.gopper_attack = {"gopper_attack1","gopper_attack2"}
 SFX.gopper_death = {"gopnik_death1","gopnik_death2"}
 SFX.niko_attack = {"niko_attack1","niko_attack2"}
-SFX.niko_death = {"gopnik_death1","gopnik_death2" }
-SFX.sveta_attack = {"kisa_attack"}
-SFX.sveta_death = {"kisa_death" }
-SFX.zeena_attack = {"kisa_attack"}
-SFX.zeena_death = {"kisa_death" }
-SFX.beatnick_attack = {"niko_attack1","niko_attack2"}
-SFX.beatnick_death = {"gopnik_death1","gopnik_death2" }
-SFX.satoff_attack = {"gopper_attack1","gopper_attack2"}
-SFX.satoff_death = {"gopnik_death1","gopnik_death2" }
+SFX.niko_death = {"gopnik_death1","gopnik_death2"}
+SFX.sveta_attack = {"gopnitsa_attack1","gopnitsa_attack2"}
+SFX.sveta_death = {"gopnitsa_death1","gopnitsa_death2"}
+SFX.zeena_attack = {"gopnitsa_attack1","gopnitsa_attack2"}
+SFX.zeena_death = {"gopnitsa_death1","gopnitsa_death2"}
+SFX.beatnick_attack = {"beatnick_attack1"}
+SFX.beatnick_death = {"beatnick_death1"}
+SFX.satoff_attack = {"satoff_attack1"}
+SFX.satoff_death = {"satoff_death1"}
 
 SFX.load("metal_grab","res/sfx/metal_break.wav", 0.5)
 SFX.load("metal_hit","res/sfx/metal_hit.wav", 1)

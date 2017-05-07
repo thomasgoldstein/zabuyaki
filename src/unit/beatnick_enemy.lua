@@ -18,7 +18,7 @@ function Beatnick:initialize(name, sprite, input, x, y, f)
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self.sfx.dead = sfx.beatnick_death
     self.sfx.jump_attack = sfx.beatnick_attack
-    self.sfx.step = "kisa_step"
+    self.sfx.step = "rick_step"
 
     self:setState(self.intro)
 end
