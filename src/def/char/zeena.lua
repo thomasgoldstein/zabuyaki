@@ -100,7 +100,7 @@ return {
             delay = 0.06
         },
         pickup = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
+            { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
             delay = 0.28
         },
         dashAttack = {
