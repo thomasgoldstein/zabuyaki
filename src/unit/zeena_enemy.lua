@@ -38,10 +38,16 @@ function Zeena:updateAI(dt)
         -- Intro -> Stand
         if self.state == "intro" then
             -- see near players?
-            if self:getDistanceToClosestPlayer() < 100 then
+            local dist = self:getDistanceToClosestPlayer()
+            if dist < self.wakeup_range
+                    or (dist < self.delayed_wakeup_range and self.time > self.wakeup_delay )
+            then
                 if not self.target then
-                    self:setState(self.intro)
-                    return
+                    self:pickAttackTarget()
+                    if not self.target then
+                        self:setState(self.intro)
+                        return
+                    end
                 end
                 self.face = -self.target.face --face to player
                 self:setState(self.stand)
@@ -50,27 +56,33 @@ function Zeena:updateAI(dt)
             if self.cool_down <= 0 then
                 --can move
                 if not self.target then
-                    self:setState(self.intro)
-                    return
+                    self:pickAttackTarget()
+                    if not self.target then
+                        self:setState(self.intro)
+                        return
+                    end
                 end
-                local t = dist(self.target.x, self.target.y, self.x, self.y)
+                --local t = dist(self.target.x, self.target.y, self.x, self.y)
 --                if t < 400 and t >= 100 and
 --                        math.floor(self.y / 4) == math.floor(self.target.y / 4) then
 --                    self:setState(self.run)
 --                    return
 --                end
-                if t < 300 then
+                --if t < 300 then
                     self:setState(self.walk)
-                    return
-                end
+                    --return
+                --end
             end
         elseif self.state == "walk" then
             --self:pickAttackTarget()
             --self:setState(self.stand)
             --return
             if not self.target then
-                self:setState(self.intro)
-                return
+                self:pickAttackTarget()
+                if not self.target then
+                    self:setState(self.intro)
+                    return
+                end
             end
             local t = dist(self.target.x, self.target.y, self.x, self.y)
             if t < 100 and t >= 30

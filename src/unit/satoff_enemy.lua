@@ -70,8 +70,11 @@ function Satoff:updateAI(dt)
                     or (dist < self.delayed_wakeup_range and self.time > self.wakeup_delay )
             then
                 if not self.target then
-                    self:setState(self.intro)
-                    return
+                    self:pickAttackTarget()
+                    if not self.target then
+                        self:setState(self.intro)
+                        return
+                    end
                 end
                 self.face = -self.target.face --face to player
                 self:setState(self.stand)
@@ -80,16 +83,20 @@ function Satoff:updateAI(dt)
             if self.cool_down <= 0 then
                 --can move
                 if not self.target then
-                    self:setState(self.intro)
-                    return
+                    self:pickAttackTarget()
+                    if not self.target then
+                        self:setState(self.intro)
+                        return
+                    end
                 end
+
                 local t = dist(self.target.x, self.target.y, self.x, self.y)
                 if t >= 250 and math.floor(self.y / 6) == math.floor(self.target.y / 6) then
                     self:setState(self.run)
-                    return
+                    --return
                 else
                     self:setState(self.walk)
-                    return
+                    --return
                 end
             end
         elseif self.state == "walk" then
@@ -97,11 +104,15 @@ function Satoff:updateAI(dt)
             --self:setState(self.stand)
             --return
             if not self.target then
-                self:setState(self.intro)
-                return
+                self:pickAttackTarget()
+                if not self.target then
+                    self:setState(self.intro)
+                    return
+                end
             end
             local t = dist(self.target.x, self.target.y, self.x, self.y)
-            if t < 500 and t >= 180
+            if --t < 500 and
+                t >= 180
                     and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
                 self:setState(self.run)
                 return
