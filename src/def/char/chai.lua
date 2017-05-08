@@ -221,8 +221,8 @@ return {
 			delay = 0.01
 		},
 		combo1Jab = {
-			{ q = q(183,3,60,63), ox = 30, oy = 62, func = combo_attack1_jab, delay = 0.1 }, --combo 1_jab.2
-			{ q = q(135,2,46,64), ox = 23, oy = 63 }, --combo 1_jab.1
+			{ q = q(183,3,60,63), ox = 22, oy = 62, func = combo_attack1_jab, delay = 0.1 }, --combo 1_jab.2
+			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1_jab.1
 			delay = 0.03
 		},
 		combo1Teep = {
