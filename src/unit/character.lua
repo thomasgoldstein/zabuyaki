@@ -482,9 +482,6 @@ function Character:stand_update(dt)
 
     if (self.can_jump or self.can_attack) and
             (self.b.jump:isDown() and self.b.attack:isDown()) then
-        self:setState(self.defensiveSpecial)
-        return
-    elseif self.can_jump and self.b.jump:isDown() then
         self:setState(self.duck2jump)
         return
     elseif self.can_attack and self.b.attack:pressed() then
@@ -799,7 +796,7 @@ function Character:duck2jump_update(dt)
     if self:getLastStateTime() < self.special_tolerance_delay then
         --time for other move
         if self.b.attack:isDown() then
-            if self.velx ~= 0 then
+            if self.velx ~= 0 or self.b.horizontal:getValue() ~=0 then
                 self:setState(self.offensiveSpecial)
             else
                 self:setState(self.defensiveSpecial)
