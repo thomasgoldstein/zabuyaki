@@ -35,7 +35,7 @@ local combo_slap = function(slf, cont)
 end
 local combo_kick = function(slf, cont)
     slf:checkAndAttack(
-        { left = 25, width = 26, height = 12, damage = 8, type = "fall", velocity = slf.velocity_dash_fall },
+        { left = 25, width = 26, height = 12, damage = 10, type = "fall", velocity = slf.velocity_dash_fall },
         cont
 ) end
 local dash_attack = function(slf, cont)
@@ -127,10 +127,16 @@ return {
             delay = 0.067
         },
         combo4 = {
-            { q = q(42,323,52,63), ox = 34, oy = 62 }, --dash attack 1
-            { q = q(96,323,71,60), ox = 37, oy = 59, funcCont = combo_kick, delay = 0.167 }, --dash attack 2
-            { q = q(42,323,52,63), ox = 34, oy = 62, delay = 0.117 }, --dash attack 1
-            delay = 0.067
+            { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
+            { q = q(55,459,76,60), ox = 38, oy = 59, func = combo_kick, delay = 0.217 }, --high kick 2
+            { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
+            delay = 0.117
+        },
+        holdAttack = {
+            { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
+            { q = q(55,459,76,60), ox = 38, oy = 59, func = combo_kick, delay = 0.217 }, --high kick 2
+            { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
+            delay = 0.117
         },
         fall = {
             { q = q(2,267,75,54), ox = 49, oy = 53 }, --falling
