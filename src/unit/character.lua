@@ -482,11 +482,7 @@ function Character:stand_update(dt)
 
     if (self.can_jump or self.can_attack) and
             (self.b.jump:isDown() and self.b.attack:isDown()) then
-        if self.b.horizontal:getValue() ~= 0 then
-            self:setState(self.offensiveSpecial)
-        else
-            self:setState(self.defensiveSpecial)
-        end
+        self:setState(self.defensiveSpecial)
         return
     elseif self.can_jump and self.b.jump:isDown() then
         self:setState(self.duck2jump)
@@ -565,11 +561,7 @@ function Character:walk_update(dt)
         end
         return
     elseif self.b.jump:isDown() and self.can_jump then
-        if self.b.attack:isDown() then
-            self:setState(self.offensiveSpecial)
-        else
-            self:setState(self.duck2jump)
-        end
+        self:setState(self.duck2jump)
         return
     end
     self.velx = 0
