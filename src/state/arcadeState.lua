@@ -94,16 +94,12 @@ function arcadeState:update(dt)
 end
 
 function arcadeState:draw()
-    love.graphics.setCanvas(canvas[1])
-    --love.graphics.clear( 190, 200, 210, 255 )
-    --love.graphics.setBackgroundColor(255, 255, 255)
     mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
         love.graphics.setColor(255, 255, 255, 255)
         stage:draw(l,t,w,h)
         show_debug_boxes() -- debug draw collision boxes
     end)
-
     love.graphics.setCanvas()
     push:start()
     love.graphics.setBlendMode("alpha", "premultiplied")
@@ -114,7 +110,6 @@ function arcadeState:draw()
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(canvas[3], 0,0, nil, display.final.scale) --sprites + fg
     love.graphics.setBlendMode("alpha")
-
     if stage.mode == "normal" then
         drawPlayersBars()
     end
