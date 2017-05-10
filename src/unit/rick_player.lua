@@ -7,9 +7,19 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
+local moves_white_list = {
+    run = true, sideStep = true, pickup = true,
+    jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
+    grab = true, grabSwap = true, grabAttack = true, grabAttackLast = true,
+    shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
+    dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
+    --technically present for all
+    stand = true, walk = true,  combo = true, slide = true, fall = true, getup = true, duck = true,
+}
 
 function Rick:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
+    self.moves = moves_white_list --list of allowed moves
     self.velocity_walk = 90
     self.velocity_walk_y = 45
     self.velocity_walkHold = 72
@@ -52,14 +62,15 @@ function Rick:combo_start()
 end
 function Rick:combo_update(dt)
     if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
-        if self.b.horizontal:getValue() == self.horizontal then
+        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
-        else
+            return
+        elseif self.moves.defensiveSpecial then
             self:setState(self.defensiveSpecial)
+            return
         end
-        return
     end
-    if self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast() then
+    if self.moves.dashAttack and (self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast()) then
         --dashAttack from combo
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.dashAttack)

@@ -7,9 +7,19 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
+local moves_white_list = {
+    run = false, sideStep = false, pickup = false,
+    jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
+    grab = true, grabSwap = false, grabAttack = false, grabAttackLast = true,
+    shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
+    dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
+    --technically present for all
+    stand = true, walk = true,  combo = true, slide = true, fall = true, getup = true, duck = true,
+}
 
 function Niko:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
+    self.moves = moves_white_list --list of allowed moves
     self.velocity_walk = 90
     self.velocity_walk_y = 45
     self.velocity_walkHold = 72
@@ -66,6 +76,6 @@ Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAt
 --Block unused moves
 Niko.sideStep = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 Niko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
-Niko.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+--Niko.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 
 return Niko
