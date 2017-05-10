@@ -6,6 +6,14 @@ local function nop() end
 local sign = sign
 local clamp = clamp
 local double_tap_delta = 0.25
+local moves_white_list = {
+    stand = true, walk = true,
+    run = true, sideStep = true, slide = true, duck = true,
+    combo = true, pickup = true,
+    jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
+    fall = true, getup = true,
+    grab = true, grabSwap = true, shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
+}
 
 function Character:initialize(name, sprite, input, x, y, f)
     if not f then
@@ -50,6 +58,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendly_damage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
+    self.moves = moves_white_list --list of allowed moves
     --Inner char vars
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
@@ -495,8 +504,9 @@ function Character:stand_update(dt)
     
     if self.cool_down <= 0 then
         --can move
+        print(self.moves.run, self.moves.sideStep)
         if self.b.horizontal:getValue() ~=0 then
-            if self:getPrevStateTime() < double_tap_delta and self.last_face == self.b.horizontal:getValue()
+            if self.moves.run and self:getPrevStateTime() < double_tap_delta and self.last_face == self.b.horizontal:getValue()
                     and (self.last_state == "walk" or self.last_state == "run" )
             then
                 self:setState(self.run)
@@ -506,7 +516,7 @@ function Character:stand_update(dt)
             return
         end
         if self.b.vertical:getValue() ~= 0 then
-            if self:getPrevStateTime() < double_tap_delta and self.last_vertical == self.b.vertical:getValue()
+            if self.moves.sideStep and self:getPrevStateTime() < double_tap_delta and self.last_vertical == self.b.vertical:getValue()
                     and (self.last_state == "walk" )
             then
                 self.vertical = self.b.vertical:getValue()
