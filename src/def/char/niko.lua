@@ -62,11 +62,27 @@ return {
             loop = true,
             delay = 0.175
         },
+        standHold = {
+            { q = q(2,464,45,63), ox = 18, oy = 62 }, --stand hold 1
+            { q = q(49,465,45,62), ox = 18, oy = 61 }, --stand hold 2
+            { q = q(96,466,45,61), ox = 18, oy = 60 }, --stand hold 3
+            { q = q(49,465,45,62), ox = 18, oy = 61 }, --stand hold 2
+            loop = true,
+            delay = 0.175
+        },
         walk = {
             { q = q(116,2,36,64), ox = 21, oy = 63 }, --walk 1
             { q = q(2,2,36,64), ox = 21, oy = 63 }, --stand 1
             { q = q(154,3,38,63), ox = 21, oy = 62 }, --walk 2
             { q = q(2,2,36,64), ox = 21, oy = 63 }, --stand 1
+            loop = true,
+            delay = 0.175
+        },
+        walkHold = {
+            { q = q(125,399,45,63), ox = 18, oy = 62 }, --walk hold 1
+            { q = q(49,465,45,62), ox = 18, oy = 61 }, --stand hold 2
+            { q = q(143,466,45,61), ox = 18, oy = 60 }, --walk hold 2
+            { q = q(49,465,45,62), ox = 18, oy = 61 }, --stand hold 2
             loop = true,
             delay = 0.175
         },
@@ -170,8 +186,8 @@ return {
         sideStepDown = { --TODO: Remove
             { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
         },
-        grab = { --TODO: Remove
-            { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
+        grab = {
+            { q = q(2,464,45,63), ox = 18, oy = 62 }, --stand hold 1
         },
         grabAttack = { --TODO: Remove
             { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame

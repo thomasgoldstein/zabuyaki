@@ -12,6 +12,8 @@ function Niko:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.velocity_walk = 90
     self.velocity_walk_y = 45
+    self.velocity_walkHold = 72
+    self.velocity_walkHold_y = 36
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 150 --speed of the character
@@ -65,9 +67,5 @@ Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAt
 Niko.sideStep = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 Niko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
 Niko.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---Disable grabbing
-function Niko:checkForGrab(range)
-    return nil
-end
 
 return Niko
