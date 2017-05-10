@@ -7,12 +7,13 @@ local sign = sign
 local clamp = clamp
 local double_tap_delta = 0.25
 local moves_white_list = {
-    stand = true, walk = true,
-    run = true, sideStep = true, slide = true, duck = true,
-    combo = true, pickup = true,
+    run = true, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-    fall = true, getup = true,
-    grab = true, grabSwap = true, shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
+    grab = true, grabSwap = true, grabAttack = true, grabAttackLast = true,
+    shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
+    dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
+    --technically present for all
+    stand = true, walk = true,  combo = true, slide = true, fall = true, getup = true, duck = true,
 }
 
 function Character:initialize(name, sprite, input, x, y, f)
@@ -488,15 +489,15 @@ function Character:stand_update(dt)
     else
         self.n_combo = 1
     end
-
-    if (self.can_jump and self.b.jump:isDown())
-        or (self.can_jump or self.can_attack) and
-            (self.b.jump:isDown() and self.b.attack:isDown())
+    if (self.moves.jump and self.can_jump and self.b.jump:isDown())
+        or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
+            and (self.can_jump or self.can_attack) and
+            (self.b.jump:isDown() and self.b.attack:isDown()))
     then
         self:setState(self.duck2jump)
         return
     elseif self.can_attack and self.b.attack:pressed() then
-        if self:checkForLoot(9, 9) ~= nil then
+        if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
             return
         end
@@ -559,13 +560,14 @@ function Character:walk_update(dt)
         self.can_attack = true
     end
     if self.b.attack:isDown() and self.can_attack then
-        if self:checkForLoot(9, 9) ~= nil then
+        if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
-        else
+            return
+        elseif self.moves.combo then
             self:setState(self.combo)
+            return
         end
-        return
-    elseif self.b.jump:isDown() and self.can_jump then
+    elseif self.moves.jump and self.b.jump:isDown() and self.can_jump then
         self:setState(self.duck2jump)
         return
     end
@@ -608,7 +610,7 @@ function Character:walk_update(dt)
                 sfx.play("sfx"..self.id, self.sfx.grab_clash)
                 return
             end
-            if self:doGrab(grabbed) then
+            if self.moves.grab and self:doGrab(grabbed) then
                 local g = self.hold
                 self.victim_infoBar = g.target.infoBar:setAttacker(self)
                 return
@@ -666,19 +668,21 @@ function Character:run_update(dt)
         return
     end
     if self.can_jump and self.b.jump:isDown() then
-        if self.b.attack:isDown() then
+        if self.moves.offensiveSpecial and self.b.attack:isDown() then
             self:setState(self.offensiveSpecial)
-        else
+            return
+        elseif self.moves.jump or self.moves.offensiveSpecial or self.moves.defensiveSpecial then
             self:setState(self.duck2jump, true) --pass condition to block dir changing
+            return
         end
-        return
     elseif self.b.attack:isDown() and self.can_attack then
-        if self.b.jump:isDown() then
+        if self.moves.offensiveSpecial and self.b.jump:isDown() then
             self:setState(self.offensiveSpecial)
-        else
+            return
+        elseif self.moves.dashAttack then
             self:setState(self.dashAttack)
+            return
         end
-        return
     end
     self:calcMovement(dt, false)
 end
@@ -706,21 +710,23 @@ function Character:jump_start()
 end
 function Character:jump_update(dt)
     if self.b.attack:isDown() then
-        if self.b.horizontal:getValue() == -self.face then
+        if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
             self:setState(self.jumpAttackLight)
             return
-        elseif self.velx == 0 then
+        elseif self.moves.jumpAttackStraight and self.velx == 0 then
             self:setState(self.jumpAttackStraight)
             return
         else
-            if self.velx >= self.velocity_run then
+            if self.moves.jumpAttackRun and self.velx >= self.velocity_run then
                 self:setState(self.jumpAttackRun)
-            elseif self.horizontal ~= self.face then
+                return
+            elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
                 self:setState(self.jumpAttackStraight)
-            else
+                return
+            elseif  self.moves.jumpAttackForward then
                 self:setState(self.jumpAttackForward)
+                return
             end
-            return
         end
     end
     if self.z > 0 then
@@ -804,16 +810,21 @@ function Character:duck2jump_update(dt)
     if self:getLastStateTime() < self.special_tolerance_delay then
         --time for other move
         if self.b.attack:isDown() then
-            if self.velx ~= 0 or self.b.horizontal:getValue() ~=0 then
+            if self.moves.offensiveSpecial and self.velx ~= 0 or self.b.horizontal:getValue() ~=0 then
                 self:setState(self.offensiveSpecial)
-            else
+                return
+            elseif self.moves.defensiveSpecial then
                 self:setState(self.defensiveSpecial)
+                return
             end
-            return
         end
     end
     if self.sprite.isFinished then
-        self:setState(self.jump)
+        if self.moves.jump then
+            self:setState(self.jump)
+        else
+            error("Call disabled move self.jump")
+        end
         --start jump dust clouds
         local psystem = PA_DUST_JUMP_START:clone()
         psystem:setAreaSpread( "uniform", 16, 4 )
@@ -913,7 +924,7 @@ function Character:dashAttack_start()
     sfx.play("voice"..self.id, self.sfx.dash_attack)
 end
 function Character:dashAttack_update(dt)
-    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
+    if self.moves.defensiveSpecial and self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
         self:setState(self.defensiveSpecial)
         return
     end
@@ -1192,12 +1203,13 @@ function Character:combo_start()
 end
 function Character:combo_update(dt)
     if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
-        if self.b.horizontal:getValue() == self.horizontal then
+        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
-        else
+            return
+        elseif self.moves.defensiveSpecial then
             self:setState(self.defensiveSpecial)
+            return
         end
-        return
     end
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
@@ -1324,7 +1336,7 @@ function Character:grab_update(dt)
             if ( self.face == 1 and self.b.horizontal.ikp:getLast() )
                     or ( self.face == -1 and self.b.horizontal.ikn:getLast() )
             then
-                if g.can_grabSwap then
+                if self.moves.grabSwap and g.can_grabSwap then
                     self:setState(self.grabSwap)
                     return
                 end
@@ -1348,29 +1360,39 @@ function Character:grab_update(dt)
         end
         --special attacks
         if self.b.attack:isDown() and self.can_jump and self.b.jump:isDown() then
-            self:release_grabbed()
-            if self.b.horizontal:getValue() == self.horizontal then
+            if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
+                self:release_grabbed()
                 self:setState(self.offensiveSpecial)
-            else
+                return
+            elseif self.moves.defensiveSpecial then
+                self:release_grabbed()
                 self:setState(self.defensiveSpecial)
+                return
             end
-            return
         end
         --normal attacks
         if self.b.attack:isDown() and self.can_attack then
             --if self.sprite.isFinished then
-            g.target:remove_tween_move()
-            self:remove_tween_move()
-            if self.b.horizontal:getValue() == self.face then
+            if self.moves.shoveForward and self.b.horizontal:getValue() == self.face then
+                g.target:remove_tween_move()
+                self:remove_tween_move()
                 self:setState(self.shoveForward)
-            elseif self.b.horizontal:getValue() == -self.face then
+            elseif self.moves.shoveBack and self.b.horizontal:getValue() == -self.face then
+                g.target:remove_tween_move()
+                self:remove_tween_move()
                 self:setState(self.shoveBack)
-            elseif self.b.vertical:isDown(-1) then
+            elseif self.moves.shoveUp and self.b.vertical:isDown(-1) then
+                g.target:remove_tween_move()
+                self:remove_tween_move()
                 self:setState(self.shoveUp)
-            elseif self.face == g.target.face and g.target.type ~= "obstacle" then
+            elseif self.moves.shoveBack and self.face == g.target.face and g.target.type ~= "obstacle" then
                 --if u grab char from behind
+                g.target:remove_tween_move()
+                self:remove_tween_move()
                 self:setState(self.shoveBack)
-            else
+            elseif self.moves.grabAttack then
+                g.target:remove_tween_move()
+                self:remove_tween_move()
                 self:setState(self.grabAttack)
             end
             return
@@ -1437,7 +1459,7 @@ Character.grabbed = {name = "grabbed", start = Character.grabbed_start, exit = n
 function Character:grabAttack_start()
     self.isHittable = true
     local g = self.hold
-    if self.b.vertical:isDown(1) then --press DOWN to early headbutt
+    if self.moves.shoveDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
         g.cool_down = 0
         self:setState(self.shoveDown)
         return
@@ -1446,7 +1468,7 @@ function Character:grabAttack_start()
         g.target.hold.cool_down = self.cool_down_grab
     end
     self.n_grabAttack = self.n_grabAttack + 1
-    if self.n_grabAttack > 2 then
+    if self.moves.grabAttackLast and self.n_grabAttack > 2 then
         self:setState(self.grabAttackLast)
         return
     end
@@ -1455,12 +1477,13 @@ function Character:grabAttack_start()
 end
 function Character:grabAttack_update(dt)
     if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
-        if self.b.horizontal:getValue() == self.horizontal then
+        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
-        else
+            return
+        elseif self.moves.defensiveSpecial then
             self:setState(self.defensiveSpecial)
+            return
         end
-        return
     end
     if self.sprite.isFinished then
         local g = self.hold
@@ -1482,12 +1505,13 @@ function Character:grabAttackLast_start()
 end
 function Character:grabAttackLast_update(dt)
     if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
-        if self.b.horizontal:getValue() == self.horizontal then
+        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
-        else
+            return
+        elseif self.moves.defensiveSpecial then
             self:setState(self.defensiveSpecial)
+            return
         end
-        return
     end
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -1683,9 +1707,9 @@ function Character:grabSwap_update(dt)
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwap_start, exit = nop, update = Character.grabSwap_update, draw = Character.default_draw}
 
-function Character:defensiveSpecial_start() -- Special attack plug
-    self:setState(self.stand)
-end
-Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecial_start, exit = nop, update = nop, draw = Character.default_draw }
+--function Character:defensiveSpecial_start() -- Special attack plug
+--    self:setState(self.stand)
+--end
+--Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecial_start, exit = nop, update = nop, draw = Character.default_draw }
 
 return Character
