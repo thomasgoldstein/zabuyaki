@@ -504,7 +504,6 @@ function Character:stand_update(dt)
     
     if self.cool_down <= 0 then
         --can move
-        print(self.moves.run, self.moves.sideStep)
         if self.b.horizontal:getValue() ~=0 then
             if self.moves.run and self:getPrevStateTime() < double_tap_delta and self.last_face == self.b.horizontal:getValue()
                     and (self.last_state == "walk" or self.last_state == "run" )
