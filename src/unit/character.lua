@@ -68,7 +68,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.cool_down = 0  -- can't move
     self.cool_down_combo = 0    -- can cont combo
     self.cool_down_grab = 2
-    self.grab_release_after = 0.35 --sec if u hold 'back'
+    self.grab_release_after = 0.25 --sec if u hold 'back'
     self.n_grabAttack = 0    -- n of the grab hits
     self.special_tolerance_delay = 0.02 -- between pressing attack & Jump
     self.player_select_mode = 0
