@@ -11,21 +11,6 @@ local step_sfx = function(slf, cont)
     padust:emit(3)
     stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local dash_belly_clouds = function(slf, cont)
-    slf.isHittable = false
-    sfx.play("sfx", "fall", 1, 1 + 0.02 * love.math.random(-2,2))
-    --landing dust clouds
-    local psystem = PA_DUST_LANDING:clone()
-    psystem:setLinearAcceleration(150, 1, 300, -35)
-    psystem:setDirection( 0 )
-    psystem:setPosition( 20, 0 )
-    psystem:emit(5)
-    psystem:setLinearAcceleration(-150, 1, -300, -35)
-    psystem:setDirection( 3.14 )
-    psystem:setPosition( -20, 0 )
-    psystem:emit(5)
-    stage.objects:add(Effect:new(psystem, slf.x + 10 * slf.face, slf.y+2))
-end
 local combo_slap = function(slf, cont)
     slf:checkAndAttack(
         { left = 25, width = 26, height = 12, damage = 5, type = "high", velocity = slf.velx, sfx = "air" },
