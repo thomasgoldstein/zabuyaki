@@ -489,8 +489,10 @@ function Character:stand_update(dt)
         self.n_combo = 1
     end
 
-    if (self.can_jump or self.can_attack) and
-            (self.b.jump:isDown() and self.b.attack:isDown()) then
+    if (self.can_jump and self.b.jump:isDown())
+        or (self.can_jump or self.can_attack) and
+            (self.b.jump:isDown() and self.b.attack:isDown())
+    then
         self:setState(self.duck2jump)
         return
     elseif self.can_attack and self.b.attack:pressed() then
