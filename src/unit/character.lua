@@ -1455,7 +1455,12 @@ function Character:grabAttack_update(dt)
         return
     end
     if self.sprite.isFinished then
-        self:setState(self.grab, true) --do not adjust positions of pl
+        local g = self.hold
+        if g and g.target and g.target.hp > 0 then
+            self:setState(self.grab, true) --do not adjust positions of pl
+        else
+            self:setState(self.stand) --killed the target
+        end
         return
     end
     self:calcMovement(dt, true)
