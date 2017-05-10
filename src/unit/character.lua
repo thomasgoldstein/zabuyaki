@@ -528,12 +528,9 @@ function Character:stand_update(dt)
         end
     else
         self.cool_down = self.cool_down - dt    --when <=0 u can move
-        --can flip while you cannot move
-        if self.b.horizontal:isDown(-1) then
-            self.face = -1
-            self.horizontal = self.face
-        elseif self.b.horizontal:isDown(1) then
-            self.face = 1
+        --you can flip while you cannot move
+        if self.b.horizontal:getValue() ~= 0 then
+            self.face = self.b.horizontal:getValue()
             self.horizontal = self.face
         end
     end
