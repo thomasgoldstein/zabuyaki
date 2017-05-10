@@ -187,7 +187,7 @@ return {
             { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
         },
         grab = {
-            { q = q(2,464,45,63), ox = 18, oy = 62 }, --stand hold 1
+            { q = q(106,332,45,63), ox = 18, oy = 62 }, --grab
         },
         grabAttack = { --TODO: Remove
             { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
