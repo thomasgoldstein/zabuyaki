@@ -16,9 +16,8 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self.sfx.dead = sfx.sveta_death
-    self.sfx.jump_attack = sfx.sveta_attack
+    self.sfx.dash_attack = sfx.sveta_attack
     self.sfx.step = "kisa_step"
-
     self:setState(self.intro)
 end
 

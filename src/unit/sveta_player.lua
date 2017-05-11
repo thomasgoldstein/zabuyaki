@@ -1,4 +1,5 @@
 local class = require "lib/middleclass"
+local _Sveta = Sveta
 local Sveta = class('PSveta', Player)
 
 local function nop() end
@@ -40,33 +41,6 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     self.sfx.step = "kisa_step"
 end
 
-function Sveta:combo_start()
-    self.isHittable = true
-    if self.n_combo > 4 or self.n_combo < 1 then
-        self.n_combo = 1
-    end
-    if self.n_combo == 1 then
-        self:setSprite("combo1")
-    elseif self.n_combo == 2 then
-        self:setSprite("combo2")
-    elseif self.n_combo == 3 then
-        self:setSprite("combo3")
-    elseif self.n_combo == 4 then
-        self:setSprite("combo4")
-    end
-    self.cool_down = 0.2
-end
-function Sveta:combo_update(dt)
-    if self.sprite.isFinished then
-        self.n_combo = self.n_combo + 1
-        if self.n_combo > 4 then
-            self.n_combo = 1
-        end
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true, nil)
-end
-Sveta.combo = {name = "combo", start = Sveta.combo_start, exit = nop, update = Sveta.combo_update, draw = Character.default_draw}
+Sveta.dashAttack = { name = "dashAttack", start = _Sveta.dashAttack_start, exit = nop, update = _Sveta.dashAttack_update, draw = Character.default_draw }
 
 return Sveta
