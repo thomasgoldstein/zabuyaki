@@ -164,38 +164,42 @@ return {
             delay = 0.12
         },
         grab = {
-            { q = q(106,332,45,63), ox = 18, oy = 62 }, --grab
+            { q = q(2,529,45,63), ox = 18, oy = 62 }, --grab
         },
         grabAttack = {
-            { q = q(2,529,53,63), ox = 24, oy = 62, delay = 0.05 }, --grab attack 1
-            { q = q(57,530,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
-            { q = q(2,529,53,63), ox = 24, oy = 62, delay = 0.2 }, --grab attack 1			
-            { q = q(57,530,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
-            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
-            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
-            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)			
-            { q = q(2,529,53,63), ox = 24, oy = 62 , delay = 0.083 }, --grab attack 1
+            { q = q(49,529,53,63), ox = 24, oy = 62, delay = 0.05 }, --grab attack 1
+            { q = q(2,594,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
+            { q = q(49,529,53,63), ox = 24, oy = 62, delay = 0.2 }, --grab attack 1
+            { q = q(2,594,59,62), ox = 32, oy = 61, delay = 0.1 }, --grab attack 2
+            { q = q(63,594,59,62), ox = 32, oy = 61, delay = 0.1 }, --grab attack 2b
+            { q = q(63,594,59,62), ox = 33, oy = 61 }, --grab attack 2b (shifted 1px to the left)
+            { q = q(63,594,59,62), ox = 32, oy = 61 }, --grab attack 2b
+            { q = q(63,594,59,62), ox = 33, oy = 61 }, --grab attack 2b (shifted 1px to the left)
+            { q = q(124,594,59,62), ox = 32, oy = 61 }, --grab attack 2c
+            { q = q(124,594,59,62), ox = 33, oy = 61 }, --grab attack 2c (shifted 1px to the left)
+            { q = q(124,594,59,62), ox = 32, oy = 61 }, --grab attack 2c
+            { q = q(124,594,59,62), ox = 33, oy = 61 }, --grab attack 2c (shifted 1px to the left)
+            { q = q(63,594,59,62), ox = 32, oy = 61, delay = 0.05 }, --grab attack 2b
+            { q = q(2,594,59,62), ox = 32, oy = 61, delay = 0.05 }, --grab attack 2
+            { q = q(49,529,53,63), ox = 24, oy = 62, delay = 0.083 }, --grab attack 1
             delay = 0.02
         },
         grabAttackLast = {
-            { q = q(2,529,53,63), ox = 24, oy = 62, delay = 0.05 }, --grab attack 1
-            { q = q(57,530,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
-            { q = q(2,529,53,63), ox = 24, oy = 62, delay = 0.2 }, --grab attack 1			
-            { q = q(57,530,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
-            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
-            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
-            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
-            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)			
-            { q = q(2,529,53,63), ox = 24, oy = 62 , delay = 0.083 }, --grab attack 1
+            { q = q(49,529,53,63), ox = 24, oy = 62, delay = 0.05 }, --grab attack 1
+            { q = q(2,594,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
+            { q = q(49,529,53,63), ox = 24, oy = 62, delay = 0.2 }, --grab attack 1
+            { q = q(2,594,59,62), ox = 32, oy = 61, delay = 0.1 }, --grab attack 2
+            { q = q(63,594,59,62), ox = 32, oy = 61, delay = 0.1 }, --grab attack 2b
+            { q = q(63,594,59,62), ox = 33, oy = 61 }, --grab attack 2b (shifted 1px to the left)
+            { q = q(63,594,59,62), ox = 32, oy = 61 }, --grab attack 2b
+            { q = q(63,594,59,62), ox = 33, oy = 61 }, --grab attack 2b (shifted 1px to the left)
+            { q = q(124,594,59,62), ox = 32, oy = 61 }, --grab attack 2c
+            { q = q(124,594,59,62), ox = 33, oy = 61 }, --grab attack 2c (shifted 1px to the left)
+            { q = q(124,594,59,62), ox = 32, oy = 61 }, --grab attack 2c
+            { q = q(124,594,59,62), ox = 33, oy = 61 }, --grab attack 2c (shifted 1px to the left)
+            { q = q(63,594,59,62), ox = 32, oy = 61, delay = 0.05 }, --grab attack 2b
+            { q = q(2,594,59,62), ox = 32, oy = 61, delay = 0.05 }, --grab attack 2
+            { q = q(49,529,53,63), ox = 24, oy = 62, delay = 0.083 }, --grab attack 1
             delay = 0.02
         },
         grabbed = {
