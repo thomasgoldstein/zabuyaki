@@ -8,7 +8,7 @@ local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
 local moves_white_list = {
-    run = false, sideStep = true, pickup = false,
+    run = false, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
     grab = false, grabSwap = false, grabAttack = false, grabAttackLast = false,
     shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
