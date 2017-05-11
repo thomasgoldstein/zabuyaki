@@ -14,7 +14,7 @@ local moves_white_list = {
     shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
     dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
     --technically present for all
-    stand = true, walk = true,  combo = true, slide = true, fall = true, getup = true, duck = true,
+    stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
 }
 
 function Zeena:initialize(name, sprite, input, x, y, f)

@@ -14,7 +14,7 @@ local moves_white_list = {
     shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
     dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
     --technically present for all
-    stand = true, walk = true,  combo = true, slide = true, fall = true, getup = true, duck = true,
+    stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
 }
 
 function Rick:initialize(name, sprite, input, x, y, f)
