@@ -86,9 +86,12 @@ function Sveta:updateAI(dt)
             end
             local t = dist(self.target.x, self.target.y, self.x, self.y)
             if t < 100 and t >= 30
-                    and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
-                self.velx = self.velocity_walk
-                self:setState(self.jump)
+                    and math.floor(self.y / 4) == math.floor(self.target.y / 4)
+            then
+                if math.random() < 0.5 then
+                    self:faceToTarget()
+                end
+                self:setState(self.dashAttack)
                 return
             end
             if self.cool_down <= 0 then
@@ -126,31 +129,36 @@ function Sveta:updateAI(dt)
     end
 end
 
-function Sveta:jump_update(dt)
-    local t = dist(self.target.x, self.target.y, self.x, self.y)
-    if t < 60 and t >= 10
-        and math.floor(self.y / 4) == math.floor(self.target.y / 4)
-    then
-        if self.velx == 0 then
-            self:setState(self.jumpAttackStraight)
-            return
-        else
-            self:setState(self.jumpAttackForward)
-            return
-        end
-    end
-    if self.z > 0 then
-        self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
-    else
-        self.velz = 0
-        self.z = 0
-        sfx.play("sfx"..self.id, self.sfx.step)
-        self:setState(self.duck)
+function Sveta:dashAttack_start()
+    self.isHittable = true
+    self:remove_tween_move()
+    dpo(self, self.state)
+    self:setSprite("dashAttack")
+    self.velx = self.velocity_dash
+    self.vely = 0
+    self.velz = 0
+    sfx.play("voice"..self.id, self.sfx.dash_attack)
+    local psystem = PA_DASH:clone()
+    psystem:setSpin(0, -3 * self.face)
+    self.pa_dash = psystem
+    self.pa_dash_x = self.x
+    self.pa_dash_y = self.y
+    stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
+end
+
+function Sveta:dashAttack_update(dt)
+    if self.sprite.isFinished then
+        dpo(self, self.state)
+        self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, false, nil)
+    if math.random() < 0.2 and self.velx >= self.velocity_dash * 0.5 then
+        self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
+        self.pa_dash:emit(1)
+    end
+    self:calcMovement(dt, true, self.friction_dash)
 end
-Sveta.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Sveta.jump_update, draw = Character.default_draw }
+
+Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttack_start, exit = nop, update = Sveta.dashAttack_update, draw = Character.default_draw }
 
 return Sveta
