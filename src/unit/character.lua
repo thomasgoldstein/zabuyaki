@@ -1211,6 +1211,13 @@ function Character:combo_update(dt)
             return
         end
     end
+    if self.moves.dashAttack and (self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast()) then
+        --dashAttack from combo
+        if self.b.horizontal:getValue() == self.horizontal then
+            self:setState(self.dashAttack)
+            return
+        end
+    end
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
         if self.n_combo > 5 then
