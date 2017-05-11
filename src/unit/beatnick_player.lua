@@ -7,9 +7,19 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
+local moves_white_list = {
+    run = false, sideStep = false, pickup = false,
+    jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
+    grab = false, grabSwap = false, grabAttack = false, grabAttackLast = false,
+    shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
+    dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
+    --technically present for all
+    stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+}
 
 function Beatnick:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
+    self.moves = moves_white_list --list of allowed moves
     self.velocity_walk = 90
     self.velocity_walk_y = 45
     self.velocity_run = 140
@@ -56,18 +66,5 @@ function Beatnick:combo_update(dt)
     self:calcMovement(dt, true, nil)
 end
 Beatnick.combo = {name = "combo", start = Beatnick.combo_start, exit = nop, update = Beatnick.combo_update, draw = Character.default_draw}
-
--- Beatnick's JumpAttacks should end with Fall
-Beatnick.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
-Beatnick.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
-
---Block unused moves
-Beatnick.sideStep = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
-Beatnick.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
-Beatnick.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---Disable grabbing
-function Beatnick:checkForGrab(range)
-    return nil
-end
 
 return Beatnick
