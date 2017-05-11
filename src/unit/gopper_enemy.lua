@@ -162,7 +162,6 @@ function Gopper:combo_start()
     end
     self.cool_down = 0.2
 end
-
 function Gopper:combo_update(dt)
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
@@ -174,42 +173,15 @@ function Gopper:combo_update(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-
 Gopper.combo = { name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Gopper.default_draw }
 
-function Gopper:dashAttack_start()
-    self.isHittable = true
-    self:remove_tween_move()
-    dpo(self, self.state)
-    self:setSprite("dashAttack")
-    self.velx = self.velocity_dash
-    self.vely = 0
-    self.velz = 0
-    sfx.play("voice" .. self.id, self.sfx.dash_attack)
-end
-
-function Gopper:dashAttack_update(dt)
-    if self.sprite.isFinished then
-        dpo(self, self.state)
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true, self.friction_dash)
-end
-
-Gopper.dashAttack = { name = "dashAttack", start = Gopper.dashAttack_start, exit = nop, update = Gopper.dashAttack_update, draw = Character.default_draw }
-
-
---States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
 function Gopper:intro_start()
     self.isHittable = true
     self:setSprite("intro")
 end
-
 function Gopper:intro_update(dt)
     self:calcMovement(dt, true, nil)
 end
-
 Gopper.intro = { name = "intro", start = Gopper.intro_start, exit = nop, update = Gopper.intro_update, draw = Enemy.default_draw }
 
 function Gopper:stand_start()
@@ -218,11 +190,9 @@ function Gopper:stand_start()
     self:setSprite("stand")
     self.victims = {}
     self.n_grabAttack = 0
-
     --self:pickAttackTarget()
     --    self.tx, self.ty = self.x, self.y
 end
-
 function Gopper:stand_update(dt)
     if self.isGrabbed then
         self:setState(self.grabbed)
@@ -230,7 +200,6 @@ function Gopper:stand_update(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-
 Gopper.stand = { name = "stand", start = Gopper.stand_start, exit = nop, update = Gopper.stand_update, draw = Enemy.default_draw }
 
 function Gopper:walk_start()
