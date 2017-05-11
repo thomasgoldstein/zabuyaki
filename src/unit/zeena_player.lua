@@ -7,9 +7,19 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
+local moves_white_list = {
+    run = false, sideStep = true, pickup = false,
+    jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = true,
+    grab = false, grabSwap = false, grabAttack = false, grabAttackLast = false,
+    shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
+    dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
+    --technically present for all
+    stand = true, walk = true,  combo = true, slide = true, fall = true, getup = true, duck = true,
+}
 
 function Zeena:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
+    self.moves = moves_white_list --list of allowed moves
     self.velocity_walk = 90
     self.velocity_walk_y = 45
     self.velocity_run = 140
@@ -97,11 +107,11 @@ end
 Zeena.dashAttack = {name = "dashAttack", start = Zeena.dashAttack_start, exit = nop, update = Zeena.dashAttack_update, draw = Character.default_draw }
 
 --Block unused moves
-Zeena.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
-Zeena.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+--Zeena.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
+--Zeena.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 --Disable grabbing
-function Zeena:checkForGrab(range)
-    return nil
-end
+--function Zeena:checkForGrab(range)
+--    return nil
+--end
 
 return Zeena

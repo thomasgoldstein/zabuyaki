@@ -7,9 +7,19 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
+local moves_white_list = {
+    run = false, sideStep = true, pickup = false,
+    jump = true, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
+    grab = false, grabSwap = false, grabAttack = false, grabAttackLast = false,
+    shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
+    dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
+    --technically present for all
+    stand = true, walk = true,  combo = true, slide = true, fall = true, getup = true, duck = true,
+}
 
 function Sveta:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
+    self.moves = moves_white_list --list of allowed moves
     self.velocity_walk = 90
     self.velocity_walk_y = 45
     self.velocity_run = 140
@@ -60,12 +70,12 @@ end
 Sveta.combo = {name = "combo", start = Sveta.combo_start, exit = nop, update = Sveta.combo_update, draw = Character.default_draw}
 
 --Block unused moves
-Sveta.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
-Sveta.duck2jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-Sveta.jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+--Sveta.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
+--Sveta.duck2jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+--Sveta.jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 --Disable grabbing
-function Sveta:checkForGrab(range)
-    return nil
-end
+--function Sveta:checkForGrab(range)
+--    return nil
+--end
 
 return Sveta

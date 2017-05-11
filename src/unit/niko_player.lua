@@ -14,7 +14,7 @@ local moves_white_list = {
     shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
     dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
     --technically present for all
-    stand = true, walk = true,  combo = true, slide = true, fall = true, getup = true, duck = true,
+    stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
 }
 
 function Niko:initialize(name, sprite, input, x, y, f)
@@ -74,8 +74,8 @@ Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAtta
 Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
 
 --Block unused moves
-Niko.sideStep = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-Niko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
+--Niko.sideStep = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
+--Niko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
 --Niko.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
 
 return Niko
