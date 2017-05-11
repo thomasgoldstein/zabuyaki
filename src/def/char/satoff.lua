@@ -125,10 +125,6 @@ return {
             { q = q(206,595,69,64), ox = 37, oy = 63 }, --duck
             delay = 0.05
         },
-        dashAttack = { --TODO: Remove
-            { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1
-            delay = 0.16
-        },
         combo1 = {
             { q = q(2,280,64,65), ox = 33, oy = 64 }, --uppercut 1
 			{ q = q(68,280,51,65), ox = 23, oy = 64, func = combo_uppercut1, delay = 0.06 }, --uppercut 2
@@ -180,11 +176,6 @@ return {
             { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
-        jumpAttackLight = { --TODO: Remove
-            { q = q(59,347,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
-            delay = 0.12
-        },
         jumpAttackStraight = {
             { q = q(59,347,60,74), ox = 34, oy = 75 }, --jump attack forward 1
             { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
@@ -194,12 +185,6 @@ return {
             { q = q(59,347,60,74), ox = 34, oy = 75 }, --jump attack forward 1
             { q = q(121,354,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
-        },
-        sideStepUp = { --TODO: Remove
-            { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1
-        },
-        sideStepDown = { --TODO: Remove
-            { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1
         },
         grab = {
             { q = q(68,280,51,65), ox = 23, oy = 64 }, --uppercut 2
@@ -222,18 +207,11 @@ return {
             { q = q(133,530,59,61), ox = 27, oy = 60, func = grabLast_attack, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
-        shoveForward = { --TODO: Remove
-            { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1
-            delay = 0.1
-        },
         shoveBack = {
             { q = q(1,456,56,67), ox = 31, oy = 66 }, --bat attack 1
             { q = q(194,529,70,62), ox = 36, oy = 61, func = shove_now, delay = 0.5 }, --throw
             { q = q(68,280,51,65), ox = 23, oy = 64 }, --uppercut 2
             delay = 0.2
-        },
-        grabSwap = { --TODO: Remove
-            { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1
         },
         grabbed = {
             { q = q(183,277,68,68), ox = 37, oy = 67 }, --grabbed 1

@@ -149,11 +149,6 @@ return {
             { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
 			delay = 5
 		},
-        jumpAttackLight = { --TODO: Remove
-            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
-            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jump_attack, delay = 5 }, --jump attack 2
-            delay = 0.06
-        },
 		jumpAttackLightEnd = {
             { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
 			delay = 5
@@ -172,27 +167,6 @@ return {
         },
         sideStepDown = {
             { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
-        },
-        grab = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-        },
-        grabAttack = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.05
-        },
-        grabAttackLast = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.05
-        },
-        shoveDown = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.1
-        },
-        shoveForward = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-        },
-        grabSwap = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbed = {
             { q = q(2,124,43,60), ox = 25, oy = 59 }, --hurt high 1

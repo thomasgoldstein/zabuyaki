@@ -86,14 +86,6 @@ return {
             loop = true,
             delay = 0.175
         },
-        run = { --TODO: Remove
-            { q = q(116,2,36,64), ox = 21, oy = 63 }, --walk 1
-            { q = q(2,2,36,64), ox = 21, oy = 63 }, --stand 1
-            { q = q(154,3,38,63), ox = 21, oy = 62 }, --walk 2
-            { q = q(2,2,36,64), ox = 21, oy = 63 }, --stand 1
-            loop = true,
-            delay = 0.1
-        },
         jump = {
             { q = q(2,264,57,66), ox = 21, oy = 65 }, --jump
             delay = 5
@@ -112,10 +104,6 @@ return {
         pickup = {
             { q = q(114,73,38,58), ox = 21, oy = 57 }, --duck
             delay = 0.28
-        },
-        dashAttack = { --TODO: Remove
-            { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
-            delay = 0.16
         },
         combo1 = {
             { q = q(2,332,40,63), ox = 19, oy = 62 }, --kick 1
@@ -170,21 +158,10 @@ return {
             { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
-        jumpAttackLight = { --TODO: Remove
-            { q = q(61,265,56,63), ox = 31, oy = 64 }, --jump attack forward 1
-            { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
-            delay = 0.12
-        },
         jumpAttackStraight = {
             { q = q(61,265,56,63), ox = 31, oy = 64 }, --jump attack forward 1
             { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
             delay = 0.12
-        },
-        sideStepUp = { --TODO: Remove
-            { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
-        },
-        sideStepDown = { --TODO: Remove
-            { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
         },
         grab = {
             { q = q(106,332,45,63), ox = 18, oy = 62 }, --grab
@@ -220,16 +197,6 @@ return {
             { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)			
             { q = q(2,529,53,63), ox = 24, oy = 62 , delay = 0.083 }, --grab attack 1
             delay = 0.02
-        },
-        shoveDown = { --TODO: Remove
-            { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
-            delay = 0.1
-        },
-        shoveForward = { --TODO: Remove
-            { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
-        },
-        grabSwap = { --TODO: Remove
-            { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
         },
         grabbed = {
             { q = q(2,133,41,64), ox = 26, oy = 63 }, --hurt high 1
