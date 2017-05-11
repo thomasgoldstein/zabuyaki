@@ -189,13 +189,37 @@ return {
         grab = {
             { q = q(106,332,45,63), ox = 18, oy = 62 }, --grab
         },
-        grabAttack = { --TODO: Remove
-            { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
-            delay = 0.05
+        grabAttack = {
+            { q = q(2,529,53,63), ox = 24, oy = 62, delay = 0.05 }, --grab attack 1
+            { q = q(57,530,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
+            { q = q(2,529,53,63), ox = 24, oy = 62, delay = 0.05 }, --grab attack 1			
+            { q = q(57,530,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
+            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
+            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
+            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)			
+            { q = q(2,529,53,63), ox = 24, oy = 62 , delay = 0.083 }, --grab attack 1
+            delay = 0.02
         },
-        grabAttackLast = { --TODO: Remove
-            { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
-            delay = 0.05
+        grabAttackLast = {
+            { q = q(2,529,53,63), ox = 24, oy = 62, delay = 0.05 }, --grab attack 1
+            { q = q(57,530,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
+            { q = q(2,529,53,63), ox = 24, oy = 62, delay = 0.05 }, --grab attack 1			
+            { q = q(57,530,59,62), ox = 32, oy = 61, delay = 0.2 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
+            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
+            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)
+            { q = q(57,530,59,62), ox = 32, oy = 61 }, --grab attack 2
+            { q = q(57,530,59,62), ox = 33, oy = 61 }, --grab attack 2 (shifted 1px to the left)			
+            { q = q(2,529,53,63), ox = 24, oy = 62 , delay = 0.083 }, --grab attack 1
+            delay = 0.02
         },
         shoveDown = { --TODO: Remove
             { q = q(134,68,60,60), ox = 33, oy = 59 }, --no frame
