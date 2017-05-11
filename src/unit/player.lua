@@ -256,7 +256,9 @@ function Player:onHurtDamage()
     end
 
     self:playHitSfx(h.damage)
-    self.n_combo = 1	--if u get hit reset combo chain
+    if not GLOBAL_SETTING.CONTINUE_INTERRUPTED_COMBO then
+        self.n_combo = 1	--if u get hit reset combo chain
+    end
     if h.source.velx == 0 then
         self.face = -h.source.face	--turn face to the still(pulled back) attacker
     else
