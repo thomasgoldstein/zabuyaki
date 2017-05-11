@@ -69,13 +69,4 @@ function Sveta:combo_update(dt)
 end
 Sveta.combo = {name = "combo", start = Sveta.combo_start, exit = nop, update = Sveta.combo_update, draw = Character.default_draw}
 
---Block unused moves
---Sveta.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
---Sveta.duck2jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---Sveta.jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---Disable grabbing
---function Sveta:checkForGrab(range)
---    return nil
---end
-
 return Sveta

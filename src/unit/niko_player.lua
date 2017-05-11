@@ -73,9 +73,4 @@ Niko.combo = {name = "combo", start = Niko.combo_start, exit = nop, update = Nik
 Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
 Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
 
---Block unused moves
---Niko.sideStep = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---Niko.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
---Niko.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-
 return Niko

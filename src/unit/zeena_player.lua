@@ -106,12 +106,4 @@ function Zeena:dashAttack_update(dt)
 end
 Zeena.dashAttack = {name = "dashAttack", start = Zeena.dashAttack_start, exit = nop, update = Zeena.dashAttack_update, draw = Character.default_draw }
 
---Block unused moves
---Zeena.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
---Zeena.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---Disable grabbing
---function Zeena:checkForGrab(range)
---    return nil
---end
-
 return Zeena

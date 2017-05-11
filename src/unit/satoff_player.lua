@@ -67,13 +67,4 @@ function Satoff:combo_update(dt)
 end
 Satoff.combo = {name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Character.default_draw}
 
--- Satoff's JumpAttacks should end with Fall
---Satoff.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
---Satoff.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
-
---Block unused moves
---Satoff.sideStep = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
---Satoff.run = {name = "walk", start = nop, exit = nop, update = Character.walk_update, draw = Character.default_draw }
---Satoff.dashAttack = {name = "stand", start = nop, exit = nop, update = Character.stand_update, draw = Character.default_draw }
-
 return Satoff

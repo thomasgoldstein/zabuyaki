@@ -105,13 +105,4 @@ function Gopper:dashAttack_update(dt)
 end
 Gopper.dashAttack = {name = "dashAttack", start = Gopper.dashAttack_start, exit = nop, update = Gopper.dashAttack_update, draw = Character.default_draw }
 
---Block unused moves
---Gopper.sideStep = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw}
---Gopper.duck2jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---Gopper.jump = {name = "stand", start = Character.stand_start, exit = nop, update = Character.stand_update, draw = Character.default_draw }
---Disable grabbing
---function Gopper:checkForGrab(range)
---    return nil
---end
-
 return Gopper
