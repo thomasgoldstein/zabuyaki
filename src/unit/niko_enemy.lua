@@ -13,7 +13,7 @@ function Niko:initialize(name, sprite, input, x, y, f)
     self.score_bonus = self.score_bonus or 300
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
-    self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
+    self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
     self.sfx.dead = sfx.niko_death
     self.sfx.jump_attack = sfx.niko_attack
     self.sfx.step = "kisa_step"
@@ -140,6 +140,25 @@ function Niko:jump_update(dt)
     self:calcMovement(dt, false, nil)
 end
 Niko.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Niko.jump_update, draw = Character.default_draw }
+
+function Niko:grabAttackLast_start()
+    self.isHittable = true
+    self:setSprite("grabAttackLast")
+    self.cool_down = 0.9
+end
+function Niko:grabAttackLast_update(dt)
+    self.cool_down = self.cool_down - dt
+    if self.cool_down < 0 and self.cool_down > -1 then
+        self.cool_down = -1
+        self:release_grabbed()
+    end
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcMovement(dt, true)
+end
+Niko.grabAttackLast = {name = "grabAttackLast", start = Niko.grabAttackLast_start, exit = nop, update = Niko.grabAttackLast_update, draw = Character.default_draw }
 
 -- Niko's JumpAttacks should end with Fall
 Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}

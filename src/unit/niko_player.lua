@@ -1,4 +1,5 @@
 local class = require "lib/middleclass"
+local _Niko = Niko
 local Niko = class('PNiko', Player)
 
 local function nop() end
@@ -77,6 +78,7 @@ function Niko:grabAttack_start()
     end
 end
 Niko.grabAttack = {name = "grabAttack", start = Niko.grabAttack_start, exit = nop, update = Character.grabAttack_update, draw = Character.default_draw}
+Niko.grabAttackLast = {name = "grabAttackLast", start = _Niko.grabAttackLast_start, exit = nop, update = _Niko.grabAttackLast_update, draw = Character.default_draw }
 
 -- Niko's JumpAttacks should end with Fall
 Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
