@@ -192,15 +192,27 @@ function Enemy:pickAttackTarget(how)
         elseif how == "far" then
             p[i].points = dist(self.x, self.y, p[i].player.x, p[i].player.y)
         elseif how == "weak" then
-            p[i].points = -p[i].player.hp
+            if p[i].player.hp > 0 and not p[i].player.isDisabled  then
+                p[i].points = -p[i].player.hp + math.random()
+            else
+                p[i].points = -1000
+            end
         elseif how == "healthy" then
-            p[i].points = p[i].player.hp
+            if p[i].player.hp > 0 and not p[i].player.isDisabled then
+                p[i].points = p[i].player.hp + math.random()
+            else
+                p[i].points = math.random()
+            end
         elseif how == "slow" then
-            p[i].points = -p[i].player.velocity_walk
+            p[i].points = -p[i].player.velocity_walk + math.random()
         elseif how == "fast" then
-            p[i].points = p[i].player.velocity_walk
+            p[i].points = p[i].player.velocity_walk + math.random()
         else -- "random"
-            p[i].points = math.random()
+            if not p[i].player.isDisabled then
+                p[i].points = math.random()
+            else
+                p[i].points = -1000
+            end
         end
     end
 
