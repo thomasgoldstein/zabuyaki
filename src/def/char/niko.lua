@@ -23,6 +23,11 @@ local jump_attack = function(slf, cont)
         cont
     )
 end
+local grab_shake = function(slf, cont)
+    if slf.hold and slf.hold.target then
+        slf.hold.target:onShake(0.5, 0, 0.01, 1)
+    end
+end
 
 return {
     serialization_version = 0.42, -- The version of this serialization process
@@ -168,7 +173,7 @@ return {
         },
         grabAttack = {
             { q = q(49,530,53,62), ox = 24, oy = 61, delay = 0.05 }, --grab attack 1
-            { q = q(2,594,59,60), ox = 32, oy = 59, delay = 0.2 }, --grab attack 2
+            { q = q(2,594,59,60), ox = 32, oy = 59, delay = 0.2, func = grab_shake }, --grab attack 2
             { q = q(49,530,53,62), ox = 24, oy = 61, delay = 0.2 }, --grab attack 1
             { q = q(2,594,59,60), ox = 32, oy = 59, delay = 0.1 }, --grab attack 2
             { q = q(63,594,59,60), ox = 32, oy = 59, delay = 0.1 }, --grab attack 2b
@@ -186,7 +191,7 @@ return {
         },
         grabAttackLast = {
             { q = q(49,530,53,62), ox = 24, oy = 61, delay = 0.05 }, --grab attack 1
-            { q = q(2,594,59,60), ox = 32, oy = 59, delay = 0.2 }, --grab attack 2
+            { q = q(2,594,59,60), ox = 32, oy = 59, delay = 0.2, func = grab_shake  }, --grab attack 2
             { q = q(49,530,53,62), ox = 24, oy = 61, delay = 0.2 }, --grab attack 1
             { q = q(2,594,59,60), ox = 32, oy = 59, delay = 0.1 }, --grab attack 2
             { q = q(63,594,59,60), ox = 32, oy = 59, delay = 0.1 }, --grab attack 2b

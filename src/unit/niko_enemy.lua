@@ -141,6 +141,7 @@ function Niko:jump_update(dt)
 end
 Niko.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Niko.jump_update, draw = Character.default_draw }
 
+-- Niko's grabAttackLast has a short release time
 function Niko:grabAttackLast_start()
     self.isHittable = true
     self:setSprite("grabAttackLast")
