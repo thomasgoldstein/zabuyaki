@@ -132,11 +132,10 @@ function Sveta:dashAttack_start()
     self.isHittable = true
     self:remove_tween_move()
     dpo(self, self.state)
-    self:setSprite("dashAttack")
-    self.velx = self.velocity_dash
+    self.cool_down = 0.25
+    self:setSprite("duck")
     self.vely = 0
     self.velz = 0
-    sfx.play("voice"..self.id, self.sfx.dash_attack)
     local psystem = PA_DASH:clone()
     psystem:setSpin(0, -3 * self.face)
     self.pa_dash = psystem
@@ -146,14 +145,22 @@ function Sveta:dashAttack_start()
 end
 
 function Sveta:dashAttack_update(dt)
-    if self.sprite.isFinished then
-        dpo(self, self.state)
-        self:setState(self.stand)
+    self.cool_down = self.cool_down - dt
+    if self.sprite.cur_anim == "duck" and self.cool_down <= 0 then
+        self.isHittable = false
+        self:setSprite("dashAttack")
+        self.velx = self.velocity_dash
+        sfx.play("voice"..self.id, self.sfx.dash_attack)
         return
-    end
-    if math.random() < 0.2 and self.velx >= self.velocity_dash * 0.5 then
-        self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
-        self.pa_dash:emit(1)
+    else
+        if self.sprite.cur_anim == "dashAttack" and self.sprite.isFinished then
+            self:setState(self.stand)
+            return
+        end
+        if math.random() < 0.2 and self.velx >= self.velocity_dash * 0.5 then
+            self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
+            self.pa_dash:emit(1)
+        end
     end
     self:calcMovement(dt, true, self.friction_dash)
 end
