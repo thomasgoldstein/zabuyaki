@@ -25,7 +25,7 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     self.velocity_walk_y = 45
     self.velocity_run = 140
     self.velocity_run_y = 23
-    self.velocity_dash = 150 --speed of the character
+    self.velocity_dash = 170 --speed of the character
     self.velocity_dash_fall = 180 --speed caused by dash to others fall
     self.friction_dash = self.velocity_dash
 --    self.velocity_shove_x = 220 --my throwing speed

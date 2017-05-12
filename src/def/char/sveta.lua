@@ -79,7 +79,7 @@ return {
         },
         dashAttack = {
             { q = q(42,323,52,63), ox = 34, oy = 62 }, --dash attack 1
-            { q = q(96,323,71,60), ox = 37, oy = 59, funcCont = dash_attack, delay = 0.4 }, --dash attack 2
+            { q = q(96,323,71,60), ox = 37, oy = 59, funcCont = dash_attack, delay = 0.5 }, --dash attack 2
             { q = q(42,323,52,63), ox = 34, oy = 62 }, --dash attack 1
             delay = 0.06
         },
