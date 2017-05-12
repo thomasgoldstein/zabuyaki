@@ -205,6 +205,7 @@ Gopper.stand = { name = "stand", start = Gopper.stand_start, exit = nop, update 
 function Gopper:walk_start()
     self.isHittable = true
     self:setSprite("walk")
+    self.tx, self.ty = self.x, self.y
     if not self.target then
         self:setState(self.intro)
         return
