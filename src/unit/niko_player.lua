@@ -73,7 +73,7 @@ function Niko:grabAttack_start()
     Character.grabAttack_start(self)
     local g = self.hold
     if g and g.target then
-        g.target:onShake(0.5, 0, 0.01, 1.5)
+        g.target:onShake(0.5, 0, 0.01, 1)
     end
 end
 Niko.grabAttack = {name = "grabAttack", start = Niko.grabAttack_start, exit = nop, update = Character.grabAttack_update, draw = Character.default_draw}
