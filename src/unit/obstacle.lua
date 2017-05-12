@@ -98,9 +98,7 @@ function Obstacle:updateAI(dt)
     if self.isDisabled then
         return
     end
-    if not self.isMovable then
-        self:updateShake(dt)
-    end
+    self:updateShake(dt)
     Unit.updateAI(self, dt)
 end
 
