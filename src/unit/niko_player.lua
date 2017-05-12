@@ -69,6 +69,15 @@ function Niko:combo_update(dt)
 end
 Niko.combo = {name = "combo", start = Niko.combo_start, exit = nop, update = Niko.combo_update, draw = Character.default_draw}
 
+function Niko:grabAttack_start()
+    Character.grabAttack_start(self)
+    local g = self.hold
+    if g and g.target then
+        g.target:onShake(0.5, 0, 0.01, 1.5)
+    end
+end
+Niko.grabAttack = {name = "grabAttack", start = Niko.grabAttack_start, exit = nop, update = Character.grabAttack_update, draw = Character.default_draw}
+
 -- Niko's JumpAttacks should end with Fall
 Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
 Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
