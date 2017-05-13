@@ -215,10 +215,10 @@ return {
 		},
 		defensiveSpecial = {
 			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
-			{ q = q(158,584,39,62), ox = 16, oy = 62 }, --combo 4.2
-			{ q = q(2,650,67,61), ox = 13, oy = 61, func = hold_attack1, delay = 0.08 }, --combo 4.3
-			{ q = q(71,650,52,61), ox = 14, oy = 61, func = hold_attack2 }, --combo 4.4
-			{ q = q(125,649,55,62), ox = 22, oy = 62, func = hold_attack3 }, --combo 4.5
+			{ q = q(158,584,38,62), ox = 15, oy = 62 }, --combo 4.2
+			{ q = q(2,650,66,61), ox = 12, oy = 61, func = hold_attack1, delay = 0.08 }, --combo 4.3
+			{ q = q(70,650,51,61), ox = 13, oy = 61, func = hold_attack2 }, --combo 4.4
+			{ q = q(123,649,54,62), ox = 21, oy = 62, func = hold_attack3 }, --combo 4.5
 			{ q = q(135,714,52,62), ox = 32, oy = 62 }, --combo 4.6
 			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --combo 4.7
 			delay = 0.04
@@ -251,17 +251,17 @@ return {
 		},
 		combo4 = {
 			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
-			{ q = q(158,584,39,62), ox = 16, oy = 62, delay = 0.06 }, --combo 4.2
-			{ q = q(2,650,67,61), ox = 13, oy = 61, func = combo_attack4, delay = 0.15 }, --combo 4.3
-			{ q = q(158,584,39,62), ox = 16, oy = 62, delay = 0.11 }, --combo 4.2
+			{ q = q(158,584,38,62), ox = 15, oy = 62, delay = 0.06 }, --combo 4.2
+			{ q = q(2,650,66,61), ox = 12, oy = 61, func = combo_attack4, delay = 0.15 }, --combo 4.3
+			{ q = q(158,584,38,62), ox = 15, oy = 62, delay = 0.11 }, --combo 4.2
 			delay = 0.03
 		},
 		holdAttack = {
 			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
-			{ q = q(158,584,39,62), ox = 16, oy = 62 }, --combo 4.2
-			{ q = q(2,650,67,61), ox = 13, oy = 61, func = hold_attack1, delay = 0.08 }, --combo 4.3
-			{ q = q(71,650,52,61), ox = 14, oy = 61, func = hold_attack2 }, --combo 4.4
-			{ q = q(125,649,55,62), ox = 22, oy = 62, func = hold_attack3 }, --combo 4.5
+			{ q = q(158,584,38,62), ox = 15, oy = 62 }, --combo 4.2
+			{ q = q(2,650,66,61), ox = 12, oy = 61, func = hold_attack1, delay = 0.08 }, --combo 4.3
+			{ q = q(70,650,51,61), ox = 13, oy = 61, func = hold_attack2 }, --combo 4.4
+			{ q = q(123,649,54,62), ox = 21, oy = 62, func = hold_attack3 }, --combo 4.5
 			{ q = q(135,714,52,62), ox = 32, oy = 62 }, --combo 4.6
 			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --combo 4.7
 			delay = 0.04
@@ -383,8 +383,8 @@ return {
 			delay = 0.2
 		},
 		grabSwap = {
-			{ q = q(136,1109,44,62), ox = 18, oy = 62 }, --grab swap 1.1
-			{ q = q(182,1109,37,62), ox = 18, oy = 62 }, --grab swap 1.2
+			{ q = q(136,1109,43,62), ox = 17, oy = 62 }, --grab swap 1.1
+			{ q = q(181,1109,36,62), ox = 18, oy = 62 }, --grab swap 1.2
 			delay = 5
 		},
 		grabbed = {
