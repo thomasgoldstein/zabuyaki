@@ -11,7 +11,7 @@ local CheckCollision = CheckCollision
 local moves_white_list = {
     run = false, sideStep = false, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
-    grab = true, grabSwap = false, grabAttack = true, grabAttackLast = true,
+    grab = true, grabSwap = false, grabAttack = true, grabAttackLast = false,
     shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
     dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
     --technically present for all
@@ -69,9 +69,6 @@ function Niko:combo_update(dt)
     self:calcMovement(dt, true, nil)
 end
 Niko.combo = {name = "combo", start = Niko.combo_start, exit = nop, update = Niko.combo_update, draw = Character.default_draw}
-
--- Niko's grabAttackLast has a short release time
-Niko.grabAttackLast = {name = "grabAttackLast", start = _Niko.grabAttackLast_start, exit = nop, update = _Niko.grabAttackLast_update, draw = Character.default_draw }
 
 -- Niko's JumpAttacks should end with Fall
 Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
