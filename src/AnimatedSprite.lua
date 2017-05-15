@@ -134,17 +134,20 @@ function GetSpriteQuad(spr, frame_n)
 	return sc.q
 end
 
--- get the whole animation duration
+-- calc the animation duration
 function GetSpriteAnimationDuration(spr, anim)
 	if not spr.def.animations[anim] then
-		return 0
+        print(spr, spr.def, spr.def.animations)
+        --print(inspect(spr, {depth=1}))
+        error("There is no "..anim.." animation to calc its duration. ")
 	end
 	local duration = 0
     local a = spr.def.animations[anim]
 	for i = 1, #a do
-        duration = duration + a.delay or a.delay or spr.def.delay
+        duration = duration + a[i].delay or a.delay or spr.def.delay
 	end
-	return duration
+	a.duration = duration
+    return duration
 end
 
 -- get the max animations of the same type: combo4 -> 4
@@ -160,6 +163,7 @@ end
 function CalcSpriteAnimation(spr)
     spr.def.max_combo = GetMaxSpriteAnimation(spr, "combo")
     spr.def.max_grab_attack = GetMaxSpriteAnimation(spr, "grabAttack")
+--    spr.def.animations["grabAttack"].duration = GetSpriteAnimationDuration(spr, "grabAttack")
 end
 
 function UpdateSpriteInstance(spr, dt, slf)
