@@ -82,7 +82,7 @@ function LoadSpriteSheet(sprite_sheet)
 	if image_bank[sprite_sheet] == nil then
 		-- Invalid image, reverting all changes
 		image_bank[sprite_sheet] = old_image -- Revert image
-		dp("Failed loading sprite " .. sprite_def .. ", invalid image path ( "
+		dp("Failed loading sprite. Invalid image path ( "
 				.. sprite_sheet .. " ).")
 	end
 	return image_bank[sprite_sheet]:getDimensions()
@@ -93,22 +93,24 @@ function GetSpriteInstance (sprite_def)
 	if sprite_bank[sprite_def] == nil then
 		--Sprite not loaded attempting to load; abort on failure.
 		if LoadSprite (sprite_def) == nil then return nil end
-	end
-	return {
-		def = sprite_bank[sprite_def], --Sprite reference
-		cur_anim = nil,
-		cur_frame = 1,
-		isFirst = true, -- if the 1st frame
-		isLast = false, -- if the last frame
-		isFinished = false, -- last frame played till the end and the animation is not a loop
-		loop_count = 0, -- loop played times
-		elapsed_time = 0,
-		size_scale = 1,
-		time_scale = 1,
-		rotation = 0,
-		flip_h = 1, -- 1 normal, -1 mirrored
-		flip_v = 1	-- same
-	}
+    end
+    local s = {
+        def = sprite_bank[sprite_def], --Sprite reference
+        cur_anim = nil,
+        cur_frame = 1,
+        isFirst = true, -- if the 1st frame
+        isLast = false, -- if the last frame
+        isFinished = false, -- last frame played till the end and the animation is not a loop
+        loop_count = 0, -- loop played times
+        elapsed_time = 0,
+        size_scale = 1,
+        time_scale = 1,
+        rotation = 0,
+        flip_h = 1, -- 1 normal, -1 mirrored
+        flip_v = 1	-- same
+    }
+    CalcSpriteAnimation(s)
+	return s
 end
 
 function SetSpriteAnimation(spr, anim)
@@ -155,7 +157,9 @@ function GetMaxSpriteAnimation(spr, anim)
     return 0
 end
 
-function ParseSpriteAnimation(spr)
+function CalcSpriteAnimation(spr)
+    spr.def.max_combo = GetMaxSpriteAnimation(spr, "combo")
+    spr.def.max_grab_attack = GetMaxSpriteAnimation(spr, "grabAttack")
 end
 
 function UpdateSpriteInstance(spr, dt, slf)
