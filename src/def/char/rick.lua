@@ -214,15 +214,15 @@ return {
 			{ q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
 		},
 		defensiveSpecial = {
-			{ q = q(2,1504,45,62), ox = 22, oy = 61 }, --defensive special 1
+			{ q = q(2,1504,45,62), ox = 22, oy = 61, delay = 0.05 }, --defensive special 1
 			{ q = q(49,1505,49,61), ox = 25, oy = 60, delay = 0.1 }, --defensive special 2
 			{ q = q(100,1505,45,61), ox = 18, oy = 60, delay = 0.067 }, --defensive special 3
-			{ q = q(147,1506,54,60), ox = 15, oy = 59 }, --defensive special 4
-			{ q = q(2,1568,58,57), ox = 15, oy = 54 }, --defensive special 5a
-			{ q = q(62,1569,58,56), ox = 15, oy = 53 }, --defensive special 5b
+			{ q = q(147,1506,54,60), ox = 15, oy = 59 , delay = 0.05}, --defensive special 4
+			{ q = q(2,1568,58,57), ox = 15, oy = 54, delay = 0.05 }, --defensive special 5a
+			{ q = q(62,1569,58,56), ox = 15, oy = 53 , delay = 0.05}, --defensive special 5b
 			{ q = q(122,1570,57,55), ox = 15, oy = 52, delay = 0.233 }, --defensive special 5c
 			{ q = q(2,1630,50,60), ox = 15, oy = 59, delay = 0.067 }, --defensive special 6
-			{ q = q(54,1627,44,63), ox = 16, oy = 62 }, --defensive special 7
+			{ q = q(54,1627,44,63), ox = 16, oy = 62, delay = 0.05 }, --defensive special 7
 			delay = 0.05
 		},
 		offensiveSpecial = {
