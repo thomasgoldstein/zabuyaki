@@ -1,4 +1,5 @@
 local class = require "lib/middleclass"
+local _Satoff = Satoff
 local Satoff = class('PSatoff', Player)
 
 local function nop() end
@@ -48,23 +49,6 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.sfx.step = "rick_step"
 end
 
-function Satoff:combo_start()
-    self.isHittable = true
-    self.n_combo = 1
-    self.horizontal = self.face
-    self.velx = self.velocity_dash
-    if self.n_combo == 1 then
-        self:setSprite("combo1")
-    end
-    self.cool_down = 0.2
-end
-function Satoff:combo_update(dt)
-    if self.sprite.isFinished then
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true, self.friction_dash)
-end
-Satoff.combo = {name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Character.default_draw}
+Satoff.combo = {name = "combo", start = _Satoff.combo_start, exit = nop, update = _Satoff.combo_update, draw = Character.default_draw}
 
 return Satoff

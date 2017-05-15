@@ -1187,18 +1187,12 @@ Character.dead = {name = "dead", start = Character.dead_start, exit = nop, updat
 
 function Character:combo_start()
     self.isHittable = true
-    if self.n_combo > 4 or self.n_combo < 1 then
+    self.horizontal = self.face
+    self:remove_tween_move()
+    if self.n_combo > self.sprite.def.max_combo or self.n_combo < 1 then
         self.n_combo = 1
     end
-    if self.n_combo == 1 then
-        self:setSprite("combo1")
-    elseif self.n_combo == 2 then
-        self:setSprite("combo2")
-    elseif self.n_combo == 3 then
-        self:setSprite("combo3")
-    elseif self.n_combo == 4 then
-        self:setSprite("combo4")
-    end
+    self:setSprite("combo"..self.n_combo)
     self.cool_down = 0.2
 end
 function Character:combo_update(dt)
@@ -1219,8 +1213,9 @@ function Character:combo_update(dt)
         end
     end
     if self.sprite.isFinished then
-        self.n_combo = self.n_combo + 1
-        if self.n_combo > 5 then
+        if self.n_combo < self.sprite.def.max_combo then
+            self.n_combo = self.n_combo + 1
+        else
             self.n_combo = 1
         end
         self:setState(self.stand)

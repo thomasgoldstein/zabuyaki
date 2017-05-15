@@ -153,17 +153,9 @@ function Satoff:updateAI(dt)
 end
 
 function Satoff:combo_start()
-    self.isHittable = true
-    self:remove_tween_move()
-    self.n_combo = 1
-    self.horizontal = self.face
+    Character.combo_start(self)
     self.velx = self.velocity_dash
-    if self.n_combo == 1 then
-        self:setSprite("combo1")
-    end
-    self.cool_down = 0.2
 end
-
 function Satoff:combo_update(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -171,7 +163,6 @@ function Satoff:combo_update(dt)
     end
     self:calcMovement(dt, true, self.friction_dash)
 end
-
 Satoff.combo = { name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Satoff.default_draw }
 
 --States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
@@ -179,11 +170,9 @@ function Satoff:intro_start()
     self.isHittable = true
     self:setSprite("intro")
 end
-
 function Satoff:intro_update(dt)
     self:calcMovement(dt, true, nil)
 end
-
 Satoff.intro = { name = "intro", start = Satoff.intro_start, exit = nop, update = Satoff.intro_update, draw = Enemy.default_draw }
 
 function Satoff:stand_start()
@@ -196,7 +185,6 @@ function Satoff:stand_start()
     --self:pickAttackTarget()
     --    self.tx, self.ty = self.x, self.y
 end
-
 function Satoff:stand_update(dt)
     if self.isGrabbed then
         self:setState(self.grabbed)
@@ -204,7 +192,6 @@ function Satoff:stand_update(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-
 Satoff.stand = { name = "stand", start = Satoff.stand_start, exit = nop, update = Satoff.stand_update, draw = Enemy.default_draw }
 
 function Satoff:walk_start()

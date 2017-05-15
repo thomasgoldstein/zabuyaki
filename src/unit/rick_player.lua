@@ -43,52 +43,6 @@ function Rick:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = "rick_death"
 end
 
-function Rick:combo_start()
-    self.isHittable = true
-    self.horizontal = self.face
-    if self.n_combo > 4 or self.n_combo < 1 then
-        self.n_combo = 1
-    end
-    if self.n_combo == 1 then
-        self:setSprite("combo1")
-    elseif self.n_combo == 2 then
-        self:setSprite("combo2")
-    elseif self.n_combo == 3 then
-        self:setSprite("combo3")
-    elseif self.n_combo == 4 then
-        self:setSprite("combo4")
-    end
-    self.cool_down = 0.2
-end
-function Rick:combo_update(dt)
-    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
-        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.offensiveSpecial)
-            return
-        elseif self.moves.defensiveSpecial then
-            self:setState(self.defensiveSpecial)
-            return
-        end
-    end
-    if self.moves.dashAttack and (self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast()) then
-        --dashAttack from combo
-        if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dashAttack)
-            return
-        end
-    end
-    if self.sprite.isFinished then
-        self.n_combo = self.n_combo + 1
-        if self.n_combo > 5 then
-            self.n_combo = 1
-        end
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true)
-end
-Rick.combo = {name = "combo", start = Rick.combo_start, exit = nop, update = Rick.combo_update, draw = Character.default_draw}
-
 function Rick:defensiveSpecial_start()
     self.isHittable = false
     self:setSprite("defensiveSpecial")
