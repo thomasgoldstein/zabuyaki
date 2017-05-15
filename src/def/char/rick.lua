@@ -326,7 +326,7 @@ return {
 		},
 		jumpAttackRun = {
 			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
-			{ q = q(145,134,75,55), ox = 33, oy = 66, funcCont = jump_attack_run, delay = 5 }, --jump attack running
+			{ q = q(93,395,78,53), ox = 36, oy = 66, funcCont = jump_attack_run, delay = 5 }, --jump attack running
 			delay = 0.06
 		},
 		jumpAttackRunEnd = {
