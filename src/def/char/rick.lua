@@ -214,14 +214,16 @@ return {
 			{ q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
 		},
 		defensiveSpecial = {
-			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
-			{ q = q(158,584,38,62), ox = 15, oy = 62 }, --combo 4.2
-			{ q = q(2,650,66,61), ox = 12, oy = 61, func = hold_attack1, delay = 0.08 }, --combo 4.3
-			{ q = q(70,650,51,61), ox = 13, oy = 61, func = hold_attack2 }, --combo 4.4
-			{ q = q(123,649,54,62), ox = 21, oy = 62, func = hold_attack3 }, --combo 4.5
-			{ q = q(135,714,52,62), ox = 32, oy = 62 }, --combo 4.6
-			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --combo 4.7
-			delay = 0.04
+			{ q = q(2,1504,45,62), ox = 22, oy = 61 }, --defensive special 1
+			{ q = q(49,1505,49,61), ox = 25, oy = 60, delay = 0.1 }, --defensive special 2
+			{ q = q(100,1505,45,61), ox = 18, oy = 60, delay = 0.067 }, --defensive special 3
+			{ q = q(147,1506,54,60), ox = 15, oy = 59 }, --defensive special 4
+			{ q = q(2,1568,58,57), ox = 15, oy = 54 }, --defensive special 5a
+			{ q = q(62,1569,58,56), ox = 15, oy = 53 }, --defensive special 5b
+			{ q = q(122,1570,57,55), ox = 15, oy = 52, delay = 0.233 }, --defensive special 5c
+			{ q = q(2,1630,50,60), ox = 15, oy = 59, delay = 0.067 }, --defensive special 6
+			{ q = q(54,1627,44,63), ox = 16, oy = 62 }, --defensive special 7
+			delay = 0.05
 		},
 		offensiveSpecial = {
 			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --offensive special 1
