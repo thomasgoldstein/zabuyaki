@@ -279,42 +279,4 @@ function Satoff:run_update(dt)
 end
 Satoff.run = {name = "run", start = Satoff.run_start, exit = Unit.remove_tween_move, update = Satoff.run_update, draw = Satoff.default_draw}
 
-local dashAttack_speed = 0.75
-function Satoff:dashAttack_start()
-    self.isHittable = true
-    self:setSprite("dashAttack")
-    self.velx = self.velocity_dash * 2 * dashAttack_speed
-    self.vely = 0
-    self.velz = self.velocity_jump / 2 * dashAttack_speed
-    self.z = 0.1
-    sfx.play("voice"..self.id, self.sfx.dash_attack)
-    --start jump dust clouds
-    local psystem = PA_DUST_JUMP_START:clone()
-    psystem:setAreaSpread( "uniform", 16, 4 )
-    psystem:setLinearAcceleration(-30 , 10, 30, -10)
-    psystem:emit(4)
-    psystem:setAreaSpread( "uniform", 4, 4 )
-    psystem:setPosition( 0, -16 )
-    psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
-    psystem:emit(2)
-    stage.objects:add(Effect:new(psystem, self.x, self.y-1))
-end
-function Satoff:dashAttack_update(dt)
-    if self.sprite.isFinished then
-        self.z = 0
-        self:setState(self.stand)
-        return
-    end
-    if self.z > 0 then
-        self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * dashAttack_speed
-    else
-        self.velz = 0
-        self.velx = 0
-        self.z = 0
-    end
-    self:calcMovement(dt, true, self.friction_dash * dashAttack_speed)
-end
-Satoff.dashAttack = {name = "dashAttack", start = Satoff.dashAttack_start, exit = nop, update = Satoff.dashAttack_update, draw = Character.default_draw }
-
 return Satoff
