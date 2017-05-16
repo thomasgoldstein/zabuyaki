@@ -46,7 +46,7 @@ end
 function Rick:defensiveSpecial_start()
     self.isHittable = false
     self:setSprite("defensiveSpecial")
-    sfx.play("voice"..self.id, self.sfx.throw)
+    sfx.play("voice"..self.id, self.sfx.dash_attack)
     self.cool_down = 0.2
 end
 function Rick:defensiveSpecial_update(dt)
