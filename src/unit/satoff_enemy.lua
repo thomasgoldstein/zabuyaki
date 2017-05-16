@@ -41,9 +41,10 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
 
-    self.sfx.dead = sfx.satoff_death
-    self.sfx.dash_attack = sfx.satoff_attack
+    self.sfx.throw = sfx.satoff_attack
+    self.sfx.jump_attack = sfx.satoff_attack
     self.sfx.step = "rick_step" --TODO refactor def files
+    self.sfx.dead = sfx.satoff_death
 
     self:setToughness(0)
     self.walk_speed = 80
