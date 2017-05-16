@@ -75,7 +75,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.player_select_mode = 0
     --Character default sfx
     self.sfx.jump = "whoosh_heavy"
-    self.sfx.throw = "air"
+    self.sfx.throw = "whoosh_heavy"
     self.sfx.dash_attack = "gopper_attack1"
     self.sfx.grab = "grab"
     self.sfx.grab_clash = "hit_weak6"
