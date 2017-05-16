@@ -15,7 +15,17 @@ local combo_kick = function(slf, cont)
     slf:checkAndAttack(
         { left = 25, width = 26, height = 12, damage = 8, type = "fall", velocity = slf.velocity_dash_fall },
         cont
-) end
+    )
+    -- move forward Zeena
+    if slf.b.vertical:getValue() ~= 0 then
+        slf.vertical = slf.b.vertical:getValue()
+        slf.vely = slf.velocity_jab_y -- vertical velocity
+        slf.velx = slf.velocity_jab_y -- reduced horizontal velocity
+    else
+        slf.velx = slf.velocity_jab -- horizontal velocity
+    end
+    slf.cool_down_combo = 0.4
+end
 local jump_attack = function(slf, cont)
     slf:checkAndAttack(
         { left = 21, width = 25, height = 12, damage = 13, type = "fall", velocity = slf.velocity_dash_fall },

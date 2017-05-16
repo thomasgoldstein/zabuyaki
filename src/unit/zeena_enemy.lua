@@ -15,6 +15,11 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     Gopper.initialize(self, name, sprite, input, x, y, f)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
+
+    self.velocity_jab = 100 --speed of the jab slide
+    self.velocity_jab_y = 20 --speed of the vertical jab slide
+    self.friction_jab = self.velocity_jab
+
     self.sfx.dead = sfx.zeena_death
     self.sfx.jump_attack = sfx.zeena_attack
     self.sfx.step = "kisa_step"
@@ -125,6 +130,12 @@ function Zeena:updateAI(dt)
 --        end
     end
 end
+
+function Zeena:combo_update(dt)
+    --Custom friction value to slide forward on jab
+    Character.combo_update(self, dt, self.friction_jab)
+end
+Zeena.combo = {name = "combo", start = Enemy.combo_start, exit = nop, update = Zeena.combo_update, draw = Character.default_draw}
 
 function Zeena:jump_update(dt)
     local t = dist(self.target.x, self.target.y, self.x, self.y)
