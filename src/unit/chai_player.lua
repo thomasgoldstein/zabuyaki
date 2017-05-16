@@ -46,6 +46,12 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = "chai_death"
 end
 
+function Chai:combo_update(dt)
+    --Custom friction value to slide forward on jab
+    Character.combo_update(self, dt, self.friction_jab)
+end
+Chai.combo = {name = "combo", start = Character.combo_start, exit = nop, update = Chai.combo_update, draw = Character.default_draw}
+
 function Chai:dashAttack_start()
     self.isHittable = true
     self.horizontal = self.face

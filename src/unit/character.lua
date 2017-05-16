@@ -1195,7 +1195,7 @@ function Character:combo_start()
     self:setSprite("combo"..self.n_combo)
     self.cool_down = 0.2
 end
-function Character:combo_update(dt)
+function Character:combo_update(dt, custom_friction)
     if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
         if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
@@ -1221,7 +1221,7 @@ function Character:combo_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true)
+    self:calcMovement(dt, true, custom_friction)
 end
 Character.combo = {name = "combo", start = Character.combo_start, exit = nop, update = Character.combo_update, draw = Character.default_draw}
 
