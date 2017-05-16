@@ -13,7 +13,7 @@ local combo_slap = function(slf, cont)
 end
 local combo_kick = function(slf, cont)
     slf:checkAndAttack(
-        { left = 25, width = 26, height = 12, damage = 8, type = "fall", velocity = slf.velocity_dash_fall },
+        { left = 21, width = 25, height = 12, damage = 8, type = "fall", velocity = slf.velocity_dash_fall },
         cont
     )
     -- move forward Zeena
