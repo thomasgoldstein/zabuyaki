@@ -342,13 +342,19 @@ return {
 		grab = {
 			{ q = q(2,979,45,63), ox = 19, oy = 62 }, --grab
 		},
-		grabAttack = {
+		grabAttack1 = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
 			{ q = q(93,980,49,62), ox = 18, oy = 61, func = grab_attack, delay = 0.18 }, --grab attack 1.2
 			{ q = q(49,980,42,62), ox = 19, oy = 61, delay = 0.02 }, --grab attack 1.1
 			delay = 0.01
 		},
-		grabAttackLast = {
+		grabAttack2 = {
+			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
+			{ q = q(93,980,49,62), ox = 18, oy = 61, func = grab_attack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(49,980,42,62), ox = 19, oy = 61, delay = 0.02 }, --grab attack 1.1
+			delay = 0.01
+		},
+		grabAttack3 = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
 			{ q = q(168,916,53,61), ox = 16, oy = 60, func = grabLast_attack, delay = 0.18 }, --dash attack 4
 			{ q = q(115,519,40,63), ox = 17, oy = 62, delay = 0.1 }, --combo 2.1

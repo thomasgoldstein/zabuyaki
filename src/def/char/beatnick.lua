@@ -169,11 +169,7 @@ return {
         grab = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
-        grabAttack = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.05
-        },
-        grabAttackLast = { --TODO: Remove
+        grabAttack1 = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
             delay = 0.05
         },

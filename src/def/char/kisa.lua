@@ -137,11 +137,7 @@ return {
 		grab = {
 			{ q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
 		},
-		grabAttack = {
-			{ q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
-			delay = 0.05
-		},
-		grabAttackLast = {
+		grabAttack1 = {
 			{ q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
 			delay = 0.05
 		},
