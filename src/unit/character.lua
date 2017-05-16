@@ -9,7 +9,7 @@ local double_tap_delta = 0.25
 local moves_white_list = {
     run = true, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-    grab = true, grabSwap = true, grabAttack = true, grabAttackLast = true,
+    grab = true, grabSwap = true, grabAttack = true,
     shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
     dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
     --technically present for all
@@ -1470,11 +1470,7 @@ function Character:grabAttack_start()
         g.target.hold.cool_down = self.cool_down_grab
     end
     self.n_grabAttack = self.n_grabAttack + 1
-    if self.moves.grabAttackLast and self.n_grabAttack > 2 then
-        self:setState(self.grabAttackLast)
-        return
-    end
-    self:setSprite("grabAttack")
+    self:setSprite("grabAttack"..self.n_grabAttack)
     dp(self.name.." is grabAttack someone.")
 end
 function Character:grabAttack_update(dt)
@@ -1489,39 +1485,18 @@ function Character:grabAttack_update(dt)
     end
     if self.sprite.isFinished then
         local g = self.hold
-        if g and g.target and g.target.hp > 0 then
+        if self.n_grabAttack < self.sprite.def.max_grabAttack
+            and g and g.target and g.target.hp > 0 then
             self:setState(self.grab, true) --do not adjust positions of pl
         else
-            self:setState(self.stand) --killed the target
+            --it is the last grabAttack or killed the target
+            self:setState(self.stand)
         end
         return
     end
     self:calcMovement(dt, true)
 end
 Character.grabAttack = {name = "grabAttack", start = Character.grabAttack_start, exit = nop, update = Character.grabAttack_update, draw = Character.default_draw}
-
-function Character:grabAttackLast_start()
-    self.isHittable = true
-    self:setSprite("grabAttackLast")
-    dp(self.name.." is grabAttackLast someone.")
-end
-function Character:grabAttackLast_update(dt)
-    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
-        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.offensiveSpecial)
-            return
-        elseif self.moves.defensiveSpecial then
-            self:setState(self.defensiveSpecial)
-            return
-        end
-    end
-    if self.sprite.isFinished then
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true)
-end
-Character.grabAttackLast = {name = "grabAttackLast", start = Character.grabAttackLast_start, exit = nop, update = Character.grabAttackLast_update, draw = Character.default_draw }
 
 function Character:shoveDown_start()
     self.isHittable = true
