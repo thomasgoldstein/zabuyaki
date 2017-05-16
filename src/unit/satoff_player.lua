@@ -13,7 +13,7 @@ local moves_white_list = {
     jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = true, jumpAttackStraight = true,
     grab = true, grabSwap = false, grabAttack = true,
     shoveUp = false, shoveDown = true, shoveBack = true, shoveForward = false,
-    dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
+    dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
     --technically present for all
     stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
 }
