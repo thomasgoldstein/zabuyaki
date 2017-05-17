@@ -48,11 +48,6 @@ function Rick:defensiveSpecial_start()
     self:setSprite("defensiveSpecial")
     sfx.play("voice"..self.id, self.sfx.dash_attack)
     self.cool_down = 0.2
-    --explosion
-    local psystem = PA_DEFENSIVE_SPECIAL:clone()
-    psystem:setPosition( 0, 0 ) -- pos == x,y ofplayer. You can adjust it up/down
-    psystem:emit(1) --draw 1 effect sprite
-    stage.objects:add(Effect:new(psystem, self.x, self.y+2)) --y+2 to put it above the player's sprite
 end
 function Rick:defensiveSpecial_update(dt)
     if self.z > 0 then
