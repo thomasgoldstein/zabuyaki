@@ -324,6 +324,7 @@ function Gopper:dashAttack_start()
     self.vely = 0
     self.velz = self.velocity_jump / 2 * dashAttack_speed
     self.z = 0.1
+    self.isLanded = false
     sfx.play("voice"..self.id, self.sfx.dash_attack)
     --start jump dust clouds
     local psystem = PA_DUST_JUMP_START:clone()
@@ -344,10 +345,15 @@ function Gopper:dashAttack_update(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * dashAttack_speed
-    else
+    elseif not self.isLanded then
         self.velz = 0
         self.velx = 0
         self.z = 0
+        self.isLanded = true
+        --landing dust clouds
+        local psystem = PA_DUST_FALLING:clone()
+        psystem:emit(15)
+        stage.objects:add(Effect:new(psystem, self.x + self.horizontal * 15, self.y+3))
     end
     self:calcMovement(dt, true, self.friction_dash * dashAttack_speed)
 end
