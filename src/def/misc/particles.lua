@@ -156,20 +156,21 @@ psystem:setSizes(0.7, 0.5)
 psystem:setLinearDamping(0.1, 2)
 PA_OBSTACLE_BREAK_BIG = psystem
 
---Rick's Defensive Special
+
+--Rick's Defensive Special Effect
 sprite_sheet = "res/img/misc/rick-sp-particles.png"
 image_w, image_h = LoadSpriteSheet(sprite_sheet)
 gfx.particles = image_bank[sprite_sheet]
 
-local ds_quad1 = q(2,2,78,86) -- Rick's Defensive Special Effect frame 1/9
-local ds_quad2 = q(82,2,78,86) -- Rick's Defensive Special Effect frame 2/9
-local ds_quad3 = q(162,2,78,86) -- Rick's Defensive Special Effect frame 3/9
-local ds_quad4 = q(242,2,78,86) -- Rick's Defensive Special Effect frame 4/9
-local ds_quad5 = q(322,2,78,86) -- Rick's Defensive Special Effect frame 5/9
-local ds_quad6 = q(402,2,78,86) -- Rick's Defensive Special Effect frame 6/9
-local ds_quad7 = q(482,2,78,86) -- Rick's Defensive Special Effect frame 7/9
-local ds_quad8 = q(562,2,78,86) -- Rick's Defensive Special Effect frame 8/9
-local ds_quad9 = q(642,2,78,86) -- Rick's Defensive Special Effect frame 9/9
+local ds_quad1 = q(2,2,78,86) -- right frame 1/9
+local ds_quad2 = q(82,2,78,86) -- right frame 2/9
+local ds_quad3 = q(162,2,78,86) -- right frame 3/9
+local ds_quad4 = q(242,2,78,86) -- right frame 4/9
+local ds_quad5 = q(322,2,78,86) -- right frame 5/9
+local ds_quad6 = q(402,2,78,86) -- right frame 6/9
+local ds_quad7 = q(482,2,78,86) -- right frame 7/9
+local ds_quad8 = q(562,2,78,86) -- right frame 8/9
+local ds_quad9 = q(642,2,78,86) -- right frame 9/9
 local ds_colors = {255,255,255,255, 255,255,255,255, 255,255,255,55} --R,G,B,Alpha, ...
 
 psystem = love.graphics.newParticleSystem(gfx.particles, 1)
@@ -178,4 +179,18 @@ psystem:setEmitterLifetime(.45) --whole lengths of the anim
 psystem:setParticleLifetime(.45) --should equal to setEmitterLifetime
 psystem:setColors(unpack(ds_colors))
 psystem:setQuads(ds_quad1, ds_quad2, ds_quad3, ds_quad4, ds_quad5, ds_quad6, ds_quad7, ds_quad8, ds_quad9)
-PA_DEFENSIVE_SPECIAL = psystem
+PA_DEFENSIVE_SPECIAL_R = psystem
+
+ds_quad1 = q(2,90,78,86) -- left frame 1/9
+ds_quad2 = q(82,90,78,86) -- left frame 2/9
+ds_quad3 = q(162,90,78,86) -- left frame 3/9
+ds_quad4 = q(242,90,78,86) -- left frame 4/9
+ds_quad5 = q(322,90,78,86) -- left frame 5/9
+ds_quad6 = q(402,90,78,86) -- left frame 6/9
+ds_quad7 = q(482,90,78,86) -- left frame 7/9
+ds_quad8 = q(562,90,78,86) -- left frame 8/9
+ds_quad9 = q(642,90,78,86) -- left frame 9/9
+
+psystem = PA_DEFENSIVE_SPECIAL_R:clone()
+psystem:setQuads(ds_quad1, ds_quad2, ds_quad3, ds_quad4, ds_quad5, ds_quad6, ds_quad7, ds_quad8, ds_quad9)
+PA_DEFENSIVE_SPECIAL_L = psystem

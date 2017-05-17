@@ -107,7 +107,7 @@ local jump_attack_straight2 = function(slf, cont) slf:checkAndAttack(
 local shove_now = function(slf, cont) slf.can_shove_now = true end
 local defensive_special_effect = function(slf, cont)
 	sfx.play("sfx","hit_weak1")
-	local psystem = PA_DEFENSIVE_SPECIAL:clone()
+	local psystem = (slf.face == 1 and PA_DEFENSIVE_SPECIAL_R or PA_DEFENSIVE_SPECIAL_L):clone()
 	psystem:setPosition(slf.face * 11, 11) --pos == x,y ofplayer. You can adjust it up/down
 	psystem:emit(1) --draw 1 effect sprite
 	stage.objects:add(Effect:new(psystem, slf.x, slf.y+2)) --y+2 to put it above the player's sprite
