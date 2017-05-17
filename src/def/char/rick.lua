@@ -107,6 +107,7 @@ local jump_attack_straight2 = function(slf, cont) slf:checkAndAttack(
 local shove_now = function(slf, cont) slf.can_shove_now = true end
 local defensive_special_effect = function(slf, cont)
 	sfx.play("sfx","hit_weak1")
+    mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen
 	local particles = (slf.face == 1 and PA_DEFENSIVE_SPECIAL_R or PA_DEFENSIVE_SPECIAL_L):clone()
 	particles:setPosition(slf.face * 11, 11) --pos == x,y ofplayer. You can adjust it up/down
 	particles:emit(1) --draw 1 effect sprite
