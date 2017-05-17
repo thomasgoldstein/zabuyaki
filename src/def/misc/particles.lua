@@ -1,6 +1,3 @@
---
--- Date: 04.05.2016
---
 local sprite_sheet = "res/img/misc/particles.png"
 local image_w, image_h = LoadSpriteSheet(sprite_sheet)
 gfx.particles = image_bank[sprite_sheet] --it is not a character. work around
@@ -156,3 +153,17 @@ psystem:setQuads(quads.triangle_big_quad)
 psystem:setSizes(0.7, 0.5)
 psystem:setLinearDamping(0.1, 2)
 PA_OBSTACLE_BREAK_BIG = psystem
+
+--Defensive Special
+local ds_quad1 = q(2,54,31,30) -- Defensive Special Effect frame 1/3
+local ds_quad2 = q(35,54,31,30) -- Defensive Special 2/3
+local ds_quad3 = q(68,54,31,30) -- Defensive Special 3/3
+local ds_colors = {255,255,255,255, 255,255,255,255, 255,255,255,55} --R,G,B,Alphha, ...
+
+psystem = love.graphics.newParticleSystem( gfx.particles, 1 )
+psystem:setOffset( 15, 30 ) --center-bottom of the sprite  width/2, height
+psystem:setEmitterLifetime(1) --whole lengths of the anim
+psystem:setParticleLifetime(1) --should equal to setEmitterLifetime
+psystem:setColors(unpack(ds_colors))
+psystem:setQuads( ds_quad1, ds_quad2, ds_quad3, ds_quad1, ds_quad3 )
+PA_DEFENSIVE_SPECIAL = psystem
