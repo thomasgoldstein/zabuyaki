@@ -74,12 +74,12 @@ function Rick:dashAttack_start()
     self.velz = 0
     self.horizontal = self.face
     sfx.play("voice"..self.id, self.sfx.dash_attack)
-    local psystem = PA_DASH:clone()
-    psystem:setSpin(0, -3 * self.face)
-    self.pa_dash = psystem
+    local particles = PA_DASH:clone()
+    particles:setSpin(0, -3 * self.face)
+    self.pa_dash = particles
     self.pa_dash_x = self.x
     self.pa_dash_y = self.y
-    stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
+    stage.objects:add(Effect:new(particles, self.x, self.y + 2))
 end
 function Rick:dashAttack_update(dt)
     if self.sprite.isFinished then
@@ -105,14 +105,14 @@ function Rick:offensiveSpecial_start()
     self.velz = 0
     sfx.play("voice"..self.id, self.sfx.dash_attack)
 
-    local psystem = PA_DASH:clone()
-    psystem:setSpin(0, -2 * self.face)
-    psystem:setLinearAcceleration(0, -110, 0, -250) -- Random movement in all directions.
-    self.pa_dash = psystem
+    local particles = PA_DASH:clone()
+    particles:setSpin(0, -2 * self.face)
+    particles:setLinearAcceleration(0, -110, 0, -250) -- Random movement in all directions.
+    self.pa_dash = particles
     self.pa_dash_x = self.x
     self.pa_dash_y = self.y
 
-    stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
+    stage.objects:add(Effect:new(particles, self.x, self.y + 2))
 end
 function Rick:offensiveSpecial_update(dt)
     if self.sprite.isFinished then

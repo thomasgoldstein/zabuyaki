@@ -4,7 +4,7 @@ gfx.particles = image_bank[sprite_sheet] --it is not a character. work around
 
 local function q(x,y,w,h) return love.graphics.newQuad(x, y, w, h, image_w, image_h) end
 
-local psystem
+local particles
 
 local imp_small_quad1 = q(2,2,21,22) -- impact small 1/3
 local imp_small_quad2 = q(25,2,21,22) -- impact small 2/3
@@ -29,132 +29,132 @@ local loot_colors = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55, 
 
 local quads ={ triangle_small_quad = triangle_small_quad, triangle_big_quad = triangle_big_quad }
 
-psystem = love.graphics.newParticleSystem(gfx.particles, 32)
-psystem:setPosition(0, -2)
-psystem:setEmitterLifetime(0.6)
-psystem:setParticleLifetime(0.35, 0.5) 
-psystem:setSizes(0.2, 0.7)
-psystem:setSpeed(1, 5)
-psystem:setLinearAcceleration(0, 0, 0, 0) -- Random movement in all directions.
-psystem:setColors(unpack(dust_step_colors))
-psystem:setOffset(15, 15)
-psystem:setQuads(dust_quad)
-psystem:setLinearDamping(7, 20)
-psystem:setAreaSpread("uniform", 8, 4)
-psystem:setSpin(0, -3)
-PA_DUST_STEPS = psystem
+particles = love.graphics.newParticleSystem(gfx.particles, 32)
+particles:setPosition(0, -2)
+particles:setEmitterLifetime(0.6)
+particles:setParticleLifetime(0.35, 0.5) 
+particles:setSizes(0.2, 0.7)
+particles:setSpeed(1, 5)
+particles:setLinearAcceleration(0, 0, 0, 0) -- Random movement in all directions.
+particles:setColors(unpack(dust_step_colors))
+particles:setOffset(15, 15)
+particles:setQuads(dust_quad)
+particles:setLinearDamping(7, 20)
+particles:setAreaSpread("uniform", 8, 4)
+particles:setSpin(0, -3)
+PA_DUST_STEPS = particles
 
-psystem = PA_DUST_STEPS:clone()
-psystem:setSizes(0.15, 0.53)
-PA_DUST_LANDING = psystem
+particles = PA_DUST_STEPS:clone()
+particles:setSizes(0.15, 0.53)
+PA_DUST_LANDING = particles
 
-psystem = PA_DUST_STEPS:clone()
-psystem:setEmitterLifetime(1)
-psystem:setParticleLifetime(0.5, 0.95) 
-psystem:setSizes(0.15, 0.53)
-psystem:setPosition(0, 0)
-PA_DUST_JUMP_START = psystem
+particles = PA_DUST_STEPS:clone()
+particles:setEmitterLifetime(1)
+particles:setParticleLifetime(0.5, 0.95) 
+particles:setSizes(0.15, 0.53)
+particles:setPosition(0, 0)
+PA_DUST_JUMP_START = particles
 
-psystem = psystem:clone()
-psystem:setEmitterLifetime(1.5)
-psystem:setSizes(0.15, 0.45)
-psystem:setColors(unpack(dust_step_colors))
-psystem:setParticleLifetime(0.5, 1.3) 
-psystem:setLinearAcceleration(-500, -20, 500, -100) -- Random movement in all directions.
-psystem:setLinearDamping(10, 50)
-psystem:setAreaSpread("uniform", 30, 4)
-psystem:setPosition(0, -2)
-PA_DUST_FALLING = psystem
+particles = particles:clone()
+particles:setEmitterLifetime(1.5)
+particles:setSizes(0.15, 0.45)
+particles:setColors(unpack(dust_step_colors))
+particles:setParticleLifetime(0.5, 1.3) 
+particles:setLinearAcceleration(-500, -20, 500, -100) -- Random movement in all directions.
+particles:setLinearDamping(10, 50)
+particles:setAreaSpread("uniform", 30, 4)
+particles:setPosition(0, -2)
+PA_DUST_FALLING = particles
 
-psystem = psystem:clone()
-psystem:setEmitterLifetime(1)
-psystem:setSizes(0.3, 0.6, 0.4, 0.1)
-psystem:setColors(unpack(dust_step_colors))
-psystem:setParticleLifetime(0.2, 0.7) 
-psystem:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
-psystem:setLinearDamping(7, 20)
-psystem:setAreaSpread("uniform", 15, 5)
-psystem:setPosition(0, -4)
-PA_DUST_LANDING_UNUSED = psystem
+particles = particles:clone()
+particles:setEmitterLifetime(1)
+particles:setSizes(0.3, 0.6, 0.4, 0.1)
+particles:setColors(unpack(dust_step_colors))
+particles:setParticleLifetime(0.2, 0.7) 
+particles:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
+particles:setLinearDamping(7, 20)
+particles:setAreaSpread("uniform", 15, 5)
+particles:setPosition(0, -4)
+PA_DUST_LANDING_UNUSED = particles
 
-psystem = love.graphics.newParticleSystem(gfx.particles, 4)
-psystem:setOffset(10, 11)
-psystem:setEmitterLifetime(0.2)
-psystem:setParticleLifetime(0.15)
-psystem:setColors(unpack(impact_colors))
-psystem:setQuads(imp_small_quad1, imp_small_quad2, imp_small_quad3)
-PA_IMPACT_SMALL = psystem
+particles = love.graphics.newParticleSystem(gfx.particles, 4)
+particles:setOffset(10, 11)
+particles:setEmitterLifetime(0.2)
+particles:setParticleLifetime(0.15)
+particles:setColors(unpack(impact_colors))
+particles:setQuads(imp_small_quad1, imp_small_quad2, imp_small_quad3)
+PA_IMPACT_SMALL = particles
 
-psystem = love.graphics.newParticleSystem(gfx.particles, 4)
-psystem:setOffset(13, 13)
-psystem:setEmitterLifetime(0.2)
-psystem:setParticleLifetime(0.15)
-psystem:setColors(unpack(impact_colors))
-psystem:setQuads(imp_medium_quad1, imp_medium_quad2, imp_medium_quad3)
-PA_IMPACT_MEDIUM = psystem
+particles = love.graphics.newParticleSystem(gfx.particles, 4)
+particles:setOffset(13, 13)
+particles:setEmitterLifetime(0.2)
+particles:setParticleLifetime(0.15)
+particles:setColors(unpack(impact_colors))
+particles:setQuads(imp_medium_quad1, imp_medium_quad2, imp_medium_quad3)
+PA_IMPACT_MEDIUM = particles
 
-psystem = love.graphics.newParticleSystem(gfx.particles, 4)
-psystem:setOffset(15, 15)
-psystem:setEmitterLifetime(0.2)
-psystem:setParticleLifetime(0.15)
-psystem:setColors(unpack(impact_colors))
-psystem:setQuads(imp_big_quad1, imp_big_quad2, imp_big_quad3)
-PA_IMPACT_BIG = psystem
+particles = love.graphics.newParticleSystem(gfx.particles, 4)
+particles:setOffset(15, 15)
+particles:setEmitterLifetime(0.2)
+particles:setParticleLifetime(0.15)
+particles:setColors(unpack(impact_colors))
+particles:setQuads(imp_big_quad1, imp_big_quad2, imp_big_quad3)
+PA_IMPACT_BIG = particles
 
-psystem = love.graphics.newParticleSystem(gfx.particles, 32)
-psystem:setSizes(0.3, 0.6, 0.4, 0.1)
-psystem:setColors(unpack(dust_step_colors))
-psystem:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
-psystem:setLinearDamping(7, 20)
-psystem:setAreaSpread("uniform", 15, 5)
-psystem:setPosition(0, -4)
-psystem:setParticleLifetime(1, 4)
-psystem:setEmitterLifetime(4)
-psystem:emit(20)
-PA_DUST_PUFF_STAGE = psystem
+particles = love.graphics.newParticleSystem(gfx.particles, 32)
+particles:setSizes(0.3, 0.6, 0.4, 0.1)
+particles:setColors(unpack(dust_step_colors))
+particles:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
+particles:setLinearDamping(7, 20)
+particles:setAreaSpread("uniform", 15, 5)
+particles:setPosition(0, -4)
+particles:setParticleLifetime(1, 4)
+particles:setEmitterLifetime(4)
+particles:emit(20)
+PA_DUST_PUFF_STAGE = particles
 
-psystem = love.graphics.newParticleSystem(gfx.particles, 50)
---psystem:setPosition(0, -2)
-psystem:setEmitterLifetime(2.1)
-psystem:setParticleLifetime(0.3, 2)
-psystem:setSizes(0.2, 0.5, 0.1)
---psystem:setSizeVariation(0.7)
---psystem:setSpeed(1, 1)
-psystem:setDirection(2.71)
-psystem:setLinearAcceleration(0, -10, 0, -50) -- Random movement in all directions.
-psystem:setColors(unpack(dust_step_colors))
-psystem:setOffset(15, 15)
-psystem:setQuads(dust_quad)
-psystem:setLinearDamping(7, 10)
---psystem:setAreaSpread("uniform", 80, 40)
---psystem:setSpin(0, -3)
-PA_DASH = psystem
+particles = love.graphics.newParticleSystem(gfx.particles, 50)
+--particles:setPosition(0, -2)
+particles:setEmitterLifetime(2.1)
+particles:setParticleLifetime(0.3, 2)
+particles:setSizes(0.2, 0.5, 0.1)
+--particles:setSizeVariation(0.7)
+--particles:setSpeed(1, 1)
+particles:setDirection(2.71)
+particles:setLinearAcceleration(0, -10, 0, -50) -- Random movement in all directions.
+particles:setColors(unpack(dust_step_colors))
+particles:setOffset(15, 15)
+particles:setQuads(dust_quad)
+particles:setLinearDamping(7, 10)
+--particles:setAreaSpread("uniform", 80, 40)
+--particles:setSpin(0, -3)
+PA_DASH = particles
 
-psystem = love.graphics.newParticleSystem(gfx.loot.image, 1)
-psystem:setLinearAcceleration(0, -75, 0, -85)
-psystem:setDirection(4.71)
-psystem:setEmitterLifetime(1)
-psystem:setParticleLifetime(1)
---psystem:setSizes(1, 1, 1.1)
-psystem:setColors(unpack(loot_colors))
-PA_LOOT_GET = psystem
+particles = love.graphics.newParticleSystem(gfx.loot.image, 1)
+particles:setLinearAcceleration(0, -75, 0, -85)
+particles:setDirection(4.71)
+particles:setEmitterLifetime(1)
+particles:setParticleLifetime(1)
+--particles:setSizes(1, 1, 1.1)
+particles:setColors(unpack(loot_colors))
+PA_LOOT_GET = particles
 
-psystem = love.graphics.newParticleSystem(gfx.particles, 32)
-psystem:setEmitterLifetime(0.3)
-psystem:setParticleLifetime(0.15, 0.25)
-psystem:setOffset(4.5, 4.5)
-psystem:setQuads(quads.triangle_small_quad)
-psystem:setSizes(0.7, 0.5)
-PA_OBSTACLE_BREAK_SMALL = psystem
+particles = love.graphics.newParticleSystem(gfx.particles, 32)
+particles:setEmitterLifetime(0.3)
+particles:setParticleLifetime(0.15, 0.25)
+particles:setOffset(4.5, 4.5)
+particles:setQuads(quads.triangle_small_quad)
+particles:setSizes(0.7, 0.5)
+PA_OBSTACLE_BREAK_SMALL = particles
 
-psystem = love.graphics.newParticleSystem(gfx.particles, 32)
-psystem:setEmitterLifetime(0.4)
-psystem:setParticleLifetime(0.17, 0.33)
-psystem:setOffset(6, 6)
-psystem:setQuads(quads.triangle_big_quad)
-psystem:setSizes(0.7, 0.5)
-psystem:setLinearDamping(0.1, 2)
-PA_OBSTACLE_BREAK_BIG = psystem
+particles = love.graphics.newParticleSystem(gfx.particles, 32)
+particles:setEmitterLifetime(0.4)
+particles:setParticleLifetime(0.17, 0.33)
+particles:setOffset(6, 6)
+particles:setQuads(quads.triangle_big_quad)
+particles:setSizes(0.7, 0.5)
+particles:setLinearDamping(0.1, 2)
+PA_OBSTACLE_BREAK_BIG = particles
 
 
 --Rick's Defensive Special Effect
@@ -173,13 +173,13 @@ local ds_quad8 = q(562,2,78,86) -- right frame 8/9
 local ds_quad9 = q(642,2,78,86) -- right frame 9/9
 local ds_colors = {255,255,255,255, 255,255,255,255, 255,255,255,55} --R,G,B,Alpha, ...
 
-psystem = love.graphics.newParticleSystem(gfx.particles, 1)
-psystem:setOffset(39, 86) --center-bottom of the sprite width/2, height
-psystem:setEmitterLifetime(.45) --whole lengths of the anim
-psystem:setParticleLifetime(.45) --should equal to setEmitterLifetime
-psystem:setColors(unpack(ds_colors))
-psystem:setQuads(ds_quad1, ds_quad2, ds_quad3, ds_quad4, ds_quad5, ds_quad6, ds_quad7, ds_quad8, ds_quad9)
-PA_DEFENSIVE_SPECIAL_R = psystem
+particles = love.graphics.newParticleSystem(gfx.particles, 1)
+particles:setOffset(39, 86) --center-bottom of the sprite width/2, height
+particles:setEmitterLifetime(.45) --whole lengths of the anim
+particles:setParticleLifetime(.45) --should equal to setEmitterLifetime
+particles:setColors(unpack(ds_colors))
+particles:setQuads(ds_quad1, ds_quad2, ds_quad3, ds_quad4, ds_quad5, ds_quad6, ds_quad7, ds_quad8, ds_quad9)
+PA_DEFENSIVE_SPECIAL_R = particles
 
 ds_quad1 = q(2,90,78,86) -- left frame 1/9
 ds_quad2 = q(82,90,78,86) -- left frame 2/9
@@ -191,6 +191,6 @@ ds_quad7 = q(482,90,78,86) -- left frame 7/9
 ds_quad8 = q(562,90,78,86) -- left frame 8/9
 ds_quad9 = q(642,90,78,86) -- left frame 9/9
 
-psystem = PA_DEFENSIVE_SPECIAL_R:clone()
-psystem:setQuads(ds_quad1, ds_quad2, ds_quad3, ds_quad4, ds_quad5, ds_quad6, ds_quad7, ds_quad8, ds_quad9)
-PA_DEFENSIVE_SPECIAL_L = psystem
+particles = PA_DEFENSIVE_SPECIAL_R:clone()
+particles:setQuads(ds_quad1, ds_quad2, ds_quad3, ds_quad4, ds_quad5, ds_quad6, ds_quad7, ds_quad8, ds_quad9)
+PA_DEFENSIVE_SPECIAL_L = particles

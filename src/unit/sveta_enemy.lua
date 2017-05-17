@@ -136,12 +136,12 @@ function Sveta:dashAttack_start()
     self:setSprite("duck")
     self.vely = 0
     self.velz = 0
-    local psystem = PA_DASH:clone()
-    psystem:setSpin(0, -3 * self.face)
-    self.pa_dash = psystem
+    local particles = PA_DASH:clone()
+    particles:setSpin(0, -3 * self.face)
+    self.pa_dash = particles
     self.pa_dash_x = self.x
     self.pa_dash_y = self.y
-    stage.objects:add(Effect:new(psystem, self.x, self.y + 2))
+    stage.objects:add(Effect:new(particles, self.x, self.y + 2))
 end
 
 function Sveta:dashAttack_update(dt)

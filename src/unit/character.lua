@@ -749,12 +749,12 @@ function Character:pickup_start()
     if loot then
         self.victim_infoBar = loot.infoBar:setPicker(self)
         --disappearing loot
-        local psystem = PA_LOOT_GET:clone()
-        psystem:setQuads( loot.q )
-        psystem:setOffset( loot.ox, loot.oy )
-        psystem:setPosition( loot.x - self.x, loot.y - self.y - 10 )
-        psystem:emit(1)
-        stage.objects:add(Effect:new(psystem, self.x, self.y + 10))
+        local particles = PA_LOOT_GET:clone()
+        particles:setQuads( loot.q )
+        particles:setOffset( loot.ox, loot.oy )
+        particles:setPosition( loot.x - self.x, loot.y - self.y - 10 )
+        particles:emit(1)
+        stage.objects:add(Effect:new(particles, self.x, self.y + 10))
         self:onGetLoot(loot)
     end
     self:setSprite("pickup")
@@ -775,16 +775,16 @@ function Character:duck_start()
     self:setSprite("duck")
     self.z = 0
     --landing dust clouds
-    local psystem = PA_DUST_LANDING:clone()
-    psystem:setLinearAcceleration(150, 1, 300, -35)
-    psystem:setDirection( 0 )
-    psystem:setPosition( 20, 0 )
-    psystem:emit(5)
-    psystem:setLinearAcceleration(-150, 1, -300, -35)
-    psystem:setDirection( 3.14 )
-    psystem:setPosition( -20, 0 )
-    psystem:emit(5)
-    stage.objects:add(Effect:new(psystem, self.x, self.y+2))
+    local particles = PA_DUST_LANDING:clone()
+    particles:setLinearAcceleration(150, 1, 300, -35)
+    particles:setDirection( 0 )
+    particles:setPosition( 20, 0 )
+    particles:emit(5)
+    particles:setLinearAcceleration(-150, 1, -300, -35)
+    particles:setDirection( 3.14 )
+    particles:setPosition( -20, 0 )
+    particles:emit(5)
+    stage.objects:add(Effect:new(particles, self.x, self.y+2))
 end
 function Character:duck_update(dt)
     if self.sprite.isFinished then
@@ -826,15 +826,15 @@ function Character:duck2jump_update(dt)
             error("Call disabled move self.jump")
         end
         --start jump dust clouds
-        local psystem = PA_DUST_JUMP_START:clone()
-        psystem:setAreaSpread( "uniform", 16, 4 )
-        psystem:setLinearAcceleration(-30 , 10, 30, -10)
-        psystem:emit(6)
-        psystem:setAreaSpread( "uniform", 4, 16 )
-        psystem:setPosition( 0, -16 )
-        psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
-        psystem:emit(5)
-        stage.objects:add(Effect:new(psystem, self.x, self.y-1))
+        local particles = PA_DUST_JUMP_START:clone()
+        particles:setAreaSpread( "uniform", 16, 4 )
+        particles:setLinearAcceleration(-30 , 10, 30, -10)
+        particles:emit(6)
+        particles:setAreaSpread( "uniform", 4, 16 )
+        particles:setPosition( 0, -16 )
+        particles:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
+        particles:emit(5)
+        stage.objects:add(Effect:new(particles, self.x, self.y-1))
         return
     end
     if not self.condition then
@@ -1088,9 +1088,9 @@ function Character:fall_update(dt)
                 sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bounced_pitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
                 --landing dust clouds
-                local psystem = PA_DUST_FALLING:clone()
-                psystem:emit(20)
-                stage.objects:add(Effect:new(psystem, self.x + self.horizontal * 20, self.y+3))
+                local particles = PA_DUST_FALLING:clone()
+                particles:emit(20)
+                stage.objects:add(Effect:new(particles, self.x + self.horizontal * 20, self.y+3))
                 return
             else
                 --final fall (no bouncing)

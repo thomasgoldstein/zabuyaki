@@ -106,11 +106,11 @@ function Loot:updateAI(dt)
                 --sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bounced_pitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
                 --landing dust clouds
-                local psystem = PA_DUST_FALLING:clone()
-                psystem:setAreaSpread( "uniform", 4, 1 )
-                psystem:setLinearAcceleration(-50, -10, 50, -20) -- Random movement in all directions.
-                psystem:emit(3)
-                stage.objects:add(Effect:new(psystem, self.x, self.y+3))
+                local particles = PA_DUST_FALLING:clone()
+                particles:setAreaSpread( "uniform", 4, 1 )
+                particles:setLinearAcceleration(-50, -10, 50, -20) -- Random movement in all directions.
+                particles:emit(3)
+                stage.objects:add(Effect:new(particles, self.x, self.y+3))
                 return
             else
                 --final fall (no bouncing)

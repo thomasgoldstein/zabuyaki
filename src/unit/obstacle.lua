@@ -143,30 +143,30 @@ function Obstacle:onHurt()
             self.faceFix = newFacing --Change facing
         end
         sfx.play("voice"..self.id, self.sfx.onBreak)
-        local psystem = PA_OBSTACLE_BREAK_SMALL:clone()
-        psystem:setPosition( 0, -self.height + self.height / 3 )
-        --psystem:setAreaSpread( "uniform", 2, 8 )
+        local particles = PA_OBSTACLE_BREAK_SMALL:clone()
+        particles:setPosition( 0, -self.height + self.height / 3 )
+        --particles:setAreaSpread( "uniform", 2, 8 )
         if self.particleColor then
-            psystem:setColors( unpack(self.particleColor) )
+            particles:setColors( unpack(self.particleColor) )
         end
-        psystem:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
-        psystem:emit(4)
-        psystem:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
-        psystem:emit(2)
-        stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
+        particles:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
+        particles:emit(4)
+        particles:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
+        particles:emit(2)
+        stage.objects:add(Effect:new(particles, self.x, self.y + 1))
 
-        local psystem = PA_OBSTACLE_BREAK_BIG:clone()
-        psystem:setPosition( 0, -self.height + self.height / 3 )
+        local particles = PA_OBSTACLE_BREAK_BIG:clone()
+        particles:setPosition( 0, -self.height + self.height / 3 )
         if self.particleColor then
-            psystem:setColors( unpack(self.particleColor) )
+            particles:setColors( unpack(self.particleColor) )
         end
-        --psystem:setAreaSpread( "uniform", 2, 8 )
-        psystem:setLinearDamping( 0.1, 2 )
-        psystem:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
-        psystem:emit(2)
-        psystem:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
-        psystem:emit(1)
-        stage.objects:add(Effect:new(psystem, self.x, self.y + 1))
+        --particles:setAreaSpread( "uniform", 2, 8 )
+        particles:setLinearDamping( 0.1, 2 )
+        particles:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
+        particles:emit(2)
+        particles:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
+        particles:emit(1)
+        stage.objects:add(Effect:new(particles, self.x, self.y + 1))
     end
     self.old_frame = cur_frame
     self.hurt = nil --free hurt data

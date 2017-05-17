@@ -327,15 +327,15 @@ function Gopper:dashAttack_start()
     self.isLanded = false
     sfx.play("voice"..self.id, self.sfx.dash_attack)
     --start jump dust clouds
-    local psystem = PA_DUST_JUMP_START:clone()
-    psystem:setAreaSpread( "uniform", 16, 4 )
-    psystem:setLinearAcceleration(-30 , 10, 30, -10)
-    psystem:emit(4)
-    psystem:setAreaSpread( "uniform", 4, 4 )
-    psystem:setPosition( 0, -16 )
-    psystem:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
-    psystem:emit(2)
-    stage.objects:add(Effect:new(psystem, self.x, self.y-1))
+    local particles = PA_DUST_JUMP_START:clone()
+    particles:setAreaSpread( "uniform", 16, 4 )
+    particles:setLinearAcceleration(-30 , 10, 30, -10)
+    particles:emit(4)
+    particles:setAreaSpread( "uniform", 4, 4 )
+    particles:setPosition( 0, -16 )
+    particles:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
+    particles:emit(2)
+    stage.objects:add(Effect:new(particles, self.x, self.y-1))
 end
 function Gopper:dashAttack_update(dt)
     if self.sprite.isFinished then
@@ -351,9 +351,9 @@ function Gopper:dashAttack_update(dt)
         self.z = 0
         self.isLanded = true
         --landing dust clouds
-        local psystem = PA_DUST_FALLING:clone()
-        psystem:emit(15)
-        stage.objects:add(Effect:new(psystem, self.x + self.horizontal * 15, self.y+3))
+        local particles = PA_DUST_FALLING:clone()
+        particles:emit(15)
+        stage.objects:add(Effect:new(particles, self.x + self.horizontal * 15, self.y+3))
     end
     self:calcMovement(dt, true, self.friction_dash * dashAttack_speed)
 end
