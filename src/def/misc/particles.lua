@@ -4,6 +4,8 @@ gfx.particles = image_bank[sprite_sheet] --it is not a character. work around
 
 local function q(x,y,w,h) return love.graphics.newQuad(x, y, w, h, image_w, image_h) end
 
+local psystem
+
 local imp_small_quad1 = q(2,2,21,22) -- impact small 1/3
 local imp_small_quad2 = q(25,2,21,22) -- impact small 2/3
 local imp_small_quad3 = q(48,2,21,22) -- impact small 3/3
@@ -25,7 +27,7 @@ local dust_step_colors = {214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188,
 local impact_colors = {255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55}
 local loot_colors = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55, 255, 255, 255, 0}
 
-quads ={ triangle_small_quad = triangle_small_quad, triangle_big_quad = triangle_big_quad}
+local quads ={ triangle_small_quad = triangle_small_quad, triangle_big_quad = triangle_big_quad }
 
 psystem = love.graphics.newParticleSystem(gfx.particles, 32)
 psystem:setPosition(0, -2)
