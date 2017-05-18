@@ -774,16 +774,16 @@ function Character:duck_start()
     dpo(self, self.state)
     self:setSprite("duck")
     self.z = 0
-    --landing dust clouds
+    --landing dust clouds by the sides
     local particles = PA_DUST_LANDING:clone()
     particles:setLinearAcceleration(150, 1, 300, -35)
     particles:setDirection( 0 )
     particles:setPosition( 20, 0 )
-    particles:emit(5)
+    particles:emit(PA_DUST_FALLING_N_PARTICLES / 2)
     particles:setLinearAcceleration(-150, 1, -300, -35)
     particles:setDirection( 3.14 )
     particles:setPosition( -20, 0 )
-    particles:emit(5)
+    particles:emit(PA_DUST_FALLING_N_PARTICLES / 2)
     stage.objects:add(Effect:new(particles, self.x, self.y+2))
 end
 function Character:duck_update(dt)
