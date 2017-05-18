@@ -340,6 +340,7 @@ function Gopper:dashAttack_update(dt)
         self.velx = 0
         self.z = 0
         self.isLanded = true
+        sfx.play("sfx", "fall", 1, 1 + 0.02 * love.math.random(-2,2))
         local particles = PA_DUST_FALLING:clone()
         particles:emit(PA_DUST_FALLING_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x + self.horizontal * 15, self.y+3))
