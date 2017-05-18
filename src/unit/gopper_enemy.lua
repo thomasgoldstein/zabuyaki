@@ -324,7 +324,7 @@ function Gopper:dashAttack_start()
     self.vely = 0
     self.velz = self.velocity_jump / 2 * dashAttack_speed
     self.z = 0.1
-    self.isLanded = false
+    self.bounced = 0
     sfx.play("voice"..self.id, self.sfx.dash_attack)
 end
 function Gopper:dashAttack_update(dt)
@@ -335,11 +335,11 @@ function Gopper:dashAttack_update(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * dashAttack_speed
-    elseif not self.isLanded then
+    elseif self.bounced == 0 then
         self.velz = 0
         self.velx = 0
         self.z = 0
-        self.isLanded = true
+        self.bounced = 1
         sfx.play("sfx", "fall", 1, 1 + 0.02 * love.math.random(-2,2))
         local particles = PA_DUST_FALLING:clone()
         particles:emit(PA_DUST_FALLING_N_PARTICLES)
