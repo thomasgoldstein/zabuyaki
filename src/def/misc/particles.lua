@@ -65,6 +65,7 @@ particles:setLinearDamping(10, 50)
 particles:setAreaSpread("uniform", 20, 4)
 particles:setPosition(0, -2)
 PA_DUST_FALLING = particles
+PA_DUST_FALLING_N_PARTICLES = 5
 
 particles = particles:clone()
 particles:setEmitterLifetime(1)

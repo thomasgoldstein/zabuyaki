@@ -1089,7 +1089,7 @@ function Character:fall_update(dt)
                 self.bounced = self.bounced + 1
                 --landing dust clouds
                 local particles = PA_DUST_FALLING:clone()
-                particles:emit(5)
+                particles:emit(PA_DUST_FALLING_N_PARTICLES)
                 stage.objects:add(Effect:new(particles, self.x + self.horizontal * 20, self.y+3))
                 return
             else

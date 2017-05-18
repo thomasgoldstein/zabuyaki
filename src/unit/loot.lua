@@ -109,7 +109,7 @@ function Loot:updateAI(dt)
                 local particles = PA_DUST_FALLING:clone()
                 particles:setAreaSpread( "uniform", 4, 1 )
                 particles:setLinearAcceleration(-50, -10, 50, -20) -- Random movement in all directions.
-                particles:emit(3)
+                particles:emit(1 + PA_DUST_FALLING_N_PARTICLES / 2)
                 stage.objects:add(Effect:new(particles, self.x, self.y+3))
                 return
             else

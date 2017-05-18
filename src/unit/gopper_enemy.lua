@@ -352,7 +352,7 @@ function Gopper:dashAttack_update(dt)
         self.isLanded = true
         --landing dust clouds
         local particles = PA_DUST_FALLING:clone()
-        particles:emit(15)
+        particles:emit(PA_DUST_FALLING_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x + self.horizontal * 15, self.y+3))
     end
     self:calcMovement(dt, true, self.friction_dash * dashAttack_speed)
