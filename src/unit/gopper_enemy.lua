@@ -326,16 +326,6 @@ function Gopper:dashAttack_start()
     self.z = 0.1
     self.isLanded = false
     sfx.play("voice"..self.id, self.sfx.dash_attack)
-    --start jump dust clouds
-    local particles = PA_DUST_JUMP_START:clone()
-    particles:setAreaSpread( "uniform", 16, 4 )
-    particles:setLinearAcceleration(-30 , 10, 30, -10)
-    particles:emit(4)
-    particles:setAreaSpread( "uniform", 4, 4 )
-    particles:setPosition( 0, -16 )
-    particles:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
-    particles:emit(2)
-    stage.objects:add(Effect:new(particles, self.x, self.y-1))
 end
 function Gopper:dashAttack_update(dt)
     if self.sprite.isFinished then
@@ -350,7 +340,6 @@ function Gopper:dashAttack_update(dt)
         self.velx = 0
         self.z = 0
         self.isLanded = true
-        --landing dust clouds
         local particles = PA_DUST_FALLING:clone()
         particles:emit(PA_DUST_FALLING_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x + self.horizontal * 15, self.y+3))

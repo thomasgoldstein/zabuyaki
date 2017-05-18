@@ -11,21 +11,6 @@ local step_sfx = function(slf, cont)
     padust:emit(3)
     stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local dash_belly_clouds = function(slf, cont)
-    slf.isHittable = false
-    sfx.play("sfx", "fall", 1, 1 + 0.02 * love.math.random(-2,2))
-    --landing dust clouds
-    local particles = PA_DUST_LANDING:clone()
-    particles:setLinearAcceleration(150, 1, 300, -35)
-    particles:setDirection( 0 )
-    particles:setPosition( 20, 0 )
-    particles:emit(5)
-    particles:setLinearAcceleration(-150, 1, -300, -35)
-    particles:setDirection( 3.14 )
-    particles:setPosition( -20, 0 )
-    particles:emit(5)
-    stage.objects:add(Effect:new(particles, slf.x + 10 * slf.face, slf.y+2))
-end
 local combo_punch = function(slf, cont)
     slf:checkAndAttack(
         { left = 27, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
@@ -118,7 +103,7 @@ return {
         },
         dashAttack = {
             { q = q(2,372,58,52), ox = 27, oy = 51, funcCont = dash_attack, delay = 0.25 }, --dash attack
-            { q = q(62,389,68,35), ox = 31, oy = 27, func = dash_belly_clouds, delay = 0.8 }, --lying down on belly
+            { q = q(62,389,68,35), ox = 31, oy = 27, delay = 0.8 }, --lying down on belly
             { q = q(132,372,56,48), ox = 25, oy = 44 }, --getting up on belly
             { q = q(114,71,38,56), ox = 21, oy = 55 }, --duck
             delay = 0.3
