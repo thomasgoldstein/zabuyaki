@@ -20,7 +20,6 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.face = -1
     self.sfx.dead = sfx.gopper_death
     self.sfx.dash_attack = sfx.gopper_attack
---    self.sfx.jump_attack =
     self.sfx.step = "kisa_step"
 
     self:setToughness(0)
