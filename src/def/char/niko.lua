@@ -36,7 +36,7 @@ return {
     sprite_name = "niko", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations
-    landsOnBelly = true, --alter respawn clouds
+    fallsOnRespawn = true, --alter respawn clouds
     --The list with all the frames mapped to their respective animations
     --  each one can be accessed like this:
     --  mySprite.animations["idle"][1], or even

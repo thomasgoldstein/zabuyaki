@@ -499,7 +499,7 @@ function Player:respawn_update(dt)
             false
         )
         mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen on respawn
-        if self.sprite.def.landsOnBelly then
+        if self.sprite.def.fallsOnRespawn then
             --clouds under belly
             local particles = PA_DUST_FALLING:clone()
             particles:emit(PA_DUST_FALLING_N_PARTICLES)
