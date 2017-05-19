@@ -408,8 +408,8 @@ return {
 			delay = 0.1
 		},
 		grabbedBack = {
-			{ q = q(52,335,50,64), ox = 32, oy = 63 }, --hurt high 2
-			{ q = q(2,335,48,64), ox = 29, oy = 63 }, --hurt high 1
+			{ q = q(104,336,42,63), ox = 22, oy = 62 }, --hurt low 1
+			{ q = q(148,338,42,61), ox = 22, oy = 60 }, --hurt low 2
 			delay = 0.1
 		},
 	}
