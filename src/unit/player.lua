@@ -96,16 +96,21 @@ end
 
 function Player:drawBar(l,t,w,h, icon_width, norm_color)
     love.graphics.setFont(gfx.font.arcade3)
-    local transp_bg
-    if self.source.id > GLOBAL_SETTING.MAX_PLAYERS then
-        transp_bg = 255 * calcBarTransparency(self.cool_down)
-    else
-        transp_bg = 255 * calcBarTransparency(3)
-    end
+    local transp_bg = 255 * calcBarTransparency(3)
     local player_select_mode = self.source.player_select_mode
-    if self.source.id <= GLOBAL_SETTING.MAX_PLAYERS
-            and self.source.lives <= 0
-    then
+    if self.source.lives > 0 then
+        -- Default draw
+        if self.source.state == "respawn" then
+            -- Fade-in and drop down bar while player falls (respawns)
+            transp_bg = 255 - self.source.z
+            t = t - self.source.z / 2
+            print("respawn", self.id, self.source.z, transp_bg )
+        end
+        self:draw_lifebar(l, t, transp_bg)
+        self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
+        self:draw_dead_cross(l, t, transp_bg)
+        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color)
+    else
         love.graphics.setColor(255, 255, 255, transp_bg)
         if player_select_mode == 0 then
             -- wait press to use credit
@@ -144,17 +149,6 @@ function Player:drawBar(l,t,w,h, icon_width, norm_color)
             printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9,
                 transp_bg)
         end
-    else
-        -- Default draw
-        if player_select_mode == 3 then
-            -- Fade-in and drop down bar while player falls (respawns)
-            transp_bg = 255 - self.source.z
-            t = t - self.source.z / 2
-        end
-        self:draw_lifebar(l, t, transp_bg)
-        self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
-        self:draw_dead_cross(l, t, transp_bg)
-        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color)
     end
 end
 -- End of Lifebar elements
