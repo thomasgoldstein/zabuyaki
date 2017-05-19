@@ -183,12 +183,15 @@ return {
         grabSwap = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
-        grabbed = {
+        grabbedFront = {
             { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
             { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
             delay = 0.1
         },
-
-    } --offsets
-
-} --return (end of file)
+        grabbedBack = {
+            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
+            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
+        delay = 0.1
+        },
+    }
+}

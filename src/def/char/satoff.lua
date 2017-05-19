@@ -213,9 +213,14 @@ return {
             { q = q(68,280,51,65), ox = 23, oy = 64 }, --uppercut 2
             delay = 0.2
         },
-        grabbed = {
+        grabbedFront = {
             { q = q(183,277,68,68), ox = 37, oy = 67 }, --grabbed 1
             { q = q(181,353,69,68), ox = 39, oy = 67 }, --grabbed 2
+            delay = 0.1
+        },
+        grabbedBack = {
+            { q = q(181,353,69,68), ox = 39, oy = 67 }, --grabbed 2
+            { q = q(183,277,68,68), ox = 37, oy = 67 }, --grabbed 1
             delay = 0.1
         },
     }

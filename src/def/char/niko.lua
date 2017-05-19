@@ -189,12 +189,15 @@ return {
             { q = q(49,530,53,62), ox = 24, oy = 61, delay = 0.083 }, --grab attack 1
             delay = 0.02
         },
-        grabbed = {
+        grabbedFront = {
             { q = q(2,133,41,64), ox = 26, oy = 63 }, --hurt high 1
             { q = q(45,133,46,64), ox = 31, oy = 63 }, --hurt high 2
             delay = 0.1
         },
-
-    } --offsets
-
-} --return (end of file)
+        grabbedBack = {
+            { q = q(45,133,46,64), ox = 31, oy = 63 }, --hurt high 2
+            { q = q(2,133,41,64), ox = 26, oy = 63 }, --hurt high 1
+            delay = 0.1
+        },
+    }
+}

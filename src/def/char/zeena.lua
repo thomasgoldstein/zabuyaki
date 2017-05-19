@@ -178,12 +178,15 @@ return {
         sideStepDown = {
             { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
         },
-        grabbed = {
+        grabbedFront = {
             { q = q(2,124,43,60), ox = 25, oy = 59 }, --hurt high 1
             { q = q(47,125,48,59), ox = 29, oy = 58 }, --hurt high 2
             delay = 0.1
         },
-
-    } --offsets
-
-} --return (end of file)
+        grabbedBack = {
+            { q = q(2,124,43,60), ox = 25, oy = 59 }, --hurt high 1
+            { q = q(47,125,48,59), ox = 29, oy = 58 }, --hurt high 2
+            delay = 0.1
+        },
+    }
+}

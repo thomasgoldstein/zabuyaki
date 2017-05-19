@@ -407,12 +407,15 @@ return {
 			{ q = q(181,1109,36,62), ox = 18, oy = 62 }, --grab swap 1.2
 			delay = 5
 		},
-		grabbed = {
+		grabbedFront = {
 			{ q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 1
 			{ q = q(48,331,47,62), ox = 26, oy = 61 }, --hurt high 2
 			delay = 0.1
 		},
-
-	} --offsets
-
-} --return (end of file)
+		grabbedBack = {
+			{ q = q(48,331,47,62), ox = 26, oy = 61 }, --hurt high 2
+			{ q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 1
+			delay = 0.1
+		},
+	}
+}

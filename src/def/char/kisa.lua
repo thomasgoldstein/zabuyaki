@@ -152,11 +152,13 @@ return {
 		grabSwap = {
 			{ q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
 		},
-		grabbed = {
+		grabbedFront = {
 			{ q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
 			delay = 0.1
 		},
-
-	} --offsets
-
-} --return (end of file)
+		grabbedBack = {
+			{ q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
+			delay = 0.1
+		},
+	}
+}
