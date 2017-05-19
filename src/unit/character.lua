@@ -1433,11 +1433,22 @@ function Character:release_grabbed()
 end
 
 function Character:grabbed_start()
-    self.isHittable = true
-    self:setSprite("grabbed")
-    dp(self.name.." is grabbed.")
+    local g = self.hold
+    if g.source.face ~= self.face then
+        self:setState(self.grabbedFront)
+    else
+        self:setState(self.grabbedBack)
+    end
 end
-function Character:grabbed_update(dt)
+Character.grabbed = {name = "grabbed", start = Character.grabbed_start, exit = nop, update = nop, draw = Character.default_draw}
+
+function Character:grabbedFront_start()
+    self.isHittable = true
+    self:setSprite("grabbedFront")
+
+    dp(self.name.." is grabbedFront.")
+end
+function Character:grabbedFront_update(dt)
     local g = self.hold
     if self.move then
         self.move:update(dt)
@@ -1458,7 +1469,36 @@ function Character:grabbed_update(dt)
     end
     self:calcMovement(dt, true)
 end
-Character.grabbed = {name = "grabbed", start = Character.grabbed_start, exit = nop, update = Character.grabbed_update, draw = Character.default_draw}
+Character.grabbedFront = {name = "grabbedFront", start = Character.grabbedFront_start, exit = nop, update = Character.grabbedFront_update, draw = Character.default_draw}
+
+function Character:grabbedBack_start()
+    self.isHittable = true
+    self:setSprite("grabbedBack")
+
+    dp(self.name.." is grabbedBack.")
+end
+function Character:grabbedBack_update(dt)
+    local g = self.hold
+    if self.move then
+        self.move:update(dt)
+    end
+    if self.isGrabbed and g.cool_down > 0 then
+        g.cool_down = g.cool_down - dt
+    else
+        if g.source.x < self.x then
+            self.horizontal = 1
+        else
+            self.horizontal = -1
+        end
+        self.isGrabbed = false
+        self.cool_down = 0.1	--cannot walk etc
+        self.velx = self.velocity_back_off2 --move from source
+        self:setState(self.stand)
+        return
+    end
+    self:calcMovement(dt, true)
+end
+Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBack_start, exit = nop, update = Character.grabbedBack_update, draw = Character.default_draw}
 
 function Character:grabAttack_start()
     self.isHittable = true
