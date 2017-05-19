@@ -23,8 +23,6 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = sfx.zeena_death
     self.sfx.jump_attack = sfx.zeena_attack
     self.sfx.step = "kisa_step"
-
-    self:setState(self.intro)
 end
 
 Zeena.onFriendlyAttack = Enemy.onFriendlyAttack

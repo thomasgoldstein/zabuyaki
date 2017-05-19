@@ -49,7 +49,6 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self:setToughness(0)
     self.walk_speed = 80
     self.run_speed = 100
-    self:setState(self.intro)
 end
 
 function Satoff:updateAI(dt)

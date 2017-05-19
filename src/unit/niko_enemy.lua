@@ -17,8 +17,6 @@ function Niko:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = sfx.niko_death
     self.sfx.jump_attack = sfx.niko_attack
     self.sfx.step = "kisa_step"
-
-    self:setState(self.intro)
 end
 
 function Niko:updateAI(dt)

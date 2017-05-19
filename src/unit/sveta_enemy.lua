@@ -18,7 +18,6 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = sfx.sveta_death
     self.sfx.dash_attack = sfx.sveta_attack
     self.sfx.step = "kisa_step"
-    self:setState(self.intro)
 end
 
 Sveta.onFriendlyAttack = Enemy.onFriendlyAttack
