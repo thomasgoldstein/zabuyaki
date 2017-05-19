@@ -19,8 +19,6 @@ function Beatnick:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = sfx.beatnick_death
     self.sfx.jump_attack = sfx.beatnick_attack
     self.sfx.step = "rick_step"
-
-    self:setState(self.intro)
 end
 
 function Beatnick:updateAI(dt)
@@ -151,9 +149,5 @@ function Beatnick:jump_update(dt)
     self:calcMovement(dt, false, nil)
 end
 Beatnick.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Beatnick.jump_update, draw = Character.default_draw }
-
--- Beatnick's JumpAttacks should end with Fall
-Beatnick.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}
-Beatnick.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}
 
 return Beatnick

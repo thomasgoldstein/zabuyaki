@@ -174,33 +174,6 @@ function Gopper:combo_update(dt)
 end
 Gopper.combo = { name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Gopper.default_draw }
 
-function Gopper:intro_start()
-    self.isHittable = true
-    self:setSprite("intro")
-end
-function Gopper:intro_update(dt)
-    self:calcMovement(dt, true, nil)
-end
-Gopper.intro = { name = "intro", start = Gopper.intro_start, exit = nop, update = Gopper.intro_update, draw = Enemy.default_draw }
-
-function Gopper:stand_start()
-    self.isHittable = true
-    self.tx, self.ty = self.x, self.y
-    self:setSprite("stand")
-    self.victims = {}
-    self.n_grabAttack = 0
-    --self:pickAttackTarget()
-    --    self.tx, self.ty = self.x, self.y
-end
-function Gopper:stand_update(dt)
-    if self.isGrabbed then
-        self:setState(self.grabbed)
-        return
-    end
-    self:calcMovement(dt, true, nil)
-end
-Gopper.stand = { name = "stand", start = Gopper.stand_start, exit = nop, update = Gopper.stand_update, draw = Enemy.default_draw }
-
 function Gopper:walk_start()
     self.isHittable = true
     self:setSprite("walk")

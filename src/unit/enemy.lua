@@ -114,6 +114,15 @@ function Enemy:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
     end
 end
 
+function Enemy:intro_start()
+    self.isHittable = true
+    self:setSprite("intro")
+end
+function Enemy:intro_update(dt)
+    self:calcMovement(dt, true, nil)
+end
+Enemy.intro = { name = "intro", start = Enemy.intro_start, exit = nop, update = Enemy.intro_update, draw = Character.default_draw }
+
 function Enemy:dead_start()
     self.isHittable = false
     self:setSprite("fallen")

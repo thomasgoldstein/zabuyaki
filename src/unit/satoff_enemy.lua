@@ -166,35 +166,6 @@ function Satoff:combo_update(dt)
 end
 Satoff.combo = { name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Satoff.default_draw }
 
---States: intro, Idle?, Walk, Combo, HurtHigh, HurtLow, Fall/KO
-function Satoff:intro_start()
-    self.isHittable = true
-    self:setSprite("intro")
-end
-function Satoff:intro_update(dt)
-    self:calcMovement(dt, true, nil)
-end
-Satoff.intro = { name = "intro", start = Satoff.intro_start, exit = nop, update = Satoff.intro_update, draw = Enemy.default_draw }
-
-function Satoff:stand_start()
-    self.isHittable = true
-    self.tx, self.ty = self.x, self.y
-    self:setSprite("stand")
-    self.victims = {}
-    self.n_grabAttack = 0
-
-    --self:pickAttackTarget()
-    --    self.tx, self.ty = self.x, self.y
-end
-function Satoff:stand_update(dt)
-    if self.isGrabbed then
-        self:setState(self.grabbed)
-        return
-    end
-    self:calcMovement(dt, true, nil)
-end
-Satoff.stand = { name = "stand", start = Satoff.stand_start, exit = nop, update = Satoff.stand_update, draw = Enemy.default_draw }
-
 function Satoff:walk_start()
     self.isHittable = true
     self:setSprite("walk")
