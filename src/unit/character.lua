@@ -1710,6 +1710,7 @@ function Character:grabSwap_update(dt)
         if not self.grabSwap_flipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwap_x_fin_dist / 2 then
             self.grabSwap_flipped = true
             self.face = -self.face
+            g.target:setSprite(g.target.sprite.cur_anim == "grabbedFront" and "grabbedBack" or "grabbedFront")
         end
     else
         self.horizontal = -self.horizontal
