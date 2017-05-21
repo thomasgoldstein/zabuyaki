@@ -76,22 +76,22 @@ return {
         walk = {
             { q = q(2,72,74,68), ox = 36, oy = 67,
                 wx = -6, wy = -33, wRotate = 0, wAnimation = 'angle0_equipped' }, --walk 1
-            { q = q(78,72,73,68), ox = 36, oy = 67,
+            { q = q(78,72,73,68), ox = 36, oy = 67, delay = 0.15,
                 wx = -9, wy = -32, wRotate = 0, wAnimation = 'angle0_equipped' }, --walk 2
             { q = q(153,73,71,67), ox = 36, oy = 66,
                 wx = -10, wy = -30, wRotate = 0, wAnimation = 'angle0_equipped' }, --walk 3
-            { q = q(226,72,73,68), ox = 36, oy = 67,
+            { q = q(226,72,73,68), ox = 36, oy = 67, delay = 0.15,
                 wx = -9, wy = -32, wRotate = 0, wAnimation = 'angle0_equipped' }, --walk 4
             loop = true,
-            delay = 0.15
+            delay = 0.183
         },
         walkHold = {
             { q = q(2,731,66,66), ox = 29, oy = 65 }, --walk hold 1
-            { q = q(70,731,66,66), ox = 29, oy = 65 }, --walk hold 2
+            { q = q(70,731,66,66), ox = 29, oy = 65, delay = 0.15 }, --walk hold 2
             { q = q(138,732,66,65), ox = 29, oy = 64 }, --walk hold 3
-            { q = q(70,731,66,66), ox = 29, oy = 65 }, --walk hold 2
+            { q = q(70,731,66,66), ox = 29, oy = 65, delay = 0.15 }, --walk hold 2
             loop = true,
-            delay = 0.15
+            delay = 0.183
         },
         run = {
             { q = q(2,421,55,70), ox = 35, oy = 69 }, --jump
