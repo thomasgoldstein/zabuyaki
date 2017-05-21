@@ -11,7 +11,7 @@ return {
 	sprite_sheet = sprite_sheet, -- The path to the spritesheet
 	sprite_name = "portraits", -- The name of the sprite
 
-	delay = 0.2,	--default delay for all animations
+	delay = 10,	--default delay for all animations
 
 	--The list with all the frames mapped to their respective animations
 	--  each one can be accessed like this:
@@ -19,18 +19,15 @@ return {
 	animations = {
 		rick = {
 			{ q = q(2,2,70,70), ox = 0, oy = 0 }, --Rick default
-			loop = true,
-			delay = 10
+			loop = true
 		},
 		kisa = {
 			{ q = q(74,2,70,70), ox = 0, oy = 0 }, --Kisa default
-			loop = true,
-			delay = 10
+			loop = true
 		},
 		chai = {
 			{ q = q(146,2,70,70), ox = 0, oy = 0 }, --Chai default
-			loop = true,
-			delay = 10
+			loop = true
 		},
 	} --offsets
 
