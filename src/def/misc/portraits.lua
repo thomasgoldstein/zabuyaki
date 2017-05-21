@@ -17,18 +17,18 @@ return {
 	--  each one can be accessed like this:
 	--  mySprite.animations["idle"][1], or even
 	animations = {
-		kisa = {
-			{ q = q(2,2,70,70), ox = 0, oy = 0 }, --Kisa default
+		rick = {
+			{ q = q(2,2,70,70), ox = 0, oy = 0 }, --Rick default
 			loop = true,
 			delay = 10
 		},
-		rick = {
-			{ q = q(2,74,70,70), ox = 0, oy = 0 }, --Rick default
+		kisa = {
+			{ q = q(74,2,70,70), ox = 0, oy = 0 }, --Kisa default
 			loop = true,
 			delay = 10
 		},
 		chai = {
-			{ q = q(2,146,70,70), ox = 0, oy = 0 }, --Chai default
+			{ q = q(146,2,70,70), ox = 0, oy = 0 }, --Chai default
 			loop = true,
 			delay = 10
 		},
