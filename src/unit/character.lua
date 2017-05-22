@@ -1723,7 +1723,14 @@ function Character:grabSwap_update(dt)
     if not self.b.attack:isDown() then
         self.can_attack = true
     end
-    --self:calcMovement(dt, false) --do not need.
+    self.shape:moveTo(self.x, self.y)
+    if self:isStuck() then
+        self:release_grabbed()
+        self.cool_down = 0.1	--cannot walk etc
+        --self.velx = self.velocity_back_off2 --move from source
+        self:setState(self.stand)
+        return
+    end
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwap_start, exit = nop, update = Character.grabSwap_update, draw = Character.default_draw}
 
