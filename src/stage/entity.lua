@@ -97,8 +97,10 @@ function Entity:draw(l,t,w,h)
             obj.shape:draw()
         end
     end
-    love.graphics.setColor(255, 0, 255, 50)
-    stage.test_shape:draw()
+    if GLOBAL_SETTING.DEBUG and obj.shape then
+        love.graphics.setColor(255, 0, 255, 50)
+        stage.test_shape:draw()
+    end
 end
 
 function Entity:drawShadows(l,t,w,h)
