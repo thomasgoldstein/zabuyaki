@@ -104,7 +104,6 @@ function Player:drawBar(l,t,w,h, icon_width, norm_color)
             -- Fade-in and drop down bar while player falls (respawns)
             transp_bg = 255 - self.source.z
             t = t - self.source.z / 2
-            print("respawn", self.id, self.source.z, transp_bg )
         end
         self:draw_lifebar(l, t, transp_bg)
         self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
