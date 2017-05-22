@@ -398,6 +398,18 @@ function Unit:isStuck()
 	return false
 end
 
+function Unit:hasPlaceToStand(x, y)
+    local test_shape = stage.test_shape
+    test_shape:moveTo(x, y)
+    for other, separating_vector in pairs(stage.world:collisions(test_shape)) do
+        local o = other.obj
+        if o.type == "wall"	then
+            return false
+        end
+    end
+    return true
+end
+
 function Unit:calcFriction(dt, friction)
 	local frctn = friction or self.friction
 	if self.velx > 0 then

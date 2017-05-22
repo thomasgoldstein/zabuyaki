@@ -203,6 +203,20 @@ function Player:isStuck()
     return false
 end
 
+function Player:hasPlaceToStand(x, y)
+    local test_shape = stage.test_shape
+    test_shape:moveTo(x, y)
+    for other, separating_vector in pairs(stage.world:collisions(test_shape)) do
+        local o = other.obj
+        if o.type == "wall"
+                or (o.type == "obstacle" and o.z <= 0 and o.hp > 0)
+                or o.type == "stopper" then
+            return false
+        end
+    end
+    return true
+end
+
 local states_for_hold_attack = {stand = true, walk = true, run = true}
 function Player:updateAI(dt)
     if self.isDisabled then
