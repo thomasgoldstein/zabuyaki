@@ -154,6 +154,7 @@ end
 -- End of Lifebar elements
 
 function Player:checkCollisionAndMove(dt)
+    local success = true
     if self.move then
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
@@ -170,7 +171,7 @@ function Player:checkCollisionAndMove(dt)
                 or o.type == "stopper"
             then
                 self.shape:move(separating_vector.x, separating_vector.y)
-                --other:move( separating_vector.x/2,  separating_vector.y/2)
+                success = false
             end
         end
     else
@@ -180,12 +181,27 @@ function Player:checkCollisionAndMove(dt)
                 or o.type == "stopper"
             then
                 self.shape:move(separating_vector.x, separating_vector.y)
+                success = false
             end
         end
     end
     local cx,cy = self.shape:center()
     self.x = cx
     self.y = cy
+    return success
+end
+
+function Player:isStuck()
+    for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        local o = other.obj
+        if o.type == "wall"
+                or o.type == "stopper"
+        then
+--            print(self.name, self.x, "STUCK")
+            return true
+        end
+    end
+    return false
 end
 
 local states_for_hold_attack = {stand = true, walk = true, run = true}
