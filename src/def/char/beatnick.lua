@@ -75,12 +75,13 @@ return {
             delay = 0.06
         },
         walk = {
-            { q = q(2,2,62,67), ox = 35, oy = 66, delay = 0.16 }, --stand 1
-            { q = q(66,3,62,66), ox = 35, oy = 65, delay = 0.1 }, --stand 2
-            { q = q(130,3,62,66), ox = 35, oy = 65 }, --stand 3
-            { q = q(194,3,62,66), ox = 35, oy = 65 }, --stand 4
-            { q = q(130,3,62,66), ox = 35, oy = 65 }, --stand 3
-            { q = q(66,3,62,66), ox = 35, oy = 65, delay = 0.13 }, --stand 2
+            { q = q(2,72,62,66), ox = 35, oy = 65, delay = 0.25 }, --walk 1
+            { q = q(66,71,62,67), ox = 35, oy = 66, delay = 0.1 }, --walk 2
+            { q = q(130,71,62,67), ox = 35, oy = 66, delay = 0.1 }, --walk 3
+            { q = q(194,72,62,66), ox = 36, oy = 65, delay = 0.25 }, --walk 4
+            { q = q(66,71,62,67), ox = 35, oy = 66 }, --walk 2
+            { q = q(130,71,62,67), ox = 35, oy = 66 }, --walk 3
+            { q = q(66,71,62,67), ox = 35, oy = 66 }, --walk 2
             loop = true,
             delay = 0.06
         },
