@@ -72,6 +72,7 @@ function Obstacle:calcShadowSpriteAndTransparency()
 end
 
 function Obstacle:checkCollisionAndMove(dt)
+    local success = true
     if self.move then
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
@@ -86,12 +87,14 @@ function Obstacle:checkCollisionAndMove(dt)
             if o.type == "wall"
             then
                 self.shape:move(separating_vector.x, separating_vector.y)
+                success = false
             end
         end
     end
     local cx,cy = self.shape:center()
     self.x = cx
     self.y = cy
+    return success
 end
 
 function Obstacle:updateAI(dt)
