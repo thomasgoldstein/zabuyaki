@@ -1340,7 +1340,9 @@ function Character:grab_update(dt)
             if ( self.face == 1 and self.b.horizontal.ikp:getLast() )
                     or ( self.face == -1 and self.b.horizontal.ikn:getLast() )
             then
-                if self.moves.grabSwap and g.can_grabSwap then
+                if self.moves.grabSwap and g.can_grabSwap
+                    and self:hasPlaceToStand(self.hold.target.x + self.face * 18, self.y)
+                then
                     self:setState(self.grabSwap)
                     return
                 end
