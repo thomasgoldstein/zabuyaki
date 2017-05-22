@@ -150,6 +150,11 @@ local function loadUnit(items, stage, batch_name)
                     v.name = v.properties.class
                 end
                 u.delay = tonumber(v.properties.delay or 0)
+                if v.properties.state then
+                    u.state = v.properties.state
+                else
+                    u.state = "intro"
+                end
                 if batch_name then
                     u.unit = inst:new(
                         v.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
