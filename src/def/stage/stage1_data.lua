@@ -373,7 +373,7 @@ return {
             ["batch"] = "1",
             ["class"] = "niko",
             ["delay"] = "0",
-            ["state"] = "walk"
+            ["state"] = "intro2"
           }
         },
         {
@@ -575,7 +575,8 @@ return {
           properties = {
             ["batch"] = "1",
             ["class"] = "gopper",
-            ["palette"] = "3"
+            ["palette"] = "3",
+            ["state"] = "intro2"
           }
         },
         {

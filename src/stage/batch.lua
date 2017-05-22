@@ -90,6 +90,9 @@ function Batch:spawn(dt)
 
                 if u.state == "intro" then
                     u.unit:setState(u.unit.intro)
+                elseif u.state == "intro2" then
+                    u.unit:setState(u.unit.intro)
+                    u.unit:setSprite("intro2")
                 elseif u.state == "stand" then
                     u.unit:setState(u.unit.intro)
                     u.unit:setSprite("stand")

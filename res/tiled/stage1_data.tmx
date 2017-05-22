@@ -89,7 +89,7 @@
     <property name="batch" value="1"/>
     <property name="class" value="niko"/>
     <property name="delay" value="0"/>
-    <property name="state" value="walk"/>
+    <property name="state" value="intro2"/>
    </properties>
    <ellipse/>
   </object>
@@ -181,6 +181,7 @@
     <property name="batch" value="1"/>
     <property name="class" value="gopper"/>
     <property name="palette" value="3"/>
+    <property name="state" value="intro2"/>
    </properties>
    <ellipse/>
   </object>
