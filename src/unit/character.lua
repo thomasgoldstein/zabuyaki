@@ -1251,7 +1251,10 @@ end
 function Character:onGrab(source)
     -- hurt = {source, damage, velx,vely,x,y,z}
     local g = self.hold
-    if not self.isHittable or self.z > 0 then
+    local direction = self.x > source.x and 1 or -1
+    if not self.isHittable or self.z > 0
+        or not self:hasPlaceToStand(source.x + direction * 20, source.y)
+    then
         return false
     end
     self:release_grabbed()	-- your grab targed releases one it grabs
@@ -1281,13 +1284,6 @@ function Character:doGrab(target)
         g.source = nil
         g.target = target
         g.cool_down = self.cool_down_grab + 0.1
-        if g.target.x < self.x then
-            self.face = -1
-            self.horizontal = -1
-        else
-            self.face = 1
-            self.horizontal = 1
-        end
         g.can_grabSwap = true   --can do 1 grabSwap
         target:setState(target.grabbed)
         self:setState(self.grab)
@@ -1314,6 +1310,7 @@ function Character:grab_start()
                 x = self.x + 20,
                 y = to_common_y - 0.5
             }, 'outQuad')
+            self.face = 1
         else
             self.move = tween.new(time_to_move, self, {
                 x = self.x + 4,
@@ -1323,7 +1320,10 @@ function Character:grab_start()
                 x = self.x - 20,
                 y = to_common_y - 0.5
             }, 'outQuad')
+            self.face = -1
         end
+        self.horizontal = self.face
+        g.target.horizontal = -self.face
     end
     --self.velx, self.vely = 0, 0
 end
