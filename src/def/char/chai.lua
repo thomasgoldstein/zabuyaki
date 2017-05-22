@@ -12,20 +12,20 @@ local step_sfx = function(slf, cont)
 	padust:emit(3)
 	stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local grabAttack = function(slf, cont)
+local grab_attack = function(slf, cont)
 	--default values: 10,0,20,12, "low", slf.velx
 	slf:checkAndAttack(
 		{ left = 8, width = 26, height = 12, damage = 9, type = "low" },
 		cont
 	)
 end
-local grabLast_attack = function(slf, cont)
+local grab_attack_last = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 10, width = 26, height = 12, damage = 11, type = "grabKO" },
 		cont
 	)
 end
-local grabEnd_attack = function(slf, cont)
+local shove_down = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 18, width = 26, height = 12, damage = 15, type = "grabKO" },
 		cont
@@ -350,26 +350,26 @@ return {
 		},
 		grabAttack1 = {
 			{ q = q(96,863,43,63), ox = 21, oy = 62 }, --grab attack 1.1
-			{ q = q(141,863,38,63), ox = 16, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(141,863,38,63), ox = 16, oy = 62, func = grab_attack, delay = 0.18 }, --grab attack 1.2
 			{ q = q(96,863,43,63), ox = 21, oy = 62, delay = 0.02 }, --grab attack 1.1
 			delay = 0.01
 		},
 		grabAttack2 = {
 			{ q = q(96,863,43,63), ox = 21, oy = 62 }, --grab attack 1.1
-			{ q = q(141,863,38,63), ox = 16, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(141,863,38,63), ox = 16, oy = 62, func = grab_attack, delay = 0.18 }, --grab attack 1.2
 			{ q = q(96,863,43,63), ox = 21, oy = 62, delay = 0.02 }, --grab attack 1.1
 			delay = 0.01
 		},
 		grabAttack3 = {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 13, oy = 63, func = grabLast_attack, delay = 0.18 }, --jump attack forward 2
+			{ q = q(43,722,37,64), ox = 13, oy = 63, func = grab_attack_last, delay = 0.18 }, --jump attack forward 2
 			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.1 }, --jump attack forward 1
 			delay = 0.02
 		},
 		shoveDown = {
 			{ q = q(122,587,48,65), ox = 13, oy = 64, delay = 0.15 }, --combo 4.1
 			{ q = q(172,587,50,65), ox = 14, oy = 64 }, --combo 4.2
-			{ q = q(194,725,49,62), ox = 14, oy = 61, func = grabEnd_attack }, --combo 4.7
+			{ q = q(194,725,49,62), ox = 14, oy = 61, func = shove_down }, --combo 4.7
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.35 }, --combo 4.6
 			delay = 0.05
 		},

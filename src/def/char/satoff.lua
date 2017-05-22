@@ -29,7 +29,7 @@ local grab_attack = function(slf, cont)
 	)
 end
 
-local grabLast_attack = function(slf, cont)
+local grab_attack_last = function(slf, cont)
 	slf:checkAndAttack(
         { left = 19, width = 26, height = 12, damage = 18, type = "grabKO" },
 		cont
@@ -198,13 +198,13 @@ return {
         grabAttack2 = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(64,595,67,66), ox = 36, oy = 65, delay = 0.16 }, --grab attack 2
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabLast_attack, delay = 0.25 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grab_attack_last, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
         shoveDown = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(64,595,67,66), ox = 36, oy = 65, delay = 0.16 }, --grab attack 2
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabLast_attack, delay = 0.25 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grab_attack_last, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
         shoveBack = {

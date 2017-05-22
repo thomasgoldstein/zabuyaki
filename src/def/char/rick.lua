@@ -19,13 +19,13 @@ local grab_attack = function(slf, cont)
 		cont
 	)
 end
-local grabLast_attack = function(slf, cont)
+local grab_attack_last = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 25, width = 26, height = 12, damage = 11, type = "grabKO" },
 		cont
 	)
 end
-local grabEnd_attack = function(slf, cont)
+local shove_down = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 20, width = 26, height = 12, damage = 15, type = "grabKO" },
 		cont
@@ -368,14 +368,14 @@ return {
 		},
 		grabAttack3 = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
-			{ q = q(168,916,53,61), ox = 16, oy = 60, func = grabLast_attack, delay = 0.18 }, --dash attack 4
+			{ q = q(168,916,53,61), ox = 16, oy = 60, func = grab_attack_last, delay = 0.18 }, --dash attack 4
 			{ q = q(115,519,40,63), ox = 17, oy = 62, delay = 0.1 }, --combo 2.1
 			delay = 0.02
 		},
 		shoveDown = {
 			{ q = q(2,1044,56,63), ox = 30, oy = 62 }, --grab end 1.1
 			{ q = q(2,979,45,63), ox = 19, oy = 62, delay = 0.01 }, --grab
-			{ q = q(60,1047,50,60), ox = 16, oy = 59, func = grabEnd_attack }, --grab end 1.2
+			{ q = q(60,1047,50,60), ox = 16, oy = 59, func = shove_down }, --grab end 1.2
 			{ q = q(112,1044,45,63), ox = 18, oy = 62, delay = 0.1 }, --grab end 1.3
 			delay = 0.25
 		},
