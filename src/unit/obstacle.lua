@@ -59,10 +59,11 @@ function Obstacle:drawSprite(x, y)
 end
 
 function Obstacle:calcShadowSpriteAndTransparency()
-    if self.cool_down_death < 1 then
-        love.graphics.setColor(0, 0, 0, 255 * math.sin(self.cool_down_death)) --4th is the shadow transparency
+    local transparency = self.cool_down_death < 1 and 255 * math.sin(self.cool_down_death) or 255
+    if GLOBAL_SETTING.DEBUG and self.isHittable then
+        love.graphics.setColor(40, 0, 0, transparency) --4th is the shadow transparency
     else
-        love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
+        love.graphics.setColor(0, 0, 0, transparency) --4th is the shadow transparency
     end
     local spr = self.sprite
     local image = image_bank[spr.def.sprite_sheet]

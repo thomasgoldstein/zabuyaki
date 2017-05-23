@@ -249,11 +249,12 @@ function Unit:updateShake(dt)
 end
 
 function Unit:calcShadowSpriteAndTransparency()
-    if self.cool_down_death < 2 then
-        love.graphics.setColor(0, 0, 0, 255 * math.sin(self.cool_down_death)) --4th is the shadow transparency
-    else
-        love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
-    end
+	local transparency = self.cool_down_death < 2 and 255 * math.sin(self.cool_down_death) or 255
+	if GLOBAL_SETTING.DEBUG and self.isHittable then
+		love.graphics.setColor(40, 0, 0, transparency) --4th is the shadow transparency
+	else
+		love.graphics.setColor(0, 0, 0, transparency) --4th is the shadow transparency
+	end
     local spr = self.sprite
     local image = image_bank[spr.def.sprite_sheet]
     local sc = spr.def.animations[spr.cur_anim][spr.cur_frame]
