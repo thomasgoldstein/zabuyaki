@@ -81,13 +81,6 @@ function Beatnick:updateAI(dt)
                     return
                 end
             end
-            local t = dist(self.target.x, self.target.y, self.x, self.y)
-            if t < 100 and t >= 30
-                    and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
-                self.velx = self.velocity_walk
-                self:setState(self.jump)
-                return
-            end
             if self.cool_down <= 0 then
                 if math.abs(self.x - self.target.x) <= 50
                         and math.abs(self.y - self.target.y) <= 6
