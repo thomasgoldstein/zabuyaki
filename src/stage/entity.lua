@@ -97,7 +97,7 @@ function Entity:draw(l,t,w,h)
             obj.shape:draw()
         end
     end
-    if GLOBAL_SETTING.DEBUG and obj.shape then
+    if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 0, 255, 50)
         stage.test_shape:draw()
     end
@@ -108,14 +108,6 @@ function Entity:drawShadows(l,t,w,h)
         obj:drawShadow(l,t,w,h)
     end
 end
-
---function Entity:revive()
---    for i, player in ipairs(self.entities) do
---        if player.type == "player" or player.type == "enemy" then
---            player:revive()
---        end
---    end
---end
 
 function Entity:dp()
     local t = "* "
