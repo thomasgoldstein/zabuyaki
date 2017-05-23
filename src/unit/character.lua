@@ -1311,16 +1311,9 @@ function Character:grab_start()
         end
         local check_forth = self:hasPlaceToStand(self.x + dir * 20, self.y)
         local check_back = self:hasPlaceToStand(self.x - dir * 20, self.y)
-
         if not check_forth and check_back then
             shift_back_x = -20
-        elseif not check_forth and not check_back then
-            self:setState(self.duck)
-            return
         end
---        if not check_forth and check_back then
---            dir = -dir
---        end
         self.move = tween.new(time_to_move, self, {
             x = self.x - 4 * dir + shift_back_x * dir,
             y = to_common_y + 0.5
