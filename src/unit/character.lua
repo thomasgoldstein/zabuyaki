@@ -1253,7 +1253,7 @@ function Character:onGrab(source)
     local g = self.hold
     local direction = self.x > source.x and 1 or -1
     if not self.isHittable or self.z > 0
-        or not self:hasPlaceToStand(source.x + direction * 20, source.y)
+        or not self:hasPlaceToStand(source.x + direction * 18, source.y)
     then
         return false
     end
@@ -1301,27 +1301,35 @@ function Character:grab_start()
         local g = self.hold
         local time_to_move = 0.1
         local to_common_y = math.floor((self.y + g.target.y) / 2 )
-        if self.x < g.target.x then
-            self.move = tween.new(time_to_move, self, {
-                x = self.x - 4,
-                y = to_common_y + 0.5
-            }, 'outQuad')
-            g.target.move = tween.new(time_to_move, g.target, {
-                x = self.x + 20,
-                y = to_common_y - 0.5
-            }, 'outQuad')
-            self.face = 1
-        else
-            self.move = tween.new(time_to_move, self, {
-                x = self.x + 4,
-                y = to_common_y + 0.5
-            }, 'outQuad')
-            g.target.move = tween.new(time_to_move, g.target, {
-                x = self.x - 20,
-                y = to_common_y - 0.5
-            }, 'outQuad')
-            self.face = -1
+
+        local shift_back_x = 0
+        local dir = self.face
+        if self.x > g.target.x then
+            dir = -1
+        elseif self.x < g.target.x then
+            dir = 1
         end
+        local check_forth = self:hasPlaceToStand(self.x + dir * 20, self.y)
+        local check_back = self:hasPlaceToStand(self.x - dir * 20, self.y)
+
+        if not check_forth and check_back then
+            shift_back_x = -20
+        elseif not check_forth and not check_back then
+            self:setState(self.duck)
+            return
+        end
+--        if not check_forth and check_back then
+--            dir = -dir
+--        end
+        self.move = tween.new(time_to_move, self, {
+            x = self.x - 4 * dir + shift_back_x * dir,
+            y = to_common_y + 0.5
+        }, 'outQuad')
+        g.target.move = tween.new(time_to_move, g.target, {
+            x = self.x + 20 * dir + shift_back_x * dir,
+            y = to_common_y - 0.5
+        }, 'outQuad')
+        self.face = dir
         self.horizontal = self.face
         g.target.horizontal = -self.face
     end
