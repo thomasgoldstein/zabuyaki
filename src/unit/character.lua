@@ -1283,8 +1283,8 @@ function Character:doGrab(target)
         g.target = target
         g.cool_down = self.cool_down_grab + 0.1
         g.can_grabSwap = true   --can do 1 grabSwap
-        target:setState(target.grabbed)
         self:setState(self.grab)
+        target:setState(target.grabbed)
         return true
     end
     return false
@@ -1317,6 +1317,8 @@ function Character:grab_start()
         end
         self.velx = 0
         g.target.velx = 0
+        self.vely = 0
+        g.target.vely = 0
         self.move = tween.new(time_to_move, self, {
             x = x1,
             y = to_common_y + 0.5
@@ -1420,7 +1422,8 @@ function Character:grab_update(dt)
     if not self.b.attack:isDown() then
         self.can_attack = true
     end
-    self:calcMovement(dt, true)
+    --self:calcMovement(dt, true)
+    self:tweenMove(dt)
 end
 Character.grab = {name = "grab", start = Character.grab_start, exit = nop, update = Character.grab_update, draw = Character.default_draw}
 
@@ -1472,7 +1475,8 @@ function Character:grabbedFront_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true)
+    --self:calcMovement(dt, true)
+    self:tweenMove(dt)
 end
 Character.grabbedFront = {name = "grabbedFront", start = Character.grabbedFront_start, exit = nop, update = Character.grabbedFront_update, draw = Character.default_draw}
 
@@ -1501,7 +1505,8 @@ function Character:grabbedBack_update(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true)
+    --self:calcMovement(dt, true)
+    self:tweenMove(dt)
 end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBack_start, exit = nop, update = Character.grabbedBack_update, draw = Character.default_draw}
 
@@ -1541,7 +1546,8 @@ function Character:grabAttack_update(dt)
         end
         return
     end
-    self:calcMovement(dt, true)
+    --self:calcMovement(dt, true)
+    self:tweenMove(dt)
 end
 Character.grabAttack = {name = "grabAttack", start = Character.grabAttack_start, exit = nop, update = Character.grabAttack_update, draw = Character.default_draw}
 

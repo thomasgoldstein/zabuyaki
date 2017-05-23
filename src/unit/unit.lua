@@ -354,6 +354,13 @@ function Unit:remove_tween_move()
 end
 
 -- private
+function Unit:tweenMove(dt)
+    if self.move then
+        self.move:update(dt) --tweening
+        self.shape:moveTo(self.x, self.y)
+    end
+end
+
 function Unit:checkCollisionAndMove(dt)
 	local success = true
 	if self.move then
