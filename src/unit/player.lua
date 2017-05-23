@@ -209,7 +209,7 @@ function Player:hasPlaceToStand(x, y)
     for other, separating_vector in pairs(stage.world:collisions(test_shape)) do
         local o = other.obj
         if o.type == "wall"
-                or (o.type == "obstacle" and o.z <= 0 and o.hp > 0)
+                or (o.type == "obstacle" and o.z <= 0 and o.hp > 0 and o.isMovable == false)
                 or o.type == "stopper" then
             return false
         end
