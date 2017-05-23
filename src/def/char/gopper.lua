@@ -103,7 +103,7 @@ return {
         },
         dashAttack = {
             { q = q(2,372,58,52), ox = 27, oy = 51, funcCont = dash_attack, delay = 0.25 }, --dash attack
-            { q = q(62,389,68,35), ox = 31, oy = 27, delay = 0.8 }, --lying down on belly
+            { q = q(62,389,68,35), ox = 31, oy = 27, func = function(slf) slf.isHittable = false end, delay = 0.8 }, --lying down on belly
             { q = q(132,372,56,48), ox = 25, oy = 44 }, --getting up on belly
             { q = q(114,71,38,56), ox = 21, oy = 55 }, --duck
             delay = 0.3
