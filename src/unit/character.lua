@@ -811,6 +811,7 @@ function Character:duck2jump_update(dt)
         --time for other move
         if self.b.attack:isDown() then
             if self.moves.offensiveSpecial and self.velx ~= 0 or self.b.horizontal:getValue() ~=0 then
+                self.face = self.b.horizontal:getValue()
                 self:setState(self.offensiveSpecial)
                 return
             elseif self.moves.defensiveSpecial then
