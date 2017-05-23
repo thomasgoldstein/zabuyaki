@@ -1252,10 +1252,7 @@ end
 function Character:onGrab(source)
     -- hurt = {source, damage, velx,vely,x,y,z}
     local g = self.hold
-    local direction = self.x > source.x and 1 or -1
-    if not self.isHittable or self.z > 0
-        or not self:hasPlaceToStand(source.x + direction * 18, source.y)
-    then
+    if not self.isHittable or self.z > 0 then
         return false
     end
     self:release_grabbed()	-- your grab targed releases one it grabs
@@ -1293,6 +1290,7 @@ function Character:doGrab(target)
     return false
 end
 
+local check_x_dist = 18
 function Character:grab_start()
     self.isHittable = true
     self:setSprite("grab")
@@ -1302,32 +1300,35 @@ function Character:grab_start()
         local g = self.hold
         local time_to_move = 0.1
         local to_common_y = math.floor((self.y + g.target.y) / 2 )
-
-        local shift_back_x = 0
-        local dir = self.face
-        if self.x > g.target.x then
-            dir = -1
-        elseif self.x < g.target.x then
-            dir = 1
+        local direction = self.x >= g.target.x and -1 or 1
+        local check_forth = self:hasPlaceToStand(self.x + direction * check_x_dist, self.y)
+        local check_back = self:hasPlaceToStand(self.x - direction * check_x_dist, self.y)
+        local x1, x2
+        if check_forth then
+            x1 = self.x - direction * 4
+            x2 = self.x + direction * check_x_dist
+        elseif check_back then
+            x1 = g.target.x - direction * (check_x_dist + 4)
+            x2 = g.target.x
+            time_to_move = 0.15
+        else
+            x1 = self.x - direction * 4
+            x2 = self.x + direction * 4
         end
-        local check_forth = self:hasPlaceToStand(self.x + dir * 20, self.y)
-        local check_back = self:hasPlaceToStand(self.x - dir * 20, self.y)
-        if not check_forth and check_back then
-            shift_back_x = -20
-        end
+        self.velx = 0
+        g.target.velx = 0
         self.move = tween.new(time_to_move, self, {
-            x = self.x - 4 * dir + shift_back_x * dir,
+            x = x1,
             y = to_common_y + 0.5
         }, 'outQuad')
         g.target.move = tween.new(time_to_move, g.target, {
-            x = self.x + 20 * dir + shift_back_x * dir,
+            x = x2,
             y = to_common_y - 0.5
         }, 'outQuad')
-        self.face = dir
+        self.face = direction
         self.horizontal = self.face
         g.target.horizontal = -self.face
     end
-    --self.velx, self.vely = 0, 0
 end
 function Character:grab_update(dt)
     local g = self.hold
