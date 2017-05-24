@@ -141,6 +141,6 @@ function Beatnick:jump_update(dt)
     end
     self:calcMovement(dt, false, nil)
 end
-Beatnick.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Beatnick.jump_update, draw = Character.default_draw }
+Beatnick.jump = {name = "jump", start = Enemy.jump_start, exit = nop, update = Beatnick.jump_update, draw = Character.default_draw }
 
 return Beatnick

@@ -160,6 +160,6 @@ function Zeena:jump_update(dt)
     end
     self:calcMovement(dt, false, nil)
 end
-Zeena.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Zeena.jump_update, draw = Character.default_draw }
+Zeena.jump = {name = "jump", start = Enemy.jump_start, exit = nop, update = Zeena.jump_update, draw = Character.default_draw }
 
 return Zeena

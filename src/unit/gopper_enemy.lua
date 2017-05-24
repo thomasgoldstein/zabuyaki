@@ -239,7 +239,7 @@ function Gopper:walk_update(dt)
     self.can_attack = true
     self:calcMovement(dt, false, nil)
 end
-Gopper.walk = { name = "walk", start = Gopper.walk_start, exit = Unit.remove_tween_move, update = Gopper.walk_update, draw = Enemy.default_draw }
+Gopper.walk = { name = "walk", start = Gopper.walk_start, exit = nop, update = Gopper.walk_update, draw = Enemy.default_draw }
 
 function Gopper:run_start()
     self.isHittable = true
@@ -285,7 +285,7 @@ function Gopper:run_update(dt)
     end
     self:calcMovement(dt, false, nil)
 end
-Gopper.run = {name = "run", start = Gopper.run_start, exit = Unit.remove_tween_move, update = Gopper.run_update, draw = Gopper.default_draw}
+Gopper.run = {name = "run", start = Gopper.run_start, exit = nop, update = Gopper.run_update, draw = Gopper.default_draw}
 
 local dashAttack_speed = 0.75
 function Gopper:dashAttack_start()

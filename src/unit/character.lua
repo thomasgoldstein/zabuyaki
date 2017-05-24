@@ -1,5 +1,6 @@
 local class = require "lib/middleclass"
 local class = require "lib/middleclass"
+local class = require "lib/middleclass"
 local Character = class('Character', Unit)
 
 local function nop() end
@@ -1252,6 +1253,7 @@ end
 function Character:doGrab(target)
     dp(target.name .. " is grabed by me - "..self.name)
     local g = self.hold
+    local g_target = target.hold
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
@@ -1266,9 +1268,9 @@ function Character:doGrab(target)
         return false
     end
     --the grabbed
-    local g_target = target.hold
     target:release_grabbed()	-- your grab targed releases one it grabs
     g_target.source = self
+    g_target.target = nil
     g_target.cool_down = self.cool_down_grab
     target.isGrabbed = true
     sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
@@ -1277,8 +1279,9 @@ function Character:doGrab(target)
     g.target = target
     g.cool_down = self.cool_down_grab + 0.1
     g.can_grabSwap = true   --can do 1 grabSwap
-    target:setState(target.grabbed)
+
     self:setState(self.grab)
+    target:setState(target.grabbed)
     return true
 end
 
@@ -1319,7 +1322,6 @@ function Character:grab_start()
             x = x2,
             y = to_common_y - 0.5
         }, 'outQuad')
---        print("SET MOVEs ", self.name, g.target.name)
         self.face = direction
         self.horizontal = self.face
         g.target.horizontal = -self.face

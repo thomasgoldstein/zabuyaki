@@ -205,7 +205,7 @@ function Satoff:walk_update(dt)
     self.can_attack = true
     self:calcMovement(dt, true, nil)
 end
-Satoff.walk = { name = "walk", start = Satoff.walk_start, exit = Unit.remove_tween_move, update = Satoff.walk_update, draw = Enemy.default_draw }
+Satoff.walk = { name = "walk", start = Satoff.walk_start, exit = nop, update = Satoff.walk_update, draw = Enemy.default_draw }
 
 function Satoff:run_start()
     self.isHittable = true
@@ -247,6 +247,6 @@ function Satoff:run_update(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Satoff.run = {name = "run", start = Satoff.run_start, exit = Unit.remove_tween_move, update = Satoff.run_update, draw = Satoff.default_draw}
+Satoff.run = {name = "run", start = Satoff.run_start, exit = nop, update = Satoff.run_update, draw = Satoff.default_draw}
 
 return Satoff

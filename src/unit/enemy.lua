@@ -271,7 +271,7 @@ function Enemy:jump_start()
     self.vertical = 0
     sfx.play("voice"..self.id, self.sfx.jump)
 end
-Enemy.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Character.jump_update, draw = Character.default_draw }
+Enemy.jump = {name = "jump", start = Enemy.jump_start, exit = nop, update = Character.jump_update, draw = Character.default_draw }
 
 return Enemy
 

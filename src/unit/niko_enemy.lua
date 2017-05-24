@@ -137,10 +137,10 @@ function Niko:jump_update(dt)
     end
     self:calcMovement(dt, false, nil)
 end
-Niko.jump = {name = "jump", start = Enemy.jump_start, exit = Unit.remove_tween_move, update = Niko.jump_update, draw = Character.default_draw }
+Niko.jump = {name = "jump", start = Enemy.jump_start, exit = nop, update = Niko.jump_update, draw = Character.default_draw }
 
 -- Niko's JumpAttacks should end with Fall
-Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}
-Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = Unit.remove_tween_move, update = Character.fall_update, draw = Character.default_draw}
+Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
+Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
 
 return Niko
