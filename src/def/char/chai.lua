@@ -286,16 +286,16 @@ return {
 			delay = 65
 		},
 		hurtHigh = {
-			{ q = q(2,335,48,64), ox = 29, oy = 63, delay = 0.02 }, --hurt high 1
-			{ q = q(52,335,50,64), ox = 32, oy = 63, delay = 0.2 }, --hurt high 2
 			{ q = q(2,335,48,64), ox = 29, oy = 63 }, --hurt high 1
-			delay = 0.05
+			{ q = q(52,335,50,64), ox = 32, oy = 63, delay = 0.2 }, --hurt high 2
+			{ q = q(2,335,48,64), ox = 29, oy = 63, delay = 0.05 }, --hurt high 1
+			delay = 0.02
 		},
 		hurtLow = {
-			{ q = q(104,336,42,63), ox = 22, oy = 62, delay = 0.02 }, --hurt low 1
-			{ q = q(148,338,42,61), ox = 22, oy = 60, delay = 0.2 }, --hurt low 2
 			{ q = q(104,336,42,63), ox = 22, oy = 62 }, --hurt low 1
-			delay = 0.05
+			{ q = q(148,338,42,61), ox = 22, oy = 60, delay = 0.2 }, --hurt low 2
+			{ q = q(104,336,42,63), ox = 22, oy = 62, delay = 0.05 }, --hurt low 1
+			delay = 0.02
 		},
 		jumpAttackForward = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1

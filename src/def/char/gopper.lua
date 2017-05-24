@@ -144,10 +144,10 @@ return {
             delay = 65
         },
         hurtHigh = {
-            { q = q(2,129,38,62), ox = 23, oy = 61, delay = 0.03 }, --hurt high 1
-            { q = q(42,129,43,62), ox = 28, oy = 61 }, --hurt high 2
+            { q = q(2,129,38,62), ox = 23, oy = 61 }, --hurt high 1
+            { q = q(42,129,43,62), ox = 28, oy = 61, delay = 0.3 }, --hurt high 2
             { q = q(2,129,38,62), ox = 23, oy = 61, delay = 0.1 }, --hurt high 1
-            delay = 0.3
+            delay = 0.03
         },
         hurtLow = {
             { q = q(87,130,37,61), ox = 22, oy = 60, delay = 0.03 }, --hurt low 1
