@@ -89,14 +89,13 @@ function Satoff:updateAI(dt)
                         return
                     end
                 end
-
                 local t = dist(self.target.x, self.target.y, self.x, self.y)
                 if t >= 250 and math.floor(self.y / 6) == math.floor(self.target.y / 6) then
                     self:setState(self.run)
-                    --return
+                    return
                 else
                     self:setState(self.walk)
-                    --return
+                    return
                 end
             end
         elseif self.state == "walk" then
@@ -153,6 +152,7 @@ function Satoff:updateAI(dt)
 end
 
 function Satoff:combo_start()
+    self:remove_tween_move()
     Character.combo_start(self)
     self.velx = self.velocity_dash
 end
@@ -168,6 +168,7 @@ Satoff.combo = { name = "combo", start = Satoff.combo_start, exit = nop, update 
 function Satoff:walk_start()
     self.isHittable = true
     self:setSprite("walk")
+    self.tx, self.ty = self.x, self.y
     if not self.target then
         self:setState(self.intro)
         return
