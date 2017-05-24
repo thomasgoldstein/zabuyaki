@@ -1249,20 +1249,6 @@ function Character:checkForGrab(range)
     return nil
 end
 
-function Character:onGrab(source)
-    -- hurt = {source, damage, velx,vely,x,y,z}
-    local g = self.hold
-    if not self.isHittable or self.z > 0 then
-        return false
-    end
-    self:release_grabbed()	-- your grab targed releases one it grabs
-    dp(source.name .. " grabed me - "..self.name)
-    g.source = source
-    g.cool_down = self.cool_down_grab
-    self.isGrabbed = true
-    return self.isGrabbed
-end
-
 function Character:doGrab(target)
     dp(target.name .. " is grabed by me - "..self.name)
     local g = self.hold
@@ -1276,18 +1262,24 @@ function Character:doGrab(target)
         self.cool_down = 0.2
         return false
     end
-
-    if target:onGrab(self) then
-        sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
-        g.source = nil
-        g.target = target
-        g.cool_down = self.cool_down_grab + 0.1
-        g.can_grabSwap = true   --can do 1 grabSwap
-        self:setState(self.grab)
-        target:setState(target.grabbed)
-        return true
+    if not target.isHittable or target.z > 0 then
+        return false
     end
-    return false
+    --the grabbed
+    local g_target = target.hold
+    target:release_grabbed()	-- your grab targed releases one it grabs
+    g_target.source = self
+    g_target.cool_down = self.cool_down_grab
+    target.isGrabbed = true
+    sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
+    -- the grabber
+    g.source = nil
+    g.target = target
+    g.cool_down = self.cool_down_grab + 0.1
+    g.can_grabSwap = true   --can do 1 grabSwap
+    target:setState(target.grabbed)
+    self:setState(self.grab)
+    return true
 end
 
 local check_x_dist = 18
@@ -1327,6 +1319,7 @@ function Character:grab_start()
             x = x2,
             y = to_common_y - 0.5
         }, 'outQuad')
+--        print("SET MOVEs ", self.name, g.target.name)
         self.face = direction
         self.horizontal = self.face
         g.target.horizontal = -self.face
@@ -1458,9 +1451,6 @@ function Character:grabbedFront_start()
 end
 function Character:grabbedFront_update(dt)
     local g = self.hold
-    if self.move then
-        self.move:update(dt)
-    end
     if self.isGrabbed and g.cool_down > 0 then
         g.cool_down = g.cool_down - dt
     else
@@ -1488,9 +1478,6 @@ function Character:grabbedBack_start()
 end
 function Character:grabbedBack_update(dt)
     local g = self.hold
-    if self.move then
-        self.move:update(dt)
-    end
     if self.isGrabbed and g.cool_down > 0 then
         g.cool_down = g.cool_down - dt
     else
