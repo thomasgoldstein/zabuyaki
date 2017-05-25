@@ -303,7 +303,8 @@ function Player:afterOnHurt()
     if h.type == "high" then
         if self.hp > 0 and self.z <= 0 then
             self:showHitMarks(h.damage, 40)
-            self:setState(self.hurtHigh)
+            self:setState(self.hurt)
+            self:setSprite("hurtHigh")
             return
         end
         self.velx = h.velx --use fall speed from the agument
@@ -311,7 +312,8 @@ function Player:afterOnHurt()
     elseif h.type == "low" then
         if self.hp > 0 and self.z <= 0 then
             self:showHitMarks(h.damage, 16)
-            self:setState(self.hurtLow)
+            self:setState(self.hurt)
+            self:setSprite("hurtLow")
             return
         end
         self.velx = h.velx --use fall speed from the agument

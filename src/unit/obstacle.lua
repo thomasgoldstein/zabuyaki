@@ -211,28 +211,16 @@ function Obstacle:getup_update(dt)
 end
 Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
 
-function Obstacle:hurtHigh_start()
+function Obstacle:hurt_start()
     self.isHittable = true
 end
-function Obstacle:hurtHigh_update(dt)
+function Obstacle:hurt_update(dt)
     if self.velx <= 0 then
         self:setState(self.stand)
         return
     end
     self:calcMovement(dt, true, nil)
 end
-Obstacle.hurtHigh = {name = "hurtHigh", start = Obstacle.hurtHigh_start, exit = nop, update = Obstacle.hurtHigh_update, draw = Unit.default_draw}
-
-function Obstacle:hurtLow_start()
-    self.isHittable = true
-end
-function Obstacle:hurtLow_update(dt)
-    if self.velx <= 0 then
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true, nil)
-end
-Obstacle.hurtLow = {name = "hurtLow", start = Obstacle.hurtLow_start, exit = nop, update = Obstacle.hurtHigh_update, draw = Unit.default_draw}
+Obstacle.hurt = {name = "hurt", start = Obstacle.hurt_start, exit = nop, update = Obstacle.hurt_update, draw = Unit.default_draw}
 
 return Obstacle

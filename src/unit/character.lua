@@ -261,7 +261,8 @@ function Character:afterOnHurt()
     if h.type == "high" then
         if self.hp > 0 and self.z <= 0 then
             self:showHitMarks(h.damage, 40)
-            self:setState(self.hurtHigh)
+            self:setState(self.hurt)
+            self:setSprite("hurtHigh")
             return
         end
         self.velx = h.velx --use fall speed from the agument
@@ -269,7 +270,8 @@ function Character:afterOnHurt()
     elseif h.type == "low" then
         if self.hp > 0 and self.z <= 0 then
             self:showHitMarks(h.damage, 16)
-            self:setState(self.hurtLow)
+            self:setState(self.hurt)
+            self:setSprite("hurtLow")
             return
         end
         self.velx = h.velx --use fall speed from the agument
@@ -856,11 +858,10 @@ function Character:duck2jump_update(dt)
 end
 Character.duck2jump = {name = "duck2jump", start = Character.duck2jump_start, exit = nop, update = Character.duck2jump_update, draw = Character.default_draw}
 
-function Character:hurtLow_start()
+function Character:hurt_start()
     self.isHittable = true
-    self:setSprite("hurtLow")
 end
-function Character:hurtLow_update(dt)
+function Character:hurt_update(dt)
     if not self.b.jump:isDown() then
         self.can_jump = true
     end
@@ -890,14 +891,7 @@ function Character:hurtLow_update(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = nop, update = Character.hurtLow_update, draw = Character.default_draw}
-
-function Character:hurtHigh_start()
-    self.isHittable = true
-    self:setSprite("hurtHigh")
-end
-Character.hurtHigh_update = Character.hurtLow_update
-Character.hurtHigh = {name = "hurtHigh", start = Character.hurtHigh_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
+Character.hurt = {name = "hurt", start = Character.hurt_start, exit = nop, update = Character.hurt_update, draw = Character.default_draw}
 
 function Character:sideStep_start()
     self.isHittable = true
