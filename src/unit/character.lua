@@ -856,40 +856,32 @@ function Character:duck2jump_update(dt)
 end
 Character.duck2jump = {name = "duck2jump", start = Character.duck2jump_start, exit = nop, update = Character.duck2jump_update, draw = Character.default_draw}
 
-function Character:hurtHigh_start()
-    self.isHittable = true
-    self:setSprite("hurtHigh")
-end
-function Character:hurtHigh_update(dt)
-    if self.sprite.isFinished then
-        if self.hp <= 0 then
-            self:setState(self.getup)
-            return
-        end
-        self.cool_down = 0.1
-        if self.isGrabbed then
-            self:setState(self.grabbed)
-        else
-            self:setState(self.stand)
-        end
-        return
-    end
-    self:calcMovement(dt, true, nil)
-end
-Character.hurtHigh = {name = "hurtHigh", start = Character.hurtHigh_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
-
 function Character:hurtLow_start()
     self.isHittable = true
     self:setSprite("hurtLow")
 end
 function Character:hurtLow_update(dt)
+    if not self.b.jump:isDown() then
+        self.can_jump = true
+    end
+    if not self.b.attack:isDown() then
+        self.can_attack = true
+    end
+    if self.moves.defensiveSpecial
+        and self.can_attack and self.b.attack:isDown()
+        and self.can_jump and self.b.jump:isDown()
+    then
+        self.condition = true --trigger defensiveSpecial
+    end
     if self.sprite.isFinished then
         if self.hp <= 0 then
             self:setState(self.getup)
             return
         end
         self.cool_down = 0.1
-        if self.isGrabbed then
+        if self.condition and self.moves.defensiveSpecial then
+            self:setState(self.defensiveSpecial)
+        elseif self.isGrabbed then
             self:setState(self.grabbed)
         else
             self:setState(self.stand)
@@ -898,7 +890,14 @@ function Character:hurtLow_update(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
+Character.hurtLow = {name = "hurtLow", start = Character.hurtLow_start, exit = nop, update = Character.hurtLow_update, draw = Character.default_draw}
+
+function Character:hurtHigh_start()
+    self.isHittable = true
+    self:setSprite("hurtHigh")
+end
+Character.hurtHigh_update = Character.hurtLow_update
+Character.hurtHigh = {name = "hurtHigh", start = Character.hurtHigh_start, exit = nop, update = Character.hurtHigh_update, draw = Character.default_draw}
 
 function Character:sideStep_start()
     self.isHittable = true
