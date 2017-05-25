@@ -867,7 +867,11 @@ function Character:hurtHigh_update(dt)
             return
         end
         self.cool_down = 0.1
-        self:setState(self.stand)
+        if self.isGrabbed then
+            self:setState(self.grabbed)
+        else
+            self:setState(self.stand)
+        end
         return
     end
     self:calcMovement(dt, true, nil)
@@ -885,7 +889,11 @@ function Character:hurtLow_update(dt)
             return
         end
         self.cool_down = 0.1
-        self:setState(self.stand)
+        if self.isGrabbed then
+            self:setState(self.grabbed)
+        else
+            self:setState(self.stand)
+        end
         return
     end
     self:calcMovement(dt, true, nil)
