@@ -131,7 +131,7 @@ function Gopper:updateAI(dt)
 end
 
 function Gopper:onFriendlyAttack()
-    local h = self.hurt
+    local h = self.harm
     if not h then
         return
     end
@@ -141,7 +141,7 @@ function Gopper:onFriendlyAttack()
         --Gopper can attack Gopper and Niko only
         h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
     else
-        self.hurt = nil
+        self.harm = nil
     end
 end
 

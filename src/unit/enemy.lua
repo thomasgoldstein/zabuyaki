@@ -68,12 +68,12 @@ function Enemy:updateAI(dt)
 end
 
 function Enemy:onFriendlyAttack()
-    local h = self.hurt
+    local h = self.harm
     if not h then
         return
     end
     if self.type == h.source.type and not h.isThrown then
-        self.hurt = nil   --enemy doesn't attack enemy
+        self.harm = nil   --enemy doesn't attack enemy
     else
         h.damage = h.damage or 0
     end
@@ -128,7 +128,7 @@ function Enemy:dead_start()
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
-    self.hurt = nil
+    self.harm = nil
     self:release_grabbed()
     if self.z <= 0 then
         self.z = 0

@@ -168,17 +168,17 @@ function Character:updateAI(dt)
 end
 
 function Character:isImmune()   --Immune to the attack?
-    local h = self.hurt
+    local h = self.harm
     if h.type == "shockWave" and ( self.isDisabled or self.sprite.cur_anim == "fallen" ) then
         -- shockWave has no effect on players & obstacles
-        self.hurt = nil --free hurt data
+        self.harm = nil --free hurt data
         return true
     end
     return false
 end
 
 function Character:onFriendlyAttack()
-    local h = self.hurt
+    local h = self.harm
     if not h then
         return
     end
@@ -192,24 +192,24 @@ end
 
 function Character:onHurt()
     -- hurt = {source, damage, velx,vely,x,y,z}
-    local h = self.hurt
+    local h = self.harm
     if not h then
         return
     end
     -- got Immunity?
     if self:isImmune() then
-        self.hurt = nil
+        self.harm = nil
         return
     end
     self:remove_tween_move()
     self:onFriendlyAttack()
     self:onHurtDamage()
     self:afterOnHurt()
-    self.hurt = nil --free hurt data
+    self.harm = nil --free hurt data
 end
 
 function Character:onHurtDamage()
-    local h = self.hurt
+    local h = self.harm
     if not h then
         return
     end
@@ -252,7 +252,7 @@ function Character:onHurtDamage()
 end
 
 function Character:afterOnHurt()
-    local h = self.hurt
+    local h = self.harm
     if not h then
         return
     end
@@ -327,7 +327,7 @@ function Character:afterOnHurt()
 end
 
 function Character:applyDamage(damage, type, source, velocity, sfx1)
-    self.hurt = {source = source or self, state = self.state, damage = damage,
+    self.harm = {source = source or self, state = self.state, damage = damage,
         type = type, velx = velocity or 0,
         horizontal = self.face, isThrown = false,
         x = self.x, y = self.y, z = self.z }
@@ -368,7 +368,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and not o.isGrabbed
                     and o ~= self
             then
-                o.hurt = {source = self, state = self.state, damage = damage,
+                o.harm = {source = self, state = self.state, damage = damage,
                     type = type, velx = velocity or self.velocity_bonus_on_attack_x,
                     horizontal = face, isThrown = false,
                     x = self.x, y = self.y, z = self.z }
@@ -385,12 +385,12 @@ function Character:checkAndAttack(f, isFuncCont)
                     and o.z <= self.z + o.height and o.z >= self.z - self.height
             then
                 if self.isThrown then
-                    o.hurt = {source = self.thrower_id, state = self.state, damage = damage,
+                    o.harm = {source = self.thrower_id, state = self.state, damage = damage,
                         type = type, velx = velocity or self.velocity_bonus_on_attack_x,
                         horizontal = self.horizontal, isThrown = true,
                         x = self.x, y = self.y, z = self.z }
                 else
-                    o.hurt = {source = self, state = self.state, damage = damage,
+                    o.harm = {source = self, state = self.state, damage = damage,
                         type = type, velx = velocity or self.velocity_bonus_on_attack_x,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
@@ -1140,7 +1140,7 @@ Character.fall = {name = "fall", start = Character.fall_start, exit = nop, updat
 function Character:getup_start()
     self.isHittable = false
     dpo(self, self.state)
-    self.hurt = nil
+    self.harm = nil
     if self.z <= 0 then
         self.z = 0
     end
@@ -1165,7 +1165,7 @@ function Character:dead_start()
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
-    self.hurt = nil
+    self.harm = nil
     self:release_grabbed()
     if self.z <= 0 then
         self.z = 0
