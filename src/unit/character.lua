@@ -1460,9 +1460,22 @@ function Character:grabbedFront_start()
     dp(self.name.." is grabbedFront.")
 end
 function Character:grabbedFront_update(dt)
+    if not self.b.jump:isDown() then
+        self.can_jump = true
+    end
+    if not self.b.attack:isDown() then
+        self.can_attack = true
+    end
     local g = self.hold
     if self.isGrabbed and g.cool_down > 0 then
         g.cool_down = g.cool_down - dt
+        if self.moves.defensiveSpecial
+            and self.can_attack and self.b.attack:isDown()
+            and self.can_jump and self.b.jump:isDown()
+        then
+            self:setState(self.defensiveSpecial)
+            return
+        end
     else
         if g.source.x < self.x then
             self.horizontal = 1
@@ -1487,9 +1500,22 @@ function Character:grabbedBack_start()
     dp(self.name.." is grabbedBack.")
 end
 function Character:grabbedBack_update(dt)
+    if not self.b.jump:isDown() then
+        self.can_jump = true
+    end
+    if not self.b.attack:isDown() then
+        self.can_attack = true
+    end
     local g = self.hold
     if self.isGrabbed and g.cool_down > 0 then
         g.cool_down = g.cool_down - dt
+        if self.moves.defensiveSpecial
+                and self.can_attack and self.b.attack:isDown()
+                and self.can_jump and self.b.jump:isDown()
+        then
+            self:setState(self.defensiveSpecial)
+            return
+        end
     else
         if g.source.x < self.x then
             self.horizontal = 1
