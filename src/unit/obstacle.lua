@@ -37,7 +37,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.gravity = self.gravity * self.weight
     self.coolDownDeath = 1 --seconds to remove
 
-    self.old_frame = 1 --Old sprite frame N to start particles on change
+    self.oldFrame = 1 --Old sprite frame N to start particles on change
 
     self:setState(self.stand)
 end
@@ -54,7 +54,7 @@ function Obstacle:setSprite(anim)
 end
 
 function Obstacle:drawSprite(x, y)
-    self.sprite.flip_h = self.faceFix
+    self.sprite.flipH = self.faceFix
     DrawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
 end
 
@@ -67,8 +67,8 @@ function Obstacle:calcShadowSpriteAndTransparency()
     end
     local spr = self.sprite
     local image = image_bank[spr.def.sprite_sheet]
-    local sc = spr.def.animations[spr.cur_anim][self:calcDamageFrame()]
-    local shadowAngle = -stage.shadowAngle * spr.flip_h
+    local sc = spr.def.animations[spr.curAnim][self:calcDamageFrame()]
+    local shadowAngle = -stage.shadowAngle * spr.flipH
     return image, spr, sc, shadowAngle, -2
 end
 
@@ -141,8 +141,8 @@ function Obstacle:onHurt()
     self:onHurtDamage()
     self:afterOnHurt()
     --Check for breaking change
-    local cur_frame = self:calcDamageFrame()
-    if self.old_frame ~= cur_frame then
+    local curFrame = self:calcDamageFrame()
+    if self.oldFrame ~= curFrame then
         if self.flipOnBreak then
             self.faceFix = newFacing --Change facing
         end
@@ -172,7 +172,7 @@ function Obstacle:onHurt()
         particles:emit(1)
         stage.objects:add(Effect:new(particles, self.x, self.y + 1))
     end
-    self.old_frame = cur_frame
+    self.oldFrame = curFrame
     self.harm = nil --free hurt data
 end
 

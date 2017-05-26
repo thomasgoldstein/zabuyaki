@@ -20,10 +20,10 @@ local heroes = {
         hero = Rick,
         sprite_instance = "src/def/char/rick.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "rick",
-        default_anim = "stand",
-        cancel_anim = "hurtHigh",
-        confirm_anim = "walk",
+        sprite_portraitAnim = "rick",
+        defaultAnim = "stand",
+        cancelAnim = "hurtHigh",
+        confirmAnim = "walk",
         x = screen_width / 2 - portrait_width - portrait_margin,
         y = 440,    --char sprite
         sy = 272,   --selected P1 P2 P3
@@ -37,10 +37,10 @@ local heroes = {
         hero = Kisa,
         sprite_instance = "src/def/char/kisa.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "kisa",
-        default_anim = "stand",
-        cancel_anim = "hurtLow",
-        confirm_anim = "walk",
+        sprite_portraitAnim = "kisa",
+        defaultAnim = "stand",
+        cancelAnim = "hurtLow",
+        confirmAnim = "walk",
         x = screen_width / 2,
         y = 440,
         sy = 272,
@@ -54,10 +54,10 @@ local heroes = {
         hero = Chai,
         sprite_instance = "src/def/char/chai.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "chai",
-        default_anim = "stand",
-        cancel_anim = "hurtHigh",
-        confirm_anim = "walk",
+        sprite_portraitAnim = "chai",
+        defaultAnim = "stand",
+        cancelAnim = "hurtHigh",
+        confirmAnim = "walk",
         x = screen_width / 2 + portrait_width + portrait_margin,
         y = 440,
         sy = 272,
@@ -71,10 +71,10 @@ local heroes = {
         hero = PGopper,
         sprite_instance = "src/def/char/gopper.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "rick", --NO OWN PORTRAIT
-        default_anim = "stand",
-        cancel_anim = "hurtHigh",
-        confirm_anim = "walk",
+        sprite_portraitAnim = "rick", --NO OWN PORTRAIT
+        defaultAnim = "stand",
+        cancelAnim = "hurtHigh",
+        confirmAnim = "walk",
         x = screen_width / 2,
         y = 440 + 80,
         sy = 272,
@@ -88,10 +88,10 @@ local heroes = {
         hero = PNiko,
         sprite_instance = "src/def/char/niko.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "rick", --NO OWN PORTRAIT
-        default_anim = "stand",
-        cancel_anim = "hurtHigh",
-        confirm_anim = "walk",
+        sprite_portraitAnim = "rick", --NO OWN PORTRAIT
+        defaultAnim = "stand",
+        cancelAnim = "hurtHigh",
+        confirmAnim = "walk",
         x = screen_width / 2 - 80,
         y = 440 + 80,
         sy = 272,
@@ -105,10 +105,10 @@ local heroes = {
         hero = PSveta,
         sprite_instance = "src/def/char/sveta.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "rick", --NO OWN PORTRAIT
-        default_anim = "stand",
-        cancel_anim = "hurtHigh",
-        confirm_anim = "walk",
+        sprite_portraitAnim = "rick", --NO OWN PORTRAIT
+        defaultAnim = "stand",
+        cancelAnim = "hurtHigh",
+        confirmAnim = "walk",
         x = screen_width / 2 - 80,
         y = 440 + 80,
         sy = 272,
@@ -122,10 +122,10 @@ local heroes = {
         hero = PZeena,
         sprite_instance = "src/def/char/zeena.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "rick", --NO OWN PORTRAIT
-        default_anim = "stand",
-        cancel_anim = "hurtHigh",
-        confirm_anim = "walk",
+        sprite_portraitAnim = "rick", --NO OWN PORTRAIT
+        defaultAnim = "stand",
+        cancelAnim = "hurtHigh",
+        confirmAnim = "walk",
         x = screen_width / 2 - 80,
         y = 440 + 80,
         sy = 272,
@@ -139,10 +139,10 @@ local heroes = {
         hero = PBeatnick,
         sprite_instance = "src/def/char/beatnick.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "rick", --NO OWN PORTRAIT
-        default_anim = "stand",
-        cancel_anim = "hurtHigh",
-        confirm_anim = "walk",
+        sprite_portraitAnim = "rick", --NO OWN PORTRAIT
+        defaultAnim = "stand",
+        cancelAnim = "hurtHigh",
+        confirmAnim = "walk",
         x = screen_width / 2 - 80,
         y = 440 + 80,
         sy = 272,
@@ -156,10 +156,10 @@ local heroes = {
         hero = PSatoff,
         sprite_instance = "src/def/char/satoff.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
-        sprite_portrait_anim = "rick", --NO OWN PORTRAIT
-        default_anim = "stand",
-        cancel_anim = "hurtHigh",
-        confirm_anim = "walk",
+        sprite_portraitAnim = "rick", --NO OWN PORTRAIT
+        defaultAnim = "stand",
+        cancelAnim = "hurtHigh",
+        confirmAnim = "walk",
         x = screen_width / 2 - 80,
         y = 440 + 80,
         sy = 272,
@@ -261,8 +261,8 @@ function playerSelectState:enter()
     p1_old_pos = 0
     p1_mouse_pos = 0
     for i = 1,#players do
-      SetSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
-      heroes[i].sprite_portrait.size_scale = 2
+      SetSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portraitAnim)
+      heroes[i].sprite_portrait.sizeScale = 2
     end
     self.enablePlayerSelectOnStart = false
     -- Prevent double press at start (e.g. auto confirmation)
@@ -313,8 +313,8 @@ function playerSelectState:player_input(player, controls, i)
             sfx.play("sfx","menuSelect")
             player.visible = true
             player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
-            player.sprite.size_scale = 2
-            SetSpriteAnimation(player.sprite,heroes[player.pos].default_anim)
+            player.sprite.sizeScale = 2
+            SetSpriteAnimation(player.sprite,heroes[player.pos].defaultAnim)
         end
         return
     end
@@ -327,7 +327,7 @@ function playerSelectState:player_input(player, controls, i)
         elseif controls.attack:pressed() or controls.start:pressed() then
             player.visible = true
             player.confirmed = true
-            SetSpriteAnimation(player.sprite,heroes[player.pos].confirm_anim)
+            SetSpriteAnimation(player.sprite,heroes[player.pos].confirmAnim)
             sfx.play("sfx","menuSelect")
         elseif controls.horizontal:pressed(-1) then
             player.pos = player.pos - 1
@@ -336,7 +336,7 @@ function playerSelectState:player_input(player, controls, i)
             end
             sfx.play("sfx","menuMove")
             player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
-            player.sprite.size_scale = 2
+            player.sprite.sizeScale = 2
             SetSpriteAnimation(player.sprite,"stand")
         elseif controls.horizontal:pressed(1) then
             player.pos = player.pos + 1
@@ -345,13 +345,13 @@ function playerSelectState:player_input(player, controls, i)
             end
             sfx.play("sfx","menuMove")
             player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
-            player.sprite.size_scale = 2
+            player.sprite.sizeScale = 2
             SetSpriteAnimation(player.sprite,"stand")
         end
     else
         if controls.jump:pressed() or controls.back:pressed() then
             player.confirmed = false
-            SetSpriteAnimation(player.sprite,heroes[player.pos].cancel_anim)
+            SetSpriteAnimation(player.sprite,heroes[player.pos].cancelAnim)
             sfx.play("sfx","menuCancel")
         elseif (controls.attack:pressed() or controls.start:pressed()) and all_confirmed() then
             self:GameStart()
@@ -366,18 +366,18 @@ function playerSelectState:update(dt)
     for i = 1,#players do
         local cur_players_hero = heroes[players[i].pos]
         local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
-        local cur_color_slot = sh[i][2]
+        local curColor_slot = sh[i][2]
         if players[i].sprite then
             UpdateSpriteInstance(players[i].sprite, dt)
             if players[i].sprite.isFinished
-                    and (players[i].sprite.cur_anim == heroes[players[i].pos].cancel_anim
-                    or players[i].sprite.cur_anim == heroes[players[i].pos].confirm_anim)
+                    and (players[i].sprite.curAnim == heroes[players[i].pos].cancelAnim
+                    or players[i].sprite.curAnim == heroes[players[i].pos].confirmAnim)
             then
-                SetSpriteAnimation(players[i].sprite,heroes[players[i].pos].default_anim)
+                SetSpriteAnimation(players[i].sprite,heroes[players[i].pos].defaultAnim)
             end
             if players[i].visible then
                 --smooth indicators movement
-                local nx = cur_players_hero.x - (shiftx[players[i].pos] - 1) * 32 + (cur_color_slot - 1) * 64 -- * (i - 1)
+                local nx = cur_players_hero.x - (shiftx[players[i].pos] - 1) * 32 + (curColor_slot - 1) * 64 -- * (i - 1)
                 local ny = cur_players_hero.sy
                 if not players[i].nx then
                     players[i].nx = nx
@@ -393,8 +393,8 @@ function playerSelectState:update(dt)
         else
             if players[i].visible then
                 players[i].sprite = GetSpriteInstance(heroes[players[i].pos].sprite_instance)
-                players[i].sprite.size_scale = 2
-                SetSpriteAnimation(players[i].sprite,heroes[players[i].pos].default_anim)
+                players[i].sprite.sizeScale = 2
+                SetSpriteAnimation(players[i].sprite,heroes[players[i].pos].defaultAnim)
             end
 
         end
@@ -410,7 +410,7 @@ function playerSelectState:draw()
     for i = 1,#players do
         local cur_players_hero = heroes[players[i].pos]
         local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
-        local cur_color_slot = sh[i][2]
+        local curColor_slot = sh[i][2]
         local h = heroes[i]
         local original_char = 1
         love.graphics.setColor(255, 255, 255, 255)
@@ -442,7 +442,7 @@ function playerSelectState:draw()
     --header
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(txt_playerSelect, (screen_width - txt_playerSelect:getWidth()) / 2, title_y_offset)
-    show_debug_indicator()
+    showDebug_indicator()
     push:finish()
 end
 
@@ -458,17 +458,17 @@ function playerSelectState:confirm( x, y, button, istouch )
         if not players[1].visible then
             players[1].visible = true
             sfx.play("sfx","menuSelect")
-            SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].default_anim)
+            SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].defaultAnim)
         elseif not players[1].confirmed then
             if players[1].pos ~= p1_mouse_pos then
                 p1_old_pos = players[1].pos
                 players[1].pos = p1_mouse_pos
                 players[1].sprite = GetSpriteInstance(heroes[players[1].pos].sprite_instance)
-                players[1].sprite.size_scale = 2
+                players[1].sprite.sizeScale = 2
             end
             players[1].confirmed = true
             sfx.play("sfx","menuSelect")
-            SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].confirm_anim)
+            SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].confirmAnim)
         elseif p1_mouse_pos == players[1].pos and all_confirmed() then
             self:GameStart()
             return
@@ -479,7 +479,7 @@ function playerSelectState:confirm( x, y, button, istouch )
             players[1].visible = false
         elseif players[1].confirmed then
             players[1].confirmed = false
-            SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].cancel_anim)
+            SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].cancelAnim)
         else
             return Gamestate.pop()
         end
@@ -508,8 +508,8 @@ function playerSelectState:mousemoved( x, y, dx, dy)
         players[1].pos = p1_mouse_pos
         sfx.play("sfx","menuMove")
         players[1].sprite = GetSpriteInstance(heroes[players[1].pos].sprite_instance)
-        players[1].sprite.size_scale = 2
-        SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].default_anim)
+        players[1].sprite.sizeScale = 2
+        SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].defaultAnim)
     end
 end
 

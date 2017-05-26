@@ -65,7 +65,7 @@ end
 -- Start of Lifebar elements
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Player:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
+function Player:drawTextInfo(l, t, transp_bg, icon_width, normColor)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.shake.x + icon_width + 2, t + 9,
         transp_bg)
@@ -76,7 +76,7 @@ function Player:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
     end
     printWithShadow(self.pid, l + self.shake.x + icon_width + 2, t - 1,
         transp_bg)
-    love.graphics.setColor(norm_color[1], norm_color[2], norm_color[3], transp_bg)
+    love.graphics.setColor(normColor[1], normColor[2], normColor[3], transp_bg)
     printWithShadow(string.format("%06d", self.score), l + self.shake.x + icon_width + 34, t - 1,
         transp_bg)
     if self.lives >= 1 then
@@ -94,7 +94,7 @@ function Player:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
     end
 end
 
-function Player:drawBar(l,t,w,h, icon_width, norm_color)
+function Player:drawBar(l,t,w,h, icon_width, normColor)
     love.graphics.setFont(gfx.font.arcade3)
     local transp_bg = 255 * calcBarTransparency(3)
     local playerSelectMode = self.source.playerSelectMode
@@ -108,7 +108,7 @@ function Player:drawBar(l,t,w,h, icon_width, norm_color)
         self:draw_lifebar(l, t, transp_bg)
         self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
         self:draw_dead_cross(l, t, transp_bg)
-        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color)
+        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, normColor)
     else
         love.graphics.setColor(255, 255, 255, transp_bg)
         if playerSelectMode == 0 then
@@ -262,8 +262,8 @@ function Player:onHurtDamage()
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
     if h.type ~= "shockWave" then
         -- show enemy bar for other attacks
-        h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
-        self.victim_infoBar = h.source.infoBar:setAttacker(self)
+        h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
+        self.victimInfoBar = h.source.infoBar:setAttacker(self)
     end
     -- Score
     h.source:addScore( h.damage * 10 )
@@ -497,7 +497,7 @@ function Player:respawnStart()
     dpo(self, self.state)
     self:setSprite("respawn")
     self.coolDownDeath = 3 --seconds to remove
-    self.hp = self.max_hp
+    self.hp = self.maxHp
     self.bounced = 0
     self.velz = 0
     self.z = math.random( 235, 245 )    --TODO get Z from the Tiled
@@ -516,8 +516,8 @@ function Player:respawnUpdate(dt)
         self.velz = 0
         self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
-        if self.sprite.cur_frame == 1 then
-            self.sprite.elapsed_time = 10 -- seconds. skip to pickup 2 frame
+        if self.sprite.curFrame == 1 then
+            self.sprite.elapsedTime = 10 -- seconds. skip to pickup 2 frame
         end
         self:checkAndAttack(
             { left = 0, width = 320 * 2, height = 240 * 2, damage = 0, type = "shockWave", velocity = 0 },
@@ -544,7 +544,7 @@ function Player:respawnUpdate(dt)
         end
         self.bounced = 1
     end
-    --self.victim_infoBar = nil   -- remove enemy bar under yours
+    --self.victimInfoBar = nil   -- remove enemy bar under yours
     self:calcMovement(dt)
 end
 Player.respawn = {name = "respawn", start = Player.respawnStart, exit = nop, update = Player.respawnUpdate, draw = Unit.defaultDraw}

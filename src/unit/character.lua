@@ -46,7 +46,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
     self.throwStart_z = 20 --lift up a body to throw at this Z
-    self.toFallen_anim_z = 40
+    self.toFallenAnim_z = 40
     self.velocityStep_down = 220
     self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
     self.velocity_shove_x = 220 --my throwing speed
@@ -83,13 +83,13 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.sfx.jumpAttack = self.sfx.jumpAttack or "nikoAttack1"
     self.sfx.step = self.sfx.step or "kisaStep"
     self.sfx.dead = self.sfx.dead or "gopnikDeath1"
-    self.victim_infoBar = nil
+    self.victimInfoBar = nil
 end
 
 function Character:addHp(hp)
     self.hp = self.hp + hp
-    if self.hp > self.max_hp then
-        self.hp = self.max_hp
+    if self.hp > self.maxHp then
+        self.hp = self.maxHp
     end
 end
 function Character:decreaseHp(damage)
@@ -112,13 +112,13 @@ function Character:initFaceIcon(target)
     target.sprite = image_bank[self.sprite.def.sprite_sheet]
     target.q = self.sprite.def.animations["icon"][1].q  --quad
     target.qa = self.sprite.def.animations["icon"]  --quad array
-    target.icon_color = self.color or { 255, 255, 255, 255 }
+    target.iconColor = self.color or { 255, 255, 255, 255 }
     target.shader = self.shader
 end
 
 function Character:drawFaceIcon(l, t)
     local s = self.qa
-    local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
+    local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.maxHp)+1,
         1, #s)
     love.graphics.draw (
         self.sprite,
@@ -129,7 +129,7 @@ end
 
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Character:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
+function Character:drawTextInfo(l, t, transp_bg, icon_width, normColor)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.shake.x + icon_width + 2, t + 9,
         transp_bg)
@@ -148,13 +148,13 @@ function Character:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
     end
 end
 
-function Character:drawBar(l,t,w,h, icon_width, norm_color)
+function Character:drawBar(l,t,w,h, icon_width, normColor)
     love.graphics.setFont(gfx.font.arcade3)
     local transp_bg = 255 * calcBarTransparency(self.coolDown)
     self:draw_lifebar(l, t, transp_bg)
     self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
     self:draw_dead_cross(l, t, transp_bg)
-    self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, norm_color)
+    self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, normColor)
 end
 -- End of Lifebar elements
 
@@ -169,7 +169,7 @@ end
 
 function Character:isImmune()   --Immune to the attack?
     local h = self.harm
-    if h.type == "shockWave" and ( self.isDisabled or self.sprite.cur_anim == "fallen" ) then
+    if h.type == "shockWave" and ( self.isDisabled or self.sprite.curAnim == "fallen" ) then
         -- shockWave has no effect on players & obstacles
         self.harm = nil --free hurt data
         return true
@@ -220,9 +220,9 @@ function Character:onHurtDamage()
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
     if h.type ~= "shockWave" then
         -- show enemy bar for other attacks
-        h.source.victim_infoBar = self.infoBar:setAttacker(h.source)
+        h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
         if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
-            self.victim_infoBar = h.source.infoBar:setAttacker(self)
+            self.victimInfoBar = h.source.infoBar:setAttacker(self)
         end
     end
     -- Score
@@ -455,13 +455,13 @@ Character.slide = {name = "slide", start = Character.slideStart, exit = nop, upd
 function Character:standStart()
     self.isHittable = true
     self.z = 0 --TODO add fall if z > 0
-    if self.sprite.cur_anim == "walk" or self.sprite.cur_anim == "walkHold" then
-        self.delay_animation_coolDown = 0.12
+    if self.sprite.curAnim == "walk" or self.sprite.curAnim == "walkHold" then
+        self.delayAnimation_coolDown = 0.12
     else
-        if not self.sprite.cur_anim then
+        if not self.sprite.curAnim then
             self:setSprite("stand")
         end
-        self.delay_animation_coolDown = 0.06
+        self.delayAnimation_coolDown = 0.06
     end
     self:removeTweenMove()
     self.victims = {}
@@ -474,14 +474,14 @@ function Character:standUpdate(dt)
     if not self.b.attack:isDown() then
         self.canAttack = true
     end
-    self.delay_animation_coolDown = self.delay_animation_coolDown - dt
-    if self.delay_animation_coolDown <= 0 then
+    self.delayAnimation_coolDown = self.delayAnimation_coolDown - dt
+    if self.delayAnimation_coolDown <= 0 then
         if self.b.attack:isDown() then
-            if self.sprite.cur_anim ~= "standHold" then
+            if self.sprite.curAnim ~= "standHold" then
                 self:setSpriteIfExists("standHold")
             end
         else
-            if self.sprite.cur_anim ~= "stand" then
+            if self.sprite.curAnim ~= "stand" then
                 self:setSprite("stand")
             end
         end
@@ -546,8 +546,8 @@ Character.stand = {name = "stand", start = Character.standStart, exit = nop, upd
 
 function Character:walkStart()
     self.isHittable = true
-    if self.sprite.cur_anim == "standHold"
-        or ( self.sprite.cur_anim == "duck" and self.b.attack:isDown() )
+    if self.sprite.curAnim == "standHold"
+        or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() )
         then
         self:setSprite("walkHold")
     else
@@ -592,7 +592,7 @@ function Character:walkUpdate(dt)
     if self.b.attack:isDown() then
         local grabbed = self:checkForGrab(6)
         if grabbed then
-            if grabbed.face == -self.face and grabbed.sprite.cur_anim == "walkHold"
+            if grabbed.face == -self.face and grabbed.sprite.curAnim == "walkHold"
             then
                 --back off 2 simultaneous grabbers
                 if self.x < grabbed.x then
@@ -615,15 +615,15 @@ function Character:walkUpdate(dt)
             end
             if self.moves.grab and self:doGrab(grabbed) then
                 local g = self.hold
-                self.victim_infoBar = g.target.infoBar:setAttacker(self)
+                self.victimInfoBar = g.target.infoBar:setAttacker(self)
                 return
             end
         end
-        if self.sprite.cur_anim ~= "walkHold" then
+        if self.sprite.curAnim ~= "walkHold" then
             self:setSpriteIfExists("walkHold")
         end
     else
-        if self.sprite.cur_anim ~= "walk" then
+        if self.sprite.curAnim ~= "walk" then
             self:setSprite("walk")
         end
     end
@@ -637,7 +637,7 @@ Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update
 
 function Character:runStart()
     self.isHittable = true
-    self.delay_animation_coolDown = 0.01
+    self.delayAnimation_coolDown = 0.01
     --canJump & self.canAttack are set in the prev state
 end
 function Character:runUpdate(dt)
@@ -649,9 +649,9 @@ function Character:runUpdate(dt)
     end
     self.velx = 0
     self.vely = 0
-    self.delay_animation_coolDown = self.delay_animation_coolDown - dt
-    if self.sprite.cur_anim ~= "run"
-            and self.delay_animation_coolDown <= 0 then
+    self.delayAnimation_coolDown = self.delayAnimation_coolDown - dt
+    if self.sprite.curAnim ~= "run"
+            and self.delayAnimation_coolDown <= 0 then
         self:setSprite("run")
     end
     if self.b.horizontal:getValue() ~= 0 then
@@ -750,7 +750,7 @@ function Character:pickupStart()
     self.isHittable = false
     local loot = self:checkForLoot(9, 9)
     if loot then
-        self.victim_infoBar = loot.infoBar:setPicker(self)
+        self.victimInfoBar = loot.infoBar:setPicker(self)
         --disappearing loot
         local particles = PA_LOOT_GET:clone()
         particles:setQuads( loot.q )
@@ -947,7 +947,7 @@ Character.offensiveSpecial = {name = "offensiveSpecial", start = Character.offen
 
 function Character:jumpAttackForwardStart()
     self.isHittable = true
-    self.played_landing_anim = false
+    self.played_landingAnim = false
     self:setSprite("jumpAttackForward")
     sfx.play("voice"..self.id, self.sfx.jumpAttack)
 end
@@ -955,9 +955,9 @@ function Character:jumpAttackForwardUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
-        if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
+        if not self.played_landingAnim and self.velz < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackForwardEnd")
-            self.played_landing_anim = true
+            self.played_landingAnim = true
         end
     else
         self.velz = 0
@@ -972,16 +972,16 @@ Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jum
 
 function Character:jumpAttackLightStart()
     self.isHittable = true
-    self.played_landing_anim = false
+    self.played_landingAnim = false
     self:setSprite("jumpAttackLight")
 end
 function Character:jumpAttackLightUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
-        if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
+        if not self.played_landingAnim and self.velz < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackLightEnd")
-            self.played_landing_anim = true
+            self.played_landingAnim = true
         end
     else
         self.velz = 0
@@ -996,7 +996,7 @@ Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAtt
 
 function Character:jumpAttackStraightStart()
     self.isHittable = true
-    self.played_landing_anim = false
+    self.played_landingAnim = false
     self:setSprite("jumpAttackStraight")
     sfx.play("voice"..self.id, self.sfx.jumpAttack)
 end
@@ -1004,9 +1004,9 @@ function Character:jumpAttackStraightUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
-        if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
+        if not self.played_landingAnim and self.velz < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackStraightEnd")
-            self.played_landing_anim = true
+            self.played_landingAnim = true
         end
     else
         self.velz = 0
@@ -1021,7 +1021,7 @@ Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.j
 
 function Character:jumpAttackRunStart()
     self.isHittable = true
-    self.played_landing_anim = false
+    self.played_landingAnim = false
     self:setSprite("jumpAttackRun")
     sfx.play("voice"..self.id, self.sfx.jumpAttack)
 end
@@ -1029,9 +1029,9 @@ function Character:jumpAttackRunUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
-        if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
+        if not self.played_landingAnim and self.velz < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackRunEnd")
-            self.played_landing_anim = true
+            self.played_landingAnim = true
         end
     else
         self.velz = 0
@@ -1050,7 +1050,7 @@ function Character:fallStart()
     if self.isThrown then
         self.z = self.thrower_id.throwStart_z or 0
         self:setSprite("thrown")
-        dp("is ".. self.sprite.cur_anim)
+        dp("is ".. self.sprite.curAnim)
     else
         self:setSprite("fall")
     end
@@ -1064,9 +1064,9 @@ function Character:fallUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
-        if self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
-            if (self.isThrown and self.z < self.toFallen_anim_z)
-                or (not self.isThrown and self.z < self.toFallen_anim_z / 4)
+        if self.velz < 0 and self.sprite.curAnim ~= "fallen" then
+            if (self.isThrown and self.z < self.toFallenAnim_z)
+                or (not self.isThrown and self.z < self.toFallenAnim_z / 4)
             then
                 self:setSprite("fallen")
             end
@@ -1699,7 +1699,7 @@ function Character:shoveBackUpdate(dt)
 end
 Character.shoveBack = {name = "shoveBack", start = Character.shoveBackStart, exit = nop, update = Character.shoveBackUpdate, draw = Character.defaultDraw}
 
-local grabSwap_frames = { 1, 2, 2, 1 }
+local grabSwapFrames = { 1, 2, 2, 1 }
 function Character:grabSwapStart()
     self.isHittable = false
     self:setSprite("grabSwap")
@@ -1733,11 +1733,11 @@ function Character:grabSwapUpdate(dt)
         elseif self.x >= self.grabSwap_x then
             self.x = self.x - self.velocityRun * dt
         end
-        self.sprite.cur_frame = grabSwap_frames[ math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwap_x_fin_dist) * #grabSwap_frames ) ]
+        self.sprite.curFrame = grabSwapFrames[ math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwap_x_fin_dist) * #grabSwapFrames ) ]
         if not self.grabSwap_flipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwap_x_fin_dist / 2 then
             self.grabSwap_flipped = true
             self.face = -self.face
-            g.target:setSprite(g.target.sprite.cur_anim == "grabbedFront" and "grabbedBack" or "grabbedFront")
+            g.target:setSprite(g.target.sprite.curAnim == "grabbedFront" and "grabbedBack" or "grabbedFront")
         end
     else
         self.horizontal = -self.horizontal

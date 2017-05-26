@@ -2,7 +2,7 @@
 local r = round
 
 function Unit:draw2()
-    self.sprite.flip_h = self.face  --TODO get rid of .face
+    self.sprite.flipH = self.face  --TODO get rid of .face
     love.graphics.setColor( unpack( self.color ) )
 --    if self.shader then
 --        love.graphics.setShader(self.shader)
@@ -20,27 +20,27 @@ function Unit:draw2()
     --		if self.showPIDCoolDown > 0 then
     --			self:drawPID(self.x, self.y - self.z - 80)
     --		end
-    --		draw_debug_unitHitbox(self)
-    draw_debug_unit_info(self)
+    --		drawDebugUnitHitbox(self)
+    drawDebugUnitInfo(self)
 end
 
-local batch_colors = {
+local batchColors = {
     {255, 0, 0, 125},
     {0, 255, 0, 125},
     {0, 0, 255, 125 }
 }
 function Batch:draw()
-    local curr_b_color = 0
+    local curr_bColor = 0
     --local b = self.batches[self.n]
     for n = 1, #self.batches do
         local b = self.batches[n]
 
-        curr_b_color = curr_b_color + 1
-        if curr_b_color > #batch_colors then curr_b_color = 1 end
-        love.graphics.setColor(unpack(batch_colors[curr_b_color]))
+        curr_bColor = curr_bColor + 1
+        if curr_bColor > #batchColors then curr_bColor = 1 end
+        love.graphics.setColor(unpack(batchColors[curr_bColor]))
 --        self.left_stopper = b.left_stopper or 0
 --        self.right_stopper = b.right_stopper or 320
-        local y = (curr_b_color - 1 ) * 4
+        local y = (curr_bColor - 1 ) * 4
         love.graphics.rectangle( "line", b.left_stopper, y, b.right_stopper - b.left_stopper, stage.background.height - y )
         y = y + 4
         love.graphics.print( "Batch N "..n.." L:"..b.left_stopper.." R:"..b.right_stopper.." Delay:"..b.delay, b.left_stopper + 4, y )
@@ -48,7 +48,7 @@ function Batch:draw()
 
         for i = 1, #b.units do
             local u = b.units[i]
-            love.graphics.setColor(unpack(batch_colors[curr_b_color]))
+            love.graphics.setColor(unpack(batchColors[curr_bColor]))
             love.graphics.print( i.." "..(u.state or "n/a").."->"..u.unit.name, b.left_stopper + 4, y )
             love.graphics.print( " "..r(u.unit.x, 0) ..","..r(u.unit.y, 0), b.left_stopper + 4, y + 9 )
             y = y + 20

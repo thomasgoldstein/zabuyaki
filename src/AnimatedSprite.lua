@@ -96,30 +96,30 @@ function GetSpriteInstance (sprite_def)
     end
     local s = {
         def = sprite_bank[sprite_def], --Sprite reference
-        cur_anim = nil,
-        cur_frame = 1,
+        curAnim = nil,
+        curFrame = 1,
         isFirst = true, -- if the 1st frame
         isLast = false, -- if the last frame
         isFinished = false, -- last frame played till the end and the animation is not a loop
-        loop_count = 0, -- loop played times
-        elapsed_time = 0,
-        size_scale = 1,
-        time_scale = 1,
+        loopCount = 0, -- loop played times
+        elapsedTime = 0,
+        sizeScale = 1,
+        timeScale = 1,
         rotation = 0,
-        flip_h = 1, -- 1 normal, -1 mirrored
-        flip_v = 1	-- same
+        flipH = 1, -- 1 normal, -1 mirrored
+        flipV = 1	-- same
     }
     CalcSpriteAnimation(s)
 	return s
 end
 
 function SetSpriteAnimation(spr, anim)
-	spr.cur_frame = 1
-	spr.loop_count = 0
-	spr.cur_anim = anim
+	spr.curFrame = 1
+	spr.loopCount = 0
+	spr.curAnim = anim
 	spr.isFinished = false
-	spr.func_called_at_frame = -1
-	spr.elapsed_time = -math.min(love.timer.getDelta() / 2, 0.1)
+	spr.func_called_atFrame = -1
+	spr.elapsedTime = -math.min(love.timer.getDelta() / 2, 0.1)
 end
 
 function SpriteHasAnimation(spr, anim)
@@ -130,7 +130,7 @@ function SpriteHasAnimation(spr, anim)
 end
 
 function GetSpriteQuad(spr, frame_n)
-	local sc = spr.def.animations[spr.cur_anim][frame_n or spr.cur_frame]
+	local sc = spr.def.animations[spr.curAnim][frame_n or spr.curFrame]
 	return sc.q
 end
 
@@ -167,14 +167,14 @@ function CalcSpriteAnimation(spr)
 end
 
 function UpdateSpriteInstance(spr, dt, slf)
-	local s = spr.def.animations[spr.cur_anim]
-	local sc = s[spr.cur_frame]
+	local s = spr.def.animations[spr.curAnim]
+	local sc = s[spr.curFrame]
 	-- is there default delay for frames of 1 animation?
 	if not s.delay then
 		s.delay = spr.def.delay
 	end
 	if not sc then
-		error("Missing frame #"..spr.cur_frame.." in "..spr.cur_anim.." animation")
+		error("Missing frame #"..spr.curFrame.." in "..spr.curAnim.." animation")
 	end
 	-- is there delay for this frame?
 	if not sc.delay then
@@ -185,67 +185,67 @@ function UpdateSpriteInstance(spr, dt, slf)
 		sc.funcCont(slf, true) --isfuncCont = true
 	end
 	-- call custom frame func once per the frame
-	if sc.func and spr.func_called_at_frame ~= spr.cur_frame and slf then
-		spr.func_called_at_frame = spr.cur_frame
+	if sc.func and spr.func_called_atFrame ~= spr.curFrame and slf then
+		spr.func_called_atFrame = spr.curFrame
 		sc.func(slf, false) --isfuncCont = false
 	end
-	--spr.def.animations[spr.cur_anim]
+	--spr.def.animations[spr.curAnim]
 	--Increment the internal counter.
-	spr.elapsed_time = spr.elapsed_time + dt
+	spr.elapsedTime = spr.elapsedTime + dt
 
 	--We check we need to change the current frame.
-	if spr.elapsed_time > sc.delay * spr.time_scale then
+	if spr.elapsedTime > sc.delay * spr.timeScale then
 		--Check if we are at the last frame.
-		if spr.cur_frame < #s then
+		if spr.curFrame < #s then
 			-- Not on last frame, increment.
-			spr.cur_frame = spr.cur_frame + 1
+			spr.curFrame = spr.curFrame + 1
 		else
 			-- Last frame, loop back to 1.
 			if s.loop then	--if cycled animation
-				spr.cur_frame = s.loopFrom or 1
-				spr.loop_count = spr.loop_count + 1 --loop played times++
+				spr.curFrame = s.loopFrom or 1
+				spr.loopCount = spr.loopCount + 1 --loop played times++
 			else
 				spr.isFinished = true
 			end
 		end
 		-- Reset internal counter on frame change.
-		spr.elapsed_time = 0
+		spr.elapsedTime = 0
 	end
 	-- First or Last frames or the 1st start frame after the loop?
-	spr.isFirst = (spr.cur_frame == 1)
-	spr.isLast = (spr.cur_frame == #s)
-	spr.isLoopFrom = (spr.cur_frame == (s.loopFrom or 1))
+	spr.isFirst = (spr.curFrame == 1)
+	spr.isLast = (spr.curFrame == #s)
+	spr.isLoopFrom = (spr.curFrame == (s.loopFrom or 1))
 	return nil
 end
 
 function DrawSpriteInstance (spr, x, y, frame)
-    local sc = spr.def.animations[spr.cur_anim][frame or spr.cur_frame or 1]
-	local scale_h, scale_v, flip_h, flip_v = sc.scale_h or 1, sc.scale_v or 1, sc.flip_h or 1, sc.flip_v or 1
+    local sc = spr.def.animations[spr.curAnim][frame or spr.curFrame or 1]
+	local scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
 	local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
 	local y_shift = y
-	if flip_v == -1 then
-		y_shift = y - sc.oy * spr.size_scale
+	if flipV == -1 then
+		y_shift = y - sc.oy * spr.sizeScale
 	end
     love.graphics.draw (
 		image_bank[spr.def.sprite_sheet], --The image
 		sc.q, --Current frame of the current animation
-		math.floor((x + rx * spr.flip_h * flip_h) * 2) / 2, math.floor((y_shift + ry) * 2) / 2,
-		(spr.rotation + rotate) * spr.flip_h * flip_h,
-		spr.size_scale * spr.flip_h * scale_h * flip_h,
-		spr.size_scale * spr.flip_v * scale_v * flip_v,
+		math.floor((x + rx * spr.flipH * flipH) * 2) / 2, math.floor((y_shift + ry) * 2) / 2,
+		(spr.rotation + rotate) * spr.flipH * flipH,
+		spr.sizeScale * spr.flipH * scale_h * flipH,
+		spr.sizeScale * spr.flipV * scale_v * flipV,
 		sc.ox, sc.oy
 	)
 end
 
-function ParseSpriteAnimation(spr, cur_anim)
-	if (cur_anim or spr.cur_anim) == "icon" then
+function ParseSpriteAnimation(spr, curAnim)
+	if (curAnim or spr.curAnim) == "icon" then
 		return "Cannot parse icons"
 	end
-	local o = (cur_anim or spr.cur_anim).." = {\n"
+	local o = (curAnim or spr.curAnim).." = {\n"
 
-	local animations = spr.def.animations[cur_anim or spr.cur_anim]
+	local animations = spr.def.animations[curAnim or spr.curAnim]
 	local sc
-	local scale_h, scale_v, flip_h, flip_v, funcCont, func
+	local scale_h, scale_v, flipH, flipV, funcCont, func
 	local ox, oy, delay
 	local x, y, w, h
 	local rotate, rx, ry
@@ -254,7 +254,7 @@ function ParseSpriteAnimation(spr, cur_anim)
 	for i = 1, #animations do
 		sc = animations[i]
 		delay = sc.delay or 100
-		scale_h, scale_v, flip_h, flip_v = sc.scale_h or 1, sc.scale_v or 1, sc.flip_h or 1, sc.flip_v or 1
+		scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
 		rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0
 		wRotate, wx, wy, wAnimation = sc.wRotate or 0, sc.wx, sc.wy or 0, sc.wAnimation or "?"
 		wFlip_h, wFlip_v = sc.wFlip_h or 1, sc.wFlip_v or 1
@@ -275,11 +275,11 @@ function ParseSpriteAnimation(spr, cur_anim)
 		if ry ~= 0 then
 			o = o .. ", ry = "..ry
 		end
-		if flip_h ~= 1 then
-			o = o .. ", flip_h = "..flip_h
+		if flipH ~= 1 then
+			o = o .. ", flipH = "..flipH
 		end
-		if flip_v ~= 1 then
-			o = o .. ", flip_v = "..flip_v
+		if flipV ~= 1 then
+			o = o .. ", flipV = "..flipV
 		end
 		if func then
 			o = o .. ", func = FUNC0"

@@ -145,14 +145,14 @@ end
 
 function Sveta:dashAttackUpdate(dt)
     self.coolDown = self.coolDown - dt
-    if self.sprite.cur_anim == "duck" and self.coolDown <= 0 then
+    if self.sprite.curAnim == "duck" and self.coolDown <= 0 then
         self.isHittable = false
         self:setSprite("dashAttack")
         self.velx = self.velocityDash
         sfx.play("voice"..self.id, self.sfx.dashAttack)
         return
     else
-        if self.sprite.cur_anim == "dashAttack" and self.sprite.isFinished then
+        if self.sprite.curAnim == "dashAttack" and self.sprite.isFinished then
             self:setState(self.stand)
             return
         end

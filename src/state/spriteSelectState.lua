@@ -204,7 +204,7 @@ function spriteSelectState:draw()
 --    if cur_players_hero_set.shader then
 --        love.graphics.setShader()
 --    end
-    show_debug_indicator()
+    showDebug_indicator()
     push:finish()
 end
 
@@ -247,13 +247,13 @@ end
 function spriteSelectState:showCurrentSprite()
     if menu_state == 1 then
         sprite = GetSpriteInstance(heroes[menu[menu_state].n].sprite_instance)
-        --sprite.size_scale = 2
+        --sprite.sizeScale = 2
         SetSpriteAnimation(sprite,"stand")
 
     elseif menu_state == 2 then
         if weapons[menu[menu_state].n] then
             sprite = GetSpriteInstance(weapons[menu[menu_state].n].sprite_instance)
-            --sprite.size_scale = 2
+            --sprite.sizeScale = 2
             SetSpriteAnimation(sprite,"stand")
         else
             sprite = nil

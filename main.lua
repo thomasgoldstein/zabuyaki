@@ -212,14 +212,14 @@ local function poll_controls(dt)
     end
 end
 
-slow_mo_counter = 0
+slowMoCounter = 0
 function love.update(dt)
     if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0
         and Gamestate.current() == arcadeState
     then
-        slow_mo_counter = slow_mo_counter + 1
-        if slow_mo_counter >= GLOBAL_SETTING.SLOW_MO then
-            slow_mo_counter = 0
+        slowMoCounter = slowMoCounter + 1
+        if slowMoCounter >= GLOBAL_SETTING.SLOW_MO then
+            slowMoCounter = 0
             poll_controls(dt)
         else
             return

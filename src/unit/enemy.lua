@@ -82,20 +82,20 @@ end
 function Enemy:decreaseHp(damage)
     self.hp = self.hp - damage
     if self.hp <= 0 then
-        self.hp = self.max_hp + self.hp
+        self.hp = self.maxHp + self.hp
         self.lives = self.lives - 1
         if self.lives <= 0 then
             self.hp = 0
         else
-            self.infoBar.hp = self.max_hp -- prevent green fill up
-            self.infoBar.old_hp = self.max_hp
+            self.infoBar.hp = self.maxHp -- prevent green fill up
+            self.infoBar.old_hp = self.maxHp
         end
     end
 end
 
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Enemy:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
+function Enemy:drawTextInfo(l, t, transp_bg, icon_width, normColor)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.shake.x + icon_width + 2, t + 9,
         transp_bg)

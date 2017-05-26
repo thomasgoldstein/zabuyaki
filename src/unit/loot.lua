@@ -51,7 +51,7 @@ function Loot:draw(l,t,w,h)
             self.q, --Current frame of the current animation
             self.x, self.y - self.z,
             0, --spr.rotation
-            1, 1, --spr.size_scale * spr.flip_h, spr.size_scale * spr.flip_v,
+            1, 1, --spr.sizeScale * spr.flipH, spr.sizeScale * spr.flipV,
             self.ox, self.oy
         )
     end
@@ -61,7 +61,7 @@ end
 function Loot:initFaceIcon(target)
     target.sprite = self.sprite
     target.q = self.q  --quad
-    target.icon_color = { 255, 255, 255, 255 }
+    target.iconColor = { 255, 255, 255, 255 }
 end
 
 function Loot:drawFaceIcon(l, t)
@@ -74,14 +74,14 @@ end
 
 local calcBarTransparency = calcBarTransparency
 local printWithShadow = printWithShadow
-function Loot:drawBar(l,t,w,h, icon_width, norm_color)
+function Loot:drawBar(l,t,w,h, icon_width, normColor)
     local transp_bg = 255 * calcBarTransparency(self.coolDown)
     self:drawFaceIcon(l, t, transp_bg)
     love.graphics.setFont(gfx.font.arcade3)
     love.graphics.setColor(255, 255, 255, transp_bg)
     printWithShadow(self.name, l + self.x + icon_width + 4 + 0, t + self.y + 9 - 0, transp_bg)
-    norm_color[4] = transp_bg
-    love.graphics.setColor( unpack( norm_color ) )
+    normColor[4] = transp_bg
+    love.graphics.setColor( unpack( normColor ) )
     printWithShadow(self.note, l + self.x + icon_width + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transp_bg)
 end
 -- End of Lifebar elements

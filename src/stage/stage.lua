@@ -7,8 +7,8 @@ local max_player_group_distance = 320 + 160 - 90
 local min_player_group_distance = 320 + 160 - 90
 
 -- Zooming
-local max_zoom = display.inner.min_scale --4 -- zoom in. default value
-local min_zoom = display.inner.max_scale --3 -- zoom out
+local max_zoom = display.inner.minScale --4 -- zoom in. default value
+local min_zoom = display.inner.maxScale --3 -- zoom out
 local zoom_speed = 2 -- speed of zoom-in-out transition
 local max_distance_no_zoom = 200   --between players
 local min_distance_to_keep_zoom = 190   --between players
@@ -99,7 +99,7 @@ function Stage:moveStoppers(x1, x2)
     mainCamera:setWorld(math.floor(self.left_stopper.x), 0, math.floor(self.right_stopper.x - self.left_stopper.x), self.worldHeight)
 end
 
-local player_group_stoppers_time = 0
+local player_group_stoppersTime = 0
 function Stage:updateZStoppers(dt)
     if self.player_group_stoppers_mode == "check" then
         if self.player_group_distance > max_player_group_distance then
@@ -108,11 +108,11 @@ function Stage:updateZStoppers(dt)
     elseif self.player_group_stoppers_mode == "set" then
         self.left_player_group_limit_stopper:moveTo(self.minx - 30, self.worldHeight / 2)
         self.right_player_group_limit_stopper:moveTo(self.maxx + 30, self.worldHeight / 2)
-        player_group_stoppers_time = 0.1
+        player_group_stoppersTime = 0.1
         self.player_group_stoppers_mode = "wait"
     elseif self.player_group_stoppers_mode == "wait" then
-        player_group_stoppers_time = player_group_stoppers_time - dt
-        if player_group_stoppers_time < 0 and self.player_group_distance < min_player_group_distance then
+        player_group_stoppersTime = player_group_stoppersTime - dt
+        if player_group_stoppersTime < 0 and self.player_group_distance < min_player_group_distance then
             self.player_group_stoppers_mode = "release"
         end
     else --if self.player_group_stoppers_mode == "release" then
@@ -130,29 +130,29 @@ function Stage:resetTime()
     self.time_left = GLOBAL_SETTING.TIMER
 end
 
-local txt_time
+local txtTime
 function Stage:displayTime(screen_width, screen_height)
     local time = 0
     if self.time_left > 0 then
         time = self.time_left
     end
-    txt_time = love.graphics.newText( gfx.font.clock, string.format( "%02d", time ) )
+    txtTime = love.graphics.newText( gfx.font.clock, string.format( "%02d", time ) )
     local transp = 255
-    local x, y = screen_width - txt_time:getWidth() - 26, 6
+    local x, y = screen_width - txtTime:getWidth() - 26, 6
     if self.time_left <= 10 then
         transp = 255 * math.abs(math.cos(10 - self.time_left * math.pi * 2))
     end
     love.graphics.setColor(55, 55, 55, transp)
-    love.graphics.draw(txt_time, x + 1, y - 1 )
+    love.graphics.draw(txtTime, x + 1, y - 1 )
     if self.time_left < 5.5 then
         love.graphics.setColor(240, 40, 40, transp)
     else
         love.graphics.setColor(255, 255, 255, transp)
     end
-    love.graphics.draw(txt_time, x, y )
+    love.graphics.draw(txtTime, x, y )
 end
 
-local beep_timer = 0
+local beepTimer = 0
 function Stage:update(dt)
     if self.mode == "normal" then
         self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
@@ -178,10 +178,10 @@ function Stage:update(dt)
             end
         end
         if self.time_left <= 10.6 and self.time_left >= 0 then
-            if beep_timer - 1 == math.floor(self.time_left + 0.5) then
+            if beepTimer - 1 == math.floor(self.time_left + 0.5) then
                 sfx.play("sfx", "menuMove")
             end
-            beep_timer = math.floor(self.time_left + 0.5)
+            beepTimer = math.floor(self.time_left + 0.5)
         end
     elseif self.mode == "event" then
         if self.event then
@@ -284,8 +284,8 @@ function Stage:setCamera(dt)
     end
     -- Correct coord_y according to the zoom stage
     coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
---    local delta_y = display.inner.resolution.height * display.inner.min_scale - display.inner.resolution.height * display.inner.max_scale
---    coord_y = coord_y - 2 * delta_y * (display.inner.min_scale - mainCamera:getScale()) * display.inner.min_scale / display.inner.max_scale
+--    local delta_y = display.inner.resolution.height * display.inner.minScale - display.inner.resolution.height * display.inner.maxScale
+--    coord_y = coord_y - 2 * delta_y * (display.inner.minScale - mainCamera:getScale()) * display.inner.minScale / display.inner.maxScale
      mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
 end
 

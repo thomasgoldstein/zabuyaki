@@ -49,7 +49,7 @@ function dpo(o, txt)
 end
 
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
-function show_debug_indicator(size, x, y)
+function showDebug_indicator(size, x, y)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
@@ -61,7 +61,7 @@ function show_debug_indicator(size, x, y)
     end
 end
 
-function show_debug_controls()
+function showDebug_controls()
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setFont(gfx.font.arcade3)
         --debug draw P1 / P2 pressed buttons
@@ -115,7 +115,7 @@ function show_debug_controls()
     end
 end
 
-function show_debug_boxes()
+function showDebug_boxes()
     if GLOBAL_SETTING.DEBUG then
         local a
         -- draw attack hitboxes
@@ -130,18 +130,18 @@ function show_debug_boxes()
     end
 end
 
-function clear_debug_boxes()
+function clearDebug_boxes()
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes = {}
     end
 end
 
-function watch_debug_variables()
+function watchDebug_variables()
     if GLOBAL_SETTING.DEBUG then
     end
 end
 
-function check_debug_keys(key)
+function checkDebug_keys(key)
     if GLOBAL_SETTING.DEBUG then
         if key == '0' then
             stage.objects:dp()
@@ -158,7 +158,7 @@ function check_debug_keys(key)
     end
 end
 
-function draw_debug_unit_cross(slf)
+function drawDebugUnit_cross(slf)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(127, 127, 127, 127)
         love.graphics.line( slf.x - 30, slf.y - slf.z, slf.x + 30, slf.y - slf.z )
@@ -167,7 +167,7 @@ function draw_debug_unit_cross(slf)
     end
 end
 
-function draw_debug_unitHitbox(a)
+function drawDebugUnitHitbox(a)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 150)
 --        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
@@ -175,7 +175,7 @@ function draw_debug_unitHitbox(a)
     end
 end
 
-function draw_debug_unit_info(a)
+function drawDebugUnitInfo(a)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setFont(gfx.font.debug)
         if a.hp <= 0 then

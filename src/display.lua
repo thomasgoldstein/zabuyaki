@@ -3,8 +3,8 @@
 local disp320x240 = {
     inner = {
         resolution = { width = 320, height = 240 },
-        min_scale = 1,
-        max_scale = 0.75,
+        minScale = 1,
+        maxScale = 0.75,
         y_divider = 2
     },
     final = {
@@ -16,8 +16,8 @@ local disp320x240 = {
 local disp640x480 = {
     inner = {
         resolution = { width = 640, height = 480 },
-        min_scale = 2,
-        max_scale = 1.5,
+        minScale = 2,
+        maxScale = 1.5,
         y_divider = 2
     },
     final = {
@@ -29,8 +29,8 @@ local disp640x480 = {
 local disp1280x960 = {
     inner = {
         resolution = { width = 1280, height = 968 },
-        min_scale = 4,
-        max_scale = 3,
+        minScale = 4,
+        maxScale = 3,
         y_divider = 2
     },
     final = {

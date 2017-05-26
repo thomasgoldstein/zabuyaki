@@ -72,7 +72,7 @@ function pauseState:draw()
         -- draw camera stuff here
         love.graphics.setColor(255, 255, 255, 255)
         stage:draw(l,t,w,h)
-        show_debug_boxes() -- debug draw collision boxes
+        showDebug_boxes() -- debug draw collision boxes
     end)
     love.graphics.setCanvas()
     push:start()
@@ -124,7 +124,7 @@ function pauseState:draw()
     love.graphics.setColor(255, 255, 255, 220 + math.sin(time)*35)
     love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2, 40)
 
-    show_debug_indicator()
+    showDebug_indicator()
     push:finish()
 end
 

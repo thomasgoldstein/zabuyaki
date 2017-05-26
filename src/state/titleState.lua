@@ -64,7 +64,7 @@ function titleState:resume()
     love.graphics.setLineWidth( 2 )
 end
 
-local function reset_time()
+local function resetTime()
     if mode == "menufadein" then
         if time > time_to_menu_fade then
             time = time_to_menu_fade
@@ -145,7 +145,7 @@ function titleState:update(dt)
         if menu_state ~= old_menu_state then
             sfx.play("sfx","menuMove")
             old_menu_state = menu_state
-            reset_time()
+            resetTime()
         end
         self:player_input(Control1)
     end
@@ -190,7 +190,7 @@ function titleState:draw()
             menu_state = i
         end
     end
-    show_debug_indicator()
+    showDebug_indicator()
     push:finish()
 end
 

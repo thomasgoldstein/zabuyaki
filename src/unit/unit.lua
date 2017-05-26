@@ -24,8 +24,8 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.subtype = ""
     self.coolDownDeath = 3 --seconds to remove
     self.lives = f.lives or self.lives or 0
-    self.max_hp = f.hp or self.hp or 1
-    self.hp = self.max_hp
+    self.maxHp = f.hp or self.hp or 1
+    self.hp = self.maxHp
 	self.scoreBonus = f.score or self.scoreBonus or 0 --goes to your killer
 	self.b = input or DUMMY_CONTROL
 
@@ -151,11 +151,11 @@ function Unit:showHitMarks(dmg, z, x_offset)
 end
 
 function Unit:getMovementSpeed()
-    if self.sprite.cur_anim == "walk" then
+    if self.sprite.curAnim == "walk" then
         return self.velocityWalk, self.velocityWalk_y
-    elseif self.sprite.cur_anim == "walkHold" then
+    elseif self.sprite.curAnim == "walkHold" then
         return self.velocityWalkHold, self.velocityWalkHold_y
-    elseif self.sprite.cur_anim == "run" then
+    elseif self.sprite.curAnim == "run" then
         return self.velocityRun, self.velocityRun_y
     end
     --TODO add jumps or refactor
@@ -259,8 +259,8 @@ function Unit:calcShadowSpriteAndTransparency()
 	end
     local spr = self.sprite
     local image = image_bank[spr.def.sprite_sheet]
-    local sc = spr.def.animations[spr.cur_anim][spr.cur_frame]
-    local shadowAngle = -stage.shadowAngle * spr.flip_h
+    local sc = spr.def.animations[spr.curAnim][spr.curFrame]
+    local shadowAngle = -stage.shadowAngle * spr.flipH
     return image, spr, sc, shadowAngle, -2
 end
 
@@ -272,7 +272,7 @@ function Unit:drawShadow(l,t,w,h)
 			sc.q, --Current frame of the current animation
 			self.x + self.shake.x, self.y + self.z/6 + y_shift or 0,
 			0,
-			spr.flip_h,
+			spr.flipH,
 			-stage.shadowHeight,
 			sc.ox, sc.oy,
 			shadowAngle
@@ -308,7 +308,7 @@ end
 local states_for_holdAttack = {stand = true, walk = true, run = true }
 function Unit:defaultDraw(l,t,w,h)
 	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
-		self.sprite.flip_h = self.face  --TODO get rid of .face
+		self.sprite.flipH = self.face  --TODO get rid of .face
         if self.coolDownDeath < 1 then
             self.color[4] = 255 * math.sin( self.coolDownDeath )
 		else
@@ -337,8 +337,8 @@ function Unit:defaultDraw(l,t,w,h)
 		if self.showPIDCoolDown > 0 then
 			self:drawPID(self.x, self.y - self.z - 80)
 		end
-		draw_debug_unitHitbox(self)
-		draw_debug_unit_info(self)
+		drawDebugUnitHitbox(self)
+		drawDebugUnitInfo(self)
 	end
 end
 
@@ -440,11 +440,11 @@ function Unit:calcFriction(dt, friction)
     end
 end
 
-function Unit:calcMovement(dt, use_friction, friction, do_notMove_unit)
+function Unit:calcMovement(dt, use_friction, friction, do_notMoveUnit)
 	if self.z <= 0 and use_friction then
 		self:calcFriction(dt, friction)
 	end
-	if not do_notMove_unit then
+	if not do_notMoveUnit then
 		self:checkCollisionAndMove(dt)
 	end
 end
@@ -452,8 +452,8 @@ end
 function Unit:calcDamageFrame()
 	-- HP max..0 / Frame 1..#max
 	local spr = self.sprite
-	local s = spr.def.animations[spr.cur_anim]
-	local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.max_hp)+1,
+	local s = spr.def.animations[spr.curAnim]
+	local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.maxHp)+1,
 		1, #s)
 	return n
 end
@@ -479,7 +479,7 @@ function Unit:moveStatesApply(moves, frame)
 		error("ERROR: No target for apply")
 	end
 	local i = g.init
-	frame = frame or self.sprite.cur_frame
+	frame = frame or self.sprite.curFrame
 	if not moves or not moves[frame] then
 		return
 	end
