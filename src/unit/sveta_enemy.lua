@@ -129,7 +129,7 @@ end
 
 function Sveta:dashAttack_start()
     self.isHittable = true
-    self:remove_tween_move()
+    self:removeTweenMove()
     dpo(self, self.state)
     self.cool_down = 0.2
     self:setSprite("duck")

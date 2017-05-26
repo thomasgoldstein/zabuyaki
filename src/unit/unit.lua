@@ -350,7 +350,7 @@ function Unit:updateAI(dt)
 end
 
 -- stop unit from moving by tweening
-function Unit:remove_tween_move()
+function Unit:removeTweenMove()
 	--dp(self.name.." removed tween move")
 	self.move = nil
 end

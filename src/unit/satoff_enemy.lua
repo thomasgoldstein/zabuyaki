@@ -152,7 +152,7 @@ function Satoff:updateAI(dt)
 end
 
 function Satoff:combo_start()
-    self:remove_tween_move()
+    self:removeTweenMove()
     Character.combo_start(self)
     self.velx = self.velocity_dash
 end

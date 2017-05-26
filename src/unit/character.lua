@@ -201,7 +201,7 @@ function Character:onHurt()
         self.harm = nil
         return
     end
-    self:remove_tween_move()
+    self:removeTweenMove()
     self:onFriendlyAttack()
     self:onHurtDamage()
     self:afterOnHurt()
@@ -216,7 +216,7 @@ function Character:onHurtDamage()
     if h.continuous then
         h.source.victims[self] = true
     end
-    self:release_grabbed()
+    self:releaseGrabbed()
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
     if h.type ~= "shockWave" then
         -- show enemy bar for other attacks
@@ -463,7 +463,7 @@ function Character:stand_start()
         end
         self.delay_animation_cool_down = 0.06
     end
-    self:remove_tween_move()
+    self:removeTweenMove()
     self.victims = {}
     self.n_grabAttack = 0
 end
@@ -1045,7 +1045,7 @@ end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRun_start, exit = nop, update = Character.jumpAttackRun_update, draw = Character.default_draw}
 
 function Character:fall_start()
-    self:remove_tween_move()
+    self:removeTweenMove()
     self.isHittable = false
     if self.isThrown then
         self.z = self.thrower_id.throw_start_z or 0
@@ -1160,7 +1160,7 @@ function Character:dead_start()
     dp(self.name.." is dead.")
     self.hp = 0
     self.harm = nil
-    self:release_grabbed()
+    self:releaseGrabbed()
     if self.z <= 0 then
         self.z = 0
     end
@@ -1193,7 +1193,7 @@ Character.dead = {name = "dead", start = Character.dead_start, exit = nop, updat
 function Character:combo_start()
     self.isHittable = true
     self.horizontal = self.face
-    self:remove_tween_move()
+    self:removeTweenMove()
     if self.n_combo > self.sprite.def.max_combo or self.n_combo < 1 then
         self.n_combo = 1
     end
@@ -1269,7 +1269,7 @@ function Character:doGrab(target)
         return false
     end
     --the grabbed
-    target:release_grabbed()	-- your grab targed releases one it grabs
+    target:releaseGrabbed()	-- your grab targed releases one it grabs
     g_target.source = self
     g_target.target = nil
     g_target.cool_down = self.cool_down_grab
@@ -1361,18 +1361,18 @@ function Character:grab_update(dt)
             end
             self.velx = self.velocity_back_off --move from source
             self.cool_down = 0.0
-            self:release_grabbed()
+            self:releaseGrabbed()
             self:setState(self.stand)
             return
         end
         --special attacks
         if self.b.attack:isDown() and self.can_jump and self.b.jump:isDown() then
             if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
-                self:release_grabbed()
+                self:releaseGrabbed()
                 self:setState(self.offensiveSpecial)
                 return
             elseif self.moves.defensiveSpecial then
-                self:release_grabbed()
+                self:releaseGrabbed()
                 self:setState(self.defensiveSpecial)
                 return
             end
@@ -1381,25 +1381,25 @@ function Character:grab_update(dt)
         if self.b.attack:isDown() and self.can_attack then
             --if self.sprite.isFinished then
             if self.moves.shoveForward and self.b.horizontal:getValue() == self.face then
-                g.target:remove_tween_move()
-                self:remove_tween_move()
+                g.target:removeTweenMove()
+                self:removeTweenMove()
                 self:setState(self.shoveForward)
             elseif self.moves.shoveBack and self.b.horizontal:getValue() == -self.face then
-                g.target:remove_tween_move()
-                self:remove_tween_move()
+                g.target:removeTweenMove()
+                self:removeTweenMove()
                 self:setState(self.shoveBack)
             elseif self.moves.shoveUp and self.b.vertical:isDown(-1) then
-                g.target:remove_tween_move()
-                self:remove_tween_move()
+                g.target:removeTweenMove()
+                self:removeTweenMove()
                 self:setState(self.shoveUp)
             elseif self.moves.shoveBack and self.face == g.target.face and g.target.type ~= "obstacle" then
                 --if u grab char from behind
-                g.target:remove_tween_move()
-                self:remove_tween_move()
+                g.target:removeTweenMove()
+                self:removeTweenMove()
                 self:setState(self.shoveBack)
             elseif self.moves.grabAttack then
-                g.target:remove_tween_move()
-                self:remove_tween_move()
+                g.target:removeTweenMove()
+                self:removeTweenMove()
                 self:setState(self.grabAttack)
             end
             return
@@ -1408,7 +1408,7 @@ function Character:grab_update(dt)
     else
         -- release (when not grabbing anything)
         self.cool_down = 0.0
-        self:release_grabbed()
+        self:releaseGrabbed()
         self:setState(self.stand)
     end
 
@@ -1423,13 +1423,13 @@ function Character:grab_update(dt)
 end
 Character.grab = {name = "grab", start = Character.grab_start, exit = nop, update = Character.grab_update, draw = Character.default_draw}
 
-function Character:release_grabbed()
+function Character:releaseGrabbed()
     local g = self.hold
     if g and g.target and g.target.isGrabbed then
         g.target.isGrabbed = false
         g.target.cool_down = 0.1
-        g.target:remove_tween_move()
-        self:remove_tween_move()
+        g.target:removeTweenMove()
+        self:removeTweenMove()
         self.hold = {source = nil, target = nil, cool_down = 0 }	--release a grabbed person
         return true
     end
@@ -1752,7 +1752,7 @@ function Character:grabSwap_update(dt)
     end
     self.shape:moveTo(self.x, self.y)
     if self:isStuck() then
-        self:release_grabbed()
+        self:releaseGrabbed()
         self.cool_down = 0.1	--cannot walk etc
         --self.velx = self.velocity_back_off2 --move from source
         self:setState(self.stand)

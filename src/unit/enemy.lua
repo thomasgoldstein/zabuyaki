@@ -129,7 +129,7 @@ function Enemy:dead_start()
     dp(self.name.." is dead.")
     self.hp = 0
     self.harm = nil
-    self:release_grabbed()
+    self:releaseGrabbed()
     if self.z <= 0 then
         self.z = 0
     end

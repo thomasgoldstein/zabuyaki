@@ -147,7 +147,7 @@ end
 
 function Gopper:combo_start()
     self.isHittable = true
-    self:remove_tween_move()
+    self:removeTweenMove()
     if self.n_combo > 3 or self.n_combo < 1 then
         self.n_combo = 1
     end
