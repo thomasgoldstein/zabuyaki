@@ -496,7 +496,7 @@ function Player:respawn_start()
     self.isHittable = false
     dpo(self, self.state)
     self:setSprite("respawn")
-    self.cool_down_death = 3 --seconds to remove
+    self.coolDownDeath = 3 --seconds to remove
     self.hp = self.max_hp
     self.bounced = 0
     self.velz = 0
@@ -570,11 +570,11 @@ function Player:dead_update(dt)
         return
     end
     --dp(self.name .. " - dead update", dt)
-    if self.cool_down_death <= 0 then
+    if self.coolDownDeath <= 0 then
         self:setState(self.useCredit)
         return
     else
-        self.cool_down_death = self.cool_down_death - dt
+        self.coolDownDeath = self.coolDownDeath - dt
     end
     self:calcMovement(dt)
 end

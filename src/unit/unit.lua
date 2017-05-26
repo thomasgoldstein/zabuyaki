@@ -22,7 +22,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.name = name or "Unknown"
 	self.type = "unit"
 	self.subtype = ""
-    self.cool_down_death = 3 --seconds to remove
+    self.coolDownDeath = 3 --seconds to remove
     self.lives = f.lives or self.lives or 0
     self.max_hp = f.hp or self.hp or 1
     self.hp = self.max_hp
@@ -249,7 +249,7 @@ function Unit:updateShake(dt)
 end
 
 function Unit:calcShadowSpriteAndTransparency()
-	local transparency = self.cool_down_death < 2 and 255 * math.sin(self.cool_down_death) or 255
+	local transparency = self.coolDownDeath < 2 and 255 * math.sin(self.coolDownDeath) or 255
 	if GLOBAL_SETTING.DEBUG and self.isGrabbed then
 		love.graphics.setColor(0, 100, 0, transparency) --4th is the shadow transparency
 	elseif GLOBAL_SETTING.DEBUG and not self.isHittable then
@@ -309,8 +309,8 @@ local states_for_hold_attack = {stand = true, walk = true, run = true }
 function Unit:default_draw(l,t,w,h)
 	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
 		self.sprite.flip_h = self.face  --TODO get rid of .face
-        if self.cool_down_death < 1 then
-            self.color[4] = 255 * math.sin( self.cool_down_death )
+        if self.coolDownDeath < 1 then
+            self.color[4] = 255 * math.sin( self.coolDownDeath )
 		else
 			self.color[4] = 255
 		end

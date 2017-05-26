@@ -35,7 +35,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.isMovable = f.isMovable
     self.weight = f.weight or 1.5
     self.gravity = self.gravity * self.weight
-    self.cool_down_death = 1 --seconds to remove
+    self.coolDownDeath = 1 --seconds to remove
 
     self.old_frame = 1 --Old sprite frame N to start particles on change
 
@@ -59,7 +59,7 @@ function Obstacle:drawSprite(x, y)
 end
 
 function Obstacle:calcShadowSpriteAndTransparency()
-    local transparency = self.cool_down_death < 1 and 255 * math.sin(self.cool_down_death) or 255
+    local transparency = self.coolDownDeath < 1 and 255 * math.sin(self.coolDownDeath) or 255
     if GLOBAL_SETTING.DEBUG and not self.isHittable then
         love.graphics.setColor(40, 0, 0, transparency) --4th is the shadow transparency
     else
