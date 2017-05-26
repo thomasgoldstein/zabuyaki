@@ -267,7 +267,7 @@ function Player:onHurtDamage()
     end
     -- Score
     h.source:addScore( h.damage * 10 )
-    self.killer_id = h.source
+    self.killerId = h.source
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
 
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
@@ -561,8 +561,8 @@ function Player:dead_start()
     end
     --self:onShake(1, 0, 0.1, 0.7)
     sfx.play("voice"..self.id, self.sfx.dead)
-    if self.killer_id then
-        self.killer_id:addScore( self.score_bonus )
+    if self.killerId then
+        self.killerId:addScore( self.score_bonus )
     end
 end
 function Player:dead_update(dt)
