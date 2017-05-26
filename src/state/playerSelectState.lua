@@ -264,7 +264,7 @@ function playerSelectState:enter()
       SetSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portrait_anim)
       heroes[i].sprite_portrait.size_scale = 2
     end
-    self.enable_player_select_on_start = false
+    self.enablePlayerSelectOnStart = false
     -- Prevent double press at start (e.g. auto confirmation)
     Control1.attack:update()
     Control2.attack:update()

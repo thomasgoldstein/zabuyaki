@@ -58,7 +58,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.velocity_throw_x = 110 --attack speed that causes my thrown body to the victims
     self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
-    self.friendly_damage = 10 --divide friendly damage
+    self.friendlyDamage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
     self.moves = moves_white_list --list of allowed moves
     --Inner char vars
@@ -67,13 +67,13 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.charged_at = 1    -- define # seconds when holdAttack is ready
     self.charge = 0    -- seconds of changing
     self.n_combo = 1    -- n of the combo hit
-    self.cool_down = 0  -- can't move
-    self.cool_down_combo = 0    -- can cont combo
-    self.cool_down_grab = 2
-    self.grab_release_after = 0.25 --sec if u hold 'back'
-    self.n_grabAttack = 0    -- n of the grab hits
-    self.special_tolerance_delay = 0.02 -- between pressing attack & Jump
-    self.player_select_mode = 0
+    self.coolDown = 0  -- can't move
+    self.coolDownCombo = 0    -- can cont combo
+    self.coolDownGrab = 2
+    self.grabReleaseAfter = 0.25 --sec if u hold 'back'
+    self.grabAttackN = 0    -- n of the grab hits
+    self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
+    self.playerSelectMode = 0
     --Character default sfx
     self.sfx.jump = "whoosh_heavy"
     self.sfx.throw = "whoosh_heavy"
@@ -150,7 +150,7 @@ end
 
 function Character:drawBar(l,t,w,h, icon_width, norm_color)
     love.graphics.setFont(gfx.font.arcade3)
-    local transp_bg = 255 * calcBarTransparency(self.cool_down)
+    local transp_bg = 255 * calcBarTransparency(self.coolDown)
     self:draw_lifebar(l, t, transp_bg)
     self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
     self:draw_dead_cross(l, t, transp_bg)
@@ -184,7 +184,7 @@ function Character:onFriendlyAttack()
     end
     if self.type == h.source.type and not h.isThrown then
         --friendly attack is lower by default
-        h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
+        h.damage = math.floor( (h.damage or 0) / self.friendlyDamage )
     else
         h.damage = h.damage or 0
     end
@@ -456,16 +456,16 @@ function Character:stand_start()
     self.isHittable = true
     self.z = 0 --TODO add fall if z > 0
     if self.sprite.cur_anim == "walk" or self.sprite.cur_anim == "walkHold" then
-        self.delay_animation_cool_down = 0.12
+        self.delay_animation_coolDown = 0.12
     else
         if not self.sprite.cur_anim then
             self:setSprite("stand")
         end
-        self.delay_animation_cool_down = 0.06
+        self.delay_animation_coolDown = 0.06
     end
     self:removeTweenMove()
     self.victims = {}
-    self.n_grabAttack = 0
+    self.grabAttackN = 0
 end
 function Character:stand_update(dt)
     if not self.b.jump:isDown() then
@@ -474,8 +474,8 @@ function Character:stand_update(dt)
     if not self.b.attack:isDown() then
         self.can_attack = true
     end
-    self.delay_animation_cool_down = self.delay_animation_cool_down - dt
-    if self.delay_animation_cool_down <= 0 then
+    self.delay_animation_coolDown = self.delay_animation_coolDown - dt
+    if self.delay_animation_coolDown <= 0 then
         if self.b.attack:isDown() then
             if self.sprite.cur_anim ~= "standHold" then
                 self:setSpriteIfExists("standHold")
@@ -487,8 +487,8 @@ function Character:stand_update(dt)
         end
     end
 
-    if self.cool_down_combo > 0 then
-        self.cool_down_combo = self.cool_down_combo - dt
+    if self.coolDownCombo > 0 then
+        self.coolDownCombo = self.coolDownCombo - dt
     else
         self.n_combo = 1
     end
@@ -508,7 +508,7 @@ function Character:stand_update(dt)
         return
     end
     
-    if self.cool_down <= 0 then
+    if self.coolDown <= 0 then
         --can move
         if self.b.horizontal:getValue() ~=0 then
             if self.moves.run and self:getPrevStateTime() < doubleTapDelta and self.lastFace == self.b.horizontal:getValue()
@@ -533,7 +533,7 @@ function Character:stand_update(dt)
             return
         end
     else
-        self.cool_down = self.cool_down - dt    --when <=0 u can move
+        self.coolDown = self.coolDown - dt    --when <=0 u can move
         --you can flip while you cannot move
         if self.b.horizontal:getValue() ~= 0 then
             self.face = self.b.horizontal:getValue()
@@ -603,11 +603,11 @@ function Character:walk_update(dt)
                 grabbed.horizontal = -self.horizontal
                 self:showHitMarks(22, 40, 5) --big hitmark
                 self.velx = self.velocity_back_off --move from source
-                self.cool_down = 0.0
+                self.coolDown = 0.0
                 self:setSprite("hurtHigh")
                 self:setState(self.slide)
                 grabbed.velx = grabbed.velocity_back_off --move from source
-                grabbed.cool_down = 0.0
+                grabbed.coolDown = 0.0
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
                 sfx.play("sfx"..self.id, self.sfx.grab_clash)
@@ -637,7 +637,7 @@ Character.walk = {name = "walk", start = Character.walk_start, exit = nop, updat
 
 function Character:run_start()
     self.isHittable = true
-    self.delay_animation_cool_down = 0.01
+    self.delay_animation_coolDown = 0.01
     --can_jump & self.can_attack are set in the prev state
 end
 function Character:run_update(dt)
@@ -649,9 +649,9 @@ function Character:run_update(dt)
     end
     self.velx = 0
     self.vely = 0
-    self.delay_animation_cool_down = self.delay_animation_cool_down - dt
+    self.delay_animation_coolDown = self.delay_animation_coolDown - dt
     if self.sprite.cur_anim ~= "run"
-            and self.delay_animation_cool_down <= 0 then
+            and self.delay_animation_coolDown <= 0 then
         self:setSprite("run")
     end
     if self.b.horizontal:getValue() ~= 0 then
@@ -810,7 +810,7 @@ function Character:duck2jump_start()
     self.z = 0
 end
 function Character:duck2jump_update(dt)
-    if self:getLastStateTime() < self.special_tolerance_delay then
+    if self:getLastStateTime() < self.specialToleranceDelay then
         --time for other move
         if self.b.attack:isDown() then
             if self.moves.offensiveSpecial and self.velx ~= 0 or self.b.horizontal:getValue() ~=0 then
@@ -879,7 +879,7 @@ function Character:hurt_update(dt)
             self:setState(self.getup)
             return
         end
-        self.cool_down = 0.1
+        self.coolDown = 0.1
         if self.condition and self.moves.defensiveSpecial then
             self:setState(self.defensiveSpecial)
         elseif self.isGrabbed then
@@ -927,7 +927,7 @@ function Character:dashAttack_start()
     sfx.play("voice"..self.id, self.sfx.dash_attack)
 end
 function Character:dashAttack_update(dt)
-    if self.moves.defensiveSpecial and self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
+    if self.moves.defensiveSpecial and self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
         self:setState(self.defensiveSpecial)
         return
     end
@@ -1198,10 +1198,10 @@ function Character:combo_start()
         self.n_combo = 1
     end
     self:setSprite("combo"..self.n_combo)
-    self.cool_down = 0.2
+    self.coolDown = 0.2
 end
 function Character:combo_update(dt, custom_friction)
-    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
+    if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
         if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
             return
@@ -1262,7 +1262,7 @@ function Character:doGrab(target)
         return false
     end
     if target.isGrabbed then
-        self.cool_down = 0.2
+        self.coolDown = 0.2
         return false
     end
     if not target.isHittable or target.z > 0 then
@@ -1272,13 +1272,13 @@ function Character:doGrab(target)
     target:releaseGrabbed()	-- your grab targed releases one it grabs
     g_target.source = self
     g_target.target = nil
-    g_target.cool_down = self.cool_down_grab
+    g_target.coolDown = self.coolDownGrab
     target.isGrabbed = true
     sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
     -- the grabber
     g.source = nil
     g.target = target
-    g.cool_down = self.cool_down_grab + 0.1
+    g.coolDown = self.coolDownGrab + 0.1
     g.can_grabSwap = true   --can do 1 grabSwap
 
     self:setState(self.grab)
@@ -1334,7 +1334,7 @@ function Character:grab_update(dt)
         --controlled release
         if ( self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() ) then
             self.grab_release = self.grab_release + dt
-            if self.grab_release >= self.grab_release_after then
+            if self.grab_release >= self.grabReleaseAfter then
                 g.target.isGrabbed = false
             end
         else
@@ -1351,8 +1351,8 @@ function Character:grab_update(dt)
             self.grab_release = 0
         end
         --auto release after time
-        if g.cool_down > 0 and g.target.isGrabbed then
-            g.cool_down = g.cool_down - dt
+        if g.coolDown > 0 and g.target.isGrabbed then
+            g.coolDown = g.coolDown - dt
         else
             if g.target.x > self.x then --adjust players backoff
                 self.horizontal = -1
@@ -1360,7 +1360,7 @@ function Character:grab_update(dt)
                 self.horizontal = 1
             end
             self.velx = self.velocity_back_off --move from source
-            self.cool_down = 0.0
+            self.coolDown = 0.0
             self:releaseGrabbed()
             self:setState(self.stand)
             return
@@ -1407,7 +1407,7 @@ function Character:grab_update(dt)
         end
     else
         -- release (when not grabbing anything)
-        self.cool_down = 0.0
+        self.coolDown = 0.0
         self:releaseGrabbed()
         self:setState(self.stand)
     end
@@ -1427,10 +1427,10 @@ function Character:releaseGrabbed()
     local g = self.hold
     if g and g.target and g.target.isGrabbed then
         g.target.isGrabbed = false
-        g.target.cool_down = 0.1
+        g.target.coolDown = 0.1
         g.target:removeTweenMove()
         self:removeTweenMove()
-        self.hold = {source = nil, target = nil, cool_down = 0 }	--release a grabbed person
+        self.hold = {source = nil, target = nil, coolDown = 0 }	--release a grabbed person
         return true
     end
     return false
@@ -1460,8 +1460,8 @@ function Character:grabbedFront_update(dt)
         self.can_attack = true
     end
     local g = self.hold
-    if self.isGrabbed and g.cool_down > 0 then
-        g.cool_down = g.cool_down - dt
+    if self.isGrabbed and g.coolDown > 0 then
+        g.coolDown = g.coolDown - dt
         if self.moves.defensiveSpecial
             and self.can_attack and self.b.attack:isDown()
             and self.can_jump and self.b.jump:isDown()
@@ -1476,7 +1476,7 @@ function Character:grabbedFront_update(dt)
             self.horizontal = -1
         end
         self.isGrabbed = false
-        self.cool_down = 0.1	--cannot walk etc
+        self.coolDown = 0.1	--cannot walk etc
         self.velx = self.velocity_back_off2 --move from source
         self:setState(self.stand)
         return
@@ -1500,8 +1500,8 @@ function Character:grabbedBack_update(dt)
         self.can_attack = true
     end
     local g = self.hold
-    if self.isGrabbed and g.cool_down > 0 then
-        g.cool_down = g.cool_down - dt
+    if self.isGrabbed and g.coolDown > 0 then
+        g.coolDown = g.coolDown - dt
         if self.moves.defensiveSpecial
                 and self.can_attack and self.b.attack:isDown()
                 and self.can_jump and self.b.jump:isDown()
@@ -1516,7 +1516,7 @@ function Character:grabbedBack_update(dt)
             self.horizontal = -1
         end
         self.isGrabbed = false
-        self.cool_down = 0.1	--cannot walk etc
+        self.coolDown = 0.1	--cannot walk etc
         self.velx = self.velocity_back_off2 --move from source
         self:setState(self.stand)
         return
@@ -1530,19 +1530,19 @@ function Character:grabAttack_start()
     self.isHittable = true
     local g = self.hold
     if self.moves.shoveDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
-        g.cool_down = 0
+        g.coolDown = 0
         self:setState(self.shoveDown)
         return
     else
-        g.cool_down = self.cool_down_grab + 0.1
-        g.target.hold.cool_down = self.cool_down_grab
+        g.coolDown = self.coolDownGrab + 0.1
+        g.target.hold.coolDown = self.coolDownGrab
     end
-    self.n_grabAttack = self.n_grabAttack + 1
-    self:setSprite("grabAttack"..self.n_grabAttack)
+    self.grabAttackN = self.grabAttackN + 1
+    self:setSprite("grabAttack"..self.grabAttackN)
     dp(self.name.." is grabAttack someone.")
 end
 function Character:grabAttack_update(dt)
-    if self.b.jump:isDown() and self:getLastStateTime() < self.special_tolerance_delay then
+    if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
         if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
             return
@@ -1553,7 +1553,7 @@ function Character:grabAttack_update(dt)
     end
     if self.sprite.isFinished then
         local g = self.hold
-        if self.n_grabAttack < self.sprite.def.max_grabAttack
+        if self.grabAttackN < self.sprite.def.max_grabAttack
             and g and g.target and g.target.hp > 0 then
             self:setState(self.grab, true) --do not adjust positions of pl
         else
@@ -1613,7 +1613,7 @@ function Character:shoveUp_update(dt)
         return
     end
     if self.sprite.isFinished then
-        self.cool_down = 0.2
+        self.coolDown = 0.2
         self:setState(self.stand)
         return
     end
@@ -1651,7 +1651,7 @@ function Character:shoveForward_update(dt)
         return
     end
     if self.sprite.isFinished then
-        self.cool_down = 0.2
+        self.coolDown = 0.2
         self:setState(self.stand)
         return
     end
@@ -1691,7 +1691,7 @@ function Character:shoveBack_update(dt)
         return
     end
     if self.sprite.isFinished then
-        self.cool_down = 0.2
+        self.coolDown = 0.2
         self:setState(self.stand)
         return
     end
@@ -1704,7 +1704,7 @@ function Character:grabSwap_start()
     self.isHittable = false
     self:setSprite("grabSwap")
     local g = self.hold
-    g.cool_down = g.cool_down + 0.2
+    g.coolDown = g.coolDown + 0.2
     g.can_grabSwap = false
     self.grabSwap_flipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 18
@@ -1753,7 +1753,7 @@ function Character:grabSwap_update(dt)
     self.shape:moveTo(self.x, self.y)
     if self:isStuck() then
         self:releaseGrabbed()
-        self.cool_down = 0.1	--cannot walk etc
+        self.coolDown = 0.1	--cannot walk etc
         --self.velx = self.velocity_back_off2 --move from source
         self:setState(self.stand)
         return

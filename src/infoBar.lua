@@ -45,7 +45,7 @@ function InfoBar:initialize(source)
     self.name = source.name or "Unknown"
     self.note = source.note or "EXTRA TEXT"
     self.color = norm_color
-    self.cool_down = 1
+    self.coolDown = 1
     self.id = self.source.id
     self.source:initFaceIcon(self)
     self.hp = 1
@@ -66,7 +66,7 @@ function InfoBar:setAttacker(attacker_source)
     else
         id = attacker_source.id
     end
-    self.cool_down = 3
+    self.coolDown = 3
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
         self.x, self.y = bars_coords[id].x, bars_coords[id].y + v_g
         return self
@@ -79,7 +79,7 @@ function InfoBar:setPicker(picker_source)
     if id <= MAX_PLAYERS then
         self.x, self.y = bars_coords[id].x, bars_coords[id].y + v_g
     end
-    self.cool_down = 3
+    self.coolDown = 3
     return self
 end
 
@@ -97,7 +97,7 @@ end
 
 function InfoBar:draw_dead_cross(l, t, transp_bg)
     if self.hp <= 0 then
-        love.graphics.setColor(255,255,255, 255 * math.sin(self.cool_down*20 + 17) * transp_bg)
+        love.graphics.setColor(255,255,255, 255 * math.sin(self.coolDown*20 + 17) * transp_bg)
         love.graphics.draw (
             gfx.ui.dead_icon.sprite,
             gfx.ui.dead_icon.q,
@@ -150,7 +150,7 @@ function InfoBar:draw_lifebar(l, t, transp_bg)
 end
 
 function InfoBar:draw(l,t,w,h)
-    if self.cool_down <= 0 and self.source.id > MAX_PLAYERS then
+    if self.coolDown <= 0 and self.source.id > MAX_PLAYERS then
         return
     end
     self.source.drawBar(self, 0,0,w,h, icon_width, norm_color)
@@ -184,7 +184,7 @@ function InfoBar:update(dt)
         self.color[3] = norm_n(self.color[3],norm_color[3])
         self.old_hp = self.hp
     end
-    self.cool_down = self.cool_down - dt
+    self.coolDown = self.coolDown - dt
 end
 
 return InfoBar

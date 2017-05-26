@@ -54,7 +54,7 @@ end
 function Satoff:updateAI(dt)
     Enemy.updateAI(self, dt)
 
-    self.cool_down = self.cool_down - dt --when <=0 u can move
+    self.coolDown = self.coolDown - dt --when <=0 u can move
 
     --local complete_movement = self.move:update(dt)
     self.ai_poll_1 = self.ai_poll_1 - dt
@@ -80,7 +80,7 @@ function Satoff:updateAI(dt)
                 self:setState(self.stand)
             end
         elseif self.state == "stand" then
-            if self.cool_down <= 0 then
+            if self.coolDown <= 0 then
                 --can move
                 if not self.target then
                     self:pickAttackTarget()
@@ -116,7 +116,7 @@ function Satoff:updateAI(dt)
                 self:setState(self.run)
                 return
             end
-            if self.cool_down <= 0 then
+            if self.coolDown <= 0 then
                 if math.abs(self.x - self.target.x) <= 60
                     and math.abs(self.y - self.target.y) <= 6
                 then

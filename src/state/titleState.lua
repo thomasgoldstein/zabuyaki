@@ -204,7 +204,7 @@ function titleState:confirm( x, y, button, istouch )
             sfx.play("sfx","menu_select")
             time = 0
             if GLOBAL_SETTING.DEBUG then
-                playerSelectState.enable_player_select_on_start = true
+                playerSelectState.enablePlayerSelectOnStart = true
                 playerSelectState:confirm_all_players()
                 playerSelectState:GameStart()
                 return

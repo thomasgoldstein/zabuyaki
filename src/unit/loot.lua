@@ -75,7 +75,7 @@ end
 local calcBarTransparency = calcBarTransparency
 local printWithShadow = printWithShadow
 function Loot:drawBar(l,t,w,h, icon_width, norm_color)
-    local transp_bg = 255 * calcBarTransparency(self.cool_down)
+    local transp_bg = 255 * calcBarTransparency(self.coolDown)
     self:drawFaceIcon(l, t, transp_bg)
     love.graphics.setFont(gfx.font.arcade3)
     love.graphics.setColor(255, 255, 255, transp_bg)

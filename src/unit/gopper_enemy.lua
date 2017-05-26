@@ -16,7 +16,7 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self:pickAttackTarget()
     self.type = "enemy"
     self.subtype = "gopnik"
-    self.friendly_damage = 2 --divide friendly damage
+    self.friendlyDamage = 2 --divide friendly damage
     self.face = -1
     self.sfx.dead = sfx.gopper_death
     self.sfx.dash_attack = sfx.gopper_attack
@@ -30,7 +30,7 @@ end
 function Gopper:updateAI(dt)
     Enemy.updateAI(self, dt)
 
-    self.cool_down = self.cool_down - dt --when <=0 u can move
+    self.coolDown = self.coolDown - dt --when <=0 u can move
 
     --local complete_movement = self.move:update(dt)
     self.ai_poll_1 = self.ai_poll_1 - dt
@@ -56,7 +56,7 @@ function Gopper:updateAI(dt)
                 self:setState(self.stand)
             end
         elseif self.state == "stand" then
-            if self.cool_down <= 0 then
+            if self.coolDown <= 0 then
                 --can move
                 if not self.target then
                     self:pickAttackTarget()
@@ -92,7 +92,7 @@ function Gopper:updateAI(dt)
                 self:setState(self.run)
                 return
             end
-            if self.cool_down <= 0 then
+            if self.coolDown <= 0 then
                 if math.abs(self.x - self.target.x) <= 50
                         and math.abs(self.y - self.target.y) <= 6
                 then
@@ -139,7 +139,7 @@ function Gopper:onFriendlyAttack()
         h.damage = h.damage or 0
     elseif h.source.subtype == "gopnik" then
         --Gopper can attack Gopper and Niko only
-        h.damage = math.floor( (h.damage or 0) / self.friendly_damage )
+        h.damage = math.floor( (h.damage or 0) / self.friendlyDamage )
     else
         self.harm = nil
     end
@@ -158,7 +158,7 @@ function Gopper:combo_start()
     elseif self.n_combo == 3 then
         self:setSprite("combo3")
     end
-    self.cool_down = 0.2
+    self.coolDown = 0.2
 end
 function Gopper:combo_update(dt)
     if self.sprite.isFinished then

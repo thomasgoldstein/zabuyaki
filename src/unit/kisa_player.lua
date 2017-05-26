@@ -43,7 +43,7 @@ end
 function Kisa:combo_start()
     self.isHittable = true
     self.horizontal = self.face
-    self.cool_down = 0.2
+    self.coolDown = 0.2
 end
 function Kisa:combo_update(dt)
     self:setState(self.stand)

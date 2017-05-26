@@ -36,21 +36,21 @@ local combo_attack1 = function(slf, cont)
         { left = 28, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
-	slf.cool_down_combo = 0.4
+	slf.coolDownCombo = 0.4
 end
 local combo_attack2 = function(slf, cont)
 	slf:checkAndAttack(
         { left = 28, width = 27, height = 12, damage = 8, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
-	slf.cool_down_combo = 0.4
+	slf.coolDownCombo = 0.4
 end
 local combo_attack3 = function(slf, cont)
 	slf:checkAndAttack(
         { left = 28, width = 27, height = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" },
         cont
     )
-	slf.cool_down_combo = 0.4
+	slf.coolDownCombo = 0.4
 end
 local combo_attack4 = function(slf, cont)
 	slf:checkAndAttack(

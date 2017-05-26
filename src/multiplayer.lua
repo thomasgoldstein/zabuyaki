@@ -3,7 +3,7 @@
 function checkPlayersRespawn(stage)
     local p = SELECT_NEW_PLAYER
     if p[#p] then
-        p[#p].player.player_select_mode = 3 -- Respawn mode
+        p[#p].player.playerSelectMode = 3 -- Respawn mode
         if p[#p].id == 1 then
             stage.world:remove(player1.shape)
             stage.objects:remove(player1)
@@ -25,28 +25,28 @@ function checkPlayersRespawn(stage)
 end
 
 function allowPlayersSelect(players)
-    if playerSelectState.enable_player_select_on_start then
+    if playerSelectState.enablePlayerSelectOnStart then
         --Let select 3 players in the beginning of the stage for DEBUG
         if players[1] then
             player1.lives = 0
             player1:setState(player1.useCredit)
             player1.isDisabled = true
-            player1.cool_down = 10
-            player1.player_select_mode = 0
+            player1.coolDown = 10
+            player1.playerSelectMode = 0
         end
         if players[2] then
             player2.lives = 0
             player2:setState(player2.useCredit)
             player2.isDisabled = true
-            player2.cool_down = 10
-            player2.player_select_mode = 0
+            player2.coolDown = 10
+            player2.playerSelectMode = 0
         end
         if players[3] then
             player3.lives = 0
             player3:setState(player3.useCredit)
             player3.isDisabled = true
-            player3.cool_down = 10
-            player3.player_select_mode = 0
+            player3.coolDown = 10
+            player3.playerSelectMode = 0
         end
     end
 end
@@ -131,7 +131,7 @@ function fixPlayersPalette(player)
         if p and p.palette
             and p ~= player and p.name == player.name
                 --other player selecting on respawning
-            and ( p.state ~= "useCredit" or ( p.player_select_mode == 2 and p.player_select_mode == 3 ) )
+            and ( p.state ~= "useCredit" or ( p.playerSelectMode == 2 and p.playerSelectMode == 3 ) )
         then
             palettes[p.palette] = true
         end

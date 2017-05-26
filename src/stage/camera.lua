@@ -2,8 +2,8 @@ local class = require "lib/middleclass"
 local Camera = class("Camera")
 
 function Camera:initialize(worldWidth, worldHeight, x, y)
-    self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0 }
-    self.spin = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0 }
+    self.shake = {x = 0, y = 0, sx = 0, sy = 0, coolDown = 0, f = 0, freq = 0 }
+    self.spin = {x = 0, y = 0, sx = 0, sy = 0, coolDown = 0, f = 0, freq = 0 }
     self.x = x or 160
 --    self.y = y or 460
     self.y = y or 360
@@ -18,15 +18,15 @@ function Camera:setWorld(x, y, worldWidth, worldHeight)
     self.cam:setWorld(x, y, worldWidth, worldHeight)
 end
 
-function Camera:onShake(sx, sy, freq,cool_down)
+function Camera:onShake(sx, sy, freq,coolDown)
     --shaking sprite
-    self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, cool_down = cool_down or 0.2,
+    self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, coolDown = coolDown or 0.2,
         m = {-1, 0, 1, 0}, i = 1}
 end
 
 function Camera:update(dt, x, y)
-    if self.shake.cool_down > 0 then
-        self.shake.cool_down = self.shake.cool_down - dt
+    if self.shake.coolDown > 0 then
+        self.shake.coolDown = self.shake.coolDown - dt
 
         if self.shake.f > 0 then
             self.shake.f = self.shake.f - dt
@@ -39,7 +39,7 @@ function Camera:update(dt, x, y)
                 self.shake.i = 1
             end
         end
-        if self.shake.cool_down <= 0 then
+        if self.shake.coolDown <= 0 then
             self.shake.x, self.shake.y = 0, 0
         end
     end
