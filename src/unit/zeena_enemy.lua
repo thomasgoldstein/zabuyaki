@@ -10,7 +10,7 @@ local CheckCollision = CheckCollision
 
 function Zeena:initialize(name, sprite, input, x, y, f)
     self.hp = self.hp or 50
-    self.score_bonus = self.score_bonus or 300
+    self.scoreBonus = self.scoreBonus or 300
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
     self.subtype = "gopnitsa"

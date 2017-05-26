@@ -10,7 +10,7 @@ local CheckCollision = CheckCollision
 
 function Sveta:initialize(name, sprite, input, x, y, f)
     self.hp = self.hp or 60
-    self.score_bonus = self.score_bonus or 350
+    self.scoreBonus = self.scoreBonus or 350
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
     self.subtype = "gopnitsa"

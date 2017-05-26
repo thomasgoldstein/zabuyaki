@@ -1166,7 +1166,7 @@ function Character:dead_start()
     end
     sfx.play("voice"..self.id, self.sfx.dead)
     if self.killerId then
-        self.killerId:addScore( self.score_bonus )
+        self.killerId:addScore( self.scoreBonus )
     end
 end
 function Character:dead_update(dt)

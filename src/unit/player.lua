@@ -562,7 +562,7 @@ function Player:dead_start()
     --self:onShake(1, 0, 0.1, 0.7)
     sfx.play("voice"..self.id, self.sfx.dead)
     if self.killerId then
-        self.killerId:addScore( self.score_bonus )
+        self.killerId:addScore( self.scoreBonus )
     end
 end
 function Player:dead_update(dt)

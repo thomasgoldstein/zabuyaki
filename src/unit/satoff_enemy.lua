@@ -11,7 +11,7 @@ local CheckCollision = CheckCollision
 function Satoff:initialize(name, sprite, input, x, y, f)
     self.lives = self.lives or 3
     self.hp = self.hp or 100
-    self.score_bonus = self.score_bonus or 1500
+    self.scoreBonus = self.scoreBonus or 1500
     self.height = self.height or 55
     if not f then
         f = {}

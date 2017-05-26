@@ -11,7 +11,7 @@ local CheckCollision = CheckCollision
 function Beatnick:initialize(name, sprite, input, x, y, f)
     self.lives = self.lives or 2
     self.hp = self.hp or 100
-    self.score_bonus = self.score_bonus or 800
+    self.scoreBonus = self.scoreBonus or 800
     self.height = self.height or 55
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
