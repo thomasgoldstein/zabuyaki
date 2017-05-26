@@ -43,8 +43,8 @@ end
 
 function Player:setState(state, condition)
     if state then
-        self.time_prev_state = self.time_last_state
-        self.time_last_state = love.timer.getTime()
+        self.time_prev_state = self.lastStateTime
+        self.lastStateTime = love.timer.getTime()
         self.prev_state = self.last_state
         self.last_state = self.state
         self.last_face = self.face
