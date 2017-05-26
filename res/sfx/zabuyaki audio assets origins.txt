@@ -103,7 +103,7 @@ CC0
 by Juhani Junkala
 
 
-fall_down:
+fallDown:
 
 lifted from the free library "Sonniss.com - GDC - Game Audio Bundle"
 
@@ -111,7 +111,7 @@ whoosh_heavy:
 
 lifted from the free library "Sonniss.com - GDC - Game Audio Bundle"
 
-whoosh_light:
+whooshLight:
 
 lifted from the free library "Sonniss.com - GDC - Game Audio Bundle"
 

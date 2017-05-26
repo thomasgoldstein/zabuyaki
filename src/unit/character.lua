@@ -47,7 +47,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.frictionDash = self.velocityDash
     self.throwStart_z = 20 --lift up a body to throw at this Z
     self.toFallenAnim_z = 40
-    self.velocityStep_down = 220
+    self.velocityStepDown = 220
     self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
     self.velocityShove_x = 220 --my throwing speed
     self.velocityShove_z = 200 --my throwing speed
@@ -900,7 +900,7 @@ function Character:sideStepStart()
     else
         self:setSprite("sideStepUp")
     end
-    self.velx, self.vely = 0, self.velocityStep_down
+    self.velx, self.vely = 0, self.velocityStepDown
     sfx.play("sfx"..self.id, "whooshHeavy")
 end
 function Character:sideStepUpdate(dt)

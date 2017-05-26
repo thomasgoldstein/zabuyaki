@@ -5,7 +5,7 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local step_sfx = function(slf, cont)
+local stepSfx = function(slf, cont)
 	sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
 	local padust = PA_DUST_STEPS:clone()
 	padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
@@ -25,7 +25,7 @@ local grabAttackLast = function(slf, cont)
 		cont
 	)
 end
-local shove_down = function(slf, cont)
+local shoveDown = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 20, width = 26, height = 12, damage = 15, type = "grabKO" },
 		cont
@@ -84,7 +84,7 @@ local dashAttack2 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 55, height = 12, damage = 10, type = "fall", velocity = slf.velocityDashFall },
     cont
 ) end
-local jumpAttack_forward = function(slf, cont) slf:checkAndAttack(
+local jumpAttackForward = function(slf, cont) slf:checkAndAttack(
     { left = 30, width = 25, height = 12, damage = 15, type = "fall", velocity = slf.velx },
     cont
 ) end
@@ -92,20 +92,20 @@ local jumpAttack_forward = function(slf, cont) slf:checkAndAttack(
     { left = 30, width = 25, height = 12, damage = 17, type = "fall", velocity = slf.velx },
      cont
  ) end
-local jumpAttack_light = function(slf, cont) slf:checkAndAttack(
+local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
     { left = 15, width = 22, height = 12, damage = 9, type = "high", velocity = slf.velx },
     cont
 ) end
-local jumpAttack_straight1 = function(slf, cont) slf:checkAndAttack(
+local jumpAttackStraight1 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 25, height = 12, damage = 7, type = "high", velocity = slf.velx },
     cont
 ) end
-local jumpAttack_straight2 = function(slf, cont) slf:checkAndAttack(
+local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 25, height = 12, damage = 9, type = "fall", velocity = slf.velocityFall_x },
     cont
 ) end
 local shoveNow = function(slf, cont) slf.canShoveNow = true end
-local defensive_special_effects = function(slf, cont)
+local defensiveSpecialEffects = function(slf, cont)
 	sfx.play("sfx","hitWeak1")
     mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen
 	local particles = (slf.face == 1 and PA_DEFENSIVE_SPECIAL_R or PA_DEFENSIVE_SPECIAL_L):clone()
@@ -113,7 +113,7 @@ local defensive_special_effects = function(slf, cont)
 	particles:emit(1) --draw 1 effect sprite
 	stage.objects:add(Effect:new(particles, slf.x, slf.y+2)) --y+2 to put it above the player's sprite
 end
-local defensive_special = function(slf, cont) slf:checkAndAttack(
+local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
     { left = 11, width = 75, height = 12, damage = 25, type = "fall", velocity = slf.velx },
      cont
  ) end
@@ -182,10 +182,10 @@ return {
 		run = {
 			{ q = q(2,136,42,60), ox = 13, oy = 59 }, --run 1
 			{ q = q(46,134,48,62), ox = 18, oy = 61 }, --run 2
-			{ q = q(96,134,47,62), ox = 17, oy = 61, func = step_sfx }, --run 3
+			{ q = q(96,134,47,62), ox = 17, oy = 61, func = stepSfx }, --run 3
 			{ q = q(2,200,41,60), ox = 12, oy = 59 }, --run 4
 			{ q = q(45,198,48,61), ox = 18, oy = 61 }, --run 5
-			{ q = q(95,198,47,62), ox = 17, oy = 61, func = step_sfx }, --run 6
+			{ q = q(95,198,47,62), ox = 17, oy = 61, func = stepSfx }, --run 6
             loop = true,
             delay = 0.1
 		},
@@ -230,9 +230,9 @@ return {
 			{ q = q(49,1505,49,61), ox = 25, oy = 60, delay = 0.1 }, --defensive special 2
 			{ q = q(100,1505,45,61), ox = 18, oy = 60 }, --defensive special 3
 			{ q = q(147,1506,54,60), ox = 15, oy = 59 }, --defensive special 4
-			{ q = q(2,1568,58,57), ox = 15, oy = 54, func = defensive_special_effects }, --defensive special 5a
-			{ q = q(62,1569,58,56), ox = 15, oy = 53, funcCont = defensive_special }, --defensive special 5b
-			{ q = q(122,1570,58,55), ox = 15, oy = 52, funcCont = defensive_special, delay = 0.233 }, --defensive special 5c
+			{ q = q(2,1568,58,57), ox = 15, oy = 54, func = defensiveSpecialEffects }, --defensive special 5a
+			{ q = q(62,1569,58,56), ox = 15, oy = 53, funcCont = defensiveSpecial }, --defensive special 5b
+			{ q = q(122,1570,58,55), ox = 15, oy = 52, funcCont = defensiveSpecial, delay = 0.233 }, --defensive special 5c
 			{ q = q(2,1630,50,60), ox = 15, oy = 59, delay = 0.067 }, --defensive special 6
 			{ q = q(54,1627,44,63), ox = 16, oy = 62 }, --defensive special 7
 			delay = 0.05
@@ -314,7 +314,7 @@ return {
 		},
 		jumpAttackForward = {
 			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
-			{ q = q(58,714,75,58), ox = 33, oy = 66, funcCont = jumpAttack_forward, delay = 5 }, --jump attack forward 2
+			{ q = q(58,714,75,58), ox = 33, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 2
 			delay = 0.06
 		},
 		jumpAttackForwardEnd = {
@@ -323,7 +323,7 @@ return {
 		},
 		jumpAttackLight = {
 			{ q = q(2,844,43,67), ox = 21, oy = 66 }, --jump attack light 1
-			{ q = q(47,844,47,63), ox = 23, oy = 66, funcCont = jumpAttack_light, delay = 5 }, --jump attack light 2
+			{ q = q(47,844,47,63), ox = 23, oy = 66, funcCont = jumpAttackLight, delay = 5 }, --jump attack light 2
 			delay = 0.03
 		},
 		jumpAttackLightEnd = {
@@ -332,8 +332,8 @@ return {
 		},
 		jumpAttackStraight = {
 			{ q = q(2,778,38,64), ox = 19, oy = 66 }, --jump attack straight 1
-			{ q = q(42,778,50,64), ox = 19, oy = 66, func = jumpAttack_straight1, delay = 0.07 }, --jump attack straight 2
-			{ q = q(94,778,43,62), ox = 19, oy = 66, funcCont = jumpAttack_straight2, delay = 5 }, --jump attack straight 3
+			{ q = q(42,778,50,64), ox = 19, oy = 66, func = jumpAttackStraight1, delay = 0.07 }, --jump attack straight 2
+			{ q = q(94,778,43,62), ox = 19, oy = 66, funcCont = jumpAttackStraight2, delay = 5 }, --jump attack straight 3
 			delay = 0.1
 		},
 		jumpAttackRun = {
@@ -375,7 +375,7 @@ return {
 		shoveDown = {
 			{ q = q(2,1044,56,63), ox = 30, oy = 62 }, --grab end 1.1
 			{ q = q(2,979,45,63), ox = 19, oy = 62, delay = 0.01 }, --grab
-			{ q = q(60,1047,50,60), ox = 16, oy = 59, func = shove_down }, --grab end 1.2
+			{ q = q(60,1047,50,60), ox = 16, oy = 59, func = shoveDown }, --grab end 1.2
 			{ q = q(112,1044,45,63), ox = 18, oy = 62, delay = 0.1 }, --grab end 1.3
 			delay = 0.25
 		},

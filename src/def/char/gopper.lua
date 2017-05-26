@@ -4,21 +4,21 @@ local image_w,image_h = LoadSpriteSheet(spriteSheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-local step_sfx = function(slf, cont)
+local stepSfx = function(slf, cont)
     sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
     local padust = PA_DUST_STEPS:clone()
     padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
     padust:emit(3)
     stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local combo_punch = function(slf, cont)
+local comboPunch = function(slf, cont)
     slf:checkAndAttack(
         { left = 27, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
     slf.cooldownCombo = 0.4
 end
-local combo_kick = function(slf, cont)
+local comboKick = function(slf, cont)
     slf:checkAndAttack(
         { left = 29, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
         cont
@@ -79,10 +79,10 @@ return {
         run = {
             { q = q(2,246,48,59), ox = 26, oy = 59 }, --run 1
             { q = q(52,244,46,61), ox = 26, oy = 61, delay = 0.13 }, --run 2
-            { q = q(100,245,48,60), ox = 26, oy = 60, func = step_sfx }, --run 3
+            { q = q(100,245,48,60), ox = 26, oy = 60, func = stepSfx }, --run 3
             { q = q(2,310,48,60), ox = 26, oy = 59 }, --run 4
             { q = q(52,308,47,62), ox = 26, oy = 61, delay = 0.13 }, --run 5
-            { q = q(101,309,50,60), ox = 26, oy = 59, func = step_sfx }, --run 6
+            { q = q(101,309,50,60), ox = 26, oy = 59, func = stepSfx }, --run 6
             loop = true,
             delay = 0.08
         },
@@ -109,18 +109,18 @@ return {
             delay = 0.3
         },
         combo1 = {
-            { q = q(50,66,62,61), ox = 21, oy = 60, func = combo_punch, delay = 0.2 }, --punch 2
+            { q = q(50,66,62,61), ox = 21, oy = 60, func = comboPunch, delay = 0.2 }, --punch 2
             { q = q(2,66,46,61), ox = 21, oy = 60 }, --punch 1
             delay = 0.01
         },
         combo2 = {
-            { q = q(50,66,62,61), ox = 21, oy = 60, func = combo_punch, delay = 0.2 }, --punch 2
+            { q = q(50,66,62,61), ox = 21, oy = 60, func = comboPunch, delay = 0.2 }, --punch 2
             { q = q(2,66,46,61), ox = 21, oy = 60 }, --punch 1
             delay = 0.01
         },
         combo3 = {
             { q = q(2,426,40,61), ox = 19, oy = 60 }, --kick 1
-            { q = q(44,426,60,61), ox = 18, oy = 60, func = combo_kick, delay = 0.23 }, --kick 2
+            { q = q(44,426,60,61), ox = 18, oy = 60, func = comboKick, delay = 0.23 }, --kick 2
             { q = q(2,426,40,61), ox = 19, oy = 60, delay = 0.015 }, --kick 1
             delay = 0.01
         },

@@ -4,7 +4,7 @@ local image_w,image_h = LoadSpriteSheet(spriteSheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-local step_sfx = function(slf, cont)
+local stepSfx = function(slf, cont)
     sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
     local padust = PA_DUST_STEPS:clone()
     padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
@@ -26,14 +26,14 @@ local dash_belly_clouds = function(slf, cont)
     particles:emit(5)
     stage.objects:add(Effect:new(particles, slf.x + 10 * slf.face, slf.y+2))
 end
-local combo_punch = function(slf, cont)
+local comboPunch = function(slf, cont)
     slf:checkAndAttack(
         { left = 28, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
     slf.cooldownCombo = 0.4
 end
-local combo_kick = function(slf, cont)
+local comboKick = function(slf, cont)
     slf:checkAndAttack(
         { left = 30, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
         cont

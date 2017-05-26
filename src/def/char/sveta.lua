@@ -4,14 +4,14 @@ local image_w,image_h = LoadSpriteSheet(spriteSheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-local combo_slap = function(slf, cont)
+local comboSlap = function(slf, cont)
     slf:checkAndAttack(
         { left = 25, width = 26, height = 12, damage = 5, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
     slf.cooldownCombo = 0.4
 end
-local combo_kick = function(slf, cont)
+local comboKick = function(slf, cont)
     slf:checkAndAttack(
         { left = 25, width = 26, height = 12, damage = 10, type = "fall", velocity = slf.velocityDashFall },
         cont
@@ -85,31 +85,31 @@ return {
         },
         combo1 = {
             { q = q(2,392,55,64), ox = 35, oy = 63 }, --slap 1
-            { q = q(59,392,72,64), ox = 34, oy = 63, func = combo_slap }, --slap 2
+            { q = q(59,392,72,64), ox = 34, oy = 63, func = comboSlap }, --slap 2
             { q = q(133,392,51,64), ox = 31, oy = 63 }, --slap 3
             delay = 0.067
         },
         combo2 = {
             { q = q(133,392,51,64), ox = 31, oy = 63 }, --slap 3
-            { q = q(59,392,72,64), ox = 34, oy = 63, func = combo_slap }, --slap 2
+            { q = q(59,392,72,64), ox = 34, oy = 63, func = comboSlap }, --slap 2
             { q = q(2,392,55,64), ox = 35, oy = 63 }, --slap 1
             delay = 0.067
         },
         combo3 = {
             { q = q(2,392,55,64), ox = 35, oy = 63 }, --slap 1
-            { q = q(59,392,72,64), ox = 34, oy = 63, func = combo_slap }, --slap 2
+            { q = q(59,392,72,64), ox = 34, oy = 63, func = comboSlap }, --slap 2
             { q = q(133,392,51,64), ox = 31, oy = 63 }, --slap 3
             delay = 0.067
         },
         combo4 = {
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
-            { q = q(55,459,76,60), ox = 38, oy = 59, func = combo_kick, delay = 0.217 }, --high kick 2
+            { q = q(55,459,76,60), ox = 38, oy = 59, func = comboKick, delay = 0.217 }, --high kick 2
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
             delay = 0.117
         },
         holdAttack = {
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
-            { q = q(55,459,76,60), ox = 38, oy = 59, func = combo_kick, delay = 0.217 }, --high kick 2
+            { q = q(55,459,76,60), ox = 38, oy = 59, func = comboKick, delay = 0.217 }, --high kick 2
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
             delay = 0.117
         },

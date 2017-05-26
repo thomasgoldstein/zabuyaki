@@ -4,14 +4,14 @@ local image_w,image_h = LoadSpriteSheet(spriteSheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-local combo_kick = function(slf, cont)
+local comboKick = function(slf, cont)
     slf:checkAndAttack(
         { left = 29, width = 26, height = 12, damage = 7, type = "low", velocity = slf.velx, sfx = "air" },
         cont
     )
     slf.cooldownCombo = 0.4
 end
-local combo_punch = function(slf, cont)
+local comboPunch = function(slf, cont)
     slf:checkAndAttack(
         { left = 29, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
         cont
@@ -112,18 +112,18 @@ return {
         },
         combo1 = {
             { q = q(2,332,40,63), ox = 19, oy = 62 }, --kick 1
-            { q = q(44,332,60,63), ox = 18, oy = 62, func = combo_kick, delay = 0.23 }, --kick 2
+            { q = q(44,332,60,63), ox = 18, oy = 62, func = comboKick, delay = 0.23 }, --kick 2
             { q = q(2,332,40,63), ox = 19, oy = 62, delay = 0.015 }, --kick 1
             delay = 0.01
         },
         combo2 = {
             { q = q(2,332,40,63), ox = 19, oy = 62 }, --kick 1
-            { q = q(44,332,60,63), ox = 18, oy = 62, func = combo_kick, delay = 0.23 }, --kick 2
+            { q = q(44,332,60,63), ox = 18, oy = 62, func = comboKick, delay = 0.23 }, --kick 2
             { q = q(2,332,40,63), ox = 19, oy = 62, delay = 0.015 }, --kick 1
             delay = 0.01
         },
         combo3 = {
-            { q = q(50,68,62,63), ox = 21, oy = 62, func = combo_punch, delay = 0.2 }, --punch 2
+            { q = q(50,68,62,63), ox = 21, oy = 62, func = comboPunch, delay = 0.2 }, --punch 2
             { q = q(2,68,46,63), ox = 21, oy = 62 }, --punch 1
             delay = 0.01
         },
