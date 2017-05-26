@@ -103,7 +103,7 @@ function Loot:updateAI(dt)
                 end
                 self.z = 0.01
                 self.velz = -self.velz/2
-                --sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bounced_pitch - self.bounced * 0.2)
+                --sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
                 --landing dust clouds
                 local particles = PA_DUST_FALLING:clone()

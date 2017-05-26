@@ -41,8 +41,8 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.shape = nil
 	self.state = "nop"
 	self.lastStateTime = love.timer.getTime()
-	self.prev_state = "" -- text name
-    self.last_state = "" -- text name
+	self.prevState = "" -- text name
+    self.lastState = "" -- text name
     self.shake = {x = 0, y = 0, sx = 0, sy = 0, cool_down = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
     self.sfx = {}
     self.sfx.onHit = f.sfxOnHit --on hurt sfx
@@ -172,12 +172,12 @@ end
 
 function Unit:setState(state, condition)
 	if state then
-		self.time_prev_state = self.lastStateTime
+		self.prevStateTime = self.lastStateTime
 		self.lastStateTime = love.timer.getTime()
-		self.prev_state = self.last_state
-		self.last_state = self.state
-		self.last_face = self.face
-		self.last_vertical = self.vertical
+		self.prevState = self.lastState
+		self.lastState = self.state
+		self.lastFace = self.face
+		self.lastVertical = self.vertical
 		self:exit()
 		self.state = state.name
 		self.draw = state.draw
@@ -195,7 +195,7 @@ function Unit:getLastStateTime()
 end
 function Unit:getPrevStateTime()
 	-- time from the previour to the last switching to current frame
-	return love.timer.getTime() - self.time_prev_state
+	return love.timer.getTime() - self.prevStateTime
 end
 
 function Unit:updateSprite(dt)

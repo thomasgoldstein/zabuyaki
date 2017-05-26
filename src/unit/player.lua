@@ -43,12 +43,12 @@ end
 
 function Player:setState(state, condition)
     if state then
-        self.time_prev_state = self.lastStateTime
+        self.prevStateTime = self.lastStateTime
         self.lastStateTime = love.timer.getTime()
-        self.prev_state = self.last_state
-        self.last_state = self.state
-        self.last_face = self.face
-        self.last_vertical = self.vertical
+        self.prevState = self.lastState
+        self.lastState = self.state
+        self.lastFace = self.face
+        self.lastVertical = self.vertical
         self:exit()
         self:checkStuckButtons()
         self.state = state.name

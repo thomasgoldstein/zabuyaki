@@ -6,7 +6,7 @@ local Character = class('Character', Unit)
 local function nop() end
 local sign = sign
 local clamp = clamp
-local double_tap_delta = 0.25
+local doubleTapDelta = 0.25
 local moves_white_list = {
     run = true, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
@@ -511,8 +511,8 @@ function Character:stand_update(dt)
     if self.cool_down <= 0 then
         --can move
         if self.b.horizontal:getValue() ~=0 then
-            if self.moves.run and self:getPrevStateTime() < double_tap_delta and self.last_face == self.b.horizontal:getValue()
-                    and (self.last_state == "walk" or self.last_state == "run" )
+            if self.moves.run and self:getPrevStateTime() < doubleTapDelta and self.lastFace == self.b.horizontal:getValue()
+                    and (self.lastState == "walk" or self.lastState == "run" )
             then
                 self:setState(self.run)
             else
@@ -521,8 +521,8 @@ function Character:stand_update(dt)
             return
         end
         if self.b.vertical:getValue() ~= 0 then
-            if self.moves.sideStep and self:getPrevStateTime() < double_tap_delta and self.last_vertical == self.b.vertical:getValue()
-                    and (self.last_state == "walk" )
+            if self.moves.sideStep and self:getPrevStateTime() < doubleTapDelta and self.lastVertical == self.b.vertical:getValue()
+                    and (self.lastState == "walk" )
             then
                 self.vertical = self.b.vertical:getValue()
                 _, self.vely = self:getMovementSpeed()
@@ -698,8 +698,8 @@ function Character:jump_start()
     self.velz = self.velocity_jump * self.velocity_jump_speed
     self.z = 0.1
     self.bounced = 0
-    self.bounced_pitch = 1 + 0.05 * love.math.random(-4,4)
-    if self.prev_state == "run" then
+    self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
+    if self.prevState == "run" then
         -- jump higher from run
         self.velz = (self.velocity_jump + self.velocity_jump_z_run_boost) * self.velocity_jump_speed
     end
@@ -1058,7 +1058,7 @@ function Character:fall_start()
         self.z = 0
     end
     self.bounced = 0
-    self.bounced_pitch = 1 + 0.05 * love.math.random(-4,4)
+    self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
 end
 function Character:fall_update(dt)
     if self.z > 0 then
@@ -1088,7 +1088,7 @@ function Character:fall_update(dt)
                         self:applyDamage(self.thrown_land_damage, "simple", src)
                     end
                 end
-                sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bounced_pitch - self.bounced * 0.2)
+                sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
                 --landing dust clouds
                 local particles = PA_DUST_FALLING:clone()
@@ -1107,7 +1107,7 @@ function Character:fall_update(dt)
 
                 self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-                sfx.play("sfx"..self.id,"fall", 0.5, self.bounced_pitch - self.bounced * 0.2)
+                sfx.play("sfx"..self.id,"fall", 0.5, self.bouncedPitch - self.bounced * 0.2)
 
                 -- hold UP+JUMP to get no damage after throw (land on feet)
                 if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
