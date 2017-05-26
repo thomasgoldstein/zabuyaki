@@ -23,17 +23,17 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
     self.velocityWalk = 90
     self.velocityWalk_y = 45
-    self.velocity_run = 140
-    self.velocity_run_y = 23
-    self.velocity_dash = 150 --speed of the character
-    self.velocity_dash_fall = 180 --speed caused by dash to others fall
-    self.friction_dash = self.velocity_dash
-    self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
-    self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+    self.velocityRun = 140
+    self.velocityRun_y = 23
+    self.velocityDash = 150 --speed of the character
+    self.velocityDashFall = 180 --speed caused by dash to others fall
+    self.frictionDash = self.velocityDash
+    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
-    self.sfx.dead = sfx.gopper_death
-    self.sfx.dash_attack = sfx.gopper_attack
-    self.sfx.step = "kisa_step"
+    self.sfx.dead = sfx.gopperDeath
+    self.sfx.dashAttack = sfx.gopperAttack
+    self.sfx.step = "kisaStep"
 end
 
 Gopper.combo = {name = "combo", start = _Gopper.comboStart, exit = nop, update = _Gopper.comboUpdate, draw = Character.defaultDraw}

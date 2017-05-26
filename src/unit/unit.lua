@@ -121,33 +121,33 @@ function Unit:playHitSfx(dmg)
 		sfx.play("sfx"..self.id, self.sfx.onHit, nil, 1 + 0.008 * love.math.random(-1,1))
 		return
     elseif dmg < 9 then
-        alias = sfx.hit_weak
+        alias = sfx.hitWeak
     elseif dmg < 14 then
-        alias = sfx.hit_medium
+        alias = sfx.hitMedium
     else
-        alias = sfx.hit_hard
+        alias = sfx.hitHard
     end
     local s = sfx[alias[love.math.random(1,#alias)]]
     TEsound.play(s.src, "sfx"..self.id, s.volume, s.pitch)
 end
 
 function Unit:showHitMarks(dmg, z, x_offset)
-	local pa_hitMark
+	local paHitMark
 	if dmg < 1 then
 		return	-- e.g. Respawn ShockWave with 0 DMG
 	elseif dmg < 9 then
-		pa_hitMark = PA_IMPACT_SMALL:clone()
+		paHitMark = PA_IMPACT_SMALL:clone()
 	elseif dmg < 14 then
-		pa_hitMark = PA_IMPACT_MEDIUM:clone()
+		paHitMark = PA_IMPACT_MEDIUM:clone()
 	else
-		pa_hitMark = PA_IMPACT_BIG:clone()
+		paHitMark = PA_IMPACT_BIG:clone()
 	end
-	pa_hitMark:setPosition( self.face * (x_offset or 4), -z )
+	paHitMark:setPosition( self.face * (x_offset or 4), -z )
 	if not x_offset then --still mark e.g. for clashing
-		pa_hitMark:setSpeed( -self.face * 30, -self.face * 60 )	--move the marks from the attacker by default
+		paHitMark:setSpeed( -self.face * 30, -self.face * 60 )	--move the marks from the attacker by default
 	end
-	pa_hitMark:emit(1)
-	stage.objects:add(Effect:new(pa_hitMark, self.x, self.y + 3))
+	paHitMark:emit(1)
+	stage.objects:add(Effect:new(paHitMark, self.x, self.y + 3))
 end
 
 function Unit:getMovementSpeed()
@@ -156,7 +156,7 @@ function Unit:getMovementSpeed()
     elseif self.sprite.cur_anim == "walkHold" then
         return self.velocityWalkHold, self.velocityWalkHold_y
     elseif self.sprite.cur_anim == "run" then
-        return self.velocity_run, self.velocity_run_y
+        return self.velocityRun, self.velocityRun_y
     end
     --TODO add jumps or refactor
     return 0, 0
@@ -305,7 +305,7 @@ function Unit:drawPID(x, y_)
 	love.graphics.setColor(255, 255, 255, calcTransparency(self.showPIDCoolDown))
 	love.graphics.print(self.pid, x - 7, y + 4)
 end
-local states_for_hold_attack = {stand = true, walk = true, run = true }
+local states_for_holdAttack = {stand = true, walk = true, run = true }
 function Unit:defaultDraw(l,t,w,h)
 	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
 		self.sprite.flip_h = self.face  --TODO get rid of .face
@@ -315,7 +315,7 @@ function Unit:defaultDraw(l,t,w,h)
 			self.color[4] = 255
 		end
 		if self.charge >= self.charged_at / 2 and self.charge < self.charged_at then
-			if states_for_hold_attack[self.state] and self.holdAttack then
+			if states_for_holdAttack[self.state] and self.holdAttack then
 				love.graphics.setColor(255, 255, 255, 63)
 				local width = clamp(self.charge, 0.5, 1) * self.width
 				if self.charge >= self.charged_at - self.charged_at / 10 then
@@ -337,7 +337,7 @@ function Unit:defaultDraw(l,t,w,h)
 		if self.showPIDCoolDown > 0 then
 			self:drawPID(self.x, self.y - self.z - 80)
 		end
-		draw_debug_unit_hitbox(self)
+		draw_debug_unitHitbox(self)
 		draw_debug_unit_info(self)
 	end
 end
@@ -440,11 +440,11 @@ function Unit:calcFriction(dt, friction)
     end
 end
 
-function Unit:calcMovement(dt, use_friction, friction, do_not_move_unit)
+function Unit:calcMovement(dt, use_friction, friction, do_notMove_unit)
 	if self.z <= 0 and use_friction then
 		self:calcFriction(dt, friction)
 	end
-	if not do_not_move_unit then
+	if not do_notMove_unit then
 		self:checkCollisionAndMove(dt)
 	end
 end

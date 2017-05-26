@@ -24,26 +24,26 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.velocityWalk_y = 50
     self.velocityWalkHold = 80
     self.velocityWalkHold_y = 40
-    self.velocity_run = 150
-    self.velocity_run_y = 25
-    self.velocity_dash = 150 --speed of the character
-    self.velocity_dash_fall = 180 --speed caused by dash to others fall
-    self.friction_dash = self.velocity_dash
+    self.velocityRun = 150
+    self.velocityRun_y = 25
+    self.velocityDash = 150 --speed of the character
+    self.velocityDashFall = 180 --speed caused by dash to others fall
+    self.frictionDash = self.velocityDash
     self.velocityJab = 30 --speed of the jab slide
     self.velocityJab_y = 20 --speed of the vertical jab slide
     self.frictionJab = self.velocityJab
 --    self.velocity_shove_x = 220 --my throwing speed
 --    self.velocity_shove_z = 200 --my throwing speed
 --    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
-    self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
-    self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
-    self.sfx.jump = "chai_jump"
-    self.sfx.throw = "chai_throw"
-    self.sfx.jump_attack = "chai_attack"
-    self.sfx.dash_attack = "chai_attack"
-    self.sfx.step = "chai_step"
-    self.sfx.dead = "chai_death"
+    self.sfx.jump = "chaiJump"
+    self.sfx.throw = "chaiThrow"
+    self.sfx.jumpAttack = "chaiAttack"
+    self.sfx.dashAttack = "chaiAttack"
+    self.sfx.step = "chaiStep"
+    self.sfx.dead = "chaiDeath"
 end
 
 function Chai:comboUpdate(dt)
@@ -58,10 +58,10 @@ function Chai:dashAttackStart()
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
-    self.velx = self.velocity_dash * self.velocity_jump_speed
-    self.velz = self.velocity_jump * self.velocity_jump_speed
+    self.velx = self.velocityDash * self.velocityJump_speed
+    self.velz = self.velocityJump * self.velocityJump_speed
     self.z = 0.1
-    sfx.play("sfx"..self.id, self.sfx.dash_attack)
+    sfx.play("sfx"..self.id, self.sfx.dashAttack)
     --start Chai's dust clouds (used jump particles)
     local particles = PA_DUST_JUMP_START:clone()
     particles:setAreaSpread( "uniform", 16, 4 )
@@ -80,10 +80,10 @@ function Chai:dashAttackUpdate(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
         if self.velz > 0 then
             if self.velx > 0 then
-                self.velx = self.velx - (self.velocity_dash * dt)
+                self.velx = self.velx - (self.velocityDash * dt)
             else
                 self.velx = 0
             end

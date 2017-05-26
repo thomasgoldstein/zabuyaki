@@ -18,9 +18,9 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.subtype = "gopnik"
     self.friendlyDamage = 2 --divide friendly damage
     self.face = -1
-    self.sfx.dead = sfx.gopper_death
-    self.sfx.dash_attack = sfx.gopper_attack
-    self.sfx.step = "kisa_step"
+    self.sfx.dead = sfx.gopperDeath
+    self.sfx.dashAttack = sfx.gopperAttack
+    self.sfx.step = "kisaStep"
 
     self:setToughness(0)
     self.walk_speed = 80
@@ -32,7 +32,7 @@ function Gopper:updateAI(dt)
 
     self.coolDown = self.coolDown - dt --when <=0 u can move
 
-    --local complete_movement = self.move:update(dt)
+    --local completeMovement = self.move:update(dt)
     self.ai_poll_1 = self.ai_poll_1 - dt
     self.ai_poll_2 = self.ai_poll_2 - dt
     self.ai_poll_3 = self.ai_poll_3 - dt
@@ -235,8 +235,8 @@ function Gopper:walkUpdate(dt)
         --        end
         return
     end
-    self.can_jump = true
-    self.can_attack = true
+    self.canJump = true
+    self.canAttack = true
     self:calcMovement(dt, false, nil)
 end
 Gopper.walk = { name = "walk", start = Gopper.walkStart, exit = nop, update = Gopper.walkUpdate, draw = Enemy.defaultDraw }
@@ -291,12 +291,12 @@ local dashAttack_speed = 0.75
 function Gopper:dashAttackStart()
     self.isHittable = true
     self:setSprite("dashAttack")
-    self.velx = self.velocity_dash * 2 * dashAttack_speed
+    self.velx = self.velocityDash * 2 * dashAttack_speed
     self.vely = 0
-    self.velz = self.velocity_jump / 2 * dashAttack_speed
+    self.velz = self.velocityJump / 2 * dashAttack_speed
     self.z = 0.1
     self.bounced = 0
-    sfx.play("voice"..self.id, self.sfx.dash_attack)
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
 end
 function Gopper:dashAttackUpdate(dt)
     if self.sprite.isFinished then
@@ -316,7 +316,7 @@ function Gopper:dashAttackUpdate(dt)
         particles:emit(PA_DUST_FALLING_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x + self.horizontal * 15, self.y+3))
     end
-    self:calcMovement(dt, true, self.friction_dash * dashAttack_speed)
+    self:calcMovement(dt, true, self.frictionDash * dashAttack_speed)
 end
 Gopper.dashAttack = {name = "dashAttack", start = Gopper.dashAttackStart, exit = nop, update = Gopper.dashAttackUpdate, draw = Character.defaultDraw }
 

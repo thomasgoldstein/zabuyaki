@@ -39,9 +39,9 @@ local combo_kick = function(slf, cont)
         cont
     )
 end
-local dash_attack = function(slf, cont)
+local dashAttack = function(slf, cont)
     slf:checkAndAttack(
-        { left = 12, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocity_dash_fall },
+        { left = 12, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocityDashFall },
         cont
     ) end
 

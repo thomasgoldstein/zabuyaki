@@ -10,9 +10,9 @@ local imp_small_quad1 = q(2,2,21,22) -- impact small 1/3
 local imp_small_quad2 = q(25,2,21,22) -- impact small 2/3
 local imp_small_quad3 = q(48,2,21,22) -- impact small 3/3
 
-local imp_medium_quad1 = q(2,26,27,26) -- impact medium 1/3
-local imp_medium_quad2 = q(31,26,27,26) -- impact medium 2/3
-local imp_medium_quad3 = q(60,26,27,26) -- impact medium 3/3
+local impMedium_quad1 = q(2,26,27,26) -- impact medium 1/3
+local impMedium_quad2 = q(31,26,27,26) -- impact medium 2/3
+local impMedium_quad3 = q(60,26,27,26) -- impact medium 3/3
 
 local imp_big_quad1 = q(2,54,31,30) -- impact big 1/3
 local imp_big_quad2 = q(35,54,31,30) -- impact big 2/3
@@ -23,7 +23,7 @@ local dust_quad = q(2,86,32,32) --dust cloud
 local triangle_small_quad = q(71,2,9,8) -- crashing debris 1/2
 local triangle_big_quad = q(71,12,12,11) -- crashing debris 2/2
 
-local dust_step_colors = {214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188, 10, 214, 205, 188, 5}
+local dustStep_colors = {214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188, 10, 214, 205, 188, 5}
 local impact_colors = {255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55}
 local loot_colors = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55, 255, 255, 255, 0}
 
@@ -36,7 +36,7 @@ particles:setParticleLifetime(0.35, 0.5)
 particles:setSizes(0.2, 0.7)
 particles:setSpeed(1, 5)
 particles:setLinearAcceleration(0, 0, 0, 0) -- Random movement in all directions.
-particles:setColors(unpack(dust_step_colors))
+particles:setColors(unpack(dustStep_colors))
 particles:setOffset(15, 15)
 particles:setQuads(dust_quad)
 particles:setLinearDamping(7, 20)
@@ -58,7 +58,7 @@ PA_DUST_JUMP_START = particles
 particles = particles:clone()
 particles:setEmitterLifetime(1.5)
 particles:setSizes(0.15, 0.45)
-particles:setColors(unpack(dust_step_colors))
+particles:setColors(unpack(dustStep_colors))
 particles:setParticleLifetime(0.5, 1.3) 
 particles:setLinearAcceleration(-500, -20, 500, -100) -- Random movement in all directions.
 particles:setLinearDamping(10, 50)
@@ -70,7 +70,7 @@ PA_DUST_FALLING_N_PARTICLES = 5
 particles = particles:clone()
 particles:setEmitterLifetime(1)
 particles:setSizes(0.3, 0.6, 0.4, 0.1)
-particles:setColors(unpack(dust_step_colors))
+particles:setColors(unpack(dustStep_colors))
 particles:setParticleLifetime(0.2, 0.7) 
 particles:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
 particles:setLinearDamping(7, 20)
@@ -91,7 +91,7 @@ particles:setOffset(13, 13)
 particles:setEmitterLifetime(0.2)
 particles:setParticleLifetime(0.15)
 particles:setColors(unpack(impact_colors))
-particles:setQuads(imp_medium_quad1, imp_medium_quad2, imp_medium_quad3)
+particles:setQuads(impMedium_quad1, impMedium_quad2, impMedium_quad3)
 PA_IMPACT_MEDIUM = particles
 
 particles = love.graphics.newParticleSystem(gfx.particles, 4)
@@ -104,7 +104,7 @@ PA_IMPACT_BIG = particles
 
 particles = love.graphics.newParticleSystem(gfx.particles, 32)
 particles:setSizes(0.3, 0.6, 0.4, 0.1)
-particles:setColors(unpack(dust_step_colors))
+particles:setColors(unpack(dustStep_colors))
 particles:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
 particles:setLinearDamping(7, 20)
 particles:setAreaSpread("uniform", 15, 5)
@@ -123,7 +123,7 @@ particles:setSizes(0.2, 0.5, 0.1)
 --particles:setSpeed(1, 1)
 particles:setDirection(2.71)
 particles:setLinearAcceleration(0, -10, 0, -50) -- Random movement in all directions.
-particles:setColors(unpack(dust_step_colors))
+particles:setColors(unpack(dustStep_colors))
 particles:setOffset(15, 15)
 particles:setQuads(dust_quad)
 particles:setLinearDamping(7, 10)

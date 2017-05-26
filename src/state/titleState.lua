@@ -2,7 +2,7 @@ titleState = {}
 
 local time_to_title_fade = 1.25 --title fadein
 local time_to_menu_fade = 0.5 --menu fadein & menu+title fadeout before intro
-local time_to_menu_move = 0.25 --can move/select menu
+local time_to_menuMove = 0.25 --can move/select menu
 local time_to_intro = 10 --idle to show intro
 local title_sfx = "whoosh_heavy"
 
@@ -76,12 +76,12 @@ end
 
 --Only P1 can use menu / options
 function titleState:player_input(controls)
-    if mode == "menufadein" and time < time_to_menu_move then
+    if mode == "menufadein" and time < time_to_menuMove then
         return
     end
     if controls.back:pressed() then
         --Exit by "Back" button or "Esc" key
-        sfx.play("sfx","menu_cancel")
+        sfx.play("sfx","menuCancel")
         return love.event.quit()
     elseif controls.attack:pressed() or controls.start:pressed() then
         return self:confirm( mouse_x, mouse_y, 1)
@@ -143,7 +143,7 @@ function titleState:update(dt)
             return
         end
         if menu_state ~= old_menu_state then
-            sfx.play("sfx","menu_move")
+            sfx.play("sfx","menuMove")
             old_menu_state = menu_state
             reset_time()
         end
@@ -195,13 +195,13 @@ function titleState:draw()
 end
 
 function titleState:confirm( x, y, button, istouch )
-    if mode == "menufadein" and time < time_to_menu_move then
+    if mode == "menufadein" and time < time_to_menuMove then
         return
     end
     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             time = 0
             if GLOBAL_SETTING.DEBUG then
                 playerSelectState.enablePlayerSelectOnStart = true
@@ -213,11 +213,11 @@ function titleState:confirm( x, y, button, istouch )
             end
 
         elseif menu_state == 2 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             time = 0
             return Gamestate.push(optionsState)
         elseif menu_state == #menu then
-            sfx.play("sfx","menu_cancel")
+            sfx.play("sfx","menuCancel")
             return love.event.quit()
         end
     end

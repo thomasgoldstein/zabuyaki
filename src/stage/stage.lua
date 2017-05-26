@@ -179,7 +179,7 @@ function Stage:update(dt)
         end
         if self.time_left <= 10.6 and self.time_left >= 0 then
             if beep_timer - 1 == math.floor(self.time_left + 0.5) then
-                sfx.play("sfx", "menu_move")
+                sfx.play("sfx", "menuMove")
             end
             beep_timer = math.floor(self.time_left + 0.5)
         end

@@ -109,7 +109,7 @@ end
 --Only P1 can use menu / options
 function spriteSelectState:player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
-        sfx.play("sfx","menu_cancel")
+        sfx.play("sfx","menuCancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
         return self:confirm( mouse_x, mouse_y, 1)
@@ -134,7 +134,7 @@ end
 function spriteSelectState:update(dt)
     time = time + dt
     if menu_state ~= old_menu_state then
-        sfx.play("sfx","menu_move")
+        sfx.play("sfx","menuMove")
         old_menu_state = menu_state
         self:showCurrentSprite()
     end
@@ -210,21 +210,21 @@ end
 
 function spriteSelectState:confirm( x, y, button, istouch )
     if (button == 1 and menu_state == #menu) or button == 2 then
-        sfx.play("sfx","menu_cancel")
+        sfx.play("sfx","menuCancel")
         TEsound.stop("music")
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
         return Gamestate.pop()
     end
     if button == 1 then
         if menu_state == 1 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             return Gamestate.push(spriteEditorState, heroes[menu[menu_state].n], weapons[menu[2].n])
         elseif menu_state == 2 then
             if weapons[menu[menu_state].n] then
-                sfx.play("sfx","menu_select")
+                sfx.play("sfx","menuSelect")
                 return Gamestate.push(spriteEditorState, weapons[menu[menu_state].n])
             else
-                sfx.play("sfx","menu_cancel")
+                sfx.play("sfx","menuCancel")
             end
         end
     end
@@ -290,6 +290,6 @@ function spriteSelectState:wheelmoved(x, y)
         self:showCurrentSprite()
     end
     if menu_state ~= #menu then
-        sfx.play("sfx","menu_move")
+        sfx.play("sfx","menuMove")
     end
 end

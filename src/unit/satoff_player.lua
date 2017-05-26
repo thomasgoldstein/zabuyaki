@@ -31,21 +31,21 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.velocityWalk_y = 45
     self.velocityWalkHold = 80
     self.velocityWalkHold_y = 40
-    self.velocity_run = 140
-    self.velocity_run_y = 23
-    self.velocity_dash = 190 --speed of the character
---    self.velocity_dash_fall = 180 --speed caused by dash to others fall
-    self.friction_dash = self.velocity_dash * 3
+    self.velocityRun = 140
+    self.velocityRun_y = 23
+    self.velocityDash = 190 --speed of the character
+--    self.velocityDashFall = 180 --speed caused by dash to others fall
+    self.frictionDash = self.velocityDash * 3
 --    self.velocity_shove_x = 220 --my throwing speed
 --    self.velocity_shove_z = 200 --my throwing speed
 --    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
-    self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
-    self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
-    self.sfx.throw = sfx.satoff_attack
-    self.sfx.jump_attack = sfx.satoff_attack
-    self.sfx.step = "rick_step" --TODO refactor def files
-    self.sfx.dead = sfx.satoff_death
+    self.sfx.throw = sfx.satoffAttack
+    self.sfx.jumpAttack = sfx.satoffAttack
+    self.sfx.step = "rickStep" --TODO refactor def files
+    self.sfx.dead = sfx.satoffDeath
 end
 
 Satoff.combo = {name = "combo", start = _Satoff.comboStart, exit = nop, update = _Satoff.comboUpdate, draw = Character.defaultDraw}

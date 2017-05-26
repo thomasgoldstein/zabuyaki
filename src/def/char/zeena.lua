@@ -13,7 +13,7 @@ local combo_slap = function(slf, cont)
 end
 local combo_kick = function(slf, cont)
     slf:checkAndAttack(
-        { left = 21, width = 25, height = 12, damage = 8, type = "fall", velocity = slf.velocity_dash_fall },
+        { left = 21, width = 25, height = 12, damage = 8, type = "fall", velocity = slf.velocityDashFall },
         cont
     )
     -- move forward Zeena
@@ -26,9 +26,9 @@ local combo_kick = function(slf, cont)
     end
     slf.coolDownCombo = 0.4
 end
-local jump_attack = function(slf, cont)
+local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { left = 21, width = 25, height = 12, damage = 13, type = "fall", velocity = slf.velocity_dash_fall },
+        { left = 21, width = 25, height = 12, damage = 13, type = "fall", velocity = slf.velocityDashFall },
         cont
 ) end
 
@@ -152,7 +152,7 @@ return {
         },
         jumpAttackForward = {
             { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
-            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jump_attack, delay = 5 }, --jump attack 2
+            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jumpAttack, delay = 5 }, --jump attack 2
             delay = 0.06
         },
 		jumpAttackForwardEnd = {
@@ -165,7 +165,7 @@ return {
 		},
         jumpAttackStraight = {
             { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
-            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jump_attack, delay = 5 }, --jump attack 2
+            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jumpAttack, delay = 5 }, --jump attack 2
             delay = 0.06
         },
 		jumpAttackStraightEnd = {

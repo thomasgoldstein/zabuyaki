@@ -217,17 +217,17 @@ function Player:hasPlaceToStand(x, y)
     return true
 end
 
-local states_for_hold_attack = {stand = true, walk = true, run = true}
+local states_for_holdAttack = {stand = true, walk = true, run = true}
 function Player:updateAI(dt)
     if self.isDisabled then
         return
     end
     if self.holdAttack then
-        if self.b.attack:isDown() and states_for_hold_attack[self.state] then
+        if self.b.attack:isDown() and states_for_holdAttack[self.state] then
             self.charge = self.charge + dt
         else
             if self.charge >= self.charged_at then
-                if states_for_hold_attack[self.state] then
+                if states_for_holdAttack[self.state] then
                     self:setState(self.holdAttack)
                 end
             end
@@ -320,13 +320,13 @@ function Player:afterOnHurt()
         --then it does to "fall dead"
     elseif h.type == "grabKO" then
         --when u throw a grabbed one
-        self.velx = self.velocity_throw_x
+        self.velx = self.velocityThrow_x
     elseif h.type == "fall" then
         --use fall speed from the agument
         self.velx = h.velx
         --it cannot be too short
-        if self.velx < self.velocity_fall_x / 2 then
-            self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
+        if self.velx < self.velocityFall_x / 2 then
+            self.velx = self.velocityFall_x / 2 + self.velocityFall_add_x
         end
     elseif h.type == "shockWave" then
         if h.source.x < self.x then
@@ -349,15 +349,15 @@ function Player:afterOnHurt()
     end
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
-    self.velz = self.velocity_fall_z * self.velocity_jump_speed
+    self.velz = self.velocityFall_z * self.velocityJump_speed
     if self.hp <= 0 then -- dead body flies further
-        if self.velx < self.velocity_fall_x then
-            self.velx = self.velocity_fall_x + self.velocity_fall_dead_add_x
+        if self.velx < self.velocityFall_x then
+            self.velx = self.velocityFall_x + self.velocityFall_dead_add_x
         else
-            self.velx = self.velx + self.velocity_fall_dead_add_x
+            self.velx = self.velx + self.velocityFall_dead_add_x
         end
-    elseif self.velx < self.velocity_fall_x then --alive bodies
-        self.velx = self.velocity_fall_x
+    elseif self.velx < self.velocityFall_x then --alive bodies
+        self.velx = self.velocityFall_x
     end
     self.horizontal = h.horizontal
     self.isGrabbed = false
@@ -381,14 +381,14 @@ function Player:useCreditStart()
     self.coolDown = 10
     -- Player select
     self.playerSelectMode = 0
-    self.player_select_cur = players_list[self.name] or 1
+    self.playerSelect_cur = players_list[self.name] or 1
 end
 function Player:useCreditUpdate(dt)
     if self.playerSelectMode == 5 then --self.isDisabled then
         return
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     end
 
     if self.playerSelectMode == 0 then
@@ -402,11 +402,11 @@ function Player:useCreditUpdate(dt)
         end
         -- wait press to use credit
         -- add countdown 9 .. 0 -> Game Over
-        if self.b.attack:isDown() and self.can_attack then
+        if self.b.attack:isDown() and self.canAttack then
             dp(self.name.." used 1 Credit to respawn")
             credits = credits - 1
             self:addScore(1) -- like CAPCM
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             self.coolDown = 1 -- delay before respawn
             self.playerSelectMode = 1
         end
@@ -416,7 +416,7 @@ function Player:useCreditUpdate(dt)
             -- wait before respawn / char select
             self.coolDown = self.coolDown - dt
             if self.coolDown <= 0 then
-                self.can_attack = false
+                self.canAttack = false
                 self.coolDown = 10
                 self.playerSelectMode = 2
             end
@@ -424,14 +424,14 @@ function Player:useCreditUpdate(dt)
     elseif self.playerSelectMode == 2 then
         -- Select Player
         -- 10 sec countdown before auto confirm
-        if (self.b.attack:isDown() and self.can_attack)
+        if (self.b.attack:isDown() and self.canAttack)
                 or self.coolDown <= 0
         then
             self.coolDown = 0
             self.playerSelectMode = 4
-            sfx.play("sfx","menu_select")
-            local player = HEROES[self.player_select_cur].hero:new(self.name,
-                GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance),
+            sfx.play("sfx","menuSelect")
+            local player = HEROES[self.playerSelect_cur].hero:new(self.name,
+                GetSpriteInstance(HEROES[self.playerSelect_cur].sprite_instance),
                 self.b,
                 self.x, self.y
                 --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 } }
@@ -454,29 +454,29 @@ function Player:useCreditUpdate(dt)
                 or self.b.horizontal:pressed(1) or self.b.vertical:pressed(1)
         then
             if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1) then
-                self.player_select_cur = self.player_select_cur - 1
+                self.playerSelect_cur = self.playerSelect_cur - 1
             else
-                self.player_select_cur = self.player_select_cur + 1
+                self.playerSelect_cur = self.playerSelect_cur + 1
             end
             if GLOBAL_SETTING.DEBUG then
-                if self.player_select_cur > players_list.SATOFF then
-                    self.player_select_cur = 1
+                if self.playerSelect_cur > players_list.SATOFF then
+                    self.playerSelect_cur = 1
                 end
-                if self.player_select_cur < 1 then
-                    self.player_select_cur = players_list.SATOFF
+                if self.playerSelect_cur < 1 then
+                    self.playerSelect_cur = players_list.SATOFF
                 end
             else
-                if self.player_select_cur > players_list.CHAI then
-                    self.player_select_cur = 1
+                if self.playerSelect_cur > players_list.CHAI then
+                    self.playerSelect_cur = 1
                 end
-                if self.player_select_cur < 1 then
-                    self.player_select_cur = players_list.CHAI
+                if self.playerSelect_cur < 1 then
+                    self.playerSelect_cur = players_list.CHAI
                 end
             end
-            sfx.play("sfx","menu_move")
+            sfx.play("sfx","menuMove")
             self:onShake(1, 0, 0.03, 0.3)   --shake name + face icon
-            self.name = HEROES[self.player_select_cur][1].name
-            self.sprite = GetSpriteInstance(HEROES[self.player_select_cur].sprite_instance)
+            self.name = HEROES[self.playerSelect_cur][1].name
+            self.sprite = GetSpriteInstance(HEROES[self.playerSelect_cur].sprite_instance)
             self:setSprite("stand")
             fixPlayersPalette(self)
             self.shader = getShader(self.sprite.def.sprite_name:lower(), self.palette)
@@ -510,7 +510,7 @@ function Player:respawnUpdate(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
     elseif self.bounced == 0 then
         self.playerSelectMode = 0 -- remove player select text
         self.velz = 0

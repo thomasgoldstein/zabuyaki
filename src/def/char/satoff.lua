@@ -6,30 +6,30 @@ local function q(x,y,w,h)
 end
 
 local combo_uppercut1 = function(slf, cont) slf:checkAndAttack(
-	{ left = 14, width = 30, height = 12, damage = 12, type = "low", velocity = slf.velocity_dash_fall, sfx = "whoosh_heavy" },
+	{ left = 14, width = 30, height = 12, damage = 12, type = "low", velocity = slf.velocityDashFall, sfx = "whoosh_heavy" },
 	cont
 ) end
 
 local combo_uppercut2 = function(slf, cont) slf:checkAndAttack(
-	{ left = 20, width = 30, height = 12, damage = 16, type = "fall", velocity = slf.velocity_dash_fall },
+	{ left = 20, width = 30, height = 12, damage = 16, type = "fall", velocity = slf.velocityDashFall },
 	cont
 ) end
 
-local jump_attack = function(slf, cont)
+local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
         { left = 4, width = 48, height = 12, damage = 28, type = "fall", velocity = slf.velx },
         cont
     )
 end
 
-local grab_attack = function(slf, cont)
+local grabAttack = function(slf, cont)
 	slf:checkAndAttack(
         { left = 19, width = 26, height = 12, damage = 12, type = "high" },
 		cont
 	)
 end
 
-local grab_attack_last = function(slf, cont)
+local grabAttack_last = function(slf, cont)
 	slf:checkAndAttack(
         { left = 19, width = 26, height = 12, damage = 18, type = "grabKO" },
 		cont
@@ -97,10 +97,10 @@ return {
             { q = q(2,421,55,70), ox = 35, oy = 69 }, --jump
             { q = q(59,417,60,74), ox = 34, oy = 73 }, --jump attack forward 1 (lowered)
             { q = q(121,424,58,58), ox = 31, oy = 59 }, --jump attack forward 2 (lowered)
-			{ q = q(2,809,56,43), ox = 33, oy = 40, funcCont = jump_attack }, --run 1
-			{ q = q(60,806,50,46), ox = 32, oy = 43, funcCont = jump_attack }, --run 2
-			{ q = q(112,809,53,43), ox = 32, oy = 40, funcCont = jump_attack }, --run 3
-			{ q = q(167,799,52,53), ox = 31, oy = 50, funcCont = jump_attack }, --run 4
+			{ q = q(2,809,56,43), ox = 33, oy = 40, funcCont = jumpAttack }, --run 1
+			{ q = q(60,806,50,46), ox = 32, oy = 43, funcCont = jumpAttack }, --run 2
+			{ q = q(112,809,53,43), ox = 32, oy = 40, funcCont = jumpAttack }, --run 3
+			{ q = q(167,799,52,53), ox = 31, oy = 50, funcCont = jumpAttack }, --run 4
             loop = true,
 			loopFrom = 4,
             delay = 0.1
@@ -173,17 +173,17 @@ return {
         },
         jumpAttackForward = {
             { q = q(59,417,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
+            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackStraight = {
             { q = q(59,417,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
+            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackRun = {
             { q = q(59,417,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
+            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         grab = {
@@ -191,20 +191,20 @@ return {
         },
         grabAttack1 = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = grab_attack, delay = 0.18 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttack, delay = 0.18 }, --grab attack 3
             { q = q(68,350,51,65), ox = 23, oy = 64, delay = 0.07 }, --uppercut 2
             delay = 0.1
         },
         grabAttack2 = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(64,595,67,66), ox = 36, oy = 65, delay = 0.16 }, --grab attack 2
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = grab_attack_last, delay = 0.25 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttack_last, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
         shoveDown = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(64,595,67,66), ox = 36, oy = 65, delay = 0.16 }, --grab attack 2
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = grab_attack_last, delay = 0.25 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttack_last, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
         shoveBack = {

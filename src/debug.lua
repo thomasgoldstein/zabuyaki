@@ -99,11 +99,11 @@ function show_debug_controls()
                 end
                 x = p.infoBar.x + 76
                 y = y - 12
-                if p.can_attack then
+                if p.canAttack then
                     love.graphics.print("F", x, y)
                 end
                 x = x + 10
-                if p.can_jump then
+                if p.canJump then
                     love.graphics.print("J", x, y)
                 end
                 x = x + 10
@@ -167,7 +167,7 @@ function draw_debug_unit_cross(slf)
     end
 end
 
-function draw_debug_unit_hitbox(a)
+function draw_debug_unitHitbox(a)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 150)
 --        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)

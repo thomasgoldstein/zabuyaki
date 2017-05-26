@@ -5,7 +5,7 @@ local screen_height = 480
 
 function screenshotState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
-    sfx.play("sfx","menu_cancel")
+    sfx.play("sfx","menuCancel")
 
     Control1.attack:update()
     Control1.jump:update()
@@ -19,7 +19,7 @@ end
 --Only P1 can exit the pause
 function screenshotState:player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() or controls.screenshot:pressed() then
-        sfx.play("sfx","menu_select")
+        sfx.play("sfx","menuSelect")
         return Gamestate.pop()
     end
 end

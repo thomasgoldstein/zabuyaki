@@ -16,9 +16,9 @@ function Beatnick:initialize(name, sprite, input, x, y, f)
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
-    self.sfx.dead = sfx.beatnick_death
-    self.sfx.jump_attack = sfx.beatnick_attack
-    self.sfx.step = "rick_step"
+    self.sfx.dead = sfx.beatnickDeath
+    self.sfx.jumpAttack = sfx.beatnickAttack
+    self.sfx.step = "rickStep"
 end
 
 function Beatnick:updateAI(dt)
@@ -26,7 +26,7 @@ function Beatnick:updateAI(dt)
 
     self.coolDown = self.coolDown - dt --when <=0 u can move
 
-    --local complete_movement = self.move:update(dt)
+    --local completeMovement = self.move:update(dt)
     self.ai_poll_1 = self.ai_poll_1 - dt
     self.ai_poll_2 = self.ai_poll_2 - dt
     self.ai_poll_3 = self.ai_poll_3 - dt
@@ -131,7 +131,7 @@ function Beatnick:jumpUpdate(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
     else
         self.velz = 0
         self.z = 0

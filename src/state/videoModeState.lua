@@ -41,7 +41,7 @@ end
 --Only P1 can use menu / options
 function videoModeState:player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
-        sfx.play("sfx", "menu_cancel")
+        sfx.play("sfx", "menuCancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
         return self:confirm(mouse_x, mouse_y, 1)
@@ -66,7 +66,7 @@ end
 function videoModeState:update(dt)
     time = time + dt
     if menu_state ~= old_menu_state then
-        sfx.play("sfx", "menu_move")
+        sfx.play("sfx", "menuMove")
         old_menu_state = menu_state
     end
     self:player_input(Control1)
@@ -135,10 +135,10 @@ function videoModeState:confirm(x, y, button, istouch)
     if button == 1 then
         --mouse_x, mouse_y = x, y
         if menu_state == 1 then
-            sfx.play("sfx", "menu_select")
+            sfx.play("sfx", "menuSelect")
             switchFullScreen()
         elseif menu_state == 2 then
-            sfx.play("sfx", "menu_select")
+            sfx.play("sfx", "menuSelect")
             GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE + i
             if GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE > #txt_full_screen_fill then
                 GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = 1
@@ -150,7 +150,7 @@ function videoModeState:confirm(x, y, button, istouch)
             push:initValues()
             configuration:save(true)
         elseif menu_state == 3 then
-            sfx.play("sfx", "menu_select")
+            sfx.play("sfx", "menuSelect")
             GLOBAL_SETTING.FILTER_N = GLOBAL_SETTING.FILTER_N + i
             if GLOBAL_SETTING.FILTER_N > #shaders.screen then
                 GLOBAL_SETTING.FILTER_N = 0
@@ -170,11 +170,11 @@ function videoModeState:confirm(x, y, button, istouch)
             end
             configuration:save(true)
         elseif menu_state == #menu then
-            sfx.play("sfx", "menu_cancel")
+            sfx.play("sfx", "menuCancel")
             return Gamestate.pop()
         end
     elseif button == 2 then
-        sfx.play("sfx", "menu_cancel")
+        sfx.play("sfx", "menuCancel")
         return Gamestate.pop()
     end
 end
@@ -211,6 +211,6 @@ function videoModeState:wheelmoved(x, y)
         return self:confirm(mouse_x, y, 1)
     end
     if menu_state ~= #menu then
-        sfx.play("sfx", "menu_move")
+        sfx.play("sfx", "menuMove")
     end
 end

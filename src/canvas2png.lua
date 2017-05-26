@@ -20,7 +20,7 @@ function Unit:draw2()
     --		if self.showPIDCoolDown > 0 then
     --			self:drawPID(self.x, self.y - self.z - 80)
     --		end
-    --		draw_debug_unit_hitbox(self)
+    --		draw_debug_unitHitbox(self)
     draw_debug_unit_info(self)
 end
 

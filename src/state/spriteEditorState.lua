@@ -244,7 +244,7 @@ function spriteEditorState:player_input(controls)
     end
 
     if controls.jump:pressed() or controls.back:pressed() then
-        sfx.play("sfx","menu_cancel")
+        sfx.play("sfx","menuCancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
         return self:confirm( mouse_x, mouse_y, 1)
@@ -269,7 +269,7 @@ end
 function spriteEditorState:update(dt)
     time = time + dt
     if menu_state ~= old_menu_state then
-        sfx.play("sfx","menu_move")
+        sfx.play("sfx","menuMove")
         old_menu_state = menu_state
     end
     if sprite then
@@ -402,7 +402,7 @@ function spriteEditorState:draw()
 
     --character sprite
     local sc = sprite.def.animations[sprite.cur_anim][1]
-    local x_step = 140 --(sc.ox or 20) * 4 + 8 or 100
+    local xStep = 140 --(sc.ox or 20) * 4 + 8 or 100
     local x = screen_width /2
     local y = menu_y_offset + menu_item_h / 2
     if sprite.cur_anim == "icon" then --normalize icon's pos
@@ -425,8 +425,8 @@ function spriteEditorState:draw()
             end
             love.graphics.setColor(255, 255, 255, 150)
             for i = 1, #sprite.def.animations[sprite.cur_anim] do
-                DrawSpriteInstance(sprite, x - (menu[menu_state].n - i) * x_step, y, i )
-                DrawSpriteWeapon(sprite, x - (menu[menu_state].n - i) * x_step, y, i )
+                DrawSpriteInstance(sprite, x - (menu[menu_state].n - i) * xStep, y, i )
+                DrawSpriteWeapon(sprite, x - (menu[menu_state].n - i) * xStep, y, i )
             end
             love.graphics.setColor(255, 255, 255, 255)
             DrawSpriteInstance(sprite, x, y, menu[menu_state].n)
@@ -454,7 +454,7 @@ end
 
 function spriteEditorState:confirm( x, y, button, istouch )
     if (button == 1 and menu_state == #menu) or button == 2 then
-        sfx.play("sfx","menu_cancel")
+        sfx.play("sfx","menuCancel")
         TEsound.stop("music")
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
         return Gamestate.pop()
@@ -462,22 +462,22 @@ function spriteEditorState:confirm( x, y, button, istouch )
     if button == 1 then
         if menu_state == 1 then
             SetSpriteAnimation(sprite, animations[menu[menu_state].n])
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
         elseif menu_state == 2 then
             print(ParseSpriteAnimation(sprite))
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
         elseif menu_state == 3 then
             --set current characters frame weapon anim
             if sprite_weapon then
                 local s = sprite.def.animations[sprite.cur_anim]
                 local f = s[menu[2].n]    --current char-sprite frame
                 f.wAnimation = animations_weapon[menu[menu_state].n]
-                sfx.play("sfx","menu_select")
+                sfx.play("sfx","menuSelect")
             else
-                sfx.play("sfx","menu_cancel")
+                sfx.play("sfx","menuCancel")
             end
         elseif menu_state == 4 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
         end
     end
 end
@@ -539,7 +539,7 @@ function spriteEditorState:wheelmoved(x, y)
         end
     end
     if menu_state ~= #menu then
-        sfx.play("sfx","menu_move")
+        sfx.play("sfx","menuMove")
     end
 end
 

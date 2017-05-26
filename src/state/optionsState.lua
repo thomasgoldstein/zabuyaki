@@ -40,7 +40,7 @@ end
 --Only P1 can use menu / options
 function optionsState:player_input(controls)
     if controls.jump:pressed() or controls.back:pressed() then
-        sfx.play("sfx","menu_cancel")
+        sfx.play("sfx","menuCancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
         return self:confirm( mouse_x, mouse_y, 1)
@@ -65,7 +65,7 @@ end
 function optionsState:update(dt)
     time = time + dt
     if menu_state ~= old_menu_state then
-        sfx.play("sfx","menu_move")
+        sfx.play("sfx","menuMove")
         old_menu_state = menu_state
     end
     self:player_input(Control1)
@@ -114,7 +114,7 @@ function optionsState:confirm( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
         if menu_state == 1 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 configuration:set("DIFFICULTY", 2)
             else
@@ -122,15 +122,15 @@ function optionsState:confirm( x, y, button, istouch )
             end
             configuration:save(true)
         elseif menu_state == 2 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             return Gamestate.push(videoModeState)
 
         elseif menu_state == 3 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             return Gamestate.push(soundState)
 
         elseif menu_state == 4 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             configuration:reset()
             configuration:save(true)
             TEsound.stop("music")
@@ -138,15 +138,15 @@ function optionsState:confirm( x, y, button, istouch )
             TEsound.playLooping(bgm.title, "music")
 
         elseif menu_state == 5 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             return Gamestate.push(spriteSelectState)
 
         elseif menu_state == #menu then
-            sfx.play("sfx","menu_cancel")
+            sfx.play("sfx","menuCancel")
             return Gamestate.pop()
         end
     elseif button == 2 then
-        sfx.play("sfx","menu_cancel")
+        sfx.play("sfx","menuCancel")
         return Gamestate.pop()
     end
 end
@@ -179,6 +179,6 @@ function optionsState:wheelmoved(x, y)
         return self:confirm( mouse_x, mouse_y, 1)
     end
     if menu_state ~= #menu then
-        sfx.play("sfx","menu_move")
+        sfx.play("sfx","menuMove")
     end
 end

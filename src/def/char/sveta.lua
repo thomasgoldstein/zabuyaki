@@ -13,12 +13,12 @@ local combo_slap = function(slf, cont)
 end
 local combo_kick = function(slf, cont)
     slf:checkAndAttack(
-        { left = 25, width = 26, height = 12, damage = 10, type = "fall", velocity = slf.velocity_dash_fall },
+        { left = 25, width = 26, height = 12, damage = 10, type = "fall", velocity = slf.velocityDashFall },
         cont
 ) end
-local dash_attack = function(slf, cont)
+local dashAttack = function(slf, cont)
     slf:checkAndAttack(
-        { left = 21, width = 25, height = 12, damage = 14, type = "fall", velocity = slf.velocity_dash_fall },
+        { left = 21, width = 25, height = 12, damage = 14, type = "fall", velocity = slf.velocityDashFall },
         cont
 ) end
 
@@ -79,7 +79,7 @@ return {
         },
         dashAttack = {
             { q = q(42,323,52,63), ox = 34, oy = 62 }, --dash attack 1
-            { q = q(96,323,71,60), ox = 37, oy = 59, funcCont = dash_attack, delay = 0.5 }, --dash attack 2
+            { q = q(96,323,71,60), ox = 37, oy = 59, funcCont = dashAttack, delay = 0.5 }, --dash attack 2
             { q = q(42,323,52,63), ox = 34, oy = 62 }, --dash attack 1
             delay = 0.06
         },

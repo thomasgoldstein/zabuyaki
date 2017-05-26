@@ -23,22 +23,22 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
     self.velocityWalk = 90
     self.velocityWalk_y = 45
-    self.velocity_run = 140
-    self.velocity_run_y = 23
-    self.velocity_dash = 170 --speed of the character
-    self.velocity_dash_fall = 180 --speed caused by dash to others fall
-    self.friction_dash = self.velocity_dash
+    self.velocityRun = 140
+    self.velocityRun_y = 23
+    self.velocityDash = 170 --speed of the character
+    self.velocityDashFall = 180 --speed caused by dash to others fall
+    self.frictionDash = self.velocityDash
 --    self.velocity_shove_x = 220 --my throwing speed
 --    self.velocity_shove_z = 200 --my throwing speed
-    self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
-    self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
---    self.sfx.jump = "kisa_jump"
---    self.sfx.throw = "kisa_throw"
-    self.sfx.dead = sfx.sveta_death
---    self.sfx.jump_attack = sfx.sveta_attack
-    self.sfx.dash_attack = sfx.sveta_attack
-    self.sfx.step = "kisa_step"
+--    self.sfx.jump = "kisaJump"
+--    self.sfx.throw = "kisaThrow"
+    self.sfx.dead = sfx.svetaDeath
+--    self.sfx.jumpAttack = sfx.svetaAttack
+    self.sfx.dashAttack = sfx.svetaAttack
+    self.sfx.step = "kisaStep"
 end
 
 Sveta.dashAttack = { name = "dashAttack", start = _Sveta.dashAttackStart, exit = nop, update = _Sveta.dashAttackUpdate, draw = Character.defaultDraw }

@@ -31,33 +31,33 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.velocityWalk_y = 50
     self.velocityWalkHold = self.velocityWalk * 0.75
     self.velocityWalkHold_y = self.velocityWalk_y * 0.75
-    self.velocity_run = 150
-    self.velocity_run_y = 25
-    self.velocity_jump = 220 --Z coord
-    self.velocity_jump_speed = 1.25
-    self.velocity_jump_x_boost = 10
-    self.velocity_jump_y_boost = 5
-    self.velocity_jump_z_run_boost = 24
-    self.velocity_fall_z = 220
-    self.velocity_fall_x = 120
-    self.velocity_fall_add_x = 5
-    self.velocity_fall_dead_add_x = 20
-    self.velocity_dash = 150 --speed of the character
-    self.velocity_dash_fall = 180 --speed caused by dash to others fall
-    self.friction_dash = self.velocity_dash
+    self.velocityRun = 150
+    self.velocityRun_y = 25
+    self.velocityJump = 220 --Z coord
+    self.velocityJump_speed = 1.25
+    self.velocityJump_x_boost = 10
+    self.velocityJump_y_boost = 5
+    self.velocityJump_zRun_boost = 24
+    self.velocityFall_z = 220
+    self.velocityFall_x = 120
+    self.velocityFall_add_x = 5
+    self.velocityFall_dead_add_x = 20
+    self.velocityDash = 150 --speed of the character
+    self.velocityDashFall = 180 --speed caused by dash to others fall
+    self.frictionDash = self.velocityDash
     self.throwStart_z = 20 --lift up a body to throw at this Z
-    self.to_fallen_anim_z = 40
-    self.velocity_step_down = 220
+    self.toFallen_anim_z = 40
+    self.velocityStep_down = 220
     self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
     self.velocity_shove_x = 220 --my throwing speed
     self.velocity_shove_z = 200 --my throwing speed
     self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
     self.velocity_back_off = 175 --when you ungrab someone
     self.velocity_back_off2 = 200 --when you are released
-    self.velocity_bonus_on_attack_x = 30
-    self.velocity_throw_x = 110 --attack speed that causes my thrown body to the victims
-    self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
-    self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+    self.velocity_bonus_onAttack_x = 30
+    self.velocityThrow_x = 110 --attack speed that causes my thrown body to the victims
+    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
     self.moves = moves_white_list --list of allowed moves
@@ -77,12 +77,12 @@ function Character:initialize(name, sprite, input, x, y, f)
     --Character default sfx
     self.sfx.jump = "whoosh_heavy"
     self.sfx.throw = "whoosh_heavy"
-    self.sfx.dash_attack = "gopper_attack1"
+    self.sfx.dashAttack = "gopperAttack1"
     self.sfx.grab = "grab"
-    self.sfx.grab_clash = "hit_weak6"
-    self.sfx.jump_attack = self.sfx.jump_attack or "niko_attack1"
-    self.sfx.step = self.sfx.step or "kisa_step"
-    self.sfx.dead = self.sfx.dead or "gopnik_death1"
+    self.sfx.grab_clash = "hitWeak6"
+    self.sfx.jumpAttack = self.sfx.jumpAttack or "nikoAttack1"
+    self.sfx.step = self.sfx.step or "kisaStep"
+    self.sfx.dead = self.sfx.dead or "gopnikDeath1"
     self.victim_infoBar = nil
 end
 
@@ -278,13 +278,13 @@ function Character:afterOnHurt()
         --then it does to "fall dead"
     elseif h.type == "grabKO" then
         --when u throw a grabbed one
-        self.velx = self.velocity_throw_x
+        self.velx = self.velocityThrow_x
     elseif h.type == "fall" then
         --use fall speed from the agument
         self.velx = h.velx
         --it cannot be too short
-        if self.velx < self.velocity_fall_x / 2 then
-            self.velx = self.velocity_fall_x / 2 + self.velocity_fall_add_x
+        if self.velx < self.velocityFall_x / 2 then
+            self.velx = self.velocityFall_x / 2 + self.velocityFall_add_x
         end
     elseif h.type == "shockWave" then
         if h.source.x < self.x then
@@ -307,15 +307,15 @@ function Character:afterOnHurt()
     end
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
-    self.velz = self.velocity_fall_z * self.velocity_jump_speed
+    self.velz = self.velocityFall_z * self.velocityJump_speed
     if self.hp <= 0 then -- dead body flies further
-        if self.velx < self.velocity_fall_x then
-            self.velx = self.velocity_fall_x + self.velocity_fall_dead_add_x
+        if self.velx < self.velocityFall_x then
+            self.velx = self.velocityFall_x + self.velocityFall_dead_add_x
         else
-            self.velx = self.velx + self.velocity_fall_dead_add_x
+            self.velx = self.velx + self.velocityFall_dead_add_x
         end
-    elseif self.velx < self.velocity_fall_x then --alive bodies
-        self.velx = self.velocity_fall_x
+    elseif self.velx < self.velocityFall_x then --alive bodies
+        self.velx = self.velocityFall_x
         --self.face = -h.horizontal	--turn face to the epicenter
     end
     self.horizontal = h.horizontal
@@ -340,14 +340,14 @@ end
 
 function Character:checkStuckButtons()
     if not self.b.jump:isDown() then
-        self.can_jump = true
+        self.canJump = true
     else
-        self.can_jump = false
+        self.canJump = false
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     else
-        self.can_attack = false
+        self.canAttack = false
     end
 end
 
@@ -371,7 +371,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and o ~= self
             then
                 o.harm = {source = self, state = self.state, damage = damage,
-                    type = type, velx = velocity or self.velocity_bonus_on_attack_x,
+                    type = type, velx = velocity or self.velocity_bonus_onAttack_x,
                     horizontal = face, isThrown = false,
                     x = self.x, y = self.y, z = self.z }
                 items[#items+1] = o
@@ -388,12 +388,12 @@ function Character:checkAndAttack(f, isFuncCont)
             then
                 if self.isThrown then
                     o.harm = {source = self.thrower_id, state = self.state, damage = damage,
-                        type = type, velx = velocity or self.velocity_bonus_on_attack_x,
+                        type = type, velx = velocity or self.velocity_bonus_onAttack_x,
                         horizontal = self.horizontal, isThrown = true,
                         x = self.x, y = self.y, z = self.z }
                 else
                     o.harm = {source = self, state = self.state, damage = damage,
-                        type = type, velx = velocity or self.velocity_bonus_on_attack_x,
+                        type = type, velx = velocity or self.velocity_bonus_onAttack_x,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
                         x = self.x, y = self.y, z = self.z }
@@ -469,10 +469,10 @@ function Character:standStart()
 end
 function Character:standUpdate(dt)
     if not self.b.jump:isDown() then
-        self.can_jump = true
+        self.canJump = true
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     end
     self.delay_animation_coolDown = self.delay_animation_coolDown - dt
     if self.delay_animation_coolDown <= 0 then
@@ -492,14 +492,14 @@ function Character:standUpdate(dt)
     else
         self.n_combo = 1
     end
-    if (self.moves.jump and self.can_jump and self.b.jump:isDown())
+    if (self.moves.jump and self.canJump and self.b.jump:isDown())
         or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
-            and (self.can_jump or self.can_attack) and
+            and (self.canJump or self.canAttack) and
             (self.b.jump:isDown() and self.b.attack:isDown()))
     then
         self:setState(self.duck2jump)
         return
-    elseif self.can_attack and self.b.attack:pressed() then
+    elseif self.canAttack and self.b.attack:pressed() then
         if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
             return
@@ -557,12 +557,12 @@ function Character:walkStart()
 end
 function Character:walkUpdate(dt)
     if not self.b.jump:isDown() then
-        self.can_jump = true
+        self.canJump = true
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     end
-    if self.b.attack:isDown() and self.can_attack then
+    if self.b.attack:isDown() and self.canAttack then
         if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
             return
@@ -570,7 +570,7 @@ function Character:walkUpdate(dt)
             self:setState(self.combo)
             return
         end
-    elseif self.moves.jump and self.b.jump:isDown() and self.can_jump then
+    elseif self.moves.jump and self.b.jump:isDown() and self.canJump then
         self:setState(self.duck2jump)
         return
     end
@@ -638,14 +638,14 @@ Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update
 function Character:runStart()
     self.isHittable = true
     self.delay_animation_coolDown = 0.01
-    --can_jump & self.can_attack are set in the prev state
+    --canJump & self.canAttack are set in the prev state
 end
 function Character:runUpdate(dt)
     if not self.b.jump:isDown() then
-        self.can_jump = true
+        self.canJump = true
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     end
     self.velx = 0
     self.vely = 0
@@ -657,11 +657,11 @@ function Character:runUpdate(dt)
     if self.b.horizontal:getValue() ~= 0 then
         self.face = self.b.horizontal:getValue() --face sprite left or right
         self.horizontal = self.face --X direction
-        self.velx = self.velocity_run
+        self.velx = self.velocityRun
     end
     if self.b.vertical:getValue() ~= 0 then
         self.vertical = self.b.vertical:getValue()
-        self.vely = self.velocity_run_y
+        self.vely = self.velocityRun_y
     end
     if (self.velx == 0 and self.vely == 0)
         or (self.b.horizontal:getValue() == 0)
@@ -670,7 +670,7 @@ function Character:runUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if self.can_jump and self.b.jump:isDown() then
+    if self.canJump and self.b.jump:isDown() then
         if self.moves.offensiveSpecial and self.b.attack:isDown() then
             self:setState(self.offensiveSpecial)
             return
@@ -678,7 +678,7 @@ function Character:runUpdate(dt)
             self:setState(self.duck2jump, true) --pass condition to block dir changing
             return
         end
-    elseif self.b.attack:isDown() and self.can_attack then
+    elseif self.b.attack:isDown() and self.canAttack then
         if self.moves.offensiveSpecial and self.b.jump:isDown() then
             self:setState(self.offensiveSpecial)
             return
@@ -695,19 +695,19 @@ function Character:jumpStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("jump")
-    self.velz = self.velocity_jump * self.velocity_jump_speed
+    self.velz = self.velocityJump * self.velocityJump_speed
     self.z = 0.1
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.prevState == "run" then
         -- jump higher from run
-        self.velz = (self.velocity_jump + self.velocity_jump_z_run_boost) * self.velocity_jump_speed
+        self.velz = (self.velocityJump + self.velocityJump_zRun_boost) * self.velocityJump_speed
     end
     if self.velx ~= 0 then
-        self.velx = self.velx + self.velocity_jump_x_boost --make jump little faster than the walk/run speed
+        self.velx = self.velx + self.velocityJump_x_boost --make jump little faster than the walk/run speed
     end
     if self.vely ~= 0 then
-        self.vely = self.vely + self.velocity_jump_y_boost --make jump little faster than the walk/run speed
+        self.vely = self.vely + self.velocityJump_y_boost --make jump little faster than the walk/run speed
     end
     sfx.play("voice"..self.id, self.sfx.jump)
 end
@@ -720,7 +720,7 @@ function Character:jumpUpdate(dt)
             self:setState(self.jumpAttackStraight)
             return
         else
-            if self.moves.jumpAttackRun and self.velx >= self.velocity_run then
+            if self.moves.jumpAttackRun and self.velx >= self.velocityRun then
                 self:setState(self.jumpAttackRun)
                 return
             elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
@@ -734,7 +734,7 @@ function Character:jumpUpdate(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
     else
         self.velz = 0
         self.z = 0
@@ -863,14 +863,14 @@ function Character:hurtStart()
 end
 function Character:hurtUpdate(dt)
     if not self.b.jump:isDown() then
-        self.can_jump = true
+        self.canJump = true
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     end
     if self.moves.defensiveSpecial
-        and self.can_attack and self.b.attack:isDown()
-        and self.can_jump and self.b.jump:isDown()
+        and self.canAttack and self.b.attack:isDown()
+        and self.canJump and self.b.jump:isDown()
     then
         self.condition = true --trigger defensiveSpecial
     end
@@ -900,7 +900,7 @@ function Character:sideStepStart()
     else
         self:setSprite("sideStepUp")
     end
-    self.velx, self.vely = 0, self.velocity_step_down
+    self.velx, self.vely = 0, self.velocityStep_down
     sfx.play("sfx"..self.id, "whoosh_heavy")
 end
 function Character:sideStepUpdate(dt)
@@ -921,10 +921,10 @@ Character.sideStep = {name = "sideStep", start = Character.sideStepStart, exit =
 function Character:dashAttackStart()
     self.isHittable = true
     self:setSprite("dashAttack")
-    self.velx = self.velocity_dash
+    self.velx = self.velocityDash
     self.vely = 0
     self.velz = 0
-    sfx.play("voice"..self.id, self.sfx.dash_attack)
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
 end
 function Character:dashAttackUpdate(dt)
     if self.moves.defensiveSpecial and self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
@@ -935,7 +935,7 @@ function Character:dashAttackUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true, self.friction_dash)
+    self:calcMovement(dt, true, self.frictionDash)
 end
 Character.dashAttack = {name = "dashAttack", start = Character.dashAttackStart, exit = nop, update = Character.dashAttackUpdate, draw = Character.defaultDraw}
 
@@ -949,12 +949,12 @@ function Character:jumpAttackForwardStart()
     self.isHittable = true
     self.played_landing_anim = false
     self:setSprite("jumpAttackForward")
-    sfx.play("voice"..self.id, self.sfx.jump_attack)
+    sfx.play("voice"..self.id, self.sfx.jumpAttack)
 end
 function Character:jumpAttackForwardUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
         if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackForwardEnd")
             self.played_landing_anim = true
@@ -978,7 +978,7 @@ end
 function Character:jumpAttackLightUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
         if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackLightEnd")
             self.played_landing_anim = true
@@ -998,12 +998,12 @@ function Character:jumpAttackStraightStart()
     self.isHittable = true
     self.played_landing_anim = false
     self:setSprite("jumpAttackStraight")
-    sfx.play("voice"..self.id, self.sfx.jump_attack)
+    sfx.play("voice"..self.id, self.sfx.jumpAttack)
 end
 function Character:jumpAttackStraightUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
         if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackStraightEnd")
             self.played_landing_anim = true
@@ -1023,12 +1023,12 @@ function Character:jumpAttackRunStart()
     self.isHittable = true
     self.played_landing_anim = false
     self:setSprite("jumpAttackRun")
-    sfx.play("voice"..self.id, self.sfx.jump_attack)
+    sfx.play("voice"..self.id, self.sfx.jumpAttack)
 end
 function Character:jumpAttackRunUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
         if not self.played_landing_anim and self.velz < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackRunEnd")
             self.played_landing_anim = true
@@ -1063,10 +1063,10 @@ end
 function Character:fallUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
         if self.velz < 0 and self.sprite.cur_anim ~= "fallen" then
-            if (self.isThrown and self.z < self.to_fallen_anim_z)
-                or (not self.isThrown and self.z < self.to_fallen_anim_z / 4)
+            if (self.isThrown and self.z < self.toFallen_anim_z)
+                or (not self.isThrown and self.z < self.toFallen_anim_z / 4)
             then
                 self:setSprite("fallen")
             end
@@ -1085,7 +1085,7 @@ function Character:fallUpdate(dt)
                     if self.isThrown then
                         local src = self.thrower_id
                         --damage for throwned on landing
-                        self:applyDamage(self.thrown_land_damage, "simple", src)
+                        self:applyDamage(self.thrownFallDamage, "simple", src)
                     end
                 end
                 sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
@@ -1121,7 +1121,7 @@ function Character:fallUpdate(dt)
         if self.isThrown and self.velz < 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
             self:checkAndAttack(
-                { left = 0, width = 20, height = 12, damage = self.my_thrown_body_damage, type = "fall", velocity = self.velocity_throw_x },
+                { left = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "fall", velocity = self.velocityThrow_x },
                 false
             )
 
@@ -1279,7 +1279,7 @@ function Character:doGrab(target)
     g.source = nil
     g.target = target
     g.coolDown = self.coolDownGrab + 0.1
-    g.can_grabSwap = true   --can do 1 grabSwap
+    g.canGrabSwap = true   --can do 1 grabSwap
 
     self:setState(self.grab)
     target:setState(target.grabbed)
@@ -1294,7 +1294,7 @@ function Character:grabStart()
     self.victims = {}
     if not self.condition then
         local g = self.hold
-        local time_to_move = 0.1
+        local time_toMove = 0.1
         local to_common_y = math.floor((self.y + g.target.y) / 2 )
         local direction = self.x >= g.target.x and -1 or 1
         local check_forth = self:hasPlaceToStand(self.x + direction * check_x_dist, self.y)
@@ -1306,7 +1306,7 @@ function Character:grabStart()
         elseif check_back then
             x1 = g.target.x - direction * (check_x_dist + 4)
             x2 = g.target.x
-            time_to_move = 0.15
+            time_toMove = 0.15
         else
             x1 = self.x - direction * 4
             x2 = self.x + direction * 4
@@ -1315,11 +1315,11 @@ function Character:grabStart()
         g.target.velx = 0
         self.vely = 0
         g.target.vely = 0
-        self.move = tween.new(time_to_move, self, {
+        self.move = tween.new(time_toMove, self, {
             x = x1,
             y = to_common_y + 0.5
         }, 'outQuad')
-        g.target.move = tween.new(time_to_move, g.target, {
+        g.target.move = tween.new(time_toMove, g.target, {
             x = x2,
             y = to_common_y - 0.5
         }, 'outQuad')
@@ -1341,7 +1341,7 @@ function Character:grabUpdate(dt)
             if ( self.face == 1 and self.b.horizontal.ikp:getLast() )
                     or ( self.face == -1 and self.b.horizontal.ikn:getLast() )
             then
-                if self.moves.grabSwap and g.can_grabSwap
+                if self.moves.grabSwap and g.canGrabSwap
                     and self:hasPlaceToStand(self.hold.target.x + self.face * 18, self.y)
                 then
                     self:setState(self.grabSwap)
@@ -1366,7 +1366,7 @@ function Character:grabUpdate(dt)
             return
         end
         --special attacks
-        if self.b.attack:isDown() and self.can_jump and self.b.jump:isDown() then
+        if self.b.attack:isDown() and self.canJump and self.b.jump:isDown() then
             if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
                 self:releaseGrabbed()
                 self:setState(self.offensiveSpecial)
@@ -1378,7 +1378,7 @@ function Character:grabUpdate(dt)
             end
         end
         --normal attacks
-        if self.b.attack:isDown() and self.can_attack then
+        if self.b.attack:isDown() and self.canAttack then
             --if self.sprite.isFinished then
             if self.moves.shoveForward and self.b.horizontal:getValue() == self.face then
                 g.target:removeTweenMove()
@@ -1413,10 +1413,10 @@ function Character:grabUpdate(dt)
     end
 
     if not self.b.jump:isDown() then
-        self.can_jump = true
+        self.canJump = true
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     end
     --self:calcMovement(dt, true)
     self:tweenMove(dt)
@@ -1454,17 +1454,17 @@ function Character:grabbedFrontStart()
 end
 function Character:grabbedFrontUpdate(dt)
     if not self.b.jump:isDown() then
-        self.can_jump = true
+        self.canJump = true
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     end
     local g = self.hold
     if self.isGrabbed and g.coolDown > 0 then
         g.coolDown = g.coolDown - dt
         if self.moves.defensiveSpecial
-            and self.can_attack and self.b.attack:isDown()
-            and self.can_jump and self.b.jump:isDown()
+            and self.canAttack and self.b.attack:isDown()
+            and self.canJump and self.b.jump:isDown()
         then
             self:setState(self.defensiveSpecial)
             return
@@ -1494,17 +1494,17 @@ function Character:grabbedBackStart()
 end
 function Character:grabbedBackUpdate(dt)
     if not self.b.jump:isDown() then
-        self.can_jump = true
+        self.canJump = true
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     end
     local g = self.hold
     if self.isGrabbed and g.coolDown > 0 then
         g.coolDown = g.coolDown - dt
         if self.moves.defensiveSpecial
-                and self.can_attack and self.b.attack:isDown()
-                and self.can_jump and self.b.jump:isDown()
+                and self.canAttack and self.b.attack:isDown()
+                and self.canJump and self.b.jump:isDown()
         then
             self:setState(self.defensiveSpecial)
             return
@@ -1553,7 +1553,7 @@ function Character:grabAttackUpdate(dt)
     end
     if self.sprite.isFinished then
         local g = self.hold
-        if self.grabAttackN < self.sprite.def.max_grabAttack
+        if self.grabAttackN < self.sprite.def.maxGrabAttack
             and g and g.target and g.target.hp > 0 then
             self:setState(self.grab, true) --do not adjust positions of pl
         else
@@ -1705,7 +1705,7 @@ function Character:grabSwapStart()
     self:setSprite("grabSwap")
     local g = self.hold
     g.coolDown = g.coolDown + 0.2
-    g.can_grabSwap = false
+    g.canGrabSwap = false
     self.grabSwap_flipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 18
     self.grabSwap_x_fin_dist = math.abs( self.x - self.grabSwap_x )
@@ -1729,9 +1729,9 @@ function Character:grabSwapUpdate(dt)
     --adjust char horizontally
     if math.abs(self.x - self.grabSwap_x) > 2 then
         if self.x < self.grabSwap_x then
-            self.x = self.x + self.velocity_run * dt
+            self.x = self.x + self.velocityRun * dt
         elseif self.x >= self.grabSwap_x then
-            self.x = self.x - self.velocity_run * dt
+            self.x = self.x - self.velocityRun * dt
         end
         self.sprite.cur_frame = grabSwap_frames[ math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwap_x_fin_dist) * #grabSwap_frames ) ]
         if not self.grabSwap_flipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwap_x_fin_dist / 2 then
@@ -1745,10 +1745,10 @@ function Character:grabSwapUpdate(dt)
         return
     end
     if not self.b.jump:isDown() then
-        self.can_jump = true
+        self.canJump = true
     end
     if not self.b.attack:isDown() then
-        self.can_attack = true
+        self.canAttack = true
     end
     self.shape:moveTo(self.x, self.y)
     if self:isStuck() then

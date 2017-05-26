@@ -41,96 +41,96 @@ SFX.load = function(alias, s, volume, pitch, copyright)
     SFX[#SFX + 1] = SFX[alias]
 --    return src
 end
-SFX.load("menu_select","res/sfx/menu_select.wav", 0.5, nil, "Stifu")
-SFX.load("menu_cancel","res/sfx/menu_cancel.wav", 0.5, nil, "Don Miguel")
-SFX.load("menu_move","res/sfx/menu_move.wav", 0.5, nil, "J.J")
-SFX.load("menu_gamestart","res/sfx/menu_gamestart.wav", 0.2)
+SFX.load("menuSelect","res/sfx/menuSelect.wav", 0.5, nil, "Stifu")
+SFX.load("menuCancel","res/sfx/menuCancel.wav", 0.5, nil, "Don Miguel")
+SFX.load("menuMove","res/sfx/menuMove.wav", 0.5, nil, "J.J")
+SFX.load("menuGameStart","res/sfx/menuGameStart.wav", 0.2)
 
-SFX.load("air","res/sfx/whoosh_light.wav", 0.5)
-SFX.load("whoosh_heavy","res/sfx/whoosh_heavy.wav", 1)
+SFX.load("air","res/sfx/whooshLight.wav", 0.5)
+SFX.load("whoosh_heavy","res/sfx/whooshHeavy.wav", 1)
 SFX.load("grab","res/sfx/grab.wav", 1)
 
-SFX.load("pickup_apple","res/sfx/pickup_apple.wav", 1)
-SFX.load("pickup_chicken","res/sfx/pickup_chicken.wav", 1)
-SFX.load("pickup_beef","res/sfx/pickup_beef.wav", 1)
+SFX.load("pickupApple","res/sfx/pickupApple.wav", 1)
+SFX.load("pickupChicken","res/sfx/pickupChicken.wav", 1)
+SFX.load("pickupBeef","res/sfx/pickupBeef.wav", 1)
 
-SFX.load("fall","res/sfx/fall_down.wav", 1)
+SFX.load("fall","res/sfx/fallDown.wav", 1)
 
-SFX.load("hit_hard1","res/sfx/hit_hard1.wav", 1)
-SFX.load("hit_hard2","res/sfx/hit_hard2.wav", 1)
-SFX.load("hit_hard3","res/sfx/hit_hard3.wav", 1)
-SFX.load("hit_hard4","res/sfx/hit_hard4.wav", 1)
-SFX.load("hit_hard5","res/sfx/hit_hard5.wav", 1)
-SFX.load("hit_hard6","res/sfx/hit_hard6.wav", 1)
-SFX.hit_hard = {"hit_hard1","hit_hard2","hit_hard3","hit_hard4","hit_hard5","hit_hard6"}
-SFX.load("hit_medium1","res/sfx/hit_medium1.wav", 1)
-SFX.load("hit_medium2","res/sfx/hit_medium2.wav", 1)
-SFX.load("hit_medium3","res/sfx/hit_medium3.wav", 1)
-SFX.load("hit_medium4","res/sfx/hit_medium4.wav", 1)
-SFX.load("hit_medium5","res/sfx/hit_medium5.wav", 1)
-SFX.load("hit_medium6","res/sfx/hit_medium6.wav", 1)
-SFX.hit_medium = {"hit_medium1","hit_medium2","hit_medium3","hit_medium4","hit_medium5","hit_medium6"}
-SFX.load("hit_weak1","res/sfx/hit_weak1.wav", 1)
-SFX.load("hit_weak2","res/sfx/hit_weak2.wav", 1)
-SFX.load("hit_weak3","res/sfx/hit_weak3.wav", 1)
-SFX.load("hit_weak4","res/sfx/hit_weak4.wav", 1)
-SFX.load("hit_weak5","res/sfx/hit_weak5.wav", 1)
-SFX.load("hit_weak6","res/sfx/hit_weak6.wav", 1)
-SFX.hit_weak = {"hit_weak1","hit_weak2","hit_weak3","hit_weak4","hit_weak5","hit_weak6"}
+SFX.load("hitHard1","res/sfx/hitHard1.wav", 1)
+SFX.load("hitHard2","res/sfx/hitHard2.wav", 1)
+SFX.load("hitHard3","res/sfx/hitHard3.wav", 1)
+SFX.load("hitHard4","res/sfx/hitHard4.wav", 1)
+SFX.load("hitHard5","res/sfx/hitHard5.wav", 1)
+SFX.load("hitHard6","res/sfx/hitHard6.wav", 1)
+SFX.hitHard = {"hitHard1","hitHard2","hitHard3","hitHard4","hitHard5","hitHard6"}
+SFX.load("hitMedium1","res/sfx/hitMedium1.wav", 1)
+SFX.load("hitMedium2","res/sfx/hitMedium2.wav", 1)
+SFX.load("hitMedium3","res/sfx/hitMedium3.wav", 1)
+SFX.load("hitMedium4","res/sfx/hitMedium4.wav", 1)
+SFX.load("hitMedium5","res/sfx/hitMedium5.wav", 1)
+SFX.load("hitMedium6","res/sfx/hitMedium6.wav", 1)
+SFX.hitMedium = {"hitMedium1","hitMedium2","hitMedium3","hitMedium4","hitMedium5","hitMedium6"}
+SFX.load("hitWeak1","res/sfx/hitWeak1.wav", 1)
+SFX.load("hitWeak2","res/sfx/hitWeak2.wav", 1)
+SFX.load("hitWeak3","res/sfx/hitWeak3.wav", 1)
+SFX.load("hitWeak4","res/sfx/hitWeak4.wav", 1)
+SFX.load("hitWeak5","res/sfx/hitWeak5.wav", 1)
+SFX.load("hitWeak6","res/sfx/hitWeak6.wav", 1)
+SFX.hitWeak = {"hitWeak1","hitWeak2","hitWeak3","hitWeak4","hitWeak5","hitWeak6"}
 
-SFX.load("kisa_jump","res/sfx/kisa_jump.wav", 1)
-SFX.load("kisa_attack","res/sfx/kisa_attack.wav", 1)
-SFX.load("kisa_throw","res/sfx/kisa_throw.wav", 1)
-SFX.load("kisa_step","res/sfx/kisa_step.wav", 1)
-SFX.load("kisa_death","res/sfx/kisa_death.wav", 1)
+SFX.load("kisaJump","res/sfx/kisaJump.wav", 1)
+SFX.load("kisaAttack","res/sfx/kisaAttack.wav", 1)
+SFX.load("kisaThrow","res/sfx/kisaThrow.wav", 1)
+SFX.load("kisaStep","res/sfx/kisaStep.wav", 1)
+SFX.load("kisaDeath","res/sfx/kisaDeath.wav", 1)
 
-SFX.load("rick_jump","res/sfx/rick_jump.wav", 1)
-SFX.load("rick_attack","res/sfx/rick_attack.wav", 1)
-SFX.load("rick_throw","res/sfx/rick_throw.wav", 1)
-SFX.load("rick_step","res/sfx/rick_step.wav", 1)
-SFX.load("rick_death","res/sfx/rick_death.wav", 1)
+SFX.load("rickJump","res/sfx/rickJump.wav", 1)
+SFX.load("rickAttack","res/sfx/rickAttack.wav", 1)
+SFX.load("rickThrow","res/sfx/rickThrow.wav", 1)
+SFX.load("rickStep","res/sfx/rickStep.wav", 1)
+SFX.load("rickDeath","res/sfx/rickDeath.wav", 1)
 
-SFX.load("chai_jump","res/sfx/chai_jump.wav", 1)
-SFX.load("chai_attack","res/sfx/chai_attack.wav", 1)
-SFX.load("chai_throw","res/sfx/chai_throw.wav", 1)
-SFX.load("chai_step","res/sfx/chai_step.wav", 1)
-SFX.load("chai_death","res/sfx/chai_death.wav", 1)
+SFX.load("chaiJump","res/sfx/chaiJump.wav", 1)
+SFX.load("chaiAttack","res/sfx/chaiAttack.wav", 1)
+SFX.load("chaiThrow","res/sfx/chaiThrow.wav", 1)
+SFX.load("chaiStep","res/sfx/chaiStep.wav", 1)
+SFX.load("chaiDeath","res/sfx/chaiDeath.wav", 1)
 
-SFX.load("gopper_attack1","res/sfx/gopper_attack1.wav", 1)
-SFX.load("gopper_attack2","res/sfx/gopper_attack2.wav", 1)
+SFX.load("gopperAttack1","res/sfx/gopperAttack1.wav", 1)
+SFX.load("gopperAttack2","res/sfx/gopperAttack2.wav", 1)
 
-SFX.load("niko_attack1","res/sfx/niko_attack1.wav", 1)
-SFX.load("niko_attack2","res/sfx/niko_attack2.wav", 1)
+SFX.load("nikoAttack1","res/sfx/nikoAttack1.wav", 1)
+SFX.load("nikoAttack2","res/sfx/nikoAttack2.wav", 1)
 
-SFX.load("gopnik_death1","res/sfx/gopnik_death1.wav", 1)
-SFX.load("gopnik_death2","res/sfx/gopnik_death2.wav", 1)
+SFX.load("gopnikDeath1","res/sfx/gopnikDeath1.wav", 1)
+SFX.load("gopnikDeath2","res/sfx/gopnikDeath2.wav", 1)
 
-SFX.load("gopnitsa_attack1","res/sfx/gopnitsa_attack1.wav", 1)
-SFX.load("gopnitsa_attack2","res/sfx/gopnitsa_attack2.wav", 1)
-SFX.load("gopnitsa_death1","res/sfx/gopnitsa_death1.wav", 1)
-SFX.load("gopnitsa_death2","res/sfx/gopnitsa_death2.wav", 1)
+SFX.load("gopnitsaAttack1","res/sfx/gopnitsaAttack1.wav", 1)
+SFX.load("gopnitsaAttack2","res/sfx/gopnitsaAttack2.wav", 1)
+SFX.load("gopnitsaDeath1","res/sfx/gopnitsaDeath1.wav", 1)
+SFX.load("gopnitsaDeath2","res/sfx/gopnitsaDeath2.wav", 1)
 
-SFX.load("beatnick_attack1","res/sfx/beatnick_attack1.wav", 1)
-SFX.load("beatnick_death1","res/sfx/beatnick_death1.wav", 1)
+SFX.load("beatnickAttack1","res/sfx/beatnickAttack1.wav", 1)
+SFX.load("beatnickDeath1","res/sfx/beatnickDeath1.wav", 1)
 
-SFX.load("satoff_attack1","res/sfx/satoff_attack1.wav", 1)
-SFX.load("satoff_death1","res/sfx/satoff_death1.wav", 1)
+SFX.load("satoffAttack1","res/sfx/satoffAttack1.wav", 1)
+SFX.load("satoffDeath1","res/sfx/satoffDeath1.wav", 1)
 
-SFX.gopper_attack = {"gopper_attack1","gopper_attack2"}
-SFX.gopper_death = {"gopnik_death1","gopnik_death2"}
-SFX.niko_attack = {"niko_attack1","niko_attack2"}
-SFX.niko_death = {"gopnik_death1","gopnik_death2"}
-SFX.sveta_attack = {"gopnitsa_attack1","gopnitsa_attack2"}
-SFX.sveta_death = {"gopnitsa_death1","gopnitsa_death2"}
-SFX.zeena_attack = {"gopnitsa_attack1","gopnitsa_attack2"}
-SFX.zeena_death = {"gopnitsa_death1","gopnitsa_death2"}
-SFX.beatnick_attack = {"beatnick_attack1"}
-SFX.beatnick_death = {"beatnick_death1"}
-SFX.satoff_attack = {"satoff_attack1"}
-SFX.satoff_death = {"satoff_death1"}
+SFX.gopperAttack = {"gopperAttack1","gopperAttack2"}
+SFX.gopperDeath = {"gopnikDeath1","gopnikDeath2"}
+SFX.nikoAttack = {"nikoAttack1","nikoAttack2"}
+SFX.nikoDeath = {"gopnikDeath1","gopnikDeath2"}
+SFX.svetaAttack = {"gopnitsaAttack1","gopnitsaAttack2"}
+SFX.svetaDeath = {"gopnitsaDeath1","gopnitsaDeath2"}
+SFX.zeenaAttack = {"gopnitsaAttack1","gopnitsaAttack2"}
+SFX.zeenaDeath = {"gopnitsaDeath1","gopnitsaDeath2"}
+SFX.beatnickAttack = {"beatnickAttack1"}
+SFX.beatnickDeath = {"beatnickDeath1"}
+SFX.satoffAttack = {"satoffAttack1"}
+SFX.satoffDeath = {"satoffDeath1"}
 
-SFX.load("metal_grab","res/sfx/metal_break.wav", 0.5)
-SFX.load("metal_hit","res/sfx/metal_hit.wav", 1)
-SFX.load("metal_break","res/sfx/metal_break.wav", 1)
+SFX.load("metalGrab","res/sfx/metalBreak.wav", 0.5)
+SFX.load("metalHit","res/sfx/metalHit.wav", 1)
+SFX.load("metalBreak","res/sfx/metalBreak.wav", 1)
 
 return SFX

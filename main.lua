@@ -245,22 +245,22 @@ function love.keypressed(key, unicode)
 	if key == 'kp*' or key == '0' then
 		configuration:set("DEBUG", not GLOBAL_SETTING.DEBUG)
 		configuration:save(true)
-		sfx.play("sfx","menu_move")
+		sfx.play("sfx","menuMove")
 	elseif key == 'kp+' or key == '=' then
 		GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO - 1
 		if GLOBAL_SETTING.SLOW_MO < 0 then
 			GLOBAL_SETTING.SLOW_MO = 0
-			sfx.play("sfx","menu_cancel")
+			sfx.play("sfx","menuCancel")
 		else
-			sfx.play("sfx","menu_move")
+			sfx.play("sfx","menuMove")
 		end
 	elseif key == 'kp-' or key == '-' then
 		GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO + 1
 		if GLOBAL_SETTING.SLOW_MO > GLOBAL_SETTING.MAX_SLOW_MO then
 			GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.MAX_SLOW_MO
-			sfx.play("sfx","menu_cancel")
+			sfx.play("sfx","menuCancel")
 		else
-			sfx.play("sfx","menu_move")
+			sfx.play("sfx","menuMove")
 		end
 	elseif key == 'f12' then
 		--saveAllCanvasesToPng()

@@ -17,7 +17,7 @@ local combo_punch = function(slf, cont)
         cont
     )
 end
-local jump_attack = function(slf, cont)
+local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
         { left = 15, width = 22, height = 12, damage = 14, type = "fall", velocity = slf.velx },
         cont
@@ -160,12 +160,12 @@ return {
         },
         jumpAttackForward = {
             { q = q(61,265,56,63), ox = 31, oy = 64 }, --jump attack forward 1
-            { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
+            { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jumpAttack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackStraight = {
             { q = q(61,265,56,63), ox = 31, oy = 64 }, --jump attack forward 1
-            { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jump_attack, delay = 5 }, --jump attack forward 2
+            { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jumpAttack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
         grab = {

@@ -23,11 +23,11 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
     self.velocityWalk = 90
     self.velocityWalk_y = 45
---    self.velocity_run = 140
---    self.velocity_run_y = 23
---    self.velocity_dash = 150 --speed of the character
---    self.velocity_dash_fall = 180 --speed caused by dash to others fall
---    self.friction_dash = self.velocity_dash
+--    self.velocityRun = 140
+--    self.velocityRun_y = 23
+--    self.velocityDash = 150 --speed of the character
+--    self.velocityDashFall = 180 --speed caused by dash to others fall
+--    self.frictionDash = self.velocityDash
 
     self.velocityJab = 100 --speed of the jab slide
     self.velocityJab_y = 20 --speed of the vertical jab slide
@@ -35,12 +35,12 @@ function Zeena:initialize(name, sprite, input, x, y, f)
 
 --    self.velocity_shove_x = 220 --my throwing speed
 --    self.velocity_shove_z = 200 --my throwing speed
-    self.my_thrown_body_damage = 10  --DMG (weight) of my thrown body that makes DMG to others
-    self.thrown_land_damage = 20  --dmg I suffer on landing from the thrown-fall
+    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
-    self.sfx.dead = sfx.zeena_death
-    self.sfx.jump_attack = sfx.zeena_attack
-    self.sfx.step = "kisa_step"
+    self.sfx.dead = sfx.zeenaDeath
+    self.sfx.jumpAttack = sfx.zeenaAttack
+    self.sfx.step = "kisaStep"
 end
 
 Zeena.combo = {name = "combo", start = Enemy.comboStart, exit = nop, update = _Zeena.comboUpdate, draw = Character.defaultDraw}

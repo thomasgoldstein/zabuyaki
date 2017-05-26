@@ -75,11 +75,11 @@ function Movie:update(dt)
     if self.b.attack:isDown() or love.mouse.isDown(1) then
         self.time = self.time + dt * 3 -- Speed Up
 --        if self.b.attack:pressed() then
---            sfx.play("sfx", "menu_move")
+--            sfx.play("sfx", "menuMove")
 --        end
     end
     if self.b.back:pressed() or self.b.jump:pressed() or love.mouse.isDown(2) then
-        --sfx.play("sfx", "menu_cancel")
+        --sfx.play("sfx", "menuCancel")
         return true -- Interrupt
     end
     if not self.frames or not self.frames[self.frame] then
@@ -98,7 +98,7 @@ function Movie:update(dt)
             or (self.time >= self.frames[self.frame].delay and self.b.attack:released())
     then
 --        if self.b.attack:released() or self.b.attack:pressed() then
---            sfx.play("sfx", "menu_select")
+--            sfx.play("sfx", "menuSelect")
 --        end
         self.frame = self.frame + 1
         self.hScroll, self.vScroll = 0, 0

@@ -12,14 +12,14 @@ local step_sfx = function(slf, cont)
 	padust:emit(3)
 	stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
 end
-local grab_attack = function(slf, cont)
+local grabAttack = function(slf, cont)
 	--default values: 10,0,20,12, "low", slf.velx
 	slf:checkAndAttack(
 		{ left = 8, width = 26, height = 12, damage = 9, type = "low" },
 		cont
 	)
 end
-local grab_attack_last = function(slf, cont)
+local grabAttack_last = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 10, width = 26, height = 12, damage = 11, type = "grabKO" },
 		cont
@@ -31,14 +31,14 @@ local shove_down = function(slf, cont)
 		cont
 	)
 end
-local combo_attack1Jab = function(slf, cont)
+local comboAttack1Jab = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 26, width = 26, height = 12, damage = 7, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
 	)
 	slf.coolDownCombo = 0.4
 end
-local combo_attack1_teep = function(slf, cont)
+local comboAttack1_teep = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 30, width = 26, height = 12, damage = 6, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
@@ -53,58 +53,58 @@ local combo_attack1_teep = function(slf, cont)
 	end
 	slf.coolDownCombo = 0.4
 end
-local combo_attack2 = function(slf, cont)
+local comboAttack2 = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 30, width = 26, height = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
 	)
 	slf.coolDownCombo = 0.4
 end
-local combo_attack3 = function(slf, cont)
+local comboAttack3 = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 34, width = 33, height = 12, damage = 12, type = "high", velocity = slf.velx, sfx = "air" },
 		cont
 	)
 	slf.coolDownCombo = 0.4
 end
-local combo_attack4 = function(slf, cont)
+local comboAttack4 = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 30, width = 26, height = 12, damage = 14, type = "fall", velocity = slf.velocity_fall_x, sfx = "air" },
+		{ left = 30, width = 26, height = 12, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = "air" },
 		cont
 	)
 end
-local combo_attack4_nosfx = function(slf, cont)
+local comboAttack4_nosfx = function(slf, cont)
 	--TODO check if it makes default sound still
 	slf:checkAndAttack(
-		{ left = 30, width = 26, height = 12, damage = 14, type = "fall", velocity = slf.velocity_fall_x, sfx = nil },
+		{ left = 30, width = 26, height = 12, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = nil },
 		cont
 	)
 end
-local dash_attack1 = function(slf, cont) slf:checkAndAttack(
-	{ left = 8, width = 22, height = 12, damage = 17, type = "fall", velocity = slf.velocity_dash_fall },
+local dashAttack1 = function(slf, cont) slf:checkAndAttack(
+	{ left = 8, width = 22, height = 12, damage = 17, type = "fall", velocity = slf.velocityDashFall },
 	cont
 ) end
-local dash_attack2 = function(slf, cont) slf:checkAndAttack(
-	{ left = 12, width = 30, height = 12, damage = 17, type = "fall", velocity = slf.velocity_dash_fall },
+local dashAttack2 = function(slf, cont) slf:checkAndAttack(
+	{ left = 12, width = 30, height = 12, damage = 17, type = "fall", velocity = slf.velocityDashFall },
 	cont
 ) end
-local jump_attack_forward = function(slf, cont) slf:checkAndAttack(
+local jumpAttack_forward = function(slf, cont) slf:checkAndAttack(
 	{ left = 30, width = 25, height = 12, damage = 15, type = "fall", velocity = slf.velx },
 	cont
 ) end
-local jump_attack_light = function(slf, cont) slf:checkAndAttack(
+local jumpAttack_light = function(slf, cont) slf:checkAndAttack(
 	{ left = 12, width = 22, height = 12, damage = 8, type = "high", velocity = slf.velx },
 	cont
 ) end
-local jump_attack_straight = function(slf, cont) slf:checkAndAttack(
-	{ left = 15, width = 25, height = 12, damage = 15, type = "fall", velocity = slf.velocity_fall_x },
+local jumpAttack_straight = function(slf, cont) slf:checkAndAttack(
+	{ left = 15, width = 25, height = 12, damage = 15, type = "fall", velocity = slf.velocityFall_x },
 	cont
 ) end
-local jump_attack_run = function(slf, cont) slf:checkAndAttack(
+local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
 	{ left = 25, width = 35, height = 12, damage = 6, type = "high", velocity = slf.velx },
 	cont
 ) end
-local jump_attack_run_last = function(slf, cont) slf:checkAndAttack(
+local jumpAttackRun_last = function(slf, cont) slf:checkAndAttack(
 	{ left = 25, width = 35, height = 12, damage = 8, type = "fall", velocity = slf.velx },
 	cont
 ) end
@@ -206,8 +206,8 @@ return {
 		},
 		dashAttack = {
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
-			{ q = q(2,722,39,65), ox = 22, oy = 64, funcCont = dash_attack1 }, --jump attack forward 1 (shifted left by 4px)
-			{ q = q(2,858,45,68), ox = 26, oy = 65, funcCont = dash_attack2, delay = 0.3 }, --dash attack
+			{ q = q(2,722,39,65), ox = 22, oy = 64, funcCont = dashAttack1 }, --jump attack forward 1 (shifted left by 4px)
+			{ q = q(2,858,45,68), ox = 26, oy = 65, funcCont = dashAttack2, delay = 0.3 }, --dash attack
 			{ q = q(128,266,44,62), ox = 23, oy = 65, delay = 5 }, --jump top
 			delay = 0.1
 		},
@@ -216,31 +216,31 @@ return {
 		},
 		combo1 = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo 1_teep.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1_teep, delay = 0.09 }, --combo 1_teep.2
+			{ q = q(60,521,65,64), ox = 23, oy = 63, func = comboAttack1_teep, delay = 0.09 }, --combo 1_teep.2
 			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo 1_teep.1
 			delay = 0.01
 		},
 		combo1Jab = {
-			{ q = q(183,3,60,63), ox = 22, oy = 62, func = combo_attack1Jab, delay = 0.1 }, --combo 1Jab.2
+			{ q = q(183,3,60,63), ox = 22, oy = 62, func = comboAttack1Jab, delay = 0.1 }, --combo 1Jab.2
 			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1Jab.1
 			delay = 0.03
 		},
 		combo1Teep = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo 1_teep.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = combo_attack1_teep, delay = 0.09 }, --combo 1_teep.2
+			{ q = q(60,521,65,64), ox = 23, oy = 63, func = comboAttack1_teep, delay = 0.09 }, --combo 1_teep.2
 			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo 1_teep.1
 			delay = 0.01
 		},
 		combo2 = {
 			{ q = q(127,521,41,64), ox = 19, oy = 64 }, --combo 2.1
-			{ q = q(170,521,65,64), ox = 21, oy = 64, func = combo_attack2, delay = 0.1 }, --combo 2.2
+			{ q = q(170,521,65,64), ox = 21, oy = 64, func = comboAttack2, delay = 0.1 }, --combo 2.2
 			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.06 }, --combo 2.1
 			delay = 0.015
 		},
 		combo3 = {
 			{ q = q(127,521,41,64), ox = 19, oy = 64 }, --combo 2.1
 			{ q = q(2,588,44,64), ox = 20, oy = 64 }, --combo 3.1
-			{ q = q(48,589,72,63), ox = 21, oy = 63, func = combo_attack3, delay = 0.11 }, --combo 3.2
+			{ q = q(48,589,72,63), ox = 21, oy = 63, func = comboAttack3, delay = 0.11 }, --combo 3.2
 			{ q = q(2,588,44,64), ox = 20, oy = 64, delay = 0.04 }, --combo 3.1
 			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.04 }, --combo 2.1
 			delay = 0.015
@@ -248,9 +248,9 @@ return {
 		combo4 = {
 			{ q = q(122,587,48,65), ox = 13, oy = 64, delay = 0.02 }, --combo 4.1
 			{ q = q(172,587,50,65), ox = 14, oy = 64, delay = 0.01 }, --combo 4.2
-			{ q = q(2,654,59,66), ox = 14, oy = 65, func = combo_attack4 }, --combo 4.3
-			{ q = q(63,659,60,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --combo 4.4
-			{ q = q(125,659,59,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --combo 4.5
+			{ q = q(2,654,59,66), ox = 14, oy = 65, func = comboAttack4 }, --combo 4.3
+			{ q = q(63,659,60,61), ox = 14, oy = 60, func = comboAttack4_nosfx }, --combo 4.4
+			{ q = q(125,659,59,61), ox = 14, oy = 60, func = comboAttack4_nosfx }, --combo 4.5
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.09 }, --combo 4.6
 			{ q = q(194,725,49,62), ox = 14, oy = 61 }, --combo 4.7
 			delay = 0.03
@@ -258,9 +258,9 @@ return {
 		holdAttack = {
 			{ q = q(122,587,48,65), ox = 13, oy = 64, delay = 0.02 }, --combo 4.1
 			{ q = q(172,587,50,65), ox = 14, oy = 64, delay = 0.01 }, --combo 4.2
-			{ q = q(2,654,59,66), ox = 14, oy = 65, func = combo_attack4 }, --combo 4.3
-			{ q = q(63,659,60,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --combo 4.4
-			{ q = q(125,659,59,61), ox = 14, oy = 60, func = combo_attack4_nosfx }, --combo 4.5
+			{ q = q(2,654,59,66), ox = 14, oy = 65, func = comboAttack4 }, --combo 4.3
+			{ q = q(63,659,60,61), ox = 14, oy = 60, func = comboAttack4_nosfx }, --combo 4.4
+			{ q = q(125,659,59,61), ox = 14, oy = 60, func = comboAttack4_nosfx }, --combo 4.5
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.09 }, --combo 4.6
 			{ q = q(194,725,49,62), ox = 14, oy = 61 }, --combo 4.7
 			delay = 0.03
@@ -300,7 +300,7 @@ return {
 		jumpAttackForward = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
 			{ q = q(43,722,37,64), ox = 13, oy = 66 }, --jump attack forward 2
-			{ q = q(82,722,71,64), ox = 26, oy = 66, funcCont = jump_attack_forward, delay = 5 }, --jump attack forward 3
+			{ q = q(82,722,71,64), ox = 26, oy = 66, funcCont = jumpAttack_forward, delay = 5 }, --jump attack forward 3
 			delay = 0.03
 		},
 		jumpAttackForwardEnd = {
@@ -310,7 +310,7 @@ return {
 		},
 		jumpAttackLight = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 13, oy = 66, funcCont = jump_attack_light, delay = 5 }, --jump attack forward 2
+			{ q = q(43,722,37,64), ox = 13, oy = 66, funcCont = jumpAttack_light, delay = 5 }, --jump attack forward 2
 			delay = 0.03
 		},
 		jumpAttackLightEnd = {
@@ -320,18 +320,18 @@ return {
 		jumpAttackStraight = {
 			{ q = q(2,789,42,67), ox = 26, oy = 66 }, --jump attack straight 1
 			{ q = q(46,789,41,63), ox = 22, oy = 66, delay = 0.07 }, --jump attack straight 2
-			{ q = q(89,789,42,61), ox = 22, oy = 66, funcCont = jump_attack_straight, delay = 5 }, --jump attack straight 3
+			{ q = q(89,789,42,61), ox = 22, oy = 66, funcCont = jumpAttack_straight, delay = 5 }, --jump attack straight 3
 			delay = 0.1
 		},
 		jumpAttackRun = {
 			{ q = q(2,993,63,66), ox = 26, oy = 66 }, --jump attack running 1.1
-			{ q = q(67,993,63,66), ox = 22, oy = 66, func = jump_attack_run }, --jump attack running 1.2
+			{ q = q(67,993,63,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 1.2
 			{ q = q(132,993,64,66), ox = 22, oy = 66 }, --jump attack running 2.1
-			{ q = q(2,1061,65,66), ox = 22, oy = 66, func = jump_attack_run }, --jump attack running 2.2
+			{ q = q(2,1061,65,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 2.2
 			{ q = q(69,1061,66,66), ox = 22, oy = 66 }, --jump attack running 2.3
-			{ q = q(137,1061,63,66), ox = 20, oy = 66, func = jump_attack_run_last }, --jump attack running 3.1
-			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jump_attack_run_last }, --jump attack running 3.2
-			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jump_attack_run_last }, --jump attack running 3.3
+			{ q = q(137,1061,63,66), ox = 20, oy = 66, func = jumpAttackRun_last }, --jump attack running 3.1
+			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jumpAttackRun_last }, --jump attack running 3.2
+			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jumpAttackRun_last }, --jump attack running 3.3
 			{ q = q(124,1129,42,67), ox = 23, oy = 66, delay = 5 }, --jump attack running 4
 			delay = 0.02
 		},
@@ -350,19 +350,19 @@ return {
 		},
 		grabAttack1 = {
 			{ q = q(96,863,43,63), ox = 21, oy = 62 }, --grab attack 1.1
-			{ q = q(141,863,38,63), ox = 16, oy = 62, func = grab_attack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(141,863,38,63), ox = 16, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
 			{ q = q(96,863,43,63), ox = 21, oy = 62, delay = 0.02 }, --grab attack 1.1
 			delay = 0.01
 		},
 		grabAttack2 = {
 			{ q = q(96,863,43,63), ox = 21, oy = 62 }, --grab attack 1.1
-			{ q = q(141,863,38,63), ox = 16, oy = 62, func = grab_attack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(141,863,38,63), ox = 16, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
 			{ q = q(96,863,43,63), ox = 21, oy = 62, delay = 0.02 }, --grab attack 1.1
 			delay = 0.01
 		},
 		grabAttack3 = {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 13, oy = 63, func = grab_attack_last, delay = 0.18 }, --jump attack forward 2
+			{ q = q(43,722,37,64), ox = 13, oy = 63, func = grabAttack_last, delay = 0.18 }, --jump attack forward 2
 			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.1 }, --jump attack forward 1
 			delay = 0.02
 		},

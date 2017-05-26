@@ -15,9 +15,9 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     Gopper.initialize(self, name, sprite, input, x, y, f)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
-    self.sfx.dead = sfx.sveta_death
-    self.sfx.dash_attack = sfx.sveta_attack
-    self.sfx.step = "kisa_step"
+    self.sfx.dead = sfx.svetaDeath
+    self.sfx.dashAttack = sfx.svetaAttack
+    self.sfx.step = "kisaStep"
 end
 
 Sveta.onFriendlyAttack = Enemy.onFriendlyAttack
@@ -27,7 +27,7 @@ function Sveta:updateAI(dt)
 
     self.coolDown = self.coolDown - dt --when <=0 u can move
 
-    --local complete_movement = self.move:update(dt)
+    --local completeMovement = self.move:update(dt)
     self.ai_poll_1 = self.ai_poll_1 - dt
     self.ai_poll_2 = self.ai_poll_2 - dt
     self.ai_poll_3 = self.ai_poll_3 - dt
@@ -137,9 +137,9 @@ function Sveta:dashAttackStart()
     self.velz = 0
     local particles = PA_DASH:clone()
     particles:setSpin(0, -3 * self.face)
-    self.pa_dash = particles
-    self.pa_dash_x = self.x
-    self.pa_dash_y = self.y
+    self.paDash = particles
+    self.paDash_x = self.x
+    self.paDash_y = self.y
     stage.objects:add(Effect:new(particles, self.x, self.y + 2))
 end
 
@@ -148,20 +148,20 @@ function Sveta:dashAttackUpdate(dt)
     if self.sprite.cur_anim == "duck" and self.coolDown <= 0 then
         self.isHittable = false
         self:setSprite("dashAttack")
-        self.velx = self.velocity_dash
-        sfx.play("voice"..self.id, self.sfx.dash_attack)
+        self.velx = self.velocityDash
+        sfx.play("voice"..self.id, self.sfx.dashAttack)
         return
     else
         if self.sprite.cur_anim == "dashAttack" and self.sprite.isFinished then
             self:setState(self.stand)
             return
         end
-        if math.random() < 0.2 and self.velx >= self.velocity_dash * 0.5 then
-            self.pa_dash:moveTo( self.x - self.pa_dash_x - self.face * 10, self.y - self.pa_dash_y - 5 )
-            self.pa_dash:emit(1)
+        if math.random() < 0.2 and self.velx >= self.velocityDash * 0.5 then
+            self.paDash:moveTo( self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5 )
+            self.paDash:emit(1)
         end
     end
-    self:calcMovement(dt, true, self.friction_dash)
+    self:calcMovement(dt, true, self.frictionDash)
 end
 
 Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttackStart, exit = nop, update = Sveta.dashAttackUpdate, draw = Character.defaultDraw }

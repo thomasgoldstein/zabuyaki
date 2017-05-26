@@ -59,7 +59,7 @@ end
 function soundState:update(dt)
     time = time + dt
     if menu_state ~= old_menu_state then
-        sfx.play("sfx","menu_move")
+        sfx.play("sfx","menuMove")
         old_menu_state = menu_state
     end
     self:player_input(Control1)
@@ -117,7 +117,7 @@ end
 
 function soundState:confirm( x, y, button, istouch )
     if (button == 1 and menu_state == #menu) or button == 2 then
-        sfx.play("sfx","menu_cancel")
+        sfx.play("sfx","menuCancel")
         TEsound.stop("music")
         TEsound.playLooping(bgm.title, "music")
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
@@ -125,7 +125,7 @@ function soundState:confirm( x, y, button, istouch )
     end
     if button == 1 then
         if menu_state == 1 then
-            sfx.play("sfx","menu_select")
+            sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 configuration:set("BGM_VOLUME", 0)
             else
@@ -172,7 +172,7 @@ function soundState:wheelmoved(x, y)
     end
     menu[menu_state].n = menu[menu_state].n + i
     if menu_state == 1 then
-        sfx.play("sfx","menu_select")
+        sfx.play("sfx","menuSelect")
         if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
             configuration:set("BGM_VOLUME", 0)
         else
@@ -198,6 +198,6 @@ function soundState:wheelmoved(x, y)
         end
     end
     if menu_state ~= 3 then
-        sfx.play("sfx","menu_move")
+        sfx.play("sfx","menuMove")
     end
 end

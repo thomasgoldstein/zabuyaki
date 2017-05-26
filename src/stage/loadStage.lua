@@ -92,21 +92,21 @@ end
 local func_dropApple = function(slf)
     local loot = Loot:new("Apple", gfx.loot.apple,
         math.floor(slf.x), math.floor(slf.y) + 1,
-        { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickup_apple"} --, func = testDeathFunc
+        { hp = 15, score = 0, note = "+15 HP", pickupSfx = "pickupApple"} --, func = testDeathFunc
     )
     loot:setOnStage(stage)
 end
 local func_dropChicken = function(slf)
     local loot = Loot:new("Chicken", gfx.loot.chicken,
         math.floor(slf.x), math.floor(slf.y) + 1,
-        { hp = 50, score = 0, note = "+50 HP", pickupSfx = "pickup_chicken"}
+        { hp = 50, score = 0, note = "+50 HP", pickupSfx = "pickupChicken"}
     )
     loot:setOnStage(stage)
 end
 local func_dropBeef = function(slf)
     local loot = Loot:new("Beef", gfx.loot.beef,
         math.floor(slf.x), math.floor(slf.y) + 1,
-        { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickup_beef"}
+        { hp = 100, score = 0, note = "+100 HP", pickupSfx = "pickupBeef"}
     )
     loot:setOnStage(stage)
 end
@@ -171,7 +171,7 @@ local function loadUnit(items, stage, batch_name)
                             {hp = 35, score = 100,
                                 isMovable = true, func = getUnitFunction(v),
                                 palette = palette, particleColor = shaders.trashcan_particle_color[palette],
-                                sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+                                sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
                     elseif v.properties.class == "sign" then
                         u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
@@ -179,7 +179,7 @@ local function loadUnit(items, stage, batch_name)
                                 shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
                                 isMovable = false, func = getUnitFunction(v),
                                 palette = palette,
-                        sfxDead = nil, sfxOnHit = "metal_hit", sfxOnBreak = "metal_break", sfxGrab = "metal_grab"} )
+                        sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
                     else
                         error("Wrong obstacle class "..v.properties.class)
                     end

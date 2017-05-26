@@ -162,7 +162,7 @@ end
 
 function CalcSpriteAnimation(spr)
     spr.def.max_combo = GetMaxSpriteAnimation(spr, "combo")
-    spr.def.max_grabAttack = GetMaxSpriteAnimation(spr, "grabAttack")
+    spr.def.maxGrabAttack = GetMaxSpriteAnimation(spr, "grabAttack")
 --    spr.def.animations["grabAttack"].duration = GetSpriteAnimationDuration(spr, "grabAttack")
 end
 

@@ -20,9 +20,9 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     self.velocityJab_y = 20 --speed of the vertical jab slide
     self.frictionJab = self.velocityJab
 
-    self.sfx.dead = sfx.zeena_death
-    self.sfx.jump_attack = sfx.zeena_attack
-    self.sfx.step = "kisa_step"
+    self.sfx.dead = sfx.zeenaDeath
+    self.sfx.jumpAttack = sfx.zeenaAttack
+    self.sfx.step = "kisaStep"
 end
 
 Zeena.onFriendlyAttack = Enemy.onFriendlyAttack
@@ -32,7 +32,7 @@ function Zeena:updateAI(dt)
 
     self.coolDown = self.coolDown - dt --when <=0 u can move
 
-    --local complete_movement = self.move:update(dt)
+    --local completeMovement = self.move:update(dt)
     self.ai_poll_1 = self.ai_poll_1 - dt
     self.ai_poll_2 = self.ai_poll_2 - dt
     self.ai_poll_3 = self.ai_poll_3 - dt
@@ -150,7 +150,7 @@ function Zeena:jumpUpdate(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocity_jump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
     else
         self.velz = 0
         self.z = 0

@@ -1,19 +1,19 @@
 
-rick_attack:
+rickAttack:
 the Atribution License
 by plagasul
 source: http://freesound.org/people/plagasul/sounds/78/
 
-rick_throw:
+rickThrow:
 the Atribution License
 http://freesound.org/people/plagasul/sounds/84/
 
-rick_death:
+rickDeath:
 CC0
 by Under7dude
 source: http://freesound.org/people/Under7dude/sounds/163442/
 
-rick_jump:
+rickJump:
 CC0
 by Christopherderp
 http://freesound.org/people/Christopherderp/sounds/342229/
@@ -29,43 +29,43 @@ by oldedgar
 source: http://freesound.org/people/oldedgar/sounds/131710/
 
 
-chai_attack:
+chaiAttack:
 CC0
 by AbuNijmeh
 Source: http://freesound.org/people/AbuNijmeh/sounds/319104/
 
-chai_jump:
+chaiJump:
 CC0
 by AbuNijmeh
 Source: http://freesound.org/people/AbuNijmeh/sounds/319104/
 
-chai_throw:
+chaiThrow:
 CC0
 by AbuNijmeh
 Source: http://freesound.org/people/AbuNijmeh/sounds/319104/
 
-chai_death:
+chaiDeath:
 CC0
 by waxsocks
 http://freesound.org/people/waxsocks/sounds/255322/
 
 
-kisa_attack:
+kisaAttack:
 the Atribution License
 by LukeSharples
 http://freesound.org/people/LukeSharples/sounds/209192/
 
-kisa_death:
+kisaDeath:
 the Atribution License
 by AderuMoro
 http://freesound.org/people/AderuMoro/sounds/213295/
 
-kisa_jump:
+kisaJump:
 the Atribution License
 by LukeSharples
 http://freesound.org/people/LukeSharples/sounds/209191/
 
-kisa_throw:
+kisaThrow:
 the Atribution License
 by LukeSharples
 http://freesound.org/people/LukeSharples/sounds/209189/
@@ -73,24 +73,24 @@ http://freesound.org/people/LukeSharples/sounds/209189/
 
 
 
-gopper_attack*.wav:
+gopperAttack*.wav:
 CC0
 by Juhani Junkala
 
-hit_hard*.wav:
+hitHard*.wav:
 CC0
 by Juhani Junkala
 
-hit_weak*.wav:
+hitWeak*.wav:
 CC0
 by Juhani Junkala
 
-hit_medium*.wav:
+hitMedium*.wav:
 CC0
 by Juhani Junkala
 
 
-hit_hard*.wav:
+hitHard*.wav:
 CC0
 by Juhani Junkala
 
@@ -120,8 +120,8 @@ lifted from the free library "Sonniss.com - GDC - Game Audio Bundle"
 
 not yet found sources:
 
-chai_step
+chaiStep
 grab
-kisa_step
-rick_step
-rick_throw
+kisaStep
+rickStep
+rickThrow
