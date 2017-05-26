@@ -32,9 +32,9 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.velocityJab = 30 --speed of the jab slide
     self.velocityJab_y = 20 --speed of the vertical jab slide
     self.frictionJab = self.velocityJab
---    self.velocity_shove_x = 220 --my throwing speed
---    self.velocity_shove_z = 200 --my throwing speed
---    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
+--    self.velocityShove_x = 220 --my throwing speed
+--    self.velocityShove_z = 200 --my throwing speed
+--    self.velocityShove_horizontal = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
@@ -58,8 +58,8 @@ function Chai:dashAttackStart()
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
-    self.velx = self.velocityDash * self.velocityJump_speed
-    self.velz = self.velocityJump * self.velocityJump_speed
+    self.velx = self.velocityDash * self.velocityJumpSpeed
+    self.velz = self.velocityJump * self.velocityJumpSpeed
     self.z = 0.1
     sfx.play("sfx"..self.id, self.sfx.dashAttack)
     --start Chai's dust clouds (used jump particles)
@@ -80,7 +80,7 @@ function Chai:dashAttackUpdate(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJumpSpeed
         if self.velz > 0 then
             if self.velx > 0 then
                 self.velx = self.velx - (self.velocityDash * dt)
@@ -136,17 +136,17 @@ function Chai:shoveForwardStart()
 end
 function Chai:shoveForwardUpdate(dt)
     self:moveStatesApply(shoveForward_chai)
-    if self.can_shove_now then --set in the animation
-        self.can_shove_now = false
+    if self.canShoveNow then --set in the animation
+        self.canShoveNow = false
         local g = self.hold
         local t = g.target
         t.isGrabbed = false
         t.isThrown = true
-        t.thrower_id = self
+        t.throwerId = self
         t.z = t.z + 1
-        t.velx = self.velocity_shove_x * self.velocity_shove_horizontal
+        t.velx = self.velocityShove_x * self.velocityShove_horizontal
         t.vely = 0
-        t.velz = self.velocity_shove_z * self.velocity_shove_horizontal
+        t.velz = self.velocityShove_z * self.velocityShove_horizontal
         t.victims[self] = true
         t.horizontal = self.face
         --t.face = self.face -- we have the grabbed enemy's facing from shoveForward_chai table

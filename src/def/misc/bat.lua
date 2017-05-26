@@ -1,5 +1,5 @@
-local sprite_sheet = "res/img/misc/loot.png"
-local image_w,image_h = LoadSpriteSheet(sprite_sheet)
+local spriteSheet = "res/img/misc/loot.png"
+local image_w,image_h = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -7,7 +7,7 @@ end
 
 return {
     serialization_version = 0.42, -- The version of this serialization process
-    sprite_sheet = sprite_sheet, -- The path to the spritesheet
+    spriteSheet = spriteSheet, -- The path to the spritesheet
     sprite_name = "bat", -- The name of the sprite
     delay = 5.2,	--default delay for all animations
     animations = {

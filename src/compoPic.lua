@@ -21,9 +21,9 @@ function CompoundPicture:initialize(name, width, height)
 	--dp(name..' '..self.width..'x'..self.height..' compoundPicture created')
 end
 
-function CompoundPicture:add(sprite_sheet, quad, x, y, px, py, sx, sy, func)
+function CompoundPicture:add(spriteSheet, quad, x, y, px, py, sx, sy, func)
     local _,_,w,h = quad:getViewport()
-	table.insert(self.pics, {sprite_sheet = sprite_sheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, px = px or 0, py = py or 0, sx = sx or 0, sy = sy or 0, update = func})
+	table.insert(self.pics, {spriteSheet = spriteSheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, px = px or 0, py = py or 0, sx = sx or 0, sy = sy or 0, update = func})
 	--[[dp('rect '..self.pics[#self.pics].x ..' '..self.pics[#self.pics].y
 		..' P:'..self.pics[#self.pics].px ..','..self.pics[#self.pics].py
 		..' S:'..self.pics[#self.pics].sx ..','..self.pics[#self.pics].sy
@@ -96,7 +96,7 @@ function CompoundPicture:drawAll()
 --		if p.update then
 --			p.update(p, self.dt)
 --		end
-		love.graphics.draw(p.sprite_sheet,
+		love.graphics.draw(p.spriteSheet,
 			p.quad,
 			p.x + p.px * l, --parallax slow down
 			p.y + p.py * t)
@@ -115,7 +115,7 @@ function CompoundPicture:draw(l, t, w, h)
 			if p.update then
 				p.update(p, self.dt)
 			end
-			love.graphics.draw(p.sprite_sheet,
+			love.graphics.draw(p.spriteSheet,
 				p.quad,
 				p.x + p.px * l, --parallax slow down
 				p.y + p.py * t)

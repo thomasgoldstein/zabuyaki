@@ -18,7 +18,7 @@ local heroes = {
         {name = "RICK", palette = 1},
         {name = "RICK", palette = 2},
         hero = Rick,
-        sprite_instance = "src/def/char/rick.lua",
+        spriteInstance = "src/def/char/rick.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portraitAnim = "rick",
         defaultAnim = "stand",
@@ -35,7 +35,7 @@ local heroes = {
         {name = "KISA", palette = 1},
         {name = "KISA", palette = 2},
         hero = Kisa,
-        sprite_instance = "src/def/char/kisa.lua",
+        spriteInstance = "src/def/char/kisa.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portraitAnim = "kisa",
         defaultAnim = "stand",
@@ -52,7 +52,7 @@ local heroes = {
         {name = "CHAI", palette = 1},
         {name = "CHAI", palette = 2},
         hero = Chai,
-        sprite_instance = "src/def/char/chai.lua",
+        spriteInstance = "src/def/char/chai.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portraitAnim = "chai",
         defaultAnim = "stand",
@@ -69,7 +69,7 @@ local heroes = {
         {name = "GOPPER", palette = 2},
         {name = "GOPPER", palette = 0},
         hero = PGopper,
-        sprite_instance = "src/def/char/gopper.lua",
+        spriteInstance = "src/def/char/gopper.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portraitAnim = "rick", --NO OWN PORTRAIT
         defaultAnim = "stand",
@@ -86,7 +86,7 @@ local heroes = {
         {name = "NIKO", palette = 2},
         {name = "NIKO", palette = 0},
         hero = PNiko,
-        sprite_instance = "src/def/char/niko.lua",
+        spriteInstance = "src/def/char/niko.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portraitAnim = "rick", --NO OWN PORTRAIT
         defaultAnim = "stand",
@@ -103,7 +103,7 @@ local heroes = {
         {name = "SVETA", palette = 1},
         {name = "SVETA", palette = 2},
         hero = PSveta,
-        sprite_instance = "src/def/char/sveta.lua",
+        spriteInstance = "src/def/char/sveta.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portraitAnim = "rick", --NO OWN PORTRAIT
         defaultAnim = "stand",
@@ -120,7 +120,7 @@ local heroes = {
         {name = "ZEENA", palette = 1},
         {name = "ZEENA", palette = 2},
         hero = PZeena,
-        sprite_instance = "src/def/char/zeena.lua",
+        spriteInstance = "src/def/char/zeena.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portraitAnim = "rick", --NO OWN PORTRAIT
         defaultAnim = "stand",
@@ -137,7 +137,7 @@ local heroes = {
         {name = "BEATNICK", palette = 1},
         {name = "BEATNICK", palette = 2},
         hero = PBeatnick,
-        sprite_instance = "src/def/char/beatnick.lua",
+        spriteInstance = "src/def/char/beatnick.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portraitAnim = "rick", --NO OWN PORTRAIT
         defaultAnim = "stand",
@@ -154,7 +154,7 @@ local heroes = {
         {name = "SATOFF", palette = 1},
         {name = "SATOFF", palette = 2},
         hero = PSatoff,
-        sprite_instance = "src/def/char/satoff.lua",
+        spriteInstance = "src/def/char/satoff.lua",
         sprite_portrait = GetSpriteInstance("src/def/misc/portraits.lua"),
         sprite_portraitAnim = "rick", --NO OWN PORTRAIT
         defaultAnim = "stand",
@@ -292,7 +292,7 @@ function playerSelectState:GameStart()
             local pos = players[i].pos
             pl[i] = {
                 hero = heroes[pos].hero,
-                sprite_instance = heroes[pos].sprite_instance,
+                spriteInstance = heroes[pos].spriteInstance,
                 palette = heroes[pos][sh[i][2]].palette,
                 name = heroes[pos][sh[i][2]].name,
                 color = heroes[pos][sh[i][2]].color
@@ -312,7 +312,7 @@ function playerSelectState:player_input(player, controls, i)
         if controls.attack:pressed() or controls.start:pressed()then
             sfx.play("sfx","menuSelect")
             player.visible = true
-            player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
+            player.sprite = GetSpriteInstance(heroes[player.pos].spriteInstance)
             player.sprite.sizeScale = 2
             SetSpriteAnimation(player.sprite,heroes[player.pos].defaultAnim)
         end
@@ -335,7 +335,7 @@ function playerSelectState:player_input(player, controls, i)
                 player.pos = GLOBAL_SETTING.MAX_PLAYERS
             end
             sfx.play("sfx","menuMove")
-            player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
+            player.sprite = GetSpriteInstance(heroes[player.pos].spriteInstance)
             player.sprite.sizeScale = 2
             SetSpriteAnimation(player.sprite,"stand")
         elseif controls.horizontal:pressed(1) then
@@ -344,7 +344,7 @@ function playerSelectState:player_input(player, controls, i)
                 player.pos = 1
             end
             sfx.play("sfx","menuMove")
-            player.sprite = GetSpriteInstance(heroes[player.pos].sprite_instance)
+            player.sprite = GetSpriteInstance(heroes[player.pos].spriteInstance)
             player.sprite.sizeScale = 2
             SetSpriteAnimation(player.sprite,"stand")
         end
@@ -392,7 +392,7 @@ function playerSelectState:update(dt)
             end
         else
             if players[i].visible then
-                players[i].sprite = GetSpriteInstance(heroes[players[i].pos].sprite_instance)
+                players[i].sprite = GetSpriteInstance(heroes[players[i].pos].spriteInstance)
                 players[i].sprite.sizeScale = 2
                 SetSpriteAnimation(players[i].sprite,heroes[players[i].pos].defaultAnim)
             end
@@ -463,7 +463,7 @@ function playerSelectState:confirm( x, y, button, istouch )
             if players[1].pos ~= p1_mouse_pos then
                 p1_old_pos = players[1].pos
                 players[1].pos = p1_mouse_pos
-                players[1].sprite = GetSpriteInstance(heroes[players[1].pos].sprite_instance)
+                players[1].sprite = GetSpriteInstance(heroes[players[1].pos].spriteInstance)
                 players[1].sprite.sizeScale = 2
             end
             players[1].confirmed = true
@@ -507,7 +507,7 @@ function playerSelectState:mousemoved( x, y, dx, dy)
         p1_old_pos = p1_mouse_pos
         players[1].pos = p1_mouse_pos
         sfx.play("sfx","menuMove")
-        players[1].sprite = GetSpriteInstance(heroes[players[1].pos].sprite_instance)
+        players[1].sprite = GetSpriteInstance(heroes[players[1].pos].spriteInstance)
         players[1].sprite.sizeScale = 2
         SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].defaultAnim)
     end

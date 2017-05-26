@@ -1,5 +1,5 @@
-local sprite_sheet = "res/img/stage/stage1/trashcan.png"
-local image_w,image_h = LoadSpriteSheet(sprite_sheet)
+local spriteSheet = "res/img/stage/stage1/trashcan.png"
+local image_w,image_h = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -8,7 +8,7 @@ end
 return {
     serialization_version = 0.42, -- The version of this serialization process
 
-    sprite_sheet = sprite_sheet, -- The path to the spritesheet
+    spriteSheet = spriteSheet, -- The path to the spritesheet
     sprite_name = "trashcan", -- sprite name
 
     delay = 9000000,	--default delay for all

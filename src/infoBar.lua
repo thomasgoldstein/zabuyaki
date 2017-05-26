@@ -62,7 +62,7 @@ end
 function InfoBar:setAttacker(attacker_source)
     local id = -1
     if attacker_source.isThrown then
-        id = attacker_source.thrower_id.id
+        id = attacker_source.throwerId.id
     else
         id = attacker_source.id
     end
@@ -95,7 +95,7 @@ function InfoBar:drawFaceIcon(l, t, transp_bg)
     end
 end
 
-function InfoBar:draw_dead_cross(l, t, transp_bg)
+function InfoBar:drawDead_cross(l, t, transp_bg)
     if self.hp <= 0 then
         love.graphics.setColor(255,255,255, 255 * math.sin(self.coolDown*20 + 17) * transp_bg)
         love.graphics.draw (

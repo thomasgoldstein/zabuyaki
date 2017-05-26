@@ -28,8 +28,8 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     self.velocityDash = 170 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
---    self.velocity_shove_x = 220 --my throwing speed
---    self.velocity_shove_z = 200 --my throwing speed
+--    self.velocityShove_x = 220 --my throwing speed
+--    self.velocityShove_z = 200 --my throwing speed
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx

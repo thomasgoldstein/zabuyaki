@@ -35,9 +35,9 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.velocityDash = 190 --speed of the character
 --    self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash * 3
-    --    self.velocity_shove_x = 220 --my throwing speed
-    --    self.velocity_shove_z = 200 --my throwing speed
-    --    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
+    --    self.velocityShove_x = 220 --my throwing speed
+    --    self.velocityShove_z = 200 --my throwing speed
+    --    self.velocityShove_horizontal = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
 
@@ -47,8 +47,8 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = sfx.satoffDeath
 
     self:setToughness(0)
-    self.walk_speed = 80
-    self.run_speed = 100
+    self.walkSpeed = 80
+    self.runSpeed = 100
 end
 
 function Satoff:updateAI(dt)
@@ -57,17 +57,17 @@ function Satoff:updateAI(dt)
     self.coolDown = self.coolDown - dt --when <=0 u can move
 
     --local completeMovement = self.move:update(dt)
-    self.ai_poll_1 = self.ai_poll_1 - dt
-    self.ai_poll_2 = self.ai_poll_2 - dt
-    self.ai_poll_3 = self.ai_poll_3 - dt
-    if self.ai_poll_1 < 0 then
-        self.ai_poll_1 = self.max_ai_poll_1 + math.random()
+    self.AiPoll_1 = self.AiPoll_1 - dt
+    self.AiPoll_2 = self.AiPoll_2 - dt
+    self.AiPoll_3 = self.AiPoll_3 - dt
+    if self.AiPoll_1 < 0 then
+        self.AiPoll_1 = self.maxAiPoll_1 + math.random()
         -- Intro -> Stand
         if self.state == "intro" then
             -- see near players?
             local dist = self:getDistanceToClosestPlayer()
-            if dist < self.wakeup_range
-                    or (dist < self.delayed_wakeup_range and self.time > self.wakeup_delay )
+            if dist < self.wakeupRange
+                    or (dist < self.delayedWakeupRange and self.time > self.wakeupDelay )
             then
                 if not self.target then
                     self:pickAttackTarget()
@@ -132,11 +132,11 @@ function Satoff:updateAI(dt)
         -- Facing towards the target
         self:faceToTarget()
     end
-    if self.ai_poll_2 < 0 then
-        self.ai_poll_2 = self.max_ai_poll_2 + math.random()
+    if self.AiPoll_2 < 0 then
+        self.AiPoll_2 = self.maxAiPoll_2 + math.random()
     end
-    if self.ai_poll_3 < 0 then
-        self.ai_poll_3 = self.max_ai_poll_3 + math.random()
+    if self.AiPoll_3 < 0 then
+        self.AiPoll_3 = self.maxAiPoll_3 + math.random()
 
         if self.state == "walk" then
         elseif self.state == "run" then
@@ -176,12 +176,12 @@ function Satoff:walkStart()
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     --get to player(to fight)
     if self.x < self.target.x then
-        self.move = tween.new(1 + t / self.walk_speed, self, {
+        self.move = tween.new(1 + t / self.walkSpeed, self, {
             tx = self.target.x - love.math.random(40, 60),
             ty = self.target.y + 1
         }, 'inOutQuad')
     else
-        self.move = tween.new(1 + t / self.walk_speed, self, {
+        self.move = tween.new(1 + t / self.walkSpeed, self, {
             tx = self.target.x + love.math.random(40, 60),
             ty = self.target.y + 1
         }, 'inOutQuad')
@@ -215,14 +215,14 @@ function Satoff:runStart()
 
     --get to player(to fight)
     if self.x < self.target.x then
-        self.move = tween.new(0.3 + t / self.run_speed, self, {
+        self.move = tween.new(0.3 + t / self.runSpeed, self, {
             tx = self.target.x - love.math.random(25, 35),
             ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
         }, 'inQuad')
         self.face = 1
         self.horizontal = self.face
     else
-        self.move = tween.new(0.3 + t / self.run_speed, self, {
+        self.move = tween.new(0.3 + t / self.runSpeed, self, {
             tx = self.target.x + love.math.random(25, 35),
             ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
         }, 'inQuad')

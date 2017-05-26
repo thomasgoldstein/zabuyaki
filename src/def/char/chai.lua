@@ -1,5 +1,5 @@
-local sprite_sheet = "res/img/char/chai.png"
-local image_w,image_h = LoadSpriteSheet(sprite_sheet)
+local spriteSheet = "res/img/char/chai.png"
+local image_w,image_h = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -19,7 +19,7 @@ local grabAttack = function(slf, cont)
 		cont
 	)
 end
-local grabAttack_last = function(slf, cont)
+local grabAttackLast = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 10, width = 26, height = 12, damage = 11, type = "grabKO" },
 		cont
@@ -104,16 +104,16 @@ local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
 	{ left = 25, width = 35, height = 12, damage = 6, type = "high", velocity = slf.velx },
 	cont
 ) end
-local jumpAttackRun_last = function(slf, cont) slf:checkAndAttack(
+local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
 	{ left = 25, width = 35, height = 12, damage = 8, type = "fall", velocity = slf.velx },
 	cont
 ) end
-local shove_now = function(slf, cont) slf.can_shove_now = true end
+local shoveNow = function(slf, cont) slf.canShoveNow = true end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
 
-	sprite_sheet = sprite_sheet, -- The path to the spritesheet
+	spriteSheet = spriteSheet, -- The path to the spritesheet
 	sprite_name = "chai", -- The name of the sprite
 
 	delay = 0.2,	--default delay for all animations
@@ -329,9 +329,9 @@ return {
 			{ q = q(132,993,64,66), ox = 22, oy = 66 }, --jump attack running 2.1
 			{ q = q(2,1061,65,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 2.2
 			{ q = q(69,1061,66,66), ox = 22, oy = 66 }, --jump attack running 2.3
-			{ q = q(137,1061,63,66), ox = 20, oy = 66, func = jumpAttackRun_last }, --jump attack running 3.1
-			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jumpAttackRun_last }, --jump attack running 3.2
-			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jumpAttackRun_last }, --jump attack running 3.3
+			{ q = q(137,1061,63,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.1
+			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.2
+			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.3
 			{ q = q(124,1129,42,67), ox = 23, oy = 66, delay = 5 }, --jump attack running 4
 			delay = 0.02
 		},
@@ -362,7 +362,7 @@ return {
 		},
 		grabAttack3 = {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 13, oy = 63, func = grabAttack_last, delay = 0.18 }, --jump attack forward 2
+			{ q = q(43,722,37,64), ox = 13, oy = 63, func = grabAttackLast, delay = 0.18 }, --jump attack forward 2
 			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.1 }, --jump attack forward 1
 			delay = 0.02
 		},
@@ -377,7 +377,7 @@ return {
 			{ q = q(96,863,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
 			{ q = q(44,928,51,63), ox = 26, oy = 62 }, --throw 1.2
-			{ q = q(97,928,53,63), ox = 22, oy = 62, func = shove_now, delay = 0.2 }, --throw 1.3
+			{ q = q(97,928,53,63), ox = 22, oy = 62, func = shoveNow, delay = 0.2 }, --throw 1.3
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
 			delay = 0.07
 		},
@@ -385,7 +385,7 @@ return {
 			{ q = q(96,863,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
 			{ q = q(44,928,51,63), ox = 26, oy = 62 }, --throw 1.2
-			{ q = q(97,928,53,63), ox = 22, oy = 62, func = shove_now, delay = 0.2 }, --throw 1.3
+			{ q = q(97,928,53,63), ox = 22, oy = 62, func = shoveNow, delay = 0.2 }, --throw 1.3
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
 			delay = 0.07
 		},
@@ -393,7 +393,7 @@ return {
 			{ q = q(96,863,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
 			{ q = q(44,928,51,63), ox = 26, oy = 62 }, --throw 1.2
-			{ q = q(97,928,53,63), ox = 22, oy = 62, func = shove_now, delay = 0.2 }, --throw 1.3
+			{ q = q(97,928,53,63), ox = 22, oy = 62, func = shoveNow, delay = 0.2 }, --throw 1.3
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
 			delay = 0.07
 		},

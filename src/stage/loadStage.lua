@@ -310,7 +310,7 @@ local function addPlayersToStage(items, players, stage)
                 p.x = r(v.x + v.width / 2)
                 p.y = r(v.y + v.height / 2)
                 local player = players[i].hero:new(players[i].name,
-                    GetSpriteInstance(players[i].sprite_instance),
+                    GetSpriteInstance(players[i].spriteInstance),
                     controls[i],
                     players[i].x, players[i].y,
                     { palette = players[i].palette, id = i }

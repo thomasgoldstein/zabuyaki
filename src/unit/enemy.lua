@@ -11,16 +11,16 @@ local CheckCollision = CheckCollision
 function Enemy:initialize(name, sprite, input, x, y, f)
     Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "enemy"
-    self.max_ai_poll_1 = 0.5
-    self.ai_poll_1 = self.max_ai_poll_1
-    self.max_ai_poll_2 = 5
-    self.ai_poll_2 = self.max_ai_poll_2
-    self.max_ai_poll_3 = 11
-    self.ai_poll_3 = self.max_ai_poll_3
+    self.maxAiPoll_1 = 0.5
+    self.AiPoll_1 = self.maxAiPoll_1
+    self.maxAiPoll_2 = 5
+    self.AiPoll_2 = self.maxAiPoll_2
+    self.maxAiPoll_3 = 11
+    self.AiPoll_3 = self.maxAiPoll_3
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
-    self.wakeup_range = 100 --instantly wakeup if the player is close
-    self.wakeup_delay = 3
-    self.delayed_wakeup_range = 150 --wakeup after wakeup_delay if the player is close
+    self.wakeupRange = 100 --instantly wakeup if the player is close
+    self.wakeupDelay = 3
+    self.delayedWakeupRange = 150 --wakeup after wakeupDelay if the player is close
 end
 
 function Enemy:checkCollisionAndMove(dt)
@@ -179,7 +179,7 @@ function Enemy:getDistanceToClosestPlayer()
     return p[1].points
 end
 
-local next_to_pick_target_id = 1
+local next_to_pick_targetId = 1
 ---
 -- @param how - "random" far close weak healthy fast slow
 --
@@ -260,13 +260,13 @@ function Enemy:jumpStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("jump")
-    self.velz = self.velocityJump * self.velocityJump_speed
+    self.velz = self.velocityJump * self.velocityJumpSpeed
     self.z = 0.1
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.lastState == "run" then
         -- jump higher from run
-        self.velz = (self.velocityJump + self.velocityJump_zRun_boost) * self.velocityJump_speed
+        self.velz = (self.velocityJump + self.velocityJump_zRun_boost) * self.velocityJumpSpeed
     end
     self.vertical = 0
     sfx.play("voice"..self.id, self.sfx.jump)

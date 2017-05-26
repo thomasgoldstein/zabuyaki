@@ -23,8 +23,8 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.sfx.step = "kisaStep"
 
     self:setToughness(0)
-    self.walk_speed = 80
-    self.run_speed = 100
+    self.walkSpeed = 80
+    self.runSpeed = 100
 end
 
 function Gopper:updateAI(dt)
@@ -33,17 +33,17 @@ function Gopper:updateAI(dt)
     self.coolDown = self.coolDown - dt --when <=0 u can move
 
     --local completeMovement = self.move:update(dt)
-    self.ai_poll_1 = self.ai_poll_1 - dt
-    self.ai_poll_2 = self.ai_poll_2 - dt
-    self.ai_poll_3 = self.ai_poll_3 - dt
-    if self.ai_poll_1 < 0 then
-        self.ai_poll_1 = self.max_ai_poll_1 + math.random()
+    self.AiPoll_1 = self.AiPoll_1 - dt
+    self.AiPoll_2 = self.AiPoll_2 - dt
+    self.AiPoll_3 = self.AiPoll_3 - dt
+    if self.AiPoll_1 < 0 then
+        self.AiPoll_1 = self.maxAiPoll_1 + math.random()
         -- Intro -> Stand
         if self.state == "intro" then
             -- see near players?
             local dist = self:getDistanceToClosestPlayer()
-            if dist < self.wakeup_range
-                or (dist < self.delayed_wakeup_range and self.time > self.wakeup_delay )
+            if dist < self.wakeupRange
+                or (dist < self.delayedWakeupRange and self.time > self.wakeupDelay )
             then
                 if not self.target then
                     self:pickAttackTarget()
@@ -108,11 +108,11 @@ function Gopper:updateAI(dt)
         -- Facing towards the target
         self:faceToTarget()
     end
-    if self.ai_poll_2 < 0 then
-        self.ai_poll_2 = self.max_ai_poll_2 + math.random()
+    if self.AiPoll_2 < 0 then
+        self.AiPoll_2 = self.maxAiPoll_2 + math.random()
     end
-    if self.ai_poll_3 < 0 then
-        self.ai_poll_3 = self.max_ai_poll_3 + math.random()
+    if self.AiPoll_3 < 0 then
+        self.AiPoll_3 = self.maxAiPoll_3 + math.random()
 
         if self.state == "walk" then
         elseif self.state == "run" then
@@ -184,7 +184,7 @@ function Gopper:walkStart()
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if love.math.random() < 0.25 then
         --random move arond the player (far from)
-        self.move = tween.new(1 + t / self.walk_speed, self, {
+        self.move = tween.new(1 + t / self.walkSpeed, self, {
             tx = self.target.x + rand1() * love.math.random(70, 85),
             ty = self.target.y + rand1() * love.math.random(20, 35)
         }, 'inOutQuad')
@@ -194,12 +194,12 @@ function Gopper:walkStart()
         then
             --step back(too close)
             if self.x < self.target.x then
-                self.move = tween.new(1 + t / self.walk_speed, self, {
+                self.move = tween.new(1 + t / self.walkSpeed, self, {
                     tx = self.target.x - love.math.random(40, 60),
                     ty = self.target.y + love.math.random(-1, 1) * 20
                 }, 'inOutQuad')
             else
-                self.move = tween.new(1 + t / self.walk_speed, self, {
+                self.move = tween.new(1 + t / self.walkSpeed, self, {
                     tx = self.target.x + love.math.random(40, 60),
                     ty = self.target.y + love.math.random(-1, 1) * 20
                 }, 'inOutQuad')
@@ -207,12 +207,12 @@ function Gopper:walkStart()
         else
             --get to player(to fight)
             if self.x < self.target.x then
-                self.move = tween.new(1 + t / self.walk_speed, self, {
+                self.move = tween.new(1 + t / self.walkSpeed, self, {
                     tx = self.target.x - love.math.random(25, 30),
                     ty = self.target.y + 1
                 }, 'inOutQuad')
             else
-                self.move = tween.new(1 + t / self.walk_speed, self, {
+                self.move = tween.new(1 + t / self.walkSpeed, self, {
                     tx = self.target.x + love.math.random(25, 30),
                     ty = self.target.y + 1
                 }, 'inOutQuad')
@@ -248,14 +248,14 @@ function Gopper:runStart()
 
     --get to player(to fight)
     if self.x < self.target.x then
-        self.move = tween.new(0.3 + t / self.run_speed, self, {
+        self.move = tween.new(0.3 + t / self.runSpeed, self, {
             tx = self.target.x - love.math.random(25, 35),
             ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
         }, 'inQuad')
         self.face = 1
         self.horizontal = self.face
     else
-        self.move = tween.new(0.3 + t / self.run_speed, self, {
+        self.move = tween.new(0.3 + t / self.runSpeed, self, {
             tx = self.target.x + love.math.random(25, 35),
             ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
         }, 'inQuad')
@@ -287,13 +287,13 @@ function Gopper:runUpdate(dt)
 end
 Gopper.run = {name = "run", start = Gopper.runStart, exit = nop, update = Gopper.runUpdate, draw = Gopper.defaultDraw}
 
-local dashAttack_speed = 0.75
+local dashAttackSpeed = 0.75
 function Gopper:dashAttackStart()
     self.isHittable = true
     self:setSprite("dashAttack")
-    self.velx = self.velocityDash * 2 * dashAttack_speed
+    self.velx = self.velocityDash * 2 * dashAttackSpeed
     self.vely = 0
-    self.velz = self.velocityJump / 2 * dashAttack_speed
+    self.velz = self.velocityJump / 2 * dashAttackSpeed
     self.z = 0.1
     self.bounced = 0
     sfx.play("voice"..self.id, self.sfx.dashAttack)
@@ -305,7 +305,7 @@ function Gopper:dashAttackUpdate(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * dashAttack_speed
+        self.velz = self.velz - self.gravity * dt * dashAttackSpeed
     elseif self.bounced == 0 then
         self.velz = 0
         self.velx = 0
@@ -316,7 +316,7 @@ function Gopper:dashAttackUpdate(dt)
         particles:emit(PA_DUST_FALLING_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x + self.horizontal * 15, self.y+3))
     end
-    self:calcMovement(dt, true, self.frictionDash * dashAttack_speed)
+    self:calcMovement(dt, true, self.frictionDash * dashAttackSpeed)
 end
 Gopper.dashAttack = {name = "dashAttack", start = Gopper.dashAttackStart, exit = nop, update = Gopper.dashAttackUpdate, draw = Character.defaultDraw }
 

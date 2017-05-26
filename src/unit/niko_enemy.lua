@@ -25,17 +25,17 @@ function Niko:updateAI(dt)
     self.coolDown = self.coolDown - dt --when <=0 u can move
 
     --local completeMovement = self.move:update(dt)
-    self.ai_poll_1 = self.ai_poll_1 - dt
-    self.ai_poll_2 = self.ai_poll_2 - dt
-    self.ai_poll_3 = self.ai_poll_3 - dt
-    if self.ai_poll_1 < 0 then
-        self.ai_poll_1 = self.max_ai_poll_1 + math.random()
+    self.AiPoll_1 = self.AiPoll_1 - dt
+    self.AiPoll_2 = self.AiPoll_2 - dt
+    self.AiPoll_3 = self.AiPoll_3 - dt
+    if self.AiPoll_1 < 0 then
+        self.AiPoll_1 = self.maxAiPoll_1 + math.random()
         -- Intro -> Stand
         if self.state == "intro" then
             -- see near players?
             local dist = self:getDistanceToClosestPlayer()
-            if dist < self.wakeup_range
-                    or (dist < self.delayed_wakeup_range and self.time > self.wakeup_delay )
+            if dist < self.wakeupRange
+                    or (dist < self.delayedWakeupRange and self.time > self.wakeupDelay )
             then
                 if not self.target then
                     self:pickAttackTarget()
@@ -93,11 +93,11 @@ function Niko:updateAI(dt)
         -- Facing towards the target
         self:faceToTarget()
     end
-    if self.ai_poll_2 < 0 then
-        self.ai_poll_2 = self.max_ai_poll_2 + math.random()
+    if self.AiPoll_2 < 0 then
+        self.AiPoll_2 = self.maxAiPoll_2 + math.random()
     end
-    if self.ai_poll_3 < 0 then
-        self.ai_poll_3 = self.max_ai_poll_3 + math.random()
+    if self.AiPoll_3 < 0 then
+        self.AiPoll_3 = self.maxAiPoll_3 + math.random()
 
         if self.state == "walk" then
         elseif self.state == "run" then
@@ -127,7 +127,7 @@ function Niko:jumpUpdate(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJumpSpeed
     else
         self.velz = 0
         self.z = 0

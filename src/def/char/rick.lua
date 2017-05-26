@@ -1,5 +1,5 @@
-local sprite_sheet = "res/img/char/rick.png"
-local image_w,image_h = LoadSpriteSheet(sprite_sheet)
+local spriteSheet = "res/img/char/rick.png"
+local image_w,image_h = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -19,7 +19,7 @@ local grabAttack = function(slf, cont)
 		cont
 	)
 end
-local grabAttack_last = function(slf, cont)
+local grabAttackLast = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 25, width = 26, height = 12, damage = 11, type = "grabKO" },
 		cont
@@ -104,7 +104,7 @@ local jumpAttack_straight2 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 25, height = 12, damage = 9, type = "fall", velocity = slf.velocityFall_x },
     cont
 ) end
-local shove_now = function(slf, cont) slf.can_shove_now = true end
+local shoveNow = function(slf, cont) slf.canShoveNow = true end
 local defensive_special_effects = function(slf, cont)
 	sfx.play("sfx","hitWeak1")
     mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen
@@ -121,7 +121,7 @@ local defensive_special = function(slf, cont) slf:checkAndAttack(
 return {
 	serialization_version = 0.42, -- The version of this serialization process
 
-	sprite_sheet = sprite_sheet, -- The path to the spritesheet
+	spriteSheet = spriteSheet, -- The path to the spritesheet
 	sprite_name = "rick", -- The name of the sprite
 
 	delay = 0.2,	--default delay for all animations
@@ -368,7 +368,7 @@ return {
 		},
 		grabAttack3 = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
-			{ q = q(168,916,53,61), ox = 16, oy = 60, func = grabAttack_last, delay = 0.18 }, --dash attack 4
+			{ q = q(168,916,53,61), ox = 16, oy = 60, func = grabAttackLast, delay = 0.18 }, --dash attack 4
 			{ q = q(115,519,40,63), ox = 17, oy = 62, delay = 0.1 }, --combo 2.1
 			delay = 0.02
 		},
@@ -381,7 +381,7 @@ return {
 		},
 		shoveUp = {
 			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --offensive special 1
-			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = shove_now, delay = 0.05 }, --offensive special 2
+			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = shoveNow, delay = 0.05 }, --offensive special 2
 			{ q = q(100,1178,49,62), ox = 15, oy = 61, delay = 0.05 }, --offensive special 3
 			{ q = q(151,1173,54,67), ox = 20, oy = 66 }, --offensive special 4
 			{ q = q(2,1242,54,66), ox = 20, oy = 65 }, --offensive special 5
@@ -390,14 +390,14 @@ return {
 		},
 		shoveBack = {
 			{ q = q(2,1109,44,62), ox = 27, oy = 61 }, --throw 1.1
-			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shove_now, delay = 0.05 }, --throw 1.2
+			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shoveNow, delay = 0.05 }, --throw 1.2
 			{ q = q(92,1112,42,59), ox = 22, oy = 58 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.1 }, --pickup 1
 			delay = 0.2
 		},
 		shoveForward = {
 			{ q = q(2,1109,44,62), ox = 27, oy = 61 }, --throw 1.1
-			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shove_now, delay = 0.05 }, --throw 1.2
+			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shoveNow, delay = 0.05 }, --throw 1.2
 			{ q = q(92,1112,42,59), ox = 22, oy = 58 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.1 }, --pickup 1
 			delay = 0.2

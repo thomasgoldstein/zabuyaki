@@ -9,7 +9,7 @@ local min_player_group_distance = 320 + 160 - 90
 -- Zooming
 local max_zoom = display.inner.minScale --4 -- zoom in. default value
 local min_zoom = display.inner.maxScale --3 -- zoom out
-local zoom_speed = 2 -- speed of zoom-in-out transition
+local zoomSpeed = 2 -- speed of zoom-in-out transition
 local max_distance_no_zoom = 200   --between players
 local min_distance_to_keep_zoom = 190   --between players
 
@@ -60,14 +60,14 @@ function Stage:updateZoom(dt)
             self.zoom_mode = "zoomin"
         end
         if self.zoom > min_zoom then
-            self.zoom = self.zoom - dt * zoom_speed
+            self.zoom = self.zoom - dt * zoomSpeed
         else
             self.zoom = min_zoom
         end
     elseif self.zoom_mode == "zoomin" then
         if self.player_group_distance < max_distance_no_zoom then
             if self.zoom < max_zoom then
-                self.zoom = self.zoom + dt * zoom_speed
+                self.zoom = self.zoom + dt * zoomSpeed
             else
                 self.zoom = max_zoom
                 self.zoom_mode = "check"

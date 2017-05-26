@@ -258,7 +258,7 @@ function Unit:calcShadowSpriteAndTransparency()
 		love.graphics.setColor(0, 0, 0, transparency) --4th is the shadow transparency
 	end
     local spr = self.sprite
-    local image = image_bank[spr.def.sprite_sheet]
+    local image = imageBank[spr.def.spriteSheet]
     local sc = spr.def.animations[spr.curAnim][spr.curFrame]
     local shadowAngle = -stage.shadowAngle * spr.flipH
     return image, spr, sc, shadowAngle, -2

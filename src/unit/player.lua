@@ -107,7 +107,7 @@ function Player:drawBar(l,t,w,h, icon_width, normColor)
         end
         self:draw_lifebar(l, t, transp_bg)
         self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
-        self:draw_dead_cross(l, t, transp_bg)
+        self:drawDead_cross(l, t, transp_bg)
         self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, normColor)
     else
         love.graphics.setColor(255, 255, 255, transp_bg)
@@ -326,7 +326,7 @@ function Player:afterOnHurt()
         self.velx = h.velx
         --it cannot be too short
         if self.velx < self.velocityFall_x / 2 then
-            self.velx = self.velocityFall_x / 2 + self.velocityFall_add_x
+            self.velx = self.velocityFall_x / 2 + self.velocityFallAdd_x
         end
     elseif h.type == "shockWave" then
         if h.source.x < self.x then
@@ -349,12 +349,12 @@ function Player:afterOnHurt()
     end
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
-    self.velz = self.velocityFall_z * self.velocityJump_speed
+    self.velz = self.velocityFall_z * self.velocityJumpSpeed
     if self.hp <= 0 then -- dead body flies further
         if self.velx < self.velocityFall_x then
-            self.velx = self.velocityFall_x + self.velocityFall_dead_add_x
+            self.velx = self.velocityFall_x + self.velocityFallDeadAdd_x
         else
-            self.velx = self.velx + self.velocityFall_dead_add_x
+            self.velx = self.velx + self.velocityFallDeadAdd_x
         end
     elseif self.velx < self.velocityFall_x then --alive bodies
         self.velx = self.velocityFall_x
@@ -381,7 +381,7 @@ function Player:useCreditStart()
     self.coolDown = 10
     -- Player select
     self.playerSelectMode = 0
-    self.playerSelect_cur = players_list[self.name] or 1
+    self.playerSelectCur = players_list[self.name] or 1
 end
 function Player:useCreditUpdate(dt)
     if self.playerSelectMode == 5 then --self.isDisabled then
@@ -430,8 +430,8 @@ function Player:useCreditUpdate(dt)
             self.coolDown = 0
             self.playerSelectMode = 4
             sfx.play("sfx","menuSelect")
-            local player = HEROES[self.playerSelect_cur].hero:new(self.name,
-                GetSpriteInstance(HEROES[self.playerSelect_cur].sprite_instance),
+            local player = HEROES[self.playerSelectCur].hero:new(self.name,
+                GetSpriteInstance(HEROES[self.playerSelectCur].spriteInstance),
                 self.b,
                 self.x, self.y
                 --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 } }
@@ -454,29 +454,29 @@ function Player:useCreditUpdate(dt)
                 or self.b.horizontal:pressed(1) or self.b.vertical:pressed(1)
         then
             if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1) then
-                self.playerSelect_cur = self.playerSelect_cur - 1
+                self.playerSelectCur = self.playerSelectCur - 1
             else
-                self.playerSelect_cur = self.playerSelect_cur + 1
+                self.playerSelectCur = self.playerSelectCur + 1
             end
             if GLOBAL_SETTING.DEBUG then
-                if self.playerSelect_cur > players_list.SATOFF then
-                    self.playerSelect_cur = 1
+                if self.playerSelectCur > players_list.SATOFF then
+                    self.playerSelectCur = 1
                 end
-                if self.playerSelect_cur < 1 then
-                    self.playerSelect_cur = players_list.SATOFF
+                if self.playerSelectCur < 1 then
+                    self.playerSelectCur = players_list.SATOFF
                 end
             else
-                if self.playerSelect_cur > players_list.CHAI then
-                    self.playerSelect_cur = 1
+                if self.playerSelectCur > players_list.CHAI then
+                    self.playerSelectCur = 1
                 end
-                if self.playerSelect_cur < 1 then
-                    self.playerSelect_cur = players_list.CHAI
+                if self.playerSelectCur < 1 then
+                    self.playerSelectCur = players_list.CHAI
                 end
             end
             sfx.play("sfx","menuMove")
             self:onShake(1, 0, 0.03, 0.3)   --shake name + face icon
-            self.name = HEROES[self.playerSelect_cur][1].name
-            self.sprite = GetSpriteInstance(HEROES[self.playerSelect_cur].sprite_instance)
+            self.name = HEROES[self.playerSelectCur][1].name
+            self.sprite = GetSpriteInstance(HEROES[self.playerSelectCur].spriteInstance)
             self:setSprite("stand")
             fixPlayersPalette(self)
             self.shader = getShader(self.sprite.def.sprite_name:lower(), self.palette)
@@ -510,7 +510,7 @@ function Player:respawnUpdate(dt)
     end
     if self.z > 0 then
         self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocityJump_speed
+        self.velz = self.velz - self.gravity * dt * self.velocityJumpSpeed
     elseif self.bounced == 0 then
         self.playerSelectMode = 0 -- remove player select text
         self.velz = 0

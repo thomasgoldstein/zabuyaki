@@ -1,5 +1,5 @@
-local sprite_sheet = "res/img/char/gopper.png"
-local image_w,image_h = LoadSpriteSheet(sprite_sheet)
+local spriteSheet = "res/img/char/gopper.png"
+local image_w,image_h = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
@@ -33,7 +33,7 @@ local dashAttack = function(slf, cont)
 return {
     serialization_version = 0.42, -- The version of this serialization process
 
-    sprite_sheet = sprite_sheet, -- The path to the spritesheet
+    spriteSheet = spriteSheet, -- The path to the spritesheet
     sprite_name = "gopper", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations

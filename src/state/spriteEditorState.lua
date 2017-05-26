@@ -14,7 +14,7 @@ local top_item_offset  = 6
 local item_width_margin = left_item_offset * 2
 local item_height_margin = top_item_offset * 2 - 2
 
-local txt_current_sprite = nil --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
+local txtCurrentSprite = nil --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 local txt_items = {"ANIMATIONS", "FRAMES", "WEAPON ANIMATIONS", "SHADERS", "BACK"}
 
 local hero = nil
@@ -34,9 +34,9 @@ local sort_abc_func = function( a, b ) return a.bName < b.bName end
 
 function spriteEditorState:enter(_, _hero, _weapon)
     hero = _hero
-    sprite = GetSpriteInstance(hero.sprite_instance)
+    sprite = GetSpriteInstance(hero.spriteInstance)
     sprite.sizeScale = 2
-    txt_current_sprite = love.graphics.newText( gfx.font.kimberley, hero.name )
+    txtCurrentSprite = love.graphics.newText( gfx.font.kimberley, hero.name )
     animations = {}
     for key, val in pairs(sprite.def.animations) do
         animations[#animations + 1] = key
@@ -46,7 +46,7 @@ function spriteEditorState:enter(_, _hero, _weapon)
 
     weapon = _weapon
     if weapon then
-        sprite_weapon = GetSpriteInstance(weapon.sprite_instance)
+        sprite_weapon = GetSpriteInstance(weapon.spriteInstance)
         sprite_weapon.sizeScale = 2
         animations_weapon = {}
         for key, val in pairs(sprite_weapon.def.animations) do
@@ -398,7 +398,7 @@ function spriteEditorState:draw()
     end
     --header
     love.graphics.setColor(255, 255, 255, 120)
-    love.graphics.draw(txt_current_sprite, (screen_width - txt_current_sprite:getWidth()) / 2, title_y_offset)
+    love.graphics.draw(txtCurrentSprite, (screen_width - txtCurrentSprite:getWidth()) / 2, title_y_offset)
 
     --character sprite
     local sc = sprite.def.animations[sprite.curAnim][1]

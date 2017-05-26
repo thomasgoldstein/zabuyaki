@@ -14,7 +14,7 @@ local function drawGameOver()
     love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
 end
 local is_alive
-local game_over_delay = 0
+local game_overDelay = 0
 
 SELECT_NEW_PLAYER = {} --{id, player}
 
@@ -22,7 +22,7 @@ function arcadeState:init()
 end
 
 function arcadeState:resume()
-    game_over_delay = 0
+    game_overDelay = 0
     love.graphics.setLineWidth( 1 )
     --restore BGM music volume
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
@@ -33,7 +33,7 @@ function arcadeState:enter(_, players)
     credits = GLOBAL_SETTING.MAX_CREDITS
     --load stage
     stage = Stage1:new(players)
-    game_over_delay = 0
+    game_overDelay = 0
     love.graphics.setLineWidth( 1 )
     --start BGM
     TEsound.stop("music")
@@ -73,8 +73,8 @@ function arcadeState:update(dt)
     end
 
     if not is_alive then
-        game_over_delay = game_over_delay + dt
-        if game_over_delay > 4
+        game_overDelay = game_overDelay + dt
+        if game_overDelay > 4
                 and (Control1.back:pressed() or
                 Control1.attack:pressed() or
                 Control1.jump:pressed()) then

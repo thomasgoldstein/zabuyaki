@@ -1,16 +1,16 @@
-local sprite_sheet = "res/img/char/satoff.png"
-local image_w,image_h = LoadSpriteSheet(sprite_sheet)
+local spriteSheet = "res/img/char/satoff.png"
+local image_w,image_h = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local combo_uppercut1 = function(slf, cont) slf:checkAndAttack(
+local comboUppercut1 = function(slf, cont) slf:checkAndAttack(
 	{ left = 14, width = 30, height = 12, damage = 12, type = "low", velocity = slf.velocityDashFall, sfx = "whoosh_heavy" },
 	cont
 ) end
 
-local combo_uppercut2 = function(slf, cont) slf:checkAndAttack(
+local comboUppercut2 = function(slf, cont) slf:checkAndAttack(
 	{ left = 20, width = 30, height = 12, damage = 16, type = "fall", velocity = slf.velocityDashFall },
 	cont
 ) end
@@ -29,18 +29,18 @@ local grabAttack = function(slf, cont)
 	)
 end
 
-local grabAttack_last = function(slf, cont)
+local grabAttackLast = function(slf, cont)
 	slf:checkAndAttack(
         { left = 19, width = 26, height = 12, damage = 18, type = "grabKO" },
 		cont
 	)
 end
 
-local shove_now = function(slf, cont) slf.can_shove_now = true end
+local shoveNow = function(slf, cont) slf.canShoveNow = true end
 
 return {
     serialization_version = 0.42, -- version
-    sprite_sheet = sprite_sheet, -- path to spritesheet
+    spriteSheet = spriteSheet, -- path to spritesheet
     sprite_name = "satoff", -- sprite name
     delay = 0.2,	--default delay for all animations
     animations = {
@@ -127,8 +127,8 @@ return {
         },
         combo1 = {
             { q = q(2,350,64,65), ox = 33, oy = 64 }, --uppercut 1
-			{ q = q(68,350,51,65), ox = 23, oy = 64, func = combo_uppercut1, delay = 0.06 }, --uppercut 2
-			{ q = q(121,343,60,72), ox = 25, oy = 71, func = combo_uppercut2, delay = 0.33 }, --uppercut 3
+			{ q = q(68,350,51,65), ox = 23, oy = 64, func = comboUppercut1, delay = 0.06 }, --uppercut 2
+			{ q = q(121,343,60,72), ox = 25, oy = 71, func = comboUppercut2, delay = 0.33 }, --uppercut 3
 			{ q = q(68,350,51,65), ox = 23, oy = 64, delay = 0.13 }, --uppercut 2
             delay = 0.16
         },
@@ -198,18 +198,18 @@ return {
         grabAttack2 = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(64,595,67,66), ox = 36, oy = 65, delay = 0.16 }, --grab attack 2
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttack_last, delay = 0.25 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttackLast, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
         shoveDown = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(64,595,67,66), ox = 36, oy = 65, delay = 0.16 }, --grab attack 2
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttack_last, delay = 0.25 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttackLast, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
         shoveBack = {
             { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
-            { q = q(194,599,70,62), ox = 36, oy = 61, func = shove_now, delay = 0.5 }, --throw
+            { q = q(194,599,70,62), ox = 36, oy = 61, func = shoveNow, delay = 0.5 }, --throw
             { q = q(68,350,51,65), ox = 23, oy = 64 }, --uppercut 2
             delay = 0.2
         },

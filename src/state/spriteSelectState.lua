@@ -19,57 +19,57 @@ local heroes = {
     {
         name = "RICK",
         shaders = {nil, shaders.rick[1], shaders.rick[2]},
-        sprite_instance = "src/def/char/rick.lua",
+        spriteInstance = "src/def/char/rick.lua",
     },
     {
         name = "KISA",
         shaders = {nil, shaders.kisa[1], shaders.kisa[2]},
-        sprite_instance = "src/def/char/kisa.lua",
+        spriteInstance = "src/def/char/kisa.lua",
     },
     {
         name = "CHAI",
         shaders = {nil, shaders.chai[1], shaders.chai[2]},
-        sprite_instance = "src/def/char/chai.lua",
+        spriteInstance = "src/def/char/chai.lua",
     },
     {
         name = "GOPPER",
         shaders = shaders.gopper,
-        sprite_instance = "src/def/char/gopper.lua",
+        spriteInstance = "src/def/char/gopper.lua",
     },
     {
         name = "NIKO",
         shaders = shaders.niko,
-        sprite_instance = "src/def/char/niko.lua",
+        spriteInstance = "src/def/char/niko.lua",
     },
     {
         name = "SVETA",
         shaders = shaders.sveta,
-        sprite_instance = "src/def/char/sveta.lua",
+        spriteInstance = "src/def/char/sveta.lua",
     },
     {
         name = "ZEENA",
         shaders = shaders.zeena,
-        sprite_instance = "src/def/char/zeena.lua",
+        spriteInstance = "src/def/char/zeena.lua",
     },
     {
         name = "BEATNICK",
         shaders = shaders.beatnick,
-        sprite_instance = "src/def/char/beatnick.lua",
+        spriteInstance = "src/def/char/beatnick.lua",
     },
     {
         name = "SATOFF",
         shaders = shaders.satoff,
-        sprite_instance = "src/def/char/satoff.lua",
+        spriteInstance = "src/def/char/satoff.lua",
     },
     {
         name = "TRASHCAN",
         shaders = shaders.trashcan,
-        sprite_instance = "src/def/stage/object/trashcan.lua",
+        spriteInstance = "src/def/stage/object/trashcan.lua",
     },
     {
         name = "SIGN",
         shaders = { },
-        sprite_instance = "src/def/stage/object/sign.lua",
+        spriteInstance = "src/def/stage/object/sign.lua",
     },
 }
 
@@ -77,12 +77,12 @@ local weapons = {
     {
         name = "BAT",
         shaders = { },
-        sprite_instance = "src/def/misc/bat.lua",
+        spriteInstance = "src/def/misc/bat.lua",
     },
     {
         name = "KNIFE",
         shaders = { },
-        sprite_instance = "src/def/misc/knife.lua",
+        spriteInstance = "src/def/misc/knife.lua",
     }
 }
 
@@ -157,7 +157,7 @@ function spriteSelectState:draw()
             else
                 m.item = heroes[m.n].name.." - no shaders"
             end
-            m.hint = ""..heroes[m.n].sprite_instance
+            m.hint = ""..heroes[m.n].spriteInstance
         elseif i == 2 then
             if m.n > #weapons then  --TODO plug while dont have any wep
                 m.n = #weapons
@@ -246,13 +246,13 @@ end
 
 function spriteSelectState:showCurrentSprite()
     if menu_state == 1 then
-        sprite = GetSpriteInstance(heroes[menu[menu_state].n].sprite_instance)
+        sprite = GetSpriteInstance(heroes[menu[menu_state].n].spriteInstance)
         --sprite.sizeScale = 2
         SetSpriteAnimation(sprite,"stand")
 
     elseif menu_state == 2 then
         if weapons[menu[menu_state].n] then
-            sprite = GetSpriteInstance(weapons[menu[menu_state].n].sprite_instance)
+            sprite = GetSpriteInstance(weapons[menu[menu_state].n].spriteInstance)
             --sprite.sizeScale = 2
             SetSpriteAnimation(sprite,"stand")
         else
