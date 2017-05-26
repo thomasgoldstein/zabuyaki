@@ -102,7 +102,7 @@ Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop
 function Chai:holdAttackStart()
     self.isHittable = true
     self:setSprite("holdAttack")
-    self.coolDown = 0.2
+    self.cooldown = 0.2
 end
 function Chai:holdAttackUpdate(dt)
     if self.sprite.isFinished then
@@ -156,7 +156,7 @@ function Chai:shoveForwardUpdate(dt)
         return
     end
     if self.sprite.isFinished then
-        self.coolDown = 0.2
+        self.cooldown = 0.2
         self:setState(self.stand)
         return
     end

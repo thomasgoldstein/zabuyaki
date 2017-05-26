@@ -31,21 +31,21 @@ function allowPlayersSelect(players)
             player1.lives = 0
             player1:setState(player1.useCredit)
             player1.isDisabled = true
-            player1.coolDown = 10
+            player1.cooldown = 10
             player1.playerSelectMode = 0
         end
         if players[2] then
             player2.lives = 0
             player2:setState(player2.useCredit)
             player2.isDisabled = true
-            player2.coolDown = 10
+            player2.cooldown = 10
             player2.playerSelectMode = 0
         end
         if players[3] then
             player3.lives = 0
             player3:setState(player3.useCredit)
             player3.isDisabled = true
-            player3.coolDown = 10
+            player3.cooldown = 10
             player3.playerSelectMode = 0
         end
     end

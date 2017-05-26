@@ -9,7 +9,7 @@ local combo_kick = function(slf, cont)
         { left = 29, width = 26, height = 12, damage = 7, type = "low", velocity = slf.velx, sfx = "air" },
         cont
     )
-    slf.coolDownCombo = 0.4
+    slf.cooldownCombo = 0.4
 end
 local combo_punch = function(slf, cont)
     slf:checkAndAttack(

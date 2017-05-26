@@ -17,7 +17,7 @@ end
 
 function Player:setOnStage(stage)
     self.pid = GLOBAL_SETTING.PLAYERS_NAMES[self.id] or "P?"
-    self.showPIDCoolDown = 3
+    self.showPIDCooldown = 3
     Unit.setOnStage(self, stage)
     registerPlayer(self)
 end
@@ -115,8 +115,8 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
             -- wait press to use credit
             printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9,
                 transp_bg)
-            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.coolDown*2 + 17))
-            printWithShadow(self.source.pid .. " PRESS ATTACK (".. math.floor(self.source.coolDown) ..")", l + self.x + 2, t + self.y + 9 + 11,
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cooldown*2 + 17))
+            printWithShadow(self.source.pid .. " PRESS ATTACK (".. math.floor(self.source.cooldown) ..")", l + self.x + 2, t + self.y + 9 + 11,
                 transp_bg)
         elseif playerSelectMode == 1 then
             -- wait 1 sec before player select
@@ -133,10 +133,10 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
             end
             printWithShadow(self.source.pid, l + self.x + self.source.shake.x + iconWidth + 2, t + self.y - 1,
                 transp_bg)
-            --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.coolDown*4)), t + self.y + 9 + 11 )
+            --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cooldown*4)), t + self.y + 9 + 11 )
             self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
-            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.coolDown*3 + 17))
-            printWithShadow("SELECT PLAYER (".. math.floor(self.source.coolDown) ..")", l + self.x + 2, t + self.y + 19,
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cooldown*3 + 17))
+            printWithShadow("SELECT PLAYER (".. math.floor(self.source.cooldown) ..")", l + self.x + 2, t + self.y + 19,
                 transp_bg)
         elseif playerSelectMode == 3 then
             -- Spawn selecterd player
@@ -144,7 +144,7 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
             -- Replace this player with the new character
         elseif playerSelectMode == 5 then
             -- Game Over (too late)
-            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.coolDown*0.5 + 17))
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cooldown*0.5 + 17))
             printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9,
                 transp_bg)
         end
@@ -378,7 +378,7 @@ function Player:useCreditStart()
         self:setState(self.respawn)
         return
     end
-    self.coolDown = 10
+    self.cooldown = 10
     -- Player select
     self.playerSelectMode = 0
     self.playerSelectCur = players_list[self.name] or 1
@@ -393,8 +393,8 @@ function Player:useCreditUpdate(dt)
 
     if self.playerSelectMode == 0 then
         -- 10 seconds to choose
-        self.coolDown = self.coolDown - dt
-        if credits <= 0 or self.coolDown <= 0 then
+        self.cooldown = self.cooldown - dt
+        if credits <= 0 or self.cooldown <= 0 then
             -- n credits -> game over
             self.playerSelectMode = 5
             unregisterPlayer(self)
@@ -407,17 +407,17 @@ function Player:useCreditUpdate(dt)
             credits = credits - 1
             self:addScore(1) -- like CAPCM
             sfx.play("sfx","menuSelect")
-            self.coolDown = 1 -- delay before respawn
+            self.cooldown = 1 -- delay before respawn
             self.playerSelectMode = 1
         end
     elseif self.playerSelectMode == 1 then
         -- wait 1 sec before player select
-        if self.coolDown > 0 then
+        if self.cooldown > 0 then
             -- wait before respawn / char select
-            self.coolDown = self.coolDown - dt
-            if self.coolDown <= 0 then
+            self.cooldown = self.cooldown - dt
+            if self.cooldown <= 0 then
                 self.canAttack = false
-                self.coolDown = 10
+                self.cooldown = 10
                 self.playerSelectMode = 2
             end
         end
@@ -425,9 +425,9 @@ function Player:useCreditUpdate(dt)
         -- Select Player
         -- 10 sec countdown before auto confirm
         if (self.b.attack:isDown() and self.canAttack)
-                or self.coolDown <= 0
+                or self.cooldown <= 0
         then
-            self.coolDown = 0
+            self.cooldown = 0
             self.playerSelectMode = 4
             sfx.play("sfx","menuSelect")
             local player = HEROES[self.playerSelectCur].hero:new(self.name,
@@ -447,7 +447,7 @@ function Player:useCreditUpdate(dt)
             SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player}
             return
         else
-            self.coolDown = self.coolDown - dt
+            self.cooldown = self.cooldown - dt
         end
         ---
         if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1)
@@ -496,7 +496,7 @@ function Player:respawnStart()
     self.isHittable = false
     dpo(self, self.state)
     self:setSprite("respawn")
-    self.coolDownDeath = 3 --seconds to remove
+    self.cooldownDeath = 3 --seconds to remove
     self.hp = self.maxHp
     self.bounced = 0
     self.velz = 0
@@ -570,11 +570,11 @@ function Player:deadUpdate(dt)
         return
     end
     --dp(self.name .. " - dead update", dt)
-    if self.coolDownDeath <= 0 then
+    if self.cooldownDeath <= 0 then
         self:setState(self.useCredit)
         return
     else
-        self.coolDownDeath = self.coolDownDeath - dt
+        self.cooldownDeath = self.cooldownDeath - dt
     end
     self:calcMovement(dt)
 end

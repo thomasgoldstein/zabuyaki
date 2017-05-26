@@ -25,7 +25,7 @@ Sveta.onFriendlyAttack = Enemy.onFriendlyAttack
 function Sveta:updateAI(dt)
     Enemy.updateAI(self, dt)
 
-    self.coolDown = self.coolDown - dt --when <=0 u can move
+    self.cooldown = self.cooldown - dt --when <=0 u can move
 
     --local completeMovement = self.move:update(dt)
     self.AiPoll_1 = self.AiPoll_1 - dt
@@ -51,7 +51,7 @@ function Sveta:updateAI(dt)
                 self:setState(self.stand)
             end
         elseif self.state == "stand" then
-            if self.coolDown <= 0 then
+            if self.cooldown <= 0 then
                 --can move
                 if not self.target then
                     self:pickAttackTarget()
@@ -92,7 +92,7 @@ function Sveta:updateAI(dt)
                 self:setState(self.dashAttack)
                 return
             end
-            if self.coolDown <= 0 then
+            if self.cooldown <= 0 then
                 if math.abs(self.x - self.target.x) <= 50
                         and math.abs(self.y - self.target.y) <= 6
                 then
@@ -131,7 +131,7 @@ function Sveta:dashAttackStart()
     self.isHittable = true
     self:removeTweenMove()
     dpo(self, self.state)
-    self.coolDown = 0.2
+    self.cooldown = 0.2
     self:setSprite("duck")
     self.vely = 0
     self.velz = 0
@@ -144,8 +144,8 @@ function Sveta:dashAttackStart()
 end
 
 function Sveta:dashAttackUpdate(dt)
-    self.coolDown = self.coolDown - dt
-    if self.sprite.curAnim == "duck" and self.coolDown <= 0 then
+    self.cooldown = self.cooldown - dt
+    if self.sprite.curAnim == "duck" and self.cooldown <= 0 then
         self.isHittable = false
         self:setSprite("dashAttack")
         self.velx = self.velocityDash

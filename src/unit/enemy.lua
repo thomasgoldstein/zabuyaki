@@ -140,7 +140,7 @@ function Enemy:deadUpdate(dt)
         return
     end
     --dp(self.name .. " - dead update", dt)
-    if self.coolDownDeath <= 0 then
+    if self.cooldownDeath <= 0 then
         self.isDisabled = true
         self.isHittable = false
         -- dont remove dead body from the stage for proper save/load
@@ -148,7 +148,7 @@ function Enemy:deadUpdate(dt)
         --self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
-        self.coolDownDeath = self.coolDownDeath - dt
+        self.cooldownDeath = self.cooldownDeath - dt
     end
     --self:calcMovement(dt, true)
 end

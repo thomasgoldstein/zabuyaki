@@ -47,7 +47,7 @@ function Rick:defensiveSpecialStart()
     self.isHittable = false
     self:setSprite("defensiveSpecial")
     sfx.play("voice"..self.id, self.sfx.dashAttack)
-    self.coolDown = 0.2
+    self.cooldown = 0.2
 end
 function Rick:defensiveSpecialUpdate(dt)
     if self.z > 0 then
@@ -131,7 +131,7 @@ Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecia
 function Rick:holdAttackStart()
     self.isHittable = true
     self:setSprite("holdAttack")
-    self.coolDown = 0.2
+    self.cooldown = 0.2
 end
 function Rick:holdAttackUpdate(dt)
     if self.sprite.isFinished then

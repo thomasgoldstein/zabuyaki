@@ -22,7 +22,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.name = name or "Unknown"
 	self.type = "unit"
 	self.subtype = ""
-    self.coolDownDeath = 3 --seconds to remove
+    self.cooldownDeath = 3 --seconds to remove
     self.lives = f.lives or self.lives or 0
     self.maxHp = f.hp or self.hp or 1
     self.hp = self.maxHp
@@ -43,13 +43,13 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.lastStateTime = love.timer.getTime()
 	self.prevState = "" -- text name
     self.lastState = "" -- text name
-    self.shake = {x = 0, y = 0, sx = 0, sy = 0, coolDown = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
+    self.shake = {x = 0, y = 0, sx = 0, sy = 0, cooldown = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
     self.sfx = {}
     self.sfx.onHit = f.sfxOnHit --on hurt sfx
     self.sfx.dead = f.sfxDead --on death sfx
 	self.isHittable = false
 	self.isGrabbed = false
-	self.hold = {source = nil, target = nil, coolDown = 0 }
+	self.hold = {source = nil, target = nil, cooldown = 0 }
     self.victims = {} -- [victim] = true
     self.isThrown = false
     self.shader = f.shader  --it is set on spawn (alter unit's colors)
@@ -64,7 +64,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
 	GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
 	self.pid = ""
-	self.showPIDCoolDown = 0
+	self.showPIDCooldown = 0
 	self:addShape(f.shapeType or "rectangle", f.shapeArgs or {self.x, self.y, 15, 7})
 	self:setState(self.stand)
 	dpoInit(self)
@@ -167,7 +167,7 @@ function Unit:setToughness(t)
 end
 
 function Unit:showPID(seconds)
-	self.showPIDCoolDown = seconds
+	self.showPIDCooldown = seconds
 end
 
 function Unit:setState(state, condition)
@@ -217,16 +217,16 @@ function Unit:drawSprite(x, y)
 	DrawSpriteInstance(self.sprite, x, y)
 end
 
-function Unit:onShake(sx, sy, freq,coolDown)
+function Unit:onShake(sx, sy, freq,cooldown)
 	--shaking sprite
 	self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0,
-		f = 0, freq = freq or 0.1, coolDown = coolDown or 0.2,
+		f = 0, freq = freq or 0.1, cooldown = cooldown or 0.2,
 		m = {-1, 0, 1, 0}, i = 1}
 end
 
 function Unit:updateShake(dt)
-	if self.shake.coolDown > 0 then
-		self.shake.coolDown = self.shake.coolDown - dt
+	if self.shake.cooldown > 0 then
+		self.shake.cooldown = self.shake.cooldown - dt
 
 		if self.shake.f > 0 then
 			self.shake.f = self.shake.f - dt
@@ -239,17 +239,17 @@ function Unit:updateShake(dt)
 				self.shake.i = 1
 			end
 		end
-		if self.shake.coolDown <= 0 then
+		if self.shake.cooldown <= 0 then
 			self.shake.x, self.shake.y = 0, 0
 		end
 	end
-	if self.showPIDCoolDown > 0 then
-		self.showPIDCoolDown = self.showPIDCoolDown - dt
+	if self.showPIDCooldown > 0 then
+		self.showPIDCooldown = self.showPIDCooldown - dt
 	end
 end
 
 function Unit:calcShadowSpriteAndTransparency()
-	local transparency = self.coolDownDeath < 2 and 255 * math.sin(self.coolDownDeath) or 255
+	local transparency = self.cooldownDeath < 2 and 255 * math.sin(self.cooldownDeath) or 255
 	if GLOBAL_SETTING.DEBUG and self.isGrabbed then
 		love.graphics.setColor(0, 100, 0, transparency) --4th is the shadow transparency
 	elseif GLOBAL_SETTING.DEBUG and not self.isHittable then
@@ -293,24 +293,24 @@ function Unit:drawPID(x, y_)
 	if self.id > GLOBAL_SETTING.MAX_PLAYERS then
 		return
 	end
-	local y = y_ - math.cos(self.showPIDCoolDown*6)
+	local y = y_ - math.cos(self.showPIDCooldown*6)
 	local c = GLOBAL_SETTING.PLAYERS_COLORS[self.id]
-	c[4] = calcTransparency(self.showPIDCoolDown)
+	c[4] = calcTransparency(self.showPIDCooldown)
 	love.graphics.setColor( unpack( c ) )
 	love.graphics.rectangle( "fill", x - 15, y, 30, 17 )
 	love.graphics.polygon( "fill", x, y + 20, x - 2 , y + 17, x + 2, y + 17 )
-	love.graphics.setColor(0, 0, 0, calcTransparency(self.showPIDCoolDown))
+	love.graphics.setColor(0, 0, 0, calcTransparency(self.showPIDCooldown))
 	love.graphics.rectangle( "fill", x - 13, y + 2, 30-4, 13 )
 	love.graphics.setFont(gfx.font.arcade3)
-	love.graphics.setColor(255, 255, 255, calcTransparency(self.showPIDCoolDown))
+	love.graphics.setColor(255, 255, 255, calcTransparency(self.showPIDCooldown))
 	love.graphics.print(self.pid, x - 7, y + 4)
 end
 local states_for_holdAttack = {stand = true, walk = true, run = true }
 function Unit:defaultDraw(l,t,w,h)
 	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
 		self.sprite.flipH = self.face  --TODO get rid of .face
-        if self.coolDownDeath < 1 then
-            self.color[4] = 255 * math.sin( self.coolDownDeath )
+        if self.cooldownDeath < 1 then
+            self.color[4] = 255 * math.sin( self.cooldownDeath )
 		else
 			self.color[4] = 255
 		end
@@ -334,7 +334,7 @@ function Unit:defaultDraw(l,t,w,h)
 			love.graphics.setShader()
 		end
 		love.graphics.setColor(255, 255, 255, 255)
-		if self.showPIDCoolDown > 0 then
+		if self.showPIDCooldown > 0 then
 			self:drawPID(self.x, self.y - self.z - 80)
 		end
 		drawDebugUnitHitbox(self)
