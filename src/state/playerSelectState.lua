@@ -1,12 +1,12 @@
 playerSelectState = {}
 
 local time = 0
-local screen_width = 640
-local screen_height = 480
-local title_y_offset = 24
-local portrait_width = 140
-local portrait_height = 140
-local portrait_margin = 20
+local screenWidth = 640
+local screenHeight = 480
+local title_yOffset = 24
+local portraitWidth = 140
+local portraitHeight = 140
+local portraitMargin = 20
 
 local p1_old_pos = 0
 local p1_mouse_pos = 0
@@ -24,7 +24,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screen_width / 2 - portrait_width - portrait_margin,
+        x = screenWidth / 2 - portraitWidth - portraitMargin,
         y = 440,    --char sprite
         sy = 272,   --selected P1 P2 P3
         ny = 90,   --char name
@@ -41,7 +41,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtLow",
         confirmAnim = "walk",
-        x = screen_width / 2,
+        x = screenWidth / 2,
         y = 440,
         sy = 272,
         ny = 90,
@@ -58,7 +58,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screen_width / 2 + portrait_width + portrait_margin,
+        x = screenWidth / 2 + portraitWidth + portraitMargin,
         y = 440,
         sy = 272,
         ny = 90,
@@ -75,7 +75,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screen_width / 2,
+        x = screenWidth / 2,
         y = 440 + 80,
         sy = 272,
         ny = 90,
@@ -92,7 +92,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screen_width / 2 - 80,
+        x = screenWidth / 2 - 80,
         y = 440 + 80,
         sy = 272,
         ny = 90,
@@ -109,7 +109,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screen_width / 2 - 80,
+        x = screenWidth / 2 - 80,
         y = 440 + 80,
         sy = 272,
         ny = 90,
@@ -126,7 +126,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screen_width / 2 - 80,
+        x = screenWidth / 2 - 80,
         y = 440 + 80,
         sy = 272,
         ny = 90,
@@ -143,7 +143,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screen_width / 2 - 80,
+        x = screenWidth / 2 - 80,
         y = 440 + 80,
         sy = 272,
         ny = 90,
@@ -160,7 +160,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screen_width / 2 - 80,
+        x = screenWidth / 2 - 80,
         y = 440 + 80,
         sy = 272,
         ny = 90,
@@ -418,8 +418,8 @@ function playerSelectState:draw()
         love.graphics.setFont(gfx.font.arcade3x3)
         love.graphics.print(h[original_char].name, h.x - 24 * #h[original_char].name / 2, h.ny)
         --portrait
-        DrawSpriteInstance(heroes[i].sprite_portrait, h.x - portrait_width/2, h.py)
-        love.graphics.rectangle("line", h.x - portrait_width/2, h.py, portrait_width, portrait_height, 4,4,1)
+        DrawSpriteInstance(heroes[i].sprite_portrait, h.x - portraitWidth/2, h.py)
+        love.graphics.rectangle("line", h.x - portraitWidth/2, h.py, portraitWidth, portraitHeight, 4,4,1)
         --Players sprite
         if players[i].visible then
             --hero sprite
@@ -436,12 +436,12 @@ function playerSelectState:draw()
             c[4] = 230 + math.sin(time * 4)*25
             love.graphics.setColor( unpack( c ) )
             love.graphics.setFont(gfx.font.arcade3x2)
-            love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPRESS\nATTACK", h.x - portrait_width/2 + 20, h.y - portrait_height + 48)
+            love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPRESS\nATTACK", h.x - portraitWidth/2 + 20, h.y - portraitHeight + 48)
         end
     end
     --header
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_playerSelect, (screen_width - txt_playerSelect:getWidth()) / 2, title_y_offset)
+    love.graphics.draw(txt_playerSelect, (screenWidth - txt_playerSelect:getWidth()) / 2, title_yOffset)
     showDebug_indicator()
     push:finish()
 end
@@ -450,9 +450,9 @@ function playerSelectState:confirm( x, y, button, istouch )
     -- P1 mouse control only
     if button == 1 then
         p1_mouse_pos = 2
-        if x < heroes[2].x - portrait_width/2 - portrait_margin/2 then
+        if x < heroes[2].x - portraitWidth/2 - portraitMargin/2 then
             p1_mouse_pos = 1
-        elseif x > heroes[2].x + portrait_width/2 + portrait_margin/2 then
+        elseif x > heroes[2].x + portraitWidth/2 + portraitMargin/2 then
             p1_mouse_pos = 3
         end
         if not players[1].visible then
@@ -498,9 +498,9 @@ function playerSelectState:mousemoved( x, y, dx, dy)
         return
     end
     p1_mouse_pos = 2
-    if x < heroes[2].x - portrait_width/2 - portrait_margin/2 then
+    if x < heroes[2].x - portraitWidth/2 - portraitMargin/2 then
         p1_mouse_pos = 1
-    elseif x > heroes[2].x + portrait_width/2 + portrait_margin/2 then
+    elseif x > heroes[2].x + portraitWidth/2 + portraitMargin/2 then
         p1_mouse_pos = 3
     end
     if p1_mouse_pos ~= p1_old_pos and players[1].visible and not players[1].confirmed then

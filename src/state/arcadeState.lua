@@ -1,17 +1,17 @@
 arcadeState = {}
 
 local time = 0
-local screen_width = 640
-local screen_height = 480
+local screenWidth = 640
+local screenHeight = 480
 local txt_game_over = love.graphics.newText( gfx.font.kimberley, "GAME OVER" )
 local function drawGameOver()
     love.graphics.setColor(55, 55, 55, 255)
-    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 + 1, (screen_height - txt_game_over:getHeight()) / 2 + 1 )
-    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 + 1 )
-    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 + 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
-    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2 - 1, (screen_height - txt_game_over:getHeight()) / 2 - 1 )
+    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2 + 1, (screenHeight - txt_game_over:getHeight()) / 2 + 1 )
+    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2 - 1, (screenHeight - txt_game_over:getHeight()) / 2 + 1 )
+    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2 + 1, (screenHeight - txt_game_over:getHeight()) / 2 - 1 )
+    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2 - 1, (screenHeight - txt_game_over:getHeight()) / 2 - 1 )
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_game_over, (screen_width - txt_game_over:getWidth()) / 2, (screen_height - txt_game_over:getHeight()) / 2 )
+    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2, (screenHeight - txt_game_over:getHeight()) / 2 )
 end
 local is_alive
 local game_overDelay = 0
@@ -118,7 +118,7 @@ function arcadeState:draw()
     if not is_alive then
         drawGameOver()
     end
-    stage:displayTime(screen_width, screen_height)
+    stage:displayTime(screenWidth, screenHeight)
     -- Profiler Pie Graph
     if GLOBAL_SETTING.PROFILER_ENABLED and ProfOn then
         Prof:draw({50})

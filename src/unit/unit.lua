@@ -131,7 +131,7 @@ function Unit:playHitSfx(dmg)
     TEsound.play(s.src, "sfx"..self.id, s.volume, s.pitch)
 end
 
-function Unit:showHitMarks(dmg, z, x_offset)
+function Unit:showHitMarks(dmg, z, xOffset)
 	local paHitMark
 	if dmg < 1 then
 		return	-- e.g. Respawn ShockWave with 0 DMG
@@ -142,8 +142,8 @@ function Unit:showHitMarks(dmg, z, x_offset)
 	else
 		paHitMark = PA_IMPACT_BIG:clone()
 	end
-	paHitMark:setPosition( self.face * (x_offset or 4), -z )
-	if not x_offset then --still mark e.g. for clashing
+	paHitMark:setPosition( self.face * (xOffset or 4), -z )
+	if not xOffset then --still mark e.g. for clashing
 		paHitMark:setSpeed( -self.face * 30, -self.face * 60 )	--move the marks from the attacker by default
 	end
 	paHitMark:emit(1)
@@ -314,11 +314,11 @@ function Unit:defaultDraw(l,t,w,h)
 		else
 			self.color[4] = 255
 		end
-		if self.charge >= self.charged_at / 2 and self.charge < self.charged_at then
+		if self.charge >= self.chargedAt / 2 and self.charge < self.chargedAt then
 			if states_for_holdAttack[self.state] and self.holdAttack then
 				love.graphics.setColor(255, 255, 255, 63)
 				local width = clamp(self.charge, 0.5, 1) * self.width
-				if self.charge >= self.charged_at - self.charged_at / 10 then
+				if self.charge >= self.chargedAt - self.chargedAt / 10 then
 					love.graphics.ellipse( "fill", self.x, self.y, width, width / 2 )
 				else
 					love.graphics.ellipse( "line", self.x, self.y, width, width / 2 )

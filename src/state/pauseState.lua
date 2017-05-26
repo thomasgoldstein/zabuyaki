@@ -1,29 +1,29 @@
 pauseState = {}
 
 local time = 0
-local screen_width = 640
-local screen_height = 480
-local menu_item_h = 40
-local menu_y_offset = 200 - menu_item_h
-local hint_y_offset = 80
-local menu_x_offset = 0
+local screenWidth = 640
+local screenHeight = 480
+local menuItem_h = 40
+local menu_yOffset = 200 - menuItem_h
+local hint_yOffset = 80
+local menu_xOffset = 0
 
-local left_item_offset  = 6
-local top_item_offset  = 6
-local item_width_margin = left_item_offset * 2
-local item_height_margin = top_item_offset * 2 - 2
+local leftItemOffset  = 6
+local topItemOffset  = 6
+local itemWidthMargin = leftItemOffset * 2
+local itemHeightMargin = topItemOffset * 2 - 2
 
 local txt_paused = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
-local txt_items = { "CONTINUE", "QUICK SAVE", "QUIT" }
+local txtItems = { "CONTINUE", "QUICK SAVE", "QUIT" }
 
-local menu = fillMenu(txt_items, txt_hints)
+local menu = fillMenu(txtItems, txt_hints)
 
-local menu_state, old_menu_state = 1, 1
+local menuState, oldMenuState = 1, 1
 local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
 
 function pauseState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
-    menu_state = 1
+    menuState = 1
     mouse_x, mouse_y = 0,0
     sfx.play("sfx","menuCancel")
 
@@ -46,23 +46,23 @@ function pauseState:player_input(controls)
         return pauseState:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
-        menu_state = menu_state - 1
+        menuState = menuState - 1
     elseif controls.horizontal:pressed(1) or controls.vertical:pressed(1) then
-        menu_state = menu_state + 1
+        menuState = menuState + 1
     end
-    if menu_state < 1 then
-        menu_state = #menu
+    if menuState < 1 then
+        menuState = #menu
     end
-    if menu_state > #menu then
-        menu_state = 1
+    if menuState > #menu then
+        menuState = 1
     end
 end
 
 function pauseState:update(dt)
     time = time + dt
-    if menu_state ~= old_menu_state then
+    if menuState ~= oldMenuState then
         sfx.play("sfx","menuMove")
-        old_menu_state = menu_state
+        oldMenuState = menuState
     end
     self:player_input(Control1)
 end
@@ -92,37 +92,37 @@ function pauseState:draw()
     end
     if stage.mode == "normal" then
         drawPlayersBars()
-        stage:displayTime(screen_width, screen_height)
+        stage:displayTime(screenWidth, screenHeight)
     end
     love.graphics.setFont(gfx.font.arcade3x2)
     for i = 1,#menu do
         local m = menu[i]
-        if i == old_menu_state then
+        if i == oldMenuState then
             love.graphics.setColor(255, 255, 255, 255)
             love.graphics.print(m.hint, m.wx, m.wy )
             love.graphics.setColor(0, 0, 0, 80)
-            love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
+            love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
             love.graphics.setColor(255,200,40, 255)
-            love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
+            love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, m.x, m.y )
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
+                CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
             old_mouse_y = mouse_y
-            menu_state = i
+            menuState = i
         end
     end
     --header
     love.graphics.setColor(55, 55, 55, 255)
-    love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2 + 1, 40 + 1 )
-    love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2 - 1, 40 + 1 )
-    love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2 + 1, 40 - 1 )
-    love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2 - 1, 40 - 1 )
+    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2 + 1, 40 + 1 )
+    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2 - 1, 40 + 1 )
+    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2 + 1, 40 - 1 )
+    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2 - 1, 40 - 1 )
     love.graphics.setColor(255, 255, 255, 220 + math.sin(time)*35)
-    love.graphics.draw(txt_paused, (screen_width - txt_paused:getWidth()) / 2, 40)
+    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2, 40)
 
     showDebug_indicator()
     push:finish()
@@ -131,10 +131,10 @@ end
 function pauseState:confirm( x, y, button, istouch )
      if button == 1 then
         mouse_x, mouse_y = x, y
-        if menu_state == 1 then
+        if menuState == 1 then
             sfx.play("sfx","menuSelect")
             return Gamestate.pop()
-        elseif menu_state == #menu then
+        elseif menuState == #menu then
             sfx.play("sfx","menuCancel")
             return Gamestate.switch(titleState)
         end

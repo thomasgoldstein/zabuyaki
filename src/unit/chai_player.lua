@@ -34,7 +34,7 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.frictionJab = self.velocityJab
 --    self.velocityShove_x = 220 --my throwing speed
 --    self.velocityShove_z = 200 --my throwing speed
---    self.velocityShove_horizontal = 1.3 -- +30% for horizontal throws
+--    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx
@@ -144,9 +144,9 @@ function Chai:shoveForwardUpdate(dt)
         t.isThrown = true
         t.throwerId = self
         t.z = t.z + 1
-        t.velx = self.velocityShove_x * self.velocityShove_horizontal
+        t.velx = self.velocityShove_x * self.velocityShoveHorizontal
         t.vely = 0
-        t.velz = self.velocityShove_z * self.velocityShove_horizontal
+        t.velz = self.velocityShove_z * self.velocityShoveHorizontal
         t.victims[self] = true
         t.horizontal = self.face
         --t.face = self.face -- we have the grabbed enemy's facing from shoveForward_chai table

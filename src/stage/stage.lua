@@ -27,7 +27,7 @@ function Stage:initialize(name, bgColor)
     self.background = nil
     self.foreground = nil
     self.scrolling = {}
-    self.time_left = GLOBAL_SETTING.TIMER
+    self.timeLeft = GLOBAL_SETTING.TIMER
     self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
     self.world = HC.new(40*4)
     self.test_shape = HC.rectangle(1, 1, 15, 5) -- to test collision
@@ -123,28 +123,28 @@ function Stage:updateZStoppers(dt)
 end
 
 function Stage:isTimeOut()
-    return self.time_left <= 0
+    return self.timeLeft <= 0
 end
 
 function Stage:resetTime()
-    self.time_left = GLOBAL_SETTING.TIMER
+    self.timeLeft = GLOBAL_SETTING.TIMER
 end
 
 local txtTime
-function Stage:displayTime(screen_width, screen_height)
+function Stage:displayTime(screenWidth, screenHeight)
     local time = 0
-    if self.time_left > 0 then
-        time = self.time_left
+    if self.timeLeft > 0 then
+        time = self.timeLeft
     end
     txtTime = love.graphics.newText( gfx.font.clock, string.format( "%02d", time ) )
     local transp = 255
-    local x, y = screen_width - txtTime:getWidth() - 26, 6
-    if self.time_left <= 10 then
-        transp = 255 * math.abs(math.cos(10 - self.time_left * math.pi * 2))
+    local x, y = screenWidth - txtTime:getWidth() - 26, 6
+    if self.timeLeft <= 10 then
+        transp = 255 * math.abs(math.cos(10 - self.timeLeft * math.pi * 2))
     end
     love.graphics.setColor(55, 55, 55, transp)
     love.graphics.draw(txtTime, x + 1, y - 1 )
-    if self.time_left < 5.5 then
+    if self.timeLeft < 5.5 then
         love.graphics.setColor(240, 40, 40, transp)
     else
         love.graphics.setColor(255, 255, 255, transp)
@@ -170,18 +170,18 @@ function Stage:update(dt)
             self.foreground:update(dt)
         end
         self:setCamera(dt)
-        if self.time_left > 0 or self.time_left <= -math.pi then
-            self.time_left = self.time_left - dt / 2
-            if self.time_left <= 0 and self.time_left > -math.pi then
+        if self.timeLeft > 0 or self.timeLeft <= -math.pi then
+            self.timeLeft = self.timeLeft - dt / 2
+            if self.timeLeft <= 0 and self.timeLeft > -math.pi then
                 killAllPlayers()
-                self.time_left = -math.pi
+                self.timeLeft = -math.pi
             end
         end
-        if self.time_left <= 10.6 and self.time_left >= 0 then
-            if beepTimer - 1 == math.floor(self.time_left + 0.5) then
+        if self.timeLeft <= 10.6 and self.timeLeft >= 0 then
+            if beepTimer - 1 == math.floor(self.timeLeft + 0.5) then
                 sfx.play("sfx", "menuMove")
             end
-            beepTimer = math.floor(self.time_left + 0.5)
+            beepTimer = math.floor(self.timeLeft + 0.5)
         end
     elseif self.mode == "event" then
         if self.event then

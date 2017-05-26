@@ -1,8 +1,8 @@
 titleState = {}
 
 local time_to_title_fade = 1.25 --title fadein
-local time_to_menu_fade = 0.5 --menu fadein & menu+title fadeout before intro
-local time_to_menuMove = 0.25 --can move/select menu
+local time_toMenu_fade = 0.5 --menu fadein & menu+title fadeout before intro
+local time_toMenuMove = 0.25 --can move/select menu
 local time_to_intro = 10 --idle to show intro
 local title_sfx = "whoosh_heavy"
 
@@ -12,25 +12,25 @@ local title_transparency = 0
 local intro_movie = nil
 local mode = nil
 
-local screen_width = 640
-local screen_height = 480
+local screenWidth = 640
+local screenHeight = 480
 local zabuyaki_title
-local menu_item_h = 40
-local menu_y_offset = 200 - menu_item_h
-local menu_x_offset = 0
-local hint_y_offset = 80
-local title_y_offset = 0
-local left_item_offset  = 6
-local top_item_offset  = 6
-local item_width_margin = left_item_offset * 2
-local item_height_margin = top_item_offset * 2 - 2
+local menuItem_h = 40
+local menu_yOffset = 200 - menuItem_h
+local menu_xOffset = 0
+local hint_yOffset = 80
+local title_yOffset = 0
+local leftItemOffset  = 6
+local topItemOffset  = 6
+local itemWidthMargin = leftItemOffset * 2
+local itemHeightMargin = topItemOffset * 2 - 2
 
 local txt_gfx_site = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
-local txt_items = {"START", "OPTIONS", "QUIT"}
+local txtItems = {"START", "OPTIONS", "QUIT"}
 
-local menu = fillMenu(txt_items, txt_hints)
+local menu = fillMenu(txtItems, txt_hints)
 
-local menu_state, old_menu_state = 1, 1
+local menuState, oldMenuState = 1, 1
 local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
 
 function titleState:enter(_, param)
@@ -66,8 +66,8 @@ end
 
 local function resetTime()
     if mode == "menufadein" then
-        if time > time_to_menu_fade then
-            time = time_to_menu_fade
+        if time > time_toMenu_fade then
+            time = time_toMenu_fade
         end
     else
         time = 0
@@ -76,7 +76,7 @@ end
 
 --Only P1 can use menu / options
 function titleState:player_input(controls)
-    if mode == "menufadein" and time < time_to_menuMove then
+    if mode == "menufadein" and time < time_toMenuMove then
         return
     end
     if controls.back:pressed() then
@@ -87,15 +87,15 @@ function titleState:player_input(controls)
         return self:confirm( mouse_x, mouse_y, 1)
     end
     if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
-        menu_state = menu_state - 1
+        menuState = menuState - 1
     elseif controls.horizontal:pressed(1) or controls.vertical:pressed(1) then
-        menu_state = menu_state + 1
+        menuState = menuState + 1
     end
-    if menu_state < 1 then
-        menu_state = #menu
+    if menuState < 1 then
+        menuState = #menu
     end
-    if menu_state > #menu then
-        menu_state = 1
+    if menuState > #menu then
+        menuState = 1
     end
 end
 
@@ -110,9 +110,9 @@ function titleState:update(dt)
             return
         end
     elseif mode == "fadeout" then
-        transparency = clamp((time_to_menu_fade - time) * (1 / time_to_menu_fade), 0 , 1)
+        transparency = clamp((time_toMenu_fade - time) * (1 / time_toMenu_fade), 0 , 1)
         title_transparency = transparency
-        if time > time_to_menu_fade then
+        if time > time_toMenu_fade then
             mode = "movie"
             time = 0
             return
@@ -128,8 +128,8 @@ function titleState:update(dt)
         --mode == "menu"
         if mode == "menufadein" then
             title_transparency = 1
-            transparency = clamp(time * (1 / time_to_menu_fade), 0, 1)
-            if time > time_to_menu_fade then
+            transparency = clamp(time * (1 / time_toMenu_fade), 0, 1)
+            if time > time_toMenu_fade then
                 mode = "menu"
             end
         elseif mode == "menu" then
@@ -142,9 +142,9 @@ function titleState:update(dt)
             time = 0
             return
         end
-        if menu_state ~= old_menu_state then
+        if menuState ~= oldMenuState then
             sfx.play("sfx","menuMove")
-            old_menu_state = menu_state
+            oldMenuState = menuState
             resetTime()
         end
         self:player_input(Control1)
@@ -166,28 +166,28 @@ function titleState:draw()
     push:start()
     --header
     love.graphics.setColor(255, 255, 255, 255 * title_transparency)
-    love.graphics.draw(zabuyaki_title, 0, title_y_offset, 0, 2, 2)
+    love.graphics.draw(zabuyaki_title, 0, title_yOffset, 0, 2, 2)
     love.graphics.setColor(100, 100, 100, 255 * transparency)
-    love.graphics.draw(txt_gfx_site, (screen_width - txt_gfx_site:getWidth())/2, screen_height - 20)
+    love.graphics.draw(txt_gfx_site, (screenWidth - txt_gfx_site:getWidth())/2, screenHeight - 20)
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
-        if i == old_menu_state then
+        if i == oldMenuState then
             love.graphics.setColor(255, 255, 255, 255 * transparency)
             love.graphics.print(m.hint, m.wx, m.wy)
             love.graphics.setColor(0, 0, 0, 80 * transparency)
-            love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
+            love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
             love.graphics.setColor(255,200,40, 255 * transparency)
-            love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
+            love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
         end
         love.graphics.setColor(255, 255, 255, 255 * transparency)
         love.graphics.print(m.item, m.x, m.y )
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
+                CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
             old_mouse_y = mouse_y
-            menu_state = i
+            menuState = i
         end
     end
     showDebug_indicator()
@@ -195,12 +195,12 @@ function titleState:draw()
 end
 
 function titleState:confirm( x, y, button, istouch )
-    if mode == "menufadein" and time < time_to_menuMove then
+    if mode == "menufadein" and time < time_toMenuMove then
         return
     end
     if button == 1 then
         mouse_x, mouse_y = x, y
-        if menu_state == 1 then
+        if menuState == 1 then
             sfx.play("sfx","menuSelect")
             time = 0
             if GLOBAL_SETTING.DEBUG then
@@ -212,11 +212,11 @@ function titleState:confirm( x, y, button, istouch )
                 return Gamestate.push(playerSelectState)
             end
 
-        elseif menu_state == 2 then
+        elseif menuState == 2 then
             sfx.play("sfx","menuSelect")
             time = 0
             return Gamestate.push(optionsState)
-        elseif menu_state == #menu then
+        elseif menuState == #menu then
             sfx.play("sfx","menuCancel")
             return love.event.quit()
         end

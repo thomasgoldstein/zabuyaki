@@ -9,12 +9,12 @@ local v_g = 39 --vertical gap between bars
 local v_m = 13 --vert margin from the top
 local h_m = 28 --horizontal margin
 local h_g = 20 --horizontal gap between bars
-local bar_width = 150
-local bar_width_with_lr = bar_width + 16
-local bar_height = 16
-local icon_width = 40
-local icon_height = 17
-local screen_width = 640
+local barWidth = 150
+local barWidth_with_lr = barWidth + 16
+local barHeight = 16
+local iconWidth = 40
+local iconHeight = 17
+local screenWidth = 640
 local normColor = {244,210,14}
 local losingColor = {228,102,21}
 local lostColor = {199,32,26}
@@ -23,15 +23,15 @@ local bar_top_bottom_smoothColor = {100,50,50}
 
 local bars_coords = {   --for players only 1..MAX_PLAYERS
     { x = h_m , y = v_m + 0 * v_g },
-    { x = h_m + bar_width_with_lr + h_g, y = v_m + 0 * v_g },
-    { x = h_m + bar_width_with_lr * 2 + h_g * 2, y = v_m + 0 * v_g }
+    { x = h_m + barWidth_with_lr + h_g, y = v_m + 0 * v_g },
+    { x = h_m + barWidth_with_lr * 2 + h_g * 2, y = v_m + 0 * v_g }
 }
 
 local function calcBarWidth(self)
     if self.maxHp < 100 and self.source.lives <= 1 then
-        return math.floor((self.maxHp * bar_width) / 100)
+        return math.floor((self.maxHp * barWidth) / 100)
     end
-    return bar_width
+    return barWidth
 end
 
 local function slantedRectangle2(x, y, width, height)
@@ -56,7 +56,7 @@ function InfoBar:initialize(source)
         self.x, self.y = bars_coords[self.id].x, bars_coords[self.id].y
     end
     local _, _, w, _ = self.q:getViewport( )
-    self.icon_x_offset = math.floor((38 - w)/2)
+    self.icon_xOffset = math.floor((38 - w)/2)
 end
 
 function InfoBar:setAttacker(attacker_source)
@@ -89,7 +89,7 @@ function InfoBar:drawFaceIcon(l, t, transp_bg)
     if self.shader then
         love.graphics.setShader(self.shader)
     end
-    self.source.drawFaceIcon(self, l + self.icon_x_offset + self.x - 2, t + self.y, transp_bg)
+    self.source.drawFaceIcon(self, l + self.icon_xOffset + self.x - 2, t + self.y, transp_bg)
     if self.shader then
         love.graphics.setShader()
     end
@@ -110,7 +110,7 @@ function InfoBar:draw_lifebar(l, t, transp_bg)
     -- Normal lifebar
     lostColor[4] = transp_bg
     love.graphics.setColor( unpack( lostColor ) )
-    slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) , bar_height - 6 )
+    slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) , barHeight - 6 )
 
     if self.old_hp > 0 then
         if self.source.hp > self.hp then
@@ -120,40 +120,40 @@ function InfoBar:draw_lifebar(l, t, transp_bg)
             losingColor[4] = transp_bg
             love.graphics.setColor( unpack( losingColor ) )
         end
-        slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self)  * self.old_hp / self.maxHp , bar_height - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self)  * self.old_hp / self.maxHp , barHeight - 6 )
     end
     if self.hp > 0 then
         self.color[4] = transp_bg
         love.graphics.setColor( unpack( self.color ) )
-        slantedRectangle2( l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self) * self.hp / self.maxHp + 1, bar_height - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.hp / self.maxHp + 1, barHeight - 6 )
     end
     love.graphics.setColor(255,255,255, transp_bg)
     love.graphics.draw (
         gfx.ui.middle_slant.sprite,
         gfx.ui.middle_slant.q,
-        l + self.x - 4 + 12, t + self.y + icon_height + 3, 0, (calcBarWidth(self) - 12) / 4, 1
+        l + self.x - 4 + 12, t + self.y + iconHeight + 3, 0, (calcBarWidth(self) - 12) / 4, 1
     )
     love.graphics.draw (
         gfx.ui.left_slant.sprite,
         gfx.ui.left_slant.q,
-        l + self.x - 4, t + self.y + icon_height + 3
+        l + self.x - 4, t + self.y + iconHeight + 3
     )
     love.graphics.draw (
         gfx.ui.right_slant.sprite,
         gfx.ui.right_slant.q,
-        l + self.x - 4 + calcBarWidth(self), t + self.y + icon_height + 3
+        l + self.x - 4 + calcBarWidth(self), t + self.y + iconHeight + 3
     )
     bar_top_bottom_smoothColor[4] = math.min(255,transp_bg) - 127
     love.graphics.setColor( unpack( bar_top_bottom_smoothColor ) )
-    love.graphics.rectangle('fill', l + self.x + 4, t + self.y + icon_height + 6, calcBarWidth(self), 1)
-    love.graphics.rectangle('fill', l + self.x + 0, t + self.y + icon_height + bar_height - 1, calcBarWidth(self), 1)
+    love.graphics.rectangle('fill', l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self), 1)
+    love.graphics.rectangle('fill', l + self.x + 0, t + self.y + iconHeight + barHeight - 1, calcBarWidth(self), 1)
 end
 
 function InfoBar:draw(l,t,w,h)
     if self.coolDown <= 0 and self.source.id > MAX_PLAYERS then
         return
     end
-    self.source.drawBar(self, 0,0,w,h, icon_width, normColor)
+    self.source.drawBar(self, 0,0,w,h, iconWidth, normColor)
 end
 
 local function norm_n(curr, target, n)

@@ -51,10 +51,10 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
     self.velocityShove_x = 220 --my throwing speed
     self.velocityShove_z = 200 --my throwing speed
-    self.velocityShove_horizontal = 1.3 -- +30% for horizontal throws
-    self.velocity_back_off = 175 --when you ungrab someone
-    self.velocity_back_off2 = 200 --when you are released
-    self.velocity_bonus_onAttack_x = 30
+    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
+    self.velocityBackoff = 175 --when you ungrab someone
+    self.velocityBackoff2 = 200 --when you are released
+    self.velocityBonusOnAttack_x = 30
     self.velocityThrow_x = 110 --attack speed that causes my thrown body to the victims
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
@@ -64,7 +64,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     --Inner char vars
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
-    self.charged_at = 1    -- define # seconds when holdAttack is ready
+    self.chargedAt = 1    -- define # seconds when holdAttack is ready
     self.charge = 0    -- seconds of changing
     self.n_combo = 1    -- n of the combo hit
     self.coolDown = 0  -- can't move
@@ -129,32 +129,32 @@ end
 
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Character:drawTextInfo(l, t, transp_bg, icon_width, normColor)
+function Character:drawTextInfo(l, t, transp_bg, iconWidth, normColor)
     love.graphics.setColor(255, 255, 255, transp_bg)
-    printWithShadow(self.name, l + self.shake.x + icon_width + 2, t + 9,
+    printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transp_bg)
     if self.lives >= 1 then
         love.graphics.setColor(255, 255, 255, transp_bg)
-        printWithShadow("x", l + self.shake.x + icon_width + 91, t + 9,
+        printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,
             transp_bg)
         love.graphics.setFont(gfx.font.arcade3x2)
         if self.lives > 10 then
-            printWithShadow("9+", l + self.shake.x + icon_width + 100, t + 1,
+            printWithShadow("9+", l + self.shake.x + iconWidth + 100, t + 1,
                 transp_bg)
         else
-            printWithShadow(self.lives - 1, l + self.shake.x + icon_width + 100, t + 1,
+            printWithShadow(self.lives - 1, l + self.shake.x + iconWidth + 100, t + 1,
                 transp_bg)
         end
     end
 end
 
-function Character:drawBar(l,t,w,h, icon_width, normColor)
+function Character:drawBar(l,t,w,h, iconWidth, normColor)
     love.graphics.setFont(gfx.font.arcade3)
     local transp_bg = 255 * calcBarTransparency(self.coolDown)
     self:draw_lifebar(l, t, transp_bg)
     self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
     self:drawDead_cross(l, t, transp_bg)
-    self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, normColor)
+    self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, iconWidth, normColor)
 end
 -- End of Lifebar elements
 
@@ -371,7 +371,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and o ~= self
             then
                 o.harm = {source = self, state = self.state, damage = damage,
-                    type = type, velx = velocity or self.velocity_bonus_onAttack_x,
+                    type = type, velx = velocity or self.velocityBonusOnAttack_x,
                     horizontal = face, isThrown = false,
                     x = self.x, y = self.y, z = self.z }
                 items[#items+1] = o
@@ -388,12 +388,12 @@ function Character:checkAndAttack(f, isFuncCont)
             then
                 if self.isThrown then
                     o.harm = {source = self.throwerId, state = self.state, damage = damage,
-                        type = type, velx = velocity or self.velocity_bonus_onAttack_x,
+                        type = type, velx = velocity or self.velocityBonusOnAttack_x,
                         horizontal = self.horizontal, isThrown = true,
                         x = self.x, y = self.y, z = self.z }
                 else
                     o.harm = {source = self, state = self.state, damage = damage,
-                        type = type, velx = velocity or self.velocity_bonus_onAttack_x,
+                        type = type, velx = velocity or self.velocityBonusOnAttack_x,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
                         x = self.x, y = self.y, z = self.z }
@@ -602,11 +602,11 @@ function Character:walkUpdate(dt)
                 end
                 grabbed.horizontal = -self.horizontal
                 self:showHitMarks(22, 40, 5) --big hitmark
-                self.velx = self.velocity_back_off --move from source
+                self.velx = self.velocityBackoff --move from source
                 self.coolDown = 0.0
                 self:setSprite("hurtHigh")
                 self:setState(self.slide)
-                grabbed.velx = grabbed.velocity_back_off --move from source
+                grabbed.velx = grabbed.velocityBackoff --move from source
                 grabbed.coolDown = 0.0
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
@@ -1359,7 +1359,7 @@ function Character:grabUpdate(dt)
             else
                 self.horizontal = 1
             end
-            self.velx = self.velocity_back_off --move from source
+            self.velx = self.velocityBackoff --move from source
             self.coolDown = 0.0
             self:releaseGrabbed()
             self:setState(self.stand)
@@ -1477,7 +1477,7 @@ function Character:grabbedFrontUpdate(dt)
         end
         self.isGrabbed = false
         self.coolDown = 0.1	--cannot walk etc
-        self.velx = self.velocity_back_off2 --move from source
+        self.velx = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
     end
@@ -1517,7 +1517,7 @@ function Character:grabbedBackUpdate(dt)
         end
         self.isGrabbed = false
         self.coolDown = 0.1	--cannot walk etc
-        self.velx = self.velocity_back_off2 --move from source
+        self.velx = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
     end
@@ -1639,9 +1639,9 @@ function Character:shoveForwardUpdate(dt)
         t.isThrown = true
         t.throwerId = self
         t.z = t.z + 1
-        t.velx = self.velocityShove_x * self.velocityShove_horizontal
+        t.velx = self.velocityShove_x * self.velocityShoveHorizontal
         t.vely = 0
-        t.velz = self.velocityShove_z * self.velocityShove_horizontal
+        t.velz = self.velocityShove_z * self.velocityShoveHorizontal
         t.victims[self] = true
         t.horizontal = self.face
         t.face = self.face
@@ -1679,9 +1679,9 @@ function Character:shoveBackUpdate(dt)
         t.isThrown = true
         t.throwerId = self
         t.z = t.z + 1
-        t.velx = self.velocityShove_x * self.velocityShove_horizontal
+        t.velx = self.velocityShove_x * self.velocityShoveHorizontal
         t.vely = 0
-        t.velz = self.velocityShove_z * self.velocityShove_horizontal
+        t.velz = self.velocityShove_z * self.velocityShoveHorizontal
         t.victims[self] = true
         t.horizontal = self.face
         t.face = self.face
@@ -1754,7 +1754,7 @@ function Character:grabSwapUpdate(dt)
     if self:isStuck() then
         self:releaseGrabbed()
         self.coolDown = 0.1	--cannot walk etc
-        --self.velx = self.velocity_back_off2 --move from source
+        --self.velx = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
     end

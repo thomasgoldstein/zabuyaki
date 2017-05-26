@@ -31,7 +31,7 @@ function Rick:initialize(name, sprite, input, x, y, f)
     self.frictionDash = self.velocityDash
 --    self.velocityShove_x = 220 --my throwing speed
 --    self.velocityShove_z = 200 --my throwing speed
---    self.velocityShove_horizontal = 1.3 -- +30% for horizontal throws
+--    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     --Character default sfx

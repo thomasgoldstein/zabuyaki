@@ -65,36 +65,36 @@ end
 -- Start of Lifebar elements
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Player:drawTextInfo(l, t, transp_bg, icon_width, normColor)
+function Player:drawTextInfo(l, t, transp_bg, iconWidth, normColor)
     love.graphics.setColor(255, 255, 255, transp_bg)
-    printWithShadow(self.name, l + self.shake.x + icon_width + 2, t + 9,
+    printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transp_bg)
     local c = GLOBAL_SETTING.PLAYERS_COLORS[self.id]
     if c then
         c[4] = transp_bg
         love.graphics.setColor(unpack( c ))
     end
-    printWithShadow(self.pid, l + self.shake.x + icon_width + 2, t - 1,
+    printWithShadow(self.pid, l + self.shake.x + iconWidth + 2, t - 1,
         transp_bg)
     love.graphics.setColor(normColor[1], normColor[2], normColor[3], transp_bg)
-    printWithShadow(string.format("%06d", self.score), l + self.shake.x + icon_width + 34, t - 1,
+    printWithShadow(string.format("%06d", self.score), l + self.shake.x + iconWidth + 34, t - 1,
         transp_bg)
     if self.lives >= 1 then
         love.graphics.setColor(255, 255, 255, transp_bg)
-        printWithShadow("x", l + self.shake.x + icon_width + 91, t + 9,
+        printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,
             transp_bg)
         love.graphics.setFont(gfx.font.arcade3x2)
         if self.lives > 10 then
-            printWithShadow("9+", l + self.shake.x + icon_width + 100, t + 1,
+            printWithShadow("9+", l + self.shake.x + iconWidth + 100, t + 1,
                 transp_bg)
         else
-            printWithShadow(self.lives - 1, l + self.shake.x + icon_width + 100, t + 1,
+            printWithShadow(self.lives - 1, l + self.shake.x + iconWidth + 100, t + 1,
                 transp_bg)
         end
     end
 end
 
-function Player:drawBar(l,t,w,h, icon_width, normColor)
+function Player:drawBar(l,t,w,h, iconWidth, normColor)
     love.graphics.setFont(gfx.font.arcade3)
     local transp_bg = 255 * calcBarTransparency(3)
     local playerSelectMode = self.source.playerSelectMode
@@ -108,7 +108,7 @@ function Player:drawBar(l,t,w,h, icon_width, normColor)
         self:draw_lifebar(l, t, transp_bg)
         self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
         self:drawDead_cross(l, t, transp_bg)
-        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, icon_width, normColor)
+        self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, iconWidth, normColor)
     else
         love.graphics.setColor(255, 255, 255, transp_bg)
         if playerSelectMode == 0 then
@@ -124,14 +124,14 @@ function Player:drawBar(l,t,w,h, icon_width, normColor)
                 transp_bg)
         elseif playerSelectMode == 2 then
             -- Select Player
-            printWithShadow(self.source.name, l + self.x + self.source.shake.x + icon_width + 2, t + self.y + 9,
+            printWithShadow(self.source.name, l + self.x + self.source.shake.x + iconWidth + 2, t + self.y + 9,
                 transp_bg)
             local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
             if c then
                 c[4] = transp_bg
                 love.graphics.setColor(unpack( c ))
             end
-            printWithShadow(self.source.pid, l + self.x + self.source.shake.x + icon_width + 2, t + self.y - 1,
+            printWithShadow(self.source.pid, l + self.x + self.source.shake.x + iconWidth + 2, t + self.y - 1,
                 transp_bg)
             --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.coolDown*4)), t + self.y + 9 + 11 )
             self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
@@ -226,7 +226,7 @@ function Player:updateAI(dt)
         if self.b.attack:isDown() and states_for_holdAttack[self.state] then
             self.charge = self.charge + dt
         else
-            if self.charge >= self.charged_at then
+            if self.charge >= self.chargedAt then
                 if states_for_holdAttack[self.state] then
                     self:setState(self.holdAttack)
                 end

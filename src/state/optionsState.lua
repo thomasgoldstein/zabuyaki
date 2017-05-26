@@ -1,24 +1,24 @@
 optionsState = {}
 
 local time = 0
-local screen_width = 640
-local screen_height = 480
-local menu_item_h = 40
-local menu_y_offset = 80 -- menu_item_h
-local menu_x_offset = 0
-local hint_y_offset = 80
-local title_y_offset = 24
-local left_item_offset  = 6
-local top_item_offset  = 6
-local item_width_margin = left_item_offset * 2
-local item_height_margin = top_item_offset * 2 - 2
+local screenWidth = 640
+local screenHeight = 480
+local menuItem_h = 40
+local menu_yOffset = 80 -- menuItem_h
+local menu_xOffset = 0
+local hint_yOffset = 80
+local title_yOffset = 24
+local leftItemOffset  = 6
+local topItemOffset  = 6
+local itemWidthMargin = leftItemOffset * 2
+local itemHeightMargin = topItemOffset * 2 - 2
 
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
-local txt_items = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE EDITOR", "LOCKED", "BACK"}
+local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE EDITOR", "LOCKED", "BACK"}
 
-local menu = fillMenu(txt_items)
+local menu = fillMenu(txtItems)
 
-local menu_state, old_menu_state = 1, 1
+local menuState, oldMenuState = 1, 1
 local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
 
 function optionsState:enter()
@@ -50,23 +50,23 @@ function optionsState:player_input(controls)
     elseif controls.horizontal:pressed(1)then
         self:wheelmoved(0, 1)
     elseif controls.vertical:pressed(-1) then
-        menu_state = menu_state - 1
+        menuState = menuState - 1
     elseif controls.vertical:pressed(1) then
-        menu_state = menu_state + 1
+        menuState = menuState + 1
     end
-    if menu_state < 1 then
-        menu_state = #menu
+    if menuState < 1 then
+        menuState = #menu
     end
-    if menu_state > #menu then
-        menu_state = 1
+    if menuState > #menu then
+        menuState = 1
     end
 end
 
 function optionsState:update(dt)
     time = time + dt
-    if menu_state ~= old_menu_state then
+    if menuState ~= oldMenuState then
         sfx.play("sfx","menuMove")
-        old_menu_state = menu_state
+        oldMenuState = menuState
     end
     self:player_input(Control1)
 end
@@ -85,27 +85,27 @@ function optionsState:draw()
             m.hint = ""
         end
         calcMenuItem(menu, i)
-        if i == old_menu_state then
+        if i == oldMenuState then
             love.graphics.setColor(255, 255, 255, 255)
             love.graphics.print(m.hint, m.wx, m.wy)
             love.graphics.setColor(0, 0, 0, 80)
-            love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
+            love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
             love.graphics.setColor(255,200,40, 255)
-            love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
+            love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, m.x, m.y )
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
+                CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
             old_mouse_y = mouse_y
-            menu_state = i
+            menuState = i
         end
     end
     --header
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, title_y_offset)
+    love.graphics.draw(txt_options_logo, (screenWidth - txt_options_logo:getWidth()) / 2, title_yOffset)
     showDebug_indicator()
     push:finish()
 end
@@ -113,7 +113,7 @@ end
 function optionsState:confirm( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
-        if menu_state == 1 then
+        if menuState == 1 then
             sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 configuration:set("DIFFICULTY", 2)
@@ -121,15 +121,15 @@ function optionsState:confirm( x, y, button, istouch )
                 configuration:set("DIFFICULTY", 1)
             end
             configuration:save(true)
-        elseif menu_state == 2 then
+        elseif menuState == 2 then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(videoModeState)
 
-        elseif menu_state == 3 then
+        elseif menuState == 3 then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(soundState)
 
-        elseif menu_state == 4 then
+        elseif menuState == 4 then
             sfx.play("sfx","menuSelect")
             configuration:reset()
             configuration:save(true)
@@ -137,11 +137,11 @@ function optionsState:confirm( x, y, button, istouch )
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
             TEsound.playLooping(bgm.title, "music")
 
-        elseif menu_state == 5 then
+        elseif menuState == 5 then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(spriteSelectState)
 
-        elseif menu_state == #menu then
+        elseif menuState == #menu then
             sfx.play("sfx","menuCancel")
             return Gamestate.pop()
         end
@@ -174,11 +174,11 @@ function optionsState:wheelmoved(x, y)
     else
         return
     end
-    menu[menu_state].n = menu[menu_state].n + i
-    if menu_state == 1 then
+    menu[menuState].n = menu[menuState].n + i
+    if menuState == 1 then
         return self:confirm( mouse_x, mouse_y, 1)
     end
-    if menu_state ~= #menu then
+    if menuState ~= #menu then
         sfx.play("sfx","menuMove")
     end
 end

@@ -107,7 +107,7 @@ function showDebug_controls()
                     love.graphics.print("J", x, y)
                 end
                 x = x + 10
-                if p.charge >= p.charged_at then
+                if p.charge >= p.chargedAt then
                     love.graphics.print("H", x, y)
                 end
             end

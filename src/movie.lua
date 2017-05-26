@@ -5,13 +5,13 @@ local Movie = class('Movie')
 local function r(x) return math.floor(x) end
 
 local seconds_per_char = 0.05
-local text_line_height = 1.5 -- 1 default
+local text_lineHeight = 1.5 -- 1 default
 
 local screen_gap = 12
 local slide_text_gap = 10
 
-local screen_width = 640 / 2
-local screen_height = 480 / 2
+local screenWidth = 640 / 2
+local screenHeight = 480 / 2
 
 --[[
 table = {
@@ -45,7 +45,7 @@ table = {
 function Movie:initialize(frames)
     self.type = "movie"
     self.font = gfx.font.arcade3
-    self.font:setLineHeight(text_line_height)
+    self.font:setLineHeight(text_lineHeight)
     self.b = Control1 -- Use P1 controls
     self.frame = 1
     self.add_chars = 1
@@ -61,8 +61,8 @@ function Movie:initialize(frames)
         if not self.frames[i].delay then
             self.frames[i].delay = #self.frames[i].text * seconds_per_char
         end
-        local width, _ = self.font:getWrap( self.frames[i].text, screen_width )
-        self.frames[i].x =  r( (screen_width - width) / 2 )
+        local width, _ = self.font:getWrap( self.frames[i].text, screenWidth )
+        self.frames[i].x =  r( (screenWidth - width) / 2 )
     end
     if frames.music then
         TEsound.stop("music")
@@ -135,7 +135,7 @@ function Movie:draw(l, t, w, h)
     local f = self.frames[self.frame]
     -- Show Picture
     local w, h = f.q[3], f.q[4]
-    local x, y = (screen_width - w) / 2, (screen_height - h) / 2
+    local x, y = (screenWidth - w) / 2, (screenHeight - h) / 2
     local q = { r(f.q[1] + self.hScroll), r(f.q[2] + self.vScroll), w, h }
     q[5], q[6] = f.slide:getDimensions()
 
@@ -148,7 +148,7 @@ function Movie:draw(l, t, w, h)
 
     if self.time >= self.frames[self.frame].delay and not self.autoSkip then
         love.graphics.setColor(255, 255, 255, 200 + 55 * math.sin(self.time * 2))
-        love.graphics.print("PRESS ATTACK", r(screen_width - 12 * 9), r(screen_height - 12 + math.sin(self.time * 6)))
+        love.graphics.print("PRESS ATTACK", r(screenWidth - 12 * 9), r(screenHeight - 12 + math.sin(self.time * 6)))
     end
 end
 

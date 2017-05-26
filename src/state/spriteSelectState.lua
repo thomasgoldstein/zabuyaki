@@ -2,17 +2,17 @@
 spriteSelectState = {}
 
 local time = 0
-local screen_width = 640
-local screen_height = 480
-local menu_item_h = 40
-local menu_y_offset = 200 - menu_item_h
-local menu_x_offset = 0
-local hint_y_offset = 80
-local title_y_offset = 24
-local left_item_offset  = 6
-local top_item_offset  = 6
-local item_width_margin = left_item_offset * 2
-local item_height_margin = top_item_offset * 2 - 2
+local screenWidth = 640
+local screenHeight = 480
+local menuItem_h = 40
+local menu_yOffset = 200 - menuItem_h
+local menu_xOffset = 0
+local hint_yOffset = 80
+local title_yOffset = 24
+local leftItemOffset  = 6
+local topItemOffset  = 6
+local itemWidthMargin = leftItemOffset * 2
+local itemHeightMargin = topItemOffset * 2 - 2
 
 local sprite = nil
 local heroes = {
@@ -87,11 +87,11 @@ local weapons = {
 }
 
 local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SELECT CHAR/OBJ" )
-local txt_items = {"FRAME POSITIONING", "WEAPON POSITIONING", "BACK"}
+local txtItems = {"FRAME POSITIONING", "WEAPON POSITIONING", "BACK"}
 
-local menu = fillMenu(txt_items, txt_hints)
+local menu = fillMenu(txtItems, txt_hints)
 
-local menu_state, old_menu_state = 1, 1
+local menuState, oldMenuState = 1, 1
 local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
 
 function spriteSelectState:enter()
@@ -119,23 +119,23 @@ function spriteSelectState:player_input(controls)
     elseif controls.horizontal:pressed(1)then
         self:wheelmoved(0, 1)
     elseif controls.vertical:pressed(-1) then
-        menu_state = menu_state - 1
+        menuState = menuState - 1
     elseif controls.vertical:pressed(1) then
-        menu_state = menu_state + 1
+        menuState = menuState + 1
     end
-    if menu_state < 1 then
-        menu_state = #menu
+    if menuState < 1 then
+        menuState = #menu
     end
-    if menu_state > #menu then
-        menu_state = 1
+    if menuState > #menu then
+        menuState = 1
     end
 end
 
 function spriteSelectState:update(dt)
     time = time + dt
-    if menu_state ~= old_menu_state then
+    if menuState ~= oldMenuState then
         sfx.play("sfx","menuMove")
-        old_menu_state = menu_state
+        oldMenuState = menuState
         self:showCurrentSprite()
     end
 
@@ -171,27 +171,27 @@ function spriteSelectState:draw()
             end
         end
         calcMenuItem(menu, i)
-        if i == old_menu_state then
+        if i == oldMenuState then
             love.graphics.setColor(255, 255, 255, 255)
             love.graphics.print(m.hint, m.wx, m.wy)
             love.graphics.setColor(0, 0, 0, 80)
-            love.graphics.rectangle("fill", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
+            love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
             love.graphics.setColor(255,200,40, 255)
-            love.graphics.rectangle("line", m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin, 4,4,1)
+            love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
         end
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, m.x, m.y )
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - left_item_offset, m.y - top_item_offset, m.w + item_width_margin, m.h + item_height_margin )
+                CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
             old_mouse_y = mouse_y
-            menu_state = i
+            menuState = i
         end
     end
     --header
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_options_logo, (screen_width - txt_options_logo:getWidth()) / 2, title_y_offset)
+    love.graphics.draw(txt_options_logo, (screenWidth - txt_options_logo:getWidth()) / 2, title_yOffset)
 
     --sprite
     love.graphics.setColor(255, 255, 255, 255)
@@ -199,7 +199,7 @@ function spriteSelectState:draw()
 --        love.graphics.setShader(cur_players_hero_set.shader)
 --    end
     if sprite then
-        DrawSpriteInstance(sprite, screen_width / 2, menu_y_offset + menu_item_h / 2)
+        DrawSpriteInstance(sprite, screenWidth / 2, menu_yOffset + menuItem_h / 2)
     end
 --    if cur_players_hero_set.shader then
 --        love.graphics.setShader()
@@ -209,20 +209,20 @@ function spriteSelectState:draw()
 end
 
 function spriteSelectState:confirm( x, y, button, istouch )
-    if (button == 1 and menu_state == #menu) or button == 2 then
+    if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
         TEsound.stop("music")
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
         return Gamestate.pop()
     end
     if button == 1 then
-        if menu_state == 1 then
+        if menuState == 1 then
             sfx.play("sfx","menuSelect")
-            return Gamestate.push(spriteEditorState, heroes[menu[menu_state].n], weapons[menu[2].n])
-        elseif menu_state == 2 then
-            if weapons[menu[menu_state].n] then
+            return Gamestate.push(spriteEditorState, heroes[menu[menuState].n], weapons[menu[2].n])
+        elseif menuState == 2 then
+            if weapons[menu[menuState].n] then
                 sfx.play("sfx","menuSelect")
-                return Gamestate.push(spriteEditorState, weapons[menu[menu_state].n])
+                return Gamestate.push(spriteEditorState, weapons[menu[menuState].n])
             else
                 sfx.play("sfx","menuCancel")
             end
@@ -245,14 +245,14 @@ function spriteSelectState:mousemoved( x, y, dx, dy)
 end
 
 function spriteSelectState:showCurrentSprite()
-    if menu_state == 1 then
-        sprite = GetSpriteInstance(heroes[menu[menu_state].n].spriteInstance)
+    if menuState == 1 then
+        sprite = GetSpriteInstance(heroes[menu[menuState].n].spriteInstance)
         --sprite.sizeScale = 2
         SetSpriteAnimation(sprite,"stand")
 
-    elseif menu_state == 2 then
-        if weapons[menu[menu_state].n] then
-            sprite = GetSpriteInstance(weapons[menu[menu_state].n].spriteInstance)
+    elseif menuState == 2 then
+        if weapons[menu[menuState].n] then
+            sprite = GetSpriteInstance(weapons[menu[menuState].n].spriteInstance)
             --sprite.sizeScale = 2
             SetSpriteAnimation(sprite,"stand")
         else
@@ -270,26 +270,26 @@ function spriteSelectState:wheelmoved(x, y)
     else
         return
     end
-    menu[menu_state].n = menu[menu_state].n + i
-    if menu_state == 1 then
-        if menu[menu_state].n < 1 then
-            menu[menu_state].n = #heroes
+    menu[menuState].n = menu[menuState].n + i
+    if menuState == 1 then
+        if menu[menuState].n < 1 then
+            menu[menuState].n = #heroes
         end
-        if menu[menu_state].n > #heroes then
-            menu[menu_state].n = 1
+        if menu[menuState].n > #heroes then
+            menu[menuState].n = 1
         end
         self:showCurrentSprite()
 
-    elseif menu_state == 2 then
-        if menu[menu_state].n < 0 then
-            menu[menu_state].n = #weapons
+    elseif menuState == 2 then
+        if menu[menuState].n < 0 then
+            menu[menuState].n = #weapons
         end
-        if menu[menu_state].n > #weapons then
-            menu[menu_state].n = 0
+        if menu[menuState].n > #weapons then
+            menu[menuState].n = 0
         end
         self:showCurrentSprite()
     end
-    if menu_state ~= #menu then
+    if menuState ~= #menu then
         sfx.play("sfx","menuMove")
     end
 end

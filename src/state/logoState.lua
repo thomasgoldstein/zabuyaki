@@ -1,6 +1,6 @@
 logoState = {}
 
-local logoTime_left = 1.5
+local logoTimeLeft = 1.5
 local logo
 
 function logoState:enter()
@@ -12,8 +12,8 @@ function logoState:leave()
 end
 
 function logoState:update(dt)
-    logoTime_left = logoTime_left - dt
-    if logoTime_left <= 0 then
+    logoTimeLeft = logoTimeLeft - dt
+    if logoTimeLeft <= 0 then
         return Gamestate.switch(titleState)
     end
 end
@@ -21,7 +21,7 @@ end
 function logoState:draw()
     push:start()
     showDebug_indicator()
-    love.graphics.setColor(255, 255, 255, 255 * logoTime_left)
+    love.graphics.setColor(255, 255, 255, 255 * logoTimeLeft)
     love.graphics.draw(logo, 0, 0, 0, 2, 2)
     push:finish()
 end
