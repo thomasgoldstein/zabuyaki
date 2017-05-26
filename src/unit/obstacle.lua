@@ -176,21 +176,21 @@ function Obstacle:onHurt()
     self.harm = nil --free hurt data
 end
 
-function Obstacle:stand_start()
+function Obstacle:standStart()
     self.isHittable = true
     self.victims = {}
     self:setSprite("stand")
 end
-function Obstacle:stand_update(dt)
+function Obstacle:standUpdate(dt)
     if self.isGrabbed then
         self:setState(self.grabbed)
         return
     end
     self:calcMovement(dt, true, nil)
 end
-Obstacle.stand = {name = "stand", start = Obstacle.stand_start, exit = nop, update = Obstacle.stand_update, draw = Unit.default_draw}
+Obstacle.stand = {name = "stand", start = Obstacle.standStart, exit = nop, update = Obstacle.standUpdate, draw = Unit.defaultDraw}
 
-function Obstacle:getup_start()
+function Obstacle:getupStart()
     self.isHittable = false
     self.isThrown = false
     dpo(self, self.state)
@@ -202,25 +202,25 @@ function Obstacle:getup_start()
         return
     end
 end
-function Obstacle:getup_update(dt)
+function Obstacle:getupUpdate(dt)
     if self.velx <= 0 then
         self:setState(self.stand)
         return
     end
     self:calcMovement(dt, true, nil)
 end
-Obstacle.getup = {name = "getup", start = Obstacle.getup_start, exit = nop, update = Obstacle.getup_update, draw = Unit.default_draw}
+Obstacle.getup = {name = "getup", start = Obstacle.getupStart, exit = nop, update = Obstacle.getupUpdate, draw = Unit.defaultDraw}
 
-function Obstacle:hurt_start()
+function Obstacle:hurtStart()
     self.isHittable = true
 end
-function Obstacle:hurt_update(dt)
+function Obstacle:hurtUpdate(dt)
     if self.velx <= 0 then
         self:setState(self.stand)
         return
     end
     self:calcMovement(dt, true, nil)
 end
-Obstacle.hurt = {name = "hurt", start = Obstacle.hurt_start, exit = nop, update = Obstacle.hurt_update, draw = Unit.default_draw}
+Obstacle.hurt = {name = "hurt", start = Obstacle.hurtStart, exit = nop, update = Obstacle.hurtUpdate, draw = Unit.defaultDraw}
 
 return Obstacle

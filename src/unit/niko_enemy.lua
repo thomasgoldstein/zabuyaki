@@ -73,7 +73,7 @@ function Niko:updateAI(dt)
             local t = dist(self.target.x, self.target.y, self.x, self.y)
             if t < 100 and t >= 30
                     and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
-                self.velx = self.velocity_walk
+                self.velx = self.velocityWalk
                 self:setState(self.jump)
                 return
             end
@@ -112,7 +112,7 @@ function Niko:updateAI(dt)
     end
 end
 
-function Niko:jump_update(dt)
+function Niko:jumpUpdate(dt)
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 60 and t >= 10
         and math.floor(self.y / 4) == math.floor(self.target.y / 4)
@@ -137,10 +137,10 @@ function Niko:jump_update(dt)
     end
     self:calcMovement(dt, false, nil)
 end
-Niko.jump = {name = "jump", start = Enemy.jump_start, exit = nop, update = Niko.jump_update, draw = Character.default_draw }
+Niko.jump = {name = "jump", start = Enemy.jumpStart, exit = nop, update = Niko.jumpUpdate, draw = Character.defaultDraw }
 
 -- Niko's JumpAttacks should end with Fall
-Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
-Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
+Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForwardStart, exit = nop, update = Character.fallUpdate, draw = Character.defaultDraw}
+Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraightStart, exit = nop, update = Character.fallUpdate, draw = Character.defaultDraw}
 
 return Niko

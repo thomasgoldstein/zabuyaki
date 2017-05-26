@@ -14,7 +14,7 @@ end
 
 dboc = {}
 dboc[0] = { x = 0, y = 0, z = 0, time = 0 }
-function dpo_init(o)
+function dpoInit(o)
     if not GLOBAL_SETTING.DEBUG then
         return
     end

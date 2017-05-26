@@ -31,7 +31,7 @@ local shove_down = function(slf, cont)
 		cont
 	)
 end
-local combo_attack1_jab = function(slf, cont)
+local combo_attack1Jab = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 26, width = 26, height = 12, damage = 7, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
@@ -46,10 +46,10 @@ local combo_attack1_teep = function(slf, cont)
 	-- Chai's teep makes him move forward
 	if slf.b.vertical:getValue() ~= 0 then
 		slf.vertical = slf.b.vertical:getValue()
-		slf.vely = slf.velocity_jab_y -- vertical velocity
-		slf.velx = slf.velocity_jab_y -- reduced horizontal velocity
+		slf.vely = slf.velocityJab_y -- vertical velocity
+		slf.velx = slf.velocityJab_y -- reduced horizontal velocity
 	else
-		slf.velx = slf.velocity_jab -- horizontal velocity
+		slf.velx = slf.velocityJab -- horizontal velocity
 	end
 	slf.coolDownCombo = 0.4
 end
@@ -221,8 +221,8 @@ return {
 			delay = 0.01
 		},
 		combo1Jab = {
-			{ q = q(183,3,60,63), ox = 22, oy = 62, func = combo_attack1_jab, delay = 0.1 }, --combo 1_jab.2
-			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1_jab.1
+			{ q = q(183,3,60,63), ox = 22, oy = 62, func = combo_attack1Jab, delay = 0.1 }, --combo 1Jab.2
+			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1Jab.1
 			delay = 0.03
 		},
 		combo1Teep = {

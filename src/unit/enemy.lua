@@ -114,16 +114,16 @@ function Enemy:drawTextInfo(l, t, transp_bg, icon_width, norm_color)
     end
 end
 
-function Enemy:intro_start()
+function Enemy:introStart()
     self.isHittable = true
     self:setSprite("intro")
 end
-function Enemy:intro_update(dt)
+function Enemy:introUpdate(dt)
     self:calcMovement(dt, true, nil)
 end
-Enemy.intro = { name = "intro", start = Enemy.intro_start, exit = nop, update = Enemy.intro_update, draw = Character.default_draw }
+Enemy.intro = { name = "intro", start = Enemy.introStart, exit = nop, update = Enemy.introUpdate, draw = Character.defaultDraw }
 
-function Enemy:dead_start()
+function Enemy:deadStart()
     self.isHittable = false
     self:setSprite("fallen")
     dp(self.name.." is dead.")
@@ -135,7 +135,7 @@ function Enemy:dead_start()
     end
     sfx.play("voice"..self.id, self.sfx.dead)
 end
-function Enemy:dead_update(dt)
+function Enemy:deadUpdate(dt)
     if self.isDisabled then
         return
     end
@@ -152,7 +152,7 @@ function Enemy:dead_update(dt)
     end
     --self:calcMovement(dt, true)
 end
-Enemy.dead = {name = "dead", start = Character.dead_start, exit = nop, update = Character.dead_update, draw = Character.default_draw}
+Enemy.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = Character.defaultDraw}
 
 function Enemy:getDistanceToClosestPlayer()
     local p = {}
@@ -213,9 +213,9 @@ function Enemy:pickAttackTarget(how)
                 p[i].points = math.random()
             end
         elseif how == "slow" then
-            p[i].points = -p[i].player.velocity_walk + math.random()
+            p[i].points = -p[i].player.velocityWalk + math.random()
         elseif how == "fast" then
-            p[i].points = p[i].player.velocity_walk + math.random()
+            p[i].points = p[i].player.velocityWalk + math.random()
         else -- "random"
             if not p[i].player.isDisabled then
                 p[i].points = math.random()
@@ -256,7 +256,7 @@ function Enemy:faceToTarget(x, y)
     end
 end
 
-function Enemy:jump_start()
+function Enemy:jumpStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("jump")
@@ -271,7 +271,7 @@ function Enemy:jump_start()
     self.vertical = 0
     sfx.play("voice"..self.id, self.sfx.jump)
 end
-Enemy.jump = {name = "jump", start = Enemy.jump_start, exit = nop, update = Character.jump_update, draw = Character.default_draw }
+Enemy.jump = {name = "jump", start = Enemy.jumpStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw }
 
 return Enemy
 

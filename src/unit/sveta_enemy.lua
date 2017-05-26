@@ -127,7 +127,7 @@ function Sveta:updateAI(dt)
     end
 end
 
-function Sveta:dashAttack_start()
+function Sveta:dashAttackStart()
     self.isHittable = true
     self:removeTweenMove()
     dpo(self, self.state)
@@ -143,7 +143,7 @@ function Sveta:dashAttack_start()
     stage.objects:add(Effect:new(particles, self.x, self.y + 2))
 end
 
-function Sveta:dashAttack_update(dt)
+function Sveta:dashAttackUpdate(dt)
     self.coolDown = self.coolDown - dt
     if self.sprite.cur_anim == "duck" and self.coolDown <= 0 then
         self.isHittable = false
@@ -164,6 +164,6 @@ function Sveta:dashAttack_update(dt)
     self:calcMovement(dt, true, self.friction_dash)
 end
 
-Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttack_start, exit = nop, update = Sveta.dashAttack_update, draw = Character.default_draw }
+Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttackStart, exit = nop, update = Sveta.dashAttackUpdate, draw = Character.defaultDraw }
 
 return Sveta

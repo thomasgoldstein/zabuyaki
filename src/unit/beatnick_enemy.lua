@@ -116,7 +116,7 @@ function Beatnick:updateAI(dt)
     end
 end
 
-function Beatnick:jump_update(dt)
+function Beatnick:jumpUpdate(dt)
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 60 and t >= 10
         and math.floor(self.y / 4) == math.floor(self.target.y / 4)
@@ -141,6 +141,6 @@ function Beatnick:jump_update(dt)
     end
     self:calcMovement(dt, false, nil)
 end
-Beatnick.jump = {name = "jump", start = Enemy.jump_start, exit = nop, update = Beatnick.jump_update, draw = Character.default_draw }
+Beatnick.jump = {name = "jump", start = Enemy.jumpStart, exit = nop, update = Beatnick.jumpUpdate, draw = Character.defaultDraw }
 
 return Beatnick

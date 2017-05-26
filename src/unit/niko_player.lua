@@ -21,10 +21,10 @@ local moves_white_list = {
 function Niko:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
-    self.velocity_walk = 90
-    self.velocity_walk_y = 45
-    self.velocity_walkHold = 72
-    self.velocity_walkHold_y = 36
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
+    self.velocityWalkHold = 72
+    self.velocityWalkHold_y = 36
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 150 --speed of the character
@@ -44,7 +44,7 @@ function Niko:initialize(name, sprite, input, x, y, f)
 end
 
 -- Niko's JumpAttacks should end with Fall
-Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForward_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
-Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraight_start, exit = nop, update = Character.fall_update, draw = Character.default_draw}
+Niko.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForwardStart, exit = nop, update = Character.fallUpdate, draw = Character.defaultDraw}
+Niko.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraightStart, exit = nop, update = Character.fallUpdate, draw = Character.defaultDraw}
 
 return Niko

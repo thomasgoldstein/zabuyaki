@@ -16,9 +16,9 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
 
-    self.velocity_jab = 100 --speed of the jab slide
-    self.velocity_jab_y = 20 --speed of the vertical jab slide
-    self.friction_jab = self.velocity_jab
+    self.velocityJab = 100 --speed of the jab slide
+    self.velocityJab_y = 20 --speed of the vertical jab slide
+    self.frictionJab = self.velocityJab
 
     self.sfx.dead = sfx.zeena_death
     self.sfx.jump_attack = sfx.zeena_attack
@@ -90,7 +90,7 @@ function Zeena:updateAI(dt)
             local t = dist(self.target.x, self.target.y, self.x, self.y)
             if t < 100 and t >= 30
                     and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
-                self.velx = self.velocity_walk
+                self.velx = self.velocityWalk
                 self:setState(self.jump)
                 return
             end
@@ -129,13 +129,13 @@ function Zeena:updateAI(dt)
     end
 end
 
-function Zeena:combo_update(dt)
+function Zeena:comboUpdate(dt)
     --Custom friction value to slide forward on jab
-    Character.combo_update(self, dt, self.friction_jab)
+    Character.comboUpdate(self, dt, self.frictionJab)
 end
-Zeena.combo = {name = "combo", start = Enemy.combo_start, exit = nop, update = Zeena.combo_update, draw = Character.default_draw}
+Zeena.combo = {name = "combo", start = Enemy.comboStart, exit = nop, update = Zeena.comboUpdate, draw = Character.defaultDraw}
 
-function Zeena:jump_update(dt)
+function Zeena:jumpUpdate(dt)
     local t = dist(self.target.x, self.target.y, self.x, self.y)
     if t < 60 and t >= 10
         and math.floor(self.y / 4) == math.floor(self.target.y / 4)
@@ -160,6 +160,6 @@ function Zeena:jump_update(dt)
     end
     self:calcMovement(dt, false, nil)
 end
-Zeena.jump = {name = "jump", start = Enemy.jump_start, exit = nop, update = Zeena.jump_update, draw = Character.default_draw }
+Zeena.jump = {name = "jump", start = Enemy.jumpStart, exit = nop, update = Zeena.jumpUpdate, draw = Character.defaultDraw }
 
 return Zeena

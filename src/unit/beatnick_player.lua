@@ -20,8 +20,8 @@ local moves_white_list = {
 function Beatnick:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
-    self.velocity_walk = 90
-    self.velocity_walk_y = 45
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 150 --speed of the character

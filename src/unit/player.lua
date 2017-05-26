@@ -370,7 +370,7 @@ function Player:afterOnHurt()
 end
 
 local players_list = { RICK = 1, KISA = 2, CHAI = 3, GOPPER = 4, NIKO = 5, SVETA = 6, ZEENA = 7, BEATNICK = 8, SATOFF = 9 }
-function Player:useCredit_start()
+function Player:useCreditStart()
     self.isHittable = false
     self.lives = self.lives - 1
     if self.lives > 0 then
@@ -383,7 +383,7 @@ function Player:useCredit_start()
     self.playerSelectMode = 0
     self.player_select_cur = players_list[self.name] or 1
 end
-function Player:useCredit_update(dt)
+function Player:useCreditUpdate(dt)
     if self.playerSelectMode == 5 then --self.isDisabled then
         return
     end
@@ -490,9 +490,9 @@ function Player:useCredit_update(dt)
         -- Game Over
     end
 end
-Player.useCredit = {name = "useCredit", start = Player.useCredit_start, exit = nop, update = Player.useCredit_update, draw = Unit.default_draw}
+Player.useCredit = {name = "useCredit", start = Player.useCreditStart, exit = nop, update = Player.useCreditUpdate, draw = Unit.defaultDraw}
 
-function Player:respawn_start()
+function Player:respawnStart()
     self.isHittable = false
     dpo(self, self.state)
     self:setSprite("respawn")
@@ -503,7 +503,7 @@ function Player:respawn_start()
     self.z = math.random( 235, 245 )    --TODO get Z from the Tiled
     stage:resetTime()
 end
-function Player:respawn_update(dt)
+function Player:respawnUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -547,9 +547,9 @@ function Player:respawn_update(dt)
     --self.victim_infoBar = nil   -- remove enemy bar under yours
     self:calcMovement(dt)
 end
-Player.respawn = {name = "respawn", start = Player.respawn_start, exit = nop, update = Player.respawn_update, draw = Unit.default_draw}
+Player.respawn = {name = "respawn", start = Player.respawnStart, exit = nop, update = Player.respawnUpdate, draw = Unit.defaultDraw}
 
-function Player:dead_start()
+function Player:deadStart()
     self.isHittable = false
     self:setSprite("fallen")
     dp(self.name.." is dead.")
@@ -565,7 +565,7 @@ function Player:dead_start()
         self.killerId:addScore( self.scoreBonus )
     end
 end
-function Player:dead_update(dt)
+function Player:deadUpdate(dt)
     if self.isDisabled then
         return
     end
@@ -578,6 +578,6 @@ function Player:dead_update(dt)
     end
     self:calcMovement(dt)
 end
-Player.dead = {name = "dead", start = Player.dead_start, exit = nop, update = Player.dead_update, draw = Unit.default_draw}
+Player.dead = {name = "dead", start = Player.deadStart, exit = nop, update = Player.deadUpdate, draw = Unit.defaultDraw}
 
 return Player

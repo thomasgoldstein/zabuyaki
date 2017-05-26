@@ -20,8 +20,8 @@ local moves_white_list = {
 function Kisa:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
-    self.velocity_walk = 110
-    self.velocity_walk_y = 55
+    self.velocityWalk = 110
+    self.velocityWalk_y = 55
     self.velocity_run = 160
     self.velocity_run_y = 27
     self.velocity_dash = 150 --speed of the character
@@ -40,16 +40,16 @@ function Kisa:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = "kisa_death"
 end
 
-function Kisa:combo_start()
+function Kisa:comboStart()
     self.isHittable = true
     self.horizontal = self.face
     self.coolDown = 0.2
 end
-function Kisa:combo_update(dt)
+function Kisa:comboUpdate(dt)
     self:setState(self.stand)
     --TODO add dashAttack -> -> A
     return
 end
-Kisa.combo = {name = "combo", start = Kisa.combo_start, exit = nop, update = Kisa.combo_update, draw = Character.default_draw}
+Kisa.combo = {name = "combo", start = Kisa.comboStart, exit = nop, update = Kisa.comboUpdate, draw = Character.defaultDraw}
 
 return Kisa

@@ -27,10 +27,10 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     f.shapeArgs = f.shapeArgs or { 1, 0, 27, 0, 28, 3, 27, 6, 1, 6, 0, 3 }
     Player.initialize(self, name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
-    self.velocity_walk = 90
-    self.velocity_walk_y = 45
-    self.velocity_walkHold = 80
-    self.velocity_walkHold_y = 40
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
+    self.velocityWalkHold = 80
+    self.velocityWalkHold_y = 40
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 190 --speed of the character
@@ -48,6 +48,6 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = sfx.satoff_death
 end
 
-Satoff.combo = {name = "combo", start = _Satoff.combo_start, exit = nop, update = _Satoff.combo_update, draw = Character.default_draw}
+Satoff.combo = {name = "combo", start = _Satoff.comboStart, exit = nop, update = _Satoff.comboUpdate, draw = Character.defaultDraw}
 
 return Satoff

@@ -20,18 +20,18 @@ local moves_white_list = {
 function Chai:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
-    self.velocity_walk = 100
-    self.velocity_walk_y = 50
-    self.velocity_walkHold = 80
-    self.velocity_walkHold_y = 40
+    self.velocityWalk = 100
+    self.velocityWalk_y = 50
+    self.velocityWalkHold = 80
+    self.velocityWalkHold_y = 40
     self.velocity_run = 150
     self.velocity_run_y = 25
     self.velocity_dash = 150 --speed of the character
     self.velocity_dash_fall = 180 --speed caused by dash to others fall
     self.friction_dash = self.velocity_dash
-    self.velocity_jab = 30 --speed of the jab slide
-    self.velocity_jab_y = 20 --speed of the vertical jab slide
-    self.friction_jab = self.velocity_jab
+    self.velocityJab = 30 --speed of the jab slide
+    self.velocityJab_y = 20 --speed of the vertical jab slide
+    self.frictionJab = self.velocityJab
 --    self.velocity_shove_x = 220 --my throwing speed
 --    self.velocity_shove_z = 200 --my throwing speed
 --    self.velocity_shove_horizontal = 1.3 -- +30% for horizontal throws
@@ -46,13 +46,13 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = "chai_death"
 end
 
-function Chai:combo_update(dt)
+function Chai:comboUpdate(dt)
     --Custom friction value to slide forward on jab
-    Character.combo_update(self, dt, self.friction_jab)
+    Character.comboUpdate(self, dt, self.frictionJab)
 end
-Chai.combo = {name = "combo", start = Character.combo_start, exit = nop, update = Chai.combo_update, draw = Character.default_draw}
+Chai.combo = {name = "combo", start = Character.comboStart, exit = nop, update = Chai.comboUpdate, draw = Character.defaultDraw}
 
-function Chai:dashAttack_start()
+function Chai:dashAttackStart()
     self.isHittable = true
     self.horizontal = self.face
     dpo(self, self.state)
@@ -73,7 +73,7 @@ function Chai:dashAttack_start()
     particles:emit(5)
     stage.objects:add(Effect:new(particles, self.x, self.y-1))
 end
-function Chai:dashAttack_update(dt)
+function Chai:dashAttackUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.fall)
         return
@@ -97,21 +97,21 @@ function Chai:dashAttack_update(dt)
     end
     self:calcMovement(dt, true)
 end
-Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttack_start, exit = nop, update = Chai.dashAttack_update, draw = Character.default_draw }
+Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
-function Chai:holdAttack_start()
+function Chai:holdAttackStart()
     self.isHittable = true
     self:setSprite("holdAttack")
     self.coolDown = 0.2
 end
-function Chai:holdAttack_update(dt)
+function Chai:holdAttackUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
     end
     self:calcMovement(dt, true, nil)
 end
-Chai.holdAttack = {name = "holdAttack", start = Chai.holdAttack_start, exit = nop, update = Chai.holdAttack_update, draw = Character.default_draw}
+Chai.holdAttack = {name = "holdAttack", start = Chai.holdAttackStart, exit = nop, update = Chai.holdAttackUpdate, draw = Character.defaultDraw}
 
 local shoveForward_chai = {
     -- face - u can flip Chai horizontally with option face = -1
@@ -125,17 +125,17 @@ local shoveForward_chai = {
     { ox = 0, oz = 25, oy = -1, z = 6, face = 1, tFace = -1 }, --throw function
     { z = 2 } --last frame
 }
-function Chai:shoveForward_start()
+function Chai:shoveForwardStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
-    self:moveStates_init()
+    self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("shoveForward")
     dp(self.name.." shoveForward someone.")
 end
-function Chai:shoveForward_update(dt)
-    self:moveStates_apply(shoveForward_chai)
+function Chai:shoveForwardUpdate(dt)
+    self:moveStatesApply(shoveForward_chai)
     if self.can_shove_now then --set in the animation
         self.can_shove_now = false
         local g = self.hold
@@ -162,6 +162,6 @@ function Chai:shoveForward_update(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Chai.shoveForward = {name = "shoveForward", start = Chai.shoveForward_start, exit = nop, update = Chai.shoveForward_update, draw = Character.default_draw}
+Chai.shoveForward = {name = "shoveForward", start = Chai.shoveForwardStart, exit = nop, update = Chai.shoveForwardUpdate, draw = Character.defaultDraw}
 
 return Chai

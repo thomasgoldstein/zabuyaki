@@ -145,7 +145,7 @@ function Gopper:onFriendlyAttack()
     end
 end
 
-function Gopper:combo_start()
+function Gopper:comboStart()
     self.isHittable = true
     self:removeTweenMove()
     if self.n_combo > 3 or self.n_combo < 1 then
@@ -160,7 +160,7 @@ function Gopper:combo_start()
     end
     self.coolDown = 0.2
 end
-function Gopper:combo_update(dt)
+function Gopper:comboUpdate(dt)
     if self.sprite.isFinished then
         self.n_combo = self.n_combo + 1
         if self.n_combo > 4 then
@@ -171,9 +171,9 @@ function Gopper:combo_update(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Gopper.combo = { name = "combo", start = Gopper.combo_start, exit = nop, update = Gopper.combo_update, draw = Gopper.default_draw }
+Gopper.combo = { name = "combo", start = Gopper.comboStart, exit = nop, update = Gopper.comboUpdate, draw = Gopper.defaultDraw }
 
-function Gopper:walk_start()
+function Gopper:walkStart()
     self.isHittable = true
     self:setSprite("walk")
     self.tx, self.ty = self.x, self.y
@@ -220,7 +220,7 @@ function Gopper:walk_start()
         end
     end
 end
-function Gopper:walk_update(dt)
+function Gopper:walkUpdate(dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
@@ -239,9 +239,9 @@ function Gopper:walk_update(dt)
     self.can_attack = true
     self:calcMovement(dt, false, nil)
 end
-Gopper.walk = { name = "walk", start = Gopper.walk_start, exit = nop, update = Gopper.walk_update, draw = Enemy.default_draw }
+Gopper.walk = { name = "walk", start = Gopper.walkStart, exit = nop, update = Gopper.walkUpdate, draw = Enemy.defaultDraw }
 
-function Gopper:run_start()
+function Gopper:runStart()
     self.isHittable = true
     self:setSprite("run")
     local t = dist(self.target.x, self.y, self.x, self.y)
@@ -263,7 +263,7 @@ function Gopper:run_start()
         self.horizontal = self.face
     end
 end
-function Gopper:run_update(dt)
+function Gopper:runUpdate(dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
@@ -285,10 +285,10 @@ function Gopper:run_update(dt)
     end
     self:calcMovement(dt, false, nil)
 end
-Gopper.run = {name = "run", start = Gopper.run_start, exit = nop, update = Gopper.run_update, draw = Gopper.default_draw}
+Gopper.run = {name = "run", start = Gopper.runStart, exit = nop, update = Gopper.runUpdate, draw = Gopper.defaultDraw}
 
 local dashAttack_speed = 0.75
-function Gopper:dashAttack_start()
+function Gopper:dashAttackStart()
     self.isHittable = true
     self:setSprite("dashAttack")
     self.velx = self.velocity_dash * 2 * dashAttack_speed
@@ -298,7 +298,7 @@ function Gopper:dashAttack_start()
     self.bounced = 0
     sfx.play("voice"..self.id, self.sfx.dash_attack)
 end
-function Gopper:dashAttack_update(dt)
+function Gopper:dashAttackUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -318,6 +318,6 @@ function Gopper:dashAttack_update(dt)
     end
     self:calcMovement(dt, true, self.friction_dash * dashAttack_speed)
 end
-Gopper.dashAttack = {name = "dashAttack", start = Gopper.dashAttack_start, exit = nop, update = Gopper.dashAttack_update, draw = Character.default_draw }
+Gopper.dashAttack = {name = "dashAttack", start = Gopper.dashAttackStart, exit = nop, update = Gopper.dashAttackUpdate, draw = Character.defaultDraw }
 
 return Gopper

@@ -21,8 +21,8 @@ local moves_white_list = {
 function Gopper:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
-    self.velocity_walk = 90
-    self.velocity_walk_y = 45
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 150 --speed of the character
@@ -36,7 +36,7 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.sfx.step = "kisa_step"
 end
 
-Gopper.combo = {name = "combo", start = _Gopper.combo_start, exit = nop, update = _Gopper.combo_update, draw = Character.default_draw}
-Gopper.dashAttack = {name = "dashAttack", start = _Gopper.dashAttack_start, exit = nop, update = _Gopper.dashAttack_update, draw = Character.default_draw }
+Gopper.combo = {name = "combo", start = _Gopper.comboStart, exit = nop, update = _Gopper.comboUpdate, draw = Character.defaultDraw}
+Gopper.dashAttack = {name = "dashAttack", start = _Gopper.dashAttackStart, exit = nop, update = _Gopper.dashAttackUpdate, draw = Character.defaultDraw }
 
 return Gopper

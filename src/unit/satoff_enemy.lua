@@ -26,10 +26,10 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.subtype = "midboss"
     self.face = -1
 
-    self.velocity_walk = 90
-    self.velocity_walk_y = 45
-    self.velocity_walkHold = 80
-    self.velocity_walkHold_y = 40
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
+    self.velocityWalkHold = 80
+    self.velocityWalkHold_y = 40
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 190 --speed of the character
@@ -151,21 +151,21 @@ function Satoff:updateAI(dt)
     end
 end
 
-function Satoff:combo_start()
+function Satoff:comboStart()
     self:removeTweenMove()
-    Character.combo_start(self)
+    Character.comboStart(self)
     self.velx = self.velocity_dash
 end
-function Satoff:combo_update(dt)
+function Satoff:comboUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
     end
     self:calcMovement(dt, true, self.friction_dash)
 end
-Satoff.combo = { name = "combo", start = Satoff.combo_start, exit = nop, update = Satoff.combo_update, draw = Satoff.default_draw }
+Satoff.combo = { name = "combo", start = Satoff.comboStart, exit = nop, update = Satoff.comboUpdate, draw = Satoff.defaultDraw }
 
-function Satoff:walk_start()
+function Satoff:walkStart()
     self.isHittable = true
     self:setSprite("walk")
     self.tx, self.ty = self.x, self.y
@@ -187,7 +187,7 @@ function Satoff:walk_start()
         }, 'inOutQuad')
     end
 end
-function Satoff:walk_update(dt)
+function Satoff:walkUpdate(dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
@@ -206,9 +206,9 @@ function Satoff:walk_update(dt)
     self.can_attack = true
     self:calcMovement(dt, true, nil)
 end
-Satoff.walk = { name = "walk", start = Satoff.walk_start, exit = nop, update = Satoff.walk_update, draw = Enemy.default_draw }
+Satoff.walk = { name = "walk", start = Satoff.walkStart, exit = nop, update = Satoff.walkUpdate, draw = Enemy.defaultDraw }
 
-function Satoff:run_start()
+function Satoff:runStart()
     self.isHittable = true
     self:setSprite("run")
     local t = dist(self.target.x, self.y, self.x, self.y)
@@ -230,7 +230,7 @@ function Satoff:run_start()
         self.horizontal = self.face
     end
 end
-function Satoff:run_update(dt)
+function Satoff:runUpdate(dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
@@ -248,6 +248,6 @@ function Satoff:run_update(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Satoff.run = {name = "run", start = Satoff.run_start, exit = nop, update = Satoff.run_update, draw = Satoff.default_draw}
+Satoff.run = {name = "run", start = Satoff.runStart, exit = nop, update = Satoff.runUpdate, draw = Satoff.defaultDraw}
 
 return Satoff

@@ -67,7 +67,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.showPIDCoolDown = 0
 	self:addShape(f.shapeType or "rectangle", f.shapeArgs or {self.x, self.y, 15, 7})
 	self:setState(self.stand)
-	dpo_init(self)
+	dpoInit(self)
 end
 
 function Unit:setOnStage(stage)
@@ -152,9 +152,9 @@ end
 
 function Unit:getMovementSpeed()
     if self.sprite.cur_anim == "walk" then
-        return self.velocity_walk, self.velocity_walk_y
+        return self.velocityWalk, self.velocityWalk_y
     elseif self.sprite.cur_anim == "walkHold" then
-        return self.velocity_walkHold, self.velocity_walkHold_y
+        return self.velocityWalkHold, self.velocityWalkHold_y
     elseif self.sprite.cur_anim == "run" then
         return self.velocity_run, self.velocity_run_y
     end
@@ -306,7 +306,7 @@ function Unit:drawPID(x, y_)
 	love.graphics.print(self.pid, x - 7, y + 4)
 end
 local states_for_hold_attack = {stand = true, walk = true, run = true }
-function Unit:default_draw(l,t,w,h)
+function Unit:defaultDraw(l,t,w,h)
 	if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
 		self.sprite.flip_h = self.face  --TODO get rid of .face
         if self.coolDownDeath < 1 then
@@ -458,7 +458,7 @@ function Unit:calcDamageFrame()
 	return n
 end
 
-function Unit:moveStates_init()
+function Unit:moveStatesInit()
 	local g = self.hold
 	local t = g.target
 	if not g then
@@ -472,7 +472,7 @@ function Unit:moveStates_init()
 	}
 end
 
-function Unit:moveStates_apply(moves, frame)
+function Unit:moveStatesApply(moves, frame)
 	local g = self.hold
 	local t = g.target
 	if not g then

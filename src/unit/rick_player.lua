@@ -20,10 +20,10 @@ local moves_white_list = {
 function Rick:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
-    self.velocity_walk = 90
-    self.velocity_walk_y = 45
-    self.velocity_walkHold = 72
-    self.velocity_walkHold_y = 36
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
+    self.velocityWalkHold = 72
+    self.velocityWalkHold_y = 36
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 150 --speed of the character
@@ -43,13 +43,13 @@ function Rick:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = "rick_death"
 end
 
-function Rick:defensiveSpecial_start()
+function Rick:defensiveSpecialStart()
     self.isHittable = false
     self:setSprite("defensiveSpecial")
     sfx.play("voice"..self.id, self.sfx.dash_attack)
     self.coolDown = 0.2
 end
-function Rick:defensiveSpecial_update(dt)
+function Rick:defensiveSpecialUpdate(dt)
     if self.z > 0 then
         self.z = self.z + dt * self.velz
         self.velz = self.velz - self.gravity * dt
@@ -63,9 +63,9 @@ function Rick:defensiveSpecial_update(dt)
     end
     self:calcMovement(dt, true)
 end
-Rick.defensiveSpecial = {name = "defensiveSpecial", start = Rick.defensiveSpecial_start, exit = nop, update = Rick.defensiveSpecial_update, draw = Character.default_draw }
+Rick.defensiveSpecial = {name = "defensiveSpecial", start = Rick.defensiveSpecialStart, exit = nop, update = Rick.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
-function Rick:dashAttack_start()
+function Rick:dashAttackStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("dashAttack")
@@ -81,7 +81,7 @@ function Rick:dashAttack_start()
     self.pa_dash_y = self.y
     stage.objects:add(Effect:new(particles, self.x, self.y + 2))
 end
-function Rick:dashAttack_update(dt)
+function Rick:dashAttackUpdate(dt)
     if self.sprite.isFinished then
         dpo(self, self.state)
         self:setState(self.stand)
@@ -93,9 +93,9 @@ function Rick:dashAttack_update(dt)
     end
     self:calcMovement(dt, true, self.friction_dash)
 end
-Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttack_start, exit = nop, update = Rick.dashAttack_update, draw = Character.default_draw}
+Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
 
-function Rick:offensiveSpecial_start()
+function Rick:offensiveSpecialStart()
     self.isHittable = true
     self.horizontal = self.face
     dpo(self, self.state)
@@ -114,7 +114,7 @@ function Rick:offensiveSpecial_start()
 
     stage.objects:add(Effect:new(particles, self.x, self.y + 2))
 end
-function Rick:offensiveSpecial_update(dt)
+function Rick:offensiveSpecialUpdate(dt)
     if self.sprite.isFinished then
         dpo(self, self.state)
         self:setState(self.stand)
@@ -126,20 +126,20 @@ function Rick:offensiveSpecial_update(dt)
     end
     self:calcMovement(dt, true, self.velocity_dash)
 end
-Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecial_start, exit = nop, update = Rick.offensiveSpecial_update, draw = Character.default_draw}
+Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = nop, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
-function Rick:holdAttack_start()
+function Rick:holdAttackStart()
     self.isHittable = true
     self:setSprite("holdAttack")
     self.coolDown = 0.2
 end
-function Rick:holdAttack_update(dt)
+function Rick:holdAttackUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
     end
     self:calcMovement(dt, true)
 end
-Rick.holdAttack = {name = "holdAttack", start = Rick.holdAttack_start, exit = nop, update = Rick.holdAttack_update, draw = Character.default_draw}
+Rick.holdAttack = {name = "holdAttack", start = Rick.holdAttackStart, exit = nop, update = Rick.holdAttackUpdate, draw = Character.defaultDraw}
 
 return Rick

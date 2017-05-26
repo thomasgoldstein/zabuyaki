@@ -21,8 +21,8 @@ local moves_white_list = {
 function Sveta:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.moves = moves_white_list --list of allowed moves
-    self.velocity_walk = 90
-    self.velocity_walk_y = 45
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
     self.velocity_run = 140
     self.velocity_run_y = 23
     self.velocity_dash = 170 --speed of the character
@@ -41,6 +41,6 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     self.sfx.step = "kisa_step"
 end
 
-Sveta.dashAttack = { name = "dashAttack", start = _Sveta.dashAttack_start, exit = nop, update = _Sveta.dashAttack_update, draw = Character.default_draw }
+Sveta.dashAttack = { name = "dashAttack", start = _Sveta.dashAttackStart, exit = nop, update = _Sveta.dashAttackUpdate, draw = Character.defaultDraw }
 
 return Sveta
