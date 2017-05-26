@@ -105,9 +105,9 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
             transp_bg = 255 - self.source.z
             t = t - self.source.z / 2
         end
-        self:draw_lifebar(l, t, transp_bg)
+        self:drawLifebar(l, t, transp_bg)
         self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
-        self:drawDead_cross(l, t, transp_bg)
+        self:drawDeadCross(l, t, transp_bg)
         self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, iconWidth, normColor)
     else
         love.graphics.setColor(255, 255, 255, transp_bg)
@@ -204,9 +204,9 @@ function Player:isStuck()
 end
 
 function Player:hasPlaceToStand(x, y)
-    local test_shape = stage.test_shape
-    test_shape:moveTo(x, y)
-    for other, separating_vector in pairs(stage.world:collisions(test_shape)) do
+    local testShape = stage.testShape
+    testShape:moveTo(x, y)
+    for other, separating_vector in pairs(stage.world:collisions(testShape)) do
         local o = other.obj
         if o.type == "wall"
                 or (o.type == "obstacle" and o.z <= 0 and o.hp > 0 and o.isMovable == false)

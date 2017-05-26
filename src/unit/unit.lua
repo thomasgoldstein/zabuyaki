@@ -409,9 +409,9 @@ function Unit:isStuck()
 end
 
 function Unit:hasPlaceToStand(x, y)
-    local test_shape = stage.test_shape
-    test_shape:moveTo(x, y)
-    for other, separating_vector in pairs(stage.world:collisions(test_shape)) do
+    local testShape = stage.testShape
+    testShape:moveTo(x, y)
+    for other, separating_vector in pairs(stage.world:collisions(testShape)) do
         local o = other.obj
         if o.type == "wall"	then
             return false

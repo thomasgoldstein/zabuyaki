@@ -158,7 +158,7 @@ function checkDebug_keys(key)
     end
 end
 
-function drawDebugUnit_cross(slf)
+function drawDebugUnitCross(slf)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(127, 127, 127, 127)
         love.graphics.line( slf.x - 30, slf.y - slf.z, slf.x + 30, slf.y - slf.z )

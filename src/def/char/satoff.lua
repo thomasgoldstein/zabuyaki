@@ -6,7 +6,7 @@ local function q(x,y,w,h)
 end
 
 local comboUppercut1 = function(slf, cont) slf:checkAndAttack(
-	{ left = 14, width = 30, height = 12, damage = 12, type = "low", velocity = slf.velocityDashFall, sfx = "whoosh_heavy" },
+	{ left = 14, width = 30, height = 12, damage = 12, type = "low", velocity = slf.velocityDashFall, sfx = "whooshHeavy" },
 	cont
 ) end
 

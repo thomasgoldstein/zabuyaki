@@ -47,7 +47,7 @@ SFX.load("menuMove","res/sfx/menuMove.wav", 0.5, nil, "J.J")
 SFX.load("menuGameStart","res/sfx/menuGameStart.wav", 0.2)
 
 SFX.load("air","res/sfx/whooshLight.wav", 0.5)
-SFX.load("whoosh_heavy","res/sfx/whooshHeavy.wav", 1)
+SFX.load("whooshHeavy","res/sfx/whooshHeavy.wav", 1)
 SFX.load("grab","res/sfx/grab.wav", 1)
 
 SFX.load("pickupApple","res/sfx/pickupApple.wav", 1)

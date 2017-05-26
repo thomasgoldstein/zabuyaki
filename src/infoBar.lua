@@ -95,7 +95,7 @@ function InfoBar:drawFaceIcon(l, t, transp_bg)
     end
 end
 
-function InfoBar:drawDead_cross(l, t, transp_bg)
+function InfoBar:drawDeadCross(l, t, transp_bg)
     if self.hp <= 0 then
         love.graphics.setColor(255,255,255, 255 * math.sin(self.coolDown*20 + 17) * transp_bg)
         love.graphics.draw (
@@ -106,7 +106,7 @@ function InfoBar:drawDead_cross(l, t, transp_bg)
     end
 end
 
-function InfoBar:draw_lifebar(l, t, transp_bg)
+function InfoBar:drawLifebar(l, t, transp_bg)
     -- Normal lifebar
     lostColor[4] = transp_bg
     love.graphics.setColor( unpack( lostColor ) )

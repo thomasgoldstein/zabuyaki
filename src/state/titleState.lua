@@ -1,10 +1,10 @@
 titleState = {}
 
 local time_to_title_fade = 1.25 --title fadein
-local time_toMenu_fade = 0.5 --menu fadein & menu+title fadeout before intro
-local time_toMenuMove = 0.25 --can move/select menu
-local time_to_intro = 10 --idle to show intro
-local title_sfx = "whoosh_heavy"
+local fadeToMenuTime = 0.5 --menu fadein & menu+title fadeout before intro
+local moveToMenuTime = 0.25 --can move/select menu
+local timeToIntro = 10 --idle to show intro
+local titleSfx = "whooshHeavy"
 
 local time = 0
 local transparency = 0
@@ -45,7 +45,7 @@ function titleState:enter(_, param)
     end
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-    sfx.play("sfx",title_sfx)
+    sfx.play("sfx",titleSfx)
 
     -- Prevent double press at start (e.g. auto confirmation)
     Control1.attack:update()
@@ -66,8 +66,8 @@ end
 
 local function resetTime()
     if mode == "menufadein" then
-        if time > time_toMenu_fade then
-            time = time_toMenu_fade
+        if time > fadeToMenuTime then
+            time = fadeToMenuTime
         end
     else
         time = 0
@@ -76,7 +76,7 @@ end
 
 --Only P1 can use menu / options
 function titleState:player_input(controls)
-    if mode == "menufadein" and time < time_toMenuMove then
+    if mode == "menufadein" and time < moveToMenuTime then
         return
     end
     if controls.back:pressed() then
@@ -110,9 +110,9 @@ function titleState:update(dt)
             return
         end
     elseif mode == "fadeout" then
-        transparency = clamp((time_toMenu_fade - time) * (1 / time_toMenu_fade), 0 , 1)
+        transparency = clamp((fadeToMenuTime - time) * (1 / fadeToMenuTime), 0 , 1)
         title_transparency = transparency
-        if time > time_toMenu_fade then
+        if time > fadeToMenuTime then
             mode = "movie"
             time = 0
             return
@@ -128,15 +128,15 @@ function titleState:update(dt)
         --mode == "menu"
         if mode == "menufadein" then
             title_transparency = 1
-            transparency = clamp(time * (1 / time_toMenu_fade), 0, 1)
-            if time > time_toMenu_fade then
+            transparency = clamp(time * (1 / fadeToMenuTime), 0, 1)
+            if time > fadeToMenuTime then
                 mode = "menu"
             end
         elseif mode == "menu" then
             title_transparency = 1
             transparency = 1
         end
-        if time > time_to_intro then
+        if time > timeToIntro then
             intro_movie = Movie:new(movie_intro)
             mode = "fadeout"
             time = 0
@@ -195,7 +195,7 @@ function titleState:draw()
 end
 
 function titleState:confirm( x, y, button, istouch )
-    if mode == "menufadein" and time < time_toMenuMove then
+    if mode == "menufadein" and time < moveToMenuTime then
         return
     end
     if button == 1 then

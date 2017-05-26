@@ -151,7 +151,7 @@ function Chai:shoveForwardUpdate(dt)
         t.horizontal = self.face
         --t.face = self.face -- we have the grabbed enemy's facing from shoveForward_chai table
         t:setState(self.fall)
-        sfx.play("sfx", "whoosh_heavy")
+        sfx.play("sfx", "whooshHeavy")
         sfx.play("voice"..self.id, self.sfx.throw)
         return
     end

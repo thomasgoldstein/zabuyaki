@@ -75,8 +75,8 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
     self.playerSelectMode = 0
     --Character default sfx
-    self.sfx.jump = "whoosh_heavy"
-    self.sfx.throw = "whoosh_heavy"
+    self.sfx.jump = "whooshHeavy"
+    self.sfx.throw = "whooshHeavy"
     self.sfx.dashAttack = "gopperAttack1"
     self.sfx.grab = "grab"
     self.sfx.grab_clash = "hitWeak6"
@@ -151,9 +151,9 @@ end
 function Character:drawBar(l,t,w,h, iconWidth, normColor)
     love.graphics.setFont(gfx.font.arcade3)
     local transp_bg = 255 * calcBarTransparency(self.coolDown)
-    self:draw_lifebar(l, t, transp_bg)
+    self:drawLifebar(l, t, transp_bg)
     self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
-    self:drawDead_cross(l, t, transp_bg)
+    self:drawDeadCross(l, t, transp_bg)
     self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, iconWidth, normColor)
 end
 -- End of Lifebar elements
@@ -901,7 +901,7 @@ function Character:sideStepStart()
         self:setSprite("sideStepUp")
     end
     self.velx, self.vely = 0, self.velocityStep_down
-    sfx.play("sfx"..self.id, "whoosh_heavy")
+    sfx.play("sfx"..self.id, "whooshHeavy")
 end
 function Character:sideStepUpdate(dt)
     if self.vely > 0 then
@@ -1608,7 +1608,7 @@ function Character:shoveUpUpdate(dt)
         t.velx = self.velocityShove_x / 10
         t.velz = self.velocityShove_z * 2
         t:setState(self.fall)
-        sfx.play("sfx", "whoosh_heavy")
+        sfx.play("sfx", "whooshHeavy")
         sfx.play("voice"..self.id, self.sfx.throw)
         return
     end
@@ -1646,7 +1646,7 @@ function Character:shoveForwardUpdate(dt)
         t.horizontal = self.face
         t.face = self.face
         t:setState(self.fall)
-        sfx.play("sfx", "whoosh_heavy")
+        sfx.play("sfx", "whooshHeavy")
         sfx.play("voice"..self.id, self.sfx.throw)
         return
     end
@@ -1686,7 +1686,7 @@ function Character:shoveBackUpdate(dt)
         t.horizontal = self.face
         t.face = self.face
         t:setState(self.fall)
-        sfx.play("sfx", "whoosh_heavy")
+        sfx.play("sfx", "whooshHeavy")
         sfx.play("voice"..self.id, self.sfx.throw)
         return
     end
@@ -1709,7 +1709,7 @@ function Character:grabSwapStart()
     self.grabSwap_flipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 18
     self.grabSwap_x_fin_dist = math.abs( self.x - self.grabSwap_x )
-    sfx.play("sfx", "whoosh_heavy")
+    sfx.play("sfx", "whooshHeavy")
     dp(self.name.." is grabSwapping someone.")
 end
 function Character:grabSwapUpdate(dt)

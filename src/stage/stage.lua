@@ -30,7 +30,7 @@ function Stage:initialize(name, bgColor)
     self.timeLeft = GLOBAL_SETTING.TIMER
     self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
     self.world = HC.new(40*4)
-    self.test_shape = HC.rectangle(1, 1, 15, 5) -- to test collision
+    self.testShape = HC.rectangle(1, 1, 15, 5) -- to test collision
     self.objects = Entity:new()
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
     self.zoom = max_zoom

@@ -99,7 +99,7 @@ function Entity:draw(l,t,w,h)
     end
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 0, 255, 50)
-        stage.test_shape:draw()
+        stage.testShape:draw()
     end
 end
 
