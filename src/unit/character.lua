@@ -7,7 +7,7 @@ local function nop() end
 local sign = sign
 local clamp = clamp
 local doubleTapDelta = 0.25
-local moves_white_list = {
+local movesWhiteList = {
     run = true, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
     grab = true, grabSwap = true, grabAttack = true,
@@ -60,13 +60,13 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
-    self.moves = moves_white_list --list of allowed moves
+    self.moves = movesWhiteList --list of allowed moves
     --Inner char vars
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
     self.chargedAt = 1    -- define # seconds when holdAttack is ready
     self.charge = 0    -- seconds of changing
-    self.n_combo = 1    -- n of the combo hit
+    self.ComboN = 1    -- n of the combo hit
     self.cooldown = 0  -- can't move
     self.cooldownCombo = 0    -- can cont combo
     self.cooldownGrab = 2
@@ -79,7 +79,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.sfx.throw = "whooshHeavy"
     self.sfx.dashAttack = "gopperAttack1"
     self.sfx.grab = "grab"
-    self.sfx.grab_clash = "hitWeak6"
+    self.sfx.grabClash = "hitWeak6"
     self.sfx.jumpAttack = self.sfx.jumpAttack or "nikoAttack1"
     self.sfx.step = self.sfx.step or "kisaStep"
     self.sfx.dead = self.sfx.dead or "gopnikDeath1"
@@ -129,32 +129,32 @@ end
 
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Character:drawTextInfo(l, t, transp_bg, iconWidth, normColor)
-    love.graphics.setColor(255, 255, 255, transp_bg)
+function Character:drawTextInfo(l, t, transpBg, iconWidth, normColor)
+    love.graphics.setColor(255, 255, 255, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
-        transp_bg)
+        transpBg)
     if self.lives >= 1 then
-        love.graphics.setColor(255, 255, 255, transp_bg)
+        love.graphics.setColor(255, 255, 255, transpBg)
         printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,
-            transp_bg)
+            transpBg)
         love.graphics.setFont(gfx.font.arcade3x2)
         if self.lives > 10 then
             printWithShadow("9+", l + self.shake.x + iconWidth + 100, t + 1,
-                transp_bg)
+                transpBg)
         else
             printWithShadow(self.lives - 1, l + self.shake.x + iconWidth + 100, t + 1,
-                transp_bg)
+                transpBg)
         end
     end
 end
 
 function Character:drawBar(l,t,w,h, iconWidth, normColor)
     love.graphics.setFont(gfx.font.arcade3)
-    local transp_bg = 255 * calcBarTransparency(self.cooldown)
-    self:drawLifebar(l, t, transp_bg)
-    self:drawFaceIcon(l + self.source.shake.x, t, transp_bg)
-    self:drawDeadCross(l, t, transp_bg)
-    self.source:drawTextInfo(l + self.x, t + self.y, transp_bg, iconWidth, normColor)
+    local transpBg = 255 * calcBarTransparency(self.cooldown)
+    self:drawLifebar(l, t, transpBg)
+    self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
+    self:drawDeadCross(l, t, transpBg)
+    self.source:drawTextInfo(l + self.x, t + self.y, transpBg, iconWidth, normColor)
 end
 -- End of Lifebar elements
 
@@ -238,7 +238,7 @@ function Character:onHurtDamage()
     end
     self:playHitSfx(h.damage)
     if not GLOBAL_SETTING.CONTINUE_INTERRUPTED_COMBO then
-        self.n_combo = 1	--if u get hit reset combo chain
+        self.ComboN = 1	--if u get hit reset combo chain
     end
     if h.source.velx == 0 then
         self.face = -h.source.face	--turn face to the still(pulled back) attacker
@@ -413,7 +413,7 @@ function Character:checkAndAttack(f, isFuncCont)
     end
     if not GLOBAL_SETTING.AUTO_COMBO and #items < 1 then
         -- reset combo attack N to 1
-        self.n_combo = 0
+        self.ComboN = 0
     end
     items = nil
 end
@@ -490,7 +490,7 @@ function Character:standUpdate(dt)
     if self.cooldownCombo > 0 then
         self.cooldownCombo = self.cooldownCombo - dt
     else
-        self.n_combo = 1
+        self.ComboN = 1
     end
     if (self.moves.jump and self.canJump and self.b.jump:isDown())
         or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
@@ -553,7 +553,7 @@ function Character:walkStart()
     else
         self:setSprite("walk")
     end
-    self.n_combo = 1	--if u move reset combo chain
+    self.ComboN = 1	--if u move reset combo chain
 end
 function Character:walkUpdate(dt)
     if not self.b.jump:isDown() then
@@ -610,7 +610,7 @@ function Character:walkUpdate(dt)
                 grabbed.cooldown = 0.0
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
-                sfx.play("sfx"..self.id, self.sfx.grab_clash)
+                sfx.play("sfx"..self.id, self.sfx.grabClash)
                 return
             end
             if self.moves.grab and self:doGrab(grabbed) then
@@ -1194,10 +1194,10 @@ function Character:comboStart()
     self.isHittable = true
     self.horizontal = self.face
     self:removeTweenMove()
-    if self.n_combo > self.sprite.def.max_combo or self.n_combo < 1 then
-        self.n_combo = 1
+    if self.ComboN > self.sprite.def.max_combo or self.ComboN < 1 then
+        self.ComboN = 1
     end
-    self:setSprite("combo"..self.n_combo)
+    self:setSprite("combo"..self.ComboN)
     self.cooldown = 0.2
 end
 function Character:comboUpdate(dt, custom_friction)
@@ -1218,10 +1218,10 @@ function Character:comboUpdate(dt, custom_friction)
         end
     end
     if self.sprite.isFinished then
-        if self.n_combo < self.sprite.def.max_combo then
-            self.n_combo = self.n_combo + 1
+        if self.ComboN < self.sprite.def.max_combo then
+            self.ComboN = self.ComboN + 1
         else
-            self.n_combo = 1
+            self.ComboN = 1
         end
         self:setState(self.stand)
         return

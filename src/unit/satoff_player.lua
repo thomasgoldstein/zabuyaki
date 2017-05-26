@@ -8,7 +8,7 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
-local moves_white_list = {
+local movesWhiteList = {
     run = true, sideStep = false, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = true, jumpAttackStraight = true,
     grab = true, grabSwap = false, grabAttack = true,
@@ -26,7 +26,7 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     f.shapeType = f.shapeType or "polygon"
     f.shapeArgs = f.shapeArgs or { 1, 0, 27, 0, 28, 3, 27, 6, 1, 6, 0, 3 }
     Player.initialize(self, name, sprite, input, x, y, f)
-    self.moves = moves_white_list --list of allowed moves
+    self.moves = movesWhiteList --list of allowed moves
     self.velocityWalk = 90
     self.velocityWalk_y = 45
     self.velocityWalkHold = 80

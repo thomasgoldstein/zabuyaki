@@ -148,23 +148,23 @@ end
 function Gopper:comboStart()
     self.isHittable = true
     self:removeTweenMove()
-    if self.n_combo > 3 or self.n_combo < 1 then
-        self.n_combo = 1
+    if self.ComboN > 3 or self.ComboN < 1 then
+        self.ComboN = 1
     end
-    if self.n_combo == 1 then
+    if self.ComboN == 1 then
         self:setSprite("combo1")
-    elseif self.n_combo == 2 then
+    elseif self.ComboN == 2 then
         self:setSprite("combo2")
-    elseif self.n_combo == 3 then
+    elseif self.ComboN == 3 then
         self:setSprite("combo3")
     end
     self.cooldown = 0.2
 end
 function Gopper:comboUpdate(dt)
     if self.sprite.isFinished then
-        self.n_combo = self.n_combo + 1
-        if self.n_combo > 4 then
-            self.n_combo = 1
+        self.ComboN = self.ComboN + 1
+        if self.ComboN > 4 then
+            self.ComboN = 1
         end
         self:setState(self.stand)
         return

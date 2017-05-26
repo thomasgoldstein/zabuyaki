@@ -95,21 +95,21 @@ end
 
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Enemy:drawTextInfo(l, t, transp_bg, iconWidth, normColor)
-    love.graphics.setColor(255, 255, 255, transp_bg)
+function Enemy:drawTextInfo(l, t, transpBg, iconWidth, normColor)
+    love.graphics.setColor(255, 255, 255, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
-        transp_bg)
+        transpBg)
     if self.lives > 1 then
-        love.graphics.setColor(255, 255, 255, transp_bg)
+        love.graphics.setColor(255, 255, 255, transpBg)
         printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,
-            transp_bg)
+            transpBg)
         love.graphics.setFont(gfx.font.arcade3x2)
         if self.lives > 10 then
             printWithShadow("9+", l + self.shake.x + iconWidth + 100, t + 1,
-                transp_bg)
+                transpBg)
         else
             printWithShadow(self.lives - 1, l + self.shake.x + iconWidth + 100, t + 1,
-                transp_bg)
+                transpBg)
         end
     end
 end

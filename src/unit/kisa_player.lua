@@ -7,7 +7,7 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
-local moves_white_list = {
+local movesWhiteList = {
     run = false, sideStep = false, pickup = true,
     jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
     grab = false, grabSwap = false, grabAttack = false,
@@ -19,7 +19,7 @@ local moves_white_list = {
 
 function Kisa:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
-    self.moves = moves_white_list --list of allowed moves
+    self.moves = movesWhiteList --list of allowed moves
     self.velocityWalk = 110
     self.velocityWalk_y = 55
     self.velocityRun = 160

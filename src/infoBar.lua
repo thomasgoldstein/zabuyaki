@@ -83,21 +83,21 @@ function InfoBar:setPicker(picker_source)
     return self
 end
 
-function InfoBar:drawFaceIcon(l, t, transp_bg)
-    self.iconColor[4] = transp_bg
+function InfoBar:drawFaceIcon(l, t, transpBg)
+    self.iconColor[4] = transpBg
     love.graphics.setColor( unpack( self.iconColor ) )
     if self.shader then
         love.graphics.setShader(self.shader)
     end
-    self.source.drawFaceIcon(self, l + self.icon_xOffset + self.x - 2, t + self.y, transp_bg)
+    self.source.drawFaceIcon(self, l + self.icon_xOffset + self.x - 2, t + self.y, transpBg)
     if self.shader then
         love.graphics.setShader()
     end
 end
 
-function InfoBar:drawDeadCross(l, t, transp_bg)
+function InfoBar:drawDeadCross(l, t, transpBg)
     if self.hp <= 0 then
-        love.graphics.setColor(255,255,255, 255 * math.sin(self.cooldown*20 + 17) * transp_bg)
+        love.graphics.setColor(255,255,255, 255 * math.sin(self.cooldown*20 + 17) * transpBg)
         love.graphics.draw (
             gfx.ui.dead_icon.sprite,
             gfx.ui.dead_icon.q,
@@ -106,28 +106,28 @@ function InfoBar:drawDeadCross(l, t, transp_bg)
     end
 end
 
-function InfoBar:drawLifebar(l, t, transp_bg)
+function InfoBar:drawLifebar(l, t, transpBg)
     -- Normal lifebar
-    lostColor[4] = transp_bg
+    lostColor[4] = transpBg
     love.graphics.setColor( unpack( lostColor ) )
     slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) , barHeight - 6 )
 
     if self.old_hp > 0 then
         if self.source.hp > self.hp then
-            gotColor[4] = transp_bg
+            gotColor[4] = transpBg
             love.graphics.setColor( unpack( gotColor ) )
         else
-            losingColor[4] = transp_bg
+            losingColor[4] = transpBg
             love.graphics.setColor( unpack( losingColor ) )
         end
         slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self)  * self.old_hp / self.maxHp , barHeight - 6 )
     end
     if self.hp > 0 then
-        self.color[4] = transp_bg
+        self.color[4] = transpBg
         love.graphics.setColor( unpack( self.color ) )
         slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.hp / self.maxHp + 1, barHeight - 6 )
     end
-    love.graphics.setColor(255,255,255, transp_bg)
+    love.graphics.setColor(255,255,255, transpBg)
     love.graphics.draw (
         gfx.ui.middle_slant.sprite,
         gfx.ui.middle_slant.q,
@@ -143,7 +143,7 @@ function InfoBar:drawLifebar(l, t, transp_bg)
         gfx.ui.right_slant.q,
         l + self.x - 4 + calcBarWidth(self), t + self.y + iconHeight + 3
     )
-    bar_top_bottom_smoothColor[4] = math.min(255,transp_bg) - 127
+    bar_top_bottom_smoothColor[4] = math.min(255,transpBg) - 127
     love.graphics.setColor( unpack( bar_top_bottom_smoothColor ) )
     love.graphics.rectangle('fill', l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self), 1)
     love.graphics.rectangle('fill', l + self.x + 0, t + self.y + iconHeight + barHeight - 1, calcBarWidth(self), 1)

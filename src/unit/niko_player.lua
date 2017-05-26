@@ -8,7 +8,7 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
-local moves_white_list = {
+local movesWhiteList = {
     run = false, sideStep = false, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
     grab = true, grabSwap = false, grabAttack = true,
@@ -20,7 +20,7 @@ local moves_white_list = {
 
 function Niko:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
-    self.moves = moves_white_list --list of allowed moves
+    self.moves = movesWhiteList --list of allowed moves
     self.velocityWalk = 90
     self.velocityWalk_y = 45
     self.velocityWalkHold = 72

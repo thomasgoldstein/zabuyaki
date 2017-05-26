@@ -7,7 +7,7 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
-local moves_white_list = {
+local movesWhiteList = {
     run = true, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
     grab = true, grabSwap = true, grabAttack = true,
@@ -19,7 +19,7 @@ local moves_white_list = {
 
 function Rick:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
-    self.moves = moves_white_list --list of allowed moves
+    self.moves = movesWhiteList --list of allowed moves
     self.velocityWalk = 90
     self.velocityWalk_y = 45
     self.velocityWalkHold = 72

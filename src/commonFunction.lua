@@ -36,9 +36,9 @@ function rand1()
     end
 end
 
-function printWithShadow(text, x, y, transp_bg)
+function printWithShadow(text, x, y, transpBg)
     local r, g, b, a = love.graphics.getColor( )
-    love.graphics.setColor(0, 0, 0, transp_bg)
+    love.graphics.setColor(0, 0, 0, transpBg)
     love.graphics.print(text, x + 1, y - 1)
     love.graphics.setColor(r, g, b, a)
     love.graphics.print(text, x, y)

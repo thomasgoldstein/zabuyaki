@@ -75,14 +75,14 @@ end
 local calcBarTransparency = calcBarTransparency
 local printWithShadow = printWithShadow
 function Loot:drawBar(l,t,w,h, iconWidth, normColor)
-    local transp_bg = 255 * calcBarTransparency(self.cooldown)
-    self:drawFaceIcon(l, t, transp_bg)
+    local transpBg = 255 * calcBarTransparency(self.cooldown)
+    self:drawFaceIcon(l, t, transpBg)
     love.graphics.setFont(gfx.font.arcade3)
-    love.graphics.setColor(255, 255, 255, transp_bg)
-    printWithShadow(self.name, l + self.x + iconWidth + 4 + 0, t + self.y + 9 - 0, transp_bg)
-    normColor[4] = transp_bg
+    love.graphics.setColor(255, 255, 255, transpBg)
+    printWithShadow(self.name, l + self.x + iconWidth + 4 + 0, t + self.y + 9 - 0, transpBg)
+    normColor[4] = transpBg
     love.graphics.setColor( unpack( normColor ) )
-    printWithShadow(self.note, l + self.x + iconWidth + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transp_bg)
+    printWithShadow(self.note, l + self.x + iconWidth + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transpBg)
 end
 -- End of Lifebar elements
 
