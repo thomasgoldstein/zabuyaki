@@ -107,10 +107,10 @@ function Obstacle:updateAI(dt)
 end
 
 function Obstacle:isImmune()   --Immune to the attack?
-    local h = self.harm
+    local h = self.isHurt
     if h.type == "shockWave" or self.isDisabled then
         -- shockWave has no effect on players & obstacles
-        self.harm = nil --free hurt data
+        self.isHurt = nil --free hurt data
         return true
     end
     --Block "fall" attack if isMovable false
@@ -122,13 +122,13 @@ function Obstacle:isImmune()   --Immune to the attack?
 end
 
 function Obstacle:onHurt()
-    local h = self.harm
+    local h = self.isHurt
     if not h then
         return
     end
     -- got Immunity?
     if self:isImmune() then
-        self.harm = nil
+        self.isHurt = nil
         return
     end
     local newFacing = -h.horizontal
@@ -173,7 +173,7 @@ function Obstacle:onHurt()
         stage.objects:add(Effect:new(particles, self.x, self.y + 1))
     end
     self.oldFrame = curFrame
-    self.harm = nil --free hurt data
+    self.isHurt = nil --free hurt data
 end
 
 function Obstacle:standStart()

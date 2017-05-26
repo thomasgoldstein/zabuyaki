@@ -35,9 +35,9 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.velocityRun_y = 25
     self.velocityJump = 220 --Z coord
     self.velocityJumpSpeed = 1.25
-    self.velocityJump_x_boost = 10
-    self.velocityJump_y_boost = 5
-    self.velocityJump_zRun_boost = 24
+    self.velocityJumpBoost_x = 10
+    self.velocityJumpBoost_y = 5
+    self.velocityJumpRunBoost_z = 24
     self.velocityFall_z = 220
     self.velocityFall_x = 120
     self.velocityFallAdd_x = 5
@@ -168,17 +168,17 @@ function Character:updateAI(dt)
 end
 
 function Character:isImmune()   --Immune to the attack?
-    local h = self.harm
+    local h = self.isHurt
     if h.type == "shockWave" and ( self.isDisabled or self.sprite.curAnim == "fallen" ) then
         -- shockWave has no effect on players & obstacles
-        self.harm = nil --free hurt data
+        self.isHurt = nil --free hurt data
         return true
     end
     return false
 end
 
 function Character:onFriendlyAttack()
-    local h = self.harm
+    local h = self.isHurt
     if not h then
         return
     end
@@ -192,24 +192,24 @@ end
 
 function Character:onHurt()
     -- hurt = {source, damage, velx,vely,x,y,z}
-    local h = self.harm
+    local h = self.isHurt
     if not h then
         return
     end
     -- got Immunity?
     if self:isImmune() then
-        self.harm = nil
+        self.isHurt = nil
         return
     end
     self:removeTweenMove()
     self:onFriendlyAttack()
     self:onHurtDamage()
     self:afterOnHurt()
-    self.harm = nil --free hurt data
+    self.isHurt = nil --free hurt data
 end
 
 function Character:onHurtDamage()
-    local h = self.harm
+    local h = self.isHurt
     if not h then
         return
     end
@@ -252,7 +252,7 @@ function Character:onHurtDamage()
 end
 
 function Character:afterOnHurt()
-    local h = self.harm
+    local h = self.isHurt
     if not h then
         return
     end
@@ -329,7 +329,7 @@ function Character:afterOnHurt()
 end
 
 function Character:applyDamage(damage, type, source, velocity, sfx1)
-    self.harm = {source = source or self, state = self.state, damage = damage,
+    self.isHurt = {source = source or self, state = self.state, damage = damage,
         type = type, velx = velocity or 0,
         horizontal = self.face, isThrown = false,
         x = self.x, y = self.y, z = self.z }
@@ -370,7 +370,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and not o.isGrabbed
                     and o ~= self
             then
-                o.harm = {source = self, state = self.state, damage = damage,
+                o.isHurt = {source = self, state = self.state, damage = damage,
                     type = type, velx = velocity or self.velocityBonusOnAttack_x,
                     horizontal = face, isThrown = false,
                     x = self.x, y = self.y, z = self.z }
@@ -387,12 +387,12 @@ function Character:checkAndAttack(f, isFuncCont)
                     and o.z <= self.z + o.height and o.z >= self.z - self.height
             then
                 if self.isThrown then
-                    o.harm = {source = self.throwerId, state = self.state, damage = damage,
+                    o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
                         type = type, velx = velocity or self.velocityBonusOnAttack_x,
                         horizontal = self.horizontal, isThrown = true,
                         x = self.x, y = self.y, z = self.z }
                 else
-                    o.harm = {source = self, state = self.state, damage = damage,
+                    o.isHurt = {source = self, state = self.state, damage = damage,
                         type = type, velx = velocity or self.velocityBonusOnAttack_x,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
@@ -701,13 +701,13 @@ function Character:jumpStart()
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.prevState == "run" then
         -- jump higher from run
-        self.velz = (self.velocityJump + self.velocityJump_zRun_boost) * self.velocityJumpSpeed
+        self.velz = (self.velocityJump + self.velocityJumpRunBoost_z) * self.velocityJumpSpeed
     end
     if self.velx ~= 0 then
-        self.velx = self.velx + self.velocityJump_x_boost --make jump little faster than the walk/run speed
+        self.velx = self.velx + self.velocityJumpBoost_x --make jump little faster than the walk/run speed
     end
     if self.vely ~= 0 then
-        self.vely = self.vely + self.velocityJump_y_boost --make jump little faster than the walk/run speed
+        self.vely = self.vely + self.velocityJumpBoost_y --make jump little faster than the walk/run speed
     end
     sfx.play("voice"..self.id, self.sfx.jump)
 end
@@ -1134,7 +1134,7 @@ Character.fall = {name = "fall", start = Character.fallStart, exit = nop, update
 function Character:getupStart()
     self.isHittable = false
     dpo(self, self.state)
-    self.harm = nil
+    self.isHurt = nil
     if self.z <= 0 then
         self.z = 0
     end
@@ -1159,7 +1159,7 @@ function Character:deadStart()
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
-    self.harm = nil
+    self.isHurt = nil
     self:releaseGrabbed()
     if self.z <= 0 then
         self.z = 0

@@ -238,19 +238,19 @@ function Player:updateAI(dt)
 end
 
 function Player:isImmune()   --Immune to the attack?
-    local h = self.harm
+    local h = self.isHurt
     if not h then
         return true
     end
     if h.type == "shockWave" or self.isDisabled then
-        self.harm = nil --free hurt data
+        self.isHurt = nil --free hurt data
         return false
     end
     return false
 end
 
 function Player:onHurtDamage()
-    local h = self.harm
+    local h = self.isHurt
     if not h then
         return
     end
@@ -274,7 +274,7 @@ function Player:onHurtDamage()
 
     self:decreaseHp(h.damage)
     if h.type == "simple" then
-        self.harm = nil --free hurt data
+        self.isHurt = nil --free hurt data
         return
     end
 
@@ -294,7 +294,7 @@ function Player:onHurtDamage()
 end
 
 function Player:afterOnHurt()
-    local h = self.harm
+    local h = self.isHurt
     if not h then
         return
     end
@@ -554,7 +554,7 @@ function Player:deadStart()
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
-    self.harm = nil
+    self.isHurt = nil
     self:releaseGrabbed()
     if self.z <= 0 then
         self.z = 0

@@ -68,12 +68,12 @@ function Enemy:updateAI(dt)
 end
 
 function Enemy:onFriendlyAttack()
-    local h = self.harm
+    local h = self.isHurt
     if not h then
         return
     end
     if self.type == h.source.type and not h.isThrown then
-        self.harm = nil   --enemy doesn't attack enemy
+        self.isHurt = nil   --enemy doesn't attack enemy
     else
         h.damage = h.damage or 0
     end
@@ -128,7 +128,7 @@ function Enemy:deadStart()
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
-    self.harm = nil
+    self.isHurt = nil
     self:releaseGrabbed()
     if self.z <= 0 then
         self.z = 0
@@ -266,7 +266,7 @@ function Enemy:jumpStart()
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.lastState == "run" then
         -- jump higher from run
-        self.velz = (self.velocityJump + self.velocityJump_zRun_boost) * self.velocityJumpSpeed
+        self.velz = (self.velocityJump + self.velocityJumpRunBoost_z) * self.velocityJumpSpeed
     end
     self.vertical = 0
     sfx.play("voice"..self.id, self.sfx.jump)
