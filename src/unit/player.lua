@@ -269,7 +269,6 @@ function Player:onHurtDamage()
     h.source:addScore( h.damage * 10 )
     self.killerId = h.source
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
-
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
 
     self:decreaseHp(h.damage)
@@ -290,82 +289,6 @@ function Player:onHurtDamage()
         else
             self.face = -h.source.horizontal --turn face to the attacker
         end
-    end
-end
-
-function Player:afterOnHurt()
-    local h = self.isHurt
-    if not h then
-        return
-    end
-    --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
-    --"high", "low", "fall"(replaced by blows)
-    if h.type == "high" then
-        if self.hp > 0 and self.z <= 0 then
-            self:showHitMarks(h.damage, 40)
-            self:setState(self.hurt)
-            self:setSprite("hurtHigh")
-            return
-        end
-        self.velx = h.velx --use fall speed from the agument
-        --then it does to "fall dead"
-    elseif h.type == "low" then
-        if self.hp > 0 and self.z <= 0 then
-            self:showHitMarks(h.damage, 16)
-            self:setState(self.hurt)
-            self:setSprite("hurtLow")
-            return
-        end
-        self.velx = h.velx --use fall speed from the agument
-        --then it does to "fall dead"
-    elseif h.type == "grabKO" then
-        --when u throw a grabbed one
-        self.velx = self.velocityThrow_x
-    elseif h.type == "fall" then
-        --use fall speed from the agument
-        self.velx = h.velx
-        --it cannot be too short
-        if self.velx < self.velocityFall_x / 2 then
-            self.velx = self.velocityFall_x / 2 + self.velocityFallAdd_x
-        end
-    elseif h.type == "shockWave" then
-        if h.source.x < self.x then
-            h.horizontal = 1
-        else
-            h.horizontal = -1
-        end
-        self.face = -h.horizontal	--turn face to the epicenter
-    else
-        error("OnHurt - unknown h.type = "..h.type)
-    end
-    dpo(self, self.state)
-    --finish calcs before the fall state
-    if h.damage > 0 then
-        if h.type == "low" then
-            self:showHitMarks(h.damage, 16)
-        else
-            self:showHitMarks(h.damage, 40)
-        end
-    end
-    -- calc falling traectorym speed, direction
-    self.z = self.z + 1
-    self.velz = self.velocityFall_z * self.velocityJumpSpeed
-    if self.hp <= 0 then -- dead body flies further
-        if self.velx < self.velocityFall_x then
-            self.velx = self.velocityFall_x + self.velocityFallDeadAdd_x
-        else
-            self.velx = self.velx + self.velocityFallDeadAdd_x
-        end
-    elseif self.velx < self.velocityFall_x then --alive bodies
-        self.velx = self.velocityFall_x
-    end
-    self.horizontal = h.horizontal
-    self.isGrabbed = false
-    if not self.isMovable and self.hp <=0 then
-        self.velx = 0
-        self:setState(self.dead)
-    else
-        self:setState(self.fall)
     end
 end
 

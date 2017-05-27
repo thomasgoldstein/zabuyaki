@@ -229,9 +229,7 @@ function Character:onHurtDamage()
     h.source:addScore( h.damage * 10 )
     self.killerId = h.source
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
-    if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
-        mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
-    end
+
     self:decreaseHp(h.damage)
     if h.type == "simple" then
         return
@@ -296,14 +294,16 @@ function Character:afterOnHurt()
     elseif h.type == "simple" then
         return
     else
-        error("OnHurt - unknown h.type = "..h.type)
+        error("afterOnHurt - unknown h.type = "..h.type)
     end
     dpo(self, self.state)
     --finish calcs before the fall state
-    if h.type == "low" then
-        self:showHitMarks(h.damage, 16)
-    else
-        self:showHitMarks(h.damage, 40)
+    if h.damage > 0 then
+        if h.type == "low" then
+            self:showHitMarks(h.damage, 16)
+        else
+            self:showHitMarks(h.damage, 40)
+        end
     end
     -- calc falling traectorym speed, direction
     self.z = self.z + 1
@@ -316,7 +316,6 @@ function Character:afterOnHurt()
         end
     elseif self.velx < self.velocityFall_x then --alive bodies
         self.velx = self.velocityFall_x
-        --self.face = -h.horizontal	--turn face to the epicenter
     end
     self.horizontal = h.horizontal
     self.isGrabbed = false
@@ -1083,9 +1082,8 @@ function Character:fallUpdate(dt)
                 if self.bounced == 0 then
                     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                     if self.isThrown then
-                        local src = self.throwerId
                         --damage for throwned on landing
-                        self:applyDamage(self.thrownFallDamage, "simple", src)
+                        self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                     end
                 end
                 sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
