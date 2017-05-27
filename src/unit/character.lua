@@ -1,6 +1,4 @@
 local class = require "lib/middleclass"
-local class = require "lib/middleclass"
-local class = require "lib/middleclass"
 local Character = class('Character', Unit)
 
 local function nop() end
