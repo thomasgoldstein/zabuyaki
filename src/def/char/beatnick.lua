@@ -4,47 +4,6 @@ local image_w,image_h = LoadSpriteSheet(spriteSheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-local stepSfx = function(slf, cont)
-    sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
-    local padust = PA_DUST_STEPS:clone()
-    padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
-    padust:emit(3)
-    stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
-end
-local dash_belly_clouds = function(slf, cont)
-    slf.isHittable = false
-    sfx.play("sfx", "fall", 1, 1 + 0.02 * love.math.random(-2,2))
-    --landing dust clouds
-    local particles = PA_DUST_LANDING:clone()
-    particles:setLinearAcceleration(150, 1, 300, -35)
-    particles:setDirection( 0 )
-    particles:setPosition( 20, 0 )
-    particles:emit(5)
-    particles:setLinearAcceleration(-150, 1, -300, -35)
-    particles:setDirection( 3.14 )
-    particles:setPosition( -20, 0 )
-    particles:emit(5)
-    stage.objects:add(Effect:new(particles, slf.x + 10 * slf.face, slf.y+2))
-end
-local comboPunch = function(slf, cont)
-    slf:checkAndAttack(
-        { left = 28, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
-        cont
-    )
-    slf.cooldownCombo = 0.4
-end
-local comboKick = function(slf, cont)
-    slf:checkAndAttack(
-        { left = 30, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
-        cont
-    )
-end
-local dashAttack = function(slf, cont)
-    slf:checkAndAttack(
-        { left = 12, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocityDashFall },
-        cont
-    ) end
-
 return {
     serialization_version = 0.42, -- The version of this serialization process
 
@@ -84,17 +43,6 @@ return {
             { q = q(66,71,62,67), ox = 35, oy = 66 }, --walk 2
             loop = true,
             delay = 0.06
-        },
-        run = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            loop = true,
-            delay = 0.08
-        },
-        jump = { --TODO: Remove
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            delay = 5
         },
         respawn = {
             { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
@@ -152,41 +100,6 @@ return {
             { q = q(66,140,63,67), ox = 39, oy = 66, delay = 0.2 }, -- hurt high 2
             { q = q(2,140,62,67), ox = 37, oy = 66, delay = 0.05 }, -- hurt high 1
             delay = 0.02
-        },
-        jumpAttackForward = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 5
-        },
-        jumpAttackLight = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 5
-        },
-        jumpAttackStraight = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 5
-        },
-        sideStepUp = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-        },
-        sideStepDown = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-        },
-        grab = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-        },
-        grabAttack1 = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.05
-        },
-        shoveDown = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-            delay = 0.1
-        },
-        shoveForward = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
-        },
-        grabSwap = { --TODO: Remove
-            { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbedFront = {
             { q = q(2,140,62,67), ox = 37, oy = 66 }, -- hurt high 1
