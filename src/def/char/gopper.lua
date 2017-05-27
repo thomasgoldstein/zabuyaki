@@ -4,7 +4,7 @@ local image_w,image_h = LoadSpriteSheet(spriteSheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
-local stepSfx = function(slf, cont)
+local stepFx = function(slf, cont)
     sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
     local padust = PA_DUST_STEPS:clone()
     padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
@@ -79,10 +79,10 @@ return {
         run = {
             { q = q(2,246,48,59), ox = 26, oy = 59 }, --run 1
             { q = q(52,244,46,61), ox = 26, oy = 61, delay = 0.13 }, --run 2
-            { q = q(100,245,48,60), ox = 26, oy = 60, func = stepSfx }, --run 3
+            { q = q(100,245,48,60), ox = 26, oy = 60, func = stepFx }, --run 3
             { q = q(2,310,48,60), ox = 26, oy = 59 }, --run 4
             { q = q(52,308,47,62), ox = 26, oy = 61, delay = 0.13 }, --run 5
-            { q = q(101,309,50,60), ox = 26, oy = 59, func = stepSfx }, --run 6
+            { q = q(101,309,50,60), ox = 26, oy = 59, func = stepFx }, --run 6
             loop = true,
             delay = 0.08
         },

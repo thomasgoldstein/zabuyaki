@@ -5,7 +5,7 @@ local function q(x,y,w,h)
 	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 
-local stepSfx = function(slf, cont)
+local stepFx = function(slf, cont)
 	sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
 	local padust = PA_DUST_STEPS:clone()
 	padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
@@ -173,10 +173,10 @@ return {
 		run = {
 			{ q = q(2,134,35,64), ox = 16, oy = 63 }, --run 1
 			{ q = q(39,134,50,63), ox = 26, oy = 63 }, --run 2
-			{ q = q(91,134,44,64), ox = 25, oy = 63, func = stepSfx }, --run 3
+			{ q = q(91,134,44,64), ox = 25, oy = 63, func = stepFx }, --run 3
 			{ q = q(2,200,34,64), ox = 15, oy = 63 }, --run 4
 			{ q = q(38,200,49,64), ox = 24, oy = 63 }, --run 5
-			{ q = q(89,200,46,63), ox = 26, oy = 63, func = stepSfx }, --run 6
+			{ q = q(89,200,46,63), ox = 26, oy = 63, func = stepFx }, --run 6
             loop = true,
             delay = 0.117
 		},
