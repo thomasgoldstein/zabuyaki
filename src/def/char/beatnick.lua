@@ -142,12 +142,16 @@ return {
             delay = 65
         },
         hurtHigh = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            delay = 0.3
+            { q = q(2,140,62,67), ox = 37, oy = 66 }, -- hurt high 1
+            { q = q(66,140,63,67), ox = 39, oy = 66, delay = 0.2 }, -- hurt high 2
+            { q = q(2,140,62,67), ox = 37, oy = 66, delay = 0.05 }, -- hurt high 1
+            delay = 0.02
         },
         hurtLow = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            delay = 0.3
+            { q = q(2,140,62,67), ox = 37, oy = 66 }, -- hurt high 1
+            { q = q(66,140,63,67), ox = 39, oy = 66, delay = 0.2 }, -- hurt high 2
+            { q = q(2,140,62,67), ox = 37, oy = 66, delay = 0.05 }, -- hurt high 1
+            delay = 0.02
         },
         jumpAttackForward = { --TODO: Remove
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
@@ -185,14 +189,14 @@ return {
             { q = q(135,66,60,60), ox = 30, oy = 59 }, --no frame
         },
         grabbedFront = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
+            { q = q(2,140,62,67), ox = 37, oy = 66 }, -- hurt high 1
+            { q = q(66,140,63,67), ox = 39, oy = 66 }, -- hurt high 2
             delay = 0.1
         },
         grabbedBack = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-        delay = 0.1
+            { q = q(2,140,62,67), ox = 37, oy = 66 }, -- hurt high 1
+            { q = q(66,140,63,67), ox = 39, oy = 66 }, -- hurt high 2
+            delay = 0.1
         },
     }
 }
