@@ -62,16 +62,7 @@ function Chai:dashAttackStart()
     self.velz = self.velocityJump * self.velocityJumpSpeed
     self.z = 0.1
     sfx.play("sfx"..self.id, self.sfx.dashAttack)
-    --start Chai's dust clouds (used jump particles)
-    local particles = PA_DUST_JUMP_START:clone()
-    particles:setAreaSpread( "uniform", 16, 4 )
-    particles:setLinearAcceleration(-30 , 10, 30, -10)
-    particles:emit(6)
-    particles:setAreaSpread( "uniform", 4, 16 )
-    particles:setPosition( 0, -16 )
-    particles:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
-    particles:emit(5)
-    stage.objects:add(Effect:new(particles, self.x, self.y-1))
+    self:showEffect("jumpStart")
 end
 function Chai:dashAttackUpdate(dt)
     if self.sprite.isFinished then

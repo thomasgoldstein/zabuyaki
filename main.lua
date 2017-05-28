@@ -1,14 +1,10 @@
 --[[
-    main.lua - 2016
-    
-    Copyright Don Miguel, Stifu 2016
+    Copyright (c) .2017 SineDie
     
     Released under the MIT license.
     Visit for more information:
     http://opensource.org/licenses/MIT
 ]]
-
---require 'lib/strict'
 
 display = require "src/display"
 configuration = require "src/configuration"
@@ -113,14 +109,20 @@ function love.load(arg)
 	Effect = require "src/unit/effect"
 	Entity = require "src/stage/entity"
 	Unit = require "src/unit/unit"
+	require "src/unit/unit_ui_and_fx"
 	Character = require "src/unit/character"
+	require "src/unit/character_ui_and_fx"
 	Player = require "src/unit/player"
+	require "src/unit/player_ui_and_fx"
 	Enemy = require "src/unit/enemy"
+	require "src/unit/enemy_ui_and_fx"
 	Rick = require "src/unit/rick_player"
 	Chai = require "src/unit/chai_player"
 	Kisa = require "src/unit/kisa_player"
 	Loot = require "src/unit/loot"
+	require "src/unit/loot_ui_and_fx"
 	Obstacle = require "src/unit/obstacle"
+	require "src/unit/obstacle_ui_and_fx"
 	Gopper = require "src/unit/gopper_enemy"
 	PGopper = require "src/unit/gopper_player"
 	Satoff = require "src/unit/satoff_enemy"

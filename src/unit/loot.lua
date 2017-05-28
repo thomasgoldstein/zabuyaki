@@ -57,35 +57,6 @@ function Loot:draw(l,t,w,h)
     end
 end
 
--- Start of Lifebar elements
-function Loot:initFaceIcon(target)
-    target.sprite = self.sprite
-    target.q = self.q  --quad
-    target.iconColor = { 255, 255, 255, 255 }
-end
-
-function Loot:drawFaceIcon(l, t)
-    love.graphics.draw (
-        self.sprite,
-        self.q, --Current frame of the current animation
-            l, t
-        )
-end
-
-local calcBarTransparency = calcBarTransparency
-local printWithShadow = printWithShadow
-function Loot:drawBar(l,t,w,h, iconWidth, normColor)
-    local transpBg = 255 * calcBarTransparency(self.cooldown)
-    self:drawFaceIcon(l, t, transpBg)
-    love.graphics.setFont(gfx.font.arcade3)
-    love.graphics.setColor(255, 255, 255, transpBg)
-    printWithShadow(self.name, l + self.x + iconWidth + 4 + 0, t + self.y + 9 - 0, transpBg)
-    normColor[4] = transpBg
-    love.graphics.setColor( unpack( normColor ) )
-    printWithShadow(self.note, l + self.x + iconWidth + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transpBg)
-end
--- End of Lifebar elements
-
 function Loot:onHurt()
 end
 
@@ -103,14 +74,9 @@ function Loot:updateAI(dt)
                 end
                 self.z = 0.01
                 self.velz = -self.velz/2
-                --sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
+--                sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
-                --landing dust clouds
-                local particles = PA_DUST_FALLING:clone()
-                particles:setAreaSpread( "uniform", 4, 1 )
-                particles:setLinearAcceleration(-50, -10, 50, -20) -- Random movement in all directions.
-                particles:emit(1 + PA_DUST_FALLING_N_PARTICLES / 2)
-                stage.objects:add(Effect:new(particles, self.x, self.y+3))
+                Character.showEffect(self, "fallLanding")
                 return
             else
                 --final fall (no bouncing)
