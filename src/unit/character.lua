@@ -697,13 +697,7 @@ function Character:pickupStart()
     local loot = self:checkForLoot(9, 9)
     if loot then
         self.victimInfoBar = loot.infoBar:setPicker(self)
-        --disappearing loot
-        local particles = PA_LOOT_GET:clone()
-        particles:setQuads( loot.q )
-        particles:setOffset( loot.ox, loot.oy )
-        particles:setPosition( loot.x - self.x, loot.y - self.y - 10 )
-        particles:emit(1)
-        stage.objects:add(Effect:new(particles, self.x, self.y + 10))
+        self:showEffect("pickup", loot)
         self:onGetLoot(loot)
     end
     self:setSprite("pickup")
@@ -723,17 +717,7 @@ function Character:duckStart()
     dpo(self, self.state)
     self:setSprite("duck")
     self.z = 0
-    --landing dust clouds by the sides
-    local particles = PA_DUST_LANDING:clone()
-    particles:setLinearAcceleration(150, 1, 300, -35)
-    particles:setDirection( 0 )
-    particles:setPosition( 20, 0 )
-    particles:emit(PA_DUST_FALLING_N_PARTICLES / 2)
-    particles:setLinearAcceleration(-150, 1, -300, -35)
-    particles:setDirection( 3.14 )
-    particles:setPosition( -20, 0 )
-    particles:emit(PA_DUST_FALLING_N_PARTICLES / 2)
-    stage.objects:add(Effect:new(particles, self.x, self.y+2))
+    self:showEffect("jumpLanding")
 end
 function Character:duckUpdate(dt)
     if self.sprite.isFinished then
@@ -775,16 +759,7 @@ function Character:duck2jumpUpdate(dt)
         else
             error("Call disabled move self.jump")
         end
-        --start jump dust clouds
-        local particles = PA_DUST_JUMP_START:clone()
-        particles:setAreaSpread( "uniform", 16, 4 )
-        particles:setLinearAcceleration(-30 , 10, 30, -10)
-        particles:emit(6)
-        particles:setAreaSpread( "uniform", 4, 16 )
-        particles:setPosition( 0, -16 )
-        particles:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
-        particles:emit(5)
-        stage.objects:add(Effect:new(particles, self.x, self.y-1))
+        self:showEffect("jumpStart")
         return
     end
     if not self.condition then
@@ -1035,12 +1010,7 @@ function Character:fallUpdate(dt)
                 end
                 sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
-                --landing dust clouds
-                local particles = PA_DUST_FALLING:clone()
-                particles:emit(PA_DUST_FALLING_N_PARTICLES)
-                stage.objects:add(Effect:new(particles,
-                    self.type == "obstacle" and self.x or (self.x + self.horizontal * 20),
-                    self.y+3))
+                self:showEffect("fallLanding")
                 return
             else
                 --final fall (no bouncing)

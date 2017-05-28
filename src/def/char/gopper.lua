@@ -5,11 +5,7 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, image_w, image_h)
 end
 local stepFx = function(slf, cont)
-    sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
-    local padust = PA_DUST_STEPS:clone()
-    padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
-    padust:emit(3)
-    stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
+    slf:showEffect("step")
 end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(

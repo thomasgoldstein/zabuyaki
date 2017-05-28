@@ -6,11 +6,7 @@ local function q(x,y,w,h)
 end
 
 local stepFx = function(slf, cont)
-	sfx.play("sfx", slf.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
-	local padust = PA_DUST_STEPS:clone()
-	padust:setLinearAcceleration(-slf.face * 50, 1, -slf.face * 100, -15)
-	padust:emit(3)
-	stage.objects:add(Effect:new(padust, slf.x - 20 * slf.face, slf.y+2))
+	slf:showEffect("step")
 end
 local grabAttack = function(slf, cont)
 	--default values: 10,0,20,12, "low", slf.velx
@@ -106,12 +102,7 @@ local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
 ) end
 local shoveNow = function(slf, cont) slf.canShoveNow = true end
 local defensiveSpecialFx = function(slf, cont)
-	sfx.play("sfx","hitWeak1")
-    mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen
-	local particles = (slf.face == 1 and PA_DEFENSIVE_SPECIAL_R or PA_DEFENSIVE_SPECIAL_L):clone()
-	particles:setPosition(slf.face * 11, 11) --pos == x,y ofplayer. You can adjust it up/down
-	particles:emit(1) --draw 1 effect sprite
-	stage.objects:add(Effect:new(particles, slf.x, slf.y+2)) --y+2 to put it above the player's sprite
+    slf:showEffect("defensiveSpecial")
 end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
     { left = 11, width = 75, height = 12, damage = 25, type = "fall", velocity = slf.velx },

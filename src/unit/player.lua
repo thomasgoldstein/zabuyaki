@@ -359,21 +359,10 @@ function Player:respawnUpdate(dt)
         mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen on respawn
         if self.sprite.def.fallsOnRespawn then
             --clouds under belly
-            local particles = PA_DUST_FALLING:clone()
-            particles:emit(PA_DUST_FALLING_N_PARTICLES)
-            stage.objects:add(Effect:new(particles, self.x, self.y+3))
+            self:showEffect("bellyLanding")
         else
             --landing dust clouds by the sides
-            local particles = PA_DUST_LANDING:clone()
-            particles:setLinearAcceleration(150, 1, 300, -35)
-            particles:setDirection( 0 )
-            particles:setPosition( 20, 0 )
-            particles:emit(PA_DUST_FALLING_N_PARTICLES / 2)
-            particles:setLinearAcceleration(-150, 1, -300, -35)
-            particles:setDirection( 3.14 )
-            particles:setPosition( -20, 0 )
-            particles:emit(PA_DUST_FALLING_N_PARTICLES / 2)
-            stage.objects:add(Effect:new(particles, self.x, self.y+2))
+            self:showEffect("jumpLanding")
         end
         self.bounced = 1
     end

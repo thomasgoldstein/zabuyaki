@@ -6,6 +6,71 @@ local Character = Character
 local sign = sign
 local clamp = clamp
 
+local particles, loot
+function Character:showEffect(effect, obj)
+    if effect == "jumpLanding" then
+        --landing dust clouds by the sides
+        particles = PA_DUST_LANDING:clone()
+        particles:setLinearAcceleration(150, 1, 300, -35)
+        particles:setDirection( 0 )
+        particles:setPosition( 20, 0 )
+        particles:emit(PA_DUST_FALLING_N_PARTICLES / 2)
+        particles:setLinearAcceleration(-150, 1, -300, -35)
+        particles:setDirection( 3.14 )
+        particles:setPosition( -20, 0 )
+        particles:emit(PA_DUST_FALLING_N_PARTICLES / 2)
+        stage.objects:add(Effect:new(particles, self.x, self.y+2))
+    elseif effect == "fallLanding" then
+        --landing dust clouds
+        particles = PA_DUST_FALLING:clone()
+        particles:emit(PA_DUST_FALLING_N_PARTICLES)
+        stage.objects:add(Effect:new(particles,
+            self.type == "obstacle" and self.x or (self.x + self.horizontal * 20),
+            self.y+3))
+    elseif effect == "jumpStart" then
+        --start jump dust clouds
+        particles = PA_DUST_JUMP_START:clone()
+        particles:setAreaSpread( "uniform", 16, 4 )
+        particles:setLinearAcceleration(-30 , 10, 30, -10)
+        particles:emit(6)
+        particles:setAreaSpread( "uniform", 4, 16 )
+        particles:setPosition( 0, -16 )
+        particles:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
+        particles:emit(5)
+        stage.objects:add(Effect:new(particles, self.x, self.y-1))
+    elseif effect == "pickup" then
+        --disappearing loot
+        loot = obj
+        particles = PA_LOOT_GET:clone()
+        particles:setQuads( loot.q )
+        particles:setOffset( loot.ox, loot.oy )
+        particles:setPosition( loot.x - self.x, loot.y - self.y - 10 )
+        particles:emit(1)
+        stage.objects:add(Effect:new(particles, self.x, self.y + 10))
+    elseif effect == "step" then
+        -- running dust clouds
+        sfx.play("sfx", self.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
+        particles = PA_DUST_STEPS:clone()
+        particles:setLinearAcceleration(-self.face * 50, 1, -self.face * 100, -15)
+        particles:emit(3)
+        stage.objects:add(Effect:new(particles, self.x - 20 * self.face, self.y+2))
+    elseif effect == "defensiveSpecial" then
+        sfx.play("sfx","hitWeak1")
+        mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen
+        particles = (self.face == 1 and PA_DEFENSIVE_SPECIAL_R or PA_DEFENSIVE_SPECIAL_L):clone()
+        particles:setPosition(self.face * 11, 11) --pos == x,y ofplayer. You can adjust it up/down
+        particles:emit(1) --draw 1 effect sprite
+        stage.objects:add(Effect:new(particles, self.x, self.y+2)) --y+2 to put it above the player's sprite
+    elseif effect == "bellyLanding" then
+        --clouds under belly
+        particles = PA_DUST_FALLING:clone()
+        particles:emit(PA_DUST_FALLING_N_PARTICLES)
+        stage.objects:add(Effect:new(particles, self.x, self.y+3))
+    else
+        error("Unknown effect name: "..effect)
+    end
+end
+
 -- Start of Lifebar elements
 function Character:initFaceIcon(target)
     target.sprite = imageBank[self.sprite.def.spriteSheet]
