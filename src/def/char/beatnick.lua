@@ -96,9 +96,9 @@ return {
             delay = 0.02
         },
         hurtLow = {
-            { q = q(2,140,62,67), ox = 37, oy = 66 }, -- hurt high 1
-            { q = q(66,140,63,67), ox = 39, oy = 66, delay = 0.2 }, -- hurt high 2
-            { q = q(2,140,62,67), ox = 37, oy = 66, delay = 0.05 }, -- hurt high 1
+            { q = q(131,141,62,66), ox = 33, oy = 65 }, -- hurt low 1
+            { q = q(195,142,61,65), ox = 31, oy = 64, delay = 0.2 }, -- hurt low 2
+            { q = q(131,141,62,66), ox = 33, oy = 65, delay = 0.05 }, -- hurt low 1
             delay = 0.02
         },
         grabbedFront = {
@@ -107,8 +107,8 @@ return {
             delay = 0.1
         },
         grabbedBack = {
-            { q = q(2,140,62,67), ox = 37, oy = 66 }, -- hurt high 1
-            { q = q(66,140,63,67), ox = 39, oy = 66 }, -- hurt high 2
+            { q = q(131,141,62,66), ox = 33, oy = 65 }, -- hurt low 1
+            { q = q(195,142,61,65), ox = 31, oy = 64 }, -- hurt low 2
             delay = 0.1
         },
     }
