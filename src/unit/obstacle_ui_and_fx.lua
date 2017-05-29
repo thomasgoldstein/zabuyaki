@@ -6,10 +6,11 @@ local Obstacle = Obstacle
 local sign = sign
 local clamp = clamp
 
+local particles
 function Obstacle:showEffect(effect, obj)
     if effect == "breakMetal" then
         sfx.play("voice"..self.id, self.sfx.onBreak)
-        local particles = PA_OBSTACLE_BREAK_SMALL:clone()
+        particles = PA_OBSTACLE_BREAK_SMALL:clone()
         particles:setPosition( 0, -self.height + self.height / 3 )
         --particles:setAreaSpread( "uniform", 2, 8 )
         if self.particleColor then
@@ -21,7 +22,7 @@ function Obstacle:showEffect(effect, obj)
         particles:emit(2)
         stage.objects:add(Effect:new(particles, self.x, self.y + 1))
 
-        local particles = PA_OBSTACLE_BREAK_BIG:clone()
+        particles = PA_OBSTACLE_BREAK_BIG:clone()
         particles:setPosition( 0, -self.height + self.height / 3 )
         if self.particleColor then
             particles:setColors( unpack(self.particleColor) )
