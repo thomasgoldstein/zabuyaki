@@ -66,6 +66,13 @@ function Character:showEffect(effect, obj)
         particles = PA_DUST_FALLING:clone()
         particles:emit(PA_DUST_FALLING_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x, self.y+3))
+    elseif effect == "dash" then
+        particles = PA_DASH:clone()
+        particles:setSpin(0, -3 * self.face)
+        self.paDash = particles
+        self.paDash_x = self.x
+        self.paDash_y = self.y
+        stage.objects:add(Effect:new(particles, self.x, self.y + 2))
     else
         error("Unknown effect name: "..effect)
     end
