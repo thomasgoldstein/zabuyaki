@@ -52,7 +52,7 @@ function Character:showEffect(effect, obj)
         sfx.play("sfx", self.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
         particles = PA_DUST_STEPS:clone()
         particles:setLinearAcceleration(-self.face * 50, 1, -self.face * 100, -15)
-        particles:emit(3)
+        particles:emit(2)
         stage.objects:add(Effect:new(particles, self.x - 20 * self.face, self.y+2))
     elseif effect == "defensiveSpecial" then
         sfx.play("sfx","hitWeak1")
