@@ -27,14 +27,14 @@ local shoveDown = function(slf, cont)
 		cont
 	)
 end
-local comboAttack1Jab = function(slf, cont)
+local comboAttack1 = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 26, width = 26, height = 12, damage = 7, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
 	)
 	slf.cooldownCombo = 0.4
 end
-local comboAttack1Teep = function(slf, cont)
+local comboAttack1Forward = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 30, width = 26, height = 12, damage = 6, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
@@ -211,20 +211,15 @@ return {
 			{ q = q(181,863,48,63), ox = 26, oy = 63 }, --dash hold
 		},
 		combo1 = {
-			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo 1Teep.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = comboAttack1Teep, delay = 0.09 }, --combo 1Teep.2
-			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo 1Teep.1
+			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1.1
+			{ q = q(183,3,60,63), ox = 22, oy = 62, func = comboAttack1, delay = 0.07 }, --combo 1.2
+			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1.1
 			delay = 0.01
 		},
-		combo1Jab = {
-			{ q = q(183,3,60,63), ox = 22, oy = 62, func = comboAttack1Jab, delay = 0.1 }, --combo 1Jab.2
-			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1Jab.1
-			delay = 0.03
-		},
-		combo1Teep = {
-			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo 1Teep.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = comboAttack1Teep, delay = 0.09 }, --combo 1Teep.2
-			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo 1Teep.1
+		combo1Forward = {
+			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo forward 1.1
+			{ q = q(60,521,65,64), ox = 23, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
+			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo forward 1.1
 			delay = 0.01
 		},
 		combo2 = {
