@@ -64,8 +64,8 @@ particles:setLinearAcceleration(-500, -20, 500, -100) -- Random movement in all 
 particles:setLinearDamping(10, 50)
 particles:setAreaSpread("uniform", 20, 4)
 particles:setPosition(0, -2)
-PA_DUST_FALLING = particles
-PA_DUST_FALLING_N_PARTICLES = 5
+PA_DUST_FALL_LANDING = particles
+PA_DUST_FALL_LANDING_N_PARTICLES = 5
 
 particles = particles:clone()
 particles:setEmitterLifetime(1)
