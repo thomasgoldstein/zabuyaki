@@ -67,13 +67,6 @@ return {
             loop = true,
             delay = 0.2
         },
-        run = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
-            loop = true,
-            delay = 0.08
-        },
         jump = {
             { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
             delay = 5
@@ -90,10 +83,6 @@ return {
         pickup = {
             { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
             delay = 0.28
-        },
-        dashAttack = {
-            { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
-            delay = 0.3
         },
         combo1 = {
             { q = q(115,360,40,58), ox = 20, oy = 57 }, --slap 3
@@ -156,10 +145,6 @@ return {
             delay = 0.06
         },
 		jumpAttackForwardEnd = {
-            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
-			delay = 5
-		},
-		jumpAttackLightEnd = {
             { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
 			delay = 5
 		},

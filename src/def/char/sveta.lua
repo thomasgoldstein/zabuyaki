@@ -57,13 +57,6 @@ return {
             loop = true,
             delay = 0.2
         },
-        run = {
-            { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1
-            { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1
-            { q = q(2,2,44,64), ox = 27, oy = 63 }, --stand 1
-            loop = true,
-            delay = 0.08
-        },
         respawn = {
             { q = q(2,323,38,67), ox = 23, oy = 66, delay = 5 }, --jump
             { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
