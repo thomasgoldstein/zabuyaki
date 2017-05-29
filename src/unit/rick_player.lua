@@ -82,11 +82,7 @@ function Rick:dashAttackUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if math.random() < 0.3 and self.velx >= self.velocityDash * 0.5 then
-        -- emit Dash particles on moving
-        self.paDash:moveTo( self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5 )
-        self.paDash:emit(1)
-    end
+    self:moveEffectAndEmit("dash", 0.3)
     self:calcMovement(dt, true, self.frictionDash)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
@@ -108,11 +104,7 @@ function Rick:offensiveSpecialUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if math.random() < 0.5 and self.velx >= self.velocityDash * 0.5 then
-        -- emit Dash particles on moving
-        self.paDash:moveTo( self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5 )
-        self.paDash:emit(1)
-    end
+    self:moveEffectAndEmit("dash", 0.5)
     self:calcMovement(dt, true, self.velocityDash)
 end
 Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = nop, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}

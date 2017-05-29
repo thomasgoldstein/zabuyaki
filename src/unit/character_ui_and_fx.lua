@@ -78,6 +78,18 @@ function Character:showEffect(effect, obj)
     end
 end
 
+function Character:moveEffectAndEmit(effect, value)
+    if effect == "dash" then
+        if math.random() < value and self.velx >= self.velocityDash * 0.5 then
+            -- emit Dash particles on moving
+            self.paDash:moveTo( self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5 )
+            self.paDash:emit(1)
+        end
+    else
+        error("Unknown effect name: "..effect)
+    end
+end
+
 -- Start of Lifebar elements
 function Character:initFaceIcon(target)
     target.sprite = imageBank[self.sprite.def.spriteSheet]
