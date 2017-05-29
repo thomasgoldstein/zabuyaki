@@ -83,6 +83,7 @@ function Rick:dashAttackUpdate(dt)
         return
     end
     if math.random() < 0.3 and self.velx >= self.velocityDash * 0.5 then
+        -- emit Dash particles on moving
         self.paDash:moveTo( self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5 )
         self.paDash:emit(1)
     end
@@ -99,15 +100,7 @@ function Rick:offensiveSpecialStart()
     self.vely = 0
     self.velz = 0
     sfx.play("voice"..self.id, self.sfx.dashAttack)
-
-    local particles = PA_DASH:clone()
-    particles:setSpin(0, -2 * self.face)
-    particles:setLinearAcceleration(0, -110, 0, -250) -- Random movement in all directions.
-    self.paDash = particles
-    self.paDash_x = self.x
-    self.paDash_y = self.y
-
-    stage.objects:add(Effect:new(particles, self.x, self.y + 2))
+    self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Rick:offensiveSpecialUpdate(dt)
     if self.sprite.isFinished then
@@ -116,6 +109,7 @@ function Rick:offensiveSpecialUpdate(dt)
         return
     end
     if math.random() < 0.5 and self.velx >= self.velocityDash * 0.5 then
+        -- emit Dash particles on moving
         self.paDash:moveTo( self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5 )
         self.paDash:emit(1)
     end

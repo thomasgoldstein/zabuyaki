@@ -152,6 +152,7 @@ function Sveta:dashAttackUpdate(dt)
             return
         end
         if math.random() < 0.2 and self.velx >= self.velocityDash * 0.5 then
+            -- emit Dash particles on moving
             self.paDash:moveTo( self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5 )
             self.paDash:emit(1)
         end
