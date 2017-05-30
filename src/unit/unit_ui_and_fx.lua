@@ -47,10 +47,13 @@ end
 function Unit:updateSprite(dt)
     UpdateSpriteInstance(self.sprite, dt, self)
 end
-function Unit:setSpriteIfExists(anim)
+function Unit:setSpriteIfExists(anim, defaultAnim)
     if SpriteHasAnimation(self.sprite, anim) then
         SetSpriteAnimation(self.sprite, anim)
         return true
+    end
+    if defaultAnim then
+        SetSpriteAnimation(self.sprite, defaultAnim)
     end
     return false
 end
