@@ -134,6 +134,7 @@ function Sveta:dashAttackStart()
     self.cooldown = 0.2
     self:setSprite("duck")
     self.vely = 0
+    self.velx = 0
     self.velz = 0
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
