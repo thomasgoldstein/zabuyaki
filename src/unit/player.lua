@@ -127,7 +127,7 @@ function Player:hasPlaceToStand(x, y)
     return true
 end
 
-local states_for_holdAttack = {stand = true, walk = true, run = true}
+local states_for_holdAttack = {stand = true, walk = true, run = true, hurt = true}
 function Player:updateAI(dt)
     if self.isDisabled then
         return
