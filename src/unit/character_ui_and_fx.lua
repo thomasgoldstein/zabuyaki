@@ -14,16 +14,16 @@ function Character:showEffect(effect, obj)
         particles:setLinearAcceleration(150, 1, 300, -35)
         particles:setDirection( 0 )
         particles:setPosition( 20, 0 )
-        particles:emit(PA_DUST_FALL_LANDING_N_PARTICLES)
+        particles:emit(PA_DUST_JUMP_FALL_N_PARTICLES)
         particles:setLinearAcceleration(-150, 1, -300, -35)
         particles:setDirection( 3.14 )
         particles:setPosition( -20, 0 )
-        particles:emit(PA_DUST_FALL_LANDING_N_PARTICLES)
+        particles:emit(PA_DUST_JUMP_FALL_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x, self.y+2))
     elseif effect == "fallLanding" then
         --landing dust clouds
         particles = PA_DUST_FALL_LANDING:clone()
-        particles:emit(PA_DUST_JUMP_FALL_N_PARTICLES)
+        particles:emit(PA_DUST_FALL_LANDING_N_PARTICLES)
         stage.objects:add(Effect:new(particles,
             self.type == "obstacle" and self.x or (self.x + self.horizontal * 20),
             self.y+3))
@@ -64,7 +64,7 @@ function Character:showEffect(effect, obj)
     elseif effect == "bellyLanding" then
         --clouds under belly
         particles = PA_DUST_FALL_LANDING:clone()
-        particles:emit(PA_DUST_JUMP_FALL_N_PARTICLES)
+        particles:emit(PA_DUST_FALL_LANDING_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x, self.y+3))
     elseif effect == "dash" then
         particles = PA_DASH:clone()

@@ -67,8 +67,8 @@ particles:setLinearDamping(10, 50)
 particles:setAreaSpread("uniform", 20, 4)
 particles:setPosition(0, -2)
 PA_DUST_FALL_LANDING = particles
-PA_DUST_FALL_LANDING_N_PARTICLES = 3
-PA_DUST_JUMP_FALL_N_PARTICLES = 5
+PA_DUST_FALL_LANDING_N_PARTICLES = 5
+PA_DUST_JUMP_FALL_N_PARTICLES = 2
 
 particles = particles:clone()
 particles:setEmitterLifetime(1)
