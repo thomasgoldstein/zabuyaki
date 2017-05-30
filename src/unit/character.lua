@@ -422,9 +422,15 @@ function Character:standUpdate(dt)
     end
     self.delayAnimationCooldown = self.delayAnimationCooldown - dt
     if self.delayAnimationCooldown <= 0 then
-        if self.b.attack:isDown() then
-            if self.sprite.curAnim ~= "standHold" then
-                self:setSpriteIfExists("standHold")
+        if SpriteHasAnimation(self.sprite, "standHold") then
+            if self.b.attack:isDown() then
+                if self.sprite.curAnim ~= "standHold" then
+                    self:setSpriteIfExists("standHold")
+                end
+            else
+                if self.sprite.curAnim ~= "stand" then
+                    self:setSprite("stand")
+                end
             end
         else
             if self.sprite.curAnim ~= "stand" then
@@ -432,7 +438,6 @@ function Character:standUpdate(dt)
             end
         end
     end
-
     if self.cooldownCombo > 0 then
         self.cooldownCombo = self.cooldownCombo - dt
     else
@@ -492,9 +497,10 @@ Character.stand = {name = "stand", start = Character.standStart, exit = nop, upd
 
 function Character:walkStart()
     self.isHittable = true
-    if self.sprite.curAnim == "standHold"
-        or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() )
-        then
+    if SpriteHasAnimation(self.sprite, "walkHold")
+        and (self.sprite.curAnim == "standHold"
+            or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() ))
+    then
         self:setSprite("walkHold")
     else
         self:setSprite("walk")
@@ -565,9 +571,12 @@ function Character:walkUpdate(dt)
                 return
             end
         end
-        if self.sprite.curAnim ~= "walkHold" then
-            self:setSpriteIfExists("walkHold")
+        if SpriteHasAnimation(self.sprite, "walkHold") and self.sprite.curAnim ~= "walkHold" then
+            self:setSprite("walkHold")
         end
+--        elseif self.sprite.curAnim ~= "walk" then
+--            self:setSprite("walk")
+--        end
     else
         if self.sprite.curAnim ~= "walk" then
             self:setSprite("walk")
