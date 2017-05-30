@@ -10,7 +10,7 @@ local CheckCollision = CheckCollision
 local movesWhiteList = {
     run = true, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-    grab = true, grabSwap = true, grabAttack = true,
+    grab = true, grabSwap = true, grabAttack = true, holdAttack = true,
     shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
     dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
     --technically present for all
@@ -89,20 +89,6 @@ function Chai:dashAttackUpdate(dt)
     self:calcMovement(dt, true)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
-
-function Chai:holdAttackStart()
-    self.isHittable = true
-    self:setSprite("holdAttack")
-    self.cooldown = 0.2
-end
-function Chai:holdAttackUpdate(dt)
-    if self.sprite.isFinished then
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true, nil)
-end
-Chai.holdAttack = {name = "holdAttack", start = Chai.holdAttackStart, exit = nop, update = Chai.holdAttackUpdate, draw = Character.defaultDraw}
 
 local shoveForward_chai = {
     -- face - u can flip Chai horizontally with option face = -1

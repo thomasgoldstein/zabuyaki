@@ -10,7 +10,7 @@ local CheckCollision = CheckCollision
 local movesWhiteList = {
     run = true, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-    grab = true, grabSwap = true, grabAttack = true,
+    grab = true, grabSwap = true, grabAttack = true, holdAttack = true,
     shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
     dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
     --technically present for all
@@ -108,19 +108,5 @@ function Rick:offensiveSpecialUpdate(dt)
     self:calcMovement(dt, true, self.velocityDash)
 end
 Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = nop, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
-
-function Rick:holdAttackStart()
-    self.isHittable = true
-    self:setSprite("holdAttack")
-    self.cooldown = 0.2
-end
-function Rick:holdAttackUpdate(dt)
-    if self.sprite.isFinished then
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true)
-end
-Rick.holdAttack = {name = "holdAttack", start = Rick.holdAttackStart, exit = nop, update = Rick.holdAttackUpdate, draw = Character.defaultDraw}
 
 return Rick

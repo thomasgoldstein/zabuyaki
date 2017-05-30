@@ -8,7 +8,7 @@ local doubleTapDelta = 0.25
 local movesWhiteList = {
     run = true, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-    grab = true, grabSwap = true, grabAttack = true,
+    grab = true, grabSwap = true, grabAttack = true, holdAttack = false,
     shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
     dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
     --technically present for all
@@ -1680,5 +1680,19 @@ Character.grabSwap = {name = "grabSwap", start = Character.grabSwapStart, exit =
 --    self:setState(self.stand)
 --end
 --Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecialStart, exit = nop, update = nop, draw = Character.defaultDraw }
+
+function Character:holdAttackStart()
+    self.isHittable = true
+    self:setSprite("holdAttack")
+    self.cooldown = 0.2
+end
+function Character:holdAttackUpdate(dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcMovement(dt, true, nil)
+end
+Character.holdAttack = {name = "holdAttack", start = Character.holdAttackStart, exit = nop, update = Character.holdAttackUpdate, draw = Character.defaultDraw}
 
 return Character
