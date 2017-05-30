@@ -6,6 +6,12 @@ local Character = Character
 local sign = sign
 local clamp = clamp
 
+-- # of emitting particles
+local PA_DUST_DUST_STEPS_N_PARTICLES = 2
+local PA_DUST_JUMP_START_N_PARTICLES = 5
+local PA_DUST_FALL_LANDING_N_PARTICLES = 5
+local PA_DUST_JUMP_FALL_N_PARTICLES = 2
+
 local particles, loot
 function Character:showEffect(effect, obj)
     if effect == "jumpLanding" then
