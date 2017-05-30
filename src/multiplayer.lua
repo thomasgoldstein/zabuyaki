@@ -27,85 +27,49 @@ end
 function allowPlayersSelect(players)
     if playerSelectState.enablePlayerSelectOnStart then
         --Let select 3 players in the beginning of the stage for DEBUG
-        if players[1] then
-            player1.lives = 0
-            player1:setState(player1.useCredit)
-            player1.isDisabled = true
-            player1.cooldown = 10
-            player1.playerSelectMode = 0
-        end
-        if players[2] then
-            player2.lives = 0
-            player2:setState(player2.useCredit)
-            player2.isDisabled = true
-            player2.cooldown = 10
-            player2.playerSelectMode = 0
-        end
-        if players[3] then
-            player3.lives = 0
-            player3:setState(player3.useCredit)
-            player3.isDisabled = true
-            player3.cooldown = 10
-            player3.playerSelectMode = 0
+        for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+            local player = getRegisteredPlayer(i)
+            if player then
+                player.lives = 0
+                player:setState(player.useCredit)
+                player.isDisabled = true
+                player.cooldown = 10
+                player.playerSelectMode = 0
+            end
         end
     end
 end
 
-function areAllPlayersAlive()
+function areThereAlivePlayers()
     local is_alive = false
-    if player1 then
-        is_alive = is_alive or player1:isAlive()
-    end
-    if player2 then
-        is_alive = is_alive or player2:isAlive()
-    end
-    if player3 then
-        is_alive = is_alive or player3:isAlive()
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local player = getRegisteredPlayer(i)
+        if player then
+            is_alive = is_alive or player:isAlive()
+        end
     end
     return is_alive
 end
 
 function killAllPlayers()
-    if player1 then
-        if player1:isAlive() and not player1:isInUseCreditMode() then
-            player1.hp = 0
-            player1.face = -player1.face
-            player1:applyDamage(0, "fall", nil)
-        end
-    end
-    if player2 then
-        if player2:isAlive() and not player2:isInUseCreditMode() then
-            player2.hp = 0
-            player2.face = -player2.face
-            player2:applyDamage(0, "fall", nil)
-        end
-    end
-    if player3 then
-        if player3:isAlive() and not player3:isInUseCreditMode() then
-            player3.hp = 0
-            player3.face = -player3.face
-            player3:applyDamage(0, "fall", nil)
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local player = getRegisteredPlayer(i)
+        if player and player:isAlive() and not player:isInUseCreditMode() then
+            player.hp = 0
+            player.face = -player.face
+            player:applyDamage(0, "fall", nil)
         end
     end
 end
 
 function drawPlayersBars()
-    if player1 then
-        player1.infoBar:draw(0,0)
-        if player1.victimInfoBar and player1:isAlive() then
-            player1.victimInfoBar:draw(0,0)
-        end
-    end
-    if player2 then
-        player2.infoBar:draw(0,0)
-        if player2.victimInfoBar and player2:isAlive() then
-            player2.victimInfoBar:draw(0,0)
-        end
-    end
-    if player3 then
-        player3.infoBar:draw(0,0)
-        if player3.victimInfoBar and player3:isAlive() then
-            player3.victimInfoBar:draw(0,0)
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local player = getRegisteredPlayer(i)
+        if player and player:isAlive() then
+            player.infoBar:draw(0,0)
+            if player.victimInfoBar and player:isAlive() then
+                player.victimInfoBar:draw(0,0)
+            end
         end
     end
 end

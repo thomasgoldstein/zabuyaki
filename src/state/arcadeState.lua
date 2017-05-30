@@ -67,7 +67,7 @@ function arcadeState:update(dt)
     checkPlayersRespawn(stage)
 
     if stage.mode == "normal" then
-        is_alive = areAllPlayersAlive()
+        is_alive = areThereAlivePlayers()
     else
         is_alive = true
     end
