@@ -29,7 +29,7 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
-    self.velocityJab = 30 --speed of the jab slide
+    self.velocityJab = 150 --speed of the jab slide
     self.velocityJab_y = 20 --speed of the vertical jab slide
     self.frictionJab = self.velocityJab
 --    self.velocityShove_x = 220 --my throwing speed
@@ -45,12 +45,6 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.sfx.step = "chaiStep"
     self.sfx.dead = "chaiDeath"
 end
-
-function Chai:comboUpdate(dt)
-    --Custom friction value to slide forward on jab
-    Character.comboUpdate(self, dt, self.frictionJab)
-end
-Chai.combo = {name = "combo", start = Character.comboStart, exit = nop, update = Chai.comboUpdate, draw = Character.defaultDraw}
 
 function Chai:dashAttackStart()
     self.isHittable = true

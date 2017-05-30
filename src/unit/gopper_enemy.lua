@@ -145,34 +145,6 @@ function Gopper:onFriendlyAttack()
     end
 end
 
-function Gopper:comboStart()
-    self.isHittable = true
-    self:removeTweenMove()
-    if self.ComboN > 3 or self.ComboN < 1 then
-        self.ComboN = 1
-    end
-    if self.ComboN == 1 then
-        self:setSprite("combo1")
-    elseif self.ComboN == 2 then
-        self:setSprite("combo2")
-    elseif self.ComboN == 3 then
-        self:setSprite("combo3")
-    end
-    self.cooldown = 0.2
-end
-function Gopper:comboUpdate(dt)
-    if self.sprite.isFinished then
-        self.ComboN = self.ComboN + 1
-        if self.ComboN > 4 then
-            self.ComboN = 1
-        end
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true, nil)
-end
-Gopper.combo = { name = "combo", start = Gopper.comboStart, exit = nop, update = Gopper.comboUpdate, draw = Gopper.defaultDraw }
-
 function Gopper:walkStart()
     self.isHittable = true
     self:setSprite("walk")

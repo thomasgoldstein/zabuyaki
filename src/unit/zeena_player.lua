@@ -29,7 +29,7 @@ function Zeena:initialize(name, sprite, input, x, y, f)
 --    self.velocityDashFall = 180 --speed caused by dash to others fall
 --    self.frictionDash = self.velocityDash
 
-    self.velocityJab = 100 --speed of the jab slide
+    self.velocityJab = 200 --speed of the jab slide
     self.velocityJab_y = 20 --speed of the vertical jab slide
     self.frictionJab = self.velocityJab
 

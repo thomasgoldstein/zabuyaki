@@ -16,7 +16,7 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
 
-    self.velocityJab = 100 --speed of the jab slide
+    self.velocityJab = 200 --speed of the jab slide
     self.velocityJab_y = 20 --speed of the vertical jab slide
     self.frictionJab = self.velocityJab
 
@@ -128,12 +128,6 @@ function Zeena:updateAI(dt)
 --        end
     end
 end
-
-function Zeena:comboUpdate(dt)
-    --Custom friction value to slide forward on jab
-    Character.comboUpdate(self, dt, self.frictionJab)
-end
-Zeena.combo = {name = "combo", start = Enemy.comboStart, exit = nop, update = Zeena.comboUpdate, draw = Character.defaultDraw}
 
 function Zeena:jumpUpdate(dt)
     local t = dist(self.target.x, self.target.y, self.x, self.y)
