@@ -32,11 +32,11 @@ function Character:showEffect(effect, obj)
         particles = PA_DUST_JUMP_START:clone()
         particles:setAreaSpread( "uniform", 16, 4 )
         particles:setLinearAcceleration(-30 , 10, 30, -10)
-        particles:emit(6)
+        particles:emit(PA_DUST_JUMP_START_N_PARTICLES)
         particles:setAreaSpread( "uniform", 4, 16 )
         particles:setPosition( 0, -16 )
         particles:setLinearAcceleration(sign(self.face) * (self.velx + 200) , -50, sign(self.face) * (self.velx + 400), -700) -- Random movement in all directions.
-        particles:emit(5)
+        particles:emit(PA_DUST_JUMP_START_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x, self.y-1))
     elseif effect == "pickup" then
         --disappearing loot
@@ -52,7 +52,7 @@ function Character:showEffect(effect, obj)
         sfx.play("sfx", self.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
         particles = PA_DUST_STEPS:clone()
         particles:setLinearAcceleration(-self.face * 50, 1, -self.face * 100, -15)
-        particles:emit(2)
+        particles:emit(PA_DUST_DUST_STEPS_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x - 20 * self.face, self.y+2))
     elseif effect == "defensiveSpecial" then
         sfx.play("sfx","hitWeak1")

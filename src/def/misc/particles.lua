@@ -47,6 +47,7 @@ PA_DUST_STEPS = particles
 particles = PA_DUST_STEPS:clone()
 particles:setSizes(0.15, 0.53)
 PA_DUST_LANDING = particles
+PA_DUST_DUST_STEPS_N_PARTICLES = 2
 
 particles = PA_DUST_STEPS:clone()
 particles:setEmitterLifetime(1)
@@ -54,6 +55,7 @@ particles:setParticleLifetime(0.5, 0.95)
 particles:setSizes(0.15, 0.53)
 particles:setPosition(0, 0)
 PA_DUST_JUMP_START = particles
+PA_DUST_JUMP_START_N_PARTICLES = 5
 
 particles = particles:clone()
 particles:setEmitterLifetime(1.5)
