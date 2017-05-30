@@ -137,7 +137,6 @@ function Sveta:dashAttackStart()
     self.velz = 0
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
-
 function Sveta:dashAttackUpdate(dt)
     self.cooldown = self.cooldown - dt
     if self.sprite.curAnim == "duck" and self.cooldown <= 0 then
@@ -155,7 +154,6 @@ function Sveta:dashAttackUpdate(dt)
     end
     self:calcMovement(dt, true, self.frictionDash)
 end
-
 Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttackStart, exit = nop, update = Sveta.dashAttackUpdate, draw = Character.defaultDraw }
 
 return Sveta
