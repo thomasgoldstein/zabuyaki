@@ -152,10 +152,10 @@ end
 local old_minx, old_maxx, old_y
 function getDistanceBetweenPlayers()
     local minx, maxx = nil, nil
-    local p = { player1, player2, player3 }
+    local r_x, r_y = nil, nil
     local n = 0
-    for i = 1, #p do
-        local player = p[i]
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local player = getRegisteredPlayer(i)
         if player and player:isAlive() then
             n = n + 1
             old_y = player.y
@@ -166,6 +166,7 @@ function getDistanceBetweenPlayers()
                 minx = player.x
                 maxx = player.x
             end
+            r_x, r_y = player.x, player.y
         end
     end
     if n < 1 then
@@ -174,6 +175,8 @@ function getDistanceBetweenPlayers()
             old_maxx = 0
         end
         return old_minx + (old_maxx - old_minx) / 2, old_maxx - old_minx, old_minx, old_maxx
+    elseif n == 1 then
+        minx, maxx = r_x, r_x
     end
     old_minx, old_maxx = minx, maxx
     return minx + (maxx - minx) / 2, maxx - minx, minx, maxx
@@ -245,6 +248,6 @@ function cleanRegisteredPlayers()
 end
 
 function getRegisteredPlayer(id)
-    print("getRegisteredPlayer id:"..id)
+    --print("getRegisteredPlayer id:"..id)
     return players[id]
 end
