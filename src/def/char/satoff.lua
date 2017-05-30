@@ -31,7 +31,8 @@ end
 
 local grabAttackLast = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 19, width = 26, height = 12, damage = 18, type = "grabKO" },
+        { left = 19, width = 26, height = 12, damage = 18,
+        type = "fall", velocity = slf.velocityThrow_x },
 		cont
 	)
 end

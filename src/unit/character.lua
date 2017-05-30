@@ -220,10 +220,7 @@ function Character:afterOnHurt()
             return
         end
         self.velx = h.velx --use fall speed from the agument
-        --then it does to "fall dead"
-    elseif h.type == "grabKO" then
-        --when u throw a grabbed one
-        self.velx = self.velocityThrow_x
+        --then it goes to "fall dead"
     elseif h.type == "fall" then
         --use fall speed from the agument
         self.velx = h.velx
@@ -299,7 +296,7 @@ end
 
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: l,t,w,h, damage, type, velocity, sfx, init_victims_list
-    --type = "shockWave" "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
+    --type = "simple" "shockWave" "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     if not f then
         f = {}
     end

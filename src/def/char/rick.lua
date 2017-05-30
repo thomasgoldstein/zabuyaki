@@ -17,13 +17,15 @@ local grabAttack = function(slf, cont)
 end
 local grabAttackLast = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 25, width = 26, height = 12, damage = 11, type = "grabKO" },
+		{ left = 25, width = 26, height = 12, damage = 11,
+		type = "fall", velocity = slf.velocityThrow_x },
 		cont
 	)
 end
 local shoveDown = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 20, width = 26, height = 12, damage = 15, type = "grabKO" },
+		{ left = 20, width = 26, height = 12, damage = 15,
+		type = "fall", velocity = slf.velocityThrow_x },
 		cont
 	)
 end
