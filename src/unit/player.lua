@@ -132,7 +132,7 @@ function Player:updateAI(dt)
     if self.isDisabled then
         return
     end
-    if self.holdAttack then
+    if self.moves.holdAttack then
         if self.b.attack:isDown() and states_for_holdAttack[self.state] then
             self.charge = self.charge + dt
         else
