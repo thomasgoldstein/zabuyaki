@@ -92,19 +92,19 @@ end
 function drawPlayersBars()
     if player1 then
         player1.infoBar:draw(0,0)
-        if player1.victimInfoBar then
+        if player1.victimInfoBar and player1:isAlive() then
             player1.victimInfoBar:draw(0,0)
         end
     end
     if player2 then
         player2.infoBar:draw(0,0)
-        if player2.victimInfoBar then
+        if player2.victimInfoBar and player2:isAlive() then
             player2.victimInfoBar:draw(0,0)
         end
     end
     if player3 then
         player3.infoBar:draw(0,0)
-        if player3.victimInfoBar then
+        if player3.victimInfoBar and player3:isAlive() then
             player3.victimInfoBar:draw(0,0)
         end
     end
