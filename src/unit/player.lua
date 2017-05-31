@@ -277,7 +277,7 @@ function Player:useCreditUpdate(dt)
             registerPlayer(player)
             fixPlayersPalette(player)
             dp(player.x, player.y, player.name, player.playerSelectMode, "Palette:", player.palette)
-            SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player}
+            SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player, deletePlayer = self}
             return
         else
             self.cooldown = self.cooldown - dt

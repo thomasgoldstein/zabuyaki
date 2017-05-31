@@ -3,23 +3,12 @@
 function checkPlayersRespawn(stage)
     local p = SELECT_NEW_PLAYER
     if p[#p] then
+        local deletePlayer = p[#p].deletePlayer
         p[#p].player.playerSelectMode = 3 -- Respawn mode
-        if p[#p].id == 1 then
-            stage.world:remove(player1.shape)
-            stage.objects:remove(player1)
-            player1 = p[#p].player
-            player1:setOnStage(stage)
-        elseif p[#p].id == 2 then
-            stage.world:remove(player2.shape)
-            stage.objects:remove(player2)
-            player2 = p[#p].player
-            player2:setOnStage(stage)
-        elseif p[#p].id == 3 then
-            stage.world:remove(player3.shape)
-            stage.objects:remove(player3)
-            player3 = p[#p].player
-            player3:setOnStage(stage)
-        end
+        stage.world:remove(deletePlayer.shape)
+        stage.objects:remove(deletePlayer)
+        deletePlayer = p[#p].player
+        deletePlayer:setOnStage(stage)
         p[#p] = nil
     end
 end
@@ -155,33 +144,6 @@ function correctPlayersRespawnPos(player)
         print(" -> ",player.x, player.y)
     end
 end
-
---[[
-function _getDistanceToClosestPlayer()
-    local p = {}
-    if player1 then
-        p[#p +1] = {player = player1, points = 0 }
-    end
-    if player2 then
-        p[#p +1] = {player = player2, points = 0 }
-    end
-    if player3 then
-        p[#p +1] = {player = player3, points = 0}
-    end
-    for i = 1, #p do
-        p[i].points = dist(self.x, self.y, p[i].player.x, p[i].player.y)
-    end
-
-    table.sort(p, function(a,b)
-        return a.points < b.points
-    end )
-
-    if #p < 1 then
-        return 9000
-    end
-    return p[1].points
-end
-]]
 
 local players = {}
 function registerPlayer(player)
