@@ -64,10 +64,9 @@ end
 function showDebug_controls()
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setFont(gfx.font.arcade3)
-        --debug draw P1 / P2 pressed buttons
-        local players = { player1, player2, player3 }
-        for i = 1, #players do
-            local p = players[i]
+        -- draw players controls
+        for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+            local p = getRegisteredPlayer(i)
             if p then
                 local x = p.infoBar.x + 76
                 local y = p.infoBar.y + 36
@@ -141,19 +140,17 @@ function watchDebug_variables()
     end
 end
 
+local keysToKill = {f8 = 1, f9 = 2, f10 = 3}
 function checkDebug_keys(key)
     if GLOBAL_SETTING.DEBUG then
         if key == '0' then
             stage.objects:dp()
         end
-        if key == 'f8' and player1 then
-            player1:setState(player1.dead)
-        end
-        if key == 'f9' and player2 then
-            player2:setState(player2.dead)
-        end
-        if key == 'f10' and player3 then
-            player3:setState(player3.dead)
+        if keysToKill[key] then
+            local id = keysToKill[key]
+            if getRegisteredPlayer(id) then
+                getRegisteredPlayer(id):setState(getRegisteredPlayer(id).dead)
+            end
         end
     end
 end
