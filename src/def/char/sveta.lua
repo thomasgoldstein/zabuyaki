@@ -71,9 +71,9 @@ return {
             delay = 0.28
         },
         dashAttack = {
-            { q = q(42,323,52,63), ox = 34, oy = 62 }, --dash attack 1
-            { q = q(96,323,71,60), ox = 37, oy = 59, funcCont = dashAttack, delay = 0.5 }, --dash attack 2
-            { q = q(42,323,52,63), ox = 34, oy = 62 }, --dash attack 1
+            { q = q(42,323,57,62), ox = 39, oy = 61 }, --dash attack 1
+            { q = q(101,323,85,56), ox = 56, oy = 55, funcCont = dashAttack, delay = 0.5 }, --dash attack 2
+            { q = q(42,323,57,62), ox = 39, oy = 61 }, --dash attack 1
             delay = 0.06
         },
         combo1 = {

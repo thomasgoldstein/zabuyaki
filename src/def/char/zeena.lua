@@ -103,9 +103,9 @@ return {
             delay = 0.067
         },
         combo4 = {
-            { q = q(42,297,38,56), ox = 20, oy = 55 }, --jump attack 1
-            { q = q(82,297,56,52), ox = 22, oy = 51, funcCont = comboKick, delay = 0.167 }, --jump attack 2
-            { q = q(42,297,38,56), ox = 20, oy = 55, delay = 0.117 }, --jump attack 1
+            { q = q(42,297,43,57), ox = 25, oy = 56 }, --jump attack 1
+            { q = q(87,297,66,53), ox = 32, oy = 52, funcCont = comboKick, delay = 0.167 }, --jump attack 2
+            { q = q(42,297,43,57), ox = 25, oy = 56, delay = 0.117 }, --jump attack 1
             delay = 0.067
         },
         fall = {
@@ -140,21 +140,21 @@ return {
             delay = 0.3
         },
         jumpAttackForward = {
-            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
-            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jumpAttack, delay = 5 }, --jump attack 2
+            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
+            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = 5 }, --jump attack 2
             delay = 0.06
         },
 		jumpAttackForwardEnd = {
-            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
+            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
 			delay = 5
 		},
         jumpAttackStraight = {
-            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
-            { q = q(82,297,56,52), ox = 22, oy = 60, funcCont = jumpAttack, delay = 5 }, --jump attack 2
+            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
+            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = 5 }, --jump attack 2
             delay = 0.06
         },
 		jumpAttackStraightEnd = {
-            { q = q(42,297,38,56), ox = 20, oy = 60 }, --jump attack 1
+            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
 			delay = 5
 		},
         sideStepUp = {
