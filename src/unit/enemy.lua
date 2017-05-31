@@ -135,25 +135,20 @@ Enemy.dead = {name = "dead", start = Character.deadStart, exit = nop, update = C
 
 function Enemy:getDistanceToClosestPlayer()
     local p = {}
-    if player1 and not player1.isDisabled then
-        p[#p +1] = {player = player1, points = 0 }
-    end
-    if player2 and not player2.isDisabled then
-        p[#p +1] = {player = player2, points = 0 }
-    end
-    if player3 and not player3.isDisabled then
-        p[#p +1] = {player = player3, points = 0}
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local player = getRegisteredPlayer(i)
+        if player and not player.isDisabled and player:isAlive() then
+            p[#p +1] = {player = player, points = 0 }
+        end
     end
     for i = 1, #p do
         p[i].points = dist(self.x, self.y, p[i].player.x, p[i].player.y)
     end
-
     table.sort(p, function(a,b)
         return a.points < b.points
     end )
-
     if #p < 1 then
-        return 9000
+        return 900
     end
     return p[1].points
 end
@@ -164,14 +159,14 @@ local next_to_pick_targetId = 1
 --
 function Enemy:pickAttackTarget(how)
     local p = {}
-    if player1 and not player1.isDisabled then
-        p[#p +1] = {player = player1, points = 0 }
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local player = getRegisteredPlayer(i)
+        if player and not player.isDisabled and player:isAlive() then
+            p[#p +1] = {player = player, points = 0 }
+        end
     end
-    if player2 and not player2.isDisabled then
-        p[#p +1] = {player = player2, points = 0 }
-    end
-    if player3 and not player3.isDisabled then
-        p[#p +1] = {player = player3, points = 0}
+    if #p < 1 then
+        return nil
     end
     how = how or self.whichPlayerAttack
     for i = 1, #p do
@@ -253,4 +248,3 @@ end
 Enemy.jump = {name = "jump", start = Enemy.jumpStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw }
 
 return Enemy
-
