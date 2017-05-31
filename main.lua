@@ -17,9 +17,6 @@ push = nil
 sfx = nil
 gfx = nil
 bgm = nil
-player1 = nil
-player2 = nil
-player3 = nil
 credits = GLOBAL_SETTING.MAX_CREDITS
 attackHitBoxes = {} -- DEBUG
 
