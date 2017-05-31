@@ -293,9 +293,6 @@ local function loadCameraScrolling(items, scrolling)
 end
 
 local function addPlayersToStage(items, players, stage)
-    player1 = nil
-    player2 = nil
-    player3 = nil
     local controls = {Control1, Control2, Control3}
 
     dp("Set players to start positions...")
@@ -316,15 +313,6 @@ local function addPlayersToStage(items, players, stage)
                     { palette = players[i].palette, id = i }
                 )
                 player:setOnStage(stage)
-                if i == 1 then
-                    player1 = player
-                elseif i == 2 then
-                    player2 = player
-                elseif i == 3 then
-                    player3 = player
-                else
-                    error("Wrong player number")
-                end
             end
         else
             error("Wrong Tiled object type #"..i..":"..inspect(v))
