@@ -27,6 +27,7 @@ function Stage1:initialize(players)
     })
 ]]
     --saveStageToPng()
+    self:update(0) --calc start screen pos accordingly to the start player's positions
 end
 
 function Stage1:update(dt)
