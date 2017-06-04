@@ -41,8 +41,7 @@ function Camera:update(dt, x, y)
             self.shake.x, self.shake.y = 0, 0
         end
     end
-
-    self.cam:setPosition(math.max(x, 160) + self.shake.x, y + self.shake.y)
+    self.cam:setPosition(x + self.shake.x, y + self.shake.y)
 end
 
 function Camera:draw(...)
