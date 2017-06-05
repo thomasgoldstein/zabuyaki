@@ -1,6 +1,8 @@
 local class = require "lib/middleclass"
 local Stage = class('Stage')
 
+local sign = sign
+
 -- Blocking far players movement
 local min_gap_between_stoppers = 420
 local max_player_group_distance = 320 + 160 - 90
@@ -10,8 +12,10 @@ local min_player_group_distance = 320 + 160 - 90
 local max_zoom = display.inner.minScale --4 -- zoom in. default value
 local min_zoom = display.inner.maxScale --3 -- zoom out
 local zoomSpeed = 2 -- speed of zoom-in-out transition
-local max_distance_no_zoom = 200   --between players
-local min_distance_to_keep_zoom = 190   --between players
+local max_distance_no_zoom = 200   -- between players
+local min_distance_to_keep_zoom = 190   -- between players
+local oldCoord_x, oldCoord_y    -- smooth scrolling
+local scrollSpeed = 150 -- speed of P1 camera centering on P2+P3 death
 
 function Stage:initialize(name, bgColor)
     stage = self
@@ -32,6 +36,7 @@ function Stage:initialize(name, bgColor)
     self.world = HC.new(40*4)
     self.testShape = HC.rectangle(1, 1, 15, 5) -- to test collision
     self.objects = Entity:new()
+    oldCoord_x, oldCoord_y  = nil, nil -- smooth scrolling init
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
     self.zoom = max_zoom
     self.zoom_mode = "check"
@@ -286,7 +291,20 @@ function Stage:setCamera(dt)
     coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
 --    local delta_y = display.inner.resolution.height * display.inner.minScale - display.inner.resolution.height * display.inner.maxScale
 --    coord_y = coord_y - 2 * delta_y * (display.inner.minScale - mainCamera:getScale()) * display.inner.minScale / display.inner.maxScale
-     mainCamera:update(dt, math.floor(coord_x * 2)/2, math.floor(coord_y * 2)/2)
+
+    if oldCoord_x then
+        if math.abs(coord_x - oldCoord_x) > 4 then
+            oldCoord_x = oldCoord_x + sign(coord_x - oldCoord_x) * scrollSpeed * dt
+        else
+            oldCoord_x = coord_x
+        end
+        mainCamera:update(dt, math.floor(oldCoord_x * 2)/2, math.floor(oldCoord_y * 2)/2)
+    else
+        oldCoord_x = coord_x
+        oldCoord_y = coord_y
+        mainCamera:update(dt, math.floor(oldCoord_x * 2)/2, math.floor(oldCoord_y * 2)/2)
+    end
+    oldCoord_y = coord_y
 end
 
 return Stage
