@@ -31,7 +31,6 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.frictionDash = self.velocityDash
     self.velocityJab = 150 --speed of the jab slide
     self.velocityJab_y = 20 --speed of the vertical jab slide
-    self.frictionJab = self.velocityJab
 --    self.velocityShove_x = 220 --my throwing speed
 --    self.velocityShove_z = 200 --my throwing speed
 --    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
