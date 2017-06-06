@@ -16,8 +16,8 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
 
-    self.velocitySlide = 200 --speed of the jab slide
-    self.velocitySlide_y = 20 --speed of the vertical jab slide
+    self.velocitySlide = 200 --horizontal speed of the slide kick
+    self.velocitySlide_y = 20 --vertical speed of the slide kick
 
     self.sfx.dead = sfx.zeenaDeath
     self.sfx.jumpAttack = sfx.zeenaAttack
