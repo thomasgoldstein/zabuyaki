@@ -19,10 +19,10 @@ local comboKick = function(slf, cont)
     -- move forward Zeena
     if slf.b.vertical:getValue() ~= 0 then
         slf.vertical = slf.b.vertical:getValue()
-        slf.vely = slf.velocityJab_y -- vertical velocity
-        slf.velx = slf.velocityJab_y -- reduced horizontal velocity
+        slf.vely = slf.velocitySlide_y -- vertical velocity
+        slf.velx = slf.velocitySlide_y -- reduced horizontal velocity
     else
-        slf.velx = slf.velocityJab -- horizontal velocity
+        slf.velx = slf.velocitySlide -- horizontal velocity
     end
     slf.cooldownCombo = 0.4
 end
