@@ -44,10 +44,10 @@ local comboAttack1Forward = function(slf, cont)
 	-- Chai's teep makes him move forward
 	if slf.b.vertical:getValue() ~= 0 then
 		slf.vertical = slf.b.vertical:getValue()
-		slf.vely = slf.velocityJab_y -- vertical velocity
-		slf.velx = slf.velocityJab_y -- reduced horizontal velocity
+		slf.vely = slf.velocityTeep_y -- vertical velocity
+		slf.velx = slf.velocityTeep_y -- reduced horizontal velocity
 	else
-		slf.velx = slf.velocityJab -- horizontal velocity
+		slf.velx = slf.velocityTeep -- horizontal velocity
 	end
 	slf.cooldownCombo = 0.4
 end

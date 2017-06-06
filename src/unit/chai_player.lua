@@ -29,8 +29,8 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
-    self.velocityJab = 150 --speed of the jab slide
-    self.velocityJab_y = 20 --speed of the vertical jab slide
+    self.velocityTeep = 150 --speed of the teep slide
+    self.velocityTeep_y = 20 --speed of the vertical teep slide
 --    self.velocityShove_x = 220 --my throwing speed
 --    self.velocityShove_z = 200 --my throwing speed
 --    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
