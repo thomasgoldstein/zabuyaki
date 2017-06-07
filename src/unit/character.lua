@@ -1118,8 +1118,15 @@ function Character:comboStart()
     if self.ComboN > self.sprite.def.max_combo or self.ComboN < 1 then
         self.ComboN = 1
     end
-    self:setSprite("combo"..self.ComboN)
     self.cooldown = 0.2
+    if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.ComboN.."Forward") then
+        return
+    elseif self.b.vertical:getValue() == -1 and self:setSpriteIfExists("combo"..self.ComboN.."Up") then
+        return
+    elseif self.b.vertical:getValue() == 1 and self:setSpriteIfExists("combo"..self.ComboN.."Down") then
+        return
+    end
+    self:setSprite("combo"..self.ComboN)
 end
 function Character:comboUpdate(dt, custom_friction)
     if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
