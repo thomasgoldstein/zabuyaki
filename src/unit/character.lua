@@ -404,7 +404,7 @@ function Character:standStart()
         if not self.sprite.curAnim then
             self:setSprite("stand")
         end
-        self.delayAnimationCooldown = 0.06
+        self.delayAnimationCooldown = 0.0
     end
     self:removeTweenMove()
     self.victims = {}
