@@ -975,9 +975,7 @@ function Character:fallStart()
     self:removeTweenMove()
     self.isHittable = false
     if self.isThrown then
-        self.z = self.throwerId.throwStart_z or 0
         self:setSprite("thrown")
-        dp("is ".. self.sprite.curAnim)
     else
         self:setSprite("fall")
     end
@@ -1526,7 +1524,7 @@ function Character:shoveUpUpdate(dt)
         t.isGrabbed = false
         t.isThrown = true
         t.throwerId = self
-        t.z = t.z + 1
+        t.z = self.z + self.throwStart_z
         t.velx = self.velocityShove_x
         t.vely = 0
         t.velz = self.velocityShove_z
@@ -1566,7 +1564,7 @@ function Character:shoveForwardUpdate(dt)
         t.isGrabbed = false
         t.isThrown = true
         t.throwerId = self
-        t.z = t.z + 1
+        t.z = self.z + self.throwStart_z
         t.velx = self.velocityShove_x * self.velocityShoveHorizontal
         t.vely = 0
         t.velz = self.velocityShove_z * self.velocityShoveHorizontal
@@ -1606,7 +1604,7 @@ function Character:shoveBackUpdate(dt)
         t.isGrabbed = false
         t.isThrown = true
         t.throwerId = self
-        t.z = t.z + 1
+        t.z = self.z + self.throwStart_z
         t.velx = self.velocityShove_x * self.velocityShoveHorizontal
         t.vely = 0
         t.velz = self.velocityShove_z * self.velocityShoveHorizontal
