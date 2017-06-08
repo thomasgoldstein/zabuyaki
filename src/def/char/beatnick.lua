@@ -73,20 +73,20 @@ return {
             delay = 0.01
         },
         fall = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
+            { q = q(2,209,74,73), ox = 37, oy = 72 }, --falling
             delay = 5
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
+            { q = q(2,209,74,73), ox = 37, oy = 72, rotate = -1.57, rx = 29, ry = -30 }, --falling
             delay = 5
         },
         getup = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            delay = 0.3
+            { q = q(78,230,74,52), ox = 37, oy = 44 }, --lying down
+            delay = 0.8
         },
         fallen = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
+            { q = q(78,230,74,52), ox = 37, oy = 44 }, --lying down
             delay = 65
         },
         hurtHigh = {
