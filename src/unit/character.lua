@@ -1594,18 +1594,28 @@ function Character:shoveForwardUpdate(dt)
 end
 Character.shoveForward = {name = "shoveForward", start = Character.shoveForwardStart, exit = nop, update = Character.shoveForwardUpdate, draw = Character.defaultDraw}
 
+local shoveBackCharacter = {
+    -- face - u can flip Character horizontally with option face = -1
+    -- flip him to the initial horizontal face direction with option face = 1
+    -- tFace flips horizontally the grabbed enemy
+    -- if you flip Character, then ox value multiplies with -1 (horizontal mirroring)
+    -- ox, oy(do not use it), oz - offsets of the grabbed enemy from the players x,y
+    { ox = 5, oz = 24, oy = 1, z = 0 },
+    { ox = 10, oz = 20 }
+}
 function Character:shoveBackStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
+    self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
     self.face = -self.face
     self.horizontal = self.face
     self:setSprite("shoveBack")
     dp(self.name.." shoveBack someone.")
 end
-
 function Character:shoveBackUpdate(dt)
+    self:moveStatesApply(shoveBackCharacter)
     if self.canShoveNow then --set in the animation
         self.canShoveNow = false
         local g = self.hold
