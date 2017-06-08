@@ -1547,16 +1547,26 @@ function Character:shoveUpUpdate(dt)
 end
 Character.shoveUp = {name = "shoveUp", start = Character.shoveUpStart, exit = nop, update = Character.shoveUpUpdate, draw = Character.defaultDraw}
 
+local shoveForwardCharacter = {
+    -- face - u can flip Character horizontally with option face = -1
+    -- flip him to the initial horizontal face direction with option face = 1
+    -- tFace flips horizontally the grabbed enemy
+    -- if you flip Character, then ox value multiplies with -1 (horizontal mirroring)
+    -- ox, oy(do not use it), oz - offsets of the grabbed enemy from the players x,y
+    { ox = 5, oz = 24, oy = 1, z = 0 },
+    { ox = 10, oz = 20 }
+}
 function Character:shoveForwardStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
+    self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("shoveForward")
     dp(self.name.." shoveForward someone.")
 end
-
 function Character:shoveForwardUpdate(dt)
+    self:moveStatesApply(shoveForwardCharacter)
     if self.canShoveNow then --set in the animation
         self.canShoveNow = false
         local g = self.hold
@@ -1564,13 +1574,12 @@ function Character:shoveForwardUpdate(dt)
         t.isGrabbed = false
         t.isThrown = true
         t.throwerId = self
-        t.z = self.z + self.throwStart_z
         t.velx = self.velocityShove_x * self.velocityShoveHorizontal
         t.vely = 0
         t.velz = self.velocityShove_z * self.velocityShoveHorizontal
         t.victims[self] = true
         t.horizontal = self.face
-        t.face = self.face
+        --t.face = self.face -- we have the grabbed enemy's facing from shoveForwardCharacter table
         t:setState(self.fall)
         sfx.play("sfx", "whooshHeavy")
         sfx.play("voice"..self.id, self.sfx.throw)
@@ -1581,7 +1590,7 @@ function Character:shoveForwardUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true)
+    self:calcMovement(dt, true, nil)
 end
 Character.shoveForward = {name = "shoveForward", start = Character.shoveForwardStart, exit = nop, update = Character.shoveForwardUpdate, draw = Character.defaultDraw}
 
