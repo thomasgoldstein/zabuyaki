@@ -90,9 +90,9 @@ local shoveForward_chai = {
     -- if you flip Chai, then ox value multiplies with -1 (horizontal mirroring)
     -- ox, oy(do not use it), oz - offsets of the grabbed enemy from the players x,y
     { ox = 10, oz = 5, oy = -1, z = 0 },
-    { ox = -5, oz = 10, z = 0 },
-    { ox = -20, oz = 12, z = 2 },
-    { ox = -10, oz = 24, z = 4 },
+    { ox = -5, oz = 10, tFace = -1, z = 0 },
+    { ox = -20, oz = 12, tFace = -1, z = 2 },
+    { ox = -10, oz = 24, tFace = -1, z = 4 },
     { ox = 10, oz = 30, tFace = 1, z = 8 },
     { z = 4 }, --throw function
     { z = 0 } --last frame
