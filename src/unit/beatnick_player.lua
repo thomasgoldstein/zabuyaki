@@ -1,4 +1,5 @@
 local class = require "lib/middleclass"
+local _Beatnick = Beatnick
 local Beatnick = class('PBeatnick', Player)
 
 local function nop() end
@@ -19,8 +20,11 @@ local movesWhiteList = {
 
 function Beatnick:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
-    _Beatnick.initAttributes(self)
     self.moves = movesWhiteList --list of allowed moves
+end
+
+function Beatnick:initAttributes()
+    _Beatnick.initAttributes(self)
 end
 
 return Beatnick

@@ -34,7 +34,7 @@ function Gopper:initAttributes()
     self.frictionDash = self.velocityDash
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
-    --Character default sfx
+    -- default sfx
     self.sfx.dead = sfx.gopperDeath
     self.sfx.dashAttack = sfx.gopperAttack
     self.sfx.step = "kisaStep"

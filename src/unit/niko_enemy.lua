@@ -13,7 +13,28 @@ function Niko:initialize(name, sprite, input, x, y, f)
     self.scoreBonus = self.scoreBonus or 300
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
+    Niko.initAttributes(self)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
+end
+
+function Niko:initAttributes()
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
+    self.velocityWalkHold = 72
+    self.velocityWalkHold_y = 36
+    self.velocityRun = 140
+    self.velocityRun_y = 23
+    self.velocityDash = 150 --speed of the character
+    self.velocityDashFall = 180 --speed caused by dash to others fall
+    self.frictionDash = self.velocityDash
+    --    self.velocityShove_x = 220 --my throwing speed
+    --    self.velocityShove_z = 200 --my throwing speed
+    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
+    -- default sfx
+    --    self.sfx.jump = "rickJump"
+    --    self.sfx.throw = "rickThrow"
+    --    self.sfx.dashAttack = "rickAttack"
     self.sfx.dead = sfx.nikoDeath
     self.sfx.jumpAttack = sfx.nikoAttack
     self.sfx.step = "kisaStep"

@@ -12,7 +12,6 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.lives = self.lives or 3
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 1500
-    self.height = self.height or 55
     if not f then
         f = {}
     end
@@ -20,12 +19,20 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     f.shapeArgs = f.shapeArgs or { 1, 0, 27, 0, 28, 3, 27, 6, 1, 6, 0, 3 }
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, input, x, y, f)
+    Satoff.initAttributes(self)
+    self.walkSpeed = 80 --TODO calc if from attributes
+    self.runSpeed = 100 --TODO calc if from attributes
+
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
     self:pickAttackTarget()
     self.type = "enemy"
     self.subtype = "midboss"
     self.face = -1
+    self:setToughness(0)
+end
 
+function Satoff:initAttributes()
+    self.height = self.height or 55
     self.velocityWalk = 90
     self.velocityWalk_y = 45
     self.velocityWalkHold = 80
@@ -33,22 +40,18 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.velocityRun = 140
     self.velocityRun_y = 23
     self.velocityDash = 190 --speed of the character
---    self.velocityDashFall = 180 --speed caused by dash to others fall
+    --    self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash * 3
     --    self.velocityShove_x = 220 --my throwing speed
     --    self.velocityShove_z = 200 --my throwing speed
     --    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
-
+    -- default sfx
     self.sfx.throw = sfx.satoffAttack
     self.sfx.jumpAttack = sfx.satoffAttack
     self.sfx.step = "rickStep" --TODO refactor def files
     self.sfx.dead = sfx.satoffDeath
-
-    self:setToughness(0)
-    self.walkSpeed = 80
-    self.runSpeed = 100
 end
 
 function Satoff:updateAI(dt)

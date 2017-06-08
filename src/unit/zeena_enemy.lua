@@ -13,12 +13,19 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     self.scoreBonus = self.scoreBonus or 300
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
+    Zeena.initAttributes(self)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
+end
 
+function Zeena:initAttributes()
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
     self.velocitySlide = 200 --horizontal speed of the slide kick
     self.velocitySlide_y = 20 --vertical speed of the slide kick
-
+    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
+    -- default sfx
     self.sfx.dead = sfx.zeenaDeath
     self.sfx.jumpAttack = sfx.zeenaAttack
     self.sfx.step = "kisaStep"

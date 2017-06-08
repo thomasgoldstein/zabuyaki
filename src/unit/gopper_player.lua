@@ -20,8 +20,11 @@ local movesWhiteList = {
 
 function Gopper:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
-    _Gopper.initAttributes(self)
     self.moves = movesWhiteList --list of allowed moves
+end
+
+function Gopper:initAttributes()
+    _Gopper.initAttributes(self)
 end
 
 Gopper.combo = {name = "combo", start = _Gopper.comboStart, exit = nop, update = _Gopper.comboUpdate, draw = Character.defaultDraw}

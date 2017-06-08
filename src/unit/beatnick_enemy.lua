@@ -12,7 +12,6 @@ function Beatnick:initialize(name, sprite, input, x, y, f)
     self.lives = self.lives or 2
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 800
-    self.height = self.height or 55
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
     Beatnick.initAttributes(self)
@@ -20,6 +19,7 @@ function Beatnick:initialize(name, sprite, input, x, y, f)
 end
 
 function Beatnick:initAttributes()
+    self.height = self.height or 55
     self.velocityWalk = 90
     self.velocityWalk_y = 45
     self.velocityRun = 140
@@ -31,13 +31,6 @@ function Beatnick:initAttributes()
     --    self.velocityShove_z = 200 --my throwing speed
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
-    --Character default sfx
-    --    self.sfx.jump = "rickJump"
-    --    self.sfx.throw = "rickThrow"
-    --    self.sfx.dashAttack = "rickAttack"
-    self.sfx.dead = sfx.beatnickDeath
-    self.sfx.jumpAttack = sfx.beatnickAttack
-    self.sfx.step = "kisaStep"
     -- default sfx
     self.sfx.dead = sfx.beatnickDeath
     self.sfx.jumpAttack = sfx.beatnickAttack
