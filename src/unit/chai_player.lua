@@ -20,6 +20,9 @@ local movesWhiteList = {
 function Chai:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
     self.moves = movesWhiteList --list of allowed moves
+end
+
+function Chai:initAttributes()
     self.velocityWalk = 100
     self.velocityWalk_y = 50
     self.velocityWalkHold = 80
@@ -31,12 +34,12 @@ function Chai:initialize(name, sprite, input, x, y, f)
     self.frictionDash = self.velocityDash
     self.velocityTeep_x = 150 --horizontal speed of the teep slide
     self.velocityTeep_y = 120 --vertical speed of the teep slide
---    self.velocityShove_x = 220 --my throwing speed
---    self.velocityShove_z = 200 --my throwing speed
---    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
+    --    self.velocityShove_x = 220 --my throwing speed
+    --    self.velocityShove_z = 200 --my throwing speed
+    --    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
-    --Character default sfx
+    -- default sfx
     self.sfx.jump = "chaiJump"
     self.sfx.throw = "chaiThrow"
     self.sfx.jumpAttack = "chaiAttack"

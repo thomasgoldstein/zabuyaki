@@ -11,8 +11,12 @@ function Player:initialize(name, sprite, input, x, y, f)
     self.lives = GLOBAL_SETTING.MAX_LIVES
     self.hp = f.hp or self.hp or 100
     Character.initialize(self, name, sprite, input, x, y, f)
+    Player.initAttributes(self)
     self.type = "player"
     self.friendlyDamage = 1 --1 = full damage on other players
+end
+
+function Player:initAttributes()
 end
 
 function Player:setOnStage(stage)

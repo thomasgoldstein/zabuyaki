@@ -13,7 +13,7 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.scoreBonus = self.scoreBonus or 200
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, input, x, y, f)
-    self:initAttributes()
+    Gopper.initAttributes(self)
     self.walkSpeed = 80 --TODO calc it from velocity
     self.runSpeed = 100 --TODO calc it from velocity
     self:pickAttackTarget()

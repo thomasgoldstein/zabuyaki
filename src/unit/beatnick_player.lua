@@ -19,25 +19,8 @@ local movesWhiteList = {
 
 function Beatnick:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
+    _Beatnick.initAttributes(self)
     self.moves = movesWhiteList --list of allowed moves
-    self.velocityWalk = 90
-    self.velocityWalk_y = 45
-    self.velocityRun = 140
-    self.velocityRun_y = 23
-    self.velocityDash = 150 --speed of the character
-    self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = self.velocityDash
---    self.velocityShove_x = 220 --my throwing speed
---    self.velocityShove_z = 200 --my throwing speed
-    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
-    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
-    --Character default sfx
---    self.sfx.jump = "rickJump"
---    self.sfx.throw = "rickThrow"
---    self.sfx.dashAttack = "rickAttack"
-    self.sfx.dead = sfx.beatnickDeath
-    self.sfx.jumpAttack = sfx.beatnickAttack
-    self.sfx.step = "kisaStep"
 end
 
 return Beatnick
