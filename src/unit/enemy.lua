@@ -23,6 +23,10 @@ function Enemy:initialize(name, sprite, input, x, y, f)
     self.delayedWakeupRange = 150 --wakeup after wakeupDelay if the player is close
 end
 
+function Enemy:initAttributes()
+    Character.initAttributes(self)
+end
+
 function Enemy:checkCollisionAndMove(dt)
     local stepx = self.velx * dt * self.horizontal
     local stepy = self.vely * dt * self.vertical

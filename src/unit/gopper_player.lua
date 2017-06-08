@@ -20,20 +20,8 @@ local movesWhiteList = {
 
 function Gopper:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
+    _Gopper.initAttributes(self)
     self.moves = movesWhiteList --list of allowed moves
-    self.velocityWalk = 90
-    self.velocityWalk_y = 45
-    self.velocityRun = 140
-    self.velocityRun_y = 23
-    self.velocityDash = 150 --speed of the character
-    self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = self.velocityDash
-    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
-    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
-    --Character default sfx
-    self.sfx.dead = sfx.gopperDeath
-    self.sfx.dashAttack = sfx.gopperAttack
-    self.sfx.step = "kisaStep"
 end
 
 Gopper.combo = {name = "combo", start = _Gopper.comboStart, exit = nop, update = _Gopper.comboUpdate, draw = Character.defaultDraw}

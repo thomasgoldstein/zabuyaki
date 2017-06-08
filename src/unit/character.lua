@@ -23,8 +23,27 @@ function Character:initialize(name, sprite, input, x, y, f)
     f.shapeArgs = f.shapeArgs or { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 }
     self.height = self.height or 50
     Unit.initialize(self, name, sprite, input, x, y, f)
+    Character.initAttributes(self)
     self.type = "character"
     self.time = 0
+    self.moves = movesWhiteList --list of allowed moves
+    --Inner char vars
+    self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
+    self.score = 0
+    self.chargedAt = 1    -- define # seconds when holdAttack is ready
+    self.charge = 0    -- seconds of changing
+    self.ComboN = 1    -- n of the combo hit
+    self.cooldown = 0  -- can't move
+    self.cooldownCombo = 0    -- can cont combo
+    self.cooldownGrab = 2
+    self.grabReleaseAfter = 0.25 --sec if u hold 'back'
+    self.grabAttackN = 0    -- n of the grab hits
+    self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
+    self.playerSelectMode = 0
+    self.victimInfoBar = nil
+end
+
+function Character:initAttributes()
     self.velocityWalk = 100
     self.velocityWalk_y = 50
     self.velocityWalkHold = self.velocityWalk * 0.75
@@ -58,21 +77,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
-    self.moves = movesWhiteList --list of allowed moves
-    --Inner char vars
-    self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
-    self.score = 0
-    self.chargedAt = 1    -- define # seconds when holdAttack is ready
-    self.charge = 0    -- seconds of changing
-    self.ComboN = 1    -- n of the combo hit
-    self.cooldown = 0  -- can't move
-    self.cooldownCombo = 0    -- can cont combo
-    self.cooldownGrab = 2
-    self.grabReleaseAfter = 0.25 --sec if u hold 'back'
-    self.grabAttackN = 0    -- n of the grab hits
-    self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
-    self.playerSelectMode = 0
-    --Character default sfx
+    -- default sfx
     self.sfx.jump = "whooshHeavy"
     self.sfx.throw = "whooshHeavy"
     self.sfx.dashAttack = "gopperAttack1"
@@ -81,7 +86,6 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.sfx.jumpAttack = self.sfx.jumpAttack or "nikoAttack1"
     self.sfx.step = self.sfx.step or "kisaStep"
     self.sfx.dead = self.sfx.dead or "gopnikDeath1"
-    self.victimInfoBar = nil
 end
 
 function Character:addHp(hp)

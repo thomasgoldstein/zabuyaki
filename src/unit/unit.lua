@@ -14,7 +14,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     --f options {}: shapeType, shapeArgs, hp, score, shader, palette, color, sfxOnHit, sfxDead, func
     if not f then
         f = {}
-    end
+	end
     self.isDisabled = true
 	self.sprite = sprite
 	self.name = name or "Unknown"

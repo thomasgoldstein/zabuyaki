@@ -13,18 +13,31 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.scoreBonus = self.scoreBonus or 200
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, input, x, y, f)
+    self:initAttributes()
+    self.walkSpeed = 80 --TODO calc it from velocity
+    self.runSpeed = 100 --TODO calc it from velocity
     self:pickAttackTarget()
     self.type = "enemy"
     self.subtype = "gopnik"
     self.friendlyDamage = 2 --divide friendly damage
     self.face = -1
+    self:setToughness(0)
+end
+
+function Gopper:initAttributes()
+    self.velocityWalk = 90
+    self.velocityWalk_y = 45
+    self.velocityRun = 140
+    self.velocityRun_y = 23
+    self.velocityDash = 150 --speed of the character
+    self.velocityDashFall = 180 --speed caused by dash to others fall
+    self.frictionDash = self.velocityDash
+    self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
+    self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
+    --Character default sfx
     self.sfx.dead = sfx.gopperDeath
     self.sfx.dashAttack = sfx.gopperAttack
     self.sfx.step = "kisaStep"
-
-    self:setToughness(0)
-    self.walkSpeed = 80
-    self.runSpeed = 100
 end
 
 function Gopper:updateAI(dt)
