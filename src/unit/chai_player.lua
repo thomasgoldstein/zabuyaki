@@ -83,7 +83,7 @@ function Chai:dashAttackUpdate(dt)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
-local shoveForward_chai = {
+local shoveForwardChai = {
     -- face - u can flip Chai horizontally with option face = -1
     -- flip him to the initial horizontal face direction with option face = 1
     -- tFace flips horizontally the grabbed enemy
@@ -107,7 +107,7 @@ function Chai:shoveForwardStart()
     dp(self.name.." shoveForward someone.")
 end
 function Chai:shoveForwardUpdate(dt)
-    self:moveStatesApply(shoveForward_chai)
+    self:moveStatesApply(shoveForwardChai)
     if self.canShoveNow then --set in the animation
         self.canShoveNow = false
         local g = self.hold
@@ -121,7 +121,7 @@ function Chai:shoveForwardUpdate(dt)
         t.velz = self.velocityShove_z * self.velocityShoveHorizontal
         t.victims[self] = true
         t.horizontal = self.face
-        --t.face = self.face -- we have the grabbed enemy's facing from shoveForward_chai table
+        --t.face = self.face -- we have the grabbed enemy's facing from shoveForwardChai table
         t:setState(self.fall)
         sfx.play("sfx", "whooshHeavy")
         sfx.play("voice"..self.id, self.sfx.throw)
@@ -136,7 +136,7 @@ function Chai:shoveForwardUpdate(dt)
 end
 Chai.shoveForward = {name = "shoveForward", start = Chai.shoveForwardStart, exit = nop, update = Chai.shoveForwardUpdate, draw = Character.defaultDraw}
 
-local shoveBack_chai = {
+local shoveBackChai = {
     -- face - u can flip Chai horizontally with option face = -1
     -- flip him to the initial horizontal face direction with option face = 1
     -- tFace flips horizontally the grabbed enemy
@@ -158,7 +158,7 @@ function Chai:shoveBackStart()
     dp(self.name.." shoveBack someone.")
 end
 function Chai:shoveBackUpdate(dt)
-    self:moveStatesApply(shoveBack_chai)
+    self:moveStatesApply(shoveBackChai)
     if self.canShoveNow then --set in the animation
         self.canShoveNow = false
         local g = self.hold
@@ -172,7 +172,7 @@ function Chai:shoveBackUpdate(dt)
         t.velz = 20 --self.velocityShove_z * self.velocityShoveHorizontal
         t.victims[self] = true
         t.horizontal = self.face
-        --t.face = self.face -- we have the grabbed enemy's facing from shoveBack_chai table
+        --t.face = self.face -- we have the grabbed enemy's facing from shoveBackChai table
         t:setState(self.fall)
         sfx.play("sfx", "whooshHeavy")
         sfx.play("voice"..self.id, self.sfx.throw)
