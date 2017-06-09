@@ -111,12 +111,6 @@ function Chai:shoveForwardStart()
 end
 function Chai:shoveForwardUpdate(dt)
     self:moveStatesApply(shoveForwardChai)
-    if self.canShoveNow then --set in the animation
-        self.canShoveNow = false
-        self:doShove(self.velocityShove_x * self.velocityShoveHorizontal,
-            self.velocityShove_z * self.velocityShoveHorizontal,
-            self.face)
-    end
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)
@@ -149,10 +143,6 @@ function Chai:shoveBackStart()
 end
 function Chai:shoveBackUpdate(dt)
     self:moveStatesApply(shoveBackChai)
-    if self.canShoveNow then --set in the animation
-        self.canShoveNow = false
-        self:doShove(220, 20, self.face)
-    end
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)

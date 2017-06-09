@@ -37,7 +37,12 @@ local grabAttackLast = function(slf, cont)
 	)
 end
 
-local shoveNow = function(slf, cont) slf.canShoveNow = true end
+local shoveBack = function(slf, cont)
+    slf:doShove(slf.velocityShove_x * slf.velocityShoveHorizontal,
+        slf.velocityShove_z * slf.velocityShoveHorizontal,
+        slf.face, slf.face,
+        slf.z + slf.throwStart_z)
+end
 
 return {
     serialization_version = 0.42, -- version
@@ -210,7 +215,7 @@ return {
         },
         shoveBack = {
             { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
-            { q = q(194,599,70,62), ox = 36, oy = 61, func = shoveNow, delay = 0.5 }, --throw
+            { q = q(194,599,70,62), ox = 36, oy = 61, func = shoveBack, delay = 0.5 }, --throw
             { q = q(68,350,51,65), ox = 23, oy = 64 }, --uppercut 2
             delay = 0.2
         },

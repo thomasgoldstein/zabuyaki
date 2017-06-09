@@ -29,6 +29,18 @@ local shoveDown = function(slf, cont)
 		cont
 	)
 end
+local shoveUp = function(slf, cont)
+	slf:doShove(slf.velocityShove_x / 10,
+		slf.velocityShove_z * 2,
+		slf.horizontal, nil,
+		slf.z + slf.throwStart_z)
+end
+local shoveBack = function(slf, cont) slf:doShove(220, 20, slf.face) end
+local shoveForward = function(slf, cont)
+	slf:doShove(slf.velocityShove_x * slf.velocityShoveHorizontal,
+		slf.velocityShove_z * slf.velocityShoveHorizontal,
+		slf.face)
+end
 local comboAttack1 = function(slf, cont)
 	slf:checkAndAttack(
 		{ left = 26, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
@@ -106,7 +118,6 @@ local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
 	{ left = 25, width = 35, height = 12, damage = 8, type = "fall", velocity = slf.velx },
 	cont
 ) end
-local shoveNow = function(slf, cont) slf.canShoveNow = true end
 
 return {
 	serialization_version = 0.42, -- The version of this serialization process
@@ -370,14 +381,14 @@ return {
 			{ q = q(96,863,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
 			{ q = q(44,928,51,63), ox = 26, oy = 62 }, --throw 1.2
-			{ q = q(97,928,53,63), ox = 22, oy = 62, func = shoveNow, delay = 0.2 }, --throw 1.3
+			{ q = q(97,928,53,63), ox = 22, oy = 62, func = shoveUp, delay = 0.2 }, --throw 1.3
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
 			delay = 0.07
 		},
 		shoveBack = {
 			{ q = q(96,863,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
-			{ q = q(44,928,51,63), ox = 26, oy = 62, func = shoveNow }, --throw 1.2
+			{ q = q(44,928,51,63), ox = 26, oy = 62, func = shoveBack }, --throw 1.2
 			{ q = q(97,928,53,63), ox = 22, oy = 62, delay = 0.2 }, --throw 1.3
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
 			delay = 0.07
@@ -387,7 +398,7 @@ return {
 			{ q = q(96,863,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(96,863,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
-			{ q = q(44,928,51,63), ox = 26, oy = 62, func = shoveNow }, --throw 1.2
+			{ q = q(44,928,51,63), ox = 26, oy = 62, func = shoveForward }, --throw 1.2
 			{ q = q(97,928,53,63), ox = 22, oy = 62 }, --throw 1.3
 			{ q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
 			delay = 0.07

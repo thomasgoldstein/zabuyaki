@@ -1545,14 +1545,6 @@ function Character:doShove(velx, velz, horizontal, face, start_z)
 end
 
 function Character:shoveUpUpdate(dt)
-    if self.canShoveNow then --set in the animation
-        self.canShoveNow = false
-        --throw up
-        self:doShove(self.velocityShove_x / 10,
-            self.velocityShove_z * 2,
-            self.horizontal, nil,
-            self.z + self.throwStart_z)
-    end
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)
@@ -1582,13 +1574,6 @@ function Character:shoveForwardStart()
 end
 function Character:shoveForwardUpdate(dt)
     self:moveStatesApply(shoveForwardCharacter)
-    if self.canShoveNow then --set in the animation
-        self.canShoveNow = false
-        self:doShove(self.velocityShove_x * self.velocityShoveHorizontal,
-            self.velocityShove_z * self.velocityShoveHorizontal,
-            self.face, nil,
-            self.z + self.throwStart_z)
-    end
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)
@@ -1620,13 +1605,6 @@ function Character:shoveBackStart()
 end
 function Character:shoveBackUpdate(dt)
     self:moveStatesApply(shoveBackCharacter)
-    if self.canShoveNow then --set in the animation
-        self.canShoveNow = false
-        self:doShove(self.velocityShove_x * self.velocityShoveHorizontal,
-            self.velocityShove_z * self.velocityShoveHorizontal,
-            self.face, self.face,
-            self.z + self.throwStart_z)
-    end
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)
@@ -1652,17 +1630,6 @@ end
 function Character:grabSwapUpdate(dt)
     --dp(self.name .. " - grab update", dt)
     local g = self.hold
-    --adjust both vertically
---[[
-    if self.y > g.target.y + 1 then
-        self.y = self.y - 0.5
-        self.y = self.y - 0.5
-        g.target.y = g.target.y + 0.5
-    elseif self.y < g.target.y then
-        self.y = self.y + 0.5
-        g.target.y = g.target.y - 0.5
-    end
-]]
     --adjust char horizontally
     if math.abs(self.x - self.grabSwap_x) > 2 then
         if self.x < self.grabSwap_x then

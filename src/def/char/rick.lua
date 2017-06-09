@@ -29,6 +29,24 @@ local shoveDown = function(slf, cont)
 		cont
 	)
 end
+local shoveUp = function(slf, cont)
+	slf:doShove(slf.velocityShove_x / 10,
+		slf.velocityShove_z * 2,
+		slf.horizontal, nil,
+		slf.z + slf.throwStart_z)
+end
+local shoveBack = function(slf, cont)
+	slf:doShove(slf.velocityShove_x * slf.velocityShoveHorizontal,
+		slf.velocityShove_z * slf.velocityShoveHorizontal,
+		slf.face, slf.face,
+		slf.z + slf.throwStart_z)
+end
+local shoveForward = function(slf, cont)
+	slf:doShove(slf.velocityShove_x * slf.velocityShoveHorizontal,
+		slf.velocityShove_z * slf.velocityShoveHorizontal,
+		slf.face, nil,
+		slf.z + slf.throwStart_z)
+end
 local comboAttack1 = function(slf, cont)
 	slf:checkAndAttack(
         { left = 28, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
@@ -102,7 +120,6 @@ local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
     { left = 20, width = 25, height = 12, damage = 9, type = "fall", velocity = slf.velocityFall_x },
     cont
 ) end
-local shoveNow = function(slf, cont) slf.canShoveNow = true end
 local defensiveSpecialFx = function(slf, cont)
     slf:showEffect("defensiveSpecial")
 end
@@ -374,7 +391,7 @@ return {
 		},
 		shoveUp = {
 			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --offensive special 1
-			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = shoveNow, delay = 0.05 }, --offensive special 2
+			{ q = q(51,1178,47,62), ox = 15, oy = 61, func = shoveUp, delay = 0.05 }, --offensive special 2
 			{ q = q(100,1178,49,62), ox = 15, oy = 61, delay = 0.05 }, --offensive special 3
 			{ q = q(151,1173,54,67), ox = 20, oy = 66 }, --offensive special 4
 			{ q = q(2,1242,54,66), ox = 20, oy = 65 }, --offensive special 5
@@ -383,14 +400,14 @@ return {
 		},
 		shoveBack = {
 			{ q = q(2,1109,44,62), ox = 27, oy = 61 }, --throw 1.1
-			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shoveNow, delay = 0.05 }, --throw 1.2
+			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shoveBack, delay = 0.05 }, --throw 1.2
 			{ q = q(92,1112,42,59), ox = 22, oy = 58 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.1 }, --pickup 1
 			delay = 0.2
 		},
 		shoveForward = {
 			{ q = q(2,1109,44,62), ox = 27, oy = 61 }, --throw 1.1
-			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shoveNow, delay = 0.05 }, --throw 1.2
+			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shoveForward, delay = 0.05 }, --throw 1.2
 			{ q = q(92,1112,42,59), ox = 22, oy = 58 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.1 }, --pickup 1
 			delay = 0.2
