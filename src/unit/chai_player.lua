@@ -113,22 +113,9 @@ function Chai:shoveForwardUpdate(dt)
     self:moveStatesApply(shoveForwardChai)
     if self.canShoveNow then --set in the animation
         self.canShoveNow = false
-        local g = self.hold
-        local t = g.target
-        t.isGrabbed = false
-        t.isThrown = true
-        t.throwerId = self
-        --t.z = t.z + 1
-        t.velx = self.velocityShove_x * self.velocityShoveHorizontal
-        t.vely = 0
-        t.velz = self.velocityShove_z * self.velocityShoveHorizontal
-        t.victims[self] = true
-        t.horizontal = self.face
-        --t.face = self.face -- we have the grabbed enemy's facing from shoveForwardChai table
-        t:setState(self.fall)
-        sfx.play("sfx", "whooshHeavy")
-        sfx.play("voice"..self.id, self.sfx.throw)
-        return
+        self:doShove(self.velocityShove_x * self.velocityShoveHorizontal,
+            self.velocityShove_z * self.velocityShoveHorizontal,
+            self.face)
     end
     if self.sprite.isFinished then
         self.cooldown = 0.2
@@ -164,22 +151,7 @@ function Chai:shoveBackUpdate(dt)
     self:moveStatesApply(shoveBackChai)
     if self.canShoveNow then --set in the animation
         self.canShoveNow = false
-        local g = self.hold
-        local t = g.target
-        t.isGrabbed = false
-        t.isThrown = true
-        t.throwerId = self
---        t.z = t.z + 1
-        t.velx = 220 --self.velocityShove_x * self.velocityShoveHorizontal
-        t.vely = 0
-        t.velz = 20 --self.velocityShove_z * self.velocityShoveHorizontal
-        t.victims[self] = true
-        t.horizontal = self.face
-        --t.face = self.face -- we have the grabbed enemy's facing from shoveBackChai table
-        t:setState(self.fall)
-        sfx.play("sfx", "whooshHeavy")
-        sfx.play("voice"..self.id, self.sfx.throw)
-        return
+        self:doShove(220, 20, self.face)
     end
     if self.sprite.isFinished then
         self.cooldown = 0.2
