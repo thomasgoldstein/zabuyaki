@@ -1520,7 +1520,7 @@ function Character:shoveUpStart()
     dp(self.name.." shoveUp someone.")
 end
 
-function Character:doShove(velx, velz, horizontal, start_z)
+function Character:doShove(velx, velz, horizontal, face, start_z)
     local g = self.hold
     local t = g.target
     t.isGrabbed = false
@@ -1530,7 +1530,12 @@ function Character:doShove(velx, velz, horizontal, start_z)
     t.velx = velx
     t.vely = 0
     t.velz = velz
-    t.horizontal = horizontal
+    if horizontal then
+        t.horizontal = horizontal
+    end
+    if face then
+        t.face = face
+    end
     if start_z then
         t.z = start_z
     end
@@ -1545,9 +1550,8 @@ function Character:shoveUpUpdate(dt)
         --throw up
         self:doShove(self.velocityShove_x / 10,
             self.velocityShove_z * 2,
-            self.horizontal,
+            self.horizontal, nil,
             self.z + self.throwStart_z)
-        return
     end
     if self.sprite.isFinished then
         self.cooldown = 0.2
@@ -1580,21 +1584,10 @@ function Character:shoveForwardUpdate(dt)
     self:moveStatesApply(shoveForwardCharacter)
     if self.canShoveNow then --set in the animation
         self.canShoveNow = false
-        local g = self.hold
-        local t = g.target
-        t.isGrabbed = false
-        t.isThrown = true
-        t.throwerId = self
-        t.velx = self.velocityShove_x * self.velocityShoveHorizontal
-        t.vely = 0
-        t.velz = self.velocityShove_z * self.velocityShoveHorizontal
-        t.victims[self] = true
-        t.horizontal = self.face
-        --t.face = self.face -- we have the grabbed enemy's facing from shoveForwardCharacter table
-        t:setState(self.fall)
-        sfx.play("sfx", "whooshHeavy")
-        sfx.play("voice"..self.id, self.sfx.throw)
-        return
+        self:doShove(self.velocityShove_x * self.velocityShoveHorizontal,
+            self.velocityShove_z * self.velocityShoveHorizontal,
+            self.face, nil,
+            self.z + self.throwStart_z)
     end
     if self.sprite.isFinished then
         self.cooldown = 0.2
@@ -1629,22 +1622,10 @@ function Character:shoveBackUpdate(dt)
     self:moveStatesApply(shoveBackCharacter)
     if self.canShoveNow then --set in the animation
         self.canShoveNow = false
-        local g = self.hold
-        local t = g.target
-        t.isGrabbed = false
-        t.isThrown = true
-        t.throwerId = self
-        t.z = self.z + self.throwStart_z
-        t.velx = self.velocityShove_x * self.velocityShoveHorizontal
-        t.vely = 0
-        t.velz = self.velocityShove_z * self.velocityShoveHorizontal
-        t.victims[self] = true
-        t.horizontal = self.face
-        t.face = self.face
-        t:setState(self.fall)
-        sfx.play("sfx", "whooshHeavy")
-        sfx.play("voice"..self.id, self.sfx.throw)
-        return
+        self:doShove(self.velocityShove_x * self.velocityShoveHorizontal,
+            self.velocityShove_z * self.velocityShoveHorizontal,
+            self.face, self.face,
+            self.z + self.throwStart_z)
     end
     if self.sprite.isFinished then
         self.cooldown = 0.2
