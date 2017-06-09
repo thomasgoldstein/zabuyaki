@@ -1520,26 +1520,33 @@ function Character:shoveUpStart()
     dp(self.name.." shoveUp someone.")
 end
 
+function Character:doShove(velx, velz, horizontal, start_z)
+    local g = self.hold
+    local t = g.target
+    t.isGrabbed = false
+    t.isThrown = true
+    t.throwerId = self
+    t.victims[self] = true
+    t.velx = velx
+    t.vely = 0
+    t.velz = velz
+    t.horizontal = horizontal
+    if start_z then
+        t.z = start_z
+    end
+    t:setState(self.fall)
+    sfx.play("sfx", "whooshHeavy")
+    sfx.play("voice"..self.id, self.sfx.throw)
+end
+
 function Character:shoveUpUpdate(dt)
     if self.canShoveNow then --set in the animation
         self.canShoveNow = false
-        local g = self.hold
-        local t = g.target
-        t.isGrabbed = false
-        t.isThrown = true
-        t.throwerId = self
-        t.z = self.z + self.throwStart_z
-        t.velx = self.velocityShove_x
-        t.vely = 0
-        t.velz = self.velocityShove_z
-        t.victims[self] = true
         --throw up
-        t.horizontal = self.horizontal
-        t.velx = self.velocityShove_x / 10
-        t.velz = self.velocityShove_z * 2
-        t:setState(self.fall)
-        sfx.play("sfx", "whooshHeavy")
-        sfx.play("voice"..self.id, self.sfx.throw)
+        self:doShove(self.velocityShove_x / 10,
+            self.velocityShove_z * 2,
+            self.horizontal,
+            self.z + self.throwStart_z)
         return
     end
     if self.sprite.isFinished then
