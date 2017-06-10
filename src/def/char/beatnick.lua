@@ -49,11 +49,11 @@ return {
             delay = 0.3
         },
         duck = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
+            { q = q(2,284,62,63), ox = 35, oy = 62 }, --duck
             delay = 0.06
         },
         pickup = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
+            { q = q(2,284,62,63), ox = 35, oy = 62 }, --duck
             delay = 0.28
         },
         dashAttack = {
@@ -73,17 +73,19 @@ return {
             delay = 0.01
         },
         fall = {
-            { q = q(2,209,74,73), ox = 37, oy = 72 }, --falling
+            { q = q(2,209,74,73), ox = 41, oy = 72 }, --falling
             delay = 5
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,209,74,73), ox = 37, oy = 72, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            { q = q(2,209,74,73), ox = 41, oy = 72, rotate = -1.57, rx = 29, ry = -30 }, --falling
             delay = 5
         },
         getup = {
-            { q = q(78,230,74,52), ox = 37, oy = 44 }, --lying down
-            delay = 0.8
+            { q = q(78,230,74,52), ox = 41, oy = 44, delay = 0.2 }, --lying down
+            { q = q(154,222,62,60), ox = 33, oy = 57 }, --getting up
+            { q = q(2,284,62,63), ox = 35, oy = 62 }, --duck
+            delay = 0.3
         },
         fallen = {
             { q = q(78,230,74,52), ox = 37, oy = 44 }, --lying down
