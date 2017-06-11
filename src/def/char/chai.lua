@@ -65,28 +65,28 @@ local comboAttack1Forward = function(slf, cont)
 end
 local comboAttack2 = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 30, width = 26, height = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" },
+		{ left = 28, width = 30, height = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" },
 		cont
 	)
 	slf.cooldownCombo = 0.4
 end
 local comboAttack3 = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 34, width = 33, height = 12, damage = 12, type = "high", velocity = slf.velx, sfx = "air" },
+		{ left = 32, width = 38, height = 12, damage = 12, type = "high", velocity = slf.velx, sfx = "air" },
 		cont
 	)
 	slf.cooldownCombo = 0.4
 end
 local comboAttack4 = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 30, width = 26, height = 12, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = "air" },
+		{ left = 28, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = "air" },
 		cont
 	)
 end
 local comboAttack4NoSfx = function(slf, cont)
 	--TODO check if it makes default sound still
 	slf:checkAndAttack(
-		{ left = 30, width = 26, height = 12, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = nil },
+		{ left = 28, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = nil },
 		cont
 	)
 end
