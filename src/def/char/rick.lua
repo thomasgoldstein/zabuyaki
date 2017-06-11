@@ -309,6 +309,16 @@ return {
 			{ q = q(58,1242,54,66), ox = 20, oy = 65, func = dashAttack2 }, --offensive special 6
 			delay = 0.117
 		},
+		combo4Forward = {
+			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
+			{ q = q(158,584,38,62), ox = 15, oy = 62 }, --combo 4.2
+			{ q = q(2,650,66,61), ox = 12, oy = 61, func = holdAttack1, delay = 0.08 }, --combo 4.3
+			{ q = q(70,650,51,61), ox = 13, oy = 61, func = holdAttack2 }, --combo 4.4
+			{ q = q(123,649,54,62), ox = 21, oy = 62, func = holdAttack3 }, --combo 4.5
+			{ q = q(135,714,52,62), ox = 32, oy = 62 }, --combo 4.6
+			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --combo 4.7
+			delay = 0.04
+		},
 		holdAttack = {
 			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
 			{ q = q(158,584,38,62), ox = 15, oy = 62 }, --combo 4.2
