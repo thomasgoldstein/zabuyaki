@@ -68,6 +68,20 @@ local comboAttack3 = function(slf, cont)
     )
 	slf.cooldownCombo = 0.4
 end
+local comboAttack3Up1 = function(slf, cont)
+	slf:checkAndAttack(
+        { left = 28, width = 27, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
+        cont
+    )
+	slf.cooldownCombo = 0.4
+end
+local comboAttack3Up2 = function(slf, cont)
+	slf:checkAndAttack(
+        { left = 18, width = 27, height = 12, damage = 6, type = "high", velocity = slf.velx, sfx = "air" },
+        cont
+    )
+	slf.cooldownCombo = 0.4
+end
 local comboAttack4 = function(slf, cont)
 	slf:checkAndAttack(
         { left = 34, width = 39, height = 12, damage = 15, type = "fall", velocity = slf.velx, sfx = "air" },
@@ -272,6 +286,12 @@ return {
 			{ q = q(47,586,63,61), ox = 21, oy = 60, func = comboAttack3, delay = 0.1 }, --combo 3.2
 			{ q = q(2,584,43,63), ox = 20, oy = 62, delay = 0.08 }, --combo 3.1
 			delay = 0.025
+		},
+		combo3Up = {
+			{ q = q(179,649,37,63), ox = 17, oy = 62 },
+			{ q = q(144,979,58,63), ox = 17, func = comboAttack3Up1, oy = 62, delay = 0.06 },
+			{ q = q(159,1044,53,63), ox = 21, func = comboAttack3Up2, oy = 62 },
+			delay = 0.1
 		},
 		combo4 = {
 			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
