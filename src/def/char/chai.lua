@@ -344,7 +344,7 @@ return {
 			delay = 5
 		},
 		sideStepUp = {
-			{ q = q(133,789,44,62), ox = 23, oy = 61 }, --side step up
+			{ q = q(133,789,44,63), ox = 23, oy = 62 }, --side step up
 		},
 		sideStepDown = {
 			{ q = q(179,789,45,64), ox = 26, oy = 63 }, --side step down
