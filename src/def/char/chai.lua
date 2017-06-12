@@ -86,7 +86,7 @@ end
 local comboAttack4NoSfx = function(slf, cont)
 	--TODO check if it makes default sound still
 	slf:checkAndAttack(
-		{ left = 28, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = nil },
+		{ left = 28, width = 30, height = 12, damage = 14, type = "fall", velocity = slf.velocityFall_x },
 		cont
 	)
 end
