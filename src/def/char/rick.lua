@@ -70,14 +70,14 @@ local comboAttack3 = function(slf, cont)
 end
 local comboAttack3Up1 = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 28, width = 27, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
+        { left = 28, width = 27, height = 12, damage = 4, type = "high", velocity = slf.velx, sfx = "air" },
         cont
     )
 	slf.cooldownCombo = 0.4
 end
 local comboAttack3Up2 = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 18, width = 27, height = 12, damage = 6, type = "high", velocity = slf.velx },
+        { left = 18, width = 27, height = 12, damage = 9, type = "high", velocity = slf.velx },
         cont
     )
 	slf.cooldownCombo = 0.4
