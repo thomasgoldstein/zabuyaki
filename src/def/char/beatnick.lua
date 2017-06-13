@@ -33,6 +33,17 @@ return {
             loop = true,
             delay = 0.06
         },
+        standHold = {
+            { q = q(2,349,64,66), ox = 32, oy = 65, delay = 0.1 }, -- stand hold 1
+            { q = q(68,351,52,64), ox = 29, oy = 63 }, -- stand hold 2
+            { q = q(122,351,52,64), ox = 29, oy = 63 }, -- stand hold 3
+            { q = q(68,351,52,64), ox = 29, oy = 63 }, -- stand hold 2
+            { q = q(122,351,52,64), ox = 29, oy = 63, delay = 0.1  }, -- stand hold 3
+            { q = q(176,351,52,64), ox = 29, oy = 63, delay = 0.16 }, -- stand hold 1
+            loop = true,
+			loopFrom = 2,
+            delay = 0.06
+        },
         walk = {
             { q = q(2,72,62,66), ox = 35, oy = 65, delay = 0.25 }, --walk 1
             { q = q(66,71,62,67), ox = 35, oy = 66, delay = 0.1 }, --walk 2
