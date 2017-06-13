@@ -442,14 +442,22 @@ return {
 			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shoveBack, delay = 0.05 }, --throw 1.2
 			{ q = q(92,1112,42,59), ox = 22, oy = 58 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.1 }, --pickup 1
-			delay = 0.2
+			delay = 0.2,
+			moves = {
+				{ ox = 5, oz = 24, oy = 1, z = 0 },
+				{ ox = 10, oz = 20 }
+			}
 		},
 		shoveForward = {
 			{ q = q(2,1109,44,62), ox = 27, oy = 61 }, --throw 1.1
 			{ q = q(48,1111,42,60), ox = 23, oy = 59, func = shoveForward, delay = 0.05 }, --throw 1.2
 			{ q = q(92,1112,42,59), ox = 22, oy = 58 }, --throw 1.3
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.1 }, --pickup 1
-			delay = 0.2
+			delay = 0.2,
+			moves = {
+				{ ox = 5, oz = 24, oy = 1, z = 0 },
+				{ ox = 10, oz = 20 }
+			}
 		},
 		grabSwap = {
 			{ q = q(136,1109,43,62), ox = 17, oy = 62 }, --grab swap 1.1

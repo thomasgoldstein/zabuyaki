@@ -217,7 +217,11 @@ return {
             { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
             { q = q(194,599,70,62), ox = 36, oy = 61, func = shoveBack, delay = 0.5 }, --throw
             { q = q(68,350,51,65), ox = 23, oy = 64 }, --uppercut 2
-            delay = 0.2
+            delay = 0.2,
+            moves = {
+                { ox = 5, oz = 24, oy = -1, z = 0 },
+                { ox = 10, oz = 20 }
+            }
         },
         grabbedFront = {
             { q = q(2,212,68,68), ox = 37, oy = 67 }, --grabbed front 1

@@ -1554,15 +1554,6 @@ function Character:shoveUpUpdate(dt)
 end
 Character.shoveUp = {name = "shoveUp", start = Character.shoveUpStart, exit = nop, update = Character.shoveUpUpdate, draw = Character.defaultDraw}
 
-local shoveForwardCharacter = {
-    -- face - u can flip Character horizontally with option face = -1
-    -- flip him to the initial horizontal face direction with option face = 1
-    -- tFace flips horizontally the grabbed enemy
-    -- if you flip Character, then ox value multiplies with -1 (horizontal mirroring)
-    -- ox, oy(do not use it), oz - offsets of the grabbed enemy from the players x,y
-    { ox = 5, oz = 24, oy = 1, z = 0 },
-    { ox = 10, oz = 20 }
-}
 function Character:shoveForwardStart()
     self.isHittable = false
     local g = self.hold
@@ -1573,7 +1564,7 @@ function Character:shoveForwardStart()
     dp(self.name.." shoveForward someone.")
 end
 function Character:shoveForwardUpdate(dt)
-    self:moveStatesApply(shoveForwardCharacter)
+    self:moveStatesApply()
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)
@@ -1583,15 +1574,6 @@ function Character:shoveForwardUpdate(dt)
 end
 Character.shoveForward = {name = "shoveForward", start = Character.shoveForwardStart, exit = nop, update = Character.shoveForwardUpdate, draw = Character.defaultDraw}
 
-local shoveBackCharacter = {
-    -- face - u can flip Character horizontally with option face = -1
-    -- flip him to the initial horizontal face direction with option face = 1
-    -- tFace flips horizontally the grabbed enemy
-    -- if you flip Character, then ox value multiplies with -1 (horizontal mirroring)
-    -- ox, oy(do not use it), oz - offsets of the grabbed enemy from the players x,y
-    { ox = 5, oz = 24, oy = 1, z = 0 },
-    { ox = 10, oz = 20 }
-}
 function Character:shoveBackStart()
     self.isHittable = false
     local g = self.hold
@@ -1604,7 +1586,7 @@ function Character:shoveBackStart()
     dp(self.name.." shoveBack someone.")
 end
 function Character:shoveBackUpdate(dt)
-    self:moveStatesApply(shoveBackCharacter)
+    self:moveStatesApply()
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)

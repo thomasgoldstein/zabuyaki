@@ -86,20 +86,6 @@ function Chai:dashAttackUpdate(dt)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
-local shoveForwardChai = {
-    -- face - u can flip Chai horizontally with option face = -1
-    -- flip him to the initial horizontal face direction with option face = 1
-    -- tFace flips horizontally the grabbed enemy
-    -- if you flip Chai, then ox value multiplies with -1 (horizontal mirroring)
-    -- ox, oy(do not use it), oz - offsets of the grabbed enemy from the players x,y
-    { ox = 10, oz = 5, oy = -1, z = 0 },
-    { ox = -5, oz = 10, tFace = -1, z = 0 },
-    { ox = -20, oz = 12, tFace = -1, z = 2 },
-    { ox = -10, oz = 24, tFace = -1, z = 4 },
-    { ox = 10, oz = 30, tFace = 1, z = 8 },
-    { z = 4 }, --throw function
-    { z = 0 } --last frame
-}
 function Chai:shoveForwardStart()
     self.isHittable = false
     local g = self.hold
@@ -110,7 +96,7 @@ function Chai:shoveForwardStart()
     dp(self.name.." shoveForward someone.")
 end
 function Chai:shoveForwardUpdate(dt)
-    self:moveStatesApply(shoveForwardChai)
+    self:moveStatesApply()
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)
@@ -120,18 +106,6 @@ function Chai:shoveForwardUpdate(dt)
 end
 Chai.shoveForward = {name = "shoveForward", start = Chai.shoveForwardStart, exit = nop, update = Chai.shoveForwardUpdate, draw = Character.defaultDraw}
 
-local shoveBackChai = {
-    -- face - u can flip Chai horizontally with option face = -1
-    -- flip him to the initial horizontal face direction with option face = 1
-    -- tFace flips horizontally the grabbed enemy
-    -- if you flip Chai, then ox value multiplies with -1 (horizontal mirroring)
-    -- ox, oy(do not use it), oz - offsets of the grabbed enemy from the players x,y
-    { ox = -20, oz = 10, oy = 1, z = 0, face = -1 },
-    { ox = -10, oz = 20, z = 4 },
-    { ox = 10, oz = 30, tFace = 1, z = 8 },
-    { z = 4 }, --throw function
-    { z = 2 } --last frame
-}
 function Chai:shoveBackStart()
     self.isHittable = false
     local g = self.hold
@@ -142,7 +116,7 @@ function Chai:shoveBackStart()
     dp(self.name.." shoveBack someone.")
 end
 function Chai:shoveBackUpdate(dt)
-    self:moveStatesApply(shoveBackChai)
+    self:moveStatesApply()
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)

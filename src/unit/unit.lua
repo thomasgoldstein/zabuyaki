@@ -286,17 +286,18 @@ function Unit:moveStatesInit()
 	}
 end
 
-function Unit:moveStatesApply(moves, frame)
+function Unit:moveStatesApply()
+	local moves = self.sprite.def.animations[self.sprite.curAnim].moves
+	local frame = self.sprite.curFrame
+	if not moves or not moves[frame] then
+		return
+	end
 	local g = self.hold
 	local t = g.target
 	if not g then
 		error("ERROR: No target for apply")
 	end
 	local i = g.init
-	frame = frame or self.sprite.curFrame
-	if not moves or not moves[frame] then
-		return
-	end
 	if i.lastFrame ~= frame then
 		local m = moves[frame]
 		if m.face then
