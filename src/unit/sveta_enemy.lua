@@ -21,8 +21,6 @@ end
 function Sveta:initAttributes()
     self.velocityWalk_x = 90
     self.velocityWalk_y = 45
-    self.velocityRun_x = 140
-    self.velocityRun_y = 23
     self.velocityDash = 170 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash

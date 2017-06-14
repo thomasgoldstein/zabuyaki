@@ -22,8 +22,6 @@ function Niko:initAttributes()
     self.velocityWalk_y = 45
     self.velocityWalkHold_x = 72
     self.velocityWalkHold_y = 36
-    self.velocityRun_x = 140
-    self.velocityRun_y = 23
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
