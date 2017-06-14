@@ -36,7 +36,7 @@ function Sveta:initAttributes()
     self.sfx.step = "kisaStep"
 end
 
-Sveta.onFriendlyAttack = Enemy.onFriendlyAttack
+Sveta.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 function Sveta:updateAI(dt)
     Enemy.updateAI(self, dt)

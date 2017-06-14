@@ -38,7 +38,7 @@ function Beatnick:initAttributes()
     self.sfx.step = "rickStep"
 end
 
-Beatnick.onFriendlyAttack = Enemy.onFriendlyAttack
+Beatnick.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 function Beatnick:updateAI(dt)
     Enemy.updateAI(self, dt)

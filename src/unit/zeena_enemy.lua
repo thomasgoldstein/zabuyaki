@@ -31,7 +31,7 @@ function Zeena:initAttributes()
     self.sfx.step = "kisaStep"
 end
 
-Zeena.onFriendlyAttack = Enemy.onFriendlyAttack
+Zeena.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 function Zeena:updateAI(dt)
     Enemy.updateAI(self, dt)
