@@ -25,7 +25,6 @@ function Satoff:initialize(name, sprite, input, x, y, f)
 
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
     self:pickAttackTarget()
-    self.type = "enemy"
     self.subtype = "midboss"
     self.face = -1
     self:setToughness(0)
