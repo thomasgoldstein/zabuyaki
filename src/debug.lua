@@ -145,8 +145,26 @@ function checkDebug_keys(key)
     if GLOBAL_SETTING.DEBUG then
         if key == '0' then
             stage.objects:dp()
-        end
-        if keysToKill[key] then
+        elseif key == 'kp+' or key == '=' then
+            GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO - 1
+            if GLOBAL_SETTING.SLOW_MO < 0 then
+                GLOBAL_SETTING.SLOW_MO = 0
+                sfx.play("sfx","menuCancel")
+            else
+                sfx.play("sfx","menuMove")
+            end
+        elseif key == 'kp-' or key == '-' then
+            GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO + 1
+            if GLOBAL_SETTING.SLOW_MO > GLOBAL_SETTING.MAX_SLOW_MO then
+                GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.MAX_SLOW_MO
+                sfx.play("sfx","menuCancel")
+            else
+                sfx.play("sfx","menuMove")
+            end
+        elseif key == 'f12' then
+            --saveAllCanvasesToPng()
+            saveStageToPng()
+        elseif keysToKill[key] then
             local id = keysToKill[key]
             if getRegisteredPlayer(id) then
                 getRegisteredPlayer(id):setState(getRegisteredPlayer(id).dead)
