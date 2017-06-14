@@ -15,6 +15,7 @@ function Beatnick:initialize(name, sprite, input, x, y, f)
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, input, x, y, f)
     Beatnick.initAttributes(self)
+    self.subtype = "midboss"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
 end
 
