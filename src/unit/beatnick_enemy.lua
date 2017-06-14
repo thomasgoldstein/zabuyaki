@@ -38,6 +38,7 @@ function Beatnick:initAttributes()
     self.sfx.step = "rickStep"
 end
 
+Beatnick.onFriendlyAttack = Enemy.onFriendlyAttack
 
 function Beatnick:updateAI(dt)
     Enemy.updateAI(self, dt)
