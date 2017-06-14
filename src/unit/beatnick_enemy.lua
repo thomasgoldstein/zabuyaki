@@ -21,9 +21,9 @@ end
 
 function Beatnick:initAttributes()
     self.height = self.height or 55
-    self.velocityWalk = 90
+    self.velocityWalk_x = 90
     self.velocityWalk_y = 45
-    self.velocityRun = 140
+    self.velocityRun_x = 140
     self.velocityRun_y = 23
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall

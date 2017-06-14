@@ -23,9 +23,9 @@ function Kisa:initialize(name, sprite, input, x, y, f)
 end
 
 function Kisa:initAttributes()
-    self.velocityWalk = 110
+    self.velocityWalk_x = 110
     self.velocityWalk_y = 55
-    self.velocityRun = 160
+    self.velocityRun_x = 160
     self.velocityRun_y = 27
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
