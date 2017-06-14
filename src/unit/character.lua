@@ -423,7 +423,7 @@ function Character:standUpdate(dt)
     end
     self.delayAnimationCooldown = self.delayAnimationCooldown - dt
     if self.delayAnimationCooldown <= 0 then
-        if SpriteHasAnimation(self.sprite, "standHold") then
+        if SpriteHasAnimation(self.sprite, "standHold") and self.cooldown <= 0 then
             if self.b.attack:isDown() then
                 if self.sprite.curAnim ~= "standHold" then
                     self:setSpriteIfExists("standHold")
