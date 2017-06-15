@@ -33,7 +33,7 @@ function screenshotState:draw()
         -- draw camera stuff here
         love.graphics.setColor(255, 255, 255, 255)
         stage:draw(l,t,w,h)
-        showDebug_boxes() -- debug draw collision boxes
+        showDebugBoxes() -- debug draw collision boxes
     end)
     love.graphics.setCanvas()
     push:start()

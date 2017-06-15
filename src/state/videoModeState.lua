@@ -121,7 +121,7 @@ function videoModeState:draw()
     --header
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(videoLogoText, (screenWidth - videoLogoText:getWidth()) / 2, titleOffset_y)
-    showDebug_indicator()
+    showDebugIndicator()
     push:finish()
 end
 

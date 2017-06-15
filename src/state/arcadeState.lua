@@ -47,13 +47,13 @@ function arcadeState:update(dt)
     if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0 then
         if slowMoCounter == 0 then
             time = time + dt
-            clearDebug_boxes()
+            clearDebugBoxes()
         else
             return
         end
     else
         time = time + dt
-        clearDebug_boxes()
+        clearDebugBoxes()
     end
     if GLOBAL_SETTING.PROFILER_ENABLED then
         Prof:attach()
@@ -90,7 +90,7 @@ function arcadeState:update(dt)
     if Control1.back:pressed() then
         return Gamestate.push(pauseState)
     end
-    watchDebug_variables()
+    watchDebugVariables()
 end
 
 function arcadeState:draw()
@@ -98,7 +98,7 @@ function arcadeState:draw()
         -- draw camera stuff here
         love.graphics.setColor(255, 255, 255, 255)
         stage:draw(l,t,w,h)
-        showDebug_boxes() -- debug draw collision boxes
+        showDebugBoxes() -- debug draw collision boxes
     end)
     love.graphics.setCanvas()
     push:start()
@@ -113,8 +113,8 @@ function arcadeState:draw()
     if stage.mode == "normal" then
         drawPlayersBars()
     end
-    showDebug_controls()
-    showDebug_indicator()
+    showDebugControls()
+    showDebugIndicator()
     if not is_alive then
         drawGameOver()
     end
@@ -131,7 +131,7 @@ function arcadeState:draw()
 end
 
 function arcadeState:keypressed(key, unicode)
-    checkDebug_keys(key)
+    checkDebugKeys(key)
 end
 
 function arcadeState:wheelmoved( dx, dy )

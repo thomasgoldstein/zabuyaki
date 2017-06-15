@@ -442,7 +442,7 @@ function playerSelectState:draw()
     --header
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(playerSelectText, (screenWidth - playerSelectText:getWidth()) / 2, titleOffset_y)
-    showDebug_indicator()
+    showDebugIndicator()
     push:finish()
 end
 

@@ -190,7 +190,7 @@ function titleState:draw()
             menuState = i
         end
     end
-    showDebug_indicator()
+    showDebugIndicator()
     push:finish()
 end
 

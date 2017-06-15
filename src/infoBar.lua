@@ -5,12 +5,12 @@ local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
 
-local v_g = 39 --vertical gap between bars
-local v_m = 13 --vert margin from the top
-local h_m = 28 --horizontal margin
-local h_g = 20 --horizontal gap between bars
+local verticalGap = 39 --vertical gap between bars
+local verticalMargin = 13 --vert margin from the top
+local horizontalMargin = 28 --horizontal margin
+local horizontalGap = 20 --horizontal gap between bars
 local barWidth = 150
-local barWidth_with_lr = barWidth + 16
+local barWidthWithLR = barWidth + 16
 local barHeight = 16
 local iconWidth = 40
 local iconHeight = 17
@@ -19,12 +19,12 @@ local normColor = {244,210,14}
 local losingColor = {228,102,21}
 local lostColor = {199,32,26}
 local gotColor = {34,172,11}
-local bar_top_bottom_smoothColor = {100,50,50}
+local barTopBottomSmoothColor = {100,50,50}
 
-local bars_coords = {   --for players only 1..MAX_PLAYERS
-    { x = h_m , y = v_m + 0 * v_g },
-    { x = h_m + barWidth_with_lr + h_g, y = v_m + 0 * v_g },
-    { x = h_m + barWidth_with_lr * 2 + h_g * 2, y = v_m + 0 * v_g }
+local barsCoords = {   --for players only 1..MAX_PLAYERS
+    { x = horizontalMargin , y = verticalMargin + 0 * verticalGap },
+    { x = horizontalMargin + barWidthWithLR + horizontalGap, y = verticalMargin + 0 * verticalGap },
+    { x = horizontalMargin + barWidthWithLR * 2 + horizontalGap * 2, y = verticalMargin + 0 * verticalGap }
 }
 
 local function calcBarWidth(self)
@@ -53,22 +53,22 @@ function InfoBar:initialize(source)
     self.maxHp = source.maxHp
     self.x, self.y = 0, 0
     if self.id <= MAX_PLAYERS then
-        self.x, self.y = bars_coords[self.id].x, bars_coords[self.id].y
+        self.x, self.y = barsCoords[self.id].x, barsCoords[self.id].y
     end
     local _, _, w, _ = self.q:getViewport( )
-    self.icon_xOffset = math.floor((38 - w)/2)
+    self.iconOffset_x = math.floor((38 - w)/2)
 end
 
-function InfoBar:setAttacker(attacker_source)
+function InfoBar:setAttacker(attackerSource)
     local id = -1
-    if attacker_source.isThrown then
-        id = attacker_source.throwerId.id
+    if attackerSource.isThrown then
+        id = attackerSource.throwerId.id
     else
-        id = attacker_source.id
+        id = attackerSource.id
     end
     self.cooldown = 3
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
-        self.x, self.y = bars_coords[id].x, bars_coords[id].y + v_g
+        self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
         return self
     end
     return nil
@@ -77,7 +77,7 @@ end
 function InfoBar:setPicker(picker_source)
     local id = picker_source.id
     if id <= MAX_PLAYERS then
-        self.x, self.y = bars_coords[id].x, bars_coords[id].y + v_g
+        self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
     end
     self.cooldown = 3
     return self
@@ -89,7 +89,7 @@ function InfoBar:drawFaceIcon(l, t, transpBg)
     if self.shader then
         love.graphics.setShader(self.shader)
     end
-    self.source.drawFaceIcon(self, l + self.icon_xOffset + self.x - 2, t + self.y, transpBg)
+    self.source.drawFaceIcon(self, l + self.iconOffset_x + self.x - 2, t + self.y, transpBg)
     if self.shader then
         love.graphics.setShader()
     end
@@ -99,8 +99,8 @@ function InfoBar:drawDeadCross(l, t, transpBg)
     if self.hp <= 0 then
         love.graphics.setColor(255,255,255, 255 * math.sin(self.cooldown*20 + 17) * transpBg)
         love.graphics.draw (
-            gfx.ui.dead_icon.sprite,
-            gfx.ui.dead_icon.q,
+            gfx.ui.deadIcon.sprite,
+            gfx.ui.deadIcon.q,
             l + self.x + self.source.shake.x + 1, t + self.y - 2
         )
     end
@@ -129,22 +129,22 @@ function InfoBar:drawLifebar(l, t, transpBg)
     end
     love.graphics.setColor(255,255,255, transpBg)
     love.graphics.draw (
-        gfx.ui.middle_slant.sprite,
-        gfx.ui.middle_slant.q,
+        gfx.ui.middleSlant.sprite,
+        gfx.ui.middleSlant.q,
         l + self.x - 4 + 12, t + self.y + iconHeight + 3, 0, (calcBarWidth(self) - 12) / 4, 1
     )
     love.graphics.draw (
-        gfx.ui.left_slant.sprite,
-        gfx.ui.left_slant.q,
+        gfx.ui.leftSlant.sprite,
+        gfx.ui.leftSlant.q,
         l + self.x - 4, t + self.y + iconHeight + 3
     )
     love.graphics.draw (
-        gfx.ui.right_slant.sprite,
-        gfx.ui.right_slant.q,
+        gfx.ui.rightSlant.sprite,
+        gfx.ui.rightSlant.q,
         l + self.x - 4 + calcBarWidth(self), t + self.y + iconHeight + 3
     )
-    bar_top_bottom_smoothColor[4] = math.min(255,transpBg) - 127
-    love.graphics.setColor( unpack( bar_top_bottom_smoothColor ) )
+    barTopBottomSmoothColor[4] = math.min(255,transpBg) - 127
+    love.graphics.setColor( unpack( barTopBottomSmoothColor ) )
     love.graphics.rectangle('fill', l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self), 1)
     love.graphics.rectangle('fill', l + self.x + 0, t + self.y + iconHeight + barHeight - 1, calcBarWidth(self), 1)
 end

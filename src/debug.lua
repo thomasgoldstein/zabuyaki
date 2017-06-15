@@ -49,7 +49,7 @@ function dpo(o, txt)
 end
 
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
-function showDebug_indicator(size, x, y)
+function showDebugIndicator(size, x, y)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
@@ -61,7 +61,7 @@ function showDebug_indicator(size, x, y)
     end
 end
 
-function showDebug_controls()
+function showDebugControls()
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setFont(gfx.font.arcade3)
         -- draw players controls
@@ -114,7 +114,7 @@ function showDebug_controls()
     end
 end
 
-function showDebug_boxes()
+function showDebugBoxes()
     if GLOBAL_SETTING.DEBUG then
         local a
         -- draw attack hitboxes
@@ -129,19 +129,19 @@ function showDebug_boxes()
     end
 end
 
-function clearDebug_boxes()
+function clearDebugBoxes()
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes = {}
     end
 end
 
-function watchDebug_variables()
+function watchDebugVariables()
     if GLOBAL_SETTING.DEBUG then
     end
 end
 
 local keysToKill = {f8 = 1, f9 = 2, f10 = 3}
-function checkDebug_keys(key)
+function checkDebugKeys(key)
     if GLOBAL_SETTING.DEBUG then
         if key == '0' then
             stage.objects:dp()

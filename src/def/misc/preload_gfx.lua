@@ -17,10 +17,10 @@ gfx.loot.image = loot --for loot particles
 
 local ui = love.graphics.newImage("res/img/misc/ui.png")
 imageWidth, imageHeight = ui:getDimensions( )
-gfx.ui.dead_icon = {sprite = ui, q = q(2,20,31,21), ox = 15, oy = 20 }
-gfx.ui.left_slant = {sprite = ui, q = q(2,2,12,16), ox = 0, oy = 0 }
-gfx.ui.right_slant = {sprite = ui, q = q(11,2,12,16), ox = 0, oy = 0 }
-gfx.ui.middle_slant = {sprite = ui, q = q(10,2,4,16), ox = 0, oy = 0 }
+gfx.ui.deadIcon = {sprite = ui, q = q(2,20,31,21), ox = 15, oy = 20 }
+gfx.ui.leftSlant = {sprite = ui, q = q(2,2,12,16), ox = 0, oy = 0 }
+gfx.ui.rightSlant = {sprite = ui, q = q(11,2,12,16), ox = 0, oy = 0 }
+gfx.ui.middleSlant = {sprite = ui, q = q(10,2,4,16), ox = 0, oy = 0 }
 gfx.ui.image = ui
 
 gfx.font.clock = love.graphics.newFont( "res/font/Digital Dismay.otf", 46 )

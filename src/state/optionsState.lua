@@ -106,7 +106,7 @@ function optionsState:draw()
     --header
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(optionsLogoText, (screenWidth - optionsLogoText:getWidth()) / 2, titleOffset_y)
-    showDebug_indicator()
+    showDebugIndicator()
     push:finish()
 end
 

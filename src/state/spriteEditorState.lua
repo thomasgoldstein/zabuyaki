@@ -448,7 +448,7 @@ function spriteEditorState:draw()
     if hero.shaders[menu[3].n] then
             love.graphics.setShader()
     end
-    showDebug_indicator()
+    showDebugIndicator()
     push:finish()
 end
 

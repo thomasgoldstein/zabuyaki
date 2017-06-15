@@ -204,7 +204,7 @@ function spriteSelectState:draw()
 --    if curPlayerHeroSet.shader then
 --        love.graphics.setShader()
 --    end
-    showDebug_indicator()
+    showDebugIndicator()
     push:finish()
 end
 
