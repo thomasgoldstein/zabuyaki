@@ -13,7 +13,7 @@ local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local txt_paused = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
+local pausedText = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
 local txtItems = { "CONTINUE", "QUICK SAVE", "QUIT" }
 
 local menu = fillMenu(txtItems)
@@ -77,16 +77,16 @@ function pauseState:draw()
     love.graphics.setCanvas()
     push:start()
     if canvas[1] then
-        local darken_screen = 0.75
+        local darkenScreen = 0.75
         love.graphics.setBlendMode("alpha", "premultiplied")
-        love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
+        love.graphics.setColor(255 * darkenScreen, 255 * darkenScreen, 255 * darkenScreen, 255)
         love.graphics.draw(canvas[1], 0,0, nil, 0.5) --bg
-        love.graphics.setColor(GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
-            GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
-            GLOBAL_SETTING.SHADOW_OPACITY * darken_screen,
-            GLOBAL_SETTING.SHADOW_OPACITY * darken_screen)
+        love.graphics.setColor(GLOBAL_SETTING.SHADOW_OPACITY * darkenScreen,
+            GLOBAL_SETTING.SHADOW_OPACITY * darkenScreen,
+            GLOBAL_SETTING.SHADOW_OPACITY * darkenScreen,
+            GLOBAL_SETTING.SHADOW_OPACITY * darkenScreen)
         love.graphics.draw(canvas[2], 0,0, nil, 0.5) --shadows
-        love.graphics.setColor(255 * darken_screen, 255 * darken_screen, 255 * darken_screen, 255)
+        love.graphics.setColor(255 * darkenScreen, 255 * darkenScreen, 255 * darkenScreen, 255)
         love.graphics.draw(canvas[3], 0,0, nil, 0.5) --sprites + fg
         love.graphics.setBlendMode("alpha")
     end
@@ -117,12 +117,12 @@ function pauseState:draw()
     end
     --header
     love.graphics.setColor(55, 55, 55, 255)
-    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2 + 1, 40 + 1 )
-    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2 - 1, 40 + 1 )
-    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2 + 1, 40 - 1 )
-    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2 - 1, 40 - 1 )
+    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 + 1, 40 + 1 )
+    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 - 1, 40 + 1 )
+    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 + 1, 40 - 1 )
+    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 - 1, 40 - 1 )
     love.graphics.setColor(255, 255, 255, 220 + math.sin(time)*35)
-    love.graphics.draw(txt_paused, (screenWidth - txt_paused:getWidth()) / 2, 40)
+    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2, 40)
 
     showDebug_indicator()
     push:finish()

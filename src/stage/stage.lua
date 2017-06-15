@@ -4,16 +4,16 @@ local Stage = class('Stage')
 local sign = sign
 
 -- Blocking far players movement
-local min_gap_between_stoppers = 420
-local max_player_group_distance = 320 + 160 - 90
-local min_player_group_distance = 320 + 160 - 90
+local minGapBetweenStoppers = 420
+local maxPlayerGroupDistance = 320 + 160 - 90
+local minPlayerGroupDistance = 320 + 160 - 90
 
 -- Zooming
-local max_zoom = display.inner.minScale --4 -- zoom in. default value
-local min_zoom = display.inner.maxScale --3 -- zoom out
+local maxZoom = display.inner.minScale --4 -- zoom in. default value
+local minZoom = display.inner.maxScale --3 -- zoom out
 local zoomSpeed = 2 -- speed of zoom-in-out transition
-local max_distance_no_zoom = 200   -- between players
-local min_distance_to_keep_zoom = 190   -- between players
+local maxDistanceNoZoom = 200   -- between players
+local minDistanceToKeepZoom = 190   -- between players
 local oldCoord_x, oldCoord_y    -- smooth scrolling
 local scrollSpeed = 150 -- speed of P1 camera centering on P2+P3 death
 
@@ -32,98 +32,98 @@ function Stage:initialize(name, bgColor)
     self.foreground = nil
     self.scrolling = {}
     self.timeLeft = GLOBAL_SETTING.TIMER
-    self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
+    self.centerX, self.playerGroupDistance, self.minx, self.maxx = getDistanceBetweenPlayers()
     self.world = HC.new(40*4)
     self.testShape = HC.rectangle(1, 1, 15, 5) -- to test collision
     self.objects = Entity:new()
     oldCoord_x, oldCoord_y  = nil, nil -- smooth scrolling init
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
-    self.zoom = max_zoom
-    self.zoom_mode = "check"
-    self.player_group_stoppers_mode = "check"
+    self.zoom = maxZoom
+    self.zoomMode = "check"
+    self.playerGroupStoppersMode = "check"
     -- Left and right players stoppers
-    self.left_stopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
-    self.right_stopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
+    self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
+    self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
     -- Left and right players group stoppers
-    self.left_player_group_limit_stopper = Stopper:new("LEFT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
-    self.right_player_group_limit_stopper = Stopper:new("RIGHT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
+    self.leftPlayerGroupLimitStopper = Stopper:new("LEFT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
+    self.rightPlayerGroupLimitStopper = Stopper:new("RIGHT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
     self.objects:addArray({
-        self.left_stopper, self.right_stopper,
-        self.left_player_group_limit_stopper, self.right_player_group_limit_stopper
+        self.leftStopper, self.rightStopper,
+        self.leftPlayerGroupLimitStopper, self.rightPlayerGroupLimitStopper
     })
-    self.left_player_group_limit_stopper:moveTo(0, self.worldHeight / 2)
-    self.right_player_group_limit_stopper:moveTo(self.worldWidth, self.worldHeight / 2)
+    self.leftPlayerGroupLimitStopper:moveTo(0, self.worldHeight / 2)
+    self.rightPlayerGroupLimitStopper:moveTo(self.worldWidth, self.worldHeight / 2)
 end
 
 function Stage:updateZoom(dt)
-    if self.zoom_mode == "check" then
-        if self.player_group_distance > max_distance_no_zoom then
-            self.zoom_mode = "zoomout"
+    if self.zoomMode == "check" then
+        if self.playerGroupDistance > maxDistanceNoZoom then
+            self.zoomMode = "zoomout"
         end
-    elseif self.zoom_mode == "zoomout" then
-        if self.player_group_distance < min_distance_to_keep_zoom then
-            self.zoom_mode = "zoomin"
+    elseif self.zoomMode == "zoomout" then
+        if self.playerGroupDistance < minDistanceToKeepZoom then
+            self.zoomMode = "zoomin"
         end
-        if self.zoom > min_zoom then
+        if self.zoom > minZoom then
             self.zoom = self.zoom - dt * zoomSpeed
         else
-            self.zoom = min_zoom
+            self.zoom = minZoom
         end
-    elseif self.zoom_mode == "zoomin" then
-        if self.player_group_distance < max_distance_no_zoom then
-            if self.zoom < max_zoom then
+    elseif self.zoomMode == "zoomin" then
+        if self.playerGroupDistance < maxDistanceNoZoom then
+            if self.zoom < maxZoom then
                 self.zoom = self.zoom + dt * zoomSpeed
             else
-                self.zoom = max_zoom
-                self.zoom_mode = "check"
+                self.zoom = maxZoom
+                self.zoomMode = "check"
             end
         else
-            self.zoom_mode = "zoomout"
+            self.zoomMode = "zoomout"
         end
     end
 end
 
 function Stage:moveStoppers(x1, x2)
-    if x1 < 0 - self.left_stopper.width then
-        x1 = 0 - self.left_stopper.width
-    elseif x1 > self.worldWidth - min_gap_between_stoppers then
-        x1 = x1 > self.worldWidth - min_gap_between_stoppers
+    if x1 < 0 - self.leftStopper.width then
+        x1 = 0 - self.leftStopper.width
+    elseif x1 > self.worldWidth - minGapBetweenStoppers then
+        x1 = x1 > self.worldWidth - minGapBetweenStoppers
     end
     if not x2 then
-        x2 = x1 + min_gap_between_stoppers
+        x2 = x1 + minGapBetweenStoppers
     else
         if x2 < x1 then
-            x2 = x1 + min_gap_between_stoppers
+            x2 = x1 + minGapBetweenStoppers
         end
         if x2 > self.worldWidth then
             x2 = self.worldWidth
         end
     end
-    self.left_stopper:moveTo(x1, self.worldHeight / 2)
-    self.right_stopper:moveTo(x2, self.worldHeight / 2)
-    mainCamera:setWorld(math.floor(self.left_stopper.x), 0, math.floor(self.right_stopper.x - self.left_stopper.x), self.worldHeight)
+    self.leftStopper:moveTo(x1, self.worldHeight / 2)
+    self.rightStopper:moveTo(x2, self.worldHeight / 2)
+    mainCamera:setWorld(math.floor(self.leftStopper.x), 0, math.floor(self.rightStopper.x - self.leftStopper.x), self.worldHeight)
 end
 
-local player_group_stoppersTime = 0
+local playerGroupStoppersTime = 0
 function Stage:updateZStoppers(dt)
-    if self.player_group_stoppers_mode == "check" then
-        if self.player_group_distance > max_player_group_distance then
-            self.player_group_stoppers_mode = "set"
+    if self.playerGroupStoppersMode == "check" then
+        if self.playerGroupDistance > maxPlayerGroupDistance then
+            self.playerGroupStoppersMode = "set"
         end
-    elseif self.player_group_stoppers_mode == "set" then
-        self.left_player_group_limit_stopper:moveTo(self.minx - 30, self.worldHeight / 2)
-        self.right_player_group_limit_stopper:moveTo(self.maxx + 30, self.worldHeight / 2)
-        player_group_stoppersTime = 0.1
-        self.player_group_stoppers_mode = "wait"
-    elseif self.player_group_stoppers_mode == "wait" then
-        player_group_stoppersTime = player_group_stoppersTime - dt
-        if player_group_stoppersTime < 0 and self.player_group_distance < min_player_group_distance then
-            self.player_group_stoppers_mode = "release"
+    elseif self.playerGroupStoppersMode == "set" then
+        self.leftPlayerGroupLimitStopper:moveTo(self.minx - 30, self.worldHeight / 2)
+        self.rightPlayerGroupLimitStopper:moveTo(self.maxx + 30, self.worldHeight / 2)
+        playerGroupStoppersTime = 0.1
+        self.playerGroupStoppersMode = "wait"
+    elseif self.playerGroupStoppersMode == "wait" then
+        playerGroupStoppersTime = playerGroupStoppersTime - dt
+        if playerGroupStoppersTime < 0 and self.playerGroupDistance < minPlayerGroupDistance then
+            self.playerGroupStoppersMode = "release"
         end
-    else --if self.player_group_stoppers_mode == "release" then
-        self.left_player_group_limit_stopper:moveTo(0, self.worldHeight / 2)
-        self.right_player_group_limit_stopper:moveTo(self.worldWidth, self.worldHeight / 2)
-        self.player_group_stoppers_mode = "check"
+    else --if self.playerGroupStoppersMode == "release" then
+        self.leftPlayerGroupLimitStopper:moveTo(0, self.worldHeight / 2)
+        self.rightPlayerGroupLimitStopper:moveTo(self.worldWidth, self.worldHeight / 2)
+        self.playerGroupStoppersMode = "check"
     end
 end
 
@@ -160,7 +160,7 @@ end
 local beepTimer = 0
 function Stage:update(dt)
     if self.mode == "normal" then
-        self.centerX, self.player_group_distance, self.minx, self.maxx = getDistanceBetweenPlayers()
+        self.centerX, self.playerGroupDistance, self.minx, self.maxx = getDistanceBetweenPlayers()
         self.batch:update(dt)
         self:updateZStoppers(dt)
         self:updateZoom(dt)
@@ -260,10 +260,10 @@ end
 function Stage:setCamera(dt)
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
-    local centerX, player_group_distance, minx, maxx = self.centerX, self.player_group_distance, self.minx, self.maxx
+    local centerX, playerGroupDistance, minx, maxx = self.centerX, self.playerGroupDistance, self.minx, self.maxx
     if mainCamera:getScale() ~= self.zoom then
         mainCamera:setScale(self.zoom)
-        if self.zoom < max_zoom then
+        if self.zoom < maxZoom then
             for i=1,#canvas do
                 canvas[i]:setFilter("linear", "linear", 2)
             end

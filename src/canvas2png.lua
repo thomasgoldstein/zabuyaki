@@ -30,27 +30,27 @@ local batchColors = {
     {0, 0, 255, 125 }
 }
 function Batch:draw()
-    local curr_bColor = 0
+    local currBColor = 0
     --local b = self.batches[self.n]
     for n = 1, #self.batches do
         local b = self.batches[n]
 
-        curr_bColor = curr_bColor + 1
-        if curr_bColor > #batchColors then curr_bColor = 1 end
-        love.graphics.setColor(unpack(batchColors[curr_bColor]))
---        self.left_stopper = b.left_stopper or 0
---        self.right_stopper = b.right_stopper or 320
-        local y = (curr_bColor - 1 ) * 4
-        love.graphics.rectangle( "line", b.left_stopper, y, b.right_stopper - b.left_stopper, stage.background.height - y )
+        currBColor = currBColor + 1
+        if currBColor > #batchColors then currBColor = 1 end
+        love.graphics.setColor(unpack(batchColors[currBColor]))
+--        self.leftStopper = b.leftStopper or 0
+--        self.rightStopper = b.rightStopper or 320
+        local y = (currBColor - 1 ) * 4
+        love.graphics.rectangle( "line", b.leftStopper, y, b.rightStopper - b.leftStopper, stage.background.height - y )
         y = y + 4
-        love.graphics.print( "Batch N "..n.." L:"..b.left_stopper.." R:"..b.right_stopper.." Delay:"..b.delay, b.left_stopper + 4, y )
+        love.graphics.print( "Batch N "..n.." L:"..b.leftStopper.." R:"..b.rightStopper.." Delay:"..b.delay, b.leftStopper + 4, y )
         y = y + 10
 
         for i = 1, #b.units do
             local u = b.units[i]
-            love.graphics.setColor(unpack(batchColors[curr_bColor]))
-            love.graphics.print( i.." "..(u.state or "n/a").."->"..u.unit.name, b.left_stopper + 4, y )
-            love.graphics.print( " "..r(u.unit.x, 0) ..","..r(u.unit.y, 0), b.left_stopper + 4, y + 9 )
+            love.graphics.setColor(unpack(batchColors[currBColor]))
+            love.graphics.print( i.." "..(u.state or "n/a").."->"..u.unit.name, b.leftStopper + 4, y )
+            love.graphics.print( " "..r(u.unit.x, 0) ..","..r(u.unit.y, 0), b.leftStopper + 4, y + 9 )
             y = y + 20
             --not u.isSpawned then
             --self.stage.objects:add(u.unit)
@@ -70,7 +70,7 @@ function saveAllCanvasesToPng()
     end
 end
 
-local max_coord = 100000
+local maxCoord = 100000
 function saveStageToPng()
     if not stage then
         return
@@ -82,8 +82,8 @@ function saveStageToPng()
     --love.graphics.setColor(255, 255, 255, 255)
     --love.graphics.setBackgroundColor(255, 255, 255)
 --    cp:drawAll()
-    cp:draw(0,0, max_coord, max_coord) --all bg
-    stage.objects:draw(0,0, max_coord, max_coord) --all active units
+    cp:draw(0,0, maxCoord, maxCoord) --all bg
+    stage.objects:draw(0,0, maxCoord, maxCoord) --all active units
     stage.batch:draw()
     love.graphics.setColor(255, 255, 255)
     for x = 0, cp.width, 100 do

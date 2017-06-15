@@ -6,8 +6,8 @@ local Batch = class('Batch')
 --[[
 {
     delay = seconds,
-    left_stopper =
-    right_stopper =
+    leftStopper =
+    rightStopper =
     units = {
         { unit = ,
           spawned = false
@@ -26,7 +26,7 @@ function Batch:initialize(stage, batches)
     dp("Stage has #",#batches,"batches of enemy")
     if self:load() then
         self.state = "spawn"
-        -- left_stopper, right_stopper
+        -- leftStopper, rightStopper
     else
         -- the last batch is done
         self.state = "done"
@@ -40,8 +40,8 @@ function Batch:load()
     end
     dp("load Batch #",n)
     local b = self.batches[n]
-    self.left_stopper = b.left_stopper or 0
-    self.right_stopper = b.right_stopper or 320
+    self.leftStopper = b.leftStopper or 0
+    self.rightStopper = b.rightStopper or 320
 
     for i = 1, #b.units do
         local u = b.units[i]
@@ -53,21 +53,21 @@ end
 
 function Batch:spawn(dt)
     local b = self.batches[self.n]
-    --move left_stopper, right_stopper
-    local centerX, player_group_distance, minx, maxx = self.stage.centerX, self.stage.player_group_distance, self.stage.minx, self.stage.maxx
-    --dp(centerX, minx, maxx, player_group_distance )
-    local lx, rx = self.stage.left_stopper.x, self.stage.right_stopper.x    --current in the stage
-    --dp("LX"..lx.."->"..self.left_stopper..", RX "..rx.." -> "..self.right_stopper, minx, maxx )
-    if lx < self.left_stopper
-        and minx > self.left_stopper + 320
+    --move leftStopper, rightStopper
+    local centerX, playerGroupDistance, minx, maxx = self.stage.centerX, self.stage.playerGroupDistance, self.stage.minx, self.stage.maxx
+    --dp(centerX, minx, maxx, playerGroupDistance )
+    local lx, rx = self.stage.leftStopper.x, self.stage.rightStopper.x    --current in the stage
+    --dp("LX"..lx.."->"..self.leftStopper..", RX "..rx.." -> "..self.rightStopper, minx, maxx )
+    if lx < self.leftStopper
+        and minx > self.leftStopper + 320
     then
-        lx = self.left_stopper
+        lx = self.leftStopper
     end
-    if rx < self.right_stopper then
+    if rx < self.rightStopper then
         rx = rx + dt * 300 -- speed of the right Stopper movement > char's run
     end
-    --rx = math.min( self.right_stopper, lx + 320 + 160 - 50 )    --max possible dist between players
-    if lx ~= self.stage.left_stopper.x or rx ~= self.stage.right_stopper.x then
+    --rx = math.min( self.rightStopper, lx + 320 + 160 - 50 )    --max possible dist between players
+    if lx ~= self.stage.leftStopper.x or rx ~= self.stage.rightStopper.x then
         self.stage:moveStoppers(lx, rx)
     end
 

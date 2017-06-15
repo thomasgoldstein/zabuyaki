@@ -19,10 +19,10 @@ local function LoadSprite (spriteDef)
 	if spriteDef == nil then return nil end
 
 	--Load the sprite definition file to ensure it exists
-	local definition_file = love.filesystem.load( spriteDef )
+	local definitionFile = love.filesystem.load( spriteDef )
 
 	--If the file doesn't exist or has syntax errors, it'll be nil.
-	if definition_file == nil then
+	if definitionFile == nil then
 		--Spit out a warning and return nil.
 		dp("Attempt to load an invalid file (inexistent or syntax errors?): "
 			..spriteDef)
@@ -40,7 +40,7 @@ local function LoadSprite (spriteDef)
             this of serialization.
     ]]
 	local oldSprite = spriteBank [spriteDef]
-	spriteBank [spriteDef] = definition_file()
+	spriteBank [spriteDef] = definitionFile()
 
 	--Check the version to verify if it is compatible with this one.
 	if spriteBank[spriteDef].serialization_version ~= ManagerVersion then
@@ -118,7 +118,7 @@ function SetSpriteAnimation(spr, anim)
 	spr.loopCount = 0
 	spr.curAnim = anim
 	spr.isFinished = false
-	spr.func_called_atFrame = -1
+	spr.funcCalledOnFrame = -1
 	spr.elapsedTime = -math.min(love.timer.getDelta() / 2, 0.1)
 end
 
@@ -185,8 +185,8 @@ function UpdateSpriteInstance(spr, dt, slf)
 		sc.funcCont(slf, true) --isfuncCont = true
 	end
 	-- call custom frame func once per the frame
-	if sc.func and spr.func_called_atFrame ~= spr.curFrame and slf then
-		spr.func_called_atFrame = spr.curFrame
+	if sc.func and spr.funcCalledOnFrame ~= spr.curFrame and slf then
+		spr.funcCalledOnFrame = spr.curFrame
 		sc.func(slf, false) --isfuncCont = false
 	end
 	--spr.def.animations[spr.curAnim]

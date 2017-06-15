@@ -112,7 +112,7 @@ end
 
 
 dp("start")
-local my_tasks = {
+local myTasks = {
 	function()
 		dp("1f")
 		return true
@@ -131,10 +131,10 @@ local my_tasks = {
 	end
 }
 
-local my_interrupts = { ["lolo"]=true, ["idle"]=true, ["run"]=true, ["died"]=true, ["seeEnemy"]=true}
+local myInterrupts = { ["lolo"]=true, ["idle"]=true, ["run"]=true, ["died"]=true, ["seeEnemy"]=true}
 
 local q
-Schedule:new(my_tasks, my_interrupts)
+Schedule:new(myTasks, myInterrupts)
 q = Schedule
 
 --dp(q)

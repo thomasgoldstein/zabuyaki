@@ -1,6 +1,6 @@
 -- Read / Save configuration
 local configuration = {
-    file_name = "zabuyaki.config",
+    fileName = "zabuyaki.config",
     dirty = false,
     defaults = {}
 }
@@ -94,17 +94,17 @@ function configuration:save(override_dirty)
         end
     end
     s = s .. "magic_string='"..magic_string_def.."'"
-    if love.filesystem.write( self.file_name, s ) then
+    if love.filesystem.write( self.fileName, s ) then
         dp("Saving Configuration... Done")
     else
-        dp("Saving Configuration to '"..self.file_name.."'... Error")
+        dp("Saving Configuration to '"..self.fileName.."'... Error")
     end
     self.dirty = false
 end
 
 function configuration:load()
-    if love.filesystem.exists( self.file_name ) then
-        local s, size = love.filesystem.read( self.file_name )
+    if love.filesystem.exists( self.fileName ) then
+        local s, size = love.filesystem.read( self.fileName )
         magic_string = ""
         if s and size >= 6 then
             dp("Reading configuration... Done")
@@ -117,7 +117,7 @@ function configuration:load()
             end
         end
     else
-        --dp("No config file '"..self.file_name.."' to load")
+        --dp("No config file '"..self.fileName.."' to load")
     end
 end
 

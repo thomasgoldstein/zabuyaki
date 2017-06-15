@@ -212,8 +212,8 @@ local function loadBatch(items, stage)
                 local b = {}
                 b.name = v.name
                 b.delay = tonumber(v.properties.delay or 0)
-                b.left_stopper = tonumber(r(v.x) or 0)
-                b.right_stopper = tonumber(r(v.x + v.width) or 500)
+                b.leftStopper = tonumber(r(v.x) or 0)
+                b.rightStopper = tonumber(r(v.x + v.width) or 500)
                 b.units = loadUnit(items, stage, b.name)
                 batch[#batch + 1] = b
             else
@@ -228,10 +228,10 @@ local function loadBatch(items, stage)
             return false
         elseif not b then
             return true
-        elseif a.left_stopper == b.left_stopper then
-            return a.left_stopper > b.left_stopper
+        elseif a.leftStopper == b.leftStopper then
+            return a.leftStopper > b.leftStopper
         end
-        return a.left_stopper < b.left_stopper end )
+        return a.leftStopper < b.leftStopper end )
 --    dp(inspect(batch, {depth = 4}))
     return Batch:new(stage, batch)
 end
