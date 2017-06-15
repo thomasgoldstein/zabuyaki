@@ -37,7 +37,7 @@ local function loadCollision(items, stage)
     end
 end
 
---[[local ok_class = {
+--[[local okClass = {
     gopper = Gopper,
     niko = Niko,
     sveta = Sveta,
@@ -51,11 +51,11 @@ local function getClassByName(name)
     if name then
         name = name:lower()
     end
-    --    if not ok_class[name] then
+    --    if not okClass[name] then
     --        error("Wrong class name: "..tostring(name))
     --        return nil
     --    end
-    return ok_class[name]
+    return okClass[name]
 end]]
 
 local function getClassByName(name)
@@ -236,15 +236,15 @@ local function loadBatch(items, stage)
     return Batch:new(stage, batch)
 end
 
-local loaded_images = {}
-local loaded_images_quads = {}
+local loadedImages = {}
+local loadedImagesQuads = {}
 local function cacheImage(path_to_image)
-    if not loaded_images[path_to_image] then
-        loaded_images[path_to_image] = love.graphics.newImage(path_to_image:sub(10))
-        local width, height = loaded_images[path_to_image]:getDimensions()
-        loaded_images_quads[path_to_image] = love.graphics.newQuad(2, 2, width - 4, height - 4, width, height)
+    if not loadedImages[path_to_image] then
+        loadedImages[path_to_image] = love.graphics.newImage(path_to_image:sub(10))
+        local width, height = loadedImages[path_to_image]:getDimensions()
+        loadedImagesQuads[path_to_image] = love.graphics.newQuad(2, 2, width - 4, height - 4, width, height)
     end
-    return loaded_images[path_to_image], loaded_images_quads[path_to_image]
+    return loadedImages[path_to_image], loadedImagesQuads[path_to_image]
 end
 
 local function loadImageLayer(items, background)

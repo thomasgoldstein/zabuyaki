@@ -75,7 +75,7 @@ function Batch:spawn(dt)
         return false
     end
 
-    local all_spawned = true
+    local allSpawned = true
     local allDead = true
     for i = 1, #b.units do
         local u = b.units[i]
@@ -101,7 +101,7 @@ function Batch:spawn(dt)
                     u.unit:setState(u.unit.stand)
                 end
             end
-            all_spawned = false
+            allSpawned = false
             allDead = false --not yet spawned = alive
         else
             if u.unit.hp > 0 and u.unit.type == "enemy" then --alive enemy
@@ -109,14 +109,14 @@ function Batch:spawn(dt)
             end
         end
     end
-    if all_spawned then
+    if allSpawned then
         --??
     end
     if allDead then
         self.state = "next"
         self.time = 0
     end
-    --dp("all spawned", all_spawned, "all dead", allDead)
+    --dp("all spawned", allSpawned, "all dead", allDead)
     return true
 end
 
