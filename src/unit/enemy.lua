@@ -187,9 +187,9 @@ function Enemy:pickAttackTarget(how)
                 p[i].points = math.random()
             end
         elseif how == "slow" then
-            p[i].points = -p[i].player.velocityWalk + math.random()
+            p[i].points = -p[i].player.velocityWalk_x + math.random()
         elseif how == "fast" then
-            p[i].points = p[i].player.velocityWalk + math.random()
+            p[i].points = p[i].player.velocityWalk_x + math.random()
         else -- "random"
             if not p[i].player.isDisabled then
                 p[i].points = math.random()

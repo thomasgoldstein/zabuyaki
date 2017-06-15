@@ -23,11 +23,11 @@ function Chai:initialize(name, sprite, input, x, y, f)
 end
 
 function Chai:initAttributes()
-    self.velocityWalk = 100
+    self.velocityWalk_x = 100
     self.velocityWalk_y = 50
-    self.velocityWalkHold = 80
+    self.velocityWalkHold_x = 80
     self.velocityWalkHold_y = 40
-    self.velocityRun = 150
+    self.velocityRun_x = 150
     self.velocityRun_y = 25
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall

@@ -19,10 +19,8 @@ function Sveta:initialize(name, sprite, input, x, y, f)
 end
 
 function Sveta:initAttributes()
-    self.velocityWalk = 90
+    self.velocityWalk_x = 90
     self.velocityWalk_y = 45
-    self.velocityRun = 140
-    self.velocityRun_y = 23
     self.velocityDash = 170 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
@@ -36,7 +34,7 @@ function Sveta:initAttributes()
     self.sfx.step = "kisaStep"
 end
 
-Sveta.onFriendlyAttack = Enemy.onFriendlyAttack
+Sveta.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 function Sveta:updateAI(dt)
     Enemy.updateAI(self, dt)

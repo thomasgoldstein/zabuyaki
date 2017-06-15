@@ -19,7 +19,7 @@ function Zeena:initialize(name, sprite, input, x, y, f)
 end
 
 function Zeena:initAttributes()
-    self.velocityWalk = 90
+    self.velocityWalk_x = 90
     self.velocityWalk_y = 45
     self.velocitySlide = 200 --horizontal speed of the slide kick
     self.velocitySlide_y = 20 --vertical speed of the slide kick
@@ -31,7 +31,7 @@ function Zeena:initAttributes()
     self.sfx.step = "kisaStep"
 end
 
-Zeena.onFriendlyAttack = Enemy.onFriendlyAttack
+Zeena.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 function Zeena:updateAI(dt)
     Enemy.updateAI(self, dt)
@@ -96,7 +96,7 @@ function Zeena:updateAI(dt)
             local t = dist(self.target.x, self.target.y, self.x, self.y)
             if t < 100 and t >= 30
                     and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
-                self.velx = self.velocityWalk
+                self.velx = self.velocityWalk_x
                 self:setState(self.jump)
                 return
             end

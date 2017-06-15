@@ -44,11 +44,11 @@ function Character:initialize(name, sprite, input, x, y, f)
 end
 
 function Character:initAttributes()
-    self.velocityWalk = 100
+    self.velocityWalk_x = 100
     self.velocityWalk_y = 50
-    self.velocityWalkHold = self.velocityWalk * 0.75
+    self.velocityWalkHold_x = self.velocityWalk_x * 0.75
     self.velocityWalkHold_y = self.velocityWalk_y * 0.75
-    self.velocityRun = 150
+    self.velocityRun_x = 150
     self.velocityRun_y = 25
     self.velocityJump = 220 --Z coord
     self.velocityJumpSpeed = 1.25
@@ -613,7 +613,7 @@ function Character:runUpdate(dt)
     if self.b.horizontal:getValue() ~= 0 then
         self.face = self.b.horizontal:getValue() --face sprite left or right
         self.horizontal = self.face --X direction
-        self.velx = self.velocityRun
+        self.velx = self.velocityRun_x
     end
     if self.b.vertical:getValue() ~= 0 then
         self.vertical = self.b.vertical:getValue()
@@ -676,7 +676,7 @@ function Character:jumpUpdate(dt)
             self:setState(self.jumpAttackStraight)
             return
         else
-            if self.moves.jumpAttackRun and self.velx >= self.velocityRun then
+            if self.moves.jumpAttackRun and self.velx >= self.velocityRun_x then
                 self:setState(self.jumpAttackRun)
                 return
             elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
@@ -778,7 +778,7 @@ function Character:duck2jumpUpdate(dt)
         if hv ~= 0 then
             --self.face = hv --face sprite left or right
             self.horizontal = hv
-            self.velx = self.velocityWalk
+            self.velx = self.velocityWalk_x
         end
         if self.b.vertical:getValue() ~= 0 then
             self.vertical = self.b.vertical:getValue()
@@ -1615,9 +1615,9 @@ function Character:grabSwapUpdate(dt)
     --adjust char horizontally
     if math.abs(self.x - self.grabSwap_x) > 2 then
         if self.x < self.grabSwap_x then
-            self.x = self.x + self.velocityRun * dt
+            self.x = self.x + self.velocityRun_x * dt
         elseif self.x >= self.grabSwap_x then
-            self.x = self.x - self.velocityRun * dt
+            self.x = self.x - self.velocityRun_x * dt
         end
         self.sprite.curFrame = grabSwapFrames[ math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwap_x_fin_dist) * #grabSwapFrames ) ]
         if not self.grabSwap_flipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwap_x_fin_dist / 2 then

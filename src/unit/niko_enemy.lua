@@ -18,12 +18,10 @@ function Niko:initialize(name, sprite, input, x, y, f)
 end
 
 function Niko:initAttributes()
-    self.velocityWalk = 90
+    self.velocityWalk_x = 90
     self.velocityWalk_y = 45
-    self.velocityWalkHold = 72
+    self.velocityWalkHold_x = 72
     self.velocityWalkHold_y = 36
-    self.velocityRun = 140
-    self.velocityRun_y = 23
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
@@ -94,7 +92,7 @@ function Niko:updateAI(dt)
             local t = dist(self.target.x, self.target.y, self.x, self.y)
             if t < 100 and t >= 30
                     and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
-                self.velx = self.velocityWalk
+                self.velx = self.velocityWalk_x
                 self:setState(self.jump)
                 return
             end

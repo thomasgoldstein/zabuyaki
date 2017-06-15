@@ -23,11 +23,11 @@ function Rick:initialize(name, sprite, input, x, y, f)
 end
 
 function Rick:initAttributes()
-    self.velocityWalk = 90
+    self.velocityWalk_x = 90
     self.velocityWalk_y = 45
-    self.velocityWalkHold = 72
+    self.velocityWalkHold_x = 72
     self.velocityWalkHold_y = 36
-    self.velocityRun = 140
+    self.velocityRun_x = 140
     self.velocityRun_y = 23
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall

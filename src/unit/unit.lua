@@ -114,9 +114,9 @@ end
 
 function Unit:getMovementSpeed()
     if self.sprite.curAnim == "walk" then
-        return self.velocityWalk, self.velocityWalk_y
+        return self.velocityWalk_x, self.velocityWalk_y
     elseif self.sprite.curAnim == "walkHold" then
-        return self.velocityWalkHold, self.velocityWalkHold_y
+        return self.velocityWalkHold_x, self.velocityWalkHold_y
     elseif self.sprite.curAnim == "run" then
         return self.velocityRun, self.velocityRun_y
     end

@@ -21,10 +21,8 @@ end
 
 function Beatnick:initAttributes()
     self.height = self.height or 55
-    self.velocityWalk = 90
+    self.velocityWalk_x = 90
     self.velocityWalk_y = 45
-    self.velocityRun = 140
-    self.velocityRun_y = 23
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
@@ -38,7 +36,7 @@ function Beatnick:initAttributes()
     self.sfx.step = "rickStep"
 end
 
-Beatnick.onFriendlyAttack = Enemy.onFriendlyAttack
+Beatnick.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 function Beatnick:updateAI(dt)
     Enemy.updateAI(self, dt)
