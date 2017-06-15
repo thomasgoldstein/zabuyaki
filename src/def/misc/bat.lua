@@ -1,14 +1,14 @@
 local spriteSheet = "res/img/misc/loot.png"
-local image_w,image_h = LoadSpriteSheet(spriteSheet)
+local imageWidth, imageHeight = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
-    return love.graphics.newQuad(x, y, w, h, image_w, image_h)
+    return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 
 return {
-    serialization_version = 0.42, -- The version of this serialization process
+    serializationVersion = 0.42, -- The version of this serialization process
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    sprite_name = "bat", -- The name of the sprite
+    spriteName = "bat", -- The name of the sprite
     delay = 5.2,	--default delay for all animations
     animations = {
         icon  = {
@@ -26,13 +26,13 @@ return {
         angle45 = {
             { q = q(45,23,44,44), ox = 11, oy = 32 } --a45 /+
         },
-        angle0_equipped = {
+        angle0Equipped = {
             { q = q(2,80,11,55), ox = 5, oy = 42 }  --a0 eq |
         },
-        angle22_equipped = {
+        angle22Equipped = {
             { q = q(15,80,28,54), ox = 8, oy = 40 } --a22 eq /-
         },
-        angle45_equipped = {
+        angle45Equipped = {
             { q = q(45,80,44,44), ox = 11, oy = 32 } --a45 eq /+
         },
     }

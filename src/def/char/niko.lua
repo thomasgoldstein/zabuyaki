@@ -1,8 +1,8 @@
 local spriteSheet = "res/img/char/niko.png"
-local image_w,image_h = LoadSpriteSheet(spriteSheet)
+local imageWidth,imageHeight = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
-    return love.graphics.newQuad(x, y, w, h, image_w, image_h)
+    return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
@@ -23,17 +23,17 @@ local jumpAttack = function(slf, cont)
         cont
     )
 end
-local grab_shake = function(slf, cont)
+local grabShake = function(slf, cont)
     if slf.hold and slf.hold.target then
         slf.hold.target:onShake(0.5, 0, 0.01, 1)
     end
 end
 
 return {
-    serialization_version = 0.42, -- The version of this serialization process
+    serializationVersion = 0.42, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    sprite_name = "niko", -- The name of the sprite
+    spriteName = "niko", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations
     fallsOnRespawn = true, --alter respawn clouds
@@ -57,7 +57,7 @@ return {
             delay = 0.16
         },
         stand = {
-            -- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
+            -- q = Love.graphics.newQuad( X, Y, Width, Height, imageWidth, imageHeight),
             -- ox,oy pivots offsets from the top left corner of the quad
             -- delay = 0.1, func = fun
             { q = q(2,2,36,64), ox = 21, oy = 63 }, --stand 1
@@ -173,7 +173,7 @@ return {
         },
         grabAttack1 = {
             { q = q(49,530,53,62), ox = 24, oy = 61, delay = 0.05 }, --grab attack 1
-            { q = q(2,594,59,60), ox = 32, oy = 59, delay = 0.2, func = grab_shake }, --grab attack 2
+            { q = q(2,594,59,60), ox = 32, oy = 59, delay = 0.2, func = grabShake }, --grab attack 2
             { q = q(49,530,53,62), ox = 24, oy = 61, delay = 0.2 }, --grab attack 1
             { q = q(2,594,59,60), ox = 32, oy = 59, delay = 0.1 }, --grab attack 2
             { q = q(63,594,59,60), ox = 32, oy = 59, delay = 0.1 }, --grab attack 2b

@@ -1,8 +1,8 @@
 local spriteSheet = "res/img/char/rick.png"
-local image_w,image_h = LoadSpriteSheet(spriteSheet)
+local imageWidth,imageHeight = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
-	return love.graphics.newQuad(x, y, w, h, image_w, image_h)
+	return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 
 local stepFx = function(slf, cont)
@@ -143,10 +143,10 @@ local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
  ) end
 
 return {
-	serialization_version = 0.42, -- The version of this serialization process
+	serializationVersion = 0.42, -- The version of this serialization process
 
 	spriteSheet = spriteSheet, -- The path to the spritesheet
-	sprite_name = "rick", -- The name of the sprite
+	spriteName = "rick", -- The name of the sprite
 
 	delay = 0.2,	--default delay for all animations
 
@@ -164,7 +164,7 @@ return {
 			delay = 1
 		},
 		stand = {
-			-- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
+			-- q = Love.graphics.newQuad( X, Y, Width, Height, imageWidth, imageHeight),
 			-- ox,oy pivots offsets from the top left corner of the quad
 			-- delay = 0.1, func = func1, funcCont = func2
 			{ q = q(2,3,44,63), ox = 21, oy = 62 }, --stand 1

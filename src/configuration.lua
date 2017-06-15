@@ -17,7 +17,7 @@ configuration:set(key, value)
  ]]
 
 -- must be global
-magic_string, magic_string_def = "", "EOF42N"
+magicString, magicStringDef = "", "EOF42N"
 GLOBAL_SETTING = {
     MAX_PLAYERS = 3,
     DEBUG = false,
@@ -48,20 +48,20 @@ GLOBAL_SETTING = {
     MAX_SLOW_MO = 14, -- max possible slow mo x
     SLOW_MO = 0, -- cureent slow mo rate. 0 = off
 }
-local save_entries = { --the only entries should be saved
+local saveEntries = { --the only entries should be saved
     "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTER",
     "DEBUG", "BGM_VOLUME", "SFX_VOLUME", "CENSORSHIP", "DIFFICULTY",
     "MAX_CREDITS", "MAX_LIVES", "MOUSE_ENABLED", "SHADERS_ENABLED"
 }
 -- save defaults
 configuration.defaults = {}
-for k, v in ipairs(save_entries) do
+for k, v in ipairs(saveEntries) do
     configuration.defaults[v] = GLOBAL_SETTING[v]
 end
 
 -- Reset to defaults
 function configuration:reset()
-    for k, v in ipairs(save_entries) do
+    for k, v in ipairs(saveEntries) do
         GLOBAL_SETTING[v] = self.defaults[v]
     end
 end
@@ -83,7 +83,7 @@ function configuration:save(override_dirty)
     end
     local t = {}
     local s = ""
-    for k, v in ipairs(save_entries) do
+    for k, v in ipairs(saveEntries) do
         t[v] = GLOBAL_SETTING[v]
     end
     for k, v in pairs(t) do
@@ -93,7 +93,7 @@ function configuration:save(override_dirty)
             s = s .. "GLOBAL_SETTING."..k.."="..tostring(v)..";\n"
         end
     end
-    s = s .. "magic_string='"..magic_string_def.."'"
+    s = s .. "magicString='"..magicStringDef.."'"
     if love.filesystem.write( self.fileName, s ) then
         dp("Saving Configuration... Done")
     else
@@ -105,11 +105,11 @@ end
 function configuration:load()
     if love.filesystem.exists( self.fileName ) then
         local s, size = love.filesystem.read( self.fileName )
-        magic_string = ""
+        magicString = ""
         if s and size >= 6 then
             dp("Reading configuration... Done")
             if pcall(loadstring(s)) then
-                if magic_string == magic_string_def then
+                if magicString == magicStringDef then
                     --dp("Magic string OK.")
                 end
             else

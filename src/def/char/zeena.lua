@@ -1,8 +1,8 @@
 local spriteSheet = "res/img/char/zeena.png"
-local image_w,image_h = LoadSpriteSheet(spriteSheet)
+local imageWidth, imageHeight = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
-    return love.graphics.newQuad(x, y, w, h, image_w, image_h)
+    return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 local comboSlap = function(slf, cont)
     slf:checkAndAttack(
@@ -33,10 +33,10 @@ local jumpAttack = function(slf, cont)
 ) end
 
 return {
-    serialization_version = 0.42, -- The version of this serialization process
+    serializationVersion = 0.42, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    sprite_name = "zeena", -- The name of the sprite
+    spriteName = "zeena", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations
 

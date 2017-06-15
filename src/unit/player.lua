@@ -316,7 +316,7 @@ function Player:useCreditUpdate(dt)
             self.sprite = GetSpriteInstance(HEROES[self.playerSelectCur].spriteInstance)
             self:setSprite("stand")
             fixPlayersPalette(self)
-            self.shader = getShader(self.sprite.def.sprite_name:lower(), self.palette)
+            self.shader = getShader(self.sprite.def.spriteName:lower(), self.palette)
             self.infoBar = InfoBar:new(self)
         end
     elseif self.playerSelectMode == 3 then

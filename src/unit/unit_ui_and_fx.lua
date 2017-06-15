@@ -59,7 +59,7 @@ function Unit:setSpriteIfExists(anim, defaultAnim)
 end
 function Unit:setSprite(anim)
     if not self:setSpriteIfExists(anim) then
-        error("Missing animation '"..anim.."' in '"..self.sprite.def.sprite_name.."' definition.")
+        error("Missing animation '"..anim.."' in '"..self.sprite.def.spriteName.."' definition.")
     end
 end
 function Unit:drawSprite(x, y)

@@ -98,7 +98,7 @@ function fixPlayersPalette(player)
         end
     end
     player.palette = n
-    player.shader = getShader(player.sprite.def.sprite_name:lower(), player.palette)
+    player.shader = getShader(player.sprite.def.spriteName:lower(), player.palette)
 end
 
 -- Returns Center X, distance between players, minX, maxX

@@ -141,7 +141,7 @@ function love.load(arg)
 	tactile = require 'lib/tactile'
 	KeyTrace = require 'src/keyTrace'
 	require 'src/controls'
-	bind_game_input()
+	bindGameInput()
 	require "src/canvas2png"
 
     if GLOBAL_SETTING.FILTER_N and shaders.screen[GLOBAL_SETTING.FILTER_N] then
@@ -173,7 +173,7 @@ function love.load(arg)
     Gamestate.switch(logoState)
 end
 
-local function poll_controls(dt)
+local function pollControls(dt)
     --update P1..P3 controls
     --check for double taps, etc
     for index,value in pairs(Control1) do
@@ -219,12 +219,12 @@ function love.update(dt)
         slowMoCounter = slowMoCounter + 1
         if slowMoCounter >= GLOBAL_SETTING.SLOW_MO then
             slowMoCounter = 0
-            poll_controls(dt)
+            pollControls(dt)
         else
             return
         end
     else
-        poll_controls(dt)
+        pollControls(dt)
     end
     --Toggle Full Screen Mode (using P1's control)
 	if Control1.fullScreen:pressed() then

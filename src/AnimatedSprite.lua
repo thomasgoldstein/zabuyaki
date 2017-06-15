@@ -43,10 +43,10 @@ local function LoadSprite (spriteDef)
 	spriteBank [spriteDef] = definitionFile()
 
 	--Check the version to verify if it is compatible with this one.
-	if spriteBank[spriteDef].serialization_version ~= ManagerVersion then
+	if spriteBank[spriteDef].serializationVersion ~= ManagerVersion then
 		dp("Attempt to load file with incompatible versions: "..spriteDef)
 		dp("Expected version "..ManagerVersion..", got version "
-			..spriteBank[spriteDef].serialization_version.." .")
+			..spriteBank[spriteDef].serializationVersion.." .")
 		spriteBank[spriteDef] = oldSprite -- Undo the changes due to error
 		-- Return old value (nil if not previously loaded)
 		return spriteBank[spriteDef]

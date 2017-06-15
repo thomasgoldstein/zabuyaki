@@ -1,8 +1,8 @@
 local spriteSheet = "res/img/char/gopper.png"
-local image_w,image_h = LoadSpriteSheet(spriteSheet)
+local imageWidth,imageHeight = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
-    return love.graphics.newQuad(x, y, w, h, image_w, image_h)
+    return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 local stepFx = function(slf, cont)
     slf:showEffect("step")
@@ -27,10 +27,10 @@ local dashAttack = function(slf, cont)
 ) end
 
 return {
-    serialization_version = 0.42, -- The version of this serialization process
+    serializationVersion = 0.42, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    sprite_name = "gopper", -- The name of the sprite
+    spriteName = "gopper", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations
     fallsOnRespawn = true, --alter respawn clouds
@@ -54,7 +54,7 @@ return {
             delay = 0.16
         },
         stand = {
-            -- q = Love.graphics.newQuad( X, Y, Width, Height, Image_W, Image_H),
+            -- q = Love.graphics.newQuad( X, Y, Width, Height, imageWidth, imageHeight),
             -- ox,oy pivots offsets from the top left corner of the quad
             -- delay = 0.1, func = fun
             { q = q(2,2,36,62), ox = 21, oy = 61 }, --stand 1

@@ -1,8 +1,8 @@
 local spriteSheet = "res/img/char/satoff.png"
-local image_w,image_h = LoadSpriteSheet(spriteSheet)
+local imageWidth, imageHeight = LoadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
-    return love.graphics.newQuad(x, y, w, h, image_w, image_h)
+    return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 
 local comboUppercut1 = function(slf, cont) slf:checkAndAttack(
@@ -45,9 +45,9 @@ local shoveBack = function(slf, cont)
 end
 
 return {
-    serialization_version = 0.42, -- version
+    serializationVersion = 0.42, -- version
     spriteSheet = spriteSheet, -- path to spritesheet
-    sprite_name = "satoff", -- sprite name
+    spriteName = "satoff", -- sprite name
     delay = 0.2,	--default delay for all animations
     animations = {
         icon  = {
@@ -61,13 +61,13 @@ return {
         },
         stand = {
             { q = q(2,2,68,68), ox = 36, oy = 67,
-                wx = -10, wy = -33, wRotate = -0.5, wAnimation = 'angle0_equipped' }, --stand 1
+                wx = -10, wy = -33, wRotate = -0.5, wAnimation = 'angle0Equipped' }, --stand 1
             { q = q(72,3,68,67), ox = 36, oy = 66,
-                wx = -10, wy = -32, wRotate = -0.45, wAnimation = 'angle0_equipped' }, --stand 2
+                wx = -10, wy = -32, wRotate = -0.45, wAnimation = 'angle0Equipped' }, --stand 2
             { q = q(142,4,67,66), ox = 36, oy = 65,
-                wx = -10, wy = -31, wRotate = -0.4, wAnimation = 'angle0_equipped' }, --stand 3
+                wx = -10, wy = -31, wRotate = -0.4, wAnimation = 'angle0Equipped' }, --stand 3
             { q = q(72,3,68,67), ox = 36, oy = 66,
-                wx = -10, wy = -32, wRotate = -0.55, wAnimation = 'angle0_equipped' }, --stand 2
+                wx = -10, wy = -32, wRotate = -0.55, wAnimation = 'angle0Equipped' }, --stand 2
             loop = true,
             delay = 0.15
         },
@@ -81,13 +81,13 @@ return {
         },
         walk = {
             { q = q(2,72,74,68), ox = 36, oy = 67,
-                wx = -6, wy = -33, wRotate = 0, wAnimation = 'angle0_equipped' }, --walk 1
+                wx = -6, wy = -33, wRotate = 0, wAnimation = 'angle0Equipped' }, --walk 1
             { q = q(78,72,73,68), ox = 36, oy = 67, delay = 0.15,
-                wx = -9, wy = -32, wRotate = 0, wAnimation = 'angle0_equipped' }, --walk 2
+                wx = -9, wy = -32, wRotate = 0, wAnimation = 'angle0Equipped' }, --walk 2
             { q = q(153,73,71,67), ox = 36, oy = 66,
-                wx = -10, wy = -30, wRotate = 0, wAnimation = 'angle0_equipped' }, --walk 3
+                wx = -10, wy = -30, wRotate = 0, wAnimation = 'angle0Equipped' }, --walk 3
             { q = q(226,72,73,68), ox = 36, oy = 67, delay = 0.15,
-                wx = -9, wy = -32, wRotate = 0, wAnimation = 'angle0_equipped' }, --walk 4
+                wx = -9, wy = -32, wRotate = 0, wAnimation = 'angle0Equipped' }, --walk 4
             loop = true,
             delay = 0.183
         },

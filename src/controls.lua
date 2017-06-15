@@ -84,7 +84,7 @@ local function gamepadHat(num, hat, axis)
     end
 end
 
-function bind_game_input()
+function bindGameInput()
     -- define Player 1 controls
     local gamepad1 = 2
     local gamepad2 = 1
@@ -161,16 +161,16 @@ function bind_game_input()
         :addButton(tactile.gamepadButtons(gamepad3, 'back'))
     }
 
-    local double_press_delta = 0.25
+    local doubleTapDelta = 0.25
     --add keyTrace into every player 1 button
     for index,value in pairs(Control1) do
         local b = Control1[index]
         if index == "horizontal" or index == "vertical" then
             --for derections
-            b.ikn = KeyTrace:new(index, value, -1, double_press_delta)  --negative dir
-            b.ikp = KeyTrace:new(index, value, 1, double_press_delta)   --positive dir
+            b.ikn = KeyTrace:new(index, value, -1, doubleTapDelta)  --negative dir
+            b.ikp = KeyTrace:new(index, value, 1, doubleTapDelta)   --positive dir
         else
-            b.ik = KeyTrace:new(index, value, nil, double_press_delta)
+            b.ik = KeyTrace:new(index, value, nil, doubleTapDelta)
         end
     end
     --add keyTrace into every player 2 button
@@ -178,10 +178,10 @@ function bind_game_input()
         local b = Control2[index]
         if index == "horizontal" or index == "vertical" then
             --for derections
-            b.ikn = KeyTrace:new(index, value, -1, double_press_delta)  --negative dir
-            b.ikp = KeyTrace:new(index, value, 1, double_press_delta)   --positive dir
+            b.ikn = KeyTrace:new(index, value, -1, doubleTapDelta)  --negative dir
+            b.ikp = KeyTrace:new(index, value, 1, doubleTapDelta)   --positive dir
         else
-            b.ik = KeyTrace:new(index, value, nil, double_press_delta)
+            b.ik = KeyTrace:new(index, value, nil, doubleTapDelta)
         end
     end
     --add keyTrace into every player 3 button
@@ -189,10 +189,10 @@ function bind_game_input()
         local b = Control3[index]
         if index == "horizontal" or index == "vertical" then
             --for derections
-            b.ikn = KeyTrace:new(index, value, -1, double_press_delta)  --negative dir
-            b.ikp = KeyTrace:new(index, value, 1, double_press_delta)   --positive dir
+            b.ikn = KeyTrace:new(index, value, -1, doubleTapDelta)  --negative dir
+            b.ikp = KeyTrace:new(index, value, 1, doubleTapDelta)   --positive dir
         else
-            b.ik = KeyTrace:new(index, value, nil, double_press_delta)
+            b.ik = KeyTrace:new(index, value, nil, doubleTapDelta)
         end
     end
 end
