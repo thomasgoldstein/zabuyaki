@@ -12,7 +12,7 @@ function Stage1:initialize(players)
     loadStageData("src/def/stage/stage1_data.lua", self, players)
 --[[
     for i = 0, 33 do
-        --(bgSky, qSky, x, y, slowDown_parallaxX, slowDown_parallaxY, auto_scroll_x, scroll_y
+        --(bgSky, qSky, x, y, slowDown_parallax_x, slowDown_parallax_y, auto_scroll_x, scroll_y
         self.background:add(bgSky, qSky, i * 32 - 2 , 302,
             0.75, 0) --keep still vertically despite of the scrolling
     end

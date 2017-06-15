@@ -24,8 +24,8 @@ function Enemy:initialize(name, sprite, input, x, y, f)
 end
 
 function Enemy:checkCollisionAndMove(dt)
-    local stepx = self.velx * dt * self.horizontal
-    local stepy = self.vely * dt * self.vertical
+    local stepx = self.vel_x * dt * self.horizontal
+    local stepy = self.vel_y * dt * self.vertical
     local actualX, actualY, cols, len, x, y
     if self.state == "walk" or self.state == "run"
     then --enemy uses tween movement
@@ -37,21 +37,21 @@ function Enemy:checkCollisionAndMove(dt)
     end
     self.shape:moveTo(x + stepx, y + stepy)
     if self.z <= 0 then
-        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
             if o.type == "wall"
                     or (o.type == "obstacle" and o.z <= 0)
             then
-                self.shape:move(separating_vector.x, separating_vector.y)
-                --other:move( separating_vector.x/2,  separating_vector.y/2)
+                self.shape:move(separatingVector.x, separatingVector.y)
+                --other:move( separatingVector.x/2,  separatingVector.y/2)
             end
         end
     else
-        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
             if o.type == "wall"
             then
-                self.shape:move(separating_vector.x, separating_vector.y)
+                self.shape:move(separatingVector.x, separatingVector.y)
             end
         end
     end
@@ -234,13 +234,13 @@ function Enemy:jumpStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("jump")
-    self.velz = self.velocityJump * self.velocityJumpSpeed
+    self.vel_z = self.velocityJump * self.velocityJumpSpeed
     self.z = 0.1
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.lastState == "run" then
         -- jump higher from run
-        self.velz = (self.velocityJump + self.velocityJumpRunBoost_z) * self.velocityJumpSpeed
+        self.vel_z = (self.velocityJump + self.velocityJumpRunBoost_z) * self.velocityJumpSpeed
     end
     self.vertical = 0
     sfx.play("voice"..self.id, self.sfx.jump)

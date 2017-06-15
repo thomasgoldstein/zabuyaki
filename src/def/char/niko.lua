@@ -6,20 +6,20 @@ local function q(x,y,w,h)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { left = 29, width = 26, height = 12, damage = 7, type = "low", velocity = slf.velx, sfx = "air" },
+        { left = 29, width = 26, height = 12, damage = 7, type = "low", velocity = slf.vel_x, sfx = "air" },
         cont
     )
     slf.cooldownCombo = 0.4
 end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(
-        { left = 29, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
+        { left = 29, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.vel_x, sfx = "air" },
         cont
     )
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { left = 15, width = 22, height = 12, damage = 14, type = "fall", velocity = slf.velx },
+        { left = 15, width = 22, height = 12, damage = 14, type = "fall", velocity = slf.vel_x },
         cont
     )
 end
@@ -57,7 +57,7 @@ return {
             delay = 0.16
         },
         stand = {
-            -- q = Love.graphics.newQuad( X, Y, Width, Height, imageWidth, imageHeight),
+            -- q = Love.graphics.newQuad( x, y, width, height, imageWidth, imageHeight),
             -- ox,oy pivots offsets from the top left corner of the quad
             -- delay = 0.1, func = fun
             { q = q(2,2,36,64), ox = 21, oy = 63 }, --stand 1

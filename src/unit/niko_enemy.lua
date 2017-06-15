@@ -92,7 +92,7 @@ function Niko:updateAI(dt)
             local t = dist(self.target.x, self.target.y, self.x, self.y)
             if t < 100 and t >= 30
                     and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
-                self.velx = self.velocityWalk_x
+                self.vel_x = self.velocityWalk_x
                 self:setState(self.jump)
                 return
             end
@@ -136,7 +136,7 @@ function Niko:jumpUpdate(dt)
     if t < 60 and t >= 10
         and math.floor(self.y / 4) == math.floor(self.target.y / 4)
     then
-        if self.velx == 0 then
+        if self.vel_x == 0 then
             self:setState(self.jumpAttackStraight)
             return
         else
@@ -145,10 +145,10 @@ function Niko:jumpUpdate(dt)
         end
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocityJumpSpeed
+        self.z = self.z + dt * self.vel_z
+        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
     else
-        self.velz = 0
+        self.vel_z = 0
         self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)

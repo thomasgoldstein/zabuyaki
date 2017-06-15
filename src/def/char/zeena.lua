@@ -6,7 +6,7 @@ local function q(x,y,w,h)
 end
 local comboSlap = function(slf, cont)
     slf:checkAndAttack(
-        { left = 25, width = 26, height = 12, damage = 5, type = "high", velocity = slf.velx, sfx = "air" },
+        { left = 25, width = 26, height = 12, damage = 5, type = "high", velocity = slf.vel_x, sfx = "air" },
         cont
     )
     slf.cooldownCombo = 0.4
@@ -19,10 +19,10 @@ local comboKick = function(slf, cont)
     -- move forward Zeena
     if slf.b.vertical:getValue() ~= 0 then
         slf.vertical = slf.b.vertical:getValue()
-        slf.vely = slf.velocitySlide_y -- vertical velocity
-        slf.velx = slf.velocitySlide_y -- reduced horizontal velocity
+        slf.vel_y = slf.velocitySlide_y -- vertical velocity
+        slf.vel_x = slf.velocitySlide_y -- reduced horizontal velocity
     else
-        slf.velx = slf.velocitySlide -- horizontal velocity
+        slf.vel_x = slf.velocitySlide -- horizontal velocity
     end
     slf.cooldownCombo = 0.4
 end

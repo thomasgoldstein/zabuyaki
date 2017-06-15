@@ -17,7 +17,7 @@ local comboUppercut2 = function(slf, cont) slf:checkAndAttack(
 
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { left = 4, width = 48, height = 12, damage = 28, type = "fall", velocity = slf.velx },
+        { left = 4, width = 48, height = 12, damage = 28, type = "fall", velocity = slf.vel_x },
         cont
     )
 end

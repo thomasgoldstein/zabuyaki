@@ -270,10 +270,10 @@ local function loadCameraScrolling(items, scrolling)
                 local shapeArgs = {}
                 for k = 1, #v.polyline - 1 do
                     scrolling.chunks[#scrolling.chunks + 1] =
-                    {startX = v.x + v.polyline[k].x, endX = v.x + v.polyline[k + 1].x,
-                        startY = v.y + v.polyline[k].y - y_shift, endY = v.y + v.polyline[k + 1].y - y_shift }
-                    if not scrolling.commonY then
-                        scrolling.commonY = v.y + v.polyline[k].y - y_shift or 0
+                    {start_x = v.x + v.polyline[k].x, end_x = v.x + v.polyline[k + 1].x,
+                        start_y = v.y + v.polyline[k].y - y_shift, end_y = v.y + v.polyline[k + 1].y - y_shift }
+                    if not scrolling.common_y then
+                        scrolling.common_y = v.y + v.polyline[k].y - y_shift or 0
                     end
                 end
             else
@@ -286,8 +286,8 @@ local function loadCameraScrolling(items, scrolling)
     if not scrolling.chunks or #scrolling.chunks < 1 then
         dp(" Camera Scrolling is missing... set to Y = 0")
         scrolling.chunks[#scrolling.chunks + 1] =
-        {startX = 0, endX = 10000, startY = 0, endY = 0 }
-        scrolling.commonY = 0
+        {start_x = 0, end_x = 10000, start_y = 0, end_y = 0 }
+        scrolling.common_y = 0
     end
     return scrolling
 end

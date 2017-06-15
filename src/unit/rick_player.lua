@@ -54,8 +54,8 @@ function Rick:defensiveSpecialStart()
 end
 function Rick:defensiveSpecialUpdate(dt)
     if self.z > 0 then
-        self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt
+        self.z = self.z + dt * self.vel_z
+        self.vel_z = self.vel_z - self.gravity * dt
         if self.z < 0 then
             self.z = 0
         end
@@ -72,9 +72,9 @@ function Rick:dashAttackStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("dashAttack")
-    self.velx = self.velocityDash
-    self.vely = 0
-    self.velz = 0
+    self.vel_x = self.velocityDash
+    self.vel_y = 0
+    self.vel_z = 0
     self.horizontal = self.face
     sfx.play("voice"..self.id, self.sfx.dashAttack)
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
@@ -95,9 +95,9 @@ function Rick:offensiveSpecialStart()
     self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("offensiveSpecial")
-    self.velx = self.velocityDash
-    self.vely = 0
-    self.velz = 0
+    self.vel_x = self.velocityDash
+    self.vel_y = 0
+    self.vel_z = 0
     sfx.play("voice"..self.id, self.sfx.dashAttack)
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end

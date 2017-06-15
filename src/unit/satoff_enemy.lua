@@ -156,7 +156,7 @@ end
 function Satoff:comboStart()
     self:removeTweenMove()
     Character.comboStart(self)
-    self.velx = self.velocityDash
+    self.vel_x = self.velocityDash
 end
 function Satoff:comboUpdate(dt)
     if self.sprite.isFinished then

@@ -9,7 +9,7 @@ local stepFx = function(slf, cont)
 	slf:showEffect("step")
 end
 local grabAttack = function(slf, cont)
-	--default values: 10,0,20,12, "low", slf.velx
+	--default values: 10,0,20,12, "low", slf.vel_x
 	slf:checkAndAttack(
 		{ left = 8, width = 26, height = 12, damage = 9, type = "low" },
 		cont
@@ -43,36 +43,36 @@ local shoveForward = function(slf, cont)
 end
 local comboAttack1 = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 26, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
+		{ left = 26, width = 26, height = 12, damage = 7, type = "high", velocity = slf.vel_x, sfx = "air" },
 		cont
 	)
 	slf.cooldownCombo = 0.4
 end
 local comboAttack1Forward = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 30, width = 26, height = 12, damage = 6, type = "low", velocity = slf.velx, sfx = "air" },
+		{ left = 30, width = 26, height = 12, damage = 6, type = "low", velocity = slf.vel_x, sfx = "air" },
 		cont
 	)
 	-- Chai's teep makes him move forward
 	if slf.b.vertical:getValue() ~= 0 then
 		slf.vertical = slf.b.vertical:getValue()
-		slf.vely = slf.velocityTeep_y -- reduced vertical velocity
-		slf.velx = slf.velocityTeep_y -- reduced horizontal velocity(same as y)
+		slf.vel_y = slf.velocityTeep_y -- reduced vertical velocity
+		slf.vel_x = slf.velocityTeep_y -- reduced horizontal velocity(same as y)
 	else
-		slf.velx = slf.velocityTeep_x -- horizontal velocity
+		slf.vel_x = slf.velocityTeep_x -- horizontal velocity
 	end
 	slf.cooldownCombo = 0.4
 end
 local comboAttack2 = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 28, width = 30, height = 12, damage = 10, type = "low", velocity = slf.velx, sfx = "air" },
+		{ left = 28, width = 30, height = 12, damage = 10, type = "low", velocity = slf.vel_x, sfx = "air" },
 		cont
 	)
 	slf.cooldownCombo = 0.4
 end
 local comboAttack3 = function(slf, cont)
 	slf:checkAndAttack(
-		{ left = 32, width = 38, height = 12, damage = 12, type = "high", velocity = slf.velx, sfx = "air" },
+		{ left = 32, width = 38, height = 12, damage = 12, type = "high", velocity = slf.vel_x, sfx = "air" },
 		cont
 	)
 	slf.cooldownCombo = 0.4
@@ -99,11 +99,11 @@ local dashAttack2 = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 local jumpAttackForward = function(slf, cont) slf:checkAndAttack(
-	{ left = 30, width = 25, height = 12, damage = 15, type = "fall", velocity = slf.velx },
+	{ left = 30, width = 25, height = 12, damage = 15, type = "fall", velocity = slf.vel_x },
 	cont
 ) end
 local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
-	{ left = 12, width = 22, height = 12, damage = 8, type = "high", velocity = slf.velx },
+	{ left = 12, width = 22, height = 12, damage = 8, type = "high", velocity = slf.vel_x },
 	cont
 ) end
 local jumpAttackStraight = function(slf, cont) slf:checkAndAttack(
@@ -111,11 +111,11 @@ local jumpAttackStraight = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
-	{ left = 25, width = 35, height = 12, damage = 6, type = "high", velocity = slf.velx },
+	{ left = 25, width = 35, height = 12, damage = 6, type = "high", velocity = slf.vel_x },
 	cont
 ) end
 local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
-	{ left = 25, width = 35, height = 12, damage = 8, type = "fall", velocity = slf.velx },
+	{ left = 25, width = 35, height = 12, damage = 8, type = "fall", velocity = slf.vel_x },
 	cont
 ) end
 
@@ -141,7 +141,7 @@ return {
 			delay = 1
 		},
 		stand = {
-			-- q = Love.graphics.newQuad( X, Y, Width, Height, imageWidth, imageHeight),
+			-- q = Love.graphics.newQuad( x, y, width, height, imageWidth, imageHeight),
 			-- ox,oy pivots offsets from the top left corner of the quad
 			-- delay = 0.1, func = func1, funcCont = func2
 			{ q = q(2,2,41,64), ox = 23, oy = 63, delay = 0.25 }, --stand 1

@@ -147,9 +147,9 @@ function Sveta:dashAttackStart()
     dpo(self, self.state)
     self.cooldown = 0.2
     self:setSprite("duck")
-    self.vely = 0
-    self.velx = 0
-    self.velz = 0
+    self.vel_y = 0
+    self.vel_x = 0
+    self.vel_z = 0
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Sveta:dashAttackUpdate(dt)
@@ -157,7 +157,7 @@ function Sveta:dashAttackUpdate(dt)
     if self.sprite.curAnim == "duck" and self.cooldown <= 0 then
         self.isHittable = false
         self:setSprite("dashAttack")
-        self.velx = self.velocityDash
+        self.vel_x = self.velocityDash
         sfx.play("voice"..self.id, self.sfx.dashAttack)
         return
     else

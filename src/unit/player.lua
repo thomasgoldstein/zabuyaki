@@ -72,28 +72,28 @@ function Player:checkCollisionAndMove(dt)
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
     else
-        local stepx = self.velx * dt * self.horizontal
-        local stepy = self.vely * dt * self.vertical
+        local stepx = self.vel_x * dt * self.horizontal
+        local stepy = self.vel_y * dt * self.vertical
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
     if self.z <= 0 then
-        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
             if o.type == "wall"
                     or (o.type == "obstacle" and o.z <= 0 and o.hp > 0)
                 or o.type == "stopper"
             then
-                self.shape:move(separating_vector.x, separating_vector.y)
+                self.shape:move(separatingVector.x, separatingVector.y)
                 success = false
             end
         end
     else
-        for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+        for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
             if o.type == "wall"
                 or o.type == "stopper"
             then
-                self.shape:move(separating_vector.x, separating_vector.y)
+                self.shape:move(separatingVector.x, separatingVector.y)
                 success = false
             end
         end
@@ -105,7 +105,7 @@ function Player:checkCollisionAndMove(dt)
 end
 
 function Player:isStuck()
-    for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+    for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
         local o = other.obj
         if o.type == "wall"
                 or o.type == "stopper"
@@ -120,7 +120,7 @@ end
 function Player:hasPlaceToStand(x, y)
     local testShape = stage.testShape
     testShape:moveTo(x, y)
-    for other, separating_vector in pairs(stage.world:collisions(testShape)) do
+    for other, separatingVector in pairs(stage.world:collisions(testShape)) do
         local o = other.obj
         if o.type == "wall"
                 or (o.type == "obstacle" and o.z <= 0 and o.hp > 0 and o.isMovable == false)
@@ -195,7 +195,7 @@ function Player:onHurtDamage()
     if not GLOBAL_SETTING.CONTINUE_INTERRUPTED_COMBO then
         self.ComboN = 1	--if u get hit reset combo chain
     end
-    if h.source.velx == 0 then
+    if h.source.vel_x == 0 then
         self.face = -h.source.face	--turn face to the still(pulled back) attacker
     else
         if h.source.horizontal ~= h.source.face then
@@ -336,7 +336,7 @@ function Player:respawnStart()
     self.cooldownDeath = 3 --seconds to remove
     self.hp = self.maxHp
     self.bounced = 0
-    self.velz = 0
+    self.vel_z = 0
     self.z = math.random( 235, 245 )    --TODO get Z from the Tiled
     stage:resetTime()
 end
@@ -346,11 +346,11 @@ function Player:respawnUpdate(dt)
         return
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocityJumpSpeed
+        self.z = self.z + dt * self.vel_z
+        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
     elseif self.bounced == 0 then
         self.playerSelectMode = 0 -- remove player select text
-        self.velz = 0
+        self.vel_z = 0
         self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         if self.sprite.curFrame == 1 then

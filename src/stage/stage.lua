@@ -32,7 +32,7 @@ function Stage:initialize(name, bgColor)
     self.foreground = nil
     self.scrolling = {}
     self.timeLeft = GLOBAL_SETTING.TIMER
-    self.centerX, self.playerGroupDistance, self.minx, self.maxx = getDistanceBetweenPlayers()
+    self.center_x, self.playerGroupDistance, self.min_x, self.max_y = getDistanceBetweenPlayers()
     self.world = HC.new(40*4)
     self.testShape = HC.rectangle(1, 1, 15, 5) -- to test collision
     self.objects = Entity:new()
@@ -111,8 +111,8 @@ function Stage:updateZStoppers(dt)
             self.playerGroupStoppersMode = "set"
         end
     elseif self.playerGroupStoppersMode == "set" then
-        self.leftPlayerGroupLimitStopper:moveTo(self.minx - 30, self.worldHeight / 2)
-        self.rightPlayerGroupLimitStopper:moveTo(self.maxx + 30, self.worldHeight / 2)
+        self.leftPlayerGroupLimitStopper:moveTo(self.min_x - 30, self.worldHeight / 2)
+        self.rightPlayerGroupLimitStopper:moveTo(self.max_y + 30, self.worldHeight / 2)
         playerGroupStoppersTime = 0.1
         self.playerGroupStoppersMode = "wait"
     elseif self.playerGroupStoppersMode == "wait" then
@@ -160,7 +160,7 @@ end
 local beepTimer = 0
 function Stage:update(dt)
     if self.mode == "normal" then
-        self.centerX, self.playerGroupDistance, self.minx, self.maxx = getDistanceBetweenPlayers()
+        self.center_x, self.playerGroupDistance, self.min_x, self.max_y = getDistanceBetweenPlayers()
         self.batch:update(dt)
         self:updateZStoppers(dt)
         self:updateZoom(dt)
@@ -260,7 +260,7 @@ end
 function Stage:setCamera(dt)
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
-    local centerX, playerGroupDistance, minx, maxx = self.centerX, self.playerGroupDistance, self.minx, self.maxx
+    local center_x, playerGroupDistance, minx, maxx = self.center_x, self.playerGroupDistance, self.min_x, self.max_y
     if mainCamera:getScale() ~= self.zoom then
         mainCamera:setScale(self.zoom)
         if self.zoom < maxZoom then
@@ -274,16 +274,16 @@ function Stage:setCamera(dt)
         end
     end
     -- Camera positioning
-    coord_x = centerX
-    coord_y = self.scrolling.commonY or coord_y
+    coord_x = center_x
+    coord_y = self.scrolling.common_y or coord_y
     local ty, tx, cx = 0, 0, 0
     for i = 1, #self.scrolling.chunks do
         local c = self.scrolling.chunks[i]
-        if coord_x >= c.startX and coord_x <= c.endX then
-            ty = c.endY - c.startY
-            tx = c.endX - c.startX
-            cx = coord_x - c.startX
-            coord_y = (cx * ty) / tx + c.startY
+        if coord_x >= c.start_x and coord_x <= c.end_x then
+            ty = c.end_y - c.start_y
+            tx = c.end_x - c.start_x
+            cx = coord_x - c.start_x
+            coord_y = (cx * ty) / tx + c.start_y
             break
         end
     end

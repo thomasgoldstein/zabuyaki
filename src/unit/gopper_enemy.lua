@@ -275,9 +275,9 @@ local dashAttackSpeed = 0.75
 function Gopper:dashAttackStart()
     self.isHittable = true
     self:setSprite("dashAttack")
-    self.velx = self.velocityDash * 2 * dashAttackSpeed
-    self.vely = 0
-    self.velz = self.velocityJump / 2 * dashAttackSpeed
+    self.vel_x = self.velocityDash * 2 * dashAttackSpeed
+    self.vel_y = 0
+    self.vel_z = self.velocityJump / 2 * dashAttackSpeed
     self.z = 0.1
     self.bounced = 0
     sfx.play("voice"..self.id, self.sfx.dashAttack)
@@ -288,11 +288,11 @@ function Gopper:dashAttackUpdate(dt)
         return
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * dashAttackSpeed
+        self.z = self.z + dt * self.vel_z
+        self.vel_z = self.vel_z - self.gravity * dt * dashAttackSpeed
     elseif self.bounced == 0 then
-        self.velz = 0
-        self.velx = 0
+        self.vel_z = 0
+        self.vel_x = 0
         self.z = 0
         self.bounced = 1
         sfx.play("sfx", "fall", 1, 1 + 0.02 * love.math.random(-2,2))

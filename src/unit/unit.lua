@@ -31,7 +31,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.height = self.height or 50
 	self.width = 10 --calcs from the hitbox
 	self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
-	self.velx, self.vely, self.velz = 0, 0, 0
+	self.vel_x, self.vel_y, self.vel_z = 0, 0, 0
 	self.gravity = 800 --650 * 2
 	self.weight = 1
 	self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
@@ -183,25 +183,25 @@ function Unit:checkCollisionAndMove(dt)
 		self.move:update(dt) --tweening
 		self.shape:moveTo(self.x, self.y)
 	else
-		local stepx = self.velx * dt * self.horizontal
-		local stepy = self.vely * dt * self.vertical
+		local stepx = self.vel_x * dt * self.horizontal
+		local stepy = self.vel_y * dt * self.vertical
 		self.shape:moveTo(self.x + stepx, self.y + stepy)
 	end
 	if self.z <= 0 then
-		for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+		for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
 			local o = other.obj
 			if o.type == "wall"
 			or (o.type == "obstacle" and o.z <= 0 and o.hp > 0)
 			then
-				self.shape:move(separating_vector.x, separating_vector.y)
+				self.shape:move(separatingVector.x, separatingVector.y)
 				success = false
 			end
 		end
 	else
-		for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+		for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
 			local o = other.obj
 			if o.type == "wall"	then
-				self.shape:move(separating_vector.x, separating_vector.y)
+				self.shape:move(separatingVector.x, separatingVector.y)
 				success = false
 			end
 		end
@@ -213,7 +213,7 @@ function Unit:checkCollisionAndMove(dt)
 end
 
 function Unit:isStuck()
-	for other, separating_vector in pairs(stage.world:collisions(self.shape)) do
+	for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
 		local o = other.obj
 		if o.type == "wall"	then
 			return true
@@ -225,7 +225,7 @@ end
 function Unit:hasPlaceToStand(x, y)
     local testShape = stage.testShape
     testShape:moveTo(x, y)
-    for other, separating_vector in pairs(stage.world:collisions(testShape)) do
+    for other, separatingVector in pairs(stage.world:collisions(testShape)) do
         local o = other.obj
         if o.type == "wall"	then
             return false
@@ -236,21 +236,21 @@ end
 
 function Unit:calcFriction(dt, friction)
 	local frctn = friction or self.friction
-	if self.velx > 0 then
-		self.velx = self.velx - frctn * dt
-        if self.velx < 0 then
-            self.velx = 0
+	if self.vel_x > 0 then
+		self.vel_x = self.vel_x - frctn * dt
+        if self.vel_x < 0 then
+            self.vel_x = 0
         end
 	else
-		self.velx = 0
+		self.vel_x = 0
 	end
-	if self.vely > 0 then
-		self.vely = self.vely - frctn * dt
-        if self.vely < 0 then
-            self.vely = 0
+	if self.vel_y > 0 then
+		self.vel_y = self.vel_y - frctn * dt
+        if self.vel_y < 0 then
+            self.vel_y = 0
         end
     else
-		self.vely = 0
+		self.vel_y = 0
     end
 end
 

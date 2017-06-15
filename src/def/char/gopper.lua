@@ -9,14 +9,14 @@ local stepFx = function(slf, cont)
 end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(
-        { left = 27, width = 26, height = 12, damage = 7, type = "high", velocity = slf.velx, sfx = "air" },
+        { left = 27, width = 26, height = 12, damage = 7, type = "high", velocity = slf.vel_x, sfx = "air" },
         cont
     )
     slf.cooldownCombo = 0.4
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { left = 29, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.velx, sfx = "air" },
+        { left = 29, width = 26, height = 12, damage = 9, type = "fall", velocity = slf.vel_x, sfx = "air" },
         cont
     )
 end
@@ -54,7 +54,7 @@ return {
             delay = 0.16
         },
         stand = {
-            -- q = Love.graphics.newQuad( X, Y, Width, Height, imageWidth, imageHeight),
+            -- q = Love.graphics.newQuad( x, y, width, height, imageWidth, imageHeight),
             -- ox,oy pivots offsets from the top left corner of the quad
             -- delay = 0.1, func = fun
             { q = q(2,2,36,62), ox = 21, oy = 61 }, --stand 1

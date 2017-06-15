@@ -54,8 +54,8 @@ function Chai:dashAttackStart()
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
-    self.velx = self.velocityDash * self.velocityJumpSpeed
-    self.velz = self.velocityJump * self.velocityJumpSpeed
+    self.vel_x = self.velocityDash * self.velocityJumpSpeed
+    self.vel_z = self.velocityJump * self.velocityJumpSpeed
     self.z = 0.1
     sfx.play("sfx"..self.id, self.sfx.dashAttack)
     self:showEffect("jumpStart")
@@ -66,17 +66,17 @@ function Chai:dashAttackUpdate(dt)
         return
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.velz
-        self.velz = self.velz - self.gravity * dt * self.velocityJumpSpeed
-        if self.velz > 0 then
-            if self.velx > 0 then
-                self.velx = self.velx - (self.velocityDash * dt)
+        self.z = self.z + dt * self.vel_z
+        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+        if self.vel_z > 0 then
+            if self.vel_x > 0 then
+                self.vel_x = self.vel_x - (self.velocityDash * dt)
             else
-                self.velx = 0
+                self.vel_x = 0
             end
         end
     else
-        self.velz = 0
+        self.vel_z = 0
         self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
