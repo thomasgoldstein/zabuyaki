@@ -260,7 +260,7 @@ end
 function Stage:setCamera(dt)
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
-    local center_x, playerGroupDistance, minx, maxx = self.center_x, self.playerGroupDistance, self.min_x, self.max_y
+    local center_x, playerGroupDistance, min_x, max_x = self.center_x, self.playerGroupDistance, self.min_x, self.max_y
     if mainCamera:getScale() ~= self.zoom then
         mainCamera:setScale(self.zoom)
         if self.zoom < maxZoom then

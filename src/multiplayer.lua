@@ -30,14 +30,14 @@ function allowPlayersSelect(players)
 end
 
 function areThereAlivePlayers()
-    local is_alive = false
+    local isAlive = false
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
         if player then
-            is_alive = is_alive or player:isAlive()
+            isAlive = isAlive or player:isAlive()
         end
     end
-    return is_alive
+    return isAlive
 end
 
 function killAllPlayers()
@@ -101,10 +101,10 @@ function fixPlayersPalette(player)
     player.shader = getShader(player.sprite.def.spriteName:lower(), player.palette)
 end
 
--- Returns Center X, distance between players, minX, maxX
-local old_minx, old_maxx, old_y
+-- Returns Center X, distance between players, min_x, max_x
+local oldMin_x, oldMax_x, old_y
 function getDistanceBetweenPlayers()
-    local minx, maxx = nil, nil
+    local min_x, max_x = nil, nil
     local r_x, r_y = nil, nil
     local n = 0
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
@@ -112,33 +112,33 @@ function getDistanceBetweenPlayers()
         if player and player:isAlive() then
             n = n + 1
             old_y = player.y
-            if minx then
-                minx = math.min(player.x, minx)
-                maxx = math.max(player.x, maxx)
+            if min_x then
+                min_x = math.min(player.x, min_x)
+                max_x = math.max(player.x, max_x)
             else
-                minx = player.x
-                maxx = player.x
+                min_x = player.x
+                max_x = player.x
             end
             r_x, r_y = player.x, player.y
         end
     end
     if n < 1 then
-        if not old_minx then
-            old_minx = 0
-            old_maxx = 0
+        if not oldMin_x then
+            oldMin_x = 0
+            oldMax_x = 0
         end
-        return old_minx + (old_maxx - old_minx) / 2, old_maxx - old_minx, old_minx, old_maxx
+        return oldMin_x + (oldMax_x - oldMin_x) / 2, oldMax_x - oldMin_x, oldMin_x, oldMax_x
     elseif n == 1 then
-        minx, maxx = r_x, r_x
+        min_x, max_x = r_x, r_x
     end
-    old_minx, old_maxx = minx, maxx
-    return minx + (maxx - minx) / 2, maxx - minx, minx, maxx
+    oldMin_x, oldMax_x = min_x, max_x
+    return min_x + (max_x - min_x) / 2, max_x - min_x, min_x, max_x
 end
 
 function correctPlayersRespawnPos(player)
     print(player.x, player.y, " CORRECT -> ")
     if old_y then
-        player.x = (old_maxx - old_minx) / 2
+        player.x = (oldMax_x - oldMin_x) / 2
         player.y = old_y
         player:checkCollisionAndMove(0)
         print(" -> ",player.x, player.y)
@@ -170,7 +170,7 @@ end
 function cleanRegisteredPlayers()
     print("cleanRegisteredPlayers")
     players = {}
-    old_minx, old_maxx, old_y = nil, nil, nil
+    oldMin_x, oldMax_x, old_y = nil, nil, nil
 end
 
 function getRegisteredPlayer(id)

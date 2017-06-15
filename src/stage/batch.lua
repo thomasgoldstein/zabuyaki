@@ -54,12 +54,12 @@ end
 function Batch:spawn(dt)
     local b = self.batches[self.n]
     --move leftStopper, rightStopper
-    local center_x, playerGroupDistance, minx, maxx = self.stage.center_x, self.stage.playerGroupDistance, self.stage.min_x, self.stage.max_y
-    --dp(center_x, minx, maxx, playerGroupDistance )
+    local center_x, playerGroupDistance, min_x, max_x = self.stage.center_x, self.stage.playerGroupDistance, self.stage.min_x, self.stage.max_y
+    --dp(center_x, min_x, max_x, playerGroupDistance )
     local lx, rx = self.stage.leftStopper.x, self.stage.rightStopper.x    --current in the stage
-    --dp("LX"..lx.."->"..self.leftStopper..", RX "..rx.." -> "..self.rightStopper, minx, maxx )
+    --dp("LX"..lx.."->"..self.leftStopper..", RX "..rx.." -> "..self.rightStopper, min_x, max_x )
     if lx < self.leftStopper
-        and minx > self.leftStopper + 320
+        and min_x > self.leftStopper + 320
     then
         lx = self.leftStopper
     end

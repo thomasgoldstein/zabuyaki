@@ -3,18 +3,18 @@ arcadeState = {}
 local time = 0
 local screenWidth = 640
 local screenHeight = 480
-local txt_game_over = love.graphics.newText( gfx.font.kimberley, "GAME OVER" )
+local gameOverText = love.graphics.newText( gfx.font.kimberley, "GAME OVER" )
 local function drawGameOver()
     love.graphics.setColor(55, 55, 55, 255)
-    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2 + 1, (screenHeight - txt_game_over:getHeight()) / 2 + 1 )
-    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2 - 1, (screenHeight - txt_game_over:getHeight()) / 2 + 1 )
-    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2 + 1, (screenHeight - txt_game_over:getHeight()) / 2 - 1 )
-    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2 - 1, (screenHeight - txt_game_over:getHeight()) / 2 - 1 )
+    love.graphics.draw(gameOverText, (screenWidth - gameOverText:getWidth()) / 2 + 1, (screenHeight - gameOverText:getHeight()) / 2 + 1 )
+    love.graphics.draw(gameOverText, (screenWidth - gameOverText:getWidth()) / 2 - 1, (screenHeight - gameOverText:getHeight()) / 2 + 1 )
+    love.graphics.draw(gameOverText, (screenWidth - gameOverText:getWidth()) / 2 + 1, (screenHeight - gameOverText:getHeight()) / 2 - 1 )
+    love.graphics.draw(gameOverText, (screenWidth - gameOverText:getWidth()) / 2 - 1, (screenHeight - gameOverText:getHeight()) / 2 - 1 )
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_game_over, (screenWidth - txt_game_over:getWidth()) / 2, (screenHeight - txt_game_over:getHeight()) / 2 )
+    love.graphics.draw(gameOverText, (screenWidth - gameOverText:getWidth()) / 2, (screenHeight - gameOverText:getHeight()) / 2 )
 end
-local is_alive
-local game_overDelay = 0
+local isAlive
+local gameOverDelay = 0
 
 SELECT_NEW_PLAYER = {} --{id, player}
 
@@ -22,7 +22,7 @@ function arcadeState:init()
 end
 
 function arcadeState:resume()
-    game_overDelay = 0
+    gameOverDelay = 0
     love.graphics.setLineWidth( 1 )
     --restore BGM music volume
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
@@ -33,7 +33,7 @@ function arcadeState:enter(_, players)
     credits = GLOBAL_SETTING.MAX_CREDITS
     --load stage
     stage = Stage1:new(players)
-    game_overDelay = 0
+    gameOverDelay = 0
     love.graphics.setLineWidth( 1 )
     --start BGM
     TEsound.stop("music")
@@ -67,14 +67,14 @@ function arcadeState:update(dt)
     checkPlayersRespawn(stage)
 
     if stage.mode == "normal" then
-        is_alive = areThereAlivePlayers()
+        isAlive = areThereAlivePlayers()
     else
-        is_alive = true
+        isAlive = true
     end
 
-    if not is_alive then
-        game_overDelay = game_overDelay + dt
-        if game_overDelay > 4
+    if not isAlive then
+        gameOverDelay = gameOverDelay + dt
+        if gameOverDelay > 4
                 and (Control1.back:pressed() or
                 Control1.attack:pressed() or
                 Control1.jump:pressed()) then
@@ -115,7 +115,7 @@ function arcadeState:draw()
     end
     showDebugControls()
     showDebugIndicator()
-    if not is_alive then
+    if not isAlive then
         drawGameOver()
     end
     stage:displayTime(screenWidth, screenHeight)
