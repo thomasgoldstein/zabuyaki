@@ -1,6 +1,6 @@
 titleState = {}
 
-local time_to_title_fade = 1.25 --title fadein
+local timeToTitleFade = 1.25 --title fadein
 local fadeToMenuTime = 0.5 --menu fadein & menu+title fadeout before intro
 local moveToMenuTime = 0.25 --can move/select menu
 local timeToIntro = 10 --idle to show intro
@@ -8,36 +8,36 @@ local titleSfx = "whooshHeavy"
 
 local time = 0
 local transparency = 0
-local title_transparency = 0
-local intro_movie = nil
+local titleTransparency = 0
+local introMovie = nil
 local mode = nil
 
 local screenWidth = 640
 local screenHeight = 480
-local zabuyaki_title
+local zabuyakiTitle
 local menuItem_h = 40
-local menu_yOffset = 200 - menuItem_h
-local menu_xOffset = 0
-local hint_yOffset = 80
-local title_yOffset = 0
+local menuOffset_y = 200 - menuItem_h
+local menuOffset_x = 0
+local hintOffset_y = 80
+local titleOffset_y = 0
 local leftItemOffset  = 6
 local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local txt_gfx_site = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
+local siteImageText = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 local txtItems = {"START", "OPTIONS", "QUIT"}
 
-local menu = fillMenu(txtItems, txt_hints)
+local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
+local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function titleState:enter(_, param)
     mouse_x, mouse_y = 0,0
     time = 0
     transparency = 0
-    title_transparency = 0
+    titleTransparency = 0
     mode = "fadein"
     if param ~= "dontStartMusic" then
         TEsound.stop("music")
@@ -50,7 +50,7 @@ function titleState:enter(_, param)
     -- Prevent double press at start (e.g. auto confirmation)
     Control1.attack:update()
     Control1.jump:update()
-    zabuyaki_title = love.graphics.newImage( "res/img/misc/title.png" )
+    zabuyakiTitle = love.graphics.newImage( "res/img/misc/title.png" )
     love.graphics.setLineWidth( 2 )
 end
 
@@ -58,7 +58,7 @@ function titleState:resume()
     mouse_x, mouse_y = 0,0
     time = 0
     transparency = 1
-    title_transparency = 1
+    titleTransparency = 1
     mode = "menu"
     mouse_x, mouse_y = 0,0
     love.graphics.setLineWidth( 2 )
@@ -75,7 +75,7 @@ local function resetTime()
 end
 
 --Only P1 can use menu / options
-function titleState:player_input(controls)
+function titleState:playerInput(controls)
     if mode == "menufadein" and time < moveToMenuTime then
         return
     end
@@ -102,23 +102,23 @@ end
 function titleState:update(dt)
     time = time + dt
     if mode == "fadein" then
-        title_transparency = clamp(time * (1 / time_to_title_fade), 0 , 1)
+        titleTransparency = clamp(time * (1 / timeToTitleFade), 0 , 1)
         transparency = 0
-        if time > time_to_title_fade  then
+        if time > timeToTitleFade  then
             mode = "menufadein"
             time = 0
             return
         end
     elseif mode == "fadeout" then
         transparency = clamp((fadeToMenuTime - time) * (1 / fadeToMenuTime), 0 , 1)
-        title_transparency = transparency
+        titleTransparency = transparency
         if time > fadeToMenuTime then
             mode = "movie"
             time = 0
             return
         end
     elseif mode == "movie" then
-        if intro_movie:update(dt) then
+        if introMovie:update(dt) then
             self:enter()
             TEsound.stop("music")
             TEsound.playLooping(bgm.title, "music")
@@ -127,17 +127,17 @@ function titleState:update(dt)
     else
         --mode == "menu"
         if mode == "menufadein" then
-            title_transparency = 1
+            titleTransparency = 1
             transparency = clamp(time * (1 / fadeToMenuTime), 0, 1)
             if time > fadeToMenuTime then
                 mode = "menu"
             end
         elseif mode == "menu" then
-            title_transparency = 1
+            titleTransparency = 1
             transparency = 1
         end
         if time > timeToIntro then
-            intro_movie = Movie:new(movie_intro)
+            introMovie = Movie:new(movie_intro)
             mode = "fadeout"
             time = 0
             return
@@ -147,14 +147,14 @@ function titleState:update(dt)
             oldMenuState = menuState
             resetTime()
         end
-        self:player_input(Control1)
+        self:playerInput(Control1)
     end
 end
 
 function titleState:draw()
     if mode == "movie" then
         love.graphics.setCanvas(canvas[1])
-        intro_movie:draw(0,0,320,240)
+        introMovie:draw(0,0,320,240)
         love.graphics.setCanvas()
 	    push:start()
         love.graphics.setColor(255, 255, 255, 255)
@@ -165,10 +165,10 @@ function titleState:draw()
     love.graphics.setCanvas()
     push:start()
     --header
-    love.graphics.setColor(255, 255, 255, 255 * title_transparency)
-    love.graphics.draw(zabuyaki_title, 0, title_yOffset, 0, 2, 2)
+    love.graphics.setColor(255, 255, 255, 255 * titleTransparency)
+    love.graphics.draw(zabuyakiTitle, 0, titleOffset_y, 0, 2, 2)
     love.graphics.setColor(100, 100, 100, 255 * transparency)
-    love.graphics.draw(txt_gfx_site, (screenWidth - txt_gfx_site:getWidth())/2, screenHeight - 20)
+    love.graphics.draw(siteImageText, (screenWidth - siteImageText:getWidth())/2, screenHeight - 20)
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
@@ -183,10 +183,10 @@ function titleState:draw()
         love.graphics.setColor(255, 255, 255, 255 * transparency)
         love.graphics.print(m.item, m.x, m.y )
 
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
+        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
                 CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
-            old_mouse_y = mouse_y
+            oldMouse_y = mouse_y
             menuState = i
         end
     end
@@ -205,7 +205,7 @@ function titleState:confirm( x, y, button, istouch )
             time = 0
             if GLOBAL_SETTING.DEBUG then
                 playerSelectState.enablePlayerSelectOnStart = true
-                playerSelectState:confirm_all_players()
+                playerSelectState:confirmAllPlayers()
                 playerSelectState:GameStart()
                 return
             else

@@ -17,7 +17,7 @@ function screenshotState:leave()
 end
 
 --Only P1 can exit the pause
-function screenshotState:player_input(controls)
+function screenshotState:playerInput(controls)
     if controls.jump:pressed() or controls.back:pressed() or controls.screenshot:pressed() then
         sfx.play("sfx","menuSelect")
         return Gamestate.pop()
@@ -25,7 +25,7 @@ function screenshotState:player_input(controls)
 end
 
 function screenshotState:update(dt)
-    self:player_input(Control1)
+    self:playerInput(Control1)
 end
 
 function screenshotState:draw()

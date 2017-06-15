@@ -86,11 +86,11 @@ function Movie:update(dt)
         dp("Movie is empty")
         return true
     end
-    local time_to_fadeout = self.frames[self.frame].delay + self.delayAfterFrame - 1
+    local timeToFadeout = self.frames[self.frame].delay + self.delayAfterFrame - 1
     if self.time <= 1 then
         self.transparency = clamp(self.time, 0, 1)
-    elseif self.time >= time_to_fadeout then
-        self.transparency = clamp(1 - (self.time - time_to_fadeout), 0, 1)
+    elseif self.time >= timeToFadeout then
+        self.transparency = clamp(1 - (self.time - timeToFadeout), 0, 1)
     else
         self.transparency = 1
     end

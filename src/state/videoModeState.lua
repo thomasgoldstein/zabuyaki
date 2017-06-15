@@ -4,23 +4,23 @@ local time = 0
 local screenWidth = 640
 local screenHeight = 480
 local menuItem_h = 40
-local menu_yOffset = 80 -- menuItem_h
-local menu_xOffset = 0
-local hint_yOffset = 80
-local title_yOffset = 24
+local menuOffset_y = 80 -- menuItem_h
+local menuOffset_x = 0
+local hintOffset_y = 80
+local titleOffset_y = 24
 local leftItemOffset = 6
 local topItemOffset = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local txt_video_logo = love.graphics.newText(gfx.font.kimberley, "VIDEO OPTIONS")
+local videoLogoText = love.graphics.newText(gfx.font.kimberley, "VIDEO OPTIONS")
 local txtItems = { "FULL SCREEN", "FULL SCREEN MODES", "VIDEO FILTER", "BACK" }
-local txt_full_screen_fill = { "KEEP RATIO", "PIXEL PERFECT", "FILL STRETCHED" }
+local fullScreenFillText = { "KEEP RATIO", "PIXEL PERFECT", "FILL STRETCHED" }
 
 local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
+local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function videoModeState:enter()
     mouse_x, mouse_y = 0, 0
@@ -39,7 +39,7 @@ function videoModeState:resume()
 end
 
 --Only P1 can use menu / options
-function videoModeState:player_input(controls)
+function videoModeState:playerInput(controls)
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx", "menuCancel")
         return Gamestate.pop()
@@ -69,7 +69,7 @@ function videoModeState:update(dt)
         sfx.play("sfx", "menuMove")
         oldMenuState = menuState
     end
-    self:player_input(Control1)
+    self:playerInput(Control1)
 end
 
 function videoModeState:draw()
@@ -85,7 +85,7 @@ function videoModeState:draw()
             end
             m.hint = "USE F11 TO TOGGLE SCREEN MODE"
         elseif i == 2 then
-            m.item = txt_full_screen_fill[GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE]
+            m.item = fullScreenFillText[GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE]
             if GLOBAL_SETTING.FULL_SCREEN then
                 m.hint = "FULL SCREEN FILLING MODES"
             else
@@ -112,15 +112,15 @@ function videoModeState:draw()
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, m.x, m.y)
 
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
+        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
                 CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin) then
-            old_mouse_y = mouse_y
+            oldMouse_y = mouse_y
             menuState = i
         end
     end
     --header
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_video_logo, (screenWidth - txt_video_logo:getWidth()) / 2, title_yOffset)
+    love.graphics.draw(videoLogoText, (screenWidth - videoLogoText:getWidth()) / 2, titleOffset_y)
     showDebug_indicator()
     push:finish()
 end
@@ -140,10 +140,10 @@ function videoModeState:confirm(x, y, button, istouch)
         elseif menuState == 2 then
             sfx.play("sfx", "menuSelect")
             GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE + i
-            if GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE > #txt_full_screen_fill then
+            if GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE > #fullScreenFillText then
                 GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = 1
             elseif GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE < 1 then
-                GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = #txt_full_screen_fill
+                GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = #fullScreenFillText
             end
             push._pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2 --for Pixel Perfect mode
             push._stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3 --stretched fill

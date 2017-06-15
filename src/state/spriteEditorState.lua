@@ -5,10 +5,10 @@ local time = 0
 local screenWidth = 640
 local screenHeight = 480
 local menuItem_h = 40
-local menu_yOffset = 200 - menuItem_h
-local menu_xOffset = 0
-local hint_yOffset = 80
-local title_yOffset = 24
+local menuOffset_y = 200 - menuItem_h
+local menuOffset_x = 0
+local hintOffset_y = 80
+local titleOffset_y = 24
 local leftItemOffset  = 6
 local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
@@ -22,15 +22,15 @@ local sprite = nil
 local animations = nil
 
 local weapon = nil
-local sprite_weapon = nil
-local animations_weapon = {}
+local weaponSprite = nil
+local weaponAnimations = {}
 
-local menu = fillMenu(txtItems, txt_hints)
+local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
+local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
-local sort_abc_func = function( a, b ) return a.bName < b.bName end
+local sortABC = function( a, b ) return a.bName < b.bName end
 
 function spriteEditorState:enter(_, _hero, _weapon)
     hero = _hero
@@ -46,17 +46,17 @@ function spriteEditorState:enter(_, _hero, _weapon)
 
     weapon = _weapon
     if weapon then
-        sprite_weapon = GetSpriteInstance(weapon.spriteInstance)
-        sprite_weapon.sizeScale = 2
-        animations_weapon = {}
-        for key, val in pairs(sprite_weapon.def.animations) do
-            animations_weapon[#animations_weapon + 1] = key
+        weaponSprite = GetSpriteInstance(weapon.spriteInstance)
+        weaponSprite.sizeScale = 2
+        weaponAnimations = {}
+        for key, val in pairs(weaponSprite.def.animations) do
+            weaponAnimations[#weaponAnimations + 1] = key
         end
-        table.sort( animations_weapon )
-        SetSpriteAnimation(sprite_weapon,"angle0")
+        table.sort( weaponAnimations )
+        SetSpriteAnimation(weaponSprite,"angle0")
     else
-        sprite_weapon = nil
-        animations_weapon = {}
+        weaponSprite = nil
+        weaponAnimations = {}
     end
     menu[1].n = 1
     menu[3].n = 1
@@ -74,7 +74,7 @@ end
 
 local function displayHelp()
     local font = love.graphics.getFont()
-    local x, y = leftItemOffset, menu_yOffset + menuItem_h
+    local x, y = leftItemOffset, menuOffset_y + menuItem_h
     love.graphics.setFont(gfx.font.arcade3)
     love.graphics.setColor(100, 100, 100, 255)
     if not weapon then
@@ -154,7 +154,7 @@ Attack/Enter :
 end
 
 --Only P1 can use menu / options
-function spriteEditorState:player_input(controls)
+function spriteEditorState:playerInput(controls)
     local s = sprite.def.animations[sprite.curAnim]
     local m = menu[menuState]
     local f = s[m.n]    --current frame
@@ -191,13 +191,13 @@ function spriteEditorState:player_input(controls)
         end
         if love.keyboard.isDown('rshift') then
             --change ox, oy offset of the weapon
-            if not sprite_weapon then
+            if not weaponSprite then
                 return
             end
             if not f.wx then
                 f.wx = 0
                 f.wy = -20
-                f.wAnimation = animations_weapon[menu[3].n]
+                f.wAnimation = weaponAnimations[menu[3].n]
                 f.wRotation = 0
             end
             if controls.horizontal:pressed() then
@@ -225,7 +225,7 @@ function spriteEditorState:player_input(controls)
         end
         if love.keyboard.isDown('ralt') then
             --change rotation of the weapon
-            if not sprite_weapon or not f.wx then
+            if not weaponSprite or not f.wx then
                 return
             end
             if not f.wRotate then
@@ -275,27 +275,27 @@ function spriteEditorState:update(dt)
     if sprite then
         UpdateSpriteInstance(sprite, dt)
     end
-    if sprite_weapon then
---        UpdateSpriteInstance(sprite_weapon, dt)
+    if weaponSprite then
+--        UpdateSpriteInstance(weaponSprite, dt)
     end
-    self:player_input(Control1)
+    self:playerInput(Control1)
 end
 
-local function DrawSpriteWeapon(sprite, x, y, i)
-    if sprite_weapon then
+local function DrawweaponSprite(sprite, x, y, i)
+    if weaponSprite then
         local s = sprite.def.animations[sprite.curAnim][i or sprite.curFrame or 1]
         local wx, wy, wAnimation
         if s.wx and s.wy then
-            wx = s.wx * sprite_weapon.sizeScale or 0
-            wy = s.wy * sprite_weapon.sizeScale or 0
+            wx = s.wx * weaponSprite.sizeScale or 0
+            wy = s.wy * weaponSprite.sizeScale or 0
             wAnimation = s.wAnimation or "angle0"
-            if sprite_weapon.curAnim ~= wAnimation then
-                SetSpriteAnimation(sprite_weapon, wAnimation)
+            if weaponSprite.curAnim ~= wAnimation then
+                SetSpriteAnimation(weaponSprite, wAnimation)
             end
-            sprite_weapon.rotation = s.wRotate or 0
-            sprite_weapon.flipH = s.wFlip_h or 1
-            sprite_weapon.flipV = s.wFlip_v or 1
-            DrawSpriteInstance(sprite_weapon, x + wx, y + wy)
+            weaponSprite.rotation = s.wRotate or 0
+            weaponSprite.flipH = s.wFlip_h or 1
+            weaponSprite.flipV = s.wFlip_v or 1
+            DrawSpriteInstance(weaponSprite, x + wx, y + wy)
             if GLOBAL_SETTING.DEBUG then
                 --center of the weapon animation
                 love.graphics.rectangle("fill", x + wx - 2, y + wy, 6, 2)
@@ -350,15 +350,15 @@ function spriteEditorState:draw()
                 m.hint = m.hint .. "\nWXY:"..s[m.n].wx..","..s[m.n].wy.." WR:"..(s[m.n].wRotate or 0).." "..(s[m.n].wAnimation or "?")
             end
         elseif i == 3 then
-            if not animations_weapon or #animations_weapon < 1 then
+            if not weaponAnimations or #weaponAnimations < 1 then
                 m.item = "N/A"
                 m.hint = ""
             else
-                m.item = animations_weapon[m.n].." #"..m.n.." of "..#animations_weapon
+                m.item = weaponAnimations[m.n].." #"..m.n.." of "..#weaponAnimations
                 m.hint = ""
                 local s = sprite.def.animations[sprite.curAnim]
-                if sprite_weapon.curAnim ~= animations_weapon[menu[menuState].n] then
-                    SetSpriteAnimation(sprite_weapon, animations_weapon[menu[menuState].n])
+                if weaponSprite.curAnim ~= weaponAnimations[menu[menuState].n] then
+                    SetSpriteAnimation(weaponSprite, weaponAnimations[menu[menuState].n])
                 end
             end
         elseif i == 4 then
@@ -389,22 +389,22 @@ function spriteEditorState:draw()
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, m.x, m.y )
 
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
+        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
                 CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
-            old_mouse_y = mouse_y
+            oldMouse_y = mouse_y
             menuState = i
         end
     end
     --header
     love.graphics.setColor(255, 255, 255, 120)
-    love.graphics.draw(txtCurrentSprite, (screenWidth - txtCurrentSprite:getWidth()) / 2, title_yOffset)
+    love.graphics.draw(txtCurrentSprite, (screenWidth - txtCurrentSprite:getWidth()) / 2, titleOffset_y)
 
     --character sprite
     local sc = sprite.def.animations[sprite.curAnim][1]
     local xStep = 140 --(sc.ox or 20) * 4 + 8 or 100
     local x = screenWidth /2
-    local y = menu_yOffset + menuItem_h / 2
+    local y = menuOffset_y + menuItem_h / 2
     if sprite.curAnim == "icon" then --normalize icon's pos
         y = y - 40
         x = x - 40
@@ -419,30 +419,30 @@ function spriteEditorState:draw()
             love.graphics.setColor(255, 0, 0, 150)
             love.graphics.rectangle("fill", 0, y, screenWidth, 2)
             love.graphics.setColor(0, 0, 255, 150)
-            love.graphics.rectangle("fill", x, 0, 2, menu_yOffset + menuItem_h)
+            love.graphics.rectangle("fill", x, 0, 2, menuOffset_y + menuItem_h)
             if menu[menuState].n > #sprite.def.animations[sprite.curAnim] then
                 menu[menuState].n = 1
             end
             love.graphics.setColor(255, 255, 255, 150)
             for i = 1, #sprite.def.animations[sprite.curAnim] do
                 DrawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
-                DrawSpriteWeapon(sprite, x - (menu[menuState].n - i) * xStep, y, i )
+                DrawweaponSprite(sprite, x - (menu[menuState].n - i) * xStep, y, i )
             end
             love.graphics.setColor(255, 255, 255, 255)
             DrawSpriteInstance(sprite, x, y, menu[menuState].n)
-            DrawSpriteWeapon(sprite, x, y, menu[menuState].n)
+            DrawweaponSprite(sprite, x, y, menu[menuState].n)
         elseif menuState == 3 then
-            if sprite_weapon then
+            if weaponSprite then
                 love.graphics.setColor(255, 255, 255, 255)
-                sprite_weapon.rotation = 0
-                sprite_weapon.flipV = 1
-                sprite_weapon.flipH = 1
-                DrawSpriteInstance(sprite_weapon, x, y, 1)
+                weaponSprite.rotation = 0
+                weaponSprite.flipV = 1
+                weaponSprite.flipH = 1
+                DrawSpriteInstance(weaponSprite, x, y, 1)
             end
         else
             --animation
             DrawSpriteInstance(sprite, x, y)
-            DrawSpriteWeapon(sprite, x, y)
+            DrawweaponSprite(sprite, x, y)
         end
     end
     if hero.shaders[menu[3].n] then
@@ -468,10 +468,10 @@ function spriteEditorState:confirm( x, y, button, istouch )
             sfx.play("sfx","menuSelect")
         elseif menuState == 3 then
             --set current characters frame weapon anim
-            if sprite_weapon then
+            if weaponSprite then
                 local s = sprite.def.animations[sprite.curAnim]
                 local f = s[menu[2].n]    --current char-sprite frame
-                f.wAnimation = animations_weapon[menu[menuState].n]
+                f.wAnimation = weaponAnimations[menu[menuState].n]
                 sfx.play("sfx","menuSelect")
             else
                 sfx.play("sfx","menuCancel")
@@ -515,16 +515,16 @@ function spriteEditorState:wheelmoved(x, y)
 
     elseif menuState == 3 then
         --weapon frames
-        if not sprite_weapon then
+        if not weaponSprite then
             return
         end
         if menu[menuState].n < 1 then
-            menu[menuState].n = #animations_weapon
+            menu[menuState].n = #weaponAnimations
         end
-        if menu[menuState].n > #animations_weapon then
+        if menu[menuState].n > #weaponAnimations then
             menu[menuState].n = 1
         end
-        SetSpriteAnimation(sprite_weapon, animations_weapon[menu[menuState].n])
+        SetSpriteAnimation(weaponSprite, weaponAnimations[menu[menuState].n])
 
     elseif menuState == 4 then
         --shaders

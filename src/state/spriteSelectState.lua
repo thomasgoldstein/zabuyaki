@@ -5,10 +5,10 @@ local time = 0
 local screenWidth = 640
 local screenHeight = 480
 local menuItem_h = 40
-local menu_yOffset = 200 - menuItem_h
-local menu_xOffset = 0
-local hint_yOffset = 80
-local title_yOffset = 24
+local menuOffset_y = 200 - menuItem_h
+local menuOffset_x = 0
+local hintOffset_y = 80
+local titleOffset_y = 24
 local leftItemOffset  = 6
 local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
@@ -86,13 +86,13 @@ local weapons = {
     }
 }
 
-local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SELECT CHAR/OBJ" )
+local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SELECT CHAR/OBJ" )
 local txtItems = {"FRAME POSITIONING", "WEAPON POSITIONING", "BACK"}
 
-local menu = fillMenu(txtItems, txt_hints)
+local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
+local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function spriteSelectState:enter()
     mouse_x, mouse_y = 0,0
@@ -107,7 +107,7 @@ function spriteSelectState:enter()
 end
 
 --Only P1 can use menu / options
-function spriteSelectState:player_input(controls)
+function spriteSelectState:playerInput(controls)
     if controls.jump:pressed() or controls.back:pressed() then
         sfx.play("sfx","menuCancel")
         return Gamestate.pop()
@@ -143,7 +143,7 @@ function spriteSelectState:update(dt)
         UpdateSpriteInstance(sprite, dt)
     end
 
-    self:player_input(Control1)
+    self:playerInput(Control1)
 end
 
 function spriteSelectState:draw()
@@ -182,26 +182,26 @@ function spriteSelectState:draw()
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, m.x, m.y )
 
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
+        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
                 CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
-            old_mouse_y = mouse_y
+            oldMouse_y = mouse_y
             menuState = i
         end
     end
     --header
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_options_logo, (screenWidth - txt_options_logo:getWidth()) / 2, title_yOffset)
+    love.graphics.draw(optionsLogoText, (screenWidth - optionsLogoText:getWidth()) / 2, titleOffset_y)
 
     --sprite
     love.graphics.setColor(255, 255, 255, 255)
---    if cur_players_hero_set.shader then
---        love.graphics.setShader(cur_players_hero_set.shader)
+--    if curPlayerHeroSet.shader then
+--        love.graphics.setShader(curPlayerHeroSet.shader)
 --    end
     if sprite then
-        DrawSpriteInstance(sprite, screenWidth / 2, menu_yOffset + menuItem_h / 2)
+        DrawSpriteInstance(sprite, screenWidth / 2, menuOffset_y + menuItem_h / 2)
     end
---    if cur_players_hero_set.shader then
+--    if curPlayerHeroSet.shader then
 --        love.graphics.setShader()
 --    end
     showDebug_indicator()

@@ -4,22 +4,22 @@ local time = 0
 local screenWidth = 640
 local screenHeight = 480
 local menuItem_h = 40
-local menu_yOffset = 200 - menuItem_h
-local menu_xOffset = 0
-local hint_yOffset = 80
-local title_yOffset = 24
+local menuOffset_y = 200 - menuItem_h
+local menuOffset_x = 0
+local hintOffset_y = 80
+local titleOffset_y = 24
 local leftItemOffset  = 6
 local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local txt_options_logo = love.graphics.newText( gfx.font.kimberley, "SOUND OPTIONS" )
+local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SOUND OPTIONS" )
 local txtItems = {"BGM", "SFX N", "MUSIC N", "BACK"}
 
-local menu = fillMenu(txtItems, txt_hints)
+local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, old_mouse_y = 0, 0, 0
+local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function soundState:enter()
     mouse_x, mouse_y = 0,0
@@ -33,7 +33,7 @@ function soundState:enter()
 end
 
 --Only P1 can use menu / options
-function soundState:player_input(controls)
+function soundState:playerInput(controls)
     if controls.jump:pressed() or controls.back:pressed() then
         return self:confirm( mouse_x, mouse_y, 2)
     elseif controls.attack:pressed() or controls.start:pressed() then
@@ -62,7 +62,7 @@ function soundState:update(dt)
         sfx.play("sfx","menuMove")
         oldMenuState = menuState
     end
-    self:player_input(Control1)
+    self:playerInput(Control1)
 end
 
 function soundState:draw()
@@ -101,16 +101,16 @@ function soundState:draw()
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(m.item, m.x, m.y )
 
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= old_mouse_y and
+        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
                 CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
-            old_mouse_y = mouse_y
+            oldMouse_y = mouse_y
             menuState = i
         end
     end
     --header
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_options_logo, (screenWidth - txt_options_logo:getWidth()) / 2, title_yOffset)
+    love.graphics.draw(optionsLogoText, (screenWidth - optionsLogoText:getWidth()) / 2, titleOffset_y)
     showDebug_indicator()
     push:finish()
 end

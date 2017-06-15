@@ -36,7 +36,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.cooldown = 0  -- can't move
     self.cooldownCombo = 0    -- can cont combo
     self.cooldownGrab = 2
-    self.grabReleaseAfter = 0.25 --sec if u hold 'back'
+    self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
     self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
     self.playerSelectMode = 0
@@ -1220,7 +1220,7 @@ local check_x_dist = 18
 function Character:grabStart()
     self.isHittable = true
     self:setSprite("grab")
-    self.grab_release = 0
+    self.grabRelease = 0
     self.victims = {}
     if not self.condition then
         local g = self.hold
@@ -1263,8 +1263,8 @@ function Character:grabUpdate(dt)
     if g and g.target then
         --controlled release
         if ( self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() ) then
-            self.grab_release = self.grab_release + dt
-            if self.grab_release >= self.grabReleaseAfter then
+            self.grabRelease = self.grabRelease + dt
+            if self.grabRelease >= self.grabReleaseAfter then
                 g.target.isGrabbed = false
             end
         else
@@ -1278,7 +1278,7 @@ function Character:grabUpdate(dt)
                     return
                 end
             end
-            self.grab_release = 0
+            self.grabRelease = 0
         end
         --auto release after time
         if g.cooldown > 0 and g.target.isGrabbed then

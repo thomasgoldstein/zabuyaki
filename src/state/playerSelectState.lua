@@ -3,14 +3,14 @@ playerSelectState = {}
 local time = 0
 local screenWidth = 640
 local screenHeight = 480
-local title_yOffset = 24
+local titleOffset_y = 24
 local portraitWidth = 140
 local portraitHeight = 140
 local portraitMargin = 20
 
-local p1_old_pos = 0
-local p1_mouse_pos = 0
-local txt_playerSelect = love.graphics.newText( gfx.font.kimberley, "PLAYER SELECT" )
+local oldMousePos = 0
+local mousePos = 0
+local playerSelectText = love.graphics.newText( gfx.font.kimberley, "PLAYER SELECT" )
 
 local heroes = {
     {
@@ -207,7 +207,7 @@ local function selected_heroes()
     return {s1, s2, s3}, xshift
 end
 
-local function all_confirmed()
+local function allConfirmed()
     --visible players confirmed their choice
     local confirmed = false
     for i = 1,#players do
@@ -222,12 +222,12 @@ local function all_confirmed()
     return confirmed
 end
 
-local function all_unconfirmed()
+local function allUnconfirmed()
     --All active players did not confirm their choice
     return not (players[1].confirmed or players[2].confirmed or players[3].confirmed)
 end
 
-local function all_invisible()
+local function allInvisible()
     --Active players are invisible "press any button"
     return not (players[1].visible or players[2].visible or players[3].visible)
 end
@@ -258,8 +258,8 @@ function playerSelectState:enter()
         {pos = 2, visible = false, confirmed = false, sprite = nil},
         {pos = 3, visible = false, confirmed = false, sprite = nil}
     }
-    p1_old_pos = 0
-    p1_mouse_pos = 0
+    oldMousePos = 0
+    mousePos = 0
     for i = 1,#players do
       SetSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portraitAnim)
       heroes[i].sprite_portrait.sizeScale = 2
@@ -302,7 +302,7 @@ function playerSelectState:GameStart()
     return Gamestate.switch(arcadeState, pl)
 end
 
-function playerSelectState:player_input(player, controls, i)
+function playerSelectState:playerInput(player, controls, i)
     if not player.visible then
         if (controls.jump:pressed() or controls.back:pressed()) and i == 1 then
             --Only P1 can return to title
@@ -353,7 +353,7 @@ function playerSelectState:player_input(player, controls, i)
             player.confirmed = false
             SetSpriteAnimation(player.sprite,heroes[player.pos].cancelAnim)
             sfx.play("sfx","menuCancel")
-        elseif (controls.attack:pressed() or controls.start:pressed()) and all_confirmed() then
+        elseif (controls.attack:pressed() or controls.start:pressed()) and allConfirmed() then
             self:GameStart()
             return
         end
@@ -364,9 +364,9 @@ function playerSelectState:update(dt)
     time = time + dt
     local sh,shiftx = selected_heroes()
     for i = 1,#players do
-        local cur_players_hero = heroes[players[i].pos]
-        local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
-        local curColor_slot = sh[i][2]
+        local curPlayerHero = heroes[players[i].pos]
+        local curPlayerHeroSet = heroes[players[i].pos][sh[i][2]]
+        local curColorSlot = sh[i][2]
         if players[i].sprite then
             UpdateSpriteInstance(players[i].sprite, dt)
             if players[i].sprite.isFinished
@@ -377,8 +377,8 @@ function playerSelectState:update(dt)
             end
             if players[i].visible then
                 --smooth indicators movement
-                local nx = cur_players_hero.x - (shiftx[players[i].pos] - 1) * 32 + (curColor_slot - 1) * 64 -- * (i - 1)
-                local ny = cur_players_hero.sy
+                local nx = curPlayerHero.x - (shiftx[players[i].pos] - 1) * 32 + (curColorSlot - 1) * 64 -- * (i - 1)
+                local ny = curPlayerHero.sy
                 if not players[i].nx then
                     players[i].nx = nx
                     players[i].ny = ny
@@ -399,24 +399,24 @@ function playerSelectState:update(dt)
 
         end
     end
-    self:player_input(players[1], Control1, 1)
-    self:player_input(players[2], Control2, 2)
-    self:player_input(players[3], Control3, 3)
+    self:playerInput(players[1], Control1, 1)
+    self:playerInput(players[2], Control2, 2)
+    self:playerInput(players[3], Control3, 3)
 end
 
 function playerSelectState:draw()
     push:start()
     local sh = selected_heroes()
     for i = 1,#players do
-        local cur_players_hero = heroes[players[i].pos]
-        local cur_players_hero_set = heroes[players[i].pos][sh[i][2]]
-        local curColor_slot = sh[i][2]
+        local curPlayerHero = heroes[players[i].pos]
+        local curPlayerHeroSet = heroes[players[i].pos][sh[i][2]]
+        local curColorSlot = sh[i][2]
         local h = heroes[i]
-        local original_char = 1
+        local originalChar = 1
         love.graphics.setColor(255, 255, 255, 255)
         --name
         love.graphics.setFont(gfx.font.arcade3x3)
-        love.graphics.print(h[original_char].name, h.x - 24 * #h[original_char].name / 2, h.ny)
+        love.graphics.print(h[originalChar].name, h.x - 24 * #h[originalChar].name / 2, h.ny)
         --portrait
         DrawSpriteInstance(heroes[i].sprite_portrait, h.x - portraitWidth/2, h.py)
         love.graphics.rectangle("line", h.x - portraitWidth/2, h.py, portraitWidth, portraitHeight, 4,4,1)
@@ -425,7 +425,7 @@ function playerSelectState:draw()
             --hero sprite
             love.graphics.setColor(255, 255, 255, 255)
             if players[i].sprite then
-                love.graphics.setShader(getShader(cur_players_hero_set.name:lower(), cur_players_hero_set.palette))
+                love.graphics.setShader(getShader(curPlayerHeroSet.name:lower(), curPlayerHeroSet.palette))
                 DrawSpriteInstance(players[i].sprite, h.x, h.y)
                 love.graphics.setShader()
             end
@@ -441,7 +441,7 @@ function playerSelectState:draw()
     end
     --header
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(txt_playerSelect, (screenWidth - txt_playerSelect:getWidth()) / 2, title_yOffset)
+    love.graphics.draw(playerSelectText, (screenWidth - playerSelectText:getWidth()) / 2, titleOffset_y)
     showDebug_indicator()
     push:finish()
 end
@@ -449,27 +449,27 @@ end
 function playerSelectState:confirm( x, y, button, istouch )
     -- P1 mouse control only
     if button == 1 then
-        p1_mouse_pos = 2
+        mousePos = 2
         if x < heroes[2].x - portraitWidth/2 - portraitMargin/2 then
-            p1_mouse_pos = 1
+            mousePos = 1
         elseif x > heroes[2].x + portraitWidth/2 + portraitMargin/2 then
-            p1_mouse_pos = 3
+            mousePos = 3
         end
         if not players[1].visible then
             players[1].visible = true
             sfx.play("sfx","menuSelect")
             SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].defaultAnim)
         elseif not players[1].confirmed then
-            if players[1].pos ~= p1_mouse_pos then
-                p1_old_pos = players[1].pos
-                players[1].pos = p1_mouse_pos
+            if players[1].pos ~= mousePos then
+                oldMousePos = players[1].pos
+                players[1].pos = mousePos
                 players[1].sprite = GetSpriteInstance(heroes[players[1].pos].spriteInstance)
                 players[1].sprite.sizeScale = 2
             end
             players[1].confirmed = true
             sfx.play("sfx","menuSelect")
             SetSpriteAnimation(players[1].sprite,heroes[players[1].pos].confirmAnim)
-        elseif p1_mouse_pos == players[1].pos and all_confirmed() then
+        elseif mousePos == players[1].pos and allConfirmed() then
             self:GameStart()
             return
         end
@@ -497,15 +497,15 @@ function playerSelectState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    p1_mouse_pos = 2
+    mousePos = 2
     if x < heroes[2].x - portraitWidth/2 - portraitMargin/2 then
-        p1_mouse_pos = 1
+        mousePos = 1
     elseif x > heroes[2].x + portraitWidth/2 + portraitMargin/2 then
-        p1_mouse_pos = 3
+        mousePos = 3
     end
-    if p1_mouse_pos ~= p1_old_pos and players[1].visible and not players[1].confirmed then
-        p1_old_pos = p1_mouse_pos
-        players[1].pos = p1_mouse_pos
+    if mousePos ~= oldMousePos and players[1].visible and not players[1].confirmed then
+        oldMousePos = mousePos
+        players[1].pos = mousePos
         sfx.play("sfx","menuMove")
         players[1].sprite = GetSpriteInstance(heroes[players[1].pos].spriteInstance)
         players[1].sprite.sizeScale = 2
@@ -516,7 +516,7 @@ end
 function playerSelectState:keypressed(key, unicode)
 end
 
-function playerSelectState:confirm_all_players()
+function playerSelectState:confirmAllPlayers()
     --visible players confirmed their choice
     for i = 1,#players do
         players[i].confirmed = true
