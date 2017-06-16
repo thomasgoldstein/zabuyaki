@@ -211,12 +211,10 @@ function Character:afterOnHurt()
         -- TODO remove "high" "low" on tweaking DEF files
         if self.hp > 0 and self.z <= 0 then
             self:setState(self.hurt)
-            print(h.z)
+            self:showHitMarks(h.damage, h.z)
             if h.z > 13 then
-                self:showHitMarks(h.damage, 40)
                 self:setSprite("hurtHigh")
             else
-                self:showHitMarks(h.damage, 16)
                 self:setSprite("hurtLow")
             end
             return
@@ -245,11 +243,10 @@ function Character:afterOnHurt()
     dpo(self, self.state)
     --finish calcs before the fall state
     if h.damage > 0 then
+        self:showHitMarks(h.damage, h.z)
         if h.z > 13 then
-            self:showHitMarks(h.damage, 40)
             self:setSprite("hurtHigh")
         else
-            self:showHitMarks(h.damage, 16)
             self:setSprite("hurtLow")
         end
     end
@@ -320,7 +317,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 o.isHurt = {source = self, state = self.state, damage = damage,
                     type = type, vel_x = velocity or self.velocityBonusOnAttack_x,
                     horizontal = face, isThrown = false,
-                    x = self.x, y = self.y, z = self.z }
+                    z = self.z + t}
                 items[#items+1] = o
             end
         end
@@ -331,13 +328,13 @@ function Character:checkAndAttack(f, isFuncCont)
                     and not o.isDisabled
                     and o ~= self
                     and not self.victims[o]
-                    and CheckLinearCollision(o.z, o.height, self.z + t, h)
+                    and CheckLinearCollision(o.z, o.height, self.z + t + h / 2, h)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
                         type = type, vel_x = velocity or self.velocityBonusOnAttack_x,
                         horizontal = self.horizontal, isThrown = true,
-                        z = self.z + t - h / 2
+                        z = self.z + t
                         --x = self.x, y = self.y, z = self.z
                     }
                 else
@@ -345,8 +342,7 @@ function Character:checkAndAttack(f, isFuncCont)
                         type = type, vel_x = velocity or self.velocityBonusOnAttack_x,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
-                        z = self.z + t - h / 2
-                        --x = self.x, y = self.y, z = self.z
+                        z = self.z + t
                     }
                 end
                 items[#items+1] = o
@@ -357,7 +353,7 @@ function Character:checkAndAttack(f, isFuncCont)
     a = nil
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y - h/2, w = w, h = h, z = self.z + t, height = h }
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y, w = w, h = h, z = self.z + t }
     end
     if f.sfx then
         sfx.play("sfx"..self.id,f.sfx)
@@ -553,7 +549,7 @@ function Character:walkUpdate(dt)
                     self.horizontal = 1
                 end
                 grabbed.horizontal = -self.horizontal
-                self:showHitMarks(22, 40, 5) --big hitmark
+                self:showHitMarks(22, 25, 5) --big hitmark
                 self.vel_x = self.velocityBackoff --move from source
                 self.cooldown = 0.0
                 self:setSprite("hurtHigh")
