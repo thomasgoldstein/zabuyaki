@@ -527,14 +527,9 @@ function Character:walkUpdate(dt)
         self:setState(self.duck2jump)
         return
     end
-    self.vel_x = 0
-    self.vel_y = 0
-    if self.b.horizontal:isDown(-1) then
-        self.face = -1 --face sprite left or right
-        self.horizontal = self.face --X direction
-        self.vel_x, _ = self:getMovementSpeed()
-    elseif self.b.horizontal:isDown(1) then
-        self.face = 1 --face sprite left or right
+    self.vel_x, self.vel_y = 0, 0
+    if self.b.horizontal:getValue() ~= 0 then
+        self.face = self.b.horizontal:getValue()
         self.horizontal = self.face --X direction
         self.vel_x, _ = self:getMovementSpeed()
     end
