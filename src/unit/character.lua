@@ -206,9 +206,8 @@ function Character:afterOnHurt()
         return
     end
     --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
-    --"high", "low", "fall"(replaced by blows)
-    if h.type == "hit" or h.type == "high" or h.type == "low" then
-        -- TODO remove "high" "low" on tweaking DEF files
+    --"hit, "fall"(replaced by blows)
+    if h.type == "hit" then
         if self.hp > 0 and self.z <= 0 then
             self:setState(self.hurt)
             self:showHitMarks(h.damage, h.z)
@@ -297,7 +296,7 @@ end
 
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: l,t,w,h, damage, type, velocity, sfx, init_victims_list
-    --type = "simple" "shockWave" "high" "low" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
+    --type = "simple" "shockWave" "hit" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     if not f then
         f = {}
     end
