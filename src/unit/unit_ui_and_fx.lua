@@ -36,7 +36,7 @@ function Unit:showHitMarks(dmg, z, xOffset)
     else
         paHitMark = PA_IMPACT_BIG:clone()
     end
-    paHitMark:setPosition( self.face * (xOffset or 4), -z )
+    paHitMark:setPosition( self.face * (xOffset or 4), -z - 15 )
     if not xOffset then --still mark e.g. for clashing
         paHitMark:setSpeed( -self.face * 30, -self.face * 60 )	--move the marks from the attacker by default
     end
