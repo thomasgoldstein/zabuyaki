@@ -309,7 +309,7 @@ function Character:checkAndAttack(f, isFuncCont)
     local face = self.face
 
     local items = {}
-    local a = stage.world:rectangle(self.x + face*l - w/2, self.y + t - h/2, w, h)
+    local a = stage.world:rectangle(self.x + face*l - w/2, self.y - h/2, w, h)
     if type == "shockWave" then
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
@@ -331,7 +331,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and not o.isDisabled
                     and o ~= self
                     and not self.victims[o]
-                    and o.z <= self.z + o.height and o.z >= self.z - self.height
+                    and CheckLinearCollision(o.z, o.height, self.z + t, h)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
@@ -353,7 +353,7 @@ function Character:checkAndAttack(f, isFuncCont)
     a = nil
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y + t - h/2, w = w, h = h, z = self.z, height = self.height }
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y - h/2, w = w, h = h, z = self.z + t, height = h }
     end
     if f.sfx then
         sfx.play("sfx"..self.id,f.sfx)
