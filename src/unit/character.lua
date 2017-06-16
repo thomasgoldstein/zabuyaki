@@ -207,20 +207,18 @@ function Character:afterOnHurt()
     end
     --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
     --"high", "low", "fall"(replaced by blows)
-    if h.type == "high" then
+    if h.type == "hit" or h.type == "high" or h.type == "low" then
+        -- TODO remove "high" "low" on tweaking DEF files
         if self.hp > 0 and self.z <= 0 then
-            self:showHitMarks(h.damage, 40)
             self:setState(self.hurt)
-            self:setSprite("hurtHigh")
-            return
-        end
-        self.vel_x = h.vel_x --use fall speed from the agument
-        --then it does to "fall dead"
-    elseif h.type == "low" then
-        if self.hp > 0 and self.z <= 0 then
-            self:showHitMarks(h.damage, 16)
-            self:setState(self.hurt)
-            self:setSprite("hurtLow")
+            print(h.z)
+            if h.z > 13 then
+                self:showHitMarks(h.damage, 40)
+                self:setSprite("hurtHigh")
+            else
+                self:showHitMarks(h.damage, 16)
+                self:setSprite("hurtLow")
+            end
             return
         end
         self.vel_x = h.vel_x --use fall speed from the agument
@@ -247,10 +245,12 @@ function Character:afterOnHurt()
     dpo(self, self.state)
     --finish calcs before the fall state
     if h.damage > 0 then
-        if h.type == "low" then
-            self:showHitMarks(h.damage, 16)
-        else
+        if h.z > 13 then
             self:showHitMarks(h.damage, 40)
+            self:setSprite("hurtHigh")
+        else
+            self:showHitMarks(h.damage, 16)
+            self:setSprite("hurtLow")
         end
     end
     -- calc falling traectorym speed, direction
@@ -305,7 +305,7 @@ function Character:checkAndAttack(f, isFuncCont)
         f = {}
     end
     local l,t,w,h = f.left or 20, f.top or 0, f.width or 25, f.height or 12
-    local damage, type, velocity = f.damage or 1, f.type or "low", f.velocity or 0
+    local damage, type, velocity = f.damage or 1, f.type or "hit", f.velocity or 0
     local face = self.face
 
     local items = {}
@@ -337,13 +337,17 @@ function Character:checkAndAttack(f, isFuncCont)
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
                         type = type, vel_x = velocity or self.velocityBonusOnAttack_x,
                         horizontal = self.horizontal, isThrown = true,
-                        x = self.x, y = self.y, z = self.z }
+                        z = self.z + t - h / 2
+                        --x = self.x, y = self.y, z = self.z
+                    }
                 else
                     o.isHurt = {source = self, state = self.state, damage = damage,
                         type = type, vel_x = velocity or self.velocityBonusOnAttack_x,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
-                        x = self.x, y = self.y, z = self.z }
+                        z = self.z + t - h / 2
+                        --x = self.x, y = self.y, z = self.z
+                    }
                 end
                 items[#items+1] = o
             end

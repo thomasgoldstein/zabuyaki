@@ -115,7 +115,7 @@ function Obstacle:isImmune()   --Immune to the attack?
     end
     --Block "fall" attack if isMovable false
     if not self.isMovable and h.type == "fall" then
-        h.type = "high"
+        h.type = "hit"
         return false
     end
     return false

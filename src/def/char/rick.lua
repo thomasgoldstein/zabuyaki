@@ -9,9 +9,9 @@ local stepFx = function(slf, cont)
 	slf:showEffect("step")
 end
 local grabAttack = function(slf, cont)
-	--default values: 10,0,20,12, "low", slf.vel_x
+	--default values: 10,0,20,12, "hit", slf.vel_x
 	slf:checkAndAttack(
-		{ left = 18, width = 26, height = 12, damage = 9, type = "low" },
+		{ left = 18, width = 26, height = 12, damage = 9 },
 		cont
 	)
 end
@@ -49,35 +49,35 @@ local shoveForward = function(slf, cont)
 end
 local comboAttack1 = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 28, width = 26, height = 12, top = 22, damage = 7, type = "high", velocity = slf.vel_x, sfx = "air" },
+        { left = 28, width = 26, height = 12, top = 22, damage = 7, velocity = slf.vel_x, sfx = "air" },
         cont
     )
 	slf.cooldownCombo = 0.4
 end
 local comboAttack2 = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 28, width = 27, height = 12, top = 22, damage = 8, type = "high", velocity = slf.vel_x, sfx = "air" },
+        { left = 28, width = 27, height = 12, top = 22, damage = 8, velocity = slf.vel_x, sfx = "air" },
         cont
     )
 	slf.cooldownCombo = 0.4
 end
 local comboAttack3 = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 28, width = 27, height = 12, top = 16, damage = 10, type = "low", velocity = slf.vel_x, sfx = "air" },
+        { left = 28, width = 27, height = 12, top = 16, damage = 10,velocity = slf.vel_x, sfx = "air" },
         cont
     )
 	slf.cooldownCombo = 0.4
 end
 local comboAttack3Up1 = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 28, width = 27, height = 12, top = 36, damage = 4, type = "high", velocity = slf.vel_x, sfx = "air" },
+        { left = 28, width = 27, height = 12, top = 36, damage = 4, velocity = slf.vel_x, sfx = "air" },
         cont
     )
 	slf.cooldownCombo = 0.4
 end
 local comboAttack3Up2 = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 18, width = 27, height = 12, top = 38, damage = 9, type = "high", velocity = slf.vel_x },
+        { left = 18, width = 27, height = 12, top = 38, damage = 9, velocity = slf.vel_x },
         cont
     )
 	slf.cooldownCombo = 0.4
@@ -107,7 +107,7 @@ local holdAttack3 = function(slf, cont)
     )
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-    { left = 20, width = 55, height = 12, top = 32, damage = 8, type = "high", velocity = slf.velocityDashFall },
+    { left = 20, width = 55, height = 12, top = 32, damage = 8, velocity = slf.velocityDashFall },
     cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
@@ -123,11 +123,11 @@ local jumpAttackForward = function(slf, cont) slf:checkAndAttack(
      cont
  ) end
 local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
-    { left = 15, width = 22, height = 12, damage = 9, type = "high", velocity = slf.vel_x },
+    { left = 15, width = 22, height = 12, damage = 9, velocity = slf.vel_x },
     cont
 ) end
 local jumpAttackStraight1 = function(slf, cont) slf:checkAndAttack(
-    { left = 20, width = 25, height = 12, damage = 7, type = "high", velocity = slf.vel_x },
+    { left = 20, width = 25, height = 12, damage = 7, velocity = slf.vel_x },
     cont
 ) end
 local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
