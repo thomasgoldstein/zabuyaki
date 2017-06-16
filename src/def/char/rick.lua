@@ -49,7 +49,7 @@ local shoveForward = function(slf, cont)
 end
 local comboAttack1 = function(slf, cont)
 	slf:checkAndAttack(
-        { left = 28, width = 26, height = 12, top = 22, damage = 7, velocity = slf.vel_x, sfx = "air" },
+        { left = 28, width = 26, height = 12, top = 24, damage = 7, velocity = slf.vel_x, sfx = "air" },
         cont
     )
 	slf.cooldownCombo = 0.4
