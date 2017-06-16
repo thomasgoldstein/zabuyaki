@@ -362,6 +362,9 @@ function Character:checkAndAttack(f, isFuncCont)
         -- reset combo attack N to 1
         self.ComboN = 0
     end
+    if #items > 0 then
+        self.connectHit = true
+    end
     items = nil
 end
 
@@ -1111,6 +1114,7 @@ Character.dead = {name = "dead", start = Character.deadStart, exit = nop, update
 function Character:comboStart()
     self.isHittable = true
     self.horizontal = self.face
+    self.connectHit = false
     self:removeTweenMove()
     if self.ComboN > self.sprite.def.max_combo or self.ComboN < 1 then
         self.ComboN = 1
@@ -1143,7 +1147,9 @@ function Character:comboUpdate(dt, custom_friction)
         end
     end
     if self.sprite.isFinished then
-        if self.ComboN < self.sprite.def.max_combo then
+        if self.ComboN < self.sprite.def.max_combo
+            and self.connectHit
+        then
             self.ComboN = self.ComboN + 1
         else
             self.ComboN = 1
