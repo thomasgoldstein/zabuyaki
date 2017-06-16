@@ -358,11 +358,8 @@ function Character:checkAndAttack(f, isFuncCont)
     if f.sfx then
         sfx.play("sfx"..self.id,f.sfx)
     end
-    if not GLOBAL_SETTING.AUTO_COMBO and #items < 1 then
-        -- reset combo attack N to 1
-        self.ComboN = 0
-    end
-    if #items > 0 then
+    if GLOBAL_SETTING.AUTO_COMBO or #items > 0 then
+        -- connect combo hits on AUTO_COMBO or on any successful hit
         self.connectHit = true
     end
     items = nil
