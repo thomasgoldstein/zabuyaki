@@ -24,6 +24,22 @@ function CheckLinearCollision(y1,h1, y2,h2)
             y2 < y1+h1
 end
 
+function complexCheckLinearCollision(y1,h1, y2,h2)
+    local biggerMin, smallerMax
+--    print(y1,"-", y1 + h1, "...", y2,"-",y2+h2)
+    if y1 >= y2 then
+        biggerMin = y1
+    else
+        biggerMin = y2
+    end
+    if y1 + h1 >= y2 + h2 then
+        smallerMax = y2 + h2
+    else
+        smallerMax = y1 + h1
+    end
+    return smallerMax > biggerMin
+end
+
 function CheckPointCollision(x,y, x1,y1,w1,h1)
     return x < x1+w1 and
             x >= x1 and
