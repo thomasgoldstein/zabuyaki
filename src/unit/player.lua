@@ -357,7 +357,7 @@ function Player:respawnUpdate(dt)
             self.sprite.elapsedTime = 10 -- seconds. skip to pickup 2 frame
         end
         self:checkAndAttack(
-            { left = 0, width = 320 * 2, height = 240 * 2, damage = 0, type = "shockWave", velocity = 0 },
+            { x = 0, y = 0, width = 320 * 2, height = 240 * 2, damage = 0, type = "shockWave", velocity = 0 },
             false
         )
         mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen on respawn

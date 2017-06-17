@@ -300,12 +300,12 @@ function Character:checkAndAttack(f, isFuncCont)
     if not f then
         f = {}
     end
-    local l,t,w,h = f.left or 20, f.top or 0, f.width or 25, f.height or 12
+    local x, y, w, h = f.x or 20, f.y or 0, f.width or 25, f.height or 12
     local damage, type, velocity = f.damage or 1, f.type or "hit", f.velocity or 0
     local face = self.face
 
     local items = {}
-    local a = stage.world:rectangle(self.x + face*l - w/2, self.y - h/2, w, h)
+    local a = stage.world:rectangle(self.x + face * x - w / 2, self.y - h / 2, w, h)
     if type == "shockWave" then
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
@@ -316,7 +316,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 o.isHurt = {source = self, state = self.state, damage = damage,
                     type = type, vel_x = velocity or self.velocityBonusOnAttack_x,
                     horizontal = face, isThrown = false,
-                    z = self.z + t}
+                    z = self.z + y}
                 items[#items+1] = o
             end
         end
@@ -327,13 +327,13 @@ function Character:checkAndAttack(f, isFuncCont)
                     and not o.isDisabled
                     and o ~= self
                     and not self.victims[o]
-                    and CheckLinearCollision(o.z, o.height, self.z + t + h / 2, h)
+                    and CheckLinearCollision(o.z, o.height, self.z + y + h / 2, h)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
                         type = type, vel_x = velocity or self.velocityBonusOnAttack_x,
                         horizontal = self.horizontal, isThrown = true,
-                        z = self.z + t
+                        z = self.z + y
                         --x = self.x, y = self.y, z = self.z
                     }
                 else
@@ -341,7 +341,7 @@ function Character:checkAndAttack(f, isFuncCont)
                         type = type, vel_x = velocity or self.velocityBonusOnAttack_x,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
-                        z = self.z + t
+                        z = self.z + y
                     }
                 end
                 items[#items+1] = o
@@ -352,7 +352,7 @@ function Character:checkAndAttack(f, isFuncCont)
     a = nil
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face*l - w/2, y = self.y, w = w, h = h, z = self.z + t }
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face * x - w / 2, y = self.y, w = w, h = h, z = self.z + y}
     end
     if f.sfx then
         sfx.play("sfx"..self.id,f.sfx)
@@ -1038,7 +1038,7 @@ function Character:fallUpdate(dt)
         if self.isThrown and self.vel_z < 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
             self:checkAndAttack(
-                { left = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "fall", velocity = self.velocityThrow_x },
+                { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "fall", velocity = self.velocityThrow_x },
                 false
             )
 
