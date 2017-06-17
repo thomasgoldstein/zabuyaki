@@ -6,19 +6,19 @@ local function q(x,y,w,h)
 end
 local comboSlap = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 25, width = 26, height = 12, damage = 5, velocity = slf.vel_x, sfx = "air" },
+        { x = 25, y = 25, width = 26, damage = 5, velocity = slf.vel_x, sfx = "air" },
         cont
     )
     slf.cooldownCombo = 0.4
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 25, width = 26, height = 12, damage = 10, type = "fall", velocity = slf.velocityDashFall },
+        { x = 25, y = 25, width = 26, damage = 10, type = "fall", velocity = slf.velocityDashFall },
         cont
 ) end
 local dashAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 25, width = 25, height = 12, damage = 14, type = "fall", velocity = slf.velocityDashFall },
+        { x = 21, y = 25, width = 25, damage = 14, type = "fall", velocity = slf.velocityDashFall },
         cont
 ) end
 
