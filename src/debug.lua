@@ -124,7 +124,7 @@ function showDebugBoxes()
             love.graphics.rectangle("line", a.x, a.y - a.z - a.h / 2, a.w, a.h)
 
             love.graphics.setColor(0, 255, 0, 150)
-            love.graphics.rectangle("line", a.x, a.y - a.h / 2, a.w, a.h)
+            love.graphics.rectangle("line", a.x, a.y - a.d / 2, a.w, a.d)
         end
     end
 end
