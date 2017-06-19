@@ -110,6 +110,13 @@ local func_dropBeef = function(slf)
     )
     loot:setOnStage(stage)
 end
+local func_dropBat = function(slf)
+    local loot = Loot:new("Bat", gfx.loot.bat,
+        math.floor(slf.x), math.floor(slf.y) + 1,
+        { hp = 0, score = 0, note = "Weapon", pickupSfx = "pickupBeef"}
+    )
+    loot:setOnStage(stage)
+end
 
 local function getUnitFunction(v)
     if not v.properties.drop then
@@ -124,6 +131,8 @@ local function getUnitFunction(v)
             return func_dropChicken
         elseif drop == "beef" then
             return func_dropBeef
+        elseif drop == "bat" then
+            return func_dropBat
         end
     end
     return nil

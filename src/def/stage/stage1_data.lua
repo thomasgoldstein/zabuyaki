@@ -1,14 +1,14 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "0.18.2",
+  tiledversion = "1.0.1",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 140,
   height = 70,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 46,
+  nextobjectid = 52,
   backgroundcolor = { 231, 207, 157 },
   properties = {},
   tilesets = {},
@@ -611,6 +611,22 @@ return {
             ["batch"] = "2",
             ["class"] = "gopper",
             ["palette"] = "1"
+          }
+        },
+        {
+          id = 50,
+          name = "Trash Can",
+          type = "unit",
+          shape = "rectangle",
+          x = 149.333,
+          y = 476.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "trashcan",
+            ["drop"] = "bat"
           }
         }
       }
