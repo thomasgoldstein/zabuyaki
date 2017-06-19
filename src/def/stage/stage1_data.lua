@@ -14,114 +14,125 @@ return {
   tilesets = {},
   layers = {
     {
-      type = "imagelayer",
-      name = "road0",
+      type = "group",
+      name = "background",
       visible = true,
       opacity = 1,
-      offsetx = 12,
-      offsety = 430,
-      image = "../../../res/img/stage/stage1/road1.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "road1",
-      visible = true,
-      opacity = 1,
-      offsetx = -348,
-      offsety = 430,
-      image = "../../../res/img/stage/stage1/road1.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "road2",
-      visible = true,
-      opacity = 1,
-      offsetx = 372,
-      offsety = 430,
-      image = "../../../res/img/stage/stage1/road1.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "road3",
-      visible = true,
-      opacity = 1,
-      offsetx = 732,
-      offsety = 430,
-      image = "../../../res/img/stage/stage1/road1.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "road4",
-      visible = true,
-      opacity = 1,
-      offsetx = 1092,
-      offsety = 430,
-      image = "../../../res/img/stage/stage1/road1.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "road5",
-      visible = true,
-      opacity = 1,
-      offsetx = 1452,
-      offsety = 430,
-      image = "../../../res/img/stage/stage1/road1.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "diag road",
-      visible = true,
-      opacity = 1,
-      offsetx = 1812,
-      offsety = 251,
-      image = "../../../res/img/stage/stage1/road2.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "building2",
-      visible = true,
-      opacity = 1,
-      offsetx = 425,
-      offsety = 69,
-      image = "../../../res/img/stage/stage1/building2.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "building4",
-      visible = true,
-      opacity = 1,
-      offsetx = 1315,
-      offsety = 69,
-      image = "../../../res/img/stage/stage1/building2.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "building1",
-      visible = true,
-      opacity = 1,
-      offsetx = -20,
-      offsety = 69,
-      image = "../../../res/img/stage/stage1/building1.png",
-      properties = {}
-    },
-    {
-      type = "imagelayer",
-      name = "building3",
-      visible = true,
-      opacity = 1,
-      offsetx = 870,
-      offsety = 69,
-      image = "../../../res/img/stage/stage1/building1.png",
-      properties = {}
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      layers = {
+        {
+          type = "imagelayer",
+          name = "road0",
+          visible = true,
+          opacity = 1,
+          offsetx = 12,
+          offsety = 430,
+          image = "../../../res/img/stage/stage1/road1.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "road1",
+          visible = true,
+          opacity = 1,
+          offsetx = -348,
+          offsety = 430,
+          image = "../../../res/img/stage/stage1/road1.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "road2",
+          visible = true,
+          opacity = 1,
+          offsetx = 372,
+          offsety = 430,
+          image = "../../../res/img/stage/stage1/road1.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "road3",
+          visible = true,
+          opacity = 1,
+          offsetx = 732,
+          offsety = 430,
+          image = "../../../res/img/stage/stage1/road1.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "road4",
+          visible = true,
+          opacity = 1,
+          offsetx = 1092,
+          offsety = 430,
+          image = "../../../res/img/stage/stage1/road1.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "road5",
+          visible = true,
+          opacity = 1,
+          offsetx = 1452,
+          offsety = 430,
+          image = "../../../res/img/stage/stage1/road1.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "diag road",
+          visible = true,
+          opacity = 1,
+          offsetx = 1812,
+          offsety = 251,
+          image = "../../../res/img/stage/stage1/road2.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "building3",
+          visible = true,
+          opacity = 1,
+          offsetx = 870,
+          offsety = 69,
+          image = "../../../res/img/stage/stage1/building1.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "building4",
+          visible = true,
+          opacity = 1,
+          offsetx = 1315,
+          offsety = 69,
+          image = "../../../res/img/stage/stage1/building2.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "building2",
+          visible = true,
+          opacity = 1,
+          offsetx = 425,
+          offsety = 69,
+          image = "../../../res/img/stage/stage1/building2.png",
+          properties = {}
+        },
+        {
+          type = "imagelayer",
+          name = "building1",
+          visible = true,
+          opacity = 1,
+          offsetx = -20,
+          offsety = 69,
+          image = "../../../res/img/stage/stage1/building1.png",
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -260,7 +271,7 @@ return {
       type = "objectgroup",
       name = "batch",
       visible = true,
-      opacity = 0.33,
+      opacity = 0.18,
       offsetx = 0,
       offsety = 0,
       draworder = "topdown",
