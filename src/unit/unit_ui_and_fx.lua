@@ -25,6 +25,7 @@ function Unit:playHitSfx(dmg)
     TEsound.play(s.src, "sfx"..self.id, s.volume, s.pitch)
 end
 
+local hitMarkOffset_y = -3
 function Unit:showHitMarks(dmg, z, xOffset)
     local paHitMark
     if dmg < 1 then
@@ -39,12 +40,12 @@ function Unit:showHitMarks(dmg, z, xOffset)
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, y = self.y, w = 31, h = 0.1, z = z, collided = true }
     end
-    paHitMark:setPosition( self.face * (xOffset or 4), -z - 15 )
+    paHitMark:setPosition( self.face * (xOffset or 4), - z + hitMarkOffset_y )
     if not xOffset then --still mark e.g. for clashing
         paHitMark:setSpeed( -self.face * 30, -self.face * 60 )	--move the marks from the attacker by default
     end
     paHitMark:emit(1)
-    stage.objects:add(Effect:new(paHitMark, self.x, self.y + 3))
+    stage.objects:add(Effect:new(paHitMark, self.x, self.y - hitMarkOffset_y))
 end
 
 function Unit:updateSprite(dt)
