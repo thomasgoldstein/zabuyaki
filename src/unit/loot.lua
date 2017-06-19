@@ -10,8 +10,13 @@ function Loot:initialize(name, gfx, x, y, f)
     end
     Unit.initialize(self, name, nil, nil, x, y, f)
     self.draw = Loot.draw
-    self.sprite = gfx.sprite
-    self.q = gfx.q
+    if gfx.sprite2 then
+        self.sprite = imageBank[gfx.sprite2.def.spriteSheet]
+        self.q = gfx.sprite2.def.animations.stand[1].q
+    else
+        self.sprite = gfx.sprite
+        self.q = gfx.q
+    end
     self.ox = gfx.ox
     self.oy = gfx.oy
 
