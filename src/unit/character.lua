@@ -295,7 +295,7 @@ function Character:checkStuckButtons()
 end
 
 function Character:checkAndAttack(f, isFuncCont)
-    --f options {}: l,t,w,h, damage, type, velocity, sfx, init_victims_list
+    --f options {}: x,y,width,height,depth, damage, type, velocity, sfx, init_victims_list
     --type = "simple" "shockWave" "hit" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     if not f then
         f = {}
@@ -350,16 +350,16 @@ function Character:checkAndAttack(f, isFuncCont)
     end
     stage.world:remove(a)
     a = nil
-    --DEBUG collect data to show attack hitBoxes in green
-    if GLOBAL_SETTING.DEBUG then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y}
-    end
     if f.sfx then
         sfx.play("sfx"..self.id,f.sfx)
     end
     if GLOBAL_SETTING.AUTO_COMBO or #items > 0 then
         -- connect combo hits on AUTO_COMBO or on any successful hit
         self.connectHit = true
+    end
+    --DEBUG collect data to show attack hitBoxes in green
+    if GLOBAL_SETTING.DEBUG then
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x + face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = #items > 0 }
     end
     items = nil
 end

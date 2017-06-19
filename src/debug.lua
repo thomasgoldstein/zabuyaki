@@ -120,7 +120,11 @@ function showDebugBoxes()
         -- draw attack hitboxes
         for i = 1, #attackHitBoxes do
             a = attackHitBoxes[i]
-            love.graphics.setColor(255, 255, 0, 150)
+            if a.collided then
+                love.graphics.setColor(255, 0, 0, 150)
+            else
+                love.graphics.setColor(255, 255, 0, 150)
+            end
             love.graphics.rectangle("line", a.x, a.y - a.z - a.h / 2, a.w, a.h)
 
             love.graphics.setColor(0, 255, 0, 150)
