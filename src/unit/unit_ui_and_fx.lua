@@ -36,6 +36,9 @@ function Unit:showHitMarks(dmg, z, xOffset)
     else
         paHitMark = PA_IMPACT_BIG:clone()
     end
+    if GLOBAL_SETTING.DEBUG then
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x, y = self.y, w = 31, h = 0.1, z = z, collided = true }
+    end
     paHitMark:setPosition( self.face * (xOffset or 4), -z - 15 )
     if not xOffset then --still mark e.g. for clashing
         paHitMark:setSpeed( -self.face * 30, -self.face * 60 )	--move the marks from the attacker by default

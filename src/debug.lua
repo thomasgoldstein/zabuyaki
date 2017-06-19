@@ -120,15 +120,27 @@ function showDebugBoxes()
         -- draw attack hitboxes
         for i = 1, #attackHitBoxes do
             a = attackHitBoxes[i]
-            if a.collided then
-                love.graphics.setColor(255, 0, 0, 150)
+            if a.d then
+                if a.collided then
+                    love.graphics.setColor(255, 0, 0, 150)
+                else
+                    love.graphics.setColor(255, 255, 0, 150)
+                end
+                -- yellow: width + height
+                love.graphics.rectangle("line", a.x, a.y - a.z - a.h / 2, a.w, a.h)
+                love.graphics.setColor(0, 255, 0, 150)
+                -- green: width + depth
+                love.graphics.rectangle("line", a.x, a.y - a.d / 2, a.w, a.d)
             else
-                love.graphics.setColor(255, 255, 0, 150)
+                -- blue / green(not collided) cross
+                if a.collided then
+                    love.graphics.setColor(255, 0, 0, 150)
+                else
+                    love.graphics.setColor(0, 255, 0,150)
+                end
+                love.graphics.rectangle("line", a.x - a.w / 2, a.y - a.z, a.w, a.h)
+                love.graphics.rectangle("line", a.x, a.y - a.z - a.w / 2, a.h, a.w)
             end
-            love.graphics.rectangle("line", a.x, a.y - a.z - a.h / 2, a.w, a.h)
-
-            love.graphics.setColor(0, 255, 0, 150)
-            love.graphics.rectangle("line", a.x, a.y - a.d / 2, a.w, a.d)
         end
     end
 end
