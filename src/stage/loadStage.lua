@@ -256,9 +256,10 @@ local function cacheImage(path_to_image)
     return loadedImages[path_to_image], loadedImagesQuads[path_to_image]
 end
 
-local function loadImageLayer(items, background)
-    dp("Load ImageLayer...")
-    for i, v in ipairs(items.layers) do
+local function loadBackgroundImageLayer(items, background)
+    dp("Load background ImageLayer...")
+    local t = extractTable(items.layers, "background")
+    for i, v in ipairs(t.layers) do
         if v.type == "imagelayer" then
             if v.visible then
                 local image, quad = cacheImage(v.image)
@@ -339,7 +340,7 @@ function loadStageData(file, stage, players)
     loadPermanentUnits(d, stage)
     stage.batch = loadBatch(d, stage)
     stage.scrolling = loadCameraScrolling(d)
-    loadImageLayer(d, stage.background)
+    loadBackgroundImageLayer(d, stage.background)
     if d.backgroundcolor then
         stage.bgColor = d.backgroundcolor
     end
