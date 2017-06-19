@@ -7,33 +7,33 @@ end
 
 local comboUppercut1 = function(slf, cont)
     slf:checkAndAttack(
-	{ x = 14, y = 1, width = 30, height = 12, damage = 12, velocity = slf.velocityDashFall, sfx = "whooshHeavy" },
+	{ x = 14, y = 1, width = 30, damage = 12, velocity = slf.velocityDashFall, sfx = "whooshHeavy" },
 	cont
 ) end
 
 local comboUppercut2 = function(slf, cont)
     slf:checkAndAttack(
-	{ x = 20, y = 25, width = 30, height = 12, damage = 16, type = "fall", velocity = slf.velocityDashFall },
+	{ x = 20, y = 25, width = 30, damage = 16, type = "fall", velocity = slf.velocityDashFall },
 	cont
 ) end
 
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 4, y = 0, width = 48, height = 12, damage = 28, type = "fall", velocity = slf.vel_x },
+        { x = 4, y = 25, width = 48, damage = 28, type = "fall", velocity = slf.vel_x },
         cont
     )
 end
 
 local grabAttack = function(slf, cont)
 	slf:checkAndAttack(
-        { x = 19, y = 25, width = 26, height = 12, damage = 12 },
+        { x = 19, y = 25, width = 26, damage = 12 },
 		cont
 	)
 end
 
 local grabAttackLast = function(slf, cont)
 	slf:checkAndAttack(
-        { x = 19, y = 25, width = 26, height = 12, damage = 18,
+        { x = 19, y = 25, width = 26, damage = 18,
         type = "fall", velocity = slf.velocityThrow_x },
 		cont
 	)
