@@ -37,7 +37,7 @@ function arcadeState:enter(_, players)
     love.graphics.setLineWidth( 1 )
     --start BGM
     TEsound.stop("music")
-    TEsound.playLooping(bgm.level01, "music")
+    TEsound.playLooping(bgm.stage1, "music")
 
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
