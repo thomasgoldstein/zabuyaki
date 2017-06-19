@@ -9,20 +9,20 @@ local stepFx = function(slf, cont)
 end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 25, width = 26, damage = 7, velocity = slf.vel_x, sfx = "air" },
+        { x = 27, y = 37, width = 26, damage = 7, velocity = slf.vel_x, sfx = "air" },
         cont
     )
     slf.cooldownCombo = 0.4
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 29, y = 25, width = 26, damage = 9, type = "fall", velocity = slf.vel_x, sfx = "air" },
+        { x = 29, y = 37, width = 26, damage = 9, type = "fall", velocity = slf.vel_x, sfx = "air" },
         cont
     )
 end
 local dashAttack = function(slf, cont)
     slf:checkAndAttack(
-    { x = 11, y = 25, width = 30, damage = 14, type = "fall", velocity = slf.velocityDashFall },
+    { x = 11, y = 37, width = 30, damage = 14, type = "fall", velocity = slf.velocityDashFall },
     cont
 ) end
 
