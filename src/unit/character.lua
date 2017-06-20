@@ -211,7 +211,7 @@ function Character:afterOnHurt()
         if self.hp > 0 and self.z <= 0 then
             self:setState(self.hurt)
             self:showHitMarks(h.damage, h.z)
-            if h.z > 23 then
+            if h.z > 25 then
                 self:setSprite("hurtHigh")
             else
                 self:setSprite("hurtLow")
