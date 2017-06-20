@@ -25,9 +25,15 @@ function Unit:playHitSfx(dmg)
     TEsound.play(s.src, "sfx"..self.id, s.volume, s.pitch)
 end
 
-local hitMarkOffset_y = -3
-function Unit:showHitMarks(dmg, z, xOffset)
+function Unit:showHitMarks(dmg, z, offset_x)
+    local hitMarkOffset_y = -1
+    local y = self.y
     local paHitMark
+    local h = self.isHurt
+    if h and h.source.y > self.y then
+        hitMarkOffset_y = hitMarkOffset_y + (h.source.y - self.y)
+        y = h.source.y
+    end
     if dmg < 1 then
         return	-- e.g. Respawn ShockWave with 0 DMG
     elseif dmg < 9 then
@@ -40,12 +46,12 @@ function Unit:showHitMarks(dmg, z, xOffset)
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, y = self.y, w = 31, h = 0.1, z = z, collided = true }
     end
-    paHitMark:setPosition( self.face * (xOffset or 4), - z + hitMarkOffset_y )
-    if not xOffset then --still mark e.g. for clashing
+    paHitMark:setPosition( self.face * (offset_x or 4), - z + hitMarkOffset_y )
+    if not offset_x then --still mark e.g. for clashing
         paHitMark:setSpeed( -self.face * 30, -self.face * 60 )	--move the marks from the attacker by default
     end
     paHitMark:emit(1)
-    stage.objects:add(Effect:new(paHitMark, self.x, self.y - hitMarkOffset_y))
+    stage.objects:add(Effect:new(paHitMark, self.x, y - hitMarkOffset_y))
 end
 
 function Unit:updateSprite(dt)
