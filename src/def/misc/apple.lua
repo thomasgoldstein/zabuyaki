@@ -16,7 +16,9 @@ return {
             { q = q(2,2,18,17) } -- default 38x17
         },
         stand = {
-            { q = q(2,2,18,17), ox = 9, oy = 16 } --on the ground
+            { q = q(2,2,18,17), ox = 9, oy = 16 }, --on the ground
+            loop = true,
+            delay = 1.2,
         },
     }
 } --return (end of file)
