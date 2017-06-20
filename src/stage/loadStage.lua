@@ -113,7 +113,7 @@ end
 local func_dropBat = function(slf)
     local loot = Loot:new("Bat", gfx.loot.bat,
         math.floor(slf.x), math.floor(slf.y) + 1,
-        { hp = 0, score = 0, note = "Weapon", pickupSfx = "pickupBeef"}
+        { hp = 0, score = 0, note = "Weapon", pickupSfx = "grab"}
     )
     loot:setOnStage(stage)
 end
