@@ -65,6 +65,7 @@ function Loot:updateAI(dt)
             end
         end
     end
+    self:updateSprite(dt)
 end
 
 function Loot:get(taker)
