@@ -80,9 +80,9 @@ local weapons = {
         spriteInstance = "src/def/misc/bat.lua",
     },
     {
-        name = "KNIFE",
+        name = "BAT2", -- testing > 1 weapons
         shaders = { },
-        spriteInstance = "src/def/misc/knife.lua",
+        spriteInstance = "src/def/misc/bat.lua",
     }
 }
 
