@@ -5,6 +5,9 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 
+
+
+
 return {
     serializationVersion = 0.42, -- The version of this serialization process
     spriteSheet = spriteSheet, -- The path to the spritesheet
@@ -12,28 +15,19 @@ return {
     delay = 5.2,	--default delay for all animations
     animations = {
         icon  = {
-            { q = q(2,23,11,17) } -- default 38x17
+            { q = q(2,23,38,11) } -- default 38x17
         },
         stand = {
-            { q = q(2,23,11,55), ox = 5, oy = 42, rotate = 1.57 } --on the ground
+            { q = q(2,23,55,11), ox = 27, oy = 10 } --on the ground
         },
         angle0 = {
-            { q = q(2,23,11,55), ox = 5, oy = 42 }  --a0 |
+            { q = q(2,23,55,11), ox = 12, oy = 5 }  --a0 -
         },
         angle22 = {
-            { q = q(15,23,28,54), ox = 8, oy = 40 } --a22 /-
+            { q = q(2,36,54,28), ox = 13, oy = 9 } --a22 \-
         },
         angle45 = {
-            { q = q(45,23,44,44), ox = 11, oy = 32 } --a45 /+
-        },
-        angle0Equipped = {
-            { q = q(2,80,11,55), ox = 5, oy = 42 }  --a0 eq |
-        },
-        angle22Equipped = {
-            { q = q(15,80,28,54), ox = 8, oy = 40 } --a22 eq /-
-        },
-        angle45Equipped = {
-            { q = q(45,80,44,44), ox = 11, oy = 32 } --a45 eq /+
-        },
+            { q = q(2,66,44,44), ox = 12, oy = 13 } --a45 \+
+        }
     }
 } --return (end of file)
