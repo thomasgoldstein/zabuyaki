@@ -5,12 +5,13 @@ local Loot = Loot
 
 -- Start of Lifebar elements
 function Loot:initFaceIcon(target)
-    target.sprite = self.sprite
-    target.q = self.q  --quad
+    target.sprite = imageBank[self.sprite.def.spriteSheet]
+    target.q = self.sprite.def.animations["icon"][1].q  --quad
     target.iconColor = { 255, 255, 255, 255 }
 end
 
 function Loot:drawFaceIcon(l, t)
+    local s = self.qa
     love.graphics.draw (
         self.sprite,
         self.q, --Current frame of the current animation
@@ -31,5 +32,3 @@ function Loot:drawBar(l,t,w,h, iconWidth, normColor)
     printWithShadow(self.note, l + self.x + iconWidth + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transpBg)
 end
 -- End of Lifebar elements
-
-

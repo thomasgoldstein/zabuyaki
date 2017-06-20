@@ -6,13 +6,11 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 
-local loot = love.graphics.newImage("res/img/misc/loot.png")
-imageWidth, imageHeight = loot:getDimensions( )
-gfx.loot.apple = {sprite = loot, q = q(2,2,18,17), ox = 9, oy = 16 }
-gfx.loot.chicken = {sprite = loot, q = q(22,2,30,19), ox = 12, oy = 18 }
-gfx.loot.beef = {sprite = loot, q = q(54,2,30,19), ox = 15, oy = 18 }
-gfx.loot.bat = {sprite = loot, q = q(91,66,55,11), ox = 27, oy = 10, sprite2 = GetSpriteInstance("src/def/misc/bat.lua")}
-gfx.loot.image = loot --for loot particles
+gfx.loot.apple = GetSpriteInstance("src/def/misc/apple.lua")
+gfx.loot.chicken = GetSpriteInstance("src/def/misc/chicken.lua")
+gfx.loot.beef = GetSpriteInstance("src/def/misc/beef.lua")
+gfx.loot.bat = GetSpriteInstance("src/def/misc/bat.lua")
+gfx.loot.image = imageBank["res/img/misc/loot.png"] --for loot particles
 
 local ui = love.graphics.newImage("res/img/misc/ui.png")
 imageWidth, imageHeight = ui:getDimensions( )

@@ -47,12 +47,12 @@ function Character:showEffect(effect, obj)
     elseif effect == "pickup" then
         --disappearing loot
         loot = obj
-        particles = PA_LOOT_GET:clone()
+--[[        particles = PA_LOOT_GET:clone()
         particles:setQuads( loot.q )
         particles:setOffset( loot.ox, loot.oy )
         particles:setPosition( loot.x - self.x, loot.y - self.y - 10 )
         particles:emit(1)
-        stage.objects:add(Effect:new(particles, self.x, self.y + 10))
+        stage.objects:add(Effect:new(particles, self.x, self.y + 10))]]
     elseif effect == "step" then
         -- running dust clouds
         sfx.play("sfx", self.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))

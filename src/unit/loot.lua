@@ -3,22 +3,15 @@ local Loot = class("Loot", Unit)
 
 local CheckCollision = CheckCollision
 
-function Loot:initialize(name, gfx, x, y, f)
+function Loot:initialize(name, sprite, x, y, f)
     --f options {}: shapeType, shapeArgs, hp, score, shader, color, sfxOnHit, sfxDead, func
     if not f then
         f = {}
     end
-    Unit.initialize(self, name, nil, nil, x, y, f)
-    self.draw = Loot.draw
-    if gfx.sprite2 then
-        self.sprite = imageBank[gfx.sprite2.def.spriteSheet]
-        self.q = gfx.sprite2.def.animations.stand[1].q
-    else
-        self.sprite = gfx.sprite
-        self.q = gfx.q
-    end
-    self.ox = gfx.ox
-    self.oy = gfx.oy
+    Unit.initialize(self, name, sprite, nil, x, y, f)
+    self.draw = Unit.defaultDraw
+    self.chargedAt, self.charge = 0, -1  -- for Unit.defaultDraw
+    self:setSprite("stand")
 
     self.note = f.note or "???"
     self.pickupSfx = f.pickupSfx
@@ -41,25 +34,6 @@ end
 
 function Loot:addShape()
     Unit.addShape(self, "circle", { self.x, self.y, 7.5 })
-end
-
-function Loot:calcShadowSpriteAndTransparency()
-    love.graphics.setColor(0, 0, 0, 255) --4th is the shadow transparency
-    return self.sprite, self.sprite, self, -stage.shadowAngle, 0
-end
-
-function Loot:draw(l,t,w,h)
-    if not self.isDisabled and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
-        love.graphics.setColor( unpack( self.color ) )
-        love.graphics.draw (
-            self.sprite, --The image
-            self.q, --Current frame of the current animation
-            self.x, self.y - self.z,
-            0, --spr.rotation
-            1, 1, --spr.sizeScale * spr.flipH, spr.sizeScale * spr.flipV,
-            self.ox, self.oy
-        )
-    end
 end
 
 function Loot:onHurt()
