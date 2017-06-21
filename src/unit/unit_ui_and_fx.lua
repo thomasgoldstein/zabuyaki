@@ -26,7 +26,7 @@ function Unit:playHitSfx(dmg)
 end
 
 function Unit:showHitMarks(dmg, z, offset_x)
-    local hitMarkOffset_y = -1
+    local hitMarkOffset_y = -10
     local y = self.y
     local paHitMark
     local h = self.isHurt
