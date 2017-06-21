@@ -15,6 +15,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SOUND OPTIONS" )
 local txtItems = {"SFX VOLUME", "BGM VOLUME", "SFX N", "MUSIC N", "BACK"}
+local volumeStep = 0.2
 
 local menu = fillMenu(txtItems)
 
@@ -30,6 +31,9 @@ function soundState:enter()
     Control1.start:update()
     Control1.back:update()
     love.graphics.setLineWidth( 2 )
+    -- init menu item with current sfx+bgm volumes
+    menu[1].n = GLOBAL_SETTING.SFX_VOLUME / volumeStep
+    menu[2].n = GLOBAL_SETTING.BGM_VOLUME / volumeStep
 end
 
 --Only P1 can use menu / options
@@ -71,19 +75,19 @@ function soundState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == 1 then
-            if GLOBAL_SETTING.SFX_VOLUME ~= 0 then
-                m.item = "SOUND ON"
-            else
+            if GLOBAL_SETTING.SFX_VOLUME == 0 then
                 m.item = "SOUND OFF"
-            end
-            m.hint = ""
-        elseif i == 2 then
-            if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
-                m.item = "BG MUSIC ON"
             else
-                m.item = "BG MUSIC OFF"
+                m.item = "SOUND "..GLOBAL_SETTING.SFX_VOLUME * 100 .."%"
             end
-            m.hint = ""
+            m.hint = "USE <- ->"
+        elseif i == 2 then
+            if GLOBAL_SETTING.BGM_VOLUME == 0 then
+                m.item = "BG MUSIC OFF"
+            else
+                m.item = "BG MUSIC "..GLOBAL_SETTING.BGM_VOLUME * 100 .."%"
+            end
+            m.hint = "USE <- ->"
         elseif i == 3 then
             m.item = "SFX #"..m.n.." "..sfx[m.n].alias
             m.hint = "by "..sfx[m.n].copyright
@@ -98,7 +102,7 @@ function soundState:draw()
         end
         calcMenuItem(menu, i)
         if i == oldMenuState then
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(155, 155, 155, 255)
             love.graphics.print(m.hint, m.wx, m.wy)
             love.graphics.setColor(0, 0, 0, 80)
             love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
@@ -136,16 +140,16 @@ function soundState:confirm( x, y, button, istouch )
             if GLOBAL_SETTING.SFX_VOLUME ~= 0 then
                 configuration:set("SFX_VOLUME", 0)
             else
-                configuration:set("SFX_VOLUME", 0.75)
+                configuration:set("SFX_VOLUME", 1)
             end
-            TTEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
+            TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
             configuration:save(true)
         elseif menuState == 2 then
             sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 configuration:set("BGM_VOLUME", 0)
             else
-                configuration:set("BGM_VOLUME", 0.75)
+                configuration:set("BGM_VOLUME", 1)
                 TEsound.stop("music")
                 TEsound.playLooping(bgm.title, "music")
             end
@@ -189,22 +193,28 @@ function soundState:wheelmoved(x, y)
     menu[menuState].n = menu[menuState].n + i
     if menuState == 1 then
         sfx.play("sfx","menuSelect")
-        if GLOBAL_SETTING.SFX_VOLUME ~= 0 then
-            configuration:set("SFX_VOLUME", 0)
-        else
-            configuration:set("SFX_VOLUME", 0.75)
+        if menu[menuState].n < 0 then
+            menu[menuState].n = 0
         end
+        if menu[menuState].n > 1 / volumeStep then
+            menu[menuState].n = 1 / volumeStep
+        end
+        GLOBAL_SETTING.SFX_VOLUME = menu[menuState].n * volumeStep
+        configuration:set("SFX_VOLUME", GLOBAL_SETTING.SFX_VOLUME)
         TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
         configuration:save(true)
-    elseif menuState == 1 then
+    elseif menuState == 2 then
         sfx.play("sfx","menuSelect")
-        if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
-            configuration:set("BGM_VOLUME", 0)
-        else
-            configuration:set("BGM_VOLUME", 0.75)
-            TEsound.stop("music")
-            TEsound.playLooping(bgm.title, "music")
+        if menu[menuState].n < 0 then
+            menu[menuState].n = 0
         end
+        if menu[menuState].n > 1 / volumeStep then
+            menu[menuState].n = 1 / volumeStep
+        end
+        GLOBAL_SETTING.BGM_VOLUME = menu[menuState].n * volumeStep
+        configuration:set("BGM_VOLUME", GLOBAL_SETTING.BGM_VOLUME)
+        TEsound.stop("music")
+        TEsound.playLooping(bgm.title, "music")
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
         configuration:save(true)
     elseif menuState == 3 then
