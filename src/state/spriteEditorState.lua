@@ -80,7 +80,8 @@ function spriteEditorState:enter(_, _hero, _weapon)
         { id = 1 }
     )
     player:setOnStage(stage)
-    player.doShove = function() end
+    player.doShove = function() end -- block ability
+    player.showEffect = function() end -- block visual effects
 end
 
 local function displayHelp()
