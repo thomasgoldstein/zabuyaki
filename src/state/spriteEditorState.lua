@@ -81,6 +81,28 @@ function spriteEditorState:enter(_, _hero, _weapon)
     cleanRegisteredPlayers()
 end
 
+local oldPlayerHitBoxesFrame = -1
+local function getPlayerHitBoxes()
+    local sc = sprite.def.animations[sprite.curAnim][menu[menuState].n]
+    if oldPlayerHitBoxesFrame ~= menu[menuState].n then
+        attackHitBoxes = {} -- DEBUG
+        if sc.funcCont and player then
+            sc.funcCont(player, true) --isfuncCont = true
+        end
+        if sc.func then
+            sc.func(player, false) --isfuncCont = false
+        end
+    end
+    if not sc.func and not sc.funcCont then
+        attackHitBoxes = {} -- DEBUG
+    end
+    oldPlayerHitBoxesFrame = menu[menuState].n
+end
+local function clearPlayerHitBoxes()
+    attackHitBoxes = {} -- DEBUG
+    oldPlayerHitBoxesFrame = -1
+end
+
 local function displayHelp()
     local font = love.graphics.getFont()
     local x, y = leftItemOffset, menuOffset_y + menuItem_h
@@ -260,14 +282,16 @@ function spriteEditorState:playerInput(controls)
     end
     if controls.horizontal:pressed(-1)then
         self:wheelmoved(0, -1)
+        clearPlayerHitBoxes()
     elseif controls.horizontal:pressed(1)then
         self:wheelmoved(0, 1)
+        clearPlayerHitBoxes()
     elseif controls.vertical:pressed(-1) then
-        attackHitBoxes = {} -- DEBUG
         menuState = menuState - 1
+        clearPlayerHitBoxes()
     elseif controls.vertical:pressed(1) then
-        attackHitBoxes = {} -- DEBUG
         menuState = menuState + 1
+        clearPlayerHitBoxes()
     end
     if menuState < 1 then
         menuState = #menu
@@ -426,14 +450,6 @@ function spriteEditorState:draw()
     end
     if sprite then --for Obstacles w/o shaders
         if menuState == 2 then
-            attackHitBoxes = {} -- DEBUG
-            local sc = sprite.def.animations[sprite.curAnim][menu[menuState].n]
-            if sc.funcCont and player then
-                sc.funcCont(player, true) --isfuncCont = true
-            end
-            if sc.func then
-                sc.func(player, false) --isfuncCont = false
-            end
             --1 frame
             love.graphics.setColor(255, 0, 0, 150)
             love.graphics.rectangle("fill", 0, y, screenWidth, 2)
@@ -447,6 +463,7 @@ function spriteEditorState:draw()
                 DrawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
                 DrawweaponSprite(sprite, x - (menu[menuState].n - i) * xStep, y, i )
             end
+            getPlayerHitBoxes()
             if GLOBAL_SETTING.DEBUG then
                 showDebugBoxes(2)
                 love.graphics.setColor(255, 255, 255, 255)
@@ -506,7 +523,6 @@ function spriteEditorState:confirm( x, y, button, istouch )
 end
 
 function spriteEditorState:wheelmoved(x, y)
-    attackHitBoxes = {} -- DEBUG
     local i = 0
     if y > 0 then
         i = 1
@@ -571,7 +587,6 @@ function spriteEditorState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    attackHitBoxes = {} -- DEBUG
     self:confirm( x, y, button, istouch )
 end
 
@@ -579,6 +594,5 @@ function spriteEditorState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    attackHitBoxes = {} -- DEBUG
     mouse_x, mouse_y = x, y
 end
