@@ -17,6 +17,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 local txtCurrentSprite = nil --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 local txtItems = {"ANIMATIONS", "FRAMES", "WEAPON ANIMATIONS", "SHADERS", "BACK"}
 
+local player = nil
 local hero = nil
 local sprite = nil
 local animations = nil
@@ -70,6 +71,16 @@ function spriteEditorState:enter(_, _hero, _weapon)
     Control1.back:update()
     love.graphics.setLineWidth( 2 )
     self:wheelmoved(0, 0)   --pick 1st sprite to draw
+
+    stage = Stage:new()
+    player = Rick:new("SPRED",
+        sprite,
+        nil,
+        screenWidth /2, menuOffset_y + menuItem_h / 2,
+        { id = 1 }
+    )
+    player:setOnStage(stage)
+    player.doShove = function() end
 end
 
 local function displayHelp()
@@ -254,8 +265,10 @@ function spriteEditorState:playerInput(controls)
     elseif controls.horizontal:pressed(1)then
         self:wheelmoved(0, 1)
     elseif controls.vertical:pressed(-1) then
+        attackHitBoxes = {} -- DEBUG
         menuState = menuState - 1
     elseif controls.vertical:pressed(1) then
+        attackHitBoxes = {} -- DEBUG
         menuState = menuState + 1
     end
     if menuState < 1 then
@@ -415,6 +428,14 @@ function spriteEditorState:draw()
     end
     if sprite then --for Obstacles w/o shaders
         if menuState == 2 then
+            attackHitBoxes = {} -- DEBUG
+            local sc = sprite.def.animations[sprite.curAnim][menu[menuState].n]
+            if sc.funcCont and player then
+                sc.funcCont(player, true) --isfuncCont = true
+            end
+            if sc.func then
+                sc.func(player, false) --isfuncCont = false
+            end
             --1 frame
             love.graphics.setColor(255, 0, 0, 150)
             love.graphics.rectangle("fill", 0, y, screenWidth, 2)
@@ -427,6 +448,10 @@ function spriteEditorState:draw()
             for i = 1, #sprite.def.animations[sprite.curAnim] do
                 DrawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
                 DrawweaponSprite(sprite, x - (menu[menuState].n - i) * xStep, y, i )
+            end
+            if GLOBAL_SETTING.DEBUG then
+                showDebugBoxes(2)
+                love.graphics.setColor(255, 255, 255, 255)
             end
             love.graphics.setColor(255, 255, 255, 255)
             DrawSpriteInstance(sprite, x, y, menu[menuState].n)
@@ -483,6 +508,7 @@ function spriteEditorState:confirm( x, y, button, istouch )
 end
 
 function spriteEditorState:wheelmoved(x, y)
+    attackHitBoxes = {} -- DEBUG
     local i = 0
     if y > 0 then
         i = 1
@@ -547,6 +573,7 @@ function spriteEditorState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
+    attackHitBoxes = {} -- DEBUG
     self:confirm( x, y, button, istouch )
 end
 
@@ -554,5 +581,6 @@ function spriteEditorState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
+    attackHitBoxes = {} -- DEBUG
     mouse_x, mouse_y = x, y
 end
