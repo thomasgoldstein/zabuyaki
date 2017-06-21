@@ -71,17 +71,14 @@ function spriteEditorState:enter(_, _hero, _weapon)
     Control1.back:update()
     love.graphics.setLineWidth( 2 )
     self:wheelmoved(0, 0)   --pick 1st sprite to draw
-
+    -- show hitBoxes
     stage = Stage:new()
-    player = Rick:new("SPRED",
-        sprite,
-        nil,
-        screenWidth /2, menuOffset_y + menuItem_h / 2,
-        { id = 1 }
-    )
+    player = Rick:new("SPRED", sprite, nil, screenWidth /2, menuOffset_y + menuItem_h / 2 )
+    player.id = 1   -- fixed id
     player:setOnStage(stage)
     player.doShove = function() end -- block ability
     player.showEffect = function() end -- block visual effects
+    cleanRegisteredPlayers()
 end
 
 local function displayHelp()
