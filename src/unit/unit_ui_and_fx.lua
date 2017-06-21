@@ -44,7 +44,7 @@ function Unit:showHitMarks(dmg, z, offset_x)
         paHitMark = PA_IMPACT_BIG:clone()
     end
     if GLOBAL_SETTING.DEBUG then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x, y = self.y, w = 31, h = 0.1, z = z, collided = true }
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = 0, y = self.y, w = 31, h = 0.1, z = z, collided = true }
     end
     paHitMark:setPosition( self.face * (offset_x or 4), - z + hitMarkOffset_y )
     if not offset_x then --still mark e.g. for clashing

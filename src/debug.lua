@@ -114,7 +114,10 @@ function showDebugControls()
     end
 end
 
-function showDebugBoxes()
+function showDebugBoxes(scale)
+    if not scale then
+        scale = 1
+    end
     if GLOBAL_SETTING.DEBUG then
         local a
         -- draw attack hitboxes
@@ -127,10 +130,10 @@ function showDebugBoxes()
                     love.graphics.setColor(255, 255, 0, 150)
                 end
                 -- yellow: width + height
-                love.graphics.rectangle("line", a.x, a.y - a.z - a.h / 2, a.w, a.h)
+                love.graphics.rectangle("line", a.x + a.sx * scale, a.y + ( -a.z - a.h / 2) * scale, a.w * scale, a.h * scale)
                 love.graphics.setColor(0, 255, 0, 150)
                 -- green: width + depth
-                love.graphics.rectangle("line", a.x, a.y - a.d / 2, a.w, a.d)
+                love.graphics.rectangle("line", a.x + a.sx * scale, a.y - (a.d / 2) * scale, a.w * scale, a.d * scale)
             else
                 -- blue / green(not collided) cross
                 if a.collided then
@@ -138,8 +141,8 @@ function showDebugBoxes()
                 else
                     love.graphics.setColor(0, 255, 0,150)
                 end
-                love.graphics.rectangle("line", a.x - a.w / 2, a.y - a.z, a.w, a.h)
-                love.graphics.rectangle("line", a.x, a.y - a.z - a.w / 2, a.h, a.w)
+                love.graphics.rectangle("line", a.x + a.sx * scale - (a.w / 2) * scale, a.y - a.z * scale, a.w * scale, a.h * scale)
+                love.graphics.rectangle("line", a.x + a.sx * scale, a.y + ( -a.z - a.w / 2) * scale, a.h * scale, a.w * scale)
             end
         end
     end
