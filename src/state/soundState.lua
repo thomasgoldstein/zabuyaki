@@ -14,7 +14,7 @@ local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SOUND OPTIONS" )
-local txtItems = {"BGM", "SFX N", "MUSIC N", "BACK"}
+local txtItems = {"SFX VOLUME", "BGM VOLUME", "SFX N", "MUSIC N", "BACK"}
 
 local menu = fillMenu(txtItems)
 
@@ -71,16 +71,23 @@ function soundState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == 1 then
+            if GLOBAL_SETTING.SFX_VOLUME ~= 0 then
+                m.item = "SOUND ON"
+            else
+                m.item = "SOUND OFF"
+            end
+            m.hint = ""
+        elseif i == 2 then
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 m.item = "BG MUSIC ON"
             else
                 m.item = "BG MUSIC OFF"
             end
             m.hint = ""
-        elseif i == 2 then
+        elseif i == 3 then
             m.item = "SFX #"..m.n.." "..sfx[m.n].alias
             m.hint = "by "..sfx[m.n].copyright
-        elseif i == 3 then
+        elseif i == 4 then
             if m.n == 0 then
                 m.item = "STOP MUSIC"
                 m.hint = ""
@@ -126,6 +133,15 @@ function soundState:confirm( x, y, button, istouch )
     if button == 1 then
         if menuState == 1 then
             sfx.play("sfx","menuSelect")
+            if GLOBAL_SETTING.SFX_VOLUME ~= 0 then
+                configuration:set("SFX_VOLUME", 0)
+            else
+                configuration:set("SFX_VOLUME", 0.75)
+            end
+            TTEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
+            configuration:save(true)
+        elseif menuState == 2 then
+            sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 configuration:set("BGM_VOLUME", 0)
             else
@@ -135,9 +151,9 @@ function soundState:confirm( x, y, button, istouch )
             end
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
             configuration:save(true)
-        elseif menuState == 2 then
-            sfx.play("sfx", menu[menuState].n)
         elseif menuState == 3 then
+            sfx.play("sfx", menu[menuState].n)
+        elseif menuState == 4 then
             TEsound.volume("music", 1)
             TEsound.stop("music")
             if menu[menuState].n > 0 then
@@ -173,6 +189,15 @@ function soundState:wheelmoved(x, y)
     menu[menuState].n = menu[menuState].n + i
     if menuState == 1 then
         sfx.play("sfx","menuSelect")
+        if GLOBAL_SETTING.SFX_VOLUME ~= 0 then
+            configuration:set("SFX_VOLUME", 0)
+        else
+            configuration:set("SFX_VOLUME", 0.75)
+        end
+        TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
+        configuration:save(true)
+    elseif menuState == 1 then
+        sfx.play("sfx","menuSelect")
         if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
             configuration:set("BGM_VOLUME", 0)
         else
@@ -182,14 +207,14 @@ function soundState:wheelmoved(x, y)
         end
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
         configuration:save(true)
-    elseif menuState == 2 then
+    elseif menuState == 3 then
         if menu[menuState].n < 1 then
             menu[menuState].n = #sfx
         end
         if menu[menuState].n > #sfx then
             menu[menuState].n = 1
         end
-    elseif menuState == 3 then
+    elseif menuState == 4 then
         if menu[menuState].n < 0 then
             menu[menuState].n = #bgm
         end
