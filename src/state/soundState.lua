@@ -142,6 +142,7 @@ function soundState:confirm( x, y, button, istouch )
             else
                 configuration:set("SFX_VOLUME", 1)
             end
+            menu[menuState].n = GLOBAL_SETTING.SFX_VOLUME / volumeStep
             TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
             configuration:save(true)
         elseif menuState == 2 then
@@ -153,6 +154,7 @@ function soundState:confirm( x, y, button, istouch )
                 TEsound.stop("music")
                 TEsound.playLooping(bgm.title, "music")
             end
+            menu[menuState].n = GLOBAL_SETTING.BGM_VOLUME / volumeStep
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
             configuration:save(true)
         elseif menuState == 3 then
