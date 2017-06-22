@@ -97,7 +97,7 @@ return {
         },
         respawn = {
             { q = q(2,264,57,66), ox = 21, oy = 65, delay = 5 }, --jump
-            { q = q(55,218,75,43), ox = 45, oy = 32 }, --lying down
+            { q = q(55,217,75,44), ox = 45, oy = 33 }, --lying down
             { q = q(132,209,55,52), ox = 31, oy = 51 }, --getting up
             { q = q(114,73,38,58), ox = 21, oy = 57 }, --duck
             delay = 0.2
@@ -137,13 +137,13 @@ return {
             delay = 5
         },
         getup = {
-            { q = q(55,218,75,43), ox = 45, oy = 32, delay = 0.2 }, --lying down
+            { q = q(55,217,75,44), ox = 45, oy = 33, delay = 0.2 }, --lying down
             { q = q(132,209,55,52), ox = 31, oy = 51 }, --getting up
             { q = q(114,73,38,58), ox = 21, oy = 57 }, --duck
             delay = 0.3
         },
         fallen = {
-            { q = q(55,218,75,43), ox = 45, oy = 32 }, --lying down
+            { q = q(55,217,75,44), ox = 45, oy = 33 }, --lying down
             delay = 65
         },
         hurtHigh = {
