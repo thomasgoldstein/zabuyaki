@@ -15,7 +15,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SOUND OPTIONS" )
 local txtItems = {"SFX VOLUME", "BGM VOLUME", "SFX N", "MUSIC N", "BACK"}
-local volumeStep = 0.2
+local volumeStep = 0.10
 
 local menu = fillMenu(txtItems)
 
