@@ -247,6 +247,7 @@ return {
 			delay = 0.16
 		},
 		dashHold = {
+			{ q = q(2,269,42,59), ox = 21, oy = 58, delay = 0.06 }, --duck
 			{ q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
 		},
 		defensiveSpecial = {

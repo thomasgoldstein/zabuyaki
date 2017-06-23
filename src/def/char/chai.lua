@@ -221,6 +221,7 @@ return {
 			delay = 0.1
 		},
 		dashHold = {
+			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
 			{ q = q(181,863,48,63), ox = 26, oy = 63 }, --dash hold
 		},
 		combo1 = {
