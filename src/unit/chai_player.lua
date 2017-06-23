@@ -10,7 +10,7 @@ local CheckCollision = CheckCollision
 local movesWhiteList = {
     run = true, sideStep = true, pickup = true,
     jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-    grab = true, grabSwap = true, grabAttack = true, holdAttack = true,
+    grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
     shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
     dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
     --technically present for all

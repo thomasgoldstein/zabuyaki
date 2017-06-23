@@ -50,7 +50,7 @@ function Character:initAttributes()
     self.velocityWalkHold_y = self.velocityWalk_y * 0.75
     self.velocityRun_x = 150
     self.velocityRun_y = 25
-    self.velocityJump = 220 --Z coord
+    self.velocityJump = 220 -- z coord
     self.velocityJumpSpeed = 1.25
     self.velocityJumpBoost_x = 10
     self.velocityJumpBoost_y = 5
@@ -62,6 +62,9 @@ function Character:initAttributes()
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
+    self.velocityDashHold_z = 100
+    self.velocityDashHold_x = 160
+    self.velocityDashHoldSpeed = 1.25
     self.throwStart_z = 20 --lift up a body to throw at this Z
     self.toFallenAnim_z = 40
     self.velocityStepDown = 220
@@ -465,7 +468,11 @@ function Character:standUpdate(dt)
             if self.moves.run and self:getPrevStateTime() < doubleTapDelta and self.lastFace == self.b.horizontal:getValue()
                     and (self.lastState == "walk" or self.lastState == "run" )
             then
-                self:setState(self.run)
+                if self.moves.dashHold and self.charge > 0 then
+                    self:setState(self.dashHold)
+                else
+                    self:setState(self.run)
+                end
             else
                 self:setState(self.walk)
             end
@@ -1662,5 +1669,40 @@ function Character:holdAttackUpdate(dt)
     self:calcMovement(dt, true, nil)
 end
 Character.holdAttack = {name = "holdAttack", start = Character.holdAttackStart, exit = nop, update = Character.holdAttackUpdate, draw = Character.defaultDraw}
+
+function Character:dashHoldStart()
+    self.isHittable = true
+    dpo(self, self.state)
+    self:setSprite("dashHold")
+    self.horizontal = self.face
+    sfx.play("voice"..self.id, self.sfx.dashHold)
+    self.vel_x = self.velocityDashHold_x * self.velocityDashHoldSpeed
+    self.vel_z = self.velocityDashHold_z * self.velocityDashHoldSpeed
+    self.vel_y = 0
+    self.z = 0.1
+    sfx.play("sfx"..self.id, self.sfx.dashAttack)
+    self:showEffect("jumpStart")
+end
+function Character:dashHoldUpdate(dt)
+    if self.z > 0 then
+        self.z = self.z + dt * self.vel_z
+        self.vel_z = self.vel_z - self.gravity * dt * self.velocityDashHoldSpeed
+        if self.vel_z > 0 then
+            if self.vel_x > 0 then
+                self.vel_x = self.vel_x - (self.velocityDashHold_x * dt)
+            else
+                self.vel_x = 0
+            end
+        end
+    else
+        self.vel_z = 0
+        self.z = 0
+        sfx.play("sfx"..self.id, self.sfx.step)
+        self:setState(self.duck)
+        return
+    end
+    self:calcMovement(dt, true)
+end
+Character.dashHold = {name = "dashAttack", start = Character.dashHoldStart, exit = nop, update = Character.dashHoldUpdate, draw = Character.defaultDraw}
 
 return Character
