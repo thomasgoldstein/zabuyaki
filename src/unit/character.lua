@@ -1680,7 +1680,7 @@ function Character:dashHoldStart()
     self.vel_z = self.velocityDashHold_z * self.velocityDashHoldSpeed
     self.vel_y = 0
     self.z = 0.1
-    sfx.play("sfx"..self.id, self.sfx.dashAttack)
+    sfx.play("sfx"..self.id, self.sfx.jump)
     self:showEffect("jumpStart")
 end
 function Character:dashHoldUpdate(dt)
