@@ -131,17 +131,16 @@ function Player:hasPlaceToStand(x, y)
     return true
 end
 
-local states_for_holdAttack = {stand = true, walk = true, run = true, hurt = true}
 function Player:updateAI(dt)
     if self.isDisabled then
         return
     end
     if self.moves.holdAttack then
-        if self.b.attack:isDown() and states_for_holdAttack[self.state] then
+        if self.b.attack:isDown() and self.statesForHoldAttack[self.state] then
             self.charge = self.charge + dt
         else
             if self.charge >= self.chargedAt then
-                if states_for_holdAttack[self.state] then
+                if self.statesForHoldAttack[self.state] then
                     self:setState(self.holdAttack)
                 end
             end

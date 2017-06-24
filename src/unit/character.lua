@@ -14,6 +14,7 @@ local movesWhiteList = {
     --technically present for all
     stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
 }
+Character.statesForHoldAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, dashHold = true }
 
 function Character:initialize(name, sprite, input, x, y, f)
     if not f then
@@ -1703,6 +1704,6 @@ function Character:dashHoldUpdate(dt)
     end
     self:calcMovement(dt, true)
 end
-Character.dashHold = {name = "dashAttack", start = Character.dashHoldStart, exit = nop, update = Character.dashHoldUpdate, draw = Character.defaultDraw}
+Character.dashHold = {name = "dashHold", start = Character.dashHoldStart, exit = nop, update = Character.dashHoldUpdate, draw = Character.defaultDraw}
 
 return Character
