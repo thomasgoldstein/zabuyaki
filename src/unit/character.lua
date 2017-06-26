@@ -1186,21 +1186,24 @@ function Character:checkForGrab(range)
     return nil
 end
 
-function Character:doGrab(target)
+function Character:doGrab(target, inAir)
     dp(target.name .. " is grabed by me - "..self.name)
     local g = self.hold
     local g_target = target.hold
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
-    if self.z ~= 0 or self.vel_z ~= 0 then
-        return false
-    end
+--    if not inAir or (self.z ~= 0 or self.vel_z ~= 0) then
+--        return false
+--    end
     if target.isGrabbed then
         self.cooldown = 0.2
         return false
     end
-    if not target.isHittable or target.z > 0 then
+    if not target.isHittable then
+        return false
+    end
+    if not inAir and target.z > 0 then
         return false
     end
     --the grabbed
@@ -1702,6 +1705,38 @@ function Character:dashHoldUpdate(dt)
         self:setState(self.duck)
         return
     end
+------------------
+    local grabbed = self:checkForGrab(6)
+    if grabbed then
+        if grabbed.face == -self.face and grabbed.sprite.curAnim == "dashHold"
+        then
+            --back off 2 simultaneous dashHold grabbers
+            if self.x < grabbed.x then
+                self.horizontal = -1
+            else
+                self.horizontal = 1
+            end
+            grabbed.horizontal = -self.horizontal
+            self:showHitMarks(22, 25, 5) --big hitmark
+            self.vel_x = self.velocityBackoff --move from source
+            self.cooldown = 0.0
+            self:setSprite("hurtHigh")
+            self:setState(self.slide)
+            grabbed.vel_x = grabbed.velocityBackoff --move from source
+            grabbed.cooldown = 0.0
+            grabbed:setSprite("hurtHigh")
+            grabbed:setState(grabbed.slide)
+            sfx.play("sfx"..self.id, self.sfx.grabClash)
+            return
+        end
+        if self.moves.grab and self:doGrab(grabbed, true) then
+            local g = self.hold
+            self.victimInfoBar = g.target.infoBar:setAttacker(self)
+            return
+        end
+    end
+-----------------------
+
     self:calcMovement(dt, true)
 end
 Character.dashHold = {name = "dashHold", start = Character.dashHoldStart, exit = nop, update = Character.dashHoldUpdate, draw = Character.defaultDraw}
