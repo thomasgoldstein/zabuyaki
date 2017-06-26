@@ -1356,6 +1356,13 @@ function Character:grabUpdate(dt)
     if not self.b.attack:isDown() then
         self.canAttack = true
     end
+    if self.z > 0 then
+        self.z = self.z + dt * self.vel_z
+        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+    else
+        self.vel_z = 0
+        self.z = 0
+    end
     --self:calcMovement(dt, true)
     self:tweenMove(dt)
 end
@@ -1419,6 +1426,13 @@ function Character:grabbedFrontUpdate(dt)
         self:setState(self.stand)
         return
     end
+    if self.z > 0 then
+        self.z = self.z + dt * self.vel_z
+        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+    else
+        self.vel_z = 0
+        self.z = 0
+    end
     --self:calcMovement(dt, true)
     self:tweenMove(dt)
 end
@@ -1458,6 +1472,13 @@ function Character:grabbedBackUpdate(dt)
         self.vel_x = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
+    end
+    if self.z > 0 then
+        self.z = self.z + dt * self.vel_z
+        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+    else
+        self.vel_z = 0
+        self.z = 0
     end
     --self:calcMovement(dt, true)
     self:tweenMove(dt)
