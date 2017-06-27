@@ -1187,17 +1187,18 @@ function Character:doGrab(target, inAir)
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
---    if not inAir or (self.z ~= 0 or self.vel_z ~= 0) then
---        return false
---    end
+    if inAir then
+        if math.abs(self.z - target.z) > 10 then
+            return false
+        end
+    elseif target.z > 0 then
+        return false
+    end
     if target.isGrabbed then
         self.cooldown = 0.2
         return false
     end
     if not target.isHittable then
-        return false
-    end
-    if not inAir and target.z > 0 then
         return false
     end
     --the grabbed
