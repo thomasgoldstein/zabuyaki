@@ -1183,7 +1183,7 @@ end
 function Character:doGrab(target, inAir)
     dp(target.name .. " is grabed by me - "..self.name)
     local g = self.hold
-    local g_target = target.hold
+    local gTarget = target.hold
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
@@ -1202,9 +1202,9 @@ function Character:doGrab(target, inAir)
     end
     --the grabbed
     target:releaseGrabbed()	-- your grab targed releases one it grabs
-    g_target.source = self
-    g_target.target = nil
-    g_target.cooldown = self.cooldownGrab
+    gTarget.source = self
+    gTarget.target = nil
+    gTarget.cooldown = self.cooldownGrab
     target.isGrabbed = true
     sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
     -- the grabber
@@ -1218,7 +1218,7 @@ function Character:doGrab(target, inAir)
     return true
 end
 
-local check_x_dist = 18
+local checkDist_x = 18
 function Character:grabStart()
     self.isHittable = true
     self:setSprite("grab")
@@ -1226,19 +1226,19 @@ function Character:grabStart()
     self.victims = {}
     if not self.condition then
         local g = self.hold
-        local time_toMove = 0.1
-        local to_common_y = math.floor((self.y + g.target.y) / 2 )
+        local timeToMove = 0.1
+        local toCommon_y = math.floor((self.y + g.target.y) / 2 )
         local direction = self.x >= g.target.x and -1 or 1
-        local check_forth = self:hasPlaceToStand(self.x + direction * check_x_dist, self.y)
-        local check_back = self:hasPlaceToStand(self.x - direction * check_x_dist, self.y)
+        local checkFront = self:hasPlaceToStand(self.x + direction * checkDist_x, self.y)
+        local checkBack = self:hasPlaceToStand(self.x - direction * checkDist_x, self.y)
         local x1, x2
-        if check_forth then
+        if checkFront then
             x1 = self.x - direction * 4
-            x2 = self.x + direction * check_x_dist
-        elseif check_back then
-            x1 = g.target.x - direction * (check_x_dist + 4)
+            x2 = self.x + direction * checkDist_x
+        elseif checkBack then
+            x1 = g.target.x - direction * (checkDist_x + 4)
             x2 = g.target.x
-            time_toMove = 0.15
+            timeToMove = 0.15
         else
             x1 = self.x - direction * 4
             x2 = self.x + direction * 4
@@ -1247,13 +1247,13 @@ function Character:grabStart()
         g.target.vel_x = 0
         self.vel_y = 0
         g.target.vel_y = 0
-        self.move = tween.new(time_toMove, self, {
+        self.move = tween.new(timeToMove, self, {
             x = x1,
-            y = to_common_y + 0.5
+            y = toCommon_y + 0.5
         }, 'outQuad')
-        g.target.move = tween.new(time_toMove, g.target, {
+        g.target.move = tween.new(timeToMove, g.target, {
             x = x2,
-            y = to_common_y - 0.5
+            y = toCommon_y - 0.5
         }, 'outQuad')
         self.face = direction
         self.horizontal = self.face
@@ -1648,11 +1648,6 @@ function Character:grabSwapUpdate(dt)
     end
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwapStart, exit = nop, update = Character.grabSwapUpdate, draw = Character.defaultDraw}
-
---function Character:defensiveSpecialStart() -- Special attack plug
---    self:setState(self.stand)
---end
---Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecialStart, exit = nop, update = nop, draw = Character.defaultDraw }
 
 function Character:holdAttackStart()
     self.isHittable = true
