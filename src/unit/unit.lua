@@ -258,13 +258,8 @@ function Unit:calcMovement(dt, use_friction, friction, doNotMoveUnit)
 	if self.z <= 0 and use_friction then
 		self:calcFriction(dt, friction)
 	end
-	if self.move then
-		self.move:update(dt) --tweening
-		self.shape:moveTo(self.x, self.y)
-	else
-		if not doNotMoveUnit then
-			self:checkCollisionAndMove(dt)
-		end
+	if not doNotMoveUnit then
+		self:checkCollisionAndMove(dt)
 	end
 end
 

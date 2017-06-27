@@ -1363,8 +1363,8 @@ function Character:grabUpdate(dt)
         self.vel_z = 0
         self.z = 0
     end
-    self:calcMovement(dt, true)
---    self:tweenMove(dt)
+    --self:calcMovement(dt, true)
+    self:tweenMove(dt)
 end
 Character.grab = {name = "grab", start = Character.grabStart, exit = nop, update = Character.grabUpdate, draw = Character.defaultDraw}
 
@@ -1433,8 +1433,8 @@ function Character:grabbedFrontUpdate(dt)
         self.vel_z = 0
         self.z = 0
     end
-    self:calcMovement(dt, true)
---    self:tweenMove(dt)
+    --self:calcMovement(dt, true)
+    self:tweenMove(dt)
 end
 Character.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedFrontUpdate, draw = Character.defaultDraw}
 
@@ -1480,8 +1480,8 @@ function Character:grabbedBackUpdate(dt)
         self.vel_z = 0
         self.z = 0
     end
-    self:calcMovement(dt, true)
---    self:tweenMove(dt)
+    --self:calcMovement(dt, true)
+    self:tweenMove(dt)
 end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedBackUpdate, draw = Character.defaultDraw}
 
@@ -1521,8 +1521,8 @@ function Character:grabAttackUpdate(dt)
         end
         return
     end
-    self:calcMovement(dt, true)
---    self:tweenMove(dt)
+    --self:calcMovement(dt, true)
+    self:tweenMove(dt)
 end
 Character.grabAttack = {name = "grabAttack", start = Character.grabAttackStart, exit = nop, update = Character.grabAttackUpdate, draw = Character.defaultDraw}
 
