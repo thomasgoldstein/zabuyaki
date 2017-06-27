@@ -70,8 +70,9 @@ return {
             delay = 0.06
         },
         respawn = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            delay = 0.3
+            { q = q(193,285,60,65), ox = 18, oy = 65, delay = 5 }, --kick 3
+            { q = q(2,287,62,63), ox = 35, oy = 62 }, --duck
+            delay = 0.6
         },
         duck = {
             { q = q(2,287,62,63), ox = 35, oy = 62 }, --duck
