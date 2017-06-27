@@ -345,8 +345,7 @@ function Player:respawnUpdate(dt)
         return
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+        self:calcFreeFall(dt)
     elseif self.bounced == 0 then
         self.playerSelectMode = 0 -- remove player select text
         self.vel_z = 0

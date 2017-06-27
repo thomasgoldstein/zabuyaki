@@ -54,8 +54,7 @@ function Rick:defensiveSpecialStart()
 end
 function Rick:defensiveSpecialUpdate(dt)
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt
+        self:calcFreeFall(dt)
         if self.z < 0 then
             self.z = 0
         end

@@ -66,9 +66,8 @@ function Chai:dashAttackUpdate(dt)
         return
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
-        if self.vel_z > 0 then
+        self:calcFreeFall(dt)
+    if self.vel_z > 0 then
             if self.vel_x > 0 then
                 self.vel_x = self.vel_x - (self.velocityDash * dt)
             else

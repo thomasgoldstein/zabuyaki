@@ -44,8 +44,7 @@ function Loot:updateAI(dt)
         return
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt
+        self:calcFreeFall(dt, 1)
         if self.z <= 0 then
             if self.vel_z < -100 and self.bounced < 1 then    --bounce up after fall (not )
                 if self.vel_z < -300 then

@@ -147,8 +147,7 @@ function Beatnick:jumpUpdate(dt)
         end
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+        self:calcFreeFall(dt)
     else
         self.vel_z = 0
         self.z = 0

@@ -234,6 +234,11 @@ function Unit:hasPlaceToStand(x, y)
     return true
 end
 
+function Unit:calcFreeFall(dt, speed)
+    self.z = self.z + dt * self.vel_z
+    self.vel_z = self.vel_z - self.gravity * dt * (speed or self.velocityJumpSpeed)
+end
+
 function Unit:calcFriction(dt, friction)
 	local frctn = friction or self.friction
 	if self.vel_x > 0 then

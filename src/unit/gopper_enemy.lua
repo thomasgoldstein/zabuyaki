@@ -288,8 +288,7 @@ function Gopper:dashAttackUpdate(dt)
         return
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * dashAttackSpeed
+        self:calcFreeFall(dt, dashAttackSpeed)
     elseif self.bounced == 0 then
         self.vel_z = 0
         self.vel_x = 0

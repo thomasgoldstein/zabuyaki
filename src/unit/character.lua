@@ -691,8 +691,7 @@ function Character:jumpUpdate(dt)
         end
     end
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+        self:calcFreeFall(dt)
     else
         self.vel_z = 0
         self.z = 0
@@ -886,8 +885,7 @@ function Character:jumpAttackForwardStart()
 end
 function Character:jumpAttackForwardUpdate(dt)
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+        self:calcFreeFall(dt)
         if not self.played_landingAnim and self.vel_z < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackForwardEnd")
             self.played_landingAnim = true
@@ -910,8 +908,7 @@ function Character:jumpAttackLightStart()
 end
 function Character:jumpAttackLightUpdate(dt)
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+        self:calcFreeFall(dt)
         if not self.played_landingAnim and self.vel_z < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackLightEnd")
             self.played_landingAnim = true
@@ -935,8 +932,7 @@ function Character:jumpAttackStraightStart()
 end
 function Character:jumpAttackStraightUpdate(dt)
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+        self:calcFreeFall(dt)
         if not self.played_landingAnim and self.vel_z < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackStraightEnd")
             self.played_landingAnim = true
@@ -960,8 +956,7 @@ function Character:jumpAttackRunStart()
 end
 function Character:jumpAttackRunUpdate(dt)
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+        self:calcFreeFall(dt)
         if not self.played_landingAnim and self.vel_z < 0 and self.z <= 10 then
             self:setSpriteIfExists("jumpAttackRunEnd")
             self.played_landingAnim = true
@@ -993,8 +988,7 @@ function Character:fallStart()
 end
 function Character:fallUpdate(dt)
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityJumpSpeed
+        self:calcFreeFall(dt)
         if self.vel_z < 0 and self.sprite.curAnim ~= "fallen" then
             if (self.isThrown and self.z < self.toFallenAnim_z)
                 or (not self.isThrown and self.z < self.toFallenAnim_z / 4)
@@ -1689,8 +1683,7 @@ function Character:dashHoldStart()
 end
 function Character:dashHoldUpdate(dt)
     if self.z > 0 then
-        self.z = self.z + dt * self.vel_z
-        self.vel_z = self.vel_z - self.gravity * dt * self.velocityDashHoldSpeed
+        self:calcFreeFall(dt, self.velocityDashHoldSpeed)
         if self.vel_z > 0 then
             if self.vel_x > 0 then
                 self.vel_x = self.vel_x - (self.velocityDashHold_x * dt)
