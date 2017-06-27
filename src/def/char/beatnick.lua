@@ -4,6 +4,20 @@ local imageWidth,imageHeight = LoadSpriteSheet(spriteSheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
+local comboAttack1 = function(slf, cont)
+	slf:checkAndAttack(
+        { x = 36, y = 27, width = 26, damage = 15, velocity = slf.vel_x, sfx = "air" },
+        cont
+    )
+	slf.cooldownCombo = 0.4
+end
+local comboAttack2 = function(slf, cont)
+	slf:checkAndAttack(
+        { x = 36, y = 27, width = 26, damage = 22, type = "fall", velocity = slf.vel_x, sfx = "air" },
+        cont
+    )
+	slf.cooldownCombo = 0.4
+end
 return {
     serializationVersion = 0.42, -- The version of this serialization process
 
@@ -34,12 +48,12 @@ return {
             delay = 0.06
         },
         standHold = {
-            { q = q(2,349,64,66), ox = 32, oy = 65, delay = 0.1 }, -- stand hold 1
-            { q = q(68,351,52,64), ox = 29, oy = 63 }, -- stand hold 2
-            { q = q(122,351,52,64), ox = 29, oy = 63 }, -- stand hold 3
-            { q = q(68,351,52,64), ox = 29, oy = 63 }, -- stand hold 2
-            { q = q(122,351,52,64), ox = 29, oy = 63, delay = 0.1  }, -- stand hold 3
-            { q = q(176,351,52,64), ox = 29, oy = 63, delay = 0.16 }, -- stand hold 1
+            { q = q(2,352,64,66), ox = 32, oy = 65, delay = 0.1 }, -- stand hold 1
+            { q = q(68,354,52,64), ox = 29, oy = 63 }, -- stand hold 2
+            { q = q(122,354,52,64), ox = 29, oy = 63 }, -- stand hold 3
+            { q = q(68,354,52,64), ox = 29, oy = 63 }, -- stand hold 2
+            { q = q(122,354,52,64), ox = 29, oy = 63, delay = 0.1  }, -- stand hold 3
+            { q = q(176,354,52,64), ox = 29, oy = 63, delay = 0.16 }, -- stand hold 4
             loop = true,
 			loopFrom = 2,
             delay = 0.06
@@ -60,11 +74,11 @@ return {
             delay = 0.3
         },
         duck = {
-            { q = q(2,284,62,63), ox = 35, oy = 62 }, --duck
+            { q = q(2,287,62,63), ox = 35, oy = 62 }, --duck
             delay = 0.06
         },
         pickup = {
-            { q = q(2,284,62,63), ox = 35, oy = 62 }, --duck
+            { q = q(2,287,62,63), ox = 35, oy = 62 }, --duck
             delay = 0.28
         },
         dashAttack = {
@@ -72,16 +86,22 @@ return {
             delay = 0.3
         },
         combo1 = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            delay = 0.01
+            { q = q(66,284,51,66), ox = 15, oy = 66 }, --kick 1
+            { q = q(119,285,72,65), ox = 22, oy = 65, func = comboAttack1, delay = 0.13 }, --kick 2
+            { q = q(193,285,60,65), ox = 18, oy = 65, delay = 0.1 }, --kick 3
+            delay = 0.06
         },
         combo2 = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            delay = 0.01
+            { q = q(66,284,51,66), ox = 15, oy = 66 }, --kick 1
+            { q = q(119,285,72,65), ox = 22, oy = 65, func = comboAttack1, delay = 0.13 }, --kick 2
+            { q = q(193,285,60,65), ox = 18, oy = 65, delay = 0.1 }, --kick 3
+            delay = 0.06
         },
         combo3 = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            delay = 0.01
+            { q = q(66,284,51,66), ox = 15, oy = 66 }, --kick 1
+            { q = q(119,285,72,65), ox = 22, oy = 65, func = comboAttack2, delay = 0.13 }, --kick 2
+            { q = q(193,285,60,65), ox = 18, oy = 65, delay = 0.1 }, --kick 3
+            delay = 0.06
         },
         fall = {
             { q = q(2,209,74,73), ox = 41, oy = 72 }, --falling
@@ -95,7 +115,7 @@ return {
         getup = {
             { q = q(78,230,74,52), ox = 41, oy = 44, delay = 0.2 }, --lying down
             { q = q(154,222,62,60), ox = 33, oy = 57 }, --getting up
-            { q = q(2,284,62,63), ox = 35, oy = 62 }, --duck
+            { q = q(2,287,62,63), ox = 35, oy = 62 }, --duck
             delay = 0.3
         },
         fallen = {
