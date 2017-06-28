@@ -251,7 +251,10 @@ return {
 			{ q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
 		},
 		dashHoldAttack = {
-			{ q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
+			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
+			{ q = q(58,714,75,58), ox = 33, oy = 66, funcCont = jumpAttackForward, delay = 0.18 }, --jump attack forward 2
+			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
+			delay = 0.06
 		},
 		defensiveSpecial = {
 			{ q = q(2,1504,45,62), ox = 22, oy = 61 }, --defensive special 1
