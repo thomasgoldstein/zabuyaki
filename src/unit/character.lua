@@ -1770,13 +1770,15 @@ function Character:dashHoldUpdate(dt)
             grabbed.horizontal = -self.horizontal
             self:showHitMarks(22, 25, 5) --big hitmark
             self.vel_x = self.velocityBackoff --move from source
+            self.vel_z = self.velocityDashHold_z
+            self.z = self.z + 1
             self.cooldown = 0.0
-            self:setSprite("hurtHigh")
-            self:setState(self.slide)
+            self:setState(self.fall)
             grabbed.vel_x = grabbed.velocityBackoff --move from source
+            grabbed.vel_z = self.velocityDashHold_z
+            grabbed.z = grabbed.z + 1
             grabbed.cooldown = 0.0
-            grabbed:setSprite("hurtHigh")
-            grabbed:setState(grabbed.slide)
+            grabbed:setState(grabbed.fall)
             sfx.play("sfx"..self.id, self.sfx.grabClash)
             return
         end
