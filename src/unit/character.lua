@@ -1719,7 +1719,6 @@ function Character:dashHoldUpdate(dt)
         self:setState(self.duck)
         return
     end
-------------------
     local grabbed = self:checkForGrab(6)
     if grabbed then
         if grabbed.face == -self.face and grabbed.sprite.curAnim == "dashHold"
@@ -1749,8 +1748,6 @@ function Character:dashHoldUpdate(dt)
             return
         end
     end
------------------------
-
     self:calcMovement(dt, true)
 end
 Character.dashHold = {name = "dashHold", start = Character.dashHoldStart, exit = nop, update = Character.dashHoldUpdate, draw = Character.defaultDraw}
