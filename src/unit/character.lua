@@ -1225,6 +1225,8 @@ function Character:grabStart()
     self:setSprite("grab")
     self.grabRelease = 0
     self.victims = {}
+    self.b.horizontal.ikp:clear() -- clear double tap timer
+    self.b.horizontal.ikn:clear() -- clear double tap timer
     if not self.condition then
         local g = self.hold
         local timeToMove = 0.1
@@ -1531,6 +1533,13 @@ function Character:shoveDownUpdate(dt)
         self:setState(self.stand)
         return
     end
+    if self.z > 0 then
+        self:calcFreeFall(dt)
+        if self.z <= 0 then
+            self.vel_z = 0
+            self.z = 0
+        end
+    end
     self:calcMovement(dt, true)
 end
 Character.shoveDown = {name = "shoveDown", start = Character.shoveDownStart, exit = nop, update = Character.shoveDownUpdate, draw = Character.defaultDraw}
@@ -1574,6 +1583,13 @@ function Character:shoveUpUpdate(dt)
         self:setState(self.stand)
         return
     end
+    if self.z > 0 then
+        self:calcFreeFall(dt)
+        if self.z <= 0 then
+            self.vel_z = 0
+            self.z = 0
+        end
+    end
     self:calcMovement(dt, true)
 end
 Character.shoveUp = {name = "shoveUp", start = Character.shoveUpStart, exit = nop, update = Character.shoveUpUpdate, draw = Character.defaultDraw}
@@ -1593,6 +1609,13 @@ function Character:shoveForwardUpdate(dt)
         self.cooldown = 0.2
         self:setState(self.stand)
         return
+    end
+    if self.z > 0 then
+        self:calcFreeFall(dt)
+        if self.z <= 0 then
+            self.vel_z = 0
+            self.z = 0
+        end
     end
     self:calcMovement(dt, true, nil)
 end
@@ -1615,6 +1638,13 @@ function Character:shoveBackUpdate(dt)
         self.cooldown = 0.2
         self:setState(self.stand)
         return
+    end
+    if self.z > 0 then
+        self:calcFreeFall(dt)
+        if self.z <= 0 then
+            self.vel_z = 0
+            self.z = 0
+        end
     end
     self:calcMovement(dt, true)
 end
@@ -1667,6 +1697,13 @@ function Character:grabSwapUpdate(dt)
         --self.vel_x = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
+    end
+    if self.z > 0 then
+        self:calcFreeFall(dt)
+        if self.z <= 0 then
+            self.vel_z = 0
+            self.z = 0
+        end
     end
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwapStart, exit = nop, update = Character.grabSwapUpdate, draw = Character.defaultDraw}
