@@ -250,6 +250,9 @@ return {
 			{ q = q(2,269,42,59), ox = 21, oy = 58, delay = 0.06 }, --duck
 			{ q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
 		},
+		dashHoldAttack = {
+			{ q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
+		},
 		defensiveSpecial = {
 			{ q = q(2,1504,45,62), ox = 22, oy = 61 }, --defensive special 1
 			{ q = q(49,1505,49,61), ox = 25, oy = 60, delay = 0.1 }, --defensive special 2

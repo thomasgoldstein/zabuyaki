@@ -224,6 +224,9 @@ return {
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
 			{ q = q(181,863,48,63), ox = 26, oy = 63 }, --dash hold
 		},
+		dashHoldAttack = {
+			{ q = q(181,863,48,63), ox = 26, oy = 63 }, --dash hold
+		},
 		combo1 = {
 			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1.1
 			{ q = q(183,3,60,63), ox = 22, oy = 62, func = comboAttack1, delay = 0.07 }, --combo 1.2
