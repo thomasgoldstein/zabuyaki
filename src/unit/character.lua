@@ -1710,8 +1710,9 @@ Character.grabSwap = {name = "grabSwap", start = Character.grabSwapStart, exit =
 
 function Character:holdAttackStart()
     self.isHittable = true
-    if self.z > 0 and SpriteHasAnimation(self.sprite, "dashHoldAttack") then
-        self:setSprite("dashHoldAttack")
+    if self.z > 0 then
+        self:setSpriteIfExists("dashHoldAttack", "holdAttack")
+        self.vel_y = self.vel_y * 0.5
     else
         self:setSprite("holdAttack")
     end
