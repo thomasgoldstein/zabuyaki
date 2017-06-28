@@ -1352,6 +1352,13 @@ function Character:grabUpdate(dt)
         self.canAttack = true
     end
     --self:calcMovement(dt, true)
+    if self.z > 0 then
+        self:calcFreeFall(dt)
+        if self.z <= 0 then
+            self.vel_z = 0
+            self.z = 0
+        end
+    end
     self:tweenMove(dt)
 end
 Character.grab = {name = "grab", start = Character.grabStart, exit = nop, update = Character.grabUpdate, draw = Character.defaultDraw}
@@ -1415,6 +1422,13 @@ function Character:grabbedFrontUpdate(dt)
         return
     end
     --self:calcMovement(dt, true)
+    if self.z > 0 and self.isHittable then -- don't slide down during the shove
+        self:calcFreeFall(dt)
+        if self.z <= 0 then
+            self.vel_z = 0
+            self.z = 0
+        end
+    end
     self:tweenMove(dt)
 end
 Character.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedFrontUpdate, draw = Character.defaultDraw}
@@ -1455,6 +1469,13 @@ function Character:grabbedBackUpdate(dt)
         return
     end
     --self:calcMovement(dt, true)
+    if self.z > 0 and self.isHittable then -- don't slide down during the shove
+        self:calcFreeFall(dt)
+        if self.z <= 0 then
+            self.vel_z = 0
+            self.z = 0
+        end
+    end
     self:tweenMove(dt)
 end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedBackUpdate, draw = Character.defaultDraw}
