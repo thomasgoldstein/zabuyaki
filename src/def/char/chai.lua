@@ -246,7 +246,7 @@ return {
 			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.2
 			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.3
 			{ q = q(124,1129,42,67), ox = 23, oy = 66 }, --jump attack running 4
-			delay = 0.02
+			delay = 0.015
 		},
 		combo1 = {
 			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1.1
