@@ -250,7 +250,13 @@ return {
 			{ q = q(2,269,42,59), ox = 21, oy = 58, delay = 0.06 }, --duck
 			{ q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
 		},
-		dashHoldAttack = {
+		dashHoldAttackH = {
+			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
+			{ q = q(58,714,75,58), ox = 33, oy = 66, funcCont = jumpAttackForward, delay = 0.18 }, --jump attack forward 2
+			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
+			delay = 0.06
+		},
+		dashHoldAttackV = {
 			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
 			{ q = q(58,714,75,58), ox = 33, oy = 66, funcCont = jumpAttackForward, delay = 0.18 }, --jump attack forward 2
 			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
