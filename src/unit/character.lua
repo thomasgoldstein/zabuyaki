@@ -63,9 +63,10 @@ function Character:initAttributes()
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
-    self.velocityDashHold_z = 100
-    self.velocityDashHold_x = 160
-    self.velocityDashHoldSpeed = 1.25
+    self.velocityDashHold_z = 200
+    self.velocityDashHoldSpeed_z = 0.3
+    self.velocityDashHold_x = 180
+    self.velocityDashHoldSpeed_x = 0.93
     self.throwStart_z = 20 --lift up a body to throw at this Z
     self.toFallenAnim_z = 40
     self.velocityStepDown = 220
@@ -1731,8 +1732,8 @@ function Character:dashHoldStart()
     self:setSprite("dashHold")
     self.horizontal = self.face
     sfx.play("voice"..self.id, self.sfx.dashHold)
-    self.vel_x = self.velocityDashHold_x * self.velocityDashHoldSpeed
-    self.vel_z = self.velocityDashHold_z * self.velocityDashHoldSpeed
+    self.vel_x = self.velocityDashHold_x * self.velocityDashHoldSpeed_x
+    self.vel_z = self.velocityDashHold_z * self.velocityDashHoldSpeed_z
     self.vel_y = 0
     self.z = 0.1
     sfx.play("sfx"..self.id, self.sfx.jump)
@@ -1740,7 +1741,7 @@ function Character:dashHoldStart()
 end
 function Character:dashHoldUpdate(dt)
     if self.z > 0 then
-        self:calcFreeFall(dt, self.velocityDashHoldSpeed)
+        self:calcFreeFall(dt, self.velocityDashHoldSpeed_z)
         if self.vel_z > 0 then
             if self.vel_x > 0 then
                 self.vel_x = self.vel_x - (self.velocityDashHold_x * dt)
