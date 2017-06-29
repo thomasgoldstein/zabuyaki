@@ -254,7 +254,6 @@ function Character:afterOnHurt()
         end
     end
     -- calc falling traectorym speed, direction
-    self.z = self.z + 1
     self.vel_z = self.velocityFall_z * self.velocityJumpSpeed
     if self.hp <= 0 then -- dead body flies further
         if self.vel_x < self.velocityFall_x then
@@ -981,7 +980,7 @@ function Character:fallStart()
         self:setSprite("fall")
     end
     if self.z <= 0 then
-        self.z = 0
+        self.z = 1
     end
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
@@ -1758,7 +1757,7 @@ function Character:dashHoldUpdate(dt)
     end
     local grabbed = self:checkForGrab(6)
     if grabbed then
-        if grabbed.face == -self.face and grabbed.sprite.curAnim == "dashHold"
+        if grabbed.face == -self.face --and grabbed.sprite.curAnim == "dashHold"
         then
             --back off 2 simultaneous dashHold grabbers
             if self.x < grabbed.x then
@@ -1770,12 +1769,10 @@ function Character:dashHoldUpdate(dt)
             self:showHitMarks(22, 25, 5) --big hitmark
             self.vel_x = self.velocityBackoff --move from source
             self.vel_z = self.velocityDashHold_z
-            self.z = self.z + 1
             self.cooldown = 0.0
             self:setState(self.fall)
             grabbed.vel_x = grabbed.velocityBackoff --move from source
             grabbed.vel_z = self.velocityDashHold_z
-            grabbed.z = grabbed.z + 1
             grabbed.cooldown = 0.0
             grabbed:setState(grabbed.fall)
             sfx.play("sfx"..self.id, self.sfx.grabClash)
