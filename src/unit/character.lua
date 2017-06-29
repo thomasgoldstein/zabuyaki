@@ -1757,7 +1757,7 @@ function Character:dashHoldUpdate(dt)
     end
     local grabbed = self:checkForGrab(6)
     if grabbed then
-        if grabbed.face == -self.face --and grabbed.sprite.curAnim == "dashHold"
+        if grabbed.face == -self.face and grabbed.sprite.curAnim == "dashHold"
         then
             --back off 2 simultaneous dashHold grabbers
             if self.x < grabbed.x then
