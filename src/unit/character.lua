@@ -63,10 +63,10 @@ function Character:initAttributes()
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
-    self.velocityDashHold_z = 100
+    self.velocityDashHold_z = 120
     self.velocityDashHoldSpeed_z = 0.6
-    self.velocityDashHold_x = 280
-    self.velocityDashHoldSpeed_x = 1
+    self.velocityDashHold_x = 320
+    self.velocityDashHoldSpeed_x = 0.8
     self.throwStart_z = 20 --lift up a body to throw at this Z
     self.toFallenAnim_z = 40
     self.velocityStepDown = 220
