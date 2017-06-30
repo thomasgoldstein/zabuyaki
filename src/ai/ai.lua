@@ -25,11 +25,11 @@ local CheckCollision = CheckCollision
 function AI:initialize(unit)
     self.unit = unit
     self.conditions = {}
-    self.thinkInterval = 0
+    self.thinkInterval = 1
     self.currentSchedule = nil
 
     self.SCHEDULE_INTRO = Schedule:new({self.initIntro, self.onIntro}, {"seePlayer", "random"}, unit.name)
-    self.SCHEDULE_STAND = Schedule:new({self.initStand, self.onStand}, {"bored"}, unit.name)
+    self.SCHEDULE_STAND = Schedule:new({self.initStand, self.onStand}, {"bored", "random", "random2"}, unit.name)
 --print(inspect(self.SCHEDULE_INTRO))
     --self.currentSchedule = self.SCHEDULE_INTRO
     self:selectNewSchedule()
@@ -47,7 +47,7 @@ function AI:update(dt)
     end
     -- run current schedule
     if self.currentSchedule then
-        self.currentSchedule:update(dt)
+        self.currentSchedule:update(self, dt)
     end
 end
 
@@ -58,12 +58,17 @@ function AI:selectNewSchedule(conditions)
         dp("   Select NEW SCHEDULE INTRO")
         return
     end
-    self.currentSchedule = self.SCHEDULE_STAND
-    dp("   Select NEW SCHEDULE STAND")
+    if self.currentSchedule ~= self.SCHEDULE_STAND then
+        self.currentSchedule = self.SCHEDULE_STAND
+        dp("   *Select NEW SCHEDULE STAND")
+    else
+        self.currentSchedule = self.SCHEDULE_INTRO
+        dp("   *Select NEW SCHEDULE INTRO")
+    end
 end
 
 function AI:getConditions()
-    local conditions = {}
+    local conditions = {"oops_cond"}
     if math.random() < 0.5 then
         conditions[#conditions + 1] = "random"
     end
@@ -79,21 +84,25 @@ function AI:getVisualConditions(conditions)
 end
 
 function AI:initIntro()
-    dp("AI:initIntro()")
+    dp("AI:initIntro() ".. self.unit.name)
+    self.unit:setSprite("intro")
     return true
 end
 function AI:onIntro()
-    dp("AI:onIntro()")
-    return math.random() < 0.001
+    dp("AI:onIntro() ".. self.unit.name)
+--    return false
+    return math.random() < 0.01
 end
 
 function AI:initStand()
-    dp("AI:initStand()")
+    dp("AI:initStand() ".. self.unit.name)
+    self.unit:setSprite("stand")
     return true
 end
 function AI:onStand()
-    dp("AI:onStand()")
-    return math.random() < 0.05
+    dp("AI:onStand() ".. self.unit.name)
+    return false
+--    return math.random() < 0.05
 end
 
 return AI
