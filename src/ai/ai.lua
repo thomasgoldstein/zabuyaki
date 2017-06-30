@@ -22,41 +22,54 @@ local CheckCollision = CheckCollision
         self.SCHEDULE_RUNAWAY = new waw.Schedule({self.initRunAway, self.onGotoTargetPos], {"feelObstacle"])
 --]]
 
-function AI:initialize()
-    self.SCHEDULE_INTRO = Schedule:new({self.initIntro, self.onIntro}, {"seePlayer"})
-    
-
+function AI:initialize(unit)
+    self.unit = unit
+    self.conditions = {}
     self.thinkInterval = 0
-    self.currentSchedule = nil
 
+    self.SCHEDULE_INTRO = Schedule:new({self.initIntro, self.onIntro}, {"seePlayer"}, unit.name)
+    self.SCHEDULE_STAND = Schedule:new({self.initStand, self.onStand}, {"bored"}, unit.name)
+
+    self.currentSchedule = self.SCHEDULE_INTRO
 end
 
 function AI:update(dt)
     self.thinkInterval = self.thinkInterval - dt
     if self.thinkInterval <= 0 then
+        dp("AI "..self.unit.name.." thinking")
         self.conditions = self:getConditions()
 
-        if (self.currentSchedule.isDone(self.conditions)) then
+        if not self.currentSchedule or self.currentSchedule.isDone(self.conditions) then
             self:selectNewSchedule(self.conditions)
         end
-        self.thinkInterval = 1
+        self.thinkInterval = 1 + math.random()
         -- run current schedule
         if self.currentSchedule then
-            self.currentSchedule:update()
+            self.currentSchedule:update(dt)
         end
     end
 end
 
 function AI:selectNewSchedule(conditions)
     --
+    self.thinkInterval = 0
+    self.currentSchedule = self.SCHEDULE_INTRO
 end
 
 function AI:getConditions()
-    self:getVisualConditions()
+    local conditions = {}
+    if math.random() < 0.5 then
+        conditions[#conditions + 1] = "random"
+    end
+    self:getVisualConditions(conditions)
+    return conditions
 end
 
-function AI:getVisualConditions()
+function AI:getVisualConditions(conditions)
     -- check attack range, players, units etc
+    if math.random() < 0.5 then
+        conditions[#conditions + 1] = "visualRandom"
+    end
 end
 
 function AI:initIntro()

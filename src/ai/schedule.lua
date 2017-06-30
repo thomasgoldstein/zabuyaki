@@ -15,17 +15,23 @@
 
 local Schedule = {}
 
-function Schedule:new(tasks, interrupts)
+function Schedule:new(tasks, interrupts, name)
+    self.name = name.."'s" or "Unknown" -- for debug only
 	self.tasks = {}
 	self.interrupts = {}
 	self.currentTask = 1
 	self.done = false
+
+    local n = 0
+
 	for i, task in ipairs(tasks) do
 		self:addTask(task)
 	end
 	for j, interrupt in pairs(interrupts) do
-		self:addInterrupt(j)
-	end
+		self:addInterrupt(interrupt)
+        n = n + 1
+    end
+    dp("New "..self.name.." Schedule: Tasks #" .. #self.tasks .. " Iterrupts #"..n)
 end
 
 function Schedule:trace()
@@ -91,7 +97,7 @@ function Schedule:isDone(conditions)
 end
 
 function Schedule:update(env)
-	dp("  Task #" .. self.currentTask .. "/" .. #self.tasks .. ", interrupts len ",self.interrupts)
+	dp("  Task #" .. self.currentTask .. "/" .. #self.tasks .. ", interrupts len ", self.interrupts)
 	if self.done then
 		dp(" no update: all tasks are done")
 		return false
