@@ -26,11 +26,13 @@ function AI:initialize(unit)
     self.unit = unit
     self.conditions = {}
     self.thinkInterval = 0
+    self.currentSchedule = nil
 
-    self.SCHEDULE_INTRO = Schedule:new({self.initIntro, self.onIntro}, {"seePlayer"}, unit.name)
+    self.SCHEDULE_INTRO = Schedule:new({self.initIntro, self.onIntro}, {"seePlayer", "random"}, unit.name)
     self.SCHEDULE_STAND = Schedule:new({self.initStand, self.onStand}, {"bored"}, unit.name)
-
-    self.currentSchedule = self.SCHEDULE_INTRO
+--print(inspect(self.SCHEDULE_INTRO))
+    --self.currentSchedule = self.SCHEDULE_INTRO
+    self:selectNewSchedule()
 end
 
 function AI:update(dt)
@@ -38,22 +40,26 @@ function AI:update(dt)
     if self.thinkInterval <= 0 then
         dp("AI "..self.unit.name.." thinking")
         self.conditions = self:getConditions()
-
-        if not self.currentSchedule or self.currentSchedule.isDone(self.conditions) then
+        if not self.currentSchedule or self.currentSchedule:isDone(self.conditions) then
             self:selectNewSchedule(self.conditions)
         end
         self.thinkInterval = 1 + math.random()
-        -- run current schedule
-        if self.currentSchedule then
-            self.currentSchedule:update(dt)
-        end
+    end
+    -- run current schedule
+    if self.currentSchedule then
+        self.currentSchedule:update(dt)
     end
 end
 
 function AI:selectNewSchedule(conditions)
-    --
-    self.thinkInterval = 0
-    self.currentSchedule = self.SCHEDULE_INTRO
+    --self.thinkInterval = 0
+    if not self.currentSchedule then
+        self.currentSchedule = self.SCHEDULE_INTRO
+        dp("   Select NEW SCHEDULE INTRO")
+        return
+    end
+    self.currentSchedule = self.SCHEDULE_STAND
+    dp("   Select NEW SCHEDULE STAND")
 end
 
 function AI:getConditions()
@@ -73,14 +79,21 @@ function AI:getVisualConditions(conditions)
 end
 
 function AI:initIntro()
+    dp("AI:initIntro()")
+    return true
 end
 function AI:onIntro()
+    dp("AI:onIntro()")
+    return math.random() < 0.001
 end
 
 function AI:initStand()
+    dp("AI:initStand()")
+    return true
 end
 function AI:onStand()
+    dp("AI:onStand()")
+    return math.random() < 0.05
 end
-
 
 return AI

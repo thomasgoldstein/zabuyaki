@@ -1,18 +1,4 @@
 -- Copyright (c) .2017 SineDie
-
--- add clear update
--- create an obj that keeps some functions que and try to run them while
--- previous function returns true. then u delete it from the que and run the next one
-
---[[        this.SCHEDULE_IDLE = new waw.Schedule([this.initIdle, this.onIdle], ["seeEnemy"]);
-        this.SCHEDULE_ATTACK = new waw.Schedule([this.initAttack, this.onAttack], []);
-        this.SCHEDULE_HURT = new waw.Schedule([this.initHurt, this.onHurt], ["none"]);
-        this.SCHEDULE_WALK = new waw.Schedule([this.initWalk, this.onGotoTargetPos], ["feelObstacle","seeEnemy"]);
-        this.SCHEDULE_BOUNCE = new waw.Schedule([this.initBounce, this.onBounce], ["feelObstacle","seeEnemy"]);
-        this.SCHEDULE_FOLLOW = new waw.Schedule([this.initFollowEnemy, this.onGotoTargetPos], ["feelObstacle"]);
-        this.SCHEDULE_RUNAWAY = new waw.Schedule([this.initRunAway, this.onGotoTargetPos], ["feelObstacle"]);
---]]
-
 local Schedule = {}
 
 function Schedule:new(tasks, interrupts, name)
@@ -32,9 +18,10 @@ function Schedule:new(tasks, interrupts, name)
         n = n + 1
     end
     dp("New "..self.name.." Schedule: Tasks #" .. #self.tasks .. " Iterrupts #"..n)
+    return self
 end
 
-function Schedule:trace()
+--[[function Schedule:trace()
 	dp("trace currTask #" .. self.currentTask .. " Done:", self.done)
 	for i, task in ipairs(self.tasks) do
 		dp(i, task)
@@ -42,7 +29,7 @@ function Schedule:trace()
 	for j, interrupt in ipairs(self.interrupts) do
 		dp(j, interrupt)
 	end
-end
+end]]
 
 function Schedule:reset()
 	self.currentTask = 1
@@ -97,26 +84,26 @@ function Schedule:isDone(conditions)
 end
 
 function Schedule:update(env)
-	dp("  Task #" .. self.currentTask .. "/" .. #self.tasks .. ", interrupts len ", self.interrupts)
 	if self.done then
-		dp(" no update: all tasks are done")
+		dp(" Schedule:update. no update: all tasks are done")
 		return false
 	end
 	if #self.tasks < 1 then
-		dp(" no tasks")
+		dp(" Schedule:update. no tasks")
 		return false
-	end
-	dp("try run task #" .. self.currentTask)
+    end
+    dp(" Run Task #" .. self.currentTask .. "/" .. #self.tasks )
+	--dp("try run task #" .. self.currentTask)
 	if self.tasks[self.currentTask](env) then --if func returns true, delete this from the que
-		dp(" que func run with true")
+		dp(" func returned TRUE")
 		self.currentTask = self.currentTask + 1
 
-		if self.currentTask > #self.tasks - 1 then
+		if self.currentTask > #self.tasks then -- -1
 			self:stop()
 		end
 		return true
 	end
-	dp(" que func run with false")
+    dp(" func returned FALSE")
 	return false
 end
 
