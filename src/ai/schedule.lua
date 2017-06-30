@@ -1,7 +1,8 @@
 -- Copyright (c) .2017 SineDie
-local Schedule = {}
+local class = require "lib/middleclass"
+local Schedule = class('Schedule')
 
-function Schedule:new(tasks, interrupts, name)
+function Schedule:initialize(tasks, interrupts, name)
     self.name = name.."'s" or "Unknown" -- for debug only
 	self.tasks = {}
 	self.interrupts = {}
@@ -64,18 +65,13 @@ function Schedule:isDone(conditions)
 		return true
 	end
 	if(conditions) then
---		if(self.interrupts) then
---			for i,inter in ipairs(self.interrupts) do
---				dp(" 00interrupt '"..inter.."'")
---			end
---		end
 		for i,cond in ipairs(conditions) do
 			if self.interrupts[cond] then
 				dp(" !!all tasks are done by interrupt '"..cond.."'")
 				self:reset()
 				return true
 			else
-				dp("   skip this interrupt '"..cond.."'")
+--				dp("   skip this interrupt '"..cond.."'")
 			end
 		end
 	end
@@ -83,7 +79,7 @@ function Schedule:isDone(conditions)
 	return false
 end
 
-function Schedule:update(env)
+function Schedule:update(env, dt)
 	if self.done then
 		dp(" Schedule:update. no update: all tasks are done")
 		return false
