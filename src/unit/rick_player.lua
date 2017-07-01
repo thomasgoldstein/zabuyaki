@@ -46,27 +46,6 @@ function Rick:initAttributes()
     self.sfx.dead = "rickDeath"
 end
 
-function Rick:defensiveSpecialStart()
-    self.isHittable = false
-    self:setSprite("defensiveSpecial")
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
-    self.cooldown = 0.2
-end
-function Rick:defensiveSpecialUpdate(dt)
-    if self.z > 0 then
-        self:calcFreeFall(dt)
-        if self.z < 0 then
-            self.z = 0
-        end
-    end
-    if self.sprite.isFinished then
-        self:setState(self.stand)
-        return
-    end
-    self:calcMovement(dt, true)
-end
-Rick.defensiveSpecial = {name = "defensiveSpecial", start = Rick.defensiveSpecialStart, exit = nop, update = Rick.defensiveSpecialUpdate, draw = Character.defaultDraw }
-
 function Rick:dashAttackStart()
     self.isHittable = true
     dpo(self, self.state)

@@ -768,7 +768,10 @@ function Character:duck2jumpUpdate(dt)
         if self.moves.jump then
             self:setState(self.jump)
         else
-            error("Call disabled move self.jump")
+            self.vel_x = 0
+            self.vel_y = 0
+            self:setState(self.stand)
+            return
         end
         self:showEffect("jumpStart")
         return
@@ -1792,5 +1795,26 @@ function Character:dashHoldUpdate(dt)
     self:calcMovement(dt, true)
 end
 Character.dashHold = {name = "dashHold", start = Character.dashHoldStart, exit = nop, update = Character.dashHoldUpdate, draw = Character.defaultDraw}
+
+function Character:defensiveSpecialStart()
+    self.isHittable = false
+    self:setSprite("defensiveSpecial")
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    self.cooldown = 0.2
+end
+function Character:defensiveSpecialUpdate(dt)
+    if self.z > 0 then
+        self:calcFreeFall(dt)
+        if self.z < 0 then
+            self.z = 0
+        end
+    end
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcMovement(dt, true)
+end
+Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecialStart, exit = nop, update = Character.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
 return Character
