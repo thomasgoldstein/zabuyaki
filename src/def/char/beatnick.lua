@@ -18,6 +18,9 @@ local comboAttack2 = function(slf, cont)
     )
     slf.cooldownCombo = 0.4
 end
+local makeMeHittable = function(slf, cont)
+    slf.isHittable = true
+end
 return {
     serializationVersion = 0.42, -- The version of this serialization process
 
@@ -83,7 +86,7 @@ return {
             delay = 0.28
         },
         defensiveSpecial = {
-            { q = q(2,421,57,67), ox = 28, oy = 66 }, --defensive special transition 1
+            { q = q(2,421,57,67), ox = 28, oy = 66, func = makeMeHittable }, --defensive special transition 1
             { q = q(61,421,49,67), ox = 22, oy = 66 }, --defensive special transition 2
             { q = q(112,420,60,68), ox = 22, oy = 67, delay = 0.1 }, --defensive special transition 3
             
