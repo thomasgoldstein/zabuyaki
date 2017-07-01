@@ -5,18 +5,18 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 local comboAttack1 = function(slf, cont)
-	slf:checkAndAttack(
+    slf:checkAndAttack(
         { x = 33, y = 27, width = 26, damage = 15, velocity = slf.vel_x, sfx = "air" },
         cont
     )
-	slf.cooldownCombo = 0.4
+    slf.cooldownCombo = 0.4
 end
 local comboAttack2 = function(slf, cont)
-	slf:checkAndAttack(
+    slf:checkAndAttack(
         { x = 33, y = 27, width = 26, damage = 22, type = "fall", velocity = slf.vel_x, sfx = "air" },
         cont
     )
-	slf.cooldownCombo = 0.4
+    slf.cooldownCombo = 0.4
 end
 return {
     serializationVersion = 0.42, -- The version of this serialization process
@@ -48,14 +48,14 @@ return {
             delay = 0.06
         },
         standHold = {
-            { q = q(2,352,64,66), ox = 32, oy = 65, delay = 0.1 }, -- stand hold 1
-            { q = q(68,354,52,64), ox = 29, oy = 63 }, -- stand hold 2
-            { q = q(122,354,52,64), ox = 29, oy = 63 }, -- stand hold 3
-            { q = q(68,354,52,64), ox = 29, oy = 63 }, -- stand hold 2
-            { q = q(122,354,52,64), ox = 29, oy = 63, delay = 0.1  }, -- stand hold 3
-            { q = q(176,354,52,64), ox = 29, oy = 63, delay = 0.16 }, -- stand hold 4
+            { q = q(2,352,64,66), ox = 32, oy = 65, delay = 0.1 }, --stand hold 1
+            { q = q(68,354,52,64), ox = 29, oy = 63 }, --stand hold 2
+            { q = q(122,354,52,64), ox = 29, oy = 63 }, --stand hold 3
+            { q = q(68,354,52,64), ox = 29, oy = 63 }, --stand hold 2
+            { q = q(122,354,52,64), ox = 29, oy = 63, delay = 0.1  }, --stand hold 3
+            { q = q(176,354,52,64), ox = 29, oy = 63, delay = 0.16 }, --stand hold 4
             loop = true,
-			loopFrom = 2,
+            loopFrom = 2,
             delay = 0.06
         },
         walk = {
@@ -82,9 +82,36 @@ return {
             { q = q(2,287,62,63), ox = 35, oy = 62 }, --duck
             delay = 0.28
         },
-        dashAttack = {
-            { q = q(2,2,62,67), ox = 35, oy = 66 }, --stand 1
-            delay = 0.3
+        defensiveSpecial = {
+            { q = q(2,421,57,67), ox = 28, oy = 66 }, --defensive special transition 1
+            { q = q(61,421,49,67), ox = 22, oy = 66 }, --defensive special transition 2
+            { q = q(112,420,60,68), ox = 22, oy = 67, delay = 0.1 }, --defensive special transition 3
+            
+            { q = q(174,420,67,68), ox = 29, oy = 67, delay = 0.16 }, --defensive special 1
+            { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.16 }, --defensive special 2
+            { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
+            { q = q(140,491,67,66), ox = 29, oy = 65 }, --defensive special 4
+            { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
+            { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.05 }, --defensive special 2
+            
+            { q = q(174,420,67,68), ox = 29, oy = 67, delay = 0.16 }, --defensive special 1
+            { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.16 }, --defensive special 2
+            { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
+            { q = q(140,491,67,66), ox = 29, oy = 65 }, --defensive special 4
+            { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
+            { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.05 }, --defensive special 2
+            
+            { q = q(174,420,67,68), ox = 29, oy = 67, delay = 0.16 }, --defensive special 1
+            { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.16 }, --defensive special 2
+            { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
+            { q = q(140,491,67,66), ox = 29, oy = 65 }, --defensive special 4
+            { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
+            { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.05 }, --defensive special 2
+            
+            { q = q(112,420,60,68), ox = 22, oy = 67, delay = 0.1 }, --defensive special transition 3
+            { q = q(61,421,49,67), ox = 22, oy = 66 }, --defensive special transition 2
+            { q = q(2,421,57,67), ox = 28, oy = 66 }, --defensive special transition 1
+            delay = 0.06
         },
         combo1 = {
             { q = q(66,284,51,66), ox = 18, oy = 66 }, --kick 1
