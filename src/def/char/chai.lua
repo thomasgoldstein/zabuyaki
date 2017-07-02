@@ -111,7 +111,7 @@ local jumpAttackStraight = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
-	{ x = 25, y = 25, width = 35, height = 50, damage = 6, velocity = slf.vel_x },
+	{ x = 25, y = 25, width = 35, height = 50, damage = 7, velocity = slf.vel_x },
 	cont
 ) end
 local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
