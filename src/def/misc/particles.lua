@@ -18,13 +18,17 @@ local impactBigQuad1 = q(2,54,31,30) -- impact big 1/3
 local impactBigQuad2 = q(35,54,31,30) -- impact big 2/3
 local impactBigQuad3 = q(68,54,31,30) -- impact big 3/3
 
-local dustQuad = q(2,86,32,32) --dust cloud
+local impactBlockedQuad1 = q(2,86,21,22) -- impact blocked 1/3
+local impactBlockedQuad2 = q(25,86,21,22) -- impact blocked 2/3
+local impactBlockedQuad3 = q(48,86,21,22) -- impact blocked 3/3
+
+local dustQuad = q(2,110,32,32) -- dust cloud
 
 local triangleSmallQuad = q(71,2,9,8) -- crashing debris 1/2
 local triangleBigQuad = q(71,12,12,11) -- crashing debris 2/2
 
 local dustStepColors = {214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188, 10, 214, 205, 188, 5}
-local impactColors = {255, 255, 255, 255, 255 ,255, 255 ,255,  255, 255, 255, 55}
+local impactColors = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55}
 local lootColors = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55, 255, 255, 255, 0}
 
 local quads ={ triangleSmallQuad = triangleSmallQuad, triangleBigQuad = triangleBigQuad }
@@ -100,6 +104,14 @@ particles:setParticleLifetime(0.15)
 particles:setColors(unpack(impactColors))
 particles:setQuads(impactBigQuad1, impactBigQuad2, impactBigQuad3)
 PA_IMPACT_BIG = particles
+
+particles = love.graphics.newParticleSystem(gfx.particles, 4)
+particles:setOffset(10, 11)
+particles:setEmitterLifetime(0.2)
+particles:setParticleLifetime(0.15)
+particles:setColors(unpack(impactColors))
+particles:setQuads(impactBlockedQuad1, impactBlockedQuad2, impactBlockedQuad3)
+PA_IMPACT_BLOCKED = particles
 
 particles = love.graphics.newParticleSystem(gfx.particles, 32)
 particles:setSizes(0.3, 0.6, 0.4, 0.1)
