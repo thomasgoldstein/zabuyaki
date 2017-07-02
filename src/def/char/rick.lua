@@ -88,6 +88,18 @@ local comboAttack4 = function(slf, cont)
         cont
     )
 end
+local comboAttack4Up1 = function(slf, cont)
+	slf:checkAndAttack(
+        { x = 27, y = 40, width = 29, damage = 19, type = "fall", velocity = slf.vel_x, sfx = "air" },
+        cont
+    )
+end
+local comboAttack4Up2 = function(slf, cont)
+	slf:checkAndAttack(
+        { x = 25, y = 50, width = 33, damage = 19, type = "fall", velocity = slf.vel_x },
+        cont
+    )
+end
 local holdAttack1 = function(slf, cont)
 	slf:checkAndAttack(
         { x = 34, y = 41, width = 39, damage = 15, type = "fall", velocity = slf.vel_x, sfx = "air" },
@@ -316,11 +328,11 @@ return {
 		},
 		combo4Up = {
 			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --offensive special 1
-			{ q = q(51,1178,46,62), ox = 15, oy = 61, func = dashAttack1, delay = 0.05 }, --offensive special 2
-			{ q = q(99,1178,49,62), ox = 15, oy = 61, func = dashAttack1, delay = 0.05 }, --offensive special 3
-			{ q = q(150,1173,53,67), ox = 20, oy = 66, func = dashAttack2 }, --offensive special 4
-			{ q = q(2,1242,53,65), ox = 20, oy = 64, func = dashAttack2 }, --offensive special 5
-			{ q = q(57,1244,53,63), ox = 20, oy = 62, func = dashAttack2 }, --offensive special 6
+			{ q = q(51,1178,46,62), ox = 15, oy = 61, delay = 0.05 }, --offensive special 2
+			{ q = q(99,1178,49,62), ox = 15, oy = 61, func = comboAttack4Up1, delay = 0.05 }, --offensive special 3
+			{ q = q(150,1173,53,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --offensive special 4
+			{ q = q(2,1242,53,65), ox = 20, oy = 64 }, --offensive special 5
+			{ q = q(57,1244,53,63), ox = 20, oy = 62 }, --offensive special 6
 			{ q = q(112,1244,47,63), ox = 20, oy = 62, delay = 0.067 }, --offensive special 7
 			delay = 0.083
 		},
