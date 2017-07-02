@@ -282,7 +282,7 @@ return {
 			{ q = q(2,1242,53,65), ox = 20, oy = 64, func = dashAttack2 }, --offensive special 5
 			{ q = q(57,1244,53,63), ox = 20, oy = 62, func = dashAttack2 }, --offensive special 6
 			{ q = q(112,1244,47,63), ox = 20, oy = 62, delay = 0.067 }, --offensive special 7
-			delay = 0.117
+			delay = 0.083
 		},
 		combo1 = {
 			{ q = q(51,519,62,63), ox = 21, oy = 62, func = comboAttack1, delay = 0.06 }, --combo 1.2
@@ -322,7 +322,7 @@ return {
 			{ q = q(2,1242,53,65), ox = 20, oy = 64, func = dashAttack2 }, --offensive special 5
 			{ q = q(57,1244,53,63), ox = 20, oy = 62, func = dashAttack2 }, --offensive special 6
 			{ q = q(112,1244,47,63), ox = 20, oy = 62, delay = 0.067 }, --offensive special 7
-			delay = 0.117
+			delay = 0.083
 		},
 		combo4Forward = {
 			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
@@ -451,7 +451,7 @@ return {
 			{ q = q(2,1242,53,65), ox = 20, oy = 64 }, --offensive special 5
 			{ q = q(57,1244,53,63), ox = 20, oy = 62 }, --offensive special 6
 			{ q = q(112,1244,47,63), ox = 20, oy = 62, delay = 0.067 }, --offensive special 7
-			delay = 0.117
+			delay = 0.083
 		},
 		shoveBack = {
 			{ q = q(2,1109,44,62), ox = 27, oy = 61 }, --throw 1.1
