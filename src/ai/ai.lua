@@ -11,33 +11,23 @@ local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
 
--- initIntro
--- onIntro
-
---[[        self.SCHEDULE_IDLE = new waw.Schedule({self.initIdle, self.onIdle], {"seeEnemy"])
-        self.SCHEDULE_ATTACK = new waw.Schedule({self.initAttack, self.onAttack], {])
-        self.SCHEDULE_HURT = new waw.Schedule({self.initHurt, self.onHurt], {"none"])
-        self.SCHEDULE_WALK = new waw.Schedule({self.initWalk, self.onGotoTargetPos], {"feelObstacle","seeEnemy"])
-        self.SCHEDULE_BOUNCE = new waw.Schedule({self.initBounce, self.onBounce], {"feelObstacle","seeEnemy"])
-        self.SCHEDULE_FOLLOW = new waw.Schedule({self.initFollowEnemy, self.onGotoTargetPos], {"feelObstacle"])
-        self.SCHEDULE_RUNAWAY = new waw.Schedule({self.initRunAway, self.onGotoTargetPos], {"feelObstacle"])
---]]
+local commonThinkInterval = 0.5   -- TODO to be set for every enemy individually
 
 function AI:initialize(unit)
     self.unit = unit
     self.conditions = {}
-    self.thinkInterval = 1 + math.random()
+    self.thinkInterval = commonThinkInterval + math.random() / 64
     self.currentSchedule = nil
 
-    self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro }, { "seePlayer", "wokeUp" }, unit.name)
-    self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand }, { "noTarget", "canCombo", "canDash", "faceNotToPlayer" }, unit.name)
-    self.SCHEDULE_WALK = Schedule:new({ self.initWalk, self.onWalk }, { "noTarget", "canCombo", "canDash", "faceNotToPlayer" }, unit.name)
+    self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro }, { "seePlayer", "wokeUp", "tooCloseToPlayer" }, unit.name)
+    self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand }, { "seePlayer", "wokeUp", "noTarget", "canCombo", "canDash", "faceNotToPlayer" }, unit.name)
+    self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "tooCloseToPlayer", "noTarget", "canCombo", "canDash", "faceNotToPlayer" }, unit.name)
+    self.SCHEDULE_BACKOFF = Schedule:new({ self.initWalkToBackOff, self.onWalk }, { "noTarget" }, unit.name)
     self.SCHEDULE_RUN = Schedule:new({ self.initRun, self.onRun }, { "noTarget", "canCombo", "canDash", "faceNotToPlayer" }, unit.name)
-    self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget }, { "noPlayers" }, unit.name)
-    self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer }, { "noTarget", "noPlayers", "tooFar" }, unit.name)
-    self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "noTarget", "tooFar" }, unit.name)
+    --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget }, { "noPlayers" }, unit.name)
+    self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer }, { "noTarget", "noPlayers", "tooFarToPlayer" }, unit.name)
+    self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "noTarget", "tooFarToPlayer", "tooCloseToPlayer" }, unit.name)
 
-    --self.currentSchedule = self.SCHEDULE_INTRO
     self:selectNewSchedule()
 end
 
@@ -50,7 +40,7 @@ function AI:update(dt)
         if not self.currentSchedule or self.currentSchedule:isDone(self.conditions) then
             self:selectNewSchedule(self.conditions)
         end
-        self.thinkInterval = 1 + math.random() / 64
+        self.thinkInterval = commonThinkInterval + math.random() / 64
     end
     -- run current schedule
     if self.currentSchedule then
@@ -59,24 +49,26 @@ function AI:update(dt)
 end
 
 function AI:selectNewSchedule(conditions)
-    --self.thinkInterval = 0
-    --print(inspect(conditions))
-    if not self.currentSchedule then
-        self.currentSchedule = self.SCHEDULE_INTRO
-        dp("   Select NEW SCHEDULE INTRO")
-        return
-    end
-    if conditions.noPlayers then
+    if not self.currentSchedule or conditions.noPlayers then
         if self.currentSchedule ~= self.SCHEDULE_INTRO then
             self.currentSchedule = self.SCHEDULE_INTRO
-            dp("   *2 Select NEW SCHEDULE INTRO")
-        else
-            dp("   *3 Stay with SCHEDULE INTRO")
         end
         return
     end
-    if conditions.noTarget then
-        self.currentSchedule = self.SCHEDULE_PICK_TARGET
+--    if conditions.noTarget then
+--        self.currentSchedule = self.SCHEDULE_PICK_TARGET
+--        return
+--    end
+    --[[    if conditions.canDash then
+            self.currentSchedule = self.SCHEDULE_DASH
+            return
+        end]]
+    if conditions.tooFarToPlayer and math.random() < 0.25 then
+        self.currentSchedule = self.SCHEDULE_RUN
+        return
+    end
+    if conditions.tooCloseToPlayer then --and math.random() < 0.5
+        self.currentSchedule = self.SCHEDULE_BACKOFF
         return
     end
     if conditions.faceNotToPlayer then
@@ -87,31 +79,20 @@ function AI:selectNewSchedule(conditions)
         self.currentSchedule = self.SCHEDULE_COMBO
         return
     end
-    --[[    if conditions.canDash then
-            self.currentSchedule = self.SCHEDULE_DASH
-            return
-        end]]
-    if conditions.tooFar then --and math.random() < 0.25
-        self.currentSchedule = self.SCHEDULE_RUN
+    if conditions.seePlayer or not conditions.noTarget then --and math.random() < 0.5
+        self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
         return
     end
-    if conditions.seePlayer then --and math.random() < 0.5
-        self.currentSchedule = self.SCHEDULE_WALK
-        return
-    end
-    --print(conditions.wokeUp , conditions.seePlayer)
-    if conditions.wokeUp or conditions.seePlayer then
+    if self.currentSchedule ~= self.SCHEDULE_STAND
+        and (conditions.wokeUp or conditions.seePlayer) then
         self.currentSchedule = self.SCHEDULE_STAND
-        dp("   *2 Select NEW SCHEDULE STAND")
-    else
-        self.currentSchedule = self.SCHEDULE_INTRO
-        dp("   *4 Select NEW SCHEDULE INTRO")
+        return
     end
 end
 
 function AI:getConditions()
     local u = self.unit
-    local conditions = {}
+    local conditions = {"normalDifficulty"}
     self:getVisualConditions(conditions)
     if not areThereAlivePlayers() then
         conditions[#conditions + 1] = "noPlayers"
@@ -169,17 +150,21 @@ function AI:getVisualConditions(conditions)
             end
         end
         if t > 100 then
-            conditions[#conditions + 1] = "tooFar"
+            conditions[#conditions + 1] = "tooFarToPlayer"
         end
     end
     t = u:getDistanceToClosestPlayer()
-    if t < u.delayedWakeupRange and u.time > u.wakeupDelay then
-        -- ready to act
-        conditions[#conditions + 1] = "wokeUp"
+    if t < 20 then
+        -- too close to the closest player
+        conditions[#conditions + 1] = "tooCloseToPlayer"
     end
     if t < u.wakeupRange then
         -- see near players?
         conditions[#conditions + 1] = "seePlayer"
+    end
+    if t < u.delayedWakeupRange or u.time > u.wakeupDelay then
+        -- ready to act
+        conditions[#conditions + 1] = "wokeUp"
     end
 end
 
@@ -195,23 +180,86 @@ function AI:onIntro()
 end
 
 function AI:initStand()
+    local u = self.unit
     dp("AI:initStand() " .. self.unit.name)
-    self.unit:setSprite("stand")
+    if u.cooldown > 0 then
+        return false
+    end
+    if u.state ~= "stand" then
+        u:setState(u.stand)
+    else
+        u:setSprite("stand")
+    end
     return true
 end
 
 function AI:onStand()
-    dp("AI:onStand() " .. self.unit.name)
     return false
 end
 
-function AI:initWalk()
+function AI:initWalkToAttack()
     local u = self.unit
-    dp("AI:initWalk() " .. self.unit.name)
+    dp("AI:initWalkToAttack() " .. self.unit.name)
     if u.cooldown > 0 or u.state ~= "stand" then
         return false
     end
+    if not u.target then
+        u:pickAttackTarget("close")
+    end
     u:setState(u.walk)
+    local tx, ty
+    local t = dist(u.target.x, u.target.y, u.x, u.y)
+    --get to the player attack range
+    if u.x < u.target.x and math.random() < 0.8 then
+        tx = u.target.x - love.math.random(25, 27)
+        ty = u.target.y + 1
+    else
+        tx = u.target.x + love.math.random(25, 27)
+        ty = u.target.y + 1
+    end
+    u.move = tween.new(0.1 + t / u.walkSpeed, u, {
+        tx = tx,
+        ty = ty
+    }, 'linear')
+    u.ttx, u.tty = tx, ty
+    return true
+end
+
+function AI:initWalkToBackOff()
+    local u = self.unit
+    dp("AI:initWalkToBackOff() " .. self.unit.name)
+    if u.cooldown > 0 or u.state ~= "stand" then
+        return false
+    end
+    if not u.target then
+        u:pickAttackTarget("close")
+    end
+    u:setState(u.walk)
+    local tx, ty, shift_x
+    local t = dist(u.target.x, u.target.y, u.x, u.y)
+    --step back(too close)
+    if u.target.id % 2 == 0 then
+        shift_x = 6
+    else
+        shift_x = 0
+    end
+    if u.target.hp < u.target.maxHp / 2 then
+        shift_x = shift_x + 4
+    end
+--    if u.x < u.target.x then
+    if u.target.id % 2 == 0 and math.random() < 0.75  then
+        tx = u.target.x - love.math.random(35, 50) - shift_x
+        ty = u.target.y + love.math.random(-1, 1) * (10 + shift_x / 2)
+    else
+        tx = u.target.x + love.math.random(35, 50) + shift_x
+        ty = u.target.y + love.math.random(-1, 1) * (10 + shift_x / 2)
+    end
+
+    u.move = tween.new(0.3 + t / u.walkSpeed, u, {
+        tx = tx,
+        ty = ty
+    }, 'linear')
+    u.ttx, u.tty = tx, ty
     return true
 end
 
@@ -238,7 +286,7 @@ end
 
 function AI:onRun()
     local u = self.unit
-    dp("AI:onRun() " .. self.unit.name)
+    --dp("AI:onRun() " .. self.unit.name)
     if u.move then
         return u.move:update(0)
     else
@@ -247,10 +295,10 @@ function AI:onRun()
     return false
 end
 
-function AI:initPickTarget()
+function AI:_initPickTarget()
     dp("AI:initPickTarget() " .. self.unit.name)
     --    self.unit:pickAttackTarget()
-    print("PICKED TARGET", self.unit:pickAttackTarget())
+    print("PICKED TARGET", self.unit:pickAttackTarget("close"))
     return true
 end
 
