@@ -61,13 +61,13 @@ function Schedule:isDone(conditions)
 	dp(" isDone?")
 	if self.done then
 		self:reset()
-		dp(" all tasks are done")
+		--dp(" all tasks are done")
 		return true
 	end
 	if(conditions) then
-		for i,cond in ipairs(conditions) do
+		for cond,_ in pairs(conditions) do
 			if self.interrupts[cond] then
-				dp(" !!all tasks are done by interrupt '"..cond.."'")
+				--dp(" !!all tasks are done by interrupt '"..cond.."'")
 				self:reset()
 				return true
 			else
@@ -81,15 +81,14 @@ end
 
 function Schedule:update(env, dt)
 	if self.done then
-		dp(" Schedule:update. no update: all tasks are done")
+		--dp(" Schedule:update. no update: all tasks are done")
 		return false
 	end
 	if #self.tasks < 1 then
 		dp(" Schedule:update. no tasks")
 		return false
     end
-    dp(" Run Task #" .. self.currentTask .. "/" .. #self.tasks )
-	--dp("try run task #" .. self.currentTask)
+    --dp(" Run Task #" .. self.currentTask .. "/" .. #self.tasks )
 	if self.tasks[self.currentTask](env) then --if func returns true, delete this from the que
 		dp(" func returned TRUE")
 		self.currentTask = self.currentTask + 1
@@ -99,7 +98,7 @@ function Schedule:update(env, dt)
 		end
 		return true
 	end
-    dp(" func returned FALSE")
+    --dp(" func returned FALSE")
 	return false
 end
 
