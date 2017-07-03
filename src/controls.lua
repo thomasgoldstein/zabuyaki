@@ -86,8 +86,8 @@ end
 
 function bindGameInput()
     -- define Player 1 controls
-    local gamepad1 = 2
-    local gamepad2 = 1
+    local gamepad1 = 1
+    local gamepad2 = 2
     local gamepad3 = 3
     Control1 = {
         horizontal = tactile.newControl()
