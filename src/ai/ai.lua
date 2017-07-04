@@ -197,9 +197,13 @@ function AI:getVisualConditions(conditions)
 end
 
 function AI:initIntro()
+    local u = self.unit
     dp("AI:initIntro() " .. self.unit.name)
-    self.unit:setSprite("intro")
-    return true
+    if u.state == "stand" or u.state == "intro" then
+        u:setSprite("intro")
+        return true
+    end
+    return false
 end
 
 function AI:onIntro()
