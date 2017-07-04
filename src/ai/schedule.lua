@@ -89,7 +89,7 @@ function Schedule:update(env, dt)
 		return false
     end
     --dp(" Run Task #" .. self.currentTask .. "/" .. #self.tasks )
-	if self.tasks[self.currentTask](env) then --if func returns true, delete this from the que
+	if self.tasks[self.currentTask](env, dt) then --if func returns true, delete this from the que
 		dp(" func returned TRUE")
 		self.currentTask = self.currentTask + 1
 
