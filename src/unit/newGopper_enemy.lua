@@ -16,7 +16,7 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     Gopper.initAttributes(self)
     self.walkSpeed = 80 --TODO calc it from velocity
     self.runSpeed = 100 --TODO calc it from velocity
-    self:pickAttackTarget()
+    --self:pickAttackTarget()
     self.subtype = "gopnik"
     self.friendlyDamage = 2 --divide friendly damage
     self.face = -1
@@ -42,6 +42,9 @@ function Gopper:initAttributes()
 end
 
 function Gopper:updateAI(dt)
+    if self.isDisabled then
+        return
+    end
     Enemy.updateAI(self, dt)
     self.AI:update(dt)
 
@@ -67,62 +70,21 @@ function Gopper:walkStart()
     self.isHittable = true
     self:setSprite("walk")
     self.tx, self.ty = self.x, self.y
-    if not self.target then
-        self:setState(self.intro)
-        return
-    end
-    local t = dist(self.target.x, self.target.y, self.x, self.y)
-    if love.math.random() < 0.25 then
-        --random move arond the player (far from)
-        self.move = tween.new(1 + t / self.walkSpeed, self, {
-            tx = self.target.x + rand1() * love.math.random(70, 85),
-            ty = self.target.y + rand1() * love.math.random(20, 35)
-        }, 'inOutQuad')
-    else
-        if math.abs(self.x - self.target.x) <= 30
-                and math.abs(self.y - self.target.y) <= 10
-        then
-            --step back(too close)
-            if self.x < self.target.x then
-                self.move = tween.new(1 + t / self.walkSpeed, self, {
-                    tx = self.target.x - love.math.random(40, 60),
-                    ty = self.target.y + love.math.random(-1, 1) * 20
-                }, 'inOutQuad')
-            else
-                self.move = tween.new(1 + t / self.walkSpeed, self, {
-                    tx = self.target.x + love.math.random(40, 60),
-                    ty = self.target.y + love.math.random(-1, 1) * 20
-                }, 'inOutQuad')
-            end
-        else
-            --get to player(to fight)
-            if self.x < self.target.x then
-                self.move = tween.new(1 + t / self.walkSpeed, self, {
-                    tx = self.target.x - love.math.random(25, 30),
-                    ty = self.target.y + 1
-                }, 'inOutQuad')
-            else
-                self.move = tween.new(1 + t / self.walkSpeed, self, {
-                    tx = self.target.x + love.math.random(25, 30),
-                    ty = self.target.y + 1
-                }, 'inOutQuad')
-            end
-        end
-    end
 end
 function Gopper:walkUpdate(dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
+        if not complete then
+            if GLOBAL_SETTING.DEBUG then
+                attackHitBoxes[#attackHitBoxes+1] = {x = self.ttx, sx = 0, y = self.tty, w = 31, h = 0.1, z = 0 }
+            end
+        end
     else
         complete = true
     end
     if complete then
-        --        if love.math.random() < 0.5 then
-        --            self:setState(self.walk)
-        --        else
         self:setState(self.stand)
-        --        end
         return
     end
     self.canJump = true
@@ -134,37 +96,26 @@ Gopper.walk = { name = "walk", start = Gopper.walkStart, exit = nop, update = Go
 function Gopper:runStart()
     self.isHittable = true
     self:setSprite("run")
-    local t = dist(self.target.x, self.y, self.x, self.y)
-
-    --get to player(to fight)
-    if self.x < self.target.x then
-        self.move = tween.new(0.3 + t / self.runSpeed, self, {
-            tx = self.target.x - love.math.random(25, 35),
-            ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        }, 'inQuad')
-        self.face = 1
-        self.horizontal = self.face
-    else
-        self.move = tween.new(0.3 + t / self.runSpeed, self, {
-            tx = self.target.x + love.math.random(25, 35),
-            ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        }, 'inQuad')
-        self.face = -1
-        self.horizontal = self.face
-    end
+    self.tx, self.ty = self.x, self.y
 end
 function Gopper:runUpdate(dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
+        if not complete then
+            if GLOBAL_SETTING.DEBUG then
+                attackHitBoxes[#attackHitBoxes+1] = {x = self.ttx, sx = 0, y = self.tty, w = 31, h = 0.1, z = 0 }
+            end
+        end
     else
         complete = true
     end
     if complete then
         if not self.target then
-            self:setState(self.intro)
+            self:setState(self.stand)
             return
         end
+        self.move = nil
         local t = dist(self.target.x, self.target.y, self.x, self.y)
         if t > 100 then
             self:setState(self.walk)

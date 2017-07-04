@@ -28,15 +28,16 @@ function AI:initialize(unit)
 
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro }, { "seePlayer", "wokeUp", "tooCloseToPlayer"}, unit.name)
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand }, { "seePlayer", "wokeUp", "noTarget", "canCombo", "canDash", "faceNotToPlayer"}, unit.name)
-    self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "tooCloseToPlayer", "noTarget", "canCombo", "canDash"}, unit.name)
+--"canCombo",
+    self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "tooCloseToPlayer", "noTarget", "canDash"}, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.initWalkToBackOff, self.onWalk }, { "cannotAct", "noTarget"}, unit.name)
-    self.SCHEDULE_RUN = Schedule:new({ self.initRun, self.onRun }, { "cannotAct", "noTarget", "canCombo", "canDash", "faceNotToPlayer"}, unit.name)
+    self.SCHEDULE_RUN = Schedule:new({ self.initRun, self.onRun }, { "cannotAct", "noTarget" }, unit.name)
     --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget }, { "noPlayers" }, unit.name)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer }, { "cannotAct", "noTarget", "noPlayers", "tooFarToPlayer"}, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "tooFarToPlayer", "tooCloseToPlayer"}, unit.name)
     --self.SCHEDULE_DEAD = Schedule:new({ self.initDead }, {}, unit.name)
 
-    self:selectNewSchedule()
+    self:selectNewSchedule({"init"})
 end
 
 function AI:update(dt)
@@ -57,22 +58,10 @@ function AI:update(dt)
 end
 
 function AI:selectNewSchedule(conditions)
-    --[[if conditions and conditions.dead then
-        if self.currentSchedule ~= self.SCHEDULE_DEAD then
-            self.currentSchedule = self.SCHEDULE_DEAD
-        end
-        return
-    end]]
-    if not self.currentSchedule or conditions.noPlayers then
-        if self.currentSchedule ~= self.SCHEDULE_INTRO then
-            self.currentSchedule = self.SCHEDULE_INTRO
-        end
+    if not self.currentSchedule or conditions.init then
+        self.currentSchedule = self.SCHEDULE_INTRO
         return
     end
---    if conditions.noTarget then
---        self.currentSchedule = self.SCHEDULE_PICK_TARGET
---        return
---    end
     --[[    if conditions.canDash then
             self.currentSchedule = self.SCHEDULE_DASH
             return
@@ -98,6 +87,13 @@ function AI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
             return
         end
+        if not conditions.dead and not conditions.cannotAct
+            and (conditions.wokeUp or conditions.seePlayer) then
+            if self.currentSchedule ~= self.SCHEDULE_STAND then
+                self.currentSchedule = self.SCHEDULE_STAND
+            end
+            return
+        end
     else
 --        if conditions.dead then
 --            if self.currentSchedule ~= self.SCHEDULE_DEAD then
@@ -105,12 +101,6 @@ function AI:selectNewSchedule(conditions)
 --            end
 --            return
 --        end
-    end
-    if not conditions.dead and not conditions.cannotAct and (conditions.wokeUp or conditions.seePlayer) then
-        if self.currentSchedule ~= self.SCHEDULE_STAND then
-            self.currentSchedule = self.SCHEDULE_STAND
-        end
-        return
     end
 end
 
@@ -180,7 +170,10 @@ function AI:getVisualConditions(conditions)
             conditions[#conditions + 1] = "canDash"
         end
         if math.abs(u.x - u.target.x) <= 27
-                and math.abs(u.y - u.target.y) <= 6 then
+                and math.abs(u.y - u.target.y) <= 6
+            and ((u.x > u.target.x and u.face == -1) or (u.x < u.target.x and u.face == 1))
+            and u.target.hp > 0
+        then
             conditions[#conditions + 1] = "canCombo"
         end
         if t > 100 then
@@ -328,22 +321,41 @@ function AI:initRun()
     if u.cooldown > 0 or u.state ~= "stand" then
         return false
     end
+    if not u.target then
+        u:pickAttackTarget()    -- ???
+    end
     if u.isDisabled or u.hp <= 0 then
-        print("ai.lua<AI:initRun> : !!!!!!!!!!!!!!!1")
+        print("ai.lua<AI:initRunToAttack> : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" )
     end
     u:setState(u.run)
+    local tx, ty, shift_x
+    local t = dist(u.target.x, u.target.y, u.x, u.y)
+    if u.x < u.target.x then
+        tx = u.target.x - love.math.random(25, 35)
+        ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+        u.face = 1
+    else
+        tx = u.target.x + love.math.random(25, 35)
+        ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+        u.face = -1
+    end
+    u.horizontal = u.face
+    u.move = tween.new(0.3 + t / u.runSpeed, u, {
+        tx = tx,
+        ty = ty
+    }, 'linear')
+    u.ttx, u.tty = tx, ty
     return true
 end
 
 function AI:onRun()
+    local complete = false
     local u = self.unit
     --dp("AI:onRun() " .. self.unit.name)
     if u.move then
-        return u.move:update(0)
-    else
-        return true
+        complete = u.move:update(0)
     end
-    return false
+    return complete
 end
 
 function AI:_initPickTarget()
@@ -369,8 +381,7 @@ function AI:initCombo()
     if self.hesitate <= 0 then
         self.hesitate = love.math.random(behavior.hesitateMin, behavior.hesitateMax)
     end
-print(self.hesitate)
-    dp("AI:initCombo() " .. self.unit.name)
+--    dp("AI:initCombo() " .. self.unit.name)
     return true
 end
 
@@ -387,8 +398,8 @@ function AI:onCombo(dt)
     end
 end
 
-function AI:onDead(dt)
-    return false
-end
+--function AI:onDead(dt)
+--    return false
+--end
 
 return AI
