@@ -16,13 +16,25 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     Gopper.initAttributes(self)
     self.walkSpeed = 80 --TODO calc it from velocity
     self.runSpeed = 100 --TODO calc it from velocity
+    --self:pickAttackTarget()
     self.subtype = "gopnik"
     self.friendlyDamage = 2 --divide friendly damage
     self.face = -1
     self:setToughness(0)
+
+    self.AI = AI:new(self)
 end
 
 function Gopper:initAttributes()
+    self.moves = { --list of allowed moves
+        run = true, sideStep = false, pickup = true,
+        jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
+        grab = false, grabSwap = false, grabAttack = false,
+        shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
+        dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
+        --technically present for all
+        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+    }
     self.velocityWalk_x = 90
     self.velocityWalk_y = 45
     self.velocityRun_x = 140
@@ -39,106 +51,13 @@ function Gopper:initAttributes()
 end
 
 function Gopper:updateAI(dt)
+    if self.isDisabled then
+        return
+    end
     Enemy.updateAI(self, dt)
+    self.AI:update(dt)
 
     self.cooldown = self.cooldown - dt --when <=0 u can move
-
-    --local completeMovement = self.move:update(dt)
-    self.AiPoll_1 = self.AiPoll_1 - dt
-    self.AiPoll_2 = self.AiPoll_2 - dt
-    self.AiPoll_3 = self.AiPoll_3 - dt
-    if self.AiPoll_1 < 0 then
-        self.AiPoll_1 = self.maxAiPoll_1 + math.random()
-        -- Intro -> Stand
-        if self.state == "intro" then
-            -- see near players?
-            local dist = self:getDistanceToClosestPlayer()
-            if dist < self.wakeupRange
-                or (dist < self.delayedWakeupRange and self.time > self.wakeupDelay )
-            then
-                if not self.target then
-                    self:pickAttackTarget()
-                    if not self.target then
-                        self:setState(self.intro)
-                        return
-                    end
-                end
-                self.face = -self.target.face --face to player
-                self:setState(self.stand)
-            end
-        elseif self.state == "stand" then
-            if self.cooldown <= 0 then
-                --can move
-                if not self.target then
-                    self:pickAttackTarget()
-                    if not self.target then
-                        self:setState(self.intro)
-                        return
-                    end
-                end
-                local t = dist(self.target.x, self.target.y, self.x, self.y)
-                if t >= 300 and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
-                    self:setState(self.run)
-                    return
-                else
-                    self:setState(self.walk)
-                    return
-                end
-            end
-        elseif self.state == "walk" then
-            --self:pickAttackTarget()
-            --self:setState(self.stand)
-            --return
-            if not self.target then
-                self:pickAttackTarget()
-                if not self.target then
-                    self:setState(self.intro)
-                    return
-                end
-            end
-            local t = dist(self.target.x, self.target.y, self.x, self.y)
-            if --t < 400 and
-                t >= 100
-                    and math.floor(self.y / 4) == math.floor(self.target.y / 4) then
-                self:setState(self.run)
-                return
-            end
-            if self.cooldown <= 0 then
-                if math.abs(self.x - self.target.x) <= 50
-                        and math.abs(self.y - self.target.y) <= 6
-                then
-                    self:setState(self.combo)
-                    return
-                end
-            end
-        elseif self.state == "run" then
-            --self:pickAttackTarget()
-            --self:setState(self.stand)
-            --return
-        end
-        -- Facing towards the target
-        self:faceToTarget()
-    end
-    if self.AiPoll_2 < 0 then
-        self.AiPoll_2 = self.maxAiPoll_2 + math.random()
-    end
-    if self.AiPoll_3 < 0 then
-        self.AiPoll_3 = self.maxAiPoll_3 + math.random()
-
-        if self.state == "walk" then
-        elseif self.state == "run" then
-        end
-
-        self:pickAttackTarget()
-        if not self.target then
-            self:setState(self.intro)
-            return
-        end
-        local t = dist(self.target.x, self.target.y, self.x, self.y)
-        if t < 600 and self.state == "walk" then
-            --set dest
-        end
-    end
 end
 
 function Gopper:onFriendlyAttack()
@@ -160,62 +79,21 @@ function Gopper:walkStart()
     self.isHittable = true
     self:setSprite("walk")
     self.tx, self.ty = self.x, self.y
-    if not self.target then
-        self:setState(self.intro)
-        return
-    end
-    local t = dist(self.target.x, self.target.y, self.x, self.y)
-    if love.math.random() < 0.25 then
-        --random move arond the player (far from)
-        self.move = tween.new(1 + t / self.walkSpeed, self, {
-            tx = self.target.x + rand1() * love.math.random(70, 85),
-            ty = self.target.y + rand1() * love.math.random(20, 35)
-        }, 'inOutQuad')
-    else
-        if math.abs(self.x - self.target.x) <= 30
-                and math.abs(self.y - self.target.y) <= 10
-        then
-            --step back(too close)
-            if self.x < self.target.x then
-                self.move = tween.new(1 + t / self.walkSpeed, self, {
-                    tx = self.target.x - love.math.random(40, 60),
-                    ty = self.target.y + love.math.random(-1, 1) * 20
-                }, 'inOutQuad')
-            else
-                self.move = tween.new(1 + t / self.walkSpeed, self, {
-                    tx = self.target.x + love.math.random(40, 60),
-                    ty = self.target.y + love.math.random(-1, 1) * 20
-                }, 'inOutQuad')
-            end
-        else
-            --get to player(to fight)
-            if self.x < self.target.x then
-                self.move = tween.new(1 + t / self.walkSpeed, self, {
-                    tx = self.target.x - love.math.random(25, 30),
-                    ty = self.target.y + 1
-                }, 'inOutQuad')
-            else
-                self.move = tween.new(1 + t / self.walkSpeed, self, {
-                    tx = self.target.x + love.math.random(25, 30),
-                    ty = self.target.y + 1
-                }, 'inOutQuad')
-            end
-        end
-    end
 end
 function Gopper:walkUpdate(dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
+        if not complete then
+            if GLOBAL_SETTING.DEBUG then
+                attackHitBoxes[#attackHitBoxes+1] = {x = self.ttx, sx = 0, y = self.tty, w = 31, h = 0.1, z = 0 }
+            end
+        end
     else
         complete = true
     end
     if complete then
-        --        if love.math.random() < 0.5 then
-        --            self:setState(self.walk)
-        --        else
         self:setState(self.stand)
-        --        end
         return
     end
     self.canJump = true
@@ -227,44 +105,34 @@ Gopper.walk = { name = "walk", start = Gopper.walkStart, exit = nop, update = Go
 function Gopper:runStart()
     self.isHittable = true
     self:setSprite("run")
-    local t = dist(self.target.x, self.y, self.x, self.y)
-
-    --get to player(to fight)
-    if self.x < self.target.x then
-        self.move = tween.new(0.3 + t / self.runSpeed, self, {
-            tx = self.target.x - love.math.random(25, 35),
-            ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        }, 'inQuad')
-        self.face = 1
-        self.horizontal = self.face
-    else
-        self.move = tween.new(0.3 + t / self.runSpeed, self, {
-            tx = self.target.x + love.math.random(25, 35),
-            ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        }, 'inQuad')
-        self.face = -1
-        self.horizontal = self.face
-    end
+    self.tx, self.ty = self.x, self.y
 end
 function Gopper:runUpdate(dt)
     local complete
     if self.move then
         complete = self.move:update(dt)
+        if not complete then
+            if GLOBAL_SETTING.DEBUG then
+                attackHitBoxes[#attackHitBoxes+1] = {x = self.ttx, sx = 0, y = self.tty, w = 31, h = 0.1, z = 0 }
+            end
+        end
     else
         complete = true
     end
     if complete then
-        if not self.target then
-            self:setState(self.intro)
+        --if not self.target then
+            self:setState(self.stand)
             return
-        end
+--[[        end
+        self.move = nil
         local t = dist(self.target.x, self.target.y, self.x, self.y)
         if t > 100 then
-            self:setState(self.walk)
+            --self:setState(self.walk)
+            self:setState(self.stand)
         else
             self:setState(self.dashAttack)
         end
-        return
+        return]]
     end
     self:calcMovement(dt, false, nil)
 end
