@@ -28,6 +28,8 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.subtype = "midboss"
     self.face = -1
     self:setToughness(0)
+
+    self.AI = AI:new(self)
 end
 
 function Satoff:initAttributes()
@@ -62,7 +64,7 @@ function Satoff:initAttributes()
     self.sfx.dead = sfx.satoffDeath
 end
 
-function Satoff:updateAI(dt)
+function Satoff:_updateAI(dt)
     Enemy.updateAI(self, dt)
 
     self.cooldown = self.cooldown - dt --when <=0 u can move

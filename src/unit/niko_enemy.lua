@@ -47,7 +47,7 @@ function Niko:initAttributes()
     self.sfx.step = "kisaStep"
 end
 
-function Niko:updateAI(dt)
+function Niko:_updateAI(dt)
     Enemy.updateAI(self, dt)
 
     self.cooldown = self.cooldown - dt --when <=0 u can move

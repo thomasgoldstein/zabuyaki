@@ -42,7 +42,7 @@ end
 
 Zeena.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
-function Zeena:updateAI(dt)
+function Zeena:_updateAI(dt)
     Enemy.updateAI(self, dt)
 
     self.cooldown = self.cooldown - dt --when <=0 u can move

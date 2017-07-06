@@ -47,7 +47,7 @@ end
 
 Beatnick.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
-function Beatnick:updateAI(dt)
+function Beatnick:_updateAI(dt)
     Enemy.updateAI(self, dt)
 
     self.cooldown = self.cooldown - dt --when <=0 u can move
