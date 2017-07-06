@@ -35,6 +35,7 @@ function AI:initialize(unit)
     --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget }, { "noPlayers" }, unit.name)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer }, { "cannotAct", "noTarget", "noPlayers", "tooFarToPlayer"}, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "tooFarToPlayer", "tooCloseToPlayer"}, unit.name)
+    self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.onDash }, { "cannotAct", "noTarget", "noPlayers"}, unit.name)
     --self.SCHEDULE_DEAD = Schedule:new({ self.initDead }, {}, unit.name)
 
     self:selectNewSchedule({"init"})
@@ -400,6 +401,10 @@ end
 
 function AI:onCombo(dt)
     --    dp("AI:onCombo() ".. self.unit.name)
+    local u = self.unit
+    if self.conditions.cannotAct then
+        return true
+    end
     if self.hesitate > 0 then
         self.hesitate = self.hesitate - dt
         return false
