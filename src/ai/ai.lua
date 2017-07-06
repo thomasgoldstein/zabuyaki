@@ -263,13 +263,23 @@ function AI:initWalkToAttack()
     u:setState(u.walk)
     local tx, ty
     local t = dist(u.target.x, u.target.y, u.x, u.y)
-    --get to the player attack range
-    if u.x < u.target.x and math.random() < 0.8 then
-        tx = u.target.x - love.math.random(25, 27)
-        ty = u.target.y + 1
+    if love.math.random() < 0.25 then
+        --get above / below the player
+        tx = u.target.x
+        if love.math.random() < 0.5 then
+            ty = u.target.y + 16
+        else
+            ty = u.target.y - 16
+        end
     else
-        tx = u.target.x + love.math.random(25, 27)
-        ty = u.target.y + 1
+        --get to the player attack range
+        if u.x < u.target.x and math.random() < 0.8 then
+            tx = u.target.x - love.math.random(25, 27)
+            ty = u.target.y + 1
+        else
+            tx = u.target.x + love.math.random(25, 27)
+            ty = u.target.y + 1
+        end
     end
     u.move = tween.new(0.1 + t / u.walkSpeed, u, {
         tx = tx,
