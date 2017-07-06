@@ -29,9 +29,9 @@ function AI:initialize(unit)
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro }, { "seePlayer", "wokeUp", "tooCloseToPlayer"}, unit.name)
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand }, { "seePlayer", "wokeUp", "noTarget", "canCombo", "canDash", "faceNotToPlayer"}, unit.name)
 --"canCombo",
-    self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "tooCloseToPlayer", "noTarget", "canDash"}, unit.name)
+    self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "tooCloseToPlayer", "noTarget", "canDash", "faceNotToPlayer"}, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.initWalkToBackOff, self.onWalk }, { "cannotAct", "noTarget"}, unit.name)
-    self.SCHEDULE_RUN = Schedule:new({ self.initRun, self.onRun }, { "cannotAct", "noTarget" }, unit.name)
+    self.SCHEDULE_RUN = Schedule:new({ self.initRun, self.onRun }, { "noTarget" }, unit.name)
     --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget }, { "noPlayers" }, unit.name)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer }, { "cannotAct", "noTarget", "noPlayers", "tooFarToPlayer"}, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "tooFarToPlayer", "tooCloseToPlayer"}, unit.name)
@@ -45,7 +45,7 @@ function AI:update(dt)
     if self.thinkInterval <= 0 then
         dp("AI " .. self.unit.name .. "(" .. self.unit.state .. ")" .. " thinking")
         self.conditions = self:getConditions()
-        print(inspect(self.conditions))
+        print(inspect(self.conditions, {depth = 1}))
         if not self.currentSchedule or self.currentSchedule:isDone(self.conditions) then
             self:selectNewSchedule(self.conditions)
         end
@@ -67,7 +67,10 @@ function AI:selectNewSchedule(conditions)
             return
         end]]
     if not conditions.cannotAct then
-        if conditions.canMove and conditions.tooFarToPlayer and math.random() < 0.25 then
+        if self.currentSchedule ~= self.SCHEDULE_RUN and conditions.canMove
+            and conditions.tooFarToPlayer and math.random() < 0.25
+            and self.unit.moves.run
+        then
             self.currentSchedule = self.SCHEDULE_RUN
             return
         end
@@ -280,24 +283,25 @@ function AI:initWalkToBackOff()
         print("ai.lua<AI:initWalkToAttack> : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" )
     end
     u:setState(u.walk)
-    local tx, ty, shift_x
+    local tx, ty, shift_x, shift_y
     local t = dist(u.target.x, u.target.y, u.x, u.y)
     --step back(too close)
-    if u.target.id % 2 == 0 then
-        shift_x = 6
-    else
-        shift_x = 0
-    end
+--    if u.target.id % 2 == 0 then
+--        shift_x = 6
+--    else
+--        shift_x = 0
+--    end
+    shift_x = love.math.random(0, 6)
     if u.target.hp < u.target.maxHp / 2 then
         shift_x = shift_x + 4
     end
---    if u.x < u.target.x then
-    if u.target.id % 2 == 0 and math.random() < 0.75  then
-        tx = u.target.x - love.math.random(35, 50) - shift_x
-        ty = u.target.y + love.math.random(-1, 1) * (10 + shift_x / 2)
+    shift_y = love.math.random(0, 6)
+    if u.x < u.target.x and love.math.random() < 0.75 then
+        tx = u.target.x - love.math.random(38, 52) - shift_x
+        ty = u.target.y + love.math.random(-1, 1) * shift_y
     else
-        tx = u.target.x + love.math.random(35, 50) + shift_x
-        ty = u.target.y + love.math.random(-1, 1) * (10 + shift_x / 2)
+        tx = u.target.x + love.math.random(38, 52) + shift_x
+        ty = u.target.y + love.math.random(-1, 1) * shift_y
     end
 
     u.move = tween.new(0.3 + t / u.walkSpeed, u, {
@@ -358,6 +362,11 @@ function AI:onRun()
     --dp("AI:onRun() " .. self.unit.name)
     if u.move then
         complete = u.move:update(0)
+    elseif not u.move then
+        complete = true
+    end
+    if complete then
+        print("ai.lua<AI:onRun> : GGGGGGGGGGGGGGGGGGGGGGGG")
     end
     return complete
 end
