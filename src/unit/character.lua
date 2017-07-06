@@ -5,15 +5,7 @@ local function nop() end
 local sign = sign
 local clamp = clamp
 local doubleTapDelta = 0.25
-local movesWhiteList = {
-    run = true, sideStep = true, pickup = true,
-    jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-    grab = true, grabSwap = true, grabAttack = true, holdAttack = false,
-    shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
-    dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
-    --technically present for all
-    stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
-}
+
 Character.statesForHoldAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, dashHold = true }
 
 function Character:initialize(name, sprite, input, x, y, f)
@@ -27,7 +19,6 @@ function Character:initialize(name, sprite, input, x, y, f)
     Character.initAttributes(self)
     self.type = "character"
     self.time = 0
-    self.moves = movesWhiteList --list of allowed moves
     --Inner char vars
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
@@ -45,6 +36,15 @@ function Character:initialize(name, sprite, input, x, y, f)
 end
 
 function Character:initAttributes()
+    self.moves = { -- list of allowed moves
+        run = true, sideStep = true, pickup = true,
+        jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
+        grab = true, grabSwap = true, grabAttack = true, holdAttack = false,
+        shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
+        dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
+        --technically present for all
+        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+    }
     self.velocityWalk_x = 100
     self.velocityWalk_y = 50
     self.velocityWalkHold_x = self.velocityWalk_x * 0.75

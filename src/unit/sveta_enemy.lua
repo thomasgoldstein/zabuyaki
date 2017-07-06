@@ -19,6 +19,15 @@ function Sveta:initialize(name, sprite, input, x, y, f)
 end
 
 function Sveta:initAttributes()
+    self.moves = { -- list of allowed moves
+        run = false, sideStep = true, pickup = true,
+        jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
+        grab = false, grabSwap = false, grabAttack = false, holdAttack = true,
+        shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
+        dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
+        --technically present for all
+        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+    }
     self.velocityWalk_x = 90
     self.velocityWalk_y = 45
     self.velocityDash = 170 --speed of the character

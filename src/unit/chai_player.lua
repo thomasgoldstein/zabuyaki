@@ -7,22 +7,21 @@ local clamp = clamp
 local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
-local movesWhiteList = {
-    run = true, sideStep = true, pickup = true,
-    jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-    grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
-    shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
-    dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
-    --technically present for all
-    stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
-}
 
 function Chai:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
-    self.moves = movesWhiteList --list of allowed moves
 end
 
 function Chai:initAttributes()
+    self.moves = { -- list of allowed moves
+        run = true, sideStep = true, pickup = true,
+        jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
+        grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
+        shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
+        dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
+        -- technically present for all
+        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+    }
     self.velocityWalk_x = 100
     self.velocityWalk_y = 50
     self.velocityWalkHold_x = 80

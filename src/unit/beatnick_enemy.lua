@@ -20,6 +20,15 @@ function Beatnick:initialize(name, sprite, input, x, y, f)
 end
 
 function Beatnick:initAttributes()
+    self.moves = { --list of allowed moves
+        run = false, sideStep = false, pickup = true,
+        jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
+        grab = false, grabSwap = false, grabAttack = false,
+        shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
+        dashAttack = false, offensiveSpecial = false, defensiveSpecial = true,
+        --technically present for all
+        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+    }
     self.height = self.height or 55
     self.velocityWalk_x = 90
     self.velocityWalk_y = 45

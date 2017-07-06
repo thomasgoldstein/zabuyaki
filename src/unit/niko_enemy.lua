@@ -18,6 +18,15 @@ function Niko:initialize(name, sprite, input, x, y, f)
 end
 
 function Niko:initAttributes()
+    self.moves = { -- list of allowed moves
+        run = false, sideStep = false, pickup = true,
+        jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
+        grab = true, grabSwap = false, grabAttack = true,
+        shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
+        dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
+        --technically present for all
+        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+    }
     self.velocityWalk_x = 90
     self.velocityWalk_y = 45
     self.velocityWalkHold_x = 72

@@ -31,6 +31,15 @@ function Satoff:initialize(name, sprite, input, x, y, f)
 end
 
 function Satoff:initAttributes()
+    self.moves = { -- list of allowed moves
+        run = true, sideStep = false, pickup = true,
+        jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = true, jumpAttackStraight = true,
+        grab = true, grabSwap = false, grabAttack = true,
+        shoveUp = false, shoveDown = true, shoveBack = true, shoveForward = false,
+        dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
+        --technically present for all
+        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+    }
     self.height = self.height or 55
     self.velocityWalk_x = 90
     self.velocityWalk_y = 45
