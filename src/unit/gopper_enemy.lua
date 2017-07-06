@@ -14,9 +14,6 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, input, x, y, f)
     Gopper.initAttributes(self)
-    self.walkSpeed = 80 --TODO calc it from velocity
-    self.runSpeed = 100 --TODO calc it from velocity
-    --self:pickAttackTarget()
     self.subtype = "gopnik"
     self.friendlyDamage = 2 --divide friendly damage
     self.face = -1
@@ -37,8 +34,10 @@ function Gopper:initAttributes()
     }
     self.velocityWalk_x = 90
     self.velocityWalk_y = 45
+    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityRun_x = 140
     self.velocityRun_y = 23
+    self.runSpeed  = self.velocityRun_x / 1
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash

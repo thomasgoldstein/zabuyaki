@@ -30,7 +30,8 @@ function Beatnick:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
     self.height = self.height or 55
-    self.velocityWalk_x = 90
+    self.velocityWalk_x = 92
+    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityWalk_y = 45
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall

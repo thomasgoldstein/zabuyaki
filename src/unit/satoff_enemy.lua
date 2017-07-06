@@ -43,11 +43,13 @@ function Satoff:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
     self.height = self.height or 55
-    self.velocityWalk_x = 90
+    self.velocityWalk_x = 86
+    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityWalk_y = 45
     self.velocityWalkHold_x = 80
     self.velocityWalkHold_y = 40
     self.velocityRun_x = 140
+    self.runSpeed = self.velocityRun_x / 1
     self.velocityRun_y = 23
     self.velocityDash = 190 --speed of the character
     --    self.velocityDashFall = 180 --speed caused by dash to others fall

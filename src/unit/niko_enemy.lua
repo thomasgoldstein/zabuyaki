@@ -27,7 +27,8 @@ function Niko:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.velocityWalk_x = 90
+    self.velocityWalk_x = 88
+    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityWalk_y = 45
     self.velocityWalkHold_x = 72
     self.velocityWalkHold_y = 36

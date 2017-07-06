@@ -28,7 +28,8 @@ function Zeena:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.velocityWalk_x = 90
+    self.velocityWalk_x = 93
+    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityWalk_y = 45
     self.velocitySlide = 200 --horizontal speed of the slide kick
     self.velocitySlide_y = 20 --vertical speed of the slide kick
