@@ -31,7 +31,8 @@ function AI:initialize(unit)
 --"canCombo",
     self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "tooCloseToPlayer", "noTarget", "canDash", "faceNotToPlayer"}, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.initWalkToBackOff, self.onWalk }, { "cannotAct", "noTarget"}, unit.name)
-    self.SCHEDULE_RUN = Schedule:new({ self.initRun, self.onRun }, { "noTarget" }, unit.name)
+    self.SCHEDULE_RUN = Schedule:new({ self.initRun, self.onRun }, { "noTarget", "canDash" }, unit.name)
+    self.SCHEDULE_RUN_DASH = Schedule:new({ self.initRun, self.onRun, self.initDash, self.onDash }, { "noTarget" }, unit.name)
     --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget }, { "noPlayers" }, unit.name)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer }, { "cannotAct", "noTarget", "noPlayers", "tooFarToPlayer"}, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "tooFarToPlayer", "tooCloseToPlayer"}, unit.name)
@@ -63,16 +64,18 @@ function AI:selectNewSchedule(conditions)
         self.currentSchedule = self.SCHEDULE_INTRO
         return
     end
-    --[[    if conditions.canDash then
-            self.currentSchedule = self.SCHEDULE_DASH
-            return
-        end]]
     if not conditions.cannotAct then
-        if self.currentSchedule ~= self.SCHEDULE_RUN and conditions.canMove
-            and conditions.tooFarToPlayer and math.random() < 0.25
-            and self.unit.moves.run
+        if self.currentSchedule ~= self.SCHEDULE_RUN
+            and self.currentSchedule ~= self.SCHEDULE_RUN_DASH
+            and conditions.canMove
+            and self.unit.moves.run and conditions.tooFarToPlayer
+            and math.random() < 0.25
         then
-            self.currentSchedule = self.SCHEDULE_RUN
+            if self.unit.moves.dashAttack then
+                self.currentSchedule = self.SCHEDULE_RUN_DASH
+            else
+                self.currentSchedule = self.SCHEDULE_RUN
+            end
             return
         end
         if conditions.canMove and conditions.tooCloseToPlayer then --and math.random() < 0.5
@@ -87,6 +90,12 @@ function AI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_COMBO
             return
         end
+        if conditions.canDash and self.unit.moves.dashAttack
+            and not self.unit.moves.run
+        then
+            self.currentSchedule = self.SCHEDULE_DASH
+            return
+        end
         if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then
             self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
             return
@@ -99,13 +108,9 @@ function AI:selectNewSchedule(conditions)
             return
         end
     else
---        if conditions.dead then
---            if self.currentSchedule ~= self.SCHEDULE_DEAD then
---                self.currentSchedule = self.SCHEDULE_DEAD
---            end
---            return
---        end
+
     end
+    self.currentSchedule = self.SCHEDULE_STAND
 end
 
 function AI:getConditions()
@@ -144,7 +149,7 @@ function AI:getVisualConditions(conditions)
     if not u.target then
         conditions[#conditions + 1] = "noTarget"
     else
-        -- facing to the player to player
+        -- facing to the player
         if u.target.x < u.x then
             if u.face < 0 then
                 conditions[#conditions + 1] = "faceToPlayer"
@@ -218,6 +223,9 @@ end
 function AI:initStand()
     local u = self.unit
     dp("AI:initStand() " .. self.unit.name)
+    if self.conditions.cannotAct then
+        return true
+    end
     if u.cooldown > 0 then
         return false
     end
@@ -300,9 +308,11 @@ function AI:initWalkToBackOff()
     if u.x < u.target.x and love.math.random() < 0.75 then
         tx = u.target.x - love.math.random(38, 52) - shift_x
         ty = u.target.y + love.math.random(-1, 1) * shift_y
+        u.horizontal = 1
     else
         tx = u.target.x + love.math.random(38, 52) + shift_x
         ty = u.target.y + love.math.random(-1, 1) * shift_y
+        u.horizontal = -1
     end
 
     u.move = tween.new(0.3 + t / u.walkSpeed, u, {
@@ -380,25 +390,23 @@ function AI:_initPickTarget()
 end
 
 function AI:initFaceToPlayer()
+    local u = self.unit
     dp("AI:initFaceToPlayer() " .. self.unit.name)
     if not self.unit.isHittable then
         return false
     end
-    self.unit.face = -self.unit.face
+    u.face = -u.face
+    u.horizontal = u.face
     return true
 end
 
 function AI:initCombo()
---    if self.conditions.cannotAct then
---        return false
---    end
     if self.hesitate <= 0 then
         self.hesitate = love.math.random(behavior.hesitateMin, behavior.hesitateMax)
     end
 --    dp("AI:initCombo() " .. self.unit.name)
     return true
 end
-
 function AI:onCombo(dt)
     --    dp("AI:onCombo() ".. self.unit.name)
     local u = self.unit
@@ -416,8 +424,18 @@ function AI:onCombo(dt)
     end
 end
 
---function AI:onDead(dt)
---    return false
---end
+function AI:initDash()
+    --    dp("AI:initDash() " .. self.unit.name)
+    return true
+end
+function AI:onDash(dt)
+    --    dp("AI:onDash() ".. self.unit.name)
+    local u = self.unit
+--    if not self.conditions.cannotAct then
+    if u.state == "stand" then
+        self.unit:setState(u.dashAttack)
+    end
+    return true
+end
 
 return AI
