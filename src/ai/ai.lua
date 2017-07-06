@@ -13,10 +13,10 @@ local CheckCollision = CheckCollision
 
 local commonThinkInterval = 1.5   -- TODO to be set for every enemy individually
 local behavior = {
-    thinkIntervalMin = 0.5,
-    thinkIntervalMax = 0.9,
-    hesitateMin = 0.3,
-    hesitateMax = 1,
+    thinkIntervalMin = 0.01,
+    thinkIntervalMax = 0.25,
+    hesitateMin = 0.1,
+    hesitateMax = 0.3,
 }
 
 function AI:initialize(unit)
@@ -29,7 +29,9 @@ function AI:initialize(unit)
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro }, { "seePlayer", "wokeUp", "tooCloseToPlayer"}, unit.name)
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand }, { "seePlayer", "wokeUp", "noTarget", "canCombo", "canDash", "faceNotToPlayer"}, unit.name)
 --"canCombo",
-    self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "tooCloseToPlayer", "noTarget", "canDash", "faceNotToPlayer"}, unit.name)
+    self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "canCombo" }, unit.name)
+    self.SCHEDULE_WALK = Schedule:new({ self.initWalkToAttack, self.onWalk,self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "faceNotToPlayer"}, unit.name)
+    self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.initWalkOffTheScreen, self.onWalk, self.onStop }, {}, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.initWalkToBackOff, self.onWalk }, { "cannotAct", "noTarget"}, unit.name)
     self.SCHEDULE_RUN = Schedule:new({ self.initRun, self.onRun }, { "noTarget", "canDash" }, unit.name)
     self.SCHEDULE_RUN_DASH = Schedule:new({ self.initRun, self.onRun, self.initDash, self.onDash }, { "noTarget" }, unit.name)
@@ -62,6 +64,10 @@ end
 function AI:selectNewSchedule(conditions)
     if not self.currentSchedule or conditions.init then
         self.currentSchedule = self.SCHEDULE_INTRO
+        return
+    end
+    if conditions.noPlayers then
+        self.currentSchedule = self.SCHEDULE_WALK_OFF_THE_SCREEN
         return
     end
     if not conditions.cannotAct then
@@ -333,6 +339,36 @@ function AI:initWalkToBackOff()
     return true
 end
 
+function AI:initWalkOffTheScreen()
+    print("!FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
+    local u = self.unit
+    if u.state ~= "stand" then
+        return false
+    end
+    if u.isDisabled or u.hp <= 0 then
+        print("ai.lua<AI:initWalkOffTheScreen> : !!!!!!!!!!!!!!!")
+    end
+    u:setState(u.walk)
+    local tx, ty, t
+    t = 320
+    if love.math.random() < 0.5 then
+        tx = u.x + t
+        u.horizontal = 1
+    else
+        tx = u.x - t
+        u.horizontal = -1
+    end
+    ty = u.y + love.math.random(-1, 1) * 16
+    u.face = u.horizontal
+
+    u.move = tween.new(love.math.random(1, 3) + t / u.walkSpeed, u, {
+        tx = tx,
+        ty = ty
+    }, 'linear')
+    u.ttx, u.tty = tx, ty
+    return true
+end
+
 function AI:onWalk()
     local u = self.unit
     --    dp("AI:onWalk() ".. self.unit.name)
@@ -448,4 +484,7 @@ function AI:onDash(dt)
     return true
 end
 
+function AI:onStop()
+    return false
+end
 return AI
