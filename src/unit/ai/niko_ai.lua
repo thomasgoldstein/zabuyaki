@@ -36,7 +36,11 @@ function eAI:selectNewSchedule(conditions)
     end
     if not conditions.cannotAct then
         if conditions.canMove and conditions.tooCloseToPlayer then --and math.random() < 0.5
-            self.currentSchedule = self.SCHEDULE_BACKOFF
+            if love.math.random() < 0.5 then
+                self.currentSchedule = self.SCHEDULE_GRAB
+            else
+                self.currentSchedule = self.SCHEDULE_BACKOFF
+            end
             return
         end
         if conditions.faceNotToPlayer then
@@ -48,7 +52,11 @@ function eAI:selectNewSchedule(conditions)
             return
         end
         if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then
-            self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
+            if love.math.random() < 0.5 then
+                self.currentSchedule = self.SCHEDULE_WALK_TO_GRAB
+            else
+                self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
+            end
             return
         end
         if not conditions.dead and not conditions.cannotAct

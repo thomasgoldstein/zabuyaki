@@ -38,6 +38,8 @@ function AI:initialize(unit, speedReaction)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer }, { "cannotAct", "noTarget", "noPlayers", "tooFarToPlayer"}, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "tooFarToPlayer", "tooCloseToPlayer"}, unit.name)
     self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.onDash }, { "cannotAct", "noTarget", "noPlayers"}, unit.name)
+    self.SCHEDULE_GRAB = Schedule:new({ self.initGrab, self.onGrab }, { "cannotAct", "noTarget", "noPlayers"}, unit.name)
+    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.initWalkToGrab, self.onWalk, self.initGrab, self.onGrab }, { "cannotAct", "noTarget", "noPlayers" }, unit.name)
     --self.SCHEDULE_DEAD = Schedule:new({ self.initDead }, {}, unit.name)
 end
 
@@ -429,6 +431,86 @@ function AI:onDash(dt)
     if u.state == "stand" then
         self.unit:setState(u.dashAttack)
     end
+    return true
+end
+
+function AI:initGrab()
+    --    dp("AI:initGrab() " .. self.unit.name)
+    return true
+end
+function AI:onGrab(dt)
+    --    dp("AI:onGrab() ".. self.unit.name)
+    local u = self.unit
+    --    if not self.conditions.cannotAct then
+    if u.state == "stand" then
+        local grabbed = u:checkForGrab(6)
+        if grabbed then
+            if grabbed.type ~= "player" then
+                return true
+            end
+            if grabbed.face == -u.face and grabbed.sprite.curAnim == "walkHold"
+            then
+                --back off 2 simultaneous grabbers
+                if u.x < grabbed.x then
+                    u.horizontal = -1
+                else
+                    u.horizontal = 1
+                end
+                grabbed.horizontal = -u.horizontal
+                u:showHitMarks(22, 25, 5) --big hitmark
+                u.vel_x = self.velocityBackoff --move from source
+                u.cooldown = 0.0
+                u:setSprite("hurtHigh")
+                u:setState(u.slide)
+                grabbed.vel_x = grabbed.velocityBackoff --move from source
+                grabbed.cooldown = 0.0
+                grabbed:setSprite("hurtHigh")
+                grabbed:setState(grabbed.slide)
+                sfx.play("sfx"..u.id, u.sfx.grabClash)
+                return true
+            end
+            if u.moves.grab and u:doGrab(grabbed) then
+                local g = u.hold
+                u.victimInfoBar = g.target.infoBar:setAttacker(u)
+                return true
+            end
+        end
+    end
+    return true
+end
+
+function AI:initWalkToGrab()
+    local u = self.unit
+    dp("AI:initWalkToGrab() " .. self.unit.name)
+    if u.cooldown > 0 or ( u.state ~= "stand" and u.state ~= "intro" ) then
+        return false
+    end
+    if not u.target then
+        u:pickAttackTarget("close")
+        if not u.target then
+            return false
+        end
+    end
+    if u.isDisabled or u.hp <= 0 then
+        print("ai.lua<AI:initWalkToGrab> : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" )
+    end
+    u:setState(u.walk)
+    local tx, ty
+    local t = dist(u.target.x, u.target.y, u.x, u.y)
+    --get to the player grab range
+    if u.x < u.target.x and math.random() < 0.8 then
+        tx = u.target.x - love.math.random(25, 27)
+        ty = u.target.y + 1
+    else
+        tx = u.target.x + love.math.random(25, 27)
+        ty = u.target.y + 1
+    end
+    --TODO lowerSpeed
+    u.move = tween.new(0.1 + t / u.walkSpeed, u, {
+        tx = tx,
+        ty = ty
+    }, 'linear')
+    u.ttx, u.tty = tx, ty
     return true
 end
 
