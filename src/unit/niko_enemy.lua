@@ -12,10 +12,10 @@ function Niko:initialize(name, sprite, input, x, y, f)
     self.hp = self.hp or 80
     self.scoreBonus = self.scoreBonus or 300
     self.tx, self.ty = x, y
+
     Gopper.initialize(self, name, sprite, input, x, y, f)
     Niko.initAttributes(self)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
-    self.AI = AINiko:new(self)
 end
 
 function Niko:initAttributes()
@@ -47,6 +47,7 @@ function Niko:initAttributes()
     self.sfx.dead = sfx.nikoDeath
     self.sfx.jumpAttack = sfx.nikoAttack
     self.sfx.step = "kisaStep"
+    self.AI = AINiko:new(self)
 end
 
 function Niko:_updateAI(dt)

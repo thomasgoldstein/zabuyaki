@@ -64,6 +64,7 @@ function Satoff:initAttributes()
     self.sfx.jumpAttack = sfx.satoffAttack
     self.sfx.step = "rickStep" --TODO refactor def files
     self.sfx.dead = sfx.satoffDeath
+    self.AI = AIDumb:new(self)
 end
 
 function Satoff:_updateAI(dt)

@@ -44,6 +44,7 @@ function Beatnick:initAttributes()
     self.sfx.dead = sfx.beatnickDeath
     self.sfx.jumpAttack = sfx.beatnickAttack
     self.sfx.step = "rickStep"
+    self.AI = AIDumb:new(self)
 end
 
 Beatnick.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper

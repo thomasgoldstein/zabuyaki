@@ -39,6 +39,7 @@ function Zeena:initAttributes()
     self.sfx.dead = sfx.zeenaDeath
     self.sfx.jumpAttack = sfx.zeenaAttack
     self.sfx.step = "kisaStep"
+    self.AI = AIDumb:new(self)
 end
 
 Zeena.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
