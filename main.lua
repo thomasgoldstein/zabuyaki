@@ -122,6 +122,7 @@ function love.load(arg)
 	require "src/unit/loot_ui_and_fx"
 	Obstacle = require "src/unit/obstacle"
 	require "src/unit/obstacle_ui_and_fx"
+	AIGopper = require "src/unit/gopper_ai"
 	Gopper = require "src/unit/gopper_enemy"
 	PGopper = require "src/unit/gopper_player"
 	Satoff = require "src/unit/satoff_enemy"

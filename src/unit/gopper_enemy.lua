@@ -19,7 +19,7 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.face = -1
     self:setToughness(0)
 
-    self.AI = AI:new(self)
+    self.AI = AIGopper:new(self)
 end
 
 function Gopper:initAttributes()
