@@ -435,15 +435,15 @@ function AI:onDash(dt)
 end
 
 function AI:initGrab()
-    --    dp("AI:initGrab() " .. self.unit.name)
+        dp("AI:initGrab() " .. self.unit.name)
     return true
 end
 function AI:onGrab(dt)
-    --    dp("AI:onGrab() ".. self.unit.name)
+    dp("AI:onGrab() ".. self.unit.name)
     local u = self.unit
     --    if not self.conditions.cannotAct then
-    if u.state == "stand" then
-        local grabbed = u:checkForGrab(6)
+    if u.state == "stand" or u.state == "walk" then
+        local grabbed = u:checkForGrab(4)   -- 6 default
         if grabbed then
             if grabbed.type ~= "player" then
                 return true
@@ -499,10 +499,10 @@ function AI:initWalkToGrab()
     local t = dist(u.target.x, u.target.y, u.x, u.y)
     --get to the player grab range
     if u.x < u.target.x and math.random() < 0.8 then
-        tx = u.target.x - love.math.random(25, 27)
+        tx = u.target.x - love.math.random(25, 27) / 2
         ty = u.target.y + 1
     else
-        tx = u.target.x + love.math.random(25, 27)
+        tx = u.target.x + love.math.random(25, 27) / 2
         ty = u.target.y + 1
     end
     --TODO lowerSpeed
