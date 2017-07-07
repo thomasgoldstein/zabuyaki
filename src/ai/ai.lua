@@ -11,24 +11,23 @@ local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
 
-local commonThinkInterval = 1.5   -- TODO to be set for every enemy individually
-local behavior = {
-    thinkIntervalMin = 0.01,
-    thinkIntervalMax = 0.25,
-    hesitateMin = 0.1,
-    hesitateMax = 0.3,
-}
-
-function AI:initialize(unit)
+function AI:initialize(unit, speedReaction)
     self.unit = unit
+    if not speedReaction then
+        speedReaction = {}
+    end
+    self.thinkIntervalMin = speedReaction.thinkIntervalMin or 0.01
+    self.thinkIntervalMax = speedReaction.thinkIntervalMax or 0.25
+    self.hesitateMin = speedReaction.hesitateMin or 0.1
+    self.hesitateMax = speedReaction.hesitateMax or 0.3
+
     self.conditions = {}
-    self.thinkInterval = 0 --love.math.random(behavior.thinkIntervalMin, behavior.thinkIntervalMax)
+    self.thinkInterval = 0
     self.hesitate = 0
     self.currentSchedule = nil
 
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro }, { "seePlayer", "wokeUp", "tooCloseToPlayer"}, unit.name)
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand }, { "seePlayer", "wokeUp", "noTarget", "canCombo", "canDash", "faceNotToPlayer"}, unit.name)
---"canCombo",
     self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "canCombo" }, unit.name)
     self.SCHEDULE_WALK = Schedule:new({ self.initWalkToAttack, self.onWalk,self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "faceNotToPlayer"}, unit.name)
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.initWalkOffTheScreen, self.onWalk, self.onStop }, {}, unit.name)
@@ -49,11 +48,11 @@ function AI:update(dt)
     if self.thinkInterval <= 0 then
         dp("AI " .. self.unit.name .. "(" .. self.unit.state .. ")" .. " thinking")
         self.conditions = self:getConditions()
-        print(inspect(self.conditions, {depth = 1}))
+        --print(inspect(self.conditions, {depth = 1}))
         if not self.currentSchedule or self.currentSchedule:isDone(self.conditions) then
             self:selectNewSchedule(self.conditions)
         end
-        self.thinkInterval = love.math.random(behavior.thinkIntervalMin, behavior.thinkIntervalMax)
+        self.thinkInterval = love.math.random(self.thinkIntervalMin, self.thinkIntervalMax)
     end
     -- run current schedule
     if self.currentSchedule then
@@ -448,7 +447,7 @@ end
 
 function AI:initCombo()
     if self.hesitate <= 0 then
-        self.hesitate = love.math.random(behavior.hesitateMin, behavior.hesitateMax)
+        self.hesitate = love.math.random(self.hesitateMin, self.hesitateMax)
     end
 --    dp("AI:initCombo() " .. self.unit.name)
     return true
