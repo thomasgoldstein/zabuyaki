@@ -18,8 +18,6 @@ function Gopper:initialize(name, sprite, input, x, y, f)
     self.friendlyDamage = 2 --divide friendly damage
     self.face = -1
     self:setToughness(0)
-
-    self.AI = AIGopper:new(self)
 end
 
 function Gopper:initAttributes()
@@ -47,6 +45,7 @@ function Gopper:initAttributes()
     self.sfx.dead = sfx.gopperDeath
     self.sfx.dashAttack = sfx.gopperAttack
     self.sfx.step = "kisaStep"
+    self.AI = AIGopper:new(self)
 end
 
 function Gopper:updateAI(dt)
