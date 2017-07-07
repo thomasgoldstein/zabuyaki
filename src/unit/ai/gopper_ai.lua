@@ -19,7 +19,7 @@ end
 
 function eAI:update(dt)
     if self.thinkInterval - dt <= 0 then
-        print(inspect(self.conditions, {depth = 1}))
+        print(self.unit.name, inspect(self.conditions, {depth = 1}))
     end
     AI.update(self, dt)
 end
@@ -35,17 +35,11 @@ function eAI:selectNewSchedule(conditions)
         return
     end
     if not conditions.cannotAct then
-        if self.currentSchedule ~= self.SCHEDULE_RUN
-                and self.currentSchedule ~= self.SCHEDULE_RUN_DASH
-                and conditions.canMove
-                and self.unit.moves.run and conditions.tooFarToPlayer
-                and math.random() < 0.25
+        if self.currentSchedule ~= self.SCHEDULE_RUN_DASH
+            and conditions.canMove and conditions.tooFarToPlayer
+            and math.random() < 0.25
         then
-            if self.unit.moves.dashAttack then
-                self.currentSchedule = self.SCHEDULE_RUN_DASH
-            else
-                self.currentSchedule = self.SCHEDULE_RUN
-            end
+            self.currentSchedule = self.SCHEDULE_RUN_DASH
             return
         end
         if conditions.canMove and conditions.tooCloseToPlayer then --and math.random() < 0.5
@@ -60,12 +54,6 @@ function eAI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_COMBO
             return
         end
-        if conditions.canDash and self.unit.moves.dashAttack
-                and not self.unit.moves.run
-        then
-            self.currentSchedule = self.SCHEDULE_DASH
-            return
-        end
         if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then
             self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
             return
@@ -78,7 +66,11 @@ function eAI:selectNewSchedule(conditions)
             return
         end
     else
-
+        if self.currentSchedule == self.SCHEDULE_RUN_DASH then
+            self.currentSchedule = nil
+            return
+        end
+        -- cannot control body
     end
 
     if not self.currentSchedule then
