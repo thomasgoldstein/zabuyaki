@@ -1228,8 +1228,10 @@ function Character:grabStart()
     self:setSprite("grab")
     self.grabRelease = 0
     self.victims = {}
-    self.b.horizontal.ikp:clear() -- clear double tap timer
-    self.b.horizontal.ikn:clear() -- clear double tap timer
+    if self.type == "player" then
+        self.b.horizontal.ikp:clear() -- clear double tap timer
+        self.b.horizontal.ikn:clear() -- clear double tap timer
+    end
     if not self.condition then
         local g = self.hold
         local timeToMove = 0.1
