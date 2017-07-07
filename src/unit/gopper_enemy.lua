@@ -118,19 +118,8 @@ function Gopper:runUpdate(dt)
         complete = true
     end
     if complete then
-        --if not self.target then
-            self:setState(self.stand)
-            return
---[[        end
-        self.move = nil
-        local t = dist(self.target.x, self.target.y, self.x, self.y)
-        if t > 100 then
-            --self:setState(self.walk)
-            self:setState(self.stand)
-        else
-            self:setState(self.dashAttack)
-        end
-        return]]
+        self:setState(self.stand)
+        return
     end
     self:calcMovement(dt, false, nil)
 end
