@@ -15,7 +15,6 @@ function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
     -- new or overrided AI schedules
 
-    self:selectNewSchedule({"init"})
 end
 
 function eAI:update(dt)

@@ -15,7 +15,6 @@ function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
     -- new or overrided AI schedules
 
-    self:selectNewSchedule({"init"})
 end
 
 function eAI:update(dt)
@@ -28,7 +27,7 @@ end
 function eAI:selectNewSchedule(conditions)
     if not self.currentSchedule or conditions.init then
         self.currentSchedule = self.SCHEDULE_INTRO
-        print("GOOPPER INTRO", self.unit.name, self.unit.id )
+        print("GOPPER INTRO", self.unit.name, self.unit.id )
         return
     end
     if conditions.noPlayers then

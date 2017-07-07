@@ -39,8 +39,6 @@ function AI:initialize(unit, speedReaction)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "tooFarToPlayer", "tooCloseToPlayer"}, unit.name)
     self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.onDash }, { "cannotAct", "noTarget", "noPlayers"}, unit.name)
     --self.SCHEDULE_DEAD = Schedule:new({ self.initDead }, {}, unit.name)
-
-    self:selectNewSchedule({"init"})
 end
 
 function AI:update(dt)
@@ -61,7 +59,7 @@ function AI:update(dt)
 end
 
 function AI:selectNewSchedule(conditions)
-    if not self.currentSchedule or conditions.init then
+    if not self.currentSchedule then
         print("- AI INTRO", self.unit.name, self.unit.id )
         self.currentSchedule = self.SCHEDULE_INTRO
         return
@@ -110,11 +108,9 @@ function AI:selectNewSchedule(conditions)
             and (conditions.wokeUp or conditions.seePlayer) then
             if self.currentSchedule ~= self.SCHEDULE_STAND then
                 self.currentSchedule = self.SCHEDULE_STAND
+                return
             end
-            return
         end
-    else
-
     end
     self.currentSchedule = self.SCHEDULE_STAND
 end

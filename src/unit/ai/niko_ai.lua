@@ -15,7 +15,6 @@ function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
     -- new or overrided AI schedules
 
-    self:selectNewSchedule({"init"})
 end
 
 function eAI:update(dt)
@@ -23,6 +22,46 @@ function eAI:update(dt)
         print(inspect(self.conditions, {depth = 1}))
     end
     AI.update(self, dt)
+end
+
+function eAI:selectNewSchedule(conditions)
+    if not self.currentSchedule or conditions.init then
+        print("NIKO INTRO", self.unit.name, self.unit.id )
+        self.currentSchedule = self.SCHEDULE_INTRO
+        return
+    end
+    if conditions.noPlayers then
+        self.currentSchedule = self.SCHEDULE_WALK_OFF_THE_SCREEN
+        return
+    end
+    if not conditions.cannotAct then
+        if conditions.canMove and conditions.tooCloseToPlayer then --and math.random() < 0.5
+            self.currentSchedule = self.SCHEDULE_BACKOFF
+            return
+        end
+        if conditions.faceNotToPlayer then
+            self.currentSchedule = self.SCHEDULE_FACE_TO_PLAYER
+            return
+        end
+        if conditions.canCombo then
+            self.currentSchedule = self.SCHEDULE_COMBO
+            return
+        end
+        if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then
+            self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
+            return
+        end
+        if not conditions.dead and not conditions.cannotAct
+                and (conditions.wokeUp or conditions.seePlayer) then
+            if self.currentSchedule ~= self.SCHEDULE_STAND then
+                self.currentSchedule = self.SCHEDULE_STAND
+            end
+            return
+        end
+    else
+
+    end
+    self.currentSchedule = self.SCHEDULE_STAND
 end
 
 return eAI
