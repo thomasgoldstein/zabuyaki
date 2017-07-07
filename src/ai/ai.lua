@@ -62,6 +62,7 @@ end
 
 function AI:selectNewSchedule(conditions)
     if not self.currentSchedule or conditions.init then
+        print("- AI INTRO", self.unit.name, self.unit.id )
         self.currentSchedule = self.SCHEDULE_INTRO
         return
     end
@@ -339,9 +340,8 @@ function AI:initWalkToBackOff()
 end
 
 function AI:initWalkOffTheScreen()
-    print("!FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
     local u = self.unit
-    if u.state ~= "stand" then
+    if u.state ~= "stand" and u.state ~= "intro" then
         return false
     end
     if u.isDisabled or u.hp <= 0 then
