@@ -133,6 +133,7 @@ function love.load(arg)
 	PNiko = require "src/unit/niko_player"
 	Beatnick = require "src/unit/beatnick_enemy"
 	PBeatnick = require "src/unit/beatnick_player"
+    AISveta = require "src/unit/ai/sveta_ai"
 	Sveta = require "src/unit/sveta_enemy"
 	PSveta = require "src/unit/sveta_player"
 	Zeena = require "src/unit/zeena_enemy"

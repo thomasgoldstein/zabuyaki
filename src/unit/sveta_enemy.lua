@@ -42,7 +42,7 @@ function Sveta:initAttributes()
     self.sfx.dead = sfx.svetaDeath
     self.sfx.dashAttack = sfx.svetaAttack
     self.sfx.step = "kisaStep"
-    self.AI = AIDumb:new(self)
+    self.AI = AISveta:new(self)
 end
 
 Sveta.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
