@@ -1167,6 +1167,10 @@ function Character:checkForGrab(range)
     --got any Characters
     local items = {}
     self.shape:moveTo(self.x + self.horizontal, self.y + self.vertical)
+    if GLOBAL_SETTING.DEBUG then
+        -- to show similar purple rect
+        stage.testShape:moveTo(self.x + self.horizontal, self.y + self.vertical)
+    end
     for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
         local o = other.obj
         if o.isHittable
