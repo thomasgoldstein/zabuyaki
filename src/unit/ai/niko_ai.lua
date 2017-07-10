@@ -4,7 +4,7 @@
 local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
-local chanceForkToGrab = 1 -- 1 == 100%, 0 == 0%
+local chanceForkToGrab = 0.5 -- 1 == 100%, 0 == 0%
 
 local _speedReaction = {
     thinkIntervalMin = 0.02,
@@ -21,7 +21,7 @@ end
 
 function eAI:_update(dt)
     if self.thinkInterval - dt <= 0 then
-        print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
+        --print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
     end
     AI.update(self, dt)
 end
@@ -41,6 +41,14 @@ function eAI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_FACE_TO_PLAYER
             return
         end
+        if conditions.canCombo then
+            if conditions.canMove and conditions.tooCloseToPlayer then --and math.random() < 0.5
+                self.currentSchedule = self.SCHEDULE_BACKOFF
+                return
+            end
+            self.currentSchedule = self.SCHEDULE_COMBO
+            return
+        end
         if conditions.canMove and conditions.canGrab then
             if love.math.random() < chanceForkToGrab then
                 self.currentSchedule = self.SCHEDULE_GRAB
@@ -51,10 +59,6 @@ function eAI:selectNewSchedule(conditions)
         end
         if conditions.canMove and conditions.tooCloseToPlayer then --and math.random() < 0.5
             self.currentSchedule = self.SCHEDULE_BACKOFF
-            return
-        end
-        if conditions.canCombo then
-            self.currentSchedule = self.SCHEDULE_COMBO
             return
         end
         if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then
