@@ -1380,8 +1380,8 @@ function Character:releaseGrabbed()
         g.target.isGrabbed = false
         g.target.cooldown = 0.1
         g.target:removeTweenMove()
-        self:removeTweenMove()
-        self.hold = {source = nil, target = nil, cooldown = 0 }	--release a grabbed person
+        --self:removeTweenMove()
+        --self.hold = {source = nil, target = nil, cooldown = 0 }	--release a grabbed person
         return true
     end
     return false
@@ -1389,6 +1389,7 @@ end
 
 function Character:grabbedStart()
     local g = self.hold
+    print(self.name, self.id, inspect(self.hold, {depth= 1}))
     if g.source.face ~= self.face then
         self:setState(self.grabbedFront)
     else
