@@ -17,9 +17,9 @@ function eAI:initialize(unit, speedReaction)
 
 end
 
-function eAI:update(dt)
+function eAI:_update(dt)
     if self.thinkInterval - dt <= 0 then
-        print(inspect(self.conditions, {depth = 1}))
+        print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
     end
     AI.update(self, dt)
 end
