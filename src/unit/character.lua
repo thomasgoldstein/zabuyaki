@@ -545,7 +545,7 @@ function Character:walkUpdate(dt)
         _, self.vel_y = self:getMovementSpeed()
     end
     if self.b.attack:isDown() then
-        local grabbed = self:checkForGrab(6)
+        local grabbed = self:checkForGrab()
         if grabbed then
             if grabbed.face == -self.face and grabbed.sprite.curAnim == "walkHold"
             then
@@ -1163,7 +1163,7 @@ end
 Character.combo = {name = "combo", start = Character.comboStart, exit = nop, update = Character.comboUpdate, draw = Character.defaultDraw}
 
 -- GRABBING / HOLDING
-function Character:checkForGrab(range)
+function Character:checkForGrab()
     --got any Characters
     local items = {}
     self.shape:moveTo(self.x + self.horizontal, self.y + self.vertical)
@@ -1769,7 +1769,7 @@ function Character:dashHoldUpdate(dt)
         self:setState(self.duck)
         return
     end
-    local grabbed = self:checkForGrab(6)
+    local grabbed = self:checkForGrab()
     if grabbed then
         if grabbed.face == -self.face and grabbed.sprite.curAnim == "dashHold"
         then
