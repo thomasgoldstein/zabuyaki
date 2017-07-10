@@ -27,16 +27,16 @@ function AI:initialize(unit, speedReaction)
     self.currentSchedule = nil
 
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro }, { "seePlayer", "wokeUp", "tooCloseToPlayer"}, unit.name)
-    self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand }, { "seePlayer", "wokeUp", "noTarget", "canCombo", "canDash", "faceNotToPlayer"}, unit.name)
-    self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "canCombo" }, unit.name)
+    self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand }, { "seePlayer", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "faceNotToPlayer"}, unit.name)
+    self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "noTarget" }, unit.name)
     self.SCHEDULE_WALK = Schedule:new({ self.initWalkToAttack, self.onWalk,self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "faceNotToPlayer"}, unit.name)
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.initWalkOffTheScreen, self.onWalk, self.onStop }, {}, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.initWalkToBackOff, self.onWalk }, { "cannotAct", "noTarget"}, unit.name)
     self.SCHEDULE_RUN = Schedule:new({ self.initRun, self.onRun }, { "noTarget", "canDash" }, unit.name)
     self.SCHEDULE_RUN_DASH = Schedule:new({ self.initRun, self.onRun, self.initDash, self.onDash }, { "noTarget" }, unit.name)
     --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget }, { "noPlayers" }, unit.name)
-    self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer }, { "cannotAct", "noTarget", "noPlayers", "tooFarToPlayer"}, unit.name)
-    self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "tooFarToPlayer", "tooCloseToPlayer"}, unit.name)
+    self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer }, { "cannotAct", "noTarget", "noPlayers", "tooFarToTarget"}, unit.name)
+    self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "tooFarToTarget"}, unit.name)
     self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.onDash }, { "cannotAct", "noTarget", "noPlayers"}, unit.name)
     self.SCHEDULE_GRAB = Schedule:new({ self.initGrab, self.onGrab }, { "cannotAct", "noTarget", "noPlayers"}, unit.name)
     self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.initWalkToGrab, self.onWalk, self.initGrab, self.onGrab }, { "cannotAct", "noTarget", "noPlayers" }, unit.name)
@@ -135,19 +135,26 @@ function AI:getVisualConditions(conditions)
                 and math.floor(u.y / 4) == math.floor(u.target.y / 4) then
             conditions[#conditions + 1] = "canDash"
         end
-        if math.abs(u.x - u.target.x) <= 27
+        if math.abs(u.x - u.target.x) <= 34   --u.width * 2
                 and math.abs(u.y - u.target.y) <= 6
             and ((u.x > u.target.x and u.face == -1) or (u.x < u.target.x and u.face == 1))
             and u.target.hp > 0
         then
             conditions[#conditions + 1] = "canCombo"
         end
+        if math.abs(u.x - u.target.x) <= u.width
+                and math.abs(u.y - u.target.y) <= 6
+                and u.target.hp > 0
+        then
+            conditions[#conditions + 1] = "canGrab"
+        end
+
         if t > 100 then
-            conditions[#conditions + 1] = "tooFarToPlayer"
+            conditions[#conditions + 1] = "tooFarToTarget"
         end
     end
     t = u:getDistanceToClosestPlayer()
-    if t < 20 then
+    if t < u.width then
         -- too close to the closest player
         conditions[#conditions + 1] = "tooCloseToPlayer"
     end
@@ -231,10 +238,12 @@ function AI:initWalkToAttack()
     else
         --get to the player attack range
         if u.x < u.target.x and math.random() < 0.8 then
-            tx = u.target.x - love.math.random(25, 27)
+--            tx = u.target.x - love.math.random(25, 27)
+            tx = u.target.x - love.math.random(30, 34)
             ty = u.target.y + 1
         else
-            tx = u.target.x + love.math.random(25, 27)
+--            tx = u.target.x + love.math.random(25, 27)
+            tx = u.target.x + love.math.random(30, 34)
             ty = u.target.y + 1
         end
     end
@@ -373,7 +382,7 @@ function AI:onRun()
         complete = true
     end
     if complete then
-        print("ai.lua<AI:onRun> : GGGGGGGGGGGGGGGGGGGGGGGG")
+        --print("ai.lua<AI:onRun> : GGGGGGGGGGGGGGGGGGGGGGGG")
     end
     return complete
 end
@@ -435,17 +444,15 @@ function AI:onDash(dt)
 end
 
 function AI:initGrab()
-        dp("AI:initGrab() " .. self.unit.name)
-    return true
-end
-function AI:onGrab(dt)
-    dp("AI:onGrab() ".. self.unit.name)
+    dp("AI: INIT GRAB " .. self.unit.name, math.random())
+    self.chanceToGrabAttack = 0
     local u = self.unit
     --    if not self.conditions.cannotAct then
     if u.state == "stand" or u.state == "walk" then
-        local grabbed = u:checkForGrab(4)   -- 6 default
+        local grabbed = u:checkForGrab()
         if grabbed then
             if grabbed.type ~= "player" then
+--                print("AI: GRABBED NOT PLAYER" .. self.unit.name)
                 return true
             end
             if grabbed.face == -u.face and grabbed.sprite.curAnim == "walkHold"
@@ -467,16 +474,40 @@ function AI:onGrab(dt)
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
                 sfx.play("sfx"..u.id, u.sfx.grabClash)
+--                print(" bad SLIDEOff")
                 return true
             end
             if u.moves.grab and u:doGrab(grabbed) then
                 local g = u.hold
                 u.victimInfoBar = g.target.infoBar:setAttacker(u)
+--                print(" GOOD DOGRAB")
                 return true
+            else
+--                print("FAIL DOGRAB")
             end
         end
+    else
+--        print("ai.lua GRAB no STAND or WALK" )
     end
     return true
+end
+
+function AI:onGrab(dt)
+    --    dp("AI: ON GRAB ".. self.unit.name)
+    self.chanceToGrabAttack = self.chanceToGrabAttack + dt / 20
+    local u = self.unit
+    local g = u.hold
+    --print(inspect(g, {depth = 1}))
+    if not g.target or u.state == "stand" then
+        -- initGrab action failed.
+        return true
+    end
+    if u.moves.grabAttack and g.target and g.target.isGrabbed
+        and self.chanceToGrabAttack > love.math.random() then
+        u:setState(u.grabAttack)
+        return true
+    end
+    return false
 end
 
 function AI:initWalkToGrab()
@@ -491,18 +522,16 @@ function AI:initWalkToGrab()
             return false
         end
     end
-    if u.isDisabled or u.hp <= 0 then
-        print("ai.lua<AI:initWalkToGrab> : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" )
-    end
+    assert(not u.isDisabled and u.hp > 0)
     u:setState(u.walk)
     local tx, ty
     local t = dist(u.target.x, u.target.y, u.x, u.y)
     --get to the player grab range
-    if u.x < u.target.x and math.random() < 0.8 then
-        tx = u.target.x - love.math.random(25, 27) / 2
+    if u.x < u.target.x then
+        tx = u.target.x - love.math.random(9, 10)
         ty = u.target.y + 1
     else
-        tx = u.target.x + love.math.random(25, 27) / 2
+        tx = u.target.x + love.math.random(9, 10)
         ty = u.target.y + 1
     end
     --TODO lowerSpeed
