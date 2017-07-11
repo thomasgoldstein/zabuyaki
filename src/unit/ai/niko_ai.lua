@@ -17,7 +17,7 @@ local _speedReaction = {
 function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
     -- new or overrided AI schedules
-
+    self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack }, { "cannotAct", "noTarget", "noPlayers" }, unit.name)
 end
 
 function eAI:_update(dt)
@@ -54,6 +54,10 @@ function eAI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_COMBO
             return
         end
+        if conditions.canJumpAttack and love.math.random() < 0.5 then
+            self.currentSchedule = self.SCHEDULE_JUMP_ATTACK
+            return
+        end
         if conditions.canMove and conditions.canGrab then
             if love.math.random() < chanceForkToGrab then
                 self.currentSchedule = self.SCHEDULE_GRAB
@@ -87,6 +91,16 @@ function eAI:selectNewSchedule(conditions)
 
     end
     self.currentSchedule = self.SCHEDULE_STAND
+end
+
+function eAI:initJumpAttack(dt)
+    --    dp("AI:onDash() ".. self.unit.name)
+    local u = self.unit
+    if u.state == "stand" then
+        u.vel_x = u.velocityWalk_x
+        u:setState(u.jump)
+    end
+    return true
 end
 
 return eAI

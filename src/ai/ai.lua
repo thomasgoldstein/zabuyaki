@@ -236,6 +236,7 @@ function AI:initWait()
 end
 
 function AI:onWait(dt)
+    local u = self.unit
     self.waitingCounter = self.waitingCounter - dt
     if self.waitingCounter < 0 then
         print(" -> DONE Wait> : " .. self.waitingCounter, u.name)
