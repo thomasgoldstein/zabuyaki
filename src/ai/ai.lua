@@ -151,7 +151,7 @@ function AI:getVisualConditions(conditions)
             conditions[#conditions + 1] = "canGrab"
         end
 
-        if t > 100 then
+        if t > 150 then
             conditions[#conditions + 1] = "tooFarToTarget"
         end
     end
@@ -201,7 +201,7 @@ function AI:initStand()
     end
     if u.state ~= "stand" then
         u:setState(u.stand)
-    else
+    elseif u.sprite.curAnim ~= "stand" then
         u:setSprite("stand")
     end
     return true
@@ -226,16 +226,18 @@ function AI:initWait()
     end
     if u.state ~= "stand" then
         u:setState(u.stand)
-    else
+    elseif u.sprite.curAnim ~= "stand" then
         u:setSprite("stand")
     end
     self.waitingCounter = 5 * love.math.random(self.hesitateMin, self.hesitateMax)
+    print("!!!!ai.lua<AI:initWait> : " .. self.waitingCounter, self.unit.name)
     return true
 end
 
 function AI:onWait(dt)
     self.waitingCounter = self.waitingCounter - dt
     if self.waitingCounter < 0 then
+        print(" -> DONE Wait> : " .. self.waitingCounter, self.unit.name)
         return true
     end
     return false
