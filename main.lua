@@ -136,6 +136,7 @@ function love.load(arg)
     AISveta = require "src/unit/ai/sveta_ai"
 	Sveta = require "src/unit/sveta_enemy"
 	PSveta = require "src/unit/sveta_player"
+	AIZeena = require "src/unit/ai/zeena_ai"
 	Zeena = require "src/unit/zeena_enemy"
 	PZeena = require "src/unit/zeena_player"
 	Wall = require "src/unit/wall"
