@@ -102,7 +102,7 @@ function love.load(arg)
 	Event = require "src/unit/event"
 	Schedule = require "src/ai/schedule"
 	AI = require "src/ai/ai"
-	AIDumb = require "src/unit/ai/dumb_ai"
+	AIMoveCombo = require "src/unit/ai/moveCombo_ai"
 	require "src/stage/loadStage"
 	Stage = require "src/stage/stage"
 	Batch = require "src/stage/batch"
