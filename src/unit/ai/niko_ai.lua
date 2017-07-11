@@ -4,15 +4,14 @@
 local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
-local chanceForkToGrab = 0.5 -- 1 == 100%, 0 == 0%
-
 local _speedReaction = {
     thinkIntervalMin = 0.02,
     thinkIntervalMax = 0.25,
     hesitateMin = 0.1,
     hesitateMax = 0.3,
     waitChance = 0.5,
-    jumpAttackChance = 1
+    jumpAttackChance = 1,
+    grabChance = 0.5 -- 1 == 100%, 0 == 0%
 }
 
 function eAI:initialize(unit, speedReaction)
@@ -60,7 +59,7 @@ function eAI:selectNewSchedule(conditions)
             return
         end
         if conditions.canMove and conditions.canGrab then
-            if love.math.random() < chanceForkToGrab then
+            if love.math.random() < self.grabChance then
                 self.currentSchedule = self.SCHEDULE_GRAB
             else
                 self.currentSchedule = self.SCHEDULE_BACKOFF
@@ -72,7 +71,7 @@ function eAI:selectNewSchedule(conditions)
             return
         end
         if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then
-            if love.math.random() < chanceForkToGrab then
+            if love.math.random() < self.grabChance then
                 self.currentSchedule = self.SCHEDULE_WALK_TO_GRAB
             else
                 self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
