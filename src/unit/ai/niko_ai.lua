@@ -11,13 +11,14 @@ local _speedReaction = {
     thinkIntervalMax = 0.25,
     hesitateMin = 0.1,
     hesitateMax = 0.3,
-    waitChance = 0.5
+    waitChance = 0.5,
+    jumpAttackChance = 1
 }
 
 function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
     -- new or overrided AI schedules
-    self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack }, { "cannotAct", "noTarget", "noPlayers" }, unit.name)
+    self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack }, { "cannotAct", "noTarget", "noPlayers" }, unit.name)
 end
 
 function eAI:_update(dt)
@@ -46,16 +47,16 @@ function eAI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_WAIT
             return
         end
+        if conditions.canJumpAttack and love.math.random() < self.jumpAttackChance then
+            self.currentSchedule = self.SCHEDULE_JUMP_ATTACK
+            return
+        end
         if conditions.canCombo then
             if conditions.canMove and conditions.tooCloseToPlayer then --and math.random() < 0.5
                 self.currentSchedule = self.SCHEDULE_BACKOFF
                 return
             end
             self.currentSchedule = self.SCHEDULE_COMBO
-            return
-        end
-        if conditions.canJumpAttack and love.math.random() < 0.5 then
-            self.currentSchedule = self.SCHEDULE_JUMP_ATTACK
             return
         end
         if conditions.canMove and conditions.canGrab then
@@ -96,11 +97,34 @@ end
 function eAI:initJumpAttack(dt)
     --    dp("AI:onDash() ".. self.unit.name)
     local u = self.unit
+    self.doneAttack = false
     if u.state == "stand" then
-        u.vel_x = u.velocityWalk_x
+        u.z = u.z + 0.1
+        u.bounced = 0
+        u.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
+        if self.conditions.tooCloseToPlayer then
+            u.vel_x = 0
+        else
+            u.vel_x = u.velocityWalk_x
+        end
         u:setState(u.jump)
+        --u:setState(u.jumpAttackForward)
+        --u:setState(u.jumpAttackStraight)
     end
     return true
+end
+
+function eAI:onJumpAttack(dt)
+    --    dp("AI:onDash() ".. self.unit.name)
+    local u = self.unit
+    if u.state == "stand" then
+        return true
+    end
+    if not self.doneAttack then
+        self.doneAttack = true
+        u:setState(u.jumpAttackForward)
+    end
+    return false
 end
 
 return eAI

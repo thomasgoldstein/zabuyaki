@@ -21,6 +21,7 @@ function AI:initialize(unit, speedReaction)
     self.hesitateMin = speedReaction.hesitateMin or 0.1
     self.hesitateMax = speedReaction.hesitateMax or 0.3
     self.waitChance = speedReaction.waitChance or 0.2
+    self.jumpAttackChance = speedReaction.jumpAttackChance or 0.2
 
     self.conditions = {}
     self.thinkInterval = 0
@@ -143,7 +144,7 @@ function AI:getVisualConditions(conditions)
                 and u.target.hp > 0 then
             conditions[#conditions + 1] = "canCombo"
         end
-        if t < 100 and t >= 30
+        if t < 70 and t >= 20
                 and math.floor(u.y / 4) == math.floor(u.target.y / 4) then
             conditions[#conditions + 1] = "canJumpAttack"
         end
