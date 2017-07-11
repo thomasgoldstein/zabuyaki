@@ -20,7 +20,7 @@ function AI:initialize(unit, speedReaction)
     self.thinkIntervalMax = speedReaction.thinkIntervalMax or 0.25
     self.hesitateMin = speedReaction.hesitateMin or 0.1
     self.hesitateMax = speedReaction.hesitateMax or 0.3
-    self.waitChance = 0.2
+    self.waitChance = speedReaction.waitChance or 0.2
 
     self.conditions = {}
     self.thinkInterval = 0

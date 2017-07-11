@@ -11,6 +11,7 @@ local _speedReaction = {
     thinkIntervalMax = 0.25,
     hesitateMin = 0.1,
     hesitateMax = 0.3,
+    waitChance = 0.5
 }
 
 function eAI:initialize(unit, speedReaction)
