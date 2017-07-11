@@ -20,8 +20,9 @@ function AI:initialize(unit, speedReaction)
     self.thinkIntervalMax = speedReaction.thinkIntervalMax or 0.25
     self.hesitateMin = speedReaction.hesitateMin or 0.1
     self.hesitateMax = speedReaction.hesitateMax or 0.3
-    self.waitChance = speedReaction.waitChance or 0.2
-    self.jumpAttackChance = speedReaction.jumpAttackChance or 0.2
+    self.waitChance = speedReaction.waitChance or 0.2 -- 1 == 100%, 0 == 0%
+    self.jumpAttackChance = speedReaction.jumpAttackChance or 0.2 -- 1 == 100%, 0 == 0%
+    self.grabChance = speedReaction.grabChance or 0.5 -- 1 == 100%, 0 == 0%
 
     self.conditions = {}
     self.thinkInterval = 0
@@ -66,7 +67,7 @@ end
 -- should be aoverrided by every enemy AI class
 function AI:selectNewSchedule(conditions)
     if not self.currentSchedule then
-        print("COMMON INTRO", self.unit.name, self.unit.id)
+--        print("COMMON INTRO", self.unit.name, self.unit.id)
         self.currentSchedule = self.SCHEDULE_INTRO
         return
     end
@@ -198,7 +199,7 @@ function AI:initStand()
         return false
     end
     if u.isDisabled or u.hp <= 0 then
-        print("ai.lua<AI:initStand>!!!!!!!!!!!!!!!1")
+--        print("ai.lua<AI:initStand>!!!!!!!!!!!!!!!1")
         return false
     end
     if u.state ~= "stand" then
@@ -223,7 +224,7 @@ function AI:initWait()
         return false
     end
     if u.isDisabled or u.hp <= 0 then
-        print("ai.lua<AI:initWait>!!!!!!!!!!!!!!!1")
+--        print("ai.lua<AI:initWait>!!!!!!!!!!!!!!!1")
         return false
     end
     if u.state ~= "stand" then
@@ -232,7 +233,7 @@ function AI:initWait()
         u:setSprite("stand")
     end
     self.waitingCounter = 5 * love.math.random(self.hesitateMin, self.hesitateMax)
-    print("!!!!ai.lua<AI:initWait> : " .. self.waitingCounter, u.name)
+--    print("!!!!ai.lua<AI:initWait> : " .. self.waitingCounter, u.name)
     return true
 end
 
@@ -240,7 +241,7 @@ function AI:onWait(dt)
     local u = self.unit
     self.waitingCounter = self.waitingCounter - dt
     if self.waitingCounter < 0 then
-        print(" -> DONE Wait> : " .. self.waitingCounter, u.name)
+--        print(" -> DONE Wait> : " .. self.waitingCounter, u.name)
         return true
     end
     return false
