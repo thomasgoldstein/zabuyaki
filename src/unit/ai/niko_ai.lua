@@ -41,6 +41,10 @@ function eAI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_FACE_TO_PLAYER
             return
         end
+        if self.currentSchedule ~= self.SCHEDULE_WAIT and love.math.random() < self.waitChance then
+            self.currentSchedule = self.SCHEDULE_WAIT
+            return
+        end
         if conditions.canCombo then
             if conditions.canMove and conditions.tooCloseToPlayer then --and math.random() < 0.5
                 self.currentSchedule = self.SCHEDULE_BACKOFF
@@ -73,6 +77,8 @@ function eAI:selectNewSchedule(conditions)
                 and (conditions.wokeUp or conditions.seePlayer) then
             if self.currentSchedule ~= self.SCHEDULE_STAND then
                 self.currentSchedule = self.SCHEDULE_STAND
+            else
+                self.currentSchedule = self.SCHEDULE_WAIT
             end
             return
         end

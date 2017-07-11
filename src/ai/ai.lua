@@ -20,6 +20,7 @@ function AI:initialize(unit, speedReaction)
     self.thinkIntervalMax = speedReaction.thinkIntervalMax or 0.25
     self.hesitateMin = speedReaction.hesitateMin or 0.1
     self.hesitateMax = speedReaction.hesitateMax or 0.3
+    self.waitChance = 0.2
 
     self.conditions = {}
     self.thinkInterval = 0
@@ -28,6 +29,7 @@ function AI:initialize(unit, speedReaction)
 
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro }, { "seePlayer", "wokeUp", "tooCloseToPlayer"}, unit.name)
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand }, { "seePlayer", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "faceNotToPlayer"}, unit.name)
+    self.SCHEDULE_WAIT = Schedule:new({ self.initWait, self.onWait }, { "noTarget", "tooCloseToPlayer", "tooFarToTarget" }, unit.name)
     self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.initWalkToAttack, self.onWalk }, { "cannotAct", "noTarget" }, unit.name)
     self.SCHEDULE_WALK = Schedule:new({ self.initWalkToAttack, self.onWalk,self.initCombo, self.onCombo }, { "cannotAct", "noTarget", "faceNotToPlayer"}, unit.name)
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.initWalkOffTheScreen, self.onWalk, self.onStop }, {}, unit.name)
@@ -206,6 +208,36 @@ function AI:initStand()
 end
 
 function AI:onStand()
+    return false
+end
+
+function AI:initWait()
+    local u = self.unit
+    dp("AI:initWait() " .. self.unit.name)
+    if self.conditions.cannotAct then
+        return false
+    end
+    if u.cooldown > 0 then
+        return false
+    end
+    if u.isDisabled or u.hp <= 0 then
+        print("ai.lua<AI:initWait>!!!!!!!!!!!!!!!1")
+        return false
+    end
+    if u.state ~= "stand" then
+        u:setState(u.stand)
+    else
+        u:setSprite("stand")
+    end
+    self.waitingCounter = 5 * love.math.random(self.hesitateMin, self.hesitateMax)
+    return true
+end
+
+function AI:onWait(dt)
+    self.waitingCounter = self.waitingCounter - dt
+    if self.waitingCounter < 0 then
+        return true
+    end
     return false
 end
 
