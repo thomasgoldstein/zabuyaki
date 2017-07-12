@@ -3,18 +3,19 @@
 local P = { db = {} }
 
 function P:init()
-    self.db = {}
-    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
-        self.db[i] = {}
+    --self.db = {}
+    for id = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        self.db[id] = {}
+        self:reset(id)
     end
+    print("INIT", #self.db)
 end
 
-function P:logPlayersDamage(player)
-    if not player or player.id > GLOBAL_SETTING.MAX_PLAYERS then
-        print("spyPlayer.lua<P:reset> : wrong id")
-        return
+function P:reset(id)
+    print("RESET",id)
+    for n = 1, 10 do
+        self.db[id][n] = { attackCounter = 0, lastDamage = -1, lastTime = -1 }
     end
-    local h = player.isHurt
 end
 
 -- victim x y, source of the attack x2,y2
@@ -31,9 +32,9 @@ local function dirToNum(x, y, x2, y2)
     elseif x - 10 > x2 then
         sx = 1
     end
-    if y + 5 < y2 then
+    if y + 1 < y2 then
         sy = 2
-    elseif y - 5 > y2 then
+    elseif y - 1 > y2 then
         sy = 0
     end
     return sx + 3 * sy
@@ -55,5 +56,42 @@ end
         print(dirToText(25, 24, i, j),dirToNum(25, 24, i, j)," <= " ,i, j)
     end
 end]]
+
+function P:logDamage(player)
+    if not player or player.id > GLOBAL_SETTING.MAX_PLAYERS then
+        print("spyPlayer.lua<P:reset> : wrong id")
+        return
+    end
+    local h = player.isHurt
+    local n = dirToNum(player.x, player.y, h.source.x, h.source.y)
+    self:storeDamageInfo(player.id, n, h.damage)
+end
+
+function P:storeDamageInfo(id, n, damage)
+    self.db[id][n].lastDamage = damage
+    self.db[id][n].attackCounter = self.db[id][n].attackCounter + 1
+    self.db[id][n].lastTime = love.timer.getTime()
+end
+
+function P:getDamage(id, n)
+    return self.db[id][n].lastDamage
+end
+
+function P:getAttackCounter(id, n)
+    return self.db[id][n].attackCounter
+end
+
+function P:getLastTime(id, n)
+    return self.db[id][n].lastTime
+end
+
+-- debug trace dmg info
+function P:printDamageInfo(id)
+    local s = ""
+    for n = 1, 10 do
+        s = s .. self.db[id][n].attackCounter.."-"
+    end
+    print("Player ID"..id,s)
+end
 
 return P
