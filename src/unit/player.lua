@@ -24,6 +24,7 @@ function Player:setOnStage(stage)
     self.showPIDCooldown = 3
     Unit.setOnStage(self, stage)
     registerPlayer(self)
+    logPlayer:reset(self.id)
 end
 
 function Player:isAlive()
@@ -177,6 +178,8 @@ function Player:onHurtDamage()
         -- show enemy bar for other attacks
         h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
         self.victimInfoBar = h.source.infoBar:setAttacker(self)
+        logPlayer:logDamage(self)
+        logPlayer:printDamageInfo(self.id)
     end
     -- Score
     h.source:addScore( h.damage * 10 )
