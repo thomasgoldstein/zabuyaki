@@ -113,6 +113,7 @@ function love.load(arg)
 	Character = require "src/unit/character"
 	require "src/unit/ui_fx/character_ui_and_fx"
 	logPlayer = require "src/ai/logPlayer"
+	logPlayer:init()
 	Player = require "src/unit/player"
 	require "src/unit/ui_fx/player_ui_and_fx"
 	Enemy = require "src/unit/enemy"
