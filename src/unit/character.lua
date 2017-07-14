@@ -1389,7 +1389,7 @@ end
 
 function Character:grabbedStart()
     local g = self.hold
-    print(self.name, self.id, inspect(self.hold, {depth= 1}))
+    --print(self.name, self.id, inspect(self.hold, {depth= 1}))
     if g.source.face ~= self.face then
         self:setState(self.grabbedFront)
     else
