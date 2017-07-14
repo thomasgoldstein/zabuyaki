@@ -330,7 +330,7 @@ function AI:initWalkToXY()
         tx = self.x,
         ty = self.y
     }, 'linear')
---    u.ttx, u.tty = self.x, self.y
+    u.ttx, u.tty = self.x, self.y
     return true
 end
 
@@ -352,7 +352,7 @@ function AI:initRunToXY()
         tx = self.x,
         ty = self.y
     }, 'linear')
---    u.ttx, u.tty = self.x, self.y
+    u.ttx, u.tty = self.x, self.y
     return true
 end
 
