@@ -35,13 +35,13 @@ end]]
 function Schedule:reset()
 	self.currentTask = 1
 	self.done = false
-	dp(" Reset tasks que. currentTask = 1")
+	dp(" RESET tasks QUE. currentTask = 1")
 end
 
 function Schedule:stop()
 	self.currentTask = 1
 	self.done = true
-	dp(" DONE. Stop tasks que. currentTask = 1")
+	dp(" DONE. Stop tasks QUE. currentTask = 1")
 end
 
 function Schedule:addTask(taskFunc)
@@ -58,7 +58,7 @@ function Schedule:addInterrupt(interruptStr)
 end
 
 function Schedule:isDone(conditions)
-	dp(" isDone?")
+	--dp(" isDone?")
 	if self.done then
 		self:reset()
 		--dp(" all tasks are done")
@@ -85,12 +85,12 @@ function Schedule:update(env, dt)
 		return false
 	end
 	if #self.tasks < 1 then
-		dp(" Schedule:update. no tasks")
+		dp(" Schedule: UPDATE. No tasks left.")
 		return false
     end
     --dp(" Run Task #" .. self.currentTask .. "/" .. #self.tasks )
 	if self.tasks[self.currentTask](env, dt) then --if func returns true, delete this from the que
-		dp(" func returned TRUE")
+		dp(" Schedule: Task returned TRUE. Next.")
 		self.currentTask = self.currentTask + 1
 
 		if self.currentTask > #self.tasks then -- -1
