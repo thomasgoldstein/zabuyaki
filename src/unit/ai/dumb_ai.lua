@@ -28,7 +28,7 @@ end
 function eAI:selectNewSchedule(conditions)
     if not self.currentSchedule then
         self.currentSchedule = self.SCHEDULE_INTRO
-        print("DUMB INTRO", self.unit.name, self.unit.id )
+--        print("DUMB INTRO", self.unit.name, self.unit.id )
         return
     end
     if conditions.noPlayers then

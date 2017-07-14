@@ -20,15 +20,15 @@ function eAI:initialize(unit, speedReaction)
 end
 
 function eAI:_update(dt)
-    if self.thinkInterval - dt <= 0 then
+--    if self.thinkInterval - dt <= 0 then
         --print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
-    end
-    AI.update(self, dt)
+--    end
+--    AI.update(self, dt)
 end
 
 function eAI:selectNewSchedule(conditions)
     if not self.currentSchedule or conditions.init then
-        print("NIKO INTRO", self.unit.name, self.unit.id )
+--        print("ZEENA INTRO", self.unit.name, self.unit.id )
         self.currentSchedule = self.SCHEDULE_INTRO
         return
     end

@@ -19,16 +19,16 @@ function eAI:initialize(unit, speedReaction)
 end
 
 function eAI:_update(dt)
-    if self.thinkInterval - dt <= 0 then
-        print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
-    end
+--    if self.thinkInterval - dt <= 0 then
+--        print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
+--    end
     AI.update(self, dt)
 end
 
 function eAI:selectNewSchedule(conditions)
     if not self.currentSchedule or conditions.init then
         self.currentSchedule = self.SCHEDULE_INTRO
-        print("SVETA INTRO", self.unit.name, self.unit.id )
+--        print("SVETA INTRO", self.unit.name, self.unit.id )
         return
     end
     if conditions.noPlayers then
