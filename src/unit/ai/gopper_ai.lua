@@ -78,11 +78,9 @@ function eAI:selectNewSchedule(conditions)
             return
         end
     else
---[[        if self.currentSchedule == self.SCHEDULE_RUN_DASH then
-            self.currentSchedule = nil
-            return
-        end]]
         -- cannot control body
+        self.currentSchedule = self.SCHEDULE_RECOVER
+        return
     end
 
     if not self.currentSchedule then

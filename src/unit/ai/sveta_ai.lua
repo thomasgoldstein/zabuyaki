@@ -71,8 +71,9 @@ function eAI:selectNewSchedule(conditions)
         end
     else
         -- cannot control body
+        self.currentSchedule = self.SCHEDULE_RECOVER
+        return
     end
-
     if not self.currentSchedule then
         self.currentSchedule = self.SCHEDULE_STAND
     end
