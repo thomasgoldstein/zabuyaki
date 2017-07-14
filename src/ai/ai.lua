@@ -51,7 +51,7 @@ function AI:initialize(unit, speedReaction)
     --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget },
     -- -- { "noPlayers" }, unit.name)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer },
-        { "cannotAct", "noTarget", "noPlayers", "tooFarToTarget" }, unit.name)
+        { "cannotAct", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo },
         { "cannotAct", "noTarget", "tooFarToTarget" }, unit.name)
     self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.waitUntilStand, self.initWait, self.onWait },
@@ -60,6 +60,8 @@ function AI:initialize(unit, speedReaction)
         { "cannotAct", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.calcWalkToGrabXY, self.initWalkToXY, self.onMove, self.initGrab, self.onGrab },
         { "cannotAct", "noTarget", "noPlayers" }, unit.name)
+    self.SCHEDULE_RECOVER = Schedule:new({ self.waitUntilStand },
+        { "noPlayers" }, unit.name)
     --self.SCHEDULE_DEAD = Schedule:new({ self.initDead }, {}, unit.name)
 end
 
