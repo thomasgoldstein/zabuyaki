@@ -10,14 +10,15 @@ local _speedReaction = {
     hesitateMin = 0.1,
     hesitateMax = 0.3,
     waitChance = 0.5,
-    jumpAttackChance = 1,
+    jumpAttackChance = 0.5,
     grabChance = 0.5 -- 1 == 100%, 0 == 0%
 }
 
 function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
     -- new or overrided AI schedules
-    self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack }, { "cannotAct", "noTarget", "noPlayers" }, unit.name)
+    self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack, self.waitUntilStand },
+        {}, unit.name)
 end
 
 function eAI:_update(dt)
@@ -88,7 +89,9 @@ function eAI:selectNewSchedule(conditions)
             return
         end
     else
-
+        -- cannot control body
+        self.currentSchedule = self.SCHEDULE_RECOVER
+        return
     end
     self.currentSchedule = self.SCHEDULE_STAND
 end
@@ -97,8 +100,9 @@ function eAI:initJumpAttack(dt)
     --    dp("AI:onDash() ".. self.unit.name)
     local u = self.unit
     self.doneAttack = false
-    if u.state == "stand" then
-        u.z = u.z + 0.1
+    if u.state == "stand" or u.state == "walk" then
+        u.horizontal = u.face
+        u.z = u.z + 1
         u.bounced = 0
         u.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
         if self.conditions.tooCloseToPlayer then
@@ -107,8 +111,6 @@ function eAI:initJumpAttack(dt)
             u.vel_x = u.velocityWalk_x
         end
         u:setState(u.jump)
-        --u:setState(u.jumpAttackForward)
-        --u:setState(u.jumpAttackStraight)
     end
     return true
 end
@@ -116,12 +118,10 @@ end
 function eAI:onJumpAttack(dt)
     --    dp("AI:onDash() ".. self.unit.name)
     local u = self.unit
-    if u.state == "stand" then
-        return true
-    end
     if not self.doneAttack then
         self.doneAttack = true
         u:setState(u.jumpAttackForward)
+        return true
     end
     return false
 end
