@@ -496,7 +496,14 @@ return {
 			{ q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
 			{ q = q(48,398,43,58), ox = 19, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.05 }, --pickup 1
-			delay = 0.2
+			delay = 0.2,
+			moves = {
+				{ ox = -20, oz = 10, oy = 1, z = 0, face = -1 },
+				{ ox = -10, oz = 20, z = 4 },
+				{ ox = 10, oz = 30, tFace = 1, z = 8 },
+				{ z = 4 },
+				{ z = 2 }
+			}
 		},
 		grabSwap = {
 			{ q = q(136,1109,43,62), ox = 17, oy = 62 }, --grab swap 1.1
