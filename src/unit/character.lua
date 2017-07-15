@@ -1336,6 +1336,11 @@ function Character:grabUpdate(dt)
                 g.target:removeTweenMove()
                 self:removeTweenMove()
                 self:setState(self.shoveUp)
+            elseif self.moves.backShove and self.face == g.target.face and g.target.type ~= "obstacle" then
+                --if u grab char from behind => German suplex
+                g.target:removeTweenMove()
+                self:removeTweenMove()
+                self:setState(self.backShove)
             elseif self.moves.shoveBack and self.face == g.target.face and g.target.type ~= "obstacle" then
                 --if u grab char from behind
                 g.target:removeTweenMove()
