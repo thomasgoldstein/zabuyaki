@@ -17,7 +17,7 @@ function Rick:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
-        shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
+        shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true, backShove = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -88,5 +88,25 @@ function Rick:offensiveSpecialUpdate(dt)
     self:calcMovement(dt, true, self.velocityDash)
 end
 Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = nop, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
+
+function Rick:backShoveStart()
+    self.isHittable = false
+    local g = self.hold
+    local t = g.target
+    self:moveStatesInit()
+    t.isHittable = false    --protect grabbed enemy from hits
+    self:setSprite("backShove")
+    dp(self.name.." backShove someone.")
+end
+function Rick:backShoveUpdate(dt)
+    self:moveStatesApply()
+    if self.sprite.isFinished then
+        self.cooldown = 0.2
+        self:setState(self.stand)
+        return
+    end
+    self:calcMovement(dt, true, nil)
+end
+Rick.backShove = {name = "backShove", start = Rick.backShoveStart, exit = nop, update = Rick.backShoveUpdate, draw = Character.defaultDraw}
 
 return Rick
