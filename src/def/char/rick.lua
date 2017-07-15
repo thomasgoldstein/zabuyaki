@@ -498,11 +498,12 @@ return {
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.05 }, --pickup 1
 			delay = 0.2,
 			moves = {
-				{ ox = -20, oz = 10, oy = 1, z = 0, face = -1 },
-				{ ox = -10, oz = 20, z = 4 },
-				{ ox = 10, oz = 30, tFace = 1, z = 8 },
-				{ z = 4 },
-				{ z = 2 }
+                { },
+                { oz = 1},
+                { oz = 4},
+                { oz = 12, ox = -8 },
+                { oz = 10, ox = -16 },
+                { oz = 0, ox = -24 }
 			}
 		},
 		grabSwap = {
