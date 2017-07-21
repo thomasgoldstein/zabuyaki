@@ -150,7 +150,7 @@ local defensiveSpecialFx = function(slf, cont)
     slf:showEffect("defensiveSpecial")
 end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
-    { x = 11, y = 32, width = 75, height = 75, damage = 25, type = "fall", velocity = slf.vel_x },
+    { x = 11, y = 32, width = 75, height = 75, depth = 18, damage = 25, type = "fall", velocity = slf.vel_x },
      cont
  ) end
 
