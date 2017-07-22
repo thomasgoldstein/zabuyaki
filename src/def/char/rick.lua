@@ -499,11 +499,11 @@ return {
 			delay = 0.2,
 			moves = {
                 { },
-                { oz = 1, tFrame = 6},
-                { oz = 4, tFrame = 5},
-                { oz = 12, ox = -8, tFrame = 4 },
-                { oz = 10, ox = -16, tFrame = 5 },
-                { oz = 0, ox = -24, tFrame = 6 }
+                { oz = 1, tFrame = 1 },
+                { oz = 4 },
+                { oz = 12, ox = -8, tFrame = 3 },
+                { oz = 10, ox = -16, tFrame = 4 },
+                { oz = 0, ox = -24, tFrame = 5 }
 			}
 		},
 		grabSwap = {
