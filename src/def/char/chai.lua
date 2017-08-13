@@ -427,7 +427,7 @@ return {
 		jumpAttackForward = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
 			{ q = q(43,722,37,64), ox = 13, oy = 66 }, --jump attack forward 2
-			{ q = q(82,722,71,64), ox = 26, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 3
+			{ q = q(82,722,70,64), ox = 25, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 3
 			delay = 0.03
 		},
 		jumpAttackForwardEnd = {
