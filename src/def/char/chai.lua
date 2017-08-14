@@ -83,6 +83,12 @@ local comboAttack4 = function(slf, cont)
 		cont
 	)
 end
+local comboAttack4Forward = function(slf, cont)
+	slf:checkAndAttack(
+		{ x = 29, y = 18, width = 32, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = "air" },
+		cont
+	)
+end
 local comboAttack4NoSfx = function(slf, cont)
 	--TODO check if it makes default sound still
 	slf:checkAndAttack(
@@ -379,6 +385,14 @@ return {
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.09 }, --combo 4.6
 			{ q = q(194,725,49,62), ox = 14, oy = 61 }, --combo 4.7
 			delay = 0.03
+		},
+		combo4Forward = {
+			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
+			{ q = q(43,722,37,64), ox = 12, oy = 66 }, --jump attack forward 2
+			{ q = q(175,199,67,65), ox = 19, oy = 64, funcCont = comboAttack4Forward, delay = 0.16 }, --dash hold attack
+			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.05 }, --jump attack forward 2
+			{ q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
+			delay = 0.02
 		},
 		holdAttack = {
 			{ q = q(121,587,48,65), ox = 13, oy = 64, delay = 0.02 }, --combo 4.1
