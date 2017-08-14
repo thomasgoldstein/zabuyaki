@@ -118,8 +118,12 @@ local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
 	{ x = 25, y = 25, width = 35, height = 50, damage = 8, type = "fall", velocity = slf.vel_x },
 	cont
 ) end
-local dashHoldAttack = function(slf, cont) slf:checkAndAttack(
+local dashHoldAttackH = function(slf, cont) slf:checkAndAttack(
 	{ x = 32, y = 18, width = 25, height = 45, damage = 15, type = "fall", velocity = slf.vel_x },
+	cont
+) end
+local dashHoldAttackV = function(slf, cont) slf:checkAndAttack(
+	{ x = 17, y = 18, width = 25, height = 45, damage = 15, type = "fall", velocity = slf.vel_x },
 	cont
 ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
@@ -251,22 +255,16 @@ return {
 		dashHoldAttackH = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
 			{ q = q(43,722,37,64), ox = 12, oy = 66 }, --jump attack forward 2
-			{ q = q(175,199,67,65), ox = 19, oy = 64, funcCont = dashHoldAttack, delay = 0.2 }, --dash hold attack
+			{ q = q(175,199,67,65), ox = 19, oy = 64, funcCont = dashHoldAttackH, delay = 0.2 }, --dash hold attack
 			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.05 }, --jump attack forward 2
 			{ q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
 			delay = 0.03
 		},
 		dashHoldAttackV = {
-			{ q = q(2,993,63,66), ox = 26, oy = 66 }, --jump attack running 1.1
-			{ q = q(67,993,63,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 1.2
-			{ q = q(132,993,64,66), ox = 22, oy = 66 }, --jump attack running 2.1
-			{ q = q(2,1061,65,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 2.2
-			{ q = q(69,1061,66,66), ox = 22, oy = 66 }, --jump attack running 2.3
-			{ q = q(137,1061,63,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.1
-			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.2
-			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.3
-			{ q = q(124,1129,42,67), ox = 23, oy = 66 }, --jump attack running 4
-			delay = 0.015
+			{ q = q(107,1396,54,62), ox = 28, oy = 67 }, --defensive special 8
+			{ q = q(48,1396,57,61), ox = 25, oy = 67, funcCont = dashHoldAttackV, delay = 0.1 }, --defensive special 7
+			{ q = q(2,1396,44,60), ox = 24, oy = 65 }, --defensive special 6
+			delay = 0.03
 		},
 		defensiveSpecial = {
 			{ q = q(2,1334,39,60), ox = 29, oy = 59 }, --defensive special 1
