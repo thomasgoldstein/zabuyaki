@@ -426,18 +426,18 @@ return {
 		},
 		jumpAttackForward = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 13, oy = 66 }, --jump attack forward 2
+			{ q = q(43,722,37,64), ox = 12, oy = 66 }, --jump attack forward 2
 			{ q = q(82,722,70,64), ox = 25, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 3
 			delay = 0.03
 		},
 		jumpAttackForwardEnd = {
-			{ q = q(43,722,37,64), ox = 13, oy = 66, delay = 0.03 }, --jump attack forward 2
+			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.03 }, --jump attack forward 2
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
 			delay = 5
 		},
 		jumpAttackLight = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 13, oy = 66, funcCont = jumpAttackLight, delay = 5 }, --jump attack forward 2
+			{ q = q(43,722,37,64), ox = 12, oy = 66, funcCont = jumpAttackLight, delay = 5 }, --jump attack forward 2
 			delay = 0.03
 		},
 		jumpAttackLightEnd = {
@@ -489,7 +489,7 @@ return {
 		},
 		grabAttack3 = {
 			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 13, oy = 63, func = grabAttackLast, delay = 0.18 }, --jump attack forward 2
+			{ q = q(43,722,37,64), ox = 12, oy = 63, func = grabAttackLast, delay = 0.18 }, --jump attack forward 2
 			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.1 }, --jump attack forward 1
 			delay = 0.02
 		},
