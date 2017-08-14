@@ -24,7 +24,6 @@ local comboKick = function(slf, cont)
     else
         slf.vel_x = slf.velocitySlide -- horizontal velocity
     end
-    slf.cooldownCombo = 0.4
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(

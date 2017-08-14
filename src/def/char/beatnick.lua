@@ -16,7 +16,6 @@ local comboAttack2 = function(slf, cont)
         { x = 33, y = 27, width = 26, damage = 22, type = "fall", velocity = slf.vel_x, sfx = "air" },
         cont
     )
-    slf.cooldownCombo = 0.4
 end
 local makeMeHittable = function(slf, cont)
     slf.isHittable = true
