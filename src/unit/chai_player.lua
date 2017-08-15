@@ -36,6 +36,8 @@ function Chai:initAttributes()
     --    self.velocityShove_x = 220 --my throwing speed
     --    self.velocityShove_z = 200 --my throwing speed
     --    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
+    self.velocitySlide = 200 --horizontal speed of the slide kick
+    self.velocitySlide_y = 20 --vertical speed of the slide kick
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx

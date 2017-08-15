@@ -88,6 +88,14 @@ local comboAttack4Forward = function(slf, cont)
 		{ x = 29, y = 18, width = 32, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = "air" },
 		cont
 	)
+	-- move forward Chai
+	if slf.b.vertical:getValue() ~= 0 then
+		slf.vertical = slf.b.vertical:getValue()
+		slf.vel_y = slf.velocitySlide_y -- vertical velocity
+		slf.vel_x = slf.velocitySlide_y -- reduced horizontal velocity
+	else
+		slf.vel_x = slf.velocitySlide -- horizontal velocity
+	end
 end
 local comboAttack4NoSfx = function(slf, cont)
 	--TODO check if it makes default sound still
