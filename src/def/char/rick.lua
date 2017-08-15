@@ -251,10 +251,10 @@ return {
 		},
 		dashAttack = {
 			{ q = q(2,915,63,62), ox = 38, oy = 61, delay = 0.07 }, --dash attack 1
-			{ q = q(67,914,37,63), ox = 17, oy = 62, delay = 0.1 }, --dash attack 2
-			{ q = q(106,913,60,64), ox = 17, oy = 63, func = dashAttack1, delay = 0.08 }, --dash attack 3
-			{ q = q(106,913,60,64), ox = 17, oy = 63, funcCont = dashAttack2, delay = 0.08 }, --dash attack 3
-			{ q = q(168,916,53,61), ox = 16, oy = 60 }, --dash attack 4
+			{ q = q(67,914,45,63), ox = 25, oy = 62, delay = 0.1 }, --dash attack 2
+			{ q = q(114,913,60,64), ox = 17, oy = 63, func = dashAttack1, delay = 0.08 }, --dash attack 3
+			{ q = q(114,913,60,64), ox = 17, oy = 63, funcCont = dashAttack2, delay = 0.08 }, --dash attack 3
+			{ q = q(176,916,53,61), ox = 16, oy = 60 }, --dash attack 4
 			{ q = q(115,519,40,63), ox = 17, oy = 62 }, --combo 2.1
 			delay = 0.16
 		},
@@ -444,7 +444,7 @@ return {
 		},
 		grabAttack3 = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
-			{ q = q(168,916,53,61), ox = 16, oy = 60, func = grabAttackLast, delay = 0.18 }, --dash attack 4
+			{ q = q(176,916,53,61), ox = 16, oy = 60, func = grabAttackLast, delay = 0.18 }, --dash attack 4
 			{ q = q(115,519,40,63), ox = 17, oy = 62, delay = 0.1 }, --combo 2.1
 			delay = 0.02
 		},
