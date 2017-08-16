@@ -137,7 +137,7 @@ local dashHoldAttackH = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 local dashHoldAttackV = function(slf, cont) slf:checkAndAttack(
-	{ x = 17, y = 18, width = 25, height = 45, damage = 11, type = "fall", velocity = slf.vel_x },
+	{ x = 21, y = 18, width = 25, height = 45, damage = 11, type = "fall", velocity = slf.vel_x },
 	cont
 ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
