@@ -317,7 +317,7 @@ function spriteEditorState:update(dt)
 end
 
 local function DrawweaponSprite(sprite, x, y, i)
-    if weaponSprite then
+    if weaponSprite and sprite.curAnim then
         local s = sprite.def.animations[sprite.curAnim][i or sprite.curFrame or 1]
         local wx, wy, wAnimation
         if s.wx and s.wy then
@@ -472,7 +472,7 @@ function spriteEditorState:draw()
             DrawSpriteInstance(sprite, x, y, menu[menuState].n)
             DrawweaponSprite(sprite, x, y, menu[menuState].n)
         elseif menuState == 3 then
-            if weaponSprite then
+            if weaponSprite and weaponSprite.curAnim then
                 love.graphics.setColor(255, 255, 255, 255)
                 weaponSprite.rotation = 0
                 weaponSprite.flipV = 1
