@@ -99,7 +99,11 @@ function Rick:backShoveStart()
     dp(self.name.." backShove someone.")
 end
 function Rick:backShoveUpdate(dt)
-    self:moveStatesApply()
+    local g = self.hold
+    local t = g.target
+    if t.state ~= "fall" then
+        self:moveStatesApply()
+    end
     if self.sprite.isFinished then
         self.cooldown = 0.2
         self:setState(self.stand)

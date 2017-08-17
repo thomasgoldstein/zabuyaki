@@ -47,6 +47,15 @@ local shoveForward = function(slf, cont)
 		slf.face, nil,
 		slf.z + slf.throwStart_z)
 end
+local backShove = function(slf, cont)
+    local g = slf.hold
+    if g and g.target then
+        local target = g.target
+        slf:releaseGrabbed()
+        target:setState(target.bounce)
+        print(target.state, target.name)
+    end
+end
 local comboAttack1 = function(slf, cont)
 	slf:checkAndAttack(
         { x = 28, y = 30, width = 26, damage = 7, velocity = slf.vel_x, sfx = "air" },
@@ -493,13 +502,13 @@ return {
 			{ q = q(47,1692,46,63), ox = 16, oy = 62, delay = 0.1 }, --back shove 2
 			{ q = q(95,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back shove 3
 			{ q = q(158,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back shove 4
-			{ q = q(100,1652,63,38), ox = 51, oy = 34, delay = 0.3 }, --back shove 5
+			{ q = q(100,1652,63,38), ox = 51, oy = 34, func = backShove, delay = 0.3 }, --back shove 5
 			{ q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
 			{ q = q(48,398,43,58), ox = 19, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.05 }, --pickup 1
 			delay = 0.2,
 			moves = {
-                { },
+                --{ },
                 { oz = 1, tFrame = 1 },
                 { oz = 4 },
                 { oz = 12, ox = -8, tFrame = 3 },
