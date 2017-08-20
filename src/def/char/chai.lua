@@ -212,7 +212,7 @@ return {
             delay = 0.167
 		},
 		walkHold = {
-			{ q = q(168,1132,50,64), ox = 22, oy = 63 }, --walk hold 1
+			{ q = q(170,1132,50,64), ox = 22, oy = 63 }, --walk hold 1
 			{ q = q(157,1198,49,63), ox = 21, oy = 62 }, --walk hold 2
 			{ q = q(2,1264,49,63), ox = 21, oy = 62 }, --walk hold 3
 			{ q = q(53,1263,50,63), ox = 22, oy = 63 }, --walk hold 4
@@ -484,15 +484,15 @@ return {
 			{ q = q(67,993,63,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 1.2
 			{ q = q(132,993,64,66), ox = 22, oy = 66 }, --jump attack running 2.1
 			{ q = q(2,1061,65,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 2.2
-			{ q = q(69,1061,66,66), ox = 22, oy = 66 }, --jump attack running 2.3
-			{ q = q(137,1061,63,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.1
+			{ q = q(69,1061,65,66), ox = 22, oy = 66 }, --jump attack running 2.3
+			{ q = q(136,1061,63,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.1
 			{ q = q(2,1129,61,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.2
-			{ q = q(65,1129,57,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.3
-			{ q = q(124,1129,42,67), ox = 23, oy = 66, delay = 5 }, --jump attack running 4
+			{ q = q(65,1129,59,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.3
+			{ q = q(126,1129,42,67), ox = 23, oy = 66, delay = 5 }, --jump attack running 4
 			delay = 0.02
 		},
 		jumpAttackRunEnd = {
-			{ q = q(124,1129,42,67), ox = 23, oy = 66 }, --jump attack running 4
+			{ q = q(126,1129,42,67), ox = 23, oy = 66 }, --jump attack running 4
 			delay = 5
 		},
 		sideStepUp = {
