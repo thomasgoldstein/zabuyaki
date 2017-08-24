@@ -143,8 +143,8 @@ function Chai:defensiveSpecialUpdate(dt)
         self.vel_z = -self.velocityJump * self.velocityJumpSpeed / 2
         self.jumpType = 0
     end
-    if self.z > 40 then
-        self.z = 40
+    if self.z > 32 then
+        self.z = 32
     end
     if self.z > 0 then
         self:calcFreeFall(dt)
