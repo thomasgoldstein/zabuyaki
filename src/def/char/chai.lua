@@ -289,7 +289,7 @@ return {
 			{ q = q(165,1396,46,60), ox = 27, oy = 66 }, --defensive special 9
 			delay = 0.02
 		},
-		defensiveSpecial = { -- TODO: Remove the "Temp" part of the name (and delete the old defensiveSpecial) once the vertical movement has been coded
+		defensiveSpecial = {
 			{ q = q(2,1334,39,60), ox = 29, oy = 59 }, --defensive special 1
 			{ q = q(43,1337,41,57), ox = 31, oy = 56, delay = 0.1 }, --defensive special 2
 			{ q = q(86,1329,41,63), ox = 31, oy = 65, func = function(slf) slf.jumpType = 1 end, delay = 0.04 }, --defensive special 3
