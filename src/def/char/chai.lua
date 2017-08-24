@@ -289,34 +289,10 @@ return {
 			{ q = q(165,1396,46,60), ox = 27, oy = 66 }, --defensive special 9
 			delay = 0.02
 		},
-		defensiveSpecial = {
+		defensiveSpecial = { -- TODO: Remove the "Temp" part of the name (and delete the old defensiveSpecial) once the vertical movement has been coded
 			{ q = q(2,1334,39,60), ox = 29, oy = 59 }, --defensive special 1
 			{ q = q(43,1337,41,57), ox = 31, oy = 56, delay = 0.1 }, --defensive special 2
-			{ q = q(86,1329,41,63), ox = 31, oy = 67, delay = 0.01 }, --defensive special 3
-			{ q = q(86,1329,41,63), ox = 31, oy = 73 }, --defensive special 3 (6px upper)
-			{ q = q(129,1329,38,65), ox = 23, oy = 81 }, --defensive special 4
-			{ q = q(169,1329,39,62), ox = 23, oy = 84, funcCont = defensiveSpecial }, --defensive special 5
-			{ q = q(2,1396,45,61), ox = 24, oy = 88, funcCont = defensiveSpecialRight }, --defensive special 6
-			{ q = q(49,1396,58,63), ox = 23, oy = 94, funcCont = defensiveSpecialRightMost }, --defensive special 7
-			{ q = q(109,1396,54,62), ox = 26, oy = 99, funcCont = defensiveSpecialRight }, --defensive special 8
-			{ q = q(165,1396,46,60), ox = 27, oy = 99, funcCont = defensiveSpecial }, --defensive special 9
-			{ q = q(2,1461,40,60), ox = 22, oy = 99, funcCont = defensiveSpecial }, --defensive special 10
-			{ q = q(44,1461,43,60), ox = 24, oy = 99, funcCont = defensiveSpecial }, --defensive special 11
-			{ q = q(89,1461,46,60), ox = 29, oy = 95, funcCont = defensiveSpecialLeft }, --defensive special 12
-			{ q = q(137,1461,56,59), ox = 35, oy = 92, funcCont = defensiveSpecialLeftMost }, --defensive special 13
-			{ q = q(195,1461,44,61), ox = 23, oy = 87, funcCont = defensiveSpecialLeft }, --defensive special 14
-			{ q = q(2,1526,40,64), ox = 22, oy = 84 }, --defensive special 15
-			{ q = q(44,1526,41,64), ox = 23, oy = 77 }, --defensive special 16
-			{ q = q(44,1526,41,64), ox = 23, oy = 71 }, --defensive special 16 (6px lower)
-			{ q = q(87,1527,37,63), ox = 16, oy = 62 }, --defensive special 17
-			{ q = q(126,1531,38,59), ox = 15, oy = 58, delay = 0.1 }, --defensive special 18
-			{ q = q(87,1527,37,63), ox = 16, oy = 62, delay = 0.08 }, --defensive special 17
-			delay = 0.03
-		},
-		defensiveSpecialTemp = { -- TODO: Remove the "Temp" part of the name (and delete the old defensiveSpecial) once the vertical movement has been coded
-			{ q = q(2,1334,39,60), ox = 29, oy = 59 }, --defensive special 1
-			{ q = q(43,1337,41,57), ox = 31, oy = 56, delay = 0.1 }, --defensive special 2
-			{ q = q(86,1329,41,63), ox = 31, oy = 65, delay = 0.04 }, --defensive special 3
+			{ q = q(86,1329,41,63), ox = 31, oy = 65, func = function(slf) slf.jumpType = 1 end, delay = 0.04 }, --defensive special 3
 			{ q = q(129,1329,38,65), ox = 23, oy = 66 }, --defensive special 4
 			{ q = q(169,1329,39,62), ox = 23, oy = 65, funcCont = defensiveSpecial }, --defensive special 5
 			{ q = q(2,1396,45,61), ox = 24, oy = 65, funcCont = defensiveSpecialRight }, --defensive special 6
@@ -324,7 +300,7 @@ return {
 			{ q = q(109,1396,54,62), ox = 26, oy = 67, funcCont = defensiveSpecialRight }, --defensive special 8
 			{ q = q(165,1396,46,60), ox = 27, oy = 66, funcCont = defensiveSpecial }, --defensive special 9
 			{ q = q(2,1461,40,60), ox = 22, oy = 66, funcCont = defensiveSpecial }, --defensive special 10
-			{ q = q(44,1461,43,60), ox = 24, oy = 67, funcCont = defensiveSpecial }, --defensive special 11
+			{ q = q(44,1461,43,60), ox = 24, oy = 67, funcCont = defensiveSpecial, func = function(slf) slf.jumpType = 2 end }, --defensive special 11
 			{ q = q(89,1461,46,60), ox = 29, oy = 67, funcCont = defensiveSpecialLeft }, --defensive special 12
 			{ q = q(137,1461,56,59), ox = 35, oy = 65, funcCont = defensiveSpecialLeftMost }, --defensive special 13
 			{ q = q(195,1461,44,61), ox = 23, oy = 65, funcCont = defensiveSpecialLeft }, --defensive special 14

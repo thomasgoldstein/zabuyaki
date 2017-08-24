@@ -126,4 +126,38 @@ function Chai:shoveBackUpdate(dt)
 end
 Chai.shoveBack = {name = "shoveBack", start = Chai.shoveBackStart, exit = nop, update = Chai.shoveBackUpdate, draw = Character.defaultDraw}
 
+function Chai:defensiveSpecialStart()
+    self.isHittable = false
+    self.z = 0
+    self.jumpType = 0
+    self:setSprite("defensiveSpecial")
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    self.cooldown = 0.2
+end
+function Chai:defensiveSpecialUpdate(dt)
+    if self.jumpType == 1 then
+        self.vel_z = self.velocityJump * self.velocityJumpSpeed
+        self.z = 0.1
+        self.jumpType = 0
+    elseif self.jumpType == 2 then
+        self.vel_z = -self.velocityJump * self.velocityJumpSpeed / 2
+        self.jumpType = 0
+    end
+    if self.z > 40 then
+        self.z = 40
+    end
+    if self.z > 0 then
+        self:calcFreeFall(dt)
+        if self.z < 0 then
+            self.z = 0
+        end
+    end
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcMovement(dt, true)
+end
+Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecialStart, exit = nop, update = Chai.defensiveSpecialUpdate, draw = Character.defaultDraw }
+
 return Chai
