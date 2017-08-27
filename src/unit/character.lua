@@ -1807,7 +1807,7 @@ function Character:holdAttackStart()
     else
         self:setSprite("holdAttack")
     end
-    sfx.play("sfx"..self.id, self.sfx.dashAttack)
+    sfx.play("voice"..self.id, self.sfx.dashAttack)
     self.cooldown = 0.2
 end
 function Character:holdAttackUpdate(dt)
