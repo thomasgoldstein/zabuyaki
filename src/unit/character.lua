@@ -1795,7 +1795,11 @@ function Character:holdAttackStart()
     self.isHittable = true
     if self.z > 0 then
         if self.vel_y > 0 then
-            self:setSpriteIfExists("dashHoldAttackV", "holdAttack")
+            if self.vertical > 0 then
+                self:setSpriteIfExists("dashHoldAttackDown", "holdAttack")
+            else
+                self:setSpriteIfExists("dashHoldAttackUp", "holdAttack")
+            end
         else
             self:setSpriteIfExists("dashHoldAttackH", "holdAttack")
         end
