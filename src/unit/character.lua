@@ -1807,7 +1807,7 @@ function Character:holdAttackStart()
 end
 function Character:holdAttackUpdate(dt)
     if self.sprite.isFinished then
-        self:setState(self.stand)
+        self:setState(self.duck)
         return
     end
     self:calcMovement(dt, true, nil)
