@@ -1811,6 +1811,7 @@ function Character:holdAttackStart()
 end
 function Character:holdAttackUpdate(dt)
     if self.sprite.isFinished then
+        sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
         return
     end
