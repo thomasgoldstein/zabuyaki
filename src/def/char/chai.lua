@@ -290,11 +290,11 @@ return {
 			delay = 0.02
 		},
 		dashHoldAttackDown = {
-			{ q = q(169,1329,39,62), ox = 23, oy = 65 }, --defensive special 5
-			{ q = q(2,1396,45,61), ox = 24, oy = 65 }, --defensive special 6
-			{ q = q(49,1396,58,63), ox = 23, oy = 67, funcCont = dashHoldAttackV, delay = 0.1 }, --defensive special 7
-			{ q = q(109,1396,54,62), ox = 26, oy = 67 }, --defensive special 8
-			{ q = q(165,1396,46,60), ox = 27, oy = 66 }, --defensive special 9
+			{ q = q(44,1461,43,60), ox = 24, oy = 67, flipH = -1 }, --defensive special 11
+			{ q = q(89,1461,46,60), ox = 29, oy = 67, flipH = -1 }, --defensive special 12
+			{ q = q(137,1461,56,59), ox = 35, oy = 65, funcCont = dashHoldAttackV, delay = 0.1, flipH = -1 }, --defensive special 13
+			{ q = q(195,1461,44,61), ox = 23, oy = 65, flipH = -1 }, --defensive special 14
+			{ q = q(2,1526,40,64), ox = 22, oy = 65, flipH = -1 }, --defensive special 15
 			delay = 0.02
 		},
 		defensiveSpecial = {
