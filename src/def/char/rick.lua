@@ -61,35 +61,30 @@ local comboAttack1 = function(slf, cont)
         { x = 28, y = 30, width = 26, damage = 7, velocity = slf.vel_x, sfx = "air" },
         cont
     )
-	slf.cooldownCombo = 0.4
 end
 local comboAttack2 = function(slf, cont)
 	slf:checkAndAttack(
         { x = 28, y = 31, width = 27, damage = 8, velocity = slf.vel_x, sfx = "air" },
         cont
     )
-	slf.cooldownCombo = 0.4
 end
 local comboAttack3 = function(slf, cont)
 	slf:checkAndAttack(
         { x = 28, y = 18, width = 27, damage = 10, velocity = slf.vel_x, sfx = "air" },
         cont
     )
-	slf.cooldownCombo = 0.4
 end
 local comboAttack3Up1 = function(slf, cont)
 	slf:checkAndAttack(
         { x = 28, y = 30, width = 27, damage = 4, velocity = slf.vel_x, sfx = "air" },
         cont
     )
-	slf.cooldownCombo = 0.4
 end
 local comboAttack3Up2 = function(slf, cont)
 	slf:checkAndAttack(
         { x = 18, y = 24, width = 27, damage = 9, velocity = slf.vel_x },
         cont
     )
-	slf.cooldownCombo = 0.4
 end
 local comboAttack4 = function(slf, cont)
 	slf:checkAndAttack(

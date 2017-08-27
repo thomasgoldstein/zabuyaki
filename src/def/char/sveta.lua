@@ -9,7 +9,6 @@ local comboSlap = function(slf, cont)
         { x = 25, y = 32, width = 26, damage = 5, velocity = slf.vel_x, sfx = "air" },
         cont
     )
-    slf.cooldownCombo = 0.4
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
