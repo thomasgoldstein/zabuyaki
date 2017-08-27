@@ -361,6 +361,7 @@ function Character:checkAndAttack(f, isFuncCont)
         -- connect combo hits on AUTO_COMBO or on any successful hit
         self.connectHit = true
     end
+    self.cooldownCombo = 0.4 -- reset max delay to connect combo hits
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = #items > 0 }
