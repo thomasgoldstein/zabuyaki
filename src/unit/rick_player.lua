@@ -28,9 +28,9 @@ function Rick:initAttributes()
     self.velocityWalkHold_y = 36
     self.velocityRun_x = 140
     self.velocityRun_y = 23
-    self.velocityDash = 150 --speed of the character
+    self.velocityDash = 200 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = self.velocityDash
+    self.frictionDash = 280
     --    self.velocityShove_x = 220 --my throwing speed
     --    self.velocityShove_z = 200 --my throwing speed
     --    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
