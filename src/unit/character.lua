@@ -1794,7 +1794,9 @@ Character.grabSwap = {name = "grabSwap", start = Character.grabSwapStart, exit =
 
 function Character:holdAttackStart()
     self.isHittable = true
+    self.isDashHoldAttack = false
     if self.z > 0 then
+        self.isDashHoldAttack = true
         if self.vel_y > 0 then
             if self.vertical > 0 then
                 self:setSpriteIfExists("dashHoldAttackDown", "holdAttack")
@@ -1804,16 +1806,20 @@ function Character:holdAttackStart()
         else
             self:setSpriteIfExists("dashHoldAttackH", "holdAttack")
         end
+        sfx.play("voice"..self.id, self.sfx.dashAttack)
     else
         self:setSprite("holdAttack")
     end
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
     self.cooldown = 0.2
 end
 function Character:holdAttackUpdate(dt)
     if self.sprite.isFinished then
-        sfx.play("sfx"..self.id, self.sfx.step)
-        self:setState(self.duck)
+        if self.isDashHoldAttack then
+            sfx.play("sfx"..self.id, self.sfx.step)
+            self:setState(self.duck)
+        else
+            self:setState(self.stand)
+        end
         return
     end
     self:calcMovement(dt, true, nil)
