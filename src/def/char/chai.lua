@@ -268,11 +268,11 @@ return {
 		},
 		dashHoldAttackH = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.03 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.03 }, --jump attack forward 2			
+			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.03 }, --jump attack forward 2
 			{ q = q(2,1653,70,65), ox = 19, oy = 64, funcCont = dashHoldAttackH }, --dash hold attack 1
 			{ q = q(74,1653,70,65), ox = 19, oy = 64, funcCont = dashHoldAttackH }, --dash hold attack 2
 			{ q = q(146,1653,69,65), ox = 19, oy = 64, funcCont = dashHoldAttackH }, --dash hold attack 3
-			{ q = q(175,199,67,65), ox = 19, oy = 64, funcCont = dashHoldAttackH, delay = 0.02 }, --dash hold attack 4			
+			{ q = q(175,199,67,65), ox = 19, oy = 64, funcCont = dashHoldAttackH, delay = 0.02 }, --dash hold attack 4
 			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.05 }, --jump attack forward 2
 			{ q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
 			delay = 0.06
