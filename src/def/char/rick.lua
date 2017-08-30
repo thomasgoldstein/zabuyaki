@@ -94,13 +94,13 @@ local comboAttack4 = function(slf, cont)
 end
 local comboAttack4Up1 = function(slf, cont)
 	slf:checkAndAttack(
-        { x = 27, y = 40, width = 29, damage = 19, type = "fall", velocity = slf.vel_x, sfx = "air" },
+        { x = 27, y = 40, width = 29, damage = 18, type = "fall", velocity = slf.vel_x, sfx = "air" },
         cont
     )
 end
 local comboAttack4Up2 = function(slf, cont)
 	slf:checkAndAttack(
-        { x = 25, y = 50, width = 33, damage = 19, type = "fall", velocity = slf.vel_x },
+        { x = 25, y = 50, width = 33, damage = 18, type = "fall", velocity = slf.vel_x },
         cont
     )
 end
