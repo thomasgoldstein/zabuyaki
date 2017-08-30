@@ -258,8 +258,7 @@ return {
 			{ q = q(43,858,49,68), ox = 26, oy = 65, funcCont = dashAttack2 }, --dash attack 2
 			{ q = q(94,858,48,68), ox = 26, oy = 65, funcCont = dashAttack2 }, --dash attack 3
 			{ q = q(144,858,47,68), ox = 26, oy = 65, funcCont = dashAttack2 }, --dash attack 4
-			{ q = q(193,858,45,68), ox = 26, oy = 65, funcCont = dashAttack2, delay = 0.12 }, --dash attack 5
-			{ q = q(128,266,44,62), ox = 23, oy = 65, delay = 5 }, --jump top
+			{ q = q(193,858,45,68), ox = 26, oy = 65, funcCont = dashAttack2, delay = 5 }, --dash attack 5
 			delay = 0.06
 		},
 		dashHold = {
