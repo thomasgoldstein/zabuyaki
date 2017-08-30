@@ -131,7 +131,7 @@ local dashAttack2 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local dashAttackSpeedUp = function(slf, cont)
-	slf.vel_x = slf.velocityDash * 2
+	slf.vel_x = slf.velocityDash * 1.7
 end
 local dashAttackResetSpeed = function(slf, cont)
 	slf.vel_x = slf.velocityDash
