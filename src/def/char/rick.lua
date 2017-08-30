@@ -264,13 +264,12 @@ return {
 			{ q = q(45,1759,39,62), ox = 23, oy = 61, delay = 0.1 }, --dash attack 2
 			{ q = q(86,1759,54,62), ox = 30, oy = 61, delay = 0.015 }, --dash attack 3
 			{ q = q(142,1759,40,61), ox = 16, oy = 61, func = dashAttackSpeedUp, delay = 0.015 }, --dash attack 4
-			{ q = q(2,1823,71,62), ox = 20, oy = 62, func = dashAttack1, delay = 0.08 }, --dash attack 5a
-			{ q = q(75,1823,70,62), ox = 20, oy = 62, funcCont = dashAttack2, delay = 0.08 }, --dash attack 5b
-			{ q = q(147,1832,65,53), ox = 17, oy = 52, func = dashAttackResetSpeed, delay = 0.07 }, --dash attack 6
-			{ q = q(2,1899,64,50), ox = 17, oy = 49, delay = 0.03 }, --dash attack 7a
-			{ q = q(68,1899,47,50), ox = 17, oy = 49, delay = 0.1 }, --dash attack 7b
-			{ q = q(117,1891,40,58), ox = 13, oy = 57 }, --dash attack 8
-			{ q = q(159,1887,40,62), ox = 17, oy = 61 },--dash attack 9
+			{ q = q(2,1823,70,62), ox = 20, oy = 62, func = dashAttack1, delay = 0.08 }, --dash attack 5a
+			{ q = q(74,1823,70,62), ox = 20, oy = 62, funcCont = dashAttack2, delay = 0.08 }, --dash attack 5b
+			{ q = q(146,1832,52,53), ox = 17, oy = 52, func = dashAttackResetSpeed, delay = 0.07 }, --dash attack 6
+			{ q = q(2,1899,47,50), ox = 17, oy = 49, delay = 0.13 }, --dash attack 7
+			{ q = q(51,1891,40,58), ox = 13, oy = 57 }, --dash attack 8
+			{ q = q(93,1887,40,62), ox = 17, oy = 61 },--dash attack 9
 			delay = 0.05
 		},
 		dashHold = {
