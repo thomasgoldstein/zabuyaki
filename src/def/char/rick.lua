@@ -123,11 +123,11 @@ local holdAttack3 = function(slf, cont)
     )
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 32, width = 55, damage = 8, velocity = slf.velocityDashFall },
+    { x = 20, y = 37, width = 55, damage = 8, velocity = slf.velocityDashFall },
     cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 32, width = 55, damage = 12, type = "fall", velocity = slf.velocityDashFall },
+    { x = 20, y = 37, width = 55, damage = 12, type = "fall", velocity = slf.velocityDashFall },
     cont
 ) end
 local dashAttackSpeedUp = function(slf, cont)
