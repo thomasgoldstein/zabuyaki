@@ -262,7 +262,7 @@ return {
 			{ q = q(42,858,49,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2
 			{ q = q(93,858,48,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 3
 			{ q = q(143,858,47,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 4
-			{ q = q(192,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3, delay = 0.15 }, --dash attack 5
+			{ q = q(192,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3, delay = 0.1 }, --dash attack 5
 			{ q = q(154,722,37,65), ox = 22, oy = 64, funcCont = dashAttack2, delay = 5 }, --dash attack 6
 			delay = 0.06
 		},
