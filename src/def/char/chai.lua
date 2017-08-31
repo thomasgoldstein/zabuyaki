@@ -105,6 +105,10 @@ local dashAttack1 = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
+	{ x = 10, y = 24, width = 26, damage = 17, type = "fall", velocity = slf.velocityDashFall },
+	cont
+) end
+local dashAttack3 = function(slf, cont) slf:checkAndAttack(
 	{ x = 12, y = 28, width = 30, damage = 17, type = "fall", velocity = slf.velocityDashFall },
 	cont
 ) end
@@ -254,11 +258,12 @@ return {
 		dashAttack = {
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
 			{ q = q(2,722,39,65), ox = 22, oy = 64, funcCont = dashAttack1, delay = 0.03 }, --jump attack forward 1 (shifted left by 4px)
-			{ q = q(2,858,39,65), ox = 22, oy = 64, funcCont = dashAttack1 }, --dash attack 1
-			{ q = q(43,858,49,68), ox = 26, oy = 65, funcCont = dashAttack2 }, --dash attack 2
-			{ q = q(94,858,48,68), ox = 26, oy = 65, funcCont = dashAttack2 }, --dash attack 3
-			{ q = q(144,858,47,68), ox = 26, oy = 65, funcCont = dashAttack2 }, --dash attack 4
-			{ q = q(193,858,45,68), ox = 26, oy = 65, funcCont = dashAttack2, delay = 5 }, --dash attack 5
+			{ q = q(2,858,38,65), ox = 22, oy = 64, funcCont = dashAttack2 }, --dash attack 1
+			{ q = q(42,858,49,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2
+			{ q = q(93,858,48,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 3
+			{ q = q(143,858,47,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 4
+			{ q = q(192,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3, delay = 0.15 }, --dash attack 5
+			{ q = q(154,722,37,65), ox = 22, oy = 64, funcCont = dashAttack2, delay = 5 }, --dash attack 6
 			delay = 0.06
 		},
 		dashHold = {
@@ -379,7 +384,7 @@ return {
 			{ q = q(63,659,60,61), ox = 14, oy = 60, func = comboAttack4NoSfx }, --combo 4.4
 			{ q = q(125,659,59,61), ox = 14, oy = 60, func = comboAttack4NoSfx }, --combo 4.5
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.09 }, --combo 4.6
-			{ q = q(194,725,49,62), ox = 14, oy = 61 }, --combo 4.7
+			{ q = q(193,725,49,62), ox = 14, oy = 61 }, --combo 4.7
 			delay = 0.03
 		},
 		combo4Forward = {
@@ -397,7 +402,7 @@ return {
 			{ q = q(63,659,60,61), ox = 14, oy = 60, func = comboAttack4NoSfx }, --combo 4.4
 			{ q = q(125,659,59,61), ox = 14, oy = 60, func = comboAttack4NoSfx }, --combo 4.5
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.09 }, --combo 4.6
-			{ q = q(194,725,49,62), ox = 14, oy = 61 }, --combo 4.7
+			{ q = q(193,725,49,62), ox = 14, oy = 61 }, --combo 4.7
 			delay = 0.03
 		},
 		fall = {
@@ -504,7 +509,7 @@ return {
 		shoveDown = {
 			{ q = q(121,587,48,65), ox = 13, oy = 64, delay = 0.15 }, --combo 4.1
 			{ q = q(171,587,50,65), ox = 14, oy = 64 }, --combo 4.2
-			{ q = q(194,725,49,62), ox = 14, oy = 61, func = shoveDown }, --combo 4.7
+			{ q = q(193,725,49,62), ox = 14, oy = 61, func = shoveDown }, --combo 4.7
 			{ q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.35 }, --combo 4.6
 			delay = 0.05
 		},
