@@ -428,9 +428,9 @@ return {
 		},
 		jumpAttackStraight = {
 			{ q = q(2,778,38,64), ox = 19, oy = 66 }, --jump attack straight 1
-			{ q = q(42,778,50,64), ox = 19, oy = 66, func = jumpAttackStraight1, delay = 0.07 }, --jump attack straight 2
+			{ q = q(42,778,50,64), ox = 19, oy = 66, func = jumpAttackStraight1, delay = 0.05 }, --jump attack straight 2
 			{ q = q(94,778,43,62), ox = 19, oy = 66, funcCont = jumpAttackStraight2, delay = 5 }, --jump attack straight 3
-			delay = 0.1
+			delay = 0.13
 		},
 		jumpAttackRun = {
 			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
