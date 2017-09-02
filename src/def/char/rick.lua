@@ -363,7 +363,7 @@ return {
 			{ q = q(70,650,51,61), ox = 13, oy = 61, func = holdAttack2 }, --combo 4.4
 			{ q = q(123,649,54,62), ox = 21, oy = 62, func = holdAttack3 }, --combo 4.5
 			{ q = q(135,714,52,62), ox = 32, oy = 62 }, --combo 4.6
-			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --combo 4.7
+			{ q = q(138,779,47,63), ox = 22, oy = 62 }, --combo 4.7
 			delay = 0.04
 		},
 		holdAttack = {
@@ -373,7 +373,7 @@ return {
 			{ q = q(70,650,51,61), ox = 13, oy = 61, func = holdAttack2 }, --combo 4.4
 			{ q = q(123,649,54,62), ox = 21, oy = 62, func = holdAttack3 }, --combo 4.5
 			{ q = q(135,714,52,62), ox = 32, oy = 62 }, --combo 4.6
-			{ q = q(139,779,47,63), ox = 22, oy = 62 }, --combo 4.7
+			{ q = q(138,779,47,63), ox = 22, oy = 62 }, --combo 4.7
 			delay = 0.04
 		},
 		fall = {
@@ -429,7 +429,7 @@ return {
 		jumpAttackStraight = {
 			{ q = q(2,778,38,63), ox = 19, oy = 66 }, --jump attack straight 1
 			{ q = q(42,778,50,64), ox = 19, oy = 66, func = jumpAttackStraight1, delay = 0.05 }, --jump attack straight 2
-			{ q = q(95,779,42,61), ox = 19, oy = 65, funcCont = jumpAttackStraight2, delay = 5 }, --jump attack straight 3
+			{ q = q(94,779,42,61), ox = 19, oy = 65, funcCont = jumpAttackStraight2, delay = 5 }, --jump attack straight 3
 			delay = 0.13
 		},
 		jumpAttackRun = {
