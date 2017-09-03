@@ -238,11 +238,11 @@ return {
 		jump = {
 			{ q = q(2,1951,39,67), ox = 20, oy = 66, delay = 0.15 }, --jump up
 			{ q = q(43,1951,44,67), ox = 21, oy = 66 }, --jump top
-			{ q = q(89,1951,45,67), ox = 24, oy = 66, delay = 5 }, --jump down
+			{ q = q(89,1951,46,67), ox = 24, oy = 66, delay = 5 }, --jump down
 			delay = 0.09
 		},
 		respawn = {
-			{ q = q(89,1951,45,68), ox = 24, oy = 67, delay = 5 }, --jump down
+			{ q = q(89,1951,46,67), ox = 24, oy = 66, delay = 5 }, --jump down
 			{ q = q(48,398,43,58), ox = 19, oy = 57, delay = 0.5 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.1
