@@ -234,10 +234,10 @@ return {
 		jump = {
 			{ q = q(43,266,39,67), ox = 26, oy = 65, delay = 0.15 }, --jump up
 			{ q = q(84,266,42,65), ox = 24, oy = 66 }, --jump up/top
-			{ q = q(128,266,44,62), ox = 23, oy = 65, delay = 0.2 }, --jump top
+			{ q = q(128,266,44,62), ox = 23, oy = 65, delay = 0.16 }, --jump top
 			{ q = q(174,266,40,65), ox = 22, oy = 66 }, --jump down/top
 			{ q = q(137,196,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
-			delay = 0.03
+			delay = 0.05
 		},
 		respawn = {
 			{ q = q(137,196,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
