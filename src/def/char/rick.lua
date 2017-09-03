@@ -345,14 +345,14 @@ return {
 			delay = 0.03
 		},
 		combo4Up = {
-			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --offensive special 1
-			{ q = q(51,1178,46,62), ox = 15, oy = 61, delay = 0.05 }, --offensive special 2
-			{ q = q(99,1178,49,62), ox = 15, oy = 61, func = comboAttack4Up1, delay = 0.05 }, --offensive special 3
+			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.13 }, --offensive special 1
+			{ q = q(51,1178,46,62), ox = 15, oy = 61, delay = 0.03 }, --offensive special 2
+			{ q = q(99,1178,49,62), ox = 15, oy = 61, func = comboAttack4Up1, delay = 0.03 }, --offensive special 3
 			{ q = q(150,1173,53,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --offensive special 4
 			{ q = q(2,1242,53,65), ox = 20, oy = 64 }, --offensive special 5
 			{ q = q(57,1244,53,63), ox = 20, oy = 62 }, --offensive special 6
-			{ q = q(112,1244,47,63), ox = 20, oy = 62, delay = 0.067 }, --offensive special 7
-			delay = 0.083
+			{ q = q(112,1244,47,63), ox = 20, oy = 62 }, --offensive special 7
+			delay = 0.067
 		},
 		combo4Forward = {
 			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
