@@ -222,12 +222,12 @@ return {
             delay = 0.117
 		},
 		run = {
-			{ q = q(2,134,35,64), ox = 16, oy = 63 }, --run 1
-			{ q = q(39,134,50,63), ox = 26, oy = 63 }, --run 2
-			{ q = q(91,134,44,64), ox = 25, oy = 63, func = stepFx }, --run 3
-			{ q = q(2,200,34,64), ox = 15, oy = 63 }, --run 4
-			{ q = q(38,200,49,64), ox = 24, oy = 63 }, --run 5
-			{ q = q(89,200,46,63), ox = 26, oy = 63, func = stepFx }, --run 6
+			{ q = q(2,135,37,63), ox = 18, oy = 63 }, --run 1
+			{ q = q(41,134,50,63), ox = 26, oy = 63 }, --run 2
+			{ q = q(93,134,46,64), ox = 25, oy = 63, func = stepFx }, --run 3
+			{ q = q(2,201,37,63), ox = 18, oy = 63 }, --run 4
+			{ q = q(41,200,49,64), ox = 24, oy = 63 }, --run 5
+			{ q = q(92,200,48,63), ox = 26, oy = 63, func = stepFx }, --run 6
             loop = true,
             delay = 0.117
 		},
@@ -236,11 +236,11 @@ return {
 			{ q = q(84,266,42,65), ox = 24, oy = 66 }, --jump up/top
 			{ q = q(128,266,44,62), ox = 23, oy = 65, delay = 0.16 }, --jump top
 			{ q = q(174,266,40,65), ox = 22, oy = 66 }, --jump down/top
-			{ q = q(137,196,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
+			{ q = q(207,335,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
 			delay = 0.05
 		},
 		respawn = {
-			{ q = q(137,196,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
+			{ q = q(207,335,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
 			{ q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.5 }, --pickup 2
 			{ q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
 			delay = 0.1
