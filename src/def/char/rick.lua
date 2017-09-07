@@ -180,7 +180,7 @@ return {
 			{ q = q(140, 273, 42, 17) }
 		},
 		intro = {
-			{ q = q(48,398,43,58), ox = 19, oy = 57 }, --pickup 2
+			{ q = q(48,398,42,58), ox = 18, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			loop = true,
 			delay = 1
@@ -243,7 +243,7 @@ return {
 		},
 		respawn = {
 			{ q = q(89,1951,46,67), ox = 24, oy = 66, delay = 5 }, --jump down
-			{ q = q(48,398,43,58), ox = 19, oy = 57, delay = 0.5 }, --pickup 2
+			{ q = q(48,398,42,58), ox = 18, oy = 57, delay = 0.5 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.1
 		},
@@ -253,7 +253,7 @@ return {
 		},
 		pickup = {
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.03 }, --pickup 1
-			{ q = q(48,398,43,58), ox = 19, oy = 57, delay = 0.2 }, --pickup 2
+			{ q = q(48,398,42,58), ox = 18, oy = 57, delay = 0.2 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.05
 		},
@@ -386,7 +386,7 @@ return {
 		getup = {
 			{ q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
 			{ q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
-			{ q = q(48,398,43,58), ox = 19, oy = 57 }, --pickup 2
+			{ q = q(48,398,42,58), ox = 18, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60 }, --pickup 1
 			delay = 0.2
 		},
@@ -432,7 +432,7 @@ return {
 		},
 		jumpAttackRun = {
 			{ q = q(2,714,54,62), ox = 23, oy = 66 }, --jump attack forward 1
-			{ q = q(93,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun, delay = 5 }, --jump attack running
+			{ q = q(92,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun, delay = 5 }, --jump attack running
 			delay = 0.06
 		},
 		jumpAttackRunEnd = {
@@ -512,7 +512,7 @@ return {
 			{ q = q(158,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back shove 4
 			{ q = q(100,1652,63,38), ox = 51, oy = 34, func = backShove, delay = 0.3 }, --back shove 5
 			{ q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
-			{ q = q(48,398,43,58), ox = 19, oy = 57 }, --pickup 2
+			{ q = q(48,398,42,58), ox = 18, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.05 }, --pickup 1
 			delay = 0.2,
 			moves = {
