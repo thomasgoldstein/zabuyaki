@@ -232,7 +232,7 @@ function Character:afterOnHurt()
         if self.vel_x < self.velocityFall_x / 2 then
             self.vel_x = self.velocityFall_x / 2 + self.velocityFallAdd_x
         end
-    elseif h.type == "shockWave" then
+    elseif h.type == "shockWave" or h.type == "blowOut" then
         if h.source.x < self.x then
             h.horizontal = 1
         else
