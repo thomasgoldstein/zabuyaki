@@ -191,7 +191,7 @@ particles:setEmitterLifetime(.45) --whole lengths of the anim
 particles:setParticleLifetime(.45) --should equal to setEmitterLifetime
 particles:setColors(unpack(dsColors))
 particles:setQuads(dsQuad1, dsQuad2, dsQuad3, dsQuad4, dsQuad5, dsQuad6, dsQuad7, dsQuad8, dsQuad9)
-PA_DEFENSIVE_SPECIAL_R = particles
+PA_DEF_SPE_RICK_R = particles
 
 dsQuad1 = q(2,90,78,86) -- left frame 1/9
 dsQuad2 = q(82,90,78,86) -- left frame 2/9
@@ -203,6 +203,53 @@ dsQuad7 = q(482,90,78,86) -- left frame 7/9
 dsQuad8 = q(562,90,78,86) -- left frame 8/9
 dsQuad9 = q(642,90,78,86) -- left frame 9/9
 
-particles = PA_DEFENSIVE_SPECIAL_R:clone()
+particles = PA_DEF_SPE_RICK_R:clone()
 particles:setQuads(dsQuad1, dsQuad2, dsQuad3, dsQuad4, dsQuad5, dsQuad6, dsQuad7, dsQuad8, dsQuad9)
-PA_DEFENSIVE_SPECIAL_L = particles
+PA_DEF_SPE_RICK_L = particles
+
+
+--Chai's Defensive Special Effect
+spriteSheet = "res/img/misc/chai-sp-particles.png"
+imageWidth, imageHeight = LoadSpriteSheet(spriteSheet)
+gfx.particles = imageBank[spriteSheet]
+
+local dsQuad1 = q(2,2,70,32) -- right frame 1/13
+local dsQuad2 = q(74,2,70,32) -- right frame 2/13
+local dsQuad3 = q(146,2,70,32) -- right frame 3/13
+local dsQuad4 = q(218,2,70,32) -- right frame 4/13
+local dsQuad5 = q(290,2,70,32) -- right frame 5/13
+local dsQuad6 = q(362,2,70,32) -- right frame 6/13
+local dsQuad7 = q(434,2,70,32) -- right frame 7/13
+local dsQuad8 = q(506,2,70,32) -- right frame 8/13
+local dsQuad9 = q(578,2,70,32) -- right frame 9/13
+local dsQuad10 = q(650,2,70,32) -- right frame 10/13
+local dsQuad11 = q(722,2,70,32) -- right frame 11/13
+local dsQuad12 = q(794,2,70,32) -- right frame 12/13
+local dsQuad13 = q(866,2,70,32) -- right frame 13/13
+local dsColors = {255,255,255,255, 255,255,255,255, 255,255,255,155} --R,G,B,Alpha, ...
+
+particles = love.graphics.newParticleSystem(gfx.particles, 1)
+particles:setOffset(35, 32) --center-bottom of the sprite width/2, height
+particles:setEmitterLifetime(.39) --whole lengths of the anim
+particles:setParticleLifetime(.39) --should equal to setEmitterLifetime
+particles:setColors(unpack(dsColors))
+particles:setQuads(dsQuad1, dsQuad2, dsQuad3, dsQuad4, dsQuad5, dsQuad6, dsQuad7, dsQuad8, dsQuad9, dsQuad10, dsQuad11, dsQuad12, dsQuad13)
+PA_DEF_SPE_CHAI_R = particles
+
+local dsQuad1 = q(2,36,70,32) -- right frame 1/13
+local dsQuad2 = q(74,36,70,32) -- right frame 2/13
+local dsQuad3 = q(146,36,70,32) -- right frame 3/13
+local dsQuad4 = q(218,36,70,32) -- right frame 4/13
+local dsQuad5 = q(290,36,70,32) -- right frame 5/13
+local dsQuad6 = q(362,36,70,32) -- right frame 6/13
+local dsQuad7 = q(434,36,70,32) -- right frame 7/13
+local dsQuad8 = q(506,36,70,32) -- right frame 8/13
+local dsQuad9 = q(578,36,70,32) -- right frame 9/13
+local dsQuad10 = q(650,36,70,32) -- right frame 10/13
+local dsQuad11 = q(722,36,70,32) -- right frame 11/13
+local dsQuad12 = q(794,36,70,32) -- right frame 12/13
+local dsQuad13 = q(866,36,70,32) -- right frame 13/13
+
+particles = PA_DEF_SPE_CHAI_R:clone()
+particles:setQuads(dsQuad1, dsQuad2, dsQuad3, dsQuad4, dsQuad5, dsQuad6, dsQuad7, dsQuad8, dsQuad9, dsQuad10, dsQuad11, dsQuad12, dsQuad13)
+PA_DEF_SPE_CHAI_L = particles
