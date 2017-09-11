@@ -145,19 +145,19 @@ local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
      cont
  ) end
 local defensiveSpecialRight = function(slf, cont) slf:checkAndAttack(
-    { x = 5, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
+    { x = 3, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
      cont
  ) end
 local defensiveSpecialRightMost = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
+    { x = 5, y = 20, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
      cont
  ) end
 local defensiveSpecialLeft = function(slf, cont) slf:checkAndAttack(
-    { x = -5, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
+    { x = -3, y = 20, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
      cont
  ) end
 local defensiveSpecialLeftMost = function(slf, cont) slf:checkAndAttack(
-    { x = -10, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
+    { x = -5, y = 20, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
      cont
  ) end
 
