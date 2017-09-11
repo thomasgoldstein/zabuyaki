@@ -70,7 +70,7 @@ function Character:showEffect(effect, obj)
         stage.objects:add(Effect:new(particles, self.x, self.y+2)) --y+2 to put it above the player's sprite
     elseif effect == "defensiveSpecialChai" then
         particles = (self.face == 1 and PA_DEF_SPE_CHAI_R or PA_DEF_SPE_CHAI_L):clone()
-        particles:setPosition(0, 0) --pos == x,y ofplayer. You can adjust it up/down
+        particles:setPosition(0, -11) --pos == x,y ofplayer. You can adjust it up/down
         particles:emit(1) --draw 1 effect sprite
         self.particles = Effect:new(particles, self.x, self.y+2, 0) --y+2 to put it above the player's sprite
         stage.objects:add(self.particles)
