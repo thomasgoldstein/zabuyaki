@@ -141,23 +141,23 @@ local dashHoldAttackV = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
-    { x = 0, y = 20, width = 60, height = 45, depth = 18, damage = 25, type = "blowOut", velocity = slf.vel_x },
+    { x = 0, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
      cont
  ) end
 local defensiveSpecialRight = function(slf, cont) slf:checkAndAttack(
-    { x = 5, y = 20, width = 60, height = 45, depth = 18, damage = 25, type = "blowOut", velocity = slf.vel_x },
+    { x = 5, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
      cont
  ) end
 local defensiveSpecialRightMost = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 20, width = 60, height = 45, depth = 18, damage = 25, type = "blowOut", velocity = slf.vel_x },
+    { x = 10, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
      cont
  ) end
 local defensiveSpecialLeft = function(slf, cont) slf:checkAndAttack(
-    { x = -5, y = 20, width = 60, height = 45, depth = 18, damage = 25, type = "blowOut", velocity = slf.vel_x },
+    { x = -5, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
      cont
  ) end
 local defensiveSpecialLeftMost = function(slf, cont) slf:checkAndAttack(
-    { x = -10, y = 20, width = 60, height = 45, depth = 18, damage = 25, type = "blowOut", velocity = slf.vel_x },
+    { x = -10, y = 20, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
      cont
  ) end
 
