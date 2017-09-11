@@ -64,12 +64,12 @@ function Character:showEffect(effect, obj)
     elseif effect == "defensiveSpecialRick" then
         sfx.play("sfx","hitWeak1")
         mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen
-        particles = (self.face == 1 and PA_DEF_SPE_RICK_R or PA_DEF_SPE_RICK_L):clone()
+        particles = (self.face == 1 and PA_DEF_SP_RICK_R or PA_DEF_SP_RICK_L):clone()
         particles:setPosition(self.face * 11, 11) --pos == x,y ofplayer. You can adjust it up/down
         particles:emit(1) --draw 1 effect sprite
         stage.objects:add(Effect:new(particles, self.x, self.y+2)) --y+2 to put it above the player's sprite
     elseif effect == "defensiveSpecialChai" then
-        particles = (self.face == 1 and PA_DEF_SPE_CHAI_R or PA_DEF_SPE_CHAI_L):clone()
+        particles = (self.face == 1 and PA_DEF_SP_CHAI_R or PA_DEF_SP_CHAI_L):clone()
         particles:setPosition(0, -11) --pos == x,y ofplayer. You can adjust it up/down
         particles:emit(1) --draw 1 effect sprite
         self.particles = Effect:new(particles, self.x, self.y+2, 0) --y+2 to put it above the player's sprite

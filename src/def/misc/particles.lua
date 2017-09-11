@@ -191,7 +191,7 @@ particles:setEmitterLifetime(.45) --whole lengths of the anim
 particles:setParticleLifetime(.45) --should equal to setEmitterLifetime
 particles:setColors(unpack(dsColors))
 particles:setQuads(dsQuad1, dsQuad2, dsQuad3, dsQuad4, dsQuad5, dsQuad6, dsQuad7, dsQuad8, dsQuad9)
-PA_DEF_SPE_RICK_R = particles
+PA_DEF_SP_RICK_R = particles
 
 dsQuad1 = q(2,90,78,86) -- left frame 1/9
 dsQuad2 = q(82,90,78,86) -- left frame 2/9
@@ -203,9 +203,9 @@ dsQuad7 = q(482,90,78,86) -- left frame 7/9
 dsQuad8 = q(562,90,78,86) -- left frame 8/9
 dsQuad9 = q(642,90,78,86) -- left frame 9/9
 
-particles = PA_DEF_SPE_RICK_R:clone()
+particles = PA_DEF_SP_RICK_R:clone()
 particles:setQuads(dsQuad1, dsQuad2, dsQuad3, dsQuad4, dsQuad5, dsQuad6, dsQuad7, dsQuad8, dsQuad9)
-PA_DEF_SPE_RICK_L = particles
+PA_DEF_SP_RICK_L = particles
 
 
 --Chai's Defensive Special Effect
@@ -234,7 +234,7 @@ particles:setEmitterLifetime(.39) --whole lengths of the anim
 particles:setParticleLifetime(.39) --should equal to setEmitterLifetime
 particles:setColors(unpack(dsColors))
 particles:setQuads(dsQuad1, dsQuad2, dsQuad3, dsQuad4, dsQuad5, dsQuad6, dsQuad7, dsQuad8, dsQuad9, dsQuad10, dsQuad11, dsQuad12, dsQuad13)
-PA_DEF_SPE_CHAI_R = particles
+PA_DEF_SP_CHAI_R = particles
 
 local dsQuad1 = q(2,36,70,32) -- right frame 1/13
 local dsQuad2 = q(74,36,70,32) -- right frame 2/13
@@ -250,6 +250,6 @@ local dsQuad11 = q(722,36,70,32) -- right frame 11/13
 local dsQuad12 = q(794,36,70,32) -- right frame 12/13
 local dsQuad13 = q(866,36,70,32) -- right frame 13/13
 
-particles = PA_DEF_SPE_CHAI_R:clone()
+particles = PA_DEF_SP_CHAI_R:clone()
 particles:setQuads(dsQuad1, dsQuad2, dsQuad3, dsQuad4, dsQuad5, dsQuad6, dsQuad7, dsQuad8, dsQuad9, dsQuad10, dsQuad11, dsQuad12, dsQuad13)
-PA_DEF_SPE_CHAI_L = particles
+PA_DEF_SP_CHAI_L = particles
