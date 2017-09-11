@@ -20,7 +20,7 @@ function Entity:add(e)
         e.isDisabled = false
         self.entities[#self.entities+1] = e
     end
-    return self.entities
+    return e
 end
 
 function Entity:addArray(e)
