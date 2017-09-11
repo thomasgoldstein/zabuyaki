@@ -302,7 +302,7 @@ return {
 			{ q = q(43,1337,41,57), ox = 31, oy = 56, delay = 0.1 }, --defensive special 2
 			{ q = q(86,1329,41,63), ox = 31, oy = 65, func = function(slf) slf.jumpType = 1 end, delay = 0.04 }, --defensive special 3
 			{ q = q(129,1329,38,65), ox = 23, oy = 66 }, --defensive special 4
-			{ q = q(169,1329,39,62), ox = 23, oy = 65, funcCont = defensiveSpecial, func = function(slf) slf:showEffect("defensiveSpecialChai") end }, --defensive special 5
+			{ q = q(169,1329,39,62), ox = 23, oy = 65, funcCont = defensiveSpecial, func = function(slf) slf:showEffect("defensiveSpecialChai"); slf.particles.z = slf.z + 2 end }, --defensive special 5
 			{ q = q(2,1396,45,61), ox = 24, oy = 65, funcCont = defensiveSpecialRight }, --defensive special 6
 			{ q = q(49,1396,58,63), ox = 23, oy = 67, funcCont = defensiveSpecialRightMost }, --defensive special 7
 			{ q = q(109,1396,54,62), ox = 26, oy = 67, funcCont = defensiveSpecialRight }, --defensive special 8
