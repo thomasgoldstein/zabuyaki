@@ -152,7 +152,11 @@ function Chai:defensiveSpecialUpdate(dt)
             self.z = 0
         end
     end
+    if self.particles then
+        self.particles.z = self.z + 2 -- because we show the effect 2px down the unit
+    end
     if self.sprite.isFinished then
+        self.particles = nil
         self:setState(self.stand)
         return
     end
