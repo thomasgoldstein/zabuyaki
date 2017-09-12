@@ -53,9 +53,9 @@ function Character:initAttributes()
     self.velocityRun_y = 25
     self.velocityJump = 220 -- z coord
     self.velocityJumpSpeed = 1.25
-    self.velocityJumpBoost_x = 10
-    self.velocityJumpBoost_y = 5
-    self.velocityJumpRunBoost_z = 24
+    self.velocityJumpBoost_x = 1.15
+    self.velocityJumpBoost_y = 1.02
+    self.velocityJumpRunBoost_z = 1.1
     self.velocityFall_z = 220
     self.velocityFall_x = 120
     self.velocityFallAdd_x = 5
@@ -660,13 +660,13 @@ function Character:jumpStart()
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.prevState == "run" then
         -- jump higher from run
-        self.vel_z = (self.velocityJump + self.velocityJumpRunBoost_z) * self.velocityJumpSpeed
+        self.vel_z = self.velocityJump * self.velocityJumpRunBoost_z * self.velocityJumpSpeed
     end
     if self.vel_x ~= 0 then
-        self.vel_x = self.vel_x + self.velocityJumpBoost_x --make jump little faster than the walk/run speed
+        self.vel_x = self.vel_x * self.velocityJumpBoost_x --make jump little 1.15x faster than the walk/run speed
     end
     if self.vel_y ~= 0 then
-        self.vel_y = self.vel_y + self.velocityJumpBoost_y --make jump little faster than the walk/run speed
+        self.vel_y = self.vel_y * self.velocityJumpBoost_y --make jump little 1.02x faster than the walk/run speed
     end
     sfx.play("voice"..self.id, self.sfx.jump)
 end
