@@ -240,7 +240,7 @@ function Enemy:jumpStart()
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.lastState == "run" then
         -- jump higher from run
-        self.vel_z = self.velocityJump * self.velocityJumpRunBoost_z * self.velocityJumpSpeed
+        self.vel_z = (self.velocityJump + self.velocityJumpRunBoost_z) * self.velocityJumpSpeed
     end
     self.vertical = 0
     sfx.play("voice"..self.id, self.sfx.jump)
