@@ -211,7 +211,7 @@ function Character:afterOnHurt()
         return
     end
     --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
-    --"hit, "fall"(replaced by blows)
+    --"hit, "knockDown"(replaced by blows)
     if h.type == "hit" then
         if self.hp > 0 and self.z <= 0 then
             self:setState(self.hurt)
@@ -225,7 +225,7 @@ function Character:afterOnHurt()
         end
         self.vel_x = h.vel_x --use fall speed from the agument
         --then it goes to "fall dead"
-    elseif h.type == "fall" then
+    elseif h.type == "knockDown" then
         --use fall speed from the agument
         self.vel_x = h.vel_x
         --it cannot be too short
@@ -300,7 +300,7 @@ end
 
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: x,y,width,height,depth, damage, type, velocity, sfx, init_victims_list
-    --type = "simple" "shockWave" "hit" "fall" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
+    --type = "simple" "shockWave" "hit" "knockDown" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     if not f then
         f = {}
     end
@@ -1016,7 +1016,7 @@ function Character:fallUpdate(dt)
                         self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                     end
                 end
-                sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
+                sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
                 self:showEffect("fallLanding")
                 return
@@ -1030,7 +1030,7 @@ function Character:fallUpdate(dt)
 
                 self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-                sfx.play("sfx"..self.id,"fall", 0.5, self.bouncedPitch - self.bounced * 0.2)
+                sfx.play("sfx"..self.id,"bodyDrop", 0.5, self.bouncedPitch - self.bounced * 0.2)
 
                 -- hold UP+JUMP to get no damage after throw (land on feet)
                 if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
@@ -1044,7 +1044,7 @@ function Character:fallUpdate(dt)
         if self.isThrown and self.vel_z < 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
             self:checkAndAttack(
-                { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "fall", velocity = self.velocityThrow_x },
+                { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", velocity = self.velocityThrow_x },
                 false
             )
 
@@ -1084,7 +1084,7 @@ function Character:bounceUpdate(dt)
                         self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                     end
                 end
-                sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
+                sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
                 self:showEffect("fallLanding")
                 --self:setSprite("fallen")
@@ -1104,7 +1104,7 @@ function Character:bounceUpdate(dt)
 
                 self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-                sfx.play("sfx"..self.id,"fall", 0.5, self.bouncedPitch - self.bounced * 0.2)
+                sfx.play("sfx"..self.id,"bodyDrop", 0.5, self.bouncedPitch - self.bounced * 0.2)
                 self:setState(self.getup)
                 return
             end
@@ -1112,7 +1112,7 @@ function Character:bounceUpdate(dt)
         if self.isThrown and self.vel_z < 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
             self:checkAndAttack(
-                { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "fall", velocity = self.velocityThrow_x },
+                { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", velocity = self.velocityThrow_x },
                 false
             )
 

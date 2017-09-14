@@ -293,7 +293,7 @@ function Gopper:dashAttackUpdate(dt)
         self.vel_x = 0
         self.z = 0
         self.bounced = 1
-        sfx.play("sfx", "fall", 1, 1 + 0.02 * love.math.random(-2,2))
+        sfx.play("sfx", "bodyDrop", 1, 1 + 0.02 * love.math.random(-2,2))
         self:showEffect("fallLanding")
     end
     self:calcMovement(dt, true, self.frictionDash * dashAttackSpeed)

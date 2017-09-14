@@ -52,7 +52,7 @@ function Loot:updateAI(dt)
                 end
                 self.z = 0.01
                 self.vel_z = -self.vel_z/2
---                sfx.play("sfx" .. self.id, self.sfx.onBreak or "fall", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
+--                sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
                 Character.showEffect(self, "fallLanding")
                 return
