@@ -54,7 +54,7 @@ SFX.load("pickupApple","res/sfx/pickupApple.wav", 1)
 SFX.load("pickupChicken","res/sfx/pickupChicken.wav", 1)
 SFX.load("pickupBeef","res/sfx/pickupBeef.wav", 1)
 
-SFX.load("fall","res/sfx/fallDown.wav", 1)
+SFX.load("bodyDrop","res/sfx/bodyDrop.wav", 1)
 
 SFX.load("hitHard1","res/sfx/hitHard1.wav", 1)
 SFX.load("hitHard2","res/sfx/hitHard2.wav", 1)
