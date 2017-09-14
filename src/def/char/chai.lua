@@ -43,7 +43,7 @@ local shoveForward = function(slf, cont)
 end
 local comboAttack1 = function(slf, cont)
 	slf:checkAndAttack(
-		{ x = 26, y = 28, width = 26, damage = 7, velocity = slf.vel_x, sfx = "air" },
+		{ x = 26, y = 28, width = 26, damage = 8, velocity = slf.vel_x, sfx = "air" },
 		cont
 	)
 end
@@ -352,10 +352,10 @@ return {
 			delay = 0.05
 		},
 		combo1 = {
-			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1.1
-			{ q = q(183,3,60,63), ox = 22, oy = 62, func = comboAttack1, delay = 0.07 }, --combo 1.2
-			{ q = q(135,2,46,64), ox = 22, oy = 63 }, --combo 1.1
-			delay = 0.01
+			{ q = q(2,1787,40,63), ox = 16, oy = 62, delay = 0.01 }, --combo 1.1
+			{ q = q(44,1786,51,64), ox = 13, oy = 63, func = comboAttack1, delay = 0.07 }, --combo 1.2
+			{ q = q(97,1787,47,63), ox = 17, oy = 62 }, --combo 1.1
+			delay = 0.02
 		},
 		combo1Forward = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo forward 1.1
