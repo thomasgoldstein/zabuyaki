@@ -46,7 +46,7 @@ function killAllPlayers()
         if player and player:isAlive() and not player:isInUseCreditMode() then
             player.hp = 0
             player.face = -player.face
-            player:applyDamage(0, "fall", nil)
+            player:applyDamage(0, "knockDown", nil)
         end
     end
 end

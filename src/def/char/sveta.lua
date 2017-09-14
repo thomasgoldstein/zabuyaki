@@ -12,12 +12,12 @@ local comboSlap = function(slf, cont)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 39, width = 26, damage = 10, type = "fall", velocity = slf.velocityDashFall },
+        { x = 25, y = 39, width = 26, damage = 10, type = "knockDown", velocity = slf.velocityDashFall },
         cont
 ) end
 local dashAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 10, width = 25, damage = 14, type = "fall", velocity = slf.velocityDashFall },
+        { x = 21, y = 10, width = 25, damage = 14, type = "knockDown", velocity = slf.velocityDashFall },
         cont
 ) end
 

@@ -13,20 +13,20 @@ local comboUppercut1 = function(slf, cont)
 
 local comboUppercut2 = function(slf, cont)
     slf:checkAndAttack(
-	{ x = 20, y = 60, width = 30, height = 45, damage = 16, type = "fall", velocity = slf.velocityDashFall },
+	{ x = 20, y = 60, width = 30, height = 45, damage = 16, type = "knockDown", velocity = slf.velocityDashFall },
 	cont
 ) end
 
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 4, y = 10, width = 48, height = 45, damage = 28, type = "fall", velocity = slf.vel_x },
+        { x = 4, y = 10, width = 48, height = 45, damage = 28, type = "knockDown", velocity = slf.vel_x },
         cont
     )
 end
 
 local rollAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 4, y = 23, width = 48, height = 45, damage = 28, type = "fall", velocity = slf.vel_x },
+        { x = 4, y = 23, width = 48, height = 45, damage = 28, type = "knockDown", velocity = slf.vel_x },
         cont
     )
 end
@@ -41,7 +41,7 @@ end
 local grabAttackLast = function(slf, cont)
 	slf:checkAndAttack(
         { x = 19, y = 37, width = 26, damage = 18,
-        type = "fall", velocity = slf.velocityThrow_x },
+        type = "knockDown", velocity = slf.velocityThrow_x },
 		cont
 	)
 end

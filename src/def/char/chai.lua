@@ -18,14 +18,14 @@ end
 local grabAttackLast = function(slf, cont)
 	slf:checkAndAttack(
 		{ x = 10, y = 21, width = 26, damage = 11,
-		type = "fall", velocity = slf.velocityThrow_x },
+		type = "knockDown", velocity = slf.velocityThrow_x },
 		cont
 	)
 end
 local shoveDown = function(slf, cont)
 	slf:checkAndAttack(
 		{ x = 18, y = 37, width = 26, damage = 15,
-        type = "fall", velocity = slf.velocityThrow_x },
+        type = "knockDown", velocity = slf.velocityThrow_x },
 		cont
 	)
 end
@@ -75,13 +75,13 @@ local comboAttack3 = function(slf, cont)
 end
 local comboAttack4 = function(slf, cont)
 	slf:checkAndAttack(
-		{ x = 28, y = 37, width = 30, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = "air" },
+		{ x = 28, y = 37, width = 30, damage = 14, type = "knockDown", velocity = slf.velocityFall_x, sfx = "air" },
 		cont
 	)
 end
 local comboAttack4Forward = function(slf, cont)
 	slf:checkAndAttack(
-		{ x = 29, y = 18, width = 32, damage = 14, type = "fall", velocity = slf.velocityFall_x, sfx = "air" },
+		{ x = 29, y = 18, width = 32, damage = 14, type = "knockDown", velocity = slf.velocityFall_x, sfx = "air" },
 		cont
 	)
 	-- move forward Chai
@@ -96,24 +96,24 @@ end
 local comboAttack4NoSfx = function(slf, cont)
 	--TODO check if it makes default sound still
 	slf:checkAndAttack(
-		{ x = 28, y = 37, width = 30, damage = 14, type = "fall", velocity = slf.velocityFall_x },
+		{ x = 28, y = 37, width = 30, damage = 14, type = "knockDown", velocity = slf.velocityFall_x },
 		cont
 	)
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-	{ x = 8, y = 20, width = 22, damage = 17, type = "fall", velocity = slf.velocityDashFall },
+	{ x = 8, y = 20, width = 22, damage = 17, type = "knockDown", velocity = slf.velocityDashFall },
 	cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
-	{ x = 10, y = 24, width = 26, damage = 17, type = "fall", velocity = slf.velocityDashFall },
+	{ x = 10, y = 24, width = 26, damage = 17, type = "knockDown", velocity = slf.velocityDashFall },
 	cont
 ) end
 local dashAttack3 = function(slf, cont) slf:checkAndAttack(
-	{ x = 12, y = 28, width = 30, damage = 17, type = "fall", velocity = slf.velocityDashFall },
+	{ x = 12, y = 28, width = 30, damage = 17, type = "knockDown", velocity = slf.velocityDashFall },
 	cont
 ) end
 local jumpAttackForward = function(slf, cont) slf:checkAndAttack(
-	{ x = 30, y = 18, width = 25, height = 45, damage = 15, type = "fall", velocity = slf.vel_x },
+	{ x = 30, y = 18, width = 25, height = 45, damage = 15, type = "knockDown", velocity = slf.vel_x },
 	cont
 ) end
 local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
@@ -121,7 +121,7 @@ local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 local jumpAttackStraight = function(slf, cont) slf:checkAndAttack(
-	{ x = 15, y = 21, width = 25, damage = 15, type = "fall", velocity = slf.velocityFall_x },
+	{ x = 15, y = 21, width = 25, damage = 15, type = "knockDown", velocity = slf.velocityFall_x },
 	cont
 ) end
 local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
@@ -129,15 +129,15 @@ local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
 	cont
 ) end
 local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
-	{ x = 25, y = 25, width = 35, height = 50, damage = 8, type = "fall", velocity = slf.vel_x },
+	{ x = 25, y = 25, width = 35, height = 50, damage = 8, type = "knockDown", velocity = slf.vel_x },
 	cont
 ) end
 local dashHoldAttackH = function(slf, cont) slf:checkAndAttack(
-	{ x = 32, y = 18, width = 25, height = 45, damage = 15, type = "fall", velocity = slf.vel_x },
+	{ x = 32, y = 18, width = 25, height = 45, damage = 15, type = "knockDown", velocity = slf.vel_x },
 	cont
 ) end
 local dashHoldAttackV = function(slf, cont) slf:checkAndAttack(
-	{ x = 21, y = 18, width = 25, height = 45, damage = 11, type = "fall", velocity = slf.vel_x },
+	{ x = 21, y = 18, width = 25, height = 45, damage = 11, type = "knockDown", velocity = slf.vel_x },
 	cont
 ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(

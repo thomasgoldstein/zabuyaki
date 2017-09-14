@@ -12,7 +12,7 @@ local comboAttack1 = function(slf, cont)
 end
 local comboAttack2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 33, y = 27, width = 26, damage = 22, type = "fall", velocity = slf.vel_x, sfx = "air" },
+        { x = 33, y = 27, width = 26, damage = 22, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
         cont
     )
 end
