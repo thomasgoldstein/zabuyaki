@@ -1910,4 +1910,18 @@ function Character:defensiveSpecialUpdate(dt)
 end
 Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecialStart, exit = nop, update = Character.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
+function Character:knockOutStart()
+    self.isHittable = false
+    self.knockOutCooldown = 1 -- ko delay
+end
+function Character:knockOutUpdate(dt)
+    self.knockOutCooldown = self.knockOutCooldown - dt
+    if self.knockOutCooldown <= 0 then
+        self:setState(self.getup)
+        return
+    end
+    self:calcMovement(dt, true)
+end
+Character.knockOut = {name = "knockOut", start = Character.knockOutStart, exit = nop, update = Character.knockOutUpdate, draw = Character.defaultDraw}
+
 return Character
