@@ -359,22 +359,22 @@ return {
 		},
 		combo1Forward = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo forward 1.1
-			{ q = q(60,521,65,64), ox = 23, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
+			{ q = q(60,522,66,63), ox = 24, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
 			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo forward 1.1
 			delay = 0.01
 		},
 		combo2 = {
-			{ q = q(127,521,41,64), ox = 19, oy = 64 }, --combo 2.1
-			{ q = q(170,521,65,64), ox = 21, oy = 64, func = comboAttack2, delay = 0.1 }, --combo 2.2
-			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.06 }, --combo 2.1
+			{ q = q(128,521,41,64), ox = 19, oy = 64 }, --combo 2.1
+			{ q = q(171,521,65,64), ox = 21, oy = 64, func = comboAttack2, delay = 0.1 }, --combo 2.2
+			{ q = q(128,521,41,64), ox = 19, oy = 64, delay = 0.06 }, --combo 2.1
 			delay = 0.015
 		},
 		combo3 = {
-			{ q = q(127,521,41,64), ox = 19, oy = 64 }, --combo 2.1
+			{ q = q(128,521,41,64), ox = 19, oy = 64 }, --combo 2.1
 			{ q = q(2,588,43,64), ox = 19, oy = 64 }, --combo 3.1
 			{ q = q(47,589,72,63), ox = 21, oy = 63, func = comboAttack3, delay = 0.11 }, --combo 3.2
 			{ q = q(2,588,43,64), ox = 19, oy = 64, delay = 0.04 }, --combo 3.1
-			{ q = q(127,521,41,64), ox = 19, oy = 64, delay = 0.04 }, --combo 2.1
+			{ q = q(128,521,41,64), ox = 19, oy = 64, delay = 0.04 }, --combo 2.1
 			delay = 0.015
 		},
 		combo4 = {
