@@ -117,11 +117,6 @@ function Obstacle:isImmune()   --Immune to the attack?
         self.isHurt = nil --free hurt data
         return true
     end
-    --Block "fall" attack if isMovable false
-    if not self.isMovable and transformToHit[h.type] then
-        h.type = "hit"
-        return false
-    end
     return false
 end
 
@@ -202,5 +197,14 @@ function Obstacle:hurtUpdate(dt)
     self:calcMovement(dt, true, nil)
 end
 Obstacle.hurt = {name = "hurt", start = Obstacle.hurtStart, exit = nop, update = Obstacle.hurtUpdate, draw = Unit.defaultDraw}
+
+function Obstacle:fallStart()
+    if not self.isMovable then
+        self:setState(self.knockOut)
+        return
+    end
+    Character.fallStart(self)
+end
+Obstacle.fall = {name = "fall", start = Obstacle.fallStart, exit = nop, update = Obstacle.fallUpdate, draw = Obstacle.defaultDraw}
 
 return Obstacle
