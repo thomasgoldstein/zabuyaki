@@ -106,6 +106,10 @@ function Obstacle:updateAI(dt)
     Unit.updateAI(self, dt)
 end
 
+local transformToHit = {
+    fall = true,
+    blowOut = true
+}
 function Obstacle:isImmune()   --Immune to the attack?
     local h = self.isHurt
     if h.type == "shockWave" or self.isDisabled then
@@ -114,7 +118,7 @@ function Obstacle:isImmune()   --Immune to the attack?
         return true
     end
     --Block "fall" attack if isMovable false
-    if not self.isMovable and h.type == "fall" then
+    if not self.isMovable and transformToHit[h.type] then
         h.type = "hit"
         return false
     end
