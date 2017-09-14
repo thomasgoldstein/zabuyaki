@@ -200,7 +200,7 @@ Obstacle.hurt = {name = "hurt", start = Obstacle.hurtStart, exit = nop, update =
 
 function Obstacle:fallStart()
     if not self.isMovable then
-        self:setState(self.knockOut)
+        self:setState(self.knockedDown)
         return
     end
     Character.fallStart(self)
