@@ -79,9 +79,12 @@ local comboAttack4 = function(slf, cont)
 		cont
 	)
 end
+local comboAttack4ForwardSfx = function(slf, cont)
+	sfx.play("sfx"..slf.id, "air")
+end
 local comboAttack4Forward = function(slf, cont)
 	slf:checkAndAttack(
-		{ x = 29, y = 18, width = 32, damage = 14, type = "knockDown", velocity = slf.velocityFall_x, sfx = "air" },
+		{ x = 29, y = 18, width = 32, damage = 14, type = "knockDown", velocity = slf.velocityFall_x },
 		cont
 	)
 	-- move forward Chai
@@ -94,7 +97,6 @@ local comboAttack4Forward = function(slf, cont)
 	end
 end
 local comboAttack4NoSfx = function(slf, cont)
-	--TODO check if it makes default sound still
 	slf:checkAndAttack(
 		{ x = 28, y = 37, width = 30, damage = 14, type = "knockDown", velocity = slf.velocityFall_x },
 		cont
@@ -390,7 +392,7 @@ return {
 		combo4Forward = {
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
 			{ q = q(43,722,37,64), ox = 12, oy = 66 }, --jump attack forward 2
-			{ q = q(175,199,67,65), ox = 19, oy = 64, funcCont = comboAttack4Forward, delay = 0.16 }, --dash hold attack 4
+			{ q = q(175,199,67,65), ox = 19, oy = 64, funcCont = comboAttack4Forward, func = comboAttack4ForwardSfx, delay = 0.16 }, --dash hold attack 4
 			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.05 }, --jump attack forward 2
 			{ q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
 			delay = 0.02
