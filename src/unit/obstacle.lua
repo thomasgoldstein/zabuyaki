@@ -133,7 +133,7 @@ function Obstacle:onHurt()
     local newFacing = -h.horizontal
     --Move obstacle after hits
     if not self.isGrabbed and self.isMovable and self.vel_x <= 0 then
-        self.vel_x = h.damage * 10
+        self.vel_x = self.velocityFall_x
         self.horizontal = h.horizontal
     end
     self:removeTweenMove()
