@@ -361,7 +361,7 @@ return {
 		},
 		combo1Forward = {
 			{ q = q(2,521,56,64), ox = 23, oy = 63}, --combo forward 1.1
-			{ q = q(60,522,66,63), ox = 24, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
+			{ q = q(60,521,66,64), ox = 24, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
 			{ q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo forward 1.1
 			delay = 0.01
 		},
