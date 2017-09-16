@@ -491,21 +491,19 @@ return {
 			{ q = q(2,1720,45,64), ox = 23, oy = 63 }, --grab
 		},
 		grabAttack1 = {
-			{ q = q(49,1721,43,63), ox = 21, oy = 62 }, --grab attack 1.1
-			{ q = q(94,1721,38,63), ox = 16, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
-			{ q = q(49,1721,43,63), ox = 21, oy = 62, delay = 0.02 }, --grab attack 1.1
-			delay = 0.01
+			{ q = q(93,1721,36,63), ox = 10, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(49,1721,42,63), ox = 17, oy = 62 }, --grab attack 1.1
+			delay = 0.02
 		},
 		grabAttack2 = {
-			{ q = q(49,1721,43,63), ox = 21, oy = 62 }, --grab attack 1.1
-			{ q = q(94,1721,38,63), ox = 16, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
-			{ q = q(49,1721,43,63), ox = 21, oy = 62, delay = 0.02 }, --grab attack 1.1
-			delay = 0.01
+			{ q = q(93,1721,36,63), ox = 10, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(49,1721,42,63), ox = 17, oy = 62 }, --grab attack 1.1
+			delay = 0.02
 		},
 		grabAttack3 = {
-			{ q = q(2,722,39,65), ox = 18, oy = 64 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 12, oy = 63, func = grabAttackLast, delay = 0.18 }, --jump attack forward 2
-			{ q = q(2,722,39,65), ox = 18, oy = 64, delay = 0.1 }, --jump attack forward 1
+			{ q = q(2,722,39,65), ox = 15, oy = 64 }, --jump attack forward 1 (shifted right by 3px)
+			{ q = q(43,722,37,64), ox = 9, oy = 63, func = grabAttackLast, delay = 0.18 }, --jump attack forward 2 (shifted right by 3px)
+			{ q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.1 }, --jump attack forward 1 (shifted right by 3px)
 			delay = 0.02
 		},
 		shoveDown = {
@@ -516,7 +514,7 @@ return {
 			delay = 0.05
 		},
 		shoveUp = {
-			{ q = q(49,1721,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
+			{ q = q(49,1721,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
 			{ q = q(44,928,51,63), ox = 26, oy = 62 }, --throw 1.2
 			{ q = q(97,928,53,63), ox = 22, oy = 62, func = shoveUp, delay = 0.2 }, --throw 1.3
@@ -524,7 +522,7 @@ return {
 			delay = 0.07
 		},
 		shoveBack = {
-			{ q = q(49,1721,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
+			{ q = q(49,1721,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
 			{ q = q(44,928,51,63), ox = 26, oy = 62, func = shoveBack }, --throw 1.2
 			{ q = q(97,928,53,63), ox = 22, oy = 62, delay = 0.2 }, --throw 1.3
@@ -539,9 +537,9 @@ return {
 			}
 		},
 		shoveForward = {
-			{ q = q(49,1721,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
-			{ q = q(49,1721,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
-			{ q = q(49,1721,43,63), ox = 21, oy = 62, flipH = -1 }, --grab attack 1.1
+			{ q = q(49,1721,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
+			{ q = q(49,1721,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
+			{ q = q(49,1721,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
 			{ q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
 			{ q = q(44,928,51,63), ox = 26, oy = 62, func = shoveForward }, --throw 1.2
 			{ q = q(97,928,53,63), ox = 22, oy = 62 }, --throw 1.3
