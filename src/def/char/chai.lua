@@ -491,12 +491,12 @@ return {
 			{ q = q(2,1720,45,64), ox = 23, oy = 63 }, --grab
 		},
 		grabAttack1 = {
-			{ q = q(93,1721,36,63), ox = 10, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(93,1721,37,63), ox = 11, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
 			{ q = q(49,1721,42,63), ox = 17, oy = 62 }, --grab attack 1.1
 			delay = 0.02
 		},
 		grabAttack2 = {
-			{ q = q(93,1721,36,63), ox = 10, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
+			{ q = q(93,1721,37,63), ox = 11, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
 			{ q = q(49,1721,42,63), ox = 17, oy = 62 }, --grab attack 1.1
 			delay = 0.02
 		},
