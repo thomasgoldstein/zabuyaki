@@ -329,9 +329,9 @@ return {
 			delay = 0.025
 		},
 		combo3Up = {
-			{ q = q(184,2,37,64), ox = 17, oy = 63 }, --combo up 3.1
-			{ q = q(144,979,58,63), ox = 17, func = comboAttack3Up1, oy = 62, delay = 0.06 }, --combo up 3.2
-			{ q = q(159,1045,53,62), ox = 21, func = comboAttack3Up2, oy = 61 }, --combo up 3.3
+			{ q = q(2,913,37,64), ox = 17, oy = 63 }, --combo up 3.1
+			{ q = q(41,914,58,63), ox = 17, func = comboAttack3Up1, oy = 62, delay = 0.06 }, --combo up 3.2
+			{ q = q(101,915,53,62), ox = 21, func = comboAttack3Up2, oy = 61 }, --combo up 3.3
 			delay = 0.1
 		},
 		combo4 = {
@@ -459,7 +459,7 @@ return {
 		},
 		grabAttack3 = {
 			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
-			{ q = q(176,916,53,61), ox = 16, oy = 60, func = grabAttackLast, delay = 0.18 }, --dash attack 4
+			{ q = q(156,916,53,61), ox = 16, oy = 60, func = grabAttackLast, delay = 0.18 }, --old dash attack 4
 			{ q = q(115,519,40,63), ox = 17, oy = 62, delay = 0.1 }, --combo 2.1
 			delay = 0.02
 		},
