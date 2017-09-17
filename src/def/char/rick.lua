@@ -11,13 +11,13 @@ end
 local grabAttack = function(slf, cont)
 	--default values: 10,0,20,12, "hit", slf.vel_x
 	slf:checkAndAttack(
-		{ x = 18, y = 20, width = 26, damage = 9 },
+		{ x = 18, y = 21, width = 26, damage = 9 },
 		cont
 	)
 end
 local grabAttackLast = function(slf, cont)
 	slf:checkAndAttack(
-		{ x = 25, y = 27, width = 26, damage = 11,
+		{ x = 18, y = 21, width = 26, damage = 11,
 		type = "knockDown", velocity = slf.velocityThrow_x },
 		cont
 	)
@@ -446,22 +446,22 @@ return {
 			{ q = q(2,979,45,63), ox = 19, oy = 62 }, --grab
 		},
 		grabAttack1 = {
-			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
-			{ q = q(93,980,49,62), ox = 18, oy = 61, func = grabAttack, delay = 0.18 }, --grab attack 1.2
-			{ q = q(49,980,42,62), ox = 19, oy = 61, delay = 0.02 }, --grab attack 1.1
-			delay = 0.01
+			{ q = q(49,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
+			{ q = q(105,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
+			{ q = q(149,984,45,58), ox = 16, oy = 57, func = grabAttack }, --grab attack 3
+			delay = 0.18
 		},
 		grabAttack2 = {
-			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
-			{ q = q(93,980,49,62), ox = 18, oy = 61, func = grabAttack, delay = 0.18 }, --grab attack 1.2
-			{ q = q(49,980,42,62), ox = 19, oy = 61, delay = 0.02 }, --grab attack 1.1
-			delay = 0.01
+			{ q = q(49,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
+			{ q = q(105,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
+			{ q = q(149,984,45,58), ox = 16, oy = 57, func = grabAttack }, --grab attack 3
+			delay = 0.18
 		},
 		grabAttack3 = {
-			{ q = q(49,980,42,62), ox = 19, oy = 61 }, --grab attack 1.1
-			{ q = q(156,916,53,61), ox = 16, oy = 60, func = grabAttackLast, delay = 0.18 }, --old dash attack 4
-			{ q = q(115,519,40,63), ox = 17, oy = 62, delay = 0.1 }, --combo 2.1
-			delay = 0.02
+			{ q = q(49,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
+			{ q = q(105,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
+			{ q = q(149,984,45,58), ox = 16, oy = 57, func = grabAttackLast }, --grab attack 3
+			delay = 0.18
 		},
 		shoveDown = {
 			{ q = q(2,1044,56,63), ox = 30, oy = 62 }, --grab end 1.1
