@@ -11,7 +11,7 @@ end
 local grabAttack = function(slf, cont)
 	--default values: 10,0,20,12, "hit", slf.vel_x
 	slf:checkAndAttack(
-		{ x = 8, y = 20, width = 26, damage = 9 },
+		{ x = 8, y = 20, width = 26, damage = 8 },
 		cont
 	)
 end
