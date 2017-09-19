@@ -464,11 +464,12 @@ return {
 			delay = 0.18
 		},
 		shoveDown = {
-			{ q = q(2,1044,56,63), ox = 30, oy = 62 }, --grab end 1.1
+			{ q = q(2,1044,56,63), ox = 30, oy = 62, delay = 0.25 }, --grab attack end 1
 			{ q = q(2,979,45,63), ox = 19, oy = 62, delay = 0.01 }, --grab
-			{ q = q(60,1047,50,60), ox = 16, oy = 59, func = shoveDown }, --grab end 1.2
-			{ q = q(112,1044,45,63), ox = 18, oy = 62, delay = 0.1 }, --grab end 1.3
-			delay = 0.25
+			{ q = q(60,1048,52,59), ox = 16, oy = 58, func = shoveDown, delay = 0.05 }, --grab attack end 2
+			{ q = q(114,1047,50,60), ox = 16, oy = 59, delay = 0.2 }, --grab attack end 3
+			{ q = q(166,1044,45,63), ox = 18, oy = 62 }, --grab attack end 4
+			delay = 0.1
 		},
 		shoveUp = {
 			{ q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --offensive special 1
