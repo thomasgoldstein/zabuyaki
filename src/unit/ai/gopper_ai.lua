@@ -15,6 +15,8 @@ local _speedReaction = {
 function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
     -- new or overrided AI schedules
+    self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo, self.initCombo, self.onCombo,self.initCombo, self.onCombo,self.initCombo, self.onCombo },
+        { "cannotAct", "noTarget", "tooFarToTarget" }, unit.name)
 
 end
 
