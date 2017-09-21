@@ -54,8 +54,6 @@ function Gopper:updateAI(dt)
     end
     Enemy.updateAI(self, dt)
     self.AI:update(dt)
-
-    self.cooldown = self.cooldown - dt --when <=0 u can move
 end
 
 function Gopper:onFriendlyAttack()
