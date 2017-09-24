@@ -174,7 +174,7 @@ return {
 	--  mySprite.animations["idle"][1], or even
 	animations = {
 		icon  = {
-			{ q = q(140, 273, 42, 17) }
+			{ q = q(2, 280, 42, 17) }
 		},
 		intro = {
 			{ q = q(48,398,42,58), ox = 18, oy = 57 }, --pickup 2
