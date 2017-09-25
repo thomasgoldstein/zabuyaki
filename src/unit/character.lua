@@ -26,7 +26,8 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.charge = 0    -- seconds of changing
     self.ComboN = 1    -- n of the combo hit
     self.cooldown = 0  -- can't move
-    self.cooldownCombo = 0    -- can cont combo
+    self.cooldownComboMax = 0.4 -- max delay to connect combo hits
+    self.cooldownCombo = 0    -- can continue combo if > 0
     self.cooldownGrab = 2
     self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
@@ -366,7 +367,7 @@ function Character:checkAndAttack(f, isFuncCont)
         -- connect combo hits on AUTO_COMBO or on any successful hit
         self.connectHit = true
     end
-    self.cooldownCombo = 0.4 -- reset max delay to connect combo hits
+    self.cooldownCombo = self.cooldownComboMax -- reset max delay to connect combo hits
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = #items > 0 }
@@ -515,7 +516,6 @@ function Character:walkStart()
     else
         self:setSprite("walk")
     end
-    --self.ComboN = 1	--if u move reset combo chain
 end
 function Character:walkUpdate(dt)
     if not self.b.jump:isDown() then
