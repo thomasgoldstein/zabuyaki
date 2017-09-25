@@ -119,6 +119,11 @@ function Character:updateAI(dt)
         return
     end
     self.time = self.time + dt
+    if self.cooldownCombo > 0 then
+        self.cooldownCombo = self.cooldownCombo - dt
+    else
+        self.ComboN = 1
+    end
     self:updateShake(dt)
     Unit.updateAI(self, dt)
 end
@@ -443,11 +448,7 @@ function Character:standUpdate(dt)
             end
         end
     end
-    if self.cooldownCombo > 0 then
-        self.cooldownCombo = self.cooldownCombo - dt
-    else
-        self.ComboN = 1
-    end
+
     if (self.moves.jump and self.canJump and self.b.jump:isDown())
         or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
             and (self.canJump or self.canAttack) and
@@ -514,7 +515,7 @@ function Character:walkStart()
     else
         self:setSprite("walk")
     end
-    self.ComboN = 1	--if u move reset combo chain
+    --self.ComboN = 1	--if u move reset combo chain
 end
 function Character:walkUpdate(dt)
     if not self.b.jump:isDown() then
