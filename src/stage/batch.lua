@@ -71,11 +71,11 @@ function Batch:spawn(dt)
         self.stage:moveStoppers(lx, rx)
     end
 
-    if self.time < b.delay then --delay before the whole batch
+    if max_x < self.leftStopper - 320 / 2 then -- the left stopper's x is out of the current screen
         return false
     end
-
-    if max_x < self.leftStopper - 320 / 2 then -- the left stopper's x is out of the current screen
+    self.time = self.time + dt
+    if self.time < b.delay then --delay before the whole batch
         return false
     end
 
@@ -118,33 +118,26 @@ function Batch:spawn(dt)
     end
     if allDead then
         self.state = "next"
-        self.time = 0
     end
     --dp("all spawned", allSpawned, "all dead", allDead)
     return true
 end
 
 function Batch:update(dt)
-    self.time = self.time + dt
---    self:ps()
     if self.state == "spawn" then
         self:spawn(dt)
         return
     elseif self.state == "next" then
---        self:ps()
         self.n = self.n + 1
+        self.time = 0
         if self:load() then
             self.state = "spawn"
-            self.time = 0
-            self:ps()
         else
             self.state = "done"
-            self.time = 0
-            self:ps()
         end
+        self:ps()
         return
     elseif self.state == "done" then
---        self:ps()
         return
     end
 end
