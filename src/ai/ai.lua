@@ -248,7 +248,7 @@ function AI:initWait()
     elseif u.sprite.curAnim ~= "stand" then
         u:setSprite("stand")
     end
-    self.waitingCounter = 5 * love.math.random(self.hesitateMin, self.hesitateMax)
+    self.waitingCounter = love.math.random(self.hesitateMin, self.hesitateMax)
 --    print("!!!!ai.lua<AI:initWait> : " .. self.waitingCounter, u.name)
     return true
 end
