@@ -32,7 +32,7 @@ function Stage:initialize(name, bgColor)
     self.foreground = nil
     self.scrolling = {}
     self.timeLeft = GLOBAL_SETTING.TIMER
-    self.center_x, self.playerGroupDistance, self.min_x, self.max_y = getDistanceBetweenPlayers()
+    self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
     self.world = HC.new(40*4)
     self.testShape = HC.rectangle(1, 1, 15, 5) -- to test collision
     self.objects = Entity:new()
@@ -112,7 +112,7 @@ function Stage:updateZStoppers(dt)
         end
     elseif self.playerGroupStoppersMode == "set" then
         self.leftPlayerGroupLimitStopper:moveTo(self.min_x - 30, self.worldHeight / 2)
-        self.rightPlayerGroupLimitStopper:moveTo(self.max_y + 30, self.worldHeight / 2)
+        self.rightPlayerGroupLimitStopper:moveTo(self.max_x + 30, self.worldHeight / 2)
         playerGroupStoppersTime = 0.1
         self.playerGroupStoppersMode = "wait"
     elseif self.playerGroupStoppersMode == "wait" then
@@ -160,7 +160,7 @@ end
 local beepTimer = 0
 function Stage:update(dt)
     if self.mode == "normal" then
-        self.center_x, self.playerGroupDistance, self.min_x, self.max_y = getDistanceBetweenPlayers()
+        self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
         self.batch:update(dt)
         self:updateZStoppers(dt)
         self:updateZoom(dt)
@@ -260,7 +260,7 @@ end
 function Stage:setCamera(dt)
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
-    local center_x, playerGroupDistance, min_x, max_x = self.center_x, self.playerGroupDistance, self.min_x, self.max_y
+    local center_x, playerGroupDistance, min_x, max_x = self.center_x, self.playerGroupDistance, self.min_x, self.max_x
     if mainCamera:getScale() ~= self.zoom then
         mainCamera:setScale(self.zoom)
         if self.zoom < maxZoom then
