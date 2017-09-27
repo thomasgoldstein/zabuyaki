@@ -20,17 +20,10 @@ end
 
 function Batch:initialize(stage, batches)
     self.stage = stage
-    self.time = 0
-    self.n = 1 --1st batch
+    self.n = 0 -- to get 1st batch
     self.batches = batches
     dp("Stage has #",#batches,"batches of enemy")
-    if self:load() then
-        self.state = "spawn"
-        -- leftStopper, rightStopper
-    else
-        -- the last batch is done
-        self.state = "done"
-    end
+    self.state = "next"
 end
 
 function Batch:load()
