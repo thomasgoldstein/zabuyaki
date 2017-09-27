@@ -75,6 +75,10 @@ function Batch:spawn(dt)
         return false
     end
 
+    if max_x < self.leftStopper - 320 / 2 then -- the left stopper's x is out of the current screen
+        return false
+    end
+
     local allSpawned = true
     local allDead = true
     for i = 1, #b.units do
