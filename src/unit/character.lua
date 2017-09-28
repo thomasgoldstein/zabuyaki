@@ -1061,7 +1061,7 @@ function Character:bounceStart()
     self.vel_z = -self.velocityFall_z
     self.vel_x = 100
     if self.z <= 0 then
-        self.z = 1
+        self.z = 0.01
     end
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
