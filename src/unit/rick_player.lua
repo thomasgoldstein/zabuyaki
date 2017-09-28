@@ -101,7 +101,7 @@ end
 function Rick:backShoveUpdate(dt)
     local g = self.hold
     local t = g.target
-    if t.state ~= "fall" then
+    if t.state ~= "bounce" then
         self:moveStatesApply()
     end
     if self.sprite.isFinished then
