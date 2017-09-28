@@ -53,7 +53,7 @@ local backShove = function(slf, cont)
         local target = g.target
         slf:releaseGrabbed()
         target:setState(target.bounce)
-        print(target.state, target.name)
+        --print(target.state, target.name)
     end
 end
 local comboAttack1 = function(slf, cont)
@@ -508,8 +508,8 @@ return {
 			{ q = q(47,1692,46,63), ox = 16, oy = 62, delay = 0.1 }, --back shove 2
 			{ q = q(95,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back shove 3
 			{ q = q(158,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back shove 4
-			{ q = q(100,1652,63,38), ox = 51, oy = 34, func = backShove, delay = 0.3 }, --back shove 5
-			{ q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
+			{ q = q(100,1652,63,38), ox = 51, oy = 34, delay = 0.3 }, --back shove 5
+			{ q = q(135,464,56,53), ox = 31, oy = 52, func = backShove }, --getting up
 			{ q = q(48,398,42,58), ox = 18, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.05 }, --pickup 1
 			delay = 0.2,
@@ -517,9 +517,9 @@ return {
                 --{ },
                 { oz = 1, tFrame = 1 },
                 { oz = 4 },
-                { oz = 12, ox = -8, tFrame = 3 },
-                { oz = 10, ox = -16, tFrame = 4 },
-                { oz = 0, ox = -24, tFrame = 5 }
+                { oz = 14, ox = 2, tFrame = 3 },
+                { oz = 13, ox = -32, tFrame = 4 },
+                { oz = 0, ox = -48, tFrame = 5, tFace = -1 } --oz = 0,
 			}
 		},
 		grabSwap = {
@@ -541,8 +541,8 @@ return {
 			--default order should be kept: hurtLow2,hurtHigh2, \, /, upsideDown, laying
 			{ q = q(144,331,44,62), ox = 18, oy = 61 }, --hurt low 2
 			{ q = q(48,331,47,62), ox = 26, oy = 61 }, --hurt high 2
-            { q = q(2,458,60,59), ox = 30, oy = 58, rotate = -1.57, rx = 29, ry = -30 }, --falling
             { q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
+			{ q = q(2,458,60,59), ox = 30, oy = 58, rotate = -1.57, rx = 29, ry = -30 }, --falling
             { q = q(144,331,44,62), ox = 18, oy = 61, flipV = -1 }, --hurt low 2
             { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
 			delay = 100
