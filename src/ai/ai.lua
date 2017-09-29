@@ -103,9 +103,6 @@ function AI:getConditions()
         conditions[#conditions + 1] = "dead"
         conditions[#conditions + 1] = "cannotAct"
     else
-        if u.cooldown <= 0 then
-            conditions[#conditions + 1] = "canMove"
-        end
         if u.target and u.target.isDisabled then
             conditions[#conditions + 1] = "targetDead"
         end
@@ -129,71 +126,77 @@ function AI:getVisualConditions(conditions)
     if not canAct[u.state] then
         conditions[#conditions + 1] = "cannotAct"
         --conditions[#conditions + 1] = "@"..u.state
+    elseif u.cooldown <= 0 then
+        conditions[#conditions + 1] = "canMove"
     end
-    if not u.target then
-        conditions[#conditions + 1] = "noTarget"
-    else
-        -- facing to the player
-        if u.target.x < u.x - u.width / 2 then
-            if u.face < 0 then
-                conditions[#conditions + 1] = "faceToPlayer"
-            else
-                conditions[#conditions + 1] = "faceNotToPlayer"
+
+    if canAct[u.state] then
+
+        if not u.target then
+            conditions[#conditions + 1] = "noTarget"
+        else
+            -- facing to the player
+            if u.target.x < u.x - u.width / 2 then
+                if u.face < 0 then
+                    conditions[#conditions + 1] = "faceToPlayer"
+                else
+                    conditions[#conditions + 1] = "faceNotToPlayer"
+                end
+                if u.target.face < 0 then
+                    conditions[#conditions + 1] = "playerBack"
+                else
+                    conditions[#conditions + 1] = "playerSeeYou"
+                end
+            elseif u.target.x > u.x + u.width / 2 then
+                if u.face > 0 then
+                    conditions[#conditions + 1] = "faceToPlayer"
+                else
+                    conditions[#conditions + 1] = "faceNotToPlayer"
+                end
+                if u.target.face > 0 then
+                    conditions[#conditions + 1] = "playerBack"
+                else
+                    conditions[#conditions + 1] = "playerSeeYou"
+                end
             end
-            if u.target.face < 0 then
-                conditions[#conditions + 1] = "playerBack"
-            else
-                conditions[#conditions + 1] = "playerSeeYou"
+            t = dist(u.target.x, u.target.y, u.x, u.y)
+            if t < 100 and t >= 30
+                    and math.floor(u.y / 4) == math.floor(u.target.y / 4) then
+                conditions[#conditions + 1] = "canDash"
             end
-        elseif u.target.x > u.x + u.width / 2 then
-            if u.face > 0 then
-                conditions[#conditions + 1] = "faceToPlayer"
-            else
-                conditions[#conditions + 1] = "faceNotToPlayer"
+            if canAct[u.state] and
+                    math.abs(u.x - u.target.x) <= 34 --u.width * 2
+                    and math.abs(u.y - u.target.y) <= 6
+                    and ((u.x - u.width / 2 > u.target.x and u.face == -1) or (u.x + u.width / 2 < u.target.x and u.face == 1))
+                    and u.target.hp > 0 then
+                conditions[#conditions + 1] = "canCombo"
             end
-            if u.target.face > 0 then
-                conditions[#conditions + 1] = "playerBack"
-            else
-                conditions[#conditions + 1] = "playerSeeYou"
+            if t < 70 and t >= 20
+                    and math.floor(u.y / 4) == math.floor(u.target.y / 4) then
+                conditions[#conditions + 1] = "canJumpAttack"
+            end
+            if math.abs(u.x - u.target.x) <= u.width
+                    and math.abs(u.y - u.target.y) <= 6
+                    and u.target.hp > 0 then
+                conditions[#conditions + 1] = "canGrab"
+            end
+            if t > 150 then
+                conditions[#conditions + 1] = "tooFarToTarget"
             end
         end
-        t = dist(u.target.x, u.target.y, u.x, u.y)
-        if t < 100 and t >= 30
-                and math.floor(u.y / 4) == math.floor(u.target.y / 4) then
-            conditions[#conditions + 1] = "canDash"
+        t = u:getDistanceToClosestPlayer()
+        if t < u.width then
+            -- too close to the closest player
+            conditions[#conditions + 1] = "tooCloseToPlayer"
         end
-        if canAct[u.state] and
-            math.abs(u.x - u.target.x) <= 34 --u.width * 2
-                and math.abs(u.y - u.target.y) <= 6
-                and ((u.x - u.width / 2 > u.target.x and u.face == -1) or (u.x + u.width / 2 < u.target.x and u.face == 1))
-                and u.target.hp > 0 then
-            conditions[#conditions + 1] = "canCombo"
+        if t < u.wakeupRange then
+            -- see near players?
+            conditions[#conditions + 1] = "seePlayer"
         end
-        if t < 70 and t >= 20
-                and math.floor(u.y / 4) == math.floor(u.target.y / 4) then
-            conditions[#conditions + 1] = "canJumpAttack"
+        if t < u.delayedWakeupRange or u.time > u.wakeupDelay then
+            -- ready to act
+            conditions[#conditions + 1] = "wokeUp"
         end
-        if math.abs(u.x - u.target.x) <= u.width
-                and math.abs(u.y - u.target.y) <= 6
-                and u.target.hp > 0 then
-            conditions[#conditions + 1] = "canGrab"
-        end
-        if t > 150 then
-            conditions[#conditions + 1] = "tooFarToTarget"
-        end
-    end
-    t = u:getDistanceToClosestPlayer()
-    if t < u.width then
-        -- too close to the closest player
-        conditions[#conditions + 1] = "tooCloseToPlayer"
-    end
-    if t < u.wakeupRange then
-        -- see near players?
-        conditions[#conditions + 1] = "seePlayer"
-    end
-    if t < u.delayedWakeupRange or u.time > u.wakeupDelay then
-        -- ready to act
-        conditions[#conditions + 1] = "wokeUp"
     end
     return conditions
 end
