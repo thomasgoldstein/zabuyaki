@@ -198,5 +198,15 @@ return {
             { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 2
             delay = 0.1
         },
+        grabbedFrames = {
+            --default order should be kept: hurtLow2,hurtHigh2, \, /, upsideDown, laying
+            { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 2
+            { q = q(45,133,46,64), ox = 31, oy = 63, delay = 0.2 }, --hurt high 2
+            { q = q(2,199,51,62), ox = 28, oy = 61 }, --falling
+            { q = q(135,136,44,61), ox = 16, oy = 44, rotate = -1.57, rx = 22, ry = -30 }, --hurt low 2
+            { q = q(135,136,44,61), ox = 23, oy = 60, flipV = -1 }, --hurt low 2
+            { q = q(55,217,75,44), ox = 45, oy = 33 }, --lying down
+            delay = 100
+        },
     }
 }
