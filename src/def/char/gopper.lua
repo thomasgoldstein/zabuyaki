@@ -165,7 +165,7 @@ return {
             { q = q(126,132,42,59), ox = 23, oy = 58 }, --hurt low 2
             { q = q(42,129,43,62), ox = 28, oy = 61 }, --hurt high 2
             { q = q(2,199,67,43), ox = 36, oy = 42 }, --falling
-            { q = q(2,199,67,43), ox = 16, oy = 36, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            { q = q(2,199,67,43), ox = 13, oy = 29, rotate = -1.57, rx = 15, ry = -18 }, --falling
             { q = q(126,132,42,59), ox = 23, oy = 58, flipV = -1 }, --hurt low 2
             { q = q(71,198,65,44), ox = 35, oy = 33 }, --lying down
             delay = 100
