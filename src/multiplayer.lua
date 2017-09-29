@@ -104,8 +104,8 @@ end
 -- Returns Center X, distance between players, min_x, max_x
 local oldMin_x, oldMax_x, old_y
 function getDistanceBetweenPlayers()
-    local min_x, max_x = nil, nil
-    local r_x, r_y = nil, nil
+    local min_x, max_x
+    local r_x, r_y
     local n = 0
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)

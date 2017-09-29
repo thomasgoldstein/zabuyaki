@@ -14,7 +14,7 @@ local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local sprite = nil
+local sprite
 local heroes = {
     {
         name = "RICK",

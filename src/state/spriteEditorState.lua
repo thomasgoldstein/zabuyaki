@@ -14,16 +14,16 @@ local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local txtCurrentSprite = nil --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
+local txtCurrentSprite --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 local txtItems = {"ANIMATIONS", "FRAMES", "WEAPON ANIMATIONS", "SHADERS", "BACK"}
 
-local player = nil
-local hero = nil
-local sprite = nil
-local animations = nil
+local player
+local hero
+local sprite
+local animations
 
-local weapon = nil
-local weaponSprite = nil
+local weapon
+local weaponSprite
 local weaponAnimations = {}
 
 local menu = fillMenu(txtItems)

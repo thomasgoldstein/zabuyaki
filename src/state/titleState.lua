@@ -9,8 +9,8 @@ local titleSfx = "whooshHeavy"
 local time = 0
 local transparency = 0
 local titleTransparency = 0
-local introMovie = nil
-local mode = nil
+local introMovie
+local mode
 
 local screenWidth = 640
 local screenHeight = 480
