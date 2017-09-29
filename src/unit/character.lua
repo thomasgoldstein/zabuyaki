@@ -227,6 +227,10 @@ function Character:afterOnHurt()
             else
                 self:setSprite("hurtLow")
             end
+            if self.isMovable then
+                self.vel_x = h.vel_x
+                self.horizontal = h.horizontal
+            end
             return
         end
         self.vel_x = h.vel_x --use fall speed from the agument
