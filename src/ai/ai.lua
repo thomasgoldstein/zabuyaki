@@ -129,9 +129,7 @@ function AI:getVisualConditions(conditions)
     elseif u.cooldown <= 0 then
         conditions[#conditions + 1] = "canMove"
     end
-
     if canAct[u.state] then
-
         if not u.target then
             conditions[#conditions + 1] = "noTarget"
         else
@@ -164,8 +162,7 @@ function AI:getVisualConditions(conditions)
                     and math.floor(u.y / 4) == math.floor(u.target.y / 4) then
                 conditions[#conditions + 1] = "canDash"
             end
-            if canAct[u.state] and
-                    math.abs(u.x - u.target.x) <= 34 --u.width * 2
+            if math.abs(u.x - u.target.x) <= 34 --u.width * 2
                     and math.abs(u.y - u.target.y) <= 6
                     and ((u.x - u.width / 2 > u.target.x and u.face == -1) or (u.x + u.width / 2 < u.target.x and u.face == 1))
                     and u.target.hp > 0 then
