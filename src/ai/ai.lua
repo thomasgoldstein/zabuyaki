@@ -108,6 +108,12 @@ function AI:getConditions()
         if u.target and u.target.isDisabled then
             conditions[#conditions + 1] = "targetDead"
         end
+        if u.isGrabbed then
+            conditions[#conditions + 1] = "grabbed"
+        end
+        if u.z > 0 then
+            conditions[#conditions + 1] = "inAir"
+        end
         conditions = self:getVisualConditions(conditions)
     end
     if not areThereAlivePlayers() then
