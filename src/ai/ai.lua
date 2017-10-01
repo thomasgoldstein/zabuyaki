@@ -74,8 +74,10 @@ function AI:update(dt)
         dp("AI " .. self.unit.name .. "(" .. self.unit.state .. ")" .. " thinking")
         self.conditions = self:getConditions()
         --print(inspect(self.conditions, {depth = 1}))
-        if not self.currentSchedule or self.currentSchedule:isDone(self.conditions) then
-            self:selectNewSchedule(self.conditions)
+        if not self.conditions.cannotAct then
+            if not self.currentSchedule or self.currentSchedule:isDone(self.conditions) then
+                self:selectNewSchedule(self.conditions)
+            end
         end
         self.thinkInterval = love.math.random(self.thinkIntervalMin, self.thinkIntervalMax)
     end
@@ -201,6 +203,9 @@ end
 function AI:initIntro()
     local u = self.unit
     dp("AI:initIntro() " .. u.name)
+    if self.conditions.cannotAct then
+        return false
+    end
     if u.state == "stand" or u.state == "intro" then
         u:setSprite("intro")
         return true
