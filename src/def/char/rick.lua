@@ -136,9 +136,15 @@ end
 local dashAttackResetSpeed = function(slf, cont)
 	slf.vel_x = slf.velocityDash
 end
-local dashHoldAttack = function(slf, cont)
+local dashHoldAttackH = function(slf, cont)
 	slf:checkAndAttack(
         { x = 27, y = 21, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
+        cont
+    )
+end
+local dashHoldAttackV = function(slf, cont)
+	slf:checkAndAttack(
+        { x = 27, y = 21, width = 39, damage = 11, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
         cont
     )
 end
@@ -280,7 +286,7 @@ return {
 		dashHoldAttackH = {
 			{ q = q(135,714,51,62), ox = 31, oy = 62, delay = 0.06 }, --combo 4.6
 			{ q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.06 }, --dash hold attack 1
-			{ q = q(55,2021,72,59), ox = 25, oy = 63, func = dashHoldAttack, delay = 0.15 }, --dash hold attack 2
+			{ q = q(55,2021,72,59), ox = 25, oy = 63, func = dashHoldAttackH, delay = 0.15 }, --dash hold attack 2
 			{ q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
 			{ q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
 			{ q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
@@ -289,7 +295,7 @@ return {
 		dashHoldAttackUp = {
 			{ q = q(135,714,51,62), ox = 31, oy = 62, delay = 0.03 }, --combo 4.6
 			{ q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.03 }, --dash hold attack 1
-			{ q = q(55,2021,72,59), ox = 25, oy = 63, func = dashHoldAttack, delay = 0.1 }, --dash hold attack 2
+			{ q = q(55,2021,72,59), ox = 25, oy = 63, func = dashHoldAttackV, delay = 0.1 }, --dash hold attack 2
 			{ q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
 			{ q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
 			{ q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
@@ -298,7 +304,7 @@ return {
 		dashHoldAttackDown = {
 			{ q = q(135,714,51,62), ox = 31, oy = 62, delay = 0.03 }, --combo 4.6
 			{ q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.03 }, --dash hold attack 1
-			{ q = q(55,2021,72,59), ox = 25, oy = 63, func = dashHoldAttack, delay = 0.1 }, --dash hold attack 2
+			{ q = q(55,2021,72,59), ox = 25, oy = 63, func = dashHoldAttackV, delay = 0.1 }, --dash hold attack 2
 			{ q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
 			{ q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
 			{ q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
@@ -369,7 +375,7 @@ return {
 		combo4Forward = {
 			{ q = q(135,714,51,62), ox = 31, oy = 62, delay = 0.06 }, --combo 4.6
 			{ q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.06 }, --dash hold attack 1
-			{ q = q(55,2021,72,59), ox = 25, oy = 63, func = dashHoldAttack, delay = 0.15 }, --dash hold attack 2
+			{ q = q(55,2021,72,59), ox = 25, oy = 63, func = dashHoldAttackH, delay = 0.15 }, --dash hold attack 2
 			{ q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
 			{ q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
 			{ q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
