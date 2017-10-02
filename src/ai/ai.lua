@@ -37,15 +37,15 @@ function AI:initialize(unit, speedReaction)
     self.SCHEDULE_WAIT = Schedule:new({ self.initWait, self.onWait },
         { "noTarget", "tooCloseToPlayer", "tooFarToTarget" }, unit.name)
     self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.calcWalkToAttackXY, self.initWalkToXY, self.onMove, self.initCombo, self.onCombo },
-        { "cannotAct", "noTarget" }, unit.name)
+        { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
     self.SCHEDULE_WALK = Schedule:new({ self.calcWalkToAttackXY, self.initWalkToXY, self.onMove },
-        { "cannotAct", "noTarget" }, unit.name)
+        { "cannotAct", "inAir", "noTarget" }, unit.name)
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
         {}, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
-        { "cannotAct", "noTarget" }, unit.name)
+        { "cannotAct", "inAir", "noTarget" }, unit.name)
     self.SCHEDULE_RUN = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove },
-        { "noTarget" }, unit.name)
+        { "noTarget", "cannotAct", "inAir" }, unit.name)
     self.SCHEDULE_RUN_DASH = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash, self.waitUntilStand, self.initWait, self.onWait },
         {}, unit.name)
     --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget },
@@ -53,13 +53,13 @@ function AI:initialize(unit, speedReaction)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer },
         { "cannotAct", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo },
-        { "cannotAct", "noTarget", "tooFarToTarget" }, unit.name)
+        { "cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget" }, unit.name)
     self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.waitUntilStand, self.initWait, self.onWait },
-        { "noTarget", "noPlayers" }, unit.name)
+        { "noTarget", "grabbed", "inAir", "noPlayers" }, unit.name)
     self.SCHEDULE_GRAB = Schedule:new({ self.initGrab, self.onGrab },
-        { "cannotAct", "noTarget", "noPlayers" }, unit.name)
+        { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.calcWalkToGrabXY, self.initWalkToXY, self.onMove, self.initGrab, self.onGrab },
-        { "cannotAct", "noTarget", "noPlayers" }, unit.name)
+        { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_RECOVER = Schedule:new({ self.waitUntilStand },
         { "noPlayers" }, unit.name)
     --self.SCHEDULE_DEAD = Schedule:new({ self.initDead }, {}, unit.name)
