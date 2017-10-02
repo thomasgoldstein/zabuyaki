@@ -16,19 +16,21 @@ local _speedReaction = {
 function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
     -- new or overrided AI schedules
-    self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack }, { "cannotAct", "noTarget", "noPlayers" }, unit.name)
+    self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack },
+        { "cannotAct", "inAir", "grabbed", "noTarget", "noPlayers" },
+        unit.name)
 end
 
 function eAI:_update(dt)
---    if self.thinkInterval - dt <= 0 then
-        --print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
---    end
---    AI.update(self, dt)
+    --    if self.thinkInterval - dt <= 0 then
+    --print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
+    --    end
+    --    AI.update(self, dt)
 end
 
 function eAI:selectNewSchedule(conditions)
     if not self.currentSchedule or conditions.init then
---        print("ZEENA INTRO", self.unit.name, self.unit.id )
+        --        print("ZEENA INTRO", self.unit.name, self.unit.id )
         self.currentSchedule = self.SCHEDULE_INTRO
         return
     end
@@ -89,7 +91,7 @@ function eAI:initJumpAttack(dt)
     if u.state == "stand" then
         u.z = u.z + 0.1
         u.bounced = 0
-        u.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
+        u.bouncedPitch = 1 + 0.05 * love.math.random(-4, 4)
         if self.conditions.tooCloseToPlayer then
             u.vel_x = 0
         else

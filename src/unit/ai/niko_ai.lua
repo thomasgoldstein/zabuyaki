@@ -18,19 +18,20 @@ function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
     -- new or overrided AI schedules
     self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack, self.waitUntilStand },
-        {}, unit.name)
+        { "cannotAct", "inAir", "grabbed", "noTarget", "noPlayers" },
+        unit.name)
 end
 
 function eAI:_update(dt)
---    if self.thinkInterval - dt <= 0 then
-        --print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
---    end
+    --    if self.thinkInterval - dt <= 0 then
+    --print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
+    --    end
     AI.update(self, dt)
 end
 
 function eAI:selectNewSchedule(conditions)
     if not self.currentSchedule or conditions.init then
---        print("NIKO INTRO", self.unit.name, self.unit.id )
+        --        print("NIKO INTRO", self.unit.name, self.unit.id )
         self.currentSchedule = self.SCHEDULE_INTRO
         return
     end
@@ -104,7 +105,7 @@ function eAI:initJumpAttack(dt)
         u.horizontal = u.face
         u.z = u.z + 1
         u.bounced = 0
-        u.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
+        u.bouncedPitch = 1 + 0.05 * love.math.random(-4, 4)
         if self.conditions.tooCloseToPlayer then
             u.vel_x = 0
         else
