@@ -52,8 +52,7 @@ local backShove = function(slf, cont)
     if g and g.target then
         local target = g.target
         slf:releaseGrabbed()
-        target:setState(target.bounce)
-        --print(target.state, target.name)
+        target:setState(target.bounce, slf)
     end
 end
 local comboAttack1 = function(slf, cont)
@@ -531,8 +530,8 @@ return {
 			{ q = q(47,1692,46,63), ox = 16, oy = 62, delay = 0.1 }, --back shove 2
 			{ q = q(95,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back shove 3
 			{ q = q(158,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back shove 4
-			{ q = q(100,1652,63,38), ox = 51, oy = 34, delay = 0.3 }, --back shove 5
-			{ q = q(135,464,56,53), ox = 31, oy = 52, func = backShove }, --getting up
+			{ q = q(100,1652,63,38), ox = 51, oy = 34, func = backShove, delay = 0.3 }, --back shove 5
+			{ q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
 			{ q = q(48,398,42,58), ox = 18, oy = 57 }, --pickup 2
 			{ q = q(2,395,44,61), ox = 21, oy = 60, delay = 0.05 }, --pickup 1
 			delay = 0.2,

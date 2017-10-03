@@ -1062,57 +1062,33 @@ Character.fall = {name = "fall", start = Character.fallStart, exit = nop, update
 function Character:bounceStart()
     self.isHittable = false
     self.isThrown = false
-    self.vel_z = -self.velocityFall_z
-    self.vel_x = 100
+    self.vel_z = self.velocityFall_z / 2
+    self.vel_x = self.velocityThrow_x / 4
     if self.z <= 0 then
         self.z = 0.01
     end
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
+    mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
+    self:applyDamage(self.thrownFallDamage, "simple", self.condition)
+    sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
+    self:showEffect("fallLanding")
 end
 function Character:bounceUpdate(dt)
     if self.z > 0 then
         self:calcFreeFall(dt)
         if self.z <= 0 then
-            if self.vel_z < -100 and self.bounced < 1 then    --bounce up after fall (not )
-                if self.vel_z < -300 then
-                    self.vel_z = -300
-                end
-                self.z = 0.01
-                self.vel_z = -self.vel_z/2
-                self.vel_x = self.vel_x * 0.5
-
-                if self.bounced == 0 then
-                    mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
-                    if self.isThrown then
-                        --damage for throwned on landing
-                        self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
-                    end
-                end
-                sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
-                self.bounced = self.bounced + 1
-                self:showEffect("fallLanding")
-                --self:setSprite("fallen")
-                self.vel_x = 0
-                return
---            elseif self.vel_z < -100 and self.bounced >= 1
---                and self.sprite.curAnim ~= "fallen" then
---                self:setSprite("fallen")
---                self.vel_x = 0
-            else
-                --final fall (no bouncing)
-                self.z = 0
-                self.vel_z = 0
-                self.vel_y = 0
-                self.vel_x = 0
-                self.horizontal = self.face
-
-                self.tx, self.ty = self.x, self.y --for enemy with AI movement
-
-                sfx.play("sfx"..self.id,"bodyDrop", 0.5, self.bouncedPitch - self.bounced * 0.2)
-                self:setState(self.getup)
-                return
-            end
+            --final bouncing
+            self.z = 0
+            self.vel_z = 0
+            self.vel_y = 0
+            self.vel_x = 0
+            self.horizontal = self.face
+            self.face = -self.face
+            self.tx, self.ty = self.x, self.y --for enemy with AI movement
+            sfx.play("sfx"..self.id,"bodyDrop", 0.5, self.bouncedPitch - self.bounced * 0.2)
+            self:setState(self.getup)
+            return
         end
         if self.isThrown and self.vel_z < 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
@@ -1120,7 +1096,6 @@ function Character:bounceUpdate(dt)
                 { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", velocity = self.velocityThrow_x },
                 false
             )
-
         end
     end
     self:calcMovement(dt, false) --TODO ?
