@@ -1090,7 +1090,7 @@ function Character:bounceUpdate(dt)
             self:setState(self.getup)
             return
         end
-        if self.isThrown and self.vel_z < 0 and self.bounced == 0 then
+        if self.vel_z > 0 and self.bounced == 0 then
             --TODO dont check it on every FPS
             self:checkAndAttack(
                 { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", velocity = self.velocityThrow_x },
