@@ -33,13 +33,13 @@ function AI:initialize(unit, speedReaction)
         { "seePlayer", "wokeUp", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand },
         { "seePlayer", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash",
-            "faceNotToPlayer" }, unit.name)
+            "faceNotToPlayer", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WAIT = Schedule:new({ self.initWait, self.onWait },
         { "noTarget", "tooCloseToPlayer", "tooFarToTarget" }, unit.name)
     self.SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.calcWalkToAttackXY, self.initWalkToXY, self.onMove, self.initCombo, self.onCombo },
-        { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
+        { "cannotAct", "inAir", "grabbed", "noTarget", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WALK = Schedule:new({ self.calcWalkToAttackXY, self.initWalkToXY, self.onMove },
-        { "cannotAct", "inAir", "noTarget" }, unit.name)
+        { "cannotAct", "inAir", "noTarget", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
         {}, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
@@ -47,15 +47,15 @@ function AI:initialize(unit, speedReaction)
     self.SCHEDULE_RUN = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove },
         { "noTarget", "cannotAct", "inAir" }, unit.name)
     self.SCHEDULE_RUN_DASH = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash, self.waitUntilStand, self.initWait, self.onWait },
-        {}, unit.name)
+        { "tooCloseToPlayer" }, unit.name)
     --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget },
     -- -- { "noPlayers" }, unit.name)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer },
         { "cannotAct", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo },
-        { "cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget" }, unit.name)
+        { "cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.waitUntilStand, self.initWait, self.onWait },
-        { "noTarget", "grabbed", "inAir", "noPlayers" }, unit.name)
+        { "noTarget", "grabbed", "inAir", "noPlayers", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_GRAB = Schedule:new({ self.initGrab, self.onGrab },
         { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.calcWalkToGrabXY, self.initWalkToXY, self.onMove, self.initGrab, self.onGrab },
@@ -141,8 +141,9 @@ function AI:getVisualConditions(conditions)
         if not u.target then
             conditions[#conditions + 1] = "noTarget"
         else
+            local x, y = u.target.x, u.target.y
             -- facing to the player
-            if u.target.x < u.x - u.width / 2 then
+            if x < u.x - u.width / 2 then
                 if u.face < 0 then
                     conditions[#conditions + 1] = "faceToPlayer"
                 else
@@ -153,7 +154,7 @@ function AI:getVisualConditions(conditions)
                 else
                     conditions[#conditions + 1] = "playerSeeYou"
                 end
-            elseif u.target.x > u.x + u.width / 2 then
+            elseif x > u.x + u.width / 2 then
                 if u.face > 0 then
                     conditions[#conditions + 1] = "faceToPlayer"
                 else
@@ -165,23 +166,23 @@ function AI:getVisualConditions(conditions)
                     conditions[#conditions + 1] = "playerSeeYou"
                 end
             end
-            t = dist(u.target.x, u.target.y, u.x, u.y)
+            t = dist(x, y, u.x, u.y)
             if t < 100 and t >= 30
-                    and math.floor(u.y / 4) == math.floor(u.target.y / 4) then
+                    and math.floor(u.y / 4) == math.floor(y / 4) then
                 conditions[#conditions + 1] = "canDash"
             end
-            if math.abs(u.x - u.target.x) <= 34 --u.width * 2
-                    and math.abs(u.y - u.target.y) <= 6
-                    and ((u.x - u.width / 2 > u.target.x and u.face == -1) or (u.x + u.width / 2 < u.target.x and u.face == 1))
+            if math.abs(u.x - x) <= 34 --u.width * 2
+                    and math.abs(u.y - y) <= 6
+                    and ((u.x - u.width / 2 > x and u.face == -1) or (u.x + u.width / 2 < x and u.face == 1))
                     and u.target.hp > 0 then
                 conditions[#conditions + 1] = "canCombo"
             end
             if t < 70 and t >= 20
-                    and math.floor(u.y / 4) == math.floor(u.target.y / 4) then
+                    and math.floor(u.y / 4) == math.floor(y / 4) then
                 conditions[#conditions + 1] = "canJumpAttack"
             end
-            if math.abs(u.x - u.target.x) <= u.width
-                    and math.abs(u.y - u.target.y) <= 6
+            if math.abs(u.x - x) <= u.width
+                    and math.abs(u.y - y) <= 6
                     and u.target.hp > 0 then
                 conditions[#conditions + 1] = "canGrab"
             end
@@ -287,23 +288,17 @@ function AI:calcWalkToBackOffXY()
     u:setState(u.walk)
     local tx, ty, shift_x, shift_y
     local t = dist(u.target.x, u.target.y, u.x, u.y)
-    --step back(too close)
-    --    if u.target.id % 2 == 0 then
-    --        shift_x = 6
-    --    else
-    --        shift_x = 0
-    --    end
     shift_x = love.math.random(0, 6)
     if u.target.hp < u.target.maxHp / 2 then
-        shift_x = shift_x + 4
+        shift_x = shift_x + 16
     end
     shift_y = love.math.random(0, 6)
     if u.x < u.target.x and love.math.random() < 0.75 then
-        tx = u.target.x - love.math.random(38, 52) - shift_x
+        tx = u.target.x - love.math.random(52, 80) - shift_x
         ty = u.target.y + love.math.random(-1, 1) * shift_y
         u.horizontal = 1
     else
-        tx = u.target.x + love.math.random(38, 52) + shift_x
+        tx = u.target.x + love.math.random(52, 80) + shift_x
         ty = u.target.y + love.math.random(-1, 1) * shift_y
         u.horizontal = -1
     end
