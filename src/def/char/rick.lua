@@ -50,10 +50,14 @@ end
 local backShove = function(slf, cont)
     local g = slf.hold
     if g and g.target then
-        local target = g.target
+		slf:checkAndAttack(
+			{ x = -38, y = 32, width = 40, height = 70, depth = 18, damage = 25, type = "blowOut", velocity = slf.vel_x },
+			cont
+		)
+		local target = g.target
         slf:releaseGrabbed()
-        target:setState(target.bounce, slf)
-    end
+        target:setState(target.bounce)
+	end
 end
 local comboAttack1 = function(slf, cont)
 	slf:checkAndAttack(

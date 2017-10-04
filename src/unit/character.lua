@@ -1070,7 +1070,7 @@ function Character:bounceStart()
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
-    self:applyDamage(self.thrownFallDamage, "simple", self.condition)
+    self:applyDamage(self.thrownFallDamage, "simple")
     sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
     self:showEffect("fallLanding")
 end
@@ -1089,13 +1089,6 @@ function Character:bounceUpdate(dt)
             sfx.play("sfx"..self.id,"bodyDrop", 0.5, self.bouncedPitch - self.bounced * 0.2)
             self:setState(self.getup)
             return
-        end
-        if self.vel_z > 0 and self.bounced == 0 then
-            --TODO dont check it on every FPS
-            self:checkAndAttack(
-                { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", velocity = self.velocityThrow_x },
-                false
-            )
         end
     end
     self:calcMovement(dt, false) --TODO ?
