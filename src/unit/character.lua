@@ -1070,7 +1070,6 @@ function Character:bounceStart()
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
-    self:applyDamage(self.thrownFallDamage, "simple")
     sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
     self:showEffect("fallLanding")
 end

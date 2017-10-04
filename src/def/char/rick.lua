@@ -51,11 +51,12 @@ local backShove = function(slf, cont)
     local g = slf.hold
     if g and g.target then
 		slf:checkAndAttack(
-			{ x = -38, y = 32, width = 40, height = 70, depth = 18, damage = 25, type = "blowOut", velocity = slf.vel_x },
+			{ x = -38, y = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "blowOut", velocity = slf.vel_x },
 			cont
 		)
 		local target = g.target
         slf:releaseGrabbed()
+		target:applyDamage(slf.thrownFallDamage, "simple", slf)
         target:setState(target.bounce)
 	end
 end
