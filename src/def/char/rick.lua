@@ -145,13 +145,13 @@ local dashAttackResetSpeed = function(slf, cont)
 end
 local dashHoldAttackH = function(slf, cont)
 	slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
+        { x = 27, y = 21, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x },
         cont
     )
 end
 local dashHoldAttackV = function(slf, cont)
 	slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 11, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
+        { x = 27, y = 21, width = 39, damage = 11, type = "knockDown", velocity = slf.vel_x },
         cont
     )
 end
