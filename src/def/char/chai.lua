@@ -270,18 +270,20 @@ return {
 		},
 		dashHold = {
 			{ q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
-			{ q = q(166,1527,48,63), ox = 26, oy = 63 }, --dash hold
+			{ q = q(166,1527,48,63), ox = 20, oy = 63 }, --dash hold
 		},
 		dashHoldAttackH = {
-			{ q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.03 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.03 }, --jump attack forward 2
-			{ q = q(2,1592,70,65), ox = 19, oy = 64, funcCont = dashHoldAttackH }, --dash hold attack 1
-			{ q = q(74,1592,70,65), ox = 19, oy = 64, funcCont = dashHoldAttackH }, --dash hold attack 2
-			{ q = q(146,1592,69,65), ox = 19, oy = 64, funcCont = dashHoldAttackH }, --dash hold attack 3
-			{ q = q(175,199,67,65), ox = 19, oy = 64, funcCont = dashHoldAttackH, delay = 0.02 }, --dash hold attack 4
-			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.05 }, --jump attack forward 2
+			{ q = q(2,1334,39,60), ox = 29, oy = 59 }, --defensive special 1
+			{ q = q(43,1337,41,57), ox = 31, oy = 56 }, --defensive special 2
+			{ q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
+			{ q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2
+			{ q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 3
+			{ q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 4
+			{ q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 5
+			{ q = q(175,199,67,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.02 }, --dash hold attack 6
+			{ q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
 			{ q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
-			delay = 0.06
+			delay = 0.03
 		},
 		dashHoldAttackUp = {
 			{ q = q(169,1329,39,62), ox = 23, oy = 65 }, --defensive special 5
@@ -390,12 +392,14 @@ return {
 			delay = 0.03
 		},
 		combo4Forward = {
+			{ q = q(2,1334,39,60), ox = 29, oy = 59 }, --defensive special 1
+			{ q = q(43,1337,41,57), ox = 31, oy = 56 }, --defensive special 2
+			{ q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
+			{ q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2
+			{ q = q(175,199,67,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, func = comboAttack4ForwardSfx, delay = 0.16 }, --dash hold attack 6
+			{ q = q(43,722,37,64), ox = 16, oy = 66 }, --jump attack forward 2 (shifted 4px to the left)
 			{ q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-			{ q = q(43,722,37,64), ox = 12, oy = 66 }, --jump attack forward 2
-			{ q = q(175,199,67,65), ox = 19, oy = 64, funcCont = comboAttack4Forward, func = comboAttack4ForwardSfx, delay = 0.16 }, --dash hold attack 4
-			{ q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.05 }, --jump attack forward 2
-			{ q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
-			delay = 0.02
+			delay = 0.015
 		},
 		holdAttack = {
 			{ q = q(117,587,48,65), ox = 13, oy = 64, delay = 0.02 }, --combo 4.1
