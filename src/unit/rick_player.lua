@@ -98,6 +98,7 @@ function Rick:backShoveStart()
     self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("backShove")
+    sfx.play("voice"..self.id, self.sfx.throw)
     dp(self.name.." backShove someone.")
 end
 function Rick:backShoveUpdate(dt)
