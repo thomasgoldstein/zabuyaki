@@ -136,15 +136,12 @@ function getDistanceBetweenPlayers()
 end
 
 function correctPlayersRespawnPos(player)
-    getDistanceBetweenPlayers()
-    print("***", oldMax_x , oldMin_x, old_y, countAlivePlayers())
-    print(player.x, player.y, " CORRECT -> ")
+--[[
     if old_y then
         player.x = (oldMax_x - oldMin_x) / 2
         player.y = old_y
         player:checkCollisionAndMove(0)
-        print(" -> ",player.x, player.y)
-    end
+    end]]
 end
 
 local players = {}
