@@ -162,7 +162,7 @@ function Enemy:pickAttackTarget(how)
     local p = {}
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
-        if player and not player.isDisabled and player:isAlive() then
+        if player and not player.isDisabled and player.hp > 0 then --and player:isAlive()
             p[#p +1] = {player = player, points = 0 }
         end
     end

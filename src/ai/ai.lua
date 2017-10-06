@@ -239,6 +239,8 @@ function AI:onIntro()
     --dp("AI:onIntro() ".. u.name)
     local u = self.unit
     if not u.target then
+        u:pickAttackTarget("random")
+    elseif u.target.isDisabled or u.target.hp < 1 then
         u:pickAttackTarget("close")
     end
     return false
@@ -260,6 +262,11 @@ function AI:initStand()
 end
 
 function AI:onStand()
+    if not u.target then
+        u:pickAttackTarget("close")
+    elseif u.target.isDisabled or u.target.hp < 1 then
+        u:pickAttackTarget("random")
+    end
     return false
 end
 
