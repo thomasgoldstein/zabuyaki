@@ -544,7 +544,7 @@ end
 function AI:waitUntilStand(dt)
     local u = self.unit
     dp("AI:waitUntilStand() ".. u.name)
-    if not self.conditions.cannotAct and self.conditions.canMove then
+    if self.conditions.cannotAct and not self.conditions.canMove then
         return false
     end
     return true
