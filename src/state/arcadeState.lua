@@ -13,7 +13,7 @@ local function drawGameOver()
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(gameOverText, (screenWidth - gameOverText:getWidth()) / 2, (screenHeight - gameOverText:getHeight()) / 2 )
 end
-local isAlive
+local nAlive
 local gameOverDelay = 0
 
 SELECT_NEW_PLAYER = {} --{id, player}
@@ -67,12 +67,12 @@ function arcadeState:update(dt)
     checkPlayersRespawn(stage)
 
     if stage.mode == "normal" then
-        isAlive = areThereAlivePlayers()
+        nAlive = countAlivePlayers()
     else
-        isAlive = true
+        nAlive = 1
     end
 
-    if not isAlive then
+    if nAlive < 1 then
         gameOverDelay = gameOverDelay + dt
         if gameOverDelay > 4
                 and (Control1.back:pressed() or
@@ -115,7 +115,7 @@ function arcadeState:draw()
     end
     showDebugControls()
     showDebugIndicator()
-    if not isAlive then
+    if nAlive < 1 then
         drawGameOver()
     end
     stage:displayTime(screenWidth, screenHeight)

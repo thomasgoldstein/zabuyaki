@@ -29,15 +29,15 @@ function allowPlayersSelect(players)
     end
 end
 
-function areThereAlivePlayers()
-    local isAlive = false
+function countAlivePlayers()
+    local nAlive = 0
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
-        if player then
-            isAlive = isAlive or player:isAlive()
+        if player and player:isAlive() then
+            nAlive = nAlive + 1
         end
     end
-    return isAlive
+    return nAlive
 end
 
 function killAllPlayers()
@@ -136,6 +136,8 @@ function getDistanceBetweenPlayers()
 end
 
 function correctPlayersRespawnPos(player)
+    getDistanceBetweenPlayers()
+    print("***", oldMax_x , oldMin_x, old_y, countAlivePlayers())
     print(player.x, player.y, " CORRECT -> ")
     if old_y then
         player.x = (oldMax_x - oldMin_x) / 2

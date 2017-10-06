@@ -116,7 +116,7 @@ function AI:getConditions()
         end
         conditions = self:getVisualConditions(conditions)
     end
-    if not areThereAlivePlayers() then
+    if countAlivePlayers() < 1 then
         conditions[#conditions + 1] = "noPlayers"
     end
     conditionsOutput = {}
