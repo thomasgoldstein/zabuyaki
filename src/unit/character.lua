@@ -123,6 +123,9 @@ function Character:updateAI(dt)
     if self.cooldownCombo > 0 then
         self.cooldownCombo = self.cooldownCombo - dt
     else
+--[[        if self.name == "RICK" then
+            print(" comboN <-&& 1 timeOut")
+        end]]
         self.ComboN = 1
     end
     self:updateShake(dt)
@@ -198,6 +201,7 @@ function Character:onHurtDamage()
     end
     self:playHitSfx(h.damage)
     if not GLOBAL_SETTING.CONTINUE_INTERRUPTED_COMBO then
+        print(" comboN <## 1")
         self.ComboN = 1	--if u get hit reset combo chain
     end
     if h.source.vel_x == 0 then
@@ -1156,19 +1160,28 @@ Character.dead = {name = "dead", start = Character.deadStart, exit = nop, update
 function Character:comboStart()
     self.isHittable = true
     self.horizontal = self.face
-    self.connectHit = false
+--    self.connectHit = false
     self:removeTweenMove()
     if self.ComboN > self.sprite.def.max_combo or self.ComboN < 1 then
+        print(" comboN <++ 1")
         self.ComboN = 1
     end
     self.cooldown = 0.2
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.ComboN.."Forward") then
+        print("COMBO Forward N", self.ComboN, self.connectHit)
+        self.connectHit = false
         return
     elseif self.b.vertical:getValue() == -1 and self:setSpriteIfExists("combo"..self.ComboN.."Up") then
+        print("COMBO Up N", self.ComboN, self.connectHit)
+        self.connectHit = false
         return
     elseif self.b.vertical:getValue() == 1 and self:setSpriteIfExists("combo"..self.ComboN.."Down") then
+        print("COMBO Down N", self.ComboN, self.connectHit)
+        self.connectHit = false
         return
     end
+    print("COMBO ... N", self.ComboN, self.connectHit)
+    self.connectHit = false
     self:setSprite("combo"..self.ComboN)
 end
 function Character:comboUpdate(dt)
@@ -1193,8 +1206,10 @@ function Character:comboUpdate(dt)
             and self.connectHit
         then
             self.ComboN = self.ComboN + 1
+            print(" comboN +1")
         else
             self.ComboN = 1
+            print(" comboN <-- 1")
         end
         self:setState(self.stand)
         return
