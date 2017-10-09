@@ -219,8 +219,8 @@ function drawDebugUnitInfo(a)
             love.graphics.setColor(0, 0, 0, 120)
             love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14)
         end
-        if a.ComboN and a.sprite.def.max_combo > 0 then
-            love.graphics.print( "CN" .. a.ComboN .. "/".. a.sprite.def.max_combo, a.x - 14, a.y + 21)
+        if a.comboN and a.sprite.def.max_combo > 0 then
+            love.graphics.print( "CN" .. a.comboN .. "/".. a.sprite.def.max_combo, a.x - 14, a.y + 21)
         end
         love.graphics.print( a.state, a.x - 14, a.y)
         love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7)
