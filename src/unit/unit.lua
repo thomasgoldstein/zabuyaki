@@ -144,7 +144,7 @@ function Unit:setState(state, condition)
 		self.exit = state.exit
 		self.condition = condition
 		self:start()
-        --self:updateSprite(0)
+        self:updateSprite(0)
 	end
 end
 function Unit:getLastStateTime()
