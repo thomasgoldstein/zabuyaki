@@ -201,7 +201,7 @@ function Character:onHurtDamage()
     end
     self:playHitSfx(h.damage)
     if not GLOBAL_SETTING.CONTINUE_INTERRUPTED_COMBO then
-        print(" comboN <## 1")
+        print(" comboN <## 1", self.name, self.id)
         self.ComboN = 1	--if u get hit reset combo chain
     end
     if h.source.vel_x == 0 then
@@ -1163,24 +1163,24 @@ function Character:comboStart()
 --    self.connectHit = false
     self:removeTweenMove()
     if self.ComboN > self.sprite.def.max_combo or self.ComboN < 1 then
-        print(" comboN <++ 1")
+        print(" comboN <++ 1", self.name, self.id)
         self.ComboN = 1
     end
     self.cooldown = 0.2
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.ComboN.."Forward") then
-        print("COMBO Forward N", self.ComboN, self.connectHit)
+        print("COMBO Forward N", self.ComboN, self.connectHit, self.name, self.id)
         self.connectHit = false
         return
     elseif self.b.vertical:getValue() == -1 and self:setSpriteIfExists("combo"..self.ComboN.."Up") then
-        print("COMBO Up N", self.ComboN, self.connectHit)
+        print("COMBO Up N", self.ComboN, self.connectHit, self.name, self.id)
         self.connectHit = false
         return
     elseif self.b.vertical:getValue() == 1 and self:setSpriteIfExists("combo"..self.ComboN.."Down") then
-        print("COMBO Down N", self.ComboN, self.connectHit)
+        print("COMBO Down N", self.ComboN, self.connectHit, self.name, self.id)
         self.connectHit = false
         return
     end
-    print("COMBO ... N", self.ComboN, self.connectHit)
+    print("COMBO ... N", self.ComboN, self.connectHit, self.name, self.id)
     self.connectHit = false
     self:setSprite("combo"..self.ComboN)
 end
@@ -1206,10 +1206,10 @@ function Character:comboUpdate(dt)
             and self.connectHit
         then
             self.ComboN = self.ComboN + 1
-            print(" comboN +1")
+            print(" comboN +1", self.name, self.id)
         else
             self.ComboN = 1
-            print(" comboN <-- 1")
+            print(" comboN <-- 1", self.name, self.id)
         end
         self:setState(self.stand)
         return
