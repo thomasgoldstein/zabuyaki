@@ -28,6 +28,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.cooldown = 0  -- can't move
     self.cooldownComboMax = 0.4 -- max delay to connect combo hits
     self.cooldownCombo = 0    -- can continue combo if > 0
+    self.attacksPerAnimation = 0    -- # attacks made during curr animation
     self.cooldownGrab = 2
     self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
@@ -120,14 +121,7 @@ function Character:updateAI(dt)
         return
     end
     self.time = self.time + dt
-    if self.cooldownCombo > 0 then
-        self.cooldownCombo = self.cooldownCombo - dt
-    else
---[[        if self.name == "RICK" then
-            print(" comboN <-&& 1 timeOut")
-        end]]
-        self.comboN = 1
-    end
+    self.cooldownCombo = self.cooldownCombo - dt
     self:updateShake(dt)
     Unit.updateAI(self, dt)
 end
@@ -375,7 +369,6 @@ function Character:checkAndAttack(f, isFuncCont)
         -- connect combo hits on AUTO_COMBO or on any successful hit
         self.connectHit = true
     end
-    self.cooldownCombo = self.cooldownComboMax -- reset max delay to connect combo hits
     --DEBUG collect data to show attack hitBoxes in green
     if GLOBAL_SETTING.DEBUG then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = #items > 0 }
@@ -1162,29 +1155,42 @@ function Character:comboStart()
     self.horizontal = self.face
 --    self.connectHit = false
     self:removeTweenMove()
-    if self.comboN > self.sprite.def.max_combo or self.comboN < 1 then
-        print(" comboN <++ 1", self.name, self.id)
+
+    if self.attacksPerAnimation > 0 and self.cooldownCombo > 0 then
+        if self.comboN < self.sprite.def.max_combo then
+            self.comboN = self.comboN + 1
+            print(" comboN +1", self.name..self.id, "Attacks#"..self.attacksPerAnimation)
+        else
+            self.comboN = 1
+            print(" comboN <=== 1", self.name..self.id, "Attacks#"..self.attacksPerAnimation)
+        end
+    else
         self.comboN = 1
+        print(" comboN <- 1 Timeout or Unconnected", self.name..self.id, "Attacks#"..self.attacksPerAnimation)
     end
+    self.connectHit = false
+    self.cooldownCombo = self.cooldownComboMax -- reset max delay to connect combo hits
     self.cooldown = 0.2
+    self.attacksPerAnimation = 0
+
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.comboN.."Forward") then
-        print("COMBO Forward N", self.comboN, self.connectHit, self.name, self.id)
-        self.connectHit = false
+        print("COMBO Forward N", self.comboN, self.name, self.id)
         return
     elseif self.b.vertical:getValue() == -1 and self:setSpriteIfExists("combo"..self.comboN.."Up") then
-        print("COMBO Up N", self.comboN, self.connectHit, self.name, self.id)
-        self.connectHit = false
+        print("COMBO Up N", self.comboN, self.name, self.id)
         return
     elseif self.b.vertical:getValue() == 1 and self:setSpriteIfExists("combo"..self.comboN.."Down") then
-        print("COMBO Down N", self.comboN, self.connectHit, self.name, self.id)
-        self.connectHit = false
+        print("COMBO Down N", self.comboN, self.name, self.id)
         return
     end
-    print("COMBO ... N", self.comboN, self.connectHit, self.name, self.id)
-    self.connectHit = false
+    print("COMBO ... N", self.comboN, self.name..self.id)
     self:setSprite("combo"..self.comboN)
 end
 function Character:comboUpdate(dt)
+    if self.connectHit then
+        self.connectHit = false
+        self.attacksPerAnimation = self.attacksPerAnimation + 1
+    end
     if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
         if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
@@ -1202,16 +1208,6 @@ function Character:comboUpdate(dt)
         end
     end
     if self.sprite.isFinished then
-        if self.comboN < self.sprite.def.max_combo
-            and self.connectHit
-        then
-            self.comboN = self.comboN + 1
-            print(" comboN +1", self.name, self.id)
-        else
-            self.comboN = 1
-            print(" comboN <- 1 Max Combo N"..self.sprite.def.max_combo, self.name, self.id)
-        end
-        self:setSprite("stand")
         self:setState(self.stand)
         return
     end
