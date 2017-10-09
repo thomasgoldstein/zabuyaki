@@ -1208,9 +1208,10 @@ function Character:comboUpdate(dt)
             self.ComboN = self.ComboN + 1
             print(" comboN +1", self.name, self.id)
         else
-            self.ComboN = self.sprite.def.max_combo
+            self.ComboN = 1
             print(" comboN <-- Max Combo N"..self.sprite.def.max_combo, self.name, self.id)
         end
+        self:setSprite("stand")
         self:setState(self.stand)
         return
     end
