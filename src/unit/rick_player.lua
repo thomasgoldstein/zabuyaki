@@ -93,8 +93,8 @@ function Rick:backShoveStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
-    t.cooldown = self.cooldownGrab  --prolong grabbed time
-    g.cooldown = self.cooldownGrab + 0.1
+    t.cooldownGrab = self.cooldownGrabMax  --prolong grabbed time
+    g.cooldownGrab = self.cooldownGrabMax + 0.1
     self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("backShove")
