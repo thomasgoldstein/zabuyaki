@@ -1133,7 +1133,7 @@ function Character:deadUpdate(dt)
     if self.isDisabled then
         return
     end
-    if self.cooldownDeath <= 0 then
+    if self.deathCooldown <= 0 then
         self.isDisabled = true
         self.isHittable = false
         -- dont remove dead body from the stage for proper save/load
@@ -1144,7 +1144,7 @@ function Character:deadUpdate(dt)
         --self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
-        self.cooldownDeath = self.cooldownDeath - dt
+        self.deathCooldown = self.deathCooldown - dt
     end
     self:calcMovement(dt, true)
 end

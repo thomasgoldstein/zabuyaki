@@ -108,7 +108,7 @@ function Unit:updateShake(dt)
 end
 
 function Unit:calcShadowSpriteAndTransparency()
-    local transparency = self.cooldownDeath < 2 and 255 * math.sin(self.cooldownDeath) or 255
+    local transparency = self.deathCooldown < 2 and 255 * math.sin(self.deathCooldown) or 255
     if GLOBAL_SETTING.DEBUG and self.isGrabbed then
         love.graphics.setColor(0, 100, 0, transparency) --4th is the shadow transparency
     elseif GLOBAL_SETTING.DEBUG and not self.isHittable then
@@ -168,8 +168,8 @@ end
 function Unit:defaultDraw(l,t,w,h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
         self.sprite.flipH = self.face  --TODO get rid of .face
-        if self.cooldownDeath < 1 then
-            self.color[4] = 255 * math.sin( self.cooldownDeath )
+        if self.deathCooldown < 1 then
+            self.color[4] = 255 * math.sin( self.deathCooldown )
         else
             self.color[4] = 255
         end

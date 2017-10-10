@@ -20,7 +20,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 	self.name = name or "Unknown"
 	self.type = "unit"
 	self.subtype = ""
-    self.cooldownDeath = 3 --seconds to remove
+    self.deathCooldown = 3 --seconds to remove
     self.lives = f.lives or self.lives or 0
     self.maxHp = f.hp or self.hp or 1
     self.hp = self.maxHp
