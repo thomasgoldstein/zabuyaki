@@ -90,6 +90,12 @@ local comboAttack3Up2 = function(slf, cont)
         cont
     )
 end
+local comboAttack3Forward = function(slf, cont)
+	slf:checkAndAttack(
+        { x = 27, y = 21, width = 39, damage = 10, velocity = slf.vel_x },
+        cont
+    )
+end
 local comboAttack4 = function(slf, cont)
 	slf:checkAndAttack(
         { x = 34, y = 41, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
@@ -108,7 +114,13 @@ local comboAttack4Up2 = function(slf, cont)
         cont
     )
 end
-local comboAttack4ForwardSfx = function(slf, cont)
+local comboAttack4Forward = function(slf, cont)
+	slf:checkAndAttack(
+        { x = 35, y = 32, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x },
+        cont
+    )
+end
+local comboAttackSfx = function(slf, cont)
 	sfx.play("sfx"..slf.id, "air")
 end
 local holdAttack1 = function(slf, cont)
@@ -362,6 +374,15 @@ return {
 			{ q = q(101,915,53,62), ox = 21, func = comboAttack3Up2, oy = 61 }, --combo up 3.3
 			delay = 0.1
 		},
+		combo3Forward = {
+			{ q = q(135,714,51,62), ox = 31, oy = 62, delay = 0.05 }, --combo 4.6
+			{ q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.05 }, --dash hold attack 1
+			{ q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = comboAttack3Forward, func = comboAttackSfx, delay = 0.12 }, --dash hold attack 2
+			{ q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
+			{ q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
+			{ q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
+			delay = 0.03
+		},
 		combo4 = {
 			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
 			{ q = q(158,584,38,62), ox = 15, oy = 62, delay = 0.06 }, --combo 4.2
@@ -380,13 +401,11 @@ return {
 			delay = 0.067
 		},
 		combo4Forward = {
-			{ q = q(135,714,51,62), ox = 31, oy = 62, delay = 0.06 }, --combo 4.6
-			{ q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.06 }, --dash hold attack 1
-			{ q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = dashHoldAttackH, func = comboAttack4ForwardSfx, delay = 0.15 }, --dash hold attack 2
-			{ q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
-			{ q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
-			{ q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
-			delay = 0.05
+			{ q = q(46,266,49,62), ox = 34, oy = 61 }, --combo forward 4.1
+			{ q = q(97,266,51,62), ox = 23, oy = 61 }, --combo forward 4.2
+			{ q = q(150,265,65,62), ox = 10, oy = 62, funcCont = comboAttack4Forward, func = comboAttackSfx, delay = 0.15 }, --combo forward 4.3
+			{ q = q(182,196,47,64), ox = 15, oy = 63, delay = 0.12 }, --combo forward 4.4
+			delay = 0.06
 		},
 		holdAttack = {
 			{ q = q(112,584,44,62), ox = 18, oy = 62 }, --combo 4.1
