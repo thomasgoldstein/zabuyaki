@@ -108,7 +108,7 @@ function Rick:backShoveUpdate(dt)
         self:moveStatesApply()
     end
     if self.sprite.isFinished then
-        self.cooldown = 0.2
+        self.standCooldown = 0.2
         self:setState(self.stand)
         return
     end

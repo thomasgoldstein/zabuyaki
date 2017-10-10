@@ -149,7 +149,7 @@ function AI:getVisualConditions(conditions)
     if not canAct[u.state] then
         conditions[#conditions + 1] = "cannotAct"
         --conditions[#conditions + 1] = "@"..u.state
-    elseif u.cooldown <= 0 then
+    elseif u.standCooldown <= 0 then
         conditions[#conditions + 1] = "canMove"
     end
     if canAct[u.state] then
@@ -572,11 +572,11 @@ function AI:initGrab()
                 grabbed.horizontal = -u.horizontal
                 u:showHitMarks(22, 25, 5) --big hitmark
                 u.vel_x = self.velocityBackoff --move from source
-                u.cooldown = 0.0
+                u.standCooldown = 0.0
                 u:setSprite("hurtHigh")
                 u:setState(u.slide)
                 grabbed.vel_x = grabbed.velocityBackoff --move from source
-                grabbed.cooldown = 0.0
+                grabbed.standCooldown = 0.0
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
                 sfx.play("sfx" .. u.id, u.sfx.grabClash)

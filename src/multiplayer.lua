@@ -22,7 +22,7 @@ function allowPlayersSelect(players)
                 player.lives = 0
                 player:setState(player.useCredit)
                 player.isDisabled = true
-                player.cooldown = 10
+                player.standCooldown = 10
                 player.playerSelectMode = 0
             end
         end
