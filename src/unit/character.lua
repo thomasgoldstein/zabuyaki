@@ -1171,7 +1171,6 @@ function Character:comboStart()
         print(" comboN <- 1 Timeout", self.name..self.id, "Attacks#"..self.attacksPerAnimation, "cooldownCombo:"..self.cooldownCombo)
     end
     self.connectHit = false
-    self.cooldownCombo = self.cooldownComboMax -- reset max delay to connect combo hits
     self.cooldown = 0.2
     self.attacksPerAnimation = 0
 
@@ -1210,6 +1209,7 @@ function Character:comboUpdate(dt)
         end
     end
     if self.sprite.isFinished then
+        self.cooldownCombo = self.cooldownComboMax -- reset max delay to connect combo hits
         self:setState(self.stand)
         return
     end
