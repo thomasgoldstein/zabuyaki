@@ -1155,18 +1155,20 @@ function Character:comboStart()
     self.horizontal = self.face
 --    self.connectHit = false
     self:removeTweenMove()
-
-    if self.attacksPerAnimation > 0 and self.cooldownCombo > 0 then
-        if self.comboN < self.sprite.def.max_combo then
+    if self.cooldownCombo >= 0 then
+        if self.attacksPerAnimation > 0 then
             self.comboN = self.comboN + 1
-            print(" comboN +1", self.name..self.id, "Attacks#"..self.attacksPerAnimation)
+            print(" comboN +1", self.name..self.id, "Attacks#"..self.attacksPerAnimation, "cooldownCombo:"..self.cooldownCombo)
+            if self.comboN > self.sprite.def.max_combo then
+                self.comboN = 1
+            end
         else
             self.comboN = 1
-            print(" comboN <=== 1", self.name..self.id, "Attacks#"..self.attacksPerAnimation)
+            print(" comboN <- 1 Unconnected", self.name..self.id, "Attacks#"..self.attacksPerAnimation, "cooldownCombo:"..self.cooldownCombo)
         end
     else
         self.comboN = 1
-        print(" comboN <- 1 Timeout or Unconnected", self.name..self.id, "Attacks#"..self.attacksPerAnimation)
+        print(" comboN <- 1 Timeout", self.name..self.id, "Attacks#"..self.attacksPerAnimation, "cooldownCombo:"..self.cooldownCombo)
     end
     self.connectHit = false
     self.cooldownCombo = self.cooldownComboMax -- reset max delay to connect combo hits
