@@ -47,7 +47,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = f.sfxDead --on death sfx
 	self.isHittable = false
 	self.isGrabbed = false
-	self.hold = {source = nil, target = nil, cooldownGrab = 0 }
+	self.hold = {source = nil, target = nil, grabCooldown = 0 }
     self.victims = {} -- [victim] = true
     self.isThrown = false
     self.shader = f.shader  --it is set on spawn (alter unit's colors)
