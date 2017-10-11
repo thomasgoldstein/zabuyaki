@@ -1265,7 +1265,7 @@ function Character:doGrab(target, inAir)
     -- the grabber
     g.source = nil
     g.target = target
-    g.grabCooldown = self.grabCooldownMax + 0.1
+    g.grabCooldown = self.grabCooldownMax
     g.canGrabSwap = true   --can do 1 grabSwap
 
     self:setState(self.grab)
@@ -1342,9 +1342,7 @@ function Character:grabUpdate(dt)
             self.grabRelease = 0
         end
         --auto release after time
-        if g.grabCooldown > 0 and g.target.isGrabbed then
-            g.grabCooldown = g.grabCooldown - dt
-        else
+        if g.grabCooldown <= 0 or not g.target.isGrabbed then
             if g.target.x > self.x then --adjust players backoff
                 self.horizontal = -1
             else
@@ -1464,26 +1462,24 @@ function Character:grabbedFrontUpdate(dt)
         self.canAttack = true
     end
     local g = self.hold
-    if self.isGrabbed and g.grabCooldown > 0 then
-        g.grabCooldown = g.grabCooldown - dt
-        if self.moves.defensiveSpecial
-            and self.canAttack and self.b.attack:isDown()
-            and self.canJump and self.b.jump:isDown()
-        then
-            self:setState(self.defensiveSpecial)
-            return
-        end
-    else
+    if not self.isGrabbed or g.grabCooldown <= 0 then
         if g.source.x < self.x then
             self.horizontal = 1
         else
             self.horizontal = -1
         end
         self.isGrabbed = false
-        self.standCooldown = 0.1	--cannot walk etc
+        self.standCooldown = 0.1 --cannot walk etc
         self.vel_x = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
+    else
+        if self.moves.defensiveSpecial
+                and self.canAttack and self.b.attack:isDown()
+                and self.canJump and self.b.jump:isDown() then
+            self:setState(self.defensiveSpecial)
+            return
+        end
     end
     --self:calcMovement(dt, true)
     if self.z > 0 and self.isHittable then -- don't slide down during the shove
@@ -1511,7 +1507,18 @@ function Character:grabbedBackUpdate(dt)
         self.canAttack = true
     end
     local g = self.hold
-    if self.isGrabbed and g.grabCooldown > 0 then
+    if not self.isGrabbed or g.grabCooldown <= 0 then
+        if g.source.x < self.x then
+            self.horizontal = 1
+        else
+            self.horizontal = -1
+        end
+        self.isGrabbed = false
+        self.standCooldown = 0.1 --cannot walk etc
+        self.vel_x = self.velocityBackoff2 --move from source
+        self:setState(self.stand)
+        return
+    else
         g.grabCooldown = g.grabCooldown - dt
         if self.moves.defensiveSpecial
                 and self.canAttack and self.b.attack:isDown()
@@ -1520,17 +1527,6 @@ function Character:grabbedBackUpdate(dt)
             self:setState(self.defensiveSpecial)
             return
         end
-    else
-        if g.source.x < self.x then
-            self.horizontal = 1
-        else
-            self.horizontal = -1
-        end
-        self.isGrabbed = false
-        self.standCooldown = 0.1	--cannot walk etc
-        self.vel_x = self.velocityBackoff2 --move from source
-        self:setState(self.stand)
-        return
     end
     --self:calcMovement(dt, true)
     if self.z > 0 and self.isHittable then -- don't slide down during the shove
@@ -1552,7 +1548,7 @@ function Character:grabAttackStart()
         self:setState(self.shoveDown)
         return
     else
-        g.grabCooldown = self.grabCooldownMax + 0.1
+        g.grabCooldown = self.grabCooldownMax
         g.target.hold.grabCooldown = self.grabCooldownMax
     end
     self.grabAttackN = self.grabAttackN + 1
