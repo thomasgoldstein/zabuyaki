@@ -195,7 +195,6 @@ function Character:onHurtDamage()
     end
     self:playHitSfx(h.damage)
     if not GLOBAL_SETTING.CONTINUE_INTERRUPTED_COMBO then
-        print(" comboN <## 1", self.name, self.id)
         self.comboN = 1	--if u get hit reset combo chain
     end
     if h.source.vel_x == 0 then
@@ -1158,33 +1157,26 @@ function Character:comboStart()
     if self.comboCooldown >= 0 then
         if self.attacksPerAnimation > 0 then
             self.comboN = self.comboN + 1
-            print(" comboN +1", self.name..self.id, "Attacks#"..self.attacksPerAnimation, "comboCooldown:"..self.comboCooldown)
             if self.comboN > self.sprite.def.max_combo then
                 self.comboN = 1
             end
         else
             self.comboN = 1
-            print(" comboN <- 1 Unconnected", self.name..self.id, "Attacks#"..self.attacksPerAnimation, "comboCooldown:"..self.comboCooldown)
         end
     else
         self.comboN = 1
-        print(" comboN <- 1 Timeout", self.name..self.id, "Attacks#"..self.attacksPerAnimation, "comboCooldown:"..self.comboCooldown)
     end
     self.connectHit = false
     self.standCooldown = 0.2
     self.attacksPerAnimation = 0
 
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.comboN.."Forward") then
-        print("COMBO Forward N", self.comboN, self.name, self.id)
         return
     elseif self.b.vertical:getValue() == -1 and self:setSpriteIfExists("combo"..self.comboN.."Up") then
-        print("COMBO Up N", self.comboN, self.name, self.id)
         return
     elseif self.b.vertical:getValue() == 1 and self:setSpriteIfExists("combo"..self.comboN.."Down") then
-        print("COMBO Down N", self.comboN, self.name, self.id)
         return
     end
-    print("COMBO ... N", self.comboN, self.name..self.id)
     self:setSprite("combo"..self.comboN)
 end
 function Character:comboUpdate(dt)
