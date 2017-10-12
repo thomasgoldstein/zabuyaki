@@ -122,6 +122,10 @@ function Character:updateAI(dt)
     end
     self.time = self.time + dt
     self.comboCooldown = self.comboCooldown - dt
+    local g = self.hold
+    if g then
+        g.grabCooldown = g.grabCooldown - dt
+    end
     self:updateShake(dt)
     Unit.updateAI(self, dt)
 end
@@ -1237,7 +1241,7 @@ end
 function Character:doGrab(target, inAir)
     dp(target.name .. " is grabed by me - "..self.name)
     local g = self.hold
-    local gTarget = target.hold
+    local gTargetHold = target.hold
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
@@ -1257,9 +1261,9 @@ function Character:doGrab(target, inAir)
     end
     --the grabbed
     target:releaseGrabbed()	-- your grab targed releases one it grabs
-    gTarget.source = self
-    gTarget.target = nil
-    gTarget.grabCooldown = self.grabCooldownMax
+    gTargetHold.source = self
+    gTargetHold.target = nil
+    gTargetHold.grabCooldown = self.grabCooldownMax
     target.isGrabbed = true
     sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
     -- the grabber
@@ -1428,7 +1432,7 @@ function Character:releaseGrabbed()
     local g = self.hold
     if g and g.target and g.target.isGrabbed then
         g.target.isGrabbed = false
-        g.target.grabCooldown = 0.1
+        g.target.hold.grabCooldown = 0
         g.target:removeTweenMove()
         --self:removeTweenMove()
         --self.hold = {source = nil, target = nil, grabCooldown = 0 }	--release a grabbed person
@@ -1519,7 +1523,6 @@ function Character:grabbedBackUpdate(dt)
         self:setState(self.stand)
         return
     else
-        g.grabCooldown = g.grabCooldown - dt
         if self.moves.defensiveSpecial
                 and self.canAttack and self.b.attack:isDown()
                 and self.canJump and self.b.jump:isDown()
@@ -1713,7 +1716,8 @@ function Character:grabSwapStart()
     self.isHittable = false
     self:setSprite("grabSwap")
     local g = self.hold
-    g.grabCooldown = g.grabCooldown + 0.2
+    g.grabCooldown = g.grabCooldown + 0.2 -- prolong both cooldowns
+    g.target.hold.grabCooldown = g.grabCooldown
     g.canGrabSwap = false
     self.grabSwap_flipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 18
