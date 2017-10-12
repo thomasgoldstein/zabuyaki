@@ -1430,11 +1430,10 @@ Character.grab = {name = "grab", start = Character.grabStart, exit = nop, update
 
 function Character:releaseGrabbed()
     local g = self.hold
-    if g and g.target and g.target.isGrabbed then
+    if g and g.target and g.target.isGrabbed and g.target.hold.source == self then
         g.target.isGrabbed = false
         g.target.hold.grabCooldown = 0
         g.target:removeTweenMove()
-        --self:removeTweenMove()
         --self.hold = {source = nil, target = nil, grabCooldown = 0 }	--release a grabbed person
         return true
     end
