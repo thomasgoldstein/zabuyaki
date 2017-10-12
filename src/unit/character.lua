@@ -1550,10 +1550,9 @@ function Character:grabAttackStart()
         g.grabCooldown = 0
         self:setState(self.shoveDown)
         return
-    else
-        g.grabCooldown = self.grabCooldownMax
-        g.target.hold.grabCooldown = self.grabCooldownMax
     end
+    g.grabCooldown = self.grabCooldownMax -- init both cooldowns
+    g.target.hold.grabCooldown = g.grabCooldown
     self.grabAttackN = self.grabAttackN + 1
     self:setSprite("grabAttack"..self.grabAttackN)
     dp(self.name.." is grabAttack someone.")
@@ -1561,9 +1560,11 @@ end
 function Character:grabAttackUpdate(dt)
     if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
         if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
+            self:releaseGrabbed()
             self:setState(self.offensiveSpecial)
             return
         elseif self.moves.defensiveSpecial then
+            self:releaseGrabbed()
             self:setState(self.defensiveSpecial)
             return
         end
@@ -1572,6 +1573,8 @@ function Character:grabAttackUpdate(dt)
         local g = self.hold
         if self.grabAttackN < self.sprite.def.maxGrabAttack
             and g and g.target and g.target.hp > 0 then
+            g.grabCooldown = self.grabCooldownMax -- init both cooldowns
+            g.target.hold.grabCooldown = g.grabCooldown
             self:setState(self.grab, true) --do not adjust positions of pl
         else
             --it is the last grabAttack or killed the target
