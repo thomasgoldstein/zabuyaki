@@ -35,7 +35,6 @@ GLOBAL_SETTING = {
     PLAYERS_COLORS = {{204, 38, 26}, {24, 137, 20}, {23, 84, 216} }, -- Don't add the transparency
     SHADOW_OPACITY = 100, -- 0..255 (color)
     AUTO_COMBO = false,
-    CONTINUE_INTERRUPTED_COMBO = true,
     DIFFICULTY = 1, -- 1 = Normal, 2 = Hard
     MAX_CREDITS = 3,
     MAX_LIVES = 3,
