@@ -457,15 +457,7 @@ function Character:standUpdate(dt)
             end
         end
     end
-
-    if (self.moves.jump and self.canJump and self.b.jump:isDown())
-        or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
-            and (self.canJump or self.canAttack) and
-            (self.b.jump:isDown() and self.b.attack:isDown()))
-    then
-        self:setState(self.duck2jump)
-        return
-    elseif self.canAttack and self.b.attack:pressed() then
+    if self.canAttack and self.b.attack:pressed() then
         if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
             return
@@ -473,9 +465,16 @@ function Character:standUpdate(dt)
         self:setState(self.combo)
         return
     end
-    
     if self:canMove() then
         --can move
+        if (self.moves.jump and self.canJump and self.b.jump:isDown())
+                or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
+                and (self.canJump or self.canAttack) and
+                (self.b.jump:isDown() and self.b.attack:isDown()))
+        then
+            self:setState(self.duck2jump)
+            return
+        end
         if self.b.horizontal:getValue() ~=0 then
             if self.moves.run and self:getPrevStateTime() < doubleTapDelta and self.lastFace == self.b.horizontal:getValue()
                     and (self.lastState == "walk" or self.lastState == "run" )
@@ -742,7 +741,7 @@ function Character:duckStart()
 end
 function Character:duckUpdate(dt)
     if self.sprite.isFinished then
-        if self.b.horizontal:getValue() ~= 0 then
+        if self.b.horizontal:getValue() ~= 0 and self:canMove() then
             self:setState(self.walk)
         else
             self.vel_x = 0
