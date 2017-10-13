@@ -214,7 +214,7 @@ function Player:useCreditStart()
         self:setState(self.respawn)
         return
     end
-    self.standCooldown = 10
+    self.displayCooldown = 10
     -- Player select
     self.playerSelectMode = 0
     self.playerSelectCur = players_list[self.name] or 1
@@ -229,8 +229,8 @@ function Player:useCreditUpdate(dt)
 
     if self.playerSelectMode == 0 then
         -- 10 seconds to choose
-        self.standCooldown = self.standCooldown - dt
-        if credits <= 0 or self.standCooldown <= 0 then
+        self.displayCooldown = self.displayCooldown - dt
+        if credits <= 0 or self.displayCooldown <= 0 then
             -- n credits -> game over
             self.playerSelectMode = 5
             unregisterPlayer(self)
@@ -243,17 +243,17 @@ function Player:useCreditUpdate(dt)
             credits = credits - 1
             self:addScore(1) -- like CAPCM
             sfx.play("sfx","menuSelect")
-            self.standCooldown = 1 -- delay before respawn
+            self.displayCooldown = 1 -- delay before respawn
             self.playerSelectMode = 1
         end
     elseif self.playerSelectMode == 1 then
         -- wait 1 sec before player select
-        if self.standCooldown > 0 then
+        if self.displayCooldown > 0 then
             -- wait before respawn / char select
-            self.standCooldown = self.standCooldown - dt
-            if self.standCooldown <= 0 then
+            self.displayCooldown = self.displayCooldown - dt
+            if self.displayCooldown <= 0 then
                 self.canAttack = false
-                self.standCooldown = 10
+                self.displayCooldown = 10
                 self.playerSelectMode = 2
             end
         end
@@ -261,9 +261,9 @@ function Player:useCreditUpdate(dt)
         -- Select Player
         -- 10 sec countdown before auto confirm
         if (self.b.attack:isDown() and self.canAttack)
-                or self.standCooldown <= 0
+                or self.displayCooldown <= 0
         then
-            self.standCooldown = 0
+            self.displayCooldown = 0
             self.playerSelectMode = 4
             sfx.play("sfx","menuSelect")
             local player = HEROES[self.playerSelectCur].hero:new(self.name,
@@ -283,7 +283,7 @@ function Player:useCreditUpdate(dt)
             SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player, deletePlayer = self}
             return
         else
-            self.standCooldown = self.standCooldown - dt
+            self.displayCooldown = self.displayCooldown - dt
         end
         ---
         if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1)
