@@ -1200,7 +1200,7 @@ function Character:comboUpdate(dt)
             return
         end
     end
-    if self.moves.dashAttack and (self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast()) then
+    if self.moves.dashAttack and self:canMove() and (self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast()) then
         --dashAttack from combo
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.dashAttack)
