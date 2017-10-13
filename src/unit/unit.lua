@@ -239,6 +239,13 @@ function Unit:calcFreeFall(dt, speed)
     self.vel_z = self.vel_z - self.gravity * dt * (speed or self.velocityJumpSpeed)
 end
 
+function Unit:canMove()
+	if self.isMovable then
+		return true
+	end
+	return false
+end
+
 function Unit:calcFriction(dt, friction)
 	local frctn = friction or self.friction
 	if self.vel_x > 0 then
