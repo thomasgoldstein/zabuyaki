@@ -800,6 +800,7 @@ function Character:hurtStart()
     self.isHittable = true
 end
 function Character:hurtUpdate(dt)
+    self.comboCooldown = self.comboCooldown + dt -- freeze comboCooldown
     if not self.b.jump:isDown() then
         self.canJump = true
     end
