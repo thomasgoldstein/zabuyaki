@@ -60,7 +60,7 @@ function Sveta:dashAttackStart()
 end
 function Sveta:dashAttackUpdate(dt)
     self.standCooldown = self.standCooldown - dt
-    if self.sprite.curAnim == "duck" and self.standCooldown <= 0 then
+    if self.sprite.curAnim == "duck" and self:canMove() then
         self.isHittable = false
         self:setSprite("dashAttack")
         self.vel_x = self.velocityDash

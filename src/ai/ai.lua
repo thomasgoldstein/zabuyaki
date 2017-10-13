@@ -149,7 +149,7 @@ function AI:getVisualConditions(conditions)
     if not canAct[u.state] then
         conditions[#conditions + 1] = "cannotAct"
         --conditions[#conditions + 1] = "@"..u.state
-    elseif u.standCooldown <= 0 then
+    elseif u:canMove() then
         conditions[#conditions + 1] = "canMove"
     end
     if canAct[u.state] then

@@ -130,6 +130,13 @@ function Character:updateAI(dt)
     Unit.updateAI(self, dt)
 end
 
+function Character:canMove()
+    if self.standCooldown <= 0 then
+        return true
+    end
+    return false
+end
+
 function Character:isImmune()   --Immune to the attack?
     local h = self.isHurt
     if h.type == "shockWave" and ( self.isDisabled or self.sprite.curAnim == "fallen" ) then
@@ -434,7 +441,7 @@ function Character:standUpdate(dt)
     end
     self.delayAnimationCooldown = self.delayAnimationCooldown - dt
     if self.delayAnimationCooldown <= 0 then
-        if SpriteHasAnimation(self.sprite, "standHold") and self.standCooldown <= 0 then
+        if SpriteHasAnimation(self.sprite, "standHold") and self:canMove() then
             if self.b.attack:isDown() then
                 if self.sprite.curAnim ~= "standHold" then
                     self:setSpriteIfExists("standHold")
@@ -467,7 +474,7 @@ function Character:standUpdate(dt)
         return
     end
     
-    if self.standCooldown <= 0 then
+    if self:canMove() then
         --can move
         if self.b.horizontal:getValue() ~=0 then
             if self.moves.run and self:getPrevStateTime() < doubleTapDelta and self.lastFace == self.b.horizontal:getValue()
