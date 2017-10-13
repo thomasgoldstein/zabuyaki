@@ -1192,7 +1192,7 @@ function Character:comboUpdate(dt)
         self.attacksPerAnimation = self.attacksPerAnimation + 1
     end
     if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
-        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
+        if self.moves.offensiveSpecial and self:canMove() and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
             return
         elseif self.moves.defensiveSpecial then
