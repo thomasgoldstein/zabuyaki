@@ -464,16 +464,16 @@ function Character:standUpdate(dt)
         self:setState(self.combo)
         return
     end
+    if (self.moves.jump and self.canJump and self.b.jump:isDown())
+            or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
+            and (self.canJump or self.canAttack) and
+            (self.b.jump:isDown() and self.b.attack:isDown()))
+    then
+        self:setState(self.duck2jump)
+        return
+    end
     if self:canMove() then
         --can move
-        if (self.moves.jump and self.canJump and self.b.jump:isDown())
-                or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
-                and (self.canJump or self.canAttack) and
-                (self.b.jump:isDown() and self.b.attack:isDown()))
-        then
-            self:setState(self.duck2jump)
-            return
-        end
         if self.b.horizontal:getValue() ~=0 then
             if self.moves.run and self:getPrevStateTime() < doubleTapDelta and self.lastFace == self.b.horizontal:getValue()
                     and (self.lastState == "walk" or self.lastState == "run" )
@@ -1186,7 +1186,7 @@ function Character:comboUpdate(dt)
         self.attacksPerAnimation = self.attacksPerAnimation + 1
     end
     if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
-        if self.moves.offensiveSpecial and self:canMove() and self.b.horizontal:getValue() == self.horizontal then
+        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.offensiveSpecial)
             return
         elseif self.moves.defensiveSpecial then
@@ -1194,7 +1194,7 @@ function Character:comboUpdate(dt)
             return
         end
     end
-    if self.moves.dashAttack and self:canMove() and (self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast()) then
+    if self.moves.dashAttack and (self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast()) then
         --dashAttack from combo
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.dashAttack)
