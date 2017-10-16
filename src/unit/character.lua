@@ -25,10 +25,10 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.chargedAt = 1    -- define # seconds when holdAttack is ready
     self.charge = 0    -- seconds of changing
     self.comboN = 1    -- n of the combo hit
-    self.comboCooldownMax = 0.2 -- max delay to connect combo hits
+    self.comboCooldownDelay = 0.2 -- max delay to connect combo hits
     self.comboCooldown = 0    -- can continue combo if > 0
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
-    self.grabCooldownMax = 2 -- max delay to connect hits on a grabbed unit
+    self.grabCooldownDelay = 2 -- max delay to connect hits on a grabbed unit
     self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
     self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
@@ -1202,7 +1202,7 @@ function Character:comboUpdate(dt)
         end
     end
     if self.sprite.isFinished then
-        self.comboCooldown = self.comboCooldownMax -- reset max delay to connect combo hits
+        self.comboCooldown = self.comboCooldownDelay -- reset max delay to connect combo hits
         self:setState(self.stand)
         return
     end
@@ -1259,13 +1259,13 @@ function Character:doGrab(target, inAir)
     target:releaseGrabbed()	-- your grab targed releases one it grabs
     gTargetHold.source = self
     gTargetHold.target = nil
-    gTargetHold.grabCooldown = self.grabCooldownMax
+    gTargetHold.grabCooldown = self.grabCooldownDelay
     target.isGrabbed = true
     sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
     -- the grabber
     g.source = nil
     g.target = target
-    g.grabCooldown = self.grabCooldownMax
+    g.grabCooldown = self.grabCooldownDelay
     g.canGrabSwap = true   --can do 1 grabSwap
 
     self:setState(self.grab)
@@ -1542,7 +1542,7 @@ function Character:grabAttackStart()
         self:setState(self.shoveDown)
         return
     end
-    g.grabCooldown = self.grabCooldownMax -- init both cooldowns
+    g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
     g.target.hold.grabCooldown = g.grabCooldown
     self.grabAttackN = self.grabAttackN + 1
     self:setSprite("grabAttack"..self.grabAttackN)
@@ -1564,7 +1564,7 @@ function Character:grabAttackUpdate(dt)
         local g = self.hold
         if self.grabAttackN < self.sprite.def.maxGrabAttack
             and g and g.target and g.target.hp > 0 then
-            g.grabCooldown = self.grabCooldownMax -- init both cooldowns
+            g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
             g.target.hold.grabCooldown = g.grabCooldown
             self:setState(self.grab, true) --do not adjust positions of pl
         else

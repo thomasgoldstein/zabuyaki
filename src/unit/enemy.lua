@@ -11,7 +11,7 @@ local CheckCollision = CheckCollision
 function Enemy:initialize(name, sprite, input, x, y, f)
     Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "enemy"
-    self.comboCooldownMax = 2 -- max delay to connect combo hits
+    self.comboCooldownDelay = 2 -- max delay to connect combo hits
     self.maxAiPoll_1 = 0.5
     self.AiPoll_1 = self.maxAiPoll_1
     self.maxAiPoll_2 = 5
