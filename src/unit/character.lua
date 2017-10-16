@@ -25,7 +25,6 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.chargedAt = 1    -- define # seconds when holdAttack is ready
     self.charge = 0    -- seconds of changing
     self.comboN = 1    -- n of the combo hit
-    self.standCooldown = 0  -- can't move
     self.comboCooldownMax = 0.4 -- max delay to connect combo hits
     self.comboCooldown = 0    -- can continue combo if > 0
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
@@ -131,7 +130,7 @@ function Character:updateAI(dt)
 end
 
 function Character:canMove()
-    if self.standCooldown <= 0 then
+    if self.comboCooldown < 0 then
         return true
     end
     return false
@@ -502,7 +501,6 @@ function Character:standUpdate(dt)
             return
         end
     else
-        self.standCooldown = self.standCooldown - dt    --when <=0 u can move
         --you can flip while you cannot move
         if self.b.horizontal:getValue() ~= 0 then
             self.face = self.b.horizontal:getValue()
@@ -567,11 +565,9 @@ function Character:walkUpdate(dt)
                 grabbed.horizontal = -self.horizontal
                 self:showHitMarks(22, 25, 5) --big hitmark
                 self.vel_x = self.velocityBackoff --move from source
-                self.standCooldown = 0.0
                 self:setSprite("hurtHigh")
                 self:setState(self.slide)
                 grabbed.vel_x = grabbed.velocityBackoff --move from source
-                grabbed.standCooldown = 0.0
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
                 sfx.play("sfx"..self.id, self.sfx.grabClash)
@@ -824,7 +820,6 @@ function Character:hurtUpdate(dt)
             self:setState(self.getup)
             return
         end
-        self.standCooldown = 0.1
         if self.condition and self.moves.defensiveSpecial then
             self:setState(self.defensiveSpecial)
         elseif self.isGrabbed then
@@ -1174,7 +1169,6 @@ function Character:comboStart()
         self.comboN = 1
     end
     self.connectHit = false
-    self.standCooldown = 0.2
     self.attacksPerAnimation = 0
 
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.comboN.."Forward") then
@@ -1256,7 +1250,6 @@ function Character:doGrab(target, inAir)
         return false
     end
     if target.isGrabbed then
-        self.standCooldown = 0.2
         return false
     end
     if not target.isHittable then
@@ -1356,7 +1349,6 @@ function Character:grabUpdate(dt)
                 self.horizontal = 1
             end
             self.vel_x = self.velocityBackoff --move from source
-            self.standCooldown = 0.0
             self:releaseGrabbed()
             self:setState(self.stand)
             return
@@ -1408,7 +1400,6 @@ function Character:grabUpdate(dt)
         end
     else
         -- release (when not grabbing anything)
-        self.standCooldown = 0.0
         self:releaseGrabbed()
         self:setState(self.stand)
     end
@@ -1475,7 +1466,6 @@ function Character:grabbedFrontUpdate(dt)
             self.horizontal = -1
         end
         self.isGrabbed = false
-        self.standCooldown = 0.1 --cannot walk etc
         self.vel_x = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
@@ -1520,7 +1510,6 @@ function Character:grabbedBackUpdate(dt)
             self.horizontal = -1
         end
         self.isGrabbed = false
-        self.standCooldown = 0.1 --cannot walk etc
         self.vel_x = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
@@ -1645,7 +1634,6 @@ end
 
 function Character:shoveUpUpdate(dt)
     if self.sprite.isFinished then
-        self.standCooldown = 0.2
         self:setState(self.stand)
         return
     end
@@ -1672,7 +1660,6 @@ end
 function Character:shoveForwardUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
-        self.standCooldown = 0.2
         self:setState(self.stand)
         return
     end
@@ -1701,7 +1688,6 @@ end
 function Character:shoveBackUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
-        self.standCooldown = 0.2
         self:setState(self.stand)
         return
     end
@@ -1760,7 +1746,6 @@ function Character:grabSwapUpdate(dt)
     self.shape:moveTo(self.x, self.y)
     if self:isStuck() then
         self:releaseGrabbed()
-        self.standCooldown = 0.1	--cannot walk etc
         --self.vel_x = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
@@ -1793,7 +1778,6 @@ function Character:holdAttackStart()
     else
         self:setSprite("holdAttack")
     end
-    self.standCooldown = 0.2
 end
 function Character:holdAttackUpdate(dt)
     if self.sprite.isFinished then
@@ -1853,11 +1837,9 @@ function Character:dashHoldUpdate(dt)
             self:showHitMarks(22, 25, 5) --big hitmark
             self.vel_x = self.velocityBackoff --move from source
             self.vel_z = self.velocityDashHold_z
-            self.standCooldown = 0.0
             self:setState(self.fall)
             grabbed.vel_x = grabbed.velocityBackoff --move from source
             grabbed.vel_z = self.velocityDashHold_z
-            grabbed.standCooldown = 0.0
             grabbed:setState(grabbed.fall)
             sfx.play("sfx"..self.id, self.sfx.grabClash)
             return
@@ -1876,7 +1858,6 @@ function Character:defensiveSpecialStart()
     self.isHittable = false
     self:setSprite("defensiveSpecial")
     sfx.play("voice"..self.id, self.sfx.dashAttack)
-    self.standCooldown = 0.2
 end
 function Character:defensiveSpecialUpdate(dt)
     if self.z > 0 then

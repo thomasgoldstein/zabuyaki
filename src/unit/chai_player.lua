@@ -98,7 +98,6 @@ end
 function Chai:shoveForwardUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
-        self.standCooldown = 0.2
         self:setState(self.stand)
         return
     end
@@ -118,7 +117,6 @@ end
 function Chai:shoveBackUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
-        self.standCooldown = 0.2
         self:setState(self.stand)
         return
     end
@@ -132,7 +130,6 @@ function Chai:defensiveSpecialStart()
     self.jumpType = 0
     self:setSprite("defensiveSpecial")
     sfx.play("voice"..self.id, self.sfx.dashAttack)
-    self.standCooldown = 0.2
 end
 function Chai:defensiveSpecialUpdate(dt)
     if self.jumpType == 1 then

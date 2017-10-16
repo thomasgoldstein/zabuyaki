@@ -55,7 +55,6 @@ function Beatnick:updateAI(dt)
     end
     Enemy.updateAI(self, dt)
     self.AI:update(dt)
-    self.standCooldown = self.standCooldown - dt --when <=0 u can move
 end
 
 return Beatnick

@@ -572,11 +572,9 @@ function AI:initGrab()
                 grabbed.horizontal = -u.horizontal
                 u:showHitMarks(22, 25, 5) --big hitmark
                 u.vel_x = self.velocityBackoff --move from source
-                u.standCooldown = 0.0
                 u:setSprite("hurtHigh")
                 u:setState(u.slide)
                 grabbed.vel_x = grabbed.velocityBackoff --move from source
-                grabbed.standCooldown = 0.0
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
                 sfx.play("sfx" .. u.id, u.sfx.grabClash)

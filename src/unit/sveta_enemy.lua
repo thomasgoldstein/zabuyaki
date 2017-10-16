@@ -51,7 +51,6 @@ function Sveta:dashAttackStart()
     self.isHittable = true
     self:removeTweenMove()
     dpo(self, self.state)
-    self.standCooldown = 0.2
     self:setSprite("duck")
     self.vel_y = 0
     self.vel_x = 0
@@ -59,7 +58,6 @@ function Sveta:dashAttackStart()
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Sveta:dashAttackUpdate(dt)
-    self.standCooldown = self.standCooldown - dt
     if self.sprite.curAnim == "duck" and self:canMove() then
         self.isHittable = false
         self:setSprite("dashAttack")
