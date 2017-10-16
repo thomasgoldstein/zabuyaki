@@ -369,9 +369,9 @@ return {
 			delay = 0.025
 		},
 		combo3Up = {
-			{ q = q(2,913,37,64), ox = 17, oy = 63 }, --combo up 3.1
-			{ q = q(41,914,58,63), ox = 17, func = comboAttack3Up1, oy = 62, delay = 0.06 }, --combo up 3.2
-			{ q = q(101,915,53,62), ox = 21, func = comboAttack3Up2, oy = 61 }, --combo up 3.3
+			{ q = q(2,913,36,64), ox = 19, oy = 63 }, --combo up 3.1
+			{ q = q(40,914,58,63), ox = 17, func = comboAttack3Up1, oy = 62, delay = 0.06 }, --combo up 3.2
+			{ q = q(100,915,53,62), ox = 21, func = comboAttack3Up2, oy = 61 }, --combo up 3.3
 			delay = 0.1
 		},
 		combo3Forward = {
