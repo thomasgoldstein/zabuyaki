@@ -345,9 +345,9 @@ return {
 			{ q = q(2,2087,46,62), ox = 31, oy = 61 }, --offensive special 1
 			{ q = q(50,2092,39,57), ox = 26, oy = 56 }, --offensive special 2
 			{ q = q(91,2091,45,57), ox = 29, oy = 57 }, --offensive special 3
-			{ q = q(138,2094,49,54), ox = 22, oy = 54, func = dashAttackSpeedUp, funcCont = jumpAttackRun, delay = 0.08 }, --offensive special 4a
+			{ q = q(138,2094,49,54), ox = 22, oy = 54, funcCont = jumpAttackRun, func = dashAttackSpeedUp, delay = 0.08 }, --offensive special 4a
 			{ q = q(2,2156,49,54), ox = 22, oy = 54, funcCont = jumpAttackRun, delay = 0.08 }, --offensive special 4b
-			{ q = q(53,2156,49,54), ox = 22, oy = 54, func = dashAttackResetSpeed, funcCont = jumpAttackRun, delay = 0.08 }, --offensive special 4c
+			{ q = q(53,2156,49,54), ox = 22, oy = 54, funcCont = jumpAttackRun, func = dashAttackResetSpeed, delay = 0.08 }, --offensive special 4c
 			{ q = q(104,2154,44,56), ox = 16, oy = 56 }, --offensive special 5
 			{ q = q(150,2151,42,60), ox = 17, oy = 59 }, --offensive special 6
 			delay = 0.06
@@ -378,7 +378,7 @@ return {
 		combo3Forward = {
 			{ q = q(135,714,51,62), ox = 31, oy = 62, delay = 0.05 }, --combo 4.6
 			{ q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.05 }, --dash hold attack 1
-			{ q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = comboAttack3Forward, func = comboAttackSfx, delay = 0.12 }, --dash hold attack 2
+			{ q = q(55,2021,72,59), ox = 25, oy = 63, func = comboAttackSfx, funcCont = comboAttack3Forward, delay = 0.12 }, --dash hold attack 2
 			{ q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
 			{ q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
 			{ q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
@@ -404,7 +404,7 @@ return {
 		combo4Forward = {
 			{ q = q(46,266,49,62), ox = 34, oy = 61 }, --combo forward 4.1
 			{ q = q(97,266,51,62), ox = 23, oy = 61 }, --combo forward 4.2
-			{ q = q(150,265,65,62), ox = 10, oy = 62, funcCont = comboAttack4Forward, func = comboAttackSfx, delay = 0.15 }, --combo forward 4.3
+			{ q = q(150,265,65,62), ox = 10, oy = 62, func = comboAttackSfx, funcCont = comboAttack4Forward, delay = 0.15 }, --combo forward 4.3
 			{ q = q(182,196,47,64), ox = 15, oy = 63, delay = 0.12 }, --combo forward 4.4
 			delay = 0.06
 		},
