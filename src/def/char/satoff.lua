@@ -7,14 +7,14 @@ end
 
 local comboUppercut1 = function(slf, cont)
     slf:checkAndAttack(
-	{ x = 14, y = 30, width = 30, damage = 12, velocity = slf.velocityDashFall, sfx = "whooshHeavy" },
-	cont
+    { x = 14, y = 30, width = 30, damage = 12, velocity = slf.velocityDashFall, sfx = "whooshHeavy" },
+    cont
 ) end
 
 local comboUppercut2 = function(slf, cont)
     slf:checkAndAttack(
-	{ x = 20, y = 60, width = 30, height = 45, damage = 16, type = "knockDown", velocity = slf.velocityDashFall },
-	cont
+    { x = 20, y = 60, width = 30, height = 45, damage = 16, type = "knockDown", velocity = slf.velocityDashFall },
+    cont
 ) end
 
 local jumpAttack = function(slf, cont)
@@ -32,18 +32,18 @@ local rollAttack = function(slf, cont)
 end
 
 local grabAttack = function(slf, cont)
-	slf:checkAndAttack(
+    slf:checkAndAttack(
         { x = 19, y = 37, width = 26, damage = 12 },
-		cont
-	)
+        cont
+    )
 end
 
 local grabAttackLast = function(slf, cont)
-	slf:checkAndAttack(
+    slf:checkAndAttack(
         { x = 19, y = 37, width = 26, damage = 18,
         type = "knockDown", velocity = slf.velocityThrow_x },
-		cont
-	)
+        cont
+    )
 end
 
 local shoveBack = function(slf, cont)
@@ -112,12 +112,12 @@ return {
             { q = q(2,421,55,70), ox = 35, oy = 69 }, --jump
             { q = q(59,417,60,74), ox = 34, oy = 73 }, --jump attack forward 1 (lowered)
             { q = q(121,424,58,58), ox = 31, oy = 59 }, --jump attack forward 2 (lowered)
-			{ q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack }, --run 1
-			{ q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack }, --run 2
-			{ q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack }, --run 3
-			{ q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack }, --run 4
+            { q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack }, --run 1
+            { q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack }, --run 2
+            { q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack }, --run 3
+            { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack }, --run 4
             loop = true,
-			loopFrom = 4,
+            loopFrom = 4,
             delay = 0.1
         },
         jump = {
@@ -142,9 +142,9 @@ return {
         },
         combo1 = {
             { q = q(2,350,64,65), ox = 33, oy = 64 }, --uppercut 1
-			{ q = q(69,350,51,65), ox = 23, oy = 64, func = comboUppercut1, delay = 0.06 }, --uppercut 2
-			{ q = q(121,343,60,72), ox = 25, oy = 71, func = comboUppercut2, delay = 0.33 }, --uppercut 3
-			{ q = q(183,350,51,65), ox = 23, oy = 64, delay = 0.13 }, --uppercut 2
+            { q = q(69,350,51,65), ox = 23, oy = 64, func = comboUppercut1, delay = 0.06 }, --uppercut 2
+            { q = q(121,343,60,72), ox = 25, oy = 71, func = comboUppercut2, delay = 0.33 }, --uppercut 3
+            { q = q(183,350,51,65), ox = 23, oy = 64, delay = 0.13 }, --uppercut 2
             delay = 0.16
         },
         batAttack = {

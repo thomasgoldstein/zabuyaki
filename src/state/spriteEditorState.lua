@@ -167,10 +167,10 @@ Attack/Enter :
         elseif menuState == 3 then
             love.graphics.print(
 [[Attack/Enter :
-     Set this weapon
-     animation to
-     the current
-     character's frame
+    Set this weapon
+    animation to
+    the current
+    character's frame
 
 <- -> / Mouse wheel :
     Select weapon

@@ -4,7 +4,7 @@ function love.conf(t)
     t.console = true                   -- Attach a console (boolean, Windows only)
     t.accelerometerjoystick = false      -- Enable the accelerometer on iOS and Android by exposing it as a Joystick (boolean)
     t.gammacorrect = false              -- Enable gamma-correct rendering, when supported by the system (boolean)
- 
+
     t.window.title = "Zabuyaki"        -- The window title (string)
     t.window.icon = nil                 -- Filepath to an image to use as the window's icon (string)
     t.window.width = 640                -- The window width (number)

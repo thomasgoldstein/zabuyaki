@@ -142,19 +142,19 @@ return {
             { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = 5 }, --jump attack 2
             delay = 0.06
         },
-		jumpAttackForwardEnd = {
+        jumpAttackForwardEnd = {
             { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
-			delay = 5
-		},
+            delay = 5
+        },
         jumpAttackStraight = {
             { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
             { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = 5 }, --jump attack 2
             delay = 0.06
         },
-		jumpAttackStraightEnd = {
+        jumpAttackStraightEnd = {
             { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
-			delay = 5
-		},
+            delay = 5
+        },
         sideStepUp = {
             { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
         },

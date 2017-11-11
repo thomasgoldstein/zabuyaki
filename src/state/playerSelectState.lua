@@ -262,8 +262,8 @@ function playerSelectState:enter()
     oldMousePos = 0
     mousePos = 0
     for i = 1,#players do
-      SetSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portraitAnim)
-      heroes[i].sprite_portrait.sizeScale = 2
+    SetSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portraitAnim)
+    heroes[i].sprite_portrait.sizeScale = 2
     end
     self.enablePlayerSelectOnStart = false
     -- Prevent double press at start (e.g. auto confirmation)

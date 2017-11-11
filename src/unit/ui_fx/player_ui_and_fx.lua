@@ -92,4 +92,3 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
     end
 end
 -- End of Lifebar elements
-

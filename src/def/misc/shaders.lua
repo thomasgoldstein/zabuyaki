@@ -113,9 +113,9 @@ local sh_screen = love.graphics.newShader [[
         {
             // red and green scale with proportion of screen coordinates
             vec4 screen_colour = vec4(screen.x / 512.0,
-                                      screen.y / 512.0,
-                                      0.0,
-                                      1.0);
+                                    screen.y / 512.0,
+                                    0.0,
+                                    1.0);
 
             return screen_colour;
         }
@@ -140,25 +140,25 @@ extern float time;
 vec3 hash3( vec2 p )
 {
     vec3 q = vec3( dot(p,vec2(127.1,311.7)),
-				   dot(p,vec2(269.5,183.3)),
-				   dot(p,vec2(419.2,371.9)) );
-	return fract(sin(q)*43758.5453);
+                    dot(p,vec2(269.5,183.3)),
+                    dot(p,vec2(419.2,371.9)) );
+    return fract(sin(q)*43758.5453);
 }
 
 vec4 effect(vec4 vcolor, Image texture, vec2 texture_coords, vec2 pixel_coords)
 {
   vec2 size = vec2(800.0, 600.0); // screen size
   vec2 scaledSize = size/10.0;
-	vec2 x = scaledSize * texture_coords;
+    vec2 x = scaledSize * texture_coords;
 
   float u = 0.375*sin(time/2); // amount of 'voronoiification'
   vec2 p = floor(x);
   vec2 f = fract(x);
 
-	float k = 64.0;
+    float k = 64.0;
 
   float va = 0.0;
-	float wt = 0.0;
+    float wt = 0.0;
     for( int j=-2; j<=2; j++ )
         for( int i=-2; i<=2; i++ )
         {
@@ -176,7 +176,7 @@ vec4 effect(vec4 vcolor, Image texture, vec2 texture_coords, vec2 pixel_coords)
   vec4 txl = Texel(texture, texture_coords);
 
 
-	return vec4( c, c, c, 1.0 );
+    return vec4( c, c, c, 1.0 );
 }
 ]]
 
@@ -206,8 +206,8 @@ local sh_shadow = love.graphics.newShader([[
             //}
             vec4 c = Texel(texture, texture_coords );
             if (c.a > 0)
-               //return vec4( 0.0, 0.0, 0.0, 1 - (texture_coords.y - y_offs)/10 );
-               return vec4( 0.0, 0.0, 0.0, 1.0 - screen_coords.y ) * color;
+                //return vec4( 0.0, 0.0, 0.0, 1 - (texture_coords.y - y_offs)/10 );
+                return vec4( 0.0, 0.0, 0.0, 1.0 - screen_coords.y ) * color;
             return c;
         }
     ]])

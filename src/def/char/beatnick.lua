@@ -87,28 +87,28 @@ return {
             { q = q(2,421,57,67), ox = 28, oy = 66, func = makeMeHittable }, --defensive special transition 1
             { q = q(61,421,49,67), ox = 22, oy = 66 }, --defensive special transition 2
             { q = q(112,420,60,68), ox = 22, oy = 67, delay = 0.1 }, --defensive special transition 3
-            
+
             { q = q(174,420,67,68), ox = 29, oy = 67, delay = 0.16 }, --defensive special 1
             { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.16 }, --defensive special 2
             { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
             { q = q(140,491,67,66), ox = 29, oy = 65 }, --defensive special 4
             { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
             { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.05 }, --defensive special 2
-            
+
             { q = q(174,420,67,68), ox = 29, oy = 67, delay = 0.16 }, --defensive special 1
             { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.16 }, --defensive special 2
             { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
             { q = q(140,491,67,66), ox = 29, oy = 65 }, --defensive special 4
             { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
             { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.05 }, --defensive special 2
-            
+
             { q = q(174,420,67,68), ox = 29, oy = 67, delay = 0.16 }, --defensive special 1
             { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.16 }, --defensive special 2
             { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
             { q = q(140,491,67,66), ox = 29, oy = 65 }, --defensive special 4
             { q = q(71,491,67,66), ox = 29, oy = 65 }, --defensive special 3
             { q = q(2,490,67,67), ox = 29, oy = 66, delay = 0.05 }, --defensive special 2
-            
+
             { q = q(112,420,60,68), ox = 22, oy = 67, delay = 0.1 }, --defensive special transition 3
             { q = q(61,421,49,67), ox = 22, oy = 66 }, --defensive special transition 2
             { q = q(2,421,57,67), ox = 28, oy = 66 }, --defensive special transition 1

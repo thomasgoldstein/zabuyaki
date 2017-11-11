@@ -10,7 +10,7 @@ local Batch = class('Batch')
     rightStopper =
     units = {
         { unit = ,
-          spawned = false
+        spawned = false
         }
     }
 ]]

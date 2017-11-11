@@ -156,10 +156,10 @@ function titleState:draw()
         love.graphics.setCanvas(canvas[1])
         introMovie:draw(0,0,320,240)
         love.graphics.setCanvas()
-	    push:start()
+        push:start()
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.draw(canvas[1], 0,0, nil, 2)
-	    push:finish()
+        push:finish()
         return
     end
     love.graphics.setCanvas()

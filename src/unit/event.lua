@@ -17,4 +17,3 @@ function Event:initialize(name, sprite, input, x, y, f)
 end
 
 return Event
-

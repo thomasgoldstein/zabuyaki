@@ -28,5 +28,3 @@ function Enemy:drawTextInfo(l, t, transpBg, iconWidth, normColor)
         end
     end
 end
-
-

@@ -2,7 +2,7 @@
     AnimatedSprite.lua - 2016
 
     Copyright Dejaime Antonio de Oliveira Neto, 2014
-	Don Miguel, 2016
+    Don Miguel, 2016
 
     Released under the MIT license.
     Visit for more information:
@@ -16,20 +16,20 @@ imageBank = {} --Contains all images that were already loaded
 
 local function LoadSprite (spriteDef)
 
-	if spriteDef == nil then return nil end
+    if spriteDef == nil then return nil end
 
-	--Load the sprite definition file to ensure it exists
-	local definitionFile = love.filesystem.load( spriteDef )
+    --Load the sprite definition file to ensure it exists
+    local definitionFile = love.filesystem.load( spriteDef )
 
-	--If the file doesn't exist or has syntax errors, it'll be nil.
-	if definitionFile == nil then
-		--Spit out a warning and return nil.
-		dp("Attempt to load an invalid file (inexistent or syntax errors?): "
-			..spriteDef)
-		return nil
-	end
+    --If the file doesn't exist or has syntax errors, it'll be nil.
+    if definitionFile == nil then
+        --Spit out a warning and return nil.
+        dp("Attempt to load an invalid file (inexistent or syntax errors?): "
+            ..spriteDef)
+        return nil
+    end
 
-	--[[Loading the sprite definition as an entry in our table.
+    --[[Loading the sprite definition as an entry in our table.
 
         We can execute the file by calling it as a function
             with these () as we loaded with loadfile previously.
@@ -39,60 +39,60 @@ local function LoadSprite (spriteDef)
             information in a single call. There's no need to parse
             this of serialization.
     ]]
-	local oldSprite = spriteBank [spriteDef]
-	spriteBank [spriteDef] = definitionFile()
+    local oldSprite = spriteBank [spriteDef]
+    spriteBank [spriteDef] = definitionFile()
 
-	--Check the version to verify if it is compatible with this one.
-	if spriteBank[spriteDef].serializationVersion ~= ManagerVersion then
-		dp("Attempt to load file with incompatible versions: "..spriteDef)
-		dp("Expected version "..ManagerVersion..", got version "
-			..spriteBank[spriteDef].serializationVersion.." .")
-		spriteBank[spriteDef] = oldSprite -- Undo the changes due to error
-		-- Return old value (nil if not previously loaded)
-		return spriteBank[spriteDef]
-	end
+    --Check the version to verify if it is compatible with this one.
+    if spriteBank[spriteDef].serializationVersion ~= ManagerVersion then
+        dp("Attempt to load file with incompatible versions: "..spriteDef)
+        dp("Expected version "..ManagerVersion..", got version "
+            ..spriteBank[spriteDef].serializationVersion.." .")
+        spriteBank[spriteDef] = oldSprite -- Undo the changes due to error
+        -- Return old value (nil if not previously loaded)
+        return spriteBank[spriteDef]
+    end
 
-	--Storing the path to the image in a variable (to add readability)
-	local spriteSheet = spriteBank[spriteDef].spriteSheet
+    --Storing the path to the image in a variable (to add readability)
+    local spriteSheet = spriteBank[spriteDef].spriteSheet
 
-	--Load the image.
-	local old_image = imageBank [spriteSheet]
-	imageBank [spriteSheet] = love.graphics.newImage(spriteSheet)
+    --Load the image.
+    local old_image = imageBank [spriteSheet]
+    imageBank [spriteSheet] = love.graphics.newImage(spriteSheet)
 
-	--Check if the loaded image is valid.
-	if imageBank[spriteSheet] == nil then
-		-- Invalid image, reverting all changes
-		imageBank [spriteSheet] = old_image   -- Revert image
-		spriteBank[spriteDef] = oldSprite    -- Revert sprite
+    --Check if the loaded image is valid.
+    if imageBank[spriteSheet] == nil then
+        -- Invalid image, reverting all changes
+        imageBank [spriteSheet] = old_image   -- Revert image
+        spriteBank[spriteDef] = oldSprite    -- Revert sprite
 
-		dp("Failed loading sprite "..spriteDef..", invalid image path ( "
-			..spriteSheet.." ).")
-	end
+        dp("Failed loading sprite "..spriteDef..", invalid image path ( "
+            ..spriteSheet.." ).")
+    end
 
-	return spriteBank [spriteDef]
+    return spriteBank [spriteDef]
 end
 
 function LoadSpriteSheet(spriteSheet)
-	--Load the image into image bank.
-	--returns width, height, image
-	local old_image = imageBank[spriteSheet]
-	imageBank[spriteSheet] = love.graphics.newImage(spriteSheet)
+    --Load the image into image bank.
+    --returns width, height, image
+    local old_image = imageBank[spriteSheet]
+    imageBank[spriteSheet] = love.graphics.newImage(spriteSheet)
 
-	--Check if the loaded image is valid.
-	if imageBank[spriteSheet] == nil then
-		-- Invalid image, reverting all changes
-		imageBank[spriteSheet] = old_image -- Revert image
-		dp("Failed loading sprite. Invalid image path ( "
-				.. spriteSheet .. " ).")
-	end
-	return imageBank[spriteSheet]:getDimensions()
+    --Check if the loaded image is valid.
+    if imageBank[spriteSheet] == nil then
+        -- Invalid image, reverting all changes
+        imageBank[spriteSheet] = old_image -- Revert image
+        dp("Failed loading sprite. Invalid image path ( "
+                .. spriteSheet .. " ).")
+    end
+    return imageBank[spriteSheet]:getDimensions()
 end
 
 function GetSpriteInstance (spriteDef)
-	if spriteDef == nil then return nil end -- invalid use
-	if spriteBank[spriteDef] == nil then
-		--Sprite not loaded attempting to load; abort on failure.
-		if LoadSprite (spriteDef) == nil then return nil end
+    if spriteDef == nil then return nil end -- invalid use
+    if spriteBank[spriteDef] == nil then
+        --Sprite not loaded attempting to load; abort on failure.
+        if LoadSprite (spriteDef) == nil then return nil end
     end
     local s = {
         def = spriteBank[spriteDef], --Sprite reference
@@ -110,43 +110,43 @@ function GetSpriteInstance (spriteDef)
         flipV = 1	-- same
     }
     CalcSpriteAnimation(s)
-	return s
+    return s
 end
 
 function SetSpriteAnimation(spr, anim)
-	spr.curFrame = 1
-	spr.loopCount = 0
-	spr.curAnim = anim
-	spr.isFinished = false
-	spr.funcCalledOnFrame = -1
-	spr.elapsedTime = -math.min(love.timer.getDelta() / 2, 0.1)
+    spr.curFrame = 1
+    spr.loopCount = 0
+    spr.curAnim = anim
+    spr.isFinished = false
+    spr.funcCalledOnFrame = -1
+    spr.elapsedTime = -math.min(love.timer.getDelta() / 2, 0.1)
 end
 
 function SpriteHasAnimation(spr, anim)
-	if spr.def.animations[anim] then
-		return true
-	end
-	return false
+    if spr.def.animations[anim] then
+        return true
+    end
+    return false
 end
 
 function GetSpriteQuad(spr, frame_n)
-	local sc = spr.def.animations[spr.curAnim][frame_n or spr.curFrame]
-	return sc.q
+    local sc = spr.def.animations[spr.curAnim][frame_n or spr.curFrame]
+    return sc.q
 end
 
 -- calc the animation duration
 function GetSpriteAnimationDuration(spr, anim)
-	if not spr.def.animations[anim] then
+    if not spr.def.animations[anim] then
         print(spr, spr.def, spr.def.animations)
         --print(inspect(spr, {depth=1}))
         error("There is no "..anim.." animation to calc its duration. ")
-	end
-	local duration = 0
+    end
+    local duration = 0
     local a = spr.def.animations[anim]
-	for i = 1, #a do
+    for i = 1, #a do
         duration = duration + a[i].delay or a.delay or spr.def.delay
-	end
-	a.duration = duration
+    end
+    a.duration = duration
     return duration
 end
 
@@ -167,146 +167,146 @@ function CalcSpriteAnimation(spr)
 end
 
 function UpdateSpriteInstance(spr, dt, slf)
-	local s = spr.def.animations[spr.curAnim]
-	local sc = s[spr.curFrame]
-	-- is there default delay for frames of 1 animation?
-	if not s.delay then
-		s.delay = spr.def.delay
-	end
-	if not sc then
-		error("Missing frame #"..spr.curFrame.." in "..spr.curAnim.." animation")
-	end
-	-- is there delay for this frame?
-	if not sc.delay then
-		sc.delay = s.delay
-	end
-	-- call the custom frame func on every frame
-	if sc.funcCont and slf then
-		sc.funcCont(slf, true) --isfuncCont = true
-	end
-	-- call custom frame func once per the frame
-	if sc.func and spr.funcCalledOnFrame ~= spr.curFrame and slf then
-		spr.funcCalledOnFrame = spr.curFrame
-		sc.func(slf, false) --isfuncCont = false
-	end
-	--spr.def.animations[spr.curAnim]
-	--Increment the internal counter.
-	spr.elapsedTime = spr.elapsedTime + dt
+    local s = spr.def.animations[spr.curAnim]
+    local sc = s[spr.curFrame]
+    -- is there default delay for frames of 1 animation?
+    if not s.delay then
+        s.delay = spr.def.delay
+    end
+    if not sc then
+        error("Missing frame #"..spr.curFrame.." in "..spr.curAnim.." animation")
+    end
+    -- is there delay for this frame?
+    if not sc.delay then
+        sc.delay = s.delay
+    end
+    -- call the custom frame func on every frame
+    if sc.funcCont and slf then
+        sc.funcCont(slf, true) --isfuncCont = true
+    end
+    -- call custom frame func once per the frame
+    if sc.func and spr.funcCalledOnFrame ~= spr.curFrame and slf then
+        spr.funcCalledOnFrame = spr.curFrame
+        sc.func(slf, false) --isfuncCont = false
+    end
+    --spr.def.animations[spr.curAnim]
+    --Increment the internal counter.
+    spr.elapsedTime = spr.elapsedTime + dt
 
-	--We check we need to change the current frame.
-	if spr.elapsedTime > sc.delay * spr.timeScale then
-		--Check if we are at the last frame.
-		if spr.curFrame < #s then
-			-- Not on last frame, increment.
-			spr.curFrame = spr.curFrame + 1
-		else
-			-- Last frame, loop back to 1.
-			if s.loop then	--if cycled animation
-				spr.curFrame = s.loopFrom or 1
-				spr.loopCount = spr.loopCount + 1 --loop played times++
-			else
-				spr.isFinished = true
-			end
-		end
-		-- Reset internal counter on frame change.
-		spr.elapsedTime = 0
-	end
-	-- First or Last frames or the 1st start frame after the loop?
-	spr.isFirst = (spr.curFrame == 1)
-	spr.isLast = (spr.curFrame == #s)
-	spr.isLoopFrom = (spr.curFrame == (s.loopFrom or 1))
-	return nil
+    --We check we need to change the current frame.
+    if spr.elapsedTime > sc.delay * spr.timeScale then
+        --Check if we are at the last frame.
+        if spr.curFrame < #s then
+            -- Not on last frame, increment.
+            spr.curFrame = spr.curFrame + 1
+        else
+            -- Last frame, loop back to 1.
+            if s.loop then	--if cycled animation
+                spr.curFrame = s.loopFrom or 1
+                spr.loopCount = spr.loopCount + 1 --loop played times++
+            else
+                spr.isFinished = true
+            end
+        end
+        -- Reset internal counter on frame change.
+        spr.elapsedTime = 0
+    end
+    -- First or Last frames or the 1st start frame after the loop?
+    spr.isFirst = (spr.curFrame == 1)
+    spr.isLast = (spr.curFrame == #s)
+    spr.isLoopFrom = (spr.curFrame == (s.loopFrom or 1))
+    return nil
 end
 
 function DrawSpriteInstance (spr, x, y, frame)
     local sc = spr.def.animations[spr.curAnim][frame or spr.curFrame or 1]
-	local scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
-	local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
-	local y_shift = y
-	if flipV == -1 then
-		y_shift = y - sc.oy * spr.sizeScale
-	end
+    local scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
+    local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
+    local y_shift = y
+    if flipV == -1 then
+        y_shift = y - sc.oy * spr.sizeScale
+    end
     love.graphics.draw (
-		imageBank[spr.def.spriteSheet], --The image
-		sc.q, --Current frame of the current animation
-		math.floor((x + rx * spr.flipH * flipH) * 2) / 2, math.floor((y_shift + ry) * 2) / 2,
-		(spr.rotation + rotate) * spr.flipH * flipH,
-		spr.sizeScale * spr.flipH * scale_h * flipH,
-		spr.sizeScale * spr.flipV * scale_v * flipV,
-		sc.ox, sc.oy
-	)
+        imageBank[spr.def.spriteSheet], --The image
+        sc.q, --Current frame of the current animation
+        math.floor((x + rx * spr.flipH * flipH) * 2) / 2, math.floor((y_shift + ry) * 2) / 2,
+        (spr.rotation + rotate) * spr.flipH * flipH,
+        spr.sizeScale * spr.flipH * scale_h * flipH,
+        spr.sizeScale * spr.flipV * scale_v * flipV,
+        sc.ox, sc.oy
+    )
 end
 
 function ParseSpriteAnimation(spr, curAnim)
-	if (curAnim or spr.curAnim) == "icon" then
-		return "Cannot parse icons"
-	end
-	local o = (curAnim or spr.curAnim).." = {\n"
+    if (curAnim or spr.curAnim) == "icon" then
+        return "Cannot parse icons"
+    end
+    local o = (curAnim or spr.curAnim).." = {\n"
 
-	local animations = spr.def.animations[curAnim or spr.curAnim]
-	local sc
-	local scale_h, scale_v, flipH, flipV, funcCont, func
-	local ox, oy, delay
-	local x, y, w, h
-	local rotate, rx, ry
-	local wRotate, wx, wy, wAnimation, wFlip_h, wFlip_v
+    local animations = spr.def.animations[curAnim or spr.curAnim]
+    local sc
+    local scale_h, scale_v, flipH, flipV, funcCont, func
+    local ox, oy, delay
+    local x, y, w, h
+    local rotate, rx, ry
+    local wRotate, wx, wy, wAnimation, wFlip_h, wFlip_v
 
-	for i = 1, #animations do
-		sc = animations[i]
-		delay = sc.delay or 100
-		scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
-		rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0
-		wRotate, wx, wy, wAnimation = sc.wRotate or 0, sc.wx, sc.wy or 0, sc.wAnimation or "?"
-		wFlip_h, wFlip_v = sc.wFlip_h or 1, sc.wFlip_v or 1
-		ox, oy = sc.ox or 0, sc.oy or 0
-		x, y, w, h = sc.q:getViewport( )
-		func, funcCont = sc.func, sc.funcCont
+    for i = 1, #animations do
+        sc = animations[i]
+        delay = sc.delay or 100
+        scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
+        rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0
+        wRotate, wx, wy, wAnimation = sc.wRotate or 0, sc.wx, sc.wy or 0, sc.wAnimation or "?"
+        wFlip_h, wFlip_v = sc.wFlip_h or 1, sc.wFlip_v or 1
+        ox, oy = sc.ox or 0, sc.oy or 0
+        x, y, w, h = sc.q:getViewport( )
+        func, funcCont = sc.func, sc.funcCont
 
-		o = o .. "    { q = q("..x..","..y..","..w..","..h.."), ox = "..ox..", oy = "..oy
-		if delay ~= animations.delay then
-			o = o .. ", delay = "..delay
-		end
-		if rotate ~= 0 then
-			o = o .. ", rotate = "..rotate
-		end
-		if rx ~= 0 then
-			o = o .. ", rx = "..rx
-		end
-		if ry ~= 0 then
-			o = o .. ", ry = "..ry
-		end
-		if flipH ~= 1 then
-			o = o .. ", flipH = "..flipH
-		end
-		if flipV ~= 1 then
-			o = o .. ", flipV = "..flipV
-		end
-		if func then
-			o = o .. ", func = FUNC0"
-		end
-		if funcCont then
-			o = o .. ", funcCont = FUNC1"
-		end
-		if wx then
-			o = o .. ",\n        wx = "..wx..", wy = "..wy..", wRotate = "..wRotate..", wAnimation = '"..wAnimation.."'"
-			if wFlip_h ~= 1 then
-				o = o .. ", wFlip_h = "..wFlip_h
-			end
-			if wFlip_v ~= 1 then
-				o = o .. ", wFlip_v = "..wFlip_v
-			end
-		end
-		o = o .. " },\n"
-	end
-	if animations.loop then
-		o = o .. "    loop = true,\n"
-	end
-	if animations.loopFrom then
-		o = o .. "    loopFrom = "..animations.loopFrom..",\n"
-	end
-	if animations.delay then
-		o = o .. "    delay = "..animations.delay..",\n"
-	end
-	o = o .. "},\n"
-	return o
+        o = o .. "    { q = q("..x..","..y..","..w..","..h.."), ox = "..ox..", oy = "..oy
+        if delay ~= animations.delay then
+            o = o .. ", delay = "..delay
+        end
+        if rotate ~= 0 then
+            o = o .. ", rotate = "..rotate
+        end
+        if rx ~= 0 then
+            o = o .. ", rx = "..rx
+        end
+        if ry ~= 0 then
+            o = o .. ", ry = "..ry
+        end
+        if flipH ~= 1 then
+            o = o .. ", flipH = "..flipH
+        end
+        if flipV ~= 1 then
+            o = o .. ", flipV = "..flipV
+        end
+        if func then
+            o = o .. ", func = FUNC0"
+        end
+        if funcCont then
+            o = o .. ", funcCont = FUNC1"
+        end
+        if wx then
+            o = o .. ",\n        wx = "..wx..", wy = "..wy..", wRotate = "..wRotate..", wAnimation = '"..wAnimation.."'"
+            if wFlip_h ~= 1 then
+                o = o .. ", wFlip_h = "..wFlip_h
+            end
+            if wFlip_v ~= 1 then
+                o = o .. ", wFlip_v = "..wFlip_v
+            end
+        end
+        o = o .. " },\n"
+    end
+    if animations.loop then
+        o = o .. "    loop = true,\n"
+    end
+    if animations.loopFrom then
+        o = o .. "    loopFrom = "..animations.loopFrom..",\n"
+    end
+    if animations.delay then
+        o = o .. "    delay = "..animations.delay..",\n"
+    end
+    o = o .. "},\n"
+    return o
 end

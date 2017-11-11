@@ -36,7 +36,7 @@ local quads ={ triangleSmallQuad = triangleSmallQuad, triangleBigQuad = triangle
 particles = love.graphics.newParticleSystem(gfx.particles, 32)
 particles:setPosition(0, -2)
 particles:setEmitterLifetime(0.6)
-particles:setParticleLifetime(0.35, 0.5) 
+particles:setParticleLifetime(0.35, 0.5)
 particles:setSizes(0.2, 0.7)
 particles:setSpeed(1, 5)
 particles:setLinearAcceleration(0, 0, 0, 0) -- Random movement in all directions.
@@ -54,7 +54,7 @@ PA_DUST_LANDING = particles
 
 particles = PA_DUST_STEPS:clone()
 particles:setEmitterLifetime(1)
-particles:setParticleLifetime(0.5, 0.95) 
+particles:setParticleLifetime(0.5, 0.95)
 particles:setSizes(0.15, 0.53)
 particles:setPosition(0, 0)
 PA_DUST_JUMP_START = particles
@@ -63,7 +63,7 @@ particles = particles:clone()
 particles:setEmitterLifetime(1.5)
 particles:setSizes(0.15, 0.45)
 particles:setColors(unpack(dustStepColors))
-particles:setParticleLifetime(0.5, 1.3) 
+particles:setParticleLifetime(0.5, 1.3)
 particles:setLinearAcceleration(-500, -20, 500, -100) -- Random movement in all directions.
 particles:setLinearDamping(10, 50)
 particles:setAreaSpread("uniform", 20, 4)
@@ -74,7 +74,7 @@ particles = particles:clone()
 particles:setEmitterLifetime(1)
 particles:setSizes(0.3, 0.6, 0.4, 0.1)
 particles:setColors(unpack(dustStepColors))
-particles:setParticleLifetime(0.2, 0.7) 
+particles:setParticleLifetime(0.2, 0.7)
 particles:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
 particles:setLinearDamping(7, 20)
 particles:setAreaSpread("uniform", 15, 5)

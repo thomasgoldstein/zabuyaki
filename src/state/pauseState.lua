@@ -129,7 +129,7 @@ function pauseState:draw()
 end
 
 function pauseState:confirm( x, y, button, istouch )
-     if button == 1 then
+    if button == 1 then
         mouse_x, mouse_y = x, y
         if menuState == 1 then
             sfx.play("sfx","menuSelect")

@@ -1,4 +1,4 @@
-﻿-- Select Sprite for Sprite Editor
+-- Select Sprite for Sprite Editor
 spriteSelectState = {}
 
 local time = 0
