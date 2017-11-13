@@ -1702,7 +1702,7 @@ function Character:shoveBackUpdate(dt)
 end
 Character.shoveBack = {name = "shoveBack", start = Character.shoveBackStart, exit = nop, update = Character.shoveBackUpdate, draw = Character.defaultDraw}
 
-local grabSwapFrames = { 1, 2, 2, 1 }
+local grabSwapFrames = { 2, 1, 1, 2 }
 function Character:grabSwapStart()
     self.isHittable = false
     self:setSprite("grabSwap")
