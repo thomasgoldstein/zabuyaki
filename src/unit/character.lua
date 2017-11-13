@@ -1702,7 +1702,7 @@ function Character:shoveBackUpdate(dt)
 end
 Character.shoveBack = {name = "shoveBack", start = Character.shoveBackStart, exit = nop, update = Character.shoveBackUpdate, draw = Character.defaultDraw}
 
-local grabSwapFrames = { 2, 1, 1, 2 }
+local grabSwapFrames = { 1, 2, 2, 1 }
 function Character:grabSwapStart()
     self.isHittable = false
     self:setSprite("grabSwap")
@@ -1732,6 +1732,7 @@ function Character:grabSwapUpdate(dt)
             self.face = -self.face
             g.target:setSprite(g.target.sprite.curAnim == "grabbedFront" and "grabbedBack" or "grabbedFront")
         end
+        g.target.sprite.curFrame = (self.sprite.curFrame == 1 and 2 or 1)
     else
         self.horizontal = -self.horizontal
         self:setState(self.grab)
