@@ -107,8 +107,13 @@ function Obstacle:updateAI(dt)
 end
 
 function Obstacle:updateAttackersInfoBar(h)
-    if h.type ~= "shockWave" then
+    if h.type ~= "shockWave"
+        and (not h.source.victimInfoBar
+        or h.source.victimInfoBar.cooldown < 2.9 )  -- do not show obstacles' info among characters'
+    then
         -- show enemy bar for other attacks
+        h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
+        self.victimInfoBar = h.source.infoBar:setAttacker(self)
     end
 end
 
