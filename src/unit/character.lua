@@ -177,6 +177,16 @@ function Character:onHurt()
     self.isHurt = nil --free hurt data
 end
 
+function Character:updateAttackersInfoBar(h)
+    if h.type ~= "shockWave" then
+        -- show enemy bar for other attacks
+        h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
+        if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
+            self.victimInfoBar = h.source.infoBar:setAttacker(self)
+        end
+    end
+end
+
 function Character:onHurtDamage()
     local h = self.isHurt
     if not h then
@@ -187,13 +197,7 @@ function Character:onHurtDamage()
     end
     self:releaseGrabbed()
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
-    if h.type ~= "shockWave" then
-        -- show enemy bar for other attacks
-        h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
-        if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
-            self.victimInfoBar = h.source.infoBar:setAttacker(self)
-        end
-    end
+    self:updateAttackersInfoBar(h)
     -- Score
     h.source:addScore( h.damage * 10 )
     self.killerId = h.source

@@ -106,6 +106,12 @@ function Obstacle:updateAI(dt)
     Unit.updateAI(self, dt)
 end
 
+function Obstacle:updateAttackersInfoBar(h)
+    if h.type ~= "shockWave" then
+        -- show enemy bar for other attacks
+    end
+end
+
 local transformToHit = {
     fall = true,
     blowOut = true
