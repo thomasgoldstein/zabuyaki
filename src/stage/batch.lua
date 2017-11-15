@@ -23,6 +23,8 @@ function Batch:initialize(stage, batches)
     self.n = 0 -- to get 1st batch
     self.batches = batches
     dp("Stage has #",#batches,"batches of enemy")
+    self.allSpawned = false
+    self.allDead = false
     self.state = "next"
 end
 
@@ -41,6 +43,8 @@ function Batch:load()
         u.isSpawned = false
         --dp("units in batch:",u.unit.name)
     end
+    self.allSpawned = false
+    self.allDead = false
     return true
 end
 
@@ -64,7 +68,9 @@ function Batch:spawn(dt)
         self.stage:moveStoppers(lx, rx)
     end
 
-    if max_x < self.leftStopper - 320 / 2 then -- the left stopper's x is out of the current screen
+    if max_x < self.leftStopper - 320 / 2
+        and not self.allSpawned
+    then -- the left stopper's x is out of the current screen
         return false
     end
     self.time = self.time + dt
@@ -72,8 +78,8 @@ function Batch:spawn(dt)
         return false
     end
 
-    local allSpawned = true
-    local allDead = true
+    self.allSpawned = true
+    self.allDead = true
     for i = 1, #b.units do
         local u = b.units[i]
         if not u.isSpawned then
@@ -98,18 +104,18 @@ function Batch:spawn(dt)
                     u.unit:setState(u.unit.stand)
                 end
             end
-            allSpawned = false
-            allDead = false --not yet spawned = alive
+            self.allSpawned = false
+            self.allDead = false --not yet spawned = alive
         else
             if u.unit.hp > 0 and u.unit.type == "enemy" then --alive enemy
-                allDead = false
+                self.allDead = false
             end
         end
     end
-    if allSpawned then
+    if self.allSpawned then
         --??
     end
-    if allDead then
+    if self.allDead then
         self.state = "next"
     end
     --dp("all spawned", allSpawned, "all dead", allDead)
@@ -118,8 +124,7 @@ end
 
 function Batch:update(dt)
     if self.state == "spawn" then
-        self:spawn(dt)
-        return
+        return not self:spawn(dt)
     elseif self.state == "next" then
         self.n = self.n + 1
         self.time = 0
@@ -129,9 +134,9 @@ function Batch:update(dt)
             self.state = "done"
         end
         self:ps()
-        return
+        return false
     elseif self.state == "done" then
-        return
+        return false
     end
 end
 
