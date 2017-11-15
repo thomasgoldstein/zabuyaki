@@ -59,6 +59,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.update = nop
     self.start = nop
     self.exit = nop
+    self.priority = 3   -- priority to show infoBar (1 highest)
     self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
     GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
     self.pid = ""
@@ -347,6 +348,21 @@ function Unit:moveStatesApply()
         local m = moves[frame]
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = 0, y = self.y, w = 11, h = 0.1, z = self.z, collided = false }
         attackHitBoxes[#attackHitBoxes+1] = {x = t.x, sx = 0, y = t.y, w = 9, h = 0.1, z = t.z, collided = true }
+    end
+end
+
+function Unit:updateAttackersInfoBar(h)
+    if h.type ~= "shockWave"
+        and (not h.source.victimInfoBar
+        or h.source.victimInfoBar.source.priority >= self.priority
+        or h.source.victimInfoBar.cooldown <= 2.5
+    )
+    then
+        -- show enemy bar for other attacks
+        h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
+        if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
+            self.victimInfoBar = h.source.infoBar:setAttacker(self)
+        end
     end
 end
 

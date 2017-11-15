@@ -34,6 +34,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
     self.playerSelectMode = 0
     self.victimInfoBar = nil
+    self.priority = 1
 end
 
 function Character:initAttributes()
@@ -175,16 +176,6 @@ function Character:onHurt()
     self:onHurtDamage()
     self:afterOnHurt()
     self.isHurt = nil --free hurt data
-end
-
-function Character:updateAttackersInfoBar(h)
-    if h.type ~= "shockWave" then
-        -- show enemy bar for other attacks
-        h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
-        if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
-            self.victimInfoBar = h.source.infoBar:setAttacker(self)
-        end
-    end
 end
 
 function Character:onHurtDamage()

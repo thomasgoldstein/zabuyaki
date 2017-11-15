@@ -163,16 +163,6 @@ function Player:isImmune()   --Immune to the attack?
     return false
 end
 
-function Player:updateAttackersInfoBar(h)
-    if h.type ~= "shockWave" then
-        -- show enemy bar for other attacks
-        h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
-        self.victimInfoBar = h.source.infoBar:setAttacker(self)
-        logPlayer:logDamage(self)
-        logPlayer:printDamageInfo(self.id)
-    end
-end
-
 function Player:onHurtDamage()
     local h = self.isHurt
     if not h then
