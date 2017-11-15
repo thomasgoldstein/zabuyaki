@@ -109,7 +109,8 @@ end
 function Obstacle:updateAttackersInfoBar(h)
     if h.type ~= "shockWave"
         and (not h.source.victimInfoBar
-        or h.source.victimInfoBar.cooldown < 2.9 )  -- do not show obstacles' info among characters'
+        or h.source.victimInfoBar.cooldown <= 0
+        or h.source.victimInfoBar.source.type == "obstacle")
     then
         -- show enemy bar for other attacks
         h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
