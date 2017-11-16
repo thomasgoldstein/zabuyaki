@@ -49,7 +49,7 @@ function screenshotState:draw()
     end
     if stage.mode == "normal" then
         drawPlayersBars()
-        stage:displayTime(screenWidth, screenHeight)
+        stage:displayGoTimer(screenWidth, screenHeight)
     end
     push:finish()
 end

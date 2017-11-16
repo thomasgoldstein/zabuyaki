@@ -137,7 +137,7 @@ end
 
 local txtTime
 local txtGo = love.graphics.newText( gfx.font.clock, "GO" )
-function Stage:displayTime(screenWidth, screenHeight)
+function Stage:displayGoTimer(screenWidth, screenHeight)
     local time = 0
     if self.timeLeft > 0 then
         time = self.timeLeft

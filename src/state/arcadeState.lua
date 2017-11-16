@@ -118,7 +118,7 @@ function arcadeState:draw()
     if nAlive < 1 then
         drawGameOver()
     end
-    stage:displayTime(screenWidth, screenHeight)
+    stage:displayGoTimer(screenWidth, screenHeight)
     -- Profiler Pie Graph
     if GLOBAL_SETTING.PROFILER_ENABLED and ProfOn then
         Prof:draw({50})
