@@ -198,6 +198,12 @@ function Stage:update(dt)
             end
             beepTimer = math.floor(self.timeLeft + 0.5)
         end
+        if self.showGoMark then -- Go! beep
+            if beepTimer - 1 == math.floor(self.timeLeft + 0.5) then
+                sfx.play("sfx", "menuCancel")
+            end
+            beepTimer = math.floor(self.timeLeft + 0.5)
+        end
     elseif self.mode == "event" then
         if self.event then
             self.event:update(dt)
