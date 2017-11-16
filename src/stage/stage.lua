@@ -136,6 +136,7 @@ function Stage:resetTime()
 end
 
 local txtTime
+local txtGo = love.graphics.newText( gfx.font.clock, "GO" )
 function Stage:displayTime(screenWidth, screenHeight)
     local time = 0
     if self.timeLeft > 0 then
@@ -148,20 +149,29 @@ function Stage:displayTime(screenWidth, screenHeight)
         transp = 255 * math.abs(math.cos(10 - self.timeLeft * math.pi * 2))
     end
     love.graphics.setColor(55, 55, 55, transp)
-    love.graphics.draw(txtTime, x + 1, y - 1 )
+
+    if self.showGoMark and self.timeLeft >= 5.5 then    -- draw shadow
+        love.graphics.draw(txtGo, x - 40 + 1, y - 1 )
+    else
+        love.graphics.draw(txtTime, x + 1, y - 1 )
+    end
     if self.timeLeft < 5.5 then
         love.graphics.setColor(240, 40, 40, transp)
     else
         love.graphics.setColor(255, 255, 255, transp)
     end
-    love.graphics.draw(txtTime, x, y )
+    if self.showGoMark and self.timeLeft >= 5.5 then
+        love.graphics.draw(txtGo, x - 40, y )
+    else
+        love.graphics.draw(txtTime, x, y )
+    end
 end
 
 local beepTimer = 0
 function Stage:update(dt)
     if self.mode == "normal" then
         self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
-        self.batch:update(dt)
+        self.showGoMark = self.batch:update(dt)
         self:updateZStoppers(dt)
         self:updateZoom(dt)
         self.objects:update(dt)
