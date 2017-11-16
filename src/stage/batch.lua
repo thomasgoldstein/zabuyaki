@@ -23,8 +23,7 @@ function Batch:initialize(stage, batches)
     self.n = 0 -- to get 1st batch
     self.batches = batches
     dp("Stage has #",#batches,"batches of enemy")
-    self.allSpawned = false
-    self.allDead = false
+    self.startTimer = false
     self.state = "next"
 end
 
@@ -43,8 +42,7 @@ function Batch:load()
         u.isSpawned = false
         --dp("units in batch:",u.unit.name)
     end
-    self.allSpawned = false
-    self.allDead = false
+    self.startTimer = false
     return true
 end
 
@@ -68,18 +66,17 @@ function Batch:spawn(dt)
         self.stage:moveStoppers(lx, rx)
     end
 
-    if max_x < self.leftStopper - 320 / 2
-        and not self.allSpawned
-    then -- the left stopper's x is out of the current screen
-        return false
+    if max_x < self.leftStopper - 320 / 2 and not self.startTimer then
+        return false  -- the left stopper's x is out of the current screen
     end
+    self.startTimer = true
     self.time = self.time + dt
     if self.time < b.delay then --delay before the whole batch
         return false
     end
 
-    self.allSpawned = true
-    self.allDead = true
+    local allSpawned = true
+    local allDead = true
     for i = 1, #b.units do
         local u = b.units[i]
         if not u.isSpawned then
@@ -104,18 +101,18 @@ function Batch:spawn(dt)
                     u.unit:setState(u.unit.stand)
                 end
             end
-            self.allSpawned = false
-            self.allDead = false --not yet spawned = alive
+            allSpawned = false
+            allDead = false --not yet spawned = alive
         else
             if u.unit.hp > 0 and u.unit.type == "enemy" then --alive enemy
-                self.allDead = false
+                allDead = false
             end
         end
     end
-    if self.allSpawned then
+    if allSpawned then
         --??
     end
-    if self.allDead then
+    if allDead then
         self.state = "next"
     end
     --dp("all spawned", allSpawned, "all dead", allDead)
