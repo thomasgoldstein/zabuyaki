@@ -93,7 +93,7 @@ end
 
 function Character:moveEffectAndEmit(effect, value)
     if effect == "dash" then
-        if math.random() < value and self.vel_x >= self.velocityDash * 0.5 then
+        if love.math.random() < value and self.vel_x >= self.velocityDash * 0.5 then
             -- emit Dash particles on moving
             self.paDash:moveTo( self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5 )
             self.paDash:emit(1)

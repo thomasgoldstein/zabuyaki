@@ -409,7 +409,7 @@ function AI:calcWalkToAttackXY()
         end
     else
         --get to the player attack range
-        if u.x < u.target.x and math.random() < 0.8 then
+        if u.x < u.target.x and love.math.random() < 0.8 then
             tx = u.target.x - love.math.random(30, 34)
             ty = u.target.y + 1
         else
