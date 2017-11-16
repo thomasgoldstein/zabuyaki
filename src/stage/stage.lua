@@ -145,7 +145,7 @@ function Stage:displayGoTimer(screenWidth, screenHeight)
     txtTime = love.graphics.newText( gfx.font.clock, string.format( "%02d", time ) )
     local transp = 255
     local x, y = screenWidth - txtTime:getWidth() - 26, 6
-    if self.timeLeft <= 10 then
+    if self.timeLeft <= 10 or self.showGoMark then
         transp = 255 * math.abs(math.cos(10 - self.timeLeft * math.pi * 2))
     end
     love.graphics.setColor(55, 55, 55, transp)
