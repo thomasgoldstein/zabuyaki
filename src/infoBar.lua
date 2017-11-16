@@ -40,12 +40,15 @@ local function slantedRectangle2(x, y, width, height)
     end
 end
 
+InfoBar.DURATION = 3 -- seconds to show a victim's infoBar
+InfoBar.OVERRIDE = 2.5 -- seconds to show a victim's infoBar
+
 function InfoBar:initialize(source)
     self.source = source
     self.name = source.name or "Unknown"
     self.note = source.note or "EXTRA TEXT"
     self.color = normColor
-    self.cooldown = 1
+    self.cooldown = InfoBar.DURATION
     self.id = self.source.id
     self.source:initFaceIcon(self)
     self.hp = 1
@@ -66,7 +69,7 @@ function InfoBar:setAttacker(attackerSource)
     else
         id = attackerSource.id
     end
-    self.cooldown = 3
+    self.cooldown = InfoBar.DURATION
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
         self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
         return self
@@ -79,7 +82,7 @@ function InfoBar:setPicker(picker_source)
     if id <= MAX_PLAYERS then
         self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
     end
-    self.cooldown = 3
+    self.cooldown = InfoBar.DURATION
     return self
 end
 
