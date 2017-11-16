@@ -330,7 +330,7 @@ function Player:respawnStart()
     self.hp = self.maxHp
     self.bounced = 0
     self.vel_z = 0
-    self.z = math.random( 235, 245 )    --TODO get Z from the Tiled
+    self.z = love.math.random( 235, 245 )    --TODO get Z from the Tiled
     stage:resetTime()
 end
 function Player:respawnUpdate(dt)

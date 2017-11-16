@@ -36,7 +36,7 @@ function eAI:selectNewSchedule(conditions)
         return
     end
     if not conditions.cannotAct then
-        if conditions.canMove and conditions.tooCloseToPlayer then --and math.random() < 0.5
+        if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
             self.currentSchedule = self.SCHEDULE_BACKOFF
             return
         end
