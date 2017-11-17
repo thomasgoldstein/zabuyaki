@@ -141,9 +141,9 @@ function Obstacle:onHurt()
     self:afterOnHurt()
     --Check for breaking change
     local curFrame = self:calcDamageFrame()
-    if self.oldFrame ~= curFrame then
+    if self.oldFrame ~= curFrame or self.z > 0 then -- on the frame change or in air
         if self.flipOnBreak then
-            self.faceFix = newFacing --Change facing
+            self.faceFix = newFacing -- keep previous facing
         end
         self:showEffect("breakMetal")
     end
