@@ -494,17 +494,17 @@ return {
         grab = {
             { q = q(2,1659,45,64), ox = 23, oy = 63 }, --grab
         },
-        grabAttack1 = {
+        frontGrabAttack1 = {
             { q = q(93,1660,37,63), ox = 11, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
             { q = q(49,1660,42,63), ox = 17, oy = 62 }, --grab attack 1.1
             delay = 0.02
         },
-        grabAttack2 = {
+        frontGrabAttack2 = {
             { q = q(93,1660,37,63), ox = 11, oy = 62, func = grabAttack, delay = 0.18 }, --grab attack 1.2
             { q = q(49,1660,42,63), ox = 17, oy = 62 }, --grab attack 1.1
             delay = 0.02
         },
-        grabAttack3 = {
+        frontGrabAttack3 = {
             { q = q(2,722,39,65), ox = 15, oy = 64 }, --jump attack forward 1 (shifted right by 3px)
             { q = q(43,722,37,64), ox = 9, oy = 63, func = grabAttackLast, delay = 0.18 }, --jump attack forward 2 (shifted right by 3px)
             { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.1 }, --jump attack forward 1 (shifted right by 3px)

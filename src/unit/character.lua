@@ -1540,8 +1540,8 @@ function Character:grabAttackStart()
     g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
     g.target.hold.grabCooldown = g.grabCooldown
     self.grabAttackN = self.grabAttackN + 1
-    self:setSprite("grabAttack"..self.grabAttackN)
-    dp(self.name.." is grabAttack someone.")
+    self:setSprite("frontGrabAttack"..self.grabAttackN)
+    dp(self.name.." is frontGrabAttack someone.")
 end
 function Character:grabAttackUpdate(dt)
     if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
