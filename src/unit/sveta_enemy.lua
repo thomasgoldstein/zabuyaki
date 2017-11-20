@@ -23,7 +23,7 @@ function Sveta:initAttributes()
         run = false, sideStep = true, pickup = true,
         jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
         grab = false, grabSwap = false, grabAttack = false, holdAttack = true,
-        shoveUp = false, shoveDown = false, shoveBack = false, shoveForward = false,
+        shoveUp = false, frontGrabAttackDown = false, shoveBack = false, shoveForward = false,
         dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,

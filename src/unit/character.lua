@@ -42,7 +42,7 @@ function Character:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = false,
-        shoveUp = true, shoveDown = true, shoveBack = true, shoveForward = true,
+        shoveUp = true, frontGrabAttackDown = true, shoveBack = true, shoveForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -1532,9 +1532,9 @@ Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStar
 function Character:grabAttackStart()
     self.isHittable = true
     local g = self.hold
-    if self.moves.shoveDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
+    if self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
         g.grabCooldown = 0
-        self:setState(self.shoveDown)
+        self:setState(self.frontGrabAttackDown)
         return
     end
     g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
@@ -1573,12 +1573,12 @@ function Character:grabAttackUpdate(dt)
 end
 Character.grabAttack = {name = "grabAttack", start = Character.grabAttackStart, exit = nop, update = Character.grabAttackUpdate, draw = Character.defaultDraw}
 
-function Character:shoveDownStart()
+function Character:frontGrabAttackDownStart()
     self.isHittable = true
-    self:setSprite("shoveDown")
-    dp(self.name.." is shoveDown someone.")
+    self:setSprite("frontGrabAttackDown")
+    dp(self.name.." is frontGrabAttackDown someone.")
 end
-function Character:shoveDownUpdate(dt)
+function Character:frontGrabAttackDownUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1592,7 +1592,7 @@ function Character:shoveDownUpdate(dt)
     end
     self:calcMovement(dt, true)
 end
-Character.shoveDown = {name = "shoveDown", start = Character.shoveDownStart, exit = nop, update = Character.shoveDownUpdate, draw = Character.defaultDraw}
+Character.frontGrabAttackDown = {name = "frontGrabAttackDown", start = Character.frontGrabAttackDownStart, exit = nop, update = Character.frontGrabAttackDownUpdate, draw = Character.defaultDraw}
 
 function Character:shoveUpStart()
     self.isHittable = false

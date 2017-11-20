@@ -141,7 +141,7 @@ return {
             { q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
             delay = 0.05
         },
-        shoveDown = {
+        frontGrabAttackDown = {
             { q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
             delay = 0.1
         },

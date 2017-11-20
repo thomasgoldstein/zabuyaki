@@ -22,7 +22,7 @@ local grabAttackLast = function(slf, cont)
         cont
     )
 end
-local shoveDown = function(slf, cont)
+local frontGrabAttackDown = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, y = 37, width = 26, damage = 15,
         type = "knockDown", velocity = slf.velocityThrow_x },
@@ -510,10 +510,10 @@ return {
             { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.1 }, --jump attack forward 1 (shifted right by 3px)
             delay = 0.02
         },
-        shoveDown = {
+        frontGrabAttackDown = {
             { q = q(117,587,48,65), ox = 13, oy = 64, delay = 0.15 }, --combo 4.1
             { q = q(167,587,50,65), ox = 14, oy = 64 }, --combo 4.2
-            { q = q(193,725,49,62), ox = 14, oy = 61, func = shoveDown }, --combo 4.7
+            { q = q(193,725,49,62), ox = 14, oy = 61, func = frontGrabAttackDown }, --combo 4.7
             { q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.35 }, --combo 4.6
             delay = 0.05
         },

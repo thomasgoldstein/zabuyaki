@@ -216,7 +216,7 @@ return {
             { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttackLast, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
-        shoveDown = {
+        frontGrabAttackDown = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(64,595,67,66), ox = 36, oy = 65, delay = 0.16 }, --grab attack 2
             { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttackLast, delay = 0.25 }, --grab attack 3
