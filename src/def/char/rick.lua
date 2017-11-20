@@ -47,7 +47,7 @@ local frontGrabAttackForward = function(slf, cont)
         slf.face, nil,
         slf.z + slf.throwStart_z)
 end
-local backGrabAttackBack = function(slf, cont)
+local backGrabAttack = function(slf, cont)
     local g = slf.hold
     if g and g.target then
         slf:checkAndAttack(
@@ -550,12 +550,12 @@ return {
                 { ox = 10, oz = 20 }
             }
         },
-        backGrabAttackBack = {
+        backGrabAttack = {
             { q = q(2,1694,43,61), ox = 14, oy = 60, delay = 0.13 }, --back shove 1
             { q = q(47,1692,46,63), ox = 16, oy = 62, delay = 0.1 }, --back shove 2
             { q = q(95,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back shove 3
             { q = q(158,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back shove 4
-            { q = q(100,1652,63,38), ox = 51, oy = 34, func = backGrabAttackBack, delay = 0.3 }, --back shove 5
+            { q = q(100,1652,63,38), ox = 51, oy = 34, func = backGrabAttack, delay = 0.3 }, --back shove 5
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
             { q = q(47,398,42,58), ox = 18, oy = 57 }, --pickup 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pickup 1
