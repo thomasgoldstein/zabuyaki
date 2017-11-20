@@ -46,7 +46,7 @@ local grabAttackLast = function(slf, cont)
     )
 end
 
-local frontGrabAttacBack = function(slf, cont)
+local frontGrabAttackBack = function(slf, cont)
     slf:doShove(slf.velocityShove_x * slf.velocityShoveHorizontal,
         slf.velocityShove_z * slf.velocityShoveHorizontal,
         slf.face, slf.face,
@@ -222,9 +222,9 @@ return {
             { q = q(133,600,59,61), ox = 27, oy = 60, func = grabAttackLast, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
-        frontGrabAttacBack = {
+        frontGrabAttackBack = {
             { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
-            { q = q(194,599,70,62), ox = 36, oy = 61, func = frontGrabAttacBack, delay = 0.5 }, --throw
+            { q = q(194,599,70,62), ox = 36, oy = 61, func = frontGrabAttackBack, delay = 0.5 }, --throw
             { q = q(183,350,51,65), ox = 23, oy = 64 }, --uppercut 2
             delay = 0.2,
             moves = {

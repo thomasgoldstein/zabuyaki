@@ -17,7 +17,7 @@ function Chai:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
-        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttacBack = true, shoveForward = true,
+        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, shoveForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         -- technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -105,16 +105,16 @@ function Chai:shoveForwardUpdate(dt)
 end
 Chai.shoveForward = {name = "shoveForward", start = Chai.shoveForwardStart, exit = nop, update = Chai.shoveForwardUpdate, draw = Character.defaultDraw}
 
-function Chai:frontGrabAttacBackStart()
+function Chai:frontGrabAttackBackStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
     self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
-    self:setSprite("frontGrabAttacBack")
-    dp(self.name.." frontGrabAttacBack someone.")
+    self:setSprite("frontGrabAttackBack")
+    dp(self.name.." frontGrabAttackBack someone.")
 end
-function Chai:frontGrabAttacBackUpdate(dt)
+function Chai:frontGrabAttackBackUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -122,7 +122,7 @@ function Chai:frontGrabAttacBackUpdate(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Chai.frontGrabAttacBack = {name = "frontGrabAttacBack", start = Chai.frontGrabAttacBackStart, exit = nop, update = Chai.frontGrabAttacBackUpdate, draw = Character.defaultDraw}
+Chai.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Chai.frontGrabAttackBackStart, exit = nop, update = Chai.frontGrabAttackBackUpdate, draw = Character.defaultDraw}
 
 function Chai:defensiveSpecialStart()
     self.isHittable = false

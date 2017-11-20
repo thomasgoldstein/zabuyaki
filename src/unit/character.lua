@@ -42,7 +42,7 @@ function Character:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = false,
-        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttacBack = true, shoveForward = true,
+        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, shoveForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -1367,10 +1367,10 @@ function Character:grabUpdate(dt)
                 g.target:removeTweenMove()
                 self:removeTweenMove()
                 self:setState(self.shoveForward)
-            elseif self.moves.frontGrabAttacBack and self.b.horizontal:getValue() == -self.face then
+            elseif self.moves.frontGrabAttackBack and self.b.horizontal:getValue() == -self.face then
                 g.target:removeTweenMove()
                 self:removeTweenMove()
-                self:setState(self.frontGrabAttacBack)
+                self:setState(self.frontGrabAttackBack)
             elseif self.moves.frontGrabAttackUp and self.b.vertical:isDown(-1) then
                 g.target:removeTweenMove()
                 self:removeTweenMove()
@@ -1380,11 +1380,11 @@ function Character:grabUpdate(dt)
                 g.target:removeTweenMove()
                 self:removeTweenMove()
                 self:setState(self.backShove)
-            elseif self.moves.frontGrabAttacBack and self.face == g.target.face and g.target.type ~= "obstacle" then
+            elseif self.moves.frontGrabAttackBack and self.face == g.target.face and g.target.type ~= "obstacle" then
                 --if u grab char from behind
                 g.target:removeTweenMove()
                 self:removeTweenMove()
-                self:setState(self.frontGrabAttacBack)
+                self:setState(self.frontGrabAttackBack)
             elseif self.moves.grabAttack then
                 g.target:removeTweenMove()
                 self:removeTweenMove()
@@ -1669,7 +1669,7 @@ function Character:shoveForwardUpdate(dt)
 end
 Character.shoveForward = {name = "shoveForward", start = Character.shoveForwardStart, exit = nop, update = Character.shoveForwardUpdate, draw = Character.defaultDraw}
 
-function Character:frontGrabAttacBackStart()
+function Character:frontGrabAttackBackStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
@@ -1677,10 +1677,10 @@ function Character:frontGrabAttacBackStart()
     t.isHittable = false    --protect grabbed enemy from hits
     self.face = -self.face
     self.horizontal = self.face
-    self:setSprite("frontGrabAttacBack")
-    dp(self.name.." frontGrabAttacBack someone.")
+    self:setSprite("frontGrabAttackBack")
+    dp(self.name.." frontGrabAttackBack someone.")
 end
-function Character:frontGrabAttacBackUpdate(dt)
+function Character:frontGrabAttackBackUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -1695,7 +1695,7 @@ function Character:frontGrabAttacBackUpdate(dt)
     end
     self:calcMovement(dt, true)
 end
-Character.frontGrabAttacBack = {name = "frontGrabAttacBack", start = Character.frontGrabAttacBackStart, exit = nop, update = Character.frontGrabAttacBackUpdate, draw = Character.defaultDraw}
+Character.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Character.frontGrabAttackBackStart, exit = nop, update = Character.frontGrabAttackBackUpdate, draw = Character.defaultDraw}
 
 local grabSwapFrames = { 1, 2, 2, 1 }
 function Character:grabSwapStart()
