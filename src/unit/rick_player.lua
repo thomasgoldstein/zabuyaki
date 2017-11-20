@@ -17,7 +17,7 @@ function Rick:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
-        shoveUp = true, frontGrabAttackDown = true, shoveBack = true, shoveForward = true, backShove = true,
+        frontGrabAttackUp = true, frontGrabAttackDown = true, shoveBack = true, shoveForward = true, backShove = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -101,7 +101,7 @@ function Rick:backShoveStart()
     sfx.play("voice"..self.id, self.sfx.throw)
     dp(self.name.." backShove someone.")
 end
-function Rick:backShoveUpdate(dt)
+function Rick:backfrontGrabAttackUpdate(dt)
     local g = self.hold
     local t = g.target
     if t.state ~= "bounce" then
@@ -113,6 +113,6 @@ function Rick:backShoveUpdate(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Rick.backShove = {name = "backShove", start = Rick.backShoveStart, exit = nop, update = Rick.backShoveUpdate, draw = Character.defaultDraw}
+Rick.backShove = {name = "backShove", start = Rick.backShoveStart, exit = nop, update = Rick.backfrontGrabAttackUpdate, draw = Character.defaultDraw}
 
 return Rick

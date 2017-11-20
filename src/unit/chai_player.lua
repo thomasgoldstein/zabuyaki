@@ -17,7 +17,7 @@ function Chai:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
-        shoveUp = true, frontGrabAttackDown = true, shoveBack = true, shoveForward = true,
+        frontGrabAttackUp = true, frontGrabAttackDown = true, shoveBack = true, shoveForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         -- technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,

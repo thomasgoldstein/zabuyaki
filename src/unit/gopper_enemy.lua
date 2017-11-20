@@ -25,7 +25,7 @@ function Gopper:initAttributes()
         run = true, sideStep = false, pickup = true,
         jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
         grab = false, grabSwap = false, grabAttack = false,
-        shoveUp = false, frontGrabAttackDown = false, shoveBack = false, shoveForward = false,
+        frontGrabAttackUp = false, frontGrabAttackDown = false, shoveBack = false, shoveForward = false,
         dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,

@@ -42,7 +42,7 @@ function Character:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = false,
-        shoveUp = true, frontGrabAttackDown = true, shoveBack = true, shoveForward = true,
+        frontGrabAttackUp = true, frontGrabAttackDown = true, shoveBack = true, shoveForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -1371,10 +1371,10 @@ function Character:grabUpdate(dt)
                 g.target:removeTweenMove()
                 self:removeTweenMove()
                 self:setState(self.shoveBack)
-            elseif self.moves.shoveUp and self.b.vertical:isDown(-1) then
+            elseif self.moves.frontGrabAttackUp and self.b.vertical:isDown(-1) then
                 g.target:removeTweenMove()
                 self:removeTweenMove()
-                self:setState(self.shoveUp)
+                self:setState(self.frontGrabAttackUp)
             elseif self.moves.backShove and self.face == g.target.face and g.target.type ~= "obstacle" then
                 --if u grab char from behind => German suplex
                 g.target:removeTweenMove()
@@ -1594,13 +1594,13 @@ function Character:frontGrabAttackDownUpdate(dt)
 end
 Character.frontGrabAttackDown = {name = "frontGrabAttackDown", start = Character.frontGrabAttackDownStart, exit = nop, update = Character.frontGrabAttackDownUpdate, draw = Character.defaultDraw}
 
-function Character:shoveUpStart()
+function Character:frontGrabAttackUpStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
     t.isHittable = false    --protect grabbed enemy from hits
-    self:setSprite("shoveUp")
-    dp(self.name.." shoveUp someone.")
+    self:setSprite("frontGrabAttackUp")
+    dp(self.name.." frontGrabAttackUp someone.")
 end
 
 function Character:doShove(vel_x, vel_z, horizontal, face, start_z)
@@ -1627,7 +1627,7 @@ function Character:doShove(vel_x, vel_z, horizontal, face, start_z)
     sfx.play("voice"..self.id, self.sfx.throw)
 end
 
-function Character:shoveUpUpdate(dt)
+function Character:frontGrabAttackUpUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1641,7 +1641,7 @@ function Character:shoveUpUpdate(dt)
     end
     self:calcMovement(dt, true)
 end
-Character.shoveUp = {name = "shoveUp", start = Character.shoveUpStart, exit = nop, update = Character.shoveUpUpdate, draw = Character.defaultDraw}
+Character.frontGrabAttackUp = {name = "frontGrabAttackUp", start = Character.frontGrabAttackUpStart, exit = nop, update = Character.frontGrabAttackUpUpdate, draw = Character.defaultDraw}
 
 function Character:shoveForwardStart()
     self.isHittable = false
