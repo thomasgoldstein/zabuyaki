@@ -24,7 +24,7 @@ function Beatnick:initAttributes()
         run = false, sideStep = false, pickup = true,
         jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
         grab = false, grabSwap = false, grabAttack = false,
-        frontGrabAttackUp = false, frontGrabAttackDown = false, frontGrabAttackBack = false, shoveForward = false,
+        frontGrabAttackUp = false, frontGrabAttackDown = false, frontGrabAttackBack = false, frontGrabAttackForward = false,
         dashAttack = false, offensiveSpecial = false, defensiveSpecial = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,

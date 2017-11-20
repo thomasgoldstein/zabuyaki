@@ -42,7 +42,7 @@ function Character:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = false,
-        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, shoveForward = true,
+        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -1363,10 +1363,10 @@ function Character:grabUpdate(dt)
         --normal attacks
         if self.b.attack:isDown() and self.canAttack then
             --if self.sprite.isFinished then
-            if self.moves.shoveForward and self.b.horizontal:getValue() == self.face then
+            if self.moves.frontGrabAttackForward and self.b.horizontal:getValue() == self.face then
                 g.target:removeTweenMove()
                 self:removeTweenMove()
-                self:setState(self.shoveForward)
+                self:setState(self.frontGrabAttackForward)
             elseif self.moves.frontGrabAttackBack and self.b.horizontal:getValue() == -self.face then
                 g.target:removeTweenMove()
                 self:removeTweenMove()
@@ -1643,16 +1643,16 @@ function Character:frontGrabAttackUpUpdate(dt)
 end
 Character.frontGrabAttackUp = {name = "frontGrabAttackUp", start = Character.frontGrabAttackUpStart, exit = nop, update = Character.frontGrabAttackUpUpdate, draw = Character.defaultDraw}
 
-function Character:shoveForwardStart()
+function Character:frontGrabAttackForwardStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
     self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
-    self:setSprite("shoveForward")
-    dp(self.name.." shoveForward someone.")
+    self:setSprite("frontGrabAttackForward")
+    dp(self.name.." frontGrabAttackForward someone.")
 end
-function Character:shoveForwardUpdate(dt)
+function Character:frontGrabAttackForwardUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -1667,7 +1667,7 @@ function Character:shoveForwardUpdate(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Character.shoveForward = {name = "shoveForward", start = Character.shoveForwardStart, exit = nop, update = Character.shoveForwardUpdate, draw = Character.defaultDraw}
+Character.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Character.frontGrabAttackForwardStart, exit = nop, update = Character.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackBackStart()
     self.isHittable = false

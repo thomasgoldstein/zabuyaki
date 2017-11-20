@@ -36,7 +36,7 @@ local frontGrabAttackUp = function(slf, cont)
         slf.z + slf.throwStart_z)
 end
 local frontGrabAttackBack = function(slf, cont) slf:doShove(220, 20, slf.face) end
-local shoveForward = function(slf, cont)
+local frontGrabAttackForward = function(slf, cont)
     slf:doShove(slf.velocityShove_x * slf.velocityShoveHorizontal,
         slf.velocityShove_z * slf.velocityShoveHorizontal,
         slf.face)
@@ -540,12 +540,12 @@ return {
                 { z = 2 }
             }
         },
-        shoveForward = {
+        frontGrabAttackForward = {
             { q = q(49,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
             { q = q(49,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
             { q = q(49,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
-            { q = q(44,928,51,63), ox = 26, oy = 62, func = shoveForward }, --throw 1.2
+            { q = q(44,928,51,63), ox = 26, oy = 62, func = frontGrabAttackForward }, --throw 1.2
             { q = q(97,928,53,63), ox = 22, oy = 62 }, --throw 1.3
             { q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
             delay = 0.07,

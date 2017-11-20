@@ -35,7 +35,7 @@ function Satoff:initAttributes()
         run = true, sideStep = false, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = false, grabAttack = true,
-        frontGrabAttackUp = false, frontGrabAttackDown = true, frontGrabAttackBack = true, shoveForward = false,
+        frontGrabAttackUp = false, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = false,
         dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,

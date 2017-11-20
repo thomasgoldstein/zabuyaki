@@ -17,7 +17,7 @@ function Chai:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
-        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, shoveForward = true,
+        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         -- technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -86,16 +86,16 @@ function Chai:dashAttackUpdate(dt)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
-function Chai:shoveForwardStart()
+function Chai:frontGrabAttackForwardStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
     self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
-    self:setSprite("shoveForward")
-    dp(self.name.." shoveForward someone.")
+    self:setSprite("frontGrabAttackForward")
+    dp(self.name.." frontGrabAttackForward someone.")
 end
-function Chai:shoveForwardUpdate(dt)
+function Chai:frontGrabAttackForwardUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -103,7 +103,7 @@ function Chai:shoveForwardUpdate(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Chai.shoveForward = {name = "shoveForward", start = Chai.shoveForwardStart, exit = nop, update = Chai.shoveForwardUpdate, draw = Character.defaultDraw}
+Chai.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Chai.frontGrabAttackForwardStart, exit = nop, update = Chai.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
 function Chai:frontGrabAttackBackStart()
     self.isHittable = false
