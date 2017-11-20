@@ -17,7 +17,7 @@ function Chai:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
-        frontGrabAttackUp = true, frontGrabAttackDown = true, shoveBack = true, shoveForward = true,
+        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttacBack = true, shoveForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         -- technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -105,16 +105,16 @@ function Chai:shoveForwardUpdate(dt)
 end
 Chai.shoveForward = {name = "shoveForward", start = Chai.shoveForwardStart, exit = nop, update = Chai.shoveForwardUpdate, draw = Character.defaultDraw}
 
-function Chai:shoveBackStart()
+function Chai:frontGrabAttacBackStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
     self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
-    self:setSprite("shoveBack")
-    dp(self.name.." shoveBack someone.")
+    self:setSprite("frontGrabAttacBack")
+    dp(self.name.." frontGrabAttacBack someone.")
 end
-function Chai:shoveBackUpdate(dt)
+function Chai:frontGrabAttacBackUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -122,7 +122,7 @@ function Chai:shoveBackUpdate(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Chai.shoveBack = {name = "shoveBack", start = Chai.shoveBackStart, exit = nop, update = Chai.shoveBackUpdate, draw = Character.defaultDraw}
+Chai.frontGrabAttacBack = {name = "frontGrabAttacBack", start = Chai.frontGrabAttacBackStart, exit = nop, update = Chai.frontGrabAttacBackUpdate, draw = Character.defaultDraw}
 
 function Chai:defensiveSpecialStart()
     self.isHittable = false

@@ -23,7 +23,7 @@ function Zeena:initAttributes()
         run = false, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = true,
         grab = false, grabSwap = false, grabAttack = false,
-        frontGrabAttackUp = false, frontGrabAttackDown = false, shoveBack = false, shoveForward = false,
+        frontGrabAttackUp = false, frontGrabAttackDown = false, frontGrabAttacBack = false, shoveForward = false,
         dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
