@@ -17,7 +17,7 @@ function Rick:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabAttack = true, holdAttack = true, dashHold = true,
-        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true, backShove = true,
+        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true, backGrabAttackBack = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -89,7 +89,7 @@ function Rick:offensiveSpecialUpdate(dt)
 end
 Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = nop, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
-function Rick:backShoveStart()
+function Rick:backGrabAttackBackStart()
     self.isHittable = false
     local g = self.hold
     local t = g.target
@@ -97,11 +97,11 @@ function Rick:backShoveStart()
     t.hold.grabCooldown = self.grabCooldownDelay
     self:moveStatesInit()
     t.isHittable = false    --protect grabbed enemy from hits
-    self:setSprite("backShove")
+    self:setSprite("backGrabAttackBack")
     sfx.play("voice"..self.id, self.sfx.throw)
-    dp(self.name.." backShove someone.")
+    dp(self.name.." backGrabAttackBack someone.")
 end
-function Rick:backfrontGrabAttackUpdate(dt)
+function Rick:backGrabAttackBackUpdate(dt)
     local g = self.hold
     local t = g.target
     if t.state ~= "bounce" then
@@ -113,6 +113,6 @@ function Rick:backfrontGrabAttackUpdate(dt)
     end
     self:calcMovement(dt, true, nil)
 end
-Rick.backShove = {name = "backShove", start = Rick.backShoveStart, exit = nop, update = Rick.backfrontGrabAttackUpdate, draw = Character.defaultDraw}
+Rick.backGrabAttackBack = {name = "backGrabAttackBack", start = Rick.backGrabAttackBackStart, exit = nop, update = Rick.backGrabAttackBackUpdate, draw = Character.defaultDraw}
 
 return Rick
