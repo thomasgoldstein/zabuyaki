@@ -1387,6 +1387,8 @@ function Character:grabUpdate(dt)
                     self:setState(self.backGrabAttackDown)
                 elseif self.moves.backGrabAttack then
                     self:setState(self.backGrabAttack)
+                elseif self.moves.frontGrabAttackBack then
+                    self:setState(self.frontGrabAttackBack)
                 elseif self.moves.frontGrabAttack then
                     self:setState(self.frontGrabAttack) -- use generic frontGrabAttack
                 end
