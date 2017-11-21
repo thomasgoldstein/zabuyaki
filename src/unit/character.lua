@@ -1360,38 +1360,36 @@ function Character:grabUpdate(dt)
                 return
             end
         end
-        --normal attacks
         if self.b.attack:isDown() and self.canAttack then
-            --if self.sprite.isFinished then
-            if self.moves.frontGrabAttackForward and self.b.horizontal:getValue() == self.face then
-                g.target:removeTweenMove()
-                self:removeTweenMove()
-                self:setState(self.frontGrabAttackForward)
-            elseif self.moves.frontGrabAttackBack and self.b.horizontal:getValue() == -self.face then
-                g.target:removeTweenMove()
-                self:removeTweenMove()
-                self:setState(self.frontGrabAttackBack)
-            elseif self.moves.frontGrabAttackUp and self.b.vertical:isDown(-1) then
-                g.target:removeTweenMove()
-                self:removeTweenMove()
-                self:setState(self.frontGrabAttackUp)
-            elseif self.moves.backGrabAttack and self.face == g.target.face and g.target.type ~= "obstacle" then
-                --if u grab char from behind => German suplex
-                g.target:removeTweenMove()
-                self:removeTweenMove()
-                self:setState(self.backGrabAttack)
-            elseif self.moves.frontGrabAttackBack and self.face == g.target.face and g.target.type ~= "obstacle" then
-                --if u grab char from behind
-                g.target:removeTweenMove()
-                self:removeTweenMove()
-                self:setState(self.frontGrabAttackBack)
-            elseif self.moves.grabAttack then
-                g.target:removeTweenMove()
-                self:removeTweenMove()
-                self:setState(self.grabAttack)
+            g.target:removeTweenMove()
+            self:removeTweenMove()
+            if self.face ~= g.target.face or g.target.type == "obstacle" then
+                -- front grab or obstacles
+                if self.moves.frontGrabAttackForward and self.b.horizontal:getValue() == self.face then
+                    self:setState(self.frontGrabAttackForward)
+                elseif self.moves.frontGrabAttackBack and self.b.horizontal:getValue() == -self.face then
+                    self:setState(self.frontGrabAttackBack)
+                elseif self.moves.frontGrabAttackUp and self.b.vertical:isDown(-1) then
+                    self:setState(self.frontGrabAttackUp)
+                elseif self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then
+                    self:setState(self.frontGrabAttackDown)
+                elseif self.moves.grabAttack then
+                    self:setState(self.grabAttack)
+                end
+            else -- back grab of characters only
+                if self.moves.backGrabAttackForward and self.b.horizontal:getValue() == self.face then
+                    self:setState(self.backGrabAttackForward)
+                elseif self.moves.backGrabAttackBack and self.b.horizontal:getValue() == -self.face then
+                    self:setState(self.backGrabAttackBack)
+                elseif self.moves.backGrabAttackUp and self.b.vertical:isDown(-1) then
+                    self:setState(self.backGrabAttackUp)
+                elseif self.moves.backGrabAttackDown and self.b.vertical:isDown(1) then
+                    self:setState(self.backGrabAttackDown)
+                elseif self.moves.backGrabAttack then
+                    self:setState(self.backGrabAttack) -- German suplex
+                end
             end
             return
-            --end
         end
     else
         -- release (when not grabbing anything)
