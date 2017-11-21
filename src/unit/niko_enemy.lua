@@ -22,7 +22,7 @@ function Niko:initAttributes()
     self.moves = { -- list of allowed moves
         run = false, sideStep = false, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
-        grab = true, grabSwap = false, grabAttack = true,
+        grab = true, grabSwap = false, frontGrabAttack = true,
         frontGrabAttackUp = false, frontGrabAttackDown = false, frontGrabAttackBack = false, frontGrabAttackForward = false,
         dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
         --technically present for all

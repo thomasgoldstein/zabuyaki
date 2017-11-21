@@ -8,14 +8,14 @@ end
 local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
-local grabAttack = function(slf, cont)
+local frontGrabAttack = function(slf, cont)
     --default values: 10,0,20,12, "hit", slf.vel_x
     slf:checkAndAttack(
         { x = 18, y = 21, width = 26, damage = 9 },
         cont
     )
 end
-local grabAttackLast = function(slf, cont)
+local frontGrabAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, y = 21, width = 26, damage = 11,
         type = "knockDown", velocity = slf.velocityThrow_x },
@@ -495,19 +495,19 @@ return {
         frontGrabAttack1 = {
             { q = q(49,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
             { q = q(105,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
-            { q = q(149,984,45,58), ox = 16, oy = 57, func = grabAttack }, --grab attack 3
+            { q = q(149,984,45,58), ox = 16, oy = 57, func = frontGrabAttack }, --grab attack 3
             delay = 0.18
         },
         frontGrabAttack2 = {
             { q = q(49,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
             { q = q(105,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
-            { q = q(149,984,45,58), ox = 16, oy = 57, func = grabAttack }, --grab attack 3
+            { q = q(149,984,45,58), ox = 16, oy = 57, func = frontGrabAttack }, --grab attack 3
             delay = 0.18
         },
         frontGrabAttack3 = {
             { q = q(49,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
             { q = q(105,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
-            { q = q(149,984,45,58), ox = 16, oy = 57, func = grabAttackLast }, --grab attack 3
+            { q = q(149,984,45,58), ox = 16, oy = 57, func = frontGrabAttackLast }, --grab attack 3
             delay = 0.18
         },
         frontGrabAttackDown = {

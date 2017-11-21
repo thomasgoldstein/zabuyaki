@@ -41,8 +41,8 @@ function Character:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-        grab = true, grabSwap = true, grabAttack = true, holdAttack = false,
-        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
+        grab = true, grabSwap = true, holdAttack = false,
+        frontGrabAttack = true, frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -1373,8 +1373,8 @@ function Character:grabUpdate(dt)
                     self:setState(self.frontGrabAttackUp)
                 elseif self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then
                     self:setState(self.frontGrabAttackDown)
-                elseif self.moves.grabAttack then
-                    self:setState(self.grabAttack)
+                elseif self.moves.frontGrabAttack then
+                    self:setState(self.frontGrabAttack)
                 end
             else -- back grab of characters only
                 if self.moves.backGrabAttackForward and self.b.horizontal:getValue() == self.face then
@@ -1386,9 +1386,9 @@ function Character:grabUpdate(dt)
                 elseif self.moves.backGrabAttackDown and self.b.vertical:isDown(1) then
                     self:setState(self.backGrabAttackDown)
                 elseif self.moves.backGrabAttack then
-                    self:setState(self.backGrabAttack) -- German suplex
-                elseif self.moves.grabAttack then
-                    self:setState(self.grabAttack) -- use generic grabAttack
+                    self:setState(self.backGrabAttack)
+                elseif self.moves.frontGrabAttack then
+                    self:setState(self.frontGrabAttack) -- use generic frontGrabAttack
                 end
             end
             return
@@ -1529,7 +1529,7 @@ function Character:grabbedBackUpdate(dt)
 end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedBackUpdate, draw = Character.defaultDraw}
 
-function Character:grabAttackStart()
+function Character:frontGrabAttackStart()
     self.isHittable = true
     local g = self.hold
     if self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
@@ -1543,7 +1543,7 @@ function Character:grabAttackStart()
     self:setSprite("frontGrabAttack"..self.grabAttackN)
     dp(self.name.." is frontGrabAttack someone.")
 end
-function Character:grabAttackUpdate(dt)
+function Character:frontGrabAttackUpdate(dt)
     if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
         if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
             self:releaseGrabbed()
@@ -1563,7 +1563,7 @@ function Character:grabAttackUpdate(dt)
             g.target.hold.grabCooldown = g.grabCooldown
             self:setState(self.grab, true) --do not adjust positions of pl
         else
-            --it is the last grabAttack or killed the target
+            --it is the last frontGrabAttack or killed the target
             self:setState(self.stand)
         end
         return
@@ -1571,7 +1571,7 @@ function Character:grabAttackUpdate(dt)
     --self:calcMovement(dt, true)
     self:tweenMove(dt)
 end
-Character.grabAttack = {name = "grabAttack", start = Character.grabAttackStart, exit = nop, update = Character.grabAttackUpdate, draw = Character.defaultDraw}
+Character.frontGrabAttack = {name = "frontGrabAttack", start = Character.frontGrabAttackStart, exit = nop, update = Character.frontGrabAttackUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackDownStart()
     self.isHittable = true

@@ -22,7 +22,7 @@ function Sveta:initAttributes()
     self.moves = { -- list of allowed moves
         run = false, sideStep = true, pickup = true,
         jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
-        grab = false, grabSwap = false, grabAttack = false, holdAttack = true,
+        grab = false, grabSwap = false, frontGrabAttack = false, holdAttack = true,
         frontGrabAttackUp = false, frontGrabAttackDown = false, frontGrabAttackBack = false, frontGrabAttackForward = false,
         dashAttack = true, offensiveSpecial = false, defensiveSpecial = false,
         --technically present for all
