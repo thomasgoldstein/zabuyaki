@@ -1387,6 +1387,8 @@ function Character:grabUpdate(dt)
                     self:setState(self.backGrabAttackDown)
                 elseif self.moves.backGrabAttack then
                     self:setState(self.backGrabAttack) -- German suplex
+                elseif self.moves.grabAttack then
+                    self:setState(self.grabAttack) -- use generic grabAttack
                 end
             end
             return
