@@ -81,11 +81,10 @@ function spriteEditorState:enter(_, _hero, _weapon)
     cleanRegisteredPlayers()
 end
 
-local oldPlayerHitBoxesFrame = -1
 local function getPlayerHitBoxes()
     local sc = sprite.def.animations[sprite.curAnim][menu[menuState].n]
-    if oldPlayerHitBoxesFrame ~= menu[menuState].n then
-        attackHitBoxes = {} -- DEBUG
+    attackHitBoxes = {} -- DEBUG
+    if sc then
         if sc.funcCont and player then
             sc.funcCont(player, true) --isfuncCont = true
         end
@@ -93,14 +92,9 @@ local function getPlayerHitBoxes()
             sc.func(player, false) --isfuncCont = false
         end
     end
-    if not sc.func and not sc.funcCont then
-        attackHitBoxes = {} -- DEBUG
-    end
-    oldPlayerHitBoxesFrame = menu[menuState].n
 end
 local function clearPlayerHitBoxes()
     attackHitBoxes = {} -- DEBUG
-    oldPlayerHitBoxesFrame = -1
 end
 
 local function displayHelp()
@@ -384,6 +378,8 @@ function spriteEditorState:draw()
             if s[m.n].wx then
                 m.hint = m.hint .. "\nWXY:"..s[m.n].wx..","..s[m.n].wy.." WR:"..(s[m.n].wRotate or 0).." "..(s[m.n].wAnimation or "?")
             end
+            getPlayerHitBoxes()
+
         elseif i == 3 then
             if not weaponAnimations or #weaponAnimations < 1 then
                 m.item = "N/A"
@@ -463,7 +459,6 @@ function spriteEditorState:draw()
                 DrawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
                 DrawweaponSprite(sprite, x - (menu[menuState].n - i) * xStep, y, i )
             end
-            getPlayerHitBoxes()
             if GLOBAL_SETTING.DEBUG then
                 showDebugBoxes(2)
                 love.graphics.setColor(255, 255, 255, 255)
