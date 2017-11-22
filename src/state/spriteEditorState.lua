@@ -76,7 +76,7 @@ function spriteEditorState:enter(_, _hero, _weapon)
     player = Rick:new("SPRED", sprite, nil, screenWidth /2, menuOffset_y + menuItem_h / 2 )
     player.id = 1   -- fixed id
     player:setOnStage(stage)
-    player.doShove = function() end -- block ability
+    player.doThrow = function() end -- block ability
     player.showEffect = function() end -- block visual effects
     cleanRegisteredPlayers()
 end

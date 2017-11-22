@@ -1605,7 +1605,7 @@ function Character:frontGrabAttackUpStart()
     dp(self.name.." frontGrabAttackUp someone.")
 end
 
-function Character:doShove(vel_x, vel_z, horizontal, face, start_z)
+function Character:doThrow(vel_x, vel_z, horizontal, face, start_z)
     local g = self.hold
     local t = g.target
     t.isGrabbed = false

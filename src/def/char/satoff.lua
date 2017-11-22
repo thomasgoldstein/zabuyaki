@@ -47,7 +47,7 @@ local frontGrabAttackLast = function(slf, cont)
 end
 
 local frontGrabAttackBack = function(slf, cont)
-    slf:doShove(slf.velocityShove_x * slf.velocityShoveHorizontal,
+    slf:doThrow(slf.velocityShove_x * slf.velocityShoveHorizontal,
         slf.velocityShove_z * slf.velocityShoveHorizontal,
         slf.face, slf.face,
         slf.z + slf.throwStart_z)
