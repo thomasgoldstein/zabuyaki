@@ -471,7 +471,7 @@ function Character:standUpdate(dt)
     if self:canMove() then
         --can move
         if self.b.horizontal:getValue() ~=0 then
-            if self.moves.run and self:getPrevStateTime() < doubleTapDelta and self.lastFace == self.b.horizontal:getValue()
+            if self.moves.run and self:getPrevStateTime() < delayWithSlowMotion(doubleTapDelta) and self.lastFace == self.b.horizontal:getValue()
                     and (self.lastState == "walk" or self.lastState == "run" )
             then
                 if self.moves.dashHold and self.charge > 0 then
@@ -485,7 +485,7 @@ function Character:standUpdate(dt)
             return
         end
         if self.b.vertical:getValue() ~= 0 then
-            if self.moves.sideStep and self:getPrevStateTime() < doubleTapDelta and self.lastVertical == self.b.vertical:getValue()
+            if self.moves.sideStep and self:getPrevStateTime() < delayWithSlowMotion(doubleTapDelta) and self.lastVertical == self.b.vertical:getValue()
                     and (self.lastState == "walk" )
             then
                 self.vertical = self.b.vertical:getValue()
