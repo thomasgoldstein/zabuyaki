@@ -84,6 +84,20 @@ local function gamepadHat(num, hat, axis)
     end
 end
 
+local maxAxisDelta = 0.15
+local function gamepadDigitalAxis(num, axis)
+    return function()
+        local joystick = love.joystick.getJoysticks()[num]
+        local a = joystick ~= nil and joystick:getGamepadAxis(axis) or 0
+        if a < -maxAxisDelta then
+            return -1
+        elseif a > maxAxisDelta then
+            return 1
+        end
+        return 0
+    end
+end
+
 function bindGameInput()
     -- define Player 1 controls
     local gamepad1 = 1
@@ -91,14 +105,14 @@ function bindGameInput()
     local gamepad3 = 3
     Control1 = {
         horizontal = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(gamepad1, 'leftx'))
+        :addAxis(gamepadDigitalAxis(gamepad1, 'leftx'))
         :addAxis(gamepadHat(gamepad1, 1, "horizontal"))
-        --:addAxis(tactile.gamepadAxis(1, 'rightx'))
+        --:addAxis(gamepadDigitalAxis(1, 'rightx'))
         :addButtonPair(tactile.keys('left'), tactile.keys('right')),
         vertical = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(gamepad1, 'lefty'))
+        :addAxis(gamepadDigitalAxis(gamepad1, 'lefty'))
         :addAxis(gamepadHat(gamepad1, 1, "vertical"))
-        --:addAxis(tactile.gamepadAxis(1, 'righty'))
+        --:addAxis(gamepadDigitalAxis(1, 'righty'))
         :addButtonPair(tactile.keys('up'), tactile.keys('down')),
         attack = tactile.newControl()
         :addButton(tactile.gamepadButtons(gamepad1, 'a'))
@@ -121,11 +135,11 @@ function bindGameInput()
     -- define Player 2 controls
     Control2 = {
         horizontal = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(gamepad2, 'leftx'))
+        :addAxis(gamepadDigitalAxis(gamepad2, 'leftx'))
         :addAxis(gamepadHat(gamepad2, 1, "horizontal"))
         :addButtonPair(tactile.keys('a'), tactile.keys('d')),
         vertical = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(gamepad2, 'lefty'))
+        :addAxis(gamepadDigitalAxis(gamepad2, 'lefty'))
         :addAxis(gamepadHat(gamepad2, 1, "vertical"))
         :addButtonPair(tactile.keys('w'), tactile.keys('s')),
         attack = tactile.newControl()
@@ -142,11 +156,11 @@ function bindGameInput()
     -- define Player 3 controls
     Control3 = {
         horizontal = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(gamepad3, 'leftx'))
+        :addAxis(gamepadDigitalAxis(gamepad3, 'leftx'))
         :addAxis(gamepadHat(gamepad3, 1, "horizontal"))
         :addButtonPair(tactile.keys('f'), tactile.keys('h')),
         vertical = tactile.newControl()
-        :addAxis(tactile.gamepadAxis(gamepad3, 'lefty'))
+        :addAxis(gamepadDigitalAxis(gamepad3, 'lefty'))
         :addAxis(gamepadHat(gamepad3, 1, "vertical"))
         :addButtonPair(tactile.keys('t'), tactile.keys('g')),
         attack = tactile.newControl()
