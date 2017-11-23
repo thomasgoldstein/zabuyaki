@@ -67,7 +67,7 @@ function showDebugControls()
         -- draw players controls
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local p = getRegisteredPlayer(i)
-            if p then
+            if p and p.infoBar then
                 local x = p.infoBar.x + 76
                 local y = p.infoBar.y + 36
                 love.graphics.setColor(0, 0, 0, 150)

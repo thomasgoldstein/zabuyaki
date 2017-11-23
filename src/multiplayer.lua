@@ -55,8 +55,10 @@ function drawPlayersBars()
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
         if player and player:isAlive() then
-            player.infoBar:draw(0,0)
-            if player.victimInfoBar and player:isAlive() then
+            if player.infoBar then
+                player.infoBar:draw(0,0)
+            end
+            if player.victimInfoBar then
                 player.victimInfoBar:draw(0,0)
             end
         end
