@@ -114,12 +114,14 @@ function Unit:addShape(shapeType, shapeArgs)
 end
 
 function Unit:getMovementSpeed()
-    if self.sprite.curAnim == "walk" then
-        return self.velocityWalk_x, self.velocityWalk_y
-    elseif self.sprite.curAnim == "walkHold" then
-        return self.velocityWalkHold_x, self.velocityWalkHold_y
-    elseif self.sprite.curAnim == "run" then
-        return self.velocityRun, self.velocityRun_y
+    if self.state == "walk" then
+        if self.b.attack:isDown() then
+            return self.velocityWalkHold_x, self.velocityWalkHold_y
+        else
+            return self.velocityWalk_x, self.velocityWalk_y
+        end
+    elseif self.state == "run" then
+        return self.velocityRun_x, self.velocityRun_y
     end
     --TODO add jumps or refactor
     return 0, 0
