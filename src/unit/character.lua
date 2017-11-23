@@ -5,6 +5,7 @@ local function nop() end
 local sign = sign
 local clamp = clamp
 local doubleTapDelta = 0.25
+local delayWithSlowMotion = delayWithSlowMotion
 
 Character.statesForHoldAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, dashHold = true }
 
@@ -751,34 +752,16 @@ function Character:duck2jumpStart()
     self.z = 0
 end
 function Character:duck2jumpUpdate(dt)
-    if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0 then
-        -- slow motion
-        if self:getLastStateTime() < self.specialToleranceDelay + love.timer.getDelta() * (GLOBAL_SETTING.SLOW_MO + 1) then
-            --time for other move
-            if self.b.attack:isDown() then
-                if self.moves.offensiveSpecial and ( self.vel_x ~= 0 or self.b.horizontal:getValue() ~=0 ) then
-                    self.face = self.b.horizontal:getValue()
-                    self:setState(self.offensiveSpecial)
-                    return
-                elseif self.moves.defensiveSpecial then
-                    self:setState(self.defensiveSpecial)
-                    return
-                end
-            end
-        end
-    else
-        -- normal speed
-        if self:getLastStateTime() < self.specialToleranceDelay then
-            --time for other move
-            if self.b.attack:isDown() then
-                if self.moves.offensiveSpecial and ( self.vel_x ~= 0 or self.b.horizontal:getValue() ~=0 ) then
-                    self.face = self.b.horizontal:getValue()
-                    self:setState(self.offensiveSpecial)
-                    return
-                elseif self.moves.defensiveSpecial then
-                    self:setState(self.defensiveSpecial)
-                    return
-                end
+    if self:getLastStateTime() < delayWithSlowMotion(self.specialToleranceDelay) then
+        --time for other move
+        if self.b.attack:isDown() then
+            if self.moves.offensiveSpecial and ( self.vel_x ~= 0 or self.b.horizontal:getValue() ~=0 ) then
+                self.face = self.b.horizontal:getValue()
+                self:setState(self.offensiveSpecial)
+                return
+            elseif self.moves.defensiveSpecial then
+                self:setState(self.defensiveSpecial)
+                return
             end
         end
     end
@@ -880,17 +863,9 @@ function Character:dashAttackStart()
     sfx.play("voice"..self.id, self.sfx.dashAttack)
 end
 function Character:dashAttackUpdate(dt)
-    if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0 then
-        -- slow motion
-        if self.moves.defensiveSpecial and self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay + love.timer.getDelta() * (GLOBAL_SETTING.SLOW_MO + 1) then
-            self:setState(self.defensiveSpecial)
-            return
-        end
-    else
-        if self.moves.defensiveSpecial and self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
-            self:setState(self.defensiveSpecial)
-            return
-        end
+    if self.moves.defensiveSpecial and self.b.jump:isDown() and self:getLastStateTime() < delayWithSlowMotion(self.specialToleranceDelay) then
+        self:setState(self.defensiveSpecial)
+        return
     end
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -1572,31 +1547,15 @@ function Character:frontGrabAttackStart()
     dp(self.name.." is frontGrabAttack someone.")
 end
 function Character:frontGrabAttackUpdate(dt)
-    if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0 then
-        -- slow motion
-        if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay + love.timer.getDelta() * (GLOBAL_SETTING.SLOW_MO + 1) then
-            if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
-                self:releaseGrabbed()
-                self:setState(self.offensiveSpecial)
-                return
-            elseif self.moves.defensiveSpecial then
-                self:releaseGrabbed()
-                self:setState(self.defensiveSpecial)
-                return
-            end
-        end
-    else
-        -- normal speed
-        if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
-            if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
-                self:releaseGrabbed()
-                self:setState(self.offensiveSpecial)
-                return
-            elseif self.moves.defensiveSpecial then
-                self:releaseGrabbed()
-                self:setState(self.defensiveSpecial)
-                return
-            end
+    if self.b.jump:isDown() and self:getLastStateTime() < delayWithSlowMotion(self.specialToleranceDelay) then
+        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
+            self:releaseGrabbed()
+            self:setState(self.offensiveSpecial)
+            return
+        elseif self.moves.defensiveSpecial then
+            self:releaseGrabbed()
+            self:setState(self.defensiveSpecial)
+            return
         end
     end
     if self.sprite.isFinished then

@@ -86,3 +86,10 @@ function hex2color(hex)
     print(r,g,b,a)
     return {tonumber(r,16),tonumber(g,16),tonumber(b,16),tonumber(a,16)}
 end
+
+function delayWithSlowMotion(delay)
+    if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0 then
+        return delay + love.timer.getDelta() * (GLOBAL_SETTING.SLOW_MO + 1)
+    end
+    return delay
+end
