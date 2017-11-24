@@ -262,6 +262,7 @@ function AI:initStand()
 end
 
 function AI:onStand()
+    local u = self.unit
     if not u.target then
         u:pickAttackTarget("close")
     elseif u.target.isDisabled or u.target.hp < 1 then
