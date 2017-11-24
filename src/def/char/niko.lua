@@ -181,11 +181,12 @@ return {
             { q = q(64,594,60,60), ox = 33, oy = 59 }, --grab attack 2b (shifted 1px to the left)
             { q = q(126,594,60,60), ox = 32, oy = 59 }, --grab attack 2c
             { q = q(126,594,60,60), ox = 33, oy = 59 }, --grab attack 2c (shifted 1px to the left)
-            { q = q(126,594,60,60), ox = 32, oy = 59, func = function(slf) slf:releaseGrabbed() end }, --grab attack 2c
+            { q = q(126,594,60,60), ox = 32, oy = 59 }, --grab attack 2c
             { q = q(126,594,60,60), ox = 33, oy = 59 }, --grab attack 2c (shifted 1px to the left)
             { q = q(64,594,60,60), ox = 32, oy = 59, delay = 0.05 }, --grab attack 2b
             { q = q(2,594,60,60), ox = 32, oy = 59, delay = 0.05 }, --grab attack 2
             { q = q(49,530,52,62), ox = 24, oy = 61, delay = 0.083 }, --grab attack 1
+            { q = q(49,530,52,62), ox = 24, oy = 61, func = function(slf) slf:releaseGrabbed() end, delay = 0 }, --grab attack 1
             delay = 0.02
         },
         grabbedFront = {
