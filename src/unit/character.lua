@@ -1010,7 +1010,6 @@ function Character:fallUpdate(dt)
             self.vel_z = -self.vel_z/2
             self.vel_x = self.vel_x * 0.5
             if self.bounced == 0 then
-                mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                 if self.isThrown then
                     -- hold UP+JUMP to get no damage after throw (land on feet)
                     if self.isThrown and self.canRecover and self.hp > 0 then
@@ -1021,6 +1020,7 @@ function Character:fallUpdate(dt)
                     --damage for throwned on landing
                     self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                 end
+                mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
             end
             sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
             self.bounced = self.bounced + 1
