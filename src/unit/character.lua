@@ -694,8 +694,6 @@ function Character:jumpUpdate(dt)
     if self.z > 0 then
         self:calcFreeFall(dt)
     else
-        self.vel_z = 0
-        self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
         return
@@ -729,6 +727,7 @@ function Character:duckStart()
     dpo(self, self.state)
     self:setSprite("duck")
     self.z = 0
+    self.vel_z = 0
     self:showEffect("jumpLanding")
 end
 function Character:duckUpdate(dt)
@@ -750,6 +749,7 @@ function Character:duck2jumpStart()
     self.isHittable = true
     self:setSprite("duck")
     self.z = 0
+    self.vel_z = 0
 end
 function Character:duck2jumpUpdate(dt)
     if self:getLastStateTime() < delayWithSlowMotion(self.specialToleranceDelay) then
@@ -845,7 +845,6 @@ function Character:sideStepUpdate(dt)
         self.z = self.vel_y / 24 --to show low leap
     else
         self.vel_y = 0
-        self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step, 0.75)
         self:setState(self.duck)
         return
@@ -895,8 +894,6 @@ function Character:jumpAttackForwardUpdate(dt)
             self.played_landingAnim = true
         end
     else
-        self.vel_z = 0
-        self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
         return
@@ -918,8 +915,6 @@ function Character:jumpAttackLightUpdate(dt)
             self.played_landingAnim = true
         end
     else
-        self.vel_z = 0
-        self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
         return
@@ -942,8 +937,6 @@ function Character:jumpAttackStraightUpdate(dt)
             self.played_landingAnim = true
         end
     else
-        self.vel_z = 0
-        self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
         return
@@ -966,8 +959,6 @@ function Character:jumpAttackRunUpdate(dt)
             self.played_landingAnim = true
         end
     else
-        self.vel_z = 0
-        self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
         return
@@ -979,6 +970,8 @@ Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackR
 function Character:fallStart()
     self:removeTweenMove()
     self.isHittable = false
+    self.canJump = false
+    self.canRecover = false
     if self.isThrown then
         self:setSprite("thrown")
     else
@@ -999,6 +992,14 @@ function Character:fallUpdate(dt)
             self:setSprite("fallen")
         end
     end
+    if self.isThrown and self.vel_z < 0 and self.z < self.toFallenAnim_z then
+        if not self.canJump and self.b.vertical:isDown(-1) and self.b.jump:isDown() then
+            self.canRecover = true
+        end
+    end
+    if not self.canJump and self.b.jump:isDown() then -- do not move this check up
+        self.canJump = true
+    end
     if self.z <= 0 then
         if self.vel_z < -100 and self.bounced < 1 then
             --bounce up after fall
@@ -1011,6 +1012,12 @@ function Character:fallUpdate(dt)
             if self.bounced == 0 then
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                 if self.isThrown then
+                    -- hold UP+JUMP to get no damage after throw (land on feet)
+                    if self.isThrown and self.canRecover and self.hp > 0 then
+                        sfx.play("sfx"..self.id, self.sfx.step)
+                        self:setState(self.duck)
+                        return
+                    end
                     --damage for throwned on landing
                     self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                 end
@@ -1030,13 +1037,7 @@ function Character:fallUpdate(dt)
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
             sfx.play("sfx"..self.id,"bodyDrop", 0.5, self.bouncedPitch - self.bounced * 0.2)
-
-            -- hold UP+JUMP to get no damage after throw (land on feet)
-            if self.isThrown and self.b.vertical:isDown(-1) and self.b.jump:isDown() and self.hp >0 then
-                self:setState(self.duck)
-            else
-                self:setState(self.getup)
-            end
+            self:setState(self.getup)
             return
         end
     end
@@ -1816,8 +1817,6 @@ function Character:dashHoldUpdate(dt)
             end
         end
     else
-        self.vel_z = 0
-        self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
         return
