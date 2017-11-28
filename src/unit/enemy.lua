@@ -25,6 +25,7 @@ function Enemy:initialize(name, sprite, input, x, y, f)
 end
 
 function Enemy:checkCollisionAndMove(dt)
+    local success = true
     local stepx = self.vel_x * dt * self.horizontal
     local stepy = self.vel_y * dt * self.vertical
     local actualX, actualY, cols, len, x, y
@@ -45,6 +46,7 @@ function Enemy:checkCollisionAndMove(dt)
             then
                 self.shape:move(separatingVector.x, separatingVector.y)
                 --other:move( separatingVector.x/2,  separatingVector.y/2)
+                success = false
             end
         end
     else
@@ -53,12 +55,14 @@ function Enemy:checkCollisionAndMove(dt)
             if o.type == "wall"
             then
                 self.shape:move(separatingVector.x, separatingVector.y)
+                success = false
             end
         end
     end
     local cx,cy = self.shape:center()
     self.x = cx
     self.y = cy
+    return success
 end
 
 function Enemy:updateAI(dt)

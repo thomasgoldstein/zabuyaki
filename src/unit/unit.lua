@@ -274,8 +274,9 @@ function Unit:calcMovement(dt, use_friction, friction, doNotMoveUnit)
         self:calcFriction(dt, friction)
     end
     if not doNotMoveUnit then
-        self:checkCollisionAndMove(dt)
+        return self:checkCollisionAndMove(dt)
     end
+    return true
 end
 
 function Unit:calcDamageFrame()
