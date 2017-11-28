@@ -698,7 +698,10 @@ function Character:jumpUpdate(dt)
         self:setState(self.duck)
         return
     end
-    self:calcMovement(dt, false)
+    if not self:calcMovement(dt, false) then
+        self.vel_x = 0
+        self.vel_y = 0
+    end
 end
 Character.jump = {name = "jump", start = Character.jumpStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw}
 
@@ -898,7 +901,10 @@ function Character:jumpAttackForwardUpdate(dt)
         self:setState(self.duck)
         return
     end
-    self:calcMovement(dt, false)
+    if not self:calcMovement(dt, false) then
+        self.vel_x = 0
+        self.vel_y = 0
+    end
 end
 Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForwardStart, exit = nop, update = Character.jumpAttackForwardUpdate, draw = Character.defaultDraw}
 
@@ -919,7 +925,10 @@ function Character:jumpAttackLightUpdate(dt)
         self:setState(self.duck)
         return
     end
-    self:calcMovement(dt, false)
+    if not self:calcMovement(dt, false) then
+        self.vel_x = 0
+        self.vel_y = 0
+    end
 end
 Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAttackLightStart, exit = nop, update = Character.jumpAttackLightUpdate, draw = Character.defaultDraw}
 
@@ -941,7 +950,10 @@ function Character:jumpAttackStraightUpdate(dt)
         self:setState(self.duck)
         return
     end
-    self:calcMovement(dt, false)
+    if not self:calcMovement(dt, false) then
+        self.vel_x = 0
+        self.vel_y = 0
+    end
 end
 Character.jumpAttackStraight = {name = "jumpAttackStraight", start = Character.jumpAttackStraightStart, exit = nop, update = Character.jumpAttackStraightUpdate, draw = Character.defaultDraw}
 
@@ -963,7 +975,10 @@ function Character:jumpAttackRunUpdate(dt)
         self:setState(self.duck)
         return
     end
-    self:calcMovement(dt, false)
+    if not self:calcMovement(dt, false) then
+        self.vel_x = 0
+        self.vel_y = 0
+    end
 end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRunStart, exit = nop, update = Character.jumpAttackRunUpdate, draw = Character.defaultDraw}
 
@@ -1049,8 +1064,10 @@ function Character:fallUpdate(dt)
         )
 
     end
-
-    self:calcMovement(dt, false) --TODO ?
+    if not self:calcMovement(dt, false) then
+        self.vel_x = 0
+        self.vel_y = 0
+    end
 end
 Character.fall = {name = "fall", start = Character.fallStart, exit = nop, update = Character.fallUpdate, draw = Character.defaultDraw}
 
@@ -1085,7 +1102,10 @@ function Character:bounceUpdate(dt)
             return
         end
     end
-    self:calcMovement(dt, false) --TODO ?
+    if not self:calcMovement(dt, false) then
+        self.vel_x = 0
+        self.vel_y = 0
+    end
 end
 Character.bounce = {name = "bounce", start = Character.bounceStart, exit = nop, update = Character.bounceUpdate, draw = Character.defaultDraw }
 
