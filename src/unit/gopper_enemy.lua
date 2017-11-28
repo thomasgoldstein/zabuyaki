@@ -94,7 +94,10 @@ function Gopper:walkUpdate(dt)
     end
     self.canJump = true
     self.canAttack = true
-    self:calcMovement(dt, false, nil)
+    if not self:calcMovement(dt, false, nil) then
+        self:setState(self.stand)
+        return
+    end
 end
 Gopper.walk = { name = "walk", start = Gopper.walkStart, exit = nop, update = Gopper.walkUpdate, draw = Enemy.defaultDraw }
 
@@ -119,7 +122,10 @@ function Gopper:runUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, false, nil)
+    if not self:calcMovement(dt, false, nil) then
+        self:setState(self.stand)
+        return
+    end
 end
 Gopper.run = {name = "run", start = Gopper.runStart, exit = nop, update = Gopper.runUpdate, draw = Gopper.defaultDraw}
 
