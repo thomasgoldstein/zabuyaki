@@ -227,6 +227,7 @@ return {
             { q = q(194,599,70,62), ox = 36, oy = 61, func = frontGrabAttackBack, delay = 0.5 }, --throw
             { q = q(183,350,51,65), ox = 23, oy = 64 }, --uppercut 2
             delay = 0.2,
+            isThrow = true,
             moves = {
                 { ox = 5, oz = 24, oy = -1, z = 0 },
                 { ox = 10, oz = 20 }

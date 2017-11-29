@@ -526,7 +526,8 @@ return {
             { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.5
             { q = q(57,1244,53,63), ox = 20, oy = 62 }, --combo up 4.6
             { q = q(112,1244,47,63), ox = 20, oy = 62, delay = 0.067 }, --combo up 4.7
-            delay = 0.083
+            delay = 0.083,
+            isThrow = true
         },
         frontGrabAttackBack = {
             { q = q(2,1111,43,60), ox = 26, oy = 59 }, --throw 1.1
@@ -534,6 +535,7 @@ return {
             { q = q(91,1114,44,57), ox = 14, oy = 56 }, --throw 1.3
             { q = q(137,1112,40,59), ox = 14, oy = 58, delay = 0.1 }, --throw 1.4
             delay = 0.2,
+            isThrow = true,
             moves = {
                 { ox = 5, oz = 24, oy = 1, z = 0 },
                 { ox = 10, oz = 20 }
@@ -545,6 +547,7 @@ return {
             { q = q(91,1114,44,57), ox = 14, oy = 56 }, --throw 1.3
             { q = q(137,1112,40,59), ox = 14, oy = 58, delay = 0.1 }, --throw 1.4
             delay = 0.2,
+            isThrow = true,
             moves = {
                 { ox = 5, oz = 24, oy = 1, z = 0 },
                 { ox = 10, oz = 20 }
@@ -560,6 +563,7 @@ return {
             { q = q(47,398,42,58), ox = 18, oy = 57 }, --pickup 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pickup 1
             delay = 0.2,
+            isThrow = true,
             moves = {
                 --{ },
                 { oz = 1, tFrame = 1 },
