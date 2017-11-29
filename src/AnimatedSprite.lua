@@ -98,6 +98,7 @@ function GetSpriteInstance (spriteDef)
         def = spriteBank[spriteDef], --Sprite reference
         curAnim = nil,
         curFrame = 1,
+        isThrow = false,
         isFirst = true, -- if the 1st frame
         isLast = false, -- if the last frame
         isFinished = false, -- last frame played till the end and the animation is not a loop
@@ -120,6 +121,7 @@ function SetSpriteAnimation(spr, anim)
     spr.isFinished = false
     spr.funcCalledOnFrame = -1
     spr.elapsedTime = -math.min(love.timer.getDelta() / 2, 0.1)
+    spr.isThrow = spr.def.animations[spr.curAnim].isThrow
 end
 
 function SpriteHasAnimation(spr, anim)
