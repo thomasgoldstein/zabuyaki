@@ -87,12 +87,12 @@ end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
 function Chai:frontGrabAttackForwardStart()
-    self.isHittable = false
     local g = self.hold
     local t = g.target
     self:moveStatesInit()
-    t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("frontGrabAttackForward")
+    self.isHittable = not self.sprite.isThrow
+    t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     dp(self.name.." frontGrabAttackForward someone.")
 end
 function Chai:frontGrabAttackForwardUpdate(dt)
@@ -106,12 +106,12 @@ end
 Chai.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Chai.frontGrabAttackForwardStart, exit = nop, update = Chai.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
 function Chai:frontGrabAttackBackStart()
-    self.isHittable = false
     local g = self.hold
     local t = g.target
     self:moveStatesInit()
-    t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("frontGrabAttackBack")
+    self.isHittable = not self.sprite.isThrow
+    t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     dp(self.name.." frontGrabAttackBack someone.")
 end
 function Chai:frontGrabAttackBackUpdate(dt)

@@ -1554,8 +1554,8 @@ end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedBackUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackStart()
-    self.isHittable = true
     local g = self.hold
+    local t = g.target
     if self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
         g.grabCooldown = 0
         self:setState(self.frontGrabAttackDown)
@@ -1565,6 +1565,8 @@ function Character:frontGrabAttackStart()
     g.target.hold.grabCooldown = g.grabCooldown
     self.grabAttackN = self.grabAttackN + 1
     self:setSprite("frontGrabAttack"..self.grabAttackN)
+    self.isHittable = not self.sprite.isThrow
+    t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     dp(self.name.." is frontGrabAttack someone.")
 end
 function Character:frontGrabAttackUpdate(dt)
@@ -1598,8 +1600,11 @@ end
 Character.frontGrabAttack = {name = "frontGrabAttack", start = Character.frontGrabAttackStart, exit = nop, update = Character.frontGrabAttackUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackDownStart()
-    self.isHittable = true
+    local g = self.hold
+    local t = g.target
     self:setSprite("frontGrabAttackDown")
+    self.isHittable = not self.sprite.isThrow
+    t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     dp(self.name.." is frontGrabAttackDown someone.")
 end
 function Character:frontGrabAttackDownUpdate(dt)
@@ -1619,11 +1624,11 @@ end
 Character.frontGrabAttackDown = {name = "frontGrabAttackDown", start = Character.frontGrabAttackDownStart, exit = nop, update = Character.frontGrabAttackDownUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackUpStart()
-    self.isHittable = false
     local g = self.hold
     local t = g.target
-    t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("frontGrabAttackUp")
+    self.isHittable = not self.sprite.isThrow
+    t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     dp(self.name.." frontGrabAttackUp someone.")
 end
 
@@ -1668,12 +1673,12 @@ end
 Character.frontGrabAttackUp = {name = "frontGrabAttackUp", start = Character.frontGrabAttackUpStart, exit = nop, update = Character.frontGrabAttackUpUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackForwardStart()
-    self.isHittable = false
     local g = self.hold
     local t = g.target
     self:moveStatesInit()
-    t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("frontGrabAttackForward")
+    self.isHittable = not self.sprite.isThrow
+    t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     dp(self.name.." frontGrabAttackForward someone.")
 end
 function Character:frontGrabAttackForwardUpdate(dt)
@@ -1694,14 +1699,14 @@ end
 Character.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Character.frontGrabAttackForwardStart, exit = nop, update = Character.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackBackStart()
-    self.isHittable = false
     local g = self.hold
     local t = g.target
     self:moveStatesInit()
-    t.isHittable = false    --protect grabbed enemy from hits
     self.face = -self.face
     self.horizontal = self.face
     self:setSprite("frontGrabAttackBack")
+    self.isHittable = not self.sprite.isThrow
+    t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     dp(self.name.." frontGrabAttackBack someone.")
 end
 function Character:frontGrabAttackBackUpdate(dt)

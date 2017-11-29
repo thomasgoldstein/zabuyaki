@@ -90,14 +90,14 @@ end
 Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = nop, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
 function Rick:backGrabAttackStart()
-    self.isHittable = false
     local g = self.hold
     local t = g.target
     g.grabCooldown = self.grabCooldownDelay  --prolong grabbed time
     t.hold.grabCooldown = self.grabCooldownDelay
     self:moveStatesInit()
-    t.isHittable = false    --protect grabbed enemy from hits
     self:setSprite("backGrabAttack")
+    self.isHittable = not self.sprite.isThrow
+    t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     sfx.play("voice"..self.id, self.sfx.throw)
     dp(self.name.." backGrabAttack someone.")
 end
