@@ -208,7 +208,7 @@ return {
             { q = q(2, 280, 42, 17) }
         },
         intro = {
-            { q = q(47,398,42,58), ox = 18, oy = 57 }, --pickup 2
+            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pickup 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pickup 1
             loop = true,
             delay = 1
@@ -271,7 +271,7 @@ return {
         },
         respawn = {
             { q = q(89,1951,46,67), ox = 24, oy = 66, delay = 5 }, --jump down
-            { q = q(47,398,42,58), ox = 18, oy = 57, delay = 0.5 }, --pickup 2
+            { q = q(47,398,41,58), ox = 17, oy = 57, delay = 0.5 }, --pickup 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pickup 1
             delay = 0.1
         },
@@ -281,7 +281,7 @@ return {
         },
         pickup = {
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.03 }, --pickup 1
-            { q = q(47,398,42,58), ox = 18, oy = 57, delay = 0.2 }, --pickup 2
+            { q = q(47,398,41,58), ox = 17, oy = 57, delay = 0.2 }, --pickup 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pickup 1
             delay = 0.05
         },
@@ -294,8 +294,8 @@ return {
             { q = q(74,1823,70,62), ox = 20, oy = 62, funcCont = dashAttack2, delay = 0.08 }, --dash attack 5b
             { q = q(146,1832,52,53), ox = 17, oy = 52, func = dashAttackResetSpeed, delay = 0.07 }, --dash attack 6
             { q = q(2,1899,47,50), ox = 17, oy = 49, delay = 0.13 }, --dash attack 7
-            { q = q(51,1891,40,58), ox = 13, oy = 57 }, --dash attack 8
-            { q = q(93,1887,40,62), ox = 17, oy = 61 },--dash attack 9
+            { q = q(51,1891,41,58), ox = 14, oy = 57 }, --dash attack 8
+            { q = q(94,1887,38,62), ox = 15, oy = 61 }, --dash attack 9
             delay = 0.05
         },
         dashHold = {
@@ -307,8 +307,8 @@ return {
             { q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.06 }, --dash hold attack 1
             { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = dashHoldAttackH, delay = 0.15 }, --dash hold attack 2
             { q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
-            { q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
-            { q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
+            { q = q(137,1954,45,64), ox = 16, oy = 64 }, --dash hold attack 4
+            { q = q(184,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
             delay = 0.05
         },
         dashHoldAttackUp = {
@@ -316,8 +316,8 @@ return {
             { q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.03 }, --dash hold attack 1
             { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = dashHoldAttackV, delay = 0.1 }, --dash hold attack 2
             { q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
-            { q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
-            { q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
+            { q = q(137,1954,45,64), ox = 16, oy = 64 }, --dash hold attack 4
+            { q = q(184,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
             delay = 0.02
         },
         dashHoldAttackDown = {
@@ -325,8 +325,8 @@ return {
             { q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.03 }, --dash hold attack 1
             { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = dashHoldAttackV, delay = 0.1 }, --dash hold attack 2
             { q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
-            { q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
-            { q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
+            { q = q(137,1954,45,64), ox = 16, oy = 64 }, --dash hold attack 4
+            { q = q(184,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
             delay = 0.02
         },
         defensiveSpecial = {
@@ -358,9 +358,9 @@ return {
             delay = 0.01
         },
         combo2 = {
-            { q = q(111,519,40,63), ox = 17, oy = 62 }, --combo 2.1
-            { q = q(153,519,60,63), ox = 18, oy = 62, func = comboAttack2, delay = 0.08 }, --combo 2.2
-            { q = q(111,519,40,63), ox = 17, oy = 62, delay = 0.06 }, --combo 2.1
+            { q = q(111,519,39,63), ox = 16, oy = 62 }, --combo 2.1
+            { q = q(152,519,60,63), ox = 18, oy = 62, func = comboAttack2, delay = 0.08 }, --combo 2.2
+            { q = q(111,519,39,63), ox = 16, oy = 62, delay = 0.06 }, --combo 2.1
             delay = 0.015
         },
         combo3 = {
@@ -380,15 +380,15 @@ return {
             { q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.05 }, --dash hold attack 1
             { q = q(55,2021,72,59), ox = 25, oy = 63, func = comboAttackSfx, funcCont = comboAttack3Forward, delay = 0.12 }, --dash hold attack 2
             { q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
-            { q = q(137,1954,47,64), ox = 16, oy = 64 }, --dash hold attack 4
-            { q = q(186,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
+            { q = q(137,1954,45,64), ox = 16, oy = 64 }, --dash hold attack 4
+            { q = q(184,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
             delay = 0.03
         },
         combo4 = {
-            { q = q(113,584,45,62), ox = 18, oy = 62 }, --combo 4.1
-            { q = q(160,584,37,62), ox = 15, oy = 62, delay = 0.06 }, --combo 4.2
-            { q = q(2,650,66,61), ox = 12, oy = 61, func = comboAttack4, delay = 0.15 }, --combo 4.3
-            { q = q(160,584,37,62), ox = 15, oy = 62, delay = 0.11 }, --combo 4.2
+            { q = q(113,584,43,62), ox = 16, oy = 62 }, --combo 4.1
+            { q = q(158,584,36,62), ox = 14, oy = 62, delay = 0.06 }, --combo 4.2
+            { q = q(2,650,65,61), ox = 11, oy = 61, func = comboAttack4, delay = 0.15 }, --combo 4.3
+            { q = q(158,584,36,62), ox = 14, oy = 62, delay = 0.11 }, --combo 4.2
             delay = 0.03
         },
         combo4Up = {
@@ -398,22 +398,22 @@ return {
             { q = q(150,1173,53,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --combo up 4.4
             { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.5
             { q = q(57,1244,53,63), ox = 20, oy = 62 }, --combo up 4.6
-            { q = q(112,1244,47,63), ox = 20, oy = 62 }, --combo up 4.7
+            { q = q(112,1244,46,63), ox = 19, oy = 62 }, --combo up 4.7
             delay = 0.067
         },
         combo4Forward = {
             { q = q(46,266,49,62), ox = 34, oy = 61 }, --combo forward 4.1
             { q = q(97,266,51,62), ox = 23, oy = 61 }, --combo forward 4.2
             { q = q(150,265,65,62), ox = 10, oy = 62, func = comboAttackSfx, funcCont = comboAttack4Forward, delay = 0.15 }, --combo forward 4.3
-            { q = q(182,196,47,64), ox = 15, oy = 63, delay = 0.12 }, --combo forward 4.4
+            { q = q(184,196,45,64), ox = 14, oy = 63, delay = 0.12 }, --combo forward 4.4
             delay = 0.06
         },
         holdAttack = {
-            { q = q(113,584,45,62), ox = 18, oy = 62 }, --combo 4.1
-            { q = q(160,584,37,62), ox = 15, oy = 62 }, --combo 4.2
-            { q = q(2,650,66,61), ox = 12, oy = 61, func = holdAttack1, delay = 0.08 }, --combo 4.3
-            { q = q(70,650,51,61), ox = 13, oy = 61, func = holdAttack2 }, --combo 4.4
-            { q = q(123,649,54,62), ox = 21, oy = 62, func = holdAttack3 }, --combo 4.5
+            { q = q(113,584,43,62), ox = 16, oy = 62 }, --combo 4.1
+            { q = q(158,584,36,62), ox = 14, oy = 62 }, --combo 4.2
+            { q = q(2,650,65,61), ox = 11, oy = 61, func = holdAttack1, delay = 0.08 }, --combo 4.3
+            { q = q(69,650,50,61), ox = 12, oy = 61, func = holdAttack2 }, --combo 4.4
+            { q = q(121,649,53,62), ox = 20, oy = 62, func = holdAttack3 }, --combo 4.5
             { q = q(134,714,51,62), ox = 31, oy = 62 }, --combo 4.6
             { q = q(138,779,46,63), ox = 22, oy = 62 }, --combo 4.7
             delay = 0.04
@@ -430,7 +430,7 @@ return {
         getup = {
             { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
-            { q = q(47,398,42,58), ox = 18, oy = 57 }, --pickup 2
+            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pickup 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pickup 1
             delay = 0.2
         },
@@ -476,7 +476,7 @@ return {
         },
         jumpAttackRun = {
             { q = q(2,714,53,61), ox = 23, oy = 66 }, --jump attack forward 1
-            { q = q(91,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun, delay = 5 }, --jump attack running
+            { q = q(90,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun, delay = 5 }, --jump attack running
             delay = 0.06
         },
         jumpAttackRunEnd = {
@@ -490,29 +490,29 @@ return {
             { q = q(142,844,44,62), ox = 21, oy = 62 }, --side step down
         },
         grab = {
-            { q = q(2,979,45,63), ox = 19, oy = 62 }, --grab
+            { q = q(2,979,44,63), ox = 18, oy = 62 }, --grab
         },
         frontGrabAttack1 = {
-            { q = q(49,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
-            { q = q(105,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
-            { q = q(149,984,45,58), ox = 16, oy = 57, func = frontGrabAttack }, --grab attack 3
+            { q = q(48,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
+            { q = q(104,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
+            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttack }, --grab attack 3
             delay = 0.18
         },
         frontGrabAttack2 = {
-            { q = q(49,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
-            { q = q(105,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
-            { q = q(149,984,45,58), ox = 16, oy = 57, func = frontGrabAttack }, --grab attack 3
+            { q = q(48,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
+            { q = q(104,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
+            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttack }, --grab attack 3
             delay = 0.18
         },
         frontGrabAttack3 = {
-            { q = q(49,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
-            { q = q(105,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
-            { q = q(149,984,45,58), ox = 16, oy = 57, func = frontGrabAttackLast }, --grab attack 3
+            { q = q(48,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
+            { q = q(104,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
+            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttackLast }, --grab attack 3
             delay = 0.18
         },
         frontGrabAttackDown = {
             { q = q(2,1044,56,63), ox = 30, oy = 62, delay = 0.25 }, --grab attack end 1
-            { q = q(2,979,45,63), ox = 19, oy = 62, delay = 0.01 }, --grab
+            { q = q(2,979,44,63), ox = 18, oy = 62, delay = 0.01 }, --grab
             { q = q(60,1048,53,59), ox = 17, oy = 58, func = frontGrabAttackDown, delay = 0.05 }, --grab attack end 2
             { q = q(115,1047,51,60), ox = 17, oy = 59, delay = 0.2 }, --grab attack end 3
             { q = q(168,1044,44,63), ox = 17, oy = 62 }, --grab attack end 4
@@ -525,7 +525,7 @@ return {
             { q = q(150,1173,53,67), ox = 20, oy = 66 }, --combo up 4.4
             { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.5
             { q = q(57,1244,53,63), ox = 20, oy = 62 }, --combo up 4.6
-            { q = q(112,1244,47,63), ox = 20, oy = 62, delay = 0.067 }, --combo up 4.7
+            { q = q(112,1244,46,63), ox = 19, oy = 62, delay = 0.067 }, --combo up 4.7
             delay = 0.083,
             isThrow = true
         },
@@ -554,13 +554,13 @@ return {
             }
         },
         backGrabAttack = {
-            { q = q(2,1694,43,61), ox = 14, oy = 60, delay = 0.13 }, --back shove 1
-            { q = q(47,1692,46,63), ox = 16, oy = 62, delay = 0.1 }, --back shove 2
-            { q = q(95,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back shove 3
-            { q = q(158,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back shove 4
+            { q = q(2,1694,41,61), ox = 12, oy = 60, delay = 0.13 }, --back shove 1
+            { q = q(45,1692,45,63), ox = 15, oy = 62, delay = 0.1 }, --back shove 2
+            { q = q(92,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back shove 3
+            { q = q(155,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back shove 4
             { q = q(100,1652,63,38), ox = 51, oy = 34, func = backGrabAttack, delay = 0.3 }, --back shove 5
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
-            { q = q(47,398,42,58), ox = 18, oy = 57 }, --pickup 2
+            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pickup 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pickup 1
             delay = 0.2,
             isThrow = true,
@@ -574,8 +574,8 @@ return {
             }
         },
         grabSwap = {
-            { q = q(135,1887,43,62), ox = 17, oy = 62 }, --grab swap 1.1
-            { q = q(180,1887,36,62), ox = 18, oy = 62 }, --grab swap 1.2
+            { q = q(134,1887,42,62), ox = 16, oy = 62 }, --grab swap 1.1
+            { q = q(178,1887,35,62), ox = 17, oy = 62 }, --grab swap 1.2
             delay = 5
         },
         grabbedFront = {
