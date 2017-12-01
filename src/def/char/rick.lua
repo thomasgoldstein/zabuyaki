@@ -30,20 +30,20 @@ local frontGrabAttackDown = function(slf, cont)
     )
 end
 local frontGrabAttackUp = function(slf, cont)
-    slf:doThrow(slf.velocityShove_x / 10,
-        slf.velocityShove_z * 2,
+    slf:doThrow(slf.velocityThrow_x / 10,
+        slf.velocityThrow_z * 2,
         slf.horizontal, nil,
         slf.z + slf.throwStart_z)
 end
 local frontGrabAttackBack = function(slf, cont)
-    slf:doThrow(slf.velocityShove_x * slf.velocityShoveHorizontal,
-        slf.velocityShove_z * slf.velocityShoveHorizontal,
+    slf:doThrow(slf.velocityThrow_x * slf.velocityThrowHorizontal,
+        slf.velocityThrow_z * slf.velocityThrowHorizontal,
         slf.face, slf.face,
         slf.z + slf.throwStart_z)
 end
 local frontGrabAttackForward = function(slf, cont)
-    slf:doThrow(slf.velocityShove_x * slf.velocityShoveHorizontal,
-        slf.velocityShove_z * slf.velocityShoveHorizontal,
+    slf:doThrow(slf.velocityThrow_x * slf.velocityThrowHorizontal,
+        slf.velocityThrow_z * slf.velocityThrowHorizontal,
         slf.face, nil,
         slf.z + slf.throwStart_z)
 end
@@ -554,11 +554,11 @@ return {
             }
         },
         backGrabAttack = {
-            { q = q(2,1694,41,61), ox = 12, oy = 60, delay = 0.13 }, --back shove 1
-            { q = q(45,1692,45,63), ox = 15, oy = 62, delay = 0.1 }, --back shove 2
-            { q = q(92,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back shove 3
-            { q = q(155,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back shove 4
-            { q = q(100,1652,63,38), ox = 51, oy = 34, func = backGrabAttack, delay = 0.3 }, --back shove 5
+            { q = q(2,1694,41,61), ox = 12, oy = 60, delay = 0.13 }, --back throw 1
+            { q = q(45,1692,45,63), ox = 15, oy = 62, delay = 0.1 }, --back throw 2
+            { q = q(92,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back throw 3
+            { q = q(155,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back throw 4
+            { q = q(100,1652,63,38), ox = 51, oy = 34, func = backGrabAttack, delay = 0.3 }, --back throw 5
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pickup 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pickup 1

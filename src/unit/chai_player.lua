@@ -33,9 +33,9 @@ function Chai:initAttributes()
     self.frictionDash = self.velocityDash
     self.velocityTeep_x = 150 --horizontal speed of the teep slide
     self.velocityTeep_y = 120 --vertical speed of the teep slide
-    --    self.velocityShove_x = 220 --my throwing speed
-    --    self.velocityShove_z = 200 --my throwing speed
-    --    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
+    --    self.velocityThrow_x = 220 --my throwing speed
+    --    self.velocityThrow_z = 200 --my throwing speed
+    --    self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws
     self.velocitySlide = 200 --horizontal speed of the slide kick
     self.velocitySlide_y = 20 --vertical speed of the slide kick
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others

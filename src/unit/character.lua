@@ -74,9 +74,9 @@ function Character:initAttributes()
     self.toFallenAnim_z = 40
     self.velocityStepDown = 220
     self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
-    self.velocityShove_x = 220 --my throwing speed
-    self.velocityShove_z = 200 --my throwing speed
-    self.velocityShoveHorizontal = 1.3 -- +30% for horizontal throws
+    self.velocityThrow_x = 220 --my throwing speed
+    self.velocityThrow_z = 200 --my throwing speed
+    self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws
     self.velocityBackoff = 175 --when you ungrab someone
     self.velocityBackoff2 = 200 --when you are released
     self.velocityBonusOnAttack_x = 30
@@ -1497,7 +1497,7 @@ function Character:grabbedFrontUpdate(dt)
         end
     end
     --self:calcMovement(dt, true)
-    if self.z > 0 and self.isHittable then -- don't slide down during the shove
+    if self.z > 0 and self.isHittable then -- don't slide down during the throw
         self:calcFreeFall(dt)
         if self.z <= 0 then
             self.vel_z = 0
@@ -1542,7 +1542,7 @@ function Character:grabbedBackUpdate(dt)
         end
     end
     --self:calcMovement(dt, true)
-    if self.z > 0 and self.isHittable then -- don't slide down during the shove
+    if self.z > 0 and self.isHittable then -- don't slide down during the throw
         self:calcFreeFall(dt)
         if self.z <= 0 then
             self.vel_z = 0

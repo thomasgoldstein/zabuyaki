@@ -30,15 +30,15 @@ local frontGrabAttackDown = function(slf, cont)
     )
 end
 local frontGrabAttackUp = function(slf, cont)
-    slf:doThrow(slf.velocityShove_x / 10,
-        slf.velocityShove_z * 2,
+    slf:doThrow(slf.velocityThrow_x / 10,
+        slf.velocityThrow_z * 2,
         slf.horizontal, nil,
         slf.z + slf.throwStart_z)
 end
 local frontGrabAttackBack = function(slf, cont) slf:doThrow(220, 20, slf.face) end
 local frontGrabAttackForward = function(slf, cont)
-    slf:doThrow(slf.velocityShove_x * slf.velocityShoveHorizontal,
-        slf.velocityShove_z * slf.velocityShoveHorizontal,
+    slf:doThrow(slf.velocityThrow_x * slf.velocityThrowHorizontal,
+        slf.velocityThrow_z * slf.velocityThrowHorizontal,
         slf.face)
 end
 local comboAttack1 = function(slf, cont)
