@@ -12,7 +12,7 @@ return {
     spriteName = "bat", -- The name of the sprite
     delay = 5.20,	--default delay for all animations
     animations = {
-        icon  = {
+        icon = {
             { q = q(2,23,38,11) } -- default 38x17
         },
         stand = {

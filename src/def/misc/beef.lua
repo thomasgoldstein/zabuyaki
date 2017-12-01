@@ -12,7 +12,7 @@ return {
     spriteName = "beef", -- The name of the sprite
     delay = 5.22,	--default delay for all animations
     animations = {
-        icon  = {
+        icon = {
             { q = q(54,2,30,19) }  -- default 38x17
         },
         stand = {

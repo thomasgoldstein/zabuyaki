@@ -175,7 +175,7 @@ return {
     --  each one can be accessed like this:
     --  mySprite.animations["idle"][1], or even
     animations = {
-        icon  = {
+        icon = {
             { q = q(2, 287, 36, 17) }
         },
         intro = {

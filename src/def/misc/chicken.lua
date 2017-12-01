@@ -12,7 +12,7 @@ return {
     spriteName = "chicken", -- The name of the sprite
     delay = 5.23,	--default delay for all animations
     animations = {
-        icon  = {
+        icon = {
             { q = q(22,2,30,19) } -- default 38x17
         },
         stand = {

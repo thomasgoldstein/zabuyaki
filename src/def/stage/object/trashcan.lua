@@ -14,7 +14,7 @@ return {
     delay = 9000000,	--default delay for all
 
     animations = {
-        icon  = {
+        icon = {
             { q = q(2, 2, 27, 17) },
             { q = q(31, 2, 27, 17) },
             { q = q(60, 5, 27, 17) },

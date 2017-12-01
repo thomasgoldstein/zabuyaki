@@ -12,7 +12,7 @@ return {
     spriteName = "apple", -- The name of the sprite
     delay = 5.21,	--default delay for all animations
     animations = {
-        icon  = {
+        icon = {
             { q = q(2,2,18,17) } -- default 38x17
         },
         stand = {

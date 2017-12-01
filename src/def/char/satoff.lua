@@ -59,7 +59,7 @@ return {
     spriteName = "satoff", -- sprite name
     delay = 0.2,	--default delay for all animations
     animations = {
-        icon  = {
+        icon = {
             { q = q(20, 9, 38, 17) } -- default 38x17
         },
         intro = {
