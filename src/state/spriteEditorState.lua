@@ -388,7 +388,7 @@ function spriteEditorState:draw()
                 m.item = weaponAnimations[m.n].." #"..m.n.." of "..#weaponAnimations
                 m.hint = ""
                 local s = sprite.def.animations[sprite.curAnim]
-                if weaponSprite.curAnim ~= weaponAnimations[menu[menuState].n] then
+                if #weaponSprite > 0 and weaponSprite.curAnim ~= weaponAnimations[menu[menuState].n] then
                     SetSpriteAnimation(weaponSprite, weaponAnimations[menu[menuState].n])
                 end
             end
