@@ -264,13 +264,13 @@ return {
             delay = 0.1
         },
         jump = {
-            { q = q(2,1951,39,67), ox = 20, oy = 66, delay = 0.15 }, --jump up
-            { q = q(43,1951,44,67), ox = 21, oy = 66 }, --jump top
-            { q = q(89,1951,46,67), ox = 24, oy = 66, delay = 5 }, --jump down
+            { q = q(2,1952,39,66), ox = 20, oy = 65, delay = 0.15 }, --jump up
+            { q = q(43,1952,44,66), ox = 21, oy = 65 }, --jump top
+            { q = q(89,1952,46,66), ox = 24, oy = 65, delay = 5 }, --jump down
             delay = 0.09
         },
         respawn = {
-            { q = q(89,1951,46,67), ox = 24, oy = 66, delay = 5 }, --jump down
+            { q = q(89,1952,46,66), ox = 24, oy = 65, delay = 5 }, --jump down
             { q = q(47,398,41,58), ox = 17, oy = 57, delay = 0.5 }, --pickup 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pickup 1
             delay = 0.1
@@ -451,36 +451,36 @@ return {
             delay = 0.02
         },
         jumpAttackForward = {
-            { q = q(2,714,53,61), ox = 23, oy = 66 }, --jump attack forward 1
+            { q = q(2,714,53,61), ox = 23, oy = 65 }, --jump attack forward 1
             { q = q(57,714,75,59), ox = 33, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 2
             delay = 0.06
         },
         jumpAttackForwardEnd = {
-            { q = q(2,714,53,61), ox = 23, oy = 66 }, --jump attack forward 1
+            { q = q(2,714,53,61), ox = 23, oy = 65 }, --jump attack forward 1
             delay = 5
         },
         jumpAttackLight = {
-            { q = q(2,844,43,67), ox = 21, oy = 66 }, --jump attack light 1
+            { q = q(2,844,43,66), ox = 21, oy = 65 }, --jump attack light 1
             { q = q(47,844,47,63), ox = 23, oy = 66, funcCont = jumpAttackLight, delay = 5 }, --jump attack light 2
             delay = 0.03
         },
         jumpAttackLightEnd = {
-            { q = q(2,844,43,67), ox = 21, oy = 66 }, --jump attack light 1
+            { q = q(2,844,43,66), ox = 21, oy = 65 }, --jump attack light 1
             delay = 5
         },
         jumpAttackStraight = {
-            { q = q(2,778,38,63), ox = 19, oy = 66 }, --jump attack straight 1
-            { q = q(42,778,50,64), ox = 19, oy = 66, func = jumpAttackStraight1, delay = 0.05 }, --jump attack straight 2
+            { q = q(2,778,38,63), ox = 19, oy = 65 }, --jump attack straight 1
+            { q = q(42,778,50,64), ox = 19, oy = 65, func = jumpAttackStraight1, delay = 0.05 }, --jump attack straight 2
             { q = q(94,779,42,61), ox = 19, oy = 65, funcCont = jumpAttackStraight2, delay = 5 }, --jump attack straight 3
             delay = 0.13
         },
         jumpAttackRun = {
-            { q = q(2,714,53,61), ox = 23, oy = 66 }, --jump attack forward 1
+            { q = q(2,714,53,61), ox = 23, oy = 65 }, --jump attack forward 1
             { q = q(90,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun, delay = 5 }, --jump attack running
             delay = 0.06
         },
         jumpAttackRunEnd = {
-            { q = q(2,714,53,61), ox = 23, oy = 66 }, --jump attack forward 1
+            { q = q(2,714,53,61), ox = 23, oy = 65 }, --jump attack forward 1
             delay = 5
         },
         sideStepUp = {
