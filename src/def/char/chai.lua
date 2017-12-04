@@ -18,14 +18,14 @@ end
 local frontGrabAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 10, y = 21, width = 26, damage = 11,
-        type = "knockDown", velocity = slf.velocityThrow_x },
+        type = "knockDown", velocity = slf.velocityShortThrow_x },
         cont
     )
 end
 local frontGrabAttackDown = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, y = 37, width = 26, damage = 15,
-        type = "knockDown", velocity = slf.velocityThrow_x },
+        type = "knockDown", velocity = slf.velocityShortThrow_x },
         cont
     )
 end

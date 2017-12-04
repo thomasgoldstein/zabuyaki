@@ -75,12 +75,12 @@ function Character:initAttributes()
     self.velocityStepDown = 220
     self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
     self.velocityThrow_x = 220 --my throwing speed
+    self.velocityShortThrow_x = self.velocityThrow_x / 2 --my throwing speed (frontGrabAttack Last and Down)
     self.velocityThrow_z = 200 --my throwing speed
     self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws
     self.velocityBackoff = 175 --when you ungrab someone
     self.velocityBackoff2 = 200 --when you are released
     self.velocityBonusOnAttack_x = 30
-    self.velocityThrow_x = 110 --attack speed that causes my thrown body to the victims
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage

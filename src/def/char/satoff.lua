@@ -41,7 +41,7 @@ end
 local frontGrabAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 19, y = 37, width = 26, damage = 18,
-        type = "knockDown", velocity = slf.velocityThrow_x },
+        type = "knockDown", velocity = slf.velocityShortThrow_x },
         cont
     )
 end
