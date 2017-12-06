@@ -95,7 +95,7 @@ function Obstacle:checkCollisionAndMove(dt)
     local cx,cy = self.shape:center()
     self.x = cx
     self.y = cy
-    return success
+    return success, 0, 0
 end
 
 function Obstacle:updateAI(dt)

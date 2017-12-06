@@ -182,6 +182,7 @@ end
 
 function Unit:checkCollisionAndMove(dt)
     local success = true
+    local stepx, stepy = 0, 0
     if self.move then
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
@@ -196,23 +197,27 @@ function Unit:checkCollisionAndMove(dt)
             if o.type == "wall"
             or (o.type == "obstacle" and o.z <= 0 and o.hp > 0)
             then
-                self.shape:move(separatingVector.x, separatingVector.y)
-                success = false
+                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
+                    stepx, stepy = separatingVector.x, separatingVector.y
+                    success = false
+                end
             end
         end
     else
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
             if o.type == "wall"	then
-                self.shape:move(separatingVector.x, separatingVector.y)
-                success = false
+                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
+                    stepx, stepy = separatingVector.x, separatingVector.y
+                    success = false
+                end
             end
         end
     end
     local cx,cy = self.shape:center()
     self.x = cx
     self.y = cy
-    return success
+    return success, stepx, stepy
 end
 
 function Unit:isStuck()
@@ -276,7 +281,7 @@ function Unit:calcMovement(dt, use_friction, friction, doNotMoveUnit)
     if not doNotMoveUnit then
         return self:checkCollisionAndMove(dt)
     end
-    return true
+    return true, 0, 0
 end
 
 function Unit:calcDamageFrame()

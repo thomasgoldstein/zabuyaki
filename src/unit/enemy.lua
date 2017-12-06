@@ -45,8 +45,10 @@ function Enemy:checkCollisionAndMove(dt)
                     or (o.type == "obstacle" and o.z <= 0)
             then
                 self.shape:move(separatingVector.x, separatingVector.y)
-                --other:move( separatingVector.x/2,  separatingVector.y/2)
-                success = false
+                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
+                    stepx, stepy = separatingVector.x, separatingVector.y
+                    success = false
+                end
             end
         end
     else
@@ -55,14 +57,17 @@ function Enemy:checkCollisionAndMove(dt)
             if o.type == "wall"
             then
                 self.shape:move(separatingVector.x, separatingVector.y)
-                success = false
+                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
+                    stepx, stepy = separatingVector.x, separatingVector.y
+                    success = false
+                end
             end
         end
     end
     local cx,cy = self.shape:center()
     self.x = cx
     self.y = cy
-    return success
+    return success, stepx, stepy
 end
 
 function Enemy:updateAI(dt)

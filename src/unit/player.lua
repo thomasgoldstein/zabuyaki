@@ -69,12 +69,13 @@ end
 
 function Player:checkCollisionAndMove(dt)
     local success = true
+    local stepx, stepy = 0, 0
     if self.move then
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
     else
-        local stepx = self.vel_x * dt * self.horizontal
-        local stepy = self.vel_y * dt * self.vertical
+        stepx = self.vel_x * dt * self.horizontal
+        stepy = self.vel_y * dt * self.vertical
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
     if self.z <= 0 then
@@ -85,7 +86,10 @@ function Player:checkCollisionAndMove(dt)
                 or o.type == "stopper"
             then
                 self.shape:move(separatingVector.x, separatingVector.y)
-                success = false
+                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
+                    stepx, stepy = separatingVector.x, separatingVector.y
+                    success = false
+                end
             end
         end
     else
@@ -95,14 +99,17 @@ function Player:checkCollisionAndMove(dt)
                 or o.type == "stopper"
             then
                 self.shape:move(separatingVector.x, separatingVector.y)
-                success = false
+                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
+                    stepx, stepy = separatingVector.x, separatingVector.y
+                    success = false
+                end
             end
         end
     end
     local cx,cy = self.shape:center()
     self.x = cx
     self.y = cy
-    return success
+    return success, stepx, stepy
 end
 
 function Player:isStuck()
