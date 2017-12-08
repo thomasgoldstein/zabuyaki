@@ -1178,24 +1178,31 @@ function Character:comboStart()
             self.comboN = self.comboN + 1
             if self.comboN > self.sprite.def.max_combo then
                 self.comboN = 1
+                print(self.name, "reset comboN because > max_combo")
             end
         else
             self.comboN = 1
+            print(self.name, "reset comboN because NO connected hits", self.sprite.curAnim)
         end
     else
         self.comboN = 1
+        print(self.name, "reset comboN because comboCooldown TIMEOUT")
     end
     self.connectHit = false
     self.attacksPerAnimation = 0
 
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.comboN.."Forward") then
+        print(self.name, "combo"..self.comboN.."Forward")
         return
     elseif self.b.vertical:getValue() == -1 and self:setSpriteIfExists("combo"..self.comboN.."Up") then
+        print(self.name, "combo"..self.comboN.."Up")
         return
     elseif self.b.vertical:getValue() == 1 and self:setSpriteIfExists("combo"..self.comboN.."Down") then
+        print(self.name, "combo"..self.comboN.."Down")
         return
     end
     self:setSprite("combo"..self.comboN)
+    print(self.name, "combo"..self.comboN)
 end
 function Character:comboUpdate(dt)
     if self.connectHit then
