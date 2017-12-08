@@ -18,7 +18,7 @@ local comboPunch = function(slf, cont)
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 15, y = 20, width = 22, height = 45, damage = 14, type = "knockDown", velocity = slf.vel_x },
+        { x = 15, y = 20, width = 22, height = 45, damage = 14, type = "knockDown" },
         cont
     )
 end

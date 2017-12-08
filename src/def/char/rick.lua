@@ -51,7 +51,7 @@ local backGrabAttack = function(slf, cont)
     local g = slf.hold
     if g and g.target then
         slf:checkAndAttack(
-            { x = -38, y = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "blowOut", velocity = slf.vel_x },
+            { x = -38, y = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "blowOut" },
             cont
         )
         local target = g.target
@@ -86,13 +86,13 @@ local comboAttack3Up1 = function(slf, cont)
 end
 local comboAttack3Up2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 18, y = 24, width = 27, damage = 9, velocity = slf.vel_x },
+        { x = 18, y = 24, width = 27, damage = 9 },
         cont
     )
 end
 local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 10, velocity = slf.vel_x },
+        { x = 27, y = 21, width = 39, damage = 10 },
         cont
     )
 end
@@ -110,13 +110,13 @@ local comboAttack4Up1 = function(slf, cont)
 end
 local comboAttack4Up2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 50, width = 33, damage = 18, type = "knockDown", velocity = slf.vel_x },
+        { x = 25, y = 50, width = 33, damage = 18, type = "knockDown" },
         cont
     )
 end
 local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 35, y = 32, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x },
+        { x = 35, y = 32, width = 39, damage = 15, type = "knockDown" },
         cont
     )
 end
@@ -131,13 +131,13 @@ local holdAttack1 = function(slf, cont)
 end
 local holdAttack2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 24, y = 41, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x },
+        { x = 24, y = 41, width = 39, damage = 15, type = "knockDown" },
         cont
     )
 end
 local holdAttack3 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 14, y = 41, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x },
+        { x = 14, y = 41, width = 39, damage = 15, type = "knockDown" },
         cont
     )
 end
@@ -157,26 +157,26 @@ local dashAttackResetSpeed = function(slf, cont)
 end
 local dashHoldAttackH = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x },
+        { x = 27, y = 21, width = 39, damage = 15, type = "knockDown" },
         cont
     )
 end
 local dashHoldAttackV = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 11, type = "knockDown", velocity = slf.vel_x },
+        { x = 27, y = 21, width = 39, damage = 11, type = "knockDown" },
         cont
     )
 end
 local jumpAttackForward = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 25, width = 25, height = 45, damage = 15, type = "knockDown", velocity = slf.vel_x },
+    { x = 30, y = 25, width = 25, height = 45, damage = 15, type = "knockDown" },
     cont
 ) end
 local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
-    { x = 15, y = 25, width = 22, damage = 9, velocity = slf.vel_x },
+    { x = 15, y = 25, width = 22, damage = 9 },
     cont
 ) end
 local jumpAttackStraight1 = function(slf, cont) slf:checkAndAttack(
-    { x = 17, y = 35, width = 30, height = 55, damage = 7, velocity = slf.vel_x },
+    { x = 17, y = 35, width = 30, height = 55, damage = 7 },
     cont
 ) end
 local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
@@ -184,11 +184,11 @@ local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
  local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 15, width = 25, height = 45, damage = 17, type = "knockDown", velocity = slf.vel_x },
+    { x = 30, y = 15, width = 25, height = 45, damage = 17, type = "knockDown" },
     cont
  ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
-    { x = 11, y = 32, width = 77, height = 70, depth = 18, damage = 25, type = "blowOut", velocity = slf.vel_x },
+    { x = 11, y = 32, width = 77, height = 70, depth = 18, damage = 25, type = "blowOut" },
     cont
  ) end
 

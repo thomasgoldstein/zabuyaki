@@ -19,14 +19,14 @@ local comboUppercut2 = function(slf, cont)
 
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 4, y = 10, width = 48, height = 45, damage = 28, type = "knockDown", velocity = slf.vel_x },
+        { x = 4, y = 10, width = 48, height = 45, damage = 28, type = "knockDown" },
         cont
     )
 end
 
 local rollAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 4, y = 23, width = 48, height = 45, damage = 28, type = "knockDown", velocity = slf.vel_x },
+        { x = 4, y = 23, width = 48, height = 45, damage = 28, type = "knockDown" },
         cont
     )
 end

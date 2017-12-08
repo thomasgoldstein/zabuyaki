@@ -115,11 +115,11 @@ local dashAttack3 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local jumpAttackForward = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 18, width = 25, height = 45, damage = 15, type = "knockDown", velocity = slf.vel_x },
+    { x = 30, y = 18, width = 25, height = 45, damage = 15, type = "knockDown" },
     cont
 ) end
 local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
-    { x = 12, y = 21, width = 22, damage = 8, velocity = slf.vel_x },
+    { x = 12, y = 21, width = 22, damage = 8 },
     cont
 ) end
 local jumpAttackStraight = function(slf, cont) slf:checkAndAttack(
@@ -127,39 +127,39 @@ local jumpAttackStraight = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 25, width = 35, height = 50, damage = 7, velocity = slf.vel_x },
+    { x = 25, y = 25, width = 35, height = 50, damage = 7 },
     cont
 ) end
 local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 25, width = 35, height = 50, damage = 8, type = "knockDown", velocity = slf.vel_x },
+    { x = 25, y = 25, width = 35, height = 50, damage = 8, type = "knockDown" },
     cont
 ) end
 local dashHoldAttackH = function(slf, cont) slf:checkAndAttack(
-    { x = 32, y = 18, width = 25, height = 45, damage = 15, type = "knockDown", velocity = slf.vel_x },
+    { x = 32, y = 18, width = 25, height = 45, damage = 15, type = "knockDown" },
     cont
 ) end
 local dashHoldAttackV = function(slf, cont) slf:checkAndAttack(
-    { x = 21, y = 18, width = 25, height = 45, damage = 11, type = "knockDown", velocity = slf.vel_x },
+    { x = 21, y = 18, width = 25, height = 45, damage = 11, type = "knockDown" },
     cont
 ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
-    { x = 0, y = 22, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
+    { x = 0, y = 22, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
 local defensiveSpecialRight = function(slf, cont) slf:checkAndAttack(
-    { x = 3, y = 22, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
+    { x = 3, y = 22, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
 local defensiveSpecialRightMost = function(slf, cont) slf:checkAndAttack(
-    { x = 5, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
+    { x = 5, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
 local defensiveSpecialLeft = function(slf, cont) slf:checkAndAttack(
-    { x = -3, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
+    { x = -3, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
 local defensiveSpecialLeftMost = function(slf, cont) slf:checkAndAttack(
-    { x = -5, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut", velocity = slf.vel_x },
+    { x = -5, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
 
