@@ -6,13 +6,13 @@ local function q(x,y,w,h)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 29, y = 22, width = 26, damage = 7, velocity = slf.vel_x, sfx = "air" },
+        { x = 29, y = 22, width = 26, damage = 7, sfx = "air" },
         cont
     )
 end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(
-        { x = 29, y = 31, width = 26, damage = 9, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
+        { x = 29, y = 31, width = 26, damage = 9, type = "knockDown", sfx = "air" },
         cont
     )
 end

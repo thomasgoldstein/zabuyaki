@@ -6,7 +6,7 @@ local function q(x,y,w,h)
 end
 local comboSlap = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 32, width = 26, damage = 5, velocity = slf.vel_x, sfx = "air" },
+        { x = 25, y = 32, width = 26, damage = 5, sfx = "air" },
         cont
     )
 end

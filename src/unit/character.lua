@@ -315,7 +315,7 @@ function Character:checkAndAttack(f, isFuncCont)
         f = {}
     end
     local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
-    local damage, type, velocity = f.damage or 1, f.type or "hit", f.velocity or 0
+    local damage, type, velocity = f.damage or 1, f.type or "hit", f.velocity or self.vel_x or 0
     local face = self.face
 
     local items = {}

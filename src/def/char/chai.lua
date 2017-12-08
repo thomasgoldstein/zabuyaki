@@ -43,13 +43,13 @@ local frontGrabAttackForward = function(slf, cont)
 end
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 26, y = 24, width = 26, damage = 8, velocity = slf.vel_x, sfx = "air" },
+        { x = 26, y = 24, width = 26, damage = 8, sfx = "air" },
         cont
     )
 end
 local comboAttack1Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 30, y = 21, width = 26, damage = 6, velocity = slf.vel_x, sfx = "air" },
+        { x = 30, y = 21, width = 26, damage = 6, sfx = "air" },
         cont
     )
     -- Chai's teep makes him move forward
@@ -63,13 +63,13 @@ local comboAttack1Forward = function(slf, cont)
 end
 local comboAttack2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 11, width = 30, damage = 10, velocity = slf.vel_x, sfx = "air" },
+        { x = 28, y = 11, width = 30, damage = 10, sfx = "air" },
         cont
     )
 end
 local comboAttack3 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 32, y = 40, width = 38, damage = 12, velocity = slf.vel_x, sfx = "air" },
+        { x = 32, y = 40, width = 38, damage = 12, sfx = "air" },
         cont
     )
 end

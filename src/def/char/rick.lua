@@ -62,25 +62,25 @@ local backGrabAttack = function(slf, cont)
 end
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 30, width = 26, damage = 7, velocity = slf.vel_x, sfx = "air" },
+        { x = 28, y = 30, width = 26, damage = 7, sfx = "air" },
         cont
     )
 end
 local comboAttack2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 31, width = 27, damage = 8, velocity = slf.vel_x, sfx = "air" },
+        { x = 28, y = 31, width = 27, damage = 8, sfx = "air" },
         cont
     )
 end
 local comboAttack3 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 18, width = 27, damage = 10, velocity = slf.vel_x, sfx = "air" },
+        { x = 28, y = 18, width = 27, damage = 10, sfx = "air" },
         cont
     )
 end
 local comboAttack3Up1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 30, width = 27, damage = 4, velocity = slf.vel_x, sfx = "air" },
+        { x = 28, y = 30, width = 27, damage = 4, sfx = "air" },
         cont
     )
 end
@@ -98,13 +98,13 @@ local comboAttack3Forward = function(slf, cont)
 end
 local comboAttack4 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 34, y = 41, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
+        { x = 34, y = 41, width = 39, damage = 15, type = "knockDown", sfx = "air" },
         cont
     )
 end
 local comboAttack4Up1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 40, width = 29, damage = 18, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
+        { x = 27, y = 40, width = 29, damage = 18, type = "knockDown", sfx = "air" },
         cont
     )
 end
@@ -125,7 +125,7 @@ local comboAttackSfx = function(slf, cont)
 end
 local holdAttack1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 34, y = 41, width = 39, damage = 15, type = "knockDown", velocity = slf.vel_x, sfx = "air" },
+        { x = 34, y = 41, width = 39, damage = 15, type = "knockDown", sfx = "air" },
         cont
     )
 end
