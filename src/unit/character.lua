@@ -772,7 +772,6 @@ function Character:duck2jumpUpdate(dt)
         if self.moves.jump then
             if self.vel_x < self.velocityWalk_x then
                 self.vel_x = 0
-                self.vel_y = 0
             end
             self:setState(self.jump)
         else
