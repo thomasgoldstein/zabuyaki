@@ -1174,6 +1174,7 @@ Character.dead = {name = "dead", start = Character.deadStart, exit = nop, update
 function Character:comboStart()
     self.isHittable = true
     self.horizontal = self.face
+    self.isSliding = false
 --    self.connectHit = false
     self:removeTweenMove()
     if self.comboCooldown >= 0 then
@@ -1233,7 +1234,7 @@ function Character:comboUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true)
+    self:calcMovement(dt, not self.isSliding)
 end
 Character.combo = {name = "combo", start = Character.comboStart, exit = nop, update = Character.comboUpdate, draw = Character.defaultDraw}
 

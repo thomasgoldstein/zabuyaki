@@ -47,12 +47,9 @@ local comboAttack1 = function(slf, cont)
         cont
     )
 end
-local comboAttack1Forward = function(slf, cont)
-    slf:checkAndAttack(
-        { x = 30, y = 21, width = 26, damage = 6, sfx = "air" },
-        cont
-    )
-    -- Chai's teep makes him move forward
+
+local comboAttack1Slide = function(slf, cont)
+    slf.isSliding = true
     if slf.b.vertical:getValue() ~= 0 then
         slf.vertical = slf.b.vertical:getValue()
         slf.vel_y = slf.velocityTeep_y -- reduced vertical velocity
@@ -60,6 +57,12 @@ local comboAttack1Forward = function(slf, cont)
     else
         slf.vel_x = slf.velocityTeep_x -- horizontal velocity
     end
+end
+local comboAttack1Forward = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 30, y = 21, width = 26, damage = 6, sfx = "air" },
+        cont
+    )
 end
 local comboAttack2 = function(slf, cont)
     slf:checkAndAttack(
@@ -87,14 +90,6 @@ local comboAttack4Forward = function(slf, cont)
         { x = 29, y = 18, width = 32, damage = 14, type = "knockDown", velocity = slf.velocityFall_x },
         cont
     )
-    -- move forward Chai
-    if slf.b.vertical:getValue() ~= 0 then
-        slf.vertical = slf.b.vertical:getValue()
-        slf.vel_y = slf.velocitySlide_y -- vertical velocity
-        slf.vel_x = slf.velocitySlide_y -- reduced horizontal velocity
-    else
-        slf.vel_x = slf.velocitySlide -- horizontal velocity
-    end
 end
 local comboAttack4NoSfx = function(slf, cont)
     slf:checkAndAttack(
@@ -362,7 +357,7 @@ return {
             delay = 0.02
         },
         combo1Forward = {
-            { q = q(2,521,56,64), ox = 23, oy = 63}, --combo forward 1.1
+            { q = q(2,521,56,64), ox = 23, oy = 63, func = comboAttack1Slide}, --combo forward 1.1
             { q = q(60,521,66,64), ox = 24, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
             { q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo forward 1.1
             delay = 0.01
@@ -392,7 +387,7 @@ return {
             delay = 0.03
         },
         combo4Forward = {
-            { q = q(2,1334,39,60), ox = 29, oy = 59 }, --defensive special 1
+            { q = q(2,1334,39,60), ox = 29, oy = 59, func = comboAttack1Slide }, --defensive special 1
             { q = q(43,1337,41,57), ox = 31, oy = 56 }, --defensive special 2
             { q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
             { q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2

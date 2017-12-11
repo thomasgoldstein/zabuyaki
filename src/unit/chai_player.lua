@@ -31,8 +31,8 @@ function Chai:initAttributes()
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
-    self.velocityTeep_x = 150 --horizontal speed of the teep slide
-    self.velocityTeep_y = 120 --vertical speed of the teep slide
+    self.velocityTeep_x = 150 / 4 --horizontal speed of the teep slide
+    self.velocityTeep_y = 120 / 4 --vertical speed of the teep slide
     --    self.velocityThrow_x = 220 --my throwing speed
     --    self.velocityThrow_z = 200 --my throwing speed
     --    self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws
