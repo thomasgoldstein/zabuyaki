@@ -669,27 +669,36 @@ function Character:jumpStart()
         self.vel_y = self.vel_y + self.velocityJumpBoost_y --make jump little faster than the walk/run speed
     end
     sfx.play("voice"..self.id, self.sfx.jump)
+    if not (self.moves.offensiveSpecial or self.moves.defensiveSpecial) then
+        self.canAttack = false
+    else
+        self.canAttack = true
+    end
 end
 function Character:jumpUpdate(dt)
     if self.b.attack:isDown() then
-        if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
-            self:setState(self.jumpAttackLight)
-            return
-        elseif self.moves.jumpAttackStraight and self.vel_x == 0 then
-            self:setState(self.jumpAttackStraight)
-            return
-        else
-            if self.moves.jumpAttackRun and self.vel_x >= self.velocityRun_x then
-                self:setState(self.jumpAttackRun)
+        if self.canAttack then
+            if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
+                self:setState(self.jumpAttackLight)
                 return
-            elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
+            elseif self.moves.jumpAttackStraight and self.vel_x == 0 then
                 self:setState(self.jumpAttackStraight)
                 return
-            elseif  self.moves.jumpAttackForward then
-                self:setState(self.jumpAttackForward)
-                return
+            else
+                if self.moves.jumpAttackRun and self.vel_x >= self.velocityRun_x then
+                    self:setState(self.jumpAttackRun)
+                    return
+                elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
+                    self:setState(self.jumpAttackStraight)
+                    return
+                elseif self.moves.jumpAttackForward then
+                    self:setState(self.jumpAttackForward)
+                    return
+                end
             end
         end
+    else
+        self.canAttack = true
     end
     if self.z > 0 then
         self:calcFreeFall(dt)
