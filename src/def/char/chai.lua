@@ -48,15 +48,8 @@ local comboAttack1 = function(slf, cont)
     )
 end
 
-local comboAttack1Slide = function(slf, cont)
-    slf.isSliding = true
-    if slf.b.vertical:getValue() ~= 0 then
-        slf.vertical = slf.b.vertical:getValue()
-        slf.vel_y = slf.velocityTeep_y -- reduced vertical velocity
-        slf.vel_x = slf.velocityTeep_y -- reduced horizontal velocity(same as y)
-    else
-        slf.vel_x = slf.velocityTeep_x -- horizontal velocity
-    end
+local comboAttack1Slide = function(slf)
+    slf:slide(slf.velocityTeep_x, slf.velocityTeep_y)
 end
 local comboAttack1Forward = function(slf, cont)
     slf:checkAndAttack(
