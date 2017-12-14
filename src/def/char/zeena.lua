@@ -21,7 +21,7 @@ local comboKick = function(slf, cont)
         slf.vel_y = slf.velocitySlide_y -- vertical velocity
         slf.vel_x = slf.velocitySlide_y -- reduced horizontal velocity
     else
-        slf.vel_x = slf.velocitySlide -- horizontal velocity
+        slf.vel_x = slf.velocitySlide_x -- horizontal velocity
     end
 end
 local jumpAttack = function(slf, cont)
