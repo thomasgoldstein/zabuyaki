@@ -31,13 +31,13 @@ function Chai:initAttributes()
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
-    self.velocityTeep_x = 150 / 4 --horizontal speed of the teep slide
-    self.velocityTeep_y = 120 / 4 --vertical speed of the teep slide
+    self.velocitySlide1_x = 37.5 --horizontal speed of light attacks
+    self.velocitySlide1_y = 30 --vertical speed of light attacks
+    self.velocitySlide4_x = self.velocitySlide1_x * 4 --horizontal speed of strong attacks
+    self.velocitySlide4_y = self.velocitySlide1_y * 4 --vertical speed of strong attacks
     --    self.velocityThrow_x = 220 --my throwing speed
     --    self.velocityThrow_z = 200 --my throwing speed
     --    self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws
-    self.velocitySlide = 200 --horizontal speed of the slide kick
-    self.velocitySlide_y = 20 --vertical speed of the slide kick
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
