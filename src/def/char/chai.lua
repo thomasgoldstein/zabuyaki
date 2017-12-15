@@ -48,14 +48,9 @@ local comboAttack1 = function(slf, cont)
     )
 end
 
-local slideLevel1 = function(slf)
-    slf:slide(slf.velocitySlide1_x, slf.velocitySlide1_y)
+local comboAttack1Slide = function(slf)
+    slf:slide(slf.velocityTeep_x, slf.velocityTeep_y)
 end
-
-local slideLevel4 = function(slf)
-    slf:slide(slf.velocitySlide4_x, slf.velocitySlide4_y)
-end
-
 local comboAttack1Forward = function(slf, cont)
     slf:checkAndAttack(
         { x = 30, y = 21, width = 26, damage = 6, sfx = "air" },
@@ -355,7 +350,7 @@ return {
             delay = 0.02
         },
         combo1Forward = {
-            { q = q(2,521,56,64), ox = 23, oy = 63, func = slideLevel1}, --combo forward 1.1
+            { q = q(2,521,56,64), ox = 23, oy = 63, func = comboAttack1Slide}, --combo forward 1.1
             { q = q(60,521,66,64), ox = 24, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
             { q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo forward 1.1
             delay = 0.01
@@ -385,7 +380,7 @@ return {
             delay = 0.03
         },
         combo4Forward = {
-            { q = q(2,1334,39,60), ox = 29, oy = 59, func = slideLevel4 }, --defensive special 1
+            { q = q(2,1334,39,60), ox = 29, oy = 59, func = comboAttack1Slide }, --defensive special 1
             { q = q(43,1337,41,57), ox = 31, oy = 56 }, --defensive special 2
             { q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
             { q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2
