@@ -1931,7 +1931,7 @@ function Character:knockedDownUpdate(dt)
 end
 Character.knockedDown = {name = "knockedDown", start = Character.knockedDownStart, exit = nop, update = Character.knockedDownUpdate, draw = Character.defaultDraw}
 
-function Character:slide(vel_x, vel_y)
+function Character:initSlide(vel_x, vel_y)
     self.isSliding = true
     if self.b.vertical:getValue() ~= 0 then
         self.vertical = self.b.vertical:getValue()
