@@ -41,21 +41,20 @@ local frontGrabAttackForward = function(slf, cont)
         slf.velocityThrow_z * slf.velocityThrowHorizontal,
         slf.face)
 end
+
+local slideLevel1 = function(slf)
+    slf:slide(slf.velocitySlide1_x, slf.velocitySlide1_y)
+end
+local slideLevel4 = function(slf)
+    slf:slide(slf.velocitySlide4_x, slf.velocitySlide4_y)
+end
+
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
         { x = 26, y = 24, width = 26, damage = 8, sfx = "air" },
         cont
     )
 end
-
-local slideLevel1 = function(slf)
-    slf:slide(slf.velocitySlide1_x, slf.velocitySlide1_y)
-end
-
-local slideLevel4 = function(slf)
-    slf:slide(slf.velocitySlide4_x, slf.velocitySlide4_y)
-end
-
 local comboAttack1Forward = function(slf, cont)
     slf:checkAndAttack(
         { x = 30, y = 21, width = 26, damage = 6, sfx = "air" },
