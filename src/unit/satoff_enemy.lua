@@ -49,7 +49,8 @@ function Satoff:initAttributes()
     self.velocityRun_x = 140
     self.runSpeed = self.velocityRun_x / 1
     self.velocityRun_y = 23
-    self.sideStepFriction = 550
+    self.velocitySideStep = 160
+    self.sideStepFriction = 350
     self.hopDuringSideStep = false
     self.velocityDash = 190 --speed of the character
     --    self.velocityDashFall = 180 --speed caused by dash to others fall
