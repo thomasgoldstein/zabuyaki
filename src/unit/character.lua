@@ -73,7 +73,8 @@ function Character:initAttributes()
     self.throwStart_z = 20 --lift up a body to throw at this Z
     self.toFallenAnim_z = 40
     self.velocitySideStep = 220
-    self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
+    self.sideStepFriction = 650 --velocity penalty for sideStepUp/Down (when you slide on the ground)
+    self.hopDuringSideStep = true --if true, perform a small jump during side step
     self.velocityThrow_x = 220 --my throwing speed
     self.velocityShortThrow_x = self.velocityThrow_x / 2 --my throwing speed (frontGrabAttack Last and Down)
     self.velocityThrow_z = 200 --my throwing speed
@@ -857,7 +858,9 @@ end
 function Character:sideStepUpdate(dt)
     if self.vel_y > 0 then
         self.vel_y = self.vel_y - self.sideStepFriction * dt
-        self.z = self.vel_y / 24 --to show low leap
+        if hopDuringSideStep then
+            self.z = self.vel_y / 24 --to show low leap
+        end
     else
         self.vel_y = 0
         sfx.play("sfx"..self.id, self.sfx.step, 0.75)

@@ -201,6 +201,26 @@ return {
             { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = 5 }, --jump attack forward 2
             delay = 0.12
         },
+        sideStepUp = {
+            { q = q(121,424,58,58), ox = 31, oy = 59, delay = 0.05 }, --jump attack forward 2 (lowered)
+            { q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack }, --run 1
+            { q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack }, --run 2
+            { q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack }, --run 3
+            { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack }, --run 4
+            loop = true,
+            loopFrom = 2,
+            delay = 0.1
+        },
+        sideStepDown = {
+            { q = q(121,424,58,58), ox = 31, oy = 59, delay = 0.05 }, --jump attack forward 2 (lowered)
+            { q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack }, --run 1
+            { q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack }, --run 2
+            { q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack }, --run 3
+            { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack }, --run 4
+            loop = true,
+            loopFrom = 2,
+            delay = 0.1
+        },
         grab = {
             { q = q(183,350,51,65), ox = 23, oy = 64 }, --uppercut 2
         },

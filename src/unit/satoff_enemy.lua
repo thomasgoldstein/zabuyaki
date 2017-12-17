@@ -32,7 +32,7 @@ end
 
 function Satoff:initAttributes()
     self.moves = { -- list of allowed moves
-        run = true, sideStep = false, pickup = true,
+        run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = false, frontGrabAttack = true,
         frontGrabAttackUp = false, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = false,
@@ -49,6 +49,8 @@ function Satoff:initAttributes()
     self.velocityRun_x = 140
     self.runSpeed = self.velocityRun_x / 1
     self.velocityRun_y = 23
+    self.sideStepFriction = 550
+    self.hopDuringSideStep = false
     self.velocityDash = 190 --speed of the character
     --    self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash * 3
