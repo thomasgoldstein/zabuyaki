@@ -72,7 +72,7 @@ function Character:initAttributes()
     self.velocityDashHoldSpeed_x = 0.8
     self.throwStart_z = 20 --lift up a body to throw at this Z
     self.toFallenAnim_z = 40
-    self.velocityStepDown = 220
+    self.velocitySideStep = 220
     self.sideStepFriction = 650 --velocity penalty for sideStepUp Down (when u slide on ground)
     self.velocityThrow_x = 220 --my throwing speed
     self.velocityShortThrow_x = self.velocityThrow_x / 2 --my throwing speed (frontGrabAttack Last and Down)
@@ -851,7 +851,7 @@ function Character:sideStepStart()
     else
         self:setSprite("sideStepUp")
     end
-    self.vel_x, self.vel_y = 0, self.velocityStepDown
+    self.vel_x, self.vel_y = 0, self.velocitySideStep
     sfx.play("sfx"..self.id, "whooshHeavy")
 end
 function Character:sideStepUpdate(dt)
