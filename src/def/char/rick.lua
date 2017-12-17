@@ -386,7 +386,7 @@ return {
         combo2Forward = {
             { q = q(134,715,46,61), ox = 23, oy = 60 }, --combo forward 2.1
             { q = q(182,716,39,60), ox = 17, oy = 59 }, --combo forward 2.2
-            { q = q(156,917,54,60), ox = 17, oy = 59, func = comboAttackSfx, funcCont = comboAttack2Forward, delay = 0.1 }, --combo forward 2.3
+            { q = q(158,917,54,60), ox = 17, oy = 59, func = comboAttackSfx, funcCont = comboAttack2Forward, delay = 0.1 }, --combo forward 2.3
             { q = q(111,519,39,63), ox = 16, oy = 62, delay = 0.06 }, --combo 2.1
             delay = 0.03
         },
@@ -397,9 +397,9 @@ return {
             delay = 0.025
         },
         combo3Up = {
-            { q = q(2,913,37,64), ox = 20, oy = 63 }, --combo up 3.1
-            { q = q(41,914,58,63), ox = 16, func = comboAttack3Up1, oy = 62, delay = 0.06 }, --combo up 3.2
-            { q = q(101,915,53,62), ox = 20, func = comboAttack3Up2, oy = 61 }, --combo up 3.3
+            { q = q(2,913,39,64), ox = 21, oy = 63 }, --combo up 3.1
+            { q = q(43,916,58,61), ox = 16, func = comboAttack3Up1, oy = 60 }, --combo up 3.2
+            { q = q(103,915,53,62), ox = 20, func = comboAttack3Up2, oy = 61, delay = 0.06 }, --combo up 3.3
             delay = 0.1
         },
         combo3Forward = {
