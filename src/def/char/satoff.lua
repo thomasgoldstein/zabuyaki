@@ -126,7 +126,7 @@ return {
         },
         respawn = {
             { q = q(2,421,55,70), ox = 35, oy = 69, delay = 5 }, --jump
-            { q = q(206,736,66,61), ox = 33, oy = 60, delay = 0.5 }, --pickup
+            { q = q(206,736,66,61), ox = 33, oy = 60, delay = 0.5 }, --pick up
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
             delay = 0.1
         },
@@ -136,7 +136,7 @@ return {
         },
         pickup = {
             { q = q(206,665,69,64), ox = 37, oy = 63, delay = 0.03 }, --duck
-            { q = q(206,736,66,61), ox = 33, oy = 60, delay = 0.2 }, --pickup
+            { q = q(206,736,66,61), ox = 33, oy = 60, delay = 0.2 }, --pick up
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
             delay = 0.05
         },
@@ -166,7 +166,7 @@ return {
         getup = {
             { q = q(75,304,79,37), ox = 49, oy = 34 }, --lying down
             { q = q(156,282,69,59), ox = 36, oy = 56 }, --getting up
-            { q = q(206,736,66,61), ox = 33, oy = 60 }, --pickup
+            { q = q(206,736,66,61), ox = 33, oy = 60 }, --pick up
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
             delay = 0.2
         },

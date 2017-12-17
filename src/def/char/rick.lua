@@ -214,8 +214,8 @@ return {
             { q = q(2, 280, 42, 17) }
         },
         intro = {
-            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pickup 2
-            { q = q(2,395,43,61), ox = 20, oy = 60 }, --pickup 1
+            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
+            { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
             loop = true,
             delay = 1
         },
@@ -277,8 +277,8 @@ return {
         },
         respawn = {
             { q = q(89,1952,46,66), ox = 24, oy = 65, delay = 5 }, --jump down
-            { q = q(47,398,41,58), ox = 17, oy = 57, delay = 0.5 }, --pickup 2
-            { q = q(2,395,43,61), ox = 20, oy = 60 }, --pickup 1
+            { q = q(47,398,41,58), ox = 17, oy = 57, delay = 0.5 }, --pick up 2
+            { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
             delay = 0.1
         },
         duck = {
@@ -286,9 +286,9 @@ return {
             delay = 0.06
         },
         pickup = {
-            { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.03 }, --pickup 1
-            { q = q(47,398,41,58), ox = 17, oy = 57, delay = 0.2 }, --pickup 2
-            { q = q(2,395,43,61), ox = 20, oy = 60 }, --pickup 1
+            { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.03 }, --pick up 1
+            { q = q(47,398,41,58), ox = 17, oy = 57, delay = 0.2 }, --pick up 2
+            { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
             delay = 0.05
         },
         dashAttack = {
@@ -457,8 +457,8 @@ return {
         getup = {
             { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
-            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pickup 2
-            { q = q(2,395,43,61), ox = 20, oy = 60 }, --pickup 1
+            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
+            { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
             delay = 0.2
         },
         fallen = {
@@ -587,8 +587,8 @@ return {
             { q = q(155,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back throw 4
             { q = q(100,1652,63,38), ox = 51, oy = 34, func = backGrabAttack, delay = 0.3 }, --back throw 5
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
-            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pickup 2
-            { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pickup 1
+            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
+            { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pick up 1
             delay = 0.2,
             isThrow = true,
             moves = {

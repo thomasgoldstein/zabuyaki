@@ -171,8 +171,8 @@ return {
             { q = q(2, 287, 36, 17) }
         },
         intro = {
-            { q = q(43,404,39,58), ox = 23, oy = 57 }, --pickup 2
-            { q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
+            { q = q(43,404,39,58), ox = 23, oy = 57 }, --pick up 2
+            { q = q(2,401,39,61), ox = 23, oy = 60 }, --pick up 1
             loop = true,
             delay = 1
         },
@@ -235,8 +235,8 @@ return {
         },
         respawn = {
             { q = q(207,335,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
-            { q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.5 }, --pickup 2
-            { q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
+            { q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.5 }, --pick up 2
+            { q = q(2,401,39,61), ox = 23, oy = 60 }, --pick up 1
             delay = 0.1
         },
         duck = {
@@ -244,9 +244,9 @@ return {
             delay = 0.06
         },
         pickup = {
-            { q = q(2,401,39,61), ox = 23, oy = 60, delay = 0.03 }, --pickup 1
-            { q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.2 }, --pickup 2
-            { q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
+            { q = q(2,401,39,61), ox = 23, oy = 60, delay = 0.03 }, --pick up 1
+            { q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.2 }, --pick up 2
+            { q = q(2,401,39,61), ox = 23, oy = 60 }, --pick up 1
             delay = 0.05
         },
         dashAttack = {
@@ -415,8 +415,8 @@ return {
         getup = {
             { q = q(69,488,68,30), ox = 38, oy = 28 }, --lying down
             { q = q(139,466,56,53), ox = 30, oy = 51 }, --getting up
-            { q = q(43,404,39,58), ox = 23, oy = 57 }, --pickup 2
-            { q = q(2,401,39,61), ox = 23, oy = 60 }, --pickup 1
+            { q = q(43,404,39,58), ox = 23, oy = 57 }, --pick up 2
+            { q = q(2,401,39,61), ox = 23, oy = 60 }, --pick up 1
             delay = 0.2
         },
         fallen = {

@@ -21,8 +21,8 @@ return {
             { q = q(2, 11, 37, 17) }
         },
         intro = {
-            { q = q(48,398,43,58), ox = 22, oy = 57 }, --pickup 2
-            { q = q(2,395,44,61), ox = 23, oy = 60 }, --pickup 1
+            { q = q(48,398,43,58), ox = 22, oy = 57 }, --pick up 2
+            { q = q(2,395,44,61), ox = 23, oy = 60 }, --pick up 1
             loop = true,
             delay = 1
         },
