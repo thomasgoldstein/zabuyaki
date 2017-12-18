@@ -43,10 +43,10 @@ local frontGrabAttackForward = function(slf, cont)
 end
 
 local slideLevel1 = function(slf)
-    slf:slide(slf.velocitySlide1_x, slf.velocitySlide1_y)
+    slf:initSlide(slf.velocitySlide1_x, slf.velocitySlide1_y)
 end
 local slideLevel4 = function(slf)
-    slf:slide(slf.velocitySlide4_x, slf.velocitySlide4_y)
+    slf:initSlide(slf.velocitySlide4_x, slf.velocitySlide4_y)
 end
 
 local comboAttack1 = function(slf, cont)

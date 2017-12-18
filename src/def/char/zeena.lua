@@ -16,13 +16,7 @@ local comboKick = function(slf, cont)
         cont
     )
     -- move forward Zeena
-    if slf.b.vertical:getValue() ~= 0 then
-        slf.vertical = slf.b.vertical:getValue()
-        slf.vel_y = slf.velocitySlide_y -- vertical velocity
-        slf.vel_x = slf.velocitySlide_y -- reduced horizontal velocity
-    else
-        slf.vel_x = slf.velocitySlide_x -- horizontal velocity
-    end
+    slf:initSlide(slf.velocitySlide_x, slf.velocitySlide_y)
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
