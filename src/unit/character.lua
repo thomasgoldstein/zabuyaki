@@ -317,9 +317,9 @@ function Character:checkAndAttack(f, isFuncCont)
     end
     local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
     local damage, type = f.damage or 1, f.type or "hit"
-    local vel_x = f.repel or 0
+    local repel = f.repel or 0
     if not f.repel and type == "fall" then
-        vel_x = self.vel_x
+        repel = self.vel_x
     end
     local face = self.face
 
@@ -333,7 +333,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and o ~= self
             then
                 o.isHurt = {source = self, state = self.state, damage = damage,
-                    type = type, vel_x = vel_x or self.velocityBonusOnAttack_x,
+                    type = type, vel_x = repel or self.velocityBonusOnAttack_x,
                     horizontal = face, isThrown = false,
                     z = self.z + y}
                 items[#items+1] = o
@@ -350,14 +350,14 @@ function Character:checkAndAttack(f, isFuncCont)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
-                        type = type, vel_x = vel_x or self.velocityBonusOnAttack_x,
+                        type = type, vel_x = repel or self.velocityBonusOnAttack_x,
                         horizontal = self.horizontal, isThrown = true,
                         z = self.z + y
                         --x = self.x, y = self.y, z = self.z
                     }
                 else
                     o.isHurt = {source = self, state = self.state, damage = damage,
-                        type = type, vel_x = vel_x or self.velocityBonusOnAttack_x,
+                        type = type, vel_x = repel or self.velocityBonusOnAttack_x,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
                         z = self.z + y
