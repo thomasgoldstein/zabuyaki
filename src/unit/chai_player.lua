@@ -31,10 +31,15 @@ function Chai:initAttributes()
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
     self.frictionDash = self.velocityDash
-    self.velocitySlide1_x = 37.5 --horizontal speed of light attacks
-    self.velocitySlide1_y = 30 --vertical speed of light attacks
-    self.velocitySlide4_x = self.velocitySlide1_x * 4 --horizontal speed of strong attacks
-    self.velocitySlide4_y = self.velocitySlide1_y * 4 --vertical speed of strong attacks
+
+    self.velocityComboSlide1_x = 40 --horizontal speed of combo1Forward attacks
+    self.velocityComboSlide1_diag_x = 30 --diagonal horizontal speed of combo1Forward attacks
+    self.velocityComboSlide1_diag_y = 15 --diagonal vertical speed of combo1Forward attacks
+
+    self.velocityComboSlide4_x = 150 --horizontal speed of of combo4Forward attacks
+    self.velocityComboSlide4_diag_x = 120 --diagonal horizontal speed of combo4Forward attacks
+    self.velocityComboSlide4_diag_y = 45 --diagonal vertical speed of combo4Forward attacks
+
     --    self.velocityThrow_x = 220 --my throwing speed
     --    self.velocityThrow_z = 200 --my throwing speed
     --    self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws

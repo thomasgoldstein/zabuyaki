@@ -16,7 +16,7 @@ local comboKick = function(slf, cont)
         cont
     )
     -- move forward Zeena
-    slf:initSlide(slf.velocitySlide_x, slf.velocitySlide_y)
+    slf:initSlide(slf.velocitySlide_x, slf.velocitySlide_diag_x, slf.velocitySlide_diag_y)
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(

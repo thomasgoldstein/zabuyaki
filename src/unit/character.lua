@@ -1938,12 +1938,12 @@ function Character:knockedDownUpdate(dt)
 end
 Character.knockedDown = {name = "knockedDown", start = Character.knockedDownStart, exit = nop, update = Character.knockedDownUpdate, draw = Character.defaultDraw}
 
-function Character:initSlide(vel_x, vel_y)
+function Character:initSlide(vel_x, vel_diag_x, vel_diag_y)
     self.isSliding = true
     if self.b.vertical:getValue() ~= 0 then
         self.vertical = self.b.vertical:getValue()
-        self.vel_y = vel_y -- reduced vertical velocity
-        self.vel_x = vel_y -- reduced horizontal velocity(same as y)
+        self.vel_x = vel_diag_x -- diagonal horizontal velocity
+        self.vel_y = vel_diag_y -- diagonal vertical velocity
     else
         self.vel_x = vel_x -- horizontal velocity
     end
