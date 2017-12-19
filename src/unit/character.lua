@@ -286,9 +286,9 @@ function Character:afterOnHurt()
     end
 end
 
-function Character:applyDamage(damage, type, source, velocity, sfx1)
+function Character:applyDamage(damage, type, source, vel_x, sfx1)
     self.isHurt = {source = source or self, state = self.state, damage = damage,
-        type = type, vel_x = velocity or 0,
+        type = type, vel_x = vel_x or 0,
         horizontal = self.face, isThrown = false,
         x = self.x, y = self.y, z = self.z }
     if sfx1 then
@@ -1078,7 +1078,7 @@ function Character:fallUpdate(dt)
     if self.isThrown and self.vel_z < 0 and self.bounced == 0 then
         --TODO dont check it on every FPS
         self:checkAndAttack(
-            { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", velocity = self.velocityThrow_x },
+            { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", vel_x = self.velocityThrow_x },
             false
         )
 
