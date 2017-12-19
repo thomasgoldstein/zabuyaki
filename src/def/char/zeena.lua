@@ -12,7 +12,7 @@ local comboSlap = function(slf, cont)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 10, width = 25, damage = 8, type = "knockDown", velocity = slf.velocityDashFall },
+        { x = 21, y = 10, width = 25, damage = 8, type = "knockDown", vel_x = slf.velocityDashFall },
         cont
     )
     -- move forward Zeena
@@ -20,7 +20,7 @@ local comboKick = function(slf, cont)
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 17, width = 25, height = 45, damage = 13, type = "knockDown", velocity = slf.velocityDashFall },
+        { x = 21, y = 17, width = 25, height = 45, damage = 13, type = "knockDown", vel_x = slf.velocityDashFall },
         cont
 ) end
 
