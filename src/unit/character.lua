@@ -318,7 +318,7 @@ function Character:checkAndAttack(f, isFuncCont)
     local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
     local damage, type = f.damage or 1, f.type or "hit"
     local repel = f.repel or 0
-    if not f.repel and type == "fall" then
+    if not f.repel and type == "knockDown" then
         repel = self.vel_x
     end
     local face = self.face
