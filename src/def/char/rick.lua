@@ -18,14 +18,14 @@ end
 local frontGrabAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, y = 21, width = 26, damage = 11,
-        type = "knockDown", vel_x = slf.velocityShortThrow_x },
+        type = "knockDown", repel = slf.velocityShortThrow_x },
         cont
     )
 end
 local frontGrabAttackDown = function(slf, cont)
     slf:checkAndAttack(
         { x = 20, y = 30, width = 26, damage = 15,
-        type = "knockDown", vel_x = slf.velocityShortThrow_x },
+        type = "knockDown", repel = slf.velocityShortThrow_x },
         cont
     )
 end
@@ -148,18 +148,18 @@ local holdAttack3 = function(slf, cont)
     )
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 37, width = 55, damage = 8, vel_x = slf.velocityDashFall },
+    { x = 20, y = 37, width = 55, damage = 8, repel = slf.velocityDashFall },
     cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 37, width = 55, damage = 12, type = "knockDown", vel_x = slf.velocityDashFall },
+    { x = 20, y = 37, width = 55, damage = 12, type = "knockDown", repel = slf.velocityDashFall },
     cont
 ) end
 local dashAttackSpeedUp = function(slf, cont)
-    slf.vel_x = slf.velocityDash * 1.7
+    slf.repel = slf.velocityDash * 1.7
 end
 local dashAttackResetSpeed = function(slf, cont)
-    slf.vel_x = slf.velocityDash
+    slf.repel = slf.velocityDash
 end
 local dashHoldAttackH = function(slf, cont)
     slf:checkAndAttack(
@@ -186,7 +186,7 @@ local jumpAttackStraight1 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
-    { x = 17, y = 14, width = 30, damage = 10, type = "knockDown", vel_x = slf.velocityFall_x },
+    { x = 17, y = 14, width = 30, damage = 10, type = "knockDown", repel = slf.velocityFall_x },
     cont
 ) end
  local jumpAttackRun = function(slf, cont) slf:checkAndAttack(

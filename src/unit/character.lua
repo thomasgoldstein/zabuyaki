@@ -310,15 +310,15 @@ function Character:checkStuckButtons()
 end
 
 function Character:checkAndAttack(f, isFuncCont)
-    --f options {}: x,y,width,height,depth, damage, type, vel_x, sfx, init_victims_list
+    --f options {}: x,y,width,height,depth, damage, type, repel, sfx, init_victims_list
     --type = "simple" "shockWave" "hit" "knockDown" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
     if not f then
         f = {}
     end
     local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
     local damage, type = f.damage or 1, f.type or "hit"
-    local vel_x = f.vel_x or 0
-    if not f.vel_x and type == "fall" then
+    local vel_x = f.repel or 0
+    if not f.repel and type == "fall" then
         vel_x = self.vel_x
     end
     local face = self.face
