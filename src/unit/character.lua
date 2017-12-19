@@ -858,7 +858,7 @@ end
 function Character:sideStepUpdate(dt)
     if self.vel_y > 0 then
         self.vel_y = self.vel_y - self.frictionSideStep * dt
-        if hopDuringSideStep then
+        if self.hopDuringSideStep then
             self.z = self.vel_y / 24 --to show low leap
         end
     else
