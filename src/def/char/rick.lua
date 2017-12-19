@@ -60,6 +60,17 @@ local backGrabAttack = function(slf, cont)
         target:setState(target.bounce)
     end
 end
+
+local comboSlide2 = function(slf)
+    slf:initSlide(slf.velocityComboSlide2_x, slf.velocityComboSlide2_diag_x, slf.velocityComboSlide2_diag_y)
+end
+local comboSlide3 = function(slf)
+    slf:initSlide(slf.velocityComboSlide3_x, slf.velocityComboSlide3_diag_x, slf.velocityComboSlide3_diag_y)
+end
+local comboSlide4 = function(slf)
+    slf:initSlide(slf.velocityComboSlide4_x, slf.velocityComboSlide4_diag_x, slf.velocityComboSlide4_diag_y)
+end
+
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, y = 30, width = 26, damage = 7, sfx = "air" },
@@ -74,7 +85,7 @@ local comboAttack2 = function(slf, cont)
 end
 local comboAttack2Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 24, width = 31, damage = 8 },
+        { x = 21, y = 24, width = 31, damage = 8, repel = slf.repelComboSlide2 },
         cont
     )
 end
@@ -98,7 +109,7 @@ local comboAttack3Up2 = function(slf, cont)
 end
 local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 10 },
+        { x = 27, y = 21, width = 39, damage = 10, repel = slf.repelComboSlide3 },
         cont
     )
 end
@@ -384,7 +395,7 @@ return {
             delay = 0.015
         },
         combo2Forward = {
-            { q = q(134,715,46,61), ox = 23, oy = 60 }, --combo forward 2.1
+            { q = q(134,715,46,61), ox = 23, oy = 60, func = comboSlide2 }, --combo forward 2.1
             { q = q(182,716,39,60), ox = 17, oy = 59 }, --combo forward 2.2
             { q = q(158,917,54,60), ox = 17, oy = 59, func = comboAttackSfx, funcCont = comboAttack2Forward, delay = 0.1 }, --combo forward 2.3
             { q = q(111,519,39,63), ox = 16, oy = 62, delay = 0.06 }, --combo 2.1
@@ -403,7 +414,7 @@ return {
             delay = 0.1
         },
         combo3Forward = {
-            { q = q(176,650,51,62), ox = 31, oy = 62, delay = 0.05 }, --combo 4.6
+            { q = q(176,650,51,62), ox = 31, oy = 62, func = comboSlide3, delay = 0.05 }, --combo 4.6
             { q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.05 }, --dash hold attack 1
             { q = q(55,2021,72,59), ox = 25, oy = 63, func = comboAttackSfx, funcCont = comboAttack3Forward, delay = 0.12 }, --dash hold attack 2
             { q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
@@ -429,7 +440,7 @@ return {
             delay = 0.067
         },
         combo4Forward = {
-            { q = q(46,266,49,62), ox = 34, oy = 61 }, --combo forward 4.1
+            { q = q(46,266,49,62), ox = 34, oy = 61, func = comboSlide4 }, --combo forward 4.1
             { q = q(97,266,51,62), ox = 23, oy = 61 }, --combo forward 4.2
             { q = q(150,265,65,62), ox = 10, oy = 62, func = comboAttackSfx, funcCont = comboAttack4Forward, delay = 0.15 }, --combo forward 4.3
             { q = q(184,196,45,64), ox = 14, oy = 63, delay = 0.12 }, --combo forward 4.4
