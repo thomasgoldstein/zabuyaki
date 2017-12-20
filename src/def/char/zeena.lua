@@ -166,7 +166,7 @@ return {
             delay = 0.1
         },
         grabbedFrames = {
-            --default order should be kept: hurtLow2,hurtHigh2, \, /, upsideDown, laying
+            --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, lying down
             { q = q(40,188,39,56), ox = 21, oy = 55 }, --hurt low 2
             { q = q(47,125,48,59), ox = 29, oy = 58 }, --hurt high 2
             { q = q(2,246,65,49), ox = 39, oy = 48 }, --falling
