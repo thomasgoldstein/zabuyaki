@@ -20,14 +20,11 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, input, x, y, f)
     Satoff.initAttributes(self)
-    self.walkSpeed = 80 --TODO calc if from attributes
-    self.runSpeed = 100 --TODO calc if from attributes
-
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
     self:pickAttackTarget()
     self.subtype = "midboss"
     self.face = -1
-    self:setToughness(0)
+    self:postInitialize()
 end
 
 function Satoff:initAttributes()
@@ -42,12 +39,10 @@ function Satoff:initAttributes()
     }
     self.height = self.height or 55
     self.velocityWalk_x = 86
-    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityWalk_y = 45
     self.velocityWalkHold_x = 80
     self.velocityWalkHold_y = 40
     self.velocityRun_x = 140
-    self.runSpeed = self.velocityRun_x / 1
     self.velocityRun_y = 23
     self.velocitySideStep = 160
     self.frictionSideStep = 350

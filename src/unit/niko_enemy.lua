@@ -16,6 +16,7 @@ function Niko:initialize(name, sprite, input, x, y, f)
     Gopper.initialize(self, name, sprite, input, x, y, f)
     Niko.initAttributes(self)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
+    self:postInitialize()
 end
 
 function Niko:initAttributes()
@@ -29,7 +30,6 @@ function Niko:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
     self.velocityWalk_x = 88
-    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityWalk_y = 45
     self.velocityWalkHold_x = 72
     self.velocityWalkHold_y = 36

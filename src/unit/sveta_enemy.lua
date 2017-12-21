@@ -16,6 +16,7 @@ function Sveta:initialize(name, sprite, input, x, y, f)
     Sveta.initAttributes(self)
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self.subtype = "gopnitsa"
+    self:postInitialize()
 end
 
 function Sveta:initAttributes()
@@ -29,7 +30,6 @@ function Sveta:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
     self.velocityWalk_x = 97
-    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityWalk_y = 45
     self.velocityDash = 170 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall

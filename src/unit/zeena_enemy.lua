@@ -16,6 +16,7 @@ function Zeena:initialize(name, sprite, input, x, y, f)
     Zeena.initAttributes(self)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
+    self:postInitialize()
 end
 
 function Zeena:initAttributes()
@@ -29,7 +30,6 @@ function Zeena:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
     self.velocityWalk_x = 93
-    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityWalk_y = 45
     self.velocitySlide_x = 100 --horizontal speed of the slide kick
     self.velocitySlide_diag_x = 85 --diagonal horizontal speed of the slide kick

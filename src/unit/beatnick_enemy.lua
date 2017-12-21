@@ -17,6 +17,7 @@ function Beatnick:initialize(name, sprite, input, x, y, f)
     Beatnick.initAttributes(self)
     self.subtype = "midboss"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
+    self:postInitialize()
 end
 
 function Beatnick:initAttributes()
@@ -31,7 +32,6 @@ function Beatnick:initAttributes()
     }
     self.height = self.height or 55
     self.velocityWalk_x = 92
-    self.walkSpeed = self.velocityWalk_x / 1
     self.velocityWalk_y = 45
     self.velocityDash = 150 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall

@@ -24,6 +24,12 @@ function Enemy:initialize(name, sprite, input, x, y, f)
     self.delayedWakeupRange = 150 --wakeup after wakeupDelay if the player is close
 end
 
+function Enemy:postInitialize()
+    self.walkSpeed = self.velocityWalk_x / 1.075 --TODO calc it from attributes
+    self.runSpeed = self.velocityRun_x / 1.4 --TODO calc it from attributes
+    self:setToughness(0)
+end
+
 function Enemy:checkCollisionAndMove(dt)
     local success = true
     local stepx = self.vel_x * dt * self.horizontal
