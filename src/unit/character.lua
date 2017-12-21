@@ -81,7 +81,6 @@ function Character:initAttributes()
     self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws
     self.velocityBackoff = 175 --when you ungrab someone
     self.velocityBackoff2 = 200 --when you are released
-    self.velocityBonusOnAttack_x = 30
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage
@@ -330,7 +329,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and o ~= self
             then
                 o.isHurt = {source = self, state = self.state, damage = damage,
-                    type = type, vel_x = repel or self.velocityBonusOnAttack_x,
+                    type = type, vel_x = repel,
                     horizontal = face, isThrown = false,
                     z = self.z + y}
                 items[#items+1] = o
@@ -347,14 +346,14 @@ function Character:checkAndAttack(f, isFuncCont)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
-                        type = type, vel_x = repel or self.velocityBonusOnAttack_x,
+                        type = type, vel_x = repel,
                         horizontal = self.horizontal, isThrown = true,
                         z = self.z + y
                         --x = self.x, y = self.y, z = self.z
                     }
                 else
                     o.isHurt = {source = self, state = self.state, damage = damage,
-                        type = type, vel_x = repel or self.velocityBonusOnAttack_x,
+                        type = type, vel_x = repel,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
                         z = self.z + y
