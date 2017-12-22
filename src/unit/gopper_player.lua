@@ -17,7 +17,7 @@ function Gopper:initAttributes()
     _Gopper.initAttributes(self)
 end
 
-Gopper.combo = {name = "combo", start = _Gopper.comboStart, exit = nop, update = _Gopper.comboUpdate, draw = Character.defaultDraw}
+-- the dashAttack is unique, it is tied with Gopper's attack animation. So we borrow it from Gopper_Enemy class (not from the Player/Character)
 Gopper.dashAttack = {name = "dashAttack", start = _Gopper.dashAttackStart, exit = nop, update = _Gopper.dashAttackUpdate, draw = Character.defaultDraw }
 
 return Gopper
