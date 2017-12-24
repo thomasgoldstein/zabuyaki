@@ -26,7 +26,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.chargedAt = 1    -- define # seconds when holdAttack is ready
     self.charge = 0    -- seconds of changing
     self.comboN = 1    -- n of the combo hit
-    self.comboCooldownDelay = 0.2 -- max delay to connect combo hits
+    self.comboCooldownDelay = 0.25 -- max delay to connect combo hits
     self.comboCooldown = 0    -- can continue combo if > 0
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
     self.grabCooldownDelay = 2 -- max delay to connect hits on a grabbed unit
