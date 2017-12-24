@@ -30,7 +30,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.comboCooldown = 0    -- can continue combo if > 0
     self.canMoveDelay = self.comboCooldownDelay - 0.1 -- can move if comboCooldown < canMoveDelay
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
-    self.grabCooldownDelay = 2 -- max delay to connect hits on a grabbed unit
+    self.grabCooldownDelay = 1.5 -- max delay to connect hits on a grabbed unit
     self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
     self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
