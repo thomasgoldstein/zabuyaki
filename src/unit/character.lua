@@ -133,10 +133,7 @@ function Character:updateAI(dt)
 end
 
 function Character:canMove()
-    if self.comboCooldown < self.canMoveDelay then
-        return true
-    end
-    return false
+    return self.comboCooldown < self.canMoveDelay
 end
 
 function Character:isImmune()   --Immune to the attack?
