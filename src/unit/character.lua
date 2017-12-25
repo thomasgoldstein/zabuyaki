@@ -1754,7 +1754,7 @@ function Character:grabSwapStart()
     self.isHittable = false
     self:setSprite("grabSwap")
     local g = self.hold
-    g.grabCooldown = g.grabCooldown + 0.2 -- prolong both cooldowns
+    g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
     g.target.hold.grabCooldown = g.grabCooldown
     g.canGrabSwap = false
     self.grabSwap_flipped = false
