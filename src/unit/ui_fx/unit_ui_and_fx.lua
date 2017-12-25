@@ -76,16 +76,16 @@ function Unit:drawSprite(x, y)
     DrawSpriteInstance(self.sprite, x, y)
 end
 
-function Unit:onShake(sx, sy, freq,cooldown)
+function Unit:onShake(sx, sy, freq, delay)
     --shaking sprite
     self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0,
-        f = 0, freq = freq or 0.1, cooldown = cooldown or 0.2,
+        f = 0, freq = freq or 0.1, delay = delay or 0.2,
         m = {-1, 0, 1, 0}, i = 1}
 end
 
 function Unit:updateShake(dt)
-    if self.shake.cooldown > 0 then
-        self.shake.cooldown = self.shake.cooldown - dt
+    if self.shake.delay > 0 then
+        self.shake.delay = self.shake.delay - dt
 
         if self.shake.f > 0 then
             self.shake.f = self.shake.f - dt
@@ -98,17 +98,17 @@ function Unit:updateShake(dt)
                 self.shake.i = 1
             end
         end
-        if self.shake.cooldown <= 0 then
+        if self.shake.delay <= 0 then
             self.shake.x, self.shake.y = 0, 0
         end
     end
-    if self.showPIDCooldown > 0 then
-        self.showPIDCooldown = self.showPIDCooldown - dt
+    if self.showPIDDelay > 0 then
+        self.showPIDDelay = self.showPIDDelay - dt
     end
 end
 
 function Unit:calcShadowSpriteAndTransparency()
-    local transparency = self.deathCooldown < 2 and 255 * math.sin(self.deathCooldown) or 255
+    local transparency = self.deathDelay < 2 and 255 * math.sin(self.deathDelay) or 255
     if GLOBAL_SETTING.DEBUG and self.isGrabbed then
         love.graphics.setColor(0, 100, 0, transparency) --4th is the shadow transparency
     elseif GLOBAL_SETTING.DEBUG and not self.isHittable then
@@ -152,24 +152,24 @@ function Unit:drawPID(x, y_)
     if self.id > GLOBAL_SETTING.MAX_PLAYERS then
         return
     end
-    local y = y_ - math.cos(self.showPIDCooldown*6)
+    local y = y_ - math.cos(self.showPIDDelay*6)
     local c = GLOBAL_SETTING.PLAYERS_COLORS[self.id]
-    c[4] = calcTransparency(self.showPIDCooldown)
+    c[4] = calcTransparency(self.showPIDDelay)
     love.graphics.setColor( unpack( c ) )
     love.graphics.rectangle( "fill", x - 15, y, 30, 17 )
     love.graphics.polygon( "fill", x, y + 20, x - 2 , y + 17, x + 2, y + 17 )
-    love.graphics.setColor(0, 0, 0, calcTransparency(self.showPIDCooldown))
+    love.graphics.setColor(0, 0, 0, calcTransparency(self.showPIDDelay))
     love.graphics.rectangle( "fill", x - 13, y + 2, 30-4, 13 )
     love.graphics.setFont(gfx.font.arcade3)
-    love.graphics.setColor(255, 255, 255, calcTransparency(self.showPIDCooldown))
+    love.graphics.setColor(255, 255, 255, calcTransparency(self.showPIDDelay))
     love.graphics.print(self.pid, x - 7, y + 4)
 end
 
 function Unit:defaultDraw(l,t,w,h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-35, self.y-70, 70, 70) then
         self.sprite.flipH = self.face  --TODO get rid of .face
-        if self.deathCooldown < 1 then
-            self.color[4] = 255 * math.sin( self.deathCooldown )
+        if self.deathDelay < 1 then
+            self.color[4] = 255 * math.sin( self.deathDelay )
         else
             self.color[4] = 255
         end
@@ -193,7 +193,7 @@ function Unit:defaultDraw(l,t,w,h)
             love.graphics.setShader()
         end
         love.graphics.setColor(255, 255, 255, 255)
-        if self.showPIDCooldown > 0 then
+        if self.showPIDDelay > 0 then
             self:drawPID(self.x, self.y - self.z - 80)
         end
         drawDebugUnitHitbox(self)
@@ -202,5 +202,5 @@ function Unit:defaultDraw(l,t,w,h)
 end
 
 function Unit:showPID(seconds)
-    self.showPIDCooldown = seconds
+    self.showPIDDelay = seconds
 end

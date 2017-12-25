@@ -11,7 +11,7 @@ local CheckCollision = CheckCollision
 function Enemy:initialize(name, sprite, input, x, y, f)
     Character.initialize(self, name, sprite, input, x, y, f)
     self.type = "enemy"
-    self.comboCooldownDelay = 2 -- max delay to connect combo hits
+    self.comboTimeout = 2 -- max delay to connect combo hits
     self.maxAiPoll_1 = 0.5
     self.AiPoll_1 = self.maxAiPoll_1
     self.maxAiPoll_2 = 5
@@ -135,7 +135,7 @@ function Enemy:deadUpdate(dt)
         return
     end
     --dp(self.name .. " - dead update", dt)
-    if self.deathCooldown <= 0 then
+    if self.deathDelay <= 0 then
         self.isDisabled = true
         self.isHittable = false
         -- dont remove dead body from the stage for proper save/load
@@ -143,7 +143,7 @@ function Enemy:deadUpdate(dt)
         --self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
-        self.deathCooldown = self.deathCooldown - dt
+        self.deathDelay = self.deathDelay - dt
     end
     --self:calcMovement(dt, true)
 end

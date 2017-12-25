@@ -20,7 +20,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.name = name or "Unknown"
     self.type = "unit"
     self.subtype = ""
-    self.deathCooldown = 3 --seconds to remove
+    self.deathDelay = 3 --seconds to remove
     self.lives = f.lives or self.lives or 0
     self.maxHp = f.hp or self.hp or 1
     self.hp = self.maxHp
@@ -41,13 +41,13 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.lastStateTime = love.timer.getTime()
     self.prevState = "" -- text name
     self.lastState = "" -- text name
-    self.shake = {x = 0, y = 0, sx = 0, sy = 0, cooldown = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
+    self.shake = {x = 0, y = 0, sx = 0, sy = 0, delay = 0, f = 0, freq = 0, m = {-1, -0.5, 0, 0.5, 1, 0.5, 0, -0.5}, i = 1 }
     self.sfx = {}
     self.sfx.onHit = f.sfxOnHit --on hurt sfx
     self.sfx.dead = f.sfxDead --on death sfx
     self.isHittable = false
     self.isGrabbed = false
-    self.hold = {source = nil, target = nil, grabCooldown = 0 }
+    self.hold = {source = nil, target = nil, grabTimer = 0 }
     self.victims = {} -- [victim] = true
     self.isThrown = false
     self.shader = f.shader  --it is set on spawn (alter unit's colors)
@@ -63,7 +63,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
     GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
     self.pid = ""
-    self.showPIDCooldown = 0
+    self.showPIDDelay = 0
     self:addShape(f.shapeType or "rectangle", f.shapeArgs or {self.x, self.y, 15, 7})
     self:setState(self.stand)
     dpoInit(self)
@@ -363,7 +363,7 @@ function Unit:updateAttackersInfoBar(h)
     if h.type ~= "shockWave"
         and (not h.source.victimInfoBar
         or h.source.victimInfoBar.source.priority >= self.priority
-        or h.source.victimInfoBar.cooldown <= InfoBar.OVERRIDE
+        or h.source.victimInfoBar.delay <= InfoBar.OVERRIDE
     )
     then
         -- show enemy bar for other attacks

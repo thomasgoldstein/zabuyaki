@@ -107,7 +107,7 @@ Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecia
 function Rick:backGrabAttackStart()
     local g = self.hold
     local t = g.target
-    self:initGrabCooldown()
+    self:initGrabTimer()
     self:moveStatesInit()
     self:setSprite("backGrabAttack")
     self.isHittable = not self.sprite.isThrow

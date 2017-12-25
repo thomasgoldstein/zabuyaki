@@ -2,8 +2,8 @@ local class = require "lib/middleclass"
 local Camera = class("Camera")
 
 function Camera:initialize(worldWidth, worldHeight, x, y)
-    self.shake = {x = 0, y = 0, sx = 0, sy = 0, cooldown = 0, f = 0, freq = 0 }
-    self.spin = {x = 0, y = 0, sx = 0, sy = 0, cooldown = 0, f = 0, freq = 0 }
+    self.shake = {x = 0, y = 0, sx = 0, sy = 0, delay = 0, f = 0, freq = 0 }
+    self.spin = {x = 0, y = 0, sx = 0, sy = 0, delay = 0, f = 0, freq = 0 }
     self.x = x
     self.y = y
     self.cam = gamera.new(0, 0, worldWidth, worldHeight)
@@ -16,15 +16,15 @@ function Camera:setWorld(x, y, worldWidth, worldHeight)
     self.cam:setWorld(x, y, worldWidth, worldHeight)
 end
 
-function Camera:onShake(sx, sy, freq,cooldown)
+function Camera:onShake(sx, sy, freq, delay)
     --shaking sprite
-    self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, cooldown = cooldown or 0.2,
+    self.shake = {x = 0, y = 0, sx = sx or 0, sy = sy or 0, f = 0, freq = freq or 0.1, delay = delay or 0.2,
         m = {-1, 0, 1, 0}, i = 1}
 end
 
 function Camera:update(dt, x, y)
-    if self.shake.cooldown > 0 then
-        self.shake.cooldown = self.shake.cooldown - dt
+    if self.shake.delay > 0 then
+        self.shake.delay = self.shake.delay - dt
 
         if self.shake.f > 0 then
             self.shake.f = self.shake.f - dt
@@ -37,7 +37,7 @@ function Camera:update(dt, x, y)
                 self.shake.i = 1
             end
         end
-        if self.shake.cooldown <= 0 then
+        if self.shake.delay <= 0 then
             self.shake.x, self.shake.y = 0, 0
         end
     end

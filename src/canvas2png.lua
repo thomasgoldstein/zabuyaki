@@ -17,7 +17,7 @@ function Unit:draw2()
 --        love.graphics.setShader()
 --    end
     love.graphics.setColor(255, 255, 255, 150)
-    --		if self.showPIDCooldown > 0 then
+    --		if self.showPIDDelay > 0 then
     --			self:drawPID(self.x, self.y - self.z - 80)
     --		end
     --		drawDebugUnitHitbox(self)

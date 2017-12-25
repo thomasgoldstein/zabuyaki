@@ -56,8 +56,8 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
             -- wait press to use credit
             printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9,
                 transpBg)
-            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cooldown*2 + 17))
-            printWithShadow(self.source.pid .. " PRESS ATTACK (".. math.floor(self.source.displayCooldown) ..")", l + self.x + 2, t + self.y + 9 + 11,
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.delay*2 + 17))
+            printWithShadow(self.source.pid .. " PRESS ATTACK (".. math.floor(self.source.displayDelay) ..")", l + self.x + 2, t + self.y + 9 + 11,
                 transpBg)
         elseif playerSelectMode == 1 then
             -- wait 1 sec before player select
@@ -74,10 +74,10 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
             end
             printWithShadow(self.source.pid, l + self.x + self.source.shake.x + iconWidth + 2, t + self.y - 1,
                 transpBg)
-            --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.cooldown*4)), t + self.y + 9 + 11 )
+            --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.delay*4)), t + self.y + 9 + 11 )
             self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
-            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cooldown*3 + 17))
-            printWithShadow("SELECT PLAYER (".. math.floor(self.source.displayCooldown) ..")", l + self.x + 2, t + self.y + 19,
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.delay*3 + 17))
+            printWithShadow("SELECT PLAYER (".. math.floor(self.source.displayDelay) ..")", l + self.x + 2, t + self.y + 19,
                 transpBg)
         elseif playerSelectMode == 3 then
             -- Spawn selecterd player
@@ -85,7 +85,7 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
             -- Replace this player with the new character
         elseif playerSelectMode == 5 then
             -- Game Over (too late)
-            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.cooldown*0.5 + 17))
+            love.graphics.setColor(255,255,255, 200 + 55 * math.sin(self.delay*0.5 + 17))
             printWithShadow(self.source.pid .. " GAME OVER", l + self.x + 2, t + self.y + 9,
                 transpBg)
         end

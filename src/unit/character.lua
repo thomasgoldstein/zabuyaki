@@ -26,11 +26,11 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.chargedAt = 1    -- define # seconds when holdAttack is ready
     self.charge = 0    -- seconds of changing
     self.comboN = 1    -- n of the combo hit
-    self.comboCooldownDelay = 0.4 -- max delay to connect combo hits
-    self.comboCooldown = 0    -- can continue combo if > 0
-    self.canMoveDelay = self.comboCooldownDelay - 0.1 -- can move if comboCooldown < canMoveDelay
+    self.comboTimeout = 0.4 -- max delay to connect combo hits
+    self.comboTimer = 0    -- can continue combo if > 0
+    self.canMoveDelay = self.comboTimeout - 0.1 -- can move if comboTimer < canMoveDelay
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
-    self.grabCooldownDelay = 1.5 -- max delay to connect hits on a grabbed unit
+    self.grabTimeout = 1.5 -- max delay to keep a unit grabbed
     self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
     self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
@@ -123,17 +123,17 @@ function Character:updateAI(dt)
         return
     end
     self.time = self.time + dt
-    self.comboCooldown = self.comboCooldown - dt
+    self.comboTimer = self.comboTimer - dt
     local g = self.hold
     if g then
-        g.grabCooldown = g.grabCooldown - dt
+        g.grabTimer = g.grabTimer - dt
     end
     self:updateShake(dt)
     Unit.updateAI(self, dt)
 end
 
 function Character:canMove()
-    return self.comboCooldown < self.canMoveDelay
+    return self.comboTimer < self.canMoveDelay
 end
 
 function Character:isImmune()   --Immune to the attack?
@@ -415,12 +415,12 @@ function Character:standStart()
     self.isHittable = true
     self.z = 0 --TODO add fall if z > 0
     if self.sprite.curAnim == "walk" or self.sprite.curAnim == "walkHold" then
-        self.delayAnimationCooldown = 0.12
+        self.nextAnlmationDelay = 0.12
     else
         if not self.sprite.curAnim then
             self:setSprite("stand")
         end
-        self.delayAnimationCooldown = 0.0
+        self.nextAnlmationDelay = 0.0
     end
     self:removeTweenMove()
     self.victims = {}
@@ -433,8 +433,8 @@ function Character:standUpdate(dt)
     if not self.b.attack:isDown() then
         self.canAttack = true
     end
-    self.delayAnimationCooldown = self.delayAnimationCooldown - dt
-    if self.delayAnimationCooldown <= 0 then
+    self.nextAnlmationDelay = self.nextAnlmationDelay - dt
+    if self.nextAnlmationDelay <= 0 then
         if SpriteHasAnimation(self.sprite, "standHold") and self:canMove() then
             if self.b.attack:isDown() then
                 if self.sprite.curAnim ~= "standHold" then
@@ -595,7 +595,7 @@ Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update
 
 function Character:runStart()
     self.isHittable = true
-    self.delayAnimationCooldown = 0.01
+    self.nextAnlmationDelay = 0.01
     --canJump & self.canAttack are set in the prev state
 end
 function Character:runUpdate(dt)
@@ -607,9 +607,9 @@ function Character:runUpdate(dt)
     end
     self.vel_x = 0
     self.vel_y = 0
-    self.delayAnimationCooldown = self.delayAnimationCooldown - dt
+    self.nextAnlmationDelay = self.nextAnlmationDelay - dt
     if self.sprite.curAnim ~= "run"
-            and self.delayAnimationCooldown <= 0 then
+            and self.nextAnlmationDelay <= 0 then
         self:setSprite("run")
     end
     if self.b.horizontal:getValue() ~= 0 then
@@ -812,7 +812,7 @@ function Character:hurtStart()
     self.isHittable = true
 end
 function Character:hurtUpdate(dt)
-    self.comboCooldown = self.comboCooldown + dt -- freeze comboCooldown
+    self.comboTimer = self.comboTimer + dt -- freeze comboTimer
     if not self.b.jump:isDown() then
         self.canJump = true
     end
@@ -1164,7 +1164,7 @@ function Character:deadUpdate(dt)
     if self.isDisabled then
         return
     end
-    if self.deathCooldown <= 0 then
+    if self.deathDelay <= 0 then
         self.isDisabled = true
         self.isHittable = false
         -- dont remove dead body from the stage for proper save/load
@@ -1175,7 +1175,7 @@ function Character:deadUpdate(dt)
         --self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
-        self.deathCooldown = self.deathCooldown - dt
+        self.deathDelay = self.deathDelay - dt
     end
     self:calcMovement(dt, true)
 end
@@ -1187,7 +1187,7 @@ function Character:comboStart()
     self.isSliding = false
 --    self.connectHit = false
     self:removeTweenMove()
-    if self.comboCooldown >= 0 then
+    if self.comboTimer >= 0 then
         if self.attacksPerAnimation > 0 then
             self.comboN = self.comboN + 1
             if self.comboN > self.sprite.def.max_combo then
@@ -1200,7 +1200,7 @@ function Character:comboStart()
         end
     else
         self.comboN = 1
-        print(self.name, "reset comboN because comboCooldown TIMEOUT")
+        print(self.name, "reset comboN because combo TIMEOUT")
     end
     self.connectHit = false
     self.attacksPerAnimation = 0
@@ -1240,7 +1240,7 @@ function Character:comboUpdate(dt)
         end
     end
     if self.sprite.isFinished then
-        self.comboCooldown = self.comboCooldownDelay -- reset max delay to connect combo hits
+        self.comboTimer = self.comboTimeout -- reset max delay to connect combo hits
         self:setState(self.stand)
         return
     end
@@ -1305,7 +1305,7 @@ function Character:doGrab(target, inAir)
     g.canGrabSwap = true   --can do 1 grabSwap
     self:setState(self.grab)
     target:setState(target.grabbed)
-    self:initGrabCooldown()
+    self:initGrabTimer()
     return true
 end
 
@@ -1378,7 +1378,7 @@ function Character:grabUpdate(dt)
             self.grabRelease = 0
         end
         --auto release after time
-        if g.grabCooldown <= 0 or not g.target.isGrabbed then
+        if g.grabTimer <= 0 or not g.target.isGrabbed then
             if g.target.x > self.x then --adjust players backoff
                 self.horizontal = -1
             else
@@ -1464,9 +1464,9 @@ function Character:releaseGrabbed()
     local g = self.hold
     if g and g.target and g.target.isGrabbed and g.target.hold.source == self then
         g.target.isGrabbed = false
-        g.target.hold.grabCooldown = 0
+        g.target.hold.grabTimer = 0
         g.target:removeTweenMove()
-        --self.hold = {source = nil, target = nil, grabCooldown = 0 }	--release a grabbed person
+        --self.hold = {source = nil, target = nil, grabTimer = 0 }	--release a grabbed person
         return true
     end
     return false
@@ -1497,7 +1497,7 @@ function Character:grabbedFrontUpdate(dt)
         self.canAttack = true
     end
     local g = self.hold
-    if not self.isGrabbed or g.grabCooldown <= 0 then
+    if not self.isGrabbed or g.grabTimer <= 0 then
         if g.source.x < self.x then
             self.horizontal = 1
         else
@@ -1541,7 +1541,7 @@ function Character:grabbedBackUpdate(dt)
         self.canAttack = true
     end
     local g = self.hold
-    if not self.isGrabbed or g.grabCooldown <= 0 then
+    if not self.isGrabbed or g.grabTimer <= 0 then
         if g.source.x < self.x then
             self.horizontal = 1
         else
@@ -1572,21 +1572,21 @@ function Character:grabbedBackUpdate(dt)
 end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedBackUpdate, draw = Character.defaultDraw}
 
-function Character:initGrabCooldown()
+function Character:initGrabTimer()
     local g = self.hold
     --local t = g.target
-    g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
-    g.target.hold.grabCooldown = g.grabCooldown
+    g.grabTimer = self.grabTimeout -- init both timers
+    g.target.hold.grabTimer = g.grabTimer
 end
 function Character:frontGrabAttackStart()
     local g = self.hold
     local t = g.target
     if self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
-        g.grabCooldown = 0
+        g.grabTimer = 0
         self:setState(self.frontGrabAttackDown)
         return
     end
-    self:initGrabCooldown()
+    self:initGrabTimer()
     self.grabAttackN = self.grabAttackN + 1
     self:setSprite("frontGrabAttack"..self.grabAttackN)
     self.isHittable = not self.sprite.isThrow
@@ -1609,7 +1609,7 @@ function Character:frontGrabAttackUpdate(dt)
         local g = self.hold
         if self.grabAttackN < self.sprite.def.maxGrabAttack
             and g and g.target and g.target.hp > 0 then
-            self:initGrabCooldown()
+            self:initGrabTimer()
             self:setState(self.grab, true) --do not adjust positions of pl
         else
             --it is the last frontGrabAttack or killed the target
@@ -1754,7 +1754,7 @@ function Character:grabSwapStart()
     self.isHittable = false
     self:setSprite("grabSwap")
     local g = self.hold
-    self:initGrabCooldown()
+    self:initGrabTimer()
     g.canGrabSwap = false
     self.grabSwap_flipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 18
@@ -1921,11 +1921,11 @@ Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defen
 
 function Character:knockedDownStart()
     self.isHittable = false
-    self.knockedDownCooldown = 1 -- ko delay
+    self.knockedDownDelay = 1
 end
 function Character:knockedDownUpdate(dt)
-    self.knockedDownCooldown = self.knockedDownCooldown - dt
-    if self.knockedDownCooldown <= 0 then
+    self.knockedDownDelay = self.knockedDownDelay - dt
+    if self.knockedDownDelay <= 0 then
         self:setState(self.getup)
         return
     end

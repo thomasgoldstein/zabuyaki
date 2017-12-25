@@ -21,7 +21,7 @@ end
 
 function Player:setOnStage(stage)
     self.pid = GLOBAL_SETTING.PLAYERS_NAMES[self.id] or "P?"
-    self.showPIDCooldown = 3
+    self.showPIDDelay = 3
     Unit.setOnStage(self, stage)
     registerPlayer(self)
     logPlayer:reset(self.id)
@@ -215,7 +215,7 @@ function Player:useCreditStart()
         self:setState(self.respawn)
         return
     end
-    self.displayCooldown = 10
+    self.displayDelay = 10
     -- Player select
     self.playerSelectMode = 0
     self.playerSelectCur = players_list[self.name] or 1
@@ -230,8 +230,8 @@ function Player:useCreditUpdate(dt)
 
     if self.playerSelectMode == 0 then
         -- 10 seconds to choose
-        self.displayCooldown = self.displayCooldown - dt
-        if credits <= 0 or self.displayCooldown <= 0 then
+        self.displayDelay = self.displayDelay - dt
+        if credits <= 0 or self.displayDelay <= 0 then
             -- n credits -> game over
             self.playerSelectMode = 5
             unregisterPlayer(self)
@@ -244,17 +244,17 @@ function Player:useCreditUpdate(dt)
             credits = credits - 1
             self:addScore(1) -- like CAPCM
             sfx.play("sfx","menuSelect")
-            self.displayCooldown = 1 -- delay before respawn
+            self.displayDelay = 1 -- delay before respawn
             self.playerSelectMode = 1
         end
     elseif self.playerSelectMode == 1 then
         -- wait 1 sec before player select
-        if self.displayCooldown > 0 then
+        if self.displayDelay > 0 then
             -- wait before respawn / char select
-            self.displayCooldown = self.displayCooldown - dt
-            if self.displayCooldown <= 0 then
+            self.displayDelay = self.displayDelay - dt
+            if self.displayDelay <= 0 then
                 self.canAttack = false
-                self.displayCooldown = 10
+                self.displayDelay = 10
                 self.playerSelectMode = 2
             end
         end
@@ -262,9 +262,9 @@ function Player:useCreditUpdate(dt)
         -- Select Player
         -- 10 sec countdown before auto confirm
         if (self.b.attack:isDown() and self.canAttack)
-                or self.displayCooldown <= 0
+                or self.displayDelay <= 0
         then
-            self.displayCooldown = 0
+            self.displayDelay = 0
             self.playerSelectMode = 4
             sfx.play("sfx","menuSelect")
             local player = HEROES[self.playerSelectCur].hero:new(self.name,
@@ -284,7 +284,7 @@ function Player:useCreditUpdate(dt)
             SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player, deletePlayer = self}
             return
         else
-            self.displayCooldown = self.displayCooldown - dt
+            self.displayDelay = self.displayDelay - dt
         end
         ---
         if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1)
@@ -333,7 +333,7 @@ function Player:respawnStart()
     self.isHittable = false
     dpo(self, self.state)
     self:setSprite("respawn")
-    self.deathCooldown = 3 --seconds to remove
+    self.deathDelay = 3 --seconds to remove
     self.hp = self.maxHp
     self.bounced = 0
     self.vel_z = 0
@@ -395,11 +395,11 @@ function Player:deadUpdate(dt)
         return
     end
     --dp(self.name .. " - dead update", dt)
-    if self.deathCooldown <= 0 then
+    if self.deathDelay <= 0 then
         self:setState(self.useCredit)
         return
     else
-        self.deathCooldown = self.deathCooldown - dt
+        self.deathDelay = self.deathDelay - dt
     end
     self:calcMovement(dt)
 end
