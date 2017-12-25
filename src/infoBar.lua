@@ -40,7 +40,7 @@ local function slantedRectangle2(x, y, width, height)
     end
 end
 
-InfoBar.DURATION = 3 -- seconds to show a victim's infoBar
+InfoBar.DELAY = 3 -- seconds to show a victim's infoBar
 InfoBar.OVERRIDE = 2.5 -- seconds to show a victim's infoBar
 
 function InfoBar:initialize(source)
@@ -48,7 +48,7 @@ function InfoBar:initialize(source)
     self.name = source.name or "Unknown"
     self.note = source.note or "EXTRA TEXT"
     self.color = normColor
-    self.delay = InfoBar.DURATION
+    self.timer = InfoBar.DELAY
     self.id = self.source.id
     self.source:initFaceIcon(self)
     self.hp = 1
@@ -69,7 +69,7 @@ function InfoBar:setAttacker(attackerSource)
     else
         id = attackerSource.id
     end
-    self.delay = InfoBar.DURATION
+    self.timer = InfoBar.DELAY
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
         self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
         return self
@@ -82,7 +82,7 @@ function InfoBar:setPicker(picker_source)
     if id <= MAX_PLAYERS then
         self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
     end
-    self.delay = InfoBar.DURATION
+    self.timer = InfoBar.DELAY
     return self
 end
 
@@ -100,7 +100,7 @@ end
 
 function InfoBar:drawDeadCross(l, t, transpBg)
     if self.hp <= 0 then
-        love.graphics.setColor(255,255,255, 255 * math.sin(self.delay*20 + 17) * transpBg)
+        love.graphics.setColor(255,255,255, 255 * math.sin(self.timer*20 + 17) * transpBg)
         love.graphics.draw (
             gfx.ui.deadIcon.sprite,
             gfx.ui.deadIcon.q,
@@ -153,7 +153,7 @@ function InfoBar:drawLifebar(l, t, transpBg)
 end
 
 function InfoBar:draw(l,t,w,h)
-    if self.delay <= 0 and self.source.id > MAX_PLAYERS then
+    if self.timer <= 0 and self.source.id > MAX_PLAYERS then
         return
     end
     self.source.drawBar(self, 0,0,w,h, iconWidth, normColor)
@@ -187,7 +187,7 @@ function InfoBar:update(dt)
         self.color[3] = norm_n(self.color[3],normColor[3])
         self.old_hp = self.hp
     end
-    self.delay = self.delay - dt
+    self.timer = self.timer - dt
 end
 
 return InfoBar
