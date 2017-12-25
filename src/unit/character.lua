@@ -1297,17 +1297,15 @@ function Character:doGrab(target, inAir)
     target:releaseGrabbed()	-- your grab targed releases one it grabs
     gTargetHold.source = self
     gTargetHold.target = nil
-    gTargetHold.grabCooldown = self.grabCooldownDelay
     target.isGrabbed = true
     sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
     -- the grabber
     g.source = nil
     g.target = target
-    g.grabCooldown = self.grabCooldownDelay
     g.canGrabSwap = true   --can do 1 grabSwap
-
     self:setState(self.grab)
     target:setState(target.grabbed)
+    self:initGrabCooldown()
     return true
 end
 
@@ -1574,6 +1572,12 @@ function Character:grabbedBackUpdate(dt)
 end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedBackUpdate, draw = Character.defaultDraw}
 
+function Character:initGrabCooldown()
+    local g = self.hold
+    --local t = g.target
+    g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
+    g.target.hold.grabCooldown = g.grabCooldown
+end
 function Character:frontGrabAttackStart()
     local g = self.hold
     local t = g.target
@@ -1582,8 +1586,7 @@ function Character:frontGrabAttackStart()
         self:setState(self.frontGrabAttackDown)
         return
     end
-    g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
-    g.target.hold.grabCooldown = g.grabCooldown
+    self:initGrabCooldown()
     self.grabAttackN = self.grabAttackN + 1
     self:setSprite("frontGrabAttack"..self.grabAttackN)
     self.isHittable = not self.sprite.isThrow
@@ -1606,8 +1609,7 @@ function Character:frontGrabAttackUpdate(dt)
         local g = self.hold
         if self.grabAttackN < self.sprite.def.maxGrabAttack
             and g and g.target and g.target.hp > 0 then
-            g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
-            g.target.hold.grabCooldown = g.grabCooldown
+            self:initGrabCooldown()
             self:setState(self.grab, true) --do not adjust positions of pl
         else
             --it is the last frontGrabAttack or killed the target
@@ -1752,8 +1754,7 @@ function Character:grabSwapStart()
     self.isHittable = false
     self:setSprite("grabSwap")
     local g = self.hold
-    g.grabCooldown = self.grabCooldownDelay -- init both cooldowns
-    g.target.hold.grabCooldown = g.grabCooldown
+    self:initGrabCooldown()
     g.canGrabSwap = false
     self.grabSwap_flipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 18
