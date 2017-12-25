@@ -26,10 +26,11 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.chargedAt = 1    -- define # seconds when holdAttack is ready
     self.charge = 0    -- seconds of changing
     self.comboN = 1    -- n of the combo hit
-    self.comboCooldownDelay = 0.2 -- max delay to connect combo hits
+    self.comboCooldownDelay = 0.4 -- max delay to connect combo hits
     self.comboCooldown = 0    -- can continue combo if > 0
+    self.canMoveDelay = self.comboCooldownDelay - 0.1 -- can move if comboCooldown < canMoveDelay
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
-    self.grabCooldownDelay = 2 -- max delay to connect hits on a grabbed unit
+    self.grabCooldownDelay = 1.5 -- max delay to connect hits on a grabbed unit
     self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
     self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
@@ -132,10 +133,7 @@ function Character:updateAI(dt)
 end
 
 function Character:canMove()
-    if self.comboCooldown < 0 then
-        return true
-    end
-    return false
+    return self.comboCooldown < self.canMoveDelay
 end
 
 function Character:isImmune()   --Immune to the attack?
