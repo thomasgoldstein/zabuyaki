@@ -146,7 +146,7 @@ end
 
 function Character:drawBar(l,t,w,h, iconWidth, normColor)
     love.graphics.setFont(gfx.font.arcade3)
-    local transpBg = 255 * calcBarTransparency(self.delay)
+    local transpBg = 255 * calcBarTransparency(self.timer)
     self:drawLifebar(l, t, transpBg)
     self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
     self:drawDeadCross(l, t, transpBg)

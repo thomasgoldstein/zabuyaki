@@ -363,7 +363,7 @@ function Unit:updateAttackersInfoBar(h)
     if h.type ~= "shockWave"
         and (not h.source.victimInfoBar
         or h.source.victimInfoBar.source.priority >= self.priority
-        or h.source.victimInfoBar.delay <= InfoBar.OVERRIDE
+        or h.source.victimInfoBar.timer <= InfoBar.OVERRIDE
     )
     then
         -- show enemy bar for other attacks
