@@ -57,7 +57,7 @@ local comboAttack1 = function(slf, cont)
 end
 local comboAttack1Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 30, y = 21, width = 26, damage = 6, sfx = "air" },
+        { x = 28, y = 21, width = 26, damage = 6, sfx = "air" },
         cont
     )
 end
@@ -348,16 +348,16 @@ return {
             delay = 0.05
         },
         combo1 = {
-            { q = q(2,1726,40,63), ox = 16, oy = 62, delay = 0.01 }, --combo 1.1
+            { q = q(2,1726,40,63), ox = 16, oy = 62 }, --combo 1.1
             { q = q(44,1725,51,64), ox = 13, oy = 63, func = comboAttack1, delay = 0.07 }, --combo 1.2
-            { q = q(97,1726,47,63), ox = 17, oy = 62 }, --combo 1.1
-            delay = 0.02
+            { q = q(97,1726,47,63), ox = 17, oy = 62, delay = 0.02 }, --combo 1.1
+            delay = 0.01
         },
         combo1Forward = {
-            { q = q(2,521,56,64), ox = 23, oy = 63, func = comboSlide1}, --combo forward 1.1
-            { q = q(60,521,66,64), ox = 24, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
-            { q = q(2,521,56,64), ox = 23, oy = 63, delay = 0.05 }, --combo forward 1.1
-            delay = 0.01
+            { q = q(135,2,51,64), ox = 24, oy = 63, func = comboSlide1 }, --combo forward 1.1
+            { q = q(2,521,65,64), ox = 24, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
+            { q = q(69,521,57,64), ox = 24, oy = 63, delay = 0.03 }, --combo forward 1.3
+            delay = 0.05
         },
         combo2 = {
             { q = q(128,521,41,64), ox = 19, oy = 64 }, --combo 2.1
