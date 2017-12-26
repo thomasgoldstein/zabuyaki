@@ -55,15 +55,15 @@ function Unit:showHitMarks(dmg, z, offset_x)
 end
 
 function Unit:updateSprite(dt)
-    UpdateSpriteInstance(self.sprite, dt, self)
+    updateSpriteInstance(self.sprite, dt, self)
 end
 function Unit:setSpriteIfExists(anim, defaultAnim)
-    if SpriteHasAnimation(self.sprite, anim) then
-        SetSpriteAnimation(self.sprite, anim)
+    if spriteHasAnimation(self.sprite, anim) then
+        setSpriteAnimation(self.sprite, anim)
         return true
     end
     if defaultAnim then
-        SetSpriteAnimation(self.sprite, defaultAnim)
+        setSpriteAnimation(self.sprite, defaultAnim)
     end
     return false
 end
@@ -73,7 +73,7 @@ function Unit:setSprite(anim)
     end
 end
 function Unit:drawSprite(x, y)
-    DrawSpriteInstance(self.sprite, x, y)
+    drawSpriteInstance(self.sprite, x, y)
 end
 
 function Unit:onShake(sx, sy, freq, delay)

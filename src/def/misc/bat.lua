@@ -1,6 +1,6 @@
 -- Copyright (c) .2017 SineDie
 local spriteSheet = "res/img/misc/loot.png"
-local imageWidth, imageHeight = LoadSpriteSheet(spriteSheet)
+local imageWidth, imageHeight = loadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)

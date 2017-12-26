@@ -1,5 +1,5 @@
 local spriteSheet = "res/img/char/kisa.png"
-local imageWidth,imageHeight = LoadSpriteSheet(spriteSheet)
+local imageWidth,imageHeight = loadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)

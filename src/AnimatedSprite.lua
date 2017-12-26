@@ -14,7 +14,7 @@ local ManagerVersion = 0.42
 spriteBank = {} --Map with all the sprite definitions
 imageBank = {} --Contains all images that were already loaded
 
-local function LoadSprite (spriteDef)
+local function loadSprite (spriteDef)
 
     if spriteDef == nil then return nil end
 
@@ -72,7 +72,7 @@ local function LoadSprite (spriteDef)
     return spriteBank [spriteDef]
 end
 
-function LoadSpriteSheet(spriteSheet)
+function loadSpriteSheet(spriteSheet)
     --Load the image into image bank.
     --returns width, height, image
     local old_image = imageBank[spriteSheet]
@@ -88,11 +88,11 @@ function LoadSpriteSheet(spriteSheet)
     return imageBank[spriteSheet]:getDimensions()
 end
 
-function GetSpriteInstance (spriteDef)
+function getSpriteInstance (spriteDef)
     if spriteDef == nil then return nil end -- invalid use
     if spriteBank[spriteDef] == nil then
         --Sprite not loaded attempting to load; abort on failure.
-        if LoadSprite (spriteDef) == nil then return nil end
+        if loadSprite (spriteDef) == nil then return nil end
     end
     local s = {
         def = spriteBank[spriteDef], --Sprite reference
@@ -110,11 +110,11 @@ function GetSpriteInstance (spriteDef)
         flipH = 1, -- 1 normal, -1 mirrored
         flipV = 1	-- same
     }
-    CalcSpriteAnimation(s)
+    calculateSpriteAnimation(s)
     return s
 end
 
-function SetSpriteAnimation(spr, anim)
+function setSpriteAnimation(spr, anim)
     spr.curFrame = 1
     spr.loopCount = 0
     spr.curAnim = anim
@@ -124,36 +124,36 @@ function SetSpriteAnimation(spr, anim)
     spr.isThrow = spr.def.animations[spr.curAnim].isThrow
 end
 
-function SpriteHasAnimation(spr, anim)
+function spriteHasAnimation(spr, anim)
     if spr.def.animations[anim] then
         return true
     end
     return false
 end
 
-function GetSpriteQuad(spr, frame_n)
+function getSpriteQuad(spr, frame_n)
     local sc = spr.def.animations[spr.curAnim][frame_n or spr.curFrame]
     return sc.q
 end
 
--- calc the animation duration
-function GetSpriteAnimationDuration(spr, anim)
+-- calculate the animation delay
+function getSpriteAnimationDelay(spr, anim)
     if not spr.def.animations[anim] then
         print(spr, spr.def, spr.def.animations)
         --print(inspect(spr, {depth=1}))
-        error("There is no "..anim.." animation to calc its duration. ")
+        error("There is no "..anim.." animation to calc its delay. ")
     end
-    local duration = 0
+    local delay = 0
     local a = spr.def.animations[anim]
     for i = 1, #a do
-        duration = duration + a[i].delay or a.delay or spr.def.delay
+        delay = delay + a[i].delay or a.delay or spr.def.delay
     end
-    a.duration = duration
-    return duration
+    a.delay = delay
+    return delay
 end
 
 -- get the max animations of the same type: combo4 -> 4
-function GetMaxSpriteAnimation(spr, anim)
+function getMaxSpriteAnimation(spr, anim)
     for i = 1, 10 do
         if not spr.def.animations[anim..i] then
             return i - 1
@@ -162,13 +162,13 @@ function GetMaxSpriteAnimation(spr, anim)
     return 0
 end
 
-function CalcSpriteAnimation(spr)
-    spr.def.max_combo = GetMaxSpriteAnimation(spr, "combo")
-    spr.def.maxGrabAttack = GetMaxSpriteAnimation(spr, "frontGrabAttack")
---    spr.def.animations["frontGrabAttack"].duration = GetSpriteAnimationDuration(spr, "frontGrabAttack")
+function calculateSpriteAnimation(spr)
+    spr.def.max_combo = getMaxSpriteAnimation(spr, "combo")
+    spr.def.maxGrabAttack = getMaxSpriteAnimation(spr, "frontGrabAttack")
+--    spr.def.animations["frontGrabAttack"].delay = getSpriteAnimationDelay(spr, "frontGrabAttack")
 end
 
-function UpdateSpriteInstance(spr, dt, slf)
+function updateSpriteInstance(spr, dt, slf)
     local s = spr.def.animations[spr.curAnim]
     local sc = s[spr.curFrame]
     -- is there default delay for frames of 1 animation?
@@ -220,7 +220,7 @@ function UpdateSpriteInstance(spr, dt, slf)
     return nil
 end
 
-function DrawSpriteInstance (spr, x, y, frame)
+function drawSpriteInstance (spr, x, y, frame)
     local sc = spr.def.animations[spr.curAnim][frame or spr.curFrame or 1]
     local scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
     local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
@@ -239,7 +239,7 @@ function DrawSpriteInstance (spr, x, y, frame)
     )
 end
 
-function ParseSpriteAnimation(spr, curAnim)
+function parseSpriteAnimation(spr, curAnim)
     if (curAnim or spr.curAnim) == "icon" then
         return "Cannot parse icons"
     end

@@ -43,19 +43,19 @@ function Obstacle:initialize(name, sprite, x, y, f)
 end
 
 function Obstacle:updateSprite(dt)
---    UpdateSpriteInstance(self.sprite, dt, self)
+--    updateSpriteInstance(self.sprite, dt, self)
 end
 
 function Obstacle:setSprite(anim)
     if anim ~= "stand" then
         return
     end
-    SetSpriteAnimation(self.sprite, anim)
+    setSpriteAnimation(self.sprite, anim)
 end
 
 function Obstacle:drawSprite(x, y)
     self.sprite.flipH = self.faceFix
-    DrawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
+    drawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
 end
 
 function Obstacle:calcShadowSpriteAndTransparency()

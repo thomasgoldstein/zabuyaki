@@ -166,7 +166,7 @@ local function loadUnit(items, stage, batch_name)
                 end
                 if batch_name then
                     u.unit = inst:new(
-                        v.name, GetSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
+                        v.name, getSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
                         nil,
                         r(v.x + v.width / 2), r(v.y + v.height / 2),
                         { func = getUnitFunction(v), palette = palette }
@@ -175,14 +175,14 @@ local function loadUnit(items, stage, batch_name)
                 else
                     --for permanent units that belong to no batch
                     if v.properties.class == "trashcan" then
-                        u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
+                        u.unit = Obstacle:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
                             {hp = 35, score = 100,
                                 isMovable = true, func = getUnitFunction(v),
                                 palette = palette, particleColor = shaders.trashcan_particleColor[palette],
                                 sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
                     elseif v.properties.class == "sign" then
-                        u.unit = Obstacle:new(v.name, GetSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
+                        u.unit = Obstacle:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
                             {hp = 89, score = 120,
                                 shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
@@ -317,7 +317,7 @@ local function addPlayersToStage(items, players, stage)
                 p.x = r(v.x + v.width / 2)
                 p.y = r(v.y + v.height / 2)
                 local player = players[i].hero:new(players[i].name,
-                    GetSpriteInstance(players[i].spriteInstance),
+                    getSpriteInstance(players[i].spriteInstance),
                     controls[i],
                     players[i].x, players[i].y,
                     { palette = players[i].palette, id = i }

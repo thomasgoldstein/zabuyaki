@@ -1,5 +1,5 @@
 local spriteSheet = "res/img/misc/particles.png"
-local imageWidth, imageHeight = LoadSpriteSheet(spriteSheet)
+local imageWidth, imageHeight = loadSpriteSheet(spriteSheet)
 gfx.particles = imageBank[spriteSheet] --it is not a character. work around
 
 local function q(x,y,w,h) return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight) end
@@ -171,7 +171,7 @@ PA_OBSTACLE_BREAK_BIG = particles
 
 --Rick's Defensive Special Effect
 spriteSheet = "res/img/misc/rick-sp-particles.png"
-imageWidth, imageHeight = LoadSpriteSheet(spriteSheet)
+imageWidth, imageHeight = loadSpriteSheet(spriteSheet)
 gfx.particles = imageBank[spriteSheet]
 
 local dsQuad1 = q(2,2,78,86) -- right frame 1/9
@@ -210,7 +210,7 @@ PA_DEF_SP_RICK_L = particles
 
 --Chai's Defensive Special Effect
 spriteSheet = "res/img/misc/chai-sp-particles.png"
-imageWidth, imageHeight = LoadSpriteSheet(spriteSheet)
+imageWidth, imageHeight = loadSpriteSheet(spriteSheet)
 gfx.particles = imageBank[spriteSheet]
 
 local dsQuad1 = q(2,2,70,32) -- right frame 1/13

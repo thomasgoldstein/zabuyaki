@@ -435,7 +435,7 @@ function Character:standUpdate(dt)
     end
     self.nextAnlmationDelay = self.nextAnlmationDelay - dt
     if self.nextAnlmationDelay <= 0 then
-        if SpriteHasAnimation(self.sprite, "standHold") and self:canMove() then
+        if spriteHasAnimation(self.sprite, "standHold") and self:canMove() then
             if self.b.attack:isDown() then
                 if self.sprite.curAnim ~= "standHold" then
                     self:setSpriteIfExists("standHold")
@@ -508,7 +508,7 @@ Character.stand = {name = "stand", start = Character.standStart, exit = nop, upd
 
 function Character:walkStart()
     self.isHittable = true
-    if SpriteHasAnimation(self.sprite, "walkHold")
+    if spriteHasAnimation(self.sprite, "walkHold")
         and (self.sprite.curAnim == "standHold"
             or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() ))
     then
@@ -574,7 +574,7 @@ function Character:walkUpdate(dt)
                 return
             end
         end
-        if SpriteHasAnimation(self.sprite, "walkHold") and self.sprite.curAnim ~= "walkHold" then
+        if spriteHasAnimation(self.sprite, "walkHold") and self.sprite.curAnim ~= "walkHold" then
             self:setSprite("walkHold")
         end
 --        elseif self.sprite.curAnim ~= "walk" then

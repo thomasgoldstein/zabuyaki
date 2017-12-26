@@ -268,7 +268,7 @@ function Player:useCreditUpdate(dt)
             self.playerSelectMode = 4
             sfx.play("sfx","menuSelect")
             local player = HEROES[self.playerSelectCur].hero:new(self.name,
-                GetSpriteInstance(HEROES[self.playerSelectCur].spriteInstance),
+                getSpriteInstance(HEROES[self.playerSelectCur].spriteInstance),
                 self.b,
                 self.x, self.y
                 --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 } }
@@ -313,7 +313,7 @@ function Player:useCreditUpdate(dt)
             sfx.play("sfx","menuMove")
             self:onShake(1, 0, 0.03, 0.3)   --shake name + face icon
             self.name = HEROES[self.playerSelectCur][1].name
-            self.sprite = GetSpriteInstance(HEROES[self.playerSelectCur].spriteInstance)
+            self.sprite = getSpriteInstance(HEROES[self.playerSelectCur].spriteInstance)
             self:setSprite("stand")
             fixPlayersPalette(self)
             self.shader = getShader(self.sprite.def.spriteName:lower(), self.palette)

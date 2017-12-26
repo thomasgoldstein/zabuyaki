@@ -6,10 +6,10 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 
-gfx.loot.apple = GetSpriteInstance("src/def/misc/apple.lua")
-gfx.loot.chicken = GetSpriteInstance("src/def/misc/chicken.lua")
-gfx.loot.beef = GetSpriteInstance("src/def/misc/beef.lua")
-gfx.loot.bat = GetSpriteInstance("src/def/misc/bat.lua")
+gfx.loot.apple = getSpriteInstance("src/def/misc/apple.lua")
+gfx.loot.chicken = getSpriteInstance("src/def/misc/chicken.lua")
+gfx.loot.beef = getSpriteInstance("src/def/misc/beef.lua")
+gfx.loot.bat = getSpriteInstance("src/def/misc/bat.lua")
 gfx.loot.image = imageBank["res/img/misc/loot.png"] --for loot particles
 
 local ui = love.graphics.newImage("res/img/misc/ui.png")

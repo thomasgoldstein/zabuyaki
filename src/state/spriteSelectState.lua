@@ -140,7 +140,7 @@ function spriteSelectState:update(dt)
     end
 
     if sprite then
-        UpdateSpriteInstance(sprite, dt)
+        updateSpriteInstance(sprite, dt)
     end
 
     self:playerInput(Control1)
@@ -199,7 +199,7 @@ function spriteSelectState:draw()
 --        love.graphics.setShader(curPlayerHeroSet.shader)
 --    end
     if sprite then
-        DrawSpriteInstance(sprite, screenWidth / 2, menuOffset_y + menuItem_h / 2)
+        drawSpriteInstance(sprite, screenWidth / 2, menuOffset_y + menuItem_h / 2)
     end
 --    if curPlayerHeroSet.shader then
 --        love.graphics.setShader()
@@ -246,15 +246,15 @@ end
 
 function spriteSelectState:showCurrentSprite()
     if menuState == 1 then
-        sprite = GetSpriteInstance(heroes[menu[menuState].n].spriteInstance)
+        sprite = getSpriteInstance(heroes[menu[menuState].n].spriteInstance)
         --sprite.sizeScale = 2
-        SetSpriteAnimation(sprite,"stand")
+        setSpriteAnimation(sprite,"stand")
 
     elseif menuState == 2 then
         if weapons[menu[menuState].n] then
-            sprite = GetSpriteInstance(weapons[menu[menuState].n].spriteInstance)
+            sprite = getSpriteInstance(weapons[menu[menuState].n].spriteInstance)
             --sprite.sizeScale = 2
-            SetSpriteAnimation(sprite,"stand")
+            setSpriteAnimation(sprite,"stand")
         else
             sprite = nil
         end

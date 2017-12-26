@@ -21,7 +21,7 @@ function Stage1:initialize(players)
     --local wall2 = Wall:new("right wall 1", { shapeType = "rectangle", shapeArgs = { self.worldWidth - 20, 0, 40, self.worldHeight }}) --right
 
     local testDeathFunc = function(s, t) dp(t.name .. "["..t.type.."] called custom ("..s.name.."["..s.type.."]) func") end
-    local satoff1 = Satoff:new("Satoff", GetSpriteInstance("src/def/char/satoff.lua"), nil,
+    local satoff1 = Satoff:new("Satoff", getSpriteInstance("src/def/char/satoff.lua"), nil,
         1750 , top_floor_y + 80 ,
         { lives = 3, hp = 100, score = 300, shader = shaders.satoff[2] } )
     })
