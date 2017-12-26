@@ -1,5 +1,5 @@
 --[[
-    AnimatedSprite.lua - 2016
+    animatedSprite.lua - 2016
 
     Copyright Dejaime Antonio de Oliveira Neto, 2014
     Don Miguel, 2016

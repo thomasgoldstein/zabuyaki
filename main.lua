@@ -81,7 +81,7 @@ function love.load(arg)
     setupScreen()
 
     Gamestate = require "lib/hump.gamestate"
-    require "src/AnimatedSprite"
+    require "src/animatedSprite"
     HC = require "lib/HC"
     tween = require "lib/tween"
     gamera = require "lib/gamera"
