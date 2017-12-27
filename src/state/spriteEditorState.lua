@@ -310,7 +310,7 @@ function spriteEditorState:update(dt)
     self:playerInput(Control1)
 end
 
-local function DrawweaponSprite(sprite, x, y, i)
+local function drawWeaponSprite(sprite, x, y, i)
     if weaponSprite and sprite.curAnim then
         local s = sprite.def.animations[sprite.curAnim][i or sprite.curFrame or 1]
         local wx, wy, wAnimation
@@ -457,7 +457,7 @@ function spriteEditorState:draw()
             love.graphics.setColor(255, 255, 255, 150)
             for i = 1, #sprite.def.animations[sprite.curAnim] do
                 drawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
-                DrawweaponSprite(sprite, x - (menu[menuState].n - i) * xStep, y, i )
+                drawWeaponSprite(sprite, x - (menu[menuState].n - i) * xStep, y, i )
             end
             if GLOBAL_SETTING.DEBUG then
                 showDebugBoxes(2)
@@ -465,7 +465,7 @@ function spriteEditorState:draw()
             end
             love.graphics.setColor(255, 255, 255, 255)
             drawSpriteInstance(sprite, x, y, menu[menuState].n)
-            DrawweaponSprite(sprite, x, y, menu[menuState].n)
+            drawWeaponSprite(sprite, x, y, menu[menuState].n)
         elseif menuState == 3 then
             if weaponSprite and weaponSprite.curAnim then
                 love.graphics.setColor(255, 255, 255, 255)
@@ -477,7 +477,7 @@ function spriteEditorState:draw()
         else
             --animation
             drawSpriteInstance(sprite, x, y)
-            DrawweaponSprite(sprite, x, y)
+            drawWeaponSprite(sprite, x, y)
         end
     end
     if hero.shaders[menu[3].n] then
