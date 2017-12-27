@@ -210,3 +210,64 @@ function bindGameInput()
         end
     end
 end
+
+local doubleTapDelta = 0.25
+function updateDoubleTap(b, dt)
+    local h = b.horizontal
+    local v = b.vertical
+    if not h.doubleTap then
+        h.doubleTap  = { state = "waitTap1", isDoubleTap = false, lastDirection = 0, lastPressed = 0, n = 0, isWaitingForTap = true }
+    end
+    if not v.doubleTap then
+        v.doubleTap = {  }
+    end
+    local hd = b.horizontal.doubleTap
+    local vd = b.vertical.doubleTap
+
+    local p = h:getValue()
+    hd.isDoubleTap = false
+    print(" hd.state: "..hd.state)
+    if hd.state == "waitTap1" and p ~= 0 then
+        -- wait for 1st tap
+        hd.state = "tap1"
+        hd.lastDirection = p
+    elseif hd.state == "tap1" then
+        -- wait for a button release
+        if p == 0 then
+            hd.state = "waitTap2"
+            hd.lastTapTime = love.timer.getTime()
+        else
+            --reset by changed dir
+            hd.lastDirection = p
+        end
+    elseif hd.state == "waitTap2" then
+        if hd.lastTapTime < 0 then
+            --reset
+            hd.state = "waitTap1"
+        end
+        if p ~= 0 then
+            if p == hd.lastDirection then
+                hd.state = "tap2"
+                hd.isDoubleTap = true
+            else
+                --reset by changed dir
+                hd.state = "waitTap1"
+            end
+        end
+    elseif hd.state == "tap2" then
+        -- wait for a button release
+        if p ~= hd.lastDirection then
+            hd.state = "waitTap1"
+        else
+            hd.isDoubleTap = true
+        end
+    else
+        print("WTF tap state?", hd.state)
+    end
+    --self:getPrevStateTime() < delayWithSlowMotion(doubleTapDelta)
+end
+
+function _getLastStateTime()
+    -- time from the switching to current frame
+    return love.timer.getTime() - self.lastStateTime
+end
