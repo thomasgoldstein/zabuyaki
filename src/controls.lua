@@ -216,10 +216,10 @@ function updateDoubleTap(b, dt)
     local h = b.horizontal
     local v = b.vertical
     if not h.doubleTap then
-        h.doubleTap  = { state = "waitTap1", isDoubleTap = false, lastDirection = 0, lastPressed = 0, n = 0, isWaitingForTap = true }
+        h.doubleTap = { state = "waitTap1", isDoubleTap = false, lastDirection = 0, lastTapTime = 0 }
     end
     if not v.doubleTap then
-        v.doubleTap = {  }
+        v.doubleTap = { state = "waitTap1", isDoubleTap = false, lastDirection = 0, lastTapTime = 0 }
     end
     local hd = b.horizontal.doubleTap
     local vd = b.vertical.doubleTap
@@ -237,12 +237,16 @@ function updateDoubleTap(b, dt)
             hd.state = "waitTap2"
             hd.lastTapTime = love.timer.getTime()
         else
-            --reset by changed dir
+            --keep the direction
             hd.lastDirection = p
         end
     elseif hd.state == "waitTap2" then
-        if hd.lastTapTime < 0 then
-            --reset
+        if love.timer.getTime() - hd.lastTapTime > delayWithSlowMotion(doubleTapDelta) then
+            --cancel the double tap on timeout
+            hd.state = "waitTap1"
+        end
+        if b.attack:isDown() or b.jump:isDown() then
+            --pressing Attack or Jump cancels the double tap
             hd.state = "waitTap1"
         end
         if p ~= 0 then
@@ -250,12 +254,12 @@ function updateDoubleTap(b, dt)
                 hd.state = "tap2"
                 hd.isDoubleTap = true
             else
-                --reset by changed dir
+                --pressing the opposite direction cancels the double tap
                 hd.state = "waitTap1"
             end
         end
     elseif hd.state == "tap2" then
-        -- wait for a button release
+        --wait for a button release
         if p ~= hd.lastDirection then
             hd.state = "waitTap1"
         else
@@ -264,10 +268,4 @@ function updateDoubleTap(b, dt)
     else
         print("WTF tap state?", hd.state)
     end
-    --self:getPrevStateTime() < delayWithSlowMotion(doubleTapDelta)
-end
-
-function _getLastStateTime()
-    -- time from the switching to current frame
-    return love.timer.getTime() - self.lastStateTime
 end
