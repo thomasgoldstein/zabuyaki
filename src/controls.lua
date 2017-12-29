@@ -1,3 +1,5 @@
+local doubleTapDelta = 0.25
+
 function love.joystickadded(joystick)
     p1joystick = joystick
     dp(joystick:getGUID().." added joystick "..joystick:getName().." with "..joystick:getButtonCount().." buttons")
@@ -174,8 +176,6 @@ function bindGameInput()
         back = tactile.newControl()
         :addButton(tactile.gamepadButtons(gamepad3, 'back'))
     }
-
-    local doubleTapDelta = 0.25
     --add keyTrace into every player 1 button
     for index,value in pairs(Control1) do
         local b = Control1[index]
@@ -211,8 +211,7 @@ function bindGameInput()
     end
 end
 
-local doubleTapDelta = 0.25
-function updateDoubleTap(b, dt)
+function updateDoubleTap(b)
     local h = b.horizontal
     local v = b.vertical
     if not h.doubleTap then
@@ -226,11 +225,17 @@ function updateDoubleTap(b, dt)
 
     local p = h:getValue()
     hd.isDoubleTap = false
-    print(" hd.state: "..hd.state)
-    if hd.state == "waitTap1" and p ~= 0 then
+    if hd.state == "waitRelease" then
+        --wait for a button release
+        if p == 0 then
+            hd.state = "waitTap1"
+        end
+    elseif hd.state == "waitTap1" then
         -- wait for 1st tap
-        hd.state = "tap1"
-        hd.lastDirection = p
+        if p ~= 0 then
+            hd.state = "tap1"
+            hd.lastDirection = p
+        end
     elseif hd.state == "tap1" then
         -- wait for a button release
         if p == 0 then
@@ -243,11 +248,11 @@ function updateDoubleTap(b, dt)
     elseif hd.state == "waitTap2" then
         if love.timer.getTime() - hd.lastTapTime > delayWithSlowMotion(doubleTapDelta) then
             --cancel the double tap on timeout
-            hd.state = "waitTap1"
+            hd.state = "waitRelease"
         end
         if b.attack:isDown() or b.jump:isDown() then
             --pressing Attack or Jump cancels the double tap
-            hd.state = "waitTap1"
+            hd.state = "waitRelease"
         end
         if p ~= 0 then
             if p == hd.lastDirection then
@@ -261,11 +266,12 @@ function updateDoubleTap(b, dt)
     elseif hd.state == "tap2" then
         --wait for a button release
         if p ~= hd.lastDirection then
-            hd.state = "waitTap1"
+            hd.state = "waitRelease"
         else
             hd.isDoubleTap = true
         end
     else
-        print("WTF tap state?", hd.state)
+        print("!!WTF tap state?", hd.state)
     end
+    print(" hd.state: "..hd.state, hd.isDoubleTap)
 end
