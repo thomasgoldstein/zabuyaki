@@ -40,7 +40,7 @@ function Rick:initAttributes()
     self.velocityComboSlide3_x = 80 --horizontal speed of combo3Forward attacks
     self.velocityComboSlide3_diag_x = 70 --diagonal horizontal speed of combo3Forward attacks
     self.velocityComboSlide3_diag_y = 10 --diagonal vertical speed of combo3Forward attacks
-    self.repelComboSlide3 = 300 --how much combo3Forward pushes units back
+    self.repelComboSlide3 = 320 --how much combo3Forward pushes units back
 
     self.velocityComboSlide4_x = 60 --horizontal speed of of combo4Forward attacks
     self.velocityComboSlide4_diag_x = 50 --diagonal horizontal speed of combo4Forward attacks
