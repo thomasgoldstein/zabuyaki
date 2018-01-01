@@ -28,7 +28,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.comboN = 1    -- n of the combo hit
     self.comboTimeout = 0.37 -- max delay to connect combo hits
     self.comboTimer = 0    -- can continue combo if > 0
-    self.canMoveDelay = self.comboTimeout - 0.1 -- can move if comboTimer < canMoveDelay
+    self.canMoveDelay = self.comboTimeout - 0.15 -- can move if comboTimer < canMoveDelay
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
     self.grabTimeout = 1.5 -- max delay to keep a unit grabbed
     self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
