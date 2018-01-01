@@ -269,10 +269,10 @@ return {
             { q = q(43,1337,41,57), ox = 31, oy = 56 }, --defensive special 2
             { q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
             { q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2
-            { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 3
-            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 4
-            { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 5
-            { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.02 }, --dash hold attack 6
+            { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 3a
+            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 3b
+            { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 3c
+            { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.02 }, --dash hold attack 3d
             { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
             delay = 0.03
@@ -388,9 +388,9 @@ return {
             { q = q(43,1337,41,57), ox = 31, oy = 56, func = comboSlide4 }, --defensive special 2
             { q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
             { q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2
-            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, func = comboAttack4ForwardSfx, delay = 0.06 }, --dash hold attack 4
-            { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --dash hold attack 5
-            { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.05 }, --dash hold attack 6
+            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, func = comboAttack4ForwardSfx, delay = 0.06 }, --dash hold attack 3b
+            { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --dash hold attack 3c
+            { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.05 }, --dash hold attack 3d
             { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
             delay = 0.03
