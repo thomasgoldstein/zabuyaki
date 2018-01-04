@@ -1232,7 +1232,7 @@ function Character:comboUpdate(dt)
             return
         end
     end
-    if self.moves.dashAttack and (self.b.horizontal.ikp:getLast() or self.b.horizontal.ikn:getLast()) then
+    if self.moves.dashAttack and self.b.horizontal.isDoubleTap then
         --dashAttack from combo
         if self.b.horizontal:getValue() == self.horizontal then
             self:setState(self.dashAttack)
@@ -1316,8 +1316,7 @@ function Character:grabStart()
     self.grabRelease = 0
     self.victims = {}
     if self.type == "player" then
-        self.b.horizontal.ikp:clear() -- clear double tap timer
-        self.b.horizontal.ikn:clear() -- clear double tap timer
+        self.b.horizontal.doubleTap.lastDirection = -self.face -- prevents instant grabSwap on the 1st grab
     end
     if not self.condition then
         local g = self.hold
@@ -1365,9 +1364,7 @@ function Character:grabUpdate(dt)
                 g.target.isGrabbed = false
             end
         else
-            if ( self.face == 1 and self.b.horizontal.ikp:getLast() )
-                    or ( self.face == -1 and self.b.horizontal.ikn:getLast() )
-            then
+            if self.face == self.b.horizontal.doubleTap.lastDirection and self.b.horizontal.isDoubleTap then
                 if self.moves.grabSwap and g.canGrabSwap
                     and self:hasPlaceToStand(self.hold.target.x + self.face * 18, self.y)
                 then

@@ -148,7 +148,6 @@ function love.load(arg)
     require "src/def/movie/intro"
     require 'src/menu'
     tactile = require 'lib/tactile'
-    KeyTrace = require 'src/keyTrace'
     require 'src/controls'
     bindGameInput()
     require "src/canvas2png"
@@ -188,36 +187,18 @@ local function pollControls(dt)
     for index,value in pairs(Control1) do
         local b = Control1[index]
         b:update(dt)
-        if index == "horizontal" or index == "vertical" then
-            --for directions
-            b.ikn:update(dt)
-            b.ikp:update(dt)
-        else
-            b.ik:update(dt)
-        end
     end
     for index,value in pairs(Control2) do
         local b = Control2[index]
         b:update(dt)
-        if index == "horizontal" or index == "vertical" then
-            --for directions
-            b.ikn:update(dt)
-            b.ikp:update(dt)
-        else
-            b.ik:update(dt)
-        end
     end
     for index,value in pairs(Control3) do
         local b = Control3[index]
         b:update(dt)
-        if index == "horizontal" or index == "vertical" then
-            --for directions
-            b.ikn:update(dt)
-            b.ikp:update(dt)
-        else
-            b.ik:update(dt)
-        end
     end
+    updateDoubleTap(Control1)
+    updateDoubleTap(Control2)
+    updateDoubleTap(Control3)
 end
 
 slowMoCounter = 0

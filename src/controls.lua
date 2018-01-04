@@ -176,102 +176,44 @@ function bindGameInput()
         back = tactile.newControl()
         :addButton(tactile.gamepadButtons(gamepad3, 'back'))
     }
-    --add keyTrace into every player 1 button
-    for index,value in pairs(Control1) do
-        local b = Control1[index]
-        if index == "horizontal" or index == "vertical" then
-            --for derections
-            b.ikn = KeyTrace:new(index, value, -1, doubleTapDelta)  --negative dir
-            b.ikp = KeyTrace:new(index, value, 1, doubleTapDelta)   --positive dir
+end
+
+local function checkDoubleTapState(control)
+    local value = control:getValue()
+    local doubleTap = control.doubleTap
+    control.isDoubleTap = false
+    if doubleTap.state == "waitRelease" then
+        if value == 0 then
+            doubleTap.state = "waitTap"
+            doubleTap.lastReleaseTime = love.timer.getTime()
         else
-            b.ik = KeyTrace:new(index, value, nil, doubleTapDelta)
+            doubleTap.lastDirection = value
+            doubleTap.lastReleaseTime = 0
         end
-    end
-    --add keyTrace into every player 2 button
-    for index,value in pairs(Control2) do
-        local b = Control2[index]
-        if index == "horizontal" or index == "vertical" then
-            --for derections
-            b.ikn = KeyTrace:new(index, value, -1, doubleTapDelta)  --negative dir
-            b.ikp = KeyTrace:new(index, value, 1, doubleTapDelta)   --positive dir
-        else
-            b.ik = KeyTrace:new(index, value, nil, doubleTapDelta)
+    elseif doubleTap.state == "waitTap" then
+        if value ~= 0 then
+            doubleTap.state = "waitRelease"
+            if value == doubleTap.lastDirection and love.timer.getTime() - doubleTap.lastReleaseTime <= delayWithSlowMotion(doubleTapDelta) then
+                control.isDoubleTap = true
+            end
         end
-    end
-    --add keyTrace into every player 3 button
-    for index,value in pairs(Control3) do
-        local b = Control3[index]
-        if index == "horizontal" or index == "vertical" then
-            --for derections
-            b.ikn = KeyTrace:new(index, value, -1, doubleTapDelta)  --negative dir
-            b.ikp = KeyTrace:new(index, value, 1, doubleTapDelta)   --positive dir
-        else
-            b.ik = KeyTrace:new(index, value, nil, doubleTapDelta)
-        end
+    else
+        error("Wrong tap state:"..doubleTap.state)
     end
 end
 
+-- adds volatile properties to controls:
+-- self.b.horizontal.isDoubleTap - contains true on double tap
+-- self.b.horizontal.doubleTap.lastDirection - contains last double tap direction
 function updateDoubleTap(b)
     local h = b.horizontal
     local v = b.vertical
     if not h.doubleTap then
-        h.doubleTap = { state = "waitTap1", isDoubleTap = false, lastDirection = 0, lastTapTime = 0 }
+        h.doubleTap = { state = "waitRelease", lastDirection = 0, lastReleaseTime = 0 }
     end
     if not v.doubleTap then
-        v.doubleTap = { state = "waitTap1", isDoubleTap = false, lastDirection = 0, lastTapTime = 0 }
+        v.doubleTap = { state = "waitRelease", lastDirection = 0, lastReleaseTime = 0 }
     end
-    local hd = b.horizontal.doubleTap
-    local vd = b.vertical.doubleTap
-
-    local p = h:getValue()
-    hd.isDoubleTap = false
-    if hd.state == "waitRelease" then
-        --wait for a button release
-        if p == 0 then
-            hd.state = "waitTap1"
-        end
-    elseif hd.state == "waitTap1" then
-        -- wait for 1st tap
-        if p ~= 0 then
-            hd.state = "tap1"
-            hd.lastDirection = p
-        end
-    elseif hd.state == "tap1" then
-        -- wait for a button release
-        if p == 0 then
-            hd.state = "waitTap2"
-            hd.lastTapTime = love.timer.getTime()
-        else
-            --keep the direction
-            hd.lastDirection = p
-        end
-    elseif hd.state == "waitTap2" then
-        if love.timer.getTime() - hd.lastTapTime > delayWithSlowMotion(doubleTapDelta) then
-            --cancel the double tap on timeout
-            hd.state = "waitRelease"
-        end
-        if b.attack:isDown() or b.jump:isDown() then
-            --pressing Attack or Jump cancels the double tap
-            hd.state = "waitRelease"
-        end
-        if p ~= 0 then
-            if p == hd.lastDirection then
-                hd.state = "tap2"
-                hd.isDoubleTap = true
-            else
-                --pressing the opposite direction cancels the double tap
-                hd.state = "waitTap1"
-            end
-        end
-    elseif hd.state == "tap2" then
-        --wait for a button release
-        if p ~= hd.lastDirection then
-            hd.state = "waitRelease"
-        else
-            hd.isDoubleTap = true
-        end
-    else
-        print("!!WTF tap state?", hd.state)
-    end
-    print(" hd.state: "..hd.state, hd.isDoubleTap)
+    checkDoubleTapState(h)
+    checkDoubleTapState(v)
 end
