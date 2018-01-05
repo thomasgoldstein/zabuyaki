@@ -178,7 +178,7 @@ function bindGameInput()
     }
 end
 
-local function checkDoubleTapState(control)
+local function checkDoubleTapState(control, attack)
     local value = control:getValue()
     local doubleTap = control.doubleTap
     control.isDoubleTap = false
@@ -194,7 +194,11 @@ local function checkDoubleTapState(control)
         if value ~= 0 then
             doubleTap.state = "waitRelease"
             if value == doubleTap.lastDirection and love.timer.getTime() - doubleTap.lastReleaseTime <= delayWithSlowMotion(doubleTapDelta) then
-                control.isDoubleTap = true
+                if not attack:pressed() and not attack:released() then
+                    control.isDoubleTap = true
+                else
+                    print("Reset DOUBLE TAP due to Attack", attack:pressed(), attack:released())
+                end
             end
         end
     else
@@ -214,6 +218,6 @@ function updateDoubleTap(b)
     if not v.doubleTap then
         v.doubleTap = { state = "waitRelease", lastDirection = 0, lastReleaseTime = 0 }
     end
-    checkDoubleTapState(h)
-    checkDoubleTapState(v)
+    checkDoubleTapState(h, b.attack)
+    checkDoubleTapState(v, b.attack)
 end
