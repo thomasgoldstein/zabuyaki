@@ -1364,7 +1364,7 @@ function Character:grabUpdate(dt)
                 g.target.isGrabbed = false
             end
         else
-            if self.face == self.b.horizontal.doubleTap.lastDirection and self.b.horizontal.isDoubleTap then
+            if self.b.horizontal.isDoubleTap and self.face == self.b.horizontal.doubleTap.lastDirection then
                 if self.moves.grabSwap and g.canGrabSwap
                     and self:hasPlaceToStand(self.hold.target.x + self.face * 18, self.y)
                 then
