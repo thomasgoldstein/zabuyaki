@@ -74,32 +74,46 @@ function showDebugControls()
                 love.graphics.rectangle("fill", x - 2, y, 61, 9)
                 love.graphics.setColor( unpack( GLOBAL_SETTING.PLAYERS_COLORS[p.id] ) )
                 if p.b.attack:isDown() then
-                    love.graphics.print("F", x, y)
+                    love.graphics.print("A", x, y)
                 end
                 x = x + 10
                 if p.b.jump:isDown() then
                     love.graphics.print("J", x, y)
                 end
+                local horizontalValue = p.b.horizontal:getValue()
                 x = x + 10
-                if p.b.horizontal:isDown(-1) then
+                if horizontalValue == -1 then
                     love.graphics.print("<", x, y)
                 end
+                if p.b.horizontal.isDoubleTap and p.b.horizontal.doubleTap.lastDirection == -1 then
+                    love.graphics.print("2", x, y + 10)
+                end
                 x = x + 10
-                if p.b.horizontal:isDown(1) then
+                if horizontalValue == 1 then
                     love.graphics.print(">", x, y)
                 end
+                if p.b.horizontal.isDoubleTap and p.b.horizontal.doubleTap.lastDirection == 1 then
+                    love.graphics.print("2", x, y + 10)
+                end
+                local verticalValue = p.b.vertical:getValue()
                 x = x + 10
-                if p.b.vertical:isDown(-1) then
-                    love.graphics.print("A", x, y)
+                if verticalValue == -1 then
+                    love.graphics.print("^", x, y)
+                end
+                if p.b.vertical.isDoubleTap and p.b.vertical.doubleTap.lastDirection == -1 then
+                    love.graphics.print("2", x, y + 10)
                 end
                 x = x + 10
-                if p.b.vertical:isDown(1) then
+                if verticalValue == 1 then
                     love.graphics.print("V", x, y)
+                end
+                if p.b.vertical.isDoubleTap and p.b.vertical.doubleTap.lastDirection == 1 then
+                    love.graphics.print("2", x, y + 10)
                 end
                 x = p.infoBar.x + 76
                 y = y - 12
                 if p.canAttack then
-                    love.graphics.print("F", x, y)
+                    love.graphics.print("A", x, y)
                 end
                 x = x + 10
                 if p.canJump then
