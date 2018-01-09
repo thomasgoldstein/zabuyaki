@@ -467,10 +467,11 @@ function Character:standUpdate(dt)
         self:setState(self.duck2jump)
         return
     end
+    local horizontalControl = self.b.horizontal:getValue()
     if self:canMove() then
         --can move
-        if self.b.horizontal:getValue() ~=0 then
-            if self.moves.run and self:getPrevStateTime() < delayWithSlowMotion(doubleTapDelta) and self.lastFace == self.b.horizontal:getValue()
+        if horizontalControl ~= 0 then
+            if self.moves.run and self:getPrevStateTime() < delayWithSlowMotion(doubleTapDelta) and self.lastFace == horizontalControl
                     and (self.lastState == "walk" or self.lastState == "run" )
             then
                 if self.moves.dashHold and self.charge > 0 then
@@ -495,9 +496,9 @@ function Character:standUpdate(dt)
         end
     else
         --you can flip while you cannot move
-        if self.b.horizontal:getValue() ~= 0 then
-            self.face = self.b.horizontal:getValue()
-            self.horizontal = self.face
+        if horizontalControl ~= 0 then
+            self.face = horizontalControl
+            self.horizontal = horizontalControl
         end
     end
     self:calcMovement(dt, true)
