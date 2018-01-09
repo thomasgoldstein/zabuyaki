@@ -484,10 +484,8 @@ function Character:standUpdate(dt)
             return
         end
         if self.b.vertical:getValue() ~= 0 then
-            if self.moves.sideStep and self:getPrevStateTime() < delayWithSlowMotion(doubleTapDelta) and self.lastVertical == self.b.vertical:getValue()
-                    and (self.lastState == "walk" )
-            then
-                self.vertical = self.b.vertical:getValue()
+            if self.moves.sideStep and self.b.vertical.isDoubleTap and self.lastState == "walk" then
+                self.vertical = self.b.vertical.doubleTap.lastDirection
                 _, self.vel_y = self:getMovementSpeed()
                 self:setState(self.sideStep)
             else
