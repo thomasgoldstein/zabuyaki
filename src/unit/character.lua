@@ -471,7 +471,7 @@ function Character:standUpdate(dt)
     if self:canMove() then
         --can move
         if horizontalControl ~= 0 then
-            if self.moves.run and self:getPrevStateTime() < delayWithSlowMotion(doubleTapDelta) and self.lastFace == horizontalControl
+            if self.moves.run and self.b.horizontal.isDoubleTap
                     and (self.lastState == "walk" or self.lastState == "run" )
             then
                 if self.moves.dashHold and self.charge > 0 then
