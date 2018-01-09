@@ -1233,10 +1233,8 @@ function Character:comboUpdate(dt)
     end
     if self.moves.dashAttack and self.b.horizontal.isDoubleTap then
         --dashAttack from combo
-        if self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.dashAttack)
-            return
-        end
+        self:setState(self.dashAttack)
+        return
     end
     if self.sprite.isFinished then
         self.comboTimer = self.comboTimeout -- reset max delay to connect combo hits
