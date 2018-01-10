@@ -178,7 +178,7 @@ function bindGameInput()
     }
 end
 
-local function checkDoubleTapState(control, attack)
+local function checkDoubleTapState(control)
     local value = control:getValue()
     local doubleTap = control.doubleTap
     control.isDoubleTap = false
@@ -214,6 +214,6 @@ function updateDoubleTap(b)
     if not v.doubleTap then
         v.doubleTap = { state = "waitRelease", lastDirection = 0, lastReleaseTime = 0 }
     end
-    checkDoubleTapState(h, b.attack)
-    checkDoubleTapState(v, b.attack)
+    checkDoubleTapState(h)
+    checkDoubleTapState(v)
 end
