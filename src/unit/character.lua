@@ -472,7 +472,7 @@ function Character:standUpdate(dt)
         --can move
         if horizontalControl ~= 0 then
             if self.moves.run and self.b.horizontal.isDoubleTap
-                    and (self.lastState == "walk" or self.lastState == "stand" )
+                and self.lastState == "walk"
             then
                 if self.moves.dashHold and self.charge > 0 and self.horizontal == self.b.horizontal.doubleTap.lastDirection then
                     self:setState(self.dashHold)
