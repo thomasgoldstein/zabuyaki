@@ -194,11 +194,7 @@ local function checkDoubleTapState(control, attack)
         if value ~= 0 then
             doubleTap.state = "waitRelease"
             if value == doubleTap.lastDirection and love.timer.getTime() - doubleTap.lastReleaseTime <= delayWithSlowMotion(doubleTapDelta) then
-                if not attack:pressed() and not attack:released() then
-                    control.isDoubleTap = true
-                else
-                    print("Reset DOUBLE TAP due to Attack", attack:pressed(), attack:released())
-                end
+                control.isDoubleTap = true
             end
         end
     else
