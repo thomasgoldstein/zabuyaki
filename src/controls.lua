@@ -183,7 +183,6 @@ local function checkDoubleTapState(control)
     local doubleTap = control.doubleTap
     control.isDoubleTap = false
     if control:pressed() then
-        print("pressed", value)
         if value == doubleTap.lastDirection and love.timer.getTime() - doubleTap.lastTapTime <= delayWithSlowMotion(doubleTapDelta) then
             control.isDoubleTap = true
         else
