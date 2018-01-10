@@ -1184,16 +1184,8 @@ function Character:comboStart()
     self.isHittable = true
     self.horizontal = self.face
     self.isSliding = false
-    self:removeTweenMove()
-    if self.moves.dashAttack and self.comboN > 1 and self.doDashAttackNext then
-        print(self.name, "reset comboN because dashAttack")
-        self.comboN = 1 -- interrupt connected combo series by dashAttack
-        self.connectHit = false
-        self.attacksPerAnimation = 0
-        self:setState(self.dashAttack)
-        return
-    end
     self.doDashAttackNext = false
+    self:removeTweenMove()
     if self.comboTimer >= 0 then
         if self.attacksPerAnimation > 0 then
             self.comboN = self.comboN + 1
@@ -1211,7 +1203,6 @@ function Character:comboStart()
     end
     self.connectHit = false
     self.attacksPerAnimation = 0
-
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.comboN.."Forward") then
         print(self.name, "combo"..self.comboN.."Forward")
         return
@@ -1239,9 +1230,14 @@ function Character:comboUpdate(dt)
             return
         end
     end
-    if self.moves.dashAttack and self.b.horizontal.isDoubleTap then
-        --call dashAttack from the next comboN
-        self.doDashAttackNext = true
+    if self.moves.dashAttack then
+        if self.b.horizontal.isDoubleTap then
+            self.doDashAttackNext = true
+        end
+        if self.doDashAttackNext and self.b.attack:pressed() then
+            self:setState(self.dashAttack)
+            return
+        end
     end
     if self.sprite.isFinished then
         self.comboTimer = self.comboTimeout -- reset max delay to connect combo hits
