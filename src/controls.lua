@@ -185,6 +185,8 @@ local function checkDoubleTapState(control)
     if control:pressed() then
         if value == doubleTap.lastDirection and love.timer.getTime() - doubleTap.lastTapTime <= delayWithSlowMotion(doubleTapDelta) then
             control.isDoubleTap = true
+            doubleTap.lastDoubleTapDirection = value
+            doubleTap.lastDoubleTapTime = love.timer.getTime()
         else
             doubleTap.lastDirection = value
         end
@@ -199,10 +201,10 @@ function updateDoubleTap(b)
     local h = b.horizontal
     local v = b.vertical
     if not h.doubleTap then
-        h.doubleTap = { state = "waitRelease", lastDirection = 0, lastTapTime = 0 }
+        h.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0 }
     end
     if not v.doubleTap then
-        v.doubleTap = { state = "waitRelease", lastDirection = 0, lastTapTime = 0 }
+        v.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0 }
     end
     checkDoubleTapState(h)
     checkDoubleTapState(v)
