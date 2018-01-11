@@ -1184,7 +1184,6 @@ function Character:comboStart()
     self.isHittable = true
     self.horizontal = self.face
     self.isSliding = false
-    self.doDashAttackNext = false
     self:removeTweenMove()
     if self.comboTimer >= 0 then
         if self.attacksPerAnimation > 0 then
@@ -1227,15 +1226,6 @@ function Character:comboUpdate(dt)
             return
         elseif self.moves.defensiveSpecial then
             self:setState(self.defensiveSpecial)
-            return
-        end
-    end
-    if self.moves.dashAttack then
-        if self.b.horizontal.isDoubleTap then
-            self.doDashAttackNext = true
-        end
-        if self.doDashAttackNext and self.b.attack:pressed() then
-            self:setState(self.dashAttack)
             return
         end
     end

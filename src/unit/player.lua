@@ -3,6 +3,7 @@ local Player = class('Player', Character)
 
 local function nop() end
 local CheckCollision = CheckCollision
+local doubleTapDelta = 0.25
 
 function Player:initialize(name, sprite, input, x, y, f)
     if not f then
@@ -142,6 +143,13 @@ end
 function Player:updateAI(dt)
     if self.isDisabled then
         return
+    end
+    if self.moves.dashAttack and self.b.attack:pressed() then
+        local value = self.b.horizontal:getValue()
+        local doubleTap = self.b.horizontal.doubleTap
+        if value == doubleTap.lastDoubleTapDirection and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(doubleTapDelta) then
+            self:setState(self.dashAttack)
+        end
     end
     if self.moves.holdAttack then
         if self.b.attack:isDown() and self.statesForHoldAttack[self.state] then
