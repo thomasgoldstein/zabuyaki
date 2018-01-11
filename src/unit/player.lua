@@ -147,7 +147,10 @@ function Player:updateAI(dt)
     if self.moves.dashAttack and self.b.attack:pressed() then
         local value = self.b.horizontal:getValue()
         local doubleTap = self.b.horizontal.doubleTap
-        if value == doubleTap.lastDoubleTapDirection and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(doubleTapDelta) then
+        if value == doubleTap.lastDoubleTapDirection
+            and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(doubleTapDelta)
+            and self.statesForDashAttack[self.state]
+        then
             self:setState(self.dashAttack)
         end
     end
