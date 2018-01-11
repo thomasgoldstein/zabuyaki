@@ -8,7 +8,7 @@ local doubleTapDelta = 0.25
 local delayWithSlowMotion = delayWithSlowMotion
 
 Character.statesForHoldAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, dashHold = true }
-Character.statesForDashAttack = { stand = true, walk = true, run = true }
+Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true  }
 
 function Character:initialize(name, sprite, input, x, y, f)
     if not f then
