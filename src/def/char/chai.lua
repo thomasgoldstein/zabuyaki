@@ -11,7 +11,7 @@ end
 local frontGrabAttack = function(slf, cont)
     --default values: 10,0,20,12, "hit", slf.vel_x
     slf:checkAndAttack(
-        { x = 8, y = 20, width = 26, damage = 8 },
+        { x = 8, y = 20, width = 26, damage = 9 },
         cont
     )
 end
@@ -489,20 +489,23 @@ return {
             { q = q(2,1659,45,64), ox = 23, oy = 63 }, --grab
         },
         frontGrabAttack1 = {
-            { q = q(93,1660,37,63), ox = 11, oy = 62, func = frontGrabAttack,  delay = 0.18 }, --grab attack 1.2
-            { q = q(49,1660,42,63), ox = 17, oy = 62 }, --grab attack 1.1
-            delay = 0.02
+            { q = q(49,1659,41,64), ox = 23, oy = 63, delay = 0.05 }, --grab attack 1.1
+            { q = q(92,1660,37,63), ox = 11, oy = 62, func = frontGrabAttack }, --grab attack 1.2
+            { q = q(131,1660,42,63), ox = 17, oy = 62, delay = 0.03 }, --grab attack 1.3
+            delay = 0.18
         },
         frontGrabAttack2 = {
-            { q = q(93,1660,37,63), ox = 11, oy = 62, func = frontGrabAttack,  delay = 0.18 }, --grab attack 1.2
-            { q = q(49,1660,42,63), ox = 17, oy = 62 }, --grab attack 1.1
-            delay = 0.02
+            { q = q(49,1659,41,64), ox = 23, oy = 63, delay = 0.05 }, --grab attack 1.1
+            { q = q(92,1660,37,63), ox = 11, oy = 62, func = frontGrabAttack }, --grab attack 1.2
+            { q = q(131,1660,42,63), ox = 17, oy = 62, delay = 0.03 }, --grab attack 1.3
+            delay = 0.18
         },
         frontGrabAttack3 = {
-            { q = q(2,722,39,65), ox = 15, oy = 64 }, --jump attack forward 1 (shifted right by 3px)
-            { q = q(43,722,37,64), ox = 9, oy = 63, func = frontGrabAttackLast, delay = 0.18 }, --jump attack forward 2 (shifted right by 3px)
-            { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.1 }, --jump attack forward 1 (shifted right by 3px)
-            delay = 0.02
+            { q = q(49,1659,41,64), ox = 23, oy = 63, delay = 0.05 }, --grab attack 1.1
+            { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.02 }, --jump attack forward 1 (shifted right by 3px)
+            { q = q(43,722,37,64), ox = 9, oy = 63, func = frontGrabAttackLast }, --jump attack forward 2 (shifted right by 3px)
+            { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.05 }, --jump attack forward 1 (shifted right by 3px)
+            delay = 0.18
         },
         frontGrabAttackDown = {
             { q = q(117,587,48,65), ox = 13, oy = 64, delay = 0.15 }, --combo 4.1
@@ -512,7 +515,7 @@ return {
             delay = 0.05
         },
         frontGrabAttackUp = {
-            { q = q(49,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
+            { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
             { q = q(44,928,51,63), ox = 26, oy = 62 }, --throw 1.2
             { q = q(97,928,53,63), ox = 22, oy = 62, func = frontGrabAttackUp, delay = 0.2 }, --throw 1.3
@@ -521,7 +524,7 @@ return {
             isThrow = true,
         },
         frontGrabAttackBack = {
-            { q = q(49,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
+            { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
             { q = q(44,928,51,63), ox = 26, oy = 62, func = frontGrabAttackBack }, --throw 1.2
             { q = q(97,928,53,63), ox = 22, oy = 62, delay = 0.2 }, --throw 1.3
@@ -537,9 +540,9 @@ return {
             }
         },
         frontGrabAttackForward = {
-            { q = q(49,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
-            { q = q(49,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
-            { q = q(49,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.1
+            { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3
+            { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3
+            { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
             { q = q(44,928,51,63), ox = 26, oy = 62, func = frontGrabAttackForward }, --throw 1.2
             { q = q(97,928,53,63), ox = 22, oy = 62 }, --throw 1.3
