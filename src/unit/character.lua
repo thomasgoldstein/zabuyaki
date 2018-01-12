@@ -4,7 +4,6 @@ local Character = class('Character', Unit)
 local function nop() end
 local sign = sign
 local clamp = clamp
-local doubleTapDelta = 0.25
 local delayWithSlowMotion = delayWithSlowMotion
 
 Character.statesForHoldAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, dashHold = true }
