@@ -531,25 +531,25 @@ return {
             { q = q(2,979,44,63), ox = 18, oy = 62 }, --grab
         },
         frontGrabAttack1 = {
-            { q = q(48,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
-            { q = q(104,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
-            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttack, delay = 0.18 }, --grab attack 3
+            { q = q(48,979,54,63), ox = 31, oy = 62 }, --grab attack 1
+            { q = q(104,980,42,62), ox = 19, oy = 61 }, --grab attack 2
+            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttack, delay = 0.16 }, --grab attack 3
             { q = q(182,716,39,60), ox = 17, oy = 59, delay = 0.02 }, --combo forward 2.2
-            delay = 0.16
+            delay = 0.03
         },
         frontGrabAttack2 = {
-            { q = q(48,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
-            { q = q(104,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
-            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttack, delay = 0.18 }, --grab attack 3
+            { q = q(48,979,54,63), ox = 31, oy = 62 }, --grab attack 1
+            { q = q(104,980,42,62), ox = 19, oy = 61 }, --grab attack 2
+            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttack, delay = 0.16 }, --grab attack 3
             { q = q(182,716,39,60), ox = 17, oy = 59, delay = 0.02 }, --combo forward 2.2
-            delay = 0.16
+            delay = 0.03
         },
         frontGrabAttack3 = {
-            { q = q(48,979,54,63), ox = 31, oy = 62, delay = 0.05 }, --grab attack 1
-            { q = q(104,980,42,62), ox = 19, oy = 61, delay = 0.03 }, --grab attack 2
-            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttackLast }, --grab attack 3
+            { q = q(48,979,54,63), ox = 31, oy = 62 }, --grab attack 1
+            { q = q(104,980,42,62), ox = 19, oy = 61 }, --grab attack 2
+            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttackLast, delay = 0.16 }, --grab attack 3
             { q = q(182,716,39,60), ox = 17, oy = 59, delay = 0.02 }, --combo forward 2.2
-            delay = 0.16
+            delay = 0.03
         },
         frontGrabAttackDown = {
             { q = q(2,1044,56,63), ox = 30, oy = 62, delay = 0.25 }, --grab attack end 1
