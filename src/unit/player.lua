@@ -3,7 +3,7 @@ local Player = class('Player', Character)
 
 local function nop() end
 local CheckCollision = CheckCollision
-local dashAttackDelta = 0.37
+local dashAttackDelta = 0.25
 
 function Player:initialize(name, sprite, input, x, y, f)
     if not f then
