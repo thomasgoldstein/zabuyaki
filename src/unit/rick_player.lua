@@ -30,7 +30,7 @@ function Rick:initAttributes()
     self.velocityRun_y = 23
     self.velocityDash = 125 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = 280
+    self.frictionDash = 400
 
     self.velocityComboSlide2_x = 60 --horizontal speed of combo2Forward attacks
     self.velocityComboSlide2_diag_x = 50 --diagonal horizontal speed of combo2Forward attacks
