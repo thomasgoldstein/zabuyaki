@@ -613,7 +613,7 @@ function Character:runUpdate(dt)
         return
     end
     if self.canJump and self.b.jump:isDown() then
-        if self.moves.offensiveSpecial and self.b.attack:isDown() then
+        if self.moves.offensiveSpecial and self.b.attack:pressed() then
             self:setState(self.offensiveSpecial)
             return
         elseif self.moves.jump or self.moves.offensiveSpecial or self.moves.defensiveSpecial then
@@ -1343,7 +1343,7 @@ function Character:grabUpdate(dt)
             return
         end
         --special attacks
-        if self.b.attack:isDown() and self.canJump and self.b.jump:isDown() then
+        if self.b.attack:pressed() and self.canJump and self.b.jump:isDown() then
             if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
                 self:releaseGrabbed()
                 self:setState(self.offensiveSpecial)
