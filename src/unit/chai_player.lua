@@ -28,9 +28,8 @@ function Chai:initAttributes()
     self.velocityWalkHold_y = 40
     self.velocityRun_x = 150
     self.velocityRun_y = 25
-    self.velocityDash = 150 --speed of the character
+    self.velocityDash = 200 --speed of the character
     self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = self.velocityDash
 
     self.velocityComboSlide1_x = 40 --horizontal speed of combo1Forward attacks
     self.velocityComboSlide1_diag_x = 30 --diagonal horizontal speed of combo1Forward attacks
@@ -75,7 +74,7 @@ function Chai:dashAttackUpdate(dt)
         self:calcFreeFall(dt)
         if self.vel_z > 0 then
             if self.vel_x > 0 then
-                self.vel_x = self.vel_x - (self.velocityDash * dt)
+                self.vel_x = self.vel_x - (self.velocityDash * dt * 2.5)
             else
                 self.vel_x = 0
             end
