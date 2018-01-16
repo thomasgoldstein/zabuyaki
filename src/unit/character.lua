@@ -674,7 +674,7 @@ function Character:jumpStart()
     end
 end
 function Character:jumpUpdate(dt)
-    if self.b.attack:isDown() then
+    if self.b.attack:pressed() then
         if self.canAttack then
             if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
                 self:setState(self.jumpAttackLight)
