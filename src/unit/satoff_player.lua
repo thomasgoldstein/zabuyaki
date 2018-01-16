@@ -22,4 +22,7 @@ function Satoff:initAttributes()
     _Satoff.initAttributes(self)
 end
 
+--Sliding uppercut
+Satoff.combo = {name = "combo", start = _Satoff.comboStart, exit = nop, update = _Satoff.comboUpdate, draw = Character.defaultDraw}
+
 return Satoff

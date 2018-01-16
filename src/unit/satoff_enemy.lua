@@ -71,6 +71,21 @@ function Satoff:updateAI(dt)
     self.AI:update(dt)
 end
 
+function Satoff:comboStart()
+    self:removeTweenMove()
+    Character.comboStart(self)
+    self.vel_x = self.velocityDash
+end
+function Satoff:comboUpdate(dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+    self:calcMovement(dt, true, self.frictionDash)
+end
+--Sliding uppercut
+Satoff.combo = { name = "combo", start = Satoff.comboStart, exit = nop, update = Satoff.comboUpdate, draw = Satoff.defaultDraw }
+
 function Satoff:walkStart()
     self.isHittable = true
     self:setSprite("walk")
