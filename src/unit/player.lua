@@ -234,11 +234,7 @@ function Player:useCreditUpdate(dt)
     if self.playerSelectMode == 5 then --self.isDisabled then
         return
     end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
-    end
-
-    if self.playerSelectMode == 0 then
+      if self.playerSelectMode == 0 then
         -- 10 seconds to choose
         self.displayDelay = self.displayDelay - dt
         if credits <= 0 or self.displayDelay <= 0 then
@@ -249,7 +245,7 @@ function Player:useCreditUpdate(dt)
         end
         -- wait press to use credit
         -- add countdown 9 .. 0 -> Game Over
-        if self.b.attack:isDown() and self.canAttack then
+        if self.b.attack:pressed() then
             dp(self.name.." used 1 Credit to respawn")
             credits = credits - 1
             self:addScore(1) -- like CAPCM
@@ -263,7 +259,6 @@ function Player:useCreditUpdate(dt)
             -- wait before respawn / char select
             self.displayDelay = self.displayDelay - dt
             if self.displayDelay <= 0 then
-                self.canAttack = false
                 self.displayDelay = 10
                 self.playerSelectMode = 2
             end
@@ -271,9 +266,7 @@ function Player:useCreditUpdate(dt)
     elseif self.playerSelectMode == 2 then
         -- Select Player
         -- 10 sec countdown before auto confirm
-        if (self.b.attack:isDown() and self.canAttack)
-                or self.displayDelay <= 0
-        then
+        if self.b.attack:pressed() or self.displayDelay <= 0 then
             self.displayDelay = 0
             self.playerSelectMode = 4
             sfx.play("sfx","menuSelect")
