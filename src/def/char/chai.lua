@@ -253,11 +253,11 @@ return {
             { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
             { q = q(2,722,39,65), ox = 22, oy = 64, funcCont = dashAttack1, delay = 0.03 }, --jump attack forward 1 (shifted left by 4px)
             { q = q(2,858,38,65), ox = 22, oy = 64, funcCont = dashAttack2 }, --dash attack 1
-            { q = q(42,858,49,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2
-            { q = q(93,858,48,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 3
-            { q = q(143,858,47,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 4
-            { q = q(192,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3, delay = 0.1 }, --dash attack 5
-            { q = q(154,722,37,65), ox = 22, oy = 64, funcCont = dashAttack2, delay = 5 }, --dash attack 6
+            { q = q(42,858,49,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2a
+            { q = q(93,858,48,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2b
+            { q = q(143,858,47,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2c
+            { q = q(192,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3, delay = 0.1 }, --dash attack 2d
+            { q = q(154,722,37,65), ox = 22, oy = 64, funcCont = dashAttack2, delay = 5 }, --dash attack 3
             delay = 0.06
         },
         dashHold = {
@@ -317,20 +317,20 @@ return {
         },
         offensiveSpecial = {
             { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1 }, --defensive special 4
-            { q = q(2,1791,77,65), ox = 26, oy = 65 }, --offensive special 1
-            { q = q(81,1791,75,63), ox = 26, oy = 65 }, --offensive special 2
-            { q = q(158,1791,73,61), ox = 26, oy = 65 }, --offensive special 3
+            { q = q(2,1791,77,65), ox = 26, oy = 65 }, --offensive special 1a
+            { q = q(81,1791,75,63), ox = 26, oy = 65 }, --offensive special 1b
+            { q = q(158,1791,73,61), ox = 26, oy = 65 }, --offensive special 1c
             loop = true,
             loopFrom = 2,
             delay = 0.05
         },
         offensiveSpecial2 = {
-            { q = q(2,1791,77,65), ox = 26, oy = 65 }, --offensive special 1
-            { q = q(81,1791,75,63), ox = 26, oy = 65 }, --offensive special 2
-            { q = q(158,1791,73,61), ox = 26, oy = 65 }, --offensive special 3
-            { q = q(2,1791,77,65), ox = 26, oy = 65 }, --offensive special 1
-            { q = q(81,1791,75,63), ox = 26, oy = 65 }, --offensive special 2
-            { q = q(158,1791,73,61), ox = 26, oy = 65 }, --offensive special 3
+            { q = q(2,1791,77,65), ox = 26, oy = 65 }, --offensive special 1a
+            { q = q(81,1791,75,63), ox = 26, oy = 65 }, --offensive special 1b
+            { q = q(158,1791,73,61), ox = 26, oy = 65 }, --offensive special 1c
+            { q = q(2,1791,77,65), ox = 26, oy = 65 }, --offensive special 1a
+            { q = q(81,1791,75,63), ox = 26, oy = 65 }, --offensive special 1b
+            { q = q(158,1791,73,61), ox = 26, oy = 65 }, --offensive special 1c
             { q = q(2,1396,45,61), ox = 24, oy = 65, funcCont = defensiveSpecialRight }, --defensive special 6
             { q = q(49,1396,58,63), ox = 23, oy = 67, funcCont = defensiveSpecialRightMost }, --defensive special 7
             { q = q(109,1396,54,62), ox = 26, oy = 67, funcCont = defensiveSpecialRight }, --defensive special 8
@@ -464,14 +464,14 @@ return {
             delay = 0.1
         },
         jumpAttackRun = {
-            { q = q(2,993,63,66), ox = 26, oy = 66 }, --jump attack running 1.1
-            { q = q(67,993,63,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 1.2
-            { q = q(132,993,64,66), ox = 22, oy = 66 }, --jump attack running 2.1
-            { q = q(2,1061,65,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 2.2
-            { q = q(69,1061,65,66), ox = 22, oy = 66 }, --jump attack running 2.3
-            { q = q(136,1061,63,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.1
-            { q = q(2,1129,61,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.2
-            { q = q(65,1129,59,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3.3
+            { q = q(2,993,63,66), ox = 26, oy = 66 }, --jump attack running 1a
+            { q = q(67,993,63,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 1b
+            { q = q(132,993,64,66), ox = 22, oy = 66 }, --jump attack running 2a
+            { q = q(2,1061,65,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack running 2b
+            { q = q(69,1061,65,66), ox = 22, oy = 66 }, --jump attack running 2c
+            { q = q(136,1061,63,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3a
+            { q = q(2,1129,61,67), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3b
+            { q = q(65,1129,59,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack running 3c
             { q = q(126,1129,42,67), ox = 23, oy = 66, delay = 5 }, --jump attack running 4
             delay = 0.02
         },
