@@ -112,9 +112,6 @@ function showDebugControls()
                 end
                 x = p.infoBar.x + 76
                 y = y - 12
-                if p.canAttack then
-                    love.graphics.print("A", x, y)
-                end
                 x = x + 10
                 if p.canJump then
                     love.graphics.print("J", x, y)

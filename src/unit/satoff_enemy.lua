@@ -124,7 +124,6 @@ function Satoff:walkUpdate(dt)
         return
     end
     self.canJump = true
-    self.canAttack = true
     self:calcMovement(dt, true, nil)
 end
 Satoff.walk = { name = "walk", start = Satoff.walkStart, exit = nop, update = Satoff.walkUpdate, draw = Enemy.defaultDraw }

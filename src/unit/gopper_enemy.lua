@@ -87,7 +87,6 @@ function Gopper:walkUpdate(dt)
         return
     end
     self.canJump = true
-    self.canAttack = true
     if not self:calcMovement(dt, false, nil) then
         self:setState(self.stand)
         return

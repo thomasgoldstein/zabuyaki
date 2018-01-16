@@ -299,11 +299,6 @@ function Character:checkStuckButtons()
     else
         self.canJump = false
     end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
-    else
-        self.canAttack = false
-    end
 end
 
 function Character:checkAndAttack(f, isFuncCont)
@@ -430,9 +425,6 @@ function Character:standUpdate(dt)
     if not self.b.jump:isDown() then
         self.canJump = true
     end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
-    end
     self.nextAnlmationDelay = self.nextAnlmationDelay - dt
     if self.nextAnlmationDelay <= 0 then
         if spriteHasAnimation(self.sprite, "standHold") and self:canMove() then
@@ -451,7 +443,7 @@ function Character:standUpdate(dt)
             end
         end
     end
-    if self.canAttack and self.b.attack:pressed() then
+    if self.b.attack:pressed() then
         if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
             return
@@ -460,9 +452,8 @@ function Character:standUpdate(dt)
         return
     end
     if (self.moves.jump and self.canJump and self.b.jump:isDown())
-            or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
-            and (self.canJump or self.canAttack) and
-            (self.b.jump:isDown() and self.b.attack:isDown()))
+        or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
+        and self.canJump and self.b.jump:isDown() and self.b.attack:pressed())
     then
         self:setState(self.duck2jump)
         return
@@ -520,10 +511,7 @@ function Character:walkUpdate(dt)
     if not self.b.jump:isDown() then
         self.canJump = true
     end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
-    end
-    if self.b.attack:isDown() and self.canAttack then
+    if self.b.attack:pressed() then
         if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
             return
@@ -595,14 +583,11 @@ Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update
 function Character:runStart()
     self.isHittable = true
     self.nextAnlmationDelay = 0.01
-    --canJump & self.canAttack are set in the prev state
+    --canJump is set in the prev state
 end
 function Character:runUpdate(dt)
     if not self.b.jump:isDown() then
         self.canJump = true
-    end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
     end
     self.vel_x = 0
     self.vel_y = 0
@@ -628,14 +613,14 @@ function Character:runUpdate(dt)
         return
     end
     if self.canJump and self.b.jump:isDown() then
-        if self.moves.offensiveSpecial and self.b.attack:isDown() then
+        if self.moves.offensiveSpecial and self.b.attack:pressed() then
             self:setState(self.offensiveSpecial)
             return
         elseif self.moves.jump or self.moves.offensiveSpecial or self.moves.defensiveSpecial then
             self:setState(self.duck2jump, true) --pass condition to block dir changing
             return
         end
-    elseif self.b.attack:isDown() and self.canAttack then
+    elseif self.b.attack:pressed() then
         if self.moves.offensiveSpecial and self.b.jump:isDown() then
             self:setState(self.offensiveSpecial)
             return
@@ -667,36 +652,27 @@ function Character:jumpStart()
         self.vel_y = self.vel_y + self.velocityJumpBoost_y --make jump little faster than the walk/run speed
     end
     sfx.play("voice"..self.id, self.sfx.jump)
-    if not (self.moves.offensiveSpecial or self.moves.defensiveSpecial) then
-        self.canAttack = false
-    else
-        self.canAttack = true
-    end
 end
 function Character:jumpUpdate(dt)
-    if self.b.attack:isDown() then
-        if self.canAttack then
-            if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
-                self:setState(self.jumpAttackLight)
+    if self.b.attack:pressed() then
+        if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
+            self:setState(self.jumpAttackLight)
+            return
+        elseif self.moves.jumpAttackStraight and self.vel_x == 0 then
+            self:setState(self.jumpAttackStraight)
+            return
+        else
+            if self.moves.jumpAttackRun and self.vel_x >= self.velocityRun_x then
+                self:setState(self.jumpAttackRun)
                 return
-            elseif self.moves.jumpAttackStraight and self.vel_x == 0 then
+            elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
                 self:setState(self.jumpAttackStraight)
                 return
-            else
-                if self.moves.jumpAttackRun and self.vel_x >= self.velocityRun_x then
-                    self:setState(self.jumpAttackRun)
-                    return
-                elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
-                    self:setState(self.jumpAttackStraight)
-                    return
-                elseif self.moves.jumpAttackForward then
-                    self:setState(self.jumpAttackForward)
-                    return
-                end
+            elseif self.moves.jumpAttackForward then
+                self:setState(self.jumpAttackForward)
+                return
             end
         end
-    else
-        self.canAttack = true
     end
     if self.z > 0 then
         self:calcFreeFall(dt)
@@ -815,11 +791,8 @@ function Character:hurtUpdate(dt)
     if not self.b.jump:isDown() then
         self.canJump = true
     end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
-    end
     if self.moves.defensiveSpecial
-        and self.canAttack and self.b.attack:isDown()
+        and self.b.attack:pressed()
         and self.canJump and self.b.jump:isDown()
     then
         self.condition = true --trigger defensiveSpecial
@@ -1370,7 +1343,7 @@ function Character:grabUpdate(dt)
             return
         end
         --special attacks
-        if self.b.attack:isDown() and self.canJump and self.b.jump:isDown() then
+        if self.b.attack:pressed() and self.canJump and self.b.jump:isDown() then
             if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
                 self:releaseGrabbed()
                 self:setState(self.offensiveSpecial)
@@ -1381,7 +1354,7 @@ function Character:grabUpdate(dt)
                 return
             end
         end
-        if self.b.attack:isDown() and self.canAttack then
+        if self.b.attack:pressed() then
             g.target:removeTweenMove()
             self:removeTweenMove()
             if self.face ~= g.target.face or g.target.type == "obstacle" then
@@ -1424,9 +1397,6 @@ function Character:grabUpdate(dt)
 
     if not self.b.jump:isDown() then
         self.canJump = true
-    end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
     end
     --self:calcMovement(dt, true)
     if self.z > 0 then
@@ -1473,9 +1443,6 @@ function Character:grabbedFrontUpdate(dt)
     if not self.b.jump:isDown() then
         self.canJump = true
     end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
-    end
     local g = self.hold
     if not self.isGrabbed or g.grabTimer <= 0 then
         if g.source.x < self.x then
@@ -1489,7 +1456,7 @@ function Character:grabbedFrontUpdate(dt)
         return
     else
         if self.moves.defensiveSpecial
-                and self.canAttack and self.b.attack:isDown()
+                and self.b.attack:pressed()
                 and self.canJump and self.b.jump:isDown() then
             self:setState(self.defensiveSpecial)
             return
@@ -1517,9 +1484,6 @@ function Character:grabbedBackUpdate(dt)
     if not self.b.jump:isDown() then
         self.canJump = true
     end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
-    end
     local g = self.hold
     if not self.isGrabbed or g.grabTimer <= 0 then
         if g.source.x < self.x then
@@ -1533,7 +1497,7 @@ function Character:grabbedBackUpdate(dt)
         return
     else
         if self.moves.defensiveSpecial
-                and self.canAttack and self.b.attack:isDown()
+                and self.b.attack:pressed()
                 and self.canJump and self.b.jump:isDown()
         then
             self:setState(self.defensiveSpecial)
@@ -1766,9 +1730,6 @@ function Character:grabSwapUpdate(dt)
     end
     if not self.b.jump:isDown() then
         self.canJump = true
-    end
-    if not self.b.attack:isDown() then
-        self.canAttack = true
     end
     self.shape:moveTo(self.x, self.y)
     if self:isStuck() then
