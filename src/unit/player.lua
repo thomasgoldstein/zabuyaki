@@ -56,7 +56,6 @@ function Player:setState(state, condition)
         self.lastFace = self.face
         self.lastVertical = self.vertical
         self:exit()
-        self:checkStuckButtons()
         self.state = state.name
         self.draw = state.draw
         self.update = state.update
@@ -157,9 +156,7 @@ function Player:updateAI(dt)
         if (self.b.attack:pressed() and self.b.jump:isDown())
             or (self.b.jump:pressed() and self.b.attack:isDown())
         then
-            --self:releaseGrabbed()
---            local g = self.hold
---            if g and g.target then
+            self:releaseGrabbed()
             if self.moves.offensiveSpecial and ( self.vel_x ~= 0 or self.b.horizontal:getValue() ~= 0 )
                 and self.statesForOffensiveSpecial[self.state]
             then

@@ -112,11 +112,6 @@ function showDebugControls()
                 end
                 x = p.infoBar.x + 76
                 y = y - 12
-                x = x + 10
-                if p.canJump then
-                    love.graphics.print("J", x, y)
-                end
-                x = x + 10
                 if p.charge >= p.chargedAt then
                     love.graphics.print("H", x, y)
                 end

@@ -295,14 +295,6 @@ function Character:applyDamage(damage, type, source, vel_x, sfx1)
     end
 end
 
-function Character:checkStuckButtons()
-    if not self.b.jump:isDown() then
-        self.canJump = true
-    else
-        self.canJump = false
-    end
-end
-
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: x,y,width,height,depth, damage, type, repel, sfx, init_victims_list
     --type = "simple" "shockWave" "hit" "knockDown" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
@@ -424,9 +416,6 @@ function Character:standStart()
     self.grabAttackN = 0
 end
 function Character:standUpdate(dt)
-    if not self.b.jump:isDown() then
-        self.canJump = true
-    end
     self.nextAnlmationDelay = self.nextAnlmationDelay - dt
     if self.nextAnlmationDelay <= 0 then
         if spriteHasAnimation(self.sprite, "standHold") and self:canMove() then
@@ -453,7 +442,7 @@ function Character:standUpdate(dt)
         self:setState(self.combo)
         return
     end
-    if (self.moves.jump and self.canJump and self.b.jump:isDown()) then
+    if self.moves.jump and self.b.jump:pressed() then
         self:setState(self.duck2jump)
         return
     end
@@ -507,9 +496,6 @@ function Character:walkStart()
     end
 end
 function Character:walkUpdate(dt)
-    if not self.b.jump:isDown() then
-        self.canJump = true
-    end
     if self.b.attack:pressed() then
         if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
@@ -518,7 +504,7 @@ function Character:walkUpdate(dt)
             self:setState(self.combo)
             return
         end
-    elseif self.moves.jump and self.b.jump:isDown() and self.canJump then
+    elseif self.moves.jump and self.b.jump:pressed() then
         self:setState(self.duck2jump)
         return
     end
@@ -582,12 +568,8 @@ Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update
 function Character:runStart()
     self.isHittable = true
     self.nextAnlmationDelay = 0.01
-    --canJump is set in the prev state
 end
 function Character:runUpdate(dt)
-    if not self.b.jump:isDown() then
-        self.canJump = true
-    end
     self.vel_x = 0
     self.vel_y = 0
     self.nextAnlmationDelay = self.nextAnlmationDelay - dt
@@ -611,22 +593,13 @@ function Character:runUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if self.canJump and self.b.jump:isDown() then
-        if self.moves.offensiveSpecial and self.b.attack:pressed() then
-            self:setState(self.offensiveSpecial)
-            return
-        elseif self.moves.jump or self.moves.offensiveSpecial or self.moves.defensiveSpecial then
-            self:setState(self.duck2jump, true) --pass condition to block dir changing
-            return
-        end
-    elseif self.b.attack:pressed() then
-        if self.moves.offensiveSpecial and self.b.jump:isDown() then
-            self:setState(self.offensiveSpecial)
-            return
-        elseif self.moves.dashAttack then
-            self:setState(self.dashAttack)
-            return
-        end
+    if self.moves.jump and self.b.jump:pressed() then
+        self:setState(self.duck2jump, true) --pass condition to block dir changing
+        return
+    end
+    if self.moves.dashAttack and self.b.attack:pressed() then
+        self:setState(self.dashAttack)
+        return
     end
     self:calcMovement(dt, false)
 end
@@ -774,15 +747,6 @@ function Character:hurtStart()
 end
 function Character:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
-    if not self.b.jump:isDown() then
-        self.canJump = true
-    end
-    if self.moves.defensiveSpecial
-        and self.b.attack:pressed()
-        and self.canJump and self.b.jump:isDown()
-    then
-        self.condition = true --trigger defensiveSpecial
-    end
     if self.sprite.isFinished then
         if self.hp <= 0 then
             self:setState(self.getup)
@@ -950,7 +914,6 @@ Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackR
 function Character:fallStart()
     self:removeTweenMove()
     self.isHittable = false
-    self.canJump = false
     self.canRecover = false
     if self.isThrown then
         self:setSprite("thrown")
@@ -973,12 +936,9 @@ function Character:fallUpdate(dt)
         end
     end
     if self.isThrown and self.vel_z < 0 and self.z < self.toFallenAnim_z then
-        if not self.canJump and self.b.vertical:isDown(-1) and self.b.jump:isDown() then
+        if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
             self.canRecover = true
         end
-    end
-    if not self.canJump and self.b.jump:isDown() then -- do not move this check up
-        self.canJump = true
     end
     if self.z <= 0 then
         if self.vel_z < -100 and self.bounced < 1 then
@@ -1353,10 +1313,6 @@ function Character:grabUpdate(dt)
         self:releaseGrabbed()
         self:setState(self.stand)
     end
-
-    if not self.b.jump:isDown() then
-        self.canJump = true
-    end
     --self:calcMovement(dt, true)
     if self.z > 0 then
         self:calcFreeFall(dt)
@@ -1399,9 +1355,6 @@ function Character:grabbedFrontStart()
     dp(self.name.." is grabbedFront.")
 end
 function Character:grabbedFrontUpdate(dt)
-    if not self.b.jump:isDown() then
-        self.canJump = true
-    end
     local g = self.hold
     if not self.isGrabbed or g.grabTimer <= 0 then
         if g.source.x < self.x then
@@ -1433,9 +1386,6 @@ function Character:grabbedBackStart()
     dp(self.name.." is grabbedBack.")
 end
 function Character:grabbedBackUpdate(dt)
-    if not self.b.jump:isDown() then
-        self.canJump = true
-    end
     local g = self.hold
     if not self.isGrabbed or g.grabTimer <= 0 then
         if g.source.x < self.x then
@@ -1660,9 +1610,6 @@ function Character:grabSwapUpdate(dt)
         self.horizontal = -self.horizontal
         self:setState(self.grab)
         return
-    end
-    if not self.b.jump:isDown() then
-        self.canJump = true
     end
     self.shape:moveTo(self.x, self.y)
     if self:isStuck() then
