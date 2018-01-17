@@ -7,7 +7,9 @@ local clamp = clamp
 local delayWithSlowMotion = delayWithSlowMotion
 
 Character.statesForHoldAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, dashHold = true }
-Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true  }
+Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
+Character.statesForDefensiveSpecial = { stand = true, combo = true, hurt = true, dashHold = true, grabbedFront = true, grabbedBack = true, frontGrabAttack = true }
+Character.statesForOffensiveSpecial = { walk = true, run = true }
 
 function Character:initialize(name, sprite, input, x, y, f)
     if not f then
@@ -451,10 +453,7 @@ function Character:standUpdate(dt)
         self:setState(self.combo)
         return
     end
-    if (self.moves.jump and self.canJump and self.b.jump:isDown())
-        or ((self.moves.offensiveSpecial or self.moves.defensiveSpecial)
-        and self.canJump and self.b.jump:isDown() and self.b.attack:pressed())
-    then
+    if (self.moves.jump and self.canJump and self.b.jump:isDown()) then
         self:setState(self.duck2jump)
         return
     end
@@ -738,19 +737,6 @@ function Character:duck2jumpStart()
     self.vel_z = 0
 end
 function Character:duck2jumpUpdate(dt)
-    if self:getLastStateTime() < delayWithSlowMotion(self.specialToleranceDelay) then
-        --time for other move
-        if self.b.attack:isDown() then
-            if self.moves.offensiveSpecial and ( self.vel_x ~= 0 or self.b.horizontal:getValue() ~=0 ) then
-                self.face = self.b.horizontal:getValue()
-                self:setState(self.offensiveSpecial)
-                return
-            elseif self.moves.defensiveSpecial then
-                self:setState(self.defensiveSpecial)
-                return
-            end
-        end
-    end
     if self.sprite.isFinished then
         if self.moves.jump then
             if self.vel_x < self.velocityWalk_x then
@@ -802,9 +788,7 @@ function Character:hurtUpdate(dt)
             self:setState(self.getup)
             return
         end
-        if self.condition and self.moves.defensiveSpecial then
-            self:setState(self.defensiveSpecial)
-        elseif self.isGrabbed then
+        if self.isGrabbed then
             self:setState(self.grabbed)
         else
             self:setState(self.stand)
@@ -850,10 +834,6 @@ function Character:dashAttackStart()
     sfx.play("voice"..self.id, self.sfx.dashAttack)
 end
 function Character:dashAttackUpdate(dt)
-    if self.moves.defensiveSpecial and self.b.jump:isDown() and self:getLastStateTime() < delayWithSlowMotion(self.specialToleranceDelay) then
-        self:setState(self.defensiveSpecial)
-        return
-    end
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1186,15 +1166,6 @@ function Character:comboUpdate(dt)
         self.connectHit = false
         self.attacksPerAnimation = self.attacksPerAnimation + 1
     end
-    if self.b.jump:isDown() and self:getLastStateTime() < self.specialToleranceDelay then
-        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
-            self:setState(self.offensiveSpecial)
-            return
-        elseif self.moves.defensiveSpecial then
-            self:setState(self.defensiveSpecial)
-            return
-        end
-    end
     if self.sprite.isFinished then
         self.comboTimer = self.comboTimeout -- reset max delay to connect combo hits
         self:setState(self.stand)
@@ -1342,18 +1313,6 @@ function Character:grabUpdate(dt)
             self:setState(self.stand)
             return
         end
-        --special attacks
-        if self.b.attack:pressed() and self.canJump and self.b.jump:isDown() then
-            if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
-                self:releaseGrabbed()
-                self:setState(self.offensiveSpecial)
-                return
-            elseif self.moves.defensiveSpecial then
-                self:releaseGrabbed()
-                self:setState(self.defensiveSpecial)
-                return
-            end
-        end
         if self.b.attack:pressed() then
             g.target:removeTweenMove()
             self:removeTweenMove()
@@ -1454,13 +1413,6 @@ function Character:grabbedFrontUpdate(dt)
         self.vel_x = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
-    else
-        if self.moves.defensiveSpecial
-                and self.b.attack:pressed()
-                and self.canJump and self.b.jump:isDown() then
-            self:setState(self.defensiveSpecial)
-            return
-        end
     end
     --self:calcMovement(dt, true)
     if self.z > 0 and self.isHittable then -- don't slide down during the throw
@@ -1495,14 +1447,6 @@ function Character:grabbedBackUpdate(dt)
         self.vel_x = self.velocityBackoff2 --move from source
         self:setState(self.stand)
         return
-    else
-        if self.moves.defensiveSpecial
-                and self.b.attack:pressed()
-                and self.canJump and self.b.jump:isDown()
-        then
-            self:setState(self.defensiveSpecial)
-            return
-        end
     end
     --self:calcMovement(dt, true)
     if self.z > 0 and self.isHittable then -- don't slide down during the throw
@@ -1538,17 +1482,6 @@ function Character:frontGrabAttackStart()
     dp(self.name.." is frontGrabAttack someone.")
 end
 function Character:frontGrabAttackUpdate(dt)
-    if self.b.jump:isDown() and self:getLastStateTime() < delayWithSlowMotion(self.specialToleranceDelay) then
-        if self.moves.offensiveSpecial and self.b.horizontal:getValue() == self.horizontal then
-            self:releaseGrabbed()
-            self:setState(self.offensiveSpecial)
-            return
-        elseif self.moves.defensiveSpecial then
-            self:releaseGrabbed()
-            self:setState(self.defensiveSpecial)
-            return
-        end
-    end
     if self.sprite.isFinished then
         local g = self.hold
         if self.grabAttackN < self.sprite.def.maxGrabAttack

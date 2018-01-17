@@ -153,6 +153,27 @@ function Player:updateAI(dt)
             self:setState(self.dashAttack)
         end
     end
+    if self.moves.defensiveSpecial or self.moves.offensiveSpecial then
+        if (self.b.attack:pressed() and self.b.jump:isDown())
+            or (self.b.jump:pressed() and self.b.attack:isDown())
+        then
+            --self:releaseGrabbed()
+--            local g = self.hold
+--            if g and g.target then
+            if self.moves.offensiveSpecial and ( self.vel_x ~= 0 or self.b.horizontal:getValue() ~= 0 )
+                and self.statesForOffensiveSpecial[self.state]
+            then
+                print("-- OFFENSIVE SPECIAL")
+                self.face = self.b.horizontal:getValue()
+                self:setState(self.offensiveSpecial)
+                return
+            elseif self.moves.defensiveSpecial and self.statesForDefensiveSpecial[self.state] then
+                print("== DEFENSIVE SPECIAL")
+                self:setState(self.defensiveSpecial)
+                return
+            end
+        end
+    end
     if self.moves.holdAttack then
         if self.b.attack:isDown() and self.statesForHoldAttack[self.state] then
             self.charge = self.charge + dt
