@@ -218,7 +218,7 @@ end
 
 function isAttackAndJumpPressed(control)
     local time = love.timer.getTime()
-    if (control.attack:pressed() and control.jump:isDown() and time - control.horizontal.doubleTap.lastJumpTapTime <= delayWithSlowMotion(doubleTapDelta))
+    if (control.attack:pressed() and control.jump:isDown())
         or (control.jump:pressed() and control.attack:isDown() and time - control.horizontal.doubleTap.lastAttackTapTime <= delayWithSlowMotion(doubleTapDelta))
     then
         return true
