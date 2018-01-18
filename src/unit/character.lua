@@ -8,7 +8,7 @@ local delayWithSlowMotion = delayWithSlowMotion
 
 Character.statesForHoldAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, dashHold = true }
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
-Character.statesForDefensiveSpecial = { stand = true, combo = true, hurt = true, dashHold = true, grabbedFront = true, grabbedBack = true, frontGrabAttack = true }
+Character.statesForDefensiveSpecial = { stand = true, duck2jump = true, combo = true, hurt = true, dashHold = true, grabbedFront = true, grabbedBack = true, frontGrabAttack = true }
 Character.statesForOffensiveSpecial = { walk = true, run = true }
 
 function Character:initialize(name, sprite, input, x, y, f)

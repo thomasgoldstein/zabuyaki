@@ -153,7 +153,9 @@ function Player:updateAI(dt)
         end
     end
     if self.moves.defensiveSpecial or self.moves.offensiveSpecial then
-        if isAttackAndJumpPressed(self.b) then
+        if isAttackAndJumpPressed(self.b)
+            or (self.b.jump:isDown() and self.b.attack:pressed())
+        then
             if self.moves.offensiveSpecial and ( self.vel_x ~= 0 or self.b.horizontal:getValue() ~= 0 )
                 and self.statesForOffensiveSpecial[self.state]
             then
