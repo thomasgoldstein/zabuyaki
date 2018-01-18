@@ -178,13 +178,13 @@ function bindGameInput()
     }
 end
 
-local function checkDoubleTapState(control)
-    local value = control:getValue()
-    local doubleTap = control.doubleTap
-    control.isDoubleTap = false
-    if control:pressed() then
+local function checkDoubleTapState(directionControl)
+    local value = directionControl:getValue()
+    local doubleTap = directionControl.doubleTap
+    directionControl.isDoubleTap = false
+    if directionControl:pressed() then
         if value == doubleTap.lastDirection and love.timer.getTime() - doubleTap.lastTapTime <= delayWithSlowMotion(doubleTapDelta) then
-            control.isDoubleTap = true
+            directionControl.isDoubleTap = true
             doubleTap.lastDoubleTapDirection = value
             doubleTap.lastDoubleTapTime = love.timer.getTime()
         else
@@ -197,15 +197,31 @@ end
 -- adds volatile properties to controls:
 -- self.b.horizontal.isDoubleTap - contains true on double tap
 -- self.b.horizontal.doubleTap.lastDirection - contains last double tap direction
-function updateDoubleTap(b)
-    local h = b.horizontal
-    local v = b.vertical
+-- self.b.horizontal.doubleTap.lastAttackTapTime - contains last Attack tap time
+-- self.b.horizontal.doubleTap.lastJumpTapTime - contains last Jump tap time
+function updateDoubleTap(control)
+    local h = control.horizontal
+    local v = control.vertical
     if not h.doubleTap then
-        h.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0 }
-    end
-    if not v.doubleTap then
+        h.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0, lastAttackTapTime = 0, lastJumpTapTime = 0 }
         v.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0 }
     end
     checkDoubleTapState(h)
     checkDoubleTapState(v)
+    if control.attack:pressed() then
+        h.doubleTap.lastAttackTapTime = love.timer.getTime()
+    end
+    if control.jump:pressed() then
+        h.doubleTap.lastJumpTapTime = love.timer.getTime()
+    end
+end
+
+function isAttackAndJumpPressed(control)
+    local time = love.timer.getTime()
+    if (control.attack:pressed() and control.jump:isDown() and time - control.horizontal.doubleTap.lastJumpTapTime <= delayWithSlowMotion(doubleTapDelta))
+        or (control.jump:pressed() and control.attack:isDown() and time - control.horizontal.doubleTap.lastAttackTapTime <= delayWithSlowMotion(doubleTapDelta))
+    then
+        return true
+    end
+    return false
 end
