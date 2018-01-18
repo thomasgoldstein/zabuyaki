@@ -216,7 +216,7 @@ function updateDoubleTap(control)
     end
 end
 
-function isAttackAndJumpPressed(control)
+function isSpecialCommand(control)
     local time = love.timer.getTime()
     if (control.attack:pressed() and control.jump:isDown())
         or (control.jump:pressed() and control.attack:isDown() and time - control.horizontal.doubleTap.lastAttackTapTime <= delayWithSlowMotion(doubleTapDelta))
