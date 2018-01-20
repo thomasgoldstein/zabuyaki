@@ -64,7 +64,7 @@ function Chai:dashAttackStart()
     self.z = 0.1
     sfx.play("sfx"..self.id, self.sfx.dashAttack)
     self:showEffect("jumpStart")
-    self.bounced = 0 -- Chai's dashAttack state uses fall state. The bounced var has to be initialized here
+    self.bounced = 0 -- Chai's dashAttack state uses fall state. The bounced vars have to be initialized here
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
 end
 function Chai:dashAttackUpdate(dt)
