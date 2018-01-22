@@ -152,7 +152,7 @@ function Player:updateAI(dt)
             self:setState(self.dashAttack)
         end
     end
-    if self.moves.defensiveSpecial or self.moves.offensiveSpecial then
+    if self.z <= 0 and (self.moves.defensiveSpecial or self.moves.offensiveSpecial) then
         if isSpecialCommand(self.b) then
             if self.moves.offensiveSpecial and ( self.vel_x ~= 0 or self.b.horizontal:getValue() ~= 0 )
                 and self.statesForOffensiveSpecial[self.state]

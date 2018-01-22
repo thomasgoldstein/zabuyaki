@@ -35,7 +35,6 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.grabTimeout = 1.5 -- max delay to keep a unit grabbed
     self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
-    self.specialToleranceDelay = 0.02 -- between pressing attack & Jump
     self.playerSelectMode = 0
     self.victimInfoBar = nil
     self.priority = 1
