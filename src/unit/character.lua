@@ -1584,9 +1584,9 @@ function Character:grabSwapStart()
     local g = self.hold
     self:initGrabTimer()
     g.canGrabSwap = false
-    self.grabSwap_flipped = false
+    self.isGrabSwapFlipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 18
-    self.grabSwap_x_fin_dist = math.abs( self.x - self.grabSwap_x )
+    self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
     sfx.play("sfx", "whooshHeavy")
     dp(self.name.." is grabSwapping someone.")
 end
@@ -1600,9 +1600,9 @@ function Character:grabSwapUpdate(dt)
         elseif self.x >= self.grabSwap_x then
             self.x = self.x - self.runSpeed_x * dt
         end
-        self.sprite.curFrame = grabSwapFrames[ math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwap_x_fin_dist) * #grabSwapFrames ) ]
-        if not self.grabSwap_flipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwap_x_fin_dist / 2 then
-            self.grabSwap_flipped = true
+        self.sprite.curFrame = grabSwapFrames[ math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwapGoal) * #grabSwapFrames ) ]
+        if not self.isGrabSwapFlipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwapGoal / 2 then
+            self.isGrabSwapFlipped = true
             self.face = -self.face
             g.target:setSprite(g.target.sprite.curAnim == "grabbedFront" and "grabbedBack" or "grabbedFront")
         end
