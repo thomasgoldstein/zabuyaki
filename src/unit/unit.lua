@@ -34,7 +34,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.vel_x, self.vel_y, self.vel_z = 0, 0, 0
     self.gravity = 800 --650 * 2
     self.weight = 1
-    self.friction = 1650 -- velocity penalty for stand (when u slide on ground)
+    self.friction = 1650 -- speed penalty for stand (when you slide on ground)
     self.isMovable = false --cannot be moved by attacks / can be grabbed
     self.shape = nil
     self.state = "nop"
@@ -116,12 +116,12 @@ end
 function Unit:getMovementSpeed()
     if self.state == "walk" then
         if self.b.attack:isDown() then
-            return self.velocityWalkHold_x, self.velocityWalkHold_y
+            return self.walkHoldSpeed_x, self.walkHoldSpeed_y
         else
-            return self.velocityWalk_x, self.velocityWalk_y
+            return self.walkSpeed_x, self.walkSpeed_y
         end
     elseif self.state == "run" then
-        return self.velocityRun_x, self.velocityRun_y
+        return self.runSpeed_x, self.runSpeed_y
     end
     --TODO add jumps or refactor
     return 0, 0
@@ -244,7 +244,7 @@ end
 
 function Unit:calcFreeFall(dt, speed)
     self.z = self.z + dt * self.vel_z
-    self.vel_z = self.vel_z - self.gravity * dt * (speed or self.velocityJumpSpeed)
+    self.vel_z = self.vel_z - self.gravity * dt * (speed or self.jumpSpeedMultiplier)
 end
 
 function Unit:canMove()

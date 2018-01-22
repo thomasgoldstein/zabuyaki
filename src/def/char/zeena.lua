@@ -12,15 +12,15 @@ local comboSlap = function(slf, cont)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 10, width = 25, damage = 8, type = "knockDown", repel = slf.velocityDashFall },
+        { x = 21, y = 10, width = 25, damage = 8, type = "knockDown", repel = slf.dashFallSpeed },
         cont
     )
     -- move forward Zeena
-    slf:initSlide(slf.velocitySlide_x, slf.velocitySlide_diag_x, slf.velocitySlide_diag_y)
+    slf:initSlide(slf.slideSpeed_x, slf.slideDiagonalSpeed_x, slf.slideDiagonalSpeed_y)
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 17, width = 25, height = 45, damage = 13, type = "knockDown", repel = slf.velocityDashFall },
+        { x = 21, y = 17, width = 25, height = 45, damage = 13, type = "knockDown", repel = slf.dashFallSpeed },
         cont
 ) end
 

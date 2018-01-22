@@ -21,7 +21,7 @@ local comboKick = function(slf, cont)
 end
 local dashAttack = function(slf, cont)
     slf:checkAndAttack(
-    { x = 11, y = 31, width = 30, height = 40, damage = 14, type = "knockDown", repel = slf.velocityDashFall },
+    { x = 11, y = 31, width = 30, height = 40, damage = 14, type = "knockDown", repel = slf.dashFallSpeed },
     cont
 ) end
 

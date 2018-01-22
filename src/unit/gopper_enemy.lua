@@ -30,9 +30,9 @@ function Gopper:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.velocityDash = 150 --speed of the character
-    self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = self.velocityDash
+    self.dashSpeed = 150 --speed of the character
+    self.dashFallSpeed = 180 --speed caused by dash to others fall
+    self.dashFriction = self.dashSpeed
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
@@ -125,9 +125,9 @@ local dashAttackSpeed = 0.75
 function Gopper:dashAttackStart()
     self.isHittable = true
     self:setSprite("dashAttack")
-    self.vel_x = self.velocityDash * 2 * dashAttackSpeed
+    self.vel_x = self.dashSpeed * 2 * dashAttackSpeed
     self.vel_y = 0
-    self.vel_z = self.velocityJump / 2 * dashAttackSpeed
+    self.vel_z = self.jumpSpeed_z / 2 * dashAttackSpeed
     self.z = 0.1
     self.bounced = 0
     sfx.play("voice"..self.id, self.sfx.dashAttack)
@@ -147,7 +147,7 @@ function Gopper:dashAttackUpdate(dt)
         sfx.play("sfx", "bodyDrop", 1, 1 + 0.02 * love.math.random(-2,2))
         self:showEffect("fallLanding")
     end
-    self:calcMovement(dt, true, self.frictionDash * dashAttackSpeed)
+    self:calcMovement(dt, true, self.dashFriction * dashAttackSpeed)
 end
 Gopper.dashAttack = {name = "dashAttack", start = Gopper.dashAttackStart, exit = nop, update = Gopper.dashAttackUpdate, draw = Character.defaultDraw }
 

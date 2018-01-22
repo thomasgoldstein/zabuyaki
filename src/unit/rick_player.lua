@@ -22,33 +22,33 @@ function Rick:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.velocityWalk_x = 90
-    self.velocityWalk_y = 45
-    self.velocityWalkHold_x = 72
-    self.velocityWalkHold_y = 36
-    self.velocityRun_x = 140
-    self.velocityRun_y = 23
-    self.velocityDash = 125 --speed of the character
-    self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = 400
+    self.walkSpeed_x = 90
+    self.walkSpeed_y = 45
+    self.walkHoldSpeed_x = 72
+    self.walkHoldSpeed_y = 36
+    self.runSpeed_x = 140
+    self.runSpeed_y = 23
+    self.dashSpeed = 125 --speed of the character
+    self.dashFallSpeed = 180 --speed caused by dash to others fall
+    self.dashFriction = 400
 
-    self.velocityComboSlide2_x = 60 --horizontal speed of combo2Forward attacks
-    self.velocityComboSlide2_diag_x = 50 --diagonal horizontal speed of combo2Forward attacks
-    self.velocityComboSlide2_diag_y = 10 --diagonal vertical speed of combo2Forward attacks
+    self.comboSlideSpeed2_x = 60 --horizontal speed of combo2Forward attacks
+    self.comboSlideDiagonalSpeed2_x = 50 --diagonal horizontal speed of combo2Forward attacks
+    self.comboSlideDiagonalSpeed2_y = 10 --diagonal vertical speed of combo2Forward attacks
     self.repelComboSlide2 = 260 --how much combo2Forward pushes units back
 
-    self.velocityComboSlide3_x = 80 --horizontal speed of combo3Forward attacks
-    self.velocityComboSlide3_diag_x = 70 --diagonal horizontal speed of combo3Forward attacks
-    self.velocityComboSlide3_diag_y = 10 --diagonal vertical speed of combo3Forward attacks
+    self.comboSlideSpeed3_x = 80 --horizontal speed of combo3Forward attacks
+    self.comboSlideDiagonalSpeed3_x = 70 --diagonal horizontal speed of combo3Forward attacks
+    self.comboSlideDiagonalSpeed3_y = 10 --diagonal vertical speed of combo3Forward attacks
     self.repelComboSlide3 = 310 --how much combo3Forward pushes units back
 
-    self.velocityComboSlide4_x = 60 --horizontal speed of of combo4Forward attacks
-    self.velocityComboSlide4_diag_x = 50 --diagonal horizontal speed of combo4Forward attacks
-    self.velocityComboSlide4_diag_y = 10 --diagonal vertical speed of combo4Forward attacks
+    self.comboSlideSpeed4_x = 60 --horizontal speed of of combo4Forward attacks
+    self.comboSlideDiagonalSpeed4_x = 50 --diagonal horizontal speed of combo4Forward attacks
+    self.comboSlideDiagonalSpeed4_y = 10 --diagonal vertical speed of combo4Forward attacks
 
-    --    self.velocityThrow_x = 220 --my throwing speed
-    --    self.velocityThrow_z = 200 --my throwing speed
-    --    self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws
+    --    self.throwSpeed_x = 220 --my throwing speed
+    --    self.throwSpeed_z = 200 --my throwing speed
+    --    self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
@@ -64,7 +64,7 @@ function Rick:dashAttackStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("dashAttack")
-    self.vel_x = self.velocityDash
+    self.vel_x = self.dashSpeed
     self.vel_y = 0
     self.vel_z = 0
     self.horizontal = self.face
@@ -78,7 +78,7 @@ function Rick:dashAttackUpdate(dt)
         return
     end
     self:moveEffectAndEmit("dash", 0.3)
-    self:calcMovement(dt, true, self.frictionDash)
+    self:calcMovement(dt, true, self.dashFriction)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
 
@@ -87,7 +87,7 @@ function Rick:offensiveSpecialStart()
     self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("offensiveSpecial")
-    self.vel_x = self.velocityDash
+    self.vel_x = self.dashSpeed
     self.vel_y = 0
     self.vel_z = 0
     sfx.play("voice"..self.id, self.sfx.dashAttack)
@@ -100,7 +100,7 @@ function Rick:offensiveSpecialUpdate(dt)
         return
     end
     self:moveEffectAndEmit("dash", 0.5)
-    self:calcMovement(dt, true, self.velocityDash)
+    self:calcMovement(dt, true, self.dashSpeed)
 end
 Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = nop, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
 

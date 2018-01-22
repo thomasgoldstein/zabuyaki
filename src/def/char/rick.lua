@@ -18,32 +18,32 @@ end
 local frontGrabAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, y = 21, width = 26, damage = 11,
-        type = "knockDown", repel = slf.velocityShortThrow_x },
+        type = "knockDown", repel = slf.shortThrowSpeed_x },
         cont
     )
 end
 local frontGrabAttackDown = function(slf, cont)
     slf:checkAndAttack(
         { x = 20, y = 30, width = 26, damage = 15,
-        type = "knockDown", repel = slf.velocityShortThrow_x },
+        type = "knockDown", repel = slf.shortThrowSpeed_x },
         cont
     )
 end
 local frontGrabAttackUp = function(slf, cont)
-    slf:doThrow(slf.velocityThrow_x / 10,
-        slf.velocityThrow_z * 2,
+    slf:doThrow(slf.throwSpeed_x / 10,
+        slf.throwSpeed_z * 2,
         slf.horizontal, nil,
         slf.z + slf.throwStart_z)
 end
 local frontGrabAttackBack = function(slf, cont)
-    slf:doThrow(slf.velocityThrow_x * slf.velocityThrowHorizontal,
-        slf.velocityThrow_z * slf.velocityThrowHorizontal,
+    slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier,
+        slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face, slf.face,
         slf.z + slf.throwStart_z)
 end
 local frontGrabAttackForward = function(slf, cont)
-    slf:doThrow(slf.velocityThrow_x * slf.velocityThrowHorizontal,
-        slf.velocityThrow_z * slf.velocityThrowHorizontal,
+    slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier,
+        slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face, nil,
         slf.z + slf.throwStart_z)
 end
@@ -62,13 +62,13 @@ local backGrabAttack = function(slf, cont)
 end
 
 local comboSlide2 = function(slf)
-    slf:initSlide(slf.velocityComboSlide2_x, slf.velocityComboSlide2_diag_x, slf.velocityComboSlide2_diag_y)
+    slf:initSlide(slf.comboSlideSpeed2_x, slf.comboSlideDiagonalSpeed2_x, slf.comboSlideDiagonalSpeed2_y)
 end
 local comboSlide3 = function(slf)
-    slf:initSlide(slf.velocityComboSlide3_x, slf.velocityComboSlide3_diag_x, slf.velocityComboSlide3_diag_y)
+    slf:initSlide(slf.comboSlideSpeed3_x, slf.comboSlideDiagonalSpeed3_x, slf.comboSlideDiagonalSpeed3_y)
 end
 local comboSlide4 = function(slf)
-    slf:initSlide(slf.velocityComboSlide4_x, slf.velocityComboSlide4_diag_x, slf.velocityComboSlide4_diag_y)
+    slf:initSlide(slf.comboSlideSpeed4_x, slf.comboSlideDiagonalSpeed4_x, slf.comboSlideDiagonalSpeed4_y)
 end
 
 local comboAttack1 = function(slf, cont)
@@ -159,18 +159,18 @@ local holdAttack3 = function(slf, cont)
     )
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 37, width = 55, damage = 8, repel = slf.velocityDashFall },
+    { x = 20, y = 37, width = 55, damage = 8, repel = slf.dashFallSpeed },
     cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 37, width = 55, damage = 12, type = "knockDown", repel = slf.velocityDashFall },
+    { x = 20, y = 37, width = 55, damage = 12, type = "knockDown", repel = slf.dashFallSpeed },
     cont
 ) end
 local dashAttackSpeedUp = function(slf, cont)
-    slf.vel_x = slf.velocityDash * 2
+    slf.vel_x = slf.dashSpeed * 2
 end
 local dashAttackResetSpeed = function(slf, cont)
-    slf.vel_x = slf.velocityDash
+    slf.vel_x = slf.dashSpeed
 end
 local dashHoldAttackH = function(slf, cont)
     slf:checkAndAttack(
@@ -197,7 +197,7 @@ local jumpAttackStraight1 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
-    { x = 17, y = 14, width = 30, damage = 10, type = "knockDown", repel = slf.velocityFall_x },
+    { x = 17, y = 14, width = 30, damage = 10, type = "knockDown", repel = slf.fallSpeed_x },
     cont
 ) end
  local jumpAttackRun = function(slf, cont) slf:checkAndAttack(

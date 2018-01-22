@@ -29,13 +29,13 @@ function Sveta:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.velocityWalk_x = 97
-    self.velocityWalk_y = 45
-    self.velocityDash = 170 --speed of the character
-    self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = self.velocityDash
-    --    self.velocityThrow_x = 220 --my throwing speed
-    --    self.velocityThrow_z = 200 --my throwing speed
+    self.walkSpeed_x = 97
+    self.walkSpeed_y = 45
+    self.dashSpeed = 170 --speed of the character
+    self.dashFallSpeed = 180 --speed caused by dash to others fall
+    self.dashFriction = self.dashSpeed
+    --    self.throwSpeed_x = 220 --my throwing speed
+    --    self.throwSpeed_z = 200 --my throwing speed
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
@@ -61,7 +61,7 @@ function Sveta:dashAttackUpdate(dt)
     if self.sprite.curAnim == "duck" and self:canMove() then
         self.isHittable = false
         self:setSprite("dashAttack")
-        self.vel_x = self.velocityDash
+        self.vel_x = self.dashSpeed
         sfx.play("voice"..self.id, self.sfx.dashAttack)
         return
     else
@@ -71,7 +71,7 @@ function Sveta:dashAttackUpdate(dt)
         end
         self:moveEffectAndEmit("dash", 0.2)
     end
-    self:calcMovement(dt, true, self.frictionDash)
+    self:calcMovement(dt, true, self.dashFriction)
 end
 Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttackStart, exit = nop, update = Sveta.dashAttackUpdate, draw = Character.defaultDraw }
 

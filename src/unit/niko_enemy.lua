@@ -29,15 +29,15 @@ function Niko:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.velocityWalk_x = 88
-    self.velocityWalk_y = 45
-    self.velocityWalkHold_x = 72
-    self.velocityWalkHold_y = 36
-    self.velocityDash = 150 --speed of the character
-    self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = self.velocityDash
-    --    self.velocityThrow_x = 220 --my throwing speed
-    --    self.velocityThrow_z = 200 --my throwing speed
+    self.walkSpeed_x = 88
+    self.walkSpeed_y = 45
+    self.walkHoldSpeed_x = 72
+    self.walkHoldSpeed_y = 36
+    self.dashSpeed = 150 --speed of the character
+    self.dashFallSpeed = 180 --speed caused by dash to others fall
+    self.dashFriction = self.dashSpeed
+    --    self.throwSpeed_x = 220 --my throwing speed
+    --    self.throwSpeed_z = 200 --my throwing speed
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx

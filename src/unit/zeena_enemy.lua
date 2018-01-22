@@ -29,11 +29,11 @@ function Zeena:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.velocityWalk_x = 93
-    self.velocityWalk_y = 45
-    self.velocitySlide_x = 100 --horizontal speed of the slide kick
-    self.velocitySlide_diag_x = 85 --diagonal horizontal speed of the slide kick
-    self.velocitySlide_diag_y = 15 --diagonal vertical speed of the slide kick
+    self.walkSpeed_x = 93
+    self.walkSpeed_y = 45
+    self.slideSpeed_x = 100 --horizontal speed of the slide kick
+    self.slideDiagonalSpeed_x = 85 --diagonal horizontal speed of the slide kick
+    self.slideDiagonalSpeed_y = 15 --diagonal vertical speed of the slide kick
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx

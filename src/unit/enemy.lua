@@ -25,8 +25,8 @@ function Enemy:initialize(name, sprite, input, x, y, f)
 end
 
 function Enemy:postInitialize()
-    self.walkSpeed = self.velocityWalk_x / 1.075 --TODO calc it from attributes
-    self.runSpeed = self.velocityRun_x / 1.4 --TODO calc it from attributes
+    self.walkSpeed = self.walkSpeed_x / 1.075 --TODO calc it from attributes
+    self.runSpeed = self.runSpeed_x / 1.4 --TODO calc it from attributes
     self:setToughness(0)
 end
 
@@ -203,9 +203,9 @@ function Enemy:pickAttackTarget(how)
                 p[i].points = love.math.random()
             end
         elseif how == "slow" then
-            p[i].points = -p[i].player.velocityWalk_x + love.math.random()
+            p[i].points = -p[i].player.walkSpeed_x + love.math.random()
         elseif how == "fast" then
-            p[i].points = p[i].player.velocityWalk_x + love.math.random()
+            p[i].points = p[i].player.walkSpeed_x + love.math.random()
         else -- "random"
             if not p[i].player.isDisabled then
                 p[i].points = love.math.random()
@@ -250,13 +250,13 @@ function Enemy:jumpStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("jump")
-    self.vel_z = self.velocityJump * self.velocityJumpSpeed
+    self.vel_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = 0.1
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.lastState == "run" then
         -- jump higher from run
-        self.vel_z = (self.velocityJump + self.velocityJumpRunBoost_z) * self.velocityJumpSpeed
+        self.vel_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier
     end
     self.vertical = 0
     sfx.play("voice"..self.id, self.sfx.jump)

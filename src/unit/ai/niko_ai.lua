@@ -109,7 +109,7 @@ function eAI:initJumpAttack(dt)
         if self.conditions.tooCloseToPlayer then
             u.vel_x = 0
         else
-            u.vel_x = u.velocityWalk_x
+            u.vel_x = u.walkSpeed_x
         end
         u:setState(u.jump)
     end

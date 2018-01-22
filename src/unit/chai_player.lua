@@ -22,26 +22,26 @@ function Chai:initAttributes()
         -- technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.velocityWalk_x = 100
-    self.velocityWalk_y = 50
-    self.velocityWalkHold_x = 80
-    self.velocityWalkHold_y = 40
-    self.velocityRun_x = 150
-    self.velocityRun_y = 25
-    self.velocityDash = 200 --speed of the character
-    self.velocityDashFall = 180 --speed caused by dash to others fall
+    self.walkSpeed_x = 100
+    self.walkSpeed_y = 50
+    self.walkHoldSpeed_x = 80
+    self.walkHoldSpeed_y = 40
+    self.runSpeed_x = 150
+    self.runSpeed_y = 25
+    self.dashSpeed = 200 --speed of the character
+    self.dashFallSpeed = 180 --speed caused by dash to others fall
 
-    self.velocityComboSlide1_x = 40 --horizontal speed of combo1Forward attacks
-    self.velocityComboSlide1_diag_x = 30 --diagonal horizontal speed of combo1Forward attacks
-    self.velocityComboSlide1_diag_y = 15 --diagonal vertical speed of combo1Forward attacks
+    self.comboSlideSpeed1_x = 40 --horizontal speed of combo1Forward attacks
+    self.comboSlideDiagonalSpeed1_x = 30 --diagonal horizontal speed of combo1Forward attacks
+    self.comboSlideDiagonalSpeed1_y = 15 --diagonal vertical speed of combo1Forward attacks
 
-    self.velocityComboSlide4_x = 150 --horizontal speed of of combo4Forward attacks
-    self.velocityComboSlide4_diag_x = 120 --diagonal horizontal speed of combo4Forward attacks
-    self.velocityComboSlide4_diag_y = 45 --diagonal vertical speed of combo4Forward attacks
+    self.comboSlideSpeed4_x = 150 --horizontal speed of of combo4Forward attacks
+    self.comboSlideDiagonalSpeed4_x = 120 --diagonal horizontal speed of combo4Forward attacks
+    self.comboSlideDiagonalSpeed4_y = 45 --diagonal vertical speed of combo4Forward attacks
 
-    --    self.velocityThrow_x = 220 --my throwing speed
-    --    self.velocityThrow_z = 200 --my throwing speed
-    --    self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws
+    --    self.throwSpeed_x = 220 --my throwing speed
+    --    self.throwSpeed_z = 200 --my throwing speed
+    --    self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
@@ -59,8 +59,8 @@ function Chai:dashAttackStart()
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
-    self.vel_x = self.velocityDash * self.velocityJumpSpeed
-    self.vel_z = self.velocityJump * self.velocityJumpSpeed
+    self.vel_x = self.dashSpeed * self.jumpSpeedMultiplier
+    self.vel_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = 0.1
     sfx.play("sfx"..self.id, self.sfx.dashAttack)
     self:showEffect("jumpStart")
@@ -76,7 +76,7 @@ function Chai:dashAttackUpdate(dt)
         self:calcFreeFall(dt)
         if self.vel_z > 0 then
             if self.vel_x > 0 then
-                self.vel_x = self.vel_x - (self.velocityDash * dt * 2.5)
+                self.vel_x = self.vel_x - (self.dashSpeed * dt * 2.5)
             else
                 self.vel_x = 0
             end
@@ -139,11 +139,11 @@ function Chai:defensiveSpecialStart()
 end
 function Chai:defensiveSpecialUpdate(dt)
     if self.jumpType == 1 then
-        self.vel_z = self.velocityJump * self.velocityJumpSpeed
+        self.vel_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
         self.z = 0.1
         self.jumpType = 0
     elseif self.jumpType == 2 then
-        self.vel_z = -self.velocityJump * self.velocityJumpSpeed / 2
+        self.vel_z = -self.jumpSpeed_z * self.jumpSpeedMultiplier / 2
         self.jumpType = 0
     end
     if self.z > 32 then

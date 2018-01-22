@@ -38,21 +38,21 @@ function Satoff:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
     self.height = self.height or 55
-    self.velocityWalk_x = 86
-    self.velocityWalk_y = 45
-    self.velocityWalkHold_x = 80
-    self.velocityWalkHold_y = 40
-    self.velocityRun_x = 140
-    self.velocityRun_y = 23
-    self.velocitySideStep = 160
-    self.frictionSideStep = 350
+    self.walkSpeed_x = 86
+    self.walkSpeed_y = 45
+    self.walkHoldSpeed_x = 80
+    self.walkHoldSpeed_y = 40
+    self.runSpeed_x = 140
+    self.runSpeed_y = 23
+    self.sideStepSpeed = 160
+    self.sideStepFriction = 350
     self.hopDuringSideStep = false
-    self.velocityDash = 190 --speed of the character
-    --    self.velocityDashFall = 180 --speed caused by dash to others fall
-    self.frictionDash = self.velocityDash * 3
-    --    self.velocityThrow_x = 220 --my throwing speed
-    --    self.velocityThrow_z = 200 --my throwing speed
-    --    self.velocityThrowHorizontal = 1.3 -- +30% for horizontal throws
+    self.dashSpeed = 190 --speed of the character
+    --    self.dashFallSpeed = 180 --speed caused by dash to others fall
+    self.dashFriction = self.dashSpeed * 3
+    --    self.throwSpeed_x = 220 --my throwing speed
+    --    self.throwSpeed_z = 200 --my throwing speed
+    --    self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
@@ -74,14 +74,14 @@ end
 function Satoff:comboStart()
     self:removeTweenMove()
     Character.comboStart(self)
-    self.vel_x = self.velocityDash
+    self.vel_x = self.dashSpeed
 end
 function Satoff:comboUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true, self.frictionDash)
+    self:calcMovement(dt, true, self.dashFriction)
 end
 --Sliding uppercut
 Satoff.combo = { name = "combo", start = Satoff.comboStart, exit = nop, update = Satoff.comboUpdate, draw = Satoff.defaultDraw }
