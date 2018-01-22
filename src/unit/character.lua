@@ -38,6 +38,8 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.playerSelectMode = 0
     self.victimInfoBar = nil
     self.priority = 1
+    self.bounced = 0 -- the bouncing counter
+    self.bouncedPitch = 1 -- the bouncing SFX pitch variations
 end
 
 function Character:initAttributes()
