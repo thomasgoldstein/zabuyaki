@@ -132,9 +132,9 @@ local function predictTargetsCoord(t)
     --local fps = love.timer.getFPS()
     local pdx, pdy
     if canPredict[t.state] then
-        pdx = time * t.vel_x * t.horizontal / 4
-        pdy = time * t.vel_y * t.vertical / 4
-        --        print(time , pdx, pdy, t.vel_x, t.vel_y, t.horizontal, t.vertical, t.friction)
+        pdx = time * t.speed_x * t.horizontal / 4
+        pdy = time * t.speed_y * t.vertical / 4
+        --        print(time , pdx, pdy, t.speed_x, t.speed_y, t.horizontal, t.vertical, t.friction)
         print(t.x + pdx, t.y + pdy, pdx, pdy)
         return t.x + pdx, t.y + pdy
     end
@@ -572,10 +572,10 @@ function AI:initGrab()
                 end
                 grabbed.horizontal = -u.horizontal
                 u:showHitMarks(22, 25, 5) --big hitmark
-                u.vel_x = self.backoffSpeed --move from source
+                u.speed_x = self.backoffSpeed --move from source
                 u:setSprite("hurtHigh")
                 u:setState(u.slide)
-                grabbed.vel_x = grabbed.backoffSpeed --move from source
+                grabbed.speed_x = grabbed.backoffSpeed --move from source
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
                 sfx.play("sfx" .. u.id, u.sfx.grabClash)

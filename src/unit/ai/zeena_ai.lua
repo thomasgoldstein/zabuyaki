@@ -93,9 +93,9 @@ function eAI:initJumpAttack(dt)
         u.bounced = 0
         u.bouncedPitch = 1 + 0.05 * love.math.random(-4, 4)
         if self.conditions.tooCloseToPlayer then
-            u.vel_x = 0
+            u.speed_x = 0
         else
-            u.vel_x = u.walkSpeed_x
+            u.speed_x = u.walkSpeed_x
         end
         u:setState(u.jump)
         --u:setState(u.jumpAttackForward)

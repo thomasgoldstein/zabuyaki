@@ -78,8 +78,8 @@ function Obstacle:checkCollisionAndMove(dt)
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
     else
-        local stepx = self.vel_x * dt * self.horizontal
-        local stepy = self.vel_y * dt * self.vertical
+        local stepx = self.speed_x * dt * self.horizontal
+        local stepy = self.speed_y * dt * self.vertical
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
     if self.z <= 0 then
@@ -132,8 +132,8 @@ function Obstacle:onHurt()
     end
     local newFacing = -h.horizontal
     --Move obstacle after hits
-    if not self.isGrabbed and self.isMovable and self.vel_x <= 0 then
-        self.vel_x = self.fallSpeed_x
+    if not self.isGrabbed and self.isMovable and self.speed_x <= 0 then
+        self.speed_x = self.fallSpeed_x
         self.horizontal = h.horizontal
     end
     self:removeTweenMove()
@@ -178,7 +178,7 @@ function Obstacle:getupStart()
     end
 end
 function Obstacle:getupUpdate(dt)
-    if self.vel_x <= 0 then
+    if self.speed_x <= 0 then
         self:setState(self.stand)
         return
     end
@@ -190,7 +190,7 @@ function Obstacle:hurtStart()
     self.isHittable = true
 end
 function Obstacle:hurtUpdate(dt)
-    if self.vel_x <= 0 then
+    if self.speed_x <= 0 then
         self:setState(self.stand)
         return
     end

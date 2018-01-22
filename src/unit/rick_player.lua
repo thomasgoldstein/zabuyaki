@@ -35,12 +35,12 @@ function Rick:initAttributes()
     self.comboSlideSpeed2_x = 60 --horizontal speed of combo2Forward attacks
     self.comboSlideDiagonalSpeed2_x = 50 --diagonal horizontal speed of combo2Forward attacks
     self.comboSlideDiagonalSpeed2_y = 10 --diagonal vertical speed of combo2Forward attacks
-    self.repelComboSlide2 = 260 --how much combo2Forward pushes units back
+    self.comboSlideRepel2 = 260 --how much combo2Forward pushes units back
 
     self.comboSlideSpeed3_x = 80 --horizontal speed of combo3Forward attacks
     self.comboSlideDiagonalSpeed3_x = 70 --diagonal horizontal speed of combo3Forward attacks
     self.comboSlideDiagonalSpeed3_y = 10 --diagonal vertical speed of combo3Forward attacks
-    self.repelComboSlide3 = 310 --how much combo3Forward pushes units back
+    self.comboSlideRepel3 = 310 --how much combo3Forward pushes units back
 
     self.comboSlideSpeed4_x = 60 --horizontal speed of of combo4Forward attacks
     self.comboSlideDiagonalSpeed4_x = 50 --diagonal horizontal speed of combo4Forward attacks
@@ -64,9 +64,9 @@ function Rick:dashAttackStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("dashAttack")
-    self.vel_x = self.dashSpeed
-    self.vel_y = 0
-    self.vel_z = 0
+    self.speed_x = self.dashSpeed
+    self.speed_y = 0
+    self.speed_z = 0
     self.horizontal = self.face
     sfx.play("voice"..self.id, self.sfx.dashAttack)
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
@@ -87,9 +87,9 @@ function Rick:offensiveSpecialStart()
     self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("offensiveSpecial")
-    self.vel_x = self.dashSpeed
-    self.vel_y = 0
-    self.vel_z = 0
+    self.speed_x = self.dashSpeed
+    self.speed_y = 0
+    self.speed_z = 0
     sfx.play("voice"..self.id, self.sfx.dashAttack)
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end

@@ -41,7 +41,7 @@ function Character:showEffect(effect, obj)
         particles:emit(PA_DUST_JUMP_START_N_PARTICLES)
         particles:setAreaSpread( "uniform", 4, 16 )
         particles:setPosition( 0, -16 )
-        particles:setLinearAcceleration(sign(self.face) * (self.vel_x + 200) , -50, sign(self.face) * (self.vel_x + 400), -700) -- Random movement in all directions.
+        particles:setLinearAcceleration(sign(self.face) * (self.speed_x + 200) , -50, sign(self.face) * (self.speed_x + 400), -700) -- Random movement in all directions.
         particles:emit(PA_DUST_JUMP_START_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x, self.y-1))
     elseif effect == "pickup" then
@@ -93,7 +93,7 @@ end
 
 function Character:moveEffectAndEmit(effect, value)
     if effect == "dash" then
-        if love.math.random() < value and self.vel_x >= self.dashSpeed * 0.5 then
+        if love.math.random() < value and self.speed_x >= self.dashSpeed * 0.5 then
             -- emit Dash particles on moving
             self.paDash:moveTo( self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5 )
             self.paDash:emit(1)

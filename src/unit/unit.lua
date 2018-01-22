@@ -31,7 +31,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.height = self.height or 50
     self.width = 10 --calcs from the hitbox
     self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
-    self.vel_x, self.vel_y, self.vel_z = 0, 0, 0
+    self.speed_x, self.speed_y, self.speed_z = 0, 0, 0
     self.gravity = 800 --650 * 2
     self.weight = 1
     self.friction = 1650 -- speed penalty for stand (when you slide on ground)
@@ -187,8 +187,8 @@ function Unit:checkCollisionAndMove(dt)
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
     else
-        local stepx = self.vel_x * dt * self.horizontal
-        local stepy = self.vel_y * dt * self.vertical
+        local stepx = self.speed_x * dt * self.horizontal
+        local stepy = self.speed_y * dt * self.vertical
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
     if self.z <= 0 then
@@ -243,8 +243,8 @@ function Unit:hasPlaceToStand(x, y)
 end
 
 function Unit:calcFreeFall(dt, speed)
-    self.z = self.z + dt * self.vel_z
-    self.vel_z = self.vel_z - self.gravity * dt * (speed or self.jumpSpeedMultiplier)
+    self.z = self.z + dt * self.speed_z
+    self.speed_z = self.speed_z - self.gravity * dt * (speed or self.jumpSpeedMultiplier)
 end
 
 function Unit:canMove()
@@ -256,21 +256,21 @@ end
 
 function Unit:calcFriction(dt, friction)
     local frctn = friction or self.friction
-    if self.vel_x > 0 then
-        self.vel_x = self.vel_x - frctn * dt
-        if self.vel_x < 0 then
-            self.vel_x = 0
+    if self.speed_x > 0 then
+        self.speed_x = self.speed_x - frctn * dt
+        if self.speed_x < 0 then
+            self.speed_x = 0
         end
     else
-        self.vel_x = 0
+        self.speed_x = 0
     end
-    if self.vel_y > 0 then
-        self.vel_y = self.vel_y - frctn * dt
-        if self.vel_y < 0 then
-            self.vel_y = 0
+    if self.speed_y > 0 then
+        self.speed_y = self.speed_y - frctn * dt
+        if self.speed_y < 0 then
+            self.speed_y = 0
         end
     else
-        self.vel_y = 0
+        self.speed_y = 0
     end
 end
 

@@ -9,7 +9,7 @@ local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
 local frontGrabAttack = function(slf, cont)
-    --default values: 10,0,20,12, "hit", slf.vel_x
+    --default values: 10,0,20,12, "hit", slf.speed_x
     slf:checkAndAttack(
         { x = 18, y = 21, width = 26, damage = 9 },
         cont
@@ -85,7 +85,7 @@ local comboAttack2 = function(slf, cont)
 end
 local comboAttack2Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 24, width = 31, damage = 8, repel = slf.repelComboSlide2 },
+        { x = 21, y = 24, width = 31, damage = 8, repel = slf.comboSlideRepel2 },
         cont
     )
 end
@@ -109,7 +109,7 @@ local comboAttack3Up2 = function(slf, cont)
 end
 local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 10, repel = slf.repelComboSlide3 },
+        { x = 27, y = 21, width = 39, damage = 10, repel = slf.comboSlideRepel3 },
         cont
     )
 end
@@ -167,10 +167,10 @@ local dashAttack2 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local dashAttackSpeedUp = function(slf, cont)
-    slf.vel_x = slf.dashSpeed * 2
+    slf.speed_x = slf.dashSpeed * 2
 end
 local dashAttackResetSpeed = function(slf, cont)
-    slf.vel_x = slf.dashSpeed
+    slf.speed_x = slf.dashSpeed
 end
 local dashHoldAttackH = function(slf, cont)
     slf:checkAndAttack(

@@ -46,12 +46,12 @@ function Loot:updateAI(dt)
     if self.z > 0 then
         self:calcFreeFall(dt, 1)
         if self.z <= 0 then
-            if self.vel_z < -100 and self.bounced < 1 then    --bounce up after fall (not )
-                if self.vel_z < -300 then
-                    self.vel_z = -300
+            if self.speed_z < -100 and self.bounced < 1 then    --bounce up after fall (not )
+                if self.speed_z < -300 then
+                    self.speed_z = -300
                 end
                 self.z = 0.01
-                self.vel_z = -self.vel_z/2
+                self.speed_z = -self.speed_z/2
 --                sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
                 self.bounced = self.bounced + 1
                 Character.showEffect(self, "fallLanding")
@@ -59,7 +59,7 @@ function Loot:updateAI(dt)
             else
                 --final fall (no bouncing)
                 self.z = 0
-                self.vel_z = 0
+                self.speed_z = 0
                 return
             end
         end

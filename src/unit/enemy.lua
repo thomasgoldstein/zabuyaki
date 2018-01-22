@@ -32,8 +32,8 @@ end
 
 function Enemy:checkCollisionAndMove(dt)
     local success = true
-    local stepx = self.vel_x * dt * self.horizontal
-    local stepy = self.vel_y * dt * self.vertical
+    local stepx = self.speed_x * dt * self.horizontal
+    local stepy = self.speed_y * dt * self.vertical
     local actualX, actualY, cols, len, x, y
     if self.state == "walk" or self.state == "run"
     then --enemy uses tween movement
@@ -250,13 +250,13 @@ function Enemy:jumpStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("jump")
-    self.vel_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
+    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = 0.1
     self.bounced = 0
     self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.lastState == "run" then
         -- jump higher from run
-        self.vel_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier
+        self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier
     end
     self.vertical = 0
     sfx.play("voice"..self.id, self.sfx.jump)

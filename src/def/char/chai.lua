@@ -9,7 +9,7 @@ local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
 local frontGrabAttack = function(slf, cont)
-    --default values: 10,0,20,12, "hit", slf.vel_x
+    --default values: 10,0,20,12, "hit", slf.speed_x
     slf:checkAndAttack(
         { x = 8, y = 20, width = 26, damage = 9 },
         cont

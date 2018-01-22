@@ -74,8 +74,8 @@ function Player:checkCollisionAndMove(dt)
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
     else
-        stepx = self.vel_x * dt * self.horizontal
-        stepy = self.vel_y * dt * self.vertical
+        stepx = self.speed_x * dt * self.horizontal
+        stepy = self.speed_y * dt * self.vertical
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
     if self.z <= 0 then
@@ -154,7 +154,7 @@ function Player:updateAI(dt)
     end
     if self.z <= 0 and (self.moves.defensiveSpecial or self.moves.offensiveSpecial) then
         if isSpecialCommand(self.b) then
-            if self.moves.offensiveSpecial and ( self.vel_x ~= 0 or self.b.horizontal:getValue() ~= 0 )
+            if self.moves.offensiveSpecial and ( self.speed_x ~= 0 or self.b.horizontal:getValue() ~= 0 )
                 and self.statesForOffensiveSpecial[self.state]
             then
                 self:releaseGrabbed()
@@ -223,7 +223,7 @@ function Player:onHurtDamage()
     end
 
     self:playHitSfx(h.damage)
-    if h.source.vel_x == 0 then
+    if h.source.speed_x == 0 then
         self.face = -h.source.face	--turn face to the still(pulled back) attacker
     else
         if h.source.horizontal ~= h.source.face then
@@ -357,7 +357,7 @@ function Player:respawnStart()
     self.deathDelay = 3 --seconds to remove
     self.hp = self.maxHp
     self.bounced = 0
-    self.vel_z = 0
+    self.speed_z = 0
     self.z = love.math.random( 235, 245 )    --TODO get Z from the Tiled
     stage:resetTime()
 end
@@ -370,7 +370,7 @@ function Player:respawnUpdate(dt)
         self:calcFreeFall(dt)
     elseif self.bounced == 0 then
         self.playerSelectMode = 0 -- remove player select text
-        self.vel_z = 0
+        self.speed_z = 0
         self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         if self.sprite.curFrame == 1 then

@@ -52,16 +52,16 @@ function Sveta:dashAttackStart()
     self:removeTweenMove()
     dpo(self, self.state)
     self:setSprite("duck")
-    self.vel_y = 0
-    self.vel_x = 0
-    self.vel_z = 0
+    self.speed_y = 0
+    self.speed_x = 0
+    self.speed_z = 0
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Sveta:dashAttackUpdate(dt)
     if self.sprite.curAnim == "duck" and self:canMove() then
         self.isHittable = false
         self:setSprite("dashAttack")
-        self.vel_x = self.dashSpeed
+        self.speed_x = self.dashSpeed
         sfx.play("voice"..self.id, self.sfx.dashAttack)
         return
     else

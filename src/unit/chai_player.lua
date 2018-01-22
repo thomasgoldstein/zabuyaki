@@ -59,8 +59,8 @@ function Chai:dashAttackStart()
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
-    self.vel_x = self.dashSpeed * self.jumpSpeedMultiplier
-    self.vel_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
+    self.speed_x = self.dashSpeed * self.jumpSpeedMultiplier
+    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = 0.1
     sfx.play("sfx"..self.id, self.sfx.dashAttack)
     self:showEffect("jumpStart")
@@ -74,15 +74,15 @@ function Chai:dashAttackUpdate(dt)
     end
     if self.z > 0 then
         self:calcFreeFall(dt)
-        if self.vel_z > 0 then
-            if self.vel_x > 0 then
-                self.vel_x = self.vel_x - (self.dashSpeed * dt * 2.5)
+        if self.speed_z > 0 then
+            if self.speed_x > 0 then
+                self.speed_x = self.speed_x - (self.dashSpeed * dt * 2.5)
             else
-                self.vel_x = 0
+                self.speed_x = 0
             end
         end
     else
-        self.vel_z = 0
+        self.speed_z = 0
         self.z = 0
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
@@ -139,11 +139,11 @@ function Chai:defensiveSpecialStart()
 end
 function Chai:defensiveSpecialUpdate(dt)
     if self.jumpType == 1 then
-        self.vel_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
+        self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
         self.z = 0.1
         self.jumpType = 0
     elseif self.jumpType == 2 then
-        self.vel_z = -self.jumpSpeed_z * self.jumpSpeedMultiplier / 2
+        self.speed_z = -self.jumpSpeed_z * self.jumpSpeedMultiplier / 2
         self.jumpType = 0
     end
     if self.z > 32 then
