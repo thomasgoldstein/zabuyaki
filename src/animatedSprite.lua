@@ -163,7 +163,7 @@ function getMaxSpriteAnimation(spr, anim)
 end
 
 function calculateSpriteAnimation(spr)
-    spr.def.max_combo = getMaxSpriteAnimation(spr, "combo")
+    spr.def.comboMax = getMaxSpriteAnimation(spr, "combo")
     spr.def.maxGrabAttack = getMaxSpriteAnimation(spr, "frontGrabAttack")
 --    spr.def.animations["frontGrabAttack"].delay = getSpriteAnimationDelay(spr, "frontGrabAttack")
 end

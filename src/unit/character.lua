@@ -1102,7 +1102,7 @@ function Character:comboStart()
     if self.comboTimer >= 0 then
         if self.attacksPerAnimation > 0 then
             self.comboN = self.comboN + 1
-            if self.comboN > self.sprite.def.max_combo then
+            if self.comboN > self.sprite.def.comboMax then
                 self.comboN = 1
             end
         else
