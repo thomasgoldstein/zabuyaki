@@ -152,22 +152,26 @@ function Player:updateAI(dt)
             self:setState(self.dashAttack)
         end
     end
-    if self.z <= 0 and (self.moves.defensiveSpecial or self.moves.offensiveSpecial) then
+    if self.moves.defensiveSpecial or self.moves.offensiveSpecial then
         if isSpecialCommand(self.b) then
-            if self.moves.offensiveSpecial and ( self.speed_x ~= 0 or self.b.horizontal:getValue() ~= 0 )
-                and self.statesForOffensiveSpecial[self.state]
+            if not self.statesForSpecialToleranceDelay[self.state]
+                or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
             then
-                self:releaseGrabbed()
-                print("-- OFFENSIVE SPECIAL", self.state)
-                self.face = self.b.horizontal:getValue()
-                self:setState(self.offensiveSpecial)
-                return
-            end
-            if self.moves.defensiveSpecial and self.statesForDefensiveSpecial[self.state] then
-                self:releaseGrabbed()
-                print("== DEFENSIVE SPECIAL", self.state)
-                self:setState(self.defensiveSpecial)
-                return
+                if self.moves.offensiveSpecial and ( self.speed_x ~= 0 or self.b.horizontal:getValue() ~= 0 )
+                    and self.statesForOffensiveSpecial[self.state]
+                then
+                    self:releaseGrabbed()
+                    print("-- OFFENSIVE SPECIAL", self.state)
+                    self.face = self.b.horizontal:getValue()
+                    self:setState(self.offensiveSpecial)
+                    return
+                end
+                if self.moves.defensiveSpecial and self.statesForDefensiveSpecial[self.state] then
+                    self:releaseGrabbed()
+                    print("== DEFENSIVE SPECIAL", self.state)
+                    self:setState(self.defensiveSpecial)
+                    return
+                end
             end
         end
     end

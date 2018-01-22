@@ -10,6 +10,7 @@ Character.statesForHoldAttack = { stand = true, walk = true, run = true, hurt = 
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
 Character.statesForDefensiveSpecial = { stand = true, walk = true, run = true, duck2jump = true, combo = true, hurt = true, dashHold = true, grabbedFront = true, grabbedBack = true, frontGrabAttack = true, grab = true }
 Character.statesForOffensiveSpecial = { combo = true, duck2jump = true, walk = true, run = true, frontGrabAttack = true, grab = true }
+Character.statesForSpecialToleranceDelay = { duck2jump = true }
 
 function Character:initialize(name, sprite, input, x, y, f)
     if not f then
@@ -89,6 +90,7 @@ function Character:initAttributes()
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
+    self.specialToleranceDelay = 0.02 -- between pressing the last button of Attack & Jump
     -- default sfx
     self.sfx.jump = "whooshHeavy"
     self.sfx.throw = "whooshHeavy"
