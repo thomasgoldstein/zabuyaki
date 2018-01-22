@@ -70,10 +70,10 @@ function Character:initAttributes()
     self.dashSpeed = 150 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
     self.dashFriction = self.dashSpeed
-    self.dashSpeedHold_z = 120
-    self.dashSpeedHoldSpeed_z = 0.6
-    self.dashSpeedHold_x = 320
-    self.dashSpeedHoldSpeed_x = 0.8
+    self.dashHoldSpeed_z = 120
+    self.dashHoldSpeedMultiplier_z = 0.6
+    self.dashHoldSpeed_x = 320
+    self.dashHoldSpeedMultiplier_x = 0.8
     self.throwStart_z = 20 --lift up a body to throw at this Z
     self.toFallenAnim_z = 40
     self.sideStepSpeed = 220
@@ -1668,8 +1668,8 @@ function Character:dashHoldStart()
     self:setSprite("dashHold")
     self.horizontal = self.face
     sfx.play("voice"..self.id, self.sfx.dashHold)
-    self.speed_x = self.dashSpeedHold_x * self.dashSpeedHoldSpeed_x
-    self.speed_z = self.dashSpeedHold_z * self.dashSpeedHoldSpeed_z
+    self.speed_x = self.dashHoldSpeed_x * self.dashHoldSpeedMultiplier_x
+    self.speed_z = self.dashHoldSpeed_z * self.dashHoldSpeedMultiplier_z
     self.speed_y = 0
     self.z = 0.1
     sfx.play("sfx"..self.id, self.sfx.jump)
@@ -1677,10 +1677,10 @@ function Character:dashHoldStart()
 end
 function Character:dashHoldUpdate(dt)
     if self.z > 0 then
-        self:calcFreeFall(dt, self.dashSpeedHoldSpeed_z)
+        self:calcFreeFall(dt, self.dashHoldSpeedMultiplier_z)
         if self.speed_z > 0 then
             if self.speed_x > 0 then
-                self.speed_x = self.speed_x - (self.dashSpeedHold_x * dt)
+                self.speed_x = self.speed_x - (self.dashHoldSpeed_x * dt)
             else
                 self.speed_x = 0
             end
@@ -1703,10 +1703,10 @@ function Character:dashHoldUpdate(dt)
             grabbed.horizontal = -self.horizontal
             self:showHitMarks(22, 25, 5) --big hitmark
             self.speed_x = self.backoffSpeed --move from source
-            self.speed_z = self.dashSpeedHold_z
+            self.speed_z = self.dashHoldSpeed_z
             self:setState(self.fall)
             grabbed.speed_x = grabbed.backoffSpeed --move from source
-            grabbed.speed_z = self.dashSpeedHold_z
+            grabbed.speed_z = self.dashHoldSpeed_z
             grabbed:setState(grabbed.fall)
             sfx.play("sfx"..self.id, self.sfx.grabClash)
             return
