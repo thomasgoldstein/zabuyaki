@@ -153,7 +153,7 @@ function Player:updateAI(dt)
         end
     end
     if self.moves.defensiveSpecial or self.moves.offensiveSpecial then
-        if isSpecialCommand(self.b) then
+        if self.z <= 0 and isSpecialCommand(self.b) then
             if not self.statesForSpecialToleranceDelay[self.state]
                 or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
             then
