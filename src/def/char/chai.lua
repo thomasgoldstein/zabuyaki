@@ -316,12 +316,15 @@ return {
             delay = 0.03
         },
         offensiveSpecial = {
+            { q = q(43,266,39,67), ox = 26, oy = 65 }, --jump up
+            { q = q(84,266,42,65), ox = 24, oy = 66 }, --jump up/top
+            { q = q(128,266,44,62), ox = 23, oy = 65 }, --jump top
             { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1 }, --defensive special 4
             { q = q(2,1791,77,65), ox = 26, oy = 65 }, --offensive special 1a
             { q = q(81,1791,75,63), ox = 26, oy = 65 }, --offensive special 1b
             { q = q(158,1791,73,61), ox = 26, oy = 65 }, --offensive special 1c
             loop = true,
-            loopFrom = 2,
+            loopFrom = 5,
             delay = 0.05
         },
         offensiveSpecial2 = {
