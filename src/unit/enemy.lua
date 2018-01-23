@@ -253,7 +253,6 @@ function Enemy:jumpStart()
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = 0.1
     self.bounced = 0
-    self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.lastState == "run" then
         -- jump higher from run
         self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier

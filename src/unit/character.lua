@@ -40,7 +40,6 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.victimInfoBar = nil
     self.priority = 1
     self.bounced = 0 -- the bouncing counter
-    self.bouncedPitch = 1 -- the bouncing SFX pitch variations
 end
 
 function Character:initAttributes()
@@ -615,7 +614,6 @@ function Character:jumpStart()
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = 0.1
     self.bounced = 0
-    self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     if self.prevState == "run" then
         -- jump higher from run
         self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier
@@ -927,7 +925,6 @@ function Character:fallStart()
         self.z = 1
     end
     self.bounced = 0
-    self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
 end
 function Character:fallUpdate(dt)
     self:calcFreeFall(dt)
@@ -965,7 +962,7 @@ function Character:fallUpdate(dt)
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
             end
-            sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
+            sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
             self.bounced = self.bounced + 1
             self:showEffect("fallLanding")
             return
@@ -979,7 +976,7 @@ function Character:fallUpdate(dt)
 
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-            sfx.play("sfx"..self.id,"bodyDrop", 0.5, self.bouncedPitch - self.bounced * 0.2)
+            sfx.play("sfx"..self.id,"bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
             self:setState(self.getup)
             return
         end
@@ -1008,9 +1005,8 @@ function Character:bounceStart()
         self.z = 0.01
     end
     self.bounced = 0
-    self.bouncedPitch = 1 + 0.05 * love.math.random(-4,4)
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
-    sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, self.bouncedPitch - self.bounced * 0.2)
+    sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
     self:showEffect("fallLanding")
 end
 function Character:bounceUpdate(dt)
@@ -1025,7 +1021,7 @@ function Character:bounceUpdate(dt)
             self.horizontal = self.face
             self.face = -self.face
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
-            sfx.play("sfx"..self.id,"bodyDrop", 0.5, self.bouncedPitch - self.bounced * 0.2)
+            sfx.play("sfx"..self.id,"bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
             self:setState(self.getup)
             return
         end

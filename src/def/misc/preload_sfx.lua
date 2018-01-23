@@ -30,6 +30,11 @@ SFX.playMix = function(actor, alias, volume, pitch, func)
     end
 end
 
+SFX.randomPitch = function(range)
+    local range = range or 4
+    return 1 + 0.05 * love.math.random(-range,range)
+end
+
 SFX.load = function(alias, s, volume, pitch, copyright)
     local src = love.audio.newSource(s, "static")
     src:setVolume(0)

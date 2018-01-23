@@ -105,7 +105,6 @@ function eAI:initJumpAttack(dt)
         u.horizontal = u.face
         u.z = u.z + 1
         u.bounced = 0
-        u.bouncedPitch = 1 + 0.05 * love.math.random(-4, 4)
         if self.conditions.tooCloseToPlayer then
             u.speed_x = 0
         else
