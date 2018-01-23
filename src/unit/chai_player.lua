@@ -166,4 +166,37 @@ function Chai:defensiveSpecialUpdate(dt)
 end
 Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecialStart, exit = nop, update = Chai.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
+function Chai:offensiveSpecialStart()
+    self.isHittable = true
+    dpo(self, self.state)
+    self:setSprite("offensiveSpecial")
+    self.horizontal = -self.face
+    self.speed_x = self.jumpSpeedBoost_x
+    self.speed_y = 0
+    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
+    self.z = 0.1
+    self.bounced = 0
+    sfx.play("voice"..self.id, self.sfx.jump)
+    self:showEffect("jumpStart")
+end
+function Chai:offensiveSpecialUpdate(dt)
+    if self.sprite.curAnim == "offensiveSpecial" and self.speed_z < 0 then
+        self:setSprite("offensiveSpecial2")
+        self.speed_x = self.dashSpeed * 2
+        self.horizontal = self.face
+    end
+    if self.z > 0 then
+        self:calcFreeFall(dt)
+    else
+        sfx.play("sfx"..self.id, self.sfx.step)
+        self:setState(self.duck)
+        return
+    end
+    if not self:calcMovement(dt, false) then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
+end
+Chai.offensiveSpecial = {name = "offensiveSpecial", start = Chai.offensiveSpecialStart, exit = nop, update = Chai.offensiveSpecialUpdate, draw = Character.defaultDraw}
+
 return Chai
