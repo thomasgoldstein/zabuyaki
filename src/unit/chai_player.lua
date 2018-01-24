@@ -176,17 +176,37 @@ function Chai:offensiveSpecialStart()
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = 0.1
     self.bounced = 0
+    self.connectHit = false
+    self.attacksPerAnimation = 0
     sfx.play("voice"..self.id, self.sfx.jump)
     self:showEffect("jumpStart")
 end
 function Chai:offensiveSpecialUpdate(dt)
-    if self.sprite.curAnim == "offensiveSpecial" and self.speed_z < 0 then
+    if self.connectHit then
+        self.connectHit = false
+        self.attacksPerAnimation = self.attacksPerAnimation + 1
+    end
+    if self.sprite.curAnim == "offensiveSpecial"
+        and self.attacksPerAnimation > 0
+    then
         self:setSprite("offensiveSpecial2")
-        self.speed_x = self.dashSpeed * 2
+        --self.speed_x = self.jumpSpeedBoost_x
         self.horizontal = self.face
+        --self.speed_z = 0
+    end
+    if self.sprite.curAnim == "offensiveSpecial" then
+        if self.speed_z < 0 and self.speed_x < self.dashSpeed then
+            -- check speed_x to add no extra var here. it should trigger once
+            self.speed_x = self.dashSpeed * 2
+            self.horizontal = self.face
+        end
     end
     if self.z > 0 then
-        self:calcFreeFall(dt)
+        if self.sprite.curAnim == "offensiveSpecial2" then
+            self:calcFreeFall(dt, 0.25)
+        else
+            self:calcFreeFall(dt)
+        end
     else
         sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
