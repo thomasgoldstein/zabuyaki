@@ -324,6 +324,18 @@ function Character:checkAndAttack(f, isFuncCont)
                 items[#items+1] = o
             end
         end
+    elseif type == "check" then
+        for other, separatingVector in pairs(stage.world:collisions(a)) do
+            local o = other.obj
+            if o.isHittable
+                and not o.isDisabled
+                and o ~= self
+                --and CheckLinearCollision(o.z, o.height, self.z + y - h / 2, h)
+            then
+                items[#items+1] = { o }
+                --print("COLLIS ", o.name, o.id)
+            end
+        end
     else
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
