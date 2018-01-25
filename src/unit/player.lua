@@ -161,14 +161,12 @@ function Player:updateAI(dt)
                     and self.statesForOffensiveSpecial[self.state]
                 then
                     self:releaseGrabbed()
-                    print("-- OFFENSIVE SPECIAL", self.state)
                     self.face = self.b.horizontal:getValue()
                     self:setState(self.offensiveSpecial)
                     return
                 end
                 if self.moves.defensiveSpecial and self.statesForDefensiveSpecial[self.state] then
                     self:releaseGrabbed()
-                    print("== DEFENSIVE SPECIAL", self.state)
                     self:setState(self.defensiveSpecial)
                     return
                 end
