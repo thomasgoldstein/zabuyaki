@@ -159,23 +159,23 @@ local offensiveSpecial = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local offensiveSpecial2 = function(slf, cont) slf:checkAndAttack(
-    { x = 0, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    { x = 0, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
     cont
  ) end
 local offensiveSpecial2Right = function(slf, cont) slf:checkAndAttack(
-    { x = 3, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    { x = 3, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
     cont
  ) end
 local offensiveSpecial2RightMost = function(slf, cont) slf:checkAndAttack(
-    { x = 5, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    { x = 5, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
     cont
  ) end
 local offensiveSpecial2Left = function(slf, cont) slf:checkAndAttack(
-    { x = -3, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    { x = -3, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
     cont
  ) end
 local offensiveSpecial2LeftMost = function(slf, cont) slf:checkAndAttack(
-    { x = -5, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    { x = -5, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
     cont
  ) end
 local offensiveSpecialHop = function(slf, cont)
