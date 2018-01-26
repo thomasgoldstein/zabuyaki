@@ -159,11 +159,13 @@ local offensiveSpecialAttackForward = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local offensiveSpecialHop = function(slf, cont)
-    slf.speed_z = slf.jumpRunSpeedBoost_z
+    slf.speed_x = slf.jumpSpeedBoost_x * 2
+    slf.horizontal = -slf.face
+    slf.speed_z = slf.jumpSpeed_z
 end
 local checkCollisionWithEnemy = function(slf, cont)
     slf:checkAndAttack(
-        { x = 24, y = 11, width = 20, depth = 18, type = "check" },
+        { x = 30, y = 18, width = 25, height = 45, type = "check" },
         cont
     )
 end
