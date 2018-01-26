@@ -135,11 +135,11 @@ local dashHoldAttackV = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
-    { x = 0, y = 22, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut" },
+    { x = 0, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
 local defensiveSpecialRight = function(slf, cont) slf:checkAndAttack(
-    { x = 3, y = 22, width = 60, height = 45, depth = 18, damage = 15, type = "blowOut" },
+    { x = 3, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
 local defensiveSpecialRightMost = function(slf, cont) slf:checkAndAttack(
@@ -159,11 +159,11 @@ local offensiveSpecial = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local offensiveSpecial2 = function(slf, cont) slf:checkAndAttack(
-    { x = 0, y = 22, width = 60, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    { x = 0, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
     cont
  ) end
 local offensiveSpecial2Right = function(slf, cont) slf:checkAndAttack(
-    { x = 3, y = 22, width = 60, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    { x = 3, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
     cont
  ) end
 local offensiveSpecial2RightMost = function(slf, cont) slf:checkAndAttack(
