@@ -143,7 +143,7 @@ return {
         },
         getup = {
             { q = q(78,230,74,52), ox = 41, oy = 44, delay = 0.2 }, --lying down
-            { q = q(154,222,62,60), ox = 33, oy = 57 }, --getting up
+            { q = q(154,222,61,60), ox = 32, oy = 57 }, --getting up
             { q = q(2,287,62,63), ox = 35, oy = 62 }, --duck
             delay = 0.3
         },
@@ -177,7 +177,7 @@ return {
             --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, lying down
             { q = q(195,142,61,65), ox = 31, oy = 64 }, -- hurt low 2
             { q = q(66,140,63,67), ox = 39, oy = 66 }, -- hurt high 2
-            { q = q(154,222,62,60), ox = 33, oy = 57 }, --getting up
+            { q = q(154,222,61,60), ox = 32, oy = 57 }, --getting up
             { q = q(154,222,62,60), ox = 43, oy = 56, rotate = -1.57, rx = 31, ry = -59 }, --getting up
             { q = q(195,142,61,65), ox = 31, oy = 64, flipV = -1 }, -- hurt low 2
             { q = q(78,230,74,52), ox = 41, oy = 44 }, --lying down
