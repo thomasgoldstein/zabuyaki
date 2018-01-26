@@ -192,7 +192,7 @@ function Chai:offensiveSpecialUpdate(dt)
         self:setSprite("offensiveSpecial2")
         self.speed_x = self.jumpSpeedBoost_x / 2
         self.horizontal = self.face
-        self.speed_z = 0 --self.jumpRunSpeedBoost_z
+        self.speed_z = 0
     end
     if self.sprite.curAnim == "offensiveSpecial" then
         if self.speed_z < 0 and self.speed_x < self.dashSpeed then
@@ -202,8 +202,8 @@ function Chai:offensiveSpecialUpdate(dt)
         end
     end
     if self.z > 0 then
-        if not self.sprite.isFinished and self.sprite.curAnim == "offensiveSpecial2" then
-            self:calcFreeFall(dt, 0.1) -- slow down the falling speed
+        if self.sprite.curFrame < self.sprite.maxFrame - 4 and self.sprite.curAnim == "offensiveSpecial2" then
+            self:calcFreeFall(dt, 0.1) -- slow down the falling speed. Restore it on the 5th frame from the end
         else
             self:calcFreeFall(dt)
         end
