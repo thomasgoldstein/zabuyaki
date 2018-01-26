@@ -159,7 +159,7 @@ local offensiveSpecialAttackForward = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local offensiveSpecialHop = function(slf, cont)
-    slf.speed_x = slf.jumpSpeedBoost_x * 2
+    slf.speed_x = slf.jumpSpeedBoost_x
     slf.horizontal = -slf.face
     slf.speed_z = slf.jumpSpeed_z
 end
