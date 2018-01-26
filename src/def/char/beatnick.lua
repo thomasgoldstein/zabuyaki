@@ -116,20 +116,20 @@ return {
         },
         combo1 = {
             { q = q(66,284,51,66), ox = 18, oy = 66 }, --kick 1
-            { q = q(119,285,72,65), ox = 25, oy = 65, func = comboAttack1, delay = 0.13 }, --kick 2
-            { q = q(193,285,60,65), ox = 21, oy = 65, delay = 0.1 }, --kick 3
+            { q = q(119,285,71,65), ox = 24, oy = 65, func = comboAttack1, delay = 0.13 }, --kick 2
+            { q = q(192,285,60,65), ox = 21, oy = 65, delay = 0.1 }, --kick 3
             delay = 0.06
         },
         combo2 = {
             { q = q(66,284,51,66), ox = 18, oy = 66 }, --kick 1
-            { q = q(119,285,72,65), ox = 25, oy = 65, func = comboAttack1, delay = 0.13 }, --kick 2
-            { q = q(193,285,60,65), ox = 21, oy = 65, delay = 0.1 }, --kick 3
+            { q = q(119,285,71,65), ox = 24, oy = 65, func = comboAttack1, delay = 0.13 }, --kick 2
+            { q = q(192,285,60,65), ox = 21, oy = 65, delay = 0.1 }, --kick 3
             delay = 0.06
         },
         combo3 = {
             { q = q(66,284,51,66), ox = 18, oy = 66 }, --kick 1
-            { q = q(119,285,72,65), ox = 25, oy = 65, func = comboAttack2, delay = 0.13 }, --kick 2
-            { q = q(193,285,60,65), ox = 21, oy = 65, delay = 0.1 }, --kick 3
+            { q = q(119,285,71,65), ox = 24, oy = 65, func = comboAttack2, delay = 0.13 }, --kick 2
+            { q = q(192,285,60,65), ox = 21, oy = 65, delay = 0.1 }, --kick 3
             delay = 0.06
         },
         fall = {
