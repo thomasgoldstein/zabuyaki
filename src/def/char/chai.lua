@@ -155,9 +155,29 @@ local defensiveSpecialLeftMost = function(slf, cont) slf:checkAndAttack(
     cont
  ) end
 local offensiveSpecial = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 18, width = 25, height = 45, damage = 15 },
+    { x = 30, y = 18, width = 25, height = 45, damage = 5 },
     cont
 ) end
+local offensiveSpecial2 = function(slf, cont) slf:checkAndAttack(
+    { x = 0, y = 22, width = 60, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    cont
+ ) end
+local offensiveSpecial2Right = function(slf, cont) slf:checkAndAttack(
+    { x = 3, y = 22, width = 60, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    cont
+ ) end
+local offensiveSpecial2RightMost = function(slf, cont) slf:checkAndAttack(
+    { x = 5, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    cont
+ ) end
+local offensiveSpecial2Left = function(slf, cont) slf:checkAndAttack(
+    { x = -3, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    cont
+ ) end
+local offensiveSpecial2LeftMost = function(slf, cont) slf:checkAndAttack(
+    { x = -5, y = 22, width = 66, height = 45, depth = 18, damage = 6, type = "blowOut" },
+    cont
+ ) end
 local offensiveSpecialHop = function(slf, cont)
     slf.speed_x = slf.jumpSpeedBoost_x
     slf.horizontal = -slf.face
@@ -350,14 +370,14 @@ return {
             { q = q(81,1791,75,63), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1b
             { q = q(158,1791,73,61), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1c
             { q = q(2,1396,45,61), ox = 24, oy = 65, func = offensiveSpecialHop, funcCont = defensiveSpecialRight }, --defensive special 6
-            { q = q(49,1396,58,63), ox = 23, oy = 67, funcCont = defensiveSpecialRightMost }, --defensive special 7
-            { q = q(109,1396,54,62), ox = 26, oy = 67, funcCont = defensiveSpecialRight }, --defensive special 8
-            { q = q(165,1396,46,60), ox = 27, oy = 66, funcCont = defensiveSpecial }, --defensive special 9
-            { q = q(2,1461,40,60), ox = 22, oy = 66, funcCont = defensiveSpecial, delay = 0.03 }, --defensive special 10
-            { q = q(44,1461,43,60), ox = 24, oy = 67, funcCont = defensiveSpecial, delay = 0.03 }, --defensive special 11
-            { q = q(89,1461,46,60), ox = 29, oy = 67, funcCont = defensiveSpecialLeft, delay = 0.03 }, --defensive special 12
-            { q = q(137,1461,56,59), ox = 35, oy = 65, funcCont = defensiveSpecialLeftMost, delay = 0.03 }, --defensive special 13
-            { q = q(195,1461,44,61), ox = 23, oy = 65, funcCont = defensiveSpecialLeft, delay = 0.03 }, --defensive special 14
+            { q = q(49,1396,58,63), ox = 23, oy = 67, funcCont = offensiveSpecial2RightMost }, --defensive special 7
+            { q = q(109,1396,54,62), ox = 26, oy = 67, funcCont = offensiveSpecial2Right }, --defensive special 8
+            { q = q(165,1396,46,60), ox = 27, oy = 66, funcCont = offensiveSpecial2 }, --defensive special 9
+            { q = q(2,1461,40,60), ox = 22, oy = 66, funcCont = offensiveSpecial2, delay = 0.03 }, --defensive special 10
+            { q = q(44,1461,43,60), ox = 24, oy = 67, funcCont = offensiveSpecial2, delay = 0.03 }, --defensive special 11
+            { q = q(89,1461,46,60), ox = 29, oy = 67, funcCont = offensiveSpecial2Left, delay = 0.03 }, --defensive special 12
+            { q = q(137,1461,56,59), ox = 35, oy = 65, funcCont = offensiveSpecial2LeftMost, delay = 0.03 }, --defensive special 13
+            { q = q(195,1461,44,61), ox = 23, oy = 65, funcCont = offensiveSpecial2Left, delay = 0.03 }, --defensive special 14
             { q = q(2,1526,40,64), ox = 22, oy = 65, delay = 0.03 }, --defensive special 15
             { q = q(44,1526,41,64), ox = 23, oy = 65, delay = 0.06 }, --defensive special 16
             { q = q(87,1527,37,63), ox = 16, oy = 62 }, --defensive special 17
