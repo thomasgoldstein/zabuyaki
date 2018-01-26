@@ -154,7 +154,7 @@ local defensiveSpecialLeftMost = function(slf, cont) slf:checkAndAttack(
     { x = -5, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
-local offensiveSpecialAttackForward = function(slf, cont) slf:checkAndAttack(
+local offensiveSpecial = function(slf, cont) slf:checkAndAttack(
     { x = 30, y = 18, width = 25, height = 45, damage = 15 },
     cont
 ) end
@@ -343,12 +343,12 @@ return {
             delay = 0.05
         },
         offensiveSpecial2 = {
-            { q = q(2,1791,77,65), ox = 26, oy = 65, func = offensiveSpecialAttackForward }, --offensive special 1a
-            { q = q(81,1791,75,63), ox = 26, oy = 65, func = offensiveSpecialAttackForward }, --offensive special 1b
-            { q = q(158,1791,73,61), ox = 26, oy = 65, func = offensiveSpecialAttackForward }, --offensive special 1c
-            { q = q(2,1791,77,65), ox = 26, oy = 65, func = offensiveSpecialAttackForward }, --offensive special 1a
-            { q = q(81,1791,75,63), ox = 26, oy = 65, func = offensiveSpecialAttackForward }, --offensive special 1b
-            { q = q(158,1791,73,61), ox = 26, oy = 65, func = offensiveSpecialAttackForward }, --offensive special 1c
+            { q = q(2,1791,77,65), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1a
+            { q = q(81,1791,75,63), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1b
+            { q = q(158,1791,73,61), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1c
+            { q = q(2,1791,77,65), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1a
+            { q = q(81,1791,75,63), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1b
+            { q = q(158,1791,73,61), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1c
             { q = q(2,1396,45,61), ox = 24, oy = 65, func = offensiveSpecialHop, funcCont = defensiveSpecialRight }, --defensive special 6
             { q = q(49,1396,58,63), ox = 23, oy = 67, funcCont = defensiveSpecialRightMost }, --defensive special 7
             { q = q(109,1396,54,62), ox = 26, oy = 67, funcCont = defensiveSpecialRight }, --defensive special 8
