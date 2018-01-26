@@ -369,7 +369,7 @@ return {
             { q = q(2,1791,77,65), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1a
             { q = q(81,1791,75,63), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1b
             { q = q(158,1791,73,61), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1c
-            { q = q(2,1396,45,61), ox = 24, oy = 65, func = offensiveSpecialHop, funcCont = defensiveSpecialRight }, --defensive special 6
+            { q = q(2,1396,45,61), ox = 24, oy = 65, func = offensiveSpecialHop, funcCont = offensiveSpecial2Right }, --defensive special 6
             { q = q(49,1396,58,63), ox = 23, oy = 67, funcCont = offensiveSpecial2RightMost }, --defensive special 7
             { q = q(109,1396,54,62), ox = 26, oy = 67, funcCont = offensiveSpecial2Right }, --defensive special 8
             { q = q(165,1396,46,60), ox = 27, oy = 66, funcCont = offensiveSpecial2 }, --defensive special 9
