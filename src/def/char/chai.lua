@@ -158,9 +158,12 @@ local offensiveSpecialAttackForward = function(slf, cont) slf:checkAndAttack(
     { x = 30, y = 18, width = 25, height = 45, damage = 15 },
     cont
 ) end
+local offensiveSpecialHop = function(slf, cont)
+    slf.speed_z = slf.jumpRunSpeedBoost_z
+end
 local checkCollisionWithEnemy = function(slf, cont)
     slf:checkAndAttack(
-        { x = 10, y = 11, width = 20, depth = 18, type = "check" },
+        { x = 24, y = 11, width = 20, depth = 18, type = "check" },
         cont
     )
 end
@@ -344,7 +347,7 @@ return {
             { q = q(2,1791,77,65), ox = 26, oy = 65, func = offensiveSpecialAttackForward }, --offensive special 1a
             { q = q(81,1791,75,63), ox = 26, oy = 65, func = offensiveSpecialAttackForward }, --offensive special 1b
             { q = q(158,1791,73,61), ox = 26, oy = 65, func = offensiveSpecialAttackForward }, --offensive special 1c
-            { q = q(2,1396,45,61), ox = 24, oy = 65, funcCont = defensiveSpecialRight }, --defensive special 6
+            { q = q(2,1396,45,61), ox = 24, oy = 65, func = offensiveSpecialHop, funcCont = defensiveSpecialRight }, --defensive special 6
             { q = q(49,1396,58,63), ox = 23, oy = 67, funcCont = defensiveSpecialRightMost }, --defensive special 7
             { q = q(109,1396,54,62), ox = 26, oy = 67, funcCont = defensiveSpecialRight }, --defensive special 8
             { q = q(165,1396,46,60), ox = 27, oy = 66, funcCont = defensiveSpecial }, --defensive special 9
