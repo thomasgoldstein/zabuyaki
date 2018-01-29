@@ -16,6 +16,24 @@ local comboAttack2 = function(slf, cont)
         cont
     )
 end
+local dashAttack1 = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 0, y = 27, width = 40, damage = 28, type = "knockDown" },
+        cont
+    )
+end
+local dashAttack2 = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 17, y = 27, width = 45, damage = 28, type = "knockDown" },
+        cont
+    )
+end
+local dashAttack3 = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 25, y = 27, width = 50, damage = 28, type = "knockDown" },
+        cont
+    )
+end
 local makeMeHittable = function(slf, cont)
     slf.isHittable = true
 end
@@ -82,6 +100,22 @@ return {
         pickup = {
             { q = q(2,287,62,63), ox = 34, oy = 62 }, --duck
             delay = 0.28
+        },
+        dashAttack = {
+            { q = q(2,560,69,63), ox = 53, oy = 62 }, --dash attack 1
+            { q = q(73,559,64,64), ox = 41, oy = 63 }, --dash attack 2
+            { q = q(139,560,63,63), ox = 37, oy = 62, func = dashAttack1, delay = 0.05 }, --dash attack 3
+            { q = q(204,560,67,63), ox = 27, oy = 62, func = dashAttack2 }, --dash attack 4
+            { q = q(2,625,83,63), ox = 33, oy = 62, func = dashAttack3 }, --dash attack 5
+            { q = q(87,625,80,63), ox = 31, oy = 62, func = dashAttack3 }, --dash attack 6
+            { q = q(169,625,80,63), ox = 30, oy = 62, func = dashAttack2 }, --dash attack 7
+            { q = q(2,692,62,63), ox = 27, oy = 62, func = dashAttack1, delay = 0.05 }, --dash attack 8
+            { q = q(66,691,62,64), ox = 40, oy = 63, delay = 0.05 }, --dash attack 9
+            { q = q(130,692,64,63), ox = 46, oy = 62, delay = 0.05 }, --dash attack 10
+            { q = q(2,560,69,63), ox = 53, oy = 62 }, --dash attack 1
+            { q = q(73,559,64,64), ox = 41, oy = 63 }, --dash attack 2
+            { q = q(196,690,59,65), ox = 32, oy = 64, delay = 0.05 }, --dash attack 11
+            delay = 0.06
         },
         defensiveSpecial = {
             { q = q(2,421,57,67), ox = 27, oy = 66, func = makeMeHittable }, --defensive special transition 1
