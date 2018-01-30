@@ -68,11 +68,11 @@ return {
         },
         standHold = {
             { q = q(2,352,64,66), ox = 31, oy = 65, delay = 0.1 }, --stand hold 1
-            { q = q(68,354,52,64), ox = 28, oy = 63 }, --stand hold 2
-            { q = q(122,354,52,64), ox = 28, oy = 63 }, --stand hold 3
-            { q = q(68,354,52,64), ox = 28, oy = 63 }, --stand hold 2
-            { q = q(122,354,52,64), ox = 28, oy = 63, delay = 0.1  }, --stand hold 3
-            { q = q(176,354,52,64), ox = 28, oy = 63, delay = 0.16 }, --stand hold 4
+            { q = q(68,354,53,64), ox = 28, oy = 63 }, --stand hold 2
+            { q = q(123,354,53,64), ox = 28, oy = 63 }, --stand hold 3
+            { q = q(68,354,53,64), ox = 28, oy = 63 }, --stand hold 2
+            { q = q(123,354,53,64), ox = 28, oy = 63, delay = 0.1  }, --stand hold 3
+            { q = q(178,354,53,64), ox = 28, oy = 63, delay = 0.16 }, --stand hold 4
             loop = true,
             loopFrom = 2,
             delay = 0.06
