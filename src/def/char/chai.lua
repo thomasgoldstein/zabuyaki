@@ -126,12 +126,8 @@ local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
     { x = 25, y = 25, width = 35, height = 50, damage = 8, type = "knockDown" },
     cont
 ) end
-local dashHoldAttackH = function(slf, cont) slf:checkAndAttack(
+local dashHoldAttack = function(slf, cont) slf:checkAndAttack(
     { x = 25, y = 18, width = 39, height = 45, damage = 15, type = "knockDown" },
-    cont
-) end
-local dashHoldAttackV = function(slf, cont) slf:checkAndAttack(
-    { x = 21, y = 18, width = 25, height = 45, damage = 11, type = "knockDown" },
     cont
 ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
@@ -300,34 +296,18 @@ return {
             { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
             { q = q(166,1527,48,63), ox = 20, oy = 63 }, --dash hold
         },
-        dashHoldAttackH = {
+        dashHoldAttack = {
             { q = q(2,1334,39,60), ox = 29, oy = 59 }, --defensive special 1
             { q = q(43,1337,41,57), ox = 31, oy = 56 }, --defensive special 2
             { q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
             { q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2
-            { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 3a
-            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 3b
-            { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.06 }, --dash hold attack 3c
-            { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = dashHoldAttackH, delay = 0.02 }, --dash hold attack 3d
+            { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3a
+            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3b
+            { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3c
+            { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.02 }, --dash hold attack 3d
             { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
             delay = 0.03
-        },
-        dashHoldAttackUp = {
-            { q = q(169,1329,39,62), ox = 23, oy = 65 }, --defensive special 5
-            { q = q(2,1396,45,61), ox = 24, oy = 65 }, --defensive special 6
-            { q = q(49,1396,58,63), ox = 23, oy = 67, funcCont = dashHoldAttackV, delay = 0.1 }, --defensive special 7
-            { q = q(109,1396,54,62), ox = 26, oy = 67 }, --defensive special 8
-            { q = q(165,1396,46,60), ox = 27, oy = 66 }, --defensive special 9
-            delay = 0.02
-        },
-        dashHoldAttackDown = {
-            { q = q(44,1461,43,60), ox = 24, oy = 67, flipH = -1 }, --defensive special 11
-            { q = q(89,1461,46,60), ox = 29, oy = 67, flipH = -1 }, --defensive special 12
-            { q = q(137,1461,56,59), ox = 35, oy = 65, funcCont = dashHoldAttackV, delay = 0.1, flipH = -1 }, --defensive special 13
-            { q = q(195,1461,44,61), ox = 23, oy = 65, flipH = -1 }, --defensive special 14
-            { q = q(2,1526,40,64), ox = 22, oy = 65, flipH = -1 }, --defensive special 15
-            delay = 0.02
         },
         defensiveSpecial = {
             { q = q(2,1334,39,60), ox = 29, oy = 59 }, --defensive special 1

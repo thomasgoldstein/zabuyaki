@@ -1641,16 +1641,10 @@ function Character:holdAttackStart()
     self.isHittable = true
     self.isDashHoldAttack = false
     if self.z > 0 then
+        -- TODO: dash hold attacks should be disabled during side steps (D494).
+        -- Adding a 'if self.speed_y == 0 then' condition is not enough as the side step is canceled early by the release of the attack button.
         self.isDashHoldAttack = true
-        if self.speed_y > 0 then
-            if self.vertical > 0 then
-                self:setSpriteIfExists("dashHoldAttackDown", "holdAttack")
-            else
-                self:setSpriteIfExists("dashHoldAttackUp", "holdAttack")
-            end
-        else
-            self:setSpriteIfExists("dashHoldAttackH", "holdAttack")
-        end
+        self:setSpriteIfExists("dashHoldAttack", "holdAttack")
         sfx.play("voice"..self.id, self.sfx.dashAttack)
     else
         self:setSprite("holdAttack")

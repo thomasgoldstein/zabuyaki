@@ -172,15 +172,9 @@ end
 local dashAttackResetSpeed = function(slf, cont)
     slf.speed_x = slf.dashSpeed
 end
-local dashHoldAttackH = function(slf, cont)
+local dashHoldAttack = function(slf, cont)
     slf:checkAndAttack(
         { x = 27, y = 21, width = 39, damage = 15, type = "knockDown" },
-        cont
-    )
-end
-local dashHoldAttackV = function(slf, cont)
-    slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 11, type = "knockDown" },
         cont
     )
 end
@@ -319,32 +313,14 @@ return {
             { q = q(2,269,42,59), ox = 21, oy = 58, delay = 0.06 }, --duck
             { q = q(164,1439,52,63), ox = 18, oy = 62 }, --dash hold
         },
-        dashHoldAttackH = {
+        dashHoldAttack = {
             { q = q(176,650,51,62), ox = 31, oy = 62, delay = 0.06 }, --combo 4.6
             { q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.06 }, --dash hold attack 1
-            { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = dashHoldAttackH, delay = 0.15 }, --dash hold attack 2
+            { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = dashHoldAttack, delay = 0.15 }, --dash hold attack 2
             { q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
             { q = q(137,1954,45,64), ox = 16, oy = 64 }, --dash hold attack 4
             { q = q(184,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
             delay = 0.05
-        },
-        dashHoldAttackUp = {
-            { q = q(176,650,51,62), ox = 31, oy = 62, delay = 0.03 }, --combo 4.6
-            { q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.03 }, --dash hold attack 1
-            { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = dashHoldAttackV, delay = 0.1 }, --dash hold attack 2
-            { q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
-            { q = q(137,1954,45,64), ox = 16, oy = 64 }, --dash hold attack 4
-            { q = q(184,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
-            delay = 0.02
-        },
-        dashHoldAttackDown = {
-            { q = q(176,650,51,62), ox = 31, oy = 62, delay = 0.03 }, --combo 4.6
-            { q = q(2,2021,51,61), ox = 29, oy = 63, delay = 0.03 }, --dash hold attack 1
-            { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = dashHoldAttackV, delay = 0.1 }, --dash hold attack 2
-            { q = q(129,2020,58,65), ox = 23, oy = 64 }, --dash hold attack 3
-            { q = q(137,1954,45,64), ox = 16, oy = 64 }, --dash hold attack 4
-            { q = q(184,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
-            delay = 0.02
         },
         defensiveSpecial = {
             { q = q(2,1504,45,62), ox = 22, oy = 61 }, --defensive special 1
