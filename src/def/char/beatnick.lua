@@ -12,7 +12,7 @@ local comboAttack1 = function(slf, cont)
 end
 local comboAttack2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 34, y = 27, width = 26, damage = 22, type = "knockDown", sfx = "air" },
+        { x = 34, y = 27, width = 38, damage = 22, type = "knockDown", sfx = "air" },
         cont
     )
 end
@@ -161,9 +161,9 @@ return {
             delay = 0.06
         },
         combo3 = {
-            { q = q(66,284,51,66), ox = 17, oy = 66 }, --kick 1
-            { q = q(119,285,71,65), ox = 23, oy = 65, func = comboAttack2, delay = 0.13 }, --kick 2
-            { q = q(192,285,60,65), ox = 20, oy = 65, delay = 0.1 }, --kick 3
+            { q = q(196,690,59,65), ox = 32, oy = 64 }, --dash attack 11
+            { q = q(2,560,69,63), ox = 53, oy = 62, func = comboAttack2, delay = 0.13, flipH = -1 }, --dash attack 1
+            { q = q(73,559,64,64), ox = 41, oy = 63, delay = 0.1, flipH = -1 }, --dash attack 2
             delay = 0.06
         },
         fall = {
