@@ -31,7 +31,7 @@ function Satoff:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = true, jumpAttackStraight = true,
-        grab = true, grabSwap = false, frontGrabAttack = true,
+        grab = true, grabSwap = false, frontGrabAttack = true, holdAttack = false, dashHold = false,
         frontGrabAttackUp = false, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = false,
         dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
         --technically present for all
