@@ -166,6 +166,12 @@ return {
             { q = q(73,559,64,64), ox = 41, oy = 63, delay = 0.1, flipH = -1 }, --dash attack 2
             delay = 0.06
         },
+        holdAttack = {
+            { q = q(196,690,59,65), ox = 32, oy = 64 }, --dash attack 11
+            { q = q(2,560,69,63), ox = 53, oy = 62, func = comboAttack2, delay = 0.13, flipH = -1 }, --dash attack 1
+            { q = q(73,559,64,64), ox = 41, oy = 63, delay = 0.1, flipH = -1 }, --dash attack 2
+            delay = 0.06
+        },
         fall = {
             { q = q(2,209,74,73), ox = 40, oy = 72 }, --falling
             delay = 5
