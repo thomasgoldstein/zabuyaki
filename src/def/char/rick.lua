@@ -400,7 +400,7 @@ return {
         },
         combo4 = {
             { q = q(113,584,43,62), ox = 16, oy = 62 }, --combo 4.1
-            { q = q(158,584,36,62), ox = 14, oy = 62, delay = 0.06 }, --combo 4.2
+            { q = q(158,584,36,62), ox = 14, oy = 62, delay = 0.05 }, --combo 4.2
             { q = q(2,650,65,61), ox = 11, oy = 61, func = comboAttack4, delay = 0.15 }, --combo 4.3
             { q = q(158,584,36,62), ox = 14, oy = 62, delay = 0.11 }, --combo 4.2
             delay = 0.03
