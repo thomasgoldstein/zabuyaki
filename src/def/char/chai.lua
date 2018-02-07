@@ -57,7 +57,7 @@ local comboAttack1 = function(slf, cont)
 end
 local comboAttack1Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 21, width = 26, damage = 6, sfx = "air" },
+        { x = 28, y = 21, width = 26, damage = 6 },
         cont
     )
 end
@@ -374,7 +374,7 @@ return {
         },
         combo1Forward = {
             { q = q(135,2,51,64), ox = 24, oy = 63, func = comboSlide1 }, --combo forward 1.1
-            { q = q(2,521,65,64), ox = 24, oy = 63, func = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
+            { q = q(2,521,65,64), ox = 24, oy = 63, func = comboAttackSfx, funcCont = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
             { q = q(69,521,57,64), ox = 24, oy = 63, delay = 0.03 }, --combo forward 1.3
             delay = 0.05
         },
