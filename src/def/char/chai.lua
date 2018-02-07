@@ -79,9 +79,6 @@ local comboAttack4 = function(slf, cont)
         cont
     )
 end
-local comboAttack4ForwardSfx = function(slf, cont)
-    sfx.play("sfx"..slf.id, "air")
-end
 local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
         { x = 25, y = 18, width = 39, damage = 14, type = "knockDown", repel = slf.fallSpeed_x },
@@ -93,6 +90,9 @@ local comboAttack4NoSfx = function(slf, cont)
         { x = 28, y = 37, width = 30, damage = 14, type = "knockDown", repel = slf.fallSpeed_x },
         cont
     )
+end
+local comboAttackSfx = function(slf, cont)
+    sfx.play("sfx"..slf.id, "air")
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
     { x = 8, y = 20, width = 22, damage = 17, type = "knockDown", repel = slf.dashFallSpeed },
@@ -407,7 +407,7 @@ return {
             { q = q(43,1337,41,57), ox = 31, oy = 56, func = comboSlide4 }, --defensive special 2
             { q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
             { q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2
-            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, func = comboAttack4ForwardSfx, delay = 0.06 }, --dash hold attack 3b
+            { q = q(74,1592,70,65), ox = 23, oy = 64, func = comboAttackSfx, funcCont = comboAttack4Forward, delay = 0.06 }, --dash hold attack 3b
             { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --dash hold attack 3c
             { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.05 }, --dash hold attack 3d
             { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
