@@ -45,6 +45,12 @@ end
 local comboSlide1 = function(slf)
     slf:initSlide(slf.comboSlideSpeed1_x, slf.comboSlideDiagonalSpeed1_x, slf.comboSlideDiagonalSpeed1_y)
 end
+local comboSlide2 = function(slf)
+    slf:initSlide(slf.comboSlideSpeed2_x, slf.comboSlideDiagonalSpeed2_x, slf.comboSlideDiagonalSpeed2_y)
+end
+local comboSlide3 = function(slf)
+    slf:initSlide(slf.comboSlideSpeed3_x, slf.comboSlideDiagonalSpeed3_x, slf.comboSlideDiagonalSpeed3_y)
+end
 local comboSlide4 = function(slf)
     slf:initSlide(slf.comboSlideSpeed4_x, slf.comboSlideDiagonalSpeed4_x, slf.comboSlideDiagonalSpeed4_y)
 end
@@ -67,9 +73,21 @@ local comboAttack2 = function(slf, cont)
         cont
     )
 end
+local comboAttack2Forward = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 22, y = 11, width = 31, damage = 10, repel = slf.comboSlideRepel2 },
+        cont
+    )
+end
 local comboAttack3 = function(slf, cont)
     slf:checkAndAttack(
         { x = 32, y = 40, width = 38, damage = 12, sfx = "air" },
+        cont
+    )
+end
+local comboAttack3Forward = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 22, y = 11, width = 31, damage = 12, repel = slf.comboSlideRepel3 },
         cont
     )
 end
@@ -384,6 +402,15 @@ return {
             { q = q(128,521,41,64), ox = 19, oy = 64, delay = 0.06 }, --combo 2.1
             delay = 0.015
         },
+        combo2Forward = {
+            { q = q(2,1858,43,65), ox = 21, oy = 64, func = comboSlide2 }, --combo forward 2.1
+            { q = q(47,1858,41,65), ox = 15, oy = 64, delay = 0.03 }, --combo forward 2.2
+            { q = q(90,1861,54,62), ox = 14, oy = 61, func = comboAttackSfx, funcCont = comboAttack2Forward }, --combo forward 2.3a
+            { q = q(146,1861,55,62), ox = 14, oy = 61 }, --combo forward 2.3b (FIXME: the attack from 2.3a should be span to this frame)
+            { q = q(2,1928,54,62), ox = 14, oy = 61 }, --combo forward 2.3c (FIXME: the attack from 2.3a should be span to this frame)
+            { q = q(58,1926,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
+            delay = 0.04
+        },
         combo3 = {
             { q = q(128,521,41,64), ox = 19, oy = 64 }, --combo 2.1
             { q = q(2,588,42,64), ox = 18, oy = 64 }, --combo 3.1
@@ -391,6 +418,15 @@ return {
             { q = q(2,588,42,64), ox = 18, oy = 64, delay = 0.04 }, --combo 3.1
             { q = q(128,521,41,64), ox = 19, oy = 64, delay = 0.04 }, --combo 2.1
             delay = 0.015
+        },
+        combo3Forward = {
+            { q = q(2,1858,43,65), ox = 21, oy = 64, func = comboSlide3 }, --combo forward 2.1
+            { q = q(47,1858,41,65), ox = 15, oy = 64, delay = 0.03 }, --combo forward 2.2
+            { q = q(90,1861,54,62), ox = 14, oy = 61, func = comboAttackSfx, funcCont = comboAttack3Forward }, --combo forward 2.3a
+            { q = q(146,1861,55,62), ox = 14, oy = 61 }, --combo forward 2.3b (FIXME: the attack from 2.3a should be span to this frame)
+            { q = q(2,1928,54,62), ox = 14, oy = 61 }, --combo forward 2.3c (FIXME: the attack from 2.3a should be span to this frame)
+            { q = q(58,1926,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
+            delay = 0.04
         },
         combo4 = {
             { q = q(117,587,48,65), ox = 13, oy = 64, delay = 0.03 }, --combo 4.1

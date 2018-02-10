@@ -35,6 +35,16 @@ function Chai:initAttributes()
     self.comboSlideDiagonalSpeed1_x = 30 --diagonal horizontal speed of combo1Forward attacks
     self.comboSlideDiagonalSpeed1_y = 15 --diagonal vertical speed of combo1Forward attacks
 
+    self.comboSlideSpeed2_x = 80 --horizontal speed of combo2Forward attacks
+    self.comboSlideDiagonalSpeed2_x = 70 --diagonal horizontal speed of combo2Forward attacks
+    self.comboSlideDiagonalSpeed2_y = 10 --diagonal vertical speed of combo2Forward attacks
+    self.comboSlideRepel2 = 310 --how much combo2Forward pushes units back
+
+    self.comboSlideSpeed3_x = 100 --horizontal speed of combo3Forward attacks
+    self.comboSlideDiagonalSpeed3_x = 90 --diagonal horizontal speed of combo3Forward attacks
+    self.comboSlideDiagonalSpeed3_y = 10 --diagonal vertical speed of combo3Forward attacks
+    self.comboSlideRepel3 = 360 --how much combo3Forward pushes units back
+
     self.comboSlideSpeed4_x = 150 --horizontal speed of combo4Forward attacks
     self.comboSlideDiagonalSpeed4_x = 120 --diagonal horizontal speed of combo4Forward attacks
     self.comboSlideDiagonalSpeed4_y = 45 --diagonal vertical speed of combo4Forward attacks
