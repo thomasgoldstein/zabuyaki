@@ -75,7 +75,7 @@ local comboAttack2 = function(slf, cont)
 end
 local comboAttack2Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 22, y = 11, width = 31, damage = 10, repel = slf.comboSlideRepel2 },
+        { x = 22, y = 22, width = 31, damage = 10, repel = slf.comboSlideRepel2 },
         cont
     )
 end
@@ -87,7 +87,7 @@ local comboAttack3 = function(slf, cont)
 end
 local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 22, y = 11, width = 31, damage = 12, repel = slf.comboSlideRepel3 },
+        { x = 22, y = 22, width = 31, damage = 12, repel = slf.comboSlideRepel3 },
         cont
     )
 end
