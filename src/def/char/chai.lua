@@ -420,13 +420,14 @@ return {
             delay = 0.015
         },
         combo3Forward = {
-            { q = q(2,1858,43,65), ox = 21, oy = 64, func = comboSlide3 }, --combo forward 2.1
-            { q = q(47,1858,41,65), ox = 15, oy = 64, delay = 0.03 }, --combo forward 2.2
-            { q = q(90,1861,54,62), ox = 14, oy = 61, func = comboAttackSfx, funcCont = comboAttack3Forward }, --combo forward 2.3a
-            { q = q(146,1861,55,62), ox = 14, oy = 61 }, --combo forward 2.3b (FIXME: the attack from 2.3a should be span to this frame)
-            { q = q(2,1928,54,62), ox = 14, oy = 61 }, --combo forward 2.3c (FIXME: the attack from 2.3a should be span to this frame)
-            { q = q(58,1926,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
-            delay = 0.04
+            { q = q(100,1925,38,65), ox = 17, oy = 64, func = comboSlide3 }, --combo forward 3.1
+            { q = q(140,1925,43,65), ox = 16, oy = 64, delay = 0.03 }, --combo forward 3.2
+            { q = q(185,1926,55,64), ox = 14, oy = 63, func = comboAttackSfx, funcCont = comboAttack3Forward }, --combo forward 3.3a
+            { q = q(2,1993,54,64), ox = 14, oy = 63 }, --combo forward 3.3b (FIXME: the attack from 3.3a should be span to this frame)
+            { q = q(58,1993,52,64), ox = 14, oy = 63 }, --combo forward 3.3c (FIXME: the attack from 3.3a should be span to this frame)
+            { q = q(112,1993,49,64), ox = 14, oy = 63 }, --combo forward 3.3d (FIXME: the attack from 3.3a should be span to this frame)
+            { q = q(163,1992,38,65), ox = 21, oy = 64 }, --combo forward 3.4
+            delay = 0.05
         },
         combo4 = {
             { q = q(117,587,48,65), ox = 13, oy = 64, delay = 0.03 }, --combo 4.1
