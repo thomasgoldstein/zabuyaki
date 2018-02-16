@@ -1725,6 +1725,8 @@ Character.dashHold = {name = "dashHold", start = Character.dashHoldStart, exit =
 
 function Character:defensiveSpecialStart()
     self.isHittable = false
+    self.speed_x = 0
+    self.speed_y = 0
     self:setSprite("defensiveSpecial")
     sfx.play("voice"..self.id, self.sfx.dashAttack)
 end

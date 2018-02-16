@@ -142,6 +142,8 @@ Chai.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Chai.frontGrab
 function Chai:defensiveSpecialStart()
     self.isHittable = false
     self.z = 0
+    self.speed_x = 0
+    self.speed_y = 0
     self.jumpType = 0
     self:setSprite("defensiveSpecial")
     sfx.play("voice"..self.id, self.sfx.dashAttack)
