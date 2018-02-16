@@ -157,11 +157,12 @@ function Player:updateAI(dt)
             if not self.statesForSpecialToleranceDelay[self.state]
                 or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
             then
-                if self.moves.offensiveSpecial and self.b.horizontal:getValue() ~= 0
+                local hv = self.b.horizontal:getValue()
+                if self.moves.offensiveSpecial and hv ~= 0
                     and self.statesForOffensiveSpecial[self.state]
                 then
                     self:releaseGrabbed()
-                    self.face = self.b.horizontal:getValue()
+                    self.face = hv
                     self:setState(self.offensiveSpecial)
                     return
                 end

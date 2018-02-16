@@ -458,10 +458,10 @@ function Character:standUpdate(dt)
         self:setState(self.duck2jump)
         return
     end
-    local horizontalControl = self.b.horizontal:getValue()
+    local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
     if self:canMove() then
         --can move
-        if horizontalControl ~= 0 then
+        if hv ~= 0 then
             if self.moves.run and self.b.horizontal.isDoubleTap
                 and self.lastState == "walk"
             then
@@ -475,7 +475,7 @@ function Character:standUpdate(dt)
             end
             return
         end
-        if self.b.vertical:getValue() ~= 0 then
+        if vv ~= 0 then
             if self.moves.sideStep and self.b.vertical.isDoubleTap and self.lastState == "walk" then
                 self.vertical = self.b.vertical.doubleTap.lastDirection
                 _, self.speed_y = self:getMovementSpeed()
@@ -487,9 +487,9 @@ function Character:standUpdate(dt)
         end
     else
         --you can flip while you cannot move
-        if horizontalControl ~= 0 then
-            self.face = horizontalControl
-            self.horizontal = horizontalControl
+        if hv ~= 0 then
+            self.face = hv
+            self.horizontal = hv
         end
     end
     self:calcMovement(dt, true)
@@ -521,13 +521,14 @@ function Character:walkUpdate(dt)
         return
     end
     self.speed_x, self.speed_y = 0, 0
-    if self.b.horizontal:getValue() ~= 0 then
-        self.face = self.b.horizontal:getValue()
-        self.horizontal = self.face --X direction
+    local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
+    if hv ~= 0 then
+        self.face = hv
+        self.horizontal = hv --X direction
         self.speed_x, _ = self:getMovementSpeed()
     end
-    if self.b.vertical:getValue() ~= 0 then
-        self.vertical = self.b.vertical:getValue()
+    if vv ~= 0 then
+        self.vertical = vv
         _, self.speed_y = self:getMovementSpeed()
     end
     if self.b.attack:isDown() then
@@ -589,19 +590,17 @@ function Character:runUpdate(dt)
             and self.nextAnlmationDelay <= 0 then
         self:setSprite("run")
     end
-    if self.b.horizontal:getValue() ~= 0 then
-        self.face = self.b.horizontal:getValue() --face sprite left or right
-        self.horizontal = self.face --X direction
+    local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
+    if hv ~= 0 then
+        self.face = hv --face sprite left or right
+        self.horizontal = hv --X direction
         self.speed_x = self.runSpeed_x
     end
-    if self.b.vertical:getValue() ~= 0 then
-        self.vertical = self.b.vertical:getValue()
+    if vv ~= 0 then
+        self.vertical = vv
         self.speed_y = self.runSpeed_y
     end
-    if (self.speed_x == 0 and self.speed_y == 0)
-        or (self.b.horizontal:getValue() == 0)
-        or (self.b.horizontal:getValue() == -self.horizontal)
-    then
+    if (self.speed_x == 0 and self.speed_y == 0) or hv ~= self.face then
         self:setState(self.stand)
         return
     end
@@ -738,14 +737,14 @@ function Character:duck2jumpUpdate(dt)
     end
     if not self.condition then
         --duck2jump can change direction of the jump
-        local hv = self.b.horizontal:getValue()
+        local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
         if hv ~= 0 then
-            --self.face = hv --face sprite left or right
+            --do not face sprite left or right. Only the direction
             self.horizontal = hv
             self.speed_x = self.walkSpeed_x
         end
-        if self.b.vertical:getValue() ~= 0 then
-            self.vertical = self.b.vertical:getValue()
+        if vv ~= 0 then
+            self.vertical = vv
             self.speed_y = self.walkSpeed_y
         end
     end
@@ -1254,7 +1253,7 @@ function Character:grabUpdate(dt)
     local g = self.hold
     if g and g.target then
         --controlled release
-        if ( self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() ) then
+        if self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() then
             self.grabRelease = self.grabRelease + dt
             if self.grabRelease >= self.grabReleaseAfter then
                 g.target.isGrabbed = false
@@ -1285,27 +1284,28 @@ function Character:grabUpdate(dt)
         if self.b.attack:pressed() then
             g.target:removeTweenMove()
             self:removeTweenMove()
+            local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
             if self.face ~= g.target.face or g.target.type == "obstacle" then
                 -- front grab or obstacles
-                if self.moves.frontGrabAttackForward and self.b.horizontal:getValue() == self.face then
+                if self.moves.frontGrabAttackForward and hv == self.face then
                     self:setState(self.frontGrabAttackForward)
-                elseif self.moves.frontGrabAttackBack and self.b.horizontal:getValue() == -self.face then
+                elseif self.moves.frontGrabAttackBack and hv == -self.face then
                     self:setState(self.frontGrabAttackBack)
-                elseif self.moves.frontGrabAttackUp and self.b.vertical:isDown(-1) then
+                elseif self.moves.frontGrabAttackUp and vv == -1 then
                     self:setState(self.frontGrabAttackUp)
-                elseif self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then
+                elseif self.moves.frontGrabAttackDown and vv == 1 then
                     self:setState(self.frontGrabAttackDown)
                 elseif self.moves.frontGrabAttack then
                     self:setState(self.frontGrabAttack)
                 end
             else -- back grab of characters only
-                if self.moves.backGrabAttackForward and self.b.horizontal:getValue() == self.face then
+                if self.moves.backGrabAttackForward and hv == self.face then
                     self:setState(self.backGrabAttackForward)
-                elseif self.moves.backGrabAttackBack and self.b.horizontal:getValue() == -self.face then
+                elseif self.moves.backGrabAttackBack and hv == -self.face then
                     self:setState(self.backGrabAttackBack)
-                elseif self.moves.backGrabAttackUp and self.b.vertical:isDown(-1) then
+                elseif self.moves.backGrabAttackUp and vv == -1 then
                     self:setState(self.backGrabAttackUp)
-                elseif self.moves.backGrabAttackDown and self.b.vertical:isDown(1) then
+                elseif self.moves.backGrabAttackDown and vv == 1 then
                     self:setState(self.backGrabAttackDown)
                 elseif self.moves.backGrabAttack then
                     self:setState(self.backGrabAttack)
