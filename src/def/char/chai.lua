@@ -145,7 +145,11 @@ local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local dashHoldAttack = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 18, width = 39, height = 45, damage = 15, type = "knockDown" },
+    { x = 25, y = 18, width = 39, height = 45, damage = 11 },
+    cont
+) end
+local dashHoldAttack2 = function(slf, cont) slf:checkAndAttack(
+    { x = 25, y = 18, width = 39, height = 45, damage = 8, type = "knockDown" },
     cont
 ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
@@ -320,11 +324,19 @@ return {
             { q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
             { q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2
             { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3a
-            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3b
-            { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3c
-            { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.02 }, --dash hold attack 3d
+            { q = q(74,1592,70,65), ox = 23, oy = 64, delay = 0.06 }, --dash hold attack 3b (FIXME: the attack from 3a should be span to this frame)
+            { q = q(146,1592,69,65), ox = 23, oy = 64, delay = 0.06 }, --dash hold attack 3c (FIXME: the attack from 3a should be span to this frame)
+            { q = q(175,199,67,65), ox = 23, oy = 64, delay = 0.02 }, --dash hold attack 3d (FIXME: the attack from 3a should be span to this frame)
             { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
+            delay = 0.03
+        },
+        dashHoldAttack2 = {
+            { q = q(43,722,37,64), ox = 16, oy = 66 }, --jump attack forward 2 (shifted 4px to the left)
+            { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
+            { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1 }, --defensive special 4
+            { q = q(84,403,69,59), ox = 28, oy = 58, funcCont = dashHoldAttack2, delay = 0.22 }, --dash hold attack 4
+            { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1, delay = 5 }, --defensive special 4
             delay = 0.03
         },
         defensiveSpecial = {
