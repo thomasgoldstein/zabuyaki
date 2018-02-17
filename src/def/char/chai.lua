@@ -307,7 +307,7 @@ return {
             { q = q(143,858,47,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2c
             { q = q(192,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2d
             { q = q(192,858,45,68), ox = 26, oy = 65, delay = 0.04 }, --dash attack 2d
-            { q = q(154,722,37,65), ox = 22, oy = 64, delay = 5 }, --dash attack 3
+            { q = q(153,722,37,65), ox = 22, oy = 64, delay = 5 }, --dash attack 3
             delay = 0.06
         },
         dashHold = {
@@ -436,7 +436,7 @@ return {
             { q = q(63,659,60,61), ox = 14, oy = 60, func = comboAttack4NoSfx }, --combo 4.4
             { q = q(125,659,59,61), ox = 14, oy = 60, func = comboAttack4NoSfx }, --combo 4.5
             { q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.09 }, --combo 4.6
-            { q = q(193,725,49,62), ox = 14, oy = 61 }, --combo 4.7
+            { q = q(192,725,49,62), ox = 14, oy = 61 }, --combo 4.7
             delay = 0.03
         },
         combo4Forward = {
@@ -458,7 +458,7 @@ return {
             { q = q(63,659,60,61), ox = 14, oy = 60, func = comboAttack4NoSfx }, --combo 4.4
             { q = q(125,659,59,61), ox = 14, oy = 60, func = comboAttack4NoSfx }, --combo 4.5
             { q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.09 }, --combo 4.6
-            { q = q(193,725,49,62), ox = 14, oy = 61 }, --combo 4.7
+            { q = q(192,725,49,62), ox = 14, oy = 61 }, --combo 4.7
             delay = 0.03
         },
         fall = {
@@ -496,7 +496,7 @@ return {
         jumpAttackForward = {
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
             { q = q(43,722,37,64), ox = 12, oy = 66 }, --jump attack forward 2
-            { q = q(82,722,70,64), ox = 25, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 3
+            { q = q(82,722,69,64), ox = 24, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 3
             delay = 0.03
         },
         jumpAttackForwardEnd = {
@@ -566,7 +566,7 @@ return {
         frontGrabAttackDown = {
             { q = q(117,587,48,65), ox = 13, oy = 64, delay = 0.15 }, --combo 4.1
             { q = q(167,587,50,65), ox = 14, oy = 64 }, --combo 4.2
-            { q = q(193,725,49,62), ox = 14, oy = 61, func = frontGrabAttackDown }, --combo 4.7
+            { q = q(192,725,49,62), ox = 14, oy = 61, func = frontGrabAttackDown }, --combo 4.7
             { q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.35 }, --combo 4.6
             delay = 0.05
         },
