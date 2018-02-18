@@ -144,6 +144,12 @@ local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
     { x = 25, y = 25, width = 35, height = 50, damage = 8, type = "knockDown" },
     cont
 ) end
+local dashHoldAttackCheck = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 25, y = 18, width = 39, height = 45, type = "check" },
+        cont
+    )
+end
 local dashHoldAttack = function(slf, cont) slf:checkAndAttack(
     { x = 25, y = 18, width = 39, height = 45, damage = 11 },
     cont
@@ -201,7 +207,7 @@ local offensiveSpecialHop = function(slf, cont)
     slf.horizontal = -slf.face
     slf.speed_z = slf.jumpSpeed_z
 end
-local checkCollisionWithEnemy = function(slf, cont)
+local offensiveSpecialCheck = function(slf, cont)
     slf:checkAndAttack(
         { x = 30, y = 18, width = 25, height = 45, type = "check" },
         cont
@@ -323,15 +329,19 @@ return {
             { q = q(43,1337,41,57), ox = 31, oy = 56 }, --defensive special 2
             { q = q(186,137,39,60), ox = 22, oy = 59 }, --dash hold attack 1
             { q = q(141,134,43,64), ox = 20, oy = 63 }, --dash hold attack 2
-            { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3a
-            { q = q(74,1592,70,65), ox = 23, oy = 64, delay = 0.06 }, --dash hold attack 3b (FIXME: the attack from 3a should be span to this frame)
-            { q = q(146,1592,69,65), ox = 23, oy = 64, delay = 0.06 }, --dash hold attack 3c (FIXME: the attack from 3a should be span to this frame)
-            { q = q(175,199,67,65), ox = 23, oy = 64, delay = 0.02 }, --dash hold attack 3d (FIXME: the attack from 3a should be span to this frame)
+            { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackCheck, delay = 0.06 }, --dash hold attack 3a
+            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttackCheck, delay = 0.06 }, --dash hold attack 3b
+            { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = dashHoldAttackCheck, delay = 0.06 }, --dash hold attack 3c
+            { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = dashHoldAttackCheck, delay = 0.02 }, --dash hold attack 3d
             { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
             delay = 0.03
         },
         dashHoldAttack2 = {
+            { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3a
+            { q = q(74,1592,70,65), ox = 23, oy = 64, delay = 0.06 }, --dash hold attack 3b (FIXME: the attack from 3a should be span to this frame)
+            { q = q(146,1592,69,65), ox = 23, oy = 64, delay = 0.06 }, --dash hold attack 3c (FIXME: the attack from 3a should be span to this frame)
+            { q = q(175,199,67,65), ox = 23, oy = 64, delay = 0.02 }, --dash hold attack 3d (FIXME: the attack from 3a should be span to this frame)
             { q = q(43,722,37,64), ox = 16, oy = 66 }, --jump attack forward 2 (shifted 4px to the left)
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
             { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1 }, --defensive special 4
@@ -366,9 +376,9 @@ return {
             { q = q(84,266,42,65), ox = 24, oy = 66 }, --jump up/top
             { q = q(128,266,44,62), ox = 23, oy = 65 }, --jump top
             { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1 }, --defensive special 4
-            { q = q(2,1791,77,65), ox = 26, oy = 65, func = checkCollisionWithEnemy }, --offensive special 1a
-            { q = q(81,1791,75,63), ox = 26, oy = 65, func = checkCollisionWithEnemy }, --offensive special 1b
-            { q = q(158,1791,73,61), ox = 26, oy = 65, func = checkCollisionWithEnemy }, --offensive special 1c
+            { q = q(2,1791,77,65), ox = 26, oy = 65, func = offensiveSpecialCheck }, --offensive special 1a
+            { q = q(81,1791,75,63), ox = 26, oy = 65, func = offensiveSpecialCheck }, --offensive special 1b
+            { q = q(158,1791,73,61), ox = 26, oy = 65, func = offensiveSpecialCheck }, --offensive special 1c
             loop = true,
             loopFrom = 5,
             delay = 0.05
