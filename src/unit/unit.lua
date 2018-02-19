@@ -288,13 +288,6 @@ end
 --OLDfunction Unit:calcMovement(dt, use_friction, friction, doNotMoveUnit)
 function Unit:calcMovement(dt)
     --    if self.z <= 0 and use_friction then
-    if self.z <= 0 and self.toSlowDown then
-        if self.customFriction ~= 0 then
-            self:calcFriction(dt, self.customFriction)
-        else
-            self:calcFriction(dt, self.friction)
-        end
-    end
     if self.toSlowDown then
         --try to move and get x,y vectors to recover from collision
         -- these are not collision x y. should return vectors.
@@ -302,6 +295,13 @@ function Unit:calcMovement(dt)
     else
         --??false
         self.successfullyMoved, self.collision_x, self.collision_y = true, 0, 0
+    end
+    if self.z <= 0 and self.toSlowDown then
+        if self.customFriction ~= 0 then
+            self:calcFriction(dt, self.customFriction)
+        else
+            self:calcFriction(dt)
+        end
     end
     --return self.successfullyMoved, self.collision_x, self.collision_y
 end
