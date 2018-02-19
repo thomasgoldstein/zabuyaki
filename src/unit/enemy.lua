@@ -115,7 +115,6 @@ function Enemy:introStart()
     self:setSprite("intro")
 end
 function Enemy:introUpdate(dt)
---    self:calcMovement(dt, true, nil)
 end
 Enemy.intro = { name = "intro", start = Enemy.introStart, exit = nop, update = Enemy.introUpdate, draw = Character.defaultDraw }
 
@@ -146,7 +145,6 @@ function Enemy:deadUpdate(dt)
     else
         self.deathDelay = self.deathDelay - dt
     end
-    --self:calcMovement(dt, true)
 end
 Enemy.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = Character.defaultDraw}
 

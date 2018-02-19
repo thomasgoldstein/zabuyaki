@@ -375,7 +375,6 @@ function Player:respawnUpdate(dt)
         self.bounced = 1
     end
     --self.victimInfoBar = nil   -- remove enemy bar under yours
---    self:calcMovement(dt)
 end
 Player.respawn = {name = "respawn", start = Player.respawnStart, exit = nop, update = Player.respawnUpdate, draw = Unit.defaultDraw}
 
@@ -407,7 +406,6 @@ function Player:deadUpdate(dt)
     else
         self.deathDelay = self.deathDelay - dt
     end
---    self:calcMovement(dt)
 end
 Player.dead = {name = "dead", start = Player.deadStart, exit = nop, update = Player.deadUpdate, draw = Unit.defaultDraw}
 

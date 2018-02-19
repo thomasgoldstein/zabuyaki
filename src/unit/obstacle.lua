@@ -162,7 +162,6 @@ function Obstacle:standUpdate(dt)
         self:setState(self.grabbed)
         return
     end
---    self:calcMovement(dt, true, nil)
 end
 Obstacle.stand = {name = "stand", start = Obstacle.standStart, exit = nop, update = Obstacle.standUpdate, draw = Unit.defaultDraw}
 
@@ -184,7 +183,6 @@ function Obstacle:getupUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, true, nil)
 end
 Obstacle.getup = {name = "getup", start = Obstacle.getupStart, exit = nop, update = Obstacle.getupUpdate, draw = Unit.defaultDraw}
 
@@ -197,7 +195,6 @@ function Obstacle:hurtUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, true, nil)
 end
 Obstacle.hurt = {name = "hurt", start = Obstacle.hurtStart, exit = nop, update = Obstacle.hurtUpdate, draw = Unit.defaultDraw}
 

@@ -98,7 +98,6 @@ function Chai:dashAttackUpdate(dt)
         self:setState(self.duck)
         return
     end
---    self:calcMovement(dt, true)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
@@ -118,7 +117,6 @@ function Chai:frontGrabAttackForwardUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, true, nil)
 end
 Chai.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Chai.frontGrabAttackForwardStart, exit = nop, update = Chai.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
@@ -138,7 +136,6 @@ function Chai:frontGrabAttackBackUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, true, nil)
 end
 Chai.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Chai.frontGrabAttackBackStart, exit = nop, update = Chai.frontGrabAttackBackUpdate, draw = Character.defaultDraw}
 
@@ -178,7 +175,6 @@ function Chai:defensiveSpecialUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, true)
 end
 Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecialStart, exit = nop, update = Chai.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
@@ -228,7 +224,6 @@ function Chai:offensiveSpecialUpdate(dt)
         self:setState(self.duck)
         return
     end
---    if not self:calcMovement(dt, false) then
     -- TODO read vectors not the flag successfullyMoved
     if not self.successfullyMoved then
         self.speed_x = 0

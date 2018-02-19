@@ -73,7 +73,6 @@ function Sveta:dashAttackUpdate(dt)
         end
         self:moveEffectAndEmit("dash", 0.2)
     end
---    self:calcMovement(dt, true, self.dashFriction)
 end
 Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttackStart, exit = nop, update = Sveta.dashAttackUpdate, draw = Character.defaultDraw }
 
