@@ -47,27 +47,6 @@ function Player:isInUseCreditMode()
     return true
 end
 
---[[function Player:setState(state, condition)
-    if state then
-        self.prevStateTime = self.lastStateTime
-        self.lastStateTime = love.timer.getTime()
-        self.prevState = self.lastState
-        self.lastState = self.state
-        self.lastFace = self.face
-        self.lastVertical = self.vertical
-        self:exit()
-        self.customFriction = 0
-        self.state = state.name
-        self.draw = state.draw
-        self.update = state.update
-        self.start = state.start
-        self.exit = state.exit
-        self.condition = condition
-        self:start()
-        self:updateSprite(0)
-    end
-end]]
-
 function Player:checkCollisionAndMove(dt)
     local success = true
     local stepx, stepy = 0, 0
