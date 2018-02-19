@@ -639,7 +639,6 @@ function Character:jumpStart()
         self.speed_y = self.speed_y + self.jumpSpeedBoost_y --make jump little faster than the walk/run speed
     end
     sfx.play("voice"..self.id, self.sfx.jump)
-    print("jumpStart", self.speed_x, self.speed_y)
 end
 function Character:jumpUpdate(dt)
     if self.b.attack:pressed() then
@@ -673,7 +672,6 @@ function Character:jumpUpdate(dt)
         self.speed_x = 0
         self.speed_y = 0
     end
-    print("jumpStart UPD", self.speed_x, self.speed_y)
 end
 Character.jump = {name = "jump", start = Character.jumpStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw}
 
