@@ -409,7 +409,6 @@ function Character:slideUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, true)
 end
 Character.slide = {name = "slide", start = Character.slideStart, exit = nop, update = Character.slideUpdate, draw = Character.defaultDraw}
 
@@ -494,7 +493,6 @@ function Character:standUpdate(dt)
             self.horizontal = hv
         end
     end
---    self:calcMovement(dt, true)
 end
 Character.stand = {name = "stand", start = Character.standStart, exit = nop, update = Character.standUpdate, draw = Character.defaultDraw}
 
@@ -577,13 +575,11 @@ function Character:walkUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, false)
 end
 Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update = Character.walkUpdate, draw = Character.defaultDraw}
 
 function Character:runStart()
     self.isHittable = true
-    --self.toSlowDown = true
     self.nextAnlmationDelay = 0.01
 end
 function Character:runUpdate(dt)
@@ -616,7 +612,6 @@ function Character:runUpdate(dt)
         self:setState(self.dashAttack)
         return
     end
---    self:calcMovement(dt, false)
 end
 Character.run = {name = "run", start = Character.runStart, exit = nop, update = Character.runUpdate, draw = Character.defaultDraw}
 
@@ -692,7 +687,6 @@ function Character:pickupUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, true)
 end
 Character.pickup = {name = "pickup", start = Character.pickupStart, exit = nop, update = Character.pickupUpdate, draw = Character.defaultDraw}
 
@@ -716,8 +710,6 @@ function Character:duckUpdate(dt)
         end
         return
     end
-    --it was forced to STAY. no speed decreasing, no movement
---    self:calcMovement(dt, false, nil, true)
 end
 Character.duck = {name = "duck", start = Character.duckStart, exit = nop, update = Character.duckUpdate, draw = Character.defaultDraw}
 
@@ -757,8 +749,6 @@ function Character:duck2jumpUpdate(dt)
             self.speed_y = self.walkSpeed_y
         end
     end
-    --it was forced to STAY. no speed decreasing, no movement
---    self:calcMovement(dt, false, nil, true)
 end
 Character.duck2jump = {name = "duck2jump", start = Character.duck2jumpStart, exit = nop, update = Character.duck2jumpUpdate, draw = Character.defaultDraw}
 
@@ -780,7 +770,6 @@ function Character:hurtUpdate(dt)
         end
         return
     end
---    self:calcMovement(dt, true, nil)
 end
 Character.hurt = {name = "hurt", start = Character.hurtStart, exit = nop, update = Character.hurtUpdate, draw = Character.defaultDraw}
 
@@ -807,7 +796,6 @@ function Character:sideStepUpdate(dt)
         self:setState(self.duck)
         return
     end
---    self:calcMovement(dt, false, nil)
 end
 Character.sideStep = {name = "sideStep", start = Character.sideStepStart, exit = nop, update = Character.sideStepUpdate, draw = Character.defaultDraw}
 
@@ -826,7 +814,6 @@ function Character:dashAttackUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, true, self.dashFriction)
 end
 Character.dashAttack = {name = "dashAttack", start = Character.dashAttackStart, exit = nop, update = Character.dashAttackUpdate, draw = Character.defaultDraw}
 
@@ -854,7 +841,6 @@ function Character:jumpAttackForwardUpdate(dt)
         self:setState(self.duck)
         return
     end
---    if not self:calcMovement(dt, false) then
     if not self.successfullyMoved then
         self.speed_x = 0
         self.speed_y = 0
@@ -879,7 +865,6 @@ function Character:jumpAttackLightUpdate(dt)
         self:setState(self.duck)
         return
     end
-    --    if not self:calcMovement(dt, false) then
     if not self.successfullyMoved then
         self.speed_x = 0
         self.speed_y = 0
@@ -905,7 +890,6 @@ function Character:jumpAttackStraightUpdate(dt)
         self:setState(self.duck)
         return
     end
---    if not self:calcMovement(dt, false) then
     if not self.toSlowDown then
         self.speed_x = 0
         self.speed_y = 0
@@ -931,7 +915,6 @@ function Character:jumpAttackRunUpdate(dt)
         self:setState(self.duck)
         return
     end
-    --    if not self:calcMovement(dt, false) then
     if not self.successfullyMoved then
         self.speed_x = 0
         self.speed_y = 0
@@ -1016,7 +999,6 @@ function Character:fallUpdate(dt)
         )
 
     end
---    if not self:calcMovement(dt, false) then
     if not self.toSlowDown then
         self.speed_x = 0
         self.speed_y = 0
@@ -1054,7 +1036,6 @@ function Character:bounceUpdate(dt)
             return
         end
     end
-    --    if not self:calcMovement(dt, false) then
     if not self.successfullyMoved then
         self.speed_x = 0
         self.speed_y = 0
@@ -1081,7 +1062,6 @@ function Character:getupUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true)
 end
 Character.getup = {name = "getup", start = Character.getupStart, exit = nop, update = Character.getupUpdate, draw = Character.defaultDraw}
 
@@ -1118,15 +1098,13 @@ function Character:deadUpdate(dt)
     else
         self.deathDelay = self.deathDelay - dt
     end
---    self:calcMovement(dt, true)
 end
 Character.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = Character.defaultDraw}
 
 function Character:comboStart()
     self.isHittable = true
-    self.toSlowDown = true
+    self.toSlowDown = false
     self.horizontal = self.face
-    --self.isSliding = false
     self:removeTweenMove()
     if self.comboTimer >= 0 then
         if self.attacksPerAnimation > 0 then
@@ -1161,9 +1139,6 @@ function Character:comboUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, not self.isSliding)
---CUSTOM check
-    --self.toSlowDown = not self.isSliding
 end
 Character.combo = {name = "combo", start = Character.comboStart, exit = nop, update = Character.comboUpdate, draw = Character.defaultDraw}
 
@@ -1346,7 +1321,6 @@ function Character:grabUpdate(dt)
         self:releaseGrabbed()
         self:setState(self.stand)
     end
-    --self:calcMovement(dt, true)
     if self.z > 0 then
         self:calcFreeFall(dt)
         if self.z <= 0 then
@@ -1400,7 +1374,6 @@ function Character:grabbedFrontUpdate(dt)
         self:setState(self.stand)
         return
     end
-    --self:calcMovement(dt, true)
     if self.z > 0 and self.isHittable then -- don't slide down during the throw
         self:calcFreeFall(dt)
         if self.z <= 0 then
@@ -1431,7 +1404,6 @@ function Character:grabbedBackUpdate(dt)
         self:setState(self.stand)
         return
     end
-    --self:calcMovement(dt, true)
     if self.z > 0 and self.isHittable then -- don't slide down during the throw
         self:calcFreeFall(dt)
         if self.z <= 0 then
@@ -1477,7 +1449,6 @@ function Character:frontGrabAttackUpdate(dt)
         end
         return
     end
-    --self:calcMovement(dt, true)
     self:tweenMove(dt)
 end
 Character.frontGrabAttack = {name = "frontGrabAttack", start = Character.frontGrabAttackStart, exit = nop, update = Character.frontGrabAttackUpdate, draw = Character.defaultDraw}
@@ -1503,7 +1474,6 @@ function Character:frontGrabAttackDownUpdate(dt)
             self.z = 0
         end
     end
---    self:calcMovement(dt, true)
 end
 Character.frontGrabAttackDown = {name = "frontGrabAttackDown", start = Character.frontGrabAttackDownStart, exit = nop, update = Character.frontGrabAttackDownUpdate, draw = Character.defaultDraw}
 
@@ -1553,7 +1523,6 @@ function Character:frontGrabAttackUpUpdate(dt)
             self.z = 0
         end
     end
---    self:calcMovement(dt, true)
 end
 Character.frontGrabAttackUp = {name = "frontGrabAttackUp", start = Character.frontGrabAttackUpStart, exit = nop, update = Character.frontGrabAttackUpUpdate, draw = Character.defaultDraw}
 
@@ -1580,7 +1549,6 @@ function Character:frontGrabAttackForwardUpdate(dt)
             self.z = 0
         end
     end
---    self:calcMovement(dt, true, nil)
 end
 Character.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Character.frontGrabAttackForwardStart, exit = nop, update = Character.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
@@ -1609,7 +1577,6 @@ function Character:frontGrabAttackBackUpdate(dt)
             self.z = 0
         end
     end
---    self:calcMovement(dt, true)
 end
 Character.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Character.frontGrabAttackBackStart, exit = nop, update = Character.frontGrabAttackBackUpdate, draw = Character.defaultDraw}
 
@@ -1690,7 +1657,6 @@ function Character:holdAttackUpdate(dt)
         end
         return
     end
---    self:calcMovement(dt, true, nil)
 end
 Character.holdAttack = {name = "holdAttack", start = Character.holdAttackStart, exit = nop, update = Character.holdAttackUpdate, draw = Character.defaultDraw}
 
@@ -1750,13 +1716,11 @@ function Character:dashHoldUpdate(dt)
             return
         end
     end
---    self:calcMovement(dt, true)
 end
 Character.dashHold = {name = "dashHold", start = Character.dashHoldStart, exit = nop, update = Character.dashHoldUpdate, draw = Character.defaultDraw}
 
 function Character:defensiveSpecialStart()
     self.isHittable = false
-    --self.toSlowDown = true
     self.speed_x = 0
     self.speed_y = 0
     self:setSprite("defensiveSpecial")
@@ -1773,13 +1737,11 @@ function Character:defensiveSpecialUpdate(dt)
         self:setState(self.stand)
         return
     end
---    self:calcMovement(dt, true)
 end
 Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecialStart, exit = nop, update = Character.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
 function Character:knockedDownStart()
     self.isHittable = false
-    --self.toSlowDown = true
     self.knockedDownDelay = 1
 end
 function Character:knockedDownUpdate(dt)
@@ -1788,12 +1750,10 @@ function Character:knockedDownUpdate(dt)
         self:setState(self.getup)
         return
     end
---    self:calcMovement(dt, true)
 end
 Character.knockedDown = {name = "knockedDown", start = Character.knockedDownStart, exit = nop, update = Character.knockedDownUpdate, draw = Character.defaultDraw}
 
 function Character:initSlide(speed_x, diagonalSpeed_x, diagonalSpeed_y)
-    --self.isSliding = true
     self.toSlowDown = true
     if self.b.vertical:getValue() ~= 0 then
         self.vertical = self.b.vertical:getValue()
