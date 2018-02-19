@@ -111,10 +111,11 @@ end
 
 function Enemy:introStart()
     self.isHittable = true
+    self.toSlowDown = true
     self:setSprite("intro")
 end
 function Enemy:introUpdate(dt)
-    self:calcMovement(dt, true, nil)
+--    self:calcMovement(dt, true, nil)
 end
 Enemy.intro = { name = "intro", start = Enemy.introStart, exit = nop, update = Enemy.introUpdate, draw = Character.defaultDraw }
 

@@ -65,6 +65,7 @@ end
 
 function Chai:dashAttackStart()
     self.isHittable = true
+    self.toSlowDown = true
     self.horizontal = self.face
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
@@ -97,13 +98,14 @@ function Chai:dashAttackUpdate(dt)
         self:setState(self.duck)
         return
     end
-    self:calcMovement(dt, true)
+--    self:calcMovement(dt, true)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
 function Chai:frontGrabAttackForwardStart()
     local g = self.hold
     local t = g.target
+    self.toSlowDown = true --used in :calcMovement
     self:moveStatesInit()
     self:setSprite("frontGrabAttackForward")
     self.isHittable = not self.sprite.isThrow
@@ -116,7 +118,7 @@ function Chai:frontGrabAttackForwardUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true, nil)
+--    self:calcMovement(dt, true, nil)
 end
 Chai.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Chai.frontGrabAttackForwardStart, exit = nop, update = Chai.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
@@ -127,6 +129,7 @@ function Chai:frontGrabAttackBackStart()
     self:setSprite("frontGrabAttackBack")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
+    self.toSlowDown = true
     dp(self.name.." frontGrabAttackBack someone.")
 end
 function Chai:frontGrabAttackBackUpdate(dt)
@@ -135,12 +138,13 @@ function Chai:frontGrabAttackBackUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true, nil)
+--    self:calcMovement(dt, true, nil)
 end
 Chai.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Chai.frontGrabAttackBackStart, exit = nop, update = Chai.frontGrabAttackBackUpdate, draw = Character.defaultDraw}
 
 function Chai:defensiveSpecialStart()
     self.isHittable = false
+    self.toSlowDown = true
     self.z = 0
     self.speed_x = 0
     self.speed_y = 0
@@ -174,7 +178,7 @@ function Chai:defensiveSpecialUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true)
+--    self:calcMovement(dt, true)
 end
 Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecialStart, exit = nop, update = Chai.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
@@ -224,7 +228,9 @@ function Chai:offensiveSpecialUpdate(dt)
         self:setState(self.duck)
         return
     end
-    if not self:calcMovement(dt, false) then
+--    if not self:calcMovement(dt, false) then
+    -- TODO read vectors not the flag successfullyMoved
+    if not self.successfullyMoved then
         self.speed_x = 0
         self.speed_y = 0
     end

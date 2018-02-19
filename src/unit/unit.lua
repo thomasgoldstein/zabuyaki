@@ -35,6 +35,8 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.gravity = 800 --650 * 2
     self.weight = 1
     self.friction = 1650 -- speed penalty for stand (when you slide on ground)
+    self.customFriction = 0 --used in :calcMovement
+    self.toSlowDown = true --used in :calcMovement
     self.isMovable = false --cannot be moved by attacks / can be grabbed
     self.shape = nil
     self.state = "nop"
@@ -140,6 +142,8 @@ function Unit:setState(state, condition)
         self.lastFace = self.face
         self.lastVertical = self.vertical
         self:exit()
+        self.customFriction = 0
+        self.toSlowDown = true
         self.state = state.name
         self.draw = state.draw
         self.update = state.update
@@ -147,7 +151,7 @@ function Unit:setState(state, condition)
         self.exit = state.exit
         self.condition = condition
         self:start()
-        --self:updateSprite(0)
+        self:updateSprite(0)
     end
 end
 function Unit:getLastStateTime()
@@ -164,6 +168,7 @@ function Unit:updateAI(dt)
         return
     end
     self:updateSprite(dt)
+    self:calcMovement(dt)
 end
 
 -- stop unit from moving by tweening
@@ -274,14 +279,31 @@ function Unit:calcFriction(dt, friction)
     end
 end
 
-function Unit:calcMovement(dt, use_friction, friction, doNotMoveUnit)
-    if self.z <= 0 and use_friction then
-        self:calcFriction(dt, friction)
+--self.customFriction = 0 --used in :calcMovement
+--self.toSlowDown = true --used in :calcMovement
+--if not self:calcMovement(dt, false) then
+--    self.speed_x = 0
+--    self.speed_y = 0
+--end
+--OLDfunction Unit:calcMovement(dt, use_friction, friction, doNotMoveUnit)
+function Unit:calcMovement(dt)
+    --    if self.z <= 0 and use_friction then
+    if self.z <= 0 and self.toSlowDown then
+        if self.customFriction ~= 0 then
+            self:calcFriction(dt, self.customFriction)
+        else
+            self:calcFriction(dt, self.friction)
+        end
     end
-    if not doNotMoveUnit then
-        return self:checkCollisionAndMove(dt)
+    if self.toSlowDown then
+        --try to move and get x,y vectors to recover from collision
+        -- these are not collision x y. should return vectors.
+        self.successfullyMoved, self.collision_x, self.collision_y = self:checkCollisionAndMove(dt)
+    else
+        --??false
+        self.successfullyMoved, self.collision_x, self.collision_y = true, 0, 0
     end
-    return true, 0, 0
+    --return self.successfullyMoved, self.collision_x, self.collision_y
 end
 
 function Unit:calcDamageFrame()

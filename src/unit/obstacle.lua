@@ -153,6 +153,7 @@ end
 
 function Obstacle:standStart()
     self.isHittable = true
+    self.toSlowDown = true
     self.victims = {}
     self:setSprite("stand")
 end
@@ -161,12 +162,13 @@ function Obstacle:standUpdate(dt)
         self:setState(self.grabbed)
         return
     end
-    self:calcMovement(dt, true, nil)
+--    self:calcMovement(dt, true, nil)
 end
 Obstacle.stand = {name = "stand", start = Obstacle.standStart, exit = nop, update = Obstacle.standUpdate, draw = Unit.defaultDraw}
 
 function Obstacle:getupStart()
     self.isHittable = false
+    self.toSlowDown = true
     self.isThrown = false
     dpo(self, self.state)
     if self.z <= 0 then
@@ -182,19 +184,20 @@ function Obstacle:getupUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true, nil)
+--    self:calcMovement(dt, true, nil)
 end
 Obstacle.getup = {name = "getup", start = Obstacle.getupStart, exit = nop, update = Obstacle.getupUpdate, draw = Unit.defaultDraw}
 
 function Obstacle:hurtStart()
     self.isHittable = true
+    self.toSlowDown = true
 end
 function Obstacle:hurtUpdate(dt)
     if self.speed_x <= 0 then
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true, nil)
+--    self:calcMovement(dt, true, nil)
 end
 Obstacle.hurt = {name = "hurt", start = Obstacle.hurtStart, exit = nop, update = Obstacle.hurtUpdate, draw = Unit.defaultDraw}
 

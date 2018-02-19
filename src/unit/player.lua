@@ -47,7 +47,7 @@ function Player:isInUseCreditMode()
     return true
 end
 
-function Player:setState(state, condition)
+--[[function Player:setState(state, condition)
     if state then
         self.prevStateTime = self.lastStateTime
         self.lastStateTime = love.timer.getTime()
@@ -56,6 +56,7 @@ function Player:setState(state, condition)
         self.lastFace = self.face
         self.lastVertical = self.vertical
         self:exit()
+        self.customFriction = 0
         self.state = state.name
         self.draw = state.draw
         self.update = state.update
@@ -65,7 +66,7 @@ function Player:setState(state, condition)
         self:start()
         self:updateSprite(0)
     end
-end
+end]]
 
 function Player:checkCollisionAndMove(dt)
     local success = true
@@ -355,6 +356,7 @@ Player.useCredit = {name = "useCredit", start = Player.useCreditStart, exit = no
 
 function Player:respawnStart()
     self.isHittable = false
+    self.toSlowDown = true
     dpo(self, self.state)
     self:setSprite("respawn")
     self.deathDelay = 3 --seconds to remove
@@ -394,12 +396,13 @@ function Player:respawnUpdate(dt)
         self.bounced = 1
     end
     --self.victimInfoBar = nil   -- remove enemy bar under yours
-    self:calcMovement(dt)
+--    self:calcMovement(dt)
 end
 Player.respawn = {name = "respawn", start = Player.respawnStart, exit = nop, update = Player.respawnUpdate, draw = Unit.defaultDraw}
 
 function Player:deadStart()
     self.isHittable = false
+    self.toSlowDown = true
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
@@ -425,7 +428,7 @@ function Player:deadUpdate(dt)
     else
         self.deathDelay = self.deathDelay - dt
     end
-    self:calcMovement(dt)
+--    self:calcMovement(dt)
 end
 Player.dead = {name = "dead", start = Player.deadStart, exit = nop, update = Player.deadUpdate, draw = Unit.defaultDraw}
 

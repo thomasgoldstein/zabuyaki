@@ -72,6 +72,8 @@ function Satoff:updateAI(dt)
 end
 
 function Satoff:comboStart()
+    self.toSlowDown = true
+    self.customFriction = self.dashFriction
     self:removeTweenMove()
     Character.comboStart(self)
     self.speed_x = self.dashSpeed
@@ -81,13 +83,14 @@ function Satoff:comboUpdate(dt)
         self:setState(self.stand)
         return
     end
-    self:calcMovement(dt, true, self.dashFriction)
+--    self:calcMovement(dt, true, self.dashFriction)
 end
 --Sliding uppercut
 Satoff.combo = { name = "combo", start = Satoff.comboStart, exit = nop, update = Satoff.comboUpdate, draw = Satoff.defaultDraw }
 
 function Satoff:walkStart()
     self.isHittable = true
+    self.toSlowDown = true
     self:setSprite("walk")
     self.tx, self.ty = self.x, self.y
     if not self.target then
@@ -123,12 +126,13 @@ function Satoff:walkUpdate(dt)
         --        end
         return
     end
-    self:calcMovement(dt, true, nil)
+--    self:calcMovement(dt, true, nil)
 end
 Satoff.walk = { name = "walk", start = Satoff.walkStart, exit = nop, update = Satoff.walkUpdate, draw = Enemy.defaultDraw }
 
 function Satoff:runStart()
     self.isHittable = true
+    self.toSlowDown = true
     self:setSprite("run")
     local t = dist(self.target.x, self.y, self.x, self.y)
 
@@ -165,7 +169,7 @@ function Satoff:runUpdate(dt)
         end
         return
     end
-    self:calcMovement(dt, true, nil)
+--    self:calcMovement(dt, true, nil)
 end
 Satoff.run = {name = "run", start = Satoff.runStart, exit = nop, update = Satoff.runUpdate, draw = Satoff.defaultDraw}
 

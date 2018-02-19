@@ -49,6 +49,8 @@ Sveta.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class 
 
 function Sveta:dashAttackStart()
     self.isHittable = true
+    self.toSlowDown = true
+    self.customFriction = self.dashFriction
     self:removeTweenMove()
     dpo(self, self.state)
     self:setSprite("duck")
@@ -71,7 +73,7 @@ function Sveta:dashAttackUpdate(dt)
         end
         self:moveEffectAndEmit("dash", 0.2)
     end
-    self:calcMovement(dt, true, self.dashFriction)
+--    self:calcMovement(dt, true, self.dashFriction)
 end
 Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttackStart, exit = nop, update = Sveta.dashAttackUpdate, draw = Character.defaultDraw }
 
