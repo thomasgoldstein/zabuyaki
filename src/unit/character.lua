@@ -1616,6 +1616,7 @@ Character.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Character
 local grabSwapFrames = { 1, 2, 2, 1 }
 function Character:grabSwapStart()
     self.isHittable = false
+    self.toSlowDown = false
     self:setSprite("grabSwap")
     local g = self.hold
     self:initGrabTimer()
