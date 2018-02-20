@@ -250,7 +250,7 @@ function Player:useCreditUpdate(dt)
             dp(self.name.." used 1 Credit to respawn")
             credits = credits - 1
             self:addScore(1) -- like CAPCM
-            sfx.play("sfx","menuSelect")
+            self:playSfx("menuSelect")
             self.displayDelay = 1 -- delay before respawn
             self.playerSelectMode = 1
         end
@@ -270,7 +270,7 @@ function Player:useCreditUpdate(dt)
         if self.b.attack:pressed() or self.displayDelay <= 0 then
             self.displayDelay = 0
             self.playerSelectMode = 4
-            sfx.play("sfx","menuSelect")
+            self:playSfx("menuSelect")
             local player = HEROES[self.playerSelectCur].hero:new(self.name,
                 getSpriteInstance(HEROES[self.playerSelectCur].spriteInstance),
                 self.b,
@@ -314,7 +314,7 @@ function Player:useCreditUpdate(dt)
                     self.playerSelectCur = players_list.CHAI
                 end
             end
-            sfx.play("sfx","menuMove")
+            self:playSfx("menuMove")
             self:onShake(1, 0, 0.03, 0.3)   --shake name + face icon
             self.name = HEROES[self.playerSelectCur][1].name
             self.sprite = getSpriteInstance(HEROES[self.playerSelectCur].spriteInstance)
