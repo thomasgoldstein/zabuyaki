@@ -251,7 +251,6 @@ return {
             { q = q(150,68,35,64), ox = 17, oy = 63 }, --walk 5
             { q = q(187,69,35,63), ox = 17, oy = 62, delay = 0.25 }, --walk 6
             loop = true,
-            --loopFrom = 5, --start animation from 5th frame on loop
             delay = 0.167
         },
         walkHold = {
