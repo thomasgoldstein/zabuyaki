@@ -356,7 +356,7 @@ function Player:respawnUpdate(dt)
         self.playerSelectMode = 0 -- remove player select text
         self.speed_z = 0
         self.z = 0
-        sfx.play("sfx"..self.id, self.sfx.step)
+        self:playSfx(self.sfx.step)
         if self.sprite.curFrame == 1 then
             self.sprite.elapsedTime = 10 -- seconds. skip to pickup 2 frame
         end
@@ -390,7 +390,7 @@ function Player:deadStart()
         self.z = 0
     end
     --self:onShake(1, 0, 0.1, 0.7)
-    sfx.play("voice"..self.id, self.sfx.dead)
+    self:playVoiceSfx(self.sfx.dead)
     if self.killerId then
         self.killerId:addScore( self.scoreBonus )
     end

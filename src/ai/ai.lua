@@ -578,7 +578,7 @@ function AI:initGrab()
                 grabbed.speed_x = grabbed.backoffSpeed --move from source
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
-                sfx.play("sfx" .. u.id, u.sfx.grabClash)
+                u:playSfx(u.sfx.grabClash)
                 --                print(" bad SLIDEOff")
                 return true
             end

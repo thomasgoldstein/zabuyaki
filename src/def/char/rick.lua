@@ -138,7 +138,7 @@ local comboAttack4Forward = function(slf, cont)
     )
 end
 local comboAttackSfx = function(slf, cont)
-    sfx.play("sfx"..slf.id, "air")
+    slf:playSfx("air")
 end
 local holdAttack1 = function(slf, cont)
     slf:checkAndAttack(

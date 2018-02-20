@@ -56,13 +56,13 @@ function Character:showEffect(effect, obj)
         stage.objects:add(Effect:new(particles, self.x, self.y + 10))
     elseif effect == "step" then
         -- running dust clouds
-        sfx.play("sfx", self.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
+        self:playSfx(self.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2,2))
         particles = PA_DUST_STEPS:clone()
         particles:setLinearAcceleration(-self.face * 50, 1, -self.face * 100, -15)
         particles:emit(PA_DUST_DUST_STEPS_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x - 20 * self.face, self.y+2))
     elseif effect == "defensiveSpecialRick" then
-        sfx.play("sfx","hitWeak1")
+        self:playSfx("hitWeak1")
         mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen
         particles = (self.face == 1 and PA_DEF_SP_RICK_R or PA_DEF_SP_RICK_L):clone()
         particles:setPosition(self.face * 11, 11) --pos == x,y ofplayer. You can adjust it up/down

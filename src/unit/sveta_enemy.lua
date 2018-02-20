@@ -64,7 +64,7 @@ function Sveta:dashAttackUpdate(dt)
         self.isHittable = false
         self:setSprite("dashAttack")
         self.speed_x = self.dashSpeed
-        sfx.play("voice"..self.id, self.sfx.dashAttack)
+        self:playVoiceSfx(self.sfx.dashAttack)
         return
     else
         if self.sprite.curAnim == "dashAttack" and self.sprite.isFinished then

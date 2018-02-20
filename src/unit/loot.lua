@@ -71,7 +71,7 @@ function Loot:get(taker)
     if self.func then    --run custom function if there is
         self:func(taker)
     end
-    sfx.play("sfx"..self.id, self.pickupSfx)
+    self:playSfx(self.pickupSfx)
     taker:addHp(self.hp)
     taker:addScore(self.scoreBonus)
     self.isDisabled = true

@@ -70,7 +70,7 @@ function Rick:dashAttackStart()
     self.speed_y = 0
     self.speed_z = 0
     self.horizontal = self.face
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    self:playVoiceSfx(self.sfx.dashAttack)
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Rick:dashAttackUpdate(dt)
@@ -93,7 +93,7 @@ function Rick:offensiveSpecialStart()
     self.speed_x = self.dashSpeed
     self.speed_y = 0
     self.speed_z = 0
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    self:playVoiceSfx(self.sfx.dashAttack)
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Rick:offensiveSpecialUpdate(dt)
@@ -115,7 +115,7 @@ function Rick:backGrabAttackStart()
     self:setSprite("backGrabAttack")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    sfx.play("voice"..self.id, self.sfx.throw)
+    self:playVoiceSfx(self.sfx.throw)
     dp(self.name.." backGrabAttack someone.")
 end
 function Rick:backGrabAttackUpdate(dt)

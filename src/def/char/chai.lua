@@ -110,7 +110,7 @@ local comboAttack4NoSfx = function(slf, cont)
     )
 end
 local comboAttackSfx = function(slf, cont)
-    sfx.play("sfx"..slf.id, "air")
+    slf:playSfx("air")
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
     { x = 8, y = 20, width = 22, damage = 17, type = "knockDown", repel = slf.dashFallSpeed },

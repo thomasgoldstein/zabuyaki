@@ -8,11 +8,19 @@ local dist = dist
 local rand1 = rand1
 local CheckCollision = CheckCollision
 
+function Unit:playSfx(sample, ...)
+    sfx.play("sfx"..self.id, sample, ...)
+end
+
+function Unit:playVoiceSfx(sample, ...)
+    sfx.play("voice"..self.id, sample, ...)
+end
+
 function Unit:playHitSfx(dmg)
     local alias
     --TEsound.stop("sfx"..self.id, false)
     if self.sfx.onHit then
-        sfx.play("sfx"..self.id, self.sfx.onHit, nil, 1 + 0.008 * love.math.random(-1,1))
+        self:playSfx(self.sfx.onHit, nil, 1 + 0.008 * love.math.random(-1,1))
         return
     elseif dmg < 9 then
         alias = sfx.hitWeak

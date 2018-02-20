@@ -293,7 +293,7 @@ function Character:applyDamage(damage, type, source, speed_x, sfx1)
         horizontal = self.face, isThrown = false,
         x = self.x, y = self.y, z = self.z }
     if sfx1 then
-        sfx.play("sfx"..self.id,sfx1)
+        self:playSfx(sfx1)
     end
 end
 
@@ -365,7 +365,7 @@ function Character:checkAndAttack(f, isFuncCont)
     stage.world:remove(a)
     a = nil
     if f.sfx then
-        sfx.play("sfx"..self.id,f.sfx)
+        self:playSfx(f.sfx)
     end
     if GLOBAL_SETTING.AUTO_COMBO or #items > 0 then
         -- connect combo hits on AUTO_COMBO or on any successful hit
@@ -551,7 +551,7 @@ function Character:walkUpdate(dt)
                 grabbed.speed_x = grabbed.backoffSpeed --move from source
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
-                sfx.play("sfx"..self.id, self.sfx.grabClash)
+                self:playSfx(self.sfx.grabClash)
                 return
             end
             if self.moves.grab and self:doGrab(grabbed) then
@@ -633,7 +633,7 @@ function Character:jumpStart()
     if self.speed_y ~= 0 then
         self.speed_y = self.speed_y + self.jumpSpeedBoost_y --make jump little faster than the walk/run speed
     end
-    sfx.play("voice"..self.id, self.sfx.jump)
+    self:playVoiceSfx(self.sfx.jump)
 end
 function Character:jumpUpdate(dt)
     if self.b.attack:pressed() then
@@ -659,7 +659,7 @@ function Character:jumpUpdate(dt)
     if self.z > 0 then
         self:calcFreeFall(dt)
     else
-        sfx.play("sfx"..self.id, self.sfx.step)
+        self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -782,7 +782,7 @@ function Character:sideStepStart()
         self:setSprite("sideStepUp")
     end
     self.speed_x, self.speed_y = 0, self.sideStepSpeed
-    sfx.play("sfx"..self.id, "whooshHeavy")
+    self:playSfx("whooshHeavy")
 end
 function Character:sideStepUpdate(dt)
     if self.speed_y > 0 then
@@ -792,7 +792,7 @@ function Character:sideStepUpdate(dt)
         end
     else
         self.speed_y = 0
-        sfx.play("sfx"..self.id, self.sfx.step, 0.75)
+        self:playSfx(self.sfx.step, 0.75)
         self:setState(self.duck)
         return
     end
@@ -807,7 +807,7 @@ function Character:dashAttackStart()
     self.speed_x = self.dashSpeed
     self.speed_y = 0
     self.speed_z = 0
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    self:playVoiceSfx(self.sfx.dashAttack)
 end
 function Character:dashAttackUpdate(dt)
     if self.sprite.isFinished then
@@ -827,7 +827,7 @@ function Character:jumpAttackForwardStart()
     self.isHittable = true
     self.played_landingAnim = false
     self:setSprite("jumpAttackForward")
-    sfx.play("voice"..self.id, self.sfx.jumpAttack)
+    self:playVoiceSfx(self.sfx.jumpAttack)
 end
 function Character:jumpAttackForwardUpdate(dt)
     if self.z > 0 then
@@ -837,7 +837,7 @@ function Character:jumpAttackForwardUpdate(dt)
             self.played_landingAnim = true
         end
     else
-        sfx.play("sfx"..self.id, self.sfx.step)
+        self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -861,7 +861,7 @@ function Character:jumpAttackLightUpdate(dt)
             self.played_landingAnim = true
         end
     else
-        sfx.play("sfx"..self.id, self.sfx.step)
+        self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -876,7 +876,7 @@ function Character:jumpAttackStraightStart()
     self.isHittable = true
     self.played_landingAnim = false
     self:setSprite("jumpAttackStraight")
-    sfx.play("voice"..self.id, self.sfx.jumpAttack)
+    self:playVoiceSfx(self.sfx.jumpAttack)
 end
 function Character:jumpAttackStraightUpdate(dt)
     if self.z > 0 then
@@ -886,7 +886,7 @@ function Character:jumpAttackStraightUpdate(dt)
             self.played_landingAnim = true
         end
     else
-        sfx.play("sfx"..self.id, self.sfx.step)
+        self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -901,7 +901,7 @@ function Character:jumpAttackRunStart()
     self.isHittable = true
     self.played_landingAnim = false
     self:setSprite("jumpAttackRun")
-    sfx.play("voice"..self.id, self.sfx.jumpAttack)
+    self:playVoiceSfx(self.sfx.jumpAttack)
 end
 function Character:jumpAttackRunUpdate(dt)
     if self.z > 0 then
@@ -911,7 +911,7 @@ function Character:jumpAttackRunUpdate(dt)
             self.played_landingAnim = true
         end
     else
-        sfx.play("sfx"..self.id, self.sfx.step)
+        self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -963,7 +963,7 @@ function Character:fallUpdate(dt)
                 if self.isThrown then
                     -- hold UP+JUMP to get no damage after throw (land on feet)
                     if self.isThrown and self.canRecover and self.hp > 0 then
-                        sfx.play("sfx"..self.id, self.sfx.step)
+                        self:playSfx(self.sfx.step)
                         self:setState(self.duck)
                         return
                     end
@@ -972,7 +972,7 @@ function Character:fallUpdate(dt)
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
             end
-            sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
+            self:playSfx(self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
             self.bounced = self.bounced + 1
             self:showEffect("fallLanding")
             return
@@ -986,7 +986,7 @@ function Character:fallUpdate(dt)
 
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-            sfx.play("sfx"..self.id,"bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
+            self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
             self:setState(self.getup)
             return
         end
@@ -1016,7 +1016,7 @@ function Character:bounceStart()
     end
     self.bounced = 0
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
-    sfx.play("sfx" .. self.id, self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
+    self:playSfx(self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
     self:showEffect("fallLanding")
 end
 function Character:bounceUpdate(dt)
@@ -1031,7 +1031,7 @@ function Character:bounceUpdate(dt)
             self.horizontal = self.face
             self.face = -self.face
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
-            sfx.play("sfx"..self.id,"bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
+            self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
             self:setState(self.getup)
             return
         end
@@ -1076,7 +1076,7 @@ function Character:deadStart()
     if self.z <= 0 then
         self.z = 0
     end
-    sfx.play("voice"..self.id, self.sfx.dead)
+    self:playVoiceSfx(self.sfx.dead)
     if self.killerId then
         self.killerId:addScore( self.scoreBonus )
     end
@@ -1192,7 +1192,7 @@ function Character:doGrab(target, inAir)
     gTargetHold.source = self
     gTargetHold.target = nil
     target.isGrabbed = true
-    sfx.play("voice"..target.id, target.sfx.grab)   --clothes ruffling
+    self:playVoiceSfx(target.sfx.grab)   --clothes ruffling
     -- the grabber
     g.source = nil
     g.target = target
@@ -1507,8 +1507,8 @@ function Character:doThrow(speed_x, speed_z, horizontal, face, start_z)
         t.z = start_z
     end
     t:setState(self.fall)
-    sfx.play("sfx", "whooshHeavy")
-    sfx.play("voice"..self.id, self.sfx.throw)
+    self:playSfx("whooshHeavy")
+    self:playVoiceSfx(self.sfx.throw)
 end
 
 function Character:frontGrabAttackUpUpdate(dt)
@@ -1591,7 +1591,7 @@ function Character:grabSwapStart()
     self.isGrabSwapFlipped = false
     self.grabSwap_x = self.hold.target.x + self.face * 18
     self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
-    sfx.play("sfx", "whooshHeavy")
+    self:playSfx("whooshHeavy")
     dp(self.name.." is grabSwapping someone.")
 end
 function Character:grabSwapUpdate(dt)
@@ -1641,7 +1641,7 @@ function Character:holdAttackStart()
         -- Adding a 'if self.speed_y == 0 then' condition is not enough as the side step is canceled early by the release of the attack button.
         self.isDashHoldAttack = true
         self:setSpriteIfExists("dashHoldAttack", "holdAttack")
-        sfx.play("voice"..self.id, self.sfx.dashAttack)
+        self:playVoiceSfx(self.sfx.dashAttack)
     else
         self:setSprite("holdAttack")
     end
@@ -1650,7 +1650,7 @@ function Character:holdAttackUpdate(dt)
     self.toSlowDown = true
     if self.sprite.isFinished then
         if self.isDashHoldAttack then
-            sfx.play("sfx"..self.id, self.sfx.step)
+            self:playSfx(self.sfx.step)
             self:setState(self.duck)
         else
             self:setState(self.stand)
@@ -1666,12 +1666,12 @@ function Character:dashHoldStart()
     dpo(self, self.state)
     self:setSprite("dashHold")
     self.horizontal = self.face
-    sfx.play("voice"..self.id, self.sfx.dashHold)
+    self:playVoiceSfx(self.sfx.dashHold)
     self.speed_x = self.dashHoldSpeed_x * self.dashHoldSpeedMultiplier_x
     self.speed_z = self.dashHoldSpeed_z * self.dashHoldSpeedMultiplier_z
     self.speed_y = 0
     self.z = 0.1
-    sfx.play("sfx"..self.id, self.sfx.jump)
+    self:playSfx(self.sfx.jump)
     self:showEffect("jumpStart")
 end
 function Character:dashHoldUpdate(dt)
@@ -1685,7 +1685,7 @@ function Character:dashHoldUpdate(dt)
             end
         end
     else
-        sfx.play("sfx"..self.id, self.sfx.step)
+        self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -1707,7 +1707,7 @@ function Character:dashHoldUpdate(dt)
             grabbed.speed_x = grabbed.backoffSpeed --move from source
             grabbed.speed_z = self.dashHoldSpeed_z
             grabbed:setState(grabbed.fall)
-            sfx.play("sfx"..self.id, self.sfx.grabClash)
+            self:playSfx(self.sfx.grabClash)
             return
         end
         if self.moves.grab and self:doGrab(grabbed, true) then
@@ -1724,7 +1724,7 @@ function Character:defensiveSpecialStart()
     self.speed_x = 0
     self.speed_y = 0
     self:setSprite("defensiveSpecial")
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    self:playVoiceSfx(self.sfx.dashAttack)
 end
 function Character:defensiveSpecialUpdate(dt)
     if self.z > 0 then

@@ -73,7 +73,7 @@ function Chai:dashAttackStart()
     self.speed_x = self.dashSpeed * self.jumpSpeedMultiplier
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = 0.1
-    sfx.play("sfx"..self.id, self.sfx.dashAttack)
+    self:playSfx(self.sfx.dashAttack)
     self:showEffect("jumpStart")
     self.bounced = 0 -- Chai's dashAttack state uses fall state. The bounced vars have to be initialized here
 end
@@ -94,7 +94,7 @@ function Chai:dashAttackUpdate(dt)
     else
         self.speed_z = 0
         self.z = 0
-        sfx.play("sfx"..self.id, self.sfx.step)
+        self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
     end
@@ -147,7 +147,7 @@ function Chai:defensiveSpecialStart()
     self.speed_y = 0
     self.jumpType = 0
     self:setSprite("defensiveSpecial")
-    sfx.play("voice"..self.id, self.sfx.dashAttack)
+    self:playVoiceSfx(self.sfx.dashAttack)
 end
 function Chai:defensiveSpecialUpdate(dt)
     if self.jumpType == 1 then
@@ -190,7 +190,7 @@ function Chai:offensiveSpecialStart()
     self.bounced = 0
     self.connectHit = false
     self.attacksPerAnimation = 0
-    sfx.play("voice"..self.id, self.sfx.jump)
+    self:playVoiceSfx(self.sfx.jump)
     self:showEffect("jumpStart")
 end
 function Chai:offensiveSpecialUpdate(dt)
@@ -220,7 +220,7 @@ function Chai:offensiveSpecialUpdate(dt)
             self:calcFreeFall(dt)
         end
     else
-        sfx.play("sfx"..self.id, self.sfx.step)
+        self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
     end

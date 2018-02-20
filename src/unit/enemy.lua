@@ -128,7 +128,7 @@ function Enemy:deadStart()
     if self.z <= 0 then
         self.z = 0
     end
-    sfx.play("voice"..self.id, self.sfx.dead)
+    self:playVoiceSfx(self.sfx.dead)
 end
 function Enemy:deadUpdate(dt)
     if self.isDisabled then
@@ -257,7 +257,7 @@ function Enemy:jumpStart()
         self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier
     end
     self.vertical = 0
-    sfx.play("voice"..self.id, self.sfx.jump)
+    self:playVoiceSfx(self.sfx.jump)
 end
 Enemy.jump = {name = "jump", start = Enemy.jumpStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw }
 
