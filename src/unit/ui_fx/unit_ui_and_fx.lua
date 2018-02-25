@@ -9,11 +9,7 @@ local rand1 = rand1
 local CheckCollision = CheckCollision
 
 function Unit:playSfx(sample, ...)
-    sfx.play("sfx"..self.id, sample, ...)
-end
-
-function Unit:playVoiceSfx(sample, ...)
-    sfx.play("voice"..self.id, sample, ...)
+    sfx.play(self.id, sample, ...)
 end
 
 function Unit:playHitSfx(dmg)

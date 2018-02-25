@@ -12,8 +12,8 @@ SFX.play = function(actor, alias, volume, pitch, func)
         else
             s = SFX[alias]
         end
-        TEsound.stop(actor or "sfx", false)
-        TEsound.play(s.src, actor or "sfx", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
+        TEsound.stop(s.prefix .. actor or "", false)
+        TEsound.play(s.src,s.prefix .. actor or "", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
     end
 end
 
@@ -26,7 +26,7 @@ SFX.playMix = function(actor, alias, volume, pitch, func)
         else
             s = SFX[alias]
         end
-        TEsound.play(s.src, actor or "sfx", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
+        TEsound.play(s.src, s.prefix .. actor or "", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
     end
 end
 
@@ -42,10 +42,21 @@ SFX.load = function(alias, s, volume, pitch, copyright)
     src:stop()
     src:setVolume(volume or 1)
     assert(SFX[alias] == nil, "Sound FX alias '"..alias.."' not found")
-    SFX[alias] = {src = s, pitch = pitch or 1, volume = volume or 1, alias = alias, copyright = copyright or "SubspaceAudio" }
+    SFX[alias] = {src = s, pitch = pitch or 1, volume = volume or 1, alias = alias, copyright = copyright or "SubspaceAudio", prefix = "Sfx" }
     SFX[#SFX + 1] = SFX[alias]
 --    return src
 end
+SFX.loadVoice = function(alias, s, volume, pitch, copyright)
+    local src = love.audio.newSource(s, "static")
+    src:setVolume(0)
+    src:play()
+    src:stop()
+    src:setVolume(volume or 1)
+    assert(SFX[alias] == nil, "Sound FX alias '"..alias.."' not found")
+    SFX[alias] = {src = s, pitch = pitch or 1, volume = volume or 1, alias = alias, copyright = copyright or "SubspaceAudio", prefix = "Voice" }
+    SFX[#SFX + 1] = SFX[alias]
+end
+
 SFX.load("menuSelect","res/sfx/menuSelect.wav", 0.5, nil, "Stifu")
 SFX.load("menuCancel","res/sfx/menuCancel.wav", 0.5, nil, "Don Miguel")
 SFX.load("menuMove","res/sfx/menuMove.wav", 0.5, nil, "J.J")
@@ -83,43 +94,43 @@ SFX.load("hitWeak5","res/sfx/hitWeak5.wav", 1)
 SFX.load("hitWeak6","res/sfx/hitWeak6.wav", 1)
 SFX.hitWeak = {"hitWeak1","hitWeak2","hitWeak3","hitWeak4","hitWeak5","hitWeak6"}
 
-SFX.load("kisaJump","res/sfx/kisaJump.wav", 1)
-SFX.load("kisaAttack","res/sfx/kisaAttack.wav", 1)
-SFX.load("kisaThrow","res/sfx/kisaThrow.wav", 1)
-SFX.load("kisaStep","res/sfx/kisaStep.wav", 1)
-SFX.load("kisaDeath","res/sfx/kisaDeath.wav", 1)
+SFX.loadVoice("kisaJump","res/sfx/kisaJump.wav", 1)
+SFX.loadVoice("kisaAttack","res/sfx/kisaAttack.wav", 1)
+SFX.loadVoice("kisaThrow","res/sfx/kisaThrow.wav", 1)
+SFX.loadVoice("kisaStep","res/sfx/kisaStep.wav", 1)
+SFX.loadVoice("kisaDeath","res/sfx/kisaDeath.wav", 1)
 
-SFX.load("rickJump","res/sfx/rickJump.wav", 1)
-SFX.load("rickAttack","res/sfx/rickAttack.wav", 1)
-SFX.load("rickThrow","res/sfx/rickThrow.wav", 1)
-SFX.load("rickStep","res/sfx/rickStep.wav", 1)
-SFX.load("rickDeath","res/sfx/rickDeath.wav", 1)
+SFX.loadVoice("rickJump","res/sfx/rickJump.wav", 1)
+SFX.loadVoice("rickAttack","res/sfx/rickAttack.wav", 1)
+SFX.loadVoice("rickThrow","res/sfx/rickThrow.wav", 1)
+SFX.loadVoice("rickStep","res/sfx/rickStep.wav", 1)
+SFX.loadVoice("rickDeath","res/sfx/rickDeath.wav", 1)
 
-SFX.load("chaiJump","res/sfx/chaiJump.wav", 1)
-SFX.load("chaiAttack","res/sfx/chaiAttack.wav", 1)
-SFX.load("chaiThrow","res/sfx/chaiThrow.wav", 1)
-SFX.load("chaiStep","res/sfx/chaiStep.wav", 1)
-SFX.load("chaiDeath","res/sfx/chaiDeath.wav", 1)
+SFX.loadVoice("chaiJump","res/sfx/chaiJump.wav", 1)
+SFX.loadVoice("chaiAttack","res/sfx/chaiAttack.wav", 1)
+SFX.loadVoice("chaiThrow","res/sfx/chaiThrow.wav", 1)
+SFX.loadVoice("chaiStep","res/sfx/chaiStep.wav", 1)
+SFX.loadVoice("chaiDeath","res/sfx/chaiDeath.wav", 1)
 
-SFX.load("gopperAttack1","res/sfx/gopperAttack1.wav", 1)
-SFX.load("gopperAttack2","res/sfx/gopperAttack2.wav", 1)
+SFX.loadVoice("gopperAttack1","res/sfx/gopperAttack1.wav", 1)
+SFX.loadVoice("gopperAttack2","res/sfx/gopperAttack2.wav", 1)
 
-SFX.load("nikoAttack1","res/sfx/nikoAttack1.wav", 1)
-SFX.load("nikoAttack2","res/sfx/nikoAttack2.wav", 1)
+SFX.loadVoice("nikoAttack1","res/sfx/nikoAttack1.wav", 1)
+SFX.loadVoice("nikoAttack2","res/sfx/nikoAttack2.wav", 1)
 
-SFX.load("gopnikDeath1","res/sfx/gopnikDeath1.wav", 1)
-SFX.load("gopnikDeath2","res/sfx/gopnikDeath2.wav", 1)
+SFX.loadVoice("gopnikDeath1","res/sfx/gopnikDeath1.wav", 1)
+SFX.loadVoice("gopnikDeath2","res/sfx/gopnikDeath2.wav", 1)
 
-SFX.load("gopnitsaAttack1","res/sfx/gopnitsaAttack1.wav", 1)
-SFX.load("gopnitsaAttack2","res/sfx/gopnitsaAttack2.wav", 1)
-SFX.load("gopnitsaDeath1","res/sfx/gopnitsaDeath1.wav", 1)
-SFX.load("gopnitsaDeath2","res/sfx/gopnitsaDeath2.wav", 1)
+SFX.loadVoice("gopnitsaAttack1","res/sfx/gopnitsaAttack1.wav", 1)
+SFX.loadVoice("gopnitsaAttack2","res/sfx/gopnitsaAttack2.wav", 1)
+SFX.loadVoice("gopnitsaDeath1","res/sfx/gopnitsaDeath1.wav", 1)
+SFX.loadVoice("gopnitsaDeath2","res/sfx/gopnitsaDeath2.wav", 1)
 
-SFX.load("beatnickAttack1","res/sfx/beatnickAttack1.wav", 1)
-SFX.load("beatnickDeath1","res/sfx/beatnickDeath1.wav", 1)
+SFX.loadVoice("beatnickAttack1","res/sfx/beatnickAttack1.wav", 1)
+SFX.loadVoice("beatnickDeath1","res/sfx/beatnickDeath1.wav", 1)
 
-SFX.load("satoffAttack1","res/sfx/satoffAttack1.wav", 1)
-SFX.load("satoffDeath1","res/sfx/satoffDeath1.wav", 1)
+SFX.loadVoice("satoffAttack1","res/sfx/satoffAttack1.wav", 1)
+SFX.loadVoice("satoffDeath1","res/sfx/satoffDeath1.wav", 1)
 
 SFX.gopperAttack = {"gopperAttack1","gopperAttack2"}
 SFX.gopperDeath = {"gopnikDeath1","gopnikDeath2"}

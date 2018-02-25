@@ -133,7 +133,7 @@ function Gopper:dashAttackStart()
     self.speed_z = self.jumpSpeed_z / 2 * dashAttackSpeed
     self.z = 0.1
     self.bounced = 0
-    self:playVoiceSfx(self.sfx.dashAttack)
+    self:playSfx(self.sfx.dashAttack)
 end
 function Gopper:dashAttackUpdate(dt)
     if self.sprite.isFinished then

@@ -633,7 +633,7 @@ function Character:jumpStart()
     if self.speed_y ~= 0 then
         self.speed_y = self.speed_y + self.jumpSpeedBoost_y --make jump little faster than the walk/run speed
     end
-    self:playVoiceSfx(self.sfx.jump)
+    self:playSfx(self.sfx.jump)
 end
 function Character:jumpUpdate(dt)
     if self.b.attack:pressed() then
@@ -807,7 +807,7 @@ function Character:dashAttackStart()
     self.speed_x = self.dashSpeed
     self.speed_y = 0
     self.speed_z = 0
-    self:playVoiceSfx(self.sfx.dashAttack)
+    self:playSfx(self.sfx.dashAttack)
 end
 function Character:dashAttackUpdate(dt)
     if self.sprite.isFinished then
@@ -827,7 +827,7 @@ function Character:jumpAttackForwardStart()
     self.isHittable = true
     self.played_landingAnim = false
     self:setSprite("jumpAttackForward")
-    self:playVoiceSfx(self.sfx.jumpAttack)
+    self:playSfx(self.sfx.jumpAttack)
 end
 function Character:jumpAttackForwardUpdate(dt)
     if self.z > 0 then
@@ -876,7 +876,7 @@ function Character:jumpAttackStraightStart()
     self.isHittable = true
     self.played_landingAnim = false
     self:setSprite("jumpAttackStraight")
-    self:playVoiceSfx(self.sfx.jumpAttack)
+    self:playSfx(self.sfx.jumpAttack)
 end
 function Character:jumpAttackStraightUpdate(dt)
     if self.z > 0 then
@@ -901,7 +901,7 @@ function Character:jumpAttackRunStart()
     self.isHittable = true
     self.played_landingAnim = false
     self:setSprite("jumpAttackRun")
-    self:playVoiceSfx(self.sfx.jumpAttack)
+    self:playSfx(self.sfx.jumpAttack)
 end
 function Character:jumpAttackRunUpdate(dt)
     if self.z > 0 then
@@ -1076,7 +1076,7 @@ function Character:deadStart()
     if self.z <= 0 then
         self.z = 0
     end
-    self:playVoiceSfx(self.sfx.dead)
+    self:playSfx(self.sfx.dead)
     if self.killerId then
         self.killerId:addScore( self.scoreBonus )
     end
@@ -1192,7 +1192,7 @@ function Character:doGrab(target, inAir)
     gTargetHold.source = self
     gTargetHold.target = nil
     target.isGrabbed = true
-    self:playVoiceSfx(target.sfx.grab)   --clothes ruffling
+    self:playSfx(target.sfx.grab)   --clothes ruffling
     -- the grabber
     g.source = nil
     g.target = target
@@ -1508,7 +1508,7 @@ function Character:doThrow(speed_x, speed_z, horizontal, face, start_z)
     end
     t:setState(self.fall)
     self:playSfx("whooshHeavy")
-    self:playVoiceSfx(self.sfx.throw)
+    self:playSfx(self.sfx.throw)
 end
 
 function Character:frontGrabAttackUpUpdate(dt)
@@ -1641,7 +1641,7 @@ function Character:holdAttackStart()
         -- Adding a 'if self.speed_y == 0 then' condition is not enough as the side step is canceled early by the release of the attack button.
         self.isDashHoldAttack = true
         self:setSpriteIfExists("dashHoldAttack", "holdAttack")
-        self:playVoiceSfx(self.sfx.dashAttack)
+        self:playSfx(self.sfx.dashAttack)
     else
         self:setSprite("holdAttack")
     end
@@ -1666,7 +1666,7 @@ function Character:dashHoldStart()
     dpo(self, self.state)
     self:setSprite("dashHold")
     self.horizontal = self.face
-    self:playVoiceSfx(self.sfx.dashHold)
+    self:playSfx(self.sfx.dashHold)
     self.speed_x = self.dashHoldSpeed_x * self.dashHoldSpeedMultiplier_x
     self.speed_z = self.dashHoldSpeed_z * self.dashHoldSpeedMultiplier_z
     self.speed_y = 0
@@ -1724,7 +1724,7 @@ function Character:defensiveSpecialStart()
     self.speed_x = 0
     self.speed_y = 0
     self:setSprite("defensiveSpecial")
-    self:playVoiceSfx(self.sfx.dashAttack)
+    self:playSfx(self.sfx.dashAttack)
 end
 function Character:defensiveSpecialUpdate(dt)
     if self.z > 0 then

@@ -9,7 +9,7 @@ local clamp = clamp
 local particles
 function Obstacle:showEffect(effect, obj)
     if effect == "breakMetal" then
-        self:playVoiceSfx(self.sfx.onBreak)
+        self:playSfx(self.sfx.onBreak)
         particles = PA_OBSTACLE_BREAK_SMALL:clone()
         particles:setPosition( 0, -self.height + self.height / 3 )
         --particles:setAreaSpread( "uniform", 2, 8 )
