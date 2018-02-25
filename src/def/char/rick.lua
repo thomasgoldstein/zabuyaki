@@ -113,6 +113,12 @@ local comboAttack3Forward = function(slf, cont)
         cont
     )
 end
+local comboAttack3Down = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 29, y = 29, width = 27, damage = 15, type = "knockDown", sfx = "air" },
+        cont
+    )
+end
 local comboAttack4 = function(slf, cont)
     slf:checkAndAttack(
         { x = 34, y = 41, width = 39, damage = 15, type = "knockDown", sfx = "air" },
@@ -396,6 +402,16 @@ return {
             { q = q(137,1954,45,64), ox = 16, oy = 64 }, --dash hold attack 4
             { q = q(184,1954,43,64), ox = 17, oy = 63 }, --dash hold attack 5
             delay = 0.03
+        },
+        combo3Down = {
+            { q = q(2,1757,40,64), ox = 21, oy = 63, delay = 0.03 }, --dash attack 1
+            { q = q(44,1759,39,62), ox = 21, oy = 61, delay = 0.1 }, --dash attack 2
+            { q = q(85,1759,54,62), ox = 28, oy = 61, delay = 0.015 }, --dash attack 3
+            { q = q(160,1246,48,62), ox = 23, oy = 61, delay = 0.015 }, --combo down 3.1
+            { q = q(157,1323,59,49), ox = 13, oy = 48, func = comboAttack3Down, delay = 0.15 }, --combo down 3.2
+            { q = q(162,1377,50,60), ox = 14, oy = 59 }, --combo down 3.3
+            { q = q(54,1627,44,63), ox = 15, oy = 62, }, --defensive special 7
+            delay = 0.05
         },
         combo4 = {
             { q = q(113,584,43,62), ox = 16, oy = 62 }, --combo 4.1
