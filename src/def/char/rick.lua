@@ -199,7 +199,7 @@ local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
     cont
  ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
-    { x = 11, y = 32, width = 77, height = 70, depth = 18, damage = 25, type = "blowOut" },
+    { x = 12, y = 32, width = 77, height = 70, depth = 18, damage = 25, type = "blowOut" },
     cont
  ) end
 
@@ -323,14 +323,14 @@ return {
         },
         defensiveSpecial = {
             { q = q(2,1504,45,62), ox = 22, oy = 61 }, --defensive special 1
-            { q = q(49,1505,49,61), ox = 25, oy = 60, delay = 0.1 }, --defensive special 2
-            { q = q(100,1505,45,61), ox = 18, oy = 60 }, --defensive special 3
-            { q = q(147,1506,54,60), ox = 15, oy = 59 }, --defensive special 4
-            { q = q(2,1568,58,57), ox = 15, oy = 54, func = function(slf) slf:showEffect("defensiveSpecialRick") end }, --defensive special 5a
-            { q = q(62,1569,58,56), ox = 15, oy = 53, funcCont = defensiveSpecial }, --defensive special 5b
-            { q = q(122,1570,58,55), ox = 15, oy = 52, funcCont = defensiveSpecial, delay = 0.233 }, --defensive special 5c
-            { q = q(2,1630,50,60), ox = 15, oy = 59, delay = 0.067 }, --defensive special 6
-            { q = q(54,1627,44,63), ox = 16, oy = 62 }, --defensive special 7
+            { q = q(49,1505,49,61), ox = 24, oy = 60, delay = 0.1 }, --defensive special 2
+            { q = q(100,1505,45,61), ox = 17, oy = 60 }, --defensive special 3
+            { q = q(147,1506,54,60), ox = 14, oy = 59 }, --defensive special 4
+            { q = q(2,1568,58,57), ox = 14, oy = 54, func = function(slf) slf:showEffect("defensiveSpecialRick") end }, --defensive special 5a
+            { q = q(62,1569,58,56), ox = 14, oy = 53, funcCont = defensiveSpecial }, --defensive special 5b
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = defensiveSpecial, delay = 0.233 }, --defensive special 5c
+            { q = q(2,1630,50,60), ox = 14, oy = 59, delay = 0.067 }, --defensive special 6
+            { q = q(54,1627,44,63), ox = 15, oy = 62 }, --defensive special 7
             delay = 0.05
         },
         offensiveSpecial = {
