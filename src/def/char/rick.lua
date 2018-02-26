@@ -410,7 +410,7 @@ return {
             { q = q(160,1246,48,62), ox = 23, oy = 61, delay = 0.015 }, --combo down 3.1
             { q = q(157,1323,59,49), ox = 13, oy = 48, func = comboAttack3Down, delay = 0.15 }, --combo down 3.2
             { q = q(162,1377,50,60), ox = 14, oy = 59 }, --combo down 3.3
-            { q = q(54,1627,44,63), ox = 15, oy = 62, }, --defensive special 7
+            { q = q(54,1627,44,63), ox = 15, oy = 62 }, --defensive special 7
             delay = 0.05
         },
         combo4 = {
