@@ -1101,6 +1101,12 @@ function Character:deadUpdate(dt)
 end
 Character.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = Character.defaultDraw}
 
+function Character:comboEnd()
+    self.comboN = 1
+    self.connectHit = false
+    self.attacksPerAnimation = 0
+end
+
 function Character:comboStart()
     self.isHittable = true
     self.toSlowDown = false
@@ -1110,13 +1116,13 @@ function Character:comboStart()
         if self.attacksPerAnimation > 0 then
             self.comboN = self.comboN + 1
             if self.comboN > self.sprite.def.comboMax then
-                self.comboN = 1
+                self:comboEnd()
             end
         else
-            self.comboN = 1
+            self:comboEnd()
         end
     else
-        self.comboN = 1
+        self:comboEnd()
     end
     self.connectHit = false
     self.attacksPerAnimation = 0
