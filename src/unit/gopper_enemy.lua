@@ -95,7 +95,6 @@ Gopper.walk = { name = "walk", start = Gopper.walkStart, exit = nop, update = Go
 
 function Gopper:runStart()
     self.isHittable = true
-    self.toSlowDown = true
     self:setSprite("run")
     self.tx, self.ty = self.x, self.y
 end
@@ -125,7 +124,6 @@ Gopper.run = {name = "run", start = Gopper.runStart, exit = nop, update = Gopper
 local dashAttackSpeed = 0.75
 function Gopper:dashAttackStart()
     self.isHittable = true
-    self.toSlowDown = true
     self.customFriction = self.dashFriction * dashAttackSpeed
     self:setSprite("dashAttack")
     self.speed_x = self.dashSpeed * 2 * dashAttackSpeed

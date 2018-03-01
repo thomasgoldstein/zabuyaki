@@ -402,7 +402,6 @@ end
 
 function Character:slideStart()
     self.isHittable = false
-    self.toSlowDown = true
 end
 function Character:slideUpdate(dt)
     if self.sprite.isFinished then
@@ -414,7 +413,6 @@ Character.slide = {name = "slide", start = Character.slideStart, exit = nop, upd
 
 function Character:standStart()
     self.isHittable = true
-    self.toSlowDown = true
     self.z = 0 --TODO add fall if z > 0
     if self.sprite.curAnim == "walk" or self.sprite.curAnim == "walkHold" then
         self.nextAnlmationDelay = 0.12
@@ -498,7 +496,6 @@ Character.stand = {name = "stand", start = Character.standStart, exit = nop, upd
 
 function Character:walkStart()
     self.isHittable = true
-    self.toSlowDown = true
     if spriteHasAnimation(self.sprite, "walkHold")
         and (self.sprite.curAnim == "standHold"
             or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() ))
@@ -672,7 +669,6 @@ Character.jump = {name = "jump", start = Character.jumpStart, exit = nop, update
 
 function Character:pickupStart()
     self.isHittable = false
-    self.toSlowDown = true
     local loot = self:checkForLoot(9, 9)
     if loot then
         self.victimInfoBar = loot.infoBar:setPicker(self)
@@ -692,7 +688,6 @@ Character.pickup = {name = "pickup", start = Character.pickupStart, exit = nop, 
 
 function Character:duckStart()
     self.isHittable = true
-    self.toSlowDown = true
     dpo(self, self.state)
     self:setSprite("duck")
     self.z = 0
@@ -754,7 +749,6 @@ Character.duck2jump = {name = "duck2jump", start = Character.duck2jumpStart, exi
 
 function Character:hurtStart()
     self.isHittable = true
-    self.toSlowDown = true
 end
 function Character:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
@@ -801,7 +795,6 @@ Character.sideStep = {name = "sideStep", start = Character.sideStepStart, exit =
 
 function Character:dashAttackStart()
     self.isHittable = true
-    self.toSlowDown = true
     self.customFriction = self.dashFriction
     self:setSprite("dashAttack")
     self.speed_x = self.dashSpeed
@@ -1067,7 +1060,6 @@ Character.getup = {name = "getup", start = Character.getupStart, exit = nop, upd
 
 function Character:deadStart()
     self.isHittable = false
-    self.toSlowDown = true
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0
@@ -1460,7 +1452,6 @@ end
 Character.frontGrabAttack = {name = "frontGrabAttack", start = Character.frontGrabAttackStart, exit = nop, update = Character.frontGrabAttackUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackDownStart()
-    self.toSlowDown = true
     local g = self.hold
     local t = g.target
     self:setSprite("frontGrabAttackDown")
@@ -1495,7 +1486,6 @@ end
 function Character:doThrow(speed_x, speed_z, horizontal, face, start_z)
     local g = self.hold
     local t = g.target
-    self.toSlowDown = true
     t.isGrabbed = false
     t.isThrown = true
     t.throwerId = self
@@ -1535,7 +1525,6 @@ Character.frontGrabAttackUp = {name = "frontGrabAttackUp", start = Character.fro
 function Character:frontGrabAttackForwardStart()
     local g = self.hold
     local t = g.target
-    self.toSlowDown = true
     self:moveStatesInit()
     self:setSprite("frontGrabAttackForward")
     self.isHittable = not self.sprite.isThrow
@@ -1561,7 +1550,6 @@ Character.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Cha
 function Character:frontGrabAttackBackStart()
     local g = self.hold
     local t = g.target
-    self.toSlowDown = true
     self:moveStatesInit()
     self.face = -self.face
     self.horizontal = self.face
@@ -1653,7 +1641,6 @@ function Character:holdAttackStart()
     end
 end
 function Character:holdAttackUpdate(dt)
-    self.toSlowDown = true
     if self.sprite.isFinished then
         if self.isDashHoldAttack then
             self:playSfx(self.sfx.step)
@@ -1668,7 +1655,6 @@ Character.holdAttack = {name = "holdAttack", start = Character.holdAttackStart, 
 
 function Character:dashHoldStart()
     self.isHittable = true
-    self.toSlowDown = true
     dpo(self, self.state)
     self:setSprite("dashHold")
     self.horizontal = self.face

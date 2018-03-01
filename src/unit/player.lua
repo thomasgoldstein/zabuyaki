@@ -335,7 +335,6 @@ Player.useCredit = {name = "useCredit", start = Player.useCreditStart, exit = no
 
 function Player:respawnStart()
     self.isHittable = false
-    self.toSlowDown = true
     dpo(self, self.state)
     self:setSprite("respawn")
     self.deathDelay = 3 --seconds to remove
@@ -380,7 +379,6 @@ Player.respawn = {name = "respawn", start = Player.respawnStart, exit = nop, upd
 
 function Player:deadStart()
     self.isHittable = false
-    self.toSlowDown = true
     self:setSprite("fallen")
     dp(self.name.." is dead.")
     self.hp = 0

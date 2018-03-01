@@ -62,7 +62,6 @@ end
 
 function Rick:dashAttackStart()
     self.isHittable = true
-    self.toSlowDown = true
     self.customFriction = self.dashFriction
     dpo(self, self.state)
     self:setSprite("dashAttack")
@@ -85,7 +84,6 @@ Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop
 
 function Rick:offensiveSpecialStart()
     self.isHittable = true
-    self.toSlowDown = true
     self.customFriction = self.dashSpeed
     self.horizontal = self.face
     dpo(self, self.state)
@@ -109,7 +107,6 @@ Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecia
 function Rick:backGrabAttackStart()
     local g = self.hold
     local t = g.target
-    self.toSlowDown = true
     self:initGrabTimer()
     self:moveStatesInit()
     self:setSprite("backGrabAttack")

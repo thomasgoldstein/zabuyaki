@@ -111,7 +111,6 @@ end
 
 function Enemy:introStart()
     self.isHittable = true
-    self.toSlowDown = true
     self:setSprite("intro")
 end
 function Enemy:introUpdate(dt)

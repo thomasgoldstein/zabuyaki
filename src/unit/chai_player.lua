@@ -65,7 +65,6 @@ end
 
 function Chai:dashAttackStart()
     self.isHittable = true
-    self.toSlowDown = true
     self.horizontal = self.face
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
@@ -104,7 +103,6 @@ Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop
 function Chai:frontGrabAttackForwardStart()
     local g = self.hold
     local t = g.target
-    self.toSlowDown = true --used in :calcMovement
     self:moveStatesInit()
     self:setSprite("frontGrabAttackForward")
     self.isHittable = not self.sprite.isThrow
@@ -127,7 +125,6 @@ function Chai:frontGrabAttackBackStart()
     self:setSprite("frontGrabAttackBack")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    self.toSlowDown = true
     dp(self.name.." frontGrabAttackBack someone.")
 end
 function Chai:frontGrabAttackBackUpdate(dt)
@@ -141,7 +138,6 @@ Chai.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Chai.frontGrab
 
 function Chai:defensiveSpecialStart()
     self.isHittable = false
-    self.toSlowDown = true
     self.z = 0
     self.speed_x = 0
     self.speed_y = 0

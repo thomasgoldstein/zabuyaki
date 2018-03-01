@@ -49,7 +49,6 @@ Sveta.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class 
 
 function Sveta:dashAttackStart()
     self.isHittable = true
-    self.toSlowDown = true
     self.customFriction = self.dashFriction
     self:removeTweenMove()
     dpo(self, self.state)

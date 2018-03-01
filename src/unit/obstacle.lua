@@ -153,7 +153,6 @@ end
 
 function Obstacle:standStart()
     self.isHittable = true
-    self.toSlowDown = true
     self.victims = {}
     self:setSprite("stand")
 end
@@ -167,7 +166,6 @@ Obstacle.stand = {name = "stand", start = Obstacle.standStart, exit = nop, updat
 
 function Obstacle:getupStart()
     self.isHittable = false
-    self.toSlowDown = true
     self.isThrown = false
     dpo(self, self.state)
     if self.z <= 0 then
@@ -188,7 +186,6 @@ Obstacle.getup = {name = "getup", start = Obstacle.getupStart, exit = nop, updat
 
 function Obstacle:hurtStart()
     self.isHittable = true
-    self.toSlowDown = true
 end
 function Obstacle:hurtUpdate(dt)
     if self.speed_x <= 0 then

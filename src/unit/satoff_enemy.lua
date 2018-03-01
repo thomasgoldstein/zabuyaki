@@ -72,7 +72,6 @@ function Satoff:updateAI(dt)
 end
 
 function Satoff:comboStart()
-    self.toSlowDown = true
     self.customFriction = self.dashFriction
     self:removeTweenMove()
     Character.comboStart(self)
@@ -89,7 +88,6 @@ Satoff.combo = { name = "combo", start = Satoff.comboStart, exit = nop, update =
 
 function Satoff:walkStart()
     self.isHittable = true
-    self.toSlowDown = true
     self:setSprite("walk")
     self.tx, self.ty = self.x, self.y
     if not self.target then
@@ -130,7 +128,6 @@ Satoff.walk = { name = "walk", start = Satoff.walkStart, exit = nop, update = Sa
 
 function Satoff:runStart()
     self.isHittable = true
-    self.toSlowDown = true
     self:setSprite("run")
     local t = dist(self.target.x, self.y, self.x, self.y)
 
