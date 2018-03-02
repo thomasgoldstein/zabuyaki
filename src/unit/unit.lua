@@ -288,9 +288,13 @@ function Unit:calcMovement(dt)
         --??false
         self.successfullyMoved, self.collision_x, self.collision_y = true, 0, 0
     end
-    if self.z <= 0 and self.toSlowDown then
-        if self.customFriction ~= 0 then
-            self:calcFriction(dt, self.customFriction)
+    if self.z <= 0 then
+        if self.toSlowDown then
+            if self.customFriction ~= 0 then
+                self:calcFriction(dt, self.customFriction)
+            else
+                self:calcFriction(dt)
+            end
         else
             self:calcFriction(dt)
         end

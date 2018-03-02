@@ -624,6 +624,8 @@ function Character:jumpStart()
         -- jump higher from run
         self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier
     end
+    self.speed_x = self.saveSpeed_x or self.speed_x
+    self.speed_y = self.saveSpeed_y or self.speed_y
     if self.speed_x ~= 0 then
         self.speed_x = self.speed_x + self.jumpSpeedBoost_x --make jump little faster than the walk/run speed
     end
@@ -714,13 +716,17 @@ function Character:duck2jumpStart()
     self:setSprite("duck")
     self.z = 0
     self.speed_z = 0
+    -- save speed to pass it to the jump state
+    self.saveSpeed_x = self.speed_x
+    self.saveSpeed_y = self.speed_y
 end
 function Character:duck2jumpUpdate(dt)
     if self.sprite.isFinished then
         if self.moves.jump then
-            if self.speed_x < self.walkSpeed_x then
-                self.speed_x = 0
+            if self.saveSpeed_x < self.walkSpeed_x / 2 then
+                self.saveSpeed_x = 0
             end
+            self.speed_y = self.saveSpeed_y
             self:setState(self.jump)
         else
             self.speed_x = 0
@@ -737,11 +743,11 @@ function Character:duck2jumpUpdate(dt)
         if hv ~= 0 then
             --do not face sprite left or right. Only the direction
             self.horizontal = hv
-            self.speed_x = self.walkSpeed_x
+            self.saveSpeed_x = self.walkSpeed_x
         end
         if vv ~= 0 then
             self.vertical = vv
-            self.speed_y = self.walkSpeed_y
+            self.saveSpeed_y = self.walkSpeed_y
         end
     end
 end
