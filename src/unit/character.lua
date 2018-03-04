@@ -232,6 +232,7 @@ function Character:afterOnHurt()
             if self.isMovable then
                 self.speed_x = h.speed_x
                 self.horizontal = h.horizontal
+                self.friction = self.repelFriction  -- custom friction value for smooth sliding back
             end
             return
         end
@@ -1751,8 +1752,11 @@ function Character:knockedDownUpdate(dt)
 end
 Character.knockedDown = {name = "knockedDown", start = Character.knockedDownStart, exit = nop, update = Character.knockedDownUpdate, draw = Character.defaultDraw}
 
-function Character:initSlide(speed_x, diagonalSpeed_x, diagonalSpeed_y)
+function Character:initSlide(speed_x, diagonalSpeed_x, diagonalSpeed_y, friction)
     self.toSlowDown = true
+    if friction then
+        self.customFriction = friction
+    end
     if self.b.vertical:getValue() ~= 0 then
         self.vertical = self.b.vertical:getValue()
         self.speed_x = diagonalSpeed_x -- diagonal horizontal speed
