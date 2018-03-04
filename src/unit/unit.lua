@@ -35,6 +35,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.gravity = 800 --650 * 2
     self.weight = 1
     self.friction = 1650 -- speed penalty for stand (when you slide on ground)
+    self.repelFriction = 1650 / 2
     self.customFriction = 0 --used in :calcMovement
     self.toSlowDown = true --used in :calcMovement
     self.isMovable = false --cannot be moved by attacks / can be grabbed
