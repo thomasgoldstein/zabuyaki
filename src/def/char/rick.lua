@@ -574,11 +574,14 @@ return {
             }
         },
         frontGrabAttackForward = {
-            { q = q(2,1111,43,60), ox = 26, oy = 59 }, --throw 1.1
-            { q = q(47,1113,42,58), ox = 17, oy = 57, func = frontGrabAttackForward, delay = 0.05 }, --throw 1.2
-            { q = q(91,1114,44,57), ox = 14, oy = 56 }, --throw 1.3
-            { q = q(137,1112,40,59), ox = 14, oy = 58, delay = 0.1 }, --throw 1.4
-            delay = 0.2,
+            { q = q(2,2361,56,62), ox = 33, oy = 61 }, --throw forward 1
+            { q = q(60,2362,42,61), ox = 17, oy = 61 }, --throw forward 2
+            { q = q(104,2361,63,62), ox = 20, oy = 62, delay = 0.3 }, --throw forward 3
+            { q = q(169,2370,54,53), ox = 17, oy = 52, func = frontGrabAttackForward, delay = 0.067 }, --throw forward 4
+            { q = q(2,1899,47,50), ox = 17, oy = 49, delay = 0.13 }, --dash attack 7
+            { q = q(51,1891,41,58), ox = 14, oy = 57 }, --dash attack 8
+            { q = q(94,1887,38,62), ox = 15, oy = 61 }, --dash attack 9
+            delay = 0.05,
             isThrow = true,
             moves = {
                 { ox = 5, oz = 24, oy = 1, z = 0 },
