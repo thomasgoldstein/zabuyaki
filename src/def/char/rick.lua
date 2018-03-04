@@ -562,10 +562,10 @@ return {
             isThrow = true
         },
         frontGrabAttackBack = {
-            { q = q(2,1111,43,60), ox = 26, oy = 59 }, --throw 1.1
-            { q = q(47,1113,42,58), ox = 17, oy = 57, func = frontGrabAttackBack, delay = 0.05 }, --throw 1.2
-            { q = q(91,1114,44,57), ox = 14, oy = 56 }, --throw 1.3
-            { q = q(137,1112,40,59), ox = 14, oy = 58, delay = 0.1 }, --throw 1.4
+            { q = q(2,1111,43,60), ox = 26, oy = 59 }, --throw back 1
+            { q = q(47,1113,42,58), ox = 17, oy = 57, func = frontGrabAttackBack, delay = 0.05 }, --throw back 2
+            { q = q(91,1114,44,57), ox = 14, oy = 56 }, --throw back 3
+            { q = q(137,1112,40,59), ox = 14, oy = 58, delay = 0.1 }, --throw back 4
             delay = 0.2,
             isThrow = true,
             moves = {
