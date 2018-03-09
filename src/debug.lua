@@ -165,7 +165,7 @@ function watchDebugVariables()
     end
 end
 
-local keysToKill = {f8 = 1, f9 = 2, f10 = 3}
+local keysToKill = {f8 = 1, f9 = 2, f10 = 3, f7 = 0}
 function checkDebugKeys(key)
     if GLOBAL_SETTING.DEBUG then
         if key == '0' then
@@ -191,8 +191,12 @@ function checkDebugKeys(key)
             saveStageToPng()
         elseif keysToKill[key] then
             local id = keysToKill[key]
-            if getRegisteredPlayer(id) then
-                getRegisteredPlayer(id):setState(getRegisteredPlayer(id).dead)
+            if id == 0 then
+                stage.timeLeft = 0.01
+            else
+                if getRegisteredPlayer(id) then
+                    getRegisteredPlayer(id):setState(getRegisteredPlayer(id).dead)
+                end
             end
         end
     end
