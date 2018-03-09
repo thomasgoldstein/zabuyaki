@@ -236,7 +236,7 @@ function Character:afterOnHurt()
             end
             return
         end
-        self.speed_x = h.speed_x --use fall speed from the agument
+        self.speed_x = h.speed_x --use fall speed from the argument
         --then it goes to "fall dead"
     elseif h.type == "knockDown" then
         --use fall speed from the agument
