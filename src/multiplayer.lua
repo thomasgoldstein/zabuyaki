@@ -5,7 +5,6 @@ function checkPlayersRespawn(stage)
     if p[#p] then
         local deletePlayer = p[#p].deletePlayer
         p[#p].player.playerSelectMode = 3 -- Respawn mode
-        stage.world:remove(deletePlayer.shape)
         stage.objects:remove(deletePlayer)
         deletePlayer = p[#p].player
         deletePlayer:setOnStage(stage)
