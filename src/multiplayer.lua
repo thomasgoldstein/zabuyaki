@@ -44,9 +44,8 @@ function killAllPlayers()
         local player = getRegisteredPlayer(i)
         if player and player:isAlive() and not player:isInUseCreditMode() then
             player.hp = 0
-            player.face = -player.face
             player:setState(player.slide)
-            player:applyDamage(0, "knockDown", nil)
+            player:applyDamage(0, "knockDown", player)
         end
     end
 end

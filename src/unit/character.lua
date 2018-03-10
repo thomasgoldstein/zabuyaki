@@ -245,6 +245,10 @@ function Character:afterOnHurt()
         if self.speed_x < self.fallSpeed_x / 2 then
             self.speed_x = self.fallSpeed_x / 2 + self.fallSpeedBoost_x
         end
+        if h.source == self then --fall back on self kill (timeout)
+            h.horizontal = -self.horizontal
+            self.face = -h.horizontal
+        end
     elseif h.type == "shockWave" or h.type == "blowOut" then
         if h.source.x < self.x then
             h.horizontal = 1

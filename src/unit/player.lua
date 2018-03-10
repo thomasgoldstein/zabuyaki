@@ -206,13 +206,15 @@ function Player:onHurtDamage()
     end
 
     self:playHitSfx(h.damage)
-    if h.source.speed_x == 0 then
-        self.face = -h.source.face	--turn face to the still(pulled back) attacker
-    else
-        if h.source.horizontal ~= h.source.face then
-            self.face = -h.source.face	--turn face to the back-jumping attacker
+    if h.source ~= self then
+        if h.source.speed_x == 0 then
+            self.face = -h.source.face --turn face to the still(pulled back) attacker
         else
-            self.face = -h.source.horizontal --turn face to the attacker
+            if h.source.horizontal ~= h.source.face then
+                self.face = -h.source.face --turn face to the back-jumping attacker
+            else
+                self.face = -h.source.horizontal --turn face to the attacker
+            end
         end
     end
 end
