@@ -32,6 +32,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.comboTimeout = 0.37 -- max delay to connect combo hits
     self.comboTimer = 0    -- can continue combo if > 0
     self.canMoveDelay = self.comboTimeout - 0.15 -- can move if comboTimer < canMoveDelay
+    self.canActAfterHurtDelay = 0.2 -- min delay after which the character can transit from hurt state to stand/grab
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
     self.grabTimeout = 1.5 -- max delay to keep a unit grabbed
     self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
@@ -761,10 +762,12 @@ Character.duck2jump = {name = "duck2jump", start = Character.duck2jumpStart, exi
 
 function Character:hurtStart()
     self.isHittable = true
+    self.canActTimer = self.canActAfterHurtDelay
 end
 function Character:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
-    if self.sprite.isFinished then
+    self.canActTimer = self.canActTimer - dt
+    if self.sprite.isFinished and self.canActTimer <= 0 then
         if self.hp <= 0 then
             self:setState(self.getup)
             return
