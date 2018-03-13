@@ -264,6 +264,7 @@ function Character:afterOnHurt()
     dpo(self, self.state)
     --finish calcs before the fall state
     if h.damage > 0 then
+        self:setState(self.hurt)
         self:showHitMarks(h.damage, h.z)
         if h.z > 13 then
             self:setSprite("hurtHigh")
