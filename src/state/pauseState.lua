@@ -32,6 +32,13 @@ function pauseState:enter()
     Control1.start:update()
     Control1.back:update()
     love.graphics.setLineWidth( 2 )
+    -- sliding distance debug calc
+    local p = getRegisteredPlayer(1)
+    calcDistanceForSpeedAndFriction({
+        speed = p.comboSlideSpeed2_x,   -- 1) slide speed x
+        friction = p.repelFriction,     -- 2) repelFriction
+        toSlowDown = false,
+        name = p.name, id = p.id })
 end
 
 function pauseState:leave()
