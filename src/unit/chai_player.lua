@@ -30,6 +30,7 @@ function Chai:initAttributes()
     self.runSpeed_y = 25
     self.dashSpeed = 200 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
+    --self.repelFriction = 1650 * 1.5
 
     self.comboSlideSpeed1_x = 120 --horizontal speed of combo1Forward attacks
     self.comboSlideDiagonalSpeed1_x = 90 --diagonal horizontal speed of combo1Forward attacks
