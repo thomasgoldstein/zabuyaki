@@ -27,6 +27,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     if f.flipOnBreak ~= false then
         self.flipOnBreak = true --flip face to the attacker on break (true by default)
     end
+    self.pushBackOnHitSpeed = 60
     self.faceFix = self.face   --keep the same facing after 1st hit
     self.sfx.dead = f.sfxDead --on death sfx
     self.sfx.onHit = f.sfxOnHit --on hurt sfx
