@@ -253,6 +253,9 @@ function Character:afterOnHurt()
         if h.source == self then --fall back on self kill (timeout)
             h.horizontal = -self.horizontal
             self.face = -h.horizontal
+        else
+            self.vertical = h.source.vertical
+            self.speed_y = h.source.speed_y * 0.5
         end
     elseif h.type == "shockWave" or h.type == "blowOut" then
         if h.source.x < self.x then
