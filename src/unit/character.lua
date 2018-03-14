@@ -231,7 +231,7 @@ function Character:afterOnHurt()
                 self:setSprite("hurtLow")
             end
             if self.isMovable then
-                self.speed_x = h.speed_x
+                self.speed_x = h.speed_x > 0 and h.speed_x or self.walkSpeed_x / 2
                 self.horizontal = h.horizontal
                 self.friction = self.repelFriction  -- custom friction value for smooth sliding back
             end
