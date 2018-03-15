@@ -1656,8 +1656,6 @@ function Character:holdAttackStart()
     self.isDashHoldAttack = false
     self.speed_z = self.dashHoldAttackSpeed_z
     if self.z > 0 then
-        -- TODO: dash hold attacks should be disabled during side steps (D494).
-        -- Adding a 'if self.speed_y == 0 then' condition is not enough as the side step is canceled early by the release of the attack button.
         self.isDashHoldAttack = true
         self:setSpriteIfExists("dashHoldAttack", "holdAttack")
         self:playSfx(self.sfx.dashAttack)

@@ -159,7 +159,7 @@ function Player:updateAI(dt)
             self.charge = self.charge + dt
         else
             if self.charge >= self.chargedAt then
-                if self.statesForHoldAttack[self.state] then
+                if self.statesForHoldAttack[self.state] and self.speed_y == 0 then
                     self:setState(self.holdAttack)
                 end
             end
