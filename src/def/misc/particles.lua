@@ -66,7 +66,7 @@ particles:setColors(unpack(dustStepColors))
 particles:setParticleLifetime(0.5, 1.3)
 particles:setLinearAcceleration(-500, -20, 500, -100) -- Random movement in all directions.
 particles:setLinearDamping(10, 50)
-particles:setAreaSpread("uniform", 20, 4)
+--particles:setAreaSpread("uniform", 20, 4) -- now tweaked on emit
 particles:setPosition(0, -2)
 PA_DUST_FALL_LANDING = particles
 

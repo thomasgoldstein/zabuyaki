@@ -29,7 +29,8 @@ function Character:showEffect(effect, obj)
     elseif effect == "fallLanding" then
         --landing dust clouds
         particles = PA_DUST_FALL_LANDING:clone()
-        particles:emit(PA_DUST_FALL_LANDING_N_PARTICLES)
+        particles:setAreaSpread("uniform", self.width, 4)
+        particles:emit(math.min(self.width / 5 + 0.5))
         stage.objects:add(Effect:new(particles,
             self.type == "obstacle" and self.x or (self.x + self.horizontal * 20),
             self.y+3))
