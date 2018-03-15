@@ -75,6 +75,8 @@ function Character:initAttributes()
     self.dashHoldSpeedMultiplier_z = 0.6
     self.dashHoldSpeed_x = 320
     self.dashHoldSpeedMultiplier_x = 0.8
+    self.dashHoldAttackSpeed_z = self.jumpSpeed_z
+    self.dashHoldAttackSpeedMultiplier_z = 0.6
     self.throwStart_z = 20 --lift up a body to throw at this Z
     self.toFallenAnim_z = 40
     self.sideStepSpeed = 220
@@ -1652,6 +1654,7 @@ Character.grabSwap = {name = "grabSwap", start = Character.grabSwapStart, exit =
 function Character:holdAttackStart()
     self.isHittable = true
     self.isDashHoldAttack = false
+    self.speed_z = self.dashHoldAttackSpeed_z
     if self.z > 0 then
         -- TODO: dash hold attacks should be disabled during side steps (D494).
         -- Adding a 'if self.speed_y == 0 then' condition is not enough as the side step is canceled early by the release of the attack button.
@@ -1663,7 +1666,7 @@ function Character:holdAttackStart()
     end
 end
 function Character:holdAttackUpdate(dt)
-    if self.sprite.isFinished then
+    if self.z <= 0 then
         if self.isDashHoldAttack then
             self:playSfx(self.sfx.step)
             self:setState(self.duck)
@@ -1671,6 +1674,8 @@ function Character:holdAttackUpdate(dt)
             self:setState(self.stand)
         end
         return
+    else
+        self:calcFreeFall(dt, self.dashHoldAttackSpeedMultiplier_z)
     end
 end
 Character.holdAttack = {name = "holdAttack", start = Character.holdAttackStart, exit = nop, update = Character.holdAttackUpdate, draw = Character.defaultDraw}
