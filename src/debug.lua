@@ -48,16 +48,22 @@ function dpo(o, txt)
     dboc[o.name] = { x = o.x, y = o.y, z = o.z, time = love.timer.getTime() }
 end
 
+local frame = 1000
+function incrementDebugFrame()
+    frame = frame + 1
+end
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
-function showDebugIndicator(size, x, y)
+function showDebugIndicator(size, _x, _y)
+    local x, y = _x or 2, _y or 480 - 9 * 4
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
-        love.graphics.print("DEBUG", x or 2, y or 2)
-        love.graphics.print("FPS:"..tonumber(love.timer.getFPS()), x or 2, y or 2 + 9 * 1)
+        love.graphics.print("DEBUG", x, y)
+        love.graphics.print("FPS:"..tonumber(love.timer.getFPS()), x, y + 9 * 1)
         if GLOBAL_SETTING.SLOW_MO > 0 then
-            love.graphics.print("SLOW:"..(GLOBAL_SETTING.SLOW_MO + 1), x or 2, y or 2 + 9 * 2)
+            love.graphics.print("SLOW:"..(GLOBAL_SETTING.SLOW_MO + 1), x, y + 9 * 2)
         end
+        love.graphics.print("Frame:"..frame, x, y + 9 * 3)
     end
 end
 

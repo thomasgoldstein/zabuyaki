@@ -210,11 +210,13 @@ function love.update(dt)
         if slowMoCounter >= GLOBAL_SETTING.SLOW_MO then
             slowMoCounter = 0
             pollControls(dt)
+            incrementDebugFrame()
         else
             return
         end
     else
         pollControls(dt)
+        incrementDebugFrame()
     end
     --Toggle Full Screen Mode (using P1's control)
     if Control1.fullScreen:pressed() then
