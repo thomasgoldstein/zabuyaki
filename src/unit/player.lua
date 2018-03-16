@@ -132,6 +132,17 @@ function Player:updateAI(dt)
             self:setState(self.dashAttack)
         end
     end
+    --DEBUG: highlight P1 on the possible Special triggering
+    if self.statesForSpecialToleranceDelay[self.state] then
+        if love.timer.getTime() - self.lastStateTime > delayWithSlowMotion(self.specialToleranceDelay)
+        then
+            startUnitHighlight(self, self.state.." YES") --default blue color
+        else
+            startUnitHighlight(self, self.state.." NO", {255, 0, 0, 70}) --red
+        end
+    else
+        stopUnitHighlight(self)
+    end
     if self.moves.defensiveSpecial or self.moves.offensiveSpecial then
         if self.z <= 0 and isSpecialCommand(self.b) then
             if not self.statesForSpecialToleranceDelay[self.state]
