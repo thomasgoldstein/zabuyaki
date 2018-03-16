@@ -202,6 +202,24 @@ function checkDebugKeys(key)
     end
 end
 
+function startUnitHighlight(slf, text, color)
+    slf.debugHighlight = true
+    slf.debugHighlightText = text or "TEXT"
+    slf.debugHighlightColor = color or {0, 255, 255, 70}
+end
+
+function stopUnitHighlight(slf)
+    slf.debugHighlight = false
+end
+
+function drawUnitHighlight(slf)
+    if slf.debugHighlight and slf.debugHighlightColor then
+        love.graphics.setColor(unpack(slf.debugHighlightColor))
+        love.graphics.rectangle("fill", slf.x - slf.width * 1, slf.y - slf.z - slf.height, slf.width * 2, slf.height )
+        love.graphics.print( slf.debugHighlightText, slf.x + slf.width * 1, slf.y - slf.z - slf.height)
+    end
+end
+
 function drawDebugUnitCross(slf)
     if GLOBAL_SETTING.DEBUG then
         love.graphics.setColor(127, 127, 127, 127)
@@ -221,6 +239,7 @@ end
 
 function drawDebugUnitInfo(a)
     if GLOBAL_SETTING.DEBUG then
+        drawUnitHighlight(a)
         love.graphics.setFont(gfx.font.debug)
         if a.hp <= 0 then
             love.graphics.setColor(0, 0, 0, 50)
