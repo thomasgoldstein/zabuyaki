@@ -651,7 +651,7 @@ function Character:jumpStart()
     self:playSfx(self.sfx.jump)
 end
 function Character:jumpUpdate(dt)
-    if self.b.attack:pressed() then
+    if self.b.attack:pressed() or self.duckAttackPressed then
         if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
             self:setState(self.jumpAttackLight)
             return
@@ -735,8 +735,12 @@ function Character:duck2jumpStart()
     -- save speed to pass it to the jump state
     self.saveSpeed_x = self.speed_x
     self.saveSpeed_y = self.speed_y
+    self.duckAttackPressed = false
 end
 function Character:duck2jumpUpdate(dt)
+    if self.b.attack:pressed() then
+        self.duckAttackPressed = true
+    end
     if self.sprite.isFinished then
         if self.moves.jump then
             if self.saveSpeed_x < self.walkSpeed_x / 2 then
