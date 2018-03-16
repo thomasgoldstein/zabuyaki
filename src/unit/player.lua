@@ -134,7 +134,7 @@ function Player:updateAI(dt)
     end
     --DEBUG: highlight P1 on the possible Special triggering
     if self.statesForSpecialToleranceDelay[self.state] then
-        if love.timer.getTime() - self.lastStateTime > delayWithSlowMotion(self.specialToleranceDelay)
+        if love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
         then
             startUnitHighlight(self, self.state.." YES") --default blue color
         else
@@ -146,7 +146,7 @@ function Player:updateAI(dt)
     if self.moves.defensiveSpecial or self.moves.offensiveSpecial then
         if self.z <= 0 and isSpecialCommand(self.b) then
             if not self.statesForSpecialToleranceDelay[self.state]
-                or love.timer.getTime() - self.lastStateTime > delayWithSlowMotion(self.specialToleranceDelay)
+                or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
             then
                 local hv = self.b.horizontal:getValue()
                 if self.moves.offensiveSpecial and hv ~= 0
