@@ -242,7 +242,9 @@ function Unit:hasPlaceToStand(x, y)
     for other, separatingVector in pairs(stage.world:collisions(testShape)) do
         local o = other.obj
         if o.type == "wall"	then
-            return false
+            if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
+                success = false
+            end
         end
     end
     return true
