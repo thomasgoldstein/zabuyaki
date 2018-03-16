@@ -92,7 +92,7 @@ function Character:initAttributes()
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
-    self.specialToleranceDelay = 0.016 -- between pressing the last button of Attack & Jump
+    self.specialToleranceDelay = 0.02 -- between pressing the last button of Attack & Jump
     -- default sfx
     self.sfx.jump = "whooshHeavy"
     self.sfx.throw = "whooshHeavy"
