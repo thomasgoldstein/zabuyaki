@@ -1160,6 +1160,9 @@ function Character:comboUpdate(dt)
         self.connectHit = false
         self.attacksPerAnimation = self.attacksPerAnimation + 1
     end
+    if self.z > 0 then
+        self:calcFreeFall(dt, self.dashHoldAttackSpeedMultiplier_z)
+    end
     if self.sprite.isFinished then
         self.comboTimer = self.comboTimeout -- reset max delay to connect combo hits
         self:setState(self.stand)
