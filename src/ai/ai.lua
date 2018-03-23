@@ -71,7 +71,7 @@ function AI:update(dt)
     end
     self.thinkInterval = self.thinkInterval - dt
     if self.thinkInterval <= 0 then
-        dp("AI " .. self.unit.name .. "(" .. self.unit.state .. ")" .. " thinking")
+--        dp("AI " .. self.unit.name .. "(" .. self.unit.state .. ")" .. " thinking")
         self.conditions = self:getConditions()
         --print(inspect(self.conditions, {depth = 1}))
         if not self.conditions.cannotAct then
@@ -224,7 +224,7 @@ end
 
 function AI:initIntro()
     local u = self.unit
-    dp("AI:initIntro() " .. u.name)
+--    dp("AI:initIntro() " .. u.name)
     if self.conditions.cannotAct then
         return false
     end
@@ -248,7 +248,7 @@ end
 
 function AI:initStand()
     local u = self.unit
-    dp("AI:initStand() " .. u.name)
+--    dp("AI:initStand() " .. u.name)
     if not self.conditions.canMove or self.conditions.cannotAct then
         return false
     end
@@ -273,7 +273,7 @@ end
 
 function AI:initWait()
     local u = self.unit
-    dp("AI:initWait() " .. u.name)
+--    dp("AI:initWait() " .. u.name)
     if not self.conditions.canMove or self.conditions.cannotAct then
         return false
     end
@@ -300,7 +300,7 @@ end
 
 function AI:calcWalkToBackOffXY()
     local u = self.unit
-    dp("AI:calcWalkToBackOffXY() " .. u.name)
+--    dp("AI:calcWalkToBackOffXY() " .. u.name)
     if not self.conditions.canMove or u.state ~= "stand" then
         return false
     end
@@ -335,7 +335,7 @@ function AI:unused_initFaceToXY()
     if self.conditions.cannotAct then
         return false
     end
-    dp("AI:initFaceToXY() " .. u.name)
+--    dp("AI:initFaceToXY() " .. u.name)
     if u.x < self.x then
         u.horizontal = 1
     else --u.x > self.x then
@@ -347,7 +347,7 @@ end
 
 function AI:initWalkToXY()
     local u = self.unit
-    dp("AI:initWalkToXY() " .. u.name)
+--    dp("AI:initWalkToXY() " .. u.name)
     if not self.conditions.canMove or self.conditions.cannotAct then
         return false
     end
@@ -368,7 +368,7 @@ end
 
 function AI:initRunToXY()
     local u = self.unit
-    dp("AI:initRunToXY() " .. u.name)
+--    dp("AI:initRunToXY() " .. u.name)
 --    if not self.conditions.canMove or not self.conditions.cannotAct  then
     if self.conditions.cannotAct then
         return false
@@ -390,7 +390,7 @@ end
 
 function AI:calcWalkToAttackXY()
     local u = self.unit
-    dp("AI:calcWalkToAttackXY() " .. u.name)
+--    dp("AI:calcWalkToAttackXY() " .. u.name)
     if not u.target then
         u:pickAttackTarget("close")
         if not u.target then
@@ -462,7 +462,7 @@ end
 
 function AI:calcRunToXY()
     local u = self.unit
-    dp("AI:calcRunToXY() " .. u.name)
+--    dp("AI:calcRunToXY() " .. u.name)
     if self.conditions.cannotAct or not self.conditions.canMove then
         return false
     end
@@ -490,7 +490,7 @@ end
 
 function AI:initFaceToPlayer()
     local u = self.unit
-    dp("AI:initFaceToPlayer() " .. u.name)
+--    dp("AI:initFaceToPlayer() " .. u.name)
     if not u.isHittable or self.conditions.cannotAct then
         return false
     end
@@ -544,7 +544,7 @@ end
 
 function AI:waitUntilStand(dt)
     local u = self.unit
-    dp("AI:waitUntilStand() ".. u.name)
+--    dp("AI:waitUntilStand() ".. u.name)
     if self.conditions.cannotAct and not self.conditions.canMove then
         return false
     end
@@ -554,7 +554,7 @@ end
 function AI:initGrab()
     self.chanceToGrabAttack = 0
     local u = self.unit
-    dp("AI: INIT GRAB " .. u.name)
+--    dp("AI: INIT GRAB " .. u.name)
     --if u.state == "stand" or u.state == "walk" then
     if self.conditions.canMove and not self.conditions.cannotAct then
         local grabbed = u:checkForGrab()
@@ -617,7 +617,7 @@ end
 
 function AI:calcWalkToGrabXY()
     local u = self.unit
-    dp("AI:calcWalkToGrabXY() " .. u.name)
+--    dp("AI:calcWalkToGrabXY() " .. u.name)
     if not self.conditions.canMove or self.conditions.cannotAct then
         return false
     end
