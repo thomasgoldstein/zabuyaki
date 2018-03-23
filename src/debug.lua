@@ -42,7 +42,10 @@ function prevDebugLevel()
     return GLOBAL_SETTING.DEBUG
 end
 
-function isDebug()
+function isDebug(level)
+    if level then
+        return getDebugLevel() >= level
+    end
     return getDebugLevel() > 0
 end
 
@@ -96,7 +99,7 @@ end
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
 function showDebugIndicator(size, _x, _y)
     local x, y = _x or 2, _y or 480 - 9 * 4
-    if getDebugLevel() >= SHOW_FPS then
+    if isDebug(SHOW_FPS) then
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
         love.graphics.print("DEBUG:"..getDebugLevel(), x, y)
@@ -109,7 +112,7 @@ function showDebugIndicator(size, _x, _y)
 end
 
 function showDebugControls()
-    if getDebugLevel() >= SHOW_DEBUG_CONTROLS then
+    if isDebug(SHOW_DEBUG_CONTROLS) then
         love.graphics.setFont(gfx.font.arcade3)
         -- draw players controls
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
@@ -171,7 +174,7 @@ function showDebugBoxes(scale)
     if not scale then
         scale = 1
     end
-    if getDebugLevel() >= SHOW_DEBUG_BOXES then
+    if isDebug(SHOW_DEBUG_BOXES) then
         local a
         -- draw attack hitboxes
         for i = 1, #attackHitBoxes do
@@ -268,14 +271,14 @@ function drawUnitHighlight(slf)
 end
 
 function drawDebugUnitHitbox(a)
-    if getDebugLevel() >= SHOW_DEBUG_UNIT_HITBOX then
+    if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
         love.graphics.setColor(255, 255, 255, 150)
         love.graphics.rectangle("line", a.x - a.width / 2, a.y - a.height - a.z + 1, a.width, a.height-1)
     end
 end
 
 function drawDebugUnitInfo(a)
-    if getDebugLevel() >= SHOW_DEBUG_UNIT_INFO then
+    if isDebug(SHOW_DEBUG_UNIT_INFO) then
         drawUnitHighlight(a)
         love.graphics.setFont(gfx.font.debug)
         if a.hp <= 0 then
