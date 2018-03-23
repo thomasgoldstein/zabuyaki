@@ -92,12 +92,12 @@ end
 function Entity:draw(l,t,w,h)
     for _,obj in ipairs(self.entities) do
         obj:draw(l,t,w,h)
-        if GLOBAL_SETTING.DEBUG and obj.shape then
+        if isDebug() and obj.shape then
             love.graphics.setColor(0, 255, 255, 50)
             obj.shape:draw()
         end
     end
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         love.graphics.setColor(255, 0, 255, 50)
         stage.testShape:draw()
     end

@@ -20,7 +20,7 @@ configuration:set(key, value)
 magicString, magicStringDef = "", "EOF42N"
 GLOBAL_SETTING = {
     MAX_PLAYERS = 3,
-    DEBUG = false,
+    DEBUG = 0,
     OFFSCREEN = 1000,
     FULL_SCREEN = true,
     FULL_SCREEN_FILLING_MODE = 1,

@@ -47,7 +47,7 @@ function Unit:showHitMarks(dmg, z, offset_x)
     else
         paHitMark = PA_IMPACT_BIG:clone()
     end
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = 0, y = self.y, w = 31, h = 0.1, z = z, collided = true }
     end
     paHitMark:setPosition( self.face * (offset_x or 4), - z + hitMarkOffset_y )
@@ -113,9 +113,9 @@ end
 
 function Unit:calcShadowSpriteAndTransparency()
     local transparency = self.deathDelay < 2 and 255 * math.sin(self.deathDelay) or 255
-    if GLOBAL_SETTING.DEBUG and self.isGrabbed then
+    if isDebug() and self.isGrabbed then
         love.graphics.setColor(0, 100, 0, transparency) --4th is the shadow transparency
-    elseif GLOBAL_SETTING.DEBUG and not self.isHittable then
+    elseif isDebug() and not self.isHittable then
         love.graphics.setColor(40, 0, 0, transparency) --4th is the shadow transparency
     else
         love.graphics.setColor(0, 0, 0, transparency) --4th is the shadow transparency

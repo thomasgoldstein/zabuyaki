@@ -7,7 +7,7 @@ function Unit:draw2()
 --    if self.shader then
 --        love.graphics.setShader(self.shader)
 --    end
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         love.graphics.setColor(255, 255, 255, 90)
     else
         love.graphics.setColor(255, 255, 255, 255)

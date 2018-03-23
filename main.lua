@@ -203,7 +203,7 @@ end
 
 slowMoCounter = 0
 function love.update(dt)
-    if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0
+    if isDebug() and GLOBAL_SETTING.SLOW_MO > 0
         and Gamestate.current() == arcadeState
     then
         slowMoCounter = slowMoCounter + 1
@@ -234,7 +234,12 @@ function love.keypressed(key, unicode)
         Prof:keypressed(key, unicode)
     end
     if key == 'kp*' or key == '0' then
-        configuration:set("DEBUG", not GLOBAL_SETTING.DEBUG)
+        if love.keyboard.isScancodeDown( "lshift", "rshift" ) then
+            prevDebugLevel()
+        else
+            nextDebugLevel()
+        end
+        configuration:set("DEBUG", getDebugLevel())
         configuration:save(true)
         sfx.play("sfx","menuMove")
     end

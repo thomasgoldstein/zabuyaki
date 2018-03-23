@@ -312,7 +312,7 @@ function Player:useCreditUpdate(dt)
             else
                 self.playerSelectCur = self.playerSelectCur + 1
             end
-            if GLOBAL_SETTING.DEBUG then
+            if isDebug() then
                 if self.playerSelectCur > players_list.SATOFF then
                     self.playerSelectCur = 1
                 end

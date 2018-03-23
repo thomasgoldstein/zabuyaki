@@ -88,7 +88,7 @@ function hex2color(hex)
 end
 
 function delayWithSlowMotion(delay)
-    if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0 then
+    if isDebug() and GLOBAL_SETTING.SLOW_MO > 0 then
         return delay + love.timer.getDelta() * (GLOBAL_SETTING.SLOW_MO + 1)
     end
     return delay

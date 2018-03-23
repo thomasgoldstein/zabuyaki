@@ -75,7 +75,7 @@ function Gopper:walkUpdate(dt)
     if self.move then
         complete = self.move:update(dt)
         if not complete then
-            if GLOBAL_SETTING.DEBUG then
+            if isDebug() then
                 attackHitBoxes[#attackHitBoxes+1] = {x = self.ttx, sx = 0, y = self.tty, w = 31, h = 0.1, z = 0 }
             end
         end
@@ -103,7 +103,7 @@ function Gopper:runUpdate(dt)
     if self.move then
         complete = self.move:update(dt)
         if not complete then
-            if GLOBAL_SETTING.DEBUG then
+            if isDebug() then
                 attackHitBoxes[#attackHitBoxes+1] = {x = self.ttx, sx = 0, y = self.tty, w = 31, h = 0.1, z = 0 }
             end
         end

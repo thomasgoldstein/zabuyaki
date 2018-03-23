@@ -5,9 +5,43 @@ if GLOBAL_SETTING.PROFILER_ENABLED then
     Prof = Profiler:new()
 end
 
+function getMaxDebugLevel()
+    return 3
+end
+
+function getDebugLevel()
+    if GLOBAL_SETTING and GLOBAL_SETTING.DEBUG then
+        if type(GLOBAL_SETTING.DEBUG) ~= "number" then
+            GLOBAL_SETTING.DEBUG = 0
+        end
+        return GLOBAL_SETTING.DEBUG
+    end
+    return 0
+end
+
+function nextDebugLevel()
+    GLOBAL_SETTING.DEBUG = getDebugLevel() + 1
+    if GLOBAL_SETTING.DEBUG > getMaxDebugLevel() then
+        GLOBAL_SETTING.DEBUG = 0
+    end
+    return GLOBAL_SETTING.DEBUG
+end
+
+function prevDebugLevel()
+    GLOBAL_SETTING.DEBUG = getDebugLevel() - 1
+    if GLOBAL_SETTING.DEBUG < 0 then
+        GLOBAL_SETTING.DEBUG = getMaxDebugLevel()
+    end
+    return GLOBAL_SETTING.DEBUG
+end
+
+function isDebug()
+    return getDebugLevel() > 0
+end
+
 --Debug console output
 function dp(...)
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug()then
         print(...)
     end
 end
@@ -15,17 +49,17 @@ end
 dboc = {}
 dboc[0] = { x = 0, y = 0, z = 0, time = 0 }
 function dpoInit(o)
-    if not GLOBAL_SETTING.DEBUG then
+    if not isDebug() then
         return
     end
-    if not GLOBAL_SETTING.DEBUG then
+    if not isDebug() then
         return
     end
     dboc[o.name] = { x = o.x, y = o.y, z = o.z, time = love.timer.getTime() }
 end
 local r = round
 function dpo(o, txt)
-    if not GLOBAL_SETTING.DEBUG then
+    if not isDebug() then
         return
     end
     local ox = 0
@@ -55,10 +89,10 @@ end
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
 function showDebugIndicator(size, _x, _y)
     local x, y = _x or 2, _y or 480 - 9 * 4
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
-        love.graphics.print("DEBUG", x, y)
+        love.graphics.print("DEBUG:"..getDebugLevel(), x, y)
         love.graphics.print("FPS:"..tonumber(love.timer.getFPS()), x, y + 9 * 1)
         if GLOBAL_SETTING.SLOW_MO > 0 then
             love.graphics.print("SLOW:"..(GLOBAL_SETTING.SLOW_MO + 1), x, y + 9 * 2)
@@ -68,7 +102,7 @@ function showDebugIndicator(size, _x, _y)
 end
 
 function showDebugControls()
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         love.graphics.setFont(gfx.font.arcade3)
         -- draw players controls
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
@@ -130,7 +164,7 @@ function showDebugBoxes(scale)
     if not scale then
         scale = 1
     end
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         local a
         -- draw attack hitboxes
         for i = 1, #attackHitBoxes do
@@ -161,19 +195,19 @@ function showDebugBoxes(scale)
 end
 
 function clearDebugBoxes()
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         attackHitBoxes = {}
     end
 end
 
 function watchDebugVariables()
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
     end
 end
 
 local keysToKill = {f8 = 1, f9 = 2, f10 = 3, f7 = 0}
 function checkDebugKeys(key)
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         if key == '0' then
             stage.objects:dp()
         elseif key == 'kp+' or key == '=' then
@@ -227,7 +261,7 @@ function drawUnitHighlight(slf)
 end
 
 function drawDebugUnitCross(slf)
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         love.graphics.setColor(127, 127, 127, 127)
         love.graphics.line( slf.x - 30, slf.y - slf.z, slf.x + 30, slf.y - slf.z )
         love.graphics.setColor(255, 255, 255, 127)
@@ -236,7 +270,7 @@ function drawDebugUnitCross(slf)
 end
 
 function drawDebugUnitHitbox(a)
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         love.graphics.setColor(255, 255, 255, 150)
 --        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
         love.graphics.rectangle("line", a.x - a.width / 2, a.y - a.height - a.z + 1, a.width, a.height-1)
@@ -244,7 +278,7 @@ function drawDebugUnitHitbox(a)
 end
 
 function drawDebugUnitInfo(a)
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         drawUnitHighlight(a)
         love.graphics.setFont(gfx.font.debug)
         if a.hp <= 0 then

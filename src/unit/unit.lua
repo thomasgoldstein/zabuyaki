@@ -373,7 +373,7 @@ function Unit:moveStatesApply()
         end
         i.lastFrame = frame
     end
-    if GLOBAL_SETTING.DEBUG and t then
+    if isDebug() and t then
         local m = moves[frame]
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = 0, y = self.y, w = 11, h = 0.1, z = self.z, collided = false }
         attackHitBoxes[#attackHitBoxes+1] = {x = t.x, sx = 0, y = t.y, w = 9, h = 0.1, z = t.z, collided = true }

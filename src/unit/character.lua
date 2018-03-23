@@ -388,7 +388,7 @@ function Character:checkAndAttack(f, isFuncCont)
         self.connectHit = true
     end
     --DEBUG collect data to show attack hitBoxes in green
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = #items > 0 }
     end
     items = nil
@@ -1180,7 +1180,7 @@ function Character:checkForGrab()
     --got any Characters
     local items = {}
     self.shape:moveTo(self.x + self.horizontal, self.y + self.vertical)
-    if GLOBAL_SETTING.DEBUG then
+    if isDebug() then
         -- to show similar purple rect
         stage.testShape:moveTo(self.x + self.horizontal, self.y + self.vertical)
     end

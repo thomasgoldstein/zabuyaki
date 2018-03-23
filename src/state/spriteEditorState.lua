@@ -325,7 +325,7 @@ local function drawWeaponSprite(sprite, x, y, i)
             weaponSprite.flipH = s.wFlip_h or 1
             weaponSprite.flipV = s.wFlip_v or 1
             drawSpriteInstance(weaponSprite, x + wx, y + wy)
-            if GLOBAL_SETTING.DEBUG then
+            if isDebug() then
                 --center of the weapon animation
                 love.graphics.rectangle("fill", x + wx - 2, y + wy, 6, 2)
                 love.graphics.rectangle("fill", x + wx, y + wy - 2, 2, 6)
@@ -459,7 +459,7 @@ function spriteEditorState:draw()
                 drawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
                 drawWeaponSprite(sprite, x - (menu[menuState].n - i) * xStep, y, i )
             end
-            if GLOBAL_SETTING.DEBUG then
+            if isDebug() then
                 showDebugBoxes(2)
                 love.graphics.setColor(255, 255, 255, 255)
             end

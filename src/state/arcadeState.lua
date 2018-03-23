@@ -44,7 +44,7 @@ function arcadeState:enter(_, players)
 end
 
 function arcadeState:update(dt)
-    if GLOBAL_SETTING.DEBUG and GLOBAL_SETTING.SLOW_MO > 0 then
+    if isDebug() and GLOBAL_SETTING.SLOW_MO > 0 then
         if slowMoCounter == 0 then
             time = time + dt
             clearDebugBoxes()
