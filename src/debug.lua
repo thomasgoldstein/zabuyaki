@@ -1,3 +1,10 @@
+-- adjust DEBUG levels
+local SHOW_FPS = 1 -- show text of FPS, FRAME, SLOW MO VALUE from this debug level
+local SHOW_DEBUG_CONTROLS = 1 -- show pressed keys
+local SHOW_DEBUG_UNIT_HITBOX = 1 -- show hitboxes
+local SHOW_DEBUG_UNIT_INFO = 3 -- show unit's info: name, pos, state
+local SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
+
 -- Load PRofiler
 if GLOBAL_SETTING.PROFILER_ENABLED then
     Profiler  = require "lib/piefiller"
@@ -89,7 +96,7 @@ end
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
 function showDebugIndicator(size, _x, _y)
     local x, y = _x or 2, _y or 480 - 9 * 4
-    if isDebug() then
+    if getDebugLevel() >= SHOW_FPS then
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(fonts[size or 1])
         love.graphics.print("DEBUG:"..getDebugLevel(), x, y)
@@ -102,7 +109,7 @@ function showDebugIndicator(size, _x, _y)
 end
 
 function showDebugControls()
-    if isDebug() then
+    if getDebugLevel() >= SHOW_DEBUG_CONTROLS then
         love.graphics.setFont(gfx.font.arcade3)
         -- draw players controls
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
@@ -164,7 +171,7 @@ function showDebugBoxes(scale)
     if not scale then
         scale = 1
     end
-    if isDebug() then
+    if getDebugLevel() >= SHOW_DEBUG_BOXES then
         local a
         -- draw attack hitboxes
         for i = 1, #attackHitBoxes do
@@ -260,25 +267,15 @@ function drawUnitHighlight(slf)
     end
 end
 
-function drawDebugUnitCross(slf)
-    if isDebug() then
-        love.graphics.setColor(127, 127, 127, 127)
-        love.graphics.line( slf.x - 30, slf.y - slf.z, slf.x + 30, slf.y - slf.z )
-        love.graphics.setColor(255, 255, 255, 127)
-        love.graphics.line( slf.x, slf.y+2, slf.x, slf.y-66 )
-    end
-end
-
 function drawDebugUnitHitbox(a)
-    if isDebug() then
+    if getDebugLevel() >= SHOW_DEBUG_UNIT_HITBOX then
         love.graphics.setColor(255, 255, 255, 150)
---        stage.world:add(obj, obj.x-7, obj.y-3, 15, 7)
         love.graphics.rectangle("line", a.x - a.width / 2, a.y - a.height - a.z + 1, a.width, a.height-1)
     end
 end
 
 function drawDebugUnitInfo(a)
-    if isDebug() then
+    if getDebugLevel() >= SHOW_DEBUG_UNIT_INFO then
         drawUnitHighlight(a)
         love.graphics.setFont(gfx.font.debug)
         if a.hp <= 0 then
