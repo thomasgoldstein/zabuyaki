@@ -1126,9 +1126,6 @@ function Character:comboInit()
     self.connectHit = false
     self.attacksPerAnimation = 0
 end
-function Character:comboEnd()
-    self.comboN = 10 -- Need to reset the combo. Max Combo <= 9.
-end
 function Character:comboStart()
     self.isHittable = true
     self.toSlowDown = false
@@ -1161,7 +1158,13 @@ function Character:comboUpdate(dt)
         return
     end
 end
-Character.combo = {name = "combo", start = Character.comboStart, exit = nop, update = Character.comboUpdate, draw = Character.defaultDraw}
+function Character:comboExit()
+    if self.sprite.comboEnd and self.sprite.isFinished then
+        self.comboTimer = 0 -- start next Combo from 1
+    end
+end
+
+Character.combo = {name = "combo", start = Character.comboStart, exit = Character.comboExit, update = Character.comboUpdate, draw = Character.defaultDraw}
 
 -- GRABBING / HOLDING
 function Character:checkForGrab()
