@@ -103,6 +103,7 @@ function getSpriteInstance (spriteDef)
         isFirst = true, -- if the 1st frame
         isLast = false, -- if the last frame
         isFinished = false, -- last frame played till the end and the animation is not a loop
+        comboEnd = false, -- stare next combo from 1
         loopCount = 0, -- loop played times
         elapsedTime = 0,
         sizeScale = 1,
@@ -123,6 +124,7 @@ function setSpriteAnimation(spr, anim)
     spr.funcCalledOnFrame = -1
     spr.elapsedTime = -math.min(love.timer.getDelta() / 2, 0.1)
     spr.isThrow = spr.def.animations[spr.curAnim].isThrow
+    spr.comboEnd = spr.def.animations[spr.curAnim].comboEnd
     spr.maxFrame = #spr.def.animations[spr.curAnim]
 end
 
