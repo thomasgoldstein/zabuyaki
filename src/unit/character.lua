@@ -1127,15 +1127,12 @@ function Character:comboInit()
     self.attacksPerAnimation = 0
 end
 
-function Character:comboEnd()
-    self.comboN = 10 -- Need to reset the combo. Max Combo <= 9.
-end
-
 function Character:comboStart()
     self.isHittable = true
     self.toSlowDown = false
     self.horizontal = self.face
     self:removeTweenMove()
+--    self.repeatThisCombo = false  -- init this flag in the beginning of every combo animation
     if self.comboTimer >= 0 then
         if self.attacksPerAnimation > 0 then
             self.comboN = self.comboN + 1
@@ -1148,8 +1145,6 @@ function Character:comboStart()
     else
         self:comboInit()
     end
-    --self.connectHit = false
-    --self.attacksPerAnimation = 0
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.comboN.."Forward") then
         return
     elseif self.b.vertical:getValue() == -1 and self:setSpriteIfExists("combo"..self.comboN.."Up") then
@@ -1173,7 +1168,14 @@ function Character:comboUpdate(dt)
         return
     end
 end
-Character.combo = {name = "combo", start = Character.comboStart, exit = nop, update = Character.comboUpdate, draw = Character.defaultDraw}
+function Character:comboExit(dt)
+    if not self.sprite.isFinished then
+        print("=== repeat comboN: "..self.comboN)
+        self.comboTimer = self.comboTimeout / 2 -- reset max delay to connect combo hits
+        self.comboN = self.comboN - 1 -- repeat the current combo attaci if interrupted
+    end
+end
+Character.combo = {name = "combo", start = Character.comboStart, exit = Character.comboExit, update = Character.comboUpdate, draw = Character.defaultDraw}
 
 -- GRABBING / HOLDING
 function Character:checkForGrab()
