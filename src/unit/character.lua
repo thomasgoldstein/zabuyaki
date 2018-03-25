@@ -1134,16 +1134,7 @@ function Character:comboStart()
     self.toSlowDown = false
     self.horizontal = self.face
     self:removeTweenMove()
-    if self.comboTimer >= 0 then
-        if self.attacksPerAnimation > 0 then
-            self.comboN = self.comboN + 1
-            if self.comboN > self.sprite.def.comboMax then
-                self:comboInit()
-            end
-        else
-            self:comboInit()
-        end
-    else
+    if self.comboTimer < 0 or self.attacksPerAnimation <= 0 or self.comboN > self.sprite.def.comboMax then
         self:comboInit()
     end
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.comboN.."Forward") then
@@ -1164,6 +1155,7 @@ function Character:comboUpdate(dt)
         self:calcFreeFall(dt, self.dashHoldAttackSpeedMultiplier_z)
     end
     if self.sprite.isFinished then
+        self.comboN = self.comboN + 1
         self.comboTimer = self.comboTimeout -- reset max delay to connect combo hits
         self:setState(self.stand)
         return
