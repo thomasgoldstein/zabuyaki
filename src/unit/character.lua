@@ -1134,7 +1134,6 @@ function Character:comboStart()
     self.toSlowDown = false
     self.horizontal = self.face
     self:removeTweenMove()
---    self.repeatThisCombo = false  -- init this flag in the beginning of every combo animation
     if self.comboTimer >= 0 then
         if self.attacksPerAnimation > 0 then
             self.comboN = self.comboN + 1
@@ -1170,14 +1169,7 @@ function Character:comboUpdate(dt)
         return
     end
 end
-function Character:comboExit(dt)
-    if not self.sprite.isFinished then
-        print("=== repeat comboN: "..self.comboN)
-        self.comboTimer = self.comboTimeout / 2 -- reset max delay to connect combo hits
-        self.comboN = self.comboN - 1 -- repeat the current combo attaci if interrupted
-    end
-end
-Character.combo = {name = "combo", start = Character.comboStart, exit = Character.comboExit, update = Character.comboUpdate, draw = Character.defaultDraw}
+Character.combo = {name = "combo", start = Character.comboStart, exit = nop, update = Character.comboUpdate, draw = Character.defaultDraw}
 
 -- GRABBING / HOLDING
 function Character:checkForGrab()
