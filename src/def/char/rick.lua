@@ -406,7 +406,7 @@ return {
             delay = 0.03
         },
         combo3Down = {
-            { q = q(2,1757,40,64), ox = 21, oy = 63, delay = 0.03 }, --dash attack 1
+            { q = q(2,1757,40,64), ox = 21, oy = 63, func = function(slf) slf:comboEnd() end, delay = 0.03 }, --dash attack 1
             { q = q(44,1759,39,62), ox = 21, oy = 61, delay = 0.1 }, --dash attack 2
             { q = q(85,1759,54,62), ox = 28, oy = 61, delay = 0.015 }, --dash attack 3
             { q = q(160,1246,48,62), ox = 23, oy = 61, delay = 0.015 }, --combo down 3.1

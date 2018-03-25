@@ -1126,7 +1126,9 @@ function Character:comboInit()
     self.connectHit = false
     self.attacksPerAnimation = 0
 end
-
+function Character:comboEnd()
+    self.comboN = 10 -- Need to reset the combo. Max Combo <= 9.
+end
 function Character:comboStart()
     self.isHittable = true
     self.toSlowDown = false
