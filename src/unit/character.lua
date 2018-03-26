@@ -493,7 +493,6 @@ function Character:standUpdate(dt)
         if vv ~= 0 then
             if self.moves.sideStep and self.b.vertical.isDoubleTap and self.lastState == "walk" then
                 self.vertical = self.b.vertical.doubleTap.lastDirection
-                _, self.speed_y = self:getMovementSpeed()
                 self:setState(self.sideStep)
             else
                 self:setState(self.walk)
