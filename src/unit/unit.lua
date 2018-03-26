@@ -116,20 +116,6 @@ function Unit:addShape(shapeType, shapeArgs)
     end
 end
 
-function Unit:getMovementSpeed()
-    if self.state == "walk" then
-        if self.b.attack:isDown() then
-            return self.walkHoldSpeed_x, self.walkHoldSpeed_y
-        else
-            return self.walkSpeed_x, self.walkSpeed_y
-        end
-    elseif self.state == "run" then
-        return self.runSpeed_x, self.runSpeed_y
-    end
-    --TODO add jumps or refactor
-    return 0, 0
-end
-
 function Unit:setToughness(t)
     self.toughness = t
 end

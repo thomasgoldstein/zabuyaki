@@ -538,11 +538,11 @@ function Character:walkUpdate(dt)
     if hv ~= 0 then
         self.face = hv
         self.horizontal = hv --X direction
-        self.speed_x, _ = self:getMovementSpeed()
+        self.speed_x = self.b.attack:isDown() and self.walkHoldSpeed_x or self.walkSpeed_x
     end
     if vv ~= 0 then
         self.vertical = vv
-        _, self.speed_y = self:getMovementSpeed()
+        self.speed_y = self.b.attack:isDown() and self.walkHoldSpeed_y or self.walkSpeed_y
     end
     if self.b.attack:isDown() then
         local grabbed = self:checkForGrab()
