@@ -1169,10 +1169,9 @@ Character.combo = {name = "combo", start = Character.comboStart, exit = Characte
 function Character:checkForGrab()
     --got any Characters
     local items = {}
-    self.shape:moveTo(self.x + self.horizontal, self.y + self.vertical)
     if isDebug() then
         -- to show similar purple rect
-        stage.testShape:moveTo(self.x + self.horizontal, self.y + self.vertical)
+        stage.testShape:moveTo(self.x, self.y)
     end
     for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
         local o = other.obj
