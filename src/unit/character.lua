@@ -1259,11 +1259,11 @@ function Character:grabStart()
         g.target.speed_y = 0
         self.move = tween.new(timeToMove, self, {
             x = x1,
-            y = toCommon_y + 0.5
+            y = toCommon_y + 0.005
         }, 'outQuad')
         g.target.move = tween.new(timeToMove, g.target, {
             x = x2,
-            y = toCommon_y - 0.5
+            y = toCommon_y - 0.005
         }, 'outQuad')
         self.face = direction
         self.horizontal = self.face
