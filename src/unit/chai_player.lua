@@ -87,7 +87,7 @@ function Chai:dashAttackUpdate(dt)
         self:calcFreeFall(dt)
         if self.speed_z > 0 then
             if self.speed_x > 0 then
-                self.speed_x = self.speed_x - (self.dashSpeed * dt * 2.5)
+                self.speed_x = self.speed_x - (self.dashSpeed * dt * 2.3)
             else
                 self.speed_x = 0
             end
