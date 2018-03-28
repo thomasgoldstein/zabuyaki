@@ -1636,12 +1636,6 @@ function Character:grabSwapUpdate(dt)
         return
     end
     self.shape:moveTo(self.x, self.y)
-    if self:isStuck() then
-        self:releaseGrabbed()
-        --self.speed_x = self.backoffSpeed2 --move from source
-        self:setState(self.stand)
-        return
-    end
     if self.z > 0 then
         self:calcFreeFall(dt)
         if self.z <= 0 then
