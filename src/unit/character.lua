@@ -1149,6 +1149,8 @@ function Character:comboUpdate(dt)
     end
     if self.z > 0 then
         self:calcFreeFall(dt, self.dashHoldAttackSpeedMultiplier_z)
+    else
+        self.z = 0
     end
     if self.sprite.isFinished then
         self.comboN = self.comboN + 1
