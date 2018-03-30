@@ -212,6 +212,20 @@ function Unit:checkCollisionAndMove(dt)
     return success, stepx, stepy
 end
 
+function Unit:ignoreCollisionAndMove(dt)
+    if self.move then
+        self.move:update(dt) --tweening
+        self.shape:moveTo(self.x, self.y)
+    else
+        local stepx = self.speed_x * dt * self.horizontal
+        local stepy = self.speed_y * dt * self.vertical
+        self.shape:moveTo(self.x + stepx, self.y + stepy)
+    end
+    local cx,cy = self.shape:center()
+    self.x = cx
+    self.y = cy
+end
+
 function Unit:isStuck()
     for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
         local o = other.obj
@@ -268,14 +282,18 @@ function Unit:calcFriction(dt, friction)
     end
 end
 
+local ignoreObstacles = { combo = true, holdAttack = true }
 function Unit:calcMovement(dt)
-    if self.toSlowDown then
+    if not self.toSlowDown then
+        if ignoreObstacles[self.state] then
+            self.successfullyMoved, self.collision_x, self.collision_y = self:ignoreCollisionAndMove(dt)
+        else
+            self.successfullyMoved, self.collision_x, self.collision_y = true, 0, 0
+        end
+    else
         --try to move and get x,y vectors to recover from collision
         -- these are not collision x y. should return vectors.
         self.successfullyMoved, self.collision_x, self.collision_y = self:checkCollisionAndMove(dt)
-    else
-        --??false
-        self.successfullyMoved, self.collision_x, self.collision_y = true, 0, 0
     end
     if self.z <= 0 then
         if self.toSlowDown then
@@ -288,7 +306,6 @@ function Unit:calcMovement(dt)
             self:calcFriction(dt)
         end
     end
-    --return self.successfullyMoved, self.collision_x, self.collision_y
 end
 
 function Unit:calcDamageFrame()
