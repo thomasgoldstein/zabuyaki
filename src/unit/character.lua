@@ -1664,7 +1664,7 @@ function Character:holdAttackUpdate(dt)
         if self.isDashHoldAttack then
             self:playSfx(self.sfx.step)
             self:setState(self.duck)
-        else
+        elseif self.sprite.isFinished then
             self:setState(self.stand)
         end
         return
