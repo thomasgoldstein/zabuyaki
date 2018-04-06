@@ -153,6 +153,7 @@ function Player:updateAI(dt)
                     and self.statesForOffensiveSpecial[self.state]
                 then
                     self:releaseGrabbed()
+                    self:removeTweenMove()
                     self.face = hv
                     self:setState(self.offensiveSpecial)
                     return
