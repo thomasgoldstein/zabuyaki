@@ -1652,9 +1652,14 @@ function Character:holdAttackStart()
     self.isDashHoldAttack = false
     self.speed_z = self.dashHoldAttackSpeed_z
     if self.z > 0 then
-        self.isDashHoldAttack = true
-        self:setSpriteIfExists("dashHoldAttack", "holdAttack")
-        self:playSfx(self.sfx.dashAttack)
+        if self.dashHoldAttack then
+            self:setState(self.dashHoldAttack)
+            return
+        else
+            self.isDashHoldAttack = true
+            self:setSpriteIfExists("dashHoldAttack", "holdAttack")
+            self:playSfx(self.sfx.dashAttack)
+        end
     else
         self:setSprite("holdAttack")
     end
