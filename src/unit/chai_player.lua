@@ -235,7 +235,8 @@ function Chai:dashHoldAttack()
     dpo(self, self.state)
     self:setSprite("dashHoldAttack")
     self.speed_y = 0
-    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
+    self.speed_z = self.jumpSpeed_z * 0.7
+    self.speed_x = self.dashSpeed
     self.bounced = 0
     self.connectHit = false
     self.attacksPerAnimation = 0
@@ -250,12 +251,10 @@ function Chai:dashHoldAttackUpdate(dt)
         and self.attacksPerAnimation > 0
     then
         self:setSprite("dashHoldAttack2")
-        self.speed_x = self.jumpSpeedBoost_x
-        self.speed_z = 0
     end
     if self.z > 0 then
         if self.sprite.curFrame <= 8 and self.sprite.curAnim == "dashHoldAttack2" then
-            self:calcFreeFall(dt, 0.1) -- slow down the falling speed. Restore it on the last frame
+            self:calcFreeFall(dt, 0.01) -- slow down the falling speed. Restore it on the last frame
         else
             self:calcFreeFall(dt)
         end
