@@ -230,4 +230,45 @@ function Chai:offensiveSpecialUpdate(dt)
 end
 Chai.offensiveSpecial = {name = "offensiveSpecial", start = Chai.offensiveSpecialStart, exit = nop, update = Chai.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
+function Chai:dashHoldAttack()
+    self.isHittable = true
+    dpo(self, self.state)
+    self:setSprite("dashHoldAttack")
+    self.speed_y = 0
+    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
+    self.bounced = 0
+    self.connectHit = false
+    self.attacksPerAnimation = 0
+    self:playSfx(self.sfx.dashAttack)
+end
+function Chai:dashHoldAttackUpdate(dt)
+    if self.connectHit then
+        self.connectHit = false
+        self.attacksPerAnimation = self.attacksPerAnimation + 1
+    end
+    if self.sprite.curAnim == "dashHoldAttack"
+        and self.attacksPerAnimation > 0
+    then
+        self:setSprite("dashHoldAttack2")
+        self.speed_x = self.jumpSpeedBoost_x
+        self.speed_z = 0
+    end
+    if self.z > 0 then
+        if self.sprite.curFrame <= 8 and self.sprite.curAnim == "dashHoldAttack2" then
+            self:calcFreeFall(dt, 0.1) -- slow down the falling speed. Restore it on the last frame
+        else
+            self:calcFreeFall(dt)
+        end
+    else
+        self:playSfx(self.sfx.step)
+        self:setState(self.duck)
+        return
+    end
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
+end
+Chai.dashHoldAttack = {name = "dashHoldAttack", start = Chai.dashHoldAttack, exit = nop, update = Chai.dashHoldAttackUpdate, draw = Character.defaultDraw}
+
 return Chai
