@@ -179,6 +179,10 @@ function love.load(arg)
 
     Gamestate.registerEvents()
     Gamestate.switch(logoState)
+
+    if isDebug() then
+        require "test/test1"
+    end
 end
 
 local function pollControls(dt)
