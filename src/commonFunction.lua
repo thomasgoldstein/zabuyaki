@@ -1,3 +1,30 @@
+-- Copyright (c) .2018 SineDie
+
+-- print into console :
+--  =========== Title ==============
+function ps(title, separator)
+    local s = separator or "="
+    local n = title and #title or -2
+    n = 10 - n / 2
+    s = string.rep(s, 20 + n )
+    print(s .. (title and " "..title.." " or "") .. s)
+end
+
+--- Test list of functions and show the result
+-- @param title - test name
+-- @param ... - list of functions that should return TRUE on SUCCESS
+--
+function test(title, ...)
+    local a = {... }
+    ps("Begin test of "..title )
+    res = true
+    for i,v in ipairs(a) do
+        res = res and v()
+    end
+    --    ps("Test of "..title.." ".. ((res and #a > 0) and ": OK" or ": FAIL" ) )
+    ps( ((res and #a > 0) and "OK" or "FAIL" ) )
+end
+
 function sign(x)
     return x>0 and 1 or x<0 and -1 or 0
 end
@@ -92,55 +119,4 @@ function delayWithSlowMotion(delay)
         return delay + love.timer.getDelta() * (GLOBAL_SETTING.SLOW_MO + 1)
     end
     return delay
-end
-
--- Calc the distance in pixels the unit can move in 1 second (60 FPS)
-function calcDistanceForSpeedAndFriction(a)
-    if not a then
-        return
-    end
-    -- a {speed = , friction, toSlowDown}
-    local FPS = 60
-    local time = 1
-    local u = {
-        name = a.name or "?",
-        id = a.id or -1,
-        x = 0,
-        y = 0,
-        z = 0,
-        horizontal = 1,
-        vertical = 1,
-        speed_x = a.speed or 0,
-        speed_y = a.speed or 0,
-        toSlowDown = a.toSlowDown or false,
-        friction = a.friction or 0,
-        customFriction = 0
-    }
-    local dt = 1 / FPS
---    print("Start x,y:", u.x, u.y, u.name, u.id)
-    print("FPS:", FPS, " dt:", dt, " Speed, Friction, toSlowDown:", u.speed_x, u.friction, u.toSlowDown)
-    print("Start speed_x, speed_y:", u.speed_x, u.speed_y)
-    for i = 1, time * FPS do
-        local stepx = u.speed_x * dt * u.horizontal
-        local stepy = u.speed_y * dt * u.vertical
-        u.x = u.x + stepx
-        u.y = u.y + stepy
-        if u.z <= 0 then
-            if u.toSlowDown then
-                if u.customFriction ~= 0 then
-                    Unit.calcFriction(u, dt, u.customFriction)
-                else
-                    Unit.calcFriction(u, dt)
-                end
-            else
-                Unit.calcFriction(u, dt)
-            end
-        end
-        if u.speed_x <= 0.0001 then
-            print("Stopped at the time:", i / FPS, " sec")
-            break
-        end
-    end
-    print("Final x,y:", u.x, u.y, " Friction:", u.friction, " Name: ",u.name, u.id)
---    print("Final speed_x, speed_y:", u.speed_x, u.speed_y)
 end
