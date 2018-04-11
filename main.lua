@@ -182,6 +182,7 @@ function love.load(arg)
 
     if isDebug() then
         require "test/test1"
+        require "test/test2"
     end
 end
 
