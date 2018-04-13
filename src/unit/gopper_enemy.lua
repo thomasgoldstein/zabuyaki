@@ -30,9 +30,9 @@ function Gopper:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.dashSpeed = 150 --speed of the character
+    self.dashSpeed_x = 150 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
-    self.dashFriction = self.dashSpeed
+    self.dashFriction = self.dashSpeed_x
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
@@ -121,14 +121,14 @@ function Gopper:runUpdate(dt)
 end
 Gopper.run = {name = "run", start = Gopper.runStart, exit = nop, update = Gopper.runUpdate, draw = Gopper.defaultDraw}
 
-local dashAttackSpeed = 0.75
+local dashAttackSpeedMultiplier = 0.75
 function Gopper:dashAttackStart()
     self.isHittable = true
-    self.customFriction = self.dashFriction * dashAttackSpeed
+    self.customFriction = self.dashFriction * dashAttackSpeedMultiplier
     self:setSprite("dashAttack")
-    self.speed_x = self.dashSpeed * 2 * dashAttackSpeed
+    self.speed_x = self.dashSpeed_x * 2 * dashAttackSpeedMultiplier
     self.speed_y = 0
-    self.speed_z = self.jumpSpeed_z / 2 * dashAttackSpeed
+    self.speed_z = self.jumpSpeed_z / 2 * dashAttackSpeedMultiplier
     self.z = 0.1
     self.bounced = 0
     self:playSfx(self.sfx.dashAttack)
@@ -139,7 +139,7 @@ function Gopper:dashAttackUpdate(dt)
         return
     end
     if self.z > 0 then
-        self:calcFreeFall(dt, dashAttackSpeed)
+        self:calcFreeFall(dt, dashAttackSpeedMultiplier)
     elseif self.bounced == 0 then
         self.speed_z = 0
         self.speed_x = 0

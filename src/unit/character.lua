@@ -68,9 +68,9 @@ function Character:initAttributes()
     self.fallSpeed_x = 120
     self.fallSpeedBoost_x = 5
     self.fallDeadSpeedBoost_x = 20
-    self.dashSpeed = 150 --speed of the character
+    self.dashSpeed_x = 150 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
-    self.dashFriction = self.dashSpeed
+    self.dashFriction = self.dashSpeed_x
     self.dashHoldSpeed_z = 120
     self.dashHoldSpeedMultiplier_z = 0.6
     self.dashHoldSpeed_x = 320
@@ -824,7 +824,7 @@ function Character:dashAttackStart()
     self.isHittable = true
     self.customFriction = self.dashFriction
     self:setSprite("dashAttack")
-    self.speed_x = self.dashSpeed
+    self.speed_x = self.dashSpeed_x
     self.speed_y = 0
     self.speed_z = 0
     self:playSfx(self.sfx.dashAttack)

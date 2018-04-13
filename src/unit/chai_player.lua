@@ -28,7 +28,7 @@ function Chai:initAttributes()
     self.walkHoldSpeed_y = 40
     self.runSpeed_x = 150
     self.runSpeed_y = 25
-    self.dashSpeed = 200 --speed of the character
+    self.dashSpeed_x = 200 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
     self.dashHoldAttackSpeed_z = 90
     --self.repelFriction = 1650 * 1.5
@@ -71,7 +71,7 @@ function Chai:dashAttackStart()
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
-    self.speed_x = self.dashSpeed * self.jumpSpeedMultiplier
+    self.speed_x = self.dashSpeed_x * self.jumpSpeedMultiplier
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = 0.1
     self:playSfx(self.sfx.dashAttack)
@@ -87,7 +87,7 @@ function Chai:dashAttackUpdate(dt)
         self:calcFreeFall(dt)
         if self.speed_z > 0 then
             if self.speed_x > 0 then
-                self.speed_x = self.speed_x - (self.dashSpeed * dt * 2.3)
+                self.speed_x = self.speed_x - (self.dashSpeed_x * dt * 2.3)
             else
                 self.speed_x = 0
             end
@@ -205,9 +205,9 @@ function Chai:offensiveSpecialUpdate(dt)
         self.speed_z = 0
     end
     if self.sprite.curAnim == "offensiveSpecial" then
-        if self.speed_z < 0 and self.speed_x < self.dashSpeed then
+        if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then
             -- check speed_x to add no extra var here. it should trigger once
-            self.speed_x = self.dashSpeed * 2
+            self.speed_x = self.dashSpeed_x * 2
             self.horizontal = self.face
         end
     end
@@ -236,7 +236,7 @@ function Chai:dashHoldAttack()
     self:setSprite("dashHoldAttack")
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * 0.7
-    self.speed_x = self.dashSpeed
+    self.speed_x = self.dashSpeed_x
     self.bounced = 0
     self.connectHit = false
     self.attacksPerAnimation = 0

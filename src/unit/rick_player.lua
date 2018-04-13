@@ -28,7 +28,7 @@ function Rick:initAttributes()
     self.walkHoldSpeed_y = 36
     self.runSpeed_x = 140
     self.runSpeed_y = 23
-    self.dashSpeed = 125 --speed of the character
+    self.dashSpeed_x = 125 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
     self.dashFriction = 400
     self.dashHoldAttackSpeed_z = 65
@@ -66,7 +66,7 @@ function Rick:dashAttackStart()
     self.customFriction = self.dashFriction
     dpo(self, self.state)
     self:setSprite("dashAttack")
-    self.speed_x = self.dashSpeed
+    self.speed_x = self.dashSpeed_x
     self.speed_y = 0
     self.speed_z = 0
     self.horizontal = self.face
@@ -85,11 +85,11 @@ Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop
 
 function Rick:offensiveSpecialStart()
     self.isHittable = true
-    self.customFriction = self.dashSpeed
+    self.customFriction = self.dashSpeed_x
     self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("offensiveSpecial")
-    self.speed_x = self.dashSpeed
+    self.speed_x = self.dashSpeed_x
     self.speed_y = 0
     self.speed_z = 0
     self:playSfx(self.sfx.dashAttack)

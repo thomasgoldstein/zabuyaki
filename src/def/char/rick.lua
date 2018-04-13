@@ -175,10 +175,10 @@ local dashAttack2 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local dashAttackSpeedUp = function(slf, cont)
-    slf.speed_x = slf.dashSpeed * 2
+    slf.speed_x = slf.dashSpeed_x * 2
 end
 local dashAttackResetSpeed = function(slf, cont)
-    slf.speed_x = slf.dashSpeed
+    slf.speed_x = slf.dashSpeed_x
 end
 local dashHoldAttack = function(slf, cont)
     slf:checkAndAttack(

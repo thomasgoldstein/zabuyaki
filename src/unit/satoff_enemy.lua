@@ -47,9 +47,9 @@ function Satoff:initAttributes()
     self.sideStepSpeed = 160
     self.sideStepFriction = 350
     self.hopDuringSideStep = false
-    self.dashSpeed = 190 --speed of the character
+    self.dashSpeed_x = 190 --speed of the character
     --    self.dashFallSpeed = 180 --speed caused by dash to others fall
-    self.dashFriction = self.dashSpeed * 3
+    self.dashFriction = self.dashSpeed_x * 3
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed
     --    self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
@@ -75,7 +75,7 @@ function Satoff:comboStart()
     self.customFriction = self.dashFriction
     self:removeTweenMove()
     Character.comboStart(self)
-    self.speed_x = self.dashSpeed
+    self.speed_x = self.dashSpeed_x
 end
 function Satoff:comboUpdate(dt)
     if self.sprite.isFinished then

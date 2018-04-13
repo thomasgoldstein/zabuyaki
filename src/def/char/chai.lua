@@ -344,9 +344,9 @@ return {
             { q = q(175,199,67,65), ox = 23, oy = 64, delay = 0.02 }, --dash hold attack 3d
             { q = q(43,722,37,64), ox = 16, oy = 66 }, --jump attack forward 2 (shifted 4px to the left)
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-            { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1, func = function(slf) slf.speed_x = slf.dashSpeed / 2; slf.speed_z = 0 end }, --defensive special 4
+            { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1, func = function(slf) slf.speed_x = slf.dashSpeed_x / 2; slf.speed_z = 0 end }, --defensive special 4
             { q = q(84,403,69,59), ox = 28, oy = 58, funcCont = dashHoldAttack2, delay = 0.22 }, --dash hold attack 4
-            { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1, func = function(slf) slf.speed_x = slf.dashSpeed end, delay = 5 }, --defensive special 4
+            { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1, func = function(slf) slf.speed_x = slf.dashSpeed_x end, delay = 5 }, --defensive special 4
             delay = 0.03
         },
         defensiveSpecial = {
