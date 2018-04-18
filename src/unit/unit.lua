@@ -189,6 +189,7 @@ function Unit:checkCollisionAndMove(dt)
             if o.type == "wall"
             or (o.type == "obstacle" and o.z <= 0 and o.hp > 0)
             then
+                self.shape:move(separatingVector.x, separatingVector.y)
                 if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
                     stepx, stepy = separatingVector.x, separatingVector.y
                     success = false
@@ -199,6 +200,7 @@ function Unit:checkCollisionAndMove(dt)
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
             if o.type == "wall"	then
+                self.shape:move(separatingVector.x, separatingVector.y)
                 if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
                     stepx, stepy = separatingVector.x, separatingVector.y
                     success = false
