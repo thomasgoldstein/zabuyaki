@@ -52,6 +52,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.isGrabbed = false
     self.hold = {source = nil, target = nil, grabTimer = 0 }
     self.victims = {} -- [victim] = true
+    self.obstacles = {} -- [obstacle] = true
     self.isThrown = false
     self.shader = f.shader  --it is set on spawn (alter unit's colors)
     self.palette = f.palette  --unit's shader/palette number

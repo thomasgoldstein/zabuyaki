@@ -440,6 +440,7 @@ function Character:standStart()
     end
     self:removeTweenMove()
     self.victims = {}
+    self.obstacles = {}
     self.grabAttackN = 0
 end
 function Character:standUpdate(dt)

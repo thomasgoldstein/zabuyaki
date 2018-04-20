@@ -75,13 +75,20 @@ function Player:checkCollisionAndMove(dt)
     else
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
-            if o.type == "wall"
+            if not self.obstacles[o] and (
+                o.type == "wall"
                 or o.type == "stopper"
+                or o.type == "obstacle"
+                )
             then
-                self.shape:move(separatingVector.x, separatingVector.y)
-                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
-                    stepx, stepy = separatingVector.x, separatingVector.y
-                    success = false
+                if o.type == "obstacle" and self.z + 4 >= o.height then
+                    self.obstacles[o] = true
+                else
+                    self.shape:move(separatingVector.x, separatingVector.y)
+                    if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
+                        stepx, stepy = separatingVector.x, separatingVector.y
+                        success = false
+                    end
                 end
             end
         end
