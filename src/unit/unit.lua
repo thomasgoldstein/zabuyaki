@@ -157,6 +157,11 @@ function Unit:updateAI(dt)
     end
     self:updateSprite(dt)
     self:calcMovement(dt)
+    if self.platform then
+        if not self.shape:collidesWith(self.platform.shape) then
+            self.platform = nil
+        end
+    end
 end
 
 -- stop unit from moving by tweening
@@ -184,7 +189,7 @@ function Unit:checkCollisionAndMove(dt)
         local stepy = self.speed_y * dt * self.vertical
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
-    if self.z <= 0 then
+    if not self:canFall() then
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
             if o.type == "wall"
@@ -253,6 +258,33 @@ function Unit:hasPlaceToStand(x, y)
     return true
 end
 
+function Unit:canFall()
+    if self.z > self:getMinZ() then
+        return true
+    end
+    return false
+end
+
+function Unit:getMinZ()
+    --self.isOnPlatform and
+    if self.platform then
+        return self.platform.z + self.platform.height
+    end
+    return 0
+end
+
+function Unit:setMinZ(platform)
+    if self.platform then
+        if self.platform.height < platform.height then
+            print("upd platform -> new height")
+            self.platform = platform
+        end
+    else
+        self.platform = platform
+    end
+    print("has platform")
+end
+
 function Unit:calcFreeFall(dt, speed)
     self.z = self.z + dt * self.speed_z
     self.speed_z = self.speed_z - self.gravity * dt * (speed or self.jumpSpeedMultiplier)
@@ -298,7 +330,7 @@ function Unit:calcMovement(dt)
         -- these are not collision x y. should return vectors.
         self.successfullyMoved, self.collision_x, self.collision_y = self:checkCollisionAndMove(dt)
     end
-    if self.z <= 0 then
+    if not self:canFall() then
         if self.toSlowDown then
             if self.customFriction ~= 0 then
                 self:calcFriction(dt, self.customFriction)

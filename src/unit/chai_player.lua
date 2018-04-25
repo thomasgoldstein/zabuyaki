@@ -73,7 +73,7 @@ function Chai:dashAttackStart()
     self:setSprite("dashAttack")
     self.speed_x = self.dashSpeed_x * self.jumpSpeedMultiplier
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-    self.z = 0.1
+    self.z = self:getMinZ() + 0.1
     self:playSfx(self.sfx.dashAttack)
     self:showEffect("jumpStart")
     self.bounced = 0 -- Chai's dashAttack state uses fall state. The bounced vars have to be initialized here
@@ -83,7 +83,7 @@ function Chai:dashAttackUpdate(dt)
         self:setState(self.fall)
         return
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
         if self.speed_z > 0 then
             if self.speed_x > 0 then
@@ -94,7 +94,7 @@ function Chai:dashAttackUpdate(dt)
         end
     else
         self.speed_z = 0
-        self.z = 0
+        self.z = self:getMinZ()
         self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
@@ -140,7 +140,7 @@ Chai.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Chai.frontGrab
 
 function Chai:defensiveSpecialStart()
     self.isHittable = false
-    self.z = 0
+    self.z = self:getMinZ()
     self.speed_x = 0
     self.speed_y = 0
     self.jumpType = 0
@@ -150,19 +150,19 @@ end
 function Chai:defensiveSpecialUpdate(dt)
     if self.jumpType == 1 then
         self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-        self.z = 0.1
+        self.z = self:getMinZ() + 0.1
         self.jumpType = 0
     elseif self.jumpType == 2 then
         self.speed_z = -self.jumpSpeed_z * self.jumpSpeedMultiplier / 2
         self.jumpType = 0
     end
-    if self.z > 32 then
-        self.z = 32
+    if self.z > self:getMinZ() + 32 then
+        self.z = self:getMinZ() + 32
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if self.z < 0 then
-            self.z = 0
+        if not self:canFall() then
+            self.z = self:getMinZ()
         end
     end
     if self.particles then
@@ -184,7 +184,7 @@ function Chai:offensiveSpecialStart()
     self.speed_x = self.jumpSpeedBoost_x
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-    self.z = 0.1
+    self.z = self:getMinZ() + 0.1
     self.bounced = 0
     self.connectHit = false
     self.attacksPerAnimation = 0
@@ -211,7 +211,7 @@ function Chai:offensiveSpecialUpdate(dt)
             self.horizontal = self.face
         end
     end
-    if self.z > 0 then
+    if self:canFall() then
         if self.sprite.curFrame <= 6 and self.sprite.curAnim == "offensiveSpecial2" then
             self:calcFreeFall(dt, 0.1) -- slow down the falling speed. Restore it on the 5th frame from the end
         else
@@ -252,7 +252,7 @@ function Chai:dashHoldAttackUpdate(dt)
     then
         self:setSprite("dashHoldAttack2")
     end
-    if self.z > 0 then
+    if self:canFall() then
         if self.sprite.curFrame <= 8 and self.sprite.curAnim == "dashHoldAttack2" then
             self:calcFreeFall(dt, 0.01) -- slow down the falling speed. Restore it on the last frame
         else

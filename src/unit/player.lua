@@ -83,6 +83,7 @@ function Player:checkCollisionAndMove(dt)
             then
                 if o.type == "obstacle" and self.z + 4 >= o.height then
                     self.obstacles[o] = true
+                    self:setMinZ(o)
                 else
                     self.shape:move(separatingVector.x, separatingVector.y)
                     if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
@@ -151,7 +152,7 @@ function Player:updateAI(dt)
         stopUnitHighlight(self)
     end
     if self.moves.defensiveSpecial or self.moves.offensiveSpecial then
-        if self.z <= 0 and isSpecialCommand(self.b) then
+        if not self:canFall() and isSpecialCommand(self.b) then
             if not self.statesForSpecialToleranceDelay[self.state]
                 or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
             then
@@ -370,12 +371,12 @@ function Player:respawnUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
     elseif self.bounced == 0 then
         self.playerSelectMode = 0 -- remove player select text
         self.speed_z = 0
-        self.z = 0
+        self.z = self:getMinZ()
         self:playSfx(self.sfx.step)
         if self.sprite.curFrame == 1 then
             self.sprite.elapsedTime = 10 -- seconds. skip to pickup 2 frame
@@ -405,8 +406,8 @@ function Player:deadStart()
     self.hp = 0
     self.isHurt = nil
     self:releaseGrabbed()
-    if self.z <= 0 then
-        self.z = 0
+    if not self:canFall() then
+        self.z = self:getMinZ()
     end
     --self:onShake(1, 0, 0.1, 0.7)
     self:playSfx(self.sfx.dead)

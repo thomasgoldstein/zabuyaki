@@ -224,7 +224,7 @@ function Character:afterOnHurt()
     --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
     --"hit, "knockDown"(replaced by blows)
     if h.type == "hit" then
-        if self.hp > 0 and self.z <= 0 then
+        if self.hp > 0 and self.z <= self:getMinZ() then
             self:setState(self.hurt)
             self:showHitMarks(h.damage, h.z)
             if h.z > 25 then
@@ -429,7 +429,11 @@ Character.slide = {name = "slide", start = Character.slideStart, exit = nop, upd
 
 function Character:standStart()
     self.isHittable = true
-    self.z = 0 --TODO add fall if z > 0
+    if self:getMinZ() < self.z then
+        self:setState(self.fall)
+        return
+    end
+    self.z = self:getMinZ()
     if self.sprite.curAnim == "walk" or self.sprite.curAnim == "walkHold" then
         self.nextAnlmationDelay = 0.12
     else
@@ -444,6 +448,10 @@ function Character:standStart()
     self.grabAttackN = 0
 end
 function Character:standUpdate(dt)
+    if self:getMinZ() < self.z then
+        self:setState(self.fall)
+        return
+    end
     self.nextAnlmationDelay = self.nextAnlmationDelay - dt
     if self.nextAnlmationDelay <= 0 then
         if spriteHasAnimation(self.sprite, "standHold") and self:canMove() then
@@ -522,6 +530,10 @@ function Character:walkStart()
     end
 end
 function Character:walkUpdate(dt)
+    if self:getMinZ() < self.z then
+        self:setState(self.fall)
+        return
+    end
     if self.b.attack:pressed() then
         if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
             self:setState(self.pickup)
@@ -596,6 +608,10 @@ function Character:runStart()
     self.nextAnlmationDelay = 0.01
 end
 function Character:runUpdate(dt)
+    if self:getMinZ() < self.z then
+        self:setState(self.fall)
+        return
+    end
     self.speed_x = 0
     self.speed_y = 0
     self.nextAnlmationDelay = self.nextAnlmationDelay - dt
@@ -634,7 +650,7 @@ function Character:jumpStart()
     dpo(self, self.state)
     self:setSprite("jump")
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-    self.z = 0.1
+    self.z = self:getMinZ() + 0.1
     self.bounced = 0
     if self.prevState == "run" then
         -- jump higher from run
@@ -671,7 +687,7 @@ function Character:jumpUpdate(dt)
             end
         end
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
     else
         self:playSfx(self.sfx.step)
@@ -694,7 +710,7 @@ function Character:pickupStart()
         self:onGetLoot(loot)
     end
     self:setSprite("pickup")
-    self.z = 0
+    self.z = self:getMinZ()
 end
 function Character:pickupUpdate(dt)
     if self.sprite.isFinished then
@@ -708,7 +724,7 @@ function Character:duckStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("duck")
-    self.z = 0
+    self.z = self:getMinZ()
     self.speed_z = 0
     self:showEffect("jumpLanding")
 end
@@ -730,7 +746,7 @@ function Character:duck2jumpStart()
     self.isHittable = true
     self.toSlowDown = false
     self:setSprite("duck")
-    self.z = 0
+    self.z = self:getMinZ()
     self.speed_z = 0
     -- save speed to pass it to the jump state
     self.saveSpeed_x = self.speed_x
@@ -851,9 +867,9 @@ function Character:jumpAttackForwardStart()
     self:playSfx(self.sfx.jumpAttack)
 end
 function Character:jumpAttackForwardUpdate(dt)
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if not self.played_landingAnim and self.speed_z < 0 and self.z <= 10 then
+        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getMinZ() + 10 then
             self:setSpriteIfExists("jumpAttackForwardEnd")
             self.played_landingAnim = true
         end
@@ -875,9 +891,9 @@ function Character:jumpAttackLightStart()
     self:setSprite("jumpAttackLight")
 end
 function Character:jumpAttackLightUpdate(dt)
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if not self.played_landingAnim and self.speed_z < 0 and self.z <= 10 then
+        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getMinZ() + 10 then
             self:setSpriteIfExists("jumpAttackLightEnd")
             self.played_landingAnim = true
         end
@@ -900,9 +916,9 @@ function Character:jumpAttackStraightStart()
     self:playSfx(self.sfx.jumpAttack)
 end
 function Character:jumpAttackStraightUpdate(dt)
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if not self.played_landingAnim and self.speed_z < 0 and self.z <= 10 then
+        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getMinZ() + 10 then
             self:setSpriteIfExists("jumpAttackStraightEnd")
             self.played_landingAnim = true
         end
@@ -925,9 +941,9 @@ function Character:jumpAttackRunStart()
     self:playSfx(self.sfx.jumpAttack)
 end
 function Character:jumpAttackRunUpdate(dt)
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if not self.played_landingAnim and self.speed_z < 0 and self.z <= 10 then
+        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getMinZ() + 10 then
             self:setSpriteIfExists("jumpAttackRunEnd")
             self.played_landingAnim = true
         end
@@ -952,32 +968,32 @@ function Character:fallStart()
     else
         self:setSprite("fall")
     end
-    if self.z <= 0 then
-        self.z = 1
+    if not self:canFall() then
+        self.z = self:getMinZ() + 1
     end
     self.bounced = 0
 end
 function Character:fallUpdate(dt)
     self:calcFreeFall(dt)
     if self.speed_z < 0 and self.sprite.curAnim ~= "fallen" then
-        if (self.isThrown and self.z < self.toFallenAnim_z)
-            or (not self.isThrown and self.z < self.toFallenAnim_z / 4)
+        if (self.isThrown and self.z < self:getMinZ() + self.toFallenAnim_z)
+            or (not self.isThrown and self.z < self:getMinZ() + self.toFallenAnim_z / 4)
         then
             self:setSprite("fallen")
         end
     end
-    if self.isThrown and self.speed_z < 0 and self.z < self.toFallenAnim_z then
+    if self.isThrown and self.speed_z < 0 and self.z < self:getMinZ() + self.toFallenAnim_z then
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
             self.canRecover = true
         end
     end
-    if self.z <= 0 then
+    if not self:canFall() then
         if self.speed_z < -100 and self.bounced < 1 then
             --bounce up after fall
             if self.speed_z < -300 then
                 self.speed_z = -300
             end
-            self.z = 0.01
+            self.z = self:getMinZ() + 0.01
             self.speed_z = -self.speed_z/2
             self.speed_x = self.speed_x * 0.5
             if self.bounced == 0 then
@@ -999,7 +1015,7 @@ function Character:fallUpdate(dt)
             return
         else
             --final fall (no bouncing)
-            self.z = 0
+            self.z = self:getMinZ()
             self.speed_z = 0
             self.speed_y = 0
             self.speed_x = 0
@@ -1032,8 +1048,8 @@ function Character:bounceStart()
     self.isThrown = false
     self.speed_z = self.fallSpeed_z / 2
     self.speed_x = self.throwSpeed_x / 4
-    if self.z <= 0 then
-        self.z = 0.01
+    if not self:canFall() then
+        self.z = self:getMinZ() + 0.01
     end
     self.bounced = 0
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
@@ -1041,11 +1057,11 @@ function Character:bounceStart()
     self:showEffect("fallLanding")
 end
 function Character:bounceUpdate(dt)
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if self.z <= 0 then
+        if not self:canFall() then
             --final bouncing
-            self.z = 0
+            self.z = self:getMinZ()
             self.speed_z = 0
             self.speed_y = 0
             self.speed_x = 0
@@ -1068,8 +1084,8 @@ function Character:getupStart()
     self.isHittable = false
     dpo(self, self.state)
     self.isHurt = nil
-    if self.z <= 0 then
-        self.z = 0
+    if not self:canFall() then
+        self.z = self:getMinZ()
     end
     self.isThrown = false
     if self.hp <= 0 then
@@ -1093,8 +1109,8 @@ function Character:deadStart()
     self.hp = 0
     self.isHurt = nil
     self:releaseGrabbed()
-    if self.z <= 0 then
-        self.z = 0
+    if not self:canFall() then
+        self.z = self:getMinZ()
     end
     self:playSfx(self.sfx.dead)
     if self.killerId then
@@ -1148,10 +1164,10 @@ function Character:comboUpdate(dt)
         self.connectHit = false
         self.attacksPerAnimation = self.attacksPerAnimation + 1
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt, self.dashHoldAttackSpeedMultiplier_z)
     else
-        self.z = 0
+        self.z = self:getMinZ()
     end
     if self.sprite.isFinished then
         self.comboN = self.comboN + 1
@@ -1346,11 +1362,11 @@ function Character:grabUpdate(dt)
         self:releaseGrabbed()
         self:setState(self.stand)
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if self.z <= 0 then
+        if not self:canFall() then
             self.speed_z = 0
-            self.z = 0
+            self.z = self:getMinZ()
         end
     end
     self:tweenMove(dt)
@@ -1399,11 +1415,11 @@ function Character:grabbedFrontUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if self.z > 0 and self.isHittable then -- don't slide down during the throw
+    if self:canFall() and self.isHittable then -- don't slide down during the throw
         self:calcFreeFall(dt)
-        if self.z <= 0 then
+        if not self:canFall() then
             self.speed_z = 0
-            self.z = 0
+            self.z = self:getMinZ()
         end
     end
     self:tweenMove(dt)
@@ -1429,11 +1445,11 @@ function Character:grabbedBackUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if self.z > 0 and self.isHittable then -- don't slide down during the throw
+    if self:canFall() and self.isHittable then -- don't slide down during the throw
         self:calcFreeFall(dt)
-        if self.z <= 0 then
+        if not self:canFall() then
             self.speed_z = 0
-            self.z = 0
+            self.z = self:getMinZ()
         end
     end
     self:tweenMove(dt)
@@ -1491,11 +1507,11 @@ function Character:frontGrabAttackDownUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if self.z <= 0 then
+        if not self:canFall() then
             self.speed_z = 0
-            self.z = 0
+            self.z = self:getMinZ()
         end
     end
 end
@@ -1539,11 +1555,11 @@ function Character:frontGrabAttackUpUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if self.z <= 0 then
+        if not self:canFall() then
             self.speed_z = 0
-            self.z = 0
+            self.z = self:getMinZ()
         end
     end
 end
@@ -1564,11 +1580,11 @@ function Character:frontGrabAttackForwardUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if self.z <= 0 then
+        if not self:canFall() then
             self.speed_z = 0
-            self.z = 0
+            self.z = self:getMinZ()
         end
     end
 end
@@ -1591,11 +1607,11 @@ function Character:frontGrabAttackBackUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if self.z <= 0 then
+        if not self:canFall() then
             self.speed_z = 0
-            self.z = 0
+            self.z = self:getMinZ()
         end
     end
 end
@@ -1638,11 +1654,11 @@ function Character:grabSwapUpdate(dt)
         return
     end
     self.shape:moveTo(self.x, self.y)
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if self.z <= 0 then
+        if not self:canFall() then
             self.speed_z = 0
-            self.z = 0
+            self.z = self:getMinZ()
         end
     end
 end
@@ -1652,7 +1668,7 @@ function Character:holdAttackStart()
     self.isHittable = true
     self.isDashHoldAttack = false
     self.speed_z = self.dashHoldAttackSpeed_z
-    if self.z > 0 then
+    if self:canFall() then
         if self.dashHoldAttack then
             self:setState(self.dashHoldAttack)
             return
@@ -1666,7 +1682,7 @@ function Character:holdAttackStart()
     end
 end
 function Character:holdAttackUpdate(dt)
-    if self.z <= 0 then
+    if not self:canFall() then
         if self.isDashHoldAttack then
             self:playSfx(self.sfx.step)
             self:setState(self.duck)
@@ -1689,12 +1705,12 @@ function Character:dashHoldStart()
     self.speed_x = self.dashHoldSpeed_x * self.dashHoldSpeedMultiplier_x
     self.speed_z = self.dashHoldSpeed_z * self.dashHoldSpeedMultiplier_z
     self.speed_y = 0
-    self.z = 0.1
+    self.z = self:getMinZ() + 0.1
     self:playSfx(self.sfx.jump)
     self:showEffect("jumpStart")
 end
 function Character:dashHoldUpdate(dt)
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt, self.dashHoldSpeedMultiplier_z)
         if self.speed_z > 0 then
             if self.speed_x > 0 then
@@ -1746,10 +1762,10 @@ function Character:defensiveSpecialStart()
     self:playSfx(self.sfx.dashAttack)
 end
 function Character:defensiveSpecialUpdate(dt)
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt)
-        if self.z < 0 then
-            self.z = 0
+        if not self:canFall() then
+            self.z = self:getMinZ()
         end
     end
     if self.sprite.isFinished then

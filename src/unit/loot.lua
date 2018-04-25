@@ -43,21 +43,21 @@ function Loot:updateAI(dt)
     if self.isDisabled then
         return
     end
-    if self.z > 0 then
+    if self:canFall() then
         self:calcFreeFall(dt, 1)
-        if self.z <= 0 then
+        if not self:canFall() then
             if self.speed_z < -100 and self.bounced < 1 then    --bounce up after fall (not )
                 if self.speed_z < -300 then
                     self.speed_z = -300
                 end
-                self.z = 0.01
+                self.z = self:getMinZ()
                 self.speed_z = -self.speed_z/2
                 self.bounced = self.bounced + 1
                 Character.showEffect(self, "fallLanding")
                 return
             else
                 --final fall (no bouncing)
-                self.z = 0
+                self.z = self:getMinZ()
                 self.speed_z = 0
                 return
             end

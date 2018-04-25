@@ -48,7 +48,7 @@ function Enemy:checkCollisionAndMove(dt)
         y = self.y
     end
     self.shape:moveTo(x + stepx, y + stepy)
-    if self.z <= 0 then
+    if not self:canFall() then
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
             if o.type == "wall"
@@ -128,8 +128,8 @@ function Enemy:deadStart()
     self.hp = 0
     self.isHurt = nil
     self:releaseGrabbed()
-    if self.z <= 0 then
-        self.z = 0
+    if not self:canFall() then
+        self.z = self:getMinZ()
     end
     self:playSfx(self.sfx.dead)
 end
@@ -231,7 +231,7 @@ end
 
 function Enemy:faceToTarget(x, y)
     -- Facing towards the target
-    if self.z <= 0
+    if not self:canFall()
             and self.isHittable
             and not self.isGrabbed
             and self.state ~= "run"
@@ -253,7 +253,7 @@ function Enemy:jumpStart()
     dpo(self, self.state)
     self:setSprite("jump")
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-    self.z = 0.1
+    self.z = self:getMinZ() + 0.1
     self.bounced = 0
     if self.lastState == "run" then
         -- jump higher from run

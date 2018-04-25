@@ -83,7 +83,7 @@ function Obstacle:checkCollisionAndMove(dt)
         local stepy = self.speed_y * dt * self.vertical
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
-    if self.z <= 0 then
+    if not self:canFall() then
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
             if o.type == "wall"
@@ -169,8 +169,8 @@ function Obstacle:getupStart()
     self.isHittable = false
     self.isThrown = false
     dpo(self, self.state)
-    if self.z <= 0 then
-        self.z = 0
+    if not self:canFall() then
+        self.z = self:getMinZ()
     end
     if self.hp <= 0 then
         self:setState(self.dead)
