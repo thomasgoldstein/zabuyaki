@@ -17,7 +17,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
         f.shapeType = "polygon"
         f.shapeArgs = { 4, 0, 9, 0, 14, 5, 9, 12, 4, 12, 0, 5 }
     end
-    self.height = self.height or 40
+    self.height = f.height or 40
     Character.initialize(self, name, sprite, nil, x, y, f)
     self.name = name or "Unknown Obstacle"
     self.type = "obstacle"
