@@ -276,7 +276,6 @@ end
 function Unit:setMinZ(platform)
     if self.platform then
         if self.platform.height < platform.height then
-            print("upd platform -> new height")
             self.platform = platform
         end
     else
