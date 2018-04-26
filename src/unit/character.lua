@@ -1227,17 +1227,13 @@ function Character:checkForGrab()
 end
 
 function Character:doGrab(target, inAir)
-    dp(target.name .. " is grabed by me - "..self.name)
+    dp(target.name .. " is grabbed by me - "..self.name)
     local g = self.hold
     local gTargetHold = target.hold
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
-    if inAir then
-        if math.abs(self.z - target.z) > 10 then
-            return false
-        end
-    elseif target.z > 0 then
+    if inAir and math.abs(self.z - target.z) > 10 then
         return false
     end
     if target.isGrabbed then
