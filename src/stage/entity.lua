@@ -35,7 +35,26 @@ function Entity:addArray(e)
     return self.entities
 end
 
+local function getVirtualY(o)
+    if o.platform then
+        return o.platform.y + 0.01
+    end
+    return o.y
+end
+
 function Entity:sortByY()
+    table.sort(self.entities, function(a,b)
+        if not a then
+            return false
+        elseif not b then
+            return true
+        elseif getVirtualY(a) == getVirtualY(b) then
+            return a.id > b.id
+        end
+        return getVirtualY(a) < getVirtualY(b) end )
+end
+
+function Entity:sortByY_()
     table.sort(self.entities, function(a,b)
         if not a then
             return false
@@ -47,7 +66,7 @@ function Entity:sortByY()
         return a.y < b.y end )
 end
 
-function Entity:sortByY_()
+function Entity:sortByY__()
     table.sort(self.entities, function(a,b)
         if not a then
             return false
