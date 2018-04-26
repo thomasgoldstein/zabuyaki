@@ -79,6 +79,9 @@ function Rick:dashAttackUpdate(dt)
         self:setState(self.stand)
         return
     end
+    if self:canFall() then
+        self:calcFreeFall(dt)
+    end
     self:moveEffectAndEmit("dash", 0.3)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
