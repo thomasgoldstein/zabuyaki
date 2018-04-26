@@ -20,7 +20,7 @@ function Obstacle:showEffect(effect, obj)
         particles:emit(4)
         particles:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
         particles:emit(2)
-        stage.objects:add(Effect:new(particles, self.x, self.y + 1))
+        stage.objects:add(Effect:new(particles, self.x, self.y + 1, self.z))
 
         particles = PA_OBSTACLE_BREAK_BIG:clone()
         particles:setPosition( 0, -self.height + self.height / 3 )
@@ -33,7 +33,7 @@ function Obstacle:showEffect(effect, obj)
         particles:emit(2)
         particles:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
         particles:emit(1)
-        stage.objects:add(Effect:new(particles, self.x, self.y + 1))
+        stage.objects:add(Effect:new(particles, self.x, self.y + 1, self.z))
     else
         Character.showEffect(self, effect, obj)
     end
