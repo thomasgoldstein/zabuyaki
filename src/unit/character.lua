@@ -394,7 +394,7 @@ function Character:checkAndAttack(f, isFuncCont)
     items = nil
 end
 
-function Character:checkForLoot(w, h)
+function Character:checkForLoot()
     --got any loot near feet?
     local loot = {}
     for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
@@ -472,7 +472,7 @@ function Character:standUpdate(dt)
         end
     end
     if self.b.attack:pressed() then
-        if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
+        if self.moves.pickup and self:checkForLoot() ~= nil then
             self:setState(self.pickup)
             return
         end
@@ -536,7 +536,7 @@ function Character:walkUpdate(dt)
         return
     end
     if self.b.attack:pressed() then
-        if self.moves.pickup and self:checkForLoot(9, 9) ~= nil then
+        if self.moves.pickup and self:checkForLoot() ~= nil then
             self:setState(self.pickup)
             return
         elseif self.moves.combo then
@@ -714,7 +714,7 @@ Character.dropDown = {name = "dropDown", start = Character.dropDownStart, exit =
 
 function Character:pickupStart()
     self.isHittable = false
-    local loot = self:checkForLoot(9, 9)
+    local loot = self:checkForLoot()
     if loot then
         self.victimInfoBar = loot.infoBar:setPicker(self)
         self:showEffect("pickup", loot)
