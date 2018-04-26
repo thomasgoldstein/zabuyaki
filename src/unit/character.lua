@@ -1209,6 +1209,7 @@ function Character:checkForGrab()
                 and not o.isDisabled
                 and not o.isGrabbed
                 and o.isMovable
+                and o ~= self.platform
         then
             items[#items+1] = o
         end
