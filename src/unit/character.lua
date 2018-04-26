@@ -700,6 +700,9 @@ function Character:jumpUpdate(dt)
     else
         if self.platform then
             self:playSfx(self.platform.sfx.onBreak)
+            if self.platform.isMovable then
+                self.platform:onShake(0.5, 0, 0.03, 0.1)
+            end
         else
             self:playSfx(self.sfx.step)
         end
