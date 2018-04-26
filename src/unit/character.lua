@@ -653,6 +653,7 @@ function Character:jumpStart()
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = self:getMinZ() + 0.1
     self.bounced = 0
+    self.isGoingUp = true
     if self.prevState == "run" then
         -- jump higher from run
         self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier
@@ -690,6 +691,12 @@ function Character:jumpUpdate(dt)
     end
     if self:canFall() then
         self:calcFreeFall(dt)
+        if self.isGoingUp and self.speed_z < 0 and self.speed_x == 0
+            and self.b.horizontal:getValue() == self.horizontal
+        then
+            self.isGoingUp = false
+            self.speed_x = math.abs(self.b.horizontal:getValue())
+        end
     else
         self:playSfx(self.sfx.step)
         self:setState(self.duck)
