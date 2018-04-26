@@ -157,7 +157,7 @@ function Unit:updateAI(dt)
     end
     self:updateSprite(dt)
     self:calcMovement(dt)
-    if self.platform then
+    if self.platform and not self.platform.isDisabled and self.platform.shape then
         if not self.shape:collidesWith(self.platform.shape) then
             self.platform = nil
         end
