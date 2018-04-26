@@ -832,17 +832,22 @@ function Character:sideStepStart()
     end
     self.speed_x, self.speed_y = 0, self.sideStepSpeed
     self:playSfx("whooshHeavy")
+    self.save_z = self.z
 end
 function Character:sideStepUpdate(dt)
     if self.speed_y > 0 then
         self.speed_y = self.speed_y - self.sideStepFriction * dt
         if self.hopDuringSideStep then
-            self.z = self.speed_y / 24 --to show low leap
+            self.z = self.save_z + self.speed_y / 24 --to show low leap
         end
     else
         self.speed_y = 0
         self:playSfx(self.sfx.step, 0.75)
-        self:setState(self.duck)
+        if self:canFall() then
+            self:setState(self.dropDown)
+        else
+            self:setState(self.duck)
+        end
         return
     end
 end
