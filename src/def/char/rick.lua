@@ -287,6 +287,12 @@ return {
             { q = q(89,1952,46,66), ox = 24, oy = 65, delay = 5 }, --jump down
             delay = 0.09
         },
+        dropDown = {
+            { q = q(2,1952,39,66), ox = 20, oy = 65, delay = 0.15 }, --jump up
+            { q = q(43,1952,44,66), ox = 21, oy = 65 }, --jump top
+            { q = q(89,1952,46,66), ox = 24, oy = 65, delay = 5 }, --jump down
+            delay = 0.09
+        },
         respawn = {
             { q = q(89,1952,46,66), ox = 24, oy = 65, delay = 5 }, --jump down
             { q = q(47,398,41,58), ox = 17, oy = 57, delay = 0.5 }, --pick up 2

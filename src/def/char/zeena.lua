@@ -63,6 +63,10 @@ return {
             { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
             delay = 5
         },
+        dropDown = {
+            { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
+            delay = 5
+        },
         respawn = {
             { q = q(2,297,38,61), ox = 22, oy = 60, delay = 5 }, --jump
             { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck

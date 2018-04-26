@@ -88,6 +88,9 @@ return {
             loop = true,
             delay = 0.06
         },
+        dropDown = {
+            { q = q(66,284,51,66), ox = 17, oy = 66 , delay = 5 }, --kick 1
+        },
         respawn = {
             { q = q(66,284,51,66), ox = 17, oy = 66 , delay = 5 }, --kick 1
             { q = q(2,287,62,63), ox = 34, oy = 62 }, --duck

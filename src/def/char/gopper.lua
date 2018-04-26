@@ -81,6 +81,9 @@ return {
             loop = true,
             delay = 0.08
         },
+        dropDown = {
+            { q = q(2,372,58,52), ox = 27, oy = 51, delay = 5 }, --dash
+        },
         respawn = {
             { q = q(2,372,58,52), ox = 27, oy = 51, delay = 5 }, --dash
             { q = q(62,389,68,35), ox = 31, oy = 27 }, --lying down on belly
