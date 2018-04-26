@@ -698,7 +698,11 @@ function Character:jumpUpdate(dt)
             self.speed_x = math.abs(self.b.horizontal:getValue())
         end
     else
-        self:playSfx(self.sfx.step)
+        if self.platform then
+            self:playSfx(self.platform.sfx.onBreak)
+        else
+            self:playSfx(self.sfx.step)
+        end
         self:setState(self.duck)
         return
     end
