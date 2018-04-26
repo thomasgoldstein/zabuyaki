@@ -277,6 +277,10 @@ function Unit:setMinZ(platform)
     if self.platform then
         if self.platform.height < platform.height then
             self.platform = platform
+        elseif math.abs(platform.x - self.x) < math.abs(self.platform.x - self.x)
+            or math.abs(platform.y - self.y) < math.abs(self.platform.y - self.y)
+        then
+            self.platform = platform
         end
     else
         self.platform = platform
