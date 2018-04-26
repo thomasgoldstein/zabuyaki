@@ -47,6 +47,8 @@ function Player:isInUseCreditMode()
     return true
 end
 
+local edgesTolerance = 0
+local topEdgeTolerance = 0
 function Player:checkCollisionAndMove(dt)
     local success = true
     local stepx, stepy = 0, 0
@@ -81,12 +83,14 @@ function Player:checkCollisionAndMove(dt)
                 or o.type == "obstacle"
                 )
             then
-                if o.type == "obstacle" and self.z + 4 >= o.height then
-                    self.obstacles[o] = true
-                    self:setMinZ(o)
+                if o.type == "obstacle" and self.z + topEdgeTolerance >= o.height then
+                    if math.abs(separatingVector.x) > edgesTolerance or math.abs(separatingVector.y) > edgesTolerance then
+                        self.obstacles[o] = true
+                        self:setMinZ(o)
+                    end
                 else
                     self.shape:move(separatingVector.x, separatingVector.y)
-                    if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
+                    if math.abs(separatingVector.x) > 1.5 or math.abs(separatingVector.y) > 1.5 then
                         stepx, stepy = separatingVector.x, separatingVector.y
                         success = false
                     end
