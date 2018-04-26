@@ -430,7 +430,7 @@ Character.slide = {name = "slide", start = Character.slideStart, exit = nop, upd
 function Character:standStart()
     self.isHittable = true
     if self:getMinZ() < self.z then
-        self:setState(self.fall)
+        self:setState(self.dropDown)
         return
     end
     self.z = self:getMinZ()
@@ -449,7 +449,7 @@ function Character:standStart()
 end
 function Character:standUpdate(dt)
     if self:getMinZ() < self.z then
-        self:setState(self.fall)
+        self:setState(self.dropDown)
         return
     end
     self.nextAnlmationDelay = self.nextAnlmationDelay - dt
@@ -531,7 +531,7 @@ function Character:walkStart()
 end
 function Character:walkUpdate(dt)
     if self:getMinZ() < self.z then
-        self:setState(self.fall)
+        self:setState(self.dropDown)
         return
     end
     if self.b.attack:pressed() then
@@ -609,7 +609,7 @@ function Character:runStart()
 end
 function Character:runUpdate(dt)
     if self:getMinZ() < self.z then
-        self:setState(self.fall)
+        self:setState(self.dropDown)
         return
     end
     self.speed_x = 0
@@ -700,6 +700,16 @@ function Character:jumpUpdate(dt)
     end
 end
 Character.jump = {name = "jump", start = Character.jumpStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw}
+
+function Character:dropDownStart()
+    self.isHittable = true
+    --self.toSlowDown = false
+    dpo(self, self.state)
+    self:setSprite("dropDown")
+    self.speed_z = 0
+    self.bounced = 0
+end
+Character.dropDown = {name = "dropDown", start = Character.dropDownStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw }
 
 function Character:pickupStart()
     self.isHittable = false
