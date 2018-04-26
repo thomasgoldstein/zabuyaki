@@ -1215,6 +1215,7 @@ function Character:checkForGrab()
                 and not o.isGrabbed
                 and o.isMovable
                 and o ~= self.platform
+                and math.abs(o.z - self.z) < 10 -- cannot grab unit from a platform
         then
             items[#items+1] = o
         end
