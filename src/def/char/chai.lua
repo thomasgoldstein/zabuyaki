@@ -612,7 +612,8 @@ return {
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw back 1
             { q = q(44,928,51,63), ox = 26, oy = 62, func = frontGrabAttackBack }, --throw back 2
             { q = q(97,928,53,63), ox = 22, oy = 62, delay = 0.2 }, --throw back 3
-            { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
+            { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.07 }, --duck
+            { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.07 }, --duck
             delay = 0.07,
             isThrow = true,
             moves = {
@@ -620,7 +621,8 @@ return {
                 { ox = -10, oz = 20, z = 4 },
                 { ox = 10, oz = 30, tFace = 1, z = 8 },
                 { z = 4 },
-                { z = 2 }
+                { z = 2 },
+                { z = 0 }
             }
         },
         frontGrabAttackForward = {
@@ -631,6 +633,7 @@ return {
             { q = q(44,928,51,63), ox = 26, oy = 62, func = frontGrabAttackForward }, --throw 1.2
             { q = q(97,928,53,63), ox = 22, oy = 62 }, --throw 1.3
             { q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
+            { q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
             delay = 0.07,
             isThrow = true,
             moves = {
@@ -639,7 +642,8 @@ return {
                 { ox = -20, oz = 12, tFace = -1, z = 2 },
                 { ox = -10, oz = 24, tFace = -1, z = 4 },
                 { ox = 10, oz = 30, tFace = 1, z = 8 },
-                { z = 4 }
+                { z = 4 },
+                { z = 0 }
             }
         },
         grabSwap = {
