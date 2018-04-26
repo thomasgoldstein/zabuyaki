@@ -282,7 +282,6 @@ function Unit:setMinZ(platform)
     else
         self.platform = platform
     end
-    print("has platform")
 end
 
 function Unit:calcFreeFall(dt, speed)
