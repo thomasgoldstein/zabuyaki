@@ -856,10 +856,10 @@ function Character:sideStepUpdate(dt)
         end
     else
         self.speed_y = 0
-        self:playSfx(self.sfx.step, 0.75)
         if self:canFall() then
             self:setState(self.dropDown)
         else
+            self:playSfx(self.sfx.step, 0.75)
             self:setState(self.duck)
         end
         return
