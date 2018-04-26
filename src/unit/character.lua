@@ -401,6 +401,7 @@ function Character:checkForLoot(w, h)
         local o = other.obj
         if o.type == "loot"
                 and not o.isEnabled
+                and self.z == o.z
         then
             loot[#loot+1] = o
         end
