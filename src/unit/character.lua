@@ -1284,7 +1284,6 @@ function Character:grabStart()
     if not self.condition then
         local g = self.hold
         local timeToMove = 0.1
-        local toCommon_y = math.floor((self.y + g.target.y) / 2 )
         local direction = self.x >= g.target.x and -1 or 1
         local checkFront = self:hasPlaceToStand(self.x + direction * checkDist_x, self.y)
         local checkBack = self:hasPlaceToStand(self.x - direction * checkDist_x, self.y)
@@ -1304,14 +1303,8 @@ function Character:grabStart()
         g.target.speed_x = 0
         self.speed_y = 0
         g.target.speed_y = 0
-        self.move = tween.new(timeToMove, self, {
-            x = x1,
-            y = toCommon_y + 0.005
-        }, 'outQuad')
-        g.target.move = tween.new(timeToMove, g.target, {
-            x = x2,
-            y = toCommon_y - 0.005
-        }, 'outQuad')
+        self.move = tween.new(timeToMove, self, { x = x1 }, 'outQuad')
+        g.target.move = tween.new(timeToMove, g.target, { x = x2, y = self.y }, 'outQuad')
         self.face = direction
         self.horizontal = self.face
         g.target.horizontal = -self.face
