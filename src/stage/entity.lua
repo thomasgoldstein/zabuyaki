@@ -36,8 +36,12 @@ function Entity:addArray(e)
 end
 
 local function getVirtualY(o)
+    local g = o.hold
+    if o.isGrabbed and g and g.source then
+        return g.source.y - 0.001
+    end
     if o.platform then
-        return o.platform.y + 0.01
+        return o.platform.y + 0.005
     end
     return o.y
 end
