@@ -266,8 +266,10 @@ function Unit:canFall()
 end
 
 function Unit:getMinZ()
-    --self.isOnPlatform and
-    if self.platform then
+    local g = self.hold
+    if self.isGrabbed and g and g.source then
+        return g.source.z
+    elseif self.platform then
         return self.platform.z + self.platform.height
     end
     return 0
