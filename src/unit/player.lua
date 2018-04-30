@@ -307,7 +307,7 @@ function Player:useCreditUpdate(dt)
             correctPlayersRespawnPos(player)
             player:setState(self.respawn)
             player.id = self.id
-            player.palette = 0 --TODO use unloclable colorse feature on implementing
+            player.palette = self.playerSelectCur <= 3 and 0 or 1
             registerPlayer(player)
             fixPlayersPalette(player)
             dp(player.x, player.y, player.name, player.playerSelectMode, "Palette:", player.palette)
