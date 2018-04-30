@@ -269,7 +269,7 @@ function Unit:getMinZ()
     local g = self.hold
     if self.isGrabbed and g and g.source then
         return g.source.z
-    elseif self.platform then
+    elseif self.platform and self.platform.hp > 0 then
         return self.platform.z + self.platform.height
     end
     return 0
