@@ -176,7 +176,7 @@ function Stage:update(dt)
         self:updateZoom(dt)
         self.objects:update(dt)
         --sort players by y
-        self.objects:sortByY()
+        self.objects:sortByZIndex()
 
         if self.background then
             self.background:update(dt)
@@ -210,7 +210,7 @@ function Stage:update(dt)
         end
         self.objects:update(dt)
         --sort players by y
-        self.objects:sortByY()
+        self.objects:sortByZIndex()
 
         if self.background then
             self.background:update(dt)

@@ -50,4 +50,8 @@ function Effect:updateAI(dt)
     --    Unit.updateAI(self, dt)
 end
 
+function Effect:getZIndex()
+    return self.y
+end
+
 return Effect

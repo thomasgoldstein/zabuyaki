@@ -6,7 +6,6 @@ local Entity = class("Entity")
 
 function Entity:initialize()
     self.entities = {}
---    dp("Entitiy new")
 end
 
 function Entity:add(e)
@@ -27,7 +26,6 @@ function Entity:addArray(e)
     if not e then
         return self.entities
     end
-    --    if type(e) == "table" then
     for i=1,#e do
         e[i].isDisabled = false
         self.entities[#self.entities+1] = e[i]
@@ -35,56 +33,16 @@ function Entity:addArray(e)
     return self.entities
 end
 
-local function getVirtualY(o)
-    local g = o.hold
-    if o.isGrabbed and g and g.source then
-        return g.source.y - 0.001
-    end
-    if o.platform then
-        return o.platform.y + 0.005
-    end
-    return o.y
-end
-
-function Entity:sortByY()
+function Entity:sortByZIndex()
     table.sort(self.entities, function(a,b)
         if not a then
             return false
         elseif not b then
             return true
-        elseif getVirtualY(a) == getVirtualY(b) then
+        elseif a:getZIndex() == b:getZIndex() then
             return a.id > b.id
         end
-        return getVirtualY(a) < getVirtualY(b) end )
-end
-
-function Entity:sortByY_()
-    table.sort(self.entities, function(a,b)
-        if not a then
-            return false
-        elseif not b then
-            return true
-        elseif a.y == b.y then
-            return a.id > b.id
-        end
-        return a.y < b.y end )
-end
-
-function Entity:sortByY__()
-    table.sort(self.entities, function(a,b)
-        if not a then
-            return false
-        elseif not b then
-            return true
-        end
-        local ay, by = a.y - a.id / 100, b.y - b.id / 100
-        if b.isGrabbed then
-            by = by - 1
-        end
-        if ay == by then
-            return a.id > b.id
-        end
-        return ay < by end )
+        return a:getZIndex() < b:getZIndex() end )
 end
 
 function Entity:remove(e)

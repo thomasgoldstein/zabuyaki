@@ -437,4 +437,15 @@ function Unit:updateAttackersInfoBar(h)
     end
 end
 
+function Unit:getZIndex()
+    local g = self.hold
+    if self.isGrabbed and g and g.source then
+        return g.source.y - 0.001
+    end
+    if self.platform then
+        return self.platform.y + 0.005
+    end
+    return self.y
+end
+
 return Unit
