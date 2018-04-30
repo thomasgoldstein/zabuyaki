@@ -244,6 +244,7 @@ function Player:onHurtDamage()
 end
 
 local players_list = { RICK = 1, KISA = 2, CHAI = 3, GOPPER = 4, NIKO = 5, SVETA = 6, ZEENA = 7, BEATNICK = 8, SATOFF = 9 }
+local players_palette_list = { 0, 0, 0, 1, 1, 1, 1, 0, 0 }
 function Player:useCreditStart()
     self.isHittable = false
     self.lives = self.lives - 1
@@ -307,7 +308,7 @@ function Player:useCreditUpdate(dt)
             correctPlayersRespawnPos(player)
             player:setState(self.respawn)
             player.id = self.id
-            player.palette = self.playerSelectCur <= 3 and 0 or 1
+            player.palette = players_palette_list[self.playerSelectCur] or 0
             registerPlayer(player)
             fixPlayersPalette(player)
             dp(player.x, player.y, player.name, player.playerSelectMode, "Palette:", player.palette)
