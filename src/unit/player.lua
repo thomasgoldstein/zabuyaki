@@ -117,20 +117,6 @@ function Player:isStuck()
     return false
 end
 
-function Player:hasPlaceToStand(x, y)
-    local testShape = stage.testShape
-    testShape:moveTo(x, y)
-    for other, separatingVector in pairs(stage.world:collisions(testShape)) do
-        local o = other.obj
-        if o.type == "wall"
-                or (o.type == "obstacle" and o.z <= 0 and o.hp > 0 and o.isMovable == false)
-                or o.type == "stopper" then
-            return false
-        end
-    end
-    return true
-end
-
 function Player:updateAI(dt)
     if self.isDisabled then
         return

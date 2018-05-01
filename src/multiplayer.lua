@@ -137,12 +137,7 @@ function getDistanceBetweenPlayers()
 end
 
 function correctPlayersRespawnPos(player)
---[[
-    if old_y then
-        player.x = (oldMax_x - oldMin_x) / 2
-        player.y = old_y
-        player:checkCollisionAndMove(0)
-    end]]
+    player.x, player.y = stage:getSafeRespawnPosition(player)
 end
 
 local players = {}

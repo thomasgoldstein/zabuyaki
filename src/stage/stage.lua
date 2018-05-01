@@ -273,6 +273,19 @@ function Stage:draw(l, t, w, h)
     end
 end
 
+function Stage:getScrollingY(x)
+    local ty, tx, cx = 0, 0, 0
+    for i = 1, #self.scrolling.chunks do
+        local c = self.scrolling.chunks[i]
+        if x >= c.start_x and x <= c.end_x then
+            ty = c.end_y - c.start_y
+            tx = c.end_x - c.start_x
+            cx = x - c.start_x
+            return self.leftStopper.x, (cx * ty) / tx + c.start_y
+        end
+    end
+end
+
 function Stage:setCamera(dt)
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
@@ -321,6 +334,38 @@ function Stage:setCamera(dt)
         mainCamera:update(dt, math.floor(oldCoord_x * 2)/2, math.floor(oldCoord_y * 2)/2)
     end
     oldCoord_y = coord_y
+end
+
+function Stage:hasPlaceToStand(x, y, unit)
+    local shape = (unit and unit.shape) and unit.shape or self.testShape
+    shape:moveTo(x, y)
+    for other, separatingVector in pairs(self.world:collisions(shape)) do
+        local o = other.obj
+        if o.type == "wall"
+            or (o.type == "obstacle" and o.z <= 0 and o.hp > 0 and o.isMovable == false)
+            or o.type == "stopper" then
+            return false
+        end
+    end
+    return true
+end
+
+function Stage:getSafeRespawnPosition(unit)
+    local x = oldCoord_x or 0
+    local _, _y = self:getScrollingY(x)
+    local t = {}
+    local r
+    for y = _y, _y + 240/3, 8 do
+        if stage:hasPlaceToStand(x, y, unit) then
+            t[#t + 1] = {x, y}
+        end
+    end
+    if #t > 0 then
+        r = t[love.math.random(1,#t)]
+    else
+        error("No place to spawn player at X:"..x)
+    end
+    return r[1], r[2]
 end
 
 return Stage
