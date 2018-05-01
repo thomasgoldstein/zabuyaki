@@ -346,6 +346,8 @@ function Character:checkAndAttack(f, isFuncCont)
             if o.isHittable
                 and not o.isDisabled
                 and o ~= self
+                and not self.victims[o]
+                and CheckLinearCollision(o.z, o.height, self.z + y - h / 2, h)
             then
                 items[#items+1] = { o }
             end
