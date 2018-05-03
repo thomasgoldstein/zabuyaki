@@ -203,7 +203,7 @@ function Chai:offensiveSpecialUpdate(dt)
         self.speed_x = self.jumpSpeedBoost_x
         self.horizontal = self.face
         self.speed_z = 0
-        self.victims = {}
+        ChaiOffensiveSpecial(self)
     end
     if self.sprite.curAnim == "offensiveSpecial" then
         if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then

@@ -182,6 +182,7 @@ local offensiveSpecial = function(slf, cont) slf:checkAndAttack(
     { x = 30, y = 18, width = 25, height = 45, damage = 5 },
     cont
 ) end
+ChaiOffensiveSpecial = offensiveSpecial -- the transition attack
 local offensiveSpecial2 = function(slf, cont) slf:checkAndAttack(
     { x = 0, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
     cont
@@ -390,7 +391,7 @@ return {
             delay = 0.05
         },
         offensiveSpecial2 = {
-            { q = q(2,1791,77,65), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1a
+            { q = q(2,1791,77,65), ox = 26, oy = 65 }, --offensive special 1a
             { q = q(81,1791,75,63), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1b
             { q = q(158,1791,73,61), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1c
             { q = q(2,1791,77,65), ox = 26, oy = 65, func = offensiveSpecial }, --offensive special 1a
