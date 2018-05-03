@@ -178,10 +178,13 @@ local defensiveSpecialLeftMost = function(slf, cont) slf:checkAndAttack(
     { x = -5, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
-local offensiveSpecial = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 18, width = 25, height = 45, damage = 5 },
+local offensiveSpecial = function(slf, cont, check) slf:checkAndAttack(
+    { x = 30, y = 18, width = 25, height = 45, damage = 5, type = check },
     cont
-) end
+ ) end
+local offensiveSpecialCheck = function(slf, cont)
+    offensiveSpecial(slf, cont, "check")
+end
 ChaiOffensiveSpecial = offensiveSpecial -- the transition attack
 local offensiveSpecial2 = function(slf, cont) slf:checkAndAttack(
     { x = 0, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
@@ -207,12 +210,6 @@ local offensiveSpecialHop = function(slf, cont)
     slf.speed_x = slf.jumpSpeedBoost_x
     slf.horizontal = -slf.face
     slf.speed_z = slf.jumpSpeed_z
-end
-local offensiveSpecialCheck = function(slf, cont)
-    slf:checkAndAttack(
-        { x = 30, y = 18, width = 25, height = 45, type = "check" },
-        cont
-    )
 end
 
 return {
