@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.1" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" backgroundcolor="#e7cf9d" nextobjectid="52">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#e7cf9d" nextobjectid="61">
  <group name="background">
   <imagelayer name="road0" offsetx="12" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer name="road1" offsetx="-348" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer name="road2" offsetx="372" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer name="road3" offsetx="732" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer name="road4" offsetx="1092" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer name="road5" offsetx="1452" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer name="diag road" offsetx="1812" offsety="251">
-   <image source="../img/stage/stage1/road2.png" width="390" height="303"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/road2.png" width="390" height="303"/>
   </imagelayer>
   <imagelayer name="building3" offsetx="870" offsety="69">
-   <image source="../img/stage/stage1/building1.png" width="525" height="385"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/building1.png" width="525" height="385"/>
   </imagelayer>
   <imagelayer name="building4" offsetx="1315" offsety="69">
-   <image source="../img/stage/stage1/building2.png" width="525" height="385"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/building2.png" width="525" height="385"/>
   </imagelayer>
   <imagelayer name="building2" offsetx="425" offsety="69">
-   <image source="../img/stage/stage1/building2.png" width="525" height="385"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/building2.png" width="525" height="385"/>
   </imagelayer>
   <imagelayer name="building1" offsetx="-20" offsety="69">
-   <image source="../img/stage/stage1/building1.png" width="525" height="385"/>
+   <image source="CLOUD/Dropbox/Projects/Zabuyaki/res/img/stage/stage1/building1.png" width="525" height="385"/>
   </imagelayer>
  </group>
  <objectgroup name="camera">
@@ -86,7 +86,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="22" name="Niko" type="unit" x="288" y="472">
+  <object id="22" name="Niko" type="unit" x="260" y="480">
    <properties>
     <property name="batch" value="1"/>
     <property name="class" value="niko"/>
@@ -95,14 +95,14 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="23" name="Sveta" type="unit" x="212" y="496">
+  <object id="23" name="Sveta" type="unit" x="208" y="472">
    <properties>
     <property name="batch" value="1"/>
     <property name="class" value="sveta"/>
    </properties>
    <ellipse/>
   </object>
-  <object id="25" name="Zeena" type="unit" x="244" y="504">
+  <object id="25" name="Zeena" type="unit" x="256" y="524">
    <properties>
     <property name="batch" value="1"/>
     <property name="class" value="zeena"/>
@@ -158,7 +158,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="32" name="Trash Can" type="unit" x="72" y="516" width="16" height="16">
+  <object id="32" name="Trash Can" type="unit" x="80" y="496" width="16" height="16">
    <properties>
     <property name="class" value="trashcan"/>
     <property name="drop" value="chicken"/>
@@ -171,14 +171,14 @@
     <property name="drop" value="apple"/>
    </properties>
   </object>
-  <object id="39" name="Trash Can" type="unit" x="108" y="492" width="16" height="16">
+  <object id="39" name="Trash Can" type="unit" x="80" y="460" width="16" height="16">
    <properties>
     <property name="class" value="trashcan"/>
     <property name="drop" value="beef"/>
     <property name="flip" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="40" name="Gopper" type="unit" x="308" y="480" width="16" height="16">
+  <object id="40" name="Gopper" type="unit" x="300" y="500" width="16" height="16">
    <properties>
     <property name="batch" value="1"/>
     <property name="class" value="gopper"/>
@@ -203,10 +203,70 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="50" name="Trash Can" type="unit" x="149.333" y="476.667">
+  <object id="50" name="Trash Can" type="unit" x="128" y="460" width="17.333" height="16">
    <properties>
     <property name="class" value="trashcan"/>
     <property name="drop" value="bat"/>
+   </properties>
+  </object>
+  <object id="52" name="Stop Sign2" type="unit" x="80" y="528" width="16" height="16">
+   <properties>
+    <property name="class" value="sign"/>
+    <property name="drop" value="apple"/>
+   </properties>
+  </object>
+  <object id="53" name="Stop Sign4" type="unit" x="172" y="540" width="16" height="16">
+   <properties>
+    <property name="class" value="sign"/>
+    <property name="drop" value=""/>
+   </properties>
+  </object>
+  <object id="54" name="Stop Sign3" type="unit" x="272" y="516" width="16" height="16">
+   <properties>
+    <property name="class" value="sign"/>
+    <property name="drop" value="apple"/>
+   </properties>
+  </object>
+  <object id="55" name="Trash Can" type="unit" x="176" y="460" width="16" height="16">
+   <properties>
+    <property name="class" value="trashcan"/>
+    <property name="drop" value="chicken"/>
+    <property name="palette" value="0"/>
+   </properties>
+  </object>
+  <object id="56" name="Trash Can" type="unit" x="128" y="528" width="16" height="16">
+   <properties>
+    <property name="class" value="trashcan"/>
+    <property name="drop" value=""/>
+    <property name="palette" value="0"/>
+   </properties>
+  </object>
+  <object id="57" name="Trash Can" type="unit" x="168" y="500" width="16" height="16">
+   <properties>
+    <property name="class" value="trashcan"/>
+    <property name="drop" value=""/>
+    <property name="palette" value="0"/>
+   </properties>
+  </object>
+  <object id="58" name="Trash Can" type="unit" x="232" y="504" width="16" height="16">
+   <properties>
+    <property name="class" value="trashcan"/>
+    <property name="drop" value="apple"/>
+    <property name="palette" value="0"/>
+   </properties>
+  </object>
+  <object id="59" name="Trash Can" type="unit" x="132" y="492" width="16" height="16">
+   <properties>
+    <property name="class" value="trashcan"/>
+    <property name="drop" value="apple"/>
+    <property name="palette" value="0"/>
+   </properties>
+  </object>
+  <object id="60" name="Trash Can" type="unit" x="204" y="516" width="16" height="16">
+   <properties>
+    <property name="class" value="trashcan"/>
+    <property name="drop" value=""/>
+    <property name="palette" value="0"/>
    </properties>
   </object>
  </objectgroup>
