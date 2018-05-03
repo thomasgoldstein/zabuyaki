@@ -199,11 +199,10 @@ function Chai:offensiveSpecialUpdate(dt)
     if self.sprite.curAnim == "offensiveSpecial"
         and self.attacksPerAnimation > 0
     then
-        self:setSprite("offensiveSpecial2")
         self.speed_x = self.jumpSpeedBoost_x
         self.horizontal = self.face
         self.speed_z = 0
-        ChaiOffensiveSpecial(self)
+        self:setSprite("offensiveSpecial2")
     end
     if self.sprite.curAnim == "offensiveSpecial" then
         if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then
