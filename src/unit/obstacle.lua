@@ -147,6 +147,7 @@ function Obstacle:onHurt()
             self.faceFix = newFacing -- keep previous facing
         end
         self:showEffect("breakMetal")
+        self.height = self.height - 4
     end
     self.oldFrame = curFrame
     self.isHurt = nil --free hurt data
