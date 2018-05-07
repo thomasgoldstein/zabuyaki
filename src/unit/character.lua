@@ -1418,13 +1418,7 @@ function Character:grabbedStart()
 end
 Character.grabbed = {name = "grabbed", start = Character.grabbedStart, exit = nop, update = nop, draw = Character.defaultDraw}
 
-function Character:grabbedFrontStart()
-    self.isHittable = true
-    self:setSprite("grabbedFront")
-
-    dp(self.name.." is grabbedFront.")
-end
-function Character:grabbedFrontUpdate(dt)
+function Character:grabbedUpdate(dt)
     local g = self.hold
     if not self.isGrabbed or g.grabTimer <= 0 then
         if g.source.x < self.x then
@@ -1446,37 +1440,20 @@ function Character:grabbedFrontUpdate(dt)
     end
     self:tweenMove(dt)
 end
-Character.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedFrontUpdate, draw = Character.defaultDraw}
+
+function Character:grabbedFrontStart()
+    self.isHittable = true
+    self:setSprite("grabbedFront")
+    dp(self.name.." is grabbedFront.")
+end
+Character.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
 
 function Character:grabbedBackStart()
     self.isHittable = true
     self:setSprite("grabbedBack")
-
     dp(self.name.." is grabbedBack.")
 end
-function Character:grabbedBackUpdate(dt)
-    local g = self.hold
-    if not self.isGrabbed or g.grabTimer <= 0 then
-        if g.source.x < self.x then
-            self.horizontal = 1
-        else
-            self.horizontal = -1
-        end
-        self.isGrabbed = false
-        self.speed_x = self.backoffSpeed2 --move from source
-        self:setState(self.stand)
-        return
-    end
-    if self:canFall() and self.isHittable then -- don't slide down during the throw
-        self:calcFreeFall(dt)
-        if not self:canFall() then
-            self.speed_z = 0
-            self.z = self:getMinZ()
-        end
-    end
-    self:tweenMove(dt)
-end
-Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedBackUpdate, draw = Character.defaultDraw}
+Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
 
 function Character:initGrabTimer()
     local g = self.hold
