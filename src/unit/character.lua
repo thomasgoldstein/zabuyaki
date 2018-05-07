@@ -86,8 +86,8 @@ function Character:initAttributes()
     self.shortThrowSpeed_x = self.throwSpeed_x / 2 --my throwing speed (frontGrabAttack Last and Down)
     self.throwSpeed_z = 200 --my throwing speed
     self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
-    self.backoffSpeed = 175 --when you ungrab someone
-    self.backoffSpeed2 = 200 --when you are released
+    self.backoffSpeed = 130 --when you ungrab someone
+    self.backoffSpeed2 = 150 --when you are released
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage
