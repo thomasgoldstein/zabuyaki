@@ -196,7 +196,7 @@ test("checkComboDamage()",
     end
 )]]
 
-test("calcDistanceForSpeedAndFriction()",
+--[[test("calcDistanceForSpeedAndFriction()",
     function()
         local p = getRegisteredPlayer(1)
         return calcDistanceForSpeedAndFriction({
@@ -205,7 +205,7 @@ test("calcDistanceForSpeedAndFriction()",
             toSlowDown = false,
             name = p.name, id = p.id })
     end
-)
+)]]
 
 -- clean dummy players & stage
 cleanRegisteredPlayers()
