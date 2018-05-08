@@ -133,6 +133,10 @@ function checkComboAttackConnection(a, b, timeBetweenAttacks)
 end
 
 
+-- mock real lib functions
+--local _SFXplay = SFX.play
+--SFX.play = function() end
+
 -- prepare dummy stage
 stage = Stage:new()
 
@@ -206,6 +210,9 @@ test("calcDistanceForSpeedAndFriction()",
 -- clean dummy players & stage
 cleanRegisteredPlayers()
 stage = nil
+
+-- restore mocked lib functions
+--SFX.play = _SFXplay
 
 ps("End of tests 2","#")
 
