@@ -523,6 +523,23 @@ return {
           }
         },
         {
+          id = 32,
+          name = "Trash Can",
+          type = "unit",
+          shape = "rectangle",
+          x = 80,
+          y = 496,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "trashcan",
+            ["drop"] = "chicken",
+            ["palette"] = "0"
+          }
+        },
+        {
           id = 33,
           name = "Stop Sign",
           type = "unit",
@@ -536,6 +553,23 @@ return {
           properties = {
             ["class"] = "sign",
             ["drop"] = "apple"
+          }
+        },
+        {
+          id = 39,
+          name = "Trash Can",
+          type = "unit",
+          shape = "rectangle",
+          x = 80,
+          y = 460,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "trashcan",
+            ["drop"] = "beef",
+            ["flip"] = true
           }
         },
         {
@@ -591,12 +625,76 @@ return {
           }
         },
         {
+          id = 50,
+          name = "Trash Can",
+          type = "unit",
+          shape = "rectangle",
+          x = 128,
+          y = 460,
+          width = 17.333,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "trashcan",
+            ["drop"] = "bat"
+          }
+        },
+        {
+          id = 52,
+          name = "Stop Sign2",
+          type = "unit",
+          shape = "rectangle",
+          x = 80,
+          y = 528,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "sign",
+            ["drop"] = "apple"
+          }
+        },
+        {
+          id = 53,
+          name = "Stop Sign4",
+          type = "unit",
+          shape = "rectangle",
+          x = 172,
+          y = 540,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "sign",
+            ["drop"] = ""
+          }
+        },
+        {
+          id = 54,
+          name = "Stop Sign3",
+          type = "unit",
+          shape = "rectangle",
+          x = 272,
+          y = 516,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "sign",
+            ["drop"] = "apple"
+          }
+        },
+        {
           id = 55,
           name = "Trash Can",
           type = "unit",
           shape = "rectangle",
-          x = 328,
-          y = 528,
+          x = 176,
+          y = 460,
           width = 16,
           height = 16,
           rotation = 0,
@@ -608,12 +706,12 @@ return {
           }
         },
         {
-          id = 57,
+          id = 56,
           name = "Trash Can",
           type = "unit",
           shape = "rectangle",
-          x = 152,
-          y = 492,
+          x = 128,
+          y = 528,
           width = 16,
           height = 16,
           rotation = 0,
@@ -625,11 +723,45 @@ return {
           }
         },
         {
+          id = 57,
+          name = "Trash Can",
+          type = "unit",
+          shape = "rectangle",
+          x = 168,
+          y = 500,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "trashcan",
+            ["drop"] = "",
+            ["palette"] = "0"
+          }
+        },
+        {
+          id = 58,
+          name = "Trash Can",
+          type = "unit",
+          shape = "rectangle",
+          x = 232,
+          y = 504,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "trashcan",
+            ["drop"] = "apple",
+            ["palette"] = "0"
+          }
+        },
+        {
           id = 59,
           name = "Trash Can",
           type = "unit",
           shape = "rectangle",
-          x = 100,
+          x = 132,
           y = 492,
           width = 16,
           height = 16,
@@ -638,6 +770,23 @@ return {
           properties = {
             ["class"] = "trashcan",
             ["drop"] = "apple",
+            ["palette"] = "0"
+          }
+        },
+        {
+          id = 60,
+          name = "Trash Can",
+          type = "unit",
+          shape = "rectangle",
+          x = 204,
+          y = 516,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["class"] = "trashcan",
+            ["drop"] = "",
             ["palette"] = "0"
           }
         }
