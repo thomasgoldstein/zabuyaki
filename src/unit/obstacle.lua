@@ -27,6 +27,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     if f.flipOnBreak ~= false then
         self.flipOnBreak = true --flip face to the attacker on break (true by default)
     end
+    self.decreaseHeightValue = f.decreaseHeightValue or 0 -- by pixels. Decrease height on every damaged sprite change
     self.pushBackOnHitSpeed = 65
     self.faceFix = self.face   --keep the same facing after 1st hit
     self.sfx.dead = f.sfxDead --on death sfx
@@ -147,7 +148,7 @@ function Obstacle:onHurt()
             self.faceFix = newFacing -- keep previous facing
         end
         self:showEffect("breakMetal")
-        self.height = self.height - 4
+        self.height = self.height - self.decreaseHeightValue
     end
     self.oldFrame = curFrame
     self.isHurt = nil --free hurt data
