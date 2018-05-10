@@ -135,21 +135,21 @@ describe("Characters moves", function()
         local n
         -- prepare dummy player
         n = 1
-        player1 = HEROES[n].hero:new("PL1", getSpriteInstance(HEROES[n].spriteInstance), DUMMY_CONTROL, 0, 0)
+        player1 = HEROES[n].hero:new("PL1-"..HEROES[n][1].name, getSpriteInstance(HEROES[n].spriteInstance), DUMMY_CONTROL, 0, 0)
         player1.id = 1 -- fixed id
         player1:setOnStage(stage)
         player1:setState(player1.stand)
         player1.x = 30
         player1.y = 200
         n = 2
-        player2 = HEROES[n].hero:new("PL2", getSpriteInstance(HEROES[n].spriteInstance), DUMMY_CONTROL, 0, 0)
+        player2 = HEROES[n].hero:new("PL2-"..HEROES[n][1].name, getSpriteInstance(HEROES[n].spriteInstance), DUMMY_CONTROL, 0, 0)
         player2.id = 2 -- fixed id
         player2:setOnStage(stage)
         player2:setState(player2.stand)
         player2.x = 80
         player2.y = 200
         n = 3
-        player3 = HEROES[n].hero:new("PL3", getSpriteInstance(HEROES[n].spriteInstance), DUMMY_CONTROL, 0, 0)
+        player3 = HEROES[n].hero:new("PL3-"..HEROES[n][1].name, getSpriteInstance(HEROES[n].spriteInstance), DUMMY_CONTROL, 0, 0)
         player3.id = 3 -- fixed id
         player3:setOnStage(stage)
         player3:setState(player3.stand)
