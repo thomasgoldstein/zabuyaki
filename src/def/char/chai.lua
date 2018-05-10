@@ -500,7 +500,7 @@ return {
             { q = q(139,466,56,53), ox = 30, oy = 51 }, --getting up
             { q = q(43,404,39,58), ox = 23, oy = 57 }, --pick up 2
             { q = q(2,401,39,61), ox = 23, oy = 60 }, --pick up 1
-            delay = 0.2
+            delay = 0.15
         },
         fallen = {
             { q = q(69,488,68,30), ox = 38, oy = 28 }, --lying down
