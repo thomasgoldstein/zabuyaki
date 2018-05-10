@@ -142,7 +142,7 @@ end
 
 local players = {}
 function registerPlayer(player)
-    print("registerPlayer id:"..player.id)
+--    print("registerPlayer id:"..player.id)
     if not player then
         error("no player data")
     elseif player.id and player.id < 1 or player.id > GLOBAL_SETTING.MAX_PLAYERS then
@@ -153,7 +153,7 @@ function registerPlayer(player)
 end
 
 function unregisterPlayer(player)
-    print("unregisterPlayer id:"..player.id)
+--    print("unregisterPlayer id:"..player.id)
     if not player then
         error("no player data")
     elseif player.id < 1 or player.id > GLOBAL_SETTING.MAX_PLAYERS then
@@ -163,7 +163,7 @@ function unregisterPlayer(player)
 end
 
 function cleanRegisteredPlayers()
-    print("cleanRegisteredPlayers")
+--    print("cleanRegisteredPlayers")
     players = {}
     oldMin_x, oldMax_x, old_y = nil, nil, nil
 end
