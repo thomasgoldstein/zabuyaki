@@ -122,7 +122,7 @@ local function checkComboDamage(a, b)
 end
 
 -- Start Unit Tests
-describe("Characters moves", function()
+describe("Character Class", function()
     lust.before(function()
         -- This gets run before every test.
         -- mock real lib functions
@@ -170,18 +170,21 @@ describe("Characters moves", function()
         expect(b).to.equal(player3.x - player1.x)
         expect(a).to.equal(player1.x + (player3.x - player1.x) / 2)
     end)
-    it('P1 uses Combo1 on P2 (wrong P1 facing)', function()
-        player1.face = -1
-        local res = checkComboDamage(player1, player2)
-        expect(res).to.equal(100)
-    end)
-    it('P1 uses Combo1 on P3 (P3 is too far)', function()
-        local res = checkComboDamage(player1, player3)
-        expect(res).to.equal(100)
-    end)
-    it('P2 loses 7HP after Combo1', function()
-        local res = checkComboDamage(player1, player2)
-        expect(res).to.equal(93)
+    describe("Combo Method", function()
+        it('P1 implicts 7HP damage to P2', function()
+            local res = checkComboDamage(player1, player2)
+            expect(res).to.equal(93)
+            print(player1.connectHit, player1.attacksPerAnimation)
+        end)
+        it('P1 cannot reach P2 (wrong facing)', function()
+            player1.face = -1
+            local res = checkComboDamage(player1, player2)
+            expect(res).to.equal(100)
+        end)
+        it('P1 cannot reach P3 (too far)', function()
+            local res = checkComboDamage(player1, player3)
+            expect(res).to.equal(100)
+        end)
     end)
 end)
 
