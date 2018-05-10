@@ -74,7 +74,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
 end
 
 function Unit:setOnStage(stage)
-    dp("SET ON STAGE", self.name, self.id, self.palette)
+--    dp("SET ON STAGE", self.name, self.id, self.palette)
     stage.objects:add(self)
     self.shader = getShader(self.sprite.def.spriteName:lower(), self.palette)
     self.infoBar = InfoBar:new(self)
