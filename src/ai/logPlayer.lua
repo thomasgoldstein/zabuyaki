@@ -8,11 +8,11 @@ function P:init()
         self.db[id] = {}
         self:reset(id)
     end
-    print("INIT", #self.db)
+--    print("INIT", #self.db)
 end
 
 function P:reset(id)
-    print("RESET",id)
+--    print("RESET",id)
     for n = 1, 10 do
         self.db[id][n] = { attackCounter = 0, lastDamage = -1, lastTime = -1 }
     end
@@ -59,7 +59,7 @@ end]]
 
 function P:logDamage(player)
     if not player or player.id > GLOBAL_SETTING.MAX_PLAYERS then
-        print("spyPlayer.lua<P:reset> : wrong id")
+--        print("spyPlayer.lua<P:reset> : wrong id")
         return
     end
     local h = player.isHurt
