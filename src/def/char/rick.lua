@@ -605,7 +605,7 @@ return {
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pick up 1
-            delay = 0.2,
+            delay = 0.15,
             isThrow = true,
             moves = {
                 --{ },

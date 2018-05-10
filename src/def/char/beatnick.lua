@@ -185,10 +185,10 @@ return {
             delay = 5
         },
         getup = {
-            { q = q(78,230,74,52), ox = 40, oy = 44 }, --lying down
+            { q = q(78,230,74,52), ox = 40, oy = 44, delay = 0.2 }, --lying down
             { q = q(154,222,61,60), ox = 31, oy = 57 }, --getting up
             { q = q(2,287,62,63), ox = 34, oy = 62 }, --duck
-            delay = 0.2
+            delay = 0.3
         },
         fallen = {
             { q = q(78,230,74,52), ox = 36, oy = 44 }, --lying down
