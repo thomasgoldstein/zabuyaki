@@ -181,6 +181,7 @@ function love.load(arg)
     Gamestate.switch(logoState)
 
     if isDebug() then
+--        require "lib/lust/lust"
         require "test/test1"
         require "test/test2"
     end
