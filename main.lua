@@ -47,10 +47,6 @@ function switchFullScreen()
 end
 
 function love.load(arg)
-    --TODO remove in release. Needed for ZeroBane Studio debugging
-    if arg[#arg] == "-debug" then
-        require("mobdebug").start()
-    end
     love.graphics.setLineStyle("rough")
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setBackgroundColor(0, 0, 0, 255)
@@ -90,12 +86,17 @@ function love.load(arg)
     bgm = require "src/def/misc/preload_bgm"
     sfx = require "src/def/misc/preload_sfx"
     gfx = require "src/def/misc/preload_gfx"
-    require "lib/debug/debug"
-    inspect = require 'lib/debug/inspect'
+    -- start of the debug section
+    if arg[#arg] == "-debug" then
+        require("mobdebug").start()
+    end
+    require "lib.debug.debug"
+    inspect = require 'lib.debug.inspect'
     if GLOBAL_SETTING.FPSRATE_ENABLED then
-        framerateGraph = require "lib/framerateGraph"
+        framerateGraph = require "lib.debug.framerateGraph"
         framerateGraph.load()
     end
+    -- end of the debug section
     require "src/def/misc/particles"
     CompoundPicture = require "src/compoPic"
     Movie = require "src/movie"
@@ -181,8 +182,8 @@ function love.load(arg)
     Gamestate.switch(logoState)
 
     if isDebug() then
-        require "lib/test/test1"
-        require "lib/test/test2"
+        require "test.test1"
+        require "test.test2"
     end
 end
 

@@ -1,3 +1,5 @@
+-- Copyright (c) .2018 SineDie
+
 -- adjust DEBUG levels
 local SHOW_FPS = 1 -- show text of FPS, FRAME, SLOW MO VALUE from this debug level
 local SHOW_DEBUG_CONTROLS = 1 -- show pressed keys
@@ -7,7 +9,7 @@ local SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross,
 
 -- Load PRofiler
 if GLOBAL_SETTING.PROFILER_ENABLED then
-    Profiler  = require "lib/piefiller"
+    Profiler  = require "lib.debug.piefiller"
     ProfOn = false
     Prof = Profiler:new()
 end
