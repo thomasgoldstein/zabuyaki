@@ -102,9 +102,12 @@ local function setStateAndWait(a, setState, waitSeconds)
     local FPS = 60
     local time = waitSeconds or 5
     local dt = 1 / FPS
-    local x, y, z, hp = a.x, a.y, a.z, a.hp
+    local x, y, z, hp, maxZ = a.x, a.y, a.z, a.hp, a.z
     a:setState(setState)
     for i = 1, time * FPS do
+        if a.z > maxZ then
+            maxZ = a.z
+        end
         a:updateAI(dt)
         a:update(dt)
         if a.infoBar then
@@ -113,8 +116,8 @@ local function setStateAndWait(a, setState, waitSeconds)
         a:onHurt()
         --        print(a.state)
     end
-    --    print(":", a.x, a.y, a.z, a.hp, x, y, z, hp)
-    return a.x, a.y, a.z, a.hp, x, y, z, hp
+    --    print(":", a.x, a.y, a.z, maxZ, a.hp, x, y, z, hp)
+    return a.x, a.y, a.z, maxZ, a.hp, x, y, z, hp
 end
 
 -- Test 1 combo damage
@@ -195,22 +198,25 @@ describe("Character Class", function()
             it('Jumps on place', function()
                 --print(player1.name, player1.duck2jump.name)
                 --            player1.speed_x = 0
-                local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player1, player1.duck2jump)
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, player1.duck2jump)
+--                print(xd, yd, maxZ)
                 expect(x).to.equal(_x)
                 expect(y).to.equal(_y)
                 expect(z).to.equal(_z)
+                expect(math.floor(maxZ)).to.equal(40)
                 expect(hp).to.equal(_hp)
             end)
             it('Jumps after walking diagonally', function()
                 --print(player1.name, player1.duck2jump.name)
                 player1.speed_x = player1.walkSpeed_x
                 player1.speed_y = player1.walkSpeed_y
-                local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player1, player1.duck2jump)
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, player1.duck2jump)
                 local xd = x - _x
                 local yd = y - _y
-                --            print(xd, yd)
+--                print(xd, yd, maxZ)
                 expect(math.floor(xd)).to.equal(71)
                 expect(math.floor(yd)).to.equal(34)
+                expect(math.floor(maxZ)).to.equal(40)
                 expect(z).to.equal(_z)
                 expect(hp).to.equal(_hp)
             end)
@@ -218,12 +224,13 @@ describe("Character Class", function()
                 --print(player1.name, player1.duck2jump.name)
                 player1.speed_x = player1.runSpeed_x
                 player1.speed_y = player1.runSpeed_y
-                local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player1, player1.duck2jump)
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, player1.duck2jump)
                 local xd = x - _x
                 local yd = y - _y
-                --            print(xd, yd)
+--                print(xd, yd, maxZ)
                 expect(math.floor(xd)).to.equal(105)
                 expect(math.floor(yd)).to.equal(21)
+                expect(math.floor(maxZ)).to.equal(40)
                 expect(z).to.equal(_z)
                 expect(hp).to.equal(_hp)
             end)
@@ -233,7 +240,7 @@ describe("Character Class", function()
             it('P1 implicts 7HP damage to P2', function()
                 local res = checkComboDamage(player1, player2)
                 expect(res).to.equal(93)
-                print(player1.connectHit, player1.attacksPerAnimation)
+--                print(player1.connectHit, player1.attacksPerAnimation)
             end)
             it('P1 cannot reach P2 (wrong facing)', function()
                 player1.face = -1
@@ -251,22 +258,25 @@ describe("Character Class", function()
             it('Jumps on place', function()
                 --print(player1.name, player1.duck2jump.name)
                 --            player1.speed_x = 0
-                local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player3, player3.duck2jump)
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, player3.duck2jump)
+--                print(xd, yd, maxZ)
                 expect(x).to.equal(_x)
                 expect(y).to.equal(_y)
                 expect(z).to.equal(_z)
+                expect(math.floor(maxZ)).to.equal(40)
                 expect(hp).to.equal(_hp)
             end)
             it('Jumps after walking diagonally', function()
                 --print(player1.name, player1.duck2jump.name)
                 player3.speed_x = player3.walkSpeed_x
                 player3.speed_y = player3.walkSpeed_y
-                local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player3, player3.duck2jump)
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, player3.duck2jump)
                 local xd = x - _x
                 local yd = y - _y
-                --            print(xd, yd)
-                expect(math.floor(xd)).to.equal(71)
-                expect(math.floor(yd)).to.equal(34)
+--                print(xd, yd, maxZ)
+                expect(math.floor(xd)).to.equal(78)
+                expect(math.floor(yd)).to.equal(37)
+                expect(math.floor(maxZ)).to.equal(40)
                 expect(z).to.equal(_z)
                 expect(hp).to.equal(_hp)
             end)
@@ -274,12 +284,13 @@ describe("Character Class", function()
                 --print(player1.name, player1.duck2jump.name)
                 player3.speed_x = player3.runSpeed_x
                 player3.speed_y = player3.runSpeed_y
-                local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player3, player3.duck2jump)
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, player3.duck2jump)
                 local xd = x - _x
                 local yd = y - _y
-                --            print(xd, yd)
-                expect(math.floor(xd)).to.equal(105)
-                expect(math.floor(yd)).to.equal(21)
+--                print(xd, yd, maxZ)
+                expect(math.floor(xd)).to.equal(112)
+                expect(math.floor(yd)).to.equal(22)
+                expect(math.floor(maxZ)).to.equal(40)
                 expect(z).to.equal(_z)
                 expect(hp).to.equal(_hp)
             end)
