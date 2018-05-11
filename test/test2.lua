@@ -1,6 +1,9 @@
 -- Copyright (c) .2018 SineDie
 local lust = require 'lib.lust.lust'
 local describe, it, expect = lust.describe, lust.it, lust.expect
+-- save DEBUG level
+local _debugLevel = getDebugLevel()
+setDebugLevel(0)
 
 -- Calc the distance in pixels the unit can move in 1 second (60 FPS)
 local function calcDistanceForSpeedAndFriction(a)
@@ -308,3 +311,6 @@ end)
             name = p.name, id = p.id })
     end
 )]]
+
+-- restore DEBUG level
+setDebugLevel(_debugLevel)
