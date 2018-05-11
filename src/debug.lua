@@ -26,6 +26,12 @@ function getDebugLevel()
     return 0
 end
 
+function setDebugLevel(n)
+    if n >= 0 and n <= getMaxDebugLevel() then
+        GLOBAL_SETTING.DEBUG = n
+    end
+end
+
 function nextDebugLevel()
     GLOBAL_SETTING.DEBUG = getDebugLevel() + 1
     if GLOBAL_SETTING.DEBUG > getMaxDebugLevel() then
