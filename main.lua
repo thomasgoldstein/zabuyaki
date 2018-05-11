@@ -90,8 +90,8 @@ function love.load(arg)
     bgm = require "src/def/misc/preload_bgm"
     sfx = require "src/def/misc/preload_sfx"
     gfx = require "src/def/misc/preload_gfx"
-    require "src/debug"
-    inspect = require 'lib/inspect'
+    require "debug/debug"
+    inspect = require 'debug/inspect'
     if GLOBAL_SETTING.FPSRATE_ENABLED then
         framerateGraph = require "lib/framerateGraph"
         framerateGraph.load()
@@ -181,7 +181,6 @@ function love.load(arg)
     Gamestate.switch(logoState)
 
     if isDebug() then
---        require "lib/lust/lust"
         require "test/test1"
         require "test/test2"
     end
