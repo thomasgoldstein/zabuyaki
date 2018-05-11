@@ -192,7 +192,7 @@ describe("Character Class", function()
     end)
     describe("Rick Class", function()
         describe("Jump Method", function()
-            it('P1 jumps on place', function()
+            it('Jumps on place', function()
                 --print(player1.name, player1.duck2jump.name)
                 --            player1.speed_x = 0
                 local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player1, player1.duck2jump)
@@ -201,7 +201,7 @@ describe("Character Class", function()
                 expect(z).to.equal(_z)
                 expect(hp).to.equal(_hp)
             end)
-            it('P1 jumps after walking diagonally', function()
+            it('Jumps after walking diagonally', function()
                 --print(player1.name, player1.duck2jump.name)
                 player1.speed_x = player1.walkSpeed_x
                 player1.speed_y = player1.walkSpeed_y
@@ -214,7 +214,7 @@ describe("Character Class", function()
                 expect(z).to.equal(_z)
                 expect(hp).to.equal(_hp)
             end)
-            it('P1 jumps after running diagonally', function()
+            it('Jumps after running diagonally', function()
                 --print(player1.name, player1.duck2jump.name)
                 player1.speed_x = player1.runSpeed_x
                 player1.speed_y = player1.runSpeed_y
@@ -243,6 +243,45 @@ describe("Character Class", function()
             it('P1 cannot reach P3 (too far)', function()
                 local res = checkComboDamage(player1, player3)
                 expect(res).to.equal(100)
+            end)
+        end)
+    end)
+    describe("Chai Class", function()
+        describe("Jump Method", function()
+            it('Jumps on place', function()
+                --print(player1.name, player1.duck2jump.name)
+                --            player1.speed_x = 0
+                local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player3, player3.duck2jump)
+                expect(x).to.equal(_x)
+                expect(y).to.equal(_y)
+                expect(z).to.equal(_z)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Jumps after walking diagonally', function()
+                --print(player1.name, player1.duck2jump.name)
+                player3.speed_x = player3.walkSpeed_x
+                player3.speed_y = player3.walkSpeed_y
+                local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player3, player3.duck2jump)
+                local xd = x - _x
+                local yd = y - _y
+                --            print(xd, yd)
+                expect(math.floor(xd)).to.equal(71)
+                expect(math.floor(yd)).to.equal(34)
+                expect(z).to.equal(_z)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Jumps after running diagonally', function()
+                --print(player1.name, player1.duck2jump.name)
+                player3.speed_x = player3.runSpeed_x
+                player3.speed_y = player3.runSpeed_y
+                local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player3, player3.duck2jump)
+                local xd = x - _x
+                local yd = y - _y
+                --            print(xd, yd)
+                expect(math.floor(xd)).to.equal(105)
+                expect(math.floor(yd)).to.equal(21)
+                expect(z).to.equal(_z)
+                expect(hp).to.equal(_hp)
             end)
         end)
     end)
