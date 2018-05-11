@@ -100,19 +100,20 @@ end
 
 local function setStateAndWait(a, setState, waitSeconds)
     local FPS = 60
-    local time = waitSeconds or 5
+    local time = waitSeconds or 3
     local dt = 1 / FPS
     local x, y, z, hp  = a.x, a.y, a.z, a.hp
     a:setState(setState)
     for i = 1, time * FPS do
-            a:updateAI(dt)
+        a:updateAI(dt)
         a:update(dt)
         if a.infoBar then
             a.infoBar:update(dt)
         end
         a:onHurt()
+--        print(a.state)
     end
-    print(":", a.x, a.y, a.z, a.hp, x, y, z, hp)
+--    print(":", a.x, a.y, a.z, a.hp, x, y, z, hp)
     return a.x, a.y, a.z, a.hp, x, y, z, hp
 end
 
@@ -149,6 +150,7 @@ describe("Character Class", function()
 
         -- prepare dummy stage
         stage = Stage:new()
+        stage:updateZStoppers(0.01)
 
         local n
         -- prepare dummy player
@@ -157,21 +159,21 @@ describe("Character Class", function()
         player1.id = 1 -- fixed id
         player1:setOnStage(stage)
         player1:setState(player1.stand)
-        player1.x = 30
+        player1.x = 130
         player1.y = 200
         n = 2
         player2 = HEROES[n].hero:new("PL2-"..HEROES[n][1].name, getSpriteInstance(HEROES[n].spriteInstance), DUMMY_CONTROL, 0, 0)
         player2.id = 2 -- fixed id
         player2:setOnStage(stage)
         player2:setState(player2.stand)
-        player2.x = 80
+        player2.x = 150
         player2.y = 200
         n = 3
         player3 = HEROES[n].hero:new("PL3-"..HEROES[n][1].name, getSpriteInstance(HEROES[n].spriteInstance), DUMMY_CONTROL, 0, 0)
         player3.id = 3 -- fixed id
         player3:setOnStage(stage)
         player3:setState(player3.stand)
-        player3.x = 130
+        player3.x = 230
         player3.y = 200
     end)
     lust.after(function(txt)
