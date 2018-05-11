@@ -98,6 +98,24 @@ local function checkComboAttackConnection(a, b, timeBetweenAttacks)
     return false
 end
 
+local function setStateAndWait(a, setState, waitSeconds)
+    local FPS = 60
+    local time = waitSeconds or 5
+    local dt = 1 / FPS
+    local x, y, z, hp  = a.x, a.y, a.z, a.hp
+    a:setState(setState)
+    for i = 1, time * FPS do
+            a:updateAI(dt)
+        a:update(dt)
+        if a.infoBar then
+            a.infoBar:update(dt)
+        end
+        a:onHurt()
+    end
+    print(":", a.x, a.y, a.z, a.hp, x, y, z, hp)
+    return a.x, a.y, a.z, a.hp, x, y, z, hp
+end
+
 -- Test 1 combo damage
 local function checkComboDamage(a, b)
     if not a or not b then
@@ -170,6 +188,19 @@ describe("Character Class", function()
         expect(b).to.equal(player3.x - player1.x)
         expect(a).to.equal(player1.x + (player3.x - player1.x) / 2)
     end)
+
+    describe("Jump Method", function()
+        it('P1 jumps on place', function()
+            --print(player1.name, player1.duck2jump.name)
+--            player1.speed_x = 0
+            local x, y, z, hp, _x, _y, _z, _hp = setStateAndWait(player1, player1.duck2jump)
+            expect(x).to.equal(_x)
+            expect(y).to.equal(_y)
+            expect(z).to.equal(_z)
+            expect(hp).to.equal(_hp)
+        end)
+    end)
+
     describe("Combo Method", function()
         it('P1 implicts 7HP damage to P2', function()
             local res = checkComboDamage(player1, player2)
