@@ -42,7 +42,7 @@ function lust.it(name, fn)
   if success then lust.passes = lust.passes + 1
   else lust.errors = lust.errors + 1 end
   local color = success and green or red
-  local label = success and 'PASS' or 'FAIL'
+  local label = success and '[PASS]' or '[FAIL]'
   print(indent() .. color .. label .. normal .. ' ' .. name)
   if err then
     print(indent(lust.level + 1) .. red .. err .. normal)
