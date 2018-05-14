@@ -5,6 +5,11 @@ local describe, it, expect = lust.describe, lust.it, lust.expect
 -- save DEBUG level
 local _debugLevel = getDebugLevel()
 setDebugLevel(0)
+-- mute units sfx
+local _playSfx = Unit.playSfx
+Unit.playSfx = function() end
+local _playHitSfx = Unit.playHitSfx
+Unit.playHitSfx = function() end
 
 -- Calc the distance in pixels the unit can move in 1 second (60 FPS)
 --[[local function calcDistanceForSpeedAndFriction(a)
@@ -257,3 +262,6 @@ end)
 
 -- restore DEBUG level
 setDebugLevel(_debugLevel)
+-- restore units sfx
+Unit.playSfx = _playSfx
+Unit.playHitSfx = _playHitSfx
