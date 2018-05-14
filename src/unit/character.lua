@@ -1168,19 +1168,16 @@ function Character:deadUpdate(dt)
 end
 Character.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = Character.defaultDraw}
 
-function Character:comboInit()
-    self.comboN = 1
-    self.connectHit = false
-    self.attacksPerAnimation = 0
-end
 function Character:comboStart()
     self.isHittable = true
     self.toSlowDown = false
     self.horizontal = self.face
     self:removeTweenMove()
     if self.comboTimer < 0 or self.attacksPerAnimation <= 0 or self.comboN > self.sprite.def.comboMax then
-        self:comboInit()
+        self.comboN = 1
+        self.connectHit = false
     end
+    self.attacksPerAnimation = 0
     if self.b.horizontal:getValue() == self.face and self:setSpriteIfExists("combo"..self.comboN.."Forward") then
         return
     elseif self.b.vertical:getValue() == -1 and self:setSpriteIfExists("combo"..self.comboN.."Up") then
