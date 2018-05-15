@@ -11,6 +11,10 @@ Unit.playSfx = function() end
 local _playHitSfx = Unit.playHitSfx
 Unit.playHitSfx = function() end
 
+local function isUnitsState(u, s)
+    return function() return u.state == s end
+end
+
 local function setStateAndWait(a, f)
     if not f then
         f = {}
@@ -27,6 +31,9 @@ local function setStateAndWait(a, f)
         stage:update(dt)
         if a.z > a.maxZ then
             a.maxZ = a.z
+        end
+        if f.stopFunc and f.stopFunc(i) then
+            break
         end
     end
     --    print(":", a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<==", x, y, z, hp)
@@ -93,7 +100,10 @@ describe("Character Class", function()
     describe("Rick Class", function()
         describe("Jump Method", function()
             it('Jumps on place', function()
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, { setState = player1.duck2jump })
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, {
+                    setState = player1.duck2jump,
+                    stopFunc = isUnitsState(player1, "stand")
+                })
                 expect(x).to.equal(_x)
                 expect(y).to.equal(_y)
                 expect(z).to.equal(_z)
@@ -103,7 +113,10 @@ describe("Character Class", function()
             it('Jumps after walking diagonally', function()
                 player1.speed_x = player1.walkSpeed_x
                 player1.speed_y = player1.walkSpeed_y
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, { setState = player1.duck2jump })
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, {
+                    setState = player1.duck2jump,
+                    stopFunc = isUnitsState(player1, "stand")
+                })
                 local xd = x - _x
                 local yd = y - _y
                 expect(math.floor(xd)).to.equal(71)
@@ -115,7 +128,10 @@ describe("Character Class", function()
             it('Jumps after running diagonally', function()
                 player1.speed_x = player1.runSpeed_x
                 player1.speed_y = player1.runSpeed_y
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, { setState = player1.duck2jump })
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, {
+                    setState = player1.duck2jump,
+                    stopFunc = isUnitsState(player1, "stand")
+                })
                 local xd = x - _x
                 local yd = y - _y
                 expect(math.floor(xd)).to.equal(105)
@@ -198,7 +214,10 @@ describe("Character Class", function()
     describe("Chai Class", function()
         describe("Jump Method", function()
             it('Jumps on place', function()
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, { setState = player3.duck2jump })
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.duck2jump,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
                 expect(x).to.equal(_x)
                 expect(y).to.equal(_y)
                 expect(z).to.equal(_z)
@@ -209,7 +228,8 @@ describe("Character Class", function()
                 player3.speed_x = player3.walkSpeed_x
                 player3.speed_y = player3.walkSpeed_y
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.duck2jump
+                    setState = player3.duck2jump,
+                    stopFunc = isUnitsState(player3, "stand")
                 })
                 local xd = x - _x
                 local yd = y - _y
@@ -223,7 +243,8 @@ describe("Character Class", function()
                 player3.speed_x = player3.runSpeed_x
                 player3.speed_y = player3.runSpeed_y
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.duck2jump
+                    setState = player3.duck2jump,
+                    stopFunc = isUnitsState(player3, "stand")
                 })
                 local xd = x - _x
                 local yd = y - _y
