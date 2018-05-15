@@ -1771,7 +1771,11 @@ Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defen
 
 function Character:knockedDownStart()
     self.isHittable = false
-    self.knockedDownDelay = 1
+    self.knockedDownDelay = self.specialToleranceDelay
+    if not self.isMovable then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
 end
 function Character:knockedDownUpdate(dt)
     self.knockedDownDelay = self.knockedDownDelay - dt
