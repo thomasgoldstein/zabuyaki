@@ -56,6 +56,7 @@ function Chai:initAttributes()
     --    self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
+    self.traceColors = { {255, 50, 50, 100}, {255, 20, 20, 75}, {255, 10, 10, 50}, {255, 0, 0, 20 } }
     -- default sfx
     self.sfx.jump = "chaiJump"
     self.sfx.throw = "chaiThrow"
@@ -144,6 +145,7 @@ function Chai:defensiveSpecialStart()
     self.speed_x = 0
     self.speed_y = 0
     self.jumpType = 0
+    self:enableTrace()
     self:setSprite("defensiveSpecial")
     self:playSfx(self.sfx.dashAttack)
 end
@@ -179,6 +181,7 @@ Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecia
 function Chai:offensiveSpecialStart()
     self.isHittable = true
     dpo(self, self.state)
+    self:enableTrace()
     self:setSprite("offensiveSpecial")
     self.horizontal = -self.face
     self.speed_x = self.jumpSpeedBoost_x

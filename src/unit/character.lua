@@ -431,6 +431,7 @@ Character.slide = {name = "slide", start = Character.slideStart, exit = nop, upd
 
 function Character:standStart()
     self.isHittable = true
+    self:disableTrace()
     if self:getMinZ() < self.z then
         self:setState(self.dropDown)
         return
@@ -1760,6 +1761,7 @@ function Character:defensiveSpecialStart()
     self.isHittable = false
     self.speed_x = 0
     self.speed_y = 0
+    self:enableTrace()
     self:setSprite("defensiveSpecial")
     self:playSfx(self.sfx.dashAttack)
 end
