@@ -138,7 +138,7 @@ function Unit:calcShadowSpriteAndTransparency()
     return image, spr, sc, shadowAngle, -2
 end
 
-function Unit:initTrace()
+function Unit:enableTrace()
     local t = self.trace
     if not t then
         return
@@ -147,9 +147,17 @@ function Unit:initTrace()
     t.time = 0
     t.pos[1] = { self.x, self.y, self.z }
     t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame}
-    for i = 2, #t.colors do
+    for i = 2, #self.traceColors do
         t.pos[i] = nil
     end
+end
+
+function Unit:disableTrace()
+    local t = self.trace
+    if not t then
+        return
+    end
+    t.enabled = false
 end
 
 function Unit:drawTrace(l, t, w, h)
@@ -158,10 +166,9 @@ function Unit:drawTrace(l, t, w, h)
         return
     end
     self.sprite.flipH = self.face
-    for i = #t.colors, 1, -1 do
+    for i = #self.traceColors, 1, -1 do
         if t.pos[i] then
-            local color = t.colors[i]
-            love.graphics.setColor(unpack(color))
+            love.graphics.setColor(unpack(self.traceColors[i]))
             drawSpriteCustomInstance(self.sprite, t.pos[i][1], t.pos[i][2] - t.pos[i][3], t.sprite[i][2], t.sprite[i][1])
         end
     end
@@ -175,7 +182,7 @@ function Unit:updateTrace(dt)
     t.time = t.time + dt
     if t.time >= t.delay then
         t.time = 0
-        for i = #t.colors, 2, -1  do
+        for i = #self.traceColors, 2, -1  do
             t.pos[i] = t.pos[i - 1]
             t.sprite[i] = t.sprite[i - 1]
         end

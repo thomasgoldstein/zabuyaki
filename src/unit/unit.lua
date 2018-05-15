@@ -63,9 +63,9 @@ function Unit:initialize(name, sprite, input, x, y, f)
         time = 0,
         delay = 0.03,
         pos = { },
-        sprite = { },
-        colors = { {50, 50, 255, 100},{20, 20, 255, 75}, {10, 10, 255, 50}, {0, 0, 255, 20 } }
+        sprite = { }
     }
+    self.traceColors = { {0, 0, 0, 100}, {0, 0, 0, 75}, {0, 0, 0, 50}, {0, 0, 0, 20 } }
     self.func = f.func  --custom function call onDeath
     self.draw = nop
     self.update = nop
