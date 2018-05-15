@@ -1060,12 +1060,10 @@ function Character:fallUpdate(dt)
         end
     end
     if self.isThrown and self.speed_z < 0 and self.bounced == 0 then
-        --TODO dont check it on every FPS
         self:checkAndAttack(
             { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", speed_x = self.throwSpeed_x },
             false
         )
-
     end
     if not self.toSlowDown then
         self.speed_x = 0
