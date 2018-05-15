@@ -1405,6 +1405,7 @@ end
 
 function Character:grabbedStart()
     local g = self.hold
+    self.victims[g.source] = true -- make the grabber immune to grabbed's attacks
     if g.source.face ~= self.face then
         self:setState(self.grabbedFront)
     else
