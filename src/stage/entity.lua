@@ -96,7 +96,7 @@ function Entity:dp()
         if not obj then
             t = t .. i .. ":<>, "
         else
-            t = t .. i .. ":" .. obj.name .. ", "
+            t = t .. i .. ":" .. obj.name .. " x:" .. obj.x .. ", "
         end
     end
     dp(t)
