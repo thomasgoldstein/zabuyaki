@@ -243,6 +243,25 @@ function drawSpriteInstance (spr, x, y, frame)
     )
 end
 
+function drawSpriteCustomInstance(spr, x, y, frame, curAnim)
+    local sc = spr.def.animations[curAnim][frame]
+    local scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
+    local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
+    local y_shift = y
+    if flipV == -1 then
+        y_shift = y - sc.oy * spr.sizeScale
+    end
+    love.graphics.draw (
+        imageBank[spr.def.spriteSheet], --The image
+        sc.q, --Current frame of the current animation
+        math.floor((x + rx * spr.flipH * flipH) * 2) / 2, math.floor((y_shift + ry) * 2) / 2,
+        (spr.rotation + rotate) * spr.flipH * flipH,
+        spr.sizeScale * spr.flipH * scale_h * flipH,
+        spr.sizeScale * spr.flipV * scale_v * flipV,
+        sc.ox, sc.oy
+    )
+end
+
 function parseSpriteAnimation(spr, curAnim)
     if (curAnim or spr.curAnim) == "icon" then
         return "Cannot parse icons"
