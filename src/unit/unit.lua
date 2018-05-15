@@ -172,10 +172,12 @@ end
 
 -- private
 function Unit:tweenMove(dt)
+    local complete = true
     if self.move then
-        self.move:update(dt) --tweening
+        complete = self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
     end
+    return complete
 end
 
 function Unit:checkCollisionAndMove(dt)

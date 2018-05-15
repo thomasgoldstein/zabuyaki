@@ -1386,7 +1386,9 @@ function Character:grabUpdate(dt)
             self.z = self:getMinZ()
         end
     end
-    self:tweenMove(dt)
+    if self:tweenMove(dt) then
+        self:removeTweenMove()
+    end
 end
 Character.grab = {name = "grab", start = Character.grabStart, exit = nop, update = Character.grabUpdate, draw = Character.defaultDraw}
 
@@ -1431,26 +1433,33 @@ function Character:grabbedUpdate(dt)
             self.z = self:getMinZ()
         end
     end
-    self:tweenMove(dt)
+    if not self.isSpriteSet and self:tweenMove(dt) then
+        self:removeTweenMove()
+        self.isSpriteSet = true
+        if self.state == "grabbedFront" then
+            self:setSprite("grabbedFront")
+        else
+            self:setSprite("grabbedBack")
+        end
+    end
 end
 
 function Character:grabbedFrontStart()
     self.isHittable = true
-    self:setSprite("grabbedFront")
+    self.isSpriteSet = false
     dp(self.name.." is grabbedFront.")
 end
 Character.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
 
 function Character:grabbedBackStart()
     self.isHittable = true
-    self:setSprite("grabbedBack")
+    self.isSpriteSet = false
     dp(self.name.." is grabbedBack.")
 end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
 
 function Character:initGrabTimer()
     local g = self.hold
-    --local t = g.target
     g.grabTimer = self.grabTimeout -- init both timers
     g.target.hold.grabTimer = g.grabTimer
 end
