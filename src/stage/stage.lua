@@ -171,7 +171,9 @@ local beepTimer = 0
 function Stage:update(dt)
     if self.mode == "normal" then
         self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
-        self.showGoMark = self.batch:update(dt)
+        if self.batch then
+            self.showGoMark = self.batch:update(dt)
+        end
         self:updateZStoppers(dt)
         self:updateZoom(dt)
         self.objects:update(dt)
@@ -306,14 +308,16 @@ function Stage:setCamera(dt)
     coord_x = center_x
     coord_y = self.scrolling.common_y or coord_y
     local ty, tx, cx = 0, 0, 0
-    for i = 1, #self.scrolling.chunks do
-        local c = self.scrolling.chunks[i]
-        if coord_x >= c.start_x and coord_x <= c.end_x then
-            ty = c.end_y - c.start_y
-            tx = c.end_x - c.start_x
-            cx = coord_x - c.start_x
-            coord_y = (cx * ty) / tx + c.start_y
-            break
+    if self.scrolling.chunks then
+        for i = 1, #self.scrolling.chunks do
+            local c = self.scrolling.chunks[i]
+            if coord_x >= c.start_x and coord_x <= c.end_x then
+                ty = c.end_y - c.start_y
+                tx = c.end_x - c.start_x
+                cx = coord_x - c.start_x
+                coord_y = (cx * ty) / tx + c.start_y
+                break
+            end
         end
     end
     -- Correct coord_y according to the zoom stage
