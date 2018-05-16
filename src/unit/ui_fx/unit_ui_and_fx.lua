@@ -151,7 +151,6 @@ function Unit:enableTrace()
         t.pos[i] = nil
     end
 end
-
 function Unit:disableTrace()
     local t = self.trace
     if not t then
@@ -159,7 +158,6 @@ function Unit:disableTrace()
     end
     t.enabled = false
 end
-
 function Unit:drawTrace(l, t, w, h)
     local t = self.trace
     if not t or not t.enabled then
@@ -173,7 +171,20 @@ function Unit:drawTrace(l, t, w, h)
         end
     end
 end
-
+local minDist = 40
+local slowDown = 16
+local function followPlayer(a, b)
+    if a < b - minDist then
+        return b - minDist
+    elseif a < b then
+        return a + (b - a) / slowDown
+    elseif a > b + minDist then
+        return b + minDist
+    elseif a > b then
+        return a - (a - b) / slowDown
+    end
+    return a
+end
 function Unit:updateTrace(dt)
     local t = self.trace
     if not t or not t.enabled then
@@ -189,39 +200,14 @@ function Unit:updateTrace(dt)
         t.pos[1] = { self.x, self.y, self.z }
         t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame }
     end
-    local dv = t.slowDown
-    if t.pos[1][1] < self.x then
-        t.pos[1][1] = t.pos[1][1] + (self.x - t.pos[1][1]) / dv
-    elseif t.pos[1][1] > self.x then
-        t.pos[1][1] = t.pos[1][1] - (t.pos[1][1] - self.x) / dv
-    end
-    if t.pos[1][2] < self.y then
-        t.pos[1][2] = t.pos[1][2] + (self.y - t.pos[1][2]) / dv
-    elseif t.pos[1][2] > self.y then
-        t.pos[1][2] = t.pos[1][2] - (t.pos[1][2] - self.y) / dv
-    end
-    if t.pos[1][3] < self.z then
-        t.pos[1][3] = t.pos[1][3] + (self.z - t.pos[1][3]) / dv
-    elseif t.pos[1][3] > self.z then
-        t.pos[1][3] = t.pos[1][3] - (t.pos[1][3] - self.z) / dv
-    end
+    t.pos[1][1] = followPlayer(t.pos[1][1],self.x)
+    t.pos[1][2] = followPlayer(t.pos[1][2],self.y)
+    t.pos[1][3] = followPlayer(t.pos[1][3],self.z)
     for i = 2, #self.traceColors do
         if t.pos[i] then
-            if t.pos[i][1] < t.pos[i-1][1] then
-                t.pos[i][1] = t.pos[i][1] + (t.pos[i-1][1] - t.pos[i][1]) / dv
-            elseif t.pos[i][1] > t.pos[i-1][1] then
-                t.pos[i][1] = t.pos[i][1] - (t.pos[i][1] - t.pos[i-1][1]) / dv
-            end
-            if t.pos[i][2] < t.pos[i-1][2] then
-                t.pos[i][2] = t.pos[i][2] + (t.pos[i-1][2] - t.pos[i][2]) / dv
-            elseif t.pos[i][2] > t.pos[i-1][2] then
-                t.pos[i][2] = t.pos[i][2] - (t.pos[i][2] - t.pos[i-1][2]) / dv
-            end
-            if t.pos[i][3] < t.pos[i-1][3] then
-                t.pos[i][3] = t.pos[i][3] + (t.pos[i-1][3] - t.pos[i][3]) / dv
-            elseif t.pos[i][3] > t.pos[i-1][3] then
-                t.pos[i][3] = t.pos[i][3] - (t.pos[i][3] - t.pos[i-1][3]) / dv
-            end
+            t.pos[i][1] = followPlayer(t.pos[i][1], t.pos[i-1][1])
+            t.pos[i][2] = followPlayer(t.pos[i][2], t.pos[i-1][2])
+            t.pos[i][3] = followPlayer(t.pos[i][3], t.pos[i-1][3])
         end
     end
 end
