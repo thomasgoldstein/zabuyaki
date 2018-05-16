@@ -1760,8 +1760,8 @@ function Character:defensiveSpecialStart()
     self.isHittable = false
     self.speed_x = 0
     self.speed_y = 0
-    self:enableTrace()
     self:setSprite("defensiveSpecial")
+    self:enableTrace()
     self:playSfx(self.sfx.dashAttack)
 end
 function Character:defensiveSpecialUpdate(dt)

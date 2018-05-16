@@ -144,8 +144,8 @@ function Chai:defensiveSpecialStart()
     self.speed_x = 0
     self.speed_y = 0
     self.jumpType = 0
-    self:enableTrace()
     self:setSprite("defensiveSpecial")
+    self:enableTrace()
     self:playSfx(self.sfx.dashAttack)
 end
 function Chai:defensiveSpecialUpdate(dt)
@@ -180,8 +180,8 @@ Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecia
 function Chai:offensiveSpecialStart()
     self.isHittable = true
     dpo(self, self.state)
-    self:enableTrace()
     self:setSprite("offensiveSpecial")
+    self:enableTrace()
     self.horizontal = -self.face
     self.speed_x = self.jumpSpeedBoost_x
     self.speed_y = 0

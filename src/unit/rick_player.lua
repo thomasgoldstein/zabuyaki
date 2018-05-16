@@ -91,8 +91,8 @@ function Rick:offensiveSpecialStart()
     self.customFriction = self.dashSpeed_x
     self.horizontal = self.face
     dpo(self, self.state)
-    self:enableTrace()
     self:setSprite("offensiveSpecial")
+    self:enableTrace()
     self.speed_x = self.dashSpeed_x
     self.speed_y = 0
     self.speed_z = 0
