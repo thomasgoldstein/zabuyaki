@@ -52,7 +52,6 @@ function Rick:initAttributes()
     --    self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
-    self.traceColors = { {50, 50, 255, 100}, {20, 20, 255, 75}, {10, 10, 255, 50}, {0, 0, 255, 20 } }
     -- default sfx
     self.sfx.jump = "rickJump"
     self.sfx.throw = "rickThrow"
