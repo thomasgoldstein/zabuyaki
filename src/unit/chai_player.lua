@@ -176,7 +176,7 @@ function Chai:defensiveSpecialUpdate(dt)
         return
     end
 end
-Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecialStart, exit = nop, update = Chai.defensiveSpecialUpdate, draw = Character.defaultDraw }
+Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecialStart, exit = Unit.disableTrace, update = Chai.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
 function Chai:offensiveSpecialStart()
     self.isHittable = true
@@ -231,7 +231,7 @@ function Chai:offensiveSpecialUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.offensiveSpecial = {name = "offensiveSpecial", start = Chai.offensiveSpecialStart, exit = nop, update = Chai.offensiveSpecialUpdate, draw = Character.defaultDraw}
+Chai.offensiveSpecial = {name = "offensiveSpecial", start = Chai.offensiveSpecialStart, exit = Unit.disableTrace, update = Chai.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
 function Chai:dashHoldAttack()
     self.isHittable = true
