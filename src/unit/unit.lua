@@ -67,6 +67,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     }
     self.traceColors = { {255, 255, 255, 150}, {100, 100, 255, 100 }, {100, 100, 255, 50 }, {255, 255, 255, 150}, {100, 100, 255, 100 }, {100, 100, 255, 50 } , {255, 255, 255, 150}, {100, 100, 255, 100 }, {100, 100, 255, 50 } }
     self.func = f.func  --custom function call onDeath
+    self.finalizerFunc = nop  -- called on every updateAI if present
     self.draw = nop
     self.update = nop
     self.start = nop
@@ -162,6 +163,9 @@ end
 function Unit:updateAI(dt)
     if self.isDisabled then
         return
+    end
+    if self.finalizerFunc then
+        self.finalizerFunc()
     end
     self:updateSprite(dt)
     self:calcMovement(dt)
