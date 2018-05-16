@@ -107,7 +107,7 @@ function Rick:offensiveSpecialUpdate(dt)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
-Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = Unit.disableTrace, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
+Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = Unit.fadeTrace, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
 function Rick:backGrabAttackStart()
     local g = self.hold

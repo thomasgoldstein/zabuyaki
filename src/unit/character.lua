@@ -889,7 +889,7 @@ function Character:offensiveSpecialStart()
     --no move by default
     self:setState(self.stand)
 end
-Character.offensiveSpecial = {name = "offensiveSpecial", start = Character.offensiveSpecialStart, exit = Unit.disableTrace, update = nop, draw = Character.defaultDraw }
+Character.offensiveSpecial = {name = "offensiveSpecial", start = Character.offensiveSpecialStart, exit = Unit.fadeTrace, update = nop, draw = Character.defaultDraw }
 
 function Character:jumpAttackForwardStart()
     self.isHittable = true
@@ -1776,7 +1776,7 @@ function Character:defensiveSpecialUpdate(dt)
         return
     end
 end
-Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecialStart, exit = Unit.disableTrace, update = Character.defensiveSpecialUpdate, draw = Character.defaultDraw }
+Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecialStart, exit = Unit.fadeTrace, update = Character.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
 function Character:knockedDownStart()
     self.isHittable = false

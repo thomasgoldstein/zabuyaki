@@ -144,10 +144,12 @@ function Unit:enableTrace()
         return
     end
     t.enabled = true
+    t.fade = false
+    t.n = #self.traceColors
     t.time = 0
     t.pos[1] = { self.x, self.y, self.z }
     t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame }
-    for i = 2, #self.traceColors do
+    for i = 2, t.n do
         t.pos[i] = nil
     end
 end
@@ -158,13 +160,20 @@ function Unit:disableTrace()
     end
     t.enabled = false
 end
+function Unit:fadeTrace()
+    local t = self.trace
+    if not t then
+        return
+    end
+    t.fade = true
+end
 function Unit:drawTrace(l, t, w, h)
     local t = self.trace
     if not t or not t.enabled then
         return
     end
     self.sprite.flipH = self.face
-    for i = #self.traceColors, 1, -1 do
+    for i = t.n, 1, -1 do
         if t.pos[i] then
             love.graphics.setColor(unpack(self.traceColors[i]))
             drawSpriteCustomInstance(self.sprite, t.pos[i][1], t.pos[i][2] - t.pos[i][3], t.sprite[i][2], t.sprite[i][1])
@@ -193,7 +202,13 @@ function Unit:updateTrace(dt)
     t.time = t.time + dt
     if t.time >= t.delay then
         t.time = 0
-        for i = #self.traceColors, 2, -1  do
+        if t.fade and t.n > 0 then
+            t.n = t.n - 1
+        elseif t.n <= 0 then
+            self:disableTrace()
+            return
+        end
+        for i = t.n, 2, -1  do
             t.pos[i] = t.pos[i - 1]
             t.sprite[i] = t.sprite[i - 1]
         end
@@ -203,7 +218,7 @@ function Unit:updateTrace(dt)
     t.pos[1][1] = followPlayer(t.pos[1][1],self.x)
     t.pos[1][2] = followPlayer(t.pos[1][2],self.y)
     t.pos[1][3] = followPlayer(t.pos[1][3],self.z)
-    for i = 2, #self.traceColors do
+    for i = 2, t.n do
         if t.pos[i] then
             t.pos[i][1] = followPlayer(t.pos[i][1], t.pos[i-1][1])
             t.pos[i][2] = followPlayer(t.pos[i][2], t.pos[i-1][2])

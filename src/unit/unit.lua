@@ -60,6 +60,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.particleColor = f.particleColor
     self.trace = {
         enabled = false,
+        fade = false,
         time = 0,
         delay = 0.06,   -- tweakable
         pos = { },
