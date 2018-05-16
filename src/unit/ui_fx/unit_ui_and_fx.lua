@@ -147,10 +147,8 @@ function Unit:enableTrace()
     t.time = 0
     t.pos[1] = { self.x, self.y, self.z }
     t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame }
---    t.speed[1] = { self.speed_x, self.speed_y, self.speed_z }
     for i = 2, #self.traceColors do
         t.pos[i] = nil
---        t.speed[i] = {0,0,0}
     end
 end
 
