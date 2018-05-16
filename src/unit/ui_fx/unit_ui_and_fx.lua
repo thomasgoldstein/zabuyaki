@@ -146,9 +146,11 @@ function Unit:enableTrace()
     t.enabled = true
     t.time = 0
     t.pos[1] = { self.x, self.y, self.z }
-    t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame}
+    t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame }
+--    t.speed[1] = { self.speed_x, self.speed_y, self.speed_z }
     for i = 2, #self.traceColors do
         t.pos[i] = nil
+--        t.speed[i] = {0,0,0}
     end
 end
 
@@ -187,7 +189,42 @@ function Unit:updateTrace(dt)
             t.sprite[i] = t.sprite[i - 1]
         end
         t.pos[1] = { self.x, self.y, self.z }
-        t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame}
+        t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame }
+    end
+    local dv = t.slowDown
+    if t.pos[1][1] < self.x then
+        t.pos[1][1] = t.pos[1][1] + (self.x - t.pos[1][1]) / dv
+    elseif t.pos[1][1] > self.x then
+        t.pos[1][1] = t.pos[1][1] - (t.pos[1][1] - self.x) / dv
+    end
+    if t.pos[1][2] < self.y then
+        t.pos[1][2] = t.pos[1][2] + (self.y - t.pos[1][2]) / dv
+    elseif t.pos[1][2] > self.y then
+        t.pos[1][2] = t.pos[1][2] - (t.pos[1][2] - self.y) / dv
+    end
+    if t.pos[1][3] < self.z then
+        t.pos[1][3] = t.pos[1][3] + (self.z - t.pos[1][3]) / dv
+    elseif t.pos[1][3] > self.z then
+        t.pos[1][3] = t.pos[1][3] - (t.pos[1][3] - self.z) / dv
+    end
+    for i = 2, #self.traceColors do
+        if t.pos[i] then
+            if t.pos[i][1] < t.pos[i-1][1] then
+                t.pos[i][1] = t.pos[i][1] + (t.pos[i-1][1] - t.pos[i][1]) / dv
+            elseif t.pos[i][1] > t.pos[i-1][1] then
+                t.pos[i][1] = t.pos[i][1] - (t.pos[i][1] - t.pos[i-1][1]) / dv
+            end
+            if t.pos[i][2] < t.pos[i-1][2] then
+                t.pos[i][2] = t.pos[i][2] + (t.pos[i-1][2] - t.pos[i][2]) / dv
+            elseif t.pos[i][2] > t.pos[i-1][2] then
+                t.pos[i][2] = t.pos[i][2] - (t.pos[i][2] - t.pos[i-1][2]) / dv
+            end
+            if t.pos[i][3] < t.pos[i-1][3] then
+                t.pos[i][3] = t.pos[i][3] + (t.pos[i-1][3] - t.pos[i][3]) / dv
+            elseif t.pos[i][3] > t.pos[i-1][3] then
+                t.pos[i][3] = t.pos[i][3] - (t.pos[i][3] - t.pos[i-1][3]) / dv
+            end
+        end
     end
 end
 

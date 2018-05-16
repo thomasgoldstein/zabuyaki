@@ -61,11 +61,12 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.trace = {
         enabled = false,
         time = 0,
-        delay = 0.03,   -- tweakable
+        delay = 0.06,   -- tweakable
+        slowDown = 10, -- 4 = fast, 8 = slower traces movement
         pos = { },
         sprite = { }
     }
-    self.traceColors = { {50, 50, 255, 100}, {20, 20, 255, 75}, {10, 10, 255, 50}, {0, 0, 255, 20 } }
+    self.traceColors = { {255, 255, 255, 150}, {100, 100, 255, 100 }, {100, 100, 255, 50 } }
     self.func = f.func  --custom function call onDeath
     self.draw = nop
     self.update = nop
