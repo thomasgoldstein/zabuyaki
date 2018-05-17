@@ -183,11 +183,11 @@ function Unit:drawGhostTrace(l, t, w, h)
     if not t or not t.enabled then
         return
     end
-    self.sprite.flipH = self.face
     for k = t.n, 1, -1 do
         local i = self:getGhostTraceI(k * t.shift)
         if t.ghost[i] then
             love.graphics.setColor(unpack(self.ghostTraceColors[k]))
+            self.sprite.flipH = t.ghost[i][5]
             drawSpriteCustomInstance(self.sprite, t.ghost[i][1], t.ghost[i][2], t.ghost[i][3], t.ghost[i][4])
         end
     end
@@ -197,7 +197,7 @@ function Unit:updateGhostTrace(dt)
     if not t or not t.enabled then
         return
     end
-    t.ghost[t.i] = { self.x, self.y - self.z, self.sprite.curAnim, self.sprite.curFrame }
+    t.ghost[t.i] = { self.x, self.y - self.z, self.sprite.curAnim, self.sprite.curFrame, self.face }
     t.i = t.i + 1
     if t.i > maxGhostTraceFrames then
         t.i = 1
