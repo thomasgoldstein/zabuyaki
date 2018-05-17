@@ -58,15 +58,17 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.palette = f.palette  --unit's shader/palette number
     self.color = f.color or { 255, 255, 255, 255 } --suppot additional color tone. Not uset now
     self.particleColor = f.particleColor
-    self.trace = {
+    self.ghostTrace = {
         enabled = false,
         fade = false,
+        i = 1,
+        n = 0,
         time = 0,
-        delay = 0.06,   -- tweakable
-        pos = { },
-        sprite = { }
+        delay = 0.1,   -- tweakable
+        shift = 10,   -- tweakable frames cound back to the past per the gost.
+        ghost = {}
     }
-    self.traceColors = { {255, 255, 255, 150}, {100, 100, 255, 100 }, {100, 100, 255, 50 }, {255, 255, 255, 150}, {100, 100, 255, 100 }, {100, 100, 255, 50 } , {255, 255, 255, 150}, {100, 100, 255, 100 }, {100, 100, 255, 50 } }
+    self.ghostTraceColors = { {200, 200, 255, 150}, {100, 100, 255, 120 } }
     self.func = f.func  --custom function call onDeath
     self.finalizerFunc = nop  -- called on every updateAI if present
     self.draw = nop
@@ -175,7 +177,7 @@ function Unit:updateAI(dt)
             self.platform = nil
         end
     end
-    self:updateTrace(dt)
+    self:updateGhostTrace(dt)
 end
 
 -- stop unit from moving by tweening

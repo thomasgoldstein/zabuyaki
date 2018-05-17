@@ -92,7 +92,7 @@ function Rick:offensiveSpecialStart()
     self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("offensiveSpecial")
-    self:enableTrace()
+    self:enableGhostTrace()
     self.speed_x = self.dashSpeed_x
     self.speed_y = 0
     self.speed_z = 0
@@ -107,7 +107,7 @@ function Rick:offensiveSpecialUpdate(dt)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
-Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = Unit.fadeTrace, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
+Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
 function Rick:backGrabAttackStart()
     local g = self.hold

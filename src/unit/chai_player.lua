@@ -145,7 +145,7 @@ function Chai:defensiveSpecialStart()
     self.speed_y = 0
     self.jumpType = 0
     self:setSprite("defensiveSpecial")
-    self:enableTrace()
+    self:enableGhostTrace()
     self:playSfx(self.sfx.dashAttack)
 end
 function Chai:defensiveSpecialUpdate(dt)
@@ -175,13 +175,13 @@ function Chai:defensiveSpecialUpdate(dt)
         return
     end
 end
-Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecialStart, exit = Unit.fadeTrace, update = Chai.defensiveSpecialUpdate, draw = Character.defaultDraw }
+Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = Chai.defensiveSpecialUpdate, draw = Character.defaultDraw }
 
 function Chai:offensiveSpecialStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("offensiveSpecial")
-    self:enableTrace()
+    self:enableGhostTrace()
     self.horizontal = -self.face
     self.speed_x = self.jumpSpeedBoost_x
     self.speed_y = 0
@@ -230,7 +230,7 @@ function Chai:offensiveSpecialUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.offensiveSpecial = {name = "offensiveSpecial", start = Chai.offensiveSpecialStart, exit = Unit.fadeTrace, update = Chai.offensiveSpecialUpdate, draw = Character.defaultDraw}
+Chai.offensiveSpecial = {name = "offensiveSpecial", start = Chai.offensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = Chai.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
 function Chai:dashHoldAttack()
     self.isHittable = true

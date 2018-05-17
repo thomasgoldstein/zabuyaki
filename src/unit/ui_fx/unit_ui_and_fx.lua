@@ -138,66 +138,69 @@ function Unit:calcShadowSpriteAndTransparency()
     return image, spr, sc, shadowAngle, -2
 end
 
-function Unit:enableTrace()
-    local t = self.trace
+local maxGhostTraceFrames = 300 -- frames fuffer = FPS * seconds
+function Unit:getGhostTraceI(n)
+    local t = self.ghostTrace
+    if not t then
+        return
+    end
+    if not n then
+        return t.i
+    end
+    if t.i - n > 0 then
+        return t.i - n
+    else
+        return maxGhostTraceFrames + t.i - n
+    end
+end
+function Unit:enableGhostTrace()
+    local t = self.ghostTrace
     if not t then
         return
     end
     t.enabled = true
     t.fade = false
-    t.n = #self.traceColors
+    t.i = 0
+    t.n = #self.ghostTraceColors
     t.time = 0
-    t.pos[1] = { self.x, self.y, self.z }
-    t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame }
-    for i = 2, t.n do
-        t.pos[i] = nil
-    end
 end
-function Unit:disableTrace()
-    local t = self.trace
+function Unit:disableGhostTrace()
+    local t = self.ghostTrace
     if not t then
         return
     end
     t.enabled = false
 end
-function Unit:fadeTrace()
-    local t = self.trace
+function Unit:fadeOutGhostTrace()
+    local t = self.ghostTrace
     if not t then
         return
     end
     t.fade = true
 end
-function Unit:drawTrace(l, t, w, h)
-    local t = self.trace
+function Unit:drawGhostTrace(l, t, w, h)
+    local t = self.ghostTrace
     if not t or not t.enabled then
         return
     end
     self.sprite.flipH = self.face
-    for i = t.n, 1, -1 do
-        if t.pos[i] then
-            love.graphics.setColor(unpack(self.traceColors[i]))
-            drawSpriteCustomInstance(self.sprite, t.pos[i][1], t.pos[i][2] - t.pos[i][3], t.sprite[i][2], t.sprite[i][1])
+    for k = t.n, 1, -1 do
+        local i = self:getGhostTraceI(k * t.shift)
+        if t.ghost[i] then
+            love.graphics.setColor(unpack(self.ghostTraceColors[k]))
+            drawSpriteCustomInstance(self.sprite, t.ghost[i][1], t.ghost[i][2], t.ghost[i][3], t.ghost[i][4])
         end
     end
 end
-local minDist = 40
-local slowDown = 16
-local function followPlayer(a, b)
-    if a < b - minDist then
-        return b - minDist
-    elseif a < b then
-        return a + (b - a) / slowDown
-    elseif a > b + minDist then
-        return b + minDist
-    elseif a > b then
-        return a - (a - b) / slowDown
-    end
-    return a
-end
-function Unit:updateTrace(dt)
-    local t = self.trace
+function Unit:updateGhostTrace(dt)
+    local t = self.ghostTrace
     if not t or not t.enabled then
         return
+    end
+    t.ghost[t.i] = { self.x, self.y - self.z, self.sprite.curAnim, self.sprite.curFrame }
+    t.i = t.i + 1
+    if t.i > maxGhostTraceFrames then
+        t.i = 1
     end
     t.time = t.time + dt
     if t.time >= t.delay then
@@ -205,24 +208,8 @@ function Unit:updateTrace(dt)
         if t.fade and t.n > 0 then
             t.n = t.n - 1
         elseif t.n <= 0 then
-            self:disableTrace()
+            self:disableGhostTrace()
             return
-        end
-        for i = t.n, 2, -1  do
-            t.pos[i] = t.pos[i - 1]
-            t.sprite[i] = t.sprite[i - 1]
-        end
-        t.pos[1] = { self.x, self.y, self.z }
-        t.sprite[1] = {self.sprite.curAnim, self.sprite.curFrame }
-    end
-    t.pos[1][1] = followPlayer(t.pos[1][1],self.x)
-    t.pos[1][2] = followPlayer(t.pos[1][2],self.y)
-    t.pos[1][3] = followPlayer(t.pos[1][3],self.z)
-    for i = 2, t.n do
-        if t.pos[i] then
-            t.pos[i][1] = followPlayer(t.pos[i][1], t.pos[i-1][1])
-            t.pos[i][2] = followPlayer(t.pos[i][2], t.pos[i-1][2])
-            t.pos[i][3] = followPlayer(t.pos[i][3], t.pos[i-1][3])
         end
     end
 end
@@ -270,7 +257,7 @@ end
 
 function Unit:defaultDraw(l, t, w, h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x - 35, self.y - 70, 70, 70) then
-        self:drawTrace(l, t, w, h)
+        self:drawGhostTrace(l, t, w, h)
         self.sprite.flipH = self.face --TODO get rid of .face
         if self.deathDelay < 1 then
             self.color[4] = 255 * math.sin(self.deathDelay)
