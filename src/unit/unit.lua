@@ -56,7 +56,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.isThrown = false
     self.shader = f.shader  --it is set on spawn (alter unit's colors)
     self.palette = f.palette  --unit's shader/palette number
-    self.color = f.color or { 255, 255, 255, 255 } --suppot additional color tone. Not uset now
+    self.color = f.color or { 255, 255, 255, 255 } --support additional color tone. Not used now
     self.particleColor = f.particleColor
     self.ghostTrace = {
         enabled = false,
@@ -65,10 +65,10 @@ function Unit:initialize(name, sprite, input, x, y, f)
         n = 0,
         time = 0,
         delay = 0.1, -- interval of removal of 1 ghost on ghostTraceFadeout
-        shift = 10,  -- frames count back to the past per the ghost
+        shift = 3,  -- frames count back to the past per the ghost
         ghost = {}
     }
-    self.ghostTraceColors = { {200, 200, 255, 150}, {100, 100, 255, 120 } } -- RGBA, also the number of the ghosts
+    self.ghostTraceColors = { {125, 150, 255, 175}, {25, 50, 255, 125 } } -- RGBA, also the number of the ghosts
     self.func = f.func  --custom function call onDeath
     self.finalizerFunc = nop  -- called on every updateAI if present
     self.draw = nop
