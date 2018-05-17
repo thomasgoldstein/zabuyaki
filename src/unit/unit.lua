@@ -64,11 +64,11 @@ function Unit:initialize(name, sprite, input, x, y, f)
         i = 1,
         n = 0,
         time = 0,
-        delay = 0.1,   -- tweakable
-        shift = 10,   -- tweakable frames cound back to the past per the gost.
+        delay = 0.1, -- interval of removal of 1 ghost on ghostTraceFadeout
+        shift = 10,  -- frames count back to the past per the ghost
         ghost = {}
     }
-    self.ghostTraceColors = { {200, 200, 255, 150}, {100, 100, 255, 120 } }
+    self.ghostTraceColors = { {200, 200, 255, 150}, {100, 100, 255, 120 } } -- RGBA, also the number of the ghosts
     self.func = f.func  --custom function call onDeath
     self.finalizerFunc = nop  -- called on every updateAI if present
     self.draw = nop
