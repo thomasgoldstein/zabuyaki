@@ -243,7 +243,7 @@ function drawSpriteInstance (spr, x, y, frame)
     )
 end
 
-function drawSpriteCustomInstance(spr, x, y, frame, curAnim)
+function drawSpriteCustomInstance(spr, x, y, curAnim, frame)
     local sc = spr.def.animations[curAnim][frame]
     local scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
     local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
