@@ -184,7 +184,7 @@ local function loadUnit(items, stage, batch_name)
                     elseif v.properties.class == "sign" then
                         u.unit = Obstacle:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
-                            {hp = 89, score = 120, height = 100,
+                            {hp = 89, score = 120, height = 64,
                                 shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
                                 isMovable = false, func = getUnitFunction(v),
                                 palette = palette,
