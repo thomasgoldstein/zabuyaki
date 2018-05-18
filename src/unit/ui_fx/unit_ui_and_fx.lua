@@ -178,6 +178,8 @@ function Unit:fadeOutGhostTrace()
     end
     t.fade = true
 end
+local minFramesToShiftGhostTrace = 10 -- how many frames do the shift
+local shiftGhostTrace_x = -4 -- shift ghost sprite in px (flips with unit facing)
 function Unit:drawGhostTrace(l, t, w, h)
     local t = self.ghostTrace
     if not t or not t.enabled then
@@ -188,7 +190,9 @@ function Unit:drawGhostTrace(l, t, w, h)
         if t.ghost[i] then
             love.graphics.setColor(unpack(self.ghostTraceColors[k]))
             self.sprite.flipH = t.ghost[i][5]
-            drawSpriteCustomInstance(self.sprite, t.ghost[i][1], t.ghost[i][2], t.ghost[i][3], t.ghost[i][4])
+            drawSpriteCustomInstance(self.sprite,
+                t.ghost[i][1] + (t.i < minFramesToShiftGhostTrace and shiftGhostTrace_x * self.face or 0), t.ghost[i][2],
+                t.ghost[i][3], t.ghost[i][4])
         end
     end
 end
