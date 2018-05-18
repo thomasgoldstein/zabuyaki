@@ -147,7 +147,7 @@ function Obstacle:onHurt()
         if self.flipOnBreak then
             self.faceFix = newFacing -- keep previous facing
         end
-        self:showEffect("breakMetal", h.source)
+        self:showEffect("breakMetal", h)
         self.height = self.height - self.decreaseHeightValue
     end
     self.oldFrame = curFrame

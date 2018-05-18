@@ -11,12 +11,7 @@ function Obstacle:showEffect(effect, obj)
     if effect == "breakMetal" then
         self:playSfx(self.sfx.onBreak)
         particles = PA_OBSTACLE_BREAK_SMALL:clone()
-        if obj then
-            particles:setPosition( 0, -obj.z - obj.height + obj.height / 3 )
-        else
-            particles:setPosition( 0, -self.height + self.height / 3 )
-        end
---        particles:setAreaSpread( "uniform", 2, 8 )
+        particles:setPosition( 0, -obj.z )
         if self.particleColor then
             particles:setColors( unpack(self.particleColor) )
         end
@@ -25,13 +20,8 @@ function Obstacle:showEffect(effect, obj)
         particles:setLinearAcceleration(sign(self.face) * 100 , -500, sign(self.face) * 400, 500) -- Random movement in all directions.
         particles:emit(2)
         stage.objects:add(Effect:new(particles, self.x, self.y + 1, self.z))
-
         particles = PA_OBSTACLE_BREAK_BIG:clone()
-        if obj then
-            particles:setPosition( 0, -obj.z - obj.height + obj.height / 2 )
-        else
-            particles:setPosition( 0, -self.height + self.height / 2 )
-        end
+        particles:setPosition( 0, -obj.z )
         if self.particleColor then
             particles:setColors( unpack(self.particleColor) )
         end
