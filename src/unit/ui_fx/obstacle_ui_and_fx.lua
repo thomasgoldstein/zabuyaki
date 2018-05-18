@@ -11,8 +11,12 @@ function Obstacle:showEffect(effect, obj)
     if effect == "breakMetal" then
         self:playSfx(self.sfx.onBreak)
         particles = PA_OBSTACLE_BREAK_SMALL:clone()
-        particles:setPosition( 0, -self.height + self.height / 3 )
-        --particles:setAreaSpread( "uniform", 2, 8 )
+        if obj then
+            particles:setPosition( 0, -obj.z - obj.height + obj.height / 3 )
+        else
+            particles:setPosition( 0, -self.height + self.height / 3 )
+        end
+--        particles:setAreaSpread( "uniform", 2, 8 )
         if self.particleColor then
             particles:setColors( unpack(self.particleColor) )
         end
@@ -23,7 +27,11 @@ function Obstacle:showEffect(effect, obj)
         stage.objects:add(Effect:new(particles, self.x, self.y + 1, self.z))
 
         particles = PA_OBSTACLE_BREAK_BIG:clone()
-        particles:setPosition( 0, -self.height + self.height / 3 )
+        if obj then
+            particles:setPosition( 0, -obj.z - obj.height + obj.height / 2 )
+        else
+            particles:setPosition( 0, -self.height + self.height / 2 )
+        end
         if self.particleColor then
             particles:setColors( unpack(self.particleColor) )
         end
