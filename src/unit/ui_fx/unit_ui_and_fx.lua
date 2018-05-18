@@ -184,7 +184,7 @@ function Unit:drawGhostTrace(l, t, w, h)
         return
     end
     for k = t.n, 1, -1 do
-        local i = self:getGhostTraceI(k * t.shift)
+        local i = self:getGhostTraceI(k * math.ceil((t.shift * love.timer.getFPS()) / 60) )
         if t.ghost[i] then
             love.graphics.setColor(unpack(self.ghostTraceColors[k]))
             self.sprite.flipH = t.ghost[i][5]
