@@ -32,7 +32,7 @@ function AI:initialize(unit, speedReaction)
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
         { "seePlayer", "wokeUp", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand },
-        { "seePlayer", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash",
+        { "cannotAct", "seePlayer", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "inAir",
             "faceNotToPlayer", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WAIT = Schedule:new({ self.initWait, self.onWait },
         { "noTarget", "tooCloseToPlayer", "tooFarToTarget" }, unit.name)
@@ -45,17 +45,17 @@ function AI:initialize(unit, speedReaction)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
         { "cannotAct", "inAir", "noTarget" }, unit.name)
     self.SCHEDULE_RUN = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove },
-        { "noTarget", "cannotAct", "inAir" }, unit.name)
-    self.SCHEDULE_RUN_DASH = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash, self.waitUntilStand, self.initWait, self.onWait },
-        { "tooCloseToPlayer" }, unit.name)
+        { "cannotAct", "noTarget", "cannotAct", "inAir" }, unit.name)
+    self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.waitUntilStand, self.initWait, self.onWait },
+        { }, unit.name)
+    self.SCHEDULE_RUN_DASH = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash },
+        { }, unit.name)
     --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget },
     -- -- { "noPlayers" }, unit.name)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer },
         { "cannotAct", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo },
         { "cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget", "tooCloseToPlayer" }, unit.name)
-    self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.waitUntilStand, self.initWait, self.onWait },
-        { "noTarget", "grabbed", "inAir", "noPlayers", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_GRAB = Schedule:new({ self.initGrab, self.onGrab },
         { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.calcWalkToGrabXY, self.initWalkToXY, self.onMove, self.initGrab, self.onGrab },
@@ -545,7 +545,7 @@ end
 function AI:waitUntilStand(dt)
     local u = self.unit
 --    dp("AI:waitUntilStand() ".. u.name)
-    if self.conditions.cannotAct and not self.conditions.canMove then
+    if self.conditions.cannotAct or not self.conditions.canMove then
         return false
     end
     return true
