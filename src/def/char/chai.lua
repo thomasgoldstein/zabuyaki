@@ -151,7 +151,7 @@ local dashHoldAttackCheck = function(slf, cont)
     )
 end
 local dashHoldAttack = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 18, width = 39, height = 45, damage = 11 },
+    { x = 25, y = 18, width = 39, height = 45, damage = 11, repel = slf.fallSpeed_x * 2},
     cont
 ) end
 local dashHoldAttack2 = function(slf, cont) slf:checkAndAttack(
@@ -342,7 +342,7 @@ return {
         },
         dashHoldAttack2 = {
            { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3a
-            { q = q(74,1592,70,65), ox = 23, oy = 64, func = function(slf) slf.speed_x = slf.walkSpeed_x; slf.speed_z = 0 end, delay = 0.06 }, --dash hold attack 3b
+            { q = q(74,1592,70,65), ox = 23, oy = 64, func = function(slf) slf.speed_x = slf.walkSpeed_x; slf.speed_z = 0; slf.victims = {} end, delay = 0.06 }, --dash hold attack 3b
             { q = q(146,1592,69,65), ox = 23, oy = 64, delay = 0.06 }, --dash hold attack 3c
             { q = q(175,199,67,65), ox = 23, oy = 64, delay = 0.02 }, --dash hold attack 3d
             { q = q(43,722,37,64), ox = 16, oy = 66 }, --jump attack forward 2 (shifted 4px to the left)
