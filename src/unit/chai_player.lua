@@ -255,7 +255,7 @@ function Chai:dashHoldAttackUpdate(dt)
         self:setSprite("dashHoldAttack2")
     end
     if self:canFall() then
-        if self.sprite.curFrame <= 8 and self.sprite.curAnim == "dashHoldAttack2" then
+        if self.sprite.curFrame <= 6 and self.sprite.curAnim == "dashHoldAttack2" then
             self:calcFreeFall(dt, 0.01) -- slow down the falling speed. Restore it on the last frame
         else
             self:calcFreeFall(dt)
