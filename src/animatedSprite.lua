@@ -140,6 +140,10 @@ function getSpriteQuad(spr, frame_n)
     return sc.q
 end
 
+function getSpriteFrame(spr, frame_n)
+    return spr.def.animations[spr.curAnim][frame_n or spr.curFrame]
+end
+
 -- calculate the animation delay
 function getSpriteAnimationDelay(spr, anim)
     if not spr.def.animations[anim] then
