@@ -65,7 +65,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
         n = 0,
         time = 0,
         delay = 0.1, -- interval of removal of 1 ghost on ghostTraceFadeout
-        shift = 3,  -- frames count back to the past per the ghost
+        shift = 2,  -- frames count back to the past per the ghost
         ghost = {}
     }
     self.ghostTraceColors = { {125, 150, 255, 175}, {25, 50, 255, 125 } } -- RGBA, also the number of the ghosts
