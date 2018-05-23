@@ -340,12 +340,12 @@ return {
             delay = 0.03
         },
         dashHoldAttack2 = {
-            { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3c
-            { q = q(175,199,67,65), ox = 23, oy = 64, func = function(slf) slf.speed_x = slf.walkSpeed_x; slf.speed_z = 0; slf.victims = {} end, delay = 0.02 }, --dash hold attack 3d
-            { q = q(43,722,37,64), ox = 16, oy = 66 }, --jump attack forward 2 (shifted 4px to the left)
-            { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-            { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1, func = function(slf) slf.speed_x = slf.dashSpeed_x / 2; slf.speed_z = 0 end }, --defensive special 4
-            { q = q(84,403,69,59), ox = 28, oy = 58, funcCont = dashHoldAttack2, delay = 0.22 }, --dash hold attack 4
+            { q = q(146,1592,69,65), ox = 23, oy = 64, doNotFall = true, funcCont = dashHoldAttack, delay = 0.06 }, --dash hold attack 3c
+            { q = q(175,199,67,65), ox = 23, oy = 64, doNotFall = true, func = function(slf) slf.speed_x = slf.walkSpeed_x; slf.speed_z = 0; slf.victims = {} end, delay = 0.02 }, --dash hold attack 3d
+            { q = q(43,722,37,64), ox = 16, oy = 66, doNotFall = true, }, --jump attack forward 2 (shifted 4px to the left)
+            { q = q(2,722,39,65), ox = 18, oy = 66, doNotFall = true }, --jump attack forward 1
+            { q = q(129,1329,38,65), ox = 17, oy = 66, doNotFall = true, flipH = -1, func = function(slf) slf.speed_x = slf.dashSpeed_x / 2; slf.speed_z = 0 end }, --defensive special 4
+            { q = q(84,403,69,59), ox = 28, oy = 58, doNotFall = true, funcCont = dashHoldAttack2, delay = 0.22 }, --dash hold attack 4
             { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1, func = function(slf) slf.speed_x = slf.dashSpeed_x end, delay = 5 }, --defensive special 4
             delay = 0.03
         },
