@@ -151,11 +151,11 @@ local dashHoldAttackCheck = function(slf, cont)
     )
 end
 local dashHoldAttack = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 18, width = 39, height = 45, damage = 11, repel = slf.fallSpeed_x * 2},
+    { x = 25, y = 18, width = 39, height = 45, damage = 7, repel = slf.fallSpeed_x * 2},
     cont
 ) end
 local dashHoldAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 18, width = 39, height = 45, damage = 8, type = "knockDown" },
+    { x = 25, y = 18, width = 39, height = 45, damage = 10, type = "knockDown" },
     cont
 ) end
 local defensiveSpecial = function(slf, cont) slf:checkAndAttack(
