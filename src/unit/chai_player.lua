@@ -255,7 +255,7 @@ function Chai:dashHoldAttackUpdate(dt)
         self:setSprite("dashHoldAttack2")
     end
     if self:canFall() then
-        self:calcFreeFall(dt, getSpriteFrame(self.sprite).doNotFall and 0.01) -- slow down the falling speed
+        self:calcFreeFall(dt, getSpriteFrame(self.sprite).hover and 0.01) -- slow down the falling speed
     else
         self:playSfx(self.sfx.step)
         self:setState(self.duck)
