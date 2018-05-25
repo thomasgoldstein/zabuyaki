@@ -15,6 +15,10 @@ local function isUnitsState(u, s)
     return function() return u.state == s end
 end
 
+local function isUnitsAtMaxZ(u)
+    return function() return u.maxZ > u.z end
+end
+
 local showSetStateAndWaitDebug = false
 local function setStateAndWait(a, f)
     if not f then
