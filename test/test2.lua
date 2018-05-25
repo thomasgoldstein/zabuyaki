@@ -15,6 +15,7 @@ local function isUnitsState(u, s)
     return function() return u.state == s end
 end
 
+local showSetStateAndWaitDebug = false
 local function setStateAndWait(a, f)
     if not f then
         f = {}
@@ -23,6 +24,7 @@ local function setStateAndWait(a, f)
     local FPS = f.FPS or 60
     local dt = 1 / FPS
     local x, y, z, hp = a.x, a.y, a.z, a.hp
+    local _state
     a.maxZ = 0
     if f.setState then
         a:setState(f.setState)
@@ -31,6 +33,10 @@ local function setStateAndWait(a, f)
         stage:update(dt)
         if a.z > a.maxZ then
             a.maxZ = a.z
+        end
+        if showSetStateAndWaitDebug and _state ~= a.state then
+            print(" ::", a.state, a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<==", x, y, z, hp)
+            _state = a.state
         end
         if f.stopFunc and f.stopFunc(i) then
             break
