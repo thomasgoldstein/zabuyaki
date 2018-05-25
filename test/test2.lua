@@ -263,6 +263,37 @@ describe("Character Class", function()
                 expect(hp).to.equal(_hp)
             end)
         end)
+        describe("DashHoldAttack Method", function()
+            it('Attack from the ground', function()
+--                player3.speed_x = player3.runSpeed_x
+--                player3.speed_y = player3.runSpeed_y
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.dashHoldAttack,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(13)
+                expect(math.floor(y)).to.equal(_y)
+                expect(math.floor(maxZ)).to.equal(0)
+                expect(z).to.equal(_z)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Attack from just above the ground', function()
+                player3.z = 0.01
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.dashHoldAttack,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(140)
+                expect(math.floor(y)).to.equal(_y)
+                expect(math.floor(maxZ)).to.equal(13)
+                expect(z).to.equal(0)
+                expect(hp).to.equal(_hp)
+            end)
+        end)
     end)
 end)
 
