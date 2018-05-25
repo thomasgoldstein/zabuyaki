@@ -236,6 +236,17 @@ describe("Character Class", function()
                 expect(math.floor(maxZ)).to.equal(40)
                 expect(hp).to.equal(_hp)
             end)
+            it('Jumps on place and freezes at the Max Z', function()
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.duck2jump,
+                    stopFunc = isUnitsAtMaxZ(player3)
+                })
+                expect(x).to.equal(_x)
+                expect(y).to.equal(_y)
+                expect(math.floor(z)).to.equal(40)
+                expect(math.floor(maxZ)).to.equal(40)
+                expect(hp).to.equal(_hp)
+            end)
             it('Jumps after walking diagonally', function()
                 player3.speed_x = player3.walkSpeed_x
                 player3.speed_y = player3.walkSpeed_y
