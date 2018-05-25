@@ -39,6 +39,10 @@ function clamp(val, min, max)
     return val
 end
 
+function absDelta(a, b)
+    return math.abs(a - b)
+end
+
 function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
     return x1 < x2+w2 and
             x2 < x1+w1 and

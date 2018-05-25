@@ -76,6 +76,8 @@ describe("Character Class", function()
         player3.id = 3 -- fixed id
         player3:setOnStage(stage)
         player3:setState(player3.stand)
+        player3.face = -1
+        player3.horizontal = -1
         player3.x = 230
         player3.y = 200
         player3.maxZ = player3.z
@@ -117,8 +119,8 @@ describe("Character Class", function()
                     setState = player1.duck2jump,
                     stopFunc = isUnitsState(player1, "stand")
                 })
-                local xd = x - _x
-                local yd = y - _y
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
                 expect(math.floor(xd)).to.equal(71)
                 expect(math.floor(yd)).to.equal(34)
                 expect(math.floor(maxZ)).to.equal(40)
@@ -231,8 +233,8 @@ describe("Character Class", function()
                     setState = player3.duck2jump,
                     stopFunc = isUnitsState(player3, "stand")
                 })
-                local xd = x - _x
-                local yd = y - _y
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
                 expect(math.floor(xd)).to.equal(78)
                 expect(math.floor(yd)).to.equal(37)
                 expect(math.floor(maxZ)).to.equal(40)
@@ -246,8 +248,8 @@ describe("Character Class", function()
                     setState = player3.duck2jump,
                     stopFunc = isUnitsState(player3, "stand")
                 })
-                local xd = x - _x
-                local yd = y - _y
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
                 expect(math.floor(xd)).to.equal(112)
                 expect(math.floor(yd)).to.equal(22)
                 expect(math.floor(maxZ)).to.equal(40)
