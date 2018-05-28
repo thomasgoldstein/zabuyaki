@@ -1,6 +1,5 @@
 --[[
-    Copyright (c) .2017 SineDie
-
+    Copyright (c) .2018 SineDie
     Released under the MIT license.
     Visit for more information:
     http://opensource.org/licenses/MIT
