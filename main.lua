@@ -182,8 +182,10 @@ function love.load(arg)
     Gamestate.switch(logoState)
 
     if isDebug() then
+        require "test.common_test"
         require "test.test1"
         require "test.test2"
+        cleanUpAfterTests()
     end
 end
 

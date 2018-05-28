@@ -1,56 +1,7 @@
 -- Copyright (c) .2018 SineDie
-
 local lust = require 'lib.test.lust.lust'
 local describe, it, expect = lust.describe, lust.it, lust.expect
--- save DEBUG level
-local _debugLevel = getDebugLevel()
-setDebugLevel(0)
--- mute units sfx
-local _playSfx = Unit.playSfx
-Unit.playSfx = function() end
-local _playHitSfx = Unit.playHitSfx
-Unit.playHitSfx = function() end
 
-local function isUnitsState(u, s)
-    return function() return u.state == s end
-end
-
-local function isUnitsAtMaxZ(u)
-    return function() return u.maxZ > u.z end
-end
-
-local showSetStateAndWaitDebug = false
-local function setStateAndWait(a, f)
-    if not f then
-        f = {}
-    end
-    local time = f.wait or 3
-    local FPS = f.FPS or 60
-    local dt = 1 / FPS
-    local x, y, z, hp = a.x, a.y, a.z, a.hp
-    local _state
-    a.maxZ = 0
-    if f.setState then
-        a:setState(f.setState)
-    end
-    for i = 1, time * FPS do
-        stage:update(dt)
-        if a.z > a.maxZ then
-            a.maxZ = a.z
-        end
-        if showSetStateAndWaitDebug and _state ~= a.state then
-            print(" ::", a.state, a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<==", x, y, z, hp)
-            _state = a.state
-        end
-        if f.stopFunc and f.stopFunc(i) then
-            break
-        end
-    end
-    --    print(":", a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<==", x, y, z, hp)
-    return a.x, a.y, a.z, a.maxZ, a.hp, x, y, z, hp
-end
-
--- Start Unit Tests
 describe("Character Class", function()
     lust.before(function()
         -- This gets run before every test.
@@ -308,12 +259,25 @@ describe("Character Class", function()
                 expect(z).to.equal(0)
                 expect(hp).to.equal(_hp)
             end)
+
+            it('Attack from just holdAttack at its max Z', function()
+                player3.z = 20
+--                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+--                    setState = player3.holdAttack,
+--                    stopFunc = isUnitsAtMaxZ(player3)
+--                })
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.holdAttack,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(150)
+                expect(math.floor(y)).to.equal(_y)
+                expect(math.floor(maxZ)).to.equal(23)
+                expect(z).to.equal(0)
+                expect(hp).to.equal(_hp)
+            end)
         end)
     end)
 end)
-
--- restore DEBUG level
-setDebugLevel(_debugLevel)
--- restore units sfx
-Unit.playSfx = _playSfx
-Unit.playHitSfx = _playHitSfx

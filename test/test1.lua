@@ -1,6 +1,4 @@
 -- Copyright (c) .2018 SineDie
-
--- Copyright (c) .2018 SineDie
 local lust = require 'lib.test.lust.lust'
 local describe, it, expect = lust.describe, lust.it, lust.expect
 
