@@ -23,6 +23,10 @@ function isUnitsState(u, s)
     return function() return u.state == s end
 end
 
+function isUnitsCurAnim(u, a)
+    return function() return u.sprite.curAnim == a end
+end
+
 function isUnitsAtMaxZ(u)
     return function() return u.maxZ > u.z end
 end
