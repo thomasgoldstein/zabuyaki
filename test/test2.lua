@@ -231,15 +231,13 @@ describe("Character Class", function()
         end)
         describe("DashHoldAttack Method", function()
             it('Attack from the ground', function()
---                player3.speed_x = player3.runSpeed_x
---                player3.speed_y = player3.runSpeed_y
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
                     setState = player3.dashHoldAttack,
                     stopFunc = isUnitsState(player3, "stand")
                 })
                 local xd = absDelta(x, _x)
                 local yd = absDelta(y, _y)
-                expect(math.floor(xd)).to.equal(13)
+                expect(math.floor(xd)).to.equal(22)
                 expect(math.floor(y)).to.equal(_y)
                 expect(math.floor(maxZ)).to.equal(0)
                 expect(z).to.equal(_z)
@@ -253,28 +251,38 @@ describe("Character Class", function()
                 })
                 local xd = absDelta(x, _x)
                 local yd = absDelta(y, _y)
-                expect(math.floor(xd)).to.equal(140)
+                expect(math.floor(xd)).to.equal(105)
                 expect(math.floor(y)).to.equal(_y)
                 expect(math.floor(maxZ)).to.equal(13)
                 expect(z).to.equal(0)
                 expect(hp).to.equal(_hp)
             end)
+            it('Attack from just above the ground until the 2nd animation', function()
+                player3.z = 0.01
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.dashHoldAttack,
+                    stopFunc = isUnitsCurAnim(player3, "dashHoldAttack2")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(65)
+                expect(math.floor(y)).to.equal(_y)
+                expect(math.floor(maxZ)).to.equal(13)
+                expect(math.floor(z)).to.equal(9)
+                expect(hp).to.equal(_hp)
+            end)
 
             it('Attack from just holdAttack at its max Z', function()
                 player3.z = 20
---                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
---                    setState = player3.holdAttack,
---                    stopFunc = isUnitsAtMaxZ(player3)
---                })
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
                     setState = player3.holdAttack,
                     stopFunc = isUnitsState(player3, "stand")
                 })
                 local xd = absDelta(x, _x)
                 local yd = absDelta(y, _y)
-                expect(math.floor(xd)).to.equal(150)
+                expect(math.floor(xd)).to.equal(182)
                 expect(math.floor(y)).to.equal(_y)
-                expect(math.floor(maxZ)).to.equal(23)
+                expect(math.floor(maxZ)).to.equal(33)
                 expect(z).to.equal(0)
                 expect(hp).to.equal(_hp)
             end)
