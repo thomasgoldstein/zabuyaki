@@ -1,61 +1,75 @@
 -- Date: 28.10.2016
 
 -- Intro Movie
-local slide1 = love.graphics.newImage("res/img/stage/stage1/building1.png")
+local slides = love.graphics.newImage("res/img/misc/intro.png")
 movie_intro = {
     {
-        slide = slide1, -- Picture
-        q = { 60, 70, 200, 120 }, -- Initial quad,
-        hScroll = -10,
+        slide = slides,
+        q = { 0, 0, 240, 120 },
         text =
-[[Abibas City was once a nice
-place, but now it's a shithole.]]
+[[Adigrad is a city ravaged
+by crime and corruption,
+leading to a garbage crisis.]]
     },
     {
-        slide = slide1,
-        q = { 160, 170, 240, 80 },
-        vScroll = 20,
+        slide = slides,
+        q = { 0, 0, 240, 120 },
         text =
-[[Crime runs rampant, and the
-streets are no longer safe.]]
+[[The newly-elected mayor,
+Hyke Magger, promised to
+clean up the city.]]
     },
     {
-        slide = slide1,
-        q = { 230, 290, 220, 100 },
-        hScroll = -10,
+        slide = slides,
+        q = { 0, 120, 240, 120 },
         text =
-[[Corruption suspicions grow
-toward mayor Hyke Magger,
-accused of ties to the mafia.]]
+[[Viewed as inefficient,
+the waste collection service
+got privatized by the mayor.]]
     },
     {
-        slide = slide1,
-        q = { 160, 170, 240, 80 },
-        vScroll = 20,
+        slide = slides,
+        q = { 0, 120, 240, 120 },
         text =
-[[The public waste collection
-service has even been replaced
-by a shady private company.]]
+[[The garbage collectors
+in charge until then took
+the blame and were fired.]]
     },
     {
-        slide = slide1,
-        q = { 60, 70, 200, 120 },
-        hScroll = -10,
+        slide = slides,
+        q = { 0, 240, 240, 120 },
         text =
-[[After having lost their job,
+[[However, the situation only
+got worse since then. Wild
+rubbish dumps keep piling up.]]
+    },
+    {
+        slide = slides,
+        q = { 0, 240, 240, 120 },
+        text =
+[[While insecurity is on the rise,
 the ex-garbage collectors saw
 their city turn into a landfill.]]
     },
     {
-        slide = slide1,
-        q = { 230, 290, 220, 100 },
+        slide = slides,
+        q = { 0, 360, 240, 120 },
         text =
-[[Some of them decided
-to stand up and take out
-the trash once and for all.]]
+[[Outraged and losing patience,
+some of them decided to
+stand up and take action.]]
+    },
+    {
+        slide = slides,
+        q = { 0, 360, 240, 120 },
+        text =
+[[It's now or never!
+Time to hit the streets
+and take out the trash!]]
     },
     bgColor = { 0, 0, 0 },
     autoSkip = true,
     delayAfterFrame = 3, -- Wait after all the text is shown
     music = bgm.intro
 }
+

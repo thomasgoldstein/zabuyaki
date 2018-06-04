@@ -9,7 +9,7 @@ end
 --BGM.level01 = BGM.test
 --BGM.level00 = {"res/bgm/theme.xm","res/bgm/testtrck.xm"}
 
-BGM.load("intro","res/bgm/rockdrive.xm","J.J")
+BGM.load("intro","res/bgm/introtemp.ogg","J.J")
 BGM.load("test","res/bgm/zabutest.xm","Stifu")
 BGM.load("title","res/bgm/theme.xm","Don Miguel")
 BGM.load("level01","res/bgm/testtrck.xm")

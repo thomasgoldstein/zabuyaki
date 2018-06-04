@@ -8,7 +8,7 @@ local function r(x) return math.floor(x) end
 local seconds_per_char = 0.05
 local text_lineHeight = 1.5 -- 1 default
 
-local screen_gap = 12
+local screen_gap = 28
 local slide_text_gap = 10
 
 local screenWidth = 640 / 2
