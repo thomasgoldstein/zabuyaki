@@ -10,7 +10,7 @@ function Loot:initialize(name, sprite, x, y, f)
     end
     Unit.initialize(self, name, sprite, nil, x, y, f)
     self.draw = Unit.defaultDraw
-    self.chargedAt, self.charge = 0, -1  -- for Unit.defaultDraw
+    self.chargedAt, self.chargeTimer = 0, -1  -- for Unit.defaultDraw
     self:setSprite("stand")
 
     self.note = f.note or "???"

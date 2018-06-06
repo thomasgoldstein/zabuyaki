@@ -23,8 +23,8 @@ local jumpAttack = function(slf, cont)
     )
 end
 local grabShake = function(slf, cont)
-    if slf.hold and slf.hold.target then
-        slf.hold.target:onShake(0.5, 0, 0.01, 1)
+    if slf.charge and slf.charge.target then
+        slf.charge.target:onShake(0.5, 0, 0.01, 1)
     end
 end
 
@@ -66,11 +66,11 @@ return {
             loop = true,
             delay = 0.175
         },
-        standHold = {
-            { q = q(2,464,45,63), ox = 18, oy = 62 }, --stand hold 1
-            { q = q(49,465,45,62), ox = 18, oy = 61 }, --stand hold 2
-            { q = q(96,466,45,61), ox = 18, oy = 60 }, --stand hold 3
-            { q = q(49,465,45,62), ox = 18, oy = 61 }, --stand hold 2
+        chargeStand = {
+            { q = q(2,464,45,63), ox = 18, oy = 62 }, --charge stand 1
+            { q = q(49,465,45,62), ox = 18, oy = 61 }, --charge stand 2
+            { q = q(96,466,45,61), ox = 18, oy = 60 }, --charge stand 3
+            { q = q(49,465,45,62), ox = 18, oy = 61 }, --charge stand 2
             loop = true,
             delay = 0.175
         },
@@ -82,11 +82,11 @@ return {
             loop = true,
             delay = 0.175
         },
-        walkHold = {
-            { q = q(125,399,45,63), ox = 18, oy = 62 }, --walk hold 1
-            { q = q(49,465,45,62), ox = 18, oy = 61 }, --stand hold 2
-            { q = q(143,466,45,61), ox = 18, oy = 60 }, --walk hold 2
-            { q = q(49,465,45,62), ox = 18, oy = 61 }, --stand hold 2
+        chargeWalk = {
+            { q = q(125,399,45,63), ox = 18, oy = 62 }, --charge walk 1
+            { q = q(49,465,45,62), ox = 18, oy = 61 }, --charge stand 2
+            { q = q(143,466,45,61), ox = 18, oy = 60 }, --charge walk 2
+            { q = q(49,465,45,62), ox = 18, oy = 61 }, --charge stand 2
             loop = true,
             delay = 0.175
         },

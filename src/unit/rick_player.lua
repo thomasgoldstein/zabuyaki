@@ -16,7 +16,7 @@ function Rick:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-        grab = true, grabSwap = true, frontGrabAttack = true, holdAttack = true, dashHold = true,
+        grab = true, grabSwap = true, frontGrabAttack = true, chargeAttack = true, chargeDash = true,
         frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true, backGrabAttack = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
@@ -24,14 +24,14 @@ function Rick:initAttributes()
     }
     self.walkSpeed_x = 90
     self.walkSpeed_y = 45
-    self.walkHoldSpeed_x = 72
-    self.walkHoldSpeed_y = 36
+    self.chargeWalkSpeed_x = 72
+    self.chargeWalkSpeed_y = 36
     self.runSpeed_x = 140
     self.runSpeed_y = 23
     self.dashSpeed_x = 125 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
     self.dashFriction = 400
-    self.dashHoldAttackSpeed_z = 65
+    self.chargeDashAttackSpeed_z = 65
 
     self.comboSlideSpeed2_x = 180 --horizontal speed of combo2Forward attacks
     self.comboSlideDiagonalSpeed2_x = 150 --diagonal horizontal speed of combo2Forward attacks
@@ -110,7 +110,7 @@ end
 Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
 function Rick:backGrabAttackStart()
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     self:initGrabTimer()
     self:moveStatesInit()
@@ -121,7 +121,7 @@ function Rick:backGrabAttackStart()
     dp(self.name.." backGrabAttack someone.")
 end
 function Rick:backGrabAttackUpdate(dt)
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     if t.state ~= "bounce" then
         self:moveStatesApply()

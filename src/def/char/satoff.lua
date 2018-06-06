@@ -80,11 +80,11 @@ return {
             loop = true,
             delay = 0.15
         },
-        standHold = {
-            { q = q(2,663,66,66), ox = 29, oy = 65 }, --stand hold 1
-            { q = q(70,663,66,66), ox = 29, oy = 65 }, --stand hold 2
-            { q = q(138,664,66,65), ox = 29, oy = 64 }, --stand hold 3
-            { q = q(70,663,66,66), ox = 29, oy = 65 }, --stand hold 2
+        chargeStand = {
+            { q = q(2,663,66,66), ox = 29, oy = 65 }, --charge stand 1
+            { q = q(70,663,66,66), ox = 29, oy = 65 }, --charge stand 2
+            { q = q(138,664,66,65), ox = 29, oy = 64 }, --charge stand 3
+            { q = q(70,663,66,66), ox = 29, oy = 65 }, --charge stand 2
             loop = true,
             delay = 0.15
         },
@@ -100,11 +100,11 @@ return {
             loop = true,
             delay = 0.183
         },
-        walkHold = {
-            { q = q(2,731,66,66), ox = 29, oy = 65 }, --walk hold 1
-            { q = q(70,731,66,66), ox = 29, oy = 65, delay = 0.15 }, --walk hold 2
-            { q = q(138,732,66,65), ox = 29, oy = 64 }, --walk hold 3
-            { q = q(70,731,66,66), ox = 29, oy = 65, delay = 0.15 }, --walk hold 2
+        chargeWalk = {
+            { q = q(2,731,66,66), ox = 29, oy = 65 }, --charge walk 1
+            { q = q(70,731,66,66), ox = 29, oy = 65, delay = 0.15 }, --charge walk 2
+            { q = q(138,732,66,65), ox = 29, oy = 64 }, --charge walk 3
+            { q = q(70,731,66,66), ox = 29, oy = 65, delay = 0.15 }, --charge walk 2
             loop = true,
             delay = 0.183
         },

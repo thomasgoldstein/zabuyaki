@@ -24,7 +24,7 @@ function Beatnick:initAttributes()
     self.moves = { --list of allowed moves
         run = false, sideStep = false, pickup = true,
         jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
-        grab = false, grabSwap = false, frontGrabAttack = false, holdAttack = true, dashHold = false,
+        grab = false, grabSwap = false, frontGrabAttack = false, chargeAttack = true, chargeDash = false,
         frontGrabAttackUp = false, frontGrabAttackDown = false, frontGrabAttackBack = false, frontGrabAttackForward = false,
         dashAttack = true, offensiveSpecial = false, defensiveSpecial = true,
         --technically present for all

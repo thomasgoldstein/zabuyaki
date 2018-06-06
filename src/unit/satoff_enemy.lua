@@ -31,7 +31,7 @@ function Satoff:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = true, jumpAttackStraight = true,
-        grab = true, grabSwap = false, frontGrabAttack = true, holdAttack = false, dashHold = false,
+        grab = true, grabSwap = false, frontGrabAttack = true, chargeAttack = false, chargeDash = false,
         frontGrabAttackUp = false, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = false,
         dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
         --technically present for all
@@ -40,8 +40,8 @@ function Satoff:initAttributes()
     self.height = self.height or 55
     self.walkSpeed_x = 86
     self.walkSpeed_y = 45
-    self.walkHoldSpeed_x = 80
-    self.walkHoldSpeed_y = 40
+    self.chargeWalkSpeed_x = 80
+    self.chargeWalkSpeed_y = 40
     self.runSpeed_x = 140
     self.runSpeed_y = 23
     self.sideStepSpeed = 160

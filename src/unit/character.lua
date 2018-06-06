@@ -6,9 +6,9 @@ local sign = sign
 local clamp = clamp
 local delayWithSlowMotion = delayWithSlowMotion
 
-Character.statesForHoldAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, dashHold = true }
+Character.statesForChargeAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
-Character.statesForDefensiveSpecial = { stand = true, walk = true, run = true, duck2jump = true, combo = true, hurt = true, dashHold = true, grabbedFront = true, grabbedBack = true, frontGrabAttack = true, grab = true }
+Character.statesForDefensiveSpecial = { stand = true, walk = true, run = true, duck2jump = true, combo = true, hurt = true, chargeDash = true, grabbedFront = true, grabbedBack = true, frontGrabAttack = true, grab = true }
 Character.statesForOffensiveSpecial = { stand = true, combo = true, duck2jump = true, walk = true, run = true, frontGrabAttack = true, grab = true }
 Character.statesForSpecialToleranceDelay = { duck2jump = true }
 
@@ -26,8 +26,8 @@ function Character:initialize(name, sprite, input, x, y, f)
     --Inner char vars
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
-    self.chargedAt = 1    -- define # seconds when holdAttack is ready
-    self.charge = 0    -- seconds of changing
+    self.chargedAt = 1    -- define # seconds when chargeAttack is ready
+    self.chargeTimer = 0    -- seconds of charging
     self.comboN = 1    -- n of the combo hit
     self.comboTimeout = 0.37 -- max delay to connect combo hits
     self.comboTimer = 0    -- can continue combo if > 0
@@ -35,7 +35,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.canActAfterHurtDelay = 0.2 -- min delay after which the character can transit from hurt state to stand/grab
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
     self.grabTimeout = 1.5 -- max delay to keep a unit grabbed
-    self.grabReleaseAfter = 0.25 -- seconds if u hold 'back'
+    self.grabReleaseAfter = 0.25 -- seconds if you hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
     self.playerSelectMode = 0
     self.victimInfoBar = nil
@@ -47,7 +47,7 @@ function Character:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-        grab = true, grabSwap = true, holdAttack = false,
+        grab = true, grabSwap = true, chargeAttack = false,
         frontGrabAttack = true, frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         --technically present for all
@@ -55,8 +55,8 @@ function Character:initAttributes()
     }
     self.walkSpeed_x = 100
     self.walkSpeed_y = 50
-    self.walkHoldSpeed_x = self.walkSpeed_x * 0.75
-    self.walkHoldSpeed_y = self.walkSpeed_y * 0.75
+    self.chargeWalkSpeed_x = self.walkSpeed_x * 0.75
+    self.chargeWalkSpeed_y = self.walkSpeed_y * 0.75
     self.runSpeed_x = 150
     self.runSpeed_y = 25
     self.jumpSpeed_z = 220 -- z coord
@@ -71,12 +71,12 @@ function Character:initAttributes()
     self.dashSpeed_x = 150 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
     self.dashFriction = self.dashSpeed_x
-    self.dashHoldSpeed_z = 120
-    self.dashHoldSpeedMultiplier_z = 0.6
-    self.dashHoldSpeed_x = 320
-    self.dashHoldSpeedMultiplier_x = 0.8
-    self.dashHoldAttackSpeed_z = self.jumpSpeed_z
-    self.dashHoldAttackSpeedMultiplier_z = 0.6
+    self.chargeDashSpeed_z = 120
+    self.chargeDashSpeedMultiplier_z = 0.6
+    self.chargeDashSpeed_x = 320
+    self.chargeDashSpeedMultiplier_x = 0.8
+    self.chargeDashAttackSpeed_z = self.jumpSpeed_z
+    self.chargeDashAttackSpeedMultiplier_z = 0.6
     self.throwStart_z = 20 --lift up a body to throw at this Z
     self.toFallenAnim_z = 40
     self.sideStepSpeed = 220
@@ -131,7 +131,7 @@ function Character:updateAI(dt)
     end
     self.time = self.time + dt
     self.comboTimer = self.comboTimer - dt
-    local g = self.hold
+    local g = self.charge
     if g then
         g.grabTimer = g.grabTimer - dt
     end
@@ -436,7 +436,7 @@ function Character:standStart()
         return
     end
     self.z = self:getMinZ()
-    if self.sprite.curAnim == "walk" or self.sprite.curAnim == "walkHold" then
+    if self.sprite.curAnim == "walk" or self.sprite.curAnim == "chargeWalk" then
         self.nextAnlmationDelay = 0.12
     else
         if not self.sprite.curAnim then
@@ -456,10 +456,10 @@ function Character:standUpdate(dt)
     end
     self.nextAnlmationDelay = self.nextAnlmationDelay - dt
     if self.nextAnlmationDelay <= 0 then
-        if spriteHasAnimation(self.sprite, "standHold") and self:canMove() then
+        if spriteHasAnimation(self.sprite, "chargeStand") and self:canMove() then
             if self.b.attack:isDown() then
-                if self.sprite.curAnim ~= "standHold" then
-                    self:setSpriteIfExists("standHold")
+                if self.sprite.curAnim ~= "chargeStand" then
+                    self:setSpriteIfExists("chargeStand")
                 end
             else
                 if self.sprite.curAnim ~= "stand" then
@@ -491,8 +491,8 @@ function Character:standUpdate(dt)
             if self.moves.run and self.b.horizontal.isDoubleTap
                 and self.lastState == "walk"
             then
-                if self.moves.dashHold and self.charge > 0 and self.horizontal == self.b.horizontal.doubleTap.lastDirection then
-                    self:setState(self.dashHold)
+                if self.moves.chargeStand and self.chargeTimer > 0 and self.horizontal == self.b.horizontal.doubleTap.lastDirection then
+                    self:setState(self.chargeStand)
                 else
                     self:setState(self.run)
                 end
@@ -522,11 +522,11 @@ Character.stand = {name = "stand", start = Character.standStart, exit = nop, upd
 
 function Character:walkStart()
     self.isHittable = true
-    if spriteHasAnimation(self.sprite, "walkHold")
-        and (self.sprite.curAnim == "standHold"
+    if spriteHasAnimation(self.sprite, "chargeWalk")
+        and (self.sprite.curAnim == "chargeStand"
             or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() ))
     then
-        self:setSprite("walkHold")
+        self:setSprite("chargeWalk")
     else
         self:setSprite("walk")
     end
@@ -553,16 +553,16 @@ function Character:walkUpdate(dt)
     if hv ~= 0 then
         self.face = hv
         self.horizontal = hv --X direction
-        self.speed_x = self.b.attack:isDown() and self.walkHoldSpeed_x or self.walkSpeed_x
+        self.speed_x = self.b.attack:isDown() and self.chargeWalkSpeed_x or self.walkSpeed_x
     end
     if vv ~= 0 then
         self.vertical = vv
-        self.speed_y = self.b.attack:isDown() and self.walkHoldSpeed_y or self.walkSpeed_y
+        self.speed_y = self.b.attack:isDown() and self.chargeWalkSpeed_y or self.walkSpeed_y
     end
     if self.b.attack:isDown() then
         local grabbed = self:checkForGrab()
         if grabbed then
-            if grabbed.face == -self.face and grabbed.sprite.curAnim == "walkHold"
+            if grabbed.face == -self.face and grabbed.sprite.curAnim == "chargeWalk"
             then
                 --back off 2 simultaneous grabbers
                 if self.x < grabbed.x then
@@ -582,13 +582,13 @@ function Character:walkUpdate(dt)
                 return
             end
             if self.moves.grab and self:doGrab(grabbed) then
-                local g = self.hold
+                local g = self.charge
                 self.victimInfoBar = g.target.infoBar:setAttacker(self)
                 return
             end
         end
-        if spriteHasAnimation(self.sprite, "walkHold") and self.sprite.curAnim ~= "walkHold" then
-            self:setSprite("walkHold")
+        if spriteHasAnimation(self.sprite, "chargeWalk") and self.sprite.curAnim ~= "chargeWalk" then
+            self:setSprite("chargeWalk")
         end
 --        elseif self.sprite.curAnim ~= "walk" then
 --            self:setSprite("walk")
@@ -1035,7 +1035,7 @@ function Character:fallUpdate(dt)
                         self:setState(self.duck)
                         return
                     end
-                    --damage for throwned on landing
+                    --damage for thrown on landing
                     self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
@@ -1191,7 +1191,7 @@ function Character:comboUpdate(dt)
         self.attacksPerAnimation = self.attacksPerAnimation + 1
     end
     if self:canFall() then
-        self:calcFreeFall(dt, self.dashHoldAttackSpeedMultiplier_z)
+        self:calcFreeFall(dt, self.chargeDashAttackSpeedMultiplier_z)
     else
         self.z = self:getMinZ()
     end
@@ -1210,7 +1210,7 @@ end
 
 Character.combo = {name = "combo", start = Character.comboStart, exit = Character.comboExit, update = Character.comboUpdate, draw = Character.defaultDraw}
 
--- GRABBING / HOLDING
+-- GRABBING / CHARGING
 function Character:checkForGrab()
     --got any Characters
     local items = {}
@@ -1238,8 +1238,8 @@ end
 
 function Character:doGrab(target, inAir)
     dp(target.name .. " is grabbed by me - "..self.name)
-    local g = self.hold
-    local gTargetHold = target.hold
+    local g = self.charge
+    local gTargetCharge = target.charge
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
@@ -1254,8 +1254,8 @@ function Character:doGrab(target, inAir)
     end
     --the grabbed
     target:releaseGrabbed()	-- your grab targed releases one it grabs
-    gTargetHold.source = self
-    gTargetHold.target = nil
+    gTargetCharge.source = self
+    gTargetCharge.target = nil
     target.isGrabbed = true
     self:playSfx(target.sfx.grab)   --clothes ruffling
     -- the grabber
@@ -1278,7 +1278,7 @@ function Character:grabStart()
         self.b.horizontal.doubleTap.lastDirection = -self.face -- prevents instant grabSwap on the 1st grab
     end
     if not self.condition then
-        local g = self.hold
+        local g = self.charge
         local timeToMove = 0.1
         local direction = self.x >= g.target.x and -1 or 1
         local checkFront = stage:hasPlaceToStand(self.x + direction * checkDist_x, self.y)
@@ -1307,7 +1307,7 @@ function Character:grabStart()
     end
 end
 function Character:grabUpdate(dt)
-    local g = self.hold
+    local g = self.charge
     if g and g.target then
         --controlled release
         if self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() then
@@ -1318,7 +1318,7 @@ function Character:grabUpdate(dt)
         else
             if self.b.horizontal.isDoubleTap and self.face == self.b.horizontal.doubleTap.lastDirection then
                 if self.moves.grabSwap and g.canGrabSwap
-                    and stage:hasPlaceToStand(self.hold.target.x + self.face * 18, self.y)
+                    and stage:hasPlaceToStand(self.charge.target.x + self.face * 18, self.y)
                 then
                     self:setState(self.grabSwap)
                     return
@@ -1393,10 +1393,10 @@ end
 Character.grab = {name = "grab", start = Character.grabStart, exit = nop, update = Character.grabUpdate, draw = Character.defaultDraw}
 
 function Character:releaseGrabbed()
-    local g = self.hold
-    if g and g.target and g.target.isGrabbed and g.target.hold.source == self then
+    local g = self.charge
+    if g and g.target and g.target.isGrabbed and g.target.charge.source == self then
         g.target.isGrabbed = false
-        g.target.hold.grabTimer = 0
+        g.target.charge.grabTimer = 0
         g.target:removeTweenMove()
         return true
     end
@@ -1404,7 +1404,7 @@ function Character:releaseGrabbed()
 end
 
 function Character:grabbedStart()
-    local g = self.hold
+    local g = self.charge
     self.victims[g.source] = true -- make the grabber immune to grabbed's attacks
     if g.source.face ~= self.face then
         self:setState(self.grabbedFront)
@@ -1415,7 +1415,7 @@ end
 Character.grabbed = {name = "grabbed", start = Character.grabbedStart, exit = nop, update = nop, draw = Character.defaultDraw}
 
 function Character:grabbedUpdate(dt)
-    local g = self.hold
+    local g = self.charge
     if not self.isGrabbed or g.grabTimer <= 0 then
         if g.source.x < self.x then
             self.horizontal = 1
@@ -1460,12 +1460,12 @@ end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
 
 function Character:initGrabTimer()
-    local g = self.hold
+    local g = self.charge
     g.grabTimer = self.grabTimeout -- init both timers
-    g.target.hold.grabTimer = g.grabTimer
+    g.target.charge.grabTimer = g.grabTimer
 end
 function Character:frontGrabAttackStart()
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     if self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
         g.grabTimer = 0
@@ -1481,7 +1481,7 @@ function Character:frontGrabAttackStart()
 end
 function Character:frontGrabAttackUpdate(dt)
     if self.sprite.isFinished then
-        local g = self.hold
+        local g = self.charge
         if self.grabAttackN < self.sprite.def.maxGrabAttack
             and g and g.target and g.target.hp > 0 then
             self:initGrabTimer()
@@ -1497,7 +1497,7 @@ end
 Character.frontGrabAttack = {name = "frontGrabAttack", start = Character.frontGrabAttackStart, exit = nop, update = Character.frontGrabAttackUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackDownStart()
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     self:setSprite("frontGrabAttackDown")
     self.isHittable = not self.sprite.isThrow
@@ -1520,7 +1520,7 @@ end
 Character.frontGrabAttackDown = {name = "frontGrabAttackDown", start = Character.frontGrabAttackDownStart, exit = nop, update = Character.frontGrabAttackDownUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackUpStart()
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     self:setSprite("frontGrabAttackUp")
     self.isHittable = not self.sprite.isThrow
@@ -1529,7 +1529,7 @@ function Character:frontGrabAttackUpStart()
 end
 
 function Character:doThrow(speed_x, speed_z, horizontal, face, start_z)
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     t.isGrabbed = false
     t.isThrown = true
@@ -1568,7 +1568,7 @@ end
 Character.frontGrabAttackUp = {name = "frontGrabAttackUp", start = Character.frontGrabAttackUpStart, exit = nop, update = Character.frontGrabAttackUpUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackForwardStart()
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     self:moveStatesInit()
     self:setSprite("frontGrabAttackForward")
@@ -1593,7 +1593,7 @@ end
 Character.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Character.frontGrabAttackForwardStart, exit = nop, update = Character.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackBackStart()
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     self:moveStatesInit()
     self.face = -self.face
@@ -1624,18 +1624,18 @@ function Character:grabSwapStart()
     self.isHittable = false
     self.toSlowDown = false
     self:setSprite("grabSwap")
-    local g = self.hold
+    local g = self.charge
     self:initGrabTimer()
     g.canGrabSwap = false
     self.isGrabSwapFlipped = false
-    self.grabSwap_x = self.hold.target.x + self.face * 18
+    self.grabSwap_x = self.charge.target.x + self.face * 18
     self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
     self:playSfx("whooshHeavy")
     dp(self.name.." is grabSwapping someone.")
 end
 function Character:grabSwapUpdate(dt)
     --dp(self.name .. " - grab update", dt)
-    local g = self.hold
+    local g = self.charge
     --adjust char horizontally
     if math.abs(self.x - self.grabSwap_x) > 2 then
         if self.x < self.grabSwap_x then
@@ -1666,26 +1666,26 @@ function Character:grabSwapUpdate(dt)
 end
 Character.grabSwap = {name = "grabSwap", start = Character.grabSwapStart, exit = nop, update = Character.grabSwapUpdate, draw = Character.defaultDraw}
 
-function Character:holdAttackStart()
+function Character:chargeAttackStart()
     self.isHittable = true
-    self.isDashHoldAttack = false
-    self.speed_z = self.dashHoldAttackSpeed_z
+    self.isChargeDashAttack = false
+    self.speed_z = self.chargeDashAttackSpeed_z
     if self:canFall() then
-        if self.dashHoldAttack then
-            self:setState(self.dashHoldAttack)
+        if self.chargeDashAttack then
+            self:setState(self.chargeDashAttack)
             return
         else
-            self.isDashHoldAttack = true
-            self:setSpriteIfExists("dashHoldAttack", "holdAttack")
+            self.isChargeDashAttack = true
+            self:setSpriteIfExists("chargeDashAttack", "chargeAttack")
             self:playSfx(self.sfx.dashAttack)
         end
     else
-        self:setSprite("holdAttack")
+        self:setSprite("chargeAttack")
     end
 end
-function Character:holdAttackUpdate(dt)
+function Character:chargeAttackUpdate(dt)
     if not self:canFall() then
-        if self.isDashHoldAttack then
+        if self.isChargeDashAttack then
             self:playSfx(self.sfx.step)
             self:setState(self.duck)
         elseif self.sprite.isFinished then
@@ -1693,30 +1693,30 @@ function Character:holdAttackUpdate(dt)
         end
         return
     else
-        self:calcFreeFall(dt, self.dashHoldAttackSpeedMultiplier_z)
+        self:calcFreeFall(dt, self.chargeDashAttackSpeedMultiplier_z)
     end
 end
-Character.holdAttack = {name = "holdAttack", start = Character.holdAttackStart, exit = nop, update = Character.holdAttackUpdate, draw = Character.defaultDraw}
+Character.chargeAttack = {name = "chargeAttack", start = Character.chargeAttackStart, exit = nop, update = Character.chargeAttackUpdate, draw = Character.defaultDraw}
 
-function Character:dashHoldStart()
+function Character:chargeDashStart()
     self.isHittable = true
     dpo(self, self.state)
-    self:setSprite("dashHold")
+    self:setSprite("chargeDash")
     self.horizontal = self.face
-    self:playSfx(self.sfx.dashHold)
-    self.speed_x = self.dashHoldSpeed_x * self.dashHoldSpeedMultiplier_x
-    self.speed_z = self.dashHoldSpeed_z * self.dashHoldSpeedMultiplier_z
+    self:playSfx(self.sfx.chargeDash)
+    self.speed_x = self.chargeDashSpeed_x * self.chargeDashSpeedMultiplier_x
+    self.speed_z = self.chargeDashSpeed_z * self.chargeDashSpeedMultiplier_z
     self.speed_y = 0
     self.z = self:getMinZ() + 0.1
     self:playSfx(self.sfx.jump)
     self:showEffect("jumpStart")
 end
-function Character:dashHoldUpdate(dt)
+function Character:chargeDashUpdate(dt)
     if self:canFall() then
-        self:calcFreeFall(dt, self.dashHoldSpeedMultiplier_z)
+        self:calcFreeFall(dt, self.chargeDashSpeedMultiplier_z)
         if self.speed_z > 0 then
             if self.speed_x > 0 then
-                self.speed_x = self.speed_x - (self.dashHoldSpeed_x * dt)
+                self.speed_x = self.speed_x - (self.chargeDashSpeed_x * dt)
             else
                 self.speed_x = 0
             end
@@ -1728,9 +1728,9 @@ function Character:dashHoldUpdate(dt)
     end
     local grabbed = self:checkForGrab()
     if grabbed then
-        if grabbed.face == -self.face and grabbed.sprite.curAnim == "dashHold"
+        if grabbed.face == -self.face and grabbed.sprite.curAnim == "chargeDash"
         then
-            --back off 2 simultaneous dashHold grabbers
+            --back off 2 simultaneous chargeDash grabbers
             if self.x < grabbed.x then
                 self.horizontal = -1
             else
@@ -1739,22 +1739,22 @@ function Character:dashHoldUpdate(dt)
             grabbed.horizontal = -self.horizontal
             self:showHitMarks(22, 25, 5) --big hitmark
             self.speed_x = self.backoffSpeed --move from source
-            self.speed_z = self.dashHoldSpeed_z
+            self.speed_z = self.chargeDashSpeed_z
             self:setState(self.fall)
             grabbed.speed_x = grabbed.backoffSpeed --move from source
-            grabbed.speed_z = self.dashHoldSpeed_z
+            grabbed.speed_z = self.chargeDashSpeed_z
             grabbed:setState(grabbed.fall)
             self:playSfx(self.sfx.grabClash)
             return
         end
         if self.moves.grab and self:doGrab(grabbed, true) then
-            local g = self.hold
+            local g = self.charge
             self.victimInfoBar = g.target.infoBar:setAttacker(self)
             return
         end
     end
 end
-Character.dashHold = {name = "dashHold", start = Character.dashHoldStart, exit = nop, update = Character.dashHoldUpdate, draw = Character.defaultDraw}
+Character.chargeDash = {name = "chargeDash", start = Character.chargeDashStart, exit = nop, update = Character.chargeDashUpdate, draw = Character.defaultDraw}
 
 function Character:defensiveSpecialStart()
     self.isHittable = false

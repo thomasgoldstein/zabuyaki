@@ -66,13 +66,13 @@ return {
             loop = true,
             delay = 0.06
         },
-        standHold = {
-            { q = q(2,352,64,66), ox = 31, oy = 65, delay = 0.1 }, --stand hold 1
-            { q = q(68,354,53,64), ox = 28, oy = 63 }, --stand hold 2
-            { q = q(123,354,53,64), ox = 28, oy = 63 }, --stand hold 3
-            { q = q(68,354,53,64), ox = 28, oy = 63 }, --stand hold 2
-            { q = q(123,354,53,64), ox = 28, oy = 63, delay = 0.1  }, --stand hold 3
-            { q = q(178,354,53,64), ox = 28, oy = 63, delay = 0.16 }, --stand hold 4
+        chargeStand = {
+            { q = q(2,352,64,66), ox = 31, oy = 65, delay = 0.1 }, --charge stand 1
+            { q = q(68,354,53,64), ox = 28, oy = 63 }, --charge stand 2
+            { q = q(123,354,53,64), ox = 28, oy = 63 }, --charge stand 3
+            { q = q(68,354,53,64), ox = 28, oy = 63 }, --charge stand 2
+            { q = q(123,354,53,64), ox = 28, oy = 63, delay = 0.1  }, --charge stand 3
+            { q = q(178,354,53,64), ox = 28, oy = 63, delay = 0.16 }, --charge stand 4
             loop = true,
             loopFrom = 2,
             delay = 0.06
@@ -169,7 +169,7 @@ return {
             { q = q(73,559,64,64), ox = 41, oy = 63, delay = 0.1, flipH = -1 }, --dash attack 2
             delay = 0.06
         },
-        holdAttack = {
+        chargeAttack = {
             { q = q(196,690,59,65), ox = 32, oy = 64 }, --dash attack 11
             { q = q(2,560,69,63), ox = 53, oy = 62, func = comboAttack2, delay = 0.13, flipH = -1 }, --dash attack 1
             { q = q(73,559,64,64), ox = 41, oy = 63, delay = 0.1, flipH = -1 }, --dash attack 2

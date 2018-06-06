@@ -170,7 +170,7 @@ function showDebugControls()
                 end
                 x = p.infoBar.x + 76
                 y = y - 12
-                if p.charge >= p.chargedAt then
+                if p.chargeTimer >= p.chargedAt then
                     love.graphics.print("H", x, y)
                 end
             end

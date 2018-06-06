@@ -563,7 +563,7 @@ function AI:initGrab()
                 --                print("AI: GRABBED NOT PLAYER" .. u.name)
                 return true
             end
-            if grabbed.face == -u.face and grabbed.sprite.curAnim == "walkHold" then
+            if grabbed.face == -u.face and grabbed.sprite.curAnim == "chargeWalk" then
                 --back off 2 simultaneous grabbers
                 if u.x < grabbed.x then
                     u.horizontal = -1
@@ -583,7 +583,7 @@ function AI:initGrab()
                 return true
             end
             if u.moves.grab and u:doGrab(grabbed) then
-                local g = u.hold
+                local g = u.charge
                 u.victimInfoBar = g.target.infoBar:setAttacker(u)
                 --                print(" GOOD DOGRAB")
                 return true
@@ -600,7 +600,7 @@ end
 function AI:onGrab(dt)
     self.chanceToGrabAttack = self.chanceToGrabAttack + dt / 20
     local u = self.unit
-    local g = u.hold
+    local g = u.charge
     --    dp("AI: ON GRAB ".. u.name)
     --print(inspect(g, {depth = 1}))
     if not g.target or u.state == "stand" then

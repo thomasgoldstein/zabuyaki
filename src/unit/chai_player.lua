@@ -16,7 +16,7 @@ function Chai:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-        grab = true, grabSwap = true, frontGrabAttack = true, holdAttack = true, dashHold = true,
+        grab = true, grabSwap = true, frontGrabAttack = true, chargeAttack = true, chargeDash = true,
         frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
         dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
         -- technically present for all
@@ -24,13 +24,13 @@ function Chai:initAttributes()
     }
     self.walkSpeed_x = 100
     self.walkSpeed_y = 50
-    self.walkHoldSpeed_x = 80
-    self.walkHoldSpeed_y = 40
+    self.chargeWalkSpeed_x = 80
+    self.chargeWalkSpeed_y = 40
     self.runSpeed_x = 150
     self.runSpeed_y = 25
     self.dashSpeed_x = 200 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
-    self.dashHoldAttackSpeed_z = 90
+    self.chargeDashAttackSpeed_z = 90
     --self.repelFriction = 1650 * 1.5
 
     self.comboSlideSpeed1_x = 120 --horizontal speed of combo1Forward attacks
@@ -103,7 +103,7 @@ end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
 function Chai:frontGrabAttackForwardStart()
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     self:moveStatesInit()
     self:setSprite("frontGrabAttackForward")
@@ -121,7 +121,7 @@ end
 Chai.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Chai.frontGrabAttackForwardStart, exit = nop, update = Chai.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
 function Chai:frontGrabAttackBackStart()
-    local g = self.hold
+    local g = self.charge
     local t = g.target
     self:moveStatesInit()
     self:setSprite("frontGrabAttackBack")
@@ -232,10 +232,10 @@ function Chai:offensiveSpecialUpdate(dt)
 end
 Chai.offensiveSpecial = {name = "offensiveSpecial", start = Chai.offensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = Chai.offensiveSpecialUpdate, draw = Character.defaultDraw}
 
-function Chai:dashHoldAttack()
+function Chai:chargeDashAttack()
     self.isHittable = true
     dpo(self, self.state)
-    self:setSprite("dashHoldAttack")
+    self:setSprite("chargeDashAttack")
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * 0.7
     self.speed_x = self.dashSpeed_x * 1.3
@@ -244,15 +244,15 @@ function Chai:dashHoldAttack()
     self.attacksPerAnimation = 0
     self:playSfx(self.sfx.dashAttack)
 end
-function Chai:dashHoldAttackUpdate(dt)
+function Chai:chargeDashAttackUpdate(dt)
     if self.connectHit then
         self.connectHit = false
         self.attacksPerAnimation = self.attacksPerAnimation + 1
     end
-    if self.sprite.curAnim == "dashHoldAttack"
+    if self.sprite.curAnim == "chargeDashAttack"
         and self.attacksPerAnimation > 0
     then
-        self:setSprite("dashHoldAttack2")
+        self:setSprite("chargeDashAttack2")
         self.speed_x = self.dashSpeed_x
     end
     if self:canFall() then
@@ -267,6 +267,6 @@ function Chai:dashHoldAttackUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.dashHoldAttack = {name = "dashHoldAttack", start = Chai.dashHoldAttack, exit = nop, update = Chai.dashHoldAttackUpdate, draw = Character.defaultDraw}
+Chai.chargeDashAttack = {name = "chargeDashAttack", start = Chai.chargeDashAttack, exit = nop, update = Chai.chargeDashAttackUpdate, draw = Character.defaultDraw}
 
 return Chai

@@ -23,7 +23,7 @@ function Niko:initAttributes()
     self.moves = { -- list of allowed moves
         run = false, sideStep = false, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
-        grab = true, grabSwap = false, frontGrabAttack = true, holdAttack = false, dashHold = false,
+        grab = true, grabSwap = false, frontGrabAttack = true, chargeAttack = false, chargeDash = false,
         frontGrabAttackUp = false, frontGrabAttackDown = false, frontGrabAttackBack = false, frontGrabAttackForward = false,
         dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
         --technically present for all
@@ -31,8 +31,8 @@ function Niko:initAttributes()
     }
     self.walkSpeed_x = 88
     self.walkSpeed_y = 45
-    self.walkHoldSpeed_x = 72
-    self.walkHoldSpeed_y = 36
+    self.chargeWalkSpeed_x = 72
+    self.chargeWalkSpeed_y = 36
     self.dashSpeed_x = 150 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
     self.dashFriction = self.dashSpeed_x

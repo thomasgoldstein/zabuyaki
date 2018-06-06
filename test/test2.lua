@@ -229,10 +229,10 @@ describe("Character Class", function()
                 expect(hp).to.equal(_hp)
             end)
         end)
-        describe("DashHoldAttack Method", function()
+        describe("ChargeDashAttack Method", function()
             it('Attack from the ground', function()
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.dashHoldAttack,
+                    setState = player3.chargeDashAttack,
                     stopFunc = isUnitsState(player3, "stand")
                 })
                 local xd = absDelta(x, _x)
@@ -246,7 +246,7 @@ describe("Character Class", function()
             it('Attack from just above the ground', function()
                 player3.z = 0.01
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.dashHoldAttack,
+                    setState = player3.chargeDashAttack,
                     stopFunc = isUnitsState(player3, "stand")
                 })
                 local xd = absDelta(x, _x)
@@ -260,8 +260,8 @@ describe("Character Class", function()
             it('Attack from just above the ground until the 2nd animation', function()
                 player3.z = 0.01
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.dashHoldAttack,
-                    stopFunc = isUnitsCurAnim(player3, "dashHoldAttack2")
+                    setState = player3.chargeDashAttack,
+                    stopFunc = isUnitsCurAnim(player3, "chargeDashAttack2")
                 })
                 local xd = absDelta(x, _x)
                 local yd = absDelta(y, _y)
@@ -272,10 +272,10 @@ describe("Character Class", function()
                 expect(hp).to.equal(_hp)
             end)
 
-            it('Attack from just holdAttack at its max Z', function()
+            it('Attack from just chargeAttack at its max Z', function()
                 player3.z = 20
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.holdAttack,
+                    setState = player3.chargeAttack,
                     stopFunc = isUnitsState(player3, "stand")
                 })
                 local xd = absDelta(x, _x)

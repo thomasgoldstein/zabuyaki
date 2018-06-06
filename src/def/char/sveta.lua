@@ -102,7 +102,7 @@ return {
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
             delay = 0.1
         },
-        holdAttack = {
+        chargeAttack = {
             { q = q(2,458,51,61), ox = 32, oy = 60, delay = 0.067 }, --high kick 1
             { q = q(55,459,76,60), ox = 38, oy = 59, func = comboKick, delay = 0.217 }, --high kick 2
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1

@@ -264,11 +264,11 @@ function Unit:defaultDraw(l, t, w, h)
         else
             self.color[4] = 255
         end
-        if self.statesForHoldAttack and self.charge >= self.chargedAt / 2 and self.charge < self.chargedAt then
-            if self.holdAttack and self.statesForHoldAttack[self.state] then
+        if self.statesForChargeAttack and self.chargeTimer >= self.chargedAt / 2 and self.chargeTimer < self.chargedAt then
+            if self.chargeAttack and self.statesForChargeAttack[self.state] then
                 love.graphics.setColor(255, 255, 255, 63)
-                local width = clamp(self.charge, 0.5, 1) * self.width
-                if self.charge >= self.chargedAt - self.chargedAt / 10 then
+                local width = clamp(self.chargeTimer, 0.5, 1) * self.width
+                if self.chargeTimer >= self.chargedAt - self.chargedAt / 10 then
                     love.graphics.ellipse("fill", self.x, self.y, width, width / 2)
                 else
                     love.graphics.ellipse("line", self.x, self.y, width, width / 2)

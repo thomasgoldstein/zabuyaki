@@ -164,16 +164,16 @@ function Player:updateAI(dt)
             end
         end
     end
-    if self.moves.holdAttack then
-        if self.b.attack:isDown() and self.statesForHoldAttack[self.state] then
-            self.charge = self.charge + dt
+    if self.moves.chargeAttack then
+        if self.b.attack:isDown() and self.statesForChargeAttack[self.state] then
+            self.chargeTimer = self.chargeTimer + dt
         else
-            if self.charge >= self.chargedAt then
-                if self.statesForHoldAttack[self.state] and self.speed_y == 0 then
-                    self:setState(self.holdAttack)
+            if self.chargeTimer >= self.chargedAt then
+                if self.statesForChargeAttack[self.state] and self.speed_y == 0 then
+                    self:setState(self.chargeAttack)
                 end
             end
-            self.charge = 0
+            self.chargeTimer = 0
         end
     end
     Character.updateAI(self, dt)
