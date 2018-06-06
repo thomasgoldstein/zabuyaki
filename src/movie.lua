@@ -28,7 +28,8 @@ table = {
         q = { 160, 170, 240, 80 },
         text =
         "And if you have nothing then fight for your life...",
-        delay = 4
+        delay = 4,
+        music = bgm.intro2
     },
     {
         slide = slide1,
@@ -105,6 +106,10 @@ function Movie:update(dt)
             return true
         end
         self.time = 0
+        if self.frames[self.frame].music then
+            TEsound.stop("music")
+            TEsound.playLooping(self.frames[self.frame].music, "music")
+        end
     end
     local timeToFadeout = self.frames[self.frame].delay + self.delayAfterFrame - 1
     if self.time <= 1 then
