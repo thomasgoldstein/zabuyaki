@@ -18,7 +18,7 @@ function Rick:initAttributes()
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, frontGrabAttack = true, chargeAttack = true, chargeDash = true,
         frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true, backGrabAttack = true,
-        dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
+        dashAttack = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
@@ -86,12 +86,12 @@ function Rick:dashAttackUpdate(dt)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
 
-function Rick:offensiveSpecialStart()
+function Rick:specialOffensiveStart()
     self.isHittable = true
     self.customFriction = self.dashSpeed_x
     self.horizontal = self.face
     dpo(self, self.state)
-    self:setSprite("offensiveSpecial")
+    self:setSprite("specialOffensive")
     self:enableGhostTrace()
     self.speed_x = self.dashSpeed_x
     self.speed_y = 0
@@ -99,7 +99,7 @@ function Rick:offensiveSpecialStart()
     self:playSfx(self.sfx.dashAttack)
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
-function Rick:offensiveSpecialUpdate(dt)
+function Rick:specialOffensiveUpdate(dt)
     if self.sprite.isFinished then
         dpo(self, self.state)
         self:setState(self.stand)
@@ -107,7 +107,7 @@ function Rick:offensiveSpecialUpdate(dt)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
-Rick.offensiveSpecial = {name = "offensiveSpecial", start = Rick.offensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = Rick.offensiveSpecialUpdate, draw = Character.defaultDraw}
+Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.fadeOutGhostTrace, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Rick:backGrabAttackStart()
     local g = self.charge

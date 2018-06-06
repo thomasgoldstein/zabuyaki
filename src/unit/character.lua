@@ -8,8 +8,8 @@ local delayWithSlowMotion = delayWithSlowMotion
 
 Character.statesForChargeAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
-Character.statesForDefensiveSpecial = { stand = true, walk = true, run = true, duck2jump = true, combo = true, hurt = true, chargeDash = true, grabbedFront = true, grabbedBack = true, frontGrabAttack = true, grab = true }
-Character.statesForOffensiveSpecial = { stand = true, combo = true, duck2jump = true, walk = true, run = true, frontGrabAttack = true, grab = true }
+Character.statesForSpecialDefensive = { stand = true, walk = true, run = true, duck2jump = true, combo = true, hurt = true, chargeDash = true, grabbedFront = true, grabbedBack = true, frontGrabAttack = true, grab = true }
+Character.statesForSpecialOffensive = { stand = true, combo = true, duck2jump = true, walk = true, run = true, frontGrabAttack = true, grab = true }
 Character.statesForSpecialToleranceDelay = { duck2jump = true }
 
 function Character:initialize(name, sprite, input, x, y, f)
@@ -49,7 +49,7 @@ function Character:initAttributes()
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, chargeAttack = false,
         frontGrabAttack = true, frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
-        dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
+        dashAttack = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
@@ -885,11 +885,11 @@ function Character:dashAttackUpdate(dt)
 end
 Character.dashAttack = {name = "dashAttack", start = Character.dashAttackStart, exit = nop, update = Character.dashAttackUpdate, draw = Character.defaultDraw}
 
-function Character:offensiveSpecialStart()
+function Character:specialOffensiveStart()
     --no move by default
     self:setState(self.stand)
 end
-Character.offensiveSpecial = {name = "offensiveSpecial", start = Character.offensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = nop, draw = Character.defaultDraw }
+Character.specialOffensive = {name = "specialOffensive", start = Character.specialOffensiveStart, exit = Unit.fadeOutGhostTrace, update = nop, draw = Character.defaultDraw }
 
 function Character:jumpAttackForwardStart()
     self.isHittable = true
@@ -1756,15 +1756,15 @@ function Character:chargeDashUpdate(dt)
 end
 Character.chargeDash = {name = "chargeDash", start = Character.chargeDashStart, exit = nop, update = Character.chargeDashUpdate, draw = Character.defaultDraw}
 
-function Character:defensiveSpecialStart()
+function Character:specialDefensiveStart()
     self.isHittable = false
     self.speed_x = 0
     self.speed_y = 0
-    self:setSprite("defensiveSpecial")
+    self:setSprite("specialDefensive")
     self:enableGhostTrace()
     self:playSfx(self.sfx.dashAttack)
 end
-function Character:defensiveSpecialUpdate(dt)
+function Character:specialDefensiveUpdate(dt)
     if self:canFall() then
         self:calcFreeFall(dt)
         if not self:canFall() then
@@ -1776,7 +1776,7 @@ function Character:defensiveSpecialUpdate(dt)
         return
     end
 end
-Character.defensiveSpecial = {name = "defensiveSpecial", start = Character.defensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = Character.defensiveSpecialUpdate, draw = Character.defaultDraw }
+Character.specialDefensive = {name = "specialDefensive", start = Character.specialDefensiveStart, exit = Unit.fadeOutGhostTrace, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Character:knockedDownStart()
     self.isHittable = false

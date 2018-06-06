@@ -25,7 +25,7 @@ function Niko:initAttributes()
         jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
         grab = true, grabSwap = false, frontGrabAttack = true, chargeAttack = false, chargeDash = false,
         frontGrabAttackUp = false, frontGrabAttackDown = false, frontGrabAttackBack = false, frontGrabAttackForward = false,
-        dashAttack = false, offensiveSpecial = false, defensiveSpecial = false,
+        dashAttack = false, specialOffensive = false, specialDefensive = false,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }

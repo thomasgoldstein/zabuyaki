@@ -169,7 +169,7 @@ particles:setLinearDamping(0.1, 2)
 PA_OBSTACLE_BREAK_BIG = particles
 
 
---Rick's Defensive Special Effect
+--Rick's Special Defensive Effect
 spriteSheet = "res/img/misc/rick-sp-particles.png"
 imageWidth, imageHeight = loadSpriteSheet(spriteSheet)
 gfx.particles = imageBank[spriteSheet]
@@ -208,7 +208,7 @@ particles:setQuads(dsQuad1, dsQuad2, dsQuad3, dsQuad4, dsQuad5, dsQuad6, dsQuad7
 PA_DEF_SP_RICK_L = particles
 
 
---Chai's Defensive Special Effect
+--Chai's Special Defensive Effect
 spriteSheet = "res/img/misc/chai-sp-particles.png"
 imageWidth, imageHeight = loadSpriteSheet(spriteSheet)
 gfx.particles = imageBank[spriteSheet]

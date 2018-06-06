@@ -18,7 +18,7 @@ function Chai:initAttributes()
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, frontGrabAttack = true, chargeAttack = true, chargeDash = true,
         frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
-        dashAttack = true, offensiveSpecial = true, defensiveSpecial = true,
+        dashAttack = true, specialOffensive = true, specialDefensive = true,
         -- technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
@@ -138,17 +138,17 @@ function Chai:frontGrabAttackBackUpdate(dt)
 end
 Chai.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Chai.frontGrabAttackBackStart, exit = nop, update = Chai.frontGrabAttackBackUpdate, draw = Character.defaultDraw}
 
-function Chai:defensiveSpecialStart()
+function Chai:specialDefensiveStart()
     self.isHittable = false
     self.z = self:getMinZ()
     self.speed_x = 0
     self.speed_y = 0
     self.jumpType = 0
-    self:setSprite("defensiveSpecial")
+    self:setSprite("specialDefensive")
     self:enableGhostTrace()
     self:playSfx(self.sfx.dashAttack)
 end
-function Chai:defensiveSpecialUpdate(dt)
+function Chai:specialDefensiveUpdate(dt)
     if self.jumpType == 1 then
         self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
         self.z = self:getMinZ() + 0.1
@@ -175,12 +175,12 @@ function Chai:defensiveSpecialUpdate(dt)
         return
     end
 end
-Chai.defensiveSpecial = {name = "defensiveSpecial", start = Chai.defensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = Chai.defensiveSpecialUpdate, draw = Character.defaultDraw }
+Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiveStart, exit = Unit.fadeOutGhostTrace, update = Chai.specialDefensiveUpdate, draw = Character.defaultDraw }
 
-function Chai:offensiveSpecialStart()
+function Chai:specialOffensiveStart()
     self.isHittable = true
     dpo(self, self.state)
-    self:setSprite("offensiveSpecial")
+    self:setSprite("specialOffensive")
     self:enableGhostTrace()
     self.horizontal = -self.face
     self.speed_x = self.jumpSpeedBoost_x
@@ -193,20 +193,20 @@ function Chai:offensiveSpecialStart()
     self:playSfx(self.sfx.jump)
     self:showEffect("jumpStart")
 end
-function Chai:offensiveSpecialUpdate(dt)
+function Chai:specialOffensiveUpdate(dt)
     if self.connectHit then
         self.connectHit = false
         self.attacksPerAnimation = self.attacksPerAnimation + 1
     end
-    if self.sprite.curAnim == "offensiveSpecial"
+    if self.sprite.curAnim == "specialOffensive"
         and self.attacksPerAnimation > 0
     then
         self.speed_x = self.jumpSpeedBoost_x
         self.horizontal = self.face
         self.speed_z = 0
-        self:setSprite("offensiveSpecial2")
+        self:setSprite("specialOffensive2")
     end
-    if self.sprite.curAnim == "offensiveSpecial" then
+    if self.sprite.curAnim == "specialOffensive" then
         if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then
             -- check speed_x to add no extra var here. it should trigger once
             self.speed_x = self.dashSpeed_x * 2
@@ -214,7 +214,7 @@ function Chai:offensiveSpecialUpdate(dt)
         end
     end
     if self:canFall() then
-        if self.sprite.curFrame <= 6 and self.sprite.curAnim == "offensiveSpecial2" then
+        if self.sprite.curFrame <= 6 and self.sprite.curAnim == "specialOffensive2" then
             self:calcFreeFall(dt, 0.1) -- slow down the falling speed. Restore it on the 5th frame from the end
         else
             self:calcFreeFall(dt)
@@ -230,7 +230,7 @@ function Chai:offensiveSpecialUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.offensiveSpecial = {name = "offensiveSpecial", start = Chai.offensiveSpecialStart, exit = Unit.fadeOutGhostTrace, update = Chai.offensiveSpecialUpdate, draw = Character.defaultDraw}
+Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.fadeOutGhostTrace, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Chai:chargeDashAttack()
     self.isHittable = true
