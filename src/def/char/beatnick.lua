@@ -6,7 +6,7 @@ local function q(x,y,w,h)
 end
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 34, y = 27, width = 26, damage = 15, sfx = "air" },
+        { x = 31, y = 27, width = 32, damage = 15, sfx = "air" },
         cont
     )
 end
