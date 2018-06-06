@@ -3,7 +3,7 @@ titleState = {}
 local timeToTitleFade = 1.25 --title fadein
 local fadeToMenuTime = 0.5 --menu fadein & menu+title fadeout before intro
 local moveToMenuTime = 0.25 --can move/select menu
-local timeToIntro = 10 --idle to show intro
+local timeToIntro = 13 --idle to show intro
 local titleSfx = "whooshHeavy"
 
 local time = 0
