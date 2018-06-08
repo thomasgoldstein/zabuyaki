@@ -48,7 +48,7 @@ local frontGrabAttackForward = function(slf, cont)
         slf.z + slf.throwStart_z)
 end
 local backGrabAttack = function(slf, cont)
-    local g = slf.charge
+    local g = slf.grabContext
     if g and g.target then
         slf:checkAndAttack(
             { x = -38, y = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "blowOut" },

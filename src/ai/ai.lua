@@ -583,7 +583,7 @@ function AI:initGrab()
                 return true
             end
             if u.moves.grab and u:doGrab(grabbed) then
-                local g = u.charge
+                local g = u.grabContext
                 u.victimInfoBar = g.target.infoBar:setAttacker(u)
                 --                print(" GOOD DOGRAB")
                 return true
@@ -600,7 +600,7 @@ end
 function AI:onGrab(dt)
     self.chanceToGrabAttack = self.chanceToGrabAttack + dt / 20
     local u = self.unit
-    local g = u.charge
+    local g = u.grabContext
     --    dp("AI: ON GRAB ".. u.name)
     --print(inspect(g, {depth = 1}))
     if not g.target or u.state == "stand" then

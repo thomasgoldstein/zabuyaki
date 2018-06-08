@@ -131,7 +131,7 @@ function Character:updateAI(dt)
     end
     self.time = self.time + dt
     self.comboTimer = self.comboTimer - dt
-    local g = self.charge
+    local g = self.grabContext
     if g then
         g.grabTimer = g.grabTimer - dt
     end
@@ -582,7 +582,7 @@ function Character:walkUpdate(dt)
                 return
             end
             if self.moves.grab and self:doGrab(grabbed) then
-                local g = self.charge
+                local g = self.grabContext
                 self.victimInfoBar = g.target.infoBar:setAttacker(self)
                 return
             end
@@ -1238,8 +1238,8 @@ end
 
 function Character:doGrab(target, inAir)
     dp(target.name .. " is grabbed by me - "..self.name)
-    local g = self.charge
-    local gTargetCharge = target.charge
+    local g = self.grabContext
+    local gTargetCharge = target.grabContext
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
@@ -1278,7 +1278,7 @@ function Character:grabStart()
         self.b.horizontal.doubleTap.lastDirection = -self.face -- prevents instant grabSwap on the 1st grab
     end
     if not self.condition then
-        local g = self.charge
+        local g = self.grabContext
         local timeToMove = 0.1
         local direction = self.x >= g.target.x and -1 or 1
         local checkFront = stage:hasPlaceToStand(self.x + direction * checkDist_x, self.y)
@@ -1307,7 +1307,7 @@ function Character:grabStart()
     end
 end
 function Character:grabUpdate(dt)
-    local g = self.charge
+    local g = self.grabContext
     if g and g.target then
         --controlled release
         if self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() then
@@ -1394,9 +1394,9 @@ Character.grab = {name = "grab", start = Character.grabStart, exit = nop, update
 
 function Character:releaseGrabbed()
     local g = self.charge
-    if g and g.target and g.target.isGrabbed and g.target.charge.source == self then
+    if g and g.target and g.target.isGrabbed and g.target.grabContext.source == self then
         g.target.isGrabbed = false
-        g.target.charge.grabTimer = 0
+        g.target.grabContext.grabTimer = 0
         g.target:removeTweenMove()
         return true
     end
@@ -1404,7 +1404,7 @@ function Character:releaseGrabbed()
 end
 
 function Character:grabbedStart()
-    local g = self.charge
+    local g = self.grabContext
     self.victims[g.source] = true -- make the grabber immune to grabbed's attacks
     if g.source.face ~= self.face then
         self:setState(self.grabbedFront)
@@ -1415,7 +1415,7 @@ end
 Character.grabbed = {name = "grabbed", start = Character.grabbedStart, exit = nop, update = nop, draw = Character.defaultDraw}
 
 function Character:grabbedUpdate(dt)
-    local g = self.charge
+    local g = self.grabContext
     if not self.isGrabbed or g.grabTimer <= 0 then
         if g.source.x < self.x then
             self.horizontal = 1
@@ -1460,12 +1460,12 @@ end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
 
 function Character:initGrabTimer()
-    local g = self.charge
+    local g = self.grabContext
     g.grabTimer = self.grabTimeout -- init both timers
-    g.target.charge.grabTimer = g.grabTimer
+    g.target.grabContext.grabTimer = g.grabTimer
 end
 function Character:frontGrabAttackStart()
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     if self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
         g.grabTimer = 0
@@ -1481,7 +1481,7 @@ function Character:frontGrabAttackStart()
 end
 function Character:frontGrabAttackUpdate(dt)
     if self.sprite.isFinished then
-        local g = self.charge
+        local g = self.grabContext
         if self.grabAttackN < self.sprite.def.maxGrabAttack
             and g and g.target and g.target.hp > 0 then
             self:initGrabTimer()
@@ -1497,7 +1497,7 @@ end
 Character.frontGrabAttack = {name = "frontGrabAttack", start = Character.frontGrabAttackStart, exit = nop, update = Character.frontGrabAttackUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackDownStart()
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     self:setSprite("frontGrabAttackDown")
     self.isHittable = not self.sprite.isThrow
@@ -1520,7 +1520,7 @@ end
 Character.frontGrabAttackDown = {name = "frontGrabAttackDown", start = Character.frontGrabAttackDownStart, exit = nop, update = Character.frontGrabAttackDownUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackUpStart()
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     self:setSprite("frontGrabAttackUp")
     self.isHittable = not self.sprite.isThrow
@@ -1529,7 +1529,7 @@ function Character:frontGrabAttackUpStart()
 end
 
 function Character:doThrow(speed_x, speed_z, horizontal, face, start_z)
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     t.isGrabbed = false
     t.isThrown = true
@@ -1568,7 +1568,7 @@ end
 Character.frontGrabAttackUp = {name = "frontGrabAttackUp", start = Character.frontGrabAttackUpStart, exit = nop, update = Character.frontGrabAttackUpUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackForwardStart()
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     self:moveStatesInit()
     self:setSprite("frontGrabAttackForward")
@@ -1593,7 +1593,7 @@ end
 Character.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Character.frontGrabAttackForwardStart, exit = nop, update = Character.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
 function Character:frontGrabAttackBackStart()
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     self:moveStatesInit()
     self.face = -self.face
@@ -1624,7 +1624,7 @@ function Character:grabSwapStart()
     self.isHittable = false
     self.toSlowDown = false
     self:setSprite("grabSwap")
-    local g = self.charge
+    local g = self.grabContext
     self:initGrabTimer()
     g.canGrabSwap = false
     self.isGrabSwapFlipped = false
@@ -1748,7 +1748,7 @@ function Character:chargeDashUpdate(dt)
             return
         end
         if self.moves.grab and self:doGrab(grabbed, true) then
-            local g = self.charge
+            local g = self.grabContext
             self.victimInfoBar = g.target.infoBar:setAttacker(self)
             return
         end

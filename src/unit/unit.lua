@@ -50,7 +50,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.sfx.dead = f.sfxDead --on death sfx
     self.isHittable = false
     self.isGrabbed = false
-    self.charge = {source = nil, target = nil, grabTimer = 0 }
+    self.grabContext = {source = nil, target = nil, grabTimer = 0 }
     self.victims = {} -- [victim] = true
     self.obstacles = {} -- [obstacle] = true
     self.isThrown = false
@@ -284,7 +284,7 @@ function Unit:canFall()
 end
 
 function Unit:getMinZ()
-    local g = self.charge
+    local g = self.grabContext
     if self.isGrabbed and g and g.source then
         return g.source.z
     elseif self.platform and self.platform.hp > 0 then
@@ -375,7 +375,7 @@ function Unit:calcDamageFrame()
 end
 
 function Unit:moveStatesInit()
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     if not g then
         error("ERROR: No target for init")
@@ -395,7 +395,7 @@ function Unit:moveStatesApply()
     if not moves or not moves[frame] then
         return
     end
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     if not g then
         error("ERROR: No target for apply")
@@ -456,7 +456,7 @@ function Unit:updateAttackersInfoBar(h)
 end
 
 function Unit:getZIndex()
-    local g = self.charge
+    local g = self.grabContext
     if self.isGrabbed and g and g.source then
         return g.source.y - 0.001
     end

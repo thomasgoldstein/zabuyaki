@@ -103,7 +103,7 @@ end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
 function Chai:frontGrabAttackForwardStart()
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     self:moveStatesInit()
     self:setSprite("frontGrabAttackForward")
@@ -121,7 +121,7 @@ end
 Chai.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Chai.frontGrabAttackForwardStart, exit = nop, update = Chai.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
 
 function Chai:frontGrabAttackBackStart()
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     self:moveStatesInit()
     self:setSprite("frontGrabAttackBack")

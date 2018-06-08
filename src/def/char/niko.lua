@@ -23,8 +23,8 @@ local jumpAttack = function(slf, cont)
     )
 end
 local grabShake = function(slf, cont)
-    if slf.charge and slf.charge.target then
-        slf.charge.target:onShake(0.5, 0, 0.01, 1)
+    if slf.grabContext and slf.grabContext.target then
+        slf.grabContext.target:onShake(0.5, 0, 0.01, 1)
     end
 end
 

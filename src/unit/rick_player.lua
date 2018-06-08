@@ -110,7 +110,7 @@ end
 Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.fadeOutGhostTrace, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Rick:backGrabAttackStart()
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     self:initGrabTimer()
     self:moveStatesInit()
@@ -121,7 +121,7 @@ function Rick:backGrabAttackStart()
     dp(self.name.." backGrabAttack someone.")
 end
 function Rick:backGrabAttackUpdate(dt)
-    local g = self.charge
+    local g = self.grabContext
     local t = g.target
     if t.state ~= "bounce" then
         self:moveStatesApply()
