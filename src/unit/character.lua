@@ -1318,7 +1318,7 @@ function Character:grabUpdate(dt)
         else
             if self.b.horizontal.isDoubleTap and self.face == self.b.horizontal.doubleTap.lastDirection then
                 if self.moves.grabSwap and g.canGrabSwap
-                    and stage:hasPlaceToStand(self.charge.target.x + self.face * 18, self.y)
+                    and stage:hasPlaceToStand(self.grabContext.target.x + self.face * 18, self.y)
                 then
                     self:setState(self.grabSwap)
                     return
