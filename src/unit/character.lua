@@ -1393,7 +1393,7 @@ end
 Character.grab = {name = "grab", start = Character.grabStart, exit = nop, update = Character.grabUpdate, draw = Character.defaultDraw}
 
 function Character:releaseGrabbed()
-    local g = self.charge
+    local g = self.grabContext
     if g and g.target and g.target.isGrabbed and g.target.grabContext.source == self then
         g.target.isGrabbed = false
         g.target.grabContext.grabTimer = 0
@@ -1628,14 +1628,14 @@ function Character:grabSwapStart()
     self:initGrabTimer()
     g.canGrabSwap = false
     self.isGrabSwapFlipped = false
-    self.grabSwap_x = self.charge.target.x + self.face * 18
+    self.grabSwap_x = self.grabContext.target.x + self.face * 18
     self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
     self:playSfx("whooshHeavy")
     dp(self.name.." is grabSwapping someone.")
 end
 function Character:grabSwapUpdate(dt)
     --dp(self.name .. " - grab update", dt)
-    local g = self.charge
+    local g = self.grabContext
     --adjust char horizontally
     if math.abs(self.x - self.grabSwap_x) > 2 then
         if self.x < self.grabSwap_x then
