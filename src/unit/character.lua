@@ -86,8 +86,8 @@ function Character:initAttributes()
     self.shortThrowSpeed_x = self.throwSpeed_x / 2 --my throwing speed (frontGrabAttack Last and Down)
     self.throwSpeed_z = 200 --my throwing speed
     self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
-    self.backoffSpeed = 130 --when you ungrab someone
-    self.backoffSpeed2 = 150 --when you are released
+    self.backoffSpeed_x = 130 --when you ungrab someone
+    self.backoffSpeed2_x = 150 --when you are released
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage
@@ -572,10 +572,10 @@ function Character:walkUpdate(dt)
                 end
                 grabbed.horizontal = -self.horizontal
                 self:showHitMarks(22, 25, 5) --big hitmark
-                self.speed_x = self.backoffSpeed --move from source
+                self.speed_x = self.backoffSpeed_x --move from source
                 self:setSprite("hurtHigh")
                 self:setState(self.slide)
-                grabbed.speed_x = grabbed.backoffSpeed --move from source
+                grabbed.speed_x = grabbed.backoffSpeed_x --move from source
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
                 self:playSfx(self.sfx.grabClash)
@@ -1333,7 +1333,7 @@ function Character:grabUpdate(dt)
             else
                 self.horizontal = 1
             end
-            self.speed_x = self.backoffSpeed --move from source
+            self.speed_x = self.backoffSpeed_x --move from source
             self:releaseGrabbed()
             self:setState(self.stand)
             return
@@ -1423,7 +1423,7 @@ function Character:grabbedUpdate(dt)
             self.horizontal = -1
         end
         self.isGrabbed = false
-        self.speed_x = self.backoffSpeed2 --move from source
+        self.speed_x = self.backoffSpeed2_x --move from source
         self:setState(self.stand)
         return
     end
@@ -1738,10 +1738,10 @@ function Character:chargeDashUpdate(dt)
             end
             grabbed.horizontal = -self.horizontal
             self:showHitMarks(22, 25, 5) --big hitmark
-            self.speed_x = self.backoffSpeed --move from source
+            self.speed_x = self.backoffSpeed_x --move from source
             self.speed_z = self.chargeDashSpeed_z
             self:setState(self.fall)
-            grabbed.speed_x = grabbed.backoffSpeed --move from source
+            grabbed.speed_x = grabbed.backoffSpeed_x --move from source
             grabbed.speed_z = self.chargeDashSpeed_z
             grabbed:setState(grabbed.fall)
             self:playSfx(self.sfx.grabClash)

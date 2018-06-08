@@ -572,10 +572,10 @@ function AI:initGrab()
                 end
                 grabbed.horizontal = -u.horizontal
                 u:showHitMarks(22, 25, 5) --big hitmark
-                u.speed_x = self.backoffSpeed --move from source
+                u.speed_x = self.backoffSpeed_x --move from source
                 u:setSprite("hurtHigh")
                 u:setState(u.slide)
-                grabbed.speed_x = grabbed.backoffSpeed --move from source
+                grabbed.speed_x = grabbed.backoffSpeed_x --move from source
                 grabbed:setSprite("hurtHigh")
                 grabbed:setState(grabbed.slide)
                 u:playSfx(u.sfx.grabClash)
