@@ -169,7 +169,7 @@ function Player:updateAI(dt)
             self.chargeTimer = self.chargeTimer + dt
         else
             if self.chargeTimer >= self.chargedAt then
-                if self.statesForChargeAttack[self.state] and self.speed_y == 0 then
+                if self.statesForChargeAttack[self.state] then
                     self:setState(self.chargeAttack)
                 end
             end
