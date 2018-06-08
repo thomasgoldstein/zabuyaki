@@ -1239,7 +1239,7 @@ end
 function Character:doGrab(target, inAir)
     dp(target.name .. " is grabbed by me - "..self.name)
     local g = self.grabContext
-    local gTargetCharge = target.grabContext
+    local gTarget = target.grabContext
     if self.isGrabbed then
         return false	-- i'm grabbed
     end
@@ -1254,8 +1254,8 @@ function Character:doGrab(target, inAir)
     end
     --the grabbed
     target:releaseGrabbed()	-- your grab targed releases one it grabs
-    gTargetCharge.source = self
-    gTargetCharge.target = nil
+    gTarget.source = self
+    gTarget.target = nil
     target.isGrabbed = true
     self:playSfx(target.sfx.grab)   --clothes ruffling
     -- the grabber
