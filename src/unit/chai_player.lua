@@ -232,7 +232,7 @@ function Chai:specialOffensiveUpdate(dt)
 end
 Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.fadeOutGhostTrace, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
 
-function Chai:chargeDashAttack()
+function Chai:chargeDashAttackStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("chargeDashAttack")
@@ -267,6 +267,6 @@ function Chai:chargeDashAttackUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.chargeDashAttack = {name = "chargeDashAttack", start = Chai.chargeDashAttack, exit = nop, update = Chai.chargeDashAttackUpdate, draw = Character.defaultDraw}
+Chai.chargeDashAttack = {name = "chargeDashAttack", start = Chai.chargeDashAttackStart, exit = nop, update = Chai.chargeDashAttackUpdate, draw = Character.defaultDraw}
 
 return Chai
