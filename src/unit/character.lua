@@ -656,7 +656,7 @@ function Character:jumpStart()
     local speedBoost = self.prevState == "run" and self.jumpRunSpeedBoost or self.jumpSpeedBoost
     self.speed_x = self.saveSpeed_x or self.speed_x
     self.speed_y = self.saveSpeed_y or self.speed_y
-    self.speed_z = (self.jumpSpeed_z + speedBoost.y) * self.jumpSpeedMultiplier
+    self.speed_z = (self.jumpSpeed_z + speedBoost.z) * self.jumpSpeedMultiplier
     if self.speed_x ~= 0 then
         self.speed_x = self.speed_x + speedBoost.x
     end
