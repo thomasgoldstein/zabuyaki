@@ -168,8 +168,14 @@ function Player:updateAI(dt)
         if self.b.attack:isDown() and self.statesForChargeAttack[self.state] then
             self.chargeTimer = self.chargeTimer + dt
         else
-            if self.chargeTimer >= self.chargedAt then
-                if self.statesForChargeAttack[self.state] then
+            if self.chargeTimer >= self.chargedAt and self.statesForChargeAttack[self.state] then
+                if self.speed_y == 0 and self:canFall() then
+                    if self.chargeDashAttack then
+                        self:setState(self.chargeDashAttack)
+                    elseif self.chargeAttack then
+                        self:setState(self.chargeAttack)
+                    end
+                elseif not self:canFall() then
                     self:setState(self.chargeAttack)
                 end
             end

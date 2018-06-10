@@ -1667,14 +1667,9 @@ function Character:chargeAttackStart()
     self.isChargeDashAttack = false
     self.speed_z = self.chargeDashAttackSpeed_z
     if self:canFall() then
-        if self.chargeDashAttack then
-            self:setState(self.chargeDashAttack)
-            return
-        else
-            self.isChargeDashAttack = true
-            self:setSpriteIfExists("chargeDashAttack", "chargeAttack")
-            self:playSfx(self.sfx.dashAttack)
-        end
+        self.isChargeDashAttack = true  -- if there is a chargeDashAttack animation, but no custom method
+        self:setSpriteIfExists("chargeDashAttack", "chargeAttack")
+        self:playSfx(self.sfx.dashAttack)
     else
         self:setSprite("chargeAttack")
     end
