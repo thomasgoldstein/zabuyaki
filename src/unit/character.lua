@@ -61,8 +61,8 @@ function Character:initAttributes()
     self.runSpeed_y = 25
     self.jumpSpeed_z = 220 -- z coord
     self.jumpSpeedMultiplier = 1.25
-    self.jumpBoost = { x = 28, y = 14, z = 0 }
-    self.jumpRunBoost = { x = 14, y = 7, z = 20 }
+    self.jumpSpeedBoost = { x = 28, y = 14, z = 0 }
+    self.jumpRunSpeedBoost = { x = 14, y = 7, z = 20 }
     self.fallSpeed_z = 220
     self.fallSpeed_x = 120
     self.fallSpeedBoost_x = 5
@@ -653,15 +653,15 @@ function Character:jumpStart()
     self.z = self:getMinZ() + 0.1
     self.bounced = 0
     self.isGoingUp = true
-    local boost = self.prevState == "run" and self.jumpRunBoost or self.jumpBoost
+    local speedBoost = self.prevState == "run" and self.jumpRunSpeedBoost or self.jumpSpeedBoost
     self.speed_x = self.saveSpeed_x or self.speed_x
     self.speed_y = self.saveSpeed_y or self.speed_y
-    self.speed_z = (self.jumpSpeed_z + boost.y) * self.jumpSpeedMultiplier
+    self.speed_z = (self.jumpSpeed_z + speedBoost.y) * self.jumpSpeedMultiplier
     if self.speed_x ~= 0 then
-        self.speed_x = self.speed_x + boost.x
+        self.speed_x = self.speed_x + speedBoost.x
     end
     if self.speed_y ~= 0 then
-        self.speed_y = self.speed_y + boost.y
+        self.speed_y = self.speed_y + speedBoost.y
     end
     self:playSfx(self.sfx.jump)
 end
