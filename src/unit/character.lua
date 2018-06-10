@@ -61,8 +61,8 @@ function Character:initAttributes()
     self.runSpeed_y = 25
     self.jumpSpeed_z = 220 -- z coord
     self.jumpSpeedMultiplier = 1.25
-    self.jumpSpeedBoost_x = 24
-    self.jumpSpeedBoost_y = 12
+    self.jumpSpeedBoost_x = 30
+    self.jumpSpeedBoost_y = 15
     self.jumpRunSpeedBoost_z = 24
     self.fallSpeed_z = 220
     self.fallSpeed_x = 120
@@ -663,10 +663,10 @@ function Character:jumpStart()
     self.speed_x = self.saveSpeed_x or self.speed_x
     self.speed_y = self.saveSpeed_y or self.speed_y
     if self.speed_x ~= 0 then
-        self.speed_x = self.speed_x + self.jumpSpeedBoost_x --make jump little faster than the walk/run speed
+        self.speed_x = self.speed_x + self.jumpSpeedBoost_x --make jump faster than the walk/run speed
     end
     if self.speed_y ~= 0 then
-        self.speed_y = self.speed_y + self.jumpSpeedBoost_y --make jump little faster than the walk/run speed
+        self.speed_y = self.speed_y + self.jumpSpeedBoost_y --make jump faster than the walk/run speed
     end
     self:playSfx(self.sfx.jump)
 end
