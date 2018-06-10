@@ -61,12 +61,8 @@ function Character:initAttributes()
     self.runSpeed_y = 25
     self.jumpSpeed_z = 220 -- z coord
     self.jumpSpeedMultiplier = 1.25
-    self.jumpSpeedBoost_x = 28 --make jump faster than the walk speed
-    self.jumpSpeedBoost_y = 14 --make jump faster than the walk speed
-    self.jumpSpeedBoost_z = 0
-    self.jumpRunSpeedBoost_x = 14 --make jump faster than the run speed
-    self.jumpRunSpeedBoost_y = 7 --make jump faster than the run speed
-    self.jumpRunSpeedBoost_z = 20 -- jump higher from run
+    self.jumpBoost = { x = 28, y = 14, z = 0 }
+    self.jumpRunBoost = { x = 14, y = 7, z = 20 }
     self.fallSpeed_z = 220
     self.fallSpeed_x = 120
     self.fallSpeedBoost_x = 5
@@ -657,26 +653,15 @@ function Character:jumpStart()
     self.z = self:getMinZ() + 0.1
     self.bounced = 0
     self.isGoingUp = true
-    local speedBoost_x
-    local speedBoost_y
-    local speedBoost_z
-    if self.prevState == "run" then
-        speedBoost_x = self.jumpRunSpeedBoost_x
-        speedBoost_y = self.jumpRunSpeedBoost_y
-        speedBoost_z = self.jumpRunSpeedBoost_z
-    else
-        speedBoost_x = self.jumpSpeedBoost_x
-        speedBoost_y = self.jumpSpeedBoost_y
-        speedBoost_z = self.jumpSpeedBoost_z
-    end
+    local boost = self.prevState == "run" and self.jumpRunBoost or self.jumpBoost
     self.speed_x = self.saveSpeed_x or self.speed_x
     self.speed_y = self.saveSpeed_y or self.speed_y
-    self.speed_z = (self.jumpSpeed_z + speedBoost_z) * self.jumpSpeedMultiplier
+    self.speed_z = (self.jumpSpeed_z + boost.y) * self.jumpSpeedMultiplier
     if self.speed_x ~= 0 then
-        self.speed_x = self.speed_x + speedBoost_x
+        self.speed_x = self.speed_x + boost.x
     end
     if self.speed_y ~= 0 then
-        self.speed_y = self.speed_y + speedBoost_y
+        self.speed_y = self.speed_y + boost.y
     end
     self:playSfx(self.sfx.jump)
 end
