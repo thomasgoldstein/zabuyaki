@@ -183,7 +183,7 @@ function Chai:specialOffensiveStart()
     self:setSprite("specialOffensive")
     self:enableGhostTrace()
     self.horizontal = -self.face
-    self.speed_x = self.jumpSpeedBoost_x
+    self.speed_x = self.jumpSpeedBoost.x
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = self:getMinZ() + 0.1
@@ -201,7 +201,7 @@ function Chai:specialOffensiveUpdate(dt)
     if self.sprite.curAnim == "specialOffensive"
         and self.attacksPerAnimation > 0
     then
-        self.speed_x = self.jumpSpeedBoost_x
+        self.speed_x = self.jumpSpeedBoost.x
         self.horizontal = self.face
         self.speed_z = 0
         self:setSprite("specialOffensive2")

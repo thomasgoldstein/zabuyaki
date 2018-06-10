@@ -206,7 +206,7 @@ local specialOffensive2LeftMost = function(slf, cont) slf:checkAndAttack(
     cont
  ) end
 local specialOffensiveHop = function(slf, cont)
-    slf.speed_x = slf.jumpSpeedBoost_x
+    slf.speed_x = slf.jumpSpeedBoost.x
     slf.horizontal = -slf.face
     slf.speed_z = slf.jumpSpeed_z
 end

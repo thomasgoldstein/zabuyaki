@@ -257,7 +257,7 @@ function Enemy:jumpStart()
     self.bounced = 0
     if self.lastState == "run" then
         -- jump higher from run
-        self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier
+        self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost.z) * self.jumpSpeedMultiplier
     end
     self.vertical = 0
     self:playSfx(self.sfx.jump)
