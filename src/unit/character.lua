@@ -651,13 +651,14 @@ function Character:jumpStart()
     --self.toSlowDown = false
     dpo(self, self.state)
     self:setSprite("jump")
-    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = self:getMinZ() + 0.1
     self.bounced = 0
     self.isGoingUp = true
     if self.prevState == "run" then
         -- jump higher from run
         self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost_z) * self.jumpSpeedMultiplier
+    else
+        self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     end
     self.speed_x = self.saveSpeed_x or self.speed_x
     self.speed_y = self.saveSpeed_y or self.speed_y
