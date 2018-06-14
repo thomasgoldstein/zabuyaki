@@ -147,16 +147,16 @@ end
 -- calculate the animation delay
 function getSpriteAnimationDelay(spr, anim)
     if not spr.def.animations[anim] then
-        print(spr, spr.def, spr.def.animations)
-        --print(inspect(spr, {depth=1}))
+--        print(spr, spr.def, spr.def.animations, spr.def.animations[anim])
+--        print(inspect(spr.def.animations, {depth=1}))
         error("There is no "..anim.." animation to calc its delay. ")
     end
     local delay = 0
     local a = spr.def.animations[anim]
     for i = 1, #a do
-        delay = delay + a[i].delay or a.delay or spr.def.delay
+        delay = delay + (a[i].delay or a.delay or spr.def.delay)
     end
-    a.delay = delay
+    --a.delay = delay
     return delay
 end
 
