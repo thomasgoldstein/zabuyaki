@@ -165,7 +165,7 @@ function Unit:enableGhostTrace(kind)
     t.time = 0
     t.kind = kind
     if kind == 1 then
-        t.ghostTraceDelay = getSpriteAnimationDelay(self.sprite, self.sprite.curAnim) / 4 -- tweakable: the length of the effect
+        t.ghostTraceDelay = getSpriteAnimationDelay(self.sprite, self.sprite.curAnim) / 6 -- tweakable: the length of the effect
         t.ghostTraceTime = 0
     end
 end
