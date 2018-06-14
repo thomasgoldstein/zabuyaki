@@ -153,7 +153,7 @@ function Unit:getGhostTraceI(n)
         return maxGhostTraceFrames + t.i - n
     end
 end
-function Unit:enableGhostTrace()
+function Unit:enableGhostTrace(kind)
     local t = self.ghostTrace
     if not t then
         return
@@ -163,6 +163,11 @@ function Unit:enableGhostTrace()
     t.i = 0
     t.n = #self.ghostTraceColors
     t.time = 0
+    t.kind = kind
+    if kind == 1 then
+        t.ghostTraceDelay = getSpriteAnimationDelay(self.sprite, self.sprite.curAnim) / 4 -- tweakable: the length of the effect
+        t.ghostTraceTime = 0
+    end
 end
 function Unit:disableGhostTrace()
     local t = self.ghostTrace
@@ -178,17 +183,34 @@ function Unit:fadeOutGhostTrace()
     end
     t.fade = true
 end
+local ghostTaceKind1 = {{ x = 1, y = -1 }, { x = -1, y = -1} }
+local ghostTaceKind1MaxOffset = 16 -- tweakable: increase to move ghosts farther from the chara
 function Unit:drawGhostTrace(l, t, w, h)
     local t = self.ghostTrace
+    local x, y, m
     if not t or not t.enabled then
         return
     end
     for k = t.n, 1, -1 do
-        local i = self:getGhostTraceI(k * math.ceil((t.shift * love.timer.getFPS()) / 60) )
+        local i = self:getGhostTraceI(k * math.ceil((t.shift * love.timer.getFPS()) / 60))
         if t.ghost[i] then
             love.graphics.setColor(unpack(self.ghostTraceColors[k]))
             self.sprite.flipH = t.ghost[i][5]
-            drawSpriteCustomInstance(self.sprite, t.ghost[i][1], t.ghost[i][2], t.ghost[i][3], t.ghost[i][4])
+            if t.kind == 1 then
+                if ghostTaceKind1[k] then
+                    x, y = ghostTaceKind1[k].x, ghostTaceKind1[k].y
+                    if t.ghostTraceTime <= t.ghostTraceDelay then
+                        m = t.ghostTraceTime * ghostTaceKind1MaxOffset
+                    elseif t.ghostTraceTime <= t.ghostTraceDelay * 2 then
+                        m = (t.ghostTraceDelay * 2 - t.ghostTraceTime) * ghostTaceKind1MaxOffset
+                    else
+                        m = 0
+                    end
+                end
+                drawSpriteCustomInstance(self.sprite, t.ghost[i][1] + x * m, t.ghost[i][2] + y * m, t.ghost[i][3], t.ghost[i][4])
+            else
+                drawSpriteCustomInstance(self.sprite, t.ghost[i][1], t.ghost[i][2], t.ghost[i][3], t.ghost[i][4])
+            end
         end
     end
 end
@@ -201,6 +223,9 @@ function Unit:updateGhostTrace(dt)
     t.i = t.i + 1
     if t.i > maxGhostTraceFrames then
         t.i = 1
+    end
+    if t.kind == 1 then
+        t.ghostTraceTime = t.ghostTraceTime + dt
     end
     t.time = t.time + dt
     if t.time >= t.delay then

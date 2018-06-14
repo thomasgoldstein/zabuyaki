@@ -86,6 +86,16 @@ function Rick:dashAttackUpdate(dt)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
 
+function Rick:specialDefensiveStart()
+    self.isHittable = false
+    self.speed_x = 0
+    self.speed_y = 0
+    self:setSprite("specialDefensive")
+    self:enableGhostTrace(1)
+    self:playSfx(self.sfx.dashAttack)
+end
+Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = Unit.fadeOutGhostTrace, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
+
 function Rick:specialOffensiveStart()
     self.isHittable = true
     self.customFriction = self.dashSpeed_x
