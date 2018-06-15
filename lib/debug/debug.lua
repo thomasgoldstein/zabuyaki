@@ -108,7 +108,7 @@ local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
 function showDebugIndicator(size, _x, _y)
     local x, y = _x or 2, _y or 480 - 9 * 4
     if isDebug(SHOW_FPS) then
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         love.graphics.setFont(fonts[size or 1])
         love.graphics.print("DEBUG:"..getDebugLevel(), x, y)
         love.graphics.print("FPS:"..tonumber(love.timer.getFPS()), x, y + 9 * 1)
@@ -189,21 +189,21 @@ function showDebugBoxes(scale)
             a = attackHitBoxes[i]
             if a.d then
                 if a.collided then
-                    love.graphics.setColor(255, 0, 0, 150)
+                    colors:set("red", nil, 150)
                 else
-                    love.graphics.setColor(255, 255, 0, 150)
+                    colors:set("yellow", nil, 150)
                 end
                 -- yellow: width + height
                 love.graphics.rectangle("line", a.x + a.sx * scale, a.y + ( -a.z - a.h / 2) * scale, a.w * scale, a.h * scale)
-                love.graphics.setColor(0, 255, 0, 150)
+                colors:set("green", nil, 150)
                 -- green: width + depth
                 love.graphics.rectangle("line", a.x + a.sx * scale, a.y - (a.d / 2) * scale, a.w * scale, a.d * scale)
             else
-                -- blue / green(not collided) cross
+                -- red / green(not collided) cross
                 if a.collided then
-                    love.graphics.setColor(255, 0, 0, 150)
+                    colors:set("red", nil, 150)
                 else
-                    love.graphics.setColor(0, 255, 0,150)
+                    colors:set("green", nil, 150)
                 end
                 love.graphics.rectangle("line", a.x + a.sx * scale - (a.w / 2) * scale, a.y - a.z * scale, a.w * scale, a.h * scale)
                 love.graphics.rectangle("line", a.x + a.sx * scale, a.y + ( -a.z - a.w / 2) * scale, a.h * scale, a.w * scale)
@@ -280,7 +280,7 @@ end
 
 function drawDebugUnitHitbox(a)
     if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
-        love.graphics.setColor(255, 255, 255, 150)
+        colors:set("white", nil, 150)
         love.graphics.rectangle("line", a.x - a.width / 2, a.y - a.height - a.z + 1, a.width, a.height-1)
     end
 end
@@ -290,10 +290,10 @@ function drawDebugUnitInfo(a)
         drawUnitHighlight(a)
         love.graphics.setFont(gfx.font.debug)
         if a.hp <= 0 then
-            love.graphics.setColor(0, 0, 0, 50)
+            colors:set("black", nil, 50)
             love.graphics.print( a.name, a.x - 16 , a.y - 7)
         else
-            love.graphics.setColor(0, 0, 0, 120)
+            colors:set("black", nil, 120)
             love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14)
         end
         if a.comboN and a.sprite.def.comboMax > 0 then

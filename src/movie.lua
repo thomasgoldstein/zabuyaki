@@ -148,7 +148,7 @@ function Movie:draw(l, t, _w, _h)
     love.graphics.clear(unpack(self.bgColor))
     local f = self.frames[self.frame]
     -- Show Picture
-    love.graphics.setColor(255, 255, 255, 255 * self.pictureTransparency)
+    colors:set("white", nil, 255 * self.pictureTransparency)
     local w, h = f.q[3], f.q[4]
     local x, y = (screenWidth - w) / 2, (screenHeight - h) / 2
     local q = { r(f.q[1] + self.hScroll), r(f.q[2] + self.vScroll), w, h }
@@ -157,11 +157,11 @@ function Movie:draw(l, t, _w, _h)
         love.graphics.newQuad(unpack(q)),
         l + x, t + y - screen_gap)
     -- Show Text
-    love.graphics.setColor(255, 255, 255, 255 * self.transparency)
+    colors:set("white", nil, 255 * self.transparency)
     love.graphics.setFont(self.font)
     love.graphics.print(string.sub(f.text, 1, self.add_chars), l + f.x, r(t + y + h + slide_text_gap - screen_gap))
     if self.time >= self.frames[self.frame].delay and not self.autoSkip then
-        love.graphics.setColor(255, 255, 255, 200 + 55 * math.sin(self.time * 2))
+        colors:set("white", nil, 200 + 55 * math.sin(self.time * 2))
         love.graphics.print("PRESS ATTACK", r(screenWidth - 12 * 9), r(screenHeight - 12 + math.sin(self.time * 6)))
     end
 end

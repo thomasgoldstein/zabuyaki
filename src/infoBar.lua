@@ -130,7 +130,7 @@ function InfoBar:drawLifebar(l, t, transpBg)
         love.graphics.setColor( unpack( self.color ) )
         slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.hp / self.maxHp + 1, barHeight - 6 )
     end
-    love.graphics.setColor(255,255,255, transpBg)
+    colors:set("white", nil, transpBg)
     love.graphics.draw (
         gfx.ui.middleSlant.sprite,
         gfx.ui.middleSlant.q,

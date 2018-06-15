@@ -21,7 +21,7 @@ end
 function logoState:draw()
     push:start()
     showDebugIndicator()
-    love.graphics.setColor(255, 255, 255, 255 * logoTimeLeft)
+    colors:set("white", nil, 255 * logoTimeLeft)
     love.graphics.draw(logo, 0, 0, 0, 2, 2)
     push:finish()
 end

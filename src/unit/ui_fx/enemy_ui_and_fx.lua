@@ -11,11 +11,11 @@ local rand1 = rand1
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
 function Enemy:drawTextInfo(l, t, transpBg, iconWidth, normColor)
-    love.graphics.setColor(255, 255, 255, transpBg)
+    colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transpBg)
     if self.lives > 1 then
-        love.graphics.setColor(255, 255, 255, transpBg)
+        colors:set("white", nil, transpBg)
         printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,
             transpBg)
         love.graphics.setFont(gfx.font.arcade3x2)
