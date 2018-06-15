@@ -9,8 +9,10 @@ function Colors:initialize()
         white = {255, 255, 255, 255},
         black = {0, 0, 0, 255},
         red = {255, 0, 0, 255},
+        yellow = {255, 255, 0, 255},
         green = {0, 255, 0, 255},
         blue = {0, 0, 255, 255},
+        darkGray = {55, 55, 55, 255},
     }
 end
 
