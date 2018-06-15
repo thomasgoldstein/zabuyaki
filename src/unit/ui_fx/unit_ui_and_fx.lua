@@ -161,7 +161,7 @@ function Unit:enableGhostTrace(kind)
     t.enabled = true
     t.fade = false
     t.i = 0
-    t.n = #self.ghostTraceColors
+    t.n = #colors:get("ghostTraceColors")
     t.time = 0
     t.kind = kind
     if kind == 1 then
@@ -187,14 +187,14 @@ local ghostTaceKind1 = {{ x = 1, y = -1 }, { x = -1, y = -1} }
 local ghostTaceKind1MaxOffset = 16 -- tweakable: increase to move ghosts farther from the chara
 function Unit:drawGhostTrace(l, t, w, h)
     local t = self.ghostTrace
-    local x, y, m
+    local x, y, m = 0, 0, 0
     if not t or not t.enabled then
         return
     end
     for k = t.n, 1, -1 do
         local i = self:getGhostTraceI(k * math.ceil((t.shift * love.timer.getFPS()) / 60))
         if t.ghost[i] then
-            love.graphics.setColor(unpack(self.ghostTraceColors[k]))
+            colors:set("ghostTraceColors", k)
             self.sprite.flipH = t.ghost[i][5]
             if t.kind == 1 then
                 if ghostTaceKind1[k] then
