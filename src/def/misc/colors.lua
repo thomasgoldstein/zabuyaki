@@ -27,8 +27,12 @@ function Colors:unpack(...)
 end
 
 local tempColor
-function Colors:set(name, alpha)
-    tempColor = self.c[name]
+function Colors:set(name, index, alpha) -- index or alpha might be undefined
+    if index then
+        tempColor = self.c[name][index]
+    else
+        tempColor = self.c[name]
+    end
     if alpha then
         tempColor[4] = alpha
     end
