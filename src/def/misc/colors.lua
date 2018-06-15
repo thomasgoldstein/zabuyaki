@@ -26,7 +26,7 @@ function Colors:unpack(...)
     return unpack(self:get(...))
 end
 
-local tempColor
+local tempColor, tempAlpha
 function Colors:set(name, index, alpha) -- index or alpha might be undefined
     if index then
         tempColor = self.c[name][index]
@@ -34,9 +34,13 @@ function Colors:set(name, index, alpha) -- index or alpha might be undefined
         tempColor = self.c[name]
     end
     if alpha then
+        tempAlpha = tempColor[4]
         tempColor[4] = alpha
     end
     love.graphics.setColor(unpack(tempColor))
+    if alpha then
+        tempColor[4] = tempAlpha
+    end
 end
 
 return Colors
