@@ -76,6 +76,7 @@ function love.load(arg)
     setupScreen()
 
     Gamestate = require "lib/hump.gamestate"
+    colors = (require "src/def/misc/colors"):new()
     require "src/animatedSprite"
     HC = require "lib/HC"
     tween = require "lib/tween"

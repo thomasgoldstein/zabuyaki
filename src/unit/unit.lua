@@ -68,7 +68,6 @@ function Unit:initialize(name, sprite, input, x, y, f)
         shift = 2,  -- frames count back to the past per the ghost
         ghost = {}
     }
-    self.ghostTraceColors = { {125, 150, 255, 175}, {25, 50, 255, 125 } } -- RGBA, also the number of the ghosts
     self.func = f.func  --custom function call onDeath
     self.finalizerFunc = nop  -- called on every updateAI if present
     self.draw = nop

@@ -25,7 +25,7 @@ function Loot:drawBar(l,t,w,h, iconWidth, normColor)
     local transpBg = 255 * calcBarTransparency(self.timer)
     self:drawFaceIcon(l, t, transpBg)
     love.graphics.setFont(gfx.font.arcade3)
-    love.graphics.setColor(255, 255, 255, transpBg)
+    colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.x + iconWidth + 4 + 0, t + self.y + 9 - 0, transpBg)
     normColor[4] = transpBg
     love.graphics.setColor( unpack( normColor ) )
