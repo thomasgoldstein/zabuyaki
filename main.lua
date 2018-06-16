@@ -122,6 +122,7 @@ function love.load(arg)
     Rick = require "src/unit/rick_player"
     Chai = require "src/unit/chai_player"
     Kisa = require "src/unit/kisa_player"
+    Yar = require "src/unit/yar_player"
     Loot = require "src/unit/loot"
     require "src/unit/ui_fx/loot_ui_and_fx"
     Obstacle = require "src/unit/obstacle"

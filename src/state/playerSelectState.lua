@@ -65,6 +65,23 @@ local heroes = {
         py = 120
     },
     {
+        {name = "YAR", palette = 0},
+        {name = "YAR", palette = 1},
+        {name = "YAR", palette = 2},
+        hero = Yar,
+        spriteInstance = "src/def/char/yar.lua",
+        sprite_portrait = getSpriteInstance("src/def/misc/portraits.lua"),
+        sprite_portraitAnim = "yar",
+        defaultAnim = "stand",
+        cancelAnim = "hurtHigh",
+        confirmAnim = "walk",
+        x = screenWidth / 2 + portraitWidth + portraitMargin,
+        y = 440,
+        sy = 272,
+        ny = 90,
+        py = 120
+    },
+    {
         {name = "GOPPER", palette = 1},
         {name = "GOPPER", palette = 2},
         {name = "GOPPER", palette = 0},

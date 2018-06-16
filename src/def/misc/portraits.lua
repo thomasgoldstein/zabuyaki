@@ -29,6 +29,10 @@ return {
             { q = q(146,2,70,70), ox = 0, oy = 0 }, --Chai default
             loop = true
         },
+        yar = {
+            { q = q(220,2,70,70), ox = 0, oy = 0 }, --Yar default
+            loop = true
+        },
     } --offsets
 
 } --return (end of file)
