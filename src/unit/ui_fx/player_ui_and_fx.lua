@@ -63,11 +63,7 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
             -- Select Player
             printWithShadow(self.source.name, l + self.x + self.source.shake.x + iconWidth + 2, t + self.y + 9,
                 transpBg)
-            local c = GLOBAL_SETTING.PLAYERS_COLORS[self.source.id]
-            if c then
-                c[4] = transpBg
-                love.graphics.setColor(unpack( c ))
-            end
+            colors:set("playersColors", self.source.id, transpBg)
             printWithShadow(self.source.pid, l + self.x + self.source.shake.x + iconWidth + 2, t + self.y - 1,
                 transpBg)
             --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.timer*4)), t + self.y + 9 + 11 )
