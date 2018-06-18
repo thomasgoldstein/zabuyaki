@@ -11,6 +11,7 @@ function Colors:initialize()
         darkenWhite = {200, 200, 200, 255},
         black = {0, 0, 0, 255},
         red = {255, 0, 0, 255},
+        redGoTimer = {240, 40, 40, 255},
         yellow = {255, 255, 0, 255},
         lightBlue = {0, 255, 255, 255},
         green = {0, 255, 0, 255},

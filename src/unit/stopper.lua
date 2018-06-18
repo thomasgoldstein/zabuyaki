@@ -36,8 +36,6 @@ function Stopper:setSprite(anim)
 end
 
 function Stopper:drawSprite(l,t,w,h)
---    love.graphics.setColor(255, 255, 255, 150)
---    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 end
 
 function Stopper:drawShadow(l,t,w,h)

@@ -4,23 +4,13 @@ local r = round
 function Unit:draw2()
     self.sprite.flipH = self.face  --TODO get rid of .face
     love.graphics.setColor( unpack( self.color ) )
---    if self.shader then
---        love.graphics.setShader(self.shader)
---    end
     if isDebug() then
-        love.graphics.setColor(255, 255, 255, 90)
+        colors:set("white", nil, 90)
     else
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
     end
     self:drawSprite(self.x + self.shake.x, self.y - self.z - self.shake.y)
---    if self.shader then
---        love.graphics.setShader()
---    end
-    love.graphics.setColor(255, 255, 255, 150)
-    --		if self.showPIDDelay > 0 then
-    --			self:drawPID(self.x, self.y - self.z - 80)
-    --		end
-    --		drawDebugUnitHitbox(self)
+    colors:set("white", nil, 150)
     drawDebugUnitInfo(self)
 end
 
@@ -85,7 +75,7 @@ function saveStageToPng()
     cp:draw(0,0, maxCoord, maxCoord) --all bg
     stage.objects:draw(0,0, maxCoord, maxCoord) --all active units
     stage.batch:draw()
-    love.graphics.setColor(255, 255, 255)
+    colors:set("white")
     for x = 0, cp.width, 100 do
         love.graphics.print( x, x, 1 )
     end

@@ -289,7 +289,7 @@ function Unit:defaultDraw(l, t, w, h)
         end
         if self.statesForChargeAttack and self.chargeTimer >= self.chargedAt / 2 and self.chargeTimer < self.chargedAt then
             if self.chargeAttack and self.statesForChargeAttack[self.state] then
-                love.graphics.setColor(255, 255, 255, 63)
+                colors:set("white", nil, 63)
                 local width = clamp(self.chargeTimer, 0.5, 1) * self.width
                 if self.chargeTimer >= self.chargedAt - self.chargedAt / 10 then
                     love.graphics.ellipse("fill", self.x, self.y, width, width / 2)
@@ -306,7 +306,7 @@ function Unit:defaultDraw(l, t, w, h)
         if self.shader then
             love.graphics.setShader()
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         if self.showPIDDelay > 0 then
             self:drawPID(self.x, self.y - self.z - 80)
         end

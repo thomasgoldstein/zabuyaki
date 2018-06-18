@@ -156,9 +156,9 @@ function Stage:displayGoTimer(screenWidth, screenHeight)
         love.graphics.draw(txtTime, x + 1, y - 1 )
     end
     if self.timeLeft < 5.5 then
-        love.graphics.setColor(240, 40, 40, transp)
+        colors:set("redGoTimer", nil, transp)
     else
-        love.graphics.setColor(255, 255, 255, transp)
+        colors:set("white", nil, transp)
     end
     if self.showGoMark and self.timeLeft >= 5.5 then
         love.graphics.draw(txtGo, x - 40, y )

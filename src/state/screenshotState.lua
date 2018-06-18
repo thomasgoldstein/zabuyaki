@@ -31,7 +31,7 @@ end
 function screenshotState:draw()
     mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         stage:draw(l,t,w,h)
         showDebugBoxes() -- debug draw collision boxes
     end)
@@ -39,11 +39,11 @@ function screenshotState:draw()
     push:start()
     if canvas[1] then
         love.graphics.setBlendMode("alpha", "premultiplied")
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         love.graphics.draw(canvas[1], 0,0, nil, 0.5) --bg
-        love.graphics.setColor(255, 255, 255, GLOBAL_SETTING.SHADOW_OPACITY)
+        colors:set("white", nil, GLOBAL_SETTING.SHADOW_OPACITY)
         love.graphics.draw(canvas[2], 0,0, nil, 0.5) --shadows
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         love.graphics.draw(canvas[3], 0,0, nil, 0.5) --sprites + fg
         love.graphics.setBlendMode("alpha")
     end

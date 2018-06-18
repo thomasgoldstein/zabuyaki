@@ -100,7 +100,7 @@ end
 
 function InfoBar:drawDeadCross(l, t, transpBg)
     if self.hp <= 0 then
-        love.graphics.setColor(255,255,255, 255 * math.sin(self.timer*20 + 17) * transpBg)
+        colors:set("white", nil, 255 * math.sin(self.timer*20 + 17) * transpBg)
         love.graphics.draw (
             gfx.ui.deadIcon.sprite,
             gfx.ui.deadIcon.q,

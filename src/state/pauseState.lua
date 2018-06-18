@@ -70,7 +70,7 @@ end
 function pauseState:draw()
     mainCamera:draw(function(l, t, w, h)
         -- draw camera stuff here
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         stage:draw(l,t,w,h)
         showDebugBoxes() -- debug draw collision boxes
     end)
