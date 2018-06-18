@@ -128,9 +128,9 @@ function showDebugControls()
             if p and p.infoBar then
                 local x = p.infoBar.x + 76
                 local y = p.infoBar.y + 36
-                love.graphics.setColor(0, 0, 0, 150)
+                colors:set("black", nil, 150)
                 love.graphics.rectangle("fill", x - 2, y, 61, 9)
-                love.graphics.setColor( unpack( GLOBAL_SETTING.PLAYERS_COLORS[p.id] ) )
+                colors:set("playersColors", p.id)
                 if p.b.attack:isDown() then
                     love.graphics.print("A", x, y)
                 end

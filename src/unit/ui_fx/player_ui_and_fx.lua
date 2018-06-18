@@ -7,21 +7,17 @@ local Player = Player
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
 function Player:drawTextInfo(l, t, transpBg, iconWidth, normColor)
-    love.graphics.setColor(255, 255, 255, transpBg)
+    colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transpBg)
-    local c = GLOBAL_SETTING.PLAYERS_COLORS[self.id]
-    if c then
-        c[4] = transpBg
-        love.graphics.setColor(unpack( c ))
-    end
+    colors:set("playersColors", self.id, transpBg)
     printWithShadow(self.pid, l + self.shake.x + iconWidth + 2, t - 1,
         transpBg)
     love.graphics.setColor(normColor[1], normColor[2], normColor[3], transpBg)
     printWithShadow(string.format("%06d", self.score), l + self.shake.x + iconWidth + 34, t - 1,
         transpBg)
     if self.lives >= 1 then
-        love.graphics.setColor(255, 255, 255, transpBg)
+        colors:set("white", nil, transpBg)
         printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,
             transpBg)
         love.graphics.setFont(gfx.font.arcade3x2)
@@ -51,7 +47,7 @@ function Player:drawBar(l,t,w,h, iconWidth, normColor)
         self:drawDeadCross(l, t, transpBg)
         self.source:drawTextInfo(l + self.x, t + self.y, transpBg, iconWidth, normColor)
     else
-        love.graphics.setColor(255, 255, 255, transpBg)
+        colors:set("white", nil, transpBg)
         if playerSelectMode == 0 then
             -- wait press to use credit
             printWithShadow("CONTINUE x"..tonumber(credits), l + self.x + 2, t + self.y + 9,

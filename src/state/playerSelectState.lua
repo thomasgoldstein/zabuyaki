@@ -254,18 +254,17 @@ local function drawPID(x, y_, i, confirmed)
         return
     end
     local y = y_ - math.cos(x+time*6)
-    GLOBAL_SETTING.PLAYERS_COLORS[i][4] = 255 -- remove transparends of the red/green/blue edge around P
-    love.graphics.setColor( unpack( GLOBAL_SETTING.PLAYERS_COLORS[i] ) )
+    colors:set("playersColors", i, transpBg)
     love.graphics.rectangle( "fill", x - 30, y, 60, 34 )
     love.graphics.polygon( "fill", x, y - 6, x - 4 , y - 0, x + 4, y - 0 ) --arrow up
-    love.graphics.setColor(0, 0, 0, 255)
+    colors:set("black")
     if confirmed then
         love.graphics.rectangle( "fill", x - 26, y + 4, 52, 26 )    --bold outline
     else
         love.graphics.rectangle( "fill", x - 28, y + 2, 56, 30 )
     end
     love.graphics.setFont(gfx.font.arcade3x2)
-    love.graphics.setColor(255, 255, 255, 255)
+    colors:set("white")
     love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i], x - 14, y + 8)
 end
 
@@ -431,7 +430,7 @@ function playerSelectState:draw()
         local curColorSlot = sh[i][2]
         local h = heroes[i]
         local originalChar = 1
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         --name
         love.graphics.setFont(gfx.font.arcade3x3)
         love.graphics.print(h[originalChar].name, h.x - 24 * #h[originalChar].name / 2, h.ny)
@@ -441,7 +440,7 @@ function playerSelectState:draw()
         --Players sprite
         if players[i].visible then
             --hero sprite
-            love.graphics.setColor(255, 255, 255, 255)
+            colors:set("white")
             if players[i].sprite then
                 love.graphics.setShader(getShader(curPlayerHeroSet.name:lower(), curPlayerHeroSet.palette))
                 drawSpriteInstance(players[i].sprite, h.x, h.y)
@@ -450,15 +449,13 @@ function playerSelectState:draw()
             --P1 P2 P3 indicators
             drawPID(players[i].nx, players[i].ny, i, players[i].confirmed)
         else
-            local c = GLOBAL_SETTING.PLAYERS_COLORS[i]
-            c[4] = 230 + math.sin(time * 4)*25
-            love.graphics.setColor( unpack( c ) )
+            colors:set("playersColors", i, 230 + math.sin(time * 4)*25)
             love.graphics.setFont(gfx.font.arcade3x2)
             love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPRESS\nATTACK", h.x - portraitWidth/2 + 20, h.y - portraitHeight + 48)
         end
     end
     --header
-    love.graphics.setColor(255, 255, 255, 255)
+    colors:set("white")
     love.graphics.draw(playerSelectText, (screenWidth - playerSelectText:getWidth()) / 2, titleOffset_y)
     showDebugIndicator()
     push:finish()

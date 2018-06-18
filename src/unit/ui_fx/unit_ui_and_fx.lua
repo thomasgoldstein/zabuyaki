@@ -268,15 +268,13 @@ function Unit:drawPID(x, y_)
         return
     end
     local y = y_ - math.cos(self.showPIDDelay * 6)
-    local c = GLOBAL_SETTING.PLAYERS_COLORS[self.id]
-    c[4] = calcTransparency(self.showPIDDelay)
-    love.graphics.setColor(unpack(c))
+    colors:set("playersColors", self.id, calcTransparency(self.showPIDDelay))
     love.graphics.rectangle("fill", x - 15, y, 30, 17)
     love.graphics.polygon("fill", x, y + 20, x - 2, y + 17, x + 2, y + 17)
-    love.graphics.setColor(0, 0, 0, calcTransparency(self.showPIDDelay))
+    colors:set("black", nil, calcTransparency(self.showPIDDelay))
     love.graphics.rectangle("fill", x - 13, y + 2, 30 - 4, 13)
     love.graphics.setFont(gfx.font.arcade3)
-    love.graphics.setColor(255, 255, 255, calcTransparency(self.showPIDDelay))
+    colors:set("white", nil, calcTransparency(self.showPIDDelay))
     love.graphics.print(self.pid, x - 7, y + 4)
 end
 
