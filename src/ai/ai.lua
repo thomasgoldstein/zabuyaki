@@ -607,9 +607,9 @@ function AI:onGrab(dt)
         -- initGrab action failed.
         return true
     end
-    if u.moves.frontGrabAttack and g.target and g.target.isGrabbed
+    if u.moves.grabFrontAttack and g.target and g.target.isGrabbed
             and self.chanceToGrabAttack > love.math.random() then
-        u:setState(u.frontGrabAttack)
+        u:setState(u.grabFrontAttack)
         return true
     end
     return false

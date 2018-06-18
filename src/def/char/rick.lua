@@ -8,46 +8,46 @@ end
 local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
-local frontGrabAttack = function(slf, cont)
+local grabFrontAttack = function(slf, cont)
     --default values: 10,0,20,12, "hit", slf.speed_x
     slf:checkAndAttack(
         { x = 18, y = 21, width = 26, damage = 9 },
         cont
     )
 end
-local frontGrabAttackLast = function(slf, cont)
+local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, y = 21, width = 26, damage = 11,
         type = "knockDown", repel = slf.shortThrowSpeed_x },
         cont
     )
 end
-local frontGrabAttackDown = function(slf, cont)
+local grabFrontAttackDown = function(slf, cont)
     slf:checkAndAttack(
         { x = 20, y = 30, width = 26, damage = 15,
         type = "knockDown", repel = slf.shortThrowSpeed_x },
         cont
     )
 end
-local frontGrabAttackUp = function(slf, cont)
+local grabFrontAttackUp = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x / 10,
         slf.throwSpeed_z * 2,
         slf.horizontal, nil,
         slf.z + slf.throwStart_z)
 end
-local frontGrabAttackBack = function(slf, cont)
+local grabFrontAttackBack = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier,
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face, slf.face,
         slf.z + slf.throwStart_z)
 end
-local frontGrabAttackForward = function(slf, cont)
+local grabFrontAttackForward = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier,
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face, nil,
         slf.z + slf.throwStart_z)
 end
-local backGrabAttack = function(slf, cont)
+local grabBackAttack = function(slf, cont)
     local g = slf.grabContext
     if g and g.target then
         slf:checkAndAttack(
@@ -530,37 +530,37 @@ return {
         grab = {
             { q = q(2,979,44,63), ox = 18, oy = 62 }, --grab
         },
-        frontGrabAttack1 = {
+        grabFrontAttack1 = {
             { q = q(48,979,54,63), ox = 31, oy = 62 }, --grab attack 1
             { q = q(104,980,42,62), ox = 19, oy = 61 }, --grab attack 2
-            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttack, delay = 0.16 }, --grab attack 3
+            { q = q(148,984,45,58), ox = 16, oy = 57, func = grabFrontAttack, delay = 0.16 }, --grab attack 3
             { q = q(182,716,39,60), ox = 17, oy = 59, delay = 0.02 }, --combo forward 2.2
             delay = 0.03
         },
-        frontGrabAttack2 = {
+        grabFrontAttack2 = {
             { q = q(48,979,54,63), ox = 31, oy = 62 }, --grab attack 1
             { q = q(104,980,42,62), ox = 19, oy = 61 }, --grab attack 2
-            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttack, delay = 0.16 }, --grab attack 3
+            { q = q(148,984,45,58), ox = 16, oy = 57, func = grabFrontAttack, delay = 0.16 }, --grab attack 3
             { q = q(182,716,39,60), ox = 17, oy = 59, delay = 0.02 }, --combo forward 2.2
             delay = 0.03
         },
-        frontGrabAttack3 = {
+        grabFrontAttack3 = {
             { q = q(48,979,54,63), ox = 31, oy = 62 }, --grab attack 1
             { q = q(104,980,42,62), ox = 19, oy = 61 }, --grab attack 2
-            { q = q(148,984,45,58), ox = 16, oy = 57, func = frontGrabAttackLast, delay = 0.16 }, --grab attack 3
+            { q = q(148,984,45,58), ox = 16, oy = 57, func = grabFrontAttackLast, delay = 0.16 }, --grab attack 3
             { q = q(182,716,39,60), ox = 17, oy = 59, delay = 0.02 }, --combo forward 2.2
             delay = 0.03
         },
-        frontGrabAttackDown = {
+        grabFrontAttackDown = {
             { q = q(2,1044,56,63), ox = 30, oy = 62, delay = 0.25 }, --grab attack end 1
-            { q = q(60,1048,54,59), ox = 17, oy = 58, func = frontGrabAttackDown, delay = 0.05 }, --grab attack end 2
+            { q = q(60,1048,54,59), ox = 17, oy = 58, func = grabFrontAttackDown, delay = 0.05 }, --grab attack end 2
             { q = q(116,1047,52,60), ox = 17, oy = 59, delay = 0.2 }, --grab attack end 3
             { q = q(170,1044,44,63), ox = 17, oy = 62 }, --grab attack end 4
             delay = 0.1
         },
-        frontGrabAttackUp = {
+        grabFrontAttackUp = {
             { q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.167 }, --combo up 4.1
-            { q = q(51,1178,46,62), ox = 15, oy = 61, func = frontGrabAttackUp, delay = 0.05 }, --combo up 4.2
+            { q = q(51,1178,46,62), ox = 15, oy = 61, func = grabFrontAttackUp, delay = 0.05 }, --combo up 4.2
             { q = q(99,1178,49,62), ox = 15, oy = 61, delay = 0.05 }, --combo up 4.3
             { q = q(150,1173,53,67), ox = 20, oy = 66 }, --combo up 4.4a
             { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.4b
@@ -569,9 +569,9 @@ return {
             delay = 0.083,
             isThrow = true
         },
-        frontGrabAttackBack = {
+        grabFrontAttackBack = {
             { q = q(2,1111,43,60), ox = 26, oy = 59 }, --throw back 1
-            { q = q(47,1113,42,58), ox = 17, oy = 57, func = frontGrabAttackBack, delay = 0.05 }, --throw back 2
+            { q = q(47,1113,42,58), ox = 17, oy = 57, func = grabFrontAttackBack, delay = 0.05 }, --throw back 2
             { q = q(91,1114,44,57), ox = 14, oy = 56 }, --throw back 3
             { q = q(137,1112,40,59), ox = 14, oy = 58, delay = 0.1 }, --throw back 4
             delay = 0.2,
@@ -581,11 +581,11 @@ return {
                 { ox = 10, oz = 20 }
             }
         },
-        frontGrabAttackForward = {
+        grabFrontAttackForward = {
             { q = q(2,2361,56,62), ox = 33, oy = 61 }, --throw forward 1
             { q = q(60,2362,42,61), ox = 17, oy = 61 }, --throw forward 2
             { q = q(104,2361,63,62), ox = 20, oy = 62, delay = 0.3 }, --throw forward 3
-            { q = q(169,2370,54,53), ox = 17, oy = 52, func = frontGrabAttackForward, delay = 0.067 }, --throw forward 4
+            { q = q(169,2370,54,53), ox = 17, oy = 52, func = grabFrontAttackForward, delay = 0.067 }, --throw forward 4
             { q = q(2,1899,47,50), ox = 17, oy = 49, delay = 0.13 }, --dash attack 7
             { q = q(51,1891,41,58), ox = 14, oy = 57 }, --dash attack 8
             { q = q(94,1887,38,62), ox = 15, oy = 61 }, --dash attack 9
@@ -596,12 +596,12 @@ return {
                 { ox = 10, oz = 20 }
             }
         },
-        backGrabAttack = {
+        grabBackAttack = {
             { q = q(2,1694,41,61), ox = 12, oy = 60, delay = 0.13 }, --back throw 1
             { q = q(45,1692,45,63), ox = 15, oy = 62, delay = 0.1 }, --back throw 2
             { q = q(92,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back throw 3
             { q = q(155,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back throw 4
-            { q = q(100,1652,63,38), ox = 51, oy = 34, func = backGrabAttack, delay = 0.3 }, --back throw 5
+            { q = q(100,1652,63,38), ox = 51, oy = 34, func = grabBackAttack, delay = 0.3 }, --back throw 5
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pick up 1

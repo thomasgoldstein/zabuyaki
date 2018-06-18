@@ -8,35 +8,35 @@ end
 local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
-local frontGrabAttack = function(slf, cont)
+local grabFrontAttack = function(slf, cont)
     --default values: 10,0,20,12, "hit", slf.speed_x
     slf:checkAndAttack(
         { x = 8, y = 20, width = 26, damage = 9 },
         cont
     )
 end
-local frontGrabAttackLast = function(slf, cont)
+local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 10, y = 21, width = 26, damage = 11,
         type = "knockDown", repel = slf.shortThrowSpeed_x },
         cont
     )
 end
-local frontGrabAttackDown = function(slf, cont)
+local grabFrontAttackDown = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, y = 37, width = 26, damage = 15,
         type = "knockDown", repel = slf.shortThrowSpeed_x },
         cont
     )
 end
-local frontGrabAttackUp = function(slf, cont)
+local grabFrontAttackUp = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x / 10,
         slf.throwSpeed_z * 2,
         slf.horizontal, nil,
         slf.z + slf.throwStart_z)
 end
-local frontGrabAttackBack = function(slf, cont) slf:doThrow(220, 20, slf.face) end
-local frontGrabAttackForward = function(slf, cont)
+local grabFrontAttackBack = function(slf, cont) slf:doThrow(220, 20, slf.face) end
+local grabFrontAttackForward = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier,
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face)
@@ -566,45 +566,45 @@ return {
         grab = {
             { q = q(2,1659,45,64), ox = 23, oy = 63 }, --grab
         },
-        frontGrabAttack1 = {
+        grabFrontAttack1 = {
             { q = q(49,1659,41,64), ox = 23, oy = 63 }, --grab attack 1.1
-            { q = q(92,1660,37,63), ox = 11, oy = 62, func = frontGrabAttack, delay = 0.18 }, --grab attack 1.2
+            { q = q(92,1660,37,63), ox = 11, oy = 62, func = grabFrontAttack, delay = 0.18 }, --grab attack 1.2
             { q = q(131,1660,42,63), ox = 17, oy = 62 }, --grab attack 1.3
             delay = 0.03
         },
-        frontGrabAttack2 = {
+        grabFrontAttack2 = {
             { q = q(49,1659,41,64), ox = 23, oy = 63 }, --grab attack 1.1
-            { q = q(92,1660,37,63), ox = 11, oy = 62, func = frontGrabAttack, delay = 0.18 }, --grab attack 1.2
+            { q = q(92,1660,37,63), ox = 11, oy = 62, func = grabFrontAttack, delay = 0.18 }, --grab attack 1.2
             { q = q(131,1660,42,63), ox = 17, oy = 62 }, --grab attack 1.3
             delay = 0.03
         },
-        frontGrabAttack3 = {
+        grabFrontAttack3 = {
             { q = q(49,1659,41,64), ox = 23, oy = 63 }, --grab attack 1.1
             { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.02 }, --jump attack forward 1 (shifted right by 3px)
-            { q = q(43,722,37,64), ox = 9, oy = 63, func = frontGrabAttackLast, delay = 0.18 }, --jump attack forward 2 (shifted right by 3px)
+            { q = q(43,722,37,64), ox = 9, oy = 63, func = grabFrontAttackLast, delay = 0.18 }, --jump attack forward 2 (shifted right by 3px)
             { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.05 }, --jump attack forward 1 (shifted right by 3px)
             delay = 0.03
         },
-        frontGrabAttackDown = {
+        grabFrontAttackDown = {
             { q = q(117,587,48,65), ox = 13, oy = 64, delay = 0.15 }, --combo 4.1
             { q = q(167,587,50,65), ox = 14, oy = 64 }, --combo 4.2
-            { q = q(192,725,49,62), ox = 14, oy = 61, func = frontGrabAttackDown }, --combo 4.7
+            { q = q(192,725,49,62), ox = 14, oy = 61, func = grabFrontAttackDown }, --combo 4.7
             { q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.35 }, --combo 4.6
             delay = 0.05
         },
-        frontGrabAttackUp = {
+        grabFrontAttackUp = {
             { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
             { q = q(44,928,51,63), ox = 26, oy = 62 }, --throw 1.2
-            { q = q(97,928,53,63), ox = 22, oy = 62, func = frontGrabAttackUp, delay = 0.2 }, --throw 1.3
+            { q = q(97,928,53,63), ox = 22, oy = 62, func = grabFrontAttackUp, delay = 0.2 }, --throw 1.3
             { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
             delay = 0.07,
             isThrow = true,
         },
-        frontGrabAttackBack = {
+        grabFrontAttackBack = {
             { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw back 1
-            { q = q(44,928,51,63), ox = 26, oy = 62, func = frontGrabAttackBack }, --throw back 2
+            { q = q(44,928,51,63), ox = 26, oy = 62, func = grabFrontAttackBack }, --throw back 2
             { q = q(97,928,53,63), ox = 22, oy = 62, delay = 0.2 }, --throw back 3
             { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.07 }, --duck
             { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.07 }, --duck
@@ -619,12 +619,12 @@ return {
                 { z = 0 }
             }
         },
-        frontGrabAttackForward = {
+        grabFrontAttackForward = {
             { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
             { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
             { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
-            { q = q(44,928,51,63), ox = 26, oy = 62, func = frontGrabAttackForward }, --throw 1.2
+            { q = q(44,928,51,63), ox = 26, oy = 62, func = grabFrontAttackForward }, --throw 1.2
             { q = q(97,928,53,63), ox = 22, oy = 62 }, --throw 1.3
             { q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
             { q = q(2,273,39,60), ox = 22, oy = 59 }, --duck

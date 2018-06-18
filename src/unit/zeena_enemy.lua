@@ -23,8 +23,8 @@ function Zeena:initAttributes()
     self.moves = { -- list of allowed moves
         run = false, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = true,
-        grab = false, grabSwap = false, frontGrabAttack = false, chargeAttack = false, chargeDash = false,
-        frontGrabAttackUp = false, frontGrabAttackDown = false, frontGrabAttackBack = false, frontGrabAttackForward = false,
+        grab = false, grabSwap = false, grabFrontAttack = false, chargeAttack = false, chargeDash = false,
+        grabFrontAttackUp = false, grabFrontAttackDown = false, grabFrontAttackBack = false, grabFrontAttackForward = false,
         dashAttack = false, specialOffensive = false, specialDefensive = false,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,

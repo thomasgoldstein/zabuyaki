@@ -16,8 +16,8 @@ function Rick:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-        grab = true, grabSwap = true, frontGrabAttack = true, chargeAttack = true, chargeDash = true,
-        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true, backGrabAttack = true,
+        grab = true, grabSwap = true, grabFrontAttack = true, chargeAttack = true, chargeDash = true,
+        grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true, grabBackAttack = true,
         dashAttack = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -119,18 +119,18 @@ function Rick:specialOffensiveUpdate(dt)
 end
 Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.fadeOutGhostTrace, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
 
-function Rick:backGrabAttackStart()
+function Rick:grabBackAttackStart()
     local g = self.grabContext
     local t = g.target
     self:initGrabTimer()
     self:moveStatesInit()
-    self:setSprite("backGrabAttack")
+    self:setSprite("grabBackAttack")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     self:playSfx(self.sfx.throw)
-    dp(self.name.." backGrabAttack someone.")
+    dp(self.name.." grabBackAttack someone.")
 end
-function Rick:backGrabAttackUpdate(dt)
+function Rick:grabBackAttackUpdate(dt)
     local g = self.grabContext
     local t = g.target
     if t.state ~= "bounce" then
@@ -141,6 +141,6 @@ function Rick:backGrabAttackUpdate(dt)
         return
     end
 end
-Rick.backGrabAttack = {name = "backGrabAttack", start = Rick.backGrabAttackStart, exit = nop, update = Rick.backGrabAttackUpdate, draw = Character.defaultDraw}
+Rick.grabBackAttack = {name = "grabBackAttack", start = Rick.grabBackAttackStart, exit = nop, update = Rick.grabBackAttackUpdate, draw = Character.defaultDraw}
 
 return Rick

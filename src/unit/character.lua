@@ -8,8 +8,8 @@ local delayWithSlowMotion = delayWithSlowMotion
 
 Character.statesForChargeAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
-Character.statesForSpecialDefensive = { stand = true, walk = true, run = true, duck2jump = true, combo = true, hurt = true, chargeDash = true, grabbedFront = true, grabbedBack = true, frontGrabAttack = true, grab = true }
-Character.statesForSpecialOffensive = { stand = true, combo = true, duck2jump = true, walk = true, run = true, frontGrabAttack = true, grab = true }
+Character.statesForSpecialDefensive = { stand = true, walk = true, run = true, duck2jump = true, combo = true, hurt = true, chargeDash = true, grabbedFront = true, grabbedBack = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialOffensive = { stand = true, combo = true, duck2jump = true, walk = true, run = true, grabFrontAttack = true, grab = true }
 Character.statesForSpecialToleranceDelay = { duck2jump = true }
 
 function Character:initialize(name, sprite, input, x, y, f)
@@ -48,7 +48,7 @@ function Character:initAttributes()
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, chargeAttack = false,
-        frontGrabAttack = true, frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
+        grabFrontAttack = true, grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true,
         dashAttack = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -82,7 +82,7 @@ function Character:initAttributes()
     self.sideStepFriction = 650 --speed penalty for sideStepUp/Down (when you slide on the ground)
     self.hopDuringSideStep = true --if true, perform a small jump during side step
     self.throwSpeed_x = 220 --my throwing speed
-    self.shortThrowSpeed_x = self.throwSpeed_x / 2 --my throwing speed (frontGrabAttack Last and Down)
+    self.shortThrowSpeed_x = self.throwSpeed_x / 2 --my throwing speed (grabFrontAttack Last and Down)
     self.throwSpeed_z = 200 --my throwing speed
     self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
     self.backoffSpeed_x = 130 --when you ungrab someone
@@ -1340,32 +1340,32 @@ function Character:grabUpdate(dt)
             local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
             if self.face ~= g.target.face or g.target.type == "obstacle" then
                 -- front grab or obstacles
-                if self.moves.frontGrabAttackForward and hv == self.face then
-                    self:setState(self.frontGrabAttackForward)
-                elseif self.moves.frontGrabAttackBack and hv == -self.face then
-                    self:setState(self.frontGrabAttackBack)
-                elseif self.moves.frontGrabAttackUp and vv == -1 then
-                    self:setState(self.frontGrabAttackUp)
-                elseif self.moves.frontGrabAttackDown and vv == 1 then
-                    self:setState(self.frontGrabAttackDown)
-                elseif self.moves.frontGrabAttack then
-                    self:setState(self.frontGrabAttack)
+                if self.moves.grabFrontAttackForward and hv == self.face then
+                    self:setState(self.grabFrontAttackForward)
+                elseif self.moves.grabFrontAttackBack and hv == -self.face then
+                    self:setState(self.grabFrontAttackBack)
+                elseif self.moves.grabFrontAttackUp and vv == -1 then
+                    self:setState(self.grabFrontAttackUp)
+                elseif self.moves.grabFrontAttackDown and vv == 1 then
+                    self:setState(self.grabFrontAttackDown)
+                elseif self.moves.grabFrontAttack then
+                    self:setState(self.grabFrontAttack)
                 end
             else -- back grab of characters only
-                if self.moves.backGrabAttackForward and hv == self.face then
-                    self:setState(self.backGrabAttackForward)
-                elseif self.moves.backGrabAttackBack and hv == -self.face then
-                    self:setState(self.backGrabAttackBack)
-                elseif self.moves.backGrabAttackUp and vv == -1 then
-                    self:setState(self.backGrabAttackUp)
-                elseif self.moves.backGrabAttackDown and vv == 1 then
-                    self:setState(self.backGrabAttackDown)
-                elseif self.moves.backGrabAttack then
-                    self:setState(self.backGrabAttack)
-                elseif self.moves.frontGrabAttackBack then
-                    self:setState(self.frontGrabAttackBack)
-                elseif self.moves.frontGrabAttack then
-                    self:setState(self.frontGrabAttack) -- use generic frontGrabAttack
+                if self.moves.grabBackAttackForward and hv == self.face then
+                    self:setState(self.grabBackAttackForward)
+                elseif self.moves.grabBackAttackBack and hv == -self.face then
+                    self:setState(self.grabBackAttackBack)
+                elseif self.moves.grabBackAttackUp and vv == -1 then
+                    self:setState(self.grabBackAttackUp)
+                elseif self.moves.grabBackAttackDown and vv == 1 then
+                    self:setState(self.grabBackAttackDown)
+                elseif self.moves.grabBackAttack then
+                    self:setState(self.grabBackAttack)
+                elseif self.moves.grabFrontAttackBack then
+                    self:setState(self.grabFrontAttackBack)
+                elseif self.moves.grabFrontAttack then
+                    self:setState(self.grabFrontAttack) -- use generic grabFrontAttack
                 end
             end
             return
@@ -1460,22 +1460,22 @@ function Character:initGrabTimer()
     g.grabTimer = self.grabTimeout -- init both timers
     g.target.grabContext.grabTimer = g.grabTimer
 end
-function Character:frontGrabAttackStart()
+function Character:grabFrontAttackStart()
     local g = self.grabContext
     local t = g.target
-    if self.moves.frontGrabAttackDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
+    if self.moves.grabFrontAttackDown and self.b.vertical:isDown(1) then --press DOWN to early headbutt
         g.grabTimer = 0
-        self:setState(self.frontGrabAttackDown)
+        self:setState(self.grabFrontAttackDown)
         return
     end
     self:initGrabTimer()
     self.grabAttackN = self.grabAttackN + 1
-    self:setSprite("frontGrabAttack"..self.grabAttackN)
+    self:setSprite("grabFrontAttack"..self.grabAttackN)
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." is frontGrabAttack someone.")
+    dp(self.name.." is grabFrontAttack someone.")
 end
-function Character:frontGrabAttackUpdate(dt)
+function Character:grabFrontAttackUpdate(dt)
     if self.sprite.isFinished then
         local g = self.grabContext
         if self.grabAttackN < self.sprite.def.maxGrabAttack
@@ -1483,24 +1483,24 @@ function Character:frontGrabAttackUpdate(dt)
             self:initGrabTimer()
             self:setState(self.grab, true) --do not adjust positions of pl
         else
-            --it is the last frontGrabAttack or killed the target
+            --it is the last grabFrontAttack or killed the target
             self:setState(self.stand)
         end
         return
     end
     self:tweenMove(dt)
 end
-Character.frontGrabAttack = {name = "frontGrabAttack", start = Character.frontGrabAttackStart, exit = nop, update = Character.frontGrabAttackUpdate, draw = Character.defaultDraw}
+Character.grabFrontAttack = {name = "grabFrontAttack", start = Character.grabFrontAttackStart, exit = nop, update = Character.grabFrontAttackUpdate, draw = Character.defaultDraw}
 
-function Character:frontGrabAttackDownStart()
+function Character:grabFrontAttackDownStart()
     local g = self.grabContext
     local t = g.target
-    self:setSprite("frontGrabAttackDown")
+    self:setSprite("grabFrontAttackDown")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." is frontGrabAttackDown someone.")
+    dp(self.name.." is grabFrontAttackDown someone.")
 end
-function Character:frontGrabAttackDownUpdate(dt)
+function Character:grabFrontAttackDownUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1513,15 +1513,15 @@ function Character:frontGrabAttackDownUpdate(dt)
         end
     end
 end
-Character.frontGrabAttackDown = {name = "frontGrabAttackDown", start = Character.frontGrabAttackDownStart, exit = nop, update = Character.frontGrabAttackDownUpdate, draw = Character.defaultDraw}
+Character.grabFrontAttackDown = {name = "grabFrontAttackDown", start = Character.grabFrontAttackDownStart, exit = nop, update = Character.grabFrontAttackDownUpdate, draw = Character.defaultDraw}
 
-function Character:frontGrabAttackUpStart()
+function Character:grabFrontAttackUpStart()
     local g = self.grabContext
     local t = g.target
-    self:setSprite("frontGrabAttackUp")
+    self:setSprite("grabFrontAttackUp")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." frontGrabAttackUp someone.")
+    dp(self.name.." grabFrontAttackUp someone.")
 end
 
 function Character:doThrow(speed_x, speed_z, horizontal, face, start_z)
@@ -1548,7 +1548,7 @@ function Character:doThrow(speed_x, speed_z, horizontal, face, start_z)
     self:playSfx(self.sfx.throw)
 end
 
-function Character:frontGrabAttackUpUpdate(dt)
+function Character:grabFrontAttackUpUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
@@ -1561,18 +1561,18 @@ function Character:frontGrabAttackUpUpdate(dt)
         end
     end
 end
-Character.frontGrabAttackUp = {name = "frontGrabAttackUp", start = Character.frontGrabAttackUpStart, exit = nop, update = Character.frontGrabAttackUpUpdate, draw = Character.defaultDraw}
+Character.grabFrontAttackUp = {name = "grabFrontAttackUp", start = Character.grabFrontAttackUpStart, exit = nop, update = Character.grabFrontAttackUpUpdate, draw = Character.defaultDraw}
 
-function Character:frontGrabAttackForwardStart()
+function Character:grabFrontAttackForwardStart()
     local g = self.grabContext
     local t = g.target
     self:moveStatesInit()
-    self:setSprite("frontGrabAttackForward")
+    self:setSprite("grabFrontAttackForward")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." frontGrabAttackForward someone.")
+    dp(self.name.." grabFrontAttackForward someone.")
 end
-function Character:frontGrabAttackForwardUpdate(dt)
+function Character:grabFrontAttackForwardUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -1586,20 +1586,20 @@ function Character:frontGrabAttackForwardUpdate(dt)
         end
     end
 end
-Character.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Character.frontGrabAttackForwardStart, exit = nop, update = Character.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
+Character.grabFrontAttackForward = {name = "grabFrontAttackForward", start = Character.grabFrontAttackForwardStart, exit = nop, update = Character.grabFrontAttackForwardUpdate, draw = Character.defaultDraw}
 
-function Character:frontGrabAttackBackStart()
+function Character:grabFrontAttackBackStart()
     local g = self.grabContext
     local t = g.target
     self:moveStatesInit()
     self.face = -self.face
     self.horizontal = self.face
-    self:setSprite("frontGrabAttackBack")
+    self:setSprite("grabFrontAttackBack")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." frontGrabAttackBack someone.")
+    dp(self.name.." grabFrontAttackBack someone.")
 end
-function Character:frontGrabAttackBackUpdate(dt)
+function Character:grabFrontAttackBackUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
         self:setState(self.stand)
@@ -1613,7 +1613,7 @@ function Character:frontGrabAttackBackUpdate(dt)
         end
     end
 end
-Character.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Character.frontGrabAttackBackStart, exit = nop, update = Character.frontGrabAttackBackUpdate, draw = Character.defaultDraw}
+Character.grabFrontAttackBack = {name = "grabFrontAttackBack", start = Character.grabFrontAttackBackStart, exit = nop, update = Character.grabFrontAttackBackUpdate, draw = Character.defaultDraw}
 
 local grabSwapFrames = { 1, 2, 2, 1 }
 function Character:grabSwapStart()

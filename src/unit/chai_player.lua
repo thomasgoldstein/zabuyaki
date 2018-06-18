@@ -16,8 +16,8 @@ function Chai:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, sideStep = true, pickup = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-        grab = true, grabSwap = true, frontGrabAttack = true, chargeAttack = true, chargeDash = true,
-        frontGrabAttackUp = true, frontGrabAttackDown = true, frontGrabAttackBack = true, frontGrabAttackForward = true,
+        grab = true, grabSwap = true, grabFrontAttack = true, chargeAttack = true, chargeDash = true,
+        grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true,
         dashAttack = true, specialOffensive = true, specialDefensive = true,
         -- technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
@@ -102,41 +102,41 @@ function Chai:dashAttackUpdate(dt)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
-function Chai:frontGrabAttackForwardStart()
+function Chai:grabFrontAttackForwardStart()
     local g = self.grabContext
     local t = g.target
     self:moveStatesInit()
-    self:setSprite("frontGrabAttackForward")
+    self:setSprite("grabFrontAttackForward")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." frontGrabAttackForward someone.")
+    dp(self.name.." grabFrontAttackForward someone.")
 end
-function Chai:frontGrabAttackForwardUpdate(dt)
+function Chai:grabFrontAttackForwardUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
     end
 end
-Chai.frontGrabAttackForward = {name = "frontGrabAttackForward", start = Chai.frontGrabAttackForwardStart, exit = nop, update = Chai.frontGrabAttackForwardUpdate, draw = Character.defaultDraw}
+Chai.grabFrontAttackForward = {name = "grabFrontAttackForward", start = Chai.grabFrontAttackForwardStart, exit = nop, update = Chai.grabFrontAttackForwardUpdate, draw = Character.defaultDraw}
 
-function Chai:frontGrabAttackBackStart()
+function Chai:grabFrontAttackBackStart()
     local g = self.grabContext
     local t = g.target
     self:moveStatesInit()
-    self:setSprite("frontGrabAttackBack")
+    self:setSprite("grabFrontAttackBack")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." frontGrabAttackBack someone.")
+    dp(self.name.." grabFrontAttackBack someone.")
 end
-function Chai:frontGrabAttackBackUpdate(dt)
+function Chai:grabFrontAttackBackUpdate(dt)
     self:moveStatesApply()
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
     end
 end
-Chai.frontGrabAttackBack = {name = "frontGrabAttackBack", start = Chai.frontGrabAttackBackStart, exit = nop, update = Chai.frontGrabAttackBackUpdate, draw = Character.defaultDraw}
+Chai.grabFrontAttackBack = {name = "grabFrontAttackBack", start = Chai.grabFrontAttackBackStart, exit = nop, update = Chai.grabFrontAttackBackUpdate, draw = Character.defaultDraw}
 
 function Chai:specialDefensiveStart()
     self.isHittable = false

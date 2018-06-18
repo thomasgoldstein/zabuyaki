@@ -140,15 +140,15 @@ return {
         grab = {
             { q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
         },
-        frontGrabAttack1 = {
+        grabFrontAttack1 = {
             { q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
             delay = 0.05
         },
-        frontGrabAttackDown = {
+        grabFrontAttackDown = {
             { q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
             delay = 0.1
         },
-        frontGrabAttackForward = {
+        grabFrontAttackForward = {
             { q = q(2,2,38,60), ox = 23, oy = 59 }, --stand 1
             delay = 0.1
         },

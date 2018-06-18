@@ -31,14 +31,14 @@ local rollAttack = function(slf, cont)
     )
 end
 
-local frontGrabAttack = function(slf, cont)
+local grabFrontAttack = function(slf, cont)
     slf:checkAndAttack(
         { x = 19, y = 37, width = 26, damage = 12 },
         cont
     )
 end
 
-local frontGrabAttackLast = function(slf, cont)
+local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 19, y = 37, width = 26, damage = 18,
         type = "knockDown", repel = slf.shortThrowSpeed_x },
@@ -46,7 +46,7 @@ local frontGrabAttackLast = function(slf, cont)
     )
 end
 
-local frontGrabAttackBack = function(slf, cont)
+local grabFrontAttackBack = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier,
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face, slf.face,
@@ -228,27 +228,27 @@ return {
         grab = {
             { q = q(183,350,51,65), ox = 23, oy = 64 }, --uppercut 2
         },
-        frontGrabAttack1 = {
+        grabFrontAttack1 = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = frontGrabAttack,  delay = 0.18 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabFrontAttack,  delay = 0.18 }, --grab attack 3
             { q = q(183,350,51,65), ox = 23, oy = 64, delay = 0.07 }, --uppercut 2
             delay = 0.1
         },
-        frontGrabAttack2 = {
+        grabFrontAttack2 = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(64,595,67,66), ox = 36, oy = 65, delay = 0.16 }, --grab attack 2
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = frontGrabAttackLast, delay = 0.25 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabFrontAttackLast, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
-        frontGrabAttackDown = {
+        grabFrontAttackDown = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(64,595,67,66), ox = 36, oy = 65, delay = 0.16 }, --grab attack 2
-            { q = q(133,600,59,61), ox = 27, oy = 60, func = frontGrabAttackLast, delay = 0.25 }, --grab attack 3
+            { q = q(133,600,59,61), ox = 27, oy = 60, func = grabFrontAttackLast, delay = 0.25 }, --grab attack 3
             delay = 0.03
         },
-        frontGrabAttackBack = {
+        grabFrontAttackBack = {
             { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
-            { q = q(194,599,70,62), ox = 36, oy = 61, func = frontGrabAttackBack, delay = 0.5 }, --throw
+            { q = q(194,599,70,62), ox = 36, oy = 61, func = grabFrontAttackBack, delay = 0.5 }, --throw
             { q = q(183,350,51,65), ox = 23, oy = 64 }, --uppercut 2
             delay = 0.2,
             isThrow = true,
