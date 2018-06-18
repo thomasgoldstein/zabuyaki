@@ -410,14 +410,14 @@ function spriteEditorState:draw()
         end
         calcMenuItem(menu, i)
         if i == oldMenuState then
-            love.graphics.setColor(200, 200, 200, 255)
+            colors:set("darkenWhite")
             love.graphics.print(m.hint, m.wx, m.wy)
-            love.graphics.setColor(0, 0, 0, 80)
+            colors:set("black", nil, 80)
             love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
-            love.graphics.setColor(255,200,40, 255)
+            colors:set("menuOutline")
             love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         love.graphics.print(m.item, m.x, m.y )
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
@@ -428,7 +428,7 @@ function spriteEditorState:draw()
         end
     end
     --header
-    love.graphics.setColor(255, 255, 255, 120)
+    colors:set("white", nil, 120)
     love.graphics.draw(txtCurrentSprite, (screenWidth - txtCurrentSprite:getWidth()) / 2, titleOffset_y)
 
     --character sprite
@@ -440,35 +440,34 @@ function spriteEditorState:draw()
         y = y - 40
         x = x - 40
     end
-    love.graphics.setColor(255, 255, 255, 255)
+    colors:set("white")
     if hero.shaders[menu[4].n] then
         love.graphics.setShader(hero.shaders[menu[4].n])
     end
     if sprite then --for Obstacles w/o shaders
         if menuState == 2 then
             --1 frame
-            love.graphics.setColor(255, 0, 0, 150)
+            colors:set("red", nil, 150)
             love.graphics.rectangle("fill", 0, y, screenWidth, 2)
-            love.graphics.setColor(0, 0, 255, 150)
+            colors:set("blue", nil, 150)
             love.graphics.rectangle("fill", x, 0, 2, menuOffset_y + menuItem_h)
             if menu[menuState].n > #sprite.def.animations[sprite.curAnim] then
                 menu[menuState].n = 1
             end
-            love.graphics.setColor(255, 255, 255, 150)
+            colors:set("white", nil, 150)
             for i = 1, #sprite.def.animations[sprite.curAnim] do
                 drawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
                 drawWeaponSprite(sprite, x - (menu[menuState].n - i) * xStep, y, i )
             end
             if isDebug() then
                 showDebugBoxes(2)
-                love.graphics.setColor(255, 255, 255, 255)
             end
-            love.graphics.setColor(255, 255, 255, 255)
+            colors:set("white")
             drawSpriteInstance(sprite, x, y, menu[menuState].n)
             drawWeaponSprite(sprite, x, y, menu[menuState].n)
         elseif menuState == 3 then
             if weaponSprite and weaponSprite.curAnim then
-                love.graphics.setColor(255, 255, 255, 255)
+                colors:set("white")
                 weaponSprite.rotation = 0
                 weaponSprite.flipV = 1
                 weaponSprite.flipH = 1

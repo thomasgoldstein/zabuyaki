@@ -86,14 +86,14 @@ function optionsState:draw()
         end
         calcMenuItem(menu, i)
         if i == oldMenuState then
-            love.graphics.setColor(255, 255, 255, 255)
+            colors:set("white")
             love.graphics.print(m.hint, m.wx, m.wy)
-            love.graphics.setColor(0, 0, 0, 80)
+            colors:set("black", nil, 80)
             love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
-            love.graphics.setColor(255,200,40, 255)
+            colors:set("menuOutline")
             love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         love.graphics.print(m.item, m.x, m.y )
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
@@ -104,7 +104,7 @@ function optionsState:draw()
         end
     end
     --header
-    love.graphics.setColor(255, 255, 255, 255)
+    colors:set("white")
     love.graphics.draw(optionsLogoText, (screenWidth - optionsLogoText:getWidth()) / 2, titleOffset_y)
     showDebugIndicator()
     push:finish()

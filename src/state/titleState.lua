@@ -157,7 +157,7 @@ function titleState:draw()
         introMovie:draw(0,0,320,240)
         love.graphics.setCanvas()
         push:start()
-        love.graphics.setColor(255, 255, 255, 255)
+        colors:set("white")
         love.graphics.draw(canvas[1], 0,0, nil, 2)
         push:finish()
         return
@@ -165,22 +165,22 @@ function titleState:draw()
     love.graphics.setCanvas()
     push:start()
     --header
-    love.graphics.setColor(255, 255, 255, 255 * titleTransparency)
+    colors:set("white", nil, 255 * transparency)
     love.graphics.draw(zabuyakiTitle, 0, titleOffset_y, 0, 2, 2)
-    love.graphics.setColor(100, 100, 100, 255 * transparency)
+    colors:set("darkenWhite", nil, 255 * transparency)
     love.graphics.draw(siteImageText, (screenWidth - siteImageText:getWidth())/2, screenHeight - 20)
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
         if i == oldMenuState then
-            love.graphics.setColor(255, 255, 255, 255 * transparency)
+            colors:set("white", nil, 255 * transparency)
             love.graphics.print(m.hint, m.wx, m.wy)
-            love.graphics.setColor(0, 0, 0, 80 * transparency)
+            colors:set("black", nil, 80 * transparency)
             love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
-            love.graphics.setColor(255,200,40, 255 * transparency)
+            colors:set("menuOutline", nil, 255 * transparency)
             love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
         end
-        love.graphics.setColor(255, 255, 255, 255 * transparency)
+        colors:set("white", nil, 255 * transparency)
         love.graphics.print(m.item, m.x, m.y )
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
