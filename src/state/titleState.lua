@@ -167,7 +167,7 @@ function titleState:draw()
     --header
     colors:set("white", nil, 255 * transparency)
     love.graphics.draw(zabuyakiTitle, 0, titleOffset_y, 0, 2, 2)
-    colors:set("darkenWhite", nil, 255 * transparency)
+    colors:set("lightGray", nil, 255 * transparency)
     love.graphics.draw(siteImageText, (screenWidth - siteImageText:getWidth())/2, screenHeight - 20)
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do

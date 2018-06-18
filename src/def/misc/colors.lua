@@ -8,7 +8,7 @@ function Colors:initialize()
         ghostTraceColors = { {125, 150, 255, 175}, {25, 50, 255, 125 } }, -- RGBA, also the number of the ghosts
         playersColors = {{204, 38, 26}, {24, 137, 20}, {23, 84, 216} },
         white = {255, 255, 255, 255},
-        darkenWhite = {200, 200, 200, 255},
+        lightGray = {200, 200, 200, 255},
         black = {0, 0, 0, 255},
         red = {255, 0, 0, 255},
         redGoTimer = {240, 40, 40, 255},

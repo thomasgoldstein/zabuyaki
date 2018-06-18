@@ -102,7 +102,7 @@ function soundState:draw()
         end
         calcMenuItem(menu, i)
         if i == oldMenuState then
-            colors:set("darkenWhite")
+            colors:set("lightGray")
             love.graphics.print(m.hint, m.wx, m.wy)
             colors:set("black", nil, 80)
             love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
