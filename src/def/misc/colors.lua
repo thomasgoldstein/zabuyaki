@@ -33,6 +33,10 @@ end
 
 local tempColor, tempAlpha
 function Colors:set(name, index, alpha) -- index or alpha might be undefined
+    if not name then
+        love.graphics.setColor(255, 100, 100)  -- use red color to mark color errors
+        return
+    end
     if index then
         tempColor = self.c[name][index]
     else
