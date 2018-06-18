@@ -11,11 +11,6 @@ local function dp(...)
     end
 end
 
---[[
-configuration:get(key)
-configuration:set(key, value)
- ]]
-
 -- must be global
 magicString, magicStringDef = "", "EOF42N"
 GLOBAL_SETTING = {
@@ -32,7 +27,6 @@ GLOBAL_SETTING = {
     SFX_VOLUME = 0.5,
     CENSORSHIP = true,
     PLAYERS_NAMES = {"P1", "P2", "P3"},
-    PLAYERS_COLORS = {{204, 38, 26}, {24, 137, 20}, {23, 84, 216} }, -- Don't add the transparency
     SHADOW_OPACITY = 100, -- 0..255 (color)
     AUTO_COMBO = false,
     DIFFICULTY = 1, -- 1 = Normal, 2 = Hard
