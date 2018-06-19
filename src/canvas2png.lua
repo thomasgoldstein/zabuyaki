@@ -3,7 +3,7 @@ local r = round
 
 function Unit:draw2()
     self.sprite.flipH = self.face  --TODO get rid of .face
-    love.graphics.setColor( unpack( self.color ) )
+    colors:set(self.color)
     if isDebug() then
         colors:set("white", nil, 90)
     else
@@ -14,11 +14,6 @@ function Unit:draw2()
     drawDebugUnitInfo(self)
 end
 
-local batchColors = {
-    {255, 0, 0, 125},
-    {0, 255, 0, 125},
-    {0, 0, 255, 125 }
-}
 function Batch:draw()
     local currBColor = 0
     --local b = self.batches[self.n]
@@ -26,8 +21,8 @@ function Batch:draw()
         local b = self.batches[n]
 
         currBColor = currBColor + 1
-        if currBColor > #batchColors then currBColor = 1 end
-        love.graphics.setColor(unpack(batchColors[currBColor]))
+        if currBColor > colors:length("batchColors") then currBColor = 1 end
+        colors:set("batchColors", currBColor)
 --        self.leftStopper = b.leftStopper or 0
 --        self.rightStopper = b.rightStopper or 320
         local y = (currBColor - 1 ) * 4
@@ -38,7 +33,7 @@ function Batch:draw()
 
         for i = 1, #b.units do
             local u = b.units[i]
-            love.graphics.setColor(unpack(batchColors[currBColor]))
+            colors:set("batchColors", currBColor)
             love.graphics.print( i.." "..(u.state or "n/a").."->"..u.unit.name, b.leftStopper + 4, y )
             love.graphics.print( " "..r(u.unit.x, 0) ..","..r(u.unit.y, 0), b.leftStopper + 4, y + 9 )
             y = y + 20
@@ -69,8 +64,7 @@ function saveStageToPng()
     local canvas = love.graphics.newCanvas(cp.width, cp.height)
     love.graphics.setCanvas(canvas)
     --love.graphics.setBlendMode("alpha", "premultiplied")
-    --love.graphics.setColor(255, 255, 255, 255)
-    --love.graphics.setBackgroundColor(255, 255, 255)
+    --colors:set("white")
 --    cp:drawAll()
     cp:draw(0,0, maxCoord, maxCoord) --all bg
     stage.objects:draw(0,0, maxCoord, maxCoord) --all active units

@@ -56,7 +56,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.isThrown = false
     self.shader = f.shader  --it is set on spawn (alter unit's colors)
     self.palette = f.palette  --unit's shader/palette number
-    self.color = f.color or { 255, 255, 255, 255 } --support additional color tone. Not used now
+    self.color = f.color or "white" --support additional color tone. Not used now
     self.particleColor = f.particleColor
     self.ghostTrace = {
         enabled = false,

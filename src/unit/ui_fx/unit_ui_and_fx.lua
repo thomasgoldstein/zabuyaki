@@ -278,18 +278,19 @@ function Unit:drawPID(x, y_)
     love.graphics.print(self.pid, x - 7, y + 4)
 end
 
+local transpBg
 function Unit:defaultDraw(l, t, w, h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x - 35, self.y - 70, 70, 70) then
         self:drawGhostTrace(l, t, w, h)
         self.sprite.flipH = self.face --TODO get rid of .face
         if self.deathDelay < 1 then
-            self.color[4] = 255 * math.sin(self.deathDelay)
+            transpBg = 255 * math.sin(self.deathDelay)
         else
-            self.color[4] = 255
+            transpBg = 255
         end
         if self.statesForChargeAttack and self.chargeTimer >= self.chargedAt / 2 and self.chargeTimer < self.chargedAt then
             if self.chargeAttack and self.statesForChargeAttack[self.state] then
-                colors:set("white", nil, 63)
+                colors:set("chargeAttack")
                 local width = clamp(self.chargeTimer, 0.5, 1) * self.width
                 if self.chargeTimer >= self.chargedAt - self.chargedAt / 10 then
                     love.graphics.ellipse("fill", self.x, self.y, width, width / 2)
@@ -298,7 +299,8 @@ function Unit:defaultDraw(l, t, w, h)
                 end
             end
         end
-        love.graphics.setColor(unpack(self.color))
+--        love.graphics.setColor(unpack(self.color))
+        colors:set(self.color, nil, transpBg)
         if self.shader then
             love.graphics.setShader(self.shader)
         end

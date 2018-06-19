@@ -109,7 +109,7 @@ function Character:initFaceIcon(target)
     target.sprite = imageBank[self.sprite.def.spriteSheet]
     target.q = self.sprite.def.animations["icon"][1].q --quad
     target.qa = self.sprite.def.animations["icon"] --quad array
-    target.iconColor = self.color or { 255, 255, 255, 255 }
+    target.iconColor = self.color or "white"
     target.shader = self.shader
 end
 
@@ -143,13 +143,13 @@ function Character:drawTextInfo(l, t, transpBg, iconWidth, normColor)
     end
 end
 
-function Character:drawBar(l, t, w, h, iconWidth, normColor)
+function Character:drawBar(l, t, w, h, iconWidth)
     love.graphics.setFont(gfx.font.arcade3)
     local transpBg = 255 * calcBarTransparency(self.timer)
     self:drawLifebar(l, t, transpBg)
     self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
     self:drawDeadCross(l, t, transpBg)
-    self.source:drawTextInfo(l + self.x, t + self.y, transpBg, iconWidth, normColor)
+    self.source:drawTextInfo(l + self.x, t + self.y, transpBg, iconWidth)
 end
 
 -- End of Lifebar elements

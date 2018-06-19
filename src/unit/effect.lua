@@ -8,7 +8,7 @@ function Effect:initialize(particle, x, y, z, shader, color)
     self.name = "Particle"
     self.type = "effect"
     self.x, self.y, self.z = x, y, z or 0
-    self.color = color or { 255,255,255,255 }
+    self.color = color or "white"
     self.shader = shader
     self.isDisabled = false
 
@@ -23,7 +23,7 @@ end
 
 function Effect:draw(l,t,w,h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
-        love.graphics.setColor( unpack( self.color ) )
+        colors:set(self.color )
         love.graphics.draw(self.particle, self.x, self.y - self.z)
     end
 end

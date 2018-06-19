@@ -87,8 +87,7 @@ function InfoBar:setPicker(picker_source)
 end
 
 function InfoBar:drawFaceIcon(l, t, transpBg)
-    self.iconColor[4] = transpBg
-    love.graphics.setColor( unpack( self.iconColor ) )
+    colors:set(self.iconColor, nil, transpBg)
     if self.shader then
         love.graphics.setShader(self.shader)
     end

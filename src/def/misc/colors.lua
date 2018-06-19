@@ -8,6 +8,7 @@ function Colors:initialize()
         ghostTraceColors = { {125, 150, 255, 175}, {25, 50, 255, 125 } }, -- RGBA, also the number of the ghosts
         playersColors = {{204, 38, 26}, {24, 137, 20}, {23, 84, 216} },
         white = {255, 255, 255, 255},
+        chargeAttack = {255, 255, 255, 63},
         lightGray = {200, 200, 200, 255},
         black = {0, 0, 0, 255},
         red = {255, 0, 0, 255},
@@ -19,7 +20,13 @@ function Colors:initialize()
         purple = {255, 0, 255, 255},
         darkGray = {55, 55, 55, 255},
         menuOutline = {255, 200, 40, 255},
-        debugRedShadow = {40, 0, 0, 255}
+        debugRedShadow = {40, 0, 0, 255},
+        batchColors = {{255, 0, 0, 125}, {0, 255, 0, 125}, {0, 0, 255, 125}},
+        barNormColor = {244, 210, 14, 255},
+        barLosingColor = { 228, 102, 21, 255 },
+        barLostColor = { 199, 32, 26, 255 },
+        barGotColor = { 34, 172, 11, 255 },
+        barTopBottomSmoothColor = { 100, 50, 50, 255 },
     }
 end
 
@@ -29,6 +36,10 @@ function Colors:get(name, index)
     else
         return self.c[name]
     end
+end
+
+function Colors:length(name)
+    return #self.c[name]
 end
 
 function Colors:unpack(...)
