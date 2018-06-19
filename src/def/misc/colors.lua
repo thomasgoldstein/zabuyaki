@@ -10,6 +10,7 @@ function Colors:initialize()
         white = {255, 255, 255, 255},
         chargeAttack = {255, 255, 255, 63},
         lightGray = {200, 200, 200, 255},
+        gray = {100, 100, 100, 255},
         black = {0, 0, 0, 255},
         red = {255, 0, 0, 255},
         redGoTimer = {240, 40, 40, 255},

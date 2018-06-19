@@ -101,7 +101,7 @@ local function displayHelp()
     local font = love.graphics.getFont()
     local x, y = leftItemOffset, menuOffset_y + menuItem_h
     love.graphics.setFont(gfx.font.arcade3)
-    love.graphics.setColor(100, 100, 100, 255)
+    colors:set("gray")
     if not weapon then
         if menuState == 1 then
             love.graphics.print(
