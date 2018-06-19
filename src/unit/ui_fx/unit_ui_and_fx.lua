@@ -125,11 +125,11 @@ end
 function Unit:calcShadowSpriteAndTransparency()
     local transparency = self.deathDelay < 2 and 255 * math.sin(self.deathDelay) or 255
     if isDebug() and self.isGrabbed then
-        love.graphics.setColor(0, 100, 0, transparency) --4th is the shadow transparency
+        colors:set("green", nil, transparency)
     elseif isDebug() and not self.isHittable then
-        love.graphics.setColor(40, 0, 0, transparency) --4th is the shadow transparency
+        colors:set("debugRedShadow", nil, transparency)
     else
-        love.graphics.setColor(0, 0, 0, transparency) --4th is the shadow transparency
+        colors:set("black", nil, transparency)
     end
     local spr = self.sprite
     local image = imageBank[spr.def.spriteSheet]
@@ -299,7 +299,6 @@ function Unit:defaultDraw(l, t, w, h)
                 end
             end
         end
---        love.graphics.setColor(unpack(self.color))
         colors:set(self.color, nil, transpBg)
         if self.shader then
             love.graphics.setShader(self.shader)
