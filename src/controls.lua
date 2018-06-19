@@ -132,7 +132,7 @@ function bindGameInput()
         fullScreen = tactile.newControl()
         :addButton(tactile.keys('f11')),
         screenshot = tactile.newControl()
-        :addButton(tactile.keys('p'))
+        :addButton(tactile.keys('pause'))
     }
     -- define Player 2 controls
     Control2 = {
