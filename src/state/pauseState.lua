@@ -109,14 +109,14 @@ function pauseState:draw()
         love.graphics.print(m.item, m.x, m.y )
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
+            CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
             oldMouse_y = mouse_y
             menuState = i
         end
     end
     --header
-    love.graphics.setColor(55, 55, 55, 255)
+    colors:set("darkGray")
     love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 + 1, 40 + 1 )
     love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 - 1, 40 + 1 )
     love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 + 1, 40 - 1 )

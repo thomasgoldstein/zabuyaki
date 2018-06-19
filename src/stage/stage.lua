@@ -148,8 +148,7 @@ function Stage:displayGoTimer(screenWidth, screenHeight)
     if self.timeLeft <= 10 or self.showGoMark then
         transp = 255 * math.abs(math.cos(10 - self.timeLeft * math.pi * 2))
     end
-    love.graphics.setColor(55, 55, 55, transp)
-
+    colors:set("darkGray", nil, transp)
     if self.showGoMark and self.timeLeft >= 5.5 then    -- draw shadow
         love.graphics.draw(txtGo, x - 40 + 1, y - 1 )
     else
@@ -262,7 +261,7 @@ function Stage:draw(l, t, w, h)
         if self.foreground then
             self.foreground:draw(l, t, w, h)
         end
-        love.graphics.setColor(0, 0, 0, 255)
+        colors:set("black")
         love.graphics.rectangle("fill", 0,0,640,40)
         love.graphics.rectangle("fill", 0,440-1,640,40)
         if self.event then
