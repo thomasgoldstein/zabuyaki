@@ -263,7 +263,7 @@ end
 function startUnitHighlight(slf, text, color)
     slf.debugHighlight = true
     slf.debugHighlightText = text or "TEXT"
-    slf.debugHighlightColor = color or {0, 255, 255, 70}
+    slf.debugHighlightColor = color or "lightBlue"
 end
 
 function stopUnitHighlight(slf)
@@ -272,7 +272,7 @@ end
 
 function drawUnitHighlight(slf)
     if slf.debugHighlight and slf.debugHighlightColor then
-        love.graphics.setColor(unpack(slf.debugHighlightColor))
+        colors:set(slf.debugHighlightColor, nil, 127)
         love.graphics.rectangle("fill", slf.x - slf.width * 1, slf.y - slf.z - slf.height, slf.width * 2, slf.height )
         love.graphics.print( slf.debugHighlightText, slf.x + slf.width * 1, slf.y - slf.z - slf.height)
     end

@@ -134,9 +134,9 @@ function Player:updateAI(dt)
     if self.statesForSpecialToleranceDelay[self.state] then
         if love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
         then
-            startUnitHighlight(self, self.state.." YES") --default blue color
+            startUnitHighlight(self, self.state.." YES") --default lightBlue color
         else
-            startUnitHighlight(self, self.state.." NO", {255, 0, 0, 70}) --red
+            startUnitHighlight(self, self.state.." NO", "red")
         end
     else
         stopUnitHighlight(self)
