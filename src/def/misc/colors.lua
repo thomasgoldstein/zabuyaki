@@ -52,10 +52,6 @@ function Colors:getInstance(name)
     return c
 end
 
-function Colors:length(name)
-    return #self.c[name]
-end
-
 function Colors:unpack(...)
     return unpack(self:get(...))
 end

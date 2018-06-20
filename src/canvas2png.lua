@@ -21,7 +21,7 @@ function Batch:draw()
         local b = self.batches[n]
 
         currBColor = currBColor + 1
-        if currBColor > colors:length("batchColors") then currBColor = 1 end
+        if currBColor > #colors:get("batchColors") then currBColor = 1 end
         colors:set("batchColors", currBColor)
 --        self.leftStopper = b.leftStopper or 0
 --        self.rightStopper = b.rightStopper or 320
