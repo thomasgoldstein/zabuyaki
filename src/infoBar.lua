@@ -42,7 +42,6 @@ function InfoBar:initialize(source)
     self.source = source
     self.name = source.name or "Unknown"
     self.note = source.note or "EXTRA TEXT"
-    self.color = colors:getInstance("barNormColor")
     self.timer = InfoBar.DELAY
     self.id = self.source.id
     self.source:initFaceIcon(self)
@@ -107,7 +106,6 @@ function InfoBar:drawLifebar(l, t, transpBg)
     -- Normal lifebar
     colors:set("barLostColor", nil, transpBg)
     slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) , barHeight - 6 )
-
     if self.old_hp > 0 then
         if self.source.hp > self.hp then
             colors:set("barGotColor", nil, transpBg)
@@ -117,8 +115,7 @@ function InfoBar:drawLifebar(l, t, transpBg)
         slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self)  * self.old_hp / self.maxHp , barHeight - 6 )
     end
     if self.hp > 0 then
-        self.color[4] = transpBg
-        love.graphics.setColor( unpack( self.color ) )  -- do nto change to colors: class
+        colors:set("barNormColor", nil, transpBg)
         slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.hp / self.maxHp + 1, barHeight - 6 )
     end
     colors:set("white", nil, transpBg)
@@ -146,7 +143,7 @@ function InfoBar:draw(l,t,w,h)
     if self.timer <= 0 and self.source.id > MAX_PLAYERS then
         return
     end
-    self.source.drawBar(self, 0,0,w,h, iconWidth, normColor)
+    self.source.drawBar(self, 0,0,w,h, iconWidth)
 end
 
 local function norm_n(curr, target, n)
@@ -161,21 +158,11 @@ local function norm_n(curr, target, n)
 end
 
 function InfoBar:update(dt)
-    local normColor = colors:get("barNormColor")
     self.hp = norm_n(self.hp, self.source.hp)
     if self.hp > self.source.hp then
-        self.color[1] = norm_n(self.color[1],normColor[1],10)
-        self.color[2] = norm_n(self.color[2],normColor[2],10)
-        self.color[3] = norm_n(self.color[3],normColor[3],10)
     elseif self.hp < self.source.hp then
         self.old_hp = self.source.hp
-        self.color[1] = norm_n(self.color[1],normColor[1],10)
-        self.color[2] = norm_n(self.color[2],normColor[2],10)
-        self.color[3] = norm_n(self.color[3],normColor[3],10)
     else
-        self.color[1] = norm_n(self.color[1],normColor[1])
-        self.color[2] = norm_n(self.color[2],normColor[2])
-        self.color[3] = norm_n(self.color[3],normColor[3])
         self.old_hp = self.hp
     end
     self.timer = self.timer - dt
