@@ -301,11 +301,10 @@ function drawDebugUnitInfo(a)
         end
         love.graphics.print( a.state, a.x - 14, a.y)
         love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7)
-
-        love.graphics.setColor(220, 220, 0, 120)
+        colors:set("yellow", nil, 120)
         love.graphics.line( a.x, a.y + 6.5, a.x, a.y + 8.5)
         love.graphics.line( a.x, a.y + 7.5, a.x + 10 * a.horizontal, a.y + 7.5)
-        love.graphics.setColor(220, 0, 220, 120)
+        colors:set("purple", nil, 120)
         love.graphics.line( a.x, a.y + 8, a.x + 8 * a.face, a.y + 8)
     end
 end
