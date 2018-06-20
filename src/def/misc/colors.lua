@@ -43,6 +43,15 @@ function Colors:get(name, index)
     end
 end
 
+function Colors:getInstance(name)
+    local c = {}
+    c[1] = self.c[name][1]
+    c[2] = self.c[name][3]
+    c[3] = self.c[name][3]
+    c[4] = self.c[name][4]
+    return c
+end
+
 function Colors:length(name)
     return #self.c[name]
 end
