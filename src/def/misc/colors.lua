@@ -3,6 +3,7 @@
 local class = require "lib/middleclass"
 local Colors = class('Colors')
 
+local pauseStateTransp = 0.75   -- used to alter the Pause State screen's darkness
 function Colors:initialize()
     self.c = {
         ghostTraceColors = { {125, 150, 255, 175}, {25, 50, 255, 125 } }, -- RGBA, also the number of the ghosts
@@ -22,6 +23,9 @@ function Colors:initialize()
         darkGray = {55, 55, 55, 255},
         menuOutline = {255, 200, 40, 255},
         debugRedShadow = {40, 0, 0, 255},
+        pauseStateColors = { {255 * pauseStateTransp, 255 * pauseStateTransp, 255 * pauseStateTransp, 255},
+            {GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp, GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp,
+            GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp, GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp } },
         batchColors = {{255, 0, 0, 125}, {0, 255, 0, 125}, {0, 0, 255, 125}},
         barNormColor = {244, 210, 14, 255},
         barLosingColor = { 228, 102, 21, 255 },
