@@ -15,11 +15,6 @@ local barHeight = 16
 local iconWidth = 40
 local iconHeight = 17
 local screenWidth = 640
-local normColor = {244,210,14}
-local losingColor = {228,102,21}
-local lostColor = {199,32,26}
-local gotColor = {34,172,11}
-local barTopBottomSmoothColor = {100,50,50}
 
 local barsCoords = {   --for players only 1..MAX_PLAYERS
     { x = horizontalMargin , y = verticalMargin + 0 * verticalGap },
@@ -47,7 +42,7 @@ function InfoBar:initialize(source)
     self.source = source
     self.name = source.name or "Unknown"
     self.note = source.note or "EXTRA TEXT"
-    self.color = normColor
+    self.color = colors:getInstance("barNormColor")
     self.timer = InfoBar.DELAY
     self.id = self.source.id
     self.source:initFaceIcon(self)
@@ -110,23 +105,20 @@ end
 
 function InfoBar:drawLifebar(l, t, transpBg)
     -- Normal lifebar
-    lostColor[4] = transpBg
-    love.graphics.setColor( unpack( lostColor ) )
+    colors:set("barLostColor", nil, transpBg)
     slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) , barHeight - 6 )
 
     if self.old_hp > 0 then
         if self.source.hp > self.hp then
-            gotColor[4] = transpBg
-            love.graphics.setColor( unpack( gotColor ) )
+            colors:set("barGotColor", nil, transpBg)
         else
-            losingColor[4] = transpBg
-            love.graphics.setColor( unpack( losingColor ) )
+            colors:set("barLosingColor", nil, transpBg)
         end
         slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self)  * self.old_hp / self.maxHp , barHeight - 6 )
     end
     if self.hp > 0 then
         self.color[4] = transpBg
-        love.graphics.setColor( unpack( self.color ) )
+        love.graphics.setColor( unpack( self.color ) )  -- do nto change to colors: class
         slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.hp / self.maxHp + 1, barHeight - 6 )
     end
     colors:set("white", nil, transpBg)
@@ -145,8 +137,7 @@ function InfoBar:drawLifebar(l, t, transpBg)
         gfx.ui.rightSlant.q,
         l + self.x - 4 + calcBarWidth(self), t + self.y + iconHeight + 3
     )
-    barTopBottomSmoothColor[4] = math.min(255,transpBg) - 127
-    love.graphics.setColor( unpack( barTopBottomSmoothColor ) )
+    colors:set("barTopBottomSmoothColor", nil, math.min(255,transpBg) - 127)
     love.graphics.rectangle('fill', l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self), 1)
     love.graphics.rectangle('fill', l + self.x + 0, t + self.y + iconHeight + barHeight - 1, calcBarWidth(self), 1)
 end
@@ -170,6 +161,7 @@ local function norm_n(curr, target, n)
 end
 
 function InfoBar:update(dt)
+    local normColor = colors:get("barNormColor")
     self.hp = norm_n(self.hp, self.source.hp)
     if self.hp > self.source.hp then
         self.color[1] = norm_n(self.color[1],normColor[1],10)
