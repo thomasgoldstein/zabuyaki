@@ -159,11 +159,10 @@ end
 
 function InfoBar:update(dt)
     self.hp = norm_n(self.hp, self.source.hp)
-    if self.hp > self.source.hp then
+    if self.hp == self.source.hp then
+        self.old_hp = self.hp
     elseif self.hp < self.source.hp then
         self.old_hp = self.source.hp
-    else
-        self.old_hp = self.hp
     end
     self.timer = self.timer - dt
 end
