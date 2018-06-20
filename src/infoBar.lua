@@ -40,8 +40,8 @@ InfoBar.OVERRIDE = 2.5 -- seconds to show a victim's infoBar
 
 function InfoBar:initialize(source)
     self.source = source
-    self.name = source.name or "Unknown"
-    self.note = source.note or "EXTRA TEXT"
+    self.name = source.name
+    self.pickupNote = source.pickupNote
     self.timer = InfoBar.DELAY
     self.id = self.source.id
     self.source:initFaceIcon(self)

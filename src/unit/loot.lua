@@ -12,8 +12,7 @@ function Loot:initialize(name, sprite, x, y, f)
     self.draw = Unit.defaultDraw
     self.chargedAt, self.chargeTimer = 0, -1  -- for Unit.defaultDraw
     self:setSprite("stand")
-
-    self.note = f.note or "???"
+    self.pickupNote = f.pickupNote or "???"
     self.pickupSfx = f.pickupSfx
     self.type = "loot"
     self.x, self.y, self.z = x, y, 20
