@@ -224,6 +224,11 @@ function Chai:specialOffensiveUpdate(dt)
         self:setState(self.duck)
         return
     end
+    if self.particles then
+        self.particles.z = self.z + 2 -- because we show the effect 2px down the unit
+        self.particles.x = self.x
+        self.particles.y = self.y
+    end
     -- TODO read vectors not the flag successfullyMoved
     if not self.successfullyMoved then
         self.speed_x = 0

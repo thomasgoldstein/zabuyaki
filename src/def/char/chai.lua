@@ -375,7 +375,7 @@ return {
             { q = q(43,266,39,67), ox = 26, oy = 65 }, --jump up
             { q = q(84,266,42,65), ox = 24, oy = 66 }, --jump up/top
             { q = q(128,266,44,62), ox = 23, oy = 65 }, --jump top
-            { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1 }, --special defensive 4
+            { q = q(129,1329,38,65), ox = 17, oy = 66, flipH = -1, func = function(slf) slf:showEffect("specialDefensiveChai") end  }, --special defensive 4
             { q = q(2,1791,77,65), ox = 26, oy = 65, funcCont = specialOffensiveCheck }, --offensive special 1a
             { q = q(81,1791,75,63), ox = 26, oy = 65, funcCont = specialOffensiveCheck }, --offensive special 1b
             { q = q(158,1791,73,61), ox = 26, oy = 65, funcCont = specialOffensiveCheck }, --offensive special 1c
