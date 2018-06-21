@@ -193,6 +193,11 @@ local players = {
     {pos = 2, visible = false, confirmed = false, sprite = nil},
     {pos = 3, visible = false, confirmed = false, sprite = nil}
 }
+local playersPosition_x = {
+    screenWidth / 2 - portraitWidth - portraitMargin,
+    screenWidth / 2,
+    screenWidth / 2 + portraitWidth + portraitMargin
+}
 
 local function selected_heroes()
     --calc P's indicators X position in the slot
@@ -438,7 +443,7 @@ function playerSelectState:draw()
             colors:set("white")
             if players[i].sprite then
                 love.graphics.setShader(getShader(curPlayerHeroSet.name:lower(), curPlayerHeroSet.palette))
-                drawSpriteInstance(players[i].sprite, h.x, h.y)
+                drawSpriteInstance(players[i].sprite, playersPosition_x[i], h.y)
                 love.graphics.setShader()
             end
             --P1 P2 P3 indicators
@@ -446,7 +451,7 @@ function playerSelectState:draw()
         else
             colors:set("playersColors", i, 230 + math.sin(time * 4)*25)
             love.graphics.setFont(gfx.font.arcade3x2)
-            love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPRESS\nATTACK", h.x - portraitWidth/2 + 20, h.y - portraitHeight + 48)
+            love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPRESS\nATTACK", playersPosition_x[i] - portraitWidth/2 + 20, h.y - portraitHeight + 48)
         end
     end
     colors:set("white")
