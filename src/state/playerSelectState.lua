@@ -7,6 +7,8 @@ local titleOffset_y = 24
 local portraitWidth = 140
 local portraitHeight = 140
 local portraitMargin = 20
+local portraitOffset_x = 80
+local availableHeroes = 4
 
 local oldMousePos = 0
 local mousePos = 0
@@ -24,7 +26,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screenWidth / 2 - portraitWidth - portraitMargin,
+        x = portraitOffset_x,
         y = 440,    --char sprite
         sy = 272,   --selected P1 P2 P3
         ny = 90,   --char name
@@ -41,7 +43,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtLow",
         confirmAnim = "walk",
-        x = screenWidth / 2,
+        x = portraitOffset_x + (portraitMargin + portraitWidth) * 1,
         y = 440,
         sy = 272,
         ny = 90,
@@ -58,7 +60,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screenWidth / 2 + portraitWidth + portraitMargin,
+        x = portraitOffset_x + (portraitMargin + portraitWidth) * 2,
         y = 440,
         sy = 272,
         ny = 90,
@@ -75,7 +77,7 @@ local heroes = {
         defaultAnim = "stand",
         cancelAnim = "hurtHigh",
         confirmAnim = "walk",
-        x = screenWidth / 2 + portraitWidth + portraitMargin,
+        x = portraitOffset_x + (portraitMargin + portraitWidth) * 3,
         y = 440,
         sy = 272,
         ny = 90,
@@ -198,7 +200,7 @@ local function selected_heroes()
     local s1 = {players[1].pos, 1}
     local s2 = {players[2].pos, 1}
     local s3 = {players[3].pos, 1}
-    local xshift = {0, 0, 0 }
+    local xshift = {0, 0, 0, 0}
     --adjust P2
     if s2[1] == s1[1] and players[2].visible and players[1].visible then
         s2[2] = s1[2] + 1
@@ -277,9 +279,9 @@ function playerSelectState:enter()
     }
     oldMousePos = 0
     mousePos = 0
-    for i = 1,#players do
-    setSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portraitAnim)
-    heroes[i].sprite_portrait.sizeScale = 2
+    for i = 1, availableHeroes do
+        setSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portraitAnim)
+        heroes[i].sprite_portrait.sizeScale = 2
     end
     self.enablePlayerSelectOnStart = false
     -- Prevent double press at start (e.g. auto confirmation)
@@ -349,7 +351,7 @@ function playerSelectState:playerInput(player, controls, i)
         elseif controls.horizontal:pressed(-1) then
             player.pos = player.pos - 1
             if player.pos < 1 then
-                player.pos = GLOBAL_SETTING.MAX_PLAYERS
+                player.pos = availableHeroes --GLOBAL_SETTING.MAX_PLAYERS
             end
             sfx.play("sfx","menuMove")
             player.sprite = getSpriteInstance(heroes[player.pos].spriteInstance)
@@ -357,7 +359,7 @@ function playerSelectState:playerInput(player, controls, i)
             setSpriteAnimation(player.sprite,"stand")
         elseif controls.horizontal:pressed(1) then
             player.pos = player.pos + 1
-            if player.pos > GLOBAL_SETTING.MAX_PLAYERS then
+            if player.pos > availableHeroes then --GLOBAL_SETTING.MAX_PLAYERS
                 player.pos = 1
             end
             sfx.play("sfx","menuMove")
@@ -424,19 +426,20 @@ end
 function playerSelectState:draw()
     push:start()
     local sh = selected_heroes()
+    local originalChar = 1
+    colors:set("white")
+    for i = 1, availableHeroes do
+        local h = heroes[i]
+        love.graphics.setFont(gfx.font.arcade3x3)
+        love.graphics.print(h[originalChar].name, h.x - 24 * #h[originalChar].name / 2, h.ny)
+        drawSpriteInstance(heroes[i].sprite_portrait, h.x - portraitWidth/2, h.py)
+        love.graphics.rectangle("line", h.x - portraitWidth/2, h.py, portraitWidth, portraitHeight, 4,4,1)
+    end
     for i = 1,#players do
         local curPlayerHero = heroes[players[i].pos]
         local curPlayerHeroSet = heroes[players[i].pos][sh[i][2]]
         local curColorSlot = sh[i][2]
         local h = heroes[i]
-        local originalChar = 1
-        colors:set("white")
-        --name
-        love.graphics.setFont(gfx.font.arcade3x3)
-        love.graphics.print(h[originalChar].name, h.x - 24 * #h[originalChar].name / 2, h.ny)
-        --portrait
-        drawSpriteInstance(heroes[i].sprite_portrait, h.x - portraitWidth/2, h.py)
-        love.graphics.rectangle("line", h.x - portraitWidth/2, h.py, portraitWidth, portraitHeight, 4,4,1)
         --Players sprite
         if players[i].visible then
             --hero sprite
@@ -464,12 +467,7 @@ end
 function playerSelectState:confirm( x, y, button, istouch )
     -- P1 mouse control only
     if button == 1 then
-        mousePos = 2
-        if x < heroes[2].x - portraitWidth/2 - portraitMargin/2 then
-            mousePos = 1
-        elseif x > heroes[2].x + portraitWidth/2 + portraitMargin/2 then
-            mousePos = 3
-        end
+        mousePos = clamp(math.round(x /(screenWidth / 4) + 0.5), 1, 4)
         if not players[1].visible then
             players[1].visible = true
             sfx.play("sfx","menuSelect")
@@ -512,12 +510,7 @@ function playerSelectState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
-    mousePos = 2
-    if x < heroes[2].x - portraitWidth/2 - portraitMargin/2 then
-        mousePos = 1
-    elseif x > heroes[2].x + portraitWidth/2 + portraitMargin/2 then
-        mousePos = 3
-    end
+    mousePos = clamp(math.round(x /(screenWidth / 4) + 0.5), 1, 4)
     if mousePos ~= oldMousePos and players[1].visible and not players[1].confirmed then
         oldMousePos = mousePos
         players[1].pos = mousePos

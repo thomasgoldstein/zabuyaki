@@ -43,6 +43,8 @@ function absDelta(a, b)
     return math.abs(a - b)
 end
 
+function math.round(n, deci) deci = 10^(deci or 0) return math.floor(n*deci+.5)/deci end
+
 function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
     return x1 < x2+w2 and
             x2 < x1+w1 and
