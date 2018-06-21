@@ -427,14 +427,6 @@ function playerSelectState:draw()
     push:start()
     local sh = selected_heroes()
     local originalChar = 1
-    colors:set("white")
-    for i = 1, availableHeroes do
-        local h = heroes[i]
-        love.graphics.setFont(gfx.font.arcade3x3)
-        love.graphics.print(h[originalChar].name, h.x - 24 * #h[originalChar].name / 2, h.ny)
-        drawSpriteInstance(heroes[i].sprite_portrait, h.x - portraitWidth/2, h.py)
-        love.graphics.rectangle("line", h.x - portraitWidth/2, h.py, portraitWidth, portraitHeight, 4,4,1)
-    end
     for i = 1,#players do
         local curPlayerHero = heroes[players[i].pos]
         local curPlayerHeroSet = heroes[players[i].pos][sh[i][2]]
@@ -456,6 +448,14 @@ function playerSelectState:draw()
             love.graphics.setFont(gfx.font.arcade3x2)
             love.graphics.print(GLOBAL_SETTING.PLAYERS_NAMES[i].."\nPRESS\nATTACK", h.x - portraitWidth/2 + 20, h.y - portraitHeight + 48)
         end
+    end
+    colors:set("white")
+    for i = 1, availableHeroes do
+        local h = heroes[i]
+        love.graphics.setFont(gfx.font.arcade3x3)
+        love.graphics.print(h[originalChar].name, h.x - 24 * #h[originalChar].name / 2, h.ny)
+        drawSpriteInstance(heroes[i].sprite_portrait, h.x - portraitWidth/2, h.py)
+        love.graphics.rectangle("line", h.x - portraitWidth/2, h.py, portraitWidth, portraitHeight, 4,4,1)
     end
     --header
     colors:set("white")
