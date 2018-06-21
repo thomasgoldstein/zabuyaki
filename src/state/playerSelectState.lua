@@ -6,8 +6,8 @@ local screenHeight = 480
 local titleOffset_y = 24
 local portraitWidth = 140
 local portraitHeight = 140
-local portraitMargin = 20
-local portraitOffset_x = 80
+local portraitMargin = 10
+local portraitOffset_x = 96
 local availableHeroes = 4
 
 local oldMousePos = 0
