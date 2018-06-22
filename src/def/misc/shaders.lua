@@ -2,6 +2,7 @@ shaders = {
     rick = {},
     kisa = {},
     chai = {},
+    yar = {},
     gopper = {},
     niko = {},
     beatnick = {},
@@ -245,7 +246,7 @@ local rickColors_2 = {
     { 56, 91, 149, 255 }, { 29, 53, 97, 255 }, { 16, 25, 56, 255 } } -- blue shoe stripes
 local rickColors_3 = {
     { 51, 58, 76, 255 }, { 27, 31, 40, 255 }, { 11, 13, 17, 255 }, -- black hoodie
-    { 174, 183, 188, 255 }, { 96, 101, 107, 255 }, { 48, 50, 53, 255 }, -- bright gray pants
+    { 174, 183, 188, 255 }, { 96, 101, 107, 255 }, { 48, 50, 53, 255 }, -- light gray pants
     { 193, 57, 50, 255 }, { 137, 21, 15, 255 }, { 53, 8, 5, 255 } } -- red shoes
 
 local kisaColors_original = {
@@ -273,6 +274,19 @@ local chaiColors_3 = {
     { 53, 53, 53, 255 }, { 31, 31, 31, 255 }, { 15, 15, 15, 255 }, -- black shorts
     { 244, 114, 114, 255 }, { 213, 41, 41, 255 }, { 123, 16, 16, 255 }, -- red bandages
     { 54, 35, 20, 255 } } -- sand hair
+
+local yarColors_original = {
+    { 34, 72, 91, 255 }, { 30, 36, 40, 255 }, { 17, 20, 22, 255 }, -- black fur
+    { 244, 238, 235, 255 }, { 206, 178, 117, 255 }, -- white chest mark
+    { 218, 40, 52, 255 }, { 141, 10, 12, 255 }, { 63, 4, 6, 255 } } -- red shoes
+local yarColors_2 = {
+    { 237, 220, 190, 255 }, { 123, 142, 153, 255 }, { 47, 70, 86, 255 }, -- white fur
+    { 237, 220, 190, 255 }, { 123, 142, 153, 255 }, -- white chest mark
+    { 79, 145, 226, 255 }, { 29, 81, 145, 255 }, { 13, 38, 68, 255 } } -- blue shoes
+local yarColors_3 = {
+    { 137, 80, 30, 255 }, { 63, 35, 16, 255 }, { 29, 14, 19, 255 }, -- brown fur
+    { 137, 80, 30, 255 }, { 63, 35, 16, 255 }, -- brown chest mark
+    { 255, 187, 43, 255 }, { 196, 97, 27, 255 }, { 91, 36, 14, 255 } } -- yellow shoes
 
 -- Enemies
 local gopperColors_original = {
@@ -360,7 +374,7 @@ local function load_frag_shader(file)
 end
 
 --["textureSize"] = {po2xr/scale, po2yr/scale},
--- ["textureSizeReal"] = {po2xr, po2yr},
+--["textureSizeReal"] = {po2xr, po2yr},
 --["inputSize"] = {shaders.xres/scale, shaders.yres/scale},
 --["outputSize"] = {shaders.xres, shaders.yres},
 --["time"] = love.timer.getTime()
@@ -431,6 +445,8 @@ function reloadShaders()
     shaders.kisa[2] = swapColors(kisaColors_original, kisaColors_3)
     shaders.chai[1] = swapColors(chaiColors_original, chaiColors_2)
     shaders.chai[2] = swapColors(chaiColors_original, chaiColors_3)
+    shaders.yar[1] = swapColors(yarColors_original, yarColors_2)
+    shaders.yar[2] = swapColors(yarColors_original, yarColors_3)
     shaders.gopper[1] = swapColors(gopperColors_original, gopperColors_2)
     shaders.gopper[2] = swapColors(gopperColors_original, gopperColors_3)
     shaders.gopper[3] = swapColors(gopperColors_original, gopperColors_4)
@@ -444,8 +460,8 @@ function reloadShaders()
     shaders.satoff[2] = swapColors(satoffColors_original, satoffColors_3)
     shaders.satoff[3] = swapColors(satoffColors_original, satoffColors_4)
     shaders.trashcan[1] = swapColors(trashcanColors_original, trashcanColors_2)
-    shaders.trashcan_particleColor[0] = {118,109,100, 255 }
-    shaders.trashcan_particleColor[1] = {87, 116, 130, 255}
+    shaders.trashcan_particleColor[0] = { 118, 109, 100, 255 }
+    shaders.trashcan_particleColor[1] = { 87, 116, 130, 255 }
 end
 --reloadShaders()
 
