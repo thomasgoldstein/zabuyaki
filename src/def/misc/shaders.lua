@@ -1,6 +1,6 @@
 shaders = {
-    kisa = {},
     rick = {},
+    kisa = {},
     chai = {},
     gopper = {},
     niko = {},
@@ -248,6 +248,16 @@ local rickColors_3 = {
     { 174, 183, 188, 255 }, { 96, 101, 107, 255 }, { 48, 50, 53, 255 }, -- bright gray pants
     { 193, 57, 50, 255 }, { 137, 21, 15, 255 }, { 53, 8, 5, 255 } } -- red shoes
 
+local kisaColors_original = {
+    { 66, 153, 140, 255 }, { 43, 101, 97, 255 }, { 20, 47, 45, 255 }, -- teal headscarf
+    { 238, 213, 129, 255 }, { 182, 157, 73, 255 }, { 96, 83, 35, 255 } } -- sand shirt
+local kisaColors_2 = {
+    { 219, 93, 67, 255 }, { 160, 49, 27, 255 }, { 81, 17, 4, 255 }, -- red-orange headscarf
+    { 234, 198, 79, 255 }, { 193, 136, 23, 255 }, { 122, 69, 9, 255 } } -- yellow-orange shirt
+local kisaColors_3 = {
+    { 175, 202, 221, 255 }, { 80, 150, 196, 255 }, { 39, 79, 107, 255 }, -- sky blue headscarf
+    { 101, 105, 216, 255 }, { 59, 63, 145, 255 }, { 26, 27, 56, 255 } } -- violet-blue shirt
+
 local chaiColors_original = {
     { 236, 217, 50, 255 }, { 166, 151, 23, 255 }, { 103, 74, 14, 255 }, -- yellow shirt
     { 135, 52, 140, 255 }, { 94, 8, 94, 255 }, { 36, 3, 36, 255 }, -- purple shorts
@@ -263,16 +273,6 @@ local chaiColors_3 = {
     { 53, 53, 53, 255 }, { 31, 31, 31, 255 }, { 15, 15, 15, 255 }, -- black shorts
     { 244, 114, 114, 255 }, { 213, 41, 41, 255 }, { 123, 16, 16, 255 }, -- red bandages
     { 54, 35, 20, 255 } } -- sand hair
-
-local kisaColors_original = {
-    { 66, 153, 140, 255 }, { 43, 101, 97, 255 }, { 20, 47, 45, 255 }, -- teal headscarf
-    { 238, 213, 129, 255 }, { 182, 157, 73, 255 }, { 96, 83, 35, 255 } } -- sand shirt
-local kisaColors_2 = {
-    { 219, 93, 67, 255 }, { 160, 49, 27, 255 }, { 81, 17, 4, 255 }, -- red-orange headscarf
-    { 234, 198, 79, 255 }, { 193, 136, 23, 255 }, { 122, 69, 9, 255 } } -- yellow-orange shirt
-local kisaColors_3 = {
-    { 175, 202, 221, 255 }, { 80, 150, 196, 255 }, { 39, 79, 107, 255 }, -- sky blue headscarf
-    { 101, 105, 216, 255 }, { 59, 63, 145, 255 }, { 26, 27, 56, 255 } } -- violet-blue shirt
 
 -- Enemies
 local gopperColors_original = {
@@ -427,10 +427,10 @@ function reloadShaders()
     --print("reloadShaders")
     shaders.rick[1] = swapColors(rickColors_original, rickColors_2)
     shaders.rick[2] = swapColors(rickColors_original, rickColors_3)
-    shaders.chai[1] = swapColors(chaiColors_original, chaiColors_2)
-    shaders.chai[2] = swapColors(chaiColors_original, chaiColors_3)
     shaders.kisa[1] = swapColors(kisaColors_original, kisaColors_2)
     shaders.kisa[2] = swapColors(kisaColors_original, kisaColors_3)
+    shaders.chai[1] = swapColors(chaiColors_original, chaiColors_2)
+    shaders.chai[2] = swapColors(chaiColors_original, chaiColors_3)
     shaders.gopper[1] = swapColors(gopperColors_original, gopperColors_2)
     shaders.gopper[2] = swapColors(gopperColors_original, gopperColors_3)
     shaders.gopper[3] = swapColors(gopperColors_original, gopperColors_4)
