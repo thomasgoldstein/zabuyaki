@@ -17,8 +17,8 @@ function Yar:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.walkSpeed_x = 90
-    self.walkSpeed_y = 45
+    self.walkSpeed_x = 70
+    self.walkSpeed_y = 35
     self.chargeWalkSpeed_x = 72
     self.chargeWalkSpeed_y = 36
     self.runSpeed_x = 140
