@@ -36,7 +36,6 @@ function setupScreen()
 end
 function switchFullScreen()
     GLOBAL_SETTING.FULL_SCREEN = not GLOBAL_SETTING.FULL_SCREEN
-    configuration:save(true)
     if GLOBAL_SETTING.FULL_SCREEN then
         push:switchFullscreen()
     else
@@ -238,6 +237,10 @@ end
 function love.draw()
 end
 
+function love.quit()
+    configuration:save(true)    -- save config on exit (even Alt+F4)
+end
+
 function love.keypressed(key, unicode)
     if GLOBAL_SETTING.PROFILER_ENABLED then
         Prof:keypressed(key, unicode)
@@ -249,7 +252,6 @@ function love.keypressed(key, unicode)
             nextDebugLevel()
         end
         configuration:set("DEBUG", getDebugLevel())
-        configuration:save(true)
         sfx.play("sfx","menuMove")
     end
     if GLOBAL_SETTING.FPSRATE_ENABLED and framerateGraph.keypressed(key) then

@@ -148,7 +148,6 @@ function videoModeState:confirm(x, y, button, istouch)
             push._pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2 --for Pixel Perfect mode
             push._stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3 --stretched fill
             push:initValues()
-            configuration:save(true)
         elseif menuState == 3 then
             sfx.play("sfx", "menuSelect")
             GLOBAL_SETTING.FILTER_N = GLOBAL_SETTING.FILTER_N + i
@@ -168,7 +167,6 @@ function videoModeState:confirm(x, y, button, istouch)
                 push:setShader()
                 GLOBAL_SETTING.FILTER = "none"
             end
-            configuration:save(true)
         elseif menuState == #menu then
             sfx.play("sfx", "menuCancel")
             return Gamestate.pop()

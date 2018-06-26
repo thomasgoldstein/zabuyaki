@@ -144,7 +144,6 @@ function soundState:confirm( x, y, button, istouch )
             end
             menu[menuState].n = GLOBAL_SETTING.SFX_VOLUME / volumeStep
             TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-            configuration:save(true)
         elseif menuState == 2 then
             sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
@@ -156,7 +155,6 @@ function soundState:confirm( x, y, button, istouch )
             end
             menu[menuState].n = GLOBAL_SETTING.BGM_VOLUME / volumeStep
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-            configuration:save(true)
         elseif menuState == 3 then
             sfx.play("sfx", menu[menuState].n)
         elseif menuState == 4 then
@@ -204,7 +202,6 @@ function soundState:wheelmoved(x, y)
         GLOBAL_SETTING.SFX_VOLUME = menu[menuState].n * volumeStep
         configuration:set("SFX_VOLUME", GLOBAL_SETTING.SFX_VOLUME)
         TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-        configuration:save(true)
     elseif menuState == 2 then
         sfx.play("sfx","menuSelect")
         if menu[menuState].n < 0 then
@@ -218,7 +215,6 @@ function soundState:wheelmoved(x, y)
         TEsound.stop("music")
         TEsound.playLooping(bgm.title, "music")
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-        configuration:save(true)
     elseif menuState == 3 then
         if menu[menuState].n < 1 then
             menu[menuState].n = #sfx
