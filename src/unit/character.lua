@@ -61,8 +61,8 @@ function Character:initAttributes()
     self.runSpeed_y = 25
     self.jumpSpeed_z = 220 -- z coord
     self.jumpSpeedMultiplier = 1.25
-    self.jumpSpeedBoost = { x = 28, y = 14, z = 0 }
-    self.jumpRunSpeedBoost = { x = 14, y = 7, z = 20 }
+    self.jumpSpeedBoost = { x = 26, y = 13, z = 0 }
+    self.jumpRunSpeedBoost = { x = 13, y = 6.5, z = 20 }
     self.fallSpeed_z = 220
     self.fallSpeed_x = 120
     self.fallSpeedBoost_x = 5
