@@ -91,10 +91,10 @@ function Rick:specialDefensiveStart()
     self.speed_x = 0
     self.speed_y = 0
     self:setSprite("specialDefensive")
-    self:enableGhostTrace(1)
+    self:enableGhostTrails(1)
     self:playSfx(self.sfx.dashAttack)
 end
-Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = Unit.fadeOutGhostTrace, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
+Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = Unit.fadeOutGhostTrails, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Rick:specialOffensiveStart()
     self.isHittable = true
@@ -102,7 +102,7 @@ function Rick:specialOffensiveStart()
     self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("specialOffensive")
-    self:enableGhostTrace()
+    self:enableGhostTrails()
     self.speed_x = self.dashSpeed_x
     self.speed_y = 0
     self.speed_z = 0
@@ -117,7 +117,7 @@ function Rick:specialOffensiveUpdate(dt)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
-Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.fadeOutGhostTrace, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
+Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Rick:grabBackAttackStart()
     local g = self.grabContext

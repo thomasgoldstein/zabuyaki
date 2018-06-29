@@ -6,7 +6,7 @@ local Colors = class('Colors')
 local pauseStateTransp = 0.75   -- used to alter the Pause State screen's darkness
 function Colors:initialize()
     self.c = {
-        ghostTraceColors = { {125, 150, 255, 175}, {25, 50, 255, 125 } }, -- RGBA, also the number of the ghosts
+        ghostTrailsColors = { {125, 150, 255, 175}, {25, 50, 255, 125 } }, -- RGBA, also the number of the ghosts
         playersColors = {{204, 38, 26}, {24, 137, 20}, {23, 84, 216} },
         white = {255, 255, 255, 255},
         chargeAttack = {255, 255, 255, 63},

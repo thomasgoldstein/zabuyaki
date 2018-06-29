@@ -885,7 +885,7 @@ function Character:specialOffensiveStart()
     --no move by default
     self:setState(self.stand)
 end
-Character.specialOffensive = {name = "specialOffensive", start = Character.specialOffensiveStart, exit = Unit.fadeOutGhostTrace, update = nop, draw = Character.defaultDraw }
+Character.specialOffensive = {name = "specialOffensive", start = Character.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = nop, draw = Character.defaultDraw }
 
 function Character:jumpAttackForwardStart()
     self.isHittable = true
@@ -1752,7 +1752,7 @@ function Character:specialDefensiveStart()
     self.speed_x = 0
     self.speed_y = 0
     self:setSprite("specialDefensive")
-    self:enableGhostTrace()
+    self:enableGhostTrails()
     self:playSfx(self.sfx.dashAttack)
 end
 function Character:specialDefensiveUpdate(dt)
@@ -1767,7 +1767,7 @@ function Character:specialDefensiveUpdate(dt)
         return
     end
 end
-Character.specialDefensive = {name = "specialDefensive", start = Character.specialDefensiveStart, exit = Unit.fadeOutGhostTrace, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
+Character.specialDefensive = {name = "specialDefensive", start = Character.specialDefensiveStart, exit = Unit.fadeOutGhostTrails, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Character:knockedDownStart()
     self.isHittable = false

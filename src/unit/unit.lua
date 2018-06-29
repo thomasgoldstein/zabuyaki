@@ -58,13 +58,13 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.palette = f.palette  --unit's shader/palette number
     self.color = f.color or "white" --support additional color tone. Not used now
     self.particleColor = f.particleColor
-    self.ghostTrace = {
+    self.ghostTrails = {
         enabled = false,
         fade = false,
         i = 1,
         n = 0,
         time = 0,
-        delay = 0.1, -- interval of removal of 1 ghost on ghostTraceFadeout
+        delay = 0.1, -- interval of removal of 1 ghost on ghostTrailsFadeout
         shift = 2,  -- frames count back to the past per the ghost
         ghost = {}
     }
@@ -176,7 +176,7 @@ function Unit:updateAI(dt)
             self.platform = nil
         end
     end
-    self:updateGhostTrace(dt)
+    self:updateGhostTrails(dt)
 end
 
 -- stop unit from moving by tweening

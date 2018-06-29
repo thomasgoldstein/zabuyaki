@@ -138,9 +138,9 @@ function Unit:calcShadowSpriteAndTransparency()
     return image, spr, sc, shadowAngle, -2
 end
 
-local maxGhostTraceFrames = 300 -- frames fuffer = FPS * seconds
-function Unit:getGhostTraceI(n)
-    local t = self.ghostTrace
+local maxGhostTrailsFrames = 300 -- frames fuffer = FPS * seconds
+function Unit:getGhostTrails(n)
+    local t = self.ghostTrails
     if not t then
         return
     end
@@ -150,34 +150,34 @@ function Unit:getGhostTraceI(n)
     if t.i - n > 0 then
         return t.i - n
     else
-        return maxGhostTraceFrames + t.i - n
+        return maxGhostTrailsFrames + t.i - n
     end
 end
-function Unit:enableGhostTrace(kind)
-    local t = self.ghostTrace
+function Unit:enableGhostTrails(kind)
+    local t = self.ghostTrails
     if not t then
         return
     end
     t.enabled = true
     t.fade = false
     t.i = 0
-    t.n = #colors:get("ghostTraceColors")
+    t.n = #colors:get("ghostTrailsColors")
     t.time = 0
     t.kind = kind
     if kind == 1 then
-        t.ghostTraceDelay = getSpriteAnimationDelay(self.sprite, self.sprite.curAnim) / 6 -- tweakable: the length of the effect
-        t.ghostTraceTime = 0
+        t.ghostTrailsDelay = getSpriteAnimationDelay(self.sprite, self.sprite.curAnim) / 6 -- tweakable: the length of the effect
+        t.ghostTrailsTime = 0
     end
 end
-function Unit:disableGhostTrace()
-    local t = self.ghostTrace
+function Unit:disableGhostTrails()
+    local t = self.ghostTrails
     if not t then
         return
     end
     t.enabled = false
 end
-function Unit:fadeOutGhostTrace()
-    local t = self.ghostTrace
+function Unit:fadeOutGhostTrails()
+    local t = self.ghostTrails
     if not t then
         return
     end
@@ -185,24 +185,24 @@ function Unit:fadeOutGhostTrace()
 end
 local ghostTaceKind1 = {{ x = 1, y = -1 }, { x = -1, y = -1} }
 local ghostTaceKind1MaxOffset = 16 -- tweakable: increase to move ghosts farther from the chara
-function Unit:drawGhostTrace(l, t, w, h)
-    local t = self.ghostTrace
+function Unit:drawGhostTrails(l, t, w, h)
+    local t = self.ghostTrails
     local x, y, m = 0, 0, 0
     if not t or not t.enabled then
         return
     end
     for k = t.n, 1, -1 do
-        local i = self:getGhostTraceI(k * math.ceil((t.shift * love.timer.getFPS()) / 60))
+        local i = self:getGhostTrails(k * math.ceil((t.shift * love.timer.getFPS()) / 60))
         if t.ghost[i] then
-            colors:set("ghostTraceColors", k)
+            colors:set("ghostTrailsColors", k)
             self.sprite.flipH = t.ghost[i][5]
             if t.kind == 1 then
                 if ghostTaceKind1[k] then
                     x, y = ghostTaceKind1[k].x, ghostTaceKind1[k].y
-                    if t.ghostTraceTime <= t.ghostTraceDelay then
-                        m = t.ghostTraceTime * ghostTaceKind1MaxOffset
-                    elseif t.ghostTraceTime <= t.ghostTraceDelay * 2 then
-                        m = (t.ghostTraceDelay * 2 - t.ghostTraceTime) * ghostTaceKind1MaxOffset
+                    if t.ghostTrailsTime <= t.ghostTrailsDelay then
+                        m = t.ghostTrailsTime * ghostTaceKind1MaxOffset
+                    elseif t.ghostTrailsTime <= t.ghostTrailsDelay * 2 then
+                        m = (t.ghostTrailsDelay * 2 - t.ghostTrailsTime) * ghostTaceKind1MaxOffset
                     else
                         m = 0
                     end
@@ -214,18 +214,18 @@ function Unit:drawGhostTrace(l, t, w, h)
         end
     end
 end
-function Unit:updateGhostTrace(dt)
-    local t = self.ghostTrace
+function Unit:updateGhostTrails(dt)
+    local t = self.ghostTrails
     if not t or not t.enabled then
         return
     end
     t.ghost[t.i] = { self.x, self.y - self.z, self.sprite.curAnim, self.sprite.curFrame, self.face }
     t.i = t.i + 1
-    if t.i > maxGhostTraceFrames then
+    if t.i > maxGhostTrailsFrames then
         t.i = 1
     end
     if t.kind == 1 then
-        t.ghostTraceTime = t.ghostTraceTime + dt
+        t.ghostTrailsTime = t.ghostTrailsTime + dt
     end
     t.time = t.time + dt
     if t.time >= t.delay then
@@ -233,7 +233,7 @@ function Unit:updateGhostTrace(dt)
         if t.fade and t.n > 0 then
             t.n = t.n - 1
         elseif t.n <= 0 then
-            self:disableGhostTrace()
+            self:disableGhostTrails()
             return
         end
     end
@@ -281,7 +281,7 @@ end
 local transpBg
 function Unit:defaultDraw(l, t, w, h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x - 35, self.y - 70, 70, 70) then
-        self:drawGhostTrace(l, t, w, h)
+        self:drawGhostTrails(l, t, w, h)
         self.sprite.flipH = self.face --TODO get rid of .face
         if self.deathDelay < 1 then
             transpBg = 255 * math.sin(self.deathDelay)
