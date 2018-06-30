@@ -274,10 +274,10 @@ return {
         },
         run = {
             { q = q(2,135,37,63), ox = 18, oy = 62, delay = 0.117 }, --run 1
-            { q = q(41,134,50,63), ox = 26, oy = 63, delay = 0.133 }, --run 2
+            { q = q(41,134,50,63), ox = 25, oy = 63, delay = 0.133 }, --run 2
             { q = q(93,134,46,64), ox = 25, oy = 63, func = stepFx }, --run 3
             { q = q(2,201,37,63), ox = 18, oy = 62, delay = 0.117 }, --run 4
-            { q = q(41,200,49,64), ox = 24, oy = 63, delay = 0.133 }, --run 5
+            { q = q(41,200,49,64), ox = 23, oy = 63, delay = 0.133 }, --run 5
             { q = q(92,200,48,63), ox = 26, oy = 63, func = stepFx }, --run 6
             loop = true,
             delay = 0.1
