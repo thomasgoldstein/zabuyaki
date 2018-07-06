@@ -1,8 +1,8 @@
 --[[
-    animatedSprite.lua - 2016
+    animatedSprite.lua - 2018
 
     Copyright Dejaime Antonio de Oliveira Neto, 2014
-    Don Miguel, 2016
+    Don Miguel, 2018
 
     Released under the MIT license.
     Visit for more information:
@@ -217,6 +217,7 @@ function updateSpriteInstance(spr, dt, slf)
             else
                 spr.isFinished = true
             end
+            spr.funcCalledOnFrame = -1
         end
         -- Reset internal counter on frame change.
         spr.elapsedTime = 0
