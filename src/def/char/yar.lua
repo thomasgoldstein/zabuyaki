@@ -5,6 +5,10 @@ local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
 
+local stepFx = function(slf, cont)
+    slf:showEffect("step")
+end
+
 return {
     serializationVersion = 0.42, -- The version of this serialization process
 
@@ -49,7 +53,7 @@ return {
         run = {
             { q = q(2,158,76,51), ox = 18, oy = 51 }, --run 1
             { q = q(80,155,77,56), ox = 18, oy = 53 }, --run 2
-            { q = q(159,153,83,56), ox = 24, oy = 55 }, --run 3
+            { q = q(159,153,83,56), ox = 24, oy = 55, func = stepFx }, --run 3
             { q = q(2,213,98,57), ox = 38, oy = 55 }, --run 4
             { q = q(102,214,92,58), ox = 32, oy = 54 }, --run 5
             { q = q(196,217,78,47), ox = 18, oy = 51 }, --run 6
