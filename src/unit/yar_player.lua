@@ -18,12 +18,12 @@ function Yar:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
     }
-    self.walkSpeed_x = 70
-    self.walkSpeed_y = 35
+    self.walkSpeed_x = 75
+    self.walkSpeed_y = 37.5
     self.chargeWalkSpeed_x = 72
     self.chargeWalkSpeed_y = 36
-    self.runSpeed_x = 140
-    self.runSpeed_y = 23
+    self.runSpeed_x = 145
+    self.runSpeed_y = 24
     self.dashSpeed_x = 125 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
     self.dashFriction = 400
