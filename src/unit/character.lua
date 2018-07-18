@@ -80,7 +80,6 @@ function Character:initAttributes()
     self.toFallenAnim_z = 40
     self.sideStepSpeed = 220
     self.sideStepFriction = 650 --speed penalty for sideStepUp/Down (when you slide on the ground)
-    self.hopDuringSideStep = true --if true, perform a small jump during side step
     self.throwSpeed_x = 220 --my throwing speed
     self.shortThrowSpeed_x = self.throwSpeed_x / 2 --my throwing speed (grabFrontAttack Last and Down)
     self.throwSpeed_z = 200 --my throwing speed
@@ -848,18 +847,19 @@ end
 function Character:sideStepUpdate(dt)
     if self.speed_y > 0 then
         self.speed_y = self.speed_y - self.sideStepFriction * dt
-        if self.hopDuringSideStep then
-            self.z = self.save_z + self.speed_y / 24 --to show low leap
-        end
     else
         self.speed_y = 0
+    end
+    if self.speed_y > self.sideStepSpeed / 2 then
+        self.z = self.save_z + self.speed_y / 24 --to show low leap
+    else
+        self:calcFreeFall(dt)
         if self:canFall() then
             self:setState(self.dropDown)
         else
             self:playSfx(self.sfx.step, 0.75)
             self:setState(self.duck)
         end
-        return
     end
 end
 Character.sideStep = {name = "sideStep", start = Character.sideStepStart, exit = nop, update = Character.sideStepUpdate, draw = Character.defaultDraw}
