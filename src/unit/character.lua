@@ -719,7 +719,9 @@ function Character:dropDownStart()
     self.isHittable = true
     --self.toSlowDown = false
     dpo(self, self.state)
-    self:setSprite("dropDown")
+    if not self.condition then -- dont change the current sprite on call with extra argument
+        self:setSprite("dropDown")
+    end
     self.speed_z = 0
     self.bounced = 0
 end
@@ -858,7 +860,7 @@ function Character:sideStepUpdate(dt)
     else
         self:calcFreeFall(dt)
         if self:canFall() then
-            self:setState(self.dropDown)
+            self:setState(self.dropDown, true) -- do not change the sprite
         else
             self:playSfx(self.sfx.step, 0.75)
             self:setState(self.duck)
