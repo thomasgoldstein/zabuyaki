@@ -664,27 +664,7 @@ function Character:jumpStart()
     end
     self:playSfx(self.sfx.jump)
 end
-function Character:jumpUpdate(dt)
-    if self.b.attack:pressed() or self.duckAttackPressed then
-        if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
-            self:setState(self.jumpAttackLight)
-            return
-        elseif self.moves.jumpAttackStraight and self.speed_x == 0 then
-            self:setState(self.jumpAttackStraight)
-            return
-        else
-            if self.moves.jumpAttackRun and self.speed_x >= self.runSpeed_x then
-                self:setState(self.jumpAttackRun)
-                return
-            elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
-                self:setState(self.jumpAttackStraight)
-                return
-            elseif self.moves.jumpAttackForward then
-                self:setState(self.jumpAttackForward)
-                return
-            end
-        end
-    end
+function Character:jumpFallUpdate(dt)
     if self:canFall() then
         self:calcFreeFall(dt)
         if self.isGoingUp and self.speed_z < 0 and self.speed_x == 0
@@ -710,6 +690,29 @@ function Character:jumpUpdate(dt)
         self.speed_y = 0
     end
 end
+function Character:jumpUpdate(dt)
+    if self.b.attack:pressed() or self.duckAttackPressed then
+        if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
+            self:setState(self.jumpAttackLight)
+            return
+        elseif self.moves.jumpAttackStraight and self.speed_x == 0 then
+            self:setState(self.jumpAttackStraight)
+            return
+        else
+            if self.moves.jumpAttackRun and self.speed_x >= self.runSpeed_x then
+                self:setState(self.jumpAttackRun)
+                return
+            elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
+                self:setState(self.jumpAttackStraight)
+                return
+            elseif self.moves.jumpAttackForward then
+                self:setState(self.jumpAttackForward)
+                return
+            end
+        end
+    end
+    self:jumpFallUpdate(dt)
+end
 Character.jump = {name = "jump", start = Character.jumpStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw}
 
 function Character:dropDownStart()
@@ -720,7 +723,7 @@ function Character:dropDownStart()
     self.speed_z = 0
     self.bounced = 0
 end
-Character.dropDown = {name = "dropDown", start = Character.dropDownStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw }
+Character.dropDown = {name = "dropDown", start = Character.dropDownStart, exit = nop, update = Character.jumpFallUpdate, draw = Character.defaultDraw }
 
 function Character:pickupStart()
     self.isHittable = false
