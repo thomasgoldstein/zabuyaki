@@ -725,7 +725,7 @@ function Character:dropDownStart()
     self.speed_z = 0
     self.bounced = 0
 end
-Character.dropDown = {name = "dropDown", start = Character.dropDownStart, exit = nop, update = Character.jumpFallUpdate, draw = Character.defaultDraw }
+Character.dropDown = {name = "dropDown", start = Character.dropDownStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw }
 
 function Character:pickupStart()
     self.isHittable = false
