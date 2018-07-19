@@ -860,7 +860,7 @@ function Character:sideStepUpdate(dt)
     else
         self:calcFreeFall(dt)
         if self:canFall() then
-            self:setState(self.dropDown, true) -- do not change the sprite
+            self.update = Character.jumpFallUpdate -- do not change the sprite, fall down with blocked attacks
         else
             self:playSfx(self.sfx.step, 0.75)
             self:setState(self.duck)
