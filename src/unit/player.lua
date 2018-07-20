@@ -121,15 +121,6 @@ function Player:updateAI(dt)
     if self.isDisabled then
         return
     end
-    if self.moves.dashAttack and self.b.attack:pressed() then
-        local doubleTap = self.b.horizontal.doubleTap
-        if self.face == doubleTap.lastDoubleTapDirection
-            and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(dashAttackDelta)
-            and self.statesForDashAttack[self.state]
-        then
-            self:setState(self.dashAttack)
-        end
-    end
     --DEBUG: highlight P1 on the possible Special triggering
     if self.statesForSpecialToleranceDelay[self.state] then
         if love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
@@ -162,6 +153,15 @@ function Player:updateAI(dt)
                     return
                 end
             end
+        end
+    end
+    if self.moves.dashAttack and self.b.attack:pressed() then
+        local doubleTap = self.b.horizontal.doubleTap
+        if self.face == doubleTap.lastDoubleTapDirection
+            and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(dashAttackDelta)
+            and self.statesForDashAttack[self.state]
+        then
+            self:setState(self.dashAttack)
         end
     end
     if self.moves.chargeAttack then
