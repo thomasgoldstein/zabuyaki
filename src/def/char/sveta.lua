@@ -68,7 +68,7 @@ return {
             { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
             delay = 0.06
         },
-        pickup = {
+        pickUp = {
             { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
             delay = 0.28
         },

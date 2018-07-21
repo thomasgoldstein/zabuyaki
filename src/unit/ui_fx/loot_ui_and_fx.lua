@@ -28,6 +28,6 @@ function Loot:drawBar(l,t,w,h, iconWidth)
     colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.x + iconWidth + 4 + 0, t + self.y + 9 - 0, transpBg)
     colors:set("barNormColor", nil, transpBg)
-    printWithShadow(self.pickupNote, l + self.x + iconWidth + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transpBg)
+    printWithShadow(self.pickUpNote, l + self.x + iconWidth + 2 + (#self.name+1)*8 + 0, t + self.y + 9 - 0, transpBg)
 end
 -- End of Lifebar elements

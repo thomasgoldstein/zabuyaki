@@ -45,7 +45,7 @@ function Character:showEffect(effect, obj)
         particles:setLinearAcceleration(sign(self.face) * (self.speed_x + 200), -50, sign(self.face) * (self.speed_x + 400), -700) -- Random movement in all directions.
         particles:emit(PA_DUST_JUMP_START_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x, self.y - 1, self.z))
-    elseif effect == "pickup" then
+    elseif effect == "pickUp" then
         --disappearing loot
         loot = obj
         lootSprite = loot.sprite.def.animations["stand"][1]

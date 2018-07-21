@@ -12,8 +12,8 @@ function Loot:initialize(name, sprite, x, y, f)
     self.draw = Unit.defaultDraw
     self.chargedAt, self.chargeTimer = 0, -1  -- for Unit.defaultDraw
     self:setSprite("stand")
-    self.pickupNote = f.pickupNote or "???"
-    self.pickupSfx = f.pickupSfx
+    self.pickUpNote = f.pickUpNote or "???"
+    self.pickUpSfx = f.pickUpSfx
     self.type = "loot"
     self.x, self.y, self.z = x, y, 20
     self.height = 17
@@ -70,7 +70,7 @@ function Loot:get(taker)
     if self.func then    --run custom function if there is
         self:func(taker)
     end
-    self:playSfx(self.pickupSfx)
+    self:playSfx(self.pickUpSfx)
     taker:addHp(self.hp)
     taker:addScore(self.scoreBonus)
     self.isDisabled = true

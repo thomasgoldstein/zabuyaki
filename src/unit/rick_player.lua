@@ -14,7 +14,7 @@ end
 
 function Rick:initAttributes()
     self.moves = { -- list of allowed moves
-        run = true, sideStep = true, pickup = true,
+        run = true, sideStep = true, pickUp = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabFrontAttack = true, chargeAttack = true, chargeDash = true,
         grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true, grabBackAttack = true,

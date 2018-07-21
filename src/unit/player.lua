@@ -376,7 +376,7 @@ function Player:respawnUpdate(dt)
         self.z = self:getMinZ()
         self:playSfx(self.sfx.step)
         if self.sprite.curFrame == 1 then
-            self.sprite.elapsedTime = 10 -- seconds. skip to pickup 2 frame
+            self.sprite.elapsedTime = 10 -- seconds. skip to pickUp 2 frame
         end
         self:checkAndAttack(
             { x = 0, y = 0, width = 320 * 2, depth = 240 * 2, height = 240 * 2, damage = 0, type = "shockWave" },

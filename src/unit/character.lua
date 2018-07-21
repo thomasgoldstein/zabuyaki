@@ -45,7 +45,7 @@ end
 
 function Character:initAttributes()
     self.moves = { -- list of allowed moves
-        run = true, sideStep = true, pickup = true,
+        run = true, sideStep = true, pickUp = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, chargeAttack = false,
         grabFrontAttack = true, grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true,
@@ -471,8 +471,8 @@ function Character:standUpdate(dt)
         end
     end
     if self.b.attack:pressed() then
-        if self.moves.pickup and self:checkForLoot() ~= nil then
-            self:setState(self.pickup)
+        if self.moves.pickUp and self:checkForLoot() ~= nil then
+            self:setState(self.pickUp)
             return
         end
         self:setState(self.combo)
@@ -535,8 +535,8 @@ function Character:walkUpdate(dt)
         return
     end
     if self.b.attack:pressed() then
-        if self.moves.pickup and self:checkForLoot() ~= nil then
-            self:setState(self.pickup)
+        if self.moves.pickUp and self:checkForLoot() ~= nil then
+            self:setState(self.pickUp)
             return
         elseif self.moves.combo then
             self:setState(self.combo)
@@ -727,24 +727,24 @@ function Character:dropDownStart()
 end
 Character.dropDown = {name = "dropDown", start = Character.dropDownStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw }
 
-function Character:pickupStart()
+function Character:pickUpStart()
     self.isHittable = false
     local loot = self:checkForLoot()
     if loot then
         self.victimInfoBar = loot.infoBar:setPicker(self)
-        self:showEffect("pickup", loot)
+        self:showEffect("pickUp", loot)
         self:onGetLoot(loot)
     end
-    self:setSprite("pickup")
+    self:setSprite("pickUp")
     self.z = self:getMinZ()
 end
-function Character:pickupUpdate(dt)
+function Character:pickUpUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
     end
 end
-Character.pickup = {name = "pickup", start = Character.pickupStart, exit = nop, update = Character.pickupUpdate, draw = Character.defaultDraw}
+Character.pickUp = {name = "pickUp", start = Character.pickUpStart, exit = nop, update = Character.pickUpUpdate, draw = Character.defaultDraw}
 
 function Character:duckStart()
     self.isHittable = true

@@ -92,28 +92,28 @@ end
 local func_dropApple = function(slf)
     local loot = Loot:new("Apple", gfx.loot.apple,
         math.floor(slf.x), math.floor(slf.y) + 1,
-        { hp = 15, score = 0, pickupNote = "+15 HP", pickupSfx = "pickupApple"} --, func = testDeathFunc
+        { hp = 15, score = 0, pickUpNote = "+15 HP", pickUpSfx = "pickUpApple"} --, func = testDeathFunc
     )
     loot:setOnStage(stage)
 end
 local func_dropChicken = function(slf)
     local loot = Loot:new("Chicken", gfx.loot.chicken,
         math.floor(slf.x), math.floor(slf.y) + 1,
-        { hp = 50, score = 0, pickupNote = "+50 HP", pickupSfx = "pickupChicken"}
+        { hp = 50, score = 0, pickUpNote = "+50 HP", pickUpSfx = "pickUpChicken"}
     )
     loot:setOnStage(stage)
 end
 local func_dropBeef = function(slf)
     local loot = Loot:new("Beef", gfx.loot.beef,
         math.floor(slf.x), math.floor(slf.y) + 1,
-        { hp = 100, score = 0, pickupNote = "+100 HP", pickupSfx = "pickupBeef"}
+        { hp = 100, score = 0, pickUpNote = "+100 HP", pickUpSfx = "pickUpBeef"}
     )
     loot:setOnStage(stage)
 end
 local func_dropBat = function(slf)
     local loot = Loot:new("Bat", gfx.loot.bat,
         math.floor(slf.x), math.floor(slf.y) + 1,
-        { hp = 0, score = 0, pickupNote = "Weapon", pickupSfx = "grab"}
+        { hp = 0, score = 0, pickUpNote = "Weapon", pickUpSfx = "grab"}
     )
     loot:setOnStage(stage)
 end

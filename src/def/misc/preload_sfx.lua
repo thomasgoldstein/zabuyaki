@@ -66,9 +66,9 @@ SFX.load("air","res/sfx/whooshLight.wav", 0.5)
 SFX.load("whooshHeavy","res/sfx/whooshHeavy.wav", 1)
 SFX.load("grab","res/sfx/grab.wav", 1)
 
-SFX.load("pickupApple","res/sfx/pickupApple.wav", 1)
-SFX.load("pickupChicken","res/sfx/pickupChicken.wav", 1)
-SFX.load("pickupBeef","res/sfx/pickupBeef.wav", 1)
+SFX.load("pickUpApple","res/sfx/pickUpApple.wav", 1)
+SFX.load("pickUpChicken","res/sfx/pickUpChicken.wav", 1)
+SFX.load("pickUpBeef","res/sfx/pickUpBeef.wav", 1)
 
 SFX.load("bodyDrop","res/sfx/bodyDrop.wav", 1)
 
