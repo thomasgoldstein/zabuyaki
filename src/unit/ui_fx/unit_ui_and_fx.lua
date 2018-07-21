@@ -292,11 +292,7 @@ function Unit:defaultDraw(l, t, w, h)
             if self.chargeAttack and self.statesForChargeAttack[self.state] then
                 colors:set("chargeAttack")
                 local width = clamp(self.chargeTimer, 0.5, 1) * self.width
-                if self.chargeTimer >= self.chargedAt - self.chargedAt / 10 then
-                    love.graphics.ellipse("fill", self.x, self.y - self:getMinZ(), width, width / 2)
-                else
-                    love.graphics.ellipse("line", self.x, self.y - self:getMinZ(), width, width / 2)
-                end
+                love.graphics.ellipse(self.chargeTimer >= self.chargedAt - self.chargedAt / 10 and "fill" or "line", self.x, self.y - self:getMinZ(), width, width / 2)
             end
         end
         colors:set(self.color, nil, transpBg)
