@@ -167,7 +167,7 @@ function Obstacle:standUpdate(dt)
 end
 Obstacle.stand = {name = "stand", start = Obstacle.standStart, exit = nop, update = Obstacle.standUpdate, draw = Unit.defaultDraw}
 
-function Obstacle:getupStart()
+function Obstacle:getUpStart()
     self.isHittable = false
     self.isThrown = false
     dpo(self, self.state)
@@ -179,13 +179,13 @@ function Obstacle:getupStart()
         return
     end
 end
-function Obstacle:getupUpdate(dt)
+function Obstacle:getUpUpdate(dt)
     if self.speed_x <= 0 then
         self:setState(self.stand)
         return
     end
 end
-Obstacle.getup = {name = "getup", start = Obstacle.getupStart, exit = nop, update = Obstacle.getupUpdate, draw = Unit.defaultDraw}
+Obstacle.getUp = {name = "getUp", start = Obstacle.getUpStart, exit = nop, update = Obstacle.getUpUpdate, draw = Unit.defaultDraw}
 
 function Obstacle:hurtStart()
     self.isHittable = true

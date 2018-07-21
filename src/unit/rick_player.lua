@@ -20,7 +20,7 @@ function Rick:initAttributes()
         grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true, grabBackAttack = true,
         dashAttack = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 90
     self.walkSpeed_y = 45

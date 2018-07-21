@@ -51,7 +51,7 @@ function Character:initAttributes()
         grabFrontAttack = true, grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true,
         dashAttack = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 100
     self.walkSpeed_y = 50
@@ -824,7 +824,7 @@ function Character:hurtUpdate(dt)
     self.canActTimer = self.canActTimer - dt
     if self.sprite.isFinished and self.canActTimer <= 0 then
         if self.hp <= 0 then
-            self:setState(self.getup)
+            self:setState(self.getUp)
             return
         end
         if self.isGrabbed then
@@ -1056,7 +1056,7 @@ function Character:fallUpdate(dt)
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
             self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
-            self:setState(self.getup)
+            self:setState(self.getUp)
             return
         end
     end
@@ -1099,7 +1099,7 @@ function Character:bounceUpdate(dt)
             self.face = -self.face
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
             self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
-            self:setState(self.getup)
+            self:setState(self.getUp)
             return
         end
     end
@@ -1110,7 +1110,7 @@ function Character:bounceUpdate(dt)
 end
 Character.bounce = {name = "bounce", start = Character.bounceStart, exit = nop, update = Character.bounceUpdate, draw = Character.defaultDraw }
 
-function Character:getupStart()
+function Character:getUpStart()
     self.isHittable = false
     dpo(self, self.state)
     self.isHurt = nil
@@ -1122,15 +1122,15 @@ function Character:getupStart()
         self:setState(self.dead)
         return
     end
-    self:setSprite("getup")
+    self:setSprite("getUp")
 end
-function Character:getupUpdate(dt)
+function Character:getUpUpdate(dt)
     if self.sprite.isFinished then
         self:setState(self.stand)
         return
     end
 end
-Character.getup = {name = "getup", start = Character.getupStart, exit = nop, update = Character.getupUpdate, draw = Character.defaultDraw}
+Character.getUp = {name = "getUp", start = Character.getUpStart, exit = nop, update = Character.getUpUpdate, draw = Character.defaultDraw}
 
 function Character:deadStart()
     self.isHittable = false
@@ -1785,7 +1785,7 @@ end
 function Character:knockedDownUpdate(dt)
     self.knockedDownDelay = self.knockedDownDelay - dt
     if self.knockedDownDelay <= 0 then
-        self:setState(self.getup)
+        self:setState(self.getUp)
         return
     end
 end

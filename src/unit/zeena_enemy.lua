@@ -27,7 +27,7 @@ function Zeena:initAttributes()
         grabFrontAttackUp = false, grabFrontAttackDown = false, grabFrontAttackBack = false, grabFrontAttackForward = false,
         dashAttack = false, specialOffensive = false, specialDefensive = false,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 93
     self.walkSpeed_y = 45

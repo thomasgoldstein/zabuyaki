@@ -28,7 +28,7 @@ function Gopper:initAttributes()
         grabFrontAttackUp = false, grabFrontAttackDown = false, grabFrontAttackBack = false, grabFrontAttackForward = false,
         dashAttack = true, specialOffensive = false, specialDefensive = false,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.dashSpeed_x = 150 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall

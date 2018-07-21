@@ -28,7 +28,7 @@ function Beatnick:initAttributes()
         grabFrontAttackUp = false, grabFrontAttackDown = false, grabFrontAttackBack = false, grabFrontAttackForward = false,
         dashAttack = true, specialOffensive = false, specialDefensive = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.height = self.height or 55
     self.walkSpeed_x = 92

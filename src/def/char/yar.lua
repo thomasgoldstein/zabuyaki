@@ -110,7 +110,7 @@ return {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
             delay = 5
         },
-        getup = {
+        getUp = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
             delay = 0.2
         },

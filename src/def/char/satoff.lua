@@ -167,7 +167,7 @@ return {
             { q = q(2,284,71,57), ox = 36, oy = 56, rotate = -1.57, rx = 29, ry = -30 }, --falling
             delay = 5
         },
-        getup = {
+        getUp = {
             { q = q(75,304,79,37), ox = 49, oy = 34 }, --lying down
             { q = q(156,282,69,59), ox = 36, oy = 56 }, --getting up
             { q = q(206,736,66,61), ox = 33, oy = 60 }, --pick up

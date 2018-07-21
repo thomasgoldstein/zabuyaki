@@ -35,7 +35,7 @@ function Satoff:initAttributes()
         grabFrontAttackUp = false, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = false,
         dashAttack = false, specialOffensive = false, specialDefensive = false,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.height = self.height or 55
     self.walkSpeed_x = 86

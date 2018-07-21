@@ -20,7 +20,7 @@ function Chai:initAttributes()
         grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true,
         dashAttack = true, specialOffensive = true, specialDefensive = true,
         -- technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getup = true, duck = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 100
     self.walkSpeed_y = 50
