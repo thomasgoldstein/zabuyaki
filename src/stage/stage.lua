@@ -44,15 +44,9 @@ function Stage:initialize(name, bgColor)
     -- Left and right players stoppers
     self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
     self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
-    -- Left and right players group stoppers
-    self.leftPlayerGroupLimitStopper = Stopper:new("LEFT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
-    self.rightPlayerGroupLimitStopper = Stopper:new("RIGHT.D", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
     self.objects:addArray({
-        self.leftStopper, self.rightStopper,
-        self.leftPlayerGroupLimitStopper, self.rightPlayerGroupLimitStopper
+        self.leftStopper, self.rightStopper
     })
-    self.leftPlayerGroupLimitStopper:moveTo(0, self.worldHeight / 2)
-    self.rightPlayerGroupLimitStopper:moveTo(self.worldWidth, self.worldHeight / 2)
 end
 
 function Stage:updateZoom(dt)
@@ -104,29 +98,6 @@ function Stage:moveStoppers(x1, x2)
     mainCamera:setWorld(math.floor(self.leftStopper.x), 0, math.floor(self.rightStopper.x - self.leftStopper.x), self.worldHeight)
 end
 
-local playerGroupStoppersTime = 0
-function Stage:updateZStoppers(dt)
-    if self.playerGroupStoppersMode == "check" then
-        if self.playerGroupDistance > maxPlayerGroupDistance then
-            self.playerGroupStoppersMode = "set"
-        end
-    elseif self.playerGroupStoppersMode == "set" then
-        self.leftPlayerGroupLimitStopper:moveTo(self.min_x - 30, self.worldHeight / 2)
-        self.rightPlayerGroupLimitStopper:moveTo(self.max_x + 30, self.worldHeight / 2)
-        playerGroupStoppersTime = 0.1
-        self.playerGroupStoppersMode = "wait"
-    elseif self.playerGroupStoppersMode == "wait" then
-        playerGroupStoppersTime = playerGroupStoppersTime - dt
-        if playerGroupStoppersTime < 0 and self.playerGroupDistance < minPlayerGroupDistance then
-            self.playerGroupStoppersMode = "release"
-        end
-    else --if self.playerGroupStoppersMode == "release" then
-        self.leftPlayerGroupLimitStopper:moveTo(0, self.worldHeight / 2)
-        self.rightPlayerGroupLimitStopper:moveTo(self.worldWidth, self.worldHeight / 2)
-        self.playerGroupStoppersMode = "check"
-    end
-end
-
 function Stage:isTimeOut()
     return self.timeLeft <= 0
 end
@@ -173,7 +144,6 @@ function Stage:update(dt)
         if self.batch then
             self.showGoMark = self.batch:update(dt)
         end
-        self:updateZStoppers(dt)
         self:updateZoom(dt)
         self.objects:update(dt)
         --sort players by y
