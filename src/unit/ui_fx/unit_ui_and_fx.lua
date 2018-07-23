@@ -268,7 +268,7 @@ function Unit:drawPID(x, y_, x_)
     if self.id > GLOBAL_SETTING.MAX_PLAYERS then
         return
     end
-    local y = y_ - math.cos(self.showPIDDelay * 6)
+    local y = -30 - self.height + y_ - math.cos(self.showPIDDelay * 6)
     colors:set("playersColors", self.id, calcTransparency(self.showPIDDelay))
     love.graphics.rectangle("fill", x - 15, y, 30, 17)
     if x == x_ then
@@ -322,7 +322,7 @@ function Unit:defaultDraw(l, t, w, h)
         if self.showPIDDelay > 0 then
             local x = clamp(self.x, l + 20, l + w - 20 )
             colors:set("white")
-            self:drawPID(x, self.y - self.z - 80, self.x)
+            self:drawPID(x, self.y - self.z, self.x)
         end
     end
 end
