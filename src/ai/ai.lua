@@ -304,7 +304,7 @@ function AI:calcWalkToBackOffXY()
     if not self.conditions.canMove or u.state ~= "stand" then
         return false
     end
-    if not u.target then
+    if not u.target or u.target.hp < 1 then
         u:pickAttackTarget("close")
     end
     assert(not u.isDisabled and u.hp > 0)
@@ -391,7 +391,7 @@ end
 function AI:calcWalkToAttackXY()
     local u = self.unit
 --    dp("AI:calcWalkToAttackXY() " .. u.name)
-    if not u.target then
+    if not u.target or u.target.hp < 1 then
         u:pickAttackTarget("close")
         if not u.target then
             return false
@@ -466,7 +466,7 @@ function AI:calcRunToXY()
     if self.conditions.cannotAct or not self.conditions.canMove then
         return false
     end
-    if not u.target then
+    if not u.target or u.target.hp < 1 then
         u:pickAttackTarget() -- ???
     end
     assert(not u.isDisabled and u.hp > 0)
@@ -494,7 +494,7 @@ function AI:initFaceToPlayer()
     if not u.isHittable or self.conditions.cannotAct then
         return false
     end
-    if not u.target then
+    if not u.target or u.target.hp < 1 then
         u:pickAttackTarget() -- ???
     end
     if u.x < u.target.x then
@@ -621,7 +621,7 @@ function AI:calcWalkToGrabXY()
     if not self.conditions.canMove or self.conditions.cannotAct then
         return false
     end
-    if not u.target then
+    if not u.target or u.target.hp < 1 then
         u:pickAttackTarget("close")
         if not u.target then
             return false
