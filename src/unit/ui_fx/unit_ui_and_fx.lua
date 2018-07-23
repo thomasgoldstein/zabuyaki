@@ -254,7 +254,7 @@ function Unit:drawShadow(l, t, w, h)
     end
 end
 
-local function calcTransparency(cd)
+local function calcPIDTransparency(cd)
     if cd > 1 then
         return math.sin(cd * 10) * 55 + 200
     end
@@ -269,7 +269,7 @@ function Unit:drawPID(x, y_, x_)
         return
     end
     local y = -30 - self.height + y_ - math.cos(self.showPIDDelay * 6)
-    colors:set("playersColors", self.id, calcTransparency(self.showPIDDelay))
+    colors:set("playersColors", self.id, calcPIDTransparency(self.showPIDDelay))
     love.graphics.rectangle("fill", x - 15, y, 30, 17)
     if x == x_ then
         love.graphics.polygon("fill", x, y + 20, x - 2, y + 17, x + 2, y + 17) -- V
@@ -279,10 +279,10 @@ function Unit:drawPID(x, y_, x_)
         love.graphics.polygon("fill", x - 15, y + 6, x - 18, y + 9, x - 15, y + 12) -- <
     end
 
-    colors:set("black", nil, calcTransparency(self.showPIDDelay))
+    colors:set("black", nil, calcPIDTransparency(self.showPIDDelay))
     love.graphics.rectangle("fill", x - 13, y + 2, 30 - 4, 13)
     love.graphics.setFont(gfx.font.arcade3)
-    colors:set("white", nil, calcTransparency(self.showPIDDelay))
+    colors:set("white", nil, calcPIDTransparency(self.showPIDDelay))
     love.graphics.print(self.pid, x - 7, y + 4)
 end
 
