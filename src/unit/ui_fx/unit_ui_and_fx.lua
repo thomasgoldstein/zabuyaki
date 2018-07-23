@@ -316,10 +316,8 @@ function Unit:defaultDraw(l, t, w, h)
             drawDebugUnitHitbox(self)
             drawDebugUnitInfo(self)
         end
-        if self.x < l + 20 or self.x >= l + w - 20 then
-            if self.showPIDDelay < 1 then
-                self.showPIDDelay = self.showPIDDelay + math.pi
-            end
+        if self.hp > 0 and self.showPIDDelay < 1 and (self.x < l + 20 or self.x >= l + w - 20) then
+            self.showPIDDelay = self.showPIDDelay + math.pi
         end
         if self.showPIDDelay > 0 then
             local x = clamp(self.x, l + 20, l + w - 20 )
