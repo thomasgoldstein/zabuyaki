@@ -51,7 +51,8 @@ function Unit:showHitMarks(dmg, z, offset_x)
         attackHitBoxes[#attackHitBoxes + 1] = { x = self.x, sx = 0, y = self.y, w = 31, h = 0.1, z = z, collided = true }
     end
     paHitMark:setPosition(self.face * (offset_x or 4), -z + hitMarkOffset_y)
-    if not offset_x then --still mark e.g. for clashing
+    if not offset_x then
+        --still mark e.g. for clashing
         paHitMark:setSpeed(-self.face * 30, -self.face * 60) --move the marks from the attacker by default
     end
     paHitMark:emit(1)
@@ -183,7 +184,7 @@ function Unit:fadeOutGhostTrails()
     end
     t.fade = true
 end
-local ghostTaceKind1 = {{ x = 1, y = -1 }, { x = -1, y = -1} }
+local ghostTaceKind1 = { { x = 1, y = -1 }, { x = -1, y = -1 } }
 local ghostTaceKind1MaxOffset = 16 -- tweakable: increase to move ghosts farther from the chara
 function Unit:drawGhostTrails(l, t, w, h)
     local t = self.ghostTrails
