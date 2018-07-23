@@ -12,7 +12,6 @@ local CheckCollision = CheckCollision
 function Event:initialize(name, sprite, input, x, y, f)
     --self.tx, self.ty = x, y
     Unit.initialize(self, name, sprite, input, x, y, f)
-    self:pickAttackTarget()
     self.type = "event"
 end
 
