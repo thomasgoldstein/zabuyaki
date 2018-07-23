@@ -28,7 +28,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.b = input or DUMMY_CONTROL
 
     self.x, self.y, self.z = x, y, 0
-    self.height = self.height or 50
+    self.height = f.height or 50
     self.width = 10 --calcs from the hitbox in addShape()
     self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
     self.speed_x, self.speed_y, self.speed_z = 0, 0, 0

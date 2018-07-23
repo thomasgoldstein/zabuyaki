@@ -37,7 +37,7 @@ function Satoff:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
-    self.height = self.height or 55
+    self.height = 55
     self.walkSpeed_x = 86
     self.walkSpeed_y = 45
     self.chargeWalkSpeed_x = 80

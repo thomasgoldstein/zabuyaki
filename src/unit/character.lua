@@ -18,7 +18,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     end
     f.shapeType = f.shapeType or "polygon"
     f.shapeArgs = f.shapeArgs or { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 }
-    self.height = self.height or 50
+    self.height = f.height or 50
     Unit.initialize(self, name, sprite, input, x, y, f)
     Character.initAttributes(self)
     self.type = "character"
