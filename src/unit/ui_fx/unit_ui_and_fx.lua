@@ -320,9 +320,8 @@ function Unit:defaultDraw(l, t, w, h)
             self.showPIDDelay = self.showPIDDelay + math.pi
         end
         if self.showPIDDelay > 0 then
-            local x = clamp(self.x, l + 20, l + w - 20 )
             colors:set("white")
-            self:drawPID(x, self.y - self.z, self.x)
+            self:drawPID(clamp(self.x, l + 20, l + w - 20), self.y - self.z, self.x)
         end
     end
 end
