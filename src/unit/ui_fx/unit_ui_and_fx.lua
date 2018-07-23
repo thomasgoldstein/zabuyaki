@@ -263,14 +263,21 @@ local function calcTransparency(cd)
     return 255
 end
 
-function Unit:drawPID(x, y_)
+function Unit:drawPID(x, y_, x_)
     if self.id > GLOBAL_SETTING.MAX_PLAYERS then
         return
     end
     local y = y_ - math.cos(self.showPIDDelay * 6)
     colors:set("playersColors", self.id, calcTransparency(self.showPIDDelay))
     love.graphics.rectangle("fill", x - 15, y, 30, 17)
-    love.graphics.polygon("fill", x, y + 20, x - 2, y + 17, x + 2, y + 17)
+    if x == x_ then
+        love.graphics.polygon("fill", x, y + 20, x - 2, y + 17, x + 2, y + 17) -- V
+    elseif x < x_ then
+        love.graphics.polygon("fill", x + 15, y + 6, x + 18, y + 9, x + 15, y + 12) -- >
+    else
+        love.graphics.polygon("fill", x - 15, y + 6, x - 18, y + 9, x - 15, y + 12) -- <
+    end
+
     colors:set("black", nil, calcTransparency(self.showPIDDelay))
     love.graphics.rectangle("fill", x - 13, y + 2, 30 - 4, 13)
     love.graphics.setFont(gfx.font.arcade3)
@@ -280,35 +287,42 @@ end
 
 local transpBg
 function Unit:defaultDraw(l, t, w, h)
-    if not self.isDisabled and CheckCollision(l, t, w, h, self.x - 35, self.y - 70, 70, 70) then
-        self:drawGhostTrails(l, t, w, h)
-        self.sprite.flipH = self.face --TODO get rid of .face
-        if self.deathDelay < 1 then
-            transpBg = 255 * math.sin(self.deathDelay)
-        else
-            transpBg = 255
-        end
-        if self.statesForChargeAttack and self.chargeTimer >= self.chargedAt / 2 and self.chargeTimer < self.chargedAt then
-            if self.chargeAttack and self.statesForChargeAttack[self.state] then
-                colors:set("chargeAttack")
-                local width = clamp(self.chargeTimer, 0.5, 1) * self.width
-                love.graphics.ellipse(self.chargeTimer >= self.chargedAt - self.chargedAt / 10 and "fill" or "line", self.x, self.y - self:getMinZ(), width, width / 2)
+    if not self.isDisabled then
+        if CheckCollision(l, t, w, h, self.x - 35, self.y - 70, 70, 70) then
+            self:drawGhostTrails(l, t, w, h)
+            self.sprite.flipH = self.face --TODO get rid of .face
+            if self.deathDelay < 1 then
+                transpBg = 255 * math.sin(self.deathDelay)
+            else
+                transpBg = 255
             end
+            if self.statesForChargeAttack and self.chargeTimer >= self.chargedAt / 2 and self.chargeTimer < self.chargedAt then
+                if self.chargeAttack and self.statesForChargeAttack[self.state] then
+                    colors:set("chargeAttack")
+                    local width = clamp(self.chargeTimer, 0.5, 1) * self.width
+                    love.graphics.ellipse(self.chargeTimer >= self.chargedAt - self.chargedAt / 10 and "fill" or "line", self.x, self.y - self:getMinZ(), width, width / 2)
+                end
+            end
+            colors:set(self.color, nil, transpBg)
+            if self.shader then
+                love.graphics.setShader(self.shader)
+            end
+            self:drawSprite(self.x + self.shake.x, self.y - self.z - self.shake.y)
+            if self.shader then
+                love.graphics.setShader()
+            end
+            colors:set("white")
+            drawDebugUnitHitbox(self)
+            drawDebugUnitInfo(self)
         end
-        colors:set(self.color, nil, transpBg)
-        if self.shader then
-            love.graphics.setShader(self.shader)
+        if self.x < l + 20 or self.x >= l + w - 20 then
+            self.showPIDDelay = 2
         end
-        self:drawSprite(self.x + self.shake.x, self.y - self.z - self.shake.y)
-        if self.shader then
-            love.graphics.setShader()
-        end
-        colors:set("white")
         if self.showPIDDelay > 0 then
-            self:drawPID(self.x, self.y - self.z - 80)
+            local x = clamp(self.x, l + 20, l + w - 20 )
+            colors:set("white")
+            self:drawPID(x, self.y - self.z - 80, self.x)
         end
-        drawDebugUnitHitbox(self)
-        drawDebugUnitInfo(self)
     end
 end
 
