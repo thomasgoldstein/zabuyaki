@@ -324,30 +324,48 @@ function Stage:hasPlaceToStand(x, y, unit)
 end
 
 function Stage:getSafeRespawnPosition(unit)
-    local x = oldCoord_x or 0
-    local _, _y = self:getScrollingY(x)
-    local t = {}
-    local r
-    for y = _y, _y + 240/3, 8 do
+    local x, _y, r, v
+    local l, t, w, h = mainCamera.cam:getVisible()
+    -- player coords should be in the screen
+    --unit.x = clamp(unit.x, l, l + w)
+    print("!! CAMERA ", l, t, w, h)
+    print("!!!!! can i respawn here", unit.x, unit.y, unit.name)
+    unit.x = clamp(unit.x, l + unit.width, l + w - unit.width)
+    print(" --> correct", unit.x, unit.y, unit.name)
+    unit.x = clamp(unit.x, self.leftStopper.x + self.leftStopper.width / 2 + unit.width / 2, self.rightStopper.x - self.rightStopper.width / 2 - unit.width / 2)
+    print(" --> correct", unit.x, unit.y, unit.name)
+    if stage:hasPlaceToStand(unit.x, unit.y, unit) then
+        -- exact place
+        print("%%% CAN respawn here", unit.x, unit.y, unit.name)
+        return unit.x, unit.y
+    end
+    -- random y, but the same x
+    x = unit.x
+    _, _y = self:getScrollingY(x)
+    print("1) x", x, "_y_", _y)
+    v = {}
+    for y = _y, _y + 240 / 3, 8 do
         if stage:hasPlaceToStand(x, y, unit) then
-            t[#t + 1] = {x, y}
+            v[#v + 1] = { x, y }
         end
     end
-    if #t > 0 then
-        r = t[love.math.random(1,#t)]
+    if #v > 0 then
+        r = v[love.math.random(1, #v)]
     else
-        -- no place to spawn. check center of the current batch
-        x = (self.leftStopper.x + self.rightStopper.x) / 2
-        _y = self:getScrollingY(x)
-        for y = _y, _y + 240/3, 8 do
+        -- no place to spawn. 3rd try at the center of the current screen
+        x = l + w / 2
+        _, _y = self:getScrollingY(x)
+        print("2) x", x, "_y_", _y)
+        v = {}
+        for y = _y, _y + 240 / 3, 8 do
             if stage:hasPlaceToStand(x, y, unit) then
-                t[#t + 1] = {x, y}
+                v[#v + 1] = { x, y }
             end
         end
-        if #t > 0 then
-            r = t[love.math.random(1,#t)]
+        if #v > 0 then
+            r = v[love.math.random(1, #v)]
         else
-            error("No place to spawn player at X:"..x)
+            error("No place to spawn player at X:" .. x)
         end
     end
     return r[1], r[2]
