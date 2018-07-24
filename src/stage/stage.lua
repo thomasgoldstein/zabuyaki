@@ -336,7 +336,19 @@ function Stage:getSafeRespawnPosition(unit)
     if #t > 0 then
         r = t[love.math.random(1,#t)]
     else
-        error("No place to spawn player at X:"..x)
+        -- no place to spawn. check center of the current batch
+        x = (self.leftStopper.x + self.rightStopper.x) / 2
+        _y = self:getScrollingY(x)
+        for y = _y, _y + 240/3, 8 do
+            if stage:hasPlaceToStand(x, y, unit) then
+                t[#t + 1] = {x, y}
+            end
+        end
+        if #t > 0 then
+            r = t[love.math.random(1,#t)]
+        else
+            error("No place to spawn player at X:"..x)
+        end
     end
     return r[1], r[2]
 end
