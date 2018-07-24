@@ -202,8 +202,8 @@ function Unit:checkCollisionAndMove(dt)
         self.move:update(dt) --tweening
         self.shape:moveTo(self.x, self.y)
     else
-        local stepx = self.speed_x * dt * self.horizontal
-        local stepy = self.speed_y * dt * self.vertical
+        stepx = self.speed_x * dt * self.horizontal
+        stepy = self.speed_y * dt * self.vertical
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
     if not self:canFall() then
