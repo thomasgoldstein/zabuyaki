@@ -33,17 +33,17 @@ function Stage:initialize(name, bgColor)
     self.scrolling = {}
     self.timeLeft = GLOBAL_SETTING.TIMER
     self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
-    self.world = HC.new(40*4)
+    self.world = HC.new(40 * 4)
     self.testShape = HC.rectangle(1, 1, 15, 5) -- to test collision
     self.objects = Entity:new()
-    oldCoord_x, oldCoord_y  = nil, nil -- smooth scrolling init
+    oldCoord_x, oldCoord_y = nil, nil -- smooth scrolling init
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
     self.zoom = maxZoom
     self.zoomMode = "check"
     self.playerGroupStoppersMode = "check"
     -- Left and right players stoppers
-    self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --left
-    self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight }}) --right
+    self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } }) --left
+    self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } }) --right
     self.objects:addArray({
         self.leftStopper, self.rightStopper
     })
@@ -107,23 +107,24 @@ function Stage:resetTime()
 end
 
 local txtTime
-local txtGo = love.graphics.newText( gfx.font.clock, "GO" )
+local txtGo = love.graphics.newText(gfx.font.clock, "GO")
 function Stage:displayGoTimer(screenWidth, screenHeight)
     local time = 0
     if self.timeLeft > 0 then
         time = self.timeLeft
     end
-    txtTime = love.graphics.newText( gfx.font.clock, string.format( "%02d", time ) )
+    txtTime = love.graphics.newText(gfx.font.clock, string.format("%02d", time))
     local transp = 255
     local x, y = screenWidth - txtTime:getWidth() - 26, 6
     if self.timeLeft <= 10 or self.showGoMark then
         transp = 255 * math.abs(math.cos(10 - self.timeLeft * math.pi * 2))
     end
     colors:set("darkGray", nil, transp)
-    if self.showGoMark and self.timeLeft >= 5.5 then    -- draw shadow
-        love.graphics.draw(txtGo, x - 40 + 1, y - 1 )
+    if self.showGoMark and self.timeLeft >= 5.5 then
+        -- draw shadow
+        love.graphics.draw(txtGo, x - 40 + 1, y - 1)
     else
-        love.graphics.draw(txtTime, x + 1, y - 1 )
+        love.graphics.draw(txtTime, x + 1, y - 1)
     end
     if self.timeLeft < 5.5 then
         colors:set("redGoTimer", nil, transp)
@@ -131,9 +132,9 @@ function Stage:displayGoTimer(screenWidth, screenHeight)
         colors:set("white", nil, transp)
     end
     if self.showGoMark and self.timeLeft >= 5.5 then
-        love.graphics.draw(txtGo, x - 40, y )
+        love.graphics.draw(txtGo, x - 40, y)
     else
-        love.graphics.draw(txtTime, x, y )
+        love.graphics.draw(txtTime, x, y)
     end
 end
 
@@ -169,7 +170,8 @@ function Stage:update(dt)
             end
             beepTimer = math.floor(self.timeLeft + 0.5)
         end
-        if self.showGoMark then -- Go! beep
+        if self.showGoMark then
+            -- Go! beep
             if beepTimer - 1 == math.floor(self.timeLeft + 0.5) then
                 sfx.play("sfx", "menuCancel")
             end
@@ -204,7 +206,7 @@ function Stage:draw(l, t, w, h)
     love.graphics.setBlendMode("alpha")
     love.graphics.setCanvas(canvas[1])
     love.graphics.clear(unpack(self.bgColor))
---    love.graphics.clear(unpack(self.bgColor))
+    --    love.graphics.clear(unpack(self.bgColor))
     if self.mode == "normal" then
         if self.background then
             self.background:draw(l, t, w, h)
@@ -232,8 +234,8 @@ function Stage:draw(l, t, w, h)
             self.foreground:draw(l, t, w, h)
         end
         colors:set("black")
-        love.graphics.rectangle("fill", 0,0,640,40)
-        love.graphics.rectangle("fill", 0,440-1,640,40)
+        love.graphics.rectangle("fill", 0, 0, 640, 40)
+        love.graphics.rectangle("fill", 0, 440 - 1, 640, 40)
         if self.event then
             self.event:draw(l, t, w, h)
         end
@@ -264,11 +266,11 @@ function Stage:setCamera(dt)
     if mainCamera:getScale() ~= self.zoom then
         mainCamera:setScale(self.zoom)
         if self.zoom < maxZoom then
-            for i=1,#canvas do
+            for i = 1, #canvas do
                 canvas[i]:setFilter("linear", "linear", 2)
             end
         else
-            for i=1,#canvas do
+            for i = 1, #canvas do
                 canvas[i]:setFilter("nearest", "nearest")
             end
         end
@@ -291,8 +293,8 @@ function Stage:setCamera(dt)
     end
     -- Correct coord_y according to the zoom stage
     coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
---    local delta_y = display.inner.resolution.height * display.inner.minScale - display.inner.resolution.height * display.inner.maxScale
---    coord_y = coord_y - 2 * delta_y * (display.inner.minScale - mainCamera:getScale()) * display.inner.minScale / display.inner.maxScale
+    --    local delta_y = display.inner.resolution.height * display.inner.minScale - display.inner.resolution.height * display.inner.maxScale
+    --    coord_y = coord_y - 2 * delta_y * (display.inner.minScale - mainCamera:getScale()) * display.inner.minScale / display.inner.maxScale
 
     if oldCoord_x then
         if math.abs(coord_x - oldCoord_x) > 4 then
@@ -300,11 +302,11 @@ function Stage:setCamera(dt)
         else
             oldCoord_x = coord_x
         end
-        mainCamera:update(dt, math.floor(oldCoord_x * 2)/2, math.floor(oldCoord_y * 2)/2)
+        mainCamera:update(dt, math.floor(oldCoord_x * 2) / 2, math.floor(oldCoord_y * 2) / 2)
     else
         oldCoord_x = coord_x
         oldCoord_y = coord_y
-        mainCamera:update(dt, math.floor(oldCoord_x * 2)/2, math.floor(oldCoord_y * 2)/2)
+        mainCamera:update(dt, math.floor(oldCoord_x * 2) / 2, math.floor(oldCoord_y * 2) / 2)
     end
     oldCoord_y = coord_y
 end
