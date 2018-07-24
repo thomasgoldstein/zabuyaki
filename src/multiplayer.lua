@@ -159,6 +159,7 @@ function unregisterPlayer(player)
     elseif player.id < 1 or player.id > GLOBAL_SETTING.MAX_PLAYERS then
         error("wrong player id:"..player.id)
     end
+    player.isDisabled = true
     players[player.id] = nil
 end
 
