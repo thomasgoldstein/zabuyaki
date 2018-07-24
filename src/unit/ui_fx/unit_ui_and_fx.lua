@@ -187,30 +187,30 @@ end
 local ghostTaceKind1 = { { x = 1, y = -1 }, { x = -1, y = -1 } }
 local ghostTaceKind1MaxOffset = 16 -- tweakable: increase to move ghosts farther from the chara
 function Unit:drawGhostTrails(l, t, w, h)
-    local t = self.ghostTrails
+    local gt = self.ghostTrails
     local x, y, m = 0, 0, 0
-    if not t or not t.enabled then
+    if not gt or not gt.enabled then
         return
     end
-    for k = t.n, 1, -1 do
-        local i = self:getGhostTrails(k * math.ceil((t.shift * love.timer.getFPS()) / 60))
-        if t.ghost[i] then
+    for k = gt.n, 1, -1 do
+        local i = self:getGhostTrails(k * math.ceil((gt.shift * love.timer.getFPS()) / 60))
+        if gt.ghost[i] then
             colors:set("ghostTrailsColors", k)
-            self.sprite.flipH = t.ghost[i][5]
-            if t.kind == 1 then
+            self.sprite.flipH = gt.ghost[i][5]
+            if gt.kind == 1 then
                 if ghostTaceKind1[k] then
                     x, y = ghostTaceKind1[k].x, ghostTaceKind1[k].y
-                    if t.ghostTrailsTime <= t.ghostTrailsDelay then
-                        m = t.ghostTrailsTime * ghostTaceKind1MaxOffset
-                    elseif t.ghostTrailsTime <= t.ghostTrailsDelay * 2 then
-                        m = (t.ghostTrailsDelay * 2 - t.ghostTrailsTime) * ghostTaceKind1MaxOffset
+                    if gt.ghostTrailsTime <= gt.ghostTrailsDelay then
+                        m = gt.ghostTrailsTime * ghostTaceKind1MaxOffset
+                    elseif gt.ghostTrailsTime <= gt.ghostTrailsDelay * 2 then
+                        m = (gt.ghostTrailsDelay * 2 - gt.ghostTrailsTime) * ghostTaceKind1MaxOffset
                     else
                         m = 0
                     end
                 end
-                drawSpriteCustomInstance(self.sprite, t.ghost[i][1] + x * m, t.ghost[i][2] + y * m, t.ghost[i][3], t.ghost[i][4])
+                drawSpriteCustomInstance(self.sprite, gt.ghost[i][1] + x * m, gt.ghost[i][2] + y * m, gt.ghost[i][3], gt.ghost[i][4])
             else
-                drawSpriteCustomInstance(self.sprite, t.ghost[i][1], t.ghost[i][2], t.ghost[i][3], t.ghost[i][4])
+                drawSpriteCustomInstance(self.sprite, gt.ghost[i][1], gt.ghost[i][2], gt.ghost[i][3], gt.ghost[i][4])
             end
         end
     end
