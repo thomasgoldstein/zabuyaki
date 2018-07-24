@@ -326,23 +326,16 @@ end
 function Stage:getSafeRespawnPosition(unit)
     local x, _y, r, v
     local l, t, w, h = mainCamera.cam:getVisible()
-    -- player coords should be in the screen
-    --unit.x = clamp(unit.x, l, l + w)
-    print("!! CAMERA ", l, t, w, h)
-    print("!!!!! can i respawn here", unit.x, unit.y, unit.name)
-    unit.x = clamp(unit.x, l + unit.width, l + w - unit.width)
-    print(" --> correct", unit.x, unit.y, unit.name)
-    unit.x = clamp(unit.x, self.leftStopper.x + self.leftStopper.width / 2 + unit.width / 2, self.rightStopper.x - self.rightStopper.width / 2 - unit.width / 2)
-    print(" --> correct", unit.x, unit.y, unit.name)
+    -- player coords should be within the visible screen
+    unit.x = clamp(unit.x, l + unit.width / 2 + 1, l + w - unit.width / 2 - 1)
+    -- player coords should not overlap with stoppers
+    unit.x = clamp(unit.x, self.leftStopper.x + self.leftStopper.width / 2 + unit.width / 2 + 1,
+        self.rightStopper.x - self.rightStopper.width / 2 - unit.width / 2 - 1)
     if stage:hasPlaceToStand(unit.x, unit.y, unit) then
-        -- exact place
-        print("%%% CAN respawn here", unit.x, unit.y, unit.name)
         return unit.x, unit.y
     end
-    -- random y, but the same x
-    x = unit.x
+    x = unit.x    -- try random y, but the same x
     _, _y = self:getScrollingY(x)
-    print("1) x", x, "_y_", _y)
     v = {}
     for y = _y, _y + 240 / 3, 8 do
         if stage:hasPlaceToStand(x, y, unit) then
@@ -352,10 +345,8 @@ function Stage:getSafeRespawnPosition(unit)
     if #v > 0 then
         r = v[love.math.random(1, #v)]
     else
-        -- no place to spawn. 3rd try at the center of the current screen
-        x = l + w / 2
+        x = l + w / 2 -- no place to spawn. 3rd try at the center of the current screen
         _, _y = self:getScrollingY(x)
-        print("2) x", x, "_y_", _y)
         v = {}
         for y = _y, _y + 240 / 3, 8 do
             if stage:hasPlaceToStand(x, y, unit) then
