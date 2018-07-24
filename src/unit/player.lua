@@ -422,6 +422,11 @@ function Player:deadUpdate(dt)
         return
     else
         self.deathDelay = self.deathDelay - dt
+        if self:canFall() then
+            self:calcFreeFall(dt)
+        else
+            self.z = self:getMinZ()
+        end
     end
 end
 Player.dead = {name = "dead", start = Player.deadStart, exit = nop, update = Player.deadUpdate, draw = Unit.defaultDraw}

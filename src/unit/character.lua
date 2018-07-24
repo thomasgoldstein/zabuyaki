@@ -1163,6 +1163,11 @@ function Character:deadUpdate(dt)
         return
     else
         self.deathDelay = self.deathDelay - dt
+        if self:canFall() then
+            self:calcFreeFall(dt)
+        else
+            self.z = self:getMinZ()
+        end
     end
 end
 Character.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = Character.defaultDraw}
