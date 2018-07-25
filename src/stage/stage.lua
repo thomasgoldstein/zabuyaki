@@ -323,18 +323,33 @@ function Stage:hasPlaceToStand(x, y, unit)
     return true
 end
 
+local respawnSidePadding = 34
 function Stage:getSafeRespawnPosition(unit)
     local x, _y, r, v
     local l, t, w, h = mainCamera.cam:getVisible()
-    -- player coords should be within the visible screen
-    unit.x = clamp(unit.x, l + unit.width / 2 + 1, l + w - unit.width / 2 - 1)
-    -- player coords should not overlap with stoppers
-    unit.x = clamp(unit.x, self.leftStopper.x + self.leftStopper.width / 2 + unit.width / 2 + 1,
-        self.rightStopper.x - self.rightStopper.width / 2 - unit.width / 2 - 1)
+    -- player respawn coords should be within the visible screen
+    unit.x = clamp(unit.x, l + unit.width / 2 + respawnSidePadding, l + w - unit.width / 2 - respawnSidePadding)
+    -- player respawn coords should not overlap with stoppers
+    unit.x = clamp(unit.x, self.leftStopper.x + self.leftStopper.width / 2 + unit.width / 2 + respawnSidePadding,
+        self.rightStopper.x - self.rightStopper.width / 2 - unit.width / 2 - respawnSidePadding)
     if stage:hasPlaceToStand(unit.x, unit.y, unit) then
         return unit.x, unit.y
     end
-    x = unit.x    -- try random y, but the same x
+    -- try to respawn at random y ( keep the same x )
+    x = unit.x
+    _y = self:getScrollingY(x)
+    v = {}
+    for y = _y, _y + 240 / 3, 8 do
+        if stage:hasPlaceToStand(x, y, unit) then
+            v[#v + 1] = { x, y }
+        end
+    end
+    if #v > 0 then
+        r = v[love.math.random(1, #v)]
+        return r[1], r[2]
+    end
+    -- respawn at the center of the current screen
+    x = l + w / 2
     _y = self:getScrollingY(x)
     v = {}
     for y = _y, _y + 240 / 3, 8 do
@@ -345,19 +360,7 @@ function Stage:getSafeRespawnPosition(unit)
     if #v > 0 then
         r = v[love.math.random(1, #v)]
     else
-        x = l + w / 2 -- no place to spawn. 3rd try at the center of the current screen
-        _y = self:getScrollingY(x)
-        v = {}
-        for y = _y, _y + 240 / 3, 8 do
-            if stage:hasPlaceToStand(x, y, unit) then
-                v[#v + 1] = { x, y }
-            end
-        end
-        if #v > 0 then
-            r = v[love.math.random(1, #v)]
-        else
-            error("No place to spawn player at X:" .. x)
-        end
+        error("No place to spawn player at X:" .. x)
     end
     return r[1], r[2]
 end
