@@ -15,7 +15,7 @@ function StageObject:initialize(name, sprite, x, y, f)
         --f.shapeType = "circle"
         --f.shapeArgs = { x, y, 7.5 }
         f.shapeType = "polygon"
-        f.shapeArgs = { 4, 0, 9, 0, 14, 5, 9, 12, 4, 12, 0, 5 }
+        f.shapeArgs = { 4, 0, 9, 0, 14, 3, 9, 6, 4, 6, 0, 3 }
     end
     self.height = f.height or 40
     Character.initialize(self, name, sprite, nil, x, y, f)

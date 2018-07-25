@@ -156,7 +156,7 @@ local function loadUnit(items, stage, batch_name)
                     if v.properties.class == "trashcan" then
                         u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
-                            {hp = 35, score = 100, height = 30,
+                            {hp = 35, score = 100, height = 34,
                                 isMovable = true, func = getUnitFunction(v),
                                 palette = palette, particleColor = shaders.trashcan_particleColor[palette],
                                 sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
