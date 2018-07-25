@@ -265,12 +265,10 @@ function Stage:setCamera(dt)
     local center_x, playerGroupDistance, min_x, max_x = self.center_x, self.playerGroupDistance, self.min_x, self.max_x
     if mainCamera:getScale() ~= self.zoom then
         mainCamera:setScale(self.zoom)
-        if self.zoom < maxZoom then
-            for i = 1, #canvas do
+        for i = 1, #canvas do
+            if self.zoom < maxZoom then
                 canvas[i]:setFilter("linear", "linear", 2)
-            end
-        else
-            for i = 1, #canvas do
+            else
                 canvas[i]:setFilter("nearest", "nearest")
             end
         end
