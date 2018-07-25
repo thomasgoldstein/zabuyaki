@@ -35,6 +35,7 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self.sfx.onBreak = f.sfxOnBreak --on sprite change/fall sfx
     self.sfx.grab = f.sfxGrab --on being grabbed sfx
     self.isMovable = f.isMovable
+    self.isObstacle = not self.isMovable -- can walk trough it
     self.weight = f.weight or 1.5
     self.gravity = self.gravity * self.weight
     self.deathDelay = 1 --seconds to remove
@@ -87,8 +88,7 @@ function Obstacle:checkCollisionAndMove(dt)
     if not self:canFall() then
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
-            if o.type == "wall"
-            then
+            if o.isObstacle then
                 self.shape:move(separatingVector.x, separatingVector.y)
                 success = false
             end

@@ -13,6 +13,7 @@ function Wall:initialize(name, f)
     self.name = name or "Unknown Wall"
     self.type = "wall"
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
+    self.isObstacle = true
     self.isHittable = false
     self.isDisabled = false
     self.isMovable = f.isMovable --on death sfx

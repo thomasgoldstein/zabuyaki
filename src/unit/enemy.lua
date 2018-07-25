@@ -51,9 +51,7 @@ function Enemy:checkCollisionAndMove(dt)
     if not self:canFall() then
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
-            if o.type == "wall"
-                    or (o.type == "obstacle" and o.z <= 0)
-            then
+            if o.isObstacle and o.z <= 0 then
                 self.shape:move(separatingVector.x, separatingVector.y)
                 if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
                     stepx, stepy = separatingVector.x, separatingVector.y
@@ -64,8 +62,7 @@ function Enemy:checkCollisionAndMove(dt)
     else
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
-            if o.type == "wall"
-            then
+            if o.isObstacle then
                 self.shape:move(separatingVector.x, separatingVector.y)
                 if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
                     stepx, stepy = separatingVector.x, separatingVector.y
