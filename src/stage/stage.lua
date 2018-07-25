@@ -254,7 +254,7 @@ function Stage:getScrollingY(x)
             ty = c.end_y - c.start_y
             tx = c.end_x - c.start_x
             cx = x - c.start_x
-            return self.leftStopper.x, (cx * ty) / tx + c.start_y
+            return (cx * ty) / tx + c.start_y
         end
     end
 end
@@ -337,7 +337,7 @@ function Stage:getSafeRespawnPosition(unit)
         return unit.x, unit.y
     end
     x = unit.x    -- try random y, but the same x
-    _, _y = self:getScrollingY(x)
+    _y = self:getScrollingY(x)
     v = {}
     for y = _y, _y + 240 / 3, 8 do
         if stage:hasPlaceToStand(x, y, unit) then
@@ -348,7 +348,7 @@ function Stage:getSafeRespawnPosition(unit)
         r = v[love.math.random(1, #v)]
     else
         x = l + w / 2 -- no place to spawn. 3rd try at the center of the current screen
-        _, _y = self:getScrollingY(x)
+        _y = self:getScrollingY(x)
         v = {}
         for y = _y, _y + 240 / 3, 8 do
             if stage:hasPlaceToStand(x, y, unit) then
