@@ -110,7 +110,7 @@ function getDistanceBetweenPlayers()
     local n = 0
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
-        if player and player:isAlive() then
+        if player and player.hp > 0 then
             n = n + 1
             old_y = player.y
             if min_x then
@@ -134,10 +134,6 @@ function getDistanceBetweenPlayers()
     end
     oldMin_x, oldMax_x = min_x, max_x
     return min_x + (max_x - min_x) / 2, max_x - min_x, min_x, max_x
-end
-
-function correctPlayersRespawnPos(player)
-    player.x, player.y = stage:getSafeRespawnPosition(player)
 end
 
 local players = {}

@@ -297,7 +297,6 @@ function Player:useCreditUpdate(dt)
                 --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 } }
             )
             player.playerSelectMode = 3
-            correctPlayersRespawnPos(player)
             player:setState(self.respawn)
             player.id = self.id
             player.palette = players_palette_list[self.playerSelectCur] or 0
@@ -354,6 +353,7 @@ Player.useCredit = {name = "useCredit", start = Player.useCreditStart, exit = no
 
 function Player:respawnStart()
     self.isHittable = false
+    self.x, self.y = stage:getSafeRespawnPosition(self)
     dpo(self, self.state)
     self:setSprite("respawn")
     self.deathDelay = 3 --seconds to remove
