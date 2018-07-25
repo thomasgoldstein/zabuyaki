@@ -444,7 +444,7 @@ function spriteEditorState:draw()
     if hero.shaders[menu[4].n] then
         love.graphics.setShader(hero.shaders[menu[4].n])
     end
-    if sprite then --for Obstacles w/o shaders
+    if sprite then --for stage objects w/o shaders
         if menuState == 2 then
             --1 frame
             colors:set("red", nil, 150)

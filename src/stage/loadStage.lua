@@ -37,27 +37,6 @@ local function loadCollision(items, stage)
     end
 end
 
---[[local okClass = {
-    gopper = Gopper,
-    niko = Niko,
-    sveta = Sveta,
-    zeena = Zeena,
-    beatnick = Beatnick,
-    satoff = Satoff,
-    trashcan = Obstacle,
-    sign = Obstacle
-}
-local function getClassByName(name)
-    if name then
-        name = name:lower()
-    end
-    --    if not okClass[name] then
-    --        error("Wrong class name: "..tostring(name))
-    --        return nil
-    --    end
-    return okClass[name]
-end]]
-
 local function getClassByName(name)
     if not name then
         name = ""
@@ -76,7 +55,7 @@ local function getClassByName(name)
     elseif name == "satoff" then
         return Satoff
     elseif name == "trashcan" or name == "sign" then
-        return Obstacle
+        return StageObject
     end
     error("Wrong class name: "..tostring(name))
     return nil
@@ -175,14 +154,14 @@ local function loadUnit(items, stage, batch_name)
                 else
                     --for permanent units that belong to no batch
                     if v.properties.class == "trashcan" then
-                        u.unit = Obstacle:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
+                        u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
                             {hp = 35, score = 100, height = 30,
                                 isMovable = true, func = getUnitFunction(v),
                                 palette = palette, particleColor = shaders.trashcan_particleColor[palette],
                                 sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
                     elseif v.properties.class == "sign" then
-                        u.unit = Obstacle:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
+                        u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
                             r(v.x + v.width / 2), r(v.y + v.height / 2),
                             {hp = 89, score = 120, height = 64,
                                 shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },

@@ -32,7 +32,7 @@ function Character:showEffect(effect, obj)
         particles:setAreaSpread("uniform", self.width, 4)
         particles:emit(math.min(self.width / 5 + 0.5))
         stage.objects:add(Effect:new(particles,
-            self.type == "obstacle" and self.x or (self.x + self.horizontal * 20),
+            self.type == "stageObject" and self.x or (self.x + self.horizontal * 20),
             self.y + 3, self.z))
     elseif effect == "jumpStart" then
         --start jump dust clouds

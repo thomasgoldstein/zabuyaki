@@ -144,7 +144,7 @@ end
 function Character:isImmune()   --Immune to the attack?
     local h = self.isHurt
     if h.type == "shockWave" and ( self.isDisabled or self.sprite.curAnim == "fallen" ) then
-        -- shockWave has no effect on players & obstacles
+        -- shockWave has no effect on players & stage objects
         self.isHurt = nil --free hurt data
         return true
     end
@@ -1348,7 +1348,7 @@ function Character:grabUpdate(dt)
             g.target:removeTweenMove()
             self:removeTweenMove()
             local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
-            if self.face ~= g.target.face or g.target.type == "obstacle" then
+            if self.face ~= g.target.face or g.target.type == "stageObject" then
                 -- front grab or obstacles
                 if self.moves.grabFrontAttackForward and hv == self.face then
                     self:setState(self.grabFrontAttackForward)

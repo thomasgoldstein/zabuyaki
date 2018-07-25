@@ -1,13 +1,13 @@
 -- Copyright (c) .2017 SineDie
 -- Visuals and SFX go here
 
-local Obstacle = Obstacle
+local StageObject = StageObject
 
 local sign = sign
 local clamp = clamp
 
 local particles
-function Obstacle:showEffect(effect, obj)
+function StageObject:showEffect(effect, obj)
     if effect == "breakMetal" then
         self:playSfx(self.sfx.onBreak)
         particles = PA_OBSTACLE_BREAK_SMALL:clone()

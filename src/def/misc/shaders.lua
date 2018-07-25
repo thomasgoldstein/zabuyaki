@@ -358,7 +358,7 @@ local satoffColors_4 = {
     { 45, 45, 36, 255 }, { 30, 25, 22, 255 }, { 25, 17, 10, 255 }, -- black shoes
     { 176, 29, 64, 255 }, { 114, 18, 41, 255 }, { 62, 13, 25, 255 }, -- bordeaux pants
     { 239, 179, 161, 255 }} -- no face scar
--- Obstacles
+-- Stage Objects
 local trashcanColors_original = {
     { 118, 109, 100, 255 }, { 96, 81, 78, 255 }, { 73, 53, 54, 255 }, { 40, 30, 30, 255 }, -- brown metal
     { 60, 80, 99, 255 }, { 49, 51, 43, 255 }, { 29, 30, 26, 255 }} -- inner blue bag

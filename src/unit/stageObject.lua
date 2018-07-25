@@ -1,12 +1,12 @@
 local class = require "lib/middleclass"
-local Obstacle = class("Obstacle", Character)
+local StageObject = class("stageObject", Character)
 
 local function nop() end
 local sign = sign
 local clamp = clamp
 local CheckCollision = CheckCollision
 
-function Obstacle:initialize(name, sprite, x, y, f)
+function StageObject:initialize(name, sprite, x, y, f)
     --f options {}: shapeType, shapeArgs, hp, score, shader, color,isMovable, flipOnBreak, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak, sfxGrab
     if not f then
         f = {}
@@ -19,8 +19,8 @@ function Obstacle:initialize(name, sprite, x, y, f)
     end
     self.height = f.height or 40
     Character.initialize(self, name, sprite, nil, x, y, f)
-    self.name = name or "Unknown Obstacle"
-    self.type = "obstacle"
+    self.name = name or "Unknown StageObject"
+    self.type = "stageObject"
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false
@@ -45,23 +45,23 @@ function Obstacle:initialize(name, sprite, x, y, f)
     self:setState(self.stand)
 end
 
-function Obstacle:updateSprite(dt)
+function StageObject:updateSprite(dt)
 --    updateSpriteInstance(self.sprite, dt, self)
 end
 
-function Obstacle:setSprite(anim)
+function StageObject:setSprite(anim)
     if anim ~= "stand" then
         return
     end
     setSpriteAnimation(self.sprite, anim)
 end
 
-function Obstacle:drawSprite(x, y)
+function StageObject:drawSprite(x, y)
     self.sprite.flipH = self.faceFix
     drawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
 end
 
-function Obstacle:calcShadowSpriteAndTransparency()
+function StageObject:calcShadowSpriteAndTransparency()
     local transparency = self.deathDelay < 1 and 255 * math.sin(self.deathDelay) or 255
     if isDebug() and not self.isHittable then
         colors:set("debugRedShadow", nil, transparency)
@@ -75,7 +75,7 @@ function Obstacle:calcShadowSpriteAndTransparency()
     return image, spr, sc, shadowAngle, -2
 end
 
-function Obstacle:checkCollisionAndMove(dt)
+function StageObject:checkCollisionAndMove(dt)
     local success = true
     if self.move then
         self.move:update(dt) --tweening
@@ -100,7 +100,7 @@ function Obstacle:checkCollisionAndMove(dt)
     return success, 0, 0
 end
 
-function Obstacle:updateAI(dt)
+function StageObject:updateAI(dt)
     if self.isDisabled then
         return
     end
@@ -112,17 +112,17 @@ local transformToHit = {
     fall = true,
     blowOut = true
 }
-function Obstacle:isImmune()   --Immune to the attack?
+function StageObject:isImmune()   --Immune to the attack?
     local h = self.isHurt
     if h.type == "shockWave" or self.isDisabled then
-        -- shockWave has no effect on players & obstacles
+        -- shockWave has no effect on players & stage objects
         self.isHurt = nil --free hurt data
         return true
     end
     return false
 end
 
-function Obstacle:onHurt()
+function StageObject:onHurt()
     local h = self.isHurt
     if not h then
         return
@@ -133,7 +133,7 @@ function Obstacle:onHurt()
         return
     end
     local newFacing = -h.horizontal
-    --Move obstacle after hits
+    --Move stageObject after hit
     if not self.isGrabbed and self.isMovable and self.speed_x <= 0 then
         self.speed_x = self.fallSpeed_x
         self.horizontal = h.horizontal
@@ -154,20 +154,20 @@ function Obstacle:onHurt()
     self.isHurt = nil --free hurt data
 end
 
-function Obstacle:standStart()
+function StageObject:standStart()
     self.isHittable = true
     self.victims = {}
     self:setSprite("stand")
 end
-function Obstacle:standUpdate(dt)
+function StageObject:standUpdate(dt)
     if self.isGrabbed then
         self:setState(self.grabbed)
         return
     end
 end
-Obstacle.stand = {name = "stand", start = Obstacle.standStart, exit = nop, update = Obstacle.standUpdate, draw = Unit.defaultDraw}
+StageObject.stand = {name = "stand", start = StageObject.standStart, exit = nop, update = StageObject.standUpdate, draw = Unit.defaultDraw}
 
-function Obstacle:getUpStart()
+function StageObject:getUpStart()
     self.isHittable = false
     self.isThrown = false
     dpo(self, self.state)
@@ -179,32 +179,32 @@ function Obstacle:getUpStart()
         return
     end
 end
-function Obstacle:getUpUpdate(dt)
+function StageObject:getUpUpdate(dt)
     if self.speed_x <= 0 then
         self:setState(self.stand)
         return
     end
 end
-Obstacle.getUp = {name = "getUp", start = Obstacle.getUpStart, exit = nop, update = Obstacle.getUpUpdate, draw = Unit.defaultDraw}
+StageObject.getUp = {name = "getUp", start = StageObject.getUpStart, exit = nop, update = StageObject.getUpUpdate, draw = Unit.defaultDraw}
 
-function Obstacle:hurtStart()
+function StageObject:hurtStart()
     self.isHittable = true
 end
-function Obstacle:hurtUpdate(dt)
+function StageObject:hurtUpdate(dt)
     if self.speed_x <= 0 then
         self:setState(self.stand)
         return
     end
 end
-Obstacle.hurt = {name = "hurt", start = Obstacle.hurtStart, exit = nop, update = Obstacle.hurtUpdate, draw = Unit.defaultDraw}
+StageObject.hurt = {name = "hurt", start = StageObject.hurtStart, exit = nop, update = StageObject.hurtUpdate, draw = Unit.defaultDraw}
 
-function Obstacle:fallStart()
+function StageObject:fallStart()
     if not self.isMovable then
         self:setState(self.knockedDown)
         return
     end
     Character.fallStart(self)
 end
-Obstacle.fall = {name = "fall", start = Obstacle.fallStart, exit = nop, update = Obstacle.fallUpdate, draw = Obstacle.defaultDraw}
+StageObject.fall = {name = "fall", start = StageObject.fallStart, exit = nop, update = StageObject.fallUpdate, draw = StageObject.defaultDraw}
 
-return Obstacle
+return StageObject
