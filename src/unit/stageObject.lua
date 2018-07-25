@@ -1,5 +1,5 @@
 local class = require "lib/middleclass"
-local StageObject = class("stageObject", Character)
+local StageObject = class("StageObject", Character)
 
 local function nop() end
 local sign = sign
