@@ -110,7 +110,7 @@ function getDistanceBetweenPlayers()
     local n = 0
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
-        if player and player.hp > 0 then
+        if player and ( player.hp > 0 or player.deathDelay > 0.5 ) then
             n = n + 1
             old_y = player.y
             if min_x then
