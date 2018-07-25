@@ -598,6 +598,7 @@ function Character:walkUpdate(dt)
     end
     if self.speed_x == 0 and self.speed_y == 0 then
         self:setState(self.stand)
+        self:update(0)
         return
     end
 end
@@ -631,6 +632,7 @@ function Character:runUpdate(dt)
     end
     if (self.speed_x == 0 and self.speed_y == 0) or hv ~= self.face then
         self:setState(self.stand)
+        self:update(0)
         return
     end
     if self.moves.jump and self.b.jump:pressed() then
