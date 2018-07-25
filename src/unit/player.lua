@@ -355,6 +355,7 @@ Player.useCredit = {name = "useCredit", start = Player.useCreditStart, exit = no
 
 function Player:respawnStart()
     self.isHittable = false
+    stage:freezeZoomingFor()
     self.x, self.y = stage:getSafeRespawnPosition(self)
     dpo(self, self.state)
     self:setSprite("respawn")
