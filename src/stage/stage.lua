@@ -40,6 +40,7 @@ function Stage:initialize(name, bgColor)
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
     self.zoom = maxZoom
     self.zoomMode = "check"
+    self.zoomWaitTime = 0
     self.playerGroupStoppersMode = "check"
     -- Left and right players stoppers
     self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } }) --left
@@ -49,8 +50,18 @@ function Stage:initialize(name, bgColor)
     })
 end
 
+function Stage:freezeZoomingFor(time)
+    self.zoomWaitTime = time or 5
+    self.zoomMode = "wait"
+end
+
 function Stage:updateZoom(dt)
-    if self.zoomMode == "check" then
+    if self.zoomMode == "wait" then
+        self.zoomWaitTime = self.zoomWaitTime - dt
+        if self.zoomWaitTime <= 0 then
+            self.zoomMode = "check"
+        end
+    elseif self.zoomMode == "check" then
         if self.playerGroupDistance > maxDistanceNoZoom then
             self.zoomMode = "zoomout"
         end
