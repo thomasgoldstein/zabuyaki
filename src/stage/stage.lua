@@ -271,6 +271,9 @@ function Stage:getScrollingY(x)
 end
 
 function Stage:setCamera(dt)
+    if self.zoomMode == "wait" then
+        return
+    end
     local coord_y = 430 -- const vertical Y (no scroll)
     local coord_x
     local center_x, playerGroupDistance, min_x, max_x = self.center_x, self.playerGroupDistance, self.min_x, self.max_x
