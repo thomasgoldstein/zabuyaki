@@ -146,7 +146,10 @@ local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
 ) end
 local chargeDashAttackCheck = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 18, width = 39, height = 45, type = "check" },
+        { x = 25, y = 18, width = 39, height = 45, type = "check",
+            onHit = function(slf) slf.speed_x = slf.dashSpeed_x end,
+            followUpAnimation = "chargeDashAttack2"
+        },
         cont
     )
 end

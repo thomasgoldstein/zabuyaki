@@ -244,22 +244,10 @@ function Chai:chargeDashAttackStart()
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * 0.7
     self.speed_x = self.dashSpeed_x * 1.3
-    self.bounced = 0
-    self.connectHit = false
-    self.attacksPerAnimation = 0
+    self.bounced = 0 -- used in canfall()
     self:playSfx(self.sfx.dashAttack)
 end
 function Chai:chargeDashAttackUpdate(dt)
-    if self.connectHit then
-        self.connectHit = false
-        self.attacksPerAnimation = self.attacksPerAnimation + 1
-    end
-    if self.sprite.curAnim == "chargeDashAttack"
-        and self.attacksPerAnimation > 0
-    then
-        self:setSprite("chargeDashAttack2")
-        self.speed_x = self.dashSpeed_x
-    end
     if self:canFall() then
         self:calcFreeFall(dt, getSpriteFrame(self.sprite).hover and 0.01) -- slow down the falling speed
     else
