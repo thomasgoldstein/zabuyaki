@@ -97,7 +97,9 @@ function Character:moveEffectAndEmit(effect, value)
         if love.math.random() < value and self.speed_x >= self.dashSpeed_x * 0.5 then
             -- emit Dash particles on moving
             self.paDash:moveTo(self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5)
-            self.paDash:emit(1)
+            if self.z <= 0 then
+                self.paDash:emit(1)
+            end
         end
     else
         error("Unknown effect name: " .. effect)
