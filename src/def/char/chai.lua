@@ -181,13 +181,21 @@ local specialDefensiveLeftMost = function(slf, cont) slf:checkAndAttack(
     { x = -5, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
     cont
  ) end
-local specialOffensive = function(slf, cont, check) slf:checkAndAttack(
-    { x = 30, y = 18, width = 25, height = 45, damage = 5, type = check },
+local specialOffensive = function(slf, cont) slf:checkAndAttack(
+    { x = 30, y = 18, width = 25, height = 45, damage = 5 },
     cont
  ) end
-local specialOffensiveCheck = function(slf, cont)
-    specialOffensive(slf, cont, "check")
-end
+local specialOffensiveCheck = function(slf, cont) slf:checkAndAttack(
+        { x = 30, y = 18, width = 25, height = 45, damage = 5, type = "check",
+            onHit = function(slf)
+                slf.speed_x = slf.jumpSpeedBoost.x
+                slf.horizontal = slf.face
+                slf.speed_z = 0
+            end,
+            followUpAnimation = "specialOffensive2"
+        },
+        cont
+ ) end
 local specialOffensive2 = function(slf, cont) slf:checkAndAttack(
     { x = 0, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
     cont

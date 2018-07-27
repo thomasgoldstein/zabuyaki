@@ -188,24 +188,10 @@ function Chai:specialOffensiveStart()
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = self:getMinZ() + 0.1
     self.bounced = 0
-    self.connectHit = false
-    self.attacksPerAnimation = 0
     self:playSfx(self.sfx.jump)
     self:showEffect("jumpStart")
 end
 function Chai:specialOffensiveUpdate(dt)
-    if self.connectHit then
-        self.connectHit = false
-        self.attacksPerAnimation = self.attacksPerAnimation + 1
-    end
-    if self.sprite.curAnim == "specialOffensive"
-        and self.attacksPerAnimation > 0
-    then
-        self.speed_x = self.jumpSpeedBoost.x
-        self.horizontal = self.face
-        self.speed_z = 0
-        self:setSprite("specialOffensive2")
-    end
     if self.sprite.curAnim == "specialOffensive" then
         if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then
             -- check speed_x to add no extra var here. it should trigger once
