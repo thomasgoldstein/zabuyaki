@@ -118,7 +118,7 @@ function Rick:specialOffensiveUpdate(dt)
     end
     if self:canFall() then
         self:calcFreeFall(dt)
-        self:calcFriction(dt, self.dashFriction / 1.5)
+        self:calcFriction(dt, self.dashFriction / 10)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
