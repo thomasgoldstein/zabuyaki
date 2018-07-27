@@ -47,6 +47,8 @@ function Rick:initAttributes()
     self.comboSlideDiagonalSpeed4_x = 150 --diagonal horizontal speed of combo4Forward attacks
     self.comboSlideDiagonalSpeed4_y = 30 --diagonal vertical speed of combo4Forward attacks
 
+    self.specialOffensiveRepel = 240 --horizontal speed of specialOffensive
+
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed
     --    self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
