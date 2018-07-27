@@ -313,7 +313,7 @@ end
 
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: x,y,width,height,depth, damage, type, repel, sfx, init_victims_list
-    --type = "simple" "shockWave" "hit" "knockDown" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away"
+    --type = "simple" "shockWave" "hit" "knockDown" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away" "check"
     if not f then
         f = {}
     end
@@ -321,6 +321,8 @@ function Character:checkAndAttack(f, isFuncCont)
     local damage, type = f.damage or 1, f.type or "hit"
     local repel = f.repel or type == "knockDown" and self.speed_x or 0
     local face = self.face
+    local onHit = f.onHit
+    local followUpAnimation = f.followUpAnimation
 
     local items = {}
     local a = stage.world:rectangle(self.x + face * x - w / 2, self.y - d / 2, w, d)
@@ -385,6 +387,12 @@ function Character:checkAndAttack(f, isFuncCont)
     if GLOBAL_SETTING.AUTO_COMBO or #items > 0 then
         -- connect combo hits on AUTO_COMBO or on any successful hit
         self.connectHit = true
+        if onHit then
+            onHit(self, f, isFuncCont)
+        end
+        if followUpAnimation then
+            self:setSprite(followUpAnimation)
+        end
     end
     --DEBUG collect data to show attack hitBoxes in green
     if isDebug() then
