@@ -223,7 +223,7 @@ local specialOffensive1 = function(slf, cont) slf:checkAndAttack(
 local specialOffensiveFollowUp = function(slf, cont)
     if slf.isAttackConnected then
         slf:setSprite("specialOffensive2")
-        slf.speed_z = slf.jumpSpeed_z * 1.5
+        slf.speed_z = slf.jumpSpeed_z * 1.4
         slf.z = slf:getMinZ() + 0.01
         slf:showEffect("jumpStart")
     end
