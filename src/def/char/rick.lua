@@ -211,7 +211,7 @@ local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
  local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 15, width = 25, height = 45, damage = 17, type = "knockDown" },
+    { x = 30, y = 25, width = 25, height = 45, damage = 17, type = "knockDown" },
     cont
  ) end
 local specialDefensive = function(slf, cont) slf:checkAndAttack(
