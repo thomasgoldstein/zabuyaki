@@ -225,6 +225,7 @@ local specialOffensiveFollowUp = function(slf, cont)
         slf:setSprite("specialOffensive2")
         slf.speed_z = slf.jumpSpeed_z * 1.5
         slf.z = slf:getMinZ() + 0.01
+        slf:showEffect("jumpStart")
     end
 end
 local specialDefensive = function(slf, cont) slf:checkAndAttack(
