@@ -187,6 +187,11 @@ local dashAttackSpeedUp = function(slf, cont)
 end
 local dashAttackResetSpeed = function(slf, cont)
     slf.speed_x = slf.dashSpeed_x
+    if slf.isAttackConnected then
+        slf:setSprite("specialOffensive2")
+        slf.speed_z = slf.jumpSpeed_z * 1.5
+        slf.z = slf:getMinZ() + 0.1
+    end
 end
 local chargeDashAttack = function(slf, cont)
     slf:checkAndAttack(
@@ -214,6 +219,20 @@ local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
     { x = 30, y = 15, width = 25, height = 45, damage = 17, type = "knockDown" },
     cont
  ) end
+local specialOffensive1 = function(slf, cont) slf:checkAndAttack(
+    { x = 30, y = 15, width = 25, height = 45, damage = 17, type = "knockDown",
+      onHit = function(slf) slf.isAttackConnected = true end
+    },
+    cont
+) end
+local specialOffensiveResetSpeed = function(slf, cont)
+    slf.speed_x = slf.dashSpeed_x
+    if slf.isAttackConnected then
+        slf:setSprite("specialOffensive2")
+        slf.speed_z = slf.jumpSpeed_z * 1.5
+        slf.z = slf:getMinZ() + 0.01
+    end
+end
 local specialDefensive = function(slf, cont) slf:checkAndAttack(
     { x = 12, y = 32, width = 77, height = 70, depth = 18, damage = 25, type = "blowOut" },
     cont
@@ -359,10 +378,10 @@ return {
             { q = q(2,2087,46,62), ox = 31, oy = 61 }, --offensive special 1
             { q = q(50,2092,39,57), ox = 26, oy = 56 }, --offensive special 2
             { q = q(91,2091,45,57), ox = 29, oy = 57 }, --offensive special 3
-            { q = q(138,2094,49,54), ox = 22, oy = 54, funcCont = jumpAttackRun, func = dashAttackSpeedUp, delay = 0.08 }, --offensive special 4a
-            { q = q(2,2153,49,54), ox = 22, oy = 54, funcCont = jumpAttackRun, delay = 0.08 }, --offensive special 4b
-            { q = q(53,2153,49,54), ox = 22, oy = 54, funcCont = jumpAttackRun, func = dashAttackResetSpeed, delay = 0.08 }, --offensive special 4c
-            { q = q(137,2302,44,56), ox = 16, oy = 56 }, --offensive special 13
+            { q = q(138,2094,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, func = dashAttackSpeedUp, delay = 0.08 }, --offensive special 4a
+            { q = q(2,2153,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, delay = 0.08 }, --offensive special 4b
+            { q = q(53,2153,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, func = specialOffensiveResetSpeed, delay = 0.08 }, --offensive special 4c
+            { q = q(137,2302,44,56), ox = 16, oy = 56, func = specialOffensiveResetSpeed }, --offensive special 13
             { q = q(183,2299,42,60), ox = 17, oy = 59 }, --offensive special 14
             delay = 0.06
         },

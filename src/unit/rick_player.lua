@@ -106,6 +106,7 @@ function Rick:specialOffensiveStart()
     self.speed_x = self.dashSpeed_x
     self.speed_y = 0
     self.speed_z = 0
+    self.isAttackConnected = false
     self:playSfx(self.sfx.dashAttack)
     self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
@@ -114,6 +115,10 @@ function Rick:specialOffensiveUpdate(dt)
         dpo(self, self.state)
         self:setState(self.stand)
         return
+    end
+    if self:canFall() then
+        self:calcFreeFall(dt)
+        self:calcFriction(dt, self.dashFriction / 1.5)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
