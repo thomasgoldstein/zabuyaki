@@ -102,23 +102,6 @@ function Character:initAttributes()
     self.sfx.dead = self.sfx.dead or "gopnikDeath1"
 end
 
-function Character:addHp(hp)
-    self.hp = self.hp + hp
-    if self.hp > self.maxHp then
-        self.hp = self.maxHp
-    end
-end
-function Character:decreaseHp(damage)
-    self.hp = self.hp - damage
-    if self.hp <= 0 then
-        self.hp = 0
-        if self.func then   -- custom function on death
-            self:func(self)
-            self.func = nil
-        end
-    end
-end
-
 function Character:addScore(score)
     self.score = self.score + score
 end
@@ -298,16 +281,6 @@ function Character:afterOnHurt()
         self:setState(self.dead)
     else
         self:setState(self.fall)
-    end
-end
-
-function Character:applyDamage(damage, type, source, speed_x, sfx1)
-    self.isHurt = {source = source or self, state = self.state, damage = damage,
-        type = type, speed_x = speed_x or 0,
-        horizontal = self.face, isThrown = false,
-        x = self.x, y = self.y, z = self.z }
-    if sfx1 then
-        self:playSfx(sfx1)
     end
 end
 

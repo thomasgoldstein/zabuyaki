@@ -162,7 +162,31 @@ function Unit:getPrevStateTime()
     -- time from the previour to the last switching to current frame
     return love.timer.getTime() - self.prevStateTime
 end
-
+function Unit:addHp(hp)
+    self.hp = self.hp + hp
+    if self.hp > self.maxHp then
+        self.hp = self.maxHp
+    end
+end
+function Unit:decreaseHp(damage)
+    self.hp = self.hp - damage
+    if self.hp <= 0 then
+        self.hp = 0
+        if self.func then   -- custom function on death
+            self:func(self)
+            self.func = nil
+        end
+    end
+end
+function Unit:applyDamage(damage, type, source, speed_x, sfx1)
+    self.isHurt = {source = source or self, state = self.state, damage = damage,
+                   type = type, speed_x = speed_x or 0,
+                   horizontal = self.face, isThrown = false,
+                   x = self.x, y = self.y, z = self.z }
+    if sfx1 then
+        self:playSfx(sfx1)
+    end
+end
 function Unit:updateAI(dt)
     if self.isDisabled then
         return

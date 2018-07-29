@@ -36,3 +36,9 @@ function StageObject:showEffect(effect, obj)
         Character.showEffect(self, effect, obj)
     end
 end
+
+-- borrow Lifebar methods from Character class
+StageObject.initFaceIcon = Character.initFaceIcon
+StageObject.drawFaceIcon = Character.drawFaceIcon
+StageObject.drawTextInfo = Character.drawTextInfo
+StageObject.drawBar = Character.drawBar

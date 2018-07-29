@@ -1,10 +1,21 @@
 local class = require "lib/middleclass"
-local StageObject = class("StageObject", Character)
+local StageObject = class("StageObject", Unit)
 
 local function nop() end
 local sign = sign
 local clamp = clamp
 local CheckCollision = CheckCollision
+
+-- borrow methods from character class
+StageObject.checkAndAttack = Character.checkAndAttack
+StageObject.onHurtDamage = Character.onHurtDamage
+StageObject.afterOnHurt = Character.afterOnHurt
+StageObject.releaseGrabbed = Character.releaseGrabbed
+StageObject.grabbed = {name = "grabbed", start = Character.grabbedStart, exit = nop, update = nop, draw = StageObject.defaultDraw}
+StageObject.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedUpdate, draw = StageObject.defaultDraw}
+StageObject.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedUpdate, draw = StageObject.defaultDraw}
+StageObject.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = StageObject.defaultDraw}
+StageObject.knockedDown = {name = "knockedDown", start = Character.knockedDownStart, exit = nop, update = Character.knockedDownUpdate, draw = StageObject.defaultDraw}
 
 function StageObject:initialize(name, sprite, x, y, f)
     --f options {}: shapeType, shapeArgs, hp, score, shader, color,isMovable, flipOnBreak, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak, sfxGrab
@@ -205,6 +216,6 @@ function StageObject:fallStart()
     end
     Character.fallStart(self)
 end
-StageObject.fall = {name = "fall", start = StageObject.fallStart, exit = nop, update = StageObject.fallUpdate, draw = StageObject.defaultDraw}
+StageObject.fall = {name = "fall", start = StageObject.fallStart, exit = nop, update = Character.fallUpdate, draw = StageObject.defaultDraw}
 
 return StageObject
