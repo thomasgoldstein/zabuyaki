@@ -29,12 +29,6 @@ local grabFrontAttackDown = function(slf, cont)
         cont
     )
 end
-local grabFrontAttackUp = function(slf, cont)
-    slf:doThrow(slf.throwSpeed_x / 10,
-        slf.throwSpeed_z * 2,
-        slf.horizontal, nil,
-        slf.z + slf.throwStart_z)
-end
 local grabFrontAttackBack = function(slf, cont) slf:doThrow(220, 20, slf.face) end
 local grabFrontAttackForward = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier,
@@ -603,15 +597,6 @@ return {
             { q = q(192,725,49,62), ox = 14, oy = 61, func = grabFrontAttackDown }, --combo 4.7
             { q = q(186,659,50,61), ox = 14, oy = 60, delay = 0.35 }, --combo 4.6
             delay = 0.05
-        },
-        grabFrontAttackUp = {
-            { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
-            { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
-            { q = q(44,928,51,63), ox = 26, oy = 62 }, --throw 1.2
-            { q = q(97,928,53,63), ox = 22, oy = 62, func = grabFrontAttackUp, delay = 0.2 }, --throw 1.3
-            { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.15 }, --duck
-            delay = 0.07,
-            isThrow = true,
         },
         grabFrontAttackBack = {
             { q = q(131,1660,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
