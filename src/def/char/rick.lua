@@ -205,7 +205,7 @@ local specialDefensive = function(slf, cont) slf:checkAndAttack(
     cont
  ) end
 local specialOffensive1 = function(slf, cont)
-    if slf.sprite.funcContCalledOnFrame < 0 then
+    if slf.sprite.elapsedTime == 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
@@ -226,7 +226,7 @@ local specialOffensiveJumpStart = function(slf, cont)
     slf:showEffect("jumpStart")
 end
 local specialOffensive2a = function(slf, cont)
-    if slf.sprite.funcContCalledOnFrame < 0 then
+    if slf.sprite.elapsedTime == 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
@@ -235,7 +235,7 @@ local specialOffensive2a = function(slf, cont)
     slf.speed_x = slf.dashSpeed_x * 0.8
 end
 local specialOffensive2b = function(slf, cont)
-    if slf.sprite.funcContCalledOnFrame < 0 then
+    if slf.sprite.elapsedTime == 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
@@ -243,7 +243,7 @@ local specialOffensive2b = function(slf, cont)
     cont)
 end
 local specialOffensive2c = function(slf, cont)
-    if slf.sprite.funcContCalledOnFrame < 0 then
+    if slf.sprite.elapsedTime == 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
