@@ -5,10 +5,6 @@ function love.joystickadded(joystick)
     connected[joystick] = joystick
     dp(joystick:getGUID().." added joystick "..joystick:getName().." with "..joystick:getButtonCount().." buttons")
     love.joystick.loadGamepadMappings( "res/gamecontrollerdb.txt" )
-    local joysticks = love.joystick.getJoysticks()
-    for i, joystick in ipairs(joysticks) do
-        dp("detected ",joystick:getName())
-    end
     bindGameInput()
 end
 
