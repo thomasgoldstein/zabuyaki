@@ -226,20 +226,31 @@ local specialOffensiveJumpStart = function(slf, cont)
     slf.z = slf:getMinZ() + 0.01
     slf:showEffect("jumpStart")
 end
-local specialOffensive2a = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 18, width = 40, height = 35, damage = 18, type = "knockDown" },
-    cont
- )
+local specialOffensive2a = function(slf, cont)
+    if slf.sprite.funcContCalledOnFrame < 0 then
+        slf.victims = {}    -- clear victims list before any contFuncAttack
+    end
+    slf:checkAndAttack(
+        { x = 10, y = 18, width = 40, height = 35, damage = 18, type = "knockDown" },
+        cont)
     slf.speed_x = slf.dashSpeed_x * 0.8
 end
-local specialOffensive2b = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 25, width = 40, height = 40, damage = 18, type = "knockDown" },
-    cont
- ) end
-local specialOffensive2c = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown" },
-    cont
- ) end
+local specialOffensive2b = function(slf, cont)
+    if slf.sprite.funcContCalledOnFrame < 0 then
+        slf.victims = {}    -- clear victims list before any contFuncAttack
+    end
+    slf:checkAndAttack(
+        { x = 10, y = 25, width = 40, height = 40, damage = 18, type = "knockDown" },
+    cont)
+end
+local specialOffensive2c = function(slf, cont)
+    if slf.sprite.funcContCalledOnFrame < 0 then
+        slf.victims = {}    -- clear victims list before any contFuncAttack
+    end
+    slf:checkAndAttack(
+        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown" },
+    cont)
+end
 
 return {
     serializationVersion = 0.42, -- The version of this serialization process
