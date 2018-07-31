@@ -214,8 +214,8 @@ function Character:afterOnHurt()
                 self:setSprite("hurtLow")
             end
             if self.isMovable then
-                if self.pushBackOnHitSpeed then
-                    self.speed_x = self.pushBackOnHitSpeed
+                if h.speed_x == 0 then
+                    self.speed_x = self.pushBackOnHitSpeed or 0
                 else
                     self.speed_x = h.speed_x
                 end
@@ -292,7 +292,7 @@ function Character:checkAndAttack(f, isFuncCont)
     end
     local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
     local damage, type = f.damage or 1, f.type or "hit"
-    local repel = f.repel or type == "knockDown" and self.speed_x or 0
+    local repel = f.repel or self.speed_x or 0
     local face = self.face
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
