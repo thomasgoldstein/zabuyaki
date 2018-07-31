@@ -212,15 +212,21 @@ local specialDefensive = function(slf, cont) slf:checkAndAttack(
     { x = 12, y = 32, width = 77, height = 70, depth = 18, damage = 25, type = "blowOut" },
     cont
  ) end
-local specialOffensive1 = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 18, width = 40, height = 35, damage = 8, repel = slf.specialOffensiveRepel,
-      onHit = function(slf) slf.isAttackConnected = true end
-    },
-    cont
-) end
+local specialOffensive1 = function(slf, cont)
+    print("sdpecoff1", slf.x)
+    if slf.sprite.funcContCalledOnFrame < 0 then
+        slf.victims = {}    -- clear victims list before any contFuncAttack
+    end
+    slf:checkAndAttack(
+        { x = 10, y = 18, width = 40, height = 35, damage = 8, repel = slf.specialOffensiveRepel,
+            onHit = function(slf) slf.isAttackConnected = true end
+        },cont)
+end
 local specialOffensiveFollowUp = function(slf, cont)
     if slf.isAttackConnected then
+        slf.victims = {}
         slf:setSprite("specialOffensive2")
+        slf.customFriction = slf.dashFriction * 1.5
     end
 end
 local specialOffensiveJumpStart = function(slf, cont)
@@ -231,7 +237,9 @@ end
 local specialOffensive2a = function(slf, cont) slf:checkAndAttack(
     { x = 10, y = 18, width = 40, height = 35, damage = 18, type = "knockDown" },
     cont
- ) end
+ )
+    slf.speed_x = slf.dashSpeed_x * 0.8
+end
 local specialOffensive2b = function(slf, cont) slf:checkAndAttack(
     { x = 10, y = 25, width = 40, height = 40, damage = 18, type = "knockDown" },
     cont
@@ -383,7 +391,7 @@ return {
             { q = q(91,2091,45,57), ox = 29, oy = 57 }, --offensive special 3
             { q = q(138,2094,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, func = dashAttackSpeedUp, delay = 0.08 }, --offensive special 4a
             { q = q(2,2153,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, delay = 0.08 }, --offensive special 4b
-            { q = q(53,2153,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, func = dashAttackResetSpeed, delay = 0.08 }, --offensive special 4c
+            { q = q(53,2153,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, delay = 0.08 }, --offensive special 4c
             { q = q(137,2302,44,56), ox = 16, oy = 56, func = specialOffensiveFollowUp }, --offensive special 13
             { q = q(183,2299,42,60), ox = 17, oy = 59 }, --offensive special 14
             delay = 0.06
