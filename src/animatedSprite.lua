@@ -190,14 +190,14 @@ function updateSpriteInstance(spr, dt, slf)
     if not sc.delay then
         sc.delay = s.delay
     end
-    -- call the custom frame func on every frame
-    if sc.funcCont and slf then
-        sc.funcCont(slf, true) --isfuncCont = true
-    end
     -- call custom frame func once per the frame
     if sc.func and spr.funcCalledOnFrame ~= spr.curFrame and slf then
         spr.funcCalledOnFrame = spr.curFrame
         sc.func(slf, false) --isfuncCont = false
+    end
+    -- call the custom frame func on every frame
+    if sc.funcCont and slf then
+        sc.funcCont(slf, true) --isfuncCont = true
     end
     --spr.def.animations[spr.curAnim]
     --Increment the internal counter.
