@@ -205,7 +205,6 @@ local specialDefensive = function(slf, cont) slf:checkAndAttack(
     cont
  ) end
 local specialOffensive1 = function(slf, cont)
-    print("sdpecoff1", slf.x)
     if slf.sprite.funcContCalledOnFrame < 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
