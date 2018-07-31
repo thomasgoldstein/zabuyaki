@@ -185,6 +185,7 @@ local specialOffensiveCheck = function(slf, cont) slf:checkAndAttack(
                 slf.speed_x = slf.jumpSpeedBoost.x
                 slf.horizontal = slf.face
                 slf.speed_z = 0
+                slf.victims = {}
             end,
             followUpAnimation = "specialOffensive2"
         },
