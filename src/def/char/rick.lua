@@ -212,7 +212,7 @@ local specialOffensive1 = function(slf, cont)
         { x = 10, y = 18, width = 40, height = 35, damage = 6,
             onHit = function(slf)
                 slf.isAttackConnected = true
-                slf.customFriction = slf.dashFriction * 1.5
+                slf.customFriction = slf.dashFriction * 2.5
                 end
         },cont)
 end
@@ -221,6 +221,7 @@ local specialOffensiveFollowUp = function(slf, cont)
         slf.victims = {}
         slf:setSprite("specialOffensive2")
         slf.speed_x = slf.dashSpeed_x * 1.5
+        slf.customFriction = slf.dashFriction * 1.5
     end
 end
 local specialOffensiveJumpStart = function(slf, cont)
