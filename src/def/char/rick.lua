@@ -408,7 +408,7 @@ return {
             { q = q(2,2289,38,70), ox = 21, oy = 69, delay =  0.1 }, --offensive special 10
             { q = q(42,2292,43,66), ox = 23, oy = 65, delay =  0.1 }, --offensive special 11
             { q = q(87,2296,48,63), ox = 25, oy = 62, delay =  0.1 }, --offensive special 12
-            { q = q(137,2302,44,56), ox = 16, oy = 56 }, --offensive special 13
+            { q = q(137,2302,44,56), ox = 16, oy = 56, func = function(slf) slf:showEffect("jumpLanding") end }, --offensive special 13
             { q = q(183,2299,42,60), ox = 17, oy = 59 }, --offensive special 14
             delay = 0.06
         },
