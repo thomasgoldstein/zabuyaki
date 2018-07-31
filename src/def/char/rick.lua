@@ -1,13 +1,6 @@
 local spriteSheet = "res/img/char/rick.png"
 local imageWidth,imageHeight = loadSpriteSheet(spriteSheet)
 
-local function followUpTest1(slf, f, isFuncCont)
-    print("followUpTest1:", slf.name, f, isFuncCont, " anim - > ", f.followUpAnimation)
-    -- you can call another attack func here
-    --    f.type = "antherTypeOfAttacks" -- optionaslly alter the table arguments or use a new table
-    --    slf:checkAndAttack(f, isFuncCont)
-end
-
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
@@ -76,7 +69,6 @@ end
 
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
---        { x = 28, y = 30, width = 26, damage = 7, sfx = "air", onHit = followUpTest1, followUpAnimation = "specialDefensive" },
         { x = 28, y = 30, width = 26, damage = 7, sfx = "air" },
         cont
     )
