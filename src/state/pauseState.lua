@@ -27,10 +27,10 @@ function pauseState:enter()
     mouse_x, mouse_y = 0,0
     sfx.play("sfx","menuCancel")
 
-    Control1.attack:update()
-    Control1.jump:update()
-    Control1.start:update()
-    Control1.back:update()
+    Controls[1].attack:update()
+    Controls[1].jump:update()
+    Controls[1].start:update()
+    Controls[1].back:update()
     love.graphics.setLineWidth( 2 )
 end
 
@@ -64,7 +64,7 @@ function pauseState:update(dt)
         sfx.play("sfx","menuMove")
         oldMenuState = menuState
     end
-    self:playerInput(Control1)
+    self:playerInput(Controls[1])
 end
 
 function pauseState:draw()

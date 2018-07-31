@@ -290,9 +290,9 @@ function playerSelectState:enter()
     end
     self.enablePlayerSelectOnStart = false
     -- Prevent double press at start (e.g. auto confirmation)
-    Control1.attack:update()
-    Control2.attack:update()
-    Control3.attack:update()
+    Controls[1].attack:update()
+    Controls[2].attack:update()
+    Controls[3].attack:update()
     love.graphics.setLineWidth( 2 )
     --start BGM
 --    TEsound.stop("music")
@@ -423,9 +423,9 @@ function playerSelectState:update(dt)
 
         end
     end
-    self:playerInput(players[1], Control1, 1)
-    self:playerInput(players[2], Control2, 2)
-    self:playerInput(players[3], Control3, 3)
+    self:playerInput(players[1], Controls[1], 1)
+    self:playerInput(players[2], Controls[2], 2)
+    self:playerInput(players[3], Controls[3], 3)
 end
 
 function playerSelectState:draw()

@@ -48,7 +48,7 @@ function Movie:initialize(frames)
     self.type = "movie"
     self.font = gfx.font.arcade3
     self.font:setLineHeight(text_lineHeight)
-    self.b = Control1 -- Use P1 controls
+    self.b = Controls[1] -- Use P1 controls
     self.frame = 1
     self.add_chars = 1
     self.hScroll = 0

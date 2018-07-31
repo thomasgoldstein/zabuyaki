@@ -48,8 +48,8 @@ function titleState:enter(_, param)
     sfx.play("sfx",titleSfx)
 
     -- Prevent double press at start (e.g. auto confirmation)
-    Control1.attack:update()
-    Control1.jump:update()
+    Controls[1].attack:update()
+    Controls[1].jump:update()
     zabuyakiTitle = love.graphics.newImage( "res/img/misc/title.png" )
     love.graphics.setLineWidth( 2 )
 end
@@ -147,7 +147,7 @@ function titleState:update(dt)
             oldMenuState = menuState
             resetTime()
         end
-        self:playerInput(Control1)
+        self:playerInput(Controls[1])
     end
 end
 

@@ -191,21 +191,13 @@ end
 local function pollControls(dt)
     --update P1..P3 controls
     --check for double taps, etc
-    for index,value in pairs(Control1) do
-        local b = Control1[index]
-        b:update(dt)
+    for i = 1, 3 do
+        for index,value in pairs(Controls[i]) do
+            local b = Controls[i][index]
+            b:update(dt)
+        end
+        updateDoubleTap(Controls[i])
     end
-    for index,value in pairs(Control2) do
-        local b = Control2[index]
-        b:update(dt)
-    end
-    for index,value in pairs(Control3) do
-        local b = Control3[index]
-        b:update(dt)
-    end
-    updateDoubleTap(Control1)
-    updateDoubleTap(Control2)
-    updateDoubleTap(Control3)
 end
 
 slowMoCounter = 0
@@ -226,7 +218,7 @@ function love.update(dt)
         incrementDebugFrame()
     end
     --Toggle Full Screen Mode (using P1's control)
-    if Control1.fullScreen:pressed() then
+    if Controls[1].fullScreen:pressed() then
         switchFullScreen()
     end
 

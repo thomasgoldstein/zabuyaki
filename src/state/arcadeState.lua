@@ -75,19 +75,19 @@ function arcadeState:update(dt)
     if nAlive < 1 then
         gameOverDelay = gameOverDelay + dt
         if gameOverDelay > 4
-                and (Control1.back:pressed() or
-                Control1.attack:pressed() or
-                Control1.jump:pressed()) then
+                and (Controls[1].back:pressed() or
+            Controls[1].attack:pressed() or
+            Controls[1].jump:pressed()) then
             return Gamestate.switch(titleState)
         end
     else
         -- Screenshot Pause
-        if Control1.screenshot:pressed() then
+        if Controls[1].screenshot:pressed() then
             return Gamestate.push(screenshotState)
         end
     end
     -- PAUSE (only for P1)
-    if Control1.back:pressed() then
+    if Controls[1].back:pressed() then
         return Gamestate.push(pauseState)
     end
     watchDebugVariables()

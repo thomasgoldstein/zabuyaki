@@ -7,10 +7,10 @@ function screenshotState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
     sfx.play("sfx","menuCancel")
 
-    Control1.attack:update()
-    Control1.jump:update()
-    Control1.start:update()
-    Control1.back:update()
+    Controls[1].attack:update()
+    Controls[1].jump:update()
+    Controls[1].start:update()
+    Controls[1].back:update()
 end
 
 function screenshotState:leave()
@@ -25,7 +25,7 @@ function screenshotState:playerInput(controls)
 end
 
 function screenshotState:update(dt)
-    self:playerInput(Control1)
+    self:playerInput(Controls[1])
 end
 
 function screenshotState:draw()

@@ -282,8 +282,6 @@ local function loadCameraScrolling(items, scrolling)
 end
 
 local function addPlayersToStage(items, players, stage)
-    local controls = {Control1, Control2, Control3}
-
     dp("Set players to start positions...")
     local t = extractTable(items.layers, "player")
     for i, v in ipairs(t.objects) do
@@ -297,7 +295,7 @@ local function addPlayersToStage(items, players, stage)
                 p.y = r(v.y + v.height / 2)
                 local player = players[i].hero:new(players[i].name,
                     getSpriteInstance(players[i].spriteInstance),
-                    controls[i],
+                    Controls[i],
                     players[i].x, players[i].y,
                     { palette = players[i].palette, id = i }
                 )

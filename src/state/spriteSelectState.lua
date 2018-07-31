@@ -103,10 +103,10 @@ function spriteSelectState:enter()
     mouse_x, mouse_y = 0,0
     --TEsound.stop("music")
     -- Prevent double press at start (e.g. auto confirmation)
-    Control1.attack:update()
-    Control1.jump:update()
-    Control1.start:update()
-    Control1.back:update()
+    Controls[1].attack:update()
+    Controls[1].jump:update()
+    Controls[1].start:update()
+    Controls[1].back:update()
     love.graphics.setLineWidth( 2 )
     self:wheelmoved(0, 0)   --pick 1st sprite to draw
 end
@@ -148,7 +148,7 @@ function spriteSelectState:update(dt)
         updateSpriteInstance(sprite, dt)
     end
 
-    self:playerInput(Control1)
+    self:playerInput(Controls[1])
 end
 
 function spriteSelectState:draw()

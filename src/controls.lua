@@ -1,14 +1,9 @@
 local doubleTapDelta = 0.25
 
+local connected = {}
 function love.joystickadded(joystick)
-    p1joystick = joystick
+    connected[joystick] = joystick
     dp(joystick:getGUID().." added joystick "..joystick:getName().." with "..joystick:getButtonCount().." buttons")
-    if p1joystick then
-        p2joystick = joystick
-    elseif p2joystick then
-        p3joystick = joystick
-    end
-
     love.joystick.loadGamepadMappings( "res/gamecontrollerdb.txt" )
     local joysticks = love.joystick.getJoysticks()
     for i, joystick in ipairs(joysticks) do
@@ -19,6 +14,7 @@ end
 
 function love.joystickremoved( joystick )
     dp("removed joystick "..joystick:getName())
+    connected[joystick] = nil
 end
 
 DUMMY_CONTROL = {}
@@ -111,81 +107,88 @@ local function gamepadDigitalAxis(num, axis)
 end
 
 function bindGameInput()
+    Controls = {}
     -- define Player 1 controls
     local gamepad1 = 1
     local gamepad2 = 2
     local gamepad3 = 3
-    Control1 = {
+    Controls[gamepad1] = {
         horizontal = tactile.newControl()
-        :addAxis(gamepadDigitalAxis(gamepad1, 'leftx'))
-        :addAxis(gamepadHat(gamepad1, 1, "horizontal"))
+                            :addAxis(gamepadDigitalAxis(gamepad1, 'leftx'))
+                            :addAxis(gamepadHat(gamepad1, 1, "horizontal"))
         --:addAxis(gamepadDigitalAxis(1, 'rightx'))
-        :addButtonPair(tactile.keys('left'), tactile.keys('right')),
+                            :addButtonPair(tactile.keys('left'), tactile.keys('right')),
         vertical = tactile.newControl()
-        :addAxis(gamepadDigitalAxis(gamepad1, 'lefty'))
-        :addAxis(gamepadHat(gamepad1, 1, "vertical"))
+                          :addAxis(gamepadDigitalAxis(gamepad1, 'lefty'))
+                          :addAxis(gamepadHat(gamepad1, 1, "vertical"))
         --:addAxis(gamepadDigitalAxis(1, 'righty'))
-        :addButtonPair(tactile.keys('up'), tactile.keys('down')),
+                          :addButtonPair(tactile.keys('up'), tactile.keys('down')),
         attack = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad1, 'a'))
-        :addButton(tactile.keys('x')),
+                        :addButton(tactile.gamepadButtons(gamepad1, 'a'))
+                        :addButton(tactile.keys('x')),
         jump = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad1, 'b'))
-        :addButton(tactile.keys('c')),
+                      :addButton(tactile.gamepadButtons(gamepad1, 'b'))
+                      :addButton(tactile.keys('c')),
         --TODO test
         start = tactile.newControl()
-        :addButton(tactile.keys('return'))
-        :addButton(tactile.gamepadButtons(gamepad1, 'start')),
+                       :addButton(tactile.keys('return'))
+                       :addButton(tactile.gamepadButtons(gamepad1, 'start')),
         back = tactile.newControl()
-        :addButton(tactile.keys('escape'))
-        :addButton(tactile.gamepadButtons(gamepad1, 'back')),
+                      :addButton(tactile.keys('escape'))
+                      :addButton(tactile.gamepadButtons(gamepad1, 'back')),
         fullScreen = tactile.newControl()
-        :addButton(tactile.keys('f11')),
+                            :addButton(tactile.keys('f11')),
         screenshot = tactile.newControl()
-        :addButton(tactile.keys('pause'))
+                            :addButton(tactile.keys('pause'))
     }
     -- define Player 2 controls
-    Control2 = {
+    Controls[gamepad2] = {
         horizontal = tactile.newControl()
-        :addAxis(gamepadDigitalAxis(gamepad2, 'leftx'))
-        :addAxis(gamepadHat(gamepad2, 1, "horizontal"))
-        :addButtonPair(tactile.keys('a'), tactile.keys('d')),
+                            :addAxis(gamepadDigitalAxis(gamepad2, 'leftx'))
+                            :addAxis(gamepadHat(gamepad2, 1, "horizontal"))
+                            :addButtonPair(tactile.keys('a'), tactile.keys('d')),
         vertical = tactile.newControl()
-        :addAxis(gamepadDigitalAxis(gamepad2, 'lefty'))
-        :addAxis(gamepadHat(gamepad2, 1, "vertical"))
-        :addButtonPair(tactile.keys('w'), tactile.keys('s')),
+                          :addAxis(gamepadDigitalAxis(gamepad2, 'lefty'))
+                          :addAxis(gamepadHat(gamepad2, 1, "vertical"))
+                          :addButtonPair(tactile.keys('w'), tactile.keys('s')),
         attack = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad2, 'a'))
-        :addButton(tactile.keys 'i'),
+                        :addButton(tactile.gamepadButtons(gamepad2, 'a'))
+                        :addButton(tactile.keys 'i'),
         jump = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad2, 'b'))
-        :addButton(tactile.keys 'o'),
+                      :addButton(tactile.gamepadButtons(gamepad2, 'b'))
+                      :addButton(tactile.keys 'o'),
         start = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad2, 'start')),
+                       :addButton(tactile.gamepadButtons(gamepad2, 'start')),
         back = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad2, 'back'))
+                      :addButton(tactile.gamepadButtons(gamepad2, 'back'))
     }
     -- define Player 3 controls
-    Control3 = {
+    Controls[gamepad3] = {
         horizontal = tactile.newControl()
-        :addAxis(gamepadDigitalAxis(gamepad3, 'leftx'))
-        :addAxis(gamepadHat(gamepad3, 1, "horizontal"))
-        :addButtonPair(tactile.keys('f'), tactile.keys('h')),
+                            :addAxis(gamepadDigitalAxis(gamepad3, 'leftx'))
+                            :addAxis(gamepadHat(gamepad3, 1, "horizontal"))
+                            :addButtonPair(tactile.keys('f'), tactile.keys('h')),
         vertical = tactile.newControl()
-        :addAxis(gamepadDigitalAxis(gamepad3, 'lefty'))
-        :addAxis(gamepadHat(gamepad3, 1, "vertical"))
-        :addButtonPair(tactile.keys('t'), tactile.keys('g')),
+                          :addAxis(gamepadDigitalAxis(gamepad3, 'lefty'))
+                          :addAxis(gamepadHat(gamepad3, 1, "vertical"))
+                          :addButtonPair(tactile.keys('t'), tactile.keys('g')),
         attack = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad3, 'a'))
-        :addButton(tactile.keys 'r'),
+                        :addButton(tactile.gamepadButtons(gamepad3, 'a'))
+                        :addButton(tactile.keys 'r'),
         jump = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad3, 'b'))
-        :addButton(tactile.keys 'y'),
+                      :addButton(tactile.gamepadButtons(gamepad3, 'b'))
+                      :addButton(tactile.keys 'y'),
         start = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad3, 'start')),
+                       :addButton(tactile.gamepadButtons(gamepad3, 'start')),
         back = tactile.newControl()
-        :addButton(tactile.gamepadButtons(gamepad3, 'back'))
+                      :addButton(tactile.gamepadButtons(gamepad3, 'back'))
     }
+    for i = 1, 3 do
+        local p = getRegisteredPlayer(i)
+        if p then
+            p.b = Controls[i]
+        end
+    end
 end
 
 local function checkDoubleTapState(directionControl)
