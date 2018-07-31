@@ -209,15 +209,18 @@ local specialOffensive1 = function(slf, cont)
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
-        { x = 10, y = 18, width = 40, height = 35, damage = 8,
-            onHit = function(slf) slf.isAttackConnected = true end
+        { x = 10, y = 18, width = 40, height = 35, damage = 6,
+            onHit = function(slf)
+                slf.isAttackConnected = true
+                slf.customFriction = slf.dashFriction * 1.5
+                end
         },cont)
 end
 local specialOffensiveFollowUp = function(slf, cont)
     if slf.isAttackConnected then
         slf.victims = {}
         slf:setSprite("specialOffensive2")
-        slf.customFriction = slf.dashFriction * 1.5
+        slf.speed_x = slf.dashSpeed_x * 1.5
     end
 end
 local specialOffensiveJumpStart = function(slf, cont)
@@ -230,19 +233,10 @@ local specialOffensive2a = function(slf, cont)
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
-        { x = 10, y = 18, width = 40, height = 35, damage = 18 },
+        { x = 10, y = 18, width = 40, height = 35, damage = 6 },
         cont)
-    slf.speed_x = slf.dashSpeed_x * 0.8
 end
 local specialOffensive2b = function(slf, cont)
-    if slf.sprite.elapsedTime == 0 then
-        slf.victims = {}    -- clear victims list before any contFuncAttack
-    end
-    slf:checkAndAttack(
-        { x = 10, y = 25, width = 40, height = 40, damage = 18 },
-    cont)
-end
-local specialOffensive2c = function(slf, cont)
     if slf.sprite.elapsedTime == 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
@@ -399,11 +393,11 @@ return {
             delay = 0.06
         },
         specialOffensive2 = {
-            { q = q(104,2151,44,56), ox = 16, oy = 56, funcCont = specialOffensive2a }, --offensive special 5
+            { q = q(104,2151,44,56), ox = 16, oy = 56 }, --offensive special 5
             { q = q(150,2151,45,57), ox = 15, oy = 56, funcCont = specialOffensive2a }, --offensive special 6
-            { q = q(2,2228,45,59), ox = 14, oy = 58, funcCont = specialOffensive2b }, --offensive special 7
-            { q = q(49,2210,50,77), ox = 22, oy = 76, funcCont = specialOffensive2c, func = specialOffensiveJumpStart, delay =  0.13 }, --offensive special 8a
-            { q = q(101,2210,47,77), ox = 22, oy = 76, funcCont = specialOffensive2c, delay =  0.13 }, --offensive special 8b
+            { q = q(2,2228,45,59), ox = 14, oy = 58 }, --offensive special 7
+            { q = q(49,2210,50,77), ox = 22, oy = 76, funcCont = specialOffensive2b, func = specialOffensiveJumpStart, delay =  0.13 }, --offensive special 8a
+            { q = q(101,2210,47,77), ox = 22, oy = 76, funcCont = specialOffensive2b, delay =  0.13 }, --offensive special 8b
             { q = q(150,2214,45,73), ox = 26, oy = 72, delay =  0.1 }, --offensive special 9
             { q = q(2,2289,38,70), ox = 21, oy = 69, delay =  0.1 }, --offensive special 10
             { q = q(42,2292,43,66), ox = 23, oy = 65, delay =  0.1 }, --offensive special 11

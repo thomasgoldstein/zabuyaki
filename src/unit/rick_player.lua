@@ -47,8 +47,6 @@ function Rick:initAttributes()
     self.comboSlideDiagonalSpeed4_x = 150 --diagonal horizontal speed of combo4Forward attacks
     self.comboSlideDiagonalSpeed4_y = 30 --diagonal vertical speed of combo4Forward attacks
 
-    self.specialOffensiveRepel = 240 --how much specialOffensive pushes units back
-
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed
     --    self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
@@ -100,7 +98,7 @@ Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiv
 
 function Rick:specialOffensiveStart()
     self.isHittable = true
-    self.customFriction = self.dashSpeed_x
+    self.customFriction = self.dashFriction
     self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("specialOffensive")
