@@ -122,6 +122,7 @@ function setSpriteAnimation(spr, anim)
     spr.curAnim = anim
     spr.isFinished = false
     spr.funcCalledOnFrame = -1
+    spr.funcContCalledOnFrame = -1
     spr.elapsedTime = -math.min(love.timer.getDelta() / 2, 0.1)
     spr.isThrow = spr.def.animations[spr.curAnim].isThrow
     spr.comboEnd = spr.def.animations[spr.curAnim].comboEnd
@@ -198,6 +199,7 @@ function updateSpriteInstance(spr, dt, slf)
     -- call the custom frame func on every frame
     if sc.funcCont and slf then
         sc.funcCont(slf, true) --isfuncCont = true
+        spr.funcContCalledOnFrame = spr.curFrame -- do not move before funcCont call
     end
     --spr.def.animations[spr.curAnim]
     --Increment the internal counter.
@@ -218,6 +220,7 @@ function updateSpriteInstance(spr, dt, slf)
                 spr.isFinished = true
             end
             spr.funcCalledOnFrame = -1
+            spr.funcContCalledOnFrame = -1
         end
         -- Reset internal counter on frame change.
         spr.elapsedTime = 0
