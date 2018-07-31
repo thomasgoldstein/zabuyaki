@@ -191,12 +191,16 @@ end
 local function pollControls(dt)
     --update P1..P3 controls
     --check for double taps, etc
+    local control
     for i = 1, 3 do
-        for index,value in pairs(Controls[i]) do
-            local b = Controls[i][index]
-            b:update(dt)
+        control = Controls[i]
+        if control then
+            for index,value in pairs(control) do
+                local b = control[index]
+                b:update(dt)
+            end
+            updateDoubleTap(control)
         end
-        updateDoubleTap(Controls[i])
     end
 end
 
