@@ -186,6 +186,7 @@ function love.load(arg)
         require "test.test2"
         cleanUpAfterTests()
     end
+    bindGameInput()
 end
 
 local function pollControls(dt)
