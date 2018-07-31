@@ -150,7 +150,6 @@ function love.load(arg)
     require 'src/menu'
     tactile = require 'lib/tactile'
     require 'src/controls'
-    bindGameInput()
     require "src/canvas2png"
 
     if GLOBAL_SETTING.FILTER_N and shaders.screen[GLOBAL_SETTING.FILTER_N] then

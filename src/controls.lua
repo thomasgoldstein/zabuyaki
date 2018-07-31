@@ -14,6 +14,7 @@ function love.joystickadded(joystick)
     for i, joystick in ipairs(joysticks) do
         dp("detected ",joystick:getName())
     end
+    bindGameInput()
 end
 
 function love.joystickremoved( joystick )
@@ -64,6 +65,9 @@ local function gamepadHat(num, hat, axis)
     if axis == "horizontal" then
         return function()
             local joystick = love.joystick.getJoysticks()[num]
+            if not joystick then
+                return 0
+            end
             local h = joystick:getHat(hat)
             if h == "l" or h == "lu" or h == "ld" then
                 return -1
@@ -75,6 +79,9 @@ local function gamepadHat(num, hat, axis)
     else
         return function()
             local joystick = love.joystick.getJoysticks()[num]
+            if not joystick then
+                return 0
+            end
             local h = joystick:getHat(hat)
             if h == "u" or h == "ru" or h == "lu" then
                 return -1
@@ -90,6 +97,9 @@ local maxAxisDelta = 0.15
 local function gamepadDigitalAxis(num, axis)
     return function()
         local joystick = love.joystick.getJoysticks()[num]
+        if not joystick then
+            return 0
+        end
         local a = joystick ~= nil and joystick:getGamepadAxis(axis) or 0
         if a < -maxAxisDelta then
             return -1
