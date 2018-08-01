@@ -242,7 +242,7 @@ local specialOffensive2b = function(slf, cont)
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
-        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown" },
+        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown", repel = slf.specialOffensiveRepel },
     cont)
 end
 
