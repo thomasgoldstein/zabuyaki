@@ -202,8 +202,6 @@ function Character:afterOnHurt()
     if not h then
         return
     end
-    --"simple", "blow-vertical", "blow-diagonal", "blow-horizontal", "blow-away"
-    --"hit, "knockDown"(replaced by blows)
     if h.type == "hit" then
         if self.hp > 0 and self.z <= self:getMinZ() then
             self:setState(self.hurt)
@@ -226,27 +224,31 @@ function Character:afterOnHurt()
         end
         self.speed_x = h.speed_x --use fall speed from the argument
         --then it goes to "fall dead"
-    elseif h.type == "knockDown" then
-        --use fall speed from the agument
-        self.speed_x = h.speed_x
-        --it cannot be too short
-        if self.speed_x < self.fallSpeed_x / 2 then
-            self.speed_x = self.fallSpeed_x / 2 + self.fallSpeedBoost_x
+    elseif h.type == "knockDown" or h.type == "shockWave" or h.type == "blowOut" then
+        if self.isMovable then
+            --use fall speed from repel
+            if h.speed_x == 0 then
+                self.speed_x = self.fallSpeed_x
+            else
+                self.speed_x = h.speed_x + self.fallSpeedBoost_x
+            end
         end
-        if h.source == self then --fall back on self kill (timeout)
-            h.horizontal = -self.horizontal
-            self.face = -h.horizontal
-        else
-            self.vertical = h.source.vertical
-            self.speed_y = h.source.speed_y * 0.5
+        if h.type == "knockDown" then
+            if h.source == self then --fall back on self kill (timeout)
+                h.horizontal = -self.horizontal
+                self.face = -h.horizontal
+            else
+                self.vertical = h.source.vertical
+                self.speed_y = h.source.speed_y * 0.5
+            end
+        else -- "shockWave" or "blowOut"
+            if h.source.x < self.x then --fall back from the epicenter
+                h.horizontal = 1
+            else
+                h.horizontal = -1
+            end
+            self.face = -h.horizontal	--turn face to the epicenter
         end
-    elseif h.type == "shockWave" or h.type == "blowOut" then
-        if h.source.x < self.x then
-            h.horizontal = 1
-        else
-            h.horizontal = -1
-        end
-        self.face = -h.horizontal	--turn face to the epicenter
     elseif h.type == "simple" then
         return
     else
@@ -265,14 +267,12 @@ function Character:afterOnHurt()
     end
     -- calc falling traectorym speed, direction
     self.speed_z = self.fallSpeed_z * self.jumpSpeedMultiplier
-    if self.hp <= 0 then -- dead body flies further
+    if self.hp <= 0 then -- dead body flies farther
         if self.speed_x < self.fallSpeed_x then
             self.speed_x = self.fallSpeed_x + self.fallDeadSpeedBoost_x
         else
             self.speed_x = self.speed_x + self.fallDeadSpeedBoost_x
         end
-    elseif self.speed_x < self.fallSpeed_x then --alive bodies
-        self.speed_x = self.fallSpeed_x
     end
     self.horizontal = h.horizontal
     self.isGrabbed = false
