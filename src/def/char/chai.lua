@@ -87,19 +87,19 @@ local comboAttack3Forward = function(slf, cont)
 end
 local comboAttack4 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 37, width = 30, damage = 14, type = "knockDown", repel = slf.fallSpeed_x, sfx = "air" },
+        { x = 28, y = 37, width = 30, damage = 14, type = "knockDown", sfx = "air" },
         cont
     )
 end
 local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 18, width = 39, damage = 14, type = "knockDown", repel = slf.fallSpeed_x },
+        { x = 25, y = 18, width = 39, damage = 14, type = "knockDown" },
         cont
     )
 end
 local comboAttack4NoSfx = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 37, width = 30, damage = 14, type = "knockDown", repel = slf.fallSpeed_x },
+        { x = 28, y = 37, width = 30, damage = 14, type = "knockDown" },
         cont
     )
 end
@@ -127,7 +127,7 @@ local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local jumpAttackStraight = function(slf, cont) slf:checkAndAttack(
-    { x = 15, y = 21, width = 25, damage = 15, type = "knockDown", repel = slf.fallSpeed_x },
+    { x = 15, y = 21, width = 25, damage = 15, type = "knockDown" },
     cont
 ) end
 local jumpAttackRun = function(slf, cont) slf:checkAndAttack(

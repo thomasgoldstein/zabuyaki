@@ -190,7 +190,7 @@ local jumpAttackStraight1 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
-    { x = 17, y = 14, width = 30, damage = 10, type = "knockDown", repel = slf.fallSpeed_x },
+    { x = 17, y = 14, width = 30, damage = 10, type = "knockDown" },
     cont
 ) end
  local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
@@ -239,7 +239,7 @@ local specialOffensive2b = function(slf, cont)
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
-        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown" },
+        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown", repel = slf.specialOffensiveRepel },
     cont)
 end
 
