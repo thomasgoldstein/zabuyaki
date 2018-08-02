@@ -22,7 +22,7 @@ local comboKick = function(slf, cont)
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 17, width = 25, height = 45, damage = 13, type = "knockDown", repel = slf.dashFallSpeed, sfx = (slf.sprite.elapsedTime == 0) and "air" },
+        { x = 21, y = 17, width = 25, height = 45, damage = 13, type = "knockDown", repel = slf.dashFallSpeed },
         cont
 ) end
 
