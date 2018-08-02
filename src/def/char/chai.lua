@@ -57,7 +57,7 @@ local comboAttack1 = function(slf, cont)
 end
 local comboAttack1Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 21, width = 26, damage = 6 },
+        { x = 28, y = 21, width = 26, damage = 6, sfx = (slf.sprite.elapsedTime == 0) and "air" },
         cont
     )
 end
@@ -69,7 +69,7 @@ local comboAttack2 = function(slf, cont)
 end
 local comboAttack2Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 22, y = 22, width = 31, damage = 10, repel = slf.comboSlideRepel2 },
+        { x = 22, y = 22, width = 31, damage = 10, repel = slf.comboSlideRepel2, sfx = (slf.sprite.elapsedTime == 0) and "air" },
         cont
     )
 end
@@ -81,7 +81,7 @@ local comboAttack3 = function(slf, cont)
 end
 local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 22, y = 22, width = 31, damage = 12, repel = slf.comboSlideRepel3 },
+        { x = 22, y = 22, width = 31, damage = 12, repel = slf.comboSlideRepel3, sfx = (slf.sprite.elapsedTime == 0) and "air" },
         cont
     )
 end
@@ -102,9 +102,6 @@ local comboAttack4NoSfx = function(slf, cont)
         { x = 28, y = 37, width = 30, damage = 14, type = "knockDown" },
         cont
     )
-end
-local comboAttackSfx = function(slf, cont)
-    slf:playSfx("air")
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
     { x = 8, y = 20, width = 22, damage = 17, type = "knockDown", repel = slf.dashFallSpeed },
@@ -421,7 +418,7 @@ return {
         },
         combo1Forward = {
             { q = q(135,2,51,64), ox = 24, oy = 63, func = comboSlide1 }, --combo forward 1.1
-            { q = q(2,521,65,64), ox = 24, oy = 63, func = comboAttackSfx, funcCont = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
+            { q = q(2,521,65,64), ox = 24, oy = 63, funcCont = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
             { q = q(69,521,57,64), ox = 24, oy = 63, delay = 0.03 }, --combo forward 1.3
             delay = 0.05
         },
@@ -434,7 +431,7 @@ return {
         combo2Forward = {
             { q = q(2,1858,43,65), ox = 21, oy = 64, func = comboSlide2 }, --combo forward 2.1
             { q = q(47,1858,41,65), ox = 15, oy = 64, delay = 0.03 }, --combo forward 2.2
-            { q = q(90,1861,54,62), ox = 14, oy = 61, func = comboAttackSfx, funcCont = comboAttack2Forward }, --combo forward 2.3a
+            { q = q(90,1861,54,62), ox = 14, oy = 61, funcCont = comboAttack2Forward }, --combo forward 2.3a
             { q = q(146,1861,55,62), ox = 14, oy = 61 }, --combo forward 2.3b (FIXME: the attack from 2.3a should be span to this frame)
             { q = q(2,1928,54,62), ox = 14, oy = 61 }, --combo forward 2.3c (FIXME: the attack from 2.3a should be span to this frame)
             { q = q(58,1926,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
@@ -451,7 +448,7 @@ return {
         combo3Forward = {
             { q = q(100,1925,38,65), ox = 17, oy = 64, func = comboSlide3 }, --combo forward 3.1
             { q = q(140,1925,43,65), ox = 16, oy = 64, delay = 0.03 }, --combo forward 3.2
-            { q = q(185,1926,55,64), ox = 14, oy = 63, func = comboAttackSfx, funcCont = comboAttack3Forward }, --combo forward 3.3a
+            { q = q(185,1926,55,64), ox = 14, oy = 63, funcCont = comboAttack3Forward }, --combo forward 3.3a
             { q = q(2,1993,54,64), ox = 14, oy = 63 }, --combo forward 3.3b (FIXME: the attack from 3.3a should be span to this frame)
             { q = q(58,1993,52,64), ox = 14, oy = 63 }, --combo forward 3.3c (FIXME: the attack from 3.3a should be span to this frame)
             { q = q(112,1993,49,64), ox = 14, oy = 63 }, --combo forward 3.3d (FIXME: the attack from 3.3a should be span to this frame)
