@@ -135,7 +135,7 @@ local comboAttack4Up2 = function(slf, cont)
 end
 local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 35, y = 32, width = 39, damage = 15, type = "knockDown", repel = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime == 0) and "air"},
+        { x = 35, y = 32, width = 39, damage = 15, type = "knockDown", repel = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime == 0) and "air" },
         cont
     )
 end
