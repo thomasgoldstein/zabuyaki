@@ -470,7 +470,7 @@ return {
             { q = q(43,1337,41,57), ox = 31, oy = 56, func = comboSlide4 }, --special defensive 2
             { q = q(186,137,39,60), ox = 22, oy = 59 }, --charge dash attack 1
             { q = q(141,134,43,64), ox = 20, oy = 63 }, --charge dash attack 2
-            { q = q(74,1592,70,65), ox = 23, oy = 64, func = comboAttackSfx, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3b
+            { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3b
             { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3c
             { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.05 }, --charge dash attack 3d
             { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
