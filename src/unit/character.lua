@@ -265,23 +265,22 @@ function Character:afterOnHurt()
             self:setSprite("hurtLow")
         end
     end
-    -- calc falling traectorym speed, direction
-    self.speed_z = self.fallSpeed_z * self.jumpSpeedMultiplier
-    if self.hp <= 0 then -- dead body flies farther
-        if self.speed_x < self.fallSpeed_x then
-            self.speed_x = self.fallSpeed_x + self.fallDeadSpeedBoost_x
-        else
-            self.speed_x = self.speed_x + self.fallDeadSpeedBoost_x
-        end
-    end
     self.horizontal = h.horizontal
     self.isGrabbed = false
-    if not self.isMovable and self.hp <=0 then
-        self.speed_x = 0
-        self:setState(self.dead)
-    else
-        self:setState(self.fall)
+    -- calc falling trajectory speed, direction
+    self.speed_z = self.fallSpeed_z * self.jumpSpeedMultiplier
+    if self.speed_x < self.fallSpeed_x then
+        self.speed_x = self.fallSpeed_x
     end
+    if self.hp <= 0 then -- dead body flies farther
+        if not self.isMovable then
+            self.speed_x = 0
+            self:setState(self.dead)
+            return
+        end
+        self.speed_x = self.speed_x + self.fallDeadSpeedBoost_x
+    end
+    self:setState(self.fall)
 end
 
 function Character:checkAndAttack(f, isFuncCont)
