@@ -222,8 +222,12 @@ function updateSpriteInstance(spr, dt, slf)
             spr.funcCalledOnFrame = -1
             spr.funcContCalledOnFrame = -1
         end
-        -- Reset internal counter on frame change.
-        spr.elapsedTime = 0
+        if s[spr.curFrame].spanFunc then -- span function from the prev frame
+            s[spr.curFrame].funcCont = sc.funcCont
+        else
+            -- Reset internal counter on frame change.
+            spr.elapsedTime = 0
+        end
     end
     -- First or Last frames or the 1st start frame after the loop?
     spr.isFirst = (spr.curFrame == 1)
