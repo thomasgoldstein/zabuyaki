@@ -81,7 +81,7 @@ local comboAttack2 = function(slf, cont)
 end
 local comboAttack2Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 24, width = 31, damage = 8, repel = slf.comboSlideRepel2, sfx = (slf.sprite.elapsedTime == 0) and "air" },
+        { x = 21, y = 24, width = 31, damage = 8, repel = slf.comboSlideRepel2, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -105,7 +105,7 @@ local comboAttack3Up2 = function(slf, cont)
 end
 local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 10, repel = slf.comboSlideRepel3, sfx = (slf.sprite.elapsedTime == 0) and "air" },
+        { x = 27, y = 21, width = 39, damage = 10, repel = slf.comboSlideRepel3, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -135,7 +135,7 @@ local comboAttack4Up2 = function(slf, cont)
 end
 local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 35, y = 32, width = 39, damage = 15, type = "knockDown", repel = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime == 0) and "air" },
+        { x = 35, y = 32, width = 39, damage = 15, type = "knockDown", repel = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -202,7 +202,7 @@ local specialDefensive = function(slf, cont) slf:checkAndAttack(
     cont
  ) end
 local specialOffensive1 = function(slf, cont)
-    if slf.sprite.elapsedTime == 0 then
+    if slf.sprite.elapsedTime <= 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
@@ -215,7 +215,7 @@ local specialOffensive1 = function(slf, cont)
 end
 local specialOffensiveFollowUp = function(slf, cont)
     if slf.isAttackConnected then
-        slf.victims = {}
+        slf.victims = {}    -- clear victims list before this attack
         slf:setSprite("specialOffensive2")
         slf.speed_x = slf.dashSpeed_x * 1.5
         slf.customFriction = slf.dashFriction * 1.5
@@ -227,7 +227,7 @@ local specialOffensiveJumpStart = function(slf, cont)
     slf:showEffect("jumpStart")
 end
 local specialOffensive2a = function(slf, cont)
-    if slf.sprite.elapsedTime == 0 then
+    if slf.sprite.elapsedTime <= 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
@@ -235,7 +235,7 @@ local specialOffensive2a = function(slf, cont)
         cont)
 end
 local specialOffensive2b = function(slf, cont)
-    if slf.sprite.elapsedTime == 0 then
+    if slf.sprite.elapsedTime <= 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(

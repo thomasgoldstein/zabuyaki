@@ -57,7 +57,7 @@ local comboAttack1 = function(slf, cont)
 end
 local comboAttack1Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 21, width = 26, damage = 6, sfx = (slf.sprite.elapsedTime == 0) and "air" },
+        { x = 28, y = 21, width = 26, damage = 6, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -69,7 +69,7 @@ local comboAttack2 = function(slf, cont)
 end
 local comboAttack2Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 22, y = 22, width = 31, damage = 10, repel = slf.comboSlideRepel2, sfx = (slf.sprite.elapsedTime == 0) and "air" },
+        { x = 22, y = 22, width = 31, damage = 10, repel = slf.comboSlideRepel2, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -81,7 +81,7 @@ local comboAttack3 = function(slf, cont)
 end
 local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 22, y = 22, width = 31, damage = 12, repel = slf.comboSlideRepel3, sfx = (slf.sprite.elapsedTime == 0) and "air" },
+        { x = 22, y = 22, width = 31, damage = 12, repel = slf.comboSlideRepel3, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -93,7 +93,7 @@ local comboAttack4 = function(slf, cont)
 end
 local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 18, width = 39, damage = 14, type = "knockDown", repel = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime == 0) and "air" },
+        { x = 25, y = 18, width = 39, damage = 14, type = "knockDown", repel = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end

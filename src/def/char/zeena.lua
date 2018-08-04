@@ -12,11 +12,11 @@ local comboSlap = function(slf, cont)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 10, width = 25, damage = 8, type = "knockDown", repel = slf.dashFallSpeed, sfx = (slf.sprite.elapsedTime == 0) and "air" },
+        { x = 21, y = 10, width = 25, damage = 8, type = "knockDown", repel = slf.dashFallSpeed, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
     -- move forward Zeena
-    if slf.sprite.elapsedTime == 0 then
+    if slf.sprite.elapsedTime <= 0 then
         slf:initSlide(slf.slideSpeed_x, slf.slideDiagonalSpeed_x, slf.slideDiagonalSpeed_y, slf.slideSpeed_x * 2.5)
     end
 end
