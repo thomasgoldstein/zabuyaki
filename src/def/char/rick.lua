@@ -222,7 +222,7 @@ local specialOffensiveFollowUp = function(slf, cont)
     end
 end
 local specialOffensiveJumpStart = function(slf, cont)
-    slf.speed_z = slf.jumpSpeed_z * 1.4
+    slf.speed_z = slf.jumpSpeed_z * 1.2
     slf.z = slf:getMinZ() + 0.01
     slf:showEffect("jumpStart")
 end
