@@ -23,7 +23,7 @@ function Yar:initAttributes()
     self.walkSpeed_y = 37.5
     self.chargeWalkSpeed_x = 72
     self.chargeWalkSpeed_y = 36
-    self.runSpeed_x = 145
+    self.runSpeed_x = 144
     self.runSpeed_y = 24
     self.dashSpeed_x = 125 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall

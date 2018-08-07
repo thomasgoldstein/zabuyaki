@@ -26,8 +26,8 @@ function Chai:initAttributes()
     self.walkSpeed_y = 50
     self.chargeWalkSpeed_x = 80
     self.chargeWalkSpeed_y = 40
-    self.runSpeed_x = 150
-    self.runSpeed_y = 25
+    self.runSpeed_x = 156
+    self.runSpeed_y = 26
     self.dashSpeed_x = 200 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
     self.chargeDashAttackSpeed_z = 90
