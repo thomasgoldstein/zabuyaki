@@ -488,23 +488,23 @@ return {
             delay = 0.03
         },
         fall = {
-            { q = q(2,464,65,55), ox = 32, oy = 54 }, --falling
+            { q = q(2,464,66,56), ox = 32, oy = 54 }, --falling
             delay = 5
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,464,65,55), ox = 32, oy = 54, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            { q = q(2,464,66,56), ox = 32, oy = 54, rotate = -1.57, rx = 29, ry = -30 }, --falling
             delay = 5
         },
         getUp = {
-            { q = q(69,488,68,30), ox = 38, oy = 28 }, --lying down
-            { q = q(139,466,56,53), ox = 30, oy = 51 }, --getting up
+            { q = q(70,488,69,30), ox = 39, oy = 28 }, --lying down
+            { q = q(141,466,56,53), ox = 30, oy = 51 }, --getting up
             { q = q(43,404,39,58), ox = 23, oy = 57 }, --pick up 2
             { q = q(2,401,39,61), ox = 23, oy = 60 }, --pick up 1
             delay = 0.15
         },
         fallen = {
-            { q = q(69,488,68,30), ox = 38, oy = 28 }, --lying down
+            { q = q(70,488,69,30), ox = 39, oy = 28 }, --lying down
             delay = 65
         },
         hurtHigh = {
@@ -643,21 +643,21 @@ return {
         grabbedFront = {
             { q = q(2,335,48,64), ox = 29, oy = 63 }, --hurt high 1
             { q = q(52,335,50,64), ox = 32, oy = 63 }, --hurt high 2
-            delay = 0.1
+            delay = 0.02
         },
         grabbedBack = {
             { q = q(104,336,42,63), ox = 22, oy = 62 }, --hurt low 1
             { q = q(148,338,42,61), ox = 22, oy = 60 }, --hurt low 2
-            delay = 0.1
+            delay = 0.02
         },
         grabbedFrames = {
             --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, lying down
             { q = q(148,338,42,61), ox = 22, oy = 60 }, --hurt low 2
             { q = q(52,335,50,64), ox = 32, oy = 63 }, --hurt high 2
-            { q = q(2,464,65,55), ox = 32, oy = 54 }, --falling
-            { q = q(2,464,65,55), ox = 22, oy = 46, rotate = -1.57, rx = 31, ry = -27 }, --falling
+            { q = q(2,464,66,56), ox = 32, oy = 54 }, --falling
+            { q = q(2,464,66,56), ox = 22, oy = 46, rotate = -1.57, rx = 31, ry = -27 }, --falling
             { q = q(148,338,42,61), ox = 22, oy = 60, flipV = -1 }, --hurt low 2
-            { q = q(69,488,68,30), ox = 38, oy = 28 }, --lying down
+            { q = q(70,488,69,30), ox = 39, oy = 28 }, --lying down
             delay = 100
         },
     }

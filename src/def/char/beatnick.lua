@@ -209,12 +209,12 @@ return {
         grabbedFront = {
             { q = q(2,140,62,67), ox = 36, oy = 66 }, -- hurt high 1
             { q = q(66,140,63,67), ox = 38, oy = 66 }, -- hurt high 2
-            delay = 0.1
+            delay = 0.02
         },
         grabbedBack = {
             { q = q(131,141,62,66), ox = 32, oy = 65 }, -- hurt low 1
             { q = q(195,142,61,65), ox = 30, oy = 64 }, -- hurt low 2
-            delay = 0.1
+            delay = 0.02
         },
         grabbedFrames = {
             --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, lying down
