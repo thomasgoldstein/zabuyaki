@@ -112,6 +112,7 @@ function Character:updateAI(dt)
     end
     self.time = self.time + dt
     self.comboTimer = self.comboTimer - dt
+    self.invincibilityTimer = self.invincibilityTimer - dt
     local g = self.grabContext
     if g then
         g.grabTimer = g.grabTimer - dt
@@ -126,6 +127,10 @@ end
 
 function Character:isImmune()   --Immune to the attack?
     local h = self.isHurt
+    if self.invincibilityTimer > 0 then
+        self.isHurt = nil --free hurt data
+        return true
+    end
     if h.type == "shockWave" and ( self.isDisabled or self.sprite.curAnim == "fallen" ) then
         -- shockWave has no effect on players & stage objects
         self.isHurt = nil --free hurt data
@@ -1108,6 +1113,7 @@ function Character:getUpStart()
 end
 function Character:getUpUpdate(dt)
     if self.sprite.isFinished then
+        self.invincibilityTimer = self.invincibilityTimeout
         self:setState(self.stand)
         return
     end
@@ -1237,7 +1243,7 @@ function Character:doGrab(target, inAir)
     if target.isGrabbed then
         return false
     end
-    if not target.isHittable then
+    if not target.isHittable or target.invincibilityTimer > 0 then
         return false
     end
     --the grabbed

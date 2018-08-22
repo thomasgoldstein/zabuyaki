@@ -56,6 +56,8 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.victims = {} -- [victim] = true
     self.obstacles = {} -- [obstacle] = true
     self.isThrown = false
+    self.invincibilityTimeout = 0.4 -- max invincibility time after getUp state
+    self.invincibilityTimer = 0     -- invincible if > 0
     self.shader = f.shader  --it is set on spawn (alter unit's colors)
     self.palette = f.palette  --unit's shader/palette number
     self.color = f.color or "white" --support additional color tone. Not used now
