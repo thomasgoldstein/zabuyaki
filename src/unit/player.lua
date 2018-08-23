@@ -192,10 +192,6 @@ function Player:isImmune()   --Immune to the attack?
     if not h then
         return true
     end
-    if self.invincibilityTimer > 0 then
-        self.isHurt = nil --free hurt data
-        return true
-    end
     if h.type == "shockWave" or self.isDisabled then
         self.isHurt = nil --free hurt data
         return false

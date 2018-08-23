@@ -127,10 +127,6 @@ end
 
 function Character:isImmune()   --Immune to the attack?
     local h = self.isHurt
-    if self.invincibilityTimer > 0 then
-        self.isHurt = nil --free hurt data
-        return true
-    end
     if h.type == "shockWave" and ( self.isDisabled or self.sprite.curAnim == "fallen" ) then
         -- shockWave has no effect on players & stage objects
         self.isHurt = nil --free hurt data
@@ -1243,7 +1239,7 @@ function Character:doGrab(target, inAir)
     if target.isGrabbed then
         return false
     end
-    if not target.isHittable or target.invincibilityTimer > 0 then
+    if target:isInvincibile() then
         return false
     end
     --the grabbed
