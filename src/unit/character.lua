@@ -316,8 +316,7 @@ function Character:checkAndAttack(f, isFuncCont)
     elseif type == "check" then
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
-            if o.isHittable
-                and not o.isDisabled
+            if not o:isInvincibile()
                 and o ~= self
                 and CheckLinearCollision(o.z, o.height, self.z + y - h / 2, h)
             then
@@ -327,9 +326,8 @@ function Character:checkAndAttack(f, isFuncCont)
     else
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
-            if o.isHittable
-                    and not o.isDisabled
-                    and o ~= self
+            if o ~= self
+                    and not o:isInvincibile()
                     and not self.victims[o]
                     and CheckLinearCollision(o.z, o.height, self.z + y - h / 2, h)
             then

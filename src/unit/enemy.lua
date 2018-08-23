@@ -229,7 +229,7 @@ end
 function Enemy:faceToTarget(x, y)
     -- Facing towards the target
     if not self:canFall()
-            and self.isHittable
+            and not self:isInvincibile()
             and not self.isGrabbed
             and self.state ~= "run"
             and self.state ~= "dashAttack"

@@ -73,7 +73,7 @@ end
 
 function StageObject:calcShadowSpriteAndTransparency()
     local transparency = self.deathDelay < 1 and 255 * math.sin(self.deathDelay) or 255
-    if isDebug() and not self.isHittable then
+    if isDebug() and not self:isInvincibile() then
         colors:set("debugRedShadow", nil, transparency)
     else
         colors:set("black", nil, transparency)
