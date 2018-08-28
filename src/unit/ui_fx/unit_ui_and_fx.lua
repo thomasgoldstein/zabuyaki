@@ -61,6 +61,9 @@ end
 
 function Unit:updateSprite(dt)
     updateSpriteInstance(self.sprite, dt, self)
+    if self.spriteOverlay then
+        updateSpriteInstance(self.spriteOverlay, dt, self)
+    end
 end
 
 function Unit:setSpriteIfExists(anim, defaultAnim)
@@ -74,14 +77,40 @@ function Unit:setSpriteIfExists(anim, defaultAnim)
     return false
 end
 
+---Set current animation of the current sprite
+---@param anim string Animation name
 function Unit:setSprite(anim)
     if not self:setSpriteIfExists(anim) then
         error("Missing animation '" .. anim .. "' in '" .. self.sprite.def.spriteName .. "' definition.")
     end
 end
 
+---Set current spriteOverlay and its animation
+---@param spr object Sprite instance
+---@param anim string Animation name
+function Unit:setSpriteOverlay(spr, anim)
+    if not spr then
+        error("Missing sprite instance.")
+    end
+    self.spriteOverlay = spr
+    if not spriteHasAnimation(self.spriteOverlay, anim) then
+        error("Missing animation '" .. anim .. "' in '" .. self.spriteOverlay.def.spriteName .. "' definition.")
+    end
+    self.spriteOverlay.curAnim = anim
+end
+
+function Unit:removeSpriteOverlay()
+    self.spriteOverlay = nil
+end
+
 function Unit:drawSprite(x, y)
     drawSpriteInstance(self.sprite, x, y)
+end
+
+function Unit:drawSpriteOverlay(x, y)
+    if self.spriteOverlay then
+        drawSpriteInstance(self.spriteOverlay, x, y)
+    end
 end
 
 function Unit:onShake(sx, sy, freq, delay)
@@ -313,6 +342,7 @@ function Unit:defaultDraw(l, t, w, h)
                 love.graphics.setShader()
             end
             colors:set("white")
+            self:drawSpriteOverlay(self.x + self.shake.x, self.y - self.z - self.shake.y)
             drawDebugUnitHitbox(self)
             drawDebugUnitInfo(self)
         end

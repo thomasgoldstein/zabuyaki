@@ -17,6 +17,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     end
     self.isDisabled = true
     self.sprite = sprite
+    self.spriteOverlay = nil
     self.name = name or "Unknown"
     self.type = "unit"
     self.subtype = ""
