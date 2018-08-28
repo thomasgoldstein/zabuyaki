@@ -88,6 +88,8 @@ function loadSpriteSheet(spriteSheet)
     return imageBank[spriteSheet]:getDimensions()
 end
 
+---Returns instance of the defined sprite
+---@param spriteDef string Path to the sprite definition file
 function getSpriteInstance (spriteDef)
     if spriteDef == nil then return nil end -- invalid use
     if spriteBank[spriteDef] == nil then
@@ -116,6 +118,9 @@ function getSpriteInstance (spriteDef)
     return s
 end
 
+---Set current animation of the current sprite
+---@param spr object
+---@param anim string
 function setSpriteAnimation(spr, anim)
     spr.curFrame = 1
     spr.loopCount = 0
@@ -129,6 +134,10 @@ function setSpriteAnimation(spr, anim)
     spr.maxFrame = #spr.def.animations[spr.curAnim]
 end
 
+---Does the sprite have 'anim' animation?
+---@param spr object
+---@param anim string
+---@return boolean
 function spriteHasAnimation(spr, anim)
     if spr.def.animations[anim] then
         return true
