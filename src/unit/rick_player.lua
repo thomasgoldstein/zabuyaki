@@ -10,6 +10,7 @@ local CheckCollision = CheckCollision
 
 function Rick:initialize(name, sprite, input, x, y, f)
     Player.initialize(self, name, sprite, input, x, y, f)
+    --self:setSpriteOverlay(getSpriteInstance("src/def/char/beatnick.lua"), "dashAttack", true)
 end
 
 function Rick:initAttributes()
