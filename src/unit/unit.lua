@@ -182,9 +182,9 @@ function Unit:decreaseHp(damage)
         end
     end
 end
-function Unit:applyDamage(damage, type, source, speed_x, sfx1)
+function Unit:applyDamage(damage, type, source, repel, sfx1)
     self.isHurt = {source = source or self, state = self.state, damage = damage,
-                   type = type, speed_x = speed_x or 0,
+                   type = type, repel = repel or 0,
                    horizontal = self.face, isThrown = false,
                    x = self.x, y = self.y, z = self.z }
     if sfx1 then

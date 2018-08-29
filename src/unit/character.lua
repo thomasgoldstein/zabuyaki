@@ -213,25 +213,25 @@ function Character:afterOnHurt()
                 self:setSprite("hurtLow")
             end
             if self.isMovable then
-                if h.speed_x == 0 then
+                if h.repel == 0 then
                     self.speed_x = self.pushBackOnHitSpeed or 0
                 else
-                    self.speed_x = h.speed_x
+                    self.speed_x = h.repel
                 end
                 self.horizontal = h.horizontal
                 self.friction = self.repelFriction  -- custom friction value for smooth sliding back
             end
             return
         end
-        self.speed_x = h.speed_x --use fall speed from the argument
+        self.speed_x = h.repel --use fall speed from the argument
         --then it goes to "fall dead"
     elseif h.type == "knockDown" or h.type == "shockWave" or h.type == "blowOut" then
         if self.isMovable then
             --use fall speed from repel
-            if h.speed_x == 0 then
+            if h.repel == 0 then
                 self.speed_x = self.fallSpeed_x
             else
-                self.speed_x = h.speed_x + self.fallSpeedBoost_x
+                self.speed_x = h.repel + self.fallSpeedBoost_x
             end
         end
         if h.type == "knockDown" then
@@ -307,7 +307,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and o ~= self
             then
                 o.isHurt = {source = self, state = self.state, damage = damage,
-                    type = type, speed_x = repel,
+                    type = type, repel = repel,
                     horizontal = face, isThrown = false,
                     z = self.z + y}
                 items[#items+1] = o
@@ -333,14 +333,14 @@ function Character:checkAndAttack(f, isFuncCont)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
-                        type = type, speed_x = repel,
+                        type = type, repel = repel,
                         horizontal = self.horizontal, isThrown = true,
                         z = self.z + y
                         --x = self.x, y = self.y, z = self.z
                     }
                 else
                     o.isHurt = {source = self, state = self.state, damage = damage,
-                        type = type, speed_x = repel,
+                        type = type, repel = repel,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
                         z = self.z + y
