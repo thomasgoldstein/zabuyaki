@@ -143,11 +143,6 @@ function StageObject:onHurt()
         return
     end
     local newFacing = -h.horizontal
-    --Move stageObject after hit
-    if not self.isGrabbed and self.isMovable and self.speed_x <= 0 then
-        self.speed_x = self.fallSpeed_x
-        self.horizontal = h.horizontal
-    end
     self:removeTweenMove()
     self:onHurtDamage()
     self:afterOnHurt()
