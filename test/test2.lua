@@ -131,6 +131,22 @@ describe("Character Class", function()
         end)
 
         describe("Combo Method", function()
+            it('P1 punches a trash can to move it', function()
+                player2.x = 250 --remove P2 from P!'s attack range
+                local p = player1
+                local attackDistance = (p.width + stageObject1.width) / 2
+                stageObject1.x, stageObject1.y = p.x + attackDistance, p.y
+                stageObject1:checkCollisionAndMove(0.01)
+                setStateAndWait(p, {
+                    setState = p.combo,
+                    wait = p.comboTimeout - 0.01
+                })
+                expect(stageObject1.x).to_not.equal(p.x)
+                expect(stageObject1.x).to.equal(p.x + attackDistance + 3.125)
+                expect(stageObject1.y).to.equal(p.y)
+                expect(stageObject1.z).to.equal(p.z)
+                expect(stageObject1.hp).to.equal(35 - 7)
+            end)
             it('P1 makes 4-attacks combo to P2', function()
                 setStateAndWait(player1, {
                     setState = player1.combo,
