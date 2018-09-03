@@ -46,10 +46,23 @@ describe("Character Class", function()
         -- mock real lib functions
         --local _SFXplay = SFX.play
         --SFX.play = function() end
+        stageObject1 = StageObject:new("SO1-CAN", getSpriteInstance("src/def/stage/object/trashcan.lua"),
+                530, 200,
+                {hp = 35, score = 100, height = 34,
+                 isMovable = true,
+                 sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
+        stageObject1.id = 4 -- fixed id
+        stageObject1:setOnStage(stage)
+        stageObject1.face = -1
+        stageObject1.horizontal = -1
+        --stageObject1.x = 230
+        --stageObject1.y = 200
+        stageObject1.maxZ = stageObject1.z
+        stageObject1:checkCollisionAndMove(0.01)
     end)
     lust.after(function(txt)
         -- This gets run after every test.
-        player1, player2, player3 = nil, nil, nil
+        player1, player2, player3, stageObject1 = nil, nil, nil, nil
         cleanRegisteredPlayers()
         stage = nil
         -- restore mocked lib functions
@@ -70,6 +83,18 @@ describe("Character Class", function()
                 expect(x).to.equal(_x)
                 expect(y).to.equal(_y)
                 expect(z).to.equal(_z)
+                expect(math.floor(maxZ)).to.equal(40)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Jumps on a trash can', function()
+                stageObject1.x, stageObject1.y = player1.x, player1.y
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, {
+                    setState = player1.duck2jump,
+                    stopFunc = isUnitsState(player1, "stand")
+                })
+                expect(x).to.equal(_x)
+                expect(y).to.equal(_y)
+                expect(z).to.equal(stageObject1.height)
                 expect(math.floor(maxZ)).to.equal(40)
                 expect(hp).to.equal(_hp)
             end)
@@ -184,6 +209,18 @@ describe("Character Class", function()
                 expect(x).to.equal(_x)
                 expect(y).to.equal(_y)
                 expect(z).to.equal(_z)
+                expect(math.floor(maxZ)).to.equal(40)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Jumps on a trash can', function()
+                stageObject1.x, stageObject1.y = player3.x, player3.y
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.duck2jump,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                expect(x).to.equal(_x)
+                expect(y).to.equal(_y)
+                expect(z).to.equal(stageObject1.height)
                 expect(math.floor(maxZ)).to.equal(40)
                 expect(hp).to.equal(_hp)
             end)
