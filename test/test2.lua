@@ -148,11 +148,13 @@ describe("Character Class", function()
                 expect(stageObject1.hp).to.equal(35 - 7)
             end)
             it('P1 makes 4-attacks combo to P2', function()
+                local p2x = player2.x
                 setStateAndWait(player1, {
                     setState = player1.combo,
                     wait = player1.comboTimeout - 0.01
                 })
                 expect(player1.attacksPerAnimation).to_not.equal(0)
+                expect(player2.x).to.equal(p2x) -- attacked characters do not move on non-sliding attacks
                 setStateAndWait(player1, {
                     setState = player1.combo,
                     wait = player1.comboTimeout - 0.01
