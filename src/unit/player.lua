@@ -134,15 +134,21 @@ function Player:updateAI(dt)
     else
         stopUnitHighlight(self)
     end
-    if self.moves.specialDefensive or self.moves.specialOffensive then
+    if self.moves.specialDefensive or self.moves.specialOffensive or self.moves.specialDash then
         if not self:canFall() and isSpecialCommand(self.b) then
             if not self.statesForSpecialToleranceDelay[self.state]
                 or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
             then
+                  if self.moves.specialDash and self.statesForSpecialDash[self.state] then
+                    print("!!!!!!!!!!!!!!!!!!!!!!! SPECIAL DASH")
+                    self:releaseGrabbed()
+                    self:removeTweenMove()
+                    --self.face = hv
+                    self:setState(self.specialDash)
+                    return
+                end
                 local hv = self.b.horizontal:getValue()
-                if self.moves.specialOffensive and hv ~= 0
-                    and self.statesForSpecialOffensive[self.state]
-                then
+                if hv ~= 0 and self.moves.specialOffensive and self.statesForSpecialOffensive[self.state] then
                     self:releaseGrabbed()
                     self:removeTweenMove()
                     self.face = hv

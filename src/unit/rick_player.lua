@@ -19,7 +19,7 @@ function Rick:initAttributes()
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabFrontAttack = true, chargeAttack = true, chargeDash = true,
         grabFrontAttackUp = false, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true, grabBackAttack = true,
-        dashAttack = true, specialOffensive = true, specialDefensive = true,
+        dashAttack = true, specialDash = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
@@ -89,6 +89,36 @@ function Rick:dashAttackUpdate(dt)
     self:moveEffectAndEmit("dash", 0.3)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
+
+function Rick:specialDashStart()
+    self.isHittable = true
+    self.customFriction = self.dashFriction
+    self.horizontal = self.face
+    dpo(self, self.state)
+    self:setSprite("specialDash")
+    self:enableGhostTrails()
+    self.speed_x = self.dashSpeed_x
+    self.speed_y = 0
+    self.speed_z = 0
+    self.isAttackConnected = false
+    self:playSfx(self.sfx.dashAttack)
+    self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
+end
+function Rick:specialDashUpdate(dt)
+    if self.sprite.isFinished then
+        dpo(self, self.state)
+        self:setState(self.stand)
+        return
+    end
+    if self:canFall() then
+        self:calcFreeFall(dt)
+        self:calcFriction(dt, self.dashFriction / 10)
+    else
+        self.z = self:getMinZ()
+    end
+    self:moveEffectAndEmit("dash", 0.5)
+end
+Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.fadeOutGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
 
 function Rick:specialDefensiveStart()
     self.isHittable = false

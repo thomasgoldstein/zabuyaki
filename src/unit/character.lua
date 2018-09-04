@@ -10,6 +10,7 @@ Character.statesForChargeAttack = { stand = true, walk = true, run = true, hurt 
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
 Character.statesForSpecialDefensive = { stand = true, walk = true, run = true, duck2jump = true, combo = true, hurt = true, chargeDash = true, grabbedFront = true, grabbedBack = true, grabFrontAttack = true, grab = true }
 Character.statesForSpecialOffensive = { stand = true, combo = true, duck2jump = true, walk = true, run = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialDash = { run = true }
 Character.statesForSpecialToleranceDelay = { duck2jump = true }
 
 function Character:initialize(name, sprite, input, x, y, f)
@@ -49,7 +50,7 @@ function Character:initAttributes()
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, chargeAttack = false,
         grabFrontAttack = true, grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true,
-        dashAttack = true, specialOffensive = true, specialDefensive = true,
+        dashAttack = true, specialDash = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
@@ -877,6 +878,12 @@ function Character:specialOffensiveStart()
     self:setState(self.stand)
 end
 Character.specialOffensive = {name = "specialOffensive", start = Character.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = nop, draw = Character.defaultDraw }
+
+function Character:specialDashStart()
+    --no move by default
+    self:setState(self.stand)
+end
+Character.specialDash = {name = "specialDash", start = Character.specialDashStart, exit = Unit.fadeOutGhostTrails, update = nop, draw = Character.defaultDraw }
 
 function Character:jumpAttackForwardStart()
     self.isHittable = true
