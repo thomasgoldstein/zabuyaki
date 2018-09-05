@@ -506,8 +506,8 @@ Character.stand = {name = "stand", start = Character.standStart, exit = nop, upd
 function Character:walkStart()
     self.isHittable = true
     if spriteHasAnimation(self.sprite, "chargeWalk")
-        and (self.sprite.curAnim == "chargeStand"
-            or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() ))
+        and (self.sprite.curAnim == "chargeStand" or self.sprite.curAnim == "chargeWalk"
+        or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() ))
     then
         self:setSprite("chargeWalk")
     else
