@@ -22,11 +22,7 @@ end
 
 function Gopper:initAttributes()
     self.moves = { --list of allowed moves
-        run = true, sideStep = false, pickUp = true,
-        jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
-        grab = false, grabSwap = false, grabFrontAttack = false, chargeAttack = false, chargeDash = false,
-        grabFrontAttackUp = false, grabFrontAttackDown = false, grabFrontAttackBack = false, grabFrontAttackForward = false,
-        dashAttack = true, specialOffensive = false, specialDefensive = false,
+        run = true, pickUp = true, dashAttack = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }

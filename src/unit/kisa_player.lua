@@ -14,11 +14,7 @@ end
 
 function Kisa:initAttributes()
     self.moves = { --list of allowed moves
-        run = false, sideStep = false, pickUp = true,
-        jump = false, jumpAttackForward = false, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
-        grab = false, grabSwap = false, grabFrontAttack = false, chargeAttack = false, chargeDash = false,
-        grabFrontAttackUp = false, grabFrontAttackDown = false, grabFrontAttackBack = false, grabFrontAttackForward = false,
-        dashAttack = false, specialOffensive = false, specialDefensive = false,
+        pickUp = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }

@@ -48,7 +48,7 @@ function Character:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, sideStep = true, pickUp = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
-        grab = true, grabSwap = true, chargeAttack = false,
+        grab = true, grabSwap = true,
         grabFrontAttack = true, grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true,
         dashAttack = true, specialDash = true, specialOffensive = true, specialDefensive = true,
         --technically present for all

@@ -21,11 +21,7 @@ end
 
 function Niko:initAttributes()
     self.moves = { -- list of allowed moves
-        run = false, sideStep = false, pickUp = true,
-        jump = true, jumpAttackForward = true, jumpAttackLight = false, jumpAttackRun = false, jumpAttackStraight = false,
-        grab = true, grabSwap = false, grabFrontAttack = true, chargeAttack = false, chargeDash = false,
-        grabFrontAttackUp = false, grabFrontAttackDown = false, grabFrontAttackBack = false, grabFrontAttackForward = false,
-        dashAttack = false, specialOffensive = false, specialDefensive = false,
+        pickUp = true, jump = true, jumpAttackForward = true, grab = true, grabFrontAttack = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
