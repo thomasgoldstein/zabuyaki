@@ -70,8 +70,8 @@ end
 
 function InfoBar:setAttacker(attackerSource)
     local id = self:getAttackerId(attackerSource)
-    self.timer = InfoBar.DELAY
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
+        self.timer = InfoBar.DELAY
         return self
     end
     return nil
