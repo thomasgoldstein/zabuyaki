@@ -56,26 +56,28 @@ function InfoBar:initialize(source)
     self.iconOffset_x = math.floor((38 - w)/2)
 end
 
-function InfoBar:setAttacker(attackerSource)
-    local id = -1
+function InfoBar:getAttackerId(attackerSource)
     if attackerSource.isThrown then
-        id = attackerSource.throwerId.id
-    else
-        id = attackerSource.id
+        return attackerSource.throwerId.id
     end
+    return attackerSource.id
+end
+
+function InfoBar:setPositionUnderAttackersBar(attackerSource)
+    local id = self:getAttackerId(attackerSource)
+    self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
+end
+
+function InfoBar:setAttacker(attackerSource)
+    local id = self:getAttackerId(attackerSource)
     self.timer = InfoBar.DELAY
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
-        self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
         return self
     end
     return nil
 end
 
-function InfoBar:setPicker(picker_source)
-    local id = picker_source.id
-    if id <= MAX_PLAYERS then
-        self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
-    end
+function InfoBar:setPicker()
     self.timer = InfoBar.DELAY
     return self
 end

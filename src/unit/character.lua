@@ -718,7 +718,7 @@ function Character:pickUpStart()
     self.isHittable = false
     local loot = self:checkForLoot()
     if loot then
-        self.victimInfoBar = loot.infoBar:setPicker(self)
+        self.victimInfoBar = loot.infoBar:setPicker()
         self:showEffect("pickUp", loot)
         self:onGetLoot(loot)
     end
