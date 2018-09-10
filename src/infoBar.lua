@@ -72,13 +72,15 @@ function InfoBar:setAttacker(attackerSource)
     local id = self:getAttackerId(attackerSource)
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
         self.timer = InfoBar.DELAY
+        getRegisteredPlayer(id).infoBarTimer = InfoBar.DELAY
         return self
     end
     return nil
 end
 
-function InfoBar:setPicker()
+function InfoBar:setPicker(picker)
     self.timer = InfoBar.DELAY
+    picker.infoBarTimer = InfoBar.DELAY
     return self
 end
 
@@ -141,11 +143,11 @@ function InfoBar:drawLifebar(l, t, transpBg)
     love.graphics.rectangle('fill', l + self.x + 0, t + self.y + iconHeight + barHeight - 1, calcBarWidth(self), 1)
 end
 
-function InfoBar:draw(l,t,w,h)
+function InfoBar:draw(l,t,w,h, characterSource)
     if self.timer <= 0 and self.source.id > MAX_PLAYERS then
         return
     end
-    self.source.drawBar(self, 0,0,w,h, iconWidth)
+    self.source.drawBar(self, 0,0,w,h, iconWidth, characterSource)
 end
 
 local function norm_n(curr, target, n)

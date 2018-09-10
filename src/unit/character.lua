@@ -27,6 +27,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     --Inner char vars
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
+    self.infoBarTimer = 0
     self.chargedAt = 1    -- define # seconds when chargeAttack is ready
     self.chargeTimer = 0    -- seconds of charging
     self.comboN = 1    -- n of the combo hit
@@ -112,6 +113,7 @@ function Character:updateAI(dt)
         return
     end
     self.time = self.time + dt
+    self.infoBarTimer = self.infoBarTimer - dt
     self.comboTimer = self.comboTimer - dt
     self.invincibilityTimer = self.invincibilityTimer - dt
     local g = self.grabContext
@@ -718,7 +720,7 @@ function Character:pickUpStart()
     self.isHittable = false
     local loot = self:checkForLoot()
     if loot then
-        self.victimInfoBar = loot.infoBar:setPicker()
+        self.victimInfoBar = loot.infoBar:setPicker(self)
         self:showEffect("pickUp", loot)
         self:onGetLoot(loot)
     end

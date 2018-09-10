@@ -57,12 +57,9 @@ function drawPlayersBars()
             if player.infoBar then
                 player.infoBar:draw(0,0)
             end
-            if player.victimInfoBar then
+            if player.victimInfoBar and player.infoBarTimer >= 0 then
                 player.victimInfoBar:setPositionUnderAttackersBar(player)
-                player.victimInfoBar:draw(0,0)
-                if player.victimInfoBar.timer <=0 then
-                    player.victimInfoBar = nil  -- remove ref to the infoBar for this player
-                end
+                player.victimInfoBar:draw(0, 0, nil, nil, player)
             end
         end
     end
