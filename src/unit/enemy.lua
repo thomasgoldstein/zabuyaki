@@ -105,7 +105,7 @@ function Enemy:decreaseHp(damage)
             self.hp = 0
         else
             self.lifeBar.hp = self.maxHp -- prevent green fill up
-            self.lifeBar.old_hp = self.maxHp
+            self.lifeBar.oldHp = self.maxHp
         end
     end
 end

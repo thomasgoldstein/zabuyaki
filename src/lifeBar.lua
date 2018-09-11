@@ -6,7 +6,7 @@ local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
 
 local verticalGap = 39 --vertical gap between bars
-local verticalMargin = 13 --vert margin from the top
+local verticalMargin = 13 --vertical margin from the top
 local horizontalMargin = 28 --horizontal margin
 local horizontalGap = 20 --horizontal gap between bars
 local barWidth = 150
@@ -46,7 +46,7 @@ function LifeBar:initialize(source)
     self.id = self.source.id
     self.source:initFaceIcon(self)
     self.hp = 1
-    self.old_hp = 1
+    self.oldHp = 1
     self.maxHp = source.maxHp
     self.x, self.y = 0, 0
     if self.id <= MAX_PLAYERS then
@@ -107,16 +107,16 @@ function LifeBar:drawDeadCross(l, t, transpBg)
 end
 
 function LifeBar:drawLifebar(l, t, transpBg)
-    -- Normal lifebar
+    -- Normal lifeBar
     colors:set("barLostColor", nil, transpBg)
     slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) , barHeight - 6 )
-    if self.old_hp > 0 then
+    if self.oldHp > 0 then
         if self.source.hp > self.hp then
             colors:set("barGotColor", nil, transpBg)
         else
             colors:set("barLosingColor", nil, transpBg)
         end
-        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self)  * self.old_hp / self.maxHp , barHeight - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self)  * self.oldHp / self.maxHp , barHeight - 6 )
     end
     if self.hp > 0 then
         colors:set("barNormColor", nil, transpBg)
@@ -150,23 +150,21 @@ function LifeBar:draw(l,t,w,h, characterSource)
     self.source.drawBar(self, 0,0,w,h, iconWidth, characterSource)
 end
 
-local function norm_n(curr, target, n)
+local function normalizeHp(curr, target, step)
     if curr > target then
-        return  curr - (n or 1)
+        return  curr - (step or 1)
     elseif curr < target then
-        if curr < target then
-            return curr + (n or 1)
-        end
+        return curr + (step or 1)
     end
     return curr
 end
 
 function LifeBar:update(dt)
-    self.hp = norm_n(self.hp, self.source.hp)
+    self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
     if self.hp == self.source.hp then
-        self.old_hp = self.hp
+        self.oldHp = self.hp
     elseif self.hp < self.source.hp then
-        self.old_hp = self.source.hp
+        self.oldHp = self.source.hp
     end
     self.timer = self.timer - dt
 end
