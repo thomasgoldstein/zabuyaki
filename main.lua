@@ -144,7 +144,7 @@ function love.load(arg)
     PZeena = require "src/unit/zeena_player"
     Wall = require "src/unit/wall"
     Stopper = require "src/unit/stopper"
-    InfoBar = require "src/infoBar"
+    InfoBar = require "src/lifeBar"
     Stage1 = require "src/def/stage/stage1"
     require "src/def/movie/intro"
     require 'src/menu'
