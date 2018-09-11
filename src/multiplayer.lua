@@ -54,12 +54,12 @@ function drawPlayersBars()
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
         if player and player:isAlive() then
-            if player.infoBar then
-                player.infoBar:draw(0,0)
+            if player.lifeBar then
+                player.lifeBar:draw(0,0)
             end
-            if player.victimInfoBar and player.infoBarTimer >= 0 then
-                player.victimInfoBar:setPositionUnderAttackersBar(player)
-                player.victimInfoBar:draw(0, 0, nil, nil, player)
+            if player.victimLifeBar and player.lifeBarTimer >= 0 then
+                player.victimLifeBar:setPositionUnderAttackersBar(player)
+                player.victimLifeBar:draw(0, 0, nil, nil, player)
             end
         end
     end

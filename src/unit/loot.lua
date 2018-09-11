@@ -28,7 +28,7 @@ end
 
 function Loot:setOnStage(stage)
     stage.objects:add(self)
-    self.infoBar = InfoBar:new(self)
+    self.lifeBar = LifeBar:new(self)
 end
 
 function Loot:addShape()

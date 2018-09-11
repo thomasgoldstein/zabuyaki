@@ -27,7 +27,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     --Inner char vars
     self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
-    self.infoBarTimer = 0
+    self.lifeBarTimer = 0
     self.chargedAt = 1    -- define # seconds when chargeAttack is ready
     self.chargeTimer = 0    -- seconds of charging
     self.comboN = 1    -- n of the combo hit
@@ -40,7 +40,7 @@ function Character:initialize(name, sprite, input, x, y, f)
     self.grabReleaseAfter = 0.25 -- seconds if you hold 'back'
     self.grabAttackN = 0    -- n of the grab hits
     self.playerSelectMode = 0
-    self.victimInfoBar = nil
+    self.victimLifeBar = nil
     self.priority = 1
     self.bounced = 0 -- the bouncing counter
 end
@@ -113,7 +113,7 @@ function Character:updateAI(dt)
         return
     end
     self.time = self.time + dt
-    self.infoBarTimer = self.infoBarTimer - dt
+    self.lifeBarTimer = self.lifeBarTimer - dt
     self.comboTimer = self.comboTimer - dt
     self.invincibilityTimer = self.invincibilityTimer - dt
     local g = self.grabContext
@@ -179,7 +179,7 @@ function Character:onHurtDamage()
     end
     self:releaseGrabbed()
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
-    self:updateAttackersInfoBar(h)
+    self:updateAttackersLifeBar(h)
     -- Score
     h.source:addScore( h.damage * 10 )
     self.killerId = h.source
@@ -568,7 +568,7 @@ function Character:walkUpdate(dt)
             end
             if self.moves.grab and self:doGrab(grabbed) then
                 local g = self.grabContext
-                self.victimInfoBar = g.target.infoBar:setAttacker(self)
+                self.victimLifeBar = g.target.lifeBar:setAttacker(self)
                 return
             end
         end
@@ -720,7 +720,7 @@ function Character:pickUpStart()
     self.isHittable = false
     local loot = self:checkForLoot()
     if loot then
-        self.victimInfoBar = loot.infoBar:setPicker(self)
+        self.victimLifeBar = loot.lifeBar:setPicker(self)
         self:showEffect("pickUp", loot)
         self:onGetLoot(loot)
     end
@@ -1746,7 +1746,7 @@ function Character:chargeDashUpdate(dt)
         end
         if self.moves.grab and self:doGrab(grabbed, true) then
             local g = self.grabContext
-            self.victimInfoBar = g.target.infoBar:setAttacker(self)
+            self.victimLifeBar = g.target.lifeBar:setAttacker(self)
             return
         end
     end

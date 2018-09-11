@@ -57,8 +57,8 @@ function Entity:update(dt)
     for _,obj in ipairs(self.entities) do
         obj:updateAI(dt)
         obj:update(dt)
-        if obj.infoBar then
-            obj.infoBar:update(dt)
+        if obj.lifeBar then
+            obj.lifeBar:update(dt)
         end
     end
     for _,obj in ipairs(self.entities) do

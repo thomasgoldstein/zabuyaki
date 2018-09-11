@@ -19,7 +19,7 @@ function Stopper:initialize(name, f)
     self.isMovable = f.isMovable or false
     self.width = width
     self.height = height
-    self.infoBar = nil
+    self.lifeBar = nil
 
     self:setState(self.stand)
 end

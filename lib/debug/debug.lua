@@ -125,9 +125,9 @@ function showDebugControls()
         -- draw players controls
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local p = getRegisteredPlayer(i)
-            if p and p.infoBar then
-                local x = p.infoBar.x + 76
-                local y = p.infoBar.y + 36
+            if p and p.lifeBar then
+                local x = p.lifeBar.x + 76
+                local y = p.lifeBar.y + 36
                 colors:set("black", nil, 150)
                 love.graphics.rectangle("fill", x - 2, y, 61, 9)
                 colors:set("playersColors", p.id)
@@ -168,7 +168,7 @@ function showDebugControls()
                 if p.b.vertical.isDoubleTap and p.b.vertical.doubleTap.lastDirection == 1 then
                     love.graphics.print("2", x, y + 10)
                 end
-                x = p.infoBar.x + 76
+                x = p.lifeBar.x + 76
                 y = y - 12
                 if p.chargeTimer >= p.chargedAt then
                     love.graphics.print("H", x, y)

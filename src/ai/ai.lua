@@ -588,7 +588,7 @@ function AI:initGrab()
             end
             if u.moves.grab and u:doGrab(grabbed) then
                 local g = u.grabContext
-                u.victimInfoBar = g.target.infoBar:setAttacker(u)
+                u.victimLifeBar = g.target.lifeBar:setAttacker(u)
                 --                print(" GOOD DOGRAB")
                 return true
             else

@@ -18,7 +18,7 @@ function Wall:initialize(name, f)
     self.isDisabled = false
     self.isMovable = f.isMovable --on death sfx
 
-    self.infoBar = nil
+    self.lifeBar = nil
 
     --self:addShape(f.shapeType or "rectangle", f.shapeArgs)
 

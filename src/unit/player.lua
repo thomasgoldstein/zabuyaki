@@ -216,7 +216,7 @@ function Player:onHurtDamage()
     self:releaseGrabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
-    self:updateAttackersInfoBar(h)
+    self:updateAttackersLifeBar(h)
     -- Score
     h.source:addScore( h.damage * 10 )
     self.killerId = h.source
@@ -347,7 +347,7 @@ function Player:useCreditUpdate(dt)
             self:setSprite("stand")
             fixPlayersPalette(self)
             self.shader = getShader(self.sprite.def.spriteName:lower(), self.palette)
-            self.infoBar = InfoBar:new(self)
+            self.lifeBar = LifeBar:new(self)
         end
     elseif self.playerSelectMode == 3 then
         -- Spawn selecterd player
@@ -401,7 +401,7 @@ function Player:respawnUpdate(dt)
         end
         self.bounced = 1
     end
-    --self.victimInfoBar = nil   -- remove enemy bar under yours
+    --self.victimLifeBar = nil   -- remove enemy bar under yours
 end
 Player.respawn = {name = "respawn", start = Player.respawnStart, exit = nop, update = Player.respawnUpdate, draw = Unit.defaultDraw}
 

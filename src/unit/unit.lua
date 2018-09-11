@@ -79,7 +79,7 @@ function Unit:initialize(name, sprite, input, x, y, f)
     self.update = nop
     self.start = nop
     self.exit = nop
-    self.priority = 3   -- priority to show infoBar (1 highest)
+    self.priority = 3   -- priority to show lifeBar (1 highest)
     self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
     GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
     self.pid = ""
@@ -93,7 +93,7 @@ function Unit:setOnStage(stage)
 --    dp("SET ON STAGE", self.name, self.id, self.palette)
     stage.objects:add(self)
     self.shader = getShader(self.sprite.def.spriteName:lower(), self.palette)
-    self.infoBar = InfoBar:new(self)
+    self.lifeBar = LifeBar:new(self)
 end
 
 function Unit:addShape(shapeType, shapeArgs)
@@ -473,17 +473,17 @@ function Unit:moveStatesApply()
     end
 end
 
-function Unit:updateAttackersInfoBar(h)
+function Unit:updateAttackersLifeBar(h)
     if h.type ~= "shockWave"
-        and (not h.source.victimInfoBar
-        or h.source.victimInfoBar.source.priority >= self.priority
-        or h.source.victimInfoBar.timer <= InfoBar.OVERRIDE
+        and (not h.source.victimLifeBar
+        or h.source.victimLifeBar.source.priority >= self.priority
+        or h.source.victimLifeBar.timer <= LifeBar.OVERRIDE
     )
     then
         -- show enemy bar for other attacks
-        h.source.victimInfoBar = self.infoBar:setAttacker(h.source)
+        h.source.victimLifeBar = self.lifeBar:setAttacker(h.source)
         if self.id <= GLOBAL_SETTING.MAX_PLAYERS then
-            self.victimInfoBar = h.source.infoBar:setAttacker(self)
+            self.victimLifeBar = h.source.lifeBar:setAttacker(self)
         end
     end
 end

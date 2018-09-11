@@ -1,5 +1,5 @@
 local class = require "lib/middleclass"
-local InfoBar = class("InfoBar")
+local LifeBar = class("LifeBar")
 
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
 local printWithShadow = printWithShadow
@@ -35,14 +35,14 @@ local function slantedRectangle2(x, y, width, height)
     end
 end
 
-InfoBar.DELAY = 3 -- seconds to show a victim's infoBar
-InfoBar.OVERRIDE = 2.5 -- seconds to show a victim's infoBar
+LifeBar.DELAY = 3 -- seconds to show a victim's lifeBar
+LifeBar.OVERRIDE = 2.5 -- seconds to show a victim's lifeBar
 
-function InfoBar:initialize(source)
+function LifeBar:initialize(source)
     self.source = source
     self.name = source.name
     self.pickUpNote = source.pickUpNote
-    self.timer = InfoBar.DELAY
+    self.timer = LifeBar.DELAY
     self.id = self.source.id
     self.source:initFaceIcon(self)
     self.hp = 1
@@ -56,35 +56,35 @@ function InfoBar:initialize(source)
     self.iconOffset_x = math.floor((38 - w)/2)
 end
 
-function InfoBar:getAttackerId(attackerSource)
+function LifeBar:getAttackerId(attackerSource)
     if attackerSource.isThrown then
         return attackerSource.throwerId.id
     end
     return attackerSource.id
 end
 
-function InfoBar:setPositionUnderAttackersBar(attackerSource)
+function LifeBar:setPositionUnderAttackersBar(attackerSource)
     local id = self:getAttackerId(attackerSource)
     self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
 end
 
-function InfoBar:setAttacker(attackerSource)
+function LifeBar:setAttacker(attackerSource)
     local id = self:getAttackerId(attackerSource)
     if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
-        self.timer = InfoBar.DELAY
-        getRegisteredPlayer(id).infoBarTimer = InfoBar.DELAY
+        self.timer = LifeBar.DELAY
+        getRegisteredPlayer(id).lifeBarTimer = LifeBar.DELAY
         return self
     end
     return nil
 end
 
-function InfoBar:setPicker(picker)
-    self.timer = InfoBar.DELAY
-    picker.infoBarTimer = InfoBar.DELAY
+function LifeBar:setPicker(picker)
+    self.timer = LifeBar.DELAY
+    picker.lifeBarTimer = LifeBar.DELAY
     return self
 end
 
-function InfoBar:drawFaceIcon(l, t, transpBg)
+function LifeBar:drawFaceIcon(l, t, transpBg)
     colors:set(self.iconColor, nil, transpBg)
     if self.shader then
         love.graphics.setShader(self.shader)
@@ -95,7 +95,7 @@ function InfoBar:drawFaceIcon(l, t, transpBg)
     end
 end
 
-function InfoBar:drawDeadCross(l, t, transpBg)
+function LifeBar:drawDeadCross(l, t, transpBg)
     if self.hp <= 0 then
         colors:set("white", nil, 255 * math.sin(self.timer*20 + 17) * transpBg)
         love.graphics.draw (
@@ -106,7 +106,7 @@ function InfoBar:drawDeadCross(l, t, transpBg)
     end
 end
 
-function InfoBar:drawLifebar(l, t, transpBg)
+function LifeBar:drawLifebar(l, t, transpBg)
     -- Normal lifebar
     colors:set("barLostColor", nil, transpBg)
     slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) , barHeight - 6 )
@@ -143,7 +143,7 @@ function InfoBar:drawLifebar(l, t, transpBg)
     love.graphics.rectangle('fill', l + self.x + 0, t + self.y + iconHeight + barHeight - 1, calcBarWidth(self), 1)
 end
 
-function InfoBar:draw(l,t,w,h, characterSource)
+function LifeBar:draw(l,t,w,h, characterSource)
     if self.timer <= 0 and self.source.id > MAX_PLAYERS then
         return
     end
@@ -161,7 +161,7 @@ local function norm_n(curr, target, n)
     return curr
 end
 
-function InfoBar:update(dt)
+function LifeBar:update(dt)
     self.hp = norm_n(self.hp, self.source.hp)
     if self.hp == self.source.hp then
         self.old_hp = self.hp
@@ -171,4 +171,4 @@ function InfoBar:update(dt)
     self.timer = self.timer - dt
 end
 
-return InfoBar
+return LifeBar
