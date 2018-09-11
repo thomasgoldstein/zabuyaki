@@ -37,11 +37,6 @@ function Player:drawBar(l,t,w,h, iconWidth)
     local playerSelectMode = self.source.playerSelectMode
     if self.source.lives > 0 then
         -- Default draw
-        if self.source.state == "respawn" then
-            -- Fade-in and drop down bar while player falls (respawns)
-            transpBg = 255 - self.source.z
-            t = t - self.source.z / 2
-        end
         self:drawLifebar(l, t, transpBg)
         self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
         self:drawDeadCross(l, t, transpBg)
@@ -72,7 +67,7 @@ function Player:drawBar(l,t,w,h, iconWidth)
             printWithShadow("SELECT PLAYER (".. math.floor(self.source.displayDelay) ..")", l + self.x + 2, t + self.y + 19,
                 transpBg)
         elseif playerSelectMode == 3 then
-            -- Spawn selecterd player
+            -- Spawn selected player
         elseif playerSelectMode == 4 then
             -- Replace this player with the new character
         elseif playerSelectMode == 5 then
