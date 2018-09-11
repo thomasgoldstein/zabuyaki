@@ -269,6 +269,8 @@ function AI:onStand()
     elseif u.target.isDisabled or u.target.hp < 1 then
         u:pickAttackTarget("random")
     end
+    u.speed_x = u.runSpeed
+    u.speed_y = 0
     return false
 end
 
@@ -286,6 +288,8 @@ function AI:initWait()
     end
     self.waitingCounter = love.math.random(self.hesitateMin, self.hesitateMax)
 --    print("!!!!ai.lua<AI:initWait> : " .. self.waitingCounter, u.name)
+    u.speed_x = u.runSpeed
+    u.speed_y = 0
     return true
 end
 
@@ -366,6 +370,8 @@ function AI:initWalkToXY()
         tx = self.x,
         ty = self.y
     }, 'linear')
+    u.speed_x = u.walkSpeed
+    u.speed_y = u.walkSpeed / 4
     u.ttx, u.tty = self.x, self.y
     return true
 end
@@ -389,6 +395,8 @@ function AI:initRunToXY()
         ty = self.y
     }, 'linear')
     u.ttx, u.tty = self.x, self.y
+    u.speed_x = u.runSpeed
+    u.speed_y = 0
     return true
 end
 
