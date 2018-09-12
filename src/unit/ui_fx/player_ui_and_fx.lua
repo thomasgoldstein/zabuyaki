@@ -3,10 +3,12 @@
 
 local Player = Player
 
+local iconWidth = 40
+
 -- Start of Lifebar elements
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Player:drawTextInfo(l, t, transpBg, iconWidth)
+function Player:drawTextInfo(l, t, transpBg)
     colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transpBg)
@@ -31,7 +33,7 @@ function Player:drawTextInfo(l, t, transpBg, iconWidth)
     end
 end
 
-function Player:drawBar(l,t,w,h, iconWidth)
+function Player:drawBar(l,t,w,h)
     love.graphics.setFont(gfx.font.arcade3)
     local transpBg = 255 * calcBarTransparency(3)
     local playerSelectMode = self.source.playerSelectMode
@@ -43,7 +45,7 @@ function Player:drawBar(l,t,w,h, iconWidth)
         self:drawLifebar(l, t, transpBg)
         self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
         self:drawDeadCross(l, t, transpBg)
-        self.source:drawTextInfo(l + self.x, t + self.y, transpBg, iconWidth)
+        self.source:drawTextInfo(l + self.x, t + self.y, transpBg)
     else
         colors:set("white", nil, transpBg)
         if playerSelectMode == 0 then

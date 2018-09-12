@@ -147,7 +147,7 @@ function LifeBar:draw(l,t,w,h, characterSource)
     if self.timer <= 0 and self.source.id > MAX_PLAYERS then
         return
     end
-    self.source.drawBar(self, 0,0,w,h, iconWidth, characterSource)
+    self.source.drawBar(self, 0,0,w,h, characterSource)
 end
 
 local function normalizeHp(curr, target, step)

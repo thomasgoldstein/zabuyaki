@@ -3,6 +3,7 @@
 
 local Character = Character
 
+local iconWidth = 40
 local sign = sign
 local clamp = clamp
 
@@ -126,7 +127,7 @@ end
 
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Character:drawTextInfo(l, t, transpBg, iconWidth, normColor)
+function Character:drawTextInfo(l, t, transpBg, normColor)
     colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transpBg)
@@ -145,13 +146,13 @@ function Character:drawTextInfo(l, t, transpBg, iconWidth, normColor)
     end
 end
 
-function Character:drawBar(l, t, w, h, iconWidth, characterSource)
+function Character:drawBar(l, t, w, h, characterSource)
     love.graphics.setFont(gfx.font.arcade3)
     local transpBg = 255 * calcBarTransparency(self.timer < characterSource.lifeBarTimer and self.timer or characterSource.lifeBarTimer)
     self:drawLifebar(l, t, transpBg)
     self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
     self:drawDeadCross(l, t, transpBg)
-    self.source:drawTextInfo(l + self.x, t + self.y, transpBg, iconWidth)
+    self.source:drawTextInfo(l + self.x, t + self.y, transpBg)
 end
 
 -- End of Lifebar elements

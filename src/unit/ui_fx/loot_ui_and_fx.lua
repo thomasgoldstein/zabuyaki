@@ -3,6 +3,8 @@
 
 local Loot = Loot
 
+local iconWidth = 40
+
 -- Start of Lifebar elements
 function Loot:initFaceIcon(target)
     target.sprite = imageBank[self.sprite.def.spriteSheet]
@@ -21,7 +23,7 @@ end
 
 local calcBarTransparency = calcBarTransparency
 local printWithShadow = printWithShadow
-function Loot:drawBar(l,t,w,h, iconWidth)
+function Loot:drawBar(l,t,w,h)
     local transpBg = 255 * calcBarTransparency(self.timer)
     self:drawFaceIcon(l, t, transpBg)
     love.graphics.setFont(gfx.font.arcade3)

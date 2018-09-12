@@ -3,6 +3,7 @@
 
 local Enemy = Enemy
 
+local iconWidth = 40
 local sign = sign
 local clamp = clamp
 local dist = dist
@@ -10,7 +11,7 @@ local rand1 = rand1
 
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Enemy:drawTextInfo(l, t, transpBg, iconWidth, normColor)
+function Enemy:drawTextInfo(l, t, transpBg, normColor)
     colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transpBg)
