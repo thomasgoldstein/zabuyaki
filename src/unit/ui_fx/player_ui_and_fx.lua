@@ -36,6 +36,9 @@ function Player:drawBar(l,t,w,h, iconWidth)
     local transpBg = 255 * calcBarTransparency(3)
     local playerSelectMode = self.source.playerSelectMode
     if self.source.lives > 0 then
+        if self.source.lives < 2 and self.source.deathDelay < math.pi / 4 then
+            transpBg  = 255 * math.sin( self.source.deathDelay ) or 255
+        end
         -- Default draw
         self:drawLifebar(l, t, transpBg)
         self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
