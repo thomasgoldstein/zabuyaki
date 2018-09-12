@@ -173,7 +173,7 @@ local specialDefensiveLeftMost = function(slf, cont) slf:checkAndAttack(
     cont
  ) end
 local specialOffensive = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 18, width = 25, height = 45, damage = 5 },
+    { x = 30, y = 18, width = 25, height = 45, damage = 5, repel = 0 },
     cont
  ) end
 local specialOffensiveCheck = function(slf, cont) slf:checkAndAttack(
@@ -215,7 +215,7 @@ local specialOffensiveHop = function(slf, cont)
     slf.speed_z = slf.jumpSpeed_z
 end
 local specialDash = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 18, width = 25, height = 45, damage = 5 },
+    { x = 30, y = 18, width = 25, height = 45, damage = 5, repel = 0 },
     cont
 ) end
 local specialDashCheck = function(slf, cont) slf:checkAndAttack(
