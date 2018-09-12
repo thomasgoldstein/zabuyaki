@@ -220,11 +220,9 @@ function Character:afterOnHurt()
                     if self.type == "stageObject" then
                         -- Move stageObject after hit
                         self.speed_x = self.pushBackOnHitSpeed or 0
-                    elseif h.source.speed_x > 1 then
-                        self.speed_x = h.source.speed_x
                     end
                 else
-                    self.speed_x = h.repel
+                    self.speed_x = h.repel or 0
                 end
                 self.horizontal = h.horizontal
                 self.friction = self.repelFriction  -- custom friction value for smooth sliding back
@@ -300,7 +298,7 @@ function Character:checkAndAttack(f, isFuncCont)
     end
     local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
     local damage, type = f.damage or 1, f.type or "hit"
-    local repel = f.repel or 0
+    local repel = f.repel or self.speed_x
     local face = self.face
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
