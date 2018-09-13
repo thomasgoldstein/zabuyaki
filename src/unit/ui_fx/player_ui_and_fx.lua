@@ -8,29 +8,14 @@ local iconWidth = 40
 -- Start of Lifebar elements
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
-function Player:drawTextInfo(l, t, transpBg)
-    colors:set("white", nil, transpBg)
-    printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
-        transpBg)
+
+function Player:drawScore(l, t)
     colors:set("playersColors", self.id, transpBg)
     printWithShadow(self.pid, l + self.shake.x + iconWidth + 2, t - 1,
         transpBg)
     colors:set("barNormColor", nil, transpBg)
     printWithShadow(string.format("%06d", self.score), l + self.shake.x + iconWidth + 34, t - 1,
         transpBg)
-    if self.lives >= 1 then
-        colors:set("white", nil, transpBg)
-        printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,
-            transpBg)
-        love.graphics.setFont(gfx.font.arcade3x2)
-        if self.lives > 10 then
-            printWithShadow("9+", l + self.shake.x + iconWidth + 100, t + 1,
-                transpBg)
-        else
-            printWithShadow(self.lives - 1, l + self.shake.x + iconWidth + 100, t + 1,
-                transpBg)
-        end
-    end
 end
 
 function Player:drawBar(l,t,w,h)

@@ -127,10 +127,14 @@ end
 
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
+
+function Character:drawScore() end
+
 function Character:drawTextInfo(l, t, transpBg, normColor)
     colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transpBg)
+    self:drawScore(l, t)
     if self.lives >= 1 then
         colors:set("white", nil, transpBg)
         printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,

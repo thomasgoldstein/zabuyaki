@@ -41,4 +41,5 @@ end
 StageObject.initFaceIcon = Character.initFaceIcon
 StageObject.drawFaceIcon = Character.drawFaceIcon
 StageObject.drawTextInfo = Character.drawTextInfo
+StageObject.drawScore = Character.drawScore
 StageObject.drawBar = Character.drawBar
