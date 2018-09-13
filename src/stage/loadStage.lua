@@ -256,7 +256,6 @@ local function loadCameraScrolling(items, scrolling)
     for i, v in ipairs(t.objects) do
         if v.type == "camera" then
             if v.shape == "polyline" then
-                local shapeArgs = {}
                 for k = 1, #v.polyline - 1 do
                     scrolling.chunks[#scrolling.chunks + 1] =
                     {start_x = v.x + v.polyline[k].x, end_x = v.x + v.polyline[k + 1].x,

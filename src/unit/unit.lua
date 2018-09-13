@@ -2,11 +2,7 @@ local class = require "lib/middleclass"
 local Unit = class("Unit")
 
 local function nop() end
-local sign = sign
 local clamp = clamp
-local dist = dist
-local rand1 = rand1
-local CheckCollision = CheckCollision
 
 GLOBAL_UNIT_ID = 1
 
@@ -467,7 +463,6 @@ function Unit:moveStatesApply()
         i.lastFrame = frame
     end
     if isDebug() and t then
-        local m = moves[frame]
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = 0, y = self.y, w = 11, h = 0.1, z = self.z, collided = false }
         attackHitBoxes[#attackHitBoxes+1] = {x = t.x, sx = 0, y = t.y, w = 9, h = 0.1, z = t.z, collided = true }
     end

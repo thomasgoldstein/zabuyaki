@@ -2,11 +2,8 @@ local class = require "lib/middleclass"
 local Enemy = class('Enemy', Character)
 
 local function nop() end
-local sign = sign
-local clamp = clamp
 local dist = dist
 local rand1 = rand1
-local CheckCollision = CheckCollision
 
 function Enemy:initialize(name, sprite, input, x, y, f)
     Character.initialize(self, name, sprite, input, x, y, f)
@@ -168,7 +165,6 @@ function Enemy:getDistanceToClosestPlayer()
     return p[1].points
 end
 
-local next_to_pick_targetId = 1
 ---
 -- @param how - "random" far close weak healthy fast slow
 --

@@ -1,8 +1,6 @@
 local class = require "lib/middleclass"
 local Loot = class("Loot", Unit)
 
-local CheckCollision = CheckCollision
-
 function Loot:initialize(name, sprite, x, y, f)
     --f options {}: shapeType, shapeArgs, hp, score, shader, color, sfxOnHit, sfxDead, func
     if not f then

@@ -31,8 +31,6 @@ local menu = fillMenu(txtItems)
 local menuState, oldMenuState = 1, 1
 local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
-local sortABC = function( a, b ) return a.bName < b.bName end
-
 function spriteEditorState:enter(_, _hero, _weapon)
     hero = _hero
     sprite = getSpriteInstance(hero.spriteInstance)
@@ -387,7 +385,6 @@ function spriteEditorState:draw()
             else
                 m.item = weaponAnimations[m.n].." #"..m.n.." of "..#weaponAnimations
                 m.hint = ""
-                local s = sprite.def.animations[sprite.curAnim]
                 if #weaponSprite > 0 and weaponSprite.curAnim ~= weaponAnimations[menu[menuState].n] then
                     setSpriteAnimation(weaponSprite, weaponAnimations[menu[menuState].n])
                 end
@@ -432,7 +429,6 @@ function spriteEditorState:draw()
     love.graphics.draw(txtCurrentSprite, (screenWidth - txtCurrentSprite:getWidth()) / 2, titleOffset_y)
 
     --character sprite
-    local sc = sprite.def.animations[sprite.curAnim][1]
     local xStep = 140 --(sc.ox or 20) * 4 + 8 or 100
     local x = screenWidth /2
     local y = menuOffset_y + menuItem_h / 2

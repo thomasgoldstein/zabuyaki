@@ -66,18 +66,6 @@ function drawPlayersBars()
 end
 
 local max_player_palette = 6
-local function shift_palette_up(n)
-    local old_n = n
-    if not n or n < 0 then
-        n = -1
-    end
-    n = n + 1
-    if n > max_player_palette then
-        n = 0
-    end
---    print(" ==> "..old_n.." shift palette to "..n)
-    return n
-end
 function fixPlayersPalette(player)
     local n = player.palette
     local palettes = {}

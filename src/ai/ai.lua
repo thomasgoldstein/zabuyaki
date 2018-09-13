@@ -3,13 +3,7 @@
 local class = require "lib/middleclass"
 local AI = class('AI')
 
-local function nop() end
-
-local sign = sign
-local clamp = clamp
 local dist = dist
-local rand1 = rand1
-local CheckCollision = CheckCollision
 
 function AI:initialize(unit, speedReaction)
     self.unit = unit
@@ -318,7 +312,6 @@ function AI:calcWalkToBackOffXY()
     assert(not u.isDisabled and u.hp > 0)
     u:setState(u.walk)
     local tx, ty, shift_x, shift_y
-    local t = dist(u.target.x, u.target.y, u.x, u.y)
     shift_x = love.math.random(0, 6)
     if u.target.hp < u.target.maxHp / 2 then
         shift_x = shift_x + 16
@@ -411,7 +404,6 @@ function AI:calcWalkToAttackXY()
     end
     assert(not u.isDisabled and u.hp > 0)
     local tx, ty
-    local t = dist(u.target.x, u.target.y, u.x, u.y)
     if love.math.random() < 0.25 then
         --get above / below the player
         tx = u.target.x
@@ -484,7 +476,6 @@ function AI:calcRunToXY()
     assert(not u.isDisabled and u.hp > 0)
     u:setState(u.run)
     local tx, ty, shift_x
-    local t = dist(u.target.x, u.target.y, u.x, u.y)
     if u.x < u.target.x then
         tx = u.target.x - love.math.random(25, 35)
         ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
@@ -555,7 +546,6 @@ function AI:initDash(dt)
 end
 
 function AI:waitUntilStand(dt)
-    local u = self.unit
 --    dp("AI:waitUntilStand() ".. u.name)
     if self.conditions.cannotAct or not self.conditions.canMove then
         return false
@@ -641,7 +631,6 @@ function AI:calcWalkToGrabXY()
     end
     assert(not u.isDisabled and u.hp > 0)
     local tx, ty
-    local t = dist(u.target.x, u.target.y, u.x, u.y)
     --get to the player grab range
     if u.x < u.target.x then
         tx = u.target.x - love.math.random(9, 10)

@@ -1,13 +1,6 @@
 local class = require "lib/middleclass"
 local Zeena = class('Zeena', Gopper)
 
-local function nop() end
-local sign = sign
-local clamp = clamp
-local dist = dist
-local rand1 = rand1
-local CheckCollision = CheckCollision
-
 function Zeena:initialize(name, sprite, input, x, y, f)
     self.hp = self.hp or 50
     self.scoreBonus = self.scoreBonus or 300

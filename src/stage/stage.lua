@@ -5,8 +5,6 @@ local sign = sign
 
 -- Blocking far players movement
 local minGapBetweenStoppers = 420
-local maxPlayerGroupDistance = 320 + 160 - 90
-local minPlayerGroupDistance = 320 + 160 - 90
 
 -- Zooming
 local maxZoom = display.inner.minScale --4 -- zoom in. default value

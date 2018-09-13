@@ -1,13 +1,6 @@
 local class = require "lib/middleclass"
 local Beatnick = class('Beatnick', Gopper)
 
-local function nop() end
-local sign = sign
-local clamp = clamp
-local dist = dist
-local rand1 = rand1
-local CheckCollision = CheckCollision
-
 function Beatnick:initialize(name, sprite, input, x, y, f)
     self.lives = self.lives or 2
     self.hp = self.hp or 100

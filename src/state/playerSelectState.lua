@@ -246,16 +246,6 @@ local function allConfirmed()
     return confirmed
 end
 
-local function allUnconfirmed()
-    --All active players did not confirm their choice
-    return not (players[1].confirmed or players[2].confirmed or players[3].confirmed)
-end
-
-local function allInvisible()
-    --Active players are invisible "press any button"
-    return not (players[1].visible or players[2].visible or players[3].visible)
-end
-
 local function drawPID(x, y_, i, confirmed)
     if not x then
         return
@@ -389,7 +379,6 @@ function playerSelectState:update(dt)
     local sh,shiftx = selected_heroes()
     for i = 1,#players do
         local curPlayerHero = heroes[players[i].pos]
-        local curPlayerHeroSet = heroes[players[i].pos][sh[i][2]]
         local curColorSlot = sh[i][2]
         if players[i].sprite then
             updateSpriteInstance(players[i].sprite, dt)
@@ -433,9 +422,7 @@ function playerSelectState:draw()
     local sh = selected_heroes()
     local originalChar = 1
     for i = 1,#players do
-        local curPlayerHero = heroes[players[i].pos]
         local curPlayerHeroSet = heroes[players[i].pos][sh[i][2]]
-        local curColorSlot = sh[i][2]
         local h = heroes[i]
         --Players sprite
         if players[i].visible then

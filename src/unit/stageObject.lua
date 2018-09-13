@@ -114,10 +114,6 @@ function StageObject:updateAI(dt)
     Unit.updateAI(self, dt)
 end
 
-local transformToHit = {
-    fall = true,
-    blowOut = true
-}
 function StageObject:isImmune()   --Immune to the attack?
     local h = self.isHurt
     if h.type == "shockWave" or self.isDisabled then

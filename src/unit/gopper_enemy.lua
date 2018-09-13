@@ -2,11 +2,6 @@ local class = require "lib/middleclass"
 local Gopper = class('Gopper', Enemy)
 
 local function nop() end
-local sign = sign
-local clamp = clamp
-local dist = dist
-local rand1 = rand1
-local CheckCollision = CheckCollision
 
 function Gopper:initialize(name, sprite, input, x, y, f)
     self.hp = self.hp or 40

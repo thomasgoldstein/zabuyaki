@@ -2,11 +2,7 @@ local class = require "lib/middleclass"
 local Satoff = class('Satoff', Enemy)
 
 local function nop() end
-local sign = sign
-local clamp = clamp
 local dist = dist
-local rand1 = rand1
-local CheckCollision = CheckCollision
 
 function Satoff:initialize(name, sprite, input, x, y, f)
     self.lives = self.lives or 3
