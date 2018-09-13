@@ -18,14 +18,18 @@ function Player:drawScore(l, t)
         transpBg)
 end
 
+function Player:getBarTransparency(characterSource)
+    if self.lives == 1 and self.deathDelay < math.pi / 4 then
+        return  255 * math.sin( self.deathDelay ) or 255
+    end
+    return 255 * calcBarTransparency(3)
+end
+
 function Player:drawBar(l,t,w,h)
     love.graphics.setFont(gfx.font.arcade3)
-    local transpBg = 255 * calcBarTransparency(3)
     local playerSelectMode = self.source.playerSelectMode
+    local transpBg = self.source:getBarTransparency(characterSource)
     if self.source.lives > 0 then
-        if self.source.lives < 2 and self.source.deathDelay < math.pi / 4 then
-            transpBg  = 255 * math.sin( self.source.deathDelay ) or 255
-        end
         -- Default draw
         self:drawLifebar(l, t, transpBg)
         self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
@@ -68,4 +72,4 @@ function Player:drawBar(l,t,w,h)
         end
     end
 end
--- End of Lifebar elements
+-- End of LifeBar elements

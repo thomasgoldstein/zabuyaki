@@ -154,9 +154,13 @@ function Character:drawTextInfo(l, t, transpBg, normColor)
     end
 end
 
+function Character:getBarTransparency(characterSource)
+    return 255 * calcBarTransparency(self.lifeBar.timer < characterSource.lifeBarTimer and self.lifeBar.timer or characterSource.lifeBarTimer)
+end
+
 function Character:drawBar(l, t, w, h, characterSource)
     love.graphics.setFont(gfx.font.arcade3)
-    local transpBg = 255 * calcBarTransparency(self.timer < characterSource.lifeBarTimer and self.timer or characterSource.lifeBarTimer)
+    local transpBg = self.source:getBarTransparency(characterSource)
     self:drawLifebar(l, t, transpBg)
     self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
     self:drawDeadCross(l, t, transpBg)

@@ -2,9 +2,6 @@ local class = require "lib/middleclass"
 local StageObject = class("StageObject", Unit)
 
 local function nop() end
-local sign = sign
-local clamp = clamp
-local CheckCollision = CheckCollision
 
 -- borrow methods from character class
 StageObject.checkAndAttack = Character.checkAndAttack
@@ -49,7 +46,6 @@ function StageObject:initialize(name, sprite, x, y, f)
     self.weight = f.weight or 1.5
     self.gravity = self.gravity * self.weight
     self.deathDelay = 1 --seconds to remove
-
     self.oldFrame = 1 --Old sprite frame N to start particles on change
     self.priority = 2
     self:setState(self.stand)

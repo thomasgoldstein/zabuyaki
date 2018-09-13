@@ -40,6 +40,7 @@ end
 StageObject.initFaceIcon = Character.initFaceIcon
 StageObject.drawFaceIcon = Character.drawFaceIcon
 StageObject.drawTextInfo = Character.drawTextInfo
+StageObject.getBarTransparency = Character.getBarTransparency
 StageObject.drawLivesLeftNumber = Character.drawLivesLeftNumber
 StageObject.drawScore = Character.drawScore
 StageObject.drawBar = Character.drawBar

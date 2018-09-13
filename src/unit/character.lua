@@ -2,9 +2,6 @@ local class = require "lib/middleclass"
 local Character = class('Character', Unit)
 
 local function nop() end
-local sign = sign
-local clamp = clamp
-local delayWithSlowMotion = delayWithSlowMotion
 
 Character.statesForChargeAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
