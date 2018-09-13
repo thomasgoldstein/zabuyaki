@@ -22,7 +22,7 @@ function Player:getBarTransparency(characterSource)
     if self.lives == 1 and self.deathDelay < math.pi / 4 then
         return  255 * math.sin( self.deathDelay ) or 255
     end
-    return 255 * calcBarTransparency(3)
+    return 255
 end
 
 function Player:drawBar(l,t,w,h)
