@@ -18,7 +18,7 @@ function Player:drawScore(l, t)
         transpBg)
 end
 
-function Player:getBarTransparency(characterSource)
+function Player:getBarTransparency()
     if self.lives == 1 and self.deathDelay < math.pi / 4 then
         return  255 * math.sin( self.deathDelay ) or 255
     end
@@ -26,16 +26,13 @@ function Player:getBarTransparency(characterSource)
 end
 
 function Player:drawBar(l,t,w,h)
-    love.graphics.setFont(gfx.font.arcade3)
     local playerSelectMode = self.source.playerSelectMode
-    local transpBg = self.source:getBarTransparency(characterSource)
     if self.source.lives > 0 then
         -- Default draw
-        self:drawLifebar(l, t, transpBg)
-        self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
-        self:drawDeadCross(l, t, transpBg)
-        self.source:drawTextInfo(l + self.x, t + self.y, transpBg)
+        Character.drawBar(self, l,t,w,h)
     else
+        local transpBg = self.source:getBarTransparency()
+        love.graphics.setFont(gfx.font.arcade3)
         colors:set("white", nil, transpBg)
         if playerSelectMode == 0 then
             -- wait press to use credit

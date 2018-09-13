@@ -159,12 +159,11 @@ function Character:getBarTransparency(characterSource)
 end
 
 function Character:drawBar(l, t, w, h, characterSource)
-    love.graphics.setFont(gfx.font.arcade3)
     local transpBg = self.source:getBarTransparency(characterSource)
+    love.graphics.setFont(gfx.font.arcade3)
     self:drawLifebar(l, t, transpBg)
     self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
     self:drawDeadCross(l, t, transpBg)
     self.source:drawTextInfo(l + self.x, t + self.y, transpBg)
 end
-
--- End of Lifebar elements
+-- End of LifeBar elements
