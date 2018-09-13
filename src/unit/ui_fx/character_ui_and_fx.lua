@@ -107,7 +107,7 @@ function Character:moveEffectAndEmit(effect, value)
     end
 end
 
--- Start of Lifebar elements
+-- Start of LifeBar elements
 function Character:initFaceIcon(target)
     target.sprite = imageBank[self.sprite.def.spriteSheet]
     target.q = self.sprite.def.animations["icon"][1].q --quad

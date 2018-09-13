@@ -5,7 +5,7 @@ local Player = Player
 
 local iconWidth = 40
 
--- Start of Lifebar elements
+-- Start of LifeBar elements
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
 

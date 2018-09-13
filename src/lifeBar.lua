@@ -2,8 +2,6 @@ local class = require "lib/middleclass"
 local LifeBar = class("LifeBar")
 
 local MAX_PLAYERS = GLOBAL_SETTING.MAX_PLAYERS
-local printWithShadow = printWithShadow
-local calcBarTransparency = calcBarTransparency
 
 local verticalGap = 39 --vertical gap between bars
 local verticalMargin = 13 --vertical margin from the top
