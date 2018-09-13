@@ -19,8 +19,8 @@ function Player:drawScore(l, t)
 end
 
 function Player:getBarTransparency()
-    if self.lives == 1 and self.deathDelay < math.pi / 4 then
-        return  255 * math.sin( self.deathDelay ) or 255
+    if self.lives == 1 and self.deathDelay < 1 then
+        return  255 * calcBarTransparency(self.deathDelay)
     end
     return 255
 end
