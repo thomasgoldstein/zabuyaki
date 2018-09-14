@@ -95,7 +95,7 @@ end
 
 function LifeBar:drawDeadCross(l, t, transpBg)
     if self.hp <= 0 then
-        colors:set("white", nil, 255 * math.sin(self.timer*20 + 17) * transpBg)
+        colors:set("white", nil, (transpBg > 200 and 255 or 1) * math.sin(self.timer*20 + 17) * transpBg)
         love.graphics.draw (
             gfx.ui.deadIcon.sprite,
             gfx.ui.deadIcon.q,
