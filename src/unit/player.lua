@@ -118,6 +118,11 @@ function Player:isStuck()
     return false
 end
 
+function Player:isDoubleTabValid()
+    local doubleTap = self.b.horizontal.doubleTap
+    return self.face == doubleTap.lastDoubleTapDirection and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(dashAttackDelta)
+end
+
 function Player:updateAI(dt)
     if self.isDisabled then
         return
@@ -138,36 +143,41 @@ function Player:updateAI(dt)
             if not self.statesForSpecialToleranceDelay[self.state]
                 or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
             then
-                  if self.moves.specialDash and self.statesForSpecialDash[self.state] then
-                    print("!!!!!!!!!!!!!!!!!!!!!!! SPECIAL DASH")
+                local hv = self.b.horizontal:getValue()
+                if not self:isDoubleTabValid() then
+                    if hv ~= 0 and self.moves.specialOffensive
+                        and self.statesForSpecialOffensive[self.state]
+                    then
+                        self:releaseGrabbed()
+                        self:removeTweenMove()
+                        self.face = hv
+                        print("tr SPEC OFF from", self.state)
+                        self:setState(self.specialOffensive)
+                        return
+                    end
+                    if self.moves.specialDefensive and self.statesForSpecialDefensive[self.state] then
+                        self:releaseGrabbed()
+                        print("tr spec DEF from", self.state)
+                        self:setState(self.specialDefensive)
+                        return
+                    end
+                end
+                if self.moves.specialDash and self.statesForSpecialDash[self.state]
+                    and ( hv ~= 0 or ( hv == 0 or self:isDoubleTabValid() ) )
+                then
                     self:releaseGrabbed()
                     self:removeTweenMove()
                     --self.face = hv
+                    print("tr SPEC DASH from", self.state)
                     self:setState(self.specialDash)
                     return
                 end
-                local hv = self.b.horizontal:getValue()
-                if hv ~= 0 and self.moves.specialOffensive and self.statesForSpecialOffensive[self.state] then
-                    self:releaseGrabbed()
-                    self:removeTweenMove()
-                    self.face = hv
-                    self:setState(self.specialOffensive)
-                    return
-                end
-                if self.moves.specialDefensive and self.statesForSpecialDefensive[self.state] then
-                    self:releaseGrabbed()
-                    self:setState(self.specialDefensive)
-                    return
-                end
+                print("fail A+J", self.state, hv, self:isDoubleTabValid(), self.statesForSpecialDash[self.state])
             end
         end
     end
     if self.moves.dashAttack and self.b.attack:pressed() then
-        local doubleTap = self.b.horizontal.doubleTap
-        if self.face == doubleTap.lastDoubleTapDirection
-            and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(dashAttackDelta)
-            and self.statesForDashAttack[self.state]
-        then
+        if self.statesForDashAttack[self.state] and self:isDoubleTabValid() then
             self:setState(self.dashAttack)
         end
     end

@@ -5,9 +5,9 @@ local function nop() end
 
 Character.statesForChargeAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, sideStep = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
-Character.statesForSpecialDefensive = { stand = true, walk = true, run = true, duck2jump = true, combo = true, hurt = true, chargeDash = true, grabbedFront = true, grabbedBack = true, grabFrontAttack = true, grab = true }
-Character.statesForSpecialOffensive = { stand = true, combo = true, duck2jump = true, walk = true, run = true, grabFrontAttack = true, grab = true }
-Character.statesForSpecialDash = { run = true }
+Character.statesForSpecialDefensive = { stand = true, duck2jump = true, combo = true, hurt = true, chargeDash = true, grabbedFront = true, grabbedBack = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialOffensive = { stand = true, combo = true, duck2jump = true, walk = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialDash = { stand = true, walk = true, run = true, duck2jump = true, dashAttack = true }
 Character.statesForSpecialToleranceDelay = { duck2jump = true }
 
 function Character:initialize(name, sprite, input, x, y, f)
