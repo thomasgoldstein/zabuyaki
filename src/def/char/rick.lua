@@ -421,15 +421,15 @@ return {
             delay = 0.05
         },
         specialOffensive = {
-            { q = q(2,2087,46,62), ox = 31, oy = 61 }, --offensive special 1
-            { q = q(50,2092,39,57), ox = 26, oy = 56 }, --offensive special 2
-            { q = q(91,2091,45,57), ox = 29, oy = 57 }, --offensive special 3
-            { q = q(138,2094,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, func = dashAttackSpeedUp, delay = 0.08 }, --offensive special 4a
-            { q = q(2,2153,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, delay = 0.08 }, --offensive special 4b
-            { q = q(53,2153,49,54), ox = 22, oy = 54, funcCont = specialOffensive1, delay = 0.08 }, --offensive special 4c
-            { q = q(137,2302,44,56), ox = 16, oy = 56, func = specialOffensiveFollowUp }, --offensive special 13
-            { q = q(183,2299,42,60), ox = 17, oy = 59 }, --offensive special 14
-            delay = 0.06
+            -- temp animation
+            { q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.13 }, --combo up 4.1
+            { q = q(51,1178,46,62), ox = 15, oy = 61, delay = 0.03 }, --combo up 4.2
+            { q = q(99,1178,49,62), ox = 15, oy = 61, func = comboAttack4Up1, delay = 0.03 }, --combo up 4.3
+            { q = q(150,1173,53,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --combo up 4.4a
+            { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.4b
+            { q = q(57,1244,53,63), ox = 20, oy = 62 }, --combo up 4.4c
+            { q = q(112,1244,46,63), ox = 19, oy = 62 }, --combo up 4.5
+            delay = 0.067
         },
         specialOffensive2 = {
             { q = q(104,2151,44,56), ox = 16, oy = 56 }, --offensive special 5
