@@ -8,7 +8,7 @@ Character.statesForDashAttack = { stand = true, walk = true, run = true, combo =
 Character.statesForSpecialDefensive = { stand = true, duck2jump = true, combo = true, hurt = true, chargeDash = true, grabbedFront = true, grabbedBack = true, grabFrontAttack = true, grab = true }
 Character.statesForSpecialOffensive = { stand = true, combo = true, duck2jump = true, walk = true, grabFrontAttack = true, grab = true }
 Character.statesForSpecialDash = { stand = true, walk = true, run = true, duck2jump = true, dashAttack = true }
-Character.statesForSpecialToleranceDelay = { duck2jump = true }
+Character.statesForSpecialToleranceDelay = { duck2jump = true, dashAttack = true }
 
 function Character:initialize(name, sprite, input, x, y, f)
     if not f then
