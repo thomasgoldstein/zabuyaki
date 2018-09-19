@@ -118,7 +118,7 @@ function Player:isStuck()
     return false
 end
 
-function Player:isDoubleTabValid()
+function Player:isDoubleTapValid()
     local doubleTap = self.b.horizontal.doubleTap
     return self.face == doubleTap.lastDoubleTapDirection and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(dashAttackDelta)
 end
@@ -144,7 +144,7 @@ function Player:updateAI(dt)
                 or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
             then
                 local hv = self.b.horizontal:getValue()
-                if not self:isDoubleTabValid() then
+                if not self:isDoubleTapValid() then
                     if hv ~= 0 and self.moves.specialOffensive
                         and self.statesForSpecialOffensive[self.state]
                     then
@@ -165,7 +165,7 @@ function Player:updateAI(dt)
                     end
                 end
                 if self.moves.specialDash and self.statesForSpecialDash[self.state]
-                    and ( hv ~= 0 or ( hv == 0 or self:isDoubleTabValid() ) )
+                    and ( hv ~= 0 or ( hv == 0 or self:isDoubleTapValid() ) )
                 then
                     self:releaseGrabbed()
                     self:removeTweenMove()
@@ -176,7 +176,7 @@ function Player:updateAI(dt)
         end
     end
     if self.moves.dashAttack and self.b.attack:pressed() then
-        if self.statesForDashAttack[self.state] and self:isDoubleTabValid() then
+        if self.statesForDashAttack[self.state] and self:isDoubleTapValid() then
             self:setState(self.dashAttack)
         end
     end
