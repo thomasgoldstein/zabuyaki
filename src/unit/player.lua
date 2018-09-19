@@ -160,7 +160,6 @@ function Player:updateAI(dt)
                     end
                     if self.moves.specialDefensive and self.statesForSpecialDefensive[self.state] then
                         self:releaseGrabbed()
-                        print("tr spec DEF from", self.state)
                         self:setState(self.specialDefensive)
                         return
                     end
@@ -170,12 +169,9 @@ function Player:updateAI(dt)
                 then
                     self:releaseGrabbed()
                     self:removeTweenMove()
-                    --self.face = hv
-                    print("tr SPEC DASH from", self.state)
                     self:setState(self.specialDash)
                     return
                 end
-                print("fail A+J", self.state, hv, self:isDoubleTabValid(), self.statesForSpecialDash[self.state])
             end
         end
     end
