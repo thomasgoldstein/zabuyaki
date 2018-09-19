@@ -151,7 +151,10 @@ function Player:updateAI(dt)
                         self:releaseGrabbed()
                         self:removeTweenMove()
                         self.face = hv
-                        print("tr SPEC OFF from", self.state)
+                        if self.state == "duck2jump" and self.lastState == "run" then
+                            self:setState(self.specialDash)
+                            return
+                        end
                         self:setState(self.specialOffensive)
                         return
                     end
