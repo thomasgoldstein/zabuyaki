@@ -1371,6 +1371,17 @@ function Character:grabUpdate(dt)
             end
             return
         end
+        if self.b.jump:pressed() then
+            if g.target.x > self.x then --adjust players backoff
+                g.target.horizontal = 1
+            else
+                g.target.horizontal = -1
+            end
+            self:removeTweenMove()
+            self:releaseGrabbed()
+            self:setState(self.duck2jump)
+            return
+        end
     else
         -- release (when not grabbing anything)
         self:releaseGrabbed()
