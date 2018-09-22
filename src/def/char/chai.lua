@@ -367,14 +367,14 @@ return {
             { q = q(2,1592,70,65), ox = 23, oy = 64, funcCont = chargeDashAttackCheck, delay = 0.06 }, --charge dash attack 3a
             { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = chargeDashAttackCheck, delay = 0.06 }, --charge dash attack 3b
             { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = chargeDashAttackCheck, delay = 0.06 }, --charge dash attack 3c
-            { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
+            { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted left by 4px)
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
             delay = 0.03
         },
         chargeDashAttack2 = {
             { q = q(146,1592,69,65), ox = 23, oy = 64, hover = true, funcCont = chargeDashAttack, delay = 0.06 }, --charge dash attack 3c
             { q = q(175,199,67,65), ox = 23, oy = 64, hover = true, func = function(slf) slf.speed_x = slf.walkSpeed_x; slf.speed_z = 0; slf.victims = {} end, delay = 0.02 }, --charge dash attack 3d
-            { q = q(43,722,37,64), ox = 16, oy = 66, hover = true, }, --jump attack forward 2 (shifted 4px to the left)
+            { q = q(43,722,37,64), ox = 16, oy = 66, hover = true, }, --jump attack forward 2 (shifted left by 4px)
             { q = q(2,722,39,65), ox = 18, oy = 66, hover = true }, --jump attack forward 1
             { q = q(101,1462,40,62), ox = 23, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted up by 2px)
             { q = q(84,403,69,59), ox = 28, oy = 58, hover = true, funcCont = chargeDashAttack2, delay = 0.22 }, --charge dash attack 4
@@ -519,7 +519,7 @@ return {
             { q = q(74,1592,70,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3b
             { q = q(146,1592,69,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3c
             { q = q(175,199,67,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.05 }, --charge dash attack 3d
-            { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted 4px to the left)
+            { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted left by 4px)
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
             delay = 0.03
         },
