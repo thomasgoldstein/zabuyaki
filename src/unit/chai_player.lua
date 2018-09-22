@@ -189,6 +189,7 @@ function Chai:specialDefensiveStart()
     self.jumpType = 0
     self:setSprite("specialDefensive")
     self:enableGhostTrails()
+    self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
     self:playSfx(self.sfx.dashAttack)
 end
 function Chai:specialDefensiveUpdate(dt)
