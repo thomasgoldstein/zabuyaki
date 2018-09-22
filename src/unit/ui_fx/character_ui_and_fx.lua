@@ -70,12 +70,6 @@ function Character:showEffect(effect, obj)
         particles:setPosition(self.face * 12, 11) --pos == x,y ofplayer. You can adjust it up/down
         particles:emit(1) --draw 1 effect sprite
         stage.objects:add(Effect:new(particles, self.x, self.y + 2, self.z)) --y+2 to put it above the player's sprite
-    elseif effect == "specialDefensiveChai" then
-        particles = (self.face == 1 and PA_SP_DEF_CHAI_R or PA_SP_DEF_CHAI_L):clone()
-        particles:setPosition(0, -6) --pos == x,y ofplayer. You can adjust it up/down
-        particles:emit(1) --draw 1 effect sprite
-        self.particles = Effect:new(particles, self.x, self.y + 2, self.z + 2) --y+2 to put it above the player's sprite
-        stage.objects:add(self.particles)
     elseif effect == "bellyLanding" then
         --clouds under belly
         particles = PA_DUST_FALL_LANDING:clone()

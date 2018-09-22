@@ -104,6 +104,7 @@ function Chai:specialDashStart()
     dpo(self, self.state)
     self:setSprite("specialDash")
     self:enableGhostTrails()
+    self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
     self.horizontal = -self.face
     self.speed_x = self.jumpSpeedBoost.x
     self.speed_y = 0
@@ -143,7 +144,7 @@ function Chai:specialDashUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.fadeOutGhostTrails, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
+Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.clearTrailsAndOverlaySprite, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
 
 function Chai:grabFrontAttackForwardStart()
     local g = self.grabContext
@@ -215,7 +216,8 @@ function Chai:specialDefensiveUpdate(dt)
     end
     if self.sprite.isFinished then
         self.particles = nil
-        self:setState(self.stand)
+        self:playSfx(self.sfx.step)
+        self:setState(self.duck)
         return
     end
 end
