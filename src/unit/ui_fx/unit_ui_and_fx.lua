@@ -72,6 +72,7 @@ function Unit:updateSprite(dt)
             if self.sprite.curFrame > self.spriteOverlay.maxFrame then
                 error("Missing frame N '" .. self.sprite.curFrame .. "' in animation '".. self.spriteOverlay.curAnim .."' of sprite '" .. self.spriteOverlay.def.spriteName .. "'.")
             end
+            self.spriteOverlay.flipH = self.sprite.flipH
             self.spriteOverlay.curFrame = self.sprite.curFrame
         else
             updateSpriteInstance(self.spriteOverlay, dt, self)
