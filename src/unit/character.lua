@@ -366,6 +366,9 @@ function Character:checkAndAttack(f, isFuncCont)
         end
         if followUpAnimation then
             self:setSprite(followUpAnimation)
+            if self.spriteOverlay then
+                self:setSpriteOverlay(self.specialOverlaySprite, followUpAnimation, true)
+            end
         end
     end
     --DEBUG collect data to show attack hitBoxes in green
