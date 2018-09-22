@@ -226,6 +226,7 @@ function Chai:specialOffensiveStart()
     dpo(self, self.state)
     self:setSprite("specialOffensive")
     self:enableGhostTrails()
+    self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
     self.horizontal = -self.face
     self.speed_x = self.jumpSpeedBoost.x
     self.speed_y = 0
@@ -265,7 +266,7 @@ function Chai:specialOffensiveUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
+Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.clearTrailsAndOverlaySprite, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Chai:chargeDashAttackStart()
     self.isHittable = true
