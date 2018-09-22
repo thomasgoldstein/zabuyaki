@@ -219,7 +219,7 @@ function Chai:specialDefensiveUpdate(dt)
         return
     end
 end
-Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiveStart, exit = Unit.fadeOutGhostTrails, update = Chai.specialDefensiveUpdate, draw = Character.defaultDraw }
+Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiveStart, exit = Unit.clearTrailsAndOverlaySprite, update = Chai.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Chai:specialOffensiveStart()
     self.isHittable = true
