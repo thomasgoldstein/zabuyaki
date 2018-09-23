@@ -425,7 +425,7 @@ return {
             { q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.13 }, --combo up 4.1
             { q = q(51,1178,46,62), ox = 15, oy = 61, delay = 0.03 }, --combo up 4.2
             { q = q(99,1178,49,62), ox = 15, oy = 61, func = comboAttack4Up1, delay = 0.03 }, --combo up 4.3
-            { q = q(150,1173,53,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --combo up 4.4a
+            { q = q(150,1173,52,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --combo up 4.4a
             { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.4b
             { q = q(57,1244,53,63), ox = 20, oy = 62 }, --combo up 4.4c
             { q = q(112,1244,46,63), ox = 19, oy = 62 }, --combo up 4.5
@@ -531,7 +531,7 @@ return {
             { q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.13 }, --combo up 4.1
             { q = q(51,1178,46,62), ox = 15, oy = 61, delay = 0.03 }, --combo up 4.2
             { q = q(99,1178,49,62), ox = 15, oy = 61, func = comboAttack4Up1, delay = 0.03 }, --combo up 4.3
-            { q = q(150,1173,53,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --combo up 4.4a
+            { q = q(150,1173,52,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --combo up 4.4a
             { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.4b
             { q = q(57,1244,53,63), ox = 20, oy = 62 }, --combo up 4.4c
             { q = q(112,1244,46,63), ox = 19, oy = 62 }, --combo up 4.5
