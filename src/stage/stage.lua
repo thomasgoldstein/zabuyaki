@@ -270,6 +270,7 @@ end
 
 function Stage:setCamera(dt)
     if self.zoomMode == "wait" then
+        mainCamera:update(dt, math.floor(oldCoord_x * 2) / 2, math.floor(oldCoord_y * 2) / 2)
         return
     end
     local coord_y = 430 -- const vertical Y (no scroll)
@@ -312,12 +313,11 @@ function Stage:setCamera(dt)
         else
             oldCoord_x = coord_x
         end
-        mainCamera:update(dt, math.floor(oldCoord_x * 2) / 2, math.floor(oldCoord_y * 2) / 2)
     else
         oldCoord_x = coord_x
         oldCoord_y = coord_y
-        mainCamera:update(dt, math.floor(oldCoord_x * 2) / 2, math.floor(oldCoord_y * 2) / 2)
     end
+    mainCamera:update(dt, math.floor(oldCoord_x * 2) / 2, math.floor(oldCoord_y * 2) / 2)
     oldCoord_y = coord_y
 end
 
