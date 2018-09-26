@@ -1539,16 +1539,16 @@ function Character:grabFrontAttackUpStart()
     dp(self.name.." grabFrontAttackUp someone.")
 end
 
-function Character:doThrow(speed_x, speed_z, horizontal, face, start_z)
+function Character:doThrow(repel_x, repel_z, horizontal, face, start_z)
     local g = self.grabContext
     local t = g.target
     t.isGrabbed = false
     t.isThrown = true
     t.throwerId = self
     t.victims[self] = true
-    t.speed_x = speed_x
+    t.speed_x = repel_x
     t.speed_y = 0
-    t.speed_z = speed_z
+    t.speed_z = repel_z
     if horizontal then
         t.horizontal = horizontal
     end
