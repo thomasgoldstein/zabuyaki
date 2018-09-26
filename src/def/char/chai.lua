@@ -29,7 +29,7 @@ local grabFrontAttackDown = function(slf, cont)
         cont
     )
 end
-local grabFrontAttackBack = function(slf, cont) slf:doThrow(220, 20, slf.face) end
+local grabFrontAttackBack = function(slf, cont) slf:doThrow(slf.throwSpeed_x, slf.throwSpeed_z / 10, slf.face) end
 local grabFrontAttackForward = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier,
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
