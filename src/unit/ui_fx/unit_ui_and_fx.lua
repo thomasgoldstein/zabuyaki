@@ -109,6 +109,7 @@ function Unit:setSpriteOverlay(spr, anim, isSync)
         error("Missing animation '" .. anim .. "' in '" .. self.spriteOverlay.def.spriteName .. "' definition.")
     end
     setSpriteAnimation(self.spriteOverlay, anim)
+    self.spriteOverlay.flipH = self.sprite.flipH
 end
 
 function Unit:removeSpriteOverlay()
