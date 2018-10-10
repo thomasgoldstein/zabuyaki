@@ -288,7 +288,7 @@ function Character:afterOnHurt()
 end
 
 function Character:checkAndAttack(f, isFuncCont)
-    --f options {}: x,y,width,height,depth, damage, type, repel_x, sfx, init_victims_list
+    --f options {}: x,y,width,height,depth, damage, type, repel_x, repel_y, sfx, init_victims_list
     --type = "simple" "shockWave" "hit" "knockDown" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away" "check"
     if not f then
         f = {}
@@ -296,6 +296,7 @@ function Character:checkAndAttack(f, isFuncCont)
     local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
     local damage, type = f.damage or 1, f.type or "hit"
     local repel_x = f.repel_x or self.speed_x
+    local repel_y = f.repel_y or self.speed_y
     local face = self.face
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
@@ -310,7 +311,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and o ~= self
             then
                 o.isHurt = {source = self, state = self.state, damage = damage,
-                    type = type, repel_x = repel_x,
+                    type = type, repel_x = repel_x, repel_y = repel_y,
                     horizontal = face, isThrown = false,
                     z = self.z + y}
                 items[#items+1] = o
@@ -336,14 +337,14 @@ function Character:checkAndAttack(f, isFuncCont)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
-                        type = type, repel_x = repel_x,
+                        type = type, repel_x = repel_x, repel_y = repel_y,
                         horizontal = self.horizontal, isThrown = true,
                         z = self.z + y
                         --x = self.x, y = self.y, z = self.z
                     }
                 else
                     o.isHurt = {source = self, state = self.state, damage = damage,
-                        type = type, repel_x = repel_x,
+                        type = type, repel_x = repel_x, repel_y = repel_y,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
                         z = self.z + y
