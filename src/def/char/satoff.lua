@@ -7,13 +7,13 @@ end
 
 local comboUppercut1 = function(slf, cont)
     slf:checkAndAttack(
-    { x = 14, y = 30, width = 30, damage = 12, repel = slf.dashFallSpeed, sfx = "whooshHeavy" },
+    { x = 14, y = 30, width = 30, damage = 12, repel_x = slf.dashFallSpeed, sfx = "whooshHeavy" },
     cont
 ) end
 
 local comboUppercut2 = function(slf, cont)
     slf:checkAndAttack(
-    { x = 20, y = 60, width = 30, height = 45, damage = 16, type = "knockDown", repel = slf.dashFallSpeed },
+    { x = 20, y = 60, width = 30, height = 45, damage = 16, type = "knockDown", repel_x = slf.dashFallSpeed },
     cont
 ) end
 
@@ -41,7 +41,7 @@ end
 local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 19, y = 37, width = 26, damage = 18,
-        type = "knockDown", repel = slf.shortThrowSpeed_x },
+        type = "knockDown", repel_x = slf.shortThrowSpeed_x },
         cont
     )
 end

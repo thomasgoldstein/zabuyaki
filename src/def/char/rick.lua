@@ -18,14 +18,14 @@ end
 local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, y = 21, width = 26, damage = 11,
-        type = "knockDown", repel = slf.shortThrowSpeed_x },
+        type = "knockDown", repel_x = slf.shortThrowSpeed_x },
         cont
     )
 end
 local grabFrontAttackDown = function(slf, cont)
     slf:checkAndAttack(
         { x = 20, y = 30, width = 26, damage = 15,
-        type = "knockDown", repel = slf.shortThrowSpeed_x },
+        type = "knockDown", repel_x = slf.shortThrowSpeed_x },
         cont
     )
 end
@@ -81,7 +81,7 @@ local comboAttack2 = function(slf, cont)
 end
 local comboAttack2Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 24, width = 31, damage = 8, repel = slf.comboSlideRepel2, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
+        { x = 21, y = 24, width = 31, damage = 8, repel_x = slf.comboSlideRepel2, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -105,7 +105,7 @@ local comboAttack3Up2 = function(slf, cont)
 end
 local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 10, repel = slf.comboSlideRepel3, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
+        { x = 27, y = 21, width = 39, damage = 10, repel_x = slf.comboSlideRepel3, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -135,7 +135,7 @@ local comboAttack4Up2 = function(slf, cont)
 end
 local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 35, y = 32, width = 39, damage = 15, type = "knockDown", repel = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
+        { x = 35, y = 32, width = 39, damage = 15, type = "knockDown", repel_x = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -158,11 +158,11 @@ local chargeAttack3 = function(slf, cont)
     )
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 37, width = 55, damage = 8, repel = slf.dashFallSpeed },
+    { x = 20, y = 37, width = 55, damage = 8, repel_x = slf.dashFallSpeed },
     cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 37, width = 55, damage = 12, type = "knockDown", repel = slf.dashFallSpeed },
+    { x = 20, y = 37, width = 55, damage = 12, type = "knockDown", repel_x = slf.dashFallSpeed },
     cont
 ) end
 local dashAttackSpeedUp = function(slf, cont)
@@ -239,7 +239,7 @@ local specialOffensive2b = function(slf, cont)
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
-        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown", repel = slf.specialOffensiveRepel },
+        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown", repel_x = slf.specialOffensiveRepel },
     cont)
 end
 local specialDash1 = function(slf, cont)
@@ -280,7 +280,7 @@ local specialDash2b = function(slf, cont)
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
-        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown", repel = slf.specialDashRepel },
+        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown", repel_x = slf.specialDashRepel },
         cont)
 end
 

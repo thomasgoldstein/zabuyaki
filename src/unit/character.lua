@@ -213,28 +213,28 @@ function Character:afterOnHurt()
                 self:setSprite("hurtLow")
             end
             if self.isMovable then
-                if h.repel == 0 then
+                if h.repel_x == 0 then
                     if self.type == "stageObject" then
                         -- Move stageObject after hit
                         self.speed_x = self.pushBackOnHitSpeed or 0
                     end
                 else
-                    self.speed_x = h.repel or 0
+                    self.speed_x = h.repel_x or 0
                 end
                 self.horizontal = h.horizontal
                 self.friction = self.repelFriction  -- custom friction value for smooth sliding back
             end
             return
         end
-        self.speed_x = h.repel --use fall speed from the argument
+        self.speed_x = h.repel_x --use fall speed from the argument
         --then it goes to "fall dead"
     elseif h.type == "knockDown" or h.type == "shockWave" or h.type == "blowOut" then
         if self.isMovable then
             --use fall speed from repel
-            if h.repel == 0 then
+            if h.repel_x == 0 then
                 self.speed_x = self.fallSpeed_x
             else
-                self.speed_x = h.repel + self.fallSpeedBoost_x
+                self.speed_x = h.repel_x + self.fallSpeedBoost_x
             end
         end
         if h.type == "knockDown" then
@@ -288,14 +288,14 @@ function Character:afterOnHurt()
 end
 
 function Character:checkAndAttack(f, isFuncCont)
-    --f options {}: x,y,width,height,depth, damage, type, repel, sfx, init_victims_list
+    --f options {}: x,y,width,height,depth, damage, type, repel_x, sfx, init_victims_list
     --type = "simple" "shockWave" "hit" "knockDown" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away" "check"
     if not f then
         f = {}
     end
     local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
     local damage, type = f.damage or 1, f.type or "hit"
-    local repel = f.repel or self.speed_x
+    local repel_x = f.repel_x or self.speed_x
     local face = self.face
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
@@ -310,7 +310,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     and o ~= self
             then
                 o.isHurt = {source = self, state = self.state, damage = damage,
-                    type = type, repel = repel,
+                    type = type, repel_x = repel_x,
                     horizontal = face, isThrown = false,
                     z = self.z + y}
                 items[#items+1] = o
@@ -336,14 +336,14 @@ function Character:checkAndAttack(f, isFuncCont)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
-                        type = type, repel = repel,
+                        type = type, repel_x = repel_x,
                         horizontal = self.horizontal, isThrown = true,
                         z = self.z + y
                         --x = self.x, y = self.y, z = self.z
                     }
                 else
                     o.isHurt = {source = self, state = self.state, damage = damage,
-                        type = type, repel = repel,
+                        type = type, repel_x = repel_x,
                         horizontal = face, isThrown = false,
                         continuous = isFuncCont,
                         z = self.z + y
