@@ -127,12 +127,12 @@ Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiv
 
 function Rick:specialOffensiveStart()
     self.isHittable = true
-    self.customFriction = self.dashFriction
+    self.customFriction = self.dashFriction * 2
     self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("specialOffensive")
     self:enableGhostTrails()
-    self.speed_x = self.dashSpeed_x
+    self.speed_x = self.dashSpeed_x * 2
     self.speed_y = 0
     self.speed_z = 0
     self.isAttackConnected = false

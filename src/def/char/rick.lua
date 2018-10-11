@@ -201,47 +201,10 @@ local specialDefensive = function(slf, cont) slf:checkAndAttack(
     { x = 12, y = 32, width = 77, height = 70, depth = 18, damage = 25, type = "blowOut" },
     cont
  ) end
-local specialOffensive1 = function(slf, cont)
-    if slf.sprite.elapsedTime <= 0 then
-        slf.victims = {}    -- clear victims list before any contFuncAttack
-    end
-    slf:checkAndAttack(
-        { x = 10, y = 18, width = 40, height = 35, damage = 6,
-            onHit = function(slf)
-                slf.isAttackConnected = true
-                slf.customFriction = slf.dashFriction * 2.5
-                end
-        },cont)
-end
-local specialOffensiveFollowUp = function(slf, cont)
-    if slf.isAttackConnected then
-        slf.victims = {}    -- clear victims list before this attack
-        slf:setSprite("specialOffensive2")
-        slf.speed_x = slf.dashSpeed_x * 1.5
-        slf.customFriction = slf.dashFriction * 1.5
-    end
-end
-local specialOffensiveJumpStart = function(slf, cont)
-    slf.speed_z = slf.jumpSpeed_z * 1.2
-    slf.z = slf:getMinZ() + 0.01
-    slf:showEffect("jumpStart")
-end
-local specialOffensive2a = function(slf, cont)
-    if slf.sprite.elapsedTime <= 0 then
-        slf.victims = {}    -- clear victims list before any contFuncAttack
-    end
-    slf:checkAndAttack(
-        { x = 10, y = 18, width = 40, height = 35, damage = 6 },
-        cont)
-end
-local specialOffensive2b = function(slf, cont)
-    if slf.sprite.elapsedTime <= 0 then
-        slf.victims = {}    -- clear victims list before any contFuncAttack
-    end
-    slf:checkAndAttack(
-        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "knockDown", repel_x = slf.specialOffensiveRepel },
-    cont)
-end
+local specialOffensive = function(slf, cont) slf:checkAndAttack(
+    { x = 12, y = 32, width = 55, damage = 34, repel_x = 200, type = "knockDown" },
+    cont
+ ) end
 local specialDash1 = function(slf, cont)
     if slf.sprite.elapsedTime <= 0 then
         slf.victims = {}    -- clear victims list before any contFuncAttack
@@ -421,29 +384,14 @@ return {
             delay = 0.05
         },
         specialOffensive = {
-            -- temp animation
-            { q = q(2,1181,47,59), ox = 16, oy = 58, delay = 0.13 }, --combo up 4.1
-            { q = q(51,1178,46,62), ox = 15, oy = 61, delay = 0.03 }, --combo up 4.2
-            { q = q(99,1178,49,62), ox = 15, oy = 61, func = comboAttack4Up1, delay = 0.03 }, --combo up 4.3
-            { q = q(150,1173,52,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --combo up 4.4a
-            { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.4b
-            { q = q(57,1244,53,63), ox = 20, oy = 62 }, --combo up 4.4c
-            { q = q(112,1244,46,63), ox = 19, oy = 62 }, --combo up 4.5
-            delay = 0.067
-        },
-        specialOffensive2 = {
-            { q = q(104,2151,44,56), ox = 16, oy = 56 }, --offensive special 5
-            { q = q(150,2151,45,57), ox = 15, oy = 56, funcCont = specialOffensive2a }, --offensive special 6
-            { q = q(2,2228,45,59), ox = 14, oy = 58 }, --offensive special 7
-            { q = q(49,2210,50,77), ox = 22, oy = 76, funcCont = specialOffensive2b, func = specialOffensiveJumpStart, delay =  0.13 }, --offensive special 8a
-            { q = q(101,2210,47,77), ox = 22, oy = 76, funcCont = specialOffensive2b, delay =  0.13 }, --offensive special 8b
-            { q = q(150,2214,45,73), ox = 26, oy = 72, delay =  0.1 }, --offensive special 9
-            { q = q(2,2289,38,70), ox = 21, oy = 69, delay =  0.1 }, --offensive special 10
-            { q = q(42,2292,43,66), ox = 23, oy = 65, delay =  0.1 }, --offensive special 11
-            { q = q(87,2296,48,63), ox = 25, oy = 62, delay =  0.1 }, --offensive special 12
-            { q = q(137,2302,44,56), ox = 16, oy = 56, func = function(slf) slf:showEffect("jumpLanding") end }, --offensive special 13
-            { q = q(183,2299,42,60), ox = 17, oy = 59 }, --offensive special 14
-            delay = 0.06
+            { q = q(2,2433,47,52), ox = 13, oy = 51 },
+            { q = q(51,2430,46,55), ox = 6, oy = 54 },
+            { q = q(99,2427,46,58), ox = 7, oy = 57 },
+            { q = q(147,2425,58,60), ox = 12, oy = 59, delay = 0.03 },
+            { q = q(2,2487,50,61), ox = 11, oy = 60, funcCont = specialOffensive, delay = 0.03 },
+            { q = q(54,2490,40,58), ox = 11, oy = 57, func = specialOffensive, delay = 0.3 },
+            { q = q(138,779,46,63), ox = 18, oy = 62 }, --combo 4.7 (shifted right by 4px)
+            delay = 0.05
         },
         specialDash = {
             { q = q(2,2087,46,62), ox = 31, oy = 61 }, --offensive special 1
