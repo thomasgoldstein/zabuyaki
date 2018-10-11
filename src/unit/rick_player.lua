@@ -85,36 +85,6 @@ function Rick:dashAttackUpdate(dt)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
 
-function Rick:specialDashStart()
-    self.isHittable = true
-    self.customFriction = self.dashFriction
-    self.horizontal = self.face
-    dpo(self, self.state)
-    self:setSprite("specialDash")
-    self:enableGhostTrails()
-    self.speed_x = self.dashSpeed_x
-    self.speed_y = 0
-    self.speed_z = 0
-    self.isAttackConnected = false
-    self:playSfx(self.sfx.dashAttack)
-    self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
-end
-function Rick:specialDashUpdate(dt)
-    if self.sprite.isFinished then
-        dpo(self, self.state)
-        self:setState(self.stand)
-        return
-    end
-    if self:canFall() then
-        self:calcFreeFall(dt)
-        self:calcFriction(dt, self.dashFriction / 10)
-    else
-        self.z = self:getMinZ()
-    end
-    self:moveEffectAndEmit("dash", 0.5)
-end
-Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.fadeOutGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
-
 function Rick:specialDefensiveStart()
     self.isHittable = false
     self.speed_x = 0
@@ -154,6 +124,36 @@ function Rick:specialOffensiveUpdate(dt)
     self:moveEffectAndEmit("dash", 0.5)
 end
 Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
+
+function Rick:specialDashStart()
+    self.isHittable = true
+    self.customFriction = self.dashFriction
+    self.horizontal = self.face
+    dpo(self, self.state)
+    self:setSprite("specialDash")
+    self:enableGhostTrails()
+    self.speed_x = self.dashSpeed_x
+    self.speed_y = 0
+    self.speed_z = 0
+    self.isAttackConnected = false
+    self:playSfx(self.sfx.dashAttack)
+    self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
+end
+function Rick:specialDashUpdate(dt)
+    if self.sprite.isFinished then
+        dpo(self, self.state)
+        self:setState(self.stand)
+        return
+    end
+    if self:canFall() then
+        self:calcFreeFall(dt)
+        self:calcFriction(dt, self.dashFriction / 10)
+    else
+        self.z = self:getMinZ()
+    end
+    self:moveEffectAndEmit("dash", 0.5)
+end
+Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.fadeOutGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
 
 function Rick:grabBackAttackStart()
     local g = self.grabContext

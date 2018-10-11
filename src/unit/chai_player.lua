@@ -99,53 +99,6 @@ function Chai:dashAttackUpdate(dt)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
-function Chai:specialDashStart()
-    self.isHittable = true
-    dpo(self, self.state)
-    self:setSprite("specialDash")
-    self:enableGhostTrails()
-    self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
-    self.horizontal = -self.face
-    self.speed_x = self.jumpSpeedBoost.x
-    self.speed_y = 0
-    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-    self.z = self:getMinZ() + 0.1
-    self.bounced = 0
-    self:playSfx(self.sfx.jump)
-    self:showEffect("jumpStart")
-end
-function Chai:specialDashUpdate(dt)
-    if self.sprite.curAnim == "specialDash" then
-        if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then
-            -- check speed_x to add no extra var here. it should trigger once
-            self.speed_x = self.dashSpeed_x * 2
-            self.horizontal = self.face
-        end
-    end
-    if self:canFall() then
-        if self.sprite.curFrame <= 6 and self.sprite.curAnim == "specialDash2" then
-            self:calcFreeFall(dt, 0.1) -- slow down the falling speed. Restore it on the 5th frame from the end
-        else
-            self:calcFreeFall(dt)
-        end
-    else
-        self:playSfx(self.sfx.step)
-        self:setState(self.duck)
-        return
-    end
-    if self.particles then
-        self.particles.z = self.z + 2 -- because we show the effect 2px down the unit
-        self.particles.x = self.x
-        self.particles.y = self.y
-    end
-    -- TODO read vectors not the flag successfullyMoved
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
-end
-Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.clearTrailsAndOverlaySprite, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
-
 function Chai:grabFrontAttackForwardStart()
     local g = self.grabContext
     local t = g.target
@@ -269,6 +222,53 @@ function Chai:specialOffensiveUpdate(dt)
     end
 end
 Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.clearTrailsAndOverlaySprite, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
+
+function Chai:specialDashStart()
+    self.isHittable = true
+    dpo(self, self.state)
+    self:setSprite("specialDash")
+    self:enableGhostTrails()
+    self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
+    self.horizontal = -self.face
+    self.speed_x = self.jumpSpeedBoost.x
+    self.speed_y = 0
+    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
+    self.z = self:getMinZ() + 0.1
+    self.bounced = 0
+    self:playSfx(self.sfx.jump)
+    self:showEffect("jumpStart")
+end
+function Chai:specialDashUpdate(dt)
+    if self.sprite.curAnim == "specialDash" then
+        if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then
+            -- check speed_x to add no extra var here. it should trigger once
+            self.speed_x = self.dashSpeed_x * 2
+            self.horizontal = self.face
+        end
+    end
+    if self:canFall() then
+        if self.sprite.curFrame <= 6 and self.sprite.curAnim == "specialDash2" then
+            self:calcFreeFall(dt, 0.1) -- slow down the falling speed. Restore it on the 5th frame from the end
+        else
+            self:calcFreeFall(dt)
+        end
+    else
+        self:playSfx(self.sfx.step)
+        self:setState(self.duck)
+        return
+    end
+    if self.particles then
+        self.particles.z = self.z + 2 -- because we show the effect 2px down the unit
+        self.particles.x = self.x
+        self.particles.y = self.y
+    end
+    -- TODO read vectors not the flag successfullyMoved
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
+end
+Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.clearTrailsAndOverlaySprite, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
 
 function Chai:chargeDashAttackStart()
     self.isHittable = true
