@@ -387,9 +387,9 @@ return {
             { q = q(2,2433,47,52), ox = 13, oy = 51 },
             { q = q(51,2430,46,55), ox = 6, oy = 54 },
             { q = q(99,2427,46,58), ox = 7, oy = 57 },
-            { q = q(147,2425,58,60), ox = 12, oy = 59, delay = 0.03 },
-            { q = q(2,2487,50,61), ox = 11, oy = 60, funcCont = specialOffensive, delay = 0.03 },
-            { q = q(54,2490,40,58), ox = 11, oy = 57, func = specialOffensive, delay = 0.3 },
+            { q = q(147,2425,58,60), ox = 12, oy = 59, funcCont = specialOffensive, delay = 0.03 },
+            { q = q(2,2487,50,61), ox = 11, oy = 60, delay = 0.03 },
+            { q = q(54,2490,40,58), ox = 11, oy = 57, delay = 0.3 },
             { q = q(138,779,46,63), ox = 18, oy = 62 }, --combo 4.7 (shifted right by 4px)
             delay = 0.05
         },
