@@ -202,7 +202,7 @@ local specialDefensive = function(slf, cont) slf:checkAndAttack(
     cont
  ) end
 local specialOffensive = function(slf, cont) slf:checkAndAttack(
-    { x = 12, y = 32, width = 55, damage = 34, repel_x = 200, type = "knockDown" },
+    { x = 15, y = 37, width = 65, damage = 34, repel_x = 220, type = "knockDown" },
     cont
  ) end
 local specialDash1 = function(slf, cont)
