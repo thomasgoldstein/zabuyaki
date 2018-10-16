@@ -230,12 +230,13 @@ local ghostTaceKind1 = { { x = 1, y = -1 }, { x = -1, y = -1 } }
 local ghostTaceKind1MaxOffset = 16 -- tweakable: increase to move ghosts farther from the chara
 function Unit:drawGhostTrails(l, t, w, h)
     local gt = self.ghostTrails
-    local x, y, m = 0, 0, 0
     if not gt or not gt.enabled then
         return
     end
+    local x, y, m = 0, 0, 0
+    local fpsDt = gt.shift * love.timer.getFPS()
     for k = gt.n, 1, -1 do
-        local i = self:getGhostTrails(k * math.ceil((gt.shift * love.timer.getFPS()) / 60))
+        local i = self:getGhostTrails(math.ceil( k * fpsDt / 60))
         if gt.ghost[i] then
             colors:set("ghostTrailsColors", k)
             self.sprite.flipH = gt.ghost[i][5]
