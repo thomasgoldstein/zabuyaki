@@ -236,7 +236,7 @@ function Unit:drawGhostTrails(l, t, w, h)
     local x, y, m = 0, 0, 0
     local fpsDt = gt.shift * love.timer.getFPS()
     for k = gt.n, 1, -1 do
-        local i = self:getGhostTrails(math.ceil( k * fpsDt / 60))
+        local i = self:getGhostTrails(math.ceil( 1 + k * fpsDt / 60))
         if gt.ghost[i] then
             colors:set("ghostTrailsColors", k)
             self.sprite.flipH = gt.ghost[i][5]
