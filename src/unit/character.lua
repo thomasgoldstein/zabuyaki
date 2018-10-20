@@ -220,6 +220,7 @@ function Character:afterOnHurt()
                     end
                 else
                     self.speed_x = h.repel_x or 0
+                    self.speed_y = h.repel_y or 0
                 end
                 self.horizontal = h.horizontal
                 self.friction = self.repelFriction  -- custom friction value for smooth sliding back
@@ -227,6 +228,7 @@ function Character:afterOnHurt()
             return
         end
         self.speed_x = h.repel_x --use fall speed from the argument
+        self.speed_y = h.repel_y --use fall speed from the argument
         --then it goes to "fall dead"
     elseif h.type == "knockDown" or h.type == "shockWave" or h.type == "blowOut" then
         if self.isMovable then
@@ -235,6 +237,7 @@ function Character:afterOnHurt()
                 self.speed_x = self.fallSpeed_x
             else
                 self.speed_x = h.repel_x + self.fallSpeedBoost_x
+                self.speed_x = h.repel_y
             end
         end
         if h.type == "knockDown" then
@@ -338,14 +341,14 @@ function Character:checkAndAttack(f, isFuncCont)
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
                         type = type, repel_x = repel_x, repel_y = repel_y,
-                        horizontal = self.horizontal, isThrown = true,
+                        horizontal = self.horizontal, vertical = self.vertical, isThrown = true,
                         z = self.z + y
                         --x = self.x, y = self.y, z = self.z
                     }
                 else
                     o.isHurt = {source = self, state = self.state, damage = damage,
                         type = type, repel_x = repel_x, repel_y = repel_y,
-                        horizontal = face, isThrown = false,
+                        horizontal = face, vertical = self.vertical, isThrown = false,
                         continuous = isFuncCont,
                         z = self.z + y
                     }
