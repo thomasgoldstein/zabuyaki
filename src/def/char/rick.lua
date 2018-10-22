@@ -388,10 +388,10 @@ return {
             { q = q(51,2430,46,55), ox = 7, oy = 54 }, --special offensive 2
             { q = q(99,2427,41,58), ox = 8, oy = 57 }, --special offensive 3
             { q = q(142,2425,64,60), ox = 14, oy = 59, funcCont = specialOffensive, delay = 0.03 }, --special offensive 4
-            { q = q(2,2487,57,61), ox = 12, oy = 60, delay = 0.03 }, --special offensive 5
-            { q = q(61,2489,45,59), ox = 18, oy = 58 }, --special offensive 6a
-            { q = q(108,2490,46,58), ox = 19, oy = 57 }, --special offensive 6b
-            { q = q(156,2490,41,58), ox = 14, oy = 57, delay = 0.2 }, --special offensive 6c
+            { q = q(2,2487,56,61), ox = 12, oy = 60, delay = 0.03 }, --special offensive 5
+            { q = q(60,2489,45,59), ox = 18, oy = 58 }, --special offensive 6a
+            { q = q(107,2490,44,58), ox = 17, oy = 57 }, --special offensive 6b
+            { q = q(154,2490,41,58), ox = 14, oy = 57, delay = 0.2 }, --special offensive 6c
             { q = q(138,779,46,63), ox = 18, oy = 62 }, --combo 4.7 (shifted right by 4px)
             delay = 0.05
         },
