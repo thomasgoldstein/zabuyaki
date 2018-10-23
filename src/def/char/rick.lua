@@ -410,9 +410,9 @@ return {
             { q = q(104,2151,44,56), ox = 16, oy = 56 }, --offensive special 5
             { q = q(150,2151,45,57), ox = 15, oy = 56, funcCont = specialDash2a }, --offensive special 6
             { q = q(2,2228,45,59), ox = 14, oy = 58 }, --offensive special 7
-            { q = q(49,2210,51,77), ox = 22, oy = 76, funcCont = specialDash2b, func = specialDashJumpStart, delay =  0.1 }, --offensive special 8a
-            { q = q(102,2210,50,77), ox = 22, oy = 76, funcCont = specialDash2b, delay =  0.08 }, --offensive special 8b
-            { q = q(154,2210,48,77), ox = 22, oy = 76, funcCont = specialDash2b, delay =  0.08 }, --offensive special 8c
+            { q = q(49,2210,54,77), ox = 22, oy = 76, funcCont = specialDash2b, func = specialDashJumpStart, delay =  0.1 }, --offensive special 8a
+            { q = q(106,2210,51,77), ox = 22, oy = 76, funcCont = specialDash2b, delay =  0.08 }, --offensive special 8b
+            { q = q(159,2211,47,76), ox = 22, oy = 75, funcCont = specialDash2b, delay =  0.08 }, --offensive special 8c
             { q = q(184,1617,45,73), ox = 26, oy = 72, delay =  0.1 }, --offensive special 9
             { q = q(2,2289,38,70), ox = 21, oy = 69, delay =  0.1 }, --offensive special 10
             { q = q(42,2292,43,66), ox = 23, oy = 65, delay =  0.1 }, --offensive special 11
