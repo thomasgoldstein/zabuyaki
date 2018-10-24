@@ -29,6 +29,7 @@ if not (type(common) == 'table' and common.class and common.instance) then
 	require(_PACKAGE .. '.class')
 	common_local, common = common, common_local
 end
+local vector  = require(_PACKAGE .. '.vector-light')
 
 local Spatialhash = {}
 function Spatialhash:init(cell_size)
@@ -49,7 +50,7 @@ function Spatialhash:cell(i,k)
 
 	local cell = rawget(row, k)
 	if not cell then
-		cell = setmetatable({}, {__mode = "kv"})
+		cell = {}
 		rawset(row, k, cell)
 	end
 

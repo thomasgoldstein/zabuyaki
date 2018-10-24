@@ -72,15 +72,6 @@ Shapes
 
 See also the :doc:`Shapes` sub-module.
 
-.. note::
-
-  HC will only keep `weak references
-  <https://www.lua.org/manual/5.1/manual.html#2.10.2>`_ to the shapes you add
-  to the world. This means that if you don't store the shapes elsewhere, the
-  garbage collector will eventually come around and remove these shapes.See
-  also `this issue <https://github.com/vrld/HC/issues/44>`_ on github.
-
-
 .. function:: HC.rectangle(x, y, w, h)
 
    :param numbers x,y: Upper left corner of the rectangle.
@@ -152,7 +143,7 @@ will not be valid.
 
 **Example**::
 
-    bullets[#bulltes+1] = HC.point(player.pos.x, player.pos.y)
+    bullets[#bullets+1] = HC.point(player.pos.x, player.pos.y)
 
 
 .. function:: HC.register(shape)
@@ -205,7 +196,10 @@ Collision Detection
 
 
 Get shapes that are colliding with ``shape`` and the vector to separate the shapes.
-The separating vector points away from ``shape``.
+The separating vector points in the direction that ``shape`` has to move to clear
+the collission.
+The length of the vector is the minimal amount that either shape has to move to
+clear the collission.
 
 The table is a *set*, meaning that the shapes are stored in *keys* of the table.
 The *values* are the separating vector.
@@ -214,16 +208,16 @@ You can iterate over the shapes using ``pairs`` (see example).
 **Example**::
 
     local collisions = HC.collisions(shape)
-    for other, separating_vector in pairs(collisions)
-        shape:move(-separating_vector.x/2, -separating_vector.y/2)
-        other:move( separating_vector.x/2,  separating_vector.y/2)
+    for other, separating_vector in pairs(collisions) do
+        shape:move( separating_vector.x/2,  separating_vector.y/2)
+        other:move(-separating_vector.x/2, -separating_vector.y/2)
     end
 
 
 .. function:: HC.neighbors(shape)
 
    :param Shape shape: Query shape.
-   :returns: Table of neighboring shapes, where the keys of the table are the shape.
+   :returns: Table of neighboring shapes, where the keys of the table are the shapes.
 
 Get other shapes in that are close to ``shape``.
 The table is a *set*, meaning that the shapes are stored in *keys* of the table.
@@ -237,14 +231,32 @@ You can iterate over the shapes using ``pairs`` (see example).
 **Example**::
 
     local candidates = HC.neighbors(shape)
-    for other in pairs(candidates)
+    for other in pairs(candidates) do
         local collides, dx, dy = shape:collidesWith(other)
         if collides then
             other:move(dx, dy)
         end
     end
 
+.. function:: HC.shapesAt(x, y)
 
-.. attribute:: HC.hash
+   :param numbers x,y: Point to query.
+   :returns: Table of shapes at the point, where the keys of the table are the shapes.
 
-Reference to the :class:`SpatialHash` instance.
+Get shapes that contain the point (x,y).
+The table is a *set*, meaning that the shapes are stored in *keys* of the table.
+You can iterate over the shapes using ``pairs`` (see example).
+
+**Example**::
+
+    local shapes = HC.shapesAt(love.mouse.getPosition)
+    for s in pairs(shapes) do
+        game.selectUnit(s)
+    end
+
+
+.. function:: HC.hash()
+
+   :returns: :class:`SpatialHash`.
+
+Get a reference to the :class:`SpatialHash` instance.
