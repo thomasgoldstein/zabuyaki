@@ -38,15 +38,19 @@ function titleState:enter(_, param)
     time = 0
     transparency = 0
     titleTransparency = 0
-    mode = "fadein"
-    if param ~= "dontStartMusic" then
-        TEsound.stop("music")
-        TEsound.playLooping(bgm.title, "music")
-    end
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-    sfx.play("sfx",titleSfx)
-
+    if param == "startFromIntro" then
+        introMovie = Movie:new(movie_intro)
+        mode = "movie"
+    else
+        if param ~= "dontStartMusic" then
+            TEsound.stop("music")
+            TEsound.playLooping(bgm.title, "music")
+        end
+        sfx.play("sfx",titleSfx)
+        mode = "fadein"
+    end
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()

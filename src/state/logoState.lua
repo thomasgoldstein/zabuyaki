@@ -14,7 +14,7 @@ end
 function logoState:update(dt)
     logoTimeLeft = logoTimeLeft - dt
     if logoTimeLeft <= 0 then
-        return Gamestate.switch(titleState)
+        return Gamestate.switch(titleState, "startFromIntro")
     end
 end
 
