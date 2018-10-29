@@ -1,5 +1,4 @@
--- Load and correct objects from various Tiled export files
---to load stage1_data.lua
+-- Load and correct objects from Tiled 1.2 exported Lua files
 
 local r = math.floor
 
@@ -147,7 +146,7 @@ local function loadUnit(items, stage, batch_name)
                     u.unit = inst:new(
                         v.name, getSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
                         nil,
-                        r(v.x + v.width / 2), r(v.y + v.height / 2),
+                        r(v.x), r(v.y),
                         { func = getUnitFunction(v), palette = palette }
                     )
                     units[#units + 1] = u
@@ -155,14 +154,14 @@ local function loadUnit(items, stage, batch_name)
                     --for permanent units that belong to no batch
                     if v.properties.class == "trashcan" then
                         u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
-                            r(v.x + v.width / 2), r(v.y + v.height / 2),
+                            r(v.x), r(v.y),
                             {hp = 35, score = 100, height = 34,
                                 isMovable = true, func = getUnitFunction(v),
                                 palette = palette, particleColor = shaders.trashcan_particleColor[palette],
                                 sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
                     elseif v.properties.class == "sign" then
                         u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
-                            r(v.x + v.width / 2), r(v.y + v.height / 2),
+                            r(v.x), r(v.y),
                             {hp = 89, score = 120, height = 64,
                                 shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
                                 isMovable = false, func = getUnitFunction(v),
