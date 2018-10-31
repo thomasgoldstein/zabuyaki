@@ -277,7 +277,7 @@ function Chai:chargeDashAttackStart()
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * 0.7
     self.speed_x = self.dashSpeed_x * 1.3
-    self.bounced = 0 -- used in canfall()
+    self.bounced = 0 -- used in canFall()
     self:playSfx(self.sfx.dashAttack)
 end
 function Chai:chargeDashAttackUpdate(dt)
