@@ -281,11 +281,13 @@ function Chai:chargeDashAttackStart()
     self:playSfx(self.sfx.dashAttack)
 end
 function Chai:chargeDashAttackUpdate(dt)
+    dpd(self)
     if self:canFall() then
         self:calcFreeFall(dt, getSpriteFrame(self.sprite).hover and 0.01 or self.jumpSpeedMultiplier * 0.8 ) -- slow down the falling speed
     else
         self:playSfx(self.sfx.step)
         self:setState(self.duck)
+        dpd(self,"END")
         return
     end
     if not self.successfullyMoved then
