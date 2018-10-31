@@ -57,10 +57,28 @@ function isDebug(level)
     return getDebugLevel() > 0
 end
 
---Debug console output
+-- Debug console output
 function dp(...)
     if isDebug()then
         print(...)
+    end
+end
+
+-- Print delta x and delta time
+__x = 0
+__anim = 0
+__time = 0
+function dpdi(self, text) -- reset delta
+    __x = self.x
+    __anim = self.sprite.curAnim
+    __time = self.time
+    print(self.sprite.curAnim, "DPD "..(text or ""))
+end
+
+function dpd(self, text) -- print current delta on animation change
+    if __anim ~= self.sprite.curAnim then
+        __anim = self.sprite.curAnim
+        print(string.format("%02.2f",math.abs(self.x - __x)),  string.format("%02.2f",math.abs(self.time - __time)), self.sprite.curAnim, "DPD "..(text or ""))
     end
 end
 
