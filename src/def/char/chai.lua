@@ -145,7 +145,7 @@ local chargeDashAttackCheck = function(slf, cont)
     )
 end
 local chargeDashAttack = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 18, width = 39, height = 45, damage = 7, repel_x = slf.fallSpeed_x * 2},
+    { x = 25, y = 18, width = 39, height = 45, damage = 7, repel_x = slf.fallSpeed_x * 1.4},
     cont
 ) end
 local chargeDashAttack2 = function(slf, cont) slf:checkAndAttack(
@@ -377,7 +377,8 @@ return {
             { q = q(43,722,37,64), ox = 16, oy = 66, hover = true, }, --jump attack forward 2 (shifted left by 4px)
             { q = q(2,722,39,65), ox = 18, oy = 66, hover = true }, --jump attack forward 1
             { q = q(101,1462,40,62), ox = 23, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted up by 2px)
-            { q = q(84,403,69,59), ox = 28, oy = 58, hover = true, funcCont = chargeDashAttack2, delay = 0.22 }, --charge dash attack 4
+            { q = q(84,403,69,59), ox = 28, oy = 58, hover = true, funcCont = chargeDashAttack2, delay = 0.18 }, --charge dash attack 4
+            { q = q(84,403,69,59), ox = 28, oy = 58, funcCont = chargeDashAttack2, delay = 0.04 }, --charge dash attack 4
             { q = q(101,1462,40,62), ox = 23, oy = 66, func = function(slf) slf.speed_x = slf.dashSpeed_x * 0.7 end, delay = 5 }, --special defensive 12 (shifted up by 2px)
             delay = 0.03
         },
