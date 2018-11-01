@@ -187,7 +187,6 @@ function Player:updateAI(dt)
             if self.chargeTimer >= self.chargedAt and self.statesForChargeAttack[self.state] then
                 if self.speed_y == 0 and self:canFall() then
                     if self.chargeDashAttack then
-                        dpdi(self,"trigger")
                         self:setState(self.chargeDashAttack)
                     elseif self.chargeAttack then
                         self:setState(self.chargeAttack)
