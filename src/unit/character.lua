@@ -1654,7 +1654,7 @@ function Character:grabSwapUpdate(dt)
     --dp(self.name .. " - grab update", dt)
     local g = self.grabContext
     --adjust char horizontally
-    if math.abs(self.x - self.grabSwap_x) > 0 then
+    if self.x ~= self.grabSwap_x then
         if self.x < self.grabSwap_x then
             self.x = self.x + self.runSpeed_x * dt
             if self.x > self.grabSwap_x then
