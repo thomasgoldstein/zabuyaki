@@ -1654,13 +1654,19 @@ function Character:grabSwapUpdate(dt)
     --dp(self.name .. " - grab update", dt)
     local g = self.grabContext
     --adjust char horizontally
-    if math.abs(self.x - self.grabSwap_x) > 2 then
+    if math.abs(self.x - self.grabSwap_x) > 0 then
         if self.x < self.grabSwap_x then
             self.x = self.x + self.runSpeed_x * dt
-        elseif self.x >= self.grabSwap_x then
+            if self.x > self.grabSwap_x then
+                self.x = self.grabSwap_x
+            end
+        elseif self.x > self.grabSwap_x then
             self.x = self.x - self.runSpeed_x * dt
+            if self.x < self.grabSwap_x then
+                self.x = self.grabSwap_x
+            end
         end
-        self.sprite.curFrame = grabSwapFrames[ math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwapGoal) * #grabSwapFrames ) ]
+        self.sprite.curFrame = grabSwapFrames[ clamp( math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwapGoal) * #grabSwapFrames ), 1, #grabSwapFrames) ]
         if not self.isGrabSwapFlipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwapGoal / 2 then
             self.isGrabSwapFlipped = true
             self.face = -self.face
