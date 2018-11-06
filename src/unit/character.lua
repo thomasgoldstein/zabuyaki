@@ -1272,7 +1272,7 @@ function Character:doGrab(target, inAir)
     return true
 end
 
-local grabDistance = 18
+local grabDistance = 0
 function Character:grabStart()
     self.isHittable = true
     self:setSprite("grab")
