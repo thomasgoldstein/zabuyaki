@@ -1272,7 +1272,7 @@ function Character:doGrab(target, inAir)
     return true
 end
 
-local unitsDistance = 18
+local grabDistance = 18
 function Character:grabStart()
     self.isHittable = true
     self:setSprite("grab")
@@ -1283,17 +1283,17 @@ function Character:grabStart()
     end
     if not self.condition then
         local g = self.grabContext
-        unitsDistance = g.target.width / 2 + 11
+        grabDistance = g.target.width / 2 + 11
         local timeToMove = 0.1
         local direction = self.x >= g.target.x and -1 or 1
-        local checkFront = stage:hasPlaceToStand(self.x + direction * unitsDistance, self.y)
-        local checkBack = stage:hasPlaceToStand(self.x - direction * unitsDistance, self.y)
+        local checkFront = stage:hasPlaceToStand(self.x + direction * grabDistance, self.y)
+        local checkBack = stage:hasPlaceToStand(self.x - direction * grabDistance, self.y)
         local x1, x2
         if checkFront then
             x1 = self.x - direction * 4
-            x2 = self.x + direction * unitsDistance
+            x2 = self.x + direction * grabDistance
         elseif checkBack then
-            x1 = g.target.x - direction * (unitsDistance + 4)
+            x1 = g.target.x - direction * (grabDistance + 4)
             x2 = g.target.x
             timeToMove = 0.15
         else
@@ -1644,8 +1644,8 @@ function Character:grabSwapStart()
     self:initGrabTimer()
     g.canGrabSwap = false
     self.isGrabSwapFlipped = false
-    unitsDistance = g.target.width / 2 + 11
-    self.grabSwap_x = g.target.x + self.face * unitsDistance
+    grabDistance = g.target.width / 2 + 11
+    self.grabSwap_x = g.target.x + self.face * grabDistance
     self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
     self:playSfx("whooshHeavy")
     dp(self.name.." is grabSwapping someone.")
