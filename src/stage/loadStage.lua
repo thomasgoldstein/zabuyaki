@@ -229,7 +229,7 @@ local function cacheImage(path_to_image)
     if not loadedImages[path_to_image] then
         loadedImages[path_to_image] = love.graphics.newImage(path_to_image:sub(10))
         local width, height = loadedImages[path_to_image]:getDimensions()
-        loadedImagesQuads[path_to_image] = love.graphics.newQuad(2, 2, width - 4, height - 4, width, height)
+        loadedImagesQuads[path_to_image] = love.graphics.newQuad(0, 0, width, height, width, height)
     end
     return loadedImages[path_to_image], loadedImagesQuads[path_to_image]
 end
@@ -241,7 +241,7 @@ local function loadBackgroundImageLayer(items, background)
         if v.type == "imagelayer" then
             if v.visible then
                 local image, quad = cacheImage(v.image)
-                background:add(image, quad, v.offsetx + 2, v.offsety + 2)
+                background:add(image, quad, v.offsetx, v.offsety)
             end
         end
     end
