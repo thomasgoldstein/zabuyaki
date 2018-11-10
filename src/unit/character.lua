@@ -830,35 +830,19 @@ Character.hurt = {name = "hurt", start = Character.hurtStart, exit = nop, update
 
 function Character:sideStepStart()
     self.isHittable = true
-    --self.toSlowDown = false
     if self.vertical > 0 then
         self:setSprite("sideStepDown")
     else
         self:setSprite("sideStepUp")
     end
-    self.speed_x, self.speed_y = 0, self.sideStepSpeed
+    self.isGoingUp = false
+    self.z = self:getMinZ() + 0.1
+    self.speed_x = 0
+    self.speed_y = self.z <= 0.1 and self.sideStepSpeed or self.sideStepSpeed / 2.2
+    self.speed_z = self.jumpSpeed_z / 6
     self:playSfx("whooshHeavy")
-    self.save_z = self.z
 end
-function Character:sideStepUpdate(dt)
-    if self.speed_y > 0 then
-        self.speed_y = self.speed_y - self.sideStepFriction * dt
-    else
-        self.speed_y = 0
-    end
-    if self.speed_y > self.sideStepSpeed / 2 then
-        self.z = self.save_z + self.speed_y / 24 --to show low leap
-    else
-        self:calcFreeFall(dt)
-        if self:canFall() then
-            self.update = Character.jumpFallUpdate -- do not change the sprite, fall down with blocked attacks
-        else
-            self:playSfx(self.sfx.step, 0.75)
-            self:setState(self.duck)
-        end
-    end
-end
-Character.sideStep = {name = "sideStep", start = Character.sideStepStart, exit = nop, update = Character.sideStepUpdate, draw = Character.defaultDraw}
+Character.sideStep = {name = "sideStep", start = Character.sideStepStart, exit = nop, update = Character.jumpFallUpdate, draw = Character.defaultDraw}
 
 function Character:dashAttackStart()
     self.isHittable = true
