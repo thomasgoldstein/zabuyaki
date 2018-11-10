@@ -36,7 +36,7 @@ local function loadCollision(items, stage)
     end
 end
 
-local function getClassByName(name)
+local function getTypeByName(name)
     if not name then
         name = ""
     end
@@ -56,7 +56,7 @@ local function getClassByName(name)
     elseif name == "trashcan" or name == "sign" then
         return StageObject
     end
-    error("Wrong class name: "..tostring(name))
+    error("Wrong type name: "..tostring(name))
     return nil
 end
 
@@ -125,57 +125,53 @@ local function loadUnit(items, stage, batch_name)
     end
     local t = extractTable(items.layers, "unit")
     for i, v in ipairs(t.objects) do
-        if v.type == "unit" then
-            if v.properties.batch == batch_name then
-                local u = {}
-                local inst = getClassByName(v.properties.class)
-                local palette = tonumber(v.properties.palette or 1)
-                if not inst then
-                    error("Missing enemy class instance name :"..inspect(v))
-                end
-                if not v.name then  --use class name and enemy's name if not set
-                    v.name = v.properties.class
-                end
-                u.delay = tonumber(v.properties.delay or 0)
-                if v.properties.state then
-                    u.state = v.properties.state
-                else
-                    u.state = "intro"
-                end
-                if batch_name then
-                    u.unit = inst:new(
-                        v.name, getSpriteInstance("src/def/char/"..v.properties.class:lower()..".lua"),
-                        nil,
-                        r(v.x), r(v.y),
-                        { func = getUnitFunction(v), palette = palette }
-                    )
-                    units[#units + 1] = u
-                else
-                    --for permanent units that belong to no batch
-                    if v.properties.class == "trashcan" then
-                        u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
-                            r(v.x), r(v.y),
-                            {hp = 35, score = 100, height = 34,
-                                isMovable = true, func = getUnitFunction(v),
-                                palette = palette, particleColor = shaders.trashcan_particleColor[palette],
-                                sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
-                    elseif v.properties.class == "sign" then
-                        u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.properties.class:lower()..".lua"),
-                            r(v.x), r(v.y),
-                            {hp = 89, score = 120, height = 64,
-                                shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
-                                isMovable = false, func = getUnitFunction(v),
-                                palette = palette,
-                        sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
-                    else
-                        error("Wrong obstacle class "..v.properties.class)
-                    end
-                    units[#units + 1] = u.unit
-                end
-                applyUnitProperties(v, u.unit)
+        if v.properties.batch == batch_name then
+            local u = {}
+            local inst = getTypeByName(v.type)
+            local palette = tonumber(v.properties.palette or 1)
+            if not inst then
+                error("Missing enemy type instance name :"..inspect(v))
             end
-        else
-            error("Wrong unit object type #"..i..":"..inspect(v))
+            if not v.name then  --use type name as enemy's name if not set
+                v.name = v.type
+            end
+            u.delay = tonumber(v.properties.delay or 0)
+            if v.properties.state then
+                u.state = v.properties.state
+            else
+                u.state = "intro"
+            end
+            if batch_name then
+                u.unit = inst:new(
+                    v.name, getSpriteInstance("src/def/char/"..v.type:lower()..".lua"),
+                    nil,
+                    r(v.x), r(v.y),
+                    { func = getUnitFunction(v), palette = palette }
+                )
+                units[#units + 1] = u
+            else
+                --for permanent units that belong to no batch
+                if v.type == "trashcan" then
+                    u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.type:lower()..".lua"),
+                        r(v.x), r(v.y),
+                        {hp = 35, score = 100, height = 34,
+                            isMovable = true, func = getUnitFunction(v),
+                            palette = palette, particleColor = shaders.trashcan_particleColor[palette],
+                            sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
+                elseif v.type == "sign" then
+                    u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.type:lower()..".lua"),
+                        r(v.x), r(v.y),
+                        {hp = 89, score = 120, height = 64,
+                            shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
+                            isMovable = false, func = getUnitFunction(v),
+                            palette = palette,
+                    sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
+                else
+                    error("Wrong obstacle type "..v.type)
+                end
+                units[#units + 1] = u.unit
+            end
+            applyUnitProperties(v, u.unit)
         end
     end
     return units

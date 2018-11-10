@@ -369,7 +369,7 @@ return {
         {
           id = 17,
           name = "Gopper",
-          type = "unit",
+          type = "gopper",
           shape = "point",
           x = 528,
           y = 468,
@@ -379,7 +379,6 @@ return {
           visible = true,
           properties = {
             ["batch"] = "2",
-            ["class"] = "gopper",
             ["delay"] = "0",
             ["flip"] = true,
             ["palette"] = "2",
@@ -389,7 +388,7 @@ return {
         {
           id = 22,
           name = "Niko",
-          type = "unit",
+          type = "niko",
           shape = "point",
           x = 260,
           y = 480,
@@ -399,7 +398,6 @@ return {
           visible = true,
           properties = {
             ["batch"] = "1",
-            ["class"] = "niko",
             ["delay"] = "0",
             ["state"] = "intro2"
           }
@@ -407,7 +405,7 @@ return {
         {
           id = 23,
           name = "Sveta",
-          type = "unit",
+          type = "sveta",
           shape = "point",
           x = 208,
           y = 472,
@@ -416,14 +414,13 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["batch"] = "1",
-            ["class"] = "sveta"
+            ["batch"] = "1"
           }
         },
         {
           id = 25,
           name = "Zeena",
-          type = "unit",
+          type = "zeena",
           shape = "point",
           x = 256,
           y = 524,
@@ -433,7 +430,6 @@ return {
           visible = true,
           properties = {
             ["batch"] = "1",
-            ["class"] = "zeena",
             ["drop"] = "apple",
             ["state"] = "stand"
           }
@@ -441,7 +437,7 @@ return {
         {
           id = 26,
           name = "Beatnick",
-          type = "unit",
+          type = "beatnick",
           shape = "point",
           x = 692.667,
           y = 498.667,
@@ -450,14 +446,13 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["batch"] = "2",
-            ["class"] = "beatnick"
+            ["batch"] = "2"
           }
         },
         {
           id = 27,
           name = "Satoff",
-          type = "unit",
+          type = "satoff",
           shape = "point",
           x = 1247.33,
           y = 505.333,
@@ -466,14 +461,13 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["batch"] = "3",
-            ["class"] = "satoff"
+            ["batch"] = "3"
           }
         },
         {
           id = 28,
-          name = "Gopper",
-          type = "unit",
+          name = "Niko",
+          type = "niko",
           shape = "point",
           x = 614,
           y = 492,
@@ -482,14 +476,13 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["batch"] = "2",
-            ["class"] = "niko"
+            ["batch"] = "2"
           }
         },
         {
           id = 29,
           name = "Niko",
-          type = "unit",
+          type = "niko",
           shape = "point",
           x = 638,
           y = 473.333,
@@ -499,14 +492,13 @@ return {
           visible = true,
           properties = {
             ["batch"] = "2",
-            ["class"] = "niko",
             ["state"] = "stand"
           }
         },
         {
           id = 30,
           name = "Zeena",
-          type = "unit",
+          type = "zeena",
           shape = "point",
           x = 700,
           y = 504.667,
@@ -516,7 +508,6 @@ return {
           visible = true,
           properties = {
             ["batch"] = "2",
-            ["class"] = "zeena",
             ["delay"] = "5",
             ["drop"] = "apple",
             ["state"] = "walk"
@@ -525,7 +516,7 @@ return {
         {
           id = 31,
           name = "Sveta",
-          type = "unit",
+          type = "sveta",
           shape = "point",
           x = 1365.33,
           y = 492.667,
@@ -535,14 +526,13 @@ return {
           visible = true,
           properties = {
             ["batch"] = "3",
-            ["class"] = "sveta",
             ["state"] = "intro"
           }
         },
         {
           id = 33,
           name = "Stop Sign",
-          type = "unit",
+          type = "sign",
           shape = "point",
           x = 232,
           y = 460,
@@ -551,14 +541,13 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["class"] = "sign",
             ["drop"] = "apple"
           }
         },
         {
           id = 40,
           name = "Gopper",
-          type = "unit",
+          type = "gopper",
           shape = "point",
           x = 300,
           y = 500,
@@ -568,7 +557,6 @@ return {
           visible = true,
           properties = {
             ["batch"] = "1",
-            ["class"] = "gopper",
             ["palette"] = "3",
             ["state"] = "intro2"
           }
@@ -576,7 +564,7 @@ return {
         {
           id = 41,
           name = "Gopper",
-          type = "unit",
+          type = "gopper",
           shape = "point",
           x = 512,
           y = 520,
@@ -586,14 +574,13 @@ return {
           visible = true,
           properties = {
             ["batch"] = "2",
-            ["class"] = "gopper",
             ["palette"] = "4"
           }
         },
         {
           id = 42,
           name = "Gopper",
-          type = "unit",
+          type = "gopper",
           shape = "point",
           x = 556,
           y = 500,
@@ -603,14 +590,13 @@ return {
           visible = true,
           properties = {
             ["batch"] = "2",
-            ["class"] = "gopper",
             ["palette"] = "1"
           }
         },
         {
           id = 55,
           name = "Trash Can",
-          type = "unit",
+          type = "trashcan",
           shape = "point",
           x = 328,
           y = 528,
@@ -619,7 +605,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["class"] = "trashcan",
             ["drop"] = "chicken",
             ["palette"] = "0"
           }
@@ -627,7 +612,7 @@ return {
         {
           id = 57,
           name = "Trash Can",
-          type = "unit",
+          type = "trashcan",
           shape = "point",
           x = 152,
           y = 492,
@@ -636,7 +621,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["class"] = "trashcan",
             ["drop"] = "",
             ["palette"] = "0"
           }
@@ -644,7 +628,7 @@ return {
         {
           id = 59,
           name = "Trash Can",
-          type = "unit",
+          type = "trashcan",
           shape = "point",
           x = 100,
           y = 492,
@@ -653,7 +637,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["class"] = "trashcan",
             ["drop"] = "apple",
             ["palette"] = "0"
           }

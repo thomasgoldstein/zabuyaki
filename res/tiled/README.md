@@ -97,11 +97,10 @@ Only the first "unit" layer will be used. All the rest object layers named "unit
 Now you can add enemy into the game.
 Every enemy should contain these properties
 * Name <- enemy's name
-* Type <- **"unit"**
+* Type <- gopper, niko, sveta, zeena, beatnick or satoff
 
 Custom properties:
 * batch <- enemy batch name. Usually a number
-* class <- Gopper, Niko, Sveta, Zeena, Beatnick or Satoff  
 
 The unit without **batch** property is called permanent. It is spawed on loading the stage.
 
