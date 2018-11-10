@@ -838,8 +838,8 @@ function Character:sideStepStart()
     self.isGoingUp = false
     self.z = self:getMinZ() + 0.1
     self.speed_x = 0
-    self.speed_y = self.z <= 0.1 and self.sideStepSpeed or self.sideStepSpeed / 2.2
-    self.speed_z = self.jumpSpeed_z / 6
+    self.speed_y = self.sideStepSpeed / 2.2
+    self.speed_z = self.z <= 0.1 and self.jumpSpeed_z / 1.7 or self.jumpSpeed_z / 6
     self:playSfx("whooshHeavy")
 end
 Character.sideStep = {name = "sideStep", start = Character.sideStepStart, exit = nop, update = Character.jumpFallUpdate, draw = Character.defaultDraw}
