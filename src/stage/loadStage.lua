@@ -40,7 +40,7 @@ local function getTypeByName(name)
     if not name then
         name = ""
     end
-    name = name:lower()
+    name = name
     if name == "gopper" then
         return Gopper
     elseif name == "niko" then
@@ -100,7 +100,7 @@ local function getUnitFunction(v)
     if not v.properties.drop then
         return nil
     end
-    local drop = v.properties.drop:lower()
+    local drop = v.properties.drop
     if drop then
         dp("func DROP ->"..drop)
         if drop == "apple" then
@@ -143,7 +143,7 @@ local function loadUnit(items, stage, batch_name)
             end
             if batch_name then
                 u.unit = inst:new(
-                    v.name, getSpriteInstance("src/def/char/"..v.type:lower()..".lua"),
+                    v.name, getSpriteInstance("src/def/char/"..v.type..".lua"),
                     nil,
                     r(v.x), r(v.y),
                     { func = getUnitFunction(v), palette = palette }
@@ -152,14 +152,14 @@ local function loadUnit(items, stage, batch_name)
             else
                 --for permanent units that belong to no batch
                 if v.type == "trashcan" then
-                    u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.type:lower()..".lua"),
+                    u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.type..".lua"),
                         r(v.x), r(v.y),
                         {hp = 35, score = 100, height = 34,
                             isMovable = true, func = getUnitFunction(v),
                             palette = palette, particleColor = shaders.trashcan_particleColor[palette],
                             sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
                 elseif v.type == "sign" then
-                    u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.type:lower()..".lua"),
+                    u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.type..".lua"),
                         r(v.x), r(v.y),
                         {hp = 89, score = 120, height = 64,
                             shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
