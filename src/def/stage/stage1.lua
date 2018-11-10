@@ -9,11 +9,7 @@ function Stage1:initialize(players)
 
     self:moveStoppers(0, 520)   --must be here
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
-    if isDebug() then
-        loadStageData("src/def/stage/stageTest_data.lua", self, players)
-    else
-        loadStageData("src/def/stage/stage1_data.lua", self, players)
-    end
+    loadStageData("src/def/stage/stage1_data.lua", self, players)
 --[[
     for i = 0, 33 do
         --(bgSky, qSky, x, y, slowDown_parallax_x, slowDown_parallax_y, auto_scroll_x, scroll_y
