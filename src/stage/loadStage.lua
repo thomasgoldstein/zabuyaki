@@ -132,9 +132,6 @@ local function loadUnit(items, stage, batch_name)
             if not inst then
                 error("Missing enemy type instance name :"..inspect(v))
             end
-            if not v.name then  --use type name as enemy's name if not set
-                v.name = v.type
-            end
             u.delay = tonumber(v.properties.delay or 0)
             if v.properties.state then
                 u.state = v.properties.state
