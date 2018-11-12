@@ -3,10 +3,10 @@ Download Tiled [Tiled Map Editor](http://www.mapeditor.org) or [GitHub](https://
 Version 1.2.0
 
 ## Stages naming ##
-Default stage name template: **StageX_data.tmx**
+Default stage name template: **stageX_map.tmx**
 
 ## Export stages to Zabuyaki ##
-Use menu **File / Export as...** **stageN_data.lua** to _\src\def\stage\_ .
+Use menu **File / Export as...** **stageX_map.lua** to _\src\def\stage\_ .
 Where N is the stage number.
 
 ## Creating a new file ##
