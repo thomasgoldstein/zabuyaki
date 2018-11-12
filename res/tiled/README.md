@@ -1,6 +1,6 @@
 # Editing Zabuyaki with Tiled #
 Download Tiled [Tiled Map Editor](http://www.mapeditor.org) or [GitHub](https://github.com/bjorn/tiled)
-Version 1.1.5+
+Version 1.2.0
 
 ## Stages naming ##
 Default stage name template: **StageX_data.tmx**
@@ -73,39 +73,31 @@ Use menu **Map / Map Properties** to see the **Background color** map property.
 Expand the property and edit R G B and Alpha(transparency) entries.
 
 ## Define enemy batches ##
-Go to the layers tab. Create **Object layer**. Rename it to "batch".
-Only the first "batch" layer will be used. All the rest object layers named "batch" will be ignored. 
-
-Now you can add enemy batches into the game.
+Go to the layers tab. Create **Group layer**. Rename it to "batch".
+Now add **Object layers** as batches into the **Group layer** "batch".
  
-Every batch should contain these properties
-* Name <- Every enemy on the stage has a property **batch** with his batch name. 
-           Use simple batch naming, such as 1 2 3 4 etc.
-* Type <- **batch**
+Every batch should be named. You can alter its Color property to colour its units on the Tiled screen.
+Give simple names to your batches, such as 1 2 3 4 etc.
 
-Custom properties:
+Custom "batch" properties:
 * delay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
  
 The left and the right sides of the batch are used as the horizontal positions the players stoppers.
 
+## Define the batch area width ##
+Add a rectangle object to set the batch area. You should set its type to "batch". 
+We will add other rectangle event triggers of other types in this group later. 
 > Hint: The height of the batch shape is ignored. 
 
 ## Define enemy units to a batch ##
-Go to the layers tab. Create **Object layer**. Rename it to "unit".
-Only the first "unit" layer will be used. All the rest object layers named "unit" will be ignored. 
+Go to the layers tab. Select any **Object layer** within "batch" **Group layer**. 
 
-Now you can add enemy into the game.
-Every enemy should contain these properties
+Now you can add enemy units or stage objects into the game.
+Every unit should have these properties
 * Name <- enemy's name
-* Type <- gopper, niko, sveta, zeena, beatnick or satoff
+* Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnick or satoff
 
-Custom properties:
-* batch <- enemy batch name. Usually a number
-
-The unit without **batch** property is called permanent. It is spawed on loading the stage.
-
-Enemy unit's x,y coords equal to coords of the shape center. You can use any shapes: Oval, Rectangle. 
-> Hint: The size of the shape is ignored.
+Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape is supported. 
 
 ## Optional units properties ##
 Optional properties:
@@ -113,7 +105,23 @@ Optional properties:
 * state <- units state on spawn: intro, stand, walk (aim to players)
 * palette <- select unit's coloring number (shaders). 1 - default.
 * flip <- turn units face to the left  
-* drop <- which loot to drop. It can be one **apple**, **chicken** or **beef** 
+* drop <- which loot to drop. It can be one **apple**, **chicken** or **beef**
+
+## Define permanent units ## 
+A unit without **batch** is called permanent. It is spawed on the stage loading.
+They are added into the root **Object layers** named "permanent".
+
+Every unit should contain these properties
+* Name <- enemy's name
+* Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnick or satoff
+> Hint: These units do not lock you within a batch area. You can spare their liver and go to the next batch area.
+
+## Define players start positions ## 
+They are added as "Point" objects into the root **Object layers** named "player".
+
+Every player object should contain these properties
+* Name <- "1", "2" or "3"
+* Type <- player
 
 ## In-Game drawing order ##
 The BG images are drawn starting from the very last item in the list back to the top.
