@@ -3,12 +3,12 @@ local Niko = class('Niko', Gopper)
 
 local function nop() end
 
-function Niko:initialize(name, sprite, input, x, y, f)
+function Niko:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 80
     self.scoreBonus = self.scoreBonus or 300
     self.tx, self.ty = x, y
 
-    Gopper.initialize(self, name, sprite, input, x, y, f)
+    Gopper.initialize(self, name, sprite, x, y, f, input)
     Niko.initAttributes(self)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
     self:postInitialize()

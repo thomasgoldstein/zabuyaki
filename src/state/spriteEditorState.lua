@@ -71,7 +71,7 @@ function spriteEditorState:enter(_, _hero, _weapon)
     self:wheelmoved(0, 0)   --pick 1st sprite to draw
     -- show hitBoxes
     stage = Stage:new()
-    player = Rick:new("SPRED", sprite, nil, screenWidth /2, menuOffset_y + menuItem_h / 2 )
+    player = Rick:new("SPRED", sprite, screenWidth /2, menuOffset_y + menuItem_h / 2 )
     player.id = 1   -- fixed id
     player:setOnStage(stage)
     player.doThrow = function() end -- block ability

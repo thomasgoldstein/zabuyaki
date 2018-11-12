@@ -4,7 +4,7 @@ local Satoff = class('Satoff', Enemy)
 local function nop() end
 local dist = dist
 
-function Satoff:initialize(name, sprite, input, x, y, f)
+function Satoff:initialize(name, sprite, x, y, f, input)
     self.lives = self.lives or 3
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 1500
@@ -14,7 +14,7 @@ function Satoff:initialize(name, sprite, input, x, y, f)
     f.shapeType = f.shapeType or "polygon"
     f.shapeArgs = f.shapeArgs or { 1, 0, 27, 0, 28, 3, 27, 6, 1, 6, 0, 3 }
     self.tx, self.ty = x, y
-    Enemy.initialize(self, name, sprite, input, x, y, f)
+    Enemy.initialize(self, name, sprite, x, y, f, input)
     Satoff.initAttributes(self)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
     self:pickAttackTarget()

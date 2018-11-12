@@ -3,11 +3,11 @@ local Gopper = class('Gopper', Enemy)
 
 local function nop() end
 
-function Gopper:initialize(name, sprite, input, x, y, f)
+function Gopper:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 40
     self.scoreBonus = self.scoreBonus or 200
     self.tx, self.ty = x, y
-    Enemy.initialize(self, name, sprite, input, x, y, f)
+    Enemy.initialize(self, name, sprite, x, y, f, input)
     Gopper.initAttributes(self)
     self.subtype = "gopnik"
     self.friendlyDamage = 2 --divide friendly damage

@@ -3,11 +3,11 @@ local Sveta = class('Sveta', Gopper)
 
 local function nop() end
 
-function Sveta:initialize(name, sprite, input, x, y, f)
+function Sveta:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 60
     self.scoreBonus = self.scoreBonus or 350
     self.tx, self.ty = x, y
-    Gopper.initialize(self, name, sprite, input, x, y, f)
+    Gopper.initialize(self, name, sprite, x, y, f, input)
     Sveta.initAttributes(self)
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self.subtype = "gopnitsa"

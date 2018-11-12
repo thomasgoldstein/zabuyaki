@@ -6,7 +6,7 @@ local clamp = clamp
 
 GLOBAL_UNIT_ID = 1
 
-function Unit:initialize(name, sprite, input, x, y, f)
+function Unit:initialize(name, sprite, x, y, f, input)
     --f options {}: shapeType, shapeArgs, hp, score, shader, palette, color, sfxOnHit, sfxDead, func
     if not f then
         f = {}

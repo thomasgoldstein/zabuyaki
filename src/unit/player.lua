@@ -4,13 +4,13 @@ local Player = class('Player', Character)
 local function nop() end
 local dashAttackDelta = 0.25
 
-function Player:initialize(name, sprite, input, x, y, f)
+function Player:initialize(name, sprite, x, y, f, input)
     if not f then
         f = {}
     end
     self.lives = GLOBAL_SETTING.MAX_LIVES
     self.hp = f.hp or self.hp or 100
-    Character.initialize(self, name, sprite, input, x, y, f)
+    Character.initialize(self, name, sprite, x, y, f, input)
     self:initAttributes()
     self.type = "player"
     self.friendlyDamage = 1 --1 = full damage on other players
@@ -308,9 +308,9 @@ function Player:useCreditUpdate(dt)
             self:playSfx("menuSelect")
             local player = HEROES[self.playerSelectCur].hero:new(self.name,
                 getSpriteInstance(HEROES[self.playerSelectCur].spriteInstance),
-                self.b,
-                self.x, self.y
-                --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 } }
+                self.x, self.y,
+                nil, --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 } }
+                self.b
             )
             player.playerSelectMode = 3
             player:setState(self.respawn)

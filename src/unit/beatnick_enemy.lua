@@ -1,12 +1,12 @@
 local class = require "lib/middleclass"
 local Beatnick = class('Beatnick', Gopper)
 
-function Beatnick:initialize(name, sprite, input, x, y, f)
+function Beatnick:initialize(name, sprite, x, y, f, input)
     self.lives = self.lives or 2
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 800
     self.tx, self.ty = x, y
-    Enemy.initialize(self, name, sprite, input, x, y, f)
+    Enemy.initialize(self, name, sprite, x, y, f, input)
     Beatnick.initAttributes(self)
     self.subtype = "midboss"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow

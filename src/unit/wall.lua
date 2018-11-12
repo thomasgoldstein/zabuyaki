@@ -9,7 +9,7 @@ function Wall:initialize(name, f)
         f = { shapeType = "circle", shapeArgs = { 0, 0, 10 } }
     end
     local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
-    Unit.initialize(self, name, nil, nil, x, y, f)
+    Unit.initialize(self, name, nil, x, y, f)
     self.name = name or "Unknown Wall"
     self.type = "wall"
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions

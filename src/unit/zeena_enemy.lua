@@ -1,11 +1,11 @@
 local class = require "lib/middleclass"
 local Zeena = class('Zeena', Gopper)
 
-function Zeena:initialize(name, sprite, input, x, y, f)
+function Zeena:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 50
     self.scoreBonus = self.scoreBonus or 300
     self.tx, self.ty = x, y
-    Gopper.initialize(self, name, sprite, input, x, y, f)
+    Gopper.initialize(self, name, sprite, x, y, f, input)
     Zeena.initAttributes(self)
     self.subtype = "gopnitsa"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow

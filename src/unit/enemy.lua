@@ -5,8 +5,8 @@ local function nop() end
 local dist = dist
 local rand1 = rand1
 
-function Enemy:initialize(name, sprite, input, x, y, f)
-    Character.initialize(self, name, sprite, input, x, y, f)
+function Enemy:initialize(name, sprite, x, y, f, input)
+    Character.initialize(self, name, sprite, x, y, f, input)
     self.type = "enemy"
     self.comboTimeout = 2 -- max delay to connect combo hits
     self.maxAiPoll_1 = 0.5

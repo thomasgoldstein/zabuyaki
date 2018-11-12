@@ -4,8 +4,8 @@ local Niko = class('PNiko', Player)
 
 local function nop() end
 
-function Niko:initialize(name, sprite, input, x, y, f)
-    Player.initialize(self, name, sprite, input, x, y, f)
+function Niko:initialize(name, sprite, x, y, f, input)
+    Player.initialize(self, name, sprite, x, y, f, input)
 end
 
 function Niko:initAttributes()

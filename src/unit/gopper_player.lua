@@ -4,8 +4,8 @@ local Gopper = class('PGopper', Player)
 
 local function nop() end
 
-function Gopper:initialize(name, sprite, input, x, y, f)
-    Player.initialize(self, name, sprite, input, x, y, f)
+function Gopper:initialize(name, sprite, x, y, f, input)
+    Player.initialize(self, name, sprite, x, y, f, input)
 end
 
 function Gopper:initAttributes()

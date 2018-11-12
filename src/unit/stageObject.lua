@@ -26,7 +26,7 @@ function StageObject:initialize(name, sprite, x, y, f)
         f.shapeArgs = { 4, 0, 9, 0, 14, 3, 9, 6, 4, 6, 0, 3 }
     end
     self.height = f.height or 40
-    Character.initialize(self, name, sprite, nil, x, y, f)
+    Character.initialize(self, name, sprite, x, y, f)
     self.name = name or "Unknown StageObject"
     self.type = "stageObject"
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions

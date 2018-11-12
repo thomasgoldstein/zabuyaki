@@ -4,9 +4,9 @@
 local class = require "lib/middleclass"
 local Event = class('Event', Unit)
 
-function Event:initialize(name, sprite, input, x, y, f)
+function Event:initialize(name, sprite, x, y, f, input)
     --self.tx, self.ty = x, y
-    Unit.initialize(self, name, sprite, input, x, y, f)
+    Unit.initialize(self, name, sprite, x, y, f, input)
     self.type = "event"
 end
 

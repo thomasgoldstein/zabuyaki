@@ -1,8 +1,8 @@
 local class = require "lib/middleclass"
 local Yar = class('Yar', Player)
 
-function Yar:initialize(name, sprite, input, x, y, f)
-    Player.initialize(self, name, sprite, input, x, y, f)
+function Yar:initialize(name, sprite, x, y, f, input)
+    Player.initialize(self, name, sprite, x, y, f, input)
 end
 
 function Yar:initAttributes()

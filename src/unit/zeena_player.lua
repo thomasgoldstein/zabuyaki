@@ -4,8 +4,8 @@ local Zeena = class('PZeena', Player)
 
 local function nop() end
 
-function Zeena:initialize(name, sprite, input, x, y, f)
-    Player.initialize(self, name, sprite, input, x, y, f)
+function Zeena:initialize(name, sprite, x, y, f, input)
+    Player.initialize(self, name, sprite, x, y, f, input)
 end
 
 function Zeena:initAttributes()

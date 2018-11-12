@@ -6,7 +6,7 @@ function Loot:initialize(name, sprite, x, y, f)
     if not f then
         f = {}
     end
-    Unit.initialize(self, name, sprite, nil, x, y, f)
+    Unit.initialize(self, name, sprite, x, y, f)
     self.draw = Unit.defaultDraw
     self.chargedAt, self.chargeTimer = 0, -1  -- for Unit.defaultDraw
     self:setSprite("stand")

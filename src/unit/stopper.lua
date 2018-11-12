@@ -10,7 +10,7 @@ function Stopper:initialize(name, f)
     end
     local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
     local width, height = f.shapeArgs[3] or 20, f.shapeArgs[4] or 240
-    Unit.initialize(self, name, nil, nil, x, y, f)
+    Unit.initialize(self, name, nil, x, y, f)
     self.name = name or "Unknown Stopper"
     self.type = "stopper"
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
