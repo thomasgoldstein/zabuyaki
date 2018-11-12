@@ -118,14 +118,14 @@ end
 
 local function loadUnit(items, stage, batch_name)
     local units = {}
+    local sprite
     if batch_name and batch_name ~= "" then
         dp("Load units of batch "..batch_name.."...")
     else
         batch_name = nil
     end
-    local t = extractTable(items.layers, "unit")
-    for i, v in ipairs(t.objects) do
-        if v.properties.batch == batch_name then
+    for i, v in ipairs(items.objects) do
+        if v.shape == "point" then
             local u = {}
             local inst = getTypeByName(v.type)
             local palette = tonumber(v.properties.palette or 1)
@@ -133,26 +133,35 @@ local function loadUnit(items, stage, batch_name)
                 error("Missing enemy type instance name :"..inspect(v))
             end
             u.delay = tonumber(v.properties.delay or 0)
-            u.state = v.properties.state or "intro"
+            u.state = v.properties.state or "stand"
+            if inst == StageObject then
+                sprite = getSpriteInstance("src/def/stage/object/"..v.type..".lua")
+            else
+                sprite = getSpriteInstance("src/def/char/"..v.type..".lua")
+            end
             if batch_name then
                 u.unit = inst:new(
-                    v.name, getSpriteInstance("src/def/char/"..v.type..".lua"),
-                    nil,
+                    v.name, sprite,
                     r(v.x), r(v.y),
                     { func = getUnitFunction(v), palette = palette }
                 )
                 units[#units + 1] = u
             else
+                if inst == StageObject then
+                    sprite = getSpriteInstance("src/def/stage/object/"..v.type..".lua")
+                else
+                    sprite = getSpriteInstance("src/def/char/"..v.type..".lua")
+                end
                 --for permanent units that belong to no batch
                 if v.type == "trashcan" then
-                    u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.type..".lua"),
+                    u.unit = StageObject:new(v.name, sprite,
                         r(v.x), r(v.y),
                         {hp = 35, score = 100, height = 34,
                             isMovable = true, func = getUnitFunction(v),
                             palette = palette, particleColor = shaders.trashcan_particleColor[palette],
                             sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
                 elseif v.type == "sign" then
-                    u.unit = StageObject:new(v.name, getSpriteInstance("src/def/stage/object/"..v.type..".lua"),
+                    u.unit = StageObject:new(v.name, sprite,
                         r(v.x), r(v.y),
                         {hp = 89, score = 120, height = 64,
                             shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
@@ -172,7 +181,8 @@ end
 
 local function loadPermanentUnits(items, stage)
     dp("Load permanent units...")
-    local units = loadUnit(items, stage)
+    local t = extractTable(items.layers, "permanent")
+    local units = loadUnit(t, stage)
     for _,unit in ipairs(units) do
         unit:setOnStage(stage)
     end
@@ -182,21 +192,21 @@ local function loadBatch(items, stage)
     local batch = {}
     dp("Load batches...")
     local t = extractTable(items.layers, "batch")
-    for i, v in ipairs(t.objects) do
-        if v.type == "batch" then
-            if v.shape == "rectangle" then
-                local b = {}
-                b.name = v.name
-                b.delay = tonumber(v.properties.delay or 0)
-                b.leftStopper = tonumber(r(v.x) or 0)
-                b.rightStopper = tonumber(r(v.x + v.width) or 500)
-                b.units = loadUnit(items, stage, b.name)
+    for i, v in ipairs(t.layers) do
+        for i, v2 in ipairs(v.objects) do
+            if v2.shape == "rectangle"
+                and v2.type == "batch"
+            then
+                local b = {
+                    name = v2.name,
+                    delay = tonumber(v2.properties.delay or 0),
+                    leftStopper = tonumber(r(v2.x) or 0),
+                    rightStopper = tonumber(r(v2.x + v2.width) or 4000),
+                    --units = {},
+                    units = loadUnit(v, stage, v2.name),
+                }
                 batch[#batch + 1] = b
-            else
-                error("Wrong batch object shape #"..i..":"..inspect(v).." it should be 'rectangle'")
             end
-        else
-            error("Wrong batch object type #"..i..":"..inspect(v))
         end
     end
     table.sort(batch, function(a,b)
@@ -273,8 +283,6 @@ local function addPlayersToStage(items, players, stage)
     local t = extractTable(items.layers, "player")
     for i, v in ipairs(t.objects) do
         if v.type == "player" then
-            --print(v.name, inspect(players))
-            --local n = tonumber(v.name or 0)
             local p = players[i]
             if p then
                 GLOBAL_UNIT_ID = i
@@ -282,9 +290,9 @@ local function addPlayersToStage(items, players, stage)
                 p.y = r(v.y + v.height / 2)
                 local player = players[i].hero:new(players[i].name,
                     getSpriteInstance(players[i].spriteInstance),
-                    Controls[i],
                     players[i].x, players[i].y,
-                    { palette = players[i].palette, id = i }
+                    { palette = players[i].palette, id = i },
+                    Controls[i]
                 )
                 player:setOnStage(stage)
             end
