@@ -77,10 +77,10 @@ function Player:checkCollisionAndMove(dt)
             if not self.obstacles[o] and (
                 o.type == "wall"
                 or o.type == "stopper"
-                or o.type == "stageObject"
+                or o:isInstanceOf(StageObject)
                 )
             then
-                if o.type == "stageObject" then
+                if o:isInstanceOf(StageObject) then
                     if self.z + topEdgeTolerance >= o.height then
                         if math.abs(separatingVector.x) > edgesTolerance or math.abs(separatingVector.y) > edgesTolerance then
                             self.obstacles[o] = true

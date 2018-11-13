@@ -214,7 +214,7 @@ function Character:afterOnHurt()
             end
             if self.isMovable then
                 if h.repel_x == 0 then
-                    if self.type == "stageObject" then
+                    if self:isInstanceOf(StageObject) then
                         -- Move stageObject after hit
                         self.speed_x = self.pushBackOnHitSpeed or 0
                     end
@@ -1331,7 +1331,7 @@ function Character:grabUpdate(dt)
             g.target:removeTweenMove()
             self:removeTweenMove()
             local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
-            if self.face ~= g.target.face or g.target.type == "stageObject" then
+            if self.face ~= g.target.face or g.target:isInstanceOf(StageObject) then
                 -- front grab or obstacles
                 if self.moves.grabFrontAttackForward and hv == self.face then
                     self:setState(self.grabFrontAttackForward)
