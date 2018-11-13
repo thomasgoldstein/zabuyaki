@@ -254,8 +254,8 @@ local function addPlayersToStage(items, players, stage)
             local p = players[i]
             if p then
                 GLOBAL_UNIT_ID = i
-                p.x = r(v.x + v.width / 2)
-                p.y = r(v.y + v.height / 2)
+                p.x = r(v.x)
+                p.y = r(v.y)
                 local player = players[i].hero:new(players[i].name,
                     getSpriteInstance(players[i].spriteInstance),
                     players[i].x, players[i].y,
