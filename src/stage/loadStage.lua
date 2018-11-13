@@ -250,7 +250,10 @@ local function addPlayersToStage(items, players, stage)
     dp("Set players to start positions...")
     local t = extractTable(items.layers, "player")
     for i, v in ipairs(t.objects) do
-        if v.type == "player" then
+        if i > GLOBAL_SETTING.MAX_PLAYERS then
+            break
+        end
+        if v.shape == "point" then
             local p = players[i]
             if p then
                 GLOBAL_UNIT_ID = i

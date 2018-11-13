@@ -117,12 +117,10 @@ Every unit should contain these properties
 > Hint: These units do not lock you within a batch area. You can spare their liver and go to the next batch area.
 
 ## Define players start positions ## 
-They are added as "Point" objects into the root **Object layers** named "player".
-
-Every player object should contain these properties
-* Name <- "1", "2" or "3"
-* Type <- player
-
+3 "Point" objects should be added into the root of **Object layers** named "player".
+Only first 3 objects are used. The rest objects are ignored.
+Th naming doesn't matter.
+ 
 ## In-Game drawing order ##
 The BG images are drawn starting from the very last item in the list back to the top.
 
