@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 26,
-  nextobjectid = 84,
+  nextobjectid = 86,
   backgroundcolor = { 231, 207, 157 },
   properties = {},
   tilesets = {},
@@ -298,8 +298,8 @@ return {
           name = "P1",
           type = "",
           shape = "point",
-          x = 50.5,
-          y = 462.5,
+          x = 59.1667,
+          y = 476.5,
           width = 0,
           height = 0,
           rotation = 0,
@@ -311,8 +311,8 @@ return {
           name = "P3",
           type = "",
           shape = "point",
-          x = 10,
-          y = 503.25,
+          x = 20,
+          y = 527.917,
           width = 0,
           height = 0,
           rotation = 0,
@@ -324,8 +324,8 @@ return {
           name = "P2",
           type = "",
           shape = "point",
-          x = 31.75,
-          y = 481.75,
+          x = 40.4167,
+          y = 503.083,
           width = 0,
           height = 0,
           rotation = 0,
@@ -347,11 +347,11 @@ return {
       objects = {
         {
           id = 82,
-          name = "PTR.CAN",
+          name = "Trash Can",
           type = "trashcan",
           shape = "point",
-          x = 67.3333,
-          y = 514,
+          x = 356.667,
+          y = 489.333,
           width = 0,
           height = 0,
           rotation = 0,
@@ -360,16 +360,19 @@ return {
         },
         {
           id = 83,
-          name = "PTR.CAN2",
+          name = "Trash Can",
           type = "trashcan",
           shape = "point",
-          x = 124.667,
-          y = 526.667,
+          x = 389.334,
+          y = 524,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["drop"] = "apple",
+            ["palette"] = 0
+          }
         }
       }
     },
@@ -407,6 +410,21 @@ return {
               visible = true,
               properties = {
                 ["delay"] = "0"
+              }
+            },
+            {
+              id = 85,
+              name = "Satoff",
+              type = "satoff",
+              shape = "point",
+              x = 1750,
+              y = 504,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["palette"] = 3
               }
             }
           }
@@ -448,9 +466,7 @@ return {
               height = 0,
               rotation = 0,
               visible = true,
-              properties = {
-                ["batch"] = "3"
-              }
+              properties = {}
             },
             {
               id = 81,
@@ -464,7 +480,6 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["batch"] = "3",
                 ["state"] = "intro"
               }
             }
@@ -486,8 +501,8 @@ return {
               name = "2",
               type = "batch",
               shape = "rectangle",
-              x = 430.303,
-              y = 45.8485,
+              x = 426.303,
+              y = 47.8485,
               width = 600,
               height = 678,
               rotation = 0,
@@ -508,7 +523,6 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["batch"] = "2",
                 ["delay"] = "0",
                 ["flip"] = true,
                 ["palette"] = "2",
@@ -520,44 +534,39 @@ return {
               name = "Beatnick",
               type = "beatnick",
               shape = "point",
-              x = 692.667,
-              y = 498.667,
+              x = 692,
+              y = 488,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
-              properties = {
-                ["batch"] = "2"
-              }
+              properties = {}
             },
             {
               id = 75,
               name = "Niko",
               type = "niko",
               shape = "point",
-              x = 614,
-              y = 492,
+              x = 627.333,
+              y = 513.333,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
-              properties = {
-                ["batch"] = "2"
-              }
+              properties = {}
             },
             {
               id = 76,
               name = "Niko",
               type = "niko",
               shape = "point",
-              x = 638,
-              y = 473.333,
+              x = 606.667,
+              y = 477.333,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
               properties = {
-                ["batch"] = "2",
                 ["state"] = "stand"
               }
             },
@@ -566,14 +575,13 @@ return {
               name = "Zeena",
               type = "zeena",
               shape = "point",
-              x = 700,
-              y = 504.667,
+              x = 742.667,
+              y = 522.667,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
               properties = {
-                ["batch"] = "2",
                 ["delay"] = "5",
                 ["drop"] = "apple",
                 ["state"] = "walk"
@@ -584,14 +592,13 @@ return {
               name = "Gopper",
               type = "gopper",
               shape = "point",
-              x = 512,
-              y = 520,
+              x = 521.333,
+              y = 502,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
               properties = {
-                ["batch"] = "2",
                 ["palette"] = "4"
               }
             },
@@ -600,14 +607,13 @@ return {
               name = "Gopper",
               type = "gopper",
               shape = "point",
-              x = 556,
-              y = 500,
+              x = 564.667,
+              y = 532,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
               properties = {
-                ["batch"] = "2",
                 ["palette"] = "1"
               }
             }
@@ -651,7 +657,6 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["batch"] = "1",
                 ["delay"] = "0",
                 ["state"] = "intro2"
               }
@@ -667,9 +672,7 @@ return {
               height = 0,
               rotation = 0,
               visible = true,
-              properties = {
-                ["batch"] = "1"
-              }
+              properties = {}
             },
             {
               id = 67,
@@ -683,7 +686,6 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["batch"] = "1",
                 ["drop"] = "apple",
                 ["state"] = "stand"
               }
@@ -715,7 +717,6 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["batch"] = "1",
                 ["palette"] = "3",
                 ["state"] = "intro2"
               }
@@ -748,7 +749,6 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["drop"] = "",
                 ["palette"] = "0"
               }
             },
@@ -764,8 +764,7 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["drop"] = "apple",
-                ["palette"] = "0"
+                ["drop"] = "apple"
               }
             }
           }

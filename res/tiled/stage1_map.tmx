@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#e7cf9d" nextlayerid="26" nextobjectid="84">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#e7cf9d" nextlayerid="26" nextobjectid="86">
  <group id="1" name="background" locked="1">
   <imagelayer id="2" name="road0" offsetx="12" offsety="430">
    <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
@@ -52,62 +52,67 @@
    <polygon points="0.1875,-1.1875 371.497,-179.5 370.995,93 -1.00269,93"/>
   </object>
  </objectgroup>
- <objectgroup color="#00aaff" id="17" name="player">
-  <object id="43" name="P1" x="50.5" y="462.5">
+ <objectgroup color="#00aaff" id="17" name="player" locked="1">
+  <object id="43" name="P1" x="59.1667" y="476.5">
    <point/>
   </object>
-  <object id="44" name="P3" x="10" y="503.25">
+  <object id="44" name="P3" x="20" y="527.917">
    <point/>
   </object>
-  <object id="45" name="P2" x="31.75" y="481.75">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup color="#000000" id="25" name="global" locked="1">
-  <object id="82" name="PTR.CAN" type="trashcan" x="67.3333" y="514">
-   <point/>
-  </object>
-  <object id="83" name="PTR.CAN2" type="trashcan" x="124.667" y="526.667">
+  <object id="45" name="P2" x="40.4167" y="503.083">
    <point/>
   </object>
  </objectgroup>
- <group id="19" name="batch" locked="1">
-  <objectgroup id="24" name="4">
+ <objectgroup color="#000000" id="25" name="global">
+  <object id="82" name="Trash Can" type="trashcan" x="356.667" y="489.333">
+   <point/>
+  </object>
+  <object id="83" name="Trash Can" type="trashcan" x="389.334" y="524">
+   <properties>
+    <property name="drop" value="apple"/>
+    <property name="palette" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <group id="19" name="batch">
+  <objectgroup id="24" name="4" locked="1">
    <object id="62" name="4" type="batch" x="1489.39" y="32.7576" width="2087.88" height="686">
     <properties>
      <property name="delay" value="0"/>
     </properties>
    </object>
+   <object id="85" name="Satoff" type="satoff" x="1750" y="504">
+    <properties>
+     <property name="palette" type="int" value="3"/>
+    </properties>
+    <point/>
+   </object>
   </objectgroup>
-  <objectgroup id="23" name="3">
+  <objectgroup id="23" name="3" locked="1">
    <object id="64" name="3" type="batch" x="933.333" y="49.4848" width="600" height="598">
     <properties>
      <property name="delay" value="0"/>
     </properties>
    </object>
    <object id="80" name="Satoff" type="satoff" x="1286" y="514.666">
-    <properties>
-     <property name="batch" value="3"/>
-    </properties>
     <point/>
    </object>
    <object id="81" name="Sveta" type="sveta" x="1404" y="502">
     <properties>
-     <property name="batch" value="3"/>
      <property name="state" value="intro"/>
     </properties>
     <point/>
    </object>
   </objectgroup>
-  <objectgroup id="22" name="2">
-   <object id="63" name="2" type="batch" x="430.303" y="45.8485" width="600" height="678">
+  <objectgroup id="22" name="2" locked="1">
+   <object id="63" name="2" type="batch" x="426.303" y="47.8485" width="600" height="678">
     <properties>
      <property name="delay" value="0"/>
     </properties>
    </object>
    <object id="73" name="Gopper" type="gopper" x="528" y="468">
     <properties>
-     <property name="batch" value="2"/>
      <property name="delay" value="0"/>
      <property name="flip" type="bool" value="true"/>
      <property name="palette" value="2"/>
@@ -115,50 +120,40 @@
     </properties>
     <point/>
    </object>
-   <object id="74" name="Beatnick" type="beatnick" x="692.667" y="498.667">
-    <properties>
-     <property name="batch" value="2"/>
-    </properties>
+   <object id="74" name="Beatnick" type="beatnick" x="692" y="488">
     <point/>
    </object>
-   <object id="75" name="Niko" type="niko" x="614" y="492">
-    <properties>
-     <property name="batch" value="2"/>
-    </properties>
+   <object id="75" name="Niko" type="niko" x="627.333" y="513.333">
     <point/>
    </object>
-   <object id="76" name="Niko" type="niko" x="638" y="473.333">
+   <object id="76" name="Niko" type="niko" x="606.667" y="477.333">
     <properties>
-     <property name="batch" value="2"/>
      <property name="state" value="stand"/>
     </properties>
     <point/>
    </object>
-   <object id="77" name="Zeena" type="zeena" x="700" y="504.667">
+   <object id="77" name="Zeena" type="zeena" x="742.667" y="522.667">
     <properties>
-     <property name="batch" value="2"/>
      <property name="delay" value="5"/>
      <property name="drop" value="apple"/>
      <property name="state" value="walk"/>
     </properties>
     <point/>
    </object>
-   <object id="78" name="Gopper" type="gopper" x="512" y="520">
+   <object id="78" name="Gopper" type="gopper" x="521.333" y="502">
     <properties>
-     <property name="batch" value="2"/>
      <property name="palette" value="4"/>
     </properties>
     <point/>
    </object>
-   <object id="79" name="Gopper" type="gopper" x="556" y="500">
+   <object id="79" name="Gopper" type="gopper" x="564.667" y="532">
     <properties>
-     <property name="batch" value="2"/>
      <property name="palette" value="1"/>
     </properties>
     <point/>
    </object>
   </objectgroup>
-  <objectgroup id="21" name="1">
+  <objectgroup id="21" name="1" locked="1">
    <object id="61" name="1" type="batch" x="-62.6667" y="69.3333" width="500" height="621.333">
     <properties>
      <property name="delay" value="0"/>
@@ -166,21 +161,16 @@
    </object>
    <object id="65" name="Niko" type="niko" x="260" y="480">
     <properties>
-     <property name="batch" value="1"/>
      <property name="delay" value="0"/>
      <property name="state" value="intro2"/>
     </properties>
     <point/>
    </object>
    <object id="66" name="Sveta" type="sveta" x="208" y="472">
-    <properties>
-     <property name="batch" value="1"/>
-    </properties>
     <point/>
    </object>
    <object id="67" name="Zeena" type="zeena" x="256" y="524">
     <properties>
-     <property name="batch" value="1"/>
      <property name="drop" value="apple"/>
      <property name="state" value="stand"/>
     </properties>
@@ -194,7 +184,6 @@
    </object>
    <object id="69" name="Gopper" type="gopper" x="300" y="500">
     <properties>
-     <property name="batch" value="1"/>
      <property name="palette" value="3"/>
      <property name="state" value="intro2"/>
     </properties>
@@ -209,7 +198,6 @@
    </object>
    <object id="71" name="Trash Can" type="trashcan" x="152" y="492">
     <properties>
-     <property name="drop" value=""/>
      <property name="palette" value="0"/>
     </properties>
     <point/>
@@ -217,7 +205,6 @@
    <object id="72" name="Trash Can" type="trashcan" x="100" y="492">
     <properties>
      <property name="drop" value="apple"/>
-     <property name="palette" value="0"/>
     </properties>
     <point/>
    </object>
