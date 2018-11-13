@@ -36,25 +36,11 @@ local function loadCollision(items, stage)
     end
 end
 
-local function getTypeByName(name)
-    if not name then
-        name = ""
-    end
-    name = name
-    if name == "gopper" then
-        return Gopper
-    elseif name == "niko" then
-        return Niko
-    elseif name == "sveta" then
-        return Sveta
-    elseif name == "zeena" then
-        return Zeena
-    elseif name == "beatnick" then
-        return Beatnick
-    elseif name == "satoff" then
-        return Satoff
-    elseif name == "trashcan" or name == "sign" then
-        return StageObject
+local function getUnitTypeByName(name)
+    local unitTypeByName = { gopper = Gopper, niko = Niko, sveta = Sveta, zeena = Zeena, beatnick = Beatnick, satoff = Satoff,
+                             trashcan = StageObject, sign = StageObject }
+    if unitTypeByName[name] then
+        return unitTypeByName[name]
     end
     error("Wrong type name: "..tostring(name))
     return nil
@@ -127,7 +113,7 @@ local function loadUnit(items, stage, batch_name)
     for i, v in ipairs(items.objects) do
         if v.shape == "point" then
             local u = {}
-            local inst = getTypeByName(v.type)
+            local inst = getUnitTypeByName(v.type)
             local palette = tonumber(v.properties.palette or 1)
             if not inst then
                 error("Missing enemy type instance name :"..inspect(v))
