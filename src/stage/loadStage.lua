@@ -147,12 +147,12 @@ local function loadUnit(items, stage, batch_name)
                 )
                 units[#units + 1] = u
             else
+                --for global units that have no batch
                 if inst == StageObject then
                     sprite = getSpriteInstance("src/def/stage/object/"..v.type..".lua")
                 else
                     sprite = getSpriteInstance("src/def/char/"..v.type..".lua")
                 end
-                --for permanent units that belong to no batch
                 if v.type == "trashcan" then
                     u.unit = StageObject:new(v.name, sprite,
                         r(v.x), r(v.y),
@@ -179,9 +179,9 @@ local function loadUnit(items, stage, batch_name)
     return units
 end
 
-local function loadPermanentUnits(items, stage)
-    dp("Load permanent units...")
-    local t = extractTable(items.layers, "permanent")
+local function loadGlobalUnits(items, stage)
+    dp("Load global units...")
+    local t = extractTable(items.layers, "global")
     local units = loadUnit(t, stage)
     for _,unit in ipairs(units) do
         unit:setOnStage(stage)
@@ -309,7 +309,7 @@ function loadStageData(file, stage, players)
     loadCollision(d, stage)
     addPlayersToStage(d, players, stage)
     allowPlayersSelect(players) -- if debug, you can select char on start
-    loadPermanentUnits(d, stage)
+    loadGlobalUnits(d, stage)
     stage.batch = loadBatch(d, stage)
     stage.scrolling = loadCameraScrolling(d)
     loadBackgroundImageLayer(d, stage.background)

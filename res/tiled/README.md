@@ -107,9 +107,9 @@ Optional properties:
 * flip <- turn units face to the left  
 * drop <- which loot to drop. It can be one **apple**, **chicken** or **beef**
 
-## Define permanent units ## 
-A unit without **batch** is called permanent. It is spawed on the stage loading.
-They are added into the root **Object layers** named "permanent".
+## Define global units ## 
+A unit without **batch** is called global. It is spawned on the stage loading.
+They are added into the root **Object layers** named "global".
 
 Every unit should contain these properties
 * Name <- enemy's name

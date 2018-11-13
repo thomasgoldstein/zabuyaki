@@ -72,7 +72,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#000000" id="25" name="permanent">
+ <objectgroup color="#000000" id="25" name="global">
   <object id="82" name="PTR.CAN" type="trashcan" x="67.3333" y="514">
    <point/>
   </object>

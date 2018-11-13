@@ -343,7 +343,7 @@ return {
     {
       type = "objectgroup",
       id = 25,
-      name = "permanent",
+      name = "global",
       visible = true,
       opacity = 1,
       offsetx = 0,
