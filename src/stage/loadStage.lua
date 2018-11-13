@@ -38,7 +38,7 @@ end
 
 local function getUnitTypeByName(name)
     local unitTypeByName = { gopper = Gopper, niko = Niko, sveta = Sveta, zeena = Zeena, beatnick = Beatnick, satoff = Satoff,
-                             trashcan = StageObject, sign = StageObject }
+                             trashcan = Trashcan, sign = Sign }
     if unitTypeByName[name] then
         return unitTypeByName[name]
     end
@@ -116,11 +116,11 @@ local function loadUnit(items, stage, batch_name)
             local inst = getUnitTypeByName(v.type)
             local palette = tonumber(v.properties.palette or 1)
             if not inst then
-                error("Missing enemy type instance name :"..inspect(v))
+                error("Missing unit type instance name :"..inspect(v))
             end
             u.delay = tonumber(v.properties.delay or 0)
             u.state = v.properties.state or "stand"
-            if inst == StageObject then
+            if inst:isSubclassOf(StageObject) then
                 sprite = getSpriteInstance("src/def/stage/object/"..v.type..".lua")
             else
                 sprite = getSpriteInstance("src/def/char/"..v.type..".lua")
@@ -134,29 +134,11 @@ local function loadUnit(items, stage, batch_name)
                 units[#units + 1] = u
             else
                 --for global units that have no batch
-                if inst == StageObject then
-                    sprite = getSpriteInstance("src/def/stage/object/"..v.type..".lua")
-                else
-                    sprite = getSpriteInstance("src/def/char/"..v.type..".lua")
-                end
-                if v.type == "trashcan" then
-                    u.unit = StageObject:new(v.name, sprite,
-                        r(v.x), r(v.y),
-                        {hp = 35, score = 100, height = 34,
-                            isMovable = true, func = getUnitFunction(v),
-                            palette = palette, particleColor = shaders.trashcan_particleColor[palette],
-                            sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
-                elseif v.type == "sign" then
-                    u.unit = StageObject:new(v.name, sprite,
-                        r(v.x), r(v.y),
-                        {hp = 89, score = 120, height = 64,
-                            shapeType = "polygon", shapeArgs = { 0, 0, 20, 0, 10, 3 },
-                            isMovable = false, func = getUnitFunction(v),
-                            palette = palette,
-                    sfxDead = nil, sfxOnHit = "metalHit", sfxOnBreak = "metalBreak", sfxGrab = "metalGrab"} )
-                else
-                    error("Wrong obstacle type "..v.type)
-                end
+                u.unit = inst:new(
+                    v.name, sprite,
+                    r(v.x), r(v.y),
+                    { func = getUnitFunction(v), palette = palette }
+                )
                 units[#units + 1] = u.unit
             end
             applyUnitProperties(v, u.unit)
