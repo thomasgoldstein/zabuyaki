@@ -52,27 +52,18 @@
    <polygon points="0.1875,-1.1875 371.497,-179.5 370.995,93 -1.00269,93"/>
   </object>
  </objectgroup>
- <objectgroup color="#00aaff" id="17" name="player" locked="1">
-  <object id="43" name="1" type="player" x="50.5" y="462.5">
-   <properties>
-    <property name="state" value="walk"/>
-   </properties>
+ <objectgroup color="#00aaff" id="17" name="player">
+  <object id="43" name="P1" x="50.5" y="462.5">
    <point/>
   </object>
-  <object id="44" name="3" type="player" x="10" y="503.25">
-   <properties>
-    <property name="state" value="walk"/>
-   </properties>
+  <object id="44" name="P3" x="10" y="503.25">
    <point/>
   </object>
-  <object id="45" name="2" type="player" x="31.75" y="481.75">
-   <properties>
-    <property name="state" value="walk"/>
-   </properties>
+  <object id="45" name="P2" x="31.75" y="481.75">
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#000000" id="25" name="global">
+ <objectgroup color="#000000" id="25" name="global" locked="1">
   <object id="82" name="PTR.CAN" type="trashcan" x="67.3333" y="514">
    <point/>
   </object>

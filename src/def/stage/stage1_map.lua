@@ -295,8 +295,8 @@ return {
       objects = {
         {
           id = 43,
-          name = "1",
-          type = "player",
+          name = "P1",
+          type = "",
           shape = "point",
           x = 50.5,
           y = 462.5,
@@ -304,14 +304,12 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {
-            ["state"] = "walk"
-          }
+          properties = {}
         },
         {
           id = 44,
-          name = "3",
-          type = "player",
+          name = "P3",
+          type = "",
           shape = "point",
           x = 10,
           y = 503.25,
@@ -319,14 +317,12 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {
-            ["state"] = "walk"
-          }
+          properties = {}
         },
         {
           id = 45,
-          name = "2",
-          type = "player",
+          name = "P2",
+          type = "",
           shape = "point",
           x = 31.75,
           y = 481.75,
@@ -334,9 +330,7 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {
-            ["state"] = "walk"
-          }
+          properties = {}
         }
       }
     },
