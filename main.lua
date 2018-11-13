@@ -126,6 +126,8 @@ function love.load(arg)
     require "src/unit/ui_fx/loot_ui_and_fx"
     StageObject = require "src/unit/stageObject"
     require "src/unit/ui_fx/stageObject_ui_and_fx"
+    Sign = require "src/unit/sign"
+    Trashcan = require "src/unit/trashcan"
     AIGopper = require "src/unit/ai/gopper_ai"
     Gopper = require "src/unit/gopper_enemy"
     PGopper = require "src/unit/gopper_player"
