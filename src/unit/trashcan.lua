@@ -5,15 +5,15 @@ function Trashcan:initialize(name, sprite, x, y, f)
     if not f then
         f = {}
     end
+    f.hp = f.hp or 35
+    f.score = f.score or 100
+    f.height = 34
     StageObject.initialize(self, name, sprite, x, y, f)
     self.type = "trashcan"
     self.sfxDead = nil
     self.sfxOnHit = "metalHit"
     self.sfxOnBreak = "metalBreak"
     self.sfxGrab = "metalGrab"
-    self.hp = 35
-    self.score = 100
-    self.height = 34
     self.isMovable = true
     self.particleColor = shaders.trashcan_particleColor[self.palette]
 end
