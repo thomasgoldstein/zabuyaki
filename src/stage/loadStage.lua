@@ -46,13 +46,6 @@ local function getUnitTypeByName(name)
     return nil
 end
 
-local function applyUnitProperties(v, unit)
-    if v.properties.flip then
-        unit.horizontal = -1
-        unit.face = -1
-    end
-end
-
 local func_dropApple = function(slf)
     local loot = Loot:new("Apple", gfx.loot.apple,
         math.floor(slf.x), math.floor(slf.y) + 1,
@@ -82,24 +75,22 @@ local func_dropBat = function(slf)
     loot:setOnStage(stage)
 end
 
-local function getUnitFunction(v)
-    if not v.properties.drop then
-        return nil
+local function applyUnitProperties(v, unit)
+    if v.properties.flip then
+        unit.horizontal = -1
+        unit.face = -1
     end
-    local drop = v.properties.drop
-    if drop then
-        dp("func DROP ->"..drop)
-        if drop == "apple" then
-            return func_dropApple
-        elseif drop == "chicken" then
-            return func_dropChicken
-        elseif drop == "beef" then
-            return func_dropBeef
-        elseif drop == "bat" then
-            return func_dropBat
+    if v.properties.drop then
+        if v.properties.drop == "apple" then
+            unit.func =  func_dropApple
+        elseif v.properties.drop == "chicken" then
+            unit.func =  func_dropChicken
+        elseif v.properties.drop == "beef" then
+            unit.func =  func_dropBeef
+        elseif v.properties.drop == "bat" then
+            unit.func =  func_dropBat
         end
     end
-    return nil
 end
 
 local function loadUnit(items, stage, batch_name)
@@ -129,7 +120,7 @@ local function loadUnit(items, stage, batch_name)
                 u.unit = inst:new(
                     v.name, sprite,
                     r(v.x), r(v.y),
-                    { func = getUnitFunction(v), palette = palette }
+                    { palette = palette }
                 )
                 units[#units + 1] = u
             else
@@ -137,7 +128,7 @@ local function loadUnit(items, stage, batch_name)
                 u.unit = inst:new(
                     v.name, sprite,
                     r(v.x), r(v.y),
-                    { func = getUnitFunction(v), palette = palette }
+                    { palette = palette }
                 )
                 units[#units + 1] = u.unit
             end
