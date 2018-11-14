@@ -1,15 +1,15 @@
 -- stage 1
 local class = require "lib/middleclass"
-local Stage1 = class('Stage1', Stage)
+local Stage1a = class('Stage1a', Stage)
 
-function Stage1:initialize(players)
-    Stage.initialize(self, "Stage 1")
+function Stage1a:initialize(players)
+    Stage.initialize(self, "Stage 1a")
     self.shadowAngle = -0.2
     self.shadowHeight = 0.3 --Range 0.2..1
 
     self:moveStoppers(0, 520)   --must be here
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
-    loadStageData("src/def/stage/stage1_map.lua", self, players)
+    loadStageData("src/def/stage/stage1a_map.lua", self, players)
 --[[
     for i = 0, 33 do
         --(bgSky, qSky, x, y, slowDown_parallax_x, slowDown_parallax_y, auto_scroll_x, scroll_y
@@ -30,7 +30,7 @@ function Stage1:initialize(players)
     self:update(0) --calc start screen pos accordingly to the start player's positions
 end
 
-function Stage1:update(dt)
+function Stage1a:update(dt)
     -- stage special effects
 --    if self.rotate_wall then    --test wall rotation
 --        self.rotate_wall:rotate(dt)
@@ -38,4 +38,4 @@ function Stage1:update(dt)
     Stage.update(self, dt)
 end
 
-return Stage1
+return Stage1a

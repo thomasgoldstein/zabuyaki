@@ -147,7 +147,7 @@ function love.load(arg)
     Wall = require "src/unit/wall"
     Stopper = require "src/unit/stopper"
     LifeBar = require "src/lifeBar"
-    Stage1 = require "src/def/stage/stage1"
+    Stage1a = require "src/def/stage/stage1a"
     require "src/def/movie/intro"
     require 'src/menu'
     tactile = require 'lib/tactile'
