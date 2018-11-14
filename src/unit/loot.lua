@@ -77,4 +77,39 @@ function Loot:get(taker)
     --self.y = GLOBAL_SETTING.OFFSCREEN --keep in the stage for proper save/load
 end
 
+local funcDropApple = function(slf)
+    local loot = Loot:new("Apple", gfx.loot.apple,
+        math.floor(slf.x), math.floor(slf.y) + 1,
+        { hp = 15, score = 0, pickUpNote = "+15 HP", pickUpSfx = "pickUpApple"} --, func = testDeathFunc
+    )
+    loot:setOnStage(stage)
+end
+local funcDropChicken = function(slf)
+    local loot = Loot:new("Chicken", gfx.loot.chicken,
+        math.floor(slf.x), math.floor(slf.y) + 1,
+        { hp = 50, score = 0, pickUpNote = "+50 HP", pickUpSfx = "pickUpChicken"}
+    )
+    loot:setOnStage(stage)
+end
+local funcDropBeef = function(slf)
+    local loot = Loot:new("Beef", gfx.loot.beef,
+        math.floor(slf.x), math.floor(slf.y) + 1,
+        { hp = 100, score = 0, pickUpNote = "+100 HP", pickUpSfx = "pickUpBeef"}
+    )
+    loot:setOnStage(stage)
+end
+local funcDropBat = function(slf)
+    local loot = Loot:new("Bat", gfx.loot.bat,
+        math.floor(slf.x), math.floor(slf.y) + 1,
+        { hp = 0, score = 0, pickUpNote = "Weapon", pickUpSfx = "grab"}
+    )
+    loot:setOnStage(stage)
+end
+local dropItemFuncList = {
+    apple = funcDropApple, chicken = funcDropChicken, beef = funcDropBeef,
+    bat = funcDropBat }
+function Loot.getDropFuncByName(itemName)
+    return dropItemFuncList[itemName]
+end
+
 return Loot
