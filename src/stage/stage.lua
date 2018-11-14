@@ -327,7 +327,7 @@ function Stage:hasPlaceToStand(x, y, unit)
     for other, separatingVector in pairs(self.world:collisions(shape)) do
         local o = other.obj
         if o.type == "wall"
-            or (o.z <= 0 and o.hp > 0 and o.isMovable == false and o:isInstanceOf(StageObject))
+            or (o.z <= 0 and o.hp > 0 and o.isObstacle)
             or o.type == "stopper" then
             return false
         end
