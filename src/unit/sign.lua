@@ -10,6 +10,7 @@ function Sign:initialize(name, sprite, x, y, f)
     f.hp = f.hp or 89
     f.score = f.score or 120
     f.height = 64
+    f.isMovable = false  -- auto get isObstacle true
     StageObject.initialize(self, name, sprite, x, y, f)
     self.type = "sign"
     self.sfxDead = nil
