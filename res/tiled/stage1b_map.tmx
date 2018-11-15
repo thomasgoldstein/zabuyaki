@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="40" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="11">
+ <group id="8" name="background" locked="1">
+  <imagelayer id="9" name="bg" locked="1">
+   <image source="../img/stage/stage1/stage1b.png" width="1280" height="320"/>
+  </imagelayer>
+ </group>
+ <objectgroup color="#aa0000" id="7" name="camera" locked="1">
+  <object id="6" type="camera" x="0" y="320">
+   <polyline points="0,0 1280,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00aa00" id="6" name="collision" locked="1">
+  <object id="8" type="wall" x="0" y="0" width="1280" height="224"/>
+ </objectgroup>
+ <objectgroup color="#00aaff" id="5" name="player" locked="1">
+  <object id="3" name="1" type="player" x="48" y="256">
+   <point/>
+  </object>
+  <object id="4" name="2" type="player" x="32" y="280">
+   <point/>
+  </object>
+  <object id="5" name="3" type="player" x="16" y="304">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55557f" id="4" name="global" locked="1"/>
+ <group id="1" name="batch">
+  <objectgroup color="#ffaa00" id="3" name="2">
+   <object id="2" name="2" type="batch" x="640" y="0" width="640" height="320"/>
+   <object id="10" name="Niko" type="niko" x="1184" y="256">
+    <point/>
+   </object>
+  </objectgroup>
+  <objectgroup color="#ffff00" id="2" name="1">
+   <object id="1" name="1" type="batch" x="0" y="0" width="640" height="320"/>
+   <object id="9" name="Gopper" type="gopper" x="544" y="256">
+    <point/>
+   </object>
+  </objectgroup>
+ </group>
+</map>
