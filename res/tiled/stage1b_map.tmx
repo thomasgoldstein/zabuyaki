@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="40" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="11">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="left-up" width="40" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="11">
  <group id="8" name="background" locked="1">
   <imagelayer id="9" name="bg" locked="1">
    <image source="../img/stage/stage1/stage1b.png" width="1280" height="320"/>
   </imagelayer>
  </group>
  <objectgroup color="#aa0000" id="7" name="camera" locked="1">
-  <object id="6" type="camera" x="0" y="320">
+  <object id="6" x="0" y="320">
    <polyline points="0,0 1280,0"/>
   </object>
  </objectgroup>
  <objectgroup color="#00aa00" id="6" name="collision" locked="1">
-  <object id="8" type="wall" x="0" y="0" width="1280" height="224"/>
+  <object id="8" x="0" y="0" width="1280" height="224"/>
  </objectgroup>
  <objectgroup color="#00aaff" id="5" name="player" locked="1">
   <object id="3" name="1" type="player" x="48" y="256">

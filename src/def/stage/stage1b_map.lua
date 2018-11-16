@@ -1,7 +1,7 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.2.1",
+  tiledversion = "1.2.0",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 40,
@@ -50,7 +50,7 @@ return {
         {
           id = 6,
           name = "",
-          type = "camera",
+          type = "",
           shape = "polyline",
           x = 0,
           y = 320,
@@ -80,7 +80,7 @@ return {
         {
           id = 8,
           name = "",
-          type = "wall",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 0,

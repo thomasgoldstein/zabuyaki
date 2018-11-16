@@ -50,7 +50,7 @@ return {
         {
           id = 7,
           name = "",
-          type = "camera",
+          type = "",
           shape = "polyline",
           x = 0,
           y = 320,
@@ -82,7 +82,7 @@ return {
         {
           id = 9,
           name = "",
-          type = "wall",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -95,7 +95,7 @@ return {
         {
           id = 10,
           name = "",
-          type = "wall",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 320,
@@ -108,7 +108,7 @@ return {
         {
           id = 12,
           name = "",
-          type = "wall",
+          type = "",
           shape = "polygon",
           x = 1184,
           y = 224,
@@ -126,7 +126,7 @@ return {
         {
           id = 13,
           name = "",
-          type = "wall",
+          type = "",
           shape = "rectangle",
           x = 1824,
           y = 224,
@@ -139,7 +139,7 @@ return {
         {
           id = 15,
           name = "",
-          type = "wall",
+          type = "",
           shape = "polygon",
           x = 1024,
           y = 320,
