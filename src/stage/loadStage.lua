@@ -174,21 +174,17 @@ local function loadCameraScrolling(items, scrolling)
     scrolling = { chunks = {} }
     local t = extractTable(items.layers, "camera")
     for i, v in ipairs(t.objects) do
-        if v.type == "camera" then
-            if v.shape == "polyline" then
-                for k = 1, #v.polyline - 1 do
-                    scrolling.chunks[#scrolling.chunks + 1] =
-                    {start_x = v.x + v.polyline[k].x, end_x = v.x + v.polyline[k + 1].x,
-                        start_y = v.y + v.polyline[k].y - y_shift, end_y = v.y + v.polyline[k + 1].y - y_shift }
-                    if not scrolling.common_y then
-                        scrolling.common_y = v.y + v.polyline[k].y - y_shift or 0
-                    end
+        if v.shape == "polyline" then
+            for k = 1, #v.polyline - 1 do
+                scrolling.chunks[#scrolling.chunks + 1] =
+                {start_x = v.x + v.polyline[k].x, end_x = v.x + v.polyline[k + 1].x,
+                    start_y = v.y + v.polyline[k].y - y_shift, end_y = v.y + v.polyline[k + 1].y - y_shift }
+                if not scrolling.common_y then
+                    scrolling.common_y = v.y + v.polyline[k].y - y_shift or 0
                 end
-            else
-                error("Wrong Camera Scrolling object shape #"..i..":"..inspect(v))
             end
         else
-            error("Wrong Camera Scrolling object type #"..i..":"..inspect(v))
+            error("Wrong Camera Scrolling object shape #"..i..":"..inspect(v))
         end
     end
     if not scrolling.chunks or #scrolling.chunks < 1 then
