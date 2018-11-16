@@ -21,13 +21,8 @@ Go to the layers tab. Create **Object layer**. Rename it to "collision".
 Only the first "collision" layer will be used. All the rest object layers named "collision" will be ignored. 
 
 Now you can add collision objects into the game.
-Name them properly. Try to use different names for repeating pieces.
+The collision objects names optional.
 
-Zabuyaki accepts 1 type of the objects: "wall". On adding an object you should fill in its type property with "wall".
-
-You can setup Tiled to show different types of the objects with different colours. 
-Use menu **View / Object Types Editor** to set the colours. They are kept for a local user/PC only.
- 
 To select / edit certain objects go to the **Objects** tab (at the right) and expand 
 the collision layer list.
 
@@ -37,8 +32,7 @@ the collision layer list.
 
 ## Vertical Camera Positioning ##
 Go to the layers tab. Create **Object layer**. Rename it to "camera".
-Only the first "camera" layer and the 1st "camera" ензу object will be used.
-All the rest object layers and objects named "camera" will be ignored. 
+Only the first "camera" object layer and the 1st polyline object will be used.
 
 Select "Polyline" drawing tool and draw the line with some segments.
 This polyline sets the bottom of the center of the camera view window (320x240 pixels).
@@ -97,7 +91,10 @@ Every unit should have these properties
 * Name <- enemy's name
 * Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnick or satoff
 
-Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape is supported. 
+Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape is supported.
+
+> Hint: You can setup Tiled to show different types of the objects with different colours. 
+> Use menu **View / Object Types Editor** to set the colours. These settings are kept locally in Tiled cache.
 
 ## Optional units properties ##
 Optional properties:
