@@ -15,23 +15,19 @@ local function loadCollision(items, stage)
     dp("Load collisions...")
     local t = extractTable(items.layers, "collision")
     for i, v in ipairs(t.objects) do
-        if v.type == "wall" then
-            if v.shape == "rectangle" then
-                local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
-                wall:setOnStage(stage)
-            elseif v.shape == "polygon" then
-                local shapeArgs = {}
-                for k = 1, #v.polygon do
-                    shapeArgs[#shapeArgs + 1] = v.x + v.polygon[k].x
-                    shapeArgs[#shapeArgs + 1] = v.y + v.polygon[k].y
-                end
-                local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = shapeArgs })
-                wall:setOnStage(stage)
-            else
-                error("Wrong Tiled object shape #"..i..":"..inspect(v))
+        if v.shape == "rectangle" then
+            local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
+            wall:setOnStage(stage)
+        elseif v.shape == "polygon" then
+            local shapeArgs = {}
+            for k = 1, #v.polygon do
+                shapeArgs[#shapeArgs + 1] = v.x + v.polygon[k].x
+                shapeArgs[#shapeArgs + 1] = v.y + v.polygon[k].y
             end
+            local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = shapeArgs })
+            wall:setOnStage(stage)
         else
-            error("Wrong Tiled object type #"..i..":"..inspect(v))
+            error("Wrong Tiled object shape #"..i..":"..inspect(v))
         end
     end
 end
