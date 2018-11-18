@@ -7,7 +7,6 @@ function Stage1a:initialize(players)
     self.shadowAngle = -0.2
     self.shadowHeight = 0.3 --Range 0.2..1
 
-    self:moveStoppers(0, 520)   --must be here
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
     loadStageData(self, "src/def/stage/stage1a_map.lua", players)
     self:initialMoveStoppers()

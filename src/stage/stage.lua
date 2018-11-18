@@ -107,6 +107,11 @@ function Stage:moveStoppers(x1, x2)
     mainCamera:setWorld(math.floor(self.leftStopper.x), 0, math.floor(self.rightStopper.x - self.leftStopper.x), self.worldHeight)
 end
 
+function Stage:initialMoveStoppers()
+    self.leftStopper:moveTo(0, self.worldHeight / 2)
+    self.rightStopper:moveTo(math.floor(self.leftStopper.x + minGapBetweenStoppers), self.worldHeight / 2)
+end
+
 function Stage:isTimeOut()
     return self.timeLeft <= 0
 end
