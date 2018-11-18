@@ -15,18 +15,17 @@ local minDistanceToKeepZoom = 190   -- between players
 local oldCoord_x, oldCoord_y    -- smooth scrolling
 local scrollSpeed = 150 -- speed of P1 camera centering on P2+P3 death
 
-function Stage:initialize(name, bgColor)
+function Stage:initialize(name, mapFile, players)
     stage = self
-    self.name = name or "Stage NoName"
+    self.name = name or "Untitled Stage"
     self.mode = "normal"
-    self.bgColor = bgColor or { 0, 0, 0 }
-    self.shadowAngle = 0 -- vertical shadow. Range -1..1
-    self.shadowHeight = 0.2 -- Range 0.2..1
+    self.bgColor = { 0, 0, 0 }
+    self.shadowAngle = -0.2 -- vertical shadow. Range -1..1
+    self.shadowHeight = 0.3 -- Range 0.2..1
     self.event = nil
     self.movie = nil
     self.worldWidth = 4000
     self.worldHeight = 800
-    self.background = nil
     self.foreground = nil
     self.scrolling = {}
     self.timeLeft = GLOBAL_SETTING.TIMER
@@ -46,6 +45,9 @@ function Stage:initialize(name, bgColor)
     self.objects:addArray({
         self.leftStopper, self.rightStopper
     })
+    self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
+    loadStageData(self, mapFile, players)
+    self:initialMoveStoppers()
 end
 
 function Stage:freezeZoomingFor(time)

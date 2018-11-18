@@ -32,7 +32,7 @@ end
 function arcadeState:enter(_, players)
     credits = GLOBAL_SETTING.MAX_CREDITS
     --load stage
-    stage = Stage1a:new(players)
+    stage = Stage:new("NoName", "src/def/stage/stage1a_map.lua", players)
     gameOverDelay = 0
     love.graphics.setLineWidth( 1 )
     --start BGM

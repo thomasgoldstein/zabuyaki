@@ -220,8 +220,8 @@ local function addPlayersToStage(items, players, stage)
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 end
 
-function loadStageData(stage, file, players)
-    local chunk = love.filesystem.load( file )
+function loadStageData(stage, mapFile, players)
+    local chunk = love.filesystem.load(mapFile)
     local d = chunk()
     loadCollision(d, stage)
     addPlayersToStage(d, players, stage)
@@ -231,6 +231,6 @@ function loadStageData(stage, file, players)
     stage.scrolling = loadCameraScrolling(d)
     loadBackgroundImageLayer(d, stage.background)
     if d.backgroundcolor then
-        stage.bgColor = d.backgroundcolor
+        stage.bgColor = d.backgroundcolor or { 0, 0, 0 }
     end
 end
