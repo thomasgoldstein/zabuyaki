@@ -220,7 +220,7 @@ local function addPlayersToStage(items, players, stage)
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
 end
 
-function loadStageData(file, stage, players)
+function loadStageData(stage, file, players)
     local chunk = love.filesystem.load( file )
     local d = chunk()
     loadCollision(d, stage)
