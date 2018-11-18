@@ -119,6 +119,10 @@ function Batch:spawn(dt)
     return true
 end
 
+function Batch:isDone()
+    return self.state == "done"
+end
+
 function Batch:update(dt)
     if self.state == "spawn" then
         return not self:spawn(dt)

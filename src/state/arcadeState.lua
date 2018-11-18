@@ -86,6 +86,11 @@ function arcadeState:update(dt)
             return Gamestate.push(screenshotState)
         end
     end
+    if stage:isDone() then
+        local nextMap = "stage1b_map"
+        stage = Stage:new("Туче NoName", "src/def/stage/"..nextMap..".lua", nil)
+        return
+    end
     -- PAUSE (only for P1)
     if Controls[1].back:pressed() then
         return Gamestate.push(pauseState)

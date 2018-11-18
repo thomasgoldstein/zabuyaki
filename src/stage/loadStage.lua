@@ -195,26 +195,45 @@ end
 local function addPlayersToStage(items, players, stage)
     dp("Set players to start positions...")
     local t = extractTable(items.layers, "player")
-    for i, v in ipairs(t.objects) do
-        if i > GLOBAL_SETTING.MAX_PLAYERS then
-            break
-        end
-        if v.shape == "point" then
-            local p = players[i]
-            if p then
-                GLOBAL_UNIT_ID = i
-                p.x = r(v.x)
-                p.y = r(v.y)
-                local player = players[i].hero:new(players[i].name,
-                    getSpriteInstance(players[i].spriteInstance),
-                    players[i].x, players[i].y,
-                    { palette = players[i].palette, id = i },
-                    Controls[i]
-                )
-                player:setOnStage(stage)
+    if players then
+        -- After player select (1st stage)
+        for i, v in ipairs(t.objects) do
+            if i > GLOBAL_SETTING.MAX_PLAYERS then
+                break
             end
-        else
-            error("Wrong Tiled object type #"..i..":"..inspect(v))
+            if v.shape == "point" then
+                local p = players[i]
+                if p then
+                    GLOBAL_UNIT_ID = i
+                    p.x = r(v.x)
+                    p.y = r(v.y)
+                    local player = players[i].hero:new(players[i].name,
+                        getSpriteInstance(players[i].spriteInstance),
+                        players[i].x, players[i].y,
+                        { palette = players[i].palette, id = i },
+                        Controls[i]
+                    )
+                    player:setOnStage(stage)
+                end
+            else
+                error("Wrong Tiled object type #"..i..":"..inspect(v))
+            end
+        end
+    else
+        -- Next map, no player select
+        for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
+            local v = t.objects[i]
+            if v and v.shape == "point" then
+                local p = getRegisteredPlayer(i)
+                if p then
+                    GLOBAL_UNIT_ID = i
+                    p.x = r(v.x)
+                    p.y = r(v.y)
+                    p:setOnStage(stage)
+                end
+            else
+                error("Wrong Tiled object type #"..i..":"..inspect(v))
+            end
         end
     end
     GLOBAL_UNIT_ID = GLOBAL_SETTING.MAX_PLAYERS + 1  --enemy IDs go after the max player ID
