@@ -46,7 +46,9 @@ function Stage:initialize(name, mapFile, players)
         self.leftStopper, self.rightStopper
     })
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
-    loadStageData(self, mapFile, players)
+    if mapFile then
+        loadStageData(self, mapFile, players)
+    end
     self:initialMoveStoppers()
 end
 
@@ -382,6 +384,10 @@ function Stage:getSafeRespawnPosition(unit)
         error("No place to spawn player at X:" .. x)
     end
     return r[1], r[2]
+end
+
+function Stage:isDone()
+    return self.batch:isDone()
 end
 
 return Stage
