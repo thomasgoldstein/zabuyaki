@@ -9,9 +9,13 @@ local CompoundPicture = class('CompoundPicture')
 
 function CompoundPicture:initialize(name, width, height)
     self.name = name
+    self:setSize(width or 1024, height or 800)
+    self.pics = {}
+end
+
+function CompoundPicture:setSize(width, height)
     self.width = width
     self.height = height
-    self.pics = {}
 end
 
 function CompoundPicture:add(spriteSheet, quad, x, y, px, py, sx, sy, func)

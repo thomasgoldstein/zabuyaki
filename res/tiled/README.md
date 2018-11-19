@@ -5,6 +5,11 @@ Version 1.2.0
 ## Stages naming ##
 Default stage name template: **stageX_map.tmx**
 
+## Map size ##
+Set and update the map size. It is used to set "walls" around the area.
+Use menu **Map / Map Properties**/ to see the list of properties.
+Use tiles width and height as a grid. The final map size is calculated from tiles size and the map size in tiles. 
+
 ## Export stages to Zabuyaki ##
 Use menu **File / Export as...** **stageX_map.lua** to _\src\def\stage\_ .
 Where N is the stage number.
@@ -131,7 +136,7 @@ The BG images are drawn starting from the very last item in the list back to the
 10 -> 9 -> 8 ... -> 1
 
 How to move image layers up/down
- * Use menu **Layer / Rize Layer / Lower Layer** 
+ * Use menu **Layer / Rise Layer / Lower Layer** 
  * Use buttons at the bottom of the layers window
  * Use **Ctrl+Shift+Up / Down** hot keys
 ## Controls ##

@@ -34,22 +34,23 @@ function Stage:initialize(name, mapFile, players)
     self.testShape = HC.rectangle(1, 1, 15, 5) -- to test collision
     self.objects = Entity:new()
     oldCoord_x, oldCoord_y = nil, nil -- smooth scrolling init
-    mainCamera = Camera:new(self.worldWidth, self.worldHeight)
     self.zoom = maxZoom
     self.zoomMode = "check"
     self.zoomWaitTime = 0
     self.playerGroupStoppersMode = "check"
-    -- Left and right players stoppers
-    self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } }) --left
-    self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } }) --right
-    self.objects:addArray({
-        self.leftStopper, self.rightStopper
-    })
-    self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
     self.nextMap = nil
+    self.background = CompoundPicture:new(self.name .. " Background")
     if mapFile then
         loadStageData(self, mapFile, players)
     end
+    mainCamera = Camera:new(self.worldWidth, self.worldHeight)
+    self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } })
+    self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } })
+    self.topStopper = Stopper:new("TOP.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 80, 40,  } })
+    self.bottomStopper = Stopper:new("BOTTOM.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 80, 40 } })
+    self.objects:addArray({
+        self.leftStopper, self.rightStopper, self.topStopper, self.bottomStopper
+    })
     self:initialMoveStoppers()
 end
 
@@ -115,6 +116,8 @@ end
 function Stage:initialMoveStoppers()
     self.leftStopper:moveTo(0, self.worldHeight / 2)
     self.rightStopper:moveTo(math.floor(self.leftStopper.x + minGapBetweenStoppers), self.worldHeight / 2)
+    self.topStopper:moveTo(math.floor(self.worldWidth / 2), - 20)
+    self.bottomStopper:moveTo(math.floor(self.worldWidth / 2), self.worldHeight + 20)
 end
 
 function Stage:isTimeOut()

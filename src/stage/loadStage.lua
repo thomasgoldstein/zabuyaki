@@ -242,6 +242,8 @@ end
 function loadStageData(stage, mapFile, players)
     local chunk = love.filesystem.load(mapFile)
     local d = chunk()
+    stage.worldWidth = d.tilewidth * d.width
+    stage.worldHeight = d.tileheight * d.height
     loadCollision(d, stage)
     addPlayersToStage(d, players, stage)
     allowPlayersSelect(players) -- if debug, you can select char on start
@@ -249,6 +251,7 @@ function loadStageData(stage, mapFile, players)
     stage.batch = loadBatch(d, stage)
     stage.scrolling = loadCameraScrolling(d)
     loadBackgroundImageLayer(d, stage.background)
+    stage.background:setSize(stage.worldWidth, stage.worldHeight)
     if d.backgroundcolor then
         stage.bgColor = d.backgroundcolor or { 0, 0, 0 }
     end
