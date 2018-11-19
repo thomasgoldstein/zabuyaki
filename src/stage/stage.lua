@@ -46,6 +46,7 @@ function Stage:initialize(name, mapFile, players)
         self.leftStopper, self.rightStopper
     })
     self.background = CompoundPicture:new(self.name .. " Background", self.worldWidth, self.worldHeight)
+    self.nextMap = nil
     if mapFile then
         loadStageData(self, mapFile, players)
     end

@@ -252,4 +252,7 @@ function loadStageData(stage, mapFile, players)
     if d.backgroundcolor then
         stage.bgColor = d.backgroundcolor or { 0, 0, 0 }
     end
+    if d.properties and d.properties.nextmap then
+        stage.nextMap = d.properties.nextmap
+    end
 end
