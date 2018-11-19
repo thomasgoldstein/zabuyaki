@@ -117,6 +117,13 @@ Every unit should contain these properties
 3 "Point" objects should be added into the root of **Object layers** named "player".
 Only first 3 objects are used. The rest objects are ignored.
 Th naming doesn't matter.
+
+## Define next stage map file name ## 
+Use menu **Map / Map Properties**/ to see the list of properties.
+Expand "Custom Properties" group. Click "+" button at the bottom to
+add "nextmap"(string) property.
+If the property is not present then the default map name "stage1a_map" is used.
+Do not add neither path nor extension to the to the map name.     
  
 ## In-Game drawing order ##
 The BG images are drawn starting from the very last item in the list back to the top.
