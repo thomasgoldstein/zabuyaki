@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="left-up" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0000ff" nextlayerid="12" nextobjectid="46">
+ <properties>
+  <property name="nextmap" value="stage1b_map"/>
+ </properties>
  <group id="6" name="background" locked="1">
   <imagelayer id="8" name="bg" locked="1">
    <image source="../img/stage/stage1/stage1a.png" width="2560" height="640"/>
@@ -47,7 +50,7 @@
   </object>
  </objectgroup>
  <group id="7" name="batch">
-  <objectgroup color="#ff0000" id="11" name="4" locked="1">
+  <objectgroup color="#ff0000" id="11" name="4">
    <object id="34" name="4" type="batch" x="1920" y="0" width="640" height="640"/>
    <object id="40" name="Zeena" type="zeena" x="2176" y="608">
     <point/>
@@ -62,7 +65,7 @@
     <point/>
    </object>
   </objectgroup>
-  <objectgroup color="#ffaa00" id="9" name="2">
+  <objectgroup color="#ffaa00" id="9" name="2" locked="1">
    <object id="31" name="2" type="batch" x="640" y="0" width="640" height="640"/>
    <object id="35" name="Niko" type="niko" x="960" y="288">
     <point/>
