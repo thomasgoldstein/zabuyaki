@@ -136,7 +136,7 @@ The BG images are drawn starting from the very last item in the list back to the
 10 -> 9 -> 8 ... -> 1
 
 How to move image layers up/down
- * Use menu **Layer / Rise Layer / Lower Layer** 
+ * Use menu **Layer / Raise Layer / Lower Layer** 
  * Use buttons at the bottom of the layers window
  * Use **Ctrl+Shift+Up / Down** hot keys
 ## Controls ##
