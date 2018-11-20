@@ -7,7 +7,7 @@ local CheckCollision = CheckCollision
 
 local CompoundPicture = class('CompoundPicture')
 
-function CompoundPicture:initialize(name, width, height)
+function CompoundPicture:initialize(name)
     self.name = name
     self.width, self.height = 0, 0
     self.pics = {}
