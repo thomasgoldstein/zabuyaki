@@ -87,7 +87,7 @@ function arcadeState:update(dt)
         end
     end
     if stage:isDone() then
-        stage = Stage:new("Туче NoName", "src/def/stage/".. (stage.nextMap or "stage1a_map") ..".lua", nil)
+        stage = Stage:new("Next NoName", "src/def/stage/".. (stage.nextMap or "stage1a_map") ..".lua", nil)
         return
     end
     -- PAUSE (only for P1)
