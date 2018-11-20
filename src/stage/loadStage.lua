@@ -240,8 +240,17 @@ local function addPlayersToStage(items, players, stage)
 end
 
 function loadStageData(stage, mapFile, players)
-    local chunk = love.filesystem.load(mapFile)
+    local chunk, err = love.filesystem.load(mapFile)
+    if err then
+        error(err)
+    end
     local d = chunk()
+    if not d or type(d)~="table" then
+        error("No Tiled map data found in "..mapFile)
+    end
+    if not d.version or tonumber(d.version) < 1.2 then
+        error("Use Tiled version 1.2+ "..mapFile)
+    end
     stage.worldWidth = d.tilewidth * d.width
     stage.worldHeight = d.tileheight * d.height
     loadCollision(d, stage)
