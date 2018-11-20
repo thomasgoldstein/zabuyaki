@@ -23,6 +23,7 @@ function Player:setOnStage(stage)
     self.pid = GLOBAL_SETTING.PLAYERS_NAMES[self.id] or "P?"
     self.showPIDDelay = 3
     Unit.setOnStage(self, stage)
+    self.victimLifeBar = nil   -- remove enemy bar under yours
     registerPlayer(self)
     logPlayer:reset(self.id)
 end
