@@ -1,5 +1,4 @@
---    Copyright Don Miguel, 2016
---	draws a big picture that consists of many pieces
+-- draws a big picture that consists of many pieces
 
 local class = require "lib/middleclass"
 
@@ -24,7 +23,7 @@ function CompoundPicture:add(spriteSheet, quad, x, y, px, py, sx, sy, func)
 end
 
 function CompoundPicture:remove(rect)
---TODO add check fr w h color
+-- TODO add check for w h color
     for i=1, #self.pics do
         if self.pics[i].x == rect.x and
         self.pics[i].y == rect.y and
@@ -47,10 +46,10 @@ end
 
 function CompoundPicture:update(dt)
     local p
-    self.dt = dt --save dt for custom draw function
+    self.dt = dt -- save dt for custom draw function
     for i=1, #self.pics do
         p = self.pics[i]
-        --scroll horizontally e.g. clouds
+        -- scroll horizontally e.g. clouds
         if p.sx and p.sx ~= 0 then
             p.x = p.x + (p.sx * dt)
             if p.sx > 0 then
@@ -63,7 +62,7 @@ function CompoundPicture:update(dt)
                 end
             end
         end
-        --scroll vertically
+        -- scroll vertically
         if p.sy and p.sy ~= 0 then
             p.y = p.y + (p.sy * dt)
             if p.sy > 0 then
@@ -86,7 +85,7 @@ function CompoundPicture:drawAll()
         p = self.pics[i]
         love.graphics.draw(p.spriteSheet,
             p.quad,
-            p.x + p.px * l, --parallax slow down
+            p.x + p.px * l, -- slow down parallax
             p.y + p.py * t)
     end
 end
@@ -101,7 +100,7 @@ function CompoundPicture:draw(l, t, w, h)
             end
             love.graphics.draw(p.spriteSheet,
                 p.quad,
-                p.x + p.px * l, --parallax slow down
+                p.x + p.px * l, -- slow down parallax
                 p.y + p.py * t)
         end
     end
