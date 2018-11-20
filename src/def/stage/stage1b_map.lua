@@ -1,7 +1,7 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.2.0",
+  tiledversion = "1.2.1",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 40,
@@ -10,7 +10,7 @@ return {
   tileheight = 32,
   nextlayerid = 10,
   nextobjectid = 11,
-  backgroundcolor = { 0, 255, 0 },
+  backgroundcolor = { 0, 85, 0 },
   properties = {},
   tilesets = {},
   layers = {
@@ -107,7 +107,7 @@ return {
         {
           id = 3,
           name = "1",
-          type = "player",
+          type = "",
           shape = "point",
           x = 48,
           y = 256,
@@ -120,7 +120,7 @@ return {
         {
           id = 4,
           name = "2",
-          type = "player",
+          type = "",
           shape = "point",
           x = 32,
           y = 280,
@@ -133,7 +133,7 @@ return {
         {
           id = 5,
           name = "3",
-          type = "player",
+          type = "",
           shape = "point",
           x = 16,
           y = 304,
