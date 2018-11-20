@@ -9,7 +9,7 @@ local CompoundPicture = class('CompoundPicture')
 
 function CompoundPicture:initialize(name, width, height)
     self.name = name
-    self:setSize(width or 1024, height or 800)
+    self.width, self.height = 0, 0
     self.pics = {}
 end
 
