@@ -14,6 +14,9 @@ end
 local function loadCollision(items, stage)
     dp("Load collisions...")
     local t = extractTable(items.layers, "collision")
+    if not t then
+        error("Object layer 'collisions' is not present in the map file.")
+    end
     for i, v in ipairs(t.objects) do
         if v.shape == "rectangle" then
             local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
@@ -100,6 +103,9 @@ end
 local function loadGlobalUnits(items, stage)
     dp("Load global units...")
     local t = extractTable(items.layers, "global")
+    if not t then
+        error("Object layer 'global' is not present in the map file.")
+    end
     local units = loadUnit(t, stage)
     for _,unit in ipairs(units) do
         unit:setOnStage(stage)
@@ -110,6 +116,9 @@ local function loadBatch(items, stage)
     local batch = {}
     dp("Load batches...")
     local t = extractTable(items.layers, "batch")
+    if not t then
+        error("Group layer 'batch' is not present in the map file.")
+    end
     for i, v in ipairs(t.layers) do
         for i, v2 in ipairs(v.objects) do
             if v2.shape == "rectangle"
@@ -154,6 +163,9 @@ end
 local function loadBackgroundImageLayer(items, background)
     dp("Load background ImageLayer...")
     local t = extractTable(items.layers, "background")
+    if not t then
+        error("Group layer 'background' is not present in the map file.")
+    end
     for i, v in ipairs(t.layers) do
         if v.type == "imagelayer" then
             if v.visible then
@@ -169,6 +181,9 @@ local function loadCameraScrolling(items, scrolling)
     dp("Load Camera Scrolling...")
     scrolling = { chunks = {} }
     local t = extractTable(items.layers, "camera")
+    if not t then
+        error("Object layer 'camera' is not present in the map file.")
+    end
     for i, v in ipairs(t.objects) do
         if v.shape == "polyline" then
             for k = 1, #v.polyline - 1 do
@@ -195,6 +210,9 @@ end
 local function addPlayersToStage(items, players, stage)
     dp("Set players to start positions...")
     local t = extractTable(items.layers, "player")
+    if not t then
+        error("Object layer 'player' is not present in the map file.")
+    end
     if players then
         -- After player select (1st stage)
         for i, v in ipairs(t.objects) do
@@ -247,9 +265,6 @@ function loadStageData(stage, mapFile, players)
     local d = chunk()
     if not d or type(d)~="table" then
         error("No Tiled map data found in "..mapFile)
-    end
-    if not d.version or tonumber(d.version) < 1.2 then
-        error("Use Tiled version 1.2+ "..mapFile)
     end
     stage.worldWidth = d.tilewidth * d.width
     stage.worldHeight = d.tileheight * d.height
