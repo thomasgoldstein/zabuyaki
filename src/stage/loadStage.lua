@@ -201,7 +201,7 @@ local function loadCameraScrolling(items, scrolling)
     if not scrolling.chunks or #scrolling.chunks < 1 then
         dp(" Camera Scrolling is missing... set to Y = 0")
         scrolling.chunks[#scrolling.chunks + 1] =
-        {start_x = 0, end_x = 10000, start_y = 0, end_y = 0 }
+        {start_x = 0, end_x = stage.worldWidth, start_y = 0, end_y = 0 }
         scrolling.common_y = 0
     end
     return scrolling
