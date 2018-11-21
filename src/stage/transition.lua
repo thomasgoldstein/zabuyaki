@@ -3,7 +3,7 @@
 local class = require "lib/middleclass"
 local Transition = class("Transition")
 
-local timeToMove = 1
+local timeToMove = 0.5
 local stripesN = 4
 local screenHeight = 480
 function Transition:initialize(kind)
@@ -19,7 +19,7 @@ function Transition:initialize(kind)
                 w = 640,
                 h = screenHeight / stripesN
             }
-            self.parts[i].move = tween.new(timeToMove / 2, self.parts[i],
+            self.parts[i].move = tween.new(timeToMove, self.parts[i],
                 { x = -finalX - i * 64 * 2 }, 'linear')
         end
     elseif kind == "fadein" then
@@ -31,7 +31,7 @@ function Transition:initialize(kind)
                 w = 640,
                 h = screenHeight / stripesN
             }
-            self.parts[i].move = tween.new(timeToMove / 2, self.parts[i],
+            self.parts[i].move = tween.new(timeToMove, self.parts[i],
                 { x = 0 }, 'linear')
         end
     else
