@@ -38,11 +38,9 @@ function Transition:initialize(kind)
         error("Wrong scene transition kind")
     end
     self.kind = kind
-    --print("tra init", kind, #self.parts)
 end
 
 function Transition:update(dt)
-    --print("tra upd", self.active, dt, #self.parts)
     if not self.active then
         return
     end
@@ -59,11 +57,9 @@ function Transition:update(dt)
 end
 
 function Transition:draw()
-    --print("tra draw", self.active, #self.parts)
     if not self.active then
         return
     end
-    --colors:set("black", nil, 80)
     colors:set("black")
     for i = 1, #self.parts do
         love.graphics.rectangle("fill", self.parts[i].x, self.parts[i].y, self.parts[i].w, self.parts[i].h)
