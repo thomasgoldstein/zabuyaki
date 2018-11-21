@@ -59,6 +59,7 @@ function arcadeState:update(dt)
         Prof:attach()
     end
     stage:update(dt)
+    stage.transition:update(dt)
     if GLOBAL_SETTING.PROFILER_ENABLED then
         Prof:detach()
     end
@@ -87,8 +88,14 @@ function arcadeState:update(dt)
         end
     end
     if stage:isDone() then
-        stage = Stage:new("Next NoName", "src/def/stage/".. (stage.nextMap or "stage1a_map") ..".lua", nil)
-        return
+        if stage.transition:isDone() then
+            if stage.transition.kind == "fadein" then
+                stage = Stage:new("Next NoName", "src/def/stage/".. (stage.nextMap or "stage1a_map") ..".lua", nil)
+                return
+            else
+                stage.transition = Transition:new("fadein")
+            end
+        end
     end
     -- PAUSE (only for P1)
     if Controls[1].back:pressed() then
@@ -119,6 +126,7 @@ function arcadeState:draw()
     end
     showDebugControls()
     showDebugIndicator()
+    stage.transition:draw()
     if nAlive < 1 then
         drawGameOver()
     end

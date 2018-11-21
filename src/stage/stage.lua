@@ -52,6 +52,7 @@ function Stage:initialize(name, mapFile, players)
         self.leftStopper, self.rightStopper, self.topStopper, self.bottomStopper
     })
     self:initialMoveStoppers()
+    self.transition = Transition:new("fadeout")
 end
 
 function Stage:freezeZoomingFor(time)
