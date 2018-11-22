@@ -43,8 +43,8 @@ function titleState:enter(_, param)
     if param == "startFromIntro" then
         introMovie = Movie:new(movie_intro)
         mode = "movie"
-    elseif param == "startFromTheEnd" then
-        introMovie = Movie:new(movie_theEnd)
+    elseif param == "startFromEnding" then
+        introMovie = Movie:new(movie_ending)
         mode = "movie"
     else
         if param ~= "dontStartMusic" then

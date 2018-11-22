@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="40" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="10" nextobjectid="11">
+ <properties>
+  <property name="nextmap" value="ending"/>
+ </properties>
  <group id="8" name="background" locked="1">
   <imagelayer id="9" name="bg" locked="1">
    <image source="../img/stage/stage1/stage1b.png" width="1280" height="320"/>

@@ -149,7 +149,7 @@ function love.load(arg)
     Stopper = require "src/unit/stopper"
     LifeBar = require "src/lifeBar"
     require "src/def/movie/intro"
-    require "src/def/movie/theEnd"
+    require "src/def/movie/ending"
     require 'src/menu'
     tactile = require 'lib/tactile'
     require 'src/controls'

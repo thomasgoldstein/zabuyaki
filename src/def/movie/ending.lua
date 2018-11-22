@@ -1,6 +1,6 @@
 -- The End Movie
-local slides = love.graphics.newImage("res/img/misc/theEnd.png")
-movie_theEnd = {
+local slides = love.graphics.newImage("res/img/misc/ending.png")
+movie_ending = {
     {
         slide = slides,
         q = { 0, 0, 240, 120 },
