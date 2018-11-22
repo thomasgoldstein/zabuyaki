@@ -11,7 +11,9 @@ return {
   nextlayerid = 10,
   nextobjectid = 11,
   backgroundcolor = { 0, 85, 0 },
-  properties = {},
+  properties = {
+      ["nextmap"] = "end"
+  },
   tilesets = {},
   layers = {
     {
