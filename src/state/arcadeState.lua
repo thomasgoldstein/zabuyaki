@@ -90,6 +90,9 @@ function arcadeState:update(dt)
     if stage:isDone() then
         if stage.transition:isDone() then
             if stage.transition.kind == "fadein" then
+                if stage.nextMap == "end" then
+                    return Gamestate.switch(titleState, "startFromTheEnd")
+                end
                 stage = Stage:new("Next NoName", "src/def/stage/".. (stage.nextMap or "stage1a_map") ..".lua", nil)
                 return
             else
