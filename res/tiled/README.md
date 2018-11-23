@@ -78,8 +78,9 @@ Now add **Object layers** as batches into the **Group layer** "batch".
 Every batch should be named. You can alter its Color property to colour its units on the Tiled screen.
 Give simple names to your batches, such as 1 2 3 4 etc.
 
-Custom "batch" properties:
+Custom properties for each batch **Object layer**:
 * delay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
+* music <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
  
 The left and the right sides of the batch are used as the horizontal positions the players stoppers.
 
