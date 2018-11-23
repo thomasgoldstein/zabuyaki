@@ -129,7 +129,7 @@ local function loadBatch(items, stage)
                     delay = tonumber(v2.properties.delay or 0),
                     leftStopper = tonumber(r(v2.x) or 0),
                     rightStopper = tonumber(r(v2.x + v2.width) or 4000),
-                    --units = {},
+                    music = v.properties.music,
                     units = loadUnit(v, stage, v2.name),
                 }
                 batch[#batch + 1] = b
