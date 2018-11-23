@@ -35,10 +35,6 @@ function arcadeState:enter(_, players)
     stage = Stage:new("NoName", "src/def/stage/stage1a_map.lua", players)
     gameOverDelay = 0
     love.graphics.setLineWidth( 1 )
-    --start BGM
-    TEsound.stop("music")
-    TEsound.playLooping(bgm.stage1, "music")
-
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
