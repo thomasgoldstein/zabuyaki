@@ -36,6 +36,9 @@
    </object>
   </objectgroup>
   <objectgroup color="#ffff00" id="2" name="1">
+   <properties>
+    <property name="music" value="stage1"/>
+   </properties>
    <object id="1" name="1" type="batch" x="0" y="0" width="640" height="320"/>
    <object id="9" name="Gopper" type="gopper" x="544" y="256">
     <point/>

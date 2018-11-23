@@ -217,7 +217,9 @@ return {
           offsetx = 0,
           offsety = 0,
           draworder = "topdown",
-          properties = {},
+          properties = {
+            ["music"] = "stage1"
+          },
           objects = {
             {
               id = 1,

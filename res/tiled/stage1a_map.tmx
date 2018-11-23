@@ -51,6 +51,9 @@
  </objectgroup>
  <group id="7" name="batch">
   <objectgroup color="#ff0000" id="11" name="4">
+   <properties>
+    <property name="music" value="zaburap"/>
+   </properties>
    <object id="34" name="4" type="batch" x="1920" y="0" width="640" height="640"/>
    <object id="40" name="Zeena" type="zeena" x="2176" y="608">
     <point/>
@@ -84,6 +87,9 @@
    </object>
   </objectgroup>
   <objectgroup color="#ffff00" id="3" name="1" locked="1">
+   <properties>
+    <property name="music" value="stage1"/>
+   </properties>
    <object id="11" name="Gopper" type="gopper" x="224" y="256">
     <point/>
    </object>
