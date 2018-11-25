@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 12,
-  nextobjectid = 46,
+  nextobjectid = 48,
   backgroundcolor = { 0, 0, 255 },
   properties = {
     ["nextmap"] = "stage1b_map"
@@ -262,6 +262,19 @@ return {
           properties = {
             ["drop"] = "apple"
           }
+        },
+        {
+          id = 46,
+          name = "ev1",
+          type = "event",
+          shape = "rectangle",
+          x = 318.667,
+          y = 225.333,
+          width = 34.6667,
+          height = 92,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
