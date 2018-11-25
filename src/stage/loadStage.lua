@@ -37,7 +37,8 @@ end
 
 local function getUnitTypeByName(name)
     local unitTypeByName = { gopper = Gopper, niko = Niko, sveta = Sveta, zeena = Zeena, beatnick = Beatnick, satoff = Satoff,
-                             trashcan = Trashcan, sign = Sign }
+                             trashcan = Trashcan, sign = Sign,
+                             event = Event }
     if unitTypeByName[name] then
         return unitTypeByName[name]
     end
@@ -59,7 +60,7 @@ local function loadUnit(items, stage, batch_name)
     local units = {}
     local sprite
     if batch_name and batch_name ~= "" then
-        dp("Load units of batch "..batch_name.."...")
+        dp("Load units of batch " .. batch_name .. "...")
     else
         batch_name = nil
     end
@@ -69,14 +70,14 @@ local function loadUnit(items, stage, batch_name)
             local inst = getUnitTypeByName(v.type)
             local palette = tonumber(v.properties.palette or 1)
             if not inst then
-                error("Missing unit type instance name :"..inspect(v))
+                error("Missing unit type instance name :" .. inspect(v))
             end
             u.delay = tonumber(v.properties.delay or 0)
             u.state = v.properties.state or "stand"
             if inst:isSubclassOf(StageObject) then
-                sprite = getSpriteInstance("src/def/stage/object/"..v.type..".lua")
+                sprite = getSpriteInstance("src/def/stage/object/" .. v.type .. ".lua")
             else
-                sprite = getSpriteInstance("src/def/char/"..v.type..".lua")
+                sprite = getSpriteInstance("src/def/char/" .. v.type .. ".lua")
             end
             if batch_name then
                 u.unit = inst:new(
@@ -95,6 +96,14 @@ local function loadUnit(items, stage, batch_name)
                 units[#units + 1] = u.unit
             end
             applyUnitProperties(v, u.unit)
+        elseif v.shape == "rectangle"
+            and v.type == "event"
+        then
+            local event = Event:new(
+                v.name, nil,
+                r(v.x + v.width / 2), r(v.y + v.height / 2),
+                { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
+            units[#units + 1] = event
         end
     end
     return units
