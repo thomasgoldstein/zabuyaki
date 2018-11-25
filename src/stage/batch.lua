@@ -131,9 +131,10 @@ function Batch:update(dt)
         self.time = 0
         if self:load() then
             local b = self.batches[self.n]
-            if b.music then
+            if b.music and previousStageMusic ~= b.music then
                 TEsound.stop("music")
                 TEsound.playLooping(bgm[b.music], "music")
+                previousStageMusic = b.music
             end
             self.state = "spawn"
         else
