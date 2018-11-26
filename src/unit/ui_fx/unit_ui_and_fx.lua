@@ -330,15 +330,19 @@ function Unit:drawPID(x, y_, x_)
 end
 
 local transpBg
-function Unit:defaultDraw(l, t, w, h)
+function Unit:defaultDraw(l, t, w, h, transp)
     if not self.isDisabled then
         if CheckCollision(l, t, w, h, self.x - 35, self.y - 70, 70, 70) then
             self:drawGhostTrails(l, t, w, h)
             self.sprite.flipH = self.face --TODO get rid of .face
-            if self.deathDelay < 1 then
-                transpBg = 255 * math.sin(self.deathDelay)
+            if transp then
+                transpBg = transp
             else
-                transpBg = 255
+                if self.deathDelay < 1 then
+                    transpBg = 255 * math.sin(self.deathDelay)
+                else
+                    transpBg = 255
+                end
             end
             if self.statesForChargeAttack and self.chargeTimer >= self.chargedAt / 2 and self.chargeTimer < self.chargedAt then
                 if self.chargeAttack and self.statesForChargeAttack[self.state] then
@@ -368,6 +372,10 @@ function Unit:defaultDraw(l, t, w, h)
             self:drawPID(clamp(self.x, l + 20, l + w - 20), self.y - self.z, self.x)
         end
     end
+end
+
+function Unit:eventDraw(l, t, w, h)
+    self:defaultDraw(l, t, w, h, self.transparency)
 end
 
 function Unit:showPID(seconds)
