@@ -368,7 +368,7 @@ function Unit:calcFriction(dt, friction)
     end
 end
 
-local ignoreObstacles = { combo = true, chargeAttack = true }
+local ignoreObstacles = { combo = true, chargeAttack = true, eventMove = true }
 function Unit:calcMovement(dt)
     if not self.toSlowDown then
         if ignoreObstacles[self.state] then

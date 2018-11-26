@@ -1811,4 +1811,31 @@ function Character:initSlide(speed_x, diagonalSpeed_x, diagonalSpeed_y, friction
     end
 end
 
+function Character:eventMoveStart(f)
+    if not self.condition then
+        error(self.name.." eventMove got no target x,y")
+    end
+    local f = self.condition
+    self.isHittable = false
+    self.speed_x = 0
+    self.speed_y = 0
+    --print("#########", f.x, f.y, self.x, self.y)
+    self.move = tween.new(f.duration, self, {
+        x = f.x or self.x,
+        y = f.y or self.y,
+        z = f.z or self.z
+    }, 'linear')
+    if f.animation then
+        self:setSprite(f.animation)
+    end
+end
+function Character:eventMoveUpdate(dt)
+    --print("eventMoveUpd", self.x, self.y)
+    if self.move and self.move.clock >= self.move.duration then
+        self:removeTweenMove()
+        self:setState(self.stand)
+    end
+end
+Character.eventMove = {name = "eventMove", start = Character.eventMoveStart, exit = nop, update = Character.eventMoveUpdate, draw = Unit.eventDraw}
+
 return Character
