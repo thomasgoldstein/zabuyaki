@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 12,
-  nextobjectid = 48,
+  nextobjectid = 50,
   backgroundcolor = { 0, 0, 255 },
   properties = {
     ["nextmap"] = "stage1b_map"
@@ -272,6 +272,25 @@ return {
           y = 225.333,
           width = 34.6667,
           height = 92,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["affect"] = "all",
+            ["animation"] = "run",
+            ["duration"] = "2",
+            ["goto"] = "ev1goto",
+            ["z"] = "50"
+          }
+        },
+        {
+          id = 49,
+          name = "ev1goto",
+          type = "event",
+          shape = "point",
+          x = 465,
+          y = 274,
+          width = 0,
+          height = 0,
           rotation = 0,
           visible = true,
           properties = {}
