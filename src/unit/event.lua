@@ -4,6 +4,8 @@ local Event = class('Event', Unit)
 function Event:initialize(name, sprite, x, y, f, input)
     Unit.initialize(self, name, sprite, x, y, f, input)
     self.type = "event"
+    self.isDisabled = f.disabled
+    self.options = f
 end
 
 function Event:setOnStage(stage)
@@ -18,8 +20,16 @@ function Event:updateAI(dt)
         local player = getRegisteredPlayer(i)
         if player and player:isAlive() then
             if self.shape:collidesWith(player.shape) then
-                dp("EVENT "..self.name.." collides with "..player.name)
                 self.isDisabled = true
+                if self.options.goto then
+                    player:setState(player.eventMove, {
+                        duration = self.options.duration,
+                        animation = self.options.animation,
+                        x = self.options.goto.x,
+                        y = self.options.goto.y,
+                        z = self.options.z
+                    })
+                end
             end
         end
     end
