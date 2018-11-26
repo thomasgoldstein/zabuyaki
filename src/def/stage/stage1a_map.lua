@@ -278,8 +278,7 @@ return {
             ["affect"] = "all",
             ["animation"] = "run",
             ["duration"] = "2",
-            ["goto"] = "ev1goto",
-            ["z"] = "50"
+            ["goto"] = "ev1goto"
           }
         },
         {

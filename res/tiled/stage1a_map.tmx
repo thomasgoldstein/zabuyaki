@@ -54,7 +54,6 @@
     <property name="animation" value="run"/>
     <property name="duration" value="2"/>
     <property name="goto" value="ev1goto"/>
-    <property name="z" value="50"/>
    </properties>
   </object>
   <object id="49" name="ev1goto" type="event" x="465" y="274">
