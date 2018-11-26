@@ -58,6 +58,7 @@ end
 
 local function loadUnit(items, stage, batch_name)
     local units = {}
+    local event
     local sprite
     if batch_name and batch_name ~= "" then
         dp("Load units of batch " .. batch_name .. "...")
@@ -65,7 +66,7 @@ local function loadUnit(items, stage, batch_name)
         batch_name = nil
     end
     for i, v in ipairs(items.objects) do
-        if v.shape == "point" then
+        if v.shape == "point" and v.type ~= "event" then
             local u = {}
             local inst = getUnitTypeByName(v.type)
             local palette = tonumber(v.properties.palette or 1)
@@ -96,13 +97,30 @@ local function loadUnit(items, stage, batch_name)
                 units[#units + 1] = u.unit
             end
             applyUnitProperties(v, u.unit)
-        elseif v.shape == "rectangle"
-            and v.type == "event"
-        then
-            local event = Event:new(
-                v.name, nil,
-                r(v.x + v.width / 2), r(v.y + v.height / 2),
-                { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
+        elseif v.type == "event" then
+            if v.shape == "rectangle" then
+                local options = {
+                    shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height },
+                    animation = v.properties.animation or "walk",
+                    duration = tonumber(v.properties.duration) or 1,
+                    affect = v.properties.affect or "all",
+                    z = v.properties.z and tonumber(v.properties.z)
+                }
+                if v.properties.goto then
+                    options.goto = extractTable(items.objects, v.properties.goto)
+                end
+                event = Event:new(
+                    v.name, nil,
+                    r(v.x + v.width / 2), r(v.y + v.height / 2),
+                    options )
+            elseif v.shape == "point" then
+                event = Event:new(
+                    v.name, nil,
+                    r(v.x), r(v.y),
+                    { disabled = true, shapeType = "rectangle", shapeArgs = { v.x, v.y, 1, 1 } })
+            else
+                error("Unknown Event type on the map")
+            end
             units[#units + 1] = event
         end
     end
