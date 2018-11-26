@@ -159,7 +159,7 @@ function Unit:getLastStateTime()
     return love.timer.getTime() - self.lastStateTime
 end
 function Unit:getPrevStateTime()
-    -- time from the previour to the last switching to current frame
+    -- time from the previous to the last switching to current frame
     return love.timer.getTime() - self.prevStateTime
 end
 function Unit:addHp(hp)
