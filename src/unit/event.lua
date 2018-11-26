@@ -14,6 +14,15 @@ function Event:updateAI(dt)
     if self.isDisabled then
         return
     end
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local player = getRegisteredPlayer(i)
+        if player and player:isAlive() then
+            if self.shape:collidesWith(player.shape) then
+                dp("EVENT "..self.name.." collides with "..player.name)
+                self.isDisabled = true
+            end
+        end
+    end
 end
 
 function Event:onHurt()
