@@ -53,6 +53,15 @@ function Entity:remove(e)
     return true
 end
 
+function Entity:getByName(name)
+    for _,obj in ipairs(self.entities) do
+        if obj.name == name then
+            return obj
+        end
+    end
+    return nil
+end
+
 function Entity:update(dt)
     for _,obj in ipairs(self.entities) do
         obj:updateAI(dt)
