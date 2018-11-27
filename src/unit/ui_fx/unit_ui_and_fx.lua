@@ -166,7 +166,12 @@ function Unit:updateShake(dt)
 end
 
 function Unit:calcShadowSpriteAndTransparency()
-    local transparency = self.deathDelay < 2 and 255 * math.sin(self.deathDelay) or 255
+    local transparency
+    if self.transparency and self.transparency < 255 then
+        transparency = self.transparency / 4
+    else
+        transparency = self.deathDelay < 2 and 255 * math.sin(self.deathDelay) or 255
+    end
     if isDebug() and self.isGrabbed then
         colors:set("green", nil, transparency)
     elseif isDebug() and not self:isInvincibile() then
