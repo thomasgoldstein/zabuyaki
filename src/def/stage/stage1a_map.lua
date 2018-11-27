@@ -8,8 +8,8 @@ return {
   height = 20,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 12,
-  nextobjectid = 54,
+  nextlayerid = 13,
+  nextobjectid = 58,
   backgroundcolor = { 0, 0, 255 },
   properties = {
     ["nextmap"] = "stage1b_map"
@@ -340,6 +340,66 @@ return {
           properties = {
             ["go"] = "ev1goPlayers"
           }
+        },
+        {
+          id = 54,
+          name = "eventExitDoor",
+          type = "event",
+          shape = "rectangle",
+          x = 384.545,
+          y = 211.939,
+          width = 30.6667,
+          height = 17.3333,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["duration"] = "5",
+            ["fadeout"] = "",
+            ["go"] = "evExitDoorPos"
+          }
+        },
+        {
+          id = 55,
+          name = "evExitDoorPos",
+          type = "event",
+          shape = "point",
+          x = 399.515,
+          y = 197.152,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 56,
+          name = "eventExitDoorBack",
+          type = "event",
+          shape = "rectangle",
+          x = 418.364,
+          y = 211.758,
+          width = 30.6667,
+          height = 17.3333,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["duration"] = "5",
+            ["fadein"] = "",
+            ["go"] = "evExitDoorPos2"
+          }
+        },
+        {
+          id = 57,
+          name = "evExitDoorPos2",
+          type = "event",
+          shape = "point",
+          x = 434.242,
+          y = 256.97,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0000ff" nextlayerid="12" nextobjectid="54">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0000ff" nextlayerid="13" nextobjectid="58">
  <properties>
   <property name="nextmap" value="stage1b_map"/>
  </properties>
@@ -75,6 +75,26 @@
    <properties>
     <property name="go" value="ev1goPlayers"/>
    </properties>
+  </object>
+  <object id="54" name="eventExitDoor" type="event" x="384.545" y="211.939" width="30.6667" height="17.3333">
+   <properties>
+    <property name="duration" value="5"/>
+    <property name="fadeout" value=""/>
+    <property name="go" value="evExitDoorPos"/>
+   </properties>
+  </object>
+  <object id="55" name="evExitDoorPos" type="event" x="399.515" y="197.152">
+   <point/>
+  </object>
+  <object id="56" name="eventExitDoorBack" type="event" x="418.364" y="211.758" width="30.6667" height="17.3333">
+   <properties>
+    <property name="duration" value="5"/>
+    <property name="fadein" value=""/>
+    <property name="go" value="evExitDoorPos2"/>
+   </properties>
+  </object>
+  <object id="57" name="evExitDoorPos2" type="event" x="434.242" y="256.97">
+   <point/>
   </object>
  </objectgroup>
  <group id="7" name="batch" locked="1">
