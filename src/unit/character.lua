@@ -1819,6 +1819,12 @@ function Character:eventMoveStart(f)
     self.isHittable = false
     self.speed_x = 0
     self.speed_y = 0
+    if f.face then --change facing if set
+        self.face = f.face < 0 and -1 or 1
+    else --face unit to the target
+        self.face = f.x < self.x and -1 or 1
+        self.horizontal = self.face
+    end
     self.move = tween.new(f.duration, self, {
         x = f.x or self.x,
         y = f.y or self.y,
