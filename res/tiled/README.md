@@ -86,8 +86,24 @@ The left and the right sides of the batch are used as the horizontal positions t
 
 ## Define the batch area width ##
 Add a rectangle object to set the batch area. You should set its type to "batch". 
+> Hint: The height of the batch shape is ignored.
+
+## Define events ##
+All the events should be created in "global" **Object group**. Every event should have type "event". The events can be activated and used once. 
+There are 2 kinds of events:
+
+**Rectangle** - This event activates on collision with any player.
+Custom Properties:
+* go <Point name> <- move player(s) to the map point. 
+* duration <seconds> <- duration of the movement. 1 second if missing.
+* face < 1 / -1 > <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
+* move <"player"/"players"> <- Whom to move either the collided player or all the alive players.
+* animation <animation name> <- Set sprite animation before the movement. "walk" is used if the proprty is not present.
+* z <positive number> <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
+
+**Point** - This event is passive and its name is used as a point on a map.
+
 We will add other rectangle event triggers of other types in this group later. 
-> Hint: The height of the batch shape is ignored. 
 
 ## Define enemy units to a batch ##
 Go to the layers tab. Select any **Object layer** within "batch" **Group layer**. 
