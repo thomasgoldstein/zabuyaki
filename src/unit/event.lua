@@ -57,7 +57,7 @@ function Event:updateAI(dt)
                 end
             end
         else
-            error("Unknown value of Event affect property: "..tostring(self.properties.move))
+            error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
         end
         self.isDisabled = wasApplied
     end
