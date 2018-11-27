@@ -27,24 +27,37 @@ function Event:checkForGo(player)
             z = self.properties.z,
             fadein = self.properties.fadein,
             fadeout = self.properties.fadeout,
+            nextevent = self.properties.nextevent,
+            event = self
         })
         return true
     end
     return false
 end
 
+function Event:startNext(startByPlayer)
+    local next = stage.objects:getByName(self.properties.nextevent)
+    if next then
+        next:updateAI(0, startByPlayer)
+    end
+end
+
 local collidedPlayer = {}
-function Event:updateAI(dt)
+function Event:updateAI(dt, startByPlayer)
     local wasApplied = false
     if self.isDisabled then
         return
     end
-    collidedPlayer = {}
-    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
-        local player = getRegisteredPlayer(i)
-        if player and player:isAlive() then
-            if statesForGo[player.state] and self.shape:collidesWith(player.shape) then
-                collidedPlayer[#collidedPlayer+1] = player
+    if startByPlayer then
+        collidedPlayer = {startByPlayer} --this event was started as a chained event from another event
+    else
+        collidedPlayer = {}
+        for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+            local player = getRegisteredPlayer(i)
+            if player and player:isAlive() then
+                if statesForGo[player.state] and self.shape:collidesWith(player.shape) then
+                    collidedPlayer[#collidedPlayer+1] = player
+                end
             end
         end
     end

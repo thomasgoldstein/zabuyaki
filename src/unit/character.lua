@@ -1831,6 +1831,7 @@ function Character:eventMoveStart(f)
         y = f.y or self.y,
         z = f.z or self.z
     }
+    self.event = f.event
     if f.fadeout then
         self.transparency = 255
         finalValues.transparency = 0
@@ -1846,7 +1847,11 @@ end
 function Character:eventMoveUpdate(dt)
     if self.move and self.move.clock >= self.move.duration then
         self:removeTweenMove()
-        self:setState(self.stand)
+        if self.event.properties.nextevent then
+            self.event:startNext(self)
+        else
+            self:setState(self.stand)
+        end
     end
 end
 Character.eventMove = {name = "eventMove", start = Character.eventMoveStart, exit = nop, update = Character.eventMoveUpdate, draw = Unit.eventDraw}
