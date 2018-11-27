@@ -100,6 +100,7 @@ Custom Properties:
 * move <"player"/"players"> <- Whom to move either the collided player or all the alive players.
 * animation <animation name> <- Set sprite animation before the movement. "walk" is used if the proprty is not present.
 * z <positive number> <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
+* nextevent <event name> <- start this event next (it is called as if it was collided with a player). Such chained events might be located out of the walkable area.
 
 **Point** - This event is passive and its name is used as a point on a map.
 
