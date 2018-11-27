@@ -1831,8 +1831,8 @@ function Character:eventMoveStart(f)
         y = f.y or self.y,
         z = f.z or self.z
     }
-    self.transparency = 255
     if f.fadeout then
+        self.transparency = 255
         finalValues.transparency = 0
     elseif f.fadein then
         self.transparency = 0
