@@ -1819,7 +1819,6 @@ function Character:eventMoveStart(f)
     self.isHittable = false
     self.speed_x = 0
     self.speed_y = 0
-    --print("#########", f.x, f.y, self.x, self.y)
     self.move = tween.new(f.duration, self, {
         x = f.x or self.x,
         y = f.y or self.y,
@@ -1830,7 +1829,6 @@ function Character:eventMoveStart(f)
     end
 end
 function Character:eventMoveUpdate(dt)
-    --print("eventMoveUpd", self.x, self.y)
     if self.move and self.move.clock >= self.move.duration then
         self:removeTweenMove()
         self:setState(self.stand)
