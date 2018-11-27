@@ -57,7 +57,7 @@
     <property name="move" value="players"/>
    </properties>
   </object>
-  <object id="49" name="ev1goPlayers" type="event" x="259" y="269">
+  <object id="49" name="ev1goPlayers" type="event" x="262.5" y="250.5">
    <point/>
   </object>
   <object id="50" name="ev1one" type="event" x="332.667" y="272.5" width="34.6667" height="45">
@@ -68,32 +68,28 @@
     <property name="move" value="player"/>
    </properties>
   </object>
-  <object id="51" name="ev1goPlayer" type="event" x="458" y="266">
+  <object id="51" name="ev1goPlayer" type="event" x="435.5" y="300">
    <point/>
-  </object>
-  <object id="52" name="evSimple" type="event" x="496" y="250" width="47" height="41">
-   <properties>
-    <property name="go" value="ev1goPlayers"/>
-   </properties>
   </object>
   <object id="54" name="eventExitDoor" type="event" x="384.545" y="211.939" width="30.6667" height="17.3333">
    <properties>
     <property name="duration" value="5"/>
     <property name="fadeout" value=""/>
     <property name="go" value="evExitDoorPos"/>
+    <property name="nextevent" value="eventExitDoorBack"/>
    </properties>
   </object>
-  <object id="55" name="evExitDoorPos" type="event" x="399.515" y="197.152">
+  <object id="55" name="evExitDoorPos" type="event" x="398.788" y="215.152">
    <point/>
   </object>
-  <object id="56" name="eventExitDoorBack" type="event" x="418.364" y="211.758" width="30.6667" height="17.3333">
+  <object id="56" name="eventExitDoorBack" type="event" x="384.364" y="142.485" width="30.6667" height="17.3333">
    <properties>
-    <property name="duration" value="5"/>
+    <property name="duration" value="2"/>
     <property name="fadein" value=""/>
     <property name="go" value="evExitDoorPos2"/>
    </properties>
   </object>
-  <object id="57" name="evExitDoorPos2" type="event" x="434.242" y="256.97">
+  <object id="57" name="evExitDoorPos2" type="event" x="399.697" y="228.788">
    <point/>
   </object>
  </objectgroup>

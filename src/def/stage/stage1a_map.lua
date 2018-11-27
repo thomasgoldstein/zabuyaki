@@ -287,8 +287,8 @@ return {
           name = "ev1goPlayers",
           type = "event",
           shape = "point",
-          x = 259,
-          y = 269,
+          x = 262.5,
+          y = 250.5,
           width = 0,
           height = 0,
           rotation = 0,
@@ -318,28 +318,13 @@ return {
           name = "ev1goPlayer",
           type = "event",
           shape = "point",
-          x = 458,
-          y = 266,
+          x = 435.5,
+          y = 300,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           properties = {}
-        },
-        {
-          id = 52,
-          name = "evSimple",
-          type = "event",
-          shape = "rectangle",
-          x = 496,
-          y = 250,
-          width = 47,
-          height = 41,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["go"] = "ev1goPlayers"
-          }
         },
         {
           id = 54,
@@ -355,7 +340,8 @@ return {
           properties = {
             ["duration"] = "5",
             ["fadeout"] = "",
-            ["go"] = "evExitDoorPos"
+            ["go"] = "evExitDoorPos",
+            ["nextevent"] = "eventExitDoorBack"
           }
         },
         {
@@ -363,8 +349,8 @@ return {
           name = "evExitDoorPos",
           type = "event",
           shape = "point",
-          x = 399.515,
-          y = 197.152,
+          x = 398.788,
+          y = 215.152,
           width = 0,
           height = 0,
           rotation = 0,
@@ -376,14 +362,14 @@ return {
           name = "eventExitDoorBack",
           type = "event",
           shape = "rectangle",
-          x = 418.364,
-          y = 211.758,
+          x = 384.364,
+          y = 142.485,
           width = 30.6667,
           height = 17.3333,
           rotation = 0,
           visible = true,
           properties = {
-            ["duration"] = "5",
+            ["duration"] = "2",
             ["fadein"] = "",
             ["go"] = "evExitDoorPos2"
           }
@@ -393,8 +379,8 @@ return {
           name = "evExitDoorPos2",
           type = "event",
           shape = "point",
-          x = 434.242,
-          y = 256.97,
+          x = 399.697,
+          y = 228.788,
           width = 0,
           height = 0,
           rotation = 0,
