@@ -108,6 +108,7 @@ local function loadUnit(items, stage, batch_name)
                     z = v.properties.z and tonumber(v.properties.z),
                     fadeout = v.properties.fadeout,
                     fadein = v.properties.fadein,
+                    nextevent = v.properties.nextevent,
                 }
                 if v.properties.go then
                     properties.go = extractTable(items.objects, v.properties.go)
