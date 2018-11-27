@@ -21,12 +21,12 @@ function Event:updateAI(dt)
         if player and player:isAlive() then
             if self.shape:collidesWith(player.shape) then
                 self.isDisabled = true
-                if self.options.goto then
+                if self.options.go then
                     player:setState(player.eventMove, {
                         duration = self.options.duration,
                         animation = self.options.animation,
-                        x = self.options.goto.x,
-                        y = self.options.goto.y,
+                        x = self.options.go.x,
+                        y = self.options.go.y,
                         z = self.options.z
                     })
                 end

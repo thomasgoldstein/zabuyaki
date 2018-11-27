@@ -106,8 +106,8 @@ local function loadUnit(items, stage, batch_name)
                     affect = v.properties.affect or "all",
                     z = v.properties.z and tonumber(v.properties.z)
                 }
-                if v.properties.goto then
-                    options.goto = extractTable(items.objects, v.properties.goto)
+                if v.properties.go then
+                    options.go = extractTable(items.objects, v.properties.go)
                 end
                 event = Event:new(
                     v.name, nil,

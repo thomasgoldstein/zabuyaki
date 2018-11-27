@@ -278,12 +278,12 @@ return {
             ["affect"] = "all",
             ["animation"] = "run",
             ["duration"] = "2",
-            ["goto"] = "ev1goto"
+            ["go"] = "ev1go"
           }
         },
         {
           id = 49,
-          name = "ev1goto",
+          name = "ev1go",
           type = "event",
           shape = "point",
           x = 465,
