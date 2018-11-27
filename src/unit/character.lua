@@ -1815,6 +1815,7 @@ function Character:eventMoveStart(f)
     if not self.condition then
         error(self.name.." eventMove got no target x,y")
     end
+    self.toSlowDown = false
     local f = self.condition
     self.isHittable = false
     self.speed_x = 0
@@ -1825,11 +1826,19 @@ function Character:eventMoveStart(f)
         self.face = f.x < self.x and -1 or 1
         self.horizontal = self.face
     end
-    self.move = tween.new(f.duration, self, {
+    local finalValues = {
         x = f.x or self.x,
         y = f.y or self.y,
         z = f.z or self.z
-    }, 'linear')
+    }
+    self.transparency = 255
+    if f.fadeout then
+        finalValues.transparency = 0
+    elseif f.fadein then
+        self.transparency = 0
+        finalValues.transparency = 255
+    end
+    self.move = tween.new(f.duration, self, finalValues, 'linear')
     if f.animation then
         self:setSprite(f.animation)
     end

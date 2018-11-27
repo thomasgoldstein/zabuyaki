@@ -24,7 +24,9 @@ function Event:checkForGo(player)
             face = tonumber(self.properties.face),
             x = self.properties.go.x,
             y = self.properties.go.y,
-            z = self.properties.z
+            z = self.properties.z,
+            fadein = self.properties.fadein,
+            fadeout = self.properties.fadeout,
         })
         return true
     end

@@ -105,7 +105,9 @@ local function loadUnit(items, stage, batch_name)
                     duration = tonumber(v.properties.duration) or 1,
                     face = tonumber(v.properties.face),
                     move = v.properties.move or "players",
-                    z = v.properties.z and tonumber(v.properties.z)
+                    z = v.properties.z and tonumber(v.properties.z),
+                    fadeout = v.properties.fadeout,
+                    fadein = v.properties.fadein,
                 }
                 if v.properties.go then
                     properties.go = extractTable(items.objects, v.properties.go)
