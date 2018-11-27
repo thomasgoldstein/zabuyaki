@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0000ff" nextlayerid="12" nextobjectid="50">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0000ff" nextlayerid="12" nextobjectid="52">
  <properties>
   <property name="nextmap" value="stage1b_map"/>
  </properties>
@@ -48,15 +48,26 @@
    </properties>
    <point/>
   </object>
-  <object id="46" name="ev1" type="event" x="318.667" y="225.333" width="34.6667" height="92">
+  <object id="46" name="ev1all" type="event" x="318.667" y="225.333" width="34.6667" height="45">
    <properties>
     <property name="affect" value="all"/>
     <property name="animation" value="run"/>
     <property name="duration" value="2"/>
-    <property name="goto" value="ev1goto"/>
+    <property name="go" value="ev1goAll"/>
    </properties>
   </object>
-  <object id="49" name="ev1goto" type="event" x="465" y="274">
+  <object id="49" name="ev1goAll" type="event" x="259" y="269">
+   <point/>
+  </object>
+  <object id="50" name="ev1one" type="event" x="332.667" y="272.5" width="34.6667" height="45">
+   <properties>
+    <property name="affect" value="first"/>
+    <property name="animation" value="walk"/>
+    <property name="duration" value="3"/>
+    <property name="go" value="ev1goFirst"/>
+   </properties>
+  </object>
+  <object id="51" name="ev1goFirst" type="event" x="458" y="266">
    <point/>
   </object>
  </objectgroup>

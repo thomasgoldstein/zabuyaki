@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 12,
-  nextobjectid = 50,
+  nextobjectid = 52,
   backgroundcolor = { 0, 0, 255 },
   properties = {
     ["nextmap"] = "stage1b_map"
@@ -265,29 +265,60 @@ return {
         },
         {
           id = 46,
-          name = "ev1",
+          name = "ev1all",
           type = "event",
           shape = "rectangle",
           x = 318.667,
           y = 225.333,
           width = 34.6667,
-          height = 92,
+          height = 45,
           rotation = 0,
           visible = true,
           properties = {
             ["affect"] = "all",
             ["animation"] = "run",
             ["duration"] = "2",
-            ["go"] = "ev1go"
+            ["go"] = "ev1goAll"
           }
         },
         {
           id = 49,
-          name = "ev1go",
+          name = "ev1goAll",
           type = "event",
           shape = "point",
-          x = 465,
-          y = 274,
+          x = 259,
+          y = 269,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 50,
+          name = "ev1one",
+          type = "event",
+          shape = "rectangle",
+          x = 332.667,
+          y = 272.5,
+          width = 34.6667,
+          height = 45,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["affect"] = "first",
+            ["animation"] = "walk",
+            ["duration"] = "3",
+            ["go"] = "ev1goFirst"
+          }
+        },
+        {
+          id = 51,
+          name = "ev1goFirst",
+          type = "event",
+          shape = "point",
+          x = 458,
+          y = 266,
           width = 0,
           height = 0,
           rotation = 0,
