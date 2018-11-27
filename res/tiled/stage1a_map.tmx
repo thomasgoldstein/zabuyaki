@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0000ff" nextlayerid="12" nextobjectid="52">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0000ff" nextlayerid="12" nextobjectid="54">
  <properties>
   <property name="nextmap" value="stage1b_map"/>
  </properties>
@@ -48,27 +48,33 @@
    </properties>
    <point/>
   </object>
-  <object id="46" name="ev1all" type="event" x="318.667" y="225.333" width="34.6667" height="45">
+  <object id="46" name="ev1players" type="event" x="318.667" y="225.333" width="34.6667" height="45">
    <properties>
-    <property name="affect" value="all"/>
     <property name="animation" value="run"/>
     <property name="duration" value="2"/>
-    <property name="go" value="ev1goAll"/>
+    <property name="face" value="-1"/>
+    <property name="go" value="ev1goPlayers"/>
+    <property name="move" value="players"/>
    </properties>
   </object>
-  <object id="49" name="ev1goAll" type="event" x="259" y="269">
+  <object id="49" name="ev1goPlayers" type="event" x="259" y="269">
    <point/>
   </object>
   <object id="50" name="ev1one" type="event" x="332.667" y="272.5" width="34.6667" height="45">
    <properties>
-    <property name="affect" value="first"/>
     <property name="animation" value="walk"/>
     <property name="duration" value="3"/>
-    <property name="go" value="ev1goFirst"/>
+    <property name="go" value="ev1goPlayer"/>
+    <property name="move" value="player"/>
    </properties>
   </object>
-  <object id="51" name="ev1goFirst" type="event" x="458" y="266">
+  <object id="51" name="ev1goPlayer" type="event" x="458" y="266">
    <point/>
+  </object>
+  <object id="52" name="evSimple" type="event" x="496" y="250" width="47" height="41">
+   <properties>
+    <property name="go" value="ev1goPlayers"/>
+   </properties>
   </object>
  </objectgroup>
  <group id="7" name="batch" locked="1">
