@@ -99,20 +99,21 @@ local function loadUnit(items, stage, batch_name)
             applyUnitProperties(v, u.unit)
         elseif v.type == "event" then
             if v.shape == "rectangle" then
-                local options = {
+                local properties = {
                     shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height },
                     animation = v.properties.animation or "walk",
                     duration = tonumber(v.properties.duration) or 1,
-                    affect = v.properties.affect or "all",
+                    face = tonumber(v.properties.face),
+                    move = v.properties.move or "players",
                     z = v.properties.z and tonumber(v.properties.z)
                 }
                 if v.properties.go then
-                    options.go = extractTable(items.objects, v.properties.go)
+                    properties.go = extractTable(items.objects, v.properties.go)
                 end
                 event = Event:new(
                     v.name, nil,
                     r(v.x + v.width / 2), r(v.y + v.height / 2),
-                    options )
+                    properties )
             elseif v.shape == "point" then
                 event = Event:new(
                     v.name, nil,
