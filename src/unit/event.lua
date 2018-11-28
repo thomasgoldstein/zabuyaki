@@ -44,7 +44,7 @@ function Event:startNext(startByPlayer)
 end
 
 function Event:startByName(eventName, startByPlayer)
-    print("= Start Event by name:", eventName, startByPlayer.name)
+    dp("= Start Event by name:", eventName, startByPlayer and startByPlayer.name or "na")
     local event = stage.objects:getByName(eventName)
     if event then
         return event:startEvent(startByPlayer)
