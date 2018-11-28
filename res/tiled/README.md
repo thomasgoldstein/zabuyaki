@@ -71,19 +71,6 @@ Use PNG 8-bit with indexed transparency. Leave 2 transparent pixels at every sid
 Use menu **Map / Map Properties** to see the **Background color** map property. 
 Expand the property and edit R G B and Alpha(transparency) entries.
 
-## Define enemy batches ##
-Go to the layers tab. Create **Group layer**. Rename it to "batch".
-Now add **Object layers** as batches into the **Group layer** "batch".
- 
-Every batch should be named. You can alter its Color property to colour its units on the Tiled screen.
-Give simple names to your batches, such as 1 2 3 4 etc.
-
-Custom properties for each batch **Object layer**:
-* delay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
-* music <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
- 
-The left and the right sides of the batch are used as the horizontal positions the players stoppers.
-
 ## Define the batch area width ##
 Add a rectangle object to set the batch area. You should set its type to "batch". 
 > Hint: The height of the batch shape is ignored.
@@ -106,7 +93,26 @@ Custom Properties:
 
 We will add other rectangle event triggers of other types in this group later. 
 
-## Define enemy units to a batch ##
+## Define enemy batches ##
+Go to the layers tab. Create **Group layer**. Rename it to "batch".
+Now add **Object layers** as batches into the **Group layer** "batch".
+ 
+Every batch should be named. You can alter its Color property to colour its units on the Tiled screen.
+Give simple names to your batches, such as 1 2 3 4 etc.
+
+The left and the right sides of the batch are used as the horizontal positions the players stoppers.
+
+Custom properties for each batch **Object layer**:
+* delay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
+* music <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
+* onStart <name> <- call event <name> at the batch init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
+* onEnter <name> <- call event <name> on the last player crossing the left bound of the batch.
+* onLeave <name> <- call event <name> on the last player crossing the right bound of the batch.
+* onComplete <name> <- call event <name> on the last batch enemy death. 
+
+Hint: Every batch event should be defined as a global event somewhere at the stage. Keep it away from the walking areas to prevent starting on a player collision.  
+
+## Add enemy units to a batch ##
 Go to the layers tab. Select any **Object layer** within "batch" **Group layer**. 
 
 Now you can add enemy units or stage objects into the game.
