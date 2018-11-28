@@ -66,16 +66,25 @@ function Batch:spawn(dt)
     if lx ~= self.stage.leftStopper.x or rx ~= self.stage.rightStopper.x then
         self.stage:moveStoppers(lx, rx)
     end
-
     if max_x < self.leftStopper - 320 / 2 and not self.startTimer then
         return false  -- the left stopper's x is out of the current screen
     end
     self.startTimer = true
     self.time = self.time + dt
+    if self.n > 1 then
+        local bPrev = self.batches[self.n - 1]
+        if not bPrev.onLeaveStarted and min_x > bPrev.rightStopper then -- Last player passed the left bound of the batch
+            Event.startByName(_, bPrev.onLeave)
+            bPrev.onLeaveStarted = true
+        end
+    end
+    if not b.onEnterStarted and min_x > b.leftStopper then -- Last player passed the left bound of the batch
+        Event.startByName(_, b.onEnter)
+        b.onEnterStarted = true
+    end
     if self.time < b.delay then --delay before the whole batch
         return false
     end
-
     local allSpawned = true
     local allDead = true
     for i = 1, #b.units do
@@ -115,6 +124,7 @@ function Batch:spawn(dt)
     end
     if allDead then
         self.state = "next"
+        Event.startByName(_, b.onComplete)
     end
     --dp("all spawned", allSpawned, "all dead", allDead)
     return true
