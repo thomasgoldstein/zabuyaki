@@ -35,7 +35,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#55557f" id="8" name="global">
+ <objectgroup color="#55557f" id="8" name="global" locked="1">
   <object id="27" name="Trash Can" type="trashcan" x="544" y="240">
    <point/>
   </object>
@@ -46,50 +46,6 @@
    <properties>
     <property name="drop" value="apple"/>
    </properties>
-   <point/>
-  </object>
-  <object id="46" name="ev1players" type="event" x="318.667" y="225.333" width="34.6667" height="45">
-   <properties>
-    <property name="animation" value="run"/>
-    <property name="duration" value="2"/>
-    <property name="face" value="-1"/>
-    <property name="go" value="ev1goPlayers"/>
-    <property name="move" value="players"/>
-   </properties>
-  </object>
-  <object id="49" name="ev1goPlayers" type="event" x="262.5" y="250.5">
-   <point/>
-  </object>
-  <object id="50" name="ev1one" type="event" x="332.667" y="272.5" width="34.6667" height="45">
-   <properties>
-    <property name="animation" value="walk"/>
-    <property name="duration" value="3"/>
-    <property name="go" value="ev1goPlayer"/>
-    <property name="move" value="player"/>
-   </properties>
-  </object>
-  <object id="51" name="ev1goPlayer" type="event" x="435.5" y="300">
-   <point/>
-  </object>
-  <object id="54" name="eventExitDoor" type="event" x="384.545" y="211.939" width="30.6667" height="17.3333">
-   <properties>
-    <property name="duration" value="5"/>
-    <property name="fadeout" value=""/>
-    <property name="go" value="evExitDoorPos"/>
-    <property name="nextevent" value="eventExitDoorBack"/>
-   </properties>
-  </object>
-  <object id="55" name="evExitDoorPos" type="event" x="398.788" y="215.152">
-   <point/>
-  </object>
-  <object id="56" name="eventExitDoorBack" type="event" x="384.364" y="142.485" width="30.6667" height="17.3333">
-   <properties>
-    <property name="duration" value="2"/>
-    <property name="fadein" value=""/>
-    <property name="go" value="evExitDoorPos2"/>
-   </properties>
-  </object>
-  <object id="57" name="evExitDoorPos2" type="event" x="399.697" y="228.788">
    <point/>
   </object>
  </objectgroup>
