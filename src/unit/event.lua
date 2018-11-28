@@ -13,8 +13,8 @@ function Event:setOnStage(stage)
 end
 
 local statesForGo = { walk = true, stand = true, run = true, duck = true, eventMove = true }
-function Event:checkForGo(player)
-    if self.properties.go
+function Event:checkAndStart(player)
+    if self.properties.go -- 'go' event type
         and statesForGo[player.state]
         and player.z <= player:getMinZ()
     then
@@ -36,39 +36,46 @@ function Event:checkForGo(player)
 end
 
 function Event:startNext(startByPlayer)
-    local next = stage.objects:getByName(self.properties.nextevent)
-    if next then
-        next:updateAI(0, startByPlayer)
+    dp("= Start Next event:", self.properties.nextevent)
+    if self.properties.nextevent then
+        return self:startByName(self.properties.nextevent, startByPlayer)
     end
+    return false
+end
+
+function Event:startByName(eventName, startByPlayer)
+    print("= Start Event by name:", eventName, startByPlayer.name)
+    local event = stage.objects:getByName(eventName)
+    if event then
+        return event:startEvent(startByPlayer)
+    end
+    return false
 end
 
 local collidedPlayer = {}
-function Event:updateAI(dt, startByPlayer)
+function Event:updateAI(dt)
     local wasApplied = false
     if self.isDisabled then
         return
     end
-    if startByPlayer then
-        collidedPlayer = {startByPlayer} --this event was started as a chained event from another event
-    else
-        collidedPlayer = {}
-        for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
-            local player = getRegisteredPlayer(i)
-            if player and player:isAlive() then
-                if statesForGo[player.state] and self.shape:collidesWith(player.shape) then
-                    collidedPlayer[#collidedPlayer+1] = player
-                end
+    -- Run Event on Players collision
+    collidedPlayer = {}
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local player = getRegisteredPlayer(i)
+        if player and player:isAlive() then
+            if statesForGo[player.state] and self.shape:collidesWith(player.shape) then
+                collidedPlayer[#collidedPlayer+1] = player
             end
         end
     end
     if #collidedPlayer > 0 then
         if self.properties.move == "player" then
-            wasApplied = self:checkForGo(collidedPlayer[1]) --1st detected player
+            wasApplied = self:checkAndStart(collidedPlayer[1]) --1st detected player
         elseif self.properties.move == "players" then --all alive players
             for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
                 local player = getRegisteredPlayer(i)
                 if player and player:isAlive() then
-                    wasApplied = self:checkForGo(player) or wasApplied --every alive walking player
+                    wasApplied = self:checkAndStart(player) or wasApplied --every alive walking player
                 end
             end
         else
@@ -76,6 +83,27 @@ function Event:updateAI(dt, startByPlayer)
         end
         self.isDisabled = wasApplied
     end
+end
+
+function Event:startEvent(startByPlayer)
+    if self.isDisabled then
+        return false
+    end
+    local wasApplied = false
+    if startByPlayer and self.properties.move == "player" then
+        wasApplied = self:checkAndStart(startByPlayer) --1st detected player
+    elseif self.properties.move == "players" then --all alive players
+        for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+            local player = getRegisteredPlayer(i)
+            if player and player:isAlive() then
+                wasApplied = self:checkAndStart(player) or wasApplied --every alive walking player
+            end
+        end
+    else
+        error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
+    end
+    self.isDisabled = wasApplied
+    return wasApplied
 end
 
 function Event:onHurt()

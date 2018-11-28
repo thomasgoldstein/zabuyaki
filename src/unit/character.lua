@@ -1847,9 +1847,7 @@ end
 function Character:eventMoveUpdate(dt)
     if self.move and self.move.clock >= self.move.duration then
         self:removeTweenMove()
-        if self.event.properties.nextevent then
-            self.event:startNext(self)
-        else
+        if not self.event:startNext(self) then
             self:setState(self.stand)
         end
     end
