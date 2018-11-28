@@ -162,6 +162,10 @@ local function loadBatch(items, stage)
                     rightStopper = tonumber(r(v2.x + v2.width) or 4000),
                     music = v.properties.music,
                     units = loadUnit(v, stage, v2.name),
+                    onStart = v.properties.onStart,
+                    onEnter = v.properties.onEnter,
+                    onComplete = v.properties.onComplete,
+                    onLeave = v.properties.onLeave,
                 }
                 batch[#batch + 1] = b
             end
@@ -176,7 +180,6 @@ local function loadBatch(items, stage)
             return a.leftStopper > b.leftStopper
         end
         return a.leftStopper < b.leftStopper end )
---    dp(inspect(batch, {depth = 4}))
     return Batch:new(stage, batch)
 end
 
