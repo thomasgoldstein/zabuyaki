@@ -43,6 +43,7 @@ function Batch:load()
         --dp("units in batch:",u.unit.name)
     end
     self.startTimer = false
+    Event.startByName(_, b.onStart)
     return true
 end
 
