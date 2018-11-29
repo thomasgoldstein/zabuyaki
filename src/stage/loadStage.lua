@@ -110,6 +110,7 @@ local function loadUnit(items, stage, batch_name)
                     goy = v.properties.goy and tonumber(v.properties.goy),
                     togox = v.properties.togox and tonumber(v.properties.togox),
                     togoy = v.properties.togoy and tonumber(v.properties.togoy),
+                    ignorestate = v.properties.ignorestate,
                     fadeout = v.properties.fadeout,
                     fadein = v.properties.fadein,
                     nextevent = v.properties.nextevent,
