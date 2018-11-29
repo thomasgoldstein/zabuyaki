@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 10,
-  nextobjectid = 11,
+  nextobjectid = 15,
   backgroundcolor = { 0, 85, 0 },
   properties = {
     ["nextmap"] = "ending"
@@ -92,6 +92,19 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 14,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 320,
+          width = 90,
+          height = 122,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -111,8 +124,8 @@ return {
           name = "1",
           type = "",
           shape = "point",
-          x = 48,
-          y = 256,
+          x = 59.3333,
+          y = 362.667,
           width = 0,
           height = 0,
           rotation = 0,
@@ -124,8 +137,8 @@ return {
           name = "2",
           type = "",
           shape = "point",
-          x = 32,
-          y = 280,
+          x = 43.3333,
+          y = 386.667,
           width = 0,
           height = 0,
           rotation = 0,
@@ -137,8 +150,8 @@ return {
           name = "3",
           type = "",
           shape = "point",
-          x = 16,
-          y = 304,
+          x = 27.3333,
+          y = 410.667,
           width = 0,
           height = 0,
           rotation = 0,
@@ -157,7 +170,23 @@ return {
       offsety = 0,
       draworder = "topdown",
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 12,
+          name = "enterTheMap",
+          type = "event",
+          shape = "rectangle",
+          x = 100,
+          y = 368,
+          width = 38,
+          height = 29.3333,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["goy"] = "-100"
+          }
+        }
+      }
     },
     {
       type = "group",
@@ -218,7 +247,8 @@ return {
           offsety = 0,
           draworder = "topdown",
           properties = {
-            ["music"] = "stage1"
+            ["music"] = "stage1",
+            ["onStart"] = "enterTheMap"
           },
           objects = {
             {
