@@ -24,6 +24,7 @@ function Player:setOnStage(stage)
     self.showPIDDelay = 3
     Unit.setOnStage(self, stage)
     self.victimLifeBar = nil   -- remove enemy bar under yours
+    self:disableGhostTrails()
     registerPlayer(self)
     logPlayer:reset(self.id)
 end
