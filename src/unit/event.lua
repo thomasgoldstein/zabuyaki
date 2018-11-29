@@ -17,8 +17,8 @@ function Event:checkAndStart(player)
     if (self.properties.go
         or self.properties.gox or self.properties.goy
         or self.properties.togox or self.properties.togoy)  -- 'go' event kinds
-        and statesForGo[player.state]
-        and player.z <= player:getMinZ()
+        and player.state ~= "useCredit"
+        --and (statesForGo[player.state] or self.properties.ignorestate)
     then
         player:setState(player.eventMove, {
             duration = self.properties.duration,
