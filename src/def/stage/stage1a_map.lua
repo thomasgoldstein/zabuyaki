@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 13,
-  nextobjectid = 59,
+  nextobjectid = 61,
   backgroundcolor = { 0, 0, 255 },
   properties = {
     ["nextmap"] = "stage1b_map"
@@ -175,8 +175,8 @@ return {
           name = "1",
           type = "",
           shape = "point",
-          x = -39,
-          y = 254,
+          x = 95.3333,
+          y = 256.667,
           width = 0,
           height = 0,
           rotation = 0,
@@ -188,8 +188,8 @@ return {
           name = "2",
           type = "",
           shape = "point",
-          x = -55,
-          y = 278,
+          x = 79.3333,
+          y = 280.667,
           width = 0,
           height = 0,
           rotation = 0,
@@ -201,8 +201,8 @@ return {
           name = "3",
           type = "",
           shape = "point",
-          x = -71,
-          y = 302,
+          x = 63.3333,
+          y = 304.667,
           width = 0,
           height = 0,
           rotation = 0,
@@ -268,15 +268,43 @@ return {
           name = "enterTheMap",
           type = "event",
           shape = "rectangle",
-          x = -104,
-          y = 351,
-          width = 63,
-          height = 53,
+          x = -117.833,
+          y = 260,
+          width = 100,
+          height = 20,
           rotation = 0,
           visible = true,
           properties = {
-            ["gox"] = "100"
+            ["togox"] = "-100"
           }
+        },
+        {
+          id = 59,
+          name = "goNearExit",
+          type = "event",
+          shape = "rectangle",
+          x = 2362.67,
+          y = 392,
+          width = 52,
+          height = 45.3333,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["go"] = "nearDoor"
+          }
+        },
+        {
+          id = 60,
+          name = "nearDoor",
+          type = "event",
+          shape = "point",
+          x = 2384,
+          y = 551.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -353,7 +381,9 @@ return {
           offsetx = 0,
           offsety = 0,
           draworder = "topdown",
-          properties = {},
+          properties = {
+            ["onComplete"] = "goNearExit"
+          },
           objects = {
             {
               id = 32,

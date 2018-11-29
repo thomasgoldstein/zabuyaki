@@ -92,19 +92,6 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
-        },
-        {
-          id = 14,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 320,
-          width = 90,
-          height = 122,
-          rotation = 0,
-          visible = true,
-          properties = {}
         }
       }
     },
@@ -124,8 +111,8 @@ return {
           name = "1",
           type = "",
           shape = "point",
-          x = 59.3333,
-          y = 362.667,
+          x = 96.3333,
+          y = 256.334,
           width = 0,
           height = 0,
           rotation = 0,
@@ -137,8 +124,8 @@ return {
           name = "2",
           type = "",
           shape = "point",
-          x = 43.3333,
-          y = 386.667,
+          x = 80.3333,
+          y = 280.334,
           width = 0,
           height = 0,
           rotation = 0,
@@ -150,8 +137,8 @@ return {
           name = "3",
           type = "",
           shape = "point",
-          x = 27.3333,
-          y = 410.667,
+          x = 64.3333,
+          y = 304.334,
           width = 0,
           height = 0,
           rotation = 0,
@@ -176,14 +163,14 @@ return {
           name = "enterTheMap",
           type = "event",
           shape = "rectangle",
-          x = 100,
-          y = 368,
+          x = -55.3333,
+          y = 255.333,
           width = 38,
           height = 29.3333,
           rotation = 0,
           visible = true,
           properties = {
-            ["goy"] = "-100"
+            ["togoy"] = "100"
           }
         }
       }
