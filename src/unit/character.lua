@@ -1859,6 +1859,18 @@ function Character:eventMoveStart()
     end
 end
 function Character:eventMoveUpdate(dt)
+    if self:canFall() then
+        self:calcFreeFall(dt)
+    else
+        self.speed_z = 0
+        self.z = self:getMinZ()
+    end
+    local f = self.condition
+    if self.sprite.curAnim ~= f.animation
+        and self.sprite.isLast
+    then
+        self:setSprite(f.animation)
+    end
     if self.move and self.move.clock >= self.move.duration then
         self:removeTweenMove()
         if not self.event:startNext(self) then
