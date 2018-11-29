@@ -131,7 +131,7 @@ function Batch:spawn(dt)
 end
 
 function Batch:isDone()
-    return self.state == "done" and self.time > 3
+    return self.state == "done" and self.time > 1
 end
 
 function Batch:update(dt)
