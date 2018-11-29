@@ -1867,7 +1867,7 @@ function Character:eventMoveUpdate(dt)
     end
     local f = self.condition
     if self.sprite.curAnim ~= f.animation
-        and self.sprite.isLast
+        and (self.sprite.isLast or self.sprite.curAnim == "stand")
     then
         self:setSprite(f.animation)
     end
