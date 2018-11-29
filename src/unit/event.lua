@@ -14,7 +14,9 @@ end
 
 local statesForGo = { walk = true, stand = true, run = true, duck = true, eventMove = true }
 function Event:checkAndStart(player)
-    if (self.properties.go or self.properties.gox or self.properties.goy)  -- 'go' event type
+    if (self.properties.go
+        or self.properties.gox or self.properties.goy
+        or self.properties.togox or self.properties.togoy)  -- 'go' event kinds
         and statesForGo[player.state]
         and player.z <= player:getMinZ()
     then
@@ -27,6 +29,8 @@ function Event:checkAndStart(player)
             z = self.properties.z,
             gox = self.properties.gox,
             goy = self.properties.goy,
+            togox = self.properties.togox,
+            togoy = self.properties.togoy,
             fadein = self.properties.fadein,
             fadeout = self.properties.fadeout,
             nextevent = self.properties.nextevent,

@@ -1831,6 +1831,14 @@ function Character:eventMoveStart()
     if f.goy then  -- override 'go' Point y coord
         finalValues.y = self.y + (f.goy or 0)
     end
+    if f.togox then  -- instantly teleports player by togox
+        finalValues.x = self.x
+        self.x = self.x + f.togox
+    end
+    if f.togoy then  -- instantly teleports player by togoy
+        finalValues.y = self.y
+        self.y = self.y + f.togoy
+    end
     if f.face then --change facing if set
         self.face = f.face < 0 and -1 or 1
     else --face unit to the target
