@@ -106,6 +106,8 @@ local function loadUnit(items, stage, batch_name)
                     face = tonumber(v.properties.face),
                     move = v.properties.move or "players",
                     z = v.properties.z and tonumber(v.properties.z),
+                    gox = v.properties.gox and tonumber(v.properties.gox),
+                    goy = v.properties.goy and tonumber(v.properties.goy),
                     fadeout = v.properties.fadeout,
                     fadein = v.properties.fadein,
                     nextevent = v.properties.nextevent,

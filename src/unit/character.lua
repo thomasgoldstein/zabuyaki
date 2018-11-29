@@ -1811,7 +1811,7 @@ function Character:initSlide(speed_x, diagonalSpeed_x, diagonalSpeed_y, friction
     end
 end
 
-function Character:eventMoveStart(f)
+function Character:eventMoveStart()
     if not self.condition then
         error(self.name.." eventMove got no target x,y")
     end
@@ -1820,17 +1820,23 @@ function Character:eventMoveStart(f)
     self.isHittable = false
     self.speed_x = 0
     self.speed_y = 0
-    if f.face then --change facing if set
-        self.face = f.face < 0 and -1 or 1
-    else --face unit to the target
-        self.face = f.x < self.x and -1 or 1
-        self.horizontal = self.face
-    end
     local finalValues = {
         x = f.x or self.x,
         y = f.y or self.y,
         z = f.z or self.z
     }
+    if f.gox then  -- override 'go' Point x coord
+        finalValues.x = self.x + (f.gox or 0)
+    end
+    if f.goy then  -- override 'go' Point y coord
+        finalValues.y = self.y + (f.goy or 0)
+    end
+    if f.face then --change facing if set
+        self.face = f.face < 0 and -1 or 1
+    else --face unit to the target
+        self.face = finalValues.x < self.x and -1 or 1
+        self.horizontal = self.face
+    end
     self.event = f.event
     if f.fadeout then
         self.transparency = 255
