@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 13,
-  nextobjectid = 58,
+  nextobjectid = 59,
   backgroundcolor = { 0, 0, 255 },
   properties = {
     ["nextmap"] = "stage1b_map"
@@ -175,8 +175,8 @@ return {
           name = "1",
           type = "",
           shape = "point",
-          x = 48,
-          y = 256,
+          x = -39,
+          y = 254,
           width = 0,
           height = 0,
           rotation = 0,
@@ -188,8 +188,8 @@ return {
           name = "2",
           type = "",
           shape = "point",
-          x = 32,
-          y = 280,
+          x = -55,
+          y = 278,
           width = 0,
           height = 0,
           rotation = 0,
@@ -201,8 +201,8 @@ return {
           name = "3",
           type = "",
           shape = "point",
-          x = 16,
-          y = 304,
+          x = -71,
+          y = 302,
           width = 0,
           height = 0,
           rotation = 0,
@@ -261,6 +261,21 @@ return {
           visible = true,
           properties = {
             ["drop"] = "apple"
+          }
+        },
+        {
+          id = 58,
+          name = "enterTheMap",
+          type = "event",
+          shape = "rectangle",
+          x = -104,
+          y = 351,
+          width = 63,
+          height = 53,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["gox"] = "100"
           }
         }
       }
@@ -469,7 +484,8 @@ return {
           offsety = 0,
           draworder = "topdown",
           properties = {
-            ["music"] = "stage1"
+            ["music"] = "stage1",
+            ["onStart"] = "enterTheMap"
           },
           objects = {
             {

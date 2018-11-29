@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0000ff" nextlayerid="13" nextobjectid="58">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#0000ff" nextlayerid="13" nextobjectid="59">
  <properties>
   <property name="nextmap" value="stage1b_map"/>
  </properties>
@@ -24,18 +24,18 @@
    <polygon points="0,0 640,320 0,320"/>
   </object>
  </objectgroup>
- <objectgroup color="#00aaff" id="1" name="player" locked="1">
-  <object id="1" name="1" x="48" y="256">
+ <objectgroup color="#00aaff" id="1" name="player">
+  <object id="1" name="1" x="-39" y="254">
    <point/>
   </object>
-  <object id="2" name="2" x="32" y="280">
+  <object id="2" name="2" x="-55" y="278">
    <point/>
   </object>
-  <object id="3" name="3" x="16" y="304">
+  <object id="3" name="3" x="-71" y="302">
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#55557f" id="8" name="global" locked="1">
+ <objectgroup color="#55557f" id="8" name="global">
   <object id="27" name="Trash Can" type="trashcan" x="544" y="240">
    <point/>
   </object>
@@ -48,8 +48,13 @@
    </properties>
    <point/>
   </object>
+  <object id="58" name="enterTheMap" type="event" x="-104" y="351" width="63" height="53">
+   <properties>
+    <property name="gox" value="100"/>
+   </properties>
+  </object>
  </objectgroup>
- <group id="7" name="batch" locked="1">
+ <group id="7" name="batch">
   <objectgroup color="#ff0000" id="11" name="4">
    <properties>
     <property name="music" value="zaburap"/>
@@ -86,9 +91,10 @@
     <point/>
    </object>
   </objectgroup>
-  <objectgroup color="#ffff00" id="3" name="1" locked="1">
+  <objectgroup color="#ffff00" id="3" name="1">
    <properties>
     <property name="music" value="stage1"/>
+    <property name="onStart" value="enterTheMap"/>
    </properties>
    <object id="11" name="Gopper" type="gopper" x="224" y="256">
     <point/>
