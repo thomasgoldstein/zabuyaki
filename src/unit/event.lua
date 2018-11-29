@@ -31,6 +31,7 @@ function Event:checkAndStart(player)
             goy = self.properties.goy,
             togox = self.properties.togox,
             togoy = self.properties.togoy,
+            ignorestate = self.properties.ignorestate,
             fadein = self.properties.fadein,
             fadeout = self.properties.fadeout,
             nextevent = self.properties.nextevent,
