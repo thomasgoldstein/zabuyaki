@@ -81,6 +81,11 @@ function Batch:spawn(dt)
     if not b.onEnterStarted and min_x > b.leftStopper then -- Last player passed the left bound of the batch
         Event.startByName(_, b.onEnter)
         b.onEnterStarted = true
+        if b.music and previousStageMusic ~= b.music then
+            TEsound.stop("music")
+            TEsound.playLooping(bgm[b.music], "music")
+            previousStageMusic = b.music
+        end
     end
     if self.time < b.delay then --delay before the whole batch
         return false
@@ -147,11 +152,6 @@ function Batch:update(dt)
         self.time = 0
         if self:load() then
             local b = self.batches[self.n]
-            if b.music and previousStageMusic ~= b.music then
-                TEsound.stop("music")
-                TEsound.playLooping(bgm[b.music], "music")
-                previousStageMusic = b.music
-            end
             self.state = "spawn"
         else
             self.state = "done"
