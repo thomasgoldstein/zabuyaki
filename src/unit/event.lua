@@ -14,9 +14,6 @@ end
 
 local statesForGo = { walk = true, stand = true, run = true, duck = true, eventMove = true }
 function Event:checkAndStart(player)
-    if self.properties.nextmap then
-        stage.nextMap = self.properties.nextmap
-    end
     if (self.properties.go
         or self.properties.gox or self.properties.goy
         or self.properties.togox or self.properties.togoy)  -- 'go' event kinds
@@ -40,8 +37,16 @@ function Event:checkAndStart(player)
             nextevent = self.properties.nextevent,
             event = self
         })
+        if self.properties.nextmap then -- if 'nextmap' property is mixed in with 'go' type event
+            stage.nextMap = self.properties.nextmap
+        end
         return true
     end
+    if self.properties.nextmap then
+        stage.nextMap = self.properties.nextmap
+        return true
+    end
+    print("FAIL apply tp player", player.state, player.z,  player:getMinZ() )
     return false
 end
 
@@ -61,8 +66,10 @@ function Event:startByName(eventName, startByPlayer)
     end
     local event = stage.objects:getByName(eventName)
     if event then
+        print("found ", eventName)
         return event:startEvent(startByPlayer)
     end
+    print("NOT found ", eventName)
     return false
 end
 
@@ -103,19 +110,23 @@ function Event:startEvent(startByPlayer)
     if self.isDisabled then
         return false
     end
+    print("startEvent")
     local wasApplied = false
     if startByPlayer and self.properties.move == "player" then
         wasApplied = self:checkAndStart(startByPlayer) --1st detected player
+        print("startEvent was appl 1")
     elseif self.properties.move == "players" then --all alive players
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local player = getRegisteredPlayer(i)
             if player and player:isAlive() then
                 wasApplied = self:checkAndStart(player) or wasApplied --every alive walking player
+                print("startEvent was appl ==", i, wasApplied)
             end
         end
     else
         error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
     end
+    print("startEvent disabling?", wasApplied)
     self.isDisabled = wasApplied
     return wasApplied
 end
