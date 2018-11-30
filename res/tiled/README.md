@@ -93,13 +93,14 @@ Custom Properties:
 * animation (animation name) <- Set sprite animation before the movement. On missing the property "walk" animation is used.
 * z (positive number) <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
 * nextevent (event name) <- start this event next (it is called as if it was collided with a player). Such chained events might be located out of the walkable area. Also you can call predefined events.
+* nextmap (map name) <- Override map property 'nextmap' with (map name). It can be used for forking to a secret map.
 
 **Point** - This event is passive and its name is used as a point on a map.
 
 We will add other rectangle event triggers of other types in this group later.
 
 ## Predefined events ##
-* nextmap <- Load next map. The next map is set in the map properties. It can be changed by some event with 'nextmap' (map name) property.   
+* nextmap <- Load next map. The next map is set in the map properties. Override it with an event's 'nextmap' (map name) property.   
 
 ## Define enemy batches ##
 Go to the layers tab. Create **Group layer**. Rename it to "batch".
