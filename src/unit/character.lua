@@ -1853,7 +1853,7 @@ function Character:eventMoveStart()
         self.transparency = 0
         finalValues.transparency = 255
     end
-    self.move = tween.new(f.duration, self, finalValues, 'linear')
+    self.move = tween.new(f.duration or self:getMovementTime(finalValues.x, finalValues.y), self, finalValues, 'linear')
     if f.animation then
         self:setSprite(f.animation)
     end

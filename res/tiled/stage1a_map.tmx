@@ -24,7 +24,7 @@
    <polygon points="0,0 640,320 0,320"/>
   </object>
  </objectgroup>
- <objectgroup color="#00aaff" id="1" name="player">
+ <objectgroup color="#00aaff" id="1" name="player" locked="1">
   <object id="1" name="1" x="95.3333" y="256.667">
    <point/>
   </object>
@@ -62,10 +62,11 @@
    <point/>
   </object>
  </objectgroup>
- <group id="7" name="batch">
-  <objectgroup color="#ff0000" id="11" name="4" locked="1">
+ <group id="7" name="batch" locked="1">
+  <objectgroup color="#ff0000" id="11" name="4">
    <properties>
     <property name="music" value="zaburap"/>
+    <property name="onComplete" value="goNearExit"/>
    </properties>
    <object id="34" name="4" type="batch" x="1920" y="0" width="640" height="640"/>
    <object id="40" name="Zeena" type="zeena" x="2176" y="608">
@@ -76,9 +77,6 @@
    </object>
   </objectgroup>
   <objectgroup color="#ff5500" id="10" name="3" locked="1">
-   <properties>
-    <property name="onComplete" value="goNearExit"/>
-   </properties>
    <object id="32" name="3" type="batch" x="1280" y="0" width="640" height="640"/>
    <object id="36" name="Sveta" type="sveta" x="1632" y="512">
     <point/>

@@ -328,7 +328,8 @@ return {
           offsety = 0,
           draworder = "topdown",
           properties = {
-            ["music"] = "zaburap"
+            ["music"] = "zaburap",
+            ["onComplete"] = "goNearExit"
           },
           objects = {
             {
@@ -381,9 +382,7 @@ return {
           offsetx = 0,
           offsety = 0,
           draworder = "topdown",
-          properties = {
-            ["onComplete"] = "goNearExit"
-          },
+          properties = {},
           objects = {
             {
               id = 32,
