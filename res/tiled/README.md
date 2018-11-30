@@ -81,21 +81,25 @@ There are 2 kinds of events:
 
 **Rectangle** - This event activates on collision with any player.
 Custom Properties:
-* go <Point name> <- move player(s) to the map point. 
-* gox <X> <- move player(s) by X pixels. Use negative number to move players left. Yo cannot use both 'go' and 'gox' in the same event.
-* goy <Y> <- move player(s) by Y pixels. Use negative number to move players up. You can use both 'goy' and 'gox' in the same event to move players diagonally.
-* duration <seconds> <- duration of the movement. 1 second if missing.
-* face < 1 / -1 > <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
-* move <"player"/"players"> <- Whom to move either the 1st collided player or all the alive players. On missing the property "players" type is used. 
+* go (Point name) <- move player(s) to the map point. 
+* gox (X) <- move player(s) by X pixels. Use negative number to move players left. Yo cannot use both 'go' and 'gox' in the same event.
+* goy (Y) <- move player(s) by Y pixels. Use negative number to move players up. You can use both 'goy' and 'gox' in the same event to move players diagonally.
+* togox (X) & togoy (Y) <- The same as gox/goy, but players are instantly teleported to the x+togox, y+togoy point and return to their original position. It is used in the enter map events.
+* duration (seconds) <- duration of the movement. 1 second if missing.
+* face ( 1 / -1 ) <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
+* move ("player"/"players") <- Whom to move either the 1st collided player or all the alive players. On missing the property "players" type is used. 
 * ignorestate <- Apply the movement to players despite on their current states. 
 * disabled <- Disable event. It cannot be run. 
-* animation <animation name> <- Set sprite animation before the movement. On missing the property "walk" animation is used.
-* z <positive number> <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
-* nextevent <event name> <- start this event next (it is called as if it was collided with a player). Such chained events might be located out of the walkable area.
+* animation (animation name) <- Set sprite animation before the movement. On missing the property "walk" animation is used.
+* z (positive number) <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
+* nextevent (event name) <- start this event next (it is called as if it was collided with a player). Such chained events might be located out of the walkable area. Also you can call predefined events.
 
 **Point** - This event is passive and its name is used as a point on a map.
 
-We will add other rectangle event triggers of other types in this group later. 
+We will add other rectangle event triggers of other types in this group later.
+
+## Predefined events ##
+* nextmap <- Load next map. The next map is set in the map properties. It can be changed by some event with 'nextmap' (map name) property.   
 
 ## Define enemy batches ##
 Go to the layers tab. Create **Group layer**. Rename it to "batch".
@@ -109,10 +113,10 @@ The left and the right sides of the batch are used as the horizontal positions t
 Custom properties for each batch **Object layer**:
 * delay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
 * music <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
-* onStart <name> <- call event <name> at the batch init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
-* onEnter <name> <- call event <name> on the last player crossing the left bound of the batch.
-* onLeave <name> <- call event <name> on the last player crossing the right bound of the batch.
-* onComplete <name> <- call event <name> on the last batch enemy death. 
+* onStart (event name) <- call event at the batch init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
+* onEnter (event name) <- call event on the last player crossing the left bound of the batch.
+* onLeave (event name) <- call event on the last player crossing the right bound of the batch.
+* onComplete (event name) <- call event (name) on the last batch enemy death. 
 
 Hint: Every batch event should be defined as a global event somewhere at the stage. Keep it away from the walking areas to prevent starting on a player collision.  
 
@@ -127,7 +131,7 @@ Every unit should have these properties
 Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape is supported.
 
 > Hint: You can setup Tiled to show different types of the objects with different colours. 
-> Use menu **View / Object Types Editor** to set the colours. These settings are kept locally in Tiled cache.
+) Use menu **View / Object Types Editor** to set the colours. These settings are kept locally in Tiled cache.
 
 ## Optional units properties ##
 Optional properties:
@@ -156,7 +160,11 @@ Use menu **Map / Map Properties**/ to see the list of properties.
 Expand "Custom Properties" group. Click "+" button at the bottom to
 add "nextmap"(string) property.
 If the property is not present then the default map name "stage1a_map" is used.
-Do not add neither path nor extension to the to the map name.     
+Do not add neither path nor extension to the to the map name.
+
+There are predefined map names for special cases:
+* ending <- End the game and show "ending" movie.     
+* to be added     
  
 ## In-Game drawing order ##
 The BG images are drawn starting from the very last item in the list back to the top.
