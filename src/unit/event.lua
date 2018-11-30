@@ -46,7 +46,7 @@ function Event:checkAndStart(player)
         stage.nextMap = self.properties.nextmap
         return true
     end
-    print("FAIL apply tp player", player.state, player.z,  player:getMinZ() )
+    dp("FAIL apply tp player", player.state, player.z,  player:getMinZ() )
     return false
 end
 
@@ -66,10 +66,10 @@ function Event:startByName(eventName, startByPlayer)
     end
     local event = stage.objects:getByName(eventName)
     if event then
-        print("found ", eventName)
+        dp("found Event", eventName)
         return event:startEvent(startByPlayer)
     end
-    print("NOT found ", eventName)
+    dp("Event NOT found", eventName)
     return false
 end
 
@@ -110,23 +110,23 @@ function Event:startEvent(startByPlayer)
     if self.isDisabled then
         return false
     end
-    print("startEvent")
+    dp("startEvent")
     local wasApplied = false
     if startByPlayer and self.properties.move == "player" then
         wasApplied = self:checkAndStart(startByPlayer) --1st detected player
-        print("startEvent was appl 1")
+        dp("startEvent was applied DP")
     elseif self.properties.move == "players" then --all alive players
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local player = getRegisteredPlayer(i)
             if player and player:isAlive() then
                 wasApplied = self:checkAndStart(player) or wasApplied --every alive walking player
-                print("startEvent was appl ==", i, wasApplied)
+                dp("startEvent was applied P#", i, wasApplied)
             end
         end
     else
         error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
     end
-    print("startEvent disabling?", wasApplied)
+    dp("startEvent disablled", wasApplied)
     self.isDisabled = wasApplied
     return wasApplied
 end
