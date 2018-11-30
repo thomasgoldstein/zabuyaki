@@ -87,6 +87,8 @@ Custom Properties:
 * duration <seconds> <- duration of the movement. 1 second if missing.
 * face < 1 / -1 > <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
 * move <"player"/"players"> <- Whom to move either the 1st collided player or all the alive players. On missing the property "players" type is used. 
+* ignorestate <- Apply the movement to players despite on their current states. 
+* disabled <- Disable event. It cannot be run. 
 * animation <animation name> <- Set sprite animation before the movement. On missing the property "walk" animation is used.
 * z <positive number> <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
 * nextevent <event name> <- start this event next (it is called as if it was collided with a player). Such chained events might be located out of the walkable area.
