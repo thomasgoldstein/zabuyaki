@@ -14,6 +14,9 @@ end
 
 local statesForGo = { walk = true, stand = true, run = true, duck = true, eventMove = true }
 function Event:checkAndStart(player)
+    if self.properties.nextmap then
+        stage.nextMap = self.properties.nextmap
+    end
     if (self.properties.go
         or self.properties.gox or self.properties.goy
         or self.properties.togox or self.properties.togoy)  -- 'go' event kinds
@@ -52,6 +55,10 @@ end
 
 function Event:startByName(eventName, startByPlayer)
     dp("= Start Event by name:", eventName, startByPlayer and startByPlayer.name or "na")
+    if eventName == "nextmap" then
+        stage:finish()
+        return true
+    end
     local event = stage.objects:getByName(eventName)
     if event then
         return event:startEvent(startByPlayer)
