@@ -61,7 +61,7 @@ end
 function Event:startByName(eventName, startByPlayer)
     dp("= Start Event by name:", eventName, startByPlayer and startByPlayer.name or "na")
     if eventName == "nextmap" then
-        stage:finish()
+        stage.batch:finish()
         return true
     end
     local event = stage.objects:getByName(eventName)
