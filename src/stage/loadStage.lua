@@ -102,7 +102,7 @@ local function loadUnit(items, stage, batch_name)
                 local properties = {
                     shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height },
                     animation = v.properties.animation or "walk",
-                    duration = tonumber(v.properties.duration) or 1,
+                    duration = tonumber(v.properties.duration),
                     face = tonumber(v.properties.face),
                     move = v.properties.move or "players",
                     z = v.properties.z and tonumber(v.properties.z),
