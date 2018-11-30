@@ -37,13 +37,21 @@ function Event:checkAndStart(player)
             nextevent = self.properties.nextevent,
             event = self
         })
-        if self.properties.nextmap then -- if 'nextmap' property is mixed in with 'go' type event
+        if self.properties.nextmap then
             stage.nextMap = self.properties.nextmap
         end
         return true
-    end
-    if self.properties.nextmap then
+    elseif self.properties.nextmap then
         stage.nextMap = self.properties.nextmap
+        player:setState(player.eventMove, {
+            duration = 0.01,
+            animation = player.sprite.curAnim,
+            nextevent = self.properties.nextevent,
+            event = self
+        })
+        return true
+    elseif self.properties.nextevent then
+        self:startByName(self.properties.nextevent, player)
         return true
     end
     dp("FAIL apply tp player", player.state, player.z,  player:getMinZ() )
