@@ -34,7 +34,7 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
-          image = "../../../res/img/stage/stage1/stage1a.png",
+          image = "../../../res/img/stage/stage1/stage1a_old.png",
           properties = {}
         }
       }
