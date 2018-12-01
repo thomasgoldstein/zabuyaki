@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="12" nextobjectid="16">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="12" nextobjectid="18">
  <properties>
   <property name="nextmap" value="stage1b_map"/>
  </properties>
@@ -33,6 +33,14 @@
     <property name="togox" value="-100"/>
    </properties>
   </object>
+  <object id="16" name="goNearExit" type="event" x="2576" y="192" width="52" height="45.3333">
+   <properties>
+    <property name="go" value="nearDoor"/>
+   </properties>
+  </object>
+  <object id="17" name="nearDoor" type="event" x="2480" y="240">
+   <point/>
+  </object>
  </objectgroup>
  <group id="1" name="batch" locked="1">
   <objectgroup color="#ffaa00" id="11" name="4" locked="1">
@@ -40,7 +48,7 @@
     <property name="onComplete" value="goNearExit"/>
    </properties>
    <object id="13" name="4" type="batch" x="1920" y="0" width="640" height="320"/>
-   <object id="14" name="Niko" type="niko" x="2480" y="240">
+   <object id="14" name="Niko" type="niko" x="2480" y="280">
     <point/>
    </object>
   </objectgroup>

@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 12,
-  nextobjectid = 16,
+  nextobjectid = 18,
   backgroundcolor = { 0, 85, 0 },
   properties = {
     ["nextmap"] = "stage1b_map"
@@ -172,6 +172,34 @@ return {
           properties = {
             ["togox"] = "-100"
           }
+        },
+        {
+          id = 16,
+          name = "goNearExit",
+          type = "event",
+          shape = "rectangle",
+          x = 2576,
+          y = 192,
+          width = 52,
+          height = 45.3333,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["go"] = "nearDoor"
+          }
+        },
+        {
+          id = 17,
+          name = "nearDoor",
+          type = "event",
+          shape = "point",
+          x = 2480,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -217,7 +245,7 @@ return {
               type = "niko",
               shape = "point",
               x = 2480,
-              y = 240,
+              y = 280,
               width = 0,
               height = 0,
               rotation = 0,
