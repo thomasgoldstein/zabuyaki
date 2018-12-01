@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="12" nextobjectid="16">
+ <properties>
+  <property name="nextmap" value="stage1b_map"/>
+ </properties>
+ <group id="8" name="background" locked="1">
+  <imagelayer id="9" name="bg" locked="1">
+   <image source="../img/stage/stage1/stage1a.png" width="2560" height="320"/>
+  </imagelayer>
+ </group>
+ <objectgroup color="#aa0000" id="7" name="camera" locked="1">
+  <object id="6" x="0" y="320">
+   <polyline points="0,0 2560,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00aa00" id="6" name="collision" locked="1">
+  <object id="8" x="0" y="0" width="2560" height="240"/>
+ </objectgroup>
+ <objectgroup color="#00aaff" id="5" name="player" locked="1">
+  <object id="3" name="1" x="48" y="256">
+   <point/>
+  </object>
+  <object id="4" name="2" x="32" y="280">
+   <point/>
+  </object>
+  <object id="5" name="3" x="16" y="304">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55557f" id="4" name="global" locked="1">
+  <object id="15" name="enterTheMap" type="event" x="-120" y="248" width="100" height="20">
+   <properties>
+    <property name="togox" value="-100"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <group id="1" name="batch" locked="1">
+  <objectgroup color="#ffaa00" id="11" name="4" locked="1">
+   <properties>
+    <property name="onComplete" value="goNearExit"/>
+   </properties>
+   <object id="13" name="4" type="batch" x="1920" y="0" width="640" height="320"/>
+   <object id="14" name="Niko" type="niko" x="2480" y="240">
+    <point/>
+   </object>
+  </objectgroup>
+  <objectgroup color="#ffaa00" id="10" name="3" locked="1">
+   <object id="11" name="3" type="batch" x="1280" y="0" width="640" height="320"/>
+   <object id="12" name="Niko" type="niko" x="1808" y="256">
+    <point/>
+   </object>
+  </objectgroup>
+  <objectgroup color="#ffaa00" id="3" name="2" locked="1">
+   <object id="2" name="2" type="batch" x="640" y="0" width="640" height="320"/>
+   <object id="10" name="Niko" type="niko" x="1184" y="256">
+    <point/>
+   </object>
+  </objectgroup>
+  <objectgroup color="#ffff00" id="2" name="1" locked="1">
+   <properties>
+    <property name="music" value="stage1"/>
+    <property name="onStart" value="enterTheMap"/>
+   </properties>
+   <object id="1" name="1" type="batch" x="0" y="0" width="640" height="320"/>
+   <object id="9" name="Gopper" type="gopper" x="544" y="256">
+    <point/>
+   </object>
+  </objectgroup>
+ </group>
+</map>
