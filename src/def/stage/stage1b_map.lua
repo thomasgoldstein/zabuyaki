@@ -88,7 +88,7 @@ return {
           x = 0,
           y = 0,
           width = 1280,
-          height = 224,
+          height = 240,
           rotation = 0,
           visible = true,
           properties = {}
