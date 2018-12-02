@@ -102,41 +102,47 @@ local function loadUnit(items, stage, batch_name)
             end
             applyUnitProperties(v, u.unit)
         elseif v.type == "event" then
-            if v.shape == "rectangle" then
-                local properties = {
-                    shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height },
-                    animation = v.properties.animation or "walk",
-                    duration = tonumber(v.properties.duration),
-                    face = tonumber(v.properties.face),
-                    move = v.properties.move or "players",
-                    z = v.properties.z and tonumber(v.properties.z),
-                    gox = v.properties.gox and tonumber(v.properties.gox),
-                    goy = v.properties.goy and tonumber(v.properties.goy),
-                    togox = v.properties.togox and tonumber(v.properties.togox),
-                    togoy = v.properties.togoy and tonumber(v.properties.togoy),
-                    ignorestate = v.properties.ignorestate,
-                    fadeout = v.properties.fadeout,
-                    fadein = v.properties.fadein,
-                    nextevent = v.properties.nextevent,
-                    nextmap = v.properties.nextmap,
-                }
-                if v.properties.go then
-                    properties.go = extractTable(items.objects, v.properties.go)
-                end
-                event = Event:new(
-                    v.name, nil,
-                    r(v.x + v.width / 2), r(v.y + v.height / 2),
-                    properties )
-            elseif v.shape == "point" then
-                event = Event:new(
-                    v.name, nil,
-                    r(v.x), r(v.y),
-                    { disabled = true, shapeType = "rectangle", shapeArgs = { v.x, v.y, 1, 1 } })
-            else
-                error("Unknown Event type on the map")
+            if v.shape == "polygon" then
+                error("Tiled: Events don't support 'polygon' shape objects yet.")
             end
-            units[#units + 1] = event
+            local shapeArgs = { v.x, v.y, v.width, v.height }
+            if v.shape == "point" then
+                shapeArgs = { v.x, v.y, 1, 1 }
+            elseif v.shape == "ellipse" then
+                if v.width ~= v.height then
+                    error("Tiled: Events support only circles 'ellipsa' type. Be sure that its width is equal its height.")
+                end
+                shapeArgs = { v.x + v.width / 2, v.y + v.width / 2, v.width / 2}
+            end
+            local properties = {
+                shapeType = ((v.shape == "point") and "rectangle" or v.shape), shapeArgs = shapeArgs,
+                animation = v.properties.animation or "walk",
+                duration = tonumber(v.properties.duration),
+                face = tonumber(v.properties.face),
+                move = v.properties.move or "players",
+                z = v.properties.z and tonumber(v.properties.z),
+                gox = v.properties.gox and tonumber(v.properties.gox),
+                goy = v.properties.goy and tonumber(v.properties.goy),
+                togox = v.properties.togox and tonumber(v.properties.togox),
+                togoy = v.properties.togoy and tonumber(v.properties.togoy),
+                ignorestate = v.properties.ignorestate,
+                fadeout = v.properties.fadeout,
+                fadein = v.properties.fadein,
+                nextevent = v.properties.nextevent,
+                nextmap = v.properties.nextmap,
+                disabled = v.properties.disabled,
+            }
+            if v.properties.go then
+                properties.go = extractTable(items.objects, v.properties.go)
+            end
+            event = Event:new(
+                v.name, nil,
+                r(v.x + v.width / 2), r(v.y + v.height / 2),
+                properties )
+        elseif v.type ~= "batch" then
+            error("Tiled: Unknown Event type on the map: "..v.type.." shape:"..v.shape)
         end
+        units[#units + 1] = event
     end
     return units
 end
