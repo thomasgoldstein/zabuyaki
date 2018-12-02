@@ -15,7 +15,7 @@ local function loadCollision(items, stage)
     dp("Load collisions...")
     local t = extractTable(items.layers, "collision")
     if not t then
-        error("Object layer 'collisions' is not present in the map file.")
+        error("Tiled: Object layer 'collision' is not present in the map file.")
     end
     for i, v in ipairs(t.objects) do
         if v.shape == "rectangle" then
@@ -30,7 +30,7 @@ local function loadCollision(items, stage)
             local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = shapeArgs })
             wall:setOnStage(stage)
         else
-            error("Wrong Tiled object shape #"..i..":"..inspect(v))
+            error("Tiled: Wrong Tiled object shape #"..i..":"..inspect(v))
         end
     end
 end
@@ -42,7 +42,11 @@ local function getUnitTypeByName(name)
     if unitTypeByName[name] then
         return unitTypeByName[name]
     end
-    error("Wrong type name: "..tostring(name))
+    if tostring(name) == "" then
+        error("Tiled: Property 'type' cannot be empty. It should be 'event' or a class of the unit.")
+    else
+        error("Tiled: Wrong type: "..tostring(name))
+    end
     return nil
 end
 
@@ -141,7 +145,7 @@ local function loadGlobalUnits(items, stage)
     dp("Load global units...")
     local t = extractTable(items.layers, "global")
     if not t then
-        error("Object layer 'global' is not present in the map file.")
+        error("Tiled: Object layer 'global' is not present in the map file.")
     end
     local units = loadUnit(t, stage)
     for _,unit in ipairs(units) do
@@ -154,7 +158,7 @@ local function loadBatch(items, stage)
     dp("Load batches...")
     local t = extractTable(items.layers, "batch")
     if not t then
-        error("Group layer 'batch' is not present in the map file.")
+        error("Tiled: Group layer 'batch' is not present in the map file.")
     end
     for i, v in ipairs(t.layers) do
         for i, v2 in ipairs(v.objects) do
@@ -204,7 +208,7 @@ local function loadBackgroundImageLayer(items, background)
     dp("Load background ImageLayer...")
     local t = extractTable(items.layers, "background")
     if not t then
-        error("Group layer 'background' is not present in the map file.")
+        error("Tiled: Group layer 'background' is not present in the map file.")
     end
     for i, v in ipairs(t.layers) do
         if v.type == "imagelayer" then
@@ -222,7 +226,7 @@ local function loadCameraScrolling(items, scrolling)
     scrolling = { chunks = {} }
     local t = extractTable(items.layers, "camera")
     if not t then
-        error("Object layer 'camera' is not present in the map file.")
+        error("Tiled: Object layer 'camera' is not present in the map file.")
     end
     for i, v in ipairs(t.objects) do
         if v.shape == "polyline" then
@@ -235,7 +239,7 @@ local function loadCameraScrolling(items, scrolling)
                 end
             end
         else
-            error("Wrong Camera Scrolling object shape #"..i..":"..inspect(v))
+            error("Tiled: Wrong Camera Scrolling object shape #"..i..":"..inspect(v))
         end
     end
     if not scrolling.chunks or #scrolling.chunks < 1 then
@@ -251,7 +255,7 @@ local function addPlayersToStage(items, players, stage)
     dp("Set players to start positions...")
     local t = extractTable(items.layers, "player")
     if not t then
-        error("Object layer 'player' is not present in the map file.")
+        error("Tiled: Object layer 'player' is not present in the map file.")
     end
     if players then
         -- After player select (1st stage)
@@ -290,7 +294,7 @@ local function addPlayersToStage(items, players, stage)
                     p:setOnStage(stage)
                 end
             else
-                error("Wrong Tiled object type #"..i..":"..inspect(v))
+                error("Tiled: Wrong object type #"..i..":"..inspect(v))
             end
         end
     end
@@ -304,7 +308,7 @@ function loadStageData(stage, mapFile, players)
     end
     local d = chunk()
     if not d or type(d)~="table" then
-        error("No Tiled map data found in "..mapFile)
+        error("Tiled: No map data found in "..mapFile)
     end
     stage.worldWidth = d.tilewidth * d.width
     stage.worldHeight = d.tileheight * d.height
