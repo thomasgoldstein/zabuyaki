@@ -77,9 +77,10 @@ Add a rectangle object to set the batch area. You should set its type to "batch"
 
 ## Define events ##
 All the events should be created in "global" **Object group**. Every event should have type "event". The events can be activated and used once. 
-There are 2 kinds of events:
+There are 3 allowed event shapes: **Rectangle**, **Ellipse** and **Point**.
+> **Rectangle** and **Ellipse** events activate on collision with a player. **Point** shaped event can be called by name only.
+> **Polygon** shape is not supported. 
 
-**Rectangle** - This event activates on collision with any player.
 Custom Properties:
 * go (Point name) <- move player(s) to the map point. 
 * gox (X) <- move player(s) by X pixels. Use negative number to move players left. Yo cannot use both 'go' and 'gox' in the same event.
@@ -88,14 +89,13 @@ Custom Properties:
 * duration (seconds) <- duration of the movement. 1 second if missing.
 * face ( 1 / -1 ) <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
 * move ("player"/"players") <- Whom to move either the 1st collided player or all the alive players. On missing the property "players" type is used. 
-* ignorestate <- Apply the movement to players despite on their current states. 
-* disabled <- Disable event. It cannot be run. 
+* ignorestate <- Apply the movement to players despite on their current states. (This property is ignored now). 
+* disabled <- Disable event. It cannot be run.
+* notouch <- This event can be called by the name only. 
 * animation (animation name) <- Set sprite animation before the movement. On missing the property "walk" animation is used.
 * z (positive number) <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
 * nextevent (event name) <- start this event next (it is called as if it was collided with a player). Such chained events might be located out of the walkable area. Also you can call predefined events.
 * nextmap (map name) <- Override map property 'nextmap' with (map name). It can be used for forking to a secret map.
-
-**Point** - This event is passive and its name is used as a point on a map.
 
 We will add other rectangle event triggers of other types in this group later.
 
