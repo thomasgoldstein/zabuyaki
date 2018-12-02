@@ -110,7 +110,7 @@ local function loadUnit(items, stage, batch_name)
                 shapeArgs = { v.x, v.y, 1, 1 }
             elseif v.shape == "ellipse" then
                 if v.width ~= v.height then
-                    error("Tiled: Events support only circle 'ellipsa' type. Its width and height must be equal.")
+                    error("Tiled: Events support only circle 'ellipse' type. Its width and height must be equal.")
                 end
                 shapeArgs = { v.x + v.width / 2, v.y + v.width / 2, v.width / 2}
             end
