@@ -83,10 +83,10 @@ end
 
 local collidedPlayer = {}
 function Event:updateAI(dt)
-    local wasApplied = false
-    if self.isDisabled then
+    if self.isDisabled or self.properties.notouch then
         return
     end
+    local wasApplied = false
     -- Run Event on Players collision
     collidedPlayer = {}
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do

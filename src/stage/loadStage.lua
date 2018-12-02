@@ -130,6 +130,7 @@ local function loadUnit(items, stage, batch_name)
                 fadein = v.properties.fadein,
                 nextevent = v.properties.nextevent,
                 nextmap = v.properties.nextmap,
+                notouch = v.properties.notouch or v.shape == "point",
                 disabled = v.properties.disabled,
             }
             if v.properties.go then
