@@ -28,20 +28,21 @@
   </object>
  </objectgroup>
  <objectgroup color="#55557f" id="4" name="global" locked="1">
-  <object id="12" name="enterTheMap" type="event" x="-55.3333" y="255.333" width="38" height="29.3333">
+  <object id="12" name="enterTheMap" type="event" x="66.6667" y="165.333">
    <properties>
     <property name="togoy" value="100"/>
    </properties>
+   <point/>
   </object>
  </objectgroup>
  <group id="1" name="batch" locked="1">
-  <objectgroup color="#ffaa00" id="3" name="2">
+  <objectgroup color="#ffaa00" id="3" name="2" locked="1">
    <object id="2" name="2" type="batch" x="640" y="0" width="640" height="320"/>
    <object id="10" name="Niko" type="niko" x="1184" y="256">
     <point/>
    </object>
   </objectgroup>
-  <objectgroup color="#ffff00" id="2" name="1">
+  <objectgroup color="#ffff00" id="2" name="1" locked="1">
    <properties>
     <property name="music" value="stage1"/>
     <property name="onStart" value="enterTheMap"/>

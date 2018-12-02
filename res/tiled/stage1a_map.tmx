@@ -28,15 +28,17 @@
   </object>
  </objectgroup>
  <objectgroup color="#55557f" id="4" name="global" locked="1">
-  <object id="15" name="enterTheMap" type="event" x="-120" y="248" width="100" height="20">
+  <object id="15" name="enterTheMap" type="event" x="43" y="193">
    <properties>
     <property name="togox" value="-100"/>
    </properties>
+   <point/>
   </object>
-  <object id="16" name="goNearExit" type="event" x="2576" y="192" width="52" height="45.3333">
+  <object id="16" name="goNearExit" type="event" x="2479.33" y="186.667">
    <properties>
     <property name="go" value="nearDoor"/>
    </properties>
+   <point/>
   </object>
   <object id="17" name="nearDoor" type="event" x="2480" y="240">
    <point/>
