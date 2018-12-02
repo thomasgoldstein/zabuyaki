@@ -160,7 +160,7 @@ return {
       objects = {
         {
           id = 15,
-          name = "enterTheMap",
+          name = "enterMap",
           type = "event",
           shape = "point",
           x = 43,
@@ -175,7 +175,7 @@ return {
         },
         {
           id = 16,
-          name = "goNearExit",
+          name = "leaveMap",
           type = "event",
           shape = "point",
           x = 2479.33,
@@ -185,12 +185,12 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["go"] = "nearDoor"
+            ["go"] = "exit"
           }
         },
         {
           id = 17,
-          name = "nearDoor",
+          name = "exit",
           type = "event",
           shape = "point",
           x = 2480,
@@ -223,7 +223,7 @@ return {
           offsety = 0,
           draworder = "topdown",
           properties = {
-            ["onComplete"] = "goNearExit"
+            ["onComplete"] = "leaveMap"
           },
           objects = {
             {
@@ -343,7 +343,7 @@ return {
           draworder = "topdown",
           properties = {
             ["music"] = "stage1",
-            ["onStart"] = "enterTheMap"
+            ["onStart"] = "enterMap"
           },
           objects = {
             {

@@ -28,7 +28,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#55557f" id="4" name="global" locked="1">
-  <object id="12" name="enterTheMap" type="event" x="66.6667" y="165.333">
+  <object id="12" name="enterMap" type="event" x="66.6667" y="165.333">
    <properties>
     <property name="togoy" value="100"/>
    </properties>
@@ -45,7 +45,7 @@
   <objectgroup color="#ffff00" id="2" name="1" locked="1">
    <properties>
     <property name="music" value="stage1"/>
-    <property name="onStart" value="enterTheMap"/>
+    <property name="onStart" value="enterMap"/>
    </properties>
    <object id="1" name="1" type="batch" x="0" y="0" width="640" height="320"/>
    <object id="9" name="Gopper" type="gopper" x="544" y="256">

@@ -160,7 +160,7 @@ return {
       objects = {
         {
           id = 12,
-          name = "enterTheMap",
+          name = "enterMap",
           type = "event",
           shape = "point",
           x = 66.6667,
@@ -235,7 +235,7 @@ return {
           draworder = "topdown",
           properties = {
             ["music"] = "stage1",
-            ["onStart"] = "enterTheMap"
+            ["onStart"] = "enterMap"
           },
           objects = {
             {
