@@ -98,7 +98,7 @@ function Unit:addShape(shapeType, shapeArgs)
         if shapeType == "rectangle" then
             self.shape = stage.world:rectangle(unpack(shapeArgs))
             self.width = shapeArgs[3] or 1
-        elseif shapeType == "circle" then
+        elseif shapeType == "ellipse" then
             self.shape = stage.world:circle(unpack(shapeArgs))
             self.width = shapeArgs[3] * 2 or 1
         elseif shapeType == "polygon" then

@@ -20,8 +20,8 @@ function StageObject:initialize(name, sprite, x, y, f)
         f = {}
     end
     if not f.shapeType then
-        --f.shapeType = "circle"
-        --f.shapeArgs = { x, y, 7.5 }
+        --f.shapeType = "ellipse"
+        --f.shapeArgs = { x, y, 7.5 } -- only circle shape is supported
         f.shapeType = "polygon"
         f.shapeArgs = { 4, 0, 9, 0, 14, 3, 9, 6, 4, 6, 0, 3 }
     end

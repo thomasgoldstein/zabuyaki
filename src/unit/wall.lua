@@ -6,7 +6,7 @@ local function nop() end
 function Wall:initialize(name, f)
     --f options {}: shapeType, shapeArgs, hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak
     if not f then
-        f = { shapeType = "circle", shapeArgs = { 0, 0, 10 } }
+        f = { shapeType = "rectangle", shapeArgs = { 0, 0, 10, 10 } }
     end
     local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
     Unit.initialize(self, name, nil, x, y, f)
