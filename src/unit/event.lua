@@ -74,7 +74,7 @@ function Event:startByName(eventName, startByPlayer)
     end
     local event = stage.objects:getByName(eventName)
     if event then
-        dp("found Event", eventName)
+        dp("Found Event", eventName)
         return event:startEvent(startByPlayer)
     end
     dp("Event NOT found", eventName)
