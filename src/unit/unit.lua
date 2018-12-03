@@ -497,7 +497,13 @@ end
 function Unit:getMovementTime(x, y) -- time needed to walk/run to the next point x,y
     local dist = math.sqrt( (x - self.x) ^ 2 + (y - self.y) ^ 2 )
     if self.sprite.curAnim == "walk" then
+        if math.abs(x - self.x) / 2 < math.abs(y - self.y) then
+            return dist / (self.walkSpeed_y - self.friction * 0.0166)
+        end
         return dist / (self.walkSpeed_x - self.friction * 0.0166)
+    end
+    if math.abs(x - self.x) / 2 < math.abs(y - self.y) then
+        return dist / (self.runSpeed_y - self.friction * 0.0166)
     end
     return dist / (self.runSpeed_x - self.friction * 0.0166)
 end
