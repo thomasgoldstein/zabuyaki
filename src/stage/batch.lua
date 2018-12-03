@@ -136,11 +136,11 @@ function Batch:spawn(dt)
 end
 
 function Batch:isDone()
-    return self.state == "done" and self.time > 1
+    return self.state == "finish" and self.time > 0.1
 end
 
 function Batch:finish()
-    self.state = "done"
+    self.state = "finish"
     self.time = 0
 end
 
@@ -158,7 +158,10 @@ function Batch:update(dt)
         end
         self:ps()
         return false
-    elseif self.state == "done" then
+    elseif self.state == "done" then    -- the latest's batch enemies are dead ('nextmap' is not called yet)
+        self.time = self.time + dt
+        return false
+    elseif self.state == "finish" then  -- 'nextmap' event is called
         self.time = self.time + dt
         return false
     end
