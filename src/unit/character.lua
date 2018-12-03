@@ -514,7 +514,7 @@ function Character:walkStart()
         or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() ))
     then
         self:setSprite("chargeWalk")
-    else
+    elseif self.sprite.curAnim ~= "walk" then
         self:setSprite("walk")
     end
 end
