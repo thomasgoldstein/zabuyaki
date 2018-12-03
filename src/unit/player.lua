@@ -272,7 +272,7 @@ function Player:useCreditUpdate(dt)
     if self.playerSelectMode == 5 then --self.isDisabled then
         return
     end
-      if self.playerSelectMode == 0 then
+    if self.playerSelectMode == 0 then
         -- 10 seconds to choose
         self.displayDelay = self.displayDelay - dt
         if credits <= 0 or self.displayDelay <= 0 then
@@ -323,14 +323,14 @@ function Player:useCreditUpdate(dt)
             registerPlayer(player)
             fixPlayersPalette(player)
             dp(player.x, player.y, player.name, player.playerSelectMode, "Palette:", player.palette)
-            SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER+1] = { id = self.id, player = player, deletePlayer = self}
+            SELECT_NEW_PLAYER[#SELECT_NEW_PLAYER + 1] = { id = self.id, player = player, deletePlayer = self }
             return
         else
             self.displayDelay = self.displayDelay - dt
         end
         ---
         if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1)
-                or self.b.horizontal:pressed(1) or self.b.vertical:pressed(1)
+            or self.b.horizontal:pressed(1) or self.b.vertical:pressed(1)
         then
             if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1) then
                 self.playerSelectCur = self.playerSelectCur - 1
