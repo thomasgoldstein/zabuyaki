@@ -496,16 +496,19 @@ end
 
 function Unit:getMovementTime(x, y) -- time needed to walk/run to the next point x,y
     local dist = math.sqrt( (x - self.x) ^ 2 + (y - self.y) ^ 2 )
+    local speedPenalty = self.friction / 60 -- actual moving speed has a friction penalty for 1 frame (for default 60 FPS)
     if self.sprite.curAnim == "walk" then
         if math.abs(x - self.x) / 2 < math.abs(y - self.y) then
-            return dist / (self.walkSpeed_y - self.friction * 0.0166)
+            print(dist / (self.walkSpeed_y - speedPenalty))
+            return dist / (self.walkSpeed_y - speedPenalty)
         end
-        return dist / (self.walkSpeed_x - self.friction * 0.0166)
+        print(dist / (self.walkSpeed_x - speedPenalty))
+        return dist / (self.walkSpeed_x - speedPenalty)
     end
     if math.abs(x - self.x) / 2 < math.abs(y - self.y) then
-        return dist / (self.runSpeed_y - self.friction * 0.0166)
+        return dist / (self.runSpeed_y - speedPenalty)
     end
-    return dist / (self.runSpeed_x - self.friction * 0.0166)
+    return dist / (self.runSpeed_x - speedPenalty)
 end
 
 return Unit
