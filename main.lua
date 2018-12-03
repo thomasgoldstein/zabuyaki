@@ -17,7 +17,6 @@ sfx = nil
 gfx = nil
 bgm = nil
 credits = GLOBAL_SETTING.MAX_CREDITS
-canSpendCredits = true
 attackHitBoxes = {} -- DEBUG
 
 shaders = require "src/def/misc/shaders"

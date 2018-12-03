@@ -285,9 +285,7 @@ function Player:useCreditUpdate(dt)
         -- add countdown 9 .. 0 -> Game Over
         if self.b.attack:pressed() then
             dp(self.name .. " used 1 Credit to respawn")
-            if canSpendCredits then
-                credits = credits - 1
-            end
+            credits = credits - 1
             self:addScore(1) -- like CAPCM
             self:playSfx("menuSelect")
             self.displayDelay = 1 -- delay before respawn
