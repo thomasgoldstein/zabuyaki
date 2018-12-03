@@ -11,9 +11,7 @@ return {
   nextlayerid = 12,
   nextobjectid = 18,
   backgroundcolor = { 0, 85, 0 },
-  properties = {
-    ["nextmap"] = "stage1b_map"
-  },
+  properties = {},
   tilesets = {},
   layers = {
     {
@@ -185,7 +183,9 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["go"] = "exit"
+            ["go"] = "exit",
+            ["nextevent"] = "nextmap",
+            ["nextmap"] = "stage1b_map"
           }
         },
         {

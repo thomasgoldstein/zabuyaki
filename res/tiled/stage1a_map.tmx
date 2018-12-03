@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="12" nextobjectid="18">
- <properties>
-  <property name="nextmap" value="stage1b_map"/>
- </properties>
  <group id="8" name="background" locked="1">
   <imagelayer id="9" name="bg" locked="1">
    <image source="../img/stage/stage1/stage1a.png" width="2560" height="320"/>
@@ -27,7 +24,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#55557f" id="4" name="global" locked="1">
+ <objectgroup color="#55557f" id="4" name="global">
   <object id="15" name="enterMap" type="event" x="43" y="193">
    <properties>
     <property name="togox" value="-100"/>
@@ -37,6 +34,8 @@
   <object id="16" name="leaveMap" type="event" x="2479.33" y="186.667">
    <properties>
     <property name="go" value="exit"/>
+    <property name="nextevent" value="nextmap"/>
+    <property name="nextmap" value="stage1b_map"/>
    </properties>
    <point/>
   </object>

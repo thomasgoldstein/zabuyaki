@@ -9,11 +9,9 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 10,
-  nextobjectid = 15,
+  nextobjectid = 17,
   backgroundcolor = { 0, 85, 0 },
-  properties = {
-    ["nextmap"] = "ending"
-  },
+  properties = {},
   tilesets = {},
   layers = {
     {
@@ -172,6 +170,36 @@ return {
           properties = {
             ["togoy"] = "100"
           }
+        },
+        {
+          id = 15,
+          name = "leaveMap",
+          type = "event",
+          shape = "point",
+          x = 1135.33,
+          y = 189.334,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["go"] = "exit",
+            ["nextevent"] = "nextmap",
+            ["nextmap"] = "ending"
+          }
+        },
+        {
+          id = 16,
+          name = "exit",
+          type = "event",
+          shape = "point",
+          x = 1136,
+          y = 242.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -194,7 +222,9 @@ return {
           offsetx = 0,
           offsety = 0,
           draworder = "topdown",
-          properties = {},
+          properties = {
+            ["onComplete"] = "leaveMap"
+          },
           objects = {
             {
               id = 2,
