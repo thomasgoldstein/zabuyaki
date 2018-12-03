@@ -31,6 +31,8 @@ end
 
 function arcadeState:enter(_, players)
     credits = GLOBAL_SETTING.MAX_CREDITS
+    canSpendCredits = not isDebug()
+    time = 0
     --load very 1st stage
     stage = Stage:new("NoName", "src/def/stage/stage1a_map.lua", players)
     gameOverDelay = 0
@@ -51,6 +53,9 @@ function arcadeState:update(dt)
     else
         time = time + dt
         clearDebugBoxes()
+    end
+    if not canSpendCredits and time >= 10 then -- restore credits usage in Debug mode after time
+        canSpendCredits = true
     end
     if GLOBAL_SETTING.PROFILER_ENABLED then
         Prof:attach()
