@@ -30,11 +30,12 @@ end
 
 function arcadeState:enter(_, players)
     credits = GLOBAL_SETTING.MAX_CREDITS
+    previousStageMusic = nil
     --load very 1st stage
     stage = Stage:new("NoName", "src/def/stage/stage1a_map.lua", players)
+    stage.batch:startPlayingMusic( 1 )
     gameOverDelay = 0
     love.graphics.setLineWidth( 1 )
-    previousStageMusic = nil
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
