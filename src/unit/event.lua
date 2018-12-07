@@ -86,6 +86,9 @@ function Event:updateAI(dt)
     if self.isDisabled or self.properties.notouch then
         return
     end
+
+
+
     local wasApplied = false
     -- Run Event on Players collision
     collidedPlayer = {}
@@ -134,7 +137,7 @@ function Event:startEvent(startByPlayer)
     else
         error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
     end
-    dp("startEvent disablled", wasApplied)
+    dp("startEvent disabled", wasApplied)
     self.isDisabled = wasApplied
     return wasApplied
 end
