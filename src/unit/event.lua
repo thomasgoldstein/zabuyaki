@@ -86,9 +86,6 @@ function Event:updateAI(dt)
     if self.isDisabled or self.properties.notouch then
         return
     end
-
-
-
     local wasApplied = false
     -- Run Event on Players collision
     collidedPlayer = {}
