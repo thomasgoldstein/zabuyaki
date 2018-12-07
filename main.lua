@@ -47,6 +47,9 @@ end
 function love.load(arg)
     love.graphics.setLineStyle("rough")
     love.graphics.setDefaultFilter("nearest", "nearest")
+    Gamestate = require "lib/hump.gamestate"
+    require "src/state/logoState"
+    Gamestate.switch(logoState)
     love.graphics.setBackgroundColor(0, 0, 0, 255)
     for i=1,3 do
         canvas[i] = love.graphics.newCanvas(640 * 2, 480 * 2)
@@ -74,7 +77,6 @@ function love.load(arg)
         })
     setupScreen()
 
-    Gamestate = require "lib/hump.gamestate"
     colors = (require "src/def/misc/colors"):new()
     require "src/animatedSprite"
     HC = require "lib/HC"
@@ -167,7 +169,6 @@ function love.load(arg)
 
     require "src/multiplayer"
     --GameStates
-    require "src/state/logoState"
     require "src/state/titleState"
     require "src/state/optionsState"
     require "src/state/videoModeState"
@@ -181,8 +182,6 @@ function love.load(arg)
     require "src/state/spriteEditorState"
 
     Gamestate.registerEvents()
-    Gamestate.switch(logoState)
-
     if isDebug() then
         require "test.common_test"
         require "test.test1"
@@ -190,6 +189,7 @@ function love.load(arg)
         cleanUpAfterTests()
     end
     bindGameInput()
+    everythingIsLoadedGoToTitle = true  -- ready to switch to the Title state
 end
 
 local function pollControls(dt)
