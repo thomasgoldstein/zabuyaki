@@ -1823,8 +1823,10 @@ function Character:eventMoveStart()
     local finalValues = {
         x = f.x or self.x,
         y = f.y or self.y,
-        z = f.z or self.z
     }
+    if f.z then
+        finalValues.z = f.z or self.z
+    end
     if f.gox then  -- override 'go' Point x coord
         finalValues.x = self.x + (f.gox or 0)
     end
