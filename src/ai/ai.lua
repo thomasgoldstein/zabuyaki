@@ -217,12 +217,12 @@ function AI:getVisualConditions(conditions)
     return conditions
 end
 
-function AI:canActAndMove()
-    return self.conditions.canMove and not self.conditions.cannotAct
+function AI:canAct()
+    return not (self.conditions.cannotAct or self.conditions.inAir)
 end
 
-function AI:canAct()
-    return not self.conditions.cannotAct
+function AI:canActAndMove()
+    return self.conditions.canMove and self:canAct()
 end
 
 function AI:initIntro()
