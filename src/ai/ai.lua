@@ -217,15 +217,22 @@ function AI:getVisualConditions(conditions)
     return conditions
 end
 
+function AI:canActAndMove()
+    return self.conditions.canMove and not self.conditions.cannotAct
+end
+
+function AI:canAct()
+    return not self.conditions.cannotAct
+end
+
 function AI:initIntro()
     local u = self.unit
 --    dp("AI:initIntro() " .. u.name)
-    if self.conditions.cannotAct then
-        return false
-    end
-    if u.state == "stand" or u.state == "intro" then
-        u:setSprite("intro")
-        return true
+    if self:canAct() then
+        if u.state == "stand" or u.state == "intro" then
+            u:setSprite("intro")
+            return true
+        end
     end
     return false
 end
@@ -244,16 +251,17 @@ end
 function AI:initStand()
     local u = self.unit
 --    dp("AI:initStand() " .. u.name)
-    if not self.conditions.canMove or self.conditions.cannotAct then
-        return false
+    if self:canActAndMove() then
+        assert(not u.isDisabled and u.hp > 0)
+        if u.state ~= "stand" then
+            u:setState(u.stand)
+            return true
+        elseif u.sprite.curAnim ~= "stand" then
+            u:setSprite("stand")
+            return true
+        end
     end
-    assert(not u.isDisabled and u.hp > 0)
-    if u.state ~= "stand" then
-        u:setState(u.stand)
-    elseif u.sprite.curAnim ~= "stand" then
-        u:setSprite("stand")
-    end
-    return true
+    return false
 end
 
 function AI:onStand()
@@ -271,20 +279,20 @@ end
 function AI:initWait()
     local u = self.unit
 --    dp("AI:initWait() " .. u.name)
-    if not self.conditions.canMove or self.conditions.cannotAct then
-        return false
+    if self:canActAndMove() then
+        assert(not u.isDisabled and u.hp > 0)
+        if u.state ~= "stand" then
+            u:setState(u.stand)
+        elseif u.sprite.curAnim ~= "stand" then
+            u:setSprite("stand")
+        end
+        self.waitingCounter = love.math.random(self.hesitateMin, self.hesitateMax)
+        --    print("!!!!ai.lua<AI:initWait> : " .. self.waitingCounter, u.name)
+        u.speed_x = u.runSpeed
+        u.speed_y = 0
+        return true
     end
-    assert(not u.isDisabled and u.hp > 0)
-    if u.state ~= "stand" then
-        u:setState(u.stand)
-    elseif u.sprite.curAnim ~= "stand" then
-        u:setSprite("stand")
-    end
-    self.waitingCounter = love.math.random(self.hesitateMin, self.hesitateMax)
---    print("!!!!ai.lua<AI:initWait> : " .. self.waitingCounter, u.name)
-    u.speed_x = u.runSpeed
-    u.speed_y = 0
-    return true
+    return false
 end
 
 function AI:onWait(dt)
@@ -333,64 +341,63 @@ end
 
 function AI:unused_initFaceToXY()
     local u = self.unit
-    if self.conditions.cannotAct then
-        return false
+    if self:canAct() then
+        --    dp("AI:initFaceToXY() " .. u.name)
+        if u.x < self.x then
+            u.horizontal = 1
+        else --u.x > self.x then
+            u.horizontal = -1
+        end
+        u.face = u.horizontal
+        return true
     end
---    dp("AI:initFaceToXY() " .. u.name)
-    if u.x < self.x then
-        u.horizontal = 1
-    else --u.x > self.x then
-        u.horizontal = -1
-    end
-    u.face = u.horizontal
-    return true
+    return false
 end
 
 function AI:initWalkToXY()
     local u = self.unit
 --    dp("AI:initWalkToXY() " .. u.name)
-    if not self.conditions.canMove or self.conditions.cannotAct then
-        return false
+    if self:canActAndMove() then
+        assert(not u.isDisabled and u.hp > 0)
+        if u.state ~= "walk" then
+            u:setState(u.walk)
+        elseif u.sprite.curAnim ~= "walk" then
+            u:setSprite("walk")
+        end
+        local t = dist(self.x, self.y, u.x, u.y)
+        u.move = tween.new((self.addMoveTime or 0.1) + t / u.walkSpeed, u, {
+            tx = self.x,
+            ty = self.y
+        }, 'linear')
+        u.speed_x = u.walkSpeed
+        u.speed_y = u.walkSpeed / 4
+        u.ttx, u.tty = self.x, self.y
+        return true
     end
-    assert(not u.isDisabled and u.hp > 0)
-    if u.state ~= "walk" then
-        u:setState(u.walk)
-    elseif u.sprite.curAnim ~= "walk" then
-        u:setSprite("walk")
-    end
-    local t = dist(self.x, self.y, u.x, u.y)
-    u.move = tween.new((self.addMoveTime or 0.1) + t / u.walkSpeed, u, {
-        tx = self.x,
-        ty = self.y
-    }, 'linear')
-    u.speed_x = u.walkSpeed
-    u.speed_y = u.walkSpeed / 4
-    u.ttx, u.tty = self.x, self.y
-    return true
+    return false
 end
 
 function AI:initRunToXY()
     local u = self.unit
 --    dp("AI:initRunToXY() " .. u.name)
---    if not self.conditions.canMove or not self.conditions.cannotAct  then
-    if self.conditions.cannotAct then
-        return false
+    if self:canActAndMove() then
+        assert(not u.isDisabled and u.hp > 0)
+        if u.state ~= "run" then
+            u:setState(u.run)
+        elseif u.sprite.curAnim ~= "run" then
+            u:setSprite("run")
+        end
+        local t = dist(self.x, self.y, u.x, u.y)
+        u.move = tween.new((self.addMoveTime or 0.1) + t / u.runSpeed, u, {
+            tx = self.x,
+            ty = self.y
+        }, 'linear')
+        u.ttx, u.tty = self.x, self.y
+        u.speed_x = u.runSpeed
+        u.speed_y = 0
+        return true
     end
-    assert(not u.isDisabled and u.hp > 0)
-    if u.state ~= "run" then
-        u:setState(u.run)
-    elseif u.sprite.curAnim ~= "run" then
-        u:setSprite("run")
-    end
-    local t = dist(self.x, self.y, u.x, u.y)
-    u.move = tween.new((self.addMoveTime or 0.1) + t / u.runSpeed, u, {
-        tx = self.x,
-        ty = self.y
-    }, 'linear')
-    u.ttx, u.tty = self.x, self.y
-    u.speed_x = u.runSpeed
-    u.speed_y = 0
-    return true
+    return false
 end
 
 function AI:calcWalkToAttackXY()
@@ -467,46 +474,46 @@ end
 function AI:calcRunToXY()
     local u = self.unit
 --    dp("AI:calcRunToXY() " .. u.name)
-    if self.conditions.cannotAct or not self.conditions.canMove then
-        return false
+    if self:canActAndMove() then
+        if not u.target or u.target.hp < 1 then
+            u:pickAttackTarget() -- ???
+        end
+        assert(not u.isDisabled and u.hp > 0)
+        u:setState(u.run)
+        local tx, ty, shift_x
+        if u.x < u.target.x then
+            tx = u.target.x - love.math.random(25, 35)
+            ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+            u.face = 1
+        else
+            tx = u.target.x + love.math.random(25, 35)
+            ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
+            u.face = -1
+        end
+        u.horizontal = u.face
+        self.x, self.y, self.addMoveTime = tx, ty, 0.3
+        u.ttx, u.tty = tx, ty
+        return true
     end
-    if not u.target or u.target.hp < 1 then
-        u:pickAttackTarget() -- ???
-    end
-    assert(not u.isDisabled and u.hp > 0)
-    u:setState(u.run)
-    local tx, ty, shift_x
-    if u.x < u.target.x then
-        tx = u.target.x - love.math.random(25, 35)
-        ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        u.face = 1
-    else
-        tx = u.target.x + love.math.random(25, 35)
-        ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        u.face = -1
-    end
-    u.horizontal = u.face
-    self.x, self.y, self.addMoveTime = tx, ty, 0.3
-    u.ttx, u.tty = tx, ty
-    return true
+    return false
 end
 
 function AI:initFaceToPlayer()
     local u = self.unit
 --    dp("AI:initFaceToPlayer() " .. u.name)
-    if not u.isHittable or self.conditions.cannotAct then
-        return false
+    if u.isHittable and self:canAct() then
+        if not u.target or u.target.hp < 1 then
+            u:pickAttackTarget() -- ???
+        end
+        if u.x < u.target.x then
+            u.face = 1
+        else
+            u.face = -1
+        end
+        u.horizontal = u.face
+        return true
     end
-    if not u.target or u.target.hp < 1 then
-        u:pickAttackTarget() -- ???
-    end
-    if u.x < u.target.x then
-        u.face = 1
-    else
-        u.face = -1
-    end
-    u.horizontal = u.face
-    return true
+    return false
 end
 
 function AI:initCombo()
@@ -520,25 +527,25 @@ end
 function AI:onCombo(dt)
     local u = self.unit
     --    dp("AI:onCombo() ".. u.name)
-    if self.conditions.cannotAct then
+    if not self:canAct() then
         return true
     end
     if self.hesitate > 0 then
         self.hesitate = self.hesitate - dt
-        return false
     else
         if self.conditions.canCombo then
             u:setState(u.combo)
         end
         return true
     end
+    return false
 end
 
 function AI:initDash(dt)
     local u = self.unit
     --    dp("AI:onDash() ".. u.name)
     --    if not self.conditions.cannotAct then
-    if not self.conditions.cannotAct and self.conditions.canMove then
+    if self:canActAndMove() then
         u:setState(u.dashAttack)
         return true
     end
@@ -547,10 +554,10 @@ end
 
 function AI:waitUntilStand(dt)
 --    dp("AI:waitUntilStand() ".. u.name)
-    if self.conditions.cannotAct or not self.conditions.canMove then
-        return false
+    if self:canActAndMove() then
+        return true
     end
-    return true
+    return false
 end
 
 function AI:initGrab()
@@ -558,7 +565,7 @@ function AI:initGrab()
     local u = self.unit
 --    dp("AI: INIT GRAB " .. u.name)
     --if u.state == "stand" or u.state == "walk" then
-    if self.conditions.canMove and not self.conditions.cannotAct then
+    if self:canActAndMove() then
         local grabbed = u:checkForGrab()
         if grabbed then
             if grabbed.type ~= "player" then
@@ -620,28 +627,28 @@ end
 function AI:calcWalkToGrabXY()
     local u = self.unit
 --    dp("AI:calcWalkToGrabXY() " .. u.name)
-    if not self.conditions.canMove or self.conditions.cannotAct then
-        return false
-    end
-    if not u.target or u.target.hp < 1 then
-        u:pickAttackTarget("close")
-        if not u.target then
-            return false
+    if self:canActAndMove() then
+        if not u.target or u.target.hp < 1 then
+            u:pickAttackTarget("close")
+            if not u.target then
+                return false
+            end
         end
+        assert(not u.isDisabled and u.hp > 0)
+        local tx, ty
+        --get to the player grab range
+        if u.x < u.target.x then
+            tx = u.target.x - love.math.random(9, 10)
+            ty = u.target.y + 1
+        else
+            tx = u.target.x + love.math.random(9, 10)
+            ty = u.target.y + 1
+        end
+        self.x, self.y, self.addMoveTime = tx, ty, 0.1
+        u.ttx, u.tty = tx, ty
+        return true
     end
-    assert(not u.isDisabled and u.hp > 0)
-    local tx, ty
-    --get to the player grab range
-    if u.x < u.target.x then
-        tx = u.target.x - love.math.random(9, 10)
-        ty = u.target.y + 1
-    else
-        tx = u.target.x + love.math.random(9, 10)
-        ty = u.target.y + 1
-    end
-    self.x, self.y, self.addMoveTime = tx, ty, 0.1
-    u.ttx, u.tty = tx, ty
-    return true
+    return false
 end
 
 function AI:onStop()
