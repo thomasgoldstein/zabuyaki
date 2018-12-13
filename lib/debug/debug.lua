@@ -262,9 +262,6 @@ function checkDebugKeys(key)
             else
                 sfx.play("sfx","menuMove")
             end
-        elseif key == 'f12' then
-            --saveAllCanvasesToPng()
-            saveStageToPng()
         elseif keysToKill[key] then
             local id = keysToKill[key]
             if id == 0 then
