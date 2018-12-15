@@ -32,11 +32,6 @@ local heroes = {
         spriteInstance = "src/def/char/chai.lua",
     },
     {
-        name = "CHAI_SP",
-        shaders = {nil, nil, nil},
-        spriteInstance = "src/def/char/chai_sp.lua",
-    },
-    {
         name = "YAR",
         shaders = {nil, nil, nil},
         spriteInstance = "src/def/char/yar.lua",
