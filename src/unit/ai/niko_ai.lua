@@ -101,7 +101,7 @@ function eAI:initJumpAttack(dt)
     --    dp("AI:onDash() ".. self.unit.name)
     local u = self.unit
     self.doneAttack = false
-    if u.state == "stand" or u.state == "walk" then
+    if self:canActAndMove() and ( u.state == "stand" or u.state == "walk" ) then
         u.horizontal = u.face
         u.z = u.z + 1
         u.bounced = 0
@@ -120,7 +120,9 @@ function eAI:onJumpAttack(dt)
     local u = self.unit
     if not self.doneAttack then
         self.doneAttack = true
-        u:setState(u.jumpAttackForward)
+        if u.state == "jump" and self:canAct() then
+            u:setState(u.jumpAttackForward)
+        end
         return true
     end
     return false
