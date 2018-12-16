@@ -17,12 +17,6 @@ return {
     --  each one can be accessed like this:
     --  mySprite.animations["idle"][1], or even
     animations = {
-        icon = {
-            { q = q(0, 0, 0, 0) }
-        },
-        stand = {
-            { q = q(0,0,0,0), ox = 0, oy = 0 },
-        },
         specialDefensive = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 1
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 2
