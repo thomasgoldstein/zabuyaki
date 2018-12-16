@@ -63,13 +63,6 @@ function Character:showEffect(effect, obj)
         particles:setLinearAcceleration(-self.face * 50, 1, -self.face * 100, -15)
         particles:emit(PA_DUST_DUST_STEPS_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x - 20 * self.face, self.y + 2, self.z))
-    elseif effect == "specialDefensiveRick" then
-        self:playSfx("hitWeak1")
-        mainCamera:onShake(0, 2, 0.03, 0.3) --shake the screen
-        particles = (self.face == 1 and PA_SP_DEF_RICK_R or PA_SP_DEF_RICK_L):clone()
-        particles:setPosition(self.face * 12, 11) --pos == x,y ofplayer. You can adjust it up/down
-        particles:emit(1) --draw 1 effect sprite
-        stage.objects:add(Effect:new(particles, self.x, self.y + 2, self.z)) --y+2 to put it above the player's sprite
     elseif effect == "bellyLanding" then
         --clouds under belly
         particles = PA_DUST_FALL_LANDING:clone()

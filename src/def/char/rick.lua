@@ -193,12 +193,28 @@ local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
     { x = 17, y = 14, width = 30, damage = 10, type = "knockDown" },
     cont
 ) end
- local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
+local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
     { x = 30, y = 25, width = 25, height = 45, damage = 17, type = "knockDown" },
     cont
  ) end
-local specialDefensive = function(slf, cont) slf:checkAndAttack(
-    { x = 12, y = 32, width = 77, height = 70, depth = 18, damage = 25, type = "blowOut" },
+local specialDefensiveShake = function(slf, cont)
+    slf:playSfx("hitWeak1")
+    mainCamera:onShake(0, 2, 0.03, 0.3)
+end
+local specialDefensive1 = function(slf, cont) slf:checkAndAttack(
+    { x = 0, y = 32, width = 28, height = 32, depth = 18, damage = 25, type = "blowOut" },
+    cont
+ ) end
+local specialDefensive2 = function(slf, cont) slf:checkAndAttack(
+    { x = 10, y = 17, width = 50, height = 40, depth = 18, damage = 25, type = "blowOut" },
+    cont
+ ) end
+local specialDefensive3 = function(slf, cont) slf:checkAndAttack(
+    { x = 10, y = 42, width = 66, height = 90, depth = 18, damage = 25, type = "blowOut" },
+    cont
+ ) end
+local specialDefensive4 = function(slf, cont) slf:checkAndAttack(
+    { x = 5, y = 32, width = 40, height = 70, depth = 18, damage = 25, type = "blowOut" },
     cont
  ) end
 local specialOffensive = function(slf, cont) slf:checkAndAttack(
@@ -372,15 +388,19 @@ return {
             delay = 0.05
         },
         specialDefensive = {
-            { q = q(2,1504,45,62), ox = 22, oy = 61 }, --special defensive 1
+            { q = q(2,1504,45,62), ox = 22, oy = 61, delay = 0.04 }, --special defensive 1
             { q = q(49,1505,49,61), ox = 24, oy = 60, delay = 0.1 }, --special defensive 2
             { q = q(100,1505,45,61), ox = 17, oy = 60 }, --special defensive 3
-            { q = q(147,1506,54,60), ox = 14, oy = 59 }, --special defensive 4
-            { q = q(2,1568,58,57), ox = 14, oy = 54, func = function(slf) slf:showEffect("specialDefensiveRick") end }, --special defensive 5a
-            { q = q(62,1569,58,56), ox = 14, oy = 53, funcCont = specialDefensive }, --special defensive 5b
-            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive, delay = 0.233 }, --special defensive 5c
-            { q = q(2,1630,50,60), ox = 14, oy = 59, delay = 0.067 }, --special defensive 6
-            { q = q(54,1627,44,63), ox = 15, oy = 62 }, --special defensive 7
+            { q = q(147,1506,54,60), ox = 14, oy = 59, funcCont = specialDefensive1 }, --special defensive 4
+            { q = q(2,1568,58,59), ox = 14, oy = 54, funcCont = specialDefensive2, func = specialDefensiveShake }, --special defensive 5a
+            { q = q(62,1569,58,58), ox = 14, oy = 53, funcCont = specialDefensive2 }, --special defensive 5b
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3 }, --special defensive 5c1
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3 }, --special defensive 5c2
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4 }, --special defensive 5c3
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4 }, --special defensive 5c4
+            { q = q(122,1570,58,55), ox = 14, oy = 52, delay = 0.04 }, --special defensive 5c5
+            { q = q(2,1630,50,60), ox = 14, oy = 59, delay = 0.04 }, --special defensive 6
+            { q = q(122,1627,44,63), ox = 15, oy = 62, delay = 0.04 }, --special defensive 7
             delay = 0.05
         },
         specialOffensive = {
@@ -640,7 +660,7 @@ return {
             { q = q(45,1692,45,63), ox = 15, oy = 62, delay = 0.1 }, --back throw 2
             { q = q(92,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back throw 3
             { q = q(155,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back throw 4
-            { q = q(100,1652,63,38), ox = 51, oy = 34, func = grabBackAttack, delay = 0.3 }, --back throw 5
+            { q = q(54,1652,63,38), ox = 51, oy = 34, func = grabBackAttack, delay = 0.3 }, --back throw 5
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pick up 1
