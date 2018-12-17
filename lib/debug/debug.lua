@@ -6,6 +6,7 @@ local SHOW_DEBUG_CONTROLS = 1 -- show pressed keys
 local SHOW_DEBUG_UNIT_HITBOX = 2 -- show hitboxes
 local SHOW_DEBUG_UNIT_INFO = 3 -- show unit's info: name, pos, state
 local SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
+local SHOW_DEBUG_BATCHES = 2 -- show left edge of the current batch with red and the next with blue
 
 -- Load PRofiler
 if GLOBAL_SETTING.PROFILER_ENABLED then
@@ -134,6 +135,25 @@ function showDebugIndicator(size, _x, _y)
             love.graphics.print("SLOW:"..(GLOBAL_SETTING.SLOW_MO + 1), x, y + 9 * 2)
         end
         love.graphics.print("Frame:"..frame, x, y + 9 * 3)
+    end
+end
+
+function showDebugBatch(l,t,w,h)
+    if isDebug(SHOW_DEBUG_BATCHES) then
+        local s = stage.batch
+        if s then
+            local b,b2 = s.batches[s.n], s.batches[s.n + 1]
+            if b then
+                colors:set("red", nil, 150)
+                love.graphics.rectangle("fill", b.leftStopper, t, 1, h)
+                love.graphics.print(b.name, b.leftStopper + 4, t + h - 12)
+                if b2 then
+                    colors:set("blue", nil, 150)
+                    love.graphics.rectangle("fill", b2.leftStopper, t, 1, h)
+                    love.graphics.print(b2.name, b2.leftStopper + 4, t + h - 12)
+                end
+            end
+        end
     end
 end
 

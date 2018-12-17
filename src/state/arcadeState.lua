@@ -108,6 +108,7 @@ function arcadeState:draw()
         colors:set("white")
         stage:draw(l,t,w,h)
         showDebugBoxes() -- debug draw collision boxes
+        showDebugBatch(l,t,w,h)
     end)
     love.graphics.setCanvas()
     push:start()
