@@ -137,6 +137,7 @@ Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape 
 ## Optional units properties ##
 Optional properties:
 * delay <- delay before its appearance in seconds (float numbers are fine, too)
+* z <- start z coordinate(height)
 * state <- units state on spawn: intro, stand, walk (aim to players)
 * palette <- select unit's coloring number (shaders). 1 - default.
 * flip <- turn units face to the left  
