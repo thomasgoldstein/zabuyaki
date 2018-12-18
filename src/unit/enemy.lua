@@ -24,7 +24,6 @@ end
 function Enemy:postInitialize()
     self.walkSpeed = self.walkSpeed_x / 1.075 --TODO calc it from attributes
     self.runSpeed = self.runSpeed_x / 1.4 --TODO calc it from attributes
-    self:setToughness(0)
 end
 
 function Enemy:checkCollisionAndMove(dt)

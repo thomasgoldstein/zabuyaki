@@ -129,10 +129,6 @@ function Unit:addShape(shapeType, shapeArgs)
     end
 end
 
-function Unit:setToughness(t)
-    self.toughness = t
-end
-
 function Unit:setState(state, condition)
     if state then
         self.prevStateTime = self.lastStateTime

@@ -22,7 +22,6 @@ function Character:initialize(name, sprite, x, y, f, input)
     self.type = "character"
     self.time = 0
     --Inner char vars
-    self.toughness = 0 --0 slow .. 5 fast, more aggressive (for enemy AI)
     self.score = 0
     self.lifeBarTimer = 0
     self.chargedAt = 1    -- define # seconds when chargeAttack is ready
