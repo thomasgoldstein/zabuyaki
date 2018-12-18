@@ -123,10 +123,14 @@ function Batch:spawn(dt)
             end
             allSpawned = false
             allDead = false --not yet spawned = alive
-        else
-            if u.unit.hp > 0 and u.unit.type == "enemy" then --alive enemy
-                allDead = false
-            end
+        end
+        if not u.isActive and b.onEnterStarted then
+            u.isActive = true -- the batch unit spawn data
+            u.unit.isActive = true -- actual spawned enemy unit
+            dp("Activate enemy:", u.unit.name)
+        end
+        if u.unit.hp > 0 and u.unit.type == "enemy" then --alive enemy
+            allDead = false
         end
     end
     if allSpawned then

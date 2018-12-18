@@ -8,6 +8,7 @@ local rand1 = rand1
 function Enemy:initialize(name, sprite, x, y, f, input)
     Character.initialize(self, name, sprite, x, y, f, input)
     self.type = "enemy"
+    self.isActive = false -- can move, can think
     self.comboTimeout = 2 -- max delay to connect combo hits
     self.maxAiPoll_1 = 0.5
     self.AiPoll_1 = self.maxAiPoll_1
@@ -77,6 +78,9 @@ function Enemy:updateAI(dt)
     if self.isDisabled then
         return
     end
+    if not self.isActive then
+        return
+    end
     Character.updateAI(self, dt)
 end
 
@@ -85,6 +89,7 @@ function Enemy:onFriendlyAttack()
     if not h then
         return
     end
+    self.isActive = true -- awake sleeping enemy on any attack (even friendly)
     if self.type == h.source.type and not h.isThrown then
         self.isHurt = nil   --enemy doesn't attack enemy
     else
