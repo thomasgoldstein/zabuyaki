@@ -58,6 +58,9 @@ local function applyUnitProperties(v, unit)
     if v.properties.drop then
         unit.func = Loot.getDropFuncByName(v.properties.drop)
     end
+    if v.properties.z then
+        unit.z = tonumber(v.properties.z)
+    end
 end
 
 local function loadUnit(items, stage, batch_name)
