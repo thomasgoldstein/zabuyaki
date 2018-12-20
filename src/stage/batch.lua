@@ -3,17 +3,6 @@
 local class = require "lib/middleclass"
 local Batch = class('Batch')
 
---[[
-{
-    delay = seconds,
-    leftStopper =
-    rightStopper =
-    units = {
-        { unit = ,
-        spawned = false
-        }
-    }
-]]
 function Batch:ps(t)
     dp("BATCH #"..self.n.." State:"..self.state.." "..(t or ""))
 end
@@ -40,7 +29,6 @@ function Batch:load()
     for i = 1, #b.units do
         local u = b.units[i]
         u.isSpawned = false
-        --dp("units in batch:",u.unit.name)
     end
     self.startTimer = false
     Event.startByName(_, b.onStart)
@@ -58,11 +46,8 @@ end
 
 function Batch:spawn(dt)
     local b = self.batches[self.n]
-    --move leftStopper, rightStopper
     local center_x, playerGroupDistance, min_x, max_x = self.stage.center_x, self.stage.playerGroupDistance, self.stage.min_x, self.stage.max_x
-    --dp(center_x, min_x, max_x, playerGroupDistance )
     local lx, rx = self.stage.leftStopper.x, self.stage.rightStopper.x    --current in the stage
-    --dp("LX"..lx.."->"..self.leftStopper..", RX "..rx.." -> "..self.rightStopper, min_x, max_x )
     if lx < self.leftStopper
         and min_x > self.leftStopper + 320
     then
@@ -71,7 +56,6 @@ function Batch:spawn(dt)
     if rx < self.rightStopper then
         rx = rx + dt * 300 -- speed of the right Stopper movement > char's run
     end
-    --rx = math.min( self.rightStopper, lx + 320 + 160 - 50 )    --max possible dist between players
     if lx ~= self.stage.leftStopper.x or rx ~= self.stage.rightStopper.x then
         self.stage:moveStoppers(lx, rx)
     end
@@ -101,10 +85,7 @@ function Batch:spawn(dt)
         local u = b.units[i]
         if not u.isSpawned then
             if self.time - b.delay >= u.delay then --delay before the unit's spawn
-                --TODO spawn
                 dp("spawn ", u.unit.name, u.unit.type, u.unit.hp, self.time)
-                --add to stage / bump
-                --self:ps(" enSpawn Unit #"..i)
                 u.unit:setOnStage(stage)
                 u.isSpawned = true
 
@@ -134,13 +115,11 @@ function Batch:spawn(dt)
         end
     end
     if allSpawned then
-        --??
     end
     if allDead then
         self.state = "next"
         Event.startByName(_, b.onComplete)
     end
-    --dp("all spawned", allSpawned, "all dead", allDead)
     return true
 end
 
