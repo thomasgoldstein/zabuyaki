@@ -1,6 +1,6 @@
 # Editing Zabuyaki with Tiled #
 Download Tiled [Tiled Map Editor](http://www.mapeditor.org) or [GitHub](https://github.com/bjorn/tiled)
-Version 1.2.0
+Version 1.2.1
 
 ## Stages naming ##
 Default stage name template: **stageX_map.tmx**
