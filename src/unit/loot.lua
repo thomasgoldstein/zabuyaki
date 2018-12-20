@@ -30,7 +30,7 @@ function Loot:setOnStage(stage)
 end
 
 function Loot:addShape()
-    Unit.addShape(self, "circle", { self.x, self.y, 7.5 })
+    Unit.addShape(self, "ellipse", { self.x, self.y, 7.5 })
 end
 
 function Loot:onHurt()
