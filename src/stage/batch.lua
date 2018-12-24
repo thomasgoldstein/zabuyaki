@@ -71,7 +71,7 @@ function Batch:spawn(dt)
             bPrev.onLeaveStarted = true
         end
     end
-    if not b.onEnterStarted and max_x > b.leftStopper then -- Last player passed the left bound of the batch
+    if not b.onEnterStarted and max_x > b.leftStopper then -- The first player passed the left bound of the batch
         Event.startByName(_, b.onEnter)
         b.onEnterStarted = true
         self:startPlayingMusic()
