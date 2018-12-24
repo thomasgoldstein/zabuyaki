@@ -11,10 +11,9 @@ function Trashcan:initialize(name, sprite, x, y, f)
     f.isMovable = true
     StageObject.initialize(self, name, sprite, x, y, f)
     self.type = "trashcan"
-    self.sfxDead = nil
-    self.sfxOnHit = "metalHit"
-    self.sfxOnBreak = "metalBreak"
-    self.sfxGrab = "metalGrab"
+    self.sfx.onHit = "metalHit"
+    self.sfx.onBreak = "metalBreak"
+    self.sfx.grab = "metalGrab"
     self.particleColor = shaders.trashcan_particleColor[self.palette]
 end
 

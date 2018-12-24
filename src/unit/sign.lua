@@ -13,10 +13,8 @@ function Sign:initialize(name, sprite, x, y, f)
     f.isMovable = false  -- auto get isObstacle true
     StageObject.initialize(self, name, sprite, x, y, f)
     self.type = "sign"
-    self.sfxDead = nil
-    self.sfxOnHit = "metalHit"
-    self.sfxOnBreak = "metalBreak"
-    self.sfxGrab = "metalGrab"
+    self.sfx.onHit = "metalHit"
+    self.sfx.onBreak = "metalBreak"
 end
 
 return Sign
