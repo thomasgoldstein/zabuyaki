@@ -57,7 +57,7 @@ function Unit:showHitMarks(dmg, z, offset_x)
 end
 
 function Unit:clearTrailsAndOverlaySprite()
-    self:fadeOutGhostTrails()
+    self:disableGhostTrails() -- alternative: self:fadeOutGhostTrails()
     self:removeSpriteOverlay()
 end
 
