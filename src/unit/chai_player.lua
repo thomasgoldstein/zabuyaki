@@ -174,7 +174,7 @@ function Chai:specialDefensiveUpdate(dt)
         return
     end
 end
-Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiveStart, exit = Unit.clearTrailsAndOverlaySprite, update = Chai.specialDefensiveUpdate, draw = Character.defaultDraw }
+Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiveStart, exit = Unit.removeSpriteOverlay, update = Chai.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Chai:specialOffensiveStart()
     self.isHittable = true
@@ -221,7 +221,7 @@ function Chai:specialOffensiveUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.clearTrailsAndOverlaySprite, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
+Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.removeSpriteOverlay, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Chai:specialDashStart()
     self.isHittable = true
@@ -268,7 +268,7 @@ function Chai:specialDashUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.clearTrailsAndOverlaySprite, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
+Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.removeSpriteOverlay, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
 
 function Chai:chargeDashAttackStart()
     self.isHittable = true
