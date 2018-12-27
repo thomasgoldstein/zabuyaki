@@ -96,7 +96,7 @@ function Rick:specialDefensiveStart()
     self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
     self:playSfx(self.sfx.dashAttack)
 end
-Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = Unit.clearTrailsAndOverlaySprite, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
+Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = Unit.removeSpriteOverlay, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Rick:specialOffensiveStart()
     self.isHittable = true

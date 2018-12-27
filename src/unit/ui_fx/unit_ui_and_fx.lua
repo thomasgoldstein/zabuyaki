@@ -56,11 +56,6 @@ function Unit:showHitMarks(dmg, z, offset_x)
     stage.objects:add(Effect:new(paHitMark, self.x, y - hitMarkOffset_y))
 end
 
-function Unit:clearTrailsAndOverlaySprite()
-    self:disableGhostTrails() -- alternative: self:fadeOutGhostTrails()
-    self:removeSpriteOverlay()
-end
-
 function Unit:updateSprite(dt)
     updateSpriteInstance(self.sprite, dt, self)
     if self.spriteOverlay then
