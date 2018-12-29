@@ -430,6 +430,7 @@ function Character:standStart()
         end
         self.nextAnlmationDelay = 0.0
     end
+    self:disableGhostTrails()
     self:removeTweenMove()
     self.victims = {}
     self.obstacles = {}
@@ -516,7 +517,6 @@ function Character:walkStart()
     elseif self.sprite.curAnim ~= "walk" then
         self:setSprite("walk")
     end
-    self:disableGhostTrails()
 end
 function Character:walkUpdate(dt)
     if self:getMinZ() < self.z then
