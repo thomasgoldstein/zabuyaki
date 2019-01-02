@@ -36,17 +36,17 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump up/top
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump top
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted up by 3px)
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1a
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1b
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1c
+            { q = q(140,1720,42,32), ox = -9, oy = 32 }, --offensive special 1a
+            { q = q(184,1721,40,29), ox = -9, oy = 31 }, --offensive special 1b
+            { q = q(140,1754,34,24), ox = -13, oy = 28 }, --offensive special 1c
         },
         specialOffensive2 = {
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1a
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1b
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1c
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1a
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1b
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1c
+            { q = q(140,1720,42,32), ox = -9, oy = 32 }, --offensive special 1a
+            { q = q(184,1721,40,29), ox = -9, oy = 31 }, --offensive special 1b
+            { q = q(140,1754,34,24), ox = -13, oy = 28 }, --offensive special 1c
+            { q = q(140,1720,42,32), ox = -9, oy = 32 }, --offensive special 1a
+            { q = q(184,1721,40,29), ox = -9, oy = 31 }, --offensive special 1b
+            { q = q(140,1754,34,24), ox = -13, oy = 28 }, --offensive special 1c
             { q = q(155,1490,33,29), ox = 2, oy = 32 }, --special defensive 5
             { q = q(190,1462,44,53), ox = -1, oy = 54 }, --special defensive 6
             { q = q(2,1526,46,26), ox = -5, oy = 54 }, --special defensive 7
@@ -62,17 +62,17 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump up/top
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump top
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted up by 3px)
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1a
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1b
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1c
+            { q = q(140,1720,42,32), ox = -9, oy = 32 }, --offensive special 1a
+            { q = q(184,1721,40,29), ox = -9, oy = 31 }, --offensive special 1b
+            { q = q(140,1754,34,24), ox = -13, oy = 28 }, --offensive special 1c
         },
         specialDash2 = {
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1a
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1b
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1c
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1a
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1b
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 1c
+            { q = q(140,1720,42,32), ox = -9, oy = 32 }, --offensive special 1a
+            { q = q(184,1721,40,29), ox = -9, oy = 31 }, --offensive special 1b
+            { q = q(140,1754,34,24), ox = -13, oy = 28 }, --offensive special 1c
+            { q = q(140,1720,42,32), ox = -9, oy = 32 }, --offensive special 1a
+            { q = q(184,1721,40,29), ox = -9, oy = 31 }, --offensive special 1b
+            { q = q(140,1754,34,24), ox = -13, oy = 28 }, --offensive special 1c
             { q = q(155,1490,33,29), ox = 2, oy = 32 }, --special defensive 5
             { q = q(190,1462,44,53), ox = -1, oy = 54 }, --special defensive 6
             { q = q(2,1526,46,26), ox = -5, oy = 54 }, --special defensive 7
