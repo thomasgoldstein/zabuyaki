@@ -5,7 +5,6 @@ local function nop() end
 
 function Rick:initialize(name, sprite, x, y, f, input)
     Player.initialize(self, name, sprite, x, y, f, input)
-    --self:setSpriteOverlay(getSpriteInstance("src/def/char/beatnick.lua"), "dashAttack", true)
 end
 
 function Rick:initAttributes()
