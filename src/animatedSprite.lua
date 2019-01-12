@@ -15,33 +15,13 @@ spriteBank = {} --Map with all the sprite definitions
 imageBank = {} --Contains all images that were already loaded
 
 local function loadSprite (spriteDef)
-
     if spriteDef == nil then return nil end
-
-    --Load the sprite definition file to ensure it exists
-    local definitionFile = love.filesystem.load( spriteDef .. '.lua' )
-
-    --If the file doesn't exist or has syntax errors, it'll be nil.
-    if definitionFile == nil then
-        --Spit out a warning and return nil.
-        dp("Attempt to load an invalid file (inexistent or syntax errors?): "
-            ..spriteDef)
-        return nil
+    local definitionFile, errorMsg = love.filesystem.load( spriteDef .. '.lua' )
+    if errorMsg then
+        error("loadSprite: "..errorMsg)
     end
-
-    --[[Loading the sprite definition as an entry in our table.
-
-        We can execute the file by calling it as a function
-            with these () as we loaded with loadfile previously.
-        If we used dofile with an invalid file path our program
-            would crash.
-        At this point, executing the file will load all the necessary
-            information in a single call. There's no need to parse
-            this of serialization.
-    ]]
     local oldSprite = spriteBank [spriteDef]
     spriteBank [spriteDef] = definitionFile()
-
     --Check the version to verify if it is compatible with this one.
     if spriteBank[spriteDef].serializationVersion ~= ManagerVersion then
         dp("Attempt to load file with incompatible versions: "..spriteDef)
@@ -51,40 +31,16 @@ local function loadSprite (spriteDef)
         -- Return old value (nil if not previously loaded)
         return spriteBank[spriteDef]
     end
-
     --Storing the path to the image in a variable (to add readability)
     local spriteSheet = spriteBank[spriteDef].spriteSheet
-
-    --Load the image.
-    local old_image = imageBank [spriteSheet]
     imageBank [spriteSheet] = love.graphics.newImage(spriteSheet)
-
-    --Check if the loaded image is valid.
-    if imageBank[spriteSheet] == nil then
-        -- Invalid image, reverting all changes
-        imageBank [spriteSheet] = old_image   -- Revert image
-        spriteBank[spriteDef] = oldSprite    -- Revert sprite
-
-        dp("Failed loading sprite "..spriteDef..", invalid image path ( "
-            ..spriteSheet.." ).")
-    end
-
     return spriteBank [spriteDef]
 end
 
 function loadSpriteSheet(spriteSheet)
     --Load the image into image bank.
     --returns width, height, image
-    local old_image = imageBank[spriteSheet]
     imageBank[spriteSheet] = love.graphics.newImage(spriteSheet)
-
-    --Check if the loaded image is valid.
-    if imageBank[spriteSheet] == nil then
-        -- Invalid image, reverting all changes
-        imageBank[spriteSheet] = old_image -- Revert image
-        dp("Failed loading sprite. Invalid image path ( "
-                .. spriteSheet .. " ).")
-    end
     return imageBank[spriteSheet]:getDimensions()
 end
 
