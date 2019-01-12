@@ -19,62 +19,62 @@ local heroes = {
     {
         name = "RICK",
         shaders = {nil, shaders.rick[1], shaders.rick[2]},
-        spriteInstance = "src/def/char/rick.lua",
+        spriteInstance = "src/def/char/rick",
     },
     {
         name = "KISA",
         shaders = {nil, shaders.kisa[1], shaders.kisa[2]},
-        spriteInstance = "src/def/char/kisa.lua",
+        spriteInstance = "src/def/char/kisa",
     },
     {
         name = "CHAI",
         shaders = {nil, shaders.chai[1], shaders.chai[2]},
-        spriteInstance = "src/def/char/chai.lua",
+        spriteInstance = "src/def/char/chai",
     },
     {
         name = "YAR",
         shaders = {nil, nil, nil},
-        spriteInstance = "src/def/char/yar.lua",
+        spriteInstance = "src/def/char/yar",
     },
     {
         name = "GOPPER",
         shaders = shaders.gopper,
-        spriteInstance = "src/def/char/gopper.lua",
+        spriteInstance = "src/def/char/gopper",
     },
     {
         name = "NIKO",
         shaders = shaders.niko,
-        spriteInstance = "src/def/char/niko.lua",
+        spriteInstance = "src/def/char/niko",
     },
     {
         name = "SVETA",
         shaders = shaders.sveta,
-        spriteInstance = "src/def/char/sveta.lua",
+        spriteInstance = "src/def/char/sveta",
     },
     {
         name = "ZEENA",
         shaders = shaders.zeena,
-        spriteInstance = "src/def/char/zeena.lua",
+        spriteInstance = "src/def/char/zeena",
     },
     {
         name = "BEATNICK",
         shaders = shaders.beatnick,
-        spriteInstance = "src/def/char/beatnick.lua",
+        spriteInstance = "src/def/char/beatnick",
     },
     {
         name = "SATOFF",
         shaders = shaders.satoff,
-        spriteInstance = "src/def/char/satoff.lua",
+        spriteInstance = "src/def/char/satoff",
     },
     {
         name = "TRASHCAN",
         shaders = shaders.trashcan,
-        spriteInstance = "src/def/stage/object/trashcan.lua",
+        spriteInstance = "src/def/stage/object/trashcan",
     },
     {
         name = "SIGN",
         shaders = { },
-        spriteInstance = "src/def/stage/object/sign.lua",
+        spriteInstance = "src/def/stage/object/sign",
     },
 }
 
@@ -82,12 +82,12 @@ local weapons = {
     {
         name = "BAT",
         shaders = { },
-        spriteInstance = "src/def/misc/bat.lua",
+        spriteInstance = "src/def/misc/bat",
     },
     {
         name = "BAT2", -- testing > 1 weapons
         shaders = { },
-        spriteInstance = "src/def/misc/bat.lua",
+        spriteInstance = "src/def/misc/bat",
     }
 }
 

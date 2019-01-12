@@ -19,7 +19,7 @@ local function loadSprite (spriteDef)
     if spriteDef == nil then return nil end
 
     --Load the sprite definition file to ensure it exists
-    local definitionFile = love.filesystem.load( spriteDef )
+    local definitionFile = love.filesystem.load( spriteDef .. '.lua' )
 
     --If the file doesn't exist or has syntax errors, it'll be nil.
     if definitionFile == nil then

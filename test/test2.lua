@@ -46,7 +46,7 @@ describe("Character Class", function()
         -- mock real lib functions
         --local _SFXplay = SFX.play
         --SFX.play = function() end
-        stageObject1 = Trashcan:new("SO1-CAN", getSpriteInstance("src/def/stage/object/trashcan.lua"), 530, 200)
+        stageObject1 = Trashcan:new("SO1-CAN", getSpriteInstance("src/def/stage/object/trashcan"), 530, 200)
         stageObject1.id = 4 -- fixed id
         stageObject1:setOnStage(stage)
         stageObject1.face = -1

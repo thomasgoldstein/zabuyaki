@@ -83,9 +83,9 @@ local function loadUnit(items, stage, batch_name)
             u.delay = tonumber(v.properties.delay or 0)
             u.state = v.properties.state or "stand"
             if inst:isSubclassOf(StageObject) then
-                sprite = getSpriteInstance("src/def/stage/object/" .. v.type .. ".lua")
+                sprite = getSpriteInstance("src/def/stage/object/" .. v.type )
             else
-                sprite = getSpriteInstance("src/def/char/" .. v.type .. ".lua")
+                sprite = getSpriteInstance("src/def/char/" .. v.type )
             end
             if batch_name then
                 u.unit = inst:new(

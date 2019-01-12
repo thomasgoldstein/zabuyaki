@@ -59,7 +59,7 @@ function Chai:initAttributes()
     self.sfx.dashAttack = "chaiAttack"
     self.sfx.step = "chaiStep"
     self.sfx.dead = "chaiDeath"
-    self.specialOverlaySprite = getSpriteInstance("src/def/char/chai_sp.lua")
+    self.specialOverlaySprite = getSpriteInstance("src/def/char/chai_sp")
 end
 
 function Chai:dashAttackStart()
