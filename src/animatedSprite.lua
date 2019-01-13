@@ -34,6 +34,9 @@ local function loadSprite (spriteDef)
     --Storing the path to the image in a variable (to add readability)
     local spriteSheet = spriteBank[spriteDef].spriteSheet
     imageBank [spriteSheet] = love.graphics.newImage(spriteSheet)
+    if love.filesystem.exists( spriteDef .. '_sp.lua' ) then --TODO change to love.filesystem.getInfo for Love2D 11
+        return spriteBank [spriteDef], loadSprite(spriteDef .. '_sp')
+    end
     return spriteBank [spriteDef]
 end
 
