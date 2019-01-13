@@ -360,7 +360,7 @@ function Player:useCreditUpdate(dt)
             self.lifeBar = LifeBar:new(self)
         end
     elseif self.playerSelectMode == 3 then
-        -- Spawn selecterd player
+        -- Spawn selected player
     elseif self.playerSelectMode == 4 then
         -- Delete on Selecting a new Character
     elseif self.playerSelectMode == 5 then
