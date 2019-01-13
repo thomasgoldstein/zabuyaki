@@ -83,9 +83,9 @@ local function loadUnit(items, stage, batch_name)
             u.delay = tonumber(v.properties.delay or 0)
             u.state = v.properties.state or "stand"
             if inst:isSubclassOf(StageObject) then
-                sprite = getSpriteInstance("src/def/stage/object/" .. v.type )
+                sprite = "src/def/stage/object/" .. v.type
             else
-                sprite = getSpriteInstance("src/def/char/" .. v.type )
+                sprite = "src/def/char/" .. v.type
             end
             if batch_name then
                 u.unit = inst:new(
@@ -280,7 +280,7 @@ local function addPlayersToStage(items, players, stage)
                     p.x = r(v.x)
                     p.y = r(v.y)
                     local player = players[i].hero:new(players[i].name,
-                        getSpriteInstance(players[i].spriteInstance),
+                        players[i].spriteInstance,
                         players[i].x, players[i].y,
                         { palette = players[i].palette, id = i },
                         Controls[i]

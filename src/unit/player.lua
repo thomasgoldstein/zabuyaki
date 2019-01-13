@@ -309,7 +309,7 @@ function Player:useCreditUpdate(dt)
             self.playerSelectMode = 4
             self:playSfx("menuSelect")
             local player = HEROES[self.playerSelectCur].hero:new(self.name,
-                getSpriteInstance(HEROES[self.playerSelectCur].spriteInstance),
+                HEROES[self.playerSelectCur].spriteInstance,
                 self.x, self.y,
                 nil, --{ shapeType = "polygon", shapeArgs = { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 } }
                 self.b

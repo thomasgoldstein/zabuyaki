@@ -12,7 +12,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
         f = {}
     end
     self.isDisabled = true
-    self.sprite = sprite
+    self.sprite = getSpriteInstance(sprite)
     self.spriteOverlay = nil
     self.name = name or "Unknown"
     self.type = "unit"
