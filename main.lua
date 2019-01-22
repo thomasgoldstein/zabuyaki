@@ -181,12 +181,6 @@ function love.load(arg)
     require "src/state/spriteEditorState"
 
     Gamestate.registerEvents()
-    if isDebug() then
-        require "test.common_test"
-        require "test.test1"
-        require "test.test2"
-        cleanUpAfterTests()
-    end
     bindGameInput()
     everythingIsLoadedGoToTitle = true  -- ready to switch to the Title state
 end

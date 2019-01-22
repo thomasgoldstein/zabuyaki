@@ -14,7 +14,7 @@ local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
-local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE EDITOR", "LOCKED", "BACK"}
+local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE EDITOR", "UNIT TESTS", "BACK"}
 
 local menu = fillMenu(txtItems)
 
@@ -138,6 +138,14 @@ function optionsState:confirm( x, y, button, istouch )
         elseif menuState == 5 then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(spriteSelectState)
+
+        elseif menuState == 6 then
+            sfx.play("sfx","menuSelect")
+            require "test.common_test"
+            require "test.test1"
+            require "test.test2"
+            cleanUpAfterTests()
+            return false
 
         elseif menuState == #menu then
             sfx.play("sfx","menuCancel")
