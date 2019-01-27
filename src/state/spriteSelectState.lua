@@ -78,21 +78,8 @@ local heroes = {
     },
 }
 
-local weapons = {
-    {
-        name = "BAT",
-        shaders = { },
-        spriteInstance = "src/def/misc/bat",
-    },
-    {
-        name = "BAT2", -- testing > 1 weapons
-        shaders = { },
-        spriteInstance = "src/def/misc/bat",
-    }
-}
-
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SELECT CHAR/OBJ" )
-local txtItems = {"FRAME POSITIONING", "WEAPON POSITIONING", "BACK"}
+local txtItems = {"FRAME POSITIONING", "BACK"}
 
 local menu = fillMenu(txtItems)
 
@@ -163,17 +150,6 @@ function spriteSelectState:draw()
                 m.item = heroes[m.n].name.." - no shaders"
             end
             m.hint = ""..heroes[m.n].spriteInstance
-        elseif i == 2 then
-            if m.n > #weapons then  --TODO plug while dont have any wep
-                m.n = #weapons
-            end
-            if m.n == 0 then
-                m.item = "N/A"
-                m.hint = "NO WEAPONS"
-            else
-                m.item = "WEAPON #"..m.n.." "..weapons[m.n].name
-                m.hint = "..."
-            end
         end
         calcMenuItem(menu, i)
         if i == oldMenuState then
@@ -223,14 +199,7 @@ function spriteSelectState:confirm( x, y, button, istouch )
     if button == 1 then
         if menuState == 1 then
             sfx.play("sfx","menuSelect")
-            return Gamestate.push(spriteEditorState, heroes[menu[menuState].n], weapons[menu[2].n])
-        elseif menuState == 2 then
-            if weapons[menu[menuState].n] then
-                sfx.play("sfx","menuSelect")
-                return Gamestate.push(spriteEditorState, weapons[menu[menuState].n])
-            else
-                sfx.play("sfx","menuCancel")
-            end
+            return Gamestate.push(spriteEditorState, heroes[menu[menuState].n])
         end
     end
 end
@@ -254,15 +223,6 @@ function spriteSelectState:showCurrentSprite()
         sprite = getSpriteInstance(heroes[menu[menuState].n].spriteInstance)
         --sprite.sizeScale = 2
         setSpriteAnimation(sprite,"stand")
-
-    elseif menuState == 2 then
-        if weapons[menu[menuState].n] then
-            sprite = getSpriteInstance(weapons[menu[menuState].n].spriteInstance)
-            --sprite.sizeScale = 2
-            setSpriteAnimation(sprite,"stand")
-        else
-            sprite = nil
-        end
     end
 end
 
@@ -282,15 +242,6 @@ function spriteSelectState:wheelmoved(x, y)
         end
         if menu[menuState].n > #heroes then
             menu[menuState].n = 1
-        end
-        self:showCurrentSprite()
-
-    elseif menuState == 2 then
-        if menu[menuState].n < 0 then
-            menu[menuState].n = #weapons
-        end
-        if menu[menuState].n > #weapons then
-            menu[menuState].n = 0
         end
         self:showCurrentSprite()
     end
