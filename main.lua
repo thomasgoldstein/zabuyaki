@@ -78,6 +78,7 @@ function love.load(arg)
     setupScreen()
 
     colors = (require "src/def/misc/colors"):new()
+    inspect = require 'lib.debug.inspect'
     require "src/animatedSprite"
     HC = require "lib/HC"
     tween = require "lib/tween"
@@ -92,7 +93,6 @@ function love.load(arg)
         require("mobdebug").start()
     end
     require "lib.debug.debug"
-    inspect = require 'lib.debug.inspect'
     if GLOBAL_SETTING.FPSRATE_ENABLED then
         framerateGraph = require "lib.debug.framerateGraph"
         framerateGraph.load()
