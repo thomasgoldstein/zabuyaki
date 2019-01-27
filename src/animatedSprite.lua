@@ -254,15 +254,12 @@ function parseSpriteAnimation(spr, curAnim)
     local ox, oy, delay
     local x, y, w, h
     local rotate, rx, ry
-    local wRotate, wx, wy, wAnimation, wFlip_h, wFlip_v
 
     for i = 1, #animations do
         sc = animations[i]
         delay = sc.delay or 100
         scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
         rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0
-        wRotate, wx, wy, wAnimation = sc.wRotate or 0, sc.wx, sc.wy or 0, sc.wAnimation or "?"
-        wFlip_h, wFlip_v = sc.wFlip_h or 1, sc.wFlip_v or 1
         ox, oy = sc.ox or 0, sc.oy or 0
         x, y, w, h = sc.q:getViewport( )
         func, funcCont = sc.func, sc.funcCont
@@ -291,15 +288,6 @@ function parseSpriteAnimation(spr, curAnim)
         end
         if funcCont then
             o = o .. ", funcCont = FUNC1"
-        end
-        if wx then
-            o = o .. ",\n        wx = "..wx..", wy = "..wy..", wRotate = "..wRotate..", wAnimation = '"..wAnimation.."'"
-            if wFlip_h ~= 1 then
-                o = o .. ", wFlip_h = "..wFlip_h
-            end
-            if wFlip_v ~= 1 then
-                o = o .. ", wFlip_v = "..wFlip_v
-            end
         end
         o = o .. " },\n"
     end

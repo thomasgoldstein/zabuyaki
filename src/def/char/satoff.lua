@@ -69,14 +69,10 @@ return {
             delay = 1
         },
         stand = {
-            { q = q(2,2,68,68), ox = 36, oy = 67,
-                wx = -10, wy = -33, wRotate = -0.5, wAnimation = 'angle0' }, --stand 1
-            { q = q(72,3,68,67), ox = 36, oy = 66,
-                wx = -10, wy = -32, wRotate = -0.45, wAnimation = 'angle0' }, --stand 2
-            { q = q(142,4,67,66), ox = 36, oy = 65,
-                wx = -10, wy = -31, wRotate = -0.4, wAnimation = 'angle0' }, --stand 3
-            { q = q(72,3,68,67), ox = 36, oy = 66,
-                wx = -10, wy = -32, wRotate = -0.55, wAnimation = 'angle0' }, --stand 2
+            { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1
+            { q = q(72,3,68,67), ox = 36, oy = 66 }, --stand 2
+            { q = q(142,4,67,66), ox = 36, oy = 65 }, --stand 3
+            { q = q(72,3,68,67), ox = 36, oy = 66 }, --stand 2
             loop = true,
             delay = 0.15
         },
@@ -89,14 +85,10 @@ return {
             delay = 0.15
         },
         walk = {
-            { q = q(2,72,74,68), ox = 36, oy = 67,
-                wx = -6, wy = -33, wRotate = 0, wAnimation = 'angle0' }, --walk 1
-            { q = q(78,72,73,68), ox = 36, oy = 67, delay = 0.15,
-                wx = -9, wy = -32, wRotate = 0, wAnimation = 'angle0' }, --walk 2
-            { q = q(153,73,71,67), ox = 36, oy = 66,
-                wx = -10, wy = -30, wRotate = 0, wAnimation = 'angle0' }, --walk 3
-            { q = q(226,72,73,68), ox = 36, oy = 67, delay = 0.15,
-                wx = -9, wy = -32, wRotate = 0, wAnimation = 'angle0' }, --walk 4
+            { q = q(2,72,74,68), ox = 36, oy = 67 }, --walk 1
+            { q = q(78,72,73,68), ox = 36, oy = 67, delay = 0.15 }, --walk 2
+            { q = q(153,73,71,67), ox = 36, oy = 66}, --walk 3
+            { q = q(226,72,73,68), ox = 36, oy = 67, delay = 0.15 }, --walk 4
             loop = true,
             delay = 0.183
         },
