@@ -416,29 +416,29 @@ return {
             delay = 0.05
         },
         specialDash = {
-            { q = q(2,2087,46,62), ox = 31, oy = 61 }, --offensive special 1
-            { q = q(50,2092,39,57), ox = 26, oy = 56 }, --offensive special 2
-            { q = q(91,2091,45,57), ox = 29, oy = 57 }, --offensive special 3
-            { q = q(138,2094,49,54), ox = 22, oy = 54, funcCont = specialDash1, func = dashAttackSpeedUp, delay = 0.08 }, --offensive special 4a
-            { q = q(2,2153,49,54), ox = 22, oy = 54, funcCont = specialDash1, delay = 0.08 }, --offensive special 4b
-            { q = q(53,2153,49,54), ox = 22, oy = 54, funcCont = specialDash1, delay = 0.08 }, --offensive special 4c
-            { q = q(137,2302,44,56), ox = 16, oy = 56, func = specialDashFollowUp }, --offensive special 13
-            { q = q(183,2299,42,60), ox = 17, oy = 59 }, --offensive special 14
+            { q = q(2,2087,46,62), ox = 31, oy = 61 }, --special dash 1
+            { q = q(50,2092,39,57), ox = 26, oy = 56 }, --special dash 2
+            { q = q(91,2091,45,57), ox = 29, oy = 57 }, --special dash 3
+            { q = q(138,2094,49,54), ox = 22, oy = 54, funcCont = specialDash1, func = dashAttackSpeedUp, delay = 0.08 }, --special dash 4a
+            { q = q(2,2153,49,54), ox = 22, oy = 54, funcCont = specialDash1, delay = 0.08 }, --special dash 4b
+            { q = q(53,2153,49,54), ox = 22, oy = 54, funcCont = specialDash1, delay = 0.08 }, --special dash 4c
+            { q = q(137,2302,44,56), ox = 16, oy = 56, func = specialDashFollowUp }, --special dash 13
+            { q = q(183,2299,42,60), ox = 17, oy = 59 }, --special dash 14
             delay = 0.06
         },
         specialDash2 = {
-            { q = q(104,2151,44,56), ox = 16, oy = 56 }, --offensive special 5
-            { q = q(150,2151,45,57), ox = 15, oy = 56, funcCont = specialDash2a }, --offensive special 6
-            { q = q(2,2228,45,59), ox = 14, oy = 58 }, --offensive special 7
-            { q = q(49,2210,54,77), ox = 22, oy = 76, funcCont = specialDash2b, func = specialDashJumpStart, delay =  0.1 }, --offensive special 8a
-            { q = q(106,2210,51,77), ox = 22, oy = 76, funcCont = specialDash2b, delay =  0.08 }, --offensive special 8b
-            { q = q(159,2211,47,76), ox = 22, oy = 75, funcCont = specialDash2b, delay =  0.08 }, --offensive special 8c
-            { q = q(184,1617,45,73), ox = 26, oy = 72, delay =  0.1 }, --offensive special 9
-            { q = q(2,2289,38,70), ox = 21, oy = 69, delay =  0.1 }, --offensive special 10
-            { q = q(42,2292,43,66), ox = 23, oy = 65, delay =  0.1 }, --offensive special 11
-            { q = q(87,2296,48,63), ox = 25, oy = 62, delay =  0.1 }, --offensive special 12
-            { q = q(137,2302,44,56), ox = 16, oy = 56, func = function(slf) slf:showEffect("jumpLanding") end }, --offensive special 13
-            { q = q(183,2299,42,60), ox = 17, oy = 59 }, --offensive special 14
+            { q = q(104,2151,44,56), ox = 16, oy = 56 }, --special dash 5
+            { q = q(150,2151,45,57), ox = 15, oy = 56, funcCont = specialDash2a }, --special dash 6
+            { q = q(2,2228,45,59), ox = 14, oy = 58 }, --special dash 7
+            { q = q(49,2210,54,77), ox = 22, oy = 76, funcCont = specialDash2b, func = specialDashJumpStart, delay =  0.1 }, --special dash 8a
+            { q = q(106,2210,51,77), ox = 22, oy = 76, funcCont = specialDash2b, delay =  0.08 }, --special dash 8b
+            { q = q(159,2211,47,76), ox = 22, oy = 75, funcCont = specialDash2b, delay =  0.08 }, --special dash 8c
+            { q = q(184,1617,45,73), ox = 26, oy = 72, delay =  0.1 }, --special dash 9
+            { q = q(2,2289,38,70), ox = 21, oy = 69, delay =  0.1 }, --special dash 10
+            { q = q(42,2292,43,66), ox = 23, oy = 65, delay =  0.1 }, --special dash 11
+            { q = q(87,2296,48,63), ox = 25, oy = 62, delay =  0.1 }, --special dash 12
+            { q = q(137,2302,44,56), ox = 16, oy = 56, func = function(slf) slf:showEffect("jumpLanding") end }, --special dash 13
+            { q = q(183,2299,42,60), ox = 17, oy = 59 }, --special dash 14
             delay = 0.06
         },
         combo1 = {
