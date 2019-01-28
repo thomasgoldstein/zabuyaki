@@ -45,7 +45,6 @@ function spriteEditorState:enter(_, _hero)
     end
     menu[1].n = 1
     mouse_x, mouse_y = 0,0
-
     --TEsound.stop("music")
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
@@ -265,7 +264,7 @@ function spriteEditorState:draw()
         love.graphics.print(m.item, m.x, m.y )
 
         if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
+            CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
         then
             oldMouse_y = mouse_y
             menuState = i
