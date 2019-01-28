@@ -15,9 +15,9 @@ spriteBank = {} --Map with all the sprite definitions
 imageBank = {} --Contains all images that were already loaded
 
 local function loadSprite (spriteDef)
-    if spriteDef == nil then return nil end
+    if spriteDef == nil or type(spriteDef) ~= "string" then return nil end
     local definitionFile, errorMsg = love.filesystem.load( spriteDef .. '.lua' )
-    if errorMsg then
+    if errorMsg and type(errorMsg) == "string" then
         error("loadSprite: "..errorMsg)
     end
     local oldSprite = spriteBank [spriteDef]
@@ -220,6 +220,9 @@ end
 
 function drawSpriteCustomInstance(spr, x, y, curAnim, frame)
     local sc = spr.def.animations[curAnim][frame]
+    if not sc then
+        error("Animation '"..curAnim.."' is missing frame #"..(frame or -1))
+    end
     local scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
     local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
     local y_shift = y
