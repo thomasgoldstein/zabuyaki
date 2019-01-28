@@ -84,21 +84,26 @@ local function displayHelp()
     if menuState == 1 then
         love.graphics.print(
 [[<- -> / Mouse wheel :
-    Select animation
+  Select animation
 
 Attack/Enter :
-    Replay animation]], x, y)
+  Replay animation]], x, y)
     elseif menuState == 2 then
         love.graphics.print(
 [[<- -> / Mouse wheel :
-    Select frame
-
+  Select frame
+L-Shift + <- -> Up Down :
+  Frame Position (ox,oy)
+L-Alt + <- -> :
+  Rotate Character
+L-Ctrl + <- -> Up Down :
+  FlipH/V Character
 Attack/Enter :
-    Dump to Console]], x, y)
+  Dump to Console]], x, y)
     elseif menuState == 4 then
         love.graphics.print(
 [[<- -> / Mouse wheel :
-    Select shader]], x, y)
+  Select shader]], x, y)
     end
     love.graphics.setFont(font)
 end
