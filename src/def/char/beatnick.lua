@@ -191,7 +191,7 @@ return {
             delay = 0.3
         },
         fallen = {
-            { q = q(78,230,74,52), ox = 36, oy = 44 }, --lying down
+            { q = q(78,230,74,52), ox = 40, oy = 44 }, --lying down
             delay = 65
         },
         hurtHigh = {
