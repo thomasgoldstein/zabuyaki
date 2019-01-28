@@ -20,6 +20,7 @@ local txtItems = {"ANIMATIONS", "FRAMES", "DISABLED", "SHADERS", "BACK"}
 local player
 local hero
 local sprite
+local specialOverlaySprite
 local animations
 
 local menu = fillMenu(txtItems)
@@ -38,7 +39,10 @@ function spriteEditorState:enter(_, _hero)
     end
     table.sort( animations )
     setSpriteAnimation(sprite,animations[1])
-
+    specialOverlaySprite = getSpriteInstance(hero.spriteInstance .. "_sp")
+    if specialOverlaySprite then
+        specialOverlaySprite.sizeScale = 2
+    end
     menu[1].n = 1
     mouse_x, mouse_y = 0,0
 
@@ -296,16 +300,30 @@ function spriteEditorState:draw()
             colors:set("white", nil, 150)
             for i = 1, #sprite.def.animations[sprite.curAnim] do
                 drawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
-                --TODO draw the overlay of this frame if presents
+                if specialOverlaySprite then
+                    if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
+                        drawSpriteCustomInstance(specialOverlaySprite, x - (menu[menuState].n - i) * xStep, y, sprite.curAnim, i)
+                    end
+                end
             end
             if isDebug() then
                 showDebugBoxes(2)
             end
             colors:set("white")
             drawSpriteInstance(sprite, x, y, menu[menuState].n)
+            if specialOverlaySprite then
+                if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
+                    drawSpriteCustomInstance(specialOverlaySprite, x , y, sprite.curAnim, menu[menuState].n)
+                end
+            end
         else
             --animation
             drawSpriteInstance(sprite, x, y)
+            if specialOverlaySprite then
+                if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
+                    drawSpriteCustomInstance(specialOverlaySprite, x , y, sprite.curAnim, sprite.curFrame)
+                end
+            end
         end
     end
     showDebugIndicator()
