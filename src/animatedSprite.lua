@@ -1,8 +1,8 @@
 --[[
-    animatedSprite.lua - 2018
+    animatedSprite.lua
 
     Copyright Dejaime Antonio de Oliveira Neto, 2014
-    Don Miguel, 2018
+    Don Miguel, 2019
 
     Released under the MIT license.
     Visit for more information:
@@ -116,8 +116,6 @@ end
 -- calculate the animation delay
 function getSpriteAnimationDelay(spr, anim)
     if not spr.def.animations[anim] then
---        print(spr, spr.def, spr.def.animations, spr.def.animations[anim])
---        print(inspect(spr.def.animations, {depth=1}))
         error("There is no "..anim.." animation to calc its delay. ")
     end
     local delay = 0
@@ -125,7 +123,6 @@ function getSpriteAnimationDelay(spr, anim)
     for i = 1, #a do
         delay = delay + (a[i].delay or a.delay or spr.def.delay)
     end
-    --a.delay = delay
     return delay
 end
 
@@ -142,7 +139,6 @@ end
 function calculateSpriteAnimation(spr)
     spr.def.comboMax = getMaxSpriteAnimation(spr, "combo")
     spr.def.maxGrabAttack = getMaxSpriteAnimation(spr, "grabFrontAttack")
---    spr.def.animations["grabFrontAttack"].delay = getSpriteAnimationDelay(spr, "grabFrontAttack")
 end
 
 function updateSpriteInstance(spr, dt, slf)
@@ -169,7 +165,6 @@ function updateSpriteInstance(spr, dt, slf)
         sc.funcCont(slf, true) --isfuncCont = true
         spr.funcContCalledOnFrame = spr.curFrame -- do not move before funcCont call
     end
-    --spr.def.animations[spr.curAnim]
     --Increment the internal counter.
     spr.elapsedTime = spr.elapsedTime + dt
 
