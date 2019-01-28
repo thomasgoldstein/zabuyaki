@@ -96,6 +96,7 @@ function spriteSelectState:enter()
     Controls[1].back:update()
     love.graphics.setLineWidth( 2 )
     self:wheelmoved(0, 0)   --pick 1st sprite to draw
+    self:showCurrentSprite()
 end
 
 --Only P1 can use menu / options
