@@ -59,15 +59,11 @@ end
 function Unit:updateSprite(dt)
     updateSpriteInstance(self.sprite, dt, self)
     if self.spriteOverlay then
-        if self.spriteOverlay.isSync then
-            if self.sprite.curFrame > self.spriteOverlay.maxFrame then
-                error("Missing frame N '" .. self.sprite.curFrame .. "' in animation '".. self.spriteOverlay.curAnim .."' of sprite '" .. self.spriteOverlay.def.spriteName .. "'.")
-            end
-            self.spriteOverlay.flipH = self.sprite.flipH
-            self.spriteOverlay.curFrame = self.sprite.curFrame
-        else
-            updateSpriteInstance(self.spriteOverlay, dt, self)
+        if self.sprite.curFrame > self.spriteOverlay.maxFrame then
+            error("Missing frame N '" .. self.sprite.curFrame .. "' in animation '".. self.spriteOverlay.curAnim .."' of sprite '" .. self.spriteOverlay.def.spriteName .. "'.")
         end
+        self.spriteOverlay.flipH = self.sprite.flipH
+        self.spriteOverlay.curFrame = self.sprite.curFrame
     end
 end
 
@@ -87,6 +83,13 @@ end
 function Unit:setSprite(anim)
     if not self:setSpriteIfExists(anim) then
         error("Missing animation '" .. anim .. "' in '" .. self.sprite.def.spriteName .. "' definition.")
+    end
+    if self.specialOverlaySprite and spriteHasAnimation(self.specialOverlaySprite, anim) then
+        self.spriteOverlay = self.specialOverlaySprite
+        setSpriteAnimation(self.spriteOverlay, anim)
+        self.spriteOverlay.flipH = self.sprite.flipH
+    else
+        self.spriteOverlay = nil
     end
 end
 
