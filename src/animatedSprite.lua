@@ -42,7 +42,7 @@ end
 
 function loadSpriteSheet(spriteSheet)
     --Load the image into image bank.
-    --returns width, height, image
+    --returns width, height
     imageBank[spriteSheet] = love.graphics.newImage(spriteSheet)
     return imageBank[spriteSheet]:getDimensions()
 end
