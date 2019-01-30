@@ -18,7 +18,8 @@ local function loadSprite (spriteDef)
     if spriteDef == nil or type(spriteDef) ~= "string" then return nil end
     local definitionFile, errorMsg = love.filesystem.load( spriteDef .. '.lua' )
     if errorMsg and type(errorMsg) == "string" then
-        error("loadSprite: "..errorMsg)
+        dp("Error loadSprite: "..errorMsg)
+        return nil
     end
     local oldSprite = spriteBank [spriteDef]
     spriteBank [spriteDef] = definitionFile()
@@ -34,9 +35,6 @@ local function loadSprite (spriteDef)
     --Storing the path to the image in a variable (to add readability)
     local spriteSheet = spriteBank[spriteDef].spriteSheet
     imageBank [spriteSheet] = love.graphics.newImage(spriteSheet)
-    if love.filesystem.exists( spriteDef .. '_sp.lua' ) then --TODO change to love.filesystem.getInfo for Love2D 11
-        return spriteBank [spriteDef], loadSprite(spriteDef .. '_sp')
-    end
     return spriteBank [spriteDef]
 end
 
