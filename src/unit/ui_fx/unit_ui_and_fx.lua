@@ -90,25 +90,12 @@ function Unit:setSprite(anim)
     end
 end
 
----Set current spriteOverlay and its animation
----@param spr object Sprite instance
+---Set current animation of the current sprite
 ---@param anim string Animation name
----@param isSync boolean true - use main sprite's frame number, false - Sonic Shield like
-function Unit:setSpriteOverlay(spr, anim, isSync)
-    if not spr then
-        error("Missing sprite instance.")
+function Unit:setBaseSprite(anim)
+    if not self:setSpriteIfExists(anim) then
+        error("Missing animation '" .. anim .. "' in '" .. self.sprite.def.spriteName .. "' definition.")
     end
-    spr.isSync = isSync
-    self.spriteOverlay = spr
-    if not spriteHasAnimation(self.spriteOverlay, anim) then
-        error("Missing animation '" .. anim .. "' in '" .. self.spriteOverlay.def.spriteName .. "' definition.")
-    end
-    setSpriteAnimation(self.spriteOverlay, anim)
-    self.spriteOverlay.flipH = self.sprite.flipH
-end
-
-function Unit:removeSpriteOverlay()
-    self.spriteOverlay = nil
 end
 
 function Unit:drawSprite(x, y)

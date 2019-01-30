@@ -91,10 +91,9 @@ function Rick:specialDefensiveStart()
     self.speed_y = 0
     self:setSprite("specialDefensive")
     self:enableGhostTrails(1)
-    self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
     self:playSfx(self.sfx.dashAttack)
 end
-Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = Unit.removeSpriteOverlay, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
+Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = nop, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Rick:specialOffensiveStart()
     self.isHittable = true

@@ -142,7 +142,6 @@ function Chai:specialDefensiveStart()
     self.jumpType = 0
     self:setSprite("specialDefensive")
     self:enableGhostTrails()
-    self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
     self:playSfx(self.sfx.dashAttack)
 end
 function Chai:specialDefensiveUpdate(dt)
@@ -173,14 +172,13 @@ function Chai:specialDefensiveUpdate(dt)
         return
     end
 end
-Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiveStart, exit = Unit.removeSpriteOverlay, update = Chai.specialDefensiveUpdate, draw = Character.defaultDraw }
+Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiveStart, exit = nop, update = Chai.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Chai:specialOffensiveStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("specialOffensive")
     self:enableGhostTrails()
-    self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
     self.horizontal = -self.face
     self.speed_x = self.jumpSpeedBoost.x
     self.speed_y = 0
@@ -220,14 +218,13 @@ function Chai:specialOffensiveUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.removeSpriteOverlay, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
+Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = nop, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Chai:specialDashStart()
     self.isHittable = true
     dpo(self, self.state)
     self:setSprite("specialDash")
     self:enableGhostTrails()
-    self:setSpriteOverlay(self.specialOverlaySprite, self.state, true)
     self.horizontal = -self.face
     self.speed_x = self.jumpSpeedBoost.x
     self.speed_y = 0
@@ -267,7 +264,7 @@ function Chai:specialDashUpdate(dt)
         self.speed_y = 0
     end
 end
-Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.removeSpriteOverlay, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
+Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = nop, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
 
 function Chai:chargeDashAttackStart()
     self.isHittable = true
