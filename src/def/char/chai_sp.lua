@@ -9,14 +9,102 @@ return {
     serializationVersion = 0.42, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    spriteName = "chai", -- The name of the sprite
-
-    delay = 0.2,	--default delay for all animations
+    spriteName = "chai_sp", -- The name of the sprite
 
     --The list with all the frames mapped to their respective animations
     --  each one can be accessed like this:
     --  mySprite.animations["idle"][1], or even
     animations = {
+        combo2Forward = {
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.2
+            { q = q(180,1847,34,20), ox = -6, oy = 34 }, --combo forward 2.3
+            { q = q(180,1869,19,18), ox = -22, oy = 32 }, --combo forward 2.3
+            { q = q(180,1889,23,7), ox = -17, oy = 21 }, --combo forward 2.3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.4
+        },
+        combo3Forward = {
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 3.1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 3.2
+            { q = q(178,1914,20,24), ox = -21, oy = 39 }, --combo forward 3.3
+            { q = q(178,1940,19,19), ox = -21, oy = 33 }, --combo forward 3.3
+            { q = q(178,1961,20,6), ox = -18, oy = 20 }, --combo forward 3.3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 3.3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 3.4
+        },
+        combo4 = {
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.2
+            { q = q(105,659,16,44), ox = -29, oy = 65 }, --combo 4.3
+            { q = q(123,659,15,48), ox = -31, oy = 56 }, --combo 4.4
+            { q = q(140,659,23,39), ox = -22, oy = 38 }, --combo 4.4
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.4
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.3
+        },
+        combo4Forward = {
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 2
+            { q = q(121,1587,41,23), ox = -6, oy = 34 }, --charge dash attack 3
+            { q = q(164,1587,29,19), ox = -17, oy = 33 }, --charge dash attack 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2 (shifted left by 4px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
+        },
+        jumpAttackRun = {
+            { q = q(2,1062,63,30), ox = 26, oy = 65 }, --jump attack running 1
+            { q = q(67,1062,57,33), ox = 16, oy = 64 }, --jump attack running 1
+            { q = q(126,1062,34,49), ox = -8, oy = 64 }, --jump attack running 2
+            { q = q(162,1062,22,55), ox = -21, oy = 64 }, --jump attack running 2
+            { q = q(186,1062,26,54), ox = -17, oy = 57 }, --jump attack running 2
+            { q = q(2,1120,31,43), ox = -12, oy = 45 }, --jump attack running 3
+            { q = q(35,1119,31,37), ox = -10, oy = 37 }, --jump attack running 3
+            { q = q(68,1119,30,31), ox = -9, oy = 31 }, --jump attack running 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack running 4
+        },
+        chargeAttack = {
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.2
+            { q = q(105,659,16,44), ox = -29, oy = 65 }, --combo 4.3
+            { q = q(123,659,15,48), ox = -31, oy = 56 }, --combo 4.4
+            { q = q(140,659,23,39), ox = -22, oy = 38 }, --combo 4.4
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.4
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.3
+            delay = 0.03
+        },
+        chargeDashAttack = {
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 2
+            { q = q(71,1587,48,22), ox = 1, oy = 35 }, --charge dash attack 3
+            { q = q(121,1587,41,23), ox = -6, oy = 34 }, --charge dash attack 3
+            { q = q(164,1587,29,19), ox = -17, oy = 33 }, --charge dash attack 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2 (shifted left by 4px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
+        },
+        chargeDashAttack2 = {
+            { q = q(164,1587,29,19), ox = -17, oy = 33 }, --charge dash attack 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2 (shifted left by 4px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted up by 2px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 4
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 4
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted up by 2px)
+        },
+        dashAttack = {
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --duck
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1 (shifted left by 4px)
+            { q = q(118,880,14,15), ox = -2, oy = 26 }, --dash attack 1
+            { q = q(89,858,27,36), ox = 4, oy = 33 }, --dash attack 2
+            { q = q(89,896,22,26), ox = 0, oy = 31 }, --dash attack 2
+            { q = q(118,858,17,20), ox = -4, oy = 30 }, --dash attack 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 1
+        },
         specialDefensive = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 1
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 2

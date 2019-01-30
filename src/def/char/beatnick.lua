@@ -107,17 +107,17 @@ return {
         dashAttack = {
             { q = q(2,560,69,63), ox = 53, oy = 62 }, --dash attack 1
             { q = q(73,559,64,64), ox = 41, oy = 63 }, --dash attack 2
-            { q = q(139,560,63,63), ox = 37, oy = 62, func = dashAttack1, delay = 0.05 }, --dash attack 3
-            { q = q(204,560,67,63), ox = 27, oy = 62, func = dashAttack2 }, --dash attack 4
+            { q = q(139,560,53,63), ox = 27, oy = 62, func = dashAttack1, delay = 0.05 }, --dash attack 3
+            { q = q(194,560,67,63), ox = 27, oy = 62, func = dashAttack2 }, --dash attack 4
             { q = q(2,625,83,63), ox = 33, oy = 62, func = dashAttack3 }, --dash attack 5
-            { q = q(87,625,80,63), ox = 31, oy = 62, func = dashAttack3 }, --dash attack 6
-            { q = q(169,625,80,63), ox = 30, oy = 62, func = dashAttack2 }, --dash attack 7
-            { q = q(2,692,62,63), ox = 27, oy = 62, func = dashAttack1, delay = 0.05 }, --dash attack 8
-            { q = q(66,691,62,64), ox = 40, oy = 63, delay = 0.05 }, --dash attack 9
-            { q = q(130,692,64,63), ox = 46, oy = 62, delay = 0.05 }, --dash attack 10
+            { q = q(87,625,78,63), ox = 31, oy = 62, func = dashAttack3 }, --dash attack 6
+            { q = q(167,625,71,63), ox = 30, oy = 62, func = dashAttack2 }, --dash attack 7
+            { q = q(2,692,53,63), ox = 27, oy = 62, func = dashAttack1, delay = 0.05 }, --dash attack 8
+            { q = q(57,691,62,64), ox = 40, oy = 63, delay = 0.05 }, --dash attack 9
+            { q = q(121,692,64,63), ox = 46, oy = 62, delay = 0.05 }, --dash attack 10
             { q = q(2,560,69,63), ox = 53, oy = 62 }, --dash attack 1
             { q = q(73,559,64,64), ox = 41, oy = 63 }, --dash attack 2
-            { q = q(196,690,59,65), ox = 32, oy = 64, delay = 0.05 }, --dash attack 11
+            { q = q(187,690,59,65), ox = 32, oy = 64, delay = 0.05 }, --dash attack 11
             delay = 0.06
         },
         specialDefensive = {
@@ -164,13 +164,13 @@ return {
             delay = 0.06
         },
         combo3 = {
-            { q = q(196,690,59,65), ox = 32, oy = 64 }, --dash attack 11
+            { q = q(187,690,59,65), ox = 32, oy = 64 }, --dash attack 11
             { q = q(2,560,69,63), ox = 53, oy = 62, func = comboAttack2, delay = 0.13, flipH = -1 }, --dash attack 1
             { q = q(73,559,64,64), ox = 41, oy = 63, delay = 0.1, flipH = -1 }, --dash attack 2
             delay = 0.06
         },
         chargeAttack = {
-            { q = q(196,690,59,65), ox = 32, oy = 64 }, --dash attack 11
+            { q = q(187,690,59,65), ox = 32, oy = 64 }, --dash attack 11
             { q = q(2,560,69,63), ox = 53, oy = 62, func = comboAttack2, delay = 0.13, flipH = -1 }, --dash attack 1
             { q = q(73,559,64,64), ox = 41, oy = 63, delay = 0.1, flipH = -1 }, --dash attack 2
             delay = 0.06

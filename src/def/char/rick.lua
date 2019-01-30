@@ -276,7 +276,7 @@ return {
     --  mySprite.animations["idle"][1], or even
     animations = {
         icon = {
-            { q = q(2, 280, 42, 17) }
+            { q = q(180, 18, 42, 17) }
         },
         intro = {
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
@@ -352,7 +352,7 @@ return {
             delay = 0.1
         },
         duck = {
-            { q = q(2,269,42,59), ox = 21, oy = 58 }, --duck
+            { q = q(180,7,42,59), ox = 21, oy = 58 }, --duck
             delay = 0.06
         },
         pickUp = {
@@ -366,16 +366,16 @@ return {
             { q = q(44,1759,39,62), ox = 21, oy = 61, delay = 0.1 }, --dash attack 2
             { q = q(85,1759,54,62), ox = 28, oy = 61, delay = 0.015 }, --dash attack 3
             { q = q(141,1759,40,61), ox = 15, oy = 61, func = dashAttackSpeedUp, delay = 0.015 }, --dash attack 4
-            { q = q(2,1823,70,62), ox = 20, oy = 62, func = dashAttack1, delay = 0.08 }, --dash attack 5a
-            { q = q(74,1823,70,62), ox = 20, oy = 62, funcCont = dashAttack2, delay = 0.08 }, --dash attack 5b
-            { q = q(146,1832,52,53), ox = 17, oy = 52, func = dashAttackResetSpeed, delay = 0.07 }, --dash attack 6
+            { q = q(2,1823,68,62), ox = 20, oy = 62, func = dashAttack1, delay = 0.08 }, --dash attack 5
+            { q = q(2,1823,68,62), ox = 20, oy = 62, funcCont = dashAttack2, delay = 0.08 }, --dash attack 5
+            { q = q(72,1832,52,53), ox = 17, oy = 52, func = dashAttackResetSpeed, delay = 0.07 }, --dash attack 6
             { q = q(2,1899,47,50), ox = 17, oy = 49, delay = 0.13 }, --dash attack 7
             { q = q(51,1891,41,58), ox = 14, oy = 57 }, --dash attack 8
             { q = q(94,1887,38,62), ox = 15, oy = 61 }, --dash attack 9
             delay = 0.05
         },
         chargeDash = {
-            { q = q(2,269,42,59), ox = 21, oy = 58, delay = 0.06 }, --duck
+            { q = q(180,7,42,59), ox = 21, oy = 58, delay = 0.06 }, --duck
             { q = q(164,1439,52,63), ox = 18, oy = 62 }, --charge dash
         },
         chargeDashAttack = {
@@ -392,26 +392,26 @@ return {
             { q = q(49,1505,49,61), ox = 24, oy = 60, delay = 0.1 }, --special defensive 2
             { q = q(100,1505,45,61), ox = 17, oy = 60 }, --special defensive 3
             { q = q(147,1506,54,60), ox = 14, oy = 59, funcCont = specialDefensive1 }, --special defensive 4
-            { q = q(2,1568,58,59), ox = 14, oy = 54, funcCont = specialDefensive2, func = specialDefensiveShake }, --special defensive 5a
-            { q = q(62,1569,58,58), ox = 14, oy = 53, funcCont = specialDefensive2 }, --special defensive 5b
-            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3 }, --special defensive 5c1
-            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3 }, --special defensive 5c2
-            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4 }, --special defensive 5c3
-            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4 }, --special defensive 5c4
-            { q = q(122,1570,58,55), ox = 14, oy = 52, delay = 0.04 }, --special defensive 5c5
+            { q = q(2,1568,58,57), ox = 14, oy = 54, funcCont = specialDefensive2, func = specialDefensiveShake }, --special defensive 5a
+            { q = q(62,1569,58,56), ox = 14, oy = 53, funcCont = specialDefensive2 }, --special defensive 5b
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3 }, --special defensive 5c
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3 }, --special defensive 5c
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4 }, --special defensive 5c
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4 }, --special defensive 5c
+            { q = q(122,1570,58,55), ox = 14, oy = 52, delay = 0.04 }, --special defensive 5c
             { q = q(2,1630,50,60), ox = 14, oy = 59, delay = 0.04 }, --special defensive 6
-            { q = q(122,1627,44,63), ox = 15, oy = 62, delay = 0.04 }, --special defensive 7
+            { q = q(54,1627,44,63), ox = 15, oy = 62, delay = 0.04 }, --special defensive 7
             delay = 0.05
         },
         specialOffensive = {
             { q = q(2,2433,47,52), ox = 14, oy = 51 }, --special offensive 1
             { q = q(51,2430,46,55), ox = 7, oy = 54 }, --special offensive 2
             { q = q(99,2427,41,58), ox = 8, oy = 57 }, --special offensive 3
-            { q = q(142,2425,61,60), ox = 14, oy = 59, funcCont = specialOffensive, delay = 0.03 }, --special offensive 4
-            { q = q(2,2487,56,61), ox = 12, oy = 60, delay = 0.03 }, --special offensive 5
-            { q = q(60,2489,45,59), ox = 18, oy = 58 }, --special offensive 6a
-            { q = q(107,2490,44,58), ox = 17, oy = 57 }, --special offensive 6b
-            { q = q(154,2490,41,58), ox = 14, oy = 57, delay = 0.2 }, --special offensive 6c
+            { q = q(142,2425,59,60), ox = 14, oy = 59, funcCont = specialOffensive, delay = 0.03 }, --special offensive 4
+            { q = q(2,2487,44,61), ox = 12, oy = 60, delay = 0.03 }, --special offensive 5
+            { q = q(48,2489,41,59), ox = 14, oy = 58 }, --special offensive 6a
+            { q = q(91,2490,41,58), ox = 14, oy = 57 }, --special offensive 6b
+            { q = q(134,2490,41,58), ox = 14, oy = 57, delay = 0.2 }, --special offensive 6c
             { q = q(138,779,46,63), ox = 18, oy = 62 }, --combo 4.7 (shifted right by 4px)
             delay = 0.05
         },
@@ -428,15 +428,15 @@ return {
         },
         specialDash2 = {
             { q = q(104,2151,44,56), ox = 16, oy = 56 }, --special dash 5
-            { q = q(150,2151,45,57), ox = 15, oy = 56, funcCont = specialDash2a }, --special dash 6
-            { q = q(2,2228,45,59), ox = 14, oy = 58 }, --special dash 7
-            { q = q(49,2210,54,77), ox = 22, oy = 76, funcCont = specialDash2b, func = specialDashJumpStart, delay =  0.1 }, --special dash 8a
-            { q = q(106,2210,51,77), ox = 22, oy = 76, funcCont = specialDash2b, delay =  0.08 }, --special dash 8b
-            { q = q(159,2211,47,76), ox = 22, oy = 75, funcCont = specialDash2b, delay =  0.08 }, --special dash 8c
-            { q = q(184,1617,45,73), ox = 26, oy = 72, delay =  0.1 }, --special dash 9
-            { q = q(2,2289,38,70), ox = 21, oy = 69, delay =  0.1 }, --special dash 10
-            { q = q(42,2292,43,66), ox = 23, oy = 65, delay =  0.1 }, --special dash 11
-            { q = q(87,2296,48,63), ox = 25, oy = 62, delay =  0.1 }, --special dash 12
+            { q = q(150,2151,42,57), ox = 15, oy = 56, funcCont = specialDash2a }, --special dash 6
+            { q = q(2,2228,44,59), ox = 14, oy = 58 }, --special dash 7
+            { q = q(48,2213,46,74), ox = 22, oy = 73, funcCont = specialDash2b, func = specialDashJumpStart, delay = 0.1 }, --special dash 8
+            { q = q(48,2213,46,74), ox = 22, oy = 73, funcCont = specialDash2b, delay = 0.08 }, --special dash 8
+            { q = q(48,2213,46,74), ox = 22, oy = 73, funcCont = specialDash2b, delay = 0.08 }, --special dash 8
+            { q = q(96,2214,45,73), ox = 26, oy = 72, delay = 0.1 }, --special dash 9
+            { q = q(2,2289,38,70), ox = 21, oy = 69, delay = 0.1 }, --special dash 10
+            { q = q(42,2292,43,66), ox = 23, oy = 65, delay = 0.1 }, --special dash 11
+            { q = q(87,2296,48,63), ox = 25, oy = 62, delay = 0.1 }, --special dash 12
             { q = q(137,2302,44,56), ox = 16, oy = 56, func = function(slf) slf:showEffect("jumpLanding") end }, --special dash 13
             { q = q(183,2299,42,60), ox = 17, oy = 59 }, --special dash 14
             delay = 0.06
@@ -487,7 +487,7 @@ return {
             { q = q(160,1246,48,62), ox = 23, oy = 61, delay = 0.015 }, --combo down 3.1
             { q = q(157,1323,59,49), ox = 13, oy = 48, func = comboAttack3Down, delay = 0.15 }, --combo down 3.2
             { q = q(162,1377,50,60), ox = 14, oy = 59 }, --combo down 3.3
-            { q = q(122,1627,44,63), ox = 15, oy = 62 }, --special defensive 7
+            { q = q(54,1627,44,63), ox = 15, oy = 62 }, --special defensive 7
             comboEnd = true,
             delay = 0.05
         },
@@ -509,10 +509,10 @@ return {
             delay = 0.067
         },
         combo4Forward = {
-            { q = q(46,266,49,62), ox = 34, oy = 61, func = comboSlide4 }, --combo forward 4.1
-            { q = q(97,266,51,62), ox = 23, oy = 61 }, --combo forward 4.2
-            { q = q(150,265,65,62), ox = 10, oy = 62, funcCont = comboAttack4Forward, delay = 0.15 }, --combo forward 4.3
-            { q = q(184,196,45,64), ox = 14, oy = 63, delay = 0.12 }, --combo forward 4.4
+            { q = q(2,266,49,62), ox = 34, oy = 61, func = comboSlide4 }, --combo forward 4.1
+            { q = q(53,266,51,62), ox = 23, oy = 61 }, --combo forward 4.2
+            { q = q(106,265,65,62), ox = 10, oy = 62, funcCont = comboAttack4Forward, delay = 0.15 }, --combo forward 4.3
+            { q = q(173,264,45,64), ox = 14, oy = 63, delay = 0.12 }, --combo forward 4.4
             delay = 0.06
         },
         chargeAttack = {
@@ -660,7 +660,7 @@ return {
             { q = q(45,1692,45,63), ox = 15, oy = 62, delay = 0.1 }, --back throw 2
             { q = q(92,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back throw 3
             { q = q(155,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back throw 4
-            { q = q(54,1652,63,38), ox = 51, oy = 34, func = grabBackAttack, delay = 0.3 }, --back throw 5
+            { q = q(100,1652,63,38), ox = 51, oy = 34, func = grabBackAttack, delay = 0.3 }, --back throw 5
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pick up 1
