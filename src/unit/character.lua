@@ -19,6 +19,7 @@ function Character:initialize(name, sprite, x, y, f, input)
     self.height = f.height or 50
     Unit.initialize(self, name, sprite, x, y, f, input)
     Character.initAttributes(self)
+    self.specialOverlaySprite = getSpriteInstance(sprite .. "_sp")
     self.type = "character"
     self.time = 0
     --Inner char vars

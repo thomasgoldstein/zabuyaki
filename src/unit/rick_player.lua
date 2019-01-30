@@ -58,7 +58,6 @@ function Rick:initAttributes()
     self.sfx.dashAttack = "rickAttack"
     self.sfx.step = "rickStep"
     self.sfx.dead = "rickDeath"
-    self.specialOverlaySprite = getSpriteInstance("src/def/char/rick_sp")
 end
 
 function Rick:dashAttackStart()
