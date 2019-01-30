@@ -102,7 +102,10 @@ L-Alt + <- -> :
 L-Ctrl + <- -> Up Down :
   FlipH/V Character
 Attack/Enter :
-  Dump to Console]], x, y)
+  Dump to Console
+
+
+Use R-Alt, R-Ctrl, R-Shift for Overlay operations]], x, y)
     elseif menuState == 4 then
         love.graphics.print(
 [[<- -> / Mouse wheel :
@@ -113,44 +116,51 @@ end
 
 --Only P1 can use menu / options
 function spriteEditorState:playerInput(controls)
-    local s = sprite.def.animations[sprite.curAnim]
+    local s, f
     local m = menu[menuState]
-    local f = s[m.n]    --current frame
     if menuState == 2 then --static frame
-        if love.keyboard.isDown('lctrl') then
-            --flip sprite frame horizontally & vertically
-            if controls.horizontal:pressed() then
-                f.flipH = controls.horizontal:getValue()
-            end
-            if controls.vertical:pressed() then
-                f.flipV = controls.vertical:getValue()
-            end
-            return
+        if love.keyboard.isDown('lctrl') or love.keyboard.isDown('lshift') or love.keyboard.isDown('lalt') then
+            s = sprite.def.animations[sprite.curAnim]
+        elseif specialOverlaySprite and spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
+            s = specialOverlaySprite.def.animations[sprite.curAnim]
         end
-        if love.keyboard.isDown('lshift') then
-            --change ox, oy offset of the sprite frame
-            if controls.horizontal:pressed() then
-                f.ox = f.ox + controls.horizontal:getValue()
+        if s then
+            f = s[m.n]    --current frame
+            if love.keyboard.isDown('lctrl', 'rctrl') then
+                --flip sprite frame horizontally & vertically
+                if controls.horizontal:pressed() then
+                    f.flipH = controls.horizontal:getValue()
+                end
+                if controls.vertical:pressed() then
+                    f.flipV = controls.vertical:getValue()
+                end
+                return
             end
-            if controls.vertical:pressed() then
-                f.oy = f.oy + controls.vertical:getValue()
+            if love.keyboard.isDown('lshift', 'rshift') then
+                --change ox, oy offset of the sprite frame
+                if controls.horizontal:pressed() then
+                    f.ox = f.ox + controls.horizontal:getValue()
+                end
+                if controls.vertical:pressed() then
+                    f.oy = f.oy + controls.vertical:getValue()
+                end
+                return
             end
-            return
-        end
-        if love.keyboard.isDown('lalt') then
-            --change rotation of the sprite frame
-            if not f.rotate then
-                f.rotate = 0
-            end
-            if controls.horizontal:pressed() then
-                f.rotate = f.rotate + controls.horizontal:getValue() * math.pi / 20
-                if ( f.rotate ~= 0 and f.rotate > -0.1 and f.rotate < 0.1 )
-                    or f.rotate >= math.pi * 2 or f.rotate <= -math.pi * 2
-                then
+            if love.keyboard.isDown('lalt', 'ralt') then
+                --change rotation of the sprite frame
+                if not f.rotate then
                     f.rotate = 0
                 end
+                if controls.horizontal:pressed() then
+                    f.rotate = f.rotate + controls.horizontal:getValue() * math.pi / 20
+                    if ( f.rotate ~= 0 and f.rotate > -0.1 and f.rotate < 0.1 )
+                        or f.rotate >= math.pi * 2 or f.rotate <= -math.pi * 2
+                    then
+                        f.rotate = 0
+                    end
+                end
+                return
             end
-            return
         end
     end
 
@@ -209,6 +219,7 @@ function spriteEditorState:draw()
             m.hint = ""
         elseif i == 2 then
             local s = sprite.def.animations[sprite.curAnim]
+            local so = specialOverlaySprite and specialOverlaySprite.def.animations[sprite.curAnim] or nil
             m.item = "FRAME #"..m.n.." of "..#sprite.def.animations[sprite.curAnim]
             m.hint = ""
             if s[m.n].delay then
@@ -229,7 +240,10 @@ function spriteEditorState:draw()
                 m.hint = m.hint .. "flipV "
             end
             if s[m.n].ox and s[m.n].oy then
-                m.hint = m.hint .. "\nOXY:"..s[m.n].ox..","..s[m.n].oy.." "
+                m.hint = m.hint .. "\nox="..s[m.n].ox..",oy="..s[m.n].oy
+            end
+            if so and so[m.n].ox and so[m.n].oy then
+                m.hint = m.hint .. ", Overlay ox="..so[m.n].ox..",oy="..so[m.n].oy.." "
             end
             if s[m.n].rotate then
                 m.hint = m.hint .. "R:"..s[m.n].rotate.." RXY:"..(s[m.n].rx or 0)..","..(s[m.n].ry or 0).." "
