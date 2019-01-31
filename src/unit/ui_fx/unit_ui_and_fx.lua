@@ -67,38 +67,43 @@ function Unit:updateSprite(dt)
     end
 end
 
-function Unit:setSpriteIfExists(anim, defaultAnim)
-    if spriteHasAnimation(self.sprite, anim) then
-        setSpriteAnimation(self.sprite, anim)
-        return true
-    end
-    if defaultAnim then
-        setSpriteAnimation(self.sprite, defaultAnim)
-    end
-    return false
-end
-
----Set current animation of the current sprite
----@param anim string Animation name
-function Unit:setSprite(anim)
-    if not self:setSpriteIfExists(anim) then
-        error("Missing animation '" .. anim .. "' in '" .. self.sprite.def.spriteName .. "' definition.")
-    end
-    if self.specialOverlaySprite and spriteHasAnimation(self.specialOverlaySprite, anim) then
+---Set current animation of the overlaySprite if exists
+---or else remove the overlaySprite
+---@param animation string Animation name
+function Unit:setSpriteOverlay(animation)
+    if self.specialOverlaySprite and spriteHasAnimation(self.specialOverlaySprite, animation) then
         self.spriteOverlay = self.specialOverlaySprite
-        setSpriteAnimation(self.spriteOverlay, anim)
+        setSpriteAnimation(self.spriteOverlay, animation)
         self.spriteOverlay.flipH = self.sprite.flipH
     else
         self.spriteOverlay = nil
     end
 end
 
----Set current animation of the current sprite
----@param anim string Animation name
-function Unit:setBaseSprite(anim)
-    if not self:setSpriteIfExists(anim) then
-        error("Missing animation '" .. anim .. "' in '" .. self.sprite.def.spriteName .. "' definition.")
+---Set current animation of the sprite if exists
+---or else set it to defaultAnimation
+---@param animation string Animation name
+---@param defaultAnimation string The second animation name
+function Unit:setSpriteIfExists(animation, defaultAnimation)
+    if spriteHasAnimation(self.sprite, animation) then
+        setSpriteAnimation(self.sprite, animation)
+        self:setSpriteOverlay(animation)
+        return true
     end
+    if defaultAnimation then
+        setSpriteAnimation(self.sprite, defaultAnimation)
+        self:setSpriteOverlay(animation)
+    end
+    return false
+end
+
+---Set current animation of the sprite
+---@param animation string Animation name
+function Unit:setSprite(animation)
+    if not self:setSpriteIfExists(animation) then
+        error("Missing animation '" .. animation .. "' in '" .. self.sprite.def.spriteName .. "' definition.")
+    end
+    self:setSpriteOverlay(animation)
 end
 
 function Unit:drawSprite(x, y)
