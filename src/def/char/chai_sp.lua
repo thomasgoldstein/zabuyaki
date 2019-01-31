@@ -63,6 +63,17 @@ return {
             { q = q(68,1119,30,31), ox = -9, oy = 31 }, --jump attack running 3
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack running 4
         },
+        dashAttack = {
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --duck
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1 (shifted left by 4px)
+            { q = q(118,880,14,15), ox = -2, oy = 26 }, --dash attack 1
+            { q = q(89,858,27,36), ox = 4, oy = 33 }, --dash attack 2
+            { q = q(89,896,22,26), ox = 0, oy = 31 }, --dash attack 2
+            { q = q(118,858,17,20), ox = -4, oy = 30 }, --dash attack 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 1
+        },
         chargeAttack = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.1
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.2
@@ -93,17 +104,6 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 4
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 4
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted up by 2px)
-        },
-        dashAttack = {
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --duck
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1 (shifted left by 4px)
-            { q = q(118,880,14,15), ox = -2, oy = 26 }, --dash attack 1
-            { q = q(89,858,27,36), ox = 4, oy = 33 }, --dash attack 2
-            { q = q(89,896,22,26), ox = 0, oy = 31 }, --dash attack 2
-            { q = q(118,858,17,20), ox = -4, oy = 30 }, --dash attack 2
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 1
         },
         specialDefensive = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 1

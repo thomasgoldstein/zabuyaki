@@ -4,6 +4,11 @@ local imageWidth, imageHeight = loadSpriteSheet(spriteSheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
+local jumpAttack = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 21, y = 17, width = 25, height = 45, damage = 13, type = "knockDown", repel_x = slf.dashFallSpeed },
+        cont
+) end
 local comboSlap = function(slf, cont)
     slf:checkAndAttack(
         { x = 25, y = 32, width = 26, damage = 5, sfx = "air" },
@@ -15,16 +20,11 @@ local comboKick = function(slf, cont)
         { x = 21, y = 10, width = 25, damage = 8, type = "knockDown", repel_x = slf.dashFallSpeed, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
-    -- move forward Zeena
+    -- move Zeena forward
     if slf.sprite.elapsedTime <= 0 then
         slf:initSlide(slf.slideSpeed_x, slf.slideDiagonalSpeed_x, slf.slideDiagonalSpeed_y, slf.slideSpeed_x * 2.5)
     end
 end
-local jumpAttack = function(slf, cont)
-    slf:checkAndAttack(
-        { x = 21, y = 17, width = 25, height = 45, damage = 13, type = "knockDown", repel_x = slf.dashFallSpeed },
-        cont
-) end
 
 return {
     serializationVersion = 0.42, -- The version of this serialization process
@@ -61,8 +61,36 @@ return {
             loop = true,
             delay = 0.2
         },
+        duck = {
+            { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
+            delay = 0.06
+        },
+        sideStepUp = {
+            { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
+        },
+        sideStepDown = {
+            { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
+        },
         jump = {
             { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
+            delay = 5
+        },
+        jumpAttackStraight = {
+            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
+            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = 5 }, --jump attack 2
+            delay = 0.06
+        },
+        jumpAttackStraightEnd = {
+            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
+            delay = 5
+        },
+        jumpAttackForward = {
+            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
+            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = 5 }, --jump attack 2
+            delay = 0.06
+        },
+        jumpAttackForwardEnd = {
+            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
             delay = 5
         },
         dropDown = {
@@ -73,10 +101,6 @@ return {
             { q = q(2,297,38,61), ox = 22, oy = 60, delay = 5 }, --jump
             { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
             delay = 0.6
-        },
-        duck = {
-            { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
-            delay = 0.06
         },
         pickUp = {
             { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
@@ -106,25 +130,6 @@ return {
             { q = q(42,297,43,57), ox = 25, oy = 56, delay = 0.117 }, --jump attack 1
             delay = 0.067
         },
-        fall = {
-            { q = q(2,246,65,49), ox = 39, oy = 48 }, --falling
-            delay = 5
-        },
-        thrown = {
-            --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,246,65,49), ox = 39, oy = 48, rotate = -1.57, rx = 29, ry = -30 }, --falling
-            delay = 5
-        },
-        getUp = {
-            { q = q(69,267,67,28), ox = 41, oy = 27 }, --lying down
-            { q = q(138,249,53,46), ox = 30, oy = 45 }, --getting up
-            { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
-            delay = 0.2
-        },
-        fallen = {
-            { q = q(69,267,67,28), ox = 41, oy = 27 }, --lying down
-            delay = 65
-        },
         hurtHigh = {
             { q = q(2,124,43,60), ox = 25, oy = 59 }, --hurt high 1
             { q = q(47,125,48,59), ox = 29, oy = 58, delay = 0.2 }, --hurt high 2
@@ -137,29 +142,19 @@ return {
             { q = q(2,186,36,58), ox = 21, oy = 57, delay = 0.1 }, --hurt low 1
             delay = 0.3
         },
-        jumpAttackForward = {
-            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
-            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = 5 }, --jump attack 2
-            delay = 0.06
-        },
-        jumpAttackForwardEnd = {
-            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
+        fall = {
+            { q = q(2,246,65,49), ox = 39, oy = 48 }, --falling
             delay = 5
         },
-        jumpAttackStraight = {
-            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
-            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = 5 }, --jump attack 2
-            delay = 0.06
+        fallen = {
+            { q = q(69,267,67,28), ox = 41, oy = 27 }, --lying down
+            delay = 65
         },
-        jumpAttackStraightEnd = {
-            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
-            delay = 5
-        },
-        sideStepUp = {
-            { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
-        },
-        sideStepDown = {
-            { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
+        getUp = {
+            { q = q(69,267,67,28), ox = 41, oy = 27 }, --lying down
+            { q = q(138,249,53,46), ox = 30, oy = 45 }, --getting up
+            { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
+            delay = 0.2
         },
         grabbedFront = {
             { q = q(2,124,43,60), ox = 25, oy = 59 }, --hurt high 1
@@ -180,6 +175,11 @@ return {
             { q = q(40,188,39,56), ox = 21, oy = 55, flipV = -1 }, --hurt low 2
             { q = q(69,267,67,28), ox = 41, oy = 27 }, --lying down
             delay = 100
+        },
+        thrown = {
+            --rx = oy / 2, ry = -ox for this rotation
+            { q = q(2,246,65,49), ox = 39, oy = 48, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            delay = 5
         },
     }
 }

@@ -56,6 +56,16 @@ return {
             loop = true,
             delay = 0.2
         },
+        duck = {
+            { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
+            delay = 0.06
+        },
+        sideStepUp = {
+            { q = q(2,323,38,67), ox = 23, oy = 66 }, --jump
+        },
+        sideStepDown = {
+            { q = q(2,323,38,67), ox = 23, oy = 66 }, --jump
+        },
         dropDown = {
             { q = q(2,323,38,67), ox = 23, oy = 66, delay = 5 }, --jump
         },
@@ -64,19 +74,9 @@ return {
             { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
             delay = 0.6
         },
-        duck = {
-            { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
-            delay = 0.06
-        },
         pickUp = {
             { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
             delay = 0.28
-        },
-        dashAttack = {
-            { q = q(42,323,57,62), ox = 39, oy = 61 }, --dash attack 1
-            { q = q(101,323,85,56), ox = 56, oy = 55, funcCont = dashAttack, delay = 0.5 }, --dash attack 2
-            { q = q(42,323,57,62), ox = 39, oy = 61 }, --dash attack 1
-            delay = 0.06
         },
         combo1 = {
             { q = q(2,392,55,64), ox = 35, oy = 63 }, --slap 1
@@ -102,30 +102,17 @@ return {
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
             delay = 0.1
         },
+        dashAttack = {
+            { q = q(42,323,57,62), ox = 39, oy = 61 }, --dash attack 1
+            { q = q(101,323,85,56), ox = 56, oy = 55, funcCont = dashAttack, delay = 0.5 }, --dash attack 2
+            { q = q(42,323,57,62), ox = 39, oy = 61 }, --dash attack 1
+            delay = 0.06
+        },
         chargeAttack = {
             { q = q(2,458,51,61), ox = 32, oy = 60, delay = 0.067 }, --high kick 1
             { q = q(55,459,76,60), ox = 38, oy = 59, func = comboKick, delay = 0.217 }, --high kick 2
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
             delay = 0.1
-        },
-        fall = {
-            { q = q(2,267,75,54), ox = 49, oy = 53 }, --falling
-            delay = 5
-        },
-        thrown = {
-            --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,267,75,54), ox = 49, oy = 53, rotate = -1.57, rx = 29, ry = -30 }, --falling
-            delay = 5
-        },
-        getUp = {
-            { q = q(79,288,96,33), ox = 70, oy = 29, delay = 0.2 }, --lying down
-            { q = q(177,273,63,45), ox = 40, oy = 44 }, --getting up
-            { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
-            delay = 0.3
-        },
-        fallen = {
-            { q = q(79,288,96,33), ox = 70, oy = 29 }, --lying down
-            delay = 65
         },
         hurtHigh = {
             { q = q(2,134,48,62), ox = 30, oy = 61 }, --hurt high 1
@@ -139,11 +126,19 @@ return {
             { q = q(96,199,49,66), ox = 34, oy = 65, delay = 0.1 }, --hurt low 3
             delay = 0.3
         },
-        sideStepUp = {
-            { q = q(2,323,38,67), ox = 23, oy = 66 }, --jump
+        fall = {
+            { q = q(2,267,75,54), ox = 49, oy = 53 }, --falling
+            delay = 5
         },
-        sideStepDown = {
-            { q = q(2,323,38,67), ox = 23, oy = 66 }, --jump
+        fallen = {
+            { q = q(79,288,96,33), ox = 70, oy = 29 }, --lying down
+            delay = 65
+        },
+        getUp = {
+            { q = q(79,288,96,33), ox = 70, oy = 29, delay = 0.2 }, --lying down
+            { q = q(177,273,63,45), ox = 40, oy = 44 }, --getting up
+            { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
+            delay = 0.3
         },
         grabbedFront = {
             { q = q(2,134,48,62), ox = 30, oy = 61 }, --hurt high 1
@@ -164,6 +159,11 @@ return {
             { q = q(48,198,46,67), ox = 28, oy = 66, flipV = -1 }, --hurt low 2
             { q = q(79,288,96,33), ox = 70, oy = 29 }, --lying down
             delay = 100
+        },
+        thrown = {
+            --rx = oy / 2, ry = -ox for this rotation
+            { q = q(2,267,75,54), ox = 49, oy = 53, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            delay = 5
         },
     }
 }
