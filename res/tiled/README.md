@@ -71,6 +71,14 @@ Use PNG 8-bit with indexed transparency. Leave 2 transparent pixels at every sid
 Use menu **Map / Map Properties** to see the **Background color** map property. 
 Expand the property and edit R G B and Alpha(transparency) entries.
 
+## Optional stage characters' shadows height and angle ##
+Use menu **Map / Map Properties** to see the **Background color** map property. 
+Add **shadowHeight** and **shadowAngle** float properties into **Custom Properties**.  
+
+Defaults: shadowAngle 0.2, shadowHeight 0.3.
+
+Recommended scoop: shadowAngle Range -1 .. 1, shadowHeight 0.2 .. 1.
+
 ## Define the batch area width ##
 Add a rectangle object to set the batch area. You should set its type to "batch". 
 > Hint: The height of the batch shape is ignored.
