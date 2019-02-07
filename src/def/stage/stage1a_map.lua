@@ -1,7 +1,7 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.2.1",
+  tiledversion = "1.2.2",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 80,
@@ -11,7 +11,10 @@ return {
   nextlayerid = 12,
   nextobjectid = 18,
   backgroundcolor = { 0, 85, 0 },
-  properties = {},
+  properties = {
+    ["shadowAngle"] = 0.2,
+    ["shadowHeight"] = 0.3
+  },
   tilesets = {},
   layers = {
     {
