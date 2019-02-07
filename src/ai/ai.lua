@@ -209,7 +209,7 @@ function AI:getVisualConditions(conditions)
             -- see near players?
             conditions[#conditions + 1] = "seePlayer"
         end
-        if t < u.delayedWakeupRange or u.time > u.wakeupDelay then
+        if t < u.delayedWakeupRange and u.time > u.wakeupDelay then
             -- ready to act
             conditions[#conditions + 1] = "wokeUp"
         end
