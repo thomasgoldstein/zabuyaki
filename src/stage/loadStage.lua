@@ -70,14 +70,14 @@ local function applyBatchUnitProperties(v, unit)
     end
 end
 
-local function loadUnit(items, batch_name)
+local function loadUnit(items, batchName)
     local units = {}
     local event
     local sprite
-    if batch_name and batch_name ~= "" then
-        dp("Load units of batch " .. batch_name .. "...")
+    if batchName and batchName ~= "" then
+        dp("Load units of batch " .. batchName .. "...")
     else
-        batch_name = nil
+        batchName = nil
     end
     for i, v in ipairs(items.objects) do
         if v.shape == "point" and v.type ~= "event" then
@@ -97,7 +97,7 @@ local function loadUnit(items, batch_name)
                 r(v.x), r(v.y),
                 { palette = palette }
             )
-            if batch_name then
+            if batchName then
                 units[#units + 1] = u
             else
                 --for global units that have no batch
