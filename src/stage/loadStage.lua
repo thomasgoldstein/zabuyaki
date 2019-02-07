@@ -87,20 +87,15 @@ local function loadUnit(items, stage, batch_name)
             else
                 sprite = "src/def/char/" .. v.type
             end
+            u.unit = inst:new(
+                v.name, sprite,
+                r(v.x), r(v.y),
+                { palette = palette }
+            )
             if batch_name then
-                u.unit = inst:new(
-                    v.name, sprite,
-                    r(v.x), r(v.y),
-                    { palette = palette }
-                )
                 units[#units + 1] = u
             else
                 --for global units that have no batch
-                u.unit = inst:new(
-                    v.name, sprite,
-                    r(v.x), r(v.y),
-                    { palette = palette }
-                )
                 units[#units + 1] = u.unit
             end
             applyUnitProperties(v, u.unit)
