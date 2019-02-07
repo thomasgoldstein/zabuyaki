@@ -51,6 +51,10 @@ local function getUnitTypeByName(name)
 end
 
 local function applyUnitProperties(v, unit)
+    unit.delay = tonumber(v.properties.delay or 0)
+    unit.state = v.properties.state or "stand"
+    unit.animation = v.properties.animation
+    unit.target = v.properties.target
     if v.properties.flip then
         unit.horizontal = -1
         unit.face = -1
@@ -80,8 +84,6 @@ local function loadUnit(items, stage, batch_name)
             if not inst then
                 error("Missing unit type instance name :" .. inspect(v))
             end
-            u.delay = tonumber(v.properties.delay or 0)
-            u.state = v.properties.state or "stand"
             if inst:isSubclassOf(StageObject) then
                 sprite = "src/def/stage/object/" .. v.type
             else
@@ -98,7 +100,7 @@ local function loadUnit(items, stage, batch_name)
                 --for global units that have no batch
                 units[#units + 1] = u.unit
             end
-            applyUnitProperties(v, u.unit)
+            applyUnitProperties(v, u)
         elseif v.type == "event" then
             if v.shape == "polygon" then
                 error("Tiled: Events don't support 'polygon' shape objects yet.")

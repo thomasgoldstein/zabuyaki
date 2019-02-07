@@ -230,7 +230,6 @@ function AI:initIntro()
 --    dp("AI:initIntro() " .. u.name)
     if self:canAct() then
         if u.state == "stand" or u.state == "intro" then
-            u:setSprite("intro")
             return true
         end
     end

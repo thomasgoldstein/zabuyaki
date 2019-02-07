@@ -88,18 +88,15 @@ function Batch:spawn(dt)
                 dp("spawn ", u.unit.name, u.unit.type, u.unit.hp, self.time)
                 u.unit:setOnStage(stage)
                 u.isSpawned = true
-
-                if u.state == "intro" then
+                if u.state == "intro" then  -- idling, show intro animation by default
                     u.unit:setState(u.unit.intro)
-                elseif u.state == "intro2" then
-                    u.unit:setState(u.unit.intro)
-                    u.unit:setSprite("intro2")
-                elseif u.state == "stand" then
-                    u.unit:setState(u.unit.intro)
-                    u.unit:setSprite("stand")
-                elseif u.state == "walk" then
-                    u.unit:pickAttackTarget("close")
-                    u.unit:setState(u.unit.stand)
+                    u.unit:setSprite("intro")
+                end
+                if u.target then    -- pick the target to attack on spawn
+                    u.unit:pickAttackTarget(u.target) --"close" "far" "weak" "healthy" "slow" "fast"
+                end
+                if u.animation then    -- set the custom sprite animation
+                    u.unit:setSprite(u.animation)
                 end
             end
             allSpawned = false
