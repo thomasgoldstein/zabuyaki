@@ -322,6 +322,8 @@ function loadStageData(stage, mapFile, players)
     end
     stage.worldWidth = d.tilewidth * d.width
     stage.worldHeight = d.tileheight * d.height
+    stage.shadowAngle = d.properties.shadowAngle or stage.shadowAngle
+    stage.shadowHeight = d.properties.shadowHeight or stage.shadowHeight
     loadCollision(d, stage)
     addPlayersToStage(d, players, stage)
     allowPlayersSelect(players) -- if debug, you can select char on start
