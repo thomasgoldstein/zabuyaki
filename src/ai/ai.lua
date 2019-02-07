@@ -205,11 +205,11 @@ function AI:getVisualConditions(conditions)
             -- too close to the closest player
             conditions[#conditions + 1] = "tooCloseToPlayer"
         end
-        if t < u.wakeupRange then
+        if t < u.wakeUpRange then
             -- see near players?
             conditions[#conditions + 1] = "seePlayer"
         end
-        if t < u.delayedWakeupRange and u.time > u.wakeupDelay then
+        if t < u.delayedWakeUpRange and u.time > u.wakeUpDelay then
             -- ready to act
             conditions[#conditions + 1] = "wokeUp"
         end
