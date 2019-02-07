@@ -55,6 +55,9 @@ local function applyUnitProperties(v, unit)
     unit.state = v.properties.state or "stand"
     unit.animation = v.properties.animation
     unit.target = v.properties.target
+    unit.wakeupDelay = tonumber(v.properties.wakeupDelay or unit.wakeupDelay)
+    unit.wakeupRange = tonumber(v.properties.wakeupRange or unit.wakeupRange)
+    unit.delayedWakeupRange = tonumber(v.properties.delayedWakeupRange or unit.delayedWakeupRange)
     if v.properties.flip then
         unit.horizontal = -1
         unit.face = -1
