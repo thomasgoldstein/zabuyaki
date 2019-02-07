@@ -11,10 +11,7 @@ return {
   nextlayerid = 12,
   nextobjectid = 18,
   backgroundcolor = { 0, 85, 0 },
-  properties = {
-    ["shadowAngle"] = 0.2,
-    ["shadowHeight"] = 0.3
-  },
+  properties = {},
   tilesets = {},
   layers = {
     {
