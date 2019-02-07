@@ -50,23 +50,23 @@ local function getUnitTypeByName(name)
     return nil
 end
 
-local function applyBatchUnitProperties(v, unit)
-    unit.spawnDelay = tonumber(v.properties.spawnDelay or 0)
-    unit.state = v.properties.state
-    unit.animation = v.properties.animation
-    unit.target = v.properties.target
-    unit.unit.wakeUpDelay = tonumber(v.properties.wakeUpDelay or unit.unit.wakeUpDelay)
-    unit.unit.wakeUpRange = tonumber(v.properties.wakeUpRange or unit.unit.wakeUpRange)
-    unit.unit.delayedWakeUpRange = tonumber(v.properties.delayedWakeUpRange or unit.unit.delayedWakeUpRange)
+local function applyBatchUnitProperties(v, batchUnit)
+    batchUnit.spawnDelay = tonumber(v.properties.spawnDelay or 0)
+    batchUnit.state = v.properties.state
+    batchUnit.animation = v.properties.animation
+    batchUnit.target = v.properties.target
+    batchUnit.unit.wakeUpDelay = tonumber(v.properties.wakeUpDelay or batchUnit.unit.wakeUpDelay)
+    batchUnit.unit.wakeUpRange = tonumber(v.properties.wakeUpRange or batchUnit.unit.wakeUpRange)
+    batchUnit.unit.delayedWakeUpRange = tonumber(v.properties.delayedWakeUpRange or batchUnit.unit.delayedWakeUpRange)
     if v.properties.flip then
-        unit.horizontal = -1
-        unit.face = -1
+        batchUnit.horizontal = -1
+        batchUnit.face = -1
     end
     if v.properties.drop then
-        unit.func = Loot.getDropFuncByName(v.properties.drop)
+        batchUnit.func = Loot.getDropFuncByName(v.properties.drop)
     end
     if v.properties.z then
-        unit.z = tonumber(v.properties.z)
+        batchUnit.z = tonumber(v.properties.z)
     end
 end
 

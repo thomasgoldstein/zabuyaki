@@ -82,32 +82,32 @@ function Batch:spawn(dt)
     local allSpawned = true
     local allDead = true
     for i = 1, #b.units do
-        local u = b.units[i]
-        if not u.isSpawned then
-            if self.time - b.spawnDelay >= u.spawnDelay then -- delay before the unit's spawn
-                dp("spawn ", u.unit.name, u.unit.type, u.unit.hp, self.time)
-                u.unit:setOnStage(stage)
-                u.isSpawned = true
-                if u.state == "intro" then  -- idling, show intro animation by default
-                    u.unit:setState(u.unit.intro)
-                    u.unit:setSprite("intro")
+        local batchUnit = b.units[i]
+        if not batchUnit.isSpawned then
+            if self.time - b.spawnDelay >= batchUnit.spawnDelay then -- delay before the unit's spawn
+                dp("spawn ", batchUnit.unit.name, batchUnit.unit.type, batchUnit.unit.hp, self.time)
+                batchUnit.unit:setOnStage(stage)
+                batchUnit.isSpawned = true
+                if batchUnit.state == "intro" then  -- idling, show intro animation by default
+                    batchUnit.unit:setState(batchUnit.unit.intro)
+                    batchUnit.unit:setSprite("intro")
                 end
-                if u.target then    -- pick the target to attack on spawn
-                    u.unit:pickAttackTarget(u.target) --"close" "far" "weak" "healthy" "slow" "fast"
+                if batchUnit.target then    -- pick the target to attack on spawn
+                    batchUnit.unit:pickAttackTarget(batchUnit.target) --"close" "far" "weak" "healthy" "slow" "fast"
                 end
-                if u.animation then    -- set the custom sprite animation
-                    u.unit:setSprite(u.animation)
+                if batchUnit.animation then    -- set the custom sprite animation
+                    batchUnit.unit:setSprite(batchUnit.animation)
                 end
             end
             allSpawned = false
             allDead = false --not yet spawned = alive
         end
-        if not u.isActive and b.onEnterStarted then
-            u.isActive = true -- the batch unit spawn data
-            u.unit.isActive = true -- actual spawned enemy unit
-            dp("Activate enemy:", u.unit.name)
+        if not batchUnit.isActive and b.onEnterStarted then
+            batchUnit.isActive = true -- the batch unit spawn data
+            batchUnit.unit.isActive = true -- actual spawned enemy unit
+            dp("Activate enemy:", batchUnit.unit.name)
         end
-        if u.unit.hp > 0 and u.unit.type == "enemy" then --alive enemy
+        if batchUnit.unit.hp > 0 and batchUnit.unit.type == "enemy" then --alive enemy
             allDead = false
         end
     end
