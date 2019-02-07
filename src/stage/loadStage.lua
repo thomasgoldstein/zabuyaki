@@ -70,7 +70,7 @@ local function applyBatchUnitProperties(v, unit)
     end
 end
 
-local function loadUnit(items, stage, batch_name)
+local function loadUnit(items, batch_name)
     local units = {}
     local event
     local sprite
@@ -157,7 +157,7 @@ local function loadGlobalUnits(items, stage)
     if not t then
         error("Tiled: Object layer 'global' is not present in the map file.")
     end
-    local units = loadUnit(t, stage)
+    local units = loadUnit(t)
     for _,unit in ipairs(units) do
         unit:setOnStage(stage)
     end
@@ -181,7 +181,7 @@ local function loadBatch(items, stage)
                     leftStopper = tonumber(r(v2.x) or 0),
                     rightStopper = tonumber(r(v2.x + v2.width) or 4000),
                     music = v.properties.music,
-                    units = loadUnit(v, stage, v2.name),
+                    units = loadUnit(v, v2.name),
                     onStart = v.properties.onStart,
                     onEnter = v.properties.onEnter,
                     onComplete = v.properties.onComplete,
