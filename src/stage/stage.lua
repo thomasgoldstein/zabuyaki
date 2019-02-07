@@ -20,8 +20,8 @@ function Stage:initialize(name, mapFile, players)
     self.name = name or "Untitled Stage"
     self.mode = "normal"
     self.bgColor = { 0, 0, 0 }
-    self.shadowAngle = -0.2 -- vertical shadow. Range -1..1
-    self.shadowHeight = 0.3 -- Range 0.2..1
+    self.shadowAngle = 0 -- vertical shadow. Range -1..1
+    self.shadowHeight = 0.1 -- Range 0.2..1
     self.event = nil
     self.movie = nil
     self.worldWidth = 4000
