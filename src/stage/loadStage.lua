@@ -52,7 +52,7 @@ end
 
 local function applyBatchUnitProperties(v, unit)
     unit.spawnDelay = tonumber(v.properties.spawnDelay or 0)
-    unit.state = v.properties.state or "stand"
+    unit.state = v.properties.state
     unit.animation = v.properties.animation
     unit.target = v.properties.target
     unit.unit.wakeUpDelay = tonumber(v.properties.wakeUpDelay or unit.unit.wakeUpDelay)
