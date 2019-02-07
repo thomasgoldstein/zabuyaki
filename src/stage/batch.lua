@@ -76,7 +76,7 @@ function Batch:spawn(dt)
         b.onEnterStarted = true
         self:startPlayingMusic()
     end
-    if self.time < b.delay then --delay before the whole batch
+    if self.time < b.spawnDelay then -- delay before the spawn of whole batch
         return false
     end
     local allSpawned = true
@@ -84,7 +84,7 @@ function Batch:spawn(dt)
     for i = 1, #b.units do
         local u = b.units[i]
         if not u.isSpawned then
-            if self.time - b.delay >= u.delay then --delay before the unit's spawn
+            if self.time - b.spawnDelay >= u.spawnDelay then -- delay before the unit's spawn
                 dp("spawn ", u.unit.name, u.unit.type, u.unit.hp, self.time)
                 u.unit:setOnStage(stage)
                 u.isSpawned = true

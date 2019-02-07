@@ -50,14 +50,14 @@ local function getUnitTypeByName(name)
     return nil
 end
 
-local function applyUnitProperties(v, unit)
-    unit.delay = tonumber(v.properties.delay or 0)
+local function applyBatchUnitProperties(v, unit)
+    unit.spawnDelay = tonumber(v.properties.spawnDelay or 0)
     unit.state = v.properties.state or "stand"
     unit.animation = v.properties.animation
     unit.target = v.properties.target
-    unit.wakeUpDelay = tonumber(v.properties.wakeUpDelay or unit.wakeUpDelay)
-    unit.wakeUpRange = tonumber(v.properties.wakeUpRange or unit.wakeUpRange)
-    unit.delayedWakeUpRange = tonumber(v.properties.delayedWakeUpRange or unit.delayedWakeUpRange)
+    unit.unit.wakeUpDelay = tonumber(v.properties.wakeUpDelay or unit.unit.wakeUpDelay)
+    unit.unit.wakeUpRange = tonumber(v.properties.wakeUpRange or unit.unit.wakeUpRange)
+    unit.unit.delayedWakeUpRange = tonumber(v.properties.delayedWakeUpRange or unit.unit.delayedWakeUpRange)
     if v.properties.flip then
         unit.horizontal = -1
         unit.face = -1
@@ -103,7 +103,7 @@ local function loadUnit(items, stage, batch_name)
                 --for global units that have no batch
                 units[#units + 1] = u.unit
             end
-            applyUnitProperties(v, u)
+            applyBatchUnitProperties(v, u)
         elseif v.type == "event" then
             if v.shape == "polygon" then
                 error("Tiled: Events don't support 'polygon' shape objects yet.")
@@ -177,7 +177,7 @@ local function loadBatch(items, stage)
             then
                 local b = {
                     name = v2.name,
-                    delay = tonumber(v2.properties.delay or 0),
+                    spawnDelay = tonumber(v2.properties.spawnDelay or 0),
                     leftStopper = tonumber(r(v2.x) or 0),
                     rightStopper = tonumber(r(v2.x + v2.width) or 4000),
                     music = v.properties.music,
