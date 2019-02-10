@@ -146,8 +146,13 @@ Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape 
 Optional properties:
 * spawnDelay <- delay before unit's appearance in seconds (float numbers are fine, too)
 * z <- start z coordinate(height)
-* state <- units state on spawn: intro, stand, walk (aim to players)
+* state <- units state on spawn: intro (If set then the animation is set to 'intro' else the stand state is used).
+* animation <- any sprite animation name that should override defaults.
+* target <- select a player to attack first ("close", "far", "weak", "healthy", "slow" or "fast").
 * palette <- select unit's coloring number (shaders). 1 - default.
+* wakeUpRange <- distance in pixels to the closest player to wake up from the 'intro' state (100px by default).  
+* delayedWakeUpRange <- the 2nd distance in pixels to the closest player to wake up from the 'intro' state (150px by default).
+* wakeUpDelay <- unit starts acting if the delay is over and a player is within 'delayedWakeUpRange'.
 * flip <- turn units face to the left  
 * drop <- which loot to drop. It can be one **apple**, **chicken** or **beef**
 
