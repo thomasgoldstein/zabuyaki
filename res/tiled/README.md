@@ -120,7 +120,7 @@ Give simple names to your batches, such as 1 2 3 4 etc.
 The left and the right sides of the batch are used as the horizontal positions the players stoppers.
 
 Custom properties for each batch **Object layer**:
-* delay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
+* spawnDelay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
 * music <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
 * onStart (event name) <- call event at the batch init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
 * onEnter (event name) <- call event on the last player crossing the left bound of the batch.
@@ -144,7 +144,7 @@ Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape 
 
 ## Optional units properties ##
 Optional properties:
-* delay <- delay before its appearance in seconds (float numbers are fine, too)
+* spawnDelay <- delay before unit's appearance in seconds (float numbers are fine, too)
 * z <- start z coordinate(height)
 * state <- units state on spawn: intro, stand, walk (aim to players)
 * palette <- select unit's coloring number (shaders). 1 - default.
