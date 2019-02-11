@@ -22,7 +22,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.maxHp = f.hp or self.hp or 1
     self.hp = self.maxHp
     self.scoreBonus = f.score or self.scoreBonus or 0 --goes to your killer
-    self.b = input or DUMMY_CONTROL
+    self.b = input or bindEnemyInput()
 
     self.x, self.y, self.z = x, y, 0
     self.height = f.height or 50

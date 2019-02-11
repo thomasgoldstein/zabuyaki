@@ -13,18 +13,6 @@ function love.joystickremoved( joystick )
     connected[joystick] = nil
 end
 
-DUMMY_CONTROL = {}
-DUMMY_CONTROL.horizontal = {
-    getValue = function() return 0 end,
-    isDown = function() return false end,
-    pressed = function() return false end,
-    released = function() return false end,
-    update = function() return false end,
-}
-DUMMY_CONTROL.vertical = DUMMY_CONTROL.horizontal
-DUMMY_CONTROL.attack = DUMMY_CONTROL.horizontal
-DUMMY_CONTROL.jump = DUMMY_CONTROL.horizontal
-
 local function gamepadHat(num, hat, axis)
     local joystick = love.joystick.getJoysticks()[num]
     if not joystick then
@@ -205,4 +193,18 @@ end
 
 function isSpecialCommand(control)
     return (control.attack:pressed() and control.jump:isDown()) or (control.jump:pressed() and control.attack:isDown())
+end
+
+function bindEnemyInput()
+    local Controls = { h = 0, v = 0, a = false, j = false }
+    Controls.horizontal = tactile.newControl()
+                                 :addAxis( function() return this.h end )
+    Controls.vertical = tactile.newControl()
+                               :addAxis( function() return this.h end )
+    Controls.attack = tactile.newControl()
+                             :addButton( function() return this.a end )
+    Controls.jump = tactile.newControl()
+                           :addButton(function() return this.j end)
+    print("CONTROL:", inspect(Controls, {depth = 3}) )
+    return Controls
 end

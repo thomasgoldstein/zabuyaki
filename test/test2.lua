@@ -13,7 +13,7 @@ describe("Character Class", function()
         local n
         -- prepare dummy player
         n = 1
-        player1 = HEROES[n].hero:new("PL1-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0, nil, DUMMY_CONTROL)
+        player1 = HEROES[n].hero:new("PL1-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0)
         player1.id = 1 -- fixed id
         player1:setOnStage(stage)
         player1:setState(player1.stand)
@@ -24,7 +24,7 @@ describe("Character Class", function()
         player1.maxZ = player1.z
         player1:checkCollisionAndMove(0.01)
         n = 2
-        player2 = HEROES[n].hero:new("PL2-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0, nil, DUMMY_CONTROL)
+        player2 = HEROES[n].hero:new("PL2-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0)
         player2.id = 2 -- fixed id
         player2:setOnStage(stage)
         player2:setState(player2.stand)
@@ -33,7 +33,7 @@ describe("Character Class", function()
         player2.maxZ = player2.z
         player2:checkCollisionAndMove(0.01)
         n = 3
-        player3 = HEROES[n].hero:new("PL3-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0, nil, DUMMY_CONTROL)
+        player3 = HEROES[n].hero:new("PL3-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0)
         player3.id = 3 -- fixed id
         player3:setOnStage(stage)
         player3:setState(player3.stand)
