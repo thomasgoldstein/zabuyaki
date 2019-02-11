@@ -20,32 +20,10 @@ DUMMY_CONTROL.horizontal = {
     pressed = function() return false end,
     released = function() return false end,
     update = function() return false end,
-    ikp = {getLast = function() return false end},
-    ikn = {getLast = function() return false end}
 }
-DUMMY_CONTROL.vertical = {
-    getValue = function() return 0 end,
-    isDown = function() return false end,
-    pressed = function() return false end,
-    released = function() return false end,
-    update = function() return false end,
-    ikp = {getLast = function() return false end},
-    ikn = {getLast = function() return false end}
-}
-DUMMY_CONTROL.attack = {
-    getValue = function() return 0 end,
-    isDown = function() return false end,
-    pressed = function() return false end,
-    released = function() return false end,
-    update = function() return false end
-}
-DUMMY_CONTROL.jump = {
-    getValue = function() return 0 end,
-    isDown = function() return false end,
-    pressed = function() return false end,
-    released = function() return false end,
-    update = function() return false end
-}
+DUMMY_CONTROL.vertical = DUMMY_CONTROL.horizontal
+DUMMY_CONTROL.attack = DUMMY_CONTROL.horizontal
+DUMMY_CONTROL.jump = DUMMY_CONTROL.horizontal
 
 local function gamepadHat(num, hat, axis)
     local joystick = love.joystick.getJoysticks()[num]
