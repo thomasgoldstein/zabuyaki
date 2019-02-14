@@ -139,42 +139,9 @@ local specialDefensiveLeft = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local specialOffensive = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 18, width = 25, height = 45, damage = 5, repel_x = 0 },
+    { x = 35, y = 18, width = 37, height = 60, damage = 4, type "hit" },
     cont
 ) end
-local specialOffensiveCheck = function(slf, cont) slf:checkAndAttack(
-        { x = 30, y = 18, width = 25, height = 45, damage = 5, type = "check",
-            onHit = function(slf)
-                slf.speed_x = slf.jumpSpeedBoost.x
-                slf.horizontal = slf.face
-                slf.speed_z = 0
-                slf.victims = {}
-            end,
-            followUpAnimation = "specialOffensive2"
-        },
-        cont
-) end
-local specialOffensive2Middle = function(slf, cont) slf:checkAndAttack(
-    { x = 0, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
-    cont
-) end
-local specialOffensive2Right = function(slf, cont) slf:checkAndAttack(
-    { x = 5, y = 27, width = 60, height = 40, damage = 6, type = "blowOut" },
-    cont
-) end
-local specialOffensive2RightMost = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 32, width = 66, height = 45, damage = 6, type = "blowOut" },
-    cont
-) end
-local specialOffensive2Left = function(slf, cont) slf:checkAndAttack(
-    { x = -5, y = 22, width = 60, height = 40, damage = 6, type = "blowOut" },
-    cont
-) end
-local specialOffensiveHop = function(slf, cont)
-    slf.speed_x = slf.jumpSpeedBoost.x
-    slf.horizontal = -slf.face
-    slf.speed_z = slf.jumpSpeed_z
-end
 local specialDash = function(slf, cont) slf:checkAndAttack(
     { x = 30, y = 18, width = 25, height = 45, damage = 5, repel_x = 0 },
     cont
@@ -520,32 +487,45 @@ return {
             delay = 0.04
         },
         specialOffensive = {
-            { q = q(43,266,39,67), ox = 26, oy = 65 }, --jump up
-            { q = q(84,266,42,65), ox = 24, oy = 66 }, --jump up/top
-            { q = q(128,266,44,62), ox = 23, oy = 65 }, --jump top
-            { q = q(101,1462,40,62), ox = 23, oy = 67 }, --special defensive 12 (shifted up by 3px)
-            { q = q(2,1786,71,59), ox = 26, oy = 65, funcCont = specialOffensiveCheck }, --offensive special 1a
-            { q = q(75,1786,71,59), ox = 26, oy = 65, funcCont = specialOffensiveCheck }, --offensive special 1b
-            { q = q(148,1786,71,59), ox = 26, oy = 65, funcCont = specialOffensiveCheck }, --offensive special 1c
-            loop = true,
-            loopFrom = 5,
-            delay = 0.05
+            { q = q(138,1848,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
+            { q = q(2,1982,72,63), ox = 16, oy = 62 }, --special offensive 1
+            { q = q(76,1981,71,64), ox = 17, oy = 63, func = specialOffensive }, --special offensive 2
+            { q = q(149,1982,71,63), ox = 16, oy = 62 }, --special offensive 3
+            { q = q(195,1590,45,62), ox = 17, oy = 61 }, --special offensive 10
+            { q = q(2,2048,62,63), ox = 16, oy = 62 }, --special offensive 4
+            { q = q(66,2047,72,64), ox = 17, oy = 63, func = specialOffensive }, --special offensive 5
+            { q = q(140,2048,69,63), ox = 16, oy = 62 }, --special offensive 6
+            { q = q(195,1590,45,62), ox = 17, oy = 61 }, --special offensive 10
+            { q = q(2,2114,70,63), ox = 16, oy = 62 }, --special offensive 7
+            { q = q(74,2113,71,64), ox = 17, oy = 63, func = specialOffensive }, --special offensive 8
+            { q = q(147,2114,69,63), ox = 16, oy = 62 }, --special offensive 9
+            { q = q(195,1590,45,62), ox = 17, oy = 61 }, --special offensive 10
+            { q = q(2,2048,62,63), ox = 16, oy = 62 }, --special offensive 4
+            { q = q(66,2047,72,64), ox = 17, oy = 63, func = specialOffensive }, --special offensive 5
+            { q = q(140,2048,69,63), ox = 16, oy = 62 }, --special offensive 6
+            { q = q(195,1590,45,62), ox = 17, oy = 61 }, --special offensive 10
+            { q = q(2,1982,72,63), ox = 16, oy = 62 }, --special offensive 1
+            { q = q(76,1981,71,64), ox = 17, oy = 63, func = specialOffensive }, --special offensive 2
+            { q = q(149,1982,71,63), ox = 16, oy = 62 }, --special offensive 3
+            { q = q(195,1590,45,62), ox = 17, oy = 61 }, --special offensive 10
+            { q = q(138,1848,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
+            delay = 0.03
         },
         specialOffensive2 = {
-            { q = q(2,1786,71,59), ox = 26, oy = 65, func = specialOffensive, delay = 0.05 }, --offensive special 1a
-            { q = q(75,1786,71,59), ox = 26, oy = 65, func = specialOffensive, delay = 0.05 }, --offensive special 1b
-            { q = q(148,1786,71,59), ox = 26, oy = 65, func = specialOffensive, delay = 0.05 }, --offensive special 1c
-            { q = q(2,1786,71,59), ox = 26, oy = 65, func = specialOffensive, delay = 0.05 }, --offensive special 1a
-            { q = q(75,1786,71,59), ox = 26, oy = 65, func = specialOffensive, delay = 0.05 }, --offensive special 1b
-            { q = q(148,1786,71,59), ox = 26, oy = 65, func = specialOffensive, delay = 0.05 }, --offensive special 1c
-            { q = q(181,1330,63,63), ox = 29, oy = 67, funcCont = specialOffensive2RightMost, func = specialOffensiveHop }, --special defensive 5
-            { q = q(2,1400,75,60), ox = 31, oy = 66, funcCont = specialOffensive2RightMost }, --special defensive 6
-            { q = q(79,1400,49,59), ox = 29, oy = 66, funcCont = specialOffensive2RightMost }, --special defensive 7
-            { q = q(130,1400,51,60), ox = 26, oy = 65, funcCont = specialOffensive2Right }, --special defensive 8
-            { q = q(183,1400,45,60), ox = 26, oy = 65, funcCont = specialOffensive2Middle }, --special defensive 9
-            { q = q(2,1462,51,60), ox = 36, oy = 65, funcCont = specialOffensive2Left }, --special defensive 10
-            { q = q(55,1462,44,62), ox = 26, oy = 65, funcCont = specialOffensive2Left }, --special defensive 11
-            { q = q(101,1462,40,62), ox = 23, oy = 64, funcCont = specialOffensive2Middle }, --special defensive 12
+            { q = q(2,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1a
+            { q = q(75,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1b
+            { q = q(148,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1c
+            { q = q(2,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1a
+            { q = q(75,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1b
+            { q = q(148,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1c
+            { q = q(181,1330,63,63), ox = 29, oy = 67, funcCont = specialDash2RightMost, func = specialDashHop }, --special defensive 5
+            { q = q(2,1400,75,60), ox = 31, oy = 66, funcCont = specialDash2RightMost }, --special defensive 6
+            { q = q(79,1400,49,59), ox = 29, oy = 66, funcCont = specialDash2RightMost }, --special defensive 7
+            { q = q(130,1400,51,60), ox = 26, oy = 65, funcCont = specialDash2Right }, --special defensive 8
+            { q = q(183,1400,45,60), ox = 26, oy = 65, funcCont = specialDash2Middle }, --special defensive 9
+            { q = q(2,1462,51,60), ox = 36, oy = 65, funcCont = specialDash2Left }, --special defensive 10
+            { q = q(55,1462,44,62), ox = 26, oy = 65, funcCont = specialDash2Left }, --special defensive 11
+            { q = q(101,1462,40,62), ox = 23, oy = 64, funcCont = specialDash2Middle }, --special defensive 12
             { q = q(101,1462,40,62), ox = 23, oy = 64 }, --special defensive 12
             delay = 0.04
         },

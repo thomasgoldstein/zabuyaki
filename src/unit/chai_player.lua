@@ -176,46 +176,20 @@ Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiv
 
 function Chai:specialOffensiveStart()
     self.isHittable = true
+    self.horizontal = self.face
     dpo(self, self.state)
     self:setSprite("specialOffensive")
     self:enableGhostTrails()
-    self.horizontal = -self.face
-    self.speed_x = self.jumpSpeedBoost.x
+    self.speed_x = 0
     self.speed_y = 0
-    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-    self.z = self:getMinZ() + 0.1
-    self.bounced = 0
-    self:playSfx(self.sfx.jump)
-    self:showEffect("jumpStart")
+    self.speed_z = 0
+    self:playSfx(self.sfx.dashAttack)
 end
 function Chai:specialOffensiveUpdate(dt)
-    if self.sprite.curAnim == "specialOffensive" then
-        if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then
-            -- check speed_x to add no extra var here. it should trigger once
-            self.speed_x = self.dashSpeed_x * 2
-            self.horizontal = self.face
-        end
-    end
-    if self:canFall() then
-        if self.sprite.curFrame <= 6 and self.sprite.curAnim == "specialOffensive2" then
-            self:calcFreeFall(dt, 0.1) -- slow down the falling speed. Restore it on the 5th frame from the end
-        else
-            self:calcFreeFall(dt)
-        end
-    else
-        self:playSfx(self.sfx.step)
-        self:setState(self.duck)
+    if self.sprite.isFinished then
+        dpo(self, self.state)
+        self:setState(self.stand)
         return
-    end
-    if self.particles then
-        self.particles.z = self.z + 2 -- because we show the effect 2px down the unit
-        self.particles.x = self.x
-        self.particles.y = self.y
-    end
-    -- TODO read vectors not the flag successfullyMoved
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
     end
 end
 Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = nop, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
