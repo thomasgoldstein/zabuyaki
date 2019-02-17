@@ -205,6 +205,5 @@ function bindEnemyInput()
                              :addButton( function() return this.a end )
     Controls.jump = tactile.newControl()
                            :addButton(function() return this.j end)
-    print("CONTROL:", inspect(Controls, {depth = 3}) )
     return Controls
 end
