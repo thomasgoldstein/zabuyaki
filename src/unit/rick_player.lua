@@ -93,7 +93,7 @@ function Rick:specialDefensiveStart()
     self:enableGhostTrails(1)
     self:playSfx(self.sfx.dashAttack)
 end
-Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = nop, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
+Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = Unit.fadeOutGhostTrails, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Rick:specialOffensiveStart()
     self.isHittable = true
