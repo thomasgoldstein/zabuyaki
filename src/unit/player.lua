@@ -16,9 +16,6 @@ function Player:initialize(name, sprite, x, y, f, input)
     self.friendlyDamage = 1 --1 = full damage on other players
 end
 
---function Player:initAttributes()
---end
-
 function Player:setOnStage(stage)
     self.pid = GLOBAL_SETTING.PLAYERS_NAMES[self.id] or "P?"
     self.showPIDDelay = 3
@@ -113,7 +110,6 @@ function Player:isStuck()
         if o.type == "wall"
                 or o.type == "stopper"
         then
---            print(self.name, self.x, "STUCK")
             return true
         end
     end
@@ -326,7 +322,6 @@ function Player:useCreditUpdate(dt)
         else
             self.displayDelay = self.displayDelay - dt
         end
-        ---
         if self.b.horizontal:pressed(-1) or self.b.vertical:pressed(-1)
             or self.b.horizontal:pressed(1) or self.b.vertical:pressed(1)
         then
@@ -425,7 +420,6 @@ function Player:deadStart()
     if not self:canFall() then
         self.z = self:getMinZ()
     end
-    --self:onShake(1, 0, 0.1, 0.7)
     self:playSfx(self.sfx.dead)
     if self.killerId then
         self.killerId:addScore( self.scoreBonus )
@@ -435,7 +429,6 @@ function Player:deadUpdate(dt)
     if self.isDisabled then
         return
     end
-    --dp(self.name .. " - dead update", dt)
     if self.deathDelay <= 0 then
         self:setState(self.useCredit)
         return
