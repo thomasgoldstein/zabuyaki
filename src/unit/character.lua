@@ -742,7 +742,6 @@ function Character:duckStart()
     self.z = self:getMinZ()
     self.speed_z = 0
     self:showEffect("jumpLanding")
-    self:fadeOutGhostTrails()
 end
 function Character:duckUpdate(dt)
     if self.sprite.isFinished then
@@ -808,7 +807,6 @@ Character.duck2jump = {name = "duck2jump", start = Character.duck2jumpStart, exi
 function Character:hurtStart()
     self.isHittable = true
     self.canActTimer = self.canActAfterHurtDelay
-    self:fadeOutGhostTrails()
 end
 function Character:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
