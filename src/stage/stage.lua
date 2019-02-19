@@ -230,7 +230,7 @@ function Stage:draw(l, t, w, h)
     love.graphics.setCanvas(canvas[1])
     love.graphics.clear(unpack(self.bgColor))
     --    love.graphics.clear(unpack(self.bgColor))
-    if self.mode == "normal" then
+    if self.mode == "normal" or self.mode == "event" then
         if self.background then
             self.background:draw(l, t, w, h)
         end
@@ -243,24 +243,13 @@ function Stage:draw(l, t, w, h)
         if self.foreground then
             self.foreground:draw(l, t, w, h)
         end
-    elseif self.mode == "event" then
-        if self.background then
-            self.background:draw(l, t, w, h)
-        end
-        love.graphics.setCanvas(canvas[2])
-        love.graphics.clear()
-        self.objects:drawShadows(l, t, w, h) -- units shadows
-        love.graphics.setCanvas(canvas[3])
-        love.graphics.clear()
-        self.objects:draw(l, t, w, h) -- units
-        if self.foreground then
-            self.foreground:draw(l, t, w, h)
-        end
-        colors:set("black")
-        love.graphics.rectangle("fill", 0, 0, 640, 40)
-        love.graphics.rectangle("fill", 0, 440 - 1, 640, 40)
-        if self.event then
-            self.event:draw(l, t, w, h)
+        if self.mode == "event" then
+            colors:set("black")
+            love.graphics.rectangle("fill", 0, 0, 640, 40)
+            love.graphics.rectangle("fill", 0, 440 - 1, 640, 40)
+            if self.event then
+                self.event:draw(l, t, w, h)
+            end
         end
     elseif self.mode == "movie" then
         if self.movie then
