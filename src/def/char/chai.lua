@@ -139,15 +139,15 @@ local specialDefensiveLeft = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local specialOffensiveUp = function(slf, cont) slf:checkAndAttack(
-    { x = 35, y = 39, width = 37, height = 30, damage = 4, type "hit" },
+    { x = 35, y = 39, width = 37, height = 30, damage = 4 },
     cont
 ) end
 local specialOffensiveMiddle = function(slf, cont) slf:checkAndAttack(
-    { x = 35, y = 26, width = 37, height = 30, damage = 4, type "hit" },
+    { x = 35, y = 26, width = 37, height = 30, damage = 4 },
     cont
 ) end
 local specialOffensiveDown = function(slf, cont) slf:checkAndAttack(
-    { x = 35, y = 13, width = 37, height = 30, damage = 4, type "hit" },
+    { x = 35, y = 13, width = 37, height = 30, damage = 4 },
     cont
 ) end
 local specialDash = function(slf, cont) slf:checkAndAttack(
