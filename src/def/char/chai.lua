@@ -150,6 +150,17 @@ local specialOffensiveDown = function(slf, cont) slf:checkAndAttack(
     { x = 35, y = 13, width = 37, height = 30, damage = 4 },
     cont
 ) end
+local specialOffensiveSpeedUp = function(slf, cont)
+    slf.speed_x = slf.dashSpeed_x * 1.5
+end
+local specialOffensiveFinisher1 = function(slf, cont) slf:checkAndAttack(
+    { x = 15, y = 39, width = 50, height = 30, damage = 9 },
+    cont
+) end
+local specialOffensiveFinisher2 = function(slf, cont) slf:checkAndAttack(
+    { x = 15, y = 22, width = 50, height = 45, damage = 14, type = "knockDown" },
+    cont
+) end
 local specialDash = function(slf, cont) slf:checkAndAttack(
     { x = 30, y = 18, width = 25, height = 45, damage = 5, repel_x = 0 },
     cont
@@ -520,22 +531,45 @@ return {
             delay = 0.03
         },
         specialOffensive2 = {
-            { q = q(2,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1a
-            { q = q(75,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1b
-            { q = q(148,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1c
-            { q = q(2,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1a
-            { q = q(75,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1b
-            { q = q(148,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1c
-            { q = q(181,1330,63,63), ox = 29, oy = 67, funcCont = specialDash2RightMost, func = specialDashHop }, --special defensive 5
-            { q = q(2,1400,75,60), ox = 31, oy = 66, funcCont = specialDash2RightMost }, --special defensive 6
-            { q = q(79,1400,49,59), ox = 29, oy = 66, funcCont = specialDash2RightMost }, --special defensive 7
-            { q = q(130,1400,51,60), ox = 26, oy = 65, funcCont = specialDash2Right }, --special defensive 8
-            { q = q(183,1400,45,60), ox = 26, oy = 65, funcCont = specialDash2Middle }, --special defensive 9
-            { q = q(2,1462,51,60), ox = 36, oy = 65, funcCont = specialDash2Left }, --special defensive 10
-            { q = q(55,1462,44,62), ox = 26, oy = 65, funcCont = specialDash2Left }, --special defensive 11
-            { q = q(101,1462,40,62), ox = 23, oy = 64, funcCont = specialDash2Middle }, --special defensive 12
-            { q = q(101,1462,40,62), ox = 23, oy = 64 }, --special defensive 12
-            delay = 0.04
+            { q = q(2,2179,47,65), ox = 16, oy = 64, func = specialOffensiveSpeedUp, delay = 0.2 }, --special offensive 11
+            { q = q(51,2179,43,65), ox = 9, oy = 64, func = specialOffensiveFinisher1 }, --special offensive 12
+            { q = q(96,2189,61,55), ox = 6, oy = 54, func = specialOffensiveFinisher2 }, --special offensive 13a
+            { q = q(159,2189,62,55), ox = 6, oy = 54 }, --special offensive 13b
+            { q = q(2,2254,63,54), ox = 6, oy = 53, delay = 0.15 }, --special offensive 13c
+            { q = q(67,2246,42,62), ox = 11, oy = 61, delay = 0.03 }, --special offensive 14
+            { q = q(138,1848,40,64), ox = 18, oy = 63 }, --combo forward 2.4
+            delay = 0.05
+        },
+        specialOffensive = { -- TODO: overrides the specialOffensive definition above. delete this once specialOffensive2 is called when pressing attack during specialOffensive
+            { q = q(138,1848,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
+            { q = q(2,1982,72,63), ox = 16, oy = 62 }, --special offensive 1
+            { q = q(76,1981,71,64), ox = 17, oy = 63, func = specialOffensiveUp }, --special offensive 2
+            { q = q(149,1982,71,63), ox = 16, oy = 62 }, --special offensive 3
+            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
+            { q = q(2,2048,62,63), ox = 16, oy = 62 }, --special offensive 4
+            { q = q(66,2047,72,64), ox = 17, oy = 63, func = specialOffensiveMiddle }, --special offensive 5
+            { q = q(140,2048,69,63), ox = 16, oy = 62 }, --special offensive 6
+            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
+            { q = q(2,2114,70,63), ox = 16, oy = 62 }, --special offensive 7
+            { q = q(74,2113,71,64), ox = 17, oy = 63, func = specialOffensiveDown }, --special offensive 8
+            { q = q(147,2114,69,63), ox = 16, oy = 62 }, --special offensive 9
+            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
+            { q = q(2,2048,62,63), ox = 16, oy = 62 }, --special offensive 4
+            { q = q(66,2047,72,64), ox = 17, oy = 63, func = specialOffensiveMiddle }, --special offensive 5
+            { q = q(140,2048,69,63), ox = 16, oy = 62 }, --special offensive 6
+            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
+            { q = q(2,1982,72,63), ox = 16, oy = 62 }, --special offensive 1
+            { q = q(76,1981,71,64), ox = 17, oy = 63, func = specialOffensiveUp }, --special offensive 2
+            { q = q(149,1982,71,63), ox = 16, oy = 62 }, --special offensive 3
+            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
+            { q = q(2,2179,47,65), ox = 16, oy = 64, func = specialOffensiveSpeedUp, delay = 0.2 }, --special offensive 11
+            { q = q(51,2179,43,65), ox = 9, oy = 64, func = specialOffensiveFinisher1, delay = 0.05 }, --special offensive 12
+            { q = q(96,2189,61,55), ox = 6, oy = 54, func = specialOffensiveFinisher2, delay = 0.05 }, --special offensive 13a
+            { q = q(159,2189,62,55), ox = 6, oy = 54, delay = 0.05 }, --special offensive 13b
+            { q = q(2,2254,63,54), ox = 6, oy = 53, delay = 0.15 }, --special offensive 13c
+            { q = q(67,2246,42,62), ox = 11, oy = 61 }, --special offensive 14
+            { q = q(138,1848,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
+            delay = 0.03
         },
         specialDash = {
             { q = q(43,266,39,67), ox = 26, oy = 65 }, --jump up

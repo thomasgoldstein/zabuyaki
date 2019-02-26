@@ -119,6 +119,45 @@ return {
             { q = q(183,1526,27,39), ox = 36, oy = 42 }, --special defensive 11
             { q = q(212,1526,30,41), ox = 30, oy = 40 }, --special defensive 12
         },
+        specialOffensive = { -- TODO: delete this once specialOffensive2 is called when pressing attack during specialOffensive
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.4
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 10
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 4
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 5
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 6
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 10
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 7
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 8
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 9
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 10
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 4
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 5
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 6
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 10
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 1
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 10
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 11
+            { q = q(111,2246,53,20), ox = 19, oy = 55 }, --special offensive 12
+            { q = q(166,2246,29,54), ox = -11, oy = 51 }, --special offensive 13a
+            { q = q(197,2246,15,27), ox = -23, oy = 23 }, --special offensive 13b
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 13c
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 14
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.4
+        },
+        specialOffensive2 = {
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 11
+            { q = q(111,2246,53,20), ox = 19, oy = 55 }, --special offensive 12
+            { q = q(166,2246,29,54), ox = -11, oy = 51 }, --special offensive 13a
+            { q = q(197,2246,15,27), ox = -23, oy = 23 }, --special offensive 13b
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 13c
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 14
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.4
+        },
         specialDash = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump up
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump up/top
