@@ -183,7 +183,6 @@ function Chai:specialOffensiveStart()
     self.speed_x = 0
     self.speed_y = 0
     self.speed_z = 0
-    self:playSfx(self.sfx.dashAttack)
 end
 function Chai:specialOffensiveUpdate(dt)
     if self.sprite.isFinished then
