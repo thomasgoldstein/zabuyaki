@@ -142,15 +142,15 @@ local specialOffensiveShout = function(slf, cont)
     slf:playSfx(slf.sfx.jump)
 end
 local specialOffensiveUp = function(slf, cont) slf:checkAndAttack(
-    { x = 35, y = 39, width = 37, height = 30, damage = 4 },
+    { x = 35, y = 39, width = 37, height = 30, damage = 4, repel_x = 60 },
     cont
 ) end
 local specialOffensiveMiddle = function(slf, cont) slf:checkAndAttack(
-    { x = 35, y = 26, width = 37, height = 30, damage = 4 },
+    { x = 35, y = 26, width = 37, height = 30, damage = 4, repel_x = 60 },
     cont
 ) end
 local specialOffensiveDown = function(slf, cont) slf:checkAndAttack(
-    { x = 35, y = 13, width = 37, height = 30, damage = 4 },
+    { x = 35, y = 13, width = 37, height = 30, damage = 4, repel_x = 60 },
     cont
 ) end
 local specialOffensiveSpeedUp = function(slf, cont)
