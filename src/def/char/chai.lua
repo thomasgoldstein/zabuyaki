@@ -544,30 +544,6 @@ return {
             { q = q(138,1848,40,64), ox = 18, oy = 63 }, --combo forward 2.4
             delay = 0.05
         },
-        specialOffensive = {
-            { q = q(138,1848,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
-            { q = q(2,1982,72,63), ox = 16, oy = 62, func = specialOffensiveShout }, --special offensive 1
-            { q = q(76,1981,71,64), ox = 17, oy = 63, func = specialOffensiveUp }, --special offensive 2
-            { q = q(149,1982,71,63), ox = 16, oy = 62 }, --special offensive 3
-            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
-            { q = q(2,2048,62,63), ox = 16, oy = 62, func = specialOffensiveShout }, --special offensive 4
-            { q = q(66,2047,72,64), ox = 17, oy = 63, func = specialOffensiveMiddle }, --special offensive 5
-            { q = q(140,2048,69,63), ox = 16, oy = 62 }, --special offensive 6
-            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
-            { q = q(2,2114,70,63), ox = 16, oy = 62, func = specialOffensiveShout }, --special offensive 7
-            { q = q(74,2113,71,64), ox = 17, oy = 63, func = specialOffensiveDown }, --special offensive 8
-            { q = q(147,2114,69,63), ox = 16, oy = 62 }, --special offensive 9
-            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
-            { q = q(2,2048,62,63), ox = 16, oy = 62, func = specialOffensiveShout }, --special offensive 4
-            { q = q(66,2047,72,64), ox = 17, oy = 63, func = specialOffensiveMiddle }, --special offensive 5
-            { q = q(140,2048,69,63), ox = 16, oy = 62 }, --special offensive 6
-            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
-            { q = q(2,1982,72,63), ox = 16, oy = 62, func = specialOffensiveShout }, --special offensive 1
-            { q = q(76,1981,71,64), ox = 17, oy = 63, func = specialOffensiveUp }, --special offensive 2
-            { q = q(149,1982,71,63), ox = 16, oy = 62 }, --special offensive 3
-            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
-            delay = 0.03
-        },
         specialDash = {
             { q = q(43,266,39,67), ox = 26, oy = 65 }, --jump up
             { q = q(84,266,42,65), ox = 24, oy = 66 }, --jump up/top
