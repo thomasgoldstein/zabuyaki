@@ -530,8 +530,8 @@ return {
             { q = q(2,1982,72,63), ox = 16, oy = 62, func = specialOffensiveShout }, --special offensive 1
             { q = q(76,1981,71,64), ox = 17, oy = 63, func = specialOffensiveUp }, --special offensive 2
             { q = q(149,1982,71,63), ox = 16, oy = 62 }, --special offensive 3
-            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
-            { q = q(138,1848,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
+            { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.07 }, --special offensive 10
+            { q = q(138,1848,40,64), ox = 18, oy = 63, delay = 0.03 }, --combo forward 2.4
             delay = 0.03
         },
         specialOffensive2 = {
