@@ -544,7 +544,7 @@ return {
             { q = q(138,1848,40,64), ox = 18, oy = 63 }, --combo forward 2.4
             delay = 0.05
         },
-        specialOffensive = { -- TODO: overrides the specialOffensive definition above. delete this once specialOffensive2 is called when pressing attack during specialOffensive
+        specialOffensive = {
             { q = q(138,1848,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
             { q = q(2,1982,72,63), ox = 16, oy = 62, func = specialOffensiveShout }, --special offensive 1
             { q = q(76,1981,71,64), ox = 17, oy = 63, func = specialOffensiveUp }, --special offensive 2
@@ -566,13 +566,6 @@ return {
             { q = q(76,1981,71,64), ox = 17, oy = 63, func = specialOffensiveUp }, --special offensive 2
             { q = q(149,1982,71,63), ox = 16, oy = 62 }, --special offensive 3
             { q = q(195,1590,45,62), ox = 17, oy = 61, delay = 0.05 }, --special offensive 10
-            { q = q(2,2179,47,65), ox = 16, oy = 64, func = specialOffensiveSpeedUp, delay = 0.2 }, --special offensive 11
-            { q = q(51,2179,43,65), ox = 9, oy = 64, func = specialOffensiveFinisher1, delay = 0.05 }, --special offensive 12
-            { q = q(96,2189,61,55), ox = 6, oy = 54, func = specialOffensiveFinisher2, delay = 0.05 }, --special offensive 13a
-            { q = q(159,2189,62,55), ox = 6, oy = 54, delay = 0.05 }, --special offensive 13b
-            { q = q(2,2254,63,54), ox = 6, oy = 53, delay = 0.15 }, --special offensive 13c
-            { q = q(67,2246,42,62), ox = 11, oy = 61 }, --special offensive 14
-            { q = q(138,1848,40,64), ox = 18, oy = 63, delay = 0.05 }, --combo forward 2.4
             delay = 0.03
         },
         specialDash = {

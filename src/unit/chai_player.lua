@@ -190,6 +190,9 @@ function Chai:specialOffensiveUpdate(dt)
         self:setState(self.stand)
         return
     end
+    if self.sprite.curFrame > 1 and self.sprite.curAnim ~= "specialOffensive2" and self.b.attack:pressed() then
+        self:setSprite("specialOffensive2")
+    end
 end
 Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
 
