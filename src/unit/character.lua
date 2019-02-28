@@ -1326,6 +1326,10 @@ function Character:grabUpdate(dt)
             self:setState(self.stand)
             return
         end
+        if self.moves.grabReleaseBackDash and self.b.horizontal.isDoubleTap and self.face == -self.b.horizontal.doubleTap.lastDirection then
+            self:setState(self.grabReleaseBackDash)
+            return
+        end
         if self.b.attack:pressed() then
             g.target:removeTweenMove()
             self:removeTweenMove()
@@ -1526,6 +1530,20 @@ function Character:grabFrontAttackUpStart()
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     dp(self.name.." grabFrontAttackUp someone.")
 end
+
+function Character:grabReleaseBackDashStart()
+    self:releaseGrabbed()
+    self:setSprite("grabReleaseBackDash")
+    self.horizontal = -self.face
+    self.speed_x = self.backoffSpeed_x --move from source
+end
+function Character:grabReleaseBackDashUpdate(dt)
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+end
+Character.grabReleaseBackDash = {name = "grabReleaseBackDash", start = Character.grabReleaseBackDashStart, exit = nop, update = Character.grabReleaseBackDashUpdate, draw = Character.defaultDraw}
 
 function Character:doThrow(repel_x, repel_y, repel_z, horizontal, face, start_z)
     local g = self.grabContext
