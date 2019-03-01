@@ -1533,17 +1533,15 @@ end
 
 function Character:grabReleaseBackDashStart()
     self:releaseGrabbed()
-    self:setSprite("grabReleaseBackDash")
     self.horizontal = -self.face
     self.speed_x = self.backoffSpeed_x --move from source
+    self.speed_z = (self.jumpSpeed_z / 4 ) * self.jumpSpeedMultiplier
+    self:setSprite("jump")
+    self.z = self:getMinZ() + 0.1
+    self.bounced = 0
+    self.isGoingUp = true
 end
-function Character:grabReleaseBackDashUpdate(dt)
-    if self.sprite.isFinished then
-        self:setState(self.stand)
-        return
-    end
-end
-Character.grabReleaseBackDash = {name = "grabReleaseBackDash", start = Character.grabReleaseBackDashStart, exit = nop, update = Character.grabReleaseBackDashUpdate, draw = Character.defaultDraw}
+Character.grabReleaseBackDash = {name = "grabReleaseBackDash", start = Character.grabReleaseBackDashStart, exit = nop, update = Character.jumpFallUpdate, draw = Character.defaultDraw}
 
 function Character:doThrow(repel_x, repel_y, repel_z, horizontal, face, start_z)
     local g = self.grabContext

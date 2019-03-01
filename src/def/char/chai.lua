@@ -647,12 +647,6 @@ return {
             { q = q(53,660,50,60), ox = 14, oy = 59, delay = 0.35 }, --combo 4.4
             delay = 0.05
         },
-        grabReleaseBackDash = {
-            { q = q(49,1654,41,64), ox = 23, oy = 63 }, --grab attack 1.1
-            { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.02 }, --jump attack forward 1 (shifted right by 3px)
-            { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.05 }, --jump attack forward 1 (shifted right by 3px)
-            delay = 0.05
-        },
         hurtHigh = {
             { q = q(2,335,48,64), ox = 29, oy = 63 }, --hurt high 1
             { q = q(52,335,50,64), ox = 32, oy = 63, delay = 0.2 }, --hurt high 2

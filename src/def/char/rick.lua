@@ -645,10 +645,6 @@ return {
                 { oz = 0, ox = -48, tFrame = 5, tFace = -1 } --oz = 0,
             }
         },
-        grabReleaseBackDash = {
-            { q = q(2,1044,56,63), ox = 30, oy = 62, delay = 0.25 }, --grab attack end 1
-            delay = 0.1
-        },
         hurtHigh = {
             { q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 1
             { q = q(48,331,47,62), ox = 26, oy = 61, delay = 0.2 }, --hurt high 2
