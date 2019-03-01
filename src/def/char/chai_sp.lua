@@ -35,11 +35,12 @@ return {
         combo4 = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.1
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.2
-            { q = q(105,659,16,44), ox = -29, oy = 65 }, --combo 4.3
-            { q = q(123,659,15,48), ox = -31, oy = 56 }, --combo 4.4
-            { q = q(140,659,23,39), ox = -22, oy = 38 }, --combo 4.4
+            { q = q(108,659,16,44), ox = -29, oy = 65 }, --combo 4.3
+            { q = q(126,659,15,48), ox = -31, oy = 56 }, --combo 4.4
+            { q = q(143,659,23,39), ox = -22, oy = 38 }, --combo 4.4
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.4
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 14
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.4
         },
         combo4Forward = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 1
@@ -77,11 +78,12 @@ return {
         chargeAttack = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.1
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.2
-            { q = q(105,659,16,44), ox = -29, oy = 65 }, --combo 4.3
-            { q = q(123,659,15,48), ox = -31, oy = 56 }, --combo 4.4
-            { q = q(140,659,23,39), ox = -22, oy = 38 }, --combo 4.4
+            { q = q(108,659,16,44), ox = -29, oy = 65 }, --combo 4.3
+            { q = q(126,659,15,48), ox = -31, oy = 56 }, --combo 4.4
+            { q = q(143,659,23,39), ox = -22, oy = 38 }, --combo 4.4
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.4
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 14
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.4
             delay = 0.03
         },
         chargeDashAttack = {
