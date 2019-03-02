@@ -201,8 +201,8 @@ function Chai:specialDashStart()
     dpo(self, self.state)
     self:setSprite("specialDash")
     self:enableGhostTrails()
-    self.horizontal = -self.face
-    self.speed_x = self.jumpSpeedBoost.x
+    self.horizontal = self.face
+    self.speed_x = self.dashSpeed_x / 2
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = self:getMinZ() + 0.1
@@ -215,7 +215,6 @@ function Chai:specialDashUpdate(dt)
         if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then
             -- check speed_x to add no extra var here. it should trigger once
             self.speed_x = self.dashSpeed_x * 2
-            self.horizontal = self.face
         end
     end
     if self:canFall() then
