@@ -169,6 +169,10 @@ local specialDash = function(slf, cont) slf:checkAndAttack(
     { x = 30, y = 18, width = 25, height = 45, damage = 5, repel_x = 0 },
     cont
 ) end
+local specialDashShout = function(slf, cont)
+    slf:playSfx(slf.sfx.dashAttack)
+    specialDash(slf, count)
+end
 local specialDashCheck = function(slf, cont) slf:checkAndAttack(
     { x = 30, y = 18, width = 25, height = 45, damage = 5, type = "check",
       onHit = function(slf)
@@ -564,7 +568,7 @@ return {
             { q = q(148,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1c
             { q = q(2,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1a
             { q = q(75,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1b
-            { q = q(148,1786,71,59), ox = 26, oy = 65, func = specialDash, delay = 0.05 }, --special dash 1c
+            { q = q(148,1786,71,59), ox = 26, oy = 65, func = specialDashShout, delay = 0.05 }, --special dash 1c
             { q = q(181,1330,63,63), ox = 29, oy = 67, funcCont = specialDash2RightMost, func = specialDashHop }, --special defensive 5
             { q = q(2,1400,75,60), ox = 31, oy = 66, funcCont = specialDash2RightMost }, --special defensive 6
             { q = q(79,1400,49,59), ox = 29, oy = 66, funcCont = specialDash2RightMost }, --special defensive 7
