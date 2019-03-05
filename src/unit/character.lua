@@ -1326,7 +1326,10 @@ function Character:grabUpdate(dt)
             self:setState(self.stand)
             return
         end
-        if self.moves.grabReleaseBackDash and self.b.horizontal.isDoubleTap and self.face == -self.b.horizontal.doubleTap.lastDirection then
+        if self.moves.grabReleaseBackDash and self.b.horizontal.isDoubleTap
+            and self.face == -self.b.horizontal.doubleTap.lastDirection
+            and self:getLastStateTime() >= self.grabReleaseAfter
+        then
             self:setState(self.grabReleaseBackDash)
             return
         end
