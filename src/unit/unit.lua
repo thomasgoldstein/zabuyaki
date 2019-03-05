@@ -151,11 +151,11 @@ function Unit:setState(state, condition)
     end
 end
 function Unit:getLastStateTime()
-    -- time from the switching to current frame
+    -- time from the switching to current state
     return love.timer.getTime() - self.lastStateTime
 end
 function Unit:getPrevStateTime()
-    -- time from the previous to the last switching to current frame
+    -- time from the previous to the last switching to current state
     return love.timer.getTime() - self.prevStateTime
 end
 function Unit:addHp(hp)
