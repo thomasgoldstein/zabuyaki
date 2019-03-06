@@ -404,8 +404,8 @@ return {
             delay = 0.025
         },
         combo3Up = {
-            { q = q(2,913,39,64), ox = 21, oy = 63 }, --combo up 3.1
-            { q = q(43,916,58,61), ox = 16, func = comboAttack3Up1, oy = 60 }, --combo up 3.2
+            { q = q(99,2427,41,58), ox = 15, oy = 57 }, --special offensive 3 (shifted left by 7px)
+            { q = q(40,916,61,61), ox = 19, func = comboAttack3Up1, oy = 60 }, --combo up 3.2
             { q = q(103,915,53,62), ox = 20, func = comboAttack3Up2, oy = 61, delay = 0.06 }, --combo up 3.3
             delay = 0.1
         },
