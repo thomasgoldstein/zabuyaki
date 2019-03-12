@@ -81,6 +81,7 @@ function Enemy:updateAI(dt)
     if not self.isActive then
         return
     end
+    self.b.update(dt)
     Character.updateAI(self, dt)
 end
 
