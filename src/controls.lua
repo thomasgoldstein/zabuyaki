@@ -196,14 +196,30 @@ function isSpecialCommand(control)
 end
 
 function bindEnemyInput()
-    local Controls = { h = 0, v = 0, a = false, j = false }
+    local Controls = { h = 0, v = 0, a = false, j = false, s = false }
     Controls.horizontal = tactile.newControl()
-                                 :addAxis( function() return this.h end )
+                                 :addAxis( function() return Controls.h end )
     Controls.vertical = tactile.newControl()
-                               :addAxis( function() return this.v end )
+                               :addAxis( function() return Controls.v end )
     Controls.attack = tactile.newControl()
-                             :addButton( function() return this.a end )
+                             :addButton( function() return Controls.a end )
     Controls.jump = tactile.newControl()
-                           :addButton(function() return this.j end)
+                           :addButton(function() return Controls.j end)
+    Controls.strafe = tactile.newControl()
+                           :addButton(function() return Controls.s end)
+    Controls.setJump = function(st) Controls.j = st end
+    Controls.setAttack = function(st) Controls.a = st end
+    Controls.setStrafe = function(st) Controls.s = st end
+    Controls.setHorizontal = function(st) Controls.h = st or 0 end
+    Controls.setVertical = function(st) Controls.v = st or 0 end
+    Controls.setHorizontalAndVertical = function(sth, stv) Controls.h = sth or 0; Controls.v = stv or 0; print(sth, stv) end
+    Controls.resetButtons = function() Controls.h= 0; Controls.v = 0; Controls.a = false; Controls.j = false; Controls.s = false end
+    Controls.reset = function() Controls.h= 0; Controls.v = 0; Controls.a = false; Controls.j = false; Controls.s = false end
+    Controls.update = function(dt)
+        Controls.horizontal:update(dt)
+        Controls.vertical:update(dt)
+        Controls.jump:update(dt)
+        Controls.attack:update(dt)
+    end
     return Controls
 end
