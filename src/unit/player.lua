@@ -23,7 +23,6 @@ function Player:setOnStage(stage)
     self.victimLifeBar = nil   -- remove enemy bar under yours
     self:disableGhostTrails()
     registerPlayer(self)
-    logPlayer:reset(self.id)
 end
 
 function Player:isAlive()

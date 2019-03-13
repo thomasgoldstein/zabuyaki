@@ -266,7 +266,6 @@ local function drawPID(x, y_, i, confirmed)
 end
 
 function playerSelectState:enter()
-    logPlayer:init()
     players = {
         {pos = 1, visible = true, confirmed = false, sprite = nil},
         {pos = 2, visible = false, confirmed = false, sprite = nil},
