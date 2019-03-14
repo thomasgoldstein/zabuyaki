@@ -44,8 +44,6 @@ function AI:initialize(unit, speedReaction)
         { }, unit.name)
     self.SCHEDULE_RUN_DASH = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash },
         { }, unit.name)
-    --self.SCHEDULE_PICK_TARGET = Schedule:new({ self.initPickTarget },
-    -- -- { "noPlayers" }, unit.name)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer },
         { "cannotAct", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo },
@@ -56,7 +54,6 @@ function AI:initialize(unit, speedReaction)
         { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_RECOVER = Schedule:new({ self.waitUntilStand },
         { "noPlayers" }, unit.name)
-    --self.SCHEDULE_DEAD = Schedule:new({ self.initDead }, {}, unit.name)
 end
 
 function AI:update(dt)
@@ -227,6 +224,7 @@ end
 
 function AI:initIntro()
     local u = self.unit
+    u.b.reset()
 --    dp("AI:initIntro() " .. u.name)
     if self:canAct() then
         if u.state == "stand" or u.state == "intro" then
@@ -249,16 +247,17 @@ end
 
 function AI:initStand()
     local u = self.unit
+    u.b.reset()
 --    dp("AI:initStand() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        if u.state ~= "stand" then
-            u:setState(u.stand)
+        --if u.state ~= "stand" then
+            --u:setState(u.stand)
+            --return true
+        --elseif u.sprite.curAnim ~= "stand" then
+            --u:setSprite("stand")
             return true
-        elseif u.sprite.curAnim ~= "stand" then
-            u:setSprite("stand")
-            return true
-        end
+        --end
     end
     return false
 end
@@ -277,14 +276,15 @@ end
 
 function AI:initWait()
     local u = self.unit
+    u.b.reset()
 --    dp("AI:initWait() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        if u.state ~= "stand" then
-            u:setState(u.stand)
-        elseif u.sprite.curAnim ~= "stand" then
-            u:setSprite("stand")
-        end
+        --if u.state ~= "stand" then
+            --u:setState(u.stand)
+        --elseif u.sprite.curAnim ~= "stand" then
+            --u:setSprite("stand")
+        --end
         self.waitingCounter = love.math.random(self.hesitateMin, self.hesitateMax)
         --    print("!!!!ai.lua<AI:initWait> : " .. self.waitingCounter, u.name)
         u.speed_x = u.runSpeed
@@ -317,7 +317,7 @@ function AI:calcWalkToBackOffXY()
         u:pickAttackTarget("close")
     end
     assert(not u.isDisabled and u.hp > 0)
-    u:setState(u.walk)
+    --u:setState(u.walk)
     local tx, ty, shift_x, shift_y
     shift_x = love.math.random(0, 6)
     if u.target.hp < u.target.maxHp / 2 then
@@ -359,15 +359,15 @@ function AI:initWalkToXY()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         if u.state ~= "walk" then
-            u:setState(u.walk)
+            --u:setState(u.walk)
         elseif u.sprite.curAnim ~= "walk" then
-            u:setSprite("walk")
+            --u:setSprite("walk")
         end
         local t = dist(self.x, self.y, u.x, u.y)
-        u.move = tween.new((self.addMoveTime or 0.1) + t / u.walkSpeed, u, {
-            tx = self.x,
-            ty = self.y
-        }, 'linear')
+        --u.move = tween.new((self.addMoveTime or 0.1) + t / u.walkSpeed, u, {
+        --    tx = self.x,
+        --    ty = self.y
+        --}, 'linear')
         u.speed_x = u.walkSpeed
         u.speed_y = u.walkSpeed / 4
         u.ttx, u.tty = self.x, self.y
@@ -382,15 +382,15 @@ function AI:initRunToXY()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         if u.state ~= "run" then
-            u:setState(u.run)
+            --u:setState(u.run)
         elseif u.sprite.curAnim ~= "run" then
-            u:setSprite("run")
+            --u:setSprite("run")
         end
         local t = dist(self.x, self.y, u.x, u.y)
-        u.move = tween.new((self.addMoveTime or 0.1) + t / u.runSpeed, u, {
-            tx = self.x,
-            ty = self.y
-        }, 'linear')
+        --u.move = tween.new((self.addMoveTime or 0.1) + t / u.runSpeed, u, {
+        --    tx = self.x,
+        --    ty = self.y
+        --}, 'linear')
         u.ttx, u.tty = self.x, self.y
         u.speed_x = u.runSpeed
         u.speed_y = 0
@@ -478,7 +478,7 @@ function AI:calcRunToXY()
             u:pickAttackTarget() -- ???
         end
         assert(not u.isDisabled and u.hp > 0)
-        u:setState(u.run)
+        --u:setState(u.run)
         local tx, ty, shift_x
         if u.x < u.target.x then
             tx = u.target.x - love.math.random(25, 35)
