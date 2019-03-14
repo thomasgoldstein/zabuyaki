@@ -212,7 +212,7 @@ function bindEnemyInput()
     Controls.setStrafe = function(st) Controls.s = st end
     Controls.setHorizontal = function(st) Controls.h = st or 0 end
     Controls.setVertical = function(st) Controls.v = st or 0 end
-    Controls.setHorizontalAndVertical = function(sth, stv) Controls.h = sth or 0; Controls.v = stv or 0; print(sth, stv) end
+    Controls.setHorizontalAndVertical = function(sth, stv) Controls.h = sth or 0; Controls.v = stv or 0 end
     Controls.resetButtons = function() Controls.h= 0; Controls.v = 0; Controls.a = false; Controls.j = false; Controls.s = false end
     Controls.reset = function() Controls.h= 0; Controls.v = 0; Controls.a = false; Controls.j = false; Controls.s = false end
     Controls.update = function(dt)
