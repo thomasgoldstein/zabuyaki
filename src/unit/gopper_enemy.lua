@@ -56,62 +56,6 @@ function Gopper:onFriendlyAttack()
     end
 end
 
-function Gopper:walkStart()
-    self.isHittable = true
-    self:setSprite("walk")
-    self.tx, self.ty = self.x, self.y
-end
-function Gopper:walkUpdate(dt)
-    local complete
-    if self.move then
-        complete = self.move:update(dt)
-        if not complete then
-            if isDebug() then
-                attackHitBoxes[#attackHitBoxes+1] = {x = self.ttx, sx = 0, y = self.tty, w = 31, h = 0.1, z = 0 }
-            end
-        end
-    else
-        complete = true
-    end
-    if complete then
-        self:setState(self.stand)
-        return
-    end
-    if not self.successfullyMoved then
-        self:setState(self.stand)
-        return
-    end
-end
-Gopper.walk = { name = "walk", start = Gopper.walkStart, exit = nop, update = Gopper.walkUpdate, draw = Enemy.defaultDraw }
-
-function Gopper:runStart()
-    self.isHittable = true
-    self:setSprite("run")
-    self.tx, self.ty = self.x, self.y
-end
-function Gopper:runUpdate(dt)
-    local complete
-    if self.move then
-        complete = self.move:update(dt)
-        if not complete then
-            if isDebug() then
-                attackHitBoxes[#attackHitBoxes+1] = {x = self.ttx, sx = 0, y = self.tty, w = 31, h = 0.1, z = 0 }
-            end
-        end
-    else
-        complete = true
-    end
-    if complete then
-        self:setState(self.stand)
-        return
-    end
-    if not self.successfullyMoved then
-        self:setState(self.stand)
-        return
-    end
-end
-Gopper.run = {name = "run", start = Gopper.runStart, exit = nop, update = Gopper.runUpdate, draw = Gopper.defaultDraw}
-
 local dashAttackSpeedMultiplier = 0.75
 function Gopper:dashAttackStart()
     self.isHittable = true
