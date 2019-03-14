@@ -29,6 +29,10 @@ function sign(x)
     return x>0 and 1 or x<0 and -1 or 0
 end
 
+function signDeadzone(x, gap)
+    return x > gap and 1 or x < -gap and -1 or 0
+end
+
 function clamp(val, min, max)
     if min - val > 0 then
         return min
