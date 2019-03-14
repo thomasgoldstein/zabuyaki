@@ -33,18 +33,15 @@ function Enemy:checkCollisionAndMove(dt)
         print("ERROR Enemy:checkCollisionAndMove", self, self.name)
         return false, 0, 0
     end
-    local stepx = self.speed_x * dt * self.horizontal
-    local stepy = self.speed_y * dt * self.vertical
-    local actualX, actualY, cols, len, x, y
-    if self.state == "walk" or self.state == "run"
-    then --enemy uses tween movement
-        x = self.tx
-        y = self.ty
+    local stepx, stepy = 0, 0
+    if self.move then
+        self.move:update(dt) --tweening
+        self.shape:moveTo(self.x, self.y)
     else
-        x = self.x
-        y = self.y
+        stepx = self.speed_x * dt * self.horizontal
+        stepy = self.speed_y * dt * self.vertical
+        self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
-    self.shape:moveTo(x + stepx, y + stepy)
     if not self:canFall() then
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
