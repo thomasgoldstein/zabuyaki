@@ -374,6 +374,8 @@ function AI:initWalkToXY()
         u.speed_x = u.walkSpeed
         u.speed_y = u.walkSpeed / 4
         u.ttx, u.tty = self.x, self.y
+        u.old_x = 0
+        u.old_y = 0
         return true
     end
     return false
@@ -397,6 +399,8 @@ function AI:initRunToXY()
         u.ttx, u.tty = self.x, self.y
         u.speed_x = u.runSpeed
         u.speed_y = 0
+        u.old_x = 0
+        u.old_y = 0
         return true
     end
     return false
@@ -440,6 +444,8 @@ function AI:calcWalkToAttackXY()
     u.face = u.horizontal
     self.x, self.y, self.addMoveTime = tx, ty, 0.3
     u.ttx, u.tty = tx, ty
+    u.old_x = 0
+    u.old_y = 0
     return true
 end
 
@@ -468,11 +474,15 @@ function AI:onMove()
     if u.move then
         return u.move:update(0)
     else
-        if dist(u.x, u.y, u.ttx, u.tty) < 4 then
+        if u.old_x == u.x and  u.old_y == u.y then
+            print("stop or tuck (old_coord = coord)", u.x, u.y, u.ttx, u.tty)
             u.b.reset()
             return true
+        else
+            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
         end
-        u.b.setHorizontalAndVertical( sign( u.ttx - u.x ), sign( u.tty - u.y ) )
+        u.old_x = u.x
+        u.old_y = u.y
     end
     return false
 end
@@ -486,7 +496,7 @@ function AI:calcRunToXY()
         end
         assert(not u.isDisabled and u.hp > 0)
         --u:setState(u.run)
-        local tx, ty, shift_x
+        local tx, ty
         if u.x < u.target.x then
             tx = u.target.x - love.math.random(25, 35)
             ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
