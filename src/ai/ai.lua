@@ -76,6 +76,9 @@ function AI:update(dt)
     if self.currentSchedule then
         self.currentSchedule:update(self, dt)
     end
+    if isDebug() and self.unit.ttx then
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.unit.ttx, sx = 0, y = self.unit.tty, w = 31, h = 0.1, z = 0 }
+    end
 end
 
 -- should be aoverrided by every enemy AI class
@@ -465,7 +468,11 @@ function AI:onMove()
     if u.move then
         return u.move:update(0)
     else
-        return true
+        if dist(u.x, u.y, u.ttx, u.tty) < 4 then
+            u.b.reset()
+            return true
+        end
+        u.b.setHorizontalAndVertical( sign( u.ttx - u.x ), sign( u.tty - u.y ) )
     end
     return false
 end
