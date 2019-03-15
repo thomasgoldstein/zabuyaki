@@ -254,13 +254,7 @@ function AI:initStand()
 --    dp("AI:initStand() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        --if u.state ~= "stand" then
-            --u:setState(u.stand)
-            --return true
-        --elseif u.sprite.curAnim ~= "stand" then
-            --u:setSprite("stand")
-            return true
-        --end
+        return true
     end
     return false
 end
@@ -283,13 +277,7 @@ function AI:initWait()
 --    dp("AI:initWait() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        --if u.state ~= "stand" then
-            --u:setState(u.stand)
-        --elseif u.sprite.curAnim ~= "stand" then
-            --u:setSprite("stand")
-        --end
         self.waitingCounter = love.math.random(self.hesitateMin, self.hesitateMax)
-        --    print("!!!!ai.lua<AI:initWait> : " .. self.waitingCounter, u.name)
         u.speed_x = u.runSpeed
         u.speed_y = 0
         return true
@@ -347,7 +335,7 @@ function AI:unused_initFaceToXY()
         --    dp("AI:initFaceToXY() " .. u.name)
         if u.x < self.x then
             u.horizontal = 1
-        else --u.x > self.x then
+        else
             u.horizontal = -1
         end
         u.face = u.horizontal
@@ -361,18 +349,7 @@ function AI:initWalkToXY()
 --    dp("AI:initWalkToXY() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        if u.state ~= "walk" then
-            --u:setState(u.walk)
-        elseif u.sprite.curAnim ~= "walk" then
-            --u:setSprite("walk")
-        end
-        local t = dist(self.x, self.y, u.x, u.y)
-        --u.move = tween.new((self.addMoveTime or 0.1) + t / u.walkSpeed, u, {
-        --    tx = self.x,
-        --    ty = self.y
-        --}, 'linear')
         u.speed_x = u.walkSpeed
-        u.speed_y = u.walkSpeed / 4
         u.ttx, u.tty = self.x, self.y
         u.old_x = 0
         u.old_y = 0
@@ -386,20 +363,9 @@ function AI:initRunToXY()
 --    dp("AI:initRunToXY() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        if u.state ~= "run" then
-            --u:setState(u.run)
-        elseif u.sprite.curAnim ~= "run" then
-            --u:setSprite("run")
-        end
-        local t = dist(self.x, self.y, u.x, u.y)
-        --u.move = tween.new((self.addMoveTime or 0.1) + t / u.runSpeed, u, {
-        --    tx = self.x,
-        --    ty = self.y
-        --}, 'linear')
         u.b.doHorizontalDoubleTap()
         u.ttx, u.tty = self.x, self.y
         u.speed_x = u.runSpeed
-        u.speed_y = 0
         u.old_x = 0
         u.old_y = 0
         return true
@@ -436,13 +402,6 @@ function AI:calcWalkToAttackXY()
             ty = u.target.y + 1
         end
     end
-
-    if u.x < u.target.x then
-        u.horizontal = 1
-    else
-        u.horizontal = -1
-    end
-    u.face = u.horizontal
     self.x, self.y, self.addMoveTime = tx, ty, 0.3
     u.ttx, u.tty = tx, ty
     u.old_x = 0
@@ -476,7 +435,7 @@ function AI:onMove()
         return u.move:update(0)
     else
         if u.old_x == u.x and  u.old_y == u.y then
-            print("stop or tuck (old_coord = coord)", u.x, u.y, u.ttx, u.tty)
+            dp("stop or stuck (old_coord = coord)", u.x, u.y, u.ttx, u.tty)
             u.b.reset()
             return true
         else
