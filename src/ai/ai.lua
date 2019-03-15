@@ -396,6 +396,7 @@ function AI:initRunToXY()
         --    tx = self.x,
         --    ty = self.y
         --}, 'linear')
+        u.b.doHorizontalDoubleTap()
         u.ttx, u.tty = self.x, self.y
         u.speed_x = u.runSpeed
         u.speed_y = 0
