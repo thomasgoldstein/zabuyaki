@@ -81,7 +81,7 @@ function AI:update(dt)
     end
 end
 
--- should be aoverrided by every enemy AI class
+-- should be overrided by every enemy AI class
 function AI:selectNewSchedule(conditions)
     if not self.currentSchedule then
 --        print("COMMON INTRO", self.unit.name, self.unit.id)
