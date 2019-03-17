@@ -36,6 +36,8 @@ function AI:initialize(unit, speedReaction)
         { "cannotAct", "inAir", "noTarget", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
         {}, unit.name)
+    self.SCHEDULE_CHASE = Schedule:new({ self.calcChase, self.onChase, self.initCombo, self.onCombo },
+        { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
         { "cannotAct", "inAir", "noTarget" }, unit.name)
     self.SCHEDULE_RUN = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove },
@@ -426,6 +428,38 @@ function AI:calcWalkOffTheScreenXY()
     self.x, self.y, self.addMoveTime = tx, ty, 1
     u.ttx, u.tty = tx, ty
     return true
+end
+
+function AI:calcChase()
+    local u = self.unit
+    --    dp("AI:calcChase() " .. u.name)
+    if not u.target or u.target.hp < 1 then
+        u:pickAttackTarget("close")
+        if not u.target then
+            return false
+        end
+    end
+    assert(not u.isDisabled and u.hp > 0)
+    return true
+end
+
+function AI:onChase()
+    local u = self.unit
+    --    dp("AI:onChase() ".. u.name)
+    local attackRange = u.width * 2 + 12
+    local v, h
+    --get to the player attack range
+    if u.x < u.target.x then
+        h, v = signDeadzone( (u.target.x - attackRange)- u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
+    else
+        h, v = signDeadzone( (u.target.x + attackRange) - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
+    end
+    u.b.setHorizontalAndVertical( h, v )
+    if h == 0 and v == 0 then
+        u.b.reset()
+        return true
+    end
+    return false
 end
 
 function AI:onMove()
