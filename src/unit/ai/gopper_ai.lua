@@ -5,8 +5,8 @@ local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
 local _speedReaction = {
-    thinkIntervalMin = 0.02,
-    thinkIntervalMax = 0.25,
+    thinkIntervalMin = 0.2,
+    thinkIntervalMax = 0.35,
     hesitateMin = 0.1,
     hesitateMax = 0.3,
     waitChance = 0.34
@@ -54,20 +54,21 @@ function eAI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_COMBO
             return
         end
-        if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
-            self.currentSchedule = self.SCHEDULE_BACKOFF
-            return
-        end
+        --if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
+        --    self.currentSchedule = self.SCHEDULE_BACKOFF
+        --    return
+        --end
         if conditions.faceNotToPlayer then
             self.currentSchedule = self.SCHEDULE_FACE_TO_PLAYER
             return
         end
-        if self.currentSchedule ~= self.SCHEDULE_WAIT and love.math.random() < self.waitChance then
-            self.currentSchedule = self.SCHEDULE_WAIT
-            return
-        end
+        --if self.currentSchedule ~= self.SCHEDULE_WAIT and love.math.random() < self.waitChance then
+        --    self.currentSchedule = self.SCHEDULE_WAIT
+        --    return
+        --end
         if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then
-            self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
+            --self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
+            self.currentSchedule = self.SCHEDULE_CHASE
             return
         end
         if not conditions.dead and not conditions.cannotAct
