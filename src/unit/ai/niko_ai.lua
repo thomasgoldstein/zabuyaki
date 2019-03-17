@@ -16,7 +16,7 @@ local _speedReaction = {
 
 function eAI:initialize(unit, speedReaction)
     AI.initialize(self, unit, speedReaction or _speedReaction)
-    -- new or overrided AI schedules
+    -- new or overridden AI schedules
     self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack, self.waitUntilStand },
         { "cannotAct", "inAir", "grabbed", "noTarget", "noPlayers" },
         unit.name)
