@@ -36,7 +36,7 @@ function AI:initialize(unit, speedReaction)
         { "cannotAct", "inAir", "noTarget", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
         {}, unit.name)
-    self.SCHEDULE_CHASE = Schedule:new({ self.calcChase, self.onChase, self.initCombo, self.onCombo },
+    self.SCHEDULE_CHASE = Schedule:new({ self.initChase, self.onChase, self.initCombo, self.onCombo },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
         { "cannotAct", "inAir", "noTarget" }, unit.name)
@@ -431,9 +431,9 @@ function AI:calcWalkOffTheScreenXY()
     return true
 end
 
-function AI:calcChase()
+function AI:initChase()
     local u = self.unit
-    --    dp("AI:calcChase() " .. u.name)
+    --    dp("AI:initChase() " .. u.name)
     if not u.target or u.target.hp < 1 then
         u:pickAttackTarget("close")
         if not u.target then
