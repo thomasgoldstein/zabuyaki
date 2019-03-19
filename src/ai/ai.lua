@@ -456,6 +456,11 @@ function AI:onChase()
         h, v = signDeadzone( (u.target.x + attackRange) - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
     end
     u.b.setHorizontalAndVertical( h, v )
+    if u.x < u.target.x - 4 then
+        u.face = 1
+    elseif u.x > u.target.x + 4 then
+        u.face = -1
+    end
     if h == 0 and v == 0 then
         u.b.reset()
         return true
