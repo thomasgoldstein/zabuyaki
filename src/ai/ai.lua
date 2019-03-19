@@ -133,7 +133,7 @@ local function predictTargetsCoord(t)
         pdx = time * t.speed_x * t.horizontal / 4
         pdy = time * t.speed_y * t.vertical / 4
         --        print(time , pdx, pdy, t.speed_x, t.speed_y, t.horizontal, t.vertical, t.friction)
-        print(t.x + pdx, t.y + pdy, pdx, pdy)
+        --print(t.x + pdx, t.y + pdy, pdx, pdy)
         return t.x + pdx, t.y + pdy
     end
     return t.x, t.y
@@ -223,7 +223,8 @@ function AI:getVisualConditions(conditions)
 end
 
 function AI:canAct()
-    return not (self.conditions.cannotAct or self.conditions.inAir)
+    return not self.conditions.inAir and not self.conditions.cannotAct
+    --return not (self.conditions.cannotAct or self.conditions.inAir)
 end
 
 function AI:canActAndMove()
@@ -506,7 +507,7 @@ function AI:onChase2(dt)
     local attackRange = u.width * 2 + 12
     local v, h
     if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
-        print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)
+        --print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)
         u.b.setHorizontalAndVertical( 0, 0 )
         u.b.reset()
         return true
@@ -536,7 +537,7 @@ function AI:onChase2(dt)
     u.old_y = u.y
     if u.chaseTime < 0 or u.chaseRadius < attackRange then
         u.b.reset()
-        print(getDebugFrame(), "end TIME or < RADIUS", u.chaseAngle)
+        --print(getDebugFrame(), "end TIME or < RADIUS", u.chaseAngle)
         return true
     end
     return false
