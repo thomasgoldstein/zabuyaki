@@ -533,10 +533,14 @@ function Character:walkUpdate(dt)
         self:setState(self.duck2jump)
         return
     end
-    self.speed_x, self.speed_y = 0, 0
+    if not self.b.strafe:isDown() then
+        self.speed_x, self.speed_y = 0, 0
+    end
     local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
     if hv ~= 0 then
-        self.face = hv
+        if not self.b.strafe:isDown() then
+            self.face = hv
+        end
         self.horizontal = hv --X direction
         self.speed_x = self.b.attack:isDown() and self.chargeWalkSpeed_x or self.walkSpeed_x
     end
@@ -583,7 +587,7 @@ function Character:walkUpdate(dt)
             self:setSprite("walk")
         end
     end
-    if self.speed_x == 0 and self.speed_y == 0 then
+    if self.speed_x == 0 and self.speed_y == 0 and not self.b.strafe:isDown() then
         self:setState(self.stand)
         self:update(0)
         return
