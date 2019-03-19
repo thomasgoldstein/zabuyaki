@@ -91,6 +91,8 @@ function bindGameInput()
         jump = tactile.newControl()
                       :addButton(tactile.gamepadButtons(gamepad1, 'b'))
                       :addButton(tactile.keys('c')),
+        strafe = tactile.newControl()
+                :addButton(function() return false end),
         --TODO test
         start = tactile.newControl()
                        :addButton(tactile.keys('return'))
@@ -119,6 +121,8 @@ function bindGameInput()
         jump = tactile.newControl()
                       :addButton(tactile.gamepadButtons(gamepad2, 'b'))
                       :addButton(tactile.keys 'o'),
+        strafe = tactile.newControl()
+                        :addButton(function() return false end),
         start = tactile.newControl()
                        :addButton(tactile.gamepadButtons(gamepad2, 'start')),
         back = tactile.newControl()
@@ -140,6 +144,8 @@ function bindGameInput()
         jump = tactile.newControl()
                       :addButton(tactile.gamepadButtons(gamepad3, 'b'))
                       :addButton(tactile.keys 'y'),
+        strafe = tactile.newControl()
+                        :addButton(function() return false end),
         start = tactile.newControl()
                        :addButton(tactile.gamepadButtons(gamepad3, 'start')),
         back = tactile.newControl()
@@ -222,6 +228,7 @@ function bindEnemyInput()
         Controls.vertical:update(dt)
         Controls.jump:update(dt)
         Controls.attack:update(dt)
+        Controls.strafe:update(dt)
     end
     return Controls
 end
