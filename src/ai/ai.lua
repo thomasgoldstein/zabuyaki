@@ -38,6 +38,8 @@ function AI:initialize(unit, speedReaction)
         {}, unit.name)
     self.SCHEDULE_CHASE = Schedule:new({ self.initChase, self.onChase, self.initCombo, self.onCombo },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
+    self.SCHEDULE_CHASE2 = Schedule:new({ self.initChase2, self.onChase2 },
+        { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
     self.SCHEDULE_BACKOFF = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
         { "cannotAct", "inAir", "noTarget" }, unit.name)
     self.SCHEDULE_RUN = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove },
@@ -463,6 +465,78 @@ function AI:onChase()
     end
     if h == 0 and v == 0 then
         u.b.reset()
+        return true
+    end
+    return false
+end
+
+local function getPosByAngleR(x, y, angle, r)
+    return x + math.cos( angle ) * r,
+        y + math.sin( angle ) * r
+end
+
+function AI:initChase2()
+    local u = self.unit
+    --    dp("AI:initChase2() " .. u.name)
+    if not u.target or u.target.hp < 1 then
+        u:pickAttackTarget("close")
+        if not u.target then
+            return false
+        end
+    end
+    u.chaseTime = 3 + love.math.random( 5 )
+    u.chaseRadius = u.target.width * 2 + u.width * 2
+    if love.math.random() < 0.3 then    -- go to front
+        u.chaseAngle = love.math.random() * math.pi / 4 - math.pi / 8
+    else    -- go from back
+        u.chaseAngle = math.pi - love.math.random() * math.pi / 4 - math.pi / 8
+    end
+    u.chaseAngleStep = (math.pi / 9) * ( love.math.random() <= 0.5 and 1 or -1 )
+    u.chaseAngleLockTime = 0
+    u.old_x = 0
+    u.old_y = 0
+    u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
+    assert(not u.isDisabled and u.hp > 0)
+    return true
+end
+
+function AI:onChase2(dt)
+    local u = self.unit
+    --    dp("AI:onChase2() ".. u.name)
+    local attackRange = u.width * 2 + 12
+    local v, h
+    if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
+        print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)
+        u.b.setHorizontalAndVertical( 0, 0 )
+        u.b.reset()
+        return true
+    end
+    h, v = signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 )
+    if v == 0 and h == 0 and u.chaseAngleLockTime > 0.1 then
+        -- got to the point, rotate to the next
+        u.chaseAngle = u.chaseAngle + u.chaseAngleStep
+        u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
+        h, v = signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 )
+        u.chaseAngleLockTime = 0
+        --print(getDebugFrame(),v,h,u.x,u.old_x,u.y,u.old_y, u.target.x, u.target.y)
+    end
+    u.b.setHorizontalAndVertical( h, v )
+    u.b.setStrafe( true )
+    if u.chaseAngleLockTime > 0.5 then  -- face to the target
+        if u.x < u.target.x - 4 then
+            u.face = 1
+        elseif u.x > u.target.x + 4 then
+            u.face = -1
+        end
+    end
+    u.chaseTime = u.chaseTime - dt
+    u.chaseAngleLockTime = u.chaseAngleLockTime + dt
+    u.chaseRadius = u.chaseRadius - dt
+    u.old_x = u.x
+    u.old_y = u.y
+    if u.chaseTime < 0 or u.chaseRadius < attackRange then
+        u.b.reset()
+        print(getDebugFrame(), "end TIME or < RADIUS", u.chaseAngle)
         return true
     end
     return false
