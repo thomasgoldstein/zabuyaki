@@ -282,7 +282,7 @@ function AI:initWait()
 --    dp("AI:initWait() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        self.waitingCounter = love.math.random(self.hesitateMin, self.hesitateMax)
+        self.waitingCounter = love.math.random() * (self.hesitateMax - self.hesitateMin) + self.hesitateMin
         u.speed_x = u.runSpeed
         u.speed_y = 0
         return true
@@ -607,22 +607,19 @@ function AI:initFaceToPlayer()
 end
 
 function AI:initCombo()
-    if self.hesitate <= 0 then
-        self.hesitate = love.math.random(self.hesitateMin, self.hesitateMax)
-    end
+    self.hesitate = love.math.random() * (self.hesitateMax - self.hesitateMin) + self.hesitateMin
     --    dp("AI:initCombo() " .. u.name)
     return true
 end
 
 function AI:onCombo(dt)
     local u = self.unit
+    self.hesitate = self.hesitate - dt
     --    dp("AI:onCombo() ".. u.name)
-    if not self:canAct() then
-        return true
-    end
-    if self.hesitate > 0 then
-        self.hesitate = self.hesitate - dt
-    else
+    if self.hesitate <= 0 then
+        if not self:canAct() then
+            return true
+        end
         if self.conditions.canCombo then
             u:setState(u.combo)
         end
