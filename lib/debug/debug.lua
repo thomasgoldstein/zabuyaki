@@ -123,6 +123,9 @@ local frame = 1000
 function incrementDebugFrame()
     frame = frame + 1
 end
+function getDebugFrame()
+    return frame
+end
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
 function showDebugIndicator(size, _x, _y)
     local x, y = _x or 2, _y or 480 - 9 * 4
