@@ -17,9 +17,7 @@ function Satoff:initialize(name, sprite, x, y, f, input)
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Satoff.initAttributes(self)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
-    self:pickAttackTarget()
     self.subtype = "midboss"
-    self.face = -1
     self:postInitialize()
 end
 
@@ -79,86 +77,5 @@ function Satoff:comboUpdate(dt)
 end
 --Sliding uppercut
 Satoff.combo = { name = "combo", start = Satoff.comboStart, exit = nop, update = Satoff.comboUpdate, draw = Satoff.defaultDraw }
-
-function Satoff:walkStart()
-    self.isHittable = true
-    self:setSprite("walk")
-    self.tx, self.ty = self.x, self.y
-    if not self.target then
-        self:setState(self.intro)
-        return
-    end
-    local t = dist(self.target.x, self.target.y, self.x, self.y)
-    --get to player(to fight)
-    if self.x < self.target.x then
-        self.move = tween.new(1 + t / self.walkSpeed, self, {
-            tx = self.target.x - love.math.random(40, 60),
-            ty = self.target.y + 1
-        }, 'inOutQuad')
-    else
-        self.move = tween.new(1 + t / self.walkSpeed, self, {
-            tx = self.target.x + love.math.random(40, 60),
-            ty = self.target.y + 1
-        }, 'inOutQuad')
-    end
-end
-function Satoff:walkUpdate(dt)
-    local complete
-    if self.move then
-        complete = self.move:update(dt)
-    else
-        complete = true
-    end
-    if complete then
-        --        if love.math.random() < 0.5 then
-        --            self:setState(self.walk)
-        --        else
-        self:setState(self.stand)
-        --        end
-        return
-    end
-end
-Satoff.walk = { name = "walk", start = Satoff.walkStart, exit = nop, update = Satoff.walkUpdate, draw = Enemy.defaultDraw }
-
-function Satoff:runStart()
-    self.isHittable = true
-    self:setSprite("run")
-    local t = dist(self.target.x, self.y, self.x, self.y)
-
-    --get to player(to fight)
-    if self.x < self.target.x then
-        self.move = tween.new(0.3 + t / self.runSpeed, self, {
-            tx = self.target.x - love.math.random(25, 35),
-            ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        }, 'inQuad')
-        self.face = 1
-        self.horizontal = self.face
-    else
-        self.move = tween.new(0.3 + t / self.runSpeed, self, {
-            tx = self.target.x + love.math.random(25, 35),
-            ty = self.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-        }, 'inQuad')
-        self.face = -1
-        self.horizontal = self.face
-    end
-end
-function Satoff:runUpdate(dt)
-    local complete
-    if self.move then
-        complete = self.move:update(dt)
-    else
-        complete = true
-    end
-    if complete then
-        local t = dist(self.target.x, self.target.y, self.x, self.y)
-        if t > 200 then
-            self:setState(self.walk)
-        else
-            self:setState(self.combo)
-        end
-        return
-    end
-end
-Satoff.run = {name = "run", start = Satoff.runStart, exit = nop, update = Satoff.runUpdate, draw = Satoff.defaultDraw}
 
 return Satoff
