@@ -21,6 +21,10 @@ function Gopper:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
+    self.walkSpeed_x = 100
+    self.walkSpeed_y = 50
+    self.runSpeed_x = 150
+    self.runSpeed_y = 25
     self.dashSpeed_x = 150 --speed of the character
     self.dashFallSpeed = 180 --speed caused by dash to others fall
     self.dashFriction = self.dashSpeed_x
