@@ -1,4 +1,4 @@
--- Copyright (c) .2017 SineDie
+-- Copyright (c) .2019 SineDie
 
 local class = require "lib/middleclass"
 local AI = class('AI')
@@ -127,13 +127,10 @@ end
 local canPredict = { walk = true, run = true, jump = true, dash = true }
 local function predictTargetsCoord(t)
     local time = 2 -- predict after 10 seconds
-    --local fps = love.timer.getFPS()
     local pdx, pdy
     if canPredict[t.state] then
         pdx = time * t.speed_x * t.horizontal / 4
         pdy = time * t.speed_y * t.vertical / 4
-        --        print(time , pdx, pdy, t.speed_x, t.speed_y, t.horizontal, t.vertical, t.friction)
-        --print(t.x + pdx, t.y + pdy, pdx, pdy)
         return t.x + pdx, t.y + pdy
     end
     return t.x, t.y
@@ -224,7 +221,6 @@ end
 
 function AI:canAct()
     return not self.conditions.inAir and not self.conditions.cannotAct
-    --return not (self.conditions.cannotAct or self.conditions.inAir)
 end
 
 function AI:canActAndMove()
@@ -330,24 +326,8 @@ function AI:calcWalkToBackOffXY()
         ty = u.target.y + love.math.random(-1, 1) * shift_y
         u.horizontal = -1
     end
-    self.x, self.y, self.addMoveTime = tx, ty, 0.02
     u.ttx, u.tty = tx, ty
     return true
-end
-
-function AI:unused_initFaceToXY()
-    local u = self.unit
-    if self:canAct() then
-        --    dp("AI:initFaceToXY() " .. u.name)
-        if u.x < self.x then
-            u.horizontal = 1
-        else
-            u.horizontal = -1
-        end
-        u.face = u.horizontal
-        return true
-    end
-    return false
 end
 
 function AI:initWalkToXY()
@@ -356,7 +336,6 @@ function AI:initWalkToXY()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         u.speed_x = u.walkSpeed
-        u.ttx, u.tty = self.x, self.y
         u.old_x = 0
         u.old_y = 0
         return true
@@ -370,7 +349,6 @@ function AI:initRunToXY()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         u.b.doHorizontalDoubleTap()
-        u.ttx, u.tty = self.x, self.y
         u.speed_x = u.runSpeed
         u.old_x = 0
         u.old_y = 0
@@ -408,7 +386,6 @@ function AI:calcWalkToAttackXY()
             ty = u.target.y + 1
         end
     end
-    self.x, self.y, self.addMoveTime = tx, ty, 0.3
     u.ttx, u.tty = tx, ty
     u.old_x = 0
     u.old_y = 0
@@ -424,7 +401,6 @@ function AI:calcWalkOffTheScreenXY()
     u.horizontal = love.math.random() < 0.5 and 1 or -1
     tx = u.x + u.horizontal * walkPixels
     u.face = u.horizontal
-    self.x, self.y, self.addMoveTime = tx, ty, 1
     u.ttx, u.tty = tx, ty
     return true
 end
@@ -545,7 +521,6 @@ function AI:onMove()
         return u.move:update(0)
     else
         if u.old_x == u.x and  u.old_y == u.y then
-            dp("stop or stuck (old_coord = coord)", u.x, u.y, u.ttx, u.tty)
             u.b.reset()
             return true
         else
@@ -577,7 +552,6 @@ function AI:calcRunToXY()
             u.face = -1
         end
         u.horizontal = u.face
-        self.x, self.y, self.addMoveTime = tx, ty, 0.3
         u.ttx, u.tty = tx, ty
         return true
     end
@@ -647,7 +621,6 @@ function AI:initGrab()
     self.chanceToGrabAttack = 0
     local u = self.unit
 --    dp("AI: INIT GRAB " .. u.name)
-    --if u.state == "stand" or u.state == "walk" then
     if self:canActAndMove() then
         local grabbed = u:checkForGrab()
         if grabbed then
@@ -694,7 +667,6 @@ function AI:onGrab(dt)
     local u = self.unit
     local g = u.grabContext
     --    dp("AI: ON GRAB ".. u.name)
-    --print(inspect(g, {depth = 1}))
     if not g.target or u.state == "stand" then
         -- initGrab action failed.
         return true
@@ -727,7 +699,6 @@ function AI:calcWalkToGrabXY()
             tx = u.target.x + love.math.random(9, 10)
             ty = u.target.y + 1
         end
-        self.x, self.y, self.addMoveTime = tx, ty, 0.1
         u.ttx, u.tty = tx, ty
         return true
     end
