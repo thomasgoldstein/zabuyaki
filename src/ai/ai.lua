@@ -418,16 +418,11 @@ end
 function AI:calcWalkOffTheScreenXY()
     local u = self.unit
     assert(not u.isDisabled and u.hp > 0)
-    local tx, ty, t
-    t = 320
+    local tx, ty
+    local walkPixels = 400
     ty = u.y + love.math.random(-1, 1) * 16
-    if love.math.random() < 0.5 then
-        tx = u.x + t
-        u.horizontal = 1
-    else
-        tx = u.x - t
-        u.horizontal = -1
-    end
+    u.horizontal = love.math.random() < 0.5 and 1 or -1
+    tx = u.x + u.horizontal * walkPixels
     u.face = u.horizontal
     self.x, self.y, self.addMoveTime = tx, ty, 1
     u.ttx, u.tty = tx, ty
