@@ -473,7 +473,7 @@ end
 
 local function getPosByAngleR(x, y, angle, r)
     return x + math.cos( angle ) * r,
-        y + math.sin( angle ) * r
+        y + math.sin( angle ) * r / 2
 end
 
 function AI:initChase2()
