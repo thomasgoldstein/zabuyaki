@@ -310,23 +310,13 @@ function AI:calcWalkToBackOffXY()
         u:pickAttackTarget("close")
     end
     assert(not u.isDisabled and u.hp > 0)
-    --u:setState(u.walk)
-    local tx, ty, shift_x, shift_y
-    shift_x = love.math.random(0, 6)
+    local shift_x, shift_y = love.math.random(0, 6), love.math.random(0, 6)
     if u.target.hp < u.target.maxHp / 2 then
-        shift_x = shift_x + 16
+        shift_x = shift_x + u.width
     end
-    shift_y = love.math.random(0, 6)
-    if u.x < u.target.x and love.math.random() < 0.75 then
-        tx = u.target.x - love.math.random(52, 80) - shift_x
-        ty = u.target.y + love.math.random(-1, 1) * shift_y
-        u.horizontal = 1
-    else
-        tx = u.target.x + love.math.random(52, 80) + shift_x
-        ty = u.target.y + love.math.random(-1, 1) * shift_y
-        u.horizontal = -1
-    end
-    u.ttx, u.tty = tx, ty
+    u.horizontal = u.x < u.target.x and 1 or -1
+    u.ttx = u.target.x + (love.math.random(52, 80) + shift_x) * -u.horizontal
+    u.tty = u.target.y + love.math.random(-1, 1) * shift_y
     return true
 end
 
