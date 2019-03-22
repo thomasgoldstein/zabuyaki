@@ -690,16 +690,8 @@ function AI:calcWalkToGrabXY()
             end
         end
         assert(not u.isDisabled and u.hp > 0)
-        local tx, ty
         --get to the player grab range
-        if u.x < u.target.x then
-            tx = u.target.x - love.math.random(9, 10)
-            ty = u.target.y + 1
-        else
-            tx = u.target.x + love.math.random(9, 10)
-            ty = u.target.y + 1
-        end
-        u.ttx, u.tty = tx, ty
+        u.ttx, u.tty = u.target.x + love.math.random(9, 10) * ( u.x < u.target.x and -1 or 1), u.target.y + 1
         return true
     end
     return false
