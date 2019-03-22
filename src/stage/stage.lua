@@ -47,7 +47,7 @@ function Stage:initialize(name, mapFile, players)
     self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } })
     self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } })
     self.topStopper = Stopper:new("TOP.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 80, 40,  } })
-    self.bottomStopper = Stopper:new("BOTTOM.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 80, 40 } })
+    self.bottomStopper = Wall:new("BOTTOM.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 80, 40 } })
     self.objects:addArray({
         self.leftStopper, self.rightStopper, self.topStopper, self.bottomStopper
     })

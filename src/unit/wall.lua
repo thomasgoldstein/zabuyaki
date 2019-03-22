@@ -1,5 +1,5 @@
 local class = require "lib/middleclass"
-local Wall = class("Wall", Unit)
+local Wall = class("Wall", Stopper)
 
 local function nop() end
 
