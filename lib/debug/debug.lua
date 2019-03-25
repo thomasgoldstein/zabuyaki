@@ -166,7 +166,7 @@ function drawDebugControls(p, x, y)
     colors:set("black", nil, 150)
     love.graphics.rectangle("fill", x - 2, y, 61, 9)
     if p.id > GLOBAL_SETTING.MAX_PLAYERS then
-        colors:set("black")
+        colors:set("white")
     else
         colors:set("playersColors", p.id)
     end
@@ -212,6 +212,11 @@ function drawDebugControls(p, x, y)
         y = y - 12
         if p.chargeTimer >= p.chargedAt then
             love.graphics.print("H", x, y)
+        end
+    else -- virtual buttons for enemy
+        x = x + 10
+        if p.b.strafe:isDown() then
+            love.graphics.print("S", x, y)
         end
     end
 end
@@ -343,6 +348,9 @@ function drawDebugUnitInfo(a)
         else
             colors:set("black", nil, 120)
             love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14)
+            if a.id > GLOBAL_SETTING.MAX_PLAYERS then
+                drawDebugControls(a, a.x - 32, a.y - a.height - 20)
+            end
         end
         if a.comboN and a.sprite.def.comboMax > 0 then
             love.graphics.print( "CN" .. a.comboN .. "/".. a.sprite.def.comboMax, a.x - 14, a.y + 21)
