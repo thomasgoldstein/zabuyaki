@@ -110,11 +110,14 @@ local hurtAnimations = {
     {"hurtLowWeak", "hurtLowMedium", "hurtLowStrong"},
     {"hurtHighWeak", "hurtHighMedium", "hurtHighStrong"}
 }
-hurtAnimations[1][0] = "hurtLowWeak"
-hurtAnimations[2][0] = "hurtHighWeak"
-function Unit:setHurtAnimation(damage, isHigh)
-    damage = math.ceil(damage / 10)
-    self:setSprite(hurtAnimations[isHigh and 2 or 1][damage])
+function Unit:setHurtAnimation(dmg, isHigh)
+    if dmg < 9 then
+        self:setSprite(hurtAnimations[isHigh and 2 or 1][1])
+    elseif dmg < 14 then
+        self:setSprite(hurtAnimations[isHigh and 2 or 1][2])
+    else
+        self:setSprite(hurtAnimations[isHigh and 2 or 1][3])
+    end
 end
 
 function Unit:drawSprite(x, y)
