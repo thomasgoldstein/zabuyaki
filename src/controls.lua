@@ -207,6 +207,8 @@ function bindEnemyInput()
                                  :addAxis( function() return Controls.h end )
     Controls.vertical = tactile.newControl()
                                :addAxis( function() return Controls.v end )
+    Controls.horizontal.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0, lastAttackTapTime = 0, lastJumpTapTime = 0 }
+    Controls.vertical.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0 }
     Controls.attack = tactile.newControl()
                              :addButton( function() return Controls.a end )
     Controls.jump = tactile.newControl()
