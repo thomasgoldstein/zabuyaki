@@ -162,13 +162,37 @@ return {
             { q = q(49,530,52,62), ox = 24, oy = 61, func = function(slf) slf:releaseGrabbed() end, delay = 0 }, --grab attack 1
             delay = 0.02
         },
-        hurtHigh = {
+        hurtHighWeak = {
             { q = q(2,133,41,64), ox = 26, oy = 63 }, --hurt high 1
             { q = q(45,133,46,64), ox = 31, oy = 63, delay = 0.2 }, --hurt high 2
             { q = q(2,133,41,64), ox = 26, oy = 63, delay = 0.05 }, --hurt high 1
             delay = 0.02
         },
-        hurtLow = {
+        hurtLowWeak = {
+            { q = q(93,134,40,63), ox = 22, oy = 62, delay = 0.03 }, --hurt low 1
+            { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 2
+            { q = q(93,134,40,63), ox = 22, oy = 62, delay = 0.1 }, --hurt low 1
+            delay = 0.3
+        },
+        hurtHighMedium = {
+            { q = q(2,133,41,64), ox = 26, oy = 63 }, --hurt high 1
+            { q = q(45,133,46,64), ox = 31, oy = 63, delay = 0.2 }, --hurt high 2
+            { q = q(2,133,41,64), ox = 26, oy = 63, delay = 0.05 }, --hurt high 1
+            delay = 0.02
+        },
+        hurtLowMedium = {
+            { q = q(93,134,40,63), ox = 22, oy = 62, delay = 0.03 }, --hurt low 1
+            { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 2
+            { q = q(93,134,40,63), ox = 22, oy = 62, delay = 0.1 }, --hurt low 1
+            delay = 0.3
+        },
+        hurtHighStrong = {
+            { q = q(2,133,41,64), ox = 26, oy = 63 }, --hurt high 1
+            { q = q(45,133,46,64), ox = 31, oy = 63, delay = 0.2 }, --hurt high 2
+            { q = q(2,133,41,64), ox = 26, oy = 63, delay = 0.05 }, --hurt high 1
+            delay = 0.02
+        },
+        hurtLowStrong = {
             { q = q(93,134,40,63), ox = 22, oy = 62, delay = 0.03 }, --hurt low 1
             { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 2
             { q = q(93,134,40,63), ox = 22, oy = 62, delay = 0.1 }, --hurt low 1

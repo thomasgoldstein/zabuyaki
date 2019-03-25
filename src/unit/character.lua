@@ -207,11 +207,7 @@ function Character:afterOnHurt()
         if self.hp > 0 and self.z <= self:getMinZ() then
             self:setState(self.hurt)
             self:showHitMarks(h.damage, h.z)
-            if h.z > 25 then
-                self:setSprite("hurtHigh")
-            else
-                self:setSprite("hurtLow")
-            end
+            self:setHurtAnimation(h.damage, h.z > 25)
             if self.isMovable then
                 if h.repel_x == 0 then
                     if self:isInstanceOf(StageObject) then
@@ -266,11 +262,7 @@ function Character:afterOnHurt()
     if h.damage > 0 then
         self:setState(self.hurt)
         self:showHitMarks(h.damage, h.z)
-        if h.z > 13 then
-            self:setSprite("hurtHigh")
-        else
-            self:setSprite("hurtLow")
-        end
+        self:setHurtAnimation(h.damage, h.z > 13)
     end
     self.horizontal = h.horizontal
     self.isGrabbed = false
@@ -562,10 +554,10 @@ function Character:walkUpdate(dt)
                 grabbed.horizontal = -self.horizontal
                 self:showHitMarks(22, 25, 5) --big hitmark
                 self.speed_x = self.backoffSpeed_x --move from source
-                self:setSprite("hurtHigh")
+                self:setSprite("hurtHighWeak")
                 self:setState(self.slide)
                 grabbed.speed_x = grabbed.backoffSpeed_x --move from source
-                grabbed:setSprite("hurtHigh")
+                grabbed:setSprite("hurtHighWeak")
                 grabbed:setState(grabbed.slide)
                 self:playSfx(self.sfx.grabClash)
                 return

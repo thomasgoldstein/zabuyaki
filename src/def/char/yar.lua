@@ -140,13 +140,37 @@ return {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
             delay = 0.1
         },
-        hurtHigh = {
+        hurtHighWeak = {
             { q = q(3,267,50,71), ox = 27, oy = 70 }, --hurt high 1
             { q = q(55,266,56,72), ox = 31, oy = 71, delay = 0.2 }, --hurt high 2
             { q = q(3,267,50,71), ox = 27, oy = 70, delay = 0.05 }, --hurt high 1
             delay = 0.02
         },
-        hurtLow = {
+        hurtLowWeak = {
+            { q = q(113,266,52,72), ox = 23, oy = 71 }, --hurt low 1
+            { q = q(167,268,55,70), ox = 23, oy = 69, delay = 0.2 }, --hurt low 2
+            { q = q(113,266,52,72), ox = 23, oy = 71, delay = 0.05 }, --hurt low 1
+            delay = 0.02
+        },
+        hurtHighMedium = {
+            { q = q(3,267,50,71), ox = 27, oy = 70 }, --hurt high 1
+            { q = q(55,266,56,72), ox = 31, oy = 71, delay = 0.2 }, --hurt high 2
+            { q = q(3,267,50,71), ox = 27, oy = 70, delay = 0.05 }, --hurt high 1
+            delay = 0.02
+        },
+        hurtLowMedium = {
+            { q = q(113,266,52,72), ox = 23, oy = 71 }, --hurt low 1
+            { q = q(167,268,55,70), ox = 23, oy = 69, delay = 0.2 }, --hurt low 2
+            { q = q(113,266,52,72), ox = 23, oy = 71, delay = 0.05 }, --hurt low 1
+            delay = 0.02
+        },
+        hurtHighStrong = {
+            { q = q(3,267,50,71), ox = 27, oy = 70 }, --hurt high 1
+            { q = q(55,266,56,72), ox = 31, oy = 71, delay = 0.2 }, --hurt high 2
+            { q = q(3,267,50,71), ox = 27, oy = 70, delay = 0.05 }, --hurt high 1
+            delay = 0.02
+        },
+        hurtLowStrong = {
             { q = q(113,266,52,72), ox = 23, oy = 71 }, --hurt low 1
             { q = q(167,268,55,70), ox = 23, oy = 69, delay = 0.2 }, --hurt low 2
             { q = q(113,266,52,72), ox = 23, oy = 71, delay = 0.05 }, --hurt low 1
