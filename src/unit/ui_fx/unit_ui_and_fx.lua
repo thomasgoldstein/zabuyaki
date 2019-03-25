@@ -106,6 +106,17 @@ function Unit:setSprite(animation)
     self:setSpriteOverlay(animation)
 end
 
+local hurtAnimations = {
+    {"hurtLowWeak", "hurtLowMedium", "hurtLowStrong"},
+    {"hurtHighWeak", "hurtHighMedium", "hurtHighStrong"}
+}
+hurtAnimations[1][0] = "hurtLowWeak"
+hurtAnimations[2][0] = "hurtHighWeak"
+function Unit:setHurtAnimation(damage, isHigh)
+    damage = math.ceil(damage / 10)
+    self:setSprite(hurtAnimations[isHigh and 2 or 1][damage])
+end
+
 function Unit:drawSprite(x, y)
     drawSpriteInstance(self.sprite, x, y)
 end
