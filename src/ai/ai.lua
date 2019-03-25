@@ -143,7 +143,6 @@ function AI:getVisualConditions(conditions)
     local t
     if not canAct[u.state] then
         conditions[#conditions + 1] = "cannotAct"
-        --conditions[#conditions + 1] = "@"..u.state
     elseif u:canMove() then
         conditions[#conditions + 1] = "canMove"
     end
