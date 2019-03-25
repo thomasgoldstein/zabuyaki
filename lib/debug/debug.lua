@@ -162,6 +162,60 @@ function showDebugBatch(l,t,w,h)
     end
 end
 
+function drawDebugControls(p, x, y)
+    colors:set("black", nil, 150)
+    love.graphics.rectangle("fill", x - 2, y, 61, 9)
+    if p.id > GLOBAL_SETTING.MAX_PLAYERS then
+        colors:set("black")
+    else
+        colors:set("playersColors", p.id)
+    end
+    if p.b.attack:isDown() then
+        love.graphics.print("A", x, y)
+    end
+    x = x + 10
+    if p.b.jump:isDown() then
+        love.graphics.print("J", x, y)
+    end
+    local horizontalValue = p.b.horizontal:getValue()
+    x = x + 10
+    if horizontalValue == -1 then
+        love.graphics.print("<", x, y)
+    end
+    if p.b.horizontal.isDoubleTap and p.b.horizontal.doubleTap.lastDirection == -1 then
+        love.graphics.print("2", x, y + 10)
+    end
+    x = x + 10
+    if horizontalValue == 1 then
+        love.graphics.print(">", x, y)
+    end
+    if p.b.horizontal.isDoubleTap and p.b.horizontal.doubleTap.lastDirection == 1 then
+        love.graphics.print("2", x, y + 10)
+    end
+    local verticalValue = p.b.vertical:getValue()
+    x = x + 10
+    if verticalValue == -1 then
+        love.graphics.print("^", x, y)
+    end
+    if p.b.vertical.isDoubleTap and p.b.vertical.doubleTap.lastDirection == -1 then
+        love.graphics.print("2", x, y + 10)
+    end
+    x = x + 10
+    if verticalValue == 1 then
+        love.graphics.print("V", x, y)
+    end
+    if p.b.vertical.isDoubleTap and p.b.vertical.doubleTap.lastDirection == 1 then
+        love.graphics.print("2", x, y + 10)
+    end
+    if p.id <= GLOBAL_SETTING.MAX_PLAYERS then
+        x = p.lifeBar.x + 76
+        y = y - 12
+        if p.chargeTimer >= p.chargedAt then
+            love.graphics.print("H", x, y)
+        end
+    end
+end
+
 function showDebugControls()
     if isDebug(SHOW_DEBUG_CONTROLS) then
         love.graphics.setFont(gfx.font.arcade3)
@@ -169,53 +223,7 @@ function showDebugControls()
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local p = getRegisteredPlayer(i)
             if p and p.lifeBar then
-                local x = p.lifeBar.x + 76
-                local y = p.lifeBar.y + 36
-                colors:set("black", nil, 150)
-                love.graphics.rectangle("fill", x - 2, y, 61, 9)
-                colors:set("playersColors", p.id)
-                if p.b.attack:isDown() then
-                    love.graphics.print("A", x, y)
-                end
-                x = x + 10
-                if p.b.jump:isDown() then
-                    love.graphics.print("J", x, y)
-                end
-                local horizontalValue = p.b.horizontal:getValue()
-                x = x + 10
-                if horizontalValue == -1 then
-                    love.graphics.print("<", x, y)
-                end
-                if p.b.horizontal.isDoubleTap and p.b.horizontal.doubleTap.lastDirection == -1 then
-                    love.graphics.print("2", x, y + 10)
-                end
-                x = x + 10
-                if horizontalValue == 1 then
-                    love.graphics.print(">", x, y)
-                end
-                if p.b.horizontal.isDoubleTap and p.b.horizontal.doubleTap.lastDirection == 1 then
-                    love.graphics.print("2", x, y + 10)
-                end
-                local verticalValue = p.b.vertical:getValue()
-                x = x + 10
-                if verticalValue == -1 then
-                    love.graphics.print("^", x, y)
-                end
-                if p.b.vertical.isDoubleTap and p.b.vertical.doubleTap.lastDirection == -1 then
-                    love.graphics.print("2", x, y + 10)
-                end
-                x = x + 10
-                if verticalValue == 1 then
-                    love.graphics.print("V", x, y)
-                end
-                if p.b.vertical.isDoubleTap and p.b.vertical.doubleTap.lastDirection == 1 then
-                    love.graphics.print("2", x, y + 10)
-                end
-                x = p.lifeBar.x + 76
-                y = y - 12
-                if p.chargeTimer >= p.chargedAt then
-                    love.graphics.print("H", x, y)
-                end
+                drawDebugControls(p, p.lifeBar.x + 76, p.lifeBar.y + 36)
             end
         end
     end
