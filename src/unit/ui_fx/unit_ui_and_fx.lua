@@ -176,13 +176,7 @@ function Unit:calcShadowSpriteAndTransparency()
     else
         transparency = self.deathDelay < 2 and 255 * math.sin(self.deathDelay) or 255
     end
-    if isDebug() and self.isGrabbed then
-        colors:set("green", nil, transparency)
-    elseif isDebug() and not self:isInvincible() then
-        colors:set("debugRedShadow", nil, transparency)
-    else
-        colors:set("black", nil, transparency)
-    end
+    colors:set("black", nil, transparency)
     local spr = self.sprite
     local image = imageBank[spr.def.spriteSheet]
     local sc = spr.def.animations[spr.curAnim][spr.curFrame]

@@ -69,11 +69,7 @@ end
 
 function StageObject:calcShadowSpriteAndTransparency()
     local transparency = self.deathDelay < 1 and 255 * math.sin(self.deathDelay) or 255
-    if isDebug() and not self:isInvincible() then
-        colors:set("debugRedShadow", nil, transparency)
-    else
-        colors:set("black", nil, transparency)
-    end
+    colors:set("black", nil, transparency)
     local spr = self.sprite
     local image = imageBank[spr.def.spriteSheet]
     local sc = spr.def.animations[spr.curAnim][self:calcDamageFrame()]

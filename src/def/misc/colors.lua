@@ -22,7 +22,6 @@ function Colors:initialize()
         purple = {255, 0, 255, 255},
         darkGray = {55, 55, 55, 255},
         menuOutline = {255, 200, 40, 255},
-        debugRedShadow = {40, 0, 0, 255},
         pauseStateColors = { {255 * pauseStateTransp, 255 * pauseStateTransp, 255 * pauseStateTransp, 255},
             {GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp, GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp,
             GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp, GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp } },
