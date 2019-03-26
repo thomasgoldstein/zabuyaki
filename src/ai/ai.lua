@@ -321,6 +321,7 @@ end
 
 function AI:initWalkToXY()
     local u = self.unit
+    u.b.reset()
 --    dp("AI:initWalkToXY() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
@@ -334,6 +335,7 @@ end
 
 function AI:initRunToXY()
     local u = self.unit
+    u.b.reset()
 --    dp("AI:initRunToXY() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
@@ -396,6 +398,7 @@ end
 
 function AI:initChase()
     local u = self.unit
+    u.b.reset()
     --    dp("AI:initChase() " .. u.name)
     if not u.target or u.target.hp < 1 then
         u:pickAttackTarget("close")
@@ -523,6 +526,7 @@ end
 
 function AI:calcRunToXY()
     local u = self.unit
+    u.b.reset()
 --    dp("AI:calcRunToXY() " .. u.name)
     if self:canActAndMove() then
         if not u.target or u.target.hp < 1 then
@@ -568,6 +572,7 @@ end
 function AI:initCombo()
     self.hesitate = love.math.random() * (self.hesitateMax - self.hesitateMin) + self.hesitateMin
     --    dp("AI:initCombo() " .. u.name)
+    self.unit.b.reset()
     return true
 end
 
@@ -579,8 +584,8 @@ function AI:onCombo(dt)
         if not self:canAct() then
             return true
         end
-        if self.conditions.canCombo then
-            u:setState(u.combo)
+        if self.conditions.canCombo and not self.conditions.inAir then
+            u.b.setAttack( true )
         end
         return true
     end
@@ -589,6 +594,7 @@ end
 
 function AI:initDash(dt)
     local u = self.unit
+    u.b.reset()
     --    dp("AI:onDash() ".. u.name)
     --    if not self.conditions.cannotAct then
     if self:canActAndMove() then
