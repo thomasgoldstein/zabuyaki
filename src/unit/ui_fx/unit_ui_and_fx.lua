@@ -178,7 +178,7 @@ function Unit:calcShadowSpriteAndTransparency()
     end
     if isDebug() and self.isGrabbed then
         colors:set("green", nil, transparency)
-    elseif isDebug() and not self:isInvincibile() then
+    elseif isDebug() and not self:isInvincible() then
         colors:set("debugRedShadow", nil, transparency)
     else
         colors:set("black", nil, transparency)

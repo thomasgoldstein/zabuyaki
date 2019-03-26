@@ -200,7 +200,7 @@ function Unit:updateAI(dt)
     self:updateGhostTrails(dt)
 end
 
-function Unit:isInvincibile()
+function Unit:isInvincible()
     if self.isDisabled or not self.isHittable or self.invincibilityTimer > 0 or self.hp <= 0 then
         return true
     end

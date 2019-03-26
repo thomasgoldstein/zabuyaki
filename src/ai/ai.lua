@@ -193,7 +193,7 @@ function AI:getVisualConditions(conditions)
             end
             if math.abs(u.x - x) <= u.width
                     and math.abs(u.y - y) <= 6
-                    and not u.target:isInvincibile()
+                    and not u.target:isInvincible()
             then
                 conditions[#conditions + 1] = "canGrab"
             end

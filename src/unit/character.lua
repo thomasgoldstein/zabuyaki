@@ -315,7 +315,7 @@ function Character:checkAndAttack(f, isFuncCont)
     elseif type == "check" then
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
-            if not o:isInvincibile()
+            if not o:isInvincible()
                 and o ~= self
                 and CheckLinearCollision(o.z, o.height, self.z + y - h / 2, h)
             then
@@ -326,7 +326,7 @@ function Character:checkAndAttack(f, isFuncCont)
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
             if o ~= self
-                    and not o:isInvincibile()
+                    and not o:isInvincible()
                     and not self.victims[o]
                     and CheckLinearCollision(o.z, o.height, self.z + y - h / 2, h)
             then
@@ -1232,7 +1232,7 @@ function Character:doGrab(target, inAir)
     if target.isGrabbed then
         return false
     end
-    if target:isInvincibile() then
+    if target:isInvincible() then
         return false
     end
     --the grabbed
