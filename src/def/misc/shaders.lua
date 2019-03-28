@@ -303,9 +303,9 @@ function reloadShaders()
     shaders.sveta[1] = swapColors(svetaColors_original, svetaColors_2)
     shaders.zeena[1] = swapColors(zeenaColors_original, zeenaColors_2)
     shaders.beatnick[1] = nil
-    shaders.satoff[1] = swapColors(satoffColors_original, satoffColors_2)
-    shaders.satoff[2] = swapColors(satoffColors_original, satoffColors_3)
-    shaders.satoff[3] = swapColors(satoffColors_original, satoffColors_4)
+    shaders.satoff[2] = swapColors(satoffColors_original, satoffColors_2)
+    shaders.satoff[3] = swapColors(satoffColors_original, satoffColors_3)
+    shaders.satoff[4] = swapColors(satoffColors_original, satoffColors_4)
     shaders.trashcan[1] = swapColors(trashcanColors_original, trashcanColors_2)
     shaders.trashcan_particleColor[0] = { 118, 109, 100, 255 }
     shaders.trashcan_particleColor[1] = { 87, 116, 130, 255 }
