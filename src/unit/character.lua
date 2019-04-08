@@ -1015,6 +1015,7 @@ function Character:fallUpdate(dt)
                     self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
+                self:setSpriteIfExists("fallBounce", "fallen")
             end
             self:playSfx(self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
             self.bounced = self.bounced + 1
