@@ -117,36 +117,6 @@ function Enemy:introUpdate(dt)
 end
 Enemy.intro = { name = "intro", start = Enemy.introStart, exit = nop, update = Enemy.introUpdate, draw = Character.defaultDraw }
 
-function Enemy:deadStart()
-    self.isHittable = false
-    self:setSprite("fallen")
-    dp(self.name.." is dead.")
-    self.hp = 0
-    self.isHurt = nil
-    self:releaseGrabbed()
-    if not self:canFall() then
-        self.z = self:getMinZ()
-    end
-    self:playSfx(self.sfx.dead)
-end
-function Enemy:deadUpdate(dt)
-    if self.isDisabled then
-        return
-    end
-    --dp(self.name .. " - dead update", dt)
-    if self.deathDelay <= 0 then
-        self.isDisabled = true
-        self.isHittable = false
-        -- dont remove dead body from the stage for proper save/load
-        stage.world:remove(self.shape)  --stage.world = global collision shapes pool
-        --self.y = GLOBAL_SETTING.OFFSCREEN
-        return
-    else
-        self.deathDelay = self.deathDelay - dt
-    end
-end
-Enemy.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = Character.defaultDraw}
-
 function Enemy:getDistanceToClosestPlayer()
     local p = {}
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do

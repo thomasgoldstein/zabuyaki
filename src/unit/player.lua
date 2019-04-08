@@ -409,37 +409,13 @@ function Player:respawnUpdate(dt)
 end
 Player.respawn = {name = "respawn", start = Player.respawnStart, exit = nop, update = Player.respawnUpdate, draw = Unit.defaultDraw}
 
-function Player:deadStart()
-    self.isHittable = false
-    self:setSprite("fallen")
-    dp(self.name.." is dead.")
-    self.hp = 0
-    self.isHurt = nil
-    self:releaseGrabbed()
-    if not self:canFall() then
-        self.z = self:getMinZ()
-    end
-    self:playSfx(self.sfx.dead)
-    if self.killerId then
-        self.killerId:addScore( self.scoreBonus )
-    end
-end
 function Player:deadUpdate(dt)
-    if self.isDisabled then
-        return
-    end
     if self.deathDelay <= 0 then
         self:setState(self.useCredit)
         return
-    else
-        self.deathDelay = self.deathDelay - dt
-        if self:canFall() then
-            self:calcFreeFall(dt)
-        else
-            self.z = self:getMinZ()
-        end
     end
+    Character.deadUpdate(self, dt)
 end
-Player.dead = {name = "dead", start = Player.deadStart, exit = nop, update = Player.deadUpdate, draw = Unit.defaultDraw}
+Player.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Player.deadUpdate, draw = Unit.defaultDraw}
 
 return Player
