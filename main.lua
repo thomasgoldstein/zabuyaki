@@ -134,6 +134,8 @@ function love.load(arg)
     PGopper = require "src/unit/gopper_player"
     Satoff = require "src/unit/satoff_enemy"
     PSatoff = require "src/unit/satoff_player"
+    DrVolker = require "src/unit/drvolker_enemy"
+    PDrVolker = require "src/unit/drvolker_player"
     AINiko = require "src/unit/ai/niko_ai"
     Niko = require "src/unit/niko_enemy"
     PNiko = require "src/unit/niko_player"

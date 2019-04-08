@@ -67,6 +67,11 @@ local heroes = {
         spriteInstance = "src/def/char/satoff",
     },
     {
+        name = "DR.VOLKER",
+        shaders = shaders.drVolker,
+        spriteInstance = "src/def/char/drvolker",
+    },
+    {
         name = "TRASHCAN",
         shaders = shaders.trashcan,
         spriteInstance = "src/def/stage/object/trashcan",

@@ -248,8 +248,8 @@ function Player:onHurtDamage()
     end
 end
 
-local players_list = { RICK = 1, KISA = 2, CHAI = 3, YAR = 4, GOPPER = 5, NIKO = 6, SVETA = 7, ZEENA = 8, BEATNICK = 9, SATOFF = 10 }
-local players_palette_list = { 0, 0, 0, 0, 1, 1, 1, 1, 0, 0 }
+local players_list = { RICK = 1, KISA = 2, CHAI = 3, YAR = 4, GOPPER = 5, NIKO = 6, SVETA = 7, ZEENA = 8, BEATNICK = 9, SATOFF = 10, DRVOLKER = 11 }
+local players_palette_list = { 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1 }
 function Player:useCreditStart()
     self.isHittable = false
     self.lives = self.lives - 1
@@ -330,11 +330,11 @@ function Player:useCreditUpdate(dt)
                 self.playerSelectCur = self.playerSelectCur + 1
             end
             if isDebug() then
-                if self.playerSelectCur > players_list.SATOFF then
+                if self.playerSelectCur > players_list.DRVOLKER then
                     self.playerSelectCur = 1
                 end
                 if self.playerSelectCur < 1 then
-                    self.playerSelectCur = players_list.SATOFF
+                    self.playerSelectCur = players_list.DRVOLKER
                 end
             else
                 if self.playerSelectCur > players_list.YAR then

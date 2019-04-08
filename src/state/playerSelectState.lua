@@ -184,6 +184,23 @@ local heroes = {
         sy = 272,
         ny = 90,
         py = 120
+    },
+    {
+        {name = "DR.VOLKER", palette = 0},
+        {name = "DR.VOLKER", palette = 1},
+        {name = "DR.VOLKER", palette = 2},
+        hero = PDrVolker,
+        spriteInstance = "src/def/char/drvolker",
+        sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
+        sprite_portraitAnim = "rick", --NO OWN PORTRAIT
+        defaultAnim = "stand",
+        cancelAnim = "hurtHighWeak",
+        confirmAnim = "walk",
+        x = screenWidth / 2 - 80,
+        y = 440 + 80,
+        sy = 272,
+        ny = 90,
+        py = 120
     }
 }
 HEROES = heroes -- global var for in-game player select
