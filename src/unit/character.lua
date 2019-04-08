@@ -1110,7 +1110,11 @@ Character.getUp = {name = "getUp", start = Character.getUpStart, exit = nop, upd
 
 function Character:deadStart()
     self.isHittable = false
-    self:setSpriteIfExists("fallenDead", "fallen")
+    if spriteHasAnimation(self.sprite, "fallenDead") then
+        setSpriteAnimation(self.sprite, "fallenDead")
+    elseif spriteHasAnimation(self.sprite, "fallen") then
+        setSpriteAnimation(self.sprite, "fallen")
+    end
     dp(self.name.." is dead.")
     self.hp = 0
     self.isHurt = nil
