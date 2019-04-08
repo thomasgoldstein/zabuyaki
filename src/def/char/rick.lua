@@ -689,6 +689,10 @@ return {
             { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
             delay = 65
         },
+        fallenDead = {
+            { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
+            delay = 65
+        },
         getUp = {
             { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
