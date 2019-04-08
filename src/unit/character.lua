@@ -1110,7 +1110,7 @@ Character.getUp = {name = "getUp", start = Character.getUpStart, exit = nop, upd
 
 function Character:deadStart()
     self.isHittable = false
-    self:setSprite("fallen")
+    self:setSpriteIfExists("fallenDead", "fallen")
     dp(self.name.." is dead.")
     self.hp = 0
     self.isHurt = nil
