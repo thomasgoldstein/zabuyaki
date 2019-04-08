@@ -11,7 +11,6 @@ function Gopper:initialize(name, sprite, x, y, f, input)
     Gopper.initAttributes(self)
     self.subtype = "gopnik"
     self.friendlyDamage = 2 --divide friendly damage
-    self.face = -1
     self:postInitialize()
 end
 
