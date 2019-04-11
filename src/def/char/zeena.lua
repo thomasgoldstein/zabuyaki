@@ -167,16 +167,16 @@ return {
             delay = 0.02
         },
         fall = {
-            { q = q(2,246,65,49), ox = 39, oy = 48 }, --falling
+            { q = q(2,246,65,49), ox = 39, oy = 48 }, --fall
             delay = 5
         },
         fallen = {
-            { q = q(69,267,67,28), ox = 41, oy = 27 }, --lying down
+            { q = q(69,267,67,28), ox = 41, oy = 27 }, --fallen
             delay = 65
         },
         getUp = {
-            { q = q(69,267,67,28), ox = 41, oy = 27 }, --lying down
-            { q = q(138,249,53,46), ox = 30, oy = 45 }, --getting up
+            { q = q(69,267,67,28), ox = 41, oy = 27 }, --fallen
+            { q = q(138,249,53,46), ox = 30, oy = 45 }, --get up
             { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
             delay = 0.2
         },
@@ -191,18 +191,18 @@ return {
             delay = 0.02
         },
         grabbedFrames = {
-            --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, lying down
+            --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, fallen
             { q = q(40,188,39,56), ox = 21, oy = 55 }, --hurt low 2
             { q = q(47,125,48,59), ox = 29, oy = 58 }, --hurt high 2
-            { q = q(2,246,65,49), ox = 39, oy = 48 }, --falling
-            { q = q(2,246,65,49), ox = 42, oy = 45, rotate = -1.57, rx = 32, ry = -48 }, --falling
+            { q = q(2,246,65,49), ox = 39, oy = 48 }, --fall
+            { q = q(2,246,65,49), ox = 42, oy = 45, rotate = -1.57, rx = 32, ry = -48 }, --fall
             { q = q(40,188,39,56), ox = 21, oy = 55, flipV = -1 }, --hurt low 2
-            { q = q(69,267,67,28), ox = 41, oy = 27 }, --lying down
+            { q = q(69,267,67,28), ox = 41, oy = 27 }, --fallen
             delay = 100
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,246,65,49), ox = 39, oy = 48, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            { q = q(2,246,65,49), ox = 39, oy = 48, rotate = -1.57, rx = 29, ry = -30 }, --fall
             delay = 5
         },
     }

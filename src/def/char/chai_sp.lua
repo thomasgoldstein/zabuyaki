@@ -54,15 +54,15 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
         },
         jumpAttackRun = {
-            { q = q(2,1062,63,30), ox = 26, oy = 65 }, --jump attack running 1
-            { q = q(67,1062,57,33), ox = 16, oy = 64 }, --jump attack running 1
-            { q = q(126,1062,34,49), ox = -8, oy = 64 }, --jump attack running 2
-            { q = q(162,1062,22,55), ox = -21, oy = 64 }, --jump attack running 2
-            { q = q(186,1062,26,54), ox = -17, oy = 57 }, --jump attack running 2
-            { q = q(2,1120,31,43), ox = -12, oy = 45 }, --jump attack running 3
-            { q = q(35,1119,31,37), ox = -10, oy = 37 }, --jump attack running 3
-            { q = q(68,1119,30,31), ox = -9, oy = 31 }, --jump attack running 3
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack running 4
+            { q = q(2,1062,63,30), ox = 26, oy = 65 }, --jump attack run 1
+            { q = q(67,1062,57,33), ox = 16, oy = 64 }, --jump attack run 1
+            { q = q(126,1062,34,49), ox = -8, oy = 64 }, --jump attack run 2
+            { q = q(162,1062,22,55), ox = -21, oy = 64 }, --jump attack run 2
+            { q = q(186,1062,26,54), ox = -17, oy = 57 }, --jump attack run 2
+            { q = q(2,1120,31,43), ox = -12, oy = 45 }, --jump attack run 3
+            { q = q(35,1119,31,37), ox = -10, oy = 37 }, --jump attack run 3
+            { q = q(68,1119,30,31), ox = -9, oy = 31 }, --jump attack run 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack run 4
         },
         dashAttack = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --duck

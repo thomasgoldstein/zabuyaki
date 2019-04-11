@@ -345,7 +345,7 @@ return {
         },
         jumpAttackRun = {
             { q = q(2,714,53,61), ox = 23, oy = 65 }, --jump attack forward 1
-            { q = q(90,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun, delay = 5 }, --jump attack running
+            { q = q(90,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun, delay = 5 }, --jump attack run
             delay = 0.06
         },
         jumpAttackRunEnd = {
@@ -631,7 +631,7 @@ return {
             { q = q(92,1705,61,50), ox = 39, oy = 49, delay = 0.08 }, --back throw 3
             { q = q(155,1701,60,54), ox = 48, oy = 53, delay = 0.05 }, --back throw 4
             { q = q(100,1652,63,38), ox = 51, oy = 34, func = grabBackAttack, delay = 0.3 }, --back throw 5
-            { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
+            { q = q(135,464,56,53), ox = 31, oy = 52 }, --get up
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = 0.05 }, --pick up 1
             delay = 0.15,
@@ -682,24 +682,24 @@ return {
             delay = 0.02
         },
         fall = {
-            { q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
+            { q = q(2,458,60,59), ox = 30, oy = 58 }, --fall
             delay = 5
         },
         fallBounce = {
-            { q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
+            { q = q(2,458,60,59), ox = 30, oy = 58 }, --fall
             delay = 5
         },
         fallen = {
-            { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
+            { q = q(64,486,69,31), ox = 39, oy = 30 }, --fallen
             delay = 65
         },
         fallenDead = {
-            { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
+            { q = q(64,486,69,31), ox = 39, oy = 30 }, --fallen
             delay = 65
         },
         getUp = {
-            { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
-            { q = q(135,464,56,53), ox = 31, oy = 52 }, --getting up
+            { q = q(64,486,69,31), ox = 39, oy = 30 }, --fallen
+            { q = q(135,464,56,53), ox = 31, oy = 52 }, --get up
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
             delay = 0.15
@@ -715,18 +715,18 @@ return {
             delay = 0.02
         },
         grabbedFrames = {
-            --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, lying down
+            --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, fallen
             { q = q(144,331,44,62), ox = 18, oy = 61 }, --hurt low 2
             { q = q(48,331,47,62), ox = 26, oy = 61 }, --hurt high 2
-            { q = q(2,458,60,59), ox = 30, oy = 58 }, --falling
-            { q = q(2,458,60,59), ox = 19, oy = 47, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            { q = q(2,458,60,59), ox = 30, oy = 58 }, --fall
+            { q = q(2,458,60,59), ox = 19, oy = 47, rotate = -1.57, rx = 29, ry = -30 }, --fall
             { q = q(144,331,44,62), ox = 18, oy = 61, flipV = -1 }, --hurt low 2
-            { q = q(64,486,69,31), ox = 39, oy = 30 }, --lying down
+            { q = q(64,486,69,31), ox = 39, oy = 30 }, --fallen
             delay = 100
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,458,60,59), ox = 30, oy = 58, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            { q = q(2,458,60,59), ox = 30, oy = 58, rotate = -1.57, rx = 29, ry = -30 }, --fall
             delay = 5
         },
     }

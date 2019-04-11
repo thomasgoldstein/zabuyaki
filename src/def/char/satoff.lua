@@ -240,16 +240,16 @@ return {
             delay = 0.02
         },
         fall = {
-            { q = q(2,284,71,57), ox = 36, oy = 56 }, --falling
+            { q = q(2,284,71,57), ox = 36, oy = 56 }, --fall
             delay = 5
         },
         fallen = {
-            { q = q(75,304,79,37), ox = 49, oy = 34 }, --lying down
+            { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
             delay = 65
         },
         getUp = {
-            { q = q(75,304,79,37), ox = 49, oy = 34 }, --lying down
-            { q = q(156,282,69,59), ox = 36, oy = 56 }, --getting up
+            { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
+            { q = q(156,282,69,59), ox = 36, oy = 56 }, --get up
             { q = q(206,736,66,61), ox = 33, oy = 60 }, --pick up
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
             delay = 0.2
@@ -265,18 +265,18 @@ return {
             delay = 0.02
         },
         grabbedFrames = {
-            --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, lying down
+            --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, fallen
             { q = q(214,216,72,64), ox = 36, oy = 63 }, --grabbed back 2
             { q = q(72,212,69,68), ox = 39, oy = 67 }, --grabbed front 2
-            { q = q(2,284,71,57), ox = 36, oy = 56 }, --falling
-            { q = q(2,284,71,57), ox = 29, oy = 47, rotate = -1.57, rx = 35, ry = -56 }, --falling
+            { q = q(2,284,71,57), ox = 36, oy = 56 }, --fall
+            { q = q(2,284,71,57), ox = 29, oy = 47, rotate = -1.57, rx = 35, ry = -56 }, --fall
             { q = q(214,146,72,64), ox = 36, oy = 63, flipV = -1 }, --hurt low 2
-            { q = q(75,304,79,37), ox = 49, oy = 34 }, --lying down
+            { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
             delay = 100
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,284,71,57), ox = 36, oy = 56, rotate = -1.57, rx = 29, ry = -30 }, --falling
+            { q = q(2,284,71,57), ox = 36, oy = 56, rotate = -1.57, rx = 29, ry = -30 }, --fall
             delay = 5
         },
         batAttack = {
