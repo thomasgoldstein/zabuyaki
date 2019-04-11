@@ -314,7 +314,7 @@ function AI:calcWalkToBackOffXY()
         shift_x = shift_x + u.width
     end
     u.horizontal = u.x < u.target.x and 1 or -1
-    u.ttx = u.target.x + (love.math.random(52, 80) + shift_x) * -u.horizontal
+    u.ttx = u.target.x + (u.width * 5 + shift_x) * -u.horizontal
     u.tty = u.target.y + love.math.random(-1, 1) * shift_y
     return true
 end
