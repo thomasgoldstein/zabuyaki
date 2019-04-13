@@ -433,20 +433,10 @@ function Character:standUpdate(dt)
     end
     self.nextAnlmationDelay = self.nextAnlmationDelay - dt
     if self.nextAnlmationDelay <= 0 then
-        if spriteHasAnimation(self.sprite, "chargeStand") and self:canMove() then
-            if self.b.attack:isDown() then
-                if self.sprite.curAnim ~= "chargeStand" then
-                    self:setSprite("chargeStand")
-                end
-            else
-                if self.sprite.curAnim ~= "stand" then
-                    self:setSprite("stand")
-                end
-            end
+        if spriteHasAnimation(self.sprite, "chargeStand") and self:canMove() and self.b.attack:isDown() then
+            self:setSpriteIfNotCurrent("chargeStand")
         else
-            if self.sprite.curAnim ~= "stand" then
-                self:setSprite("stand")
-            end
+            self:setSpriteIfNotCurrent("stand")
         end
     end
     if self.b.attack:pressed() then
