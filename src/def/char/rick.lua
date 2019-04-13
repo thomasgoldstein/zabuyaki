@@ -682,23 +682,21 @@ return {
             delay = 0.02
         },
         fall = {
-            { q = q(2,458,60,59), ox = 30, oy = 58 }, --fall
+            { q = q(145,137,56,59), ox = 31, oy = 58, delay = 0.33 }, --fall 1
+            { q = q(144,211,63,49), ox = 38, oy = 48, delay = 0.13 }, --fall 2
+            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
             delay = 5
         },
         fallBounce = {
-            { q = q(2,458,60,59), ox = 30, oy = 58 }, --fall
+            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
             delay = 5
         },
         fallen = {
-            { q = q(64,486,69,31), ox = 39, oy = 30 }, --fallen
-            delay = 65
-        },
-        fallenDead = {
-            { q = q(64,486,69,31), ox = 39, oy = 30 }, --fallen
+            { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
             delay = 65
         },
         getUp = {
-            { q = q(64,486,69,31), ox = 39, oy = 30 }, --fallen
+            { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --get up
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
@@ -718,15 +716,15 @@ return {
             --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, fallen
             { q = q(144,331,44,62), ox = 18, oy = 61 }, --hurt low 2
             { q = q(48,331,47,62), ox = 26, oy = 61 }, --hurt high 2
-            { q = q(2,458,60,59), ox = 30, oy = 58 }, --fall
-            { q = q(2,458,60,59), ox = 19, oy = 47, rotate = -1.57, rx = 29, ry = -30 }, --fall
+            { q = q(145,137,56,59), ox = 31, oy = 58 }, --fall 1
+            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 29, ry = -30 }, --fall (upside down)
             { q = q(144,331,44,62), ox = 18, oy = 61, flipV = -1 }, --hurt low 2
-            { q = q(64,486,69,31), ox = 39, oy = 30 }, --fallen
+            { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
             delay = 100
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,458,60,59), ox = 30, oy = 58, rotate = -1.57, rx = 29, ry = -30 }, --fall
+            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 29, ry = -30 }, --fall (upside down)
             delay = 5
         },
     }
