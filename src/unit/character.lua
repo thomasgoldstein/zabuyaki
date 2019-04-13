@@ -1565,7 +1565,7 @@ function Character:doThrow(repel_x, repel_y, repel_z, horizontal, face, start_z)
     if start_z then
         t.z = start_z
     end
-    t:setState(self.fall)
+    t:setState(t.fall)
     self:playSfx("whooshHeavy")
     self:playSfx(self.sfx.throw)
 end
