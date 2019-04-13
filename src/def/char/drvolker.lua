@@ -34,7 +34,6 @@ return {
             delay = 0.16
         },
         walk = {
-            
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             loop = true,
             delay = 0.167
@@ -153,7 +152,15 @@ return {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             delay = 5
         },
+        fallBounce = {
+            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            delay = 65
+        },
         fallen = {
+            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            delay = 65
+        },
+        fallenDead = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             delay = 65
         },

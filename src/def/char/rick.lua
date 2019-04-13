@@ -695,6 +695,10 @@ return {
             { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
             delay = 65
         },
+        fallenDead = {
+            { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
+            delay = 65
+        },
         getUp = {
             { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --get up

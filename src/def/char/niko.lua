@@ -202,7 +202,15 @@ return {
             { q = q(2,199,51,62), ox = 28, oy = 61 }, --fall
             delay = 5
         },
+        fallBounce = {
+            { q = q(55,217,75,44), ox = 45, oy = 33 }, --fallen
+            delay = 65
+        },
         fallen = {
+            { q = q(55,217,75,44), ox = 45, oy = 33 }, --fallen
+            delay = 65
+        },
+        fallenDead = {
             { q = q(55,217,75,44), ox = 45, oy = 33 }, --fallen
             delay = 65
         },
