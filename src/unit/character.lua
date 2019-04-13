@@ -436,7 +436,7 @@ function Character:standUpdate(dt)
         if spriteHasAnimation(self.sprite, "chargeStand") and self:canMove() then
             if self.b.attack:isDown() then
                 if self.sprite.curAnim ~= "chargeStand" then
-                    self:setSpriteIfExists("chargeStand")
+                    self:setSprite("chargeStand")
                 end
             else
                 if self.sprite.curAnim ~= "stand" then
@@ -1015,7 +1015,7 @@ function Character:fallUpdate(dt)
                     self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
-                self:setSpriteIfExists("fallBounce", "fallen")
+                self:setSprite("fallBounce")
             end
             self:playSfx(self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
             self.bounced = self.bounced + 1
@@ -1113,8 +1113,6 @@ function Character:deadStart()
     self.isHittable = false
     if spriteHasAnimation(self.sprite, "fallenDead") then
         setSpriteAnimation(self.sprite, "fallenDead")
-    elseif spriteHasAnimation(self.sprite, "fallen") then
-        setSpriteAnimation(self.sprite, "fallen")
     end
     dp(self.name.." is dead.")
     self.hp = 0
