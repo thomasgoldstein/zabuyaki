@@ -192,11 +192,16 @@ end
 StageObject.hurt = {name = "hurt", start = StageObject.hurtStart, exit = nop, update = StageObject.hurtUpdate, draw = Unit.defaultDraw}
 
 function StageObject:fallStart()
+    self:removeTweenMove()
+    self.isHittable = false
+    self.bounced = 0
     if not self.isMovable then
         self:setState(self.knockedDown)
         return
     end
-    Character.fallStart(self)
+    if not self:canFall() then
+        self.z = self:getMinZ() + 1
+    end
 end
 function StageObject:fallUpdate(dt)
     self:calcFreeFall(dt)
