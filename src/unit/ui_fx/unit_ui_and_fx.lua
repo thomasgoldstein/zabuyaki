@@ -107,6 +107,17 @@ function Unit:setSprite(animation)
     self:setSpriteOverlay(animation)
 end
 
+---Set animation of the sprite if not current
+---@param animation string Animation name
+---@return true if animation is set
+function Unit:setSpriteIfNotCurrent(animation)
+    if self.sprite.curAnim ~= animation then
+        self:setSprite(animation)
+        return true
+    end
+    return false
+end
+
 local hurtAnimations = {
     {"hurtLowWeak", "hurtLowMedium", "hurtLowStrong"},
     {"hurtHighWeak", "hurtHighMedium", "hurtHighStrong"}
