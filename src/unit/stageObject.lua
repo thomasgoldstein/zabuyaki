@@ -198,6 +198,51 @@ function StageObject:fallStart()
     end
     Character.fallStart(self)
 end
-StageObject.fall = {name = "fall", start = StageObject.fallStart, exit = nop, update = Character.fallUpdate, draw = StageObject.defaultDraw}
+function StageObject:fallUpdate(dt)
+    self:calcFreeFall(dt)
+    if not self:canFall() then
+        if self.speed_z < -100 and self.bounced < 1 then
+            --bounce up after fall
+            if self.speed_z < -300 then
+                self.speed_z = -300
+            end
+            self.z = self:getMinZ() + 0.01
+            self.speed_z = -self.speed_z/2
+            self.speed_x = self.speed_x * 0.5
+            if self.bounced == 0 then
+                if self.isThrown then
+                    --damage for thrown on landing
+                    self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
+                end
+                mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
+            end
+            self:playSfx(self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
+            self.bounced = self.bounced + 1
+            self:showEffect("fallLanding")
+            return
+        else
+            --final fall (no bouncing)
+            self.z = self:getMinZ()
+            self.speed_z = 0
+            self.speed_y = 0
+            self.speed_x = 0
+            self.horizontal = self.face
+            self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
+            self:setState(self.getUp)
+            return
+        end
+    end
+    if self.isThrown and self.speed_z < 0 and self.bounced == 0 then
+        self:checkAndAttack(
+            { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", speed_x = self.throwSpeed_x },
+            false
+        )
+    end
+    if not self.toSlowDown then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
+end
+StageObject.fall = {name = "fall", start = StageObject.fallStart, exit = nop, update = StageObject.fallUpdate, draw = StageObject.defaultDraw}
 
 return StageObject
