@@ -106,6 +106,7 @@ function love.load(arg)
     AIMoveCombo = require "src/unit/ai/moveCombo_ai"
     require "src/stage/loadStage"
     Stage = require "src/stage/stage"
+    require "src/stage/stage_ai_helper"
     Transition = require "src/stage/transition"
     Batch = require "src/stage/batch"
     Effect = require "src/unit/effect"
