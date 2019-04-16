@@ -118,6 +118,7 @@ function Character:updateAI(dt)
         g.grabTimer = g.grabTimer - dt
     end
     self:updateShake(dt)
+    stage:logUnit( self )
     Unit.updateAI(self, dt)
 end
 
