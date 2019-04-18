@@ -17,7 +17,6 @@ function eAI:initialize(unit, speedReaction)
     -- new or overridden AI schedules
     self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo },
         { "cannotAct", "noTarget", "tooFarToTarget" }, unit.name)
-
 end
 
 function eAI:_update(dt)
@@ -28,6 +27,7 @@ function eAI:_update(dt)
 end
 
 function eAI:selectNewSchedule(conditions)
+    local r
     if not self.currentSchedule or conditions.init then
         self.currentSchedule = self.SCHEDULE_INTRO
 --        print("GOPPER INTRO", self.unit.name, self.unit.id )
@@ -67,11 +67,15 @@ function eAI:selectNewSchedule(conditions)
         --    return
         --end
         if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then
-            --self.currentSchedule = self.SCHEDULE_WALK_TO_ATTACK
-            if love.math.random() < 0.5 then
-                self.currentSchedule = self.SCHEDULE_CHASE
+            r = love.math.random()
+            if r < 0.25 then
+                self.currentSchedule = self.SCHEDULE_WALK_AROUND
+            elseif r < 0.5 then
+                self.currentSchedule = self.SCHEDULE_GET_TO_BACK
+            elseif r < 0.75 then
+                self.currentSchedule = self.SCHEDULE_ATTACK_FROM_BACK
             else
-                self.currentSchedule = self.SCHEDULE_CHASE2
+                self.currentSchedule = self.SCHEDULE_WALK_CLOSE_TO_ATTACK
             end
             return
         end
