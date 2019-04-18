@@ -451,7 +451,7 @@ function AI:initChase2()
         end
     end
     u.chaseTime = 3 + love.math.random( 5 )
-    u.chaseRadius = u.target.width * 2 + u.width * 2
+    u.chaseRadius = u.target.width * 2 + u.width * 3    -- radius bigger than an attack range
     if love.math.random() < 0.3 then    -- go to front
         u.chaseAngle = love.math.random() * math.pi / 4 - math.pi / 8
     else    -- go from back
