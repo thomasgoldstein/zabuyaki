@@ -38,9 +38,11 @@ function AI:initialize(unit, speedReaction)
     --    { "cannotAct", "inAir", "noTarget", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
         {}, unit.name)
-    self.SCHEDULE_CHASE = Schedule:new({ self.initChase, self.onChase, self.initCombo, self.onCombo },
+    self.SCHEDULE_WALK_CLOSE_TO_ATTACK = Schedule:new({ self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
-    self.SCHEDULE_CHASE2 = Schedule:new({ self.initChase2, self.onChase2 },
+    self.SCHEDULE_ATTACK_FROM_BACK = Schedule:new({ self.initGetToBack, self.onGetToBack, self.initCombo, self.onCombo  },
+        { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
+    self.SCHEDULE_WALK_AROUND = Schedule:new({ self.initWalkAround, self.onWalkAround },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
     self.SCHEDULE_GET_TO_BACK = Schedule:new({ self.initGetToBack, self.onGetToBack },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
@@ -400,10 +402,10 @@ function AI:calcWalkOffTheScreenXY()
     return true
 end
 
-function AI:initChase()
+function AI:initWalkCloser()
     local u = self.unit
     u.b.reset()
-    --    dp("AI:initChase() " .. u.name)
+    --    dp("AI:initWalkCloser() " .. u.name)
     if not u.target or u.target.hp < 1 then
         u:pickAttackTarget("close")
         if not u.target then
@@ -414,9 +416,9 @@ function AI:initChase()
     return true
 end
 
-function AI:onChase()
+function AI:onWalkToAttackRange()
     local u = self.unit
-    --    dp("AI:onChase() ".. u.name)
+    --    dp("AI:onWalkToAttackRange() ".. u.name)
     local attackRange = u.width * 2 + 12
     local v, h
     --get to the player attack range
@@ -443,9 +445,9 @@ local function getPosByAngleR(x, y, angle, r)
         y + math.sin( angle ) * r / 2
 end
 
-function AI:initChase2()
+function AI:initWalkAround()
     local u = self.unit
-    --    dp("AI:initChase2() " .. u.name)
+    --    dp("AI:initWalkAround() " .. u.name)
     if not u.target or u.target.hp < 1 then
         u:pickAttackTarget("close")
         if not u.target then
@@ -468,9 +470,9 @@ function AI:initChase2()
     return true
 end
 
-function AI:onChase2(dt)
+function AI:onWalkAround(dt)
     local u = self.unit
-    --    dp("AI:onChase2() ".. u.name)
+    --    dp("AI:onWalkAround() ".. u.name)
     local attackRange = u.width * 2 + 12
     local v, h
     if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
