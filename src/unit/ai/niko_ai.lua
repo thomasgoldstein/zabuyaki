@@ -77,9 +77,9 @@ function eAI:selectNewSchedule(conditions)
                 self.currentSchedule = self.SCHEDULE_WALK_TO_GRAB
             else
                 if love.math.random() < 0.5 then
-                    self.currentSchedule = self.SCHEDULE_CHASE
+                    self.currentSchedule = self.SCHEDULE_WALK_CLOSE_TO_ATTACK
                 else
-                    self.currentSchedule = self.SCHEDULE_CHASE2
+                    self.currentSchedule = self.SCHEDULE_WALK_AROUND
                 end
             end
             return
