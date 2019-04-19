@@ -4,13 +4,15 @@
 local Stage = Stage
 
 local safePlace = {}
-local safePlacePos = 0
+local safePlacePos = 1
 local safePlacePosMax = 200
+local safePlacePosReset = false
 local logEveryFrame = 60
 
 function Stage:initLog()
     safePlace = {}
     safePlacePos = 1
+    safePlacePosReset = false
     for i = 1, safePlacePosMax do
         safePlace[ i ] = { x = nil, y = nil }
     end
@@ -33,6 +35,7 @@ function Stage:logUnit( unit )
     safePlacePos = safePlacePos + 1
     if safePlacePos > safePlacePosMax then
         safePlacePos = 1
+        safePlacePosReset = true
     end
     local s = safePlace[ safePlacePos ]
     s.x, s.y = unit.x, unit.y
@@ -40,7 +43,12 @@ function Stage:logUnit( unit )
 end
 
 function Stage:getRandomSafePoint()
-    local s = safePlace[ love.math.random(1, safePlacePosMax ) ]
+    local s
+    if safePlacePosReset then
+        s = safePlace[ love.math.random(1, safePlacePosMax ) ]  -- the buffer is full
+    else
+        s = safePlace[ love.math.random(1, safePlacePos ) ]
+    end
     if not s then
         return nil
     end
