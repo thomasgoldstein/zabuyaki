@@ -7,7 +7,7 @@ shaders = {
     niko = {},
     sveta = {},
     zeena = {},
-    beatnick = {},
+    beatnik = {},
     satoff = {},
     drVolker = {},
     trashcan = {},
@@ -303,7 +303,7 @@ function reloadShaders()
     shaders.niko[2] = swapColors(nikoColors_original, nikoColors_3)
     shaders.sveta[1] = swapColors(svetaColors_original, svetaColors_2)
     shaders.zeena[1] = swapColors(zeenaColors_original, zeenaColors_2)
-    shaders.beatnick[1] = nil
+    shaders.beatnik[1] = nil
     shaders.satoff[2] = swapColors(satoffColors_original, satoffColors_2)
     shaders.satoff[3] = swapColors(satoffColors_original, satoffColors_3)
     shaders.satoff[4] = swapColors(satoffColors_original, satoffColors_4)

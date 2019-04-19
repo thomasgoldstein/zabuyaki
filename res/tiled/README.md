@@ -135,7 +135,7 @@ Go to the layers tab. Select any **Object layer** within "batch" **Group layer**
 Now you can add enemy units or stage objects into the game.
 Every unit should have these properties
 * Name <- enemy's name
-* Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnick or satoff
+* Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnik or satoff
 
 Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape is supported.
 
@@ -162,7 +162,7 @@ They are added into the root **Object layers** named "global".
 
 Every unit should contain these properties
 * Name <- enemy's name
-* Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnick or satoff
+* Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnik or satoff
 > Hint: These units do not lock you within a batch area. You can spare their liver and go to the next batch area.
 
 ## Define players start positions ## 

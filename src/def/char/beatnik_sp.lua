@@ -1,4 +1,4 @@
-local spriteSheet = "res/img/char/beatnick.png"
+local spriteSheet = "res/img/char/beatnik.png"
 local imageWidth,imageHeight = loadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
@@ -9,7 +9,7 @@ return {
     serializationVersion = 0.42, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    spriteName = "beatnick_sp", -- The name of the sprite
+    spriteName = "beatnik_sp", -- The name of the sprite
 
     --The list with all the frames mapped to their respective animations
     --  each one can be accessed like this:

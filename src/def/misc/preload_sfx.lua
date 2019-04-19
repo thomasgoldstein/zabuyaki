@@ -126,8 +126,8 @@ SFX.loadVoice("gopnitsaAttack2","res/sfx/gopnitsaAttack2.wav", 1)
 SFX.loadVoice("gopnitsaDeath1","res/sfx/gopnitsaDeath1.wav", 1)
 SFX.loadVoice("gopnitsaDeath2","res/sfx/gopnitsaDeath2.wav", 1)
 
-SFX.loadVoice("beatnickAttack1","res/sfx/beatnickAttack1.wav", 1)
-SFX.loadVoice("beatnickDeath1","res/sfx/beatnickDeath1.wav", 1)
+SFX.loadVoice("beatnikAttack1","res/sfx/beatnikAttack1.wav", 1)
+SFX.loadVoice("beatnikDeath1","res/sfx/beatnikDeath1.wav", 1)
 
 SFX.loadVoice("satoffAttack1","res/sfx/satoffAttack1.wav", 1)
 SFX.loadVoice("satoffDeath1","res/sfx/satoffDeath1.wav", 1)
@@ -140,8 +140,8 @@ SFX.svetaAttack = {"gopnitsaAttack1","gopnitsaAttack2"}
 SFX.svetaDeath = {"gopnitsaDeath1","gopnitsaDeath2"}
 SFX.zeenaAttack = {"gopnitsaAttack1","gopnitsaAttack2"}
 SFX.zeenaDeath = {"gopnitsaDeath1","gopnitsaDeath2"}
-SFX.beatnickAttack = {"beatnickAttack1"}
-SFX.beatnickDeath = {"beatnickDeath1"}
+SFX.beatnikAttack = {"beatnikAttack1"}
+SFX.beatnikDeath = {"beatnikDeath1"}
 SFX.satoffAttack = {"satoffAttack1"}
 SFX.satoffDeath = {"satoffDeath1"}
 

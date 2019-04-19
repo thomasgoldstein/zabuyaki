@@ -1,4 +1,4 @@
-local spriteSheet = "res/img/char/beatnick.png"
+local spriteSheet = "res/img/char/beatnik.png"
 local imageWidth,imageHeight = loadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
@@ -42,7 +42,7 @@ return {
     serializationVersion = 0.42, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    spriteName = "beatnick", -- The name of the sprite
+    spriteName = "beatnik", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations
 

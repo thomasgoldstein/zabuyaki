@@ -1,19 +1,19 @@
 local class = require "lib/middleclass"
-local Beatnick = class('Beatnick', Gopper)
+local Beatnik = class('Beatnik', Gopper)
 
-function Beatnick:initialize(name, sprite, x, y, f, input)
+function Beatnik:initialize(name, sprite, x, y, f, input)
     self.lives = self.lives or 2
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 800
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
-    Beatnick.initAttributes(self)
+    Beatnik.initAttributes(self)
     self.subtype = "midboss"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self:postInitialize()
 end
 
-function Beatnick:initAttributes()
+function Beatnik:initAttributes()
     self.moves = { --list of allowed moves
         pickUp = true, chargeAttack = true, dashAttack = true, specialDefensive = true,
         --technically present for all
@@ -30,15 +30,15 @@ function Beatnick:initAttributes()
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
-    self.sfx.dead = sfx.beatnickDeath
-    self.sfx.dashAttack = sfx.beatnickAttack
+    self.sfx.dead = sfx.beatnikDeath
+    self.sfx.dashAttack = sfx.beatnikAttack
     self.sfx.step = "rickStep"
     self.AI = AIMoveCombo:new(self)
 end
 
-Beatnick.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
+Beatnik.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
-function Beatnick:updateAI(dt)
+function Beatnik:updateAI(dt)
     if self.isDisabled then
         return
     end
@@ -46,4 +46,4 @@ function Beatnick:updateAI(dt)
     self.AI:update(dt)
 end
 
-return Beatnick
+return Beatnik
