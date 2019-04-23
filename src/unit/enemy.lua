@@ -149,11 +149,12 @@ end
 -- @param how - "random" far close weak healthy fast slow
 --
 function Enemy:pickAttackTarget(target)
-    if type(target) == "table" and target.type == "player"
-        and not target.isDisabled and target.hp > 0
-    then
-        self.target = target
-        return self.target
+    if type(target) ~= "string" then
+        if target.type == "player" and not target.isDisabled and target.hp > 0 then
+            self.target = target
+            return self.target
+        end
+        return nil
     end
     local p = {}
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
