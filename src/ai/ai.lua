@@ -587,7 +587,6 @@ function AI:onGetToBack(dt)
         -- got to the point, rotate to the next
         if math.abs(u.chaseAngleFinal - u.chaseAngle) < 0.01 then
             u.b.reset()
-            print("###u.chaseAngleFinal == u.chaseAngle", u.chaseAngle)
             return true
         end
         u.chaseAngle = u.chaseAngle + u.chaseAngleStep
