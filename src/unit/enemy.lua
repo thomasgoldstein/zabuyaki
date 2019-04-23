@@ -140,7 +140,13 @@ end
 ---
 -- @param how - "random" far close weak healthy fast slow
 --
-function Enemy:pickAttackTarget(how)
+function Enemy:pickAttackTarget(target)
+    if type(target) == "table" and target.type == "player"
+        and not target.isDisabled and target.hp > 0
+    then
+        self.target = target
+        return self.target
+    end
     local p = {}
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
@@ -151,27 +157,27 @@ function Enemy:pickAttackTarget(how)
     if #p < 1 then
         return nil
     end
-    how = how or self.whichPlayerAttack
+    target = target or self.whichPlayerAttack
     for i = 1, #p do
-        if how == "close" then
+        if target == "close" then
             p[i].points = -dist(self.x, self.y, p[i].player.x, p[i].player.y)
-        elseif how == "far" then
+        elseif target == "far" then
             p[i].points = dist(self.x, self.y, p[i].player.x, p[i].player.y)
-        elseif how == "weak" then
+        elseif target == "weak" then
             if p[i].player.hp > 0 and not p[i].player.isDisabled  then
                 p[i].points = -p[i].player.hp + love.math.random()
             else
                 p[i].points = -1000
             end
-        elseif how == "healthy" then
+        elseif target == "healthy" then
             if p[i].player.hp > 0 and not p[i].player.isDisabled then
                 p[i].points = p[i].player.hp + love.math.random()
             else
                 p[i].points = love.math.random()
             end
-        elseif how == "slow" then
+        elseif target == "slow" then
             p[i].points = -p[i].player.walkSpeed_x + love.math.random()
-        elseif how == "fast" then
+        elseif target == "fast" then
             p[i].points = p[i].player.walkSpeed_x + love.math.random()
         else -- "random"
             if not p[i].player.isDisabled then
