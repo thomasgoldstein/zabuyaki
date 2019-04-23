@@ -147,6 +147,10 @@ function StageObject:onHurt()
     self.isHurt = nil --free hurt data
 end
 
+function StageObject:onAttacker(h)
+    Character.onAttacker(self, h)
+end
+
 function StageObject:standStart()
     self.isHittable = true
     self.victims = {}

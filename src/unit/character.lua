@@ -167,6 +167,14 @@ function Character:onHurt()
     self.isHurt = nil --free hurt data
 end
 
+function Character:onAttacker(h)
+    dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
+    self:updateAttackersLifeBar(h)
+    -- Score
+    h.source:addScore( h.damage * 10 )
+    self.killerId = h.source
+end
+
 function Character:onHurtDamage()
     local h = self.isHurt
     if not h then
@@ -176,11 +184,7 @@ function Character:onHurtDamage()
         h.source.victims[self] = true
     end
     self:releaseGrabbed()
-    dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
-    self:updateAttackersLifeBar(h)
-    -- Score
-    h.source:addScore( h.damage * 10 )
-    self.killerId = h.source
+    self:onAttacker(h)
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
 
     self:decreaseHp(h.damage)

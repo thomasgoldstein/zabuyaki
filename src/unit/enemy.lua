@@ -95,6 +95,14 @@ function Enemy:onFriendlyAttack()
     end
 end
 
+function Enemy:onAttacker(h)
+    dp(self.type .. " was attacked by " .. h.source.name )
+    if self.AI:onHurt(h.source) then
+        dp("  \\ SWITCHED to new target " .. h.source.name )
+    end
+    Character.onAttacker(self, h)
+end
+
 function Enemy:decreaseHp(damage)
     self.hp = self.hp - damage
     if self.hp <= 0 then
