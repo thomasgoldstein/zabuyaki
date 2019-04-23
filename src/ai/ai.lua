@@ -17,6 +17,7 @@ function AI:initialize(unit, speedReaction)
     self.waitChance = speedReaction.waitChance or 0.2 -- 1 == 100%, 0 == 0%
     self.jumpAttackChance = speedReaction.jumpAttackChance or 0.2 -- 1 == 100%, 0 == 0%
     self.grabChance = speedReaction.grabChance or 0.5 -- 1 == 100%, 0 == 0%
+    self.switchTargetToAttackerChance = speedReaction.switchTargetToAttackerChance or 0.25 -- 1 == 100%, 0 == 0%
 
     self.conditions = {}
     self.thinkInterval = 0
@@ -804,6 +805,13 @@ end
 
 function AI:onStop()
     return false
+end
+
+function AI:onHurt(attacker)
+    local u = self.unit
+    if attacker and love.math.random() < self.switchTargetToAttackerChance then
+        return u:pickAttackTarget(attacker)
+    end
 end
 
 return AI
