@@ -12,7 +12,7 @@ function AI:initialize(unit, speedReaction)
     end
     self.thinkIntervalMin = speedReaction.thinkIntervalMin or 0.01
     self.thinkIntervalMax = speedReaction.thinkIntervalMax or 0.25
-    self.hesitateMin = speedReaction.hesitateMin or 0.1
+    self.hesitateMin = speedReaction.hesitateMin or 0.1 -- hesitation delay before combo
     self.hesitateMax = speedReaction.hesitateMax or 0.3
     self.waitChance = speedReaction.waitChance or 0.2 -- 1 == 100%, 0 == 0%
     self.jumpAttackChance = speedReaction.jumpAttackChance or 0.2 -- 1 == 100%, 0 == 0%
