@@ -15,6 +15,8 @@ function AI:initialize(unit, speedReaction)
     self.hesitateMin = speedReaction.hesitateMin or 0.1 -- hesitation delay before combo
     self.hesitateMax = speedReaction.hesitateMax or 0.3
     self.waitChance = speedReaction.waitChance or 0.2 -- 1 == 100%, 0 == 0%
+    self.waitMin = speedReaction.waitMin or 1 -- minimal delay for the waiting ai pattern
+    self.waitMax = speedReaction.waitMax or 3
     self.jumpAttackChance = speedReaction.jumpAttackChance or 0.2 -- 1 == 100%, 0 == 0%
     self.grabChance = speedReaction.grabChance or 0.5 -- 1 == 100%, 0 == 0%
     self.switchTargetToAttackerChance = speedReaction.switchTargetToAttackerChance or 0.25 -- 1 == 100%, 0 == 0%
@@ -285,7 +287,7 @@ function AI:initWait()
 --    dp("AI:initWait() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        self.waitingCounter = love.math.random() * (self.hesitateMax - self.hesitateMin) + self.hesitateMin
+        self.waitingCounter = love.math.random() * (self.waitMax - self.waitMin) + self.waitMin
         u.speed_x = u.runSpeed
         u.speed_y = 0
         return true
