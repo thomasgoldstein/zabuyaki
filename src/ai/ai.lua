@@ -49,7 +49,7 @@ function AI:initialize(unit, speedReaction)
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
     self.SCHEDULE_GET_TO_BACK = Schedule:new({ self.initGetToBack, self.onGetToBack },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
-    self.SCHEDULE_BACKOFF = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
+    self.SCHEDULE_STEP_BACK = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
         { "cannotAct", "inAir", "noTarget" }, unit.name)
     self.SCHEDULE_RUN = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove },
         { "cannotAct", "noTarget", "cannotAct", "inAir" }, unit.name)

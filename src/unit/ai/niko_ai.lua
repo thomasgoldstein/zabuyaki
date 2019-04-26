@@ -54,7 +54,7 @@ function eAI:selectNewSchedule(conditions)
         end
         if conditions.canCombo then
             if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
-                self.currentSchedule = self.SCHEDULE_BACKOFF
+                self.currentSchedule = self.SCHEDULE_STEP_BACK
                 return
             end
             self.currentSchedule = self.SCHEDULE_COMBO
@@ -64,12 +64,12 @@ function eAI:selectNewSchedule(conditions)
             if love.math.random() < self.grabChance then
                 self.currentSchedule = self.SCHEDULE_GRAB
             else
-                self.currentSchedule = self.SCHEDULE_BACKOFF
+                self.currentSchedule = self.SCHEDULE_STEP_BACK
             end
             return
         end
         if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
-            self.currentSchedule = self.SCHEDULE_BACKOFF
+            self.currentSchedule = self.SCHEDULE_STEP_BACK
             return
         end
         if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then

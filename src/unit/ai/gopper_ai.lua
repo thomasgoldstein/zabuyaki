@@ -48,14 +48,14 @@ function eAI:selectNewSchedule(conditions)
         if conditions.canCombo then
             --if conditions.canMove and conditions.tooCloseToPlayer then
                     --and love.math.random() < 0.5 then --and love.math.random() < 0.5
-                --self.currentSchedule = self.SCHEDULE_BACKOFF
+                --self.currentSchedule = self.SCHEDULE_STEP_BACK
                 --return
             --end
             self.currentSchedule = self.SCHEDULE_COMBO
             return
         end
         --if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
-        --    self.currentSchedule = self.SCHEDULE_BACKOFF
+        --    self.currentSchedule = self.SCHEDULE_STEP_BACK
         --    return
         --end
         if conditions.faceNotToPlayer then
