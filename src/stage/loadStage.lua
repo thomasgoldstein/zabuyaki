@@ -55,9 +55,9 @@ local function applyBatchUnitProperties(v, batchUnit)
     batchUnit.state = v.properties.state
     batchUnit.animation = v.properties.animation
     batchUnit.target = v.properties.target
-    batchUnit.unit.wakingDelay = tonumber(v.properties.wakingDelay or batchUnit.unit.wakingDelay)
-    batchUnit.unit.wakingRange = tonumber(v.properties.wakingRange or batchUnit.unit.wakingRange)
-    batchUnit.unit.delayedWakingRange = tonumber(v.properties.delayedWakingRange or batchUnit.unit.delayedWakingRange)
+    batchUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay or batchUnit.unit.wakeDelay)
+    batchUnit.unit.wakeRange = tonumber(v.properties.wakeRange or batchUnit.unit.wakeRange)
+    batchUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange or batchUnit.unit.delayedWakeRange)
     if v.properties.flip then
         batchUnit.horizontal = -1
         batchUnit.face = -1

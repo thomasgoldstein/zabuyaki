@@ -17,9 +17,9 @@ function Enemy:initialize(name, sprite, x, y, f, input)
     self.maxAiPoll_3 = 11
     self.AiPoll_3 = self.maxAiPoll_3
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
-    self.wakingRange = 100 -- make enemy active if distance to player is less
-    self.wakingDelay = 3
-    self.delayedWakingRange = 150 -- make enemy active if the wakingDelay is over and the distance to player is less
+    self.wakeRange = 100 -- make enemy active if distance to player is less
+    self.wakeDelay = 3
+    self.delayedWakeRange = 150 -- make enemy active if the wakeDelay is over and the distance to player is less
 end
 
 function Enemy:postInitialize()

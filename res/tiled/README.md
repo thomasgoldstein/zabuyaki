@@ -150,9 +150,9 @@ Optional properties:
 * animation <- any sprite animation name that should override defaults.
 * target <- select a player to attack first ("close", "far", "weak", "healthy", "slow" or "fast").
 * palette <- select unit's coloring number (shaders). 1 - default.
-* wakingRange <- distance in pixels to the closest player to wake up from the 'intro' state (100px by default).  
-* delayedWakingRange <- the 2nd distance in pixels to the closest player to wake up from the 'intro' state (150px by default).
-* wakingDelay <- unit starts acting if the delay is over and a player is within 'delayedWakingRange'.
+* wakeRange <- distance in pixels to the closest player to wake from the 'intro' state (100px by default).  
+* delayedWakeRange <- the 2nd distance in pixels to the closest player to wake from the 'intro' state (150px by default).
+* wakeDelay <- unit starts acting if the delay is over and a player is within 'delayedWakeRange'.
 * flip <- turn units face to the left  
 * drop <- which loot to drop. It can be one **apple**, **chicken** or **beef**
 
