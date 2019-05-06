@@ -729,7 +729,8 @@ return {
         },
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
-            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 15, ry = -31 }, --fall 1 (rotated -90°)
+            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 15, ry = -31, delay = 0.4 }, --fall 1 (rotated -90°)
+            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
             delay = 5
         },
     }
