@@ -977,14 +977,8 @@ function Character:fallStart()
 end
 function Character:fallUpdate(dt)
     self:calcFreeFall(dt)
-    if self.speed_z < 0 then
-        if self.z < self:getMinZ() + self.toFallenAnim_z / 4 then
-            self:setSpriteIfNotCurrent("fallen")
-        elseif self.isThrown and self.z < self:getMinZ() + self.toFallenAnim_z then
-            self:setSpriteIfNotCurrent("fallBounce")
-        end
-    end
     if self.isThrown and self.speed_z < 0 and self.z < self:getMinZ() + self.toFallenAnim_z then
+		self:setSpriteIfNotCurrent("fallBounce")
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
             self.canRecover = true
         end
