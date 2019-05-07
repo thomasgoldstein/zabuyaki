@@ -128,7 +128,7 @@ end
 
 function Character:isImmune()   --Immune to the attack?
     local h = self.isHurt
-    if h.type == "shockWave" and ( self.isDisabled or self.sprite.curAnim == "fallen" ) then
+    if h.type == "shockWave" and ( self.isDisabled or self.sprite.curAnim == "fallenDead" ) then
         -- shockWave has no effect on players & stage objects
         self.isHurt = nil --free hurt data
         return true
