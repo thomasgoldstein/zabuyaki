@@ -184,10 +184,6 @@ return {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
             delay = 65
         },
-        fallen = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = 65
-        },
         fallenDead = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
             delay = 65

@@ -158,10 +158,6 @@ return {
             { q = q(79,288,96,33), ox = 70, oy = 29 }, --fallen
             delay = 65
         },
-        fallen = {
-            { q = q(79,288,96,33), ox = 70, oy = 29 }, --fallen
-            delay = 65
-        },
         fallenDead = {
             { q = q(79,288,96,33), ox = 70, oy = 29 }, --fallen
             delay = 65
