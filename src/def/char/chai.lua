@@ -434,7 +434,7 @@ return {
         },
         dashAttack = {
             { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
-            { q = q(2,722,39,65), ox = 22, oy = 64, funcCont = dashAttack1, delay = 0.03 }, --jump attack forward 1 (shifted left by 4px)
+            { q = q(2,722,39,65), ox = 22, oy = 64, func = function(slf) slf.speed_z = slf.jumpSpeed_z * slf.jumpSpeedMultiplier end, funcCont = dashAttack1, delay = 0.03 }, --jump attack forward 1 (shifted left by 4px)
             { q = q(2,858,37,65), ox = 22, oy = 64, funcCont = dashAttack2 }, --dash attack 1
             { q = q(42,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2
             { q = q(42,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2

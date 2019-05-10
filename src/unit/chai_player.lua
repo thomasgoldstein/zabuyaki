@@ -68,7 +68,7 @@ function Chai:dashAttackStart()
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
     self.speed_x = self.dashSpeed_x * self.jumpSpeedMultiplier
-    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
+    self.speed_z = 0
     self.z = self:getMinZ() + 0.1
     self:playSfx(self.sfx.dashAttack)
     self:showEffect("jumpStart")
@@ -79,21 +79,23 @@ function Chai:dashAttackUpdate(dt)
         self:setState(self.fall)
         return
     end
-    if self:canFall() then
-        self:calcFreeFall(dt)
-        if self.speed_z > 0 then
-            if self.speed_x > 0 then
-                self.speed_x = self.speed_x - (self.dashSpeed_x * dt * 2.3)
-            else
-                self.speed_x = 0
+    if self.sprite.curFrame > 1 then    -- work after "duck" frame
+        if self:canFall() then
+            self:calcFreeFall(dt)
+            if self.speed_z > 0 then
+                if self.speed_x > 0 then
+                    self.speed_x = self.speed_x - (self.dashSpeed_x * dt * 2.3)
+                else
+                    self.speed_x = 0
+                end
             end
+        else
+            self.speed_z = 0
+            self.z = self:getMinZ()
+            self:playSfx(self.sfx.step)
+            self:setState(self.duck)
+            return
         end
-    else
-        self.speed_z = 0
-        self.z = self:getMinZ()
-        self:playSfx(self.sfx.step)
-        self:setState(self.duck)
-        return
     end
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
