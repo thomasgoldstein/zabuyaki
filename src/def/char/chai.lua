@@ -16,11 +16,11 @@ local jumpAttackForward = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 25, width = 35, height = 50, damage = 7 },
+    { x = 27, y = 25, width = 35, height = 50, damage = 7 },
     cont
 ) end
 local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 25, width = 35, height = 50, damage = 8, type = "knockDown" },
+    { x = 27, y = 25, width = 35, height = 50, damage = 8, type = "knockDown" },
     cont
 ) end
 local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
@@ -81,15 +81,15 @@ local comboAttack4 = function(slf, cont)
         cont
     )
 end
-local comboAttack4Forward = function(slf, cont)
-    slf:checkAndAttack(
-        { x = 25, y = 18, width = 39, damage = 14, type = "knockDown", repel_x = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
-        cont
-    )
-end
 local comboAttack4NoSfx = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, y = 37, width = 30, damage = 14, type = "knockDown" },
+        cont
+    )
+end
+local comboAttack4Forward = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 27, y = 18, width = 39, damage = 14, type = "knockDown", repel_x = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -107,7 +107,7 @@ local dashAttack3 = function(slf, cont) slf:checkAndAttack(
 ) end
 local chargeDashAttackCheck = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 18, width = 39, height = 45, type = "check",
+        { x = 27, y = 18, width = 39, height = 45, type = "check",
             onHit = function(slf) slf.speed_x = slf.dashSpeed_x * 0.7 end,
             followUpAnimation = "chargeDashAttack2"
         },
@@ -115,11 +115,11 @@ local chargeDashAttackCheck = function(slf, cont)
     )
 end
 local chargeDashAttack = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 18, width = 39, height = 45, damage = 7, repel_x = slf.fallSpeed_x * 1.4},
+    { x = 27, y = 18, width = 39, height = 45, damage = 7, repel_x = slf.fallSpeed_x * 1.4},
     cont
 ) end
 local chargeDashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 25, y = 18, width = 39, height = 45, damage = 10, type = "knockDown" },
+    { x = 27, y = 18, width = 39, height = 45, damage = 10, type = "knockDown" },
     cont
 ) end
 local specialDefensiveMiddle = function(slf, cont) slf:checkAndAttack(
@@ -287,59 +287,59 @@ return {
             delay = 0.1
         },
         duck = {
-            { q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
             delay = 0.06
         },
         sideStepUp = {
-            { q = q(133,789,44,63), ox = 23, oy = 62 }, --side step up
+            { q = q(133,789,44,63), ox = 22, oy = 62 }, --side step up
         },
         sideStepDown = {
-            { q = q(179,789,45,64), ox = 26, oy = 63 }, --side step down
+            { q = q(179,789,45,64), ox = 24, oy = 63 }, --side step down
         },
         jump = {
-            { q = q(43,266,39,67), ox = 26, oy = 65, delay = 0.15 }, --jump up
-            { q = q(84,266,42,65), ox = 24, oy = 66 }, --jump up/top
-            { q = q(128,266,44,62), ox = 23, oy = 65, delay = 0.16 }, --jump top
-            { q = q(174,266,40,65), ox = 22, oy = 66 }, --jump down/top
-            { q = q(207,335,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
+            { q = q(43,266,39,67), ox = 24, oy = 65, delay = 0.15 }, --jump up
+            { q = q(84,266,42,65), ox = 22, oy = 66 }, --jump up/top
+            { q = q(128,266,44,62), ox = 21, oy = 65, delay = 0.16 }, --jump top
+            { q = q(174,266,40,65), ox = 20, oy = 66 }, --jump down/top
+            { q = q(207,335,36,68), ox = 21, oy = 66, delay = 5 }, --jump down
             delay = 0.05
         },
         jumpAttackStraight = {
-            { q = q(2,789,42,67), ox = 26, oy = 66 }, --jump attack straight 1
-            { q = q(46,789,41,63), ox = 22, oy = 66, delay = 0.05 }, --jump attack straight 2
-            { q = q(89,789,42,61), ox = 22, oy = 66, funcCont = jumpAttackStraight, delay = 5 }, --jump attack straight 3
+            { q = q(2,789,42,67), ox = 24, oy = 66 }, --jump attack straight 1
+            { q = q(46,789,41,63), ox = 20, oy = 66, delay = 0.05 }, --jump attack straight 2
+            { q = q(89,789,42,61), ox = 20, oy = 66, funcCont = jumpAttackStraight, delay = 5 }, --jump attack straight 3
             delay = 0.1
         },
         jumpAttackForward = {
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-            { q = q(43,722,37,64), ox = 12, oy = 66 }, --jump attack forward 2
+            { q = q(43,722,37,64), ox = 14, oy = 66 }, --jump attack forward 2
             { q = q(82,722,69,64), ox = 24, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 3
             delay = 0.03
         },
         jumpAttackForwardEnd = {
-            { q = q(43,722,37,64), ox = 12, oy = 66, delay = 0.03 }, --jump attack forward 2
+            { q = q(43,722,37,64), ox = 14, oy = 66, delay = 0.03 }, --jump attack forward 2
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
             delay = 5
         },
         jumpAttackRun = {
-            { q = q(2,993,48,66), ox = 22, oy = 66 }, --jump attack run 1
-            { q = q(2,993,48,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack run 1
-            { q = q(52,993,61,66), ox = 22, oy = 66 }, --jump attack run 2
-            { q = q(52,993,61,66), ox = 22, oy = 66, func = jumpAttackRun }, --jump attack run 2
-            { q = q(52,993,61,66), ox = 22, oy = 66 }, --jump attack run 2
-            { q = q(115,993,55,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack run 3
-            { q = q(115,993,55,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack run 3
-            { q = q(115,993,55,66), ox = 20, oy = 66, func = jumpAttackRunLast }, --jump attack run 3
-            { q = q(172,993,41,67), ox = 23, oy = 66, delay = 5 }, --jump attack run 4
+            { q = q(2,993,48,66), ox = 21, oy = 66 }, --jump attack run 1
+            { q = q(2,993,48,66), ox = 21, oy = 66, func = jumpAttackRun }, --jump attack run 1
+            { q = q(52,993,61,66), ox = 20, oy = 66 }, --jump attack run 2
+            { q = q(52,993,61,66), ox = 20, oy = 66, func = jumpAttackRun }, --jump attack run 2
+            { q = q(52,993,61,66), ox = 20, oy = 66 }, --jump attack run 2
+            { q = q(115,993,55,66), ox = 18, oy = 66, func = jumpAttackRunLast }, --jump attack run 3
+            { q = q(115,993,55,66), ox = 18, oy = 66, func = jumpAttackRunLast }, --jump attack run 3
+            { q = q(115,993,55,66), ox = 18, oy = 66, func = jumpAttackRunLast }, --jump attack run 3
+            { q = q(172,993,41,67), ox = 20, oy = 66, delay = 5 }, --jump attack run 4
             delay = 0.02
         },
         jumpAttackRunEnd = {
-            { q = q(172,993,41,67), ox = 23, oy = 66 }, --jump attack run 4
+            { q = q(172,993,41,67), ox = 20, oy = 66 }, --jump attack run 4
             delay = 5
         },
         jumpAttackLight = {
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-            { q = q(43,722,37,64), ox = 12, oy = 66, funcCont = jumpAttackLight, delay = 5 }, --jump attack forward 2
+            { q = q(43,722,37,64), ox = 14, oy = 66, funcCont = jumpAttackLight, delay = 5 }, --jump attack forward 2
             delay = 0.03
         },
         jumpAttackLightEnd = {
@@ -347,13 +347,13 @@ return {
             delay = 5
         },
         dropDown = {
-            { q = q(128,266,44,62), ox = 23, oy = 65, delay = 0.16 }, --jump top
-            { q = q(174,266,40,65), ox = 22, oy = 66 }, --jump down/top
-            { q = q(207,335,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
+            { q = q(128,266,44,62), ox = 21, oy = 65, delay = 0.16 }, --jump top
+            { q = q(174,266,40,65), ox = 20, oy = 66 }, --jump down/top
+            { q = q(207,335,36,68), ox = 21, oy = 66, delay = 5 }, --jump down
             delay = 0.05
         },
         respawn = {
-            { q = q(207,335,36,68), ox = 23, oy = 66, delay = 5 }, --jump down
+            { q = q(207,335,36,68), ox = 21, oy = 66, delay = 5 }, --jump down
             { q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.5 }, --pick up 2
             { q = q(2,401,39,61), ox = 23, oy = 60 }, --pick up 1
             delay = 0.1
@@ -424,24 +424,24 @@ return {
             { q = q(2,1341,46,57), ox = 28, oy = 56 }, --special defensive 1
             { q = q(50,1343,42,55), ox = 33, oy = 54, func = comboSlide4 }, --special defensive 2
             { q = q(141,138,39,60), ox = 22, oy = 59 }, --charge dash attack 1
-            { q = q(182,134,43,64), ox = 20, oy = 63 }, --charge dash attack 2
-            { q = q(2,1587,67,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3
-            { q = q(2,1587,67,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3
-            { q = q(2,1587,67,65), ox = 23, oy = 64, funcCont = comboAttack4Forward, delay = 0.05 }, --charge dash attack 3
-            { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted left by 4px)
+            { q = q(182,134,43,64), ox = 19, oy = 63 }, --charge dash attack 2
+            { q = q(2,1587,67,65), ox = 21, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3
+            { q = q(2,1587,67,65), ox = 21, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3
+            { q = q(2,1587,67,65), ox = 21, oy = 64, funcCont = comboAttack4Forward, delay = 0.05 }, --charge dash attack 3
+            { q = q(43,722,37,64), ox = 14, oy = 66, delay = 0.05 }, --jump attack forward 2
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
             delay = 0.03
         },
         dashAttack = {
-            { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
-            { q = q(2,722,39,65), ox = 22, oy = 64, func = function(slf) slf.speed_z = slf.jumpSpeed_z * slf.jumpSpeedMultiplier end, funcCont = dashAttack1, delay = 0.03 }, --jump attack forward 1 (shifted left by 4px)
-            { q = q(2,858,37,65), ox = 22, oy = 64, funcCont = dashAttack2 }, --dash attack 1
-            { q = q(42,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2
-            { q = q(42,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2
-            { q = q(42,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2
-            { q = q(42,858,45,68), ox = 26, oy = 65, funcCont = dashAttack3 }, --dash attack 2
-            { q = q(42,858,45,68), ox = 26, oy = 65, delay = 0.04 }, --dash attack 2
-            { q = q(2,858,37,65), ox = 22, oy = 64, delay = 5 }, --dash attack 1
+            { q = q(2,273,39,60), ox = 18, oy = 59, delay = 0.06 }, --duck
+            { q = q(2,722,39,65), ox = 18, oy = 64, func = function(slf) slf.speed_z = slf.jumpSpeed_z * slf.jumpSpeedMultiplier end, funcCont = dashAttack1, delay = 0.03 }, --jump attack forward 1
+            { q = q(2,858,37,65), ox = 18, oy = 64, funcCont = dashAttack2 }, --dash attack 1
+            { q = q(42,858,45,68), ox = 22, oy = 65, funcCont = dashAttack3 }, --dash attack 2
+            { q = q(42,858,45,68), ox = 22, oy = 65, funcCont = dashAttack3 }, --dash attack 2
+            { q = q(42,858,45,68), ox = 22, oy = 65, funcCont = dashAttack3 }, --dash attack 2
+            { q = q(42,858,45,68), ox = 22, oy = 65, funcCont = dashAttack3 }, --dash attack 2
+            { q = q(42,858,45,68), ox = 22, oy = 65, delay = 0.04 }, --dash attack 2
+            { q = q(2,858,37,65), ox = 18, oy = 64, delay = 5 }, --dash attack 1
             delay = 0.06
         },
         chargeStand = {
@@ -474,30 +474,30 @@ return {
             delay = 0.03
         },
         chargeDash = {
-            { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.06 }, --duck
-            { q = q(175,1655,48,63), ox = 20, oy = 63 }, --charge dash
+            { q = q(2,273,39,60), ox = 18, oy = 59, delay = 0.06 }, --duck
+            { q = q(175,1655,48,63), ox = 19, oy = 63 }, --charge dash
         },
         chargeDashAttack = {
             { q = q(2,1341,46,57), ox = 28, oy = 56 }, --special defensive 1
             { q = q(50,1343,42,55), ox = 33, oy = 54 }, --special defensive 2
             { q = q(141,138,39,60), ox = 22, oy = 59 }, --charge dash attack 1
-            { q = q(182,134,43,64), ox = 20, oy = 63 }, --charge dash attack 2
-            { q = q(2,1587,67,65), ox = 23, oy = 64, funcCont = chargeDashAttackCheck, delay = 0.06 }, --charge dash attack 3
-            { q = q(2,1587,67,65), ox = 23, oy = 64, funcCont = chargeDashAttackCheck, delay = 0.06 }, --charge dash attack 3
-            { q = q(2,1587,67,65), ox = 23, oy = 64, funcCont = chargeDashAttackCheck, delay = 0.06 }, --charge dash attack 3
-            { q = q(43,722,37,64), ox = 16, oy = 66, delay = 0.05 }, --jump attack forward 2 (shifted left by 4px)
+            { q = q(182,134,43,64), ox = 19, oy = 63 }, --charge dash attack 2
+            { q = q(2,1587,67,65), ox = 21, oy = 64, funcCont = chargeDashAttackCheck, delay = 0.06 }, --charge dash attack 3
+            { q = q(2,1587,67,65), ox = 21, oy = 64, funcCont = chargeDashAttackCheck, delay = 0.06 }, --charge dash attack 3
+            { q = q(2,1587,67,65), ox = 21, oy = 64, funcCont = chargeDashAttackCheck, delay = 0.06 }, --charge dash attack 3
+            { q = q(43,722,37,64), ox = 14, oy = 66, delay = 0.05 }, --jump attack forward 2
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
             delay = 0.03
         },
         chargeDashAttack2 = {
-            { q = q(2,1587,67,65), ox = 23, oy = 64, hover = true, funcCont = chargeDashAttack, delay = 0.06 }, --charge dash attack 3
-            { q = q(2,1587,67,65), ox = 23, oy = 64, hover = true, func = function(slf) slf.speed_x = slf.walkSpeed_x * 0.7; slf.speed_z = 0; slf.victims = {} end, delay = 0.02 }, --charge dash attack 3
-            { q = q(43,722,37,64), ox = 16, oy = 66, hover = true, }, --jump attack forward 2 (shifted left by 4px)
+            { q = q(2,1587,67,65), ox = 21, oy = 64, hover = true, funcCont = chargeDashAttack, delay = 0.06 }, --charge dash attack 3
+            { q = q(2,1587,67,65), ox = 21, oy = 64, hover = true, func = function(slf) slf.speed_x = slf.walkSpeed_x * 0.7; slf.speed_z = 0; slf.victims = {} end, delay = 0.02 }, --charge dash attack 3
+            { q = q(43,722,37,64), ox = 14, oy = 66, hover = true, }, --jump attack forward 2
             { q = q(2,722,39,65), ox = 18, oy = 66, hover = true }, --jump attack forward 1
-            { q = q(101,1462,40,62), ox = 23, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted up by 2px)
-            { q = q(84,403,69,59), ox = 28, oy = 58, hover = true, funcCont = chargeDashAttack2, delay = 0.18 }, --charge dash attack 4
-            { q = q(84,403,69,59), ox = 28, oy = 58, funcCont = chargeDashAttack2, delay = 0.04 }, --charge dash attack 4
-            { q = q(101,1462,40,62), ox = 23, oy = 66, func = function(slf) slf.speed_x = slf.dashSpeed_x * 0.7 end, delay = 5 }, --special defensive 12 (shifted up by 2px)
+            { q = q(101,1462,40,62), ox = 21, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted up by 2px)
+            { q = q(84,403,69,59), ox = 26, oy = 58, hover = true, funcCont = chargeDashAttack2, delay = 0.18 }, --charge dash attack 4
+            { q = q(84,403,69,59), ox = 26, oy = 58, funcCont = chargeDashAttack2, delay = 0.04 }, --charge dash attack 4
+            { q = q(101,1462,40,62), ox = 21, oy = 66, func = function(slf) slf.speed_x = slf.dashSpeed_x * 0.7 end, delay = 5 }, --special defensive 12 (shifted up by 2px)
             delay = 0.03
         },
         specialDefensive = {
@@ -512,7 +512,7 @@ return {
             { q = q(183,1400,45,60), ox = 26, oy = 65, funcCont = specialDefensiveMiddle }, --special defensive 9
             { q = q(2,1462,51,60), ox = 36, oy = 65, funcCont = specialDefensiveLeft, func = function(slf) slf.jumpType = 2 end }, --special defensive 10
             { q = q(55,1462,44,62), ox = 26, oy = 65, funcCont = specialDefensiveLeft }, --special defensive 11
-            { q = q(101,1462,40,62), ox = 23, oy = 64, funcCont = specialDefensiveMiddle }, --special defensive 12
+            { q = q(101,1462,40,62), ox = 21, oy = 64, funcCont = specialDefensiveMiddle }, --special defensive 12
             delay = 0.04
         },
         specialOffensive = {
@@ -551,10 +551,10 @@ return {
             delay = 0.05
         },
         specialDash = {
-            { q = q(43,266,39,67), ox = 26, oy = 65 }, --jump up
-            { q = q(84,266,42,65), ox = 24, oy = 66 }, --jump up/top
-            { q = q(128,266,44,62), ox = 23, oy = 65 }, --jump top
-            { q = q(101,1462,40,62), ox = 23, oy = 67 }, --special defensive 12 (shifted up by 3px)
+            { q = q(43,266,39,67), ox = 24, oy = 65 }, --jump up
+            { q = q(84,266,42,65), ox = 22, oy = 66 }, --jump up/top
+            { q = q(128,266,44,62), ox = 21, oy = 65 }, --jump top
+            { q = q(101,1462,40,62), ox = 21, oy = 67 }, --special defensive 12 (shifted up by 3px)
             { q = q(2,1786,71,59), ox = 26, oy = 65, funcCont = specialDashCheck }, --special dash 1a
             { q = q(75,1786,71,59), ox = 26, oy = 65, funcCont = specialDashCheck }, --special dash 1b
             { q = q(148,1786,71,59), ox = 26, oy = 65, funcCont = specialDashCheck }, --special dash 1c
@@ -576,8 +576,8 @@ return {
             { q = q(183,1400,45,60), ox = 26, oy = 65, funcCont = specialDash2Middle }, --special defensive 9
             { q = q(2,1462,51,60), ox = 36, oy = 65, funcCont = specialDash2Left }, --special defensive 10
             { q = q(55,1462,44,62), ox = 26, oy = 65, funcCont = specialDash2Left }, --special defensive 11
-            { q = q(101,1462,40,62), ox = 23, oy = 64, funcCont = specialDash2Middle }, --special defensive 12
-            { q = q(101,1462,40,62), ox = 23, oy = 64 }, --special defensive 12
+            { q = q(101,1462,40,62), ox = 21, oy = 64, funcCont = specialDash2Middle }, --special defensive 12
+            { q = q(101,1462,40,62), ox = 21, oy = 64 }, --special defensive 12
             delay = 0.05
         },
         grab = {
@@ -603,7 +603,7 @@ return {
         grabFrontAttack3 = {
             { q = q(49,1654,41,64), ox = 23, oy = 63 }, --grab attack 1.1
             { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.02 }, --jump attack forward 1 (shifted right by 3px)
-            { q = q(43,722,37,64), ox = 9, oy = 63, func = grabFrontAttackLast, delay = 0.18 }, --jump attack forward 2 (shifted right by 3px)
+            { q = q(43,722,37,64), ox = 9, oy = 63, func = grabFrontAttackLast, delay = 0.18 }, --jump attack forward 2 (shifted right by 5px)
             { q = q(2,722,39,65), ox = 15, oy = 64, delay = 0.05 }, --jump attack forward 1 (shifted right by 3px)
             delay = 0.03
         },
@@ -614,8 +614,8 @@ return {
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw 1.1
             { q = q(44,928,51,63), ox = 26, oy = 62, func = grabFrontAttackForward }, --throw 1.2
             { q = q(97,928,53,63), ox = 22, oy = 62 }, --throw 1.3
-            { q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
-            { q = q(2,273,39,60), ox = 22, oy = 59 }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
             delay = 0.07,
             isThrow = true,
             moves = {
@@ -633,8 +633,8 @@ return {
             { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw back 1
             { q = q(44,928,51,63), ox = 26, oy = 62, func = grabFrontAttackBack }, --throw back 2
             { q = q(97,928,53,63), ox = 22, oy = 62, delay = 0.2 }, --throw back 3
-            { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.07 }, --duck
-            { q = q(2,273,39,60), ox = 22, oy = 59, delay = 0.07 }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
             delay = 0.07,
             isThrow = true,
             moves = {

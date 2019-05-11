@@ -47,30 +47,30 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 1
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 2
-            { q = q(121,1587,41,23), ox = -6, oy = 34 }, --charge dash attack 3
-            { q = q(164,1587,29,19), ox = -17, oy = 33 }, --charge dash attack 3
+            { q = q(121,1587,41,23), ox = -8, oy = 34 }, --charge dash attack 3
+            { q = q(164,1587,29,19), ox = -19, oy = 33 }, --charge dash attack 3
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 3
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2 (shifted left by 4px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
         },
         jumpAttackRun = {
-            { q = q(2,1062,63,30), ox = 26, oy = 65 }, --jump attack run 1
-            { q = q(67,1062,57,33), ox = 16, oy = 64 }, --jump attack run 1
-            { q = q(126,1062,34,49), ox = -8, oy = 64 }, --jump attack run 2
-            { q = q(162,1062,22,55), ox = -21, oy = 64 }, --jump attack run 2
-            { q = q(186,1062,26,54), ox = -17, oy = 57 }, --jump attack run 2
-            { q = q(2,1120,31,43), ox = -12, oy = 45 }, --jump attack run 3
-            { q = q(35,1119,31,37), ox = -10, oy = 37 }, --jump attack run 3
-            { q = q(68,1119,30,31), ox = -9, oy = 31 }, --jump attack run 3
+            { q = q(2,1062,63,30), ox = 25, oy = 65 }, --jump attack run 1
+            { q = q(67,1062,57,33), ox = 15, oy = 64 }, --jump attack run 1
+            { q = q(126,1062,34,49), ox = -10, oy = 64 }, --jump attack run 2
+            { q = q(162,1062,22,55), ox = -23, oy = 64 }, --jump attack run 2
+            { q = q(186,1062,26,54), ox = -19, oy = 57 }, --jump attack run 2
+            { q = q(2,1120,31,43), ox = -14, oy = 45 }, --jump attack run 3
+            { q = q(35,1119,31,37), ox = -12, oy = 37 }, --jump attack run 3
+            { q = q(68,1119,30,31), ox = -11, oy = 31 }, --jump attack run 3
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack run 4
         },
         dashAttack = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --duck
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1 (shifted left by 4px)
-            { q = q(118,880,14,15), ox = -2, oy = 26 }, --dash attack 1
-            { q = q(89,858,27,36), ox = 4, oy = 33 }, --dash attack 2
-            { q = q(89,896,22,26), ox = 0, oy = 31 }, --dash attack 2
-            { q = q(118,858,17,20), ox = -4, oy = 30 }, --dash attack 2
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
+            { q = q(118,880,14,15), ox = -6, oy = 26 }, --dash attack 1
+            { q = q(89,858,27,36), ox = 0, oy = 33 }, --dash attack 2
+            { q = q(89,896,22,26), ox = -4, oy = 31 }, --dash attack 2
+            { q = q(118,858,17,20), ox = -8, oy = 30 }, --dash attack 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 1
@@ -91,16 +91,16 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 1
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 2
-            { q = q(71,1587,48,22), ox = 1, oy = 35 }, --charge dash attack 3
-            { q = q(121,1587,41,23), ox = -6, oy = 34 }, --charge dash attack 3
-            { q = q(164,1587,29,19), ox = -17, oy = 33 }, --charge dash attack 3
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2 (shifted left by 4px)
+            { q = q(71,1587,48,22), ox = -1, oy = 35 }, --charge dash attack 3
+            { q = q(121,1587,41,23), ox = -8, oy = 34 }, --charge dash attack 3
+            { q = q(164,1587,29,19), ox = -19, oy = 33 }, --charge dash attack 3
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
         },
         chargeDashAttack2 = {
-            { q = q(164,1587,29,19), ox = -17, oy = 33 }, --charge dash attack 3
+            { q = q(164,1587,29,19), ox = -19, oy = 33 }, --charge dash attack 3
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 3
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2 (shifted left by 4px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted up by 2px)
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 4
@@ -119,7 +119,7 @@ return {
             { q = q(50,1526,66,39), ox = 28, oy = 57 }, --special defensive 9
             { q = q(118,1526,63,41), ox = 37, oy = 51 }, --special defensive 10
             { q = q(183,1526,27,39), ox = 36, oy = 42 }, --special defensive 11
-            { q = q(212,1526,30,41), ox = 30, oy = 40 }, --special defensive 12
+            { q = q(212,1526,30,41), ox = 28, oy = 40 }, --special defensive 12
         },
         specialOffensive2 = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 11
@@ -153,7 +153,7 @@ return {
             { q = q(50,1526,66,39), ox = 28, oy = 57 }, --special defensive 9
             { q = q(118,1526,63,41), ox = 37, oy = 51 }, --special defensive 10
             { q = q(183,1526,27,39), ox = 36, oy = 42 }, --special defensive 11
-            { q = q(212,1526,30,41), ox = 30, oy = 40 }, --special defensive 12
+            { q = q(212,1526,30,41), ox = 28, oy = 40 }, --special defensive 12
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (no fire effect)
         },
     }
