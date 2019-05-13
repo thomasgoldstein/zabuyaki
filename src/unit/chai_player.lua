@@ -67,7 +67,7 @@ function Chai:dashAttackStart()
     dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
-    self.speed_x = self.dashSpeed_x * self.jumpSpeedMultiplier
+    self.speed_x = 0
     self.speed_z = 0
     self.z = self:getMinZ() + 0.1
     self:playSfx(self.sfx.dashAttack)
