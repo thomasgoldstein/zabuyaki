@@ -21,6 +21,12 @@ function AI:initialize(unit, settings)
     self.grabChance = settings.grabChance or 0.5 -- 1 == 100%, 0 == 0%
     self.switchTargetToAttackerChance = settings.switchTargetToAttackerChance or 0.25 -- 1 == 100%, 0 == 0%
 
+    self.canDashMin = settings.canDashMin or 30 -- min horizontal dist in px to Dash
+    self.canDashMax = settings.canDashMax or 100 -- max horizontal dist in px to Dash
+    self.canJumpAttackMin = settings.canJumpAttackMin or 20 -- min horizontal dist in px to JumpAttack
+    self.canJumpAttackMax = settings.canJumpAttackMax or 70 -- max horizontal dist in px to JumpAttack
+    self.tooFarToTarget = settings.tooFarToTarget or 150 -- min dist to generate "tooFarToTarget" condition
+
     self.conditions = {}
     self.thinkInterval = 0
     self.hesitate = 0
@@ -118,7 +124,7 @@ function AI:getConditions()
         if u.isGrabbed then
             conditions[#conditions + 1] = "grabbed"
         end
-        if u.z > 0 then
+        if u.z > 0 then  --TODO on a panel?
             conditions[#conditions + 1] = "inAir"
         end
         conditions = self:getVisualConditions(conditions)
@@ -185,7 +191,7 @@ function AI:getVisualConditions(conditions)
                 end
             end
             t = dist(x, y, u.x, u.y)
-            if t < 100 and t >= 30
+            if t < self.canDashMax and t >= self.canDashMin
                     and math.floor(u.y / 4) == math.floor(y / 4) then
                 conditions[#conditions + 1] = "canDash"
             end
@@ -196,7 +202,7 @@ function AI:getVisualConditions(conditions)
                     and u.target.hp > 0 then
                 conditions[#conditions + 1] = "canCombo"
             end
-            if t < 70 and t >= 20
+            if t < self.canJumpAttackMax and t >= self.canJumpAttackMin
                     and math.floor(u.y / 4) == math.floor(y / 4) then
                 conditions[#conditions + 1] = "canJumpAttack"
             end
@@ -206,7 +212,7 @@ function AI:getVisualConditions(conditions)
             then
                 conditions[#conditions + 1] = "canGrab"
             end
-            if t > 150 then
+            if t > self.tooFarToTarget then
                 conditions[#conditions + 1] = "tooFarToTarget"
             end
         end
