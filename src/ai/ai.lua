@@ -5,21 +5,21 @@ local AI = class('AI')
 
 local dist = dist
 
-function AI:initialize(unit, speedReaction)
+function AI:initialize(unit, settings)
     self.unit = unit
-    if not speedReaction then
-        speedReaction = {}
+    if not settings then
+        settings = {}
     end
-    self.thinkIntervalMin = speedReaction.thinkIntervalMin or 0.01
-    self.thinkIntervalMax = speedReaction.thinkIntervalMax or 0.25
-    self.hesitateMin = speedReaction.hesitateMin or 0.1 -- hesitation delay before combo
-    self.hesitateMax = speedReaction.hesitateMax or 0.3
-    self.waitChance = speedReaction.waitChance or 0.2 -- 1 == 100%, 0 == 0%
-    self.waitMin = speedReaction.waitMin or 1 -- minimal delay for the waiting ai pattern
-    self.waitMax = speedReaction.waitMax or 3
-    self.jumpAttackChance = speedReaction.jumpAttackChance or 0.2 -- 1 == 100%, 0 == 0%
-    self.grabChance = speedReaction.grabChance or 0.5 -- 1 == 100%, 0 == 0%
-    self.switchTargetToAttackerChance = speedReaction.switchTargetToAttackerChance or 0.25 -- 1 == 100%, 0 == 0%
+    self.thinkIntervalMin = settings.thinkIntervalMin or 0.01
+    self.thinkIntervalMax = settings.thinkIntervalMax or 0.25
+    self.hesitateMin = settings.hesitateMin or 0.1 -- hesitation delay before combo
+    self.hesitateMax = settings.hesitateMax or 0.3
+    self.waitChance = settings.waitChance or 0.2 -- 1 == 100%, 0 == 0%
+    self.waitMin = settings.waitMin or 1 -- minimal delay for the waiting ai pattern
+    self.waitMax = settings.waitMax or 3
+    self.jumpAttackChance = settings.jumpAttackChance or 0.2 -- 1 == 100%, 0 == 0%
+    self.grabChance = settings.grabChance or 0.5 -- 1 == 100%, 0 == 0%
+    self.switchTargetToAttackerChance = settings.switchTargetToAttackerChance or 0.25 -- 1 == 100%, 0 == 0%
 
     self.conditions = {}
     self.thinkInterval = 0

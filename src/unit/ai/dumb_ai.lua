@@ -4,7 +4,7 @@
 local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
-local _speedReaction = {
+local _settings = {
     thinkIntervalMin = 1,
     thinkIntervalMax = 2,
     hesitateMin = 0.1,
@@ -12,8 +12,8 @@ local _speedReaction = {
     waitChance = 0.5
 }
 
-function eAI:initialize(unit, speedReaction)
-    AI.initialize(self, unit, speedReaction or _speedReaction)
+function eAI:initialize(unit, settings)
+    AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
 
 end

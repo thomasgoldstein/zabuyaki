@@ -4,7 +4,7 @@
 local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
-local _speedReaction = {
+local _settings = {
     thinkIntervalMin = 0.02,
     thinkIntervalMax = 0.25,
     hesitateMin = 0.1,
@@ -14,8 +14,8 @@ local _speedReaction = {
     grabChance = 0.5 -- 1 == 100%, 0 == 0%
 }
 
-function eAI:initialize(unit, speedReaction)
-    AI.initialize(self, unit, speedReaction or _speedReaction)
+function eAI:initialize(unit, settings)
+    AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
     self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack, self.waitUntilStand },
         { "cannotAct", "inAir", "grabbed", "noTarget", "noPlayers" },
