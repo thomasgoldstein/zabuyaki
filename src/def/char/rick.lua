@@ -718,14 +718,14 @@ return {
             { q = q(144,331,44,62), ox = 18, oy = 61 }, --hurt low 2
             { q = q(48,331,47,62), ox = 26, oy = 61 }, --hurt high 2
             { q = q(145,137,56,59), ox = 31, oy = 58 }, --fall 1
-            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 31, ry = -31 }, --fall 1 (rotated -90°)
+            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 31, ry = -29 }, --fall 1 (rotated -90°)
             { q = q(144,331,44,62), ox = 18, oy = 61, flipV = -1 }, --hurt low 2
             { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
             delay = 100
         },
         thrown = {
-            --rx = oy / 2, ry = -ox for this rotation
-            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 15, ry = -31, delay = 0.4 }, --fall 1 (rotated -90°)
+            --rx = ox / 2, ry = -oy / 2 for this rotation
+            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 15, ry = -29, delay = 0.4 }, --fall 1 (rotated -90°)
             { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
             delay = 5
         },
