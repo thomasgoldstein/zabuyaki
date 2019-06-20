@@ -256,7 +256,7 @@ return {
             { q = q(156,282,69,59), ox = 36, oy = 56 }, --get up
             { q = q(206,736,66,61), ox = 33, oy = 60 }, --pick up
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
-            delay = 0.2
+            delay = 0.15
         },
         grabbedFront = {
             { q = q(2,212,68,68), ox = 37, oy = 67 }, --grabbed front 1

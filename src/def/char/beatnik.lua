@@ -225,10 +225,10 @@ return {
             delay = 65
         },
         getUp = {
-            { q = q(78,230,74,52), ox = 40, oy = 44, delay = 0.2 }, --fallen
+            { q = q(78,230,74,52), ox = 40, oy = 44 }, --fallen
             { q = q(154,222,61,60), ox = 31, oy = 57 }, --get up
             { q = q(2,287,62,63), ox = 34, oy = 62 }, --duck
-            delay = 0.3
+            delay = 0.2
         },
         grabbedFront = {
             { q = q(2,140,62,67), ox = 36, oy = 66 }, --hurt high 1
