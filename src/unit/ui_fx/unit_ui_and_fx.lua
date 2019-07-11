@@ -84,7 +84,7 @@ end
 ---or else set it to defaultAnimation
 ---@param animation string Animation name
 ---@param defaultAnimation string The second animation name
----@return true if animation(first param) is set
+---@return boolean if animation(first param) is set
 function Unit:setSpriteIfExists(animation, defaultAnimation)
     if spriteHasAnimation(self.sprite, animation) then
         setSpriteAnimation(self.sprite, animation)
@@ -109,7 +109,7 @@ end
 
 ---Set animation of the sprite if not current
 ---@param animation string Animation name
----@return true if animation is set
+---@return boolean if animation is set
 function Unit:setSpriteIfNotCurrent(animation)
     if self.sprite.curAnim ~= animation then
         self:setSprite(animation)
