@@ -63,7 +63,7 @@ local function applyBatchUnitProperties(v, batchUnit)
         batchUnit.face = -1
     end
     if v.properties.drop then
-        batchUnit.func = Loot.getDropFuncByName(v.properties.drop)
+        batchUnit.unit.func = Loot.getDropFuncByName(v.properties.drop)
     end
     if v.properties.z then
         batchUnit.z = tonumber(v.properties.z)
