@@ -115,29 +115,29 @@ return {
         },
         jump = {
             { q = q(2,421,55,70), ox = 35, oy = 69 }, --jump
-            delay = 5
+            delay = math.huge
         },
         jumpAttackStraight = {
             { q = q(59,417,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = 5 }, --jump attack forward 2
+            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = math.huge }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackForward = {
             { q = q(59,417,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = 5 }, --jump attack forward 2
+            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = math.huge }, --jump attack forward 2
             delay = 0.12
         },
         jumpAttackRun = {
             { q = q(59,417,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = 5 }, --jump attack forward 2
+            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = math.huge }, --jump attack forward 2
             delay = 0.12
         },
         dropDown = {
             { q = q(2,421,55,70), ox = 35, oy = 69 }, --jump
-            delay = 5
+            delay = math.huge
         },
         respawn = {
-            { q = q(2,421,55,70), ox = 35, oy = 69, delay = 5 }, --jump
+            { q = q(2,421,55,70), ox = 35, oy = 69, delay = math.huge }, --jump
             { q = q(206,736,66,61), ox = 33, oy = 60, delay = 0.5 }, --pick up
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
             delay = 0.1
@@ -241,7 +241,7 @@ return {
         },
         fall = {
             { q = q(2,284,71,57), ox = 36, oy = 56 }, --fall
-            delay = 5
+            delay = math.huge
         },
         fallBounce = {
             { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
@@ -281,7 +281,7 @@ return {
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
             { q = q(2,284,71,57), ox = 36, oy = 56, rotate = -1.57, rx = 29, ry = -30 }, --fall
-            delay = 5
+            delay = math.huge
         },
         batAttack = {
             { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1

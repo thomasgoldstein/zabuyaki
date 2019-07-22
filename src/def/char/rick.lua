@@ -325,50 +325,50 @@ return {
         jump = {
             { q = q(2,1952,39,66), ox = 19, oy = 65, delay = 0.15 }, --jump up
             { q = q(43,1952,44,66), ox = 20, oy = 65 }, --jump top
-            { q = q(89,1952,45,66), ox = 22, oy = 65, delay = 5 }, --jump down
+            { q = q(89,1952,45,66), ox = 22, oy = 65, delay = math.huge }, --jump down
             delay = 0.09
         },
         jumpAttackStraight = {
             { q = q(2,778,38,63), ox = 19, oy = 65 }, --jump attack straight 1
             { q = q(42,778,50,64), ox = 19, oy = 65, func = jumpAttackStraight1, delay = 0.05 }, --jump attack straight 2
-            { q = q(94,779,42,61), ox = 19, oy = 65, funcCont = jumpAttackStraight2, delay = 5 }, --jump attack straight 3
+            { q = q(94,779,42,61), ox = 19, oy = 65, funcCont = jumpAttackStraight2, delay = math.huge }, --jump attack straight 3
             delay = 0.13
         },
         jumpAttackForward = {
             { q = q(2,714,53,61), ox = 23, oy = 65 }, --jump attack forward 1
-            { q = q(57,714,75,59), ox = 33, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 2
+            { q = q(57,714,75,59), ox = 33, oy = 66, funcCont = jumpAttackForward, delay = math.huge }, --jump attack forward 2
             delay = 0.06
         },
         jumpAttackForwardEnd = {
             { q = q(2,714,53,61), ox = 23, oy = 65 }, --jump attack forward 1
-            delay = 5
+            delay = math.huge
         },
         jumpAttackRun = {
             { q = q(2,714,53,61), ox = 23, oy = 65 }, --jump attack forward 1
-            { q = q(90,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun, delay = 5 }, --jump attack run
+            { q = q(90,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun, delay = math.huge }, --jump attack run
             delay = 0.06
         },
         jumpAttackRunEnd = {
             { q = q(2,714,53,61), ox = 23, oy = 65 }, --jump attack forward 1
-            delay = 5
+            delay = math.huge
         },
         jumpAttackLight = {
             { q = q(2,844,43,66), ox = 21, oy = 65 }, --jump attack light 1
-            { q = q(47,844,47,63), ox = 23, oy = 66, funcCont = jumpAttackLight, delay = 5 }, --jump attack light 2
+            { q = q(47,844,47,63), ox = 23, oy = 66, funcCont = jumpAttackLight, delay = math.huge }, --jump attack light 2
             delay = 0.03
         },
         jumpAttackLightEnd = {
             { q = q(2,844,43,66), ox = 21, oy = 65 }, --jump attack light 1
-            delay = 5
+            delay = math.huge
         },
         dropDown = {
             { q = q(2,1952,39,66), ox = 19, oy = 65, delay = 0.15 }, --jump up
             { q = q(43,1952,44,66), ox = 20, oy = 65 }, --jump top
-            { q = q(89,1952,45,66), ox = 22, oy = 65, delay = 5 }, --jump down
+            { q = q(89,1952,45,66), ox = 22, oy = 65, delay = math.huge }, --jump down
             delay = 0.09
         },
         respawn = {
-            { q = q(89,1952,45,66), ox = 22, oy = 65, delay = 5 }, --jump down
+            { q = q(89,1952,45,66), ox = 22, oy = 65, delay = math.huge }, --jump down
             { q = q(47,398,41,58), ox = 17, oy = 57, delay = 0.5 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
             delay = 0.1
@@ -567,7 +567,7 @@ return {
         grabSwap = {
             { q = q(134,1887,42,62), ox = 16, oy = 62 }, --grab swap 1.1
             { q = q(178,1887,35,62), ox = 17, oy = 62 }, --grab swap 1.2
-            delay = 5
+            delay = math.huge
         },
         grabFrontAttack1 = {
             { q = q(48,979,54,63), ox = 31, oy = 62 }, --grab attack 1
@@ -685,12 +685,12 @@ return {
             { q = q(145,137,56,59), ox = 31, oy = 58, delay = 0.33 }, --fall 1
             { q = q(144,211,63,49), ox = 38, oy = 48, delay = 0.13 }, --fall 2
             { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
         fallBounce = {
             { q = q(64,485,69,32), ox = 39, oy = 31, delay = 0.01 }, --fallen
             { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
         fallenDead = {
             { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
@@ -727,7 +727,7 @@ return {
             --rx = ox / 2, ry = -oy / 2 for this rotation
             { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 15, ry = -29, delay = 0.4 }, --fall 1 (rotated -90°)
             { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
     }
 }

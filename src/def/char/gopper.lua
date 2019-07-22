@@ -42,7 +42,7 @@ return {
         },
         intro = {
             { q = q(114,71,38,56), ox = 21, oy = 55 }, --duck
-            delay = 5
+            delay = math.huge
         },
         intro2 = {
             { q = q(2,489,39,63), ox = 23, oy = 62 }, --intro 1
@@ -86,10 +86,10 @@ return {
             delay = 0.06
         },
         dropDown = {
-            { q = q(2,372,58,52), ox = 27, oy = 51, delay = 5 }, --dash
+            { q = q(2,372,58,52), ox = 27, oy = 51, delay = math.huge }, --dash
         },
         respawn = {
-            { q = q(2,372,58,52), ox = 27, oy = 51, delay = 5 }, --dash
+            { q = q(2,372,58,52), ox = 27, oy = 51, delay = math.huge }, --dash
             { q = q(62,389,68,35), ox = 31, oy = 27 }, --fallen on belly
             { q = q(132,372,56,48), ox = 25, oy = 44 }, --get up on belly
             { q = q(114,71,38,56), ox = 21, oy = 55 }, --duck
@@ -162,12 +162,12 @@ return {
             { q = q(125,498,56,54), ox = 35, oy = 53, delay = 0.33 }, --fall 1
             { q = q(2,200,64,42), ox = 38, oy = 41, delay = 0.13 }, --fall 2
             { q = q(106,453,63,34), ox = 36, oy = 33 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
         fallBounce = {
             { q = q(68,203,66,39), ox = 37, oy = 31, delay = 0.01 }, --fallen
             { q = q(106,453,63,34), ox = 36, oy = 33 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
         fallenDead = {
             { q = q(68,203,66,39), ox = 37, oy = 31 }, --fallen
@@ -203,7 +203,7 @@ return {
             --rx = ox / 2, ry = -oy / 2 for this rotation
             { q = q(125,498,56,54), ox = 35, oy = 53, rotate = -1.57, rx = 17, ry = -26, delay = 0.4 }, --fall 1 (rotated -90°)
             { q = q(106,453,63,34), ox = 36, oy = 33 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
     }
 }

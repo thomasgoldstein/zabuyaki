@@ -55,7 +55,7 @@ return {
         },
         intro = {
             { q = q(2,2,62,67), ox = 34, oy = 66 }, --stand 1
-            delay = 5
+            delay = math.huge
         },
         stand = {
             { q = q(2,2,62,67), ox = 34, oy = 66, delay = 0.16 }, --stand 1
@@ -83,10 +83,10 @@ return {
             delay = 0.06
         },
         dropDown = {
-            { q = q(66,284,51,66), ox = 17, oy = 66 , delay = 5 }, --kick 1
+            { q = q(66,284,51,66), ox = 17, oy = 66 , delay = math.huge }, --kick 1
         },
         respawn = {
-            { q = q(66,284,51,66), ox = 17, oy = 66 , delay = 5 }, --kick 1
+            { q = q(66,284,51,66), ox = 17, oy = 66 , delay = math.huge }, --kick 1
             { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck
             delay = 0.6
         },
@@ -216,12 +216,12 @@ return {
             { q = q(2,219,53,63), ox = 23, oy = 62, delay = 0.33 }, --fall 1
             { q = q(57,226,58,56), ox = 30, oy = 55, delay = 0.13 }, --fall 2
             { q = q(117,234,73,48), ox = 39, oy = 47 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
         fallBounce = {
             { q = q(192,230,74,52), ox = 40, oy = 44, delay = 0.01 }, --fallen
             { q = q(117,234,73,48), ox = 39, oy = 47 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
         fallenDead = {
             { q = q(192,230,74,52), ox = 40, oy = 44 }, --fallen
@@ -257,7 +257,7 @@ return {
             --rx = ox / 2, ry = -oy / 2 for this rotation
             { q = q(2,219,53,63), ox = 23, oy = 62, rotate = -1.57, rx = 11, ry = -31, delay = 0.4 }, --fall 1 (rotated -90°)
             { q = q(117,234,73,48), ox = 39, oy = 47 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
     }
 }

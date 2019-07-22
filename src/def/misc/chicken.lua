@@ -10,7 +10,7 @@ return {
     serializationVersion = 0.42, -- The version of this serialization process
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "chicken", -- The name of the sprite
-    delay = 5.23,	--default delay for all animations
+    delay = math.huge,	--default delay for all animations
     animations = {
         icon = {
             { q = q(22,2,30,19) } -- default 38x17

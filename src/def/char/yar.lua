@@ -71,23 +71,23 @@ return {
         },
         jump = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = 5
+            delay = math.huge
         },
         jumpAttackStraight = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = 5
+            delay = math.huge
         },
         jumpAttackForward = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = 5
+            delay = math.huge
         },
         jumpAttackRun = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = 5
+            delay = math.huge
         },
         jumpAttackLight = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = 5
+            delay = math.huge
         },
         dropDown = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
@@ -178,7 +178,7 @@ return {
         },
         fall = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = 5
+            delay = math.huge
         },
         fallBounce = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
@@ -205,7 +205,7 @@ return {
         thrown = {
             --rx = oy / 2, ry = -ox for this rotation
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = 5
+            delay = math.huge
         },
     }
 }

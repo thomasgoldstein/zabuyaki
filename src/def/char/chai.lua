@@ -301,25 +301,25 @@ return {
             { q = q(84,266,42,65), ox = 22, oy = 66 }, --jump up/top
             { q = q(128,266,44,62), ox = 21, oy = 65, delay = 0.16 }, --jump top
             { q = q(174,266,40,65), ox = 20, oy = 66 }, --jump down/top
-            { q = q(207,335,36,68), ox = 21, oy = 66, delay = 5 }, --jump down
+            { q = q(207,335,36,68), ox = 21, oy = 66, delay = math.huge }, --jump down
             delay = 0.05
         },
         jumpAttackStraight = {
             { q = q(2,789,42,67), ox = 24, oy = 66 }, --jump attack straight 1
             { q = q(46,789,41,63), ox = 20, oy = 66, delay = 0.05 }, --jump attack straight 2
-            { q = q(89,789,42,61), ox = 20, oy = 66, funcCont = jumpAttackStraight, delay = 5 }, --jump attack straight 3
+            { q = q(89,789,42,61), ox = 20, oy = 66, funcCont = jumpAttackStraight, delay = math.huge }, --jump attack straight 3
             delay = 0.1
         },
         jumpAttackForward = {
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
             { q = q(43,722,37,64), ox = 14, oy = 66 }, --jump attack forward 2
-            { q = q(82,722,69,64), ox = 24, oy = 66, funcCont = jumpAttackForward, delay = 5 }, --jump attack forward 3
+            { q = q(82,722,69,64), ox = 24, oy = 66, funcCont = jumpAttackForward, delay = math.huge }, --jump attack forward 3
             delay = 0.03
         },
         jumpAttackForwardEnd = {
             { q = q(43,722,37,64), ox = 14, oy = 66, delay = 0.03 }, --jump attack forward 2
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-            delay = 5
+            delay = math.huge
         },
         jumpAttackRun = {
             { q = q(2,993,48,66), ox = 21, oy = 66 }, --jump attack run 1
@@ -330,30 +330,30 @@ return {
             { q = q(115,993,55,66), ox = 18, oy = 66, func = jumpAttackRunLast }, --jump attack run 3
             { q = q(115,993,55,66), ox = 18, oy = 66, func = jumpAttackRunLast }, --jump attack run 3
             { q = q(115,993,55,66), ox = 18, oy = 66, func = jumpAttackRunLast }, --jump attack run 3
-            { q = q(172,993,41,67), ox = 20, oy = 66, delay = 5 }, --jump attack run 4
+            { q = q(172,993,41,67), ox = 20, oy = 66, delay = math.huge }, --jump attack run 4
             delay = 0.02
         },
         jumpAttackRunEnd = {
             { q = q(172,993,41,67), ox = 20, oy = 66 }, --jump attack run 4
-            delay = 5
+            delay = math.huge
         },
         jumpAttackLight = {
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-            { q = q(43,722,37,64), ox = 14, oy = 66, funcCont = jumpAttackLight, delay = 5 }, --jump attack forward 2
+            { q = q(43,722,37,64), ox = 14, oy = 66, funcCont = jumpAttackLight, delay = math.huge }, --jump attack forward 2
             delay = 0.03
         },
         jumpAttackLightEnd = {
             { q = q(2,722,39,65), ox = 18, oy = 66 }, --jump attack forward 1
-            delay = 5
+            delay = math.huge
         },
         dropDown = {
             { q = q(128,266,44,62), ox = 21, oy = 65, delay = 0.16 }, --jump top
             { q = q(174,266,40,65), ox = 20, oy = 66 }, --jump down/top
-            { q = q(207,335,36,68), ox = 21, oy = 66, delay = 5 }, --jump down
+            { q = q(207,335,36,68), ox = 21, oy = 66, delay = math.huge }, --jump down
             delay = 0.05
         },
         respawn = {
-            { q = q(207,335,36,68), ox = 21, oy = 66, delay = 5 }, --jump down
+            { q = q(207,335,36,68), ox = 21, oy = 66, delay = math.huge }, --jump down
             { q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.5 }, --pick up 2
             { q = q(2,401,39,61), ox = 23, oy = 60 }, --pick up 1
             delay = 0.1
@@ -441,7 +441,7 @@ return {
             { q = q(42,858,45,68), ox = 22, oy = 65, funcCont = dashAttack3 }, --dash attack 2
             { q = q(42,858,45,68), ox = 22, oy = 65, funcCont = dashAttack3 }, --dash attack 2
             { q = q(42,858,45,68), ox = 22, oy = 65, delay = 0.04 }, --dash attack 2
-            { q = q(2,858,37,65), ox = 18, oy = 64, delay = 5 }, --dash attack 1
+            { q = q(2,858,37,65), ox = 18, oy = 64, delay = math.huge }, --dash attack 1
             delay = 0.06
         },
         chargeStand = {
@@ -497,7 +497,7 @@ return {
             { q = q(101,1462,40,62), ox = 21, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted up by 2px)
             { q = q(84,403,69,59), ox = 26, oy = 58, hover = true, funcCont = chargeDashAttack2, delay = 0.18 }, --charge dash attack 4
             { q = q(84,403,69,59), ox = 26, oy = 58, funcCont = chargeDashAttack2, delay = 0.04 }, --charge dash attack 4
-            { q = q(101,1462,40,62), ox = 21, oy = 66, func = function(slf) slf.speed_x = slf.dashSpeed_x * 0.7 end, delay = 5 }, --special defensive 12 (shifted up by 2px)
+            { q = q(101,1462,40,62), ox = 21, oy = 66, func = function(slf) slf.speed_x = slf.dashSpeed_x * 0.7 end, delay = math.huge }, --special defensive 12 (shifted up by 2px)
             delay = 0.03
         },
         specialDefensive = {
@@ -695,12 +695,12 @@ return {
 			{ q = q(155,402,60,60), ox = 33, oy = 59, delay = 0.33 }, --fall 1
 			{ q = q(2,471,62,48), ox = 38, oy = 47, delay = 0.13 }, --fall 2
 			{ q = q(66,483,68,36), ox = 39, oy = 35 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
         fallBounce = {
             { q = q(136,486,69,33), ox = 38, oy = 31, delay = 0.01 }, --fallen
 			{ q = q(66,483,68,36), ox = 39, oy = 35 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
         fallenDead = {
             { q = q(136,486,69,33), ox = 38, oy = 31 }, --fallen
@@ -737,7 +737,7 @@ return {
             --rx = ox / 2, ry = -oy / 2 for this rotation
 			{ q = q(155,402,60,60), ox = 33, oy = 59, rotate = -1.57, rx = 16, ry = -29, delay = 0.4 }, --fall 1 (rotated -90°)
 			{ q = q(66,483,68,36), ox = 39, oy = 35 }, --fall 3
-            delay = 5
+            delay = math.huge
         },
     }
 }
