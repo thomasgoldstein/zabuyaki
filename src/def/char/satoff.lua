@@ -245,11 +245,11 @@ return {
         },
         fallBounce = {
             { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
-            delay = 65
+            delay = math.huge
         },
         fallenDead = {
             { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
-            delay = 65
+            delay = math.huge
         },
         getUp = {
             { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen

@@ -171,7 +171,7 @@ return {
         },
         fallenDead = {
             { q = q(68,203,66,39), ox = 37, oy = 31 }, --fallen
-            delay = 65
+            delay = math.huge
         },
         getUp = {
             { q = q(68,203,66,39), ox = 37, oy = 31 }, --fallen

@@ -154,11 +154,11 @@ return {
         },
         fallBounce = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
-            delay = 65
+            delay = math.huge
         },
         fallenDead = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
-            delay = 65
+            delay = math.huge
         },
         getUp = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
