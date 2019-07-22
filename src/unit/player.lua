@@ -388,9 +388,7 @@ function Player:respawnUpdate(dt)
         self.speed_z = 0
         self.z = self:getMinZ()
         self:playSfx(self.sfx.step)
-        if self.sprite.curFrame == 1 then
-            self.sprite.elapsedTime = 10 -- seconds. skip to pickUp 2 frame
-        end
+        self.sprite.curFrame = 2    -- continue from the 2nd frame to the end (the animation may contain >2 frames)
         self:checkAndAttack(
             { x = 0, y = 0, width = 320 * 2, depth = 240 * 2, height = 240 * 2, damage = 0, type = "shockWave" },
             false
@@ -405,7 +403,6 @@ function Player:respawnUpdate(dt)
         end
         self.bounced = 1
     end
-    --self.victimLifeBar = nil   -- remove enemy bar under yours
 end
 Player.respawn = {name = "respawn", start = Player.respawnStart, exit = nop, update = Player.respawnUpdate, draw = Unit.defaultDraw}
 
