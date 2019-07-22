@@ -110,6 +110,10 @@ function Enemy:decreaseHp(damage)
         self.lives = self.lives - 1
         if self.lives <= 0 then
             self.hp = 0
+            if self.func then   -- custom function on death (item drop, etc)
+                self:func(self)
+                self.func = nil
+            end
         else
             self.lifeBar.hp = self.maxHp -- prevent green fill up
             self.lifeBar.oldHp = self.maxHp
