@@ -49,6 +49,9 @@ end
 ---@param spriteDef string Path to the sprite definition file
 function getSpriteInstance (spriteDef)
     if spriteDef == nil then return nil end -- invalid use
+    if type(spriteDef) == "table" and spriteDef.def then
+        return spriteDef -- return pre-loaded sprite instance (used for loot w/o animation or icons)
+    end
     if spriteBank[spriteDef] == nil then
         --Sprite not loaded attempting to load; abort on failure.
         if loadSprite (spriteDef) == nil then return nil end
