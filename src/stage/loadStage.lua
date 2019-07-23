@@ -214,11 +214,12 @@ local function cacheImage(path_to_image)
     return loadedImages[path_to_image], loadedImagesQuads[path_to_image]
 end
 
-local function loadBackgroundImageLayer(items, background)
-    dp("Load background ImageLayer...")
-    local t = extractTable(items.layers, "background")
+local function loadImageLayer(items, layerName, background)
+    dp("Load ImageLayer...")
+    local t = extractTable(items.layers, layerName)
     if not t then
-        error("Tiled: Group layer 'background' is not present in the map file.")
+        dp("Tiled: Group layer '".. layerName .."' is not present in the map file.")
+        return
     end
     for i, v in ipairs(t.layers) do
         if v.type == "imagelayer" then
@@ -330,9 +331,10 @@ function loadStageData(stage, mapFile, players)
     loadGlobalUnits(d, stage)
     stage.batch = loadBatch(d, stage)
     stage.scrolling = loadCameraScrolling(d)
-    loadBackgroundImageLayer(d, stage.background)
+    loadImageLayer(d, "background", stage.background)
     stage.background:setSize(stage.worldWidth, stage.worldHeight)
     if d.backgroundcolor then
         stage.bgColor = d.backgroundcolor or { 0, 0, 0 }
     end
+    loadImageLayer(d, "foreground", stage.foreground)
 end
