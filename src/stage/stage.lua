@@ -40,6 +40,7 @@ function Stage:initialize(name, mapFile, players)
     self.playerGroupStoppersMode = "check"
     self.nextMap = nil
     self.background = CompoundPicture:new(self.name .. " Background")
+    self.foreground = CompoundPicture:new(self.name .. " Foreground")
     if mapFile then
         loadStageData(self, mapFile, players)
     end
