@@ -109,7 +109,7 @@ local dropItemFuncList = {
     apple = funcDropApple, chicken = funcDropChicken, beef = funcDropBeef,
     bat = funcDropBat }
 function Loot.getDropFuncByName(itemName)
-    return dropItemFuncList[string.lower(itemName)]
+    return dropItemFuncList[itemName]
 end
 
 return Loot
