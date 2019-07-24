@@ -214,20 +214,29 @@ local function cacheImage(path_to_image)
     return loadedImages[path_to_image], loadedImagesQuads[path_to_image]
 end
 
-local function loadImageLayer(items, layerName, background)
-    dp("Load ImageLayer...")
+local function addImageToLayer(images, v)
+    if not v.visible then
+        return
+    end
+    if v.type == "group" then
+        for i, v2 in ipairs(v.layers) do
+            addImageToLayer(images, v2)
+        end
+    elseif v.type == "imagelayer" then
+        local image, quad = cacheImage(v.image)
+        images:add(image, quad, v.offsetx, v.offsety)
+    end
+end
+
+local function loadImageLayer(items, layerName, images)
+    dp("Load ImageLayer '".. layerName .."'")
     local t = extractTable(items.layers, layerName)
     if not t then
         dp("Tiled: Group layer '".. layerName .."' is not present in the map file.")
         return
     end
     for i, v in ipairs(t.layers) do
-        if v.type == "imagelayer" then
-            if v.visible then
-                local image, quad = cacheImage(v.image)
-                background:add(image, quad, v.offsetx, v.offsety)
-            end
-        end
+        addImageToLayer(images, v)
     end
 end
 
