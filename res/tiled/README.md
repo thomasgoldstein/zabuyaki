@@ -50,24 +50,35 @@ the camera follow the path.
 
 > Hint: Hold SPACE key while drawing with the left mouse button pressed to pan the stage.
 
-## Background images ##
-Every BG image goes into its own layer. Go to the **Layers tab**. Create **Image layer**.
+## Background and foreground image layers ##
+All the background parallax images go into **background** Group Layer.
+All the foreground images should be placed into **foreground** Group Layer.
+Name it either **background** or **foreground**. The case matters!
 
-Name bg images for your easy editing.
- 
-Set property Visible to false if you don't want to see this image in the game. You can toggle it later.
-  
-e.g. I use a big stage picture as a template. You can vary its transparency level.
+To add new images onto the stage select the Group Layer and go to the **Layers tab**.
+Create **Image Layer**. Select a new image file for the Image property.
+Rename the Image Layer as just added image! 
+
+You can add sub-folders with images withing **background** or **foreground**.
+Only **Group Layer** type of the sub-folders is supported. Please avoid adding more sub-folders within sub-folders. 
+
+Set property Visible to false if you don't want to see this image or the sub-folder in the game. You can toggle it later.
+
+E.g. Use a big stage picture as a template. You can vary its transparency level.
 It is good for positioning. But this property value is ignored in Zabuyaki.
 
 Hint: You can duplicate layers. They would keep its properties and the image reference. Just move it and rename.
+
+Hint: Change the images and sub-folders order to affect the in game Z-Index. 
+
+Hint: Use LOCK icons to protect images or groups of images from shifting.
   
 ## Background image file format ##
 Supported image formats: **PNG, JPEG, TGA,** and **BMP**.
 
 Use PNG 8-bit with indexed transparency. Leave 2 transparent pixels at every side of the image. They are cropped automatically. 
 
-## Stage BG color ##
+## Stage default background color ##
 Use menu **Map / Map Properties** to see the **Background color** map property. 
 Expand the property and edit R G B and Alpha(transparency) entries.
 
