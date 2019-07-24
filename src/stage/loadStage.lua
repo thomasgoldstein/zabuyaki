@@ -337,5 +337,4 @@ function loadStageData(stage, mapFile, players)
         stage.bgColor = d.backgroundcolor or { 0, 0, 0 }
     end
     loadImageLayer(d, "foreground", stage.foreground)
-    loadImageLayer(d, "bottom", stage.bottom)
 end

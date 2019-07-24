@@ -39,7 +39,6 @@ function Stage:initialize(name, mapFile, players)
     self.zoomWaitTime = 0
     self.playerGroupStoppersMode = "check"
     self.nextMap = nil
-    self.bottom = CompoundPicture:new(self.name .. " Bottom Layer")
     self.background = CompoundPicture:new(self.name .. " Background")
     self.foreground = CompoundPicture:new(self.name .. " Foreground")
     if mapFile then
@@ -175,9 +174,6 @@ function Stage:update(dt)
         self.objects:update(dt)
         --sort players by y
         self.objects:sortByZIndex()
-        if self.bottom then
-            self.bottom:update(dt)
-        end
         if self.background then
             self.background:update(dt)
         end
@@ -212,9 +208,6 @@ function Stage:update(dt)
         self.objects:update(dt)
         --sort players by y
         self.objects:sortByZIndex()
-        if self.bottom then
-            self.bottom:update(dt)
-        end
         if self.background then
             self.background:update(dt)
         end
@@ -238,9 +231,6 @@ function Stage:draw(l, t, w, h)
     love.graphics.clear(unpack(self.bgColor))
     --    love.graphics.clear(unpack(self.bgColor))
     if self.mode == "normal" or self.mode == "event" then
-        if self.bottom then
-            self.bottom:draw(l, t, w, h)
-        end
         if self.background then
             self.background:draw(l, t, w, h)
         end
