@@ -26,7 +26,6 @@ function Stage:initialize(name, mapFile, players)
     self.movie = nil
     self.worldWidth = 4000
     self.worldHeight = 800
-    self.foreground = nil
     self.scrolling = {}
     self.timeLeft = GLOBAL_SETTING.TIMER
     self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
