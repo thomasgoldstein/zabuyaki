@@ -12,14 +12,26 @@ function CompoundPicture:initialize(name)
     self.pics = {}
 end
 
+---Set scrolling area bounds for the whole compound picture
+---@param spriteSheet number width whole group width
+---@param spriteSheet number height whole group height
 function CompoundPicture:setSize(width, height)
     self.width = width
     self.height = height
 end
 
-function CompoundPicture:add(spriteSheet, quad, x, y, px, py, sx, sy, func)
+---Add image to the compound picture table
+---@param spriteSheet userdata image
+---@param quad userdata
+---@param x number horizontal offset from the top left corner
+---@param y number vertical offset from the top left corner
+---@param relativeX number relativeX?
+---@param relativeY number relativeY?
+---@param scrollSpeedX number horizontal scrolling speed.  negative/positive/0(default)
+---@param scrollSpeedY number vertical scrolling speed.  negative/positive/0(default)
+function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, func)
     local _,_,w,h = quad:getViewport()
-    table.insert(self.pics, {spriteSheet = spriteSheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, px = px or 0, py = py or 0, sx = sx or 0, sy = sy or 0, update = func})
+    table.insert(self.pics, {spriteSheet = spriteSheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, update = func})
 end
 
 function CompoundPicture:remove(rect)
@@ -50,9 +62,9 @@ function CompoundPicture:update(dt)
     for i=1, #self.pics do
         p = self.pics[i]
         -- scroll horizontally e.g. clouds
-        if p.sx and p.sx ~= 0 then
-            p.x = p.x + (p.sx * dt)
-            if p.sx > 0 then
+        if p.scrollSpeedX and p.scrollSpeedX ~= 0 then
+            p.x = p.x + (p.scrollSpeedX * dt)
+            if p.scrollSpeedX > 0 then
                 if p.x > self.width then
                     p.x = -p.w
                 end
@@ -63,9 +75,9 @@ function CompoundPicture:update(dt)
             end
         end
         -- scroll vertically
-        if p.sy and p.sy ~= 0 then
-            p.y = p.y + (p.sy * dt)
-            if p.sy > 0 then
+        if p.scrollSpeedY and p.scrollSpeedY ~= 0 then
+            p.y = p.y + (p.scrollSpeedY * dt)
+            if p.scrollSpeedY > 0 then
                 if p.y > self.height then
                     p.y = -p.h
                 end
@@ -85,8 +97,8 @@ function CompoundPicture:drawAll()
         p = self.pics[i]
         love.graphics.draw(p.spriteSheet,
             p.quad,
-            p.x + p.px * l, -- slow down parallax
-            p.y + p.py * t)
+            p.x + p.relativeX * l, -- slow down parallax
+            p.y + p.relativeY * t)
     end
 end
 
@@ -94,14 +106,14 @@ function CompoundPicture:draw(l, t, w, h)
     local p
     for i = 1, #self.pics do
         p = self.pics[i]
-        if CheckCollision(l - p.px * l, t - p.py * t, w, h, p.x, p.y, p.w, p.h) then
+        if CheckCollision(l - p.relativeX * l, t - p.relativeY * t, w, h, p.x, p.y, p.w, p.h) then
             if p.update then
                 p.update(p, self.dt)
             end
             love.graphics.draw(p.spriteSheet,
                 p.quad,
-                p.x + p.px * l, -- slow down parallax
-                p.y + p.py * t)
+                p.x + p.relativeX * l, -- slow down parallax
+                p.y + p.relativeY * t)
         end
     end
 end
