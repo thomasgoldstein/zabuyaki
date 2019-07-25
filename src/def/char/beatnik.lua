@@ -219,16 +219,16 @@ return {
             delay = math.huge
         },
         fallBounce = {
-            { q = q(192,230,74,52), ox = 40, oy = 44, delay = 0.01 }, --fallen
+            { q = q(192,232,74,50), ox = 40, oy = 44, delay = 0.01 }, --fallen
             { q = q(117,234,73,48), ox = 39, oy = 47 }, --fall 3
             delay = math.huge
         },
         fallenDead = {
-            { q = q(192,230,74,52), ox = 40, oy = 44 }, --fallen
+            { q = q(192,232,74,50), ox = 40, oy = 44 }, --fallen
             delay = math.huge
         },
         getUp = {
-            { q = q(192,230,74,52), ox = 40, oy = 44 }, --fallen
+            { q = q(192,232,74,50), ox = 40, oy = 44 }, --fallen
             { q = q(209,497,61,60), ox = 31, oy = 57 }, --get up
             { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck
             delay = 0.2
@@ -250,7 +250,7 @@ return {
             { q = q(2,219,53,63), ox = 23, oy = 62 }, --fall 1
             { q = q(2,219,53,63), ox = 23, oy = 62, rotate = -1.57, rx = 23, ry = -31 }, --fall 1 (rotated -90°)
             { q = q(195,142,61,65), ox = 30, oy = 64, flipV = -1 }, --hurt low 2
-            { q = q(192,230,74,52), ox = 40, oy = 44 }, --fallen
+            { q = q(192,232,74,50), ox = 40, oy = 44 }, --fallen
             delay = 100
         },
         thrown = {
