@@ -72,6 +72,14 @@ Hint: You can duplicate layers. They would keep its properties and the image ref
 Hint: Change the images and sub-folders order to affect the in game Z-Index. 
 
 Hint: Use LOCK icons to protect images or groups of images from shifting.
+
+## Background and foreground parallax ##
+Every Image Layer (single image) or a Group Layer (starting from the root folders **background** and **foregroung**) may have these attributes:
+* relativeX (float) - alters the scrolling speed relatively to the horizontal player's movement.
+Use values 0 .. 1 to slow down the background layers. Use 0 to make them stop moving (e.g. Moon). Use negative values for **foreground** layer.
+* relativeY (float) - the same behavior as relativeX attribute but for vertical movement.
+* scrollSpeedX (float) - speed that moves the image in the horizontal loop. You may use negative value to move the image backwards. 
+* scrollSpeedY (float) - speed that moves the image in the vertical loop. 
   
 ## Background image file format ##
 Supported image formats: **PNG, JPEG, TGA,** and **BMP**.
