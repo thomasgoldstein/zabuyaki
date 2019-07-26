@@ -90,18 +90,6 @@ function CompoundPicture:update(dt)
     end
 end
 
-function CompoundPicture:drawAll()
-    local p
-    local l, t = 0, 0
-    for i = 1, #self.pics do
-        p = self.pics[i]
-        love.graphics.draw(p.spriteSheet,
-            p.quad,
-            p.x + p.relativeX * l, -- slow down parallax
-            p.y + p.relativeY * t)
-    end
-end
-
 function CompoundPicture:draw(l, t, w, h)
     local p
     for i = 1, #self.pics do
