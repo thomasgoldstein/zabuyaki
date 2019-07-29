@@ -240,20 +240,23 @@ return {
             delay = 0.02
         },
         fall = {
-            { q = q(2,284,71,57), ox = 36, oy = 56 }, --fall
+            { q = q(181,422,73,69), ox = 40, oy = 68, delay = 0.33 }, --fall 1
+            { q = q(2,284,70,57), ox = 39, oy = 56, delay = 0.13 }, --fall 2
+            { q = q(74,298,77,43), ox = 48, oy = 42 }, --fall 3
             delay = math.huge
         },
         fallBounce = {
-            { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
+            { q = q(153,301,79,40), ox = 49, oy = 37, delay = 0.01 }, --fallen
+            { q = q(74,298,77,43), ox = 48, oy = 42 }, --fall 3
             delay = math.huge
         },
         fallenDead = {
-            { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
+            { q = q(153,301,79,40), ox = 49, oy = 37 }, --fallen
             delay = math.huge
         },
         getUp = {
-            { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
-            { q = q(156,282,69,59), ox = 36, oy = 56 }, --get up
+            { q = q(153,301,79,40), ox = 49, oy = 37 }, --fallen
+            { q = q(211,11,69,59), ox = 36, oy = 56 }, --get up
             { q = q(206,736,66,61), ox = 33, oy = 60 }, --pick up
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
             delay = 0.15
@@ -272,15 +275,16 @@ return {
             --default order should be kept: hurtLow2, hurtHigh2, \, /, upsideDown, fallen
             { q = q(214,216,72,64), ox = 36, oy = 63 }, --grabbed back 2
             { q = q(72,212,69,68), ox = 39, oy = 67 }, --grabbed front 2
-            { q = q(2,284,71,57), ox = 36, oy = 56 }, --fall
-            { q = q(2,284,71,57), ox = 29, oy = 47, rotate = -1.57, rx = 35, ry = -56 }, --fall
+            { q = q(181,422,73,69), ox = 40, oy = 68 }, --fall 1
+            { q = q(181,422,73,69), ox = 40, oy = 68, rotate = -1.57, rx = 40, ry = -34 }, --fall 1 (rotated -90°)
             { q = q(214,146,72,64), ox = 36, oy = 63, flipV = -1 }, --hurt low 2
-            { q = q(75,304,79,37), ox = 49, oy = 34 }, --fallen
+            { q = q(153,301,79,40), ox = 49, oy = 37 }, --fallen
             delay = 100
         },
         thrown = {
-            --rx = oy / 2, ry = -ox for this rotation
-            { q = q(2,284,71,57), ox = 36, oy = 56, rotate = -1.57, rx = 29, ry = -30 }, --fall
+            --rx = ox / 2, ry = -oy / 2 for this rotation
+            { q = q(181,422,73,69), ox = 40, oy = 68, rotate = -1.57, rx = 20, ry = -34, delay = 0.4 }, --fall 1 (rotated -90°)
+            { q = q(74,298,77,43), ox = 48, oy = 42 }, --fall 3
             delay = math.huge
         },
         batAttack = {
