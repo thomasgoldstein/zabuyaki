@@ -305,8 +305,17 @@ function checkDebugKeys(key)
             if id == 0 then
                 stage.timeLeft = 0.01
             else
-                if getRegisteredPlayer(id) then
-                    getRegisteredPlayer(id):setState(getRegisteredPlayer(id).dead)
+                local p = getRegisteredPlayer(id)
+                if p then
+                    if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+                        if p.b == Controls[id] then
+                            p.b = bindRandomDebugInput()
+                        else
+                            p.b = Controls[id]
+                        end
+                    else
+                        p:setState(getRegisteredPlayer(id).dead)
+                    end
                 end
             end
         end
