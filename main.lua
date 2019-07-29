@@ -190,7 +190,7 @@ local function pollControls(dt)
     --update P1..P3 controls
     --check for double taps, etc
     local control
-    for i = 1, 3 do
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         control = Controls[i]
         if control then
             for index,value in pairs(control) do
