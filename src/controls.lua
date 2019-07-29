@@ -235,36 +235,44 @@ function bindEnemyInput()
     return Controls
 end
 
+local r = love.math.random
 function bindRandomDebugInput()
     local _Controls = bindEnemyInput()
     _Controls.debugUpdate = function(dt)
-        if love.math.random(100) < 3 then
-            _Controls.setAttack(true)
-        end
-        if love.math.random(100) < 2 then
-            _Controls.setJump(true)
-        end
-
-        if love.math.random(100) < 5 then
-            if love.math.random(100) < 20 then
-                _Controls.setHorizontal(-1)
-            else
-                _Controls.setHorizontal(love.math.random(0, 1))
+        if r(100) < 3 then
+            if r(100) < 50 then
+                _Controls.setAttack(true)
+            elseif r(100) < 50 then
+                _Controls.setAttack(false)
             end
         end
-        if love.math.random(100) < 2 then
-            _Controls.setVertical(love.math.random(-1, 1))
+        if r(100) < 2 then
+            if r(100) < 50 then
+                _Controls.setJump(true)
+            elseif r(100) < 50 then
+                _Controls.setJump(false)
+            end
         end
 
-        if love.math.random(100) < 2 then
-            _Controls.doHorizontalDoubleTap()
+        if r(100) < 5 then
+            if r(100) < 20 then
+                _Controls.setHorizontal(-1)
+            else
+                _Controls.setHorizontal(r(0, 1))
+            end
+            if r(100) < 10 then
+                _Controls.doHorizontalDoubleTap()
+            end
         end
-        if love.math.random(100) < 2 then
-            _Controls.doVerticalDoubleTap()
+        if r(100) < 2 then
+            _Controls.setVertical(r(-1, 1))
+            if r(100) < 10 then
+                _Controls.doVerticalDoubleTap()
+            end
         end
 
-        if love.math.random(100) <= 1 then
-            _Controls.resetButtons()
+        if r(1000) <= 5 then
+            _Controls.resetButtons()    -- all the buttons and h/v controls are not pressed
         end
         _Controls.horizontal:update(dt)
         _Controls.vertical:update(dt)
