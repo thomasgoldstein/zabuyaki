@@ -124,6 +124,9 @@ function Player:updateAI(dt)
     if self.isDisabled then
         return
     end
+    if self.b.debugUpdate then
+        self.b.debugUpdate(dt)
+    end
     --DEBUG: highlight P1 on the possible Special triggering
     if self.statesForSpecialToleranceDelay[self.state] then
         if love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
