@@ -688,7 +688,7 @@ return {
             delay = math.huge
         },
         fallBounce = {
-            { q = q(64,485,69,32), ox = 39, oy = 31, delay = 0.01 }, --fallen
+            { q = q(64,485,69,32), ox = 39, oy = 31, delay = 0.06 }, --fallen
             { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
             delay = math.huge
         },
