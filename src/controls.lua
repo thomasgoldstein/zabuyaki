@@ -234,3 +234,42 @@ function bindEnemyInput()
     end
     return Controls
 end
+
+function bindRandomDebugInput()
+    local _Controls = bindEnemyInput()
+    _Controls.debugUpdate = function(dt)
+        if love.math.random(100) < 3 then
+            _Controls.setAttack(true)
+        end
+        if love.math.random(100) < 2 then
+            _Controls.setJump(true)
+        end
+
+        if love.math.random(100) < 5 then
+            if love.math.random(100) < 20 then
+                _Controls.setHorizontal(-1)
+            else
+                _Controls.setHorizontal(love.math.random(0, 1))
+            end
+        end
+        if love.math.random(100) < 2 then
+            _Controls.setVertical(love.math.random(-1, 1))
+        end
+
+        if love.math.random(100) < 2 then
+            _Controls.doHorizontalDoubleTap()
+        end
+        if love.math.random(100) < 2 then
+            _Controls.doVerticalDoubleTap()
+        end
+
+        if love.math.random(100) <= 1 then
+            _Controls.resetButtons()
+        end
+        _Controls.horizontal:update(dt)
+        _Controls.vertical:update(dt)
+        _Controls.jump:update(dt)
+        _Controls.attack:update(dt)
+    end
+    return _Controls
+end
