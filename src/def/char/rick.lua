@@ -697,7 +697,7 @@ return {
             delay = math.huge
         },
         getUp = {
-            { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
+            { q = q(64,485,69,32), ox = 39, oy = 31, delay = 0.4 }, --fallen
             { q = q(135,464,56,53), ox = 31, oy = 52 }, --get up
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1

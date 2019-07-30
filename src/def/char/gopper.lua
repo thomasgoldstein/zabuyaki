@@ -174,10 +174,10 @@ return {
             delay = math.huge
         },
         getUp = {
-            { q = q(68,203,66,39), ox = 37, oy = 31 }, --fallen
+            { q = q(68,203,66,39), ox = 37, oy = 31, delay = 0.4 }, --fallen
             { q = q(136,193,52,49), ox = 28, oy = 48 }, --get up
             { q = q(114,71,38,56), ox = 21, oy = 55 }, --duck
-            delay = 0.2
+            delay = 0.22
         },
         grabbedFront = {
             { q = q(2,129,38,62), ox = 23, oy = 61 }, --hurt high 1

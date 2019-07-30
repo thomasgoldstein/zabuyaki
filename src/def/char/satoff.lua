@@ -255,7 +255,7 @@ return {
             delay = math.huge
         },
         getUp = {
-            { q = q(153,301,79,40), ox = 49, oy = 37 }, --fallen
+            { q = q(153,301,79,40), ox = 49, oy = 37, delay = 0.4 }, --fallen
             { q = q(211,11,69,59), ox = 36, oy = 56 }, --get up
             { q = q(206,736,66,61), ox = 33, oy = 60 }, --pick up
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
