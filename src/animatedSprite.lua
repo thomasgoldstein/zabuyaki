@@ -88,7 +88,7 @@ function setSpriteAnimation(spr, anim)
     spr.isFinished = false
     spr.funcCalledOnFrame = -1
     spr.funcContCalledOnFrame = -1
-    spr.elapsedTime = -math.min(love.timer.getDelta() / 2, 0.1)
+    spr.elapsedTime = 0
     spr.isThrow = spr.def.animations[spr.curAnim].isThrow
     spr.comboEnd = spr.def.animations[spr.curAnim].comboEnd
     spr.maxFrame = #spr.def.animations[spr.curAnim]
