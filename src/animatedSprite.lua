@@ -72,7 +72,13 @@ function getSpriteInstance (spriteDef)
         timeScale = 1,
         rotation = 0,
         flipH = 1, -- 1 normal, -1 mirrored
-        flipV = 1	-- same
+        flipV = 1,	-- same
+        isFinished = false,
+        isThrow = false,
+        funcCalledOnFrame = -1,
+        funcContCalledOnFrame = -1,
+        comboEnd = false,
+        maxFrame = 0
     }
     calculateSpriteAnimation(s)
     return s
