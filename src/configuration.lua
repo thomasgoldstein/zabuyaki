@@ -40,6 +40,8 @@ GLOBAL_SETTING = {
     SHOW_GRID = false,
     MAX_SLOW_MO = 14, -- max possible slow mo x
     SLOW_MO = 0, -- current slow mo rate. 0 = off
+    MAX_FRAME_SKIP = 8, -- max possible frame skip
+    FRAME_SKIP = 0, -- current frame skip. 0 = off
 }
 local saveEntries = { --the only entries should be saved
     "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTER",

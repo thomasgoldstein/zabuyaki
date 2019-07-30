@@ -137,6 +137,9 @@ function showDebugIndicator(size, _x, _y)
         if GLOBAL_SETTING.SLOW_MO > 0 then
             love.graphics.print("SLOW:"..(GLOBAL_SETTING.SLOW_MO + 1), x, y + 9 * 2)
         end
+        if GLOBAL_SETTING.FRAME_SKIP > 0 then
+            love.graphics.print("FRAME SKIP:"..(GLOBAL_SETTING.FRAME_SKIP + 1), x + 60, y + 9 * 2)
+        end
         love.graphics.print("Frame:"..frame, x, y + 9 * 3)
     end
 end
@@ -285,20 +288,40 @@ function checkDebugKeys(key)
         if key == '0' then
             stage.objects:dp()
         elseif key == 'kp+' or key == '=' then
-            GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO - 1
-            if GLOBAL_SETTING.SLOW_MO < 0 then
-                GLOBAL_SETTING.SLOW_MO = 0
-                sfx.play("sfx","menuCancel")
+            if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+                GLOBAL_SETTING.FRAME_SKIP = GLOBAL_SETTING.FRAME_SKIP + 1
+                if GLOBAL_SETTING.FRAME_SKIP > GLOBAL_SETTING.MAX_FRAME_SKIP then
+                    GLOBAL_SETTING.FRAME_SKIP = GLOBAL_SETTING.MAX_FRAME_SKIP
+                    sfx.play("sfx","menuCancel")
+                else
+                    sfx.play("sfx","menuMove")
+                end
             else
-                sfx.play("sfx","menuMove")
+                GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO - 1
+                if GLOBAL_SETTING.SLOW_MO < 0 then
+                    GLOBAL_SETTING.SLOW_MO = 0
+                    sfx.play("sfx","menuCancel")
+                else
+                    sfx.play("sfx","menuMove")
+                end
             end
         elseif key == 'kp-' or key == '-' then
-            GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO + 1
-            if GLOBAL_SETTING.SLOW_MO > GLOBAL_SETTING.MAX_SLOW_MO then
-                GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.MAX_SLOW_MO
-                sfx.play("sfx","menuCancel")
+            if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+                GLOBAL_SETTING.FRAME_SKIP = GLOBAL_SETTING.FRAME_SKIP - 1
+                if GLOBAL_SETTING.FRAME_SKIP < 0 then
+                    GLOBAL_SETTING.FRAME_SKIP = 0
+                    sfx.play("sfx","menuCancel")
+                else
+                    sfx.play("sfx","menuMove")
+                end
             else
-                sfx.play("sfx","menuMove")
+                GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.SLOW_MO + 1
+                if GLOBAL_SETTING.SLOW_MO > GLOBAL_SETTING.MAX_SLOW_MO then
+                    GLOBAL_SETTING.SLOW_MO = GLOBAL_SETTING.MAX_SLOW_MO
+                    sfx.play("sfx","menuCancel")
+                else
+                    sfx.play("sfx","menuMove")
+                end
             end
         elseif keysToKill[key] then
             local id = keysToKill[key]
