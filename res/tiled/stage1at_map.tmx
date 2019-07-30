@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="22" nextobjectid="24">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="22" nextobjectid="27">
  <group id="8" name="background" locked="1">
   <group id="19" name="houses" offsetx="13.3333" offsety="-40">
    <properties>
@@ -62,7 +62,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#55557f" id="4" name="global" locked="1">
+ <objectgroup color="#55557f" id="4" name="global">
   <object id="15" name="enterMap" type="event" x="43" y="193">
    <properties>
     <property name="togox" value="-100"/>
@@ -78,6 +78,15 @@
    <point/>
   </object>
   <object id="17" name="exit" type="event" x="2480" y="240">
+   <point/>
+  </object>
+  <object id="24" name="TRASH" type="trashcan" x="206.5" y="276">
+   <point/>
+  </object>
+  <object id="25" name="SIGN" type="sign" x="362.5" y="252">
+   <point/>
+  </object>
+  <object id="26" name="TRASH" type="trashcan" x="766.5" y="302.75">
    <point/>
   </object>
  </objectgroup>
