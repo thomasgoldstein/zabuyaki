@@ -165,40 +165,42 @@ end
 local beepTimer = 0
 function Stage:update(dt)
     if self.mode == "normal" then
-        self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
-        if self.batch then
-            self.showGoMark = self.batch:update(dt)
-        end
-        self:updateZoom(dt)
-        self.objects:update(dt)
-        --sort players by y
-        self.objects:sortByZIndex()
-        if self.background then
-            self.background:update(dt)
-        end
-        if self.foreground then
-            self.foreground:update(dt)
-        end
-        self:setCamera(dt)
-        if self.timeLeft > 0 or self.timeLeft <= -math.pi then
-            self.timeLeft = self.timeLeft - dt / 2
-            if self.timeLeft <= 0 and self.timeLeft > -math.pi then
-                killAllPlayers()
-                self.timeLeft = -math.pi
+        for _ = 1, isDebug() and GLOBAL_SETTING.FRAME_SKIP + 1 or 1 do
+            self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
+            if self.batch then
+                self.showGoMark = self.batch:update(dt)
             end
-        end
-        if self.timeLeft <= 10.6 and self.timeLeft >= 0 then
-            if beepTimer - 1 == math.floor(self.timeLeft + 0.5) then
-                sfx.play("sfx", "menuMove")
+            self:updateZoom(dt)
+            self.objects:update(dt)
+            --sort players by y
+            self.objects:sortByZIndex()
+            if self.background then
+                self.background:update(dt)
             end
-            beepTimer = math.floor(self.timeLeft + 0.5)
-        end
-        if self.showGoMark then
-            -- Go! beep
-            if beepTimer - 1 == math.floor(self.timeLeft + 0.5) then
-                sfx.play("sfx", "menuCancel")
+            if self.foreground then
+                self.foreground:update(dt)
             end
-            beepTimer = math.floor(self.timeLeft + 0.5)
+            self:setCamera(dt)
+            if self.timeLeft > 0 or self.timeLeft <= -math.pi then
+                self.timeLeft = self.timeLeft - dt / 2
+                if self.timeLeft <= 0 and self.timeLeft > -math.pi then
+                    killAllPlayers()
+                    self.timeLeft = -math.pi
+                end
+            end
+            if self.timeLeft <= 10.6 and self.timeLeft >= 0 then
+                if beepTimer - 1 == math.floor(self.timeLeft + 0.5) then
+                    sfx.play("sfx", "menuMove")
+                end
+                beepTimer = math.floor(self.timeLeft + 0.5)
+            end
+            if self.showGoMark then
+                -- Go! beep
+                if beepTimer - 1 == math.floor(self.timeLeft + 0.5) then
+                    sfx.play("sfx", "menuCancel")
+                end
+                beepTimer = math.floor(self.timeLeft + 0.5)
+            end
         end
     elseif self.mode == "event" then
         if self.event then
