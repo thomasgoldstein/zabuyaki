@@ -39,7 +39,7 @@ GLOBAL_SETTING = {
     FPSRATE_ENABLED = false,
     SHOW_GRID = false,
     MAX_SLOW_MO = 14, -- max possible slow mo x
-    SLOW_MO = 0, -- cureent slow mo rate. 0 = off
+    SLOW_MO = 0, -- current slow mo rate. 0 = off
 }
 local saveEntries = { --the only entries should be saved
     "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTER",
