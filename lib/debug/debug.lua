@@ -8,7 +8,7 @@ local SHOW_DEBUG_UNIT_INFO = 3 -- show unit's info: name, pos, state
 local SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
 local SHOW_DEBUG_BATCHES = 2 -- show left edge of the current batch with red and the next with blue
 
--- Load PRofiler
+-- Load Profiler
 if GLOBAL_SETTING.PROFILER_ENABLED then
     Profiler  = require "lib.debug.piefiller"
     ProfOn = false
