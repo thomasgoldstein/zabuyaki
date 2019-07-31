@@ -58,6 +58,17 @@ function isDebug(level)
     return getDebugLevel() > 0
 end
 
+function log2file( name, data, newFile)
+    if newFile then
+        love.filesystem.write( name, data )
+    else
+        local success, errormsg = love.filesystem.append( name, data )
+        if not success then
+            love.filesystem.write( name, data )
+        end
+    end
+end
+
 -- Debug console output
 function dp(...)
     if isDebug()then
@@ -323,6 +334,19 @@ function checkDebugKeys(key)
                     sfx.play("sfx","menuMove")
                 end
             end
+        elseif key == '1' then
+            local t = ""
+            for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+                local p = getRegisteredPlayer(i)
+                t = t .. inspect(p, { depth = 1 }) .. "\n--------------------\n"
+            end
+            log2file("players.txt", t, true)
+        elseif key == '2' then
+            local t = ""
+            for i, p in pairs(stage.objects.entities) do
+                t = t .. inspect(p, { depth = 1 }) .. "\n--------------------\n"
+            end
+            log2file("objects.txt", t, true)
         elseif keysToKill[key] then
             local id = keysToKill[key]
             if id == 0 then
