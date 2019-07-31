@@ -12,7 +12,7 @@ local comboSlap = function(slf, cont)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 39, width = 26, damage = 10, type = "knockDown", repel_x = slf.dashFallSpeed, sfx = "air" },
+        { x = 26, y = 39, width = 28, damage = 10, type = "knockDown", repel_x = slf.dashFallSpeed, sfx = "air" },
         cont
 ) end
 local dashAttack = function(slf, cont)
@@ -97,10 +97,11 @@ return {
             delay = 0.067
         },
         combo4 = {
-            { q = q(2,458,51,61), ox = 32, oy = 60, delay = 0.067 }, --high kick 1
-            { q = q(55,459,76,60), ox = 38, oy = 59, func = comboKick, delay = 0.217 }, --high kick 2
+            { q = q(2,458,51,61), ox = 32, oy = 60, delay = 0.06 }, --high kick 1
+            { q = q(55,459,81,60), ox = 38, oy = 59, func = comboKick, delay = 0.05 }, --high kick 2.1
+            { q = q(138,459,76,60), ox = 38, oy = 59, delay = 0.15 }, --high kick 2.2
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
-            delay = 0.1
+            delay = 0.11
         },
         dashAttack = {
             { q = q(42,323,57,62), ox = 39, oy = 61 }, --dash attack 1
@@ -109,10 +110,11 @@ return {
             delay = 0.06
         },
         chargeAttack = {
-            { q = q(2,458,51,61), ox = 32, oy = 60, delay = 0.067 }, --high kick 1
-            { q = q(55,459,76,60), ox = 38, oy = 59, func = comboKick, delay = 0.217 }, --high kick 2
+            { q = q(2,458,51,61), ox = 32, oy = 60, delay = 0.06 }, --high kick 1
+            { q = q(55,459,81,60), ox = 38, oy = 59, func = comboKick, delay = 0.05 }, --high kick 2.1
+            { q = q(138,459,76,60), ox = 38, oy = 59, delay = 0.15 }, --high kick 2.2
             { q = q(2,458,51,61), ox = 32, oy = 60 }, --high kick 1
-            delay = 0.1
+            delay = 0.11
         },
         hurtHighWeak = {
             { q = q(2,134,48,62), ox = 30, oy = 61 }, --hurt high 1
