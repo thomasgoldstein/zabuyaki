@@ -151,7 +151,8 @@ return {
         combo1 = {
             { q = q(2,350,64,65), ox = 33, oy = 64 }, --uppercut 1
             { q = q(69,350,51,65), ox = 23, oy = 64, func = comboUppercut1, delay = 0.06 }, --uppercut 2
-            { q = q(121,343,60,72), ox = 25, oy = 71, func = comboUppercut2, delay = 0.33 }, --uppercut 3
+            { q = q(236,342,61,73), ox = 25, oy = 72, func = comboUppercut2, delay = 0.05 }, --uppercut 3.1
+            { q = q(121,343,60,72), ox = 25, oy = 71, delay = 0.28 }, --uppercut 3.2
             { q = q(183,350,51,65), ox = 23, oy = 64, delay = 0.13 }, --uppercut 2
             delay = 0.16
         },
