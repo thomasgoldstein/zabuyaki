@@ -153,7 +153,7 @@ return {
             { q = q(69,350,51,65), ox = 23, oy = 64, func = comboUppercut1, delay = 0.06 }, --uppercut 2
             { q = q(236,342,61,73), ox = 25, oy = 72, func = comboUppercut2, delay = 0.05 }, --uppercut 3.1
             { q = q(121,343,60,72), ox = 25, oy = 71, delay = 0.28 }, --uppercut 3.2
-            { q = q(183,350,51,65), ox = 23, oy = 64, delay = 0.13 }, --uppercut 2
+            { q = q(183,350,51,65), ox = 23, oy = 64, delay = 0.13 }, --grab
             delay = 0.16
         },
         chargeStand = {
@@ -173,12 +173,12 @@ return {
             delay = 0.183
         },
         grab = {
-            { q = q(183,350,51,65), ox = 23, oy = 64 }, --uppercut 2
+            { q = q(183,350,51,65), ox = 23, oy = 64 }, --grab
         },
         grabFrontAttack1 = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
             { q = q(133,600,59,61), ox = 27, oy = 60, func = grabFrontAttack,  delay = 0.18 }, --grab attack 3
-            { q = q(183,350,51,65), ox = 23, oy = 64, delay = 0.07 }, --uppercut 2
+            { q = q(183,350,51,65), ox = 23, oy = 64, delay = 0.07 }, --grab
             delay = 0.1
         },
         grabFrontAttack2 = {
@@ -190,7 +190,7 @@ return {
         grabFrontAttackBack = {
             { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
             { q = q(194,599,70,62), ox = 36, oy = 61, func = grabFrontAttackBack, delay = 0.5 }, --throw
-            { q = q(183,350,51,65), ox = 23, oy = 64 }, --uppercut 2
+            { q = q(183,350,51,65), ox = 23, oy = 64 }, --grab
             delay = 0.2,
             isThrow = true,
             moves = {
