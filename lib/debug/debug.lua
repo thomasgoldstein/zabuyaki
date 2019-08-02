@@ -370,7 +370,7 @@ function checkDebugKeys(key)
                             p.b = Controls[id]
                         end
                     else
-                        -- F8 F9 F0 Instant kill P1 P@ P3
+                        -- F8 F9 F0 Instant kill P1 P2 P3
                         p:setState(getRegisteredPlayer(id).dead)
                     end
                 end
