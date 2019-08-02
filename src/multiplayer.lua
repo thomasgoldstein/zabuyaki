@@ -25,6 +25,7 @@ function allowPlayersSelect()
                 player.playerSelectMode = 0
             end
         end
+        playerSelectState.enablePlayerSelectOnStart = false
     end
 end
 
