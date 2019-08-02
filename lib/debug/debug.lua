@@ -350,7 +350,15 @@ function checkDebugKeys(key)
         elseif keysToKill[key] then
             local id = keysToKill[key]
             if id == 0 then
-                stage.timeLeft = 0.01
+                if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+                    -- Ctrl + F7 Player select
+                    playerSelectState.enablePlayerSelectOnStart = true
+                    credits = math.max(credits, 3)
+                    doInstantPlayersSelect()
+                else
+                    -- F7 - Time over
+                    stage.timeLeft = 0.01
+                end
             else
                 local p = getRegisteredPlayer(id)
                 if p then
