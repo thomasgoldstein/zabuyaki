@@ -242,6 +242,7 @@ function Stage:draw(l, t, w, h)
         love.graphics.clear()
         self.objects:draw(l, t, w, h) -- units
         if self.foreground then
+            colors:set("white")
             self.foreground:draw(l, t, w, h)
         end
         if self.mode == "event" then
