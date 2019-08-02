@@ -355,12 +355,14 @@ function checkDebugKeys(key)
                 local p = getRegisteredPlayer(id)
                 if p then
                     if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+                        -- Ctrl + F8 F9 F0 Toggle random controls P1 P2 P3
                         if p.b == Controls[id] then
                             p.b = bindRandomDebugInput()
                         else
                             p.b = Controls[id]
                         end
                     else
+                        -- F8 F9 F0 Instant kill P1 P@ P3
                         p:setState(getRegisteredPlayer(id).dead)
                     end
                 end
