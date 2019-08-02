@@ -336,7 +336,7 @@ function loadStageData(stage, mapFile, players)
     stage.shadowHeight = d.properties.shadowHeight or stage.shadowHeight
     loadCollision(d, stage)
     addPlayersToStage(d, players, stage)
-    allowPlayersSelect() -- if debug, you can select char on start
+    doInstantPlayersSelect() -- if debug, you can select char on start
     loadGlobalUnits(d, stage)
     stage.batch = loadBatch(d, stage)
     stage.scrolling = loadCameraScrolling(d)

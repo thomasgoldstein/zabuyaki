@@ -12,7 +12,7 @@ function checkPlayersRespawn(stage)
     end
 end
 
-function allowPlayersSelect()
+function doInstantPlayersSelect()
     if playerSelectState.enablePlayerSelectOnStart then
         --Let select players in the beginning of the stage for DEBUG
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
