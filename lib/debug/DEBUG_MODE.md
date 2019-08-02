@@ -1,4 +1,4 @@
-# DEBUG mode
+*# DEBUG mode
 When DEBUG mode is on, you have access to debug hot-keys.
 
 ### Enter DEBUG mode 
@@ -11,8 +11,19 @@ Press [ - ] or [ + ] to alter the in-game time.
 ### Simulate END OF TIME
 Press [ F7 ] to set the time left counter to 0.5 seconds.
 
+### Instant Players select
+Press [ CTRL ] + [ F7 ] to set characters for active players.
+
 ### Instantly kill Players
 Use [ F8 ], [ F9 ] or [ F10 ] keys to kill P1, P2 or P3 accordingly. 
 
 ### Turn on random Players controls
-To simulate random buttons mashing use [ CTRL ] + [ F8 ], [ CTRL ] + [ F9 ] or [ CTRL ] + [ F10 ] keys for P1, P2 or P3 accordingly. 
+To simulate random buttons mashing use [ CTRL ] + [ F8 ], [ CTRL ] + [ F9 ] or [ CTRL ] + [ F10 ] keys for P1, P2 or P3 accordingly.
+
+## Logging
+### Log active players
+Use [ 1 ] to save all players classes data into **players.txt**.
+
+### Log stage objects
+Use [ 2 ] to save all present on the stage objects data into **objects.txt**.
+ 
