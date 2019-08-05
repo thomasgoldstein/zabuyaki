@@ -399,8 +399,14 @@ end
 
 function drawDebugUnitHitbox(a)
     if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
-        colors:set("white", nil, 150)
-        love.graphics.rectangle("line", a.x - a.width / 2, a.y - a.height - a.z + 1, a.width, a.height-1)
+        local hurtBox =  getSpriteHurtBox(a.sprite)
+        if hurtBox then
+            colors:set("lightGray", nil, 150)
+            love.graphics.rectangle("line", a.x + hurtBox.x, a.y + hurtBox.y - a.z, hurtBox.width, hurtBox.height )
+        else
+            colors:set("white", nil, 150)
+            love.graphics.rectangle("line", a.x - a.width / 2, a.y - a.height - a.z + 1, a.width, a.height-1)
+        end
     end
 end
 

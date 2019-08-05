@@ -111,6 +111,11 @@ function spriteHasAnimation(spr, anim)
     return false
 end
 
+function getSpriteHurtBox(spr)
+    local sc = spr.def.animations[spr.curAnim][spr.curFrame or 1]
+    return sc.hurtBox
+end
+
 function getSpriteQuad(spr, frame_n)
     local sc = spr.def.animations[spr.curAnim][frame_n or spr.curFrame]
     return sc.q
@@ -155,12 +160,18 @@ function updateSpriteInstance(spr, dt, slf)
     if not s.delay then
         s.delay = spr.def.delay
     end
+    if not s.hurtBox then
+        s.hurtBox = spr.def.hurtBox
+    end
     if not sc then
         error("Missing frame #"..spr.curFrame.." in "..spr.curAnim.." animation")
     end
     -- is there delay for this frame?
     if not sc.delay then
         sc.delay = s.delay
+    end
+    if not sc.hurtBox then
+        sc.hurtBox = s.hurtBox
     end
     -- call custom frame func once per the frame
     if sc.func and spr.funcCalledOnFrame ~= spr.curFrame and slf then
