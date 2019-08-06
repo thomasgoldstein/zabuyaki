@@ -346,4 +346,5 @@ function loadStageData(stage, mapFile, players)
         stage.bgColor = d.backgroundcolor or { 0, 0, 0 }
     end
     loadImageLayer(d, "foreground", stage.foreground)
+    stage.foreground:setSize(stage.worldWidth, stage.worldHeight)
 end
