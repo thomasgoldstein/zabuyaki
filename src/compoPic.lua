@@ -58,9 +58,11 @@ end
 
 function CompoundPicture:update(dt)
     local p
-    self.dt = dt -- save dt for custom draw function
     for i=1, #self.pics do
         p = self.pics[i]
+        if p.update then
+            p.update(p, dt)
+        end
         -- scroll horizontally e.g. clouds
         if p.scrollSpeedX and p.scrollSpeedX ~= 0 then
             p.x = p.x + (p.scrollSpeedX * dt)
@@ -95,9 +97,6 @@ function CompoundPicture:draw(l, t, w, h)
     for i = 1, #self.pics do
         p = self.pics[i]
         if CheckCollision(l - p.relativeX * l, t - p.relativeY * t, w, h, p.x, p.y, p.w, p.h) then
-            if p.update then
-                p.update(p, self.dt)
-            end
             love.graphics.draw(p.spriteSheet,
                 p.quad,
                 p.x + p.relativeX * l, -- slow down parallax
