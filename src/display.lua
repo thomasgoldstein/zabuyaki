@@ -28,7 +28,7 @@ local disp640x480 = {
 
 local disp1280x960 = {
     inner = {
-        resolution = { width = 1280, height = 968 },
+        resolution = { width = 1280, height = 960 },
         minScale = 4,
         maxScale = 3,
         YDivider = 2
