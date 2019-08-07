@@ -292,7 +292,7 @@ return {
             -- ox,oy pivots offsets from the top left corner of the quad
             -- delay = 0.1, func = func1, funcCont = func2
             { q = q(2,3,43,63), ox = 20, oy = 62 }, --stand 1
-            { q = q(47,2,42,64), ox = 20, oy = 63, hurtBox = hurtBox.b60x20 }, --stand 2
+            { q = q(47,2,42,64), ox = 20, oy = 63 }, --stand 2
             { q = q(91,3,42,63), ox = 19, oy = 62, delay = 0.117 }, --stand 3
             { q = q(135,4,43,62), ox = 19, oy = 61, delay = 0.25 }, --stand 4
             loop = true,
@@ -306,7 +306,6 @@ return {
             { q = q(150,68,35,64), ox = 17, oy = 63 }, --walk 5
             { q = q(187,69,35,63), ox = 17, oy = 62, delay = 0.25 }, --walk 6
             loop = true,
-            hurtBox = hurtBox.b60x20,
             delay = 0.167
         },
         run = {
