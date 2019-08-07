@@ -29,7 +29,7 @@ local grabShake = function(slf, cont)
 end
 
 return {
-    serializationVersion = 0.42, -- The version of this serialization process
+    serializationVersion = 0.43, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "niko", -- The name of the sprite

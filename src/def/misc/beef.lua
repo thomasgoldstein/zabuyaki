@@ -7,7 +7,7 @@ local function q(x,y,w,h)
 end
 
 return {
-    serializationVersion = 0.42, -- The version of this serialization process
+    serializationVersion = 0.43, -- The version of this serialization process
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "beef", -- The name of the sprite
     delay = math.huge,	--default delay for all animations

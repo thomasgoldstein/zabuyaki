@@ -9,7 +9,7 @@
     http://opensource.org/licenses/MIT
 ]]
 
-local ManagerVersion = 0.42
+local ManagerVersion = 0.43
 
 spriteBank = {} --Map with all the sprite definitions
 imageBank = {} --Contains all images that were already loaded

@@ -47,7 +47,7 @@ local grabFrontAttackBack = function(slf, cont)
 end
 
 return {
-    serializationVersion = 0.42, -- version
+    serializationVersion = 0.43, -- The version of this serialization process
     spriteSheet = spriteSheet, -- path to spritesheet
     spriteName = "satoff", -- sprite name
     delay = 0.2,	--default delay for all animations
