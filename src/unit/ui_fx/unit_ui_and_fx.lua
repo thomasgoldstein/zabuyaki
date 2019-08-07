@@ -211,7 +211,7 @@ function Unit:calcReflectionSpriteAndTransparency()
     return image, spr, sc, shadowAngle, -2
 end
 
-local maxGhostTrailsFrames = 300 -- frames fuffer = FPS * seconds
+local maxGhostTrailsFrames = 300 -- frames buffer = FPS * seconds
 function Unit:getGhostTrails(n)
     local t = self.ghostTrails
     if not t then
