@@ -21,6 +21,9 @@ end
 function Effect:drawShadow(l,t,w,h)
 end
 
+function Effect:drawReflection(l,t,w,h)
+end
+
 function Effect:draw(l,t,w,h)
     if not self.isDisabled and CheckCollision(l, t, w, h, self.x-20, self.y-40, 40, 40) then
         colors:set(self.color )

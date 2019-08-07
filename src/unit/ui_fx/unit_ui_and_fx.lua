@@ -196,6 +196,21 @@ function Unit:calcShadowSpriteAndTransparency()
     return image, spr, sc, shadowAngle, -2
 end
 
+function Unit:calcReflectionSpriteAndTransparency()
+    local transparency
+    if self.transparency and self.transparency < 255 then
+        transparency = self.transparency / 4
+    else
+        transparency = self.deathDelay < 2 and 255 * math.sin(self.deathDelay) or 255
+    end
+    colors:set("white", nil, transparency / 2)
+    local spr = self.sprite
+    local image = imageBank[spr.def.spriteSheet]
+    local sc = spr.def.animations[spr.curAnim][spr.curFrame]
+    local shadowAngle = 0 -- -stage.shadowAngle * spr.flipH
+    return image, spr, sc, shadowAngle, -2
+end
+
 local maxGhostTrailsFrames = 300 -- frames fuffer = FPS * seconds
 function Unit:getGhostTrails(n)
     local t = self.ghostTrails
@@ -309,6 +324,20 @@ function Unit:drawShadow(l, t, w, h)
             -stage.shadowHeight,
             sc.ox, sc.oy,
             shadowAngle)
+    end
+end
+
+function Unit:drawReflection(l, t, w, h)
+    if not self.isDisabled and CheckCollision(l, t, w, h, self.x - 45, self.y - 10, 90, 20) then
+        local image, spr, sc, shadowAngle, y_shift = self:calcReflectionSpriteAndTransparency()
+        love.graphics.draw(image, --The image
+            sc.q, --Current frame of the current animation
+            self.x + self.shake.x, self.y + self.z,
+            0,
+            spr.flipH,
+            -1,
+            sc.ox, sc.oy,
+            0)
     end
 end
 

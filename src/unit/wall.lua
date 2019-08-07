@@ -41,6 +41,9 @@ end
 function Wall:drawShadow(l,t,w,h)
 end
 
+function Wall:drawReflection(l,t,w,h)
+end
+
 function Wall:updateAI(dt)
 end
 

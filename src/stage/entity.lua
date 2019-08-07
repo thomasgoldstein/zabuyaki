@@ -99,6 +99,12 @@ function Entity:drawShadows(l,t,w,h)
     end
 end
 
+function Entity:drawReflections(l,t,w,h)
+    for i,obj in ipairs(self.entities) do
+        obj:drawReflection(l,t,w,h)
+    end
+end
+
 function Entity:dp()
     local t = "* "
     for i,obj in pairs(self.entities) do

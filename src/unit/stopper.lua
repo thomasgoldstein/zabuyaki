@@ -41,6 +41,9 @@ end
 function Stopper:drawShadow(l,t,w,h)
 end
 
+function Stopper:drawReflection(l,t,w,h)
+end
+
 function Stopper:updateAI(dt)
 end
 

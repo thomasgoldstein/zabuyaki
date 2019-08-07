@@ -145,6 +145,9 @@ end
 function Event:drawShadow()
 end
 
+function Event:drawReflection()
+end
+
 function Event:defaultDraw(l, t, w, h)
     if not self.isDisabled then
         colors:set("red", nil, 80)
