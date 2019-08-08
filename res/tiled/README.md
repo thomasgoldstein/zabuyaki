@@ -90,6 +90,10 @@ Use PNG 8-bit with indexed transparency. Leave 2 transparent pixels at every sid
 Use menu **Map / Map Properties** to see the **Background color** map property. 
 Expand the property and edit R G B and Alpha(transparency) entries.
 
+## Enable reflections on the stage floor
+Use menu **Map / Map Properties**.
+Add into **Custom Properties** float value **reflections**. Any value activates the floor reflections.   
+
 ## Optional stage characters' shadows height and angle ##
 Use menu **Map / Map Properties** to see the **Background color** map property. 
 Add **shadowHeight** and **shadowAngle** float properties into **Custom Properties**.  
