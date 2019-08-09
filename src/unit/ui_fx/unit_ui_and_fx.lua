@@ -199,11 +199,11 @@ end
 function Unit:calcReflectionSpriteAndTransparency()
     local transparency
     if self.transparency and self.transparency < 255 then
-        transparency = self.transparency / 4
+        transparency = self.transparency
     else
         transparency = self.deathDelay < 2 and 255 * math.sin(self.deathDelay) or 255
     end
-    colors:set("white", nil, transparency / 2)
+    colors:set("white", nil, transparency)
     local spr = self.sprite
     local image = imageBank[spr.def.spriteSheet]
     local sc = spr.def.animations[spr.curAnim][spr.curFrame]
