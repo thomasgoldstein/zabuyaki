@@ -115,10 +115,16 @@ function arcadeState:draw()
     love.graphics.setBlendMode("alpha", "premultiplied")
     colors:set("white")
     love.graphics.draw(canvas[1], 0,0, nil, display.final.scale) --bg
+    if stage.reflections then
+        love.graphics.setBlendMode("alpha")
+        colors:set("white", nil, GLOBAL_SETTING.REFLECTIONS_OPACITY)
+        love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) -- reflections
+        love.graphics.setBlendMode("alpha", "premultiplied")
+    end
     colors:set("white", nil, GLOBAL_SETTING.SHADOW_OPACITY)
-    love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) --shadows
+    love.graphics.draw(canvas[3], 0,0, nil, display.final.scale) -- shadows
     colors:set("white")
-    love.graphics.draw(canvas[3], 0,0, nil, display.final.scale) --sprites + fg
+    love.graphics.draw(canvas[4], 0,0, nil, display.final.scale) -- sprites + fg
     love.graphics.setBlendMode("alpha")
     if stage.mode == "normal" then
         drawPlayersBars()
