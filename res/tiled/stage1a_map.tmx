@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="12" nextobjectid="18">
- <group id="8" name="background" locked="1">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="17" nextobjectid="18">
+ <group id="8" name="background">
+  <imagelayer id="15" name="sky" offsetx="-530" offsety="0">
+   <image source="../img/stage/stage1/Sky.png" width="2560" height="320"/>
+   <properties>
+    <property name="relativeX" value="1.0"/>
+   </properties>
+  </imagelayer>
   <imagelayer id="9" name="bg" locked="1">
    <image source="../img/stage/stage1/stage1a.png" width="2560" height="320"/>
+  </imagelayer>
+ </group>
+ <group id="12" name="foreground" locked="1">
+  <properties>
+   <property name="relativeX" value="-1.2"/>
+  </properties>
+  <imagelayer id="13" name="fg">
+   <image source="../img/stage/stage1/stage1a_fg.png" width="2560" height="320"/>
+   <properties>
+    <property name="relativeX" value="-1.2"/>
+   </properties>
   </imagelayer>
  </group>
  <objectgroup color="#aa0000" id="7" name="camera" locked="1">

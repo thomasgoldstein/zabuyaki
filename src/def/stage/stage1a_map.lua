@@ -1,14 +1,14 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.2.2",
+  tiledversion = "1.2.4",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 80,
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 12,
+  nextlayerid = 17,
   nextobjectid = 18,
   backgroundcolor = { 0, 85, 0 },
   properties = {},
@@ -26,6 +26,19 @@ return {
       layers = {
         {
           type = "imagelayer",
+          id = 15,
+          name = "sky",
+          visible = true,
+          opacity = 1,
+          offsetx = -530,
+          offsety = 0,
+          image = "../../../res/img/stage/stage1/Sky.png",
+          properties = {
+            ["relativeX"] = "1.0"
+          }
+        },
+        {
+          type = "imagelayer",
           id = 9,
           name = "bg",
           visible = true,
@@ -34,6 +47,33 @@ return {
           offsety = 0,
           image = "../../../res/img/stage/stage1/stage1a.png",
           properties = {}
+        }
+      }
+    },
+    {
+      type = "group",
+      id = 12,
+      name = "foreground",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {
+        ["relativeX"] = "-1.2"
+      },
+      layers = {
+        {
+          type = "imagelayer",
+          id = 13,
+          name = "fg",
+          visible = true,
+          opacity = 1,
+          offsetx = 0,
+          offsety = 0,
+          image = "../../../res/img/stage/stage1/stage1a_fg.png",
+          properties = {
+            ["relativeX"] = "-1.2"
+          }
         }
       }
     },
