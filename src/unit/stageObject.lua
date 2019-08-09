@@ -79,7 +79,6 @@ end
 
 function StageObject:calcReflectionSpriteAndTransparency()
     local transparency = self.deathDelay < 1 and 255 * math.sin(self.deathDelay) or 255
-    print(self.name, transparency)
     colors:set("white", nil, transparency)
     local spr = self.sprite
     local image = imageBank[spr.def.spriteSheet]
