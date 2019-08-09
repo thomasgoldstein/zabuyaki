@@ -51,8 +51,8 @@ function love.load(arg)
     require "src/state/logoState"
     Gamestate.switch(logoState)
     love.graphics.setBackgroundColor(0, 0, 0, 255)
-    for i=1,3 do
-        canvas[i] = love.graphics.newCanvas(640 * 2, 480 * 2)
+    for i=1,4 do
+        canvas[i] = love.graphics.newCanvas(display.inner.resolution.width, display.inner.resolution.height)
     end
     --canvas:setFilter("nearest", "linear", 2)
 
