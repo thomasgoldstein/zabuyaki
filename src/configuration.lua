@@ -28,6 +28,7 @@ GLOBAL_SETTING = {
     CENSORSHIP = true,
     PLAYERS_NAMES = {"P1", "P2", "P3"},
     SHADOW_OPACITY = 100, -- 0..255 (color)
+    REFLECTIONS_OPACITY = 55, -- 0..255 (color)
     AUTO_COMBO = false,
     DIFFICULTY = 1, -- 1 = Normal, 2 = Hard
     MAX_CREDITS = 3,
