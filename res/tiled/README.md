@@ -92,7 +92,11 @@ Expand the property and edit R G B and Alpha(transparency) entries.
 
 ## Enable reflections on the stage floor
 Use menu **Map / Map Properties**.
-Add into **Custom Properties** float value **reflections**. Any value activates the floor reflections.   
+Add into **Custom Properties** float value **reflections**. The value alters the reflections height. Use value from 0.1 to 1.
+
+## Set reflections opacity
+Use menu **Map / Map Properties**.
+Add into **Custom Properties** float value **reflectionsOpacity**. Use value from 0 to 255. Default value 55 ( from GLOBAL_SETTINGS.REFLECTIONS_OPACITY ) is used on omitting the property.   
 
 ## Optional stage characters' shadows height and angle ##
 Use menu **Map / Map Properties** to see the **Background color** map property. 
