@@ -67,26 +67,6 @@ function StageObject:drawSprite(x, y)
     drawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
 end
 
-function StageObject:calcShadowSpriteAndTransparency()
-    local transparency = self.deathDelay < 1 and 255 * math.sin(self.deathDelay) or 255
-    colors:set("black", nil, transparency)
-    local spr = self.sprite
-    local image = imageBank[spr.def.spriteSheet]
-    local sc = spr.def.animations[spr.curAnim][self:calcDamageFrame()]
-    local shadowAngle = -stage.shadowAngle * spr.flipH
-    return image, spr, sc, shadowAngle, -2
-end
-
-function StageObject:calcReflectionSpriteAndTransparency()
-    local transparency = self.deathDelay < 1 and 255 * math.sin(self.deathDelay) or 255
-    colors:set("white", nil, transparency)
-    local spr = self.sprite
-    local image = imageBank[spr.def.spriteSheet]
-    local sc = spr.def.animations[spr.curAnim][spr.curFrame]
-    local shadowAngle = 0 -- -stage.shadowAngle * spr.flipH
-    return image, spr, sc, shadowAngle, -2
-end
-
 function StageObject:checkCollisionAndMove(dt)
     local success = true
     if self.move then
