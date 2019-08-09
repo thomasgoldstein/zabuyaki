@@ -229,8 +229,7 @@ end
 function Stage:draw(l, t, w, h)
     love.graphics.setBlendMode("alpha")
     love.graphics.setCanvas(canvas[1])
-    love.graphics.clear(unpack(self.bgColor))
-    --    love.graphics.clear(unpack(self.bgColor))
+    love.graphics.clear()
     if self.mode == "normal" or self.mode == "event" then
         if self.background then
             self.background:draw(l, t, w, h)
