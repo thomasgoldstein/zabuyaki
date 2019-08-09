@@ -2,7 +2,7 @@
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="17" nextobjectid="18">
  <group id="8" name="background">
   <imagelayer id="15" name="sky" offsetx="-530" offsety="0">
-   <image source="../img/stage/stage1/Sky.png" width="2560" height="320"/>
+   <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
    <properties>
     <property name="relativeX" value="1.0"/>
    </properties>

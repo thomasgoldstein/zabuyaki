@@ -32,7 +32,7 @@ return {
           opacity = 1,
           offsetx = -530,
           offsety = 0,
-          image = "../../../res/img/stage/stage1/Sky.png",
+          image = "../../../res/img/stage/stage1/sky.png",
           properties = {
             ["relativeX"] = "1.0"
           }
