@@ -235,14 +235,16 @@ function Stage:draw(l, t, w, h)
         if self.background then
             self.background:draw(l, t, w, h)
         end
-        love.graphics.setCanvas(canvas[2])
-        love.graphics.clear()
-        self.objects:drawShadows(l, t, w, h) -- units shadows
-        love.graphics.setCanvas(canvas[3])
-        love.graphics.clear()
         if self.reflections then
+            love.graphics.setCanvas(canvas[2])
+            love.graphics.clear()
             self.objects:drawReflections(l, t, w, h) -- units reflections
         end
+        love.graphics.setCanvas(canvas[3])
+        love.graphics.clear()
+        self.objects:drawShadows(l, t, w, h) -- units shadows
+        love.graphics.setCanvas(canvas[4])
+        love.graphics.clear()
         self.objects:draw(l, t, w, h) -- units
         if self.foreground then
             colors:set("white")
