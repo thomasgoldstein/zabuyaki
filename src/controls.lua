@@ -104,6 +104,7 @@ function bindGameInput()
                             :addButton(tactile.keys('f11')),
         screenshot = tactile.newControl()
                             :addButton(tactile.keys('pause'))
+                            :addButton(tactile.keys('/'))
     }
     -- define Player 2 controls
     Controls[gamepad2] = {
