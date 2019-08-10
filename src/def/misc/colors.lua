@@ -6,8 +6,8 @@ local Colors = class('Colors')
 local pauseStateTransp = 0.5   -- used to alter the Pause State screen's darkness
 function Colors:initialize()
     self.c = {
-        ghostTrailsColors = { {125, 150, 255, 200}, {75, 100, 255, 150 }, {25, 50, 255, 100 } }, -- RGBA, also the number of the ghosts
-        playersColors = {{204, 38, 26}, {24, 137, 20}, {23, 84, 216} },
+        ghostTrailsColors = { {125, 150, 255, 200}, {75, 100, 255, 150}, {25, 50, 255, 100} }, -- RGBA, also the number of the ghosts
+        playersColors = {{255, 30, 15}, {40, 200, 30}, {0, 100, 255} },
         white = {255, 255, 255, 255},
         chargeAttack = {255, 255, 255, 63},
         lightGray = {200, 200, 200, 255},
@@ -26,10 +26,10 @@ function Colors:initialize()
             {GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp, GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp,
             GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp, GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp } },
         batchColors = {{255, 0, 0, 125}, {0, 255, 0, 125}, {0, 0, 255, 125}},
-        barNormColor = {244, 210, 14, 255},
-        barLosingColor = { 228, 102, 21, 255 },
-        barLostColor = { 199, 32, 26, 255 },
-        barGotColor = { 34, 172, 11, 255 },
+        barNormColor = {255, 220, 15, 255},
+        barLosingColor = { 255, 110, 15, 255 },
+        barLostColor = { 230, 0, 20, 255 },
+        barGotColor = { 115, 230, 15, 255 },
         barTopBottomSmoothColor = { 100, 50, 50, 255 },
     }
 end
