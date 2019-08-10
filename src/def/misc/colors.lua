@@ -3,7 +3,7 @@
 local class = require "lib/middleclass"
 local Colors = class('Colors')
 
-local pauseStateTransp = 0.75   -- used to alter the Pause State screen's darkness
+local pauseStateTransp = 0.5   -- used to alter the Pause State screen's darkness
 function Colors:initialize()
     self.c = {
         ghostTrailsColors = { {125, 150, 255, 200}, {75, 100, 255, 150 }, {25, 50, 255, 100 } }, -- RGBA, also the number of the ghosts
