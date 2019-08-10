@@ -77,13 +77,21 @@ function pauseState:draw()
     love.graphics.setCanvas()
     push:start()
     if canvas[1] then
+        local c = {}
+        c[1] = stage.bgColor[1] / 2; c[2] = stage.bgColor[2] / 2; c[3] = stage.bgColor[3] / 2
+        love.graphics.clear(c)
+        if stage.reflections then
+            love.graphics.setBlendMode("alpha")
+            colors:set("pauseStateColors", 2, stage.reflectionsOpacity)
+            love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) -- reflections
+        end
         love.graphics.setBlendMode("alpha", "premultiplied")
         colors:set("pauseStateColors", 1)
-        love.graphics.draw(canvas[1], 0,0, nil, 0.5) --bg
+        love.graphics.draw(canvas[1], 0,0, nil, display.final.scale) --bg
         colors:set("pauseStateColors", 2)
-        love.graphics.draw(canvas[2], 0,0, nil, 0.5) --shadows
+        love.graphics.draw(canvas[3], 0,0, nil, display.final.scale) -- shadows
         colors:set("pauseStateColors", 1)
-        love.graphics.draw(canvas[3], 0,0, nil, 0.5) --sprites + fg
+        love.graphics.draw(canvas[4], 0,0, nil, display.final.scale) -- sprites + fg
         love.graphics.setBlendMode("alpha")
     end
     if stage.mode == "normal" then
