@@ -263,7 +263,7 @@ function Unit:drawGhostTrails(l, t, w, h)
     if not gt or not gt.enabled then
         return
     end
-    love.graphics.setBlendMode("add")
+    love.graphics.setBlendMode("lighten","premultiplied")
     local x, y, m = 0, 0, 0
     local fpsDt = gt.shift * love.timer.getFPS()
     for k = gt.n, 1, -1 do
