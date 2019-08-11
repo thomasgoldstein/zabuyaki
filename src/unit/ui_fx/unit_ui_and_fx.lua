@@ -226,7 +226,7 @@ function Unit:getGhostTrails(n)
         return maxGhostTrailsFrames + t.i - n
     end
 end
-function Unit:enableGhostTrails(kind)
+function Unit:enableGhostTrails()
     local t = self.ghostTrails
     if not t then
         return
@@ -236,11 +236,6 @@ function Unit:enableGhostTrails(kind)
     t.i = 0
     t.n = #colors:get("ghostTrailsColors")
     t.time = 0
-    t.kind = kind
-    if kind == 1 then
-        t.ghostTrailsDelay = getSpriteAnimationDelay(self.sprite, self.sprite.curAnim) / 6 -- tweakable: the length of the effect
-        t.ghostTrailsTime = 0
-    end
 end
 function Unit:disableGhostTrails()
     local t = self.ghostTrails
@@ -256,36 +251,19 @@ function Unit:fadeOutGhostTrails()
     end
     t.fade = true
 end
-local ghostTaceKind1 = { { x = 1, y = -1 }, { x = -1, y = -1 } }
-local ghostTaceKind1MaxOffset = 16 -- tweakable: increase to move ghosts farther from the chara
 function Unit:drawGhostTrails(l, t, w, h)
     local gt = self.ghostTrails
     if not gt or not gt.enabled then
         return
     end
     love.graphics.setBlendMode("lighten","premultiplied")
-    local x, y, m = 0, 0, 0
     local fpsDt = gt.shift * love.timer.getFPS()
     for k = gt.n, 1, -1 do
         local i = self:getGhostTrails(math.ceil( 1 + k * fpsDt / 60))
         if gt.ghost[i] then
             colors:set("ghostTrailsColors", k)
             self.sprite.flipH = gt.ghost[i][5]
-            if gt.kind == 1 then
-                if ghostTaceKind1[k] then
-                    x, y = ghostTaceKind1[k].x, ghostTaceKind1[k].y
-                    if gt.ghostTrailsTime <= gt.ghostTrailsDelay then
-                        m = gt.ghostTrailsTime * ghostTaceKind1MaxOffset
-                    elseif gt.ghostTrailsTime <= gt.ghostTrailsDelay * 2 then
-                        m = (gt.ghostTrailsDelay * 2 - gt.ghostTrailsTime) * ghostTaceKind1MaxOffset
-                    else
-                        m = 0
-                    end
-                end
-                drawSpriteCustomInstance(self.sprite, gt.ghost[i][1] + x * m, gt.ghost[i][2] + y * m, gt.ghost[i][3], gt.ghost[i][4])
-            else
-                drawSpriteCustomInstance(self.sprite, gt.ghost[i][1], gt.ghost[i][2], gt.ghost[i][3], gt.ghost[i][4])
-            end
+            drawSpriteCustomInstance(self.sprite, gt.ghost[i][1], gt.ghost[i][2], gt.ghost[i][3], gt.ghost[i][4])
         end
     end
     love.graphics.setBlendMode("alpha")
@@ -299,9 +277,6 @@ function Unit:updateGhostTrails(dt)
     t.i = t.i + 1
     if t.i > maxGhostTrailsFrames then
         t.i = 1
-    end
-    if t.kind == 1 then
-        t.ghostTrailsTime = t.ghostTrailsTime + dt
     end
     t.time = t.time + dt
     if t.time >= t.delay then
