@@ -173,7 +173,7 @@ local svetaColors_2 = {
 
 local zeenaColors_original = svetaColors_original
 local zeenaColors_2 = {
-    { 252, 183, 218, 255 }, { 195, 94, 154, 255 }, { 75, 18, 101, 255 }, -- pink vest
+    { 249, 187, 193, 255 }, { 195, 94, 154, 255 }, { 75, 18, 101, 255 }, -- pink vest
     { 66, 51, 58, 255 }, { 27, 27, 27, 255 }, { 6, 6, 6, 255 }, -- black pants
     { 35, 59, 95, 255 }, { 4, 7, 70, 255 }, { 4, 3, 41, 255 } } -- dark blue hair
 
