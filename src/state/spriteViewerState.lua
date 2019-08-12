@@ -254,13 +254,13 @@ function spriteViewerState:draw()
                 m.n = #hero.shaders
             end
             if #hero.shaders < 1 then
-                m.item = "NO SHADERS"
+                m.item = "NO PALETTES"
                 m.hint = ""
             else
                 if not hero.shaders[m.n] then
-                    m.item = "SHADER #"..m.n.." (ORIGINAL)"
+                    m.item = "PALETTE #"..m.n.." (ORIGINAL)"
                 else
-                    m.item = "SHADER #"..m.n
+                    m.item = "PALETTE #"..m.n
                 end
                 m.hint = ""
             end

@@ -151,9 +151,9 @@ function spriteSelectState:draw()
         local m = menu[i]
         if i == 1 then
             if #heroes[m.n].shaders > 0 then
-                m.item = heroes[m.n].name.." - "..#heroes[m.n].shaders.." shaders"
+                m.item = heroes[m.n].name.." - "..#heroes[m.n].shaders.." palettes"
             else
-                m.item = heroes[m.n].name.." - no shaders"
+                m.item = heroes[m.n].name.." - no palettes"
             end
             m.hint = ""..heroes[m.n].spriteInstance
         end
