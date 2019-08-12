@@ -33,7 +33,7 @@ local heroes = {
     },
     {
         name = "YAR",
-        shaders = {nil, nil, nil},
+        shaders = {nil, shaders.yar[1], shaders.yar[2]},
         spriteInstance = "src/def/char/yar",
     },
     {
