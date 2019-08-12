@@ -1,5 +1,5 @@
--- Sprite Editor
-spriteEditorState = {}
+-- Sprite Viewer
+spriteViewerState = {}
 
 local time = 0
 local screenWidth = 640
@@ -28,7 +28,7 @@ local menu = fillMenu(txtItems)
 local menuState, oldMenuState = 1, 1
 local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
-function spriteEditorState:enter(_, _hero)
+function spriteViewerState:enter(_, _hero)
     hero = _hero
     sprite = getSpriteInstance(hero.spriteInstance)
     sprite.sizeScale = 2
@@ -115,7 +115,7 @@ Use R-Alt, R-Ctrl, R-Shift for Overlay operations]], x, y)
 end
 
 --Only P1 can use menu / options
-function spriteEditorState:playerInput(controls)
+function spriteViewerState:playerInput(controls)
     local s, f
     local m = menu[menuState]
     if menuState == 2 then --static frame
@@ -191,7 +191,7 @@ function spriteEditorState:playerInput(controls)
     end
 end
 
-function spriteEditorState:update(dt)
+function spriteViewerState:update(dt)
     time = time + dt
     if menuState ~= oldMenuState then
         sfx.play("sfx","menuMove")
@@ -203,7 +203,7 @@ function spriteEditorState:update(dt)
     self:playerInput(Controls[1])
 end
 
-function spriteEditorState:draw()
+function spriteViewerState:draw()
     push:start()
     displayHelp()
     love.graphics.setFont(gfx.font.arcade4)
@@ -343,7 +343,7 @@ function spriteEditorState:draw()
     push:finish()
 end
 
-function spriteEditorState:confirm( x, y, button, istouch )
+function spriteViewerState:confirm( x, y, button, istouch )
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
         TEsound.stop("music")
@@ -363,7 +363,7 @@ function spriteEditorState:confirm( x, y, button, istouch )
     end
 end
 
-function spriteEditorState:wheelmoved(x, y)
+function spriteViewerState:wheelmoved(x, y)
     local i = 0
     if y > 0 then
         i = 1
@@ -411,14 +411,14 @@ function spriteEditorState:wheelmoved(x, y)
     end
 end
 
-function spriteEditorState:mousepressed( x, y, button, istouch )
+function spriteViewerState:mousepressed( x, y, button, istouch )
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end
     self:confirm( x, y, button, istouch )
 end
 
-function spriteEditorState:mousemoved( x, y, dx, dy)
+function spriteViewerState:mousemoved( x, y, dx, dy)
     if not GLOBAL_SETTING.MOUSE_ENABLED then
         return
     end

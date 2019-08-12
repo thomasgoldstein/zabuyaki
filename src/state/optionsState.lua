@@ -14,7 +14,7 @@ local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
-local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE EDITOR", "UNIT TESTS", "BACK"}
+local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE VIEWER", "UNIT TESTS", "BACK"}
 
 local menu = fillMenu(txtItems)
 

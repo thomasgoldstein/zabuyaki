@@ -1,4 +1,4 @@
--- Select Sprite for Sprite Editor
+-- Select Sprite for Sprite Viewer
 spriteSelectState = {}
 
 local time = 0
@@ -205,7 +205,7 @@ function spriteSelectState:confirm( x, y, button, istouch )
     if button == 1 then
         if menuState == 1 then
             sfx.play("sfx","menuSelect")
-            return Gamestate.push(spriteEditorState, heroes[menu[menuState].n])
+            return Gamestate.push(spriteViewerState, heroes[menu[menuState].n])
         end
     end
 end

@@ -179,7 +179,7 @@ function love.load(arg)
     require "src/state/arcadeState"
     --Developers GameStates
     require "src/state/spriteSelectState"
-    require "src/state/spriteEditorState"
+    require "src/state/spriteViewerState"
 
     Gamestate.registerEvents()
     bindGameInput()
