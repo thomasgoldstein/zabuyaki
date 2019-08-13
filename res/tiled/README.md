@@ -133,6 +133,7 @@ Custom Properties:
 * nextmap (map name) <- Override map property 'nextmap' with (map name). It can be used for forking to a secret map.
 
 We will add other rectangle event triggers of other types in this group later.
+> Hint: To make players stop moving and **wait for 3.5 seconds** create an event and add properties: **gox 0** and **duration 0,5**.
 
 ## Predefined events ##
 * nextmap <- Load next map. The next map is set in the map properties. Override it with an event's 'nextmap' (map name) property.   
