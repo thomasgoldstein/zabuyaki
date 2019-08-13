@@ -67,11 +67,11 @@ Set property Visible to false if you don't want to see this image or the sub-fol
 E.g. Use a big stage picture as a template. You can vary its transparency level.
 It is good for positioning. But this property value is ignored in Zabuyaki.
 
-Hint: You can duplicate layers. They would keep its properties and the image reference. Just move it and rename.
+> Hint: You can duplicate layers. They would keep its properties and the image reference. Just move it and rename.
 
-Hint: Change the images and sub-folders order to affect the in game Z-Index. 
+> Hint: Change the images and sub-folders order to affect the in game Z-Index. 
 
-Hint: Use LOCK icons to protect images or groups of images from shifting.
+> Hint: Use LOCK icons to protect images or groups of images from shifting.
 
 ## Background and foreground parallax ##
 Every Image Layer (single image) or a Group Layer (starting from the root folders **background** and **foregroung**) may have these attributes:
@@ -155,7 +155,7 @@ Custom properties for each batch **Object layer**:
 * onLeave (event name) <- call event on the last player crossing the right bound of the batch.
 * onComplete (event name) <- call event (name) on the last batch enemy death. 
 
-Hint: Every batch event should be defined as a global event somewhere at the stage. Keep it away from the walking areas to prevent starting on a player collision.  
+> Hint: Every batch event should be defined as a global event somewhere at the stage. Keep it away from the walking areas to prevent starting on a player collision.  
 
 ## Add enemy units to a batch ##
 Go to the layers tab. Select any **Object layer** within "batch" **Group layer**. 
