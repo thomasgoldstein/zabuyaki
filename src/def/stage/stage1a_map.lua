@@ -216,8 +216,26 @@ return {
           name = "leaveMap",
           type = "event",
           shape = "point",
-          x = 2479.33,
-          y = 186.667,
+          x = 2480,
+          y = 184,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["animation"] = "stand",
+            ["duration"] = "2",
+            ["gox"] = "0",
+            ["nextevent"] = "exit"
+          }
+        },
+        {
+          id = 17,
+          name = "exit",
+          type = "event",
+          shape = "point",
+          x = 2584,
+          y = 280,
           width = 0,
           height = 0,
           rotation = 0,
@@ -227,19 +245,6 @@ return {
             ["nextevent"] = "nextmap",
             ["nextmap"] = "stage1b_map"
           }
-        },
-        {
-          id = 17,
-          name = "exit",
-          type = "event",
-          shape = "point",
-          x = 2480,
-          y = 240,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
         }
       }
     },
