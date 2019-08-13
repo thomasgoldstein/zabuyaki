@@ -80,13 +80,18 @@ function Unit:initialize(name, sprite, x, y, f, input)
     GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
     self.pid = ""
     self.showPIDDelay = 0
-    self:addShape(f.shapeType or "rectangle", f.shapeArgs or {self.x, self.y, 15, 7})
+    self.saveShapeType = f.shapeType or "rectangle"
+    self.saveShapeArgs = f.shapeArgs or {self.x, self.y, 15, 7}
+    self:addShape(self.saveShapeType, self.saveShapeArgs)
     self:setState(self.stand)
     dpoInit(self)
 end
 
 function Unit:setOnStage(stage)
 --    dp("SET ON STAGE", self.name, self.id, self.palette)
+    if not self.shape then
+        self:addShape(self.saveShapeType, self.saveShapeArgs)   -- recreate shape
+    end
     stage.objects:add(self)
     self.shader = getShader(self.sprite.def.spriteName:lower(), self.palette)
     self.lifeBar = LifeBar:new(self)

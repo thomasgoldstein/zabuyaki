@@ -311,6 +311,7 @@ local function addPlayersToStage(items, players, stage)
                     GLOBAL_UNIT_ID = i
                     p.x = r(v.x)
                     p.y = r(v.y)
+                    p.shape = nil   -- to recreate player's collision shapes (needed for HC lib)
                     p:setOnStage(stage)
                 end
             else
