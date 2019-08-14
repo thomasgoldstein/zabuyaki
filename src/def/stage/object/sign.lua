@@ -11,7 +11,7 @@ return {
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "sign", -- sprite name
 
-    delay = 9000000,	--default delay for all
+    delay = math.huge,	--default delay for all
 
     animations = {
         icon = {

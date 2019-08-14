@@ -34,7 +34,8 @@ return {
     --  mySprite.animations["idle"][1], or even
     animations = {
         icon = {
-            { q = q(56, 84, 33, 17) }
+            { q = q(56, 84, 33, 17) },
+            delay = math.huge
         },
         intro = {
             { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck

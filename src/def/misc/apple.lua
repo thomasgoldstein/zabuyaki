@@ -13,7 +13,7 @@ return {
     delay = math.huge,	--default delay for all animations
     animations = {
         icon = {
-            { q = q(2,2,18,17) } -- default 38x17
+            { q = q(2,2,18,17) }
         },
         stand = {
             { q = q(2,2,18,17), ox = 9, oy = 16 }, --on the ground

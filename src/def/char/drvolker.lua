@@ -18,7 +18,8 @@ return {
     --  mySprite.animations["idle"][1], or even
     animations = {
         icon = {
-            { q = q(6, 14, 37, 17) }
+            { q = q(6, 14, 37, 17) },
+            delay = math.huge
         },
         intro = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
@@ -108,6 +109,7 @@ return {
         },
         grab = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            delay = math.huge
         },
         grabSwap = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame

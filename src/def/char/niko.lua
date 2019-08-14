@@ -41,7 +41,8 @@ return {
     --  mySprite.animations["idle"][1], or even
     animations = {
         icon = {
-            { q = q(39, 14, 37, 17) }
+            { q = q(39, 14, 37, 17) },
+            delay = math.huge
         },
         intro = {
             { q = q(114,73,38,58), ox = 21, oy = 57 }, --duck
@@ -142,6 +143,7 @@ return {
         },
         grab = {
             { q = q(2,529,45,63), ox = 18, oy = 62 }, --grab
+            delay = math.huge
         },
         grabFrontAttack1 = {
             { q = q(49,530,52,62), ox = 24, oy = 61, delay = 0.05 }, --grab attack 1

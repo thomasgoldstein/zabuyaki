@@ -53,7 +53,8 @@ return {
     delay = 0.2,	--default delay for all animations
     animations = {
         icon = {
-            { q = q(20, 9, 38, 17) } -- default 38x17
+            { q = q(20, 9, 38, 17) },
+            delay = math.huge
         },
         intro = {
             { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1
@@ -174,6 +175,7 @@ return {
         },
         grab = {
             { q = q(183,350,51,65), ox = 23, oy = 64 }, --grab
+            delay = math.huge
         },
         grabFrontAttack1 = {
             { q = q(2,595,60,66), ox = 29, oy = 65 }, --grab attack 1
