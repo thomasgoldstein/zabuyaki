@@ -77,18 +77,18 @@ return {
             delay = math.huge
         },
         jumpAttackStraight = {
-            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
-            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = math.huge }, --jump attack 2
-            delay = 0.06
+            { q = q(42,297,43,57), ox = 25, oy = 61, delay = 0.06 }, --jump attack 1
+            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack }, --jump attack 2
+            delay = math.huge
         },
         jumpAttackStraightEnd = {
             { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
             delay = math.huge
         },
         jumpAttackForward = {
-            { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
-            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack, delay = math.huge }, --jump attack 2
-            delay = 0.06
+            { q = q(42,297,43,57), ox = 25, oy = 61, delay = 0.06 }, --jump attack 1
+            { q = q(87,297,66,53), ox = 32, oy = 61, funcCont = jumpAttack }, --jump attack 2
+            delay = math.huge
         },
         jumpAttackForwardEnd = {
             { q = q(42,297,43,57), ox = 25, oy = 61 }, --jump attack 1
@@ -99,9 +99,9 @@ return {
             delay = math.huge
         },
         respawn = {
-            { q = q(2,297,38,61), ox = 22, oy = 60, delay = math.huge }, --jump
-            { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
-            delay = 0.6
+            { q = q(2,297,38,61), ox = 22, oy = 60 }, --jump
+            { q = q(81,193,40,51), ox = 22, oy = 50, delay = 0.6 }, --duck
+            delay = math.huge
         },
         pickUp = {
             { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck

@@ -119,29 +119,29 @@ return {
             delay = math.huge
         },
         jumpAttackStraight = {
-            { q = q(59,417,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = math.huge }, --jump attack forward 2
-            delay = 0.12
+            { q = q(59,417,60,74), ox = 34, oy = 75, delay = 0.12 }, --jump attack forward 1
+            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack }, --jump attack forward 2
+            delay = math.huge
         },
         jumpAttackForward = {
-            { q = q(59,417,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = math.huge }, --jump attack forward 2
-            delay = 0.12
+            { q = q(59,417,60,74), ox = 34, oy = 75, delay = 0.12 }, --jump attack forward 1
+            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack }, --jump attack forward 2
+            delay = math.huge
         },
         jumpAttackRun = {
-            { q = q(59,417,60,74), ox = 34, oy = 75 }, --jump attack forward 1
-            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack, delay = math.huge }, --jump attack forward 2
-            delay = 0.12
+            { q = q(59,417,60,74), ox = 34, oy = 75, delay = 0.12 }, --jump attack forward 1
+            { q = q(121,424,58,58), ox = 31, oy = 68, funcCont = jumpAttack }, --jump attack forward 2
+            delay = math.huge
         },
         dropDown = {
             { q = q(2,421,55,70), ox = 35, oy = 69 }, --jump
             delay = math.huge
         },
         respawn = {
-            { q = q(2,421,55,70), ox = 35, oy = 69, delay = math.huge }, --jump
+            { q = q(2,421,55,70), ox = 35, oy = 69 }, --jump
             { q = q(206,736,66,61), ox = 33, oy = 60, delay = 0.5 }, --pick up
-            { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
-            delay = 0.1
+            { q = q(206,665,69,64), ox = 37, oy = 63, delay = 0.1 }, --duck
+            delay = math.huge
         },
         pickUp = {
             { q = q(206,665,69,64), ox = 37, oy = 63, delay = 0.03 }, --duck

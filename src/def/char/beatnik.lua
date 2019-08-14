@@ -84,12 +84,13 @@ return {
             delay = 0.06
         },
         dropDown = {
-            { q = q(66,284,51,66), ox = 17, oy = 66, delay = math.huge }, --kick 1
+            { q = q(66,284,51,66), ox = 17, oy = 66 }, --kick 1
+            delay = math.huge
         },
         respawn = {
-            { q = q(66,284,51,66), ox = 17, oy = 66, delay = math.huge }, --kick 1
-            { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck
-            delay = 0.6
+            { q = q(66,284,51,66), ox = 17, oy = 66 }, --kick 1
+            { q = q(2,288,62,62), ox = 34, oy = 61, delay = 0.6 }, --duck
+            delay = math.huge
         },
         pickUp = {
             { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck

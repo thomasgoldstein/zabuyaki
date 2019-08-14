@@ -87,7 +87,8 @@ return {
             delay = 0.06
         },
         dropDown = {
-            { q = q(2,372,58,52), ox = 27, oy = 51, delay = math.huge }, --dash
+            { q = q(2,372,58,52), ox = 27, oy = 51 }, --dash
+            delay = math.huge
         },
         respawn = {
             { q = q(2,372,58,52), ox = 27, oy = 51, delay = math.huge }, --dash

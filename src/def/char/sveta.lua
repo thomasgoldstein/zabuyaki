@@ -68,12 +68,13 @@ return {
             { q = q(2,323,38,67), ox = 23, oy = 66 }, --jump
         },
         dropDown = {
-            { q = q(2,323,38,67), ox = 23, oy = 66, delay = math.huge }, --jump
+            { q = q(2,323,38,67), ox = 23, oy = 66 }, --jump
+            delay = math.huge
         },
         respawn = {
-            { q = q(2,323,38,67), ox = 23, oy = 66, delay = math.huge }, --jump
-            { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck
-            delay = 0.6
+            { q = q(2,323,38,67), ox = 23, oy = 66 }, --jump
+            { q = q(147,209,48,56), ox = 30, oy = 55, delay = 0.6 }, --duck
+            delay = math.huge
         },
         pickUp = {
             { q = q(147,209,48,56), ox = 30, oy = 55 }, --duck

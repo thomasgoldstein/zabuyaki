@@ -84,14 +84,14 @@ return {
             delay = math.huge
         },
         jumpAttackStraight = {
-            { q = q(61,265,56,63), ox = 31, oy = 64 }, --jump attack forward 1
-            { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jumpAttack, delay = math.huge }, --jump attack forward 2
-            delay = 0.12
+            { q = q(61,265,56,63), ox = 31, oy = 64, delay = 0.12 }, --jump attack forward 1
+            { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jumpAttack }, --jump attack forward 2
+            delay = math.huge
         },
         jumpAttackForward = {
-            { q = q(61,265,56,63), ox = 31, oy = 64 }, --jump attack forward 1
-            { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jumpAttack, delay = math.huge }, --jump attack forward 2
-            delay = 0.12
+            { q = q(61,265,56,63), ox = 31, oy = 64, delay = 0.12 }, --jump attack forward 1
+            { q = q(119,263,64,67), ox = 39, oy = 66, funcCont = jumpAttack }, --jump attack forward 2
+            delay = math.huge
         },
         dropDown = {
             { q = q(2,264,57,66), ox = 21, oy = 65 }, --jump

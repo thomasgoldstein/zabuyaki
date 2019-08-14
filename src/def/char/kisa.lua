@@ -81,13 +81,14 @@ return {
             delay = math.huge
         },
         dropDown = {
-            { q = q(2,2,38,58), ox = 23, oy = 57, delay = math.huge }, --stand 1
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            delay = math.huge
         },
         respawn = {
-            { q = q(2,2,38,58), ox = 23, oy = 57, delay = math.huge }, --stand 1
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
             { q = q(2,2,38,58), ox = 23, oy = 57, delay = 0.5 }, --stand 1
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1 (need 3 frames)
-            delay = 0.1
+            { q = q(2,2,38,58), ox = 23, oy = 57, delay = 0.1 }, --stand 1 (need 3 frames)
+            delay = math.huge
         },
         pickUp = {
             { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
