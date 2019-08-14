@@ -85,10 +85,14 @@
    </properties>
    <point/>
   </object>
-  <object id="18" name="TRASH" type="trashcan" x="356" y="256">
+  <object id="18" name="Trash" type="trashcan" x="356" y="256">
    <point/>
   </object>
-  <object id="19" name="TRASH" type="trashcan" x="455" y="298">
+  <object id="19" name="Trash" type="trashcan" x="455" y="298">
+   <properties>
+    <property name="drop" value="apple"/>
+    <property name="palette" value="2"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

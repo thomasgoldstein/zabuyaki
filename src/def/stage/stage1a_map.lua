@@ -301,7 +301,7 @@ return {
         },
         {
           id = 18,
-          name = "TRASH",
+          name = "Trash",
           type = "trashcan",
           shape = "point",
           x = 356,
@@ -314,7 +314,7 @@ return {
         },
         {
           id = 19,
-          name = "TRASH",
+          name = "Trash",
           type = "trashcan",
           shape = "point",
           x = 455,
@@ -323,7 +323,10 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["drop"] = "apple",
+            ["palette"] = "2"
+          }
         }
       }
     },
