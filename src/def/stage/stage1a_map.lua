@@ -8,7 +8,7 @@ return {
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 17,
+  nextlayerid = 21,
   nextobjectid = 18,
   backgroundcolor = { 0, 85, 0 },
   properties = {},
@@ -30,18 +30,68 @@ return {
           name = "sky",
           visible = true,
           opacity = 1,
-          offsetx = -530,
-          offsety = 0,
+          offsetx = -420,
+          offsety = -4,
           image = "../../../res/img/stage/stage1/sky.png",
           properties = {
-            ["relativeX"] = "1.0"
+            ["relativeX"] = "0.9"
+          }
+        },
+        {
+          type = "group",
+          id = 18,
+          name = "back-city",
+          visible = true,
+          opacity = 1,
+          offsetx = -378,
+          offsety = -9,
+          properties = {
+            ["relativeX"] = "0.8"
+          },
+          layers = {
+            {
+              type = "imagelayer",
+              id = 19,
+              name = "city",
+              visible = true,
+              opacity = 1,
+              offsetx = 0,
+              offsety = 0,
+              image = "../../../res/img/stage/stage1/background-back-city.png",
+              properties = {}
+            }
+          }
+        },
+        {
+          type = "group",
+          id = 17,
+          name = "front-city",
+          visible = true,
+          opacity = 1,
+          offsetx = -378,
+          offsety = -9,
+          properties = {
+            ["relativeX"] = "0.7"
+          },
+          layers = {
+            {
+              type = "imagelayer",
+              id = 20,
+              name = "city",
+              visible = true,
+              opacity = 1,
+              offsetx = 0,
+              offsety = 0,
+              image = "../../../res/img/stage/stage1/background-front-city.png",
+              properties = {}
+            }
           }
         },
         {
           type = "imagelayer",
           id = 9,
           name = "bg",
-          visible = true,
+          visible = false,
           opacity = 1,
           offsetx = 0,
           offsety = 0,

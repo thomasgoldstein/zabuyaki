@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="17" nextobjectid="18">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="21" nextobjectid="18">
  <group id="8" name="background">
-  <imagelayer id="15" name="sky" offsetx="-530" offsety="0">
+  <imagelayer id="15" name="sky" offsetx="-420" offsety="-4">
    <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
    <properties>
-    <property name="relativeX" value="1.0"/>
+    <property name="relativeX" value="0.9"/>
    </properties>
   </imagelayer>
-  <imagelayer id="9" name="bg" locked="1">
+  <group id="18" name="back-city" offsetx="-378" offsety="-9">
+   <properties>
+    <property name="relativeX" value="0.8"/>
+   </properties>
+   <imagelayer id="19" name="city">
+    <image source="../img/stage/stage1/background-back-city.png" width="2560" height="320"/>
+   </imagelayer>
+  </group>
+  <group id="17" name="front-city" offsetx="-378" offsety="-9">
+   <properties>
+    <property name="relativeX" value="0.7"/>
+   </properties>
+   <imagelayer id="20" name="city">
+    <image source="../img/stage/stage1/background-front-city.png" width="2560" height="320"/>
+   </imagelayer>
+  </group>
+  <imagelayer id="9" name="bg" visible="0" locked="1">
    <image source="../img/stage/stage1/stage1a.png" width="2560" height="320"/>
   </imagelayer>
  </group>
