@@ -11,14 +11,14 @@
     <property name="scrollSpeedX" type="float" value="0"/>
    </properties>
    <imagelayer id="17" name="bldng1" offsetx="-38.6667" offsety="-189.333">
-    <image source="../img/stage/stage1/building1.png" width="525" height="385"/>
+    <image source="../img/stage/stage1/old/building1.png" width="525" height="385"/>
    </imagelayer>
    <imagelayer id="18" name="bldng2" offsetx="766.667" offsety="-142.666">
-    <image source="../img/stage/stage1/building2.png" width="525" height="385"/>
+    <image source="../img/stage/stage1/old/building2.png" width="525" height="385"/>
    </imagelayer>
   </group>
   <imagelayer id="9" name="bg">
-   <image source="../img/stage/stage1/stage1at.png" width="2560" height="320"/>
+   <image source="../img/stage/stage1/old/stage1at.png" width="2560" height="320"/>
   </imagelayer>
  </group>
  <group id="12" name="foreground" locked="1">
@@ -26,13 +26,13 @@
    <property name="relativeX" type="float" value="-1.5"/>
   </properties>
   <imagelayer id="20" name="housefg" offsetx="152" offsety="289">
-   <image source="../img/stage/stage1/building2.png" width="525" height="385"/>
+   <image source="../img/stage/stage1/old/building2.png" width="525" height="385"/>
    <properties>
     <property name="relativeX" type="float" value="-1.2"/>
    </properties>
   </imagelayer>
   <imagelayer id="21" name="housebg2" offsetx="1204" offsety="281">
-   <image source="../img/stage/stage1/building2.png" width="525" height="385"/>
+   <image source="../img/stage/stage1/old/building2.png" width="525" height="385"/>
    <properties>
     <property name="relativeX" type="float" value="-1.2"/>
    </properties>

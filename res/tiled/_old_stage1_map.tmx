@@ -2,37 +2,37 @@
 <map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="left-up" width="140" height="70" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#e7cf9d" nextlayerid="26" nextobjectid="86">
  <group id="1" name="background" locked="1">
   <imagelayer id="2" name="road0" offsetx="12" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="../img/stage/stage1/old/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer id="3" name="road1" offsetx="-348" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="../img/stage/stage1/old/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer id="4" name="road2" offsetx="372" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="../img/stage/stage1/old/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer id="5" name="road3" offsetx="732" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="../img/stage/stage1/old/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer id="6" name="road4" offsetx="1092" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="../img/stage/stage1/old/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer id="7" name="road5" offsetx="1452" offsety="430">
-   <image source="../img/stage/stage1/road1.png" width="365" height="124"/>
+   <image source="../img/stage/stage1/old/road1.png" width="365" height="124"/>
   </imagelayer>
   <imagelayer id="8" name="diag road" offsetx="1812" offsety="251">
-   <image source="../img/stage/stage1/road2.png" width="390" height="303"/>
+   <image source="../img/stage/stage1/old/road2.png" width="390" height="303"/>
   </imagelayer>
   <imagelayer id="9" name="building3" offsetx="870" offsety="69">
-   <image source="../img/stage/stage1/building1.png" width="525" height="385"/>
+   <image source="../img/stage/stage1/old/building1.png" width="525" height="385"/>
   </imagelayer>
   <imagelayer id="10" name="building4" offsetx="1315" offsety="69">
-   <image source="../img/stage/stage1/building2.png" width="525" height="385"/>
+   <image source="../img/stage/stage1/old/building2.png" width="525" height="385"/>
   </imagelayer>
   <imagelayer id="11" name="building2" offsetx="425" offsety="69">
-   <image source="../img/stage/stage1/building2.png" width="525" height="385"/>
+   <image source="../img/stage/stage1/old/building2.png" width="525" height="385"/>
   </imagelayer>
   <imagelayer id="12" name="building1" offsetx="-20" offsety="69">
-   <image source="../img/stage/stage1/building1.png" width="525" height="385"/>
+   <image source="../img/stage/stage1/old/building1.png" width="525" height="385"/>
   </imagelayer>
  </group>
  <objectgroup color="#aa0000" id="13" name="camera" locked="1">
