@@ -9,9 +9,12 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 21,
-  nextobjectid = 18,
-  backgroundcolor = { 0, 85, 0 },
-  properties = {},
+  nextobjectid = 20,
+  backgroundcolor = { 85, 170, 127 },
+  properties = {
+    ["reflections"] = 0.75,
+    ["reflectionsOpacity"] = 55
+  },
   tilesets = {},
   layers = {
     {
@@ -46,7 +49,7 @@ return {
           offsetx = -378,
           offsety = -9,
           properties = {
-            ["relativeX"] = "0.8"
+            ["relativeX"] = "0.9"
           },
           layers = {
             {
@@ -71,7 +74,7 @@ return {
           offsetx = -378,
           offsety = -9,
           properties = {
-            ["relativeX"] = "0.7"
+            ["relativeX"] = "0.9"
           },
           layers = {
             {
@@ -91,7 +94,7 @@ return {
           type = "imagelayer",
           id = 9,
           name = "bg",
-          visible = false,
+          visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
@@ -295,6 +298,32 @@ return {
             ["nextevent"] = "nextmap",
             ["nextmap"] = "stage1b_map"
           }
+        },
+        {
+          id = 18,
+          name = "TRASH",
+          type = "trashcan",
+          shape = "point",
+          x = 356,
+          y = 256,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 19,
+          name = "TRASH",
+          type = "trashcan",
+          shape = "point",
+          x = 455,
+          y = 298,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
