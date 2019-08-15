@@ -214,17 +214,22 @@ local function cacheImage(path_to_image)
     return loadedImages[path_to_image], loadedImagesQuads[path_to_image]
 end
 
-local function addImageToLayer(images, v, relativeX, relativeY, scrollSpeedX,  scrollSpeedY)
+local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpeedX,  scrollSpeedY)
     if not v.visible then
         return
     end
     if v.type == "group" then
         for i, v2 in ipairs(v.layers) do
-            addImageToLayer(images, v2, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY)
+            addImageToLayer(images, v2, v.offsetx + x, v.offsety + y, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY)
         end
     elseif v.type == "imagelayer" then
         local image, quad = cacheImage(v.image)
-        images:add(image, quad, v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, func)
+        local offsetx, offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY =
+            v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY
+        if _relativeX and _relativeX ~= 0 then
+            offsetx = -offsetx * _relativeX
+        end
+        images:add(image, quad, v.offsetx + x, v.offsety + y, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, func)
     end
 end
 
@@ -236,7 +241,7 @@ local function loadImageLayer(items, layerName, images)
         return
     end
     for i, v in ipairs(t.layers) do
-        addImageToLayer(images, v, t.properties.relativeX,  t.properties.relativeY, t.properties.scrollSpeedX,  t.properties.scrollSpeedY)
+        addImageToLayer(images, v, t.offsetx, t.offsety, t.properties.relativeX,  t.properties.relativeY, t.properties.scrollSpeedX,  t.properties.scrollSpeedY)
     end
 end
 
