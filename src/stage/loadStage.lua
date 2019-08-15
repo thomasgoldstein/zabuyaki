@@ -231,7 +231,12 @@ local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpee
         else
             offsetx = 0
         end
-        images:add(image, quad, v.offsetx + x, v.offsety + y, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, func)
+        if _relativeY and _relativeY ~= 0 then
+            offsety = offsety * _relativeY
+        else
+            offsety = 0
+        end
+        images:add(image, quad, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, func)
     end
 end
 
