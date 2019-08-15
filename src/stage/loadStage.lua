@@ -344,7 +344,7 @@ function loadStageData(stage, mapFile, players)
         error("Tiled: No map data found in "..mapFile)
     end
     stage.worldWidth = d.tilewidth * d.width
-    stage.worldHeight = d.tileheight * d.height
+    stage.worldHeight = d.tileheight * d.height + 2 -- 2px padding for the camera shaking
     stage.shadowAngle = d.properties.shadowAngle or stage.shadowAngle
     stage.shadowHeight = d.properties.shadowHeight or stage.shadowHeight
     stage.reflections = d.properties.reflections -- also height modifier
