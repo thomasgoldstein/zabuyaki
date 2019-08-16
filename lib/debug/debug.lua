@@ -296,9 +296,7 @@ end
 local keysToKill = {f8 = 1, f9 = 2, f10 = 3, f7 = 0}
 function checkDebugKeys(key)
     if isDebug() then
-        if key == '0' then
-            stage.objects:dp()
-        elseif key == 'kp+' or key == '=' then
+        if key == 'kp+' or key == '=' then
             if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
                 GLOBAL_SETTING.FRAME_SKIP = GLOBAL_SETTING.FRAME_SKIP + 1
                 if GLOBAL_SETTING.FRAME_SKIP > GLOBAL_SETTING.MAX_FRAME_SKIP then

@@ -238,11 +238,20 @@ function love.keypressed(key, unicode)
     if GLOBAL_SETTING.PROFILER_ENABLED then
         Prof:keypressed(key, unicode)
     end
-    if key == 'kp*' or key == '0' then
+    if key == 'kp*' then
         if love.keyboard.isScancodeDown( "lshift", "rshift" ) then
             prevDebugLevel()
         else
             nextDebugLevel()
+        end
+        configuration:set("DEBUG", getDebugLevel())
+        sfx.play("sfx","menuMove")
+    elseif key == '0' or key == '1' or key == '2' or key == '3' then
+        local n = tonumber(key)
+        if getDebugLevel() == n then
+            setDebugLevel(0)
+        else
+            setDebugLevel(n)
         end
         configuration:set("DEBUG", getDebugLevel())
         sfx.play("sfx","menuMove")
