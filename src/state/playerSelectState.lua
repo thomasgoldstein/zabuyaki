@@ -16,9 +16,9 @@ local playerSelectText = love.graphics.newText( gfx.font.kimberley, "PLAYER SELE
 
 local heroes = {
     {
-        {name = "RICK", palette = 0},
         {name = "RICK", palette = 1},
         {name = "RICK", palette = 2},
+        {name = "RICK", palette = 3},
         hero = Rick,
         spriteInstance = "src/def/char/rick",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -33,9 +33,9 @@ local heroes = {
         py = 120    --Portrait
     },
     {
-        {name = "KISA", palette = 0},
         {name = "KISA", palette = 1},
         {name = "KISA", palette = 2},
+        {name = "KISA", palette = 3},
         hero = Kisa,
         spriteInstance = "src/def/char/kisa",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -50,9 +50,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "CHAI", palette = 0},
         {name = "CHAI", palette = 1},
         {name = "CHAI", palette = 2},
+        {name = "CHAI", palette = 3},
         hero = Chai,
         spriteInstance = "src/def/char/chai",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -67,9 +67,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "YAR", palette = 0},
         {name = "YAR", palette = 1},
         {name = "YAR", palette = 2},
+        {name = "YAR", palette = 3},
         hero = Yar,
         spriteInstance = "src/def/char/yar",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -86,7 +86,8 @@ local heroes = {
     {
         {name = "GOPPER", palette = 1},
         {name = "GOPPER", palette = 2},
-        {name = "GOPPER", palette = 0},
+        {name = "GOPPER", palette = 3},
+        {name = "GOPPER", palette = 4},
         hero = PGopper,
         spriteInstance = "src/def/char/gopper",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -102,8 +103,8 @@ local heroes = {
     },
     {
         {name = "NIKO", palette = 1},
-        {name = "NIKO", palette = 2},
-        {name = "NIKO", palette = 0},
+        {name = "NIKO", palette = 1},
+        {name = "NIKO", palette = 1},
         hero = PNiko,
         spriteInstance = "src/def/char/niko",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -118,9 +119,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "SVETA", palette = 0},
         {name = "SVETA", palette = 1},
-        {name = "SVETA", palette = 2},
+        {name = "SVETA", palette = 1},
+        {name = "SVETA", palette = 1},
         hero = PSveta,
         spriteInstance = "src/def/char/sveta",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -135,9 +136,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "ZEENA", palette = 0},
         {name = "ZEENA", palette = 1},
-        {name = "ZEENA", palette = 2},
+        {name = "ZEENA", palette = 1},
+        {name = "ZEENA", palette = 1},
         hero = PZeena,
         spriteInstance = "src/def/char/zeena",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -152,9 +153,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "BEATNIK", palette = 0},
         {name = "BEATNIK", palette = 1},
-        {name = "BEATNIK", palette = 2},
+        {name = "BEATNIK", palette = 1},
+        {name = "BEATNIK", palette = 1},
         hero = PBeatnik,
         spriteInstance = "src/def/char/beatnik",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -169,9 +170,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "SATOFF", palette = 0},
         {name = "SATOFF", palette = 1},
         {name = "SATOFF", palette = 2},
+        {name = "SATOFF", palette = 3},
         hero = PSatoff,
         spriteInstance = "src/def/char/satoff",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
@@ -186,9 +187,9 @@ local heroes = {
         py = 120
     },
     {
-        {name = "DR.VOLKER", palette = 0},
         {name = "DR.VOLKER", palette = 1},
-        {name = "DR.VOLKER", palette = 2},
+        {name = "DR.VOLKER", palette = 1},
+        {name = "DR.VOLKER", palette = 1},
         hero = PDrVolker,
         spriteInstance = "src/def/char/drvolker",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
