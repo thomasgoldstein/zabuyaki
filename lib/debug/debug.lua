@@ -332,19 +332,6 @@ function checkDebugKeys(key)
                     sfx.play("sfx","menuMove")
                 end
             end
-        elseif key == '1' then
-            local t = ""
-            for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
-                local p = getRegisteredPlayer(i)
-                t = t .. inspect(p, { depth = 1 }) .. "\n--------------------\n"
-            end
-            log2file("players.txt", t, true)
-        elseif key == '2' then
-            local t = ""
-            for i, p in pairs(stage.objects.entities) do
-                t = t .. inspect(p, { depth = 1 }) .. "\n--------------------\n"
-            end
-            log2file("objects.txt", t, true)
         elseif keysToKill[key] then
             local id = keysToKill[key]
             if id == 0 then
