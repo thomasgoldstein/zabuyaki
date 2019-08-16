@@ -312,10 +312,12 @@ function spriteViewerState:draw()
             end
             colors:set("white", nil, 150)
             for i = 1, #sprite.def.animations[sprite.curAnim] do
-                drawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
-                if specialOverlaySprite then
-                    if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
-                        drawSpriteCustomInstance(specialOverlaySprite, x - (menu[menuState].n - i) * xStep, y, sprite.curAnim, i)
+                if i ~= menu[menuState].n then
+                    drawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
+                    if specialOverlaySprite then
+                        if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
+                            drawSpriteCustomInstance(specialOverlaySprite, x - (menu[menuState].n - i) * xStep, y, sprite.curAnim, i)
+                        end
                     end
                 end
             end
