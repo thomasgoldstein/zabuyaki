@@ -15,7 +15,7 @@ local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
 local txtCurrentSprite --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
-local txtItems = {"ANIMATIONS", "FRAMES", "DISABLED", "SHADERS", "BACK"}
+local txtItems = {"ANIMATIONS", "FRAMES", "DISABLED", "PALETTES", "BACK"}
 
 local player
 local hero
