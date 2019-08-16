@@ -27,7 +27,7 @@ function Stage:initialize(name, mapFile, players)
     self.worldWidth = 4000
     self.worldHeight = 800
     self.scrolling = {}
-    self.timeLeft = GLOBAL_SETTING.TIMER
+    self.time = 0
     self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
     self.world = HC.new(40 * 4)
     self.testShape = HC.rectangle(1, 1, 15, 5) -- to test collision
@@ -122,47 +122,18 @@ function Stage:initialMoveStoppers()
     self.bottomStopper:moveTo(math.floor(self.worldWidth / 2), self.worldHeight + 20)
 end
 
-function Stage:isTimeOut()
-    return self.timeLeft <= 0
-end
-
-function Stage:resetTime()
-    self.timeLeft = GLOBAL_SETTING.TIMER
-end
-
-local txtTime
 local txtGo = love.graphics.newText(gfx.font.clock, "GO")
 function Stage:displayGoTimer(screenWidth, screenHeight)
-    local time = 0
-    if self.timeLeft > 0 then
-        time = self.timeLeft
-    end
-    txtTime = love.graphics.newText(gfx.font.clock, string.format("%02d", time))
-    local transp = 255
-    local x, y = screenWidth - txtTime:getWidth() - 26, 6
-    if self.timeLeft <= 10 or self.showGoMark then
-        transp = 255 * math.abs(math.cos(10 - self.timeLeft * math.pi * 2))
-    end
-    colors:set("darkGray", nil, transp)
-    if self.showGoMark and self.timeLeft >= 5.5 then
-        -- draw shadow
+    if self.showGoMark then
+        local transp = 255 * math.abs(math.cos(10 - self.time * math.pi * 2))
+        local x, y = screenWidth - txtGo:getWidth() - 26, 6
+        colors:set("darkGray", nil, transp)
         love.graphics.draw(txtGo, x - 40 + 1, y - 1)
-    else
-        love.graphics.draw(txtTime, x + 1, y - 1)
-    end
-    if self.timeLeft < 5.5 then
-        colors:set("redGoTimer", nil, transp)
-    else
         colors:set("white", nil, transp)
-    end
-    if self.showGoMark and self.timeLeft >= 5.5 then
         love.graphics.draw(txtGo, x - 40, y)
-    else
-        love.graphics.draw(txtTime, x, y)
     end
 end
 
-local beepTimer = 0
 function Stage:update(dt)
     if self.mode == "normal" then
         for _ = 1, isDebug() and GLOBAL_SETTING.FRAME_SKIP + 1 or 1 do
@@ -181,26 +152,7 @@ function Stage:update(dt)
                 self.foreground:update(dt)
             end
             self:setCamera(dt)
-            if self.timeLeft > 0 or self.timeLeft <= -math.pi then
-                self.timeLeft = self.timeLeft - dt / 2
-                if self.timeLeft <= 0 and self.timeLeft > -math.pi then
-                    killAllPlayers()
-                    self.timeLeft = -math.pi
-                end
-            end
-            if self.timeLeft <= 10.6 and self.timeLeft >= 0 then
-                if beepTimer - 1 == math.floor(self.timeLeft + 0.5) then
-                    sfx.play("sfx", "menuMove")
-                end
-                beepTimer = math.floor(self.timeLeft + 0.5)
-            end
-            if self.showGoMark then
-                -- Go! beep
-                if beepTimer - 1 == math.floor(self.timeLeft + 0.5) then
-                    sfx.play("sfx", "menuCancel")
-                end
-                beepTimer = math.floor(self.timeLeft + 0.5)
-            end
+            self.time = self.time + dt
         end
     elseif self.mode == "event" then
         if self.event then

@@ -377,7 +377,6 @@ function Player:respawnStart()
     self.bounced = 0
     self.speed_z = 0
     self.z = love.math.random( 235, 245 )    --TODO get Z from the Tiled
-    stage:resetTime()
 end
 function Player:respawnUpdate(dt)
     if self.sprite.isFinished then

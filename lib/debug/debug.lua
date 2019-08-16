@@ -340,9 +340,6 @@ function checkDebugKeys(key)
                     playerSelectState.enablePlayerSelectOnStart = true
                     credits = math.max(credits, 3)
                     doInstantPlayersSelect()
-                else
-                    -- F7 - Time over
-                    stage.timeLeft = 0.01
                 end
             else
                 local p = getRegisteredPlayer(id)
