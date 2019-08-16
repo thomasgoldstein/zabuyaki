@@ -63,9 +63,12 @@ function spriteViewerState:enter(_, _hero)
     cleanRegisteredPlayers()
 end
 
+local function clearPlayerHitBoxes()
+    attackHitBoxes = {} -- DEBUG
+end
 local function getPlayerHitBoxes()
     local sc = sprite.def.animations[sprite.curAnim][menu[menuState].n]
-    attackHitBoxes = {} -- DEBUG
+    clearPlayerHitBoxes()
     if sc then
         if sc.funcCont and player then
             sc.funcCont(player, true) --isfuncCont = true
@@ -74,9 +77,6 @@ local function getPlayerHitBoxes()
             sc.func(player, false) --isfuncCont = false
         end
     end
-end
-local function clearPlayerHitBoxes()
-    attackHitBoxes = {} -- DEBUG
 end
 
 local function displayHelp()
@@ -172,16 +172,12 @@ function spriteViewerState:playerInput(controls)
     end
     if controls.horizontal:pressed(-1)then
         self:wheelmoved(0, -1)
-        clearPlayerHitBoxes()
     elseif controls.horizontal:pressed(1)then
         self:wheelmoved(0, 1)
-        clearPlayerHitBoxes()
     elseif controls.vertical:pressed(-1) then
         menuState = menuState - 1
-        clearPlayerHitBoxes()
     elseif controls.vertical:pressed(1) then
         menuState = menuState + 1
-        clearPlayerHitBoxes()
     end
     if menuState < 1 then
         menuState = #menu
@@ -248,7 +244,6 @@ function spriteViewerState:draw()
             if s[m.n].rotate then
                 m.hint = m.hint .. "R:"..s[m.n].rotate.." RXY:"..(s[m.n].rx or 0)..","..(s[m.n].ry or 0).." "
             end
-            getPlayerHitBoxes()
         elseif i == 4 then
             if m.n > #hero.shaders then
                 m.n = #hero.shaders
@@ -395,7 +390,7 @@ function spriteViewerState:wheelmoved(x, y)
         if #sprite.def.animations[sprite.curAnim] <= 1 then
             return
         end
-
+        getPlayerHitBoxes()
     elseif menuState == 4 then
         --shaders
         if #hero.shaders < 1 then
