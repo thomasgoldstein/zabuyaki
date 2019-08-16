@@ -109,7 +109,7 @@ Use R-Alt, R-Ctrl, R-Shift for Overlay operations]], x, y)
     elseif menuState == 4 then
         love.graphics.print(
 [[<- -> / Mouse wheel :
-  Select shader]], x, y)
+  Select palette]], x, y)
     end
     love.graphics.setFont(font)
 end
