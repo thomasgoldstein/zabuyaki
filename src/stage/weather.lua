@@ -100,7 +100,7 @@ end
 function weather.generate(kind)
     if kind == "rain" then
         if love.math.random() < 0.9 then
-            Weather.add("drop", love.math.random(weather.l, weather.l + weather.w), love.math.random(weather.t + weather.h * 0.7, weather.t + weather.h), love.math.random(weather.h * 0.75, weather.h) )
+            Weather.add("drop", love.math.random(weather.l - 32, weather.l + weather.w + 32), love.math.random(weather.t + weather.h * 0.7, weather.t + weather.h), love.math.random(weather.h * 0.75, weather.h) )
         end
     else
         --
