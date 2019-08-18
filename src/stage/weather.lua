@@ -31,8 +31,6 @@ function weather.add(kind, x, y, z, speedX, speedY, speedZ, time)
                 time = time or 10
             }
             return
-            --p = weather.particles[i]
-            --print( p.x, p.y, p.z, p.speedX, p.speedY, p.speedZ)
         end
     end
 end
@@ -55,7 +53,6 @@ function weather.updateParticle(p, dt)
     end
     if p.speedZ and p.speedZ ~= 0 then
         p.z = p.z + p.speedZ * dt
-        --print(p.z)
         if p.z <= 0 then
             p.z = 0
             p.speedZ = nil
@@ -77,9 +74,6 @@ function weather.update(dt)
         weather.updateParticle(weather.particles[i], dt)
         if weather.particles[i].time < 0 and lastPos > i then
             lastPos = i
-            print(i)
-        else
-            print(lastPos, i)
         end
     end
 end
