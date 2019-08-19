@@ -6,6 +6,9 @@ local function q(x,y,w,h)
 end
 local stepFx = function(slf, cont)
     slf:showEffect("step")
+    if stage.weather == "rain" then
+        Weather.add("ripple", slf.x, slf.y, 0,slf.speed_x / 100, 0, 0, 1)
+    end
 end
 local jumpAttackStraight1 = function(slf, cont) slf:checkAndAttack(
     { x = 17, y = 35, width = 30, height = 55, damage = 7 },
