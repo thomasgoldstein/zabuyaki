@@ -314,7 +314,7 @@ function Player:useCreditUpdate(dt)
             player.playerSelectMode = 3
             player:setState(self.respawn)
             player.id = self.id
-            player.palette = 0
+            player.palette = self.palette
             registerPlayer(player)
             fixPlayersPalette(player)
             dp(player.x, player.y, player.name, player.playerSelectMode, "Palette:", player.palette)
