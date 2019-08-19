@@ -66,29 +66,26 @@ function drawPlayersBars()
     end
 end
 
-local max_player_palette = 6
 function fixPlayersPalette(player)
-    local n = player.palette
     local palettes = {}
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local p = getRegisteredPlayer(i)
         if p and p.palette
             and p ~= player and p.name == player.name
-                --other player selecting on respawning
+                -- other player is selecting the same character on respawn
             and ( p.state ~= "useCredit" or ( p.playerSelectMode == 2 and p.playerSelectMode == 3 ) )
         then
             palettes[p.palette] = true
         end
     end
-    if palettes[n] then --this palette is used by others already
-        for i = 0, max_player_palette do
+    if palettes[player.palette] then --this palette is used by other players of the same character already
+        for i = 1, GLOBAL_SETTING.MAX_PLAYERS do    -- # of palettes per player
             if not palettes[i] then
-                n = i
+                player.palette = i
                 break
             end
         end
     end
-    player.palette = n
     player.shader = getShader(player.sprite.def.spriteName:lower(), player.palette)
 end
 
