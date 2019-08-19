@@ -40,6 +40,8 @@ function Stage:initialize(name, mapFile, players)
     self.nextMap = nil
     self.background = CompoundPicture:new(self.name .. " Background")
     self.foreground = CompoundPicture:new(self.name .. " Foreground")
+    self.weather = nil
+    Weather.init()
     if mapFile then
         loadStageData(self, mapFile, players)
     end
@@ -137,6 +139,8 @@ end
 function Stage:update(dt)
     if self.mode == "normal" then
         for _ = 1, isDebug() and GLOBAL_SETTING.FRAME_SKIP + 1 or 1 do
+            Weather.generate(self.weather, self.min_x, self.max_x, y1, y2, z1, z2)
+            Weather.update(dt)
             self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
             if self.batch then
                 self.showGoMark = self.batch:update(dt)
@@ -155,6 +159,8 @@ function Stage:update(dt)
             self.time = self.time + dt
         end
     elseif self.mode == "event" then
+        Weather.generate(self.weather, self.min_x, self.max_x, y1, y2, z1, z2)
+        Weather.update(dt)
         if self.event then
             self.event:update(dt)
         end
@@ -183,6 +189,7 @@ function Stage:draw(l, t, w, h)
     love.graphics.setCanvas(canvas[1])
     love.graphics.clear()
     if self.mode == "normal" or self.mode == "event" then
+        Weather.window(l, t, w, h)
         if self.background then
             self.background:draw(l, t, w, h)
         end
@@ -201,6 +208,7 @@ function Stage:draw(l, t, w, h)
             colors:set("white")
             self.foreground:draw(l, t, w, h)
         end
+        Weather.draw(l, t, w, h)
         if self.mode == "event" then
             colors:set("black")
             love.graphics.rectangle("fill", 0, 0, 640, 40)

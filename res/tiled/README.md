@@ -90,6 +90,10 @@ Use PNG 8-bit with indexed transparency. Leave 2 transparent pixels at every sid
 Use menu **Map / Map Properties** to see the **Background color** map property. 
 Expand the property and edit R G B and Alpha(transparency) entries.
 
+## Select weather on the stage floor
+Use menu **Map / Map Properties**.
+Add into **Custom Properties** string value **weather**. List of supported values: "rain".
+
 ## Enable reflections on the stage floor
 Use menu **Map / Map Properties**.
 Add into **Custom Properties** float value **reflections**. The value alters the reflections height. Use value from 0.1 to 1.
