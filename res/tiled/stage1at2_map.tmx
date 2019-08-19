@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#17c1ff" nextlayerid="22" nextobjectid="75">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#17c1ff" nextlayerid="22" nextobjectid="77">
  <properties>
   <property name="reflections" type="float" value="0.75"/>
   <property name="reflectionsOpacity" type="float" value="55"/>
+  <property name="weather" value="rain"/>
  </properties>
  <group id="8" name="background" locked="1">
   <group id="19" name="houses" offsetx="13.3333" offsety="-40">
@@ -66,10 +67,12 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#55557f" id="4" name="global" locked="1">
-  <object id="15" name="enterMap" type="event" x="43" y="193">
+ <objectgroup color="#55557f" id="4" name="global">
+  <object id="15" name="wait3" type="event" x="191" y="109">
    <properties>
-    <property name="togox" value="-100"/>
+    <property name="duration" type="float" value="3"/>
+    <property name="gox" value="0"/>
+    <property name="nextevent" value="enterMap2"/>
    </properties>
    <point/>
   </object>
@@ -93,8 +96,21 @@
   <object id="26" name="TRASH" type="trashcan" x="600.5" y="281.75">
    <point/>
   </object>
+  <object id="75" name="enterMap" type="event" x="47" y="185">
+   <properties>
+    <property name="nextevent" value="wait3"/>
+    <property name="togox" value="-100"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="76" name="enterMap2" type="event" x="108.333" y="181.667">
+   <properties>
+    <property name="gox" value="100"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
- <group id="1" name="batch" visible="0">
+ <group id="1" name="batch">
   <objectgroup color="#ffff00" id="2" name="1">
    <properties>
     <property name="music" value="stage1"/>
@@ -102,21 +118,20 @@
     <property name="onStart" value="enterMap"/>
    </properties>
    <object id="1" name="1" type="batch" x="0" y="0" width="640" height="320"/>
-   <object id="22" name="Gopper" type="gopper" x="331" y="275">
+   <object id="22" name="Gopper" type="gopper" x="223" y="261">
     <properties>
      <property name="drop" value="beef"/>
      <property name="palette" value="2"/>
     </properties>
     <point/>
    </object>
-   <object id="27" name="Gopper" type="gopper" x="424" y="234">
+   <object id="27" name="Zeena" type="zeena" x="385.333" y="248.667">
     <properties>
-     <property name="drop" value="beef"/>
-     <property name="palette" value="2"/>
+     <property name="drop" value="chicken"/>
     </properties>
     <point/>
    </object>
-   <object id="28" name="Gopper" type="gopper" x="342" y="252">
+   <object id="28" name="Zeena" type="zeena" x="314" y="272.667">
     <properties>
      <property name="drop" value="beef"/>
      <property name="palette" value="2"/>
