@@ -122,19 +122,19 @@ function Event:startEvent(startByPlayer)
     local wasApplied = false
     if startByPlayer and self.properties.move == "player" then
         wasApplied = self:checkAndStart(startByPlayer) --1st detected player
-        dp("startEvent was applied DP")
+        dp("startEvent "..self.name.." was applied DP")
     elseif self.properties.move == "players" then --all alive players
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local player = getRegisteredPlayer(i)
             if player and player:isAlive() then
                 wasApplied = self:checkAndStart(player) or wasApplied --every alive walking player
-                dp("startEvent was applied P#", i, wasApplied)
+                dp("startEvent "..self.name.." was applied P#", i, wasApplied)
             end
         end
     else
         error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
     end
-    dp("startEvent disabled", wasApplied)
+    dp("startEvent "..self.name.." disabled", wasApplied)
     self.isDisabled = wasApplied
     return wasApplied
 end
