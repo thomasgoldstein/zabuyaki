@@ -12,7 +12,7 @@ function Event:setOnStage(stage)
     self.isDisabled = self.properties.disabled  -- disable Point events
 end
 
-local statesForGo = { walk = true, stand = true, run = true, duck = true, eventMove = true }
+local statesToStartTouchEvent = { walk = true, stand = true, run = true, duck = true, eventMove = true }
 function Event:checkAndStart(player)
     if (self.properties.go
         or self.properties.gox or self.properties.goy
@@ -92,7 +92,7 @@ function Event:updateAI(dt)
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
         if player and player:isAlive() then
-            if statesForGo[player.state] and self.shape:collidesWith(player.shape) then
+            if statesToStartTouchEvent[player.state] and self.shape:collidesWith(player.shape) then
                 collidedPlayer[#collidedPlayer+1] = player
             end
         end
