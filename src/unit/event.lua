@@ -12,13 +12,13 @@ function Event:setOnStage(stage)
     self.isDisabled = self.properties.disabled  -- disable Point events
 end
 
-local statesToStartTouchEvent = { walk = true, stand = true, run = true, duck = true, eventMove = true }
+local statesToStartEvent = { walk = true, stand = true, run = true, eventMove = true }
 function Event:checkAndStart(player)
     if (self.properties.go
         or self.properties.gox or self.properties.goy
         or self.properties.togox or self.properties.togoy)  -- 'go' event kinds
         and player.state ~= "useCredit"
-        --and (statesForGo[player.state] or self.properties.ignorestate)
+        and (statesToStartEvent[player.state] or self.properties.ignorestate)
     then
         player:setState(player.eventMove, {
             duration = self.properties.duration,
@@ -51,8 +51,7 @@ function Event:checkAndStart(player)
         })
         return true
     elseif self.properties.nextevent then
-        self:startByName(self.properties.nextevent, player)
-        return true
+        return self:startByName(self.properties.nextevent, player)
     end
     dp("FAIL apply tp player", player.state, player.z,  player:getMinZ() )
     return false
@@ -83,34 +82,65 @@ end
 
 local collidedPlayer = {}
 function Event:updateAI(dt)
-    if self.isDisabled or self.properties.notouch then
+    if self.isDisabled then
         return
     end
     local wasApplied = false
-    -- Run Event on Players collision
-    collidedPlayer = {}
-    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
-        local player = getRegisteredPlayer(i)
-        if player and player:isAlive() then
-            if statesToStartTouchEvent[player.state] and self.shape:collidesWith(player.shape) then
-                collidedPlayer[#collidedPlayer+1] = player
-            end
-        end
-    end
-    if #collidedPlayer > 0 then
-        if self.properties.move == "player" then
-            wasApplied = self:checkAndStart(collidedPlayer[1]) --1st detected player
-        elseif self.properties.move == "players" then --all alive players
-            for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
-                local player = getRegisteredPlayer(i)
-                if player and player:isAlive() then
-                    wasApplied = self:checkAndStart(player) or wasApplied --every alive walking player
+    if self.properties.notouch and self.applyToPlayers then
+        -- try to apply eventMove to the list of players
+        if #self.applyToPlayers > 0 then
+            dp(self.name," try to apply to players #", #self.applyToPlayers)
+            for i = #self.applyToPlayers, 1, -1 do
+                local player = self.applyToPlayers[i]
+                dp("     ", player.state, player.name, player.id, player.x, player.y, player:isAlive(), statesToStartEvent[player.state])
+                if player and player:isAlive() and statesToStartEvent[player.state] then
+                    wasApplied = self:checkAndStart(self.applyToPlayers[i])
+                    if wasApplied then
+                        dp(" table removed", i, self.applyToPlayers[i].name)
+                        table.remove(self.applyToPlayers,i)
+                    end
                 end
             end
-        else
-            error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
         end
-        self.isDisabled = wasApplied
+        if self.applyToPlayers and #self.applyToPlayers == 0 then
+            dp(" event disabled", self.name)
+            self.isDisabled = true
+        end
+    else
+        -- Run Event on Players collision
+        collidedPlayer = {}
+        for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+            local player = getRegisteredPlayer(i)
+            if player and player:isAlive() then
+                if  statesToStartEvent[player.state] and self.shape:collidesWith(player.shape) then
+                    collidedPlayer[#collidedPlayer+1] = player
+                    break
+                end
+            end
+        end
+        if #collidedPlayer > 0 then
+            if not self.applyToPlayers then
+                self.applyToPlayers = {}    -- create it for the touch type events
+            end
+            if self.properties.move == "player" then
+                self.applyToPlayers[#self.applyToPlayers + 1] = collidedPlayer[1]
+                dp(self.name .. " added to event apply player 1 ", collidedPlayer[1].name)
+            elseif self.properties.move == "players" then --all alive players
+                for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+                    local player = getRegisteredPlayer(i)
+                    if player and player:isAlive() then
+                        self.applyToPlayers[#self.applyToPlayers + 1] = player
+                        dp(self.name .. " added to event apply player", i, player.name)
+                    end
+                end
+            else
+                error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
+            end
+            if #self.applyToPlayers > 0 then
+                self.properties.notouch = true  -- no more collision check is needed
+                dp(" no more collision check is needed for event " .. self.name)
+            end
+        end
     end
 end
 
@@ -118,24 +148,25 @@ function Event:startEvent(startByPlayer)
     if self.isDisabled then
         return false
     end
-    dp("startEvent")
+    self.applyToPlayers = {}
+    dp("startEvent "..self.name)
     local wasApplied = false
-    if startByPlayer and self.properties.move == "player" then
-        wasApplied = self:checkAndStart(startByPlayer) --1st detected player
-        dp("startEvent "..self.name.." was applied DP")
+    if startByPlayer and self.properties.move == "player" and player.state ~= "useCredit" then
+        self.applyToPlayers[#self.applyToPlayers + 1] = startByPlayer
+        dp(" added player to the event que ", startByPlayer.name)
+        wasApplied = true
     elseif self.properties.move == "players" then --all alive players
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local player = getRegisteredPlayer(i)
-            if player and player:isAlive() then
-                wasApplied = self:checkAndStart(player) or wasApplied --every alive walking player
-                dp("startEvent "..self.name.." was applied P#", i, wasApplied)
+            if player and player:isAlive() and player.state ~= "useCredit" then
+                self.applyToPlayers[#self.applyToPlayers + 1] = player
+                dp(" added player ".. player.name .." to the event que #", i)
+                wasApplied = true
             end
         end
     else
         error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
     end
-    dp("startEvent "..self.name.." disabled", wasApplied)
-    self.isDisabled = wasApplied
     return wasApplied
 end
 

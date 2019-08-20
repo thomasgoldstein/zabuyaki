@@ -6,6 +6,9 @@
   <property name="weather" value="rain"/>
  </properties>
  <group id="8" name="background" locked="1">
+  <properties>
+   <property name="relativeY" type="float" value="0.01"/>
+  </properties>
   <group id="19" name="houses" offsetx="13.3333" offsety="-40">
    <properties>
     <property name="relativeX" type="float" value="0.2"/>
@@ -38,13 +41,13 @@
     <property name="relativeX" type="float" value="-1.2"/>
    </properties>
   </imagelayer>
-  <imagelayer id="13" name="fg1" offsetx="156.667" offsety="291">
+  <imagelayer id="13" name="fg1" visible="0" offsetx="156.667" offsety="291">
    <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
   </imagelayer>
-  <imagelayer id="14" name="fg2" offsetx="670.545" offsety="253.818">
+  <imagelayer id="14" name="fg2" visible="0" offsetx="670.545" offsety="253.818">
    <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
   </imagelayer>
-  <imagelayer id="15" name="fg3" offsetx="1068.12" offsety="212.242">
+  <imagelayer id="15" name="fg3" visible="0" offsetx="1068.12" offsety="212.242">
    <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
   </imagelayer>
  </group>
@@ -119,19 +122,6 @@
    </properties>
    <object id="1" name="1" type="batch" x="0" y="0" width="640" height="320"/>
    <object id="22" name="Gopper" type="gopper" x="223" y="261">
-    <properties>
-     <property name="drop" value="beef"/>
-     <property name="palette" value="2"/>
-    </properties>
-    <point/>
-   </object>
-   <object id="27" name="Zeena" type="zeena" x="385.333" y="248.667">
-    <properties>
-     <property name="drop" value="chicken"/>
-    </properties>
-    <point/>
-   </object>
-   <object id="28" name="Zeena" type="zeena" x="314" y="272.667">
     <properties>
      <property name="drop" value="beef"/>
      <property name="palette" value="2"/>
