@@ -1819,6 +1819,7 @@ function Character:eventMoveStart()
     if not self.condition then
         error(self.name.." eventMove got no target x,y")
     end
+    self.waitUntilAnimationEnd = 0
     self.toSlowDown = false
     local f = self.condition
     self.isHittable = false
@@ -1845,12 +1846,6 @@ function Character:eventMoveStart()
         finalValues.y = self.y
         self.y = self.y + f.togoy
     end
-    if f.face then --change facing if set
-        self.face = f.face < 0 and -1 or 1
-    else --face unit to the target
-        self.face = finalValues.x < self.x and -1 or 1
-        self.horizontal = self.face
-    end
     self.event = f.event
     if f.fadeout then
         self.transparency = 255
@@ -1859,23 +1854,53 @@ function Character:eventMoveStart()
         self.transparency = 0
         finalValues.transparency = 255
     end
-    if f.animation then
-        self:setSprite(f.animation)
-    end
     self.move = tween.new(f.duration or self:getMovementTime(finalValues.x, finalValues.y), self, finalValues, 'linear')
 end
 function Character:eventMoveUpdate(dt)
-    if self:canFall() then
-        self:calcFreeFall(dt)
-    else
-        self.speed_z = 0
-        self.z = self:getMinZ()
-    end
     local f = self.condition
-    if self.sprite.curAnim ~= f.animation
-        and (self.sprite.isLast or self.sprite.curAnim == "stand")
-    then
-        self:setSprite(f.animation)
+    if self.waitUntilAnimationEnd < 0 then
+        if self:canFall() then -- falling now?
+            self:calcFreeFall(dt)
+            if self.move then -- hold the movement timer until get down
+                self.move.clock = self.move.clock - dt
+            end
+            if self.sprite.curAnim ~= "jump" then
+                self:setSprite("jump")
+            end
+        else
+            self.speed_z = 0
+            self.z = self:getMinZ()
+            if self.sprite.curAnim ~= f.animation then
+                self:setSprite(f.animation)
+            end
+        end
+    else
+        self.waitUntilAnimationEnd = self.waitUntilAnimationEnd - dt
+        if self.waitUntilAnimationEnd < 0 then
+            if f.face then -- change facing if set
+                self.face = f.face < 0 and -1 or 1
+            elseif f.x then -- face unit to the target
+                self.face = f.x < self.x and -1 or 1
+                self.horizontal = self.face
+            end
+        end
+        if self:canFall() then -- wait until animation ended
+            -- falling?
+            self:calcFreeFall(dt)
+            if self.move then
+                -- wait until get down
+                self.move.clock = self.move.clock - dt
+            end
+            if self.sprite.curAnim ~= "jump" then
+                self:setSprite("jump")
+            end
+        else
+            self.speed_z = 0
+            self.z = self:getMinZ()
+            if self.sprite.curAnim ~= f.animation then
+                self:setSprite(f.animation)
+            end
+        end
     end
     if self.move and self.move.clock >= self.move.duration then
         self:removeTweenMove()
