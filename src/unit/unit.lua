@@ -95,6 +95,7 @@ function Unit:setOnStage(stage)
     stage.objects:add(self)
     self.shader = getShader(self.sprite.def.spriteName:lower(), self.palette)
     self.lifeBar = LifeBar:new(self)
+    self:removeTweenMove()
 end
 
 function Unit:addShape(shapeType, shapeArgs)
