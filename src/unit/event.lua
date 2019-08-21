@@ -18,6 +18,7 @@ function Event:checkAndStart(player)
         or self.properties.gox or self.properties.goy
         or self.properties.togox or self.properties.togoy)  -- 'go' event kinds
         and player.state ~= "useCredit"
+        and not player.move
         and (statesToStartEvent[player.state] or self.properties.ignorestate)
     then
         player:setState(player.eventMove, {
@@ -47,8 +48,6 @@ function Event:checkAndStart(player)
     elseif self.properties.nextevent then
         return self:startByName(self.properties.nextevent, player)
     end
-    dp(" disable event FAILED apply tp player", player.state, player.z,  player:getMinZ() )
-    self.isDisabled = true
     return false
 end
 
