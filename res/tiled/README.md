@@ -129,7 +129,7 @@ Custom Properties:
 * face ( 1 / -1 ) <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
 * move ("player"/"players") <- Whom to move either the 1st collided player or all the alive players. On missing the property "players" type is used. 
 * ignorestate <- Apply the movement to players despite on their current states. (This property is ignored now). 
-* disabled <- Disable event. It cannot be run.
+* disabled <- Disable event. It cannot be run. It is used for empty events that work as targets for 'go' events.
 * notouch <- This event can be called by the name only. 
 * animation (animation name) <- Set sprite animation before the movement. On missing the property "walk" animation is used.
 * z (positive number) <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
