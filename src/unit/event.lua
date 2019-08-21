@@ -43,17 +43,12 @@ function Event:checkAndStart(player)
         return true
     elseif self.properties.nextmap then
         stage.nextMap = self.properties.nextmap
-        player:setState(player.eventMove, {
-            duration = 0.01,
-            animation = player.sprite.curAnim,
-            nextevent = self.properties.nextevent,
-            event = self
-        })
         return true
     elseif self.properties.nextevent then
         return self:startByName(self.properties.nextevent, player)
     end
-    dp("FAIL apply tp player", player.state, player.z,  player:getMinZ() )
+    dp(" disable event FAILED apply tp player", player.state, player.z,  player:getMinZ() )
+    self.isDisabled = true
     return false
 end
 
@@ -68,6 +63,7 @@ end
 function Event:startByName(eventName, startByPlayer)
     dp("= Start Event by name:", eventName, startByPlayer and startByPlayer.name or "na")
     if eventName == "nextmap" then
+        self.isDisabled = true
         stage.batch:finish()
         return true
     end
