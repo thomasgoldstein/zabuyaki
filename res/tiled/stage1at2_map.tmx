@@ -1,62 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#17c1ff" nextlayerid="22" nextobjectid="77">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#55aa7f" nextlayerid="21" nextobjectid="22">
  <properties>
   <property name="reflections" type="float" value="0.75"/>
   <property name="reflectionsOpacity" type="float" value="55"/>
-  <property name="weather" value="rain"/>
  </properties>
  <group id="8" name="background" locked="1">
-  <properties>
-   <property name="relativeY" type="float" value="0.01"/>
-  </properties>
-  <group id="19" name="houses" offsetx="13.3333" offsety="-40">
+  <imagelayer id="15" name="sky" offsetx="-420" offsety="-4">
+   <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
    <properties>
-    <property name="relativeX" type="float" value="0.2"/>
-    <property name="scrollSpeedX" type="float" value="0"/>
+    <property name="relativeX" value="0.9"/>
    </properties>
-   <imagelayer id="17" name="bldng1" offsetx="-38.6667" offsety="-189.333">
-    <image source="../img/stage/stage1/old/building1.png" width="525" height="385"/>
-   </imagelayer>
-   <imagelayer id="18" name="bldng2" offsetx="766.667" offsety="-142.666">
-    <image source="../img/stage/stage1/old/building2.png" width="525" height="385"/>
+  </imagelayer>
+  <group id="18" name="back-city" offsetx="-378" offsety="-9">
+   <properties>
+    <property name="relativeX" value="0.9"/>
+   </properties>
+   <imagelayer id="19" name="city">
+    <image source="../img/stage/stage1/background-back-city.png" width="2560" height="320"/>
    </imagelayer>
   </group>
-  <imagelayer id="9" name="bg">
-   <image source="../img/stage/stage1/old/stage1at.png" width="2560" height="320"/>
+  <group id="17" name="front-city" offsetx="-378" offsety="-9">
+   <properties>
+    <property name="relativeX" value="0.9"/>
+   </properties>
+   <imagelayer id="20" name="city">
+    <image source="../img/stage/stage1/background-front-city.png" width="2560" height="320"/>
+   </imagelayer>
+  </group>
+  <imagelayer id="9" name="bg" locked="1">
+   <image source="../img/stage/stage1/stage1a.png" width="2560" height="320"/>
   </imagelayer>
  </group>
  <group id="12" name="foreground" locked="1">
   <properties>
-   <property name="relativeX" type="float" value="-1.5"/>
+   <property name="relativeX" value="-1.2"/>
   </properties>
-  <imagelayer id="20" name="housefg" offsetx="152" offsety="289">
-   <image source="../img/stage/stage1/old/building2.png" width="525" height="385"/>
+  <imagelayer id="13" name="fg">
+   <image source="../img/stage/stage1/stage1a_fg.png" width="2560" height="320"/>
    <properties>
-    <property name="relativeX" type="float" value="-1.2"/>
+    <property name="relativeX" value="-1.2"/>
    </properties>
-  </imagelayer>
-  <imagelayer id="21" name="housebg2" offsetx="1204" offsety="281">
-   <image source="../img/stage/stage1/old/building2.png" width="525" height="385"/>
-   <properties>
-    <property name="relativeX" type="float" value="-1.2"/>
-   </properties>
-  </imagelayer>
-  <imagelayer id="13" name="fg1" visible="0" offsetx="156.667" offsety="291">
-   <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
-  </imagelayer>
-  <imagelayer id="14" name="fg2" visible="0" offsetx="670.545" offsety="253.818">
-   <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
-  </imagelayer>
-  <imagelayer id="15" name="fg3" visible="0" offsetx="1068.12" offsety="212.242">
-   <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
   </imagelayer>
  </group>
- <objectgroup color="#aa0000" id="7" name="camera" visible="0" locked="1">
+ <objectgroup color="#aa0000" id="7" name="camera" locked="1">
   <object id="6" x="0" y="320">
    <polyline points="0,0 2560,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#00aa00" id="6" name="collision" visible="0" locked="1">
+ <objectgroup color="#00aa00" id="6" name="collision" locked="1">
   <object id="8" x="0" y="0" width="2560" height="240"/>
  </objectgroup>
  <objectgroup color="#00aaff" id="5" name="player" locked="1">
@@ -71,15 +62,22 @@
   </object>
  </objectgroup>
  <objectgroup color="#55557f" id="4" name="global">
-  <object id="15" name="wait3" type="event" x="191" y="109">
+  <object id="15" name="enterMap" type="event" x="43" y="193">
    <properties>
-    <property name="duration" type="float" value="3"/>
-    <property name="gox" value="0"/>
-    <property name="nextevent" value="enterMap2"/>
+    <property name="togox" value="-100"/>
    </properties>
    <point/>
   </object>
-  <object id="16" name="leaveMap" type="event" x="734.33" y="217.167">
+  <object id="16" name="leaveMap" type="event" x="226.742" y="201.333">
+   <properties>
+    <property name="animation" value="stand"/>
+    <property name="duration" value="2"/>
+    <property name="gox" value="0"/>
+    <property name="nextevent" value="exit"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="17" name="exit" type="event" x="400.879" y="243.909">
    <properties>
     <property name="go" value="exit"/>
     <property name="nextevent" value="nextmap"/>
@@ -87,44 +85,36 @@
    </properties>
    <point/>
   </object>
-  <object id="17" name="exit" type="event" x="735.5" y="255">
-   <point/>
-  </object>
-  <object id="24" name="TRASH" type="trashcan" x="131.5" y="238">
-   <point/>
-  </object>
-  <object id="25" name="SIGN" type="sign" x="326.5" y="244">
-   <point/>
-  </object>
-  <object id="26" name="TRASH" type="trashcan" x="600.5" y="281.75">
-   <point/>
-  </object>
-  <object id="75" name="enterMap" type="event" x="47" y="185">
+  <object id="18" name="Trash" type="trashcan" x="188" y="262">
    <properties>
-    <property name="nextevent" value="wait3"/>
-    <property name="togox" value="-100"/>
+    <property name="drop" value="chicken"/>
    </properties>
    <point/>
   </object>
-  <object id="76" name="enterMap2" type="event" x="108.333" y="181.667">
+  <object id="19" name="Trash" type="trashcan" x="243" y="306">
    <properties>
-    <property name="gox" value="100"/>
+    <property name="drop" value="apple"/>
+    <property name="palette" value="2"/>
    </properties>
    <point/>
+  </object>
+  <object id="21" name="goToTrash" type="event" x="316" y="243" width="31" height="72">
+   <properties>
+    <property name="go" value="Trash"/>
+   </properties>
   </object>
  </objectgroup>
- <group id="1" name="batch">
-  <objectgroup color="#ffff00" id="2" name="1">
+ <group id="1" name="batch" locked="1">
+  <objectgroup color="#ffff00" id="2" name="1" locked="1">
    <properties>
     <property name="music" value="stage1"/>
     <property name="onComplete" value="leaveMap"/>
     <property name="onStart" value="enterMap"/>
    </properties>
    <object id="1" name="1" type="batch" x="0" y="0" width="640" height="320"/>
-   <object id="22" name="Gopper" type="gopper" x="223" y="261">
+   <object id="9" name="Gopper" type="gopper" x="253" y="261">
     <properties>
-     <property name="drop" value="beef"/>
-     <property name="palette" value="2"/>
+     <property name="palette" value="3"/>
     </properties>
     <point/>
    </object>
