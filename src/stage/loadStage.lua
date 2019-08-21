@@ -143,10 +143,10 @@ local function loadUnit(items, batchName)
                 v.name, nil,
                 r(v.x + v.width / 2), r(v.y + v.height / 2),
                 properties )
+            units[#units + 1] = event
         elseif v.type ~= "batch" then
             error("Tiled: Unknown Event type on the map: "..v.type.." shape:"..v.shape)
         end
-        units[#units + 1] = event
     end
     return units
 end
