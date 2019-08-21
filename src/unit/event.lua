@@ -92,10 +92,10 @@ function Event:updateAI(dt)
                 if player and player:isAlive() then
                     wasApplied = false
                     if statesToStartEvent[player.state] then
-                        wasApplied = self:checkAndStart(self.applyToPlayers[i])
+                        wasApplied = self:checkAndStart(player)
                     end
                     if wasApplied or player.state == "useCredit" then
-                        dp(" table item removed", i, self.applyToPlayers[i].name)
+                        dp(" table item removed", i, player.name)
                         table.remove(self.applyToPlayers,i)
                     end
                 end
