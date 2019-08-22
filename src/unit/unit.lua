@@ -319,7 +319,7 @@ function Unit:getMinZ()
     if self.isGrabbed and g and g.source then
         return g.source.z
     elseif self.platform and self.platform.hp > 0 then
-        return self.platform.z + self.platform.height
+        return self.platform.z + self.platform:getHeight()
     end
     return 0
 end
@@ -346,7 +346,7 @@ end
 
 function Unit:setMinZ(platform)
     if self.platform then
-        if self.platform.height < platform.height then
+        if self.platform:getHeight() < platform:getHeight() then
             self.platform = platform
         elseif math.abs(platform.x - self.x) < math.abs(self.platform.x - self.x)
             or math.abs(platform.y - self.y) < math.abs(self.platform.y - self.y)
