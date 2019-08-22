@@ -148,27 +148,37 @@ function getMaxSpriteAnimation(spr, anim)
     return 0
 end
 
+function initSpriteAnimationDelays(spr)
+    local animations = spr.def.animations
+    for _, a in pairs(animations) do
+        if not a.delay then
+            -- is there default delay for frames of 1 animation?
+            a.delay = spr.def.delay
+        end
+        for n = 1, #a do
+            local sc = a[n]
+            if not sc.delay then
+                -- is there delay for this frame?
+                sc.delay = a.delay
+            end
+        end
+    end
+end
+
 function calculateSpriteAnimation(spr)
     spr.def.comboMax = getMaxSpriteAnimation(spr, "combo")
     spr.def.maxGrabAttack = getMaxSpriteAnimation(spr, "grabFrontAttack")
+    initSpriteAnimationDelays(spr)
 end
 
 function updateSpriteInstance(spr, dt, slf)
     local s = spr.def.animations[spr.curAnim]
     local sc = s[spr.curFrame]
-    -- is there default delay for frames of 1 animation?
-    if not s.delay then
-        s.delay = spr.def.delay
-    end
     if not s.hurtBox then
         s.hurtBox = spr.def.hurtBox
     end
     if not sc then
         error("Missing frame #"..spr.curFrame.." in "..spr.curAnim.." animation")
-    end
-    -- is there delay for this frame?
-    if not sc.delay then
-        sc.delay = s.delay
     end
     if not sc.hurtBox then
         sc.hurtBox = s.hurtBox
