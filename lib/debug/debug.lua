@@ -384,7 +384,7 @@ function drawDebugUnitHitbox(a)
         local hurtBox =  getSpriteHurtBox(a.sprite)
         if hurtBox then
             colors:set("lightGray", nil, 150)
-            love.graphics.rectangle("line", a.x + hurtBox.x, a.y + hurtBox.y - a.z, hurtBox.width, hurtBox.height )
+            love.graphics.rectangle("line", a.x + hurtBox.x, a.y - hurtBox.y - a.z, hurtBox.width, hurtBox.height )
         else
             colors:set("white", nil, 150)
             love.graphics.rectangle("line", a.x - a.width / 2, a.y - a.height - a.z + 1, a.width, a.height-1)
