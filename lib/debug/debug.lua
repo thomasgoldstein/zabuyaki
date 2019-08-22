@@ -386,7 +386,7 @@ function drawDebugUnitHitbox(a)
             colors:set("lightGray", nil, 150)
             love.graphics.rectangle("line", a.x + hurtBox.x, a.y - hurtBox.y - a.z, hurtBox.width, hurtBox.height )
         else
-            colors:set("white", nil, 150)
+            colors:set("red", nil, 150)
             love.graphics.rectangle("line", a.x - a.width / 2, a.y - a.height - a.z + 1, a.width, a.height-1)
         end
     end
