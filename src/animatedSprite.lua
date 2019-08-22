@@ -85,7 +85,7 @@ function getSpriteInstance (spriteDef)
 end
 
 ---Set current animation of the current sprite
----@param spr object
+---@param spr table
 ---@param anim string
 function setSpriteAnimation(spr, anim)
     spr.curFrame = 1
@@ -101,7 +101,7 @@ function setSpriteAnimation(spr, anim)
 end
 
 ---Does the sprite have 'anim' animation?
----@param spr object
+---@param spr table
 ---@param anim string
 ---@return boolean
 function spriteHasAnimation(spr, anim)
