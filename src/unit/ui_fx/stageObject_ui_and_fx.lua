@@ -41,7 +41,7 @@ function StageObject:calcShadowSpriteAndTransparency()
     colors:set("black", nil, transparency)
     local spr = self.sprite
     local image = imageBank[spr.def.spriteSheet]
-    local sc = spr.def.animations[spr.curAnim][self:calcDamageFrame()]
+    local sc = spr.def.animations[spr.curAnim][spr.curFrame]
     local shadowAngle = -stage.shadowAngle * spr.flipH
     return image, spr, sc, shadowAngle, -2
 end
