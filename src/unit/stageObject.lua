@@ -142,7 +142,9 @@ end
 function StageObject:standStart()
     self.isHittable = true
     self.victims = {}
+    local curFrame = self.sprite.curFrame
     self:setSprite("stand")
+    self.sprite.curFrame = curFrame
 end
 function StageObject:standUpdate(dt)
     if self.isGrabbed then
