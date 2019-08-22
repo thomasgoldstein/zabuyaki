@@ -148,18 +148,24 @@ function getMaxSpriteAnimation(spr, anim)
     return 0
 end
 
-function initSpriteAnimationDelays(spr)
+function initSpriteAnimationDelaysAndHurtBoxes(spr)
     local animations = spr.def.animations
     for _, a in pairs(animations) do
         if not a.delay then
             -- is there default delay for frames of 1 animation?
             a.delay = spr.def.delay
         end
+        if not a.hurtBox then
+            a.hurtBox = spr.def.hurtBox
+        end
         for n = 1, #a do
             local sc = a[n]
             if not sc.delay then
                 -- is there delay for this frame?
                 sc.delay = a.delay
+            end
+            if not sc.hurtBox then
+                sc.hurtBox = a.hurtBox
             end
         end
     end
@@ -168,20 +174,14 @@ end
 function calculateSpriteAnimation(spr)
     spr.def.comboMax = getMaxSpriteAnimation(spr, "combo")
     spr.def.maxGrabAttack = getMaxSpriteAnimation(spr, "grabFrontAttack")
-    initSpriteAnimationDelays(spr)
+    initSpriteAnimationDelaysAndHurtBoxes(spr)
 end
 
 function updateSpriteInstance(spr, dt, slf)
     local s = spr.def.animations[spr.curAnim]
     local sc = s[spr.curFrame]
-    if not s.hurtBox then
-        s.hurtBox = spr.def.hurtBox
-    end
     if not sc then
         error("Missing frame #"..spr.curFrame.." in "..spr.curAnim.." animation")
-    end
-    if not sc.hurtBox then
-        sc.hurtBox = s.hurtBox
     end
     -- call custom frame func once per the frame
     if sc.func and spr.funcCalledOnFrame ~= spr.curFrame and slf then
@@ -195,7 +195,6 @@ function updateSpriteInstance(spr, dt, slf)
     end
     --Increment the internal counter.
     spr.elapsedTime = spr.elapsedTime + dt
-
     --We check we need to change the current frame.
     if spr.elapsedTime > sc.delay * spr.timeScale then
         --Check if we are at the last frame.
@@ -224,7 +223,6 @@ function updateSpriteInstance(spr, dt, slf)
     spr.isFirst = (spr.curFrame == 1)
     spr.isLast = (spr.curFrame == #s)
     spr.isLoopFrom = (spr.curFrame == (s.loopFrom or 1))
-    return nil
 end
 
 function drawSpriteInstance (spr, x, y, frame)
