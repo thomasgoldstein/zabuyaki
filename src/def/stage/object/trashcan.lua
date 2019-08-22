@@ -12,7 +12,7 @@ return {
     spriteName = "trashcan", -- sprite name
 
     delay = math.huge,	--default delay for all
-
+    hurtBox = { x = -7, y = 36, width = 15, height = 36 },
     animations = {
         icon = {
             { q = q(2, 2, 27, 17) },
@@ -22,9 +22,9 @@ return {
         },
         stand = {
             { q = q(2,2,27,42), ox = 13.5, oy = 41 }, --100% hp
-            { q = q(31,2,27,42), ox = 13.5, oy = 41 },
-            { q = q(60,5,27,39), ox = 13.5, oy = 38 },
-            { q = q(89,9,27,35), ox = 13.5, oy = 34 } -- 0 HP
+            { q = q(31,2,27,42), ox = 13.5, oy = 41, hurtBox = { x = -7, y = 33, width = 15, height = 33 } },
+            { q = q(60,5,27,39), ox = 13.5, oy = 38, hurtBox = { x = -7, y = 30, width = 15, height = 30 } },
+            { q = q(89,9,27,35), ox = 13.5, oy = 34, hurtBox = { x = -7, y = 29, width = 15, height = 29 } } -- 0 HP
         },
     } --offsets
 
