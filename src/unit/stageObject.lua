@@ -51,7 +51,6 @@ function StageObject:initialize(name, sprite, x, y, f)
 end
 
 function StageObject:updateSprite(dt)
---    updateSpriteInstance(self.sprite, dt, self)
 end
 
 function StageObject:setSprite(anim)
@@ -63,7 +62,7 @@ end
 
 function StageObject:drawSprite(x, y)
     self.sprite.flipH = self.faceFix
-    drawSpriteInstance(self.sprite, x, y, self:calcDamageFrame())
+    drawSpriteInstance(self.sprite, x, y)
 end
 
 function StageObject:checkCollisionAndMove(dt)
@@ -131,6 +130,7 @@ function StageObject:onHurt()
         end
         self:showEffect("breakMetal", h)
     end
+    self.sprite.curFrame = curFrame
     self.oldFrame = curFrame
     self.isHurt = nil --free hurt data
 end
