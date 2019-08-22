@@ -324,6 +324,26 @@ function Unit:getMinZ()
     return 0
 end
 
+function Unit:getHurtBox()
+    local hurtBox = getSpriteHurtBox(self.sprite)
+    return hurtBox.x, hurtBox.y, hurtBox.width, hurtBox.height
+end
+function Unit:getHurtBoxWidth()
+    return getSpriteHurtBox(self.sprite).width
+end
+function Unit:getHurtBoxHeight()
+    return getSpriteHurtBox(self.sprite).width
+end
+function Unit:getHurtBoxX()
+    return getSpriteHurtBox(self.sprite).x
+end
+function Unit:getHurtBoxY()
+    return getSpriteHurtBox(self.sprite).y
+end
+function Unit:getHeight()
+    return getSpriteHurtBox(self.sprite).y
+end
+
 function Unit:setMinZ(platform)
     if self.platform then
         if self.platform.height < platform.height then
