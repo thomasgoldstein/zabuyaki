@@ -35,7 +35,6 @@ function StageObject:initialize(name, sprite, x, y, f)
     if f.flipOnBreak ~= false then
         self.flipOnBreak = true --flip face to the attacker on break (true by default)
     end
-    self.decreaseHeightValue = f.decreaseHeightValue or 0 -- by pixels. Decrease height on every damaged sprite change
     self.faceFix = self.face   --keep the same facing after 1st hit
     self.sfx.dead = f.sfxDead --on death sfx
     self.sfx.onHit = f.sfxOnHit --on hurt sfx
@@ -131,7 +130,6 @@ function StageObject:onHurt()
             self.faceFix = newFacing -- keep previous facing
         end
         self:showEffect("breakMetal", h)
-        self.height = self.height - self.decreaseHeightValue
     end
     self.oldFrame = curFrame
     self.isHurt = nil --free hurt data
