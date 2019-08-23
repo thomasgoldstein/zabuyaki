@@ -332,7 +332,7 @@ function Unit:getHurtBoxWidth()
     return getSpriteHurtBox(self.sprite).width
 end
 function Unit:getHurtBoxHeight()
-    return getSpriteHurtBox(self.sprite).width
+    return getSpriteHurtBox(self.sprite).height
 end
 function Unit:getHurtBoxX()
     return getSpriteHurtBox(self.sprite).x
