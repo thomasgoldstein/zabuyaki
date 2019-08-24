@@ -205,7 +205,7 @@ return {
             delay = 0.02
         },
         thrown = {
-            --rx = oy / 2, ry = -ox for this rotation
+            --rx = ox / 2, ry = -oy / 2 for this rotation
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
             delay = math.huge
         },

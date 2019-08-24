@@ -175,7 +175,7 @@ return {
             delay = 0.02
         },
         thrown = {
-            --rx = oy / 2, ry = -ox for this rotation
+            --rx = ox / 2, ry = -oy / 2 for this rotation
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             delay = math.huge
         },
