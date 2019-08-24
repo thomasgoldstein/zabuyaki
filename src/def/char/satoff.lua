@@ -282,7 +282,7 @@ return {
             { q = q(181,422,73,69), ox = 40, oy = 68, rotate = -1.57, rx = 40, ry = -34 }, --fall 1 (rotated -90°)
             { q = q(214,146,72,64), ox = 36, oy = 63, flipV = -1 }, --hurt low 2
             { q = q(153,301,79,40), ox = 49, oy = 37 }, --fallen
-            delay = 100
+            delay = math.huge
         },
         thrown = {
             --rx = ox / 2, ry = -oy / 2 for this rotation
