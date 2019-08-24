@@ -33,7 +33,7 @@ return {
     spriteName = "zeena", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations
-
+    hurtBox = { x = -10, y = 40, width = 20, height = 40 },
     --The list with all the frames mapped to their respective animations
     --  each one can be accessed like this:
     --  mySprite.animations["idle"][1], or even

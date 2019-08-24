@@ -51,6 +51,7 @@ return {
     spriteSheet = spriteSheet, -- path to spritesheet
     spriteName = "satoff", -- sprite name
     delay = 0.2,	--default delay for all animations
+    hurtBox = { x = -15, y = 55, width = 30, height = 55 },
     animations = {
         icon = {
             { q = q(20, 9, 38, 17) },
