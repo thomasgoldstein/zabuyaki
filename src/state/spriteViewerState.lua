@@ -317,10 +317,13 @@ function spriteViewerState:draw()
                 end
             end
             if isDebug() then
-                showDebugBoxes(2)
+                showDebugBoxes(sprite.sizeScale)
             end
             colors:set("white")
             drawSpriteInstance(sprite, x, y, menu[menuState].n)
+            if isDebug() then
+                drawDebugUnitHitbox(sprite, x, y, menu[menuState].n, sprite.sizeScale)
+            end
             if specialOverlaySprite then
                 if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
                     drawSpriteCustomInstance(specialOverlaySprite, x , y, sprite.curAnim, menu[menuState].n)

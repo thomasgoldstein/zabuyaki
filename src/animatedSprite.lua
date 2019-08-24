@@ -112,11 +112,11 @@ function spriteHasAnimation(spr, anim)
 end
 
 local dummyHurtBox = { x = 0., y = 0, width = 0, height = 0 }
-function getSpriteHurtBox(spr)
+function getSpriteHurtBox(spr, frame)
     if not spr then
         return dummyHurtBox
     end
-    local sc = spr.def.animations[spr.curAnim][spr.curFrame or 1]
+    local sc = spr.def.animations[spr.curAnim][frame or spr.curFrame or 1]
     return sc.hurtBox
 end
 
