@@ -107,7 +107,7 @@ function arcadeState:draw()
         -- draw camera stuff here
         colors:set("white")
         stage:draw(l,t,w,h)
-        showDebugBoxes() -- debug draw collision boxes
+        drawDebugHitBoxes() -- debug draw collision boxes
         showDebugBatch(l,t,w,h)
     end)
     love.graphics.setCanvas()

@@ -248,7 +248,7 @@ function showDebugControls()
     end
 end
 
-function showDebugBoxes(scale)
+function drawDebugHitBoxes(scale)
     if not scale then
         scale = 1
     end

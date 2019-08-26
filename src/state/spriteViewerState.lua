@@ -317,7 +317,7 @@ function spriteViewerState:draw()
                 end
             end
             if isDebug() then
-                showDebugBoxes(sprite.sizeScale)
+                drawDebugHitBoxes(sprite.sizeScale)
             end
             colors:set("white")
             drawSpriteInstance(sprite, x, y, menu[menuState].n)

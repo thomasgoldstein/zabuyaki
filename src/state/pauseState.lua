@@ -72,7 +72,7 @@ function pauseState:draw()
         -- draw camera stuff here
         colors:set("white")
         stage:draw(l,t,w,h)
-        showDebugBoxes() -- debug draw collision boxes
+        drawDebugHitBoxes() -- debug draw collision boxes
     end)
     love.graphics.setCanvas()
     push:start()
