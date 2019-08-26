@@ -15,7 +15,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
 local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE VIEWER", "UNIT TESTS", "BACK"}
-local menuItems = {difficulty = 1, video = 2, sound = 3, defaults = 4, spriteViever = 4, unitTests = 5, back = 6}
+local menuItems = {difficulty = 1, video = 2, sound = 3, defaults = 4, spriteViewer = 5, unitTests = 6, back = 7}
 
 local menu = fillMenu(txtItems)
 
@@ -135,8 +135,9 @@ function optionsState:confirm( x, y, button, istouch )
             TEsound.stop("music")
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
             TEsound.playLooping(bgm.title, "music")
+            --TODO: add video mode, video filter reset
 
-        elseif menuState == menuItems.spriteViever then
+        elseif menuState == menuItems.spriteViewer then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(spriteSelectState)
 
