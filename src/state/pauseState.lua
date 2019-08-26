@@ -15,7 +15,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 
 local pausedText = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
 local txtItems = { "CONTINUE", "QUICK SAVE", "QUIT" }
-
+local menuItems = {continue = 1, quickSave = 2, quit = 3}
 local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
@@ -23,7 +23,7 @@ local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function pauseState:enter()
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
-    menuState = 1
+    menuState = menuItems.continue
     mouse_x, mouse_y = 0,0
     sfx.play("sfx","menuCancel")
 
@@ -135,9 +135,11 @@ end
 function pauseState:confirm( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
-        if menuState == 1 then
+        if menuState == menuItems.continue then
             sfx.play("sfx","menuSelect")
             return Gamestate.pop()
+        elseif menuState == menuItems.quickSave then
+            --TODO implement quick save
         elseif menuState == #menu then
             sfx.play("sfx","menuCancel")
             return Gamestate.switch(titleState)
