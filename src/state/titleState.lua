@@ -27,7 +27,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 
 local siteImageText = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 local txtItems = {"START", "OPTIONS", "QUIT"}
-
+local menuItems = {start = 1, options = 2, quit = 3}
 local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
@@ -207,7 +207,7 @@ function titleState:confirm( x, y, button, istouch )
     end
     if button == 1 then
         mouse_x, mouse_y = x, y
-        if menuState == 1 then
+        if menuState == menuItems.start then
             sfx.play("sfx","menuSelect")
             time = 0
             if isDebug() then
@@ -219,7 +219,7 @@ function titleState:confirm( x, y, button, istouch )
                 return Gamestate.push(playerSelectState)
             end
 
-        elseif menuState == 2 then
+        elseif menuState == menuItems.options then
             sfx.play("sfx","menuSelect")
             time = 0
             return Gamestate.push(optionsState)
