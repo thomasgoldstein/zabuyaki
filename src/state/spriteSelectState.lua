@@ -144,8 +144,22 @@ function spriteSelectState:update(dt)
     self:playerInput(Controls[1])
 end
 
+local function displayHelp()
+    local font = love.graphics.getFont()
+    local x, y = leftItemOffset, menuOffset_y + menuItem_h
+    love.graphics.setFont(gfx.font.arcade3)
+    colors:set("gray")
+    if menuState == 1 then
+        love.graphics.print(
+            [[<- -> / Mouse wheel :
+  Select character]], x, y)
+    end
+    love.graphics.setFont(font)
+end
+
 function spriteSelectState:draw()
     push:start()
+    displayHelp()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
