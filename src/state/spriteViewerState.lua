@@ -322,7 +322,7 @@ function spriteViewerState:draw()
             colors:set("white")
             drawSpriteInstance(sprite, x, y, menu[menuState].n)
             if isDebug() then
-                drawDebugUnitHitbox(sprite, x, y, menu[menuState].n, sprite.sizeScale)
+                drawDebugUnitHurtBox(sprite, x, y, menu[menuState].n, sprite.sizeScale)
             end
             if specialOverlaySprite then
                 if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then

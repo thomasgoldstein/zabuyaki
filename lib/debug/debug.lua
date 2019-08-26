@@ -379,8 +379,7 @@ function drawUnitHighlight(slf)
     end
 end
 
-function drawDebugUnitHitbox(sprite, x, y, frame, scale)
-    local scale = scale or 1
+function drawDebugUnitHurtBox(sprite, x, y, frame, scale)
     if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
         local hurtBox =  getSpriteHurtBox(sprite, frame)
         if hurtBox then
