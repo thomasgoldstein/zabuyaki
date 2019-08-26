@@ -264,7 +264,7 @@ local grabBackAttack = function(slf, cont)
 end
 
 local hurtBox = {
-    default = { x = 0, y = 25, width = 20, height = 50 },
+    default = { width = 20, height = 50 },
     default38 = { x = 0, y = 19, width = 20, height = 38 },
 }
 

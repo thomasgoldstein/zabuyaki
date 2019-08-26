@@ -15,7 +15,7 @@ return {
     spriteName = "yar", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations
-    hurtBox = { x = 0, y = 55/2, width = 30, height = 55 },
+    hurtBox = { width = 30, height = 55 },
     --The list with all the frames mapped to their respective animations
     --  each one can be accessed like this:
     --  mySprite.animations["idle"][1], or even

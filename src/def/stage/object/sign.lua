@@ -12,7 +12,7 @@ return {
     spriteName = "sign", -- sprite name
 
     delay = math.huge,	--default delay for all
-    hurtBox = { x = 0, y = 64/2, width = 20, height = 64 },
+    hurtBox = { width = 20, height = 64 },
     animations = {
         icon = {
             { q = q(2, 10, 34, 17) },
@@ -22,9 +22,9 @@ return {
         },
         stand = {
             { q = q(2,2,34,75), ox = 17, oy = 74 }, --100% hp
-            { q = q(38,3,34,74), ox = 28, oy = 73, hurtBox = { x = 0, y = 62/2, width = 20, height = 62 } },
-            { q = q(74,7,42,70), ox = 39, oy = 69, hurtBox = { x = 0, y = 60/2, width = 20, height = 60 } },
-            { q = q(2,79,77,23), ox = 74, oy = 12 }, -- 0 HP
+            { q = q(38,3,34,74), ox = 28, oy = 73, hurtBox = { width = 20, height = 62 } },
+            { q = q(74,7,42,70), ox = 39, oy = 69, hurtBox = { width = 20, height = 60 } },
+            { q = q(2,79,77,23), ox = 74, oy = 12, hurtBox = { width = 20, height = 6 } }, -- 0 HP
         },
     } --offsets
 
