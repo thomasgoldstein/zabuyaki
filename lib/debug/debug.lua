@@ -130,12 +130,12 @@ function dpo(o, txt)
     dboc[o.name] = { x = o.x, y = o.y, z = o.z, time = love.timer.getTime() }
 end
 
-local frame = 1000
+local debugFrame = 1000
 function incrementDebugFrame()
-    frame = frame + 1
+    debugFrame = debugFrame + 1
 end
 function getDebugFrame()
-    return frame
+    return debugFrame
 end
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
 function showDebugIndicator(size, _x, _y)
@@ -151,7 +151,7 @@ function showDebugIndicator(size, _x, _y)
         if GLOBAL_SETTING.FRAME_SKIP > 0 then
             love.graphics.print("FRAME SKIP:"..(GLOBAL_SETTING.FRAME_SKIP + 1), x + 60, y + 9 * 2)
         end
-        love.graphics.print("Frame:"..frame, x, y + 9 * 3)
+        love.graphics.print("Frame:"..getDebugFrame(), x, y + 9 * 3)
     end
 end
 
