@@ -15,6 +15,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SOUND OPTIONS" )
 local txtItems = {"SFX VOLUME", "BGM VOLUME", "SFX N", "MUSIC N", "BACK"}
+local menuItems = {soundVolume = 1, musicVolume = 2, soundSampleN = 3, musicTrackN = 4, back = 5}
 local volumeStep = 0.10
 
 local menu = fillMenu(txtItems)
@@ -74,24 +75,24 @@ function soundState:draw()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
-        if i == 1 then
+        if i == menuItems.soundVolume then
             if GLOBAL_SETTING.SFX_VOLUME == 0 then
                 m.item = "SOUND OFF"
             else
                 m.item = "SOUND "..GLOBAL_SETTING.SFX_VOLUME * 100 .."%"
             end
             m.hint = "USE <- ->"
-        elseif i == 2 then
+        elseif i == menuItems.musicVolume then
             if GLOBAL_SETTING.BGM_VOLUME == 0 then
                 m.item = "BG MUSIC OFF"
             else
                 m.item = "BG MUSIC "..GLOBAL_SETTING.BGM_VOLUME * 100 .."%"
             end
             m.hint = "USE <- ->"
-        elseif i == 3 then
+        elseif i == menuItems.soundSampleN then
             m.item = "SFX #"..m.n.." "..sfx[m.n].alias
             m.hint = "by "..sfx[m.n].copyright
-        elseif i == 4 then
+        elseif i == menuItems.musicTrackN then
             if m.n == 0 then
                 m.item = "STOP MUSIC"
                 m.hint = ""
@@ -135,7 +136,7 @@ function soundState:confirm( x, y, button, istouch )
         return Gamestate.pop()
     end
     if button == 1 then
-        if menuState == 1 then
+        if menuState == menuItems.soundVolume then
             sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.SFX_VOLUME ~= 0 then
                 configuration:set("SFX_VOLUME", 0)
@@ -144,7 +145,7 @@ function soundState:confirm( x, y, button, istouch )
             end
             menu[menuState].n = GLOBAL_SETTING.SFX_VOLUME / volumeStep
             TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-        elseif menuState == 2 then
+        elseif menuState == menuItems.musicVolume then
             sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
                 configuration:set("BGM_VOLUME", 0)
@@ -155,9 +156,9 @@ function soundState:confirm( x, y, button, istouch )
             end
             menu[menuState].n = GLOBAL_SETTING.BGM_VOLUME / volumeStep
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-        elseif menuState == 3 then
+        elseif menuState == menuItems.soundSampleN then
             sfx.play("sfx", menu[menuState].n)
-        elseif menuState == 4 then
+        elseif menuState == menuItems.musicTrackN then
             TEsound.volume("music", 1)
             TEsound.stop("music")
             if menu[menuState].n > 0 then
@@ -191,7 +192,7 @@ function soundState:wheelmoved(x, y)
         return
     end
     menu[menuState].n = menu[menuState].n + i
-    if menuState == 1 then
+    if menuState == menuItems.soundVolume then
         sfx.play("sfx","menuSelect")
         if menu[menuState].n < 0 then
             menu[menuState].n = 0
@@ -202,7 +203,7 @@ function soundState:wheelmoved(x, y)
         GLOBAL_SETTING.SFX_VOLUME = menu[menuState].n * volumeStep
         configuration:set("SFX_VOLUME", GLOBAL_SETTING.SFX_VOLUME)
         TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-    elseif menuState == 2 then
+    elseif menuState == menuItems.musicVolume then
         sfx.play("sfx","menuSelect")
         if menu[menuState].n < 0 then
             menu[menuState].n = 0
@@ -215,14 +216,14 @@ function soundState:wheelmoved(x, y)
         TEsound.stop("music")
         TEsound.playLooping(bgm.title, "music")
         TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-    elseif menuState == 3 then
+    elseif menuState == menuItems.soundSampleN then
         if menu[menuState].n < 1 then
             menu[menuState].n = #sfx
         end
         if menu[menuState].n > #sfx then
             menu[menuState].n = 1
         end
-    elseif menuState == 4 then
+    elseif menuState == menuItems.musicTrackN then
         if menu[menuState].n < 0 then
             menu[menuState].n = #bgm
         end
@@ -230,7 +231,7 @@ function soundState:wheelmoved(x, y)
             menu[menuState].n = 0
         end
     end
-    if menuState ~= 3 then
+    if menuState ~= menuItems.soundSampleN then
         sfx.play("sfx","menuMove")
     end
 end
