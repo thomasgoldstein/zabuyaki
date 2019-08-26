@@ -275,7 +275,7 @@ function drawDebugHitBoxes(scale)
                 else
                     colors:set("green", nil, 150)
                 end
-                love.graphics.rectangle("line", a.x + a.sx * scale - (a.w / 2) * scale, a.y - a.z * scale, a.w * scale, a.h * scale)
+                love.graphics.rectangle("line", a.x + (a.sx - a.w / 2) * scale, a.y - a.z * scale, a.w * scale, a.h * scale)
                 love.graphics.rectangle("line", a.x + a.sx * scale, a.y + ( -a.z - a.w / 2) * scale, a.h * scale, a.w * scale)
             end
         end
