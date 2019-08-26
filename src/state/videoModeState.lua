@@ -14,8 +14,9 @@ local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
 local videoLogoText = love.graphics.newText(gfx.font.kimberley, "VIDEO OPTIONS")
-local txtItems = { "FULL SCREEN", "FULL SCREEN MODES", "VIDEO FILTER", "BACK" }
-local fullScreenFillText = { "KEEP RATIO", "PIXEL PERFECT", "FILL STRETCHED" }
+local txtItems = {"FULL SCREEN", "FULL SCREEN MODES", "VIDEO FILTER", "BACK"}
+local menuItems = {fullScreen = 1, fullScreenModes = 2, videoFilter = 3, back = 4}
+local fullScreenFillText = {"KEEP RATIO", "PIXEL PERFECT", "FILL STRETCHED"}
 
 local menu = fillMenu(txtItems)
 
@@ -77,21 +78,21 @@ function videoModeState:draw()
     love.graphics.setFont(gfx.font.arcade3x2)
     for i = 1, #menu do
         local m = menu[i]
-        if i == 1 then
+        if i == menuItems.fullScreen then
             if GLOBAL_SETTING.FULL_SCREEN then
                 m.item = "FULL SCREEN"
             else
                 m.item = "WINDOWED MODE"
             end
             m.hint = "USE F11 TO TOGGLE SCREEN MODE"
-        elseif i == 2 then
+        elseif i == menuItems.fullScreenModes then
             m.item = fullScreenFillText[GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE]
             if GLOBAL_SETTING.FULL_SCREEN then
                 m.hint = "FULL SCREEN FILLING MODES"
             else
                 m.hint = "FOR WINDOWED MODE ONLY"
             end
-        elseif i == 3 then
+        elseif i == menuItems.videoFilter then
             if GLOBAL_SETTING.FILTER_N > 0 then
                 local sh = shaders.screen[GLOBAL_SETTING.FILTER_N]
                 m.item = "VIDEO FILTER " .. sh.name
@@ -134,10 +135,10 @@ function videoModeState:confirm(x, y, button, istouch)
     end
     if button == 1 then
         --mouse_x, mouse_y = x, y
-        if menuState == 1 then
+        if menuState == menuItems.fullScreen then
             sfx.play("sfx", "menuSelect")
             switchFullScreen()
-        elseif menuState == 2 then
+        elseif menuState == menuItems.fullScreenModes then
             sfx.play("sfx", "menuSelect")
             GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE + i
             if GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE > #fullScreenFillText then
@@ -148,7 +149,7 @@ function videoModeState:confirm(x, y, button, istouch)
             push._pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2 --for Pixel Perfect mode
             push._stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3 --stretched fill
             push:initValues()
-        elseif menuState == 3 then
+        elseif menuState == menuItems.videoFilter then
             sfx.play("sfx", "menuSelect")
             GLOBAL_SETTING.FILTER_N = GLOBAL_SETTING.FILTER_N + i
             if GLOBAL_SETTING.FILTER_N > #shaders.screen then
@@ -201,11 +202,11 @@ function videoModeState:wheelmoved(x, y)
         return
     end
     menu[menuState].n = menu[menuState].n + i
-    if menuState == 1 then
+    if menuState == menuItems.fullScreen then
         return self:confirm(mouse_x, y, 1)
-    elseif menuState == 2 then
+    elseif menuState == menuItems.fullScreenModes then
         return self:confirm(mouse_x, y, 1)
-    elseif menuState == 3 then
+    elseif menuState == menuItems.videoFilter then
         return self:confirm(mouse_x, y, 1)
     end
     if menuState ~= #menu then
