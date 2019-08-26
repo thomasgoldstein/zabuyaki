@@ -381,6 +381,7 @@ end
 
 function drawDebugUnitHurtBox(sprite, x, y, frame, scale)
     if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
+        local scale = scale or 1
         local hurtBox =  getSpriteHurtBox(sprite, frame)
         if hurtBox then
             colors:set("lightGray", nil, 150)
