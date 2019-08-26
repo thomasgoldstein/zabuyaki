@@ -156,7 +156,7 @@ function initSpriteAnimationDelaysAndHurtBoxes(spr)
     local animations = spr.def.animations
     if not spr.def.hurtBox then
         --TODO remove default hurtBox on the end
-        spr.def.hurtBox = { x = -5, y = 20, width = 10, height = 20 }
+        spr.def.hurtBox = { x = 0, y = 10, width = 10, height = 20 }
     end
 
     for _, a in pairs(animations) do

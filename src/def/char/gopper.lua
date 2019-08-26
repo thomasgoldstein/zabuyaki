@@ -32,7 +32,7 @@ return {
     spriteName = "gopper", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations
-    hurtBox = { x = -10, y = 40, width = 20, height = 40 },
+    hurtBox = { x = 0, y = 25, width = 20, height = 50 },
     fallsOnRespawn = true, --alter respawn clouds
     --The list with all the frames mapped to their respective animations
     --  each one can be accessed like this:
