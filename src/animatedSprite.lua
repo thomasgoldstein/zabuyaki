@@ -111,13 +111,31 @@ function spriteHasAnimation(spr, anim)
     return false
 end
 
-local dummyHurtBox = { x = 0., y = 0, width = 0, height = 0 }
+local dummyHurtBox = { x = 0, y = 0, width = 0, height = 0 }
 function getSpriteHurtBox(spr, frame)
     if not spr then
         return dummyHurtBox
     end
     local sc = spr.def.animations[spr.curAnim][frame or spr.curFrame or 1]
     return sc.hurtBox
+end
+
+function fixHurtBox(h)
+    if not h then
+        error("Cannot fix an empty hurtBox table.")
+    end
+    if not h.width then
+        error("HurtBox should contain width key.")
+    end
+    if not h.height then
+        error("HurtBox should contain height key.")
+    end
+    if not h.x then
+        h.x = 0
+    end
+    if not h.y then
+        h.y = h.height/2
+    end
 end
 
 function getSpriteQuad(spr, frame_n)
@@ -166,6 +184,7 @@ function initSpriteAnimationDelaysAndHurtBoxes(spr)
         end
         if not a.hurtBox then
             a.hurtBox = spr.def.hurtBox
+            fixHurtBox(a.hurtBox)
         end
         for n = 1, #a do
             local sc = a[n]
@@ -176,6 +195,7 @@ function initSpriteAnimationDelaysAndHurtBoxes(spr)
             if not sc.hurtBox then
                 sc.hurtBox = a.hurtBox
             end
+            fixHurtBox(sc.hurtBox)
         end
     end
 end
