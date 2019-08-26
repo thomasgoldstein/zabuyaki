@@ -15,6 +15,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
 local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE VIEWER", "UNIT TESTS", "BACK"}
+local menuItems = {difficulty = 1, video = 2, sound = 3, defaults = 4, spriteViever = 4, unitTests = 5, back = 6}
 
 local menu = fillMenu(txtItems)
 
@@ -76,7 +77,7 @@ function optionsState:draw()
     love.graphics.setFont(gfx.font.arcade3x2)
     for i = 1,#menu do
         local m = menu[i]
-        if i == 1 then
+        if i == menuItems.difficulty  then
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 m.item = "DIFFICULTY NORMAL"
             else
@@ -113,33 +114,33 @@ end
 function optionsState:confirm( x, y, button, istouch )
     if button == 1 then
         mouse_x, mouse_y = x, y
-        if menuState == 1 then
+        if menuState == menuItems.difficulty then
             sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.DIFFICULTY == 1 then
                 configuration:set("DIFFICULTY", 2)
             else
                 configuration:set("DIFFICULTY", 1)
             end
-        elseif menuState == 2 then
+        elseif menuState == menuItems.video then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(videoModeState)
 
-        elseif menuState == 3 then
+        elseif menuState == menuItems.sound then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(soundState)
 
-        elseif menuState == 4 then
+        elseif menuState == menuItems.defaults then
             sfx.play("sfx","menuSelect")
             configuration:reset()
             TEsound.stop("music")
             TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
             TEsound.playLooping(bgm.title, "music")
 
-        elseif menuState == 5 then
+        elseif menuState == menuItems.spriteViever then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(spriteSelectState)
 
-        elseif menuState == 6 then
+        elseif menuState == menuItems.unitTests then
             sfx.play("sfx","menuSelect")
             require "test.common_test"
             require "test.test1"
@@ -181,7 +182,7 @@ function optionsState:wheelmoved(x, y)
         return
     end
     menu[menuState].n = menu[menuState].n + i
-    if menuState == 1 then
+    if menuState == menuItems.difficulty then
         return self:confirm( mouse_x, mouse_y, 1)
     end
     if menuState ~= #menu then
