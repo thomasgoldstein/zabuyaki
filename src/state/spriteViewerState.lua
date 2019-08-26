@@ -16,7 +16,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 
 local txtCurrentSprite --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 local txtItems = {"ANIMATIONS", "FRAMES", "DISABLED", "PALETTES", "BACK"}
-
+local menuItems = {animations = 1, frames = 2, disabled = 3, palettes = 4, back = 5}
 local player
 local hero
 local sprite
@@ -43,7 +43,7 @@ function spriteViewerState:enter(_, _hero)
     if specialOverlaySprite then
         specialOverlaySprite.sizeScale = 2
     end
-    menu[1].n = 1
+    menu[menuItems.animations].n = 1
     mouse_x, mouse_y = 0,0
     --TEsound.stop("music")
     -- Prevent double press at start (e.g. auto confirmation)
@@ -84,14 +84,14 @@ local function displayHelp()
     local x, y = leftItemOffset, menuOffset_y + menuItem_h
     love.graphics.setFont(gfx.font.arcade3)
     colors:set("gray")
-    if menuState == 1 then
+    if menuState == menuItems.animations then
         love.graphics.print(
 [[<- -> / Mouse wheel :
   Select animation
 
 Attack/Enter :
   Replay animation]], x, y)
-    elseif menuState == 2 then
+    elseif menuState == menuItems.frames then
         love.graphics.print(
 [[<- -> / Mouse wheel :
   Select frame
@@ -106,7 +106,7 @@ Attack/Enter :
 
 
 Use R-Alt, R-Ctrl, R-Shift for Overlay operations]], x, y)
-    elseif menuState == 4 then
+    elseif menuState == menuItems.palettes then
         love.graphics.print(
 [[<- -> / Mouse wheel :
   Select palette]], x, y)
@@ -118,7 +118,7 @@ end
 function spriteViewerState:playerInput(controls)
     local s, f
     local m = menu[menuState]
-    if menuState == 2 then --static frame
+    if menuState == menuItems.frames then --static frame
         if love.keyboard.isDown('lctrl') or love.keyboard.isDown('lshift') or love.keyboard.isDown('lalt') then
             s = sprite.def.animations[sprite.curAnim]
         elseif specialOverlaySprite and spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
@@ -205,15 +205,15 @@ function spriteViewerState:draw()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
-        if i == 1 then
+        if i == menuItems.animations then
             m.item = animations[m.n].." #"..m.n
-            local m2 = menu[2]
+            local m2 = menu[menuItems.frames]
             if m2.n > #sprite.def.animations[sprite.curAnim] then
                 m2.n = #sprite.def.animations[sprite.curAnim]
             end
             m2.item = "FRAME #"..m2.n.." of "..#sprite.def.animations[sprite.curAnim]
             m.hint = ""
-        elseif i == 2 then
+        elseif i == menuItems.frames then
             local s = sprite.def.animations[sprite.curAnim]
             local so = specialOverlaySprite and specialOverlaySprite.def.animations[sprite.curAnim] or nil
             m.item = "FRAME #"..m.n.." of "..#sprite.def.animations[sprite.curAnim]
@@ -244,7 +244,7 @@ function spriteViewerState:draw()
             if s[m.n].rotate then
                 m.hint = m.hint .. "R:"..s[m.n].rotate.." RXY:"..(s[m.n].rx or 0)..","..(s[m.n].ry or 0).." "
             end
-        elseif i == 4 then
+        elseif i == menuItems.palettes then
             if m.n > #hero.shaders then
                 m.n = #hero.shaders
             end
@@ -296,7 +296,7 @@ function spriteViewerState:draw()
         love.graphics.setShader(hero.shaders[menu[4].n])
     end
     if sprite then --for stage objects w/o shaders
-        if menuState == 2 then
+        if menuState == menuItems.frames then
             --1 frame
             colors:set("red", nil, 150)
             love.graphics.rectangle("fill", 0, y, screenWidth, 2)
@@ -351,13 +351,13 @@ function spriteViewerState:confirm( x, y, button, istouch )
         return Gamestate.pop()
     end
     if button == 1 then
-        if menuState == 1 then
+        if menuState == menuItems.animations then
             setSpriteAnimation(sprite, animations[menu[menuState].n])
             sfx.play("sfx","menuSelect")
-        elseif menuState == 2 then
+        elseif menuState == menuItems.frames then
             print(parseSpriteAnimation(sprite))
             sfx.play("sfx","menuSelect")
-        elseif menuState == 4 then
+        elseif menuState == menuItems.palettes then
             sfx.play("sfx","menuSelect")
         end
     end
@@ -373,7 +373,7 @@ function spriteViewerState:wheelmoved(x, y)
         return
     end
     menu[menuState].n = menu[menuState].n + i
-    if menuState == 1 then
+    if menuState == menuItems.animations then
         if menu[menuState].n < 1 then
             menu[menuState].n = #animations
         end
@@ -382,8 +382,7 @@ function spriteViewerState:wheelmoved(x, y)
         end
         setSpriteAnimation(sprite, animations[menu[menuState].n])
 
-    elseif menuState == 2 then
-        --frames
+    elseif menuState == menuItems.frames then
         if menu[menuState].n < 1 then
             menu[menuState].n = #sprite.def.animations[sprite.curAnim]
         end
@@ -394,8 +393,7 @@ function spriteViewerState:wheelmoved(x, y)
             return
         end
         getPlayerHitBoxes()
-    elseif menuState == 4 then
-        --shaders
+    elseif menuState == menuItems.palettes then
         if #hero.shaders < 1 then
             return
         end
