@@ -84,7 +84,8 @@ local heroes = {
 }
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SELECT CHAR/OBJ" )
-local txtItems = {"FRAME POSITIONING", "BACK"}
+local txtItems = {"CHARACTER", "BACK"}
+local menuItems = {characters = 1, back = 2}
 
 local menu = fillMenu(txtItems)
 
@@ -149,7 +150,7 @@ local function displayHelp()
     local x, y = leftItemOffset, menuOffset_y + menuItem_h
     love.graphics.setFont(gfx.font.arcade3)
     colors:set("gray")
-    if menuState == 1 then
+    if menuState == menuItems.characters then
         love.graphics.print(
             [[<- -> / Mouse wheel :
   Select character]], x, y)
@@ -163,7 +164,7 @@ function spriteSelectState:draw()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
-        if i == 1 then
+        if i == menuItems.characters then
             if #heroes[m.n].shaders > 0 then
                 m.item = heroes[m.n].name.." - "..#heroes[m.n].shaders.." palettes"
             else
@@ -217,7 +218,7 @@ function spriteSelectState:confirm( x, y, button, istouch )
         return Gamestate.pop()
     end
     if button == 1 then
-        if menuState == 1 then
+        if menuState == menuItems.characters then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(spriteViewerState, heroes[menu[menuState].n])
         end
@@ -239,9 +240,8 @@ function spriteSelectState:mousemoved( x, y, dx, dy)
 end
 
 function spriteSelectState:showCurrentSprite()
-    if menuState == 1 then
+    if menuState == menuItems.characters then
         sprite = getSpriteInstance(heroes[menu[menuState].n].spriteInstance)
-        --sprite.sizeScale = 2
         setSpriteAnimation(sprite,"stand")
     end
 end
@@ -256,7 +256,7 @@ function spriteSelectState:wheelmoved(x, y)
         return
     end
     menu[menuState].n = menu[menuState].n + i
-    if menuState == 1 then
+    if menuState == menuItems.characters then
         if menu[menuState].n < 1 then
             menu[menuState].n = #heroes
         end
