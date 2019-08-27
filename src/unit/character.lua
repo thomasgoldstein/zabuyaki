@@ -302,7 +302,7 @@ function Character:checkAndAttack(f, isFuncCont)
     local followUpAnimation = f.followUpAnimation
 
     local items = {}
-    local a = stage.world:rectangle(self.x - self:getHurtBoxWidth() * 2, self.y - d / 2, self:getHurtBoxWidth() * 4, d)
+    local a = stage.world:rectangle(self.x - self:getHurtBoxWidth() * 3, self.y - d / 2, self:getHurtBoxWidth() * 6, d)
     if type == "shockWave" then
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
@@ -322,7 +322,7 @@ function Character:checkAndAttack(f, isFuncCont)
             local o = other.obj
             if not o:isInvincible()
                 and o ~= self
-                and CheckCollision(o.x - o:getHurtBoxWidth() / 2,
+                and CheckCollision(o.x - o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
                 o.z + o:getHurtBoxY() + o:getHurtBoxHeight() / 2,
                 o:getHurtBoxWidth(),
                 o:getHurtBoxHeight(),
@@ -339,7 +339,7 @@ function Character:checkAndAttack(f, isFuncCont)
             if o ~= self
                     and not o:isInvincible()
                     and not self.victims[o]
-                    and CheckCollision(o.x - o:getHurtBoxWidth() / 2,
+                    and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
                                         o.z + o:getHurtBoxY() + o:getHurtBoxHeight() / 2,
                                             o:getHurtBoxWidth(),
                                             o:getHurtBoxHeight(),
