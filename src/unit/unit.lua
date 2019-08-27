@@ -341,7 +341,7 @@ function Unit:getHurtBoxY()
     return getSpriteHurtBox(self.sprite).y
 end
 function Unit:getHeight()
-    return getSpriteHurtBox(self.sprite).y
+    return self.z + getSpriteHurtBox(self.sprite).y + getSpriteHurtBox(self.sprite).height / 2
 end
 
 function Unit:setMinZ(platform)
