@@ -23,8 +23,8 @@ return {
         stand = {
             { q = q(2,2,27,42), ox = 13.5, oy = 41 }, --100% hp
             { q = q(31,2,27,42), ox = 13.5, oy = 41, hurtBox = { width = 15, height = 33 } },
-            { q = q(60,5,27,39), ox = 13.5, oy = 38, hurtBox = { width = 15, height = 30 } },
-            { q = q(89,9,27,35), ox = 13.5, oy = 34, hurtBox = { width = 15, height = 29 } } -- 0 HP
+            { q = q(60,5,27,39), ox = 13.5, oy = 38, hurtBox = { width = 15, height = 28 } },
+            { q = q(89,9,27,35), ox = 13.5, oy = 34, hurtBox = { width = 15, height = 24 } } -- 0 HP
         },
     } --offsets
 
