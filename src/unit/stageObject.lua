@@ -69,11 +69,11 @@ function StageObject:checkCollisionAndMove(dt)
     local success = true
     if self.move then
         self.move:update(dt) --tweening
-        self.shape:moveTo(self.x, self.y)
+        self.shape:moveTo(self.x + self.sprite.flipH * self:getHurtBoxX(), self.y)
     else
         local stepx = self.speed_x * dt * self.horizontal
         local stepy = self.speed_y * dt * self.vertical
-        self.shape:moveTo(self.x + stepx, self.y + stepy)
+        self.shape:moveTo(self.x + self.sprite.flipH * self:getHurtBoxX() + stepx, self.y + stepy)
     end
     if not self:canFall() then
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
@@ -85,7 +85,7 @@ function StageObject:checkCollisionAndMove(dt)
         end
     end
     local cx,cy = self.shape:center()
-    self.x = cx
+    self.x = cx - self.sprite.flipH * self:getHurtBoxX()
     self.y = cy
     return success, 0, 0
 end
