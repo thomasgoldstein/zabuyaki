@@ -302,7 +302,7 @@ function Character:checkAndAttack(f, isFuncCont)
     local followUpAnimation = f.followUpAnimation
 
     local items = {}
-    local a = stage.world:rectangle(self.x + face * x - w / 2, self.y - d / 2, w, d)
+    local a = stage.world:rectangle(self.x - self:getHurtBoxWidth() * 2, self.y - d / 2, self:getHurtBoxWidth() * 4, d)
     if type == "shockWave" then
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
@@ -322,7 +322,13 @@ function Character:checkAndAttack(f, isFuncCont)
             local o = other.obj
             if not o:isInvincible()
                 and o ~= self
-                and CheckLinearCollision(o.z + o:getHurtBoxY() - o:getHurtBoxHeight() / 2, o:getHurtBoxHeight(), self.z + y - h / 2, h)
+                and CheckCollision(o.x - o:getHurtBoxWidth() / 2,
+                o.z + o:getHurtBoxY() + o:getHurtBoxHeight() / 2,
+                o:getHurtBoxWidth(),
+                o:getHurtBoxHeight(),
+                self.x + face * x - w / 2,
+                self.z + y + h / 2,
+                w,  h)
             then
                 items[#items+1] = { o }
             end
@@ -333,7 +339,13 @@ function Character:checkAndAttack(f, isFuncCont)
             if o ~= self
                     and not o:isInvincible()
                     and not self.victims[o]
-                    and CheckLinearCollision(o.z + o:getHurtBoxY() - o:getHurtBoxHeight() / 2, o:getHurtBoxHeight(), self.z + y - h / 2, h)
+                    and CheckCollision(o.x - o:getHurtBoxWidth() / 2,
+                                        o.z + o:getHurtBoxY() + o:getHurtBoxHeight() / 2,
+                                            o:getHurtBoxWidth(),
+                                            o:getHurtBoxHeight(),
+                                        self.x + face * x - w / 2,
+                                        self.z + y + h / 2,
+                                            w,  h)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
