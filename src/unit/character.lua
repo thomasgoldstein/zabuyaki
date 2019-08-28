@@ -323,11 +323,11 @@ function Character:checkAndAttack(f, isFuncCont)
             if not o:isInvincible()
                 and o ~= self
                 and CheckCollision(o.x - o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
-                o.z + o:getHurtBoxY() + o:getHurtBoxHeight() / 2,
+                o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
                 o:getHurtBoxWidth(),
                 o:getHurtBoxHeight(),
                 self.x + face * x - w / 2,
-                self.z + y + h / 2,
+                self.z - (y + h / 2),
                 w,  h)
             then
                 items[#items+1] = { o }
@@ -337,22 +337,21 @@ function Character:checkAndAttack(f, isFuncCont)
         for other, separatingVector in pairs(stage.world:collisions(a)) do
             local o = other.obj
             if o ~= self
-                    and not o:isInvincible()
-                    and not self.victims[o]
-                    and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
-                                        o.z + o:getHurtBoxY() + o:getHurtBoxHeight() / 2,
-                                            o:getHurtBoxWidth(),
-                                            o:getHurtBoxHeight(),
-                                        self.x + face * x - w / 2,
-                                        self.z + y + h / 2,
-                                            w,  h)
+                and not o:isInvincible()
+                and not self.victims[o]
+                and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+                    o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
+                    o:getHurtBoxWidth(),
+                    o:getHurtBoxHeight(),
+                    self.x + face * x - w / 2,
+                    self.z - (y + h / 2),
+                    w, h)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
                         type = type, repel_x = repel_x, repel_y = repel_y,
                         horizontal = self.horizontal, vertical = self.vertical, isThrown = true,
                         z = self.z + y
-                        --x = self.x, y = self.y, z = self.z
                     }
                 else
                     o.isHurt = {source = self, state = self.state, damage = damage,
