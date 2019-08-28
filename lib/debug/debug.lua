@@ -121,12 +121,14 @@ function dpo(o, txt)
         oz = dboc[o.name].z or 0
         time = dboc[o.name].time or love.timer.getTime()
     end
---    print(o.name .. "(" .. o.type .. ") x:" .. o.x .. ",y:" .. o.y .. ",z:" .. o.z .. " ->" .. (txt or ""))
---    print("DELTA x: " .. r(math.abs(o.x - ox), 2) .. " y: " .. r(math.abs(o.y - oy), 2) .. " z: " .. math.abs(o.z - oz) .. " t(ms):" .. r(love.timer.getTime() - time, 3))
+    local p = ""
+    if o.platform then
+        p = " Platform: '"..o.platform.name.."'"..o.platform.z
+    end
     print(o.name
             .." Dxyz: " .. r(math.abs(o.x - ox), 2) .. "," .. r(math.abs(o.y - oy), 2) .. "," .. math.abs(o.z - oz)
             .." xyz: " .. r(o.x, 2) .. "," .. r(o.y, 2) .. "," .. r(o.z, 2)
-            .. " ".. o.type .. " t(ms): " .. r(love.timer.getTime() - time, 2) .." -> " .. (txt or ""))
+            .. " ".. o.type .. " t(ms): " .. r(love.timer.getTime() - time, 2) .." -> " .. (txt or "") .. p)
     dboc[o.name] = { x = o.x, y = o.y, z = o.z, time = love.timer.getTime() }
 end
 
