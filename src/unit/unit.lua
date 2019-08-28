@@ -308,10 +308,7 @@ function Unit:hasPlaceToStand(x, y)
 end
 
 function Unit:canFall()
-    if self.z > self:getMinZ() then
-        return true
-    end
-    return false
+    return self.z > 0 and self.z > self:getMinZ()
 end
 
 function Unit:getMinZ()
