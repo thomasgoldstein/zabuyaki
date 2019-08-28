@@ -19,7 +19,6 @@ function Beatnik:initAttributes()
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
-    self.height = 55
     self.walkSpeed_x = 92
     self.walkSpeed_y = 45
     self.dashSpeed_x = 150 --speed of the character

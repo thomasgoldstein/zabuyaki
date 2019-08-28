@@ -25,7 +25,6 @@ function StageObject:initialize(name, sprite, x, y, f)
         f.shapeType = "polygon"
         f.shapeArgs = { 4, 0, 9, 0, 14, 3, 9, 6, 4, 6, 0, 3 }
     end
-    self.height = f.height or 40
     Character.initialize(self, name, sprite, x, y, f)
     self.name = name or "Unknown StageObject"
     self.type = "stageObject"
@@ -149,6 +148,10 @@ end
 function StageObject:standUpdate(dt)
     if self.isGrabbed then
         self:setState(self.grabbed)
+        return
+    end
+    if self:canFall() then
+        self:setState(self.fall)
         return
     end
 end

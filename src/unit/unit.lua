@@ -25,8 +25,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.b = input or bindEnemyInput()
 
     self.x, self.y, self.z = x, y, 0
-    self.height = f.height or 50
-    self.width = 10 --calcs from the hitbox in addShape()
+    self.width = 10 --it calcs from the floor hitbox shape in addShape()
     self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
     self.speed_x, self.speed_y, self.speed_z = 0, 0, 0
     self.gravity = 800 --650 * 2

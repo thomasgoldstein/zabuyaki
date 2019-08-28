@@ -14,7 +14,6 @@ function Loot:initialize(name, sprite, x, y, f)
     self.pickUpSfx = f.pickUpSfx
     self.type = "loot"
     self.x, self.y, self.z = x, y, 20
-    self.height = 17
     self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false

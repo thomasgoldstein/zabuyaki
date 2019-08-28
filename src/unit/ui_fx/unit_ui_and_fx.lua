@@ -332,7 +332,7 @@ function Unit:drawPID(x, y_, x_)
     if self.id > GLOBAL_SETTING.MAX_PLAYERS then
         return
     end
-    local y = -30 - self.height + y_ - math.cos(self.showPIDDelay * 6)
+    local y = -30 - self:getHurtBoxHeight() + y_ - math.cos(self.showPIDDelay * 6)
     colors:set("playersColors", self.id, calcPIDTransparency(self.showPIDDelay))
     love.graphics.rectangle("fill", x - 15, y, 30, 17)
     if x == x_ then

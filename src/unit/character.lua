@@ -16,7 +16,6 @@ function Character:initialize(name, sprite, x, y, f, input)
     end
     f.shapeType = f.shapeType or "polygon"
     f.shapeArgs = f.shapeArgs or { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 }
-    self.height = f.height or 50
     Unit.initialize(self, name, sprite, x, y, f, input)
     Character.initAttributes(self)
     self.specialOverlaySprite = getSpriteInstance(sprite .. "_sp")
@@ -443,7 +442,7 @@ function Character:standStart()
     self.grabAttackN = 0
 end
 function Character:standUpdate(dt)
-    if self:getMinZ() < self.z then
+    if self:canFall() then
         self:setState(self.dropDown)
         return
     end
@@ -1086,12 +1085,16 @@ end
 Character.bounce = {name = "bounce", start = Character.bounceStart, exit = nop, update = Character.bounceUpdate, draw = Character.defaultDraw }
 
 function Character:getUpStart()
+    if self:canFall() then
+        self:setState(self.dropDown)
+        return
+    end
     self.isHittable = false
     dpo(self, self.state)
     self.isHurt = nil
-    if not self:canFall() then
-        self.z = self:getMinZ()
-    end
+    --if not self:canFall() then
+    self.z = self:getMinZ()
+    --end
     self.isThrown = false
     if self.hp <= 0 then
         self:setState(self.dead)
@@ -1100,6 +1103,10 @@ function Character:getUpStart()
     self:setSprite("getUp")
 end
 function Character:getUpUpdate(dt)
+    if self:canFall() then
+        self:setState(self.dropDown)
+        return
+    end
     if self.sprite.isFinished then
         self.invincibilityTimer = self.invincibilityTimeout
         self:setState(self.stand)

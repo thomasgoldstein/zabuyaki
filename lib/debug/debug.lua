@@ -376,8 +376,8 @@ end
 function drawUnitHighlight(slf)
     if slf.debugHighlight and slf.debugHighlightColor then
         colors:set(slf.debugHighlightColor, nil, 127)
-        love.graphics.rectangle("fill", slf.x - slf.width * 1, slf.y - slf.z - slf.height, slf.width * 2, slf.height )
-        love.graphics.print( slf.debugHighlightText, slf.x + slf.width * 1, slf.y - slf.z - slf.height)
+        love.graphics.rectangle("fill", slf.x - slf.width * 1, slf.y - slf.z - slf:getHurtBoxHeight(), slf.width * 2, slf:getHurtBoxHeight() )
+        love.graphics.print( slf.debugHighlightText, slf.x + slf.width * 1, slf.y - slf.z - slf:getHurtBoxHeight())
     end
 end
 
@@ -406,7 +406,7 @@ function drawDebugUnitInfo(a)
             colors:set("black", nil, 120)
             love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14)
             if a.id > GLOBAL_SETTING.MAX_PLAYERS then
-                drawDebugControls(a, a.x - 32, a.y - a.height - 20)
+                drawDebugControls(a, a.x - 32, a.y - a:getHurtBoxHeight() - 20)
             end
         end
         if a.comboN and a.sprite.def.comboMax > 0 then
