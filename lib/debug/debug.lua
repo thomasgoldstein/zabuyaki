@@ -375,9 +375,9 @@ end
 
 function drawUnitHighlight(slf)
     if slf.debugHighlight and slf.debugHighlightColor then
-        colors:set(slf.debugHighlightColor, nil, 127)
-        love.graphics.rectangle("fill", slf.x - slf.width * 1, slf.y - slf.z - slf:getHurtBoxHeight(), slf.width * 2, slf:getHurtBoxHeight() )
-        love.graphics.print( slf.debugHighlightText, slf.x + slf.width * 1, slf.y - slf.z - slf:getHurtBoxHeight())
+        colors:set(slf.debugHighlightColor, nil, 75)
+        love.graphics.rectangle("fill", slf.x - slf:getHurtBoxWidth() * 1, slf.y - slf.z - slf:getHurtBoxHeight(), slf:getHurtBoxWidth() * 2, slf:getHurtBoxHeight() )
+        love.graphics.print( slf.debugHighlightText, slf.x + slf:getHurtBoxWidth() * 1, slf.y - slf.z - slf:getHurtBoxHeight())
     end
 end
 
