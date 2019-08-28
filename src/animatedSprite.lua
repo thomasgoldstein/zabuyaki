@@ -111,7 +111,7 @@ function spriteHasAnimation(spr, anim)
     return false
 end
 
-local dummyHurtBox = { x = 0, y = 0, width = 0, height = 0 }
+local dummyHurtBox = { x = 0, y = 0, width = 0, height = 0, depth = 0 }
 function getSpriteHurtBox(spr, frame)
     if not spr then
         return dummyHurtBox
@@ -129,6 +129,9 @@ function fixHurtBox(h)
     end
     if not h.height then
         error("HurtBox should contain height key.")
+    end
+    if not h.depth then
+        h.depth = 7
     end
     if not h.x then
         h.x = 0
