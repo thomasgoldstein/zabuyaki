@@ -299,15 +299,13 @@ function Character:checkAndAttack(f, isFuncCont)
     local face = self.face
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
-
     local items = {}
-    local a = stage.world:rectangle(self.x - self:getHurtBoxWidth() * 3, self.y - d / 2, self:getHurtBoxWidth() * 6, d)
     if type == "shockWave" then
-        for other, separatingVector in pairs(stage.world:collisions(a)) do
-            local o = other.obj
-            if not o.isDisabled
-                    and not o.isGrabbed
-                    and o ~= self
+        for _,o in ipairs(stage.objects.entities) do
+            if o.lifeBar
+                and not o.isDisabled
+                and not o.isGrabbed
+                and o ~= self
             then
                 o.isHurt = {source = self, state = self.state, damage = damage,
                     type = type, repel_x = repel_x, repel_y = repel_y,
@@ -317,27 +315,41 @@ function Character:checkAndAttack(f, isFuncCont)
             end
         end
     elseif type == "check" then
-        for other, separatingVector in pairs(stage.world:collisions(a)) do
-            local o = other.obj
-            if not o:isInvincible()
-                and o ~= self
-                and CheckCollision(o.x - o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+        for _,o in ipairs(stage.objects.entities) do
+            if o ~= self
+                and o.lifeBar
+                and not o:isInvincible()
+                and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+                o.y - o:getHurtBoxDepth() / 2,
+                o:getHurtBoxWidth(),
+                o:getHurtBoxDepth(),
+                self.x + face * x - w / 2,
+                self.y - d / 2,
+                w, d)
+                and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
                 o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
                 o:getHurtBoxWidth(),
                 o:getHurtBoxHeight(),
                 self.x + face * x - w / 2,
                 self.z - (y + h / 2),
-                w,  h)
+                w, h)
             then
                 items[#items+1] = { o }
             end
         end
     else
-        for other, separatingVector in pairs(stage.world:collisions(a)) do
-            local o = other.obj
+        for _,o in ipairs(stage.objects.entities) do
             if o ~= self
+                and o.lifeBar
                 and not o:isInvincible()
                 and not self.victims[o]
+                and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+                o.y - o:getHurtBoxDepth() / 2,
+                o:getHurtBoxWidth(),
+                o:getHurtBoxDepth(),
+                self.x + face * x - w / 2,
+                self.y - d / 2,
+                w, d)
                 and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
                     o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
                     o:getHurtBoxWidth(),
@@ -364,8 +376,6 @@ function Character:checkAndAttack(f, isFuncCont)
             end
         end
     end
-    stage.world:remove(a)
-    a = nil
     if f.sfx then
         self:playSfx(f.sfx)
     end
@@ -379,7 +389,6 @@ function Character:checkAndAttack(f, isFuncCont)
             self:setSprite(followUpAnimation)
         end
     end
-    --DEBUG collect data to show attack hitBoxes in green
     if isDebug() then
         attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = #items > 0 }
     end
