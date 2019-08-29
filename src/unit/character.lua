@@ -319,20 +319,17 @@ function Character:checkAndAttack(f, isFuncCont)
             if o ~= self
                 and o.lifeBar
                 and not o:isInvincible()
-                and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+                and CheckCollision3D(
+                o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+                o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
                 o.y - o:getHurtBoxDepth() / 2,
                 o:getHurtBoxWidth(),
+                o:getHurtBoxHeight(),
                 o:getHurtBoxDepth(),
                 self.x + face * x - w / 2,
-                self.y - d / 2,
-                w, d)
-                and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
-                o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
-                o:getHurtBoxWidth(),
-                o:getHurtBoxHeight(),
-                self.x + face * x - w / 2,
                 self.z - (y + h / 2),
-                w, h)
+                self.y - d / 2,
+                w, h, d)
             then
                 items[#items+1] = { o }
             end
@@ -343,20 +340,17 @@ function Character:checkAndAttack(f, isFuncCont)
                 and o.lifeBar
                 and not o:isInvincible()
                 and not self.victims[o]
-                and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+                and CheckCollision3D(
+                o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+                o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
                 o.y - o:getHurtBoxDepth() / 2,
                 o:getHurtBoxWidth(),
+                o:getHurtBoxHeight(),
                 o:getHurtBoxDepth(),
                 self.x + face * x - w / 2,
+                self.z - (y + h / 2),
                 self.y - d / 2,
-                w, d)
-                and CheckCollision(o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
-                    o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
-                    o:getHurtBoxWidth(),
-                    o:getHurtBoxHeight(),
-                    self.x + face * x - w / 2,
-                    self.z - (y + h / 2),
-                    w, h)
+                 w, h, d)
             then
                 if self.isThrown then
                     o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
