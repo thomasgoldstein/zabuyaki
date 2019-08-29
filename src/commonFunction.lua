@@ -56,6 +56,12 @@ function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
             y2 < y1+h1
 end
 
+function CheckCollision3D(x1,y1,z1,w1,h1,d1, x2,y2,z2,w2,h2,d2)
+    return  x1 < x2+w2 and x2 < x1+w1 and
+            y1 < y2+h2 and y2 < y1+h1 and
+            z1 < z2+d2 and z2 < z1+d1
+end
+
 function CheckLinearCollision(y1,h1, y2,h2)
     return y1 < y2+h2 and
             y2 < y1+h1
