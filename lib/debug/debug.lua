@@ -386,6 +386,8 @@ function drawDebugUnitHurtBox(sprite, x, y, frame, scale)
         local scale = scale or 1
         local hurtBox =  getSpriteHurtBox(sprite, frame)
         if hurtBox then
+            colors:set("green", nil, 45)
+            love.graphics.rectangle("line", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - hurtBox.depth / 2 * scale, hurtBox.width * scale, hurtBox.depth * scale)
             colors:set("lightGray", nil, 150)
             love.graphics.rectangle("line", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - (hurtBox.y + hurtBox.height / 2) * scale, hurtBox.width * scale, hurtBox.height * scale)
         else
