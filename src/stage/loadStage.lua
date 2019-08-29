@@ -59,8 +59,9 @@ local function applyBatchUnitProperties(v, batchUnit)
     batchUnit.unit.wakeRange = tonumber(v.properties.wakeRange or batchUnit.unit.wakeRange)
     batchUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange or batchUnit.unit.delayedWakeRange)
     if v.properties.flip then
-        batchUnit.horizontal = -1
-        batchUnit.face = -1
+        batchUnit.unit.horizontal = -1
+        batchUnit.unit.face = -1
+        batchUnit.unit.sprite.faceFix = -1  -- stageObjects use it to fix sprite flipping
     end
     if v.properties.drop then
         batchUnit.unit.func = Loot.getDropFuncByName(v.properties.drop)
