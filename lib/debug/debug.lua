@@ -123,11 +123,11 @@ function dpo(o, txt)
     end
     local p = ""
     if o.platform then
-        p = " Platform: '"..o.platform.name.."'"..o.platform.z
+        p = " Platform: '"..o.platform.name.."'"..r(o.platform.z)
     end
     print(o.name
-            .." Dxyz: " .. r(math.abs(o.x - ox), 2) .. "," .. r(math.abs(o.y - oy), 2) .. "," .. math.abs(o.z - oz)
-            .." xyz: " .. r(o.x, 2) .. "," .. r(o.y, 2) .. "," .. r(o.z, 2)
+            .." Dxyz: " .. r(math.abs(o.x - ox), 2) .. ", " .. r(math.abs(o.y - oy), 2) .. ", " .. r(math.abs(o.z - oz))
+            .." xyz: " .. r(o.x, 2) .. ", " .. r(o.y, 2) .. ", " .. r(o.z, 2)
             .. " ".. o.type .. " t(ms): " .. r(love.timer.getTime() - time, 2) .." -> " .. (txt or "") .. p)
     dboc[o.name] = { x = o.x, y = o.y, z = o.z, time = love.timer.getTime() }
 end
