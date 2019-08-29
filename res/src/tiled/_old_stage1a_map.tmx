@@ -5,7 +5,7 @@
  </properties>
  <group id="6" name="background" locked="1">
   <imagelayer id="8" name="bg" locked="1">
-   <image source="../img/stage/stage1/old/stage1a_old.png" width="2560" height="640"/>
+   <image source="../../img/stage/stage1/old/stage1a_old.png" width="2560" height="640"/>
   </imagelayer>
  </group>
  <objectgroup color="#aa0000" id="5" name="camera" locked="1">

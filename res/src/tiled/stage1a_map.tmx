@@ -6,7 +6,7 @@
  </properties>
  <group id="8" name="background">
   <imagelayer id="15" name="sky" offsetx="-420" offsety="-4">
-   <image source="../img/stage/stage1/sky.png" width="2560" height="320"/>
+   <image source="../../img/stage/stage1/sky.png" width="2560" height="320"/>
    <properties>
     <property name="relativeX" value="0.9"/>
    </properties>
@@ -16,7 +16,7 @@
     <property name="relativeX" value="0.9"/>
    </properties>
    <imagelayer id="19" name="city">
-    <image source="../img/stage/stage1/background-back-city.png" width="2560" height="320"/>
+    <image source="../../img/stage/stage1/background-back-city.png" width="2560" height="320"/>
    </imagelayer>
   </group>
   <group id="17" name="front-city" offsetx="-378" offsety="-9">
@@ -24,11 +24,11 @@
     <property name="relativeX" value="0.9"/>
    </properties>
    <imagelayer id="20" name="city">
-    <image source="../img/stage/stage1/background-front-city.png" width="2560" height="320"/>
+    <image source="../../img/stage/stage1/background-front-city.png" width="2560" height="320"/>
    </imagelayer>
   </group>
   <imagelayer id="9" name="bg" locked="1">
-   <image source="../img/stage/stage1/stage1a.png" width="2560" height="320"/>
+   <image source="../../img/stage/stage1/stage1a.png" width="2560" height="320"/>
   </imagelayer>
  </group>
  <group id="12" name="foreground" locked="1">
@@ -36,7 +36,7 @@
    <property name="relativeX" value="-1.2"/>
   </properties>
   <imagelayer id="13" name="fg">
-   <image source="../img/stage/stage1/stage1a_fg.png" width="2560" height="320"/>
+   <image source="../../img/stage/stage1/stage1a_fg.png" width="2560" height="320"/>
    <properties>
     <property name="relativeX" value="-1.2"/>
    </properties>
