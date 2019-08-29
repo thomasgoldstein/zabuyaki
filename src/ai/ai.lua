@@ -822,4 +822,55 @@ function AI:onHurt(attacker)
     end
 end
 
+function AI:emulateWaitStart()
+    local u = self.unit
+    dp("AI:emulateWaitStart() ".. u.name)
+    self.hesitate = 0.3
+    return true
+end
+
+function AI:emulateWait(dt)
+    local u = self.unit
+    self.hesitate = self.hesitate - dt
+    dp("AI:emulateWait() ".. u.name)
+    if self.hesitate <= 0 then
+        return true
+    end
+    return false
+end
+
+function AI:emulateAttackPress()
+    local u = self.unit
+    dp("AI:emulateAPress() ".. u.name)
+    u.b.setAttack( true )
+    return true
+end
+
+function AI:emulateJumpPress()
+    local u = self.unit
+    dp("AI:emulateJumpPress() ".. u.name)
+    u.b.setJump( true )
+    return true
+end
+
+function AI:emulateJumpPressToTarget()
+    local u = self.unit
+    dp("AI:emulateJumpPress() ".. u.name)
+    u.b.setJump( true )
+    --get to the player attack range
+    if u.x < u.target.x then
+        h, v = signDeadzone( u.target.x - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
+    else
+        h, v = signDeadzone( u.target.x - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
+    end
+    u.b.setHorizontalAndVertical( h, v )
+    return true
+end
+
+function AI:emulateReleaseButtons()
+    dp("AI:emulateReleaseButtons() " .. u.name)
+    self.unit.b.reset()
+    return true
+end
+
 return AI
