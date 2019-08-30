@@ -5,7 +5,6 @@ local function nop() end
 
 -- borrow methods from character class
 StageObject.checkAndAttack = Character.checkAndAttack
-StageObject.onHurtDamage = Character.onHurtDamage
 StageObject.afterOnHurt = Character.afterOnHurt
 StageObject.releaseGrabbed = Character.releaseGrabbed
 StageObject.grabbed = {name = "grabbed", start = Character.grabbedStart, exit = nop, update = nop, draw = StageObject.defaultDraw}
@@ -47,6 +46,19 @@ function StageObject:initialize(name, sprite, x, y, f)
     self.oldFrame = 1 --Old sprite frame N to start particles on change
     self.priority = 2
     self:setState(self.stand)
+end
+
+function StageObject:onHurtDamage()
+    Character.onHurtDamage(self)
+    -- shake players who are standing on this StageObject
+    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+        local p = getRegisteredPlayer(i)
+        if p and p.lifeBar
+            and p.platform == self
+        then
+            p:onShake(1, 0, 0.03, 0.3)   --shake a character
+        end
+    end
 end
 
 function StageObject:updateSprite(dt)
