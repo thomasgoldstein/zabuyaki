@@ -228,6 +228,23 @@ function Unit:tweenMove(dt)
     return complete
 end
 
+function Unit:CollidesWith(o)
+    return self ~= o and CheckCollision3D(
+    o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+    o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
+    o.y - o:getHurtBoxDepth() / 2,
+    o:getHurtBoxWidth(),
+    o:getHurtBoxHeight(),
+    o:getHurtBoxDepth(),
+        self.x + self.sprite.flipH * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
+        self.z - (self:getHurtBoxY() + self:getHurtBoxHeight() / 2),
+        self.y - self:getHurtBoxDepth() / 2,
+        self:getHurtBoxWidth(),
+        self:getHurtBoxHeight(),
+        self:getHurtBoxDepth()
+    )
+end
+
 function Unit:checkCollisionAndMove(dt)
     local success = true
     local stepx, stepy = 0, 0
