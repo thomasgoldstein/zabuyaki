@@ -51,4 +51,27 @@ end
 
 Stopper.stand = {name = "stand", start = nop, exit = nop, update = nop, draw = nop}
 
+function Stopper:getFace()
+    return 1    -- stoppers and walls have no sprite face
+end
+
+function Stopper:getHurtBoxWidth()
+    return self.width
+end
+function Stopper:getHurtBoxHeight()
+    return math.huge
+end
+function Stopper:getHurtBoxX()
+    return 0
+end
+function Stopper:getHurtBoxY()
+    return 0
+end
+function Stopper:getHeight()
+    return math.huge
+end
+function Stopper:getHurtBoxDepth()
+    return self.height
+end
+
 return Stopper
