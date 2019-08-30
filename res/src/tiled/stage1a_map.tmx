@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#55aa7f" nextlayerid="21" nextobjectid="20">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="21" nextobjectid="20">
  <properties>
   <property name="reflections" type="float" value="0.75"/>
   <property name="reflectionsOpacity" type="float" value="55"/>
@@ -27,8 +27,8 @@
     <image source="../../img/stage/stage1/background-front-city.png" width="2560" height="320"/>
    </imagelayer>
   </group>
-  <imagelayer id="9" name="bg" locked="1">
-   <image source="../../img/stage/stage1/stage1a.png" width="2560" height="320"/>
+  <imagelayer id="9" name="bg" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../img/stage/stage1/stage1a.png" width="2564" height="324"/>
   </imagelayer>
  </group>
  <group id="12" name="foreground" locked="1">

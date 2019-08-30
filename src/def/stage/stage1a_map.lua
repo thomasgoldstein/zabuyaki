@@ -10,7 +10,7 @@ return {
   tileheight = 32,
   nextlayerid = 21,
   nextobjectid = 20,
-  backgroundcolor = { 85, 170, 127 },
+  backgroundcolor = { 141, 110, 143 },
   properties = {
     ["reflections"] = 0.75,
     ["reflectionsOpacity"] = 55
@@ -96,8 +96,8 @@ return {
           name = "bg",
           visible = true,
           opacity = 1,
-          offsetx = 0,
-          offsety = 0,
+          offsetx = -2,
+          offsety = -2,
           image = "../../../res/img/stage/stage1/stage1a.png",
           properties = {}
         }
