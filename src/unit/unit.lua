@@ -228,19 +228,49 @@ function Unit:tweenMove(dt)
     return complete
 end
 
+function Unit:getFace()
+    return self.sprite.flipH    -- 1 normal sprite, -1 flipped to the left
+end
+
 function Unit:collidesWith(o)
     return self ~= o and CheckCollision3D(
-    o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+    o.x + o:getFace() * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
     o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
     o.y - o:getHurtBoxDepth() / 2,
     o:getHurtBoxWidth(),
     o:getHurtBoxHeight(),
     o:getHurtBoxDepth(),
-        self.x + self.sprite.flipH * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
+        self.x + self:getFace() * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
         self.z - (self:getHurtBoxY() + self:getHurtBoxHeight() / 2),
         self.y - self:getHurtBoxDepth() / 2,
         self:getHurtBoxWidth(),
         self:getHurtBoxHeight(),
+        self:getHurtBoxDepth()
+    )
+end
+
+function Unit:collidesByXYWith(o)
+    return self ~= o and CheckCollision(
+        o.x + o:getFace() * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+        o.y - o:getHurtBoxDepth() / 2,
+        o:getHurtBoxWidth(),
+        o:getHurtBoxDepth(),
+        self.x + self:getFace() * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
+        self.y - self:getHurtBoxDepth() / 2,
+        self:getHurtBoxWidth(),
+        self:getHurtBoxDepth()
+    )
+end
+
+function Unit:collidesByXYWH(x,y,w,h)
+    return CheckCollision(
+        x - w / 2,
+        y - h / 2,
+        w,
+        h,
+        self.x + self:getFace() * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
+        self.y - self:getHurtBoxDepth() / 2,
+        self:getHurtBoxWidth(),
         self:getHurtBoxDepth()
     )
 end
