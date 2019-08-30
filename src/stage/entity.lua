@@ -87,10 +87,6 @@ function Entity:draw(l,t,w,h)
             obj.shape:draw()
         end
     end
-    if isDebug() then
-        colors:set("purple", nil, 50)
-        stage.testShape:draw()
-    end
 end
 
 function Entity:drawShadows(l,t,w,h)
