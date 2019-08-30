@@ -340,14 +340,11 @@ function Unit:isStuck()
 end
 
 function Unit:hasPlaceToStand(x, y)
-    local testShape = stage.testShape
-    testShape:moveTo(x, y)
-    for other, separatingVector in pairs(stage.world:collisions(testShape)) do
-        local o = other.obj
-        if o.type == "wall"	then
-            if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
-                success = false
-            end
+    for _,o in ipairs(stage.objects.entities) do
+        if o.type == "wall"
+            and o:collidesByXYWH(x, y, self:getHurtBoxWidth(), self:getHurtBoxDepth() )
+        then
+            return false
         end
     end
     return true
