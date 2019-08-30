@@ -17,8 +17,8 @@ function Loot:initialize(name, sprite, x, y, f)
     self.vertical, self.horizontal, self.face = 1, 1, 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false
+    self.isMovable = false
     self.bounced = 0
-
     self.id = GLOBAL_UNIT_ID --to stop Y coord sprites flickering
     GLOBAL_UNIT_ID = GLOBAL_UNIT_ID + 1
 end

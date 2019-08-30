@@ -16,12 +16,8 @@ function Wall:initialize(name, f)
     self.isObstacle = true
     self.isHittable = false
     self.isDisabled = false
-    self.isMovable = f.isMovable --on death sfx
-
+    self.isMovable = false
     self.lifeBar = nil
-
-    --self:addShape(f.shapeType or "rectangle", f.shapeArgs)
-
     self:setState(self.stand)
 end
 

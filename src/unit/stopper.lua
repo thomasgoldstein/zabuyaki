@@ -16,11 +16,10 @@ function Stopper:initialize(name, f)
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
     self.isHittable = false
     self.isDisabled = false
-    self.isMovable = f.isMovable or false
+    self.isMovable = false
     self.width = width
     self.height = height
     self.lifeBar = nil
-
     self:setState(self.stand)
 end
 
