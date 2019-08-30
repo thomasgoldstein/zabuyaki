@@ -1212,7 +1212,7 @@ function Character:checkForGrab()
             and not o.isGrabbed
             and o ~= self.platform
             and math.abs(o.z - self.z) < 10 -- cannot grab unit from a platform
-            and self:CollidesWith(o)
+            and self:collidesWith(o)
         then
             return o
         end

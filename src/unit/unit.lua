@@ -228,7 +228,7 @@ function Unit:tweenMove(dt)
     return complete
 end
 
-function Unit:CollidesWith(o)
+function Unit:collidesWith(o)
     return self ~= o and CheckCollision3D(
     o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
     o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
