@@ -1205,28 +1205,17 @@ end
 
 Character.combo = {name = "combo", start = Character.comboStart, exit = Character.comboExit, update = Character.comboUpdate, draw = Character.defaultDraw}
 
--- GRABBING / CHARGING
 function Character:checkForGrab()
-    --got any Characters
-    local items = {}
-    if isDebug() then
-        -- to show similar purple rect
-        stage.testShape:moveTo(self.x, self.y)
-    end
-    for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
-        local o = other.obj
-        if o.isHittable
-                and not o.isDisabled
-                and not o.isGrabbed
-                and o.isMovable
-                and o ~= self.platform
-                and math.abs(o.z - self.z) < 10 -- cannot grab unit from a platform
+    for _,o in ipairs(stage.objects.entities) do
+        if o.isMovable
+            and not o:isInvincible()
+            and not o.isGrabbed
+            and o ~= self.platform
+            and math.abs(o.z - self.z) < 10 -- cannot grab unit from a platform
+            and self:CollidesWith(o)
         then
-            items[#items+1] = o
+            return o
         end
-    end
-    if #items > 0 then
-        return items[1]
     end
     return nil
 end
