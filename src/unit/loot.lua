@@ -2,7 +2,7 @@ local class = require "lib/middleclass"
 local Loot = class("Loot", Unit)
 
 function Loot:initialize(name, sprite, x, y, f)
-    --f options {}: shapeType, shapeArgs, hp, score, shader, color, sfxOnHit, sfxDead, func
+    --f options {}: hp, score, shader, color, sfxOnHit, sfxDead, func
     if not f then
         f = {}
     end
@@ -29,7 +29,6 @@ function Loot:setOnStage(stage)
 end
 
 function Loot:addShape()
-    Unit.addShape(self, "ellipse", { self.x, self.y, 7.5 })
 end
 
 function Loot:onHurt()
@@ -71,8 +70,6 @@ function Loot:get(taker)
     taker:addHp(self.hp)
     taker:addScore(self.scoreBonus)
     self.isDisabled = true
-    stage.world:remove(self.shape)  --stage.world = global collision shapes pool
-    self.shape = nil
     --self.y = GLOBAL_SETTING.OFFSCREEN --keep in the stage for proper save/load
 end
 
