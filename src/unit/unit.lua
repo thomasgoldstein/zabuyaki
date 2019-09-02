@@ -197,8 +197,11 @@ function Unit:updateAI(dt)
     end
     self:updateSprite(dt)
     self:calcMovement(dt)
-    if self.platform and not self.platform.isDisabled and self.platform.shape then
-        if not self.shape:collidesWith(self.platform.shape) then
+    local o = self.platform
+    if o then
+        if o.isDisabled
+            or not self:collidesWith(o)
+        then
             self.platform = nil
         end
     end
