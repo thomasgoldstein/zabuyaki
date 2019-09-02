@@ -11,6 +11,7 @@ return {
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "apple", -- The name of the sprite
     delay = math.huge,	--default delay for all animations
+    hurtBox = { width = 10, height = 10 },
     animations = {
         icon = {
             { q = q(2,2,18,17) }
