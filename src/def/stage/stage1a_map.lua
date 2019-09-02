@@ -33,11 +33,11 @@ return {
           name = "sky",
           visible = true,
           opacity = 1,
-          offsetx = -420,
-          offsety = -4,
+          offsetx = 0,
+          offsety = -12,
           image = "../../../res/img/stage/stage1/sky.png",
           properties = {
-            ["relativeX"] = "0.9"
+            ["relativeX"] = "0.95"
           }
         },
         {
@@ -74,7 +74,7 @@ return {
           offsetx = -378,
           offsety = -9,
           properties = {
-            ["relativeX"] = "0.9"
+            ["relativeX"] = "0.85"
           },
           layers = {
             {

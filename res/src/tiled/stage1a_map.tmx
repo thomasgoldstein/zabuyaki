@@ -5,10 +5,10 @@
   <property name="reflectionsOpacity" type="float" value="55"/>
  </properties>
  <group id="8" name="background">
-  <imagelayer id="15" name="sky" offsetx="-420" offsety="-4">
-   <image source="../../img/stage/stage1/sky.png" width="2560" height="320"/>
+  <imagelayer id="15" name="sky" offsetx="0" offsety="-12">
+   <image source="../../img/stage/stage1/sky.png" width="640" height="240"/>
    <properties>
-    <property name="relativeX" value="0.9"/>
+    <property name="relativeX" value="0.95"/>
    </properties>
   </imagelayer>
   <group id="18" name="back-city" offsetx="-378" offsety="-9">
@@ -21,7 +21,7 @@
   </group>
   <group id="17" name="front-city" offsetx="-378" offsety="-9">
    <properties>
-    <property name="relativeX" value="0.9"/>
+    <property name="relativeX" value="0.85"/>
    </properties>
    <imagelayer id="20" name="city">
     <image source="../../img/stage/stage1/background-front-city.png" width="2560" height="320"/>
