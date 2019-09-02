@@ -299,7 +299,7 @@ function Character:checkAndAttack(f, isFuncCont)
     local face = self.face
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
-    local items = {}
+    local counter = 0
     if type == "shockWave" then
         for _,o in ipairs(stage.objects.entities) do
             if o.lifeBar
@@ -311,7 +311,7 @@ function Character:checkAndAttack(f, isFuncCont)
                     type = type, repel_x = repel_x, repel_y = repel_y,
                     horizontal = face, isThrown = false,
                     z = self.z + y}
-                items[#items+1] = o
+                counter = counter + 1
             end
         end
     elseif type == "check" then
@@ -331,7 +331,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 self.y - d / 2,
                 w, h, d)
             then
-                items[#items+1] = { o }
+                counter = counter + 1
             end
         end
     else
@@ -366,14 +366,14 @@ function Character:checkAndAttack(f, isFuncCont)
                         z = self.z + y
                     }
                 end
-                items[#items+1] = o
+                counter = counter + 1
             end
         end
     end
     if f.sfx then
         self:playSfx(f.sfx)
     end
-    if GLOBAL_SETTING.AUTO_COMBO or #items > 0 then
+    if GLOBAL_SETTING.AUTO_COMBO or counter > 0 then
         -- connect combo hits on AUTO_COMBO or on any successful hit
         self.connectHit = true
         if onHit then
@@ -384,9 +384,8 @@ function Character:checkAndAttack(f, isFuncCont)
         end
     end
     if isDebug() then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = #items > 0 }
+        attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = counter > 0 }
     end
-    items = nil
 end
 
 function Character:checkForLoot()
