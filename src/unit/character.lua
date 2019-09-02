@@ -389,20 +389,14 @@ function Character:checkAndAttack(f, isFuncCont)
 end
 
 function Character:checkForLoot()
-    --got any loot near feet?
-    local loot = {}
-    for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
-        local o = other.obj
+    for _,o in ipairs(stage.objects.entities) do
         if o.type == "loot"
-                and not o.isEnabled
-                and self.z == o.z
+            and not o.isDisabled
+            and o:collidesWith(self)
+            and self.z == o.z
         then
-            loot[#loot+1] = o
+            return o
         end
-    end
-
-    if #loot > 0 then
-        return loot[1]
     end
     return nil
 end
