@@ -50,13 +50,10 @@ end
 
 function StageObject:onHurtDamage()
     Character.onHurtDamage(self)
-    -- shake players who are standing on this StageObject
-    for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
-        local p = getRegisteredPlayer(i)
-        if p and p.lifeBar
-            and p.platform == self
-        then
-            p:onShake(1, 0, 0.03, 0.3)   --shake a character
+    -- shake characters who are standing on this StageObject
+    for _,o in ipairs(stage.objects.entities) do
+        if o.platform == self then
+            o:onShake(1, 0, 0.03, 0.3)   --shake a character
         end
     end
 end
