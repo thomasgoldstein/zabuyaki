@@ -45,6 +45,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.sfx = {}
     self.sfx.onHit = f.sfxOnHit --on hurt sfx
     self.sfx.dead = f.sfxDead --on death sfx
+    self.canWalkTroughStoppers = true
     self.isObstacle = false
     self.isHittable = false
     self.isGrabbed = false

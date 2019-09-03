@@ -12,6 +12,7 @@ function Player:initialize(name, sprite, x, y, f, input)
     self.hp = f.hp or self.hp or 100
     Character.initialize(self, name, sprite, x, y, f, input)
     self:initAttributes()
+    self.canWalkTroughStoppers = false
     self.type = "player"
     self.friendlyDamage = 1 --1 = full damage on other players
 end
