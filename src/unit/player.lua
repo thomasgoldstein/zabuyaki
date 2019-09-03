@@ -70,29 +70,22 @@ function Player:checkCollisionAndMove(dt)
             end
         end
     else
-        for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
-            local o = other.obj
-            if not self.obstacles[o] and (
-                o.type == "wall"
-                or o.type == "stopper"
-                or o:isInstanceOf(StageObject)
-                )
+        self.x, self.y = self.x + stepx, self.y + stepy
+        for _,o in ipairs(stage.objects.entities) do
+            if ( o.type == "wall" or o.type == "stopper" or o:isInstanceOf(StageObject) )
+                and self:collidesWith(o)
             then
                 if o:isInstanceOf(StageObject) then
                     if self.z + topEdgeTolerance >= o:getHurtBoxHeight() then
-                        if math.abs(separatingVector.x) > edgesTolerance or math.abs(separatingVector.y) > edgesTolerance then
-                            self.obstacles[o] = true
-                            self:setMinZ(o) -- jumped on the obstacle
-                        end
+                        self:setMinZ(o) -- jumped on the obstacle
                     else
                         -- jump trough the obstacle
                     end
                 else
-                    self.shape:move(separatingVector.x, separatingVector.y)
-                    if math.abs(separatingVector.x) > 1.5 or math.abs(separatingVector.y) > 1.5 then
-                        stepx, stepy = separatingVector.x, separatingVector.y
-                        success = false
-                    end
+                    self.x, self.y = self.x - stepx, self.y - stepy
+                    stepx, stepy = 0, 0
+                    success = false
+                    break
                 end
             end
         end
