@@ -279,6 +279,7 @@ function Unit:collidesByXYWH(x,y,w,h)
     )
 end
 
+local topEdgeTolerance = 0
 function Unit:checkCollisionAndMove(dt)
     local success = true
     local stepx, stepy = 0, 0
@@ -290,10 +291,12 @@ function Unit:checkCollisionAndMove(dt)
         stepy = self.speed_y * dt * self.vertical
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
-    if not self:canFall() then
+    if self.z <= self:getMinZ() then -- on platform or floor
         for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
             local o = other.obj
-            if o.isObstacle and o.z <= 0 and o.hp > 0 then
+            if (o.isObstacle and o.z <= 0 and o.hp > 0)
+                or (o.type == "stopper" and not self.canWalkTroughStoppers)
+            then
                 self.shape:move(separatingVector.x, separatingVector.y)
                 if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
                     stepx, stepy = separatingVector.x, separatingVector.y
@@ -301,21 +304,30 @@ function Unit:checkCollisionAndMove(dt)
                 end
             end
         end
-    else
-        for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
-            local o = other.obj
-            if o.isObstacle	then
-                self.shape:move(separatingVector.x, separatingVector.y)
-                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
-                    stepx, stepy = separatingVector.x, separatingVector.y
+        self.x, self.y = self.shape:center()
+    else -- in air
+        self.x, self.y = self.x + stepx, self.y + stepy
+        for _,o in ipairs(stage.objects.entities) do
+            if ( o.type == "wall" or (o.type == "stopper" and not self.canWalkTroughStoppers) or o:isInstanceOf(StageObject) )
+                and self:collidesWith(o)
+            then
+                if o:isInstanceOf(StageObject) then
+                    if self.z + topEdgeTolerance >= o:getHurtBoxHeight() then
+                        self:setMinZ(o) -- jumped on the obstacle
+                    else
+                        -- jump trough the obstacle
+                    end
+                else
                     success = false
                 end
             end
+        end
+        if success then
+            self.shape:moveTo(self.x, self.y)
+        else
+            self.shape:moveTo(self.x - stepx, self.y - stepy)
         end
     end
-    local cx,cy = self.shape:center()
-    self.x = cx
-    self.y = cy
     return success, stepx, stepy
 end
 
