@@ -1803,6 +1803,10 @@ function Character:knockedDownStart()
     end
 end
 function Character:knockedDownUpdate(dt)
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
     self.knockedDownDelay = self.knockedDownDelay - dt
     if self.knockedDownDelay <= 0 then
         self:setState(self.getUp)
