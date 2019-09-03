@@ -27,50 +27,6 @@ function Enemy:postInitialize()
     self.runSpeed = self.runSpeed_x / 1.4 --TODO calc it from attributes
 end
 
-function Enemy:checkCollisionAndMove(dt)
-    local success = true
-    if not self.speed_x then
-        print("ERROR Enemy:checkCollisionAndMove", self, self.name)
-        return false, 0, 0
-    end
-    local stepx, stepy = 0, 0
-    if self.move then
-        self.move:update(dt) --tweening
-        self.shape:moveTo(self.x, self.y)
-    else
-        stepx = self.speed_x * dt * self.horizontal
-        stepy = self.speed_y * dt * self.vertical
-        self.shape:moveTo(self.x + stepx, self.y + stepy)
-    end
-    if not self:canFall() then
-        for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
-            local o = other.obj
-            if o.isObstacle and o.z <= 0 then
-                self.shape:move(separatingVector.x, separatingVector.y)
-                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
-                    stepx, stepy = separatingVector.x, separatingVector.y
-                    success = false
-                end
-            end
-        end
-    else
-        for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
-            local o = other.obj
-            if o.isObstacle then
-                self.shape:move(separatingVector.x, separatingVector.y)
-                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
-                    stepx, stepy = separatingVector.x, separatingVector.y
-                    success = false
-                end
-            end
-        end
-    end
-    local cx,cy = self.shape:center()
-    self.x = cx
-    self.y = cy
-    return success, stepx, stepy
-end
-
 function Enemy:updateAI(dt)
     if self.isDisabled then
         return
