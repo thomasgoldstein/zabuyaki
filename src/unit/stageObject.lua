@@ -144,7 +144,7 @@ StageObject.stand = {name = "stand", start = StageObject.standStart, exit = nop,
 function StageObject:getUpStart()
     self.isHittable = false
     self.isThrown = false
-    dpo(self, self.state)
+    --dpo(self, self.state)
     if not self:canFall() then
         self.z = self:getMinZ()
     end

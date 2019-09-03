@@ -311,7 +311,7 @@ function Player:respawnStart()
     self.isHittable = false
     stage:freezeZoomingFor(1.5)
     self.x, self.y = stage:getSafeRespawnPosition(self)
-    dpo(self, self.state)
+    --dpo(self, self.state)
     self:setSprite("respawn")
     self.deathDelay = 3 --seconds to remove
     self.hp = self.maxHp

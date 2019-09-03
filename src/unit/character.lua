@@ -261,7 +261,7 @@ function Character:afterOnHurt()
     else
         error("afterOnHurt - unknown h.type = "..h.type)
     end
-    dpo(self, self.state)
+    --dpo(self, self.state)
     --finish calcs before the fall state
     if h.damage > 0 then
         self:setState(self.hurt)
@@ -632,7 +632,7 @@ Character.run = {name = "run", start = Character.runStart, exit = nop, update = 
 function Character:jumpStart()
     self.isHittable = true
     --self.toSlowDown = false
-    dpo(self, self.state)
+    --dpo(self, self.state)
     self:setSprite("jump")
     self.z = self:getMinZ() + 0.1
     self.bounced = 0
@@ -703,7 +703,7 @@ Character.jump = {name = "jump", start = Character.jumpStart, exit = nop, update
 function Character:dropDownStart()
     self.isHittable = true
     --self.toSlowDown = false
-    dpo(self, self.state)
+    --dpo(self, self.state)
     if not self.condition then -- dont change the current sprite on call with extra argument
         self:setSprite("dropDown")
     end
@@ -733,7 +733,7 @@ Character.pickUp = {name = "pickUp", start = Character.pickUpStart, exit = nop, 
 
 function Character:duckStart()
     self.isHittable = true
-    dpo(self, self.state)
+    --dpo(self, self.state)
     self:setSprite("duck")
     self.z = self:getMinZ()
     self.speed_z = 0
@@ -1089,7 +1089,7 @@ function Character:getUpStart()
         return
     end
     self.isHittable = false
-    dpo(self, self.state)
+    --dpo(self, self.state)
     self.isHurt = nil
     --if not self:canFall() then
     self.z = self:getMinZ()
@@ -1712,7 +1712,7 @@ Character.chargeAttack = {name = "chargeAttack", start = Character.chargeAttackS
 
 function Character:chargeDashStart()
     self.isHittable = true
-    dpo(self, self.state)
+    --dpo(self, self.state)
     self:setSprite("chargeDash")
     self.horizontal = self.face
     self:playSfx(self.sfx.chargeDash)

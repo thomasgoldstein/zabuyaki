@@ -64,7 +64,7 @@ end
 function Chai:dashAttackStart()
     self.isHittable = true
     self.horizontal = self.face
-    dpo(self, self.state)
+    --dpo(self, self.state)
     --	dp(self.name.." - dashAttack start")
     self:setSprite("dashAttack")
     self.speed_x = 0
@@ -179,7 +179,7 @@ Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiv
 function Chai:specialOffensiveStart()
     self.isHittable = true
     self.horizontal = self.face
-    dpo(self, self.state)
+    --dpo(self, self.state)
     self:setSprite("specialOffensive")
     self:enableGhostTrails()
     self.speed_x = 0
@@ -188,7 +188,7 @@ function Chai:specialOffensiveStart()
 end
 function Chai:specialOffensiveUpdate(dt)
     if self.sprite.isFinished then
-        dpo(self, self.state)
+        --dpo(self, self.state)
         self:setState(self.stand)
         return
     end
@@ -200,7 +200,7 @@ Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiv
 
 function Chai:specialDashStart()
     self.isHittable = true
-    dpo(self, self.state)
+    --dpo(self, self.state)
     self:setSprite("specialDash")
     self:enableGhostTrails()
     self.horizontal = self.face
@@ -245,7 +245,7 @@ Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = 
 
 function Chai:chargeDashAttackStart()
     self.isHittable = true
-    dpo(self, self.state)
+    --dpo(self, self.state)
     self:setSprite("chargeDashAttack")
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * 0.7

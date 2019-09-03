@@ -190,7 +190,7 @@ end
 
 function Enemy:jumpStart()
     self.isHittable = true
-    dpo(self, self.state)
+    --dpo(self, self.state)
     self:setSprite("jump")
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = self:getMinZ() + 0.1
