@@ -1720,6 +1720,10 @@ function Character:chargeDashStart()
     self:showEffect("jumpStart")
 end
 function Character:chargeDashUpdate(dt)
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
     if self:canFall() then
         self:calcFreeFall(dt, self.chargeDashSpeedMultiplier_z)
         if self.speed_z > 0 then
