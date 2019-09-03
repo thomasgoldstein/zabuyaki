@@ -981,6 +981,10 @@ function Character:fallStart()
     self.bounced = 0
 end
 function Character:fallUpdate(dt)
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
     self:calcFreeFall(dt)
     if self.isThrown and self.speed_z < 0 and self.z < self:getMinZ() + self.toFallenAnim_z then
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
