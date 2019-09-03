@@ -15,7 +15,7 @@ function Character:initialize(name, sprite, x, y, f, input)
         f = {}
     end
     f.shapeType = f.shapeType or "polygon"
-    f.shapeArgs = f.shapeArgs or { 1, 0, 13, 0, 14, 3, 13, 6, 1, 6, 0, 3 }
+    f.shapeArgs = f.shapeArgs or { 1, 0, 19, 0, 20, 3, 19, 6, 1, 6, 0, 3 }
     Unit.initialize(self, name, sprite, x, y, f, input)
     Character.initAttributes(self)
     self.specialOverlaySprite = getSpriteInstance(sprite .. "_sp")
