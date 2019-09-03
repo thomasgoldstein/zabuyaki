@@ -328,7 +328,7 @@ function Unit:checkCollisionAndMove(dt)
             self.shape:moveTo(self.x - stepx, self.y - stepy)
         end
     end
-    return success, stepx, stepy
+    return success
 end
 
 function Unit:ignoreCollisionAndMove(dt)
@@ -457,14 +457,12 @@ local ignoreObstacles = { combo = true, chargeAttack = true, eventMove = true }
 function Unit:calcMovement(dt)
     if not self.toSlowDown then
         if ignoreObstacles[self.state] then
-            self.successfullyMoved, self.collision_x, self.collision_y = self:ignoreCollisionAndMove(dt)
+            self.successfullyMoved = self:ignoreCollisionAndMove(dt)
         else
-            self.successfullyMoved, self.collision_x, self.collision_y = true, 0, 0
+            self.successfullyMoved = true
         end
     else
-        --try to move and get x,y vectors to recover from collision
-        -- these are not collision x y. should return vectors.
-        self.successfullyMoved, self.collision_x, self.collision_y = self:checkCollisionAndMove(dt)
+        self.successfullyMoved = self:checkCollisionAndMove(dt)
     end
     if not self:canFall() then
         if self.toSlowDown then
