@@ -179,6 +179,9 @@ function showDebugBatch(l,t,w,h)
 end
 
 function drawDebugControls(p, x, y)
+    if p:isInstanceOf(StageObject) then
+        return -- don't draw buttons for stageObjects
+    end
     colors:set("black", nil, 150)
     love.graphics.rectangle("fill", x - 2, y, 61, 9)
     if p.id > GLOBAL_SETTING.MAX_PLAYERS then
@@ -403,23 +406,28 @@ function drawDebugUnitInfo(a)
         love.graphics.setFont(gfx.font.debug)
         if a.hp <= 0 then
             colors:set("black", nil, 50)
-            love.graphics.print( a.name, a.x - 16 , a.y - 7)
+            love.graphics.print( a.name, a.x - 16 , a.y - 7 - a.z)
         else
             colors:set("black", nil, 120)
-            love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14)
+            --love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14 - a.z)
             if a.id > GLOBAL_SETTING.MAX_PLAYERS then
-                drawDebugControls(a, a.x - 32, a.y - a:getHurtBoxHeight() - 20)
+                drawDebugControls(a, a.x - 32, a.y - a:getHurtBoxHeight() - 20 - a.z)
             end
         end
-        if a.comboN and a.sprite.def.comboMax > 0 then
-            love.graphics.print( "CN" .. a.comboN .. "/".. a.sprite.def.comboMax, a.x - 14, a.y + 21)
-        end
-        love.graphics.print( a.state, a.x - 14, a.y)
-        love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7)
+        --if a.comboN and a.sprite.def.comboMax > 0 then
+        --    love.graphics.print( "CN" .. a.comboN .. "/".. a.sprite.def.comboMax, a.x - 14, a.y + 21)
+        --end
+        love.graphics.print( a.state, a.x - 14, a.y - a.z)
+        love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7 - a.z)
+        local yShift1 = 0
         colors:set("yellow", nil, 120)
-        love.graphics.line( a.x, a.y + 6.5, a.x, a.y + 8.5)
-        love.graphics.line( a.x, a.y + 7.5, a.x + 10 * a.horizontal, a.y + 7.5)
+        love.graphics.line( a.x, a.y + yShift1, a.x + 10 * a.horizontal, a.y + yShift1 - a.z)
+        local yShift2 = 0
         colors:set("purple", nil, 120)
-        love.graphics.line( a.x, a.y + 8, a.x + 8 * a.face, a.y + 8)
+        love.graphics.line( a.x, a.y + yShift2, a.x + 8 * a.face, a.y + yShift2 - a.z)
+        if a.platform and not a.platform.isDisabled and ( getDebugFrame() + a.id ) % 5 == 1 then
+            colors:set("black", nil, 255)
+            love.graphics.line( a.x, a.y - a.z, a.platform.x, a.platform.y - a.platform.z)
+        end
     end
 end
