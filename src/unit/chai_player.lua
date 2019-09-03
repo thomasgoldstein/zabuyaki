@@ -107,7 +107,7 @@ function Chai:grabFrontAttackForwardStart()
     self:setSprite("grabFrontAttackForward")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." grabFrontAttackForward someone.")
+    --dp(self.name.." grabFrontAttackForward someone.")
 end
 function Chai:grabFrontAttackForwardUpdate(dt)
     self:moveStatesApply()
@@ -125,7 +125,7 @@ function Chai:grabFrontAttackBackStart()
     self:setSprite("grabFrontAttackBack")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." grabFrontAttackBack someone.")
+    --dp(self.name.." grabFrontAttackBack someone.")
 end
 function Chai:grabFrontAttackBackUpdate(dt)
     self:moveStatesApply()

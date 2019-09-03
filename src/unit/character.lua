@@ -1217,7 +1217,7 @@ function Character:checkForGrab()
 end
 
 function Character:doGrab(target, inAir)
-    dp(target.name .. " is grabbed by me - "..self.name)
+    --dp(target.name .. " is grabbed by me - "..self.name)
     local g = self.grabContext
     local gTarget = target.grabContext
     if self.isGrabbed then
@@ -1446,14 +1446,14 @@ end
 function Character:grabbedFrontStart()
     self.isHittable = true
     self.isSpriteSet = false
-    dp(self.name.." is grabbedFront.")
+    --dp(self.name.." is grabbedFront.")
 end
 Character.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
 
 function Character:grabbedBackStart()
     self.isHittable = true
     self.isSpriteSet = false
-    dp(self.name.." is grabbedBack.")
+    --dp(self.name.." is grabbedBack.")
 end
 Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
 
@@ -1475,7 +1475,7 @@ function Character:grabFrontAttackStart()
     self:setSprite("grabFrontAttack"..self.grabAttackN)
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." is grabFrontAttack someone.")
+    --dp(self.name.." is grabFrontAttack someone.")
 end
 function Character:grabFrontAttackUpdate(dt)
     if self.sprite.isFinished then
@@ -1500,7 +1500,7 @@ function Character:grabFrontAttackDownStart()
     self:setSprite("grabFrontAttackDown")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." is grabFrontAttackDown someone.")
+    --dp(self.name.." is grabFrontAttackDown someone.")
 end
 function Character:grabFrontAttackDownUpdate(dt)
     if self.sprite.isFinished then
@@ -1523,7 +1523,7 @@ function Character:grabFrontAttackUpStart()
     self:setSprite("grabFrontAttackUp")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." grabFrontAttackUp someone.")
+    --dp(self.name.." grabFrontAttackUp someone.")
 end
 
 function Character:grabReleaseBackDashStart()
@@ -1584,7 +1584,7 @@ function Character:grabFrontAttackForwardStart()
     self:setSprite("grabFrontAttackForward")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." grabFrontAttackForward someone.")
+    --dp(self.name.." grabFrontAttackForward someone.")
 end
 function Character:grabFrontAttackForwardUpdate(dt)
     self:moveStatesApply()
@@ -1611,7 +1611,7 @@ function Character:grabFrontAttackBackStart()
     self:setSprite("grabFrontAttackBack")
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
-    dp(self.name.." grabFrontAttackBack someone.")
+    --dp(self.name.." grabFrontAttackBack someone.")
 end
 function Character:grabFrontAttackBackUpdate(dt)
     self:moveStatesApply()
@@ -1642,7 +1642,7 @@ function Character:grabSwapStart()
     self.grabSwap_x = g.target.x + self.face * grabDistance
     self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
     self:playSfx("whooshHeavy")
-    dp(self.name.." is grabSwapping someone.")
+    --dp(self.name.." is grabSwapping someone.")
 end
 function Character:grabSwapUpdate(dt)
     --dp(self.name .. " - grab update", dt)
