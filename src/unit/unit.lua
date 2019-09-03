@@ -392,10 +392,14 @@ end
 
 function Unit:setMinZ(platform)
     if self.platform then
-        if self.platform:getHeight() < platform:getHeight() then
+        local x = self.x + self:getHurtBoxX() * self:getFace()
+        local y = self.y + self:getHurtBoxY()
+        if self.platform.z + self.platform:getHeight() < platform.z + platform:getHeight() then
             self.platform = platform
-        elseif math.abs(platform.x - self.x) < math.abs(self.platform.x - self.x)
-            or math.abs(platform.y - self.y) < math.abs(self.platform.y - self.y)
+        elseif math.abs(platform:getHurtBoxX() * platform:getFace() - x)
+            < math.abs(self.platform:getHurtBoxX() * self.platform:getFace() - x)
+            or math.abs(platform:getHurtBoxY() - y)
+            < math.abs(self.platform:getHurtBoxY() - y)
         then
             self.platform = platform
         end
