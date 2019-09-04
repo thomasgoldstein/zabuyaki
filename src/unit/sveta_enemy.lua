@@ -61,6 +61,10 @@ function Sveta:dashAttackUpdate(dt)
         end
         self:moveEffectAndEmit("dash", 0.2)
     end
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
 end
 Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttackStart, exit = nop, update = Sveta.dashAttackUpdate, draw = Character.defaultDraw }
 
