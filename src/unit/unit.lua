@@ -405,7 +405,7 @@ function Unit:getHurtBoxDepth()
 end
 
 function Unit:setMinZ(platform)
-    if self == platform or platform.speed_z ~= 0 then
+    if self == platform or platform.speed_z ~= 0 or platform.z > 120 then
         return
     end
     if self.platform then
