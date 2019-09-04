@@ -51,7 +51,6 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.isGrabbed = false
     self.grabContext = {source = nil, target = nil, grabTimer = 0 }
     self.victims = {} -- [victim] = true
-    self.obstacles = {} -- [obstacle] = true
     self.isThrown = false
     self.invincibilityTimeout = 0.2 -- invincibility time after getUp state
     self.invincibilityTimer = 0     -- invincible if > 0
