@@ -375,7 +375,7 @@ function Unit:getMinZ()
     if self.isGrabbed and g and g.source then
         return g.source.z
     elseif self.platform and self.platform.hp > 0 then
-        return self.platform.z + self.platform:getHeight()
+        return self.platform:getHeight()
     end
     return 0
 end
