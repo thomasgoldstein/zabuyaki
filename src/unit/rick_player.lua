@@ -82,6 +82,10 @@ function Rick:dashAttackUpdate(dt)
         self:calcFreeFall(dt)
     end
     self:moveEffectAndEmit("dash", 0.3)
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
 
@@ -122,6 +126,10 @@ function Rick:specialOffensiveUpdate(dt)
         self.z = self:getMinZ()
     end
     self:moveEffectAndEmit("dash", 0.5)
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
 end
 Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.disableGhostTrails, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
 
@@ -152,6 +160,10 @@ function Rick:specialDashUpdate(dt)
         self.z = self:getMinZ()
     end
     self:moveEffectAndEmit("dash", 0.5)
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
 end
 Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.disableGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
 
