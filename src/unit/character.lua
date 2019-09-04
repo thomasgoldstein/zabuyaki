@@ -852,6 +852,10 @@ function Character:dashAttackUpdate(dt)
         self:setState(self.stand)
         return
     end
+    if not self.successfullyMoved then
+        self.speed_x = 0
+        self.speed_y = 0
+    end
 end
 Character.dashAttack = {name = "dashAttack", start = Character.dashAttackStart, exit = nop, update = Character.dashAttackUpdate, draw = Character.defaultDraw}
 
