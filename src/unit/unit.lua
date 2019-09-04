@@ -204,6 +204,7 @@ function Unit:updateAI(dt)
             or not self:collidesWith(o)
         then
             self.platform = nil
+            self:checkCollisionAndMove(0)   -- check if another platform keep unit from falling
         end
     end
     self:updateGhostTrails(dt)
