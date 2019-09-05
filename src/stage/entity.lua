@@ -97,7 +97,14 @@ end
 
 function Entity:drawReflections(l,t,w,h)
     for i,obj in ipairs(self.entities) do
+        if obj.shader then
+            love.graphics.setShader(obj.shader)
+        end
         obj:drawReflection(l,t,w,h)
+        if obj.shader then
+            love.graphics.setShader()
+        end
+
     end
 end
 
