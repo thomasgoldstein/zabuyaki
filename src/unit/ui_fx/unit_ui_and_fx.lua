@@ -312,7 +312,7 @@ function Unit:drawReflection(l, t, w, h)
             self.x + self.shake.x, self.y + self.z,
             0,
             spr.flipH,
-            -stage.reflections,
+            -stage.reflectionsHeight,
             sc.ox, sc.oy,
             0)
     end

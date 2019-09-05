@@ -193,7 +193,7 @@ function Stage:draw(l, t, w, h)
         if self.background then
             self.background:draw(l, t, w, h)
         end
-        if self.reflections then
+        if self.enableReflections then
             love.graphics.setCanvas(canvas[2])
             love.graphics.clear()
             self.objects:drawReflections(l, t, w, h) -- units reflections

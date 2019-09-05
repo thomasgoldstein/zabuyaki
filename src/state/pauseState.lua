@@ -80,7 +80,7 @@ function pauseState:draw()
         local c = {}
         c[1] = stage.bgColor[1] / 2; c[2] = stage.bgColor[2] / 2; c[3] = stage.bgColor[3] / 2
         love.graphics.clear(c)
-        if stage.reflections then
+        if stage.enableReflections then
             love.graphics.setBlendMode("alpha")
             colors:set("pauseStateColors", 2, stage.reflectionsOpacity)
             love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) -- reflections

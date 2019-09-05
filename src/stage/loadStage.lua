@@ -338,7 +338,8 @@ function loadStageData(stage, mapFile, players)
     stage.worldHeight = d.tileheight * d.height + 2 -- 2px padding for the camera shaking
     stage.shadowAngle = d.properties.shadowAngle or stage.shadowAngle
     stage.shadowHeight = d.properties.shadowHeight or stage.shadowHeight
-    stage.reflections = d.properties.reflections -- also height modifier
+    stage.enableReflections = d.properties.enableReflections
+    stage.reflectionsHeight = d.properties.reflectionsHeight or 1
     stage.reflectionsOpacity = d.properties.reflectionsOpacity or GLOBAL_SETTING.REFLECTIONS_OPACITY
     stage.weather = d.properties.weather or ""
     loadCollision(d, stage)

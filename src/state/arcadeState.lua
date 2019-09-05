@@ -113,7 +113,7 @@ function arcadeState:draw()
     love.graphics.setCanvas()
     push:start()
     love.graphics.clear(unpack(stage.bgColor))
-    if stage.reflections then
+    if stage.enableReflections then
         love.graphics.setBlendMode("alpha")
         colors:set("white", nil, stage.reflectionsOpacity)
         love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) -- reflections
