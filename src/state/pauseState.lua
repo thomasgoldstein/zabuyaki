@@ -82,7 +82,7 @@ function pauseState:draw()
         love.graphics.clear(c)
         if stage.enableReflections then
             love.graphics.setBlendMode("alpha")
-            colors:set("pauseStateColors", 2, stage.reflectionsOpacity)
+            colors:set("pauseStateColors", 2, 255 * stage.reflectionsOpacity)   -- TODO remove 255 colors logic at LOVE 11.x
             love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) -- reflections
         end
         love.graphics.setBlendMode("alpha", "premultiplied")

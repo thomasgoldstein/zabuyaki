@@ -27,8 +27,8 @@ GLOBAL_SETTING = {
     SFX_VOLUME = 0.5,
     CENSORSHIP = true,
     PLAYERS_NAMES = {"P1", "P2", "P3"},
-    SHADOW_OPACITY = 100, -- 0..255 (color)
-    REFLECTIONS_OPACITY = 55, -- 0..255 (color)
+    SHADOW_OPACITY = 0.4 * 255, -- 0..1 TODO remove 255 colors logic at LOVE 11.x
+    REFLECTIONS_OPACITY = 0.2, -- 0..1
     AUTO_COMBO = false,
     DIFFICULTY = 1, -- 1 = Normal, 2 = Hard
     MAX_CREDITS = 3,

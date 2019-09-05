@@ -115,7 +115,7 @@ function arcadeState:draw()
     love.graphics.clear(unpack(stage.bgColor))
     if stage.enableReflections then
         love.graphics.setBlendMode("alpha")
-        colors:set("white", nil, stage.reflectionsOpacity)
+        colors:set("white", nil, 255 * stage.reflectionsOpacity) -- TODO remove 255 colors logic at LOVE 11.x
         love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) -- reflections
     end
     love.graphics.setBlendMode("alpha", "premultiplied")

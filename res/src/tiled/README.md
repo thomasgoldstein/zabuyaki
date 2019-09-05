@@ -104,7 +104,7 @@ Add into **Custom Properties** float value **reflectionsHeight**. The value alte
 
 ## Set reflections opacity
 Use menu **Map / Map Properties**.
-Add into **Custom Properties** float value **reflectionsOpacity**. Use value from 0 to 255. Default value is 55 ( from GLOBAL_SETTINGS.REFLECTIONS_OPACITY ) is used on omitting the property.   
+Add into **Custom Properties** float value **reflectionsOpacity**. Use value from 0 to 1. Default value is 0.2 ( from GLOBAL_SETTINGS.REFLECTIONS_OPACITY ) is used on omitting the property.   
 
 ## Optional stage characters' shadows height and angle ##
 Use menu **Map / Map Properties** to see the **Background color** map property. 
