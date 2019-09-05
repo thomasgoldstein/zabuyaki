@@ -12,8 +12,7 @@ return {
   nextobjectid = 20,
   backgroundcolor = { 141, 110, 143 },
   properties = {
-    ["reflections"] = 0.75,
-    ["reflectionsOpacity"] = 55
+    ["enableReflections"] = true
   },
   tilesets = {},
   layers = {

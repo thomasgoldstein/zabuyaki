@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="21" nextobjectid="20">
  <properties>
-  <property name="reflections" type="float" value="0.75"/>
-  <property name="reflectionsOpacity" type="float" value="55"/>
+  <property name="enableReflections" type="bool" value="true"/>
  </properties>
  <group id="8" name="background">
   <imagelayer id="15" name="sky" offsetx="0" offsety="-12">
