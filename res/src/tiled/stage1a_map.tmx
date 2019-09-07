@@ -2,9 +2,10 @@
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="21" nextobjectid="20">
  <properties>
   <property name="enableReflections" type="bool" value="true"/>
+  <property name="reflectionsOpacity" type="float" value="0.6"/>
  </properties>
  <group id="8" name="background">
-  <imagelayer id="15" name="sky" offsetx="0" offsety="-12">
+  <imagelayer id="15" name="sky" offsetx="-2" offsety="-2">
    <image source="../../img/stage/stage1/sky.png" width="640" height="240"/>
    <properties>
     <property name="relativeX" value="0.95"/>

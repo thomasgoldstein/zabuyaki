@@ -12,7 +12,8 @@ return {
   nextobjectid = 20,
   backgroundcolor = { 141, 110, 143 },
   properties = {
-    ["enableReflections"] = true
+    ["enableReflections"] = true,
+    ["reflectionsOpacity"] = 0.6
   },
   tilesets = {},
   layers = {
@@ -32,8 +33,8 @@ return {
           name = "sky",
           visible = true,
           opacity = 1,
-          offsetx = 0,
-          offsety = -12,
+          offsetx = -2,
+          offsety = -2,
           image = "../../../res/img/stage/stage1/sky.png",
           properties = {
             ["relativeX"] = "0.95"
