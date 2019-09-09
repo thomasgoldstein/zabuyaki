@@ -56,4 +56,9 @@ function Camera:getScale()
     return self.cam:getScale()
 end
 
+function Camera:isVisible(o)
+    local l,t,w,h = self.cam:getVisible()
+    return CheckLinearCollision(o.x - o.width / 2, o.width, l, w)
+end
+
 return Camera

@@ -306,6 +306,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 and not o.isDisabled
                 and not o.isGrabbed
                 and o ~= self
+                and mainCamera:isVisible(o)
             then
                 o.isHurt = {source = self, state = self.state, damage = damage,
                     type = type, repel_x = repel_x, repel_y = repel_y,
