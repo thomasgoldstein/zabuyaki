@@ -23,6 +23,7 @@ GLOBAL_SETTING = {
     FILTER = "",
     GAME_WIDTH = 640,
     GAME_HEIGHT = 480,
+    MAX_SCREEN_SHAKE_GAP = 2, -- max vertical screen shaking amplitude
     BGM_VOLUME = 0.5,
     SFX_VOLUME = 0.5,
     CENSORSHIP = true,

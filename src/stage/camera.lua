@@ -13,7 +13,7 @@ function Camera:initialize(worldWidth, worldHeight, x, y)
 end
 
 function Camera:setWorld(x, y, worldWidth, worldHeight)
-    self.cam:setWorld(x, y - 2, worldWidth, worldHeight)    -- pad for vertical shaking
+    self.cam:setWorld(x, y - GLOBAL_SETTING.MAX_SCREEN_SHAKE_GAP, worldWidth, worldHeight + GLOBAL_SETTING.MAX_SCREEN_SHAKE_GAP * 2)    -- padding for vertical shaking
 end
 
 function Camera:onShake(sx, sy, freq, delay)
