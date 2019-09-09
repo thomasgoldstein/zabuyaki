@@ -13,7 +13,7 @@ function Camera:initialize(worldWidth, worldHeight, x, y)
 end
 
 function Camera:setWorld(x, y, worldWidth, worldHeight)
-    self.cam:setWorld(x, y, worldWidth, worldHeight)
+    self.cam:setWorld(x, y - 2, worldWidth, worldHeight)    -- pad for vertical shaking
 end
 
 function Camera:onShake(sx, sy, freq, delay)
