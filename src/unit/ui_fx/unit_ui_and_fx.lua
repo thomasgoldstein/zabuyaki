@@ -309,7 +309,7 @@ function Unit:drawReflection(l, t, w, h)
         local image, spr, sc, shadowAngle, y_shift = self:calcReflectionSpriteAndTransparency()
         love.graphics.draw(image, --The image
             sc.q, --Current frame of the current animation
-            self.x + self.shake.x, self.y + self.z,
+            self.x + self.shake.x, self.y + self.z + y_shift or 0,
             0,
             spr.flipH,
             -stage.reflectionsHeight,
