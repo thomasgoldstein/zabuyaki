@@ -1254,6 +1254,14 @@ function Character:doGrab(target, inAir)
 end
 
 local grabDistance = 0
+function Character:getGrabDistance()
+    local g = self.grabContext
+    if g and g.target then
+        return g.target.width / 2 + self.width / 2 - 2
+    end
+    return 0
+end
+
 function Character:grabStart()
     self.isHittable = true
     self:setSprite("grab")
@@ -1264,7 +1272,7 @@ function Character:grabStart()
     end
     if not self.condition then
         local g = self.grabContext
-        grabDistance = g.target.width / 2 + self.width / 2 - 2
+        grabDistance = self:getGrabDistance()
         local timeToMove = 0.1
         local direction = self.x >= g.target.x and -1 or 1
         local checkFront = stage:hasPlaceToStand(self.x + direction * grabDistance, self.y)
@@ -1303,8 +1311,9 @@ function Character:grabUpdate(dt)
             end
         else
             if self.b.horizontal.isDoubleTap and self.face == self.b.horizontal.doubleTap.lastDirection then
+                grabDistance = self:getGrabDistance()
                 if self.moves.grabSwap and g.canGrabSwap
-                    and stage:hasPlaceToStand(self.grabContext.target.x + self.face * 18, self.y)
+                    and stage:hasPlaceToStand(self.grabContext.target.x + self.face * grabDistance, self.y)
                 then
                     self:setState(self.grabSwap)
                     return
@@ -1643,7 +1652,7 @@ function Character:grabSwapStart()
     self:initGrabTimer()
     g.canGrabSwap = false
     self.isGrabSwapFlipped = false
-    grabDistance = g.target.width / 2 + 11
+    grabDistance = self:getGrabDistance()
     self.grabSwap_x = g.target.x + self.face * grabDistance
     self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
     self:playSfx("whooshHeavy")
