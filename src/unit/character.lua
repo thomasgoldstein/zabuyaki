@@ -1264,7 +1264,7 @@ function Character:grabStart()
     end
     if not self.condition then
         local g = self.grabContext
-        grabDistance = g.target.width / 2 + self.width / 2
+        grabDistance = g.target.width / 2 + self.width / 2 - 2
         local timeToMove = 0.1
         local direction = self.x >= g.target.x and -1 or 1
         local checkFront = stage:hasPlaceToStand(self.x + direction * grabDistance, self.y)
