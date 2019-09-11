@@ -73,15 +73,15 @@ function eAI:selectNewSchedule(conditions)
             return
         end
         if conditions.canMove and (conditions.seePlayer or conditions.wokeUp) or not conditions.noTarget then
-            if love.math.random() < self.grabChance then
-                self.currentSchedule = self.SCHEDULE_WALK_TO_GRAB
-            else
+            --if love.math.random() < self.grabChance then
+            --    self.currentSchedule = self.SCHEDULE_WALK_TO_GRAB
+            --else
                 if love.math.random() < 0.5 then
                     self.currentSchedule = self.SCHEDULE_WALK_CLOSE_TO_ATTACK
                 else
                     self.currentSchedule = self.SCHEDULE_WALK_AROUND
                 end
-            end
+            --end
             return
         end
         if not conditions.dead and not conditions.cannotAct
