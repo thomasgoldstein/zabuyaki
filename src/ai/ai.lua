@@ -203,7 +203,7 @@ function AI:getVisualConditions(conditions)
                 conditions[#conditions + 1] = "canCombo"
             end
             if t < self.canJumpAttackMax and t >= self.canJumpAttackMin
-                    and math.floor(u.y / 4) == math.floor(y / 4) then
+                    and math.abs(u.y - y ) <= u.width * 4 then
                 conditions[#conditions + 1] = "canJumpAttack"
             end
             if math.abs(u.x - x) <= u.width
