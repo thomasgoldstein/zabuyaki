@@ -101,35 +101,4 @@ function eAI:selectNewSchedule(conditions)
     self.currentSchedule = self.SCHEDULE_STAND
 end
 
-function eAI:initJumpAttack(dt)
-    --    dp("AI:onDash() ".. self.unit.name)
-    local u = self.unit
-    self.doneAttack = false
-    if self:canActAndMove() and ( u.state == "stand" or u.state == "walk" ) then
-        u.horizontal = u.face
-        u.z = u.z + 1
-        u.bounced = 0
-        if self.conditions.tooCloseToPlayer then
-            u.speed_x = 0
-        else
-            u.speed_x = u.walkSpeed_x
-        end
-        u:setState(u.jump)
-    end
-    return true
-end
-
-function eAI:onJumpAttack(dt)
-    --    dp("AI:onDash() ".. self.unit.name)
-    local u = self.unit
-    if not self.doneAttack then
-        self.doneAttack = true
-        if u.state == "jump" and self:canAct() then
-            u:setState(u.jumpAttackForward)
-        end
-        return true
-    end
-    return false
-end
-
 return eAI
