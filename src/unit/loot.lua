@@ -70,7 +70,7 @@ function Loot:get(taker)
     taker:addHp(self.hp)
     taker:addScore(self.scoreBonus)
     self.isDisabled = true
-    --self.y = GLOBAL_SETTING.OFFSCREEN --keep in the stage for proper save/load
+    self.y = GLOBAL_SETTING.OFFSCREEN --keep in the stage for proper save/load
 end
 
 local funcDropApple = function(slf)

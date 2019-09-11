@@ -1149,7 +1149,7 @@ function Character:deadUpdate(dt)
             stage.world:remove(self.shape)  --stage.world = global collision shapes pool
             self.shape = nil
         end
-        --self.y = GLOBAL_SETTING.OFFSCREEN
+        self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
         self.deathDelay = self.deathDelay - dt
