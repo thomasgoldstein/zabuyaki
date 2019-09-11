@@ -835,7 +835,7 @@ end
 function AI:emulateWaitStart()
     local u = self.unit
     dp("AI:emulateWaitStart() ".. u.name)
-    self.hesitate = 0.3
+    self.hesitate = 0.1
     return true
 end
 
