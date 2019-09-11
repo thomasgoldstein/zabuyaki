@@ -237,6 +237,10 @@ function AI:getAttackRange(unit, target)
     return unit.width / 2 + target.width / 2 + 12
 end
 
+function AI:getSafeWalkingRadius(unit, target) -- radius bigger than an attack range
+    return self:getAttackRange(unit, target) * ( 1.2 + love.math.random() )
+end
+
 function AI:canAct()
     return not self.conditions.inAir and not self.conditions.cannotAct
 end
