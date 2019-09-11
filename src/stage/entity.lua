@@ -47,7 +47,7 @@ end
 
 function Entity:remove(e)
     if not e then
-        return flase
+        return false
     end
     e.y = GLOBAL_SETTING.OFFSCREEN
     return true
