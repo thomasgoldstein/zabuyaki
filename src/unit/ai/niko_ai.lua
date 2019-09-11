@@ -17,8 +17,13 @@ local _settings = {
 function eAI:initialize(unit, settings)
     AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
-    self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack, self.waitUntilStand },
-        { "cannotAct", "inAir", "grabbed", "noTarget", "noPlayers" },
+    self.SCHEDULE_JUMP_ATTACK = Schedule:new(
+        { self.emulateJumpPressToTarget,
+          self.emulateWaitStart,
+          self.emulateWait,
+          self.emulateAttackPress,
+          self.emulateReleaseButtons },
+        { },
         unit.name)
 end
 
