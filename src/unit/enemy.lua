@@ -188,20 +188,4 @@ function Enemy:faceToTarget(x, y)
     end
 end
 
-function Enemy:jumpStart()
-    self.isHittable = true
-    --dpo(self, self.state)
-    self:setSprite("jump")
-    self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-    self.z = self:getMinZ() + 0.1
-    self.bounced = 0
-    if self.lastState == "run" then
-        -- jump higher from run
-        self.speed_z = (self.jumpSpeed_z + self.jumpRunSpeedBoost.z) * self.jumpSpeedMultiplier
-    end
-    self.vertical = 0
-    self:playSfx(self.sfx.jump)
-end
-Enemy.jump = {name = "jump", start = Enemy.jumpStart, exit = nop, update = Character.jumpUpdate, draw = Character.defaultDraw }
-
 return Enemy
