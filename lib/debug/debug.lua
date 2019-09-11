@@ -94,6 +94,12 @@ function dpd(self, text) -- print current delta on animation change
     end
 end
 
+function dpc(slf)
+    --if isDebug()then
+        print(slf.name, "AJ:", slf.b.attack:isDown(), slf.b.jump:isDown(), "HV:", slf.b.horizontal:getValue(), slf.b.vertical:getValue())
+    --end
+end
+
 dboc = {}
 dboc[0] = { x = 0, y = 0, z = 0, time = 0 }
 function dpoInit(o)
