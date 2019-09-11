@@ -23,8 +23,8 @@ function AI:initialize(unit, settings)
 
     self.canDashMin = settings.canDashMin or 30 -- min horizontal dist in px to Dash
     self.canDashMax = settings.canDashMax or 100 -- max horizontal dist in px to Dash
-    self.canJumpAttackMin = settings.canJumpAttackMin or 20 -- min horizontal dist in px to JumpAttack
-    self.canJumpAttackMax = settings.canJumpAttackMax or 70 -- max horizontal dist in px to JumpAttack
+    self.canJumpAttackMin = settings.canJumpAttackMin or 60 -- min horizontal dist in px to JumpAttack
+    self.canJumpAttackMax = settings.canJumpAttackMax or 100 -- max horizontal dist in px to JumpAttack
     self.tooFarToTarget = settings.tooFarToTarget or 150 -- min dist to generate "tooFarToTarget" condition
 
     self.conditions = {}
