@@ -863,6 +863,14 @@ function AI:emulateJumpPress()
     return true
 end
 
+function AI:emulateArrowsToTarget()
+    local u = self.unit
+    dp("AI:emulateArrowsToTarget() ".. u.name)
+    h, v = signDeadzone( u.target.x - u.x, 4 ), signDeadzone( u.target.y - u.y, 4 )
+    u.b.setHorizontalAndVertical( h, v )
+    return true
+end
+
 function AI:emulateJumpPressToTarget()
     local u = self.unit
     dp("AI:emulateJumpPress() ".. u.name)
@@ -874,6 +882,12 @@ function AI:emulateJumpPressToTarget()
         h, v = signDeadzone( u.target.x - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
     end
     u.b.setHorizontalAndVertical( h, v )
+    return true
+end
+
+function AI:emulateReleaseJump()
+    dp("AI:emulateReleaseJump() " .. self.unit.name)
+    self.unit.b.setJump(false)
     return true
 end
 
