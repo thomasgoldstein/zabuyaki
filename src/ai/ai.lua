@@ -851,7 +851,7 @@ end
 
 function AI:emulateAttackPress()
     local u = self.unit
-    dp("AI:emulateAPress() ".. u.name)
+    dp("AI:emulateAttackPress() ".. u.name)
     u.b.setAttack( true )
     return true
 end
@@ -873,14 +873,9 @@ end
 
 function AI:emulateJumpPressToTarget()
     local u = self.unit
-    dp("AI:emulateJumpPress() ".. u.name)
+    dp("AI:emulateJumpPressToTarget() ".. u.name)
     u.b.setJump( true )
-    --get to the player attack range
-    if u.x < u.target.x then
-        h, v = signDeadzone( u.target.x - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
-    else
-        h, v = signDeadzone( u.target.x - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
-    end
+    h, v = signDeadzone( u.target.x - u.x, 4 ), signDeadzone( u.target.y - u.y, 4 )
     u.b.setHorizontalAndVertical( h, v )
     return true
 end
@@ -892,7 +887,7 @@ function AI:emulateReleaseJump()
 end
 
 function AI:emulateReleaseButtons()
-    dp("AI:emulateReleaseButtons() " .. u.name)
+    dp("AI:emulateReleaseButtons() " .. self.unit.name)
     self.unit.b.reset()
     return true
 end
