@@ -195,7 +195,7 @@ function AI:getVisualConditions(conditions)
                     and math.floor(u.y / 4) == math.floor(y / 4) then
                 conditions[#conditions + 1] = "canDash"
             end
-            local attackRange = u.width * 2 + 16
+            local attackRange = self:getAttackRange(u, u.target)
             if math.abs(u.x - x) <= attackRange
                     and math.abs(u.y - y) <= 6
                     and ((u.x - u.width / 2 > x and u.face == -1) or (u.x + u.width / 2 < x and u.face == 1))
@@ -434,20 +434,22 @@ function AI:initWalkCloser()
 end
 
 function AI:onWalkToAttackRange()
+    local horizontalToleranceGap = 4
+    local verticalToleranceGap = 3
     local u = self.unit
     --    dp("AI:onWalkToAttackRange() ".. u.name)
-    local attackRange = u.width * 2 + 12
+    local attackRange = self:getAttackRange(u, u.target) - horizontalToleranceGap
     local v, h
     --get to the player attack range
     if u.x < u.target.x then
-        h, v = signDeadzone( (u.target.x - attackRange)- u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
+        h, v = signDeadzone( (u.target.x - attackRange)- u.x, horizontalToleranceGap ), signDeadzone( u.target.y - u.y, verticalToleranceGap )
     else
-        h, v = signDeadzone( (u.target.x + attackRange) - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 )
+        h, v = signDeadzone( (u.target.x + attackRange) - u.x, horizontalToleranceGap), signDeadzone( u.target.y - u.y, verticalToleranceGap )
     end
     u.b.setHorizontalAndVertical( h, v )
-    if u.x < u.target.x - 4 then
+    if u.x < u.target.x - horizontalToleranceGap then
         u.face = 1
-    elseif u.x > u.target.x + 4 then
+    elseif u.x > u.target.x + horizontalToleranceGap then
         u.face = -1
     end
     if h == 0 and v == 0 then
@@ -472,7 +474,7 @@ function AI:initWalkAround()
         end
     end
     u.chaseTime = 3 + love.math.random( 5 )
-    u.chaseRadius = u.target.width * 2 + u.width * 3    -- radius bigger than an attack range
+    u.chaseRadius = self:getSafeWalkingRadius(u, u.target)
     if love.math.random() < 0.3 then    -- go to front
         u.chaseAngle = love.math.random() * math.pi / 4 - math.pi / 8
     else    -- go from back
@@ -490,7 +492,7 @@ end
 function AI:onWalkAround(dt)
     local u = self.unit
     --    dp("AI:onWalkAround() ".. u.name)
-    local attackRange = u.width * 2 + 12
+    local attackRange = self:getAttackRange(u, u.target)
     local v, h
     if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
         --print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)
@@ -539,7 +541,7 @@ function AI:initGetToBack()
         end
     end
     u.chaseTime = 2 + love.math.random( 2 )
-    u.chaseRadius = u.target.width * 2 + u.width * 2
+    u.chaseRadius = u.target.width * 2 + u.width * 2 - 2
 
     if u.target.x < u.x then
         --go to left?
@@ -591,7 +593,7 @@ end
 function AI:onGetToBack(dt)
     local u = self.unit
     --    dp("AI:onGetToBack() ".. u.name)
-    local attackRange = u.width * 2 + 12
+    local attackRange = self:getAttackRange(u, u.target)
     local v, h
     if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
         --print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)
