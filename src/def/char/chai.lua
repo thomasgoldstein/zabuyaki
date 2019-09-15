@@ -427,8 +427,8 @@ return {
             { q = q(141,138,39,60), ox = 22, oy = 59 }, --charge dash attack 1
             { q = q(182,134,43,64), ox = 19, oy = 63 }, --charge dash attack 2
             { q = q(2,1587,67,65), ox = 21, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3
-            { q = q(2,1587,67,65), ox = 21, oy = 64, funcCont = comboAttack4Forward, delay = 0.06 }, --charge dash attack 3
-            { q = q(2,1587,67,65), ox = 21, oy = 64, funcCont = comboAttack4Forward, delay = 0.05 }, --charge dash attack 3
+            { q = q(2,1587,67,65), ox = 21, oy = 64, spanFunc = true, delay = 0.06 }, --charge dash attack 3
+            { q = q(2,1587,67,65), ox = 21, oy = 64, spanFunc = true, delay = 0.05 }, --charge dash attack 3
             { q = q(43,722,37,64), ox = 14, oy = 66, delay = 0.05 }, --jump attack forward 2
             { q = q(2,722,39,65), ox = 18, oy = 66, delay = 0.05 }, --jump attack forward 1
             delay = 0.03
