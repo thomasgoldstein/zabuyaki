@@ -29,7 +29,7 @@ function Character:initialize(name, sprite, x, y, f, input)
     self.comboN = 1    -- n of the combo hit
     self.comboTimeout = 0.37 -- max delay to connect combo hits
     self.comboTimer = 0    -- can continue combo if > 0
-    self.canMoveDelay = self.comboTimeout - 0.06 -- can move if comboTimer < canMoveDelay
+    self.comboMobilityDelay = self.comboTimeout - 0.06 -- can move if comboMobilityDelay > comboTimer
     self.canActAfterHurtDelay = 0.2 -- min delay after which the character can transit from hurt state to stand/grab
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
     self.grabTimeout = 1.5 -- max delay to keep a unit grabbed
@@ -122,7 +122,7 @@ function Character:updateAI(dt)
 end
 
 function Character:canMove()
-    return self.comboTimer < self.canMoveDelay
+    return self.comboTimer < self.comboMobilityDelay
 end
 
 function Character:isImmune()   --Immune to the attack?
