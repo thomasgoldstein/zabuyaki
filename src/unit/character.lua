@@ -1311,9 +1311,8 @@ function Character:grabUpdate(dt)
             end
         else
             if self.b.horizontal.isDoubleTap and self.face == self.b.horizontal.doubleTap.lastDirection then
-                grabDistance = self:getGrabDistance()
                 if self.moves.grabSwap and g.canGrabSwap
-                    and stage:hasPlaceToStand(self.grabContext.target.x + self.face * grabDistance, self.y)
+                    --and stage:hasPlaceToStand(self.grabContext.target.x + self.face * grabDistance, self.y)
                 then
                     self:setState(self.grabSwap)
                     return
@@ -1653,15 +1652,19 @@ function Character:grabSwapStart()
     g.canGrabSwap = false
     self.isGrabSwapFlipped = false
     grabDistance = self:getGrabDistance()
-    self.grabSwap_x = g.target.x + self.face * grabDistance
-    self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
-    self:playSfx("whooshHeavy")
-    --dp(self.name.." is grabSwapping someone.")
+    self.canGrabSwap = stage:hasPlaceToStand(self.grabContext.target.x + self.face * grabDistance, self.y)
+    if self.canGrabSwap then
+        self.grabSwap_x = g.target.x + self.face * grabDistance
+        self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
+        self:playSfx("whooshHeavy")
+    else    -- cannot perform action because of the obstacle
+        self.grabSwap_x = g.target.x - self.face * grabDistance / 3
+        self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
+        self.save_x = self.x
+    end
 end
 function Character:grabSwapUpdate(dt)
-    --dp(self.name .. " - grab update", dt)
     local g = self.grabContext
-    --adjust char horizontally
     if self.x ~= self.grabSwap_x then
         if self.x < self.grabSwap_x then
             self.x = self.x + self.runSpeed_x * dt
@@ -1674,15 +1677,28 @@ function Character:grabSwapUpdate(dt)
                 self.x = self.grabSwap_x
             end
         end
-        self.sprite.curFrame = grabSwapFrames[ clamp( math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwapGoal) * #grabSwapFrames ), 1, #grabSwapFrames) ]
-        if not self.isGrabSwapFlipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwapGoal / 2 then
+        if not self.canGrabSwap and self.x == self.grabSwap_x then
+            self.grabSwap_x = self.save_x   -- on wall return back
+            self.isGrabSwapFlipped = true
+        end
+        if self.canGrabSwap then
+            self.sprite.curFrame = grabSwapFrames[ clamp( math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwapGoal) * #grabSwapFrames ), 1, #grabSwapFrames) ]
+        else
+            self.sprite.curFrame = 1
+            if ( self.isGrabSwapFlipped and math.abs( self.x - self.grabSwap_x ) >= self.grabSwapGoal / 2 )
+                or math.abs( self.x - self.grabSwap_x ) < self.grabSwapGoal / 2
+            then
+                self.sprite.curFrame = 2
+            end
+        end
+        if self.canGrabSwap and not self.isGrabSwapFlipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwapGoal / 2 then
             self.isGrabSwapFlipped = true
             self.face = -self.face
+            self.horizontal = -self.horizontal
             g.target:setSprite(g.target.sprite.curAnim == "grabbedFront" and "grabbedBack" or "grabbedFront")
         end
         g.target.sprite.curFrame = (self.sprite.curFrame == 1 and 2 or 1)
     else
-        self.horizontal = -self.horizontal
         self:setState(self.grab)
         return
     end
