@@ -1677,7 +1677,7 @@ function Character:grabSwapUpdate(dt)
                 self.x = self.grabSwap_x
             end
         end
-        if not self.canGrabSwap and self.x == self.grabSwap_x then
+        if not self.canGrabSwap and not self.isGrabSwapFlipped and self.x == self.grabSwap_x then
             self.grabSwap_x = self.save_x   -- on wall return back
             self.isGrabSwapFlipped = true
         end
@@ -1685,10 +1685,14 @@ function Character:grabSwapUpdate(dt)
             self.sprite.curFrame = grabSwapFrames[ clamp( math.ceil((math.abs( self.x - self.grabSwap_x ) / self.grabSwapGoal) * #grabSwapFrames ), 1, #grabSwapFrames) ]
         else
             self.sprite.curFrame = 1
-            if ( self.isGrabSwapFlipped and math.abs( self.x - self.grabSwap_x ) >= self.grabSwapGoal / 2 )
-                or math.abs( self.x - self.grabSwap_x ) < self.grabSwapGoal / 2
-            then
-                self.sprite.curFrame = 2
+            if self.isGrabSwapFlipped then
+                if math.abs( self.x - self.grabSwap_x ) > self.grabSwapGoal / 2 then
+                    self.sprite.curFrame = 2
+                end
+            else
+                if math.abs( self.x - self.grabSwap_x ) < self.grabSwapGoal / 2 then
+                    self.sprite.curFrame = 2
+                end
             end
         end
         if self.canGrabSwap and not self.isGrabSwapFlipped and math.abs(self.x - self.grabSwap_x) <= self.grabSwapGoal / 2 then
