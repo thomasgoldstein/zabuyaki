@@ -1658,7 +1658,7 @@ function Character:grabSwapStart()
         self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
         self:playSfx("whooshHeavy")
     else    -- cannot perform action because of the obstacle
-        self.grabSwap_x = g.target.x - self.face * grabDistance / 3
+        self.grabSwap_x = g.target.x
         self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
         self.save_x = self.x
     end
