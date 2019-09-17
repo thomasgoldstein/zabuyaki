@@ -446,8 +446,9 @@ function Character:standUpdate(dt)
     if self.nextAnlmationDelay <= 0 then
         if spriteHasAnimation(self.sprite, "chargeStand") and self:canMove() and self.b.attack:isDown() then
             self:setSpriteIfNotCurrent("chargeStand")
-        else
-            self:setSpriteIfNotCurrent("stand")
+        elseif self.sprite.curAnim ~= "stand" then
+            self:setSprite("stand")
+            self.sprite.curFrame = love.math.random(1, self.sprite.maxFrame)
         end
     end
     if self.b.attack:pressed() then
