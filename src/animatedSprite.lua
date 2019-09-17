@@ -77,8 +77,7 @@ function getSpriteInstance (spriteDef)
         isThrow = false,
         funcCalledOnFrame = -1,
         funcContCalledOnFrame = -1,
-        comboEnd = false,
-        maxFrame = 0
+        comboEnd = false
     }
     calculateSpriteAnimation(s)
     return s
