@@ -375,7 +375,7 @@ return {
             { q = q(135,2,51,64), ox = 24, oy = 63, func = comboSlide1 }, --combo forward 1.1
             { q = q(2,521,65,64), ox = 24, oy = 63, funcCont = comboAttack1Forward, delay = 0.09 }, --combo forward 1.2
             { q = q(69,521,57,64), ox = 24, oy = 63, delay = 0.03 }, --combo forward 1.3
-            delay = 0.05
+            delay = 0.03
         },
         combo2 = {
             { q = q(128,521,41,64), ox = 19, oy = 64 }, --combo 2.1
