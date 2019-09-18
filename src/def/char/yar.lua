@@ -95,12 +95,14 @@ return {
         },
         respawn = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = 0.1
+            { q = q(72,416,47,62), ox = 24, oy = 60, delay = 0.5 }, --pick up 2
+            { q = q(121,412,46,66), ox = 23, oy = 65, delay = 0.1 }, --pick up 1
+            delay = math.huge
         },
         pickUp = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
+            { q = q(121,412,46,66), ox = 23, oy = 65, delay = 0.03 }, --pick up 1
+            { q = q(72,416,47,62), ox = 24, oy = 60, delay = 0.2 }, --pick up 2
+            { q = q(121,412,46,66), ox = 23, oy = 65 }, --pick up 1
             delay = 0.05
         },
         combo1 = {
@@ -195,9 +197,9 @@ return {
         },
         getUp = {
             { q = q(228,371,78,39), ox = 44, oy = 34, delay = 0.4 }, --fallen
-            { q = q(150,361,76,49), ox = 42, oy = 48 }, --fall 3
-            { q = q(72,350,76,60), ox = 41, oy = 59 }, --fall 2
-            { q = q(2,340,68,70), ox = 38, oy = 69 }, --fall 1
+            { q = q(2,422,68,56), ox = 36, oy = 54 }, --get up
+            { q = q(72,416,47,62), ox = 24, oy = 60 }, --pick up 2
+            { q = q(121,412,46,66), ox = 23, oy = 65 }, --pick up 1
             delay = 0.15
         },
         grabbedFront = {
