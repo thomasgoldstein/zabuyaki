@@ -89,7 +89,6 @@ function eAI:selectNewSchedule(conditions)
 end
 
 function eAI:initJumpAttack(dt)
-    --    dp("AI:onDash() ".. self.unit.name)
     local u = self.unit
     self.doneAttack = false
     if u.state == "stand" then
@@ -106,7 +105,6 @@ function eAI:initJumpAttack(dt)
 end
 
 function eAI:onJumpAttack(dt)
-    --    dp("AI:onDash() ".. self.unit.name)
     local u = self.unit
     if u.state == "stand" then
         return true

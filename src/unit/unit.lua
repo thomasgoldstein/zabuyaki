@@ -87,7 +87,6 @@ function Unit:initialize(name, sprite, x, y, f, input)
 end
 
 function Unit:setOnStage(stage)
---    dp("SET ON STAGE", self.name, self.id, self.palette)
     if not self.shape then
         self:addShape(self.saveShapeType, self.saveShapeArgs)   -- recreate shape
     end
@@ -218,7 +217,6 @@ end
 
 -- stop unit from moving by tweening
 function Unit:removeTweenMove()
-    --dp(self.name.." removed tween move")
     self.move = nil
 end
 

@@ -170,7 +170,6 @@ function Rick:grabBackAttackStart()
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
     self:playSfx(self.sfx.throw)
-    --dp(self.name.." grabBackAttack someone.")
 end
 function Rick:grabBackAttackUpdate(dt)
     local g = self.grabContext

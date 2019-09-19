@@ -81,9 +81,7 @@ function AI:update(dt)
     end
     self.thinkInterval = self.thinkInterval - dt
     if self.thinkInterval <= 0 then
---        dp("AI " .. self.unit.name .. "(" .. self.unit.state .. ")" .. " thinking")
         self.conditions = self:getConditions()
-        --print(inspect(self.conditions, {depth = 1}))
         if not self.conditions.cannotAct then
             if not self.currentSchedule or self.currentSchedule:isDone(self.conditions) then
                 self:selectNewSchedule(self.conditions)
@@ -103,7 +101,6 @@ end
 -- should be overridden by every enemy AI class
 function AI:selectNewSchedule(conditions)
     if not self.currentSchedule then
---        print("COMMON INTRO", self.unit.name, self.unit.id)
         self.currentSchedule = self.SCHEDULE_INTRO
         return
     end
@@ -252,7 +249,6 @@ end
 function AI:initIntro()
     local u = self.unit
     u.b.reset()
---    dp("AI:initIntro() " .. u.name)
     if self:canAct() then
         if u.state == "stand" or u.state == "intro" then
             return true
@@ -262,7 +258,6 @@ function AI:initIntro()
 end
 
 function AI:onIntro()
-    --dp("AI:onIntro() ".. u.name)
     local u = self.unit
     if not u.target then
         u:pickAttackTarget("random")
@@ -275,7 +270,6 @@ end
 function AI:initStand()
     local u = self.unit
     u.b.reset()
---    dp("AI:initStand() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         return true
@@ -298,7 +292,6 @@ end
 function AI:initWait()
     local u = self.unit
     u.b.reset()
---    dp("AI:initWait() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         self.waitingCounter = love.math.random() * (self.waitMax - self.waitMin) + self.waitMin
@@ -324,7 +317,6 @@ end
 
 function AI:calcWalkToBackOffXY()
     local u = self.unit
---    dp("AI:calcWalkToBackOffXY() " .. u.name)
     if not self.conditions.canMove or u.state ~= "stand" then
         return false
     end
@@ -345,7 +337,6 @@ end
 function AI:initWalkToXY()
     local u = self.unit
     u.b.reset()
---    dp("AI:initWalkToXY() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         u.speed_x = u.walkSpeed
@@ -359,7 +350,6 @@ end
 function AI:initRunToXY()
     local u = self.unit
     u.b.reset()
---    dp("AI:initRunToXY() " .. u.name)
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         u.b.doHorizontalDoubleTap()
@@ -373,7 +363,6 @@ end
 
 function AI:calcWalkToAttackXY()
     local u = self.unit
---    dp("AI:calcWalkToAttackXY() " .. u.name)
     if not u.target or u.target.hp < 1 then
         u:pickAttackTarget("close")
         if not u.target then
@@ -422,7 +411,6 @@ end
 function AI:initWalkCloser()
     local u = self.unit
     u.b.reset()
-    --    dp("AI:initWalkCloser() " .. u.name)
     if not u.target or u.target.hp < 1 then
         u:pickAttackTarget("close")
         if not u.target then
@@ -437,7 +425,6 @@ function AI:onWalkToAttackRange()
     local horizontalToleranceGap = 4
     local verticalToleranceGap = 3
     local u = self.unit
-    --    dp("AI:onWalkToAttackRange() ".. u.name)
     local attackRange = self:getAttackRange(u, u.target) - horizontalToleranceGap
     local v, h
     --get to the player attack range
