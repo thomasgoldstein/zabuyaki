@@ -63,7 +63,6 @@ end
 function Rick:dashAttackStart()
     self.isHittable = true
     self.customFriction = self.dashFriction
-    --dpo(self, self.state)
     self:setSprite("dashAttack")
     self.speed_x = self.dashSpeed_x
     self.speed_y = 0
@@ -74,7 +73,6 @@ function Rick:dashAttackStart()
 end
 function Rick:dashAttackUpdate(dt)
     if self.sprite.isFinished then
-        --dpo(self, self.state)
         self:setState(self.stand)
         return
     end
@@ -103,7 +101,6 @@ function Rick:specialOffensiveStart()
     self.isHittable = true
     self.customFriction = self.dashFriction * 2
     self.horizontal = self.face
-    --dpo(self, self.state)
     self:setSprite("specialOffensive")
     self:enableGhostTrails()
     self.speed_x = self.dashSpeed_x * 2
@@ -115,7 +112,6 @@ function Rick:specialOffensiveStart()
 end
 function Rick:specialOffensiveUpdate(dt)
     if self.sprite.isFinished then
-        --dpo(self, self.state)
         self:setState(self.stand)
         return
     end
@@ -137,7 +133,6 @@ function Rick:specialDashStart()
     self.isHittable = true
     self.customFriction = self.dashFriction
     self.horizontal = self.face
-    --dpo(self, self.state)
     self:setSprite("specialDash")
     self:enableGhostTrails()
     self.speed_x = self.dashSpeed_x
@@ -149,7 +144,6 @@ function Rick:specialDashStart()
 end
 function Rick:specialDashUpdate(dt)
     if self.sprite.isFinished then
-        --dpo(self, self.state)
         self:setState(self.stand)
         return
     end
