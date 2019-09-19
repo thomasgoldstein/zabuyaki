@@ -313,7 +313,9 @@ function Player:respawnStart()
     self.x, self.y = stage:getSafeRespawnPosition(self)
     self:setSprite("respawn")
     self.deathDelay = 3 --seconds to remove
-    self.hp = self.maxHp
+    if not self.condition then
+        self.hp = self.maxHp
+    end
     self.bounced = 0
     self.speed_z = 0
     self.z = love.math.random( 235, 245 )    --TODO get Z from the Tiled
