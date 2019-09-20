@@ -19,8 +19,14 @@ local function loadCollision(items, stage)
     end
     for i, v in ipairs(t.objects) do
         if v.shape == "rectangle" then
-            local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
-            wall:setOnStage(stage)
+            if v.properties.height then
+                local platform = Platform:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height }, height = v.properties.height })
+                print("platform", v.properties.height)
+                platform:setOnStage(stage)
+            else
+                local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
+                wall:setOnStage(stage)
+            end
         elseif v.shape == "polygon" then
             local shapeArgs = {}
             for k = 1, #v.polygon do

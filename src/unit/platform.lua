@@ -10,13 +10,14 @@ function Platform:initialize(name, f)
     end
     local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
     self.width, self.depth = f.shapeArgs[3] or 10, f.shapeArgs[4] or 10
+    self.height = f.height
     x = x + self.width / 2
     y = y + self.depth / 2
     Unit.initialize(self, name, nil, x, y, f)
     self.name = name or "Unknown Platform"
     self.type = "platform"
     self.vertical, self.horizontal, self.face = 1, f.horizontal or 1, f.face or 1 --movement and face directions
-    self.isObstacle = true
+    self.isObstacle = false
     self.isHittable = false
     self.isDisabled = false
     self.isMovable = false
@@ -47,6 +48,14 @@ function Platform:updateAI(dt)
 end
 
 function Platform:onHurt()
+end
+
+function Platform:getHeight()
+    return self.height
+end
+
+function Platform:getHurtBoxHeight()
+    return self.height
 end
 
 Platform.stand = {name = "stand", start = nop, exit = nop, update = nop, draw = nop}

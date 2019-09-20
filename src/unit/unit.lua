@@ -306,10 +306,10 @@ function Unit:checkCollisionAndMove(dt)
     else -- in air
         self.x, self.y = self.x + stepx, self.y + stepy
         for _,o in ipairs(stage.objects.entities) do
-            if ( o.type == "wall" or (o.type == "stopper" and not self.canWalkTroughStoppers) or o:isInstanceOf(StageObject) )
+            if ( o.type == "wall" or (o.type == "stopper" and not self.canWalkTroughStoppers) or o.type == "platform" or o:isInstanceOf(StageObject) )
                 and self:collidesWith(o)
             then
-                if o:isInstanceOf(StageObject) then
+                if o:isInstanceOf(StageObject) or o:isInstanceOf(Platform) then
                     if self.z + topEdgeTolerance >= o:getHurtBoxHeight() then
                         self:setMinZ(o) -- jumped on the obstacle
                     else
