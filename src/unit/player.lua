@@ -54,6 +54,17 @@ function Player:moveStatesApply()
     end
 end
 
+function Player:hasPlaceToStand(x, y)
+    for _,o in ipairs(stage.objects.entities) do
+        if ( o.type == "wall" or o.type == "stopper" )
+            and o:collidesByXYWH(x, y, self:getHurtBoxWidth(), self:getHurtBoxDepth() )
+        then
+            return false
+        end
+    end
+    return true
+end
+
 function Player:isDoubleTapValid()
     local doubleTap = self.b.horizontal.doubleTap
     return self.face == doubleTap.lastDoubleTapDirection and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(dashAttackDelta)
