@@ -39,7 +39,6 @@ function Stage:logUnit( unit )
     end
     local s = safePlace[ safePlacePos ]
     s.x, s.y = unit.x, unit.y
-    dp("Stage:logUnit x,y", s.x, s.y, unit.name)
 end
 
 function Stage:getRandomSafePoint()
