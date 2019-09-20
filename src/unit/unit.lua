@@ -47,6 +47,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.sfx.dead = f.sfxDead --on death sfx
     self.canWalkTroughStoppers = true
     self.isObstacle = false
+    self.isPlatform = false
     self.isHittable = false
     self.isGrabbed = false
     self.grabContext = {source = nil, target = nil, grabTimer = 0 }

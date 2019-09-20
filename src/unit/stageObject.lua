@@ -40,6 +40,7 @@ function StageObject:initialize(name, sprite, x, y, f)
     self.sfx.grab = f.sfxGrab --on being grabbed sfx
     self.isMovable = f.isMovable
     self.isObstacle = not self.isMovable -- can walk trough it
+    self.isPlatform = true
     self.weight = f.weight or 1.5
     self.gravity = self.gravity * self.weight
     self.deathDelay = 1 --seconds to remove
