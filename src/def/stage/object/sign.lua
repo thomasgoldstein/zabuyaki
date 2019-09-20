@@ -10,7 +10,7 @@ return {
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "sign", -- sprite name
-
+    isPlatform = true,
     delay = math.huge,	--default delay for all
     hurtBox = { width = 20, height = 64 },
     animations = {

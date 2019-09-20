@@ -10,7 +10,7 @@ return {
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "trashcan", -- sprite name
-
+    isPlatform = true,
     delay = math.huge,	--default delay for all
     hurtBox = { width = 15, height = 36 },
     animations = {
