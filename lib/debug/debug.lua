@@ -415,14 +415,10 @@ function drawDebugUnitInfo(a)
             love.graphics.print( a.name, a.x - 16 , a.y - 7 - a.z)
         else
             colors:set("black", nil, 120)
-            --love.graphics.print( "HP "..math.floor(a.hp), a.x - 16 , a.y + 14 - a.z)
             if a.id > GLOBAL_SETTING.MAX_PLAYERS then
                 drawDebugControls(a, a.x - 32, a.y - a:getHurtBoxHeight() - 20 - a.z)
             end
         end
-        --if a.comboN and a.sprite.def.comboMax > 0 then
-        --    love.graphics.print( "CN" .. a.comboN .. "/".. a.sprite.def.comboMax, a.x - 14, a.y + 21)
-        --end
         love.graphics.print( a.state, a.x - 14, a.y - a.z)
         love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7 - a.z)
         local yShift1 = 0
