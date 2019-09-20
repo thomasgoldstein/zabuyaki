@@ -57,6 +57,15 @@ function Player:isStuck()
     return false
 end
 
+function Player:moveStatesApply()
+    local t = self.grabContext.target
+    local save_x, save_y = t.x, t.y
+    Unit.moveStatesApply(self)
+    if t:collidesWith(stage.leftStopper) or t:collidesWith(stage.rightStopper) then
+        t.x, t.y = save_x, save_y
+    end
+end
+
 function Player:isDoubleTapValid()
     local doubleTap = self.b.horizontal.doubleTap
     return self.face == doubleTap.lastDoubleTapDirection and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(dashAttackDelta)
