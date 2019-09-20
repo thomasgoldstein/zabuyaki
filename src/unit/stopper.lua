@@ -9,7 +9,7 @@ function Stopper:initialize(name, f)
         f = { shapeType = "rectangle", shapeArgs = { 0, 0, 20, 100 } }
     end
     local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
-    local width, height = f.shapeArgs[3] or 20, f.shapeArgs[4] or 240
+    local width, depth = f.shapeArgs[3] or 20, f.shapeArgs[4] or 240
     Unit.initialize(self, name, nil, x, y, f)
     self.name = name or "Unknown Stopper"
     self.type = "stopper"
@@ -18,7 +18,7 @@ function Stopper:initialize(name, f)
     self.isDisabled = false
     self.isMovable = false
     self.width = width
-    self.height = height
+    self.depth = depth
     self.lifeBar = nil
     self:setState(self.stand)
 end
@@ -72,7 +72,7 @@ function Stopper:getHeight()
     return maxHeight
 end
 function Stopper:getHurtBoxDepth()
-    return self.height
+    return self.depth
 end
 
 return Stopper

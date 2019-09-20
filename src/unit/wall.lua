@@ -9,9 +9,9 @@ function Wall:initialize(name, f)
         f = { shapeType = "rectangle", shapeArgs = { 0, 0, 10, 10 } }
     end
     local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
-    self.width, self.height = f.shapeArgs[3] or 10, f.shapeArgs[4] or 10
+    self.width, self.depth = f.shapeArgs[3] or 10, f.shapeArgs[4] or 10
     x = x + self.width / 2
-    y = y + self.height / 2
+    y = y + self.depth / 2
     Unit.initialize(self, name, nil, x, y, f)
     self.name = name or "Unknown Wall"
     self.type = "wall"
