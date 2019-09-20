@@ -93,8 +93,8 @@ function setSpriteAnimation(spr, anim)
     spr.funcCalledOnFrame = -1
     spr.funcContCalledOnFrame = -1
     spr.elapsedTime = 0
-    spr.isThrow = spr.def.animations[spr.curAnim].isThrow
-    spr.comboEnd = spr.def.animations[spr.curAnim].comboEnd
+    spr.isThrow = spr.def.animations[spr.curAnim].isThrow or false
+    spr.comboEnd = spr.def.animations[spr.curAnim].comboEnd or false
     spr.maxFrame = #spr.def.animations[spr.curAnim]
 end
 
