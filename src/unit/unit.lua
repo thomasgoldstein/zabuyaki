@@ -343,16 +343,6 @@ function Unit:ignoreCollisionAndMove(dt)
     self.y = cy
 end
 
-function Unit:isStuck()
-    for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
-        local o = other.obj
-        if o.type == "wall"	then
-            return true
-        end
-    end
-    return false
-end
-
 function Unit:hasPlaceToStand(x, y)
     for _,o in ipairs(stage.objects.entities) do
         if o.type == "wall"

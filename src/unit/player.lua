@@ -45,18 +45,6 @@ function Player:isInUseCreditMode()
     return true
 end
 
-function Player:isStuck()
-    for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
-        local o = other.obj
-        if o.type == "wall"
-                or o.type == "stopper"
-        then
-            return true
-        end
-    end
-    return false
-end
-
 function Player:moveStatesApply()
     local t = self.grabContext.target
     local save_x, save_y = t.x, t.y
