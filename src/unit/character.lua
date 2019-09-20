@@ -1636,7 +1636,7 @@ function Character:grabSwapStart()
     g.canGrabSwap = false
     self.isGrabSwapFlipped = false
     grabDistance = self:getGrabDistance()
-    self.canGrabSwap = stage:hasPlaceToStand(self.grabContext.target.x + self.face * grabDistance, self.y)
+    self.canGrabSwap = self:hasPlaceToStand(self.grabContext.target.x + self.face * grabDistance, self.y)
     if self.canGrabSwap then
         self.grabSwap_x = g.target.x + self.face * grabDistance
         self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
