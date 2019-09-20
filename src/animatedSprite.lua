@@ -73,8 +73,7 @@ function getSpriteInstance (spriteDef)
         rotation = 0,
         flipH = 1, -- 1 normal, -1 mirrored
         flipV = 1,	-- same
-        isFinished = false,
-        isThrow = false,
+        isPlatform = spriteBank[spriteDef].isPlatform or false,
         funcCalledOnFrame = -1,
         funcContCalledOnFrame = -1,
         comboEnd = false
