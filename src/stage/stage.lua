@@ -290,20 +290,6 @@ function Stage:setCamera(dt)
     oldCoord_y = coord_y
 end
 
-function Stage:hasPlaceToStand(x, y, unit)
-    local shape = (unit and unit.shape) and unit.shape or self.testShape
-    shape:moveTo(x, y)
-    for other, separatingVector in pairs(self.world:collisions(shape)) do
-        local o = other.obj
-        if o.type == "wall"
-            or (o.z <= 0 and o.hp > 0 and o.isObstacle)
-            or o.type == "stopper" then
-            return false
-        end
-    end
-    return true
-end
-
 local respawnSidePadding = 34
 function Stage:getSafeRespawnPosition(unit)
     local x, _y, r, v
@@ -313,7 +299,7 @@ function Stage:getSafeRespawnPosition(unit)
     -- player respawn coords should not overlap with stoppers
     unit.x = clamp(unit.x, self.leftStopper.x + self.leftStopper.width / 2 + unit.width / 2 + respawnSidePadding,
         self.rightStopper.x - self.rightStopper.width / 2 - unit.width / 2 - respawnSidePadding)
-    if stage:hasPlaceToStand(unit.x, unit.y, unit) then
+    if unit:hasPlaceToStand(unit.x, unit.y, unit) then
         return unit.x, unit.y
     end
     -- try to respawn at random y ( keep the same x )
@@ -321,7 +307,7 @@ function Stage:getSafeRespawnPosition(unit)
     _y = self:getScrollingY(x)
     v = {}
     for y = _y, _y + 240 / 3, 8 do
-        if stage:hasPlaceToStand(x, y, unit) then
+        if unit:hasPlaceToStand(x, y, unit) then
             v[#v + 1] = { x, y }
         end
     end
@@ -334,7 +320,7 @@ function Stage:getSafeRespawnPosition(unit)
     _y = self:getScrollingY(x)
     v = {}
     for y = _y, _y + 240 / 3, 8 do
-        if stage:hasPlaceToStand(x, y, unit) then
+        if unit:hasPlaceToStand(x, y, unit) then
             v[#v + 1] = { x, y }
         end
     end

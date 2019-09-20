@@ -1266,8 +1266,8 @@ function Character:grabStart()
         grabDistance = self:getGrabDistance()
         local timeToMove = 0.1
         local direction = self.x >= g.target.x and -1 or 1
-        local checkFront = stage:hasPlaceToStand(self.x + direction * grabDistance, self.y)
-        local checkBack = stage:hasPlaceToStand(self.x - direction * grabDistance, self.y)
+        local checkFront = self:hasPlaceToStand(self.x + direction * grabDistance, self.y)
+        local checkBack = self:hasPlaceToStand(self.x - direction * grabDistance, self.y)
         local x1, x2
         if checkFront then
             x1 = self.x - direction * 4
@@ -1302,9 +1302,7 @@ function Character:grabUpdate(dt)
             end
         else
             if self.b.horizontal.isDoubleTap and self.face == self.b.horizontal.doubleTap.lastDirection then
-                if self.moves.grabSwap and g.canGrabSwap
-                    --and stage:hasPlaceToStand(self.grabContext.target.x + self.face * grabDistance, self.y)
-                then
+                if self.moves.grabSwap and g.canGrabSwap then
                     self:setState(self.grabSwap)
                     return
                 end
