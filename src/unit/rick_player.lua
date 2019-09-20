@@ -161,12 +161,10 @@ function Rick:specialDashUpdate(dt)
 end
 Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.disableGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
 
-local saveGrabBack_x, saveGrabBack_y = 0, 0
 function Rick:grabBackAttackStart()
     local g = self.grabContext
     local t = g.target
-    saveGrabBack_x, saveGrabBack_y = t.x, t.y
-    self.speed_x = self.runSpeed_x
+    local saveGrabBack_x, saveGrabBack_y = 0, 0
     self:initGrabTimer()
     self:moveStatesInit()
     self:setSprite("grabBackAttack")
@@ -178,14 +176,15 @@ function Rick:grabBackAttackUpdate(dt)
     local g = self.grabContext
     local t = g.target
     if g and t then
-        if t.type == "player" and not stage:hasPlaceToStand(t.x, t.y) then
-            -- players teleport back on throwing them out of the batch area bounds
-            t.x, t.y = saveGrabBack_x, saveGrabBack_y
-            t:setState(t.respawn, true) -- to disable HP refill
-            self:releaseGrabbed()
-            g.target = nil
-        elseif t.state ~= "bounce" then
+        if t.state ~= "bounce" then
             self:moveStatesApply()
+        end
+        if t.type == "player" then
+            if t:collidesWith(stage.leftStopper) or t:collidesWith(stage.rightStopper) then
+                t.x, t.y = saveGrabBack_x, saveGrabBack_y
+            else
+                saveGrabBack_x, saveGrabBack_y = t.x, t.y
+            end
         end
     end
     if self.sprite.isFinished then
