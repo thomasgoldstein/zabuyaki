@@ -161,7 +161,6 @@ function Rick:specialDashUpdate(dt)
 end
 Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.disableGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
 
-local saveGrabBack_x, saveGrabBack_y = 0, 0
 function Rick:grabBackAttackStart()
     local g = self.grabContext
     local t = g.target
@@ -175,16 +174,8 @@ end
 function Rick:grabBackAttackUpdate(dt)
     local g = self.grabContext
     local t = g.target
-    if g and t then
-        saveGrabBack_x, saveGrabBack_y = t.x, t.y
-        if t.state ~= "bounce" then
-            self:moveStatesApply()
-        end
-        if t.type == "player"
-            and ( t:collidesWith(stage.leftStopper) or t:collidesWith(stage.rightStopper) )
-        then
-            t.x, t.y = saveGrabBack_x, saveGrabBack_y
-        end
+    if g and t and t.state ~= "bounce" then
+        self:moveStatesApply()
     end
     if self.sprite.isFinished then
         self:setState(self.stand)
