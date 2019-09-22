@@ -176,8 +176,9 @@ function initSpriteAnimationDelaysAndHurtBoxes(spr)
     if not spr.def.hurtBox then
         --TODO remove default hurtBox on the end
         spr.def.hurtBox = { x = 0, y = 10, width = 10, height = 20 }
+    else
+        fixHurtBox(spr.def.hurtBox)
     end
-
     for _, a in pairs(animations) do
         if not a.delay then
             -- is there default delay for frames of 1 animation?
