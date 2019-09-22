@@ -97,16 +97,16 @@ function Stage:updateZoom(dt)
 end
 
 function Stage:moveStoppers(x1, x2)
-    if x1 < 0 - self.leftStopper.width then
-        x1 = 0 - self.leftStopper.width
+    if x1 < 0 - self.leftStopper.width / 2 then
+        x1 = 0 - self.leftStopper.width / 2
     elseif x1 > self.worldWidth - minGapBetweenStoppers then
-        x1 = x1 > self.worldWidth - minGapBetweenStoppers
+        x1 = self.worldWidth - minGapBetweenStoppers
     end
     if not x2 then
-        x2 = x1 + minGapBetweenStoppers
+        x2 = x1 + minGapBetweenStoppers + self.leftStopper.width
     else
         if x2 < x1 then
-            x2 = x1 + minGapBetweenStoppers
+            x2 = x1 + minGapBetweenStoppers + self.leftStopper.width
         end
         if x2 > self.worldWidth then
             x2 = self.worldWidth
@@ -114,11 +114,11 @@ function Stage:moveStoppers(x1, x2)
     end
     self.leftStopper:moveTo(x1, self.worldHeight / 2)
     self.rightStopper:moveTo(x2, self.worldHeight / 2)
-    mainCamera:setWorld(math.floor(self.leftStopper.x), 0, math.floor(self.rightStopper.x - self.leftStopper.x), self.worldHeight)
+    mainCamera:setWorld(math.floor(self.leftStopper.x + self.leftStopper.width / 2), 0, math.floor(self.rightStopper.x - self.leftStopper.x) - self.leftStopper.width, self.worldHeight)
 end
 
 function Stage:initialMoveStoppers()
-    self.leftStopper:moveTo(0, self.worldHeight / 2)
+    self.leftStopper:moveTo(0 - self.leftStopper.width, self.worldHeight / 2)
     self.rightStopper:moveTo(math.floor(self.leftStopper.x + minGapBetweenStoppers), self.worldHeight / 2)
     self.topStopper:moveTo(math.floor(self.worldWidth / 2), - 20)
     self.bottomStopper:moveTo(math.floor(self.worldWidth / 2), self.worldHeight + 20)
