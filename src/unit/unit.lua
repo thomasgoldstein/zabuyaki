@@ -371,7 +371,7 @@ end
 
 function Unit:getHurtBox()
     local hurtBox = getSpriteHurtBox(self.sprite)
-    return hurtBox.x, hurtBox.y, hurtBox.width, hurtBox.height
+    return hurtBox.x, hurtBox.y, hurtBox.width, hurtBox.height, hurtBox.depth
 end
 function Unit:getHurtBoxWidth()
     return getSpriteHurtBox(self.sprite).width
