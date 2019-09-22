@@ -385,7 +385,7 @@ function Unit:defaultDraw(l, t, w, h, transp)
             drawDebugUnitHurtBox(self.sprite, self.x, self.y - self.z)
             drawDebugUnitInfo(self)
         end
-        if self.hp > 0 and self.showPIDDelay < 1 and (self.x < l + 20 or self.x >= l + w - 20) then
+        if self.hp > 0 and self.showPIDDelay < 1 and (self.x < l or self.x >= l + w ) then
             self.showPIDDelay = self.showPIDDelay + math.pi
         end
         if self.showPIDDelay > 0 then
