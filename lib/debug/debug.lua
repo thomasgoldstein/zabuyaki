@@ -170,14 +170,14 @@ function showDebugBatch(l,t,w,h)
             local b,b2 = s.batches[s.n], s.batches[s.n + 1]
             if b then
                 colors:set("red", nil, 150)
-                love.graphics.rectangle("fill", b.leftStopper, t, 1, h)
-                love.graphics.rectangle("fill", b.rightStopper, t, 1, h)
-                love.graphics.print(b.name, b.leftStopper + 4, t + h - 12)
+                love.graphics.rectangle("fill", b.leftStopper_x, t, 1, h)
+                love.graphics.rectangle("fill", b.rightStopper_x, t, 1, h)
+                love.graphics.print(b.name, b.leftStopper_x + 4, t + h - 12)
                 if b2 then
                     colors:set("blue", nil, 150)
-                    love.graphics.rectangle("fill", b2.leftStopper, t, 1, h)
-                    love.graphics.rectangle("fill", b2.rightStopper, t, 1, h)
-                    love.graphics.print(b2.name, b2.leftStopper + 4, t + h - 12)
+                    love.graphics.rectangle("fill", b2.leftStopper_x, t, 1, h)
+                    love.graphics.rectangle("fill", b2.rightStopper_x, t, 1, h)
+                    love.graphics.print(b2.name, b2.leftStopper_x + 4, t + h - 12)
                 end
             end
         end
