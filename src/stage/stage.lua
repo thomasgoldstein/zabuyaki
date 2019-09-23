@@ -5,6 +5,7 @@ local sign = sign
 
 -- Blocking far players movement
 local minGapBetweenStoppers = 420
+local stoppersPadding = 8
 
 -- Zooming
 local maxZoom = display.inner.minScale --4 -- zoom in. default value
@@ -46,8 +47,8 @@ function Stage:initialize(name, mapFile, players)
         loadStageData(self, mapFile, players)
     end
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
-    self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } })
-    self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shapeArgs = { 0, 0, 40, self.worldHeight } })
+    self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shift_x = stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight } })
+    self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shift_x = -stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight } })
     self.topStopper = Stopper:new("TOP.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 80, 40,  } })
     self.bottomStopper = Wall:new("BOTTOM.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 80, 40 } })
     self.objects:addArray({
