@@ -10,6 +10,7 @@ function Wall:initialize(name, f)
     end
     local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
     self.width, self.depth = f.shapeArgs[3] or 10, f.shapeArgs[4] or 10
+    self.shift_x = 0
     x = x + self.width / 2
     y = y + self.depth / 2
     Unit.initialize(self, name, nil, x, y, f)
