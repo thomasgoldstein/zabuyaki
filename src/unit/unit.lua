@@ -222,6 +222,10 @@ function Unit:removeTweenMove()
 end
 
 -- private
+function Unit:getX()
+    return self.x
+end
+
 function Unit:tweenMove(dt)
     local complete = true
     if self.move then

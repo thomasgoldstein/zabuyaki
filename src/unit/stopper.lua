@@ -4,12 +4,13 @@ local Stopper = class("Stopper", Unit)
 local function nop() end
 
 function Stopper:initialize(name, f)
-    --f options {}: shapeType, shapeArgs, hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak
+    --f options {}: shift_x shapeType, shapeArgs, hp, score, shader, color,isMovable, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak
     if not f then
         f = { shapeType = "rectangle", shapeArgs = { 0, 0, 20, 100 } }
     end
     local x, y = f.shapeArgs[1] or 0, f.shapeArgs[2] or 0
     local width, depth = f.shapeArgs[3] or 20, f.shapeArgs[4] or 240
+    self.shift_x = f.shift_x or 0
     Unit.initialize(self, name, nil, x, y, f)
     self.name = name or "Unknown Stopper"
     self.type = "stopper"
@@ -24,8 +25,14 @@ function Stopper:initialize(name, f)
 end
 
 function Stopper:moveTo(x, y)
-    self.shape:moveTo(x, y)
-    self.x, self.y = x, y
+    if self.x ~= x + self.shift_x or y ~= self.y then
+        self.shape:moveTo(x + self.shift_x, y)
+        self.x, self.y = x + self.shift_x, y
+    end
+end
+
+function Stopper:getX()
+    return self.x - self.shift_x
 end
 
 function Stopper:updateSprite(dt)
