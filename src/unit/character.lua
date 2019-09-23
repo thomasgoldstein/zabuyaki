@@ -79,6 +79,7 @@ function Character:initAttributes()
     self.sideStepSpeed = 220
     self.sideStepFriction = 650 --speed penalty for sideStepUp/Down (when you slide on the ground)
     self.throwSpeed_x = 220 --my throwing speed
+    self.grabSwapSpeed_x = 160 --grab swap speed
     self.shortThrowSpeed_x = self.throwSpeed_x / 2 --my throwing speed (grabFrontAttack Last and Down)
     self.throwSpeed_z = 200 --my throwing speed
     self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws
@@ -1649,12 +1650,12 @@ function Character:grabSwapUpdate(dt)
     local g = self.grabContext
     if self.x ~= self.grabSwap_x then
         if self.x < self.grabSwap_x then
-            self.x = self.x + self.runSpeed_x * dt
+            self.x = self.x + self.grabSwapSpeed_x * dt
             if self.x > self.grabSwap_x then
                 self.x = self.grabSwap_x
             end
         elseif self.x > self.grabSwap_x then
-            self.x = self.x - self.runSpeed_x * dt
+            self.x = self.x - self.grabSwapSpeed_x * dt
             if self.x < self.grabSwap_x then
                 self.x = self.grabSwap_x
             end
