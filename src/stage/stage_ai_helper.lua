@@ -19,7 +19,7 @@ function Stage:initLog()
 end
 
 function Stage:logUnit( unit )
-    if unit.isDisabled or unit.z > 1 then --r unit.x <= this.leftStopper.x then
+    if unit.isDisabled or unit.z > 1 then --r unit.x <= this.leftStopper:getX() then
         -- keep z > 1 to include start of jumps
         return
     end

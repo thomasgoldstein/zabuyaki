@@ -114,12 +114,12 @@ function Stage:moveStoppers(x1, x2)
     end
     self.leftStopper:moveTo(x1, self.worldHeight / 2)
     self.rightStopper:moveTo(x2, self.worldHeight / 2)
-    mainCamera:setWorld(math.floor(self.leftStopper.x + self.leftStopper.width / 2), 0, math.floor(self.rightStopper.x - self.leftStopper.x) - self.leftStopper.width, self.worldHeight)
+    mainCamera:setWorld(math.floor(self.leftStopper:getX() + self.leftStopper.width / 2), 0, math.floor(self.rightStopper:getX() - self.leftStopper:getX()) - self.leftStopper.width, self.worldHeight)
 end
 
 function Stage:initialMoveStoppers()
     self.leftStopper:moveTo(0 - self.leftStopper.width, self.worldHeight / 2)
-    self.rightStopper:moveTo(math.floor(self.leftStopper.x + minGapBetweenStoppers), self.worldHeight / 2)
+    self.rightStopper:moveTo(math.floor(self.leftStopper:getX() + minGapBetweenStoppers), self.worldHeight / 2)
     self.topStopper:moveTo(math.floor(self.worldWidth / 2), - 20)
     self.bottomStopper:moveTo(math.floor(self.worldWidth / 2), self.worldHeight + 20)
 end
@@ -297,8 +297,8 @@ function Stage:getSafeRespawnPosition(unit)
     -- player respawn coords should be within the visible screen
     unit.x = clamp(unit.x, l + unit.width / 2 + respawnSidePadding, l + w - unit.width / 2 - respawnSidePadding)
     -- player respawn coords should not overlap with stoppers
-    unit.x = clamp(unit.x, self.leftStopper.x + self.leftStopper.width / 2 + unit.width / 2 + respawnSidePadding,
-        self.rightStopper.x - self.rightStopper.width / 2 - unit.width / 2 - respawnSidePadding)
+    unit.x = clamp(unit.x, self.leftStopper:getX() + self.leftStopper.width / 2 + unit.width / 2 + respawnSidePadding,
+        self.rightStopper:getX() - self.rightStopper.width / 2 - unit.width / 2 - respawnSidePadding)
     if unit:hasPlaceToStand(unit.x, unit.y, unit) then
         return unit.x, unit.y
     end
