@@ -185,8 +185,8 @@ local function loadBatch(items, stage)
                 local b = {
                     name = v2.name,
                     spawnDelay = tonumber(v2.properties.spawnDelay or 0),
-                    leftStopper = tonumber(r(v2.x) or 0),
-                    rightStopper = tonumber(r(v2.x + v2.width) or 4000),
+                    leftStopper_x = tonumber(r(v2.x) or 0),
+                    rightStopper_x = tonumber(r(v2.x + v2.width) or 4000),
                     music = v.properties.music,
                     units = loadUnit(v, v2.name),
                     onStart = v.properties.onStart,
@@ -203,10 +203,10 @@ local function loadBatch(items, stage)
             return false
         elseif not b then
             return true
-        elseif a.leftStopper == b.leftStopper then
-            return a.leftStopper > b.leftStopper
+        elseif a.leftStopper_x == b.leftStopper_x then
+            return a.leftStopper_x > b.leftStopper_x
         end
-        return a.leftStopper < b.leftStopper end )
+        return a.leftStopper_x < b.leftStopper_x end )
     return Batch:new(stage, batch)
 end
 

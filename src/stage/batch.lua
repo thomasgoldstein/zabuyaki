@@ -23,9 +23,8 @@ function Batch:load()
     end
     dp("load Batch #",n)
     local b = self.batches[n]
-    self.leftStopper = b.leftStopper or 0
-    self.rightStopper = b.rightStopper or 320
-
+    self.leftStopper_x = b.leftStopper_x or 0
+    self.rightStopper_x = b.rightStopper_x or 320
     for i = 1, #b.units do
         local u = b.units[i]
         u.isSpawned = false
@@ -47,31 +46,31 @@ end
 function Batch:spawn(dt)
     local b = self.batches[self.n]
     local center_x, playerGroupDistance, min_x, max_x = self.stage.center_x, self.stage.playerGroupDistance, self.stage.min_x, self.stage.max_x
-    local lx, rx = self.stage.leftStopper.x, self.stage.rightStopper.x    --current in the stage
-    if lx < self.leftStopper
-        and min_x > self.leftStopper + 320
+    local lx, rx = self.stage.leftStopper:getX(), self.stage.rightStopper:getX()    --current in the stage
+    if lx < self.leftStopper_x
+        and min_x > self.leftStopper_x + 320
     then
-        lx = self.leftStopper
+        lx = self.leftStopper_x
     end
-    if rx < self.rightStopper then
+    if rx < self.rightStopper_x then
         rx = rx + dt * 300 -- speed of the right Stopper movement > char's run
     end
-    if lx ~= self.stage.leftStopper.x or rx ~= self.stage.rightStopper.x then
+    if lx ~= self.stage.leftStopper:getX() or rx ~= self.stage.rightStopper:getX() then
         self.stage:moveStoppers(lx, rx)
     end
-    if max_x < self.leftStopper - 320 / 2 and not self.startTimer then
+    if max_x < self.leftStopper_x - 320 / 2 and not self.startTimer then
         return false  -- the left stopper's x is out of the current screen
     end
     self.startTimer = true
     self.time = self.time + dt
     if self.n > 1 then
         local bPrev = self.batches[self.n - 1]
-        if not bPrev.onLeaveStarted and min_x > bPrev.rightStopper then -- Last player passed the left bound of the batch
+        if not bPrev.onLeaveStarted and min_x > bPrev.rightStopper_x then -- Last player passed the left bound of the batch
             Event.startByName(_, bPrev.onLeave)
             bPrev.onLeaveStarted = true
         end
     end
-    if not b.onEnterStarted and max_x > b.leftStopper then -- The first player passed the left bound of the batch
+    if not b.onEnterStarted and max_x > b.leftStopper_x then -- The first player passed the left bound of the batch
         Event.startByName(_, b.onEnter)
         b.onEnterStarted = true
         self:startPlayingMusic()
