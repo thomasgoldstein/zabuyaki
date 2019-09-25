@@ -366,11 +366,12 @@ function Unit:ignoreCollisionAndMove(dt)
     else
         local stepx = self.speed_x * dt * self.horizontal
         local stepy = self.speed_y * dt * self.vertical
-        self.shape:moveTo(self.x + stepx, self.y + stepy)
+        --self.shape:moveTo(self.x + stepx, self.y + stepy)
+        self.x, self.y = self.x + stepx, self.y + stepy
     end
-    local cx,cy = self.shape:center()
-    self.x = cx
-    self.y = cy
+    --local cx,cy = self.shape:center()
+    --self.x = cx
+    --self.y = cy
 end
 
 function Unit:hasPlaceToStand(x, y)
