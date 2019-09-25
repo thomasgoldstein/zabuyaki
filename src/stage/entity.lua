@@ -82,10 +82,6 @@ end
 function Entity:draw(l,t,w,h)
     for _,obj in ipairs(self.entities) do
         obj:draw(l,t,w,h)
-        if isDebug() and obj.shape then
-            colors:set("lightBlue", nil, 50)
-            obj.shape:draw()
-        end
     end
 end
 
