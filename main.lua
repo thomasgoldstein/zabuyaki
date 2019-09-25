@@ -79,7 +79,6 @@ function love.load(arg)
     colors = (require "src/def/misc/colors"):new()
     inspect = require 'lib.debug.inspect'
     require "src/animatedSprite"
-    HC = require "lib/HC"
     tween = require "lib/tween"
     gamera = require "lib/gamera"
     Camera = require "src/stage/camera"
