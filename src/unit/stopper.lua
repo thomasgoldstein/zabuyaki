@@ -25,10 +25,7 @@ function Stopper:initialize(name, f)
 end
 
 function Stopper:moveTo(x, y)
-    if self.x ~= x + self.shift_x or y ~= self.y then
-        self.shape:moveTo(x + self.shift_x, y)
-        self.x, self.y = x + self.shift_x, y
-    end
+    self.x, self.y = x + self.shift_x, y
 end
 
 function Stopper:getX()

@@ -36,7 +36,6 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.pushBackOnHitSpeed = 65
     self.toSlowDown = true --used in :calcMovement
     self.isMovable = false --cannot be moved by attacks / can be grabbed
-    self.shape = nil
     self.state = "nop"
     self.lastStateTime = love.timer.getTime()
     self.prevState = "" -- text name
@@ -88,9 +87,6 @@ function Unit:initialize(name, sprite, x, y, f, input)
 end
 
 function Unit:setOnStage(stage)
-    if not self.shape then
-        self:addShape(self.saveShapeType, self.saveShapeArgs)   -- recreate shape
-    end
     stage.objects:add(self)
     self.shader = getShader(self.sprite.def.spriteName:lower(), self.palette)
     self.lifeBar = LifeBar:new(self)
@@ -99,38 +95,29 @@ end
 
 function Unit:addShape(shapeType, shapeArgs)
     shapeType, shapeArgs = shapeType or self.shapeType, shapeArgs or self.shapeArgs
-    if not self.shape then
-        if shapeType == "rectangle" then
-            self.shape = stage.world:rectangle(unpack(shapeArgs))
-            self.width = shapeArgs[3] or 1
-        elseif shapeType == "ellipse" then
-            self.shape = stage.world:circle(unpack(shapeArgs))
-            self.width = shapeArgs[3] * 2 or 1
-        elseif shapeType == "polygon" then
-            self.shape = stage.world:polygon(unpack(shapeArgs))
-            local xMin, xMax = shapeArgs[1], shapeArgs[1]
-            for i = 1, #shapeArgs, 2 do
-                local x = shapeArgs[i]
-                if x < xMin then
-                    xMin = x
-                end
-                if x > xMax then
-                    xMax = x
-                end
+    if shapeType == "rectangle" then
+        self.width = shapeArgs[3] or 1
+        self.depth = shapeArgs[4] or 1
+    elseif shapeType == "ellipse" then
+        self.width = shapeArgs[3] * 2 or 1
+        self.depth = shapeArgs[3] * 2 or 1
+    elseif shapeType == "polygon" then
+        local xMin, xMax = shapeArgs[1], shapeArgs[1]
+        for i = 1, #shapeArgs, 2 do
+            local x = shapeArgs[i]
+            if x < xMin then
+                xMin = x
             end
-            self.width = xMax - xMin
-        elseif shapeType == "point" then
-            self.shape = stage.world:point(unpack(shapeArgs))
-            self.width = 1
-        else
-            dp(self.name.."("..self.id.."): Unknown shape type -"..shapeType)
+            if x > xMax then
+                xMax = x
+            end
         end
-        if shapeArgs.rotate then
-            self.shape:rotate(shapeArgs.rotate)
-        end
-        self.shape.obj = self
+        self.width = xMax - xMin
+    elseif shapeType == "point" then
+        self.width = 1
+        self.depth = 1
     else
-        dp(self.name.."("..self.id..") has predefined shape")
+        dp(self.name.."("..self.id.."): Unknown shape type -"..shapeType)
     end
 end
 
@@ -230,7 +217,6 @@ function Unit:tweenMove(dt)
     local complete = true
     if self.move then
         complete = self.move:update(dt) --tweening
-        self.shape:moveTo(self.x, self.y)
     end
     return complete
 end
@@ -306,11 +292,9 @@ function Unit:checkCollisionAndMove(dt)
     local stepx, stepy = 0, 0
     if self.move then
         self.move:update(dt) --tweening
-        self.shape:moveTo(self.x, self.y)
     else
         stepx = self.speed_x * dt * self.horizontal
         stepy = self.speed_y * dt * self.vertical
-        self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
     if self.z <= self:getMinZ() then -- on platform or floor
 
@@ -327,11 +311,6 @@ function Unit:checkCollisionAndMove(dt)
                     end
                 end
             end
-        end
-        if success then
-            self.shape:moveTo(self.x, self.y)
-        else
-            self.shape:moveTo(self.x - stepx, self.y - stepy)
         end
     else -- in air
         self.x, self.y = self.x + stepx, self.y + stepy
@@ -350,11 +329,6 @@ function Unit:checkCollisionAndMove(dt)
                 end
             end
         end
-        if success then
-            self.shape:moveTo(self.x, self.y)
-        else
-            self.shape:moveTo(self.x - stepx, self.y - stepy)
-        end
     end
     return success
 end
@@ -362,16 +336,11 @@ end
 function Unit:ignoreCollisionAndMove(dt)
     if self.move then
         self.move:update(dt) --tweening
-        self.shape:moveTo(self.x, self.y)
     else
         local stepx = self.speed_x * dt * self.horizontal
         local stepy = self.speed_y * dt * self.vertical
-        --self.shape:moveTo(self.x + stepx, self.y + stepy)
         self.x, self.y = self.x + stepx, self.y + stepy
     end
-    --local cx,cy = self.shape:center()
-    --self.x = cx
-    --self.y = cy
 end
 
 function Unit:hasPlaceToStand(x, y)

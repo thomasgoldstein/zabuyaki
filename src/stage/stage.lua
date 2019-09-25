@@ -30,8 +30,6 @@ function Stage:initialize(name, mapFile, players)
     self.scrolling = {}
     self.time = 0
     self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
-    self.world = HC.new(40 * 4)
-    self.testShape = HC.rectangle(1, 1, 15, 5) -- to test collision
     self.objects = Entity:new()
     oldCoord_x, oldCoord_y = nil, nil -- smooth scrolling init
     self.zoom = maxZoom

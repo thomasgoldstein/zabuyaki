@@ -1137,11 +1137,6 @@ function Character:deadUpdate(dt)
     if self.deathDelay <= 0 then
         self.isDisabled = true
         self.isHittable = false
-        -- dont remove dead body from the stage for proper save/load
-        if self.shape then
-            stage.world:remove(self.shape)  --stage.world = global collision shapes pool
-            self.shape = nil
-        end
         self.y = GLOBAL_SETTING.OFFSCREEN
         return
     else
@@ -1689,7 +1684,6 @@ function Character:grabSwapUpdate(dt)
         self:setState(self.grab)
         return
     end
-    self.shape:moveTo(self.x, self.y)
     if self:canFall() then
         self:calcFreeFall(dt)
         if not self:canFall() then
