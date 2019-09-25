@@ -313,19 +313,26 @@ function Unit:checkCollisionAndMove(dt)
         self.shape:moveTo(self.x + stepx, self.y + stepy)
     end
     if self.z <= self:getMinZ() then -- on platform or floor
-        for other, separatingVector in pairs(stage.world:collisions(self.shape)) do
-            local o = other.obj
+
+        self.x, self.y = self.x + stepx, self.y + stepy
+        for _,o in ipairs(stage.objects.entities) do
             if (o.isObstacle and o.z <= 0 and o.hp > 0)
                 or (o.type == "stopper" and not self.canWalkTroughStoppers)
             then
-                self.shape:move(separatingVector.x, separatingVector.y)
-                if math.abs(separatingVector.y) > 1.5 or math.abs(separatingVector.x) > 1.5 then
-                    stepx, stepy = separatingVector.x, separatingVector.y
-                    success = false
+                local px, py = self:penetratesObject(o)
+                if px ~= 0 or py ~= 0 then
+                    self.x, self.y = self.x - px, self.y - py
+                    if math.abs(px) > 1.5 or math.abs(py) > 1.5 then
+                        success = false
+                    end
                 end
             end
         end
-        self.x, self.y = self.shape:center()
+        if success then
+            self.shape:moveTo(self.x, self.y)
+        else
+            self.shape:moveTo(self.x - stepx, self.y - stepy)
+        end
     else -- in air
         self.x, self.y = self.x + stepx, self.y + stepy
         for _,o in ipairs(stage.objects.entities) do
