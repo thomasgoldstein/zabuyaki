@@ -186,10 +186,10 @@ end
 function Event:drawReflection()
 end
 
-function Event:defaultDraw(l, t, w, h)
-    if not self.isDisabled then
-        colors:set("red", nil, 80)
-        love.graphics.rectangle("line", l + self.x - self.width/2, t + self.y - self.height/2, self.width, self.height)
+function Event:defaultDraw(l,t,w,h)
+    if not self.isDisabled and isDebug(SHOW_DEBUG_BOXES) and CheckCollision(l, t, w, h, self.x - self:getHurtBoxWidth() / 2, self.y - self:getHurtBoxDepth() / 2, self:getHurtBoxWidth(), self:getHurtBoxDepth()) then
+        colors:set("black", nil, 50)
+        love.graphics.rectangle("line", self.x - self:getHurtBoxWidth() / 2, self.y - self:getHurtBoxDepth() / 2, self:getHurtBoxWidth(), self:getHurtBoxDepth())
     end
 end
 

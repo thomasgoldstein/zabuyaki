@@ -47,13 +47,20 @@ end
 function Stopper:drawReflection(l,t,w,h)
 end
 
+function Stopper:defaultDraw(l,t,w,h)
+    if isDebug(SHOW_DEBUG_BOXES) and CheckCollision(l, t, w, h, self.x - self:getHurtBoxWidth() / 2, self.y - self:getHurtBoxHeight() / 2, self:getHurtBoxWidth(), self:getHurtBoxHeight()) then
+        colors:set("lightGray", nil, 50)
+        love.graphics.rectangle("line", self.x - self:getHurtBoxWidth() / 2, self.y - self:getHurtBoxHeight() / 2, self:getHurtBoxWidth(), self:getHurtBoxHeight())
+    end
+end
+
 function Stopper:updateAI(dt)
 end
 
 function Stopper:onHurt()
 end
 
-Stopper.stand = {name = "stand", start = nop, exit = nop, update = nop, draw = nop}
+Stopper.stand = {name = "stand", start = nop, exit = nop, update = nop, draw = Stopper.defaultDraw}
 
 function Stopper:getFace()
     return 1    -- stoppers and walls have no sprite face
