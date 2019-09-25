@@ -304,6 +304,73 @@ function watchDebugVariables()
     end
 end
 
+function startUnitHighlight(slf, text, color)
+    slf.debugHighlight = true
+    slf.debugHighlightText = text or "TEXT"
+    slf.debugHighlightColor = color or "lightBlue"
+end
+
+function stopUnitHighlight(slf)
+    slf.debugHighlight = false
+end
+
+function drawUnitHighlight(slf)
+    if slf.debugHighlight and slf.debugHighlightColor then
+        colors:set(slf.debugHighlightColor, nil, 75)
+        love.graphics.rectangle("fill", slf.x - slf:getHurtBoxWidth() * 1, slf.y - slf.z - slf:getHurtBoxHeight(), slf:getHurtBoxWidth() * 2, slf:getHurtBoxHeight() )
+        love.graphics.print( slf.debugHighlightText, slf.x + slf:getHurtBoxWidth() * 1, slf.y - slf.z - slf:getHurtBoxHeight())
+    end
+end
+
+function drawDebugUnitHurtBox(sprite, x, y, frame, scale)
+    if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
+        local scale = scale or 1
+        local hurtBox =  getSpriteHurtBox(sprite, frame)
+        if hurtBox then
+            colors:set("lightGray", nil, 150)
+            love.graphics.rectangle("line", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - (hurtBox.y + hurtBox.height / 2) * scale, hurtBox.width * scale, hurtBox.height * scale)
+            if sprite.isPlatform then
+                colors:set("green", nil, 50)
+                love.graphics.rectangle("fill", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - hurtBox.height - hurtBox.depth / 2 * scale, hurtBox.width * scale, hurtBox.depth * scale)
+            else
+                colors:set("black", nil, 50)
+                love.graphics.rectangle("fill", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - hurtBox.depth / 2 * scale, hurtBox.width * scale, hurtBox.depth * scale)
+            end
+        else
+            colors:set("red", nil, 150)
+            love.graphics.rectangle("line", x - 5, y - 5 - z, 10, 10 )
+        end
+    end
+end
+
+function drawDebugUnitInfo(a)
+    if isDebug(SHOW_DEBUG_UNIT_INFO) then
+        drawUnitHighlight(a)
+        love.graphics.setFont(gfx.font.debug)
+        if a.hp <= 0 then
+            colors:set("black", nil, 50)
+            love.graphics.print( a.name, a.x - 16 , a.y - 7 - a.z)
+        else
+            colors:set("black", nil, 120)
+            if a.id > GLOBAL_SETTING.MAX_PLAYERS then
+                drawDebugControls(a, a.x - 32, a.y - a:getHurtBoxHeight() - 20 - a.z)
+            end
+        end
+        love.graphics.print( a.state, a.x - 14, a.y - a.z)
+        love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7 - a.z)
+        local yShift1 = 0
+        colors:set("yellow", nil, 120)
+        love.graphics.line( a.x, a.y + yShift1, a.x + 10 * a.horizontal, a.y + yShift1 - a.z)
+        local yShift2 = 0
+        colors:set("purple", nil, 120)
+        love.graphics.line( a.x, a.y + yShift2, a.x + 8 * a.face, a.y + yShift2 - a.z)
+        if a.platform and not a.platform.isDisabled and ( getDebugFrame() + a.id ) % 5 == 1 then
+            colors:set("black", nil, 255)
+            love.graphics.line( a.x, a.y - a.z, a.platform.x, a.platform.y - a.platform.z)
+        end
+    end
+end
+
 local keysToKill = {f8 = 1, f9 = 2, f10 = 3, f7 = 0}
 function checkDebugKeys(key)
     if isDebug() then
@@ -368,73 +435,6 @@ function checkDebugKeys(key)
                     end
                 end
             end
-        end
-    end
-end
-
-function startUnitHighlight(slf, text, color)
-    slf.debugHighlight = true
-    slf.debugHighlightText = text or "TEXT"
-    slf.debugHighlightColor = color or "lightBlue"
-end
-
-function stopUnitHighlight(slf)
-    slf.debugHighlight = false
-end
-
-function drawUnitHighlight(slf)
-    if slf.debugHighlight and slf.debugHighlightColor then
-        colors:set(slf.debugHighlightColor, nil, 75)
-        love.graphics.rectangle("fill", slf.x - slf:getHurtBoxWidth() * 1, slf.y - slf.z - slf:getHurtBoxHeight(), slf:getHurtBoxWidth() * 2, slf:getHurtBoxHeight() )
-        love.graphics.print( slf.debugHighlightText, slf.x + slf:getHurtBoxWidth() * 1, slf.y - slf.z - slf:getHurtBoxHeight())
-    end
-end
-
-function drawDebugUnitHurtBox(sprite, x, y, frame, scale)
-    if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
-        local scale = scale or 1
-        local hurtBox =  getSpriteHurtBox(sprite, frame)
-        if hurtBox then
-            colors:set("lightGray", nil, 150)
-            love.graphics.rectangle("line", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - (hurtBox.y + hurtBox.height / 2) * scale, hurtBox.width * scale, hurtBox.height * scale)
-            if sprite.isPlatform then
-                colors:set("green", nil, 50)
-                love.graphics.rectangle("fill", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - hurtBox.height - hurtBox.depth / 2 * scale, hurtBox.width * scale, hurtBox.depth * scale)
-            else
-                colors:set("black", nil, 50)
-                love.graphics.rectangle("fill", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - hurtBox.depth / 2 * scale, hurtBox.width * scale, hurtBox.depth * scale)
-            end
-        else
-            colors:set("red", nil, 150)
-            love.graphics.rectangle("line", x - 5, y - 5 - z, 10, 10 )
-        end
-    end
-end
-
-function drawDebugUnitInfo(a)
-    if isDebug(SHOW_DEBUG_UNIT_INFO) then
-        drawUnitHighlight(a)
-        love.graphics.setFont(gfx.font.debug)
-        if a.hp <= 0 then
-            colors:set("black", nil, 50)
-            love.graphics.print( a.name, a.x - 16 , a.y - 7 - a.z)
-        else
-            colors:set("black", nil, 120)
-            if a.id > GLOBAL_SETTING.MAX_PLAYERS then
-                drawDebugControls(a, a.x - 32, a.y - a:getHurtBoxHeight() - 20 - a.z)
-            end
-        end
-        love.graphics.print( a.state, a.x - 14, a.y - a.z)
-        love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7 - a.z)
-        local yShift1 = 0
-        colors:set("yellow", nil, 120)
-        love.graphics.line( a.x, a.y + yShift1, a.x + 10 * a.horizontal, a.y + yShift1 - a.z)
-        local yShift2 = 0
-        colors:set("purple", nil, 120)
-        love.graphics.line( a.x, a.y + yShift2, a.x + 8 * a.face, a.y + yShift2 - a.z)
-        if a.platform and not a.platform.isDisabled and ( getDebugFrame() + a.id ) % 5 == 1 then
-            colors:set("black", nil, 255)
-            love.graphics.line( a.x, a.y - a.z, a.platform.x, a.platform.y - a.platform.z)
         end
     end
 end
