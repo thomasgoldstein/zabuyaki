@@ -256,6 +256,24 @@ function Unit:collidesWith(o)
     )
 end
 
+function Unit:penetratesObject(o)
+    if  self == o then
+        return 0, 0
+    end
+    local px, py = minkowskiDifference(
+        --ax, ay, aw, ah, bx, by, bw, bh
+        self.x + self:getFace() * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
+        self.y - self:getHurtBoxDepth() / 2,
+        self:getHurtBoxWidth(),
+        self:getHurtBoxDepth(),
+        o.x + o:getFace() * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+        o.y - o:getHurtBoxDepth() / 2,
+        o:getHurtBoxWidth(),
+        o:getHurtBoxDepth()
+    )
+    return px, py
+end
+
 function Unit:collidesByXYWith(o)
     return self ~= o and CheckCollision(
         o.x + o:getFace() * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
