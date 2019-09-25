@@ -90,6 +90,41 @@ function CheckPointCollision(x,y, x1,y1,w1,h1)
             y >= y1
 end
 
+function minkowskiDifference(ax, ay, aw, ah, bx, by, bw, bh)
+    local mx = ax - (bx + bw)
+    local my = ay - (by + bh)
+    local mw = aw + bw
+    local mh = ah + bh
+    if(mx <= 0 and (mx + mw) >= 0 and my <= 0 and (my + mh) >= 0) then
+        return calculatePenetration(mx, my, mw, mh)
+    end
+    return 0, 0
+end
+
+function calculatePenetration(mx, my, mw, mh)
+    local minDist = math.abs(mx)
+    local px, py = mx, 0
+    local dist = math.abs(mx + mw)
+    if(dist < minDist) then
+        minDist = dist
+        px = mx + mw
+        py = 0
+    end
+    dist = math.abs(my)
+    if(dist < minDist) then
+        minDist = dist
+        px = 0
+        py = my
+    end
+    dist = math.abs(my + mh)
+    if(dist < minDist) then
+        minDist = dist
+        px = 0
+        py = my + mh
+    end
+    return px, py
+end
+
 function dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
 
 function rand1()
