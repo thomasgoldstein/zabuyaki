@@ -5,7 +5,16 @@ function Event:initialize(name, sprite, x, y, f, input)
     Unit.initialize(self, name, sprite, x, y, f, input)
     self.type = "event"
     self.properties = f
+    self.width, self.depth = f.shapeArgs[3] or 10, f.shapeArgs[4] or 10
+    self.shift_x = 0
 end
+
+-- borrow dimension methods from Stopper class
+Event.getFace = Stopper.getFace
+Event.getHurtBoxX = Stopper.getHurtBoxX
+Event.getHurtBoxY = Stopper.getHurtBoxY
+Event.getHurtBoxWidth = Stopper.getHurtBoxWidth
+Event.getHurtBoxDepth = Stopper.getHurtBoxDepth
 
 function Event:setOnStage(stage)
     stage.objects:add(self)
@@ -110,7 +119,7 @@ function Event:updateAI(dt)
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local player = getRegisteredPlayer(i)
             if player and player:isAlive() then
-                if  statesToStartEvent[player.state] and self.shape:collidesWith(player.shape) then
+                if  statesToStartEvent[player.state] and self:collidesByXYWith(player) then
                     collidedPlayer[#collidedPlayer+1] = player
                     break
                 end
