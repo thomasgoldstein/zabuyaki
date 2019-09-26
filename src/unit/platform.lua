@@ -47,12 +47,13 @@ end
 
 function Platform:defaultDraw(l,t,w,h)
     if isDebug(SHOW_DEBUG_BOXES) and CheckCollision(l, t, w, h, self.x - self:getHurtBoxWidth() / 2, self.y - self:getHurtBoxDepth() / 2, self:getHurtBoxWidth(), self:getHurtBoxDepth()) then
-        colors:set("black", nil, 50)
+        colors:set("black", nil, 100)
         love.graphics.rectangle("line", self.x - self:getHurtBoxWidth() / 2, self.y - self:getHurtBoxDepth() / 2, self:getHurtBoxWidth(), self:getHurtBoxDepth())
-        colors:set("red", nil, 50)
+        colors:set("black", nil, 50)
         love.graphics.rectangle("fill", self.x - self:getHurtBoxWidth() / 2, self.y + self:getHurtBoxDepth() / 2 - self:getHurtBoxHeight(), self:getHurtBoxWidth(), self:getHurtBoxHeight())
-        colors:set("red", nil, 90)
+        colors:set("black", nil, 100)
         love.graphics.rectangle("fill", self.x - self:getHurtBoxWidth() / 2, self.y - self:getHurtBoxDepth() / 2 - self:getHurtBoxHeight(), self:getHurtBoxWidth(), self:getHurtBoxDepth())
+        love.graphics.rectangle("line", self.x - self:getHurtBoxWidth() / 2, self.y - self:getHurtBoxDepth() / 2 - self:getHurtBoxHeight(), self:getHurtBoxWidth(), self:getHurtBoxDepth())
     end
 end
 
