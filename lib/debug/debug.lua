@@ -322,23 +322,32 @@ function drawUnitHighlight(slf)
     end
 end
 
+function drawDebugUnitHurtBoxUnder(sprite, x, y, frame, scale)
+    if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
+        local scale = scale or 1
+        local hurtBox =  getSpriteHurtBox(sprite, frame)
+        if hurtBox then
+            if not sprite.isPlatform then
+                colors:set("green", nil, 150)
+                love.graphics.rectangle("line", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - hurtBox.depth / 2 * scale, hurtBox.width * scale, hurtBox.depth * scale)
+            end
+        else
+            colors:set("blue", nil, 150)
+            love.graphics.rectangle("line", x - 5, y - 5, 10, 10 )
+        end
+    end
+end
 function drawDebugUnitHurtBox(sprite, x, y, frame, scale)
     if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
         local scale = scale or 1
         local hurtBox =  getSpriteHurtBox(sprite, frame)
         if hurtBox then
+            if sprite.isPlatform then
+                colors:set("red", nil, 150)
+                love.graphics.rectangle("line", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - hurtBox.height - hurtBox.depth / 2 * scale, hurtBox.width * scale, hurtBox.depth * scale)
+            end
             colors:set("lightGray", nil, 150)
             love.graphics.rectangle("line", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - (hurtBox.y + hurtBox.height / 2) * scale, hurtBox.width * scale, hurtBox.height * scale)
-            if sprite.isPlatform then
-                colors:set("green", nil, 50)
-                love.graphics.rectangle("fill", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - hurtBox.height - hurtBox.depth / 2 * scale, hurtBox.width * scale, hurtBox.depth * scale)
-            else
-                colors:set("black", nil, 50)
-                love.graphics.rectangle("fill", x + (sprite.flipH * hurtBox.x - hurtBox.width / 2) * scale, y - hurtBox.depth / 2 * scale, hurtBox.width * scale, hurtBox.depth * scale)
-            end
-        else
-            colors:set("red", nil, 150)
-            love.graphics.rectangle("line", x - 5, y - 5 - z, 10, 10 )
         end
     end
 end

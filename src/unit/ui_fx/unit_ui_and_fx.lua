@@ -372,6 +372,7 @@ function Unit:defaultDraw(l, t, w, h, transp)
                     love.graphics.ellipse(self.chargeTimer >= self.chargedAt - self.chargedAt / 10 and "fill" or "line", self.x, self.y - self:getMinZ(), width, width / 2)
                 end
             end
+            drawDebugUnitHurtBoxUnder(self.sprite, self.x, self.y - self.z)
             colors:set(self.color, nil, transpBg)
             if self.shader then
                 love.graphics.setShader(self.shader)
