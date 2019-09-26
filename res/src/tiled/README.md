@@ -1,6 +1,6 @@
 # Editing Zabuyaki with Tiled #
 Download Tiled [Tiled Map Editor](http://www.mapeditor.org) or [GitHub](https://github.com/bjorn/tiled)
-Version 1.2.1
+Version 1.2.4
 
 ## Stages naming ##
 Default stage name template: **stageX_map.tmx**
@@ -25,8 +25,7 @@ Then press **Ok**. Now you should delete default **Tile Layer**.
 Go to the layers tab. Create **Object layer**. Rename it to "collision".
 Only the first "collision" layer will be used. All the rest object layers named "collision" will be ignored. 
 
-Now you can add collision objects into the game.
-The collision objects names optional.
+Now you can add collision objects into the game. The collision objects names are optional.
 
 To select / edit certain objects go to the **Objects** tab (at the right) and expand 
 the collision layer list.
@@ -34,6 +33,10 @@ the collision layer list.
 > Hint: Use menu **View / Object Types Editor** to set the colour of the walls (e.g. blue).
 
 > Hint: To pixel-wise positioning use the property window at the left. You can use up/down arrows near the coordinates properties 
+
+## Invisible platforms ##
+Add a wall as described in the collision objects. To transform the wall into a platform add custom property:
+* height <- set the platform height. 
 
 ## Vertical Camera Positioning ##
 Go to the layers tab. Create **Object layer**. Rename it to "camera".
