@@ -1,12 +1,12 @@
 -- Copyright (c) .2018 SineDie
 
 -- adjust DEBUG levels
-local SHOW_FPS = 1 -- show text of FPS, FRAME, SLOW MO VALUE from this debug level
-local SHOW_DEBUG_CONTROLS = 1 -- show pressed keys
-local SHOW_DEBUG_UNIT_HITBOX = 2 -- show hitboxes
-local SHOW_DEBUG_UNIT_INFO = 3 -- show unit's info: name, pos, state
-local SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
-local SHOW_DEBUG_BATCHES = 2 -- show left edge of the current batch with red and the next with blue
+SHOW_FPS = 1 -- show text of FPS, FRAME, SLOW MO VALUE from this debug level
+SHOW_DEBUG_CONTROLS = 1 -- show pressed keys
+SHOW_DEBUG_UNIT_HITBOX = 2 -- show hitboxes
+SHOW_DEBUG_UNIT_INFO = 3 -- show unit's info: name, pos, state
+SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
+SHOW_DEBUG_BATCHES = 2 -- show left edge of the current batch with red and the next with blue
 
 -- Load Profiler
 if GLOBAL_SETTING.PROFILER_ENABLED then
