@@ -393,8 +393,8 @@ function Character:checkForLoot()
     for _,o in ipairs(stage.objects.entities) do
         if o.type == "loot"
             and not o.isDisabled
-            and o:collidesWith(self)
             and self.z == o.z
+            and o:collidesByXYWith(self)
         then
             return o
         end
