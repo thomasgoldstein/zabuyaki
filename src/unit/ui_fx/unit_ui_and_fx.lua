@@ -381,6 +381,8 @@ function Unit:defaultDraw(l, t, w, h, transp)
             if self.shader then
                 love.graphics.setShader()
             end
+            colors:set("white")
+            self:drawSpriteOverlay(self.x + self.shake.x, self.y - self.z - self.shake.y)
             drawDebugUnitHurtBox(self.sprite, self.x, self.y - self.z)
             drawDebugUnitInfo(self)
         end
