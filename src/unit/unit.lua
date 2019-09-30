@@ -325,7 +325,10 @@ function Unit:checkCollisionAndMove(dt)
                         -- jump trough the obstacle
                     end
                 else
-                    success = false
+                    local px, py = self:penetratesObject(o)
+                    if px ~= 0 or py ~= 0 then
+                        self.x, self.y = self.x - px, self.y - py
+                    end
                 end
             end
         end
