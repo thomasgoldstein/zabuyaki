@@ -46,8 +46,8 @@ return {
           name = "back-city",
           visible = true,
           opacity = 1,
-          offsetx = -378,
-          offsety = -9,
+          offsetx = 113,
+          offsety = 99,
           properties = {
             ["relativeX"] = "0.9"
           },
@@ -71,8 +71,8 @@ return {
           name = "front-city",
           visible = true,
           opacity = 1,
-          offsetx = -378,
-          offsety = -9,
+          offsetx = 80,
+          offsety = 119,
           properties = {
             ["relativeX"] = "0.85"
           },

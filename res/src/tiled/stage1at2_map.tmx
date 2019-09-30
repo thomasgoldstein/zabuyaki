@@ -11,20 +11,20 @@
     <property name="relativeX" value="0.95"/>
    </properties>
   </imagelayer>
-  <group id="18" name="back-city" offsetx="-378" offsety="-9">
+  <group id="18" name="back-city" offsetx="113" offsety="99">
    <properties>
     <property name="relativeX" value="0.9"/>
    </properties>
    <imagelayer id="19" name="city">
-    <image source="../../img/stage/stage1/background-back-city.png" width="2560" height="320"/>
+    <image source="../../img/stage/stage1/background-back-city.png" width="346" height="72"/>
    </imagelayer>
   </group>
-  <group id="17" name="front-city" offsetx="-378" offsety="-9">
+  <group id="17" name="front-city" offsetx="80" offsety="119">
    <properties>
     <property name="relativeX" value="0.85"/>
    </properties>
    <imagelayer id="20" name="city">
-    <image source="../../img/stage/stage1/background-front-city.png" width="2560" height="320"/>
+    <image source="../../img/stage/stage1/background-front-city.png" width="379" height="50"/>
    </imagelayer>
   </group>
   <imagelayer id="9" name="bg" locked="1" offsetx="-2" offsety="-2">
