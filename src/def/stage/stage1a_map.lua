@@ -37,7 +37,7 @@ return {
           offsety = -2,
           image = "../../../res/img/stage/stage1/sky.png",
           properties = {
-            ["relativeX"] = "0.95"
+            ["relativeX"] = "0.97"
           }
         },
         {
@@ -49,7 +49,7 @@ return {
           offsetx = 113,
           offsety = 99,
           properties = {
-            ["relativeX"] = "0.9"
+            ["relativeX"] = "0.94"
           },
           layers = {
             {
@@ -74,7 +74,7 @@ return {
           offsetx = 80,
           offsety = 119,
           properties = {
-            ["relativeX"] = "0.85"
+            ["relativeX"] = "0.91"
           },
           layers = {
             {

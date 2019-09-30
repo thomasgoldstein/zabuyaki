@@ -8,12 +8,12 @@
   <imagelayer id="15" name="sky" offsetx="-2" offsety="-2">
    <image source="../../img/stage/stage1/sky.png" width="540" height="160"/>
    <properties>
-    <property name="relativeX" value="0.95"/>
+    <property name="relativeX" value="0.97"/>
    </properties>
   </imagelayer>
   <group id="18" name="back-city" offsetx="113" offsety="99">
    <properties>
-    <property name="relativeX" value="0.9"/>
+    <property name="relativeX" value="0.94"/>
    </properties>
    <imagelayer id="19" name="city">
     <image source="../../img/stage/stage1/background-back-city.png" width="346" height="72"/>
@@ -21,7 +21,7 @@
   </group>
   <group id="17" name="front-city" offsetx="80" offsety="119">
    <properties>
-    <property name="relativeX" value="0.85"/>
+    <property name="relativeX" value="0.91"/>
    </properties>
    <imagelayer id="20" name="city">
     <image source="../../img/stage/stage1/background-front-city.png" width="379" height="50"/>
