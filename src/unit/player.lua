@@ -47,10 +47,23 @@ end
 
 function Player:moveStatesApply()
     local t = self.grabContext.target
-    local save_x, save_y = t.x, t.y
     Unit.moveStatesApply(self)
-    if t:collidesWith(stage.leftStopper) or t:collidesWith(stage.rightStopper) then
-        t.x, t.y = save_x, save_y
+    local px, py = t:penetratesObject(stage.leftStopper)
+    if px ~= 0 or py ~= 0 then
+        if t.x <= stage.leftStopper.x then
+            px = -(stage.leftStopper.x - t.x + t:getHurtBoxWidth() / 2)
+        end
+        t.x, t.y = t.x - px, t.y - py
+        self.x, self.y = self.x - px, self.y - py -- move the grabber from the stopper along with the grabbed
+    else
+        px, py = t:penetratesObject(stage.rightStopper)
+        if px ~= 0 or py ~= 0 then
+            if t.x >= stage.rightStopper.x then
+                px = t.x - stage.rightStopper.x + t:getHurtBoxWidth() / 2
+            end
+            t.x, t.y = t.x - px, t.y - py
+            self.x, self.y = self.x - px, self.y - py -- move the grabber from the stopper along with the grabbed
+        end
     end
 end
 
