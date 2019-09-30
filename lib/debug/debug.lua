@@ -70,6 +70,11 @@ function log2file( name, data, newFile)
 end
 
 -- Debug console output
+function dd(typeThis)
+    local t = debug.getinfo (3)
+    print(t.name, typeThis) --type func name
+end
+
 function dp(...)
     if isDebug()then
         print(...)
