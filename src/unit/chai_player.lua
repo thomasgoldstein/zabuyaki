@@ -47,6 +47,10 @@ function Chai:initAttributes()
     self.comboSlideDiagonalSpeed4_y = 50 --diagonal vertical speed of combo4Forward attacks
     self.comboSlideRepel4 = self.comboSlideSpeed4_x --how much combo4Forward pushes units back
 
+    self.specialOffensiveJabRepel = 60 --how much a specialOffensive jab pushes units back
+    self.specialOffensiveFinisher1Repel = 100 --how much the specialOffensive finisher part 1/2 pushes units back
+    self.specialOffensiveFinisher2Repel = 150 --how much the specialOffensive finisher part 2/2 pushes units back
+
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed
     --    self.throwSpeedHorizontalMutliplier = 1.3 -- +30% for horizontal throws

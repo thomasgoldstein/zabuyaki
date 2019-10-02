@@ -142,15 +142,15 @@ local specialOffensiveShout = function(slf, cont)
     slf:playSfx(slf.sfx.jump)
 end
 local specialOffensiveUp = function(slf, cont) slf:checkAndAttack(
-    { x = 35, y = 39, width = 37, height = 30, damage = 4, repel_x = 60 },
+    { x = 35, y = 39, width = 37, height = 30, damage = 4, repel_x = slf.specialOffensiveJabRepel },
     cont
 ) end
 local specialOffensiveMiddle = function(slf, cont) slf:checkAndAttack(
-    { x = 35, y = 26, width = 37, height = 30, damage = 4, repel_x = 60 },
+    { x = 35, y = 26, width = 37, height = 30, damage = 4, repel_x = slf.specialOffensiveJabRepel },
     cont
 ) end
 local specialOffensiveDown = function(slf, cont) slf:checkAndAttack(
-    { x = 35, y = 13, width = 37, height = 30, damage = 4, repel_x = 60 },
+    { x = 35, y = 13, width = 37, height = 30, damage = 4, repel_x = slf.specialOffensiveJabRepel },
     cont
 ) end
 local specialOffensiveSpeedUp = function(slf, cont)
@@ -158,11 +158,11 @@ local specialOffensiveSpeedUp = function(slf, cont)
     slf.speed_x = slf.dashSpeed_x * 1.5
 end
 local specialOffensiveFinisher1 = function(slf, cont) slf:checkAndAttack(
-    { x = 15, y = 39, width = 50, height = 30, damage = 9 },
+    { x = 15, y = 39, width = 50, height = 30, damage = 9, repel_x = slf.specialOffensiveFinisher1Repel },
     cont
 ) end
 local specialOffensiveFinisher2 = function(slf, cont) slf:checkAndAttack(
-    { x = 15, y = 22, width = 50, height = 45, damage = 14, type = "knockDown" },
+    { x = 15, y = 22, width = 50, height = 45, damage = 14, repel_x = slf.specialOffensiveFinisher2Repel, type = "knockDown" },
     cont
 ) end
 local specialDash = function(slf, cont) slf:checkAndAttack(
