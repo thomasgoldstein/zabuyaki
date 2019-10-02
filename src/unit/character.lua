@@ -238,7 +238,7 @@ function Character:afterOnHurt()
                 self.speed_x = self.fallSpeed_x
             else
                 self.speed_x = h.repel_x + self.fallSpeedBoost_x
-                self.speed_x = h.repel_y
+                self.speed_y = h.repel_y
             end
         end
         if h.type == "knockDown" then
