@@ -185,10 +185,6 @@ function StageObject:fallStart()
     end
 end
 function StageObject:fallUpdate(dt)
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
     self:calcFreeFall(dt)
     if not self:canFall() then
         if self.speed_z < -100 and self.bounced < 1 then

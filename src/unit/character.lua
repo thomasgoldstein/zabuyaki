@@ -670,10 +670,6 @@ function Character:jumpFallUpdate(dt)
         self:setState(self.duck)
         return
     end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
 end
 function Character:jumpUpdate(dt)
     if self.b.attack:pressed() or self.duckAttackPressed then
@@ -849,10 +845,6 @@ function Character:dashAttackUpdate(dt)
         self:setState(self.stand)
         return
     end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
 end
 Character.dashAttack = {name = "dashAttack", start = Character.dashAttackStart, exit = nop, update = Character.dashAttackUpdate, draw = Character.defaultDraw}
 
@@ -886,10 +878,6 @@ function Character:jumpAttackForwardUpdate(dt)
         self:setState(self.duck)
         return
     end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
 end
 Character.jumpAttackForward = {name = "jumpAttackForward", start = Character.jumpAttackForwardStart, exit = nop, update = Character.jumpAttackForwardUpdate, draw = Character.defaultDraw}
 
@@ -909,10 +897,6 @@ function Character:jumpAttackLightUpdate(dt)
         self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
-    end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
     end
 end
 Character.jumpAttackLight = {name = "jumpAttackLight", start = Character.jumpAttackLightStart, exit = nop, update = Character.jumpAttackLightUpdate, draw = Character.defaultDraw}
@@ -960,10 +944,6 @@ function Character:jumpAttackRunUpdate(dt)
         self:setState(self.duck)
         return
     end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
 end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRunStart, exit = nop, update = Character.jumpAttackRunUpdate, draw = Character.defaultDraw}
 
@@ -982,10 +962,6 @@ function Character:fallStart()
     self.bounced = 0
 end
 function Character:fallUpdate(dt)
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
     self:calcFreeFall(dt)
     if self.isThrown and self.speed_z < 0 and self.z < self:getMinZ() + self.toFallenAnim_z then
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
@@ -1076,10 +1052,6 @@ function Character:bounceUpdate(dt)
             self:setState(self.getUp)
             return
         end
-    end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
     end
 end
 Character.bounce = {name = "bounce", start = Character.bounceStart, exit = nop, update = Character.bounceUpdate, draw = Character.defaultDraw }
@@ -1734,10 +1706,6 @@ function Character:chargeDashStart()
     self:showEffect("jumpStart")
 end
 function Character:chargeDashUpdate(dt)
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
     if self:canFall() then
         self:calcFreeFall(dt, self.chargeDashSpeedMultiplier_z)
         if self.speed_z > 0 then
@@ -1813,10 +1781,6 @@ function Character:knockedDownStart()
     end
 end
 function Character:knockedDownUpdate(dt)
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
     self.knockedDownDelay = self.knockedDownDelay - dt
     if self.knockedDownDelay <= 0 then
         self:setState(self.getUp)

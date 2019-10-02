@@ -95,10 +95,6 @@ function Chai:dashAttackUpdate(dt)
             return
         end
     end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
@@ -193,10 +189,6 @@ function Chai:specialOffensiveUpdate(dt)
     if self.sprite.curFrame > 1 and self.sprite.curAnim ~= "specialOffensive2" and self.b.attack:pressed() then
         self:setSprite("specialOffensive2")
     end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
 end
 Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
 
@@ -236,10 +228,6 @@ function Chai:specialDashUpdate(dt)
         self.particles.x = self.x
         self.particles.y = self.y
     end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
-    end
 end
 Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.fadeOutGhostTrails, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
 
@@ -259,10 +247,6 @@ function Chai:chargeDashAttackUpdate(dt)
         self:playSfx(self.sfx.step)
         self:setState(self.duck)
         return
-    end
-    if not self.successfullyMoved then
-        self.speed_x = 0
-        self.speed_y = 0
     end
 end
 Chai.chargeDashAttack = {name = "chargeDashAttack", start = Chai.chargeDashAttackStart, exit = nop, update = Chai.chargeDashAttackUpdate, draw = Character.defaultDraw}

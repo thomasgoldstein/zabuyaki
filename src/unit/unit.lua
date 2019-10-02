@@ -288,7 +288,6 @@ end
 
 local topEdgeTolerance = 0
 function Unit:checkCollisionAndMove(dt)
-    local success = true
     local stepx, stepy = 0, 0
     if self.move then
         self.move:update(dt) --tweening
@@ -297,7 +296,6 @@ function Unit:checkCollisionAndMove(dt)
         stepy = self.speed_y * dt * self.vertical
     end
     if self.z <= self:getMinZ() then -- on platform or floor
-
         self.x, self.y = self.x + stepx, self.y + stepy
         for _,o in ipairs(stage.objects.entities) do
             if (o.isObstacle and o.z <= 0 and o.hp > 0)
@@ -306,9 +304,6 @@ function Unit:checkCollisionAndMove(dt)
                 local px, py = self:penetratesObject(o)
                 if px ~= 0 or py ~= 0 then
                     self.x, self.y = self.x - px, self.y - py
-                    if math.abs(px) > 1.5 or math.abs(py) > 1.5 then
-                        success = false
-                    end
                 end
             end
         end
@@ -333,7 +328,6 @@ function Unit:checkCollisionAndMove(dt)
             end
         end
     end
-    return success
 end
 
 function Unit:ignoreCollisionAndMove(dt)
@@ -451,12 +445,10 @@ local ignoreObstacles = { combo = true, chargeAttack = true, eventMove = true }
 function Unit:calcMovement(dt)
     if not self.toSlowDown then
         if ignoreObstacles[self.state] then
-            self.successfullyMoved = self:ignoreCollisionAndMove(dt)
-        else
-            self.successfullyMoved = true
+            self:ignoreCollisionAndMove(dt)
         end
     else
-        self.successfullyMoved = self:checkCollisionAndMove(dt)
+        self:checkCollisionAndMove(dt)
     end
     if not self:canFall() then
         if self.toSlowDown then
