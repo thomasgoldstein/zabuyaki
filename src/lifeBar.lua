@@ -158,18 +158,20 @@ local function normalizeHp(curr, target, step)
 end
 
 function LifeBar:update(dt)
-    if self.lives > self.source.lives then
-        self.hp = normalizeHp(self.hp, 0)  -- TODO add a step according to dt
-        if self.hp <= 0 then
-            self.lives = self.source.lives
+    if self.lives > self.source.lives then --and self.hp <= 0 then
+        self.lives = self.source.lives
+        if self.source.lives == o then
+            self.oldHp = self.source.maxHp
+        else
+            self.oldHp = 100
         end
-    else
-        self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
-        if self.hp == self.source.hp then
-            self.oldHp = self.hp
-        elseif self.hp < self.source.hp then
-            self.oldHp = self.source.hp
-        end
+        self.hp = self.source.hp
+    end
+    self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
+    if self.hp == self.source.hp then
+        self.oldHp = self.hp
+    elseif self.hp < self.source.hp then
+        self.oldHp = self.source.hp
     end
     self.timer = self.timer - dt
 end
