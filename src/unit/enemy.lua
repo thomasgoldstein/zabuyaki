@@ -57,6 +57,7 @@ function Enemy:onAttacker(h)
         dp("  \\ SWITCHED to new target " .. h.source.name )
     end
     Character.onAttacker(self, h)
+    --print("DAMAGE ", damage, self.name, self.hp,"/", self:getMaxHp() , self.lives)
 end
 function Enemy:getMaxHp()
     if self.lives <= 1 then
@@ -68,7 +69,6 @@ function Enemy:decreaseHp(damage)
     self.hp = self.hp - damage
     while self.hp <= 0 do
         self.lives = self.lives - 1
-        print(" ", self.lives, self:getMaxHp())
         self.hp = self:getMaxHp() + self.hp
         if self.lives <= 0 then
             self.hp = 0
@@ -77,9 +77,6 @@ function Enemy:decreaseHp(damage)
                 self.func = nil
             end
             return
-        else
-            self.lifeBar.hp = self:getMaxHp() -- prevent green fill up
-            self.lifeBar.oldHp = self:getMaxHp()
         end
     end
 end
