@@ -335,7 +335,7 @@ function Player:respawnStart()
     self:setSprite("respawn")
     self.deathDelay = 3 --seconds to remove
     if not self.condition then
-        self.hp = self.maxHp
+        self.hp = self:getMaxHp()
     end
     self.bounced = 0
     self.speed_z = 0

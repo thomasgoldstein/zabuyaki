@@ -21,8 +21,9 @@ local barsCoords = {   --for players only 1..MAX_PLAYERS
 }
 
 local function calcBarWidth(self)
-    if self.maxHp < 100 and self.source.lives <= 1 then
-        return math.floor((self.maxHp * barWidth) / 100)
+    local maxHp = self.source:getMaxHp()
+    if maxHp < 100 then
+        return math.floor((maxHp * barWidth) / 100)
     end
     return barWidth
 end
@@ -45,7 +46,7 @@ function LifeBar:initialize(source)
     self.source:initFaceIcon(self)
     self.hp = 1
     self.oldHp = 1
-    self.maxHp = source.maxHp
+    self.maxHp = source:getMaxHp()
     self.lives = source.lives
     self.x, self.y = 0, 0
     if self.id <= MAX_PLAYERS then

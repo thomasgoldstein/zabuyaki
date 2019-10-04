@@ -105,7 +105,7 @@ end
 
 function Character:drawFaceIcon(l, t)
     local s = self.qa
-    local n = clamp(math.floor((#s - 1) - (#s - 1) * self.hp / self.maxHp) + 1,
+    local n = clamp(math.floor((#s - 1) - (#s - 1) * self.hp / self.source:getMaxHp() ) + 1,
         1, #s)
     love.graphics.draw(self.sprite,
         self.qa[n].q, --Current frame of the current animation

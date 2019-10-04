@@ -20,7 +20,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.deathDelay = 3 --seconds to remove
     self.lives = f.lives or self.lives or 0
     self.maxHp = f.hp or self.hp or 1
-    self.hp = self.maxHp
+    self.hp = self:getMaxHp()
     self.scoreBonus = f.score or self.scoreBonus or 0 --goes to your killer
     self.b = input or bindEnemyInput()
 
@@ -150,10 +150,14 @@ function Unit:getPrevStateTime()
     -- time from the previous to the last switching to current state
     return love.timer.getTime() - self.prevStateTime
 end
+function Unit:getMaxHp( )
+    return self.maxHp
+end
 function Unit:addHp(hp)
+    local maxHp = self:getMaxHp()
     self.hp = self.hp + hp
-    if self.hp > self.maxHp then
-        self.hp = self.maxHp
+    if self.hp > maxHp then
+        self.hp = maxHp
     end
 end
 function Unit:decreaseHp(damage)
@@ -467,7 +471,7 @@ function Unit:calcDamageFrame()
     -- HP max..0 / Frame 1..#max
     local spr = self.sprite
     local s = spr.def.animations[spr.curAnim]
-    local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self.maxHp)+1,
+    local n = clamp(math.floor((#s-1) - (#s-1) * self.hp / self:getMaxHp())+1,
         1, #s)
     return n
 end
