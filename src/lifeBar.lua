@@ -164,7 +164,7 @@ function LifeBar:update(dt)
     then
         self.lives = self.source.lives
         self.oldHp = self.source:getMaxHp()
-        self.hp = self.source:getMaxHp()
+        self.hp = self.oldHp
     end
     self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
     if self.hp == self.source.hp then
