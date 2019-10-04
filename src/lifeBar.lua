@@ -46,6 +46,7 @@ function LifeBar:initialize(source)
     self.hp = 1
     self.oldHp = 1
     self.maxHp = source.maxHp
+    self.lives = source.lives
     self.x, self.y = 0, 0
     if self.id <= MAX_PLAYERS then
         self.x, self.y = barsCoords[self.id].x, barsCoords[self.id].y
@@ -157,11 +158,18 @@ local function normalizeHp(curr, target, step)
 end
 
 function LifeBar:update(dt)
-    self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
-    if self.hp == self.source.hp then
-        self.oldHp = self.hp
-    elseif self.hp < self.source.hp then
-        self.oldHp = self.source.hp
+    if self.lives > self.source.lives then
+        self.hp = normalizeHp(self.hp, 0)  -- TODO add a step according to dt
+        if self.hp <= 0 then
+            self.lives = self.source.lives
+        end
+    else
+        self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
+        if self.hp == self.source.hp then
+            self.oldHp = self.hp
+        elseif self.hp < self.source.hp then
+            self.oldHp = self.source.hp
+        end
     end
     self.timer = self.timer - dt
 end
