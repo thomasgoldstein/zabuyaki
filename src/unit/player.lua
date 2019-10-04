@@ -336,6 +336,9 @@ function Player:respawnStart()
     self.deathDelay = 3 --seconds to remove
     if not self.condition then
         self.hp = self:getMaxHp()
+        if self.lifeBar then
+            self.lifeBar.lives = self.lives -- green hp filling up on player respawn
+        end
     end
     self.bounced = 0
     self.speed_z = 0
