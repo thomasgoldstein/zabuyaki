@@ -73,7 +73,6 @@ function LifeBar:setAttacker(attackerSource)
         getRegisteredPlayer(id).lifeBarTimer = LifeBar.DELAY
         return self
     end
-    return nil
 end
 
 function LifeBar:setPicker(picker)
