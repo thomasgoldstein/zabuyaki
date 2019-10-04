@@ -68,7 +68,7 @@ end
 
 function LifeBar:setAttacker(attackerSource)
     local id = self:getAttackerId(attackerSource)
-    if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then
+    if id <= MAX_PLAYERS and self.id > MAX_PLAYERS then -- player attacks enemies
         self.timer = LifeBar.DELAY
         getRegisteredPlayer(id).lifeBarTimer = LifeBar.DELAY
         return self
