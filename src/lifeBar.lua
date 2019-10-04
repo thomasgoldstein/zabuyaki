@@ -115,11 +115,11 @@ function LifeBar:drawLifebar(l, t, transpBg)
         else
             colors:set("barLosingColor", nil, transpBg)
         end
-        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self)  * self.oldHp / self.maxHp , barHeight - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.oldHp / self.source:getMaxHp() , barHeight - 6 )
     end
     if self.hp > 0 then
         colors:set("barNormColor", nil, transpBg)
-        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.hp / self.maxHp + 1, barHeight - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.hp / self.source:getMaxHp()  + 1, barHeight - 6 )
     end
     colors:set("white", nil, transpBg)
     love.graphics.draw (
@@ -159,14 +159,12 @@ local function normalizeHp(curr, target, step)
 end
 
 function LifeBar:update(dt)
-    if self.lives > self.source.lives then --and self.hp <= 0 then
+    if self.lives > self.source.lives
+        and self.source.lives > 0   -- enemies have different check for the last life
+    then
         self.lives = self.source.lives
-        if self.source.lives == o then
-            self.oldHp = self.source.maxHp
-        else
-            self.oldHp = 100
-        end
-        self.hp = self.source.hp
+        self.oldHp = self.source:getMaxHp()
+        self.hp = self.source:getMaxHp()
     end
     self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
     if self.hp == self.source.hp then
