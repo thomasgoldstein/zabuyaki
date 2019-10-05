@@ -106,14 +106,17 @@ function LifeBar:drawDeadCross(l, t, transpBg)
 end
 
 function LifeBar:drawLifebar(l, t, transpBg)
-    -- Normal lifeBar
     colors:set("barLostColor", nil, transpBg)
     slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) , barHeight - 6 )
     if self.oldHp > 0 then
-        if self.source.hp > self.hp then
-            colors:set("barGotColor", nil, transpBg)
-        else
+        if self.lives > self.source.lives then
             colors:set("barLosingColor", nil, transpBg)
+        else
+            if self.source.hp > self.hp then
+                colors:set("barGotColor", nil, transpBg)
+            else
+                colors:set("barLosingColor", nil, transpBg)
+            end
         end
         slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.oldHp / self.source:getMaxHp() , barHeight - 6 )
     end
@@ -162,15 +165,23 @@ function LifeBar:update(dt)
     if self.lives > self.source.lives
         and self.source.lives > 0   -- enemies have different check for the last life
     then
-        self.lives = self.source.lives
-        self.oldHp = self.source:getMaxHp()
-        self.hp = self.oldHp
-    end
-    self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
-    if self.hp == self.source.hp then
-        self.oldHp = self.hp
-    elseif self.hp < self.source.hp then
-        self.oldHp = self.source.hp
+        -- the bar goes down from the current pos to 0 (lost 1 life)
+        if self.hp == 0 then
+            -- to the normal bar again
+            self.lives = self.source.lives
+            self.oldHp = self.source:getMaxHp()
+            self.hp = self.oldHp
+        else
+            self.hp = normalizeHp(self.hp, 0)  -- TODO add a step according to dt
+        end
+    else
+        -- normal bar
+        self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
+        if self.hp == self.source.hp then
+            self.oldHp = self.hp
+        elseif self.hp < self.source.hp then
+            self.oldHp = self.source.hp
+        end
     end
     self.timer = self.timer - dt
 end
