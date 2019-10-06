@@ -72,7 +72,7 @@ function Enemy:decreaseHp(damage)
         self.hp = self:getMaxHp() + self.hp
         if self.lives <= 0 then
             self.hp = 0
-            self.lives = 0
+            self.lives = 1  -- 1 live + 0 hp == enemy's death
             if self.func then   -- custom function on death (item drop, etc)
                 self:func(self)
                 self.func = nil

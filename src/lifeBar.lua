@@ -162,20 +162,16 @@ local function normalizeHp(curr, target, step)
 end
 
 function LifeBar:update(dt)
-    if self.lives > self.source.lives then
+    if self.lives > self.source.lives and self.lives > 1 then
         -- the bar goes down from the current pos to 0 (lost 1 life)
         if self.hp == 0 then
-            -- to the normal bar again
-            if self.lives > 1 then  -- enemies last life has index 1, not 0
-                self.lives = self.lives - 1
-                self.oldHp = self.source:getMaxHp(self.lives)
-                self.maxHp = self.oldHp
-                self.hp = self.oldHp
-            end
+            -- setup values the normal bar on the next frame
+            self.lives = self.lives - 1
+            self.oldHp = self.source:getMaxHp(self.lives)
+            self.maxHp = self.oldHp
+            self.hp = self.oldHp
         else
-            -- decrease life meter 2x faster on losing life
             self.hp = normalizeHp(self.hp, 0)  -- TODO add a step according to dt
-            self.hp = normalizeHp(self.hp, 0)
         end
     else
         -- normal bar (when enemy has only 1 life)
