@@ -183,6 +183,8 @@ Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape 
 
 ## Optional units properties ##
 Optional properties:
+* hp <- override default hp
+* lives <- override default number of lives (default = 1)
 * spawnDelay <- delay before unit's appearance in seconds (float numbers are fine, too)
 * z <- start z coordinate(height)
 * state <- units state on spawn: intro (If set then the animation is set to 'intro' else the stand state is used).

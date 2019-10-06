@@ -75,6 +75,13 @@ local function applyBatchUnitProperties(v, batchUnit)
     if v.properties.z then
         batchUnit.unit.z = tonumber(v.properties.z)
     end
+    if v.properties.hp then
+        batchUnit.unit.maxHp = tonumber(v.properties.hp)
+        batchUnit.unit.hp = batchUnit.unit.maxHp
+    end
+    if v.properties.lives then
+        batchUnit.unit.lives = tonumber(v.properties.lives)
+    end
 end
 
 local function loadUnit(items, batchName)
