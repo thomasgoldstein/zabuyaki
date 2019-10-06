@@ -118,7 +118,7 @@ local calcBarTransparency = calcBarTransparency
 function Character:drawScore() end
 
 function Character:drawLivesLeftNumber()
-    return self.lives >= 1
+    return self.lifeBar.lives >= 1
 end
 
 function Character:drawTextInfo(l, t, transpBg)
@@ -131,11 +131,11 @@ function Character:drawTextInfo(l, t, transpBg)
         printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,
             transpBg)
         love.graphics.setFont(gfx.font.arcade3x2)
-        if self.lives > 10 then
+        if self.lifeBar.lives > 10 then
             printWithShadow("9+", l + self.shake.x + iconWidth + 100, t + 1,
                 transpBg)
         else
-            printWithShadow(self.lives - 1, l + self.shake.x + iconWidth + 100, t + 1,
+            printWithShadow(self.lifeBar.lives - 1, l + self.shake.x + iconWidth + 100, t + 1,
                 transpBg)
         end
     end

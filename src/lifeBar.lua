@@ -20,14 +20,6 @@ local barsCoords = {   --for players only 1..MAX_PLAYERS
     { x = horizontalMargin + barWidthWithLR * 2 + horizontalGap * 2, y = verticalMargin + 0 * verticalGap }
 }
 
-local function calcBarWidth(self)
-    local maxHp = self.source:getMaxHp()
-    if maxHp < 100 then
-        return math.floor((maxHp * barWidth) / 100)
-    end
-    return barWidth
-end
-
 local function slantedRectangle2(x, y, width, height)
     for i = 0, height-1, 2 do
         love.graphics.rectangle('fill', x-i/2, y+i, width , 2)
@@ -46,14 +38,22 @@ function LifeBar:initialize(source)
     self.source:initFaceIcon(self)
     self.hp = 1
     self.oldHp = 1
-    self.maxHp = source:getMaxHp()
     self.lives = source.lives
+    self.maxHp = source:getMaxHp()
     self.x, self.y = 0, 0
     if self.id <= MAX_PLAYERS then
         self.x, self.y = barsCoords[self.id].x, barsCoords[self.id].y
     end
     local _, _, w, _ = self.q:getViewport( )
     self.iconOffset_x = math.floor((38 - w)/2)
+end
+
+function LifeBar:calcBarWidth()
+    local maxHp = self.source:getMaxHp(self.lives)
+    if maxHp < 100 then
+        return math.floor((maxHp * barWidth) / 100)
+    end
+    return barWidth
 end
 
 function LifeBar:getAttackerId(attackerSource)
@@ -107,7 +107,7 @@ end
 
 function LifeBar:drawLifebar(l, t, transpBg)
     colors:set("barLostColor", nil, transpBg)
-    slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) , barHeight - 6 )
+    slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, self:calcBarWidth(), barHeight - 6 )
     if self.oldHp > 0 then
         if self.lives > self.source.lives then
             colors:set("barLosingColor", nil, transpBg)
@@ -118,17 +118,17 @@ function LifeBar:drawLifebar(l, t, transpBg)
                 colors:set("barLosingColor", nil, transpBg)
             end
         end
-        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.oldHp / self.source:getMaxHp() , barHeight - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, self:calcBarWidth() * self.oldHp / self.source:getMaxHp(self.lives) , barHeight - 6 )
     end
     if self.hp > 0 then
         colors:set("barNormColor", nil, transpBg)
-        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self) * self.hp / self.source:getMaxHp()  + 1, barHeight - 6 )
+        slantedRectangle2( l + self.x + 4, t + self.y + iconHeight + 6, self:calcBarWidth() * self.hp / self.source:getMaxHp(self.lives)  + 1, barHeight - 6 )
     end
     colors:set("white", nil, transpBg)
     love.graphics.draw (
         gfx.ui.middleSlant.sprite,
         gfx.ui.middleSlant.q,
-        l + self.x - 4 + 12, t + self.y + iconHeight + 3, 0, (calcBarWidth(self) - 12) / 4, 1
+        l + self.x - 4 + 12, t + self.y + iconHeight + 3, 0, (self:calcBarWidth() - 12) / 4, 1
     )
     love.graphics.draw (
         gfx.ui.leftSlant.sprite,
@@ -138,11 +138,11 @@ function LifeBar:drawLifebar(l, t, transpBg)
     love.graphics.draw (
         gfx.ui.rightSlant.sprite,
         gfx.ui.rightSlant.q,
-        l + self.x - 4 + calcBarWidth(self), t + self.y + iconHeight + 3
+        l + self.x - 4 + self:calcBarWidth(), t + self.y + iconHeight + 3
     )
     colors:set("barTopBottomSmoothColor", nil, math.min(255,transpBg) - 127)
-    love.graphics.rectangle('fill', l + self.x + 4, t + self.y + iconHeight + 6, calcBarWidth(self), 1)
-    love.graphics.rectangle('fill', l + self.x + 0, t + self.y + iconHeight + barHeight - 1, calcBarWidth(self), 1)
+    love.graphics.rectangle('fill', l + self.x + 4, t + self.y + iconHeight + 6, self:calcBarWidth(), 1)
+    love.graphics.rectangle('fill', l + self.x + 0, t + self.y + iconHeight + barHeight - 1, self:calcBarWidth(), 1)
 end
 
 function LifeBar:draw(l,t,w,h, characterSource)
@@ -162,20 +162,23 @@ local function normalizeHp(curr, target, step)
 end
 
 function LifeBar:update(dt)
-    if self.lives > self.source.lives
-        and self.source.lives > 0   -- enemies have different check for the last life
-    then
+    if self.lives > self.source.lives then
         -- the bar goes down from the current pos to 0 (lost 1 life)
         if self.hp == 0 then
             -- to the normal bar again
-            self.lives = self.source.lives
-            self.oldHp = self.source:getMaxHp()
-            self.hp = self.oldHp
+            if self.lives > 1 then  -- enemies last life has index 1, not 0
+                self.lives = self.lives - 1
+                self.oldHp = self.source:getMaxHp(self.lives)
+                self.maxHp = self.oldHp
+                self.hp = self.oldHp
+            end
         else
+            -- decrease life meter 2x faster on losing life
             self.hp = normalizeHp(self.hp, 0)  -- TODO add a step according to dt
+            self.hp = normalizeHp(self.hp, 0)
         end
     else
-        -- normal bar
+        -- normal bar (when enemy has only 1 life)
         self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
         if self.hp == self.source.hp then
             self.oldHp = self.hp

@@ -4,5 +4,5 @@
 local Enemy = Enemy
 
 function Enemy:drawLivesLeftNumber()
-    return self.lives > 1
+    return self.lifeBar.lives > 1
 end

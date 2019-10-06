@@ -59,8 +59,8 @@ function Enemy:onAttacker(h)
     Character.onAttacker(self, h)
     --print("DAMAGE ", damage, self.name, self.hp,"/", self:getMaxHp() , self.lives)
 end
-function Enemy:getMaxHp()
-    if self.lives <= 1 then
+function Enemy:getMaxHp(lives)
+    if (lives or self.lives) <= 1 then
         return self.maxHp
     end
     return 100
@@ -72,6 +72,7 @@ function Enemy:decreaseHp(damage)
         self.hp = self:getMaxHp() + self.hp
         if self.lives <= 0 then
             self.hp = 0
+            self.lives = 0
             if self.func then   -- custom function on death (item drop, etc)
                 self:func(self)
                 self.func = nil
