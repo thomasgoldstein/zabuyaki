@@ -121,7 +121,7 @@ function Character:drawLivesLeftNumber()
     return self.lives >= 1
 end
 
-function Character:drawTextInfo(l, t, transpBg, normColor)
+function Character:drawTextInfo(l, t, transpBg)
     colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transpBg)
