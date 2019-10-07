@@ -180,7 +180,7 @@ function LifeBar:update(dt)
             self.hp = self.oldHp
             self.timer = LifeBar.DELAY
             if self.source.killerId then
-                self.source.killerId.lifeBarTimer = LifeBar.OVERRIDE
+                self.source.killerId.lifeBarTimer = LifeBar.DELAY
             end
         else
             self.hp = self:normalizeHp(self.hp, 0)
