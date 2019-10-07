@@ -28,12 +28,15 @@ end
 
 LifeBar.DELAY = 3 -- seconds to show a victim's lifeBar
 LifeBar.OVERRIDE = 2.5 -- seconds to show a victim's lifeBar
+LifeBar.DEPLETING_STEP = 2 -- increase/decrease changed HP by this integer value (bigger = faster 1..10)
+LifeBar.DEPLETING_DELAY = 0.02 -- delay before increase/decrease of changed HP (in seconds)
 
 function LifeBar:initialize(source)
     self.source = source
     self.name = source.name
     self.pickUpNote = source.pickUpNote
     self.timer = LifeBar.DELAY
+    self.depletingTimer = 0
     self.id = self.source.id
     self.source:initFaceIcon(self)
     self.hp = 1
@@ -152,11 +155,16 @@ function LifeBar:draw(l,t,w,h, characterSource)
     self.source.drawBar(self, 0,0,w,h, characterSource)
 end
 
-local function normalizeHp(curr, target, step)
-    if curr > target then
-        return  curr - (step or 1)
-    elseif curr < target then
-        return curr + (step or 1)
+function LifeBar:normalizeHp(curr, target, step)
+    if self.depletingTimer < LifeBar.DEPLETING_DELAY then
+        return curr
+    end
+    for i = 1, LifeBar.DEPLETING_STEP do
+        if curr > target then
+            curr = curr - 1
+        elseif curr < target then
+            curr = curr + 1
+        end
     end
     return curr
 end
@@ -175,18 +183,25 @@ function LifeBar:update(dt)
                 self.source.killerId.lifeBarTimer = LifeBar.OVERRIDE
             end
         else
-            self.hp = normalizeHp(self.hp, 0)  -- TODO add a step according to dt
+            self.hp = self:normalizeHp(self.hp, 0)
         end
     else
         -- normal bar (when enemy has only 1 life)
-        self.hp = normalizeHp(self.hp, self.source.hp)  -- TODO add a step according to dt
+        self.hp = self:normalizeHp(self.hp, self.source.hp)
         if self.hp == self.source.hp then
             self.oldHp = self.hp
         elseif self.hp < self.source.hp then
             self.oldHp = self.source.hp
+            if self.source.killerId then
+                self.source.killerId.lifeBarTimer = LifeBar.DELAY
+            end
         end
     end
     self.timer = self.timer - dt
+    if self.depletingTimer >= LifeBar.DEPLETING_DELAY then
+        self.depletingTimer = 0
+    end
+    self.depletingTimer = self.depletingTimer + dt
 end
 
 return LifeBar
