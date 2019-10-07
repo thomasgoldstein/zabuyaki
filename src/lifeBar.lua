@@ -170,6 +170,10 @@ function LifeBar:update(dt)
             self.oldHp = self.source:getMaxHp(self.lives)
             self.maxHp = self.oldHp
             self.hp = self.oldHp
+            self.timer = LifeBar.DELAY
+            if self.source.killerId then
+                self.source.killerId.lifeBarTimer = LifeBar.OVERRIDE
+            end
         else
             self.hp = normalizeHp(self.hp, 0)  -- TODO add a step according to dt
         end
