@@ -296,7 +296,7 @@ function Character:checkAndAttack(f, isFuncCont)
     local damage, type = f.damage or 1, f.type or "hit"
     local repel_x = f.repel_x or self.speed_x
     local repel_y = f.repel_y or self.speed_y
-    local face = self.face
+    local horizontal = self.face
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
     local counter = 0
@@ -308,10 +308,10 @@ function Character:checkAndAttack(f, isFuncCont)
                 and o ~= self
                 and mainCamera:isVisible(o)
             then
-                o.isHurt = {source = self, state = self.state, damage = damage,
-                    type = type, repel_x = repel_x, repel_y = repel_y,
-                    horizontal = face, isThrown = false,
-                    z = self.z + y}
+                o.isHurt = { source = self, state = self.state, damage = damage,
+                             type = type, repel_x = repel_x, repel_y = repel_y,
+                             horizontal = horizontal, isThrown = false,
+                             z = self.z + y}
                 counter = counter + 1
             end
         end
@@ -327,7 +327,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 o:getHurtBoxWidth(),
                 o:getHurtBoxHeight(),
                 o:getHurtBoxDepth(),
-                self.x + face * x - w / 2,
+                self.x + horizontal * x - w / 2,
                 self.z - (y + h / 2),
                 self.y - d / 2,
                 w, h, d)
@@ -348,7 +348,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 o:getHurtBoxWidth(),
                 o:getHurtBoxHeight(),
                 o:getHurtBoxDepth(),
-                self.x + face * x - w / 2,
+                self.x + horizontal * x - w / 2,
                 self.z - (y + h / 2),
                 self.y - d / 2,
                  w, h, d)
@@ -360,11 +360,11 @@ function Character:checkAndAttack(f, isFuncCont)
                         z = self.z + y
                     }
                 else
-                    o.isHurt = {source = self, state = self.state, damage = damage,
-                        type = type, repel_x = repel_x, repel_y = repel_y,
-                        horizontal = face, vertical = self.vertical, isThrown = false,
-                        continuous = isFuncCont,
-                        z = self.z + y
+                    o.isHurt = { source = self, state = self.state, damage = damage,
+                                 type = type, repel_x = repel_x, repel_y = repel_y,
+                                 horizontal = horizontal, vertical = self.vertical, isThrown = false,
+                                 continuous = isFuncCont,
+                                 z = self.z + y
                     }
                 end
                 counter = counter + 1
@@ -385,7 +385,7 @@ function Character:checkAndAttack(f, isFuncCont)
         end
     end
     if isDebug() then
-        attackHitBoxes[#attackHitBoxes+1] = {x = self.x, sx = face * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = counter > 0 }
+        attackHitBoxes[#attackHitBoxes+1] = { x = self.x, sx = horizontal * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = counter > 0 }
     end
 end
 
