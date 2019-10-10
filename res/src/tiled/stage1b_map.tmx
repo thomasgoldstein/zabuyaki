@@ -2,7 +2,7 @@
 <map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="left-up" width="40" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="10" nextobjectid="17">
  <group id="8" name="background" locked="1">
   <imagelayer id="9" name="bg" locked="1">
-   <image source="../../img/stage/stage1/old/stage1b.png" width="1280" height="320"/>
+   <image source="../../img/stage/stage1/stage1b.png" width="1280" height="320"/>
   </imagelayer>
  </group>
  <objectgroup color="#aa0000" id="7" name="camera" locked="1">
