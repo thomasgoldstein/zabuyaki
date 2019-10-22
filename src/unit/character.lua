@@ -1637,11 +1637,11 @@ function Character:grabSwapUpdate(dt)
             self.sprite.curFrame = 1
             if self.isGrabSwapFlipped then
                 if math.abs( self.x - self.grabSwap_x ) > self.grabSwapGoal / 2 then
-                    self.sprite.curFrame = 2
+                    self.sprite.curFrame = self.sprite.maxFrame
                 end
             else
                 if math.abs( self.x - self.grabSwap_x ) < self.grabSwapGoal / 2 then
-                    self.sprite.curFrame = 2
+                    self.sprite.curFrame = self.sprite.maxFrame
                 end
             end
         end
@@ -1649,7 +1649,9 @@ function Character:grabSwapUpdate(dt)
             self.isGrabSwapFlipped = true
             self.face = -self.face
             self.horizontal = -self.horizontal
-            g.target:setSprite(g.target.sprite.curAnim == "grabbedFront" and "grabbedBack" or "grabbedFront")
+            if g.target.sprite.curAnim == "grabbedFront" or g.target.sprite.curAnim == "grabbedBack" then
+                g.target:setSprite(g.target.sprite.curAnim == "grabbedFront" and "grabbedBack" or "grabbedFront")
+            end
         end
         g.target.sprite.curFrame = (self.sprite.curFrame == 1 and 2 or 1)
     else
