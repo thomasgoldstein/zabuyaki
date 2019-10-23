@@ -657,6 +657,28 @@ return {
             { q = q(138,1848,40,64), ox = 18, oy = 63 }, --combo forward 2.4
             delay = 0.03
         },
+        grabBackAttack = {
+            { q = q(2,273,39,60), ox = 18, oy = 59, delay = 0.06 }, --duck
+            { q = q(43,266,39,67), ox = 24, oy = 74, delay = 0.1 }, --jump up
+            { q = q(2,2319,69,57), ox = 27, oy = 78, delay = 0.13 }, --back throw 1
+            { q = q(73,2329,52,47), ox = 10, oy = 68 }, --back throw 2
+            { q = q(127,2328,46,48), ox = 6, oy = 47 }, --back throw 3
+            { q = q(175,2310,54,66), ox = 12, oy = 65, func = grabFrontAttackBack }, --back throw 4
+            { q = q(2,2378,70,43), ox = 28, oy = 42, delay = 0.05 }, --back throw 5a
+            { q = q(74,2382,69,39), ox = 27, oy = 38, delay = 0.23 }, --back throw 5b
+            { q = q(43,404,39,58), ox = 23, oy = 57, delay = 0.15 }, --pick up 2
+            { q = q(2,401,39,61), ox = 23, oy = 60, delay = 0.05 }, --pick up 1
+            delay = 0.08,
+            isThrow = true,
+            moves = {
+                --{ },
+                { oz = 1, tFrame = 1 },
+                { oz = 4 },
+                { oz = 14, ox = 2, tFrame = 3 },
+                { oz = 13, ox = -32, tFrame = 4 },
+                { oz = 0, ox = -48, tFrame = 5, tFace = -1 } --oz = 0,
+            }
+        },
         hurtHighWeak = {
             { q = q(2,335,48,64), ox = 29, oy = 63 }, --hurt high 1
             { q = q(52,335,50,64), ox = 32, oy = 63, delay = 0.2 }, --hurt high 2
