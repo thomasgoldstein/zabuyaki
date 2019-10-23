@@ -122,7 +122,7 @@ function Player:updateAI(dt)
                         return
                     end
                     if self.moves.specialDefensive and self.statesForSpecialDefensive[self.state]
-                        and not (self.grabContext and (self.grabContext.source or self.grabContext.target ))
+                        and not (self.grabContext and self.grabContext.source and self.grabContext.source.state == "grabSwap" )
                     then
                         self:releaseGrabbed()
                         self:setState(self.specialDefensive)
