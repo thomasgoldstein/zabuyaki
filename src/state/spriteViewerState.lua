@@ -199,6 +199,7 @@ function spriteViewerState:update(dt)
     self:playerInput(Controls[1])
 end
 
+local function delayToFrames(n) return n <= 1/60 and 1 or math.ceil(n * 60) end
 function spriteViewerState:draw()
     push:start()
     displayHelp()
@@ -219,9 +220,9 @@ function spriteViewerState:draw()
             m.item = "FRAME #"..m.n.." of "..#sprite.def.animations[sprite.curAnim]
             m.hint = ""
             if s[m.n].delay then
-                m.hint = m.hint .. "FR.DELAY "..s[m.n].delay.." "
+                m.hint = m.hint .. "FR.DELAY "..s[m.n].delay.."s " .. delayToFrames(s[m.n].delay) .. "fr "
             elseif s.delay then
-                m.hint = m.hint .. "DELAY "..s.delay.." "
+                m.hint = m.hint .. "DELAY "..s.delay.."s " .. delayToFrames(s.delay) .. "fr "
             end
             if s.loop then
                 m.hint = m.hint .. "LOOP "
