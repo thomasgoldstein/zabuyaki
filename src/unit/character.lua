@@ -1197,7 +1197,7 @@ function Character:doGrab(target, inAir)
         return false
     end
     --the grabbed
-    target:releaseGrabbed()	-- your grab targed releases one it grabs
+    target:releaseGrabbed()	-- your grab target releases one it grabs
     gTarget.source = self
     gTarget.target = nil
     target.isGrabbed = true
