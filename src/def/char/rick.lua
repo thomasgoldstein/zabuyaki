@@ -4,7 +4,6 @@ local imageWidth,imageHeight = loadSpriteSheet(spriteSheet)
 local function q(x,y,w,h)
     return love.graphics.newQuad(x, y, w, h, imageWidth, imageHeight)
 end
-local function f(n) return n / 60 - 0.001 end -- converts frames -> seconds. Usage: delay = f(4)
 local stepFx = function(slf, cont)
     slf:showEffect("step")
     if stage.weather == "rain" then
