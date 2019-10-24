@@ -1594,7 +1594,7 @@ Character.grabFrontAttackBack = {name = "grabFrontAttackBack", start = Character
 
 local grabSwapFrames = { 1, 2, 2, 1 }
 function Character:grabSwapStart()
-    self.isHittable = false
+    self.isHittable = true
     self.toSlowDown = false
     self:setSprite("grabSwap")
     local g = self.grabContext
