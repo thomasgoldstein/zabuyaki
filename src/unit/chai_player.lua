@@ -102,6 +102,29 @@ function Chai:dashAttackUpdate(dt)
 end
 Chai.dashAttack = {name = "dashAttack", start = Chai.dashAttackStart, exit = nop, update = Chai.dashAttackUpdate, draw = Character.defaultDraw }
 
+function Chai:grabBackAttackStart()
+    local g = self.grabContext
+    local t = g.target
+    self:initGrabTimer()
+    self:moveStatesInit()
+    self:setSprite("grabBackAttack")
+    self.isHittable = not self.sprite.isThrow
+    t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
+    self:playSfx(self.sfx.throw)
+end
+function Chai:grabBackAttackUpdate(dt)
+    local g = self.grabContext
+    local t = g.target
+    if g and t and t.state ~= "bounce" then
+        self:moveStatesApply()
+    end
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+end
+Chai.grabBackAttack = {name = "grabBackAttack", start = Chai.grabBackAttackStart, exit = nop, update = Chai.grabBackAttackUpdate, draw = Character.defaultDraw}
+
 function Chai:grabFrontAttackForwardStart()
     local g = self.grabContext
     local t = g.target
