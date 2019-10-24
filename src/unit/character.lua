@@ -1653,7 +1653,7 @@ function Character:grabSwapUpdate(dt)
                 g.target:setSprite(g.target.sprite.curAnim == "grabbedFront" and "grabbedBack" or "grabbedFront")
             end
         end
-        g.target.sprite.curFrame = (self.sprite.curFrame == 1 and 2 or 1)
+        g.target.sprite.curFrame = (self.sprite.curFrame == 1 and self.sprite.maxFrame or 1)
     else
         self:setState(self.grab)
         return
