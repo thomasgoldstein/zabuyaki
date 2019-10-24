@@ -1659,6 +1659,7 @@ function Character:grabSwapUpdate(dt)
         return
     end
     if self:canFall() then
+        self:releaseGrabbed()
         self:calcFreeFall(dt)
         if not self:canFall() then
             self.speed_z = 0
