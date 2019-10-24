@@ -1655,7 +1655,11 @@ function Character:grabSwapUpdate(dt)
         end
         g.target.sprite.curFrame = (self.sprite.curFrame == 1 and self.sprite.maxFrame or 1)
     else
-        self:setState(self.grab)
+        if g.target then
+            self:setState(self.grab)
+        else
+            self:setState(self.stand)
+        end
         return
     end
     if self:canFall() then
