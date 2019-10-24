@@ -7,9 +7,7 @@ local function nop() end
 StageObject.checkAndAttack = Character.checkAndAttack
 StageObject.afterOnHurt = Character.afterOnHurt
 StageObject.releaseGrabbed = Character.releaseGrabbed
-StageObject.grabbed = {name = "grabbed", start = Character.grabbedStart, exit = nop, update = nop, draw = StageObject.defaultDraw}
 StageObject.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedUpdate, draw = StageObject.defaultDraw}
-StageObject.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedUpdate, draw = StageObject.defaultDraw}
 StageObject.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = StageObject.defaultDraw}
 StageObject.knockedDown = {name = "knockedDown", start = Character.knockedDownStart, exit = nop, update = Character.knockedDownUpdate, draw = StageObject.defaultDraw}
 
@@ -132,7 +130,7 @@ function StageObject:standStart()
 end
 function StageObject:standUpdate(dt)
     if self.isGrabbed then
-        self:setState(self.grabbed)
+        self:setState(self.grabbedFront)
         return
     end
     if self:canFall() then

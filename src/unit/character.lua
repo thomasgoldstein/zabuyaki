@@ -806,7 +806,7 @@ function Character:hurtUpdate(dt)
             return
         end
         if self.isGrabbed then
-            self:setState(self.grabbed)
+            self:setState(self.grabbedFront)
         else
             self:setState(self.stand)
         end
@@ -1207,7 +1207,7 @@ function Character:doGrab(target, inAir)
     g.target = target
     g.canGrabSwap = true   --can do 1 grabSwap
     self:setState(self.grab)
-    target:setState(target.grabbed)
+    target:setState(target.grabbedFront)
     self:initGrabTimer()
     return true
 end
@@ -1371,17 +1371,6 @@ function Character:releaseGrabbed()
     return false
 end
 
-function Character:grabbedStart()
-    local g = self.grabContext
-    self.victims[g.source] = true -- make the grabber immune to grabbed's attacks
-    if g.source.face ~= self.face then
-        self:setState(self.grabbedFront)
-    else
-        self:setState(self.grabbedBack)
-    end
-end
-Character.grabbed = {name = "grabbed", start = Character.grabbedStart, exit = nop, update = nop, draw = Character.defaultDraw}
-
 function Character:grabbedUpdate(dt)
     local g = self.grabContext
     if not self.isGrabbed or g.grabTimer <= 0 then
@@ -1412,18 +1401,16 @@ function Character:grabbedUpdate(dt)
         end
     end
 end
-
 function Character:grabbedFrontStart()
+    local g = self.grabContext
+    self.victims[g.source] = true -- make the grabber immune to grabbed's attacks
     self.isHittable = true
     self.isSpriteSet = false
+    if g.source.face == self.face then
+        self.state = "grabbedBack"  -- do not use setState to keep  the prev states and timers
+    end
 end
 Character.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
-
-function Character:grabbedBackStart()
-    self.isHittable = true
-    self.isSpriteSet = false
-end
-Character.grabbedBack = {name = "grabbedBack", start = Character.grabbedBackStart, exit = nop, update = Character.grabbedUpdate, draw = Character.defaultDraw}
 
 function Character:initGrabTimer()
     local g = self.grabContext
