@@ -425,12 +425,12 @@ function Character:standStart()
     end
     self.z = self:getMinZ()
     if self.sprite.curAnim == "walk" or self.sprite.curAnim == "chargeWalk" then
-        self.nextAnlmationDelay = 0.12
+        self.nextAnimationDelay = 0.12
     else
         if not self.sprite.curAnim then
             self:setSprite("stand")
         end
-        self.nextAnlmationDelay = 0.0
+        self.nextAnimationDelay = 0.0
     end
     self:disableGhostTrails()
     self:removeTweenMove()
@@ -442,8 +442,8 @@ function Character:standUpdate(dt)
         self:setState(self.dropDown)
         return
     end
-    self.nextAnlmationDelay = self.nextAnlmationDelay - dt
-    if self.nextAnlmationDelay <= 0 then
+    self.nextAnimationDelay = self.nextAnimationDelay - dt
+    if self.nextAnimationDelay <= 0 then
         if spriteHasAnimation(self.sprite, "chargeStand") and self:canMove() and self.b.attack:isDown() then
             self:setSpriteIfNotCurrent("chargeStand")
         elseif self.sprite.curAnim ~= "stand" then
@@ -591,7 +591,7 @@ Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update
 
 function Character:runStart()
     self.isHittable = true
-    self.nextAnlmationDelay = 0.01
+    self.nextAnimationDelay = 0.01
 end
 function Character:runUpdate(dt)
     if self:getMinZ() < self.z then
@@ -600,9 +600,9 @@ function Character:runUpdate(dt)
     end
     self.speed_x = 0
     self.speed_y = 0
-    self.nextAnlmationDelay = self.nextAnlmationDelay - dt
+    self.nextAnimationDelay = self.nextAnimationDelay - dt
     if self.sprite.curAnim ~= "run"
-            and self.nextAnlmationDelay <= 0 then
+            and self.nextAnimationDelay <= 0 then
         self:setSprite("run")
     end
     local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
