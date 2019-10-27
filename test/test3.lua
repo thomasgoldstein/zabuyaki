@@ -51,7 +51,7 @@ describe("animatedSprite.lua Functions", function()
         expect(w2).to.equal(45)
     end)
     describe("Function updateSpriteInstance(dt)", function()
-        it(" Not looped animation", function()
+        it("Not looped animation", function()
             --print(0, sprite.curAnim, sprite.curFrame, sprite.isFirst, sprite.isLast, sprite.isFinished, sprite.elapsedTime)
             for i=1, 10 do
                 updateSpriteInstance(sprite, dt, nil)
