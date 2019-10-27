@@ -146,6 +146,7 @@ function optionsState:confirm( x, y, button, istouch )
             require "test.common_test"
             require "test.test1"
             require "test.test2"
+            require "test.test3"
             cleanUpAfterTests()
             return false
 
