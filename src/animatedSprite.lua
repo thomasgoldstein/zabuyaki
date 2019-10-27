@@ -225,7 +225,9 @@ function updateSpriteInstance(spr, dt, slf)
         spr.funcContCalledOnFrame = spr.curFrame -- do not move before funcCont call
     end
     --Increment the internal counter.
-    spr.elapsedTime = spr.elapsedTime + dt
+    if dt > 0 then
+        spr.elapsedTime = spr.elapsedTime + dt + 0.001
+    end
     --We check we need to change the current frame.
     if spr.elapsedTime > sc.delay * spr.timeScale then
         --Check if we are at the last frame.
