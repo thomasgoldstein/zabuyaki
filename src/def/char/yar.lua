@@ -66,9 +66,11 @@ return {
         },
         sideStepUp = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
+            delay = math.huge
         },
         sideStepDown = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
+            delay = math.huge
         },
         jump = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1

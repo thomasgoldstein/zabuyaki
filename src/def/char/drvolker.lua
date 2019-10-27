@@ -50,9 +50,11 @@ return {
         },
         sideStepUp = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            delay = math.huge
         },
         sideStepDown = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            delay = math.huge
         },
         jump = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
