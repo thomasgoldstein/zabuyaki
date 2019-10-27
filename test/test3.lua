@@ -1,6 +1,7 @@
 -- Copyright (c) .2018 SineDie
 local lust = require 'lib.test.lust.lust'
 local describe, it, expect = lust.describe, lust.it, lust.expect
+local dt = 1/60
 
 describe("animatedSprite Functions", function()
     lust.before(function()
@@ -48,5 +49,30 @@ describe("animatedSprite Functions", function()
         expect(h1).to.equal(63)
         expect(x2).to.equal(2)
         expect(w2).to.equal(45)
+    end)
+    it("Function updateSpriteInstance(dt) not looped animation", function()
+        --print(0, sprite.curAnim, sprite.curFrame, sprite.isFirst, sprite.isLast, sprite.isFinished, sprite.elapsedTime)
+        for i=1, 10 do
+            updateSpriteInstance(sprite, dt, nil)
+            --print(i, sprite.curAnim, sprite.curFrame, sprite.isFirst, sprite.isLast, sprite.isFinished, sprite.elapsedTime)
+            if i <= 3 then
+                expect(sprite.curFrame).to.equal(1)
+                expect(sprite.isFirst).to.equal(true)
+                expect(sprite.isFirst).to.equal(true)
+                expect(sprite.isLast).to_not.equal(true)
+                expect(sprite.isFinished).to_not.equal(true)
+            end
+            if i >= 4 then
+                expect(sprite.curFrame).to.equal(2)
+                expect(sprite.isFirst).to_not.equal(true)
+                expect(sprite.isLast).to.equal(true)
+            end
+            if i == 5 then
+                expect(sprite.isFinished).to.equal(true)
+            end
+            if sprite.isFinished then
+                break
+            end
+        end
     end)
 end)
