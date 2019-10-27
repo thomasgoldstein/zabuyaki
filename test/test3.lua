@@ -101,31 +101,35 @@ describe("animatedSprite.lua Functions", function()
             expect(sprite.isLast).to_not.equal(true)
             expect(sprite.isFinished).to_not.equal(true)
         end)
-        it("Looped animation", function()
-            setSpriteAnimation(sprite, "stand")
-            --print(0, sprite.curAnim, sprite.curFrame, sprite.isFirst, sprite.isLast, sprite.isFinished, sprite.elapsedTime)
-            updateSpriteInstance(sprite, dt, nil)
-            --print(1, sprite.curAnim, sprite.curFrame, sprite.isFirst, sprite.isLast, sprite.isFinished, sprite.elapsedTime)
-            expect(sprite.isLoopFrom).to.equal(true)
-            expect(sprite.curFrame).to.equal(1)
-            expect(sprite.isFirst).to.equal(true)
-            expect(sprite.isLast).to_not.equal(true)
-            expect(sprite.isFinished).to_not.equal(true)
-            sprite.curFrame = sprite.maxFrame
-            updateSpriteInstance(sprite, dt, nil)
-            --print(2, sprite.curAnim, sprite.curFrame, sprite.isFirst, sprite.isLast, sprite.isFinished, sprite.elapsedTime)
-            expect(sprite.isLoopFrom).to.equal(false)
-            expect(sprite.curFrame).to.equal(sprite.maxFrame)
-            expect(sprite.isFirst).to_not.equal(true)
-            expect(sprite.isLast).to.equal(true)
-            expect(sprite.isFinished).to_not.equal(true)
-            updateSpriteInstance(sprite, 26, nil) -- to make the sprite loop
-            --print(2, sprite.curAnim, sprite.curFrame, sprite.isFirst, sprite.isLast, sprite.isFinished, sprite.elapsedTime)
-            expect(sprite.isLoopFrom).to.equal(true)
-            expect(sprite.curFrame).to.equal(1)
-            expect(sprite.isFirst).to.equal(true)
-            expect(sprite.isLast).to_not.equal(true)
-            expect(sprite.isFinished).to_not.equal(true)
+        it("Rick's chargeDashAttack timings (test delay rounding/truncating)", function()
+            local n, n2 = 0, 0
+            setSpriteAnimation(sprite, "chargeAttack")
+            for i=1, 100 do
+                n = n + 1
+                updateSpriteInstance(sprite, dt, nil)
+                --print(n, sprite.curAnim, sprite.curFrame, sprite.isFirst, sprite.isLast, sprite.isFinished, sprite.elapsedTime)
+                if sprite.isFinished then
+                    break
+                end
+            end
+            setSpriteAnimation(sprite, "chargeAttack")
+            local s = sprite.def.animations[sprite.curAnim]
+            sprite.delay = 0.05
+            s[1].delay = 0.05
+            s[2].delay = 0.05
+            s[4].delay = 0.05
+            s[5].delay = 0.05
+            s[6].delay = 0.05
+            s[7].delay = 0.05
+            for i=1, 100 do
+                n2 = n2 + 1
+                updateSpriteInstance(sprite, dt, nil)
+                --print(n2, sprite.curAnim, sprite.curFrame, sprite.isFirst, sprite.isLast, sprite.isFinished, sprite.elapsedTime)
+                if sprite.isFinished then
+                    break
+                end
+            end
+            expect(n).to.equal(n2)  -- the number of displayed frames should coincide
         end)
     end)
 end)
