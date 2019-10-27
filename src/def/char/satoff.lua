@@ -58,10 +58,8 @@ return {
             delay = math.huge
         },
         intro = {
-            { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1
-            { q = q(142,4,67,66), ox = 36, oy = 65 }, --stand 3
-            loop = true,
-            delay = 1
+            { q = q(206,736,66,61), ox = 33, oy = 60 }, --pick up
+            delay = math.huge
         },
         stand = {
             { q = q(2,2,68,68), ox = 36, oy = 67 }, --stand 1

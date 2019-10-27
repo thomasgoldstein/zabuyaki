@@ -21,8 +21,7 @@ return {
         },
         intro = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
-            loop = true,
-            delay = 1
+            delay = math.huge
         },
         stand = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame

@@ -279,9 +279,7 @@ return {
         },
         intro = {
             { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
-            { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
-            loop = true,
-            delay = 1
+            delay = math.huge
         },
         stand = {
             { q = q(2,3,43,63), ox = 20, oy = 62 }, --stand 1
