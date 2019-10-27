@@ -49,9 +49,9 @@ end
 return {
     serializationVersion = 0.43, -- The version of this serialization process
     spriteSheet = spriteSheet, -- path to spritesheet
-    spriteName = "satoff", -- sprite name
-    delay = 0.2,	--default delay for all animations
-    hurtBox = { width = 30, height = 55 },
+    spriteName = "satoff", -- The name of the sprite
+    delay = 0.2, -- Default delay for all animations
+    hurtBox = { width = 30, height = 55 }, -- Default hurtBox for all animations
     animations = {
         icon = {
             { q = q(20, 9, 38, 17) },

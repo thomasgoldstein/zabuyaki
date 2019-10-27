@@ -31,8 +31,8 @@ return {
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "gopper", -- The name of the sprite
 
-    delay = 0.2,	--default delay for all animations
-    hurtBox = { width = 20, height = 50 },
+    delay = 0.2, -- Default delay for all animations
+    hurtBox = { width = 20, height = 50 }, -- Default hurtBox for all animations
     fallsOnRespawn = true, --alter respawn clouds
     --The list with all the frames mapped to their respective animations
     --  each one can be accessed like this:

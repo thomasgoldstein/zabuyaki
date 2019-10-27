@@ -9,10 +9,10 @@ return {
     serializationVersion = 0.43, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    spriteName = "sign", -- sprite name
+    spriteName = "sign", -- The name of the sprite
     isPlatform = true,
-    delay = math.huge,	--default delay for all
-    hurtBox = { width = 20, height = 64 },
+    delay = math.huge, -- Default delay for all animations
+    hurtBox = { width = 20, height = 64 }, -- Default hurtBox for all animations
     animations = {
         icon = {
             { q = q(2, 10, 34, 17) },

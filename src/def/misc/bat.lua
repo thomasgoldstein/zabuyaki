@@ -10,8 +10,8 @@ return {
     serializationVersion = 0.43, -- The version of this serialization process
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "bat", -- The name of the sprite
-    delay = math.huge,	--default delay for all animations
-    hurtBox = { width = 10, height = 10 },
+    delay = math.huge, -- Default delay for all animations
+    hurtBox = { width = 10, height = 10 }, -- Default hurtBox for all animations
     animations = {
         icon = {
             { q = q(2,23,38,11) }

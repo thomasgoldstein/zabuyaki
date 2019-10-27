@@ -9,10 +9,10 @@ return {
     serializationVersion = 0.43, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    spriteName = "trashcan", -- sprite name
+    spriteName = "trashcan", -- The name of the sprite
     isPlatform = true,
-    delay = math.huge,	--default delay for all
-    hurtBox = { width = 15, height = 36, depth = 1 },
+    delay = math.huge, -- Default delay for all animations
+    hurtBox = { width = 15, height = 36, depth = 1 }, -- Default hurtBox for all animations
     animations = {
         icon = {
             { q = q(2, 2, 27, 17) },
