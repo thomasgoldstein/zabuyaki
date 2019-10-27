@@ -242,9 +242,7 @@ return {
 
     delay = 0.2, -- Default delay for all animations
     hurtBox = { width = 20, height = 50 }, -- Default hurtBox for all animations
-    --The list with all the frames mapped to their respective animations
-    --  each one can be accessed like this:
-    --  mySprite.animations["idle"][1], or even
+
     animations = {
         icon = {
             { q = q(2, 287, 36, 17) },
@@ -257,9 +255,6 @@ return {
             delay = 1
         },
         stand = {
-            -- q = Love.graphics.newQuad( x, y, width, height, imageWidth, imageHeight),
-            -- ox,oy pivots offsets from the top left corner of the quad
-            -- delay = 0.1, func = func1, funcCont = func2
             { q = q(2,2,41,64), ox = 23, oy = 63, delay = 0.25 }, --stand 1
             { q = q(45,2,43,64), ox = 23, oy = 63 }, --stand 2
             { q = q(90,3,43,63), ox = 23, oy = 62 }, --stand 3

@@ -13,9 +13,6 @@ return {
 
     delay = math.huge, -- Default delay for all animations
 
-    --The list with all the frames mapped to their respective animations
-    --  each one can be accessed like this:
-    --  mySprite.animations["idle"][1], or even
     animations = {
         rick = {
             { q = q(2,2,70,70), ox = 0, oy = 0 }, --Rick default

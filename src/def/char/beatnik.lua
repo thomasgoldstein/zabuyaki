@@ -46,9 +46,7 @@ return {
 
     delay = 0.2, -- Default delay for all animations
     hurtBox = { width = 20, height = 50 }, -- Default hurtBox for all animations
-    --The list with all the frames mapped to their respective animations
-    --  each one can be accessed like this:
-    --  mySprite.animations["idle"][1], or even
+
     animations = {
         icon = {
             { q = q(17, 12, 33, 17) },

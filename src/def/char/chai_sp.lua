@@ -11,9 +11,6 @@ return {
     spriteSheet = spriteSheet, -- The path to the spritesheet
     spriteName = "chai_sp", -- The name of the sprite
 
-    --The list with all the frames mapped to their respective animations
-    --  each one can be accessed like this:
-    --  mySprite.animations["idle"][1], or even
     animations = {
         combo2Forward = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.1

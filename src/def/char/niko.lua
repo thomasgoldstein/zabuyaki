@@ -37,9 +37,7 @@ return {
     delay = 0.2, -- Default delay for all animations
     hurtBox = { width = 20, height = 50 }, -- Default hurtBox for all animations
     fallsOnRespawn = true, --alter respawn clouds
-    --The list with all the frames mapped to their respective animations
-    --  each one can be accessed like this:
-    --  mySprite.animations["idle"][1], or even
+
     animations = {
         icon = {
             { q = q(39, 14, 37, 17) },
@@ -58,9 +56,6 @@ return {
             delay = 0.16
         },
         stand = {
-            -- q = Love.graphics.newQuad( x, y, width, height, imageWidth, imageHeight),
-            -- ox,oy pivots offsets from the top left corner of the quad
-            -- delay = 0.1, func = fun
             { q = q(2,2,36,64), ox = 21, oy = 63 }, --stand 1
             { q = q(40,3,36,63), ox = 21, oy = 62 }, --stand 2
             { q = q(78,4,36,62), ox = 21, oy = 61 }, --stand 3
