@@ -84,7 +84,6 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.4
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 14
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo forward 2.4
-            delay = 0.03
         },
         chargeDashAttack = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 1
