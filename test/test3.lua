@@ -29,6 +29,10 @@ describe("animatedSprite Functions", function()
         expect(spriteHasAnimation(sprite, "Combo1")).to.equal(false)
         expect(spriteHasAnimation(sprite, "")).to.equal(false)
     end)
+    it('Function calculateSpriteAnimation()', function()
+        expect(sprite.def.comboMax).to.equal(4)
+        expect(sprite.def.maxGrabAttack).to.equal(3)
+    end)
     it('Function getSpriteQuad(spr, frame_n)', function()
         --{ q = q(49,519,60,63), ox = 19, oy = 62, func = comboAttack1, delay = 0.06 }, --combo 1.2
         --{ q = q(2,519,45,63), ox = 19, oy = 62 }, --combo 1.1
