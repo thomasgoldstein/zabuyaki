@@ -17,9 +17,7 @@ return {
             { q = q(2,2,18,17) }
         },
         stand = {
-            { q = q(2,2,18,17), ox = 9, oy = 16 }, --on the ground
-            loop = true,
-            delay = 1.2,
+            { q = q(2,2,18,17), ox = 9, oy = 16 } --on the ground
         },
     }
 } --return (end of file)

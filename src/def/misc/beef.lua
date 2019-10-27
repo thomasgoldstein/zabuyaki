@@ -17,7 +17,7 @@ return {
             { q = q(54,2,30,19) }
         },
         stand = {
-            { q = q(54,2,30,19), ox = 15, oy = 18 }  --on the ground
+            { q = q(54,2,30,19), ox = 15, oy = 18 } --on the ground
         },
     }
 } --return (end of file)
