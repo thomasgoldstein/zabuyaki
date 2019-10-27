@@ -263,11 +263,6 @@ local grabBackAttack = function(slf, cont)
     end
 end
 
-local hurtBox = {
-    default = { width = 20, height = 50 },
-    default38 = { x = 0, y = 19, width = 20, height = 38 },
-}
-
 return {
     serializationVersion = 0.43, -- The version of this serialization process
 
@@ -275,7 +270,7 @@ return {
     spriteName = "rick", -- The name of the sprite
 
     delay = 0.2,	--default delay for all animations
-    hurtBox = hurtBox.default,	--default hurtBox for all animations
+    hurtBox = { width = 20, height = 50 }, -- Default hurtBox for all animations
 
     --The list with all the frames mapped to their respective animations
     --  each one can be accessed like this:
