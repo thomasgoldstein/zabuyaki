@@ -29,7 +29,7 @@ end
 LifeBar.DELAY = 3 -- seconds to show a victim's lifeBar
 LifeBar.OVERRIDE = 2.5 -- seconds to show a victim's lifeBar
 LifeBar.DEPLETING_STEP = 2 -- increase/decrease changed HP by this integer value (bigger = faster 1..10)
-LifeBar.DEPLETING_DELAY = 0.02 -- delay before increase/decrease of changed HP (in seconds)
+LifeBar.DEPLETING_DELAY = 0.033 -- delay before increase/decrease of changed HP (in seconds)
 
 function LifeBar:initialize(source)
     self.source = source

@@ -89,7 +89,7 @@ function Character:initAttributes()
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     self.friendlyDamage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
-    self.specialToleranceDelay = 0.02 -- between pressing the last button of Attack & Jump
+    self.specialToleranceDelay = 0.033 -- between pressing the last button of Attack & Jump
     -- default sfx
     self.sfx.jump = "whooshHeavy"
     self.sfx.throw = "whooshHeavy"
@@ -425,7 +425,7 @@ function Character:standStart()
     end
     self.z = self:getMinZ()
     if self.sprite.curAnim == "walk" or self.sprite.curAnim == "chargeWalk" then
-        self.nextAnimationDelay = 0.12
+        self.nextAnimationDelay = 0.133
     else
         if not self.sprite.curAnim then
             self:setSprite("stand")
@@ -591,7 +591,7 @@ Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update
 
 function Character:runStart()
     self.isHittable = true
-    self.nextAnimationDelay = 0.01
+    self.nextAnimationDelay = 0.016
 end
 function Character:runUpdate(dt)
     if self:getMinZ() < self.z then
