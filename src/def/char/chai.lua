@@ -228,6 +228,20 @@ local grabFrontAttackForward = function(slf, cont)
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face)
 end
+--doThrow(repel_x, repel_y, repel_z, horizontal, face, start_z)
+local grabBackAttack = function(slf, cont)
+    local g = slf.grabContext
+    if g and g.target then
+        slf:checkAndAttack(
+            { x = -38, y = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "blowOut" },
+            cont
+        )
+        local target = g.target
+        slf:releaseGrabbed()
+        target:applyDamage(slf.thrownFallDamage, "simple", slf)
+        target:setState(target.bounce)
+    end
+end
 local grabFrontAttackBack = function(slf, cont) slf:doThrow(slf.throwSpeed_x, 0, slf.throwSpeed_z / 10, slf.face) end
 local grabFrontAttackDown = function(slf, cont)
     slf:checkAndAttack(
@@ -659,20 +673,22 @@ return {
             { q = q(2,2319,69,57), ox = 27, oy = 78, delay = f(8) }, --back throw 1
             { q = q(73,2329,52,47), ox = 10, oy = 68 }, --back throw 2
             { q = q(127,2328,46,48), ox = 6, oy = 47 }, --back throw 3
-            { q = q(175,2310,54,66), ox = 12, oy = 65, func = grabFrontAttackBack }, --back throw 4
-            { q = q(2,2378,70,43), ox = 28, oy = 42, delay = f(3) }, --back throw 5a
+            { q = q(175,2310,54,66), ox = 12, oy = 65 }, --back throw 4
+            { q = q(2,2378,70,43), ox = 28, oy = 42, func = grabBackAttack, delay = f(3) }, --back throw 5a
             { q = q(74,2382,69,39), ox = 27, oy = 38, delay = f(14) }, --back throw 5b
             { q = q(43,404,39,58), ox = 23, oy = 57, delay = f(9) }, --pick up 2
             { q = q(2,401,39,61), ox = 23, oy = 60, delay = f(3) }, --pick up 1
             delay = f(5),
             isThrow = true,
             moves = {
-                --{ },
-                { oz = 1, tFrame = 1 },
-                { oz = 4 },
-                { oz = 14, ox = 2, tFrame = 3 },
-                { oz = 13, ox = -32, tFrame = 4 },
-                { oz = 0, ox = -48, tFrame = 5, tFace = -1 } --oz = 0,
+                { }, --duck
+                { }, --jump up
+                { }, --back throw 1
+                { }, --back throw 2
+                { oz = 1, ox = 20 }, --back throw 3
+                { oz = 20, ox = -20, tFrame = 3 }, --back throw 4
+                { oz = 0, ox = -30, tFrame = 6 }, --back throw 5a
+                --{ tFace = -1 }, --back throw 5b
             }
         },
         hurtHighWeak = {
