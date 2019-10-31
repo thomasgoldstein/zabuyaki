@@ -179,6 +179,17 @@ return {
             { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
             delay = f(2)
         },
+        grabbedFrames = {
+            --default order should be kept: hurt low 2, hurt high 2, fall 1 (rotated -90°), hurt low 2 (/), hurt low 2 (upsideDown), fallen, fall 3
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            delay = math.huge
+        },
         thrown = {
             --rx = ox / 2, ry = -oy / 2 for this rotation
             { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
