@@ -686,9 +686,8 @@ return {
                 { }, --back throw 1
                 { }, --back throw 2
                 { oz = 1, ox = 20 }, --back throw 3
-                { oz = 20, ox = -20, tFrame = 3 }, --back throw 4
-                { oz = 0, ox = -30, tFrame = 6 }, --back throw 5a
-                --{ tFace = -1 }, --back throw 5b
+                { oz = 16, ox = 1, tFrame = 3 }, --back throw 4
+                { oz = 0, ox = -5, tAnimation = "fallBounce" }, --back throw 5a
             }
         },
         hurtHighWeak = {
