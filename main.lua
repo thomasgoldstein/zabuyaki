@@ -1,8 +1,7 @@
 --[[
-    Copyright (c) .2018 SineDie
-    Released under the MIT license.
-    Visit for more information:
-    http://opensource.org/licenses/MIT
+    Zabuyaki https://www.zabuyaki.com/
+    Copyright (c) 2016-2019 SineDie
+    Released under the CC BY-NC 4.0: https://creativecommons.org/licenses/by-nc/4.0/
 ]]
 
 display = require "src/display"
