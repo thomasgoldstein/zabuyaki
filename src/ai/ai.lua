@@ -1,5 +1,3 @@
--- Copyright (c) .2019 SineDie
-
 local class = require "lib/middleclass"
 local AI = class('AI')
 

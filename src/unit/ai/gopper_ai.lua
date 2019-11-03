@@ -1,4 +1,3 @@
--- Copyright (c) .2017 SineDie
 -- Gopper's AI
 
 local class = require "lib/middleclass"

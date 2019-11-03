@@ -1,5 +1,3 @@
--- Copyright (c) .2018 SineDie
-
 local class = require "lib/middleclass"
 local Colors = class('Colors')
 

@@ -1,4 +1,3 @@
--- Copyright (c) .2019 SineDie
 -- collect data to help AI choose right patterns and places
 
 local Stage = Stage

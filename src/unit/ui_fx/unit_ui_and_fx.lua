@@ -1,5 +1,3 @@
--- Copyright (c) .2017 SineDie
-
 local Unit = Unit
 
 local clamp = clamp

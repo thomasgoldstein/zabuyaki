@@ -1,5 +1,3 @@
--- Copyright (c) .2018 SineDie
-
 -- adjust DEBUG levels
 SHOW_FPS = 1 -- show text of FPS, FRAME, SLOW MO VALUE from this debug level
 SHOW_DEBUG_CONTROLS = 1 -- show pressed keys

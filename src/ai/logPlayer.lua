@@ -1,5 +1,3 @@
--- Copyright (c) .2017 SineDie
-
 local P = { db = {} }
 
 function P:init()

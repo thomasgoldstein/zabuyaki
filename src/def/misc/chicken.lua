@@ -1,4 +1,3 @@
--- Copyright (c) .2017 SineDie
 local spriteSheet = "res/img/misc/loot.png"
 local imageWidth, imageHeight = loadSpriteSheet(spriteSheet)
 

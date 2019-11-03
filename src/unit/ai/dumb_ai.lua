@@ -1,4 +1,3 @@
--- Copyright (c) .2017 SineDie
 -- Dumb AI (not moving)
 
 local class = require "lib/middleclass"

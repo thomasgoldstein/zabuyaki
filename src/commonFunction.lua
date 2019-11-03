@@ -1,5 +1,3 @@
--- Copyright (c) .2018 SineDie
-
 -- print into console :
 --  =========== Title ==============
 function ps(title, separator)

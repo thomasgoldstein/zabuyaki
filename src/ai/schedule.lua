@@ -1,4 +1,3 @@
--- Copyright (c) .2017 SineDie
 local class = require "lib/middleclass"
 local Schedule = class('Schedule')
 
