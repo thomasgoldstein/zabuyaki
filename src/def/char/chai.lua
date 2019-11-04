@@ -239,6 +239,7 @@ local grabBackAttack = function(slf, cont)
         local target = g.target
         slf:releaseGrabbed()
         target:applyDamage(slf.thrownFallDamage, "simple", slf)
+        slf.doNotFlipSpriteOnGetUp = true
         target:setState(target.bounce)
     end
 end

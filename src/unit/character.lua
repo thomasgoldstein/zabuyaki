@@ -1045,10 +1045,11 @@ function Character:bounceUpdate(dt)
             self.speed_z = 0
             self.speed_y = 0
             self.speed_x = 0
-            if self.lastState ~= "grabbedBack" then
+            if not self.doNotFlipSpriteOnGetUp then
                 self.horizontal = self.face
                 self.face = -self.face
             end
+            self.doNotFlipSpriteOnGetUp = false
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
             self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
             self:setState(self.getUp)
