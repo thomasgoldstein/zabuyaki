@@ -765,7 +765,7 @@ return {
             { q = q(52,335,50,64), ox = 32, oy = 63 }, --hurt high 2
 			{ q = q(155,402,60,60), ox = 33, oy = 59 }, --fall 1
 			{ q = q(155,402,60,60), ox = 33, oy = 59, rotate = -1.57, rx = 33, ry = -29 }, --fall 1 (rotated -90°)
-            { q = q(148,338,42,61), ox = 22, oy = 60, flipV = -1 }, --hurt low 2
+            { q = q(148,338,42,61), ox = 22, oy = 60, flipV = -1 }, --hurt low 2 (flipped vertically)
             { q = q(136,486,69,33), ox = 38, oy = 31 }, --fallen
             { q = q(66,483,68,36), ox = 39, oy = 35 }, --fall 3
             delay = math.huge
