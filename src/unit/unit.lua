@@ -36,7 +36,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.pushBackOnHitSpeed = 65
     self.toSlowDown = true --used in :calcMovement
     self.isMovable = false --cannot be moved by attacks / can be grabbed
-    self.doNotFlipSpriteOnGetUp = false -- do not flip the sprite after bouncing (used for special throwing attacks)
+    self.preserveDirectionOnGetUp = false -- do not flip the sprite after bouncing (used for special throwing attacks)
     self.state = "nop"
     self.lastStateTime = love.timer.getTime()
     self.prevState = "" -- text name
