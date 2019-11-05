@@ -169,3 +169,13 @@ function delayWithSlowMotion(delay)
     end
     return delay
 end
+
+grabbedFrames = {
+    hurtLow2 = 1,
+    hurtHigh2 = 2,
+    fall1 = 3,
+    fall1rotated90 = 4,
+    hurtLow2flipV = 5,
+    fallen = 6,
+    fall3 = 7,
+}
