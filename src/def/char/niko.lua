@@ -233,12 +233,9 @@ return {
         grabbedFrames = {
             --default order should be kept: hurt low 2, hurt high 2, fall 1 (rotated -90°), hurt low 2 (/), hurt low 2 (upsideDown), fallen, fall 3
             { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 2
-            { q = q(45,133,46,64), ox = 31, oy = 63 }, --hurt high 2
             { q = q(106,332,58,55), ox = 36, oy = 54 }, --fall 2
             { q = q(106,332,58,55), ox = 36, oy = 54, rotate = -1.57, rx = 36, ry = -27 }, --fall 2 (rotated -90°)
             { q = q(135,136,44,61), ox = 23, oy = 60, flipV = -1 }, --hurt low 2 (flipped vertically)
-            { q = q(54,222,75,39), ox = 46, oy = 31 }, --fallen
-            { q = q(103,553,68,39), ox = 41, oy = 38 }, --fall 3
             delay = math.huge
         },
         thrown = {

@@ -179,9 +179,6 @@ return {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
-            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
-            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
-            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             delay = math.huge
         },
         thrown = {

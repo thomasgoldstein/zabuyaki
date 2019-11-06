@@ -687,7 +687,7 @@ return {
                 { }, --back throw 1
                 { }, --back throw 2
                 { oz = 1, ox = 20 }, --back throw 3
-                { oz = 16, ox = 1, tFrame = grabbedFrames.fall1 }, --back throw 4
+                { oz = 16, ox = 1, tFrame = grabbedFrames.thrown10h }, --back throw 4
                 { oz = 0, ox = -5, tAnimation = "fallBounce" }, --back throw 5a
             }
         },
@@ -762,12 +762,9 @@ return {
         grabbedFrames = {
             --default order should be kept: hurt low 2, hurt high 2, fall 1 (rotated -90°), hurt low 2 (/), hurt low 2 (upsideDown), fallen, fall 3
             { q = q(148,338,42,61), ox = 22, oy = 60 }, --hurt low 2
-            { q = q(52,335,50,64), ox = 32, oy = 63 }, --hurt high 2
-			{ q = q(155,402,60,60), ox = 33, oy = 59 }, --fall 1
+            { q = q(155,402,60,60), ox = 33, oy = 59 }, --fall 1
 			{ q = q(155,402,60,60), ox = 33, oy = 59, rotate = -1.57, rx = 33, ry = -29 }, --fall 1 (rotated -90°)
             { q = q(148,338,42,61), ox = 22, oy = 60, flipV = -1 }, --hurt low 2 (flipped vertically)
-            { q = q(136,486,69,33), ox = 38, oy = 31 }, --fallen
-            { q = q(66,483,68,36), ox = 39, oy = 35 }, --fall 3
             delay = math.huge
         },
         thrown = {

@@ -642,11 +642,11 @@ return {
             isThrow = true,
             moves = {
                 --{ },
-                { oz = 1, tFrame = grabbedFrames.hurtLow2 },
+                { oz = 1, tFrame = grabbedFrames.thrown12h },
                 { oz = 4 },
-                { oz = 14, ox = 2, tFrame = grabbedFrames.fall1 },
-                { oz = 13, ox = -32, tFrame = grabbedFrames.fall1rotated90 },
-                { oz = 0, ox = -48, tFrame = grabbedFrames.hurtLow2flipV, tFace = -1 },
+                { oz = 14, ox = 2, tFrame = grabbedFrames.thrown10h },
+                { oz = 13, ox = -32, tFrame = grabbedFrames.thrown8h },
+                { oz = 0, ox = -48, tFrame = grabbedFrames.thrown6h, tFace = -1 },
             }
         },
         hurtHighWeak = {
@@ -720,12 +720,9 @@ return {
         grabbedFrames = {
             --default order should be kept: hurt low 2, hurt high 2, fall 1 (rotated -90°), hurt low 2 (/), hurt low 2 (upsideDown), fallen, fall 3
             { q = q(144,331,44,62), ox = 18, oy = 61 }, --hurt low 2
-            { q = q(48,331,47,62), ox = 26, oy = 61 }, --hurt high 2
             { q = q(145,137,56,59), ox = 31, oy = 58 }, --fall 1
             { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 31, ry = -29 }, --fall 1 (rotated -90°)
             { q = q(144,331,44,62), ox = 18, oy = 61, flipV = -1 }, --hurt low 2 (flipped vertically)
-            { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
-            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
             delay = math.huge
         },
         thrown = {
