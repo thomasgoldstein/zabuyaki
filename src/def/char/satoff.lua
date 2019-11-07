@@ -297,5 +297,21 @@ return {
             { q = q(244,522,50,71), ox = 25, oy = 70 }, --bat attack 4
             delay = f(15)
         },
+        thrown12h = {
+            { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
+            delay = math.huge
+        },
+        thrown10h = {
+            { q = q(59,528,95,65), ox = 24, oy = 64, delay = f(7) }, --bat attack 2
+            delay = math.huge
+        },
+        thrown8h = {
+            { q = q(156,493,86,100), ox = 25, oy = 99, delay = f(3) }, --bat attack 3
+            delay = math.huge
+        },
+        thrown6h = {
+            { q = q(244,522,50,71), ox = 25, oy = 70 }, --bat attack 4
+            delay = math.huge
+        },
     }
 }

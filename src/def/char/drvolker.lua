@@ -186,5 +186,21 @@ return {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             delay = math.huge
         },
+        thrown12h = {
+            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            delay = math.huge
+        },
+        thrown10h = {
+            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            delay = math.huge
+        },
+        thrown8h = {
+            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            delay = math.huge
+        },
+        thrown6h = {
+            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            delay = math.huge
+        },
     }
 }

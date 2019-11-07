@@ -192,5 +192,21 @@ return {
             { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
             delay = math.huge
         },
+        thrown12h = {
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            delay = math.huge
+        },
+        thrown10h = {
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            delay = math.huge
+        },
+        thrown8h = {
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            delay = math.huge
+        },
+        thrown6h = {
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            delay = math.huge
+        },
     }
 }

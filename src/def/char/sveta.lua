@@ -202,5 +202,21 @@ return {
             { q = q(145,100,90,32), ox = 66, oy = 31 }, --fall 3
             delay = math.huge
         },
+        thrown12h = {
+            { q = q(48,198,46,67), ox = 28, oy = 66 }, --hurt low 2
+            delay = math.huge
+        },
+        thrown10h = {
+            { q = q(145,6,75,60), ox = 50, oy = 59 }, --fall 1
+            delay = math.huge
+        },
+        thrown8h = {
+            { q = q(145,6,75,60), ox = 50, oy = 59, rotate = -1.57, rx = 50, ry = -29 }, --fall 1 (rotated -90°)
+            delay = math.huge
+        },
+        thrown6h = {
+            { q = q(48,198,46,67), ox = 28, oy = 66, flipV = -1 }, --hurt low 2 (flipped vertically)
+            delay = math.huge
+        },
     }
 }
