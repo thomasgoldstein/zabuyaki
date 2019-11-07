@@ -169,10 +169,3 @@ function delayWithSlowMotion(delay)
     end
     return delay
 end
-
-grabbedFrames = {
-    thrown12h = 1,
-    thrown10h = 2,
-    thrown8h = 3,
-    thrown6h = 4,
-}

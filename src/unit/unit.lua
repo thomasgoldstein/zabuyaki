@@ -487,7 +487,6 @@ function Unit:moveStatesInit()
         x = self.x, y = self.y, z = self.z,
         face = self.face, tFace = t.face,
         --tx = t.x, ty = t.y, tz = t.z,
-        tFrame = -1,
         lastFrame = -1
     }
 end
@@ -511,10 +510,6 @@ function Unit:moveStatesApply()
         end
         if m.tFace then
             t.face = i.tFace * m.tFace
-        end
-        if m.tFrame and t.sprite.def.animations.grabbedFrames then
-            t.sprite.curAnim = "grabbedFrames"
-            t.sprite.curFrame = m.tFrame
         end
         if m.tAnimation and t.sprite.curAnim ~= m.tAnimation then
             t:setSprite(m.tAnimation)
