@@ -687,7 +687,7 @@ return {
                 { }, --back throw 1
                 { }, --back throw 2
                 { oz = 1, ox = 20 }, --back throw 3
-                { oz = 16, ox = 1, tFrame = grabbedFrames.thrown10h }, --back throw 4
+                { oz = 16, ox = 1, tAnimation = "thrown10h" }, --back throw 4
                 { oz = 0, ox = -5, tAnimation = "fallBounce" }, --back throw 5a
             }
         },

@@ -642,11 +642,11 @@ return {
             isThrow = true,
             moves = {
                 --{ },
-                { oz = 1, tFrame = grabbedFrames.thrown12h },
+                { oz = 1, tAnimation = "thrown12h" },
                 { oz = 4 },
-                { oz = 14, ox = 2, tFrame = grabbedFrames.thrown10h },
-                { oz = 13, ox = -32, tFrame = grabbedFrames.thrown8h },
-                { oz = 0, ox = -48, tFrame = grabbedFrames.thrown6h, tFace = -1 },
+                { oz = 14, ox = 2, tAnimation = "thrown10h" },
+                { oz = 13, ox = -32, tAnimation = "thrown8h" },
+                { oz = 0, ox = -48, tAnimation = "thrown6h", tFace = -1 },
             }
         },
         hurtHighWeak = {
