@@ -777,7 +777,7 @@ return {
             delay = math.huge
         },
         thrown6h = {
-            { q = q(148,338,42,61), ox = 22, oy = 60, flipV = -1 }, --hurt low 2 (flipped vertically)
+            { q = q(148,338,42,61), ox = 22, oy = 60, flipV = -1, flipH = -1 }, --hurt low 2 (flipped vertically and horizontally)
             delay = math.huge
         },
     }
