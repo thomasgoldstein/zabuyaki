@@ -159,6 +159,13 @@ return {
             { q = q(183,350,51,65), ox = 23, oy = 64, delay = f(8) }, --grab
             delay = f(10)
         },
+        batAttack = {
+            { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
+            { q = q(59,528,95,65), ox = 24, oy = 64, delay = f(7) }, --bat attack 2
+            { q = q(156,493,86,100), ox = 25, oy = 99, delay = f(3) }, --bat attack 3
+            { q = q(244,522,50,71), ox = 25, oy = 70 }, --bat attack 4
+            delay = f(15)
+        },
         chargeStand = {
             { q = q(2,663,66,66), ox = 29, oy = 65 }, --charge stand 1
             { q = q(70,663,66,66), ox = 29, oy = 65 }, --charge stand 2
@@ -282,27 +289,20 @@ return {
             { q = q(74,298,77,43), ox = 48, oy = 42 }, --fall 3
             delay = math.huge
         },
-        batAttack = {
-            { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
-            { q = q(59,528,95,65), ox = 24, oy = 64, delay = f(7) }, --bat attack 2
-            { q = q(156,493,86,100), ox = 25, oy = 99, delay = f(3) }, --bat attack 3
-            { q = q(244,522,50,71), ox = 25, oy = 70 }, --bat attack 4
-            delay = f(15)
-        },
         thrown12h = {
-            { q = q(1,526,56,67), ox = 31, oy = 66 }, --bat attack 1
+            { q = q(214,216,72,64), ox = 36, oy = 63 }, --grabbed back 2
             delay = math.huge
         },
         thrown10h = {
-            { q = q(59,528,95,65), ox = 24, oy = 64, delay = f(7) }, --bat attack 2
+            { q = q(181,422,73,69), ox = 40, oy = 68 }, --fall 1
             delay = math.huge
         },
         thrown8h = {
-            { q = q(156,493,86,100), ox = 25, oy = 99, delay = f(3) }, --bat attack 3
+            { q = q(181,422,73,69), ox = 40, oy = 68, rotate = -1.57, rx = 40, ry = -34 }, --fall 1 (rotated -90°)
             delay = math.huge
         },
         thrown6h = {
-            { q = q(244,522,50,71), ox = 25, oy = 70 }, --bat attack 4
+            { q = q(214,146,72,64), ox = 36, oy = 63, flipH = -1, flipV = -1 }, --hurt low 2 (flipped horizontally and vertically)
             delay = math.huge
         },
     }
