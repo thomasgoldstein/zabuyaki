@@ -262,7 +262,6 @@ local grabBackAttack = function(slf, cont)
         local target = g.target
         slf:releaseGrabbed()
         target:applyDamage(slf.thrownFallDamage, "simple", slf)
-        target.preserveDirectionOnGetUp = false
         target:setState(target.bounce)
     end
 end
@@ -646,7 +645,7 @@ return {
                 { oz = 4 },
                 { oz = 14, ox = 2, tAnimation = "thrown10h" },
                 { oz = 13, ox = -32, tAnimation = "thrown8h" },
-                { oz = 0, ox = -48, tAnimation = "thrown6h", tFace = -1 },
+                { oz = 0, ox = -48, tAnimation = "thrown6h" },
             }
         },
         hurtHighWeak = {
