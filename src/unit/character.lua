@@ -231,7 +231,7 @@ function Character:afterOnHurt()
         self.speed_x = h.repel_x --use fall speed from the argument
         self.speed_y = h.repel_y --use fall speed from the argument
         --then it goes to "fall dead"
-    elseif h.type == "knockDown" or h.type == "shockWave" or h.type == "blowOut" then
+    elseif h.type == "knockDown" or h.type == "shockWave" or h.type == "blowOut" or h.type == "fallTwist" then
         if self.isMovable then
             --use fall speed from repel
             if h.repel_x == 0 then
@@ -283,7 +283,7 @@ function Character:afterOnHurt()
         end
         self.speed_x = self.speed_x + self.fallDeadSpeedBoost_x
     end
-    self:setState(self.fall)
+    self:setState(self.fall, h.type)
 end
 
 function Character:checkAndAttack(f, isFuncCont)
@@ -953,6 +953,8 @@ function Character:fallStart()
     self.canRecover = false
     if self.isThrown then
         self:setSprite("thrown")
+    elseif self.condition == "fallTwist" then
+        self:setSprite("fallTwist")
     else
         self:setSprite("fall")
     end
@@ -1010,11 +1012,13 @@ function Character:fallUpdate(dt)
             return
         end
     end
-    if self.isThrown and self.speed_z < 0 and self.bounced == 0 then
-        self:checkAndAttack(
-            { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", speed_x = self.throwSpeed_x },
-            false
-        )
+    if self.speed_z < 0 and self.bounced == 0 then
+        if self.isThrown or self.condition == "fallTwist" then
+            self:checkAndAttack(
+                { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", speed_x = self.throwSpeed_x },
+                false
+            )
+        end
     end
     if not self.toSlowDown then
         self.speed_x = 0
