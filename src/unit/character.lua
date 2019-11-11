@@ -288,7 +288,7 @@ end
 
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: x,y,width,height,depth, damage, type, repel_x, repel_y, sfx, init_victims_list
-    --type = "simple" "shockWave" "hit" "knockDown" "blow-vertical" "blow-diagonal" "blow-horizontal" "blow-away" "check"
+    --type = "simple" "shockWave" "hit" "knockDown" "fallTwist" "blowOut" "check"
     if not f then
         f = {}
     end
