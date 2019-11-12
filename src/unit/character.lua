@@ -1013,9 +1013,27 @@ function Character:fallUpdate(dt)
         end
     end
     if self.speed_z < 0 and self.bounced == 0 then
-        if self.isThrown or self.condition == "fallTwist" then
+        if self.isThrown then
             self:checkAndAttack(
-                { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", speed_x = self.throwSpeed_x },
+                { x = 0, y = self:getHurtBoxHeight() / 2,
+                  width = self:getHurtBoxWidth(),
+                  height = self:getHurtBoxHeight(),
+                  depth = self:getHurtBoxDepth(),
+                  damage = self.myThrownBodyDamage,
+                  type = "knockDown",
+                  speed_x = self.throwSpeed_x },
+                false
+            )
+        elseif self.condition == "fallTwist" then
+            self:checkAndAttack(
+                { x = 0, y = self:getHurtBoxHeight() / 2,
+                  width = self:getHurtBoxWidth(),
+                  height = self:getHurtBoxHeight(),
+                  depth = self:getHurtBoxDepth(),
+                  damage = self.myThrownBodyDamage,
+                  type = "knockDown",
+                  speed_x = self.throwSpeed_x,
+                  horizontal = self.horizontal },
                 false
             )
         end
