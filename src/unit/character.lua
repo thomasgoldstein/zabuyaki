@@ -192,13 +192,17 @@ function Character:onHurtDamage()
         return
     end
     self:playHitSfx(h.damage)
-    if h.source.speed_x == 0 then
-        self.face = -h.source.face	--turn face to the still(pulled back) attacker
+    if h.isThrown or h.type == "knockDown" or h.type == "fallTwist" then
+        self.face = -h.horizontal --turn face to the attacker
     else
-        if h.source.horizontal ~= h.source.face then
-            self.face = -h.source.face	--turn face to the back-jumping attacker
+        if h.source.speed_x == 0 then
+            self.face = -h.source.face	--turn face to the still(pulled back) attacker
         else
-            self.face = -h.source.horizontal --turn face to the attacker
+            if h.source.horizontal ~= h.source.face then
+                self.face = -h.source.face	--turn face to the back-jumping attacker
+            else
+                self.face = -h.source.horizontal --turn face to the attacker
+            end
         end
     end
 end
@@ -357,6 +361,12 @@ function Character:checkAndAttack(f, isFuncCont)
                         type = type, repel_x = repel_x, repel_y = repel_y,
                         horizontal = self.horizontal, vertical = self.vertical, isThrown = true,
                         z = self.z + y
+                    }
+                elseif type == "fallTwist" then
+                    o.isHurt = {source = self, state = self.state, damage = damage,
+                                type = type, repel_x = repel_x, repel_y = repel_y,
+                                horizontal = self.horizontal, vertical = self.vertical, isThrown = true,
+                                z = self.z + y
                     }
                 else
                     o.isHurt = { source = self, state = self.state, damage = damage,
@@ -1012,18 +1022,7 @@ function Character:fallUpdate(dt)
         end
     end
     if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0 then
-        if self.isThrown then
-            self:checkAndAttack(
-                { x = 0, y = self:getHurtBoxHeight() / 2,
-                  width = self:getHurtBoxWidth(),
-                  height = self:getHurtBoxHeight(),
-                  depth = self:getHurtBoxDepth(),
-                  damage = self.myThrownBodyDamage,
-                  type = "knockDown",
-                  speed_x = self.throwSpeed_x },
-                false
-            )
-        elseif self.condition == "fallTwist" then
+        if self.condition == "fallTwist" then
             self:checkAndAttack(
                 { x = 0, y = self:getHurtBoxHeight() / 2,
                   width = self:getHurtBoxWidth(),
@@ -1033,6 +1032,17 @@ function Character:fallUpdate(dt)
                   type = "knockDown",
                   speed_x = self.throwSpeed_x,
                   horizontal = self.horizontal },
+                false
+            )
+        elseif self.isThrown then
+            self:checkAndAttack(
+                { x = 0, y = self:getHurtBoxHeight() / 2,
+                  width = self:getHurtBoxWidth(),
+                  height = self:getHurtBoxHeight(),
+                  depth = self:getHurtBoxDepth(),
+                  damage = self.myThrownBodyDamage,
+                  type = "knockDown",
+                  speed_x = self.throwSpeed_x },
                 false
             )
         end
