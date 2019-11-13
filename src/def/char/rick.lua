@@ -175,7 +175,7 @@ local specialDefensive4 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local specialOffensive = function(slf, cont) slf:checkAndAttack(
-    { x = 15, y = 37, width = 65, damage = 34, repel_x = slf.specialOffensiveRepel, type = "knockDown" },
+    { x = 15, y = 37, width = 65, damage = 34, repel_x = slf.specialOffensiveRepel, type = "fallTwist" },
     cont
 ) end
 local specialDash1 = function(slf, cont)
