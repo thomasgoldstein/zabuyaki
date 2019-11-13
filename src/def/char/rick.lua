@@ -159,19 +159,19 @@ local specialDefensiveShake = function(slf, cont)
     mainCamera:onShake(0, 2, 0.03, 0.3)
 end
 local specialDefensive1 = function(slf, cont) slf:checkAndAttack(
-    { x = 0, y = 32, width = 28, height = 32, depth = 18, damage = 25, type = "blowOut" },
+    { x = 0, y = 32, width = 28, height = 32, depth = 18, damage = 25, type = "expel" },
     cont
 ) end
 local specialDefensive2 = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 17, width = 50, height = 40, depth = 18, damage = 25, type = "blowOut" },
+    { x = 10, y = 17, width = 50, height = 40, depth = 18, damage = 25, type = "expel" },
     cont
 ) end
 local specialDefensive3 = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 42, width = 66, height = 90, depth = 18, damage = 25, type = "blowOut" },
+    { x = 10, y = 42, width = 66, height = 90, depth = 18, damage = 25, type = "expel" },
     cont
 ) end
 local specialDefensive4 = function(slf, cont) slf:checkAndAttack(
-    { x = 5, y = 32, width = 40, height = 70, depth = 18, damage = 25, type = "blowOut" },
+    { x = 5, y = 32, width = 40, height = 70, depth = 18, damage = 25, type = "expel" },
     cont
 ) end
 local specialOffensive = function(slf, cont) slf:checkAndAttack(
@@ -256,7 +256,7 @@ local grabBackAttack = function(slf, cont)
     local g = slf.grabContext
     if g and g.target then
         slf:checkAndAttack(
-            { x = -38, y = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "blowOut" },
+            { x = -38, y = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "expel" },
             cont
         )
         local target = g.target

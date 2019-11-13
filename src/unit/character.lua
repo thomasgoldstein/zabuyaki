@@ -235,7 +235,7 @@ function Character:afterOnHurt()
         self.speed_x = h.repel_x --use fall speed from the argument
         self.speed_y = h.repel_y --use fall speed from the argument
         --then it goes to "fall dead"
-    elseif h.type == "fell" or h.type == "shockWave" or h.type == "blowOut" or h.type == "twist" then
+    elseif h.type == "fell" or h.type == "shockWave" or h.type == "expel" or h.type == "twist" then
         if self.isMovable then
             --use fall speed from repel
             if h.repel_x == 0 then
@@ -253,7 +253,7 @@ function Character:afterOnHurt()
                 self.vertical = h.source.vertical
                 self.speed_y = h.source.speed_y * 0.5
             end
-        else -- "shockWave" or "blowOut"
+        else -- "shockWave" or "expel"
             if h.source.x < self.x then --fall back from the epicenter
                 h.horizontal = 1
             else
@@ -291,7 +291,7 @@ end
 
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: x,y,width,height,depth, damage, type, repel_x, repel_y, sfx, init_victims_list
-    --type = "simple" "shockWave" "hit" "fell" "twist" "blowOut" "check"
+    --type = "simple" "shockWave" "hit" "fell" "twist" "expel" "check"
     if not f then
         f = {}
     end

@@ -126,19 +126,19 @@ local chargeDashAttack2 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local specialDefensiveMiddle = function(slf, cont) slf:checkAndAttack(
-    { x = 0, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
+    { x = 0, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "expel" },
     cont
 ) end
 local specialDefensiveRight = function(slf, cont) slf:checkAndAttack(
-    { x = 5, y = 27, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
+    { x = 5, y = 27, width = 66, height = 45, depth = 18, damage = 15, type = "expel" },
     cont
 ) end
 local specialDefensiveRightMost = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 32, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
+    { x = 10, y = 32, width = 66, height = 45, depth = 18, damage = 15, type = "expel" },
     cont
 ) end
 local specialDefensiveLeft = function(slf, cont) slf:checkAndAttack(
-    { x = -5, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "blowOut" },
+    { x = -5, y = 22, width = 66, height = 45, depth = 18, damage = 15, type = "expel" },
     cont
 ) end
 local specialOffensiveShout = function(slf, cont)
@@ -233,7 +233,7 @@ local grabBackAttack = function(slf, cont)
     local g = slf.grabContext
     if g and g.target then
         slf:checkAndAttack(
-            { x = -38, y = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "blowOut" },
+            { x = -38, y = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "expel" },
             cont
         )
         local target = g.target
