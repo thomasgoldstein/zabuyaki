@@ -241,7 +241,7 @@ function Character:afterOnHurt()
                 self.speed_y = h.repel_y
             end
         end
-        if h.type == "knockDown" then
+        if h.type == "knockDown" or h.type == "fallTwist" then
             if h.source == self then --fall back on self kill (timeout)
                 h.horizontal = -self.horizontal
                 self.face = -h.horizontal
