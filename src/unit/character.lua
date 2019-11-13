@@ -1012,7 +1012,7 @@ function Character:fallUpdate(dt)
             return
         end
     end
-    if self.speed_z < 0 and self.bounced == 0 then
+    if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0 then
         if self.isThrown then
             self:checkAndAttack(
                 { x = 0, y = self:getHurtBoxHeight() / 2,
