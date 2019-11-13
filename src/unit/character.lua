@@ -296,7 +296,7 @@ function Character:checkAndAttack(f, isFuncCont)
     local damage, type = f.damage or 1, f.type or "hit"
     local repel_x = f.repel_x or self.speed_x
     local repel_y = f.repel_y or self.speed_y
-    local horizontal = self.face
+    local horizontal = f.horizontal or self.face
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
     local counter = 0
