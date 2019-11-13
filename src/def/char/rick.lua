@@ -694,7 +694,7 @@ return {
             { q = q(170,423,69,33), ox = 41, oy = 32 , flipV = -1 }, --fall 3 (flipped vertically)
             { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
             loop = true,
-            delay = f(3)
+            delay = f(12)
         },
         fallBounce = {
             { q = q(64,485,69,32), ox = 39, oy = 31, delay = f(4) }, --fallen
