@@ -690,12 +690,6 @@ return {
             { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
             delay = math.huge
         },
-        fallTwist = {
-            { q = q(170,423,69,33), ox = 41, oy = 32 , flipV = -1 }, --fall 3 (flipped vertically)
-            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
-            loop = true,
-            delay = f(12)
-        },
         fallBounce = {
             { q = q(64,485,69,32), ox = 39, oy = 31, delay = f(4) }, --fallen
             { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
@@ -704,6 +698,12 @@ return {
         fallenDead = {
             { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
             delay = math.huge
+        },
+        fallTwist = {
+            { q = q(170,423,69,33), ox = 41, oy = 32, flipV = -1 }, --fall 3 (flipped vertically)
+            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
+            loop = true,
+            delay = f(12)
         },
         getUp = {
             { q = q(64,485,69,32), ox = 39, oy = 31, delay = f(24) }, --fallen

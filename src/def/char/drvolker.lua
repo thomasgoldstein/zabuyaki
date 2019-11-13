@@ -161,6 +161,11 @@ return {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             delay = math.huge
         },
+        fallTwist = {
+            { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
+            loop = true,
+            delay = f(12)
+        },
         getUp = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             delay = f(12)

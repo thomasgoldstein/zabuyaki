@@ -167,6 +167,11 @@ return {
             { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
             delay = math.huge
         },
+        fallTwist = {
+            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            loop = true,
+            delay = f(12)
+        },
         getUp = {
             { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
             delay = f(12)

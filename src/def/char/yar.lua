@@ -194,6 +194,12 @@ return {
             { q = q(228,371,78,39), ox = 44, oy = 34 }, --fallen
             delay = math.huge
         },
+        fallTwist = {
+            { q = q(150,361,76,49), ox = 42, oy = 48, flipV = -1 }, --fall 3 (flipped vertically)
+            { q = q(150,361,76,49), ox = 42, oy = 48 }, --fall 3
+            loop = true,
+            delay = f(12)
+        },
         getUp = {
             { q = q(228,371,78,39), ox = 44, oy = 34, delay = f(24) }, --fallen
             { q = q(2,422,68,56), ox = 36, oy = 54 }, --get up
