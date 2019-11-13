@@ -255,7 +255,6 @@ function Character:afterOnHurt()
             else
                 h.horizontal = -1
             end
-            self.face = -h.horizontal	--turn face to the epicenter
         end
     elseif h.type == "simple" then
         return
