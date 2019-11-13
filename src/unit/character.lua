@@ -192,7 +192,7 @@ function Character:onHurtDamage()
         return
     end
     self:playHitSfx(h.damage)
-    if h.isThrown or h.type == "knockDown" or h.type == "twist" then
+    if h.isThrown or h.type == "fell" or h.type == "twist" then
         self.face = -h.horizontal --turn face to the attacker
     else
         if h.source.speed_x == 0 then
@@ -235,7 +235,7 @@ function Character:afterOnHurt()
         self.speed_x = h.repel_x --use fall speed from the argument
         self.speed_y = h.repel_y --use fall speed from the argument
         --then it goes to "fall dead"
-    elseif h.type == "knockDown" or h.type == "shockWave" or h.type == "blowOut" or h.type == "twist" then
+    elseif h.type == "fell" or h.type == "shockWave" or h.type == "blowOut" or h.type == "twist" then
         if self.isMovable then
             --use fall speed from repel
             if h.repel_x == 0 then
@@ -245,7 +245,7 @@ function Character:afterOnHurt()
                 self.speed_y = h.repel_y
             end
         end
-        if h.type == "knockDown" or h.type == "twist" then
+        if h.type == "fell" or h.type == "twist" then
             if h.source == self then --fall back on self kill (timeout)
                 h.horizontal = -self.horizontal
                 self.face = -h.horizontal
@@ -291,7 +291,7 @@ end
 
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: x,y,width,height,depth, damage, type, repel_x, repel_y, sfx, init_victims_list
-    --type = "simple" "shockWave" "hit" "knockDown" "twist" "blowOut" "check"
+    --type = "simple" "shockWave" "hit" "fell" "twist" "blowOut" "check"
     if not f then
         f = {}
     end
@@ -1029,7 +1029,7 @@ function Character:fallUpdate(dt)
                   height = self:getHurtBoxHeight(),
                   depth = self:getHurtBoxDepth(),
                   damage = self.myThrownBodyDamage,
-                  type = "knockDown",
+                  type = "fell",
                   speed_x = self.throwSpeed_x,
                   horizontal = self.horizontal },
                 false
@@ -1041,7 +1041,7 @@ function Character:fallUpdate(dt)
                   height = self:getHurtBoxHeight(),
                   depth = self:getHurtBoxDepth(),
                   damage = self.myThrownBodyDamage,
-                  type = "knockDown",
+                  type = "fell",
                   speed_x = self.throwSpeed_x },
                 false
             )

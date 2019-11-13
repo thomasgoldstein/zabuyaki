@@ -9,13 +9,13 @@ local function f(n)
 end
 local rollAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 4, y = 23, width = 48, height = 45, damage = 28, type = "knockDown" },
+        { x = 4, y = 23, width = 48, height = 45, damage = 28, type = "fell" },
         cont
     )
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 4, y = 10, width = 48, height = 45, damage = 28, type = "knockDown" },
+        { x = 4, y = 10, width = 48, height = 45, damage = 28, type = "fell" },
         cont
     )
 end
@@ -26,7 +26,7 @@ local comboUppercut1 = function(slf, cont)
 ) end
 local comboUppercut2 = function(slf, cont)
     slf:checkAndAttack(
-    { x = 20, y = 60, width = 30, height = 45, damage = 16, type = "knockDown", repel_x = slf.dashFallSpeed },
+    { x = 20, y = 60, width = 30, height = 45, damage = 16, type = "fell", repel_x = slf.dashFallSpeed },
     cont
 ) end
 local grabFrontAttack = function(slf, cont)
@@ -38,7 +38,7 @@ end
 local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 19, y = 37, width = 26, damage = 18,
-        type = "knockDown", repel_x = slf.shortThrowSpeed_x },
+        type = "fell", repel_x = slf.shortThrowSpeed_x },
         cont
     )
 end

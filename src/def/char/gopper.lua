@@ -18,13 +18,13 @@ local comboPunch = function(slf, cont)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 29, y = 22, width = 26, damage = 8, type = "knockDown", sfx = "air" },
+        { x = 29, y = 22, width = 26, damage = 8, type = "fell", sfx = "air" },
         cont
     )
 end
 local dashAttack = function(slf, cont)
     slf:checkAndAttack(
-    { x = 11, y = 31, width = 30, height = 40, damage = 14, type = "knockDown", repel_x = slf.dashFallSpeed },
+    { x = 11, y = 31, width = 30, height = 40, damage = 14, type = "fell", repel_x = slf.dashFallSpeed },
     cont
 ) end
 

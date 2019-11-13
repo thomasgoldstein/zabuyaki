@@ -203,7 +203,7 @@ function Player:onHurtDamage()
     end
 
     self:playHitSfx(h.damage)
-    if h.isThrown or h.type == "knockDown" or h.type == "twist" then
+    if h.isThrown or h.type == "fell" or h.type == "twist" then
         self.face = -h.horizontal --turn face to the attacker
     else
         if h.source ~= self then

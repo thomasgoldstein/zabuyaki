@@ -11,11 +11,11 @@ local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
 local jumpAttackStraight = function(slf, cont) slf:checkAndAttack(
-    { x = 15, y = 21, width = 25, damage = 15, type = "knockDown" },
+    { x = 15, y = 21, width = 25, damage = 15, type = "fell" },
     cont
 ) end
 local jumpAttackForward = function(slf, cont) slf:checkAndAttack(
-    { x = 30, y = 18, width = 25, height = 45, damage = 15, type = "knockDown" },
+    { x = 30, y = 18, width = 25, height = 45, damage = 15, type = "fell" },
     cont
 ) end
 local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
@@ -23,7 +23,7 @@ local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local jumpAttackRunLast = function(slf, cont) slf:checkAndAttack(
-    { x = 27, y = 25, width = 35, height = 50, damage = 8, type = "knockDown" },
+    { x = 27, y = 25, width = 35, height = 50, damage = 8, type = "fell" },
     cont
 ) end
 local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
@@ -80,32 +80,32 @@ local comboAttack3Forward = function(slf, cont)
 end
 local comboAttack4 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 37, width = 30, damage = 14, type = "knockDown", sfx = "air" },
+        { x = 28, y = 37, width = 30, damage = 14, type = "fell", sfx = "air" },
         cont
     )
 end
 local comboAttack4NoSfx = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, y = 37, width = 30, damage = 14, type = "knockDown" },
+        { x = 28, y = 37, width = 30, damage = 14, type = "fell" },
         cont
     )
 end
 local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 18, width = 39, damage = 14, type = "knockDown", repel_x = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
+        { x = 27, y = 18, width = 39, damage = 14, type = "fell", repel_x = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-    { x = 8, y = 20, width = 22, damage = 17, type = "knockDown", repel_x = slf.dashFallSpeed },
+    { x = 8, y = 20, width = 22, damage = 17, type = "fell", repel_x = slf.dashFallSpeed },
     cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 24, width = 26, damage = 17, type = "knockDown", repel_x = slf.dashFallSpeed },
+    { x = 10, y = 24, width = 26, damage = 17, type = "fell", repel_x = slf.dashFallSpeed },
     cont
 ) end
 local dashAttack3 = function(slf, cont) slf:checkAndAttack(
-    { x = 12, y = 28, width = 30, damage = 17, type = "knockDown", repel_x = slf.dashFallSpeed },
+    { x = 12, y = 28, width = 30, damage = 17, type = "fell", repel_x = slf.dashFallSpeed },
     cont
 ) end
 local chargeDashAttackCheck = function(slf, cont)
@@ -122,7 +122,7 @@ local chargeDashAttack = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local chargeDashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 27, y = 18, width = 39, height = 45, damage = 10, type = "knockDown" },
+    { x = 27, y = 18, width = 39, height = 45, damage = 10, type = "fell" },
     cont
 ) end
 local specialDefensiveMiddle = function(slf, cont) slf:checkAndAttack(
@@ -165,7 +165,7 @@ local specialOffensiveFinisher1 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local specialOffensiveFinisher2 = function(slf, cont) slf:checkAndAttack(
-    { x = 15, y = 22, width = 50, height = 45, damage = 14, repel_x = slf.specialOffensiveFinisher2Repel, type = "knockDown" },
+    { x = 15, y = 22, width = 50, height = 45, damage = 14, repel_x = slf.specialOffensiveFinisher2Repel, type = "fell" },
     cont
 ) end
 local specialDash = function(slf, cont) slf:checkAndAttack(
@@ -219,7 +219,7 @@ end
 local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 10, y = 21, width = 26, damage = 11,
-        type = "knockDown", repel_x = slf.shortThrowSpeed_x },
+        type = "fell", repel_x = slf.shortThrowSpeed_x },
         cont
     )
 end
@@ -246,7 +246,7 @@ local grabFrontAttackBack = function(slf, cont) slf:doThrow(slf.throwSpeed_x, 0,
 local grabFrontAttackDown = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, y = 37, width = 26, damage = 15,
-        type = "knockDown", repel_x = slf.shortThrowSpeed_x },
+        type = "fell", repel_x = slf.shortThrowSpeed_x },
         cont
     )
 end

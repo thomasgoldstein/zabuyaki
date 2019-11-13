@@ -46,7 +46,7 @@ function killAllPlayers()
         if player and player:isAlive() and not player:isInUseCreditMode() then
             player.hp = 0
             player:setState(player.slide)
-            player:applyDamage(0, "knockDown", player)
+            player:applyDamage(0, "fell", player)
         end
     end
 end

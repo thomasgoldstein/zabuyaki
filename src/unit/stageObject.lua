@@ -218,7 +218,7 @@ function StageObject:fallUpdate(dt)
     end
     if self.isThrown and self.speed_z < 0 and self.bounced == 0 then
         self:checkAndAttack(
-            { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "knockDown", speed_x = self.throwSpeed_x },
+            { x = 0, y = 0, width = 20, height = 12, damage = self.myThrownBodyDamage, type = "fell", speed_x = self.throwSpeed_x },
             false
         )
     end
