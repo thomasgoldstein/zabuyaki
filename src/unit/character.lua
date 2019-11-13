@@ -192,7 +192,7 @@ function Character:onHurtDamage()
         return
     end
     self:playHitSfx(h.damage)
-    if h.isThrown or h.type == "knockDown" or h.type == "fallTwist" then
+    if h.isThrown or h.type == "knockDown" or h.type == "twist" then
         self.face = -h.horizontal --turn face to the attacker
     else
         if h.source.speed_x == 0 then
@@ -235,7 +235,7 @@ function Character:afterOnHurt()
         self.speed_x = h.repel_x --use fall speed from the argument
         self.speed_y = h.repel_y --use fall speed from the argument
         --then it goes to "fall dead"
-    elseif h.type == "knockDown" or h.type == "shockWave" or h.type == "blowOut" or h.type == "fallTwist" then
+    elseif h.type == "knockDown" or h.type == "shockWave" or h.type == "blowOut" or h.type == "twist" then
         if self.isMovable then
             --use fall speed from repel
             if h.repel_x == 0 then
@@ -245,7 +245,7 @@ function Character:afterOnHurt()
                 self.speed_y = h.repel_y
             end
         end
-        if h.type == "knockDown" or h.type == "fallTwist" then
+        if h.type == "knockDown" or h.type == "twist" then
             if h.source == self then --fall back on self kill (timeout)
                 h.horizontal = -self.horizontal
                 self.face = -h.horizontal
@@ -291,7 +291,7 @@ end
 
 function Character:checkAndAttack(f, isFuncCont)
     --f options {}: x,y,width,height,depth, damage, type, repel_x, repel_y, sfx, init_victims_list
-    --type = "simple" "shockWave" "hit" "knockDown" "fallTwist" "blowOut" "check"
+    --type = "simple" "shockWave" "hit" "knockDown" "twist" "blowOut" "check"
     if not f then
         f = {}
     end
@@ -362,7 +362,7 @@ function Character:checkAndAttack(f, isFuncCont)
                         horizontal = self.horizontal, vertical = self.vertical, isThrown = true,
                         z = self.z + y
                     }
-                elseif type == "fallTwist" then
+                elseif type == "twist" then
                     o.isHurt = {source = self, state = self.state, damage = damage,
                                 type = type, repel_x = repel_x, repel_y = repel_y,
                                 horizontal = self.horizontal, vertical = self.vertical, isThrown = true,
@@ -962,7 +962,7 @@ function Character:fallStart()
     self.canRecover = false
     if self.isThrown then
         self:setSprite("thrown")
-    elseif self.condition == "fallTwist" then
+    elseif self.condition == "twist" then
         self:setSprite("fallTwist")
     else
         self:setSprite("fall")
@@ -1022,7 +1022,7 @@ function Character:fallUpdate(dt)
         end
     end
     if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0 then
-        if self.condition == "fallTwist" then
+        if self.condition == "twist" then
             self:checkAndAttack(
                 { x = 0, y = self:getHurtBoxHeight() / 2,
                   width = self:getHurtBoxWidth(),

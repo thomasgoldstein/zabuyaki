@@ -21,19 +21,19 @@ local comboAttack2 = function(slf, cont)
 end
 local dashAttack1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 0, y = 27, width = 40, damage = 28, type = "fallTwist" },
+        { x = 0, y = 27, width = 40, damage = 28, type = "twist" },
         cont
     )
 end
 local dashAttack2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 17, y = 27, width = 45, damage = 28, type = "fallTwist" },
+        { x = 17, y = 27, width = 45, damage = 28, type = "twist" },
         cont
     )
 end
 local dashAttack3 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 27, width = 50, damage = 28, type = "fallTwist" },
+        { x = 25, y = 27, width = 50, damage = 28, type = "twist" },
         cont
     )
 end

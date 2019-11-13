@@ -189,19 +189,19 @@ local specialDashCheck = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local specialDash2Middle = function(slf, cont) slf:checkAndAttack(
-    { x = 0, y = 22, width = 60, height = 40, damage = 6, type = "fallTwist" },
+    { x = 0, y = 22, width = 60, height = 40, damage = 6, type = "twist" },
     cont
 ) end
 local specialDash2Right = function(slf, cont) slf:checkAndAttack(
-    { x = 5, y = 27, width = 60, height = 40, damage = 6, type = "fallTwist" },
+    { x = 5, y = 27, width = 60, height = 40, damage = 6, type = "twist" },
     cont
 ) end
 local specialDash2RightMost = function(slf, cont) slf:checkAndAttack(
-    { x = 10, y = 32, width = 66, height = 45, damage = 6, type = "fallTwist" },
+    { x = 10, y = 32, width = 66, height = 45, damage = 6, type = "twist" },
     cont
 ) end
 local specialDash2Left = function(slf, cont) slf:checkAndAttack(
-    { x = -5, y = 22, width = 60, height = 40, damage = 6, type = "fallTwist" },
+    { x = -5, y = 22, width = 60, height = 40, damage = 6, type = "twist" },
     cont
 ) end
 local specialDashHop = function(slf, cont)
