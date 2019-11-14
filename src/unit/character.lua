@@ -253,7 +253,7 @@ function Character:afterOnHurt()
                 self.vertical = h.source.vertical
                 self.speed_y = h.source.speed_y * 0.5
             end
-        else -- "shockWave" or "expel"
+        elseif h.type == "shockWave" then
             if h.source.x < self.x then --fall back from the epicenter
                 h.horizontal = 1
             else
@@ -1021,8 +1021,8 @@ function Character:fallUpdate(dt)
             return
         end
     end
-    if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0 then
-        if self.condition == "twist" then
+    if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0
+        and ( self.isThrown or self.condition == "twist" ) then
             self:checkAndAttack(
                 { x = 0, y = self:getHurtBoxHeight() / 2,
                   width = self:getHurtBoxWidth(),
@@ -1034,18 +1034,6 @@ function Character:fallUpdate(dt)
                   horizontal = self.horizontal },
                 false
             )
-        elseif self.isThrown then
-            self:checkAndAttack(
-                { x = 0, y = self:getHurtBoxHeight() / 2,
-                  width = self:getHurtBoxWidth(),
-                  height = self:getHurtBoxHeight(),
-                  depth = self:getHurtBoxDepth(),
-                  damage = self.myThrownBodyDamage,
-                  type = "fell",
-                  speed_x = self.throwSpeed_x },
-                false
-            )
-        end
     end
     if not self.toSlowDown then
         self.speed_x = 0
