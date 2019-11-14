@@ -422,7 +422,7 @@ return {
         },
         combo3Down = {
             { q = q(2,1757,40,64), ox = 21, oy = 63, delay = f(2) }, --dash attack 1
-            { q = q(44,1759,39,62), ox = 21, oy = 61, delay = f(6) }, --dash attack 2
+            { q = q(44,1759,39,62), ox = 21, oy = 61, delay = f(5) }, --dash attack 2
             { q = q(85,1759,54,62), ox = 28, oy = 61, delay = f(1) }, --dash attack 3
             { q = q(160,1246,48,62), ox = 23, oy = 61, delay = f(1) }, --combo down 3.1
             { q = q(157,1323,59,49), ox = 13, oy = 48, func = comboAttack3Down, delay = f(9) }, --combo down 3.2
