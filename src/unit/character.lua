@@ -255,12 +255,13 @@ function Character:afterOnHurt()
                 self.vertical = h.source.vertical
                 self.speed_y = h.source.speed_y * 0.5
             end
-        elseif h.type == "shockWave" then
+        elseif h.type == "shockWave" or h.type == "expel" then
             if h.source.x < self.x then --fall back from the epicenter
                 h.horizontal = 1
             else
                 h.horizontal = -1
             end
+            self.face = -h.horizontal
         end
     end
     --finish calcs before the fall state
