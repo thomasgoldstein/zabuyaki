@@ -195,28 +195,12 @@ function Player:onHurtDamage()
     self.killerId = h.source
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
-
     self:decreaseHp(h.damage)
     if h.type == "simple" then
         self.isHurt = nil --free hurt data
         return
     end
     self:playHitSfx(h.damage)
-    if h.isThrown or h.type == "fell" or h.type == "twist" then
-        self.face = -h.horizontal --turn face to the attacker
-    else
-        if h.source ~= self then
-            if h.source.speed_x == 0 then
-                self.face = -h.source.face --turn face to the still(pulled back) attacker
-            else
-                if h.source.horizontal ~= h.source.face then
-                    self.face = -h.source.face --turn face to the back-jumping attacker
-                else
-                    self.face = -h.source.horizontal --turn face to the attacker
-                end
-            end
-        end
-    end
 end
 
 local players_list = { RICK = 1, KISA = 2, CHAI = 3, YAR = 4, GOPPER = 5, NIKO = 6, SVETA = 7, ZEENA = 8, BEATNIK = 9, SATOFF = 10, DRVOLKER = 11 }

@@ -186,31 +186,43 @@ function Character:onHurtDamage()
     self:releaseGrabbed()
     self:onAttacker(h)
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
-
     self:decreaseHp(h.damage)
     if h.type == "simple" then
         return
     end
     self:playHitSfx(h.damage)
-    if h.isThrown or h.type == "fell" or h.type == "twist" then
-        self.face = -h.horizontal --turn face to the attacker
-    else
-        if h.source.speed_x == 0 then
-            self.face = -h.source.face	--turn face to the still(pulled back) attacker
-        else
-            if h.source.horizontal ~= h.source.face then
-                self.face = -h.source.face	--turn face to the back-jumping attacker
-            else
-                self.face = -h.source.horizontal --turn face to the attacker
-            end
-        end
-    end
 end
 
 function Character:afterOnHurt()
     local h = self.isHurt
     if not h then
         return
+    end
+    if h.type == "simple" then
+        return
+    end
+    if h.isThrown or h.type == "fell" or h.type == "twist" then
+        if h.type == "fell" or h.type == "twist" then
+            if h.source == self then --fall back on self kill (timeout)
+                h.horizontal = -self.horizontal
+            else
+                self.vertical = h.source.vertical
+                self.speed_y = h.source.speed_y * 0.5
+            end
+        end
+        self.face = -h.horizontal --turn face to the attacker
+    else
+        if h.source ~= self then
+            if h.source.speed_x == 0 then
+                self.face = -h.source.face --turn face to the still(pulled back) attacker
+            else
+                if h.source.horizontal ~= h.source.face then
+                    self.face = -h.source.face --turn face to the back-jumping attacker
+                else
+                    self.face = -h.source.horizontal --turn face to the attacker
+                end
+            end
+        end
     end
     if h.type == "hit" then
         if self.hp > 0 and self.z <= self:getMinZ() then
@@ -235,8 +247,6 @@ function Character:afterOnHurt()
         self.speed_x = h.repel_x --use fall speed from the argument
         self.speed_y = h.repel_y --use fall speed from the argument
         --then it goes to "fall dead"
-    elseif h.type == "simple" then
-        return
     else    --types "fell" "shockWave" "expel" "twist"
         if self.isMovable then
             --use fall speed from repel
@@ -247,15 +257,7 @@ function Character:afterOnHurt()
                 self.speed_y = h.repel_y
             end
         end
-        if h.type == "fell" or h.type == "twist" then
-            if h.source == self then --fall back on self kill (timeout)
-                h.horizontal = -self.horizontal
-                self.face = -h.horizontal
-            else
-                self.vertical = h.source.vertical
-                self.speed_y = h.source.speed_y * 0.5
-            end
-        elseif h.type == "shockWave" or h.type == "expel" then
+        if h.type == "shockWave" or h.type == "expel" then
             if h.source.x < self.x then --fall back from the epicenter
                 h.horizontal = 1
             else
