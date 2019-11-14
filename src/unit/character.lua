@@ -235,7 +235,9 @@ function Character:afterOnHurt()
         self.speed_x = h.repel_x --use fall speed from the argument
         self.speed_y = h.repel_y --use fall speed from the argument
         --then it goes to "fall dead"
-    elseif h.type == "fell" or h.type == "shockWave" or h.type == "expel" or h.type == "twist" then
+    elseif h.type == "simple" then
+        return
+    else    --types "fell" "shockWave" "expel" "twist"
         if self.isMovable then
             --use fall speed from repel
             if h.repel_x == 0 then
@@ -260,10 +262,6 @@ function Character:afterOnHurt()
                 h.horizontal = -1
             end
         end
-    elseif h.type == "simple" then
-        return
-    else
-        error("afterOnHurt - unknown h.type = "..h.type)
     end
     --finish calcs before the fall state
     if h.damage > 0 then
@@ -286,7 +284,7 @@ function Character:afterOnHurt()
         end
         self.speed_x = self.speed_x + self.fallDeadSpeedBoost_x
     end
-    self:setState(self.fall, h.type)
+    self:setState(self.fall, h.type)    --h.type is passed to self.condition
 end
 
 function Character:checkAndAttack(f, isFuncCont)
