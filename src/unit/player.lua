@@ -201,7 +201,6 @@ function Player:onHurtDamage()
         self.isHurt = nil --free hurt data
         return
     end
-
     self:playHitSfx(h.damage)
     if h.isThrown or h.type == "fell" or h.type == "twist" then
         self.face = -h.horizontal --turn face to the attacker
