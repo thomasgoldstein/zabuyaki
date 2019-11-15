@@ -383,6 +383,7 @@ function drawDebugUnitInfo(a)
     end
 end
 
+local savePlayersPosAndFaceDebug = {}
 local keysToKill = {f8 = 1, f9 = 2, f10 = 3, f7 = 0}
 function checkDebugKeys(key)
     if isDebug() then
@@ -421,6 +422,27 @@ function checkDebugKeys(key)
                 else
                     sfx.play("sfx","menuMove")
                 end
+            end
+        elseif key == '5' then
+            if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+                for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+                    local p = getRegisteredPlayer(i)
+                    local s = savePlayersPosAndFaceDebug[i]
+                    if s and p and p:isAlive() and p.state ~= "useCredit" then
+                        p.x, p.y, p.z, p.face, p.vertical, p.horizontal = s.x, s.y, s.z, s.face, s.vertical, s.horizontal
+                    end
+                end
+                sfx.play("sfx","menuCancel")
+            else
+                local s = {}
+                for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+                    local p = getRegisteredPlayer(i)
+                    if p and p:isAlive() and p.state ~= "useCredit" then
+                        s[i] = { x = p.x, y = p.y, z = p.z, face = p.face, vertical = p.vertical, horizontal = p.horizontal }
+                    end
+                end
+                savePlayersPosAndFaceDebug = s
+                sfx.play("sfx","menuMove")
             end
         elseif keysToKill[key] then
             local id = keysToKill[key]

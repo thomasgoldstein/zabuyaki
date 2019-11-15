@@ -20,6 +20,9 @@ Use [ F8 ], [ F9 ] or [ F10 ] keys to kill P1, P2 or P3 accordingly.
 ### Turn on random Players controls
 To simulate random buttons mashing use [ CTRL ] + [ F8 ], [ CTRL ] + [ F9 ] or [ CTRL ] + [ F10 ] keys for P1, P2 or P3 accordingly.
 
+### Save Players position, facing, horizontal and vertical direction
+To save current P1,P2,P3 position, facing, horizontal and vertical direction use [ 5 ]. To restore players' position and so on use [ CTRL ] + [ 5 ].
+
 ## Logging
 ### Log active players
 Use [ 1 ] to save all players classes data into **players.txt**.
