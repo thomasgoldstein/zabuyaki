@@ -49,7 +49,7 @@ function Gopper:onFriendlyAttack()
     if not h then
         return
     end
-    if h.isThrown or h.source.type == "player" then
+    if h.source.type == "player" or self.state == "fall" then
         h.damage = h.damage or 0
     elseif h.source.subtype == "gopnik" then
         --Gopper can attack Gopper and Niko only

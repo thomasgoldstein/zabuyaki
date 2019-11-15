@@ -128,7 +128,7 @@ end
 
 function Character:isImmune()   --Immune to the attack?
     local h = self.isHurt
-    if h.type == "shockWave" and ( self.isDisabled or self.isThrown or self.hp <= 0 ) then
+    if h.type == "shockWave" and ( self.isDisabled or self.hp <= 0 or self.state == "fall" ) then
         -- shockWave has no effect on players & stage objects
         self.isHurt = nil --free hurt data
         return true
@@ -141,7 +141,7 @@ function Character:onFriendlyAttack()
     if not h then
         return
     end
-    if self.type == h.source.type and not h.isThrown then
+    if self.state ~= "fall" and self.type == h.source.type then
         --friendly attack is lower by default
         h.damage = math.floor( (h.damage or 0) / self.friendlyDamage )
     else
@@ -157,7 +157,7 @@ function Character:onHurt()
     end
     -- got Immunity?
     if self:isImmune() then
-        self.isHurt = nil
+        self.isHurt = nil --free hurt data
         return
     end
     self:removeTweenMove()
@@ -201,14 +201,12 @@ function Character:afterOnHurt()
     if h.type == "simple" then
         return
     end
-    if h.isThrown or h.type == "fell" or h.type == "twist" then
-        if h.type == "fell" or h.type == "twist" then
-            if h.source == self then --fall back on self kill (timeout)
-                h.horizontal = -self.horizontal
-            else
-                self.vertical = h.source.vertical
-                self.speed_y = h.source.speed_y * 0.5
-            end
+    if h.type == "fell" or h.type == "twist" or h.type == "throw" then
+        if h.source == self then --fall back on self kill (timeout)
+            h.horizontal = -self.horizontal
+        else
+            self.vertical = h.source.vertical
+            self.speed_y = h.source.speed_y * 0.5
         end
         self.face = -h.horizontal --turn face to the attacker
     else
@@ -314,7 +312,7 @@ function Character:checkAndAttack(f, isFuncCont)
             then
                 o.isHurt = { source = self, state = self.state, damage = damage,
                              type = type, repel_x = repel_x, repel_y = repel_y,
-                             horizontal = horizontal, isThrown = false,
+                             horizontal = horizontal,
                              z = self.z + y}
                 counter = counter + 1
             end
@@ -357,22 +355,16 @@ function Character:checkAndAttack(f, isFuncCont)
                 self.y - d / 2,
                  w, h, d)
             then
-                if self.isThrown then
-                    o.isHurt = {source = self.throwerId, state = self.state, damage = damage,
+                if type == "throw" or type == "twist" then
+                    o.isHurt = {source = self.throwerId or self, state = self.state, damage = damage,
                         type = type, repel_x = repel_x, repel_y = repel_y,
-                        horizontal = self.horizontal, vertical = self.vertical, isThrown = true,
+                        horizontal = self.horizontal, vertical = self.vertical,
                         z = self.z + y
-                    }
-                elseif type == "twist" then
-                    o.isHurt = {source = self, state = self.state, damage = damage,
-                                type = type, repel_x = repel_x, repel_y = repel_y,
-                                horizontal = self.horizontal, vertical = self.vertical, isThrown = true,
-                                z = self.z + y
                     }
                 else
                     o.isHurt = { source = self, state = self.state, damage = damage,
                                  type = type, repel_x = repel_x, repel_y = repel_y,
-                                 horizontal = horizontal, vertical = self.vertical, isThrown = false,
+                                 horizontal = horizontal, vertical = self.vertical,
                                  continuous = isFuncCont,
                                  z = self.z + y
                     }
@@ -961,7 +953,7 @@ function Character:fallStart()
     self:removeTweenMove()
     self.isHittable = false
     self.canRecover = false
-    if self.isThrown then
+    if self.condition == "throw" then
         self:setSprite("thrown")
     elseif self.condition == "twist" then
         self:setSprite("fallTwist")
@@ -975,7 +967,7 @@ function Character:fallStart()
 end
 function Character:fallUpdate(dt)
     self:calcFreeFall(dt)
-    if self.isThrown and self.speed_z < 0 and self.z < self:getMinZ() + self.toFallenAnim_z then
+    if self.speed_z < 0 and self.state == "fall" and self.z < self:getMinZ() + self.toFallenAnim_z then
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
             self.canRecover = true
         end
@@ -992,12 +984,12 @@ function Character:fallUpdate(dt)
             if self.bounced == 0 then
                 if self.isThrown then
                     -- hold UP+JUMP to get no damage after throw (land on feet)
-                    if self.isThrown and self.canRecover and self.hp > 0 then
+                    if self.state == "fall" and self.canRecover and self.hp > 0 then
                         self:playSfx(self.sfx.step)
                         self:setState(self.duck)
                         return
                     end
-                    --damage for thrown on landing
+                    --apply damage of thrown units on landing
                     self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
@@ -1023,7 +1015,7 @@ function Character:fallUpdate(dt)
         end
     end
     if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0
-        and ( self.isThrown or self.condition == "twist" ) then
+        and ( self.condition == "throw" or self.condition == "twist" ) then
             self:checkAndAttack(
                 { x = 0, y = self:getHurtBoxHeight() / 2,
                   width = self:getHurtBoxWidth(),
@@ -1081,7 +1073,7 @@ function Character:getUpStart()
         return
     end
     self.isHittable = false
-    self.isHurt = nil
+    self.isHurt = nil --free hurt data
     self.z = self:getMinZ()
     self.isThrown = false
     if self.hp <= 0 then
@@ -1110,7 +1102,7 @@ function Character:deadStart()
     end
     dp(self.name.." is dead.")
     self.hp = 0
-    self.isHurt = nil
+    self.isHurt = nil --free hurt data
     self:releaseGrabbed()
     self:disableGhostTrails()
     if not self:canFall() then
@@ -1513,7 +1505,7 @@ function Character:doThrow(repel_x, repel_y, repel_z, horizontal, face, start_z)
     local g = self.grabContext
     local t = g.target
     t.isGrabbed = false
-    t.isThrown = true
+    t.isThrown = true   --flag to get damage on landing
     t.throwerId = self
     t.victims[self] = true
     t.speed_x = repel_x
@@ -1528,7 +1520,7 @@ function Character:doThrow(repel_x, repel_y, repel_z, horizontal, face, start_z)
     if start_z then
         t.z = start_z
     end
-    t:setState(t.fall)
+    t:setState(t.fall, "throw")
     self:playSfx("whooshHeavy")
     self:playSfx(self.sfx.throw)
 end

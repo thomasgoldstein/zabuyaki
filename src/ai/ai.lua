@@ -109,7 +109,7 @@ function AI:getConditions()
     local u = self.unit
     local conditions = {} -- { "normalDifficulty" }
     local conditionsOutput
-    if u.isDisabled or u.isThrown then
+    if u.isDisabled or u.state == "fall" then
         conditions[#conditions + 1] = "dead"
         conditions[#conditions + 1] = "cannotAct"
     else

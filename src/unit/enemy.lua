@@ -44,7 +44,7 @@ function Enemy:onFriendlyAttack()
         return
     end
     self.isActive = true -- awake sleeping enemy on any attack (even friendly)
-    if self.type == h.source.type and not h.isThrown then
+    if self.type == h.source.type and self.state ~= "fall" then
         self.isHurt = nil   --enemy doesn't attack enemy
     else
         h.damage = h.damage or 0

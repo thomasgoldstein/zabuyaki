@@ -99,7 +99,7 @@ function StageObject:onHurt()
     end
     -- got Immunity?
     if self:isImmune() then
-        self.isHurt = nil
+        self.isHurt = nil --free hurt data
         return
     end
     local newFacing = -h.horizontal
@@ -197,7 +197,7 @@ function StageObject:fallUpdate(dt)
             self.speed_x = self.speed_x * 0.5
             if self.bounced == 0 then
                 if self.isThrown then
-                    --damage for thrown on landing
+                    --apply damage of thrown units on landing
                     self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch

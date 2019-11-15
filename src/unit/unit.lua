@@ -173,7 +173,7 @@ end
 function Unit:applyDamage(damage, type, source, repel_x, sfx1)
     self.isHurt = {source = source or self, state = self.state, damage = damage,
                    type = type, repel_x = repel_x or 0,
-                   horizontal = self.face, isThrown = false,
+                   horizontal = self.face,
                    x = self.x, y = self.y, z = self.z }
     if sfx1 then
         self:playSfx(sfx1)
