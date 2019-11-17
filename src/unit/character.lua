@@ -972,7 +972,7 @@ function Character:fallStart()
 end
 function Character:fallUpdate(dt)
     self:calcFreeFall(dt)
-    if self.speed_z < 0 and self.state == "fall" and self.z < self:getMinZ() + self.toFallenAnim_z then
+    if self.speed_z < 0 and self.condition == "throw" and self.z < self:getMinZ() + self.toFallenAnim_z then
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
             self.canRecover = true
         end
@@ -989,7 +989,7 @@ function Character:fallUpdate(dt)
             if self.bounced == 0 then
                 if self.isThrown then
                     -- hold UP+JUMP to get no damage after throw (land on feet)
-                    if self.state == "fall" and self.canRecover and self.hp > 0 then
+                    if self.condition == "throw" and self.canRecover and self.hp > 0 then
                         self:playSfx(self.sfx.step)
                         self:setState(self.duck)
                         return
