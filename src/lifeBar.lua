@@ -59,9 +59,10 @@ function LifeBar:calcBarWidth()
     return barWidth
 end
 
+local indirectAttackers = {twist = true, throw = true}
 function LifeBar:getAttackerId(attackerSource)
-    if attackerSource.isThrown then
-        return attackerSource.throwerId.id
+    if indirectAttackers[attackerSource.condition] then
+        return attackerSource.indirectAttacker.id
     end
     return attackerSource.id
 end
