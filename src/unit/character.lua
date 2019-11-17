@@ -201,7 +201,7 @@ function Character:afterOnHurt()
     if h.type == "simple" then
         return
     end
-    if h.type == "fell" or h.type == "twist" or h.type == "throw" then
+    if h.type == "fell" or h.type == "twist" then
         if h.source == self then --fall back on self kill (timeout)
             h.horizontal = -self.horizontal
         else
@@ -359,20 +359,12 @@ function Character:checkAndAttack(f, isFuncCont)
                 self.y - d / 2,
                  w, h, d)
             then
-                if type == "throw" or type == "twist" then
-                    o.isHurt = {source = self.throwerId or self, state = self.state, damage = damage,
-                        type = type, repel_x = repel_x, repel_y = repel_y,
-                        horizontal = self.horizontal, vertical = self.vertical,
-                        z = self.z + y
-                    }
-                else
-                    o.isHurt = { source = self, state = self.state, damage = damage,
-                                 type = type, repel_x = repel_x, repel_y = repel_y,
-                                 horizontal = horizontal, vertical = self.vertical,
-                                 continuous = isFuncCont,
-                                 z = self.z + y
-                    }
-                end
+                o.isHurt = { source = self.indirectAttacker or self, state = self.state, damage = damage,
+                             type = type, repel_x = repel_x, repel_y = repel_y,
+                             horizontal = horizontal, vertical = self.vertical,
+                             continuous = isFuncCont,
+                             z = self.z + y
+                }
                 counter = counter + 1
             end
         end
