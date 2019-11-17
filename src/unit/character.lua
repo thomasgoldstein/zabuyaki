@@ -210,7 +210,6 @@ function Character:afterOnHurt()
         end
         self.face = -h.horizontal --turn face to the attacker
         if h.type == "twist" then
-            self.isThrown = true   --flag to get damage on landing
             self.throwerId = h.source
             self.victims[h.source] = true   --the attacker is immune to the twist bodies
         end
