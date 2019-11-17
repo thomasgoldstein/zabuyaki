@@ -210,7 +210,7 @@ function Character:afterOnHurt()
         end
         self.face = -h.horizontal --turn face to the attacker
         if h.type == "twist" then
-            self.throwerId = h.source
+            self.indirectAttacker = h.source
             self.victims[h.source] = true   --the attacker is immune to the twist bodies
         end
     else
@@ -994,7 +994,7 @@ function Character:fallUpdate(dt)
                         return
                     end
                     --apply damage of thrown units on landing
-                    self:applyDamage(self.thrownFallDamage, "simple", self.throwerId)
+                    self:applyDamage(self.thrownFallDamage, "simple", self.indirectAttacker)
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                 self:setSprite("fallBounce")
@@ -1010,7 +1010,7 @@ function Character:fallUpdate(dt)
             self.speed_y = 0
             self.speed_x = 0
             self.horizontal = self.face
-            self.throwerId = false
+            self.indirectAttacker = false
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
             self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
@@ -1510,7 +1510,7 @@ function Character:doThrow(repel_x, repel_y, repel_z, horizontal, face, start_z)
     local t = g.target
     t.isGrabbed = false
     t.isThrown = true   --flag to get damage on landing
-    t.throwerId = self
+    t.indirectAttacker = self
     t.victims[self] = true
     t.speed_x = repel_x
     t.speed_y = repel_y
