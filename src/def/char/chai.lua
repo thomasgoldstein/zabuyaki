@@ -78,6 +78,12 @@ local comboAttack3Forward = function(slf, cont)
         cont
     )
 end
+local comboAttack3Down = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 28, y = 10, width = 30, damage = 14, type = "fell", sfx = "air" },
+        cont
+    )
+end
 local comboAttack4 = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, y = 37, width = 30, damage = 14, type = "fell", sfx = "air" },
@@ -420,6 +426,16 @@ return {
             { q = q(87,1915,49,64), ox = 14, oy = 63, spanFunc = true }, --combo forward 3.3
             { q = q(87,1915,49,64), ox = 14, oy = 63, spanFunc = true, delay = f(2) }, --combo forward 3.3
             { q = q(138,1914,38,65), ox = 21, oy = 64 }, --combo forward 3.4
+            delay = f(3)
+        },
+        combo3Down = {
+            { q = q(2,1341,46,57), ox = 28, oy = 56 , delay = f(2)}, --special defensive 1
+            { q = q(2,2425,39,56), ox = 33, oy = 55, delay = f(2) }, --combo down 3.1
+            { q = q(43,2425,40,55), ox = 23, oy = 55 }, --combo down 3.2
+            { q = q(85,2424,60,57), ox = 20, oy = 56, func = comboAttack3Down, delay = f(9) }, --combo down 3.3
+            { q = q(147,2423,38,58), ox = 15, oy = 58 }, --combo down 3.4
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
+            comboEnd = true,
             delay = f(3)
         },
         combo4 = {
