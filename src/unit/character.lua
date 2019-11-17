@@ -209,6 +209,9 @@ function Character:afterOnHurt()
             self.speed_y = h.source.speed_y * 0.5
         end
         self.face = -h.horizontal --turn face to the attacker
+        if h.type == "twist" then
+            self.victims[h.source] = true   --the attacker is immune to the twist bodies
+        end
     else
         if h.source ~= self then
             if h.source.speed_x == 0 then
