@@ -78,6 +78,7 @@ function Character:initAttributes()
     self.toFallenAnim_z = 40
     self.sideStepSpeed = 220
     self.sideStepFriction = 650 --speed penalty for sideStepUp/Down (when you slide on the ground)
+    self.indirectAttackFallSpeed_x = 120
     self.throwSpeed_x = 220 --my throwing speed
     self.grabSwapSpeed_x = 160 --grab swap speed
     self.shortThrowSpeed_x = self.throwSpeed_x / 2 --my throwing speed (grabFrontAttack Last and Down)
@@ -1017,7 +1018,7 @@ function Character:fallUpdate(dt)
                   depth = self:getHurtBoxDepth(),
                   damage = self.myThrownBodyDamage,
                   type = "fell",
-                  repel_x = self.throwSpeed_x,
+                  repel_x = self.indirectAttackFallSpeed_x,
                   horizontal = self.horizontal },
                 false
             )

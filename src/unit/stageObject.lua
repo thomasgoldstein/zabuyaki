@@ -227,7 +227,7 @@ function StageObject:fallUpdate(dt)
               depth = self:getHurtBoxDepth(),
               damage = self.myThrownBodyDamage,
               type = "fell",
-              repel_x = self.throwSpeed_x,
+              repel_x = self.indirectAttackFallSpeed_x,
               horizontal = self.horizontal },
             false
         )
