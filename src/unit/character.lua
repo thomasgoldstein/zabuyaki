@@ -150,7 +150,6 @@ function Character:onFriendlyAttack()
 end
 
 function Character:onHurt()
-    -- hurt = {source, damage, speed_x, speed_y, x, y, z}
     local h = self.isHurt
     if not h then
         return
@@ -170,7 +169,6 @@ end
 function Character:onAttacker(h)
     dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
     self:updateAttackersLifeBar(h)
-    -- Score
     h.source:addScore( h.damage * 10 )
     self.killerId = h.source
 end
