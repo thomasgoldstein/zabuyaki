@@ -313,9 +313,8 @@ function Character:checkAndAttack(f, isFuncCont)
                 and o ~= self
                 and mainCamera:isVisible(o)
             then
-                o.isHurt = { source = self, state = self.state, damage = damage,
-                             type = type, repel_x = repel_x, repel_y = repel_y,
-                             horizontal = horizontal,
+                o.isHurt = { source = self, damage = damage,
+                             type = type, repel_x = repel_x,
                              z = self.z + y}
                 counter = counter + 1
             end
@@ -358,7 +357,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 self.y - d / 2,
                  w, h, d)
             then
-                o.isHurt = { source = self.indirectAttacker or self, state = self.state, damage = damage,
+                o.isHurt = { source = self.indirectAttacker or self, damage = damage,
                              type = type, repel_x = repel_x, repel_y = repel_y,
                              horizontal = horizontal, vertical = self.vertical,
                              continuous = isFuncCont,
