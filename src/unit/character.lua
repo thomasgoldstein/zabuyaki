@@ -274,6 +274,7 @@ function Character:afterOnHurt()
         self:setHurtAnimation(h.damage, h.z > 13)
     end
     self.horizontal = h.horizontal
+    self.vertical = h.vertical or 0     -- fix crash on respawn
     self.isGrabbed = false
     -- calc falling trajectory speed, direction
     self.speed_z = self.fallSpeed_z * self.jumpSpeedMultiplier
@@ -282,7 +283,8 @@ function Character:afterOnHurt()
     end
     if self.hp <= 0 then -- dead body flies farther
         if not self.isMovable then
-            self.speed_x = 0
+            self.speed_x = 0    -- static stageObjects don't fall
+            self.speed_y = 0
             self:setState(self.dead)
             return
         end
