@@ -301,10 +301,15 @@ function Character:checkAndAttack(f, isFuncCont)
     local repel_x = f.repel_x or self.speed_x
     local repel_y = f.repel_y or self.speed_y
     local horizontal = f.horizontal or self.face
-    local vertical = f.vertical or self.vertical
+    local vertical = f.vertical
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
     local counter = 0
+    if self.b.vertical:getValue() ~= 0 or vertical then
+        if repel_y < 1 then
+            repel_y = self.walkSpeed_y / 2
+        end
+    end
     if type == "shockWave" then
         for _,o in ipairs(stage.objects.entities) do
             if o.lifeBar
