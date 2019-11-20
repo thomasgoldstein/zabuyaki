@@ -226,6 +226,8 @@ function Character:afterOnHurt()
         end
     end
     if h.type == "hit" then
+        self.horizontal = h.horizontal
+        self.vertical = h.vertical
         if self.hp > 0 and self.z <= self:getMinZ() then
             self:setState(self.hurt)
             self:showHitMarks(h.damage, h.z)
@@ -238,15 +240,15 @@ function Character:afterOnHurt()
                     end
                 else
                     self.speed_x = h.repel_x or 0
-                    self.speed_y = h.repel_y or 0
                 end
-                self.horizontal = h.horizontal
+                self.speed_y = h.repel_y
                 self.friction = self.repelFriction  -- custom friction value for smooth sliding back
             end
             return
         end
         self.speed_x = h.repel_x --use fall speed from the argument
-        self.speed_y = h.repel_y --use fall speed from the argument
+        self.speed_y = h.repel_y--use fall speed from the argument
+        self.friction = self.repelFriction  -- custom friction value for smooth sliding back
         --then it goes to "fall dead"
     else    --types "fell" "shockWave" "expel" "twist"
         if self.isMovable then
@@ -255,8 +257,8 @@ function Character:afterOnHurt()
                 self.speed_x = self.fallSpeed_x
             else
                 self.speed_x = h.repel_x + self.fallSpeedBoost_x
-                self.speed_y = h.repel_y
             end
+            self.speed_y = h.repel_y or 0
         end
         if h.type == "shockWave" or h.type == "expel" then
             if h.source.x < self.x then --fall back from the epicenter
