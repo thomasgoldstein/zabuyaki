@@ -309,7 +309,7 @@ function Character:checkAndAttack(f, isFuncCont)
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
     local counter = 0
-    if self.b.vertical:getValue() ~= 0 or vertical then
+    if (self.state == "combo" and self.b.vertical:getValue() ~= 0) or vertical then
         if repel_y < 1 then
             repel_y = self.walkSpeed_y / 2
         end
