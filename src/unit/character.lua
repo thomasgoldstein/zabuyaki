@@ -200,11 +200,11 @@ function Character:afterOnHurt()
     if h.type == "simple" then
         return
     end
+    self.vertical = h.vertical or 0
     if h.type == "fell" or h.type == "twist" then
         if h.source == self then --fall back on self kill (timeout)
             h.horizontal = -self.horizontal
         else
-            self.vertical = h.source.vertical
             self.speed_y = h.source.speed_y * 0.5
         end
         self.face = -h.horizontal --turn face to the attacker
@@ -227,7 +227,6 @@ function Character:afterOnHurt()
     end
     if h.type == "hit" then
         self.horizontal = h.horizontal
-        self.vertical = h.vertical
         if self.hp > 0 and self.z <= self:getMinZ() then
             self:setState(self.hurt)
             self:showHitMarks(h.damage, h.z)
@@ -276,7 +275,6 @@ function Character:afterOnHurt()
         self:setHurtAnimation(h.damage, h.z > 13)
     end
     self.horizontal = h.horizontal
-    self.vertical = h.vertical or 0     -- fix crash on respawn
     self.isGrabbed = false
     -- calc falling trajectory speed, direction
     self.speed_z = self.fallSpeed_z * self.jumpSpeedMultiplier
