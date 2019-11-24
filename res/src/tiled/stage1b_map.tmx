@@ -14,20 +14,20 @@
   <object id="8" x="0" y="0" width="1280" height="240"/>
  </objectgroup>
  <objectgroup color="#00aaff" id="5" name="player" locked="1">
-  <object id="3" name="1" x="96.3333" y="256.334">
+  <object id="3" name="1" x="48" y="256">
    <point/>
   </object>
-  <object id="4" name="2" x="80.3333" y="280.334">
+  <object id="4" name="2" x="32" y="280">
    <point/>
   </object>
-  <object id="5" name="3" x="64.3333" y="304.334">
+  <object id="5" name="3" x="16" y="304">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#55557f" id="4" name="global" locked="1">
-  <object id="12" name="enterMap" type="event" x="66.6667" y="165.333">
+  <object id="12" name="enterMap" type="event" x="16" y="192">
    <properties>
-    <property name="togoy" value="100"/>
+    <property name="togox" value="-100"/>
    </properties>
    <point/>
   </object>

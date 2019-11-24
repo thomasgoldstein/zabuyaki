@@ -1,7 +1,7 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.2.2",
+  tiledversion = "1.3.1",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 40,
@@ -30,8 +30,8 @@ return {
           name = "bg",
           visible = true,
           opacity = 1,
-          offsetx = 0,
-          offsety = 0,
+          offsetx = -2,
+          offsety = -2,
           image = "../../../res/img/stage/stage1/stage1b.png",
           properties = {}
         }
@@ -109,8 +109,8 @@ return {
           name = "1",
           type = "",
           shape = "point",
-          x = 96.3333,
-          y = 256.334,
+          x = 48,
+          y = 256,
           width = 0,
           height = 0,
           rotation = 0,
@@ -122,8 +122,8 @@ return {
           name = "2",
           type = "",
           shape = "point",
-          x = 80.3333,
-          y = 280.334,
+          x = 32,
+          y = 280,
           width = 0,
           height = 0,
           rotation = 0,
@@ -135,8 +135,8 @@ return {
           name = "3",
           type = "",
           shape = "point",
-          x = 64.3333,
-          y = 304.334,
+          x = 16,
+          y = 304,
           width = 0,
           height = 0,
           rotation = 0,
@@ -161,14 +161,14 @@ return {
           name = "enterMap",
           type = "event",
           shape = "point",
-          x = 66.6667,
-          y = 165.333,
+          x = 16,
+          y = 192,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           properties = {
-            ["togoy"] = "100"
+            ["togox"] = "-100"
           }
         },
         {
