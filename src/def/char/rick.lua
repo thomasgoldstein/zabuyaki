@@ -691,10 +691,12 @@ return {
             delay = math.huge
         },
         fallTwist = {
-            { q = q(170,423,69,33), ox = 41, oy = 32, flipV = -1 }, --fall 3 (flipped vertically)
-            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
+            { q = q(2,2659,65,54), ox = 40, oy = 55 }, --fall twist 1
+            { q = q(129,2653,61,59), ox = 38, oy = 61 }, --fall twist 2
+            { q = q(69,2652,58,63), ox = 37, oy = 62 }, --fall twist 3
+            { q = q(192,2653,57,58), ox = 40, oy = 61 }, --fall twist 4
             loop = true,
-            delay = f(7)
+            delay = f(5)
         },
         fallBounce = {
             { q = q(64,485,69,32), ox = 39, oy = 31, delay = f(4) }, --fallen
