@@ -18,7 +18,7 @@ function Kisa:initAttributes()
     self.runSpeed_x = 160
     self.runSpeed_y = 27
     self.dashSpeed_x = 150 --speed of the character
-    self.dashFallSpeed = 180 --speed caused by dash to others fall
+    self.dashRepel_x = 180 --speed caused by dash to others fall
     self.dashFriction = self.dashSpeed_x
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed

@@ -23,24 +23,24 @@ function Yar:initAttributes()
     self.runSpeed_x = 144
     self.runSpeed_y = 24
     self.dashSpeed_x = 125 --speed of the character
-    self.dashFallSpeed = 180 --speed caused by dash to others fall
+    self.dashRepel_x = 180 --speed caused by dash to others fall
     self.dashFriction = 400
     self.chargeDashAttackSpeed_z = 65
 
     self.comboSlideSpeed2_x = 180 --horizontal speed of combo2Forward attacks
     self.comboSlideDiagonalSpeed2_x = 150 --diagonal horizontal speed of combo2Forward attacks
     self.comboSlideDiagonalSpeed2_y = 30 --diagonal vertical speed of combo2Forward attacks
-    self.comboSlideRepel2 = self.comboSlideSpeed2_x --how much combo2Forward pushes units back
+    self.comboSlideRepel2_x = self.comboSlideSpeed2_x --how much combo2Forward pushes units back
 
     self.comboSlideSpeed3_x = 180 --horizontal speed of combo3Forward attacks
     self.comboSlideDiagonalSpeed3_x = 150 --diagonal horizontal speed of combo3Forward attacks
     self.comboSlideDiagonalSpeed3_y = 30 --diagonal vertical speed of combo3Forward attacks
-    self.comboSlideRepel3 = self.comboSlideSpeed3_x --how much combo3Forward pushes units back
+    self.comboSlideRepel3_x = self.comboSlideSpeed3_x --how much combo3Forward pushes units back
 
     self.comboSlideSpeed4_x = 180 --horizontal speed of combo4Forward attacks
     self.comboSlideDiagonalSpeed4_x = 150 --diagonal horizontal speed of combo4Forward attacks
     self.comboSlideDiagonalSpeed4_y = 30 --diagonal vertical speed of combo4Forward attacks
-    self.comboSlideRepel4 = self.comboSlideSpeed4_x --how much combo4Forward pushes units back
+    self.comboSlideRepel4_x = self.comboSlideSpeed4_x --how much combo4Forward pushes units back
 
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed

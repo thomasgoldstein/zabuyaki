@@ -58,7 +58,7 @@ local comboAttack2 = function(slf, cont)
 end
 local comboAttack2Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 24, width = 31, damage = 8, repel_x = slf.comboSlideRepel2, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
+        { x = 21, y = 24, width = 31, damage = 8, repel_x = slf.comboSlideRepel2_x, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -82,7 +82,7 @@ local comboAttack3Up2 = function(slf, cont)
 end
 local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 21, width = 39, damage = 10, repel_x = slf.comboSlideRepel3, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
+        { x = 27, y = 21, width = 39, damage = 10, repel_x = slf.comboSlideRepel3_x, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -112,16 +112,16 @@ local comboAttack4Up2 = function(slf, cont)
 end
 local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 35, y = 32, width = 39, damage = 15, type = "fell", repel_x = slf.comboSlideRepel4, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
+        { x = 35, y = 32, width = 39, damage = 15, type = "fell", repel_x = slf.comboSlideRepel4_x, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 37, width = 55, damage = 8, repel_x = slf.dashFallSpeed },
+    { x = 20, y = 37, width = 55, damage = 8, repel_x = slf.dashRepel_x },
     cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, y = 37, width = 55, damage = 12, type = "fell", repel_x = slf.dashFallSpeed },
+    { x = 20, y = 37, width = 55, damage = 12, type = "fell", repel_x = slf.dashRepel_x },
     cont
 ) end
 local dashAttackSpeedUp = function(slf, cont)
@@ -216,7 +216,7 @@ local specialDash2b = function(slf, cont)
         slf.victims = {}    -- clear victims list before any contFuncAttack
     end
     slf:checkAndAttack(
-        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "fell", repel_x = slf.specialDashRepel },
+        { x = 10, y = 50, width = 40, height = 50, damage = 18, type = "fell", repel_x = slf.specialDashRepel_x },
         cont)
 end
 local grabFrontAttack = function(slf, cont)

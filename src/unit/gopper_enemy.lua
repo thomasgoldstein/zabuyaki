@@ -25,7 +25,7 @@ function Gopper:initAttributes()
     self.runSpeed_x = 150
     self.runSpeed_y = 25
     self.dashSpeed_x = 150 --speed of the character
-    self.dashFallSpeed = 180 --speed caused by dash to others fall
+    self.dashRepel_x = 180 --speed caused by dash to others fall
     self.dashFriction = self.dashSpeed_x
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall

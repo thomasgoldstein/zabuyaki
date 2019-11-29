@@ -24,27 +24,27 @@ function Rick:initAttributes()
     self.runSpeed_x = 138
     self.runSpeed_y = 23
     self.dashSpeed_x = 125 --speed of the character
-    self.dashFallSpeed = 180 --speed caused by dash to others fall
+    self.dashRepel_x = 180 --speed caused by dash to others fall
     self.dashFriction = 400
     self.chargeDashAttackSpeed_z = 65
 
     self.comboSlideSpeed2_x = 180 --horizontal speed of combo2Forward attacks
     self.comboSlideDiagonalSpeed2_x = 150 --diagonal horizontal speed of combo2Forward attacks
     self.comboSlideDiagonalSpeed2_y = 50 --diagonal vertical speed of combo2Forward attacks
-    self.comboSlideRepel2 = self.comboSlideSpeed2_x --how much combo2Forward pushes units back
+    self.comboSlideRepel2_x = self.comboSlideSpeed2_x --how much combo2Forward pushes units back
 
     self.comboSlideSpeed3_x = 130 --horizontal speed of combo3Forward attacks
     self.comboSlideDiagonalSpeed3_x = 100 --diagonal horizontal speed of combo3Forward attacks
     self.comboSlideDiagonalSpeed3_y = 13 --diagonal vertical speed of combo3Forward attacks
-    self.comboSlideRepel3 = 246 --how much combo3Forward pushes units back (high value to make up for the jump that ignores friction)
+    self.comboSlideRepel3_x = 246 --how much combo3Forward pushes units back (high value to make up for the jump that ignores friction)
 
     self.comboSlideSpeed4_x = 180 --horizontal speed of combo4Forward attacks
     self.comboSlideDiagonalSpeed4_x = 150 --diagonal horizontal speed of combo4Forward attacks
     self.comboSlideDiagonalSpeed4_y = 50 --diagonal vertical speed of combo4Forward attacks
-    self.comboSlideRepel4 = self.comboSlideSpeed4_x --how much combo4Forward pushes units back
+    self.comboSlideRepel4_x = self.comboSlideSpeed4_x --how much combo4Forward pushes units back
 
-    self.specialOffensiveRepel = 220 --how much specialOffensive pushes units back
-    self.specialDashRepel = 180 --how much specialDash pushes units back
+    self.specialOffensiveRepel_x = 220 --how much specialOffensive pushes units back
+    self.specialDashRepel_x = 180 --how much specialDash pushes units back
 
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed
