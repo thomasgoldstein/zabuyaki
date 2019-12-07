@@ -239,8 +239,8 @@ function Character:afterOnHurt()
                     end
                 else
                     self.speed_x = h.repel_x or 0
+                    self.speed_y = h.repel_y or 0
                 end
-                self.speed_y = h.repel_y
                 self.friction = self.repelFriction  -- custom friction value for smooth sliding back
             end
             return
@@ -256,8 +256,8 @@ function Character:afterOnHurt()
                 self.speed_x = self.fallSpeed_x
             else
                 self.speed_x = h.repel_x + self.fallSpeedBoost_x
+                self.speed_y = h.repel_y or 0
             end
-            self.speed_y = h.repel_y or 0
         end
         if h.type == "shockWave" or h.type == "expel" then
             if h.source.x < self.x then --fall back from the epicenter
