@@ -23,8 +23,8 @@ function Chai:initAttributes()
     self.chargeWalkSpeed_y = 40
     self.runSpeed_x = 156
     self.runSpeed_y = 26
-    self.dashSpeed_x = 200 --speed of the character
-    self.dashRepel_x = 180 --speed caused by dash to others fall
+    self.dashSpeed_x = 200 --speed of the character during dash attack
+    self.dashRepel_x = 180 --how much the dash attack repels other units
     self.chargeDashAttackSpeed_z = 90
     --self.repelFriction = 1650 * 1.5
 

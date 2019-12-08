@@ -65,8 +65,8 @@ function Character:initAttributes()
     self.fallSpeed_x = 120
     self.fallSpeedBoost_x = 5
     self.fallDeadSpeedBoost_x = 20
-    self.dashSpeed_x = 150 --speed of the character
-    self.dashRepel_x = 180 --speed caused by dash to others fall
+    self.dashSpeed_x = 150 --speed of the character during dash attack
+    self.dashRepel_x = 180 --how much the dash attack repels other units
     self.dashFriction = self.dashSpeed_x
     self.chargeDashSpeed_z = 120
     self.chargeDashSpeedMultiplier_z = 0.6

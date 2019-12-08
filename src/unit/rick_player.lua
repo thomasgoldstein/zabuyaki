@@ -23,8 +23,8 @@ function Rick:initAttributes()
     self.chargeWalkSpeed_y = 36
     self.runSpeed_x = 138
     self.runSpeed_y = 23
-    self.dashSpeed_x = 125 --speed of the character
-    self.dashRepel_x = 180 --speed caused by dash to others fall
+    self.dashSpeed_x = 125 --speed of the character during dash attack
+    self.dashRepel_x = 180 --how much the dash attack repels other units
     self.dashFriction = 400
     self.chargeDashAttackSpeed_z = 65
 

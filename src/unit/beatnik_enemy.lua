@@ -21,9 +21,9 @@ function Beatnik:initAttributes()
     }
     self.walkSpeed_x = 92
     self.walkSpeed_y = 45
-    self.dashSpeed_x = 0 --speed of the character
-    self.dashSpeedUp_x = 170 --speed of the character
-    self.dashRepel_x = 180 --speed caused by dash to others fall
+    self.dashSpeed_x = 0 --speed of the character during dash attack (initial)
+    self.dashSpeedUp_x = 170 --speed of the character during dash attack
+    self.dashRepel_x = 180 --how much the dash attack repels other units
     self.dashFriction = 250
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed
