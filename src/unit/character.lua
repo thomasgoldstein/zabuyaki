@@ -239,8 +239,8 @@ function Character:afterOnHurt()
                     end
                 else
                     self.speed_x = h.repel_x or 0
-                    self.speed_y = h.repel_y or 0
                 end
+                self.speed_y = h.repel_y or 0
                 self.friction = self.repelFriction  -- custom friction value for smooth sliding back
             end
             return
@@ -256,8 +256,8 @@ function Character:afterOnHurt()
                 self.speed_x = self.fallSpeed_x
             else
                 self.speed_x = h.repel_x + self.fallSpeedBoost_x
-                self.speed_y = h.repel_y or 0
             end
+            self.speed_y = h.repel_y or 0
         end
         if h.type == "shockWave" or h.type == "expel" then
             if h.source.x < self.x then --fall back from the epicenter
@@ -301,15 +301,14 @@ function Character:checkAndAttack(f, isFuncCont)
     local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
     local damage, type = f.damage or 1, f.type or "hit"
     local repel_x = f.repel_x or self.speed_x
-    local repel_y = 0
+    local repel_y = f.repel_y or self.speed_y
     local horizontal = f.horizontal or self.face
     local vertical = 0
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
     local counter = 0
-    if repel_x ~= 0 and self.speed_y > 1 then
+    if repel_y ~= 0 then
         vertical = self.vertical
-        repel_y = self.speed_y
     end
     if type == "shockWave" then
         for _,o in ipairs(stage.objects.entities) do
