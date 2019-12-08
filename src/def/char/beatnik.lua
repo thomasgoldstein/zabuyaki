@@ -19,6 +19,9 @@ local comboAttack2 = function(slf, cont)
         cont
     )
 end
+local dashAttackSpeedUp = function(slf, cont)
+    slf.speed_x = slf.dashSpeedUp_x
+end
 local dashAttack1 = function(slf, cont)
     slf:checkAndAttack(
         { x = 0, y = 27, width = 40, damage = 28, type = "twist", repel_x = slf.dashRepel_x },
@@ -117,7 +120,7 @@ return {
         },
         dashAttack = {
             { q = q(2,560,69,63), ox = 53, oy = 62 }, --dash attack 1
-            { q = q(73,559,64,64), ox = 41, oy = 63 }, --dash attack 2
+            { q = q(73,559,64,64), ox = 41, oy = 63, func = dashAttackSpeedUp }, --dash attack 2
             { q = q(139,560,53,63), ox = 27, oy = 62, func = dashAttack1, delay = f(3) }, --dash attack 3
             { q = q(194,560,67,63), ox = 27, oy = 62, func = dashAttack2 }, --dash attack 4
             { q = q(2,625,83,63), ox = 33, oy = 62, func = dashAttack3 }, --dash attack 5
