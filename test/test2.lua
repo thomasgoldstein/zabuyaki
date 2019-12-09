@@ -86,9 +86,10 @@ describe("Character Class", function()
             end)
             it('Jumps on a trash can', function()
                 stageObject1.x, stageObject1.y = player1.x, player1.y
+                player1.b.setJump(true)
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, {
-                    setState = player1.duck2jump,
-                    stopFunc = isUnitsState(player1, "stand")
+                    setState = player1.stand,
+                    stopFunc = isUnitsState(player1, "duck")
                 })
                 expect(x).to.equal(_x)
                 expect(y).to.equal(_y)
