@@ -109,7 +109,7 @@ local kisaColors_3 = {
 
 local chaiColors_original = {
     { 255, 255, 63, 255 }, { 204, 146, 38, 255 }, { 96, 58, 8, 255 }, -- yellow shirt
-    { 157, 20, 188, 255 }, { 66, 0, 181, 255 }, { 20, 0, 30, 255 }, -- purple shorts
+    { 152, 25, 178, 255 }, { 70, 1, 165, 255 }, { 22, 0, 30, 255 }, -- purple shorts
     { 252, 248, 255, 255 }, { 162, 175, 220, 255 }, { 106, 98, 113, 255 }, -- gray bandages
     { 68, 0, 4, 255 } } -- brown hair
 local chaiColors_2 = {
