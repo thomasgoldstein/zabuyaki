@@ -22,6 +22,7 @@ describe("Character Class", function()
         player1.y = 200
         player1.maxZ = player1.z
         player1:checkCollisionAndMove(0.01)
+        player1.b.reset()
         n = 2
         player2 = HEROES[n].hero:new("PL2-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0)
         player2.id = 2 -- fixed id
@@ -31,6 +32,7 @@ describe("Character Class", function()
         player2.y = 200
         player2.maxZ = player2.z
         player2:checkCollisionAndMove(0.01)
+        player2.b.reset()
         n = 3
         player3 = HEROES[n].hero:new("PL3-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0)
         player3.id = 3 -- fixed id
@@ -42,6 +44,7 @@ describe("Character Class", function()
         player3.y = 200
         player3.maxZ = player3.z
         player3:checkCollisionAndMove(0.01)
+        player3.b.reset()
         -- mock real lib functions
         --local _SFXplay = SFX.play
         --SFX.play = function() end
