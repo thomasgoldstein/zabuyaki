@@ -47,7 +47,11 @@ function setStateAndWait(a, f)
     end
     for i = 1, time * FPS do
         stage:update(dt)
-        a.b.update(dt)
+        for _,obj in ipairs(stage.objects.entities) do
+            if obj.b and obj.type == "player" then   --update emulated buttons
+                obj.b.update(dt)
+            end
+        end
         if a.z > a.maxZ then
             a.maxZ = a.z
         end
