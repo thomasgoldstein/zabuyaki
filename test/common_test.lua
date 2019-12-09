@@ -46,6 +46,7 @@ function setStateAndWait(a, f)
     end
     for i = 1, time * FPS do
         stage:update(dt)
+        a.b.update(dt)
         if a.z > a.maxZ then
             a.maxZ = a.z
         end
