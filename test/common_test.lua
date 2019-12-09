@@ -39,6 +39,7 @@ function setStateAndWait(a, f)
     local FPS = f.FPS or 60
     local dt = 1 / FPS
     local x, y, z, hp = a.x, a.y, a.z, a.hp
+    local frameN = 0
     local _state
     a.maxZ = 0
     if f.setState then
@@ -50,13 +51,25 @@ function setStateAndWait(a, f)
         if a.z > a.maxZ then
             a.maxZ = a.z
         end
+        if f.runFuncOnFrames then
+            for n = 1, #f.runFuncOnFrames do
+                if f.runFuncOnFrames[n][1] == "each"
+                    or f.runFuncOnFrames[n][1] == frameN
+                    or (f.runFuncOnFrames[n][1] == "even" and (frameN % 2 == 0) )
+                    or (f.runFuncOnFrames[n][1] == "odd" and (frameN % 2 ~= 0) )
+                then
+                    f.runFuncOnFrames[n][2](a, frameN)
+                end
+            end
+        end
         if showSetStateAndWaitDebug and _state ~= a.state then
-            print(" ::", a.state, a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<==", x, y, z, hp)
+            print(" ::", a.name, a.state, a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<== xyzHp", x, y, z, hp, " frame#", frameN)
             _state = a.state
         end
         if f.stopFunc and f.stopFunc(i) then
             break
         end
+        frameN = frameN + 1
     end
     --    print(":", a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<==", x, y, z, hp)
     return a.x, a.y, a.z, a.maxZ, a.hp, x, y, z, hp
