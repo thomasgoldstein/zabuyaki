@@ -183,6 +183,13 @@ function love.load(arg)
     Gamestate.registerEvents()
     bindGameInput()
     everythingIsLoadedGoToTitle = true  -- ready to switch to the Title state
+    if (contains(arg, "-ut")) then
+        require "test.common_test"
+        require "test.test1"
+        require "test.test2"
+        require "test.test3"
+        cleanUpAfterTests()
+    end
 end
 
 local function pollControls(dt)
