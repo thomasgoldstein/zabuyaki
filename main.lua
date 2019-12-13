@@ -86,7 +86,7 @@ function love.load(arg)
     sfx = require "src/def/misc/preload_sfx"
     gfx = require "src/def/misc/preload_gfx"
     -- start of the debug section
-    if arg[#arg] == "-debug" then
+    if (contains(arg, "-debug")) then
         require("mobdebug").start()
     end
     require "lib.debug.debug"
