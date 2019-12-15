@@ -87,7 +87,7 @@ function love.load(arg)
     gfx = require "src/def/misc/preload_gfx"
     -- start of the debug section
     if (contains(arg, "-debug")) then
-        require("mobdebug").start()
+        require("mobdebug").start() -- used to init debugging for ZeroBrane Studio only
     end
     require "lib.debug.debug"
     if GLOBAL_SETTING.FPSRATE_ENABLED then
@@ -183,7 +183,7 @@ function love.load(arg)
     Gamestate.registerEvents()
     bindGameInput()
     everythingIsLoadedGoToTitle = true  -- ready to switch to the Title state
-    if (contains(arg, "-ut")) then
+    if contains(arg, "-ut") then -- command line option to run Unit Tests on start for IntelliJ IDEA IDE
         require "test.common_test"
         require "test.test1"
         require "test.test2"
