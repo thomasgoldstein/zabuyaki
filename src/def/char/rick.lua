@@ -281,7 +281,7 @@ return {
             delay = math.huge
         },
         intro = {
-            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
+            { q = q(47,399,41,57), ox = 17, oy = 56 }, --pick up 2
             delay = math.huge
         },
         stand = {
@@ -317,11 +317,11 @@ return {
             delay = f(4)
         },
         sideStepUp = {
-            { q = q(96,844,44,64), ox = 21, oy = 63 }, --side step up
+            { q = q(96,844,44,65), ox = 21, oy = 64 }, --side step up
             delay = math.huge
         },
         sideStepDown = {
-            { q = q(142,844,44,62), ox = 21, oy = 62 }, --side step down
+            { q = q(142,844,45,61), ox = 22, oy = 61 }, --side step down
             delay = math.huge
         },
         jump = {
@@ -347,7 +347,7 @@ return {
         },
         jumpAttackRun = {
             { q = q(2,714,53,61), ox = 23, oy = 65, delay = f(4) }, --jump attack forward 1
-            { q = q(90,395,78,53), ox = 36, oy = 66, funcCont = jumpAttackRun }, --jump attack run
+            { q = q(90,395,77,53), ox = 35, oy = 66, funcCont = jumpAttackRun }, --jump attack run
             delay = math.huge
         },
         jumpAttackRunEnd = {
@@ -371,13 +371,13 @@ return {
         },
         respawn = {
             { q = q(89,1952,45,66), ox = 22, oy = 65 }, --jump down
-            { q = q(47,398,41,58), ox = 17, oy = 57, delay = f(30) }, --pick up 2
+            { q = q(47,399,41,57), ox = 17, oy = 56, delay = f(30) }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = f(6) }, --pick up 1
             delay = math.huge
         },
         pickUp = {
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = f(2) }, --pick up 1
-            { q = q(47,398,41,58), ox = 17, oy = 57, delay = f(12) }, --pick up 2
+            { q = q(47,399,41,57), ox = 17, oy = 56, delay = f(12) }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
             delay = f(3)
         },
@@ -415,8 +415,8 @@ return {
             { q = q(176,650,51,62), ox = 31, oy = 62, func = comboSlide3, delay = f(3) }, --combo 4.6
             { q = q(2,2021,51,61), ox = 29, oy = 63, delay = f(3) }, --charge dash attack 1
             { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = comboAttack3Forward, delay = f(7) }, --charge dash attack 2
-            { q = q(129,2020,58,65), ox = 23, oy = 64 }, --charge dash attack 3
-            { q = q(136,1954,45,64), ox = 15, oy = 64 }, --charge dash attack 4
+            { q = q(129,2021,58,64), ox = 23, oy = 63 }, --charge dash attack 3
+            { q = q(136,1955,45,63), ox = 15, oy = 63 }, --charge dash attack 4
             { q = q(183,1954,43,64), ox = 17, oy = 63 }, --charge dash attack 5
             delay = f(2)
         },
@@ -504,8 +504,8 @@ return {
             { q = q(176,650,51,62), ox = 31, oy = 62, delay = f(4) }, --combo 4.6
             { q = q(2,2021,51,61), ox = 29, oy = 63, delay = f(4) }, --charge dash attack 1
             { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = chargeDashAttack, delay = f(9) }, --charge dash attack 2
-            { q = q(129,2020,58,65), ox = 23, oy = 64 }, --charge dash attack 3
-            { q = q(136,1954,45,64), ox = 15, oy = 64 }, --charge dash attack 4
+            { q = q(129,2021,58,64), ox = 23, oy = 63 }, --charge dash attack 3
+            { q = q(136,1955,45,63), ox = 15, oy = 63 }, --charge dash attack 4
             { q = q(183,1954,43,64), ox = 17, oy = 63 }, --charge dash attack 5
             delay = f(3)
         },
@@ -545,7 +545,7 @@ return {
             { q = q(2,2153,49,54), ox = 22, oy = 54, funcCont = specialDash1, delay = f(5) }, --special dash 4b
             { q = q(53,2153,49,54), ox = 22, oy = 54, funcCont = specialDash1, delay = f(5) }, --special dash 4c
             { q = q(137,2302,44,56), ox = 16, oy = 56, func = specialDashFollowUp }, --special dash 13
-            { q = q(183,2299,42,60), ox = 17, oy = 59 }, --special dash 14
+            { q = q(183,2299,41,60), ox = 17, oy = 59 }, --special dash 14
             delay = f(4)
         },
         specialDash2 = {
@@ -560,7 +560,7 @@ return {
             { q = q(42,2292,43,66), ox = 23, oy = 65, delay = f(6) }, --special dash 11
             { q = q(87,2296,48,63), ox = 25, oy = 62, delay = f(6) }, --special dash 12
             { q = q(137,2302,44,56), ox = 16, oy = 56, func = function(slf) slf:showEffect("jumpLanding") end }, --special dash 13
-            { q = q(183,2299,42,60), ox = 17, oy = 59 }, --special dash 14
+            { q = q(183,2299,41,60), ox = 17, oy = 59 }, --special dash 14
             delay = f(4)
         },
         grab = {
@@ -610,10 +610,10 @@ return {
             }
         },
         grabFrontAttackBack = {
-            { q = q(2,1111,43,60), ox = 26, oy = 59 }, --throw back 1
+            { q = q(2,1110,43,61), ox = 26, oy = 60 }, --throw back 1
             { q = q(47,1113,42,58), ox = 17, oy = 57, func = grabFrontAttackBack, delay = f(3) }, --throw back 2
-            { q = q(91,1114,44,57), ox = 14, oy = 56 }, --throw back 3
-            { q = q(137,1112,40,59), ox = 14, oy = 58, delay = f(6) }, --throw back 4
+            { q = q(91,1115,44,56), ox = 14, oy = 55 }, --throw back 3
+            { q = q(137,1112,39,59), ox = 14, oy = 58, delay = f(6) }, --throw back 4
             delay = f(12),
             isThrow = true,
             moves = {
@@ -634,8 +634,8 @@ return {
             { q = q(92,1705,61,50), ox = 39, oy = 49, delay = f(5) }, --back throw 3
             { q = q(155,1701,60,54), ox = 48, oy = 53, delay = f(3) }, --back throw 4
             { q = q(100,1652,63,38), ox = 51, oy = 34, func = grabBackAttack, delay = f(18) }, --back throw 5
-            { q = q(135,464,56,53), ox = 31, oy = 52 }, --get up
-            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
+            { q = q(144,465,55,52), ox = 30, oy = 51 }, --get up
+            { q = q(47,399,41,57), ox = 17, oy = 56 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60, delay = f(3) }, --pick up 1
             delay = f(9),
             isThrow = true,
@@ -687,7 +687,7 @@ return {
         fall = {
             { q = q(145,137,56,59), ox = 31, oy = 58, delay = f(20) }, --fall 1
             { q = q(144,211,63,49), ox = 38, oy = 48, delay = f(8) }, --fall 2
-            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
+            { q = q(2,484,69,33), ox = 41, oy = 32 }, --fall 3
             delay = math.huge
         },
         fallTwist = {
@@ -699,18 +699,18 @@ return {
             delay = f(5)
         },
         fallBounce = {
-            { q = q(64,485,69,32), ox = 39, oy = 31, delay = f(4) }, --fallen
-            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
+            { q = q(73,485,69,32), ox = 39, oy = 31, delay = f(4) }, --fallen
+            { q = q(2,484,69,33), ox = 41, oy = 32 }, --fall 3
             delay = math.huge
         },
         fallenDead = {
-            { q = q(64,485,69,32), ox = 39, oy = 31 }, --fallen
+            { q = q(73,485,69,32), ox = 39, oy = 31 }, --fallen
             delay = math.huge
         },
         getUp = {
-            { q = q(64,485,69,32), ox = 39, oy = 31, delay = f(24) }, --fallen
-            { q = q(135,464,56,53), ox = 31, oy = 52 }, --get up
-            { q = q(47,398,41,58), ox = 17, oy = 57 }, --pick up 2
+            { q = q(73,485,69,32), ox = 39, oy = 31, delay = f(24) }, --fallen
+            { q = q(144,465,55,52), ox = 30, oy = 51 }, --get up
+            { q = q(47,399,41,57), ox = 17, oy = 56 }, --pick up 2
             { q = q(2,395,43,61), ox = 20, oy = 60 }, --pick up 1
             delay = f(9)
         },
@@ -727,7 +727,7 @@ return {
         thrown = {
             --rx = ox / 2, ry = -oy / 2 for this rotation
             { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 15, ry = -29, delay = f(24) }, --fall 1 (rotated -90°)
-            { q = q(170,423,69,33), ox = 41, oy = 32 }, --fall 3
+            { q = q(2,484,69,33), ox = 41, oy = 32 }, --fall 3
             delay = math.huge
         },
         thrown12h = {
