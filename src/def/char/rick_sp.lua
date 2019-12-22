@@ -44,9 +44,9 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 3
             { q = q(177,2487,18,19), ox = -29, oy = 43 }, --special offensive 4
-            { q = q(197,2487,28,24), ox = -16, oy = 46 }, --special offensive 5
-            { q = q(177,2513,43,24), ox = 18, oy = 38 }, --special offensive 6a
-            { q = q(222,2513,17,19), ox = 17, oy = 33 }, --special offensive 6b
+            { q = q(197,2487,27,20), ox = -16, oy = 43 }, --special offensive 5
+            { q = q(177,2509,43,24), ox = 18, oy = 38 }, --special offensive 6a
+            { q = q(222,2509,17,19), ox = 17, oy = 33 }, --special offensive 6b
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 6c
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.7 (shifted right by 4px)
         },
