@@ -9,35 +9,35 @@ local function f(n)
 end
 local rollAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 4, y = 23, width = 48, height = 45, damage = 28, type = "fell" },
+        { x = 4, z = 23, width = 48, height = 45, damage = 28, type = "fell" },
         cont
     )
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 4, y = 10, width = 48, height = 45, damage = 28, type = "fell" },
+        { x = 4, z = 10, width = 48, height = 45, damage = 28, type = "fell" },
         cont
     )
 end
 local comboUppercut1 = function(slf, cont)
     slf:checkAndAttack(
-    { x = 14, y = 30, width = 30, damage = 12, repel_x = slf.dashRepel_x, sfx = "whooshHeavy" },
+    { x = 14, z = 30, width = 30, damage = 12, repel_x = slf.dashRepel_x, sfx = "whooshHeavy" },
     cont
 ) end
 local comboUppercut2 = function(slf, cont)
     slf:checkAndAttack(
-    { x = 20, y = 60, width = 30, height = 45, damage = 16, type = "fell", repel_x = slf.dashRepel_x },
+    { x = 20, z = 60, width = 30, height = 45, damage = 16, type = "fell", repel_x = slf.dashRepel_x },
     cont
 ) end
 local grabFrontAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 19, y = 37, width = 26, damage = 12 },
+        { x = 19, z = 37, width = 26, damage = 12 },
         cont
     )
 end
 local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
-        { x = 19, y = 37, width = 26, damage = 18,
+        { x = 19, z = 37, width = 26, damage = 18,
         type = "fell", repel_x = slf.shortThrowSpeed_x },
         cont
     )

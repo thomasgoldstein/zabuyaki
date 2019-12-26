@@ -348,7 +348,7 @@ function Player:respawnUpdate(dt)
         self.sprite.curFrame = 2    -- continue from the 2nd frame to the end (the animation may contain >2 frames)
         self.sprite.elapsedTime = 0 -- reset animation timer for the 2nd frame
         self:checkAndAttack(
-            { x = 0, y = 0, width = 320 * 2, depth = 240 * 2, height = 240 * 2, damage = 0, type = "shockWave" },
+            { x = 0, z = 0, width = 320 * 2, depth = 240 * 2, height = 240 * 2, damage = 0, type = "shockWave" },
             false
         )
         mainCamera:onShake(0, 2, 0.03, 0.3)	--shake the screen on respawn

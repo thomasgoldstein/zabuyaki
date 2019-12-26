@@ -9,18 +9,18 @@ local function f(n)
 end
 local comboSlap = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 32, width = 26, damage = 5, sfx = "air" },
+        { x = 25, z = 32, width = 26, damage = 5, sfx = "air" },
         cont
     )
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 26, y = 39, width = 28, damage = 10, type = "fell", repel_x = slf.dashRepel_x, sfx = "air" },
+        { x = 26, z = 39, width = 28, damage = 10, type = "fell", repel_x = slf.dashRepel_x, sfx = "air" },
         cont
 ) end
 local dashAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, y = 10, width = 25, damage = 14, type = "fell", repel_x = slf.dashRepel_x },
+        { x = 21, z = 10, width = 25, damage = 14, type = "fell", repel_x = slf.dashRepel_x },
         cont
 ) end
 

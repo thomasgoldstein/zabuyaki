@@ -9,19 +9,19 @@ local function f(n)
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 15, y = 20, width = 22, height = 45, damage = 14, type = "fell" },
+        { x = 15, z = 20, width = 22, height = 45, damage = 14, type = "fell" },
         cont
     )
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 29, y = 22, width = 26, damage = 7, sfx = "air" },
+        { x = 29, z = 22, width = 26, damage = 7, sfx = "air" },
         cont
     )
 end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(
-        { x = 29, y = 31, width = 26, damage = 9, type = "fell", sfx = "air" },
+        { x = 29, z = 31, width = 26, damage = 9, type = "fell", sfx = "air" },
         cont
     )
 end

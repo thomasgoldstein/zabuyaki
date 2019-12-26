@@ -1016,7 +1016,7 @@ function Character:fallUpdate(dt)
     if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0
         and ( self.condition == "throw" or self.condition == "twist" ) then
             self:checkAndAttack(
-                { x = 0, y = self:getHurtBoxHeight() / 2,
+                { x = 0, z = self:getHurtBoxHeight() / 2,
                   width = self:getHurtBoxWidth(),
                   height = self:getHurtBoxHeight(),
                   depth = self:getHurtBoxDepth(),

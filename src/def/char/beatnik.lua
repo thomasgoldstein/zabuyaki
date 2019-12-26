@@ -9,13 +9,13 @@ local function f(n)
 end
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 31, y = 27, width = 32, damage = 15, sfx = "air" },
+        { x = 31, z = 27, width = 32, damage = 15, sfx = "air" },
         cont
     )
 end
 local comboAttack2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 34, y = 27, width = 38, damage = 22, type = "fell", repel_x = slf.dashRepel_x, sfx = "air" },
+        { x = 34, z = 27, width = 38, damage = 22, type = "fell", repel_x = slf.dashRepel_x, sfx = "air" },
         cont
     )
 end
@@ -24,19 +24,19 @@ local dashAttackSpeedUp = function(slf, cont)
 end
 local dashAttack1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 0, y = 27, width = 40, damage = 28, type = "twist", repel_x = slf.dashRepel_x },
+        { x = 0, z = 27, width = 40, damage = 28, type = "twist", repel_x = slf.dashRepel_x },
         cont
     )
 end
 local dashAttack2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 17, y = 27, width = 45, damage = 28, type = "twist", repel_x = slf.dashRepel_x },
+        { x = 17, z = 27, width = 45, damage = 28, type = "twist", repel_x = slf.dashRepel_x },
         cont
     )
 end
 local dashAttack3 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 25, y = 27, width = 50, damage = 28, type = "twist", repel_x = slf.dashRepel_x },
+        { x = 25, z = 27, width = 50, damage = 28, type = "twist", repel_x = slf.dashRepel_x },
         cont
     )
 end

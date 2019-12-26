@@ -12,19 +12,19 @@ local stepFx = function(slf, cont)
 end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, y = 31, width = 26, damage = 6, sfx = "air" },
+        { x = 27, z = 31, width = 26, damage = 6, sfx = "air" },
         cont
     )
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 29, y = 22, width = 26, damage = 8, type = "fell", sfx = "air" },
+        { x = 29, z = 22, width = 26, damage = 8, type = "fell", sfx = "air" },
         cont
     )
 end
 local dashAttack = function(slf, cont)
     slf:checkAndAttack(
-    { x = 11, y = 31, width = 30, height = 40, damage = 14, type = "fell", repel_x = slf.dashRepel_x },
+    { x = 11, z = 31, width = 30, height = 40, damage = 14, type = "fell", repel_x = slf.dashRepel_x },
     cont
 ) end
 
