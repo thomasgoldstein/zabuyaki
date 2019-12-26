@@ -298,7 +298,7 @@ function Character:checkAndAttack(f, isFuncCont)
     if not f then
         f = {}
     end
-    local x, y, w, d, h = f.x or 20, f.y or 0, f.width or 25, f.depth or 12, f.height or 35
+    local x, z, w, d, h = f.x or 20, f.z or 0, f.width or 25, f.depth or 12, f.height or 35
     local damage, type = f.damage or 1, f.type or "hit"
     local repel_x = f.repel_x or self.speed_x
     local repel_y = f.repel_y or self.speed_y
@@ -320,7 +320,7 @@ function Character:checkAndAttack(f, isFuncCont)
             then
                 o.isHurt = { source = self, damage = damage,
                              type = type, repel_x = repel_x,
-                             z = self.z + y}
+                             z = self.z + z}
                 counter = counter + 1
             end
         end
@@ -337,7 +337,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 o:getHurtBoxHeight(),
                 o:getHurtBoxDepth(),
                 self.x + horizontal * x - w / 2,
-                self.z + (y + h / 2),
+                self.z + (z + h / 2),
                 self.y - d / 2,
                 w, h, d)
             then
@@ -352,13 +352,13 @@ function Character:checkAndAttack(f, isFuncCont)
                 and not self.victims[o]
                 and CheckCollision3D(
                 o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
-                o.z + (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
+                o.z + o:getHurtBoxHeight(),
                 o.y - o:getHurtBoxDepth() / 2,
                 o:getHurtBoxWidth(),
                 o:getHurtBoxHeight(),
                 o:getHurtBoxDepth(),
                 self.x + horizontal * x - w / 2,
-                self.z + (y + h / 2),
+                self.z + (z + h / 2),
                 self.y - d / 2,
                  w, h, d)
             then
@@ -366,7 +366,7 @@ function Character:checkAndAttack(f, isFuncCont)
                              type = type, repel_x = repel_x, repel_y = repel_y,
                              horizontal = horizontal, vertical = vertical,
                              continuous = isFuncCont,
-                             z = self.z + y
+                             z = self.z + z
                 }
                 counter = counter + 1
             end
@@ -386,7 +386,7 @@ function Character:checkAndAttack(f, isFuncCont)
         end
     end
     if isDebug() then
-        attackHitBoxes[#attackHitBoxes+1] = { x = self.x, sx = horizontal * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + y, collided = counter > 0 }
+        attackHitBoxes[#attackHitBoxes+1] = { x = self.x, sx = horizontal * x - w / 2, y = self.y, w = w, h = h, d = d, z = self.z + z, collided = counter > 0 }
     end
 end
 
