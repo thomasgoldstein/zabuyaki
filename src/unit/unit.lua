@@ -231,14 +231,14 @@ end
 
 function Unit:collidesWith(o)
     return self ~= o and CheckCollision3D(
-    o.x + o:getFace() * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
-    o.z - (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
+    o.x + o:getFace() * o:getHurtBoxOffsetX() - o:getHurtBoxWidth() / 2,
+    o.z - (o:getHurtBoxOffsetY() + o:getHurtBoxHeight() / 2),
     o.y - o:getHurtBoxDepth() / 2,
     o:getHurtBoxWidth(),
     o:getHurtBoxHeight(),
     o:getHurtBoxDepth(),
-        self.x + self:getFace() * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
-        self.z - (self:getHurtBoxY() + self:getHurtBoxHeight() / 2),
+        self.x + self:getFace() * self:getHurtBoxOffsetX() - self:getHurtBoxWidth() / 2,
+        self.z - (self:getHurtBoxOffsetY() + self:getHurtBoxHeight() / 2),
         self.y - self:getHurtBoxDepth() / 2,
         self:getHurtBoxWidth(),
         self:getHurtBoxHeight(),
@@ -252,11 +252,11 @@ function Unit:penetratesObject(o)
     end
     local px, py = minkowskiDifference(
         --ax, ay, aw, ah, bx, by, bw, bh
-        self.x + self:getFace() * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
+        self.x + self:getFace() * self:getHurtBoxOffsetX() - self:getHurtBoxWidth() / 2,
         self.y - self:getHurtBoxDepth() / 2,
         self:getHurtBoxWidth(),
         self:getHurtBoxDepth(),
-        o.x + o:getFace() * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+        o.x + o:getFace() * o:getHurtBoxOffsetX() - o:getHurtBoxWidth() / 2,
         o.y - o:getHurtBoxDepth() / 2,
         o:getHurtBoxWidth(),
         o:getHurtBoxDepth()
@@ -266,11 +266,11 @@ end
 
 function Unit:collidesByXYWith(o)
     return self ~= o and CheckCollision(
-        o.x + o:getFace() * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+        o.x + o:getFace() * o:getHurtBoxOffsetX() - o:getHurtBoxWidth() / 2,
         o.y - o:getHurtBoxDepth() / 2,
         o:getHurtBoxWidth(),
         o:getHurtBoxDepth(),
-        self.x + self:getFace() * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
+        self.x + self:getFace() * self:getHurtBoxOffsetX() - self:getHurtBoxWidth() / 2,
         self.y - self:getHurtBoxDepth() / 2,
         self:getHurtBoxWidth(),
         self:getHurtBoxDepth()
@@ -283,7 +283,7 @@ function Unit:collidesByXYWH(x,y,w,h)
         y - h / 2,
         w,
         h,
-        self.x + self:getFace() * self:getHurtBoxX() - self:getHurtBoxWidth() / 2,
+        self.x + self:getFace() * self:getHurtBoxOffsetX() - self:getHurtBoxWidth() / 2,
         self.y - self:getHurtBoxDepth() / 2,
         self:getHurtBoxWidth(),
         self:getHurtBoxDepth()
@@ -379,10 +379,10 @@ end
 function Unit:getHurtBoxHeight()
     return getSpriteHurtBox(self.sprite).height
 end
-function Unit:getHurtBoxX()
+function Unit:getHurtBoxOffsetX()
     return getSpriteHurtBox(self.sprite).x
 end
-function Unit:getHurtBoxY()
+function Unit:getHurtBoxOffsetY()
     return getSpriteHurtBox(self.sprite).y
 end
 function Unit:getHeight()
@@ -397,14 +397,14 @@ function Unit:setMinZ(platform)
         return
     end
     if self.platform then
-        local x = self.x + self:getHurtBoxX() * self:getFace()
-        local y = self.y + self:getHurtBoxY()
+        local x = self.x + self:getHurtBoxOffsetX() * self:getFace()
+        local y = self.y + self:getHurtBoxOffsetY()
         if self.platform:getHeight() < platform:getHeight() then
             self.platform = platform
-        elseif math.abs(platform:getHurtBoxX() * platform:getFace() - x)
-            < math.abs(self.platform:getHurtBoxX() * self.platform:getFace() - x)
-            or math.abs(platform:getHurtBoxY() - y)
-            < math.abs(self.platform:getHurtBoxY() - y)
+        elseif math.abs(platform:getHurtBoxOffsetX() * platform:getFace() - x)
+            < math.abs(self.platform:getHurtBoxOffsetX() * self.platform:getFace() - x)
+            or math.abs(platform:getHurtBoxOffsetY() - y)
+            < math.abs(self.platform:getHurtBoxOffsetY() - y)
         then
             self.platform = platform
         end

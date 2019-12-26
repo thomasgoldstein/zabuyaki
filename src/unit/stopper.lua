@@ -73,10 +73,10 @@ end
 function Stopper:getHurtBoxHeight()
     return maxHeight
 end
-function Stopper:getHurtBoxX()
+function Stopper:getHurtBoxOffsetX()
     return 0
 end
-function Stopper:getHurtBoxY()
+function Stopper:getHurtBoxOffsetY()
     return 0
 end
 function Stopper:getHeight()

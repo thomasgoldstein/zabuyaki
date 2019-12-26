@@ -330,8 +330,8 @@ function Character:checkAndAttack(f, isFuncCont)
                 and o.lifeBar
                 and not o:isInvincible()
                 and CheckCollision3D(
-                o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
-                o.z + (o:getHurtBoxY() + o:getHurtBoxHeight() / 2),
+                o.x + o.sprite.flipH * o:getHurtBoxOffsetX() - o:getHurtBoxWidth() / 2,
+                o.z + (o:getHurtBoxOffsetY() + o:getHurtBoxHeight() / 2),
                 o.y - o:getHurtBoxDepth() / 2,
                 o:getHurtBoxWidth(),
                 o:getHurtBoxHeight(),
@@ -351,7 +351,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 and not o:isInvincible()
                 and not self.victims[o]
                 and CheckCollision3D(
-                o.x + o.sprite.flipH * o:getHurtBoxX() - o:getHurtBoxWidth() / 2,
+                o.x + o.sprite.flipH * o:getHurtBoxOffsetX() - o:getHurtBoxWidth() / 2,
                 o.z + o:getHurtBoxHeight(),
                 o.y - o:getHurtBoxDepth() / 2,
                 o:getHurtBoxWidth(),

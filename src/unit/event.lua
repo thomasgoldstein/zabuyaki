@@ -11,8 +11,8 @@ end
 
 -- borrow dimension methods from Stopper class
 Event.getFace = Stopper.getFace
-Event.getHurtBoxX = Stopper.getHurtBoxX
-Event.getHurtBoxY = Stopper.getHurtBoxY
+Event.getHurtBoxOffsetX = Stopper.getHurtBoxOffsetX
+Event.getHurtBoxOffsetY = Stopper.getHurtBoxOffsetY
 Event.getHurtBoxWidth = Stopper.getHurtBoxWidth
 Event.getHurtBoxDepth = Stopper.getHurtBoxDepth
 
