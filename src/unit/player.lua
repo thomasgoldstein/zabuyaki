@@ -54,7 +54,9 @@ function Player:moveStatesApply()
             px = -(stage.leftStopper.x - t.x + t:getHurtBoxWidth() / 2)
         end
         t.x, t.y = t.x - px, t.y - py
-        self.x, self.y = self.x - px, self.y - py -- move the grabber from the stopper along with the grabbed
+        if not t.isThrown then
+            self.x, self.y = self.x - px, self.y - py -- move the grabber from the stopper along with the grabbed
+        end
     else
         px, py = t:penetratesObject(stage.rightStopper)
         if px ~= 0 or py ~= 0 then
@@ -62,7 +64,9 @@ function Player:moveStatesApply()
                 px = t.x - stage.rightStopper.x + t:getHurtBoxWidth() / 2
             end
             t.x, t.y = t.x - px, t.y - py
-            self.x, self.y = self.x - px, self.y - py -- move the grabber from the stopper along with the grabbed
+            if not t.isThrown then
+                self.x, self.y = self.x - px, self.y - py -- move the grabber from the stopper along with the grabbed
+            end
         end
     end
 end
