@@ -47,8 +47,8 @@ function Stage:initialize(name, mapFile, players)
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
     self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shift_x = stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight } })
     self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shift_x = -stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight } })
-    self.topStopper = Stopper:new("TOP.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 80, 40,  } })
-    self.bottomStopper = Wall:new("BOTTOM.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 80, 40 } })
+    self.topStopper = Stopper:new("TOP.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth * 2 + 80, 40,  } })
+    self.bottomStopper = Wall:new("BOTTOM.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth * 2 + 80, 40 } })
     self.objects:addArray({
         self.leftStopper, self.rightStopper, self.topStopper, self.bottomStopper
     })
@@ -111,8 +111,13 @@ function Stage:moveStoppers(x1, x2)
             x2 = self.worldWidth
         end
     end
-    self.leftStopper:moveTo(x1, self.worldHeight / 2)
-    self.rightStopper:moveTo(x2, self.worldHeight / 2)
+    if x1 < x2 then
+        self.leftStopper:moveTo(x1, self.worldHeight / 2)
+        self.rightStopper:moveTo(x2, self.worldHeight / 2)
+    else
+        self.leftStopper:moveTo(x2, self.worldHeight / 2)
+        self.rightStopper:moveTo(x1, self.worldHeight / 2)
+    end
     mainCamera:setWorld(math.floor(self.leftStopper:getX() + self.leftStopper.width / 2), 0, math.floor(self.rightStopper:getX() - self.leftStopper:getX()) - self.leftStopper.width, self.worldHeight)
 end
 
