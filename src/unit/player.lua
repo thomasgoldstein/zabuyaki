@@ -82,22 +82,11 @@ function Player:hasPlaceToStand(x, y)
     return true
 end
 
-function Player:penetratesObject(o)
-    if  self == o then
-        return 0, 0
+function Player:canPassTroughObject(o)
+    if o.type == "stopper" then
+        return false
     end
-    local px, py = minkowskiDifference(
-    --ax, ay, aw, ah, bx, by, bw, bh
-        self.x + self:getFace() * self:getHurtBoxOffsetX() - self:getHurtBoxWidth() / 2,
-        self.y - self:getHurtBoxDepth() / 2,
-        self:getHurtBoxWidth(),
-        self:getHurtBoxDepth(),
-        o.x + o:getFace() * o:getHurtBoxOffsetX() - o:getHurtBoxWidth() / 2,
-        o.y - o:getHurtBoxDepth() / 2,
-        o:getHurtBoxWidth(),
-        o:getHurtBoxDepth()
-    )
-    return px, py
+    return true
 end
 
 function Player:isDoubleTapValid()
