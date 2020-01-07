@@ -82,6 +82,13 @@ function Enemy:decreaseHp(damage)
     end
 end
 
+function Enemy:penetratesObject(o)
+    if o.type == "stopper" then -- enemies ignore stoppers' collision
+        return 0, 0
+    end
+    return Unit.penetratesObject(self, o)
+end
+
 function Enemy:introStart()
     self.isHittable = true
     self:setSprite("intro")
