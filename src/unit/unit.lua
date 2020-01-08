@@ -246,12 +246,12 @@ function Unit:collidesWith(o)
     )
 end
 
-function Unit:canPassTroughObject(o)
-    return true
+function Unit:canPassTroughStoppers(o)
+    return o == stage.leftStopper or o == stage.rightStopper
 end
 
 function Unit:penetratesObject(o)
-    if self == o or self:canPassTroughObject(o) then
+    if self == o or self:canPassTroughStoppers(o) then
         return 0, 0
     end
     local px, py = minkowskiDifference(

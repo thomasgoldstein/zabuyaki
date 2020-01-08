@@ -82,11 +82,8 @@ function Player:hasPlaceToStand(x, y)
     return true
 end
 
-function Player:canPassTroughObject(o)
-    if o.type == "stopper" then
-        return false
-    end
-    return true
+function Player:canPassTroughStoppers(o)
+    return false
 end
 
 function Player:isDoubleTapValid()
