@@ -2,7 +2,7 @@
 When DEBUG mode is on, you have access to debug hot-keys.
 
 ### Enter DEBUG mode 
-Use [ 0 ] or [Gray *] to enter and browse trough DEBUG levels. There are 3 debug levels which show you more debug info on the game screen, over the game units and in the game console.
+Use [ 0 ] or [Gray *] to enter and browse through DEBUG levels. There are 3 debug levels which show you more debug info on the game screen, over the game units and in the game console.
 Use [SHIFT] + [ 0 ] or [SHIFT] + [Gray *] keys to browse DEBUG levels backwards.
 
 ### Slow Motion mode (Slow-Mo)

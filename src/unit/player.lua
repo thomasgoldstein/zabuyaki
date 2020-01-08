@@ -12,7 +12,7 @@ function Player:initialize(name, sprite, x, y, f, input)
     self.hp = f.hp or self.hp or 100
     Character.initialize(self, name, sprite, x, y, f, input)
     self:initAttributes()
-    self.canWalkTroughStoppers = false
+    self.canWalkThroughStoppers = false
     self.type = "player"
     self.friendlyDamage = 1 --1 = full damage on other players
 end
@@ -82,7 +82,7 @@ function Player:hasPlaceToStand(x, y)
     return true
 end
 
-function Player:canPassTroughStoppers(o)
+function Player:canPassThroughStoppers(o)
     return false
 end
 
