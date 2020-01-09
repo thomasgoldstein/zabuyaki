@@ -44,7 +44,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.sfx = {}
     self.sfx.onHit = f.sfxOnHit --on hurt sfx
     self.sfx.dead = f.sfxDead --on death sfx
-    self.canWalkThroughStoppers = true
+    self.canPassStoppers = true
     self.isObstacle = false
     self.isPlatform = false
     self.isHittable = false
@@ -247,7 +247,7 @@ function Unit:collidesWith(o)
 end
 
 function Unit:penetratesObject(o)
-    if self == o or (self.canWalkThroughStoppers and (o == stage.leftStopper or o == stage.rightStopper)) then
+    if self == o or (self.canPassStoppers and (o == stage.leftStopper or o == stage.rightStopper)) then
         return 0, 0
     end
     local px, py = minkowskiDifference(
@@ -303,7 +303,7 @@ function Unit:checkCollisionAndMove(dt)
         self.x, self.y = self.x + stepx, self.y + stepy
         for _,o in ipairs(stage.objects.entities) do
             if (o.isObstacle and o.z <= 0 and o.hp > 0)
-                or (o.type == "stopper" and not self.canWalkThroughStoppers)
+                or (o.type == "stopper" and not self.canPassStoppers)
             then
                 local px, py = self:penetratesObject(o)
                 if px ~= 0 or py ~= 0 then
@@ -314,7 +314,7 @@ function Unit:checkCollisionAndMove(dt)
     else -- in air
         self.x, self.y = self.x + stepx, self.y + stepy
         for _,o in ipairs(stage.objects.entities) do
-            if ( o.type == "wall" or (o.type == "stopper" and not self.canWalkThroughStoppers) or o.isPlatform )
+            if ( o.type == "wall" or (o.type == "stopper" and not self.canPassStoppers) or o.isPlatform )
                 and self:collidesWith(o)
             then
                 if o.isPlatform then
