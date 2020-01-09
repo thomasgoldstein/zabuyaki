@@ -82,10 +82,6 @@ function Player:hasPlaceToStand(x, y)
     return true
 end
 
-function Player:canPassThroughStoppers(o)
-    return false
-end
-
 function Player:isDoubleTapValid()
     local doubleTap = self.b.horizontal.doubleTap
     return self.face == doubleTap.lastDoubleTapDirection and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(dashAttackDelta)
