@@ -76,7 +76,7 @@ local comboAttack3Up1 = function(slf, cont)
 end
 local comboAttack3Up2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 18, y = 24, width = 27, damage = 9 },
+        { x = 18, z = 24, width = 27, damage = 9 },
         cont
     )
 end
