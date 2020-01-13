@@ -64,10 +64,10 @@ return {
         dashAttack = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --duck
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
-            { q = q(118,880,14,15), ox = -6, oy = 26 }, --dash attack 1
-            { q = q(89,858,27,36), ox = 0, oy = 33 }, --dash attack 2
-            { q = q(89,896,22,26), ox = -4, oy = 31 }, --dash attack 2
-            { q = q(118,858,17,20), ox = -8, oy = 30 }, --dash attack 2
+            { q = q(117,880,14,15), ox = -6, oy = 26 }, --dash attack 1
+            { q = q(88,858,27,36), ox = 0, oy = 33 }, --dash attack 2
+            { q = q(88,896,22,26), ox = -4, oy = 31 }, --dash attack 2
+            { q = q(117,858,17,20), ox = -8, oy = 30 }, --dash attack 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --dash attack 1
