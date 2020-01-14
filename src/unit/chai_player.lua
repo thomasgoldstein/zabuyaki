@@ -147,6 +147,7 @@ function Chai:grabFrontAttackBackStart()
     local t = g.target
     self:moveStatesInit()
     self:setSprite("grabFrontAttackBack")
+    self:moveStatesApply()
     self.isHittable = not self.sprite.isThrow
     t.isHittable = not self.sprite.isThrow --cannot damage both if on the throw attack type
 end
