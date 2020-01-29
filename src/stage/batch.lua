@@ -106,7 +106,7 @@ function Batch:spawn(dt)
             batchUnit.unit.isActive = true -- actual spawned enemy unit
             dp("Activate enemy:", batchUnit.unit.name)
         end
-        if batchUnit.unit.hp > 0 and batchUnit.unit.type == "enemy" then --alive enemy
+        if not batchUnit.unit.isDisabled and batchUnit.unit.type == "enemy" then --alive enemy
             allDead = false
         end
     end
