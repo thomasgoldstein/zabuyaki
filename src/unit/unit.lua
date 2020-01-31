@@ -484,7 +484,7 @@ function Unit:moveStatesInit()
     end
     g.init = {
         x = self.x, y = self.y, z = self.z,
-        face = self.face, tFace = t.face,
+        grabberFace = self.face, grabbedFace = t.face,
         --tx = t.x, ty = t.y, tz = t.z,
         lastFrame = -1
     }
@@ -504,11 +504,11 @@ function Unit:moveStatesApply()
     local i = g.init
     if i.lastFrame ~= frame then
         local m = moves[frame]
-        if m.face then
-            self.face = i.face * m.face
+        if m.grabberFace then
+            self.face = i.grabberFace * m.grabberFace
         end
-        if m.tFace then
-            t.face = i.tFace * m.tFace
+        if m.grabbedFace then
+            t.face = i.grabbedFace * m.grabbedFace
         end
         if m.tAnimation and t.sprite.curAnim ~= m.tAnimation then
             t:setSprite(m.tAnimation)

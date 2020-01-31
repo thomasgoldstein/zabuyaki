@@ -652,10 +652,10 @@ return {
             isThrow = true,
             moves = {
                 { ox = 10, oz = 5, oy = -1, z = 0 },
-                { ox = -5, oz = 10, tFace = -1, z = 0 },
-                { ox = -20, oz = 12, tFace = -1, z = 2 },
-                { ox = -10, oz = 24, tFace = -1, z = 4 },
-                { ox = 10, oz = 30, tFace = 1, z = 8 },
+                { ox = -5, oz = 10, grabbedFace = -1, z = 0 },
+                { ox = -20, oz = 12, grabbedFace = -1, z = 2 },
+                { ox = -10, oz = 24, grabbedFace = -1, z = 4 },
+                { ox = 10, oz = 30, grabbedFace = 1, z = 8 },
                 { z = 4 },
                 { z = 0 }
             }
@@ -669,9 +669,9 @@ return {
             delay = f(4),
             isThrow = true,
             moves = {
-                { ox = -20, oz = 10, oy = 1, z = 0, face = -1 },
+                { ox = -20, oz = 10, oy = 1, z = 0, grabberFace = -1 },
                 { ox = -10, oz = 20, z = 4 },
-                { ox = 10, oz = 30, tFace = 1, z = 8 },
+                { ox = 10, oz = 30, grabbedFace = 1, z = 8 },
                 { z = 4 },
                 { z = 0 }
             }
