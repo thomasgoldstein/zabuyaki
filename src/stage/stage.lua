@@ -6,7 +6,6 @@ local sign = sign
 -- Blocking far players movement
 local minGapBetweenStoppers = 420
 local stoppersPadding = 8
-local wallsPadding = 100
 
 -- Zooming
 local maxZoom = display.inner.minScale --4 -- zoom in. default value
@@ -49,13 +48,9 @@ function Stage:initialize(name, mapFile, players)
     self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shift_x = stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight } })
     self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shift_x = -stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight } })
     self.topStopper = Stopper:new("TOP.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth * 2 + 80, 40,  } })
-    self.leftWall = Wall:new("LEFT.WALL", { shapeType = "rectangle", shift_x = stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight + 2 * wallsPadding} })
-    self.rightWall = Wall:new("RIGHT.WALL", { shapeType = "rectangle", shift_x = -stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight + 2 * wallsPadding} })
-    self.topWall = Wall:new("TOP.WALL", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 2 * wallsPadding, 40,  } })
-    self.bottomWall = Wall:new("BOTTOM.W", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth + 2 * wallsPadding, 40 } })
+    self.bottomStopper = Wall:new("BOTTOM.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth * 2 + 80, 40 } })
     self.objects:addArray({
-        self.leftStopper, self.rightStopper, self.topStopper,
-        self.leftWall, self.rightWall, self.topWall, self.bottomWall
+        self.leftStopper, self.rightStopper, self.topStopper, self.bottomStopper
     })
     self:initialMoveStoppers()
     self.transition = Transition:new("fadeout")
@@ -130,10 +125,7 @@ function Stage:initialMoveStoppers()
     self.leftStopper:moveTo(0 - self.leftStopper.width, self.worldHeight / 2)
     self.rightStopper:moveTo(math.floor(self.leftStopper:getX() + minGapBetweenStoppers), self.worldHeight / 2)
     self.topStopper:moveTo(math.floor(self.worldWidth / 2), - 20)
-    self.leftWall:moveTo(0 - wallsPadding, self.worldHeight / 2)
-    self.rightWall:moveTo(self.worldWidth + wallsPadding, self.worldHeight / 2)
-    self.topWall:moveTo(math.floor(self.worldWidth / 2), 0 - wallsPadding)
-    self.bottomWall:moveTo(math.floor(self.worldWidth / 2), self.worldHeight + 20) --vno padding
+    self.bottomStopper:moveTo(math.floor(self.worldWidth / 2), self.worldHeight + 20)
 end
 
 local txtGo = love.graphics.newText(gfx.font.clock, "GO")
