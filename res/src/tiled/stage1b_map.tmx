@@ -43,12 +43,12 @@
    <point/>
   </object>
  </objectgroup>
- <group id="1" name="batch" locked="1">
+ <group id="1" name="wave" locked="1">
   <objectgroup color="#ffaa00" id="3" name="2" locked="1">
    <properties>
     <property name="onComplete" value="leaveMap"/>
    </properties>
-   <object id="2" name="2" type="batch" x="640" y="0" width="640" height="320"/>
+   <object id="2" name="2" type="wave" x="640" y="0" width="640" height="320"/>
    <object id="10" name="Niko" type="niko" x="1184" y="256">
     <point/>
    </object>
@@ -58,7 +58,7 @@
     <property name="music" value="stage1"/>
     <property name="onStart" value="enterMap"/>
    </properties>
-   <object id="1" name="1" type="batch" x="0" y="0" width="640" height="320"/>
+   <object id="1" name="1" type="wave" x="0" y="0" width="640" height="320"/>
    <object id="9" name="Gopper" type="gopper" x="544" y="256">
     <point/>
    </object>

@@ -107,14 +107,14 @@
    </properties>
   </object>
  </objectgroup>
- <group id="1" name="batch" locked="1">
+ <group id="1" name="wave" locked="1">
   <objectgroup color="#ffff00" id="2" name="1" locked="1">
    <properties>
     <property name="music" value="stage1"/>
     <property name="onComplete" value="leaveMap"/>
     <property name="onStart" value="enterMap"/>
    </properties>
-   <object id="1" name="1" type="batch" x="0" y="0" width="640" height="320"/>
+   <object id="1" name="1" type="wave" x="0" y="0" width="640" height="320"/>
    <object id="9" name="Gopper" type="gopper" x="544" y="256">
     <point/>
    </object>
