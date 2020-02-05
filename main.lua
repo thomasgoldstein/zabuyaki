@@ -106,7 +106,7 @@ function love.load(arg)
     Stage = require "src/stage/stage"
     require "src/stage/stage_ai_helper"
     Transition = require "src/stage/transition"
-    Batch = require "src/stage/batch"
+    Wave = require "src/stage/wave"
     Effect = require "src/unit/effect"
     Entity = require "src/stage/entity"
     Unit = require "src/unit/unit"

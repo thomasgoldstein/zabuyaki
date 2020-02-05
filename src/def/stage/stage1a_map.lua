@@ -333,7 +333,7 @@ return {
     {
       type = "group",
       id = 1,
-      name = "batch",
+      name = "wave",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -356,7 +356,7 @@ return {
             {
               id = 13,
               name = "4",
-              type = "batch",
+              type = "wave",
               shape = "rectangle",
               x = 1920,
               y = 0,
@@ -395,7 +395,7 @@ return {
             {
               id = 11,
               name = "3",
-              type = "batch",
+              type = "wave",
               shape = "rectangle",
               x = 1280,
               y = 0,
@@ -434,7 +434,7 @@ return {
             {
               id = 2,
               name = "2",
-              type = "batch",
+              type = "wave",
               shape = "rectangle",
               x = 640,
               y = 0,
@@ -476,7 +476,7 @@ return {
             {
               id = 1,
               name = "1",
-              type = "batch",
+              type = "wave",
               shape = "rectangle",
               x = 0,
               y = 0,

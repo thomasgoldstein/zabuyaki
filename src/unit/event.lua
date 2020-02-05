@@ -72,7 +72,7 @@ function Event:startByName(eventName, startByPlayer)
     dp("= Start Event by name:", eventName, startByPlayer and startByPlayer.name or "na")
     if eventName == "nextmap" then
         self.isDisabled = true
-        stage.batch:finish()
+        stage.wave:finish()
         return true
     end
     local event = stage.objects:getByName(eventName)

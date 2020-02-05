@@ -146,8 +146,8 @@ function Stage:update(dt)
             Weather.generate(self.weather, self.min_x, self.max_x, y1, y2, z1, z2)
             Weather.update(dt)
             self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
-            if self.batch then
-                self.showGoMark = self.batch:update(dt)
+            if self.wave then
+                self.showGoMark = self.wave:update(dt)
             end
             self:updateZoom(dt)
             self.objects:update(dt)
@@ -337,7 +337,7 @@ function Stage:getSafeRespawnPosition(unit)
 end
 
 function Stage:isDone()
-    return self.batch:isDone()
+    return self.wave:isDone()
 end
 
 return Stage

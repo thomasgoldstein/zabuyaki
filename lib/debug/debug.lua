@@ -4,7 +4,7 @@ SHOW_DEBUG_CONTROLS = 1 -- show pressed keys
 SHOW_DEBUG_UNIT_HITBOX = 2 -- show hitboxes
 SHOW_DEBUG_UNIT_INFO = 3 -- show unit's info: name, pos, state
 SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
-SHOW_DEBUG_BATCHES = 2 -- show left edge of the current batch with red and the next with blue
+SHOW_DEBUG_WAVES = 2 -- show left edge of the current wave with red and the next with blue
 
 -- Load Profiler
 if GLOBAL_SETTING.PROFILER_ENABLED then
@@ -166,11 +166,11 @@ function showDebugIndicator(size, _x, _y)
     end
 end
 
-function showDebugBatch(l,t,w,h)
-    if isDebug(SHOW_DEBUG_BATCHES) then
-        local s = stage.batch
+function showDebugWave(l,t,w,h)
+    if isDebug(SHOW_DEBUG_WAVES) then
+        local s = stage.wave
         if s then
-            local b,b2 = s.batches[s.n], s.batches[s.n + 1]
+            local b,b2 = s.waves[s.n], s.waves[s.n + 1]
             if b then
                 colors:set("red", nil, 150)
                 love.graphics.rectangle("fill", b.leftStopper_x, t, 1, h)

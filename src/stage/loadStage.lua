@@ -56,42 +56,42 @@ local function getUnitTypeByName(name)
     return nil
 end
 
-local function applyBatchUnitProperties(v, batchUnit)
-    batchUnit.spawnDelay = tonumber(v.properties.spawnDelay or 0)
-    batchUnit.state = v.properties.state
-    batchUnit.animation = v.properties.animation
-    batchUnit.target = v.properties.target
-    batchUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay or batchUnit.unit.wakeDelay)
-    batchUnit.unit.wakeRange = tonumber(v.properties.wakeRange or batchUnit.unit.wakeRange)
-    batchUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange or batchUnit.unit.delayedWakeRange)
+local function applyWaveUnitProperties(v, waveUnit)
+    waveUnit.spawnDelay = tonumber(v.properties.spawnDelay or 0)
+    waveUnit.state = v.properties.state
+    waveUnit.animation = v.properties.animation
+    waveUnit.target = v.properties.target
+    waveUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay or waveUnit.unit.wakeDelay)
+    waveUnit.unit.wakeRange = tonumber(v.properties.wakeRange or waveUnit.unit.wakeRange)
+    waveUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange or waveUnit.unit.delayedWakeRange)
     if v.properties.flip then
-        batchUnit.unit.horizontal = -1
-        batchUnit.unit.face = -1
-        batchUnit.unit.sprite.faceFix = -1  -- stageObjects use it to fix sprite flipping
+        waveUnit.unit.horizontal = -1
+        waveUnit.unit.face = -1
+        waveUnit.unit.sprite.faceFix = -1  -- stageObjects use it to fix sprite flipping
     end
     if v.properties.drop then
-        batchUnit.unit.func = Loot.getDropFuncByName(v.properties.drop)
+        waveUnit.unit.func = Loot.getDropFuncByName(v.properties.drop)
     end
     if v.properties.z then
-        batchUnit.unit.z = tonumber(v.properties.z)
+        waveUnit.unit.z = tonumber(v.properties.z)
     end
     if v.properties.hp then
-        batchUnit.unit.maxHp = tonumber(v.properties.hp)
-        batchUnit.unit.hp = batchUnit.unit.maxHp
+        waveUnit.unit.maxHp = tonumber(v.properties.hp)
+        waveUnit.unit.hp = waveUnit.unit.maxHp
     end
     if v.properties.lives then
-        batchUnit.unit.lives = tonumber(v.properties.lives)
+        waveUnit.unit.lives = tonumber(v.properties.lives)
     end
 end
 
-local function loadUnit(items, batchName)
+local function loadUnit(items, waveName)
     local units = {}
     local event
     local sprite
-    if batchName and batchName ~= "" then
-        dp("Load units of batch " .. batchName .. "...")
+    if waveName and waveName ~= "" then
+        dp("Load units of wave " .. waveName .. "...")
     else
-        batchName = nil
+        waveName = nil
     end
     for i, v in ipairs(items.objects) do
         if v.shape == "point" and v.type ~= "event" then
@@ -111,13 +111,13 @@ local function loadUnit(items, batchName)
                 r(v.x), r(v.y),
                 { palette = palette }
             )
-            if batchName then
+            if waveName then
                 units[#units + 1] = u
             else
-                --for global units that have no batch
+                --for global units that have no wave
                 units[#units + 1] = u.unit
             end
-            applyBatchUnitProperties(v, u)
+            applyWaveUnitProperties(v, u)
         elseif v.type == "event" then
             if v.shape == "polygon" then
                 error("Tiled: Events don't support 'polygon' shape objects yet.")
@@ -158,7 +158,7 @@ local function loadUnit(items, batchName)
                 r(v.x + v.width / 2), r(v.y + v.height / 2),
                 properties )
             units[#units + 1] = event
-        elseif v.type ~= "batch" then
+        elseif v.type ~= "wave" then
             error("Tiled: Unknown Event type on the map: "..v.type.." shape:"..v.shape)
         end
     end
@@ -177,17 +177,17 @@ local function loadGlobalUnits(items, stage)
     end
 end
 
-local function loadBatch(items, stage)
-    local batch = {}
-    dp("Load batches...")
-    local t = extractTable(items.layers, "batch")
+local function loadWave(items, stage)
+    local wave = {}
+    dp("Load waves...")
+    local t = extractTable(items.layers, "wave")
     if not t then
-        error("Tiled: Group layer 'batch' is not present in the map file.")
+        error("Tiled: Group layer 'wave' is not present in the map file.")
     end
     for i, v in ipairs(t.layers) do
         for i, v2 in ipairs(v.objects) do
             if v2.shape == "rectangle"
-                and v2.type == "batch"
+                and v2.type == "wave"
             then
                 local b = {
                     name = v2.name,
@@ -201,11 +201,11 @@ local function loadBatch(items, stage)
                     onComplete = v.properties.onComplete,
                     onLeave = v.properties.onLeave,
                 }
-                batch[#batch + 1] = b
+                wave[#wave + 1] = b
             end
         end
     end
-    table.sort(batch, function(a,b)
+    table.sort(wave, function(a,b)
         if not a then
             return false
         elseif not b then
@@ -214,7 +214,7 @@ local function loadBatch(items, stage)
             return a.leftStopper_x > b.leftStopper_x
         end
         return a.leftStopper_x < b.leftStopper_x end )
-    return Batch:new(stage, batch)
+    return Wave:new(stage, wave)
 end
 
 local loadedImages = {}
@@ -358,7 +358,7 @@ function loadStageData(stage, mapFile, players)
     addPlayersToStage(d, players, stage)
     doInstantPlayersSelect() -- if debug, you can select char on start
     loadGlobalUnits(d, stage)
-    stage.batch = loadBatch(d, stage)
+    stage.wave = loadWave(d, stage)
     stage.scrolling = loadCameraScrolling(d)
     loadImageLayer(d, "background", stage.background)
     stage.background:setSize(stage.worldWidth, stage.worldHeight)

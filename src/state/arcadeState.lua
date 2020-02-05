@@ -33,7 +33,7 @@ function arcadeState:enter(_, players)
     previousStageMusic = nil
     --load very 1st stage
     stage = Stage:new("NoName", "src/def/stage/stage1a_map.lua", players)
-    stage.batch:startPlayingMusic( 1 )
+    stage.wave:startPlayingMusic( 1 )
     gameOverDelay = 0
     love.graphics.setLineWidth( 1 )
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
@@ -108,7 +108,7 @@ function arcadeState:draw()
         colors:set("white")
         stage:draw(l,t,w,h)
         drawDebugHitBoxes() -- debug draw collision boxes
-        showDebugBatch(l,t,w,h)
+        showDebugWave(l,t,w,h)
     end)
     love.graphics.setCanvas()
     push:start()

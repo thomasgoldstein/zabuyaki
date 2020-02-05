@@ -23,7 +23,7 @@ function Colors:initialize()
         pauseStateColors = { {255 * pauseStateTransp, 255 * pauseStateTransp, 255 * pauseStateTransp, 255},
             {GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp, GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp,
             GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp, GLOBAL_SETTING.SHADOW_OPACITY * pauseStateTransp } },
-        batchColors = {{255, 0, 0, 125}, {0, 255, 0, 125}, {0, 0, 255, 125}},
+        waveColors = {{255, 0, 0, 125}, {0, 255, 0, 125}, {0, 0, 255, 125}},
         barNormColor = {255, 220, 15, 255},
         barLosingColor = { 255, 110, 15, 255 },
         barLostColor = { 230, 0, 20, 255 },

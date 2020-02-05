@@ -117,9 +117,9 @@ Defaults: shadowAngle 0.2, shadowHeight 0.3.
 
 Recommended scoop: shadowAngle Range -1 .. 1, shadowHeight 0.2 .. 1.
 
-## Define the batch area width ##
-Add a rectangle object to set the batch area. You should set its type to "batch". 
-> Hint: The height of the batch shape is ignored.
+## Define the wave area width ##
+Add a rectangle object to set the wave area. You should set its type to "wave". 
+> Hint: The height of the wave shape is ignored.
 
 ## Define events ##
 All the events should be created in "global" **Object group**. Every event should have type "event". The events can be activated and used once. 
@@ -149,27 +149,27 @@ We will add other rectangle event triggers of other types in this group later.
 ## Predefined events ##
 * nextmap <- Load next map. The next map is set in the map properties. Override it with an event's 'nextmap' (map name) property.   
 
-## Define enemy batches ##
-Go to the layers tab. Create **Group layer**. Rename it to "batch".
-Now add **Object layers** as batches into the **Group layer** "batch".
+## Define enemy waves ##
+Go to the layers tab. Create **Group layer**. Rename it to "wave".
+Now add **Object layers** as waves into the **Group layer** "wave".
  
-Every batch should be named. You can alter its Color property to colour its units on the Tiled screen.
-Give simple names to your batches, such as 1 2 3 4 etc.
+Every wave should be named. You can alter its Color property to colour its units on the Tiled screen.
+Give simple names to your waves, such as 1 2 3 4 etc.
 
-The left and the right sides of the batch are used as the horizontal positions the players stoppers.
+The left and the right sides of the wave are used as the horizontal positions the players stoppers.
 
-Custom properties for each batch **Object layer**:
+Custom properties for each wave **Object layer**:
 * spawnDelay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
 * music <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
-* onStart (event name) <- call event at the batch init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
-* onEnter (event name) <- call event on the last player crossing the left bound of the batch.
-* onLeave (event name) <- call event on the last player crossing the right bound of the batch.
-* onComplete (event name) <- call event (name) on the last batch enemy death. 
+* onStart (event name) <- call event at the wave init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
+* onEnter (event name) <- call event on the last player crossing the left bound of the wave.
+* onLeave (event name) <- call event on the last player crossing the right bound of the wave.
+* onComplete (event name) <- call event (name) on the last wave enemy death. 
 
-> Hint: Every batch event should be defined as a global event somewhere at the stage. Keep it away from the walking areas to prevent starting on a player collision.  
+> Hint: Every wave event should be defined as a global event somewhere at the stage. Keep it away from the walking areas to prevent starting on a player collision.  
 
-## Add enemy units to a batch ##
-Go to the layers tab. Select any **Object layer** within "batch" **Group layer**. 
+## Add enemy units to a wave ##
+Go to the layers tab. Select any **Object layer** within "wave" **Group layer**. 
 
 Now you can add enemy units or stage objects into the game.
 Every unit should have these properties
@@ -198,13 +198,13 @@ Optional properties:
 * drop <- which loot to drop. It can be one **apple**, **chicken** or **beef**
 
 ## Define global units ## 
-A unit without **batch** is called global. It is spawned on the stage loading.
+A unit without **wave** is called global. It is spawned on the stage loading.
 They are added into the root **Object layers** named "global".
 
 Every unit should contain these properties
 * Name <- enemy's name
 * Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnik or satoff
-> Hint: These units do not lock you within a batch area. You can spare their liver and go to the next batch area.
+> Hint: These units do not lock you within a wave area. You can spare their liver and go to the next wave area.
 
 ## Define players start positions ## 
 3 "Point" objects should be added into the root of **Object layers** named "player".
