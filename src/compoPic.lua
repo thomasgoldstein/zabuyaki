@@ -31,7 +31,7 @@ end
 ---@param scrollSpeedY number vertical scrolling speed.  negative/positive/0(default)
 ---@param name string to have access from the stage events
 ---@param animate string animation params
-function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animation)
+function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animate)
     local _,_,w,h = quad:getViewport()
     table.insert(self.pics, {spriteSheet = spriteSheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, name = name, animate = animate})
 end
