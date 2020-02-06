@@ -29,9 +29,11 @@ end
 ---@param relativeY number relativeY?
 ---@param scrollSpeedX number horizontal scrolling speed.  negative/positive/0(default)
 ---@param scrollSpeedY number vertical scrolling speed.  negative/positive/0(default)
-function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, func)
+---@param name string to have access from the stage events
+---@param animate string animation params
+function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animation)
     local _,_,w,h = quad:getViewport()
-    table.insert(self.pics, {spriteSheet = spriteSheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, update = func})
+    table.insert(self.pics, {spriteSheet = spriteSheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, name = name, animate = animate})
 end
 
 function CompoundPicture:remove(rect)

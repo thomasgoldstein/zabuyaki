@@ -228,19 +228,19 @@ local function cacheImage(path_to_image)
     return loadedImages[path_to_image], loadedImagesQuads[path_to_image]
 end
 
-local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpeedX,  scrollSpeedY)
+local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, animate)
     if not v.visible then
         return
     end
     if v.type == "group" then
         for i, v2 in ipairs(v.layers) do
-            addImageToLayer(images, v2, v.offsetx + x, v.offsety + y, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY)
+            addImageToLayer(images, v2, v.offsetx + x, v.offsety + y, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate)
         end
     elseif v.type == "imagelayer" then
         local image, quad = cacheImage(v.image)
-        local offsetx, offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY =
-            v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY
-        images:add(image, quad, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, func)
+        local offsetx, offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, animate =
+            v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate
+        images:add(image, quad, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate)
     end
 end
 
@@ -252,7 +252,7 @@ local function loadImageLayer(items, layerName, images)
         return
     end
     for i, v in ipairs(t.layers) do
-        addImageToLayer(images, v, t.offsetx, t.offsety, t.properties.relativeX,  t.properties.relativeY, t.properties.scrollSpeedX,  t.properties.scrollSpeedY)
+        addImageToLayer(images, v, t.offsetx, t.offsety, t.properties.relativeX,  t.properties.relativeY, t.properties.scrollSpeedX,  t.properties.scrollSpeedY, t.properties.animate or v.properties.animate)
     end
 end
 
