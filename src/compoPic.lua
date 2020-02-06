@@ -13,11 +13,52 @@ function CompoundPicture:initialize(name)
 end
 
 ---Set scrolling area bounds for the whole compound picture
----@param spriteSheet number width whole group width
----@param spriteSheet number height whole group height
+---@param width number width whole group width
+---@param height number height whole group height
 function CompoundPicture:setSize(width, height)
     self.width = width
     self.height = height
+end
+
+local loadedImages = {}
+local loadedImagesQuads = {}
+local function cacheImage(path_to_image)
+    if not loadedImages[path_to_image] then
+        loadedImages[path_to_image] = love.graphics.newImage(path_to_image:sub(10))
+        local width, height = loadedImages[path_to_image]:getDimensions()
+        loadedImagesQuads[path_to_image] = love.graphics.newQuad(0, 0, width, height, width, height)
+    end
+    return loadedImages[path_to_image], loadedImagesQuads[path_to_image]
+end
+
+function parseAnimateString(w, h, animate, spriteSheet)
+    if not animate then
+        return nil
+    end
+    local t = splitString(animate)
+    local frames = {
+        maxFrame = 1,
+        curFrame = 1,
+        maxDelay = 0.5,
+        curDelay = 0.1,
+        quads = {}
+    }
+    local s = string.match(spriteSheet, "(.+)/[%a+.png]")
+    s = s .. "/" .. t[1] .. ".png" -- get file name from the animate prop, add original path
+    frames.maxDelay = tonumber( t[2] ) or 1
+    local image, quad = cacheImage(s)
+    local _,_,sw,sh = quad:getViewport()
+    if h ~= sh then
+        Error("Tiled 'animate' property. Animated images should have the same height as their placeholder: " .. spriteSheet .. " and animation frames: ".. s )
+    end
+    frames.maxFrame = sw / w
+    if frames.maxFrame < 2 or frames.maxFrame ~= math.floor(frames.maxFrame) then
+        Error("Tiled 'animate' property. Animated images should have > 1 frames with the same widths as their placeholder: " .. spriteSheet .. " and animation frames: ".. s )
+    end
+    for i = 1, frames.maxFrame do
+        frames.quads[i] = love.graphics.newQuad( (i - 1) * w, 0, w, h, sw, sh)
+    end
+    return frames, image
 end
 
 ---Add image to the compound picture table
@@ -32,8 +73,10 @@ end
 ---@param name string to have access from the stage events
 ---@param animate string animation params
 function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animate)
+    local image, quad = cacheImage(spriteSheet)
     local _,_,w,h = quad:getViewport()
-    table.insert(self.pics, {spriteSheet = spriteSheet, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, name = name, animate = animate})
+    local animate, animateImage = parseAnimateString(w, h, animate, spriteSheet)
+    table.insert(self.pics, {image = animateImage or image, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, name = name, animate = animate})
 end
 
 function CompoundPicture:remove(rect)
@@ -62,8 +105,7 @@ function CompoundPicture:update(dt)
     local p
     for i=1, #self.pics do
         p = self.pics[i]
-        if p.update then
-            p.update(p, dt)
+        if p.animate then
         end
         -- scroll horizontally e.g. clouds
         if p.scrollSpeedX and p.scrollSpeedX ~= 0 then
@@ -99,10 +141,18 @@ function CompoundPicture:draw(l, t, w, h)
     for i = 1, #self.pics do
         p = self.pics[i]
         if CheckCollision(l - p.relativeX * l, t - p.relativeY * t, w, h, p.x, p.y, p.w, p.h) then
-            love.graphics.draw(p.spriteSheet,
-                p.quad,
-                p.x + p.relativeX * l, -- slow down parallax
-                p.y + p.relativeY * t)
+            if p.animate then
+                p.animate.curFrame = love.math.random( 1, p.animate.maxFrame )
+                love.graphics.draw(p.image,
+                    p.animate.quads[ p.animate.curFrame ],
+                    p.x + p.relativeX * l, -- slow down parallax
+                    p.y + p.relativeY * t)
+            else
+                love.graphics.draw(p.image,
+                    p.quad,
+                    p.x + p.relativeX * l, -- slow down parallax
+                    p.y + p.relativeY * t)
+            end
         end
     end
 end

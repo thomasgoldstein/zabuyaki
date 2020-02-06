@@ -217,17 +217,6 @@ local function loadWave(items, stage)
     return Wave:new(stage, wave)
 end
 
-local loadedImages = {}
-local loadedImagesQuads = {}
-local function cacheImage(path_to_image)
-    if not loadedImages[path_to_image] then
-        loadedImages[path_to_image] = love.graphics.newImage(path_to_image:sub(10))
-        local width, height = loadedImages[path_to_image]:getDimensions()
-        loadedImagesQuads[path_to_image] = love.graphics.newQuad(0, 0, width, height, width, height)
-    end
-    return loadedImages[path_to_image], loadedImagesQuads[path_to_image]
-end
-
 local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, animate)
     if not v.visible then
         return
@@ -237,10 +226,9 @@ local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpee
             addImageToLayer(images, v2, v.offsetx + x, v.offsety + y, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate)
         end
     elseif v.type == "imagelayer" then
-        local image, quad = cacheImage(v.image)
         local offsetx, offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, animate =
             v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate
-        images:add(image, quad, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate)
+        images:add(v.image, quad, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate)
     end
 end
 
