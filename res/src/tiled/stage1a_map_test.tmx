@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="21" nextobjectid="24">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="25" nextobjectid="20">
  <properties>
   <property name="enableReflections" type="bool" value="true"/>
   <property name="reflectionsOpacity" type="float" value="0.6"/>
  </properties>
  <group id="8" name="background">
-  <imagelayer id="15" name="sky" offsetx="-2" offsety="-2">
+  <properties>
+   <property name="_animate" value="animateFromGroup 22"/>
+  </properties>
+  <imagelayer id="15" name="sky" locked="1" offsetx="-2" offsety="-2">
    <image source="../../img/stage/stage1/sky.png" width="540" height="160"/>
    <properties>
     <property name="relativeX" value="0.97"/>
@@ -24,14 +27,29 @@
     <property name="relativeX" value="0.91"/>
    </properties>
    <imagelayer id="20" name="city">
-    <image source="../../img/stage/stage1/background-front-city.png" width="379" height="50"/>
+    <image source="../../img/stage/stage1/background-front-city.png" width="380" height="50"/>
    </imagelayer>
   </group>
   <imagelayer id="9" name="bg" locked="1" offsetx="-2" offsety="-2">
    <image source="../../img/stage/stage1/stage1a.png" width="2564" height="324"/>
   </imagelayer>
+  <imagelayer id="22" name="barrelTest no animate params" offsetx="198" offsety="196">
+   <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
+  </imagelayer>
+  <imagelayer id="21" name="barrelTest" offsetx="168" offsety="197">
+   <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
+   <properties>
+    <property name="animate" value="burn-barrel 1"/>
+   </properties>
+  </imagelayer>
+  <imagelayer id="23" name="barrelTest-2" offsetx="182" offsety="201">
+   <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
+   <properties>
+    <property name="animate" value="burn-barrel 1"/>
+   </properties>
+  </imagelayer>
  </group>
- <group id="12" name="foreground" locked="1">
+ <group id="12" name="foreground">
   <properties>
    <property name="relativeX" value="-1.2"/>
   </properties>
@@ -41,20 +59,20 @@
     <property name="relativeX" value="-1.2"/>
    </properties>
   </imagelayer>
+  <imagelayer id="24" name="barrelTest at front" offsetx="67" offsety="293">
+   <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
+   <properties>
+    <property name="animate" value="burn-barrel 1"/>
+   </properties>
+  </imagelayer>
  </group>
  <objectgroup color="#aa0000" id="7" name="camera" locked="1">
   <object id="6" x="0" y="320">
    <polyline points="0,0 2560,0"/>
   </object>
  </objectgroup>
- <objectgroup color="#00aa00" id="6" name="collision">
+ <objectgroup color="#00aa00" id="6" name="collision" locked="1">
   <object id="8" x="0" y="0" width="2560" height="240"/>
-  <object id="21" name="wall2" x="88.6667" y="280.5" width="27" height="11"/>
-  <object id="23" x="184" y="249.75" width="54" height="18.5">
-   <properties>
-    <property name="height" type="int" value="30"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup color="#00aaff" id="5" name="player" locked="1">
   <object id="3" name="1" x="48" y="256">
@@ -67,14 +85,14 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#55557f" id="4" name="global">
-  <object id="15" name="enterMap" type="event" x="43" y="193">
+ <objectgroup color="#55557f" id="4" name="global" locked="1">
+  <object id="15" name="enterMap" type="event" x="16" y="192">
    <properties>
     <property name="togox" value="-100"/>
    </properties>
    <point/>
   </object>
-  <object id="16" name="leaveMap" type="event" x="708" y="188">
+  <object id="16" name="leaveMap" type="event" x="2480" y="184">
    <properties>
     <property name="animation" value="stand"/>
     <property name="duration" value="2"/>
@@ -83,7 +101,7 @@
    </properties>
    <point/>
   </object>
-  <object id="17" name="exit" type="event" x="812" y="284">
+  <object id="17" name="exit" type="event" x="2584" y="280">
    <properties>
     <property name="go" value="exit"/>
     <property name="nextevent" value="nextmap"/>
@@ -91,7 +109,7 @@
    </properties>
    <point/>
   </object>
-  <object id="18" name="Trash" type="trashcan" x="167.333" y="289.333">
+  <object id="18" name="Trash" type="trashcan" x="356" y="256">
    <point/>
   </object>
   <object id="19" name="Trash" type="trashcan" x="455" y="298">
@@ -101,17 +119,32 @@
    </properties>
    <point/>
   </object>
-  <object id="20" name="testEv1" type="event" x="156.667" y="290" width="20" height="20">
-   <properties>
-    <property name="gox" type="int" value="20"/>
-   </properties>
-  </object>
  </objectgroup>
  <group id="1" name="wave" locked="1">
+  <objectgroup color="#ffaa00" id="11" name="4" locked="1">
+   <properties>
+    <property name="onComplete" value="leaveMap"/>
+   </properties>
+   <object id="13" name="4" type="wave" x="1920" y="0" width="640" height="320"/>
+   <object id="14" name="Niko" type="niko" x="2480" y="280">
+    <point/>
+   </object>
+  </objectgroup>
+  <objectgroup color="#ffaa00" id="10" name="3" locked="1">
+   <object id="11" name="3" type="wave" x="1280" y="0" width="640" height="320"/>
+   <object id="12" name="Niko" type="niko" x="1808" y="256">
+    <point/>
+   </object>
+  </objectgroup>
+  <objectgroup color="#ffaa00" id="3" name="2" locked="1">
+   <object id="2" name="2" type="wave" x="640" y="0" width="640" height="320"/>
+   <object id="10" name="Niko" type="niko" x="1184" y="256">
+    <point/>
+   </object>
+  </objectgroup>
   <objectgroup color="#ffff00" id="2" name="1" locked="1">
    <properties>
     <property name="music" value="stage1"/>
-    <property name="onComplete" value="leaveMap"/>
     <property name="onStart" value="enterMap"/>
    </properties>
    <object id="1" name="1" type="wave" x="0" y="0" width="640" height="320"/>
