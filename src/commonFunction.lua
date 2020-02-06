@@ -178,3 +178,12 @@ function contains(table, val)
     end
     return false
 end
+
+-- split string and create a table: "a cc   bb  gggg" -> {"a", "cc", "bb", "gggg"}
+function splitString(str)
+    t = {}
+    for subStr in string.gmatch(str,"%S+") do
+        t[#t+1] = subStr
+    end
+    return t
+end
