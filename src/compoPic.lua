@@ -48,6 +48,7 @@ function parseAnimateString(w, h, animate, spriteSheet)
         delay = {},
         elapsedTime = 0,
     }
+    local n = 1
     local s = string.match(spriteSheet, "(.+)/[%a+.png]")
     s = s .. "/" .. t[1] .. ".png" -- get file name from the animate prop, add original path
     frames.maxDelay = tonumber( t[2] ) or 1
@@ -64,15 +65,15 @@ function parseAnimateString(w, h, animate, spriteSheet)
         frames.quads[i] = love.graphics.newQuad( (i - 1) * w, 0, w, h, sw, sh)
     end
     for i = 2, #t, 2 do
-        print("i", i, t[i], t[i+1])
         if tonumber(t[i]) < 1 or tonumber(t[i]) > frames.maxFrame then
             error("Tiled 'animate' property should have frame numbers between 1 and " .. frames.maxFrame .. " for the current image: ".. animate .. " Wrong value: " .. t[i])
         end
-        frames.frame[i - 1] = tonumber(t[i])
+        frames.frame[n] = tonumber(t[i])
         if not t[i + 1] then
             error("Tiled 'animate' property is missing the last frame delay value: ".. animate .. "<==" )
         end
-        frames.delay[i - 1] = tonumber(t[i + 1])
+        frames.delay[n] = tonumber(t[i + 1])
+        n = n + 1
     end
     return frames, image
 end
@@ -118,10 +119,19 @@ function CompoundPicture:getRect(i)
 end
 
 function CompoundPicture:update(dt)
-    local p
+    local p, a
     for i=1, #self.pics do
         p = self.pics[i]
-        if p.animate then
+        a = p.animate
+        if a then
+            a.elapsedTime = a.elapsedTime + dt
+            if a.elapsedTime >= a.delay[a.curFrame] then
+                a.elapsedTime = 0
+                a.curFrame = a.curFrame + 1
+                if a.curFrame > a.maxFrame then
+                    a.curFrame = 1
+                end
+            end
         end
         -- scroll horizontally e.g. clouds
         if p.scrollSpeedX and p.scrollSpeedX ~= 0 then
@@ -158,9 +168,8 @@ function CompoundPicture:draw(l, t, w, h)
         p = self.pics[i]
         if CheckCollision(l - p.relativeX * l, t - p.relativeY * t, w, h, p.x, p.y, p.w, p.h) then
             if p.animate then
-                p.animate.curFrame = love.math.random( 1, p.animate.maxFrame )
                 love.graphics.draw(p.image,
-                    p.animate.quads[ p.animate.curFrame ],
+                    p.animate.quads[ p.animate.frame[p.animate.curFrame] ],
                     p.x + p.relativeX * l, -- slow down parallax
                     p.y + p.relativeY * t)
             else
