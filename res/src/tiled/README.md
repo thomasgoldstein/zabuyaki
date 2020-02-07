@@ -1,6 +1,6 @@
 # Editing Zabuyaki with Tiled #
 Download Tiled [Tiled Map Editor](http://www.mapeditor.org) or [GitHub](https://github.com/bjorn/tiled)
-Version 1.2.4
+Version 1.2.5
 
 ## Stages naming ##
 Default stage name template: **stageX_map.tmx**
@@ -65,7 +65,7 @@ Rename the Image Layer as just added image!
 You can add sub-folders with images withing **background** or **foreground**.
 Only **Group Layer** type of the sub-folders is supported. Please avoid adding more sub-folders within sub-folders. 
 
-Set property Visible to false if you don't want to see this image or the sub-folder in the game. You can toggle it later.
+Set property **Visible** to false if you don't want to see this image or the sub-folder in the game. You can toggle it later.
 
 E.g. Use a big stage picture as a template. You can vary its transparency level.
 It is good for positioning. But this property value is ignored in Zabuyaki.
@@ -76,13 +76,27 @@ It is good for positioning. But this property value is ignored in Zabuyaki.
 
 > Hint: Use LOCK icons to protect images or groups of images from shifting.
 
+## Adding animation to image layers ##
+You can use single framed pictures as placeholders for the animations.
+The animated image should have different file name and kept in the same folder as its placeholder.
+The animated image should consist of a row of the animation frames.
+Each frame should be exactly the same size as the placeholder.
+If the animation has transparent pixels do not forget to leave 1-pixel wide transparent borders in each frame.
+The transparent borders is the part of the placeholder image and all animated frames.    
+The placeholder needs 'animate' custom property.
+Custom Properties:
+* **animate** animatedImageFileName frameN delay frameN delay frameN delay ... <- Image name should have no spaces and extension. '.png' extension and the path are automatically added.    
+> Hint: You can have any number of the animated frames in the sequence: _"animatedLamp 1 0.5 2 0.5 3 0.5 2 0.25"_
+
+> Hint: A group of ImageLayers could have the same custom property which could be inherited or replaced by the ImageLayers individually. 
+
 ## Background and foreground parallax ##
 Every Image Layer (single image) or a Group Layer (starting from the root folders **background** and **foregroung**) may have these attributes:
-* relativeX (float) - alters the scrolling speed relatively to the horizontal player's movement.
+* **relativeX** (float) - alters the scrolling speed relatively to the horizontal player's movement.
 Use values 0 .. 1 to slow down the background layers. Use 0 to make them stop moving (e.g. Moon). Use negative values for **foreground** layer.
-* relativeY (float) - the same behavior as relativeX attribute but for vertical movement.
-* scrollSpeedX (float) - speed that moves the image in the horizontal loop. You may use negative value to move the image backwards. 
-* scrollSpeedY (float) - speed that moves the image in the vertical loop. 
+* **relativeY** (float) - the same behavior as relativeX attribute but for vertical movement.
+* **scrollSpeedX** (float) - speed that moves the image in the horizontal loop. You may use negative value to move the image backwards. 
+* **scrollSpeedY** (float) - speed that moves the image in the vertical loop. 
   
 ## Background image file format ##
 Supported image formats: **PNG, JPEG, TGA,** and **BMP**.
@@ -128,26 +142,26 @@ There are 3 allowed event shapes: **Rectangle**, **Ellipse** and **Point**.
 > **Polygon** shape is not supported. 
 
 Custom Properties:
-* go (Point name) <- move player(s) to the map point. 
-* gox (X) <- move player(s) by X pixels. Use negative number to move players left. Yo cannot use both 'go' and 'gox' in the same event.
-* goy (Y) <- move player(s) by Y pixels. Use negative number to move players up. You can use both 'goy' and 'gox' in the same event to move players diagonally.
-* togox (X) & togoy (Y) <- The same as gox/goy, but players are instantly teleported to the x+togox, y+togoy point and return to their original position. It is used in the enter map events.
-* duration (seconds) <- duration of the movement. 1 second if missing.
-* face ( 1 / -1 ) <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
-* move ("player"/"players") <- Whom to move either the 1st collided player or all the alive players. On missing the property "players" type is used. 
-* ignorestate <- Apply the movement to players despite on their current states. (This property is ignored now). 
-* disabled <- Disable event. It cannot be run. It is used for empty events that work as targets for 'go' events.
-* notouch <- This event can be called by the name only. 
-* animation (animation name) <- Set sprite animation before the movement. On missing the property "walk" animation is used.
-* z (positive number) <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
-* nextevent (event name) <- start this event next (it is called as if it was collided with a player). Such chained events might be located out of the walkable area. Also you can call predefined events.
-* nextmap (map name) <- Override map property 'nextmap' with (map name). It can be used for forking to a secret map.
+* **go** (Point name) <- move player(s) to the map point. 
+* **gox** ( X ) <- move player(s) by X pixels. Use negative number to move players left. Yo cannot use both '**go**' and '**gox**' in the same event.
+* **goy** ( Y ) <- move player(s) by Y pixels. Use negative number to move players up. You can use both '**goy**' and '**gox**' in the same event to move players diagonally.
+* **togox** ( X ) & **togoy** ( Y ) <- The same as **gox**/**goy**, but players are instantly teleported to the x+togox, y+togoy point and return to their original position. It is used in the enter map events.
+* **duration** seconds <- duration of the movement. 1 second if missing.
+* **face** ( 1 / -1 ) <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
+* **move** ("player"/"players") <- Whom to move either the 1st collided player or all the alive players. On missing the property "players" type is used. 
+* **ignorestate** <- Apply the movement to players despite on their current states. (This property is ignored now). 
+* **disabled** <- Disable event. It cannot be run. It is used for empty events that work as targets for '**go**' events.
+* **notouch** <- This event can be called by the name only. 
+* **animation** (animation name) <- Set sprite animation before the movement. On missing the property "walk" animation is used.
+* **z** (positive number) <- Set final player(s) z coordinate. Can be used to emulate flying / climbing / falling.  
+* **nextevent** (event name) <- start this event next (it is called as if it was collided with a player). Such chained events might be located out of the walkable area. Also you can call predefined events.
+* **nextmap** (map name) <- Override map property 'nextmap' with (map name). It can be used for forking to a secret map.
 
 We will add other rectangle event triggers of other types in this group later.
 > Hint: To make players stop moving and **wait for 3.5 seconds** create an event and add properties: **gox 0** and **duration 3,5**.
 
 ## Predefined events ##
-* nextmap <- Load next map. The next map is set in the map properties. Override it with an event's 'nextmap' (map name) property.   
+* **nextmap** <- Load next map. The next map is set in the map properties. Override it with an event's 'nextmap' (map name) property.   
 
 ## Define enemy waves ##
 Go to the layers tab. Create **Group layer**. Rename it to "wave".
@@ -159,12 +173,12 @@ Give simple names to your waves, such as 1 2 3 4 etc.
 The left and the right sides of the wave are used as the horizontal positions the players stoppers.
 
 Custom properties for each wave **Object layer**:
-* spawnDelay <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
-* music <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
-* onStart (event name) <- call event at the wave init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
-* onEnter (event name) <- call event on the last player crossing the left bound of the wave.
-* onLeave (event name) <- call event on the last player crossing the right bound of the wave.
-* onComplete (event name) <- call event (name) on the last wave enemy death. 
+* **spawnDelay** <- delay before all its enemy appearance in seconds (float numbers are fine, too). This property is optional.
+* **music** <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
+* **onStart** (event name) <- call event at the wave init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
+* **onEnter** (event name) <- call event on the last player crossing the left bound of the wave.
+* **onLeave** (event name) <- call event on the last player crossing the right bound of the wave.
+* **onComplete** (event name) <- call event (name) on the last wave enemy death. 
 
 > Hint: Every wave event should be defined as a global event somewhere at the stage. Keep it away from the walking areas to prevent starting on a player collision.  
 
@@ -173,8 +187,8 @@ Go to the layers tab. Select any **Object layer** within "wave" **Group layer**.
 
 Now you can add enemy units or stage objects into the game.
 Every unit should have these properties
-* Name <- enemy's name
-* Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnik or satoff
+* **Name** <- enemy's name
+* **Type** <- sign, trashcan, gopper, niko, sveta, zeena, beatnik or satoff
 
 Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape is supported.
 
@@ -183,27 +197,27 @@ Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape 
 
 ## Optional units properties ##
 Optional properties:
-* hp <- override default hp
-* lives <- override default number of lives (default = 1)
-* spawnDelay <- delay before unit's appearance in seconds (float numbers are fine, too)
-* z <- start z coordinate(height)
-* state <- units state on spawn: intro (If set then the animation is set to 'intro' else the stand state is used).
-* animation <- any sprite animation name that should override defaults.
-* target <- select a player to attack first ("close", "far", "weak", "healthy", "slow" or "fast").
-* palette <- select unit's coloring number (shaders). 1 - default.
-* wakeRange <- distance in pixels to the closest player to wake from the 'intro' state (100px by default).  
-* delayedWakeRange <- the 2nd distance in pixels to the closest player to wake from the 'intro' state (150px by default).
-* wakeDelay <- unit starts acting if the delay is over and a player is within 'delayedWakeRange'.
-* flip <- turn units face to the left  
-* drop <- which loot to drop. It can be one **apple**, **chicken** or **beef**
+* **hp** <- override default hp
+* **lives** <- override default number of lives (default = 1)
+* **spawnDelay** <- delay before unit's appearance in seconds (float numbers are fine, too)
+* **z** <- start z coordinate(height)
+* **state** <- units state on spawn: intro (If set then the animation is set to 'intro' else the stand state is used).
+* **animation** <- any sprite animation name that should override defaults.
+* **target** <- select a player to attack first ("close", "far", "weak", "healthy", "slow" or "fast").
+* **palette** <- select unit's coloring number (shaders). 1 - default.
+* **wakeRange** <- distance in pixels to the closest player to wake from the 'intro' state (100px by default).  
+* **delayedWakeRange** <- the 2nd distance in pixels to the closest player to wake from the 'intro' state (150px by default).
+* **wakeDelay** <- unit starts acting if the delay is over and a player is within 'delayedWakeRange'.
+* **flip** <- turn units face to the left  
+* **drop** <- which loot to drop. It can be one **apple**, **chicken** or **beef**
 
 ## Define global units ## 
 A unit without **wave** is called global. It is spawned on the stage loading.
 They are added into the root **Object layers** named "global".
 
 Every unit should contain these properties
-* Name <- enemy's name
-* Type <- sign, trashcan, gopper, niko, sveta, zeena, beatnik or satoff
+* **Name** <- enemy's name
+* **Type** <- sign, trashcan, gopper, niko, sveta, zeena, beatnik or satoff
 > Hint: These units do not lock you within a wave area. You can spare their liver and go to the next wave area.
 
 ## Define players start positions ## 
@@ -214,12 +228,12 @@ Th naming doesn't matter.
 ## Define next stage map file name ## 
 Use menu **Map / Map Properties**/ to see the list of properties.
 Expand "Custom Properties" group. Click "+" button at the bottom to
-add "nextmap"(string) property.
+add "**nextmap**"(string) property.
 If the property is not present then the default map name "stage1a_map" is used.
 Do not add neither path nor extension to the to the map name.
 
 There are predefined map names for special cases:
-* ending <- End the game and show "ending" movie.     
+* **ending** <- End the game and show "ending" movie.     
 * to be added     
  
 ## In-Game drawing order ##
