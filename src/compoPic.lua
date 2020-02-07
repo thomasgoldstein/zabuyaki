@@ -32,16 +32,21 @@ local function cacheImage(path_to_image)
 end
 
 function parseAnimateString(w, h, animate, spriteSheet)
+    -- example: Animate 3 frames as 4 framed animation. Define the frames and delays : "animBarrel 1 0.3 2 0.1 3 0.3 2 0.5"
     if not animate then
         return nil
     end
     local t = splitString(animate)
+    if #t < 1 then
+        error("Tiled 'animate' property should contain the picture file name w/o extension.")
+    end
     local frames = {
         maxFrame = 1,
         curFrame = 1,
-        maxDelay = 0.5,
-        curDelay = 0.1,
-        quads = {}
+        quads = {},
+        frame = {},
+        delay = {},
+        elapsedTime = 0,
     }
     local s = string.match(spriteSheet, "(.+)/[%a+.png]")
     s = s .. "/" .. t[1] .. ".png" -- get file name from the animate prop, add original path
@@ -49,14 +54,25 @@ function parseAnimateString(w, h, animate, spriteSheet)
     local image, quad = cacheImage(s)
     local _,_,sw,sh = quad:getViewport()
     if h ~= sh then
-        Error("Tiled 'animate' property. Animated images should have the same height as their placeholder: " .. spriteSheet .. " and animation frames: ".. s )
+        error("Tiled 'animate' property. Animated images should have the same height as their placeholder: " .. spriteSheet .. " and animation frames: ".. s )
     end
     frames.maxFrame = sw / w
-    if frames.maxFrame < 2 or frames.maxFrame ~= math.floor(frames.maxFrame) then
-        Error("Tiled 'animate' property. Animated images should have > 1 frames with the same widths as their placeholder: " .. spriteSheet .. " and animation frames: ".. s )
+    if #t - 1 < frames.maxFrame * 2 then
+        error("Tiled 'animate' property should have fileName and list of values 'frameN delay frameN delay': ".. animate )
     end
     for i = 1, frames.maxFrame do
         frames.quads[i] = love.graphics.newQuad( (i - 1) * w, 0, w, h, sw, sh)
+    end
+    for i = 2, #t, 2 do
+        print("i", i, t[i], t[i+1])
+        if tonumber(t[i]) < 1 or tonumber(t[i]) > frames.maxFrame then
+            error("Tiled 'animate' property should have frame numbers between 1 and " .. frames.maxFrame .. " for the current image: ".. animate .. " Wrong value: " .. t[i])
+        end
+        frames.frame[i - 1] = tonumber(t[i])
+        if not t[i + 1] then
+            error("Tiled 'animate' property is missing the last frame delay value: ".. animate .. "<==" )
+        end
+        frames.delay[i - 1] = tonumber(t[i + 1])
     end
     return frames, image
 end
