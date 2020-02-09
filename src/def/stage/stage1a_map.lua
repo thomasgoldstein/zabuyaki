@@ -1,14 +1,14 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.2.4",
+  tiledversion = "1.3.2",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 80,
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 21,
+  nextlayerid = 27,
   nextobjectid = 20,
   backgroundcolor = { 141, 110, 143 },
   properties = {
@@ -100,6 +100,53 @@ return {
           offsety = -2,
           image = "../../../res/img/stage/stage1/stage1a.png",
           properties = {}
+        },
+        {
+          type = "group",
+          id = 24,
+          name = "burn-barrels",
+          visible = true,
+          opacity = 1,
+          offsetx = 0,
+          offsety = 0,
+          properties = {
+            ["animate"] = "burn-barrel 1 0.11 2 0.11 3 0.11 4 0.11"
+          },
+          layers = {
+            {
+              type = "imagelayer",
+              id = 26,
+              name = "barrel3",
+              visible = true,
+              opacity = 1,
+              offsetx = 1812,
+              offsety = 191,
+              image = "../../../res/img/stage/stage1/burn-barrel-placeholder.png",
+              properties = {}
+            },
+            {
+              type = "imagelayer",
+              id = 25,
+              name = "barrel2",
+              visible = true,
+              opacity = 1,
+              offsetx = 757,
+              offsety = 189,
+              image = "../../../res/img/stage/stage1/burn-barrel-placeholder.png",
+              properties = {}
+            },
+            {
+              type = "imagelayer",
+              id = 21,
+              name = "barrel1",
+              visible = true,
+              opacity = 1,
+              offsetx = 274,
+              offsety = 194,
+              image = "../../../res/img/stage/stage1/burn-barrel-placeholder.png",
+              properties = {}
+            }
+          }
         }
       }
     },
@@ -254,8 +301,8 @@ return {
           name = "enterMap",
           type = "event",
           shape = "point",
-          x = 43,
-          y = 193,
+          x = 16,
+          y = 192,
           width = 0,
           height = 0,
           rotation = 0,
