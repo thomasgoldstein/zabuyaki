@@ -384,7 +384,7 @@ function drawDebugUnitInfo(a)
 end
 
 local savePlayersPosAndFaceDebug = {}
-local keysToKill = {f8 = 1, f9 = 2, f10 = 3, f7 = 0}
+local keysToKill = {f8 = 1, f9 = 2, f10 = 3, f7 = 0, f12 = -1}
 function checkDebugKeys(key)
     if isDebug() then
         if key == 'kp+' or key == '=' then
@@ -469,7 +469,11 @@ function checkDebugKeys(key)
             end
         elseif keysToKill[key] then
             local id = keysToKill[key]
-            if id == 0 then
+            if id == -1 then
+                if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+                    stage.wave:killCurrentWave()
+                end
+            elseif id == 0 then
                 if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
                     -- Ctrl + F7 Player select
                     playerSelectState.enablePlayerSelectOnStart = true

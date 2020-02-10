@@ -128,6 +128,16 @@ function Wave:finish()
     self.time = 0
 end
 
+function Wave:killCurrentWave()
+    local b = self.waves[self.n]
+    for i = 1, #b.units do
+        local waveUnit = b.units[i]
+        waveUnit.isActive = true -- the wave unit spawn data
+        waveUnit.unit.isActive = true -- actual spawned enemy unit
+        waveUnit.unit:applyDamage(1000, "fell")
+    end
+end
+
 function Wave:update(dt)
     if self.state == "spawn" then
         return not self:spawn(dt)

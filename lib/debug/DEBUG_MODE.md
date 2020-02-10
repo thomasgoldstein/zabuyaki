@@ -17,6 +17,9 @@ Press [ CTRL ] + [ F7 ] to set characters for active players.
 ### Instantly kill Players
 Use [ F8 ], [ F9 ] or [ F10 ] keys to kill P1, P2 or P3 accordingly. 
 
+### Instantly kill all enemies of the current wave
+Use [ CTRL ] + [ F12 ] to kill all the enemies of the current wave. The idling enemies are included. 
+
 ### Turn on random Players controls
 To simulate random buttons mashing use [ CTRL ] + [ F8 ], [ CTRL ] + [ F9 ] or [ CTRL ] + [ F10 ] keys for P1, P2 or P3 accordingly.
 
