@@ -176,7 +176,14 @@ return {
             { q = q(123,215,64,29), ox = 40, oy = 28 }, --fall 3
             delay = math.huge
         },
+        fallTwistWeak = {
+            { q = q(123,215,64,29), ox = 40, oy = 28, flipV = -1 }, --fall 3 (flipped vertically)
+            { q = q(123,215,64,29), ox = 40, oy = 28 }, --fall 3
+            loop = true,
+            delay = f(7)
+        },
         fallTwist = {
+        --fallTwistStrong = {
             { q = q(123,215,64,29), ox = 40, oy = 28, flipV = -1 }, --fall 3 (flipped vertically)
             { q = q(123,215,64,29), ox = 40, oy = 28 }, --fall 3
             loop = true,

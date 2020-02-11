@@ -165,7 +165,15 @@ return {
             { q = q(106,453,63,34), ox = 36, oy = 33 }, --fall 3
             delay = math.huge
         },
+        fallTwistWeak = {
+            { q = q(58,560,53,55), ox = 40, oy = 56 }, --fall twist 2
+            { q = q(113,556,57,60), ox = 36, oy = 59 }, --fall twist 3
+            { q = q(172,554,48,62), ox = 38, oy = 61, delay = f(8) }, --fall twist 4
+            { q = q(2,559,54,57), ox = 34, oy = 57, delay = math.huge }, --fall twist 1
+            delay = f(7)
+        },
         fallTwist = {
+        --fallTwistStrong = {
             { q = q(2,559,54,57), ox = 34, oy = 57 }, --fall twist 1
             { q = q(58,560,53,55), ox = 40, oy = 56 }, --fall twist 2
             { q = q(113,556,57,60), ox = 36, oy = 59 }, --fall twist 3
