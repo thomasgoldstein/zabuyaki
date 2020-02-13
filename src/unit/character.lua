@@ -290,7 +290,7 @@ function Character:afterOnHurt()
         end
         self.speed_x = self.speed_x + self.fallDeadSpeedBoost_x
     end
-    self:setState(self.fall, h.type)    --h.type is passed to self.condition
+    self:setState(self.fall, h.type, h.damage)    --attack type is passed to self.condition, damage to condition2
 end
 
 function Character:checkAndAttack(f, isFuncCont)
@@ -955,7 +955,11 @@ function Character:fallStart()
     if self.condition == "throw" then
         self:setSprite("thrown")
     elseif self.condition == "twist" then
-        self:setSprite("fallTwist")
+        if self.condition2 < 14 then
+            self:setSpriteIfExists("fallTwistWeak", "fallTwist")
+        else
+            self:setSprite("fallTwist")
+        end
     else
         self:setSprite("fall")
     end
