@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="40" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="10" nextobjectid="17">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="44" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="12" nextobjectid="17">
  <group id="8" name="background" locked="1">
   <imagelayer id="9" name="bg" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../img/stage/stage1/stage1b.png" width="1284" height="324"/>
+   <image source="../../img/stage/stage1/stage1b.png" width="1434" height="324"/>
+  </imagelayer>
+ </group>
+ <group id="10" name="foreground">
+  <imagelayer id="11" name="fg">
+   <image source="../../img/stage/stage1/stage1b_fg.png" width="1434" height="324"/>
   </imagelayer>
  </group>
  <objectgroup color="#aa0000" id="7" name="camera" locked="1">

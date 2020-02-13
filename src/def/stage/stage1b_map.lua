@@ -1,14 +1,14 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.3.1",
+  tiledversion = "1.3.2",
   orientation = "orthogonal",
   renderorder = "left-up",
-  width = 40,
+  width = 44,
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 10,
+  nextlayerid = 12,
   nextobjectid = 17,
   backgroundcolor = { 0, 85, 0 },
   properties = {},
@@ -33,6 +33,29 @@ return {
           offsetx = -2,
           offsety = -2,
           image = "../../../res/img/stage/stage1/stage1b.png",
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "group",
+      id = 10,
+      name = "foreground",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      layers = {
+        {
+          type = "imagelayer",
+          id = 11,
+          name = "fg",
+          visible = true,
+          opacity = 1,
+          offsetx = 0,
+          offsety = 0,
+          image = "../../../res/img/stage/stage1/stage1b_fg.png",
           properties = {}
         }
       }
