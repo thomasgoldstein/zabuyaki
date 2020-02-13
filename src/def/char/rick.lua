@@ -132,19 +132,19 @@ local dashAttackResetSpeed = function(slf, cont)
 end
 local chargeAttack1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 34, z = 41, width = 39, damage = 15, type = "fell", sfx = "air" },
+        { x = 34, z = 41, width = 39, damage = 15, type = "twist", sfx = "air" },
         cont
     )
 end
 local chargeAttack2 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 24, z = 41, width = 39, damage = 15, type = "fell" },
+        { x = 24, z = 41, width = 39, damage = 15, type = "twist" },
         cont
     )
 end
 local chargeAttack3 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 14, z = 41, width = 39, damage = 15, type = "fell" },
+        { x = 14, z = 41, width = 39, damage = 15, type = "twist" },
         cont
     )
 end
