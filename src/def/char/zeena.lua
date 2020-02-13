@@ -172,7 +172,7 @@ return {
         },
         fall = {
             { q = q(127,7,54,54), ox = 33, oy = 53, delay = f(20) }, --fall 1
-            { q = q(2,249,63,46), ox = 38, oy = 45, delay = f(8) }, --fall 2
+            { q = q(2,251,63,44), ox = 38, oy = 43, delay = f(8) }, --fall 2
             { q = q(123,215,64,29), ox = 40, oy = 28 }, --fall 3
             delay = math.huge
         },
