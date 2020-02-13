@@ -8,7 +8,7 @@ return {
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 27,
+  nextlayerid = 28,
   nextobjectid = 20,
   backgroundcolor = { 141, 110, 143 },
   properties = {
@@ -158,10 +158,19 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      properties = {
-        ["relativeX"] = "-1.2"
-      },
+      properties = {},
       layers = {
+        {
+          type = "imagelayer",
+          id = 27,
+          name = "bridge",
+          visible = true,
+          opacity = 1,
+          offsetx = 12,
+          offsety = 0,
+          image = "../../../res/img/stage/stage1/stage1a_fg_bridge.png",
+          properties = {}
+        },
         {
           type = "imagelayer",
           id = 13,

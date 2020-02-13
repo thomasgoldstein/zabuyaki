@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="27" nextobjectid="20">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="28" nextobjectid="20">
  <editorsettings>
   <export target="../../../src/def/stage/stage1a_map.lua" format="lua"/>
  </editorsettings>
@@ -49,9 +49,9 @@
   </group>
  </group>
  <group id="12" name="foreground" locked="1">
-  <properties>
-   <property name="relativeX" value="-1.2"/>
-  </properties>
+  <imagelayer id="27" name="bridge" offsetx="12" offsety="0">
+   <image source="../../img/stage/stage1/stage1a_fg_bridge.png" width="2564" height="324"/>
+  </imagelayer>
   <imagelayer id="13" name="fg">
    <image source="../../img/stage/stage1/stage1a_fg.png" width="2560" height="320"/>
    <properties>
