@@ -191,8 +191,7 @@ return {
             loop = true,
             delay = f(7)
         },
-        fallTwist = {
-        --fallTwistStrong = {
+        fallTwistStrong = {
             { q = q(150,361,76,49), ox = 42, oy = 48, flipV = -1 }, --fall 3 (flipped vertically)
             { q = q(150,361,76,49), ox = 42, oy = 48 }, --fall 3
             loop = true,

@@ -164,8 +164,7 @@ return {
             loop = true,
             delay = f(7)
         },
-        fallTwist = {
-        --fallTwistStrong = {
+        fallTwistStrong = {
             { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
             loop = true,
             delay = f(7)

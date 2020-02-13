@@ -172,8 +172,7 @@ return {
             { q = q(2,559,54,57), ox = 34, oy = 57, delay = math.huge }, --fall twist 1
             delay = f(7)
         },
-        fallTwist = {
-        --fallTwistStrong = {
+        fallTwistStrong = {
             { q = q(2,559,54,57), ox = 34, oy = 57 }, --fall twist 1
             { q = q(58,560,53,55), ox = 40, oy = 56 }, --fall twist 2
             { q = q(113,556,57,60), ox = 36, oy = 59 }, --fall twist 3

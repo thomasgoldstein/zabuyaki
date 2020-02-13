@@ -158,8 +158,7 @@ return {
             loop = true,
             delay = f(7)
         },
-        fallTwist = {
-        --fallTwistStrong = {
+        fallTwistStrong = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --initial frame
             loop = true,
             delay = f(7)

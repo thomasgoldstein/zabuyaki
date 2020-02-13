@@ -956,9 +956,9 @@ function Character:fallStart()
         self:setSprite("thrown")
     elseif self.condition == "twist" then
         if self.condition2 < 20 then
-            self:setSpriteIfExists("fallTwistWeak", "fallTwist")
+            self:setSprite("fallTwistWeak")
         else
-            self:setSprite("fallTwist")
+            self:setSprite("fallTwistStrong")
         end
     else
         self:setSprite("fall")
