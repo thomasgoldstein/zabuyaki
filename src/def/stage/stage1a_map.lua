@@ -8,7 +8,7 @@ return {
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 28,
+  nextlayerid = 30,
   nextobjectid = 20,
   backgroundcolor = { 141, 110, 143 },
   properties = {
@@ -47,9 +47,9 @@ return {
           visible = true,
           opacity = 1,
           offsetx = 113,
-          offsety = 99,
+          offsety = -10,
           properties = {
-            ["relativeX"] = "0.94"
+            ["relativeX"] = "0.24"
           },
           layers = {
             {
@@ -72,9 +72,9 @@ return {
           visible = true,
           opacity = 1,
           offsetx = 80,
-          offsety = 119,
+          offsety = -12,
           properties = {
-            ["relativeX"] = "0.91"
+            ["relativeX"] = "0.21"
           },
           layers = {
             {
@@ -166,10 +166,12 @@ return {
           name = "bridge",
           visible = true,
           opacity = 1,
-          offsetx = 12,
+          offsetx = 260,
           offsety = 0,
           image = "../../../res/img/stage/stage1/stage1a_fg_bridge.png",
-          properties = {}
+          properties = {
+            ["relativeX"] = "-0.2"
+          }
         },
         {
           type = "imagelayer",

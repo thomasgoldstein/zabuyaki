@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="28" nextobjectid="20">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="30" nextobjectid="20">
  <editorsettings>
   <export target="../../../src/def/stage/stage1a_map.lua" format="lua"/>
  </editorsettings>
@@ -14,20 +14,20 @@
     <property name="relativeX" value="0.97"/>
    </properties>
   </imagelayer>
-  <group id="18" name="back-city" locked="1" offsetx="113" offsety="99">
+  <group id="18" name="back-city" locked="1" offsetx="113" offsety="-10">
    <properties>
-    <property name="relativeX" value="0.94"/>
+    <property name="relativeX" value="0.24"/>
    </properties>
    <imagelayer id="19" name="city">
-    <image source="../../img/stage/stage1/background-back-city.png" width="346" height="72"/>
+    <image source="../../img/stage/stage1/background-back-city.png" width="2564" height="324"/>
    </imagelayer>
   </group>
-  <group id="17" name="front-city" locked="1" offsetx="80" offsety="119">
+  <group id="17" name="front-city" locked="1" offsetx="80" offsety="-12">
    <properties>
-    <property name="relativeX" value="0.91"/>
+    <property name="relativeX" value="0.21"/>
    </properties>
    <imagelayer id="20" name="city">
-    <image source="../../img/stage/stage1/background-front-city.png" width="380" height="50"/>
+    <image source="../../img/stage/stage1/background-front-city.png" width="2564" height="324"/>
    </imagelayer>
   </group>
   <imagelayer id="9" name="bg" locked="1" offsetx="-2" offsety="-2">
@@ -49,8 +49,11 @@
   </group>
  </group>
  <group id="12" name="foreground" locked="1">
-  <imagelayer id="27" name="bridge" offsetx="12" offsety="0">
+  <imagelayer id="27" name="bridge" offsetx="260" offsety="0">
    <image source="../../img/stage/stage1/stage1a_fg_bridge.png" width="2564" height="324"/>
+   <properties>
+    <property name="relativeX" value="-0.2"/>
+   </properties>
   </imagelayer>
   <imagelayer id="13" name="fg">
    <image source="../../img/stage/stage1/stage1a_fg.png" width="2560" height="320"/>
