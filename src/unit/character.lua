@@ -948,7 +948,7 @@ function Character:jumpAttackRunUpdate(dt)
 end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRunStart, exit = nop, update = Character.jumpAttackRunUpdate, draw = Character.defaultDraw}
 
-local fallTwistStrongDamage = 20
+local fallTwistStrongMinDamage = 20
 function Character:fallStart()
     self:removeTweenMove()
     self.isHittable = false
@@ -956,7 +956,7 @@ function Character:fallStart()
     if self.condition == "throw" then
         self:setSprite("thrown")
     elseif self.condition == "twist" then
-        if self.condition2 < fallTwistStrongDamage then
+        if self.condition2 < fallTwistStrongMinDamage then
             self:setSprite("fallTwistWeak")
         else
             self:setSprite("fallTwistStrong")
@@ -1019,7 +1019,7 @@ function Character:fallUpdate(dt)
         end
     end
     if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0
-        and ( self.condition == "throw" or ( self.condition == "twist" and self.condition2 >= fallTwistStrongDamage ) ) then
+        and ( self.condition == "throw" or ( self.condition == "twist" and self.condition2 >= fallTwistStrongMinDamage) ) then
             self:checkAndAttack(
                 { x = 0, z = self:getHurtBoxHeight() / 2,
                   width = self:getHurtBoxWidth(),
