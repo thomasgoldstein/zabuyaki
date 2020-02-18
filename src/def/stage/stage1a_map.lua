@@ -8,7 +8,7 @@ return {
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 30,
+  nextlayerid = 34,
   nextobjectid = 20,
   backgroundcolor = { 141, 110, 143 },
   properties = {
@@ -37,19 +37,19 @@ return {
           offsety = -2,
           image = "../../../res/img/stage/stage1/sky.png",
           properties = {
-            ["relativeX"] = "0.97"
+            ["relativeX"] = "0.45"
           }
         },
         {
           type = "group",
           id = 18,
-          name = "back-city",
+          name = "bg-city-3",
           visible = true,
           opacity = 1,
           offsetx = 113,
-          offsety = -10,
+          offsety = -55,
           properties = {
-            ["relativeX"] = "0.24"
+            ["relativeX"] = "0.30"
           },
           layers = {
             {
@@ -60,7 +60,7 @@ return {
               opacity = 1,
               offsetx = 0,
               offsety = 0,
-              image = "../../../res/img/stage/stage1/background-back-city.png",
+              image = "../../../res/img/stage/stage1/background-city-3.png",
               properties = {}
             }
           }
@@ -68,13 +68,13 @@ return {
         {
           type = "group",
           id = 17,
-          name = "front-city",
+          name = "bg-city-2",
           visible = true,
           opacity = 1,
           offsetx = 80,
-          offsety = -12,
+          offsety = -50,
           properties = {
-            ["relativeX"] = "0.21"
+            ["relativeX"] = "0.25"
           },
           layers = {
             {
@@ -85,7 +85,57 @@ return {
               opacity = 1,
               offsetx = 0,
               offsety = 0,
-              image = "../../../res/img/stage/stage1/background-front-city.png",
+              image = "../../../res/img/stage/stage1/background-city-2.png",
+              properties = {}
+            }
+          }
+        },
+        {
+          type = "group",
+          id = 30,
+          name = "bg-city-1",
+          visible = true,
+          opacity = 1,
+          offsetx = 0,
+          offsety = 0,
+          properties = {
+            ["relativeX"] = "0.20"
+          },
+          layers = {
+            {
+              type = "imagelayer",
+              id = 31,
+              name = "city",
+              visible = true,
+              opacity = 1,
+              offsetx = 0,
+              offsety = 0,
+              image = "../../../res/img/stage/stage1/background-city-1.png",
+              properties = {}
+            }
+          }
+        },
+        {
+          type = "group",
+          id = 32,
+          name = "bg-building",
+          visible = true,
+          opacity = 1,
+          offsetx = -50,
+          offsety = 0,
+          properties = {
+            ["relativeX"] = "0.10"
+          },
+          layers = {
+            {
+              type = "imagelayer",
+              id = 33,
+              name = "building",
+              visible = true,
+              opacity = 1,
+              offsetx = 0,
+              offsety = 0,
+              image = "../../../res/img/stage/stage1/background-building-1.png",
               properties = {}
             }
           }
@@ -179,7 +229,7 @@ return {
           name = "fg",
           visible = true,
           opacity = 1,
-          offsetx = 0,
+          offsetx = 200,
           offsety = 0,
           image = "../../../res/img/stage/stage1/stage1a_fg.png",
           properties = {
