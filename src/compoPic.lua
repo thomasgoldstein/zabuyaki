@@ -94,7 +94,6 @@ function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scro
     local image, quad = cacheImage(spriteSheet)
     local _,_,w,h = quad:getViewport()
     local animate, animateImage = parseAnimateString(w, h, animate, spriteSheet)
-    --local isReflection = true
     table.insert(self.pics, {image = animateImage or image, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, name = name, animate = animate, isReflection = isReflection and true or false})
 end
 
