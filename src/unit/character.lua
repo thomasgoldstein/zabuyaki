@@ -290,7 +290,7 @@ function Character:afterOnHurt()
         end
         self.speed_x = self.speed_x + self.fallDeadSpeedBoost_x
     end
-    self:setState(self.fall, h.type, h.damage)    --attack type is passed to self.condition, damage to condition2
+    self:setState(self.fall, h.type)    --attack type is passed to self.condition
 end
 
 function Character:checkAndAttack(f, isFuncCont)
@@ -950,17 +950,14 @@ Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackR
 
 local fallTwistStrongMinDamage = 20
 function Character:fallStart()
+    local h = self.isHurt
     self:removeTweenMove()
     self.isHittable = false
     self.canRecover = false
     if self.condition == "throw" then
         self:setSprite("thrown")
     elseif self.condition == "twist" then
-        if self.condition2 < fallTwistStrongMinDamage then
-            self:setSprite("fallTwistWeak")
-        else
-            self:setSprite("fallTwistStrong")
-        end
+        self:setSprite(h.damage < fallTwistStrongMinDamage and "fallTwistWeak" or "fallTwistStrong")
     else
         self:setSprite("fall")
     end
@@ -970,6 +967,7 @@ function Character:fallStart()
     self.bounced = 0
 end
 function Character:fallUpdate(dt)
+    local h = self.isHurt
     self:calcFreeFall(dt)
     if self.speed_z < 0 and self.condition == "throw" and self.z < self:getMinZ() + self.toFallenAnim_z then
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
@@ -1019,7 +1017,7 @@ function Character:fallUpdate(dt)
         end
     end
     if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0
-        and ( self.condition == "throw" or ( self.condition == "twist" and self.condition2 >= fallTwistStrongMinDamage) ) then
+        and ( self.condition == "throw" or ( self.condition == "twist" and h and h.damage >= fallTwistStrongMinDamage) ) then
             self:checkAndAttack(
                 { x = 0, z = self:getHurtBoxHeight() / 2,
                   width = self:getHurtBoxWidth(),

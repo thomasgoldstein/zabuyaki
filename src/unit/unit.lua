@@ -121,7 +121,7 @@ function Unit:addShape(shapeType, shapeArgs)
     end
 end
 
-function Unit:setState(state, condition, condition2)
+function Unit:setState(state, condition)
     if state then
         self.prevStateTime = self.lastStateTime
         self.lastStateTime = love.timer.getTime()
@@ -138,7 +138,6 @@ function Unit:setState(state, condition, condition2)
         self.start = state.start
         self.exit = state.exit
         self.condition = condition
-        self.condition2 = condition2
         self:start()
         self:updateSprite(0)
     end
