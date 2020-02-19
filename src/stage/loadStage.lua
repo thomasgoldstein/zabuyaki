@@ -217,18 +217,18 @@ local function loadWave(items, stage)
     return Wave:new(stage, wave)
 end
 
-local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, animate)
+local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, animate, isReflection)
     if not v.visible then
         return
     end
     if v.type == "group" then
         for i, v2 in ipairs(v.layers) do
-            addImageToLayer(images, v2, v.offsetx + x, v.offsety + y, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate)
+            addImageToLayer(images, v2, v.offsetx + x, v.offsety + y, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate, v.properties.reflection or isReflection)
         end
     elseif v.type == "imagelayer" then
-        local offsetx, offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, animate =
-            v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate
-        images:add(v.image, quad, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate)
+        local offsetx, offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, animate, isReflection =
+            v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate, v.properties.reflection or isReflection
+        images:add(v.image, quad, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate, isReflection)
     end
 end
 
@@ -240,7 +240,7 @@ local function loadImageLayer(items, layerName, images)
         return
     end
     for i, v in ipairs(t.layers) do
-        addImageToLayer(images, v, t.offsetx, t.offsety, t.properties.relativeX,  t.properties.relativeY, t.properties.scrollSpeedX,  t.properties.scrollSpeedY, t.properties.animate or v.properties.animate)
+        addImageToLayer(images, v, t.offsetx, t.offsety, t.properties.relativeX, t.properties.relativeY, t.properties.scrollSpeedX, t.properties.scrollSpeedY, t.properties.animate or v.properties.animate, t.properties.reflection or v.properties.reflection)
     end
 end
 
