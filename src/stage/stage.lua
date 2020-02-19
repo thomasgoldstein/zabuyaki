@@ -195,11 +195,12 @@ function Stage:draw(l, t, w, h)
     if self.mode == "normal" or self.mode == "event" then
         Weather.window(l, t, w, h)
         if self.background then
-            self.background:draw(l, t, w, h)
+            self.background:draw(l, t, w, h, false)
         end
         if self.enableReflections then
             love.graphics.setCanvas(canvas[2])
             love.graphics.clear()
+            self.background:draw(l, t, w, h, true)  -- background image reflections
             self.objects:drawReflections(l, t, w, h) -- units reflections
         end
         love.graphics.setCanvas(canvas[3])
@@ -210,7 +211,7 @@ function Stage:draw(l, t, w, h)
         self.objects:draw(l, t, w, h) -- units
         if self.foreground then
             colors:set("white")
-            self.foreground:draw(l, t, w, h)
+            self.foreground:draw(l, t, w, h, false)
         end
         Weather.draw(l, t, w, h)
         if self.mode == "event" then
