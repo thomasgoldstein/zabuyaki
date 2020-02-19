@@ -90,6 +90,15 @@ Custom Properties:
 
 > Hint: A group of ImageLayers could have the same custom property which could be inherited or replaced by the ImageLayers individually. 
 
+## Adding background images as reflections ##
+The reflections images should have special custom property **reflection**. Set it to the _boolean_ type with _true_ value.    
+
+> Hint: A group of ImageLayers could have the same reflection property which could be inherited or replaced by the ImageLayers individually. IT is a good idea to pute a group folder '**my hardcoded reflections**' (the folder name does not matter) with **reflection true** property inside of the **background** layers group. So a single property will be applied to all images in the group.
+
+> Hint: The images with reflection property keep their order on drawing. Their order does not interfere with the the normal images order. 
+
+> Hint: The foreground layer images with reflection property will not be drawn. Do not use this property for the foreground images.   
+
 ## Background and foreground parallax ##
 Every Image Layer (single image) or a Group Layer (starting from the root folders **background** and **foregroung**) may have these attributes:
 * **relativeX** (float) - alters the scrolling speed relatively to the horizontal player's movement.
