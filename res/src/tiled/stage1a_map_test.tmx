@@ -1,71 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="25" nextobjectid="20">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="35" nextobjectid="20">
  <properties>
   <property name="enableReflections" type="bool" value="true"/>
   <property name="reflectionsOpacity" type="float" value="0.6"/>
  </properties>
  <group id="8" name="background">
-  <properties>
-   <property name="_animate" value="animateFromGroup 22"/>
-  </properties>
   <imagelayer id="15" name="sky" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../img/stage/stage1/sky.png" width="540" height="160"/>
+   <image source="../../img/stage/stage1/sky.png" width="1545" height="160"/>
    <properties>
-    <property name="relativeX" value="0.97"/>
+    <property name="relativeX" value="0.45"/>
    </properties>
   </imagelayer>
-  <group id="18" name="back-city" offsetx="113" offsety="99">
+  <group id="18" name="bg-city-3" locked="1" offsetx="113" offsety="-50">
    <properties>
-    <property name="relativeX" value="0.94"/>
+    <property name="relativeX" value="0.30"/>
    </properties>
    <imagelayer id="19" name="city">
-    <image source="../../img/stage/stage1/background-back-city.png" width="346" height="72"/>
+    <image source="../../img/stage/stage1/background-city-3.png" width="2564" height="600"/>
    </imagelayer>
   </group>
-  <group id="17" name="front-city" offsetx="80" offsety="119">
+  <group id="17" name="bg-city-2" locked="1" offsetx="80" offsety="-50">
    <properties>
-    <property name="relativeX" value="0.91"/>
+    <property name="relativeX" value="0.25"/>
    </properties>
    <imagelayer id="20" name="city">
-    <image source="../../img/stage/stage1/background-front-city.png" width="380" height="50"/>
+    <image source="../../img/stage/stage1/background-city-2.png" width="2564" height="600"/>
    </imagelayer>
   </group>
-  <imagelayer id="9" name="bg" locked="1" offsetx="-2" offsety="-2">
+  <group id="30" name="bg-city-1" locked="1">
+   <properties>
+    <property name="relativeX" value="0.20"/>
+   </properties>
+   <imagelayer id="31" name="city">
+    <image source="../../img/stage/stage1/background-city-1.png" width="2564" height="324"/>
+   </imagelayer>
+  </group>
+  <group id="32" name="bg-building" offsetx="-50" offsety="0">
+   <properties>
+    <property name="relativeX" value="0.10"/>
+   </properties>
+   <imagelayer id="33" name="building">
+    <image source="../../img/stage/stage1/background-building-1.png" width="2564" height="324"/>
+   </imagelayer>
+  </group>
+  <imagelayer id="34" name="reflection of bg" offsetx="-1101" offsety="112">
+   <image source="../../img/stage/stage1/stage1a.png" width="2564" height="324"/>
+   <properties>
+    <property name="reflection" type="bool" value="true"/>
+   </properties>
+  </imagelayer>
+  <imagelayer id="9" name="bg" offsetx="-2" offsety="-2">
    <image source="../../img/stage/stage1/stage1a.png" width="2564" height="324"/>
   </imagelayer>
-  <imagelayer id="22" name="barrelTest-3" offsetx="198" offsety="196">
-   <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
+  <group id="24" name="burn-barrels" locked="1">
    <properties>
     <property name="animate" value="burn-barrel 1 0.11 2 0.11 3 0.11 4 0.11"/>
    </properties>
-  </imagelayer>
-  <imagelayer id="21" name="barrelTest-1" offsetx="168" offsety="197">
-   <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
-   <properties>
-    <property name="animate" value="burn-barrel 1 0.11 2 0.11 3 0.11 4 0.11"/>
-   </properties>
-  </imagelayer>
-  <imagelayer id="23" name="barrelTest-2" offsetx="182" offsety="201">
-   <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
-   <properties>
-    <property name="animate" value="burn-barrel 1 0.11 2 0.11 3 0.11 4 0.11"/>
-   </properties>
-  </imagelayer>
+   <imagelayer id="26" name="barrel3" offsetx="1812" offsety="191">
+    <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
+   </imagelayer>
+   <imagelayer id="25" name="barrel2" offsetx="757" offsety="189">
+    <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
+   </imagelayer>
+   <imagelayer id="21" name="barrel1" offsetx="274" offsety="194">
+    <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
+   </imagelayer>
+  </group>
  </group>
- <group id="12" name="foreground">
-  <properties>
-   <property name="relativeX" value="-1.2"/>
-  </properties>
-  <imagelayer id="13" name="fg">
+ <group id="12" name="foreground" locked="1">
+  <imagelayer id="27" name="bridge" locked="1" offsetx="260" offsety="0">
+   <image source="../../img/stage/stage1/stage1a_fg_bridge.png" width="2564" height="324"/>
+   <properties>
+    <property name="relativeX" value="-0.2"/>
+   </properties>
+  </imagelayer>
+  <imagelayer id="13" name="fg" offsetx="200" offsety="0">
    <image source="../../img/stage/stage1/stage1a_fg.png" width="2560" height="320"/>
    <properties>
     <property name="relativeX" value="-1.2"/>
-   </properties>
-  </imagelayer>
-  <imagelayer id="24" name="barrelTest at front" offsetx="67" offsety="293">
-   <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
-   <properties>
-    <property name="animate" value="burn-barrel 1 0.11 2 0.11 3 0.11 4 0.11"/>
    </properties>
   </imagelayer>
  </group>
