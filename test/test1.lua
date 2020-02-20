@@ -45,5 +45,28 @@ describe("Collision functions", function()
         expect(CheckCollision(rh.x, rh.y, rh.w, rh.h,   ra.x, ra.y, ra.w, ra.h)).to_not.be.truthy()
         expect(CheckCollision(ra.x, ra.y, ra.w, ra.h,   rh.x, rh.y, rh.w, rh.h)).to_not.be.truthy()
     end)
+    it('CheckCollision3D (cube + cube)', function()
+        local c0 = { x = 0, y = 0, z = 0, w = 0, h = 0, d = 0 }
+        local c1 = { x = 0, y = 0, z = 0, w = 1, h = 1, d = 1 }
+        local c2a = { x = 10, y = 10, z = 10, w = 5, h = 5, d = 5 }
+        local c2b = { x = 14, y = 14, z = 14, w = 5, h = 5, d = 5 }
+        expect(CheckCollision3D(c0.x, c0.y, c0.z, c0.w, c0.h, c0.d, c0.x, c0.y, c0.z, c0.w, c0.h, c0.d)).to_not.be.truthy()
+        expect(CheckCollision3D(c1.x, c1.y, c1.z, c1.w, c1.h, c1.d, c1.x, c1.y, c1.z, c1.w, c1.h, c1.d)).to.be.truthy()
+        expect(CheckCollision3D(c1.x, c1.y, c1.z, c1.w, c1.h, c1.d, c0.x, c0.y, c0.z, c0.w, c0.h, c0.d)).to_not.be.truthy()
+        expect(CheckCollision3D(c2a.x, c2a.y, c2a.z, c2a.w, c2a.h, c2a.d, c2b.x, c2b.y, c2b.z, c2b.w, c2b.h, c2b.d)).to.be.truthy()
+        c2b.x = c2b.x + 1
+        expect(CheckCollision3D(c2a.x, c2a.y, c2a.z, c2a.w, c2a.h, c2a.d, c2b.x, c2b.y, c2b.z, c2b.w, c2b.h, c2b.d)).to_not.be.truthy()
+        c2b.x = 5
+        c2b.y = 5
+        c2b.z = 5
+        expect(CheckCollision3D(c2a.x, c2a.y, c2a.z, c2a.w, c2a.h, c2a.d, c2b.x, c2b.y, c2b.z, c2b.w, c2b.h, c2b.d)).to_not.be.truthy()
+        c2b.x = 6
+        c2b.y = 6
+        c2b.z = 6
+        expect(CheckCollision3D(c2a.x, c2a.y, c2a.z, c2a.w, c2a.h, c2a.d, c2b.x, c2b.y, c2b.z, c2b.w, c2b.h, c2b.d)).to.be.truthy()
+        c2b.z = 10 + 4
+        expect(CheckCollision3D(c2a.x, c2a.y, c2a.z, c2a.w, c2a.h, c2a.d, c2b.x, c2b.y, c2b.z, c2b.w, c2b.h, c2b.d)).to.be.truthy()
+        c2b.z = 10 + 5
+        expect(CheckCollision3D(c2a.x, c2a.y, c2a.z, c2a.w, c2a.h, c2a.d, c2b.x, c2b.y, c2b.z, c2b.w, c2b.h, c2b.d)).to_not.be.truthy()
+    end)
 end)
-
