@@ -132,19 +132,19 @@ local chargeDashAttack2 = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local specialDefensiveMiddle = function(slf, cont) slf:checkAndAttack(
-    { x = 0, z = 22, width = 66, height = 45, depth = 18, damage = 15, type = "expel" },
+    { x = 0, z = 22, width = 66, height = 45, depth = 18, damage = 15, type = "expel", twist = "weak" },
     cont
 ) end
 local specialDefensiveRight = function(slf, cont) slf:checkAndAttack(
-    { x = 5, z = 27, width = 66, height = 45, depth = 18, damage = 15, type = "expel" },
+    { x = 5, z = 27, width = 66, height = 45, depth = 18, damage = 15, type = "expel", twist = "weak" },
     cont
 ) end
 local specialDefensiveRightMost = function(slf, cont) slf:checkAndAttack(
-    { x = 10, z = 32, width = 66, height = 45, depth = 18, damage = 15, type = "expel" },
+    { x = 10, z = 32, width = 66, height = 45, depth = 18, damage = 15, type = "expel", twist = "weak" },
     cont
 ) end
 local specialDefensiveLeft = function(slf, cont) slf:checkAndAttack(
-    { x = -5, z = 22, width = 66, height = 45, depth = 18, damage = 15, type = "expel" },
+    { x = -5, z = 22, width = 66, height = 45, depth = 18, damage = 15, type = "expel", twist = "weak" },
     cont
 ) end
 local specialOffensiveShout = function(slf, cont)
