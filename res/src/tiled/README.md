@@ -90,15 +90,6 @@ Custom Properties:
 
 > Hint: A group of ImageLayers could have the same custom property which could be inherited or replaced by the ImageLayers individually. 
 
-## Adding background images as reflections ##
-The reflections images should have special custom property **reflection**. Set it to the _boolean_ type with _true_ value.    
-
-> Hint: A group of ImageLayers could have the same reflection property which could be inherited or replaced by the ImageLayers individually. IT is a good idea to pute a group folder '**my hardcoded reflections**' (the folder name does not matter) with **reflection true** property inside of the **background** layers group. So a single property will be applied to all images in the group.
-
-> Hint: The images with reflection property keep their order on drawing. Their order does not interfere with the the normal images order. 
-
-> Hint: The foreground layer images with reflection property will not be drawn. Do not use this property for the foreground images.   
-
 ## Background and foreground parallax ##
 Every Image Layer (single image) or a Group Layer (starting from the root folders **background** and **foregroung**) may have these attributes:
 * **relativeX** (float) - alters the scrolling speed relatively to the horizontal player's movement.
@@ -125,18 +116,27 @@ Use menu **Map / Map Properties**.
 Add into **Custom Properties** bool value **enableReflections**.
 
 ## Adjust reflections height
-Use menu **Map / Map Properties**.
-Add into **Custom Properties** float value **reflectionsHeight**. The value alters the reflections height. Use values from 0.1 to 1. Default value is 1.
+Use menu **Map / Map Properties**. Add into **Custom Properties** float value **reflectionsHeight**. The value alters the reflections height. Use values from 0.1 to 1. Default value is 1.
+This value is applicable to the units reflections only.
 
 ## Set reflections opacity
-Use menu **Map / Map Properties**.
-Add into **Custom Properties** float value **reflectionsOpacity**. Use value from 0 to 1. Default value is 0.2 ( from GLOBAL_SETTINGS.REFLECTIONS_OPACITY ) is used on omitting the property.   
+Use menu **Map / Map Properties**. Add into **Custom Properties** float value **reflectionsOpacity**. Use value from 0 to 1. Default value is 0.2 ( from GLOBAL_SETTINGS.REFLECTIONS_OPACITY ) is used on omitting the property.
+This value is applicable to the units reflections only.
 
+## Adding background images as reflections ##
+The _hardcoded_ reflections of the background images have custom property **reflect**. Set it to the _boolean_ type with _true_ value.    
+
+> Hint: A group of ImageLayers could have the same reflection property which could be inherited or replaced by the ImageLayers individually. It is a good idea to greate a group folder '**my hardcoded reflections**' (the folder name does not matter) with **reflect _true_** property inside of the **background** layers group. So a single property will be applied to all images in the group.
+
+> Hint: The images with reflection property keep their order on drawing. Their order does not interfere with the the normal images order. 
+
+> Hint: The foreground layer images with reflection property will not be drawn. Do not use this property for the foreground images.   
+ 
 ## Optional stage characters' shadows height and angle ##
 Use menu **Map / Map Properties** to see the **Background color** map property. 
 Add **shadowHeight** and **shadowAngle** float properties into **Custom Properties**.  
 
-Defaults: shadowAngle 0.2, shadowHeight 0.3.
+> Defaults: shadowAngle 0.2, shadowHeight 0.3.
 
 Recommended scoop: shadowAngle Range -1 .. 1, shadowHeight 0.2 .. 1.
 
