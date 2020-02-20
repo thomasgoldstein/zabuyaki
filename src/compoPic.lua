@@ -89,12 +89,12 @@ end
 ---@param scrollSpeedY number vertical scrolling speed.  negative/positive/0(default)
 ---@param name string to have access from the stage events
 ---@param animate string animation params
----@param isReflection boolean
-function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animate, isReflection)
+---@param reflect boolean
+function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animate, reflect)
     local image, quad = cacheImage(spriteSheet)
     local _,_,w,h = quad:getViewport()
     local animate, animateImage = parseAnimateString(w, h, animate, spriteSheet)
-    table.insert(self.pics, {image = animateImage or image, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, name = name, animate = animate, isReflection = isReflection and true or false})
+    table.insert(self.pics, {image = animateImage or image, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, name = name, animate = animate, reflect = reflect and true or false})
 end
 
 function CompoundPicture:remove(rect)
@@ -167,7 +167,7 @@ function CompoundPicture:draw(l, t, w, h, drawReflections)
     local p
     for i = 1, #self.pics do
         p = self.pics[i]
-        if p.isReflection == drawReflections and CheckCollision(l - p.relativeX * l, t - p.relativeY * t, w, h, p.x, p.y, p.w, p.h) then
+        if p.reflect == drawReflections and CheckCollision(l - p.relativeX * l, t - p.relativeY * t, w, h, p.x, p.y, p.w, p.h) then
             if p.animate then
                 love.graphics.draw(p.image,
                     p.animate.quads[ p.animate.frame[p.animate.curFrame] ],
