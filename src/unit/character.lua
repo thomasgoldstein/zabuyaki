@@ -201,14 +201,14 @@ function Character:afterOnHurt()
         return
     end
     self.vertical = h.vertical or 0
-    if h.type == "fell" or h.type == "twist" then
+    if h.type == "fell" then
         if h.source == self then --fall back on self kill (timeout)
             h.horizontal = -self.horizontal
         else
             self.speed_y = h.source.speed_y * 0.5
         end
         self.face = -h.horizontal --turn face to the attacker
-        if h.type == "twist" then
+        if h.twist then
             self.indirectAttacker = h.source
             self.victims[h.source] = true   --the attacker is immune to the twist bodies
         end
@@ -249,7 +249,7 @@ function Character:afterOnHurt()
         self.speed_y = h.repel_y--use fall speed from the argument
         self.friction = self.repelFriction  -- custom friction value for smooth sliding back
         --then it goes to "fall dead"
-    else    --types "fell" "shockWave" "expel" "twist"
+    else    --types "fell" "shockWave" "expel"
         if self.isMovable then
             --use fall speed from repel
             if h.repel_x == 0 then
@@ -294,12 +294,12 @@ function Character:afterOnHurt()
 end
 
 function Character:checkAndAttack(f, isFuncCont)
-    --type = "simple" "shockWave" "hit" "fell" "twist" "expel" "check"
+    --type = "simple" "shockWave" "hit" "fell" "expel" "check", twist= "weak" "strong" or none
     if not f then
         f = {}
     end
     local x, z, w, d, h = f.x or 20, f.z or 0, f.width or 25, f.depth or 12, f.height or 35
-    local damage, type = f.damage or 1, f.type or "hit"
+    local damage, type, twist = f.damage or 1, f.type or "hit", f.twist or false
     local repel_x = f.repel_x or self.speed_x
     local repel_y = f.repel_y or self.speed_y
     local horizontal = f.horizontal or self.face
@@ -365,7 +365,7 @@ function Character:checkAndAttack(f, isFuncCont)
                 o.isHurt = { source = self.indirectAttacker or self, damage = damage,
                              type = type, repel_x = repel_x, repel_y = repel_y,
                              horizontal = horizontal, vertical = vertical,
-                             continuous = isFuncCont,
+                             continuous = isFuncCont, twist = twist,
                              z = self.z + z
                 }
                 counter = counter + 1
@@ -948,7 +948,6 @@ function Character:jumpAttackRunUpdate(dt)
 end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRunStart, exit = nop, update = Character.jumpAttackRunUpdate, draw = Character.defaultDraw}
 
-local fallTwistStrongMinDamage = 20
 function Character:fallStart()
     local h = self.isHurt
     self:removeTweenMove()
@@ -956,8 +955,8 @@ function Character:fallStart()
     self.canRecover = false
     if self.condition == "throw" then
         self:setSprite("thrown")
-    elseif self.condition == "twist" then
-        self:setSprite(h.damage < fallTwistStrongMinDamage and "fallTwistWeak" or "fallTwistStrong")
+    elseif self.condition == "fell" and h.twist then
+        self:setSprite(h.twist == "strong" and "fallTwistStrong" or "fallTwistWeak")
     else
         self:setSprite("fall")
     end
@@ -1017,7 +1016,8 @@ function Character:fallUpdate(dt)
         end
     end
     if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0
-        and ( self.condition == "throw" or ( self.condition == "twist" and h and h.damage >= fallTwistStrongMinDamage) ) then
+        and ( self.condition == "throw"
+        or ( self.condition == "fell" and h and h.twist == "strong") ) then
             self:checkAndAttack(
                 { x = 0, z = self:getHurtBoxHeight() / 2,
                   width = self:getHurtBoxWidth(),

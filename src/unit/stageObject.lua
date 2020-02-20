@@ -219,7 +219,8 @@ function StageObject:fallUpdate(dt)
         end
     end
     if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0
-        and ( self.condition == "throw" or self.condition == "twist" ) then
+        and ( self.condition == "throw"
+        or ( self.condition == "fell" and h and h.twist == "strong") ) then
         self:checkAndAttack(
             { x = 0, z = self:getHurtBoxHeight() / 2,
               width = self:getHurtBoxWidth(),
