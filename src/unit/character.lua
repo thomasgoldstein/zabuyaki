@@ -945,14 +945,13 @@ end
 Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackRunStart, exit = nop, update = Character.jumpAttackRunUpdate, draw = Character.defaultDraw}
 
 function Character:fallStart()
-    local h = self.isHurt
     self:removeTweenMove()
     self.isHittable = false
     self.canRecover = false
     if self.condition == "throw" then
         self:setSprite("thrown")
-    elseif self.condition == "fell" and h.twist then
-        self:setSprite(h.twist == "strong" and "fallTwistStrong" or "fallTwistWeak")
+    elseif self.condition2 then
+        self:setSprite(self.condition2 == "strong" and "fallTwistStrong" or "fallTwistWeak")
     else
         self:setSprite("fall")
     end
