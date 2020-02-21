@@ -266,6 +266,9 @@ function Character:afterOnHurt()
                 h.horizontal = -1
             end
             self.face = -h.horizontal
+            if h.twist then -- twist attribute needs attack type "fell" to twist enemies
+                h.type = "fell"
+            end
         end
     end
     --finish calcs before the fall state
