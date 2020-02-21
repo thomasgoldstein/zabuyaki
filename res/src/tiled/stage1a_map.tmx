@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="39" nextobjectid="20">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="40" nextobjectid="20">
  <editorsettings>
   <export target="../../../src/def/stage/stage1a_map.lua" format="lua"/>
  </editorsettings>
@@ -38,15 +38,18 @@
     <image source="../../img/stage/stage1/background-city-1.png" width="2564" height="324"/>
    </imagelayer>
   </group>
-  <group id="32" name="bg-building" offsetx="-50" offsety="0">
+  <group id="32" name="bg-building" locked="1">
    <properties>
     <property name="relativeX" value="0.10"/>
    </properties>
-   <imagelayer id="33" name="building">
+   <imagelayer id="33" name="building-2" locked="1" offsetx="-50" offsety="0">
+    <image source="../../img/stage/stage1/background-building-2.png" width="2564" height="324"/>
+   </imagelayer>
+   <imagelayer id="39" name="building-1" offsetx="-18" offsety="0">
     <image source="../../img/stage/stage1/background-building-1.png" width="2564" height="324"/>
    </imagelayer>
   </group>
-  <group id="35" name="puddle-overlay">
+  <group id="35" name="puddle-overlay" locked="1">
    <imagelayer id="37" name="puddle-overlay-2">
     <image source="../../img/stage/stage1/stage1a_puddle_overlay_2.png" width="2564" height="324"/>
    </imagelayer>
@@ -54,7 +57,7 @@
     <image source="../../img/stage/stage1/stage1a_puddle_overlay_1.png" width="2564" height="324"/>
    </imagelayer>
   </group>
-  <imagelayer id="38" name="bg-reflection" offsetx="0" offsety="96">
+  <imagelayer id="38" name="bg-reflection" locked="1" offsetx="0" offsety="96">
    <image source="../../img/stage/stage1/stage1a_rf.png" width="2564" height="324"/>
    <properties>
     <property name="reflect" type="bool" value="true"/>

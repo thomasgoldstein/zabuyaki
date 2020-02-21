@@ -8,7 +8,7 @@ return {
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 39,
+  nextlayerid = 40,
   nextobjectid = 20,
   backgroundcolor = { 141, 110, 143 },
   properties = {
@@ -121,7 +121,7 @@ return {
           name = "bg-building",
           visible = true,
           opacity = 1,
-          offsetx = -50,
+          offsetx = 0,
           offsety = 0,
           properties = {
             ["relativeX"] = "0.10"
@@ -130,10 +130,21 @@ return {
             {
               type = "imagelayer",
               id = 33,
-              name = "building",
+              name = "building-2",
               visible = true,
               opacity = 1,
-              offsetx = 0,
+              offsetx = -50,
+              offsety = 0,
+              image = "../../../res/img/stage/stage1/background-building-2.png",
+              properties = {}
+            },
+            {
+              type = "imagelayer",
+              id = 39,
+              name = "building-1",
+              visible = true,
+              opacity = 1,
+              offsetx = -18,
               offsety = 0,
               image = "../../../res/img/stage/stage1/background-building-1.png",
               properties = {}
