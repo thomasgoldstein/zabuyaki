@@ -8,7 +8,7 @@ return {
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 34,
+  nextlayerid = 39,
   nextobjectid = 20,
   backgroundcolor = { 141, 110, 143 },
   properties = {
@@ -47,7 +47,7 @@ return {
           visible = true,
           opacity = 1,
           offsetx = 113,
-          offsety = -55,
+          offsety = -50,
           properties = {
             ["relativeX"] = "0.30"
           },
@@ -141,6 +141,53 @@ return {
           }
         },
         {
+          type = "group",
+          id = 35,
+          name = "puddle-overlay",
+          visible = true,
+          opacity = 1,
+          offsetx = 0,
+          offsety = 0,
+          properties = {},
+          layers = {
+            {
+              type = "imagelayer",
+              id = 37,
+              name = "puddle-overlay-2",
+              visible = true,
+              opacity = 1,
+              offsetx = 0,
+              offsety = 0,
+              image = "../../../res/img/stage/stage1/stage1a_puddle_overlay_2.png",
+              properties = {}
+            },
+            {
+              type = "imagelayer",
+              id = 36,
+              name = "puddle-overlay-1",
+              visible = true,
+              opacity = 1,
+              offsetx = 0,
+              offsety = 0,
+              image = "../../../res/img/stage/stage1/stage1a_puddle_overlay_1.png",
+              properties = {}
+            }
+          }
+        },
+        {
+          type = "imagelayer",
+          id = 38,
+          name = "bg-reflection",
+          visible = true,
+          opacity = 1,
+          offsetx = 0,
+          offsety = 96,
+          image = "../../../res/img/stage/stage1/stage1a_rf.png",
+          properties = {
+            ["reflect"] = true
+          }
+        },
+        {
           type = "imagelayer",
           id = 9,
           name = "bg",
@@ -210,6 +257,17 @@ return {
       offsety = 0,
       properties = {},
       layers = {
+        {
+          type = "imagelayer",
+          id = 34,
+          name = "bridge-shadow",
+          visible = false,
+          opacity = 1,
+          offsetx = -2,
+          offsety = -2,
+          image = "../../../res/img/stage/stage1/stage1a_fg_bridge_shadow.png",
+          properties = {}
+        },
         {
           type = "imagelayer",
           id = 27,
