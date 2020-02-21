@@ -266,9 +266,6 @@ function Character:afterOnHurt()
                 h.horizontal = -1
             end
             self.face = -h.horizontal
-            if h.twist then -- twist attribute needs attack type "fell" to twist enemies
-                h.type = "fell"
-            end
         end
     end
     --finish calcs before the fall state
@@ -293,7 +290,7 @@ function Character:afterOnHurt()
         end
         self.speed_x = self.speed_x + self.fallDeadSpeedBoost_x
     end
-    self:setState(self.fall, h.type)    --attack type is passed to self.condition
+    self:setState(self.fall, h.type, h.twist)    --previous attack type and twist power are passed to self.condition & self.condition2
 end
 
 function Character:checkAndAttack(f, isFuncCont)
@@ -969,7 +966,6 @@ function Character:fallStart()
     self.bounced = 0
 end
 function Character:fallUpdate(dt)
-    local h = self.isHurt
     self:calcFreeFall(dt)
     if self.speed_z < 0 and self.condition == "throw" and self.z < self:getMinZ() + self.toFallenAnim_z then
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
@@ -1019,8 +1015,7 @@ function Character:fallUpdate(dt)
         end
     end
     if self.speed_z < self.fallSpeed_z / 2 and self.bounced == 0
-        and ( self.condition == "throw"
-        or ( self.condition == "fell" and h and h.twist == "strong") ) then
+        and ( self.condition == "throw" or self.condition2 == "strong" ) then
             self:checkAndAttack(
                 { x = 0, z = self:getHurtBoxHeight() / 2,
                   width = self:getHurtBoxWidth(),
