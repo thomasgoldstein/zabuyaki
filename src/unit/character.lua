@@ -269,11 +269,7 @@ function Character:afterOnHurt()
         end
     end
     --finish calcs before the fall state
-    if h.damage > 0 then
-        self:setState(self.hurt)
-        self:showHitMarks(h.damage, h.z)
-        self:setHurtAnimation(h.damage, h.z > 13)
-    end
+    self:showHitMarks(h.damage, h.z)
     self.horizontal = h.horizontal
     self.isGrabbed = false
     -- calc falling trajectory speed, direction
