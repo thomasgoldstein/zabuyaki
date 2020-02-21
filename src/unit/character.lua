@@ -201,6 +201,10 @@ function Character:afterOnHurt()
         return
     end
     self.vertical = h.vertical or 0
+    if h.twist == "strong" then
+        self.indirectAttacker = h.source
+        self.victims[h.source] = true   --the attacker is immune to the twist bodies
+    end
     if h.type == "fell" then
         if h.source == self then --fall back on self kill (timeout)
             h.horizontal = -self.horizontal
@@ -208,10 +212,6 @@ function Character:afterOnHurt()
             self.speed_y = h.source.speed_y * 0.5
         end
         self.face = -h.horizontal --turn face to the attacker
-        if h.twist then
-            self.indirectAttacker = h.source
-            self.victims[h.source] = true   --the attacker is immune to the twist bodies
-        end
     else
         if h.source ~= self then
             if h.source.speed_x == 0 then
