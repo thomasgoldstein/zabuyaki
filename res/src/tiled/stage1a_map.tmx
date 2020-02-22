@@ -40,12 +40,12 @@
   </group>
   <group id="32" name="bg-building" locked="1">
    <properties>
-    <property name="relativeX" value="0.10"/>
+    <property name="relativeX" value="0.05"/>
    </properties>
-   <imagelayer id="33" name="building-2" locked="1" offsetx="-50" offsety="0">
+   <imagelayer id="33" name="building-2" locked="1" offsetx="-26" offsety="0">
     <image source="../../img/stage/stage1/background-building-2.png" width="2564" height="324"/>
    </imagelayer>
-   <imagelayer id="39" name="building-1" offsetx="-18" offsety="0">
+   <imagelayer id="39" name="building-1" offsetx="-9" offsety="0">
     <image source="../../img/stage/stage1/background-building-1.png" width="2564" height="324"/>
    </imagelayer>
   </group>

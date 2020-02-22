@@ -124,7 +124,7 @@ return {
           offsetx = 0,
           offsety = 0,
           properties = {
-            ["relativeX"] = "0.10"
+            ["relativeX"] = "0.05"
           },
           layers = {
             {
@@ -133,7 +133,7 @@ return {
               name = "building-2",
               visible = true,
               opacity = 1,
-              offsetx = -50,
+              offsetx = -26,
               offsety = 0,
               image = "../../../res/img/stage/stage1/background-building-2.png",
               properties = {}
@@ -144,7 +144,7 @@ return {
               name = "building-1",
               visible = true,
               opacity = 1,
-              offsetx = -18,
+              offsetx = -9,
               offsety = 0,
               image = "../../../res/img/stage/stage1/background-building-1.png",
               properties = {}
