@@ -183,7 +183,7 @@ The left and the right sides of the wave are used as the horizontal positions th
 
 Custom properties for each wave **Object layer**:
 * **maxActiveEnemies** <- enemies count should be active on the screen at the time. Default value: 5.
-* **aliveEnemiesToAdvance** <- alive enemies count to be able to end current wave and go to the next wave. Default value: 0.
+* **aliveEnemiesToAdvance** <- alive enemies count to be able to end current wave and go to the next wave. Default value: 0. The final wave should have value 0 or else the walking alive enemies might break the ending events in the stage.
 * **music** <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
 * **onStart** (event name) <- call event at the wave init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
 * **onEnter** (event name) <- call event on the last player crossing the left bound of the wave.
