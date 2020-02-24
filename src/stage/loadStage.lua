@@ -71,6 +71,9 @@ local function applyWaveUnitProperties(v, waveUnit)
         waveUnit.unit.face = -1
         waveUnit.unit.sprite.faceFix = -1  -- stageObjects use it to fix sprite flipping
     end
+    if v.properties.appearFrom then
+        waveUnit.appearFrom = v.properties.appearFrom or false
+    end
     if v.properties.drop then
         waveUnit.unit.func = Loot.getDropFuncByName(v.properties.drop)
     end

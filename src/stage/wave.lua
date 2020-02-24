@@ -85,6 +85,14 @@ function Wave:spawn(dt)
         if not waveUnit.isSpawned then
             if self.time >= waveUnit.spawnDelay then -- delay before the unit's spawn
                 dp("spawn ", waveUnit.unit.name, waveUnit.unit.type, waveUnit.unit.hp, self.time)
+                if waveUnit.appearFrom then -- alter unit coords if needed
+                    waveUnit.unit.delayedWakeRange = math.huge -- make unit active after wakeDelay despite the distance to players
+                    if waveUnit.appearFrom == "left" then
+                        waveUnit.unit.x = lx
+                    elseif waveUnit.appearFrom == "right" then
+                        waveUnit.unit.x = rx
+                    end
+                end
                 waveUnit.unit:setOnStage(stage)
                 waveUnit.isSpawned = true
                 if waveUnit.state == "intro" then  -- idling, show intro animation by default

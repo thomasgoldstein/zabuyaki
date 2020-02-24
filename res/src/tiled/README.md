@@ -207,6 +207,7 @@ Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape 
 
 ## Optional units properties ##
 Optional properties:
+* **appearFrom** <- override default x coordinate. Supported values: "left", "right". The unit will appear either at the left or right stoppers.
 * **hp** <- override default hp
 * **lives** <- override default number of lives (default = 1)
 * **spawnDelay** <- delay before unit's appearance in seconds (float numbers are fine, too)
