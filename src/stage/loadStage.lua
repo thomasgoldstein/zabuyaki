@@ -189,7 +189,7 @@ local function loadWave(items, stage)
             if v2.shape == "rectangle"
                 and v2.type == "wave"
             then
-                local b = {
+                local w = {
                     name = v2.name,
                     leftStopper_x = tonumber(r(v2.x) or 0),
                     rightStopper_x = tonumber(r(v2.x + v2.width) or 4000),
@@ -200,7 +200,7 @@ local function loadWave(items, stage)
                     onComplete = v.properties.onComplete,
                     onLeave = v.properties.onLeave,
                 }
-                wave[#wave + 1] = b
+                wave[#wave + 1] = w
             end
         end
     end
