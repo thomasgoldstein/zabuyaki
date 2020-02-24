@@ -64,10 +64,10 @@ function Wave:spawn(dt)
     self.startTimer = true
     self.time = self.time + dt
     if self.n > 1 then
-        local bPrev = self.waves[self.n - 1]
-        if not bPrev.onLeaveStarted and min_x > bPrev.rightStopper_x then -- Last player passed the left bound of the wave
-            Event.startByName(_, bPrev.onLeave)
-            bPrev.onLeaveStarted = true
+        local wPrev = self.waves[self.n - 1]
+        if not wPrev.onLeaveStarted and min_x > wPrev.rightStopper_x then -- Last player passed the left bound of the wave
+            Event.startByName(_, wPrev.onLeave)
+            wPrev.onLeaveStarted = true
         end
     end
     if not w.onEnterStarted and max_x > w.leftStopper_x then -- The first player passed the left bound of the wave
