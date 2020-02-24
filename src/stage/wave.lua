@@ -75,8 +75,8 @@ function Wave:spawn(dt)
         w.onEnterStarted = true
         self:startPlayingMusic()
     end
-    local allSpawned = true
-    local allDead = true
+    local isEveryEnemySpawned = true
+    local aliveEnemiesCount = 0
     for i = 1, #w.units do
         local waveUnit = w.units[i]
         if not waveUnit.isSpawned then
@@ -95,8 +95,7 @@ function Wave:spawn(dt)
                     waveUnit.unit:setSprite(waveUnit.animation)
                 end
             end
-            allSpawned = false
-            allDead = false --not yet spawned = alive
+            isEveryEnemySpawned = false
         end
         if not waveUnit.isActive and w.onEnterStarted then
             waveUnit.isActive = true -- the wave unit spawn data
@@ -104,12 +103,10 @@ function Wave:spawn(dt)
             dp("Activate enemy:", waveUnit.unit.name)
         end
         if not waveUnit.unit.isDisabled and waveUnit.unit.type == "enemy" then --alive enemy
-            allDead = false
+            aliveEnemiesCount = aliveEnemiesCount + 1
         end
     end
-    if allSpawned then
-    end
-    if allDead then
+    if isEveryEnemySpawned and aliveEnemiesCount <= w.aliveEnemiesToAdvance then
         self.state = "next"
         Event.startByName(_, w.onComplete)
     end
