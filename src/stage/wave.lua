@@ -75,15 +75,12 @@ function Wave:spawn(dt)
         w.onEnterStarted = true
         self:startPlayingMusic()
     end
-    if self.time < w.spawnDelay then -- delay before the spawn of whole wave
-        return false
-    end
     local allSpawned = true
     local allDead = true
     for i = 1, #w.units do
         local waveUnit = w.units[i]
         if not waveUnit.isSpawned then
-            if self.time - w.spawnDelay >= waveUnit.spawnDelay then -- delay before the unit's spawn
+            if self.time >= waveUnit.spawnDelay then -- delay before the unit's spawn
                 dp("spawn ", waveUnit.unit.name, waveUnit.unit.type, waveUnit.unit.hp, self.time)
                 waveUnit.unit:setOnStage(stage)
                 waveUnit.isSpawned = true
