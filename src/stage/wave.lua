@@ -3,7 +3,7 @@
 local class = require "lib/middleclass"
 local Wave = class('Wave')
 
-function Wave:ps(t)
+function Wave:printWaveState(t)
     dp("WAVE #"..self.n.." State:"..self.state.." "..(t or ""))
 end
 
@@ -22,29 +22,29 @@ function Wave:load()
         return false
     end
     dp("load Wave #",n)
-    local b = self.waves[n]
-    self.leftStopper_x = b.leftStopper_x or 0
-    self.rightStopper_x = b.rightStopper_x or 320
-    for i = 1, #b.units do
-        local u = b.units[i]
+    local w = self.waves[n]
+    self.leftStopper_x = w.leftStopper_x or 0
+    self.rightStopper_x = w.rightStopper_x or 320
+    for i = 1, #w.units do
+        local u = w.units[i]
         u.isSpawned = false
     end
     self.startTimer = false
-    Event.startByName(_, b.onStart)
+    Event.startByName(_, w.onStart)
     return true
 end
 
 function Wave:startPlayingMusic(n)
-    local b = self.waves[n or self.n]
-    if b.music and previousStageMusic ~= b.music then
+    local w = self.waves[n or self.n]
+    if w.music and previousStageMusic ~= w.music then
         TEsound.stop("music")
-        TEsound.playLooping(bgm[b.music], "music")
-        previousStageMusic = b.music
+        TEsound.playLooping(bgm[w.music], "music")
+        previousStageMusic = w.music
     end
 end
 
 function Wave:spawn(dt)
-    local b = self.waves[self.n]
+    local w = self.waves[self.n]
     local center_x, playerGroupDistance, min_x, max_x = self.stage.center_x, self.stage.playerGroupDistance, self.stage.min_x, self.stage.max_x
     local lx, rx = self.stage.leftStopper:getX(), self.stage.rightStopper:getX()    --current in the stage
     if lx < self.leftStopper_x
@@ -70,20 +70,20 @@ function Wave:spawn(dt)
             bPrev.onLeaveStarted = true
         end
     end
-    if not b.onEnterStarted and max_x > b.leftStopper_x then -- The first player passed the left bound of the wave
-        Event.startByName(_, b.onEnter)
-        b.onEnterStarted = true
+    if not w.onEnterStarted and max_x > w.leftStopper_x then -- The first player passed the left bound of the wave
+        Event.startByName(_, w.onEnter)
+        w.onEnterStarted = true
         self:startPlayingMusic()
     end
-    if self.time < b.spawnDelay then -- delay before the spawn of whole wave
+    if self.time < w.spawnDelay then -- delay before the spawn of whole wave
         return false
     end
     local allSpawned = true
     local allDead = true
-    for i = 1, #b.units do
-        local waveUnit = b.units[i]
+    for i = 1, #w.units do
+        local waveUnit = w.units[i]
         if not waveUnit.isSpawned then
-            if self.time - b.spawnDelay >= waveUnit.spawnDelay then -- delay before the unit's spawn
+            if self.time - w.spawnDelay >= waveUnit.spawnDelay then -- delay before the unit's spawn
                 dp("spawn ", waveUnit.unit.name, waveUnit.unit.type, waveUnit.unit.hp, self.time)
                 waveUnit.unit:setOnStage(stage)
                 waveUnit.isSpawned = true
@@ -101,7 +101,7 @@ function Wave:spawn(dt)
             allSpawned = false
             allDead = false --not yet spawned = alive
         end
-        if not waveUnit.isActive and b.onEnterStarted then
+        if not waveUnit.isActive and w.onEnterStarted then
             waveUnit.isActive = true -- the wave unit spawn data
             waveUnit.unit.isActive = true -- actual spawned enemy unit
             dp("Activate enemy:", waveUnit.unit.name)
@@ -114,7 +114,7 @@ function Wave:spawn(dt)
     end
     if allDead then
         self.state = "next"
-        Event.startByName(_, b.onComplete)
+        Event.startByName(_, w.onComplete)
     end
     return true
 end
@@ -129,9 +129,9 @@ function Wave:finish()
 end
 
 function Wave:killCurrentWave()
-    local b = self.waves[self.n]
-    for i = 1, #b.units do
-        local waveUnit = b.units[i]
+    local w = self.waves[self.n]
+    for i = 1, #w.units do
+        local waveUnit = w.units[i]
         waveUnit.isActive = true -- the wave unit spawn data
         waveUnit.unit.isActive = true -- actual spawned enemy unit
         waveUnit.unit:applyDamage(1000, "fell")
@@ -145,12 +145,11 @@ function Wave:update(dt)
         self.n = self.n + 1
         self.time = 0
         if self:load() then
-            local b = self.waves[self.n]
             self.state = "spawn"
         else
             self.state = "done"
         end
-        self:ps()
+        self:printWaveState()
         return false
     elseif self.state == "done" then    -- the latest's wave enemies are dead ('nextmap' is not called yet)
         self.time = self.time + dt
