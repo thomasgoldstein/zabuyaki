@@ -1,6 +1,8 @@
 -- Load and correct objects from Tiled 1.2 exported Lua files
 
 local r = math.floor
+local maxActiveEnemiesDefault = 5
+local aliveEnemiesToAdvanceDefault = 0
 
 local function extractTable(tab, val)
     for i, value in ipairs(tab) do
@@ -195,8 +197,8 @@ local function loadWave(items, stage)
                     rightStopper_x = tonumber(r(v2.x + v2.width) or 4000),
                     music = v.properties.music,
                     units = loadUnit(v, v2.name),
-                    maxActiveEnemies = tonumber(v2.properties.maxActiveEnemies or 5),
-                    aliveEnemiesToAdvance = tonumber(v2.properties.aliveEnemiesToAdvance or 0),
+                    maxActiveEnemies = tonumber(v2.properties.maxActiveEnemies or v.properties.maxActiveEnemies or maxActiveEnemiesDefault),
+                    aliveEnemiesToAdvance = tonumber(v2.properties.aliveEnemiesToAdvance or v.properties.aliveEnemiesToAdvance or aliveEnemiesToAdvanceDefault),
                     onStart = v.properties.onStart,
                     onEnter = v.properties.onEnter,
                     onComplete = v.properties.onComplete,

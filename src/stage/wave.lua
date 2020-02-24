@@ -79,6 +79,9 @@ function Wave:spawn(dt)
     local aliveEnemiesCount = 0
     for i = 1, #w.units do
         local waveUnit = w.units[i]
+        if aliveEnemiesCount >= w.maxActiveEnemies then
+            break
+        end
         if not waveUnit.isSpawned then
             if self.time >= waveUnit.spawnDelay then -- delay before the unit's spawn
                 dp("spawn ", waveUnit.unit.name, waveUnit.unit.type, waveUnit.unit.hp, self.time)
