@@ -64,6 +64,10 @@ function Camera:getWorld()
     return self.cam:getWorld()
 end
 
+function Camera:getVisible()
+    return self.cam:getVisible()
+end
+
 function Camera:isVisible(o)
     local l,t,w,h = self.cam:getVisible()
     return CheckLinearCollision(o.x - o.width / 2, o.width, l, w)
