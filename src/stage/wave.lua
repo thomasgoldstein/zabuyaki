@@ -107,6 +107,10 @@ function Wave:spawn(dt)
                 if waveUnit.animation then    -- set the custom sprite animation
                     waveUnit.unit:setSprite(waveUnit.animation)
                 end
+                if waveUnit.flip then
+                    waveUnit.unit.face = -1 * waveUnit.unit.horizontal
+                    waveUnit.unit.sprite.faceFix = waveUnit.unit.face  -- stageObjects use it to fix sprite flipping
+                end
             end
             isEveryEnemySpawned = false
         end
