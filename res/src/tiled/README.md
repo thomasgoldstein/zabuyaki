@@ -207,19 +207,22 @@ Enemy unit's x,y coords equal to coords of the shape center. Only "Point" shape 
 
 ## Optional units properties ##
 Optional properties:
-* **appearFrom** <- override default x coordinate. Supported values: "left", "right". The unit will appear either at the left or right stoppers.
+* **appearFrom** <- override default x coordinate. Supported values: "left", "right", "jump", "leftJump", "rightJump". The unit will appear either at the left or right screen edges.
+**left** and **right** make units walk in the stage from the certain screen edges. 
+**jump** is for a vertical jump on place. **leftJump** and **rightJump** make units jump in the stage from the certain screen edges. You can alter initial **z** coordinate with a property.
 * **hp** <- override default hp
 * **lives** <- override default number of lives (default = 1)
 * **spawnDelay** <- delay before unit's appearance in seconds (float numbers are fine, too)
-* **z** <- start z coordinate(height)
+* **z** <- initial z coordinate (e.g. to jump off heights)
 * **state** <- units state on spawn: intro (If set then the animation is set to 'intro' else the stand state is used).
+* **speed_x** **speed_y** **speed_z** <- override default speed of spawned units (it is used in jumps and falls).
 * **animation** <- any sprite animation name that should override defaults.
 * **target** <- select a player to attack first ("close", "far", "weak", "healthy", "slow" or "fast").
 * **palette** <- select unit's coloring number (shaders). 1 - default.
 * **wakeRange** <- distance in pixels to the closest player to wake from the 'intro' state (100px by default).  
 * **delayedWakeRange** <- the 2nd distance in pixels to the closest player to wake from the 'intro' state (150px by default).
 * **wakeDelay** <- unit starts acting if the delay is over and a player is within 'delayedWakeRange'.
-* **flip** <- turn units face to the left  
+* **flip** <- flip default unit's facing  
 * **drop** <- which loot to drop. It can be one **apple**, **chicken** or **beef**
 
 ## Define global units ## 
