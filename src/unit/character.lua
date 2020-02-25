@@ -630,7 +630,7 @@ Character.run = {name = "run", start = Character.runStart, exit = nop, update = 
 
 function Character:jumpStart()
     self.isHittable = true
-    self:setSprite("jump")
+    self:setSpriteIfExists("jump", "walk")
     self.z = self:getMinZ() + 0.1
     self.bounced = 0
     self.isGoingUp = true
