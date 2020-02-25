@@ -76,6 +76,9 @@ local function applyWaveUnitProperties(v, waveUnit)
     if v.properties.z then
         waveUnit.unit.z = tonumber(v.properties.z)
     end
+    waveUnit.unit.speed_x = tonumber(v.properties.speed_x) or 0
+    waveUnit.unit.speed_y = tonumber(v.properties.speed_y) or 0
+    waveUnit.unit.speed_z = tonumber(v.properties.speed_z) or 0
     if v.properties.hp then
         waveUnit.unit.maxHp = tonumber(v.properties.hp)
         waveUnit.unit.hp = waveUnit.unit.maxHp
