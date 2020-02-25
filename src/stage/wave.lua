@@ -88,15 +88,35 @@ function Wave:spawn(dt)
                 if waveUnit.appearFrom then -- alter unit coords if needed
                     waveUnit.unit.delayedWakeRange = math.huge -- make unit active after wakeDelay despite the distance to players
                     waveUnit.unit.wakeDelay = 0 -- make unit active
-                    local l,t,w,h = mainCamera:getWorld()
-                    if waveUnit.appearFrom == "left" then
+                    local l,t,w,h = mainCamera:getVisible()
+                    if waveUnit.appearFrom == "left"
+                        or waveUnit.appearFrom == "leftJump"
+                    then
                         waveUnit.unit.x = l - waveUnit.unit.width
-                    elseif waveUnit.appearFrom == "right" then
+                    elseif waveUnit.appearFrom == "right"
+                        or  waveUnit.appearFrom == "rightJump"
+                    then
                         waveUnit.unit.x = l + w + waveUnit.unit.width
                     end
                 end
                 waveUnit.unit:setOnStage(stage)
                 waveUnit.isSpawned = true
+                if waveUnit.appearFrom == "right" or waveUnit.appearFrom == "rightJump" then
+                    waveUnit.unit.horizontal = -1
+                    waveUnit.unit.face = -1
+                    waveUnit.unit.sprite.faceFix = -1  -- stageObjects use it to fix sprite flipping
+                end
+                if waveUnit.appearFrom == "jump" or waveUnit.appearFrom == "leftJump" or waveUnit.appearFrom == "rightJump" then
+                    if waveUnit.unit.z <= 0 then
+                        waveUnit.unit.z = 0.1
+                    end
+                    if waveUnit.appearFrom == "leftJump" or waveUnit.appearFrom == "rightJump" then
+                        if waveUnit.unit.speed_x <= 0 then -- possible to override with speed_x attribute
+                            waveUnit.unit.speed_x = waveUnit.unit.walkSpeed_x
+                        end
+                    end
+                    waveUnit.unit:setState(waveUnit.unit.jump)
+                end
                 if waveUnit.state == "intro" then  -- idling, show intro animation by default
                     waveUnit.unit:setState(waveUnit.unit.intro)
                     waveUnit.unit:setSprite("intro")
