@@ -66,11 +66,7 @@ local function applyWaveUnitProperties(v, waveUnit)
     waveUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay or waveUnit.unit.wakeDelay)
     waveUnit.unit.wakeRange = tonumber(v.properties.wakeRange or waveUnit.unit.wakeRange)
     waveUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange or waveUnit.unit.delayedWakeRange)
-    if v.properties.flip then
-        waveUnit.unit.horizontal = -1
-        waveUnit.unit.face = -1
-        waveUnit.unit.sprite.faceFix = -1  -- stageObjects use it to fix sprite flipping
-    end
+    waveUnit.flip = v.properties.flip or false
     if v.properties.appearFrom then
         waveUnit.appearFrom = v.properties.appearFrom or false
     end
