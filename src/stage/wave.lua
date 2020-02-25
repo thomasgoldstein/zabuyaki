@@ -87,10 +87,12 @@ function Wave:spawn(dt)
                 dp("spawn ", waveUnit.unit.name, waveUnit.unit.type, waveUnit.unit.hp, self.time)
                 if waveUnit.appearFrom then -- alter unit coords if needed
                     waveUnit.unit.delayedWakeRange = math.huge -- make unit active after wakeDelay despite the distance to players
+                    waveUnit.unit.wakeDelay = 0 -- make unit active
+                    local l,t,w,h = mainCamera:getWorld()
                     if waveUnit.appearFrom == "left" then
-                        waveUnit.unit.x = lx
+                        waveUnit.unit.x = l - waveUnit.unit.width
                     elseif waveUnit.appearFrom == "right" then
-                        waveUnit.unit.x = rx
+                        waveUnit.unit.x = l + w + waveUnit.unit.width
                     end
                 end
                 waveUnit.unit:setOnStage(stage)
