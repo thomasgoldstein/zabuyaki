@@ -70,7 +70,7 @@ function Wave:spawn(dt)
             wPrev.onLeaveStarted = true
         end
     end
-    if not w.onEnterStarted and max_x > w.leftStopper_x then -- The first player passed the left bound of the wave
+    if not w.onEnterStarted then
         Event.startByName(_, w.onEnter)
         w.onEnterStarted = true
         self:startPlayingMusic()
