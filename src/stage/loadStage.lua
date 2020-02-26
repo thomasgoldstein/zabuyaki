@@ -63,13 +63,11 @@ local function applyWaveUnitProperties(v, waveUnit)
     waveUnit.state = v.properties.state
     waveUnit.animation = v.properties.animation
     waveUnit.target = v.properties.target
-    waveUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay or waveUnit.unit.wakeDelay)
-    waveUnit.unit.wakeRange = tonumber(v.properties.wakeRange or waveUnit.unit.wakeRange)
-    waveUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange or waveUnit.unit.delayedWakeRange)
+    waveUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay) or waveUnit.unit.wakeDelay
+    waveUnit.unit.wakeRange = tonumber(v.properties.wakeRange) or waveUnit.unit.wakeRange
+    waveUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange) or waveUnit.unit.delayedWakeRange
     waveUnit.flip = v.properties.flip or false
-    if v.properties.appearFrom then
-        waveUnit.appearFrom = v.properties.appearFrom or false
-    end
+    waveUnit.appearFrom = v.properties.appearFrom or false
     if v.properties.drop then
         waveUnit.unit.func = Loot.getDropFuncByName(v.properties.drop)
     end
