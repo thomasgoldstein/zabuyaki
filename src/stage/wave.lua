@@ -138,6 +138,8 @@ function Wave:spawn(dt)
                     waveUnit.unit.face = -1 * waveUnit.unit.horizontal
                     waveUnit.unit.sprite.faceFix = waveUnit.unit.face  -- stageObjects use it to fix sprite flipping
                 end
+            else
+                aliveEnemiesCount = aliveEnemiesCount + 1 -- count enemy with spawnDelay as alive or it breaks the wave order
             end
             isEveryEnemySpawned = false
         end
