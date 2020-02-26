@@ -79,6 +79,12 @@ function Wave:spawn(dt)
     local aliveEnemiesCount = 0
     for i = 1, #w.units do
         local waveUnit = w.units[i]
+        if not waveUnit.unit.isDisabled and waveUnit.spawnDelay <= 0 and waveUnit.unit.type == "enemy" then --alive enemy
+            aliveEnemiesCount = aliveEnemiesCount + 1
+        end
+    end
+    for i = 1, #w.units do
+        local waveUnit = w.units[i]
         if aliveEnemiesCount >= w.maxActiveEnemies then
             break
         end
@@ -99,6 +105,7 @@ function Wave:spawn(dt)
                         waveUnit.unit.x = l + w + waveUnit.unit.width
                     end
                 end
+                aliveEnemiesCount = aliveEnemiesCount + 1
                 waveUnit.unit:setOnStage(stage)
                 waveUnit.isSpawned = true
                 if waveUnit.appearFrom == "right" or waveUnit.appearFrom == "rightJump" then
@@ -138,9 +145,6 @@ function Wave:spawn(dt)
             waveUnit.isActive = true -- the wave unit spawn data
             waveUnit.unit.isActive = true -- actual spawned enemy unit
             dp("Activate enemy:", waveUnit.unit.name)
-        end
-        if not waveUnit.unit.isDisabled and waveUnit.unit.type == "enemy" then --alive enemy
-            aliveEnemiesCount = aliveEnemiesCount + 1
         end
     end
     if isEveryEnemySpawned and aliveEnemiesCount <= w.aliveEnemiesToAdvance then
