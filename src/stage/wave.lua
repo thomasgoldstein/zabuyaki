@@ -12,6 +12,7 @@ function Wave:initialize(stage, waves)
     self.n = 0 -- to get 1st wave
     self.waves = waves
     dp("Stage has #",#waves,"waves of enemy")
+    self.time = 0
     self.startTimer = false
     self.state = "next"
 end
@@ -62,7 +63,6 @@ function Wave:spawn(dt)
         return false  -- the left stopper's x is out of the current screen
     end
     self.startTimer = true
-    self.time = self.time + dt
     if self.n > 1 then
         local wPrev = self.waves[self.n - 1]
         if not wPrev.onLeaveStarted and min_x > wPrev.rightStopper_x then -- Last player passed the left bound of the wave
@@ -83,8 +83,8 @@ function Wave:spawn(dt)
             break
         end
         if not waveUnit.isSpawned then
-            if self.time >= waveUnit.spawnDelay then -- delay before the unit's spawn
-                dp("spawn ", waveUnit.unit.name, waveUnit.unit.type, waveUnit.unit.hp, self.time)
+            waveUnit.spawnDelay = waveUnit.spawnDelay - dt
+            if waveUnit.spawnDelay <= 0 then -- delay before the unit's spawn
                 if waveUnit.appearFrom then -- alter unit coords if needed
                     waveUnit.unit.delayedWakeRange = math.huge -- make unit active after wakeDelay despite the distance to players
                     waveUnit.unit.wakeDelay = 0 -- make unit active
@@ -170,6 +170,7 @@ function Wave:killCurrentWave()
 end
 
 function Wave:update(dt)
+    self.time = self.time + dt
     if self.state == "spawn" then
         return not self:spawn(dt)
     elseif self.state == "next" then
@@ -183,10 +184,8 @@ function Wave:update(dt)
         self:printWaveState()
         return false
     elseif self.state == "done" then    -- the latest's wave enemies are dead ('nextmap' is not called yet)
-        self.time = self.time + dt
         return false
     elseif self.state == "finish" then  -- 'nextmap' event is called
-        self.time = self.time + dt
         return false
     end
 end
