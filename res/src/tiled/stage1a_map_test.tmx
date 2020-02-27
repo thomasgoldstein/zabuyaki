@@ -1,203 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="left-up" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="40" nextobjectid="26">
- <properties>
-  <property name="enableReflections" type="bool" value="true"/>
-  <property name="reflectionsOpacity" type="float" value="0.6"/>
- </properties>
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="44" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="12" nextobjectid="22">
+ <editorsettings>
+  <export target="../../../src/def/stage/stage1a_map.lua" format="lua"/>
+ </editorsettings>
  <group id="8" name="background" locked="1">
-  <imagelayer id="15" name="sky" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../img/stage/stage1/sky.png" width="1545" height="160"/>
-   <properties>
-    <property name="relativeX" value="0.45"/>
-   </properties>
-  </imagelayer>
-  <group id="18" name="bg-city-3" locked="1" offsetx="113" offsety="-50">
-   <properties>
-    <property name="relativeX" value="0.30"/>
-   </properties>
-   <imagelayer id="19" name="city">
-    <image source="../../img/stage/stage1/background-city-3.png" width="2564" height="600"/>
-   </imagelayer>
-  </group>
-  <group id="17" name="bg-city-2" locked="1" offsetx="80" offsety="-50">
-   <properties>
-    <property name="relativeX" value="0.25"/>
-   </properties>
-   <imagelayer id="20" name="city">
-    <image source="../../img/stage/stage1/background-city-2.png" width="2564" height="600"/>
-   </imagelayer>
-  </group>
-  <group id="30" name="bg-city-1" locked="1">
-   <properties>
-    <property name="relativeX" value="0.20"/>
-   </properties>
-   <imagelayer id="31" name="city">
-    <image source="../../img/stage/stage1/background-city-1.png" width="2564" height="324"/>
-   </imagelayer>
-  </group>
-  <group id="32" name="bg-building" locked="1">
-   <properties>
-    <property name="relativeX" value="0.05"/>
-   </properties>
-   <imagelayer id="33" name="building-2" locked="1" offsetx="-26" offsety="0">
-    <image source="../../img/stage/stage1/background-building-2.png" width="2564" height="324"/>
-   </imagelayer>
-   <imagelayer id="39" name="building-1" offsetx="-9" offsety="0">
-    <image source="../../img/stage/stage1/background-building-1.png" width="2564" height="324"/>
-   </imagelayer>
-  </group>
-  <group id="35" name="puddle-overlay" locked="1">
-   <imagelayer id="37" name="puddle-overlay-2">
-    <image source="../../img/stage/stage1/stage1a_puddle_overlay_2.png" width="2564" height="324"/>
-   </imagelayer>
-   <imagelayer id="36" name="puddle-overlay-1">
-    <image source="../../img/stage/stage1/stage1a_puddle_overlay_1.png" width="2564" height="324"/>
-   </imagelayer>
-  </group>
-  <imagelayer id="38" name="bg-reflection" locked="1" offsetx="0" offsety="96">
-   <image source="../../img/stage/stage1/stage1a_rf.png" width="2564" height="324"/>
-   <properties>
-    <property name="reflect" type="bool" value="true"/>
-   </properties>
-  </imagelayer>
   <imagelayer id="9" name="bg" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../img/stage/stage1/stage1a.png" width="2564" height="324"/>
+   <image source="../../img/stage/stage1/stage1b.png" width="1434" height="324"/>
   </imagelayer>
-  <group id="24" name="burn-barrels" locked="1">
-   <properties>
-    <property name="animate" value="burn-barrel 1 0.11 2 0.11 3 0.11 4 0.11"/>
-   </properties>
-   <imagelayer id="26" name="barrel3" offsetx="1812" offsety="191">
-    <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
-   </imagelayer>
-   <imagelayer id="25" name="barrel2" offsetx="757" offsety="189">
-    <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
-   </imagelayer>
-   <imagelayer id="21" name="barrel1" offsetx="274" offsety="194">
-    <image source="../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
-   </imagelayer>
-  </group>
  </group>
- <group id="12" name="foreground" locked="1">
-  <imagelayer id="34" name="bridge-shadow" visible="0" offsetx="-2" offsety="-2">
-   <image source="../../img/stage/stage1/stage1a_fg_bridge_shadow.png" width="2564" height="324"/>
-  </imagelayer>
-  <imagelayer id="27" name="bridge" locked="1" offsetx="260" offsety="0">
-   <image source="../../img/stage/stage1/stage1a_fg_bridge.png" width="2564" height="324"/>
-   <properties>
-    <property name="relativeX" value="-0.2"/>
-   </properties>
-  </imagelayer>
-  <imagelayer id="13" name="fg" offsetx="200" offsety="0">
-   <image source="../../img/stage/stage1/stage1a_fg.png" width="2560" height="320"/>
-   <properties>
-    <property name="relativeX" value="-1.2"/>
-   </properties>
+ <group id="10" name="foreground">
+  <imagelayer id="11" name="fg">
+   <image source="../../img/stage/stage1/stage1b_fg.png" width="1434" height="324"/>
   </imagelayer>
  </group>
  <objectgroup color="#aa0000" id="7" name="camera" locked="1">
   <object id="6" x="0" y="320">
-   <polyline points="0,0 2560,0"/>
+   <polyline points="0,0 1280,0"/>
   </object>
  </objectgroup>
  <objectgroup color="#00aa00" id="6" name="collision" locked="1">
-  <object id="8" x="0" y="0" width="2560" height="240"/>
+  <object id="8" x="0" y="0" width="1280" height="240"/>
  </objectgroup>
  <objectgroup color="#00aaff" id="5" name="player" locked="1">
-  <object id="3" name="1" x="48" y="256">
+  <object id="3" name="1" x="48" y="265">
    <point/>
   </object>
-  <object id="4" name="2" x="32" y="280">
+  <object id="4" name="2" x="32" y="285">
    <point/>
   </object>
-  <object id="5" name="3" x="16" y="304">
+  <object id="5" name="3" x="16" y="305">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#55557f" id="4" name="global" locked="1">
-  <object id="15" name="enterMap" type="event" x="16" y="192">
+  <object id="12" name="enterMap" type="event" x="16" y="192">
    <properties>
     <property name="togox" value="-100"/>
    </properties>
    <point/>
   </object>
-  <object id="16" name="leaveMap" type="event" x="2480" y="184">
-   <properties>
-    <property name="animation" value="stand"/>
-    <property name="duration" value="2"/>
-    <property name="gox" value="0"/>
-    <property name="nextevent" value="exit"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="17" name="exit" type="event" x="2584" y="280">
+  <object id="15" name="leaveMap" type="event" x="1135.33" y="189.334">
    <properties>
     <property name="go" value="exit"/>
     <property name="nextevent" value="nextmap"/>
-    <property name="nextmap" value="stage1b_map"/>
+    <property name="nextmap" value="ending"/>
    </properties>
    <point/>
   </object>
-  <object id="18" name="Trash" type="trashcan" x="356" y="256">
-   <point/>
-  </object>
-  <object id="19" name="Trash" type="trashcan" x="455" y="298">
-   <properties>
-    <property name="drop" value="apple"/>
-    <property name="palette" value="2"/>
-   </properties>
+  <object id="16" name="exit" type="event" x="1136" y="242.667">
    <point/>
   </object>
  </objectgroup>
  <group id="1" name="wave">
-  <objectgroup color="#ffaa00" id="11" name="4" locked="1">
+  <objectgroup color="#ffaa00" id="3" name="2">
    <properties>
     <property name="onComplete" value="leaveMap"/>
    </properties>
-   <object id="13" name="4" type="wave" x="1920" y="0" width="640" height="320"/>
-   <object id="14" name="Niko" type="niko" x="2480" y="280">
-    <point/>
-   </object>
-  </objectgroup>
-  <objectgroup color="#ffaa00" id="10" name="3" locked="1">
-   <object id="11" name="3" type="wave" x="1280" y="0" width="640" height="320"/>
-   <object id="12" name="Niko" type="niko" x="1808" y="256">
-    <point/>
-   </object>
-  </objectgroup>
-  <objectgroup color="#ffaa00" id="3" name="2" locked="1">
-   <object id="2" name="2" type="wave" x="640" y="0" width="640" height="320"/>
+   <object id="2" name="2" type="wave" x="640" y="0" width="640" height="320" visible="0"/>
    <object id="10" name="Niko" type="niko" x="1184" y="256">
+    <properties>
+     <property name="appearFrom" value="rightJump"/>
+     <property name="palette" type="int" value="2"/>
+     <property name="waitScreen" type="bool" value="true"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="20" name="Gopper5" type="gopper" x="748" y="264">
+    <properties>
+     <property name="appearFrom" value="rightJump"/>
+     <property name="palette" type="int" value="1"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="21" name="Niko2" type="niko" x="1043" y="284">
+    <properties>
+     <property name="appearFrom" value="left"/>
+     <property name="palette" value="1"/>
+     <property name="waitScreen" type="bool" value="true"/>
+    </properties>
     <point/>
    </object>
   </objectgroup>
   <objectgroup color="#ffff00" id="2" name="1">
    <properties>
-    <property name="aliveEnemiesToAdvance" type="int" value="1"/>
-    <property name="maxActiveEnemies" type="int" value="4"/>
     <property name="music" value="stage1"/>
     <property name="onStart" value="enterMap"/>
    </properties>
-   <object id="1" name="1" type="wave" x="0" y="0" width="640" height="320"/>
-   <object id="9" name="Gopper" type="gopper" x="544" y="256">
+   <object id="1" name="1" type="wave" x="0" y="0" width="640" height="320" visible="0"/>
+   <object id="9" name="Gopper" type="gopper" x="298" y="274">
     <point/>
    </object>
-   <object id="20" name="Gopper" type="gopper" x="504" y="280">
+   <object id="17" name="Gopper2" type="gopper" x="364" y="310">
+    <properties>
+     <property name="appearFrom" value="jump"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" type="int" value="2"/>
+     <property name="spawnDelay" type="int" value="3"/>
+     <property name="speed_x" type="int" value="-20"/>
+     <property name="speed_y" type="int" value="-160"/>
+     <property name="waitScreen" type="bool" value="true"/>
+     <property name="wakeDelay" type="int" value="3"/>
+    </properties>
     <point/>
    </object>
-   <object id="21" name="Gopper" type="gopper" x="400" y="259">
+   <object id="18" name="Gopper3" type="gopper" x="555" y="273">
+    <properties>
+     <property name="appearFrom" value="fall"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" type="int" value="3"/>
+     <property name="spawnDelay" type="int" value="3"/>
+     <property name="waitScreen" type="bool" value="true"/>
+     <property name="z" type="int" value="240"/>
+    </properties>
     <point/>
    </object>
-   <object id="22" name="Gopper" type="gopper" x="561" y="285">
-    <point/>
-   </object>
-   <object id="23" name="Gopper" type="gopper" x="369" y="277">
-    <point/>
-   </object>
-   <object id="24" name="Gopper" type="gopper" x="305" y="277">
-    <point/>
-   </object>
-   <object id="25" name="Gopper" type="gopper" x="236" y="284">
+   <object id="19" name="Gopper4" type="gopper" x="628" y="287">
+    <properties>
+     <property name="appearFrom" value="left"/>
+     <property name="palette" type="int" value="4"/>
+     <property name="spawnDelay" type="int" value="3"/>
+    </properties>
     <point/>
    </object>
   </objectgroup>
