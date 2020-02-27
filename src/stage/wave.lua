@@ -120,7 +120,10 @@ function Wave:spawn(dt)
                             unit.speed_x = unit.walkSpeed_x
                         end
                     end
-                    waveUnit.unit:setState(waveUnit.unit.jump)
+                    unit:setState(unit.jump)
+                    if waveUnit.z then
+                        unit.z = waveUnit.z
+                    end
                 end
                 if waveUnit.state == "intro" then  -- idling, show intro animation by default
                     unit:setState(unit.intro)
