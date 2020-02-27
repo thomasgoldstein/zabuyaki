@@ -75,6 +75,7 @@ function Wave:spawn(dt)
         w.onEnterStarted = true
         self:startPlayingMusic()
     end
+    local l,t,w,h = mainCamera:getVisible()
     local isEveryEnemySpawned = true
     local aliveEnemiesCount = 0
     for i = 1, #w.units do
@@ -95,7 +96,6 @@ function Wave:spawn(dt)
                 if waveUnit.appearFrom then -- alter unit coords if needed
                     unit.delayedWakeRange = math.huge -- make unit active after wakeDelay despite the distance to players
                     unit.wakeDelay = 0 -- make unit active
-                    local l,t,w,h = mainCamera:getVisible()
                     if waveUnit.appearFrom == "left"
                         or waveUnit.appearFrom == "leftJump"
                     then
