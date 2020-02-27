@@ -214,6 +214,7 @@ Optional properties:
 * **hp** <- override default hp
 * **lives** <- override default number of lives (default = 1)
 * **spawnDelay** <- delay before unit's appearance in seconds (float numbers are fine, too)
+* **waitScreen** <- hold unit spawning until it is in the screen
 * **z** <- initial z coordinate (e.g. to jump off heights)
 * **state** <- units state on spawn: intro (If set then the animation is set to 'intro' else the stand state is used).
 * **speed_x** **speed_y** **speed_z** <- override default speed of spawned units (it is used in jumps and falls).
