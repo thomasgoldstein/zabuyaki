@@ -72,7 +72,7 @@ local function applyWaveUnitProperties(v, waveUnit)
         waveUnit.unit.func = Loot.getDropFuncByName(v.properties.drop)
     end
     if v.properties.z then
-        waveUnit.unit.z = tonumber(v.properties.z)
+        waveUnit.z = tonumber(v.properties.z)
     end
     waveUnit.unit.speed_x = tonumber(v.properties.speed_x) or 0
     waveUnit.unit.speed_y = tonumber(v.properties.speed_y) or 0
