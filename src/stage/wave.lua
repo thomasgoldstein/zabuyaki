@@ -76,10 +76,16 @@ function Wave:spawn(dt)
         self:startPlayingMusic()
     end
     local l,t,w,h = mainCamera:getVisible()
-    local isEveryEnemySpawned = true
-    local aliveEnemiesCount = 0
+    local aliveEnemiesCount, waitingEnemiesCount = 0, 0
     for i = 1, #wave.units do
         local waveUnit = wave.units[i]
+        local unit = waveUnit.unit
+        if waveUnit.waitScreen then
+            if l <= unit.x + unit.width and l + w >= unit.x - unit.width then
+                waveUnit.waitScreen = false -- now unit is on the screen, it might be spawned
+            end
+            waitingEnemiesCount = waitingEnemiesCount + 1
+        end
         if not waveUnit.unit.isDisabled and waveUnit.spawnDelay <= 0 and waveUnit.unit.type == "enemy" then --alive enemy
             aliveEnemiesCount = aliveEnemiesCount + 1
         end
@@ -90,7 +96,7 @@ function Wave:spawn(dt)
         if aliveEnemiesCount >= wave.maxActiveEnemies then
             break
         end
-        if not waveUnit.isSpawned then
+        if not waveUnit.isSpawned and not waveUnit.waitScreen then
             waveUnit.spawnDelay = waveUnit.spawnDelay - dt
             if waveUnit.spawnDelay <= 0 then -- delay before the unit's spawn
                 if waveUnit.appearFrom then -- alter unit coords if needed
@@ -151,7 +157,6 @@ function Wave:spawn(dt)
             else
                 aliveEnemiesCount = aliveEnemiesCount + 1 -- count enemy with spawnDelay as alive or it breaks the wave order
             end
-            isEveryEnemySpawned = false
         end
         if not waveUnit.isActive and wave.onEnterStarted then
             waveUnit.isActive = true -- the wave unit spawn data
@@ -159,7 +164,7 @@ function Wave:spawn(dt)
             dp("Activate enemy:", unit.name)
         end
     end
-    if isEveryEnemySpawned and aliveEnemiesCount <= wave.aliveEnemiesToAdvance then
+    if aliveEnemiesCount <= wave.aliveEnemiesToAdvance and waitingEnemiesCount <= 0 then
         self.state = "next"
         Event.startByName(_, wave.onComplete)
     end
