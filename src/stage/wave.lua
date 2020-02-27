@@ -114,13 +114,22 @@ function Wave:spawn(dt)
                     unit.face = -1
                     unit.sprite.faceFix = -1  -- stageObjects use it to fix sprite flipping
                 end
-                if waveUnit.appearFrom == "jump" or waveUnit.appearFrom == "leftJump" or waveUnit.appearFrom == "rightJump" then
+                if waveUnit.appearFrom == "leftJump" or waveUnit.appearFrom == "rightJump"
+                    or waveUnit.appearFrom == "jump" or waveUnit.appearFrom == "fall" or waveUnit.appearFrom == "fallDamage"
+                then
                     if waveUnit.appearFrom == "leftJump" or waveUnit.appearFrom == "rightJump" then
                         if unit.speed_x <= 0 then -- possible to override with speed_x attribute
                             unit.speed_x = unit.walkSpeed_x
                         end
                     end
-                    unit:setState(unit.jump)
+                    if waveUnit.appearFrom == "fall" then
+                        unit:setState(unit.fall)
+                    elseif waveUnit.appearFrom == "fallDamage" then
+                        unit.indirectAttacker = unit
+                        unit:setState(unit.fall, "throw")
+                    else -- "leftJump" "rightJump" "jump"
+                        unit:setState(unit.jump)
+                    end
                     if waveUnit.z then
                         unit.z = waveUnit.z
                     end

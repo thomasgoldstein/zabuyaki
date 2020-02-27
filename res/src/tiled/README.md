@@ -210,6 +210,7 @@ Optional properties:
 * **appearFrom** <- override default x coordinate. Supported values: "left", "right", "jump", "leftJump", "rightJump". The unit will appear either at the left or right screen edges.
 **left** and **right** make units walk in the stage from the certain screen edges. 
 **jump** is for a vertical jump on place. **leftJump** and **rightJump** make units jump in the stage from the certain screen edges. You can alter initial **z** coordinate with a property.
+**fall** (**fallDamage**) <- spawn a falling (falling with damage) unit. You can alter initial **z** coordinate with a property. Use properties **flip** and **speed_x**, **speed_y**, **speed_z** to alter facing and the direction of the fall.
 * **hp** <- override default hp
 * **lives** <- override default number of lives (default = 1)
 * **spawnDelay** <- delay before unit's appearance in seconds (float numbers are fine, too)
