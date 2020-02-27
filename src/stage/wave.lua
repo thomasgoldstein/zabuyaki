@@ -84,7 +84,8 @@ function Wave:spawn(dt)
         end
     end
     for i = 1, #w.units do
-        local waveUnit = w.units[i]
+        local waveUnit = w.units[i] -- initial params of the wave's unit
+        local unit = waveUnit.unit -- instance that will be used in the stage
         if aliveEnemiesCount >= w.maxActiveEnemies then
             break
         end
@@ -92,51 +93,48 @@ function Wave:spawn(dt)
             waveUnit.spawnDelay = waveUnit.spawnDelay - dt
             if waveUnit.spawnDelay <= 0 then -- delay before the unit's spawn
                 if waveUnit.appearFrom then -- alter unit coords if needed
-                    waveUnit.unit.delayedWakeRange = math.huge -- make unit active after wakeDelay despite the distance to players
-                    waveUnit.unit.wakeDelay = 0 -- make unit active
+                    unit.delayedWakeRange = math.huge -- make unit active after wakeDelay despite the distance to players
+                    unit.wakeDelay = 0 -- make unit active
                     local l,t,w,h = mainCamera:getVisible()
                     if waveUnit.appearFrom == "left"
                         or waveUnit.appearFrom == "leftJump"
                     then
-                        waveUnit.unit.x = l - waveUnit.unit.width
+                        unit.x = l - unit.width
                     elseif waveUnit.appearFrom == "right"
                         or  waveUnit.appearFrom == "rightJump"
                     then
-                        waveUnit.unit.x = l + w + waveUnit.unit.width
+                        unit.x = l + w + unit.width
                     end
                 end
                 aliveEnemiesCount = aliveEnemiesCount + 1
-                waveUnit.unit:setOnStage(stage)
+                unit:setOnStage(stage)
                 waveUnit.isSpawned = true
                 if waveUnit.appearFrom == "right" or waveUnit.appearFrom == "rightJump" then
-                    waveUnit.unit.horizontal = -1
-                    waveUnit.unit.face = -1
-                    waveUnit.unit.sprite.faceFix = -1  -- stageObjects use it to fix sprite flipping
+                    unit.horizontal = -1
+                    unit.face = -1
+                    unit.sprite.faceFix = -1  -- stageObjects use it to fix sprite flipping
                 end
                 if waveUnit.appearFrom == "jump" or waveUnit.appearFrom == "leftJump" or waveUnit.appearFrom == "rightJump" then
-                    if waveUnit.unit.z <= 0 then
-                        waveUnit.unit.z = 0.1
-                    end
                     if waveUnit.appearFrom == "leftJump" or waveUnit.appearFrom == "rightJump" then
-                        if waveUnit.unit.speed_x <= 0 then -- possible to override with speed_x attribute
-                            waveUnit.unit.speed_x = waveUnit.unit.walkSpeed_x
+                        if unit.speed_x <= 0 then -- possible to override with speed_x attribute
+                            unit.speed_x = unit.walkSpeed_x
                         end
                     end
                     waveUnit.unit:setState(waveUnit.unit.jump)
                 end
                 if waveUnit.state == "intro" then  -- idling, show intro animation by default
-                    waveUnit.unit:setState(waveUnit.unit.intro)
-                    waveUnit.unit:setSprite("intro")
+                    unit:setState(unit.intro)
+                    unit:setSprite("intro")
                 end
                 if waveUnit.target then    -- pick the target to attack on spawn
-                    waveUnit.unit:pickAttackTarget(waveUnit.target) --"close" "far" "weak" "healthy" "slow" "fast"
+                    unit:pickAttackTarget(waveUnit.target) --"close" "far" "weak" "healthy" "slow" "fast"
                 end
                 if waveUnit.animation then    -- set the custom sprite animation
-                    waveUnit.unit:setSprite(waveUnit.animation)
+                    unit:setSprite(waveUnit.animation)
                 end
                 if waveUnit.flip then
-                    waveUnit.unit.face = -1 * waveUnit.unit.horizontal
-                    waveUnit.unit.sprite.faceFix = waveUnit.unit.face  -- stageObjects use it to fix sprite flipping
+                    unit.face = -1 * unit.horizontal
+                    unit.sprite.faceFix = unit.face  -- stageObjects use it to fix sprite flipping
                 end
             else
                 aliveEnemiesCount = aliveEnemiesCount + 1 -- count enemy with spawnDelay as alive or it breaks the wave order
@@ -145,8 +143,8 @@ function Wave:spawn(dt)
         end
         if not waveUnit.isActive and w.onEnterStarted then
             waveUnit.isActive = true -- the wave unit spawn data
-            waveUnit.unit.isActive = true -- actual spawned enemy unit
-            dp("Activate enemy:", waveUnit.unit.name)
+            unit.isActive = true -- actual spawned enemy unit
+            dp("Activate enemy:", unit.name)
         end
     end
     if isEveryEnemySpawned and aliveEnemiesCount <= w.aliveEnemiesToAdvance then
