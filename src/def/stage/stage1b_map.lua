@@ -119,7 +119,7 @@ return {
     {
       type = "objectgroup",
       id = 5,
-      name = "player",
+      name = "players",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -229,7 +229,7 @@ return {
     {
       type = "group",
       id = 1,
-      name = "wave",
+      name = "waves",
       visible = true,
       opacity = 1,
       offsetx = 0,

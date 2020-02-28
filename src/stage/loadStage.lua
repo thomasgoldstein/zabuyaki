@@ -66,7 +66,7 @@ local function applyWaveUnitProperties(v, waveUnit)
     waveUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay) or waveUnit.unit.wakeDelay
     waveUnit.unit.wakeRange = tonumber(v.properties.wakeRange) or waveUnit.unit.wakeRange
     waveUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange) or waveUnit.unit.delayedWakeRange
-    waveUnit.waitScreen = v.properties.waitScreen or false
+    waveUnit.waitCamera = v.properties.waitCamera or false
     waveUnit.flip = v.properties.flip or false
     waveUnit.appearFrom = v.properties.appearFrom or false
     if v.properties.drop then

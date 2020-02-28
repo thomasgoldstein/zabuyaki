@@ -21,7 +21,7 @@
  <objectgroup color="#00aa00" id="6" name="collision" locked="1">
   <object id="8" x="0" y="0" width="1280" height="240"/>
  </objectgroup>
- <objectgroup color="#00aaff" id="5" name="player" locked="1">
+ <objectgroup color="#00aaff" id="5" name="players" locked="1">
   <object id="3" name="1" x="48" y="265">
    <point/>
   </object>
@@ -51,7 +51,7 @@
    <point/>
   </object>
  </objectgroup>
- <group id="1" name="wave">
+ <group id="1" name="waves">
   <objectgroup color="#ffaa00" id="3" name="2">
    <properties>
     <property name="onComplete" value="leaveMap"/>

@@ -80,9 +80,9 @@ function Wave:spawn(dt)
     for i = 1, #wave.units do
         local waveUnit = wave.units[i]
         local unit = waveUnit.unit
-        if waveUnit.waitScreen then
+        if waveUnit.waitCamera then
             if l <= unit.x + unit.width and l + w >= unit.x - unit.width then
-                waveUnit.waitScreen = false -- now unit is on the screen, it might be spawned
+                waveUnit.waitCamera = false -- now unit is on the screen, it might be spawned
             end
             waitingEnemiesCount = waitingEnemiesCount + 1
         end
@@ -96,7 +96,7 @@ function Wave:spawn(dt)
         if aliveEnemiesCount >= wave.maxActiveEnemies then
             break
         end
-        if not waveUnit.isSpawned and not waveUnit.waitScreen then
+        if not waveUnit.isSpawned and not waveUnit.waitCamera then
             waveUnit.spawnDelay = waveUnit.spawnDelay - dt
             if waveUnit.spawnDelay <= 0 then -- delay before the unit's spawn
                 if waveUnit.appearFrom then -- alter unit coords if needed
