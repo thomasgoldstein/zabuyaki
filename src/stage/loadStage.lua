@@ -183,9 +183,9 @@ end
 local function loadWave(items, stage)
     local wave = {}
     dp("Load waves...")
-    local t = extractTable(items.layers, "wave")
+    local t = extractTable(items.layers, "waves")
     if not t then
-        error("Tiled: Group layer 'wave' is not present in the map file.")
+        error("Tiled: Group layer 'waves' is not present in the map file.")
     end
     for i, v in ipairs(t.layers) do
         for i, v2 in ipairs(v.objects) do
@@ -281,9 +281,9 @@ end
 
 local function addPlayersToStage(items, players, stage)
     dp("Set players to start positions...")
-    local t = extractTable(items.layers, "player")
+    local t = extractTable(items.layers, "players")
     if not t then
-        error("Tiled: Object layer 'player' is not present in the map file.")
+        error("Tiled: Object layer 'players' is not present in the map file.")
     end
     if players then
         -- After player select (1st stage)
