@@ -13,6 +13,15 @@ local function extractTable(tab, val)
     return nil
 end
 
+local function mergeTables(tab, superTab, dbp)
+    for k, v in pairs(superTab) do
+        if not tab[k] then
+            tab[k] = v
+            print("replace from", dbp , k, v)
+        end
+    end
+end
+
 local function loadCollision(items, stage)
     dp("Load collisions...")
     local t = extractTable(items.layers, "collision")
@@ -59,25 +68,41 @@ local function getUnitTypeByName(name)
 end
 
 local function applyWaveUnitProperties(v, waveUnit)
-    waveUnit.spawnDelay = tonumber(v.properties.spawnDelay or 0)
-    waveUnit.state = v.properties.state
-    waveUnit.animation = v.properties.animation
-    waveUnit.target = v.properties.target
-    waveUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay) or waveUnit.unit.wakeDelay
-    waveUnit.unit.wakeRange = tonumber(v.properties.wakeRange) or waveUnit.unit.wakeRange
-    waveUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange) or waveUnit.unit.delayedWakeRange
-    waveUnit.waitCamera = v.properties.waitCamera or false
-    waveUnit.flip = v.properties.flip or false
-    waveUnit.appearFrom = v.properties.appearFrom or false
+    if v.properties.spawnDelay then
+        waveUnit.spawnDelay = tonumber(v.properties.spawnDelay)
+    else
+        waveUnit.spawnDelay = 0
+    end
+    waveUnit.state = v.properties.state or waveUnit.state
+    waveUnit.animation = v.properties.animation or waveUnit.animation
+    waveUnit.target = v.properties.target or waveUnit.target
+    if v.properties.wakeDelay then
+        waveUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay)
+    end
+    if v.properties.wakeRange then
+        waveUnit.unit.wakeRange = tonumber(v.properties.wakeRange)
+    end
+    if v.properties.delayedWakeRange then
+        waveUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange)
+    end
+    waveUnit.waitCamera = v.properties.waitCamera or waveUnit.waitCamera or false
+    waveUnit.flip = v.properties.flip or waveUnit.flip or false
+    waveUnit.appearFrom = v.properties.appearFrom or waveUnit.appearFrom or false
     if v.properties.drop then
         waveUnit.unit.func = Loot.getDropFuncByName(v.properties.drop)
     end
     if v.properties.z then
         waveUnit.z = tonumber(v.properties.z)
     end
-    waveUnit.unit.speed_x = tonumber(v.properties.speed_x) or 0
-    waveUnit.unit.speed_y = tonumber(v.properties.speed_y) or 0
-    waveUnit.unit.speed_z = tonumber(v.properties.speed_z) or 0
+    if v.properties.speed_x then
+        waveUnit.unit.speed_x = tonumber(v.properties.speed_x)
+    end
+    if v.properties.speed_y then
+        waveUnit.unit.speed_y = tonumber(v.properties.speed_y)
+    end
+    if v.properties.speed_z then
+        waveUnit.unit.speed_z = tonumber(v.properties.speed_z)
+    end
     if v.properties.hp then
         waveUnit.unit.maxHp = tonumber(v.properties.hp)
         waveUnit.unit.hp = waveUnit.unit.maxHp
@@ -120,6 +145,7 @@ local function loadUnit(items, waveName)
                 --for global units that have no wave
                 units[#units + 1] = u.unit
             end
+            applyWaveUnitProperties(items, u)
             applyWaveUnitProperties(v, u)
         elseif v.type == "event" then
             if v.shape == "polygon" then
@@ -188,7 +214,11 @@ local function loadWave(items, stage)
         error("Tiled: Group layer 'waves' is not present in the map file.")
     end
     for i, v in ipairs(t.layers) do
+        mergeTables(v.properties, t.properties, "v.properties <- t.properties")
+        print("sub", v.properties)
         for i, v2 in ipairs(v.objects) do
+            mergeTables(v2.properties, v.properties, "v2.properties <- v.properties")
+            print("sub", v2.properties)
             if v2.shape == "rectangle"
                 and v2.type == "wave"
             then
@@ -198,13 +228,20 @@ local function loadWave(items, stage)
                     rightStopper_x = tonumber(r(v2.x + v2.width) or 4000),
                     music = v.properties.music,
                     units = loadUnit(v, v2.name),
-                    maxActiveEnemies = tonumber(v.properties.maxActiveEnemies or maxActiveEnemiesDefault),
-                    aliveEnemiesToAdvance = tonumber(v.properties.aliveEnemiesToAdvance or aliveEnemiesToAdvanceDefault),
+                    maxActiveEnemies = v.properties.maxActiveEnemies,
+                    aliveEnemiesToAdvance = v.properties.aliveEnemiesToAdvance,
                     onStart = v.properties.onStart,
                     onEnter = v.properties.onEnter,
                     onComplete = v.properties.onComplete,
                     onLeave = v.properties.onLeave,
                 }
+                mergeTables(v.properties, t.properties, "v.properties <- t.properties")
+                if not v.properties.maxActiveEnemies then
+                    w.maxActiveEnemies= maxActiveEnemiesDefault
+                end
+                if not w.aliveEnemiesToAdvance then
+                    w.aliveEnemiesToAdvance = aliveEnemiesToAdvanceDefault
+                end
                 wave[#wave + 1] = w
             end
         end
