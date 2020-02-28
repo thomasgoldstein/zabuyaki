@@ -140,9 +140,6 @@ Add **shadowHeight** and **shadowAngle** float properties into **Custom Properti
 
 Recommended scoop: shadowAngle Range -1 .. 1, shadowHeight 0.2 .. 1.
 
-## Define the wave area width ##
-Add a rectangle object to set the wave area. You should set its type to "wave". 
-> Hint: The height of the wave shape is ignored.
 
 ## Define events ##
 All the events should be created in "global" **Object group**. Every event should have type "event". The events can be activated and used once. 
@@ -173,15 +170,18 @@ We will add other rectangle event triggers of other types in this group later.
 * **nextmap** <- Load next map. The next map is set in the map properties. Override it with an event's 'nextmap' (map name) property.   
 
 ## Define enemy waves ##
-Go to the layers tab. Create **Group layer**. Rename it to "wave".
-Now add **Object layers** as waves into the **Group layer** "wave".
+Go to the layers tab. Create **Group layer**. Rename it to "waves".
+Now add one or more **Object layers** of the **wave** type into the **Group layer** "waves".
  
-Every wave should be named. You can alter its Color property to colour its units on the Tiled screen.
-Give simple names to your waves, such as 1 2 3 4 etc.
+Every added wave **Object layer** should be named. Give simple names to your waves, such as '1' '2' '3' '4' etc.
+You can alter its _Transparency_ or _Color_ properties to alter color of their units on the Tiled screen.
 
-The left and the right sides of the wave are used as the horizontal positions the players stoppers.
+To define the wave area width add a rectangle object into the **Group layer** "waves" to set the wave area. The object type should be "wave". 
+> Hint: The height of the wave shape is ignored.
 
-Custom properties for each wave **Object layer**:
+The x coordinate of the left and the right sides of the wave are used as the horizontal positions of the players stoppers.
+
+Custom properties for each **Object layer** wave:
 * **maxActiveEnemies** <- enemies count should be active on the screen at the time. Default value: 5.
 * **aliveEnemiesToAdvance** <- alive enemies count to be able to end current wave and go to the next wave. Default value: 0. The final wave should have value 0 or else the walking alive enemies might break the ending events in the stage.
 * **music** <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
@@ -193,7 +193,7 @@ Custom properties for each wave **Object layer**:
 > Hint: Every wave event should be defined as a global event somewhere at the stage. Keep it away from the walking areas to prevent starting on a player collision.  
 
 ## Add enemy units to a wave ##
-Go to the layers tab. Select any **Object layer** within "wave" **Group layer**. 
+Go to the layers tab. Select any **Object layer** within "waves" **Group layer**. 
 
 Now you can add enemy units or stage objects into the game.
 Every unit should have these properties
@@ -237,9 +237,9 @@ Every unit should contain these properties
 > Hint: These units do not lock you within a wave area. You can spare their liver and go to the next wave area.
 
 ## Define players start positions ## 
-3 "Point" objects should be added into the root of **Object layers** named "player".
+3 "Point" objects should be added into the root of **Object layers** named "players".
 Only first 3 objects are used. The rest objects are ignored.
-Th naming doesn't matter.
+Their naming doesn't matter.
 
 ## Define next stage map file name ## 
 Use menu **Map / Map Properties**/ to see the list of properties.
