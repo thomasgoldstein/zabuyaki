@@ -1,4 +1,4 @@
--- Load and correct objects from Tiled 1.2 exported Lua files
+-- Load and correct objects from Tiled 1.3 exported Lua files
 
 local r = math.floor
 local maxActiveEnemiesDefault = 5
@@ -13,11 +13,10 @@ local function extractTable(tab, val)
     return nil
 end
 
-local function mergeTables(tab, superTab, dbp)
+local function mergeTables(tab, superTab)
     for k, v in pairs(superTab) do
         if not tab[k] then
             tab[k] = v
-            print("replace from", dbp , k, v)
         end
     end
 end
@@ -122,6 +121,7 @@ local function loadUnit(items, waveName)
         waveName = nil
     end
     for i, v in ipairs(items.objects) do
+        mergeTables(v.properties, items.properties)
         if v.shape == "point" and v.type ~= "event" then
             local u = {}
             local inst = getUnitTypeByName(v.type)
@@ -145,7 +145,6 @@ local function loadUnit(items, waveName)
                 --for global units that have no wave
                 units[#units + 1] = u.unit
             end
-            applyWaveUnitProperties(items, u)
             applyWaveUnitProperties(v, u)
         elseif v.type == "event" then
             if v.shape == "polygon" then
@@ -214,11 +213,9 @@ local function loadWave(items, stage)
         error("Tiled: Group layer 'waves' is not present in the map file.")
     end
     for i, v in ipairs(t.layers) do
-        mergeTables(v.properties, t.properties, "v.properties <- t.properties")
-        print("sub", v.properties)
+        mergeTables(v.properties, t.properties)
         for i, v2 in ipairs(v.objects) do
             mergeTables(v2.properties, v.properties, "v2.properties <- v.properties")
-            print("sub", v2.properties)
             if v2.shape == "rectangle"
                 and v2.type == "wave"
             then
@@ -235,9 +232,8 @@ local function loadWave(items, stage)
                     onComplete = v.properties.onComplete,
                     onLeave = v.properties.onLeave,
                 }
-                mergeTables(v.properties, t.properties, "v.properties <- t.properties")
                 if not v.properties.maxActiveEnemies then
-                    w.maxActiveEnemies= maxActiveEnemiesDefault
+                    w.maxActiveEnemies = maxActiveEnemiesDefault
                 end
                 if not w.aliveEnemiesToAdvance then
                     w.aliveEnemiesToAdvance = aliveEnemiesToAdvanceDefault

@@ -226,6 +226,7 @@ Optional properties:
 * **wakeDelay** <- unit starts acting if the delay is over and a player is within 'delayedWakeRange'.
 * **flip** <- flip default unit's facing  
 * **drop** <- which loot to drop. It can be one **apple**, **chicken** or **beef**
+> Hint: All wave enemies inherit attributes from "waves" **Group layer** and individual waves. The inherited attributes may be overridden.
 
 ## Define global units ## 
 A unit without **wave** is called global. It is spawned on the stage loading.
