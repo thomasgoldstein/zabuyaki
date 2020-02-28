@@ -31,7 +31,7 @@ local function loadCollision(items, stage)
         if v.shape == "rectangle" then
             if v.properties.height then
                 local platform = Platform:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height }, height = v.properties.height })
-                print("platform", v.properties.height)
+                dp("platform", v.properties.height)
                 platform:setOnStage(stage)
             else
                 local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
