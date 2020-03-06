@@ -85,7 +85,7 @@ function AI:update(dt)
                 self:selectNewSchedule(self.conditions)
             end
         end
-        self.thinkInterval = love.math.random(self.thinkIntervalMin, self.thinkIntervalMax)
+        self.thinkInterval = love.math.random() * self.thinkIntervalMax - self.thinkIntervalMin
     end
     -- run current schedule
     if self.currentSchedule then
