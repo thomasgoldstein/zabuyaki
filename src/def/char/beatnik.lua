@@ -225,16 +225,19 @@ return {
             delay = math.huge
         },
         fallTwistWeak = {
-            { q = q(117,234,73,48), ox = 39, oy = 47, flipV = -1 }, --fall 3 (flipped vertically)
-            { q = q(117,234,73,48), ox = 39, oy = 47 }, --fall 3
-            loop = true,
+            { q = q(69,798,68,56), ox = 36, oy = 57 }, --fall twist 2
+            { q = q(139,798,63,58), ox = 36, oy = 57 }, --fall twist 3
+            { q = q(204,797,69,64), ox = 40, oy = 58, delay = f(8) }, --fall twist 4
+            { q = q(2,798,65,56), ox = 36, oy = 57, delay = math.huge }, --fall twist 1
             delay = f(7)
         },
         fallTwistStrong = {
-            { q = q(117,234,73,48), ox = 39, oy = 47, flipV = -1 }, --fall 3 (flipped vertically)
-            { q = q(117,234,73,48), ox = 39, oy = 47 }, --fall 3
+            { q = q(2,798,65,56), ox = 36, oy = 57 }, --fall twist 1
+            { q = q(69,798,68,56), ox = 36, oy = 57 }, --fall twist 2
+            { q = q(139,798,63,58), ox = 36, oy = 57 }, --fall twist 3
+            { q = q(204,797,69,64), ox = 40, oy = 58 }, --fall twist 4
             loop = true,
-            delay = f(7)
+            delay = f(5)
         },
         fallBounce = {
             { q = q(192,232,74,50), ox = 40, oy = 44, delay = f(4) }, --fallen
