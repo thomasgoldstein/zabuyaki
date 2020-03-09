@@ -8,14 +8,11 @@ function Schedule:initialize(tasks, interrupts, name)
     self.currentTask = 1
     self.done = false
 
-    local n = 0
-
-    for i, task in ipairs(tasks) do
+    for _, task in ipairs(tasks) do
         self:addTask(task)
     end
-    for j, interrupt in pairs(interrupts) do
+    for _, interrupt in pairs(interrupts) do
         self:addInterrupt(interrupt)
-        n = n + 1
     end
     return self
 end
