@@ -11,6 +11,28 @@ function AI:initialize(unit, settings)
     self.thinkIntervalMin = settings.thinkIntervalMin or 0.01
     self.thinkIntervalMax = settings.thinkIntervalMax or 0.25
 
+    self.hesitateMin = settings.hesitateMin or 0.1  -- wait before attacking in seconds
+    self.hesitateMax = settings.hesitateMax or 0.3
+
+    self.reactCloseDistanceMin = settings.reactCloseDistanceMin or 0
+    self.reactCloseDistanceMax = settings.reactCloseDistanceMax or 50
+    self.reactMiddleDistanceMin = settings.reactMiddleDistanceMin or 50
+    self.reactMiddleDistanceMax = settings.reactMiddleDistanceMax or 70
+    self.reactFarDistanceMin = settings.reactFarDistanceMin or 70
+    self.reactFarDistanceMax = settings.reactFarDistanceMax or 240  -- should be more?
+
+    self.state = "initial"
+
+    self.currentAIPattern = false
+    self.AIPattern1 = false -- weak/passive actions
+    self.AIPattern2 = false -- aggressive/active actions
+    self.AIWinPattern = false -- actions on player's death
+    self.AIHalfDeadPattern = false -- critical HP actions
+
+    self.lastAttacker = false
+    self.lastRealAttacker = false
+    self.weakAttacker = false
+
     self.conditions = {
         isDead = false,
         isInAir = false
@@ -31,7 +53,7 @@ function AI:update(dt)
             --    self:selectNewSchedule(self.conditions)
             --end
         end
-        self.thinkInterval = love.math.random(self.thinkIntervalMin, self.thinkIntervalMax)
+        self.thinkInterval = love.math.random() * self.thinkIntervalMax - self.thinkIntervalMin
     end
     -- run current schedule
     if self.currentSchedule then
@@ -42,43 +64,29 @@ function AI:update(dt)
     end
 end
 
+local canAct = { stand = true, walk = true, run = true, intro = true }
 function AI:getConditions()
     local u = self.unit
-    local conditions = {} -- { "normalDifficulty" }
-    local conditionsOutput
-    if u.isDisabled then
-        conditions[#conditions + 1] = "dead"
-    end
-    if countAlivePlayers() < 1 then
-        conditions[#conditions + 1] = "noPlayers"
-    end
-end
+    self.conditions.isDead = u.isDisabled
+    self.conditions.noPlayers = countAlivePlayers() < 1
+    self.conditions.canAct = canAct[u.state] or false
+    self.conditions.canMove = u:canMove()
 
-local canAct = { stand = true, walk = true, run = true, intro = true }
-function AI:getVisualConditions(conditions)
-    -- check attack range, players, units etc
-    local u = self.unit
-    local t
-    if not canAct[u.state] then
-        conditions[#conditions + 1] = "cannotAct"
-    elseif u:canMove() then
-        conditions[#conditions + 1] = "canMove"
-    end
-    if canAct[u.state] then
-        if t < u.width then
-            -- too close to the closest player
-            conditions[#conditions + 1] = "tooCloseToPlayer"
-        end
-        if t < u.wakeRange then
-            -- see near players?
-            conditions[#conditions + 1] = "seePlayer"
-        end
-        if t < u.delayedWakeRange and u.time > u.wakeDelay then
-            -- ready to act
-            conditions[#conditions + 1] = "wokeUp"
+    if self.target then
+        if self.target:isAlive() then
+            self.distanceToTarget = math
+        else
+            self.conditions.targetDied = true
         end
     end
-    return conditions
+
+    --self.reactCloseDistanceMin = settings.reactCloseDistanceMin or 0
+    --self.reactCloseDistanceMax = settings.reactCloseDistanceMax or 50
+    --self.reactMiddleDistanceMin = settings.reactMiddleDistanceMin or 50
+    --self.reactMiddleDistanceMax = settings.reactMiddleDistanceMax or 70
+    --self.reactFarDistanceMin = settings.reactFarDistanceMin or 70
+    --self.reactFarDistanceMax = settings.reactFarDistanceMax or 240  -- should be more?
+
 end
 
 return AI
