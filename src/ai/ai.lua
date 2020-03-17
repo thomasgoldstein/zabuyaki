@@ -107,31 +107,26 @@ end
 
 function AI:getConditions()
     local u = self.unit
-    local conditions = {} -- { "normalDifficulty" }
-    local conditionsOutput
+    local conditions = {}
     if u.isDisabled or u.state == "fall" then
-        conditions[#conditions + 1] = "dead"
-        conditions[#conditions + 1] = "cannotAct"
+        conditions["dead"] = true
+        conditions["cannotAct"] = true
     else
         if u.target and u.target.isDisabled then
-            conditions[#conditions + 1] = "targetDead"
+            conditions["targetDead"] = true
         end
         if u.isGrabbed then
-            conditions[#conditions + 1] = "grabbed"
+            conditions["grabbed"] = true
         end
         if u.z > 0 then  --TODO on a panel?
-            conditions[#conditions + 1] = "inAir"
+            conditions["inAir"] = true
         end
         conditions = self:getVisualConditions(conditions)
     end
     if countAlivePlayers() < 1 then
-        conditions[#conditions + 1] = "noPlayers"
+        conditions["noPlayers"] = true
     end
-    conditionsOutput = {}
-    for _, cond in ipairs(conditions) do
-        conditionsOutput[cond] = true
-    end
-    return conditionsOutput
+    return conditions
 end
 
 local canPredict = { walk = true, run = true, jump = true, dash = true }
@@ -152,77 +147,77 @@ function AI:getVisualConditions(conditions)
     local u = self.unit
     local t
     if not canAct[u.state] then
-        conditions[#conditions + 1] = "cannotAct"
+        conditions["cannotAct"] = true
     elseif u:canMove() then
-        conditions[#conditions + 1] = "canMove"
+        conditions["canMove"] = true
     end
     if canAct[u.state] then
         if not u.target then
-            conditions[#conditions + 1] = "noTarget"
+            conditions["noTarget"] = true
         else
             local x, y = u.target.x, u.target.y
             -- facing to the player
             if x < u.x - u.width / 2 then
                 if u.face < 0 then
-                    conditions[#conditions + 1] = "faceToPlayer"
+                    conditions["faceToPlayer"] = true
                 else
-                    conditions[#conditions + 1] = "faceNotToPlayer"
+                    conditions["faceNotToPlayer"] = true
                 end
                 if u.target.face < 0 then
-                    conditions[#conditions + 1] = "playerBack"
+                    conditions["playerBack"] = true
                 else
-                    conditions[#conditions + 1] = "playerSeeYou"
+                    conditions["playerSeeYou"] = true
                 end
             elseif x > u.x + u.width / 2 then
                 if u.face > 0 then
-                    conditions[#conditions + 1] = "faceToPlayer"
+                    conditions["faceToPlayer"] = true
                 else
-                    conditions[#conditions + 1] = "faceNotToPlayer"
+                    conditions["faceNotToPlayer"] = true
                 end
                 if u.target.face > 0 then
-                    conditions[#conditions + 1] = "playerBack"
+                    conditions["playerBack"] = true
                 else
-                    conditions[#conditions + 1] = "playerSeeYou"
+                    conditions["playerSeeYou"] = true
                 end
             end
             t = dist(x, y, u.x, u.y)
             if t < self.canDashMax and t >= self.canDashMin
                     and math.floor(u.y / 4) == math.floor(y / 4) then
-                conditions[#conditions + 1] = "canDash"
+                conditions["canDash"] = true
             end
             local attackRange = self:getAttackRange(u, u.target)
             if math.abs(u.x - x) <= attackRange
                     and math.abs(u.y - y) <= 6
                     and ((u.x - u.width / 2 > x and u.face == -1) or (u.x + u.width / 2 < x and u.face == 1))
                     and u.target.hp > 0 then
-                conditions[#conditions + 1] = "canCombo"
+                conditions["canCombo"] = true
             end
             if t < self.canJumpAttackMax and t >= self.canJumpAttackMin
                     and math.abs(u.y - y ) <= u.width * 4 then
-                conditions[#conditions + 1] = "canJumpAttack"
+                conditions["canJumpAttack"] = true
             end
             if math.abs(u.x - x) <= u.width
                     and math.abs(u.y - y) <= 6
                     and not u.target:isInvincible()
             then
-                conditions[#conditions + 1] = "canGrab"
+                conditions["canGrab"] = true
             end
             if t > self.tooFarToTarget then
-                conditions[#conditions + 1] = "tooFarToTarget"
+                conditions["tooFarToTarget"] = true
             end
         end
         t = u:getDistanceToClosestPlayer()
         if t < u.width then
             -- too close to the closest player
-            conditions[#conditions + 1] = "tooCloseToPlayer"
+            conditions["tooCloseToPlayer"] = true
         end
         if t < u.wakeRange then
             -- see near players?
-            conditions[#conditions + 1] = "seePlayer"
+            conditions["seePlayer"] = true
         end
         if t < u.delayedWakeRange and u.time > u.wakeDelay then
             -- ready to act
-            conditions[#conditions + 1] = "wokeUp"
+            conditions["wokeUp"] = true
         end
     end
     return conditions
