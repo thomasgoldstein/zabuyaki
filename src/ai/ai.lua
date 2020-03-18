@@ -12,6 +12,14 @@ function AI:initialize(unit, settings)
     self.thinkIntervalMax = settings.thinkIntervalMax or 0.25
     self.hesitateMin = settings.hesitateMin or 0.1 -- hesitation delay before combo
     self.hesitateMax = settings.hesitateMax or 0.3
+
+    self.reactCloseDistanceMin = settings.reactCloseDistanceMin or 0
+    self.reactCloseDistanceMax = settings.reactCloseDistanceMax or 49
+    self.reactMiddleDistanceMin = settings.reactMiddleDistanceMin or 50
+    self.reactMiddleDistanceMax = settings.reactMiddleDistanceMax or 69
+    self.reactFarDistanceMin = settings.reactFarDistanceMin or 70
+    self.reactFarDistanceMax = settings.reactFarDistanceMax or 240  -- should be more?
+
     self.waitChance = settings.waitChance or 0.2 -- 1 == 100%, 0 == 0%
     self.waitMin = settings.waitMin or 1 -- minimal delay for the waiting ai pattern
     self.waitMax = settings.waitMax or 3
@@ -181,8 +189,17 @@ function AI:getVisualConditions(conditions)
                 end
             end
             t = dist(x, y, u.x, u.y)
+            if t >= self.reactCloseDistanceMin and t <= self.reactCloseDistanceMax then
+                conditions["reactCloseTarget"] = true
+            end
+            if t >= self.reactMiddleDistanceMin and t <= self.reactMiddleDistanceMax then
+                conditions["reactMiddleTarget"] = true
+            end
+            if t >= self.reactFarDistanceMin and t <= self.reactFarDistanceMax then
+                conditions["reactFarTarget"] = true
+            end
             if t < self.canDashMax and t >= self.canDashMin
-                    and math.floor(u.y / 4) == math.floor(y / 4) then
+                and math.floor(u.y / 4) == math.floor(y / 4) then
                 conditions["canDash"] = true
             end
             local attackRange = self:getAttackRange(u, u.target)
@@ -218,6 +235,16 @@ function AI:getVisualConditions(conditions)
         if t < u.delayedWakeRange and u.time > u.wakeDelay then
             -- ready to act
             conditions["wokeUp"] = true
+        end
+
+        if t >= self.reactCloseDistanceMin and t <= self.reactCloseDistanceMax then
+            conditions["reactClosePlayer"] = true
+        end
+        if t >= self.reactMiddleDistanceMin and t <= self.reactMiddleDistanceMax then
+            conditions["reactMiddlePlayer"] = true
+        end
+        if t >= self.reactFarDistanceMin and t <= self.reactFarDistanceMax then
+            conditions["reactFarPlayer"] = true
         end
     end
     return conditions
