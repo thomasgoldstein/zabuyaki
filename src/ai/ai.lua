@@ -204,18 +204,18 @@ function AI:getVisualConditions(conditions)
             end
             local attackRange = self:getAttackRange(u, u.target)
             if math.abs(u.x - x) <= attackRange
-                    and math.abs(u.y - y) <= 6
-                    and ((u.x - u.width / 2 > x and u.face == -1) or (u.x + u.width / 2 < x and u.face == 1))
-                    and u.target.hp > 0 then
+                and math.abs(u.y - y) <= 6
+                and ((u.x - u.width / 2 > x and u.face == -1) or (u.x + u.width / 2 < x and u.face == 1))
+                and u.target.hp > 0 then
                 conditions["canCombo"] = true
             end
             if t < self.canJumpAttackMax and t >= self.canJumpAttackMin
-                    and math.abs(u.y - y ) <= u.width * 4 then
+                and math.abs(u.y - y ) <= u.width * 4 then
                 conditions["canJumpAttack"] = true
             end
             if math.abs(u.x - x) <= u.width
-                    and math.abs(u.y - y) <= 6
-                    and not u.target:isInvincible()
+                and math.abs(u.y - y) <= 6
+                and not u.target:isInvincible()
             then
                 conditions["canGrab"] = true
             end
