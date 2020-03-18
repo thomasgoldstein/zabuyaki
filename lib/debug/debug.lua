@@ -394,6 +394,10 @@ function drawDebugUnitInfo(a)
     if isDebug(SHOW_DEBUG_ENEMY_AI_INFO) then
         if a.AI then
             drawDebugUnitConditions(a, a.AI.conditions)
+            if a.target then
+                colors:set("white", nil, 55)
+                love.graphics.line( a.x, a.y - a.z, a.target.x, a.target.y - a.target.z)
+            end
         end
     end
 end
