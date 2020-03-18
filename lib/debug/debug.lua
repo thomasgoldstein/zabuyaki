@@ -3,6 +3,7 @@ SHOW_FPS = 1 -- show text of FPS, FRAME, SLOW MO VALUE from this debug level
 SHOW_DEBUG_CONTROLS = 1 -- show pressed keys
 SHOW_DEBUG_UNIT_HITBOX = 2 -- show hitboxes
 SHOW_DEBUG_UNIT_INFO = 3 -- show unit's info: name, pos, state
+SHOW_DEBUG_ENEMY_AI_INFO = 4 -- show enemy's AI info
 SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
 SHOW_DEBUG_WAVES = 2 -- show left edge of the current wave with red and the next with blue
 
@@ -14,7 +15,7 @@ if GLOBAL_SETTING.PROFILER_ENABLED then
 end
 
 function getMaxDebugLevel()
-    return 3
+    return 4
 end
 
 function getDebugLevel()
@@ -355,6 +356,15 @@ function drawDebugUnitHurtBox(sprite, x, y, frame, scale)
     end
 end
 
+function drawDebugUnitConditions(a, conditions)
+    local z = 80
+    colors:set("yellow")
+    for k,v in pairs(conditions) do
+        love.graphics.print( k, a.x - 40 , a.y - a.z - z)
+        z = z + 6
+    end
+end
+
 function drawDebugUnitInfo(a)
     if isDebug(SHOW_DEBUG_UNIT_INFO) then
         drawUnitHighlight(a)
@@ -379,6 +389,11 @@ function drawDebugUnitInfo(a)
         if a.platform and not a.platform.isDisabled and ( getDebugFrame() + a.id ) % 5 == 1 then
             colors:set("black", nil, 255)
             love.graphics.line( a.x, a.y - a.z, a.platform.x, a.platform.y - a.platform.z)
+        end
+    end
+    if isDebug(SHOW_DEBUG_ENEMY_AI_INFO) then
+        if a.AI then
+            drawDebugUnitConditions(a, a.AI.conditions)
         end
     end
 end
