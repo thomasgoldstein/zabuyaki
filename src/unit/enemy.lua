@@ -10,12 +10,6 @@ function Enemy:initialize(name, sprite, x, y, f, input)
     self.type = "enemy"
     self.isActive = false -- can move, can think
     self.comboTimeout = 2 -- max delay to connect combo hits
-    self.maxAiPoll_1 = 0.5
-    self.AiPoll_1 = self.maxAiPoll_1
-    self.maxAiPoll_2 = 5
-    self.AiPoll_2 = self.maxAiPoll_2
-    self.maxAiPoll_3 = 11
-    self.AiPoll_3 = self.maxAiPoll_3
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
     self.wakeRange = 100 -- make enemy active if distance to player is less
     self.wakeDelay = 3
