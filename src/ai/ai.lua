@@ -148,9 +148,7 @@ function AI:getVisualConditions(conditions)
         conditions["canMove"] = true
     end
     if canAct[u.state] then
-        if not u.target then
-            conditions["noTarget"] = true
-        else
+        if u.target then
             local x, y = u.target.x, u.target.y
             -- facing to the player
             if x < u.x - u.width / 2 then
@@ -210,6 +208,8 @@ function AI:getVisualConditions(conditions)
             if t > self.tooFarToTarget then
                 conditions["tooFarToTarget"] = true
             end
+        else
+            conditions["noTarget"] = true
         end
         t = u:getDistanceToClosestPlayer()
         if t < u.width then
