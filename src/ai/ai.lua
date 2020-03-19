@@ -137,18 +137,6 @@ function AI:getConditions()
     return conditions
 end
 
-local canPredict = { walk = true, run = true, jump = true, dash = true }
-local function predictTargetsCoord(t)
-    local time = 2 -- predict after 10 seconds
-    local pdx, pdy
-    if canPredict[t.state] then
-        pdx = time * t.speed_x * t.horizontal / 4
-        pdy = time * t.speed_y * t.vertical / 4
-        return t.x + pdx, t.y + pdy
-    end
-    return t.x, t.y
-end
-
 local canAct = { stand = true, walk = true, run = true, intro = true }
 function AI:getVisualConditions(conditions)
     -- check attack range, players, units etc
