@@ -39,9 +39,9 @@ function AI:initialize(unit, settings)
     self.currentSchedule = nil
 
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
-        { "seePlayer", "wokeUp", "tooCloseToPlayer" }, unit.name)
+        { "wokeUp", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand },
-        { "cannotAct", "seePlayer", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "inAir",
+        { "cannotAct", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "inAir",
             "faceNotToPlayer", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WAIT = Schedule:new({ self.initWait, self.onWait },
         { "noTarget", "tooCloseToPlayer", "tooFarToTarget" }, unit.name)
@@ -216,15 +216,12 @@ function AI:getVisualConditions(conditions)
             -- too close to the closest player
             conditions["tooCloseToPlayer"] = true
         end
-        if t < u.wakeRange then
-            -- see near players?
-            conditions["seePlayer"] = true
+        if self.currentSchedule == self.SCHEDULE_INTRO then
+            if t < u.wakeRange or ( t < u.delayedWakeRange and u.time > u.wakeDelay ) then
+                -- ready to act
+                conditions["wokeUp"] = true
+            end
         end
-        if t < u.delayedWakeRange and u.time > u.wakeDelay then
-            -- ready to act
-            conditions["wokeUp"] = true
-        end
-
         if t >= self.reactCloseDistanceMin and t <= self.reactCloseDistanceMax then
             conditions["reactClosePlayer"] = true
         end
