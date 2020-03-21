@@ -302,7 +302,7 @@ return {
           offsety = 0,
           image = "../../../res/img/stage/stage1/stage1a_fg.png",
           properties = {
-            ["relativeX"] = "-1.2"
+            ["relativeX"] = "-0.8"
           }
         }
       }

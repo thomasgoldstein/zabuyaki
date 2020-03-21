@@ -92,9 +92,9 @@
    </properties>
   </imagelayer>
   <imagelayer id="13" name="fg" offsetx="200" offsety="0">
-   <image source="../../img/stage/stage1/stage1a_fg.png" width="2560" height="320"/>
+   <image source="../../img/stage/stage1/stage1a_fg.png" width="2564" height="324"/>
    <properties>
-    <property name="relativeX" value="-1.2"/>
+    <property name="relativeX" value="-0.8"/>
    </properties>
   </imagelayer>
  </group>
