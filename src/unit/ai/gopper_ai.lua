@@ -14,8 +14,6 @@ local _settings = {
 function eAI:initialize(unit, settings)
     AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
-    self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo },
-        { "cannotAct", "noTarget", "tooFarToTarget" }, unit.name)
 end
 
 function eAI:_update(dt)
