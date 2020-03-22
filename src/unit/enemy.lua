@@ -78,7 +78,6 @@ end
 
 function Enemy:introStart()
     self.isHittable = true
-    self:setSprite("intro")
 end
 function Enemy:introUpdate(dt)
 end
