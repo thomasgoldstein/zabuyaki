@@ -1,7 +1,7 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.3.2",
+  tiledversion = "1.3.3",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 80,
@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 40,
-  nextobjectid = 20,
+  nextobjectid = 23,
   backgroundcolor = { 141, 110, 143 },
   properties = {
     ["enableReflections"] = true,
@@ -675,6 +675,53 @@ return {
               rotation = 0,
               visible = true,
               properties = {}
+            },
+            {
+              id = 20,
+              name = "Niko",
+              type = "niko",
+              shape = "point",
+              x = 288,
+              y = 280,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["animation"] = "duck",
+                ["flip"] = true
+              }
+            },
+            {
+              id = 21,
+              name = "Gopper",
+              type = "gopper",
+              shape = "point",
+              x = 248,
+              y = 256,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["animation"] = "duck",
+                ["flip"] = true
+              }
+            },
+            {
+              id = 22,
+              name = "Gopper",
+              type = "gopper",
+              shape = "point",
+              x = 208,
+              y = 280,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["animation"] = "duck"
+              }
             }
           }
         }
