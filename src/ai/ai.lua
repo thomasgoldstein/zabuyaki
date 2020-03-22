@@ -51,31 +51,31 @@ function AI:initialize(unit, settings)
     -- outdated
     --self.SCHEDULE_WALK = Schedule:new({ self.calcWalkToAttackXY, self.initWalkToXY, self.onMove },
     --    { "cannotAct", "inAir", "noTarget", "tooCloseToPlayer" }, unit.name)
-    self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
+    self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.ensureStanding, self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
         {}, unit.name)
-    self.SCHEDULE_WALK_CLOSE_TO_ATTACK = Schedule:new({ self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
+    self.SCHEDULE_WALK_CLOSE_TO_ATTACK = Schedule:new({ self.ensureStanding, self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
-    self.SCHEDULE_ATTACK_FROM_BACK = Schedule:new({ self.initGetToBack, self.onGetToBack, self.initCombo, self.onCombo  },
+    self.SCHEDULE_ATTACK_FROM_BACK = Schedule:new({ self.ensureStanding, self.initGetToBack, self.onGetToBack, self.initCombo, self.onCombo  },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
-    self.SCHEDULE_WALK_AROUND = Schedule:new({ self.initWalkAround, self.onWalkAround },
+    self.SCHEDULE_WALK_AROUND = Schedule:new({ self.ensureStanding, self.initWalkAround, self.onWalkAround },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
-    self.SCHEDULE_GET_TO_BACK = Schedule:new({ self.initGetToBack, self.onGetToBack },
+    self.SCHEDULE_GET_TO_BACK = Schedule:new({ self.ensureStanding, self.initGetToBack, self.onGetToBack },
         { "cannotAct", "inAir", "grabbed", "noTarget" }, unit.name)
     self.SCHEDULE_STEP_BACK = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
         { "cannotAct", "inAir", "noTarget" }, unit.name)
-    self.SCHEDULE_RUN = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove },
+    self.SCHEDULE_RUN = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove },
         { "cannotAct", "noTarget", "cannotAct", "inAir" }, unit.name)
-    self.SCHEDULE_DASH = Schedule:new({ self.initDash, self.waitUntilStand, self.initWait, self.onWait },
+    self.SCHEDULE_DASH = Schedule:new({ self.ensureStanding, self.initDash, self.waitUntilStand, self.initWait, self.onWait },
         { }, unit.name)
-    self.SCHEDULE_RUN_DASH = Schedule:new({ self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash },
+    self.SCHEDULE_RUN_DASH = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash },
         { }, unit.name)
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer },
         { "cannotAct", "noTarget", "noPlayers" }, unit.name)
-    self.SCHEDULE_COMBO = Schedule:new({ self.initCombo, self.onCombo },
+    self.SCHEDULE_COMBO = Schedule:new({ self.ensureStanding, self.initCombo, self.onCombo },
         { "cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget", "tooCloseToPlayer" }, unit.name)
-    self.SCHEDULE_GRAB = Schedule:new({ self.initGrab, self.onGrab },
+    self.SCHEDULE_GRAB = Schedule:new({ self.ensureStanding, self.initGrab, self.onGrab },
         { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" }, unit.name)
-    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.calcWalkToGrabXY, self.initWalkToXY, self.onMove, self.initGrab, self.onGrab },
+    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureStanding, self.calcWalkToGrabXY, self.initWalkToXY, self.onMove, self.initGrab, self.onGrab },
         { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" }, unit.name)
     self.SCHEDULE_RECOVER = Schedule:new({ self.waitUntilStand },
         { "noPlayers" }, unit.name)
@@ -268,6 +268,17 @@ function AI:onIntro()
         u:pickAttackTarget("random")
     elseif u.target.isDisabled or u.target.hp < 1 then
         u:pickAttackTarget("close")
+    end
+    return false
+end
+
+function AI:ensureStanding()
+    local u = self.unit
+    if self:canAct() then
+        if u.state == "intro" then
+            u:setState(u.stand)
+        end
+        return true
     end
     return false
 end
