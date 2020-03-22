@@ -216,7 +216,7 @@ Optional properties:
 * **spawnDelay** <- delay before unit's appearance in seconds (float numbers are fine, too)
 * **waitCamera** <- hold unit spawning until it is in the camera view (on the players screen)
 * **z** <- initial z coordinate (e.g. to jump off heights)
-* **state** <- units state on spawn. Dthe default unit state is 'stand'.
+* **state** <- units state on spawn. The default unit state is 'stand'.
 * **speed_x** **speed_y** **speed_z** <- override default speed of spawned units (it is used in jumps and falls).
 * **animation** <- any sprite animation name that should override defaults. The animation will stay until players woke up the unit. Note if the state is unset then it changes to 'intro' state before starting the custom animation.
 * **target** <- select a player to attack first ("close", "far", "weak", "healthy", "slow" or "fast").
