@@ -148,6 +148,9 @@ function Wave:spawn(dt)
                     unit:pickAttackTarget(waveUnit.target) --"close" "far" "weak" "healthy" "slow" "fast"
                 end
                 if waveUnit.animation then    -- set the custom sprite animation
+                    if unit.state == "stand" then
+                        unit:setState(unit.intro)
+                    end
                     unit:setSprite(waveUnit.animation)
                 end
                 if waveUnit.flip then
