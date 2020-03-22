@@ -216,15 +216,15 @@ Optional properties:
 * **spawnDelay** <- delay before unit's appearance in seconds (float numbers are fine, too)
 * **waitCamera** <- hold unit spawning until it is in the camera view (on the players screen)
 * **z** <- initial z coordinate (e.g. to jump off heights)
-* **state** <- units state on spawn: intro (If set then the animation is set to 'intro' else the stand state is used).
+* **state** <- units state on spawn. Dthe default unit state is 'stand'.
 * **speed_x** **speed_y** **speed_z** <- override default speed of spawned units (it is used in jumps and falls).
-* **animation** <- any sprite animation name that should override defaults.
+* **animation** <- any sprite animation name that should override defaults. The animation will stay until players woke up the unit. Note if the state is unset then it changes to 'intro' state before starting the custom animation.
 * **target** <- select a player to attack first ("close", "far", "weak", "healthy", "slow" or "fast").
 * **palette** <- select unit's coloring number (shaders). 1 - default.
-* **wakeRange** <- distance in pixels to the closest player to wake from the 'intro' state (100px by default).  
-* **delayedWakeRange** <- the 2nd distance in pixels to the closest player to wake from the 'intro' state (150px by default).
+* **wakeRange** <- distance in pixels to the closest player to wake from the 'intro' and 'stand' states (100px by default).  
+* **delayedWakeRange** <- the 2nd distance in pixels to the closest player to wake from the 'intro' and 'stand' states (150px by default).
 * **wakeDelay** <- unit starts acting if the delay is over and a player is within 'delayedWakeRange'.
-* **flip** <- flip default unit's facing  
+* **flip** <- flip default unit's facing. The current custom animation is saved.  
 * **drop** <- which loot to drop. It can be one **apple**, **chicken** or **beef**
 > Hint: All wave enemies inherit attributes from "waves" **Group layer** and individual waves. The inherited attributes may be overridden.
 

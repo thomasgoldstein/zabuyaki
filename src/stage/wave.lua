@@ -140,10 +140,6 @@ function Wave:spawn(dt)
                         unit.z = waveUnit.z
                     end
                 end
-                if waveUnit.state == "intro" then  -- idling, show intro animation by default
-                    unit:setState(unit.intro)
-                    unit:setSprite("intro")
-                end
                 if waveUnit.target then    -- pick the target to attack on spawn
                     unit:pickAttackTarget(waveUnit.target) --"close" "far" "weak" "healthy" "slow" "fast"
                 end
