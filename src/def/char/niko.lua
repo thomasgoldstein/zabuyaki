@@ -46,7 +46,7 @@ return {
             { q = q(39, 14, 37, 17) },
             delay = math.huge
         },
-        intro2 = {
+        dance = {
             { q = q(2,397,39,65), ox = 23, oy = 64 }, --intro 1
             { q = q(43,398,39,64), ox = 23, oy = 63, delay = f(8) }, --intro 2
             { q = q(84,399,39,63), ox = 23, oy = 62 }, --intro 3
