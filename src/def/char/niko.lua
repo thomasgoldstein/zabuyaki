@@ -46,10 +46,6 @@ return {
             { q = q(39, 14, 37, 17) },
             delay = math.huge
         },
-        intro = {
-            { q = q(114,73,38,58), ox = 21, oy = 57 }, --duck
-            delay = math.huge
-        },
         intro2 = {
             { q = q(2,397,39,65), ox = 23, oy = 64 }, --intro 1
             { q = q(43,398,39,64), ox = 23, oy = 63, delay = f(8) }, --intro 2

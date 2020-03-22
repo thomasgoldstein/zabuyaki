@@ -43,10 +43,6 @@ return {
             { q = q(45, 74, 33, 17) },
             delay = math.huge
         },
-        intro = {
-            { q = q(81,193,40,51), ox = 22, oy = 50 }, --duck
-            delay = math.huge
-        },
         stand = {
             { q = q(2,2,39,59), ox = 22, oy = 58 }, --stand 1
             { q = q(43,3,40,58), ox = 23, oy = 57, delay = f(11) }, --stand 2

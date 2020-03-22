@@ -22,10 +22,6 @@ return {
             { q = q(2, 11, 37, 17) },
             delay = math.huge
         },
-        intro = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
-            delay = math.huge
-        },
         stand = {
             { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
             { q = q(42,2,39,58), ox = 24, oy = 57 }, --stand 2
