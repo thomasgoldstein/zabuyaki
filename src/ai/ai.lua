@@ -88,6 +88,9 @@ function AI:update(dt)
     self.thinkInterval = self.thinkInterval - dt
     if self.thinkInterval <= 0 then
         self.conditions = self:getConditions()
+        if self.conditions.inAir then
+            self.unit.wakeRange = math.huge -- woke up sleeping units on fall e.g. shockWave
+        end
         if not self.conditions.cannotAct then
             if not self.currentSchedule or self.currentSchedule:isDone(self.conditions) then
                 self:selectNewSchedule(self.conditions)
@@ -126,10 +129,10 @@ function AI:getConditions()
         if u.isGrabbed then
             conditions["grabbed"] = true
         end
-        if u.z > 0 then  --TODO on a panel?
-            conditions["inAir"] = true
-        end
         conditions = self:getVisualConditions(conditions)
+    end
+    if u.z > 0 then  --TODO on a panel?
+        conditions["inAir"] = true
     end
     if countAlivePlayers() < 1 then
         conditions["noPlayers"] = true
