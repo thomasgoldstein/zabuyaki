@@ -6,8 +6,6 @@ function AI:initCommonAiSchedules(unit)
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand },
         { "cannotAct", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "inAir",
           "faceNotToPlayer", "tooCloseToPlayer" })
-    self.SCHEDULE_WAIT = Schedule:new({ self.initWait, self.onWait },
-        { "noTarget", "tooCloseToPlayer", "tooFarToTarget" })
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.ensureStanding, self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
         {})
     self.SCHEDULE_WALK_CLOSE_TO_ATTACK = Schedule:new({ self.ensureStanding, self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
@@ -36,6 +34,13 @@ function AI:initCommonAiSchedules(unit)
         { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" })
     self.SCHEDULE_RECOVER = Schedule:new({ self.waitUntilStand },
         { "noPlayers" })
+
+    self.SCHEDULE_WAIT_A_BIT = Schedule:new({ self.initWaitABit, self.onWait },
+        { "tooCloseToPlayer" })
+    self.SCHEDULE_WAIT = Schedule:new({ self.initWait, self.onWait },
+        { "tooCloseToPlayer" })
+    self.SCHEDULE_WAIT_LONGER = Schedule:new({ self.initWaitLonger, self.onWait },
+        { "tooCloseToPlayer" })
 end
 
 local function getPosByAngleR(x, y, angle, r)
@@ -97,12 +102,38 @@ function AI:onStand()
     return false
 end
 
+function AI:initWaitABit()
+    local u = self.unit
+    u.b.reset()
+    if self:canActAndMove() then
+        assert(not u.isDisabled and u.hp > 0)
+        self.waitingCounter = love.math.random() * (self.waitABitMax - self.waitABitMin) + self.waitABitMin
+        u.speed_x = u.runSpeed
+        u.speed_y = 0
+        return true
+    end
+    return false
+end
+
 function AI:initWait()
     local u = self.unit
     u.b.reset()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         self.waitingCounter = love.math.random() * (self.waitMax - self.waitMin) + self.waitMin
+        u.speed_x = u.runSpeed
+        u.speed_y = 0
+        return true
+    end
+    return false
+end
+
+function AI:initWaitLonger()
+    local u = self.unit
+    u.b.reset()
+    if self:canActAndMove() then
+        assert(not u.isDisabled and u.hp > 0)
+        self.waitingCounter = love.math.random() * (self.waitLongerMax - self.waitLongerMin) + self.waitLongerMin
         u.speed_x = u.runSpeed
         u.speed_y = 0
         return true
