@@ -100,6 +100,8 @@ function love.load(arg)
     Movie = require "src/movie"
     Schedule = require "src/ai/schedule"
     AI = require "src/ai/ai"
+    require "src/ai/ai_conditions"
+    require "src/ai/ai_patterns"
     AIMoveCombo = require "src/unit/ai/moveCombo_ai"
     require "src/stage/loadStage"
     Weather = require "src/stage/weather"
