@@ -145,10 +145,7 @@ function AI:onWait(dt)
     local u = self.unit
     self.waitingCounter = self.waitingCounter - dt
     if self.waitingCounter < 0 then
-        --        print(" -> DONE Wait> : " .. self.waitingCounter, u.name)
-        if love.math.random() < 0.20 then
-            u:pickAttackTarget("random")
-        end
+        --print(" -> DONE Wait> : " .. self.waitingCounter, u.name)
         return true
     end
     return false
