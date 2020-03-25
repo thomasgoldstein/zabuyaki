@@ -45,12 +45,6 @@ function AI:initialize(unit, settings)
             "faceNotToPlayer", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WAIT = Schedule:new({ self.initWait, self.onWait },
         { "noTarget", "tooCloseToPlayer", "tooFarToTarget" }, unit.name)
-    -- deprecated
-    --self.__SCHEDULE_WALK_TO_ATTACK = Schedule:new({ self.calcWalkToAttackXY, self.initWalkToXY, self.onMove, self.initCombo, self.onCombo },
-    --    { "cannotAct", "inAir", "grabbed", "noTarget", "tooCloseToPlayer" }, unit.name)
-    -- outdated
-    --self.SCHEDULE_WALK = Schedule:new({ self.calcWalkToAttackXY, self.initWalkToXY, self.onMove },
-    --    { "cannotAct", "inAir", "noTarget", "tooCloseToPlayer" }, unit.name)
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.ensureStanding, self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
         {}, unit.name)
     self.SCHEDULE_WALK_CLOSE_TO_ATTACK = Schedule:new({ self.ensureStanding, self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
