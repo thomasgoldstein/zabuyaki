@@ -1,5 +1,3 @@
--- Niko's AI
-
 local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
@@ -22,8 +20,8 @@ function eAI:initialize(unit, settings)
           self.emulateWait,
           self.emulateAttackPress,
           self.emulateReleaseButtons },
-        { },
-        unit.name)
+        { }
+    )
 end
 
 function eAI:_update(dt)

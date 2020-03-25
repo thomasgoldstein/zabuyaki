@@ -1,13 +1,11 @@
 local class = require "lib/middleclass"
 local Schedule = class('Schedule')
 
-function Schedule:initialize(tasks, interrupts, name)
-    self.name = name.."'s" or "Unknown" -- for debug only
+function Schedule:initialize(tasks, interrupts)
     self.tasks = {}
     self.interrupts = {}
     self.currentTask = 1
     self.done = false
-
     for _, task in ipairs(tasks) do
         self:addTask(task)
     end

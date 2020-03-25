@@ -1,5 +1,3 @@
--- Zeena's AI
-
 local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
@@ -15,9 +13,10 @@ local _settings = {
 function eAI:initialize(unit, settings)
     AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
-    self.SCHEDULE_JUMP_ATTACK = Schedule:new({ self.initJumpAttack, self.onJumpAttack },
-        { "cannotAct", "inAir", "grabbed", "noTarget", "noPlayers" },
-        unit.name)
+    self.SCHEDULE_JUMP_ATTACK = Schedule:new(
+        { self.initJumpAttack, self.onJumpAttack },
+        { "cannotAct", "inAir", "grabbed", "noTarget", "noPlayers" }
+    )
 end
 
 function eAI:_update(dt)

@@ -1,5 +1,3 @@
--- Gopper's AI
-
 local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
