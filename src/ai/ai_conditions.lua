@@ -17,7 +17,7 @@ function AI:getConditions()
         end
         conditions = self:getVisualConditions(conditions)
     end
-    if u.z > 0 then  --TODO on a panel?
+    if u.z > 0 and not u.platform then
         conditions["inAir"] = true
     end
     if countAlivePlayers() < 1 then
