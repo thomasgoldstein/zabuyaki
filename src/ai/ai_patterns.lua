@@ -16,8 +16,6 @@ function AI:initCommonAiSchedules(unit)
         { "cannotAct", "inAir", "grabbed", "noTarget" })
     self.SCHEDULE_GET_TO_BACK = Schedule:new({ self.ensureStanding, self.initGetToBack, self.onGetToBack },
         { "cannotAct", "inAir", "grabbed", "noTarget" })
-    self.SCHEDULE_STEP_BACK = Schedule:new({ self.calcWalkToBackOffXY, self.initWalkToXY, self.onMove },
-        { "cannotAct", "inAir", "noTarget" })
     self.SCHEDULE_RUN = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove },
         { "cannotAct", "noTarget", "cannotAct", "inAir" })
     self.SCHEDULE_DASH = Schedule:new({ self.ensureStanding, self.initDash, self.waitUntilStand, self.initWait, self.onWait },
@@ -41,6 +39,8 @@ function AI:initCommonAiSchedules(unit)
         { "tooCloseToPlayer" })
     self.SCHEDULE_WAIT_LONGER = Schedule:new({ self.initWaitLonger, self.onWait },
         { "tooCloseToPlayer" })
+    self.SCHEDULE_ESCAPE_BACK = Schedule:new({ self.calcEscapeBackXY, self.initWalkToXY, self.onMove },
+        { "cannotAct", "inAir", "noTarget" })
 end
 
 local function getPosByAngleR(x, y, angle, r)
@@ -151,22 +151,19 @@ function AI:onWait(dt)
     return false
 end
 
-function AI:calcWalkToBackOffXY()
+local escapeBackRandomRadius = 6
+function AI:calcEscapeBackXY()
     local u = self.unit
     if not self.conditions.canMove or u.state ~= "stand" then
         return false
     end
-    if not u.target or u.target.hp < 1 then
-        u:pickAttackTarget("close")
+    if u.target then
+        u.horizontal = u.x < u.target.x and 1 or -1
+    else
+        u.horizontal = -u.horizontal
     end
-    assert(not u.isDisabled and u.hp > 0)
-    local shift_x, shift_y = love.math.random(0, 6), love.math.random(0, 6)
-    if u.target.hp < u.target.maxHp / 2 then
-        shift_x = shift_x + u.width
-    end
-    u.horizontal = u.x < u.target.x and 1 or -1
-    u.ttx = u.target.x + (u.width * 5 + shift_x) * -u.horizontal
-    u.tty = u.target.y + love.math.random(-1, 1) * shift_y
+    u.ttx = u.x + (u.width * 3 + love.math.random(-escapeBackRandomRadius, escapeBackRandomRadius) ) * -u.horizontal
+    u.tty = u.y + love.math.random(-escapeBackRandomRadius, escapeBackRandomRadius)
     return true
 end
 
