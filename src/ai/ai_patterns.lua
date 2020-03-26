@@ -33,11 +33,11 @@ function AI:initCommonAiSchedules(unit)
     self.SCHEDULE_RECOVER = Schedule:new({ self.waitUntilStand },
         { "noPlayers" })
 
-    self.SCHEDULE_WAIT_A_BIT = Schedule:new({ self.initWaitABit, self.onWait },
+    self.SCHEDULE_WAIT_SHORT = Schedule:new({ self.initWaitShort, self.onWait },
         { "tooCloseToPlayer" })
-    self.SCHEDULE_WAIT = Schedule:new({ self.initWait, self.onWait },
+    self.SCHEDULE_MEDIUM_WAIT = Schedule:new({ self.initWait, self.onWait },
         { "tooCloseToPlayer" })
-    self.SCHEDULE_WAIT_LONGER = Schedule:new({ self.initWaitLonger, self.onWait },
+    self.SCHEDULE_WAIT_LONG = Schedule:new({ self.initWaitLong, self.onWait },
         { "tooCloseToPlayer" })
     self.SCHEDULE_ESCAPE_BACK = Schedule:new({ self.calcEscapeBackXY, self.initWalkToXY, self.onMove },
         { "cannotAct", "inAir", "noTarget" })
@@ -102,12 +102,12 @@ function AI:onStand()
     return false
 end
 
-function AI:initWaitABit()
+function AI:initWaitShort()
     local u = self.unit
     u.b.reset()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        self.waitingCounter = love.math.random() * (self.waitABitMax - self.waitABitMin) + self.waitABitMin
+        self.waitingCounter = love.math.random() * (self.waitShortMax - self.waitShortMin) + self.waitShortMin
         u.speed_x = u.runSpeed
         u.speed_y = 0
         return true
@@ -120,7 +120,7 @@ function AI:initWait()
     u.b.reset()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        self.waitingCounter = love.math.random() * (self.waitMax - self.waitMin) + self.waitMin
+        self.waitingCounter = love.math.random() * (self.waitMediumMax - self.waitMediumMin) + self.waitMediumMin
         u.speed_x = u.runSpeed
         u.speed_y = 0
         return true
@@ -128,12 +128,12 @@ function AI:initWait()
     return false
 end
 
-function AI:initWaitLonger()
+function AI:initWaitLong()
     local u = self.unit
     u.b.reset()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
-        self.waitingCounter = love.math.random() * (self.waitLongerMax - self.waitLongerMin) + self.waitLongerMin
+        self.waitingCounter = love.math.random() * (self.waitLongMax - self.waitLongMin) + self.waitLongMin
         u.speed_x = u.runSpeed
         u.speed_y = 0
         return true

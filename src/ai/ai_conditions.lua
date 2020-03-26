@@ -64,14 +64,14 @@ function AI:getVisualConditions(conditions)
                 end
             end
             t = dist(x, y, u.x, u.y)
-            if t >= self.reactCloseDistanceMin and t <= self.reactCloseDistanceMax then
-                conditions["reactCloseTarget"] = true
+            if t >= self.reactShortDistanceMin and t <= self.reactShortDistanceMax then
+                conditions["reactShortTarget"] = true
             end
-            if t >= self.reactMiddleDistanceMin and t <= self.reactMiddleDistanceMax then
-                conditions["reactMiddleTarget"] = true
+            if t >= self.reactMediumDistanceMin and t <= self.reactMediumDistanceMax then
+                conditions["reactMediumTarget"] = true
             end
-            if t >= self.reactFarDistanceMin and t <= self.reactFarDistanceMax then
-                conditions["reactFarTarget"] = true
+            if t >= self.reactLongDistanceMin and t <= self.reactLongDistanceMax then
+                conditions["reactLongTarget"] = true
             end
             if t < self.canDashMax and t >= self.canDashMin
                 and math.floor(u.y / 4) == math.floor(y / 4) then
@@ -111,14 +111,14 @@ function AI:getVisualConditions(conditions)
                 conditions["wokeUp"] = true
             end
         end
-        if t >= self.reactCloseDistanceMin and t <= self.reactCloseDistanceMax then
-            conditions["reactClosePlayer"] = true
+        if t >= self.reactShortDistanceMin and t <= self.reactShortDistanceMax then
+            conditions["reactShortPlayer"] = true
         end
-        if t >= self.reactMiddleDistanceMin and t <= self.reactMiddleDistanceMax then
-            conditions["reactMiddlePlayer"] = true
+        if t >= self.reactMediumDistanceMin and t <= self.reactMediumDistanceMax then
+            conditions["reactMediumPlayer"] = true
         end
-        if t >= self.reactFarDistanceMin and t <= self.reactFarDistanceMax then
-            conditions["reactFarPlayer"] = true
+        if t >= self.reactLongDistanceMin and t <= self.reactLongDistanceMax then
+            conditions["reactLongPlayer"] = true
         end
     end
     return conditions

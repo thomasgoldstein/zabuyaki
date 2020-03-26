@@ -11,20 +11,20 @@ function AI:initialize(unit, settings)
     self.hesitateMin = settings.hesitateMin or 0.1 -- hesitation delay before combo
     self.hesitateMax = settings.hesitateMax or 0.3
 
-    self.reactCloseDistanceMin = settings.reactCloseDistanceMin or 0
-    self.reactCloseDistanceMax = settings.reactCloseDistanceMax or 49
-    self.reactMiddleDistanceMin = settings.reactMiddleDistanceMin or 50
-    self.reactMiddleDistanceMax = settings.reactMiddleDistanceMax or 69
-    self.reactFarDistanceMin = settings.reactFarDistanceMin or 70
-    self.reactFarDistanceMax = settings.reactFarDistanceMax or 240  -- should be more?
+    self.reactShortDistanceMin = settings.reactShortDistanceMin or 0
+    self.reactShortDistanceMax = settings.reactShortDistanceMax or 49
+    self.reactMediumDistanceMin = settings.reactMediumDistanceMin or 50
+    self.reactMediumDistanceMax = settings.reactMediumDistanceMax or 69
+    self.reactLongDistanceMin = settings.reactLongDistanceMin or 70
+    self.reactLongDistanceMax = settings.reactLongDistanceMax or 240  -- should be more?
 
     self.waitChance = settings.waitChance or 0.2 -- 1 == 100%, 0 == 0%
-    self.waitABitMin = settings.waitABitMin or 0.5 -- minimal delay for SCHEDULE_WAIT_A_BIT
-    self.waitABitMax = settings.waitABitMax or 1
-    self.waitMin = settings.waitMin or 1 -- minimal delay for SCHEDULE_WAIT
-    self.waitMax = settings.waitMax or 2
-    self.waitLongerMin = settings.waitLongerMin or 2 -- minimal delay for SCHEDULE_WAIT_LONGER
-    self.waitLongerMax = settings.waitLongerMax or 3
+    self.waitShortMin = settings.waitShortMin or 0.5 -- minimal delay for SCHEDULE_WAIT_SHORT
+    self.waitShortMax = settings.waitShortMax or 1
+    self.waitMediumMin = settings.waitMediumMin or 1 -- minimal delay for SCHEDULE_MEDIUM_WAIT
+    self.waitMediumMax = settings.waitMediumMax or 2
+    self.waitLongMin = settings.waitLongMin or 2 -- minimal delay for SCHEDULE_WAIT_LONG
+    self.waitLongMax = settings.waitLongMax or 3
 
     self.jumpAttackChance = settings.jumpAttackChance or 0.2 -- 1 == 100%, 0 == 0%
     self.grabChance = settings.grabChance or 0.5 -- 1 == 100%, 0 == 0%

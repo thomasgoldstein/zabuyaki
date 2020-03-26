@@ -29,8 +29,8 @@ function eAI:selectNewSchedule(conditions)
         return
     end
     if self.currentSchedule == self.SCHEDULE_ESCAPE_BACK then
-        print(self.unit.id, "change schedule SCHEDULE_WAIT_LONGER")
-        self.currentSchedule = self.SCHEDULE_WAIT_LONGER
+        print(self.unit.id, "change schedule SCHEDULE_WAIT_LONG")
+        self.currentSchedule = self.SCHEDULE_WAIT_LONG
         return
     else
         self.currentSchedule = self.SCHEDULE_ESCAPE_BACK
@@ -66,8 +66,8 @@ function eAI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_FACE_TO_PLAYER
             return
         end
-        --if self.currentSchedule ~= self.SCHEDULE_WAIT and love.math.random() < self.waitChance then
-        --    self.currentSchedule = self.SCHEDULE_WAIT
+        --if self.currentSchedule ~= self.SCHEDULE_MEDIUM_WAIT and love.math.random() < self.waitChance then
+        --    self.currentSchedule = self.SCHEDULE_MEDIUM_WAIT
         --    return
         --end
         if conditions.canMove and conditions.wokeUp or not conditions.noTarget then
@@ -87,7 +87,7 @@ function eAI:selectNewSchedule(conditions)
             if self.currentSchedule ~= self.SCHEDULE_STAND then
                 self.currentSchedule = self.SCHEDULE_STAND
             else
-                self.currentSchedule = self.SCHEDULE_WAIT
+                self.currentSchedule = self.SCHEDULE_MEDIUM_WAIT
             end
             return
         end

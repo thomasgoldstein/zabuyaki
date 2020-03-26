@@ -41,8 +41,8 @@ function eAI:selectNewSchedule(conditions)
             self.currentSchedule = self.SCHEDULE_FACE_TO_PLAYER
             return
         end
-        if self.currentSchedule ~= self.SCHEDULE_WAIT and love.math.random() < self.waitChance then
-            self.currentSchedule = self.SCHEDULE_WAIT
+        if self.currentSchedule ~= self.SCHEDULE_MEDIUM_WAIT and love.math.random() < self.waitChance then
+            self.currentSchedule = self.SCHEDULE_MEDIUM_WAIT
             return
         end
         if conditions.canCombo then
@@ -73,7 +73,7 @@ function eAI:selectNewSchedule(conditions)
             if self.currentSchedule ~= self.SCHEDULE_STAND then
                 self.currentSchedule = self.SCHEDULE_STAND
             else
-                self.currentSchedule = self.SCHEDULE_WAIT
+                self.currentSchedule = self.SCHEDULE_MEDIUM_WAIT
             end
             return
         end
