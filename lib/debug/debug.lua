@@ -478,6 +478,7 @@ function checkDebugKeys(key)
             if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
                 local p = getRegisteredPlayer(1)
                 local unit = Gopper:new("Goppi"..(GLOBAL_UNIT_ID + 1), "src/def/char/gopper", p.x, p.y, { palette = love.math.random(1, 4) })
+                unit.AI = AIExperimental:new(unit)
                 GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
                 unit.z = 100
                 unit:setOnStage(stage)

@@ -102,7 +102,7 @@ function love.load(arg)
     AI = require "src/ai/ai"
     require "src/ai/ai_conditions"
     require "src/ai/ai_patterns"
-    ExperimentalAI = require "src/unit/ai/experimental_ai"
+    AIExperimental = require "src/unit/ai/experimental_ai"
     AIMoveCombo = require "src/unit/ai/moveCombo_ai"
     require "src/stage/loadStage"
     Weather = require "src/stage/weather"
