@@ -40,7 +40,16 @@ function AI:initCommonAiSchedules(unit)
     self.SCHEDULE_WAIT_LONG = Schedule:new({ self.initWaitLong, self.onWait },
         { "tooCloseToPlayer" })
     self.SCHEDULE_ESCAPE_BACK = Schedule:new({ self.calcEscapeBackXY, self.initWalkToXY, self.onMove },
-        { "cannotAct", "inAir", "noTarget" })
+        { "cannotAct", "grabbed", "inAir", "noTarget" })
+    self.SCHEDULE_STEP_BACK = Schedule:new({ self.calcStepBack, self.initWalkToXY, self.onMove },
+        { "cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_STEP_DOWN = Schedule:new({ self.calcStepDown, self.initWalkToXY, self.onMove },
+        { "cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_STEP_FORWARD = Schedule:new({ self.calcStepForward, self.initWalkToXY, self.onMove },
+        { "cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_STEP_UP = Schedule:new({ self.calcStepUp, self.initWalkToXY, self.onMove },
+        { "cannotAct", "grabbed", "inAir"})
+
 end
 
 local function getPosByAngleR(x, y, angle, r)
@@ -164,6 +173,53 @@ function AI:calcEscapeBackXY()
     end
     u.ttx = u.x + (u.width * 3 + love.math.random(-escapeBackRandomRadius, escapeBackRandomRadius) ) * -u.horizontal
     u.tty = u.y + love.math.random(-escapeBackRandomRadius, escapeBackRandomRadius)
+    return true
+end
+
+local stepDistance = 20
+local stepRandomRadius = 6
+function AI:calcStepUp()
+    local u = self.unit
+    if not self.conditions.canMove or u.state ~= "stand" then
+        return false
+    end
+    u.ttx = u.x
+    u.tty = u.y - stepDistance + love.math.random(-stepRandomRadius, stepRandomRadius)
+    return true
+end
+function AI:calcStepDown()
+    local u = self.unit
+    if not self.conditions.canMove or u.state ~= "stand" then
+        return false
+    end
+    u.ttx = u.x
+    u.tty = u.y + stepDistance + love.math.random(-stepRandomRadius, stepRandomRadius)
+    return true
+end
+function AI:calcStepBack()
+    local u = self.unit
+    if not self.conditions.canMove or u.state ~= "stand" then
+        return false
+    end
+    if u.target then
+        u.horizontal = u.x < u.target.x and 1 or -1
+    else
+        u.horizontal = -u.horizontal
+    end
+    u.ttx = u.x + ( stepDistance + love.math.random(-stepRandomRadius, stepRandomRadius) ) * u.horizontal
+    u.tty = u.y
+    return true
+end
+function AI:calcStepForward()
+    local u = self.unit
+    if not self.conditions.canMove or u.state ~= "stand" then
+        return false
+    end
+    if u.target then
+        u.horizontal = u.x < u.target.x and 1 or -1
+    end
+    u.ttx = u.x - ( stepDistance + love.math.random(-stepRandomRadius, stepRandomRadius) ) * u.horizontal
+    u.tty = u.y
     return true
 end
 
