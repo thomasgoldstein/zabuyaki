@@ -12,6 +12,7 @@ local _settings = {
 function eAI:initialize(unit, settings)
     AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
+    self.tactics = "passive" -- "passive", "aggressive", "cowardly"
 end
 
 function eAI:_update(dt)
@@ -22,29 +23,47 @@ function eAI:_update(dt)
 end
 
 function eAI:selectNewSchedule(conditions)
-    local r
-    if not self.currentSchedule or conditions.init then
-        --self.currentSchedule = self.SCHEDULE_INTRO
-        --self.currentSchedule = self.SCHEDULE_STAND
-        self.currentSchedule = self.SCHEDULE_STEP_BACK
+    if self.tactics == "aggressive" and self.unit.hp < self.unit.maxHp / 3 then
+        self.tactics = "cowardly"
+    elseif self.tactics == "passive" and self.unit.hp < self.unit.maxHp then
+        self.tactics = "aggressive"
+    end
+
+    if self.tactics == "aggressive" then
+        print(self.unit.id, "change schedule SCHEDULE_WALK_CLOSE_TO_ATTACK")
+        self.currentSchedule = self.SCHEDULE_WALK_CLOSE_TO_ATTACK
+        return
+
+    elseif self.tactics == "passive"  then
+        if self.currentSchedule == self.SCHEDULE_STEP_BACK then
+            self.currentSchedule = self.SCHEDULE_STEP_DOWN
+            print(self.unit.id, "change schedule SCHEDULE_STEP_DOWN")
+            return
+        elseif self.currentSchedule == self.SCHEDULE_STEP_DOWN then
+            self.currentSchedule = self.SCHEDULE_STEP_FORWARD
+            print(self.unit.id, "change schedule SCHEDULE_STEP_FORWARD")
+            return
+        elseif self.currentSchedule == self.SCHEDULE_STEP_FORWARD then
+            self.currentSchedule = self.SCHEDULE_STEP_UP
+            print(self.unit.id, "change schedule SCHEDULE_STEP_UP")
+            return
+        elseif self.currentSchedule == self.SCHEDULE_STEP_UP then
+            self.currentSchedule = self.SCHEDULE_STEP_BACK
+            print(self.unit.id, "change schedule SCHEDULE_STEP_BACK")
+            return
+        end
+
+    else -- "cowardly"
+        print(self.unit.id, "change schedule SCHEDULE_WALK_OFF_THE_SCREEN")
+        self.currentSchedule = self.SCHEDULE_WALK_OFF_THE_SCREEN
         return
     end
 
-    if self.currentSchedule == self.SCHEDULE_STEP_BACK then
-        self.currentSchedule = self.SCHEDULE_STEP_DOWN
-        print(self.unit.id, "change schedule SCHEDULE_STEP_DOWN")
-        return
-    elseif self.currentSchedule == self.SCHEDULE_STEP_DOWN then
-        self.currentSchedule = self.SCHEDULE_STEP_FORWARD
-        print(self.unit.id, "change schedule SCHEDULE_STEP_FORWARD")
-        return
-    elseif self.currentSchedule == self.SCHEDULE_STEP_FORWARD then
-        self.currentSchedule = self.SCHEDULE_STEP_UP
-        print(self.unit.id, "change schedule SCHEDULE_STEP_UP")
-        return
-    elseif self.currentSchedule == self.SCHEDULE_STEP_UP then
-        self.currentSchedule = self.SCHEDULE_STEP_BACK
+    if not self.currentSchedule or conditions.init then
+        --self.currentSchedule = self.SCHEDULE_INTRO
+        --self.currentSchedule = self.SCHEDULE_STAND
         print(self.unit.id, "change schedule SCHEDULE_STEP_BACK")
+        self.currentSchedule = self.SCHEDULE_STEP_BACK
         return
     end
 
