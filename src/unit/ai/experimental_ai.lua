@@ -15,7 +15,7 @@ function eAI:initialize(unit, settings)
     -- new or overridden AI tactics lists of AI schedules
     self.tacticsPassive = { self.SCHEDULE_STEP_BACK, self.SCHEDULE_STEP_DOWN, self.SCHEDULE_STEP_FORWARD, self.SCHEDULE_STEP_UP, self.SCHEDULE_WAIT_MEDIUM }
     self.tacticsPassive.name = "passive"
-    self.tacticsAggressive = { self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_WAIT_LONG  }
+    self.tacticsAggressive = { self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_WAIT_LONG }
     self.tacticsAggressive.name = "aggressive"
     self.tacticsCowardly = { self.SCHEDULE_WALK_OFF_THE_SCREEN, self.SCHEDULE_WAIT_SHORT }
     self.tacticsCowardly.name = "cowardly"
@@ -29,7 +29,7 @@ end
 function eAI:selectNewSchedule(conditions)
     if self.tactics == self.tacticsPassive and self.unit.hp < self.unit.maxHp then
         self.tactics = self.tacticsAggressive
-    elseif  self.tactics == self.tacticsAggressive and self.unit.hp < self.unit.maxHp / 3 then
+    elseif self.tactics == self.tacticsAggressive and self.unit.hp < self.unit.maxHp / 3 then
         self.tactics = self.tacticsCowardly
     elseif not self.tactics then
         self.tactics = self.tacticsPassive
