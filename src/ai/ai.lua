@@ -21,7 +21,7 @@ function AI:initialize(unit, settings)
     self.waitChance = settings.waitChance or 0.2 -- 1 == 100%, 0 == 0%
     self.waitShortMin = settings.waitShortMin or 0.5 -- minimal delay for SCHEDULE_WAIT_SHORT
     self.waitShortMax = settings.waitShortMax or 1
-    self.waitMediumMin = settings.waitMediumMin or 1 -- minimal delay for SCHEDULE_MEDIUM_WAIT
+    self.waitMediumMin = settings.waitMediumMin or 1 -- minimal delay for SCHEDULE_WAIT_MEDIUM
     self.waitMediumMax = settings.waitMediumMax or 2
     self.waitLongMin = settings.waitLongMin or 2 -- minimal delay for SCHEDULE_WAIT_LONG
     self.waitLongMax = settings.waitLongMax or 3

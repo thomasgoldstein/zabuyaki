@@ -35,7 +35,7 @@ function AI:initCommonAiSchedules(unit)
 
     self.SCHEDULE_WAIT_SHORT = Schedule:new({ self.initWaitShort, self.onWait },
         { "tooCloseToPlayer" })
-    self.SCHEDULE_MEDIUM_WAIT = Schedule:new({ self.initWait, self.onWait },
+    self.SCHEDULE_WAIT_MEDIUM = Schedule:new({ self.initWait, self.onWait },
         { "tooCloseToPlayer" })
     self.SCHEDULE_WAIT_LONG = Schedule:new({ self.initWaitLong, self.onWait },
         { "tooCloseToPlayer" })

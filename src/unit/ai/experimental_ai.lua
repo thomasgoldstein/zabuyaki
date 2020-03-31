@@ -13,7 +13,7 @@ function eAI:initialize(unit, settings)
     AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
     -- new or overridden AI tactics lists of AI schedules
-    self.tacticsPassive = { self.SCHEDULE_STEP_BACK, self.SCHEDULE_STEP_DOWN, self.SCHEDULE_STEP_FORWARD, self.SCHEDULE_STEP_UP, self.SCHEDULE_MEDIUM_WAIT }
+    self.tacticsPassive = { self.SCHEDULE_STEP_BACK, self.SCHEDULE_STEP_DOWN, self.SCHEDULE_STEP_FORWARD, self.SCHEDULE_STEP_UP, self.SCHEDULE_WAIT_MEDIUM }
     self.tacticsPassive.name = "passive"
     self.tacticsAggressive = { self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_WAIT_LONG  }
     self.tacticsAggressive.name = "aggressive"
@@ -36,5 +36,4 @@ function eAI:selectNewSchedule(conditions)
     end
     self.currentSchedule = self.tactics[ love.math.random(1, #self.tactics ) ]
 end
-
 return eAI
