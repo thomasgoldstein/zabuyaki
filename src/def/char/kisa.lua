@@ -23,108 +23,108 @@ return {
             delay = math.huge
         },
         stand = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
-            { q = q(42,2,39,58), ox = 24, oy = 57 }, --stand 2
-            { q = q(83,3,40,57), ox = 25, oy = 56, delay = f(15) }, --stand 3
-            { q = q(42,2,39,58), ox = 24, oy = 57 }, --stand 2
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
-            { q = q(125,3,39,57), ox = 23, oy = 56, delay = f(15) },
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
+            { q = q(54,2,50,62), ox = 30, oy = 61 }, --stand 2
+            { q = q(106,3,50,61), ox = 31, oy = 60, delay = f(15) }, --stand 3
+            { q = q(54,2,50,62), ox = 30, oy = 61 }, --stand 2
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
+            { q = q(158,3,50,61), ox = 28, oy = 60, delay = f(15) }, --stand 4
             loop = true,
             delay = f(10)
         },
         walk = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             loop = true,
             delay = f(10)
         },
         run = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             loop = true,
             delay = f(10)
         },
         duck = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(4)
         },
         sideStepUp = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         sideStepDown = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         jump = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         jumpAttackStraight = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         jumpAttackForward = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         jumpAttackRun = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         jumpAttackLight = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         dropDown = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         respawn = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
-            { q = q(2,2,38,58), ox = 23, oy = 57, delay = f(30) }, --stand 1
-            { q = q(2,2,38,58), ox = 23, oy = 57, delay = f(6) }, --stand 1 (need 3 frames)
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61, delay = f(30) }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61, delay = f(6) }, --stand 1 (need 3 frames)
             delay = math.huge
         },
         pickUp = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(3)
         },
         combo1 = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         combo2 = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         combo3 = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         combo4 = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         dashAttack = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(10)
         },
         grab = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         grabSwap = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
         },
         grabFrontAttack1 = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(3)
         },
         grabFrontAttackForward = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(6)
         },
         grabFrontAttackDown = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(6)
         },
         hurtHighWeak = {
@@ -152,58 +152,58 @@ return {
             delay = f(1)
         },
         fall = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         fallTwistWeak = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             loop = true,
             delay = f(7)
         },
         fallTwistStrong = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             loop = true,
             delay = f(7)
         },
         fallBounce = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         fallenDead = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         getUp = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(12)
         },
         grabbedFront = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(2)
         },
         grabbedBack = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(2)
         },
         thrown = {
             --rx = ox / 2, ry = -oy / 2 for this rotation
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         thrown12h = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         thrown10h = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         thrown8h = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
         thrown6h = {
-            { q = q(2,2,38,58), ox = 23, oy = 57 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = math.huge
         },
     }
