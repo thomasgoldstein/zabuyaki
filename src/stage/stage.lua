@@ -337,6 +337,10 @@ function Stage:getSafeRespawnPosition(unit)
     return r[1], r[2]
 end
 
+function Stage:getCurrentWaveBounds()
+    return self.wave:getCurrentWaveBounds()
+end
+
 function Stage:isDone()
     return self.wave:isDone()
 end

@@ -190,6 +190,14 @@ function Wave:killCurrentWave()
     end
 end
 
+function Wave:getCurrentWaveBounds()
+    local wave = self.waves[self.n]
+    if not wave then
+        error("Wave #"..self.n.." not found.")
+    end
+    return wave.leftStopper_x, wave.rightStopper_x
+end
+
 function Wave:update(dt)
     self.time = self.time + dt
     if self.state == "spawn" then
