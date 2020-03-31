@@ -20,6 +20,7 @@ function eAI:initialize(unit, settings)
     self.tacticsCowardly = { self.SCHEDULE_WALK_OFF_THE_SCREEN, self.SCHEDULE_WAIT_SHORT }
     self.tacticsCowardly.name = "cowardly"
     --self.tactics = { self.SCHEDULE_WAIT_MEDIUM, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_WAIT_LONG, self.SCHEDULE_WALK_RANDOM }
+    --self.tactics = { self.SCHEDULE_WALK_BY_TARGET_H, self.SCHEDULE_WALK_BY_TARGET_V, self.SCHEDULE_WAIT_SHORT }
     self.tactics = self.tacticsPassive
 end
 

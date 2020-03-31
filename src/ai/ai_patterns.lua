@@ -51,6 +51,10 @@ function AI:initCommonAiSchedules(unit)
         {"cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.initWalkToXY, self.onMove },
         {"cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_WALK_BY_TARGET_H = Schedule:new({ self.ensureHasTarget, self.calcWalkByTargetHorizontally, self.initWalkToXY, self.onMove },
+        {"cannotAct", "grabbed", "inAir", "noTarget", "canCombo"})
+    self.SCHEDULE_WALK_BY_TARGET_V = Schedule:new({ self.ensureHasTarget, self.calcWalkByTargetVertically, self.initWalkToXY, self.onMove },
+        {"cannotAct", "grabbed", "inAir", "noTarget", "canCombo"})
 
 end
 
@@ -186,6 +190,43 @@ function AI:calcWalkRandom()
         u.ttx = rightX - love.math.random(2 * u.width)
     end
     u.tty = u.y + love.math.random(-u.width, u.width)
+    return true
+end
+
+function AI:calcWalkByTargetHorizontally()
+    local u = self.unit
+    u.b.reset()
+    if not self.conditions.canMove or u.state ~= "stand" or not u.target then
+        return false
+    end
+    local r = u.x - u.target.x
+    if r < 0 then
+        r = math.min(r, -u.target.width * 2)
+        r = math.max(r, -u.target.width * 4)
+    else
+        r = math.max(r, u.target.width * 2)
+        r = math.min(r, u.target.width * 4)
+    end
+    u.ttx = u.target.x - r
+    u.tty = u.y
+    return true
+end
+function AI:calcWalkByTargetVertically()
+    local u = self.unit
+    u.b.reset()
+    if not self.conditions.canMove or u.state ~= "stand" or not u.target then
+        return false
+    end
+    local r = u.y - u.target.y
+    if r < 0 then
+        r = math.min(r, -u.target.width)
+        r = math.max(r, -u.target.width * 2)
+    else
+        r = math.max(r, u.target.width)
+        r = math.min(r, u.target.width * 2)
+    end
+    u.ttx = u.x
+    u.tty = u.target.y - r
     return true
 end
 
