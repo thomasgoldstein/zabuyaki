@@ -128,27 +128,27 @@ return {
             delay = f(6)
         },
         hurtHighWeak = {
-            { q = q(2,2,38,60), ox = 22, oy = 58 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         hurtHighMedium = {
-            { q = q(2,2,38,60), ox = 22, oy = 58 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         hurtHighStrong = {
-            { q = q(2,2,38,60), ox = 22, oy = 58 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         hurtLowWeak = {
-            { q = q(2,2,38,60), ox = 24, oy = 58 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         hurtLowMedium = {
-            { q = q(2,2,38,60), ox = 24, oy = 58 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         hurtLowStrong = {
-            { q = q(2,2,38,60), ox = 24, oy = 58 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             delay = f(1)
         },
         fall = {
