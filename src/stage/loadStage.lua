@@ -215,7 +215,7 @@ local function loadWave(items, stage)
     for i, v in ipairs(t.layers) do
         mergeTables(v.properties, t.properties)
         for i, v2 in ipairs(v.objects) do
-            mergeTables(v2.properties, v.properties, "v2.properties <- v.properties")
+            mergeTables(v2.properties, v.properties)
             if v2.shape == "rectangle"
                 and v2.type == "wave"
             then
