@@ -49,6 +49,8 @@ function AI:initCommonAiSchedules(unit)
         { "cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_STEP_UP = Schedule:new({ self.calcStepUp, self.initWalkToXY, self.onMove },
         { "cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.initWalkToXY, self.onMove },
+        { "cannotAct", "grabbed", "inAir"})
 
 end
 
@@ -158,6 +160,24 @@ function AI:onWait(dt)
         return true
     end
     return false
+end
+
+function AI:calcWalkRandom()
+    local u = self.unit
+    if not self.conditions.canMove or u.state ~= "stand" then
+        return false
+    end
+    local leftX, rightX = stage:getCurrentWaveBounds()
+    local r = (rightX - leftX) / 4
+    u.ttx = u.x + love.math.random(-r, r)
+    if u.ttx < leftX then
+        u.ttx = leftX + love.math.random(2 * u.width)
+    end
+    if u.ttx > rightX then
+        u.ttx = rightX - love.math.random(2 * u.width)
+    end
+    u.tty = u.y + love.math.random(-u.width, u.width)
+    return true
 end
 
 local escapeBackRandomRadius = 6
