@@ -80,6 +80,14 @@ function AI:onIntro()
     return false
 end
 
+function AI:ensureHasTarget()
+    local u = self.unit
+    if not u.target then
+        u:pickAttackTarget("close")
+    end
+    return true
+end
+
 function AI:ensureStanding()
     local u = self.unit
     if self:canAct() then
