@@ -2,55 +2,55 @@ local AI = AI
 
 function AI:initCommonAiSchedules(unit)
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
-        { "wokeUp", "tooCloseToPlayer" })
+        {"wokeUp", "tooCloseToPlayer"})
     self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand },
-        { "cannotAct", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "inAir",
-          "faceNotToPlayer", "tooCloseToPlayer" })
+        {"cannotAct", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "inAir",
+          "faceNotToPlayer", "tooCloseToPlayer"})
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.ensureStanding, self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
-        {})
+        { })
     self.SCHEDULE_WALK_CLOSE_TO_ATTACK = Schedule:new({ self.ensureStanding, self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
-        { "cannotAct", "inAir", "grabbed", "noTarget" })
+        {"cannotAct", "inAir", "grabbed", "noTarget"})
     self.SCHEDULE_ATTACK_FROM_BACK = Schedule:new({ self.ensureStanding, self.initGetToBack, self.onGetToBack, self.initCombo, self.onCombo  },
-        { "cannotAct", "inAir", "grabbed", "noTarget" })
+        {"cannotAct", "inAir", "grabbed", "noTarget"})
     self.SCHEDULE_WALK_AROUND = Schedule:new({ self.ensureStanding, self.initWalkAround, self.onWalkAround },
-        { "cannotAct", "inAir", "grabbed", "noTarget" })
+        {"cannotAct", "inAir", "grabbed", "noTarget"})
     self.SCHEDULE_GET_TO_BACK = Schedule:new({ self.ensureStanding, self.initGetToBack, self.onGetToBack },
-        { "cannotAct", "inAir", "grabbed", "noTarget" })
+        {"cannotAct", "inAir", "grabbed", "noTarget"})
     self.SCHEDULE_RUN = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove },
-        { "cannotAct", "noTarget", "cannotAct", "inAir" })
+        {"cannotAct", "noTarget", "cannotAct", "inAir"})
     self.SCHEDULE_DASH = Schedule:new({ self.ensureStanding, self.initDash, self.waitUntilStand, self.initWait, self.onWait },
         { })
     self.SCHEDULE_RUN_DASH = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash },
         { })
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer },
-        { "cannotAct", "noTarget", "noPlayers" })
+        {"cannotAct", "noTarget", "noPlayers"})
     self.SCHEDULE_COMBO = Schedule:new({ self.ensureStanding, self.initCombo, self.onCombo },
-        { "cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget", "tooCloseToPlayer" })
+        {"cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget", "tooCloseToPlayer"})
     self.SCHEDULE_GRAB = Schedule:new({ self.ensureStanding, self.initGrab, self.onGrab },
-        { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" })
+        {"cannotAct", "grabbed", "inAir", "noTarget", "noPlayers"})
     self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureStanding, self.calcWalkToGrabXY, self.initWalkToXY, self.onMove, self.initGrab, self.onGrab },
-        { "cannotAct", "grabbed", "inAir", "noTarget", "noPlayers" })
+        {"cannotAct", "grabbed", "inAir", "noTarget", "noPlayers"})
     self.SCHEDULE_RECOVER = Schedule:new({ self.waitUntilStand },
-        { "noPlayers" })
+        {"noPlayers"})
 
     self.SCHEDULE_WAIT_SHORT = Schedule:new({ self.initWaitShort, self.onWait },
-        { "tooCloseToPlayer" })
+        {"tooCloseToPlayer"})
     self.SCHEDULE_WAIT_MEDIUM = Schedule:new({ self.initWait, self.onWait },
-        { "tooCloseToPlayer" })
+        {"tooCloseToPlayer"})
     self.SCHEDULE_WAIT_LONG = Schedule:new({ self.initWaitLong, self.onWait },
-        { "tooCloseToPlayer" })
+        {"tooCloseToPlayer"})
     self.SCHEDULE_ESCAPE_BACK = Schedule:new({ self.calcEscapeBackXY, self.initWalkToXY, self.onMove },
-        { "cannotAct", "grabbed", "inAir", "noTarget" })
+        {"cannotAct", "grabbed", "inAir", "noTarget"})
     self.SCHEDULE_STEP_BACK = Schedule:new({ self.calcStepBack, self.initWalkToXY, self.onMove },
-        { "cannotAct", "grabbed", "inAir"})
+        {"cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_STEP_DOWN = Schedule:new({ self.calcStepDown, self.initWalkToXY, self.onMove },
-        { "cannotAct", "grabbed", "inAir"})
+        {"cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_STEP_FORWARD = Schedule:new({ self.calcStepForward, self.initWalkToXY, self.onMove },
-        { "cannotAct", "grabbed", "inAir"})
+        {"cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_STEP_UP = Schedule:new({ self.calcStepUp, self.initWalkToXY, self.onMove },
-        { "cannotAct", "grabbed", "inAir"})
+        {"cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.initWalkToXY, self.onMove },
-        { "cannotAct", "grabbed", "inAir"})
+        {"cannotAct", "grabbed", "inAir"})
 
 end
 
