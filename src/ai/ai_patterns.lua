@@ -172,6 +172,7 @@ end
 
 function AI:calcWalkRandom()
     local u = self.unit
+    u.b.reset()
     if not self.conditions.canMove or u.state ~= "stand" then
         return false
     end
@@ -257,8 +258,8 @@ function AI:initWalkToXY()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         u.speed_x = u.walkSpeed
-        u.old_x = 0
-        u.old_y = 0
+        u.old_x = u.x + 10
+        u.old_y = u.y + 10
         return true
     end
     return false
@@ -271,8 +272,8 @@ function AI:initRunToXY()
         assert(not u.isDisabled and u.hp > 0)
         u.b.doHorizontalDoubleTap()
         u.speed_x = u.runSpeed
-        u.old_x = 0
-        u.old_y = 0
+        u.old_x = u.x + 10
+        u.old_y = u.y + 10
         return true
     end
     return false
