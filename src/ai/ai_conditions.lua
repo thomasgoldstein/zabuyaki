@@ -119,7 +119,7 @@ end
 
 function AI:canDash(distance, targetY)
     local unit = self.unit
-    if distance < self.canDashMax and distance >= self.canDashMin
+    if unit.moves.dashAttack and distance < self.canDashMax and distance >= self.canDashMin
         and math.floor(unit.y / 4) == math.floor(targetY / 4) then
         return true
     end
@@ -135,14 +135,14 @@ function AI:canCombo(unit, x, y)
 end
 
 function AI:canJumpAttack(unit, distance, targetY)
-    if distance < self.canJumpAttackMax and distance >= self.canJumpAttackMin
+    if unit.moves.jump and distance < self.canJumpAttackMax and distance >= self.canJumpAttackMin
         and math.abs(unit.y - targetY ) <= unit.width * 4 then
         return true
     end
 end
 
 function AI:canGrab(unit, targetX, targetY)
-    if math.abs(unit.x - targetX) <= unit.width
+    if unit.moves.grab and math.abs(unit.x - targetX) <= unit.width
         and math.abs(unit.y - targetY) <= 6
         and not unit.target:isInvincible() -- TODO proper check
     then
