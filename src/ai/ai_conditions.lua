@@ -29,90 +29,84 @@ end
 local canAct = { stand = true, walk = true, run = true, intro = true }
 function AI:getVisualConditions(conditions)
     -- check attack range, players, units etc
-    local u = self.unit
-    local t
-    if not canAct[u.state] then
+    local unit = self.unit
+    local distance
+    if not canAct[unit.state] then
         conditions["cannotAct"] = true
-    elseif u:canMove() then
+    elseif unit:canMove() then
         conditions["canMove"] = true
     end
-    if canAct[u.state] then
-        if u.target then
-            local x, y = u.target.x, u.target.y
+    if canAct[unit.state] then
+        if unit.target then
+            local x, y = unit.target.x, unit.target.y
             -- facing to the player
-            if x < u.x - u.width / 2 then
-                if u.face < 0 then
+            if x < unit.x - unit.width / 2 then
+                if unit.face < 0 then
                     conditions["faceToPlayer"] = true
                 else
                     conditions["faceNotToPlayer"] = true
                 end
-                if u.target.face < 0 then
+                if unit.target.face < 0 then
                     conditions["playerBack"] = true
                 else
                     conditions["playerSeeYou"] = true
                 end
-            elseif x > u.x + u.width / 2 then
-                if u.face > 0 then
+            elseif x > unit.x + unit.width / 2 then
+                if unit.face > 0 then
                     conditions["faceToPlayer"] = true
                 else
                     conditions["faceNotToPlayer"] = true
                 end
-                if u.target.face > 0 then
+                if unit.target.face > 0 then
                     conditions["playerBack"] = true
                 else
                     conditions["playerSeeYou"] = true
                 end
             end
-            t = dist(x, y, u.x, u.y)
-            if t >= self.reactShortDistanceMin and t <= self.reactShortDistanceMax then
+            distance = dist(x, y, unit.x, unit.y)
+            if distance >= self.reactShortDistanceMin and distance <= self.reactShortDistanceMax then
                 conditions["reactShortTarget"] = true
             end
-            if t >= self.reactMediumDistanceMin and t <= self.reactMediumDistanceMax then
+            if distance >= self.reactMediumDistanceMin and distance <= self.reactMediumDistanceMax then
                 conditions["reactMediumTarget"] = true
             end
-            if t >= self.reactLongDistanceMin and t <= self.reactLongDistanceMax then
+            if distance >= self.reactLongDistanceMin and distance <= self.reactLongDistanceMax then
                 conditions["reactLongTarget"] = true
             end
-            if self:canDash(t, y) then
+            if self:canDash(distance, y) then
                 conditions["canDash"] = true
             end
-            if self:canCombo(u, x, y) then
+            if self:canCombo(unit, x, y) then
                 conditions["canCombo"] = true
             end
-            if t < self.canJumpAttackMax and t >= self.canJumpAttackMin
-                and math.abs(u.y - y ) <= u.width * 4 then
+            if self:canJumpAttack(unit, distance, y) then
                 conditions["canJumpAttack"] = true
             end
-            if math.abs(u.x - x) <= u.width
-                and math.abs(u.y - y) <= 6
-                and not u.target:isInvincible()
-            then
+            if self:canGrab(unit, x, y) then
                 conditions["canGrab"] = true
             end
-            if t > self.tooFarToTarget then
+            if distance > self.tooFarToTarget then
                 conditions["tooFarToTarget"] = true
             end
         else
             conditions["noTarget"] = true
         end
-        t = u:getDistanceToClosestPlayer()
-        if t < u.width then
+        distance = unit:getDistanceToClosestPlayer()
+        if distance < unit.width then
             -- too close to the closest player
             conditions["tooCloseToPlayer"] = true
         end
         if self.currentSchedule == self.SCHEDULE_INTRO then
-            if t < u.wakeRange or ( t < u.delayedWakeRange and u.time > u.wakeDelay ) then
+            if distance < unit.wakeRange or ( distance < unit.delayedWakeRange and unit.time > unit.wakeDelay ) then
                 -- ready to act
                 conditions["wokeUp"] = true
             end
         end
-        if t >= self.reactShortDistanceMin and t <= self.reactShortDistanceMax then
+        if distance >= self.reactShortDistanceMin and distance <= self.reactShortDistanceMax then
             conditions["reactShortPlayer"] = true
-        end
-        if t >= self.reactMediumDistanceMin and t <= self.reactMediumDistanceMax then
+        elseif distance >= self.reactMediumDistanceMin and distance <= self.reactMediumDistanceMax then
             conditions["reactMediumPlayer"] = true
-        end
-        if t >= self.reactLongDistanceMin and t <= self.reactLongDistanceMax then
+        elseif distance >= self.reactLongDistanceMin and distance <= self.reactLongDistanceMax then
             conditions["reactLongPlayer"] = true
         end
     end
@@ -135,6 +129,22 @@ function AI:canCombo(unit, x, y)
     if math.abs(unit.x - x) <= self:getAttackRange(unit, unit.target)
         and math.abs(unit.y - y) <= 6
         and ((unit.x - unit.width / 2 > x and unit.face == -1) or (unit.x + unit.width / 2 < x and unit.face == 1))
+    then
+        return true
+    end
+end
+
+function AI:canJumpAttack(unit, distance, targetY)
+    if distance < self.canJumpAttackMax and distance >= self.canJumpAttackMin
+        and math.abs(unit.y - targetY ) <= unit.width * 4 then
+        return true
+    end
+end
+
+function AI:canGrab(unit, targetX, targetY)
+    if math.abs(unit.x - targetX) <= unit.width
+        and math.abs(unit.y - targetY) <= 6
+        and not unit.target:isInvincible() -- TODO proper check
     then
         return true
     end
