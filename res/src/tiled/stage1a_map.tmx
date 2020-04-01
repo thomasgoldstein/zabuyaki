@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="40" nextobjectid="23">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="40" nextobjectid="25">
  <editorsettings>
   <export target="../../../src/def/stage/stage1a_map.lua" format="lua"/>
  </editorsettings>
@@ -104,7 +104,9 @@
   </object>
  </objectgroup>
  <objectgroup color="#00aa00" id="6" name="collision" locked="1">
-  <object id="8" x="0" y="0" width="2560" height="240"/>
+  <object id="8" x="-128" y="0" width="2816" height="240"/>
+  <object id="23" x="-192" y="0" width="64" height="320"/>
+  <object id="24" x="2688" y="0" width="64" height="320"/>
  </objectgroup>
  <objectgroup color="#00aaff" id="5" name="players" locked="1">
   <object id="3" name="1" x="48" y="256">
