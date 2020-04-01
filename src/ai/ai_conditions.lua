@@ -73,15 +73,10 @@ function AI:getVisualConditions(conditions)
             if t >= self.reactLongDistanceMin and t <= self.reactLongDistanceMax then
                 conditions["reactLongTarget"] = true
             end
-            if t < self.canDashMax and t >= self.canDashMin
-                and math.floor(u.y / 4) == math.floor(y / 4) then
+            if self:canDash(t, y) then
                 conditions["canDash"] = true
             end
-            local attackRange = self:getAttackRange(u, u.target)
-            if math.abs(u.x - x) <= attackRange
-                and math.abs(u.y - y) <= 6
-                and ((u.x - u.width / 2 > x and u.face == -1) or (u.x + u.width / 2 < x and u.face == 1))
-                and u.target.hp > 0 then
+            if self:canCombo(u, x, y) then
                 conditions["canCombo"] = true
             end
             if t < self.canJumpAttackMax and t >= self.canJumpAttackMin
@@ -126,6 +121,23 @@ end
 
 function AI:getAttackRange(unit, target)
     return unit.width / 2 + target.width / 2 + 12
+end
+
+function AI:canDash(distance, targetY)
+    local unit = self.unit
+    if distance < self.canDashMax and distance >= self.canDashMin
+        and math.floor(unit.y / 4) == math.floor(targetY / 4) then
+        return true
+    end
+end
+
+function AI:canCombo(unit, x, y)
+    if math.abs(unit.x - x) <= self:getAttackRange(unit, unit.target)
+        and math.abs(unit.y - y) <= 6
+        and ((unit.x - unit.width / 2 > x and unit.face == -1) or (unit.x + unit.width / 2 < x and unit.face == 1))
+    then
+        return true
+    end
 end
 
 function AI:getSafeWalkingRadius(unit, target) -- radius bigger than an attack range
