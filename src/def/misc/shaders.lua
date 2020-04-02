@@ -162,6 +162,9 @@ local gopperColors_5 = {
 
 local nikoColors_original = gopperColors_original
 local nikoColors_2 = gopperColors_2
+local nikoColors_3 = gopperColors_3
+local nikoColors_4 = gopperColors_4
+local nikoColors_5 = gopperColors_5
 
 local svetaColors_original = {
     { 134, 146, 169, 255 }, { 51, 69, 122, 255 }, { 20, 34, 62, 255 }, -- blue-gray vest
@@ -295,8 +298,9 @@ function reloadShaders()
     shaders.gopper[3] = swapColors(gopperColors_original, gopperColors_4)
     shaders.gopper[4] = swapColors(gopperColors_original, gopperColors_5)
     shaders.niko[1] = swapColors(nikoColors_original, nikoColors_2)
-    shaders.niko[2] = swapColors(nikoColors_original, nikoColors_2)
-    shaders.niko[3] = swapColors(nikoColors_original, nikoColors_2)
+    shaders.niko[2] = swapColors(nikoColors_original, nikoColors_3)
+    shaders.niko[3] = swapColors(nikoColors_original, nikoColors_4)
+    shaders.niko[4] = swapColors(nikoColors_original, nikoColors_5)
     shaders.sveta[1] = swapColors(svetaColors_original, svetaColors_2)
     shaders.sveta[2] = swapColors(svetaColors_original, svetaColors_2)
     shaders.sveta[3] = swapColors(svetaColors_original, svetaColors_2)

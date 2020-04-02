@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 40,
-  nextobjectid = 25,
+  nextobjectid = 29,
   backgroundcolor = { 141, 110, 143 },
   properties = {
     ["enableReflections"] = true,
@@ -507,8 +507,8 @@ return {
           name = "Trash",
           type = "trashcan",
           shape = "point",
-          x = 356,
-          y = 256,
+          x = 368,
+          y = 248,
           width = 0,
           height = 0,
           rotation = 0,
@@ -520,8 +520,8 @@ return {
           name = "Trash",
           type = "trashcan",
           shape = "point",
-          x = 455,
-          y = 298,
+          x = 392,
+          y = 248,
           width = 0,
           height = 0,
           rotation = 0,
@@ -672,6 +672,7 @@ return {
           offsety = 0,
           draworder = "topdown",
           properties = {
+            ["maxActiveEnemies"] = 4,
             ["music"] = "stage1",
             ["onStart"] = "enterMap"
           },
@@ -691,16 +692,19 @@ return {
             },
             {
               id = 9,
-              name = "Gopper",
+              name = "Dima",
               type = "gopper",
               shape = "point",
-              x = 544,
+              x = 416,
               y = 256,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
-              properties = {}
+              properties = {
+                ["flip"] = true,
+                ["palette"] = 2
+              }
             },
             {
               id = 20,
@@ -720,7 +724,7 @@ return {
             },
             {
               id = 21,
-              name = "Gopper",
+              name = "Sergey",
               type = "gopper",
               shape = "point",
               x = 248,
@@ -731,7 +735,8 @@ return {
               visible = true,
               properties = {
                 ["animation"] = "duck",
-                ["flip"] = true
+                ["flip"] = true,
+                ["palette"] = 3
               }
             },
             {
@@ -747,6 +752,74 @@ return {
               visible = true,
               properties = {
                 ["animation"] = "duck"
+              }
+            },
+            {
+              id = 25,
+              name = "Alexey",
+              type = "gopper",
+              shape = "point",
+              x = 480,
+              y = 288,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["flip"] = true,
+                ["palette"] = 4,
+                ["spawnDelay"] = 6
+              }
+            },
+            {
+              id = 26,
+              name = "Pavel",
+              type = "niko",
+              shape = "point",
+              x = -32,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "left",
+                ["palette"] = 3,
+                ["spawnDelay"] = 3
+              }
+            },
+            {
+              id = 27,
+              name = "Pyotr",
+              type = "niko",
+              shape = "point",
+              x = 576,
+              y = 280,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["palette"] = 4,
+                ["spawnDelay"] = 3
+              }
+            },
+            {
+              id = 28,
+              name = "Boris",
+              type = "gopper",
+              shape = "point",
+              x = -72,
+              y = 296,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "left",
+                ["spawnDelay"] = 3
               }
             }
           }

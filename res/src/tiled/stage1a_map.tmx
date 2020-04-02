@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="40" nextobjectid="25">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="40" nextobjectid="29">
  <editorsettings>
   <export target="../../../src/def/stage/stage1a_map.lua" format="lua"/>
  </editorsettings>
@@ -119,7 +119,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#55557f" id="4" name="global" locked="1">
+ <objectgroup color="#55557f" id="4" name="global">
   <object id="15" name="enterMap" type="event" x="16" y="192">
    <properties>
     <property name="togox" value="-100"/>
@@ -143,10 +143,10 @@
    </properties>
    <point/>
   </object>
-  <object id="18" name="Trash" type="trashcan" x="356" y="256">
+  <object id="18" name="Trash" type="trashcan" x="368" y="248">
    <point/>
   </object>
-  <object id="19" name="Trash" type="trashcan" x="455" y="298">
+  <object id="19" name="Trash" type="trashcan" x="392" y="248">
    <properties>
     <property name="drop" value="apple"/>
     <property name="palette" value="2"/>
@@ -170,7 +170,7 @@
     <point/>
    </object>
   </objectgroup>
-  <objectgroup color="#ffaa00" id="3" name="2" locked="1">
+  <objectgroup color="#ffaa00" id="3" name="2">
    <object id="2" name="2" type="wave" x="640" y="0" width="640" height="320"/>
    <object id="10" name="Niko" type="niko" x="1184" y="256">
     <point/>
@@ -178,11 +178,16 @@
   </objectgroup>
   <objectgroup color="#ffff00" id="2" name="1">
    <properties>
+    <property name="maxActiveEnemies" type="int" value="4"/>
     <property name="music" value="stage1"/>
     <property name="onStart" value="enterMap"/>
    </properties>
    <object id="1" name="1" type="wave" x="0" y="0" width="640" height="320"/>
-   <object id="9" name="Gopper" type="gopper" x="544" y="256">
+   <object id="9" name="Dima" type="gopper" x="416" y="256">
+    <properties>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" type="int" value="2"/>
+    </properties>
     <point/>
    </object>
    <object id="20" name="Niko" type="niko" x="288" y="280">
@@ -192,16 +197,49 @@
     </properties>
     <point/>
    </object>
-   <object id="21" name="Gopper" type="gopper" x="248" y="256">
+   <object id="21" name="Sergey" type="gopper" x="248" y="256">
     <properties>
      <property name="animation" value="duck"/>
      <property name="flip" type="bool" value="true"/>
+     <property name="palette" type="int" value="3"/>
     </properties>
     <point/>
    </object>
    <object id="22" name="Gopper" type="gopper" x="208" y="280">
     <properties>
      <property name="animation" value="duck"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="25" name="Alexey" type="gopper" x="480" y="288">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" type="int" value="4"/>
+     <property name="spawnDelay" type="int" value="6"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="26" name="Pavel" type="niko" x="-32" y="272">
+    <properties>
+     <property name="appearFrom" value="left"/>
+     <property name="palette" type="int" value="3"/>
+     <property name="spawnDelay" type="int" value="3"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="27" name="Pyotr" type="niko" x="576" y="280">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" type="int" value="4"/>
+     <property name="spawnDelay" type="int" value="3"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="28" name="Boris" type="gopper" x="-72" y="296">
+    <properties>
+     <property name="appearFrom" value="left"/>
+     <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
    </object>
