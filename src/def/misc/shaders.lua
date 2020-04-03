@@ -275,49 +275,68 @@ for i = #shaders.screen, 1, -1 do
     end
 end
 
---local name = "Rick"
---name = name:lower()
---print(name, getShader(name, 2))
-
 function reloadShaders()
-    --print("reloadShaders")
-    shaders.rick[1] = nil
-    shaders.rick[2] = swapColors(rickColors_original, rickColors_2)
-    shaders.rick[3] = swapColors(rickColors_original, rickColors_3)
-    shaders.kisa[1] = nil
-    shaders.kisa[2] = swapColors(kisaColors_original, kisaColors_2)
-    shaders.kisa[3] = swapColors(kisaColors_original, kisaColors_3)
-    shaders.chai[1] = nil
-    shaders.chai[2] = swapColors(chaiColors_original, chaiColors_2)
-    shaders.chai[3] = swapColors(chaiColors_original, chaiColors_3)
-    shaders.yar[1] = nil
-    shaders.yar[2] = swapColors(yarColors_original, yarColors_2)
-    shaders.yar[3] = swapColors(yarColors_original, yarColors_3)
-    shaders.gopper[1] = swapColors(gopperColors_original, gopperColors_2)
-    shaders.gopper[2] = swapColors(gopperColors_original, gopperColors_3)
-    shaders.gopper[3] = swapColors(gopperColors_original, gopperColors_4)
-    shaders.gopper[4] = swapColors(gopperColors_original, gopperColors_5)
-    shaders.niko[1] = swapColors(nikoColors_original, nikoColors_2)
-    shaders.niko[2] = swapColors(nikoColors_original, nikoColors_3)
-    shaders.niko[3] = swapColors(nikoColors_original, nikoColors_4)
-    shaders.niko[4] = swapColors(nikoColors_original, nikoColors_5)
-    shaders.sveta[1] = swapColors(svetaColors_original, svetaColors_2)
-    shaders.sveta[2] = swapColors(svetaColors_original, svetaColors_2)
-    shaders.sveta[3] = swapColors(svetaColors_original, svetaColors_2)
-    shaders.zeena[1] = swapColors(zeenaColors_original, zeenaColors_2)
-    shaders.zeena[2] = swapColors(zeenaColors_original, zeenaColors_2)
-    shaders.zeena[3] = swapColors(zeenaColors_original, zeenaColors_2)
-    shaders.beatnik[1] = nil
-    shaders.satoff[1] = nil
-    shaders.satoff[2] = swapColors(satoffColors_original, satoffColors_2)
-    shaders.satoff[3] = swapColors(satoffColors_original, satoffColors_3)
-    shaders.satoff[4] = swapColors(satoffColors_original, satoffColors_4)
-    shaders.drVolker[1] = nil
-    shaders.trashcan[1] = nil
-    shaders.trashcan[2] = swapColors(trashcanColors_original, trashcanColors_2)
-    shaders.trashcan_particleColor[1] = { 118, 109, 100, 255 }
-    shaders.trashcan_particleColor[2] = { 87, 116, 130, 255 }
+    shaders.rick = {
+        nil,
+        swapColors(rickColors_original, rickColors_2),
+        swapColors(rickColors_original, rickColors_3),
+    }
+    shaders.kisa = {
+        nil,
+        swapColors(kisaColors_original, kisaColors_2),
+        swapColors(kisaColors_original, kisaColors_3),
+    }
+    shaders.chai = {
+        nil,
+        swapColors(chaiColors_original, chaiColors_2),
+        swapColors(chaiColors_original, chaiColors_3),
+    }
+    shaders.yar = {
+        nil,
+        swapColors(yarColors_original, yarColors_2),
+        swapColors(yarColors_original, yarColors_3),
+    }
+    shaders.gopper = {
+        swapColors(gopperColors_original, gopperColors_2),
+        swapColors(gopperColors_original, gopperColors_3),
+        swapColors(gopperColors_original, gopperColors_4),
+        swapColors(gopperColors_original, gopperColors_5),
+    }
+    shaders.niko = { swapColors(nikoColors_original, nikoColors_2),
+        swapColors(nikoColors_original, nikoColors_4),
+        swapColors(nikoColors_original, nikoColors_3),
+        swapColors(nikoColors_original, nikoColors_5),
+    }
+    shaders.sveta = {
+        swapColors(svetaColors_original, svetaColors_2),
+        swapColors(svetaColors_original, svetaColors_2),
+        swapColors(svetaColors_original, svetaColors_2),
+    }
+    shaders.zeena = {
+        swapColors(zeenaColors_original, zeenaColors_2),
+        swapColors(zeenaColors_original, zeenaColors_2),
+        swapColors(zeenaColors_original, zeenaColors_2),
+    }
+    shaders.beatnik = {
+        nil,
+    }
+    shaders.satoff = {
+        nil,
+        swapColors(satoffColors_original, satoffColors_2),
+        swapColors(satoffColors_original, satoffColors_3),
+        swapColors(satoffColors_original, satoffColors_4),
+    }
+    shaders.drVolker = {
+        nil,
+    }
+    shaders.trashcan = {
+        nil,
+        swapColors(trashcanColors_original, trashcanColors_2),
+    }
+    shaders.trashcan_particleColor = {
+        { 118, 109, 100, 255 },
+        { 87, 116, 130, 255 }
+    }
 end
---reloadShaders()
 
 return shaders
