@@ -310,12 +310,14 @@ function reloadShaders()
         swapColors(gopperColors_original, gopperColors_3),
         swapColors(gopperColors_original, gopperColors_4),
     }
+    shaders.gopper.aliases = { blue = 1, green = 2, black = 3, red = 4, }
     shaders.niko = {
         swapColors(nikoColors_original, nikoColors_1),
         swapColors(nikoColors_original, nikoColors_2),
         swapColors(nikoColors_original, nikoColors_3),
         swapColors(nikoColors_original, nikoColors_4),
     }
+    shaders.niko.aliases = { blue = 1, green = 2, black = 3, red = 4, }
     shaders.sveta = {
         swapColors(svetaColors_original, svetaColors_1),
         swapColors(svetaColors_original, svetaColors_2),
