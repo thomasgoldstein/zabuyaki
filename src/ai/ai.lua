@@ -16,7 +16,7 @@ function AI:initialize(unit, settings)
     self.reactMediumDistanceMin = settings.reactMediumDistanceMin or 50
     self.reactMediumDistanceMax = settings.reactMediumDistanceMax or 69
     self.reactLongDistanceMin = settings.reactLongDistanceMin or 70
-    self.reactLongDistanceMax = settings.reactLongDistanceMax or 240  -- should be more?
+    self.reactLongDistanceMax = settings.reactLongDistanceMax or 150  -- should be more?
 
     self.waitChance = settings.waitChance or 0.2 -- 1 == 100%, 0 == 0%
     self.waitShortMin = settings.waitShortMin or 0.5 -- minimal delay for SCHEDULE_WAIT_SHORT
@@ -34,7 +34,6 @@ function AI:initialize(unit, settings)
     self.canDashMax = settings.canDashMax or 100 -- max horizontal dist in px to Dash
     self.canJumpAttackMin = settings.canJumpAttackMin or 60 -- min horizontal dist in px to JumpAttack
     self.canJumpAttackMax = settings.canJumpAttackMax or 100 -- max horizontal dist in px to JumpAttack
-    self.tooFarToTarget = settings.tooFarToTarget or 150 -- min dist to generate "tooFarToTarget" condition
 
     self.conditions = {}
     self.thinkInterval = 0

@@ -86,7 +86,7 @@ function AI:getVisualConditions(conditions)
             if self:canGrab(unit, x, y) then
                 conditions["canGrab"] = true
             end
-            if distance > self.tooFarToTarget then
+            if distance > self.reactLongDistanceMax then
                 conditions["tooFarToTarget"] = true
             end
         else
