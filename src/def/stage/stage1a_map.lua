@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 40,
-  nextobjectid = 29,
+  nextobjectid = 34,
   backgroundcolor = { 141, 110, 143 },
   properties = {
     ["enableReflections"] = true,
@@ -528,7 +528,7 @@ return {
           visible = true,
           properties = {
             ["drop"] = "apple",
-            ["palette"] = "2"
+            ["palette"] = 2
           }
         }
       }
@@ -632,7 +632,9 @@ return {
           offsetx = 0,
           offsety = 0,
           draworder = "topdown",
-          properties = {},
+          properties = {
+            ["maxActiveEnemies"] = 4
+          },
           objects = {
             {
               id = 2,
@@ -649,16 +651,86 @@ return {
             },
             {
               id = 10,
-              name = "Niko",
+              name = "Vic",
               type = "niko",
               shape = "point",
-              x = 1184,
+              x = 768,
               y = 256,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
-              properties = {}
+              properties = {
+                ["appearFrom"] = "right",
+                ["palette"] = 3,
+                ["spawnDelay"] = 1
+              }
+            },
+            {
+              id = 29,
+              name = "Zeena",
+              type = "zeena",
+              shape = "point",
+              x = 800,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["spawnDelay"] = 2
+              }
+            },
+            {
+              id = 30,
+              name = "Ivan",
+              type = "gopper",
+              shape = "point",
+              x = 664,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "left",
+                ["palette"] = 4,
+                ["spawnDelay"] = 3
+              }
+            },
+            {
+              id = 31,
+              name = "Ivan",
+              type = "gopper",
+              shape = "point",
+              x = 832,
+              y = 256,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["spawnDelay"] = 4
+              }
+            },
+            {
+              id = 33,
+              name = "Zeena",
+              type = "zeena",
+              shape = "point",
+              x = 672,
+              y = 248,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "left",
+                ["palette"] = 2,
+                ["spawnDelay"] = 2
+              }
             }
           }
         },
@@ -672,7 +744,7 @@ return {
           offsety = 0,
           draworder = "topdown",
           properties = {
-            ["maxActiveEnemies"] = 4,
+            ["maxActiveEnemies"] = 3,
             ["music"] = "stage1",
             ["onStart"] = "enterMap"
           },
@@ -692,22 +764,6 @@ return {
             },
             {
               id = 9,
-              name = "Dima",
-              type = "gopper",
-              shape = "point",
-              x = 416,
-              y = 256,
-              width = 0,
-              height = 0,
-              rotation = 0,
-              visible = true,
-              properties = {
-                ["flip"] = true,
-                ["palette"] = 2
-              }
-            },
-            {
-              id = 20,
               name = "Niko",
               type = "niko",
               shape = "point",
@@ -723,7 +779,7 @@ return {
               }
             },
             {
-              id = 21,
+              id = 20,
               name = "Sergey",
               type = "gopper",
               shape = "point",
@@ -740,7 +796,7 @@ return {
               }
             },
             {
-              id = 22,
+              id = 21,
               name = "Gopper",
               type = "gopper",
               shape = "point",
@@ -752,6 +808,23 @@ return {
               visible = true,
               properties = {
                 ["animation"] = "duck"
+              }
+            },
+            {
+              id = 22,
+              name = "Dima",
+              type = "gopper",
+              shape = "point",
+              x = 416,
+              y = 256,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["palette"] = 2,
+                ["spawnDelay"] = 3
               }
             },
             {
@@ -767,9 +840,8 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "right",
-                ["flip"] = true,
                 ["palette"] = 4,
-                ["spawnDelay"] = 6
+                ["spawnDelay"] = 3
               }
             },
             {
