@@ -304,8 +304,8 @@ function reloadShaders()
     }
     shaders.niko = {
         swapColors(nikoColors_original, nikoColors_2),
-        swapColors(nikoColors_original, nikoColors_4),
         swapColors(nikoColors_original, nikoColors_3),
+        swapColors(nikoColors_original, nikoColors_4),
         swapColors(nikoColors_original, nikoColors_5),
     }
     shaders.sveta = {
