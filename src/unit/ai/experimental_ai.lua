@@ -36,6 +36,6 @@ function eAI:selectNewSchedule(conditions)
     elseif not self.tactics then
         self.tactics = self.tacticsPassive
     end
-    self.currentSchedule = self.tactics[ love.math.random(1, #self.tactics ) ]
+    self:setSchedule( self.tactics[ love.math.random(1, #self.tactics ) ])
 end
 return eAI

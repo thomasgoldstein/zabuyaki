@@ -69,13 +69,18 @@ function AI:update(dt)
     end
 end
 
+function AI:setSchedule(schedule)
+    self.currentSchedule = schedule
+    self.currentSchedule:reset()
+end
+
 -- should be overridden by every enemy AI class
 function AI:selectNewSchedule(conditions)
     if not self.currentSchedule then
-        self.currentSchedule = self.SCHEDULE_INTRO
+        self:setSchedule(self.SCHEDULE_INTRO)
         return
     end
-    self.currentSchedule = self.SCHEDULE_STAND
+    self:setSchedule(self.SCHEDULE_STAND)
 end
 
 return AI
