@@ -2,7 +2,7 @@
     animatedSprite.lua
 
     Copyright Dejaime Antonio de Oliveira Neto, 2014
-    Don Miguel, 2019
+    Mikhail Bratus, 2020
 
     Released under the MIT license.
     Visit for more information:
