@@ -13,12 +13,15 @@ local ManagerVersion = 0.43
 
 spriteBank = {} --Map with all the sprite definitions
 imageBank = {} --Contains all images that were already loaded
+missingFilesList = {} -- Missing files to prevent future file operations. eg for _sp.lua defs
 
 local function loadSprite (spriteDef)
     if spriteDef == nil or type(spriteDef) ~= "string" then return nil end
+    if missingFilesList[spriteDef] then return nil end
     local definitionFile, errorMsg = love.filesystem.load( spriteDef .. '.lua' )
     if errorMsg and type(errorMsg) == "string" then
         dp("Error loadSprite: "..errorMsg)
+        missingFilesList[spriteDef] = true
         return nil
     end
     local oldSprite = spriteBank [spriteDef]
