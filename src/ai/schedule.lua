@@ -37,13 +37,11 @@ end
 
 function Schedule:isDone(conditions)
     if self.done then
-        self:reset()
         return true
     end
     if(conditions) then
         for cond,_ in pairs(conditions) do
             if self.interrupts[cond] then
-                self:reset()
                 return true
             else
             end
