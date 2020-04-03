@@ -16,9 +16,10 @@ shaders = {
 }
 
 getShader = function(name, n)
-    --print("shaders.get",name,n)
     if shaders[name] then
-        --print("ok ", shaders[name][n or 1])
+        if type(n) == "string" and shaders[name].aliases then
+            n = shaders[name].aliases[n]
+        end
         return shaders[name][n or 1]
     end
     return nil

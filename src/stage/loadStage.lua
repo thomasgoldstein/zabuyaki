@@ -125,7 +125,7 @@ local function loadUnit(items, waveName)
         if v.shape == "point" and v.type ~= "event" then
             local u = {}
             local inst = getUnitTypeByName(v.type)
-            local palette = tonumber(v.properties.palette or 1)
+            local palette = v.properties.palette or 1
             if not inst then
                 error("Missing unit type instance name :" .. inspect(v))
             end
