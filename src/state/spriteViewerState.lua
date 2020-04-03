@@ -256,7 +256,17 @@ function spriteViewerState:draw()
                 if not hero.shaders[m.n] then
                     m.item = "PALETTE #"..m.n.." (ORIGINAL)"
                 else
-                    m.item = "PALETTE #"..m.n
+                    if hero.shaders.aliases then
+                        local aliases = {}
+                        for v,k in pairs(hero.shaders.aliases) do
+                            aliases[k] = v
+                        end
+                        if aliases[m.n] then
+                            m.item = "PALETTE #"..m.n..' "'..aliases[m.n]..'"'
+                        end
+                    else
+                        m.item = "PALETTE #"..m.n
+                    end
                 end
                 m.hint = ""
             end
