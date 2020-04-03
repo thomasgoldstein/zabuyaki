@@ -33,6 +33,7 @@ function AI:getVisualConditions(conditions)
     local distance
     if not canAct[unit.state] then
         conditions["cannotAct"] = true
+        return conditions
     elseif unit:canMove() then
         conditions["canMove"] = true
     end
