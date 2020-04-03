@@ -302,7 +302,8 @@ function reloadShaders()
         swapColors(gopperColors_original, gopperColors_4),
         swapColors(gopperColors_original, gopperColors_5),
     }
-    shaders.niko = { swapColors(nikoColors_original, nikoColors_2),
+    shaders.niko = {
+        swapColors(nikoColors_original, nikoColors_2),
         swapColors(nikoColors_original, nikoColors_4),
         swapColors(nikoColors_original, nikoColors_3),
         swapColors(nikoColors_original, nikoColors_5),
