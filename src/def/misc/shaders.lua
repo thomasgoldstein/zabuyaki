@@ -170,12 +170,13 @@ local nikoColors_red = gopperColors_red
 local svetaColors_original = {
     { 134, 146, 169, 255 }, { 51, 69, 122, 255 }, { 20, 34, 62, 255 }, -- blue-gray vest
     { 32, 69, 126, 255 }, { 13, 30, 98, 255 }, { 7, 14, 36, 255 }, -- blue pants
-    { 180, 127, 57, 255 }, { 138, 67, 13, 255 }, { 53, 30, 20, 255 } } -- chestnut hair
+    { 180, 127, 57, 255 }, { 138, 67, 13, 255 }, { 53, 30, 20, 255 }, -- chestnut hair
+    { 154, 15, 50, 255 }, { 93, 5, 21, 255 }, { 46, 2, 7, 255 }, -- red shirt
+    { 245, 249, 253, 255 }, { 185, 194, 202, 255 }, -- white pant stripes
+    { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 } } -- black shoes
 local svetaColors_blue = {
     { 134, 146, 169, 255 }, { 51, 69, 122, 255 }, { 20, 34, 62, 255 }, -- blue-gray vest
     { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 } } -- black pants
-local svetaColors_2 = svetaColors_blue -- TODO
-local svetaColors_3 = svetaColors_blue -- TODO
 
 local zeenaColors_original = svetaColors_original
 local zeenaColors_pink = {
@@ -185,8 +186,21 @@ local zeenaColors_pink = {
 local zeenaColors_black = {
     { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black vest
     { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black pants
-    { 160, 89, 32, 255 }, { 107, 41, 21, 255 }, { 40, 19, 7, 255 } } -- brown hair
-local zeenaColors_3 = zeenaColors_black -- TODO
+    { 160, 89, 32, 255 }, { 107, 41, 21, 255 }, { 40, 19, 7, 255 }, -- brown hair
+    { 32, 69, 126, 255 }, { 13, 30, 98, 255 }, { 7, 14, 36, 255 } } -- blue vest
+local zeenaColors_blackred = {
+    { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black vest
+    { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black pants
+    { 160, 89, 32, 255 }, { 107, 41, 21, 255 }, { 40, 19, 7, 255 }, -- brown hair
+    { 154, 15, 50, 255 }, { 93, 5, 21, 255 }, { 46, 2, 7, 255 }, -- red shirt
+    { 231, 23, 0, 255 }, { 121, 13, 13, 255 } }  -- red pant stripes
+local zeenaColors_blue = {
+    { 134, 146, 169, 255 }, { 51, 69, 122, 255 }, { 20, 34, 62, 255 }, -- blue-gray vest
+    { 32, 69, 126, 255 }, { 13, 30, 98, 255 }, { 7, 14, 36, 255 }, -- blue pants
+    { 179, 60, 28, 255 }, { 87, 6, 5, 255 }, { 40, 2, 1, 255 }, -- red hair
+    { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black shirt
+    { 231, 23, 0, 255 }, { 121, 13, 13, 255 },  -- red pant stripes
+    { 244, 242, 249, 255 }, { 183, 178, 224, 255 }, { 114, 106, 133, 255 } } -- white shoes
 
 local satoffColors_original = {
     { 228, 33, 35, 255 }, { 135, 12, 30, 255 }, { 51, 8, 9, 255 }, -- red suit
@@ -320,16 +334,15 @@ function reloadShaders()
     shaders.niko.aliases = { blue = 1, green = 2, black = 3, red = 4, }
     shaders.sveta = {
         swapColors(svetaColors_original, svetaColors_blue),
-        swapColors(svetaColors_original, svetaColors_2),
-        swapColors(svetaColors_original, svetaColors_3),
     }
     shaders.sveta.aliases = { blue = 1, }
     shaders.zeena = {
         swapColors(zeenaColors_original, zeenaColors_pink),
         swapColors(zeenaColors_original, zeenaColors_black),
-        swapColors(zeenaColors_original, zeenaColors_3),
+        swapColors(zeenaColors_original, zeenaColors_blackred),
+        swapColors(zeenaColors_original, zeenaColors_blue),
     }
-    shaders.zeena.aliases = { pink = 1, black = 2, }
+    shaders.zeena.aliases = { pink = 1, black = 2, blackred = 3, blue = 4, }
     shaders.beatnik = {
         false,
     }
