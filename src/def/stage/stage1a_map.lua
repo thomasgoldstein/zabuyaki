@@ -662,7 +662,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "right",
-                ["palette"] = 3,
+                ["palette"] = "black",
                 ["spawnDelay"] = 1
               }
             },
@@ -679,6 +679,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "right",
+                ["palette"] = "pink",
                 ["spawnDelay"] = 2
               }
             },
@@ -695,7 +696,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "left",
-                ["palette"] = 4,
+                ["palette"] = "red",
                 ["spawnDelay"] = 3
               }
             },
@@ -712,6 +713,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "right",
+                ["palette"] = "blue",
                 ["spawnDelay"] = 4
               }
             },
@@ -728,7 +730,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "left",
-                ["palette"] = 2,
+                ["palette"] = "black",
                 ["spawnDelay"] = 2
               }
             }
@@ -775,7 +777,8 @@ return {
               visible = true,
               properties = {
                 ["animation"] = "duck",
-                ["flip"] = true
+                ["flip"] = true,
+                ["palette"] = "blue"
               }
             },
             {
@@ -792,7 +795,7 @@ return {
               properties = {
                 ["animation"] = "duck",
                 ["flip"] = true,
-                ["palette"] = 3
+                ["palette"] = "black"
               }
             },
             {
@@ -807,7 +810,8 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["animation"] = "duck"
+                ["animation"] = "duck",
+                ["palette"] = "blue"
               }
             },
             {
@@ -823,7 +827,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "right",
-                ["palette"] = 2,
+                ["palette"] = "green",
                 ["spawnDelay"] = 3
               }
             },
@@ -840,7 +844,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "right",
-                ["palette"] = 4,
+                ["palette"] = "red",
                 ["spawnDelay"] = 3
               }
             },
@@ -857,7 +861,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "left",
-                ["palette"] = 3,
+                ["palette"] = "black",
                 ["spawnDelay"] = 3
               }
             },
@@ -874,7 +878,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "right",
-                ["palette"] = 4,
+                ["palette"] = "red",
                 ["spawnDelay"] = 3
               }
             },
@@ -891,6 +895,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "left",
+                ["palette"] = "blue",
                 ["spawnDelay"] = 3
               }
             }

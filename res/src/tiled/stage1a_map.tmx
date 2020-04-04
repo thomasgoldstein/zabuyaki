@@ -178,7 +178,7 @@
    <object id="10" name="Vic" type="niko" x="768" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
-     <property name="palette" type="int" value="3"/>
+     <property name="palette" value="black"/>
      <property name="spawnDelay" type="int" value="1"/>
     </properties>
     <point/>
@@ -186,6 +186,7 @@
    <object id="29" name="Zeena" type="zeena" x="800" y="272">
     <properties>
      <property name="appearFrom" value="right"/>
+     <property name="palette" value="pink"/>
      <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
@@ -193,7 +194,7 @@
    <object id="30" name="Ivan" type="gopper" x="664" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
-     <property name="palette" type="int" value="4"/>
+     <property name="palette" value="red"/>
      <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
@@ -201,6 +202,7 @@
    <object id="31" name="Ivan" type="gopper" x="832" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
+     <property name="palette" value="blue"/>
      <property name="spawnDelay" type="int" value="4"/>
     </properties>
     <point/>
@@ -208,7 +210,7 @@
    <object id="33" name="Zeena" type="zeena" x="672" y="248">
     <properties>
      <property name="appearFrom" value="left"/>
-     <property name="palette" type="int" value="2"/>
+     <property name="palette" value="black"/>
      <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
@@ -225,6 +227,7 @@
     <properties>
      <property name="animation" value="duck"/>
      <property name="flip" type="bool" value="true"/>
+     <property name="palette" value="blue"/>
     </properties>
     <point/>
    </object>
@@ -232,20 +235,21 @@
     <properties>
      <property name="animation" value="duck"/>
      <property name="flip" type="bool" value="true"/>
-     <property name="palette" type="int" value="3"/>
+     <property name="palette" value="black"/>
     </properties>
     <point/>
    </object>
    <object id="21" name="Gopper" type="gopper" x="208" y="280">
     <properties>
      <property name="animation" value="duck"/>
+     <property name="palette" value="blue"/>
     </properties>
     <point/>
    </object>
    <object id="22" name="Dima" type="gopper" x="416" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
-     <property name="palette" type="int" value="2"/>
+     <property name="palette" value="green"/>
      <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
@@ -253,7 +257,7 @@
    <object id="25" name="Alexey" type="gopper" x="480" y="288">
     <properties>
      <property name="appearFrom" value="right"/>
-     <property name="palette" type="int" value="4"/>
+     <property name="palette" value="red"/>
      <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
@@ -261,7 +265,7 @@
    <object id="26" name="Pavel" type="niko" x="-32" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
-     <property name="palette" type="int" value="3"/>
+     <property name="palette" value="black"/>
      <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
@@ -269,7 +273,7 @@
    <object id="27" name="Pyotr" type="niko" x="576" y="280">
     <properties>
      <property name="appearFrom" value="right"/>
-     <property name="palette" type="int" value="4"/>
+     <property name="palette" value="red"/>
      <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
@@ -277,6 +281,7 @@
    <object id="28" name="Boris" type="gopper" x="-72" y="296">
     <properties>
      <property name="appearFrom" value="left"/>
+     <property name="palette" value="blue"/>
      <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
