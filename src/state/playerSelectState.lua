@@ -445,9 +445,10 @@ function playerSelectState:draw()
             --hero sprite
             colors:set("white")
             if players[i].sprite then
-                love.graphics.setShader(getShader(curPlayerHeroSet.name:lower(), curPlayerHeroSet.palette))
+                local currentShader = getShader(curPlayerHeroSet.name:lower(), curPlayerHeroSet.palette)
+                if currentShader then love.graphics.setShader(currentShader) end
                 drawSpriteInstance(players[i].sprite, playersPosition_x[i], h.y)
-                love.graphics.setShader()
+                if currentShader then love.graphics.setShader() end
             end
             --P1 P2 P3 indicators
             drawPID(players[i].nx, players[i].ny, i, players[i].confirmed)
