@@ -14,7 +14,8 @@ local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local sprite
+local currentSprite
+local currentShader
 local heroes = {
     {
         name = "RICK",
@@ -138,8 +139,8 @@ function spriteSelectState:update(dt)
         self:showCurrentSprite()
     end
 
-    if sprite then
-        updateSpriteInstance(sprite, dt)
+    if currentSprite then
+        updateSpriteInstance(currentSprite, dt)
     end
 
     self:playerInput(Controls[1])
@@ -171,6 +172,7 @@ function spriteSelectState:draw()
                 m.item = heroes[m.n].name.." - no palettes"
             end
             m.hint = ""..heroes[m.n].spriteInstance
+            currentShader = heroes[m.n].shaders[1]
         end
         calcMenuItem(menu, i)
         if i == oldMenuState then
@@ -200,8 +202,14 @@ function spriteSelectState:draw()
 --    if curPlayerHeroSet.shader then
 --        love.graphics.setShader(curPlayerHeroSet.shader)
 --    end
-    if sprite then
-        drawSpriteInstance(sprite, screenWidth / 2, menuOffset_y + menuItem_h / 2)
+    if currentSprite then
+        if currentShader then
+            love.graphics.setShader(currentShader)
+        end
+        drawSpriteInstance(currentSprite, screenWidth / 2, menuOffset_y + menuItem_h / 2)
+        if currentShader then
+            love.graphics.setShader()
+        end
     end
 --    if curPlayerHeroSet.shader then
 --        love.graphics.setShader()
@@ -241,8 +249,8 @@ end
 
 function spriteSelectState:showCurrentSprite()
     if menuState == menuItems.characters then
-        sprite = getSpriteInstance(heroes[menu[menuState].n].spriteInstance)
-        setSpriteAnimation(sprite,"stand")
+        currentSprite = getSpriteInstance(heroes[menu[menuState].n].spriteInstance)
+        setSpriteAnimation(currentSprite,"stand")
     end
 end
 

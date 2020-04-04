@@ -410,11 +410,11 @@ function spriteViewerState:wheelmoved(x, y)
         if #hero.shaders < 1 then
             return
         end
-        if menu[menuState].n < 0 then
+        if menu[menuState].n < 1 then
             menu[menuState].n = #hero.shaders
         end
         if menu[menuState].n > #hero.shaders then
-            menu[menuState].n = 0
+            menu[menuState].n = 1
         end
     end
     if menuState ~= #menu then
