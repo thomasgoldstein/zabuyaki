@@ -17,7 +17,7 @@ local itemHeightMargin = topItemOffset * 2 - 2
 local txtCurrentSprite --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 local txtItems = {"ANIMATIONS", "FRAMES", "DISABLED", "PALETTES", "BACK"}
 local menuItems = {animations = 1, frames = 2, disabled = 3, palettes = 4, back = 5}
-local player
+local character
 local unit
 local sprite
 local specialOverlaySprite
@@ -45,7 +45,6 @@ function spriteViewerState:enter(_, _unit)
     end
     menu[menuItems.animations].n = 1
     mouse_x, mouse_y = 0,0
-    --TEsound.stop("music")
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
@@ -53,28 +52,27 @@ function spriteViewerState:enter(_, _unit)
     Controls[1].back:update()
     love.graphics.setLineWidth( 2 )
     self:wheelmoved(0, 0)   --pick 1st sprite to draw
-    -- show hitBoxes
+    -- to show hitBoxes:
     stage = Stage:new()
-    player = Character:new("SPRITE", unit.spriteInstance, screenWidth /2, menuOffset_y + menuItem_h / 2)
-    player.id = 1   -- fixed id
-    player:setOnStage(stage)
-    player.doThrow = function() end -- block ability
-    player.showEffect = function() end -- block visual effects
-    cleanRegisteredPlayers()
+    character = Character:new("SPRITE", unit.spriteInstance, screenWidth /2, menuOffset_y + menuItem_h / 2)
+    character.id = 1   -- fixed id
+    character:setOnStage(stage)
+    character.doThrow = function() end -- block ability
+    character.showEffect = function() end -- block visual effects
 end
 
-local function clearPlayerHitBoxes()
+local function clearCharacterHitBoxes()
     attackHitBoxes = {} -- DEBUG
 end
-local function getPlayerHitBoxes()
+local function getCharacterHitBoxes()
     local sc = sprite.def.animations[sprite.curAnim][menu[menuState].n]
-    clearPlayerHitBoxes()
+    clearCharacterHitBoxes()
     if sc then
-        if sc.funcCont and player then
-            sc.funcCont(player, true) --isfuncCont = true
+        if sc.funcCont and character then
+            sc.funcCont(character, true) --isfuncCont = true
         end
         if sc.func then
-            sc.func(player, false) --isfuncCont = false
+            sc.func(character, false) --isfuncCont = false
         end
     end
 end
@@ -405,7 +403,7 @@ function spriteViewerState:wheelmoved(x, y)
         if #sprite.def.animations[sprite.curAnim] <= 1 then
             return
         end
-        getPlayerHitBoxes()
+        getCharacterHitBoxes()
     elseif menuState == menuItems.palettes then
         if #unit.shaders < 1 then
             return
