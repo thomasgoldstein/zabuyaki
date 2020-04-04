@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 40,
-  nextobjectid = 34,
+  nextobjectid = 51,
   backgroundcolor = { 141, 110, 143 },
   properties = {
     ["enableReflections"] = true,
@@ -553,6 +553,7 @@ return {
           offsety = 0,
           draworder = "topdown",
           properties = {
+            ["maxActiveEnemies"] = 5,
             ["onComplete"] = "leaveMap"
           },
           objects = {
@@ -571,16 +572,55 @@ return {
             },
             {
               id = 14,
-              name = "Niko",
-              type = "niko",
+              name = "Beatnik",
+              type = "beatnik",
               shape = "point",
-              x = 2480,
-              y = 280,
+              x = 2440,
+              y = 272,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
-              properties = {}
+              properties = {
+                ["flip"] = true,
+                ["waitCamera"] = true
+              }
+            },
+            {
+              id = 47,
+              name = "Igor",
+              type = "niko",
+              shape = "point",
+              x = 2424,
+              y = 248,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["animation"] = "dance",
+                ["flip"] = true,
+                ["palette"] = "blue",
+                ["waitCamera"] = true
+              }
+            },
+            {
+              id = 48,
+              name = "Grichka",
+              type = "gopper",
+              shape = "point",
+              x = 2456,
+              y = 304,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["animation"] = "dance",
+                ["flip"] = true,
+                ["palette"] = "blue",
+                ["waitCamera"] = true
+              }
             }
           }
         },
@@ -593,7 +633,9 @@ return {
           offsetx = 0,
           offsety = 0,
           draworder = "topdown",
-          properties = {},
+          properties = {
+            ["maxActiveEnemies"] = 4
+          },
           objects = {
             {
               id = 11,
@@ -610,7 +652,127 @@ return {
             },
             {
               id = 12,
-              name = "Niko",
+              name = "Vlad",
+              type = "niko",
+              shape = "point",
+              x = 1528,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["flip"] = true,
+                ["palette"] = "blue"
+              }
+            },
+            {
+              id = 39,
+              name = "Mila",
+              type = "zeena",
+              shape = "point",
+              x = 1568,
+              y = 248,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["animation"] = "duck",
+                ["flip"] = true,
+                ["palette"] = "blackred"
+              }
+            },
+            {
+              id = 40,
+              name = "Alex",
+              type = "gopper",
+              shape = "point",
+              x = 1592,
+              y = 296,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["animation"] = "duck",
+                ["flip"] = true,
+                ["palette"] = "black"
+              }
+            },
+            {
+              id = 41,
+              name = "Mikha",
+              type = "gopper",
+              shape = "point",
+              x = 1664,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["palette"] = "red",
+                ["spawnDelay"] = 5
+              }
+            },
+            {
+              id = 42,
+              name = "Sergei",
+              type = "gopper",
+              shape = "point",
+              x = 1312,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "left",
+                ["palette"] = "red",
+                ["spawnDelay"] = 2
+              }
+            },
+            {
+              id = 43,
+              name = "Bogdan",
+              type = "gopper",
+              shape = "point",
+              x = 1520,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "fall",
+                ["flip"] = true,
+                ["palette"] = "blue",
+                ["spawnDelay"] = 2,
+                ["z"] = 600
+              }
+            },
+            {
+              id = 44,
+              name = "Anna",
+              type = "zeena",
+              shape = "point",
+              x = 1760,
+              y = 288,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["palette"] = "pink",
+                ["spawnDelay"] = 2
+              }
+            },
+            {
+              id = 45,
+              name = "Igor",
               type = "niko",
               shape = "point",
               x = 1808,
@@ -619,7 +781,11 @@ return {
               height = 0,
               rotation = 0,
               visible = true,
-              properties = {}
+              properties = {
+                ["appearFrom"] = "right",
+                ["palette"] = "green",
+                ["spawnDelay"] = 2
+              }
             }
           }
         },
@@ -651,11 +817,28 @@ return {
             },
             {
               id = 10,
-              name = "Vic",
+              name = "Zeena",
+              type = "zeena",
+              shape = "point",
+              x = 728,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["animation"] = "duck",
+                ["flip"] = true,
+                ["palette"] = "pink"
+              }
+            },
+            {
+              id = 29,
+              name = "Vik",
               type = "niko",
               shape = "point",
-              x = 768,
-              y = 256,
+              x = 792,
+              y = 248,
               width = 0,
               height = 0,
               rotation = 0,
@@ -663,23 +846,6 @@ return {
               properties = {
                 ["appearFrom"] = "right",
                 ["palette"] = "black",
-                ["spawnDelay"] = 1
-              }
-            },
-            {
-              id = 29,
-              name = "Zeena",
-              type = "zeena",
-              shape = "point",
-              x = 800,
-              y = 272,
-              width = 0,
-              height = 0,
-              rotation = 0,
-              visible = true,
-              properties = {
-                ["appearFrom"] = "right",
-                ["palette"] = "pink",
                 ["spawnDelay"] = 2
               }
             },
@@ -688,7 +854,7 @@ return {
               name = "Ivan",
               type = "gopper",
               shape = "point",
-              x = 664,
+              x = 656,
               y = 272,
               width = 0,
               height = 0,
@@ -696,7 +862,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "left",
-                ["palette"] = "red",
+                ["palette"] = "green",
                 ["spawnDelay"] = 3
               }
             },
@@ -705,7 +871,7 @@ return {
               name = "Ivan",
               type = "gopper",
               shape = "point",
-              x = 832,
+              x = 896,
               y = 256,
               width = 0,
               height = 0,
@@ -719,17 +885,102 @@ return {
             },
             {
               id = 33,
-              name = "Zeena",
+              name = "Nitsa",
               type = "zeena",
               shape = "point",
-              x = 672,
-              y = 248,
+              x = 680,
+              y = 256,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
               properties = {
                 ["appearFrom"] = "left",
+                ["palette"] = "black",
+                ["spawnDelay"] = 2
+              }
+            },
+            {
+              id = 34,
+              name = "Andrei",
+              type = "gopper",
+              shape = "point",
+              x = 928,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["palette"] = "black",
+                ["spawnDelay"] = 2
+              }
+            },
+            {
+              id = 35,
+              name = "Maksim",
+              type = "gopper",
+              shape = "point",
+              x = 960,
+              y = 288,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["palette"] = "blue",
+                ["spawnDelay"] = 2
+              }
+            },
+            {
+              id = 36,
+              name = "Vasily",
+              type = "niko",
+              shape = "point",
+              x = 704,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "left",
+                ["palette"] = "blue",
+                ["spawnDelay"] = 2
+              }
+            },
+            {
+              id = 37,
+              name = "Reta",
+              type = "zeena",
+              shape = "point",
+              x = 992,
+              y = 272,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
+                ["palette"] = "blue",
+                ["spawnDelay"] = 2
+              }
+            },
+            {
+              id = 38,
+              name = "Vadim",
+              type = "niko",
+              shape = "point",
+              x = 1024,
+              y = 288,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
                 ["palette"] = "black",
                 ["spawnDelay"] = 2
               }
@@ -827,7 +1078,7 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "right",
-                ["palette"] = "green",
+                ["palette"] = "black",
                 ["spawnDelay"] = 3
               }
             },

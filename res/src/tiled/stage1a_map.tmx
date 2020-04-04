@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="40" nextobjectid="34">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="40" nextobjectid="51">
  <editorsettings>
   <export target="../../../src/def/stage/stage1a_map.lua" format="lua"/>
  </editorsettings>
@@ -155,35 +155,93 @@
   </object>
  </objectgroup>
  <group id="1" name="waves">
-  <objectgroup color="#ffaa00" id="11" name="4" locked="1">
+  <objectgroup color="#00ff00" id="11" name="4">
    <properties>
+    <property name="maxActiveEnemies" type="int" value="5"/>
     <property name="onComplete" value="leaveMap"/>
    </properties>
    <object id="13" name="4" type="wave" x="1920" y="0" width="640" height="320"/>
-   <object id="14" name="Niko" type="niko" x="2480" y="280">
-    <point/>
-   </object>
-  </objectgroup>
-  <objectgroup color="#ffaa00" id="10" name="3" locked="1">
-   <object id="11" name="3" type="wave" x="1280" y="0" width="640" height="320"/>
-   <object id="12" name="Niko" type="niko" x="1808" y="256">
-    <point/>
-   </object>
-  </objectgroup>
-  <objectgroup color="#ffaa00" id="3" name="2">
-   <properties>
-    <property name="maxActiveEnemies" type="int" value="4"/>
-   </properties>
-   <object id="2" name="2" type="wave" x="640" y="0" width="640" height="320"/>
-   <object id="10" name="Vic" type="niko" x="768" y="256">
+   <object id="14" name="Beatnik" type="beatnik" x="2440" y="272">
     <properties>
-     <property name="appearFrom" value="right"/>
-     <property name="palette" value="black"/>
-     <property name="spawnDelay" type="int" value="1"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="waitCamera" type="bool" value="true"/>
     </properties>
     <point/>
    </object>
-   <object id="29" name="Zeena" type="zeena" x="800" y="272">
+   <object id="47" name="Igor" type="niko" x="2424" y="248">
+    <properties>
+     <property name="animation" value="dance"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" value="blue"/>
+     <property name="waitCamera" type="bool" value="true"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="48" name="Grichka" type="gopper" x="2456" y="304">
+    <properties>
+     <property name="animation" value="dance"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" value="blue"/>
+     <property name="waitCamera" type="bool" value="true"/>
+    </properties>
+    <point/>
+   </object>
+  </objectgroup>
+  <objectgroup color="#ffff00" id="10" name="3">
+   <properties>
+    <property name="maxActiveEnemies" type="int" value="4"/>
+   </properties>
+   <object id="11" name="3" type="wave" x="1280" y="0" width="640" height="320"/>
+   <object id="12" name="Vlad" type="niko" x="1528" y="272">
+    <properties>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" value="blue"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="39" name="Mila" type="zeena" x="1568" y="248">
+    <properties>
+     <property name="animation" value="duck"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" value="blackred"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="40" name="Alex" type="gopper" x="1592" y="296">
+    <properties>
+     <property name="animation" value="duck"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" value="black"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="41" name="Mikha" type="gopper" x="1664" y="272">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" value="red"/>
+     <property name="spawnDelay" type="int" value="5"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="42" name="Sergei" type="gopper" x="1312" y="272">
+    <properties>
+     <property name="appearFrom" value="left"/>
+     <property name="palette" value="red"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="43" name="Bogdan" type="gopper" x="1520" y="272">
+    <properties>
+     <property name="appearFrom" value="fall"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" value="blue"/>
+     <property name="spawnDelay" type="int" value="2"/>
+     <property name="z" type="int" value="600"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="44" name="Anna" type="zeena" x="1760" y="288">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="pink"/>
@@ -191,15 +249,45 @@
     </properties>
     <point/>
    </object>
-   <object id="30" name="Ivan" type="gopper" x="664" y="272">
+   <object id="45" name="Igor" type="niko" x="1808" y="256">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" value="green"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+  </objectgroup>
+  <objectgroup color="#ff8000" id="3" name="2">
+   <properties>
+    <property name="maxActiveEnemies" type="int" value="4"/>
+   </properties>
+   <object id="2" name="2" type="wave" x="640" y="0" width="640" height="320"/>
+   <object id="10" name="Zeena" type="zeena" x="728" y="272">
+    <properties>
+     <property name="animation" value="duck"/>
+     <property name="flip" type="bool" value="true"/>
+     <property name="palette" value="pink"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="29" name="Vik" type="niko" x="792" y="248">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" value="black"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="30" name="Ivan" type="gopper" x="656" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
-     <property name="palette" value="red"/>
+     <property name="palette" value="green"/>
      <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
    </object>
-   <object id="31" name="Ivan" type="gopper" x="832" y="256">
+   <object id="31" name="Ivan" type="gopper" x="896" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="blue"/>
@@ -207,7 +295,7 @@
     </properties>
     <point/>
    </object>
-   <object id="33" name="Zeena" type="zeena" x="672" y="248">
+   <object id="33" name="Nitsa" type="zeena" x="680" y="256">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="black"/>
@@ -215,8 +303,48 @@
     </properties>
     <point/>
    </object>
+   <object id="34" name="Andrei" type="gopper" x="928" y="272">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" value="black"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="35" name="Maksim" type="gopper" x="960" y="288">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" value="blue"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="36" name="Vasily" type="niko" x="704" y="272">
+    <properties>
+     <property name="appearFrom" value="left"/>
+     <property name="palette" value="blue"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="37" name="Reta" type="zeena" x="992" y="272">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" value="blue"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="38" name="Vadim" type="niko" x="1024" y="288">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" value="black"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
   </objectgroup>
-  <objectgroup color="#ffff00" id="2" name="1" locked="1">
+  <objectgroup color="#ff0000" id="2" name="1">
    <properties>
     <property name="maxActiveEnemies" type="int" value="3"/>
     <property name="music" value="stage1"/>
@@ -249,7 +377,7 @@
    <object id="22" name="Dima" type="gopper" x="416" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
-     <property name="palette" value="green"/>
+     <property name="palette" value="black"/>
      <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
