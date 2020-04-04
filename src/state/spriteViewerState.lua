@@ -55,7 +55,7 @@ function spriteViewerState:enter(_, _unit)
     self:wheelmoved(0, 0)   --pick 1st sprite to draw
     -- show hitBoxes
     stage = Stage:new()
-    player = Rick:new("SPRED", unit.spriteInstance, screenWidth /2, menuOffset_y + menuItem_h / 2)
+    player = Character:new("SPRITE", unit.spriteInstance, screenWidth /2, menuOffset_y + menuItem_h / 2)
     player.id = 1   -- fixed id
     player:setOnStage(stage)
     player.doThrow = function() end -- block ability
