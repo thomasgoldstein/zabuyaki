@@ -263,6 +263,8 @@ function spriteViewerState:draw()
                         end
                         if aliases[m.n] then
                             m.item = "PALETTE #"..m.n..' "'..aliases[m.n]..'"'
+                        else
+                            m.item = "PALETTE #"..m.n..' *MISSING ALIAS*'
                         end
                     else
                         m.item = "PALETTE #"..m.n
