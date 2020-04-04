@@ -285,22 +285,22 @@ end
 
 function reloadShaders()
     shaders.rick = {
-        nil,
+        false,
         swapColors(rickColors_original, rickColors_2),
         swapColors(rickColors_original, rickColors_3),
     }
     shaders.kisa = {
-        nil,
+        false,
         swapColors(kisaColors_original, kisaColors_2),
         swapColors(kisaColors_original, kisaColors_3),
     }
     shaders.chai = {
-        nil,
+        false,
         swapColors(chaiColors_original, chaiColors_2),
         swapColors(chaiColors_original, chaiColors_3),
     }
     shaders.yar = {
-        nil,
+        false,
         swapColors(yarColors_original, yarColors_2),
         swapColors(yarColors_original, yarColors_3),
     }
@@ -331,19 +331,19 @@ function reloadShaders()
     }
     shaders.zeena.aliases = { pink = 1, black = 2, }
     shaders.beatnik = {
-        nil,
+        false,
     }
     shaders.satoff = {
-        nil,
+        false,
         swapColors(satoffColors_original, satoffColors_2),
         swapColors(satoffColors_original, satoffColors_3),
         swapColors(satoffColors_original, satoffColors_4),
     }
     shaders.drVolker = {
-        nil,
+        false,
     }
     shaders.trashcan = {
-        nil,
+        false,
         swapColors(trashcanColors_original, trashcanColors_2),
     }
     shaders.trashcan_particleColor = {
