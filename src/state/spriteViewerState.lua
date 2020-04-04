@@ -18,7 +18,7 @@ local txtCurrentSprite --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
 local txtItems = {"ANIMATIONS", "FRAMES", "DISABLED", "PALETTES", "BACK"}
 local menuItems = {animations = 1, frames = 2, disabled = 3, palettes = 4, back = 5}
 local player
-local hero
+local unit
 local sprite
 local specialOverlaySprite
 local animations
@@ -28,18 +28,18 @@ local menu = fillMenu(txtItems)
 local menuState, oldMenuState = 1, 1
 local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
-function spriteViewerState:enter(_, _hero)
-    hero = _hero
-    sprite = getSpriteInstance(hero.spriteInstance)
+function spriteViewerState:enter(_, _unit)
+    unit = _unit
+    sprite = getSpriteInstance(unit.spriteInstance)
     sprite.sizeScale = 2
-    txtCurrentSprite = love.graphics.newText( gfx.font.kimberley, hero.name )
+    txtCurrentSprite = love.graphics.newText( gfx.font.kimberley, unit.name )
     animations = {}
     for key, val in pairs(sprite.def.animations) do
         animations[#animations + 1] = key
     end
     table.sort( animations )
     setSpriteAnimation(sprite,animations[1])
-    specialOverlaySprite = getSpriteInstance(hero.spriteInstance .. "_sp")
+    specialOverlaySprite = getSpriteInstance(unit.spriteInstance .. "_sp")
     if specialOverlaySprite then
         specialOverlaySprite.sizeScale = 2
     end
@@ -55,7 +55,7 @@ function spriteViewerState:enter(_, _hero)
     self:wheelmoved(0, 0)   --pick 1st sprite to draw
     -- show hitBoxes
     stage = Stage:new()
-    player = Rick:new("SPRED", hero.spriteInstance, screenWidth /2, menuOffset_y + menuItem_h / 2)
+    player = Rick:new("SPRED", unit.spriteInstance, screenWidth /2, menuOffset_y + menuItem_h / 2)
     player.id = 1   -- fixed id
     player:setOnStage(stage)
     player.doThrow = function() end -- block ability
@@ -246,19 +246,19 @@ function spriteViewerState:draw()
                 m.hint = m.hint .. "R:"..s[m.n].rotate.." RXY:"..(s[m.n].rx or 0)..","..(s[m.n].ry or 0).." "
             end
         elseif i == menuItems.palettes then
-            if m.n > #hero.shaders then
-                m.n = #hero.shaders
+            if m.n > #unit.shaders then
+                m.n = #unit.shaders
             end
-            if #hero.shaders < 1 then
+            if #unit.shaders < 1 then
                 m.item = "NO PALETTES"
                 m.hint = ""
             else
-                if not hero.shaders[m.n] then
+                if not unit.shaders[m.n] then
                     m.item = "PALETTE #"..m.n.." (ORIGINAL)"
                 else
-                    if hero.shaders.aliases then
+                    if unit.shaders.aliases then
                         local aliases = {}
-                        for v,k in pairs(hero.shaders.aliases) do
+                        for v,k in pairs(unit.shaders.aliases) do
                             aliases[k] = v
                         end
                         if aliases[m.n] then
@@ -305,8 +305,8 @@ function spriteViewerState:draw()
         x = x - 40
     end
     colors:set("white")
-    if hero.shaders[menu[4].n] then
-        love.graphics.setShader(hero.shaders[menu[4].n])
+    if unit.shaders[menu[4].n] then
+        love.graphics.setShader(unit.shaders[menu[4].n])
     end
     if sprite then --for stage objects w/o shaders
         if menuState == menuItems.frames then
@@ -407,13 +407,13 @@ function spriteViewerState:wheelmoved(x, y)
         end
         getPlayerHitBoxes()
     elseif menuState == menuItems.palettes then
-        if #hero.shaders < 1 then
+        if #unit.shaders < 1 then
             return
         end
         if menu[menuState].n < 1 then
-            menu[menuState].n = #hero.shaders
+            menu[menuState].n = #unit.shaders
         end
-        if menu[menuState].n > #hero.shaders then
+        if menu[menuState].n > #unit.shaders then
             menu[menuState].n = 1
         end
     end
