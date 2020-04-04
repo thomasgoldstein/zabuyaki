@@ -51,8 +51,13 @@ function Player:drawBar(l,t,w,h)
             colors:set("playersColors", self.source.id, transpBg)
             printWithShadow(self.source.pid, l + self.x + self.source.shake.x + iconWidth + 2, t + self.y - 1,
                 transpBg)
-            --printWithShadow("<     " .. self.source.name .. "     >", l + self.x + 2 + math.floor(2 * math.sin(self.timer*4)), t + self.y + 9 + 11 )
+            if self.source.shader then
+                love.graphics.setShader(self.source.shader)
+            end
             self:drawFaceIcon(l + self.source.shake.x, t, transpBg)
+            if self.source.shader then
+                love.graphics.setShader()
+            end
             colors:set("white", nil, 200 + 55 * math.sin(self.timer*3 + 17))
             printWithShadow("SELECT PLAYER (".. math.floor(self.source.displayDelay) ..")", l + self.x + 2, t + self.y + 19,
                 transpBg)
