@@ -144,49 +144,49 @@ local gopperColors_original = {
     { 129, 133, 139, 255 }, { 90, 93, 98, 255 }, -- top gray stripes
     { 245, 249, 253, 255 }, { 185, 194, 202, 255 }, -- bottom white stripes
     { 55, 59, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 } } -- black shoes
-local gopperColors_1 = {
+local gopperColors_blue = {
     { 32, 69, 126, 255 }, { 13, 30, 98, 255 }, { 7, 14, 36, 255 }, -- blue top
     { 32, 69, 126, 255 }, { 13, 30, 98, 255 }, { 7, 14, 36, 255 }, -- blue pants
     { 245, 249, 253, 255 }, { 185, 194, 202, 255 } } -- top white stripes
-local gopperColors_2 = {
+local gopperColors_green = {
     { 43, 114, 70, 255 }, { 23, 58, 24, 255 }, { 8, 28, 8, 255 }, -- green top
     { 43, 114, 70, 255 }, { 23, 58, 24, 255 }, { 8, 28, 8, 255 }, -- green pants
     { 245, 249, 253, 255 }, { 185, 194, 202, 255 } } -- top white stripes
-local gopperColors_3 = {
+local gopperColors_black = {
     { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black top
     { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black pants
     { 245, 249, 253, 255 }, { 185, 194, 202, 255 } } -- top white stripes
-local gopperColors_4 = {
+local gopperColors_red = {
     { 160, 22, 56, 255 }, { 90, 12, 22, 255 }, { 42, 7, 9, 255 }, -- red top
     { 160, 22, 56, 255 }, { 90, 12, 22, 255 }, { 42, 7, 9, 255 }, -- red pants
     { 245, 249, 253, 255 }, { 185, 194, 202, 255 } } -- top white stripes
 
 local nikoColors_original = gopperColors_original
-local nikoColors_1 = gopperColors_1
-local nikoColors_2 = gopperColors_2
-local nikoColors_3 = gopperColors_3
-local nikoColors_4 = gopperColors_4
+local nikoColors_blue = gopperColors_blue
+local nikoColors_green = gopperColors_green
+local nikoColors_black = gopperColors_black
+local nikoColors_red = gopperColors_red
 
 local svetaColors_original = {
     { 134, 146, 169, 255 }, { 51, 69, 122, 255 }, { 20, 34, 62, 255 }, -- blue-gray vest
     { 32, 69, 126, 255 }, { 13, 30, 98, 255 }, { 7, 14, 36, 255 }, -- blue pants
     { 180, 127, 57, 255 }, { 138, 67, 13, 255 }, { 53, 30, 20, 255 } } -- chestnut hair
-local svetaColors_1 = {
+local svetaColors_blue = {
     { 134, 146, 169, 255 }, { 51, 69, 122, 255 }, { 20, 34, 62, 255 }, -- blue-gray vest
     { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 } } -- black pants
-local svetaColors_2 = svetaColors_1 -- TODO
-local svetaColors_3 = svetaColors_1 -- TODO
+local svetaColors_2 = svetaColors_blue -- TODO
+local svetaColors_3 = svetaColors_blue -- TODO
 
 local zeenaColors_original = svetaColors_original
-local zeenaColors_1 = {
+local zeenaColors_pink = {
     { 247, 182, 193, 255 }, { 189, 96, 151, 255 }, { 77, 24, 101, 255 }, -- pink vest
     { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black pants
     { 38, 61, 93, 255 }, { 7, 12, 72, 255 }, { 7, 5, 44, 255 } } -- dark blue hair
-local zeenaColors_2 = {
+local zeenaColors_black = {
     { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black vest
     { 62, 52, 56, 255 }, { 28, 28, 28, 255 }, { 8, 8, 8, 255 }, -- black pants
     { 160, 89, 32, 255 }, { 107, 41, 21, 255 }, { 40, 19, 7, 255 } } -- brown hair
-local zeenaColors_3 = zeenaColors_2 -- TODO
+local zeenaColors_3 = zeenaColors_black -- TODO
 
 local satoffColors_original = {
     { 228, 33, 35, 255 }, { 135, 12, 30, 255 }, { 51, 8, 9, 255 }, -- red suit
@@ -305,29 +305,31 @@ function reloadShaders()
         swapColors(yarColors_original, yarColors_3),
     }
     shaders.gopper = {
-        swapColors(gopperColors_original, gopperColors_1),
-        swapColors(gopperColors_original, gopperColors_2),
-        swapColors(gopperColors_original, gopperColors_3),
-        swapColors(gopperColors_original, gopperColors_4),
+        swapColors(gopperColors_original, gopperColors_blue),
+        swapColors(gopperColors_original, gopperColors_green),
+        swapColors(gopperColors_original, gopperColors_black),
+        swapColors(gopperColors_original, gopperColors_red),
     }
     shaders.gopper.aliases = { blue = 1, green = 2, black = 3, red = 4, }
     shaders.niko = {
-        swapColors(nikoColors_original, nikoColors_1),
-        swapColors(nikoColors_original, nikoColors_2),
-        swapColors(nikoColors_original, nikoColors_3),
-        swapColors(nikoColors_original, nikoColors_4),
+        swapColors(nikoColors_original, nikoColors_blue),
+        swapColors(nikoColors_original, nikoColors_green),
+        swapColors(nikoColors_original, nikoColors_black),
+        swapColors(nikoColors_original, nikoColors_red),
     }
     shaders.niko.aliases = { blue = 1, green = 2, black = 3, red = 4, }
     shaders.sveta = {
-        swapColors(svetaColors_original, svetaColors_1),
+        swapColors(svetaColors_original, svetaColors_blue),
         swapColors(svetaColors_original, svetaColors_2),
         swapColors(svetaColors_original, svetaColors_3),
     }
+    shaders.sveta.aliases = { blue = 1, }
     shaders.zeena = {
-        swapColors(zeenaColors_original, zeenaColors_1),
-        swapColors(zeenaColors_original, zeenaColors_2),
+        swapColors(zeenaColors_original, zeenaColors_pink),
+        swapColors(zeenaColors_original, zeenaColors_black),
         swapColors(zeenaColors_original, zeenaColors_3),
     }
+    shaders.zeena.aliases = { pink = 1, black = 2, }
     shaders.beatnik = {
         nil,
     }
