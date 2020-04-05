@@ -3,6 +3,8 @@
 local class = require "lib/middleclass"
 local Wave = class('Wave')
 
+local scrollSpeed = 150 -- speed of rightStopper movement. Usually seen on the going to the next wave
+
 function Wave:printWaveState(t)
     dp("WAVE #"..self.n.." State:"..self.state.." "..(t or ""))
 end
@@ -54,7 +56,7 @@ function Wave:spawn(dt)
         lx = self.leftStopper_x
     end
     if rx < self.rightStopper_x then
-        rx = rx + dt * 300 -- speed of the right Stopper movement > char's run
+        rx = rx + dt * scrollSpeed -- speed of the right Stopper movement > char's run
     end
     if lx ~= self.stage.leftStopper:getX() or rx ~= self.stage.rightStopper:getX() then
         self.stage:moveStoppers(lx, rx)
