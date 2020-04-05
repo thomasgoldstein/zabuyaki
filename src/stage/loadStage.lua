@@ -72,6 +72,11 @@ local function applyWaveUnitProperties(v, waveUnit)
     else
         waveUnit.spawnDelay = 0
     end
+    if v.properties.spawnDelayBeforeActivation then
+        waveUnit.spawnDelayBeforeActivation = tonumber(v.properties.spawnDelayBeforeActivation)
+    else
+        waveUnit.spawnDelayBeforeActivation = 0
+    end
     waveUnit.state = v.properties.state or waveUnit.state
     waveUnit.animation = v.properties.animation or waveUnit.animation
     waveUnit.target = v.properties.target or waveUnit.target
