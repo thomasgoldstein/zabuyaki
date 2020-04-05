@@ -14,7 +14,7 @@ local zoomSpeed = 2 -- speed of zoom-in-out transition
 local maxDistanceNoZoom = 200   -- between players
 local minDistanceToKeepZoom = 190   -- between players
 local oldCoord_x, oldCoord_y    -- smooth scrolling
-local scrollSpeed = 150 -- speed of P1 camera centering on P2+P3 death
+local scrollSpeed = 50 -- speed of P1 camera centering on P2+P3 death
 
 function Stage:initialize(name, mapFile, players)
     stage = self
