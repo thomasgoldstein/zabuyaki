@@ -219,7 +219,7 @@
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="red"/>
-     <property name="spawnDelay" type="int" value="5"/>
+     <property name="spawnDelay" type="int" value="3"/>
     </properties>
     <point/>
    </object>
@@ -283,7 +283,7 @@
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="green"/>
-     <property name="spawnDelay" type="int" value="3"/>
+     <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
    </object>
@@ -291,7 +291,7 @@
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="blue"/>
-     <property name="spawnDelay" type="int" value="4"/>
+     <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
    </object>
@@ -386,7 +386,7 @@
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="red"/>
-     <property name="spawnDelay" type="int" value="3"/>
+     <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
    </object>
@@ -394,7 +394,7 @@
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="black"/>
-     <property name="spawnDelay" type="int" value="3"/>
+     <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
    </object>
@@ -402,7 +402,7 @@
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="red"/>
-     <property name="spawnDelay" type="int" value="3"/>
+     <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
    </object>
@@ -410,7 +410,7 @@
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="blue"/>
-     <property name="spawnDelay" type="int" value="3"/>
+     <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
    </object>

@@ -714,7 +714,7 @@ return {
               properties = {
                 ["appearFrom"] = "right",
                 ["palette"] = "red",
-                ["spawnDelay"] = 5
+                ["spawnDelay"] = 3
               }
             },
             {
@@ -863,7 +863,7 @@ return {
               properties = {
                 ["appearFrom"] = "left",
                 ["palette"] = "green",
-                ["spawnDelay"] = 3
+                ["spawnDelay"] = 2
               }
             },
             {
@@ -880,7 +880,7 @@ return {
               properties = {
                 ["appearFrom"] = "right",
                 ["palette"] = "blue",
-                ["spawnDelay"] = 4
+                ["spawnDelay"] = 2
               }
             },
             {
@@ -1096,7 +1096,7 @@ return {
               properties = {
                 ["appearFrom"] = "right",
                 ["palette"] = "red",
-                ["spawnDelay"] = 3
+                ["spawnDelay"] = 2
               }
             },
             {
@@ -1113,7 +1113,7 @@ return {
               properties = {
                 ["appearFrom"] = "left",
                 ["palette"] = "black",
-                ["spawnDelay"] = 3
+                ["spawnDelay"] = 2
               }
             },
             {
@@ -1130,7 +1130,7 @@ return {
               properties = {
                 ["appearFrom"] = "right",
                 ["palette"] = "red",
-                ["spawnDelay"] = 3
+                ["spawnDelay"] = 2
               }
             },
             {
@@ -1147,7 +1147,7 @@ return {
               properties = {
                 ["appearFrom"] = "left",
                 ["palette"] = "blue",
-                ["spawnDelay"] = 3
+                ["spawnDelay"] = 2
               }
             }
           }
