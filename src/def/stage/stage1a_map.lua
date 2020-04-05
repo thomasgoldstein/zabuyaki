@@ -8,8 +8,8 @@ return {
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 40,
-  nextobjectid = 51,
+  nextlayerid = 34,
+  nextobjectid = 46,
   backgroundcolor = { 141, 110, 143 },
   properties = {
     ["enableReflections"] = true,
@@ -19,7 +19,7 @@ return {
   layers = {
     {
       type = "group",
-      id = 8,
+      id = 1,
       name = "background",
       visible = true,
       opacity = 1,
@@ -29,7 +29,7 @@ return {
       layers = {
         {
           type = "imagelayer",
-          id = 15,
+          id = 2,
           name = "sky",
           visible = true,
           opacity = 1,
@@ -42,7 +42,7 @@ return {
         },
         {
           type = "group",
-          id = 18,
+          id = 3,
           name = "bg-city-3",
           visible = true,
           opacity = 1,
@@ -54,7 +54,7 @@ return {
           layers = {
             {
               type = "imagelayer",
-              id = 19,
+              id = 4,
               name = "city",
               visible = true,
               opacity = 1,
@@ -67,7 +67,7 @@ return {
         },
         {
           type = "group",
-          id = 17,
+          id = 5,
           name = "bg-city-2",
           visible = true,
           opacity = 1,
@@ -79,7 +79,7 @@ return {
           layers = {
             {
               type = "imagelayer",
-              id = 20,
+              id = 6,
               name = "city",
               visible = true,
               opacity = 1,
@@ -92,7 +92,7 @@ return {
         },
         {
           type = "group",
-          id = 30,
+          id = 7,
           name = "bg-city-1",
           visible = true,
           opacity = 1,
@@ -104,7 +104,7 @@ return {
           layers = {
             {
               type = "imagelayer",
-              id = 31,
+              id = 8,
               name = "city",
               visible = true,
               opacity = 1,
@@ -117,7 +117,7 @@ return {
         },
         {
           type = "group",
-          id = 32,
+          id = 9,
           name = "bg-building",
           visible = true,
           opacity = 1,
@@ -129,7 +129,7 @@ return {
           layers = {
             {
               type = "imagelayer",
-              id = 33,
+              id = 10,
               name = "building-2",
               visible = true,
               opacity = 1,
@@ -140,7 +140,7 @@ return {
             },
             {
               type = "imagelayer",
-              id = 39,
+              id = 11,
               name = "building-1",
               visible = true,
               opacity = 1,
@@ -153,7 +153,7 @@ return {
         },
         {
           type = "group",
-          id = 35,
+          id = 12,
           name = "puddle-overlay",
           visible = true,
           opacity = 1,
@@ -163,7 +163,7 @@ return {
           layers = {
             {
               type = "imagelayer",
-              id = 37,
+              id = 13,
               name = "puddle-overlay-2",
               visible = true,
               opacity = 1,
@@ -174,7 +174,7 @@ return {
             },
             {
               type = "imagelayer",
-              id = 36,
+              id = 14,
               name = "puddle-overlay-1",
               visible = true,
               opacity = 1,
@@ -187,7 +187,7 @@ return {
         },
         {
           type = "imagelayer",
-          id = 38,
+          id = 15,
           name = "bg-reflection",
           visible = true,
           opacity = 1,
@@ -200,7 +200,7 @@ return {
         },
         {
           type = "imagelayer",
-          id = 9,
+          id = 16,
           name = "bg",
           visible = true,
           opacity = 1,
@@ -211,7 +211,7 @@ return {
         },
         {
           type = "group",
-          id = 24,
+          id = 17,
           name = "burn-barrels",
           visible = true,
           opacity = 1,
@@ -223,7 +223,7 @@ return {
           layers = {
             {
               type = "imagelayer",
-              id = 26,
+              id = 18,
               name = "barrel3",
               visible = true,
               opacity = 1,
@@ -234,7 +234,7 @@ return {
             },
             {
               type = "imagelayer",
-              id = 25,
+              id = 19,
               name = "barrel2",
               visible = true,
               opacity = 1,
@@ -245,7 +245,7 @@ return {
             },
             {
               type = "imagelayer",
-              id = 21,
+              id = 20,
               name = "barrel1",
               visible = true,
               opacity = 1,
@@ -260,7 +260,7 @@ return {
     },
     {
       type = "group",
-      id = 12,
+      id = 21,
       name = "foreground",
       visible = true,
       opacity = 1,
@@ -270,7 +270,7 @@ return {
       layers = {
         {
           type = "imagelayer",
-          id = 34,
+          id = 22,
           name = "bridge-shadow",
           visible = false,
           opacity = 1,
@@ -281,7 +281,7 @@ return {
         },
         {
           type = "imagelayer",
-          id = 27,
+          id = 23,
           name = "bridge",
           visible = true,
           opacity = 1,
@@ -294,7 +294,7 @@ return {
         },
         {
           type = "imagelayer",
-          id = 13,
+          id = 24,
           name = "fg",
           visible = true,
           opacity = 1,
@@ -309,7 +309,7 @@ return {
     },
     {
       type = "objectgroup",
-      id = 7,
+      id = 25,
       name = "camera",
       visible = true,
       opacity = 1,
@@ -319,7 +319,7 @@ return {
       properties = {},
       objects = {
         {
-          id = 6,
+          id = 1,
           name = "",
           type = "",
           shape = "polyline",
@@ -339,7 +339,7 @@ return {
     },
     {
       type = "objectgroup",
-      id = 6,
+      id = 26,
       name = "collision",
       visible = true,
       opacity = 1,
@@ -349,7 +349,7 @@ return {
       properties = {},
       objects = {
         {
-          id = 8,
+          id = 2,
           name = "",
           type = "",
           shape = "rectangle",
@@ -362,7 +362,7 @@ return {
           properties = {}
         },
         {
-          id = 23,
+          id = 3,
           name = "",
           type = "",
           shape = "rectangle",
@@ -375,7 +375,7 @@ return {
           properties = {}
         },
         {
-          id = 24,
+          id = 4,
           name = "",
           type = "",
           shape = "rectangle",
@@ -391,7 +391,7 @@ return {
     },
     {
       type = "objectgroup",
-      id = 5,
+      id = 27,
       name = "players",
       visible = true,
       opacity = 1,
@@ -401,7 +401,7 @@ return {
       properties = {},
       objects = {
         {
-          id = 3,
+          id = 5,
           name = "1",
           type = "",
           shape = "point",
@@ -414,7 +414,7 @@ return {
           properties = {}
         },
         {
-          id = 4,
+          id = 6,
           name = "2",
           type = "",
           shape = "point",
@@ -427,7 +427,7 @@ return {
           properties = {}
         },
         {
-          id = 5,
+          id = 7,
           name = "3",
           type = "",
           shape = "point",
@@ -443,7 +443,7 @@ return {
     },
     {
       type = "objectgroup",
-      id = 4,
+      id = 28,
       name = "global",
       visible = true,
       opacity = 1,
@@ -453,7 +453,7 @@ return {
       properties = {},
       objects = {
         {
-          id = 15,
+          id = 8,
           name = "enterMap",
           type = "event",
           shape = "point",
@@ -468,7 +468,7 @@ return {
           }
         },
         {
-          id = 16,
+          id = 9,
           name = "leaveMap",
           type = "event",
           shape = "point",
@@ -486,7 +486,7 @@ return {
           }
         },
         {
-          id = 17,
+          id = 10,
           name = "exit",
           type = "event",
           shape = "point",
@@ -503,7 +503,7 @@ return {
           }
         },
         {
-          id = 18,
+          id = 11,
           name = "Trash",
           type = "trashcan",
           shape = "point",
@@ -516,7 +516,7 @@ return {
           properties = {}
         },
         {
-          id = 19,
+          id = 12,
           name = "Trash",
           type = "trashcan",
           shape = "point",
@@ -535,7 +535,7 @@ return {
     },
     {
       type = "group",
-      id = 1,
+      id = 29,
       name = "waves",
       visible = true,
       opacity = 1,
@@ -545,7 +545,7 @@ return {
       layers = {
         {
           type = "objectgroup",
-          id = 11,
+          id = 30,
           name = "4",
           visible = true,
           opacity = 1,
@@ -587,7 +587,7 @@ return {
               }
             },
             {
-              id = 47,
+              id = 15,
               name = "Igor",
               type = "niko",
               shape = "point",
@@ -605,7 +605,7 @@ return {
               }
             },
             {
-              id = 48,
+              id = 16,
               name = "Grichka",
               type = "gopper",
               shape = "point",
@@ -626,7 +626,7 @@ return {
         },
         {
           type = "objectgroup",
-          id = 10,
+          id = 31,
           name = "3",
           visible = true,
           opacity = 1,
@@ -638,7 +638,7 @@ return {
           },
           objects = {
             {
-              id = 11,
+              id = 17,
               name = "3",
               type = "wave",
               shape = "rectangle",
@@ -651,7 +651,7 @@ return {
               properties = {}
             },
             {
-              id = 12,
+              id = 18,
               name = "Vlad",
               type = "niko",
               shape = "point",
@@ -667,7 +667,7 @@ return {
               }
             },
             {
-              id = 39,
+              id = 19,
               name = "Mila",
               type = "zeena",
               shape = "point",
@@ -684,7 +684,7 @@ return {
               }
             },
             {
-              id = 40,
+              id = 20,
               name = "Alex",
               type = "gopper",
               shape = "point",
@@ -701,7 +701,7 @@ return {
               }
             },
             {
-              id = 41,
+              id = 21,
               name = "Mikha",
               type = "gopper",
               shape = "point",
@@ -718,7 +718,7 @@ return {
               }
             },
             {
-              id = 42,
+              id = 22,
               name = "Sergei",
               type = "gopper",
               shape = "point",
@@ -735,7 +735,7 @@ return {
               }
             },
             {
-              id = 43,
+              id = 23,
               name = "Bogdan",
               type = "gopper",
               shape = "point",
@@ -754,7 +754,7 @@ return {
               }
             },
             {
-              id = 44,
+              id = 24,
               name = "Anna",
               type = "zeena",
               shape = "point",
@@ -771,7 +771,7 @@ return {
               }
             },
             {
-              id = 45,
+              id = 25,
               name = "Igor",
               type = "niko",
               shape = "point",
@@ -791,7 +791,7 @@ return {
         },
         {
           type = "objectgroup",
-          id = 3,
+          id = 32,
           name = "2",
           visible = true,
           opacity = 1,
@@ -803,7 +803,7 @@ return {
           },
           objects = {
             {
-              id = 2,
+              id = 26,
               name = "2",
               type = "wave",
               shape = "rectangle",
@@ -816,7 +816,7 @@ return {
               properties = {}
             },
             {
-              id = 10,
+              id = 27,
               name = "Zeena",
               type = "zeena",
               shape = "point",
@@ -833,7 +833,7 @@ return {
               }
             },
             {
-              id = 29,
+              id = 28,
               name = "Vik",
               type = "niko",
               shape = "point",
@@ -850,7 +850,7 @@ return {
               }
             },
             {
-              id = 30,
+              id = 29,
               name = "Ivan",
               type = "gopper",
               shape = "point",
@@ -867,7 +867,7 @@ return {
               }
             },
             {
-              id = 31,
+              id = 30,
               name = "Ivan",
               type = "gopper",
               shape = "point",
@@ -884,7 +884,7 @@ return {
               }
             },
             {
-              id = 33,
+              id = 31,
               name = "Nitsa",
               type = "zeena",
               shape = "point",
@@ -901,7 +901,7 @@ return {
               }
             },
             {
-              id = 34,
+              id = 32,
               name = "Andrei",
               type = "gopper",
               shape = "point",
@@ -918,7 +918,7 @@ return {
               }
             },
             {
-              id = 35,
+              id = 33,
               name = "Maksim",
               type = "gopper",
               shape = "point",
@@ -935,7 +935,7 @@ return {
               }
             },
             {
-              id = 36,
+              id = 34,
               name = "Vasily",
               type = "niko",
               shape = "point",
@@ -952,7 +952,7 @@ return {
               }
             },
             {
-              id = 37,
+              id = 35,
               name = "Reta",
               type = "zeena",
               shape = "point",
@@ -969,7 +969,7 @@ return {
               }
             },
             {
-              id = 38,
+              id = 36,
               name = "Vadim",
               type = "niko",
               shape = "point",
@@ -989,7 +989,7 @@ return {
         },
         {
           type = "objectgroup",
-          id = 2,
+          id = 33,
           name = "1",
           visible = true,
           opacity = 1,
@@ -1003,7 +1003,7 @@ return {
           },
           objects = {
             {
-              id = 1,
+              id = 37,
               name = "1",
               type = "wave",
               shape = "rectangle",
@@ -1016,7 +1016,7 @@ return {
               properties = {}
             },
             {
-              id = 9,
+              id = 38,
               name = "Niko",
               type = "niko",
               shape = "point",
@@ -1033,7 +1033,7 @@ return {
               }
             },
             {
-              id = 20,
+              id = 39,
               name = "Sergey",
               type = "gopper",
               shape = "point",
@@ -1050,7 +1050,7 @@ return {
               }
             },
             {
-              id = 21,
+              id = 40,
               name = "Gopper",
               type = "gopper",
               shape = "point",
@@ -1066,7 +1066,7 @@ return {
               }
             },
             {
-              id = 22,
+              id = 41,
               name = "Dima",
               type = "gopper",
               shape = "point",
@@ -1083,7 +1083,7 @@ return {
               }
             },
             {
-              id = 25,
+              id = 42,
               name = "Alexey",
               type = "gopper",
               shape = "point",
@@ -1100,7 +1100,7 @@ return {
               }
             },
             {
-              id = 26,
+              id = 43,
               name = "Pavel",
               type = "niko",
               shape = "point",
@@ -1117,7 +1117,7 @@ return {
               }
             },
             {
-              id = 27,
+              id = 44,
               name = "Pyotr",
               type = "niko",
               shape = "point",
@@ -1134,7 +1134,7 @@ return {
               }
             },
             {
-              id = 28,
+              id = 45,
               name = "Boris",
               type = "gopper",
               shape = "point",
