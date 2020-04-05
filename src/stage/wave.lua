@@ -89,7 +89,10 @@ function Wave:spawn(dt)
             end
             waitingEnemiesCount = waitingEnemiesCount + 1
         end
-        if not waveUnit.unit.isDisabled and waveUnit.spawnDelay <= 0 and waveUnit.unit.type == "enemy" then --alive enemy
+        if not waveUnit.unit.isDisabled
+            and waveUnit.spawnDelayBeforeActivation <= 0
+            and waveUnit.unit.type == "enemy"
+        then --alive enemy
             aliveEnemiesCount = aliveEnemiesCount + 1
         end
     end
@@ -100,8 +103,11 @@ function Wave:spawn(dt)
             break
         end
         if not waveUnit.isSpawned and not waveUnit.waitCamera then
-            waveUnit.spawnDelay = waveUnit.spawnDelay - dt
-            if waveUnit.spawnDelay <= 0 then -- delay before the unit's spawn
+            if waveUnit.spawnDelay <= self.lastSpawnedTime then
+                waveUnit.spawnDelay = 0
+                waveUnit.spawnDelayBeforeActivation = waveUnit.spawnDelayBeforeActivation - dt
+            end
+            if waveUnit.spawnDelayBeforeActivation <= 0 and waveUnit.spawnDelay <= self.lastSpawnedTime then -- delay before the unit's spawn
                 if waveUnit.appearFrom then -- alter unit coords if needed
                     unit.delayedWakeRange = math.huge -- make unit active after wakeDelay despite the distance to players
                     unit.wakeDelay = 0 -- make unit active
@@ -159,7 +165,7 @@ function Wave:spawn(dt)
                 self.lastSpawnedTime = 0
                 dp("APPEAR:", unit.id, "flip:", waveUnit.flip, waveUnit.appearFrom, unit.horizontal, unit.face, unit.sprite.faceFix)
             else
-                aliveEnemiesCount = aliveEnemiesCount + 1 -- count enemy with spawnDelay as alive or it breaks the wave order
+                aliveEnemiesCount = aliveEnemiesCount + 1 -- count enemy with spawnDelayBeforeActivation as alive or it breaks the wave order
             end
         end
         if not waveUnit.isActive and wave.onEnterStarted then
