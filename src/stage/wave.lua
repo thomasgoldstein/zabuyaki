@@ -15,6 +15,7 @@ function Wave:initialize(stage, waves)
     self.waves = waves
     dp("Stage has #",#waves,"waves of enemy")
     self.time = 0
+    self.lastSpawnedTime = 0 -- the time passed after the last enemy's' spawn (or from the start of the wave)
     self.startTimer = false
     self.state = "next"
 end
@@ -155,6 +156,7 @@ function Wave:spawn(dt)
                     unit.face = -1 * unit.horizontal
                     unit.sprite.faceFix = unit.face  -- stageObjects use it to fix sprite flipping
                 end
+                self.lastSpawnedTime = 0
                 dp("APPEAR:", unit.id, "flip:", waveUnit.flip, waveUnit.appearFrom, unit.horizontal, unit.face, unit.sprite.faceFix)
             else
                 aliveEnemiesCount = aliveEnemiesCount + 1 -- count enemy with spawnDelay as alive or it breaks the wave order
@@ -180,6 +182,7 @@ end
 function Wave:finish()
     self.state = "finish"
     self.time = 0
+    self.lastSpawnedTime = 0
 end
 
 function Wave:killCurrentWave()
@@ -202,11 +205,13 @@ end
 
 function Wave:update(dt)
     self.time = self.time + dt
+    self.lastSpawnedTime = self.lastSpawnedTime + dt
     if self.state == "spawn" then
         return not self:spawn(dt)
     elseif self.state == "next" then
         self.n = self.n + 1
         self.time = 0
+        self.lastSpawnedTime = 0
         if self:load() then
             self.state = "spawn"
         else
