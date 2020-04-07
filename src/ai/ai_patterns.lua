@@ -22,7 +22,7 @@ function AI:initCommonAiSchedules(unit)
         { })
     self.SCHEDULE_RUN_DASH = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash },
         { })
-    self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.initFaceToPlayer },
+    self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.ensureHasTarget, self.initFaceToPlayer },
         {"cannotAct", "noTarget", "noPlayers"})
     self.SCHEDULE_COMBO = Schedule:new({ self.ensureStanding, self.initCombo, self.onCombo },
         {"cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget", "tooCloseToPlayer"})
@@ -578,9 +578,9 @@ end
 function AI:initFaceToPlayer()
     local u = self.unit
     --    dp("AI:initFaceToPlayer() " .. u.name)
-    if u.isHittable and self:canAct() then
-        if not u.target or u.target.hp < 1 then
-            u:pickAttackTarget() -- ???
+    if self:canActAndMove() then
+        if not u.target then
+            return false
         end
         if u.x < u.target.x then
             u.face = 1
