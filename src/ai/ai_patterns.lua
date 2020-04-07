@@ -3,7 +3,7 @@ local AI = AI
 function AI:initCommonAiSchedules(unit)
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
         {"wokeUp", "tooCloseToPlayer"})
-    self.SCHEDULE_STAND = Schedule:new({ self.initStand, self.onStand },
+    self.SCHEDULE_STAND = Schedule:new({ self.initStand },
         {"cannotAct", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "inAir",
           "faceNotToPlayer", "tooCloseToPlayer"})
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.ensureStanding, self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
@@ -113,25 +113,13 @@ function AI:initStand()
     return false
 end
 
-function AI:onStand()
-    local u = self.unit
-    if not u.target then
-        u:pickAttackTarget("close")
-    elseif u.target.isDisabled or u.target.hp < 1 then
-        u:pickAttackTarget("random")
-    end
-    u.speed_x = u.runSpeed
-    u.speed_y = 0
-    return false
-end
-
 function AI:initWaitShort()
     local u = self.unit
     u.b.reset()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         self.waitingCounter = love.math.random() * (self.waitShortMax - self.waitShortMin) + self.waitShortMin
-        u.speed_x = u.runSpeed
+        u.speed_x = 0
         u.speed_y = 0
         return true
     end
@@ -144,7 +132,7 @@ function AI:initWaitMedium()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         self.waitingCounter = love.math.random() * (self.waitMediumMax - self.waitMediumMin) + self.waitMediumMin
-        u.speed_x = u.runSpeed
+        u.speed_x = 0
         u.speed_y = 0
         return true
     end
@@ -157,7 +145,7 @@ function AI:initWaitLong()
     if self:canActAndMove() then
         assert(not u.isDisabled and u.hp > 0)
         self.waitingCounter = love.math.random() * (self.waitLongMax - self.waitLongMin) + self.waitLongMin
-        u.speed_x = u.runSpeed
+        u.speed_x = 0
         u.speed_y = 0
         return true
     end
