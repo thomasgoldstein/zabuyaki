@@ -18,7 +18,7 @@ function AI:initCommonAiSchedules(unit)
         {"cannotAct", "inAir", "grabbed", "noTarget"})
     self.SCHEDULE_RUN = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove },
         {"cannotAct", "noTarget", "cannotAct", "inAir"})
-    self.SCHEDULE_DASH = Schedule:new({ self.ensureStanding, self.initDash, self.waitUntilStand, self.initWait, self.onWait },
+    self.SCHEDULE_DASH = Schedule:new({ self.ensureStanding, self.initDash, self.waitUntilStand, self.initWaitMedium, self.onWait },
         { })
     self.SCHEDULE_RUN_DASH = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash },
         { })
@@ -35,7 +35,7 @@ function AI:initCommonAiSchedules(unit)
 
     self.SCHEDULE_WAIT_SHORT = Schedule:new({ self.initWaitShort, self.onWait },
         {"tooCloseToPlayer"})
-    self.SCHEDULE_WAIT_MEDIUM = Schedule:new({ self.initWait, self.onWait },
+    self.SCHEDULE_WAIT_MEDIUM = Schedule:new({ self.initWaitMedium, self.onWait },
         {"tooCloseToPlayer"})
     self.SCHEDULE_WAIT_LONG = Schedule:new({ self.initWaitLong, self.onWait },
         {"tooCloseToPlayer"})
@@ -138,7 +138,7 @@ function AI:initWaitShort()
     return false
 end
 
-function AI:initWait()
+function AI:initWaitMedium()
     local u = self.unit
     u.b.reset()
     if self:canActAndMove() then
