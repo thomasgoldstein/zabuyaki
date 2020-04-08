@@ -55,6 +55,10 @@ function AI:initCommonAiSchedules(unit)
         {"cannotAct", "grabbed", "inAir", "noTarget", "canCombo"})
     self.SCHEDULE_WALK_BY_TARGET_V = Schedule:new({ self.ensureHasTarget, self.calcWalkByTargetVertically, self.initWalkToXY, self.onMove },
         {"cannotAct", "grabbed", "inAir", "noTarget", "canCombo"})
+    self.SCHEDULE_STRAIGHT_JUMP = Schedule:new({ self.ensureStanding, self.emulateJumpPress, self.initWaitShort, self.onWait, self.emulateReleaseJump},
+        {"grabbed"})
+    self.SCHEDULE_DANCE = Schedule:new({ self.ensureStanding, self.initDance, self.initWaitLong, self.onWait},
+        {"grabbed", "inAir"})
 
 end
 
@@ -331,6 +335,14 @@ function AI:initWalkCloser()
         end
     end
     assert(not u.isDisabled and u.hp > 0)
+    return true
+end
+
+function AI:initDance()
+    local u = self.unit
+    u.b.reset()
+    u:setState(u.intro)
+    u:setSpriteIfExists("dance", "hurtHighWeak")
     return true
 end
 
