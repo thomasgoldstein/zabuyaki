@@ -7,9 +7,9 @@ shaders = {
     niko = {},
     sveta = {},
     zeena = {},
+    slavyan = {},
     beatnik = {},
     satoff = {},
-    slavyan = {},
     drVolker = {},
     trashcan = {},
     trashcan_particleColor = {},
@@ -344,6 +344,9 @@ function reloadShaders()
         swapColors(zeenaColors_original, zeenaColors_blue),
     }
     shaders.zeena.aliases = { pink = 1, black = 2, blackred = 3, blue = 4, }
+    shaders.slavyan = {
+        false,
+    }
     shaders.beatnik = {
         false,
     }
@@ -352,9 +355,6 @@ function reloadShaders()
         swapColors(satoffColors_original, satoffColors_2),
         swapColors(satoffColors_original, satoffColors_3),
         swapColors(satoffColors_original, satoffColors_4),
-    }
-    shaders.slavyan = {
-        false,
     }
     shaders.drVolker = {
         false,

@@ -153,11 +153,11 @@ local heroes = {
         py = 120
     },
     {
-        {name = "BEATNIK", palette = 1},
-        {name = "BEATNIK", palette = 1},
-        {name = "BEATNIK", palette = 1},
-        hero = PBeatnik,
-        spriteInstance = "src/def/char/beatnik",
+        {name = "SLAVYAN", palette = 1},
+        {name = "SLAVYAN", palette = 1},
+        {name = "SLAVYAN", palette = 1},
+        hero = PSlavyan,
+        spriteInstance = "src/def/char/slavyan",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
         sprite_portraitAnim = "rick", --NO OWN PORTRAIT
         defaultAnim = "stand",
@@ -170,11 +170,11 @@ local heroes = {
         py = 120
     },
     {
-        {name = "SLAVYAN", palette = 1},
-        {name = "SLAVYAN", palette = 1},
-        {name = "SLAVYAN", palette = 1},
-        hero = PSlavyan,
-        spriteInstance = "src/def/char/slavyan",
+        {name = "BEATNIK", palette = 1},
+        {name = "BEATNIK", palette = 1},
+        {name = "BEATNIK", palette = 1},
+        hero = PBeatnik,
+        spriteInstance = "src/def/char/beatnik",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
         sprite_portraitAnim = "rick", --NO OWN PORTRAIT
         defaultAnim = "stand",
