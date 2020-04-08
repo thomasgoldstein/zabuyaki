@@ -120,47 +120,34 @@ end
 function AI:initWaitShort()
     local u = self.unit
     u.b.reset()
-    if self:canActAndMove() then
-        assert(not u.isDisabled and u.hp > 0)
-        self.waitingCounter = love.math.random() * (self.waitShortMax - self.waitShortMin) + self.waitShortMin
-        u.speed_x = 0
-        u.speed_y = 0
-        return true
-    end
-    return false
+    self.waitingCounter = love.math.random() * (self.waitShortMax - self.waitShortMin) + self.waitShortMin
+    u.speed_x = 0
+    u.speed_y = 0
+    return true
 end
 
 function AI:initWaitMedium()
     local u = self.unit
     u.b.reset()
-    if self:canActAndMove() then
-        assert(not u.isDisabled and u.hp > 0)
-        self.waitingCounter = love.math.random() * (self.waitMediumMax - self.waitMediumMin) + self.waitMediumMin
-        u.speed_x = 0
-        u.speed_y = 0
-        return true
-    end
-    return false
+    self.waitingCounter = love.math.random() * (self.waitMediumMax - self.waitMediumMin) + self.waitMediumMin
+    u.speed_x = 0
+    u.speed_y = 0
+    return true
 end
 
 function AI:initWaitLong()
     local u = self.unit
     u.b.reset()
-    if self:canActAndMove() then
-        assert(not u.isDisabled and u.hp > 0)
-        self.waitingCounter = love.math.random() * (self.waitLongMax - self.waitLongMin) + self.waitLongMin
-        u.speed_x = 0
-        u.speed_y = 0
-        return true
-    end
-    return false
+    self.waitingCounter = love.math.random() * (self.waitLongMax - self.waitLongMin) + self.waitLongMin
+    u.speed_x = 0
+    u.speed_y = 0
+    return true
 end
 
 function AI:onWait(dt)
     local u = self.unit
     self.waitingCounter = self.waitingCounter - dt
     if self.waitingCounter < 0 then
-        --print(" -> DONE Wait> : " .. self.waitingCounter, u.name)
         return true
     end
     return false
