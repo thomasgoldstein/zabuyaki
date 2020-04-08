@@ -477,7 +477,12 @@ function checkDebugKeys(key)
         elseif key == '7' then
             if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
                 local p = getRegisteredPlayer(1)
-                local unit = Gopper:new("Goppi"..(GLOBAL_UNIT_ID + 1), "src/def/char/gopper", p.x, p.y, { palette = love.math.random(1, 4) })
+                local unit
+                if love.math.random() < 0.5 then
+                    unit = Gopper:new("Goppi"..(GLOBAL_UNIT_ID + 1), "src/def/char/gopper", p.x, p.y, { palette = love.math.random(1, 4) })
+                else
+                    unit = Niko:new("Nikki"..(GLOBAL_UNIT_ID + 1), "src/def/char/niko", p.x, p.y, { palette = love.math.random(1, 4) })
+                end
                 unit.AI = AIExperimental:new(unit)
                 GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
                 unit.z = 100
