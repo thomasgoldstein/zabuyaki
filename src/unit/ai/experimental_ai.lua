@@ -19,9 +19,12 @@ function eAI:initialize(unit, settings)
     self.tacticsAggressive.name = "aggressive"
     self.tacticsCowardly = { self.SCHEDULE_WALK_OFF_THE_SCREEN, self.SCHEDULE_WAIT_SHORT }
     self.tacticsCowardly.name = "cowardly"
+    self.tacticsHappily = { self.SCHEDULE_FACE_TO_PLAYER, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_STRAIGHT_JUMP, self.SCHEDULE_DANCE }
+    self.tacticsHappily.name = "happily"
     --self.tactics = { self.SCHEDULE_WAIT_MEDIUM, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_WAIT_LONG, self.SCHEDULE_WALK_RANDOM }
     --self.tactics = { self.SCHEDULE_WALK_BY_TARGET_H, self.SCHEDULE_WALK_BY_TARGET_V, self.SCHEDULE_WAIT_SHORT }
-    self.tactics = self.tacticsPassive
+    --self.tactics = { self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_DANCE }
+    self.tactics = self.tacticsHappily
 end
 
 function eAI:_update(dt)
@@ -29,12 +32,14 @@ function eAI:_update(dt)
 end
 
 function eAI:selectNewSchedule(conditions)
-    if self.tactics == self.tacticsPassive and self.unit.hp < self.unit.maxHp then
-        self.tactics = self.tacticsAggressive
-    elseif self.tactics == self.tacticsAggressive and self.unit.hp < self.unit.maxHp / 3 then
-        self.tactics = self.tacticsCowardly
-    elseif not self.tactics then
-        self.tactics = self.tacticsPassive
+    if false then
+        if self.tactics == self.tacticsPassive and self.unit.hp < self.unit.maxHp then
+            self.tactics = self.tacticsAggressive
+        elseif self.tactics == self.tacticsAggressive and self.unit.hp < self.unit.maxHp / 3 then
+            self.tactics = self.tacticsCowardly
+        elseif not self.tactics then
+            self.tactics = self.tacticsPassive
+        end
     end
     self:setSchedule( self.tactics[ love.math.random(1, #self.tactics ) ])
 end
