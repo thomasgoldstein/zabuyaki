@@ -19,7 +19,7 @@ return {
 
     animations = {
         icon = {
-            { q = q(6, 14, 37, 17) },
+            { q = q(2, 14, 36, 17) },
             delay = math.huge
         },
         stand = {
