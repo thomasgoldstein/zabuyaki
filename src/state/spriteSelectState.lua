@@ -58,6 +58,11 @@ local heroes = {
         spriteInstance = "src/def/char/zeena",
     },
     {
+        name = "SLAVYAN",
+        shaders = shaders.slavyan,
+        spriteInstance = "src/def/char/slavyan",
+    },
+    {
         name = "BEATNIK",
         shaders = shaders.beatnik,
         spriteInstance = "src/def/char/beatnik",

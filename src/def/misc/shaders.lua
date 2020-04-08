@@ -9,6 +9,7 @@ shaders = {
     zeena = {},
     beatnik = {},
     satoff = {},
+    slavyan = {},
     drVolker = {},
     trashcan = {},
     trashcan_particleColor = {},
@@ -351,6 +352,9 @@ function reloadShaders()
         swapColors(satoffColors_original, satoffColors_2),
         swapColors(satoffColors_original, satoffColors_3),
         swapColors(satoffColors_original, satoffColors_4),
+    }
+    shaders.slavyan = {
+        false,
     }
     shaders.drVolker = {
         false,

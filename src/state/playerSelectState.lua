@@ -170,6 +170,23 @@ local heroes = {
         py = 120
     },
     {
+        {name = "SLAVYAN", palette = 1},
+        {name = "SLAVYAN", palette = 1},
+        {name = "SLAVYAN", palette = 1},
+        hero = PSlavyan,
+        spriteInstance = "src/def/char/slavyan",
+        sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
+        sprite_portraitAnim = "rick", --NO OWN PORTRAIT
+        defaultAnim = "stand",
+        cancelAnim = "hurtHighWeak",
+        confirmAnim = "walk",
+        x = screenWidth / 2 - 80,
+        y = 440 + 80,
+        sy = 272,
+        ny = 90,
+        py = 120
+    },
+    {
         {name = "SATOFF", palette = 1},
         {name = "SATOFF", palette = 2},
         {name = "SATOFF", palette = 3},

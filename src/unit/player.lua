@@ -207,7 +207,7 @@ function Player:onHurtDamage()
     self:playHitSfx(h.damage)
 end
 
-local players_list = { RICK = 1, KISA = 2, CHAI = 3, YAR = 4, GOPPER = 5, NIKO = 6, SVETA = 7, ZEENA = 8, BEATNIK = 9, SATOFF = 10, DRVOLKER = 11 }
+local players_list = { RICK = 1, KISA = 2, CHAI = 3, YAR = 4, GOPPER = 5, NIKO = 6, SVETA = 7, ZEENA = 8, BEATNIK = 9, SLAVYAN = 10, SATOFF = 11, DRVOLKER = 12 }
 function Player:useCreditStart()
     self.isHittable = false
     self.lives = self.lives - 1
