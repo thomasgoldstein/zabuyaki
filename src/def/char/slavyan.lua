@@ -31,10 +31,10 @@ return {
             delay = f(11)
         },
         walk = {
-            { q = q(2,3,46,65), ox = 20, oy = 64 }, --stand 1
             { q = q(2,70,46,66), ox = 20, oy = 65, delay = f(9) }, --walk 1
             { q = q(50,69,45,67), ox = 20, oy = 66, delay = f(15) }, --walk 2
             { q = q(2,70,46,66), ox = 20, oy = 65, delay = f(11) }, --walk 1
+            { q = q(2,3,46,65), ox = 20, oy = 64 }, --stand 1
             loop = true,
             delay = f(13)
         },
