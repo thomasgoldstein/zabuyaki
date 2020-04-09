@@ -653,7 +653,7 @@ return {
             {
               id = 18,
               name = "Vlad",
-              type = "niko",
+              type = "slavyan",
               shape = "point",
               x = 1528,
               y = 272,
@@ -662,8 +662,7 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["flip"] = true,
-                ["palette"] = "blue"
+                ["flip"] = true
               }
             },
             {
@@ -720,7 +719,7 @@ return {
             {
               id = 22,
               name = "Sergei",
-              type = "gopper",
+              type = "slavyan",
               shape = "point",
               x = 1312,
               y = 272,
@@ -730,7 +729,6 @@ return {
               visible = true,
               properties = {
                 ["appearFrom"] = "left",
-                ["palette"] = "red",
                 ["spawnDelay"] = 2
               }
             },
@@ -772,7 +770,7 @@ return {
             },
             {
               id = 25,
-              name = "Igor",
+              name = "Alexey",
               type = "niko",
               shape = "point",
               x = 1808,
@@ -837,16 +835,15 @@ return {
               name = "Vik",
               type = "niko",
               shape = "point",
-              x = 792,
-              y = 248,
+              x = 784,
+              y = 288,
               width = 0,
               height = 0,
               rotation = 0,
               visible = true,
               properties = {
-                ["appearFrom"] = "right",
-                ["palette"] = "black",
-                ["spawnDelay"] = 2
+                ["flip"] = true,
+                ["palette"] = "black"
               }
             },
             {
@@ -1084,25 +1081,8 @@ return {
             },
             {
               id = 42,
-              name = "Alexey",
-              type = "gopper",
-              shape = "point",
-              x = 480,
-              y = 288,
-              width = 0,
-              height = 0,
-              rotation = 0,
-              visible = true,
-              properties = {
-                ["appearFrom"] = "right",
-                ["palette"] = "red",
-                ["spawnDelay"] = 2
-              }
-            },
-            {
-              id = 43,
               name = "Pavel",
-              type = "niko",
+              type = "gopper",
               shape = "point",
               x = -32,
               y = 272,
@@ -1117,12 +1097,12 @@ return {
               }
             },
             {
-              id = 44,
+              id = 43,
               name = "Pyotr",
               type = "niko",
               shape = "point",
-              x = 576,
-              y = 280,
+              x = 480,
+              y = 288,
               width = 0,
               height = 0,
               rotation = 0,
@@ -1134,7 +1114,7 @@ return {
               }
             },
             {
-              id = 45,
+              id = 44,
               name = "Boris",
               type = "gopper",
               shape = "point",
@@ -1147,6 +1127,22 @@ return {
               properties = {
                 ["appearFrom"] = "left",
                 ["palette"] = "blue",
+                ["spawnDelay"] = 2
+              }
+            },
+            {
+              id = 45,
+              name = "Slavyan",
+              type = "slavyan",
+              shape = "point",
+              x = 576,
+              y = 280,
+              width = 0,
+              height = 0,
+              rotation = 0,
+              visible = true,
+              properties = {
+                ["appearFrom"] = "right",
                 ["spawnDelay"] = 2
               }
             }

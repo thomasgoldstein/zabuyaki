@@ -192,10 +192,9 @@
     <property name="maxActiveEnemies" type="int" value="4"/>
    </properties>
    <object id="17" name="3" type="wave" x="1280" y="0" width="640" height="320"/>
-   <object id="18" name="Vlad" type="niko" x="1528" y="272">
+   <object id="18" name="Vlad" type="slavyan" x="1528" y="272">
     <properties>
      <property name="flip" type="bool" value="true"/>
-     <property name="palette" value="blue"/>
     </properties>
     <point/>
    </object>
@@ -223,10 +222,9 @@
     </properties>
     <point/>
    </object>
-   <object id="22" name="Sergei" type="gopper" x="1312" y="272">
+   <object id="22" name="Sergei" type="slavyan" x="1312" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
-     <property name="palette" value="red"/>
      <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
@@ -249,7 +247,7 @@
     </properties>
     <point/>
    </object>
-   <object id="25" name="Igor" type="niko" x="1808" y="256">
+   <object id="25" name="Alexey" type="niko" x="1808" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="green"/>
@@ -271,11 +269,10 @@
     </properties>
     <point/>
    </object>
-   <object id="28" name="Vik" type="niko" x="792" y="248">
+   <object id="28" name="Vik" type="niko" x="784" y="288">
     <properties>
-     <property name="appearFrom" value="right"/>
+     <property name="flip" type="bool" value="true"/>
      <property name="palette" value="black"/>
-     <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
    </object>
@@ -382,15 +379,7 @@
     </properties>
     <point/>
    </object>
-   <object id="42" name="Alexey" type="gopper" x="480" y="288">
-    <properties>
-     <property name="appearFrom" value="right"/>
-     <property name="palette" value="red"/>
-     <property name="spawnDelay" type="int" value="2"/>
-    </properties>
-    <point/>
-   </object>
-   <object id="43" name="Pavel" type="niko" x="-32" y="272">
+   <object id="42" name="Pavel" type="gopper" x="-32" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="black"/>
@@ -398,7 +387,7 @@
     </properties>
     <point/>
    </object>
-   <object id="44" name="Pyotr" type="niko" x="576" y="280">
+   <object id="43" name="Pyotr" type="niko" x="480" y="288">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="red"/>
@@ -406,10 +395,17 @@
     </properties>
     <point/>
    </object>
-   <object id="45" name="Boris" type="gopper" x="-72" y="296">
+   <object id="44" name="Boris" type="gopper" x="-72" y="296">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="blue"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="45" name="Slavyan" type="slavyan" x="576" y="280">
+    <properties>
+     <property name="appearFrom" value="right"/>
      <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
