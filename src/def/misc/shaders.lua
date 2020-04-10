@@ -62,8 +62,6 @@ local function swapColors(originalColors, alternativeColors)
     return shader
 end
 
---love_ScreenSize.x or love_ScreenSize.y
---vec4 love_ScreenSize
 local sh_shadow = love.graphics.newShader([[
 //        extern number id = 0;
         number y_offs = 0.5;
