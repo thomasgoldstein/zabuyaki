@@ -81,6 +81,19 @@ local sh_shadow = love.graphics.newShader([[
     ]])
 shaders.shadow = sh_shadow
 
+local sh_water = love.graphics.newShader([[
+        extern vec2 size;
+        extern number time = 0;
+        vec4 effect(vec4 color, Image tex, vec2 tc, vec2 sc)
+        {
+            tc.x = tc.x + sin((tc.y * 10.0) - time) * (size.x * 0.000005);
+            tc.y = tc.y + sin((tc.x * 10.0) - time) * (size.y * 0.000005);
+            vec4 pixel = Texel(tex, tc);
+            return pixel;
+        }
+    ]])
+shaders.water = sh_water
+
 --Players
 local rickColors_original = {
     { 207, 82, 10, 255 }, { 148, 36, 35, 255 }, { 61, 10, 15, 255 }, -- orange hoodie
