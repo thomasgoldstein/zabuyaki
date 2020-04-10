@@ -81,6 +81,7 @@ local sh_shadow = love.graphics.newShader([[
     ]])
 shaders.shadow = sh_shadow
 
+-- needs alpha colors addition
 local sh_water = love.graphics.newShader([[
         extern vec2 size;
         extern number time = 0;
@@ -93,6 +94,19 @@ local sh_water = love.graphics.newShader([[
         }
     ]])
 shaders.water = sh_water
+
+local sh_pure_water = love.graphics.newShader([[
+        extern vec2 size;
+        extern number time = 0;
+        vec4 effect(vec4 color, Image tex, vec2 tc, vec2 sc)
+        {
+            tc.x = tc.x + sin((tc.y * 10.0) - time) * (size.x * 0.000005);
+            tc.y = tc.y + sin((tc.x * 10.0) - time) * (size.y * 0.000005);
+            vec4 pixel = Texel(tex, tc);
+            return pixel;
+        }
+    ]])
+shaders.pure_water = sh_pure_water
 
 --Players
 local rickColors_original = {
