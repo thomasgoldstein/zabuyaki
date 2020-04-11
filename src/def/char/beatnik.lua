@@ -179,18 +179,18 @@ return {
             delay = f(4)
         },
         hurtHighWeak = {
-            { q = q(66,140,63,67), ox = 38, oy = 66, delay = f(13) }, --hurt high 2
-            { q = q(2,140,62,67), ox = 36, oy = 66 }, --hurt high 1
+            { q = q(66,140,63,67), ox = 38, oy = 66, delay = f(13) }, --hurt high 1
+            { q = q(2,140,62,67), ox = 36, oy = 66 }, --hurt high 2
             delay = f(3)
         },
         hurtHighMedium = {
-            { q = q(66,140,63,67), ox = 38, oy = 66, delay = f(21) }, --hurt high 2
-            { q = q(2,140,62,67), ox = 36, oy = 66 }, --hurt high 1
+            { q = q(66,140,63,67), ox = 38, oy = 66, delay = f(21) }, --hurt high 1
+            { q = q(2,140,62,67), ox = 36, oy = 66 }, --hurt high 2
             delay = f(3)
         },
         hurtHighStrong = {
-            { q = q(66,140,63,67), ox = 38, oy = 66, delay = f(29) }, --hurt high 2
-            { q = q(2,140,62,67), ox = 36, oy = 66 }, --hurt high 1
+            { q = q(66,140,63,67), ox = 38, oy = 66, delay = f(29) }, --hurt high 1
+            { q = q(2,140,62,67), ox = 36, oy = 66 }, --hurt high 2
             delay = f(3)
         },
         hurtLowWeak = {
@@ -245,8 +245,8 @@ return {
             delay = f(13)
         },
         grabbedFront = {
-            { q = q(2,140,62,67), ox = 36, oy = 66 }, --hurt high 1
-            { q = q(66,140,63,67), ox = 38, oy = 66 }, --hurt high 2
+            { q = q(2,140,62,67), ox = 36, oy = 66 }, --hurt high 2
+            { q = q(66,140,63,67), ox = 38, oy = 66 }, --hurt high 1
             delay = f(2)
         },
         grabbedBack = {

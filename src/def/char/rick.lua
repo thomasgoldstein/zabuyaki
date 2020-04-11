@@ -378,8 +378,8 @@ return {
             delay = f(3)
         },
         combo1 = {
-            { q = q(49,519,60,63), ox = 19, oy = 62, func = comboAttack1, delay = f(4) }, --combo 1.2
-            { q = q(2,519,45,63), ox = 19, oy = 62 }, --combo 1.1
+            { q = q(49,519,60,63), ox = 19, oy = 62, func = comboAttack1, delay = f(4) }, --combo 1.1
+            { q = q(2,519,45,63), ox = 19, oy = 62 }, --combo 1.2
             delay = f(1)
         },
         combo2 = {
@@ -645,18 +645,18 @@ return {
             }
         },
         hurtHighWeak = {
-            { q = q(48,331,47,62), ox = 26, oy = 61, delay = f(13) }, --hurt high 2
-            { q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 1
+            { q = q(48,331,47,62), ox = 26, oy = 61, delay = f(13) }, --hurt high 1
+            { q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 2
             delay = f(3)
         },
         hurtHighMedium = {
-            { q = q(48,331,47,62), ox = 26, oy = 61, delay = f(21) }, --hurt high 2
-            { q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 1
+            { q = q(48,331,47,62), ox = 26, oy = 61, delay = f(21) }, --hurt high 1
+            { q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 2
             delay = f(3)
         },
         hurtHighStrong = {
-            { q = q(48,331,47,62), ox = 26, oy = 61, delay = f(29) }, --hurt high 2
-            { q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 1
+            { q = q(48,331,47,62), ox = 26, oy = 61, delay = f(29) }, --hurt high 1
+            { q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 2
             delay = f(3)
         },
         hurtLowWeak = {
@@ -712,8 +712,8 @@ return {
             delay = f(9)
         },
         grabbedFront = {
-            { q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 1
-            { q = q(48,331,47,62), ox = 26, oy = 61 }, --hurt high 2
+            { q = q(2,330,44,63), ox = 22, oy = 62 }, --hurt high 2
+            { q = q(48,331,47,62), ox = 26, oy = 61 }, --hurt high 1
             delay = f(2)
         },
         grabbedBack = {
