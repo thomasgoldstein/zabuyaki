@@ -3,6 +3,9 @@ local Player = class('Player', Character)
 
 local function nop() end
 local dashAttackDelta = 0.25
+local players_list = { RICK = 1, KISA = 2, CHAI = 3, YAR = 4, GOPPER = 5, NIKO = 6, SVETA = 7, ZEENA = 8, SLAVYAN = 9, BEATNIK = 10, SATOFF = 11, DRVOLKER = 12 }
+players_list.firstPlayerCharacter = players_list.RICK
+players_list.lastPlayerCharacter = players_list.YAR
 
 function Player:initialize(name, sprite, x, y, f, input)
     if not f then
@@ -207,7 +210,6 @@ function Player:onHurtDamage()
     self:playHitSfx(h.damage)
 end
 
-local players_list = { RICK = 1, KISA = 2, CHAI = 3, YAR = 4, GOPPER = 5, NIKO = 6, SVETA = 7, ZEENA = 8, SLAVYAN = 9, BEATNIK = 10, SATOFF = 11, DRVOLKER = 12 }
 function Player:useCreditStart()
     self.isHittable = false
     self.lives = self.lives - 1
@@ -219,7 +221,7 @@ function Player:useCreditStart()
     self.displayDelay = 10
     -- Player select
     self.playerSelectMode = 0
-    self.playerSelectCur = players_list[self.name] or players_list.RICK
+    self.playerSelectCur = players_list[self.name] or players_list.firstPlayerCharacter
 end
 function Player:useCreditUpdate(dt)
     if self.playerSelectMode == 5 then --self.isDisabled then
@@ -288,18 +290,18 @@ function Player:useCreditUpdate(dt)
                 self.playerSelectCur = self.playerSelectCur + 1
             end
             if isDebug() then
-                if self.playerSelectCur > players_list.DRVOLKER then
-                    self.playerSelectCur = players_list.RICK
+                if self.playerSelectCur > #HEROES then
+                    self.playerSelectCur = players_list.firstPlayerCharacter
                 end
-                if self.playerSelectCur < 1 then
-                    self.playerSelectCur = players_list.DRVOLKER
+                if self.playerSelectCur < players_list.firstPlayerCharacter then
+                    self.playerSelectCur = #HEROES
                 end
             else
-                if self.playerSelectCur > players_list.YAR then
-                    self.playerSelectCur = players_list.RICK
+                if self.playerSelectCur > players_list.lastPlayerCharacter then
+                    self.playerSelectCur = players_list.firstPlayerCharacter
                 end
-                if self.playerSelectCur < 1 then
-                    self.playerSelectCur = players_list.YAR
+                if self.playerSelectCur < players_list.firstPlayerCharacter then
+                    self.playerSelectCur = players_list.lastPlayerCharacter
                 end
             end
             self:playSfx("menuMove")
