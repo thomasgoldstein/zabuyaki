@@ -14,7 +14,6 @@ function DrVolker:initialize(name, sprite, x, y, f, input)
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     DrVolker.initAttributes(self)
-    self.subtype = "midboss"
     self:postInitialize()
 end
 

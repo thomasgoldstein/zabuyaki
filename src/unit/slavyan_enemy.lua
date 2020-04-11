@@ -7,10 +7,10 @@ function Slavyan:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 350
     self.tx, self.ty = x, y
-
     Gopper.initialize(self, name, sprite, x, y, f, input)
     Slavyan.initAttributes(self)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
+    self.subtype = ""   -- remove inherited Gopper's subtype
     self:postInitialize()
 end
 

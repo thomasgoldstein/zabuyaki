@@ -17,7 +17,6 @@ function Satoff:initialize(name, sprite, x, y, f, input)
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Satoff.initAttributes(self)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
-    self.subtype = "midboss"
     self:postInitialize()
 end
 

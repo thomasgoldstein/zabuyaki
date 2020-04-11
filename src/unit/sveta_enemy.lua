@@ -10,7 +10,7 @@ function Sveta:initialize(name, sprite, x, y, f, input)
     Gopper.initialize(self, name, sprite, x, y, f, input)
     Sveta.initAttributes(self)
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
-    self.subtype = "gopnitsa"
+    self.subtype = ""   -- remove inherited Gopper's subtype
     self:postInitialize()
 end
 

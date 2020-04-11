@@ -8,7 +8,6 @@ function Beatnik:initialize(name, sprite, x, y, f, input)
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Beatnik.initAttributes(self)
-    self.subtype = "midboss"
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self:postInitialize()
 end

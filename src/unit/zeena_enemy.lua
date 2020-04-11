@@ -7,7 +7,7 @@ function Zeena:initialize(name, sprite, x, y, f, input)
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, x, y, f, input)
     Zeena.initAttributes(self)
-    self.subtype = "gopnitsa"
+    self.subtype = ""   -- remove inherited Gopper's subtype
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self:postInitialize()
 end
