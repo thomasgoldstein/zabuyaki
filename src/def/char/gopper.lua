@@ -120,40 +120,34 @@ return {
             delay = f(18)
         },
         hurtHighWeak = {
+            { q = q(42,129,43,62), ox = 28, oy = 61, delay = f(13) }, --hurt high 2
             { q = q(2,129,38,62), ox = 23, oy = 61 }, --hurt high 1
-            { q = q(42,129,43,62), ox = 28, oy = 61, delay = f(12) }, --hurt high 2
-            { q = q(2,129,38,62), ox = 23, oy = 61, delay = f(3) }, --hurt high 1
-            delay = f(1)
+            delay = f(3)
         },
         hurtHighMedium = {
+            { q = q(42,129,43,62), ox = 28, oy = 61, delay = f(21) }, --hurt high 2
             { q = q(2,129,38,62), ox = 23, oy = 61 }, --hurt high 1
-            { q = q(42,129,43,62), ox = 28, oy = 61, delay = f(20) }, --hurt high 2
-            { q = q(2,129,38,62), ox = 23, oy = 61, delay = f(3) }, --hurt high 1
-            delay = f(1)
+            delay = f(3)
         },
         hurtHighStrong = {
+            { q = q(42,129,43,62), ox = 28, oy = 61, delay = f(29) }, --hurt high 2
             { q = q(2,129,38,62), ox = 23, oy = 61 }, --hurt high 1
-            { q = q(42,129,43,62), ox = 28, oy = 61, delay = f(28) }, --hurt high 2
-            { q = q(2,129,38,62), ox = 23, oy = 61, delay = f(3) }, --hurt high 1
-            delay = f(1)
+            delay = f(3)
         },
         hurtLowWeak = {
+            { q = q(126,132,42,59), ox = 23, oy = 58, delay = f(13) }, --hurt low 2
             { q = q(87,130,37,61), ox = 22, oy = 60 }, --hurt low 1
-            { q = q(126,132,42,59), ox = 23, oy = 58, delay = f(12) }, --hurt low 2
-            { q = q(87,130,37,61), ox = 22, oy = 60, delay = f(3) }, --hurt low 1
-            delay = f(1)
+            delay = f(3)
         },
         hurtLowMedium = {
+            { q = q(126,132,42,59), ox = 23, oy = 58, delay = f(21) }, --hurt low 2
             { q = q(87,130,37,61), ox = 22, oy = 60 }, --hurt low 1
-            { q = q(126,132,42,59), ox = 23, oy = 58, delay = f(20) }, --hurt low 2
-            { q = q(87,130,37,61), ox = 22, oy = 60, delay = f(3) }, --hurt low 1
-            delay = f(1)
+            delay = f(3)
         },
         hurtLowStrong = {
+            { q = q(126,132,42,59), ox = 23, oy = 58, delay = f(29) }, --hurt low 2
             { q = q(87,130,37,61), ox = 22, oy = 60 }, --hurt low 1
-            { q = q(126,132,42,59), ox = 23, oy = 58, delay = f(28) }, --hurt low 2
-            { q = q(87,130,37,61), ox = 22, oy = 60, delay = f(3) }, --hurt low 1
-            delay = f(1)
+            delay = f(3)
         },
         fall = {
             { q = q(125,498,56,54), ox = 35, oy = 53, delay = f(20) }, --fall 1
