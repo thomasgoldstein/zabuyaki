@@ -219,7 +219,7 @@ function Player:useCreditStart()
     self.displayDelay = 10
     -- Player select
     self.playerSelectMode = 0
-    self.playerSelectCur = players_list[self.name] or 1
+    self.playerSelectCur = players_list[self.name] or players_list.RICK
 end
 function Player:useCreditUpdate(dt)
     if self.playerSelectMode == 5 then --self.isDisabled then
@@ -289,14 +289,14 @@ function Player:useCreditUpdate(dt)
             end
             if isDebug() then
                 if self.playerSelectCur > players_list.DRVOLKER then
-                    self.playerSelectCur = 1
+                    self.playerSelectCur = players_list.RICK
                 end
                 if self.playerSelectCur < 1 then
                     self.playerSelectCur = players_list.DRVOLKER
                 end
             else
                 if self.playerSelectCur > players_list.YAR then
-                    self.playerSelectCur = 1
+                    self.playerSelectCur = players_list.RICK
                 end
                 if self.playerSelectCur < 1 then
                     self.playerSelectCur = players_list.YAR
