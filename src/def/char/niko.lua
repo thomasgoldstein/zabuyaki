@@ -94,8 +94,8 @@ return {
         },
         respawn = {
             { q = q(2,264,57,66), ox = 21, oy = 65, delay = math.huge }, --jump
-            { q = q(54,222,75,39), ox = 46, oy = 31 }, --fallen
-            { q = q(131,209,55,52), ox = 31, oy = 51 }, --get up
+            { q = q(54,224,76,37), ox = 47, oy = 29 }, --fallen
+            { q = q(132,209,55,52), ox = 31, oy = 51 }, --get up
             { q = q(114,73,38,58), ox = 21, oy = 57 }, --duck
             delay = f(12)
         },
@@ -211,17 +211,17 @@ return {
             delay = f(5)
         },
         fallBounce = {
-            { q = q(54,222,75,39), ox = 46, oy = 31, delay = f(4) }, --fallen
+            { q = q(54,224,76,37), ox = 47, oy = 29, delay = f(4) }, --fallen
             { q = q(103,553,68,39), ox = 41, oy = 38 }, --fall 3
             delay = math.huge
         },
         fallenDead = {
-            { q = q(54,222,75,39), ox = 46, oy = 31 }, --fallen
+            { q = q(54,224,76,37), ox = 47, oy = 29 }, --fallen
             delay = math.huge
         },
         getUp = {
-            { q = q(54,222,75,39), ox = 46, oy = 31, delay = f(24) }, --fallen
-            { q = q(131,209,55,52), ox = 31, oy = 51, delay = f(14) }, --get up
+            { q = q(54,224,76,37), ox = 47, oy = 29, delay = f(24) }, --fallen
+            { q = q(132,209,55,52), ox = 31, oy = 51, delay = f(14) }, --get up
             { q = q(114,73,38,58), ox = 21, oy = 57 }, --duck
             delay = f(13)
         },
