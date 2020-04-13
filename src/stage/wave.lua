@@ -90,7 +90,7 @@ function Wave:spawn(dt)
             waitingEnemiesCount = waitingEnemiesCount + 1
         end
         if not waveUnit.unit.isDisabled
-            and waveUnit.spawnDelayBeforeActivation <= 0
+            and waveUnit.spawnDelayBeforeActivation <= 0 and waveUnit.spawnDelay <= self.lastSpawnedTime
             and waveUnit.unit.type == "enemy"
         then --alive enemy
             aliveEnemiesCount = aliveEnemiesCount + 1
