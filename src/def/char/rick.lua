@@ -675,7 +675,7 @@ return {
             delay = f(3)
         },
         fall = {
-            { q = q(145,137,56,59), ox = 31, oy = 58, delay = f(20) }, --fall 1
+            { q = q(145,136,56,60), ox = 31, oy = 59, delay = f(20) }, --fall 1
             { q = q(144,211,63,49), ox = 38, oy = 48, delay = f(8) }, --fall 2
             { q = q(2,484,69,33), ox = 41, oy = 32 }, --fall 3
             delay = math.huge
@@ -723,7 +723,7 @@ return {
         },
         thrown = {
             --rx = ox / 2, ry = -oy / 2 for this rotation
-            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 15, ry = -29, delay = f(24) }, --fall 1 (rotated -90°)
+            { q = q(145,136,56,60), ox = 31, oy = 59, rotate = -1.57, rx = 15, ry = -29, delay = f(24) }, --fall 1 (rotated -90°)
             { q = q(2,484,69,33), ox = 41, oy = 32 }, --fall 3
             delay = math.huge
         },
@@ -736,7 +736,7 @@ return {
             delay = math.huge
         },
         thrown8h = {
-            { q = q(145,137,56,59), ox = 31, oy = 58, rotate = -1.57, rx = 31, ry = -29 }, --fall 1 (rotated -90°)
+            { q = q(145,136,56,60), ox = 31, oy = 59, rotate = -1.57, rx = 31, ry = -29 }, --fall 1 (rotated -90°)
             delay = math.huge
         },
         thrown6h = {
