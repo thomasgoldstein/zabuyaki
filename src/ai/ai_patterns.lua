@@ -339,12 +339,15 @@ function AI:initDance()
     return true
 end
 
-function AI:initWalkToDistance(distanceMin, distanceMax)
+---@param distanceMin number minimal distance
+---@param distanceMax number max distance
+---@param toFrontOrBack number if 1 then go to the enemy, -1 pass by the enemy first
+function AI:initWalkToDistance(distanceMin, distanceMax, toFrontOrBack)
     local u = self.unit
     local angle
-    local maxShiftAngle = math.pi / 10
+    local maxShiftAngle = math.pi / 8
     u.horizontal = u.x < u.target.x and 1 or -1
-    if u.horizontal < 0 then
+    if u.horizontal ~= toFrontOrBack then
         angle = love.math.random() * maxShiftAngle - maxShiftAngle / 2
     else
         angle = math.pi + love.math.random() * maxShiftAngle - maxShiftAngle / 2
@@ -360,7 +363,7 @@ function AI:initWalkToShortDistance()
     if not u.target then
         return false
     end
-    self:initWalkToDistance(self.reactShortDistanceMax - 8, self.reactShortDistanceMax)
+    self:initWalkToDistance(self.reactShortDistanceMax - 8, self.reactShortDistanceMax, 1)
     return true
 end
 function AI:initWalkToMediumDistance()
@@ -369,7 +372,7 @@ function AI:initWalkToMediumDistance()
     if not u.target then
         return false
     end
-    self:initWalkToDistance(self.reactMediumDistanceMin, self.reactMediumDistanceMax)
+    self:initWalkToDistance(self.reactMediumDistanceMin, self.reactMediumDistanceMax, 1)
     return true
 end
 function AI:initWalkToLongDistance()
@@ -378,7 +381,7 @@ function AI:initWalkToLongDistance()
     if not u.target then
         return false
     end
-    self:initWalkToDistance(self.reactLongDistanceMin, self.reactLongDistanceMax)
+    self:initWalkToDistance(self.reactLongDistanceMin, self.reactLongDistanceMax, 1)
     return true
 end
 
