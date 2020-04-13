@@ -24,7 +24,12 @@ function eAI:initialize(unit, settings)
     --self.tactics = { self.SCHEDULE_WAIT_MEDIUM, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_WAIT_LONG, self.SCHEDULE_WALK_RANDOM }
     --self.tactics = { self.SCHEDULE_WALK_BY_TARGET_H, self.SCHEDULE_WALK_BY_TARGET_V, self.SCHEDULE_WAIT_SHORT }
     --self.tactics = { self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_DANCE }
-    self.tactics = self.tacticsHappily
+    self.tactics = {
+        self.SCHEDULE_WAIT_MEDIUM, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_WAIT_LONG, self.SCHEDULE_WALK_RANDOM,
+        self.SCHEDULE_WALK_TO_SHORT_DISTANCE, self.SCHEDULE_WALK_TO_MEDIUM_DISTANCE, self.SCHEDULE_WALK_TO_LONG_DISTANCE,
+        self.SCHEDULE_WALK_OVER_TO_SHORT_DISTANCE, self.SCHEDULE_WALK_OVER_TO_MEDIUM_DISTANCE, self.SCHEDULE_WALK_OVER_TO_LONG_DISTANCE,
+    }
+    --self.tactics = self.tacticsHappily
 end
 
 function eAI:_update(dt)
