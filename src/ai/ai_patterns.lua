@@ -59,6 +59,12 @@ function AI:initCommonAiSchedules(unit)
         {"grabbed"})
     self.SCHEDULE_DANCE = Schedule:new({ self.ensureStanding, self.initDance, self.initWaitLong, self.onWait},
         {"grabbed", "inAir"})
+    self.SCHEDULE_WALK_TO_SHORT_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToShortDistance, self.onMove},
+        {"cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_WALK_TO_MEDIUM_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToMediumDistance, self.onMove},
+        {"cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_WALK_TO_LONG_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToLongDistance, self.onMove},
+        {"cannotAct", "grabbed", "inAir"})
 
 end
 
@@ -330,6 +336,49 @@ function AI:initDance()
     u.b.reset()
     u:setState(u.intro)
     u:setSpriteIfExists("dance", "hurtHighWeak")
+    return true
+end
+
+function AI:initWalkToDistance(distanceMin, distanceMax)
+    local u = self.unit
+    local angle
+    local maxShiftAngle = math.pi / 10
+    u.horizontal = u.x < u.target.x and 1 or -1
+    if u.horizontal < 0 then
+        angle = love.math.random() * maxShiftAngle - maxShiftAngle / 2
+    else
+        angle = math.pi + love.math.random() * maxShiftAngle - maxShiftAngle / 2
+    end
+    u.old_x = 0
+    u.old_y = 0
+    u.speed_x = u.walkSpeed
+    u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, angle, love.math.random(distanceMin, distanceMax))
+end
+function AI:initWalkToShortDistance()
+    local u = self.unit
+    u.b.reset()
+    if not u.target then
+        return false
+    end
+    self:initWalkToDistance(self.reactShortDistanceMax - 8, self.reactShortDistanceMax)
+    return true
+end
+function AI:initWalkToMediumDistance()
+    local u = self.unit
+    u.b.reset()
+    if not u.target then
+        return false
+    end
+    self:initWalkToDistance(self.reactMediumDistanceMin, self.reactMediumDistanceMax)
+    return true
+end
+function AI:initWalkToLongDistance()
+    local u = self.unit
+    u.b.reset()
+    if not u.target then
+        return false
+    end
+    self:initWalkToDistance(self.reactLongDistanceMin, self.reactLongDistanceMax)
     return true
 end
 
