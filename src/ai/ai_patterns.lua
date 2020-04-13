@@ -65,6 +65,12 @@ function AI:initCommonAiSchedules(unit)
         {"cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_WALK_TO_LONG_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToLongDistance, self.onMove},
         {"cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_WALK_OVER_TO_SHORT_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToShortDistanceAfterEnemy, self.onMove},
+        {"cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_WALK_OVER_TO_MEDIUM_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToMediumDistanceAfterEnemy, self.onMove},
+        {"cannotAct", "grabbed", "inAir"})
+    self.SCHEDULE_WALK_OVER_TO_LONG_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToLongDistanceAfterEnemy, self.onMove},
+        {"cannotAct", "grabbed", "inAir"})
 
 end
 
@@ -382,6 +388,33 @@ function AI:initWalkToLongDistance()
         return false
     end
     self:initWalkToDistance(self.reactLongDistanceMin, self.reactLongDistanceMax, 1)
+    return true
+end
+function AI:initWalkToShortDistanceAfterEnemy()
+    local u = self.unit
+    u.b.reset()
+    if not u.target then
+        return false
+    end
+    self:initWalkToDistance(self.reactShortDistanceMax - 8, self.reactShortDistanceMax, -1)
+    return true
+end
+function AI:initWalkToMediumDistanceAfterEnemy()
+    local u = self.unit
+    u.b.reset()
+    if not u.target then
+        return false
+    end
+    self:initWalkToDistance(self.reactMediumDistanceMin, self.reactMediumDistanceMax, -1)
+    return true
+end
+function AI:initWalkToLongDistanceAfterEnemy()
+    local u = self.unit
+    u.b.reset()
+    if not u.target then
+        return false
+    end
+    self:initWalkToDistance(self.reactLongDistanceMin, self.reactLongDistanceMax, -1)
     return true
 end
 
