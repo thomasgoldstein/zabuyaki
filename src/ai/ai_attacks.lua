@@ -75,7 +75,3 @@ function AI:calcWalkToAttackXY()
     u.old_y = 0
     return true
 end
-
-function AI:calcBestPossibleAttack()
-    return true
-end
