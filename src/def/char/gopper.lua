@@ -171,16 +171,16 @@ return {
             delay = f(5)
         },
         fallBounce = {
-            { q = q(68,205,68,37), ox = 39, oy = 29, delay = f(4) }, --fallen
+            { q = q(68,203,68,39), ox = 39, oy = 31, delay = f(4) }, --fallen
             { q = q(106,453,63,34), ox = 36, oy = 33 }, --fall 3
             delay = math.huge
         },
         fallenDead = {
-            { q = q(68,205,68,37), ox = 39, oy = 29 }, --fallen
+            { q = q(68,203,68,39), ox = 39, oy = 31 }, --fallen
             delay = math.huge
         },
         getUp = {
-            { q = q(68,205,68,37), ox = 39, oy = 29, delay = f(24) }, --fallen
+            { q = q(68,203,68,39), ox = 39, oy = 31, delay = f(24) }, --fallen
             { q = q(138,193,52,49), ox = 28, oy = 48, delay = f(14) }, --get up
             { q = q(114,71,38,56), ox = 21, oy = 55 }, --duck
             delay = f(13)
