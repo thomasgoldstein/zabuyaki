@@ -175,18 +175,18 @@ return {
             delay = f(3)
         },
         hurtLowWeak = {
-            { q = q(135,136,44,61), ox = 23, oy = 60, delay = f(13) }, --hurt low 2
-            { q = q(93,134,40,63), ox = 22, oy = 62 }, --hurt low 1
+            { q = q(135,136,44,61), ox = 23, oy = 60, delay = f(13) }, --hurt low 1
+            { q = q(93,134,40,63), ox = 22, oy = 62 }, --hurt low 2
             delay = f(3)
         },
         hurtLowMedium = {
-            { q = q(135,136,44,61), ox = 23, oy = 60, delay = f(21) }, --hurt low 2
-            { q = q(93,134,40,63), ox = 22, oy = 62 }, --hurt low 1
+            { q = q(135,136,44,61), ox = 23, oy = 60, delay = f(21) }, --hurt low 1
+            { q = q(93,134,40,63), ox = 22, oy = 62 }, --hurt low 2
             delay = f(3)
         },
         hurtLowStrong = {
-            { q = q(135,136,44,61), ox = 23, oy = 60, delay = f(29) }, --hurt low 2
-            { q = q(93,134,40,63), ox = 22, oy = 62 }, --hurt low 1
+            { q = q(135,136,44,61), ox = 23, oy = 60, delay = f(29) }, --hurt low 1
+            { q = q(93,134,40,63), ox = 22, oy = 62 }, --hurt low 2
             delay = f(3)
         },
         fall = {
@@ -231,8 +231,8 @@ return {
             delay = f(2)
         },
         grabbedBack = {
-            { q = q(93,134,40,63), ox = 22, oy = 62 }, --hurt low 1
-            { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 2
+            { q = q(93,134,40,63), ox = 22, oy = 62 }, --hurt low 2
+            { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 1
             delay = f(2)
         },
         thrown = {
@@ -242,7 +242,7 @@ return {
             delay = math.huge
         },
         thrown12h = {
-            { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 2
+            { q = q(135,136,44,61), ox = 23, oy = 60 }, --hurt low 1
             delay = math.huge
         },
         thrown10h = {
@@ -254,7 +254,7 @@ return {
             delay = math.huge
         },
         thrown6h = {
-            { q = q(135,136,44,61), ox = 23, oy = 60, flipH = -1, flipV = -1 }, --hurt low 2 (flipped horizontally and vertically)
+            { q = q(135,136,44,61), ox = 23, oy = 60, flipH = -1, flipV = -1 }, --hurt low 1 (flipped horizontally and vertically)
             delay = math.huge
         },
     }

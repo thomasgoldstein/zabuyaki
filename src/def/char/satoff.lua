@@ -227,18 +227,18 @@ return {
             delay = f(3)
         },
         hurtLowWeak = {
-            { q = q(214,146,72,64), ox = 36, oy = 63, delay = f(13) }, --hurt low 2
-            { q = q(143,143,69,67), ox = 36, oy = 66 }, --hurt low 1
+            { q = q(214,146,72,64), ox = 36, oy = 63, delay = f(13) }, --hurt low 1
+            { q = q(143,143,69,67), ox = 36, oy = 66 }, --hurt low 2
             delay = f(3)
         },
         hurtLowMedium = {
-            { q = q(214,146,72,64), ox = 36, oy = 63, delay = f(21) }, --hurt low 2
-            { q = q(143,143,69,67), ox = 36, oy = 66 }, --hurt low 1
+            { q = q(214,146,72,64), ox = 36, oy = 63, delay = f(21) }, --hurt low 1
+            { q = q(143,143,69,67), ox = 36, oy = 66 }, --hurt low 2
             delay = f(3)
         },
         hurtLowStrong = {
-            { q = q(214,146,72,64), ox = 36, oy = 63, delay = f(29) }, --hurt low 2
-            { q = q(143,143,69,67), ox = 36, oy = 66 }, --hurt low 1
+            { q = q(214,146,72,64), ox = 36, oy = 63, delay = f(29) }, --hurt low 1
+            { q = q(143,143,69,67), ox = 36, oy = 66 }, --hurt low 2
             delay = f(3)
         },
         fall = {
@@ -308,7 +308,7 @@ return {
             delay = math.huge
         },
         thrown6h = {
-            { q = q(214,146,72,64), ox = 36, oy = 63, flipH = -1, flipV = -1 }, --hurt low 2 (flipped horizontally and vertically)
+            { q = q(214,146,72,64), ox = 36, oy = 63, flipH = -1, flipV = -1 }, --hurt low 1 (flipped horizontally and vertically)
             delay = math.huge
         },
     }
