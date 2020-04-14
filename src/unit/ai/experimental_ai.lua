@@ -13,9 +13,24 @@ function eAI:initialize(unit, settings)
     AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
     -- new or overridden AI tactics lists of AI schedules
-    self.tacticsPassive = { self.SCHEDULE_STEP_BACK, self.SCHEDULE_STEP_DOWN, self.SCHEDULE_STEP_FORWARD, self.SCHEDULE_STEP_UP, self.SCHEDULE_WAIT_MEDIUM }
+    self.tacticsPassive = {
+        self.SCHEDULE_STEP_BACK, self.SCHEDULE_STEP_DOWN, self.SCHEDULE_STEP_FORWARD, self.SCHEDULE_STEP_UP,
+        self.SCHEDULE_WAIT_MEDIUM, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_WAIT_LONG,
+        self.SCHEDULE_WALK_RANDOM,
+        self.SCHEDULE_GET_TO_BACK,
+        self.SCHEDULE_WALK_AROUND,
+        self.SCHEDULE_WALK_TO_MEDIUM_DISTANCE, self.SCHEDULE_WALK_TO_LONG_DISTANCE,
+        self.SCHEDULE_WALK_BY_TARGET_V,
+        self.SCHEDULE_SMART_ATTACK,
+    }
     self.tacticsPassive.name = "passive"
-    self.tacticsAggressive = { self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_WAIT_LONG }
+    self.tacticsAggressive = {
+        self.SCHEDULE_SMART_ATTACK, self.SCHEDULE_SMART_ATTACK,
+        self.SCHEDULE_WALK_BY_TARGET_V,
+        self.SCHEDULE_WAIT_SHORT,
+        self.SCHEDULE_ESCAPE_BACK,
+        self.SCHEDULE_WALK_AROUND,
+    }
     self.tacticsAggressive.name = "aggressive"
     self.tacticsCowardly = { self.SCHEDULE_WALK_OFF_THE_SCREEN, self.SCHEDULE_WAIT_SHORT }
     self.tacticsCowardly.name = "cowardly"
