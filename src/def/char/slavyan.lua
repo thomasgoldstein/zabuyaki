@@ -7,6 +7,12 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
+local comboPunch = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 27, z = 31, width = 26, damage = 6, sfx = "air" },
+        cont
+    )
+end
 
 return {
     serializationVersion = 0.43, -- The version of this serialization process
@@ -89,6 +95,7 @@ return {
             delay = f(3)
         },
         combo1 = {
+            { q = q(2,3,46,65), ox = 24, oy = 67, rotate = 0.314, func = comboPunch, delay = f(12) }, --*stand 1
             { q = q(2,3,46,65), ox = 20, oy = 64 }, --stand 1
             delay = f(1)
         },
