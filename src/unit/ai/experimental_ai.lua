@@ -21,15 +21,13 @@ function eAI:initialize(unit, settings)
     self.tacticsCowardly.name = "cowardly"
     self.tacticsHappily = { self.SCHEDULE_FACE_TO_PLAYER, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_STRAIGHT_JUMP, self.SCHEDULE_DANCE }
     self.tacticsHappily.name = "happily"
-    --self.tactics = { self.SCHEDULE_WAIT_MEDIUM, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_WAIT_LONG, self.SCHEDULE_WALK_RANDOM }
-    --self.tactics = { self.SCHEDULE_WALK_BY_TARGET_H, self.SCHEDULE_WALK_BY_TARGET_V, self.SCHEDULE_WAIT_SHORT }
-    --self.tactics = { self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_DANCE }
-    self.tactics = {
-        self.SCHEDULE_WAIT_MEDIUM, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_WAIT_LONG, self.SCHEDULE_WALK_RANDOM,
-        self.SCHEDULE_WALK_TO_SHORT_DISTANCE, self.SCHEDULE_WALK_TO_MEDIUM_DISTANCE, self.SCHEDULE_WALK_TO_LONG_DISTANCE,
-        self.SCHEDULE_WALK_OVER_TO_SHORT_DISTANCE, self.SCHEDULE_WALK_OVER_TO_MEDIUM_DISTANCE, self.SCHEDULE_WALK_OVER_TO_LONG_DISTANCE,
-    }
-    --self.tactics = self.tacticsHappily
+    self.tacticsShortAttacks = { self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_COMBO }
+    self.tacticsShortAttacks.name = "shortAttacks"
+    self.tacticsMediumAttacks = { self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_ATTACK_FROM_BACK }
+    self.tacticsMediumAttacks.name = "mediumAttacks"
+    self.tacticsLongAttacks = { self.SCHEDULE_DASH, self.SCHEDULE_RUN_DASH, self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_ATTACK_FROM_BACK }
+    self.tacticsLongAttacks.name = "longAttacks"
+    self.tactics = self.tacticsPassive
 end
 
 function eAI:_update(dt)
