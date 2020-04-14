@@ -452,7 +452,7 @@ function AI:initWalkAround()
             return false
         end
     end
-    u.chaseTime = 3 + love.math.random( 5 )
+    u.chaseTime = 1 + love.math.random() * 2
     u.chaseRadius = self:getSafeWalkingRadius(u, u.target)
     if love.math.random() < 0.3 then    -- go to front
         u.chaseAngle = love.math.random() * math.pi / 4 - math.pi / 8
