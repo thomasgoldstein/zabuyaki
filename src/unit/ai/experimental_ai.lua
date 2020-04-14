@@ -40,7 +40,10 @@ function eAI:initialize(unit, settings)
     self.tacticsShortAttacks.name = "shortAttacks"
     self.tacticsMediumAttacks = { self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_ATTACK_FROM_BACK }
     self.tacticsMediumAttacks.name = "mediumAttacks"
-    self.tacticsLongAttacks = { self.SCHEDULE_DASH, self.SCHEDULE_RUN_DASH, self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_ATTACK_FROM_BACK }
+    self.tacticsLongAttacks = {
+        self.SCHEDULE_WALK_CLOSE_TO_ATTACK, self.SCHEDULE_ATTACK_FROM_BACK,
+        --self.SCHEDULE_DASH, self.SCHEDULE_RUN_DASH,
+    }
     self.tacticsLongAttacks.name = "longAttacks"
     self.tactics = self.tacticsPassive
 end
