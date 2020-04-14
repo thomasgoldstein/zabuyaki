@@ -37,14 +37,12 @@ function eAI:_update(dt)
 end
 
 function eAI:selectNewSchedule(conditions)
-    if false then
-        if self.tactics == self.tacticsPassive and self.unit.hp < self.unit.maxHp then
-            self.tactics = self.tacticsAggressive
-        --elseif self.tactics == self.tacticsAggressive and self.unit.hp < self.unit.maxHp / 3 then
-        --    self.tactics = self.tacticsCowardly
-        elseif not self.tactics then
-            self.tactics = self.tacticsPassive
-        end
+    if self.tactics == self.tacticsPassive and self.unit.hp < self.unit.maxHp then
+        self.tactics = self.tacticsAggressive
+    --elseif self.tactics == self.tacticsAggressive and self.unit.hp < self.unit.maxHp / 3 then
+    --    self.tactics = self.tacticsCowardly
+    elseif not self.tactics then
+        self.tactics = self.tacticsPassive
     end
     self:setSchedule( self.tactics[ love.math.random(1, #self.tactics ) ])
 end
