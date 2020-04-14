@@ -34,6 +34,24 @@ function eAI:_update(dt)
     AI.update(self, dt)
 end
 
+function eAI:selectNewAttackSchedule()
+    print(self.unit.name, "selectNewAttackSchedule()")
+    if self.conditions.reactShortPlayer then
+        self.tactics = self.tacticsShortAttacks
+    elseif self.conditions.reactMediumPlayer then
+        self.tactics = self.tacticsMediumAttacks
+    elseif self.conditions.reactLongPlayer then
+        self.tactics = self.tacticsLongAttacks
+    else
+        print(self.unit.name, "CANNOT PICK BEST ATTACK")
+        self.tactics = false
+        return true
+    end
+    self:setSchedule( self.tactics[ love.math.random(1, #self.tactics ) ])
+    self.tactics = false
+    return true
+end
+
 function eAI:selectNewSchedule(conditions)
     if self.tactics == self.tacticsPassive and self.unit.hp < self.unit.maxHp then
         self.tactics = self.tacticsAggressive

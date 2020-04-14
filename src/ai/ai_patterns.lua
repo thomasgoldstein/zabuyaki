@@ -71,7 +71,8 @@ function AI:initCommonAiSchedules(unit)
         {"cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_WALK_OVER_TO_LONG_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToLongDistanceAfterEnemy, self.onMove},
         {"cannotAct", "grabbed", "inAir"})
-
+    self.SCHEDULE_SMART_ATTACK = Schedule:new({ self.selectNewAttackSchedule },
+        {})
 end
 
 local function getPosByAngleR(x, y, angle, r)
