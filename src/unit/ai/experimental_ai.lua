@@ -61,6 +61,7 @@ function eAI:selectNewAttackSchedule()
     elseif self.conditions.reactLongPlayer then
         self.tactics = self.tacticsLongAttacks
     else
+        self.unit.b.reset()
         print(self.unit.name, "CANNOT PICK BEST ATTACK")
         self.tactics = false
         return true
