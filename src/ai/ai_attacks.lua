@@ -42,36 +42,3 @@ function AI:initDash(dt)
     return false
 end
 
-function AI:calcWalkToAttackXY()
-    local u = self.unit
-    if not u.target or u.target.hp < 1 then
-        u:pickAttackTarget("close")
-        if not u.target then
-            return false
-        end
-    end
-    assert(not u.isDisabled and u.hp > 0)
-    local tx, ty
-    if love.math.random() < 0.25 then
-        --get above / below the player
-        tx = u.target.x
-        if love.math.random() < 0.5 then
-            ty = u.target.y + 16
-        else
-            ty = u.target.y - 16
-        end
-    else
-        --get to the player attack range
-        if u.x < u.target.x and love.math.random() < 0.8 then
-            tx = u.target.x - love.math.random(30, 34)
-            ty = u.target.y + 1
-        else
-            tx = u.target.x + love.math.random(30, 34)
-            ty = u.target.y + 1
-        end
-    end
-    u.ttx, u.tty = tx, ty
-    u.old_x = 0
-    u.old_y = 0
-    return true
-end
