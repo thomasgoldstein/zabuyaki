@@ -46,12 +46,8 @@ function Enemy:onFriendlyAttack()
 end
 
 function Enemy:onAttacker(h)
-    dp(self.type .. " was attacked by " .. h.source.name )
-    if self.AI:onHurt(h.source) then
-        dp("  \\ SWITCHED to new target " .. h.source.name )
-    end
+    self.AI:onHurtSwitchTarget(h.source)
     Character.onAttacker(self, h)
-    --print("DAMAGE ", damage, self.name, self.hp,"/", self:getMaxHp() , self.lives)
 end
 function Enemy:getMaxHp(lives)
     if (lives or self.lives) <= 1 then

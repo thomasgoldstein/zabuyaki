@@ -1,6 +1,6 @@
 local AI = AI
 
-function AI:onHurt(attacker)
+function AI:onHurtSwitchTarget(attacker)
     local u = self.unit
     if attacker and love.math.random() < self.switchTargetToAttackerChance then
         return u:pickAttackTarget(attacker)
