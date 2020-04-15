@@ -165,30 +165,38 @@ return {
             delay = f(3)
         },
         fall = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
+            { q = q(2,205,68,55), ox = 38, oy = 54, delay = f(20) }, --fall 1
+            { q = q(72,211,72,49), ox = 41, oy = 48, delay = f(8) }, --fall 2
+            { q = q(146,219,74,41), ox = 42, oy = 37 }, --fall 3
             delay = math.huge
         },
         fallTwistWeak = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            loop = true,
-            delay = f(7)
+            { q = q(2,205,68,55), ox = 38, oy = 54, delay = f(20) }, --fall 1
+            { q = q(72,211,72,49), ox = 41, oy = 48, delay = f(8) }, --fall 2
+            { q = q(146,219,74,41), ox = 42, oy = 37 }, --fall 3
+            delay = math.huge
         },
         fallTwistStrong = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            loop = true,
-            delay = f(7)
+            { q = q(2,205,68,55), ox = 38, oy = 54, delay = f(20) }, --fall 1
+            { q = q(72,211,72,49), ox = 41, oy = 48, delay = f(8) }, --fall 2
+            { q = q(146,219,74,41), ox = 42, oy = 37 }, --fall 3
+            delay = math.huge
         },
         fallBounce = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
+            { q = q(2,262,71,38), ox = 42, oy = 33, delay = f(4) }, --fallen
+            { q = q(146,219,74,41), ox = 42, oy = 37 }, --fall 3
             delay = math.huge
         },
         fallenDead = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
+            { q = q(2,262,71,38), ox = 42, oy = 33 }, --fallen
             delay = math.huge
         },
         getUp = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            delay = f(12)
+            { q = q(2,262,71,38), ox = 42, oy = 33, delay = f(24) }, --fallen
+            { q = q(146,219,74,41), ox = 42, oy = 37 }, --fall 3
+            { q = q(72,211,72,49), ox = 41, oy = 48 }, --fall 2
+            { q = q(2,205,68,55), ox = 38, oy = 54 }, --fall 1
+            delay = f(9)
         },
         grabbedFront = {
             { q = q(60,138,48,65), ox = 23, oy = 64 }, --hurt high 2
@@ -202,23 +210,24 @@ return {
         },
         thrown = {
             --rx = ox / 2, ry = -oy / 2 for this rotation
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
+            { q = q(2,205,68,55), ox = 38, oy = 54, rotate = -1.57, rx = 19, ry = -27, delay = f(24) }, --fall 1 (rotated -90°)
+            { q = q(146,219,74,41), ox = 42, oy = 37 }, --fall 3
             delay = math.huge
         },
         thrown12h = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
+            { q = q(110,141,45,62), ox = 18, oy = 61 }, --hurt low 1
             delay = math.huge
         },
         thrown10h = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
+            { q = q(2,205,68,55), ox = 38, oy = 54 }, --fall 1
             delay = math.huge
         },
         thrown8h = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
+            { q = q(2,205,68,55), ox = 38, oy = 54, rotate = -1.57, rx = 38, ry = -27 }, --fall 1 (rotated -90°)
             delay = math.huge
         },
         thrown6h = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
+            { q = q(110,141,45,62), ox = 18, oy = 61, flipH = -1, flipV = -1 }, --hurt low 1 (flipped horizontally and vertically)
             delay = math.huge
         },
     }
