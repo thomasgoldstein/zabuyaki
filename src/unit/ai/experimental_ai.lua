@@ -16,7 +16,7 @@ function eAI:initialize(unit, settings)
     self.tacticsPassive = {
         self.SCHEDULE_STEP_BACK, self.SCHEDULE_STEP_DOWN, self.SCHEDULE_STEP_FORWARD, self.SCHEDULE_STEP_UP,
         self.SCHEDULE_WAIT_MEDIUM, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_WAIT_LONG,
-        self.SCHEDULE_WALK_RANDOM,
+        --self.SCHEDULE_WALK_RANDOM,
         self.SCHEDULE_GET_TO_BACK,
         self.SCHEDULE_WALK_AROUND,
         self.SCHEDULE_WALK_TO_MEDIUM_DISTANCE, self.SCHEDULE_WALK_TO_LONG_DISTANCE,
@@ -29,7 +29,7 @@ function eAI:initialize(unit, settings)
         self.SCHEDULE_WALK_BY_TARGET_V,
         self.SCHEDULE_WAIT_SHORT,
         self.SCHEDULE_ESCAPE_BACK,
-        self.SCHEDULE_WALK_AROUND,
+        self.SCHEDULE_WALK_AROUND, self.SCHEDULE_WALK_AROUND,
     }
     self.tacticsAggressive.name = "aggressive"
     self.tacticsInDanger = {
