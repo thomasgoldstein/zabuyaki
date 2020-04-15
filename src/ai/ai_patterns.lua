@@ -423,7 +423,7 @@ function AI:onWalkToAttackRange()
     local horizontalToleranceGap = 4
     local verticalToleranceGap = 3
     local u = self.unit
-    local attackRange = self:getAttackRange(u, u.target) - horizontalToleranceGap
+    local attackRange = self:getShortAttackRange(u, u.target) - horizontalToleranceGap
     local v, h
     --get to the player attack range
     if u.x < u.target.x then
@@ -472,7 +472,7 @@ end
 function AI:onWalkAround(dt)
     local u = self.unit
     --    dp("AI:onWalkAround() ".. u.name)
-    local attackRange = self:getAttackRange(u, u.target)
+    local attackRange = self:getShortAttackRange(u, u.target)
     local v, h
     if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
         --print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)
@@ -573,7 +573,7 @@ end
 function AI:onGetToBack(dt)
     local u = self.unit
     --    dp("AI:onGetToBack() ".. u.name)
-    local attackRange = self:getAttackRange(u, u.target)
+    local attackRange = self:getShortAttackRange(u, u.target)
     local v, h
     if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
         --print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)

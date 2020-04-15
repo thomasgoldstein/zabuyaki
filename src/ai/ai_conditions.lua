@@ -114,7 +114,7 @@ function AI:getVisualConditions(conditions)
     return conditions
 end
 
-function AI:getAttackRange(unit, target)
+function AI:getShortAttackRange(unit, target)
     return unit.width / 2 + target.width / 2 + 12
 end
 
@@ -127,7 +127,7 @@ function AI:canDash(distance, targetY)
 end
 
 function AI:canCombo(unit, x, y)
-    if math.abs(unit.x - x) <= self:getAttackRange(unit, unit.target)
+    if math.abs(unit.x - x) <= self:getShortAttackRange(unit, unit.target)
         and math.abs(unit.y - y) <= 6
         and ((unit.x - unit.width / 2 > x and unit.face == -1) or (unit.x + unit.width / 2 < x and unit.face == 1))
     then
@@ -152,7 +152,7 @@ function AI:canGrab(unit, targetX, targetY)
 end
 
 function AI:getSafeWalkingRadius(unit, target) -- radius bigger than an attack range
-    return self:getAttackRange(unit, target) * ( 1.2 + love.math.random() )
+    return self:getShortAttackRange(unit, target) * ( 1.2 + love.math.random() )
 end
 
 function AI:canAct()
