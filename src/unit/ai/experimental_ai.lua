@@ -32,6 +32,14 @@ function eAI:initialize(unit, settings)
         self.SCHEDULE_WALK_AROUND,
     }
     self.tacticsAggressive.name = "aggressive"
+    self.tacticsInDanger = {
+        self.SCHEDULE_WALK_BY_TARGET_V,
+        self.SCHEDULE_WALK_BY_TARGET_H,
+        self.SCHEDULE_ESCAPE_BACK,
+        self.SCHEDULE_WALK_AROUND,
+        self.SCHEDULE_GET_TO_BACK,
+    }
+    self.tacticsInDanger.name = "inDanger"
     self.tacticsCowardly = { self.SCHEDULE_WALK_OFF_THE_SCREEN, self.SCHEDULE_WAIT_SHORT }
     self.tacticsCowardly.name = "cowardly"
     self.tacticsHappily = { self.SCHEDULE_FACE_TO_PLAYER, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_STRAIGHT_JUMP, self.SCHEDULE_DANCE }
@@ -72,12 +80,21 @@ function eAI:selectNewAttackSchedule()
 end
 
 function eAI:selectNewSchedule(conditions)
-    if self.tactics == self.tacticsPassive and self.unit.hp < self.unit.maxHp then
+    print(self.unit.name, "selectNewSchedule")
+    if self.conditions.tooCloseToPlayer then
+        print(self.unit.name, "IN DANGEROUS POS. AVOID")
+        self.tactics = self.tacticsInDanger
+        self:setSchedule( self.tactics[ love.math.random(1, #self.tactics ) ])
         self.tactics = self.tacticsAggressive
-    --elseif self.tactics == self.tacticsAggressive and self.unit.hp < self.unit.maxHp / 3 then
-    --    self.tactics = self.tacticsCowardly
-    elseif not self.tactics then
-        self.tactics = self.tacticsPassive
+        return true
+    else
+        if self.tactics == self.tacticsPassive and self.unit.hp < self.unit.maxHp then
+            self.tactics = self.tacticsAggressive
+            --elseif self.tactics == self.tacticsAggressive and self.unit.hp < self.unit.maxHp / 3 then
+            --    self.tactics = self.tacticsCowardly
+        elseif not self.tactics then
+            self.tactics = self.tacticsPassive
+        end
     end
     self:setSchedule( self.tactics[ love.math.random(1, #self.tactics ) ])
 end
