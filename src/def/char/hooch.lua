@@ -50,7 +50,7 @@ return {
             delay = f(10)
         },
         duck = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
+            { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
             delay = f(4)
         },
         sideStepUp = {
@@ -85,14 +85,13 @@ return {
             { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
         },
         respawn = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1 (need 3 frames)
-            delay = f(6)
+            { q = q(50,69,45,67), ox = 20, oy = 66 }, --walk 2
+            { q = q(122,262,44,59), ox = 20, oy = 58 , delay = f(36) }, --duck
+            delay = math.huge
         },
         pickUp = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            delay = f(3)
+            { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
+            delay = f(17)
         },
         combo1 = {
             { q = q(2,2,46,65), ox = 24, oy = 67, rotate = 0.314, func = comboPunch, delay = f(12) }, --*stand 1
@@ -183,20 +182,19 @@ return {
             delay = math.huge
         },
         fallBounce = {
-            { q = q(2,262,71,38), ox = 42, oy = 33, delay = f(4) }, --fallen
+            { q = q(2,283,71,38), ox = 42, oy = 33, delay = f(4) }, --fallen
             { q = q(146,219,74,41), ox = 42, oy = 37 }, --fall 3
             delay = math.huge
         },
         fallenDead = {
-            { q = q(2,262,71,38), ox = 42, oy = 33 }, --fallen
+            { q = q(2,283,71,38), ox = 42, oy = 33 }, --fallen
             delay = math.huge
         },
         getUp = {
-            { q = q(2,262,71,38), ox = 42, oy = 33, delay = f(24) }, --fallen
-            { q = q(146,219,74,41), ox = 42, oy = 37 }, --fall 3
-            { q = q(72,211,72,49), ox = 41, oy = 48 }, --fall 2
-            { q = q(2,205,68,55), ox = 38, oy = 54 }, --fall 1
-            delay = f(9)
+            { q = q(2,283,71,38), ox = 42, oy = 33, delay = f(24) }, --fallen
+            { q = q(75,266,45,55), ox = 18, oy = 51, delay = f(14) }, --get up
+            { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
+            delay = f(13)
         },
         grabbedFront = {
             { q = q(60,138,48,65), ox = 23, oy = 64 }, --hurt high 2
