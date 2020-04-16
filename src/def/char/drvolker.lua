@@ -74,9 +74,8 @@ return {
         },
         respawn = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --stand 1
-            { q = q(2,2,60,74), ox = 30, oy = 73 }, --stand 1
-            { q = q(2,2,60,74), ox = 30, oy = 73 }, --stand 1 (need 3 frames)
-            delay = f(6)
+            { q = q(2,2,60,74), ox = 30, oy = 73, delay = f(36) }, --stand 1 (need 2 frames)
+            delay = math.huge
         },
         pickUp = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --stand 1
