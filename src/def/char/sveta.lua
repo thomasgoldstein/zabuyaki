@@ -156,9 +156,9 @@ return {
         fallTwistWeak = {
             { q = q(68,526,65,52), ox = 41, oy = 52 }, --fall twist 2
             { q = q(135,526,62,55), ox = 34, oy = 52 }, --fall twist 3
-            { q = q(199,521,50,60), ox = 31, oy = 57, delay = f(8) }, --fall twist 4
+            { q = q(199,521,50,60), ox = 31, oy = 57 }, --fall twist 4
             { q = q(2,526,64,55), ox = 34, oy = 52, delay = math.huge }, --fall twist 1
-            delay = f(7)
+            delay = f(8)
         },
         fallTwistStrong = {
             { q = q(2,526,64,55), ox = 34, oy = 52 }, --fall twist 1

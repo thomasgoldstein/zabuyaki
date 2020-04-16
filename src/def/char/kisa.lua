@@ -157,7 +157,7 @@ return {
         fallTwistWeak = {
             { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
             loop = true,
-            delay = f(7)
+            delay = f(8)
         },
         fallTwistStrong = {
             { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
