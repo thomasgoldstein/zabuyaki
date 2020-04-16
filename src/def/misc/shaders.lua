@@ -7,7 +7,7 @@ shaders = {
     niko = {},
     sveta = {},
     zeena = {},
-    slavyan = {},
+    hooch = {},
     beatnik = {},
     satoff = {},
     drVolker = {},
@@ -369,7 +369,7 @@ function reloadShaders()
         swapColors(zeenaColors_original, zeenaColors_blue),
     }
     shaders.zeena.aliases = { pink = 1, black = 2, blackred = 3, blue = 4, }
-    shaders.slavyan = {
+    shaders.hooch = {
         false,
     }
     shaders.beatnik = {

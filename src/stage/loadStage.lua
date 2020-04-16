@@ -52,7 +52,7 @@ local function loadCollision(items, stage)
 end
 
 local function getUnitTypeByName(name)
-    local unitTypeByName = { gopper = Gopper, niko = Niko, sveta = Sveta, zeena = Zeena, slavyan = Slavyan, beatnik = Beatnik, satoff = Satoff, drvolker = DrVolker,
+    local unitTypeByName = { gopper = Gopper, niko = Niko, sveta = Sveta, zeena = Zeena, hooch = Hooch, beatnik = Beatnik, satoff = Satoff, drvolker = DrVolker,
                              trashcan = Trashcan, sign = Sign,
                              event = Event }
     if unitTypeByName[name] then

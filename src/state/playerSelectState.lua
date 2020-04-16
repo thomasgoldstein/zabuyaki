@@ -153,11 +153,11 @@ local heroes = {
         py = 120
     },
     {
-        {name = "SLAVYAN", palette = 1},
-        {name = "SLAVYAN", palette = 1},
-        {name = "SLAVYAN", palette = 1},
-        hero = PSlavyan,
-        spriteInstance = "src/def/char/slavyan",
+        {name = "HOOCH", palette = 1},
+        {name = "HOOCH", palette = 1},
+        {name = "HOOCH", palette = 1},
+        hero = PHooch,
+        spriteInstance = "src/def/char/hooch",
         sprite_portrait = getSpriteInstance("src/def/misc/portraits"),
         sprite_portraitAnim = "rick", --NO OWN PORTRAIT
         defaultAnim = "stand",

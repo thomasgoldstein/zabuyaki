@@ -192,7 +192,7 @@
     <property name="maxActiveEnemies" type="int" value="4"/>
    </properties>
    <object id="17" name="3" type="wave" x="1280" y="0" width="640" height="320"/>
-   <object id="18" name="Vlad" type="slavyan" x="1528" y="272">
+   <object id="18" name="Booze" type="hooch" x="1528" y="272">
     <properties>
      <property name="flip" type="bool" value="true"/>
     </properties>
@@ -222,7 +222,7 @@
     </properties>
     <point/>
    </object>
-   <object id="22" name="Sergei" type="slavyan" x="1312" y="272">
+   <object id="22" name="Boyara" type="hooch" x="1312" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="spawnDelay" type="int" value="2"/>
@@ -403,7 +403,7 @@
     </properties>
     <point/>
    </object>
-   <object id="45" name="Slavyan" type="slavyan" x="576" y="280">
+   <object id="45" name="Hooch" type="hooch" x="576" y="280">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="spawnDelay" type="int" value="2"/>

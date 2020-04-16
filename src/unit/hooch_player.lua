@@ -1,15 +1,15 @@
 local class = require "lib/middleclass"
-local _Slavyan = Slavyan
-local Slavyan = class('PSlavyan', Player)
+local _Hooch = Hooch
+local Hooch = class('PHooch', Player)
 
 local function nop() end
 
-function Slavyan:initialize(name, sprite, x, y, f, input)
+function Hooch:initialize(name, sprite, x, y, f, input)
     Player.initialize(self, name, sprite, x, y, f, input)
 end
 
-function Slavyan:initAttributes()
-    _Slavyan.initAttributes(self)
+function Hooch:initAttributes()
+    _Hooch.initAttributes(self)
 end
 
-return Slavyan
+return Hooch

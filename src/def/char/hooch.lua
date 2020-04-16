@@ -1,4 +1,4 @@
-local spriteSheet = "res/img/char/slavyan.png"
+local spriteSheet = "res/img/char/hooch.png"
 local imageWidth,imageHeight = loadSpriteSheet(spriteSheet)
 
 local function q(x,y,w,h)
@@ -18,7 +18,7 @@ return {
     serializationVersion = 0.43, -- The version of this serialization process
 
     spriteSheet = spriteSheet, -- The path to the spritesheet
-    spriteName = "slavyan", -- The name of the sprite
+    spriteName = "hooch", -- The name of the sprite
 
     delay = f(12), -- Default delay for all animations
     hurtBox = { width = 20, height = 50 }, -- Default hurtBox for all animations

@@ -1,20 +1,20 @@
 local class = require "lib/middleclass"
-local Slavyan = class('Slavyan', Gopper)
+local Hooch = class('Hooch', Gopper)
 
 local function nop() end
 
-function Slavyan:initialize(name, sprite, x, y, f, input)
+function Hooch:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 350
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, x, y, f, input)
-    Slavyan.initAttributes(self)
+    Hooch.initAttributes(self)
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
     self.subtype = ""   -- remove inherited Gopper's subtype
     self:postInitialize()
 end
 
-function Slavyan:initAttributes()
+function Hooch:initAttributes()
     self.moves = { -- list of allowed moves
         pickUp = true, jump = true, jumpAttackForward = true, grab = true, grabFrontAttack = true,
         --technically present for all
@@ -41,4 +41,4 @@ function Slavyan:initAttributes()
     --self.AI = AIGopper:new(self)
 end
 
-return Slavyan
+return Hooch

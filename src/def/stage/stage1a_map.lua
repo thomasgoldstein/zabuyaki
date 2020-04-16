@@ -652,8 +652,8 @@ return {
             },
             {
               id = 18,
-              name = "Vlad",
-              type = "slavyan",
+              name = "Booze",
+              type = "hooch",
               shape = "point",
               x = 1528,
               y = 272,
@@ -718,8 +718,8 @@ return {
             },
             {
               id = 22,
-              name = "Sergei",
-              type = "slavyan",
+              name = "Boyara",
+              type = "hooch",
               shape = "point",
               x = 1312,
               y = 272,
@@ -1132,8 +1132,8 @@ return {
             },
             {
               id = 45,
-              name = "Slavyan",
-              type = "slavyan",
+              name = "Hooch",
+              type = "hooch",
               shape = "point",
               x = 576,
               y = 280,

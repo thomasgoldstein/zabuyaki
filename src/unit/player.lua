@@ -3,7 +3,7 @@ local Player = class('Player', Character)
 
 local function nop() end
 local dashAttackDelta = 0.25
-local players_list = { RICK = 1, KISA = 2, CHAI = 3, YAR = 4, GOPPER = 5, NIKO = 6, SVETA = 7, ZEENA = 8, SLAVYAN = 9, BEATNIK = 10, SATOFF = 11, DRVOLKER = 12 }
+local players_list = { RICK = 1, KISA = 2, CHAI = 3, YAR = 4, GOPPER = 5, NIKO = 6, SVETA = 7, ZEENA = 8, HOOCH = 9, BEATNIK = 10, SATOFF = 11, DRVOLKER = 12 }
 players_list.firstPlayerCharacter = players_list.RICK
 players_list.lastPlayerCharacter = players_list.YAR
 
