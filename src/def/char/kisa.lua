@@ -179,10 +179,12 @@ return {
         },
         grabbedFront = {
             { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1 (need 2 frames)
             delay = f(2)
         },
         grabbedBack = {
             { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1
+            { q = q(2,2,50,62), ox = 29, oy = 61 }, --stand 1 (need 2 frames)
             delay = f(2)
         },
         thrown = {
