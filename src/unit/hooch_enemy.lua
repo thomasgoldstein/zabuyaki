@@ -12,6 +12,8 @@ function Hooch:initialize(name, sprite, x, y, f, input)
     self:postInitialize()
 end
 
+Hooch.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
+
 function Hooch:initAttributes()
     self.moves = { -- list of allowed moves
         pickUp = true, jump = true, jumpAttackForward = true, grab = true, grabFrontAttack = true,
