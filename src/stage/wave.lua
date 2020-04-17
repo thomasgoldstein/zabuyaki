@@ -163,7 +163,7 @@ function Wave:spawn(dt)
                     unit.sprite.faceFix = unit.face  -- stageObjects use it to fix sprite flipping
                 end
                 self.lastSpawnedTime = 0
-                dp("APPEAR:", unit.id, "flip:", waveUnit.flip, waveUnit.appearFrom, unit.horizontal, unit.face, unit.sprite.faceFix)
+                dp("APPEAR:"..unit.id .." ".. unit.name, "hp:"..unit.hp, "flip:", waveUnit.flip, waveUnit.appearFrom, unit.horizontal, unit.face, unit.sprite.faceFix)
             else
                 aliveEnemiesCount = aliveEnemiesCount + 1 -- count enemy with spawnDelayBeforeActivation as alive or it breaks the wave order
             end
@@ -171,7 +171,7 @@ function Wave:spawn(dt)
         if not waveUnit.isActive and wave.onEnterStarted then
             waveUnit.isActive = true -- the wave unit spawn data
             unit.isActive = true -- actual spawned enemy unit
-            dp("Activate enemy:", unit.name)
+            dp("Activate enemy:", unit.name, unit.id)
         end
     end
     if aliveEnemiesCount <= wave.aliveEnemiesToAdvance and waitingEnemiesCount <= 0 then
