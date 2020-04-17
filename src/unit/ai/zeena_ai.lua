@@ -13,22 +13,10 @@ local _settings = {
 function eAI:initialize(unit, settings)
     AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
-    self.SCHEDULE_JUMP_ATTACK = Schedule:new(
-        { self.initJumpAttack, self.onJumpAttack },
-        { "cannotAct", "inAir", "grabbed", "noTarget", "noPlayers" }
-    )
-end
-
-function eAI:_update(dt)
-    --    if self.thinkInterval - dt <= 0 then
-    --print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
-    --    end
-    AI.update(self, dt)
 end
 
 function eAI:selectNewSchedule(conditions)
     if not self.currentSchedule or conditions.init then
-        --        print("ZEENA INTRO", self.unit.name, self.unit.id )
         self:setSchedule( self.SCHEDULE_INTRO )
         return
     end
@@ -83,34 +71,6 @@ function eAI:selectNewSchedule(conditions)
         return
     end
     self:setSchedule( self.SCHEDULE_STAND )
-end
-
-function eAI:initJumpAttack(dt)
-    local u = self.unit
-    self.doneAttack = false
-    if u.state == "stand" then
-        u.z = u.z + 0.1
-        u.bounced = 0
-        if self.conditions.tooCloseToPlayer then
-            u.speed_x = 0
-        else
-            u.speed_x = u.walkSpeed_x
-        end
-        u:setState(u.jump)
-    end
-    return true
-end
-
-function eAI:onJumpAttack(dt)
-    local u = self.unit
-    if u.state == "stand" then
-        return true
-    end
-    if not self.doneAttack then
-        self.doneAttack = true
-        u:setState(u.jumpAttackForward)
-    end
-    return false
 end
 
 return eAI
