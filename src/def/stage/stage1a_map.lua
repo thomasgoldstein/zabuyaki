@@ -865,7 +865,7 @@ return {
             },
             {
               id = 30,
-              name = "Ivan",
+              name = "Vlad",
               type = "gopper",
               shape = "point",
               x = 896,

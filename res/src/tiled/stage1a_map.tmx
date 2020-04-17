@@ -284,7 +284,7 @@
     </properties>
     <point/>
    </object>
-   <object id="30" name="Ivan" type="gopper" x="896" y="256">
+   <object id="30" name="Vlad" type="gopper" x="896" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="blue"/>
