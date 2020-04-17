@@ -116,7 +116,7 @@ function Wave:spawn(dt)
                     then
                         unit.x = l - unit.width
                     elseif waveUnit.appearFrom == "right"
-                        or  waveUnit.appearFrom == "rightJump"
+                        or waveUnit.appearFrom == "rightJump"
                     then
                         unit.x = l + w + unit.width
                     end
