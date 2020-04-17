@@ -73,10 +73,12 @@ function AI:initCommonAiSchedules(unit)
         {"cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_SMART_ATTACK = Schedule:new({ self.selectNewAttackSchedule },
         {})
-    self.SCHEDULE_JUMP_ATTACK = Schedule:new(
-        { self.emulateJumpPressToTarget, self.emulateWaitStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
-        {}
-    )
+    self.SCHEDULE_HORIZONTAL_JUMP_ATTACK = Schedule:new(
+        { self.emulateHorizontalJumpPressToTarget, self.emulateWaitStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
+        {})
+    self.SCHEDULE_DIAGONAL_JUMP_ATTACK = Schedule:new(
+        { self.emulateDiagonalJumpPressToTarget, self.emulateWaitStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
+        {})
 end
 
 local function getPosByAngleR(x, y, angle, r)
@@ -813,9 +815,18 @@ function AI:emulateArrowsToTarget()
     return true
 end
 
-function AI:emulateJumpPressToTarget()
+function AI:emulateHorizontalJumpPressToTarget()
     local u = self.unit
-    dp("AI:emulateJumpPressToTarget() ".. u.name)
+    dp("AI:emulateHorizontalJumpPressToTarget() ".. u.name)
+    u.b.setJump( true )
+    h = signDeadzone( u.target.x - u.x, 4 )
+    u.b.setHorizontalAndVertical( h, 0 )
+    return true
+end
+
+function AI:emulateDiagonalJumpPressToTarget()
+    local u = self.unit
+    dp("AI:emulateDiagonalJumpPressToTarget() ".. u.name)
     u.b.setJump( true )
     h, v = signDeadzone( u.target.x - u.x, 4 ), signDeadzone( u.target.y - u.y, 4 )
     u.b.setHorizontalAndVertical( h, v )

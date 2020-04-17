@@ -42,7 +42,7 @@ function eAI:selectNewSchedule(conditions)
             return
         end
         if conditions.canJumpAttack and love.math.random() < self.jumpAttackChance then
-            self:setSchedule( self.SCHEDULE_JUMP_ATTACK )
+            self:setSchedule( self.SCHEDULE_HORIZONTAL_JUMP_ATTACK )
             return
         end
         if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5

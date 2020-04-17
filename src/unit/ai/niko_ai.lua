@@ -43,7 +43,7 @@ function eAI:selectNewSchedule(conditions)
             return
         end
         if conditions.canJumpAttack and love.math.random() < self.jumpAttackChance then
-            self:setSchedule( self.SCHEDULE_JUMP_ATTACK )
+            self:setSchedule( self.SCHEDULE_DIAGONAL_JUMP_ATTACK )
             return
         end
         if conditions.canCombo then
