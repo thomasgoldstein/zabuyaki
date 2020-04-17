@@ -16,7 +16,6 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.spriteOverlay = nil
     self.name = name or "Unknown"
     self.type = "unit"
-    self.subtype = ""
     self.deathDelay = 3 --seconds to remove
     self.lives = f.lives or self.lives or 0
     self.maxHp = f.hp or self.hp or 1
@@ -36,6 +35,8 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.pushBackOnHitSpeed = 65
     self.toSlowDown = true --used in :calcMovement
     self.isMovable = false --cannot be moved by attacks / can be grabbed
+    self.canFriendlyAttack = false --allow friendly attacks
+    self.friendlyDamage = 2 --divide friendly damage
     self.state = "nop"
     self.lastStateTime = love.timer.getTime()
     self.prevState = "" -- text name
@@ -169,6 +170,17 @@ function Unit:decreaseHp(damage)
             self:func(self)
             self.func = nil
         end
+    end
+end
+function Unit:onFriendlyAttack()
+    local h = self.isHurt
+    if not h then
+        return
+    end
+    if self.canFriendlyAttack and h.source.canFriendlyAttack and self.state ~= "fall" then
+        h.damage = math.floor( (h.damage or 0) / self.friendlyDamage )
+    else
+        h.damage = h.damage or 0
     end
 end
 function Unit:applyDamage(damage, type, source, repel_x, sfx1)

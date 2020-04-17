@@ -8,6 +8,7 @@ function Beatnik:initialize(name, sprite, x, y, f, input)
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Beatnik.initAttributes(self)
+    self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self:postInitialize()
 end
@@ -34,8 +35,6 @@ function Beatnik:initAttributes()
     self.sfx.step = "rickStep"
     self.AI = AIMoveCombo:new(self)
 end
-
-Beatnik.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 function Beatnik:updateAI(dt)
     if self.isDisabled then

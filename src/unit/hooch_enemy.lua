@@ -7,12 +7,10 @@ function Hooch:initialize(name, sprite, x, y, f, input)
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, x, y, f, input)
     Hooch.initAttributes(self)
+    self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype
     self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
-    self.subtype = ""   -- remove inherited Gopper's subtype
     self:postInitialize()
 end
-
-Hooch.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 function Hooch:initAttributes()
     self.moves = { -- list of allowed moves

@@ -88,7 +88,6 @@ function Character:initAttributes()
     self.backoffSpeed2_x = 150 --when you are released
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
-    self.friendlyDamage = 10 --divide friendly damage
     self.isMovable = true --can be moved by attacks / can be grabbed
     self.specialToleranceDelay = 0.033 -- between pressing the last button of Attack & Jump
     -- default sfx
@@ -135,19 +134,6 @@ function Character:isImmune()   --Immune to the attack?
         return true
     end
     return false
-end
-
-function Character:onFriendlyAttack()
-    local h = self.isHurt
-    if not h then
-        return
-    end
-    if self.state ~= "fall" and self.type == h.source.type then
-        --friendly attack is lower by default
-        h.damage = math.floor( (h.damage or 0) / self.friendlyDamage )
-    else
-        h.damage = h.damage or 0
-    end
 end
 
 function Character:onHurt()

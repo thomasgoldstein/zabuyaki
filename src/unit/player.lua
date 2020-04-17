@@ -17,6 +17,7 @@ function Player:initialize(name, sprite, x, y, f, input)
     self:initAttributes()
     self.canPassStoppers = false
     self.type = "player"
+    self.canFriendlyAttack = true
     self.friendlyDamage = 1 --1 = full damage on other players
 end
 

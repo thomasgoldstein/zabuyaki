@@ -9,8 +9,7 @@ function Gopper:initialize(name, sprite, x, y, f, input)
     self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Gopper.initAttributes(self)
-    self.subtype = "gopnik"
-    self.friendlyDamage = 2 --divide friendly damage
+    self.canEnemyFriendlyAttack = true
     self:postInitialize()
 end
 
@@ -42,21 +41,6 @@ function Gopper:updateAI(dt)
     end
     Enemy.updateAI(self, dt)
     self.AI:update(dt)
-end
-
-function Gopper:onFriendlyAttack()
-    local h = self.isHurt
-    if not h then
-        return
-    end
-    if h.source.type == "player" or self.state == "fall" then
-        h.damage = h.damage or 0
-    elseif h.source.subtype == "gopnik" then
-        --Gopper can attack Gopper and Niko only
-        h.damage = math.floor( (h.damage or 0) / self.friendlyDamage )
-    else
-        self.isHurt = nil
-    end
 end
 
 local dashAttackSpeedMultiplier = 0.75

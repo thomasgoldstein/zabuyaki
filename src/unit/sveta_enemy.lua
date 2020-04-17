@@ -9,8 +9,8 @@ function Sveta:initialize(name, sprite, x, y, f, input)
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, x, y, f, input)
     Sveta.initAttributes(self)
+    self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
-    self.subtype = ""   -- remove inherited Gopper's subtype
     self:postInitialize()
 end
 
@@ -35,8 +35,6 @@ function Sveta:initAttributes()
     self.sfx.step = "kisaStep"
     self.AI = AISveta:new(self)
 end
-
-Sveta.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 function Sveta:dashAttackStart()
     self.isHittable = true

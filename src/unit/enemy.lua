@@ -8,6 +8,7 @@ local rand1 = rand1
 function Enemy:initialize(name, sprite, x, y, f, input)
     Character.initialize(self, name, sprite, x, y, f, input)
     self.type = "enemy"
+    self.canEnemyFriendlyAttack = true --allow friendly attacks among enemies
     self.isActive = false -- can move, can think
     self.comboTimeout = 2 -- max delay to connect combo hits
     self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
@@ -30,19 +31,6 @@ function Enemy:updateAI(dt)
     end
     self.b.update(dt)
     Character.updateAI(self, dt)
-end
-
-function Enemy:onFriendlyAttack()
-    local h = self.isHurt
-    if not h then
-        return
-    end
-    self.isActive = true -- awake sleeping enemy on any attack (even friendly)
-    if self.type == h.source.type and self.state ~= "fall" then
-        self.isHurt = nil   --enemy doesn't attack enemy
-    else
-        h.damage = h.damage or 0
-    end
 end
 
 function Enemy:onAttacker(h)
@@ -69,6 +57,17 @@ function Enemy:decreaseHp(damage)
             end
             return
         end
+    end
+end
+function Enemy:onFriendlyAttack()
+    local h = self.isHurt
+    if not h then
+        return
+    end
+    if self.canEnemyFriendlyAttack and h.source.canEnemyFriendlyAttack and self.state ~= "fall" then
+        h.damage = math.floor( (h.damage or 0) / self.friendlyDamage )
+    else
+        h.damage = h.damage or 0
     end
 end
 

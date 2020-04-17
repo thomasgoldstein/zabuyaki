@@ -7,7 +7,7 @@ function Zeena:initialize(name, sprite, x, y, f, input)
     self.tx, self.ty = x, y
     Gopper.initialize(self, name, sprite, x, y, f, input)
     Zeena.initAttributes(self)
-    self.subtype = ""   -- remove inherited Gopper's subtype
+    self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype
     self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self:postInitialize()
 end
@@ -31,7 +31,5 @@ function Zeena:initAttributes()
     self.sfx.step = "kisaStep"
     self.AI = AIZeena:new(self)
 end
-
-Zeena.onFriendlyAttack = Enemy.onFriendlyAttack -- TODO: remove once this class stops inheriting from Gopper
 
 return Zeena
