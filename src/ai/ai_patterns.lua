@@ -73,6 +73,10 @@ function AI:initCommonAiSchedules(unit)
         {"cannotAct", "grabbed", "inAir"})
     self.SCHEDULE_SMART_ATTACK = Schedule:new({ self.selectNewAttackSchedule },
         {})
+    self.SCHEDULE_JUMP_ATTACK = Schedule:new(
+        { self.emulateJumpPressToTarget, self.emulateWaitStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
+        {}
+    )
 end
 
 local function getPosByAngleR(x, y, angle, r)
