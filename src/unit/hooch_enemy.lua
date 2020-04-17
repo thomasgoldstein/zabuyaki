@@ -1,8 +1,6 @@
 local class = require "lib/middleclass"
 local Hooch = class('Hooch', Gopper)
 
-local function nop() end
-
 function Hooch:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 350
