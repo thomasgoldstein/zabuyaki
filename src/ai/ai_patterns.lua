@@ -1,6 +1,6 @@
 local AI = AI
 
-function AI:initCommonAiSchedules(unit)
+function AI:initCommonAiSchedules()
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
         {"wokeUp", "tooCloseToPlayer"})
     self.SCHEDULE_STAND = Schedule:new({ self.initStand },

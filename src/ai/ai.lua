@@ -40,7 +40,7 @@ function AI:initialize(unit, settings)
     self.hesitate = 0
     self.currentSchedule = nil
 
-    self:initCommonAiSchedules(unit)    -- extra ai schedules could  be added in the enemy ai subclass
+    self:initCommonAiSchedules()    -- extra ai schedules could  be added in the enemy ai subclass
 end
 
 function AI:update(dt)
