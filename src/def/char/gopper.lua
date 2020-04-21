@@ -97,13 +97,13 @@ return {
             delay = f(17)
         },
         combo1 = {
-            { q = q(50,66,62,61), ox = 21, oy = 60, func = comboPunch, delay = f(12) }, --punch 2
-            { q = q(2,66,46,61), ox = 21, oy = 60 }, --punch 1
+            { q = q(50,66,62,61), ox = 21, oy = 60, func = comboPunch, delay = f(12) }, --punch 1
+            { q = q(2,66,46,61), ox = 21, oy = 60 }, --punch 2
             delay = f(1)
         },
         combo2 = {
-            { q = q(50,66,62,61), ox = 21, oy = 60, func = comboPunch, delay = f(12) }, --punch 2
-            { q = q(2,66,46,61), ox = 21, oy = 60 }, --punch 1
+            { q = q(50,66,62,61), ox = 21, oy = 60, func = comboPunch, delay = f(12) }, --punch 1
+            { q = q(2,66,46,61), ox = 21, oy = 60 }, --punch 2
             delay = f(1)
         },
         combo3 = {

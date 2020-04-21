@@ -116,8 +116,8 @@ return {
             delay = f(1)
         },
         combo3 = {
-            { q = q(50,68,62,63), ox = 21, oy = 62, func = comboPunch, delay = f(14) }, --punch 2
-            { q = q(2,68,46,63), ox = 21, oy = 62 }, --punch 1
+            { q = q(50,68,62,63), ox = 21, oy = 62, func = comboPunch, delay = f(14) }, --punch 1
+            { q = q(2,68,46,63), ox = 21, oy = 62 }, --punch 2
             delay = f(1)
         },
         chargeStand = {
