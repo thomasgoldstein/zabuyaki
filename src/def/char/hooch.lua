@@ -9,7 +9,7 @@ local function f(n)
 end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, z = 31, width = 26, damage = 6, sfx = "air" },
+        { x = 27, z = 31, width = 40, damage = 12, sfx = "air" },
         cont
     )
 end
@@ -86,7 +86,7 @@ return {
         },
         respawn = {
             { q = q(50,69,45,67), ox = 20, oy = 66 }, --walk 2
-            { q = q(122,262,44,59), ox = 20, oy = 58 , delay = f(36) }, --duck
+            { q = q(122,262,44,59), ox = 20, oy = 58, delay = f(36) }, --duck
             delay = math.huge
         },
         pickUp = {
@@ -94,9 +94,11 @@ return {
             delay = f(17)
         },
         combo1 = {
-            { q = q(2,2,46,65), ox = 24, oy = 67, rotate = 0.314, func = comboPunch, delay = f(12) }, --*stand 1
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            delay = f(1)
+            { q = q(2,390,48,65), ox = 24, oy = 64 }, --combo 1.1
+            { q = q(52,392,66,63), ox = 17, oy = 62, func = comboPunch }, --combo 1.2
+            { q = q(120,391,63,64), ox = 18, oy = 63, delay = f(5) }, --combo 1.3
+            { q = q(185,390,52,65), ox = 19, oy = 64, delay = f(1) }, --combo 1.4
+            delay = f(2)
         },
         combo2 = {
             { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
