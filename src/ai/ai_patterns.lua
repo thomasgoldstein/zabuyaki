@@ -293,21 +293,17 @@ end
 
 function AI:initWalkToXY()
     local u = self.unit
-    u.b.reset()
-    if self:canActAndMove() then
-        assert(not u.isDisabled and u.hp > 0)
-        u.speed_x = u.walkSpeed
-        u.old_x = u.x + 10
-        u.old_y = u.y + 10
-        return true
-    end
-    return false
+    assert(not u.isDisabled and u.hp > 0)
+    u.speed_x = u.walkSpeed
+    u.old_x = u.x + 10
+    u.old_y = u.y + 10
+    return true
 end
 
 function AI:initRunToXY()
     local u = self.unit
-    u.b.reset()
     if self:canActAndMove() then
+        u.b.reset()
         assert(not u.isDisabled and u.hp > 0)
         u.b.doHorizontalDoubleTap()
         u.speed_x = u.runSpeed
