@@ -23,6 +23,7 @@ function eAI:_update(dt)
 end
 
 function eAI:selectNewSchedule(conditions)
+    self.unit.b.reset()
     if not self.currentSchedule or conditions.init then
         self:setSchedule( self.SCHEDULE_INTRO )
 --        print("SVETA INTRO", self.unit.name, self.unit.id )

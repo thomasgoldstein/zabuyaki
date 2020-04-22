@@ -16,6 +16,7 @@ function eAI:initialize(unit, settings)
 end
 
 function eAI:selectNewSchedule(conditions)
+    self.unit.b.reset()
     if not self.currentSchedule or conditions.init then
         self:setSchedule( self.SCHEDULE_INTRO )
         return

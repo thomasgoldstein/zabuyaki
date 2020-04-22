@@ -62,6 +62,7 @@ end
 
 function eAI:selectNewAttackSchedule()
     print(self.unit.name, "selectNewAttackSchedule()")
+    self.unit.b.reset()
     if self.conditions.reactShortPlayer then
         self.tactics = self.tacticsShortAttacks
     elseif self.conditions.reactMediumPlayer then

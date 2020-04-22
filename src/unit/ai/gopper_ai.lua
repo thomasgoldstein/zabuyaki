@@ -23,6 +23,7 @@ end
 
 function eAI:selectNewSchedule(conditions)
     local r
+    self.unit.b.reset()
     if not self.currentSchedule or conditions.init then
         self:setSchedule( self.SCHEDULE_INTRO )
 --        print("GOPPER INTRO", self.unit.name, self.unit.id )
