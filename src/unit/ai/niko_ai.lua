@@ -55,9 +55,9 @@ function eAI:selectNewSchedule(conditions)
             self:setSchedule( self.SCHEDULE_COMBO )
             return
         end
-        if conditions.canMove and conditions.canGrab then
+        if conditions.canMove and conditions.reactShortPlayer then
             if love.math.random() < self.grabChance then
-                self:setSchedule( self.SCHEDULE_GRAB )
+                self:setSchedule( self.SCHEDULE_WALK_TO_GRAB )
             else
                 self:setSchedule( self.SCHEDULE_ESCAPE_BACK )
             end

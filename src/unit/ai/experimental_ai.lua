@@ -15,7 +15,10 @@ function eAI:initialize(unit, settings)
     -- new or overridden AI tactics lists of AI schedules
     self.tacticsPassive = {
         self.SCHEDULE_STEP_BACK, self.SCHEDULE_STEP_DOWN, self.SCHEDULE_STEP_FORWARD, self.SCHEDULE_STEP_UP,
-        self.SCHEDULE_WAIT_MEDIUM, self.SCHEDULE_WAIT_SHORT, self.SCHEDULE_WAIT_LONG,
+        self.SCHEDULE_WAIT_MEDIUM,
+        self.SCHEDULE_WAIT_SHORT,
+        self.SCHEDULE_WAIT_LONG,
+        self.SCHEDULE_WALK_TO_GRAB,
         --self.SCHEDULE_WALK_RANDOM,
         self.SCHEDULE_GET_TO_BACK,
         self.SCHEDULE_WALK_AROUND,

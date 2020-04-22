@@ -26,10 +26,6 @@ function AI:initCommonAiSchedules()
         {"cannotAct", "noTarget", "noPlayers"})
     self.SCHEDULE_COMBO = Schedule:new({ self.ensureStanding, self.initCombo, self.onCombo },
         {"cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget", "tooCloseToPlayer"})
-    self.SCHEDULE_GRAB = Schedule:new({ self.ensureStanding, self.initGrab, self.onGrab },
-        {"cannotAct", "grabbed", "inAir", "noTarget", "noPlayers"})
-    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureStanding, self.calcWalkToGrabXY, self.initWalkToXY, self.onMove, self.initGrab, self.onGrab },
-        {"cannotAct", "grabbed", "inAir", "noTarget", "noPlayers"})
     self.SCHEDULE_RECOVER = Schedule:new({ self.waitUntilStand },
         {"noPlayers"})
 
@@ -79,6 +75,8 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_DIAGONAL_JUMP_ATTACK = Schedule:new(
         { self.emulateDiagonalJumpPressToTarget, self.emulateWaitStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
         {})
+    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.calcWalkToGrabXY, self.initWalkToXY, self.emulateAttackHold, self.onMoveUntilGrab },
+        { "grabbed", "tooFarFromPlayer", "inAir", "noTarget", "noPlayers", "cannotAct" })
 end
 
 local function getPosByAngleR(x, y, angle, r)
@@ -635,6 +633,41 @@ function AI:onMove()
     return false
 end
 
+function AI:onMoveUntilGrab()
+    local u = self.unit
+    --dp("AI:onMoveUntilGrab() ".. u.name, u.state, u.old_x, u.old_y, u.x, u.y, u.ttx, u.tty)
+    if u.move then
+        return u.move:update(0)
+    else
+        if u.state == "grab"
+            or u.target.isDisabled
+            or ( u.old_x == u.x and u.old_y == u.y )
+            or u.target.isGrabbed
+            or u.antiStuck > 10
+        then
+            if u.antiStuck > 10 then -- remove
+                print("ANTI STUCK")   -- remove
+            end  -- remove
+            print("grab trgt END?", u.name, u.state, u.target.name, u.target.isGrabbed, u.target.isDisabled)
+            u.b.reset() -- release A
+            u.b.attack:update(0)
+            return true
+        else
+            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
+        end
+        if u.state == "stand" then
+            u.antiStuck = u.antiStuck + 1
+        else
+            if u.state ~= "combo" then
+                u.old_x = u.x
+                u.old_y = u.y
+            end
+            u.antiStuck = 0
+        end
+    end
+    return false
+end
+
 function AI:calcRunToXY()
     local u = self.unit
     u.b.reset()
@@ -688,84 +721,15 @@ function AI:waitUntilStand(dt)
     return false
 end
 
-function AI:initGrab()
-    self.chanceToGrabAttack = 0
-    local u = self.unit
-    --    dp("AI: INIT GRAB " .. u.name)
-    if self:canActAndMove() then
-        local grabbed = u:checkForGrab()
-        if grabbed then
-            if grabbed.type ~= "player" then
-                --                print("AI: GRABBED NOT PLAYER" .. u.name)
-                return true
-            end
-            if grabbed.face == -u.face and grabbed.sprite.curAnim == "chargeWalk" then
-                --back off 2 simultaneous grabbers
-                if u.x < grabbed.x then
-                    u.horizontal = -1
-                else
-                    u.horizontal = 1
-                end
-                grabbed.horizontal = -u.horizontal
-                u:showHitMarks(22, 25, 5) --big hitmark
-                u.speed_x = u.backoffSpeed_x --move from source
-                u:setSprite("hurtHighWeak")
-                u:setState(u.slide)
-                grabbed.speed_x = grabbed.backoffSpeed_x --move from source
-                grabbed:setSprite("hurtHighWeak")
-                grabbed:setState(grabbed.slide)
-                u:playSfx(u.sfx.grabClash)
-                --                print(" bad SLIDEOff")
-                return true
-            end
-            if u.moves.grab and u:doGrab(grabbed) then
-                local g = u.grabContext
-                u.victimLifeBar = g.target.lifeBar:setAttacker(u)
-                --                print(" GOOD DOGRAB")
-                return true
-            else
-                --                print("FAIL DOGRAB")
-            end
-        end
-    else
-        --        print("ai.lua GRAB no STAND or WALK" )
-    end
-    return true
-end
-
-function AI:onGrab(dt)
-    self.chanceToGrabAttack = self.chanceToGrabAttack + dt / 20
-    local u = self.unit
-    local g = u.grabContext
-    --    dp("AI: ON GRAB ".. u.name)
-    if not g.target or u.state == "stand" then
-        -- initGrab action failed.
-        return true
-    end
-    if u.moves.grabFrontAttack and g.target and g.target.isGrabbed
-        and self.chanceToGrabAttack > love.math.random() then
-        u:setState(u.grabFrontAttack)
-        return true
-    end
-    return false
-end
-
 function AI:calcWalkToGrabXY()
     local u = self.unit
-    --    dp("AI:calcWalkToGrabXY() " .. u.name)
-    if self:canActAndMove() then
-        if not u.target or u.target.hp < 1 then
-            u:pickAttackTarget("close")
-            if not u.target then
-                return false
-            end
-        end
-        assert(not u.isDisabled and u.hp > 0)
-        --get to the player grab range
-        u.ttx, u.tty = u.target.x + love.math.random(9, 10) * ( u.x < u.target.x and -1 or 1), u.target.y + 1
-        return true
-    end
-    return false
+    dp("AI:calcWalkToGrabXY() " .. u.name)
+    u.old_x = u.x - 10  -- update old values or the unit stucks
+    u.old_y = u.y + 10
+    u.antiStuck = 0
+    --get to the player's side grab range
+    u.ttx, u.tty = u.target.x + ( u.target.width / 2 ) * ( u.x < u.target.x and -1 or 1), u.target.y + 1
+    return true
 end
 
 function AI:onStop()
@@ -793,6 +757,15 @@ function AI:emulateAttackPress()
     local u = self.unit
     dp("AI:emulateAttackPress() ".. u.name)
     u.b.setAttack( true )
+    return true
+end
+
+function AI:emulateAttackHold()
+    local u = self.unit
+    dp("AI:emulateAttackHold() ".. u.name)
+    u.b.setAttack( true )
+    u.b.attack:update(0)
+    u.b.attack:update(0)
     return true
 end
 
