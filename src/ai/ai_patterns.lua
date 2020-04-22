@@ -619,11 +619,11 @@ end
 
 function AI:onMove()
     local u = self.unit
-    --    dp("AI:onMove() ".. u.name)
+    --dp("AI:onMove() ".. u.name)
     if u.move then
         return u.move:update(0)
     else
-        if u.old_x == u.x and  u.old_y == u.y then
+        if u.old_x == u.x and u.old_y == u.y then
             u.b.reset()
             return true
         else
