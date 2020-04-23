@@ -283,8 +283,8 @@ return {
         stand = {
             { q = q(2,3,43,63), ox = 20, oy = 62 }, --stand 1
             { q = q(47,2,42,64), ox = 20, oy = 63 }, --stand 2
-            { q = q(91,3,42,63), ox = 19, oy = 62, delay = f(7) }, --stand 3
-            { q = q(135,4,43,62), ox = 19, oy = 61, delay = f(15) }, --stand 4
+            { q = q(91,3,43,63), ox = 20, oy = 62, delay = f(7) }, --stand 3
+            { q = q(136,4,43,62), ox = 19, oy = 61, delay = f(15) }, --stand 4
             loop = true,
             delay = f(11)
         },
@@ -309,7 +309,7 @@ return {
             delay = f(6)
         },
         duck = {
-            { q = q(180,7,45,59), ox = 20, oy = 58 }, --duck
+            { q = q(181,7,45,59), ox = 20, oy = 58 }, --duck
             delay = f(4)
         },
         sideStepUp = {
@@ -493,7 +493,7 @@ return {
             delay = f(3)
         },
         chargeDash = {
-            { q = q(180,7,45,59), ox = 20, oy = 58, delay = f(4) }, --duck
+            { q = q(181,7,45,59), ox = 20, oy = 58, delay = f(4) }, --duck
             { q = q(164,1439,52,63), ox = 18, oy = 62 }, --charge dash
         },
         chargeDashAttack = {
