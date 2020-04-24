@@ -9,7 +9,6 @@ function Beatnik:initialize(name, sprite, x, y, f, input)
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Beatnik.initAttributes(self)
     self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype
-    self.whichPlayerAttack = "weak" -- random far close weak healthy fast slow
     self:postInitialize()
 end
 

@@ -10,7 +10,6 @@ function Niko:initialize(name, sprite, x, y, f, input)
 
     Gopper.initialize(self, name, sprite, x, y, f, input)
     Niko.initAttributes(self)
-    self.whichPlayerAttack = "close" -- random far close weak healthy fast slow
     self:postInitialize()
 end
 
