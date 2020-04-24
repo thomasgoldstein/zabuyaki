@@ -11,7 +11,7 @@ function Enemy:initialize(name, sprite, x, y, f, input)
     self.canEnemyFriendlyAttack = true --allow friendly attacks among enemies
     self.isActive = false -- can move, can think
     self.comboTimeout = 2 -- max delay to connect combo hits
-    self.whichPlayerAttack = "random" -- random far close weak healthy fast slow
+    self.whichPlayerAttack = "lone" -- lone random far close weak healthy fast slow
     self.wakeRange = 100 -- make enemy active if distance to player is less
     self.wakeDelay = 3
     self.delayedWakeRange = 150 -- make enemy active if the wakeDelay is over and the distance to player is less
@@ -121,7 +121,9 @@ function Enemy:pickAttackTarget(target)
     end
     target = target or self.whichPlayerAttack
     for i = 1, #p do
-        if target == "close" then
+        if target == "lone" then
+            p[i].points = - p[i].player.wasPickedAsTargetAt - p[1].player.id
+        elseif target == "close" then
             p[i].points = -dist(self.x, self.y, p[i].player.x, p[i].player.y)
         elseif target == "far" then
             p[i].points = dist(self.x, self.y, p[i].player.x, p[i].player.y)
@@ -158,6 +160,7 @@ function Enemy:pickAttackTarget(target)
         self.target = nil
     else
         self.target = p[1].player
+        p[1].player.wasPickedAsTargetAt = stage.time
     end
     return self.target
 end
