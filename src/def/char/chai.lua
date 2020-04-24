@@ -275,11 +275,11 @@ return {
         },
         stand = {
             { q = q(2,2,41,64), ox = 23, oy = 63, delay = f(15) }, --stand 1
-            { q = q(45,2,43,64), ox = 23, oy = 63 }, --stand 2
+            { q = q(45,2,43,64), ox = 23, oy = 63, delay = f(9) }, --stand 2
             { q = q(90,3,43,63), ox = 23, oy = 62 }, --stand 3
             { q = q(45,2,43,64), ox = 23, oy = 63 }, --stand 2
             loop = true,
-            delay = f(9)
+            delay = f(10)
         },
         walk = {
             { q = q(2,68,39,64), ox = 21, oy = 63 }, --walk 1
