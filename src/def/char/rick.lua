@@ -281,10 +281,10 @@ return {
             delay = math.huge
         },
         stand = {
-            { q = q(2,3,44,63), ox = 20, oy = 62 }, --stand 1
-            { q = q(48,2,43,64), ox = 20, oy = 63 }, --stand 2
-            { q = q(93,3,42,63), ox = 20, oy = 62, delay = f(9) }, --stand 3
-            { q = q(137,4,42,62), ox = 19, oy = 61, delay = f(14) }, --stand 4
+            { q = q(2,3,43,63), ox = 20, oy = 62 }, --stand 1
+            { q = q(47,2,42,64), ox = 20, oy = 63 }, --stand 2
+            { q = q(91,3,43,63), ox = 20, oy = 62, delay = f(9) }, --stand 3
+            { q = q(136,4,43,62), ox = 19, oy = 61, delay = f(14) }, --stand 4
             loop = true,
             delay = f(12)
         },
