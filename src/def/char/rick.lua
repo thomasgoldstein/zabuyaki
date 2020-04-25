@@ -38,7 +38,7 @@ local comboSlide2 = function(slf)
 end
 local comboSlide3 = function(slf)
     slf:initSlide(slf.comboSlideSpeed3_x, slf.comboSlideDiagonalSpeed3_x, slf.comboSlideDiagonalSpeed3_y, slf.repelFriction)
-    slf.speed_z = 30
+    slf.speed_z = slf.comboSlideSpeed3_z
     slf.z = slf:getMinZ() + 3
 end
 local comboSlide4 = function(slf)
