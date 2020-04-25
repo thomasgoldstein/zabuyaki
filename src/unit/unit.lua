@@ -314,7 +314,7 @@ function Unit:checkCollisionAndMove(dt)
         stepx = self.speed_x * dt * self.horizontal
         stepy = self.speed_y * dt * self.vertical
     end
-    if self.z <= self:getMinZ() then -- on platform or floor
+    if self.z <= self:getRelativeZ() then -- on platform or floor
         self.x, self.y = self.x + stepx, self.y + stepy
         for _,o in ipairs(stage.objects.entities) do
             if (o.isObstacle and o.z <= 0 and o.hp > 0)
@@ -371,10 +371,10 @@ function Unit:hasPlaceToStand(x, y)
 end
 
 function Unit:canFall()
-    return self.z > 0 and self.z > self:getMinZ()
+    return self.z > 0 and self.z > self:getRelativeZ()
 end
 
-function Unit:getMinZ()
+function Unit:getRelativeZ()
     local g = self.grabContext
     if self.isGrabbed and g and g.source then
         return g.source.z

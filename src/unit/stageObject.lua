@@ -146,7 +146,7 @@ function StageObject:getUpStart()
     self.isHittable = false
     self.isThrown = false
     if not self:canFall() then
-        self.z = self:getMinZ()
+        self.z = self:getRelativeZ()
     end
     if self.hp <= 0 then
         self:setState(self.dead)
@@ -181,7 +181,7 @@ function StageObject:fallStart()
         return
     end
     if not self:canFall() then
-        self.z = self:getMinZ() + 1
+        self.z = self:getRelativeZ() + 1
     end
 end
 function StageObject:fallUpdate(dt)
@@ -192,7 +192,7 @@ function StageObject:fallUpdate(dt)
             if self.speed_z < -300 then
                 self.speed_z = -300
             end
-            self.z = self:getMinZ() + 0.01
+            self.z = self:getRelativeZ() + 0.01
             self.speed_z = -self.speed_z/2
             self.speed_x = self.speed_x * 0.5
             if self.bounced == 0 then
@@ -208,7 +208,7 @@ function StageObject:fallUpdate(dt)
             return
         else
             --final fall (no bouncing)
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
             self.speed_z = 0
             self.speed_y = 0
             self.speed_x = 0

@@ -51,7 +51,7 @@ function Gopper:dashAttackStart()
     self.speed_x = self.dashSpeed_x * 2 * dashAttackSpeedMultiplier
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z / 2 * dashAttackSpeedMultiplier
-    self.z = self:getMinZ() + 0.1
+    self.z = self:getRelativeZ() + 0.1
     self.bounced = 0
     self:playSfx(self.sfx.dashAttack)
 end
@@ -65,7 +65,7 @@ function Gopper:dashAttackUpdate(dt)
     elseif self.bounced == 0 then
         self.speed_z = 0
         self.speed_x = 0
-        self.z = self:getMinZ()
+        self.z = self:getRelativeZ()
         self.bounced = 1
         self:playSfx("bodyDrop", 1, 1 + 0.02 * love.math.random(-2,2))
         self:showEffect("fallLanding")

@@ -349,7 +349,7 @@ function Player:respawnUpdate(dt)
     elseif self.bounced == 0 then
         self.playerSelectMode = 0 -- remove player select text
         self.speed_z = 0
-        self.z = self:getMinZ()
+        self.z = self:getRelativeZ()
         self:playSfx(self.sfx.step)
         self.sprite.curFrame = 2    -- continue from the 2nd frame to the end (the animation may contain >2 frames)
         self.sprite.elapsedTime = 0 -- reset animation timer for the 2nd frame

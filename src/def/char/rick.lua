@@ -39,7 +39,7 @@ end
 local comboSlide3 = function(slf)
     slf:initSlide(slf.comboSlideSpeed3_x, slf.comboSlideDiagonalSpeed3_x, slf.comboSlideDiagonalSpeed3_y, slf.repelFriction)
     slf.speed_z = slf.comboSlideSpeed3_z
-    slf.z = slf:getMinZ() + 3
+    slf.z = slf:getRelativeZ() + 3
 end
 local comboSlide4 = function(slf)
     slf:initSlide(slf.comboSlideSpeed4_x, slf.comboSlideDiagonalSpeed4_x, slf.comboSlideDiagonalSpeed4_y, slf.repelFriction)
@@ -200,7 +200,7 @@ local specialDashFollowUp = function(slf, cont)
 end
 local specialDashJumpStart = function(slf, cont)
     slf.speed_z = slf.jumpSpeed_z * 1.2
-    slf.z = slf:getMinZ() + 0.01
+    slf.z = slf:getRelativeZ() + 0.01
     slf:showEffect("jumpStart")
 end
 local specialDash2a = function(slf, cont)

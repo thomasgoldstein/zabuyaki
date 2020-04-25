@@ -45,14 +45,14 @@ function Loot:updateAI(dt)
                 if self.speed_z < -300 then
                     self.speed_z = -300
                 end
-                self.z = self:getMinZ()
+                self.z = self:getRelativeZ()
                 self.speed_z = -self.speed_z/2
                 self.bounced = self.bounced + 1
                 Character.showEffect(self, "fallLanding")
                 return
             else
                 --final fall (no bouncing)
-                self.z = self:getMinZ()
+                self.z = self:getRelativeZ()
                 self.speed_z = 0
                 return
             end

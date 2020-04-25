@@ -71,7 +71,7 @@ function Chai:dashAttackStart()
     self:setSprite("dashAttack")
     self.speed_x = 0
     self.speed_z = 0
-    self.z = self:getMinZ() + 0.1
+    self.z = self:getRelativeZ() + 0.1
     self:playSfx(self.sfx.dashAttack)
     self:showEffect("jumpStart")
     self.bounced = 0 -- Chai's dashAttack state uses fall state. The bounced vars have to be initialized here
@@ -93,7 +93,7 @@ function Chai:dashAttackUpdate(dt)
             end
         else
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
             self:playSfx(self.sfx.step)
             self:setState(self.duck)
             return
@@ -162,7 +162,7 @@ Chai.grabFrontAttackBack = {name = "grabFrontAttackBack", start = Chai.grabFront
 
 function Chai:specialDefensiveStart()
     self.isHittable = false
-    self.z = self:getMinZ()
+    self.z = self:getRelativeZ()
     self.speed_x = 0
     self.speed_y = 0
     self.jumpType = 0
@@ -173,19 +173,19 @@ end
 function Chai:specialDefensiveUpdate(dt)
     if self.jumpType == 1 then
         self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-        self.z = self:getMinZ() + 0.1
+        self.z = self:getRelativeZ() + 0.1
         self.jumpType = 0
     elseif self.jumpType == 2 then
         self.speed_z = -self.jumpSpeed_z * self.jumpSpeedMultiplier / 2
         self.jumpType = 0
     end
-    if self.z > self:getMinZ() + 32 then
-        self.z = self:getMinZ() + 32
+    if self.z > self:getRelativeZ() + 32 then
+        self.z = self:getRelativeZ() + 32
     end
     if self:canFall() then
         self:calcFreeFall(dt)
         if not self:canFall() then
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
     if self.particles then
@@ -228,7 +228,7 @@ function Chai:specialDashStart()
     self.speed_x = self.dashSpeed_x / 2
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
-    self.z = self:getMinZ() + 0.1
+    self.z = self:getRelativeZ() + 0.1
     self.bounced = 0
     self:playSfx(self.sfx.jump)
     self:showEffect("jumpStart")

@@ -116,7 +116,7 @@ function Rick:specialOffensiveUpdate(dt)
         self:calcFreeFall(dt)
         self:calcFriction(dt, self.dashFriction / 10)
     else
-        self.z = self:getMinZ()
+        self.z = self:getRelativeZ()
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
@@ -144,7 +144,7 @@ function Rick:specialDashUpdate(dt)
         self:calcFreeFall(dt)
         self:calcFriction(dt, self.dashFriction / 10)
     else
-        self.z = self:getMinZ()
+        self.z = self:getRelativeZ()
     end
     self:moveEffectAndEmit("dash", 0.5)
 end

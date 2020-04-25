@@ -367,7 +367,7 @@ function Unit:defaultDraw(l, t, w, h, transp)
                 if self.chargeAttack and self.statesForChargeAttack[self.state] then
                     colors:set("chargeAttack")
                     local width = clamp(self.chargeTimer, 0.5, 1) * self.width
-                    love.graphics.ellipse(self.chargeTimer >= self.chargedAt - self.chargedAt / 10 and "fill" or "line", self.x, self.y - self:getMinZ(), width, width / 2)
+                    love.graphics.ellipse(self.chargeTimer >= self.chargedAt - self.chargedAt / 10 and "fill" or "line", self.x, self.y - self:getRelativeZ(), width, width / 2)
                 end
             end
             drawDebugUnitHurtBoxUnder(self.sprite, self.x, self.y - self.z)

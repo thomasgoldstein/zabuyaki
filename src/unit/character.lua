@@ -213,7 +213,7 @@ function Character:afterOnHurt()
     end
     if h.type == "hit" then
         self.horizontal = h.horizontal
-        if self.hp > 0 and self.z <= self:getMinZ() then
+        if self.hp > 0 and self.z <= self:getRelativeZ() then
             self:setState(self.hurt)
             self:showHitMarks(h.damage, h.z)
             self:setHurtAnimation(h.damage, h.z > 25)
@@ -402,11 +402,11 @@ Character.slide = {name = "slide", start = Character.slideStart, exit = nop, upd
 
 function Character:standStart()
     self.isHittable = true
-    if self:getMinZ() < self.z then
+    if self:getRelativeZ() < self.z then
         self:setState(self.dropDown)
         return
     end
-    self.z = self:getMinZ()
+    self.z = self:getRelativeZ()
     if self.sprite.curAnim == "walk" or self.sprite.curAnim == "chargeWalk" then
         self.nextAnimationDelay = 0.133
     else
@@ -494,7 +494,7 @@ function Character:walkStart()
     end
 end
 function Character:walkUpdate(dt)
-    if self:getMinZ() < self.z then
+    if self:getRelativeZ() < self.z then
         self:setState(self.dropDown)
         return
     end
@@ -577,7 +577,7 @@ function Character:runStart()
     self.nextAnimationDelay = 0.016
 end
 function Character:runUpdate(dt)
-    if self:getMinZ() < self.z then
+    if self:getRelativeZ() < self.z then
         self:setState(self.dropDown)
         return
     end
@@ -617,7 +617,7 @@ Character.run = {name = "run", start = Character.runStart, exit = nop, update = 
 function Character:jumpStart()
     self.isHittable = true
     self:setSpriteIfExists("jump", "walk")
-    self.z = self:getMinZ() + 0.1
+    self.z = self:getRelativeZ() + 0.1
     self.bounced = 0
     self.isGoingUp = true
     local speedBoost = self.prevState == "run" and self.jumpRunSpeedBoost or self.jumpSpeedBoost
@@ -698,7 +698,7 @@ function Character:pickUpStart()
         self:onGetLoot(loot)
     end
     self:setSprite("pickUp")
-    self.z = self:getMinZ()
+    self.z = self:getRelativeZ()
 end
 function Character:pickUpUpdate(dt)
     if self.sprite.isFinished then
@@ -711,7 +711,7 @@ Character.pickUp = {name = "pickUp", start = Character.pickUpStart, exit = nop, 
 function Character:duckStart()
     self.isHittable = true
     self:setSprite("duck")
-    self.z = self:getMinZ()
+    self.z = self:getRelativeZ()
     self.speed_z = 0
     self:showEffect("jumpLanding")
 end
@@ -733,7 +733,7 @@ function Character:duck2jumpStart()
     self.isHittable = true
     self.toSlowDown = false
     self:setSprite("duck")
-    self.z = self:getMinZ()
+    self.z = self:getRelativeZ()
     self.speed_z = 0
     -- save speed to pass it to the jump state
     self.saveSpeed_x = self.speed_x
@@ -806,7 +806,7 @@ function Character:sideStepStart()
         self:setSprite("sideStepUp")
     end
     self.isGoingUp = false
-    self.z = self:getMinZ() + 0.1
+    self.z = self:getRelativeZ() + 0.1
     self.speed_x = 0
     self.speed_y = self.sideStepSpeed / 2.2
     self.speed_z = self.z <= 0.1 and self.jumpSpeed_z / 1.7 or self.jumpSpeed_z / 6
@@ -852,7 +852,7 @@ end
 function Character:jumpAttackForwardUpdate(dt)
     if self:canFall() then
         self:calcFreeFall(dt)
-        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getMinZ() + 10 then
+        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getRelativeZ() + 10 then
             self:setSpriteIfExists("jumpAttackForwardEnd")
             self.played_landingAnim = true
         end
@@ -872,7 +872,7 @@ end
 function Character:jumpAttackLightUpdate(dt)
     if self:canFall() then
         self:calcFreeFall(dt)
-        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getMinZ() + 10 then
+        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getRelativeZ() + 10 then
             self:setSpriteIfExists("jumpAttackLightEnd")
             self.played_landingAnim = true
         end
@@ -893,7 +893,7 @@ end
 function Character:jumpAttackStraightUpdate(dt)
     if self:canFall() then
         self:calcFreeFall(dt)
-        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getMinZ() + 10 then
+        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getRelativeZ() + 10 then
             self:setSpriteIfExists("jumpAttackStraightEnd")
             self.played_landingAnim = true
         end
@@ -918,7 +918,7 @@ end
 function Character:jumpAttackRunUpdate(dt)
     if self:canFall() then
         self:calcFreeFall(dt)
-        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getMinZ() + 10 then
+        if not self.played_landingAnim and self.speed_z < 0 and self.z <= self:getRelativeZ() + 10 then
             self:setSpriteIfExists("jumpAttackRunEnd")
             self.played_landingAnim = true
         end
@@ -942,13 +942,13 @@ function Character:fallStart()
         self:setSprite("fall")
     end
     if not self:canFall() then
-        self.z = self:getMinZ() + 1
+        self.z = self:getRelativeZ() + 1
     end
     self.bounced = 0
 end
 function Character:fallUpdate(dt)
     self:calcFreeFall(dt)
-    if self.speed_z < 0 and self.condition == "throw" and self.z < self:getMinZ() + self.toFallenAnim_z then
+    if self.speed_z < 0 and self.condition == "throw" and self.z < self:getRelativeZ() + self.toFallenAnim_z then
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
             self.canRecover = true
         end
@@ -959,7 +959,7 @@ function Character:fallUpdate(dt)
             if self.speed_z < -300 then
                 self.speed_z = -300
             end
-            self.z = self:getMinZ() + 0.01
+            self.z = self:getRelativeZ() + 0.01
             self.speed_z = -self.speed_z/2
             self.speed_x = self.speed_x * 0.5
             if self.bounced == 0 then
@@ -982,7 +982,7 @@ function Character:fallUpdate(dt)
             return
         else
             --final fall (no bouncing)
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
             self.speed_z = 0
             self.speed_y = 0
             self.speed_x = 0
@@ -1022,7 +1022,7 @@ function Character:bounceStart()
     self.speed_z = self.fallSpeed_z / 2
     self.speed_x = self.throwSpeed_x / 4
     if not self:canFall() then
-        self.z = self:getMinZ() + 0.01
+        self.z = self:getRelativeZ() + 0.01
     end
     self.bounced = 0
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
@@ -1034,7 +1034,7 @@ function Character:bounceUpdate(dt)
         self:calcFreeFall(dt)
         if not self:canFall() then
             --final bouncing
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
             self.speed_z = 0
             self.speed_y = 0
             self.speed_x = 0
@@ -1055,7 +1055,7 @@ function Character:getUpStart()
     end
     self.isHittable = false
     self.isHurt = nil --free hurt data
-    self.z = self:getMinZ()
+    self.z = self:getRelativeZ()
     self.isThrown = false
     if self.hp <= 0 then
         self:setState(self.dead)
@@ -1087,7 +1087,7 @@ function Character:deadStart()
     self:releaseGrabbed()
     self:disableGhostTrails()
     if not self:canFall() then
-        self.z = self:getMinZ()
+        self.z = self:getRelativeZ()
     end
     self:playSfx(self.sfx.dead)
     if self.killerId then
@@ -1108,7 +1108,7 @@ function Character:deadUpdate(dt)
         if self:canFall() then
             self:calcFreeFall(dt)
         else
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
 end
@@ -1141,7 +1141,7 @@ function Character:comboUpdate(dt)
     if self:canFall() then
         self:calcFreeFall(dt, self.chargeDashAttackSpeedMultiplier_z)
     else
-        self.z = self:getMinZ()
+        self.z = self:getRelativeZ()
     end
     if self.sprite.isFinished then
         self.comboN = self.comboN + 1
@@ -1343,7 +1343,7 @@ function Character:grabUpdate(dt)
         self:calcFreeFall(dt)
         if not self:canFall() then
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
     if self:tweenMove(dt) then
@@ -1380,7 +1380,7 @@ function Character:grabbedUpdate(dt)
         self:calcFreeFall(dt)
         if not self:canFall() then
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
     if not self.isSpriteSet and self:tweenMove(dt) then
@@ -1456,7 +1456,7 @@ function Character:grabFrontAttackDownUpdate(dt)
         self:calcFreeFall(dt)
         if not self:canFall() then
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
 end
@@ -1476,7 +1476,7 @@ function Character:grabReleaseBackDashStart()
     self.speed_x = self.backoffSpeed_x --move from source
     self.speed_z = (self.jumpSpeed_z / 4 ) * self.jumpSpeedMultiplier
     self:setSprite("jump")
-    self.z = self:getMinZ() + 0.1
+    self.z = self:getRelativeZ() + 0.1
     self.bounced = 0
     self.isGoingUp = true
 end
@@ -1515,7 +1515,7 @@ function Character:grabFrontAttackUpUpdate(dt)
         self:calcFreeFall(dt)
         if not self:canFall() then
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
 end
@@ -1539,7 +1539,7 @@ function Character:grabFrontAttackForwardUpdate(dt)
         self:calcFreeFall(dt)
         if not self:canFall() then
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
 end
@@ -1565,7 +1565,7 @@ function Character:grabFrontAttackBackUpdate(dt)
         self:calcFreeFall(dt)
         if not self:canFall() then
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
 end
@@ -1646,7 +1646,7 @@ function Character:grabSwapUpdate(dt)
         self:calcFreeFall(dt)
         if not self:canFall() then
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
 end
@@ -1687,7 +1687,7 @@ function Character:chargeDashStart()
     self.speed_x = self.chargeDashSpeed_x * self.chargeDashSpeedMultiplier_x
     self.speed_z = self.chargeDashSpeed_z * self.chargeDashSpeedMultiplier_z
     self.speed_y = 0
-    self.z = self:getMinZ() + 0.1
+    self.z = self:getRelativeZ() + 0.1
     self:playSfx(self.sfx.jump)
     self:showEffect("jumpStart")
 end
@@ -1748,7 +1748,7 @@ function Character:specialDefensiveUpdate(dt)
     if self:canFall() then
         self:calcFreeFall(dt)
         if not self:canFall() then
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
         end
     end
     if self.sprite.isFinished then
@@ -1843,7 +1843,7 @@ function Character:eventMoveUpdate(dt)
             end
         else
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
             if self.sprite.curAnim ~= f.animation then
                 self:setSprite(f.animation)
             end
@@ -1870,7 +1870,7 @@ function Character:eventMoveUpdate(dt)
             end
         else
             self.speed_z = 0
-            self.z = self:getMinZ()
+            self.z = self:getRelativeZ()
             if self.sprite.curAnim ~= f.animation then
                 self:setSprite(f.animation)
             end
