@@ -42,6 +42,7 @@ function Schedule:isDone(conditions)
     if(conditions) then
         for cond,_ in pairs(conditions) do
             if self.interrupts[cond] then
+                dp(" interrupted by condition:", cond )
                 return true
             else
             end
