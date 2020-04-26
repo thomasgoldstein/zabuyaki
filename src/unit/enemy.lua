@@ -31,6 +31,7 @@ function Enemy:updateAI(dt)
     end
     self.b.update(dt)
     Character.updateAI(self, dt)
+    self.AI:update(dt)
 end
 
 function Enemy:isImmune()   --Immune to the attack?

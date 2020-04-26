@@ -1,5 +1,5 @@
 local class = require "lib/middleclass"
-local Sveta = class('Sveta', Gopper)
+local Sveta = class('Sveta', Enemy)
 
 local function nop() end
 
@@ -7,7 +7,7 @@ function Sveta:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 60
     self.scoreBonus = self.scoreBonus or 350
     self.tx, self.ty = x, y
-    Gopper.initialize(self, name, sprite, x, y, f, input)
+    Enemy.initialize(self, name, sprite, x, y, f, input)
     Sveta.initAttributes(self)
     self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype
     self:postInitialize()

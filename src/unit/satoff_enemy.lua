@@ -52,14 +52,6 @@ function Satoff:initAttributes()
     self.AI = AIMoveCombo:new(self)
 end
 
-function Satoff:updateAI(dt)
-    if self.isDisabled then
-        return
-    end
-    Enemy.updateAI(self, dt)
-    self.AI:update(dt)
-end
-
 function Satoff:comboStart()
     self.customFriction = self.dashFriction
     self:removeTweenMove()

@@ -1,11 +1,11 @@
 local class = require "lib/middleclass"
-local Hooch = class('Hooch', Gopper)
+local Hooch = class('Hooch', Enemy)
 
 function Hooch:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 350
     self.tx, self.ty = x, y
-    Gopper.initialize(self, name, sprite, x, y, f, input)
+    Enemy.initialize(self, name, sprite, x, y, f, input)
     Hooch.initAttributes(self)
     self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype
     self:postInitialize()
@@ -35,7 +35,7 @@ function Hooch:initAttributes()
     self.sfx.dead = sfx.nikoDeath
     self.sfx.jumpAttack = sfx.nikoAttack
     self.sfx.step = "kisaStep"
-    --self.AI = AIGopper:new(self)
+    self.AI = AIGopper:new(self)
 end
 
 return Hooch

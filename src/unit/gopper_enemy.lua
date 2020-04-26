@@ -35,14 +35,6 @@ function Gopper:initAttributes()
     self.AI = AIGopper:new(self)
 end
 
-function Gopper:updateAI(dt)
-    if self.isDisabled then
-        return
-    end
-    Enemy.updateAI(self, dt)
-    self.AI:update(dt)
-end
-
 local dashAttackSpeedMultiplier = 0.75
 function Gopper:dashAttackStart()
     self.isHittable = true

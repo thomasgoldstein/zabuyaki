@@ -1,5 +1,5 @@
 local class = require "lib/middleclass"
-local Beatnik = class('Beatnik', Gopper)
+local Beatnik = class('Beatnik', Enemy)
 
 function Beatnik:initialize(name, sprite, x, y, f, input)
     self.lives = self.lives or 2
@@ -33,14 +33,6 @@ function Beatnik:initAttributes()
     self.sfx.dashAttack = sfx.beatnikAttack
     self.sfx.step = "rickStep"
     self.AI = AIMoveCombo:new(self)
-end
-
-function Beatnik:updateAI(dt)
-    if self.isDisabled then
-        return
-    end
-    Enemy.updateAI(self, dt)
-    self.AI:update(dt)
 end
 
 return Beatnik

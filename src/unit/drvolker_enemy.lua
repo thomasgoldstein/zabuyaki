@@ -36,12 +36,4 @@ function DrVolker:initAttributes()
     --self.AI = AIGopper:new(self)
 end
 
-function DrVolker:updateAI(dt)
-    if self.isDisabled then
-        return
-    end
-    --Enemy.updateAI(self, dt)
-    --self.AI:update(dt)
-end
-
 return DrVolker

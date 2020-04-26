@@ -1,5 +1,5 @@
 local class = require "lib/middleclass"
-local Niko = class('Niko', Gopper)
+local Niko = class('Niko', Enemy)
 
 local function nop() end
 
@@ -8,7 +8,7 @@ function Niko:initialize(name, sprite, x, y, f, input)
     self.scoreBonus = self.scoreBonus or 300
     self.tx, self.ty = x, y
 
-    Gopper.initialize(self, name, sprite, x, y, f, input)
+    Enemy.initialize(self, name, sprite, x, y, f, input)
     Niko.initAttributes(self)
     self:postInitialize()
 end
