@@ -313,13 +313,14 @@ function playerSelectState:enter()
     end
     self.enablePlayerSelectOnStart = false
     -- Prevent double press at start (e.g. auto confirmation)
-    Controls[1].attack:update()
-    Controls[2].attack:update()
-    Controls[3].attack:update()
+    for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
+        local p = getRegisteredPlayer(i)
+        if p then
+            p.b.attack:update(1) -- clear the Attack pressed event
+            p.b.attack:update(1)
+        end
+    end
     love.graphics.setLineWidth( 2 )
-    --start BGM
---    TEsound.stop("music")
---    TEsound.playLooping(bgm.intro, "music")
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end

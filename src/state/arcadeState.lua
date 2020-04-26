@@ -37,6 +37,14 @@ function arcadeState:enter(_, players)
     stage.wave:startPlayingMusic( 1 )
     gameOverDelay = 0
     time = 0
+    -- Prevent double press at start (e.g. jab sound or other attacks)
+    for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
+        local p = getRegisteredPlayer(i)
+        if p then
+            p.b.attack:update(1) -- clear the Attack pressed event
+            p.b.attack:update(1)
+        end
+    end
     love.graphics.setLineWidth( 1 )
     TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
     TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
