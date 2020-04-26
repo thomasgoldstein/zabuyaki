@@ -141,9 +141,7 @@ function Character:onHurt()
     if not h then
         return
     end
-    -- got Immunity?
     if self:isImmune() then
-        self.isHurt = nil --free hurt data
         return
     end
     self:removeTweenMove()

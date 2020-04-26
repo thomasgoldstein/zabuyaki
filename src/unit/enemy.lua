@@ -33,6 +33,20 @@ function Enemy:updateAI(dt)
     Character.updateAI(self, dt)
 end
 
+function Enemy:isImmune()   --Immune to the attack?
+    if Character.isImmune(self) then
+        return
+    end
+    local h = self.isHurt
+    if h.source.type == "enemy"
+        and not (self.canEnemyFriendlyAttack and h.source.canEnemyFriendlyAttack)
+    then
+        self.isHurt = nil --free hurt data
+        return true
+    end
+    return false
+end
+
 function Enemy:onAttacker(h)
     self.AI:onHurtSwitchTarget(h.source)
     Character.onAttacker(self, h)
