@@ -1,14 +1,14 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.3.3",
+  tiledversion = "1.3.2",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 44,
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 12,
+  nextlayerid = 15,
   nextobjectid = 21,
   backgroundcolor = { 0, 85, 0 },
   properties = {},
@@ -49,12 +49,51 @@ return {
       layers = {
         {
           type = "imagelayer",
+          id = 14,
+          name = "fg-3",
+          visible = true,
+          opacity = 1,
+          offsetx = 200,
+          offsety = 18,
+          image = "../../../res/img/stage/stage1/stage1b_fg_2-foreground lights 2.png",
+          properties = {
+            ["relativeX"] = "-0.8"
+          }
+        },
+        {
+          type = "imagelayer",
+          id = 13,
+          name = "fg-2",
+          visible = true,
+          opacity = 1,
+          offsetx = 200,
+          offsety = 18,
+          image = "../../../res/img/stage/stage1/stage1b_fg_2-foreground lights 1.png",
+          properties = {
+            ["relativeX"] = "-0.8"
+          }
+        },
+        {
+          type = "imagelayer",
+          id = 12,
+          name = "fg-1",
+          visible = true,
+          opacity = 1,
+          offsetx = 200,
+          offsety = -2,
+          image = "../../../res/img/stage/stage1/stage1b_fg_1.png",
+          properties = {
+            ["relativeX"] = "-0.5"
+          }
+        },
+        {
+          type = "imagelayer",
           id = 11,
           name = "fg",
           visible = true,
           opacity = 1,
-          offsetx = 0,
-          offsety = 0,
+          offsetx = -2,
+          offsety = -2,
           image = "../../../res/img/stage/stage1/stage1b_fg.png",
           properties = {}
         }
