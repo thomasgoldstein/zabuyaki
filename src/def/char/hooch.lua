@@ -7,6 +7,11 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
+local comboSlide = function(slf)
+    slf:initSlide(slf.comboSlideSpeed3_x, slf.comboSlideDiagonalSpeed3_x, slf.comboSlideDiagonalSpeed3_y, slf.repelFriction)
+    slf.speed_z = slf.comboSlideSpeed3_z
+    slf.z = slf:getRelativeZ() + 3
+end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(
         { x = 27, z = 31, width = 40, damage = 12, sfx = "air" },
@@ -94,7 +99,7 @@ return {
             delay = f(17)
         },
         combo1 = {
-            { q = q(2,390,48,65), ox = 24, oy = 64 }, --combo 1.1
+            { q = q(2,390,48,65), ox = 24, oy = 64, func = comboSlide }, --combo 1.1
             { q = q(52,392,66,63), ox = 17, oy = 62, func = comboPunch }, --combo 1.2
             { q = q(120,391,63,64), ox = 18, oy = 63, delay = f(5) }, --combo 1.3
             { q = q(185,390,52,65), ox = 19, oy = 64, delay = f(1) }, --combo 1.4
