@@ -4,7 +4,6 @@ local Zeena = class('Zeena', Enemy)
 function Zeena:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 50
     self.scoreBonus = self.scoreBonus or 300
-    self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Zeena.initAttributes(self)
     self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype

@@ -5,7 +5,6 @@ function Beatnik:initialize(name, sprite, x, y, f, input)
     self.lives = self.lives or 2
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 800
-    self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Beatnik.initAttributes(self)
     self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype

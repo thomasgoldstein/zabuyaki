@@ -6,7 +6,6 @@ local function nop() end
 function Sveta:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 60
     self.scoreBonus = self.scoreBonus or 350
-    self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Sveta.initAttributes(self)
     self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype

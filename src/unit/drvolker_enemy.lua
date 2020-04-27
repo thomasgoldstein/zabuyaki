@@ -11,7 +11,6 @@ function DrVolker:initialize(name, sprite, x, y, f, input)
     end
     f.shapeType = f.shapeType or "polygon"
     f.shapeArgs = f.shapeArgs or { 1, 0, 22, 0, 23, 3, 22, 6, 1, 6, 0, 3 }
-    self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     DrVolker.initAttributes(self)
     self:postInitialize()

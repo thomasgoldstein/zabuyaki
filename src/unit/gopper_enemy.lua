@@ -6,7 +6,6 @@ local function nop() end
 function Gopper:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 40
     self.scoreBonus = self.scoreBonus or 200
-    self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Gopper.initAttributes(self)
     self.canEnemyFriendlyAttack = true

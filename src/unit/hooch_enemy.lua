@@ -4,7 +4,6 @@ local Hooch = class('Hooch', Enemy)
 function Hooch:initialize(name, sprite, x, y, f, input)
     self.hp = self.hp or 100
     self.scoreBonus = self.scoreBonus or 350
-    self.tx, self.ty = x, y
     Enemy.initialize(self, name, sprite, x, y, f, input)
     Hooch.initAttributes(self)
     self.canEnemyFriendlyAttack = false -- remove inherited Gopper's subtype
