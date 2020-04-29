@@ -725,7 +725,7 @@ function Character:duckUpdate(dt)
         return
     end
 end
-Character.duck = {name = "duck", start = Character.duckStart, exit = nop, update = Character.duckUpdate, draw = Character.defaultDraw}
+Character.duck = {name = "duck", start = Character.duckStart, exit = Unit.disableGhostTrails, update = Character.duckUpdate, draw = Character.defaultDraw}
 
 function Character:duck2jumpStart()
     self.isHittable = true
