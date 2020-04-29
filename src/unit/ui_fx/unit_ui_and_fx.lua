@@ -234,6 +234,7 @@ function Unit:enableGhostTrails()
     t.i = 0
     t.n = #colors:get("ghostTrailsColors")
     t.time = 0
+    dp("%%% enable GHOST", self.state .." ".. self.sprite.curFrame)
 end
 function Unit:disableGhostTrails()
     local t = self.ghostTrails
@@ -241,6 +242,7 @@ function Unit:disableGhostTrails()
         return
     end
     t.enabled = false
+    dp("%%% DISable GHOST", self.state .." ".. self.sprite.curFrame)
 end
 function Unit:fadeOutGhostTrails()
     local t = self.ghostTrails
@@ -248,6 +250,7 @@ function Unit:fadeOutGhostTrails()
         return
     end
     t.fade = true
+    dp("%%% FADEout GHOST", self.state .." ".. self.sprite.curFrame)
 end
 function Unit:drawGhostTrails(l, t, w, h)
     local gt = self.ghostTrails
@@ -282,6 +285,7 @@ function Unit:updateGhostTrails(dt)
         if t.fade and t.n > 0 then
             t.n = t.n - 1
         elseif t.n <= 0 then
+            dp("%%% diss fade GHOST in UPDATE", self.state .." ".. self.sprite.curFrame)
             self:disableGhostTrails()
             return
         end
