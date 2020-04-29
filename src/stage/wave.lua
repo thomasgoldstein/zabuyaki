@@ -196,8 +196,8 @@ function Wave:killCurrentWave()
     for i = 1, #wave.units do
         local waveUnit = wave.units[i]
         waveUnit.isActive = true -- the wave unit spawn data
-        waveUnit.unit.isActive = true -- actual spawned enemy unit
-        waveUnit.unit:applyDamage(1000, "fell")
+        waveUnit.spawnDelay = 0
+        waveUnit.unit:applyDamage(1000, "fell", getRegisteredPlayer(1) or getRegisteredPlayer(2) or getRegisteredPlayer(3))
     end
 end
 
