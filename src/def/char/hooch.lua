@@ -12,6 +12,12 @@ local comboSlide = function(slf)
     slf.speed_z = slf.comboSlideSpeed3_z
     slf.z = slf:getRelativeZ() + 3
 end
+local comboPushBack = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 27, z = 25, width = 40, damage = 0, repel_x = slf.comboSlideRepel3_x },
+        cont
+    )
+end
 local comboPunch = function(slf, cont)
     slf:checkAndAttack(
         { x = 27, z = 25, width = 40, damage = 15, sfx = "air", type = "fell" },
@@ -99,7 +105,7 @@ return {
             delay = f(17)
         },
         combo1 = {
-            { q = q(2,390,40,71), ox = 20, oy = 70, func = comboSlide, delay = f(24) }, --combo 1.1
+            { q = q(2,390,40,71), ox = 20, oy = 70, func = comboSlide, funcCont = comboPushBack, delay = f(24) }, --combo 1.1
             { q = q(44,395,57,56), ox = 17, oy = 55, func = comboPunch, delay = f(3) }, --combo 1.2
             { q = q(103,400,45,61), ox = 20, oy = 60, delay = f(15) }, --combo 1.3
             { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
