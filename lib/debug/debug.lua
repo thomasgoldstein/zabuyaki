@@ -69,10 +69,10 @@ function log2file( name, data, newFile)
 end
 
 -- Debug console output
-function dp(...)
+function dp(str1, str2)
     if isDebug()then
-        local t = debug.getinfo (2, "flnSu")
-        print(t.name, ..., t.short_src, t.currentline)
+        local t = debug.getinfo (3, "flnSu")
+        print(t.name, str1, str2 or "", t.short_src, t.currentline)
     end
 end
 
