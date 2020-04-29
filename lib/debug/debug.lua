@@ -490,11 +490,11 @@ function checkDebugKeys(key)
             end
         elseif keysToKill[key] then
             local id = keysToKill[key]
-            if id == -1 then
+            if id == keysToKill.f12 then
                 if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
                     stage.wave:killCurrentWave()
                 end
-            elseif id == 0 then
+            elseif id == keysToKill.f7 then
                 if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
                     -- Ctrl + F7 Player select
                     playerSelectState.enablePlayerSelectOnStart = true
