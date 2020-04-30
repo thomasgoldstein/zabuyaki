@@ -69,10 +69,11 @@ function Satoff:sideStepStart()
     self.isHittable = true
     self:setSprite(self.vertical > 0 and "sideStepDown" or "sideStepUp")
     self:initSlide(0, 0, self.sideStepSpeed / 2, self.sideStepSpeed / 2)
-    sfx.play("sfx"..self.id, "whooshHeavy")
+    sfx.play("sfx"..self.id, self.sfx.jump)
 end
 function Satoff:sideStepUpdate(dt)
     if self.sprite.loopCount > 0 then
+        sfx.play("sfx"..self.id, self.sfx.step)
         self:setState(self.duck)
         return
     end
