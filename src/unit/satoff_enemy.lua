@@ -65,4 +65,17 @@ end
 --Sliding uppercut
 Satoff.combo = { name = "combo", start = Satoff.comboStart, exit = nop, update = Satoff.comboUpdate, draw = Satoff.defaultDraw }
 
+function Satoff:sideStepStart()
+    self.isHittable = true
+    self:setSprite(self.vertical > 0 and "sideStepDown" or "sideStepUp")
+    self:initSlide(0, 0, self.sideStepSpeed / 2, self.sideStepSpeed / 2)
+end
+function Satoff:sideStepUpdate(dt)
+    if self.sprite.loopCount > 0 then
+        self:setState(self.stand)
+        return
+    end
+end
+Satoff.sideStep = {name = "sideStep", start = Satoff.sideStepStart, exit = nop, update = Satoff.sideStepUpdate, draw = Character.defaultDraw}
+
 return Satoff

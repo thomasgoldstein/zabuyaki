@@ -19,5 +19,6 @@ end
 
 --Sliding uppercut
 Satoff.combo = {name = "combo", start = _Satoff.comboStart, exit = nop, update = _Satoff.comboUpdate, draw = Character.defaultDraw}
+Satoff.sideStep = {name = "sideStep", start = _Satoff.sideStepStart, exit = nop, update = _Satoff.sideStepUpdate, draw = Character.defaultDraw}
 
 return Satoff
