@@ -274,7 +274,7 @@ function Unit:updateGhostTrails(dt)
     if not t or not t.enabled then
         return
     end
-    t.ghost[t.i] = { self.x, self.y - self.z, self.sprite.curAnim, self.sprite.curFrame, self.face }
+    t.ghost[t.i] = not t.fade and { self.x, self.y - self.z, self.sprite.curAnim, self.sprite.curFrame, self.face } or false
     t.i = t.i + 1
     if t.i > maxGhostTrailsFrames then
         t.i = 1

@@ -120,7 +120,7 @@ function Rick:specialOffensiveUpdate(dt)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
-Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.disableGhostTrails, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
+Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Rick:specialDashStart()
     self.isHittable = true
@@ -148,7 +148,7 @@ function Rick:specialDashUpdate(dt)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
-Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.disableGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
+Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.fadeOutGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
 
 function Rick:grabBackAttackStart()
     local g = self.grabContext
