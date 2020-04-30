@@ -797,11 +797,7 @@ Character.hurt = {name = "hurt", start = Character.hurtStart, exit = nop, update
 
 function Character:sideStepStart()
     self.isHittable = true
-    if self.vertical > 0 then
-        self:setSprite("sideStepDown")
-    else
-        self:setSprite("sideStepUp")
-    end
+    self:setSprite(self.vertical > 0 and "sideStepDown" or "sideStepUp")
     self.isGoingUp = false
     self.z = self:getRelativeZ() + 0.1
     self.speed_x = 0
