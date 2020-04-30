@@ -223,11 +223,15 @@ local heroes = {
 }
 HEROES = heroes -- global var for in-game player select
 
-local players = {
-    {pos = 1, visible = false, confirmed = false, sprite = nil},
-    {pos = 2, visible = false, confirmed = false, sprite = nil},
-    {pos = 3, visible = false, confirmed = false, sprite = nil}
-}
+local players = {}
+function playerSelectState:initDefaultPlayersSelectionOrder()
+    players = { -- pos contains character number from HEROES table
+        {pos = 1, visible = true, confirmed = false, sprite = nil},
+        {pos = 2, visible = false, confirmed = false, sprite = nil},
+        {pos = 3, visible = false, confirmed = false, sprite = nil}
+    }
+end
+
 local playersPosition_x = {
     screenWidth / 2 - portraitWidth - portraitMargin,
     screenWidth / 2,
@@ -300,13 +304,9 @@ local function drawPID(x, y_, i, confirmed)
 end
 
 function playerSelectState:enter()
-    players = {
-        {pos = 1, visible = true, confirmed = false, sprite = nil},
-        {pos = 2, visible = false, confirmed = false, sprite = nil},
-        {pos = 3, visible = false, confirmed = false, sprite = nil}
-    }
     oldMousePos = 0
     mousePos = 0
+    self:initDefaultPlayersSelectionOrder()
     for i = 1, availableHeroes do
         setSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portraitAnim)
         heroes[i].sprite_portrait.sizeScale = 2

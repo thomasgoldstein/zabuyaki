@@ -212,6 +212,7 @@ function titleState:confirm( x, y, button, istouch )
             time = 0
             if isDebug() then
                 playerSelectState.enablePlayerSelectOnStart = true
+                playerSelectState:initDefaultPlayersSelectionOrder()
                 playerSelectState:confirmAllPlayers()
                 playerSelectState:GameStart()
                 return
