@@ -112,18 +112,6 @@ return {
             { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
             delay = f(4)
         },
-        combo2 = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            delay = f(1)
-        },
-        combo3 = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            delay = f(1)
-        },
-        combo4 = {
-            { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
-            delay = f(1)
-        },
         dashAttack = {
             { q = q(2,2,46,65), ox = 20, oy = 64 }, --stand 1
             delay = f(10)
