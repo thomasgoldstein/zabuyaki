@@ -242,7 +242,7 @@ function Unit:disableGhostTrails() -- instantly remove all visible trails
     end
     t.enabled = false
 end
-function Unit:stopGhostTrails() -- no more new trails, the existing trails merge to the chatacter
+function Unit:stopGhostTrails() -- no more new trails, the existing trails merge to the character
     local t = self.ghostTrails
     if not t then
         return
