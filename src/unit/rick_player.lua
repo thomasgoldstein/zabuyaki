@@ -89,17 +89,17 @@ function Rick:specialDefensiveStart()
     self.speed_x = 0
     self.speed_y = 0
     self:setSprite("specialDefensive")
-    self:enableGhostTrails()
+    self:startGhostTrails()
     self:playSfx(self.sfx.dashAttack)
 end
-Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = Unit.fadeOutGhostTrails, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
+Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiveStart, exit = Unit.stopGhostTrails, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Rick:specialOffensiveStart()
     self.isHittable = true
     self.customFriction = self.dashFriction * 2
     self.horizontal = self.face
     self:setSprite("specialOffensive")
-    self:enableGhostTrails()
+    self:startGhostTrails()
     self.speed_x = self.dashSpeed_x * 2
     self.speed_y = 0
     self.speed_z = 0
@@ -120,14 +120,14 @@ function Rick:specialOffensiveUpdate(dt)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
-Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
+Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.stopGhostTrails, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Rick:specialDashStart()
     self.isHittable = true
     self.customFriction = self.dashFriction
     self.horizontal = self.face
     self:setSprite("specialDash")
-    self:enableGhostTrails()
+    self:startGhostTrails()
     self.speed_x = self.dashSpeed_x
     self.speed_y = 0
     self.speed_z = 0
@@ -148,7 +148,7 @@ function Rick:specialDashUpdate(dt)
     end
     self:moveEffectAndEmit("dash", 0.5)
 end
-Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.fadeOutGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
+Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.stopGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
 
 function Rick:grabBackAttackStart()
     local g = self.grabContext

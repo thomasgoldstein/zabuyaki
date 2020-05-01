@@ -167,7 +167,7 @@ function Chai:specialDefensiveStart()
     self.speed_y = 0
     self.jumpType = 0
     self:setSprite("specialDefensive")
-    self:enableGhostTrails()
+    self:startGhostTrails()
     self:playSfx(self.sfx.dashAttack)
 end
 function Chai:specialDefensiveUpdate(dt)
@@ -198,13 +198,13 @@ function Chai:specialDefensiveUpdate(dt)
         return
     end
 end
-Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiveStart, exit = Unit.fadeOutGhostTrails, update = Chai.specialDefensiveUpdate, draw = Character.defaultDraw }
+Chai.specialDefensive = {name = "specialDefensive", start = Chai.specialDefensiveStart, exit = Unit.stopGhostTrails, update = Chai.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Chai:specialOffensiveStart()
     self.isHittable = true
     self.horizontal = self.face
     self:setSprite("specialOffensive")
-    self:enableGhostTrails()
+    self:startGhostTrails()
     self.speed_x = 0
     self.speed_y = 0
     self.speed_z = 0
@@ -218,12 +218,12 @@ function Chai:specialOffensiveUpdate(dt)
         self:setSprite("specialOffensive2")
     end
 end
-Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
+Chai.specialOffensive = {name = "specialOffensive", start = Chai.specialOffensiveStart, exit = Unit.stopGhostTrails, update = Chai.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Chai:specialDashStart()
     self.isHittable = true
     self:setSprite("specialDash")
-    self:enableGhostTrails()
+    self:startGhostTrails()
     self.horizontal = self.face
     self.speed_x = self.dashSpeed_x / 2
     self.speed_y = 0
@@ -257,7 +257,7 @@ function Chai:specialDashUpdate(dt)
         self.particles.y = self.y
     end
 end
-Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.fadeOutGhostTrails, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
+Chai.specialDash = {name = "specialDash", start = Chai.specialDashStart, exit = Unit.stopGhostTrails, update = Chai.specialDashUpdate, draw = Character.defaultDraw}
 
 function Chai:chargeDashAttackStart()
     self.isHittable = true

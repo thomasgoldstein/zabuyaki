@@ -828,13 +828,13 @@ function Character:specialOffensiveStart()
     --no move by default
     self:setState(self.stand)
 end
-Character.specialOffensive = {name = "specialOffensive", start = Character.specialOffensiveStart, exit = Unit.fadeOutGhostTrails, update = nop, draw = Character.defaultDraw }
+Character.specialOffensive = {name = "specialOffensive", start = Character.specialOffensiveStart, exit = Unit.stopGhostTrails, update = nop, draw = Character.defaultDraw }
 
 function Character:specialDashStart()
     --no move by default
     self:setState(self.stand)
 end
-Character.specialDash = {name = "specialDash", start = Character.specialDashStart, exit = Unit.fadeOutGhostTrails, update = nop, draw = Character.defaultDraw }
+Character.specialDash = {name = "specialDash", start = Character.specialDashStart, exit = Unit.stopGhostTrails, update = nop, draw = Character.defaultDraw }
 
 function Character:jumpAttackForwardStart()
     self.isHittable = true
@@ -1078,7 +1078,6 @@ function Character:deadStart()
     self.hp = 0
     self.isHurt = nil --free hurt data
     self:releaseGrabbed()
-    self:disableGhostTrails()
     if not self:canFall() then
         self.z = self:getRelativeZ()
     end
@@ -1734,7 +1733,7 @@ function Character:specialDefensiveStart()
     self.speed_x = 0
     self.speed_y = 0
     self:setSprite("specialDefensive")
-    self:enableGhostTrails()
+    self:startGhostTrails()
     self:playSfx(self.sfx.dashAttack)
 end
 function Character:specialDefensiveUpdate(dt)
@@ -1749,7 +1748,7 @@ function Character:specialDefensiveUpdate(dt)
         return
     end
 end
-Character.specialDefensive = {name = "specialDefensive", start = Character.specialDefensiveStart, exit = Unit.fadeOutGhostTrails, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
+Character.specialDefensive = {name = "specialDefensive", start = Character.specialDefensiveStart, exit = Unit.stopGhostTrails, update = Character.specialDefensiveUpdate, draw = Character.defaultDraw }
 
 function Character:knockedDownStart()
     self.isHittable = false

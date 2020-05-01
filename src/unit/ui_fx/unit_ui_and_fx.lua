@@ -224,30 +224,30 @@ function Unit:getGhostTrails(n)
         return maxGhostTrailsFrames + t.i - n
     end
 end
-function Unit:enableGhostTrails()
+function Unit:startGhostTrails()
     local t = self.ghostTrails
     if not t then
         return
     end
     t.enabled = true
-    t.fade = false
+    t.stop = false
     t.i = 0
     t.n = #colors:get("ghostTrailsColors")
     t.time = 0
 end
-function Unit:disableGhostTrails()
+function Unit:disableGhostTrails() -- instantly remove all visible trails
     local t = self.ghostTrails
     if not t then
         return
     end
     t.enabled = false
 end
-function Unit:fadeOutGhostTrails()
+function Unit:stopGhostTrails() -- no more new trails, the existing trails merge to the chatacter
     local t = self.ghostTrails
     if not t then
         return
     end
-    t.fade = true
+    t.stop = true
 end
 function Unit:drawGhostTrails(l, t, w, h)
     local gt = self.ghostTrails
@@ -271,7 +271,7 @@ function Unit:updateGhostTrails(dt)
     if not t or not t.enabled then
         return
     end
-    t.ghost[t.i] = not t.fade and { self.x, self.y - self.z, self.sprite.curAnim, self.sprite.curFrame, self.face } or false
+    t.ghost[t.i] = not t.stop and { self.x, self.y - self.z, self.sprite.curAnim, self.sprite.curFrame, self.face } or false
     t.i = t.i + 1
     if t.i > maxGhostTrailsFrames then
         t.i = 1
@@ -279,7 +279,7 @@ function Unit:updateGhostTrails(dt)
     t.time = t.time + dt
     if t.time >= t.delay then
         t.time = 0
-        if t.fade and t.n > 0 then
+        if t.stop and t.n > 0 then
             t.n = t.n - 1
         elseif t.n <= 0 then
             self:disableGhostTrails()
