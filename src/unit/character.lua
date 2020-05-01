@@ -1147,7 +1147,6 @@ function Character:comboExit()
         self.comboTimer = 0 -- start next Combo from 1
     end
 end
-
 Character.combo = {name = "combo", start = Character.comboStart, exit = Character.comboExit, update = Character.comboUpdate, draw = Character.defaultDraw}
 
 function Character:checkForGrab()
