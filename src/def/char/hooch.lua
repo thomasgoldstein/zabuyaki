@@ -14,11 +14,12 @@ local comboSlide = function(slf)
 end
 local comboPushBack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, z = 25, width = 40, damage = 0, repel_x = slf.comboSlideRepel3_x },
+        { x = 10, z = 25, width = 20, damage = 0, repel_x = slf.comboSlideRepel3_x },
         cont
     )
 end
 local comboPunch = function(slf, cont)
+    slf.victims = {}
     slf:checkAndAttack(
         { x = 27, z = 25, width = 40, damage = 15, sfx = "air", type = "fell" },
         cont
