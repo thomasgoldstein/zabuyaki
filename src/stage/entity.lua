@@ -33,16 +33,19 @@ function Entity:addArray(e)
     return self.entities
 end
 
+local az, bz = 0, 0
 function Entity:sortByZIndex()
     table.sort(self.entities, function(a,b)
         if not a then
             return false
         elseif not b then
             return true
-        elseif a:getZIndex() == b:getZIndex() then
+        end
+        az, bz = a:getZIndex(), b:getZIndex()
+        if az == bz then
             return a.id > b.id
         end
-        return a:getZIndex() < b:getZIndex() end )
+        return az < bz end )
 end
 
 function Entity:remove(e)
