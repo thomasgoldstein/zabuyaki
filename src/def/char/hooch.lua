@@ -8,17 +8,17 @@ local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
 local comboSlide = function(slf)
-    slf:initSlide(slf.comboSlideSpeed3_x, slf.comboSlideDiagonalSpeed3_x, slf.comboSlideDiagonalSpeed3_y, slf.repelFriction)
-    slf.speed_z = slf.comboSlideSpeed3_z
+    slf:initSlide(slf.comboSlideSpeed_x, slf.comboSlideDiagonalSpeed_x, slf.comboSlideDiagonalSpeed_y, slf.repelFriction)
+    slf.speed_z = slf.comboSlideSpeed_z
     slf.z = slf:getRelativeZ() + 3
 end
 local comboPushBack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 10, z = 25, width = 20, damage = 0, repel_x = slf.comboSlideRepel3_x },
+        { x = 10, z = 25, width = 20, damage = 0, repel_x = slf.comboSlideRepel_x },
         cont
     )
 end
-local comboPunch = function(slf, cont)
+local comboAttack = function(slf, cont)
     slf.victims = {}
     slf:checkAndAttack(
         { x = 27, z = 25, width = 40, damage = 15, sfx = "air", type = "fell" },
@@ -107,7 +107,7 @@ return {
         },
         combo1 = {
             { q = q(2,390,40,71), ox = 20, oy = 70, func = comboSlide, funcCont = comboPushBack, delay = f(24) }, --combo 1.1
-            { q = q(44,395,57,56), ox = 17, oy = 55, func = comboPunch, delay = f(3) }, --combo 1.2
+            { q = q(44,395,57,56), ox = 17, oy = 55, func = comboAttack, delay = f(3) }, --combo 1.2
             { q = q(103,400,45,61), ox = 20, oy = 60, delay = f(15) }, --combo 1.3
             { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
             delay = f(4)

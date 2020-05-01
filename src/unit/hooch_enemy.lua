@@ -24,11 +24,11 @@ function Hooch:initAttributes()
     self.dashRepel_x = 180 --how much the dash attack repels other units
     self.dashFriction = self.dashSpeed_x
 
-    self.comboSlideSpeed3_x = 130 --horizontal speed of combo3Forward attacks
-    self.comboSlideDiagonalSpeed3_x = 100 --diagonal horizontal speed of combo3Forward attacks
-    self.comboSlideDiagonalSpeed3_y = 13 --diagonal vertical speed of combo3Forward attacks
-    self.comboSlideSpeed3_z = 90 --jump speed of combo3Forward attacks
-    self.comboSlideRepel3_x = 246 --how much combo3Forward pushes units back (high value to make up for the jump that ignores friction)
+    self.comboSlideSpeed_x = 130 --horizontal speed of combo1 attacks
+    self.comboSlideDiagonalSpeed_x = 100 --diagonal horizontal speed of combo1 attacks
+    self.comboSlideDiagonalSpeed_y = 13 --diagonal vertical speed of combo1 attacks
+    self.comboSlideSpeed_z = 90 --jump speed of combo1 attacks
+    self.comboSlideRepel_x = 246 --how much combo1 pushes units back (high value to make up for the jump that ignores friction)
 
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed
