@@ -226,6 +226,7 @@ local function loadWave(items, stage)
             then
                 local w = {
                     name = v2.name,
+                    width = r(v2.width) or 1,
                     leftStopper_x = tonumber(r(v2.x) or 0),
                     rightStopper_x = tonumber(r(v2.x + v2.width) or 4000),
                     music = v.properties.music,
