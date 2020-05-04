@@ -16,7 +16,7 @@ function Wave:initialize(stage, waves)
     dp("Stage has #",#waves,"waves of enemy")
     self.time = 0
     self.lastSpawnedTime = 0 -- the time passed after the last enemy's' spawn (or from the start of the wave)
-    self.startTimer = false
+    self.isWaveReadyToSpawnUnits = false
     self.state = "next"
 end
 
@@ -33,7 +33,7 @@ function Wave:load()
         local u = wave.units[i]
         u.isSpawned = false
     end
-    self.startTimer = false
+    self.isWaveReadyToSpawnUnits = false
     Event.startByName(_, wave.onStart)
     return true
 end
@@ -62,10 +62,10 @@ function Wave:spawn(dt)
     if lx ~= self.stage.leftStopper:getX() or rx ~= self.stage.rightStopper:getX() then
         self.stage:moveStoppers(lx, rx)
     end
-    if max_x < self.leftStopper_x - 320 / 2 and not self.startTimer then
+    if max_x < self.leftStopper_x - 320 / 2 and not self.isWaveReadyToSpawnUnits then
         return false  -- the left stopper's x is out of the current screen
     end
-    self.startTimer = true
+    self.isWaveReadyToSpawnUnits = true
     if self.n > 1 then
         local prevWave = self.waves[self.n - 1]
         if not prevWave.onLeaveStarted and min_x > prevWave.rightStopper_x then -- Last player passed the left bound of the wave
@@ -175,10 +175,14 @@ function Wave:spawn(dt)
         end
     end
     if aliveEnemiesCount <= wave.aliveEnemiesToAdvance and waitingEnemiesCount <= 0 then
-        self.state = "next"
         Event.startByName(_, wave.onComplete)
+        self:prepareNextWave()
     end
     return true
+end
+
+function Wave:prepareNextWave()
+    self.state = "next"
 end
 
 function Wave:isDone()
