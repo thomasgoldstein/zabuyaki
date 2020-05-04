@@ -62,7 +62,7 @@ function Wave:spawn(dt)
     if lx ~= self.stage.leftStopper:getX() or rx ~= self.stage.rightStopper:getX() then
         self.stage:moveStoppers(lx, rx)
     end
-    if max_x < self.leftStopper_x - 320 / 2 and not self.isWaveReadyToSpawnUnits then
+    if max_x < self.leftStopper_x and not self.isWaveReadyToSpawnUnits then
         return false  -- the left stopper's x is out of the current screen
     end
     self.isWaveReadyToSpawnUnits = true
