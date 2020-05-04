@@ -27,13 +27,12 @@ function Wave:load()
     end
     dp("load Wave #",n)
     local wave = self.waves[n]
-    self.leftStopper_x = wave.leftStopper_x or 0
-    self.rightStopper_x = wave.rightStopper_x or 320
     for i = 1, #wave.units do
         local u = wave.units[i]
         u.isSpawned = false
     end
-    self.isWaveReadyToSpawnUnits = false
+    -- the 1st wave is always ready to spawn units
+    self.isWaveReadyToSpawnUnits = n == 1 and true or false
     Event.startByName(_, wave.onStart)
     return true
 end
@@ -51,21 +50,25 @@ function Wave:spawn(dt)
     local wave = self.waves[self.n]
     local center_x, playerGroupDistance, min_x, max_x = self.stage.center_x, self.stage.playerGroupDistance, self.stage.min_x, self.stage.max_x
     local lx, rx = self.stage.leftStopper:getX(), self.stage.rightStopper:getX()    --current in the stage
-    if lx < self.leftStopper_x
-        and min_x > self.leftStopper_x + 320
+    if lx < wave.leftStopper_x
+        and min_x > wave.leftStopper_x + 320
     then
-        lx = self.leftStopper_x
+        lx = wave.leftStopper_x
     end
-    if rx < self.rightStopper_x then
+    if rx < wave.rightStopper_x then
         rx = rx + dt * scrollSpeed -- speed of the right Stopper movement > char's run
     end
     if lx ~= self.stage.leftStopper:getX() or rx ~= self.stage.rightStopper:getX() then
         self.stage:moveStoppers(lx, rx)
     end
-    if max_x < self.leftStopper_x and not self.isWaveReadyToSpawnUnits then
-        return false  -- the left stopper's x is out of the current screen
+    -- wait until players enter in the wave rectangle
+    if not self.isWaveReadyToSpawnUnits then
+        if CheckLinearCollision(wave.leftStopper_x, wave.width, min_x, max_x - min_x + 1) then
+            self.isWaveReadyToSpawnUnits = true
+        else
+            return false
+        end
     end
-    self.isWaveReadyToSpawnUnits = true
     if self.n > 1 then
         local prevWave = self.waves[self.n - 1]
         if not prevWave.onLeaveStarted and min_x > prevWave.rightStopper_x then -- Last player passed the left bound of the wave
