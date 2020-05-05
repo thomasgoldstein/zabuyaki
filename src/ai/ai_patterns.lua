@@ -25,7 +25,7 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.ensureHasTarget, self.initFaceToPlayer },
         {"cannotAct", "noTarget", "noPlayers"})
     self.SCHEDULE_COMBO = Schedule:new({ self.ensureStanding, self.initCombo, self.onCombo },
-        {"cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget", "tooCloseToPlayer"})
+        {"cannotAct", "grabbed", "inAir", "noTarget", "tooFarToTarget"})
     self.SCHEDULE_RECOVER = Schedule:new({ self.waitUntilStand },
         {"noPlayers"})
 
