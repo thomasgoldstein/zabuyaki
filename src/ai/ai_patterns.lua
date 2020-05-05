@@ -673,23 +673,9 @@ function AI:calcRunToXY()
     u.b.reset()
     --    dp("AI:calcRunToXY() " .. u.name)
     if self:canActAndMove() then
-        if not u.target or u.target.hp < 1 then
-            u:pickAttackTarget() -- ???
-        end
-        assert(not u.isDisabled and u.hp > 0)
-        --u:setState(u.run)
-        local tx, ty
-        if u.x < u.target.x then
-            tx = u.target.x - love.math.random(25, 35)
-            ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-            u.face = 1
-        else
-            tx = u.target.x + love.math.random(25, 35)
-            ty = u.y + 1 + love.math.random(-1, 1) * love.math.random(6, 8)
-            u.face = -1
-        end
+        u.face = u.x < u.target.x and 1 or -1
         u.horizontal = u.face
-        u.ttx, u.tty = tx, ty
+        u.ttx, u.tty = u.target.x, u.target.y
         return true
     end
     return false
@@ -702,11 +688,7 @@ function AI:initFaceToPlayer()
         if not u.target then
             return false
         end
-        if u.x < u.target.x then
-            u.face = 1
-        else
-            u.face = -1
-        end
+        u.face = u.x < u.target.x and 1 or -1
         u.horizontal = u.face
         return true
     end
