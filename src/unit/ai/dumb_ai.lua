@@ -17,13 +17,6 @@ function eAI:initialize(unit, settings)
 
 end
 
-function eAI:_update(dt)
-    if self.thinkInterval - dt <= 0 then
---        print(inspect(self.conditions, {depth = 1, newline ="", ident=""}))
-    end
-    AI.update(self, dt)
-end
-
 function eAI:selectNewSchedule(conditions)
     self.unit.b.reset()
     if not self.currentSchedule then

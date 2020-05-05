@@ -59,10 +59,6 @@ function eAI:initialize(unit, settings)
     self.tactics = self.tacticsPassive
 end
 
-function eAI:_update(dt)
-    AI.update(self, dt)
-end
-
 function eAI:selectNewAttackSchedule()
     print(self.unit.name, "selectNewAttackSchedule()")
     self.unit.b.reset()
