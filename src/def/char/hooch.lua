@@ -113,7 +113,7 @@ return {
             delay = f(4)
         },
         dashAttack = {
-            { q = q(2,390,40,71), ox = 20, oy = 70, func = comboSlide, funcCont = comboPushBack, delay = f(24) }, --combo 1.1
+            { q = q(2,390,40,71), ox = 20, oy = 70, funcCont = comboPushBack, delay = f(24) }, --combo 1.1
             { q = q(44,395,57,56), ox = 17, oy = 55, func = comboAttack, delay = f(3) }, --combo 1.2
             { q = q(103,400,45,61), ox = 20, oy = 60, delay = f(15) }, --combo 1.3
             { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck

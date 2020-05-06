@@ -44,4 +44,25 @@ function Hooch:initAttributes()
     self.AI = AIGopper:new(self)
 end
 
+function Hooch:dashAttackStart()
+    self.isHittable = true
+    self:setSprite("dashAttack")
+    self:initSlide(self.comboSlideSpeed_x, self.comboSlideDiagonalSpeed_x, self.comboSlideDiagonalSpeed_y, self.repelFriction)
+    self.speed_z = self.comboSlideSpeed_z
+    self.z = self:getRelativeZ() + 3
+    self:playSfx(self.sfx.dashAttack)
+end
+function Hooch:dashAttackUpdate(dt)
+    if self:canFall() then
+        self:calcFreeFall(dt, self.chargeDashAttackSpeedMultiplier_z)
+    else
+        self.z = self:getRelativeZ()
+    end
+    if self.sprite.isFinished then
+        self:setState(self.stand)
+        return
+    end
+end
+Hooch.dashAttack = {name = "dashAttack", start = Hooch.dashAttackStart, exit = nop, update = Hooch.dashAttackUpdate, draw = Character.defaultDraw}
+
 return Hooch

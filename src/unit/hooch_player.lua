@@ -12,4 +12,6 @@ function Hooch:initAttributes()
     _Hooch.initAttributes(self)
 end
 
+Hooch.dashAttack = {name = "dashAttack", start = _Hooch.dashAttackStart, exit = nop, update = _Hooch.dashAttackUpdate, draw = Character.defaultDraw}
+
 return Hooch
