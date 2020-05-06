@@ -6,7 +6,7 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_STAND = Schedule:new({ self.initStand },
         {"cannotAct", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "inAir",
           "faceNotToPlayer", "tooCloseToPlayer"})
-    self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.ensureStanding, self.calcWalkOffTheScreenXY, self.initWalkToXY, self.onMove, self.onStop },
+    self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.ensureStanding, self.calcWalkOffTheScreenXY, self.onMove, self.onStop },
         { })
     self.SCHEDULE_WALK_CLOSE_TO_ATTACK = Schedule:new({ self.ensureStanding, self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
         {"cannotAct", "inAir", "grabbed", "noTarget"})
@@ -35,21 +35,21 @@ function AI:initCommonAiSchedules()
         {"tooCloseToPlayer"})
     self.SCHEDULE_WAIT_LONG = Schedule:new({ self.initWaitLong, self.onWait },
         {"tooCloseToPlayer"})
-    self.SCHEDULE_ESCAPE_BACK = Schedule:new({ self.calcEscapeBackXY, self.initWalkToXY, self.onMove },
+    self.SCHEDULE_ESCAPE_BACK = Schedule:new({ self.calcEscapeBackXY, self.onMove },
         {"cannotAct", "grabbed", "inAir", "noTarget"})
-    self.SCHEDULE_STEP_BACK = Schedule:new({ self.calcStepBack, self.initWalkToXY, self.onMove },
+    self.SCHEDULE_STEP_BACK = Schedule:new({ self.calcStepBack, self.onMove },
         {"cannotAct", "grabbed", "inAir"})
-    self.SCHEDULE_STEP_DOWN = Schedule:new({ self.calcStepDown, self.initWalkToXY, self.onMove },
+    self.SCHEDULE_STEP_DOWN = Schedule:new({ self.calcStepDown, self.onMove },
         {"cannotAct", "grabbed", "inAir"})
-    self.SCHEDULE_STEP_FORWARD = Schedule:new({ self.calcStepForward, self.initWalkToXY, self.onMove },
+    self.SCHEDULE_STEP_FORWARD = Schedule:new({ self.calcStepForward, self.onMove },
         {"cannotAct", "grabbed", "inAir"})
-    self.SCHEDULE_STEP_UP = Schedule:new({ self.calcStepUp, self.initWalkToXY, self.onMove },
+    self.SCHEDULE_STEP_UP = Schedule:new({ self.calcStepUp, self.onMove },
         {"cannotAct", "grabbed", "inAir"})
-    self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.initWalkToXY, self.onMove },
+    self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.onMove },
         {"cannotAct", "grabbed", "inAir"})
-    self.SCHEDULE_WALK_BY_TARGET_H = Schedule:new({ self.ensureHasTarget, self.calcWalkByTargetHorizontally, self.initWalkToXY, self.onMove },
+    self.SCHEDULE_WALK_BY_TARGET_H = Schedule:new({ self.ensureHasTarget, self.calcWalkByTargetHorizontally, self.onMove },
         {"cannotAct", "grabbed", "inAir", "noTarget", "canCombo"})
-    self.SCHEDULE_WALK_BY_TARGET_V = Schedule:new({ self.ensureHasTarget, self.calcWalkByTargetVertically, self.initWalkToXY, self.onMove },
+    self.SCHEDULE_WALK_BY_TARGET_V = Schedule:new({ self.ensureHasTarget, self.calcWalkByTargetVertically, self.onMove },
         {"cannotAct", "grabbed", "inAir", "noTarget", "canCombo"})
     self.SCHEDULE_STRAIGHT_JUMP = Schedule:new({ self.ensureStanding, self.emulateJumpPress, self.initWaitShort, self.onWait, self.emulateReleaseJump},
         {"grabbed"})
@@ -75,7 +75,7 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_DIAGONAL_JUMP_ATTACK = Schedule:new(
         { self.emulateDiagonalJumpPressToTarget, self.emulateWaitStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
         {})
-    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.calcWalkToGrabXY, self.initWalkToXY, self.emulateAttackHold, self.onMoveUntilGrab },
+    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.calcWalkToGrabXY, self.emulateAttackHold, self.onMoveUntilGrab },
         { "grabbed", "tooFarFromPlayer", "inAir", "noTarget", "noPlayers", "cannotAct" })
 end
 
@@ -298,15 +298,6 @@ function AI:initRunToXY()
     u.lastState = "walk" -- condition to start running
     u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 0 ), 0 )
     u.b.doHorizontalDoubleTap( u.horizontal )
-    return true
-end
-
-function AI:initWalkToXY()
-    local u = self.unit
-    assert(not u.isDisabled and u.hp > 0)
-    u.speed_x = u.walkSpeed
-    u.old_x = u.x + 10
-    u.old_y = u.y + 10
     return true
 end
 
