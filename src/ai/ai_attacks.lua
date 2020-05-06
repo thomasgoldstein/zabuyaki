@@ -30,15 +30,22 @@ function AI:onCombo(dt)
     return false
 end
 
-function AI:initDash(dt)
+function AI:onMoveThenDash()
     local u = self.unit
-    u.b.reset()
-    --    dp("AI:onDash() ".. u.name)
-    --    if not self.conditions.cannotAct then
-    if self:canActAndMove() then
-        u:setState(u.dashAttack)
-        return true
+    --dp("AI:onMoveThenDash() ".. u.name)
+    if u.move then
+        return u.move:update(0)
+    else
+        if math.abs(u.ttx - u.x ) < u.width then
+            u.b.setAttack( true )
+            return true
+        elseif u.target then -- correct y pos from the target
+            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 ) )
+        else
+            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
+        end
+        u.old_x = u.x
+        u.old_y = u.y
     end
     return false
 end
-

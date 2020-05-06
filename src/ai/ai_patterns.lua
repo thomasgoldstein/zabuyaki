@@ -16,11 +16,11 @@ function AI:initCommonAiSchedules()
         {"cannotAct", "inAir", "grabbed", "noTarget"})
     self.SCHEDULE_GET_TO_BACK = Schedule:new({ self.ensureStanding, self.initGetToBack, self.onGetToBack },
         {"cannotAct", "inAir", "grabbed", "noTarget"})
-    self.SCHEDULE_RUN = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove },
+    self.SCHEDULE_RUN = Schedule:new({ self.ensureStanding, self.initRunToXY, self.onMoveThenNoReset },
         {"cannotAct", "noTarget", "cannotAct", "inAir"})
     self.SCHEDULE_DASH = Schedule:new({ self.ensureStanding, self.initDash, self.waitUntilStand, self.initWaitMedium, self.onWait },
         { })
-    self.SCHEDULE_RUN_DASH = Schedule:new({ self.ensureStanding, self.calcRunToXY, self.initRunToXY, self.onMove, self.initDash },
+    self.SCHEDULE_RUN_DASH = Schedule:new({ self.ensureStanding, self.initRunToXY, self.onMoveThenDash },
         { })
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.ensureHasTarget, self.initFaceToPlayer },
         {"cannotAct", "noTarget", "noPlayers"})
@@ -289,6 +289,18 @@ function AI:calcStepForward()
     return true
 end
 
+function AI:initRunToXY()
+    local u = self.unit
+    u.b.setStrafe( false )
+    u.ttx, u.tty = u.target.x, u.target.y
+    u.face = u.x < u.target.x and 1 or -1
+    u.horizontal = u.face
+    u.lastState = "walk" -- condition to start running
+    u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 0 ), 0 )
+    u.b.doHorizontalDoubleTap( u.horizontal )
+    return true
+end
+
 function AI:initWalkToXY()
     local u = self.unit
     assert(not u.isDisabled and u.hp > 0)
@@ -296,20 +308,6 @@ function AI:initWalkToXY()
     u.old_x = u.x + 10
     u.old_y = u.y + 10
     return true
-end
-
-function AI:initRunToXY()
-    local u = self.unit
-    if self:canActAndMove() then
-        u.b.reset()
-        assert(not u.isDisabled and u.hp > 0)
-        u.b.doHorizontalDoubleTap()
-        u.speed_x = u.runSpeed
-        u.old_x = u.x + 10
-        u.old_y = u.y + 10
-        return true
-    end
-    return false
 end
 
 function AI:calcWalkOffTheScreenXY()
@@ -633,6 +631,26 @@ function AI:onMove()
     return false
 end
 
+function AI:onMoveThenNoReset()
+    local u = self.unit
+    --dp("AI:onMoveThenNoReset() ".. u.name)
+    if u.move then
+        return u.move:update(0)
+    else
+        if math.abs(u.ttx - u.x ) < u.width then
+            --u.b.setAttack( true )
+            return true
+        elseif u.target then -- correct y pos from the target
+            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 ) )
+        else
+            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
+        end
+        u.old_x = u.x
+        u.old_y = u.y
+    end
+    return false
+end
+
 function AI:onMoveUntilGrab()
     local u = self.unit
     --dp("AI:onMoveUntilGrab() ".. u.name, u.state, u.old_x, u.old_y, u.x, u.y, u.ttx, u.tty)
@@ -664,19 +682,6 @@ function AI:onMoveUntilGrab()
             end
             u.antiStuck = 0
         end
-    end
-    return false
-end
-
-function AI:calcRunToXY()
-    local u = self.unit
-    u.b.reset()
-    --    dp("AI:calcRunToXY() " .. u.name)
-    if self:canActAndMove() then
-        u.face = u.x < u.target.x and 1 or -1
-        u.horizontal = u.face
-        u.ttx, u.tty = u.target.x, u.target.y
-        return true
     end
     return false
 end
