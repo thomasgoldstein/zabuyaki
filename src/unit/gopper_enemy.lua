@@ -22,9 +22,9 @@ function Gopper:initAttributes()
     self.walkSpeed_y = 50
     self.runSpeed_x = 150
     self.runSpeed_y = 25
-    self.dashSpeed_x = 150 --speed of the character during dash attack
-    self.dashRepel_x = 180 --how much the dash attack repels other units
-    self.dashFriction = self.dashSpeed_x
+    self.dashAttackSpeed_x = 150 --speed of the character during dash attack
+    self.dashAttackRepel_x = 180 --how much the dash attack repels other units
+    self.dashAttackFriction = self.dashAttackSpeed_x
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
@@ -37,9 +37,9 @@ end
 local dashAttackSpeedMultiplier = 0.75
 function Gopper:dashAttackStart()
     self.isHittable = true
-    self.customFriction = self.dashFriction * dashAttackSpeedMultiplier
+    self.customFriction = self.dashAttackFriction * dashAttackSpeedMultiplier
     self:setSprite("dashAttack")
-    self.speed_x = self.dashSpeed_x * 2 * dashAttackSpeedMultiplier
+    self.speed_x = self.dashAttackSpeed_x * 2 * dashAttackSpeedMultiplier
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z / 2 * dashAttackSpeedMultiplier
     self.z = self:getRelativeZ() + 0.1

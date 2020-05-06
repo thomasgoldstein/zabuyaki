@@ -9,7 +9,7 @@ local function f(n)
 end
 local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, z = 17, width = 25, height = 45, damage = 13, type = "fell", repel_x = slf.dashRepel_x },
+        { x = 21, z = 17, width = 25, height = 45, damage = 13, type = "fell", repel_x = slf.dashAttackRepel_x },
         cont
 ) end
 local comboSlap = function(slf, cont)
@@ -20,7 +20,7 @@ local comboSlap = function(slf, cont)
 end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, z = 10, width = 25, damage = 8, type = "fell", repel_x = slf.dashRepel_x, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
+        { x = 21, z = 10, width = 25, damage = 8, type = "fell", repel_x = slf.dashAttackRepel_x, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
     -- move Zeena forward

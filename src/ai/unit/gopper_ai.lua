@@ -27,11 +27,11 @@ function eAI:selectNewSchedule(conditions)
         return
     end
     if not conditions.cannotAct then
-        if self.currentSchedule ~= self.SCHEDULE_RUN_DASH
+        if self.currentSchedule ~= self.SCHEDULE_RUN_DASH_ATTACK
             and conditions.canMove and conditions.tooFarToTarget
             and love.math.random() < 0.25
         then
-            self:setSchedule( self.SCHEDULE_RUN_DASH )
+            self:setSchedule( self.SCHEDULE_RUN_DASH_ATTACK )
             return
         end
         if conditions.canCombo then

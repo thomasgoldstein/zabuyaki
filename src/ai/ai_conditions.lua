@@ -74,8 +74,8 @@ function AI:getVisualConditions(conditions)
             if distance >= self.reactLongDistanceMin and distance <= self.reactLongDistanceMax then
                 conditions["reactLongTarget"] = true
             end
-            if self:canDash(distance, y) then
-                conditions["canDash"] = true
+            if self:canDashAttack(distance, y) then
+                conditions["canDashAttack"] = true
             end
             if self:canCombo(unit, x, y) then
                 conditions["canCombo"] = true
@@ -118,9 +118,9 @@ function AI:getShortAttackRange(unit, target)
     return unit.width / 2 + target.width / 2 + 12
 end
 
-function AI:canDash(distance, targetY)
+function AI:canDashAttack(distance, targetY)
     local unit = self.unit
-    if unit.moves.dashAttack and distance < self.canDashMax and distance >= self.canDashMin
+    if unit.moves.dashAttack and distance < self.canDashAttackMax and distance >= self.canDashAttackMin
         and math.floor(unit.y / 4) == math.floor(targetY / 4) then
         return true
     end

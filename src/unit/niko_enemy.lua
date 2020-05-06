@@ -21,9 +21,9 @@ function Niko:initAttributes()
     self.walkSpeed_y = 45
     self.chargeWalkSpeed_x = 72
     self.chargeWalkSpeed_y = 36
-    self.dashSpeed_x = 150 --speed of the character during dash attack
-    self.dashRepel_x = 180 --how much the dash attack repels other units
-    self.dashFriction = self.dashSpeed_x
+    self.dashAttackSpeed_x = 150 --speed of the character during dash attack
+    self.dashAttackRepel_x = 180 --how much the dash attack repels other units
+    self.dashAttackFriction = self.dashAttackSpeed_x
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others

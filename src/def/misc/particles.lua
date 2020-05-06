@@ -140,7 +140,7 @@ particles:setQuads(dustQuad)
 particles:setLinearDamping(7, 10)
 --particles:setAreaSpread("uniform", 80, 40)
 --particles:setSpin(0, -3)
-PA_DASH = particles
+PA_DASH_ATTACK = particles
 
 particles = love.graphics.newParticleSystem(gfx.loot.image, 1)
 particles:setLinearAcceleration(0, -75, 0, -85)

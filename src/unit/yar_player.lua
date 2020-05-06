@@ -22,9 +22,9 @@ function Yar:initAttributes()
     self.chargeWalkSpeed_y = 36
     self.runSpeed_x = 144
     self.runSpeed_y = 24
-    self.dashSpeed_x = 125 --speed of the character during dash attack
-    self.dashRepel_x = 180 --how much the dash attack repels other units
-    self.dashFriction = 400
+    self.dashAttackSpeed_x = 125 --speed of the character during dash attack
+    self.dashAttackRepel_x = 180 --how much the dash attack repels other units
+    self.dashAttackFriction = 400
     self.chargeDashAttackSpeed_z = 65
 
     self.comboSlideSpeed2_x = 180 --horizontal speed of combo2Forward attacks

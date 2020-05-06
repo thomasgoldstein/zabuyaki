@@ -30,9 +30,9 @@ function AI:onCombo(dt)
     return false
 end
 
-function AI:onMoveThenDash()
+function AI:onMoveThenDashAttack()
     local u = self.unit
-    --dp("AI:onMoveThenDash() ".. u.name)
+    --dp("AI:onMoveThenDashAttack() ".. u.name)
     if u.move then
         return u.move:update(0)
     else

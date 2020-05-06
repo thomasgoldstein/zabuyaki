@@ -23,8 +23,8 @@ function Chai:initAttributes()
     self.chargeWalkSpeed_y = 40
     self.runSpeed_x = 156
     self.runSpeed_y = 26
-    self.dashSpeed_x = 200 --speed of the character during dash attack
-    self.dashRepel_x = 180 --how much the dash attack repels other units
+    self.dashAttackSpeed_x = 200 --speed of the character during dash attack
+    self.dashAttackRepel_x = 180 --how much the dash attack repels other units
     self.chargeDashAttackSpeed_z = 90
     --self.repelFriction = 1650 * 1.5
 
@@ -86,7 +86,7 @@ function Chai:dashAttackUpdate(dt)
             self:calcFreeFall(dt)
             if self.speed_z > 0 then
                 if self.speed_x > 0 then
-                    self.speed_x = self.speed_x - (self.dashSpeed_x * dt * 2.3)
+                    self.speed_x = self.speed_x - (self.dashAttackSpeed_x * dt * 2.3)
                 else
                     self.speed_x = 0
                 end
@@ -225,7 +225,7 @@ function Chai:specialDashStart()
     self:setSprite("specialDash")
     self:startGhostTrails()
     self.horizontal = self.face
-    self.speed_x = self.dashSpeed_x / 2
+    self.speed_x = self.dashAttackSpeed_x / 2
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * self.jumpSpeedMultiplier
     self.z = self:getRelativeZ() + 0.1
@@ -235,9 +235,9 @@ function Chai:specialDashStart()
 end
 function Chai:specialDashUpdate(dt)
     if self.sprite.curAnim == "specialDash" then
-        if self.speed_z < 0 and self.speed_x < self.dashSpeed_x then
+        if self.speed_z < 0 and self.speed_x < self.dashAttackSpeed_x then
             -- check speed_x to add no extra var here. it should trigger once
-            self.speed_x = self.dashSpeed_x * 2
+            self.speed_x = self.dashAttackSpeed_x * 2
         end
     end
     if self:canFall() then
@@ -264,7 +264,7 @@ function Chai:chargeDashAttackStart()
     self:setSprite("chargeDashAttack")
     self.speed_y = 0
     self.speed_z = self.jumpSpeed_z * 0.7
-    self.speed_x = self.dashSpeed_x * 0.91
+    self.speed_x = self.dashAttackSpeed_x * 0.91
     self.bounced = 0 -- used in canFall()
     self:playSfx(self.sfx.dashAttack)
 end

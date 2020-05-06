@@ -103,21 +103,21 @@ local comboAttack4Forward = function(slf, cont)
     )
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-    { x = 8, z = 20, width = 22, damage = 17, type = "fell", repel_x = slf.dashRepel_x },
+    { x = 8, z = 20, width = 22, damage = 17, type = "fell", repel_x = slf.dashAttackRepel_x },
     cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 10, z = 24, width = 26, damage = 17, type = "fell", repel_x = slf.dashRepel_x },
+    { x = 10, z = 24, width = 26, damage = 17, type = "fell", repel_x = slf.dashAttackRepel_x },
     cont
 ) end
 local dashAttack3 = function(slf, cont) slf:checkAndAttack(
-    { x = 12, z = 28, width = 30, damage = 17, type = "fell", repel_x = slf.dashRepel_x },
+    { x = 12, z = 28, width = 30, damage = 17, type = "fell", repel_x = slf.dashAttackRepel_x },
     cont
 ) end
 local chargeDashAttackCheck = function(slf, cont)
     slf:checkAndAttack(
         { x = 27, z = 18, width = 39, height = 45, type = "check",
-            onHit = function(slf) slf.speed_x = slf.dashSpeed_x * 0.7 end,
+            onHit = function(slf) slf.speed_x = slf.dashAttackSpeed_x * 0.7 end,
             followUpAnimation = "chargeDashAttack2"
         },
         cont
@@ -164,7 +164,7 @@ local specialOffensiveDown = function(slf, cont) slf:checkAndAttack(
 ) end
 local specialOffensiveSpeedUp = function(slf, cont)
     slf:playSfx(slf.sfx.dashAttack)
-    slf.speed_x = slf.dashSpeed_x * 1.5
+    slf.speed_x = slf.dashAttackSpeed_x * 1.5
 end
 local specialOffensiveFinisher1 = function(slf, cont) slf:checkAndAttack(
     { x = 15, z = 39, width = 50, height = 30, damage = 9, repel_x = slf.specialOffensiveFinisher1Repel_x },
@@ -461,7 +461,7 @@ return {
         },
         dashAttack = {
             { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(4) }, --duck
-            { q = q(2,722,39,65), ox = 18, oy = 64, func = function(slf) slf.speed_x = slf.dashSpeed_x * slf.jumpSpeedMultiplier; slf.speed_z = slf.jumpSpeed_z * slf.jumpSpeedMultiplier end, funcCont = dashAttack1, delay = f(2) }, --jump attack forward 1
+            { q = q(2,722,39,65), ox = 18, oy = 64, func = function(slf) slf.speed_x = slf.dashAttackSpeed_x * slf.jumpSpeedMultiplier; slf.speed_z = slf.jumpSpeed_z * slf.jumpSpeedMultiplier end, funcCont = dashAttack1, delay = f(2) }, --jump attack forward 1
             { q = q(2,858,37,65), ox = 18, oy = 64, funcCont = dashAttack2 }, --dash attack 1
             { q = q(41,858,45,68), ox = 22, oy = 65, funcCont = dashAttack3 }, --dash attack 2
             { q = q(41,858,45,68), ox = 22, oy = 65, funcCont = dashAttack3 }, --dash attack 2
@@ -521,10 +521,10 @@ return {
             { q = q(2,1587,67,65), ox = 21, oy = 64, hover = true, func = function(slf) slf.speed_x = slf.walkSpeed_x * 0.7; slf.speed_z = 0; slf.victims = {} end, delay = f(2) }, --charge dash attack 3
             { q = q(43,722,37,64), ox = 14, oy = 66, hover = true }, --jump attack forward 2
             { q = q(2,722,39,65), ox = 18, oy = 66, hover = true }, --jump attack forward 1
-            { q = q(101,1462,40,62), ox = 21, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted up by 2px)
+            { q = q(101,1462,40,62), ox = 21, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashAttackSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted up by 2px)
             { q = q(84,403,69,59), ox = 26, oy = 58, hover = true, funcCont = chargeDashAttack2, delay = f(11) }, --charge dash attack 4
             { q = q(84,403,69,59), ox = 26, oy = 58, funcCont = chargeDashAttack2, delay = f(3) }, --charge dash attack 4
-            { q = q(101,1462,40,62), ox = 21, oy = 66, func = function(slf) slf.speed_x = slf.dashSpeed_x * 0.7 end, delay = math.huge }, --special defensive 12 (shifted up by 2px)
+            { q = q(101,1462,40,62), ox = 21, oy = 66, func = function(slf) slf.speed_x = slf.dashAttackSpeed_x * 0.7 end, delay = math.huge }, --special defensive 12 (shifted up by 2px)
             delay = f(2)
         },
         specialDefensive = {

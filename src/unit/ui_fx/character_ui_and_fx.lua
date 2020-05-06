@@ -67,12 +67,12 @@ function Character:showEffect(effect, obj)
         particles = PA_DUST_FALL_LANDING:clone()
         particles:emit(PA_DUST_FALL_LANDING_N_PARTICLES)
         stage.objects:add(Effect:new(particles, self.x, self.y + 3, self.z))
-    elseif effect == "dash" then
-        particles = PA_DASH:clone()
+    elseif effect == "dashAttack" then
+        particles = PA_DASH_ATTACK:clone()
         particles:setSpin(0, -3 * self.face)
-        self.paDash = particles
-        self.paDash_x = self.x
-        self.paDash_y = self.y
+        self.paDashAttack = particles
+        self.paDashAttack_x = self.x
+        self.paDashAttack_y = self.y
         stage.objects:add(Effect:new(particles, self.x, self.y + 2, self.z))
     else
         error("Unknown effect name: " .. effect)
@@ -80,12 +80,12 @@ function Character:showEffect(effect, obj)
 end
 
 function Character:moveEffectAndEmit(effect, value)
-    if effect == "dash" then
-        if love.math.random() < value and self.speed_x >= self.dashSpeed_x * 0.5 then
-            -- emit Dash particles on moving
-            self.paDash:moveTo(self.x - self.paDash_x - self.face * 10, self.y - self.paDash_y - 5)
+    if effect == "dashAttack" then
+        if love.math.random() < value and self.speed_x >= self.dashAttackSpeed_x * 0.5 then
+            -- emit Dash attack particles on moving
+            self.paDashAttack:moveTo(self.x - self.paDashAttack_x - self.face * 10, self.y - self.paDashAttack_y - 5)
             if self.z <= 0 then
-                self.paDash:emit(1)
+                self.paDashAttack:emit(1)
             end
         end
     else

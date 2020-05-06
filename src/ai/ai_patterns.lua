@@ -4,7 +4,7 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
         {"wokeUp", "tooCloseToPlayer"})
     self.SCHEDULE_STAND = Schedule:new({ self.initStand },
-        {"cannotAct", "wokeUp", "noTarget", "canCombo", "canGrab", "canDash", "inAir",
+        {"cannotAct", "wokeUp", "noTarget", "canCombo", "canGrab", "canDashAttack", "inAir",
           "faceNotToPlayer", "tooCloseToPlayer"})
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.ensureStanding, self.calcWalkOffTheScreenXY, self.onMove, self.onStop },
         { })
@@ -18,9 +18,9 @@ function AI:initCommonAiSchedules()
         {"cannotAct", "inAir", "grabbed", "noTarget"})
     self.SCHEDULE_RUN = Schedule:new({ self.ensureStanding, self.initRunToXY, self.onMoveThenNoReset },
         {"cannotAct", "noTarget", "cannotAct", "inAir"})
-    self.SCHEDULE_DASH = Schedule:new({ self.ensureStanding, self.initDash, self.waitUntilStand, self.initWaitMedium, self.onWait },
+    self.SCHEDULE_DASH_ATTACK = Schedule:new({ self.ensureStanding, self.initDashAttack, self.waitUntilStand, self.initWaitMedium, self.onWait },
         { })
-    self.SCHEDULE_RUN_DASH = Schedule:new({ self.ensureStanding, self.initRunToXY, self.onMoveThenDash },
+    self.SCHEDULE_RUN_DASH_ATTACK = Schedule:new({ self.ensureStanding, self.initRunToXY, self.onMoveThenDashAttack },
         { })
     self.SCHEDULE_FACE_TO_PLAYER = Schedule:new({ self.ensureHasTarget, self.initFaceToPlayer },
         {"cannotAct", "noTarget", "noPlayers"})

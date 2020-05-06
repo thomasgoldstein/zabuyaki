@@ -65,9 +65,9 @@ function Character:initAttributes()
     self.fallSpeed_x = 120
     self.fallSpeedBoost_x = 5
     self.fallDeadSpeedBoost_x = 20
-    self.dashSpeed_x = 150 --speed of the character during dash attack
-    self.dashRepel_x = 180 --how much the dash attack repels other units
-    self.dashFriction = self.dashSpeed_x
+    self.dashAttackSpeed_x = 150 --speed of the character during dash attack
+    self.dashAttackRepel_x = 180 --how much the dash attack repels other units
+    self.dashAttackFriction = self.dashAttackSpeed_x
     self.chargeDashSpeed_z = 120
     self.chargeDashSpeedMultiplier_z = 0.6
     self.chargeDashSpeed_x = 320
@@ -809,9 +809,9 @@ Character.sideStep = {name = "sideStep", start = Character.sideStepStart, exit =
 
 function Character:dashAttackStart()
     self.isHittable = true
-    self.customFriction = self.dashFriction
+    self.customFriction = self.dashAttackFriction
     self:setSprite("dashAttack")
-    self.speed_x = self.dashSpeed_x
+    self.speed_x = self.dashAttackSpeed_x
     self.speed_y = 0
     self.speed_z = 0
     self:playSfx(self.sfx.dashAttack)

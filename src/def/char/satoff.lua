@@ -21,12 +21,12 @@ local jumpAttack = function(slf, cont)
 end
 local comboUppercut1 = function(slf, cont)
     slf:checkAndAttack(
-    { x = 14, z = 30, width = 30, damage = 12, repel_x = slf.dashRepel_x, sfx = "whooshHeavy" },
+    { x = 14, z = 30, width = 30, damage = 12, repel_x = slf.dashAttackRepel_x, sfx = "whooshHeavy" },
     cont
 ) end
 local comboUppercut2 = function(slf, cont)
     slf:checkAndAttack(
-    { x = 20, z = 60, width = 30, height = 45, damage = 16, type = "fell", repel_x = slf.dashRepel_x },
+    { x = 20, z = 60, width = 30, height = 45, damage = 16, type = "fell", repel_x = slf.dashAttackRepel_x },
     cont
 ) end
 local grabFrontAttack = function(slf, cont)

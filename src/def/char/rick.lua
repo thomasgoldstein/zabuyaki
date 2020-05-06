@@ -117,18 +117,18 @@ local comboAttack4Forward = function(slf, cont)
     )
 end
 local dashAttack1 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, z = 37, width = 55, damage = 8, repel_x = slf.dashRepel_x },
+    { x = 20, z = 37, width = 55, damage = 8, repel_x = slf.dashAttackRepel_x },
     cont
 ) end
 local dashAttack2 = function(slf, cont) slf:checkAndAttack(
-    { x = 20, z = 37, width = 55, damage = 12, type = "fell", repel_x = slf.dashRepel_x },
+    { x = 20, z = 37, width = 55, damage = 12, type = "fell", repel_x = slf.dashAttackRepel_x },
     cont
 ) end
 local dashAttackSpeedUp = function(slf, cont)
-    slf.speed_x = slf.dashSpeed_x * 2
+    slf.speed_x = slf.dashAttackSpeed_x * 2
 end
 local dashAttackResetSpeed = function(slf, cont)
-    slf.speed_x = slf.dashSpeed_x
+    slf.speed_x = slf.dashAttackSpeed_x
 end
 local chargeAttack1 = function(slf, cont)
     slf:checkAndAttack(
@@ -186,7 +186,7 @@ local specialDash1 = function(slf, cont)
         { x = 10, z = 18, width = 40, height = 35, damage = 6,
           onHit = function(slf)
               slf.isAttackConnected = true
-              slf.customFriction = slf.dashFriction * 2.5
+              slf.customFriction = slf.dashAttackFriction * 2.5
           end
         },cont)
 end
@@ -194,8 +194,8 @@ local specialDashFollowUp = function(slf, cont)
     if slf.isAttackConnected then
         slf.victims = {}    -- clear victims list before this attack
         slf:setSprite("specialDash2")
-        slf.speed_x = slf.dashSpeed_x * 1.5
-        slf.customFriction = slf.dashFriction * 1.5
+        slf.speed_x = slf.dashAttackSpeed_x * 1.5
+        slf.customFriction = slf.dashAttackFriction * 1.5
     end
 end
 local specialDashJumpStart = function(slf, cont)

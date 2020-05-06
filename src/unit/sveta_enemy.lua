@@ -20,9 +20,9 @@ function Sveta:initAttributes()
     }
     self.walkSpeed_x = 97
     self.walkSpeed_y = 45
-    self.dashSpeed_x = 170 --speed of the character during dash attack
-    self.dashRepel_x = 180 --how much the dash attack repels other units
-    self.dashFriction = self.dashSpeed_x
+    self.dashAttackSpeed_x = 170 --speed of the character during dash attack
+    self.dashAttackRepel_x = 180 --how much the dash attack repels other units
+    self.dashAttackFriction = self.dashAttackSpeed_x
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
@@ -36,17 +36,17 @@ end
 
 function Sveta:dashAttackStart()
     self.isHittable = true
-    self.customFriction = self.dashFriction
+    self.customFriction = self.dashAttackFriction
     self:setSprite("duck")
     self.speed_y = 0
     self.speed_x = 0
     self.speed_z = 0
-    self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
+    self:showEffect("dashAttack") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Sveta:dashAttackUpdate(dt)
     if self.sprite.curAnim == "duck" and self:canMove() then
         self:setSprite("dashAttack")
-        self.speed_x = self.dashSpeed_x
+        self.speed_x = self.dashAttackSpeed_x
         self:playSfx(self.sfx.dashAttack)
         return
     else
@@ -54,7 +54,7 @@ function Sveta:dashAttackUpdate(dt)
             self:setState(self.stand)
             return
         end
-        self:moveEffectAndEmit("dash", 0.2)
+        self:moveEffectAndEmit("dashAttack", 0.2)
     end
 end
 Sveta.dashAttack = { name = "dashAttack", start = Sveta.dashAttackStart, exit = nop, update = Sveta.dashAttackUpdate, draw = Character.defaultDraw }

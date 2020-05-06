@@ -23,9 +23,9 @@ function Rick:initAttributes()
     self.chargeWalkSpeed_y = 36
     self.runSpeed_x = 138
     self.runSpeed_y = 23
-    self.dashSpeed_x = 125 --speed of the character during dash attack
-    self.dashRepel_x = 180 --how much the dash attack repels other units
-    self.dashFriction = 400
+    self.dashAttackSpeed_x = 125 --speed of the character during dash attack
+    self.dashAttackRepel_x = 180 --how much the dash attack repels other units
+    self.dashAttackFriction = 400
     self.chargeDashAttackSpeed_z = 65
 
     self.comboSlideSpeed2_x = 180 --horizontal speed of combo2Forward attacks
@@ -63,14 +63,14 @@ end
 
 function Rick:dashAttackStart()
     self.isHittable = true
-    self.customFriction = self.dashFriction
+    self.customFriction = self.dashAttackFriction
     self:setSprite("dashAttack")
-    self.speed_x = self.dashSpeed_x
+    self.speed_x = self.dashAttackSpeed_x
     self.speed_y = 0
     self.speed_z = 0
     self.horizontal = self.face
     self:playSfx(self.sfx.dashAttack)
-    self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
+    self:showEffect("dashAttack") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Rick:dashAttackUpdate(dt)
     if self.sprite.isFinished then
@@ -80,7 +80,7 @@ function Rick:dashAttackUpdate(dt)
     if self:canFall() then
         self:calcFreeFall(dt)
     end
-    self:moveEffectAndEmit("dash", 0.3)
+    self:moveEffectAndEmit("dashAttack", 0.3)
 end
 Rick.dashAttack = {name = "dashAttack", start = Rick.dashAttackStart, exit = nop, update = Rick.dashAttackUpdate, draw = Character.defaultDraw}
 
@@ -96,16 +96,16 @@ Rick.specialDefensive = {name = "specialDefensive", start = Rick.specialDefensiv
 
 function Rick:specialOffensiveStart()
     self.isHittable = true
-    self.customFriction = self.dashFriction * 2
+    self.customFriction = self.dashAttackFriction * 2
     self.horizontal = self.face
     self:setSprite("specialOffensive")
     self:startGhostTrails()
-    self.speed_x = self.dashSpeed_x * 2
+    self.speed_x = self.dashAttackSpeed_x * 2
     self.speed_y = 0
     self.speed_z = 0
     self.isAttackConnected = false
     self:playSfx(self.sfx.dashAttack)
-    self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
+    self:showEffect("dashAttack") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Rick:specialOffensiveUpdate(dt)
     if self.sprite.isFinished then
@@ -114,26 +114,26 @@ function Rick:specialOffensiveUpdate(dt)
     end
     if self:canFall() then
         self:calcFreeFall(dt)
-        self:calcFriction(dt, self.dashFriction / 10)
+        self:calcFriction(dt, self.dashAttackFriction / 10)
     else
         self.z = self:getRelativeZ()
     end
-    self:moveEffectAndEmit("dash", 0.5)
+    self:moveEffectAndEmit("dashAttack", 0.5)
 end
 Rick.specialOffensive = {name = "specialOffensive", start = Rick.specialOffensiveStart, exit = Unit.stopGhostTrails, update = Rick.specialOffensiveUpdate, draw = Character.defaultDraw}
 
 function Rick:specialDashStart()
     self.isHittable = true
-    self.customFriction = self.dashFriction
+    self.customFriction = self.dashAttackFriction
     self.horizontal = self.face
     self:setSprite("specialDash")
     self:startGhostTrails()
-    self.speed_x = self.dashSpeed_x
+    self.speed_x = self.dashAttackSpeed_x
     self.speed_y = 0
     self.speed_z = 0
     self.isAttackConnected = false
     self:playSfx(self.sfx.dashAttack)
-    self:showEffect("dash") -- adds vars: self.paDash, paDash_x, self.paDash_y
+    self:showEffect("dashAttack") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Rick:specialDashUpdate(dt)
     if self.sprite.isFinished then
@@ -142,11 +142,11 @@ function Rick:specialDashUpdate(dt)
     end
     if self:canFall() then
         self:calcFreeFall(dt)
-        self:calcFriction(dt, self.dashFriction / 10)
+        self:calcFriction(dt, self.dashAttackFriction / 10)
     else
         self.z = self:getRelativeZ()
     end
-    self:moveEffectAndEmit("dash", 0.5)
+    self:moveEffectAndEmit("dashAttack", 0.5)
 end
 Rick.specialDash = {name = "specialDash", start = Rick.specialDashStart, exit = Unit.stopGhostTrails, update = Rick.specialDashUpdate, draw = Character.defaultDraw}
 
