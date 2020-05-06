@@ -222,8 +222,14 @@ function bindEnemyInput()
     Controls.setHorizontal = function(st) Controls.h = st or 0 end
     Controls.setVertical = function(st) Controls.v = st or 0 end
     Controls.setHorizontalAndVertical = function(sth, stv) Controls.h = sth or 0; Controls.v = stv or 0 end
-    Controls.doHorizontalDoubleTap = function() Controls.horizontal.isDoubleTap = true end
-    Controls.doVerticalDoubleTap = function() Controls.vertical.isDoubleTap = true end
+    Controls.doHorizontalDoubleTap = function(lastDirection)
+        Controls.horizontal.isDoubleTap = true
+        Controls.horizontal.doubleTap.lastDirection = lastDirection or 0
+    end
+    Controls.doVerticalDoubleTap = function(lastDirection)
+        Controls.vertical.isDoubleTap = true
+        Controls.vertical.doubleTap.lastDirection = lastDirection or 0
+    end
     Controls.resetButtons = function() Controls.h= 0; Controls.v = 0; Controls.a = false; Controls.j = false; Controls.s = false end
     Controls.reset = function() Controls.h= 0; Controls.v = 0; Controls.a = false; Controls.j = false; Controls.s = false; Controls.horizontal.isDoubleTap = false; Controls.vertical.isDoubleTap = false end
     Controls.update = function(dt)
