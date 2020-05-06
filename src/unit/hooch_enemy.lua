@@ -12,7 +12,7 @@ end
 
 function Hooch:initAttributes()
     self.moves = { -- list of allowed moves
-        pickUp = true, jump = true, jumpAttackForward = true, grab = true, grabFrontAttack = true,
+        pickUp = true, dashAttack = true, grab = true, grabFrontAttack = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
