@@ -30,8 +30,8 @@ function AI:initialize(unit, settings)
     self.grabChance = settings.grabChance or 0.5 -- 1 == 100%, 0 == 0%
     self.switchTargetToAttackerChance = settings.switchTargetToAttackerChance or 0.25 -- 1 == 100%, 0 == 0%
 
-    self.canDashAttackMin = settings.canDashAttackMin or 30 -- min horizontal dist in px to Dash
-    self.canDashAttackMax = settings.canDashAttackMax or 100 -- max horizontal dist in px to Dash
+    self.canDashAttackMin = settings.canDashAttackMin or 30 -- min horizontal dist in px to DashAttack
+    self.canDashAttackMax = settings.canDashAttackMax or 100 -- max horizontal dist in px to DashAttack
     self.canJumpAttackMin = settings.canJumpAttackMin or 60 -- min horizontal dist in px to JumpAttack
     self.canJumpAttackMax = settings.canJumpAttackMax or 100 -- max horizontal dist in px to JumpAttack
 
