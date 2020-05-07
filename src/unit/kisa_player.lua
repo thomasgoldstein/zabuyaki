@@ -25,12 +25,12 @@ function Kisa:initAttributes()
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
-    self.sfx.jump = "kisaJump"
-    self.sfx.throw = "kisaThrow"
-    self.sfx.jumpAttack = "kisaAttack"
-    self.sfx.dashAttack = "kisaAttack"
-    self.sfx.step = "kisaStep"
-    self.sfx.dead = "kisaDeath"
+    self.sfx.jump = sfx.kisaJump
+    self.sfx.throw = sfx.kisaThrow
+    self.sfx.jumpAttack = sfx.kisaAttack
+    self.sfx.dashAttack = sfx.kisaAttack
+    self.sfx.step = sfx.kisaStep
+    self.sfx.dead = sfx.kisaDeath
 end
 
 function Kisa:comboStart()

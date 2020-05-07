@@ -91,14 +91,14 @@ function Character:initAttributes()
     self.isMovable = true --can be moved by attacks / can be grabbed
     self.specialToleranceDelay = 0.033 -- between pressing the last button of Attack & Jump
     -- default sfx
-    self.sfx.jump = "whooshHeavy"
-    self.sfx.throw = "whooshHeavy"
-    self.sfx.dashAttack = "gopperAttack1"
-    self.sfx.grab = "grab"
-    self.sfx.grabClash = "hitWeak6"
-    self.sfx.jumpAttack = self.sfx.jumpAttack or "nikoAttack1"
-    self.sfx.step = self.sfx.step or "kisaStep"
-    self.sfx.dead = self.sfx.dead or "gopnikDeath1"
+    self.sfx.jump = sfx.whooshHeavy
+    self.sfx.throw = sfx.whooshHeavy
+    self.sfx.dashAttack = sfx.gopperAttack1
+    self.sfx.grab = sfx.grab
+    self.sfx.grabClash = sfx.hitWeak6
+    self.sfx.jumpAttack = self.sfx.jumpAttack or sfx.nikoAttack1
+    self.sfx.step = self.sfx.step or sfx.kisaStep
+    self.sfx.dead = self.sfx.dead or sfx.gopnikDeath1
 end
 
 function Character:addScore(score)
@@ -803,7 +803,7 @@ function Character:sideStepStart()
     self.speed_x = 0
     self.speed_y = self.sideStepSpeed / 2.2
     self.speed_z = self.z <= 0.1 and self.jumpSpeed_z / 1.7 or self.jumpSpeed_z / 6
-    self:playSfx("whooshHeavy")
+    self:playSfx(sfx.whooshHeavy)
 end
 Character.sideStep = {name = "sideStep", start = Character.sideStepStart, exit = nop, update = Character.jumpFallUpdate, draw = Character.defaultDraw}
 
@@ -969,7 +969,7 @@ function Character:fallUpdate(dt)
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                 self:setSprite("fallBounce")
             end
-            self:playSfx(self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
+            self:playSfx(self.sfx.onBreak or sfx.bodyDrop, 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
             self.bounced = self.bounced + 1
             self:showEffect("fallLanding")
             return
@@ -983,7 +983,7 @@ function Character:fallUpdate(dt)
             self.indirectAttacker = false
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
 
-            self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
+            self:playSfx(sfx.bodyDrop, 0.5, sfx.randomPitch() - self.bounced * 0.2)
             self:setState(self.getUp)
             return
         end
@@ -1019,7 +1019,7 @@ function Character:bounceStart()
     end
     self.bounced = 0
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
-    self:playSfx(self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
+    self:playSfx(self.sfx.onBreak or sfx.bodyDrop, 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
     self:showEffect("fallLanding")
 end
 function Character:bounceUpdate(dt)
@@ -1033,7 +1033,7 @@ function Character:bounceUpdate(dt)
             self.speed_x = 0
             self.horizontal = self.face
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
-            self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
+            self:playSfx(sfx.bodyDrop, 0.5, sfx.randomPitch() - self.bounced * 0.2)
             self:setState(self.getUp)
             return
         end
@@ -1493,7 +1493,7 @@ function Character:doThrow(repel_x, repel_y, repel_z, horizontal, face, start_z)
         t.z = start_z
     end
     t:setState(t.fall, "throw")
-    self:playSfx("whooshHeavy")
+    self:playSfx(sfx.whooshHeavy)
     self:playSfx(self.sfx.throw)
 end
 
@@ -1576,7 +1576,7 @@ function Character:grabSwapStart()
     if self.canGrabSwap then
         self.grabSwap_x = g.target.x + self.face * grabDistance
         self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )
-        self:playSfx("whooshHeavy")
+        self:playSfx(sfx.whooshHeavy)
     else    -- cannot perform action because of the obstacle
         self.grabSwap_x = g.target.x
         self.grabSwapGoal = math.abs( self.x - self.grabSwap_x )

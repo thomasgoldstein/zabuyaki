@@ -57,12 +57,12 @@ function Chai:initAttributes()
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
-    self.sfx.jump = "chaiJump"
-    self.sfx.throw = "chaiThrow"
-    self.sfx.jumpAttack = "chaiAttack"
-    self.sfx.dashAttack = "chaiAttack"
-    self.sfx.step = "chaiStep"
-    self.sfx.dead = "chaiDeath"
+    self.sfx.jump = sfx.chaiJump
+    self.sfx.throw = sfx.chaiThrow
+    self.sfx.jumpAttack = sfx.chaiAttack
+    self.sfx.dashAttack = sfx.chaiAttack
+    self.sfx.step = sfx.chaiStep
+    self.sfx.dead = sfx.chaiDeath
 end
 
 function Chai:dashAttackStart()

@@ -53,12 +53,12 @@ function Rick:initAttributes()
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
-    self.sfx.jump = "rickJump"
-    self.sfx.throw = "rickThrow"
-    self.sfx.jumpAttack = "rickAttack"
-    self.sfx.dashAttack = "rickAttack"
-    self.sfx.step = "rickStep"
-    self.sfx.dead = "rickDeath"
+    self.sfx.jump = sfx.rickJump
+    self.sfx.throw = sfx.rickThrow
+    self.sfx.jumpAttack = sfx.rickAttack
+    self.sfx.dashAttack = sfx.rickAttack
+    self.sfx.step = sfx.rickStep
+    self.sfx.dead = sfx.rickDeath
 end
 
 function Rick:dashAttackStart()

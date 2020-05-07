@@ -45,7 +45,7 @@ function Satoff:initAttributes()
     -- default sfx
     self.sfx.throw = sfx.satoffAttack
     self.sfx.jumpAttack = sfx.satoffAttack
-    self.sfx.step = "rickStep" --TODO refactor def files
+    self.sfx.step = sfx.satoffStep
     self.sfx.dead = sfx.satoffDeath
     self.AI = AIMoveCombo:new(self)
 end

@@ -30,7 +30,7 @@ function Sveta:initAttributes()
     -- default sfx
     self.sfx.dead = sfx.svetaDeath
     self.sfx.dashAttack = sfx.svetaAttack
-    self.sfx.step = "kisaStep"
+    self.sfx.step = sfx.svetaStep
     self.AI = AISveta:new(self)
 end
 

@@ -30,7 +30,7 @@ function Gopper:initAttributes()
     -- default sfx
     self.sfx.dead = sfx.gopperDeath
     self.sfx.dashAttack = sfx.gopperAttack
-    self.sfx.step = "kisaStep"
+    self.sfx.step = sfx.gopperStep
     self.AI = AIGopper:new(self)
 end
 
@@ -58,7 +58,7 @@ function Gopper:dashAttackUpdate(dt)
         self.speed_x = 0
         self.z = self:getRelativeZ()
         self.bounced = 1
-        self:playSfx("bodyDrop", 1, 1 + 0.02 * love.math.random(-2,2))
+        self:playSfx(sfx.bodyDrop, 1, 1 + 0.02 * love.math.random(-2,2))
         self:showEffect("fallLanding")
     end
 end

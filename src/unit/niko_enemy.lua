@@ -34,7 +34,7 @@ function Niko:initAttributes()
     --    self.sfx.dashAttack = "rickAttack"
     self.sfx.dead = sfx.nikoDeath
     self.sfx.jumpAttack = sfx.nikoAttack
-    self.sfx.step = "kisaStep"
+    self.sfx.step = sfx.nikoStep
     self.AI = AINiko:new(self)
 end
 

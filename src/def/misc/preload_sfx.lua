@@ -138,16 +138,30 @@ SFX.loadVoice("satoffDeath1","res/sfx/satoffDeath1.wav", 1)
 
 SFX.gopperAttack = {"gopperAttack1","gopperAttack2"}
 SFX.gopperDeath = {"gopnikDeath1","gopnikDeath2"}
+SFX.gopperStep = SFX.kisaStep
 SFX.nikoAttack = {"nikoAttack1","nikoAttack2"}
 SFX.nikoDeath = {"gopnikDeath1","gopnikDeath2"}
+SFX.nikoStep = SFX.kisaStep
 SFX.svetaAttack = {"gopnitsaAttack1","gopnitsaAttack2"}
 SFX.svetaDeath = {"gopnitsaDeath1","gopnitsaDeath2"}
+SFX.svetaStep = SFX.kisaStep
 SFX.zeenaAttack = {"gopnitsaAttack1","gopnitsaAttack2"}
 SFX.zeenaDeath = {"gopnitsaDeath1","gopnitsaDeath2"}
+SFX.zeenaStep = SFX.kisaStep
 SFX.beatnikAttack = {"beatnikAttack1"}
 SFX.beatnikDeath = {"beatnikDeath1"}
+SFX.beatnikStep = SFX.rickStep
 SFX.satoffAttack = {"satoffAttack1"}
 SFX.satoffDeath = {"satoffDeath1"}
+SFX.satoffStep = SFX.rickStep
+SFX.hoochAttack = SFX.nikoAttack
+SFX.hoochDeath = SFX.nikoDeath
+SFX.hoochStep = SFX.nikoStep
+SFX.yarAttack = SFX.rickAttack
+SFX.yarDeath = SFX.rickDeath
+SFX.yarStep = SFX.rickStep
+SFX.yarJump = SFX.rickJump
+SFX.yarThrow = SFX.rickThrow
 
 SFX.load("metalGrab","res/sfx/metalBreak.wav", 0.5)
 SFX.load("metalHit","res/sfx/metalHit.wav", 1)

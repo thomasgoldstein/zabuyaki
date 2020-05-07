@@ -30,7 +30,7 @@ function Beatnik:initAttributes()
     -- default sfx
     self.sfx.dead = sfx.beatnikDeath
     self.sfx.dashAttack = sfx.beatnikAttack
-    self.sfx.step = "rickStep"
+    self.sfx.step = sfx.beatnikStep
     self.AI = AIMoveCombo:new(self)
 end
 

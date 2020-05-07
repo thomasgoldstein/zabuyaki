@@ -38,9 +38,9 @@ function Hooch:initAttributes()
     --    self.sfx.jump = "rickJump"
     --    self.sfx.throw = "rickThrow"
     --    self.sfx.dashAttack = "rickAttack"
-    self.sfx.dead = sfx.nikoDeath
-    self.sfx.jumpAttack = sfx.nikoAttack
-    self.sfx.step = "kisaStep"
+    self.sfx.dead = sfx.hoochDeath
+    self.sfx.jumpAttack = sfx.hoochAttack
+    self.sfx.step = sfx.hoochStep
     self.AI = AIGopper:new(self)
 end
 

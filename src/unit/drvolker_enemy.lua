@@ -29,9 +29,9 @@ function DrVolker:initAttributes()
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
-    self.sfx.dead = sfx.RickDeath
-    self.sfx.dashAttack = sfx.RickAttack
-    self.sfx.step = "rickStep"
+    self.sfx.dead = sfx.rickDeath
+    self.sfx.dashAttack = sfx.rickAttack
+    self.sfx.step = sfx.rickStep
     --self.AI = AIGopper:new(self)
 end
 

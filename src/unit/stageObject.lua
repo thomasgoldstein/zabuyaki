@@ -200,7 +200,7 @@ function StageObject:fallUpdate(dt)
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
             end
-            self:playSfx(self.sfx.onBreak or "bodyDrop", 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
+            self:playSfx(self.sfx.onBreak or sfx.bodyDrop, 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
             self.bounced = self.bounced + 1
             self:showEffect("fallLanding")
             return
@@ -211,7 +211,7 @@ function StageObject:fallUpdate(dt)
             self.speed_y = 0
             self.speed_x = 0
             self.horizontal = self.face
-            self:playSfx("bodyDrop", 0.5, sfx.randomPitch() - self.bounced * 0.2)
+            self:playSfx(sfx.bodyDrop, 0.5, sfx.randomPitch() - self.bounced * 0.2)
             self:setState(self.getUp)
             return
         end

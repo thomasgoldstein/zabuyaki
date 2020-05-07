@@ -155,7 +155,7 @@ local chargeDashAttack = function(slf, cont)
     )
 end
 local specialDefensiveShake = function(slf, cont)
-    slf:playSfx("hitWeak1")
+    slf:playSfx(sfx.hitWeak1)
     mainCamera:onShake(0, 2, 0.03, 0.3)
 end
 local specialDefensive1 = function(slf, cont) slf:checkAndAttack(

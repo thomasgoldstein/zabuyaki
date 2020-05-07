@@ -26,7 +26,7 @@ function Zeena:initAttributes()
     -- default sfx
     self.sfx.dead = sfx.zeenaDeath
     self.sfx.jumpAttack = sfx.zeenaAttack
-    self.sfx.step = "kisaStep"
+    self.sfx.step = sfx.zeenaAttackStep
     self.AI = AIZeena:new(self)
 end
 

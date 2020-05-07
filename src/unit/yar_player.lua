@@ -48,12 +48,12 @@ function Yar:initAttributes()
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
-    self.sfx.jump = "rickJump"
-    self.sfx.throw = "rickThrow"
-    self.sfx.jumpAttack = "rickAttack"
-    self.sfx.dashAttack = "rickAttack"
-    self.sfx.step = "rickStep"
-    self.sfx.dead = "rickDeath"
+    self.sfx.jump = sfx.yarJump
+    self.sfx.throw = sfx.yarThrow
+    self.sfx.jumpAttack = sfx.yarAttack
+    self.sfx.dashAttack = sfx.yarAttack
+    self.sfx.step = sfx.yarStep
+    self.sfx.dead = sfx.yarDeath
 end
 
 return Yar
