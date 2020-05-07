@@ -8,7 +8,11 @@ SFX.play = function(actor, alias, volume, pitch, func)
     local s
     if alias then
         if type(alias) == "table" then
-            s = SFX[alias[love.math.random(1,#alias)]]
+            if #alias == 0 then
+                s = alias
+            else
+                s = SFX[alias[love.math.random(1,#alias)]]
+            end
         else
             s = SFX[alias]
         end
