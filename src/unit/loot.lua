@@ -76,7 +76,7 @@ end
 local funcDropApple = function(slf)
     local loot = Loot:new("Apple", gfx.loot.apple,
         math.floor(slf.x), math.floor(slf.y) + 1,
-        { hp = 15, score = 0, pickUpNote = "+15 HP", pickUpSfx = "pickUpApple"} --, func = testDeathFunc
+        { hp = 25, score = 0, pickUpNote = "+25 HP", pickUpSfx = "pickUpApple"} --, func = testDeathFunc
     )
     loot:setOnStage(stage)
 end
