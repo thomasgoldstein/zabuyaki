@@ -1,5 +1,16 @@
 local doubleTapDelta = 0.25
 
+Controls = {}   -- global controls list
+local commonPlayersGamepadButtons = { attack = 'a', jump = 'b', start  = 'start', back = 'back'}
+local playersKeys = {   -- for P1, P2, P3
+    { left = 'left', right = 'right', up = 'up', down = 'down', attack = 'x', jump = 'c',
+      start = 'return', back = 'escape', fullScreen = 'f11', screenshot = '/', screenshot2 = 'pause' },
+    { left = 'a', right = 'd', up = 'w', down = 's', attack = 'i', jump = 'o',
+      start = '', back = '', fullScreen = '', screenshot = '', screenshot2 = '' },
+    { left = 'f', right = 'h', up = 't', down = 'g', attack = 'r', jump = 'y',
+      start = '', back = '', fullScreen = '', screenshot = '', screenshot2 = '' },
+}
+
 local connected = {}
 function love.joystickadded(joystick)
     connected[joystick] = joystick
@@ -68,92 +79,49 @@ local function gamepadDigitalAxis(num, axis)
     end
 end
 
+-- buttons = { attack = 'a', jump = 'b', start  = 'start', back = 'back'}
+-- keys = { left = 'left', right = 'right', up = 'up', down = 'down', attack = 'x', jump = 'c', start  = 'return', back = 'escape', fullscreen = 'f11', screenshot = '/', screenshot2 = 'pause'}
+--- Create controls for a player
+--- @param gamepadNum number control number 1..3 (it coincides with the gamepad number)
+--- @param buttons table list of gamepad buttons
+--- @param keys table list of keyboard keys for a player
+function createControl(gamepadNum, buttons, keys)
+    return {
+        horizontal = tactile.newControl()
+                            :addAxis(gamepadDigitalAxis(gamepadNum, 'leftx'))
+                            :addAxis(gamepadHat(gamepadNum, 1, "horizontal"))
+                            :addButtonPair(tactile.keys(keys.left), tactile.keys(keys.right)),
+        vertical = tactile.newControl()
+                          :addAxis(gamepadDigitalAxis(gamepadNum, 'lefty'))
+                          :addAxis(gamepadHat(gamepadNum, 1, "vertical"))
+                          :addButtonPair(tactile.keys(keys.up), tactile.keys(keys.down)),
+        attack = tactile.newControl()
+                        :addButton(tactile.gamepadButtons(gamepadNum, buttons.attack))
+                        :addButton(tactile.keys(keys.attack)),
+        jump = tactile.newControl()
+                      :addButton(tactile.gamepadButtons(gamepadNum, buttons.jump))
+                      :addButton(tactile.keys(keys.jump)),
+        strafe = tactile.newControl()
+                        :addButton(function() return false end),
+        start = tactile.newControl()
+                       :addButton(tactile.keys(keys.start))
+                       :addButton(tactile.gamepadButtons(gamepadNum, buttons.start)),
+        back = tactile.newControl()
+                      :addButton(tactile.keys(keys.back))
+                      :addButton(tactile.gamepadButtons(gamepadNum, buttons.back)),
+        fullScreen = tactile.newControl()
+                            :addButton(tactile.keys(keys.fullScreen)),
+        screenshot = tactile.newControl()
+                            :addButton(tactile.keys(keys.screenshot))
+                            :addButton(tactile.keys(keys.screenshot2))
+    }
+end
+
 function bindGameInput()
     Controls = {}
-    -- define Player 1 controls
-    local gamepad1 = 1
-    local gamepad2 = 2
-    local gamepad3 = 3
-    Controls[gamepad1] = {
-        horizontal = tactile.newControl()
-                            :addAxis(gamepadDigitalAxis(gamepad1, 'leftx'))
-                            :addAxis(gamepadHat(gamepad1, 1, "horizontal"))
-        --:addAxis(gamepadDigitalAxis(1, 'rightx'))
-                            :addButtonPair(tactile.keys('left'), tactile.keys('right')),
-        vertical = tactile.newControl()
-                          :addAxis(gamepadDigitalAxis(gamepad1, 'lefty'))
-                          :addAxis(gamepadHat(gamepad1, 1, "vertical"))
-        --:addAxis(gamepadDigitalAxis(1, 'righty'))
-                          :addButtonPair(tactile.keys('up'), tactile.keys('down')),
-        attack = tactile.newControl()
-                        :addButton(tactile.gamepadButtons(gamepad1, 'a'))
-                        :addButton(tactile.keys('x')),
-        jump = tactile.newControl()
-                      :addButton(tactile.gamepadButtons(gamepad1, 'b'))
-                      :addButton(tactile.keys('c')),
-        strafe = tactile.newControl()
-                :addButton(function() return false end),
-        --TODO test
-        start = tactile.newControl()
-                       :addButton(tactile.keys('return'))
-                       :addButton(tactile.gamepadButtons(gamepad1, 'start')),
-        back = tactile.newControl()
-                      :addButton(tactile.keys('escape'))
-                      :addButton(tactile.gamepadButtons(gamepad1, 'back')),
-        fullScreen = tactile.newControl()
-                            :addButton(tactile.keys('f11')),
-        screenshot = tactile.newControl()
-                            :addButton(tactile.keys('pause'))
-                            :addButton(tactile.keys('/'))
-    }
-    -- define Player 2 controls
-    Controls[gamepad2] = {
-        horizontal = tactile.newControl()
-                            :addAxis(gamepadDigitalAxis(gamepad2, 'leftx'))
-                            :addAxis(gamepadHat(gamepad2, 1, "horizontal"))
-                            :addButtonPair(tactile.keys('a'), tactile.keys('d')),
-        vertical = tactile.newControl()
-                          :addAxis(gamepadDigitalAxis(gamepad2, 'lefty'))
-                          :addAxis(gamepadHat(gamepad2, 1, "vertical"))
-                          :addButtonPair(tactile.keys('w'), tactile.keys('s')),
-        attack = tactile.newControl()
-                        :addButton(tactile.gamepadButtons(gamepad2, 'a'))
-                        :addButton(tactile.keys 'i'),
-        jump = tactile.newControl()
-                      :addButton(tactile.gamepadButtons(gamepad2, 'b'))
-                      :addButton(tactile.keys 'o'),
-        strafe = tactile.newControl()
-                        :addButton(function() return false end),
-        start = tactile.newControl()
-                       :addButton(tactile.gamepadButtons(gamepad2, 'start')),
-        back = tactile.newControl()
-                      :addButton(tactile.gamepadButtons(gamepad2, 'back'))
-    }
-    -- define Player 3 controls
-    Controls[gamepad3] = {
-        horizontal = tactile.newControl()
-                            :addAxis(gamepadDigitalAxis(gamepad3, 'leftx'))
-                            :addAxis(gamepadHat(gamepad3, 1, "horizontal"))
-                            :addButtonPair(tactile.keys('f'), tactile.keys('h')),
-        vertical = tactile.newControl()
-                          :addAxis(gamepadDigitalAxis(gamepad3, 'lefty'))
-                          :addAxis(gamepadHat(gamepad3, 1, "vertical"))
-                          :addButtonPair(tactile.keys('t'), tactile.keys('g')),
-        attack = tactile.newControl()
-                        :addButton(tactile.gamepadButtons(gamepad3, 'a'))
-                        :addButton(tactile.keys 'r'),
-        jump = tactile.newControl()
-                      :addButton(tactile.gamepadButtons(gamepad3, 'b'))
-                      :addButton(tactile.keys 'y'),
-        strafe = tactile.newControl()
-                        :addButton(function() return false end),
-        start = tactile.newControl()
-                       :addButton(tactile.gamepadButtons(gamepad3, 'start')),
-        back = tactile.newControl()
-                      :addButton(tactile.gamepadButtons(gamepad3, 'back'))
-    }
     for i = 1, 3 do
         local p = getRegisteredPlayer(i)
+        Controls[i] = createControl( i, commonPlayersGamepadButtons, playersKeys[i] )   -- Controls should be created for all possible players
         if p then
             p.b = Controls[i]
         end
