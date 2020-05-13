@@ -106,7 +106,7 @@ function Character:addScore(score)
 end
 
 function Character:updateAI(dt)
-    if self.isDisabled then
+    if self.isDisabled or not self.isVisible then
         return
     end
     self.time = self.time + dt
@@ -431,7 +431,7 @@ function Character:standUpdate(dt)
             self.sprite.curFrame = love.math.random(1, self.sprite.maxFrame)
         end
     end
-    if self.b.attack:pressed() then
+    if self.b.attack:pressed() and self.isVisible then
         if self.moves.pickUp and self:checkForLoot() ~= nil then
             self:setState(self.pickUp)
             return
@@ -499,7 +499,7 @@ function Character:walkUpdate(dt)
         if self.moves.pickUp and self:checkForLoot() ~= nil then
             self:setState(self.pickUp)
             return
-        elseif self.moves.combo then
+        elseif self.moves.combo and self.isVisible then
             self:setState(self.combo)
             return
         end
@@ -1784,6 +1784,7 @@ function Character:eventMoveStart()
     if not self.condition then
         error(self.name.." eventMove got no target x,y")
     end
+    self.isVisible = true   -- visible on any movement event
     self.waitUntilAnimationEnd = 0
     self.toSlowDown = false
     local f = self.condition

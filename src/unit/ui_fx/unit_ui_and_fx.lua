@@ -289,7 +289,7 @@ function Unit:updateGhostTrails(dt)
 end
 
 function Unit:drawShadow(l, t, w, h)
-    if not self.isDisabled and CheckCollision(l, t, w, h, self.x - 45, self.y - 10, 90, 20) then
+    if not self.isDisabled and self.isVisible and CheckCollision(l, t, w, h, self.x - 45, self.y - 10, 90, 20) then
         local image, spr, sc, shadowAngle, y_shift = self:calcShadowSpriteAndTransparency()
         love.graphics.draw(image, --The image
             sc.q, --Current frame of the current animation
@@ -303,7 +303,7 @@ function Unit:drawShadow(l, t, w, h)
 end
 
 function Unit:drawReflection(l, t, w, h)
-    if not self.isDisabled and CheckCollision(l, t, w, h, self.x - 45, self.y - 10, 90, 20) then
+    if not self.isDisabled and self.isVisible and CheckCollision(l, t, w, h, self.x - 45, self.y - 10, 90, 20) then
         local image, spr, sc, shadowAngle, y_shift = self:calcReflectionSpriteAndTransparency()
         love.graphics.draw(image, --The image
             sc.q, --Current frame of the current animation
@@ -350,7 +350,7 @@ end
 
 local transpBg
 function Unit:defaultDraw(l, t, w, h, transp)
-    if not self.isDisabled then
+    if not self.isDisabled and self.isVisible then
         if CheckCollision(l, t, w, h, self.x - 35, self.y - 70, 70, 70) then
             self:drawGhostTrails(l, t, w, h)
             self.sprite.flipH = self.face --TODO get rid of .face
