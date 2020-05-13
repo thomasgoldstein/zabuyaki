@@ -343,6 +343,7 @@ local function addPlayersToStage(items, players, stage)
                         Controls[i]
                     )
                     player:setOnStage(stage)
+                    player.isVisible = v.visible
                 end
             else
                 error("Wrong Tiled object type #"..i..":"..inspect(v))
