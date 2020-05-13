@@ -25,7 +25,7 @@ function Character:initialize(name, sprite, x, y, f, input)
     self.score = 0
     self.lifeBarTimer = 0
     self.chargedAt = 1    -- define # seconds when chargeAttack is ready
-    self.chargeTimer = -10    -- seconds of charging
+    self.chargeTimer = 0    -- seconds of charging
     self.comboN = 1    -- n of the combo hit
     self.comboTimeout = 0.37 -- max delay to connect combo hits
     self.comboTimer = 0    -- can continue combo if > 0
