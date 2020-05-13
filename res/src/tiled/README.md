@@ -240,8 +240,11 @@ Every unit should contain these properties
 
 ## Define players start positions ## 
 3 "Point" objects should be added into the root of **Object layers** named "players".
-Only first 3 objects are used. The rest objects are ignored.
-Their naming doesn't matter.
+Their naming doesn't matter. The objects after the 3rd ignored. 
+> Hint: Disable players objects **visible** property if you have an event that alters the set x,y position.
+>E.g. There is an event called by its name from the **onStart** property of the 1st Wave.
+>The called event has properties as **togox** or others that
+>teleport players off the screen and then walk them into the stage.
 
 ## Define next stage map file name ## 
 Use menu **Map / Map Properties**/ to see the list of properties.
