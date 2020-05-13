@@ -42,13 +42,13 @@
   <object id="20" x="1536" y="0" width="64" height="320"/>
  </objectgroup>
  <objectgroup color="#00aaff" id="5" name="players" locked="1">
-  <object id="3" name="1" x="48" y="265">
+  <object id="3" name="1" x="48" y="265" visible="0">
    <point/>
   </object>
-  <object id="4" name="2" x="32" y="285">
+  <object id="4" name="2" x="32" y="285" visible="0">
    <point/>
   </object>
-  <object id="5" name="3" x="16" y="305">
+  <object id="5" name="3" x="16" y="305" visible="0">
    <point/>
   </object>
  </objectgroup>

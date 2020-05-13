@@ -410,7 +410,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = true,
+          visible = false,
           properties = {}
         },
         {
@@ -423,7 +423,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = true,
+          visible = false,
           properties = {}
         },
         {
@@ -436,7 +436,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = true,
+          visible = false,
           properties = {}
         }
       }
