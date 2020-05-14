@@ -39,6 +39,7 @@ function Character:initialize(name, sprite, x, y, f, input)
     self.victimLifeBar = nil
     self.priority = 1
     self.bounced = 0 -- the bouncing counter
+    self.isCharacterControlsEnabled = true
 end
 
 function Character:initAttributes()
@@ -431,7 +432,10 @@ function Character:standUpdate(dt)
             self.sprite.curFrame = love.math.random(1, self.sprite.maxFrame)
         end
     end
-    if self.b.attack:pressed() and self.isVisible then
+    if not self.isCharacterControlsEnabled then
+        return
+    end
+    if self.b.attack:pressed() then
         if self.moves.pickUp and self:checkForLoot() ~= nil then
             self:setState(self.pickUp)
             return
@@ -495,11 +499,14 @@ function Character:walkUpdate(dt)
         self:setState(self.dropDown)
         return
     end
+    if not self.isCharacterControlsEnabled then
+        return
+    end
     if self.b.attack:pressed() then
         if self.moves.pickUp and self:checkForLoot() ~= nil then
             self:setState(self.pickUp)
             return
-        elseif self.moves.combo and self.isVisible then
+        elseif self.moves.combo then
             self:setState(self.combo)
             return
         end
@@ -1785,6 +1792,7 @@ function Character:eventMoveStart()
         error(self.name.." eventMove got no target x,y")
     end
     self.isVisible = true   -- visible on any movement event
+    self.isCharacterControlsEnabled = false
     self.waitUntilAnimationEnd = 0
     self.toSlowDown = false
     local f = self.condition
@@ -1872,6 +1880,7 @@ function Character:eventMoveUpdate(dt)
         self:removeTweenMove()
         if not self.event:startNext(self) then
             self.chargeTimer = 0    -- seconds of charging
+            self.isCharacterControlsEnabled = true
             self:setState(self.stand)
         end
     end

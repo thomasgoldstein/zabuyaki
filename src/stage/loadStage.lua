@@ -344,6 +344,7 @@ local function addPlayersToStage(items, players, stage)
                     )
                     player:setOnStage(stage)
                     player.isVisible = v.visible
+                    player.isCharacterControlsEnabled = false
                 end
             else
                 error("Wrong Tiled object type #"..i..":"..inspect(v))
