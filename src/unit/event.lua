@@ -23,11 +23,11 @@ end
 
 local statesToStartEvent = { walk = true, stand = true, run = true, eventMove = true }
 function Event:checkAndStart(player)
-    if (self.properties.go
+    if (not player.move
+        and self.properties.go
         or self.properties.gox or self.properties.goy
         or self.properties.togox or self.properties.togoy)  -- 'go' event kinds
         and player.state ~= "useCredit"
-        and not player.move
         and (statesToStartEvent[player.state] or self.properties.ignorestate)
     then
         player:setState(player.eventMove, {
@@ -51,6 +51,8 @@ function Event:checkAndStart(player)
             stage.nextMap = self.properties.nextmap
         end
         return true
+    elseif player.move then
+        return false -- some other event started moving/tweening and it is in process
     elseif self.properties.nextmap then
         stage.nextMap = self.properties.nextmap
         return true
