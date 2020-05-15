@@ -1879,8 +1879,6 @@ function Character:eventMoveUpdate(dt)
     if self.move and self.move.clock >= self.move.duration then
         self:removeTweenMove()
         if not self.event:startNext(self) then
-            -- TODO remove this? VvVVV
-            self.event.isDisabled = true
             self.chargeTimer = 0    -- seconds of charging
             self.isCharacterControlEnabled = true
             self:setState(self.stand)
