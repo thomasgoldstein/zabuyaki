@@ -89,7 +89,7 @@ function Event:updateAI(dt)
     if self.isDisabled then
         return
     end
-    local wasApplied = false
+    local isDone = false
     if self.properties.notouch and self.applyToPlayers then
         -- try to apply eventMove to the list of players
         if #self.applyToPlayers > 0 then
@@ -98,11 +98,11 @@ function Event:updateAI(dt)
                 local player = self.applyToPlayers[i]
                 dp("     ", player.state, player.name, player.id, player.x, player.y, player:isAlive(), statesToStartEvent[player.state])
                 if player and player:isAlive() then
-                    wasApplied = false
+                    isDone = false
                     if statesToStartEvent[player.state] then
-                        wasApplied = self:checkAndStart(player)
+                        isDone = self:checkAndStart(player)
                     end
-                    if wasApplied or player.state == "useCredit" then
+                    if isDone or player.state == "useCredit" then
                         dp(" table item removed", i, player.name)
                         table.remove(self.applyToPlayers,i)
                     end
@@ -157,24 +157,24 @@ function Event:startEvent(startByPlayer)
     end
     self.applyToPlayers = {}
     dp("startEvent "..self.name)
-    local wasApplied = false
+    local isDone = false
     if startByPlayer and self.properties.move == "player" and player.state ~= "useCredit" then
         self.applyToPlayers[#self.applyToPlayers + 1] = startByPlayer
         dp(" added player to the event que ", startByPlayer.name)
-        wasApplied = true
+        isDone = true
     elseif self.properties.move == "players" then --all alive players
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local player = getRegisteredPlayer(i)
             if player and player:isAlive() and player.state ~= "useCredit" then
                 self.applyToPlayers[#self.applyToPlayers + 1] = player
                 dp(" added player ".. player.name .." to the event que #", i)
-                wasApplied = true
+                isDone = true
             end
         end
     else
         error("Event '"..self.name.."' unknown move type: "..tostring(self.properties.move))
     end
-    return wasApplied
+    return isDone
 end
 
 function Event:onHurt()
