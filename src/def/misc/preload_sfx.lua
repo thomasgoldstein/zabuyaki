@@ -17,7 +17,7 @@ SFX.play = function(actor, alias, volume, pitch, func)
             s = SFX[alias]
         end
         TEsound.stop(s.prefix .. actor or "", false)
-        TEsound.play(s.src,s.prefix .. actor or "", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
+        TEsound.play(s.src,s.prefix .. actor or "", GLOBAL_SETTING.SFX_VOLUME * s.volume * (volume or 1), s.pitch * (pitch or 1), func)
     end
 end
 
@@ -30,7 +30,7 @@ SFX.playMix = function(actor, alias, volume, pitch, func)
         else
             s = SFX[alias]
         end
-        TEsound.play(s.src, s.prefix .. actor or "", s.volume * (volume or 1), s.pitch * (pitch or 1), func)
+        TEsound.play(s.src, s.prefix .. actor or "", GLOBAL_SETTING.SFX_VOLUME * s.volume * (volume or 1), s.pitch * (pitch or 1), func)
     end
 end
 
