@@ -3,13 +3,12 @@ local Unit = Unit
 local clamp = clamp
 local CheckCollision = CheckCollision
 
-function Unit:playSfx(sample, ...)
-    sfx.play(self.id, sample, ...)
+function Unit:playSfx(sample, volume, pitch)
+    sfx.play(self.id, sample, volume, pitch)
 end
 
 function Unit:playHitSfx(dmg)
     local alias
-    --TEsound.stop("sfx"..self.id, false)
     if self.sfx.onHit then
         self:playSfx(self.sfx.onHit, nil, 1 + 0.008 * love.math.random(-1, 1))
         return
@@ -21,8 +20,7 @@ function Unit:playHitSfx(dmg)
         alias = sfx.hitHard
     end
     local s = sfx[alias[love.math.random(1, #alias)]]
-    sfx.play("sfx", s, )
-    --TEsound.play(s.src, "sfx" .. self.id, GLOBAL_SETTING.SFX_VOLUME * s.volume, s.pitch)
+    sfx.play("sfx", s)
 end
 
 function Unit:showHitMarks(dmg, z, offset_x)
