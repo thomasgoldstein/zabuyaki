@@ -17,6 +17,10 @@ BGM.setVolume = function(_musicVolume)
     end
 end
 
+BGM.getVolume = function()
+    return musicVolume
+end
+
 BGM.play = function(alias)
     local musicPath
     if type(alias) == "table" then

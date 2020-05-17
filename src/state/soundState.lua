@@ -92,13 +92,8 @@ function soundState:draw()
             m.item = "SFX #"..m.n.." "..sfx[m.n].alias
             m.hint = "by "..sfx[m.n].copyright
         elseif i == menuItems.musicTrackN then
-            if m.n == 0 then
-                m.item = "STOP MUSIC"
-                m.hint = ""
-            else
-                m.item = "MUSIC #"..m.n.." "..bgm[m.n].fileName
-                m.hint = "by "..bgm[m.n].copyright
-            end
+            m.item = "MUSIC #"..m.n.." "..bgm[m.n].fileName
+            m.hint = "by "..bgm[m.n].copyright
         end
         calcMenuItem(menu, i)
         if i == oldMenuState then
@@ -156,9 +151,13 @@ function soundState:confirm( x, y, button, istouch )
             sfx.play("sfx", menu[menuState].n)
         elseif menuState == menuItems.musicTrackN then
             if menu[menuState].n > 0 then
-                bgm.play(bgm[menu[menuState].n].filePath)
+                bgm.play(bgm[menu[menuState].n].alias)
             end
-            bgm.setVolume(1) -- max volume
+            if bgm.getVolume() <= 0 then    -- restore at least 50% of bgm volume on mute
+                GLOBAL_SETTING.BGM_VOLUME = 0.5
+                menu[menuState].n  = GLOBAL_SETTING.BGM_VOLUME / volumeStep
+                bgm.setVolume()
+            end
         end
     end
 end
@@ -218,11 +217,11 @@ function soundState:wheelmoved(x, y)
             menu[menuState].n = 1
         end
     elseif menuState == menuItems.musicTrackN then
-        if menu[menuState].n < 0 then
+        if menu[menuState].n < 1 then
             menu[menuState].n = #bgm
         end
         if menu[menuState].n > #bgm then
-            menu[menuState].n = 0
+            menu[menuState].n = 1
         end
     end
     if menuState ~= menuItems.soundSampleN then
