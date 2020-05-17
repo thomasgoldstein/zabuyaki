@@ -74,7 +74,7 @@ function Enemy:decreaseHp(damage)
         end
     end
 end
-function Enemy:canAttackTarget(target)
+function Enemy:isFriendlyAttack(target)
     if self.canEnemyFriendlyAttack and target.canEnemyFriendlyAttack then
         return true
     end
