@@ -186,6 +186,13 @@ function Player:isImmune()   --Immune to the attack?
     return false
 end
 
+function Player:canGrab(target)
+    if target.type ~= "player" or (self.canFriendlyAttack and target.canFriendlyAttack) then
+        return true
+    end
+    return false
+end
+
 function Player:onHurtDamage()
     local h = self.isHurt
     if not h then

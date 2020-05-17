@@ -48,6 +48,13 @@ function Enemy:isImmune()   --Immune to the attack?
     return false
 end
 
+function Enemy:canGrab(target)
+    if target.type ~= "enemy" or (self.canEnemyFriendlyAttack and target.canEnemyFriendlyAttack) then
+        return true
+    end
+    return false
+end
+
 function Enemy:onAttacker(h)
     self.AI:onHurtSwitchTarget(h.source)
     Character.onAttacker(self, h)

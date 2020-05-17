@@ -1164,6 +1164,7 @@ function Character:checkForGrab()
             and o ~= self.platform
             and math.abs(o.z - self.z) < 10 -- cannot grab unit from a platform
             and self:collidesWith(o)
+            and self:canGrab(o)
         then
             return o
         end
