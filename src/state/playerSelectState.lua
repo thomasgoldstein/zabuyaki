@@ -322,7 +322,7 @@ function playerSelectState:enter()
     end
     love.graphics.setLineWidth( 2 )
     --TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+    --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
 function playerSelectState:resume()

@@ -41,8 +41,8 @@ end
 function Wave:startPlayingMusic(n)
     local wave = self.waves[n or self.n]
     if wave.music and previousStageMusic ~= wave.music then
-        TEsound.stop("music")
-        TEsound.playLooping(bgm[wave.music], "music")
+        --TEsound.stop("music")
+        --TEsound.playLooping(bgm[wave.music], "music")
         previousStageMusic = wave.music
     end
 end

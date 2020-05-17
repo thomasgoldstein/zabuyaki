@@ -357,8 +357,8 @@ end
 function spriteViewerState:confirm( x, y, button, istouch )
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
-        TEsound.stop("music")
-        TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+        --TEsound.stop("music")
+        --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
         return Gamestate.pop()
     end
     if button == 1 then

@@ -26,7 +26,7 @@ function arcadeState:resume()
     love.graphics.setLineWidth( 1 )
     --restore BGM music volume
     --TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+    --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
 function arcadeState:enter(_, players)
@@ -47,7 +47,7 @@ function arcadeState:enter(_, players)
     end
     love.graphics.setLineWidth( 1 )
     --TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+    --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
 end
 
 function arcadeState:update(dt)

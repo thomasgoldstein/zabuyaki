@@ -66,8 +66,8 @@ function Movie:initialize(frames)
         self.frames[i].x =  r( (screenWidth - width) / 2 )
     end
     if frames.music then
-        TEsound.stop("music")
-        TEsound.playLooping(frames.music, "music")
+        --TEsound.stop("music")
+        --TEsound.playLooping(frames.music, "music")
     end
 end
 
@@ -105,8 +105,8 @@ function Movie:update(dt)
         end
         self.time = 0
         if self.frames[self.frame].music then
-            TEsound.stop("music")
-            TEsound.playLooping(self.frames[self.frame].music, "music")
+            --TEsound.stop("music")
+            --TEsound.playLooping(self.frames[self.frame].music, "music")
         end
     end
     local timeToFadeout = self.frames[self.frame].delay + self.delayAfterFrame - 1

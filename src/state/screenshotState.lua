@@ -4,7 +4,7 @@ local screenWidth = 640
 local screenHeight = 480
 
 function screenshotState:enter()
-    TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
+    --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
     sfx.play("sfx","menuCancel")
 
     Controls[1].attack:update()

@@ -132,9 +132,9 @@ function optionsState:confirm( x, y, button, istouch )
         elseif menuState == menuItems.defaults then
             sfx.play("sfx","menuSelect")
             configuration:reset()
-            TEsound.stop("music")
-            TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-            TEsound.playLooping(bgm.title, "music")
+            --TEsound.stop("music")
+            --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+            --TEsound.playLooping(bgm.title, "music")
             --TODO: add video mode, video filter reset
 
         elseif menuState == menuItems.spriteViewer then

@@ -21,7 +21,8 @@ function Unit:playHitSfx(dmg)
         alias = sfx.hitHard
     end
     local s = sfx[alias[love.math.random(1, #alias)]]
-    TEsound.play(s.src, "sfx" .. self.id, GLOBAL_SETTING.SFX_VOLUME * s.volume, s.pitch)
+    sfx.play("sfx", s, )
+    --TEsound.play(s.src, "sfx" .. self.id, GLOBAL_SETTING.SFX_VOLUME * s.volume, s.pitch)
 end
 
 function Unit:showHitMarks(dmg, z, offset_x)
