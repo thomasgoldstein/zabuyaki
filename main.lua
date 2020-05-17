@@ -59,7 +59,6 @@ function love.load(arg)
     love.filesystem.setIdentity("Zabuyaki")
     --Libraries
     class = require "lib/middleclass"
-    --require "lib/TEsound"
 
     local windowWidth, windowHeight = love.window.getDesktopDimensions()
     if not GLOBAL_SETTING.FULL_SCREEN then
@@ -235,7 +234,6 @@ function love.update(dt)
     if Controls[1].fullScreen:pressed() then
         switchFullScreen()
     end
-    --TEsound.cleanup()
 end
 
 function love.draw()
