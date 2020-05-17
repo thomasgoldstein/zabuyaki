@@ -1,7 +1,7 @@
 local SFX = {}
 
-SFX.play = function(actor, alias, volume, pitch, func)
-    local s
+SFX.play = function(actor, alias, volume, pitch)
+    local s, src
     if alias then
         if type(alias) == "table" then
             if #alias == 0 then
@@ -12,18 +12,21 @@ SFX.play = function(actor, alias, volume, pitch, func)
         else
             s = SFX[alias]
         end
-        --TEsound.stop(s.prefix .. actor or "", false)
-        --TEsound.play(s.src,s.prefix .. actor or "", GLOBAL_SETTING.SFX_VOLUME * s.volume * (volume or 1), s.pitch * (pitch or 1), func)
-        if s.src:isPlaying() then
-            s.src:clone():play()
-        else
-            --s.src:setVolume(GLOBAL_SETTING.SFX_VOLUME)
-            s.src:play()
+        src = s.src
+        if src:isPlaying() then
+            src = src:clone()
         end
+        if volume then
+            src:setVolume(volume * s.volume * GLOBAL_SETTING.SFX_VOLUME)
+        end
+        if pitch then
+            src:setPitch(pitch)
+        end
+        src:play()
     end
 end
 
-SFX.setVolumeOfAllSfx = function()
+SFX.setVolumeOfAllSfx = function()  -- set volume to all preloaded sfx
     for i = 1, #SFX do
         SFX[i].src:setVolume(SFX[i].volume * GLOBAL_SETTING.SFX_VOLUME)
     end
@@ -36,10 +39,9 @@ end
 
 SFX.load = function(alias, s, volume, pitch, copyright, prefix)
     local src = love.audio.newSource(s, "static")
-    --src:setVolume(0)
-    --src:play()
-    --src:stop()
-    --src:setVolume(volume or 1)
+    if pitch then
+        src:setPitch(pitch)
+    end
     assert(SFX[alias] == nil, "Sound FX alias '"..alias.."' not found")
     SFX[alias] = {src = src, pitch = pitch or 1, volume = volume or 1, alias = alias, copyright = copyright or "SubspaceAudio", prefix = prefix or "Sfx" }
     SFX[#SFX + 1] = SFX[alias]
@@ -155,5 +157,7 @@ SFX.yarThrow = SFX.rickThrow
 SFX.load("metalGrab","res/sfx/metalBreak.wav", 0.5)
 SFX.load("metalHit","res/sfx/metalHit.wav", 1)
 SFX.load("metalBreak","res/sfx/metalBreak.wav", 1)
+
+SFX.setVolumeOfAllSfx()
 
 return SFX
