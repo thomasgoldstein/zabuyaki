@@ -2,11 +2,12 @@ local BGM = {}
 
 local musicVolume = GLOBAL_SETTING.BGM_VOLUME
 local currentMusic = nil
+local currentMusicPath = ""
 
 BGM.load = function(alias, filePath, copyright)
-    BGM[alias] = filePath
     local _, fileName, _ = string.match(filePath, "(.-)([^\\/]-%.?([^%.\\/]*))$")
-    BGM[#BGM + 1] = {filePath = filePath, alias = alias, fileName = fileName, copyright = copyright or "SubspaceAudio" }
+    BGM[alias] = {filePath = filePath, alias = alias, fileName = fileName, copyright = copyright or "???" }
+    BGM[#BGM + 1] = BGM[alias]
 end
 
 BGM.setVolume = function(_musicVolume)
@@ -16,13 +17,30 @@ BGM.setVolume = function(_musicVolume)
     end
 end
 
-BGM.play = function(_music)
-    currentMusic = nil
+BGM.play = function(alias)
+    local musicPath
+    if type(alias) == "table" then
+        musicPath = alias.filePath
+    else
+        musicPath = BGM[alias].filePath
+    end
+    if not musicPath then
+        error("Wrong BGM alias")
+    end
+    if currentMusicPath ~= musicPath then
+        BGM.stop()
+        currentMusicPath = musicPath
+        currentMusic = love.audio.newSource(currentMusicPath, "stream")
+        BGM.setVolume()
+        currentMusic:setLooping(true)
+        currentMusic:play()
+    end
 end
 
 BGM.stop = function()
     if currentMusic and currentMusic:isPlaying() then
         currentMusic:stop()
+        currentMusicPath = ""
     end
 end
 
