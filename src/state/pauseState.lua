@@ -22,9 +22,9 @@ local menuState, oldMenuState = 1, 1
 local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function pauseState:enter()
-    --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME * 0.75)
     menuState = menuItems.continue
     mouse_x, mouse_y = 0,0
+    bgm.setVolume(GLOBAL_SETTING.BGM_VOLUME * 0.75)
     sfx.play("sfx","menuCancel")
 
     Controls[1].attack:update()

@@ -24,7 +24,7 @@ local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function optionsState:enter()
     mouse_x, mouse_y = 0,0
-    --TEsound.stop("music")
+    bgm.stop()
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
@@ -132,9 +132,9 @@ function optionsState:confirm( x, y, button, istouch )
         elseif menuState == menuItems.defaults then
             sfx.play("sfx","menuSelect")
             configuration:reset()
-            --TEsound.stop("music")
-            --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
-            --TEsound.playLooping(bgm.title, "music")
+            bgm.stop()
+            bgm.setVolume() --default volume
+            bgm.play(bgm.title)
             --TODO: add video mode, video filter reset
 
         elseif menuState == menuItems.spriteViewer then

@@ -38,8 +38,7 @@ function titleState:enter(_, param)
     time = 0
     transparency = 0
     titleTransparency = 0
-    --TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-    --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+    bgm.setVolume() --default volume
     if param == "startFromIntro" then
         introMovie = Movie:new(movie_intro)
         mode = "movie"
@@ -48,8 +47,8 @@ function titleState:enter(_, param)
         mode = "movie"
     else
         if param ~= "dontStartMusic" then
-            --TEsound.stop("music")
-            --TEsound.playLooping(bgm.title, "music")
+            bgm.stop()
+            bgm.play(bgm.title)
         end
         sfx.play("sfx",titleSfx)
         mode = "fadein"
@@ -62,8 +61,7 @@ function titleState:enter(_, param)
 end
 
 function titleState:resume()
-    --TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-    --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+    bgm.setVolume() --default volume
     mouse_x, mouse_y = 0,0
     time = 0
     transparency = 1
@@ -129,8 +127,8 @@ function titleState:update(dt)
     elseif mode == "movie" then
         if introMovie:update(dt) then
             self:enter()
-            --TEsound.stop("music")
-            --TEsound.playLooping(bgm.title, "music")
+            bgm.stop()
+            bgm.play(bgm.title)
         end
         return
     else

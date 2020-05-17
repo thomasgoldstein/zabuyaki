@@ -321,8 +321,7 @@ function playerSelectState:enter()
         end
     end
     love.graphics.setLineWidth( 2 )
-    --TEsound.volume("sfx", GLOBAL_SETTING.SFX_VOLUME)
-    --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+    bgm.setVolume() --default volume
 end
 
 function playerSelectState:resume()

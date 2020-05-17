@@ -100,7 +100,7 @@ local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function spriteSelectState:enter()
     mouse_x, mouse_y = 0,0
-    --TEsound.stop("music")
+    bgm.stop()
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
@@ -226,8 +226,8 @@ end
 function spriteSelectState:confirm( x, y, button, istouch )
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
-        --TEsound.stop("music")
-        --TEsound.volume("music", GLOBAL_SETTING.BGM_VOLUME)
+        bgm.stop()
+        bgm.setVolume() --default volume
         return Gamestate.pop()
     end
     if button == 1 then

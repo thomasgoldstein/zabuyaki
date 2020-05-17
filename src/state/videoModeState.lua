@@ -25,7 +25,7 @@ local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function videoModeState:enter()
     mouse_x, mouse_y = 0, 0
-    --TEsound.stop("music")
+    bgm.stop()
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
