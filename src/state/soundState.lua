@@ -25,7 +25,6 @@ local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function soundState:enter()
     mouse_x, mouse_y = 0,0
-    bgm.stop()
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
@@ -130,9 +129,7 @@ end
 function soundState:confirm( x, y, button, istouch )
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
-        bgm.stop()
         bgm.play(bgm.title)
-        bgm.setVolume() --default volume
         return Gamestate.pop()
     end
     if button == 1 then
@@ -152,19 +149,16 @@ function soundState:confirm( x, y, button, istouch )
                 configuration:set("BGM_VOLUME", 0)
             else
                 configuration:set("BGM_VOLUME", 1)
-                bgm.stop()
-                bgm.play(bgm.title)
             end
-            GLOBAL_SETTING.BGM_VOLUME = menu[menuState].n * volumeStep
+            menu[menuState].n  = GLOBAL_SETTING.BGM_VOLUME / volumeStep
             bgm.setVolume() --default volume
         elseif menuState == menuItems.soundSampleN then
             sfx.play("sfx", menu[menuState].n)
         elseif menuState == menuItems.musicTrackN then
-            bgm.setVolume(1) -- max volume
-            bgm.stop()
             if menu[menuState].n > 0 then
                 bgm.play(bgm[menu[menuState].n].filePath)
             end
+            bgm.setVolume(1) -- max volume
         end
     end
 end
@@ -215,9 +209,7 @@ function soundState:wheelmoved(x, y)
         end
         GLOBAL_SETTING.BGM_VOLUME = menu[menuState].n * volumeStep
         configuration:set("BGM_VOLUME", GLOBAL_SETTING.BGM_VOLUME)
-        bgm.stop()
         bgm.setVolume() --default volume
-        bgm.play(bgm.title)
     elseif menuState == menuItems.soundSampleN then
         if menu[menuState].n < 1 then
             menu[menuState].n = #sfx
