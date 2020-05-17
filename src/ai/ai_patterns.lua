@@ -4,7 +4,7 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
         {"wokeUp", "tooCloseToPlayer"})
     self.SCHEDULE_STAND = Schedule:new({ self.initStand },
-        {"cannotAct", "wokeUp", "noTarget", "canCombo", "canGrab", "canDashAttack", "inAir",
+        {"cannotAct", "wokeUp", "noTarget", "canCombo", "canDashAttack", "inAir",
           "faceNotToPlayer", "tooCloseToPlayer"})
     self.SCHEDULE_WALK_OFF_THE_SCREEN = Schedule:new({ self.ensureStanding, self.calcWalkOffTheScreenXY, self.onMove, self.onStop },
         { })

@@ -83,9 +83,6 @@ function AI:getVisualConditions(conditions)
             if self:canJumpAttack(unit, distance, y) then
                 conditions["canJumpAttack"] = true
             end
-            if self:canGrab(unit, x, y) then
-                conditions["canGrab"] = true
-            end
             if distance > self.reactLongDistanceMax then
                 conditions["tooFarToTarget"] = true
             end
@@ -138,15 +135,6 @@ end
 function AI:canJumpAttack(unit, distance, targetY)
     if unit.moves.jump and distance < self.canJumpAttackMax and distance >= self.canJumpAttackMin
         and math.abs(unit.y - targetY ) <= unit.width * 4 then
-        return true
-    end
-end
-
-function AI:canGrab(unit, targetX, targetY)
-    if unit.moves.grab and math.abs(unit.x - targetX) <= unit.width
-        and math.abs(unit.y - targetY) <= 6
-        and not unit.target:isInvincible() -- TODO proper check
-    then
         return true
     end
 end
