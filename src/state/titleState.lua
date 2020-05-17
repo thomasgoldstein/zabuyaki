@@ -47,7 +47,7 @@ function titleState:enter(_, param)
         mode = "movie"
     else
         if param ~= "dontStartMusic" then
-            bgm.stop()
+            bgm.stop()  -- to be restarted
             bgm.play(bgm.title)
         end
         sfx.play("sfx",titleSfx)
@@ -127,7 +127,6 @@ function titleState:update(dt)
     elseif mode == "movie" then
         if introMovie:update(dt) then
             self:enter()
-            bgm.stop()
             bgm.play(bgm.title)
         end
         return

@@ -66,7 +66,6 @@ function Movie:initialize(frames)
         self.frames[i].x =  r( (screenWidth - width) / 2 )
     end
     if frames.music then
-        bgm.stop()
         bgm.play(frames.music)
     end
 end
@@ -105,7 +104,6 @@ function Movie:update(dt)
         end
         self.time = 0
         if self.frames[self.frame].music then
-            bgm.stop()
             bgm.play(self.frames[self.frame].music)
         end
     end

@@ -357,8 +357,6 @@ end
 function spriteViewerState:confirm( x, y, button, istouch )
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
-        bgm.stop()
-        bgm.setVolume() --default volume
         return Gamestate.pop()
     end
     if button == 1 then

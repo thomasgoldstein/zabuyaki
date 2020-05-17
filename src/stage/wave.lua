@@ -41,7 +41,6 @@ end
 function Wave:startPlayingMusic(n)
     local wave = self.waves[n or self.n]
     if wave.music and previousStageMusic ~= wave.music then
-        bgm.stop()
         bgm.play(bgm[wave.music])
         previousStageMusic = wave.music
     end
