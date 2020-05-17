@@ -74,16 +74,11 @@ function Enemy:decreaseHp(damage)
         end
     end
 end
-function Enemy:onFriendlyAttack()
-    local h = self.isHurt
-    if not h then
-        return
+function Enemy:canAttackTarget(target)
+    if self.canEnemyFriendlyAttack and target.canEnemyFriendlyAttack then
+        return true
     end
-    if self.canEnemyFriendlyAttack and h.source.canEnemyFriendlyAttack and self.state ~= "fall" then
-        h.damage = math.floor( (h.damage or 0) / self.friendlyDamage )
-    else
-        h.damage = h.damage or 0
-    end
+    return false
 end
 
 function Enemy:introStart()

@@ -175,12 +175,18 @@ function Unit:decreaseHp(damage)
         end
     end
 end
+function Unit:canAttackTarget(target)
+    if self.canFriendlyAttack and target.canFriendlyAttack then
+        return true
+    end
+    return false
+end
 function Unit:onFriendlyAttack()
     local h = self.isHurt
     if not h then
         return
     end
-    if self.canFriendlyAttack and h.source.canFriendlyAttack and self.state ~= "fall" then
+    if self:canAttackTarget(h.source) and self.state ~= "fall" then
         h.damage = math.floor( (h.damage or 0) / self.friendlyDamage )
     else
         h.damage = h.damage or 0
