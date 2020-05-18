@@ -37,19 +37,19 @@ SFX.randomPitch = function(range)
     return 1 + 0.05 * love.math.random(-range,range)
 end
 
-SFX.load = function(alias, s, volume, pitch, copyright, prefix)
+SFX.load = function(alias, s, volume, pitch, copyright, stopPrevious)
     local src = love.audio.newSource(s, "static")
     if pitch then
         src:setPitch(pitch)
     end
     assert(SFX[alias] == nil, "Sound FX alias '"..alias.."' not found")
-    SFX[alias] = {src = src, pitch = pitch or 1, volume = volume or 1, alias = alias, copyright = copyright or "SubspaceAudio", prefix = prefix or "Sfx" }
+    SFX[alias] = {src = src, pitch = pitch or 1, volume = volume or 1, alias = alias, copyright = copyright or "SubspaceAudio", stopPrevious = stopPrevious or false }
     SFX[#SFX + 1] = SFX[alias]
 --    return src
 end
 
 SFX.loadVoice = function(alias, s, volume, pitch, copyright)
-    SFX.load(alias, s, volume, pitch, copyright, "Voice")
+    SFX.load(alias, s, volume, pitch, copyright, true)
 end
 
 SFX.load("menuSelect","res/sfx/menuSelect.wav", 0.5, nil, "Stifu")
