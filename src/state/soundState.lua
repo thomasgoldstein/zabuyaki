@@ -134,10 +134,10 @@ function soundState:confirm( x, y, button, istouch )
             else
                 configuration:set("SFX_VOLUME", 1)
             end
-            GLOBAL_SETTING.SFX_VOLUME = menu[menuState].n * volumeStep
+            menu[menuItems.soundVolume].n  = GLOBAL_SETTING.SFX_VOLUME / volumeStep
+            bgm.setVolume() --default volume
             sfx.setVolumeOfAllSfx()
             sfx.play("sfx","menuSelect")
-            bgm.setVolume() --default volume
         elseif menuState == menuItems.musicVolume then
             sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.BGM_VOLUME ~= 0 then
@@ -145,9 +145,14 @@ function soundState:confirm( x, y, button, istouch )
             else
                 configuration:set("BGM_VOLUME", 1)
             end
-            menu[menuState].n  = GLOBAL_SETTING.BGM_VOLUME / volumeStep
+            menu[menuItems.musicVolume].n  = GLOBAL_SETTING.BGM_VOLUME / volumeStep
             bgm.setVolume() --default volume
         elseif menuState == menuItems.soundSampleN then
+            if sfx.getVolume() <= 0 then    -- restore at least 50% of sfx volume on mute
+                GLOBAL_SETTING.SFX_VOLUME = 0.5
+                menu[menuItems.soundVolume].n  = GLOBAL_SETTING.SFX_VOLUME / volumeStep
+                sfx.setVolumeOfAllSfx()
+            end
             sfx.play("sfx", menu[menuState].n)
         elseif menuState == menuItems.musicTrackN then
             if menu[menuState].n > 0 then
@@ -155,7 +160,7 @@ function soundState:confirm( x, y, button, istouch )
             end
             if bgm.getVolume() <= 0 then    -- restore at least 50% of bgm volume on mute
                 GLOBAL_SETTING.BGM_VOLUME = 0.5
-                menu[menuState].n  = GLOBAL_SETTING.BGM_VOLUME / volumeStep
+                menu[menuItems.musicVolume].n  = GLOBAL_SETTING.BGM_VOLUME / volumeStep
                 bgm.setVolume()
             end
         end
