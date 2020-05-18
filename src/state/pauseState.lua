@@ -140,8 +140,7 @@ function pauseState:confirm( x, y, button, istouch )
             return Gamestate.pop()
         elseif menuState == menuItems.quickSave then
             --TODO implement quick save
-        elseif menuState == #menu then
-            sfx.play("sfx","menuCancel")
+        elseif menuState == menuItems.quit then
             return Gamestate.switch(titleState)
         end
     end
