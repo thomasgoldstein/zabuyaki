@@ -42,6 +42,10 @@ SFX.setVolumeOfAllSfx = function()  -- set volume to all preloaded sfx
     end
 end
 
+SFX.getVolume = function()
+    return GLOBAL_SETTING.SFX_VOLUME
+end
+
 SFX.randomPitch = function(range)
     local range = range or 4
     return 1 + 0.05 * love.math.random(-range,range)
