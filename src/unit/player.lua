@@ -109,10 +109,12 @@ function Player:updateAI(dt)
     else
         stopUnitHighlight(self)
     end
+    --DEBUG: end
     if self.moves.specialDefensive or self.moves.specialOffensive or self.moves.specialDash then
         if not self:canFall() and isSpecialCommand(self.b) then
-            if not self.statesForSpecialToleranceDelay[self.state]
-                or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay)
+            if ( not self.statesForSpecialToleranceDelay[self.state]
+                or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay) )
+                and math.abs(self.b.horizontal.doubleTap.lastAttackTapTime - self.b.horizontal.doubleTap.lastJumpTapTime) <= delayWithSlowMotion(self.specialToleranceDelay)
             then
                 local hv = self.b.horizontal:getValue()
                 if not self:isDoubleTapValid() then
