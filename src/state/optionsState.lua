@@ -131,6 +131,8 @@ function optionsState:confirm( x, y, button, istouch )
         elseif menuState == menuItems.defaults then
             sfx.play("sfx","menuSelect")
             configuration:reset()
+            bgm.setVolume()
+            sfx.setVolumeOfAllSfx()
             bgm.play(bgm.title)
             --TODO: add video mode, video filter reset
 
