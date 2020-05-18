@@ -215,6 +215,7 @@ function soundState:wheelmoved(x, y)
         configuration:set("BGM_VOLUME", GLOBAL_SETTING.BGM_VOLUME)
         bgm.setVolume() --default volume
     elseif menuState == menuItems.soundSampleN then
+        sfx.play("sfx","menuSelect")
         if menu[menuState].n < 1 then
             menu[menuState].n = #sfx
         end
@@ -222,14 +223,12 @@ function soundState:wheelmoved(x, y)
             menu[menuState].n = 1
         end
     elseif menuState == menuItems.musicTrackN then
+        sfx.play("sfx","menuSelect")
         if menu[menuState].n < 1 then
             menu[menuState].n = #bgm
         end
         if menu[menuState].n > #bgm then
             menu[menuState].n = 1
         end
-    end
-    if menuState ~= menuItems.soundSampleN then
-        sfx.play("sfx","menuMove")
     end
 end
