@@ -1,7 +1,8 @@
 local SFX = {}
 
+local actors = {}
 SFX.play = function(actor, alias, volume, pitch)
-    local s, src
+    local s, src, a
     if alias then
         if type(alias) == "table" then
             if #alias == 0 then
@@ -13,9 +14,18 @@ SFX.play = function(actor, alias, volume, pitch)
             s = SFX[alias]
         end
         src = s.src
-        if src:isPlaying() then
+        if s.stopPrevious then
+            -- stop voice if playing and play new
+            a = actors[actor]
+            if a and a:isPlaying() then
+                a:stop()
+            end
             src = src:clone()
-        end
+            actors[actor] = src
+        elseif src:isPlaying() then
+            -- create new instance of sfx if the previous is playing
+            src = src:clone()
+        end  -- else keep src (it is stopped) so reuse it: play it
         if volume then
             src:setVolume(volume * s.volume * GLOBAL_SETTING.SFX_VOLUME)
         end
