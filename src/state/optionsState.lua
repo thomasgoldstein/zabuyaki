@@ -186,7 +186,4 @@ function optionsState:wheelmoved(x, y)
     if menuState == menuItems.difficulty then
         return self:confirm( mouse_x, mouse_y, 1)
     end
-    if menuState ~= #menu then
-        sfx.play("sfx","menuMove")
-    end
 end
