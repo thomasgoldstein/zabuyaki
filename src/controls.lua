@@ -6,9 +6,9 @@ local playersKeys = {   -- for P1, P2, P3
     { left = 'left', right = 'right', up = 'up', down = 'down', attack = 'x', jump = 'c',
       start = 'return', back = 'escape', fullScreen = 'f11', screenshot = '/', screenshot2 = 'pause' },
     { left = 'a', right = 'd', up = 'w', down = 's', attack = 'i', jump = 'o',
-      start = '', back = '', fullScreen = '', screenshot = '', screenshot2 = '' },
+      start = '?', back = '?', fullScreen = '?', screenshot = '?', screenshot2 = '?' },
     { left = 'f', right = 'h', up = 't', down = 'g', attack = 'r', jump = 'y',
-      start = '', back = '', fullScreen = '', screenshot = '', screenshot2 = '' },
+      start = '?', back = '?', fullScreen = '?', screenshot = '?', screenshot2 = '?' },
 }
 
 local connected = {}
