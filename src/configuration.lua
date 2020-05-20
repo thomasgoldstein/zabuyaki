@@ -100,7 +100,7 @@ function configuration:save(override_dirty)
 end
 
 function configuration:load()
-    if love.filesystem.exists( self.fileName ) then
+    if love.filesystem.getInfo( self.fileName, "file" ) then
         local s, size = love.filesystem.read( self.fileName )
         magicString = ""
         if s and size >= 6 then
