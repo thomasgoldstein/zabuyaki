@@ -18,6 +18,9 @@ bgm = nil
 credits = GLOBAL_SETTING.MAX_CREDITS
 attackHitBoxes = {} -- DEBUG
 
+if love._version_major >= 11 then
+    require('lib.cindy.cindy').applyPatch()
+end
 shaders = require "src/def/misc/shaders"
 
 function setupScreen()
