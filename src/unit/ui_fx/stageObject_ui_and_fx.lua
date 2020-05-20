@@ -23,7 +23,7 @@ function StageObject:showEffect(effect, obj)
         if self.particleColor then
             particles:setColors( unpack(self.particleColor) )
         end
-        --particles:setAreaSpread( "uniform", 2, 8 )
+        --particles:setEmissionArea( "uniform", 2, 8 )
         particles:setLinearDamping( 0.1, 2 )
         particles:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
         particles:emit(2)

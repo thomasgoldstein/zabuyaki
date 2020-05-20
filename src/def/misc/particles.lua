@@ -44,7 +44,7 @@ particles:setColors(unpack(dustStepColors))
 particles:setOffset(15, 15)
 particles:setQuads(dustQuad)
 particles:setLinearDamping(7, 20)
-particles:setAreaSpread("uniform", 8, 4)
+particles:setEmissionArea("uniform", 8, 4)
 particles:setSpin(0, -3)
 PA_DUST_STEPS = particles
 
@@ -66,7 +66,7 @@ particles:setColors(unpack(dustStepColors))
 particles:setParticleLifetime(0.5, 1.3)
 particles:setLinearAcceleration(-500, -20, 500, -100) -- Random movement in all directions.
 particles:setLinearDamping(10, 50)
---particles:setAreaSpread("uniform", 20, 4) -- now tweaked on emit
+--particles:setEmissionArea("uniform", 20, 4) -- now tweaked on emit
 particles:setPosition(0, -2)
 PA_DUST_FALL_LANDING = particles
 
@@ -77,7 +77,7 @@ particles:setColors(unpack(dustStepColors))
 particles:setParticleLifetime(0.2, 0.7)
 particles:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
 particles:setLinearDamping(7, 20)
-particles:setAreaSpread("uniform", 15, 5)
+particles:setEmissionArea("uniform", 15, 5)
 particles:setPosition(0, -4)
 PA_DUST_LANDING_UNUSED = particles
 
@@ -118,7 +118,7 @@ particles:setSizes(0.3, 0.6, 0.4, 0.1)
 particles:setColors(unpack(dustStepColors))
 particles:setLinearAcceleration(-400, -20, 400, -100) -- Random movement in all directions.
 particles:setLinearDamping(7, 20)
-particles:setAreaSpread("uniform", 15, 5)
+particles:setEmissionArea("uniform", 15, 5)
 particles:setPosition(0, -4)
 particles:setParticleLifetime(1, 4)
 particles:setEmitterLifetime(4)
@@ -138,7 +138,7 @@ particles:setColors(unpack(dustStepColors))
 particles:setOffset(15, 15)
 particles:setQuads(dustQuad)
 particles:setLinearDamping(7, 10)
---particles:setAreaSpread("uniform", 80, 40)
+--particles:setEmissionArea("uniform", 80, 40)
 --particles:setSpin(0, -3)
 PA_DASH_ATTACK = particles
 
