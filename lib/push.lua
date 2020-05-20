@@ -60,7 +60,7 @@ function push:setupScreen(WWIDTH, WHEIGHT, RWIDTH, RHEIGHT, settings)
 end
 
 function push:initValues()
-  self._PSCALE = self._highdpi and love.window.getPixelScale() or 1
+  self._PSCALE = self._highdpi and love.window.getDPIScale() or 1
   
   self._SCALE = {
     x = self._RWIDTH/self._WWIDTH * self._PSCALE,
@@ -167,7 +167,7 @@ function push:switchFullscreen(winw, winh)
 end
 
 function push:resize(w, h)
-  local pixelScale = love.window.getPixelScale()
+  local pixelScale = love.window.getDPIScale()
   if self._highdpi then w, h = w / pixelScale, h / pixelScale end
   self._RWIDTH = w
   self._RHEIGHT = h
