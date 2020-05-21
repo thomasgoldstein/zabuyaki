@@ -9,16 +9,10 @@ lust.errors = 0
 lust.befores = {}
 lust.afters = {}
 
---[[
 local red = string.char(27) .. '[31m'
 local green = string.char(27) .. '[32m'
 local normal = string.char(27) .. '[0m'
 local function indent(level) return string.rep('\t', level or lust.level) end
-]]
-local red = ''
-local green = ''
-local normal = ''
-local function indent(level) return string.rep('  ', level or lust.level) end
 
 function lust.describe(name, fn)
   print(indent() .. name)
@@ -42,7 +36,7 @@ function lust.it(name, fn)
   if success then lust.passes = lust.passes + 1
   else lust.errors = lust.errors + 1 end
   local color = success and green or red
-  local label = success and '[PASS]' or '[FAIL]'
+  local label = success and 'PASS' or 'FAIL'
   print(indent() .. color .. label .. normal .. ' ' .. name)
   if err then
     print(indent(lust.level + 1) .. red .. err .. normal)
