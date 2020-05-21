@@ -46,7 +46,12 @@ function switchFullScreen()
     setupScreen()
 end
 
-function love.load(arg)
+function love.load(arg, unfilteredArg)
+    for l = 1, #unfilteredArg do
+        if unfilteredArg[l] == "--instantConsole" then
+            io.stdout:setvbuf('no') -- do not delay console output
+        end
+    end
     love.graphics.setLineStyle("rough")
     love.graphics.setDefaultFilter("nearest", "nearest")
     Gamestate = require "lib/hump.gamestate"
