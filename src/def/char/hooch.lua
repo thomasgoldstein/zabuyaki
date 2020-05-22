@@ -8,17 +8,22 @@ local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
 local comboSlide = function(slf)
-    slf:initSlide(slf.comboSlideSpeed_x, slf.comboSlideDiagonalSpeed_x, slf.comboSlideDiagonalSpeed_y, slf.repelFriction)
-    slf.speed_z = slf.comboSlideSpeed_z
-    slf.z = slf:getRelativeZ() + 3
+    slf:playSfx(sfx.air)
+    slf:initSlide(slf.comboSpeed_x, slf.comboDiagonalSpeed_x, slf.comboDiagonalSpeed_y, slf.repelFriction)
 end
-local comboPushBack = function(slf, cont)
+local comboAttack = function(slf, cont)
     slf:checkAndAttack(
-        { x = 10, z = 25, width = 20, damage = 0, repel_x = slf.comboSlideRepel_x },
+        { x = 27, z = 25, width = 35, damage = 12, repel_x = slf.comboRepel_x },
         cont
     )
 end
-local comboAttack = function(slf, cont)
+local dashPushback = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 10, z = 25, width = 20, damage = 0, repel_x = slf.dashRepel_x },
+        cont
+    )
+end
+local dashAttack = function(slf, cont)
     slf.victims = {}
     slf:checkAndAttack(
         { x = 27, z = 25, width = 40, damage = 15, sfx = "air", type = "fell" },
@@ -106,16 +111,15 @@ return {
             delay = f(17)
         },
         combo1 = {
-            { q = q(2,390,40,71), ox = 20, oy = 70, func = comboSlide, funcCont = comboPushBack, delay = f(24) }, --combo 1.1
-            { q = q(44,395,57,56), ox = 17, oy = 55, func = comboAttack, delay = f(3) }, --combo 1.2
-            { q = q(103,400,45,61), ox = 20, oy = 60, delay = f(15) }, --combo 1.3
-            { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
-            delay = f(4)
+            { q = q(2,466,42,63), ox = 26, oy = 63, delay = f(8) }, --combo 1.1
+            { q = q(46,463,65,66), ox = 18, oy = 66, func = comboSlide, funcCont = comboAttack, delay = f(14) }, --combo 1.2
+            { q = q(113,465,41,64), ox = 19, oy = 64 }, --combo 1.3
+            delay = f(6)
         },
         dashAttack = {
-            { q = q(2,390,40,71), ox = 20, oy = 70, funcCont = comboPushBack, delay = f(24) }, --combo 1.1
-            { q = q(44,395,57,56), ox = 17, oy = 55, func = comboAttack, delay = f(3) }, --combo 1.2
-            { q = q(103,400,45,61), ox = 20, oy = 60, delay = f(15) }, --combo 1.3
+            { q = q(2,390,40,71), ox = 20, oy = 70, funcCont = dashPushback, delay = f(24) }, --dash attack 1
+            { q = q(44,395,57,56), ox = 17, oy = 55, func = dashAttack, delay = f(3) }, --dash attack 2
+            { q = q(103,400,45,61), ox = 20, oy = 60, delay = f(15) }, --dash attack 3
             { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
             delay = f(4)
         },
