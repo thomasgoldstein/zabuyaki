@@ -47,6 +47,7 @@ end
 function Hooch:dashAttackStart()
     self.isHittable = true
     self:setSprite("dashAttack")
+    self.horizontal = self.face
     self:initSlide(self.comboSlideSpeed_x, self.comboSlideDiagonalSpeed_x, self.comboSlideDiagonalSpeed_y, self.repelFriction)
     self.speed_z = self.comboSlideSpeed_z
     self.z = self:getRelativeZ() + 3
