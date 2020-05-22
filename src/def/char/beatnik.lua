@@ -98,14 +98,16 @@ return {
         },
         combo1 = {
             { q = q(66,284,51,66), ox = 17, oy = 66 }, --kick 1
-            { q = q(119,285,71,65), ox = 23, oy = 65, func = comboAttack1, delay = f(8) }, --kick 2
-            { q = q(192,285,60,65), ox = 20, oy = 65, delay = f(6) }, --kick 3
+            { q = q(119,285,75,65), ox = 23, oy = 65, func = comboAttack1 }, --kick 2
+            { q = q(196,285,71,65), ox = 23, oy = 65 }, --kick 3
+            { q = q(269,284,60,65), ox = 20, oy = 65, delay = f(6) }, --kick 4
             delay = f(4)
         },
         combo2 = {
             { q = q(66,284,51,66), ox = 17, oy = 66 }, --kick 1
-            { q = q(119,285,71,65), ox = 23, oy = 65, func = comboAttack1, delay = f(8) }, --kick 2
-            { q = q(192,285,60,65), ox = 20, oy = 65, delay = f(6) }, --kick 3
+            { q = q(119,285,75,65), ox = 23, oy = 65, func = comboAttack1 }, --kick 2
+            { q = q(196,285,71,65), ox = 23, oy = 65 }, --kick 3
+            { q = q(269,284,60,65), ox = 20, oy = 65, delay = f(6) }, --kick 4
             delay = f(4)
         },
         combo3 = {
