@@ -1,5 +1,6 @@
 local doubleTapDelta = 0.25
 
+love.joystick.loadGamepadMappings( "res/gamecontrollerdb.txt" )
 Controls = {}   -- global controls list
 local commonPlayersGamepadButtons = { attack = 'a', jump = 'b', start  = 'start', back = 'back'}
 local playersKeys = {   -- for P1, P2, P3
@@ -15,7 +16,6 @@ local connected = {}
 function love.joystickadded(joystick)
     connected[joystick] = joystick
     dp(joystick:getGUID().." added joystick "..joystick:getName().." with "..joystick:getButtonCount().." buttons")
-    love.joystick.loadGamepadMappings( "res/gamecontrollerdb.txt" )
     bindGameInput()
 end
 
