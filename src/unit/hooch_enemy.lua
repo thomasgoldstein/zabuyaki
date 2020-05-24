@@ -31,6 +31,7 @@ function Hooch:initAttributes()
     self.dashAttackDiagonalSpeed_x = 100 --diagonal horizontal speed of dash attacks
     self.dashAttackDiagonalSpeed_y = 13 --diagonal vertical speed of dash attacks
     self.dashAttackSpeed_z = 90 --jump speed of dash attacks
+    self.dashAttackRepel_x = 160 --how much dash attacks push units back
     self.dashAttackFriction = self.dashAttackSpeed_x
 
     --    self.throwSpeed_x = 220 --my throwing speed
