@@ -191,7 +191,7 @@ function Character:afterOnHurt()
         self.victims[h.source] = true   --the attacker is immune to the twist bodies
     end
     if h.type == "fell" then
-        if h.source == self then --fall back on self kill (timeout)
+        if h.source == self then --fall back on self kill (debug)
             h.horizontal = -self.horizontal
         else
             self.speed_y = h.source.speed_y * 0.5
@@ -230,8 +230,8 @@ function Character:afterOnHurt()
             end
             return
         end
-        self.speed_x = h.repel_x / 2 --compensate repelFriction in air
-        self.speed_y = h.repel_y / 2 --compensate repelFriction on air
+        self.speed_x = h.repel_x / 2 --compensate the lack of repelFriction in the air
+        self.speed_y = h.repel_y / 2 --compensate the lack of repelFriction in the air
         self.friction = self.repelFriction  -- custom friction value for smooth sliding back
         --then it goes to "fall dead"
     else    --types "fell" "shockWave" "expel"
