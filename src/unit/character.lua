@@ -230,8 +230,8 @@ function Character:afterOnHurt()
             end
             return
         end
-        self.speed_x = h.repel_x --use fall speed from the argument
-        self.speed_y = h.repel_y--use fall speed from the argument
+        self.speed_x = h.repel_x / 2 --compensate repelFriction in air
+        self.speed_y = h.repel_y / 2 --compensate repelFriction on air
         self.friction = self.repelFriction  -- custom friction value for smooth sliding back
         --then it goes to "fall dead"
     else    --types "fell" "shockWave" "expel"
