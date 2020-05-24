@@ -666,17 +666,15 @@ function Character:jumpUpdate(dt)
         elseif self.moves.jumpAttackStraight and self.speed_x == 0 then
             self:setState(self.jumpAttackStraight)
             return
-        else
-            if self.moves.jumpAttackRun and self.speed_x >= self.runSpeed_x then
-                self:setState(self.jumpAttackRun)
-                return
-            elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
-                self:setState(self.jumpAttackStraight)
-                return
-            elseif self.moves.jumpAttackForward then
-                self:setState(self.jumpAttackForward)
-                return
-            end
+        elseif self.moves.jumpAttackRun and self.speed_x >= self.runSpeed_x then
+            self:setState(self.jumpAttackRun)
+            return
+        elseif self.moves.jumpAttackStraight and self.horizontal ~= self.face then
+            self:setState(self.jumpAttackStraight)
+            return
+        elseif self.moves.jumpAttackForward then
+            self:setState(self.jumpAttackForward)
+            return
         end
     end
     self:jumpFallUpdate(dt)
