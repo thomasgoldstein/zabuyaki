@@ -39,6 +39,10 @@ function Character:initialize(name, sprite, x, y, f, input)
     self.victimLifeBar = nil
     self.priority = 1
     self.bounced = 0 -- the bouncing counter
+    self.movementModeTimer = 0
+    self.movementMode = "normal"
+    self.initialWalkSpeed_x = 0
+    self.initialWalkSpeed_y = 0
     self.isCharacterControlEnabled = true
 end
 
@@ -102,6 +106,73 @@ function Character:initAttributes()
     self.sfx.dead = self.sfx.dead or sfx.gopnikDeath1
 end
 
+local movementTimerMax = 1
+local speedStepMultiplier = 30
+function Character:initMovementMode()
+    self.movementMode = "normal"
+    self.movementModeTimer = 0
+    self.initialWalkSpeed_x = self.walkSpeed_x
+    self.initialWalkSpeed_y = self.walkSpeed_y
+end
+
+function Character:setMovementMode(mode)
+    self.movementMode = mode or "normal"
+    self.movementModeTimer = movementTimerMax
+    print(self.name, "setMovementMode", self.movementMode, self.initialWalkSpeed_x)
+end
+
+function Character:updateMovementMode(dt)
+    local targetSpeed_x, targetSpeed_y
+    if self.movementModeTimer <= 0 and self.walkSpeed_x == self.initialWalkSpeed_x then
+        return
+    end
+    if self.movementModeTimer > 0 then
+        self.movementModeTimer = self.movementModeTimer - dt
+        if self.movementMode == "slow" then
+            targetSpeed_x = self.initialWalkSpeed_x * 0.5
+            targetSpeed_y = self.initialWalkSpeed_y * 0.5
+        elseif self.movementMode == "fast" then
+            targetSpeed_x = self.initialWalkSpeed_x * 2
+            targetSpeed_y = self.initialWalkSpeed_y * 2
+        else    -- "normal"
+            targetSpeed_x = self.initialWalkSpeed_x
+            targetSpeed_y = self.initialWalkSpeed_y
+        end
+        -- alter walking speed or wait the timer
+        if self.walkSpeed_x > targetSpeed_x then
+            self.walkSpeed_x = self.walkSpeed_x - dt * speedStepMultiplier
+            if self.walkSpeed_x <= targetSpeed_x then
+                self.walkSpeed_x = targetSpeed_x
+            end
+        elseif self.walkSpeed_x < targetSpeed_x then
+            self.walkSpeed_x = self.walkSpeed_x + dt * speedStepMultiplier
+            if self.walkSpeed_x >= targetSpeed_x then
+                self.walkSpeed_x = targetSpeed_x
+            end
+        end
+        if self.walkSpeed_y > targetSpeed_y then
+            self.walkSpeed_y = self.walkSpeed_y - dt * speedStepMultiplier
+            if self.walkSpeed_y <= targetSpeed_y then
+                self.walkSpeed_y = targetSpeed_y
+            end
+        elseif self.walkSpeed_y < targetSpeed_y then
+            self.walkSpeed_y = self.walkSpeed_y + dt * speedStepMultiplier
+            if self.walkSpeed_y >= targetSpeed_y then
+                self.walkSpeed_y = targetSpeed_y
+            end
+        end
+    else
+        -- return to normal speed
+        if self.movementMode == "fast" or self.movementMode == "slow" then
+            self.movementMode = "normal"
+            self.movementModeTimer = movementTimerMax   -- time to normalize speed
+        else
+            self.walkSpeed_x = self.initialWalkSpeed_x
+            self.walkSpeed_y = self.initialWalkSpeed_y
+        end
+    end
+end
+
 function Character:addScore(score)
     self.score = self.score + score
 end
@@ -120,6 +191,7 @@ function Character:updateAI(dt)
     end
     self:updateShake(dt)
     stage:logUnit( self )
+    self:updateMovementMode(dt)
     Unit.updateAI(self, dt)
 end
 

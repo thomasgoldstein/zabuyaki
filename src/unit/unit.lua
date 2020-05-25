@@ -94,6 +94,9 @@ function Unit:setOnStage(stage)
     stage.objects:add(self)
     self.shader = getShader(self.sprite.def.spriteName:lower(), self.palette)
     self.lifeBar = LifeBar:new(self)
+    if self.initMovementMode then
+        self:initMovementMode()
+    end
     self:removeTweenMove()
 end
 

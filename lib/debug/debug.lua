@@ -438,6 +438,18 @@ function checkDebugKeys(key)
                     sfx.play("sfx","menuMove")
                 end
             end
+        elseif key == 'm' then
+            for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
+                local p = getRegisteredPlayer(i)
+                if p then
+                    if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+                        p:setMovementMode("fast")
+                    else
+                        p:setMovementMode("slow")
+                    end
+                end
+            end
+            sfx.play("sfx","menuCancel")
         elseif key == '5' then
             if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
                 for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
