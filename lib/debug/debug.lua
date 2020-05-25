@@ -382,6 +382,7 @@ function drawDebugUnitInfo(a)
         local yShift2 = 0
         colors:set("purple", nil, 120)
         love.graphics.line( a.x, a.y + yShift2, a.x + 8 * a.face, a.y + yShift2 - a.z)
+        love.graphics.print( ""..a.movementMode.." "..( a.movementModeTimer > 0 and a.movementModeTimer or "OK" ), a.x - 22, a.y + 14 - a.z)
         if a.platform and not a.platform.isDisabled and ( getDebugFrame() + a.id ) % 5 == 1 then
             colors:set("black", nil, 255)
             love.graphics.line( a.x, a.y - a.z, a.platform.x, a.platform.y - a.platform.z)
