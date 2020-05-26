@@ -45,7 +45,7 @@ function Hooch:initAttributes()
     self.sfx.dead = sfx.hoochDeath
     self.sfx.jumpAttack = sfx.hoochAttack
     self.sfx.step = sfx.hoochStep
-    self.AI = AIGopper:new(self)
+    self.AI = AIHooch:new(self)
 end
 
 function Hooch:dashAttackStart()

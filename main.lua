@@ -160,6 +160,7 @@ function love.load(arg, unfilteredArg)
     AIZeena = require "src/ai/unit/zeena_ai"
     Zeena = require "src/unit/zeena_enemy"
     PZeena = require "src/unit/zeena_player"
+    AIHooch = require "src/ai/unit/hooch_ai"
     Hooch = require "src/unit/hooch_enemy"
     PHooch = require "src/unit/hooch_player"
     LifeBar = require "src/lifeBar"
