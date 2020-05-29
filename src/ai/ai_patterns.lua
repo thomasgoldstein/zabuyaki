@@ -77,6 +77,10 @@ function AI:initCommonAiSchedules()
         {})
     self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.calcWalkToGrabXY, self.emulateAttackHold, self.onMoveUntilGrab },
         { "grabbed", "tooFarFromPlayer", "inAir", "noTarget", "noPlayers", "cannotAct" })
+    self.SCHEDULE_WALKING_SPEED_UP = Schedule:new({ self.walkingSpeedUp },
+        {})
+    self.SCHEDULE_WALKING_SPEED_DOWN = Schedule:new({ self.walkingSpeedDown },
+        {})
 end
 
 local function getPosByAngleR(x, y, angle, r)
@@ -122,6 +126,22 @@ function AI:ensureStanding()
         return true
     end
     return false
+end
+
+function AI:walkingSpeedUp()
+    local u = self.unit
+    if u:isMovementNormal() then
+        u:setMovementMode("fast")
+    end
+    return true
+end
+
+function AI:walkingSpeedDown()
+    local u = self.unit
+    if u:isMovementNormal() then
+        u:setMovementMode("slow")
+    end
+    return true
 end
 
 function AI:initStand()

@@ -121,6 +121,10 @@ function Character:setMovementMode(mode)
     print(self.name, "setMovementMode", self.movementMode, self.initialWalkSpeed_x)
 end
 
+function Character:isMovementNormal()
+    return self.movementMode == "normal" and self.movementModeTimer <= 0
+end
+
 function Character:updateMovementMode(dt)
     local targetSpeed_x, targetSpeed_y
     if self.movementModeTimer <= 0 and self.walkSpeed_x == self.initialWalkSpeed_x then
