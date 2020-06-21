@@ -253,6 +253,7 @@ function Unit:drawGhostTrails(l, t, w, h)
     if not gt or not gt.enabled then
         return
     end
+    local saveFlipH = self.sprite.flipH
     love.graphics.setBlendMode("lighten","premultiplied")
     local fpsDt = gt.shift * love.timer.getFPS()
     for k = gt.n, 1, -1 do
@@ -263,6 +264,7 @@ function Unit:drawGhostTrails(l, t, w, h)
             drawSpriteCustomInstance(self.sprite, gt.ghost[i][1], gt.ghost[i][2], gt.ghost[i][3], gt.ghost[i][4])
         end
     end
+    self.sprite.flipH = saveFlipH
     love.graphics.setBlendMode("alpha")
 end
 function Unit:updateGhostTrails(dt)
