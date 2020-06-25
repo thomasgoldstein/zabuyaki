@@ -16,6 +16,12 @@ local comboJab = function(slf, cont)
         cont
     )
 end
+local comboCross = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 27, z = 31, width = 26, damage = 7, sfx = "air" },
+        cont
+    )
+end
 local comboKick = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, z = 22, width = 26, damage = 8, type = "fell", sfx = "air" },
@@ -102,8 +108,9 @@ return {
             delay = f(1)
         },
         combo2 = {
-            { q = q(2,130,60,59), ox = 20, oy = 58, func = comboJab, delay = f(12) }, --jab 1
-            { q = q(64,130,44,59), ox = 20, oy = 58 }, --jab 2
+            { q = q(110,130,36,59), ox = 15, oy = 58 }, --cross 1
+            { q = q(148,130,56,59), ox = 15, oy = 58, func = comboCross, delay = f(13) }, --cross 2
+            { q = q(110,130,36,59), ox = 15, oy = 58, delay = f(2) }, --cross 1
             delay = f(1)
         },
         combo3 = {

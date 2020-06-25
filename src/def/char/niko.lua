@@ -15,7 +15,16 @@ local comboKick = function(slf, cont)
 end
 local comboJab = function(slf, cont)
     slf:checkAndAttack(
-        { x = 28, z = 31, width = 26, damage = 9, type = "fell", sfx = "air" },
+        { x = 28, z = 31, width = 26, damage = 8, sfx = "air" },
+        cont
+    )
+end
+local comboCrossSlide = function(slf, cont)
+    slf:initSlide(slf.comboSlideSpeed_x, slf.comboSlideDiagonalSpeed_x, slf.comboSlideDiagonalSpeed_y, slf.repelFriction)
+end
+local comboCross = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 27, z = 31, width = 26, damage = 9, type = "fell", sfx = (slf.sprite.elapsedTime <= 0) and "air" },
         cont
     )
 end
@@ -110,14 +119,14 @@ return {
             delay = f(1)
         },
         combo2 = {
-            { q = q(513,129,41,60), ox = 19, oy = 59 }, --kick 1
-            { q = q(556,129,58,60), ox = 17, oy = 59, func = comboKick, delay = f(14) }, --kick 2
-            { q = q(513,129,41,60), ox = 19, oy = 59, delay = f(3) }, --kick 1
+            { q = q(309,129,60,60), ox = 20, oy = 59, func = comboJab, delay = f(14) }, --jab 1
+            { q = q(371,129,44,60), ox = 20, oy = 59 }, --jab 2
             delay = f(1)
         },
         combo3 = {
-            { q = q(309,129,60,60), ox = 20, oy = 59, func = comboJab, delay = f(14) }, --jab 1
-            { q = q(371,129,44,60), ox = 20, oy = 59 }, --jab 2
+            { q = q(417,129,37,60), ox = 15, oy = 59, func = comboCrossSlide }, --cross 1
+            { q = q(455,129,56,60), ox = 15, oy = 59, funcCont = comboCross, delay = f(13) }, --cross 2
+            { q = q(417,129,37,60), ox = 15, oy = 59, delay = f(2) }, --cross 1
             delay = f(1)
         },
         chargeStand = {
