@@ -402,7 +402,7 @@ return {
             delay = f(2)
         },
         combo3Up = {
-            { q = q(99,2427,41,58), ox = 15, oy = 57 }, --special offensive 3 (shifted left by 7px)
+            { q = q(99,2427,41,58), ox = 15, oy = 57 }, --special offensive 3 (shifted 7px left)
             { q = q(40,916,61,61), ox = 19, func = comboAttack3Up1, oy = 60 }, --combo up 3.2
             { q = q(103,915,53,62), ox = 20, func = comboAttack3Up2, oy = 61, delay = f(4) }, --combo up 3.3
             delay = f(6)
@@ -530,7 +530,7 @@ return {
             { q = q(48,2489,41,59), ox = 14, oy = 58 }, --special offensive 6a
             { q = q(91,2490,41,58), ox = 14, oy = 57 }, --special offensive 6b
             { q = q(134,2490,41,58), ox = 14, oy = 57, delay = f(12) }, --special offensive 6c
-            { q = q(138,779,46,63), ox = 18, oy = 62 }, --combo 4.7 (shifted right by 4px)
+            { q = q(138,779,46,63), ox = 18, oy = 62 }, --combo 4.7 (shifted 4px right)
             delay = f(3)
         },
         specialDash = {

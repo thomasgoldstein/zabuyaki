@@ -98,10 +98,10 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 3
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 2
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted up by 2px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted 2px up)
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 4
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --charge dash attack 4
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted up by 2px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted 2px up)
         },
         specialDefensive = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 1
@@ -130,7 +130,7 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump up
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump up/top
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump top
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted up by 3px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --special defensive 12 (shifted 3px up)
             { q = q(140,1720,42,32), ox = -9, oy = 32 }, --offensive special 1a
             { q = q(184,1721,40,29), ox = -9, oy = 31 }, --offensive special 1b
             { q = q(140,1754,34,24), ox = -13, oy = 28 }, --offensive special 1c

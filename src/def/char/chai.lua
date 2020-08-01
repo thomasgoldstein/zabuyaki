@@ -521,10 +521,10 @@ return {
             { q = q(2,1587,67,65), ox = 21, oy = 64, hover = true, func = function(slf) slf.speed_x = slf.walkSpeed_x * 0.7; slf.speed_z = 0; slf.victims = {} end, delay = f(2) }, --charge dash attack 3
             { q = q(43,722,37,64), ox = 14, oy = 66, hover = true }, --jump attack forward 2
             { q = q(2,722,39,65), ox = 18, oy = 66, hover = true }, --jump attack forward 1
-            { q = q(101,1462,40,62), ox = 21, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashAttackSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted up by 2px)
+            { q = q(101,1462,40,62), ox = 21, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashAttackSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted 2px up)
             { q = q(84,403,69,59), ox = 26, oy = 58, hover = true, funcCont = chargeDashAttack2, delay = f(11) }, --charge dash attack 4
             { q = q(84,403,69,59), ox = 26, oy = 58, funcCont = chargeDashAttack2, delay = f(3) }, --charge dash attack 4
-            { q = q(101,1462,40,62), ox = 21, oy = 66, func = function(slf) slf.speed_x = slf.dashAttackSpeed_x * 0.7 end, delay = math.huge }, --special defensive 12 (shifted up by 2px)
+            { q = q(101,1462,40,62), ox = 21, oy = 66, func = function(slf) slf.speed_x = slf.dashAttackSpeed_x * 0.7 end, delay = math.huge }, --special defensive 12 (shifted 2px up)
             delay = f(2)
         },
         specialDefensive = {
@@ -581,7 +581,7 @@ return {
             { q = q(43,266,39,67), ox = 24, oy = 65 }, --jump up
             { q = q(84,266,42,65), ox = 22, oy = 66 }, --jump up/top
             { q = q(128,266,44,62), ox = 21, oy = 65 }, --jump top
-            { q = q(101,1462,40,62), ox = 21, oy = 67 }, --special defensive 12 (shifted up by 3px)
+            { q = q(101,1462,40,62), ox = 21, oy = 67 }, --special defensive 12 (shifted 3px up)
             { q = q(2,1786,71,59), ox = 26, oy = 65, funcCont = specialDashCheck, delay = f(4) }, --special dash 1a
             { q = q(75,1786,71,59), ox = 26, oy = 65, funcCont = specialDashCheck, delay = f(4) }, --special dash 1b
             { q = q(148,1786,71,59), ox = 26, oy = 65, funcCont = specialDashCheck, delay = f(4) }, --special dash 1c
@@ -630,15 +630,15 @@ return {
         },
         grabFrontAttack3 = {
             { q = q(49,1654,41,64), ox = 23, oy = 63 }, --grab attack 1.1
-            { q = q(2,722,39,65), ox = 15, oy = 64 }, --jump attack forward 1 (shifted right by 3px)
-            { q = q(43,722,37,64), ox = 9, oy = 63, func = grabFrontAttackLast, delay = f(11) }, --jump attack forward 2 (shifted right by 5px)
-            { q = q(2,722,39,65), ox = 15, oy = 64, delay = f(3) }, --jump attack forward 1 (shifted right by 3px)
+            { q = q(2,722,39,65), ox = 15, oy = 64 }, --jump attack forward 1 (shifted 3px right)
+            { q = q(43,722,37,64), ox = 9, oy = 63, func = grabFrontAttackLast, delay = f(11) }, --jump attack forward 2 (shifted 5px right)
+            { q = q(2,722,39,65), ox = 15, oy = 64, delay = f(3) }, --jump attack forward 1 (shifted 3px right)
             delay = f(2)
         },
         grabFrontAttackForward = {
-            { q = q(131,1655,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
-            { q = q(131,1655,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
-            { q = q(131,1655,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
+            { q = q(131,1655,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted 3px left)
+            { q = q(131,1655,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted 3px left)
+            { q = q(131,1655,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted 3px left)
             { q = q(2,928,40,62), ox = 20, oy = 62}, --throw back 1
             { q = q(136,862,51,64), ox = 26, oy = 63, func = grabFrontAttackForward }, --throw back 2
             { q = q(97,928,53,63), ox = 22, oy = 62 }, --throw back 3
@@ -657,7 +657,7 @@ return {
             }
         },
         grabFrontAttackBack = {
-            { q = q(131,1655,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted left by 3px)
+            { q = q(131,1655,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted 3px left)
             { q = q(2,928,40,62), ox = 20, oy = 62 }, --throw back 1
             { q = q(136,862,51,64), ox = 26, oy = 63, func = grabFrontAttackBack }, --throw back 2
             { q = q(97,928,53,63), ox = 22, oy = 62, delay = f(12) }, --throw back 3

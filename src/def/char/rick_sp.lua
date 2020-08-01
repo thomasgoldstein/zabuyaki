@@ -48,7 +48,7 @@ return {
             { q = q(177,2509,43,24), ox = 18, oy = 38 }, --special offensive 6a
             { q = q(222,2509,17,19), ox = 17, oy = 33 }, --special offensive 6b
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --special offensive 6c
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.7 (shifted right by 4px)
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --combo 4.7 (shifted 4px right)
         },
         specialDash2 = {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --offensive special 5
