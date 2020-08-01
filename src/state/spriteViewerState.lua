@@ -69,10 +69,10 @@ local function getCharacterHitBoxes()
     clearCharacterHitBoxes()
     if sc then
         if sc.funcCont and character then
-            sc.funcCont(character, true) --isfuncCont = true
+            pcall(sc.funcCont, character, true) --isfuncCont = true
         end
         if sc.func then
-            sc.func(character, false) --isfuncCont = false
+            pcall( sc.func, character, false) --isfuncCont = false
         end
     end
 end
