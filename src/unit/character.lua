@@ -363,6 +363,10 @@ function Character:checkAndAttack(f, isFuncCont)
     local vertical = 0
     local onHit = f.onHit
     local followUpAnimation = f.followUpAnimation
+    local followUpAnimationAdditionalCondition = f.followUpAnimationAdditionalCondition
+    if followUpAnimationAdditionalCondition == nil then
+        followUpAnimationAdditionalCondition = true
+    end
     local counter = 0
     if repel_y ~= 0 then
         vertical = self.vertical
@@ -438,7 +442,7 @@ function Character:checkAndAttack(f, isFuncCont)
         if onHit then
             onHit(self, f, isFuncCont)
         end
-        if followUpAnimation then
+        if followUpAnimation and followUpAnimationAdditionalCondition then
             self:setSprite(followUpAnimation)
         end
     end
