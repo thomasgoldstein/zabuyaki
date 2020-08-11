@@ -119,8 +119,7 @@ local chargeDashAttackCheck = function(slf, cont)
         { x = 27, z = 18, width = 39, height = 45, type = "check",
             onHit = function(slf)
                 slf.speed_x = slf.dashAttackSpeed_x * 0.7
-                local minHeight = 1
-                if slf.z < minHeight then slf.z = minHeight end
+                if slf.z <=1 then slf.z = 1 end
             end,
             followUpAnimation = "chargeDashAttack2"
         },
