@@ -117,7 +117,10 @@ local dashAttack3 = function(slf, cont) slf:checkAndAttack(
 local chargeDashAttackCheck = function(slf, cont)
     slf:checkAndAttack(
         { x = 27, z = 18, width = 39, height = 45, type = "check",
-            onHit = function(slf) slf.speed_x = slf.dashAttackSpeed_x * 0.7 end,
+            onHit = function(slf)
+                slf.speed_x = slf.dashAttackSpeed_x * 0.7
+                if slf.z <=1 then slf.z = 1 end
+            end,
             followUpAnimation = "chargeDashAttack2"
         },
         cont
