@@ -242,6 +242,10 @@ function Chai:specialDashUpdate(dt)
     end
     if self:canFall() then
         self:calcFreeFall(dt, getSpriteFrame(self.sprite).hover and 0.1)
+    elseif not self.sprite.isFinished and self.sprite.curAnim == "specialDash2"
+        and self.z <= self:getRelativeZ()
+    then
+        self.z = self:getRelativeZ() + 1 -- the started 2nd attack should be finished
     else
         self:playSfx(self.sfx.step)
         self:setState(self.duck)
