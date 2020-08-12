@@ -241,11 +241,7 @@ function Chai:specialDashUpdate(dt)
         end
     end
     if self:canFall() then
-        if self.sprite.curFrame <= 6 and self.sprite.curAnim == "specialDash2" then
-            self:calcFreeFall(dt, 0.1) -- slow down the falling speed. Restore it on the 5th frame from the end
-        else
-            self:calcFreeFall(dt)
-        end
+        self:calcFreeFall(dt, getSpriteFrame(self.sprite).hover and 0.1)
     else
         self:playSfx(self.sfx.step)
         self:setState(self.duck)
