@@ -1854,9 +1854,7 @@ Character.knockedDown = {name = "knockedDown", start = Character.knockedDownStar
 
 function Character:initSlide(speed_x, diagonalSpeed_x, diagonalSpeed_y, friction)
     self.toSlowDown = true
-    if friction then
-        self.customFriction = friction or self.repelFriction
-    end
+    self.customFriction = friction or self.repelFriction
     if self.b.vertical:getValue() ~= 0 then
         self.vertical = self.b.vertical:getValue()
         self.speed_x = diagonalSpeed_x or speed_x * 0.8 -- diagonal horizontal speed
