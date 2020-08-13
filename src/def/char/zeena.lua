@@ -25,7 +25,7 @@ local comboKick = function(slf, cont)
     )
     -- move Zeena forward
     if slf.sprite.elapsedTime <= 0 then
-        slf:initSlide(slf.slideSpeed_x, nil, nil, slf.slideSpeed_x * 2.5)
+        slf:initSlide(slf.slideSpeed_x)
     end
 end
 
