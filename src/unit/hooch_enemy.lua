@@ -22,14 +22,10 @@ function Hooch:initAttributes()
     self.chargeWalkSpeed_y = 36
 
     self.comboSpeed_x = 180 --horizontal speed of combo1 attacks
-    self.comboDiagonalSpeed_x = 150 --diagonal horizontal speed of combo1 attacks
-    self.comboDiagonalSpeed_y = 50 --diagonal vertical speed of combo1 attacks
     self.comboRepel_x = 300 --how much combo1 attacks push units back
 
     self.dashRepel_x = 246 --how much dashes push units back (high value to make up for the jump that ignores friction)
     self.dashAttackSpeed_x = 130 --horizontal speed of dash attacks
-    self.dashAttackDiagonalSpeed_x = 100 --diagonal horizontal speed of dash attacks
-    self.dashAttackDiagonalSpeed_y = 13 --diagonal vertical speed of dash attacks
     self.dashAttackSpeed_z = 90 --jump speed of dash attacks
     self.dashAttackRepel_x = 160 --how much dash attacks push units back
     self.dashAttackFriction = self.dashAttackSpeed_x
@@ -52,7 +48,7 @@ function Hooch:dashAttackStart()
     self.isHittable = true
     self:setSprite("dashAttack")
     self.horizontal = self.face
-    self:initSlide(self.dashAttackSpeed_x, self.dashAttackDiagonalSpeed_x, self.dashAttackDiagonalSpeed_y, self.repelFriction)
+    self:initSlide(self.dashAttackSpeed_x)
     self.speed_z = self.dashAttackSpeed_z
     self.z = self:getRelativeZ() + 3
     self:playSfx(self.sfx.dashAttack)

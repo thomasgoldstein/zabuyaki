@@ -29,22 +29,14 @@ function Chai:initAttributes()
     --self.repelFriction = 1650 * 1.5
 
     self.comboSlideSpeed1_x = 120 --horizontal speed of combo1Forward attacks
-    self.comboSlideDiagonalSpeed1_x = 90 --diagonal horizontal speed of combo1Forward attacks
-    self.comboSlideDiagonalSpeed1_y = 50 --diagonal vertical speed of combo1Forward attacks
 
     self.comboSlideSpeed2_x = 200 --horizontal speed of combo2Forward attacks
-    self.comboSlideDiagonalSpeed2_x = 170 --diagonal horizontal speed of combo2Forward attacks
-    self.comboSlideDiagonalSpeed2_y = 50 --diagonal vertical speed of combo2Forward attacks
     self.comboSlideRepel2_x = self.comboSlideSpeed2_x --how much combo2Forward pushes units back
 
     self.comboSlideSpeed3_x = 220 --horizontal speed of combo3Forward attacks
-    self.comboSlideDiagonalSpeed3_x = 190 --diagonal horizontal speed of combo3Forward attacks
-    self.comboSlideDiagonalSpeed3_y = 50 --diagonal vertical speed of combo3Forward attacks
     self.comboSlideRepel3_x = self.comboSlideSpeed3_x --how much combo3Forward pushes units back
 
     self.comboSlideSpeed4_x = 280 --horizontal speed of combo4Forward attacks
-    self.comboSlideDiagonalSpeed4_x = 250 --diagonal horizontal speed of combo4Forward attacks
-    self.comboSlideDiagonalSpeed4_y = 50 --diagonal vertical speed of combo4Forward attacks
     self.comboSlideRepel4_x = self.comboSlideSpeed4_x --how much combo4Forward pushes units back
 
     self.specialOffensiveJabRepel_x = 60 --how much a specialOffensive jab pushes units back

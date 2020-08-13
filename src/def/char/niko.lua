@@ -20,7 +20,7 @@ local comboJab = function(slf, cont)
     )
 end
 local comboCrossSlide = function(slf, cont)
-    slf:initSlide(slf.comboSlideSpeed_x, slf.comboSlideDiagonalSpeed_x, slf.comboSlideDiagonalSpeed_y, slf.repelFriction)
+    slf:initSlide(slf.comboSlideSpeed_x)
 end
 local comboCross = function(slf, cont)
     slf:checkAndAttack(

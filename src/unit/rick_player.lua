@@ -29,19 +29,13 @@ function Rick:initAttributes()
     self.chargeDashAttackSpeed_z = 65
 
     self.comboSlideSpeed2_x = 180 --horizontal speed of combo2Forward attacks
-    self.comboSlideDiagonalSpeed2_x = 150 --diagonal horizontal speed of combo2Forward attacks
-    self.comboSlideDiagonalSpeed2_y = 50 --diagonal vertical speed of combo2Forward attacks
     self.comboSlideRepel2_x = self.comboSlideSpeed2_x --how much combo2Forward pushes units back
 
     self.comboSlideSpeed3_x = 130 --horizontal speed of combo3Forward attacks
-    self.comboSlideDiagonalSpeed3_x = 100 --diagonal horizontal speed of combo3Forward attacks
-    self.comboSlideDiagonalSpeed3_y = 13 --diagonal vertical speed of combo3Forward attacks
     self.comboSlideSpeed3_z = 30 --jump speed of combo3Forward attacks
     self.comboSlideRepel3_x = 246 --how much combo3Forward pushes units back (high value to make up for the jump that ignores friction)
 
     self.comboSlideSpeed4_x = 180 --horizontal speed of combo4Forward attacks
-    self.comboSlideDiagonalSpeed4_x = 150 --diagonal horizontal speed of combo4Forward attacks
-    self.comboSlideDiagonalSpeed4_y = 50 --diagonal vertical speed of combo4Forward attacks
     self.comboSlideRepel4_x = self.comboSlideSpeed4_x --how much combo4Forward pushes units back
 
     self.specialOffensiveRepel_x = 220 --how much specialOffensive pushes units back

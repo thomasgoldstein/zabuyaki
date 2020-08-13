@@ -19,8 +19,6 @@ function Zeena:initAttributes()
     self.walkSpeed_x = 93
     self.walkSpeed_y = 45
     self.slideSpeed_x = 200 --horizontal speed of the slide kick
-    self.slideDiagonalSpeed_x = 85 --diagonal horizontal speed of the slide kick
-    self.slideDiagonalSpeed_y = 15 --diagonal vertical speed of the slide kick
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx

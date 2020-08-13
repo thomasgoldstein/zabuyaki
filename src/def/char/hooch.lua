@@ -9,7 +9,7 @@ local function f(n)
 end
 local comboSlide = function(slf)
     slf:playSfx(sfx.air)
-    slf:initSlide(slf.comboSpeed_x, slf.comboDiagonalSpeed_x, slf.comboDiagonalSpeed_y, slf.repelFriction)
+    slf:initSlide(slf.comboSpeed_x)
 end
 local comboAttack = function(slf, cont)
     slf:checkAndAttack(

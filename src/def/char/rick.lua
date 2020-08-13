@@ -34,15 +34,15 @@ local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local comboSlide2 = function(slf)
-    slf:initSlide(slf.comboSlideSpeed2_x, slf.comboSlideDiagonalSpeed2_x, slf.comboSlideDiagonalSpeed2_y, slf.repelFriction)
+    slf:initSlide(slf.comboSlideSpeed2_x)
 end
 local comboSlide3 = function(slf)
-    slf:initSlide(slf.comboSlideSpeed3_x, slf.comboSlideDiagonalSpeed3_x, slf.comboSlideDiagonalSpeed3_y, slf.repelFriction)
+    slf:initSlide(slf.comboSlideSpeed3_x)
     slf.speed_z = slf.comboSlideSpeed3_z
     slf.z = slf:getRelativeZ() + 3
 end
 local comboSlide4 = function(slf)
-    slf:initSlide(slf.comboSlideSpeed4_x, slf.comboSlideDiagonalSpeed4_x, slf.comboSlideDiagonalSpeed4_y, slf.repelFriction)
+    slf:initSlide(slf.comboSlideSpeed4_x)
 end
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
