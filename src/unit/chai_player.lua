@@ -5,6 +5,7 @@ local function nop() end
 
 function Chai:initialize(name, sprite, x, y, f, input)
     Player.initialize(self, name, sprite, x, y, f, input)
+    self:postInitialize()
 end
 
 function Chai:initAttributes()

@@ -6,6 +6,7 @@ local function nop() end
 
 function Gopper:initialize(name, sprite, x, y, f, input)
     Player.initialize(self, name, sprite, x, y, f, input)
+    self:postInitialize()
 end
 
 function Gopper:initAttributes()
