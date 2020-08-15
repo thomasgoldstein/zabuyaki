@@ -57,11 +57,7 @@ function Character:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 100
-    self.walkSpeed_y = 50
-    self.chargeWalkSpeed_x = self.walkSpeed_x * 0.75
-    self.chargeWalkSpeed_y = self.walkSpeed_y * 0.75
     self.runSpeed_x = 150
-    self.runSpeed_y = 25
     self.jumpSpeed_z = 220 -- z coord
     self.jumpSpeedMultiplier = 1.25
     self.jumpSpeedBoost = { x = 26, y = 13, z = 0 }
@@ -104,6 +100,22 @@ function Character:initAttributes()
     self.sfx.jumpAttack = self.sfx.jumpAttack or sfx.nikoAttack1
     self.sfx.step = self.sfx.step or sfx.kisaStep
     self.sfx.dead = self.sfx.dead or sfx.gopnikDeath1
+end
+
+-- should be run at the end of constructor
+function Character:postInitialize()
+    if not self.walkSpeed_y then
+        self.walkSpeed_y = self.walkSpeed_x / 2
+    end
+    if not self.runSpeed_y then
+        self.runSpeed_y = self.runSpeed_x / 6
+    end
+    if not self.chargeWalkSpeed_x then
+        self.chargeWalkSpeed_x = self.walkSpeed_x * 0.75
+    end
+    if not self.chargeWalkSpeed_y then
+        self.chargeWalkSpeed_y = self.walkSpeed_y * 0.75
+    end
 end
 
 local movementTimerMax = 1
