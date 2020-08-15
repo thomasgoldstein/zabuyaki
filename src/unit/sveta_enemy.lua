@@ -19,7 +19,7 @@ function Sveta:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 97
-    self.walkSpeed_y = 45
+    self.walkSpeed_y = 45   -- overrides default post-calculated speed
     self.dashAttackSpeed_x = 170 --speed of the character during dash attack
     self.dashAttackRepel_x = 180 --how much the dash attack repels other units
     self.dashAttackFriction = self.dashAttackSpeed_x

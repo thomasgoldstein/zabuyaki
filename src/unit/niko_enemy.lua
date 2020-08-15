@@ -18,9 +18,7 @@ function Niko:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 88
-    self.walkSpeed_y = 45
-    self.chargeWalkSpeed_x = 72
-    self.chargeWalkSpeed_y = 36
+    self.chargeWalkSpeed_x = 72   -- overrides default post-calculated speed
     self.comboSlideSpeed_x = 180 --horizontal speed of combo3Forward attacks
     --    self.throwSpeed_x = 220 --my throwing speed
     --    self.throwSpeed_z = 200 --my throwing speed

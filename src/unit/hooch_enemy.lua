@@ -17,9 +17,8 @@ function Hooch:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 88
-    self.walkSpeed_y = 45
-    self.chargeWalkSpeed_x = 72
-    self.chargeWalkSpeed_y = 36
+    self.walkSpeed_y = 45   -- overrides default post-calculated speed
+    self.chargeWalkSpeed_x = 72   -- overrides default post-calculated speed
 
     self.comboSpeed_x = 180 --horizontal speed of combo1 attacks
     self.comboRepel_x = 300 --how much combo1 attacks push units back

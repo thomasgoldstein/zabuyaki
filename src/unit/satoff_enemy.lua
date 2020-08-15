@@ -27,11 +27,10 @@ function Satoff:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 86
-    self.walkSpeed_y = 45
-    self.chargeWalkSpeed_x = 80
-    self.chargeWalkSpeed_y = 40
+    self.walkSpeed_y = 45   -- overrides default post-calculated speed
+    self.chargeWalkSpeed_x = 80   -- overrides default post-calculated speed
+    self.chargeWalkSpeed_y = 40   -- overrides default post-calculated speed
     self.runSpeed_x = 140
-    self.runSpeed_y = 23
     self.sideStepSpeed = 160
     self.sideStepFriction = 350
     self.dashAttackSpeed_x = 190 --speed of the character during dash attack

@@ -23,9 +23,7 @@ function DrVolker:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 100
-    self.walkSpeed_y = 50
     self.runSpeed_x = 150
-    self.runSpeed_y = 25
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx

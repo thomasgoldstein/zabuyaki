@@ -17,9 +17,6 @@ function Enemy:initialize(name, sprite, x, y, f, input)
     self.delayedWakeRange = 150 -- make enemy active if the wakeDelay is over and the distance to player is less
 end
 
-function Enemy:postInitialize()
-end
-
 function Enemy:updateAI(dt)
     if self.isDisabled then
         return

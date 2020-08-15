@@ -17,7 +17,7 @@ function Zeena:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 93
-    self.walkSpeed_y = 45
+    self.walkSpeed_y = 45   -- overrides default post-calculated speed
     self.slideSpeed_x = 220 --horizontal speed of the slide kick
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
