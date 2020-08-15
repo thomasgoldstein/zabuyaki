@@ -370,7 +370,7 @@ function AI:initWalkToDistance(distanceMin, distanceMax, toFrontOrBack)
     end
     u.old_x = 0
     u.old_y = 0
-    u.speed_x = u.walkSpeed
+    u.speed_x = u.walkSpeed_x
     u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, angle, love.math.random(distanceMin, distanceMax))
 end
 function AI:initWalkToShortDistance()
