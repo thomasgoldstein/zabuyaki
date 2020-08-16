@@ -21,21 +21,6 @@ function Player:initialize(name, sprite, x, y, f, input)
     self.friendlyDamage = 1 --1 = full damage on other players
 end
 
-function Player:postInitialize()
-    if not self.walkSpeed_y then
-        self.walkSpeed_y = self.walkSpeed_x / 2
-    end
-    if not self.runSpeed_y then
-        self.runSpeed_y = self.runSpeed_x / 6
-    end
-    if not self.chargeWalkSpeed_x then
-        self.chargeWalkSpeed_x = self.walkSpeed_x * 0.8
-    end
-    if not self.chargeWalkSpeed_y then
-        self.chargeWalkSpeed_y = self.chargeWalkSpeed_x / 2
-    end
-end
-
 function Player:setOnStage(stage)
     self.pid = GLOBAL_SETTING.PLAYERS_NAMES[self.id] or "P?"
     self.showPIDDelay = 3
