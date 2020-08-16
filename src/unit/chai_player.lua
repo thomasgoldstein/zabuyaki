@@ -19,7 +19,6 @@ function Chai:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 100
-    self.chargeWalkSpeed_x = 80
     self.runSpeed_x = 156
     self.dashAttackSpeed_x = 200 --speed of the character during dash attack
     self.dashAttackRepel_x = 180 --how much the dash attack repels other units
