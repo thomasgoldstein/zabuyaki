@@ -114,7 +114,7 @@ function Character:postInitialize()
         self.chargeWalkSpeed_x = self.walkSpeed_x * 0.75
     end
     if not self.chargeWalkSpeed_y then
-        self.chargeWalkSpeed_y = self.walkSpeed_y * 0.75
+        self.chargeWalkSpeed_y = self.chargeWalkSpeed_x / 2
     end
 end
 
