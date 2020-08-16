@@ -18,11 +18,8 @@ function Yar:initAttributes()
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
     }
     self.walkSpeed_x = 75
-    self.walkSpeed_y = 37.5
-    self.chargeWalkSpeed_x = 72
-    self.chargeWalkSpeed_y = 36
+    self.chargeWalkSpeed_x = 72 -- override default speed
     self.runSpeed_x = 144
-    self.runSpeed_y = 24
     self.dashAttackSpeed_x = 125 --speed of the character during dash attack
     self.dashAttackRepel_x = 180 --how much the dash attack repels other units
     self.dashAttackFriction = 400
