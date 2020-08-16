@@ -26,7 +26,6 @@ GLOBAL_SETTING = {
     MAX_SCREEN_SHAKE_GAP = 2, -- max vertical screen shaking amplitude
     BGM_VOLUME = 0.5,
     SFX_VOLUME = 0.5,
-    CENSORSHIP = true,
     PLAYERS_NAMES = {"P1", "P2", "P3"},
     SHADOW_OPACITY = 0.4 * 255, -- 0..1 TODO remove 255 colors logic at LOVE 11.x
     REFLECTIONS_OPACITY = 0.2, -- 0..1
@@ -46,9 +45,7 @@ GLOBAL_SETTING = {
     FRAME_SKIP = 0, -- current frame skip. 0 = off
 }
 local saveEntries = { --the only entries should be saved
-    "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTER",
-    "DEBUG", "BGM_VOLUME", "SFX_VOLUME", "CENSORSHIP", "DIFFICULTY",
-    "MAX_CREDITS", "MAX_LIVES", "MOUSE_ENABLED", "SHADERS_ENABLED"
+    "DEBUG", "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTER", "BGM_VOLUME", "SFX_VOLUME", "DIFFICULTY",
 }
 -- save defaults
 configuration.defaults = {}
