@@ -723,9 +723,13 @@ function AI:calcWalkToGrabXY()
     local u = self.unit
     dp("AI:calcWalkToGrabXY() " .. u.name)
     u.old_x = u.x - 10  -- update old values or the unit stucks
-    u.old_y = u.y + 10
+    u.old_y = u.y - 10
     u.antiStuck = 0
     --get to the player's side grab range
+    if not u.target then
+        u:pickAttackTarget("close")
+        return false
+    end
     u.ttx, u.tty = u.target.x + ( u.target.width / 2 ) * ( u.x < u.target.x and -1 or 1), u.target.y + 1
     return true
 end
