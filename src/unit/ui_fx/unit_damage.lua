@@ -51,12 +51,22 @@ function Unit:initDamage()
     self.isHurt = nil
 end
 
-function Unit:trackDamage(damage)
-    self.isHurt = damage
+function Unit:trackDamage(damageContext)
+    if self.isHurt then
+        print("RESOLVE Stacked damage!")
+        if damageContext.type ~= "hit" and damageContext.type ~= "simple" then
+            print("  REPLACE ", self.isHurt.source.name, self.isHurt.type,"with", damageContext.type, "(", damageContext.source.name, ") +++ DMG", damageContext.damage)
+            damageContext.damage = self.isHurt.damage + damageContext.damage
+        else
+            print("  +++ DMG", damageContext.damage,  self.isHurt.type, self.isHurt.source.name, "(", damageContext.source.name, ")")
+            self.isHurt.damage = self.isHurt.damage + damageContext.damage
+            return
+        end
+    end
+    self.isHurt = damageContext
 end
 
 function Unit:getDamage(damage)
-
 end
 
 function Unit:getDamageContext()
