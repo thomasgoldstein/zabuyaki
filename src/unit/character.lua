@@ -219,7 +219,7 @@ function Character:isImmune()   --Immune to the attack?
     local h = self.isHurt
     if h.type == "shockWave" and ( self.isDisabled or self.hp <= 0 or self.state == "fall" ) then
         -- shockWave has no effect on players & stage objects
-        self.isHurt = nil --free hurt data
+        self:initDamage() --free hurt data
         return true
     end
     return false
@@ -237,7 +237,7 @@ function Character:onHurt()
     self:onFriendlyAttack()
     self:onHurtDamage()
     self:afterOnHurt()
-    self.isHurt = nil --free hurt data
+    self:initDamage() --free hurt data
 end
 
 function Character:onAttacker(h)
@@ -1144,7 +1144,7 @@ function Character:getUpStart()
         return
     end
     self.isHittable = false
-    self.isHurt = nil --free hurt data
+    self:initDamage() --free hurt data
     self.z = self:getRelativeZ()
     self.isThrown = false
     if self.hp <= 0 then
@@ -1173,7 +1173,7 @@ function Character:deadStart()
     end
     dp(self.name.." is dead.")
     self.hp = 0
-    self.isHurt = nil --free hurt data
+    self:initDamage() --free hurt data
     self:releaseGrabbed()
     if not self:canFall() then
         self.z = self:getRelativeZ()

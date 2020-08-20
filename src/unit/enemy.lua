@@ -37,7 +37,7 @@ function Enemy:isImmune()   --Immune to the attack?
     if h.source.type == "enemy"
         and not (self.canEnemyFriendlyAttack and h.source.canEnemyFriendlyAttack)
     then
-        self.isHurt = nil --free hurt data
+        self:initDamage() --free hurt data
         return true
     end
     return false

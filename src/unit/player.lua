@@ -182,7 +182,7 @@ function Player:isImmune()   --Immune to the attack?
         return true
     end
     if h.type == "shockWave" or self.isDisabled then
-        self.isHurt = nil --free hurt data
+        self:initDamage() --free hurt data
         return false
     end
     return false
@@ -214,7 +214,7 @@ function Player:onHurtDamage()
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
     self:decreaseHp(h.damage)
     if h.type == "simple" then
-        self.isHurt = nil --free hurt data
+        self:initDamage() --free hurt data
         return
     end
     self:playHitSfx(h.damage)
