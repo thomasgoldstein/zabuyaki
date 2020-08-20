@@ -33,7 +33,7 @@ function Enemy:isImmune()   --Immune to the attack?
     if Character.isImmune(self) then
         return
     end
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if h.source.type == "enemy"
         and not (self.canEnemyFriendlyAttack and h.source.canEnemyFriendlyAttack)
     then

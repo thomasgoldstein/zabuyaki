@@ -52,11 +52,14 @@ function Unit:initDamage()
 end
 
 function Unit:trackDamage(damage)
-
+    self.isHurt = damage
 end
 
 function Unit:getDamage(damage)
 
 end
 
+function Unit:getDamageContext()
+    return self.isHurt
+end
 

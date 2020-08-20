@@ -60,7 +60,7 @@ function P:logDamage(player)
 --        print("spyPlayer.lua<P:reset> : wrong id")
         return
     end
-    local h = player.isHurt
+    local h = player:getDamageContext()
     local n = dirToNum(player.x, player.y, h.source.x, h.source.y)
     self:storeDamageInfo(player.id, n, h.damage)
 end

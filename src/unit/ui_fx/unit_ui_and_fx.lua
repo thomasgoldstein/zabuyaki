@@ -27,7 +27,7 @@ function Unit:showHitMarks(dmg, z, offset_x)
     local hitMarkOffset_y = -10
     local y = self.y
     local paHitMark
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if h and h.source.y > self.y then
         hitMarkOffset_y = hitMarkOffset_y + (h.source.y - self.y)
         y = h.source.y

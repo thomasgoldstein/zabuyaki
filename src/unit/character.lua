@@ -216,7 +216,7 @@ function Character:canMove()
 end
 
 function Character:isImmune()   --Immune to the attack?
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if h.type == "shockWave" and ( self.isDisabled or self.hp <= 0 or self.state == "fall" ) then
         -- shockWave has no effect on players & stage objects
         self:initDamage() --free hurt data
@@ -226,7 +226,7 @@ function Character:isImmune()   --Immune to the attack?
 end
 
 function Character:onHurt()
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if not h then
         return
     end
@@ -248,7 +248,7 @@ function Character:onAttacker(h)
 end
 
 function Character:onHurtDamage()
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if not h then
         return
     end
@@ -266,7 +266,7 @@ function Character:onHurtDamage()
 end
 
 function Character:afterOnHurt()
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if not h then
         return
     end
@@ -391,9 +391,9 @@ function Character:checkAndAttack(f, isFuncCont)
                 and o ~= self
                 and mainCamera:isVisible(o)
             then
-                o.isHurt = { source = self, damage = damage,
+                o:trackDamage( { source = self, damage = damage,
                              type = type, repel_x = repel_x,
-                             z = self.z + z}
+                             z = self.z + z} )
                 counter = counter + 1
             end
         end
@@ -435,12 +435,12 @@ function Character:checkAndAttack(f, isFuncCont)
                 self.y - d / 2,
                  w, h, d)
             then
-                o.isHurt = { source = self.indirectAttacker or self, damage = damage,
+                o:trackDamage( { source = self.indirectAttacker or self, damage = damage,
                              type = type, repel_x = repel_x, repel_y = repel_y,
                              horizontal = horizontal, vertical = vertical,
                              continuous = isFuncCont, twist = twist,
                              z = self.z + z
-                }
+                } )
                 counter = counter + 1
             end
         end

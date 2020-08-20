@@ -177,7 +177,7 @@ function Player:updateAI(dt)
 end
 
 function Player:isImmune()   --Immune to the attack?
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if not h then
         return true
     end
@@ -196,7 +196,7 @@ function Player:canGrab(target)
 end
 
 function Player:onHurtDamage()
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if not h then
         return
     end

@@ -83,7 +83,7 @@ function StageObject:updateAI(dt)
 end
 
 function StageObject:isImmune()   --Immune to the attack?
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if h.type == "shockWave" or self.isDisabled then
         -- shockWave has no effect on players & stage objects
         self:initDamage() --free hurt data
@@ -93,7 +93,7 @@ function StageObject:isImmune()   --Immune to the attack?
 end
 
 function StageObject:onHurt()
-    local h = self.isHurt
+    local h = self:getDamageContext()
     if not h then
         return
     end
