@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="34" nextobjectid="46">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="34" nextobjectid="47">
  <editorsettings>
   <export target="../../../src/def/stage/stage1a_map.lua" format="lua"/>
  </editorsettings>
@@ -147,6 +147,13 @@
    <point/>
   </object>
   <object id="12" name="Trash" type="trashcan" x="392" y="248">
+   <properties>
+    <property name="drop" value="apple"/>
+    <property name="palette" type="int" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="46" name="Sign" type="sign" x="176" y="240">
    <properties>
     <property name="drop" value="apple"/>
     <property name="palette" type="int" value="2"/>
