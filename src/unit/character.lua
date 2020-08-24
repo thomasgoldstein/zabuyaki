@@ -222,6 +222,13 @@ function Character:isImmune()   --Immune to the attack?
         self:initDamage() --free hurt data
         return true
     end
+    local attackHash = h.attackHash
+    if self:hasAttackHash(attackHash) then  -- already had damage from this attack
+        self:initDamage() --free hurt data
+        return true
+    else
+        self:storeAttackHash(attackHash)
+    end
     return false
 end
 
@@ -383,6 +390,12 @@ function Character:checkAndAttack(f, isFuncCont)
     if repel_y ~= 0 then
         vertical = self.vertical
     end
+    if not isFuncCont then  -- used to count attacks and create proper attackHash
+        self.globalAttackN = self.globalAttackN + 1
+        if self.globalAttackN == math.huge then
+            self.globalAttackN = 1
+        end
+    end
     if type == "shockWave" then
         for _,o in ipairs(stage.objects.entities) do
             if o.lifeBar
@@ -422,7 +435,7 @@ function Character:checkAndAttack(f, isFuncCont)
             if o ~= self
                 and o.lifeBar
                 and not o:isInvincible()
-                and not self.victims[o]
+                --and not self.victims[o]
                 and CheckCollision3D(
                 o.x + o.sprite.flipH * o:getHurtBoxOffsetX() - o:getHurtBoxWidth() / 2,
                 o.z,
@@ -439,6 +452,7 @@ function Character:checkAndAttack(f, isFuncCont)
                              type = type, repel_x = repel_x, repel_y = repel_y,
                              horizontal = horizontal, vertical = vertical,
                              continuous = isFuncCont, twist = twist,
+                             attackHash = self:createAttackHash(),
                              z = self.z + z
                 } )
                 counter = counter + 1

@@ -47,6 +47,12 @@ function Unit:applyDamage(damage, type, source, repel_x, sfx1)
     end
 end
 
+function Unit:createAttackHash()
+    local hash = "H" .. self.id .. self.sprite.curAnim .. self.sprite.curFrame .. self.globalAttackN
+    --print("HASH for", self.name, hash)
+    return hash
+end
+
 function Unit:initDamage()
     self.isHurt = nil
 end
@@ -66,7 +72,17 @@ function Unit:trackDamage(damageContext)
     self.isHurt = damageContext
 end
 
-function Unit:getDamage(damage)
+function Unit:hasAttackHash(attackHash)
+    if attackHash and self.hashedAttacks[attackHash] then
+        return true
+    end
+    return false
+end
+
+function Unit:storeAttackHash(attackHash)
+    if attackHash then
+        self.hashedAttacks[attackHash] = true
+    end
 end
 
 function Unit:getDamageContext()

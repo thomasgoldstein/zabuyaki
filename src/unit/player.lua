@@ -185,6 +185,13 @@ function Player:isImmune()   --Immune to the attack?
         self:initDamage() --free hurt data
         return false
     end
+    local attackHash = h.attackHash
+    if self:hasAttackHash(attackHash) then  -- already had damage from this attack
+        self:initDamage() --free hurt data
+        return true
+    else
+        self:storeAttackHash(attackHash)
+    end
     return false
 end
 

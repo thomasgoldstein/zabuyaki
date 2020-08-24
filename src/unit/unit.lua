@@ -55,6 +55,8 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.antiStuck = 0 -- movement watchdog for AI and events
     self.wasPickedAsTargetAt = 0 -- the last time it was picked as a target
     self.victims = {} -- [victim] = true
+    self.globalAttackN = 1  -- used for attackHash generation
+    self.hashedAttacks = { dummy = false }
     self.isThrown = false
     self.invincibilityTimeout = 0.2 -- invincibility time after getUp state
     self.invincibilityTimer = 0     -- invincible if > 0
