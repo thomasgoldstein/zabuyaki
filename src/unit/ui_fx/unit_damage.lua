@@ -41,6 +41,7 @@ function Unit:applyDamage(damage, type, source, repel_x, sfx1)
     self:trackDamage ( {source = source or self, state = self.state, damage = damage,
                         type = type, repel_x = repel_x or 0,
                         horizontal = self.face,
+                        attackHash = self:createProjectileAttackHash(source or self),
                         x = self.x, y = self.y, z = self.z } )
     if sfx1 then
         self:playSfx(sfx1)
@@ -51,6 +52,15 @@ function Unit:createAttackHash()
     local hash = "H" .. self.id .. self.sprite.curAnim .. self.sprite.curFrame .. self.globalAttackN
     --print("HASH for", self.name, hash)
     return hash
+end
+
+function Unit:createProjectileAttackHash(source)
+    if source then
+        print("PROJECTILE HASH for", source.name, "H" .. source.id .. "projectile" .. source.globalAttackN)
+        return "H" .. source.id .. "projectile" .. source.globalAttackN
+    end
+    print("PROJECTILE HASH for", self.name, "H" .. self.id .. "projectile" .. self.globalAttackN)
+    return "H" .. self.id .. "projectile" .. self.globalAttackN
 end
 
 function Unit:initDamageContext()
