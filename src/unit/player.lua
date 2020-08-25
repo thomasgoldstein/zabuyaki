@@ -182,12 +182,12 @@ function Player:isImmune()   --Immune to the attack?
         return true
     end
     if h.type == "shockWave" or self.isDisabled then
-        self:initDamage() --free hurt data
+        self:initDamageContext()
         return false
     end
     local attackHash = h.attackHash
     if self:hasAttackHash(attackHash) then  -- already had damage from this attack
-        self:initDamage() --free hurt data
+        self:initDamageContext()
         return true
     else
         self:storeAttackHash(attackHash)
@@ -218,7 +218,7 @@ function Player:onHurtDamage()
     mainCamera:onShake(0, 1, 0.03, 0.3)	--shake the screen for Players only
     self:decreaseHp(h.damage)
     if h.type == "simple" then
-        self:initDamage() --free hurt data
+        self:initDamageContext()
         return
     end
     self:playHitSfx(h.damage)

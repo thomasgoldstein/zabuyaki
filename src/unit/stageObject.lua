@@ -86,12 +86,12 @@ function StageObject:isImmune()   --Immune to the attack?
     local h = self:getDamageContext()
     if h.type == "shockWave" or self.isDisabled then
         -- shockWave has no effect on players & stage objects
-        self:initDamage() --free hurt data
+        self:initDamageContext()
         return true
     end
     local attackHash = h.attackHash
     if self:hasAttackHash(attackHash) then  -- already had damage from this attack
-        self:initDamage() --free hurt data
+        self:initDamageContext()
         return true
     else
         self:storeAttackHash(attackHash)
@@ -121,7 +121,7 @@ function StageObject:onHurt()
     end
     self.sprite.curFrame = curFrame
     self.oldFrame = curFrame
-    self:initDamage() --free hurt data
+    self:initDamageContext()
 end
 
 function StageObject:onAttacker(h)

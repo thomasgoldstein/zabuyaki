@@ -53,7 +53,7 @@ function Unit:createAttackHash()
     return hash
 end
 
-function Unit:initDamage()
+function Unit:initDamageContext()
     self.isHurt = nil
 end
 
