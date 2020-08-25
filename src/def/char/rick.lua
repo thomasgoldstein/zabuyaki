@@ -179,9 +179,6 @@ local specialOffensive = function(slf, cont) slf:checkAndAttack(
     cont
 ) end
 local specialDash1 = function(slf, cont)
-    if slf.sprite.elapsedTime <= 0 then
-        slf.victims = {}    -- clear victims list before any contFuncAttack
-    end
     slf:checkAndAttack(
         { x = 10, z = 18, width = 40, height = 35, damage = 6,
           onHit = function(slf)
@@ -192,7 +189,6 @@ local specialDash1 = function(slf, cont)
 end
 local specialDashFollowUp = function(slf, cont)
     if slf.isAttackConnected then
-        slf.victims = {}    -- clear victims list before this attack
         slf:setSprite("specialDash2")
         slf.speed_x = slf.dashAttackSpeed_x * 1.5
         slf.customFriction = slf.dashAttackFriction * 1.5
@@ -204,17 +200,11 @@ local specialDashJumpStart = function(slf, cont)
     slf:showEffect("jumpStart")
 end
 local specialDash2a = function(slf, cont)
-    if slf.sprite.elapsedTime <= 0 then
-        slf.victims = {}    -- clear victims list before any contFuncAttack
-    end
     slf:checkAndAttack(
         { x = 10, z = 18, width = 40, height = 35, damage = 6 },
         cont)
 end
 local specialDash2b = function(slf, cont)
-    if slf.sprite.elapsedTime <= 0 then
-        slf.victims = {}    -- clear victims list before any contFuncAttack
-    end
     slf:checkAndAttack(
         { x = 10, z = 50, width = 40, height = 50, damage = 18, type = "fell", repel_x = slf.specialDashRepel_x },
         cont)

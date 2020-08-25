@@ -259,9 +259,6 @@ function Character:onHurtDamage()
     if not h then
         return
     end
-    if h.continuous then
-        h.source.victims[self] = true
-    end
     self:releaseGrabbed()
     self:onAttacker(h)
     self:onShake(1, 0, 0.03, 0.3)   --shake a character
@@ -283,7 +280,6 @@ function Character:afterOnHurt()
     self.vertical = h.vertical or 0
     if h.twist == "strong" then
         self.indirectAttacker = h.source
-        self.victims[h.source] = true   --the attacker is immune to the twist bodies
     end
     if h.type == "fell" then
         if h.source == self then --fall back on self kill (debug)
@@ -435,7 +431,6 @@ function Character:checkAndAttack(f, isFuncCont)
             if o ~= self
                 and o.lifeBar
                 and not o:isInvincible()
-                --and not self.victims[o]
                 and CheckCollision3D(
                 o.x + o.sprite.flipH * o:getHurtBoxOffsetX() - o:getHurtBoxWidth() / 2,
                 o.z,
@@ -521,7 +516,6 @@ function Character:standStart()
         self.nextAnimationDelay = 0.0
     end
     self:removeTweenMove()
-    self.victims = {}
     self.grabAttackN = 0
 end
 function Character:standUpdate(dt)
@@ -1320,7 +1314,6 @@ function Character:grabStart()
     self.isHittable = true
     self:setSprite("grab")
     self.grabRelease = 0
-    self.victims = {}
     if self.type == "player" then
         self.b.horizontal.doubleTap.lastDirection = -self.face -- prevents instant grabSwap on the 1st grab
     end
@@ -1498,7 +1491,6 @@ function Character:grabbedUpdate(dt)
 end
 function Character:grabbedFrontStart()
     local g = self.grabContext
-    self.victims[g.source] = true -- make the grabber immune to grabbed's attacks
     self.isHittable = true
     self.isSpriteSet = false
     if g.source.face == self.face then
@@ -1591,7 +1583,6 @@ function Character:doThrow(repel_x, repel_y, repel_z, horizontal, face, start_z)
     t.isGrabbed = false
     t.isThrown = true   --flag to get damage on landing
     t.indirectAttacker = self
-    t.victims[self] = true
     t.speed_x = repel_x
     t.speed_y = repel_y
     t.speed_z = repel_z

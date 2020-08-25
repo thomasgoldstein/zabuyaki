@@ -24,7 +24,6 @@ local dashPushback = function(slf, cont)
     )
 end
 local dashAttack = function(slf, cont)
-    slf.victims = {}
     slf:checkAndAttack(
         { x = 27, z = 25, width = 40, damage = 15, sfx = "air", type = "fell", repel_x = slf.dashAttackRepel_x },
         cont

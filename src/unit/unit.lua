@@ -54,7 +54,6 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.grabContext = {source = nil, target = nil, grabTimer = 0 }
     self.antiStuck = 0 -- movement watchdog for AI and events
     self.wasPickedAsTargetAt = 0 -- the last time it was picked as a target
-    self.victims = {} -- [victim] = true
     self.globalAttackN = 1  -- used for attackHash generation
     self.hashedAttacks = { dummy = false }
     self.isThrown = false

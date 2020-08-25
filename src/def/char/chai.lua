@@ -188,7 +188,6 @@ local specialDashCheck = function(slf, cont) slf:checkAndAttack(
           slf.speed_x = slf.jumpSpeedBoost.x
           slf.horizontal = slf.face
           slf.speed_z = 0
-          slf.victims = {}
       end,
       followUpAnimation = "specialDash2"
     },
@@ -518,7 +517,7 @@ return {
         },
         chargeDashAttack2 = {
             { q = q(2,1587,67,65), ox = 21, oy = 64, hover = true, funcCont = chargeDashAttack, delay = f(4) }, --charge dash attack 3
-            { q = q(2,1587,67,65), ox = 21, oy = 64, hover = true, func = function(slf) slf.speed_x = slf.walkSpeed_x * 0.7; slf.speed_z = 0; slf.victims = {} end, delay = f(2) }, --charge dash attack 3
+            { q = q(2,1587,67,65), ox = 21, oy = 64, hover = true, func = function(slf) slf.speed_x = slf.walkSpeed_x * 0.7; slf.speed_z = 0 end, delay = f(2) }, --charge dash attack 3
             { q = q(43,722,37,64), ox = 14, oy = 66, hover = true }, --jump attack forward 2
             { q = q(2,722,39,65), ox = 18, oy = 66, hover = true }, --jump attack forward 1
             { q = q(101,1462,40,62), ox = 21, oy = 66, hover = true, func = function(slf) slf.speed_x = slf.dashAttackSpeed_x / 2; slf.speed_z = 0 end }, --special defensive 12 (shifted 2px up)
