@@ -139,6 +139,7 @@ function Unit:setState(state, condition, condition2)
         self.lastFace = self.face
         self.lastVertical = self.vertical
         self:exit()
+        self.globalAttackN = self.globalAttackN + 1  -- alter attacks counter to refresh attack hash
         self.customFriction = 0
         self.toSlowDown = true
         self.state = state.name
