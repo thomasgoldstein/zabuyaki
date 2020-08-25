@@ -61,7 +61,7 @@ local function getUnitTypeByName(name)
     if tostring(name) == "" then
         error("Tiled: Property 'type' cannot be empty. It should be 'event' or a class of the unit.")
     else
-        error("Tiled: Wrong type: "..tostring(name))
+        error("Tiled: Wrong unit type: "..tostring(name))
     end
     return nil
 end
