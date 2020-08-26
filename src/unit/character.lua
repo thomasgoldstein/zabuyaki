@@ -1102,6 +1102,7 @@ function Character:fallUpdate(dt)
                   depth = self:getHurtBoxDepth(),
                   damage = self.myThrownBodyDamage,
                   type = "fell",
+                  attackHash = self:createProjectileAttackHash(),
                   repel_x = self.indirectAttackFallSpeed_x,
                   horizontal = self.horizontal },
                 true
