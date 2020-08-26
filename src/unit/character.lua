@@ -248,7 +248,7 @@ function Character:onHurt()
 end
 
 function Character:onAttacker(h)
-    dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
+    dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives, h.attackHash)
     self:updateAttackersLifeBar(h)
     h.source:addScore( h.damage * 10 )
     self.killerId = h.source

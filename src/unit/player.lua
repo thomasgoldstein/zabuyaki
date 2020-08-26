@@ -209,7 +209,7 @@ function Player:onHurtDamage()
     end
     self:releaseGrabbed()
     h.damage = h.damage or 100  --TODO debug if u forgot
-    dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives)
+    dp(h.source.name .. " damaged "..self.name.." by "..h.damage..". HP left: "..(self.hp - h.damage)..". Lives:"..self.lives, h.attackHash)
     self:updateAttackersLifeBar(h)
     -- Score
     h.source:addScore( h.damage * 10 )
