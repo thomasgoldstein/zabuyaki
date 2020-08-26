@@ -1104,7 +1104,7 @@ function Character:fallUpdate(dt)
                   type = "fell",
                   repel_x = self.indirectAttackFallSpeed_x,
                   horizontal = self.horizontal },
-                false
+                true
             )
     end
     if not self.toSlowDown then
