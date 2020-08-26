@@ -56,11 +56,11 @@ end
 
 function Unit:createProjectileAttackHash(source)
     if source then
-        print("PROJECTILE HASH for", source.name, "H" .. source.id .. "projectile" .. source.globalAttackN)
-        --return "H" .. source.id .. "projectile" .. source.globalAttackN
+        --print("PROJECTILE HASH for", source.name, "H" .. source.id .. "projectile" .. source.globalAttackN)
+        return "H" .. source.id .. "projectile" .. source.globalAttackN
     end
-    print("PROJECTILE HASH for", self.name, "H" .. self.id .. "projectile" .. self.globalAttackN)
-    --return "H" .. self.id .. "projectile" .. self.globalAttackN
+    --print("PROJECTILE HASH for", self.name, "H" .. self.id .. "projectile" .. self.globalAttackN)
+    return "H" .. self.id .. "projectile" .. self.globalAttackN
 end
 
 function Unit:initDamageContext()
