@@ -447,7 +447,7 @@ function Character:checkAndAttack(f, isFuncCont)
                              type = type, repel_x = repel_x, repel_y = repel_y,
                              horizontal = horizontal, vertical = vertical,
                              continuous = isFuncCont, twist = twist,
-                             attackHash = self:createAttackHash(),
+                             attackHash = f.attackHash or self:createAttackHash(),
                              z = self.z + z
                 } )
                 counter = counter + 1
