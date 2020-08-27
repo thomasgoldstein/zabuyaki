@@ -9,7 +9,6 @@ StageObject.afterOnHurt = Character.afterOnHurt
 StageObject.releaseGrabbed = Character.releaseGrabbed
 StageObject.grabbedFront = {name = "grabbedFront", start = Character.grabbedFrontStart, exit = nop, update = Character.grabbedUpdate, draw = StageObject.defaultDraw}
 StageObject.dead = {name = "dead", start = Character.deadStart, exit = nop, update = Character.deadUpdate, draw = StageObject.defaultDraw}
-StageObject.knockedDown = {name = "knockedDown", start = Character.knockedDownStart, exit = nop, update = Character.knockedDownUpdate, draw = StageObject.defaultDraw}
 
 function StageObject:initialize(name, sprite, x, y, f)
     --f options {}: shapeType, shapeArgs, hp, score, shader, color,isMovable, flipOnBreak, sfxDead, func, face, horizontal, weight, sfxOnHit, sfxOnBreak, sfxGrab
@@ -181,7 +180,9 @@ function StageObject:fallStart()
     self.isHittable = false
     self.bounced = 0
     if not self.isMovable then
-        self:setState(self.knockedDown)
+        self.speed_x = 0    -- prevent pushing
+        self.speed_y = 0
+        self:setState(self.stand)
         return
     end
     if not self:canFall() then
