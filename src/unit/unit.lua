@@ -139,6 +139,9 @@ function Unit:setState(state, condition, condition2)
         self.lastVertical = self.vertical
         self:exit()
         self.globalAttackN = self.globalAttackN + 1  -- alter attacks counter to refresh attack hash
+        if self.globalAttackN == math.huge then
+            self.globalAttackN = 1
+        end
         self.customFriction = 0
         self.toSlowDown = true
         self.state = state.name
