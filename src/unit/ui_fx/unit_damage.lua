@@ -48,10 +48,11 @@ function Unit:applyDamage(damage, type, source, repel_x, sfx1)
     end
 end
 
-function Unit:createAttackHash()
-    local hash = "H" .. self.id .. self.sprite.curAnim .. self.sprite.curFrame .. self.globalAttackN
-    --print("HASH for", self.name, hash)
-    return hash
+function Unit:createAttackHash( isContinuous )
+    if isContinuous then
+        return "H" .. self.id .. self.sprite.curAnim .. self.globalAttackN
+    end
+    return "H" .. self.id .. self.sprite.curAnim .. self.sprite.curFrame .. self.globalAttackN
 end
 
 function Unit:createProjectileAttackHash(source)
