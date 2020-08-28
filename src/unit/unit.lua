@@ -54,7 +54,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
     self.grabContext = {source = nil, target = nil, grabTimer = 0 }
     self.antiStuck = 0 -- movement watchdog for AI and events
     self.wasPickedAsTargetAt = 0 -- the last time it was picked as a target
-    self.globalAttackN = 1  -- used for attackHash generation
+    self.globalAttackN = 1000  -- used for attackHash generation
     self.hashedAttacks = { dummy = false }
     self.isThrown = false
     self.invincibilityTimeout = 0.2 -- invincibility time after getUp state
@@ -140,7 +140,7 @@ function Unit:setState(state, condition, condition2)
         self:exit()
         self.globalAttackN = self.globalAttackN + 1  -- alter attacks counter to refresh attack hash
         if self.globalAttackN == math.huge then
-            self.globalAttackN = 1
+            self.globalAttackN = 1000
         end
         self.customFriction = 0
         self.toSlowDown = true

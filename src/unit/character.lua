@@ -389,7 +389,7 @@ function Character:checkAndAttack(f, isFuncCont)
     if not isFuncCont then  -- used to count attacks and create proper attackHash
         self.globalAttackN = self.globalAttackN + 1
         if self.globalAttackN == math.huge then
-            self.globalAttackN = 1
+            self.globalAttackN = 1000
         end
     end
     if type == "shockWave" then
