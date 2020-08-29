@@ -220,11 +220,11 @@ function updateSpriteInstance(spr, dt, slf)
     -- call custom frame func once per the frame
     if sc.func and spr.funcCalledOnFrame ~= spr.curFrame and slf then
         spr.funcCalledOnFrame = spr.curFrame
-        sc.func(slf, false) --isfuncCont = false
+        sc.func(slf, false, sc.attackId) --isfuncCont = false
     end
     -- call the custom frame func on every frame
     if sc.funcCont and slf then
-        sc.funcCont(slf, true) --isfuncCont = true
+        sc.funcCont(slf, true, sc.attackId) --isfuncCont = true
         spr.funcContCalledOnFrame = spr.curFrame -- do not move before funcCont call
     end
     --Increment the internal counter.
@@ -310,7 +310,7 @@ function parseSpriteAnimation(spr, curAnim)
 
     local animations = spr.def.animations[curAnim or spr.curAnim]
     local sc
-    local scale_h, scale_v, flipH, flipV, funcCont, func
+    local scale_h, scale_v, flipH, flipV, func, funcCont, attackId
     local ox, oy, delay
     local x, y, w, h
     local rotate, rx, ry
@@ -323,6 +323,7 @@ function parseSpriteAnimation(spr, curAnim)
         ox, oy = sc.ox or 0, sc.oy or 0
         x, y, w, h = sc.q:getViewport( )
         func, funcCont = sc.func, sc.funcCont
+        attackId = sc.attackId
 
         o = o .. "    { q = q("..x..","..y..","..w..","..h.."), ox = "..ox..", oy = "..oy
         if delay ~= animations.delay then
@@ -348,6 +349,9 @@ function parseSpriteAnimation(spr, curAnim)
         end
         if funcCont then
             o = o .. ", funcCont = FUNC1"
+        end
+        if attackId then
+            o = o .. ", attackId = "..attackId
         end
         o = o .. " },\n"
     end
