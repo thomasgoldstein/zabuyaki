@@ -180,7 +180,7 @@ local specialDash = function(slf, cont) slf:checkAndAttack(
 ) end
 local specialDashShout = function(slf, cont)
     slf:playSfx(slf.sfx.dashAttack)
-    specialDash(slf, count)
+    specialDash(slf, cont)
 end
 local specialDashCheck = function(slf, cont) slf:checkAndAttack(
     { x = 30, z = 18, width = 25, height = 45, damage = 5, type = "check",
