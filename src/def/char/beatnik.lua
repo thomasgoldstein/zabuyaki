@@ -7,40 +7,40 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
-local comboAttack1 = function(slf, cont)
+local comboAttack1 = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 31, z = 27, width = 32, damage = 15, sfx = "air" },
-        cont
+        cont, attackId
     )
 end
-local comboAttack2 = function(slf, cont)
+local comboAttack2 = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 34, z = 27, width = 38, damage = 22, type = "fell", repel_x = slf.dashAttackRepel_x, sfx = "air" },
-        cont
+        cont, attackId
     )
 end
-local dashAttackSpeedUp = function(slf, cont)
+local dashAttackSpeedUp = function(slf, cont, attackId)
     slf.speed_x = slf.dashAttackSpeedUp_x
 end
-local dashAttack1 = function(slf, cont)
+local dashAttack1 = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 0, z = 27, width = 40, damage = 28, type = "fell", twist = "weak", repel_x = slf.dashAttackRepel_x },
-        cont
+        cont, attackId
     )
 end
-local dashAttack2 = function(slf, cont)
+local dashAttack2 = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 17, z = 27, width = 45, damage = 28, type = "fell", twist = "weak", repel_x = slf.dashAttackRepel_x },
-        cont
+        cont, attackId
     )
 end
-local dashAttack3 = function(slf, cont)
+local dashAttack3 = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 25, z = 27, width = 50, damage = 28, type = "fell", twist = "weak", repel_x = slf.dashAttackRepel_x },
-        cont
+        cont, attackId
     )
 end
-local makeMeHittable = function(slf, cont)
+local makeMeHittable = function(slf, cont, attackId)
     slf.isHittable = true
 end
 

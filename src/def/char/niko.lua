@@ -7,34 +7,34 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
-local comboKick = function(slf, cont)
+local comboKick = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 28, z = 22, width = 26, damage = 7, sfx = "air" },
-        cont
+        cont, attackId
     )
 end
-local comboJab = function(slf, cont)
+local comboJab = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 28, z = 31, width = 26, damage = 8, sfx = "air" },
-        cont
+        cont, attackId
     )
 end
-local comboCrossSlide = function(slf, cont)
+local comboCrossSlide = function(slf, cont, attackId)
     slf:initSlide(slf.comboSlideSpeed_x)
 end
-local comboCross = function(slf, cont)
+local comboCross = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 27, z = 31, width = 26, damage = 9, type = "fell", sfx = (slf.sprite.elapsedTime <= 0) and "air" },
-        cont
+        cont, attackId
     )
 end
-local jumpAttack = function(slf, cont)
+local jumpAttack = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 14, z = 20, width = 22, height = 45, damage = 14, type = "fell" },
-        cont
+        cont, attackId
     )
 end
-local grabShake = function(slf, cont)
+local grabShake = function(slf, cont, attackId)
     if slf.grabContext and slf.grabContext.target then
         slf.grabContext.target:onShake(0.5, 0, 0.01, 1)
     end

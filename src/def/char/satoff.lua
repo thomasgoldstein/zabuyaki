@@ -7,42 +7,42 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
-local rollAttack = function(slf, cont)
+local rollAttack = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 4, z = 23, width = 48, height = 45, damage = 28, type = "fell" },
-        cont
+        cont, attackId
     )
 end
-local jumpAttack = function(slf, cont)
+local jumpAttack = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 4, z = 10, width = 48, height = 45, damage = 28, type = "fell" },
-        cont
+        cont, attackId
     )
 end
-local comboUppercut1 = function(slf, cont)
+local comboUppercut1 = function(slf, cont, attackId)
     slf:checkAndAttack(
     { x = 14, z = 30, width = 30, damage = 12, repel_x = slf.dashAttackRepel_x, sfx = "whooshHeavy" },
-    cont
+    cont, attackId
 ) end
-local comboUppercut2 = function(slf, cont)
+local comboUppercut2 = function(slf, cont, attackId)
     slf:checkAndAttack(
     { x = 20, z = 60, width = 30, height = 45, damage = 16, type = "fell", repel_x = slf.dashAttackRepel_x },
-    cont
+    cont, attackId
 ) end
-local grabFrontAttack = function(slf, cont)
+local grabFrontAttack = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 19, z = 37, width = 26, damage = 12 },
-        cont
+        cont, attackId
     )
 end
-local grabFrontAttackLast = function(slf, cont)
+local grabFrontAttackLast = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 19, z = 37, width = 26, damage = 18,
         type = "fell", repel_x = slf.shortThrowSpeed_x },
-        cont
+        cont, attackId
     )
 end
-local grabFrontAttackBack = function(slf, cont)
+local grabFrontAttackBack = function(slf, cont, attackId)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier, 0,
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face, slf.face,

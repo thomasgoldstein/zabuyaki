@@ -11,22 +11,22 @@ local comboSlide = function(slf)
     slf:playSfx(sfx.air)
     slf:initSlide(slf.comboSpeed_x)
 end
-local comboAttack = function(slf, cont)
+local comboAttack = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 27, z = 25, width = 35, damage = 12, repel_x = slf.comboRepel_x },
-        cont
+        cont, attackId
     )
 end
-local dashPushback = function(slf, cont)
+local dashPushback = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 10, z = 25, width = 20, damage = 0, repel_x = slf.dashRepel_x },
-        cont
+        cont, attackId
     )
 end
-local dashAttack = function(slf, cont)
+local dashAttack = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 27, z = 25, width = 40, damage = 15, sfx = "air", type = "fell", repel_x = slf.dashAttackRepel_x },
-        cont
+        cont, attackId
     )
 end
 
