@@ -365,7 +365,7 @@ function Character:afterOnHurt()
     self:setState(self.fall, h.type, h.twist)    --previous attack type and twist power are passed to self.condition & self.condition2
 end
 
-function Character:checkAndAttack(f, isFuncCont)
+function Character:checkAndAttack(f, isFuncCont, attackId)
     --type = "simple" "shockWave" "hit" "fell" "expel" "check", twist= "weak" "strong" or none
     if not f then
         f = {}
@@ -447,7 +447,7 @@ function Character:checkAndAttack(f, isFuncCont)
                              type = type, repel_x = repel_x, repel_y = repel_y,
                              horizontal = horizontal, vertical = vertical,
                              continuous = isFuncCont, twist = twist,
-                             attackHash = f.attackHash or self:createAttackHash(),
+                             attackHash = f.attackHash or self:createAttackHash( attackId ),
                              z = self.z + z
                 } )
                 counter = counter + 1
