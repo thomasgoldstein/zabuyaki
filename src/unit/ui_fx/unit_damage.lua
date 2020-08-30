@@ -49,7 +49,10 @@ function Unit:applyDamage(damage, type, source, repel_x, sfx1)
 end
 
 function Unit:createAttackHash(attackId)
-    return "H" .. self.id .. self.sprite.curAnim .. (attackId or self.sprite.curFrame) .. self.globalAttackN
+    if attackId then
+        return "H" .. self.id .. self.sprite.curAnim .. "A" .. attackId .. "_" .. self.globalAttackN
+    end
+    return "H" .. self.id .. self.sprite.curAnim .. "_" .. self.sprite.curFrame .. "_" .. self.globalAttackN
 end
 
 function Unit:createProjectileAttackHash(source)
