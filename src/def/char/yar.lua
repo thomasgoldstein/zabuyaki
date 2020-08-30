@@ -7,7 +7,7 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
-local stepFx = function(slf, cont, attackId)
+local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
 

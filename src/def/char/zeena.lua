@@ -7,21 +7,24 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
-local jumpAttack = function(slf, cont, attackId)
+local airSfx = function(slf)
+    slf:playSfx(sfx.air)
+end
+local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
         { x = 21, z = 17, width = 25, height = 45, damage = 13, type = "fell", repel_x = slf.dashAttackRepel_x },
-        cont, attackId
+        cont
 ) end
-local comboSlap = function(slf, cont, attackId)
+local comboSlap = function(slf, cont)
     slf:checkAndAttack(
         { x = 25, z = 32, width = 26, damage = 5, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboKick = function(slf, cont, attackId)
+local comboKick = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, z = 10, width = 25, damage = 8, type = "fell", repel_x = slf.dashAttackRepel_x, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
-        cont, attackId
+        { x = 21, z = 10, width = 25, damage = 8, type = "fell", repel_x = slf.dashAttackRepel_x },
+        cont
     )
     -- move Zeena forward
     if slf.sprite.elapsedTime <= 0 then
@@ -126,7 +129,7 @@ return {
         },
         combo4 = {
             { q = q(384,206,43,57), ox = 25, oy = 56 }, --jump attack 1 (shifted 5px down)
-            { q = q(429,210,66,53), ox = 32, oy = 52, funcCont = comboKick, delay = f(10) }, --jump attack 2 (shifted 9px down)
+            { q = q(429,210,66,53), ox = 32, oy = 52, funcCont = comboKick, func = airSfx, delay = f(10) }, --jump attack 2 (shifted 9px down)
             { q = q(384,206,43,57), ox = 25, oy = 56, delay = f(7) }, --jump attack 1 (shifted 5px down)
             delay = f(4)
         },

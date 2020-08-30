@@ -7,31 +7,34 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
-local stepFx = function(slf, cont, attackId)
+local airSfx = function(slf)
+    slf:playSfx(sfx.air)
+end
+local stepFx = function(slf, cont)
     slf:showEffect("step")
     if stage.weather == "rain" then
         Weather.add("ripple", slf.x, slf.y, 0,slf.speed_x / 100, 0, 0, 1)
     end
 end
-local jumpAttackStraight1 = function(slf, cont, attackId) slf:checkAndAttack(
+local jumpAttackStraight1 = function(slf, cont) slf:checkAndAttack(
     { x = 17, z = 35, width = 30, height = 55, damage = 7 },
-    cont, attackId
+    cont
 ) end
-local jumpAttackStraight2 = function(slf, cont, attackId) slf:checkAndAttack(
+local jumpAttackStraight2 = function(slf, cont) slf:checkAndAttack(
     { x = 17, z = 14, width = 30, damage = 10, type = "fell" },
-    cont, attackId
+    cont
 ) end
-local jumpAttackForward = function(slf, cont, attackId) slf:checkAndAttack(
+local jumpAttackForward = function(slf, cont) slf:checkAndAttack(
     { x = 30, z = 25, width = 25, height = 45, damage = 15, type = "fell" },
-    cont, attackId
+    cont
 ) end
-local jumpAttackRun = function(slf, cont, attackId) slf:checkAndAttack(
+local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
     { x = 30, z = 25, width = 25, height = 45, damage = 17, type = "fell" },
-    cont, attackId
+    cont
 ) end
-local jumpAttackLight = function(slf, cont, attackId) slf:checkAndAttack(
+local jumpAttackLight = function(slf, cont) slf:checkAndAttack(
     { x = 15, z = 25, width = 22, damage = 9 },
-    cont, attackId
+    cont
 ) end
 local comboSlide2 = function(slf)
     slf:initSlide(slf.comboSlideSpeed2_x)
@@ -44,63 +47,63 @@ end
 local comboSlide4 = function(slf)
     slf:initSlide(slf.comboSlideSpeed4_x)
 end
-local comboAttack1 = function(slf, cont, attackId)
+local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, z = 30, width = 26, damage = 7, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboAttack2 = function(slf, cont, attackId)
+local comboAttack2 = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, z = 31, width = 27, damage = 8, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboAttack2Forward = function(slf, cont, attackId)
+local comboAttack2Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 21, z = 24, width = 31, damage = 8, repel_x = slf.comboSlideRepel2_x, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
-        cont, attackId
+        { x = 21, z = 24, width = 31, damage = 8, repel_x = slf.comboSlideRepel2_x },
+        cont
     )
 end
-local comboAttack3 = function(slf, cont, attackId)
+local comboAttack3 = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, z = 18, width = 27, damage = 10, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboAttack3Up1 = function(slf, cont, attackId)
+local comboAttack3Up1 = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, z = 30, width = 27, damage = 4, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboAttack3Up2 = function(slf, cont, attackId)
+local comboAttack3Up2 = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, z = 24, width = 27, damage = 9 },
-        cont, attackId
+        cont
     )
 end
-local comboAttack3Forward = function(slf, cont, attackId)
+local comboAttack3Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, z = 21, width = 39, damage = 10, repel_x = slf.comboSlideRepel3_x, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
-        cont, attackId
+        { x = 27, z = 21, width = 39, damage = 10, repel_x = slf.comboSlideRepel3_x },
+        cont
     )
 end
-local comboAttack3Down = function(slf, cont, attackId)
+local comboAttack3Down = function(slf, cont)
     slf:checkAndAttack(
         { x = 29, z = 29, width = 27, damage = 15, type = "fell", sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboAttack4 = function(slf, cont, attackId)
+local comboAttack4 = function(slf, cont)
     slf:checkAndAttack(
         { x = 34, z = 41, width = 39, damage = 15, type = "fell", sfx = "air" },
-        cont, attackId
+        cont
     )
 end
 local comboAttack4Up1 = function(slf, cont, attackId)
     slf:checkAndAttack(
-        { x = 27, z = 40, width = 29, damage = 18, type = "fell", sfx = "air" },
+        { x = 27, z = 40, width = 29, damage = 18, type = "fell" },
         cont, attackId
     )
 end
@@ -110,29 +113,29 @@ local comboAttack4Up2 = function(slf, cont, attackId)
         cont, attackId
     )
 end
-local comboAttack4Forward = function(slf, cont, attackId)
+local comboAttack4Forward = function(slf, cont)
     slf:checkAndAttack(
-        { x = 35, z = 32, width = 39, damage = 15, type = "fell", repel_x = slf.comboSlideRepel4_x, sfx = (slf.sprite.elapsedTime <= 0) and "air" },
-        cont, attackId
+        { x = 35, z = 32, width = 39, damage = 15, type = "fell", repel_x = slf.comboSlideRepel4_x },
+        cont
     )
 end
-local dashAttack1 = function(slf, cont, attackId) slf:checkAndAttack(
+local dashAttack1 = function(slf, cont) slf:checkAndAttack(
     { x = 20, z = 37, width = 55, damage = 8, repel_x = slf.dashAttackRepel_x },
-    cont, attackId
+    cont
 ) end
-local dashAttack2 = function(slf, cont, attackId) slf:checkAndAttack(
+local dashAttack2 = function(slf, cont) slf:checkAndAttack(
     { x = 20, z = 37, width = 55, damage = 12, type = "fell", repel_x = slf.dashAttackRepel_x },
-    cont, attackId
+    cont
 ) end
-local dashAttackSpeedUp = function(slf, cont, attackId)
+local dashAttackSpeedUp = function(slf, cont)
     slf.speed_x = slf.dashAttackSpeed_x * 2
 end
-local dashAttackResetSpeed = function(slf, cont, attackId)
+local dashAttackResetSpeed = function(slf, cont)
     slf.speed_x = slf.dashAttackSpeed_x
 end
 local chargeAttack1 = function(slf, cont, attackId)
     slf:checkAndAttack(
-        { x = 34, z = 41, width = 39, damage = 15, type = "fell", twist = "weak", sfx = "air" },
+        { x = 34, z = 41, width = 39, damage = 15, type = "fell", twist = "weak" },
         cont, attackId
     )
 end
@@ -148,13 +151,13 @@ local chargeAttack3 = function(slf, cont, attackId)
         cont, attackId
     )
 end
-local chargeDashAttack = function(slf, cont, attackId)
+local chargeDashAttack = function(slf, cont)
     slf:checkAndAttack(
         { x = 27, z = 21, width = 39, damage = 15, type = "fell" },
-        cont, attackId
+        cont
     )
 end
-local specialDefensiveShake = function(slf, cont, attackId)
+local specialDefensiveShake = function(slf, cont)
     slf:playSfx(sfx.hitWeak1)
     mainCamera:onShake(0, 2, 0.03, 0.3)
 end
@@ -174,78 +177,80 @@ local specialDefensive4 = function(slf, cont, attackId) slf:checkAndAttack(
     { x = 5, z = 32, width = 40, height = 70, depth = 18, damage = 25, type = "expel" },
     cont, attackId
 ) end
-local specialOffensive = function(slf, cont, attackId) slf:checkAndAttack(
+local specialOffensive = function(slf, cont) slf:checkAndAttack(
     { x = 15, z = 37, width = 65, damage = 34, repel_x = slf.specialOffensiveRepel_x, type = "fell", twist = "strong" },
-    cont, attackId
+    cont
 ) end
-local specialDash1 = function(slf, cont, attackId)
+local specialDash1 = function(slf, cont)
     slf:checkAndAttack(
         { x = 10, z = 18, width = 40, height = 35, damage = 6,
           onHit = function(slf)
               slf.isAttackConnected = true
               slf.customFriction = slf.dashAttackFriction * 2.5
           end
-        }, cont, attackId)
+        }, cont)
 end
-local specialDashFollowUp = function(slf, cont, attackId)
+local specialDashFollowUp = function(slf, cont)
     if slf.isAttackConnected then
         slf:setSprite("specialDash2")
         slf.speed_x = slf.dashAttackSpeed_x * 1.5
         slf.customFriction = slf.dashAttackFriction * 1.5
     end
 end
-local specialDashJumpStart = function(slf, cont, attackId)
+local specialDashJumpStart = function(slf, cont)
     slf.speed_z = slf.jumpSpeed_z * 1.2
     slf.z = slf:getRelativeZ() + 0.01
     slf:showEffect("jumpStart")
 end
-local specialDash2a = function(slf, cont, attackId)
+local specialDash2a = function(slf, cont)
     slf:checkAndAttack(
         { x = 10, z = 18, width = 40, height = 35, damage = 6 },
-        cont, attackId)
+        cont)
 end
 local specialDash2b = function(slf, cont, attackId)
     slf:checkAndAttack(
         { x = 10, z = 50, width = 40, height = 50, damage = 18, type = "fell", repel_x = slf.specialDashRepel_x },
         cont, attackId)
 end
-local grabFrontAttack = function(slf, cont, attackId)
+local grabFrontAttack = function(slf, cont)
     --default values: 10,0,20,12, "hit", slf.speed_x
     slf:checkAndAttack(
         { x = 18, z = 21, width = 26, damage = 9 },
-        cont, attackId)
+        cont
+    )
 end
-local grabFrontAttackLast = function(slf, cont, attackId)
+local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 18, z = 21, width = 26, damage = 11,
         type = "fell", repel_x = slf.shortThrowSpeed_x },
-        cont, attackId)
+        cont
+    )
 end
-local grabFrontAttackForward = function(slf, cont, attackId)
+local grabFrontAttackForward = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier, 0,
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face, nil,
         slf.z + slf.throwStart_z)
 end
-local grabFrontAttackBack = function(slf, cont, attackId)
+local grabFrontAttackBack = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier, 0,
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face, slf.face,
         slf.z + slf.throwStart_z)
 end
-local grabFrontAttackDown = function(slf, cont, attackId)
+local grabFrontAttackDown = function(slf, cont)
     slf:checkAndAttack(
         { x = 20, z = 30, width = 26, damage = 15,
         type = "fell", repel_x = slf.shortThrowSpeed_x },
-        cont, attackId
+        cont
     )
 end
-local grabBackAttack = function(slf, cont, attackId)
+local grabBackAttack = function(slf, cont)
     local g = slf.grabContext
     if g and g.target then
         slf:checkAndAttack(
             { x = -38, z = 32, width = 40, height = 70, depth = 18, damage = slf.thrownFallDamage, type = "expel" },
-            cont, attackId
+            cont
         )
         local target = g.target
         slf:releaseGrabbed()
@@ -379,7 +384,7 @@ return {
         combo2Forward = {
             { q = q(134,715,46,61), ox = 23, oy = 60, func = comboSlide2 }, --combo forward 2.1
             { q = q(182,716,39,60), ox = 17, oy = 59 }, --combo forward 2.2
-            { q = q(158,917,54,60), ox = 17, oy = 59, funcCont = comboAttack2Forward, delay = f(6) }, --combo forward 2.3
+            { q = q(158,917,54,60), ox = 17, oy = 59, funcCont = comboAttack2Forward, func = airSfx, delay = f(6) }, --combo forward 2.3
             { q = q(111,519,39,63), ox = 16, oy = 62, delay = f(4) }, --combo 2.1
             delay = f(2)
         },
@@ -398,7 +403,7 @@ return {
         combo3Forward = {
             { q = q(176,650,51,62), ox = 31, oy = 62, func = comboSlide3, delay = f(3) }, --combo 4.6
             { q = q(2,2021,51,61), ox = 29, oy = 63, delay = f(3) }, --charge dash attack 1
-            { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = comboAttack3Forward, delay = f(7) }, --charge dash attack 2
+            { q = q(55,2021,72,59), ox = 25, oy = 63, funcCont = comboAttack3Forward, func = airSfx, delay = f(7) }, --charge dash attack 2
             { q = q(129,2021,58,64), ox = 23, oy = 63 }, --charge dash attack 3
             { q = q(136,1955,45,63), ox = 15, oy = 63 }, --charge dash attack 4
             { q = q(183,1954,43,64), ox = 17, oy = 63 }, --charge dash attack 5
@@ -425,8 +430,8 @@ return {
         combo4Up = {
             { q = q(2,1181,47,59), ox = 16, oy = 58, delay = f(8) }, --combo up 4.1
             { q = q(51,1178,46,62), ox = 15, oy = 61, delay = f(2) }, --combo up 4.2
-            { q = q(99,1178,49,62), ox = 15, oy = 61, func = comboAttack4Up1, delay = f(2) }, --combo up 4.3
-            { q = q(150,1173,52,67), ox = 20, oy = 66, func = comboAttack4Up2 }, --combo up 4.4a
+            { q = q(99,1178,49,62), ox = 15, oy = 61, funcCont = comboAttack4Up1, attackId = 1, func = airSfx, delay = f(2) }, --combo up 4.3
+            { q = q(150,1173,52,67), ox = 20, oy = 66, funcCont = comboAttack4Up2, attackId = 1 }, --combo up 4.4a
             { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.4b
             { q = q(57,1244,53,63), ox = 20, oy = 62 }, --combo up 4.4c
             { q = q(112,1244,46,63), ox = 19, oy = 62 }, --combo up 4.5
@@ -435,7 +440,7 @@ return {
         combo4Forward = {
             { q = q(2,266,49,62), ox = 34, oy = 61, func = comboSlide4 }, --combo forward 4.1
             { q = q(53,266,51,62), ox = 23, oy = 61 }, --combo forward 4.2
-            { q = q(106,265,65,62), ox = 10, oy = 62, funcCont = comboAttack4Forward, delay = f(9) }, --combo forward 4.3
+            { q = q(106,265,65,62), ox = 10, oy = 62, funcCont = comboAttack4Forward, func = airSfx, delay = f(9) }, --combo forward 4.3
             { q = q(173,264,45,64), ox = 14, oy = 63, delay = f(7) }, --combo forward 4.4
             delay = f(4)
         },
@@ -473,9 +478,9 @@ return {
         chargeAttack = {
             { q = q(113,584,43,62), ox = 16, oy = 62 }, --combo 4.1
             { q = q(158,584,36,62), ox = 14, oy = 62 }, --combo 4.2
-            { q = q(2,650,65,61), ox = 11, oy = 61, func = chargeAttack1, delay = f(5) }, --combo 4.3
-            { q = q(69,650,50,61), ox = 12, oy = 61, func = chargeAttack2 }, --combo 4.4
-            { q = q(121,649,53,62), ox = 20, oy = 62, func = chargeAttack3 }, --combo 4.5
+            { q = q(2,650,65,61), ox = 11, oy = 61, funcCont = chargeAttack1, attackId = 1, func = airSfx, delay = f(5) }, --combo 4.3
+            { q = q(69,650,50,61), ox = 12, oy = 61, funcCont = chargeAttack2, attackId = 1 }, --combo 4.4
+            { q = q(121,649,53,62), ox = 20, oy = 62, funcCont = chargeAttack3, attackId = 1 }, --combo 4.5
             { q = q(176,650,51,62), ox = 31, oy = 62 }, --combo 4.6
             { q = q(138,779,46,63), ox = 22, oy = 62 }, --combo 4.7
             delay = f(3)
@@ -497,13 +502,13 @@ return {
             { q = q(2,1504,45,62), ox = 22, oy = 61 }, --special defensive 1
             { q = q(49,1505,49,61), ox = 24, oy = 60, delay = f(6) }, --special defensive 2
             { q = q(100,1505,45,61), ox = 17, oy = 60 }, --special defensive 3
-            { q = q(147,1506,54,60), ox = 14, oy = 59, funcCont = specialDefensive1 }, --special defensive 4
-            { q = q(2,1568,58,57), ox = 14, oy = 54, funcCont = specialDefensive2, func = specialDefensiveShake }, --special defensive 5a
-            { q = q(62,1569,58,56), ox = 14, oy = 53, funcCont = specialDefensive2 }, --special defensive 5b
-            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3 }, --special defensive 5c
-            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3 }, --special defensive 5c
-            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4 }, --special defensive 5c
-            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4 }, --special defensive 5c
+            { q = q(147,1506,54,60), ox = 14, oy = 59, funcCont = specialDefensive1, attackId = 1 }, --special defensive 4
+            { q = q(2,1568,58,57), ox = 14, oy = 54, funcCont = specialDefensive2, attackId = 1, func = specialDefensiveShake }, --special defensive 5a
+            { q = q(62,1569,58,56), ox = 14, oy = 53, funcCont = specialDefensive2, attackId = 1 }, --special defensive 5b
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3, attackId = 1 }, --special defensive 5c
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive3, attackId = 1 }, --special defensive 5c
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4, attackId = 1 }, --special defensive 5c
+            { q = q(122,1570,58,55), ox = 14, oy = 52, funcCont = specialDefensive4, attackId = 1 }, --special defensive 5c
             { q = q(122,1570,58,55), ox = 14, oy = 52 }, --special defensive 5c
             { q = q(2,1630,50,60), ox = 14, oy = 59 }, --special defensive 6
             { q = q(54,1627,44,63), ox = 15, oy = 62 }, --special defensive 7
@@ -536,9 +541,9 @@ return {
             { q = q(104,2151,44,56), ox = 16, oy = 56 }, --special dash 5
             { q = q(150,2151,42,57), ox = 15, oy = 56, funcCont = specialDash2a }, --special dash 6
             { q = q(2,2228,44,59), ox = 14, oy = 58 }, --special dash 7
-            { q = q(48,2213,46,74), ox = 22, oy = 73, funcCont = specialDash2b, func = specialDashJumpStart, delay = f(6) }, --special dash 8
-            { q = q(48,2213,46,74), ox = 22, oy = 73, funcCont = specialDash2b, delay = f(5) }, --special dash 8
-            { q = q(48,2213,46,74), ox = 22, oy = 73, funcCont = specialDash2b, delay = f(5) }, --special dash 8
+            { q = q(48,2213,46,74), ox = 22, oy = 73, funcCont = specialDash2b, attackId = 1, func = specialDashJumpStart, delay = f(6) }, --special dash 8
+            { q = q(48,2213,46,74), ox = 22, oy = 73, funcCont = specialDash2b, attackId = 1, delay = f(5) }, --special dash 8
+            { q = q(48,2213,46,74), ox = 22, oy = 73, funcCont = specialDash2b, attackId = 1, delay = f(5) }, --special dash 8
             { q = q(96,2214,45,73), ox = 26, oy = 72, delay = f(6) }, --special dash 9
             { q = q(2,2289,38,70), ox = 21, oy = 69, delay = f(6) }, --special dash 10
             { q = q(42,2292,43,66), ox = 23, oy = 65, delay = f(6) }, --special dash 11

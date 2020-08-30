@@ -7,21 +7,21 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
-local comboSlap = function(slf, cont, attackId)
+local comboSlap = function(slf, cont)
     slf:checkAndAttack(
         { x = 25, z = 32, width = 26, damage = 5, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboKick = function(slf, cont, attackId)
+local comboKick = function(slf, cont)
     slf:checkAndAttack(
         { x = 26, z = 39, width = 28, damage = 10, type = "fell", repel_x = slf.dashAttackRepel_x, sfx = "air" },
-        cont, attackId
+        cont
 ) end
-local dashAttack = function(slf, cont, attackId)
+local dashAttack = function(slf, cont)
     slf:checkAndAttack(
         { x = 21, z = 10, width = 25, damage = 14, type = "fell", repel_x = slf.dashAttackRepel_x },
-        cont, attackId
+        cont
 ) end
 
 return {

@@ -7,19 +7,19 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
-local comboAttack1 = function(slf, cont, attackId)
+local comboKick = function(slf, cont)
     slf:checkAndAttack(
         { x = 31, z = 27, width = 32, damage = 15, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboAttack2 = function(slf, cont, attackId)
+local comboBoombox = function(slf, cont)
     slf:checkAndAttack(
         { x = 34, z = 27, width = 38, damage = 22, type = "fell", repel_x = slf.dashAttackRepel_x, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local dashAttackSpeedUp = function(slf, cont, attackId)
+local dashAttackSpeedUp = function(slf, cont)
     slf.speed_x = slf.dashAttackSpeedUp_x
 end
 local dashAttack1 = function(slf, cont, attackId)
@@ -40,7 +40,7 @@ local dashAttack3 = function(slf, cont, attackId)
         cont, attackId
     )
 end
-local makeMeHittable = function(slf, cont, attackId)
+local makeMeHittable = function(slf, cont)
     slf.isHittable = true
 end
 
@@ -98,33 +98,33 @@ return {
         },
         combo1 = {
             { q = q(66,284,51,66), ox = 17, oy = 66 }, --kick 1
-            { q = q(119,285,75,65), ox = 23, oy = 65, func = comboAttack1 }, --kick 2
+            { q = q(119,285,75,65), ox = 23, oy = 65, func = comboKick }, --kick 2
             { q = q(196,285,71,65), ox = 23, oy = 65 }, --kick 3
             { q = q(269,284,60,65), ox = 20, oy = 65, delay = f(6) }, --kick 4
             delay = f(4)
         },
         combo2 = {
             { q = q(66,284,51,66), ox = 17, oy = 66 }, --kick 1
-            { q = q(119,285,75,65), ox = 23, oy = 65, func = comboAttack1 }, --kick 2
+            { q = q(119,285,75,65), ox = 23, oy = 65, func = comboKick }, --kick 2
             { q = q(196,285,71,65), ox = 23, oy = 65 }, --kick 3
             { q = q(269,284,60,65), ox = 20, oy = 65, delay = f(6) }, --kick 4
             delay = f(4)
         },
         combo3 = {
             { q = q(187,690,59,65), ox = 32, oy = 64 }, --dash attack 11
-            { q = q(2,560,69,63), ox = 53, oy = 62, flipH = -1, func = comboAttack2, delay = f(8) }, --dash attack 1
+            { q = q(2,560,69,63), ox = 53, oy = 62, flipH = -1, func = comboBoombox, delay = f(8) }, --dash attack 1
             { q = q(73,559,64,64), ox = 41, oy = 63, flipH = -1, delay = f(6) }, --dash attack 2
             delay = f(4)
         },
         dashAttack = {
             { q = q(2,560,69,63), ox = 53, oy = 62 }, --dash attack 1
             { q = q(73,559,64,64), ox = 41, oy = 63, func = dashAttackSpeedUp }, --dash attack 2
-            { q = q(139,560,53,63), ox = 27, oy = 62, func = dashAttack1, delay = f(3) }, --dash attack 3
-            { q = q(194,560,67,63), ox = 27, oy = 62, func = dashAttack2 }, --dash attack 4
-            { q = q(2,625,83,63), ox = 33, oy = 62, func = dashAttack3 }, --dash attack 5
-            { q = q(87,625,78,63), ox = 31, oy = 62, func = dashAttack3 }, --dash attack 6
-            { q = q(167,625,71,63), ox = 30, oy = 62, func = dashAttack2 }, --dash attack 7
-            { q = q(2,692,53,63), ox = 27, oy = 62, func = dashAttack1, delay = f(3) }, --dash attack 8
+            { q = q(139,560,53,63), ox = 27, oy = 62, funcCont = dashAttack1, attackId = 1, delay = f(3) }, --dash attack 3
+            { q = q(194,560,67,63), ox = 27, oy = 62, funcCont = dashAttack2, attackId = 1 }, --dash attack 4
+            { q = q(2,625,83,63), ox = 33, oy = 62, funcCont = dashAttack3, attackId = 1 }, --dash attack 5
+            { q = q(87,625,78,63), ox = 31, oy = 62, funcCont = dashAttack3, attackId = 1 }, --dash attack 6
+            { q = q(167,625,71,63), ox = 30, oy = 62, funcCont = dashAttack2, attackId = 1 }, --dash attack 7
+            { q = q(2,692,53,63), ox = 27, oy = 62, funcCont = dashAttack1, attackId = 1, delay = f(3) }, --dash attack 8
             { q = q(57,691,62,64), ox = 40, oy = 63, delay = f(3) }, --dash attack 9
             { q = q(121,692,64,63), ox = 46, oy = 62, delay = f(3) }, --dash attack 10
             { q = q(2,560,69,63), ox = 53, oy = 62 }, --dash attack 1
@@ -145,7 +145,7 @@ return {
         },
         chargeAttack = {
             { q = q(187,690,59,65), ox = 32, oy = 64 }, --dash attack 11
-            { q = q(2,560,69,63), ox = 53, oy = 62, flipH = -1, func = comboAttack2, delay = f(8) }, --dash attack 1
+            { q = q(2,560,69,63), ox = 53, oy = 62, flipH = -1, func = comboBoombox, delay = f(8) }, --dash attack 1
             { q = q(73,559,64,64), ox = 41, oy = 63, flipH = -1, delay = f(6) }, --dash attack 2
             delay = f(4)
         },

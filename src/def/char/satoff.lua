@@ -13,36 +13,36 @@ local rollAttack = function(slf, cont, attackId)
         cont, attackId
     )
 end
-local jumpAttack = function(slf, cont, attackId)
+local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
         { x = 4, z = 10, width = 48, height = 45, damage = 28, type = "fell" },
-        cont, attackId
+        cont
     )
 end
-local comboUppercut1 = function(slf, cont, attackId)
+local comboUppercut1 = function(slf, cont)
     slf:checkAndAttack(
     { x = 14, z = 30, width = 30, damage = 12, repel_x = slf.dashAttackRepel_x, sfx = "whooshHeavy" },
-    cont, attackId
+    cont
 ) end
-local comboUppercut2 = function(slf, cont, attackId)
+local comboUppercut2 = function(slf, cont)
     slf:checkAndAttack(
     { x = 20, z = 60, width = 30, height = 45, damage = 16, type = "fell", repel_x = slf.dashAttackRepel_x },
-    cont, attackId
+    cont
 ) end
-local grabFrontAttack = function(slf, cont, attackId)
+local grabFrontAttack = function(slf, cont)
     slf:checkAndAttack(
         { x = 19, z = 37, width = 26, damage = 12 },
-        cont, attackId
+        cont
     )
 end
-local grabFrontAttackLast = function(slf, cont, attackId)
+local grabFrontAttackLast = function(slf, cont)
     slf:checkAndAttack(
         { x = 19, z = 37, width = 26, damage = 18,
         type = "fell", repel_x = slf.shortThrowSpeed_x },
-        cont, attackId
+        cont
     )
 end
-local grabFrontAttackBack = function(slf, cont, attackId)
+local grabFrontAttackBack = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * slf.throwSpeedHorizontalMutliplier, 0,
         slf.throwSpeed_z * slf.throwSpeedHorizontalMutliplier,
         slf.face, slf.face,
@@ -80,10 +80,10 @@ return {
             { q = q(2,421,55,70), ox = 35, oy = 69 }, --jump
             { q = q(59,417,60,74), ox = 34, oy = 73 }, --jump attack forward 1 (lowered)
             { q = q(121,424,58,58), ox = 31, oy = 59 }, --jump attack forward 2 (lowered)
-            { q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack }, --run 1
-            { q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack }, --run 2
-            { q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack }, --run 3
-            { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack }, --run 4
+            { q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack, attackId = 1 }, --run 1
+            { q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack, attackId = 1 }, --run 2
+            { q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack, attackId = 1 }, --run 3
+            { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack, attackId = 1 }, --run 4
             loop = true,
             loopFrom = 4,
             delay = f(6)
@@ -94,20 +94,20 @@ return {
         },
         sideStepUp = {
             { q = q(121,424,58,58), ox = 31, oy = 59, delay = f(3) }, --jump attack forward 2 (lowered)
-            { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack }, --run 4
-            { q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack }, --run 3
-            { q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack }, --run 2
-            { q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack }, --run 1
+            { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack, attackId = 1 }, --run 4
+            { q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack, attackId = 1 }, --run 3
+            { q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack, attackId = 1 }, --run 2
+            { q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack, attackId = 1 }, --run 1
             loop = true,
             loopFrom = 2,
             delay = f(6)
         },
         sideStepDown = {
             { q = q(121,424,58,58), ox = 31, oy = 59, delay = f(3) }, --jump attack forward 2 (lowered)
-            { q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack }, --run 1
-            { q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack }, --run 2
-            { q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack }, --run 3
-            { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack }, --run 4
+            { q = q(2,809,56,43), ox = 33, oy = 40, funcCont = rollAttack, attackId = 1 }, --run 1
+            { q = q(60,806,50,46), ox = 32, oy = 43, funcCont = rollAttack, attackId = 1 }, --run 2
+            { q = q(112,809,53,43), ox = 32, oy = 40, funcCont = rollAttack, attackId = 1 }, --run 3
+            { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack, attackId = 1 }, --run 4
             loop = true,
             loopFrom = 2,
             delay = f(6)

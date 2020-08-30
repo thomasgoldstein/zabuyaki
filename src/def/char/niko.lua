@@ -7,34 +7,37 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
-local comboKick = function(slf, cont, attackId)
+local airSfx = function(slf)
+    slf:playSfx(sfx.air)
+end
+local comboKick = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, z = 22, width = 26, damage = 7, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboJab = function(slf, cont, attackId)
+local comboJab = function(slf, cont)
     slf:checkAndAttack(
         { x = 28, z = 31, width = 26, damage = 8, sfx = "air" },
-        cont, attackId
+        cont
     )
 end
-local comboCrossSlide = function(slf, cont, attackId)
+local comboCrossSlide = function(slf, cont)
     slf:initSlide(slf.comboSlideSpeed_x)
 end
-local comboCross = function(slf, cont, attackId)
+local comboCross = function(slf, cont)
     slf:checkAndAttack(
-        { x = 27, z = 31, width = 26, damage = 9, type = "fell", sfx = (slf.sprite.elapsedTime <= 0) and "air" },
-        cont, attackId
+        { x = 27, z = 31, width = 26, damage = 9, type = "fell" },
+        cont
     )
 end
-local jumpAttack = function(slf, cont, attackId)
+local jumpAttack = function(slf, cont)
     slf:checkAndAttack(
         { x = 14, z = 20, width = 22, height = 45, damage = 14, type = "fell" },
-        cont, attackId
+        cont
     )
 end
-local grabShake = function(slf, cont, attackId)
+local grabShake = function(slf, cont)
     if slf.grabContext and slf.grabContext.target then
         slf.grabContext.target:onShake(0.5, 0, 0.01, 1)
     end
@@ -125,7 +128,7 @@ return {
         },
         combo3 = {
             { q = q(417,129,37,60), ox = 15, oy = 59, func = comboCrossSlide }, --cross 1
-            { q = q(455,129,56,60), ox = 15, oy = 59, funcCont = comboCross, delay = f(13) }, --cross 2
+            { q = q(455,129,56,60), ox = 15, oy = 59, funcCont = comboCross, func = airSfx, delay = f(13) }, --cross 2
             { q = q(417,129,37,60), ox = 15, oy = 59, delay = f(2) }, --cross 1
             delay = f(1)
         },
