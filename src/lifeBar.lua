@@ -156,7 +156,7 @@ function LifeBar:draw(l,t,w,h, characterSource)
     self.source.drawBar(self, 0,0,w,h, characterSource)
 end
 
-function LifeBar:normalizeHp(curr, target, step)
+function LifeBar:normalizeHp(curr, target)
     if curr == target or (self.depletingTimer < LifeBar.DEPLETING_DELAY
         and self.source.hp > 0
     ) then
