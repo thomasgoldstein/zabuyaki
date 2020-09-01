@@ -77,8 +77,11 @@ function Entity:update(dt)
         obj:onHurt()
     end
     --remove inactive effects
-    if self.entities[#self.entities].y >= GLOBAL_SETTING.OFFSCREEN then
-        self.entities[#self.entities] = nil
+    local lastEntity = self.entities[#self.entities]
+    if lastEntity.y >= GLOBAL_SETTING.OFFSCREEN then
+        if not lastEntity.lifeBar or lastEntity.lifeBar.timer <= 0 then -- remove entity only when the lifeBar is faded out
+            self.entities[#self.entities] = nil
+        end
     end
 end
 
