@@ -35,7 +35,6 @@ GLOBAL_SETTING = {
     MAX_LIVES = 3,
     TIMER = 99, -- seconds to pass a stage
     SHADERS_ENABLED = true,
-    PROFILER_ENABLED = false,
     FPSRATE_ENABLED = false,
     SHOW_GRID = false,
     MAX_SLOW_MO = 14, -- max possible slow mo x

@@ -7,13 +7,6 @@ SHOW_DEBUG_ENEMY_AI_INFO = 4 -- show enemy's AI info
 SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
 SHOW_DEBUG_WAVES = 2 -- show left edge of the current wave with red and the next with blue
 
--- Load Profiler
-if GLOBAL_SETTING.PROFILER_ENABLED then
-    Profiler  = require "lib.debug.piefiller"
-    ProfOn = false
-    Prof = Profiler:new()
-end
-
 function getMaxDebugLevel()
     return 4
 end

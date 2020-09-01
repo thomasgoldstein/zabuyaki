@@ -57,24 +57,15 @@ function arcadeState:update(dt)
     else
         clearDebugBoxes()
     end
-    if GLOBAL_SETTING.PROFILER_ENABLED then
-        Prof:attach()
-    end
     stage:update(dt)
     stage.transition:update(dt)
-    if GLOBAL_SETTING.PROFILER_ENABLED then
-        Prof:detach()
-    end
-
     --Respawn selected players
     checkPlayersRespawn(stage)
-
     if stage.mode == "normal" then
         nAlive = countAlivePlayers()
     else
         nAlive = 1
     end
-
     if nAlive < 1 then
         gameOverDelay = gameOverDelay + dt
         if gameOverDelay > 4
@@ -148,10 +139,6 @@ function arcadeState:draw()
         drawGameOver()
     end
     stage:displayGoTimer(screenWidth, screenHeight)
-    -- Profiler Pie Graph
-    if GLOBAL_SETTING.PROFILER_ENABLED and ProfOn then
-        Prof:draw({50})
-    end
     -- FPS (in ms) graph
     if GLOBAL_SETTING.FPSRATE_ENABLED then
         framerateGraph.draw()

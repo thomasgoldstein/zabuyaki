@@ -252,9 +252,6 @@ function love.quit()
 end
 
 function love.keypressed(key, unicode)
-    if GLOBAL_SETTING.PROFILER_ENABLED then
-        Prof:keypressed(key, unicode)
-    end
     if key == 'kp*' then
         if love.keyboard.isScancodeDown( "lshift", "rshift" ) then
             prevDebugLevel()
