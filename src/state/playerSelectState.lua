@@ -10,8 +10,6 @@ local portraitMargin = 0
 local portraitOffset_x = 110
 local availableHeroes = 4
 
-local oldMousePos = 0
-local mousePos = 0
 local playerSelectText = love.graphics.newText( gfx.font.kimberley, "PLAYER SELECT" )
 
 local heroes = {
@@ -255,7 +253,6 @@ local function selected_heroes()
     elseif s3[1] == s1[1] and players[3].visible and players[1].visible then
         s3[2] = s1[2] + 1
     end
-
     --x shift to center P indicator
     if players[1].visible then
         xshift[players[1].pos] = xshift[players[1].pos] + 1
@@ -304,8 +301,6 @@ local function drawPID(x, y_, i, confirmed)
 end
 
 function playerSelectState:enter()
-    oldMousePos = 0
-    mousePos = 0
     self:initDefaultPlayersSelectionOrder()
     for i = 1, availableHeroes do
         setSpriteAnimation(heroes[i].sprite_portrait, heroes[i].sprite_portraitAnim)
@@ -488,66 +483,6 @@ function playerSelectState:draw()
     love.graphics.draw(playerSelectText, (screenWidth - playerSelectText:getWidth()) / 2, titleOffset_y)
     showDebugIndicator()
     push:finish()
-end
-
-function playerSelectState:confirm( x, y, button, istouch )
-    -- P1 mouse control only
-    if button == 1 then
-        mousePos = clamp(math.round(x /(screenWidth / 4) + 0.5), 1, 4)
-        if not players[1].visible then
-            players[1].visible = true
-            sfx.play("sfx","menuSelect")
-            setSpriteAnimation(players[1].sprite,heroes[players[1].pos].defaultAnim)
-        elseif not players[1].confirmed then
-            if players[1].pos ~= mousePos then
-                oldMousePos = players[1].pos
-                players[1].pos = mousePos
-                players[1].sprite = getSpriteInstance(heroes[players[1].pos].spriteInstance)
-                players[1].sprite.sizeScale = 2
-            end
-            players[1].confirmed = true
-            sfx.play("sfx","menuSelect")
-            setSpriteAnimation(players[1].sprite,heroes[players[1].pos].confirmAnim)
-        elseif mousePos == players[1].pos and allConfirmed() then
-            self:GameStart()
-            return
-        end
-    elseif button == 2 then
-        sfx.play("sfx","menuCancel")
-        if players[1].visible and not players[1].confirmed then
-            players[1].visible = false
-        elseif players[1].confirmed then
-            players[1].confirmed = false
-            setSpriteAnimation(players[1].sprite,heroes[players[1].pos].cancelAnim)
-        else
-            return Gamestate.pop()
-        end
-    end
-end
-
-function playerSelectState:mousepressed( x, y, button, istouch )
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    self:confirm( x, y, button, istouch )
-end
-
-function playerSelectState:mousemoved( x, y, dx, dy)
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    mousePos = clamp(math.round(x /(screenWidth / 4) + 0.5), 1, 4)
-    if mousePos ~= oldMousePos and players[1].visible and not players[1].confirmed then
-        oldMousePos = mousePos
-        players[1].pos = mousePos
-        sfx.play("sfx","menuMove")
-        players[1].sprite = getSpriteInstance(heroes[players[1].pos].spriteInstance)
-        players[1].sprite.sizeScale = 2
-        setSpriteAnimation(players[1].sprite,heroes[players[1].pos].defaultAnim)
-    end
-end
-
-function playerSelectState:keypressed(key, unicode)
 end
 
 function playerSelectState:confirmAllPlayers()

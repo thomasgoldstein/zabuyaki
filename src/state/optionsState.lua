@@ -20,21 +20,17 @@ local menuItems = {difficulty = 1, video = 2, sound = 3, defaults = 4, spriteVie
 local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function optionsState:enter()
-    mouse_x, mouse_y = 0,0
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
     Controls[1].start:update()
     Controls[1].back:update()
     love.graphics.setLineWidth( 2 )
-    self:wheelmoved(0, 0)   --pick 1st sprite to draw
 end
 
 function optionsState:resume()
-    mouse_x, mouse_y = 0,0
 end
 
 --Only P1 can use menu / options
@@ -43,7 +39,7 @@ function optionsState:playerInput(controls)
         sfx.play("sfx","menuCancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return self:confirm( mouse_x, mouse_y, 1)
+        return self:confirm(1)
     end
     if controls.horizontal:pressed(-1)then
         self:wheelmoved(0, -1)
@@ -95,13 +91,6 @@ function optionsState:draw()
         end
         colors:set("white")
         love.graphics.print(m.item, m.x, m.y )
-
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
-        then
-            oldMouse_y = mouse_y
-            menuState = i
-        end
     end
     --header
     colors:set("white")
@@ -110,9 +99,8 @@ function optionsState:draw()
     push:finish()
 end
 
-function optionsState:confirm( x, y, button, istouch )
+function optionsState:confirm(button)
     if button == 1 then
-        mouse_x, mouse_y = x, y
         if menuState == menuItems.difficulty then
             sfx.play("sfx","menuSelect")
             if GLOBAL_SETTING.DIFFICULTY == 1 then
@@ -159,31 +147,10 @@ function optionsState:confirm( x, y, button, istouch )
     end
 end
 
-function optionsState:mousepressed( x, y, button, istouch )
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    self:confirm( x, y, button, istouch )
-end
-
-function optionsState:mousemoved( x, y, dx, dy)
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    mouse_x, mouse_y = x, y
-end
-
 function optionsState:wheelmoved(x, y)
     local i = 0
-    if y > 0 then
-        i = 1
-    elseif y < 0 then
-        i = -1
-    else
-        return
-    end
     menu[menuState].n = menu[menuState].n + i
     if menuState == menuItems.difficulty then
-        return self:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( 1)
     end
 end

@@ -26,7 +26,6 @@ local animations
 local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function spriteViewerState:enter(_, _unit)
     unit = _unit
@@ -44,7 +43,6 @@ function spriteViewerState:enter(_, _unit)
         specialOverlaySprite.sizeScale = 2
     end
     menu[menuItems.animations].n = 1
-    mouse_x, mouse_y = 0,0
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
@@ -84,14 +82,14 @@ local function displayHelp()
     colors:set("gray")
     if menuState == menuItems.animations then
         love.graphics.print(
-[[<- -> / Mouse wheel :
+[[<- -> :
   Select animation
 
 Attack/Enter :
   Replay animation]], x, y)
     elseif menuState == menuItems.frames then
         love.graphics.print(
-[[<- -> / Mouse wheel :
+[[<- -> :
   Select frame
 L-Shift + <- -> Up Down :
   Frame Position (ox,oy)
@@ -106,7 +104,7 @@ Attack/Enter :
 Use R-Alt, R-Ctrl, R-Shift for Overlay operations]], x, y)
     elseif menuState == menuItems.palettes then
         love.graphics.print(
-[[<- -> / Mouse wheel :
+[[<- -> :
   Select palette]], x, y)
     end
     love.graphics.setFont(font)
@@ -166,7 +164,7 @@ function spriteViewerState:playerInput(controls)
         sfx.play("sfx","menuCancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return self:confirm( mouse_x, mouse_y, 1)
+        return self:confirm( 1)
     end
     if controls.horizontal:pressed(-1)then
         self:wheelmoved(0, -1)
@@ -282,13 +280,6 @@ function spriteViewerState:draw()
         end
         colors:set("white")
         love.graphics.print(m.item, m.x, m.y )
-
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
-            CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
-        then
-            oldMouse_y = mouse_y
-            menuState = i
-        end
     end
     --header
     colors:set("white", nil, 120)
@@ -354,7 +345,7 @@ function spriteViewerState:draw()
     push:finish()
 end
 
-function spriteViewerState:confirm( x, y, button, istouch )
+function spriteViewerState:confirm(button)
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
         return Gamestate.pop()
@@ -416,18 +407,4 @@ function spriteViewerState:wheelmoved(x, y)
     if menuState ~= #menu then
         sfx.play("sfx","menuMove")
     end
-end
-
-function spriteViewerState:mousepressed( x, y, button, istouch )
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    self:confirm( x, y, button, istouch )
-end
-
-function spriteViewerState:mousemoved( x, y, dx, dy)
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    mouse_x, mouse_y = x, y
 end

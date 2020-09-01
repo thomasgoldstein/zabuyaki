@@ -19,11 +19,9 @@ local menuItems = {continue = 1, quickSave = 2, quit = 3}
 local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function pauseState:enter()
     menuState = menuItems.continue
-    mouse_x, mouse_y = 0,0
     bgm.setVolume(GLOBAL_SETTING.BGM_VOLUME * 0.75)
     sfx.play("sfx","menuCancel")
 
@@ -43,7 +41,7 @@ function pauseState:playerInput(controls)
         sfx.play("sfx","menuSelect")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return pauseState:confirm( mouse_x, mouse_y, 1)
+        return pauseState:confirm(1)
     end
     if controls.horizontal:pressed(-1) or controls.vertical:pressed(-1) then
         menuState = menuState - 1
@@ -111,13 +109,6 @@ function pauseState:draw()
         end
         colors:set("white")
         love.graphics.print(m.item, m.x, m.y )
-
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
-            CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
-        then
-            oldMouse_y = mouse_y
-            menuState = i
-        end
     end
     --header
     colors:set("darkGray")
@@ -132,9 +123,8 @@ function pauseState:draw()
     push:finish()
 end
 
-function pauseState:confirm( x, y, button, istouch )
+function pauseState:confirm(button)
     if button == 1 then
-        mouse_x, mouse_y = x, y
         if menuState == menuItems.continue then
             sfx.play("sfx","menuSelect")
             return Gamestate.pop()
@@ -144,20 +134,6 @@ function pauseState:confirm( x, y, button, istouch )
             return Gamestate.switch(titleState)
         end
     end
-end
-
-function pauseState:mousepressed( x, y, button, istouch )
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    self:confirm( x, y, button, istouch )
-end
-
-function pauseState:mousemoved( x, y, dx, dy)
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    mouse_x, mouse_y = x, y
 end
 
 function pauseState:keypressed(key, unicode)

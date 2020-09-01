@@ -96,10 +96,8 @@ local menuItems = {characters = 1, back = 2}
 local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function spriteSelectState:enter()
-    mouse_x, mouse_y = 0,0
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
@@ -116,7 +114,7 @@ function spriteSelectState:playerInput(controls)
         sfx.play("sfx","menuCancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return self:confirm( mouse_x, mouse_y, 1)
+        return self:confirm(1)
     end
     if controls.horizontal:pressed(-1)then
         self:wheelmoved(0, -1)
@@ -157,7 +155,7 @@ local function displayHelp()
     colors:set("gray")
     if menuState == menuItems.characters then
         love.graphics.print(
-            [[<- -> / Mouse wheel :
+            [[<- -> :
   Select character]], x, y)
     end
     love.graphics.setFont(font)
@@ -189,13 +187,6 @@ function spriteSelectState:draw()
         end
         colors:set("white")
         love.graphics.print(m.item, m.x, m.y )
-
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
-        then
-            oldMouse_y = mouse_y
-            menuState = i
-        end
     end
     --header
     colors:set("white")
@@ -222,7 +213,7 @@ function spriteSelectState:draw()
     push:finish()
 end
 
-function spriteSelectState:confirm( x, y, button, istouch )
+function spriteSelectState:confirm(button)
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
         return Gamestate.pop()
@@ -233,20 +224,6 @@ function spriteSelectState:confirm( x, y, button, istouch )
             return Gamestate.push(spriteViewerState, heroes[menu[menuState].n])
         end
     end
-end
-
-function spriteSelectState:mousepressed( x, y, button, istouch )
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    self:confirm( x, y, button, istouch )
-end
-
-function spriteSelectState:mousemoved( x, y, dx, dy)
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    mouse_x, mouse_y = x, y
 end
 
 function spriteSelectState:showCurrentSprite()

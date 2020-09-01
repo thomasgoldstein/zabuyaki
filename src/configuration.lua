@@ -34,7 +34,6 @@ GLOBAL_SETTING = {
     MAX_CREDITS = 3,
     MAX_LIVES = 3,
     TIMER = 99, -- seconds to pass a stage
-    MOUSE_ENABLED = true,
     SHADERS_ENABLED = true,
     PROFILER_ENABLED = false,
     FPSRATE_ENABLED = false,

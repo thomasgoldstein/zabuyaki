@@ -84,10 +84,10 @@ end
 
 function Movie:update(dt)
     self.time = self.time + dt
-    if self.b.attack:isDown() or love.mouse.isDown(1) then
+    if self.b.attack:isDown() then
         self.time = self.time + dt * 3 -- Speed Up
     end
-    if self.b.back:pressed() or self.b.jump:pressed() or love.mouse.isDown(2) then
+    if self.b.back:pressed() or self.b.jump:pressed() then
         return true -- Interrupt
     end
     if not self.frames or not self.frames[self.frame] then

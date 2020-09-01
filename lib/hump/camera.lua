@@ -166,11 +166,6 @@ function camera:worldCoords(x,y, ox,oy,w,h)
 	return x+self.x, y+self.y
 end
 
-function camera:mousePosition(ox,oy,w,h)
-	local mx,my = love.mouse.getPosition()
-	return self:worldCoords(mx,my, ox,oy,w,h)
-end
-
 -- camera scrolling utilities
 function camera:lockX(x, smoother, ...)
 	local dx, dy = (smoother or self.smoother)(x - self.x, self.y, ...)

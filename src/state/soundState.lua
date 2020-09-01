@@ -21,10 +21,8 @@ local volumeStep = 0.10
 local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
-local mouse_x, mouse_y, oldMouse_y = 0, 0, 0
 
 function soundState:enter()
-    mouse_x, mouse_y = 0,0
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
@@ -39,9 +37,9 @@ end
 --Only P1 can use menu / options
 function soundState:playerInput(controls)
     if controls.jump:pressed() or controls.back:pressed() then
-        return self:confirm( mouse_x, mouse_y, 2)
+        return self:confirm( 2)
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return self:confirm( mouse_x, mouse_y, 1)
+        return self:confirm(1)
     end
     if controls.horizontal:pressed(-1)then
         self:wheelmoved(0, -1)
@@ -106,13 +104,6 @@ function soundState:draw()
         end
         colors:set("white")
         love.graphics.print(m.item, m.x, m.y )
-
-        if GLOBAL_SETTING.MOUSE_ENABLED and mouse_y ~= oldMouse_y and
-                CheckPointCollision(mouse_x, mouse_y, m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin )
-        then
-            oldMouse_y = mouse_y
-            menuState = i
-        end
     end
     --header
     colors:set("white")
@@ -121,7 +112,7 @@ function soundState:draw()
     push:finish()
 end
 
-function soundState:confirm( x, y, button, istouch )
+function soundState:confirm(button)
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
         bgm.play(bgm.title)
@@ -165,20 +156,6 @@ function soundState:confirm( x, y, button, istouch )
             end
         end
     end
-end
-
-function soundState:mousepressed( x, y, button, istouch )
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    self:confirm( x, y, button, istouch )
-end
-
-function soundState:mousemoved( x, y, dx, dy)
-    if not GLOBAL_SETTING.MOUSE_ENABLED then
-        return
-    end
-    mouse_x, mouse_y = x, y
 end
 
 function soundState:wheelmoved(x, y)

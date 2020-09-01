@@ -24,8 +24,6 @@ end
 shaders = require "src/def/misc/shaders"
 
 function setupScreen()
-    configuration:set("MOUSE_ENABLED", not GLOBAL_SETTING.FULL_SCREEN)
-    love.mouse.setVisible( GLOBAL_SETTING.MOUSE_ENABLED )
     if shaders then
         if GLOBAL_SETTING.FILTER_N and shaders.screen[GLOBAL_SETTING.FILTER_N] then
             local sh = shaders.screen[GLOBAL_SETTING.FILTER_N]
@@ -281,16 +279,4 @@ function love.keypressed(key, unicode)
 end
 
 function love.keyreleased(key, unicode)
-end
-
-function love.mousepressed(x, y, button)
-    if GLOBAL_SETTING.PROFILER_ENABLED then
-        Prof:mousepressed(x, y, button)
-    end
-end
-
-function love.mousereleased(x, y, button)
-end
-
-function love.wheelmoved( dx, dy )
 end
