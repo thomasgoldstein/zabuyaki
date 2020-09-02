@@ -222,6 +222,10 @@ function Character:isImmune()   --Immune to the attack?
         self:initDamageContext()
         return true
     end
+    if self == h.source then  -- do not damage the attacker from thrown/twisted bodies
+        self:initDamageContext()
+        return true
+    end
     local attackHash = h.attackHash
     if self:hasAttackHash(attackHash) then  -- already had damage from this attack
         self:initDamageContext()
@@ -1101,6 +1105,7 @@ function Character:fallUpdate(dt)
                   height = self:getHurtBoxHeight(),
                   depth = self:getHurtBoxDepth(),
                   damage = self.myThrownBodyDamage,
+                  source = self.indirectAttacker,
                   type = "fell",
                   attackHash = self:createProjectileAttackHash(),
                   repel_x = self.indirectAttackFallSpeed_x,
