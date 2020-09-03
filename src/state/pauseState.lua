@@ -97,7 +97,7 @@ function pauseState:draw()
         stage:displayGoTimer(screenWidth, screenHeight)
     end
     love.graphics.setFont(gfx.font.arcade3x2)
-    for i = 1,#menu do
+    for i = 1, #menu do
         local m = menu[i]
         if i == oldMenuState then
             colors:set("white")
@@ -134,7 +134,4 @@ function pauseState:confirm(button)
             return Gamestate.switch(titleState)
         end
     end
-end
-
-function pauseState:keypressed(key, unicode)
 end

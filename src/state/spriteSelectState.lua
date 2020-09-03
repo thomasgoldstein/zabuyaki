@@ -104,7 +104,6 @@ function spriteSelectState:enter()
     Controls[1].start:update()
     Controls[1].back:update()
     love.graphics.setLineWidth( 2 )
-    self:wheelmoved(0, 0)   --pick 1st sprite to draw
     self:showCurrentSprite()
 end
 
@@ -117,9 +116,9 @@ function spriteSelectState:playerInput(controls)
         return self:confirm(1)
     end
     if controls.horizontal:pressed(-1)then
-        self:wheelmoved(0, -1)
+        self:select(-1)
     elseif controls.horizontal:pressed(1)then
-        self:wheelmoved(0, 1)
+        self:select(1)
     elseif controls.vertical:pressed(-1) then
         menuState = menuState - 1
     elseif controls.vertical:pressed(1) then
@@ -233,15 +232,7 @@ function spriteSelectState:showCurrentSprite()
     end
 end
 
-function spriteSelectState:wheelmoved(x, y)
-    local i = 0
-    if y > 0 then
-        i = 1
-    elseif y < 0 then
-        i = -1
-    else
-        return
-    end
+function spriteSelectState:select(i)
     menu[menuState].n = menu[menuState].n + i
     if menuState == menuItems.characters then
         if menu[menuState].n < 1 then

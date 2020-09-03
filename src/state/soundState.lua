@@ -37,14 +37,14 @@ end
 --Only P1 can use menu / options
 function soundState:playerInput(controls)
     if controls.jump:pressed() or controls.back:pressed() then
-        return self:confirm( 2)
+        return self:confirm(2)
     elseif controls.attack:pressed() or controls.start:pressed() then
         return self:confirm(1)
     end
     if controls.horizontal:pressed(-1)then
-        self:wheelmoved(0, -1)
+        self:select(-1)
     elseif controls.horizontal:pressed(1)then
-        self:wheelmoved(0, 1)
+        self:select(1)
     elseif controls.vertical:pressed(-1) then
         menuState = menuState - 1
     elseif controls.vertical:pressed(1) then
@@ -158,15 +158,7 @@ function soundState:confirm(button)
     end
 end
 
-function soundState:wheelmoved(x, y)
-    local i = 0
-    if y > 0 then
-        i = 1
-    elseif y < 0 then
-        i = -1
-    else
-        return
-    end
+function soundState:select(i)
     menu[menuState].n = menu[menuState].n + i
     if menuState == menuItems.soundVolume then
         if menu[menuState].n < 0 then

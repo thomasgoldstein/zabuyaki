@@ -41,10 +41,10 @@ function optionsState:playerInput(controls)
     elseif controls.attack:pressed() or controls.start:pressed() then
         return self:confirm(1)
     end
-    if controls.horizontal:pressed(-1)then
-        self:wheelmoved(0, -1)
-    elseif controls.horizontal:pressed(1)then
-        self:wheelmoved(0, 1)
+    if controls.horizontal:pressed(-1) then
+        self:select(-1)
+    elseif controls.horizontal:pressed(1) then
+        self:select(1)
     elseif controls.vertical:pressed(-1) then
         menuState = menuState - 1
     elseif controls.vertical:pressed(1) then
@@ -147,8 +147,7 @@ function optionsState:confirm(button)
     end
 end
 
-function optionsState:wheelmoved(x, y)
-    local i = 0
+function optionsState:select(i)
     menu[menuState].n = menu[menuState].n + i
     if menuState == menuItems.difficulty then
         return self:confirm( 1)

@@ -49,7 +49,6 @@ function spriteViewerState:enter(_, _unit)
     Controls[1].start:update()
     Controls[1].back:update()
     love.graphics.setLineWidth( 2 )
-    self:wheelmoved(0, 0)   --pick 1st sprite to draw
     -- to show hitBoxes:
     stage = Stage:new()
     character = Character:new("SPRITE", unit.spriteInstance, screenWidth /2, menuOffset_y + menuItem_h / 2)
@@ -167,9 +166,9 @@ function spriteViewerState:playerInput(controls)
         return self:confirm( 1)
     end
     if controls.horizontal:pressed(-1)then
-        self:wheelmoved(0, -1)
+        self:select(-1)
     elseif controls.horizontal:pressed(1)then
-        self:wheelmoved(0, 1)
+        self:select(1)
     elseif controls.vertical:pressed(-1) then
         menuState = menuState - 1
     elseif controls.vertical:pressed(1) then
@@ -363,15 +362,7 @@ function spriteViewerState:confirm(button)
     end
 end
 
-function spriteViewerState:wheelmoved(x, y)
-    local i = 0
-    if y > 0 then
-        i = 1
-    elseif y < 0 then
-        i = -1
-    else
-        return
-    end
+function spriteViewerState:select(i)
     menu[menuState].n = menu[menuState].n + i
     if menuState == menuItems.animations then
         if menu[menuState].n < 1 then
@@ -381,7 +372,6 @@ function spriteViewerState:wheelmoved(x, y)
             menu[menuState].n = 1
         end
         setSpriteAnimation(sprite, animations[menu[menuState].n])
-
     elseif menuState == menuItems.frames then
         if menu[menuState].n < 1 then
             menu[menuState].n = #sprite.def.animations[sprite.curAnim]

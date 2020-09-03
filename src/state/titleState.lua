@@ -206,7 +206,6 @@ function titleState:confirm(button)
             else
                 return Gamestate.push(playerSelectState)
             end
-
         elseif menuState == menuItems.options then
             sfx.play("sfx","menuSelect")
             time = 0
@@ -216,7 +215,4 @@ function titleState:confirm(button)
             return love.event.quit()
         end
     end
-end
-
-function titleState:keypressed(key, unicode)
 end

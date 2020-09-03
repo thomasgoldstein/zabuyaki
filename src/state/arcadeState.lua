@@ -146,9 +146,6 @@ function arcadeState:draw()
     push:finish()
 end
 
-function arcadeState:keypressed(key, unicode)
+function arcadeState:keypressed(key)
     checkDebugKeys(key)
-end
-
-function arcadeState:wheelmoved( dx, dy )
 end

@@ -29,7 +29,6 @@ function videoModeState:enter()
     Controls[1].start:update()
     Controls[1].back:update()
     love.graphics.setLineWidth(2)
-    self:wheelmoved(0, 0) --pick 1st sprite to draw
 end
 
 function videoModeState:resume()
@@ -41,12 +40,12 @@ function videoModeState:playerInput(controls)
         sfx.play("sfx", "menuCancel")
         return Gamestate.pop()
     elseif controls.attack:pressed() or controls.start:pressed() then
-        return self:confirm(0, 1)
+        return self:confirm(1, 0)
     end
     if controls.horizontal:pressed(-1) then
-        self:wheelmoved(0, -1)
+        self:select(-1)
     elseif controls.horizontal:pressed(1) then
-        self:wheelmoved(0, 1)
+        self:select(1)
     elseif controls.vertical:pressed(-1) then
         menuState = menuState - 1
     elseif controls.vertical:pressed(1) then
@@ -116,13 +115,7 @@ function videoModeState:draw()
     push:finish()
 end
 
-function videoModeState:confirm(y, button)
-    local i = 0
-    if y > 0 then
-        i = 1
-    elseif y < 0 then
-        i = -1
-    end
+function videoModeState:confirm(button, i)
     if button == 1 then
         if menuState == menuItems.fullScreen then
             sfx.play("sfx", "menuSelect")
@@ -167,22 +160,14 @@ function videoModeState:confirm(y, button)
     end
 end
 
-function videoModeState:wheelmoved(x, y)
-    local i = 0
-    if y > 0 then
-        i = 1
-    elseif y < 0 then
-        i = -1
-    else
-        return
-    end
+function videoModeState:select(i)
     menu[menuState].n = menu[menuState].n + i
     if menuState == menuItems.fullScreen then
-        return self:confirm(y, 1)
+        return self:confirm(1, i)
     elseif menuState == menuItems.fullScreenModes then
-        return self:confirm(y, 1)
+        return self:confirm(1, i)
     elseif menuState == menuItems.videoFilter then
-        return self:confirm(y, 1)
+        return self:confirm(1, i)
     end
     if menuState ~= #menu then
         sfx.play("sfx", "menuMove")
