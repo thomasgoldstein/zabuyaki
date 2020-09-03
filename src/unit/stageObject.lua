@@ -91,7 +91,7 @@ function StageObject:onHurt()
     if self:isImmune() then
         return
     end
-    local newFacing = -h.horizontal
+    local newFacing = not h.horizontal and -self.horizontal or -h.horizontal
     self:removeTweenMove()
     self:onHurtDamage()
     self:afterOnHurt()
