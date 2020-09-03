@@ -30,8 +30,8 @@ function Enemy:updateAI(dt)
 end
 
 function Enemy:isImmune()   --Immune to the attack?
-    if Character.isImmune(self) then
-        return
+    if Character.isImmune(self, false) then
+        return true
     end
     local h = self:getDamageContext()
     if h.source.type == "enemy"

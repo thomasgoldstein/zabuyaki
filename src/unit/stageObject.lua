@@ -81,22 +81,7 @@ function StageObject:updateAI(dt)
     Unit.updateAI(self, dt)
 end
 
-function StageObject:isImmune()   --Immune to the attack?
-    local h = self:getDamageContext()
-    if h.type == "shockWave" or self.isDisabled then
-        -- shockWave has no effect on players & stage objects
-        self:initDamageContext()
-        return true
-    end
-    local attackHash = h.attackHash
-    if self:hasAttackHash(attackHash) then  -- already had damage from this attack
-        self:initDamageContext()
-        return true
-    else
-        self:storeAttackHash(attackHash)
-    end
-    return false
-end
+StageObject.isImmune = Player.isImmune  -- mixin Player's method
 
 function StageObject:onHurt()
     local h = self:getDamageContext()

@@ -215,9 +215,9 @@ function Character:canMove()
     return self.comboTimer < self.comboMobilityDelay
 end
 
-function Character:isImmune()   --Immune to the attack?
+function Character:isImmune( skipShockWaveImmunityCheck )   --Immune to the attack?
     local h = self:getDamageContext()
-    if h.type == "shockWave" and ( self.isDisabled or self.hp <= 0 or self.state == "fall" ) then
+    if not skipShockWaveImmunityCheck and h.type == "shockWave" and ( self.isDisabled or self.hp <= 0 or self.state == "fall" ) then
         -- shockWave has no effect on players & stage objects
         self:initDamageContext()
         return true

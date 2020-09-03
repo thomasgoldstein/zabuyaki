@@ -178,25 +178,11 @@ end
 
 function Player:isImmune()   --Immune to the attack?
     local h = self:getDamageContext()
-    if not h then
-        return true
-    end
     if h.type == "shockWave" or self.isDisabled then
         self:initDamageContext()
         return false
     end
-    if self == h.source then  -- do not damage the attacker from thrown/twisted bodies
-        self:initDamageContext()
-        return true
-    end
-    local attackHash = h.attackHash
-    if self:hasAttackHash(attackHash) then  -- already had damage from this attack
-        self:initDamageContext()
-        return true
-    else
-        self:storeAttackHash(attackHash)
-    end
-    return false
+    return Character.isImmune(self, true)
 end
 
 function Player:canGrab(target)
