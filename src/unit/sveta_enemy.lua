@@ -16,7 +16,7 @@ function Sveta:initAttributes()
     self.moves = { -- list of allowed moves
         sideStep = true, pickUp = true, chargeAttack = true, dashAttack = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, land = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true, land = true,
     }
     self.walkSpeed_x = 97
     self.walkSpeed_y = 45   -- overrides default post-calculated speed

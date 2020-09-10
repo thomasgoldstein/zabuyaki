@@ -15,7 +15,7 @@ function Beatnik:initAttributes()
     self.moves = { --list of allowed moves
         pickUp = true, chargeAttack = true, dashAttack = true, specialDefensive = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, land = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true, land = true,
     }
     self.walkSpeed_x = 92
     self.dashAttackSpeed_x = 0 --speed of the character during dash attack (initial)
