@@ -124,7 +124,7 @@ function Player:updateAI(dt)
                         self:releaseGrabbed()
                         self:removeTweenMove()
                         self.face = hv
-                        if self.state == "duck2jump" and self.lastState == "run" then
+                        if self.state == "duck" and self.lastState == "run" then
                             self:setState(self.specialDash)
                             return
                         end

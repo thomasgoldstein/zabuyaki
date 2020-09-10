@@ -5,10 +5,10 @@ local function nop() end
 
 Character.statesForChargeAttack = { stand = true, walk = true, run = true, hurt = true, land = true, sideStep = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
-Character.statesForSpecialDefensive = { stand = true, combo = true, duck2jump = true, walk = true, hurt = true, chargeDash = true, grabFrontAttack = true, grab = true }
-Character.statesForSpecialOffensive = { stand = true, combo = true, duck2jump = true, walk = true, grabFrontAttack = true, grab = true }
-Character.statesForSpecialDash = { stand = true, walk = true, run = true, duck2jump = true, dashAttack = true }
-Character.statesForSpecialToleranceDelay = { duck2jump = true, dashAttack = true }
+Character.statesForSpecialDefensive = { stand = true, combo = true, duck = true, walk = true, hurt = true, chargeDash = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialOffensive = { stand = true, combo = true, duck = true, walk = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialDash = { stand = true, walk = true, run = true, duck = true, dashAttack = true }
+Character.statesForSpecialToleranceDelay = { duck = true, dashAttack = true }
 
 function Character:initialize(name, sprite, x, y, f, input)
     if not f then
@@ -548,7 +548,7 @@ function Character:standUpdate(dt)
         return
     end
     if self.moves.jump and self.b.jump:pressed() then
-        self:setState(self.duck2jump)
+        self:setState(self.duck)
         return
     end
     local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
@@ -615,7 +615,7 @@ function Character:walkUpdate(dt)
             return
         end
     elseif self.moves.jump and self.b.jump:pressed() then
-        self:setState(self.duck2jump)
+        self:setState(self.duck)
         return
     end
     if not self.b.strafe:isDown() then
@@ -712,7 +712,7 @@ function Character:runUpdate(dt)
         return
     end
     if self.moves.jump and self.b.jump:pressed() then
-        self:setState(self.duck2jump, true) --pass condition to block dir changing
+        self:setState(self.duck, true) --pass condition to block dir changing
         return
     end
     if self.moves.dashAttack and self.b.attack:pressed() then
@@ -835,7 +835,7 @@ function Character:landUpdate(dt)
 end
 Character.land = {name = "land", start = Character.landStart, exit = nop, update = Character.landUpdate, draw = Character.defaultDraw}
 
-function Character:duck2jumpStart()
+function Character:duckStart()
     self.isHittable = true
     self.toSlowDown = false
     self:setSprite("duck")
@@ -846,7 +846,7 @@ function Character:duck2jumpStart()
     self.saveSpeed_y = self.speed_y
     self.wasAttackPressedAtTheJumpStart = false
 end
-function Character:duck2jumpUpdate(dt)
+function Character:duckUpdate(dt)
     if self.b.attack:pressed() then
         self.wasAttackPressedAtTheJumpStart = true
     end
@@ -867,7 +867,7 @@ function Character:duck2jumpUpdate(dt)
         return
     end
     if not self.condition then
-        --duck2jump can change direction of the jump
+        --check if duck can change direction of the jump
         local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
         if hv ~= 0 then
             --do not face sprite left or right. Only the direction
@@ -880,7 +880,7 @@ function Character:duck2jumpUpdate(dt)
         end
     end
 end
-Character.duck2jump = {name = "duck2jump", start = Character.duck2jumpStart, exit = nop, update = Character.duck2jumpUpdate, draw = Character.defaultDraw}
+Character.duck = {name = "duck", start = Character.duckStart, exit = nop, update = Character.duckUpdate, draw = Character.defaultDraw}
 
 function Character:hurtStart()
     self.isHittable = true
@@ -1433,7 +1433,7 @@ function Character:grabUpdate(dt)
             end
             self:removeTweenMove()
             self:releaseGrabbed()
-            self:setState(self.duck2jump)
+            self:setState(self.duck)
             return
         end
     else

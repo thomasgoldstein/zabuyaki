@@ -75,7 +75,7 @@ describe("Character Class", function()
         describe("Jump Method", function()
             it('Jumps on place', function()
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, {
-                    setState = player1.duck2jump,
+                    setState = player1.duck,
                     stopFunc = isUnitsState(player1, "stand")
                 })
                 expect(x).to.equal(_x)
@@ -101,7 +101,7 @@ describe("Character Class", function()
                 player1.speed_x = player1.walkSpeed_x
                 player1.speed_y = player1.walkSpeed_y
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, {
-                    setState = player1.duck2jump,
+                    setState = player1.duck,
                     stopFunc = isUnitsState(player1, "stand")
                 })
                 local xd = absDelta(x, _x)
@@ -116,7 +116,7 @@ describe("Character Class", function()
                 player1.speed_x = player1.runSpeed_x
                 player1.speed_y = player1.runSpeed_y
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, {
-                    setState = player1.duck2jump,
+                    setState = player1.duck,
                     stopFunc = isUnitsState(player1, "stand")
                 })
                 local xd = x - _x
@@ -220,7 +220,7 @@ describe("Character Class", function()
         describe("Jump Method", function()
             it('Jumps on place', function()
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.duck2jump,
+                    setState = player3.duck,
                     stopFunc = isUnitsState(player3, "stand")
                 })
                 expect(x).to.equal(_x)
@@ -232,7 +232,7 @@ describe("Character Class", function()
             it('Jumps on a trash can', function()
                 stageObject1.x, stageObject1.y = player3.x, player3.y
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.duck2jump,
+                    setState = player3.duck,
                     stopFunc = isUnitsState(player3, "stand")
                 })
                 expect(x).to.equal(_x)
@@ -243,7 +243,7 @@ describe("Character Class", function()
             end)
             it('Jumps on place and freezes at the Max Z', function()
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.duck2jump,
+                    setState = player3.duck,
                     stopFunc = isUnitsAtMaxZ(player3)
                 })
                 expect(x).to.equal(_x)
@@ -256,7 +256,7 @@ describe("Character Class", function()
                 player3.speed_x = player3.walkSpeed_x
                 player3.speed_y = player3.walkSpeed_y
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.duck2jump,
+                    setState = player3.duck,
                     stopFunc = isUnitsState(player3, "stand")
                 })
                 local xd = absDelta(x, _x)
@@ -271,7 +271,7 @@ describe("Character Class", function()
                 player3.speed_x = player3.runSpeed_x
                 player3.speed_y = player3.runSpeed_y
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.duck2jump,
+                    setState = player3.duck,
                     stopFunc = isUnitsState(player3, "stand")
                 })
                 local xd = absDelta(x, _x)
