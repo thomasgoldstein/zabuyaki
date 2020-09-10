@@ -763,7 +763,7 @@ function Character:jumpFallUpdate(dt)
     end
 end
 function Character:jumpUpdate(dt)
-    if self.b.attack:pressed() or self.duckAttackPressed then
+    if self.b.attack:pressed() or self.wasAttackPressedAtTheJumpStart then
         if self.moves.jumpAttackLight and self.b.horizontal:getValue() == -self.face then
             self:setState(self.jumpAttackLight)
             return
@@ -844,11 +844,11 @@ function Character:duck2jumpStart()
     -- save speed to pass it to the jump state
     self.saveSpeed_x = self.speed_x
     self.saveSpeed_y = self.speed_y
-    self.duckAttackPressed = false
+    self.wasAttackPressedAtTheJumpStart = false
 end
 function Character:duck2jumpUpdate(dt)
     if self.b.attack:pressed() then
-        self.duckAttackPressed = true
+        self.wasAttackPressedAtTheJumpStart = true
     end
     if self.sprite.isFinished then
         if self.moves.jump then
@@ -960,7 +960,7 @@ function Character:jumpAttackForwardUpdate(dt)
         end
     else
         self:playSfx(self.sfx.step)
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
 end
@@ -980,7 +980,7 @@ function Character:jumpAttackLightUpdate(dt)
         end
     else
         self:playSfx(self.sfx.step)
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
 end
@@ -1001,7 +1001,7 @@ function Character:jumpAttackStraightUpdate(dt)
         end
     else
         self:playSfx(self.sfx.step)
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
     if not self.toSlowDown then
@@ -1026,7 +1026,7 @@ function Character:jumpAttackRunUpdate(dt)
         end
     else
         self:playSfx(self.sfx.step)
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
 end
@@ -1069,7 +1069,7 @@ function Character:fallUpdate(dt)
                     -- hold UP+JUMP to get no damage after throw (land on feet)
                     if self.condition == "throw" and self.canRecover and self.hp > 0 then
                         self:playSfx(self.sfx.step)
-                        self:setState(self.duck)
+                        self:setState(self.land)
                         return
                     end
                     --apply damage of thrown units on landing
@@ -1768,7 +1768,7 @@ function Character:chargeAttackUpdate(dt)
     if not self:canFall() then
         if self.isChargeDashAttack then
             self:playSfx(self.sfx.step)
-            self:setState(self.duck)
+            self:setState(self.land)
         elseif self.sprite.isFinished then
             self:setState(self.stand)
         end
@@ -1803,7 +1803,7 @@ function Character:chargeDashUpdate(dt)
         end
     else
         self:playSfx(self.sfx.step)
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
     local grabbed = self:checkForGrab()
