@@ -814,27 +814,6 @@ function Character:pickUpUpdate(dt)
 end
 Character.pickUp = {name = "pickUp", start = Character.pickUpStart, exit = nop, update = Character.pickUpUpdate, draw = Character.defaultDraw}
 
-function Character:duckStart()
-    self.isHittable = true
-    self:setSprite("duck")
-    self.z = self:getRelativeZ()
-    self.speed_z = 0
-    self:showEffect("jumpLanding")
-end
-function Character:duckUpdate(dt)
-    if self.sprite.isFinished then
-        if self.b.horizontal:getValue() ~= 0 and self:canMove() then
-            self:setState(self.walk)
-        else
-            self.speed_x = 0
-            self.speed_y = 0
-            self:setState(self.stand)
-        end
-        return
-    end
-end
-Character.duck = {name = "duck", start = Character.duckStart, exit = nop, update = Character.duckUpdate, draw = Character.defaultDraw}
-
 function Character:landStart()
     self.isHittable = true
     self:setSprite("land")
