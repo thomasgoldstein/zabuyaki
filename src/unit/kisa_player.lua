@@ -12,7 +12,7 @@ function Kisa:initAttributes()
     self.moves = { --list of allowed moves
         pickUp = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, land = true,
     }
     self.walkSpeed_x = 110
     self.runSpeed_x = 160

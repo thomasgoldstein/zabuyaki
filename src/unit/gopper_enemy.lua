@@ -16,7 +16,7 @@ function Gopper:initAttributes()
     self.moves = { --list of allowed moves
         run = true, pickUp = true, dashAttack = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, land = true,
     }
     self.walkSpeed_x = 100
     self.runSpeed_x = 150
