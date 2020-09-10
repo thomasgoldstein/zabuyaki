@@ -92,6 +92,10 @@ return {
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
             delay = f(4)
         },
+        land = {
+            { q = q(206,665,69,64), ox = 37, oy = 63 }, --duck
+            delay = f(4)
+        },
         sideStepUp = {
             { q = q(121,424,58,58), ox = 31, oy = 59, delay = f(3) }, --jump attack forward 2 (lowered)
             { q = q(167,799,52,53), ox = 31, oy = 50, funcCont = rollAttack, attackId = 1 }, --run 4

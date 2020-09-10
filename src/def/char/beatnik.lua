@@ -83,6 +83,10 @@ return {
             { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck
             delay = f(4)
         },
+        land = {
+            { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck
+            delay = f(4)
+        },
         dropDown = {
             { q = q(66,284,51,66), ox = 17, oy = 66 }, --kick 1
             delay = math.huge

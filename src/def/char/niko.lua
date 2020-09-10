@@ -86,6 +86,10 @@ return {
             { q = q(541,199,38,55), ox = 21, oy = 54 }, --duck
             delay = f(4)
         },
+        land = {
+            { q = q(541,199,38,55), ox = 21, oy = 54 }, --duck
+            delay = f(4)
+        },
         jump = {
             { q = q(309,386,55,64), ox = 20, oy = 63 }, --jump
             delay = math.huge

@@ -305,6 +305,10 @@ return {
             { q = q(181,7,45,59), ox = 20, oy = 58 }, --duck
             delay = f(4)
         },
+        land = {
+            { q = q(181,7,45,59), ox = 20, oy = 58 }, --duck
+            delay = f(4)
+        },
         sideStepUp = {
             { q = q(96,844,44,65), ox = 21, oy = 64 }, --side step up
             delay = math.huge
