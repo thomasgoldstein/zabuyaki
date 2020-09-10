@@ -591,7 +591,7 @@ function Character:walkStart()
     self.isHittable = true
     if spriteHasAnimation(self.sprite, "chargeWalk")
         and (self.sprite.curAnim == "chargeStand" or self.sprite.curAnim == "chargeWalk"
-        or ( self.sprite.curAnim == "duck" and self.b.attack:isDown() ))
+        or ( (self.sprite.curAnim == "land" or self.sprite.curAnim == "duck") and self.b.attack:isDown() ))
     then
         self:setSprite("chargeWalk")
     elseif self.sprite.curAnim ~= "walk" then
@@ -758,7 +758,7 @@ function Character:jumpFallUpdate(dt)
         else
             self:playSfx(self.sfx.step)
         end
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
 end
@@ -834,6 +834,27 @@ function Character:duckUpdate(dt)
     end
 end
 Character.duck = {name = "duck", start = Character.duckStart, exit = nop, update = Character.duckUpdate, draw = Character.defaultDraw}
+
+function Character:landStart()
+    self.isHittable = true
+    self:setSprite("land")
+    self.z = self:getRelativeZ()
+    self.speed_z = 0
+    self:showEffect("jumpLanding")
+end
+function Character:landUpdate(dt)
+    if self.sprite.isFinished then
+        if self.b.horizontal:getValue() ~= 0 and self:canMove() then
+            self:setState(self.walk)
+        else
+            self.speed_x = 0
+            self.speed_y = 0
+            self:setState(self.stand)
+        end
+        return
+    end
+end
+Character.land = {name = "land", start = Character.landStart, exit = nop, update = Character.landUpdate, draw = Character.defaultDraw}
 
 function Character:duck2jumpStart()
     self.isHittable = true

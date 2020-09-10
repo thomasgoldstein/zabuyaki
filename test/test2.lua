@@ -89,7 +89,7 @@ describe("Character Class", function()
                 player1.b.setJump(true)
                 local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player1, {
                     setState = player1.stand,
-                    stopFunc = isUnitsState(player1, "duck")
+                    stopFunc = isUnitsState(player1, "land")
                 })
                 expect(x).to.equal(_x)
                 expect(y).to.equal(_y)

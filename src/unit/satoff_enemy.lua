@@ -73,7 +73,7 @@ end
 function Satoff:sideStepUpdate(dt)
     if self.sprite.loopCount > 0 then
         sfx.play("sfx"..self.id, self.sfx.step)
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
 end

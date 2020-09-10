@@ -84,7 +84,7 @@ function Chai:dashAttackUpdate(dt)
             self.speed_z = 0
             self.z = self:getRelativeZ()
             self:playSfx(self.sfx.step)
-            self:setState(self.duck)
+            self:setState(self.land)
             return
         end
     end
@@ -183,7 +183,7 @@ function Chai:specialDefensiveUpdate(dt)
     if self.sprite.isFinished then
         self.particles = nil
         self:playSfx(self.sfx.step)
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
 end
@@ -237,7 +237,7 @@ function Chai:specialDashUpdate(dt)
         self.z = self:getRelativeZ() + 1 -- the started 2nd attack should be finished
     else
         self:playSfx(self.sfx.step)
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
     if self.particles then
@@ -262,7 +262,7 @@ function Chai:chargeDashAttackUpdate(dt)
         self:calcFreeFall(dt, getSpriteFrame(self.sprite).hover and 0.01 or self.jumpSpeedMultiplier * 0.7 ) -- slow down the falling speed
     else
         self:playSfx(self.sfx.step)
-        self:setState(self.duck)
+        self:setState(self.land)
         return
     end
 end
