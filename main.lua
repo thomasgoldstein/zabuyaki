@@ -81,7 +81,6 @@ function love.load(arg, unfilteredArg)
     setupScreen()
 
     colors = (require "src/def/misc/colors"):new()
-    inspect = require 'lib.debug.inspect'
     require "src/animatedSprite"
     tween = require "lib/tween"
     gamera = require "lib/gamera"

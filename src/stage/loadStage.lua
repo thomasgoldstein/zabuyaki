@@ -46,7 +46,7 @@ local function loadCollision(items, stage)
             local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = shapeArgs })
             wall:setOnStage(stage)
         else
-            error("Tiled: Wrong Tiled object shape #"..i..":"..inspect(v))
+            error("Tiled: Wrong Tiled object shape #"..i)
         end
     end
 end
@@ -132,7 +132,7 @@ local function loadUnit(items, waveName)
             local inst = getUnitTypeByName(v.type)
             local palette = v.properties.palette or 1
             if not inst then
-                error("Missing unit type instance name :" .. inspect(v))
+                error("Missing unit type instance name")
             end
             if inst:isSubclassOf(StageObject) then
                 sprite = "src/def/stage/object/" .. v.type
@@ -306,7 +306,7 @@ local function loadCameraScrolling(items, scrolling)
                 end
             end
         else
-            error("Tiled: Wrong Camera Scrolling object shape #"..i..":"..inspect(v))
+            error("Tiled: Wrong Camera Scrolling object shape #"..i)
         end
     end
     if not scrolling.chunks or #scrolling.chunks < 1 then
@@ -347,7 +347,7 @@ local function addPlayersToStage(items, players, stage)
                     player.isCharacterControlEnabled = false
                 end
             else
-                error("Wrong Tiled object type #"..i..":"..inspect(v))
+                error("Wrong Tiled object type #"..i)
             end
         end
     else
@@ -363,7 +363,7 @@ local function addPlayersToStage(items, players, stage)
                     p:setOnStage(stage)
                 end
             else
-                error("Tiled: Wrong object type #"..i..":"..inspect(v))
+                error("Tiled: Wrong object type #"..i)
             end
         end
     end
