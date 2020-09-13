@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#8d6e8f" nextlayerid="34" nextobjectid="47">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#696969" nextlayerid="34" nextobjectid="47">
  <editorsettings>
   <export target="../../../src/def/stage/stage1a_map.lua" format="lua"/>
  </editorsettings>
@@ -14,20 +14,20 @@
     <property name="relativeX" value="0.45"/>
    </properties>
   </imagelayer>
-  <group id="3" name="bg-city-3" locked="1" offsetx="113" offsety="-50">
+  <group id="3" name="bg-city-3" locked="1" offsetx="113" offsety="0">
    <properties>
     <property name="relativeX" value="0.30"/>
    </properties>
    <imagelayer id="4" name="city">
-    <image source="../../img/stage/stage1/background-city-3.png" width="2564" height="600"/>
+    <image source="../../img/stage/stage1/background-city-3.png" width="2564" height="324"/>
    </imagelayer>
   </group>
-  <group id="5" name="bg-city-2" locked="1" offsetx="80" offsety="-50">
+  <group id="5" name="bg-city-2" locked="1" offsetx="80" offsety="0">
    <properties>
     <property name="relativeX" value="0.25"/>
    </properties>
    <imagelayer id="6" name="city">
-    <image source="../../img/stage/stage1/background-city-2.png" width="2564" height="600"/>
+    <image source="../../img/stage/stage1/background-city-2.png" width="2564" height="324"/>
    </imagelayer>
   </group>
   <group id="7" name="bg-city-1" locked="1">

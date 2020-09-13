@@ -1,7 +1,7 @@
 return {
-  version = "1.4",
+  version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.4.2",
+  tiledversion = "1.3.2",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 80,
@@ -10,7 +10,7 @@ return {
   tileheight = 32,
   nextlayerid = 34,
   nextobjectid = 47,
-  backgroundcolor = { 141, 110, 143 },
+  backgroundcolor = { 105, 105, 105 },
   properties = {
     ["enableReflections"] = true,
     ["reflectionsOpacity"] = 0.6
@@ -29,13 +29,13 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/sky.png",
           id = 2,
           name = "sky",
           visible = true,
           opacity = 1,
           offsetx = -2,
           offsety = -2,
+          image = "../../../res/img/stage/stage1/sky.png",
           properties = {
             ["relativeX"] = "0.45"
           }
@@ -47,20 +47,20 @@ return {
           visible = true,
           opacity = 1,
           offsetx = 113,
-          offsety = -50,
+          offsety = 0,
           properties = {
             ["relativeX"] = "0.30"
           },
           layers = {
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-city-3.png",
               id = 4,
               name = "city",
               visible = true,
               opacity = 1,
               offsetx = 0,
               offsety = 0,
+              image = "../../../res/img/stage/stage1/background-city-3.png",
               properties = {}
             }
           }
@@ -72,20 +72,20 @@ return {
           visible = true,
           opacity = 1,
           offsetx = 80,
-          offsety = -50,
+          offsety = 0,
           properties = {
             ["relativeX"] = "0.25"
           },
           layers = {
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-city-2.png",
               id = 6,
               name = "city",
               visible = true,
               opacity = 1,
               offsetx = 0,
               offsety = 0,
+              image = "../../../res/img/stage/stage1/background-city-2.png",
               properties = {}
             }
           }
@@ -104,13 +104,13 @@ return {
           layers = {
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-city-1.png",
               id = 8,
               name = "city",
               visible = true,
               opacity = 1,
               offsetx = 0,
               offsety = 0,
+              image = "../../../res/img/stage/stage1/background-city-1.png",
               properties = {}
             }
           }
@@ -129,24 +129,24 @@ return {
           layers = {
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-building-2.png",
               id = 10,
               name = "building-2",
               visible = true,
               opacity = 1,
               offsetx = -26,
               offsety = 0,
+              image = "../../../res/img/stage/stage1/background-building-2.png",
               properties = {}
             },
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-building-1.png",
               id = 11,
               name = "building-1",
               visible = true,
               opacity = 1,
               offsetx = -9,
               offsety = 0,
+              image = "../../../res/img/stage/stage1/background-building-1.png",
               properties = {}
             }
           }
@@ -163,50 +163,50 @@ return {
           layers = {
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/stage1a_puddle_overlay_2.png",
               id = 13,
               name = "puddle-overlay-2",
               visible = true,
               opacity = 1,
               offsetx = 0,
               offsety = 0,
+              image = "../../../res/img/stage/stage1/stage1a_puddle_overlay_2.png",
               properties = {}
             },
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/stage1a_puddle_overlay_1.png",
               id = 14,
               name = "puddle-overlay-1",
               visible = true,
               opacity = 1,
               offsetx = 0,
               offsety = 0,
+              image = "../../../res/img/stage/stage1/stage1a_puddle_overlay_1.png",
               properties = {}
             }
           }
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1a_rf.png",
           id = 15,
           name = "bg-reflection",
           visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 96,
+          image = "../../../res/img/stage/stage1/stage1a_rf.png",
           properties = {
             ["reflect"] = true
           }
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1a.png",
           id = 16,
           name = "bg",
           visible = true,
           opacity = 1,
           offsetx = -2,
           offsety = -2,
+          image = "../../../res/img/stage/stage1/stage1a.png",
           properties = {}
         },
         {
@@ -223,35 +223,35 @@ return {
           layers = {
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/burn-barrel-placeholder.png",
               id = 18,
               name = "barrel3",
               visible = true,
               opacity = 1,
               offsetx = 1812,
               offsety = 191,
+              image = "../../../res/img/stage/stage1/burn-barrel-placeholder.png",
               properties = {}
             },
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/burn-barrel-placeholder.png",
               id = 19,
               name = "barrel2",
               visible = true,
               opacity = 1,
               offsetx = 757,
               offsety = 189,
+              image = "../../../res/img/stage/stage1/burn-barrel-placeholder.png",
               properties = {}
             },
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/burn-barrel-placeholder.png",
               id = 20,
               name = "barrel1",
               visible = true,
               opacity = 1,
               offsetx = 274,
               offsety = 194,
+              image = "../../../res/img/stage/stage1/burn-barrel-placeholder.png",
               properties = {}
             }
           }
@@ -270,37 +270,37 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1a_fg_bridge_shadow.png",
           id = 22,
           name = "bridge-shadow",
           visible = false,
           opacity = 1,
           offsetx = -2,
           offsety = -2,
+          image = "../../../res/img/stage/stage1/stage1a_fg_bridge_shadow.png",
           properties = {}
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1a_fg_bridge.png",
           id = 23,
           name = "bridge",
           visible = true,
           opacity = 1,
           offsetx = 260,
           offsety = 0,
+          image = "../../../res/img/stage/stage1/stage1a_fg_bridge.png",
           properties = {
             ["relativeX"] = "-0.2"
           }
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1a_fg.png",
           id = 24,
           name = "fg",
           visible = true,
           opacity = 1,
           offsetx = 200,
           offsety = 0,
+          image = "../../../res/img/stage/stage1/stage1a_fg.png",
           properties = {
             ["relativeX"] = "-0.8"
           }
@@ -309,13 +309,13 @@ return {
     },
     {
       type = "objectgroup",
-      draworder = "topdown",
       id = 25,
       name = "camera",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      draworder = "topdown",
       properties = {},
       objects = {
         {
@@ -339,13 +339,13 @@ return {
     },
     {
       type = "objectgroup",
-      draworder = "topdown",
       id = 26,
       name = "collision",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      draworder = "topdown",
       properties = {},
       objects = {
         {
@@ -391,13 +391,13 @@ return {
     },
     {
       type = "objectgroup",
-      draworder = "topdown",
       id = 27,
       name = "players",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      draworder = "topdown",
       properties = {},
       objects = {
         {
@@ -443,13 +443,13 @@ return {
     },
     {
       type = "objectgroup",
-      draworder = "topdown",
       id = 28,
       name = "global",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      draworder = "topdown",
       properties = {},
       objects = {
         {
@@ -561,13 +561,13 @@ return {
       layers = {
         {
           type = "objectgroup",
-          draworder = "topdown",
           id = 30,
           name = "4",
           visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          draworder = "topdown",
           properties = {
             ["maxActiveEnemies"] = 5,
             ["onComplete"] = "leaveMap"
@@ -642,13 +642,13 @@ return {
         },
         {
           type = "objectgroup",
-          draworder = "topdown",
           id = 31,
           name = "3",
           visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          draworder = "topdown",
           properties = {
             ["maxActiveEnemies"] = 4
           },
@@ -805,13 +805,13 @@ return {
         },
         {
           type = "objectgroup",
-          draworder = "topdown",
           id = 32,
           name = "2",
           visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          draworder = "topdown",
           properties = {
             ["maxActiveEnemies"] = 4
           },
@@ -1002,13 +1002,13 @@ return {
         },
         {
           type = "objectgroup",
-          draworder = "topdown",
           id = 33,
           name = "1",
           visible = true,
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          draworder = "topdown",
           properties = {
             ["maxActiveEnemies"] = 3,
             ["music"] = "stage1",
