@@ -58,52 +58,6 @@ local function swapColors(originalColors, alternativeColors)
     return shader
 end
 
-local sh_shadow = love.graphics.newShader([[
-//        extern number id = 0;
-        number y_offs = 0.5;
-        number old_id = 100000;
-        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-        {
-//            if (id != old_id) {
-//                old_id = id;
-//                y_offs = texture_coords.y;
-            //}
-            vec4 c = Texel(texture, texture_coords );
-            if (c.a > 0)
-                //return vec4( 0.0, 0.0, 0.0, 1 - (texture_coords.y - y_offs)/10 );
-                return vec4( 0.0, 0.0, 0.0, 1.0 - screen_coords.y ) * color;
-            return c;
-        }
-    ]])
-shaders.shadow = sh_shadow
-
--- needs alpha colors addition
-local sh_water = love.graphics.newShader([[
-        extern vec2 size;
-        extern number time = 0;
-        vec4 effect(vec4 color, Image tex, vec2 tc, vec2 sc)
-        {
-            tc.x = tc.x + sin((tc.y * 10.0) - time) * (size.x * 0.000005);
-            tc.y = tc.y + sin((tc.x * 10.0) - time) * (size.y * 0.000005);
-            vec4 pixel = Texel(tex, tc);
-            return pixel;
-        }
-    ]])
-shaders.water = sh_water
-
-local sh_pure_water = love.graphics.newShader([[
-        extern vec2 size;
-        extern number time = 0;
-        vec4 effect(vec4 color, Image tex, vec2 tc, vec2 sc)
-        {
-            tc.x = tc.x + sin((tc.y * 10.0) - time) * (size.x * 0.000005);
-            tc.y = tc.y + sin((tc.x * 10.0) - time) * (size.y * 0.000005);
-            vec4 pixel = Texel(tex, tc);
-            return pixel;
-        }
-    ]])
-shaders.pure_water = sh_pure_water
-
 --Players
 local rickColors_original = {
     { 207, 82, 10, 255 }, { 148, 36, 35, 255 }, { 61, 10, 15, 255 }, -- orange hoodie
