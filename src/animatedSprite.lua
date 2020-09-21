@@ -18,9 +18,14 @@ missingFilesList = {} -- Missing files to prevent future file operations. eg for
 local function loadSprite (spriteDef)
     if spriteDef == nil or type(spriteDef) ~= "string" then return nil end
     if missingFilesList[spriteDef] then return nil end
-    local definitionFile, errorMsg = love.filesystem.load( spriteDef .. '.lua' )
-    if errorMsg and type(errorMsg) == "string" then
-        dp("Error loadSprite: "..errorMsg)
+    local definitionFile, errorMsg
+    if love.filesystem.getInfo( spriteDef .. '.lua', "file" ) then
+        definitionFile, errorMsg = love.filesystem.load( spriteDef .. '.lua' )
+        if errorMsg and type(errorMsg) == "string" then
+            dp("Error LOADING from existing file loadSprite: "..errorMsg)
+        end
+    else
+        dp("Just Warning loadSprite: missing "..spriteDef..'.lua')
         missingFilesList[spriteDef] = true
         return nil
     end
