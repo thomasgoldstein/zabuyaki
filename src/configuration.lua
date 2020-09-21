@@ -45,8 +45,11 @@ GLOBAL_SETTING = {
     FRAME_SKIP = 0, -- current frame skip. 0 = off
 }
 local saveEntries = { --the only entries should be saved
-    "DEBUG", "FULL_SCREEN", "FULL_SCREEN_FILLING_MODE", "FILTER", "BGM_VOLUME", "SFX_VOLUME", "DIFFICULTY",
+    "DEBUG", "FULL_SCREEN_FILLING_MODE", "FILTER", "BGM_VOLUME", "SFX_VOLUME", "DIFFICULTY",
 }
+if isFullScreenToggleAvailable then
+    saveEntries[#saveEntries] = "FULL_SCREEN"
+end
 -- save defaults
 configuration.defaults = {}
 for k, v in ipairs(saveEntries) do
