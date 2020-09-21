@@ -85,7 +85,7 @@ function videoModeState:draw()
             if GLOBAL_SETTING.FULL_SCREEN then
                 m.hint = "FULL SCREEN FILLING MODES"
             else
-                m.hint = "FOR WINDOWED MODE ONLY"
+                m.hint = "OPTION FOR FULL SCREEN MODE"
             end
         elseif i == menuItems.videoFilter then
             if GLOBAL_SETTING.FILTER_N > 0 then
