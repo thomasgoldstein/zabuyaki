@@ -13,6 +13,8 @@ end
 
 -- must be global
 magicString, magicStringDef = "", "EOF42N"
+local disableFullScreenToggle = { Web = true, Android = true, iOs = true }  -- list of OS with disabled full screen mode
+isFullScreenToggleAvailable = not disableFullScreenToggle[love.system.getOS( )]
 GLOBAL_SETTING = {
     MAX_PLAYERS = 3,
     DEBUG = 0,
