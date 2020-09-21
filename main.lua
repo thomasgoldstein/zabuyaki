@@ -238,7 +238,7 @@ function love.update(dt)
         incrementDebugFrame()
     end
     --Toggle Full Screen Mode (using P1's control)
-    if Controls[1].fullScreen:pressed() then
+    if isFullScreenToggleAvailable and Controls[1].fullScreen:pressed() then
         switchFullScreen()
     end
 end

@@ -74,12 +74,17 @@ function videoModeState:draw()
     for i = 1, #menu do
         local m = menu[i]
         if i == menuItems.fullScreen then
-            if GLOBAL_SETTING.FULL_SCREEN then
-                m.item = "FULL SCREEN"
+            if isFullScreenToggleAvailable then
+                if GLOBAL_SETTING.FULL_SCREEN then
+                    m.item = "FULL SCREEN"
+                else
+                    m.item = "WINDOWED MODE"
+                end
+                m.hint = "USE F11 TO TOGGLE SCREEN MODE"
             else
-                m.item = "WINDOWED MODE"
+                m.item = "FULL SCREEN MODE DISABLED"
+                m.hint = ""
             end
-            m.hint = "USE F11 TO TOGGLE SCREEN MODE"
         elseif i == menuItems.fullScreenModes then
             m.item = fullScreenFillText[GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE]
             if GLOBAL_SETTING.FULL_SCREEN then
@@ -117,7 +122,7 @@ end
 
 function videoModeState:confirm(button, i)
     if button == 1 then
-        if menuState == menuItems.fullScreen then
+        if menuState == menuItems.fullScreen and isFullScreenToggleAvailable then
             sfx.play("sfx", "menuSelect")
             switchFullScreen()
         elseif menuState == menuItems.fullScreenModes then
