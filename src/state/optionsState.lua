@@ -14,8 +14,11 @@ local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
-local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE VIEWER", "UNIT TESTS", "BACK"}
-local menuItems = {difficulty = 1, video = 2, sound = 3, defaults = 4, spriteViewer = 5, unitTests = 6, back = 7}
+local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE VIEWER", "BACK", "UNIT TESTS"}
+local menuItems = {difficulty = 1, video = 2, sound = 3, defaults = 4, spriteViewer = 5, back = 6, unitTests = 7}
+if not love.filesystem.getInfo( 'test', "directory" ) then
+    table.remove(txtItems, menuItems.unitTests)
+end
 
 local menu = fillMenu(txtItems)
 
@@ -129,13 +132,11 @@ function optionsState:confirm(button)
             return Gamestate.push(spriteSelectState)
 
         elseif menuState == menuItems.unitTests then
-            if love.filesystem.getInfo( 'test', "directory" ) then
-                sfx.play("sfx","menuSelect")
-                require "test.run"
-            end
+            sfx.play("sfx","menuSelect")
+            require "test.run"
             return false
 
-        elseif menuState == #menu then
+        elseif menuState == menuItems.back then
             sfx.play("sfx","menuCancel")
             return Gamestate.pop()
         end
