@@ -129,12 +129,10 @@ function optionsState:confirm(button)
             return Gamestate.push(spriteSelectState)
 
         elseif menuState == menuItems.unitTests then
-            sfx.play("sfx","menuSelect")
-            require "test.common_test"
-            require "test.test1"
-            require "test.test2"
-            require "test.test3"
-            cleanUpAfterTests()
+            if love.filesystem.getInfo( 'test', "directory" ) then
+                sfx.play("sfx","menuSelect")
+                require "test.run"
+            end
             return false
 
         elseif menuState == #menu then

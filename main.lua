@@ -196,11 +196,9 @@ function love.load(arg, unfilteredArg)
     bindGameInput()
     everythingIsLoadedGoToTitle = true  -- ready to switch to the Title state
     if contains(arg, "-ut") then -- command line option to run Unit Tests on start for IntelliJ IDEA IDE
-        require "test.common_test"
-        require "test.test1"
-        require "test.test2"
-        require "test.test3"
-        cleanUpAfterTests()
+        if love.filesystem.getInfo( 'test', "directory" ) then
+            require "test.run"
+        end
     end
 end
 

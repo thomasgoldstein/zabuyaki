@@ -78,3 +78,8 @@ function setStateAndWait(a, f)
     --    print(":", a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<==", x, y, z, hp)
     return a.x, a.y, a.z, a.maxZ, a.hp, x, y, z, hp
 end
+
+require "test.test1"
+require "test.test2"
+require "test.test3"
+cleanUpAfterTests()
