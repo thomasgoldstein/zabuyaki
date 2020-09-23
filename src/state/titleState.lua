@@ -28,6 +28,10 @@ local itemHeightMargin = topItemOffset * 2 - 2
 local siteImageText = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 local txtItems = {"START", "OPTIONS", "QUIT"}
 local menuItems = {start = 1, options = 2, quit = 3}
+local disabledQuit = { Web = true }  -- list of OS with disabled Quit menu
+if disabledQuit[love.system.getOS( )] then
+    table.remove(txtItems, menuItems.quit)
+end
 local menu = fillMenu(txtItems)
 
 local menuState, oldMenuState = 1, 1
