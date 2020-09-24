@@ -15,6 +15,7 @@ local function drawGameOver()
 end
 local nAlive
 local gameOverDelay = 0
+local lastDt = 0
 
 SELECT_NEW_PLAYER = {} --{id, player}
 
@@ -22,6 +23,7 @@ function arcadeState:init()
 end
 
 function arcadeState:resume()
+    lastDt = 0
     gameOverDelay = 0
     love.graphics.setLineWidth( 1 )
     bgm.setVolume() --default volume
@@ -33,6 +35,7 @@ function arcadeState:enter(_, players)
     --load very 1st stage
     stage = Stage:new("NoName", "src/def/stage/stage1a_map.lua", players)
     stage.wave:startPlayingMusic( 1 )
+    lastDt = 0
     gameOverDelay = 0
     time = 0
     -- Prevent double press at start (e.g. jab sound or other attacks)
@@ -47,7 +50,13 @@ function arcadeState:enter(_, players)
     bgm.setVolume() --default volume
 end
 
+local maxAllowedDt = 1/60 * 1.1 -- 60FPS +10%
 function arcadeState:update(dt)
+    if lastDt > maxAllowedDt then
+        lastDt = dt
+        return -- skip update loop
+    end
+    lastDt = dt
     if isDebug() and GLOBAL_SETTING.SLOW_MO > 0 then
         if slowMoCounter == 0 then
             clearDebugBoxes()
