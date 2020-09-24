@@ -38,7 +38,7 @@ if not GLOBAL_SETTING.SHADERS_ENABLED then
 end
 
 local sh_swapColors = [[;
-        uniform vec4 origColors[altColorsN];
+        uniform vec4 origColors[origColorsN];
         uniform vec4 altColors[altColorsN];
         vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
             vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
