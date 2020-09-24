@@ -38,7 +38,7 @@ if not GLOBAL_SETTING.SHADERS_ENABLED then
 end
 
 local sh_swapColors = [[;
-        uniform vec4 colors[n];
+        uniform vec4 colors[o];
         uniform vec4 newColors[n];
         vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
             vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
@@ -50,7 +50,7 @@ local sh_swapColors = [[;
         }   ]]
 
 local function swapColors(originalColors, alternativeColors)
-    local shader = love.graphics.newShader([[const int n =]] .. tostring(#alternativeColors) .. sh_swapColors)
+    local shader = love.graphics.newShader([[const int o =]] .. tostring(#originalColors) .. [[;const int n =]] .. tostring(#alternativeColors) .. sh_swapColors)
     shader:sendColor("colors", unpack(originalColors))
     shader:sendColor("newColors", unpack(alternativeColors))
     return shader
