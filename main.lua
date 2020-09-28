@@ -274,3 +274,5 @@ end
 
 function love.keyreleased(key, unicode)
 end
+
+require "loverun"
