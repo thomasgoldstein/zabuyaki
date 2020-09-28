@@ -74,7 +74,7 @@ function love.load(arg, unfilteredArg)
     push:setupScreen(GLOBAL_SETTING.GAME_WIDTH, GLOBAL_SETTING.GAME_HEIGHT,	windowWidth, windowHeight,
         {fullscreen = GLOBAL_SETTING.FULL_SCREEN,
             resizable = false,
-            highdpi = true,
+            highdpi = false,
             pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2,
             stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3
         })
