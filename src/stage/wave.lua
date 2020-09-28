@@ -61,33 +61,32 @@ function Wave:spawn(dt)
     if lx ~= self.stage.leftStopper:getX() or rx ~= self.stage.rightStopper:getX() then
         self.stage:moveStoppers(lx, rx)
     end
-    -- wait until players enter in the wave rectangle
-    if not self.isWaveReadyToSpawnUnits then
-        if CheckLinearCollision(wave.leftStopper_x, wave.width, min_x, max_x - min_x + 1) then
+    local camera_x, _, cameraWidth, _ = mainCamera:getVisible()
+    if not self.isWaveReadyToSpawnUnits then    -- wait until camera view collides with the wave rectangle
+        if CheckLinearCollision(wave.leftStopper_x, wave.width, camera_x, cameraWidth + 1) then
             self.isWaveReadyToSpawnUnits = true
         else
             return false
         end
     end
-    if self.n > 1 then
+    if self.n > 1 then  -- Trigger onLeave Wave EVENT
         local prevWave = self.waves[self.n - 1]
         if not prevWave.onLeaveStarted and min_x > prevWave.rightStopper_x then -- Last player passed the left bound of the wave
             Event.startByName(_, prevWave.onLeave)
             prevWave.onLeaveStarted = true
         end
     end
-    if not wave.onEnterStarted then
+    if not wave.onEnterStarted then -- Trigger onEnter Wave EVENT
         Event.startByName(_, wave.onEnter)
         wave.onEnterStarted = true
         self:startPlayingMusic()
     end
-    local l,t,w,h = mainCamera:getVisible()
     local aliveEnemiesCount, waitingEnemiesCount = 0, 0
     for i = 1, #wave.units do
         local waveUnit = wave.units[i]
         local unit = waveUnit.unit
         if waveUnit.waitCamera then
-            if l <= unit.x + unit.width and l + w >= unit.x - unit.width then
+            if camera_x <= unit.x + unit.width and camera_x + cameraWidth >= unit.x - unit.width then
                 waveUnit.waitCamera = false -- now unit is on the screen, it might be spawned
             end
             waitingEnemiesCount = waitingEnemiesCount + 1
@@ -117,11 +116,11 @@ function Wave:spawn(dt)
                     if waveUnit.appearFrom == "left"
                         or waveUnit.appearFrom == "leftJump"
                     then
-                        unit.x = l - unit.width
+                        unit.x = camera_x - unit.width
                     elseif waveUnit.appearFrom == "right"
                         or waveUnit.appearFrom == "rightJump"
                     then
-                        unit.x = l + w + unit.width
+                        unit.x = camera_x + cameraWidth + unit.width
                     end
                 end
                 aliveEnemiesCount = aliveEnemiesCount + 1
