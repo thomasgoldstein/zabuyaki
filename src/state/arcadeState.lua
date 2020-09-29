@@ -45,11 +45,7 @@ function arcadeState:enter(_, players)
     bgm.setVolume() --default volume
 end
 
-local normalDt = 1/60 -- 60FPS
 function arcadeState:update(dt)
-    if dt > normalDt then
-        dt = normalDt
-    end
     if isDebug() and GLOBAL_SETTING.SLOW_MO > 0 then
         if slowMoCounter == 0 then
             clearDebugBoxes()
