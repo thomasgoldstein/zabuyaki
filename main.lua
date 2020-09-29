@@ -58,8 +58,6 @@ function love.load(arg, unfilteredArg)
     for i=1,4 do
         canvas[i] = love.graphics.newCanvas(display.inner.resolution.width, display.inner.resolution.height)
     end
-    --canvas:setFilter("nearest", "linear", 2)
-
     --Working folder for writing data
     love.filesystem.setIdentity("Zabuyaki")
     --Libraries
