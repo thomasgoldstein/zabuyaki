@@ -94,10 +94,6 @@ function love.load(arg, unfilteredArg)
         require("mobdebug").start() -- used to init debugging for ZeroBrane Studio only
     end
     require "lib.debug.debug"
-    if GLOBAL_SETTING.FPSRATE_ENABLED then
-        framerateGraph = require "lib.debug.framerateGraph"
-        framerateGraph.load()
-    end
     -- end of the debug section
     require "src/def/misc/particles"
     CompoundPicture = require "src/compoPic"
@@ -266,9 +262,6 @@ function love.keypressed(key, unicode)
         end
         configuration:set("DEBUG", getDebugLevel())
         sfx.play("sfx","menuMove")
-    end
-    if GLOBAL_SETTING.FPSRATE_ENABLED and framerateGraph.keypressed(key) then
-        return
     end
 end
 

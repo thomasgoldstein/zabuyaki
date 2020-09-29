@@ -143,10 +143,6 @@ function arcadeState:draw()
         drawGameOver()
     end
     stage:displayGoTimer(screenWidth, screenHeight)
-    -- FPS (in ms) graph
-    if GLOBAL_SETTING.FPSRATE_ENABLED then
-        framerateGraph.draw()
-    end
     push:finish()
 end
 
