@@ -2,7 +2,6 @@ arcadeState = {}
 
 local screenWidth = 640
 local screenHeight = 480
-local time = 0
 local gameOverText = love.graphics.newText( gfx.font.kimberley, "GAME OVER" )
 local function drawGameOver()
     colors:set("darkGray")
@@ -34,7 +33,6 @@ function arcadeState:enter(_, players)
     stage = Stage:new("NoName", "src/def/stage/stage1a_map.lua", players)
     stage.wave:startPlayingMusic( 1 )
     gameOverDelay = 0
-    time = 0
     -- Prevent double press at start (e.g. jab sound or other attacks)
     for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
         local p = getRegisteredPlayer(i)
@@ -101,8 +99,6 @@ function arcadeState:update(dt)
     if Controls[1].back:pressed() then
         return Gamestate.push(pauseState)
     end
-    time = time + dt
-    --shaders.water:send("time", time)    -- for reflections
     watchDebugVariables()
 end
 
@@ -120,10 +116,7 @@ function arcadeState:draw()
     if stage.enableReflections then
         love.graphics.setBlendMode("alpha")
         colors:set("white", nil, 255 * stage.reflectionsOpacity) -- TODO remove 255 colors logic at LOVE 11.x
-        --love.graphics.setShader(shaders.water)
-        --shaders.water:send("size", {canvas[2]:getDimensions()} )
         love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) -- reflections
-        --love.graphics.setShader()
     end
     love.graphics.setBlendMode("alpha", "premultiplied")
     colors:set("white")
