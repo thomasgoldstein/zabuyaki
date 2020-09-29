@@ -14,12 +14,16 @@ end
 function Yar:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, pickUp = true,
+        jump = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true, land = true,
     }
     self.walkSpeed_x = 75
     self.chargeWalkSpeed_x = 72 -- override default speed
     self.runSpeed_x = 144
+    self.jumpSpeed_z = 210 -- z coord
+    self.jumpSpeedBoost = { x = 80, y = 13, z = 0 }
+    self.jumpRunSpeedBoost = { x = 40, y = 6.5, z = 10 }
     self.dashAttackSpeed_x = 125 --speed of the character during dash attack
     self.dashAttackRepel_x = 180 --how much the dash attack repels other units
     self.dashAttackFriction = 400

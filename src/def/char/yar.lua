@@ -54,11 +54,11 @@ return {
             delay = f(6)
         },
         duck = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
+            { q = q(169,412,51,66), ox = 19, oy = 65 }, --duck
             delay = f(4)
         },
         land = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
+            { q = q(222,425,62,53), ox = 20, oy = 51 }, --land
             delay = f(4)
         },
         sideStepUp = {
@@ -70,7 +70,9 @@ return {
             delay = math.huge
         },
         jump = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
+            { q = q(2,479,64,76), ox = 20, oy = 75, delay = f(9) }, --jump up
+            { q = q(68,480,68,72), ox = 24, oy = 71, delay = f(5) }, --jump top
+            { q = q(138,480,71,69), ox = 26, oy = 68 }, --jump down
             delay = math.huge
         },
         jumpAttackStraight = {
@@ -90,10 +92,13 @@ return {
             delay = math.huge
         },
         dropDown = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
+            { q = q(2,479,64,76), ox = 20, oy = 75, delay = f(9) }, --jump up
+            { q = q(68,480,68,72), ox = 24, oy = 71, delay = f(5) }, --jump top
+            { q = q(138,480,71,69), ox = 26, oy = 68 }, --jump down
+            delay = math.huge
         },
         respawn = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
+            { q = q(138,480,71,69), ox = 26, oy = 68 }, --jump down
             { q = q(72,416,47,62), ox = 24, oy = 60, delay = f(30) }, --pick up 2
             { q = q(121,412,46,66), ox = 23, oy = 65, delay = f(6) }, --pick up 1
             delay = math.huge
