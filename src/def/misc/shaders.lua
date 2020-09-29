@@ -271,7 +271,7 @@ for i = #shaders.screen, 1, -1 do
     end
 end
 
-function reloadShaders()
+function loadUnitsShaders()
     shaders.rick = {
         false,
         swapColors(rickColors_original, rickColors_2),

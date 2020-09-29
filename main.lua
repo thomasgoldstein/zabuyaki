@@ -23,8 +23,8 @@ if love._version_major >= 11 then
 end
 shaders = require "src/def/misc/shaders"
 
-function setupScreen()
-    if shaders then
+function loadGameShaders()
+    if shaders then -- load screen filer shader
         if GLOBAL_SETTING.FILTER_N and shaders.screen[GLOBAL_SETTING.FILTER_N] then
             local sh = shaders.screen[GLOBAL_SETTING.FILTER_N]
             if sh and sh.func then
@@ -32,7 +32,7 @@ function setupScreen()
             end
         end
     end
-    reloadShaders()
+    loadUnitsShaders()
 end
 function switchFullScreen()
     GLOBAL_SETTING.FULL_SCREEN = not GLOBAL_SETTING.FULL_SCREEN
@@ -77,7 +77,7 @@ function love.load(arg, unfilteredArg)
             pixelperfect = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 2,
             stretched = GLOBAL_SETTING.FULL_SCREEN_FILLING_MODE == 3
         })
-    setupScreen()
+    loadGameShaders()
 
     colors = (require "src/def/misc/colors"):new()
     require "src/animatedSprite"
