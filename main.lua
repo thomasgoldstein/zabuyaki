@@ -41,7 +41,6 @@ function switchFullScreen()
     else
         push:switchFullscreen(GLOBAL_SETTING.GAME_WIDTH, GLOBAL_SETTING.GAME_HEIGHT)
     end
-    setupScreen()
 end
 
 function love.load(arg, unfilteredArg)
