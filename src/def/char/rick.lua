@@ -556,6 +556,25 @@ return {
             { q = q(183,2299,41,60), ox = 17, oy = 59 }, --special dash 14
             delay = f(4)
         },
+        carry = {
+            { q = q(2,1181,47,59), ox = 16, oy = 58 }, --combo up 4.1
+            { q = q(51,1178,46,62), ox = 15, oy = 61 }, --combo up 4.2
+            { q = q(99,1178,49,62), ox = 15, oy = 61 }, --combo up 4.3
+            { q = q(150,1173,52,67), ox = 20, oy = 66 }, --combo up 4.4a
+            { q = q(2,1242,53,65), ox = 20, oy = 64 }, --combo up 4.4b
+            { q = q(57,1244,53,63), ox = 20, oy = 62 }, --combo up 4.4c
+            { q = q(112,1244,46,63), ox = 19, oy = 62 }, --combo up 4.5
+            delay = f(2),
+            moves = {
+                { ox = 35, oz = 12, tAnimation = "thrown10h" },
+                { ox = 40, oz = 20 },
+                { oz = 28 },
+                { ox = 35, oz = 38, tAnimation = "thrown12h" },
+                { ox = 25, oz = 46 },
+                { ox = 10, oz = 54, tAnimation = "stand" },
+                { ox = 5, oz = 56 }
+            }
+        },
         grab = {
             { q = q(2,979,44,63), ox = 18, oy = 62 }, --grab
             delay = math.huge
