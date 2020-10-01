@@ -1356,6 +1356,10 @@ end
 function Character:grabUpdate(dt)
     local g = self.grabContext
     if g and g.target then
+        if self.b.vertical.isDoubleTap and self.moves.carry then
+            self:setState(self.carry)
+            return
+        end
         --controlled release
         if self.b.horizontal:getValue() == -self.face and not self.b.attack:isDown() then
             self.grabRelease = self.grabRelease + dt
@@ -1464,6 +1468,50 @@ function Character:releaseGrabbed()
     end
     return false
 end
+
+function Character:carryStart()
+    self.isHittable = true
+    local g = self.grabContext
+    g.target:setState(g.target.carried)
+    self:removeTweenMove()
+    self:initGrabTimer()
+    self:moveStatesInit()
+    self:setSprite("carry")
+end
+function Character:carryExit()
+    local g = self.grabContext
+    local gTarget = g.target
+    self:releaseGrabbed()
+    if g and gTarget then
+        gTarget:setState(gTarget.fall)
+    end
+end
+function Character:carryUpdate(dt)
+    local g = self.grabContext
+    if g and g.target then
+        self:moveStatesApply()
+        if self.b.vertical.isDoubleTap then
+            self:setState(self.stand)
+            return
+        end
+    else
+        self:setState(self.stand)
+    end
+end
+Character.carry = {name = "carry", start = Character.carryStart, exit = Character.carryExit, update = Character.carryUpdate, draw = Character.defaultDraw}
+
+function Character:carriedStart()
+    self.isHittable = true
+    self.bounced = 0
+end
+function Character:carriedExit()
+    local g = self.grabContext
+    g.source.grabContext.target = nil   -- release the carrying unit
+    self:releaseGrabbed()
+end
+function Character:carriedUpdate(dt)
+end
+Character.carried = {name = "carried", start = Character.carriedStart, exit = Character.carriedExit, update = Character.carriedUpdate, draw = Character.defaultDraw }
 
 function Character:grabbedUpdate(dt)
     local g = self.grabContext
