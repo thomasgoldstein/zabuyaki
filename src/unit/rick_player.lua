@@ -13,7 +13,7 @@ function Rick:initAttributes()
         run = true, sideStep = true, pickUp = true,
         jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         grab = true, grabSwap = true, grabFrontAttack = true, chargeAttack = true, chargeDash = true,
-        carry = true,
+        carry = false,
         grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true, grabBackAttack = true, grabReleaseBackDash = true,
         dashAttack = true, specialDash = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
