@@ -568,11 +568,11 @@ return {
             moves = {
                 { ox = 35, oz = 12, tAnimation = "thrown10h" },
                 { ox = 40, oz = 20 },
-                { oz = 28 },
-                { ox = 35, oz = 38, tAnimation = "thrown12h" },
+                { ox = 40, oz = 28 },
+                { ox = 30, oz = 38, tAnimation = "thrown12h" },
                 { ox = 25, oz = 46 },
                 { ox = 10, oz = 54, tAnimation = "stand" },
-                { ox = 5, oz = 56 }
+                { ox = 0, oz = 56 }
             }
         },
         grab = {
