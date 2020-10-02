@@ -229,4 +229,17 @@ function StageObject:fallUpdate(dt)
 end
 StageObject.fall = {name = "fall", start = StageObject.fallStart, exit = nop, update = StageObject.fallUpdate, draw = StageObject.defaultDraw}
 
+function StageObject:carriedStart()
+    self.isHittable = true
+    self.bounced = 0
+end
+function StageObject:carriedExit()
+    local g = self.grabContext
+    g.source.grabContext.target = nil   -- release the carrying unit
+    self:releaseGrabbed()
+end
+function StageObject:carriedUpdate(dt)
+end
+StageObject.carried = {name = "carried", start = StageObject.carriedStart, exit = StageObject.carriedExit, update = StageObject.carriedUpdate, draw = StageObject.defaultDraw }
+
 return StageObject
