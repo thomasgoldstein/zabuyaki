@@ -150,3 +150,8 @@ end
 function AI:canActAndMove()
     return self.conditions.canMove and self:canAct()
 end
+
+function AI:isReadyToMove()
+    local u = self.unit
+    return self:canActAndMove() and ( u.state == "stand" or u.state == "intro" )
+end
