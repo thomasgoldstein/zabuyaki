@@ -1,11 +1,18 @@
 local class = require "lib/middleclass"
 local Schedule = class('Schedule')
 
-function Schedule:initialize(tasks, interrupts)
+local defaultNameN = 1
+function Schedule:initialize(tasks, interrupts, name)
     self.tasks = {}
     self.interrupts = {}
     self.currentTask = 1
     self.done = false
+    if name then
+        self.name = name
+    else
+        self.name = "SCHEDULE_" .. defaultNameN
+        defaultNameN = defaultNameN + 1
+    end
     for i = 1, math.max(#tasks, #interrupts) do
         self:addTask(tasks[i])
         self:addInterrupt(interrupts[i])
