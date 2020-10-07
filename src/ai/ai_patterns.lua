@@ -129,12 +129,7 @@ end
 function AI:initIntro()
     local u = self.unit
     u.b.reset()
-    if self:canAct() then
-        if u.state == "stand" or u.state == "intro" then
-            return true
-        end
-    end
-    return false
+    return self:isReadyToMove()
 end
 
 function AI:onIntro()
@@ -231,7 +226,7 @@ end
 function AI:calcWalkRandom()
     local u = self.unit
     u.b.reset()
-    if not self.conditions.canMove or u.state ~= "stand" then
+    if not self:isReadyToMove() then
         return false
     end
     local leftX, rightX = stage:getCurrentWaveBounds()
@@ -250,7 +245,7 @@ end
 function AI:calcWalkByTargetHorizontally()
     local u = self.unit
     u.b.reset()
-    if not self.conditions.canMove or u.state ~= "stand" or not u.target then
+    if not self:isReadyToMove() or not u.target then
         return false
     end
     local r = u.x - u.target.x
@@ -268,7 +263,7 @@ end
 function AI:calcWalkByTargetVertically()
     local u = self.unit
     u.b.reset()
-    if not self.conditions.canMove or u.state ~= "stand" or not u.target then
+    if not self:isReadyToMove() or not u.target then
         return false
     end
     local r = u.y - u.target.y
@@ -287,7 +282,7 @@ end
 local escapeBackRandomRadius = 6
 function AI:calcEscapeBackXY()
     local u = self.unit
-    if not self.conditions.canMove or u.state ~= "stand" then
+    if not self:isReadyToMove() then
         return false
     end
     if u.target then
@@ -304,7 +299,7 @@ local stepDistance = 20
 local stepRandomRadius = 6
 function AI:calcStepUp()
     local u = self.unit
-    if not self.conditions.canMove or u.state ~= "stand" then
+    if not self:isReadyToMove() then
         return false
     end
     u.ttx = u.x
@@ -313,7 +308,7 @@ function AI:calcStepUp()
 end
 function AI:calcStepDown()
     local u = self.unit
-    if not self.conditions.canMove or u.state ~= "stand" then
+    if not self:isReadyToMove() then
         return false
     end
     u.ttx = u.x
@@ -322,7 +317,7 @@ function AI:calcStepDown()
 end
 function AI:calcStepBack()
     local u = self.unit
-    if not self.conditions.canMove or u.state ~= "stand" then
+    if not self:isReadyToMove() then
         return false
     end
     if u.target then
@@ -336,7 +331,7 @@ function AI:calcStepBack()
 end
 function AI:calcStepForward()
     local u = self.unit
-    if not self.conditions.canMove or u.state ~= "stand" then
+    if not self:isReadyToMove() then
         return false
     end
     if u.target then
