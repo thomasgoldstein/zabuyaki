@@ -347,10 +347,15 @@ end
 
 function drawDebugUnitConditions(a, conditions)
     local z = 80
+    colors:set("white")
+    love.graphics.print( a.AI.currentSchedule.name, a.x - 40 - 1, a.y - a.z - z)
+    love.graphics.print( a.AI.currentSchedule.name, a.x - 40 + 1, a.y - a.z - z)
+    colors:set("red")
+    love.graphics.print( a.AI.currentSchedule.name, a.x - 40 , a.y - a.z - z)
     colors:set("yellow")
     for k,v in pairs(conditions) do
-        love.graphics.print( k, a.x - 40 , a.y - a.z - z)
         z = z + 6
+        love.graphics.print( k, a.x - 40 , a.y - a.z - z)
     end
 end
 
