@@ -215,7 +215,6 @@ function AI:initWaitLong()
 end
 
 function AI:onWait(dt)
-    local u = self.unit
     self.waitingCounter = self.waitingCounter - dt
     if self.waitingCounter < 0 then
         return true
@@ -745,11 +744,7 @@ function AI:initFaceToPlayer()
 end
 
 function AI:waitUntilStand(dt)
-    --    dp("AI:waitUntilStand() ".. u.name)
-    if self:canActAndMove() then
-        return true
-    end
-    return false
+    return self:canActAndMove()
 end
 
 function AI:calcWalkToGrabXY()
