@@ -708,9 +708,9 @@ function AI:onMoveUntilGrab()
             or u.antiStuck > 10
         then
             if u.antiStuck > 10 then -- remove
-                print("ANTI STUCK")   -- remove
+                dp("ANTI STUCK")   -- remove
             end  -- remove
-            print("grab trgt END?", u.name, u.state, u.target.name, u.target.isGrabbed, u.target.isDisabled)
+            dp("grab target END?", u.name, u.state, u.target.name, u.target.isGrabbed, u.target.isDisabled)
             u.b.reset() -- release A
             u.b.attack:update(0)
             return true
