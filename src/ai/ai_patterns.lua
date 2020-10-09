@@ -19,7 +19,7 @@ function AI:initCommonAiSchedules()
         "SCHEDULE_ATTACK_FROM_BACK")
     self.SCHEDULE_WALK_AROUND = Schedule:new({ self.ensureStanding, self.initWalkAround, self.onWalkAround },
         {"cannotAct", "inAir", "grabbed", "noTarget"},
-        "SCHEDULE_ATTACK_FROM_BACK")
+        "SCHEDULE_WALK_AROUND")
     self.SCHEDULE_GET_TO_BACK = Schedule:new({ self.ensureStanding, self.initGetToBack, self.onGetToBack },
         {"cannotAct", "inAir", "grabbed", "noTarget"},
         "SCHEDULE_GET_TO_BACK")
