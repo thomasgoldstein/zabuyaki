@@ -223,8 +223,8 @@ function updateSpriteInstance(spr, dt, slf)
         error("Missing frame #"..spr.curFrame.." in "..spr.curAnim.." animation")
     end
     -- call custom frame func once per the frame
-    if sc.func and spr.funcCalledOnFrame ~= spr.curFrame and slf then
-        spr.funcCalledOnFrame = spr.curFrame
+    if sc.func and spr.funcCalledOnFrame ~= (spr.curFrame + spr.loopCount) and slf then
+        spr.funcCalledOnFrame = spr.curFrame + spr.loopCount
         sc.func(slf, false, false) --isfuncCont = false
     end
     -- call the custom frame func on every frame
