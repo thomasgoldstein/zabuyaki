@@ -250,8 +250,6 @@ function updateSpriteInstance(spr, dt, slf)
             else
                 spr.isFinished = true
             end
-            spr.funcCalledOnFrame = -1
-            spr.funcContCalledOnFrame = -1
         end
         -- Reset internal counter on frame change.
         spr.elapsedTime = 0
