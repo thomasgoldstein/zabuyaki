@@ -10,6 +10,12 @@ end
 local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
+local comboAttack1 = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 31, z = 30, width = 34, damage = 12, sfx = "whooshHeavy" },
+        cont
+    )
+end
 
 return {
     serializationVersion = 0.43, -- The version of this serialization process
@@ -110,8 +116,11 @@ return {
             delay = f(3)
         },
         combo1 = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = f(1)
+            { q = q(2,557,57,75), ox = 22, oy = 74, delay = f(3) }, --combo 1.1
+            { q = q(61,558,64,74), ox = 20, oy = 73, func = comboAttack1, delay = f(5) }, --combo 1.2
+            { q = q(61,558,64,74), ox = 20, oy = 73 }, --combo 1.2
+            { q = q(2,557,57,75), ox = 22, oy = 74 }, --combo 1.1
+            delay = f(2)
         },
         combo2 = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
