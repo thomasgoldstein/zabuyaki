@@ -12,7 +12,7 @@ local stepFx = function(slf, cont)
 end
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
-        { x = 31, z = 30, width = 34, damage = 12, sfx = "whooshHeavy" },
+        { x = 31, z = 45, width = 34, damage = 12, sfx = "whooshHeavy" },
         cont
     )
 end
