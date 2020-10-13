@@ -1035,11 +1035,17 @@ Character.jumpAttackRun = {name = "jumpAttackRun", start = Character.jumpAttackR
 function Character:fallStart()
     self:removeTweenMove()
     self.isHittable = false
-    self.canRecover = false
+    self.canRecover = true
+    self.applyFallDamage = true
+    self.pressedRecoverButtons = false
     if self.condition == "throw" then
+        self.applyFallDamage = false
         self:setSprite("thrown")
-    elseif self.condition2 then
-        self:setSprite(self.condition2 == "strong" and "fallTwistStrong" or "fallTwistWeak")
+    elseif self.condition2 == "strong" then
+        self.canRecover = false
+        self:setSprite("fallTwistStrong")
+    elseif self.condition2 == "weak" then
+        self:setSprite("fallTwistWeak")
     else
         self:setSprite("fall")
     end
@@ -1052,7 +1058,7 @@ function Character:fallUpdate(dt)
     self:calcFreeFall(dt)
     if self.speed_z < 0 and self.condition == "throw" and self.z < self:getRelativeZ() + self.toFallenAnim_z then
         if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
-            self.canRecover = true
+            self.pressedRecoverButtons = true
         end
     end
     if not self:canFall() then
@@ -1065,15 +1071,13 @@ function Character:fallUpdate(dt)
             self.speed_z = -self.speed_z/2
             self.speed_x = self.speed_x * 0.5
             if self.bounced == 0 then
-                if self.isThrown then
-                    -- hold UP+JUMP to get no damage after throw (land on feet)
-                    if self.condition == "throw" and self.canRecover and self.hp > 0 then
-                        self:playSfx(self.sfx.step)
-                        self:setState(self.land)
-                        return
-                    end
-                    --apply damage of thrown units on landing
+                if self.applyFallDamage then
                     self:applyDamage(self.thrownFallDamage, "simple", self.indirectAttacker)
+                end
+                if self.canRecover and self.pressedRecoverButtons and self.hp > 0 then
+                    self:playSfx(self.sfx.step)
+                    self:setState(self.land)
+                    return
                 end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                 self:setSprite("fallBounce")
@@ -1585,7 +1589,6 @@ function Character:grabFrontAttackUpdate(dt)
         end
         return
     end
-    self:tweenMove(dt)
 end
 Character.grabFrontAttack = {name = "grabFrontAttack", start = Character.grabFrontAttackStart, exit = nop, update = Character.grabFrontAttackUpdate, draw = Character.defaultDraw}
 
