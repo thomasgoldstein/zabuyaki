@@ -50,12 +50,12 @@ return {
             delay = f(12)
         },
         run = {
-            { q = q(2,153,72,49), ox = 18, oy = 49, delay = f(7) }, --run 1
-            { q = q(76,153,68,52), ox = 12, oy = 54, delay = f(8) }, --run 2
-            { q = q(145,153,70,55), ox = 13, oy = 56, func = stepFx }, --run 3
-            { q = q(2,210,77,54), ox = 19, oy = 53 }, --run 4
-            { q = q(81,210,81,52), ox = 23, oy = 51 }, --run 5
-            { q = q(164,210,83,50), ox = 26, oy = 49, delay = f(7) }, --run 6
+            { q = q(2,153,73,49), ox = 18, oy = 49, delay = f(7) }, --run 1
+            { q = q(77,153,69,52), ox = 12, oy = 54, delay = f(8) }, --run 2
+            { q = q(148,153,71,55), ox = 13, oy = 56, func = stepFx }, --run 3
+            { q = q(2,210,78,54), ox = 19, oy = 53 }, --run 4
+            { q = q(82,210,82,52), ox = 23, oy = 51 }, --run 5
+            { q = q(166,210,84,50), ox = 26, oy = 49, delay = f(7) }, --run 6
             loop = true,
             delay = f(6)
         },
