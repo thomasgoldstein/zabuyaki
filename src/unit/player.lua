@@ -157,7 +157,14 @@ function Player:updateAI(dt)
     end
     if self.moves.chargeAttack then
         if self.b.attack:isDown() and self.statesForChargeAttack[self.state] then
-            self.chargeTimer = self.chargeTimer + dt
+            if self.chargeTimer < self.chargedAt then
+                self.chargeTimer = self.chargeTimer + dt
+                if self.chargeTimer >= self.chargedAt then
+                    self:playSfx(sfx.charged)
+                end
+            else
+                self.chargeTimer = self.chargeTimer + dt
+            end
         else
             if self.chargeTimer >= self.chargedAt and self.statesForChargeAttack[self.state] then
                 if self.speed_y == 0 and self:canFall() then
