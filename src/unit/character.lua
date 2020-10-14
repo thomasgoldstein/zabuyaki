@@ -1049,9 +1049,6 @@ function Character:fallStart()
     else
         self:setSprite("fall")
     end
-    if self.b.jump:isDown() then
-        self.canRecover = false -- cannot recover if held J button on start
-    end
     if not self:canFall() then
         self.z = self:getRelativeZ() + 1
     end
