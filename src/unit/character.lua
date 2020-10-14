@@ -1049,6 +1049,9 @@ function Character:fallStart()
     else
         self:setSprite("fall")
     end
+    if self.b.jump:isDown() then
+        self.canRecover = false -- cannot recover if held J button on start
+    end
     if not self:canFall() then
         self.z = self:getRelativeZ() + 1
     end
@@ -1056,10 +1059,8 @@ function Character:fallStart()
 end
 function Character:fallUpdate(dt)
     self:calcFreeFall(dt)
-    if self.speed_z < 0 and self.condition == "throw" and self.z < self:getRelativeZ() + self.toFallenAnim_z then
-        if self.b.vertical:isDown(-1) and self.b.jump:pressed() then
-            self.pressedRecoverButtons = true
-        end
+    if self.speed_z < 0 and self.b.jump:pressed() then
+        self.pressedRecoverButtons = true
     end
     if not self:canFall() then
         if self.speed_z < -100 and self.bounced < 1 then
@@ -1095,7 +1096,6 @@ function Character:fallUpdate(dt)
             self.horizontal = self.face
             self.indirectAttacker = false
             self.tx, self.ty = self.x, self.y --for enemy with AI movement
-
             self:playSfx(sfx.bodyDrop, 0.5, sfx.randomPitch() - self.bounced * 0.2)
             self:setState(self.getUp)
             return
