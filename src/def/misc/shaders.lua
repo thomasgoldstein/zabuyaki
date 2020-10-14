@@ -37,6 +37,19 @@ if not GLOBAL_SETTING.SHADERS_ENABLED then
     love.graphics.setShader = function() end
 end
 
+local sh_silhouette = [[
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
+        vec4 pixel = Texel(texture, texture_coords );
+        if(pixel != vec4(0,0,0,0))
+            return vec4(color.r, color.g, color.b, pixel.a);
+        else
+            return vec4(0,0,0,0);
+    }
+]]
+local function silhouette()
+    return love.graphics.newShader(sh_silhouette)
+end
+
 local sh_swapColors = [[;
         uniform vec4 origColors[origColorsN];
         uniform vec4 altColors[altColorsN];
@@ -272,11 +285,7 @@ for i = #shaders.screen, 1, -1 do
 end
 
 function loadUnitsShaders()
-    shaders.rick = {
-        false,
-        swapColors(rickColors_original, rickColors_2),
-        swapColors(rickColors_original, rickColors_3),
-    }
+    shaders.silhouette = silhouette()
     shaders.kisa = {
         false,
         swapColors(kisaColors_original, kisaColors_2),
