@@ -1072,7 +1072,7 @@ function Character:fallUpdate(dt)
                 if self.applyFallDamage then
                     self:applyDamage(self.thrownFallDamage, "simple", self.indirectAttacker)
                 end
-                if self.canRecover and self.pressedRecoverButtons and self.hp > 0 then
+                if self.canRecover and self.pressedRecoverButtons and self.b.jump:isDown() and self.hp > 0 then
                     self:playSfx(self.sfx.step)
                     self:setState(self.land)
                     return
