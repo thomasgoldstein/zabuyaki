@@ -172,6 +172,8 @@ SFX.load("metalGrab","res/sfx/metalBreak.wav", 0.5)
 SFX.load("metalHit","res/sfx/metalHit.wav", 1)
 SFX.load("metalBreak","res/sfx/metalBreak.wav", 1)
 
+SFX.load("charged","res/sfx/menuMove.wav", 0.7, nil, "J.J")
+
 SFX.setVolumeOfAllSfx()
 
 return SFX
