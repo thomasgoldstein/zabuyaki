@@ -364,14 +364,13 @@ function Unit:defaultDraw(l, t, w, h, transp)
                     transpBg = 255
                 end
             end
-            if self.statesForChargeAttack and self.chargeTimer >= self.chargedAt / 2 and self.chargeTimer < self.chargedAt then
-                if self.chargeAttack and self.statesForChargeAttack[self.state] then
-                    colors:set("chargeAttack")
-                    local width = clamp(self.chargeTimer, 0.5, 1) * self.width
-                    love.graphics.ellipse(self.chargeTimer >= self.chargedAt - self.chargedAt / 10 and "fill" or "line", self.x, self.y - self:getRelativeZ(), width, width / 2)
-                end
-            end
             drawDebugUnitHurtBoxUnder(self.sprite, self.x, self.y - self.z)
+            if self.chargeTimer >= self.chargedAt and self.statesForChargeAttack[self.state] then
+                colors:set("lightBlue", nil, transpBg / 4)
+                love.graphics.setShader(shaders.silhouette)
+                self:drawSprite(self.x + self.shake.x + math.sin(self.time*4)*2, self.y - self.z - self.shake.y)
+                love.graphics.setShader()
+            end
             colors:set(self.color, nil, transpBg)
             if self.shader then
                 love.graphics.setShader(self.shader)
