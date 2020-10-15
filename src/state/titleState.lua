@@ -9,6 +9,7 @@ local titleSfx = "whooshHeavy"
 local time = 0
 local transparency = 0
 local titleTransparency = 0
+local flashTitleAt = 2
 local introMovie
 local mode
 
@@ -173,6 +174,12 @@ function titleState:draw()
     --header
     colors:set("white", nil, 255 * transparency)
     love.graphics.draw(zabuyakiTitle, 0, titleOffset_y, 0, 2, 2)
+    if time >= flashTitleAt and time < flashTitleAt + math.pi / 4 then
+        colors:set("white", nil, 255 * math.sin(time * 4) / 2)
+        love.graphics.setShader(shaders.silhouette)
+        love.graphics.draw(zabuyakiTitle, 0, titleOffset_y, 0, 2, 2)
+        love.graphics.setShader()
+    end
     colors:set("lightGray", nil, 255 * transparency)
     love.graphics.draw(siteImageText, (screenWidth - siteImageText:getWidth())/2, screenHeight - 20)
     love.graphics.setFont(gfx.font.arcade4)
