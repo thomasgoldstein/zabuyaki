@@ -3,7 +3,7 @@ local Character = class('Character', Unit)
 
 local function nop() end
 
-Character.statesForChargeAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, land = true, sideStep = true, chargeDash = true }
+Character.statesForChargingAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, land = true, sideStep = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
 Character.statesForSpecialDefensive = { stand = true, combo = true, duck = true, walk = true, hurt = true, chargeDash = true, grabFrontAttack = true, grab = true }
 Character.statesForSpecialOffensive = { stand = true, combo = true, duck = true, walk = true, grabFrontAttack = true, grab = true }

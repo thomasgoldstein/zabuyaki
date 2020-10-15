@@ -374,7 +374,6 @@ function Unit:defaultDraw(l, t, w, h, transp)
                 love.graphics.setShader()
             end
             if self.chargeTimer >= self.chargedAt and self.chargeTimer < self.chargedAt + math.pi / 8 then
-                --and self.statesForChargeAttack[self.state] then
                 colors:set("white", nil, transpBg * math.sin(self.chargeTimer * 8) / 2)
                 love.graphics.setShader(shaders.silhouette)
                 self:drawSprite(self.x + self.shake.x, self.y - self.z - self.shake.y)
