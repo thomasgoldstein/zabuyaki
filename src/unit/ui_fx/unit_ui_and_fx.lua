@@ -377,7 +377,7 @@ function Unit:defaultDraw(l, t, w, h, transp)
                 --and self.statesForChargeAttack[self.state] then
                 colors:set("white", nil, transpBg * math.sin(self.chargeTimer * 8) / 2)
                 love.graphics.setShader(shaders.silhouette)
-                self:drawSprite(self.x + self.shake.x + math.sin(self.time*4)*2, self.y - self.z - self.shake.y)
+                self:drawSprite(self.x + self.shake.x, self.y - self.z - self.shake.y)
                 love.graphics.setShader()
             end
             colors:set("white")
