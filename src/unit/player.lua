@@ -156,11 +156,15 @@ function Player:updateAI(dt)
         end
     end
     if self.moves.chargeAttack then
-        if self.delayedChargeAttack and self.statesForDelayedChargingAttack[self.state] and not self:canFall() then
-            self:setState(self.chargeAttack)
+        if self.delayedChargeAttack and self.statesForChargeAttack[self.state] then
+            if self.chargeDashAttack and self.speed_y == 0 and self:canFall() then
+                self:setState(self.chargeDashAttack)
+            elseif self.chargeAttack then
+                self:setState(self.chargeAttack)
+            end
             self.delayedChargeAttack = false
         else
-            if self.b.attack:isDown() and self.statesForChargingAttack[self.state] then
+            if self.b.attack:isDown() and self.statesForCharging[self.state] then
                 if self.chargeTimer < self.chargedAt then
                     self.chargeTimer = self.chargeTimer + dt
                     if self.chargeTimer >= self.chargedAt then
@@ -170,16 +174,8 @@ function Player:updateAI(dt)
                     self.chargeTimer = self.chargeTimer + dt
                 end
             else
-                if self.chargeTimer >= self.chargedAt and self.statesForChargingAttack[self.state] then
-                    if self.speed_y == 0 and self:canFall() then
-                        if self.chargeDashAttack then
-                            self:setState(self.chargeDashAttack)
-                        elseif self.chargeAttack then
-                            self:setState(self.chargeAttack)
-                        end
-                    else
-                        self.delayedChargeAttack = true
-                    end
+                if self.chargeTimer >= self.chargedAt then
+                    self.delayedChargeAttack = true
                 end
                 self.chargeTimer = 0
             end
