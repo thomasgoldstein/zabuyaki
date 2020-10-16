@@ -230,6 +230,8 @@ function drawDebugControls(p, x, y)
         y = y - 12
         if p.chargeTimer >= p.chargedAt then
             love.graphics.print("H", x, y)
+        elseif p.delayedChargeAttack then
+            love.graphics.print("D", x, y)
         end
     else -- virtual buttons for enemy
         x = x + 10
