@@ -173,7 +173,7 @@ function Player:updateAI(dt)
                 else
                     self.chargeTimer = self.chargeTimer + dt
                 end
-            else
+            elseif self.statesForCharging[self.state] then
                 if self.chargeTimer >= self.chargedAt then
                     self.delayedChargeAttack = true
                 end
