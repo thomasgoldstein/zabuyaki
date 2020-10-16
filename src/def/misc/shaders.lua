@@ -13,7 +13,7 @@ shaders = {
     drVolker = {},
     trashcan = {},
     trashcan_particleColor = {},
-    shadow = {}
+    silhouette = {}
 }
 
 getShader = function(name, n)
@@ -285,7 +285,11 @@ for i = #shaders.screen, 1, -1 do
 end
 
 function loadUnitsShaders()
-    shaders.silhouette = silhouette()
+    shaders.rick = {
+        false,
+        swapColors(rickColors_original, rickColors_2),
+        swapColors(rickColors_original, rickColors_3),
+    }
     shaders.kisa = {
         false,
         swapColors(kisaColors_original, kisaColors_2),
@@ -349,6 +353,7 @@ function loadUnitsShaders()
         { 118, 109, 100, 255 },
         { 87, 116, 130, 255 }
     }
+    shaders.silhouette = silhouette()
 end
 
 return shaders
