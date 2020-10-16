@@ -4,6 +4,7 @@ local Character = class('Character', Unit)
 local function nop() end
 
 Character.statesForChargingAttack = { stand = true, walk = true, run = true, hurt = true, duck = true, land = true, sideStep = true, chargeDash = true }
+Character.statesForDelayedChargingAttack = { stand = true, duck = true, land = true }
 Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
 Character.statesForSpecialDefensive = { stand = true, combo = true, duck = true, walk = true, hurt = true, chargeDash = true, grabFrontAttack = true, grab = true }
 Character.statesForSpecialOffensive = { stand = true, combo = true, duck = true, walk = true, grabFrontAttack = true, grab = true }
@@ -26,6 +27,7 @@ function Character:initialize(name, sprite, x, y, f, input)
     self.lifeBarTimer = 0
     self.chargedAt = 1    -- define # seconds when chargeAttack is ready
     self.chargeTimer = 0    -- seconds of charging
+    self.delayedChargeAttack = false
     self.comboN = 1    -- n of the combo hit
     self.comboTimeout = 0.37 -- max delay to connect combo hits
     self.comboTimer = 0    -- can continue combo if > 0

@@ -156,28 +156,33 @@ function Player:updateAI(dt)
         end
     end
     if self.moves.chargeAttack then
-        if self.b.attack:isDown() and self.statesForChargingAttack[self.state] then
-            if self.chargeTimer < self.chargedAt then
-                self.chargeTimer = self.chargeTimer + dt
-                if self.chargeTimer >= self.chargedAt then
-                    self:playSfx(sfx.charged)
+        if self.delayedChargeAttack and self.statesForDelayedChargingAttack[self.state] and not self:canFall() then
+            self:setState(self.chargeAttack)
+            self.delayedChargeAttack = false
+        else
+            if self.b.attack:isDown() and self.statesForChargingAttack[self.state] then
+                if self.chargeTimer < self.chargedAt then
+                    self.chargeTimer = self.chargeTimer + dt
+                    if self.chargeTimer >= self.chargedAt then
+                        self:playSfx(sfx.charged)
+                    end
+                else
+                    self.chargeTimer = self.chargeTimer + dt
                 end
             else
-                self.chargeTimer = self.chargeTimer + dt
-            end
-        else
-            if self.chargeTimer >= self.chargedAt and self.statesForChargingAttack[self.state] then
-                if self.speed_y == 0 and self:canFall() then
-                    if self.chargeDashAttack then
-                        self:setState(self.chargeDashAttack)
-                    elseif self.chargeAttack then
-                        self:setState(self.chargeAttack)
+                if self.chargeTimer >= self.chargedAt and self.statesForChargingAttack[self.state] then
+                    if self.speed_y == 0 and self:canFall() then
+                        if self.chargeDashAttack then
+                            self:setState(self.chargeDashAttack)
+                        elseif self.chargeAttack then
+                            self:setState(self.chargeAttack)
+                        end
+                    else
+                        self.delayedChargeAttack = true
                     end
-                elseif not self:canFall() then
-                    self:setState(self.chargeAttack)
                 end
+                self.chargeTimer = 0
             end
-            self.chargeTimer = 0
         end
     end
     Character.updateAI(self, dt)
