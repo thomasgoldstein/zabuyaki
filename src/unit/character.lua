@@ -246,6 +246,7 @@ function Character:onHurt()
     if self:isImmune() then
         return
     end
+    self.delayedChargeAttack = false
     self:removeTweenMove()
     self:onFriendlyAttack()
     self:onHurtDamage()
@@ -2030,6 +2031,7 @@ function Character:eventMoveUpdate(dt)
         self:removeTweenMove()
         if not self.event:startNext(self) then
             self.chargeTimer = 0    -- seconds of charging
+            self.delayedChargeAttack = false
             self.isCharacterControlEnabled = true
             self:setState(self.stand)
         end
