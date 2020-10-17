@@ -29,6 +29,7 @@ function Colors:initialize()
         barLostColor = { 230, 0, 20, 255 },
         barGotColor = { 115, 230, 15, 255 },
         barTopBottomSmoothColor = { 100, 50, 50, 255 },
+        charged = {255, 106, 0, 255},
     }
 end
 

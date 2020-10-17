@@ -376,7 +376,7 @@ function Unit:defaultDraw(l, t, w, h, transp)
             end
             chargeDelta = self.chargeTimer - self.chargedAt
             if chargeDelta >= 0 and chargeDelta <= math.pi / chargeFlashSpeed then
-                colors:set("white", nil, transpBg * math.sin(chargeDelta * chargeFlashSpeed) / 2)
+                colors:set("charged", nil, transpBg * math.sin(chargeDelta * chargeFlashSpeed) / 2)
                 love.graphics.setShader(shaders.silhouette)
                 self:drawSprite(self.x + self.shake.x, self.y - self.z - self.shake.y)
                 love.graphics.setShader()
