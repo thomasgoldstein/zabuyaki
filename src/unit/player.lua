@@ -167,14 +167,7 @@ function Player:updateAI(dt)
             end
         else
             if self.b.attack:isDown() and self.statesForCharging[self.state] then
-                if self.chargeTimer < self.chargedAt then
-                    self.chargeTimer = self.chargeTimer + dt
-                    if self.chargeTimer >= self.chargedAt then
-                        self:playSfx(sfx.charged)
-                    end
-                else
-                    self.chargeTimer = self.chargeTimer + dt
-                end
+                self.chargeTimer = self.chargeTimer + dt
             elseif self.chargeTimer >= self.chargedAt then
                 if self.statesForCharging[self.state] then
                     self.delayedChargeAttack = true
