@@ -349,7 +349,8 @@ function Unit:drawPID(x, y_, x_)
     love.graphics.print(self.pid, x - 7, y + 4)
 end
 
-local transpBg
+local transpBg, chargeDelta = 0, 0
+local chargeFlashSpeed = 16
 function Unit:defaultDraw(l, t, w, h, transp)
     if not self.isDisabled and self.isVisible then
         if CheckCollision(l, t, w, h, self.x - 35, self.y - 70, 70, 70) then
@@ -373,8 +374,9 @@ function Unit:defaultDraw(l, t, w, h, transp)
             if self.shader then
                 love.graphics.setShader()
             end
-            if self.chargeTimer >= self.chargedAt and self.chargeTimer < self.chargedAt + math.pi / 8 then
-                colors:set("white", nil, transpBg * math.sin(self.chargeTimer * 8) / 2)
+            chargeDelta = self.chargeTimer - self.chargedAt
+            if chargeDelta >= 0 and chargeDelta <= math.pi / chargeFlashSpeed then
+                colors:set("white", nil, transpBg * math.sin(chargeDelta * chargeFlashSpeed) / 2)
                 love.graphics.setShader(shaders.silhouette)
                 self:drawSprite(self.x + self.shake.x, self.y - self.z - self.shake.y)
                 love.graphics.setShader()
