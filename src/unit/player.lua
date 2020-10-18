@@ -164,6 +164,8 @@ function Player:updateAI(dt)
                     self:setState(self.chargeAttack)
                 end
                 self.delayedChargeAttack = false
+            elseif not self.statesForCharging[self.state] then
+                self.delayedChargeAttack = false
             end
         else
             if self.b.attack:isDown() and self.statesForCharging[self.state] then
