@@ -173,6 +173,8 @@ function Player:updateAI(dt)
                     self.delayedChargeAttack = true
                 end
                 self.chargeTimer = 0
+            else
+                self.chargeTimer = 0
             end
         end
     end
