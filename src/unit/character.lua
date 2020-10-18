@@ -561,7 +561,7 @@ function Character:standUpdate(dt)
             if self.moves.run and self.b.horizontal.isDoubleTap
                 and self.lastState == "walk"
             then
-                if self.moves.chargeDash and self.chargeTimer > 0 and self.b.attack:isDown() and self.horizontal == self.b.horizontal.doubleTap.lastDirection then
+                if self.moves.chargeDash and self.chargeTimer > 0 and self.horizontal == self.b.horizontal.doubleTap.lastDirection then
                     self:setState(self.chargeDash)
                 else
                     self:setState(self.run)
