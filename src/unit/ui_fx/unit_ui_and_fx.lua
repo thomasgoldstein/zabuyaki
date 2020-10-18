@@ -350,7 +350,7 @@ function Unit:drawPID(x, y_, x_)
 end
 
 local transpBg, chargeDelta = 0, 0
-local chargeFlashSpeed = 16
+local chargeFlashSpeed = 20
 function Unit:defaultDraw(l, t, w, h, transp)
     if not self.isDisabled and self.isVisible then
         if CheckCollision(l, t, w, h, self.x - 35, self.y - 70, 70, 70) then
