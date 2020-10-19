@@ -543,8 +543,8 @@ function Unit:getZIndex()
     if self.isGrabbed and g and g.source then
         return g.source.y - 0.001
     end
-    if self.platform then
-        return self.platform.y + 0.005
+    if self.isPlatform then
+        return self.y - 0.005
     end
     return self.y
 end
