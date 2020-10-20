@@ -1626,7 +1626,7 @@ function Character:grabReleaseBackDashStart()
     self:releaseGrabbed()
     self.horizontal = -self.face
     self.speed_x = self.backoffSpeed_x --move from source
-    self.speed_z = (self.jumpSpeed_z / 4 ) * self.jumpSpeedMultiplier
+    self.speed_z = (self.jumpSpeed_z / 3 ) * self.jumpSpeedMultiplier
     self:setSprite("jump")
     self.z = self:getRelativeZ() + 0.1
     self.bounced = 0
