@@ -1631,13 +1631,6 @@ function Character:grabReleaseBackDashStart()
     self.z = self:getRelativeZ() + 0.1
     self.bounced = 0
     self.isGoingUp = true
-    local target = self.grabContext.target
-    if target then
-        target.horizontal = -self.horizontal
-        target.speed_x = target.backoffSpeed_x --move from source
-        target:setSprite(target.horizontal == target.face and "grabbedBack" or "grabbedFront")
-        target:setState(target.slide)
-    end
 end
 Character.grabReleaseBackDash = {name = "grabReleaseBackDash", start = Character.grabReleaseBackDashStart, exit = nop, update = Character.jumpFallUpdate, draw = Character.defaultDraw}
 
