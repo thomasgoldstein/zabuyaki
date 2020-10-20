@@ -3,12 +3,12 @@ local Character = class('Character', Unit)
 
 local function nop() end
 
-Character.statesForCharging = { stand = true, walk = true, duck = true, land = true, sideStep = true, jump = true, jumpAttackStraight = true, jumpAttackForward = true, jumpAttackRun = true, jumpAttackLight = true, dropDown = true, pickUp = true, chargeDash = true }
-Character.statesForChargeAttack = { stand = true, walk = true, jump = true, chargeDash = true }
-Character.statesForDashAttack = { stand = true, walk = true, run = true, combo = true }
-Character.statesForSpecialDefensive = { stand = true, combo = true, duck = true, walk = true, hurt = true, chargeDash = true, grabFrontAttack = true, grab = true }
-Character.statesForSpecialOffensive = { stand = true, combo = true, duck = true, walk = true, grabFrontAttack = true, grab = true }
-Character.statesForSpecialDash = { stand = true, walk = true, run = true, duck = true, dashAttack = true }
+Character.statesForCharging = { stand = true, walk = true, chargeWalk = true, duck = true, land = true, sideStep = true, jump = true, jumpAttackStraight = true, jumpAttackForward = true, jumpAttackRun = true, jumpAttackLight = true, dropDown = true, pickUp = true, chargeDash = true }
+Character.statesForChargeAttack = { stand = true, walk = true, chargeWalk = true, jump = true, chargeDash = true }
+Character.statesForDashAttack = { stand = true, walk = true, chargeWalk = true, run = true, combo = true }
+Character.statesForSpecialDefensive = { stand = true, combo = true, duck = true, walk = true, chargeWalk = true, hurt = true, chargeDash = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialOffensive = { stand = true, combo = true, duck = true, walk = true, chargeWalk = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialDash = { stand = true, walk = true, chargeWalk = true, run = true, duck = true, dashAttack = true }
 Character.statesForSpecialToleranceDelay = { duck = true, dashAttack = true }
 
 function Character:initialize(name, sprite, x, y, f, input)
@@ -559,22 +559,28 @@ function Character:standUpdate(dt)
         --can move
         if hv ~= 0 then
             if self.moves.run and self.b.horizontal.isDoubleTap
-                and self.lastState == "walk"
+                and (self.lastState == "walk" or self.lastState == "chargeWalk")
             then
                 if self.moves.chargeDash and self.chargeTimer > 0 and self.horizontal == self.b.horizontal.doubleTap.lastDirection then
                     self:setState(self.chargeDash)
                 else
                     self:setState(self.run)
                 end
+            elseif self.moves.chargeWalk and self.b.attack:isDown() then
+                self:setState(self.chargeWalk)
             else
                 self:setState(self.walk)
             end
             return
         end
         if vv ~= 0 then
-            if self.moves.sideStep and self.b.vertical.isDoubleTap and self.lastState == "walk" then
+            if self.moves.sideStep and self.b.vertical.isDoubleTap
+                and (self.lastState == "walk" or self.lastState == "chargeWalk")
+            then
                 self.vertical = self.b.vertical.doubleTap.lastDirection
                 self:setState(self.sideStep)
+            elseif self.moves.chargeWalk and self.b.attack:isDown() then
+                self:setState(self.chargeWalk)
             else
                 self:setState(self.walk)
             end
@@ -592,14 +598,7 @@ Character.stand = {name = "stand", start = Character.standStart, exit = nop, upd
 
 function Character:walkStart()
     self.isHittable = true
-    if spriteHasAnimation(self.sprite, "chargeWalk")
-        and (self.sprite.curAnim == "chargeStand" or self.sprite.curAnim == "chargeWalk"
-        or ( (self.sprite.curAnim == "land" or self.sprite.curAnim == "duck") and self.b.attack:isDown() ))
-    then
-        self:setSprite("chargeWalk")
-    elseif self.sprite.curAnim ~= "walk" then
-        self:setSprite("walk")
-    end
+    self:setSprite("walk")
 end
 function Character:walkUpdate(dt)
     if self:getRelativeZ() < self.z then
@@ -630,11 +629,58 @@ function Character:walkUpdate(dt)
             self.face = hv
         end
         self.horizontal = hv --X direction
-        self.speed_x = self.b.attack:isDown() and self.chargeWalkSpeed_x or self.walkSpeed_x
+        self.speed_x = self.walkSpeed_x
     end
     if vv ~= 0 then
         self.vertical = vv
-        self.speed_y = self.b.attack:isDown() and self.chargeWalkSpeed_y or self.walkSpeed_y
+        self.speed_y = self.walkSpeed_y
+    end
+    if self.moves.chargeWalk and self.b.attack:isDown() then
+        self:setState(self.chargeWalk)
+        return
+    else
+        if self.sprite.curAnim ~= "walk" then
+            self:setSprite("walk")
+        end
+    end
+    if self.speed_x == 0 and self.speed_y == 0 and not self.b.strafe:isDown() then
+        self:setState(self.stand)
+        self:update(0)
+        return
+    end
+end
+Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update = Character.walkUpdate, draw = Character.defaultDraw}
+
+function Character:chargeWalkStart()
+    self.isHittable = true
+    self:setSprite("chargeWalk")
+end
+function Character:chargeWalkUpdate(dt)
+    if self:getRelativeZ() < self.z then
+        self:setState(self.dropDown)
+        return
+    end
+    if not self.isCharacterControlEnabled then
+        return
+    end
+    if self.moves.jump and self.b.jump:pressed() then
+        self:setState(self.duck)
+        return
+    end
+    if not self.b.strafe:isDown() then
+        self.speed_x, self.speed_y = 0, 0
+    end
+    local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
+    if hv ~= 0 then
+        if not self.b.strafe:isDown() then
+            self.face = hv
+        end
+        self.horizontal = hv --X direction
+        self.speed_x = self.chargeWalkSpeed_x
+    end
+    if vv ~= 0 then
+        self.vertical = vv
+        self.speed_y = self.chargeWalkSpeed_y
     end
     if self.b.attack:isDown() then
         local grabbed = self:checkForGrab()
@@ -664,16 +710,12 @@ function Character:walkUpdate(dt)
                 return
             end
         end
-        if spriteHasAnimation(self.sprite, "chargeWalk") and self.sprite.curAnim ~= "chargeWalk" then
+        if self.sprite.curAnim ~= "chargeWalk" and spriteHasAnimation(self.sprite, "chargeWalk") then
             self:setSprite("chargeWalk")
         end
---        elseif self.sprite.curAnim ~= "walk" then
---            self:setSprite("walk")
---        end
     else
-        if self.sprite.curAnim ~= "walk" then
-            self:setSprite("walk")
-        end
+        self:setState(self.walk)
+        return
     end
     if self.speed_x == 0 and self.speed_y == 0 and not self.b.strafe:isDown() then
         self:setState(self.stand)
@@ -681,7 +723,7 @@ function Character:walkUpdate(dt)
         return
     end
 end
-Character.walk = {name = "walk", start = Character.walkStart, exit = nop, update = Character.walkUpdate, draw = Character.defaultDraw}
+Character.chargeWalk = {name = "chargeWalk", start = Character.chargeWalkStart, exit = nop, update = Character.chargeWalkUpdate, draw = Character.defaultDraw}
 
 function Character:runStart()
     self.isHittable = true
