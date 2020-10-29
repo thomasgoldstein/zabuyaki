@@ -1,5 +1,7 @@
 local AI = AI
 
+local onMoveMaxDelayToAbort = 0.1
+
 function AI:initCommonAiSchedules()
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
         {"wokeUp", "tooCloseToPlayer"},
@@ -656,13 +658,18 @@ function AI:onGetToBack(dt)
     return false
 end
 
-function AI:onMove()
+function AI:onMove(dt)
     local u = self.unit
-    --dp("AI:onMove() ".. u.name)
+    if not u.moveTime then
+        u.moveTime = 0
+    else
+        u.moveTime = u.moveTime + dt
+    end
     if u.move then
         return u.move:update(0)
     else
-        if u.old_x == u.x and u.old_y == u.y then
+        if u.old_x == u.x and u.old_y == u.y and u.moveTime > onMoveMaxDelayToAbort then
+            u.moveTime = 0
             u.b.reset()
             return true
         else
