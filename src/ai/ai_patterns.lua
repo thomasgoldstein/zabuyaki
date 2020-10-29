@@ -1,6 +1,7 @@
 local AI = AI
 
 local onMoveMaxDelayToAbort = 0.1
+local commonWalkingAreaHeight = 240 / 3
 
 function AI:initCommonAiSchedules()
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
@@ -224,7 +225,7 @@ function AI:onWait(dt)
     return false
 end
 
-function AI:calcWalkRandom()
+function AI:calcWalkRandomABit()
     local u = self.unit
     u.b.reset()
     if not self:isReadyToMove() then
@@ -240,6 +241,24 @@ function AI:calcWalkRandom()
         u.ttx = rightX - love.math.random(2 * u.width)
     end
     u.tty = u.y + love.math.random(-u.width, u.width)
+    return true
+end
+
+function AI:calcWalkRandom()
+    local u = self.unit
+    u.b.reset()
+    if not self:isReadyToMove() then
+        return false
+    end
+    local l, t, w, h = mainCamera.cam:getVisible()
+    u.ttx = love.math.random(l, l + w)
+    if u.ttx < l + u.width then
+        u.ttx = l + love.math.random(2 * u.width)
+    end
+    if u.ttx > l + w - u.width then
+        u.ttx = l + w - love.math.random(2 * u.width)
+    end
+    u.tty = love.math.random( t + h - commonWalkingAreaHeight + u.width, t + h - u.width)
     return true
 end
 
