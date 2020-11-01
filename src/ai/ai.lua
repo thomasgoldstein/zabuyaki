@@ -6,6 +6,9 @@ function AI:initialize(unit, settings)
     if not settings then
         settings = {}
     end
+    self.maxSwitchingSchedulesCounter = settings.maxSwitchingSchedulesCounter or 4
+    self.switchingSchedulesCounter = love.math.random( self.maxSwitchingSchedulesCounter)
+
     self.thinkIntervalMin = settings.thinkIntervalMin or 0.01
     self.thinkIntervalMax = settings.thinkIntervalMax or 0.25
     self.hesitateMin = settings.hesitateMin or 0.1 -- hesitation delay before combo
