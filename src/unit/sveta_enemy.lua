@@ -16,7 +16,7 @@ function Sveta:initAttributes()
     self.moves = { -- list of allowed moves
         sideStep = true, pickUp = true, chargeAttack = true, dashAttack = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true, land = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, squat = true, land = true,
     }
     self.walkSpeed_x = 97
     self.walkSpeed_y = 45   -- overrides default post-calculated speed
@@ -37,14 +37,14 @@ end
 function Sveta:dashAttackStart()
     self.isHittable = true
     self.customFriction = self.dashAttackFriction
-    self:setSprite("duck")
+    self:setSprite("squat")
     self.speed_y = 0
     self.speed_x = 0
     self.speed_z = 0
     self:showEffect("dashAttack") -- adds vars: self.paDash, paDash_x, self.paDash_y
 end
 function Sveta:dashAttackUpdate(dt)
-    if self.sprite.curAnim == "duck" and self:canMove() then
+    if self.sprite.curAnim == "squat" and self:canMove() then
         self:setSprite("dashAttack")
         self.speed_x = self.dashAttackSpeed_x
         self:playSfx(self.sfx.dashAttack)

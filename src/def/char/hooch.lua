@@ -65,12 +65,12 @@ return {
             loop = true,
             delay = f(10)
         },
-        duck = {
-            { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
+        squat = {
+            { q = q(122,262,44,59), ox = 20, oy = 58 }, --squat
             delay = f(4)
         },
         land = {
-            { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
+            { q = q(122,262,44,59), ox = 20, oy = 58 }, --squat
             delay = f(4)
         },
         sideStepUp = {
@@ -106,11 +106,11 @@ return {
         },
         respawn = {
             { q = q(50,69,45,67), ox = 20, oy = 66 }, --walk 2
-            { q = q(122,262,44,59), ox = 20, oy = 58, delay = f(36) }, --duck
+            { q = q(122,262,44,59), ox = 20, oy = 58, delay = f(36) }, --squat
             delay = math.huge
         },
         pickUp = {
-            { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
+            { q = q(122,262,44,59), ox = 20, oy = 58 }, --squat
             delay = f(17)
         },
         combo1 = {
@@ -123,7 +123,7 @@ return {
             { q = q(2,390,40,71), ox = 20, oy = 70, funcCont = dashPushback, delay = f(24) }, --dash attack 1
             { q = q(44,395,57,56), ox = 17, oy = 55, func = dashAttack, delay = f(3) }, --dash attack 2
             { q = q(103,400,45,61), ox = 20, oy = 60, delay = f(15) }, --dash attack 3
-            { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
+            { q = q(122,262,44,59), ox = 20, oy = 58 }, --squat
             delay = f(4)
         },
         grab = {
@@ -208,7 +208,7 @@ return {
         getUp = {
             { q = q(2,283,71,38), ox = 42, oy = 33, delay = f(24) }, --fallen
             { q = q(75,266,45,55), ox = 18, oy = 51, delay = f(14) }, --get up
-            { q = q(122,262,44,59), ox = 20, oy = 58 }, --duck
+            { q = q(122,262,44,59), ox = 20, oy = 58 }, --squat
             delay = f(13)
         },
         grabbedFront = {

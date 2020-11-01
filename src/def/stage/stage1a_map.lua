@@ -693,7 +693,7 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["animation"] = "duck",
+                ["animation"] = "squat",
                 ["flip"] = true,
                 ["palette"] = "blackred"
               }
@@ -710,7 +710,7 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["animation"] = "duck",
+                ["animation"] = "squat",
                 ["flip"] = true,
                 ["palette"] = "black"
               }
@@ -841,7 +841,7 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["animation"] = "duck",
+                ["animation"] = "squat",
                 ["flip"] = true,
                 ["palette"] = "pink"
               }
@@ -1040,7 +1040,7 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["animation"] = "duck",
+                ["animation"] = "squat",
                 ["flip"] = true,
                 ["palette"] = "blue"
               }
@@ -1057,7 +1057,7 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["animation"] = "duck",
+                ["animation"] = "squat",
                 ["flip"] = true,
                 ["palette"] = "black"
               }
@@ -1074,7 +1074,7 @@ return {
               rotation = 0,
               visible = true,
               properties = {
-                ["animation"] = "duck",
+                ["animation"] = "squat",
                 ["palette"] = "blue"
               }
             },

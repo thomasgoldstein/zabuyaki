@@ -24,7 +24,7 @@ function Satoff:initAttributes()
         grab = true, grabFrontAttack = true,
         grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = false,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true, land = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, squat = true, land = true,
     }
     self.walkSpeed_x = 86
     self.walkSpeed_y = 45   -- overrides default post-calculated speed

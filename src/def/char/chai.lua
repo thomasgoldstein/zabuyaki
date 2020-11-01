@@ -301,12 +301,12 @@ return {
             loop = true,
             delay = f(6)
         },
-        duck = {
-            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
+        squat = {
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --squat
             delay = f(4)
         },
         land = {
-            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --squat
             delay = f(4)
         },
         sideStepUp = {
@@ -436,7 +436,7 @@ return {
             { q = q(42,2425,40,55), ox = 23, oy = 55 }, --combo down 3.2
             { q = q(84,2424,60,57), ox = 20, oy = 56, func = comboAttack3Down, delay = f(9) }, --combo down 3.3
             { q = q(146,2423,38,58), ox = 15, oy = 58 }, --combo down 3.4
-            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --squat
             comboEnd = true,
             delay = f(3)
         },
@@ -464,7 +464,7 @@ return {
             delay = f(2)
         },
         dashAttack = {
-            { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(4) }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(4) }, --squat
             { q = q(2,722,39,65), ox = 18, oy = 64, func = dashAttackStart, funcCont = dashAttack1, attackId = 1, delay = f(2) }, --jump attack forward 1
             { q = q(2,858,37,65), ox = 18, oy = 64, funcCont = dashAttack2, attackId = 1 }, --dash attack 1
             { q = q(41,858,45,68), ox = 22, oy = 65, funcCont = dashAttack3, attackId = 1 }, --dash attack 2
@@ -505,7 +505,7 @@ return {
             delay = f(2)
         },
         chargeDash = {
-            { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(4) }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(4) }, --squat
             { q = q(175,1654,48,64), ox = 19, oy = 64 }, --charge dash
         },
         chargeDashAttack = {
@@ -646,8 +646,8 @@ return {
             { q = q(2,928,40,62), ox = 20, oy = 62}, --throw back 1
             { q = q(136,862,51,64), ox = 26, oy = 63, func = grabFrontAttackForward }, --throw back 2
             { q = q(97,928,53,63), ox = 22, oy = 62 }, --throw back 3
-            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
-            { q = q(2,273,39,60), ox = 18, oy = 59 }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --squat
+            { q = q(2,273,39,60), ox = 18, oy = 59 }, --squat
             delay = f(4),
             isThrow = true,
             moves = {
@@ -665,7 +665,7 @@ return {
             { q = q(2,928,40,62), ox = 20, oy = 62 }, --throw back 1
             { q = q(136,862,51,64), ox = 26, oy = 63, func = grabFrontAttackBack }, --throw back 2
             { q = q(97,928,53,63), ox = 22, oy = 62, delay = f(12) }, --throw back 3
-            { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(9) }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(9) }, --squat
             delay = f(4),
             isThrow = true,
             moves = {
@@ -686,7 +686,7 @@ return {
             delay = f(2)
         },
         grabBackAttack = {
-            { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(4) }, --duck
+            { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(4) }, --squat
             { q = q(43,266,39,67), ox = 24, oy = 74, delay = f(6) }, --jump up
             { q = q(2,2319,69,57), ox = 27, oy = 78, delay = f(8) }, --back throw 1
             { q = q(73,2329,52,47), ox = 10, oy = 68 }, --back throw 2
@@ -699,7 +699,7 @@ return {
             delay = f(5),
             isThrow = true,
             moves = {
-                { }, --duck
+                { }, --squat
                 { }, --jump up
                 { }, --back throw 1
                 { }, --back throw 2

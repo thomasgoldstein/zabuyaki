@@ -15,7 +15,7 @@ function Niko:initAttributes()
     self.moves = { -- list of allowed moves
         pickUp = true, jump = true, jumpAttackForward = true, grab = true, grabFrontAttack = true, chargeWalk = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true, land = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, squat = true, land = true,
     }
     self.walkSpeed_x = 88
     self.chargeWalkSpeed_x = 72   -- overrides default post-calculated speed

@@ -42,7 +42,7 @@ return {
             loop = true,
             delay = f(10)
         },
-        duck = {
+        squat = {
             { q = q(2,2,46,62), ox = 27, oy = 61 }, --stand 1
             delay = f(4)
         },

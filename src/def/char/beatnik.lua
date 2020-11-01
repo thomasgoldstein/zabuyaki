@@ -79,12 +79,12 @@ return {
             loop = true,
             delay = f(4)
         },
-        duck = {
-            { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck
+        squat = {
+            { q = q(2,288,62,62), ox = 34, oy = 61 }, --squat
             delay = f(4)
         },
         land = {
-            { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck
+            { q = q(2,288,62,62), ox = 34, oy = 61 }, --squat
             delay = f(4)
         },
         dropDown = {
@@ -93,11 +93,11 @@ return {
         },
         respawn = {
             { q = q(66,284,51,66), ox = 17, oy = 66 }, --kick 1
-            { q = q(2,288,62,62), ox = 34, oy = 61, delay = f(36) }, --duck
+            { q = q(2,288,62,62), ox = 34, oy = 61, delay = f(36) }, --squat
             delay = math.huge
         },
         pickUp = {
-            { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck
+            { q = q(2,288,62,62), ox = 34, oy = 61 }, --squat
             delay = f(17)
         },
         combo1 = {
@@ -247,7 +247,7 @@ return {
         getUp = {
             { q = q(192,232,74,50), ox = 40, oy = 44, delay = f(24) }, --fallen
             { q = q(209,497,61,60), ox = 31, oy = 57, delay = f(14) }, --get up
-            { q = q(2,288,62,62), ox = 34, oy = 61 }, --duck
+            { q = q(2,288,62,62), ox = 34, oy = 61 }, --squat
             delay = f(13)
         },
         grabbedFront = {

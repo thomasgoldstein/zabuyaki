@@ -14,7 +14,7 @@ function Zeena:initAttributes()
     self.moves = { -- list of allowed moves
         sideStep = true, pickUp = true, jump = true, jumpAttackForward = true, jumpAttackStraight = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true, land = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, squat = true, land = true,
     }
     self.walkSpeed_x = 93
     self.walkSpeed_y = 45   -- overrides default post-calculated speed

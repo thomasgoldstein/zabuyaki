@@ -83,12 +83,12 @@ return {
             loop = true,
             delay = f(5)
         },
-        duck = {
-            { q = q(224,200,38,54), ox = 21, oy = 53 }, --duck
+        squat = {
+            { q = q(224,200,38,54), ox = 21, oy = 53 }, --squat
             delay = f(4)
         },
         land = {
-            { q = q(224,200,38,54), ox = 21, oy = 53 }, --duck
+            { q = q(224,200,38,54), ox = 21, oy = 53 }, --squat
             delay = f(4)
         },
         dropDown = {
@@ -99,11 +99,11 @@ return {
             { q = q(2,461,58,51), ox = 27, oy = 50, delay = math.huge }, --dash attack
             { q = q(62,480,68,32), ox = 31, oy = 26 }, --fallen on belly
             { q = q(132,467,56,45), ox = 25, oy = 40 }, --get up on belly
-            { q = q(224,200,38,54), ox = 21, oy = 53 }, --duck
+            { q = q(224,200,38,54), ox = 21, oy = 53 }, --squat
             delay = f(12)
         },
         pickUp = {
-            { q = q(224,200,38,54), ox = 21, oy = 53 }, --duck
+            { q = q(224,200,38,54), ox = 21, oy = 53 }, --squat
             delay = f(17)
         },
         combo1 = {
@@ -127,7 +127,7 @@ return {
             { q = q(2,461,58,51), ox = 27, oy = 50, funcCont = dashAttack, delay = f(15) }, --dash attack
             { q = q(62,480,68,32), ox = 31, oy = 26, func = function(slf) slf.isHittable = false end, delay = f(48) }, --fallen on belly
             { q = q(132,467,56,45), ox = 25, oy = 40 }, --get up on belly
-            { q = q(224,200,38,54), ox = 21, oy = 53 }, --duck
+            { q = q(224,200,38,54), ox = 21, oy = 53 }, --squat
             delay = f(18)
         },
         hurtHighWeak = {
@@ -193,7 +193,7 @@ return {
         getUp = {
             { q = q(191,277,68,39), ox = 39, oy = 31, delay = f(24) }, --fallen
             { q = q(171,206,51,48), ox = 27, oy = 47, delay = f(14) }, --get up
-            { q = q(224,200,38,54), ox = 21, oy = 53 }, --duck
+            { q = q(224,200,38,54), ox = 21, oy = 53 }, --squat
             delay = f(13)
         },
         grabbedFront = {

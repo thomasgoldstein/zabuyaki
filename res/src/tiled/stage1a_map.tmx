@@ -207,7 +207,7 @@
    </object>
    <object id="19" name="Mila" type="zeena" x="1568" y="248">
     <properties>
-     <property name="animation" value="duck"/>
+     <property name="animation" value="squat"/>
      <property name="flip" type="bool" value="true"/>
      <property name="palette" value="blackred"/>
     </properties>
@@ -215,7 +215,7 @@
    </object>
    <object id="20" name="Alex" type="gopper" x="1592" y="296">
     <properties>
-     <property name="animation" value="duck"/>
+     <property name="animation" value="squat"/>
      <property name="flip" type="bool" value="true"/>
      <property name="palette" value="black"/>
     </properties>
@@ -270,7 +270,7 @@
    <object id="26" name="2" type="wave" x="640" y="0" width="640" height="320"/>
    <object id="27" name="Zeena" type="zeena" x="728" y="272">
     <properties>
-     <property name="animation" value="duck"/>
+     <property name="animation" value="squat"/>
      <property name="flip" type="bool" value="true"/>
      <property name="palette" value="pink"/>
     </properties>
@@ -357,7 +357,7 @@
    <object id="37" name="1" type="wave" x="0" y="0" width="640" height="320"/>
    <object id="38" name="Niko" type="niko" x="288" y="280">
     <properties>
-     <property name="animation" value="duck"/>
+     <property name="animation" value="squat"/>
      <property name="flip" type="bool" value="true"/>
      <property name="palette" value="blue"/>
     </properties>
@@ -365,7 +365,7 @@
    </object>
    <object id="39" name="Sergey" type="gopper" x="248" y="256">
     <properties>
-     <property name="animation" value="duck"/>
+     <property name="animation" value="squat"/>
      <property name="flip" type="bool" value="true"/>
      <property name="palette" value="black"/>
     </properties>
@@ -373,7 +373,7 @@
    </object>
    <object id="40" name="Gopper" type="gopper" x="208" y="280">
     <properties>
-     <property name="animation" value="duck"/>
+     <property name="animation" value="squat"/>
      <property name="palette" value="blue"/>
     </properties>
     <point/>

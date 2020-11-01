@@ -37,7 +37,7 @@ return {
             loop = true,
             delay = f(10)
         },
-        duck = {
+        squat = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --stand 1
             delay = f(4)
         },

@@ -62,7 +62,7 @@ return {
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack run 4
         },
         dashAttack = {
-            { q = q(0,0,0,0), ox = 0, oy = 0 }, --duck
+            { q = q(0,0,0,0), ox = 0, oy = 0 }, --squat
             { q = q(0,0,0,0), ox = 0, oy = 0 }, --jump attack forward 1
             { q = q(117,880,14,15), ox = -6, oy = 26 }, --dash attack 1
             { q = q(88,858,27,36), ox = 0, oy = 33 }, --dash attack 2

@@ -301,12 +301,12 @@ return {
             loop = true,
             delay = f(6)
         },
-        duck = {
-            { q = q(181,7,45,59), ox = 20, oy = 58 }, --duck
+        squat = {
+            { q = q(181,7,45,59), ox = 20, oy = 58 }, --squat
             delay = f(4)
         },
         land = {
-            { q = q(181,7,45,59), ox = 20, oy = 58 }, --duck
+            { q = q(181,7,45,59), ox = 20, oy = 58 }, --squat
             delay = f(4)
         },
         sideStepUp = {
@@ -490,7 +490,7 @@ return {
             delay = f(3)
         },
         chargeDash = {
-            { q = q(181,7,45,59), ox = 20, oy = 58, delay = f(4) }, --duck
+            { q = q(181,7,45,59), ox = 20, oy = 58, delay = f(4) }, --squat
             { q = q(164,1439,52,63), ox = 18, oy = 62 }, --charge dash
         },
         chargeDashAttack = {

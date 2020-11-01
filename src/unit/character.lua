@@ -3,13 +3,13 @@ local Character = class('Character', Unit)
 
 local function nop() end
 
-Character.statesForCharging = { stand = true, walk = true, chargeWalk = true, duck = true, land = true, sideStep = true, jump = true, jumpAttackStraight = true, jumpAttackForward = true, jumpAttackRun = true, jumpAttackLight = true, dropDown = true, pickUp = true, chargeDash = true }
+Character.statesForCharging = { stand = true, walk = true, chargeWalk = true, squat = true, land = true, sideStep = true, jump = true, jumpAttackStraight = true, jumpAttackForward = true, jumpAttackRun = true, jumpAttackLight = true, dropDown = true, pickUp = true, chargeDash = true }
 Character.statesForChargeAttack = { stand = true, walk = true, chargeWalk = true, jump = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, chargeWalk = true, run = true, combo = true }
-Character.statesForSpecialDefensive = { stand = true, combo = true, duck = true, walk = true, chargeWalk = true, hurt = true, chargeDash = true, grabFrontAttack = true, grab = true }
-Character.statesForSpecialOffensive = { stand = true, combo = true, duck = true, walk = true, chargeWalk = true, grabFrontAttack = true, grab = true }
-Character.statesForSpecialDash = { stand = true, walk = true, chargeWalk = true, run = true, duck = true, dashAttack = true }
-Character.statesForSpecialToleranceDelay = { duck = true, dashAttack = true }
+Character.statesForSpecialDefensive = { stand = true, combo = true, squat = true, walk = true, chargeWalk = true, hurt = true, chargeDash = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialOffensive = { stand = true, combo = true, squat = true, walk = true, chargeWalk = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialDash = { stand = true, walk = true, chargeWalk = true, run = true, squat = true, dashAttack = true }
+Character.statesForSpecialToleranceDelay = { squat = true, dashAttack = true }
 
 function Character:initialize(name, sprite, x, y, f, input)
     if not f then
@@ -56,7 +56,7 @@ function Character:initAttributes()
         grabFrontAttack = true, grabFrontAttackUp = true, grabFrontAttackDown = true, grabFrontAttackBack = true, grabFrontAttackForward = true,
         dashAttack = true, specialDash = true, specialOffensive = true, specialDefensive = true,
         --technically present for all
-        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, duck = true, land = true,
+        stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, squat = true, land = true,
     }
     self.walkSpeed_x = 100
     self.runSpeed_x = 150
@@ -551,7 +551,7 @@ function Character:standUpdate(dt)
         return
     end
     if self.moves.jump and self.b.jump:pressed() then
-        self:setState(self.duck)
+        self:setState(self.squat)
         return
     end
     local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
@@ -617,7 +617,7 @@ function Character:walkUpdate(dt)
             return
         end
     elseif self.moves.jump and self.b.jump:pressed() then
-        self:setState(self.duck)
+        self:setState(self.squat)
         return
     end
     if not self.b.strafe:isDown() then
@@ -664,7 +664,7 @@ function Character:chargeWalkUpdate(dt)
         return
     end
     if self.moves.jump and self.b.jump:pressed() then
-        self:setState(self.duck)
+        self:setState(self.squat)
         return
     end
     if not self.b.strafe:isDown() then
@@ -757,7 +757,7 @@ function Character:runUpdate(dt)
         return
     end
     if self.moves.jump and self.b.jump:pressed() then
-        self:setState(self.duck, true) --pass condition to block dir changing
+        self:setState(self.squat, true) --pass condition to block dir changing
         return
     end
     if self.moves.dashAttack and self.b.attack:pressed() then
@@ -880,10 +880,10 @@ function Character:landUpdate(dt)
 end
 Character.land = {name = "land", start = Character.landStart, exit = nop, update = Character.landUpdate, draw = Character.defaultDraw}
 
-function Character:duckStart()
+function Character:squatStart()
     self.isHittable = true
     self.toSlowDown = false
-    self:setSprite("duck")
+    self:setSprite("squat")
     self.z = self:getRelativeZ()
     self.speed_z = 0
     -- save speed to pass it to the jump state
@@ -891,7 +891,7 @@ function Character:duckStart()
     self.saveSpeed_y = self.speed_y
     self.wasAttackPressedAtTheJumpStart = false
 end
-function Character:duckUpdate(dt)
+function Character:squatUpdate(dt)
     if self.b.attack:pressed() then
         self.wasAttackPressedAtTheJumpStart = true
     end
@@ -912,7 +912,7 @@ function Character:duckUpdate(dt)
         return
     end
     if not self.condition then
-        --check if duck can change direction of the jump
+        --check if squat can change direction of the jump
         local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
         if hv ~= 0 then
             --do not face sprite left or right. Only the direction
@@ -925,7 +925,7 @@ function Character:duckUpdate(dt)
         end
     end
 end
-Character.duck = {name = "duck", start = Character.duckStart, exit = nop, update = Character.duckUpdate, draw = Character.defaultDraw}
+Character.squat = {name = "squat", start = Character.squatStart, exit = nop, update = Character.squatUpdate, draw = Character.defaultDraw}
 
 function Character:hurtStart()
     self.isHittable = true
@@ -1483,7 +1483,7 @@ function Character:grabUpdate(dt)
             end
             self:removeTweenMove()
             self:releaseGrabbed()
-            self:setState(self.duck)
+            self:setState(self.squat)
             return
         end
     else

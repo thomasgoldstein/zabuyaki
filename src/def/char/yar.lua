@@ -59,8 +59,8 @@ return {
             loop = true,
             delay = f(6)
         },
-        duck = {
-            { q = q(169,412,51,66), ox = 19, oy = 65 }, --duck
+        squat = {
+            { q = q(169,412,51,66), ox = 19, oy = 65 }, --squat
             delay = f(4)
         },
         land = {
