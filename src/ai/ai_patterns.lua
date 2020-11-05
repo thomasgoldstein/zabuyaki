@@ -1,6 +1,7 @@
 local AI = AI
 
 local onMoveMaxDelayToAbort = 0.1
+local onMoveMaxWalkingTimeToAbort = 3
 local commonWalkingAreaHeight = 240 / 3
 
 function AI:initCommonAiSchedules()
@@ -113,7 +114,7 @@ function AI:initCommonAiSchedules()
         { self.emulateDiagonalJumpPressToTarget, self.emulateWaitStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
         {},
         "SCHEDULE_DIAGONAL_JUMP_ATTACK")
-    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.calcWalkToGrabXY, self.emulateAttackHold, self.onMoveUntilGrab },
+    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.calcWalkToGrabXY, self.emulateAttackHold, self.onMoveUntilGrab, self.initWaitShort, self.onWait, self.emulateAttackPress, },
         { "grabbed", "tooFarFromPlayer", "inAir", "noTarget", "noPlayers", "cannotAct" },
         "SCHEDULE_WALK_TO_GRAB")
     self.SCHEDULE_WALKING_SPEED_UP = Schedule:new({ self.walkingSpeedUp },
@@ -720,38 +721,32 @@ function AI:onMoveThenNoReset()
     return false
 end
 
-function AI:onMoveUntilGrab()
+function AI:onMoveUntilGrab(dt)
     local u = self.unit
-    --dp("AI:onMoveUntilGrab() ".. u.name, u.state, u.old_x, u.old_y, u.x, u.y, u.ttx, u.tty)
-    if u.move then
-        return u.move:update(0)
+    if not u.moveTime then
+        u.moveTime = 0
     else
-        if u.state == "grab"
-            or u.target.isDisabled
-            or ( u.old_x == u.x and u.old_y == u.y )
-            or u.target.isGrabbed
-            or u.antiStuck > 10
-        then
-            if u.antiStuck > 10 then -- remove
-                dp("ANTI STUCK")   -- remove
-            end  -- remove
-            dp("grab target END?", u.name, u.state, u.target.name, u.target.isGrabbed, u.target.isDisabled)
-            u.b.reset() -- release A
-            u.b.attack:update(0)
-            return true
-        else
-            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
-        end
-        if u.state == "stand" then
-            u.antiStuck = u.antiStuck + 1
-        else
-            if u.state ~= "combo" then
-                u.old_x = u.x
-                u.old_y = u.y
-            end
-            u.antiStuck = 0
-        end
+        u.moveTime = u.moveTime + dt
     end
+    if u.move
+        or u.moveTime > onMoveMaxWalkingTimeToAbort
+        or u.state == "grab"
+        or u.target.isDisabled
+        or u.target.isGrabbed
+        or (u.old_x == u.x and u.old_y == u.y and u.moveTime > onMoveMaxDelayToAbort)
+    then
+        if u.move then
+            u.move:update(0)
+        end
+        u.moveTime = 0
+        u.b.reset() -- release Attack
+        u.b.attack:update(0)
+        return true
+    else
+        u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
+    end
+    u.old_x = u.x
+    u.old_y = u.y
     return false
 end
 
@@ -775,10 +770,6 @@ end
 
 function AI:calcWalkToGrabXY()
     local u = self.unit
-    dp("AI:calcWalkToGrabXY() " .. u.name)
-    u.old_x = u.x - 10  -- update old values or the unit stucks
-    u.old_y = u.y - 10
-    u.antiStuck = 0
     --get to the player's side grab range
     if not u.target then
         u:pickAttackTarget("close")
