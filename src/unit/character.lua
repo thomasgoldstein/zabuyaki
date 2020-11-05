@@ -1081,10 +1081,8 @@ function Character:fallStart()
     self:removeTweenMove()
     self.isHittable = false
     self.canRecover = true
-    self.applyFallDamage = true
     self.pressedRecoverButtons = false
     if self.condition == "throw" then
-        self.applyFallDamage = false
         self:setSprite("thrown")
     elseif self.condition2 == "strong" then
         self.canRecover = false
@@ -1114,14 +1112,12 @@ function Character:fallUpdate(dt)
             self.speed_z = -self.speed_z/2
             self.speed_x = self.speed_x * 0.5
             if self.bounced == 0 then
-                if self.applyFallDamage then
-                    self:applyDamage(self.thrownFallDamage, "simple", self.indirectAttacker)
-                end
                 if self.canRecover and self.pressedRecoverButtons and self.b.jump:isDown() and self.hp > 0 then
                     self:playSfx(self.sfx.step)
                     self:setState(self.land)
                     return
                 end
+                self:applyDamage(self.thrownFallDamage, "simple", self.indirectAttacker)
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                 self:setSprite("fallBounce")
             end
