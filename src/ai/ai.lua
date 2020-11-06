@@ -77,6 +77,10 @@ function AI:setSchedule(schedule)
     self.currentSchedule:reset()
 end
 
+function AI:abort()
+    self.currentSchedule = false
+end
+
 -- should be overridden by every enemy AI class
 function AI:selectNewSchedule(conditions)
     if not self.currentSchedule then
