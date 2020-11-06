@@ -1,7 +1,7 @@
 local AI = AI
 
 local onMoveMaxDelayToAbort = 0.1
-local onMoveMaxWalkingTimeToAbort = 3
+local onMoveMaxWalkingTimeToAbort = 4
 local commonWalkingAreaHeight = 240 / 3
 
 function AI:initCommonAiSchedules()
@@ -482,10 +482,15 @@ function AI:initWalkToLongDistanceAfterEnemy()
     return true
 end
 
-function AI:onWalkToAttackRange()
+function AI:onWalkToAttackRange(dt)
     local horizontalToleranceGap = 4
     local verticalToleranceGap = 3
     local u = self.unit
+    if not u.moveTime then
+        u.moveTime = 0
+    else
+        u.moveTime = u.moveTime + dt
+    end
     local attackRange = self:getShortAttackRange(u, u.target) - horizontalToleranceGap
     local v, h
     --get to the player attack range
@@ -500,8 +505,14 @@ function AI:onWalkToAttackRange()
     elseif u.x > u.target.x + horizontalToleranceGap then
         u.face = -1
     end
-    if h == 0 and v == 0 then
+    if u.moveTime > onMoveMaxWalkingTimeToAbort
+        or (h == 0 and v == 0)
+    then
+        u.moveTime = 0
         u.b.reset()
+        if u.moveTime > onMoveMaxWalkingTimeToAbort then
+            self:abort()
+        end
         return true
     end
     return false
@@ -685,19 +696,24 @@ function AI:onMove(dt)
     else
         u.moveTime = u.moveTime + dt
     end
-    if u.move then
-        return u.move:update(0)
-    else
-        if u.old_x == u.x and u.old_y == u.y and u.moveTime > onMoveMaxDelayToAbort then
-            u.moveTime = 0
-            u.b.reset()
-            return true
-        else
-            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
+    if u.move
+        or u.moveTime > onMoveMaxWalkingTimeToAbort
+        or (u.old_x == u.x and u.old_y == u.y and u.moveTime > onMoveMaxDelayToAbort)
+    then
+        if u.move then
+            u.move:update(0)
         end
-        u.old_x = u.x
-        u.old_y = u.y
+        u.moveTime = 0
+        u.b.reset() -- release all buttons
+        if u.moveTime > onMoveMaxWalkingTimeToAbort then
+            self:abort()
+        end
+        return true
+    else
+        u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
     end
+    u.old_x = u.x
+    u.old_y = u.y
     return false
 end
 
@@ -735,11 +751,14 @@ function AI:onMoveUntilGrab(dt)
         or u.target.isGrabbed
         or (u.old_x == u.x and u.old_y == u.y and u.moveTime > onMoveMaxDelayToAbort)
     then
+        if u.moveTime > onMoveMaxWalkingTimeToAbort then
+            self:abort()
+        end
         if u.move then
             u.move:update(0)
         end
         u.moveTime = 0
-        u.b.reset() -- release Attack
+        u.b.reset() -- release all buttons
         u.b.attack:update(0)
         return true
     else
