@@ -9,9 +9,6 @@ function AI:getConditions()
         conditions["dead"] = true
         conditions["cannotAct"] = true
     else
-        if u.target and u.target.isDisabled then
-            conditions["targetDead"] = true
-        end
         if u.isGrabbed then
             conditions["grabbed"] = true
         end
@@ -38,7 +35,7 @@ function AI:getVisualConditions(conditions)
         conditions["canMove"] = true
     end
     if canAct[unit.state] then
-        if unit.target then
+        if unit.target and not unit.target.isDisabled then
             local x, y = unit.target.x, unit.target.y
             -- facing to the player
             if x < unit.x - unit.width / 2 then
@@ -86,6 +83,8 @@ function AI:getVisualConditions(conditions)
             if distance > self.reactLongDistanceMax then
                 conditions["tooFarToTarget"] = true
             end
+        elseif unit.target and unit.target.isDisabled then
+            conditions["targetDead"] = true
         else
             conditions["noTarget"] = true
         end
