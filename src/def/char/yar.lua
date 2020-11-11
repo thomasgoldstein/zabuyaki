@@ -7,12 +7,21 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
+local airSfx = function(slf)
+    slf:playSfx(sfx.whooshHeavy)
+end
 local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
         { x = 31, z = 45, width = 34, damage = 12, sfx = "whooshHeavy" },
+        cont
+    )
+end
+local comboAttack3 = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 34, z = 45, width = 47, damage = 20, repel_x = slf.comboRepel3_x, type = "fell", twist = "weak" },
         cont
     )
 end
@@ -123,16 +132,20 @@ return {
             delay = f(2)
         },
         combo2 = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = f(1)
+            { q = q(2,557,57,75), ox = 22, oy = 74, delay = f(3) }, --combo 1.1
+            { q = q(61,558,64,74), ox = 20, oy = 73, func = comboAttack1, delay = f(5) }, --combo 1.2
+            { q = q(61,558,64,74), ox = 20, oy = 73 }, --combo 1.2
+            { q = q(2,557,57,75), ox = 22, oy = 74 }, --combo 1.1
+            delay = f(2)
         },
         combo3 = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = f(1)
-        },
-        combo4 = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = f(1)
+            { q = q(2,640,86,65), ox = 59, oy = 64, delay = f(4) }, --combo 3.1
+            { q = q(90,634,78,71), ox = 40, oy = 70 }, --combo 3.2
+            { q = q(170,637,71,68), ox = 14, oy = 67, funcCont = comboAttack3, attackId = 1, func = airSfx }, --combo 3.3
+            { q = q(243,643,61,62), ox = 22, oy = 61, funcCont = comboAttack3, attackId = 1, delay = f(2) }, --combo 3.4
+            { q = q(243,643,61,62), ox = 22, oy = 61, delay = f(6) }, --combo 3.4
+            { q = q(306,635,54,70), ox = 17, oy = 69 }, --combo 3.5
+            delay = f(3)
         },
         dashAttack = {
             { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
