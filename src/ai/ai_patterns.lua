@@ -5,6 +5,9 @@ local onMoveMaxWalkingTimeToAbort = 4
 local commonWalkingAreaHeight = 240 / 3
 
 function AI:initCommonAiSchedules()
+    self.SCHEDULE_GET_TARGET = Schedule:new({ self.ensureHasTarget },
+        { },
+        "SCHEDULE_GET_TARGET")
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
         {"wokeUp", "tooCloseToPlayer"},
         "SCHEDULE_INTRO")
