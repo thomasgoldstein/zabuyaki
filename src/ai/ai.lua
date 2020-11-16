@@ -77,7 +77,10 @@ function AI:setSchedule(schedule)
     self.currentSchedule:reset()
 end
 
-function AI:abort()
+function AI:abort( reason )
+    if self.currentSchedule then
+        dp("AI ABORT", self.currentSchedule.name, reason)
+    end
     self.currentSchedule = false
 end
 
