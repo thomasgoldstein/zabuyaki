@@ -708,8 +708,9 @@ function AI:onMove(dt)
         end
         u.b.reset() -- release all buttons
         if u.moveTime > onMoveMaxWalkingTimeToAbort then
-            self:abort()
+            self:abort(u.name)
         end
+        u.moveTime = 0
         return true
     else
         u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
