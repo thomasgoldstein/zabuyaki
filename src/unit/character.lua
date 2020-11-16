@@ -150,8 +150,8 @@ function Character:updateMovementMode(dt)
             targetSpeed_x = self.initialWalkSpeed_x * 0.5
             targetSpeed_y = self.initialWalkSpeed_y * 0.5
         elseif self.movementMode == "fast" then
-            targetSpeed_x = self.initialWalkSpeed_x * 2
-            targetSpeed_y = self.initialWalkSpeed_y * 2
+            targetSpeed_x = self.initialWalkSpeed_x * 3
+            targetSpeed_y = self.initialWalkSpeed_y * 3
         else    -- "normal"
             targetSpeed_x = self.initialWalkSpeed_x
             targetSpeed_y = self.initialWalkSpeed_y
