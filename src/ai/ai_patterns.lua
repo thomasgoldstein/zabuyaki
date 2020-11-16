@@ -107,11 +107,11 @@ function AI:initCommonAiSchedules()
         { "noPlayers" },
         "SCHEDULE_SMART_ATTACK")
     self.SCHEDULE_HORIZONTAL_JUMP_ATTACK = Schedule:new(
-        { self.emulateHorizontalJumpPressToTarget, self.emulateWaitStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
+        { self.emulateHorizontalJumpPressToTarget, self.initWaitOneTenthStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
         {},
         "SCHEDULE_HORIZONTAL_JUMP_ATTACK")
     self.SCHEDULE_DIAGONAL_JUMP_ATTACK = Schedule:new(
-        { self.emulateDiagonalJumpPressToTarget, self.emulateWaitStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
+        { self.emulateDiagonalJumpPressToTarget, self.initWaitOneTenthStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
         { "targetDead", "noPlayers" },
         "SCHEDULE_DIAGONAL_JUMP_ATTACK")
     self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.calcWalkToGrabXY, self.emulateAttackHold, self.onMoveUntilGrab, self.initWaitShort, self.onWait, self.emulateAttackPress, },
@@ -703,7 +703,6 @@ function AI:onMove(dt)
         if u.move then
             u.move:update(0)
         end
-        u.moveTime = 0
         u.b.reset() -- release all buttons
         if u.moveTime > onMoveMaxWalkingTimeToAbort then
             self:abort()
@@ -802,18 +801,14 @@ function AI:onStop()
     return false
 end
 
-function AI:emulateWaitStart()
-    local u = self.unit
-    dp("AI:emulateWaitStart() ".. u.name)
-    self.hesitate = 0.1
+function AI:initWaitOneTenthStart()
+    self.waitingCounter = 0.1   -- e.g. used for emulation A press after J press
     return true
 end
 
 function AI:emulateWait(dt)
-    local u = self.unit
-    self.hesitate = self.hesitate - dt
-    dp("AI:emulateWait() ".. u.name)
-    if self.hesitate <= 0 then
+    self.waitingCounter = self.waitingCounter - dt
+    if self.waitingCounter <= 0 then
         return true
     end
     return false

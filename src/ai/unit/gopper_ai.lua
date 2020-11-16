@@ -5,8 +5,8 @@ local _settings = {
     maxSwitchingSchedulesCounter = 4,
     thinkIntervalMin = 0.2,
     thinkIntervalMax = 0.35,
-    hesitateMin = 0.2,
-    hesitateMax = 0.5,
+    waitBeforeActionMin = 0.2,
+    waitBeforeActionMax = 0.5,
     waitChance = 0.34
 }
 

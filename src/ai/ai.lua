@@ -11,8 +11,8 @@ function AI:initialize(unit, settings)
 
     self.thinkIntervalMin = settings.thinkIntervalMin or 0.01
     self.thinkIntervalMax = settings.thinkIntervalMax or 0.25
-    self.hesitateMin = settings.hesitateMin or 0.1 -- hesitation delay before combo
-    self.hesitateMax = settings.hesitateMax or 0.3
+    self.waitBeforeActionMin = settings.waitBeforeActionMin or 0.1 -- hesitation delay before combo
+    self.waitBeforeActionMax = settings.waitBeforeActionMax or 0.3
 
     self.reactShortDistanceMin = settings.reactShortDistanceMin or 0
     self.reactShortDistanceMax = settings.reactShortDistanceMax or 49
@@ -21,6 +21,7 @@ function AI:initialize(unit, settings)
     self.reactLongDistanceMin = settings.reactLongDistanceMin or 70
     self.reactLongDistanceMax = settings.reactLongDistanceMax or 150  -- should be more?
 
+    self.waitingCounter = 0
     self.waitChance = settings.waitChance or 0.2 -- 1 == 100%, 0 == 0%
     self.waitShortMin = settings.waitShortMin or 0.5 -- minimal delay for SCHEDULE_WAIT_SHORT
     self.waitShortMax = settings.waitShortMax or 1
@@ -40,7 +41,6 @@ function AI:initialize(unit, settings)
 
     self.conditions = {}
     self.thinkInterval = 0
-    self.hesitate = 0
     self.currentSchedule = nil
 
     self:initCommonAiSchedules()    -- extra ai schedules could  be added in the enemy ai subclass

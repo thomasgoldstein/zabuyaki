@@ -8,7 +8,7 @@ function AI:onHurtSwitchTarget(attacker)
 end
 
 function AI:initCombo()
-    self.hesitate = love.math.random() * (self.hesitateMax - self.hesitateMin) + self.hesitateMin
+    self.waitingCounter = love.math.random() * (self.waitBeforeActionMax - self.waitBeforeActionMin) + self.waitBeforeActionMin
     --    dp("AI:initCombo() " .. u.name)
     self.unit.b.reset()
     return true
@@ -16,9 +16,9 @@ end
 
 function AI:onCombo(dt)
     local u = self.unit
-    self.hesitate = self.hesitate - dt
+    self.waitingCounter = self.waitingCounter - dt
     --    dp("AI:onCombo() ".. u.name)
-    if self.hesitate <= 0 then
+    if self.waitingCounter <= 0 then
         if not self:canAct() then
             return true
         end

@@ -4,8 +4,8 @@ local eAI = class('eAI', AI)
 local _settings = {
     thinkIntervalMin = 0.02,
     thinkIntervalMax = 0.20,
-    hesitateMin = 0.1,
-    hesitateMax = 0.3,
+    waitBeforeActionMin = 0.1,
+    waitBeforeActionMax = 0.3,
     waitChance = 0.25, -- 1 == 100%, 0 == 0%
     jumpAttackChance = 0.75 -- 1 == 100%, 0 == 0%
 }
