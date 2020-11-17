@@ -29,6 +29,7 @@ function Character:initialize(name, sprite, x, y, f, input)
     self.chargeTimer = 0    -- seconds of charging
     self.delayedChargeAttack = false
     self.comboN = 1    -- n of the combo hit
+    self.isNextComboAlt = true
     self.comboTimeout = 0.37 -- max delay to connect combo hits
     self.comboTimer = 0    -- can continue combo if > 0
     self.comboMobilityDelay = self.comboTimeout - 0.083 -- can move if comboMobilityDelay > comboTimer
@@ -1275,6 +1276,12 @@ function Character:comboStart()
         return
     elseif self.b.vertical:getValue() == 1 and self:setSpriteIfExists("combo"..self.comboN.."Down") then
         return
+    elseif self.b.attack.isDoubleTap and spriteHasAnimation(self.sprite, "combo"..self.comboN.."Alt") then
+        self.isNextComboAlt = not self.isNextComboAlt
+        if not self.isNextComboAlt then
+            self:setSpriteIfExists("combo"..self.comboN.."Alt")
+            return
+        end
     end
     self:setSprite("combo"..self.comboN)
 end
