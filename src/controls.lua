@@ -152,12 +152,15 @@ end
 function updateDoubleTap(control)
     local h = control.horizontal
     local v = control.vertical
+    local a = control.attack
     if not h.doubleTap then
         h.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0, lastAttackTapTime = 0, lastJumpTapTime = 0 }
         v.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0 }
+        a.doubleTap = { lastDirection = 0, lastTapTime = 0, lastDoubleTapDirection = 0, lastDoubleTapTime = 0 }
     end
     checkDoubleTapState(h)
     checkDoubleTapState(v)
+    checkDoubleTapState(a)
     if control.attack:pressed() then
         h.doubleTap.lastAttackTapTime = love.timer.getTime()
     end
