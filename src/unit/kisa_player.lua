@@ -32,15 +32,4 @@ function Kisa:initAttributes()
     self.sfx.dead = sfx.kisaDeath
 end
 
-function Kisa:comboStart()
-    self.isHittable = true
-    self.horizontal = self.face
-end
-function Kisa:comboUpdate(dt)
-    self:setState(self.stand)
-    --TODO add dashAttack -> -> A
-    return
-end
-Kisa.combo = {name = "combo", start = Kisa.comboStart, exit = nop, update = Kisa.comboUpdate, draw = Character.defaultDraw}
-
 return Kisa
