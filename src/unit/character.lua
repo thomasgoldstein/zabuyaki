@@ -1265,7 +1265,7 @@ function Character:comboStart()
     self.toSlowDown = false
     self.horizontal = self.face
     self:removeTweenMove()
-    if self.comboTimer < -self.comboTimeout or self.comboN > self.sprite.def.comboMax then
+    if self.comboTimer < 0 or self.comboN > self.sprite.def.comboMax then
         self.isNextComboAlt = false -- reset Alt Combo on the combo end or delay
     end
     if self.comboTimer < 0 or self.attacksPerAnimation <= 0 or self.comboN > self.sprite.def.comboMax then
