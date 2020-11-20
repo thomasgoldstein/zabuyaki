@@ -31,6 +31,9 @@ end
 
 function Stage:clampWalkableAreaY( x, y )
     local _x = math.floor( x / walkableGridSize )
+    if _x < 1 then
+        return y
+    end
     local maxTop = rawget(walkableAreaTop, _x)
     local maxBottom = rawget(walkableAreaBottom, _x)
     return clamp( y, maxTop, maxBottom )
@@ -52,7 +55,7 @@ function Stage:logUnit( unit )
         return
     end
     local _x = math.floor( unit.x / walkableGridSize )
-    maxTop = rawget(walkableAreaTop, _x)
+    local maxTop = rawget(walkableAreaTop, _x)
     local maxBottom = rawget(walkableAreaBottom, _x)
     if maxTop > unit.y then
         rawset(walkableAreaTop, _x, unit.y)
