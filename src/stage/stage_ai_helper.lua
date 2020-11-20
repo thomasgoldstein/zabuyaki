@@ -66,3 +66,12 @@ function Stage:logUnit( unit )
         --print(_x, "set BOT", unit.y)
     end
 end
+
+function Stage:drawDebugWalkableArea( x )
+    if x < 8 then return end
+    local scale = 1
+    local _x = math.floor( x / walkableGridSize )
+    local maxTop = rawget(walkableAreaTop, _x)
+    local maxBottom = rawget(walkableAreaBottom, _x)
+    love.graphics.rectangle("line", x * scale, maxTop * scale, walkableGridSize * scale, (maxBottom - maxTop) * scale )
+end
