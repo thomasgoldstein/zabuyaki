@@ -2,7 +2,6 @@ local AI = AI
 
 local onMoveMaxDelayToAbort = 0.1
 local onMoveMaxWalkingTimeToAbort = 4
-local commonWalkingAreaHeight = 240 / 3
 
 function AI:initCommonAiSchedules()
     self.SCHEDULE_GET_TARGET = Schedule:new({ self.ensureHasTarget },
@@ -244,7 +243,8 @@ function AI:calcWalkRandomABit()
     if u.ttx > rightX then
         u.ttx = rightX - love.math.random(2 * u.width)
     end
-    u.tty = u.y + love.math.random(-u.width, u.width)
+    u.tty = stage:clampWalkableAreaY( u.x, u.y + love.math.random(-u.width, u.width) )
+    print("calcWalkRandomABit", u.name, u.tty)
     return true
 end
 
@@ -262,7 +262,8 @@ function AI:calcWalkRandom()
     if u.ttx > l + w - u.width then
         u.ttx = l + w - love.math.random(2 * u.width)
     end
-    u.tty = love.math.random( t + h - commonWalkingAreaHeight + u.width, t + h - u.width)
+    u.tty = love.math.random( stage:getWalkableAreaTopAndBottomY( u.x, u ) )
+    print("calcWalkRandom", u.name, u.tty)
     return true
 end
 
@@ -299,7 +300,7 @@ function AI:calcWalkByTargetVertically()
         r = math.min(r, u.target.width * 2)
     end
     u.ttx = u.x
-    u.tty = u.target.y - r
+    u.tty = stage:clampWalkableAreaY( u.x, u.target.y - r )
     return true
 end
 
@@ -315,7 +316,7 @@ function AI:calcEscapeBackXY()
         u.horizontal = -u.horizontal
     end
     u.ttx = u.x + (u.width * 3 + love.math.random(-escapeBackRandomRadius, escapeBackRandomRadius) ) * -u.horizontal
-    u.tty = u.y + love.math.random(-escapeBackRandomRadius, escapeBackRandomRadius)
+    u.tty = stage:clampWalkableAreaY( u.x, u.y + love.math.random(-escapeBackRandomRadius, escapeBackRandomRadius) )
     return true
 end
 
@@ -327,7 +328,7 @@ function AI:calcStepUp()
         return false
     end
     u.ttx = u.x
-    u.tty = u.y - stepDistance + love.math.random(-stepRandomRadius, stepRandomRadius)
+    u.tty = stage:clampWalkableAreaY( u.x, u.y - stepDistance + love.math.random(-stepRandomRadius, stepRandomRadius) )
     return true
 end
 function AI:calcStepDown()
@@ -336,7 +337,7 @@ function AI:calcStepDown()
         return false
     end
     u.ttx = u.x
-    u.tty = u.y + stepDistance + love.math.random(-stepRandomRadius, stepRandomRadius)
+    u.tty = stage:clampWalkableAreaY( u.x, u.y + stepDistance + love.math.random(-stepRandomRadius, stepRandomRadius) )
     return true
 end
 function AI:calcStepBack()
@@ -383,7 +384,7 @@ function AI:calcWalkOffTheScreenXY()
     assert(not u.isDisabled and u.hp > 0)
     local tx, ty
     local walkPixels = 400
-    ty = u.y + love.math.random(-1, 1) * 16
+    ty = stage:clampWalkableAreaY( u.x, u.y + love.math.random(-1, 1) * 16 )
     u.horizontal = love.math.random() < 0.5 and 1 or -1
     tx = u.x + u.horizontal * walkPixels
     u.face = u.horizontal
@@ -429,6 +430,7 @@ function AI:initWalkToDistance(distanceMin, distanceMax, toFrontOrBack)
     u.old_y = 0
     u.speed_x = u.walkSpeed_x
     u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, angle, love.math.random(distanceMin, distanceMax))
+    u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
 end
 function AI:initWalkToShortDistance()
     local u = self.unit
@@ -542,6 +544,7 @@ function AI:initWalkAround()
     u.old_x = 0
     u.old_y = 0
     u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
+    u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
     assert(not u.isDisabled and u.hp > 0)
     return true
 end
@@ -562,6 +565,7 @@ function AI:onWalkAround(dt)
         -- got to the point, rotate to the next
         u.chaseAngle = u.chaseAngle + u.chaseAngleStep
         u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
+        u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
         h, v = signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 )
         u.chaseAngleLockTime = 0
         --print(getDebugFrame(),v,h,u.x,u.old_x,u.y,u.old_y, u.target.x, u.target.y)
@@ -643,6 +647,7 @@ function AI:initGetToBack()
     u.old_x = 0
     u.old_y = 0
     u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
+    u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
     assert(not u.isDisabled and u.hp > 0)
     return true
 end
@@ -667,6 +672,7 @@ function AI:onGetToBack(dt)
         end
         u.chaseAngle = u.chaseAngle + u.chaseAngleStep
         u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
+        u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
         h, v = signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 )
         u.chaseAngleLockTime = 0
     end
