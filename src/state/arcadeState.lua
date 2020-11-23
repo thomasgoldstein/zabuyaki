@@ -103,6 +103,7 @@ function arcadeState:draw()
         -- draw camera stuff here
         colors:set("white")
         stage:draw(l,t,w,h)
+        drawWalkableArea()
         drawDebugHitBoxes() -- debug draw collision boxes
         showDebugWave(l,t,w,h)
     end)

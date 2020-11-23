@@ -250,7 +250,7 @@ function love.keypressed(key, unicode)
         end
         configuration:set("DEBUG", getDebugLevel())
         sfx.play("sfx","menuMove")
-    elseif key == '0' or key == '1' or key == '2' or key == '3' or key == '4' then
+    elseif key >= '0' and key <= '5' then
         local n = tonumber(key)
         if getDebugLevel() == n then
             setDebugLevel(0)

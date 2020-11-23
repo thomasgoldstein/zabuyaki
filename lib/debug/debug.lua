@@ -4,11 +4,12 @@ SHOW_DEBUG_CONTROLS = 1 -- show pressed keys
 SHOW_DEBUG_UNIT_HITBOX = 2 -- show hitboxes
 SHOW_DEBUG_UNIT_INFO = 3 -- show unit's info: name, pos, state
 SHOW_DEBUG_ENEMY_AI_INFO = 4 -- show enemy's AI info
+SHOW_DEBUG_WALKABLE_AREA = 5
 SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
 SHOW_DEBUG_WAVES = 2 -- show left edge of the current wave with red and the next with blue
 
 function getMaxDebugLevel()
-    return 4
+    return SHOW_DEBUG_WALKABLE_AREA
 end
 
 function getDebugLevel()
@@ -253,6 +254,16 @@ function showDebugControls()
             if p and p.lifeBar then
                 drawDebugControls(p, p.lifeBar.x + 76, p.lifeBar.y + 36)
             end
+        end
+    end
+end
+
+function drawWalkableArea()
+    if isDebug(SHOW_DEBUG_WALKABLE_AREA) then
+        local _x, y, w, h = mainCamera:getVisible()
+        colors:set("menuOutline", nil, 150)
+        for x = _x, _x + w, 8 do
+            Stage:drawDebugWalkableArea( x, 1 )
         end
     end
 end
