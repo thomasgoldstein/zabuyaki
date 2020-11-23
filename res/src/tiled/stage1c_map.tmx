@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="54" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="16" nextobjectid="36">
+ <editorsettings>
+  <export target="../../../src/def/stage/stage1c_map.lua" format="lua"/>
+ </editorsettings>
+ <group id="1" name="background" locked="1">
+  <imagelayer id="2" name="bg" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../img/stage/stage1/stage1c.png" width="1724" height="652"/>
+  </imagelayer>
+ </group>
+ <group id="3" name="foreground" locked="1"/>
+ <objectgroup color="#aa0000" id="8" name="camera" locked="1">
+  <object id="1" x="0" y="320">
+   <polyline points="0,0 384,0 768,192 1728,192"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00aa00" id="9" name="collision">
+  <object id="2" x="-128" y="0" width="1944" height="240"/>
+  <object id="3" x="-192" y="0" width="64" height="648"/>
+  <object id="4" x="1816" y="0" width="64" height="648"/>
+ </objectgroup>
+ <objectgroup color="#00aaff" id="10" name="players" locked="1">
+  <object id="5" name="1" x="48" y="265" visible="0">
+   <point/>
+  </object>
+  <object id="6" name="2" x="32" y="285" visible="0">
+   <point/>
+  </object>
+  <object id="7" name="3" x="16" y="305" visible="0">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55557f" id="11" name="global">
+  <object id="8" name="enterMap" type="event" x="16" y="192">
+   <properties>
+    <property name="togox" value="-100"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="9" name="leaveMap" type="event" x="1752" y="344">
+   <properties>
+    <property name="go" value="exit"/>
+    <property name="nextevent" value="nextmap"/>
+    <property name="nextmap" value="ending"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="10" name="exit" type="event" x="1752" y="432">
+   <point/>
+  </object>
+ </objectgroup>
+ <group id="12" name="waves">
+  <objectgroup color="#ffff00" id="13" name="3">
+   <properties>
+    <property name="maxActiveEnemies" type="int" value="5"/>
+    <property name="music" value="zaburap"/>
+    <property name="onComplete" value="leaveMap"/>
+   </properties>
+   <object id="11" name="3" type="wave" x="960" y="0" width="760" height="648"/>
+   <object id="16" name="Satoff" type="satoff" x="1368" y="408">
+    <properties>
+     <property name="palette" value="blue"/>
+    </properties>
+    <point/>
+   </object>
+  </objectgroup>
+  <objectgroup color="#ff7d00" id="14" name="2">
+   <properties>
+    <property name="maxActiveEnemies" type="int" value="4"/>
+   </properties>
+   <object id="18" name="Niko" type="niko" x="752" y="424">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" value="blue"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+   <object id="26" name="2" type="wave" x="480" y="0" width="480" height="648"/>
+  </objectgroup>
+  <objectgroup color="#ff0000" id="15" name="1">
+   <properties>
+    <property name="maxActiveEnemies" type="int" value="3"/>
+    <property name="music" value="stage1"/>
+    <property name="onStart" value="enterMap"/>
+   </properties>
+   <object id="27" name="1" type="wave" x="0" y="0" width="480" height="648"/>
+   <object id="28" name="Maksim" type="gopper" x="288" y="248">
+    <properties>
+     <property name="appearFrom" value="right"/>
+     <property name="palette" value="black"/>
+     <property name="spawnDelay" type="int" value="2"/>
+    </properties>
+    <point/>
+   </object>
+  </objectgroup>
+ </group>
+</map>

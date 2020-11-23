@@ -1,7 +1,7 @@
 return {
   version = "1.4",
   luaversion = "5.1",
-  tiledversion = "1.4.2",
+  tiledversion = "1.4.3",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 45,
@@ -271,9 +271,10 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["go"] = "exit",
-            ["nextevent"] = "nextmap",
-            ["nextmap"] = "ending"
+            ["animation"] = "stand",
+            ["duration"] = 2,
+            ["gox"] = 0,
+            ["nextevent"] = "exit"
           }
         },
         {
@@ -287,7 +288,11 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["go"] = "exit",
+            ["nextevent"] = "nextmap",
+            ["nextmap"] = "stage1c_map"
+          }
         }
       }
     },

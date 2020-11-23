@@ -342,6 +342,7 @@ function loadUnitsShaders()
         swapColors(satoffColors_original, satoffColors_3),
         swapColors(satoffColors_original, satoffColors_4),
     }
+    shaders.satoff.aliases = { red = 1, blue = 2, white = 3, black = 4, }
     shaders.drVolker = {
         false,
     }
