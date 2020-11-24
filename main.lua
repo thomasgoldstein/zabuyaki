@@ -79,7 +79,6 @@ function love.load(arg, unfilteredArg)
 
     colors = (require "src/def/misc/colors"):new()
     require "src/animatedSprite"
-    bitty = require "lib/bitty"
     tween = require "lib/tween"
     gamera = require "lib/gamera"
     Camera = require "src/stage/camera"
