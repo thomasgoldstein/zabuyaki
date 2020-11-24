@@ -1,54 +1,36 @@
--- adjust DEBUG levels
-SHOW_FPS = 1 -- show text of FPS, FRAME, SLOW MO VALUE from this debug level
-SHOW_DEBUG_CONTROLS = 1 -- show pressed keys
-SHOW_DEBUG_UNIT_HITBOX = 2 -- show hitboxes
-SHOW_DEBUG_UNIT_INFO = 3 -- show unit's info: name, pos, state
-SHOW_DEBUG_ENEMY_AI_INFO = 4 -- show enemy's AI info
-SHOW_DEBUG_WALKABLE_AREA = 5
-SHOW_DEBUG_BOXES = 2 -- show debug boxes (attack hitboxes, enemy AI cross, etc)
-SHOW_DEBUG_WAVES = 2 -- show left edge of the current wave with red and the next with blue
+SHOW_FPS = 1 -- FPS, FRAME #, current SLOW MO VALUE
+SHOW_DEBUG_CONTROLS = 1 -- unit's pressed controls (same option as SHOW_FPS)
+SHOW_DEBUG_UNIT_HITBOX = 2 -- hitboxes
+SHOW_DEBUG_BOXES = 3 -- debug boxes (attack hitboxes, enemy AI cross, etc)
+SHOW_DEBUG_UNIT_INFO = 4 -- unit's info: name, pos, state
+SHOW_DEBUG_ENEMY_AI_INFO = 5 -- enemy's AI info
+SHOW_DEBUG_WAVES = 6 -- left edge of the current wave with red and the next with blue
+SHOW_DEBUG_WALKABLE_AREA = 7 -- dynamic walkable area
 
-function getMaxDebugLevel()
-    return SHOW_DEBUG_WALKABLE_AREA
+function getDebugLevel() return GLOBAL_SETTING.DEBUG or 0 end
+function setDebugLevel(n) GLOBAL_SETTING.DEBUG = n end
+
+function setDebugOption( debugOption )
+    setDebugLevel( setbit(getDebugLevel(), bit(debugOption) ) )
 end
 
-function getDebugLevel()
-    if GLOBAL_SETTING and GLOBAL_SETTING.DEBUG then
-        if type(GLOBAL_SETTING.DEBUG) ~= "number" then
-            GLOBAL_SETTING.DEBUG = 0
-        end
-        return GLOBAL_SETTING.DEBUG
-    end
-    return 0
+function unsetDebugOption( debugOption )
+    setDebugLevel( clearbit(getDebugLevel(), bit(debugOption) ) )
 end
 
-function setDebugLevel(n)
-    if n >= 0 and n <= getMaxDebugLevel() then
-        GLOBAL_SETTING.DEBUG = n
-    end
-end
-
-function nextDebugLevel()
-    GLOBAL_SETTING.DEBUG = getDebugLevel() + 1
-    if GLOBAL_SETTING.DEBUG > getMaxDebugLevel() then
-        GLOBAL_SETTING.DEBUG = 0
-    end
-    return GLOBAL_SETTING.DEBUG
-end
-
-function prevDebugLevel()
-    GLOBAL_SETTING.DEBUG = getDebugLevel() - 1
-    if GLOBAL_SETTING.DEBUG < 0 then
-        GLOBAL_SETTING.DEBUG = getMaxDebugLevel()
-    end
-    return GLOBAL_SETTING.DEBUG
-end
-
-function isDebug(level)
-    if level then
-        return getDebugLevel() >= level
+function isDebug(debugOption)
+    if debugOption then
+        return hasbit( getDebugLevel(), bit(debugOption))
     end
     return getDebugLevel() > 0
+end
+
+function invertDebugLevel(debugOption)
+    if isDebug(debugOption) then
+        unsetDebugOption(debugOption)
+    else
+        setDebugOption(debugOption)
+    end
 end
 
 function log2file( name, data, newFile)
@@ -64,7 +46,7 @@ end
 
 -- Debug console output
 function dp(str1, str2)
-    if isDebug()then
+    if isDebug() then
         local t = debug.getinfo (3, "flnSu")
         print(t.name, str1, str2 or "", t.short_src, t.currentline)
     end
@@ -88,18 +70,9 @@ function dpd(self, text) -- print current delta on animation change
     end
 end
 
-function dpc(slf)
-    --if isDebug()then
-        print(slf.name, "AJ:", slf.b.attack:isDown(), slf.b.jump:isDown(), "HV:", slf.b.horizontal:getValue(), slf.b.vertical:getValue())
-    --end
-end
-
 dboc = {}
 dboc[0] = { x = 0, y = 0, z = 0, time = 0 }
 function dpoInit(o)
-    if not isDebug() then
-        return
-    end
     if not isDebug() then
         return
     end

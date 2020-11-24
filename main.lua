@@ -173,6 +173,7 @@ function love.load(arg, unfilteredArg)
 
     require "src/multiplayer"
     --GameStates
+    require "src/state/debugState"
     require "src/state/titleState"
     require "src/state/optionsState"
     require "src/state/videoModeState"
@@ -242,23 +243,17 @@ function love.quit()
 end
 
 function love.keypressed(key, unicode)
-    if key == 'kp*' then
-        if love.keyboard.isScancodeDown( "lshift", "rshift" ) then
-            prevDebugLevel()
-        else
-            nextDebugLevel()
+    if isDebugAvailable and key == '0' then
+        GLOBAL_SETTING.DEBUG = 0
+        if Gamestate.current() == debugState then
+            return Gamestate.pop()  -- instant close debug state
         end
-        configuration:set("DEBUG", getDebugLevel())
-        sfx.play("sfx","menuMove")
-    elseif key >= '0' and key <= '5' then
-        local n = tonumber(key)
-        if getDebugLevel() == n then
-            setDebugLevel(0)
-        else
-            setDebugLevel(n)
+    end
+    if isDebugAvailable and key == '1' then
+        if Gamestate.current() == debugState then
+            return Gamestate.pop()  -- instant close debug state to prevent stacking
         end
-        configuration:set("DEBUG", getDebugLevel())
-        sfx.play("sfx","menuMove")
+        return Gamestate.push(debugState)
     end
 end
 
