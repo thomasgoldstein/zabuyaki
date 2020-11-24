@@ -1,0 +1,10 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "extensionsPath": "extensions",
+    "folders": [
+        "tiled"
+    ],
+    "objectTypesFile": "tiled/units.xml"
+}

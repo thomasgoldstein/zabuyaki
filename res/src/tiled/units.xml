@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="gopper" color="#a0a0a4">
+  <property name="animation" type="string" default="squat"/>
+  <property name="appearFrom" type="string" default="left"/>
+  <property name="flip" type="bool" default="false"/>
+  <property name="palette" type="string" default="blue"/>
+ </objecttype>
+ <objecttype name="hooch" color="#a0a0a4">
+  <property name="appearFrom" type="string" default="left"/>
+  <property name="flip" type="bool" default="false"/>
+  <property name="spawnDelay" type="int" default="2"/>
+ </objecttype>
+ <objecttype name="niko" color="#a0a0a4">
+  <property name="animation" type="string" default="squat"/>
+  <property name="appearFrom" type="string" default="left"/>
+  <property name="flip" type="bool" default="false"/>
+  <property name="palette" type="string" default="blue"/>
+ </objecttype>
+ <objecttype name="wave" color="#ff0000">
+  <property name="maxActiveEnemies" type="int" default="3"/>
+  <property name="music" type="string" default="musicTrackName"/>
+  <property name="onComplete" type="string" default="eventName"/>
+  <property name="onStart" type="string" default="eventName"/>
+ </objecttype>
+ <objecttype name="zeena" color="#a0a0a4">
+  <property name="animation" type="string" default="squat"/>
+  <property name="flip" type="bool" default="false"/>
+  <property name="palette" type="string" default="pink"/>
+ </objecttype>
+</objecttypes>
