@@ -20,6 +20,7 @@ isDebugAvailable = not disableDebugToggle[love.system.getOS( )]
 GLOBAL_SETTING = {
     MAX_PLAYERS = 3,
     DEBUG = isDebugAvailable and 0 or 1,
+    DEBUG_STAGE_MAP = false,
     OFFSCREEN = 1000,
     FULL_SCREEN = isFullScreenToggleAvailable,
     FULL_SCREEN_FILLING_MODE = 1,
@@ -45,7 +46,7 @@ GLOBAL_SETTING = {
     FRAME_SKIP = 0, -- current frame skip. 0 = off
 }
 local saveEntries = { --the only entries should be saved
-    "DEBUG", "FULL_SCREEN_FILLING_MODE", "FILTER", "BGM_VOLUME", "SFX_VOLUME", "DIFFICULTY",
+    "DEBUG", "FULL_SCREEN_FILLING_MODE", "FILTER", "BGM_VOLUME", "SFX_VOLUME", "DIFFICULTY", "DEBUG_STAGE_MAP"
 }
 if isFullScreenToggleAvailable then
     saveEntries[#saveEntries + 1] = "FULL_SCREEN"
