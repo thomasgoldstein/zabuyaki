@@ -24,7 +24,21 @@ local menuItems = { fpsAndControls = 1, unitHitbox = 2, boxes = 3, unitInfo = 4,
 local menu = fillMenu(txtItems, nil, menuParams)
 
 local stageMaps ={ "stage1a_map", "stage1b_map", "stage1c_map" }
-stageMaps[0] = false
+
+local function loadStageMap()
+    local stageMap = configuration:get("DEBUG_STAGE_MAP")
+    menu[menuItems.startStage].n = 0
+    if stageMap then
+        for i = 1, #stageMaps do
+            if stageMaps[i] == stageMap then
+                menu[menuItems.startStage].n = i
+                print("found saved map", stageMap, i)
+                break
+            end
+        end
+    end
+end
+loadStageMap()
 
 function debugState:enter()
     -- Prevent double press at start (e.g. auto confirmation)
