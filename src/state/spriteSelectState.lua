@@ -147,7 +147,7 @@ end
 
 local function displayHelp()
     local font = love.graphics.getFont()
-    local x, y = menu.params.leftItemOffset, menu.params.menuOffset_y + menu.params.menuItem_h
+    local x, y = menuParams.leftItemOffset, menuParams.menuOffset_y + menuParams.menuItem_h
     love.graphics.setFont(gfx.font.arcade3)
     colors:set("gray")
     if menuState == menuItems.characters then
@@ -182,7 +182,7 @@ function spriteSelectState:draw()
         if currentShader then
             love.graphics.setShader(currentShader)
         end
-        drawSpriteInstance(currentSprite, menu.params.screenWidth / 2, menu.params.menuOffset_y + menu.params.menuItem_h / 2)
+        drawSpriteInstance(currentSprite, menuParams.screenWidth / 2, menuParams.menuOffset_y + menuParams.menuItem_h / 2)
         if currentShader then
             love.graphics.setShader()
         end

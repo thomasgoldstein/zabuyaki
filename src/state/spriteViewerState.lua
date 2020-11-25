@@ -47,7 +47,7 @@ function spriteViewerState:enter(_, _unit)
     love.graphics.setLineWidth( 2 )
     -- to show hitBoxes:
     stage = Stage:new()
-    character = Character:new("SPRITE", unit.spriteInstance, menu.params.screenWidth /2, menu.params.menuOffset_y + menu.params.menuItem_h / 2)
+    character = Character:new("SPRITE", unit.spriteInstance, menuParams.screenWidth /2, menuParams.menuOffset_y + menuParams.menuItem_h / 2)
     character.id = 1   -- fixed id
     character:setOnStage(stage)
     character.doThrow = function() end -- block ability
@@ -72,7 +72,7 @@ end
 
 local function displayHelp()
     local font = love.graphics.getFont()
-    local x, y = menu.params.leftItemOffset, menu.params.menuOffset_y + menu.params.menuItem_h
+    local x, y = menuParams.leftItemOffset, menuParams.menuOffset_y + menuParams.menuItem_h
     love.graphics.setFont(gfx.font.arcade3)
     colors:set("gray")
     if menuState == menuItems.animations then
@@ -269,8 +269,8 @@ function spriteViewerState:draw()
     drawMenuTitle(menu, menuTitle, 120)
     --character sprite
     local xStep = 140 --(sc.ox or 20) * 4 + 8 or 100
-    local x = menu.params.screenWidth /2
-    local y = menu.params.menuOffset_y + menu.params.menuItem_h / 2
+    local x = menuParams.screenWidth /2
+    local y = menuParams.menuOffset_y + menuParams.menuItem_h / 2
     if sprite.curAnim == "icon" then --normalize icon's pos
         y = y - 40
         x = x - 40
@@ -283,9 +283,9 @@ function spriteViewerState:draw()
         if menuState == menuItems.frames then
             --1 frame
             colors:set("red", nil, 150)
-            love.graphics.rectangle("fill", 0, y, menu.params.screenWidth, 2)
+            love.graphics.rectangle("fill", 0, y, menuParams.screenWidth, 2)
             colors:set("blue", nil, 150)
-            love.graphics.rectangle("fill", x, 0, 2, menu.params.menuOffset_y + menu.params.menuItem_h)
+            love.graphics.rectangle("fill", x, 0, 2, menuParams.menuOffset_y + menuParams.menuItem_h)
             if menu[menuState].n > #sprite.def.animations[sprite.curAnim] then
                 menu[menuState].n = 1
             end
