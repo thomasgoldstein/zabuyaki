@@ -19,11 +19,12 @@ local menuParams = {
     itemHeightMargin = 12 - 2
 }
 local menuTitle = love.graphics.newText( gfx.font.kimberley, "DEBUGGING OPTIONS" )
-local txtItems = {"SHOW FPC/CONTROLS", "UNIT HITBOX", "DEBUG BOXES", "UNIT INFO", "ENEMY AI", "WAVES", "WALKABLE AREA", "START STAGE","BACK"}
-local menuItems = { fpsAndControls = 1, unitHitbox = 2, boxes = 3, unitInfo = 4, enemyAiInfo = 5, waves = 6, walkableArea = 7, startStage = 8, back = 9}
+local txtItems = {"SHOW FPC/CONTROLS", "UNIT HITBOX", "DEBUG BOXES", "UNIT INFO", "ENEMY AI", "WAVES", "WALKABLE AREA", "START STAGE", "SPAWN", "BACK"}
+local menuItems = { fpsAndControls = 1, unitHitbox = 2, boxes = 3, unitInfo = 4, enemyAiInfo = 5, waves = 6, walkableArea = 7, startStage = 8, spawnUnit = 9, back = 10}
 local menu = fillMenu(txtItems, nil, menuParams)
 
-local stageMaps ={ "stage1a_map", "stage1b_map", "stage1c_map" }
+local stageMaps = { "stage1a_map", "stage1b_map", "stage1c_map" }
+local unitsSpawnList = { "gopper", "niko", "sveta", "zeena", "hooch", "beatnik", "satoff" }
 
 local function loadStageMap()
     local stageMap = configuration:get("DEBUG_STAGE_MAP")
@@ -102,6 +103,9 @@ function debugState:update(dt)
                 m.item = "START FROM MAP: DISABLED"
             end
             m.hint = "USE <- ->"
+        elseif i == menuItems.spawnUnit then
+            m.item = "SPAWN: " .. unitsSpawnList[ menu[i].n ]
+            m.hint = "USE <- -> [A]"
         else
             m.hint = "PRESS ESC OR JUMP TO EXIT"
         end
@@ -150,6 +154,25 @@ function debugState:confirm(button)
         elseif menuState == menuItems.startStage then
             self:select(1)
             sfx.play("sfx","menuSelect")
+        elseif menuState == menuItems.spawnUnit then
+            local p = getRegisteredPlayer(1)
+            if not p then
+                sfx.play("sfx","menuCancel")
+                return
+            end
+            local className = unitsSpawnList[ menu[menuItems.spawnUnit].n ]
+            local unit = getUnitTypeByName(className):new("*"..className..(GLOBAL_UNIT_ID + 1),
+                "src/def/char/"..className, p.x, p.y, { palette = love.math.random(1, 4) })
+            if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+                unit.AI = AIExperimental:new(unit)
+            end
+            GLOBAL_UNIT_ID = GLOBAL_UNIT_ID + 1
+            unit.z = 100
+            unit:setOnStage(stage)
+            unit.face = p.face
+            unit.horizontal = p.horizontal
+            unit.isActive = true -- actual spawned enemy unit
+            sfx.play("sfx","bodyDrop")
         end
     end
 end
@@ -164,6 +187,16 @@ function debugState:select(i)
             menu[menuState].n = #stageMaps
         end
         configuration:set("DEBUG_STAGE_MAP",  menu[menuState].n > 0 and stageMaps[menu[menuState].n] or false)
+        return
+    end
+    if menuState == menuItems.spawnUnit then
+        menu[menuState].n = menu[menuState].n + i
+        if menu[menuState].n > #unitsSpawnList then
+            menu[menuState].n = 1
+        end
+        if menu[menuState].n < 1 then
+            menu[menuState].n = #unitsSpawnList
+        end
         return
     end
 end
