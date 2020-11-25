@@ -1,25 +1,26 @@
 videoModeState = {}
 
 local time = 0
-local screenWidth = 640
-local screenHeight = 480
-local menuItem_h = 40
-local menuOffset_y = 80 -- menuItem_h
-local menuOffset_x = 0
-local hintOffset_y = 80
-local leftItemOffset = 6
-local topItemOffset = 6
-local itemWidthMargin = leftItemOffset * 2
-local itemHeightMargin = topItemOffset * 2 - 2
-
+local menuState, oldMenuState = 1, 1
+local menuParams = {
+    center = true,
+    screenWidth = 640,
+    screenHeight = 480,
+    menuItem_h = 40,
+    menuOffset_y = 100, -- override
+    menuOffset_x = 0,
+    hintOffset_y = 80,
+    titleOffset_y = 14,
+    leftItemOffset = 6,
+    topItemOffset = 6,
+    itemWidthMargin = 12,
+    itemHeightMargin = 10
+}
 local menuTitle = love.graphics.newText(gfx.font.kimberley, "VIDEO OPTIONS")
 local txtItems = {"FULL SCREEN", "FULL SCREEN MODES", "VIDEO FILTER", "BACK"}
 local menuItems = {fullScreen = 1, fullScreenModes = 2, videoFilter = 3, back = 4}
 local fullScreenFillText = {"KEEP RATIO", "PIXEL PERFECT", "FILL STRETCHED"}
-
-local menu = fillMenu(txtItems)
-
-local menuState, oldMenuState = 1, 1
+local menu = fillMenu(txtItems, nil, menuParams)
 
 function videoModeState:enter()
     -- Prevent double press at start (e.g. auto confirmation)

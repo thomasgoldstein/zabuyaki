@@ -1,24 +1,25 @@
 pauseState = {}
 
 local time = 0
-local screenWidth = 640
-local screenHeight = 480
-local menuItem_h = 40
-local menuOffset_y = 200 - menuItem_h
-local hintOffset_y = 80
-local menuOffset_x = 0
-
-local leftItemOffset  = 6
-local topItemOffset  = 6
-local itemWidthMargin = leftItemOffset * 2
-local itemHeightMargin = topItemOffset * 2 - 2
-
-local pausedText = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
+local menuState, oldMenuState = 1, 1
+local menuParams = {
+    center = true,
+    screenWidth = 640,
+    screenHeight = 480,
+    menuItem_h = 40,
+    menuOffset_y = 160,
+    menuOffset_x = 0,
+    hintOffset_y = 80,
+    titleOffset_y = 14,
+    leftItemOffset = 6,
+    topItemOffset = 6,
+    itemWidthMargin = 12,
+    itemHeightMargin = 10
+}
+local menuTitle = love.graphics.newText( gfx.font.kimberley, "PAUSED" )
 local txtItems = { "CONTINUE", "QUICK SAVE", "QUIT" }
 local menuItems = {continue = 1, quickSave = 2, quit = 3}
-local menu = fillMenu(txtItems)
-
-local menuState, oldMenuState = 1, 1
+local menu = fillMenu(txtItems, nil, menuParams)
 
 function pauseState:enter()
     menuState = menuItems.continue
@@ -94,7 +95,7 @@ function pauseState:draw()
     end
     if stage.mode == "normal" then
         drawPlayersBars()
-        stage:displayGoTimer(screenWidth, screenHeight)
+        stage:displayGoTimer(menuParams.screenWidth, menuParams.screenHeight)
     end
     love.graphics.setFont(gfx.font.arcade3x2)
     for i = 1, #menu do
@@ -103,22 +104,20 @@ function pauseState:draw()
             colors:set("white")
             love.graphics.print(m.hint, m.wx, m.wy )
             colors:set("black", nil, 80)
-            love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
-            colors:set("menuOutline")
-            love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
+            love.graphics.rectangle("fill", m.rect_x - menuParams.leftItemOffset, m.y - menuParams.topItemOffset, m.w + menuParams.itemWidthMargin, m.h + menuParams.itemHeightMargin, 4,4,1)            colors:set("menuOutline")
+            love.graphics.rectangle("line", m.rect_x - menuParams.leftItemOffset, m.y - menuParams.topItemOffset, m.w + menuParams.itemWidthMargin, m.h + menuParams.itemHeightMargin, 4,4,1)
         end
         colors:set("white")
         love.graphics.print(m.item, m.x, m.y )
     end
-    --header
+    -- Custom PAUSE title (with dark outline)
     colors:set("darkGray")
-    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 + 1, 40 + 1 )
-    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 - 1, 40 + 1 )
-    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 + 1, 40 - 1 )
-    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2 - 1, 40 - 1 )
+    love.graphics.draw(menuTitle, (menuParams.screenWidth - menuTitle:getWidth()) / 2 + 1, 40 + 1 )
+    love.graphics.draw(menuTitle, (menuParams.screenWidth - menuTitle:getWidth()) / 2 - 1, 40 + 1 )
+    love.graphics.draw(menuTitle, (menuParams.screenWidth - menuTitle:getWidth()) / 2 + 1, 40 - 1 )
+    love.graphics.draw(menuTitle, (menuParams.screenWidth - menuTitle:getWidth()) / 2 - 1, 40 - 1 )
     colors:set("white", nil, 220 + math.sin(time)*35)
-    love.graphics.draw(pausedText, (screenWidth - pausedText:getWidth()) / 2, 40)
-
+    love.graphics.draw(menuTitle, (menuParams.screenWidth - menuTitle:getWidth()) / 2, 40)
     showDebugIndicator()
     push:finish()
 end

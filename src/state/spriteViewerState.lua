@@ -1,30 +1,27 @@
--- Sprite Viewer
 spriteViewerState = {}
 
 local time = 0
-local screenWidth = 640
-local screenHeight = 480
-local menuItem_h = 40
-local menuOffset_y = 200 - menuItem_h
-local menuOffset_x = 0
-local hintOffset_y = 80
-local leftItemOffset  = 6
-local topItemOffset  = 6
-local itemWidthMargin = leftItemOffset * 2
-local itemHeightMargin = topItemOffset * 2 - 2
-
+local menuState, oldMenuState = 1, 1
+local menuParams = {
+    center = true,
+    screenWidth = 640,
+    screenHeight = 480,
+    menuItem_h = 40,
+    menuOffset_y = 160, -- override
+    menuOffset_x = 0,
+    hintOffset_y = 80,
+    titleOffset_y = 14,
+    leftItemOffset = 6,
+    topItemOffset = 6,
+    itemWidthMargin = 12,
+    itemHeightMargin = 10
+}
 local menuTitle
 local txtItems = {"ANIMATIONS", "FRAMES", "DISABLED", "PALETTES", "BACK"}
 local menuItems = {animations = 1, frames = 2, disabled = 3, palettes = 4, back = 5}
-local character
-local unit
-local sprite
-local specialOverlaySprite
-local animations
+local menu = fillMenu(txtItems, nil, menuParams)
 
-local menu = fillMenu(txtItems)
-
-local menuState, oldMenuState = 1, 1
+local character, unit, sprite, specialOverlaySprite, animations
 
 function spriteViewerState:enter(_, _unit)
     unit = _unit
@@ -50,7 +47,7 @@ function spriteViewerState:enter(_, _unit)
     love.graphics.setLineWidth( 2 )
     -- to show hitBoxes:
     stage = Stage:new()
-    character = Character:new("SPRITE", unit.spriteInstance, screenWidth /2, menuOffset_y + menuItem_h / 2)
+    character = Character:new("SPRITE", unit.spriteInstance, menu.params.screenWidth /2, menu.params.menuOffset_y + menu.params.menuItem_h / 2)
     character.id = 1   -- fixed id
     character:setOnStage(stage)
     character.doThrow = function() end -- block ability
@@ -75,7 +72,7 @@ end
 
 local function displayHelp()
     local font = love.graphics.getFont()
-    local x, y = leftItemOffset, menuOffset_y + menuItem_h
+    local x, y = menu.params.leftItemOffset, menu.params.menuOffset_y + menu.params.menuItem_h
     love.graphics.setFont(gfx.font.arcade3)
     colors:set("gray")
     if menuState == menuItems.animations then
@@ -272,8 +269,8 @@ function spriteViewerState:draw()
     drawMenuTitle(menu, menuTitle, 120)
     --character sprite
     local xStep = 140 --(sc.ox or 20) * 4 + 8 or 100
-    local x = screenWidth /2
-    local y = menuOffset_y + menuItem_h / 2
+    local x = menu.params.screenWidth /2
+    local y = menu.params.menuOffset_y + menu.params.menuItem_h / 2
     if sprite.curAnim == "icon" then --normalize icon's pos
         y = y - 40
         x = x - 40
@@ -286,9 +283,9 @@ function spriteViewerState:draw()
         if menuState == menuItems.frames then
             --1 frame
             colors:set("red", nil, 150)
-            love.graphics.rectangle("fill", 0, y, screenWidth, 2)
+            love.graphics.rectangle("fill", 0, y, menu.params.screenWidth, 2)
             colors:set("blue", nil, 150)
-            love.graphics.rectangle("fill", x, 0, 2, menuOffset_y + menuItem_h)
+            love.graphics.rectangle("fill", x, 0, 2, menu.params.menuOffset_y + menu.params.menuItem_h)
             if menu[menuState].n > #sprite.def.animations[sprite.curAnim] then
                 menu[menuState].n = 1
             end

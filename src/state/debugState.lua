@@ -1,12 +1,9 @@
 debugState = {}
 
-local stageMaps ={ "stage1a_map", "stage1b_map", "stage1c_map" }
-stageMaps[0] = false
-
 local time = 0
-
+local menuState, oldMenuState = 1, 1
 local menuParams = {
-    center = false,
+    center = false,  -- override
     screenWidth = 640,
     screenHeight = 480,
     menuItem_h = 28,
@@ -21,14 +18,13 @@ local menuParams = {
     itemWidthMargin = 12,
     itemHeightMargin = 12 - 2
 }
-
 local menuTitle = love.graphics.newText( gfx.font.kimberley, "DEBUGGING OPTIONS" )
 local txtItems = {"SHOW FPC/CONTROLS", "UNIT HITBOX", "DEBUG BOXES", "UNIT INFO", "ENEMY AI", "WAVES", "WALKABLE AREA", "START STAGE","BACK"}
 local menuItems = { fpsAndControls = 1, unitHitbox = 2, boxes = 3, unitInfo = 4, enemyAiInfo = 5, waves = 6, walkableArea = 7, startStage = 8, back = 9}
-
 local menu = fillMenu(txtItems, nil, menuParams)
 
-local menuState, oldMenuState = 1, 1
+local stageMaps ={ "stage1a_map", "stage1b_map", "stage1c_map" }
+stageMaps[0] = false
 
 function debugState:enter()
     -- Prevent double press at start (e.g. auto confirmation)

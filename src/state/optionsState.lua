@@ -1,8 +1,8 @@
 optionsState = {}
 
 local time = 0
-
-menuParams = {
+local menuState, oldMenuState = 1, 1
+local menuParams = {
     center = true,
     screenWidth = 640,
     screenHeight = 480,
@@ -10,23 +10,19 @@ menuParams = {
     menuOffset_y = 100, -- override
     menuOffset_x = 0,
     hintOffset_y = 80,
-    titleOffset_y = 14, -- 24
+    titleOffset_y = 14,
     leftItemOffset = 6,
     topItemOffset = 6,
     itemWidthMargin = 12,
-    itemHeightMargin = 12 - 2
+    itemHeightMargin = 10
 }
-
 local menuTitle = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
 local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE VIEWER", "BACK", "UNIT TESTS"}
 local menuItems = {difficulty = 1, video = 2, sound = 3, defaults = 4, spriteViewer = 5, back = 6, unitTests = 7}
 if not love.filesystem.getInfo( 'test', "directory" ) then
     table.remove(txtItems, menuItems.unitTests)
 end
-
 local menu = fillMenu(txtItems, nil, menuParams)
-
-local menuState, oldMenuState = 1, 1
 
 function optionsState:enter()
     -- Prevent double press at start (e.g. auto confirmation)

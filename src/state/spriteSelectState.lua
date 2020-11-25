@@ -1,20 +1,27 @@
--- Select Sprite for Sprite Viewer
 spriteSelectState = {}
 
 local time = 0
-local screenWidth = 640
-local screenHeight = 480
-local menuItem_h = 40
-local menuOffset_y = 200 - menuItem_h
-local menuOffset_x = 0
-local hintOffset_y = 80
-local leftItemOffset  = 6
-local topItemOffset  = 6
-local itemWidthMargin = leftItemOffset * 2
-local itemHeightMargin = topItemOffset * 2 - 2
+local menuState, oldMenuState = 1, 1
+local menuParams = {
+    center = true,
+    screenWidth = 640,
+    screenHeight = 480,
+    menuItem_h = 40,
+    menuOffset_y = 180, -- override
+    menuOffset_x = 0,
+    hintOffset_y = 80,
+    titleOffset_y = 14,
+    leftItemOffset = 6,
+    topItemOffset = 6,
+    itemWidthMargin = 12,
+    itemHeightMargin = 10
+}
+local menuTitle = love.graphics.newText( gfx.font.kimberley, "SELECT CHAR/OBJ" )
+local txtItems = {"CHARACTER", "BACK"}
+local menuItems = {characters = 1, back = 2}
+local menu = fillMenu(txtItems, nil, menuParams)
 
-local currentSprite
-local currentShader
+local currentSprite, currentShader
 local heroes = {
     {
         name = "RICK",
@@ -88,14 +95,6 @@ local heroes = {
     },
 }
 
-local menuTitle = love.graphics.newText( gfx.font.kimberley, "SELECT CHAR/OBJ" )
-local txtItems = {"CHARACTER", "BACK"}
-local menuItems = {characters = 1, back = 2}
-
-local menu = fillMenu(txtItems)
-
-local menuState, oldMenuState = 1, 1
-
 function spriteSelectState:enter()
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
@@ -148,7 +147,7 @@ end
 
 local function displayHelp()
     local font = love.graphics.getFont()
-    local x, y = leftItemOffset, menuOffset_y + menuItem_h
+    local x, y = menu.params.leftItemOffset, menu.params.menuOffset_y + menu.params.menuItem_h
     love.graphics.setFont(gfx.font.arcade3)
     colors:set("gray")
     if menuState == menuItems.characters then
@@ -183,7 +182,7 @@ function spriteSelectState:draw()
         if currentShader then
             love.graphics.setShader(currentShader)
         end
-        drawSpriteInstance(currentSprite, screenWidth / 2, menuOffset_y + menuItem_h / 2)
+        drawSpriteInstance(currentSprite, menu.params.screenWidth / 2, menu.params.menuOffset_y + menu.params.menuItem_h / 2)
         if currentShader then
             love.graphics.setShader()
         end

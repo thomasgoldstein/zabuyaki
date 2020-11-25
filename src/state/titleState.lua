@@ -4,32 +4,26 @@ local timeToTitleFade = 1.25 --title fadein
 local fadeToMenuTime = 0.5 --menu fadein & menu+title fadeout before intro
 local moveToMenuTime = 0.25 --can move/select menu
 local timeToIntro = 13 --idle to show intro
+local flashTitleAt = 2
 local titleSfx = "whooshHeavy"
 
 local time = 0
-local transparency = 0
-local titleTransparency = 0
-local flashTitleAt = 2
-local introMovie
-local mode
-
-local menuTitle
-
+local menuState, oldMenuState = 1, 1
 local menuParams = {
     center = true,
     screenWidth = 640,
     screenHeight = 480,
     menuItem_h = 40,
-    menuOffset_y = 200 - 40, -- - menuItem_h
+    menuOffset_y = 160,
     menuOffset_x = 0,
     hintOffset_y = 80,
     titleOffset_y = 0,  -- override
     leftItemOffset = 6,
     topItemOffset = 6,
     itemWidthMargin = 12,
-    itemHeightMargin = 12 - 2
+    itemHeightMargin = 10
 }
-
+local menuTitle
 local siteImageText = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 local txtItems = {"START", "OPTIONS", "QUIT"}
 local menuItems = {start = 1, options = 2, quit = 3}
@@ -39,7 +33,9 @@ if disabledQuit[love.system.getOS( )] then
 end
 local menu = fillMenu(txtItems, nil, menuParams)
 
-local menuState, oldMenuState = 1, 1
+local transparency = 0
+local titleTransparency = 0
+local introMovie, mode
 
 function titleState:enter(_, param)
     time = 0
@@ -136,7 +132,6 @@ function titleState:update(dt)
         end
         return
     else
-        --mode == "menu"
         if mode == "menufadein" then
             titleTransparency = 1
             transparency = clamp(time * (1 / fadeToMenuTime), 0, 1)
@@ -175,13 +170,11 @@ function titleState:draw()
     end
     love.graphics.setCanvas()
     push:start()
-    -- custom menu title (sprite)
-    colors:set("white", nil, 255 * transparency)
-    love.graphics.draw(menuTitle, 0, menuParams.titleOffset_y, 0, 2, 2)
+    -- custom menu title (sprite + light flash)
+    drawMenuTitle(menu, menuTitle, 255 * transparency, 2)
     if time >= flashTitleAt and time < flashTitleAt + math.pi / 4 then
-        colors:set("white", nil, 255 * math.sin(time * 4) / 2)
         love.graphics.setShader(shaders.silhouette)
-        love.graphics.draw(menuTitle, 0, menuParams.titleOffset_y, 0, 2, 2)
+        drawMenuTitle(menu, menuTitle, 255 * math.sin(time * 4) / 2, 2)
         love.graphics.setShader()
     end
     colors:set("lightGray", nil, 255 * transparency)
