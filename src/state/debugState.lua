@@ -1,7 +1,7 @@
 debugState = {}
 
 local time = 0
-local menuState, oldMenuState = 1, 1
+local menuState, oldMenuState = 1, -1
 local menuParams = {
     center = false,  -- override
     screenWidth = 640,
@@ -74,17 +74,12 @@ end
 
 function debugState:update(dt)
     time = time + dt
+    self:playerInput(Controls[1])
     if menuState ~= oldMenuState then
         sfx.play("sfx","menuMove")
         oldMenuState = menuState
     end
-    self:playerInput(Controls[1])
-end
-
-function debugState:draw()
-    push:start()
-    love.graphics.setFont(gfx.font.arcade4)
-    for i = 1,#menu do
+    for i = 1, #menu do
         local m = menu[i]
         if i == menuItems.fpsAndControls then
             m.item = "FPS/CONTROLS " .. (isDebug(SHOW_DEBUG_CONTROLS) and "ON" or "OFF")
@@ -101,15 +96,22 @@ function debugState:draw()
         elseif i == menuItems.walkableArea then
             m.item = "WALKABLE AREA " .. (isDebug(SHOW_DEBUG_WALKABLE_AREA) and "ON" or "OFF")
         elseif i == menuItems.startStage then
-            if stageMaps[ menu[menuState].n ] then
-                m.item = "START FROM " .. stageMaps[ menu[menuState].n ]
+            if menu[i].n > 0 then
+                m.item = "START FROM MAP: '" .. stageMaps[ menu[i].n ] .. "'"
             else
-                m.item = "START FROM MAP DISABLED"
+                m.item = "START FROM MAP: DISABLED"
             end
             m.hint = "USE <- ->"
         else
             m.hint = "PRESS ESC OR JUMP TO EXIT"
         end
+    end
+end
+
+function debugState:draw()
+    push:start()
+    love.graphics.setFont(gfx.font.arcade4)
+    for i = 1, #menu do
         drawMenuItem(menu, i, oldMenuState)
     end
     drawMenuTitle(menu, menuTitle)
@@ -145,19 +147,23 @@ function debugState:confirm(button)
         elseif menuState == menuItems.walkableArea then
             invertDebugLevel(SHOW_DEBUG_WALKABLE_AREA)
             sfx.play("sfx","menuSelect")
+        elseif menuState == menuItems.startStage then
+            self:select(1)
+            sfx.play("sfx","menuSelect")
         end
     end
 end
 
 function debugState:select(i)
-    menu[menuState].n = menu[menuState].n + i
     if menuState == menuItems.startStage then
+        menu[menuState].n = menu[menuState].n + i
         if menu[menuState].n > #stageMaps then
             menu[menuState].n = 0
         end
         if menu[menuState].n < 0 then
             menu[menuState].n = #stageMaps
         end
-        return self:confirm( 1)
+        configuration:set("DEBUG_STAGE_MAP",  menu[menuState].n > 0 and stageMaps[menu[menuState].n] or false)
+        return
     end
 end
