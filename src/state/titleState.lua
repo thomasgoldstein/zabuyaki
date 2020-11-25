@@ -13,18 +13,22 @@ local flashTitleAt = 2
 local introMovie
 local mode
 
-local screenWidth = 640
-local screenHeight = 480
 local zabuyakiTitle
-local menuItem_h = 40
-local menuOffset_y = 200 - menuItem_h
-local menuOffset_x = 0
-local hintOffset_y = 80
-local titleOffset_y = 0
-local leftItemOffset  = 6
-local topItemOffset  = 6
-local itemWidthMargin = leftItemOffset * 2
-local itemHeightMargin = topItemOffset * 2 - 2
+
+local menuParams = {
+    center = true,
+    screenWidth = 640,
+    screenHeight = 480,
+    menuItem_h = 40,
+    menuOffset_y = 200 - 40, -- - menuItem_h
+    menuOffset_x = 0,
+    hintOffset_y = 80,
+    titleOffset_y = 0,  -- override
+    leftItemOffset = 6,
+    topItemOffset = 6,
+    itemWidthMargin = 12,
+    itemHeightMargin = 12 - 2
+}
 
 local siteImageText = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 local txtItems = {"START", "OPTIONS", "QUIT"}
@@ -33,7 +37,7 @@ local disabledQuit = { Web = true }  -- list of OS with disabled Quit menu
 if disabledQuit[love.system.getOS( )] then
     table.remove(txtItems, menuItems.quit)
 end
-local menu = fillMenu(txtItems)
+local menu = fillMenu(txtItems, nil, menuParams)
 
 local menuState, oldMenuState = 1, 1
 
@@ -173,15 +177,15 @@ function titleState:draw()
     push:start()
     --header
     colors:set("white", nil, 255 * transparency)
-    love.graphics.draw(zabuyakiTitle, 0, titleOffset_y, 0, 2, 2)
+    love.graphics.draw(zabuyakiTitle, 0, menuParams.titleOffset_y, 0, 2, 2)
     if time >= flashTitleAt and time < flashTitleAt + math.pi / 4 then
         colors:set("white", nil, 255 * math.sin(time * 4) / 2)
         love.graphics.setShader(shaders.silhouette)
-        love.graphics.draw(zabuyakiTitle, 0, titleOffset_y, 0, 2, 2)
+        love.graphics.draw(zabuyakiTitle, 0, menuParams.titleOffset_y, 0, 2, 2)
         love.graphics.setShader()
     end
     colors:set("lightGray", nil, 255 * transparency)
-    love.graphics.draw(siteImageText, (screenWidth - siteImageText:getWidth())/2, screenHeight - 20)
+    love.graphics.draw(siteImageText, (menuParams.screenWidth - siteImageText:getWidth())/2, menuParams.screenHeight - 20)
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
@@ -189,9 +193,9 @@ function titleState:draw()
             colors:set("white", nil, 255 * transparency)
             love.graphics.print(m.hint, m.wx, m.wy)
             colors:set("black", nil, 80 * transparency)
-            love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
+            love.graphics.rectangle("fill", m.rect_x - menuParams.leftItemOffset, m.y - menuParams.topItemOffset, m.w + menuParams.itemWidthMargin, m.h + menuParams.itemHeightMargin, 4,4,1)
             colors:set("menuOutline", nil, 255 * transparency)
-            love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
+            love.graphics.rectangle("line", m.rect_x - menuParams.leftItemOffset, m.y - menuParams.topItemOffset, m.w + menuParams.itemWidthMargin, m.h + menuParams.itemHeightMargin, 4,4,1)
         end
         colors:set("white", nil, 255 * transparency)
         love.graphics.print(m.item, m.x, m.y )
