@@ -3,13 +3,12 @@ playerSelectState = {}
 local time = 0
 local screenWidth = 640
 local screenHeight = 480
-local titleOffset_y = 24
+local titleOffset_y = 14
 local portraitWidth = 140
 local portraitHeight = 140
 local portraitMargin = 0
 local portraitOffset_x = 110
 local availableHeroes = 4
-
 local playerSelectText = love.graphics.newText( gfx.font.kimberley, "PLAYER SELECT" )
 
 local heroes = {
