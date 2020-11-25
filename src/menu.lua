@@ -5,14 +5,14 @@ function fillMenu(txtItems, hintsText, optionalParams)
             screenWidth = 640,
             screenHeight = 480,
             menuItem_h = 40,
-            menuOffset_y = 200 - 40, -- - menuItem_h
+            menuOffset_y = 160,
             menuOffset_x = 0,
             hintOffset_y = 80,
             titleOffset_y = 14,
             leftItemOffset = 6,
             topItemOffset = 6,
             itemWidthMargin = 12,
-            itemHeightMargin = 12 - 2
+            itemHeightMargin = 10
         }
     }
     local maxItemWidth, maxItem_x = 8, 0
