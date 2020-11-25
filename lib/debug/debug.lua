@@ -464,35 +464,6 @@ function checkDebugKeys(key)
                 savePlayersPosAndFaceDebug = s
                 sfx.play("sfx","menuMove")
             end
-        elseif key == '6' then
-            if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
-                local p = getRegisteredPlayer(1)
-                local unit = Trashcan:new("CAN"..(GLOBAL_UNIT_ID + 1), "src/def/stage/object/trashcan", p.x, p.y, { palette = love.math.random(1, 2) })
-                GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
-                unit.z = 100
-                unit:setOnStage(stage)
-                unit.face = p.face
-                unit.horizontal = p.horizontal
-                sfx.play("sfx","menuMove")
-            end
-        elseif key == '7' then
-            if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
-                local p = getRegisteredPlayer(1)
-                local unit
-                if love.math.random() < 0.5 then
-                    unit = Gopper:new("Goppi"..(GLOBAL_UNIT_ID + 1), "src/def/char/gopper", p.x, p.y, { palette = love.math.random(1, 4) })
-                else
-                    unit = Niko:new("Nikki"..(GLOBAL_UNIT_ID + 1), "src/def/char/niko", p.x, p.y, { palette = love.math.random(1, 4) })
-                end
-                unit.AI = AIExperimental:new(unit)
-                GLOBAL_UNIT_ID= GLOBAL_UNIT_ID + 1
-                unit.z = 100
-                unit:setOnStage(stage)
-                unit.face = p.face
-                unit.horizontal = p.horizontal
-                unit.isActive = true -- actual spawned enemy unit
-                sfx.play("sfx","menuMove")
-            end
         elseif keysToKill[key] then
             local id = keysToKill[key]
             if id == keysToKill.f12 then
