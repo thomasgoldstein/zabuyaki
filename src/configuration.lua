@@ -48,7 +48,7 @@ local saveEntries = { --the only entries should be saved
     "DEBUG", "FULL_SCREEN_FILLING_MODE", "FILTER", "BGM_VOLUME", "SFX_VOLUME", "DIFFICULTY",
 }
 if isFullScreenToggleAvailable then
-    saveEntries[#saveEntries] = "FULL_SCREEN"
+    saveEntries[#saveEntries + 1] = "FULL_SCREEN"
 end
 -- save defaults
 configuration.defaults = {}
