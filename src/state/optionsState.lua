@@ -1,26 +1,30 @@
 optionsState = {}
 
 local time = 0
-local screenWidth = 640
-local screenHeight = 480
-local menuItem_h = 40
-local menuOffset_y = 80 -- menuItem_h
-local menuOffset_x = 0
-local hintOffset_y = 80
-local titleOffset_y = 24
-local leftItemOffset  = 6
-local topItemOffset  = 6
-local itemWidthMargin = leftItemOffset * 2
-local itemHeightMargin = topItemOffset * 2 - 2
 
-local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
+menuParams = {
+    center = true,
+    screenWidth = 640,
+    screenHeight = 480,
+    menuItem_h = 40,
+    menuOffset_y = 100, -- override
+    menuOffset_x = 0,
+    hintOffset_y = 80,
+    titleOffset_y = 14, -- 24
+    leftItemOffset = 6,
+    topItemOffset = 6,
+    itemWidthMargin = 12,
+    itemHeightMargin = 12 - 2
+}
+
+local menuTitle = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
 local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE VIEWER", "BACK", "UNIT TESTS"}
 local menuItems = {difficulty = 1, video = 2, sound = 3, defaults = 4, spriteViewer = 5, back = 6, unitTests = 7}
 if not love.filesystem.getInfo( 'test', "directory" ) then
     table.remove(txtItems, menuItems.unitTests)
 end
 
-local menu = fillMenu(txtItems)
+local menu = fillMenu(txtItems, nil, menuParams)
 
 local menuState, oldMenuState = 1, 1
 
@@ -85,9 +89,7 @@ function optionsState:draw()
         end
         drawMenuItem(menu, i, oldMenuState)
     end
-    --header
-    colors:set("white")
-    love.graphics.draw(optionsLogoText, (screenWidth - optionsLogoText:getWidth()) / 2, titleOffset_y)
+    drawMenuTitle(menu, menuTitle)
     showDebugIndicator()
     push:finish()
 end

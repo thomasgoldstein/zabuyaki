@@ -7,13 +7,12 @@ local menuItem_h = 40
 local menuOffset_y = 80 -- menuItem_h
 local menuOffset_x = 0
 local hintOffset_y = 80
-local titleOffset_y = 24
 local leftItemOffset = 6
 local topItemOffset = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local videoLogoText = love.graphics.newText(gfx.font.kimberley, "VIDEO OPTIONS")
+local menuTitle = love.graphics.newText(gfx.font.kimberley, "VIDEO OPTIONS")
 local txtItems = {"FULL SCREEN", "FULL SCREEN MODES", "VIDEO FILTER", "BACK"}
 local menuItems = {fullScreen = 1, fullScreenModes = 2, videoFilter = 3, back = 4}
 local fullScreenFillText = {"KEEP RATIO", "PIXEL PERFECT", "FILL STRETCHED"}
@@ -103,9 +102,7 @@ function videoModeState:draw()
         end
         drawMenuItem(menu, i, oldMenuState)
     end
-    --header
-    colors:set("white")
-    love.graphics.draw(videoLogoText, (screenWidth - videoLogoText:getWidth()) / 2, titleOffset_y)
+    drawMenuTitle(menu, menuTitle)
     showDebugIndicator()
     push:finish()
 end

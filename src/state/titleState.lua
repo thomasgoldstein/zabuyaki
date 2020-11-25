@@ -13,7 +13,7 @@ local flashTitleAt = 2
 local introMovie
 local mode
 
-local zabuyakiTitle
+local menuTitle
 
 local menuParams = {
     center = true,
@@ -63,7 +63,7 @@ function titleState:enter(_, param)
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
-    zabuyakiTitle = love.graphics.newImage( "res/img/misc/title.png" )
+    menuTitle = love.graphics.newImage( "res/img/misc/title.png" )
     love.graphics.setLineWidth( 2 )
 end
 
@@ -175,13 +175,13 @@ function titleState:draw()
     end
     love.graphics.setCanvas()
     push:start()
-    --header
+    -- custom menu title (sprite)
     colors:set("white", nil, 255 * transparency)
-    love.graphics.draw(zabuyakiTitle, 0, menuParams.titleOffset_y, 0, 2, 2)
+    love.graphics.draw(menuTitle, 0, menuParams.titleOffset_y, 0, 2, 2)
     if time >= flashTitleAt and time < flashTitleAt + math.pi / 4 then
         colors:set("white", nil, 255 * math.sin(time * 4) / 2)
         love.graphics.setShader(shaders.silhouette)
-        love.graphics.draw(zabuyakiTitle, 0, menuParams.titleOffset_y, 0, 2, 2)
+        love.graphics.draw(menuTitle, 0, menuParams.titleOffset_y, 0, 2, 2)
         love.graphics.setShader()
     end
     colors:set("lightGray", nil, 255 * transparency)

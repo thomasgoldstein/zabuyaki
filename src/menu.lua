@@ -69,7 +69,7 @@ function drawMenuItem(menu, i, oldMenuState)
     love.graphics.print(m.item, m.x, m.y )
 end
 
-function drawMenuTitle(menu, logo)
-    colors:set("white")
+function drawMenuTitle(menu, logo, transparency)
+    colors:set("white", nil, transparency)
     love.graphics.draw(logo, (menu.params.screenWidth - logo:getWidth()) / 2, menu.params.titleOffset_y)
 end

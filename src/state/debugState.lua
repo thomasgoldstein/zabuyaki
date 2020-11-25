@@ -22,7 +22,7 @@ local menuParams = {
     itemHeightMargin = 12 - 2
 }
 
-local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "DEBUGGING OPTIONS" )
+local menuTitle = love.graphics.newText( gfx.font.kimberley, "DEBUGGING OPTIONS" )
 local txtItems = {"SHOW FPC/CONTROLS", "UNIT HITBOX", "DEBUG BOXES", "UNIT INFO", "ENEMY AI", "WAVES", "WALKABLE AREA", "START STAGE","BACK"}
 local menuItems = { fpsAndControls = 1, unitHitbox = 2, boxes = 3, unitInfo = 4, enemyAiInfo = 5, waves = 6, walkableArea = 7, startStage = 8, back = 9}
 
@@ -102,9 +102,7 @@ function debugState:draw()
         end
         drawMenuItem(menu, i, oldMenuState)
     end
-    --header
-    colors:set("white")
-    love.graphics.draw(optionsLogoText, (menuParams.screenWidth - optionsLogoText:getWidth()) / 2, menu.titleOffset_y)
+    drawMenuTitle(menu, menuTitle)
     showDebugIndicator()
     push:finish()
 end

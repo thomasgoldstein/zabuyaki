@@ -13,7 +13,7 @@ local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SOUND OPTIONS" )
+local menuTitle = love.graphics.newText( gfx.font.kimberley, "SOUND OPTIONS" )
 local txtItems = {"SFX VOLUME", "BGM VOLUME", "SFX N", "MUSIC N", "BACK"}
 local menuItems = {soundVolume = 1, musicVolume = 2, soundSampleN = 3, musicTrackN = 4, back = 5}
 local volumeStep = 0.10
@@ -95,9 +95,7 @@ function soundState:draw()
         end
         drawMenuItem(menu, i, oldMenuState)
     end
-    --header
-    colors:set("white")
-    love.graphics.draw(optionsLogoText, (screenWidth - optionsLogoText:getWidth()) / 2, titleOffset_y)
+    drawMenuTitle(menu, menuTitle)
     showDebugIndicator()
     push:finish()
 end

@@ -8,7 +8,6 @@ local menuItem_h = 40
 local menuOffset_y = 200 - menuItem_h
 local menuOffset_x = 0
 local hintOffset_y = 80
-local titleOffset_y = 24
 local leftItemOffset  = 6
 local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
@@ -89,7 +88,7 @@ local heroes = {
     },
 }
 
-local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "SELECT CHAR/OBJ" )
+local menuTitle = love.graphics.newText( gfx.font.kimberley, "SELECT CHAR/OBJ" )
 local txtItems = {"CHARACTER", "BACK"}
 local menuItems = {characters = 1, back = 2}
 
@@ -177,15 +176,9 @@ function spriteSelectState:draw()
         end
         drawMenuItem(menu, i, oldMenuState)
     end
-    --header
-    colors:set("white")
-    love.graphics.draw(optionsLogoText, (screenWidth - optionsLogoText:getWidth()) / 2, titleOffset_y)
-
+    drawMenuTitle(menu, menuTitle)
     --sprite
     colors:set("white")
---    if curPlayerHeroSet.shader then
---        love.graphics.setShader(curPlayerHeroSet.shader)
---    end
     if currentSprite then
         if currentShader then
             love.graphics.setShader(currentShader)
@@ -195,9 +188,6 @@ function spriteSelectState:draw()
             love.graphics.setShader()
         end
     end
---    if curPlayerHeroSet.shader then
---        love.graphics.setShader()
---    end
     showDebugIndicator()
     push:finish()
 end

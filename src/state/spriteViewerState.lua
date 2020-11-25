@@ -8,13 +8,12 @@ local menuItem_h = 40
 local menuOffset_y = 200 - menuItem_h
 local menuOffset_x = 0
 local hintOffset_y = 80
-local titleOffset_y = 24
 local leftItemOffset  = 6
 local topItemOffset  = 6
 local itemWidthMargin = leftItemOffset * 2
 local itemHeightMargin = topItemOffset * 2 - 2
 
-local txtCurrentSprite --love.graphics.newText( gfx.font.kimberley, "SPRITE" )
+local menuTitle
 local txtItems = {"ANIMATIONS", "FRAMES", "DISABLED", "PALETTES", "BACK"}
 local menuItems = {animations = 1, frames = 2, disabled = 3, palettes = 4, back = 5}
 local character
@@ -31,7 +30,7 @@ function spriteViewerState:enter(_, _unit)
     unit = _unit
     sprite = getSpriteInstance(unit.spriteInstance)
     sprite.sizeScale = 2
-    txtCurrentSprite = love.graphics.newText( gfx.font.kimberley, unit.name )
+    menuTitle = love.graphics.newText( gfx.font.kimberley, unit.name )
     animations = {}
     for key, val in pairs(sprite.def.animations) do
         animations[#animations + 1] = key
@@ -270,10 +269,7 @@ function spriteViewerState:draw()
         end
         drawMenuItem(menu, i, oldMenuState)
     end
-    --header
-    colors:set("white", nil, 120)
-    love.graphics.draw(txtCurrentSprite, (screenWidth - txtCurrentSprite:getWidth()) / 2, titleOffset_y)
-
+    drawMenuTitle(menu, menuTitle, 120)
     --character sprite
     local xStep = 140 --(sc.ox or 20) * 4 + 8 or 100
     local x = screenWidth /2
