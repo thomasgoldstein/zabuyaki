@@ -30,7 +30,8 @@ function arcadeState:enter(_, players)
     credits = GLOBAL_SETTING.MAX_CREDITS
     previousStageMusic = nil
     --load very 1st stage
-    stage = Stage:new("NoName", "src/def/stage/stage1a_map.lua", players)
+    local startFromMap = (isDebug() and configuration:get("DEBUG_STAGE_MAP")) and configuration:get("DEBUG_STAGE_MAP") or "stage1a_map"
+    stage = Stage:new("NoName", "src/def/stage/".. startFromMap ..".lua", players)
     stage.wave:startPlayingMusic( 1 )
     gameOverDelay = 0
     -- Prevent double press at start (e.g. jab sound or other attacks)
