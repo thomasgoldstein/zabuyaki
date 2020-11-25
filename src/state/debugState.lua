@@ -1,26 +1,30 @@
 debugState = {}
 
+local stageMaps ={ "stage1a_map", "stage1b_map", "stage1c_map" }
+stageMaps[0] = false
+
 local time = 0
 
-local titleOffset_y = 14
-local leftItemOffset = 6
-local topItemOffset = 6
-local itemWidthMargin = leftItemOffset * 2
-local itemHeightMargin = topItemOffset * 2 - 2
 local menuParams = {
+    center = false,
     screenWidth = 640,
     screenHeight = 480,
     menuItem_h = 28,
     menuOffset_y = 80,
-    menuOffset_x = 0,
+    menuOffset_x = 80,
     hintOffset_y = 80,
     leftItemOffset = 6,
-    topItemOffset = 6
+    topItemOffset = 6,
+    titleOffset_y = 14,
+    leftItemOffset = 6,
+    topItemOffset = 6,
+    itemWidthMargin = 12,
+    itemHeightMargin = 12 - 2
 }
 
 local optionsLogoText = love.graphics.newText( gfx.font.kimberley, "DEBUGGING OPTIONS" )
-local txtItems = {"SHOW FPC/CONTROLS", "UNIT HITBOX", "DEBUG BOXES", "UNIT INFO", "ENEMY AI", "WAVES", "WALKABLE AREA", "BACK"}
-local menuItems = { fpsAndControls = 1, unitHitbox = 2, boxes = 3, unitInfo = 4, enemyAiInfo = 5, waves = 6, walkableArea = 7, back = 8}
+local txtItems = {"SHOW FPC/CONTROLS", "UNIT HITBOX", "DEBUG BOXES", "UNIT INFO", "ENEMY AI", "WAVES", "WALKABLE AREA", "START STAGE","BACK"}
+local menuItems = { fpsAndControls = 1, unitHitbox = 2, boxes = 3, unitInfo = 4, enemyAiInfo = 5, waves = 6, walkableArea = 7, startStage = 8, back = 9}
 
 local menu = fillMenu(txtItems, nil, menuParams)
 
@@ -86,24 +90,21 @@ function debugState:draw()
             m.item = "WAVES INFO " .. (isDebug(SHOW_DEBUG_WAVES) and "ON" or "OFF")
         elseif i == menuItems.walkableArea then
             m.item = "WALKABLE AREA " .. (isDebug(SHOW_DEBUG_WALKABLE_AREA) and "ON" or "OFF")
+        elseif i == menuItems.startStage then
+            if stageMaps[ menu[menuState].n ] then
+                m.item = "START FROM " .. stageMaps[ menu[menuState].n ]
+            else
+                m.item = "START FROM MAP DISABLED"
+            end
+            m.hint = "USE <- ->"
         else
             m.hint = "PRESS ESC OR JUMP TO EXIT"
         end
-        calcMenuItem(menu, i)
-        if i == oldMenuState then
-            colors:set("lightGray")
-            love.graphics.print(m.hint, m.wx, m.wy)
-            colors:set("black", nil, 80)
-            love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
-            colors:set("menuOutline")
-            love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
-        end
-        colors:set("white")
-        love.graphics.print(m.item, m.x, m.y )
+        drawMenuItem(menu, i, oldMenuState)
     end
     --header
     colors:set("white")
-    love.graphics.draw(optionsLogoText, (menuParams.screenWidth - optionsLogoText:getWidth()) / 2, titleOffset_y)
+    love.graphics.draw(optionsLogoText, (menuParams.screenWidth - optionsLogoText:getWidth()) / 2, menu.titleOffset_y)
     showDebugIndicator()
     push:finish()
 end
@@ -140,5 +141,15 @@ function debugState:confirm(button)
     end
 end
 
-function debugState:select()
+function debugState:select(i)
+    menu[menuState].n = menu[menuState].n + i
+    if menuState == menuItems.startStage then
+        if menu[menuState].n > #stageMaps then
+            menu[menuState].n = 0
+        end
+        if menu[menuState].n < 0 then
+            menu[menuState].n = #stageMaps
+        end
+        return self:confirm( 1)
+    end
 end

@@ -93,17 +93,7 @@ function soundState:draw()
             m.item = "MUSIC #"..m.n.." "..bgm[m.n].fileName
             m.hint = "by "..bgm[m.n].copyright
         end
-        calcMenuItem(menu, i)
-        if i == oldMenuState then
-            colors:set("lightGray")
-            love.graphics.print(m.hint, m.wx, m.wy)
-            colors:set("black", nil, 80)
-            love.graphics.rectangle("fill", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
-            colors:set("menuOutline")
-            love.graphics.rectangle("line", m.rect_x - leftItemOffset, m.y - topItemOffset, m.w + itemWidthMargin, m.h + itemHeightMargin, 4,4,1)
-        end
-        colors:set("white")
-        love.graphics.print(m.item, m.x, m.y )
+        drawMenuItem(menu, i, oldMenuState)
     end
     --header
     colors:set("white")
