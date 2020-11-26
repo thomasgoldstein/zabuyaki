@@ -54,7 +54,7 @@ function calcMenuItem(menu, i)
     m.wx = (menu.params.screenWidth - gfx.font.arcade4:getWidth(m.hint)) / 2
 end
 
-function drawMenuItem(menu, i, oldMenuState)
+function drawMenuItem(menu, i, oldMenuState, color)
     calcMenuItem(menu, i)
     local m = menu[i]
     if i == oldMenuState then
@@ -65,7 +65,7 @@ function drawMenuItem(menu, i, oldMenuState)
         colors:set("menuOutline")
         love.graphics.rectangle("line", m.rect_x - menu.params.leftItemOffset, m.y - menu.params.topItemOffset, m.w + menu.params.itemWidthMargin, m.h + menu.params.itemHeightMargin, 4,4,1)
     end
-    colors:set("white")
+    colors:set(color or "white")
     love.graphics.print(m.item, m.x, m.y )
 end
 
