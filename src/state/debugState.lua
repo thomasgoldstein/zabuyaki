@@ -122,10 +122,14 @@ function debugState:draw()
     push:start()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1, #menu do
-        drawMenuItem(menu, i, oldMenuState, (i == menuItems.DEBUGGING_ON
-            or (i == menuItems.SPAWN_UNIT and getRegisteredPlayer(1))
-            or isDebug())
-            and "white" or "gray")
+        local enableMenuElement = true
+        if i ~= menuItems.DEBUGGING_ON and i ~= menuItems.BACK and not isDebugOption(DEBUGGING_ON) then
+            enableMenuElement = false
+        end
+        if i == menuItems.SPAWN_UNIT then
+            enableMenuElement = getRegisteredPlayer(1) and true or false
+        end
+        drawMenuItem(menu, i, oldMenuState, enableMenuElement and "white" or "gray")
     end
     drawMenuTitle(menu, menuTitle)
     showDebugIndicator()
