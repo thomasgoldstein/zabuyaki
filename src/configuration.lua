@@ -16,10 +16,10 @@ magicString, magicStringDef = "", "EOF42N"
 local disableFullScreenToggle = { Web = true, Android = true, iOs = true }  -- list of OS with disabled full screen mode
 isFullScreenToggleAvailable = not disableFullScreenToggle[love.system.getOS( )]
 local disableDebugToggle = { Web = true, Android = true, iOs = true }  -- list of OS with disabled debug mode
-isDebugAvailable = not disableDebugToggle[love.system.getOS( )]
+isDebuggingAvailable = not disableDebugToggle[love.system.getOS( )]
 GLOBAL_SETTING = {
     MAX_PLAYERS = 3,
-    DEBUG = isDebugAvailable and 0 or 1,
+    DEBUG = isDebuggingAvailable and 0 or 1,
     DEBUG_STAGE_MAP = false,
     OFFSCREEN = 1000,
     FULL_SCREEN = isFullScreenToggleAvailable,

@@ -243,13 +243,13 @@ function love.quit()
 end
 
 function love.keypressed(key, unicode)
-    if isDebugAvailable and key == '0' then
+    if isDebuggingAvailable and key == '0' then
         GLOBAL_SETTING.DEBUG = 0
         if Gamestate.current() == debugState then
             return Gamestate.pop()  -- instant close debug state
         end
     end
-    if isDebugAvailable and key == '1' then
+    if isDebuggingAvailable and key == '1' then
         if Gamestate.current() == debugState then
             return Gamestate.pop()  -- instant close debug state to prevent stacking
         end

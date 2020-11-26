@@ -7,30 +7,30 @@ SHOW_DEBUG_ENEMY_AI_INFO = 6 -- enemy's AI info
 SHOW_DEBUG_WAVES = 7 -- left edge of the current wave with red and the next with blue
 SHOW_DEBUG_WALKABLE_AREA = 8 -- dynamic walkable area
 
-function getDebugLevel() return GLOBAL_SETTING.DEBUG or 0 end
-function setDebugLevel(n) GLOBAL_SETTING.DEBUG = n end
+function getDebugRawValue() return GLOBAL_SETTING.DEBUG or 0 end
+function setDebugRawValue(n) GLOBAL_SETTING.DEBUG = n end
 
 function setDebugOption( debugOption )
-    setDebugLevel( setbit(getDebugLevel(), bit(debugOption) ) )
+    setDebugRawValue( setbit(getDebugRawValue(), bit(debugOption) ) )
 end
 
 function unsetDebugOption( debugOption )
-    setDebugLevel( clearbit(getDebugLevel(), bit(debugOption) ) )
+    setDebugRawValue( clearbit(getDebugRawValue(), bit(debugOption) ) )
 end
 
 function isDebug(debugOption)
     if not debugOption then
-        return hasbit( getDebugLevel(), bit(DEBUGGING_ON))
+        return hasbit( getDebugRawValue(), bit(DEBUGGING_ON))
     end
-    return hasbit( getDebugLevel(), bit(DEBUGGING_ON)) and hasbit( getDebugLevel(), bit(debugOption))
+    return hasbit( getDebugRawValue(), bit(DEBUGGING_ON)) and hasbit( getDebugRawValue(), bit(debugOption))
 end
 
 function isDebugOption(debugOption)
-    return hasbit( getDebugLevel(), bit(debugOption))
+    return hasbit( getDebugRawValue(), bit(debugOption))
 end
 
 function invertDebugOption(debugOption)
-    if hasbit( getDebugLevel(), bit(debugOption)) then
+    if hasbit( getDebugRawValue(), bit(debugOption)) then
         unsetDebugOption(debugOption)
     else
         setDebugOption(debugOption)
@@ -122,7 +122,7 @@ function showDebugIndicator(size, _x, _y)
     if isDebug(SHOW_DEBUG_FPS_CONTROLS) then
         colors:set("white")
         love.graphics.setFont(fonts[size or 1])
-        love.graphics.print("DEBUG:"..getDebugLevel(), x, y)
+        love.graphics.print("DEBUG:"..getDebugRawValue(), x, y)
         love.graphics.print("FPS:"..tonumber(love.timer.getFPS()), x, y + 9 * 1)
         if GLOBAL_SETTING.SLOW_MO > 0 then
             love.graphics.print("SLOW:"..(GLOBAL_SETTING.SLOW_MO + 1), x, y + 9 * 2)

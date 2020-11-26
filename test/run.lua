@@ -3,8 +3,8 @@ local lust = require 'lib.test.lust.lust'
 local describe, it, expect = lust.describe, lust.it, lust.expect
 
 -- save DEBUG level
-local _debugLevel = getDebugLevel()
-setDebugLevel(0)
+local _DebugRawValue = getDebugRawValue()
+setDebugRawValue(0)
 -- mute units sfx
 local _playSfx = Unit.playSfx
 Unit.playSfx = function() end
@@ -12,7 +12,7 @@ local _playHitSfx = Unit.playHitSfx
 Unit.playHitSfx = function() end
 function cleanUpAfterTests()
     -- restore DEBUG level
-    setDebugLevel(_debugLevel)
+    setDebugRawValue(_DebugRawValue)
     -- restore units sfx
     Unit.playSfx = _playSfx
     Unit.playHitSfx = _playHitSfx
