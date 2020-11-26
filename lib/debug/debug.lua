@@ -19,10 +19,10 @@ function unsetDebugOption( debugOption )
 end
 
 function isDebug(debugOption)
-    if not debugOption or not hasbit( getDebugLevel(), bit(DEBUGGING_ON)) then
-        return
+    if not debugOption then
+        return hasbit( getDebugLevel(), bit(DEBUGGING_ON))
     end
-    return hasbit( getDebugLevel(), bit(debugOption))
+    return hasbit( getDebugLevel(), bit(DEBUGGING_ON)) and hasbit( getDebugLevel(), bit(debugOption))
 end
 
 function isDebugOption(debugOption)
