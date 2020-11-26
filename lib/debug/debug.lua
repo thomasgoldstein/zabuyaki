@@ -11,26 +11,26 @@ function getDebugRawValue() return GLOBAL_SETTING.DEBUG or 0 end
 function setDebugRawValue(n) GLOBAL_SETTING.DEBUG = n end
 
 function setDebugOption( debugOption )
-    setDebugRawValue( setbit(getDebugRawValue(), bit(debugOption) ) )
+    setDebugRawValue( setBit(getDebugRawValue(), bit(debugOption) ) )
 end
 
 function unsetDebugOption( debugOption )
-    setDebugRawValue( clearbit(getDebugRawValue(), bit(debugOption) ) )
+    setDebugRawValue( clearBit(getDebugRawValue(), bit(debugOption) ) )
 end
 
 function isDebug(debugOption)
     if not debugOption then
-        return hasbit( getDebugRawValue(), bit(DEBUGGING_ON))
+        return hasBit( getDebugRawValue(), bit(DEBUGGING_ON))
     end
-    return hasbit( getDebugRawValue(), bit(DEBUGGING_ON)) and hasbit( getDebugRawValue(), bit(debugOption))
+    return hasBit( getDebugRawValue(), bit(DEBUGGING_ON)) and hasBit( getDebugRawValue(), bit(debugOption))
 end
 
 function isDebugOption(debugOption)
-    return hasbit( getDebugRawValue(), bit(debugOption))
+    return hasBit( getDebugRawValue(), bit(debugOption))
 end
 
 function invertDebugOption(debugOption)
-    if hasbit( getDebugRawValue(), bit(debugOption)) then
+    if hasBit( getDebugRawValue(), bit(debugOption)) then
         unsetDebugOption(debugOption)
     else
         setDebugOption(debugOption)
