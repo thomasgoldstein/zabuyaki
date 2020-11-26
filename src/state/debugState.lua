@@ -144,28 +144,28 @@ function debugState:confirm(button)
     end
     if button == 1 then
         if menuState == menuItems.DEBUGGING_ON then
-            invertDebugLevel(DEBUGGING_ON)
+            invertDebugOption(DEBUGGING_ON)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SHOW_DEBUG_FPS_CONTROLS then
-            invertDebugLevel(SHOW_DEBUG_FPS_CONTROLS)
+            invertDebugOption(SHOW_DEBUG_FPS_CONTROLS)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SHOW_DEBUG_UNIT_HITBOX then
-            invertDebugLevel(SHOW_DEBUG_UNIT_HITBOX)
+            invertDebugOption(SHOW_DEBUG_UNIT_HITBOX)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SHOW_DEBUG_BOXES then
-            invertDebugLevel(SHOW_DEBUG_BOXES)
+            invertDebugOption(SHOW_DEBUG_BOXES)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SHOW_DEBUG_UNIT_INFO then
-            invertDebugLevel(SHOW_DEBUG_UNIT_INFO)
+            invertDebugOption(SHOW_DEBUG_UNIT_INFO)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SHOW_DEBUG_ENEMY_AI_INFO then
-            invertDebugLevel(SHOW_DEBUG_ENEMY_AI_INFO)
+            invertDebugOption(SHOW_DEBUG_ENEMY_AI_INFO)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SHOW_DEBUG_WAVES then
-            invertDebugLevel(SHOW_DEBUG_WAVES)
+            invertDebugOption(SHOW_DEBUG_WAVES)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SHOW_DEBUG_WALKABLE_AREA then
-            invertDebugLevel(SHOW_DEBUG_WALKABLE_AREA)
+            invertDebugOption(SHOW_DEBUG_WALKABLE_AREA)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.DEBUG_STAGE_MAP then
             self:select(1)

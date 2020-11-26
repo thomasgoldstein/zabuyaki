@@ -29,7 +29,7 @@ function isDebugOption(debugOption)
     return hasbit( getDebugLevel(), bit(debugOption))
 end
 
-function invertDebugLevel(debugOption)
+function invertDebugOption(debugOption)
     if hasbit( getDebugLevel(), bit(debugOption)) then
         unsetDebugOption(debugOption)
     else
