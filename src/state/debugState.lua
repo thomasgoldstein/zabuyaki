@@ -87,33 +87,33 @@ function debugState:update(dt)
     for i = 1, #menu do
         local m = menu[i]
         if i == menuItems.DEBUGGING_ON then
-            m.item = "DEBUGGING " .. (isDebug(DEBUGGING_ON) and "ON" or "OFF")
+            m.item = "DEBUGGING " .. (isDebugOption(DEBUGGING_ON) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_FPS_CONTROLS then
-            m.item = "FPS/CONTROLS " .. (isDebug(SHOW_DEBUG_FPS_CONTROLS) and "ON" or "OFF")
+            m.item = "FPS/CONTROLS " .. (isDebugOption(SHOW_DEBUG_FPS_CONTROLS) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_UNIT_HITBOX then
-            m.item = "UNIT HITBOX " .. (isDebug(SHOW_DEBUG_UNIT_HITBOX) and "ON" or "OFF")
+            m.item = "UNIT HITBOX " .. (isDebugOption(SHOW_DEBUG_UNIT_HITBOX) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_BOXES then
-            m.item = "ETC BOXES " .. (isDebug(SHOW_DEBUG_BOXES) and "ON" or "OFF")
+            m.item = "ETC BOXES " .. (isDebugOption(SHOW_DEBUG_BOXES) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_UNIT_INFO then
-            m.item = "UNIT INFO " .. (isDebug(SHOW_DEBUG_UNIT_INFO) and "ON" or "OFF")
+            m.item = "UNIT INFO " .. (isDebugOption(SHOW_DEBUG_UNIT_INFO) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_ENEMY_AI_INFO then
-            m.item = "ENEMY AI INFO " .. (isDebug(SHOW_DEBUG_ENEMY_AI_INFO) and "ON" or "OFF")
+            m.item = "ENEMY AI INFO " .. (isDebugOption(SHOW_DEBUG_ENEMY_AI_INFO) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_WAVES then
-            m.item = "WAVES INFO " .. (isDebug(SHOW_DEBUG_WAVES) and "ON" or "OFF")
+            m.item = "WAVES INFO " .. (isDebugOption(SHOW_DEBUG_WAVES) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_WALKABLE_AREA then
-            m.item = "WALKABLE AREA " .. (isDebug(SHOW_DEBUG_WALKABLE_AREA) and "ON" or "OFF")
+            m.item = "WALKABLE AREA " .. (isDebugOption(SHOW_DEBUG_WALKABLE_AREA) and "ON" or "OFF")
         elseif i == menuItems.DEBUG_STAGE_MAP then
             if menu[i].n > 0 then
-                m.item = "START FROM MAP: '" .. stageMaps[ menu[i].n ] .. "'"
+                m.item = "START FROM MAP " .. stageMaps[ menu[i].n ]
             else
-                m.item = "START FROM MAP: DISABLED"
+                m.item = "START FROM MAP DISABLED"
             end
             m.hint = "USE <- ->"
         elseif i == menuItems.SPAWN_UNIT then
-            m.item = "SPAWN: " .. unitsSpawnList[ menu[i].n ]
-            m.hint = "USE <- -> [A]"
+            m.item = "SPAWN " .. unitsSpawnList[ menu[i].n ]
+            m.hint = "Use <- or -> and [A] button"
         else
-            m.hint = "PRESS ESC OR JUMP TO EXIT"
+            m.hint = "Use [J] button to exit"
         end
     end
 end
@@ -122,7 +122,10 @@ function debugState:draw()
     push:start()
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1, #menu do
-        drawMenuItem(menu, i, oldMenuState)
+        drawMenuItem(menu, i, oldMenuState, (i == menuItems.DEBUGGING_ON
+            or (i == menuItems.SPAWN_UNIT and getRegisteredPlayer(1))
+            or isDebug())
+            and "white" or "gray")
     end
     drawMenuTitle(menu, menuTitle)
     showDebugIndicator()
