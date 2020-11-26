@@ -1,11 +1,11 @@
-SHOW_FPS = 1 -- FPS, FRAME #, current SLOW MO VALUE
-SHOW_DEBUG_CONTROLS = 1 -- unit's pressed controls (same option as SHOW_FPS)
-SHOW_DEBUG_UNIT_HITBOX = 2 -- hitboxes
-SHOW_DEBUG_BOXES = 3 -- debug boxes (attack hitboxes, enemy AI cross, etc)
-SHOW_DEBUG_UNIT_INFO = 4 -- unit's info: name, pos, state
-SHOW_DEBUG_ENEMY_AI_INFO = 5 -- enemy's AI info
-SHOW_DEBUG_WAVES = 6 -- left edge of the current wave with red and the next with blue
-SHOW_DEBUG_WALKABLE_AREA = 7 -- dynamic walkable area
+DEBUGGING_ON = 1 -- debugging enabled
+SHOW_DEBUG_FPS_CONTROLS = 2 -- unit's pressed controls
+SHOW_DEBUG_UNIT_HITBOX = 3 -- hitboxes
+SHOW_DEBUG_BOXES = 4 -- debug boxes (attack hitboxes, enemy AI cross, etc)
+SHOW_DEBUG_UNIT_INFO = 5 -- unit's info: name, pos, state
+SHOW_DEBUG_ENEMY_AI_INFO = 6 -- enemy's AI info
+SHOW_DEBUG_WAVES = 7 -- left edge of the current wave with red and the next with blue
+SHOW_DEBUG_WALKABLE_AREA = 8 -- dynamic walkable area
 
 function getDebugLevel() return GLOBAL_SETTING.DEBUG or 0 end
 function setDebugLevel(n) GLOBAL_SETTING.DEBUG = n end
@@ -115,7 +115,7 @@ end
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
 function showDebugIndicator(size, _x, _y)
     local x, y = _x or 2, _y or 480 - 9 * 4
-    if isDebug(SHOW_FPS) then
+    if isDebug(SHOW_DEBUG_FPS_CONTROLS) then
         colors:set("white")
         love.graphics.setFont(fonts[size or 1])
         love.graphics.print("DEBUG:"..getDebugLevel(), x, y)
@@ -219,7 +219,7 @@ function drawDebugControls(p, x, y)
 end
 
 function showDebugControls()
-    if isDebug(SHOW_DEBUG_CONTROLS) then
+    if isDebug(SHOW_DEBUG_FPS_CONTROLS) then
         love.graphics.setFont(gfx.font.arcade3)
         -- draw players controls
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
