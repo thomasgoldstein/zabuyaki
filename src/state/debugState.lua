@@ -29,6 +29,7 @@ local menu = fillMenu(txtItems, nil, menuParams)
 
 local stageMaps = { "stage1a_map", "stage1b_map", "stage1c_map" }
 local unitsSpawnList = { "gopper", "niko", "sveta", "zeena", "hooch", "beatnik", "satoff" }
+local prevGameState = false
 
 local function loadStageMap()
     local stageMap = configuration:get("DEBUG_STAGE_MAP")
@@ -45,7 +46,8 @@ local function loadStageMap()
 end
 loadStageMap()
 
-function debugState:enter()
+function debugState:enter(prevState)
+    prevGameState = prevState -- enable SPAWN and other debug functions only for certain states
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
@@ -127,7 +129,7 @@ function debugState:draw()
             enableMenuElement = false
         end
         if i == menuItems.SPAWN_UNIT then
-            enableMenuElement = getRegisteredPlayer(1) and true or false
+            enableMenuElement = prevGameState == arcadeState and true or false
         end
         drawMenuItem(menu, i, oldMenuState, enableMenuElement and "white" or "gray")
     end
@@ -168,11 +170,11 @@ function debugState:confirm(button)
             invertDebugOption(SHOW_DEBUG_WALKABLE_AREA)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SPAWN_UNIT then
-            local p = getRegisteredPlayer(1)
-            if not p then
+            if not prevGameState == arcadeState then
                 sfx.play("sfx","menuCancel")
                 return
             end
+            local p = getRegisteredPlayer(1)
             local className = unitsSpawnList[ menu[menuItems.SPAWN_UNIT].n ]
             local unit = getUnitTypeByName(className):new("*"..className..(GLOBAL_UNIT_ID + 1),
                 "src/def/char/"..className, p.x, p.y, { palette = love.math.random(1, 4) })
