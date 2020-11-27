@@ -167,9 +167,6 @@ function debugState:confirm(button)
         elseif menuState == menuItems.SHOW_DEBUG_WALKABLE_AREA then
             invertDebugOption(SHOW_DEBUG_WALKABLE_AREA)
             sfx.play("sfx","menuSelect")
-        elseif menuState == menuItems.DEBUG_STAGE_MAP then
-            self:select(1)
-            sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SPAWN_UNIT then
             local p = getRegisteredPlayer(1)
             if not p then
