@@ -340,6 +340,7 @@ end
 
 function drawDebugUnitConditions(a, conditions)
     local z = 80
+    love.graphics.setFont(gfx.font.debug)
     if a.AI.currentSchedule then
         local scheduleNameAndTaskN = a.AI.currentSchedule.name .. " " .. a.AI.currentSchedule.currentTask .. "/" .. #a.AI.currentSchedule.tasks
         colors:set("white")
