@@ -131,12 +131,26 @@ return {
             { q = q(2,557,57,75), ox = 22, oy = 74 }, --combo 1.1
             delay = f(2)
         },
+        combo1Alt = {
+            { q = q(127,562,53,70), ox = 20, oy = 69 }, --combo2.1
+            { q = q(182,559,72,73), ox = 24, oy = 72, func = comboAttack1, delay = f(4) }, --combo2.2
+            { q = q(256,560,60,72), ox = 28, oy = 71 }, --combo2.3
+            { q = q(256,560,60,72), ox = 28, oy = 71, delay = f(2) }, --combo2.3
+            delay = f(3)
+        },
         combo2 = {
             { q = q(2,557,57,75), ox = 22, oy = 74, delay = f(3) }, --combo 1.1
             { q = q(61,558,64,74), ox = 20, oy = 73, func = comboAttack1, delay = f(5) }, --combo 1.2
             { q = q(61,558,64,74), ox = 20, oy = 73 }, --combo 1.2
             { q = q(2,557,57,75), ox = 22, oy = 74 }, --combo 1.1
             delay = f(2)
+        },
+        combo2Alt = {
+            { q = q(127,562,53,70), ox = 20, oy = 69 }, --combo2.1
+            { q = q(182,559,72,73), ox = 24, oy = 72, func = comboAttack1, delay = f(4) }, --combo2.2
+            { q = q(256,560,60,72), ox = 28, oy = 71 }, --combo2.3
+            { q = q(256,560,60,72), ox = 28, oy = 71, delay = f(2) }, --combo2.3
+            delay = f(3)
         },
         combo3 = {
             { q = q(2,640,86,65), ox = 59, oy = 64, delay = f(4) }, --combo 3.1
