@@ -19,6 +19,9 @@ function unsetDebugOption( debugOption )
 end
 
 function isDebug(debugOption)
+    if not isDebuggingAvailable then
+        return false
+    end
     if not debugOption then
         return hasBit( getDebugRawValue(), bit(DEBUGGING_ON))
     end
