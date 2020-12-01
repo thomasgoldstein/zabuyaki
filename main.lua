@@ -244,7 +244,7 @@ end
 
 function love.keypressed(key, unicode)
     if isDebuggingAvailable and key == '0' then
-        GLOBAL_SETTING.DEBUG = 0
+        invertDebugOption(DEBUGGING_ON)
         if Gamestate.current() == debugState then
             return Gamestate.pop()  -- instant close debug state
         end
