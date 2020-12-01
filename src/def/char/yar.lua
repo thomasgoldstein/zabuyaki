@@ -13,10 +13,10 @@ end
 local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
-local comboAttack1 = function(slf, cont, attackId)
+local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
         { x = 31, z = 45, width = 34, damage = 12, sfx = "whooshHeavy" },
-        cont, attackId
+        cont
     )
 end
 local comboAttack3 = function(slf, cont, attackId)
