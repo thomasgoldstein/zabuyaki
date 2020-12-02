@@ -133,7 +133,6 @@ end
 function Character:setMovementMode(mode)
     self.movementMode = mode or "normal"
     self.movementModeTimer = movementTimerMax
-    print(self.name, "setMovementMode", self.movementMode, self.initialWalkSpeed_x)
 end
 
 function Character:isMovementNormal()
