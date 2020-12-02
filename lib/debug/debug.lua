@@ -326,6 +326,14 @@ function drawDebugUnitHurtBoxUnder(sprite, x, y, frame, scale)
         end
     end
 end
+function drawDebugUnitDangerBoxUnder(unit, _x, _y, scale)
+    if isDebug(SHOW_DEBUG_UNIT_HITBOX) and unit.id <= GLOBAL_SETTING.MAX_PLAYERS then
+        local scale = scale or 1
+        local x, y, width, depth = unit:getDangerBox(50, 8)
+        colors:set("red", nil, 150)
+        love.graphics.rectangle("line", x * scale, y * scale, width * scale, depth * scale)
+    end
+end
 function drawDebugUnitHurtBox(sprite, x, y, frame, scale)
     if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
         local scale = scale or 1

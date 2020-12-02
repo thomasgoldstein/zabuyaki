@@ -366,6 +366,7 @@ function Unit:defaultDraw(l, t, w, h, transp)
                 end
             end
             drawDebugUnitHurtBoxUnder(self.sprite, self.x, self.y - self.z)
+            drawDebugUnitDangerBoxUnder(self, self.x, self.y)
             colors:set(self.color, nil, transpBg)
             if self.shader then
                 love.graphics.setShader(self.shader)
