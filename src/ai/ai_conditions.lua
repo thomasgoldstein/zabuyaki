@@ -106,8 +106,32 @@ function AI:getVisualConditions(conditions)
         elseif distance >= self.reactLongDistanceMin and distance <= self.reactLongDistanceMax then
             conditions["reactLongPlayer"] = true
         end
+        if self:isInPossibleDanger(unit) then
+            conditions["playerAttackDanger"] = true
+        end
     end
     return conditions
+end
+
+-- TODO: hash the result for the current frame
+local dangerousPlayers = {}
+function AI:isInPossibleDanger(unit)
+    local n = 0
+    for i = GLOBAL_SETTING.MAX_PLAYERS, 1, -1 do
+        local player = getRegisteredPlayer(i)
+        if player and not player.isDisabled and player:isAlive() then
+            n = n + 1
+            dangerousPlayers[n] = {player:getDangerBox(50, 8)}
+        end
+    end
+    while n > 0 do
+        if CheckPointCollision(unit.x, unit.y, unpack(dangerousPlayers[n]) ) then
+            --print("COLLIDES", unit.name, unit.x, unit.y, "Player", n, " == ", unpack(dangerousPlayers[n]))
+            return true
+        end
+        n = n - 1
+    end
+    return false
 end
 
 function AI:getShortAttackRange(unit, target)
