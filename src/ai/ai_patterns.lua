@@ -8,7 +8,7 @@ function AI:initCommonAiSchedules()
         { },
         "SCHEDULE_GET_TARGET")
     self.SCHEDULE_INTRO = Schedule:new({ self.initIntro, self.onIntro },
-        {"wokeUp", "tooCloseToPlayer"},
+        {"wokeUp", "tooCloseToPlayer", "playerAttackDanger"},
         "SCHEDULE_INTRO")
     self.SCHEDULE_STAND = Schedule:new({ self.initStand },
         {"cannotAct", "wokeUp", "noTarget", "canCombo", "canDashAttack", "inAir",
@@ -49,13 +49,13 @@ function AI:initCommonAiSchedules()
         "SCHEDULE_RECOVER")
 
     self.SCHEDULE_WAIT_SHORT = Schedule:new({ self.initWaitShort, self.onWait },
-        {"tooCloseToPlayer", "targetDead", "noPlayers"},
+        {"tooCloseToPlayer", "targetDead", "noPlayers", "playerAttackDanger"},
         "SCHEDULE_WAIT_SHORT")
     self.SCHEDULE_WAIT_MEDIUM = Schedule:new({ self.initWaitMedium, self.onWait },
-        {"tooCloseToPlayer", "targetDead", "noPlayers"},
+        {"tooCloseToPlayer", "targetDead", "noPlayers", "playerAttackDanger"},
         "SCHEDULE_WAIT_MEDIUM")
     self.SCHEDULE_WAIT_LONG = Schedule:new({ self.initWaitLong, self.onWait },
-        {"tooCloseToPlayer", "targetDead", "noPlayers"},
+        {"tooCloseToPlayer", "targetDead", "noPlayers", "playerAttackDanger"},
         "SCHEDULE_WAIT_LONG")
     self.SCHEDULE_ESCAPE_BACK = Schedule:new({ self.calcEscapeBackXY, self.onMove },
         {"cannotAct", "grabbed", "inAir", "noTarget", "targetDead", "noPlayers"},
@@ -67,7 +67,7 @@ function AI:initCommonAiSchedules()
         {"cannotAct", "grabbed", "inAir"},
         "SCHEDULE_STEP_DOWN")
     self.SCHEDULE_STEP_FORWARD = Schedule:new({ self.calcStepForward, self.onMove },
-        {"cannotAct", "grabbed", "inAir"},
+        {"cannotAct", "grabbed", "inAir", "playerAttackDanger"},
         "SCHEDULE_STEP_FORWARD")
     self.SCHEDULE_STEP_UP = Schedule:new({ self.calcStepUp, self.onMove },
         {"cannotAct", "grabbed", "inAir"},
