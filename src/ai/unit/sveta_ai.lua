@@ -12,6 +12,9 @@ local _settings = {
 function eAI:initialize(unit, settings)
     AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
+    self.SCHEDULE_WALK_CLOSE_TO_ATTACK = Schedule:new({ self.ensureStanding, self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
+        {"cannotAct", "inAir", "grabbed", "noTarget", "targetDead", "noPlayers", "playerAttackDanger"},
+        "SCHEDULE_WALK_CLOSE_TO_ATTACK")
 end
 
 function eAI:selectNewSchedule(conditions)
