@@ -119,7 +119,7 @@ function AI:isInPossibleDanger(unit)
     local n = 0
     for i = GLOBAL_SETTING.MAX_PLAYERS, 1, -1 do
         local player = getRegisteredPlayer(i)
-        if player and not player.isDisabled and player:isAlive() then
+        if player and not player.isDisabled and not player.isGrabbed and player:isAlive() then
             n = n + 1
             dangerousPlayers[n] = {player:getDangerBox(50, 8)}
         end
