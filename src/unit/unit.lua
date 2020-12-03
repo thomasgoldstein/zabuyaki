@@ -359,7 +359,7 @@ function Unit:getHurtBox()
 end
 function Unit:getDangerBox(distance, verticalDistance)  -- x,y is in the center of the rectangle
     local hurtBox = getSpriteHurtBox(self.sprite)
-    return self.x + distance * self.horizontal - distance, self.y - (hurtBox.depth + (verticalDistance or 0)) / 2, distance * 2, hurtBox.depth + (verticalDistance or 0) -- no height
+    return self.x + distance * self.sprite.flipH - distance, self.y - (hurtBox.depth + (verticalDistance or 0)) / 2, distance * 2, hurtBox.depth + (verticalDistance or 0) -- no height
 end
 function Unit:getHurtBoxWidth()
     return getSpriteHurtBox(self.sprite).width
