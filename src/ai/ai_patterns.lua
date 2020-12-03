@@ -72,6 +72,9 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_STEP_UP = Schedule:new({ self.calcStepUp, self.onMove },
         {"cannotAct", "grabbed", "inAir"},
         "SCHEDULE_STEP_UP")
+    self.SCHEDULE_SIDE_STEP = Schedule:new({ self.ensureStanding, self.initSideStep },
+        {},
+        "SCHEDULE_SIDE_STEP")
     self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.onMove },
         {"cannotAct", "grabbed", "inAir", "targetDead", "noPlayers"},
         "SCHEDULE_WALK_RANDOM")
@@ -364,6 +367,18 @@ function AI:calcStepForward()
     end
     u.ttx = u.x - ( stepDistance + love.math.random(-stepRandomRadius, stepRandomRadius) ) * u.horizontal
     u.tty = u.y
+    return true
+end
+
+function AI:initSideStep()
+    local u = self.unit
+    local top, bottom = stage:getWalkableAreaTopAndBottomY( u.x, u )
+    if u.y > (top + bottom) / 2 then
+        u.b.setHorizontalAndVertical( 0, -1 )
+    else
+        u.b.setHorizontalAndVertical( 0, 1 )
+    end
+    u.b.doVerticalDoubleTap( u.vertical )
     return true
 end
 
