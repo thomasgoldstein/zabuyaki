@@ -327,7 +327,7 @@ function drawDebugUnitHurtBoxUnder(sprite, x, y, frame, scale)
     end
 end
 function drawDebugUnitDangerBoxUnder(unit, _x, _y, scale)
-    if isDebug(SHOW_DEBUG_UNIT_HITBOX) and unit.id <= GLOBAL_SETTING.MAX_PLAYERS and not unit.isGrabbed then
+    if isDebug(SHOW_DEBUG_UNIT_HITBOX) and unit.id <= GLOBAL_SETTING.MAX_PLAYERS and unit:isDangerous() then
         local scale = scale or 1
         local x, y, width, depth = unit:getDangerBox(50, 8)
         colors:set("red", nil, 150)
