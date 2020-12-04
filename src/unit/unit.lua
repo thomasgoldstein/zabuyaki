@@ -413,6 +413,19 @@ function Unit:canMove()
     return false
 end
 
+local canAct = { stand = true, walk = true, run = true, intro = true }
+function Unit:isDangerous()
+    --if self.isMovable then
+    --    return true
+    --end
+    if self.isDisabled or self.isGrabbed or not self:isAlive() or not self:canMove() then
+        return false
+    end
+    --if not canAct[unit.state] then
+    --end
+    return true
+end
+
 function Unit:calcFriction(dt, friction)
     local frctn = friction or self.friction
     if self.speed_x > 0 then
