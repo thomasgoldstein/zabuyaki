@@ -113,20 +113,29 @@ function AI:getVisualConditions(conditions)
     return conditions
 end
 
--- TODO: hash the result for the current frame
 local dangerousPlayers = {}
+local lastDebugFrame = 0
+local debugFrameGap = 10
+local cached_n = 0
 function AI:isInPossibleDanger(unit)
-    local n = 0
-    for i = GLOBAL_SETTING.MAX_PLAYERS, 1, -1 do
-        local player = getRegisteredPlayer(i)
-        if player and not player.isDisabled and not player.isGrabbed and player:isAlive() then
-            n = n + 1
-            dangerousPlayers[n] = {player:getDangerBox(50, 8)}
+    local n
+    local currentDebugFrame = getDebugFrame()
+    if currentDebugFrame > lastDebugFrame + debugFrameGap then
+        n = 0
+        for i = GLOBAL_SETTING.MAX_PLAYERS, 1, -1 do
+            local player = getRegisteredPlayer(i)
+            if player and player:isDangerous() then
+                n = n + 1
+                dangerousPlayers[n] = {player:getDangerBox(50, 8)}
+            end
         end
+        cached_n = n
+        lastDebugFrame = currentDebugFrame
+    else
+        n = cached_n
     end
     while n > 0 do
         if CheckPointCollision(unit.x, unit.y, unpack(dangerousPlayers[n]) ) then
-            --print("COLLIDES", unit.name, unit.x, unit.y, "Player", n, " == ", unpack(dangerousPlayers[n]))
             return true
         end
         n = n - 1
