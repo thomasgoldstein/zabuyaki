@@ -30,7 +30,7 @@ function eAI:selectNewSchedule(conditions)
     end
     if not conditions.cannotAct then
         if conditions.canMove and conditions.playerAttackDanger and love.math.random() < 0.2 then
-            self:setSchedule( self.SCHEDULE_SIDE_STEP )
+            self:setSchedule( self.SCHEDULE_SIDE_STEP_AWAY )
             return
         end
         if conditions.faceNotToPlayer then

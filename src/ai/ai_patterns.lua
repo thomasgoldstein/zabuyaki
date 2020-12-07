@@ -72,9 +72,12 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_STEP_UP = Schedule:new({ self.calcStepUp, self.onMove },
         {"cannotAct", "grabbed", "inAir"},
         "SCHEDULE_STEP_UP")
-    self.SCHEDULE_SIDE_STEP = Schedule:new({ self.ensureStanding, self.initSideStep },
+    self.SCHEDULE_SIDE_STEP_AWAY = Schedule:new({ self.ensureStanding, self.initSideStepAway },
         {},
-        "SCHEDULE_SIDE_STEP")
+        "SCHEDULE_SIDE_STEP_AWAY")
+    self.SCHEDULE_SIDE_STEP_TO = Schedule:new({ self.calcWalkToSideStepToXY, self.onMove, self.initSideStepTo },
+        {},
+        "SCHEDULE_SIDE_STEP_TO")
     self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.onMove },
         {"cannotAct", "grabbed", "inAir", "targetDead", "noPlayers"},
         "SCHEDULE_WALK_RANDOM")
@@ -370,7 +373,49 @@ function AI:calcStepForward()
     return true
 end
 
-function AI:initSideStep()
+function AI:calcWalkToSideStepToXY()
+    local u = self.unit
+    if not self:isReadyToMove() then
+        return false
+    end
+    local t = u.target
+    if not t then
+        self:abort()
+        return true
+    end
+    if t.x > u.x then
+        u.ttx = t.x - u.width * 1.5
+    else
+        u.ttx = t.x + u.width * 1.5
+    end
+    local top, bottom = stage:getWalkableAreaTopAndBottomY( t.x, t )
+    if t.y > (top + bottom) / 2 then
+        u.tty = t.y - 80 / 3 -- generic side step depth
+    else
+        u.tty = t.y + 80 / 3 -- generic side step depth
+    end
+    u.tty = stage:clampWalkableAreaY( u.x, u.tty )
+    return true
+end
+
+function AI:initSideStepTo()
+    local u = self.unit
+    local t = u.target
+    if not t then
+        self:abort()
+        return true
+    end
+    if t.y < u.y then
+        u.vertical = -1
+    else
+        u.vertical = 1
+    end
+    u.b.setHorizontalAndVertical( 0, u.vertical )
+    u.b.doVerticalDoubleTap( u.vertical )
+    return true
+end
+
+function AI:initSideStepAway()
     local u = self.unit
     local top, bottom = stage:getWalkableAreaTopAndBottomY( u.x, u )
     if u.y > (top + bottom) / 2 then

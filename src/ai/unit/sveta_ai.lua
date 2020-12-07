@@ -29,8 +29,14 @@ function eAI:selectNewSchedule(conditions)
         return
     end
     if not conditions.cannotAct then
-        if conditions.canMove and conditions.playerAttackDanger and love.math.random() < 0.2 then
-            self:setSchedule( self.SCHEDULE_SIDE_STEP )
+        if conditions.canCombo then
+            self:setSchedule( self.SCHEDULE_COMBO )
+            return
+        end
+        if conditions.canMove
+            and (conditions.reactMediumPlayer or conditions.reactLongPlayer  )and not conditions.reactShortPlayer
+            and love.math.random() < 0.2 then
+            self:setSchedule( self.SCHEDULE_SIDE_STEP_TO )
             return
         end
         if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
@@ -39,10 +45,6 @@ function eAI:selectNewSchedule(conditions)
         end
         if conditions.faceNotToPlayer then
             self:setSchedule( self.SCHEDULE_FACE_TO_PLAYER )
-            return
-        end
-        if conditions.canCombo then
-            self:setSchedule( self.SCHEDULE_COMBO )
             return
         end
         if self.currentSchedule ~= self.SCHEDULE_WAIT_MEDIUM and love.math.random() < self.waitChance then
