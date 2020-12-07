@@ -17,7 +17,9 @@ table = {
     {
         {
             slide = slide1, -- Picture
-            q = { 60, 70, 200, 120 } -- Initial quad
+            hScroll = 100, -- Scroll to the left by 100px
+            vScroll = -30, -- Scroll down by 30px
+            q = { 60, 70, 200, 120 }, -- Initial quad
         },
         text =
         "This city has one rule:fight for everything...]",
@@ -26,6 +28,7 @@ table = {
     {
         {
             slide = slide1,
+            vScroll = -50, -- Scroll up by 50px
             q = { 160, 170, 240, 80 }
         },
         text =
@@ -55,8 +58,6 @@ function Movie:initialize(frames)
     self.b = Controls[1] -- Use P1 controls
     self.frame = 1
     self.add_chars = 1
-    self.hScroll = 0
-    self.vScroll = 0
     self.frames = frames
     self.autoSkip = frames.autoSkip or false
     self.delayAfterFrame = frames.delayAfterFrame or 3
@@ -70,6 +71,10 @@ function Movie:initialize(frames)
         end
         local width, _ = self.font:getWrap( self.frames[i].text, screenWidth )
         self.frames[i].x =  r( (screenWidth - width) / 2 )
+        local f = self.frames[i]
+        for i = 1, #f do
+            f[i]._hScroll, f[i]._vScroll = 0, 0
+        end
     end
     if frames.music then
         bgm.play(frames.music)
@@ -80,7 +85,7 @@ function Movie:compareToFrame(n)
     local f = self.frames[self.frame]
     local f2 = self.frames[self.frame + n]
     return f2 and f.slide == f2.slide
-        and f[1].q[1] == f2[1].q[1]
+        and f[1].q[1] == f2[1].q[1] -- compare changed picture by the 1st slide in the slides table
         and f[1].q[2] == f2[1].q[2]
         and f[1].q[3] == f2[1].q[3]
         and f[1].q[4] == f2[1].q[4]
@@ -105,7 +110,6 @@ function Movie:update(dt)
     then
         -- go to the next frame
         self.frame = self.frame + 1
-        self.hScroll, self.vScroll = 0, 0
         if not self.frames[self.frame] then
             return true
         end
@@ -130,15 +134,13 @@ function Movie:update(dt)
     local f = self.frames[self.frame]
     -- h/vScroll
     if self.time < self.frames[self.frame].delay + self.delayAfterFrame then
-        if f.hScroll then
-            self.hScroll = self.time * f.hScroll / ( self.frames[self.frame].delay + self.delayAfterFrame )
-        else
-            self.hScroll = 0
-        end
-        if f.vScroll then
-            self.vScroll = self.time * f.vScroll / ( self.frames[self.frame].delay + self.delayAfterFrame )
-        else
-            self.vScroll = 0
+        for i = 1, #f do
+            if f[i].hScroll then
+                f[i]._hScroll = self.time * f[i].hScroll / ( self.frames[self.frame].delay + self.delayAfterFrame )
+            end
+            if f[i].vScroll then
+                f[i]._vScroll = self.time * f[i].vScroll / ( self.frames[self.frame].delay + self.delayAfterFrame )
+            end
         end
     end
     -- Type text
@@ -155,7 +157,7 @@ function Movie:draw(l, t, _w, _h)
         colors:set("white", nil, 255 * self.pictureTransparency)
         local w, h = f[i].q[3], f[i].q[4]
         local x, y = (screenWidth - w) / 2, (screenHeight - h) / 2
-        local q = { r(f[i].q[1] + self.hScroll), r(f[i].q[2] + self.vScroll), w, h }
+        local q = { r(f[i].q[1] + f[i]._hScroll), r(f[i].q[2] + f[i]._vScroll), w, h }
         q[5], q[6] = f[i].slide:getDimensions()
         love.graphics.draw(f[i].slide,
             love.graphics.newQuad(unpack(q)),
