@@ -187,6 +187,7 @@ function debugState:confirm(button)
             unit.face = p.face
             unit.horizontal = p.horizontal
             unit.isActive = true -- actual spawned enemy unit
+            unit.target = p
             sfx.play("sfx","bodyDrop")
         end
     end
