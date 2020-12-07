@@ -241,7 +241,7 @@ end
 function drawWalkableArea()
     if isDebug(SHOW_DEBUG_WALKABLE_AREA) then
         local _x, y, w, h = mainCamera:getVisible()
-        colors:set("menuOutline", nil, 150)
+        colors:set("menuOutline", nil, 50)
         for x = _x, _x + w, 8 do
             Stage:drawDebugWalkableArea( x, 1 )
         end

@@ -74,4 +74,5 @@ function Stage:drawDebugWalkableArea( x )
     local maxTop = rawget(walkableAreaTop, _x)
     local maxBottom = rawget(walkableAreaBottom, _x)
     love.graphics.rectangle("line", x * scale, maxTop * scale, walkableGridSize * scale, (maxBottom - maxTop) * scale )
+    love.graphics.line(x * scale, maxTop * scale + (maxBottom - maxTop) * scale / 2, x * scale + walkableGridSize * scale, maxTop * scale + (maxBottom - maxTop) * scale / 2 )
 end
