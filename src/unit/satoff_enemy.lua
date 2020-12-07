@@ -46,7 +46,7 @@ function Satoff:initAttributes()
     self.sfx.jumpAttack = sfx.satoffAttack
     self.sfx.step = sfx.satoffStep
     self.sfx.dead = sfx.satoffDeath
-    self.AI = AIMoveCombo:new(self)
+    self.AI = AISatoff:new(self)
 end
 
 function Satoff:comboStart()

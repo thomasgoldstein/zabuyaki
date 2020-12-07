@@ -78,6 +78,9 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_SIDE_STEP_TO = Schedule:new({ self.calcWalkToSideStepToXY, self.onMove, self.initSideStepTo },
         {},
         "SCHEDULE_SIDE_STEP_TO")
+    self.SCHEDULE_SIDE_STEP_OFFENSIVE = Schedule:new({ self.initSideStepTo },
+        {},
+        "SCHEDULE_SIDE_STEP_TO")
     self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.onMove },
         {"cannotAct", "grabbed", "inAir", "targetDead", "noPlayers"},
         "SCHEDULE_WALK_RANDOM")
@@ -401,6 +404,10 @@ end
 function AI:initSideStepTo()
     local u = self.unit
     local t = u.target
+    if not self:isReadyToMove() then
+        return false
+    end
+    u.b.reset()
     if not t then
         self:abort()
         return true

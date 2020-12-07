@@ -136,6 +136,7 @@ function love.load(arg, unfilteredArg)
     AIGopper = require "src/ai/unit/gopper_ai"
     Gopper = require "src/unit/gopper_enemy"
     PGopper = require "src/unit/gopper_player"
+    AISatoff = require "src/ai/unit/satoff_ai"
     Satoff = require "src/unit/satoff_enemy"
     PSatoff = require "src/unit/satoff_player"
     DrVolker = require "src/unit/drvolker_enemy"
