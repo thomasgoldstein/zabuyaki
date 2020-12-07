@@ -36,7 +36,7 @@ function AI:onMoveThenDashAttack()
     if u.move then
         return u.move:update(0)
     else
-        if math.abs(u.ttx - u.x ) < u.width then
+        if math.abs(u.ttx - u.x ) < u.width * 2.5 then
             u.b.setAttack( true )
             return true
         elseif u.target then -- correct y pos from the target
