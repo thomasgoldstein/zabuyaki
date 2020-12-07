@@ -15,23 +15,29 @@ local screenHeight = 480 / 2
 --[[
 table = {
     {
-        slide = slide1, -- Picture
-        q = { 60, 70, 200, 120 }, -- Initial quad
+        {
+            slide = slide1, -- Picture
+            q = { 60, 70, 200, 120 } -- Initial quad
+        },
         text =
         "This city has one rule:fight for everything...]",
         delay = 4 -- How long to type th text
     },
     {
-        slide = slide1,
-        q = { 160, 170, 240, 80 },
+        {
+            slide = slide1,
+            q = { 160, 170, 240, 80 }
+        },
         text =
         "And if you have nothing then fight for your life...",
         delay = 4,
         music = bgm.intro2
     },
     {
-        slide = slide1,
-        q = { 230, 290, 220, 100 },
+        {
+            slide = slide1,
+            q = { 230, 290, 220, 100 }
+        },
         text = "And the last.\nDon't let down your friends!",
         delay = 4
     },
@@ -74,12 +80,12 @@ function Movie:compareToFrame(n)
     local f = self.frames[self.frame]
     local f2 = self.frames[self.frame + n]
     return f2 and f.slide == f2.slide
-        and f.q[1] == f2.q[1]
-        and f.q[2] == f2.q[2]
-        and f.q[3] == f2.q[3]
-        and f.q[4] == f2.q[4]
-        and f.hScroll == f2.hScroll
-        and f.vScroll == f2.vScroll
+        and f[1].q[1] == f2[1].q[1]
+        and f[1].q[2] == f2[1].q[2]
+        and f[1].q[3] == f2[1].q[3]
+        and f[1].q[4] == f2[1].q[4]
+        and f[1].hScroll == f2[1].hScroll
+        and f[1].vScroll == f2[1].vScroll
 end
 
 function Movie:update(dt)
@@ -97,6 +103,7 @@ function Movie:update(dt)
     if (self.time >= self.frames[self.frame].delay + self.delayAfterFrame and self.autoSkip)
         or (self.time >= self.frames[self.frame].delay and self.b.attack:released())
     then
+        -- go to the next frame
         self.frame = self.frame + 1
         self.hScroll, self.vScroll = 0, 0
         if not self.frames[self.frame] then
@@ -143,22 +150,26 @@ end
 function Movie:draw(l, t, _w, _h)
     love.graphics.clear(unpack(self.bgColor))
     local f = self.frames[self.frame]
-    -- Show Picture
-    colors:set("white", nil, 255 * self.pictureTransparency)
-    local w, h = f.q[3], f.q[4]
-    local x, y = (screenWidth - w) / 2, (screenHeight - h) / 2
-    local q = { r(f.q[1] + self.hScroll), r(f.q[2] + self.vScroll), w, h }
-    q[5], q[6] = f.slide:getDimensions()
-    love.graphics.draw(f.slide,
-        love.graphics.newQuad(unpack(q)),
-        l + x, t + y - screen_gap)
-    -- Show Text
-    colors:set("white", nil, 255 * self.transparency)
-    love.graphics.setFont(self.font)
-    love.graphics.print(string.sub(f.text, 1, self.add_chars), l + f.x, r(t + y + h + slide_text_gap - screen_gap))
-    if self.time >= self.frames[self.frame].delay and not self.autoSkip then
-        colors:set("white", nil, 200 + 55 * math.sin(self.time * 2))
-        love.graphics.print("PRESS ATTACK", r(screenWidth - 12 * 9), r(screenHeight - 12 + math.sin(self.time * 6)))
+    -- Show Pictures from table
+    for i = 1, #f do
+        colors:set("white", nil, 255 * self.pictureTransparency)
+        local w, h = f[i].q[3], f[i].q[4]
+        local x, y = (screenWidth - w) / 2, (screenHeight - h) / 2
+        local q = { r(f[i].q[1] + self.hScroll), r(f[i].q[2] + self.vScroll), w, h }
+        q[5], q[6] = f[i].slide:getDimensions()
+        love.graphics.draw(f[i].slide,
+            love.graphics.newQuad(unpack(q)),
+            l + x, t + y - screen_gap)
+        -- Show Text
+        if i == 1 then
+            colors:set("white", nil, 255 * self.transparency)
+            love.graphics.setFont(self.font)
+            love.graphics.print(string.sub(f.text, 1, self.add_chars), l + f.x, r(t + y + h + slide_text_gap - screen_gap))
+            if self.time >= self.frames[self.frame].delay and not self.autoSkip then
+                colors:set("white", nil, 200 + 55 * math.sin(self.time * 2))
+                love.graphics.print("PRESS ATTACK", r(screenWidth - 12 * 9), r(screenHeight - 12 + math.sin(self.time * 6)))
+            end
+        end
     end
 end
 
