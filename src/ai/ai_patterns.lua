@@ -374,10 +374,11 @@ function AI:initSideStep()
     local u = self.unit
     local top, bottom = stage:getWalkableAreaTopAndBottomY( u.x, u )
     if u.y > (top + bottom) / 2 then
-        u.b.setHorizontalAndVertical( 0, -1 )
+        u.vertical = -1
     else
-        u.b.setHorizontalAndVertical( 0, 1 )
+        u.vertical = 1
     end
+    u.b.setHorizontalAndVertical( 0, u.vertical )
     u.b.doVerticalDoubleTap( u.vertical )
     return true
 end
