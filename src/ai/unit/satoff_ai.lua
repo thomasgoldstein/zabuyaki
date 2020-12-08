@@ -15,15 +15,16 @@ function eAI:initialize(unit, settings)
     self.SCHEDULE_WALK_AROUND = Schedule:new({ self.ensureStanding, self.initWalkAround, self.onWalkAround },
         {"cannotAct", "inAir", "grabbed", "noTarget", "targetDead", "noPlayers", "tooCloseToPlayer"},
         "SCHEDULE_WALK_AROUND")
-    self.idlingSchedule = {
-        self.SCHEDULE_WALK_AROUND,
+    self.randomSchedule = {
         self.SCHEDULE_SIDE_STEP_AWAY,
         self.SCHEDULE_WALK_BY_TARGET_V,
         self.SCHEDULE_WALK_TO_MEDIUM_DISTANCE,
         self.SCHEDULE_WALK_TO_LONG_DISTANCE,
-        self.SCHEDULE_WALK_TO_GRAB,
+        self.SCHEDULE_WALK_AROUND,
         self.SCHEDULE_WALKING_SPEED_UP,
-        self.SCHEDULE_RUN_DASH_ATTACK
+        self.SCHEDULE_WALK_TO_GRAB,
+        self.SCHEDULE_WALK_TO_GRAB,
+        self.SCHEDULE_WALK_TO_GRAB,
     }
 end
 
@@ -67,13 +68,10 @@ function eAI:selectNewSchedule(conditions)
             return
         end
         if conditions.canMove and conditions.verticalPlayer and love.math.random() < 0.5 then
-            --TODO test tweak
-            if love.math.random() < 0.5 then
-                self:setSchedule( self.SCHEDULE_SIDE_STEP_OFFENSIVE )
-                return
-            end
+            self:setSchedule( self.SCHEDULE_SIDE_STEP_OFFENSIVE )
+            return
         end
-        if conditions.canMove and (conditions.tooCloseToPlayer or conditions.reactShortPlayer) and love.math.random() < 0.5 then
+        if conditions.canMove and (conditions.tooCloseToPlayer or conditions.reactShortPlayer) and conditions.target0HP and love.math.random() < 0.25 then
             self:setSchedule( self.SCHEDULE_COMBO )
             return
         end
@@ -81,12 +79,12 @@ function eAI:selectNewSchedule(conditions)
             self:setSchedule( self.SCHEDULE_FACE_TO_PLAYER )
             return
         end
-        if self.currentSchedule ~= self.SCHEDULE_WAIT_MEDIUM and love.math.random() < self.waitChance then
+        if self.currentSchedule ~= self.SCHEDULE_WAIT_SHORT and love.math.random() < self.waitChance then
             self:setSchedule( self.SCHEDULE_WAIT_SHORT )
             return
         end
         if conditions.canMove and conditions.wokeUp or not conditions.noTarget then
-            self:setSchedule(self.idlingSchedule[love.math.random(#self.idlingSchedule)])
+            self:setSchedule(self.randomSchedule[love.math.random(#self.randomSchedule)])
             return
         end
         if not conditions.dead and not conditions.cannotAct and conditions.wokeUp then
