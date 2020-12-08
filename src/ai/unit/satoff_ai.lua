@@ -12,6 +12,30 @@ local _settings = {
 function eAI:initialize(unit, settings)
     AI.initialize(self, unit, settings or _settings)
     -- new or overridden AI schedules
+    self.SCHEDULE_WALK_AROUND = Schedule:new({ self.ensureStanding, self.initWalkAround, self.onWalkAround },
+        {"cannotAct", "inAir", "grabbed", "noTarget", "targetDead", "noPlayers", "tooCloseToPlayer"},
+        "SCHEDULE_WALK_AROUND")
+end
+
+function eAI:onMoveThenDashAttack()
+    local u = self.unit
+    if u.move then
+        return u.move:update(0)
+    else
+        if math.abs(u.ttx - u.x ) < u.width / 2 then
+            if u.target and math.abs(u.target.x - u.x ) < u.width * 2 then
+                self:setSchedule( self.SCHEDULE_COMBO )
+            end
+            return true
+        elseif u.target then -- correct y pos from the target
+            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 ) )
+        else
+            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
+        end
+        u.old_x = u.x
+        u.old_y = u.y
+    end
+    return false
 end
 
 function eAI:selectNewSchedule(conditions)
@@ -25,17 +49,28 @@ function eAI:selectNewSchedule(conditions)
         return
     end
     if not conditions.cannotAct then
-        if conditions.canCombo then
-            if conditions.canMove and conditions.tooCloseToPlayer then
+        if self.currentSchedule ~= self.SCHEDULE_RUN_DASH_ATTACK
+            and conditions.canMove and ( conditions.tooFarToTarget or conditions.reactLongPlayer)
+            and love.math.random() < 0.25
+        then
+            self:setSchedule( self.SCHEDULE_RUN_DASH_ATTACK )
+            return
+        end
+        if conditions.canMove and conditions.verticalPlayer and love.math.random() < 0.5 then
+            if love.math.random() < 0.5 then
+                self:setSchedule( self.SCHEDULE_SIDE_STEP_OFFENSIVE )
+            --else
+            --    self:setSchedule( self.SCHEDULE_COMBO )
+                return
+            end
+        end
+        if conditions.canMove and (conditions.tooCloseToPlayer or conditions.reactShortPlayer) and love.math.random() < 0.5 then
+            if love.math.random() < 0.5 then
                 --and love.math.random() < 0.5 then --and love.math.random() < 0.5
-                self:setSchedule( self.SCHEDULE_ESCAPE_BACK )
+                self:setSchedule( self.SCHEDULE_SIDE_STEP_AWAY )
                 return
             end
             self:setSchedule( self.SCHEDULE_COMBO )
-            return
-        end
-        if conditions.canMove and (conditions.reactMediumPlayer or conditions.reactShortPlayer) then
-            self:setSchedule( self.SCHEDULE_SIDE_STEP_OFFENSIVE )
             return
         end
         if conditions.faceNotToPlayer then
