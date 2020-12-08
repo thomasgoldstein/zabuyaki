@@ -125,9 +125,12 @@ function AI:initCommonAiSchedules()
         { self.emulateDiagonalJumpPressToTarget, self.initWaitOneTenthStart, self.emulateWait, self.emulateAttackPress, self.emulateReleaseButtons },
         { "targetDead", "noPlayers" },
         "SCHEDULE_DIAGONAL_JUMP_ATTACK")
-    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.calcWalkToGrabXY, self.emulateAttackHold, self.onMoveUntilGrab, self.initWaitShort, self.onWait, self.emulateAttackPress, },
-        { "grabbed", "tooFarFromPlayer", "inAir", "noTarget", "cannotAct", "targetDead", "noPlayers" },
+    self.SCHEDULE_WALK_TO_GRAB = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.calcWalkToGrabXY, self.emulateAttackHold, self.onMoveUntilGrab, },
+        { "grabbing", "target0HP", "grabbed", "tooFarFromPlayer", "inAir", "noTarget", "cannotAct", "targetDead", "noPlayers" },
         "SCHEDULE_WALK_TO_GRAB")
+    self.SCHEDULE_ATTACK_GRABBED = Schedule:new({ self.initWaitShort, self.onWait, self.emulateAttackPress, self.initWaitShort, self.onWait, self.emulateAttackPress, self.initWaitShort, self.onWait, self.emulateAttackPress, },
+        { "notGrabbing", "target0HP", "grabbed", "tooFarFromPlayer", "inAir", "noTarget", "cannotAct", "targetDead", "noPlayers" },
+        "SCHEDULE_ATTACK_GRABBED")
     self.SCHEDULE_WALKING_SPEED_UP = Schedule:new({ self.walkingSpeedUp },
         {},
         "SCHEDULE_WALKING_SPEED_UP")
@@ -837,6 +840,7 @@ function AI:onMoveUntilGrab(dt)
         u.moveTime = 0
         u.b.reset() -- release all buttons
         u.b.attack:update(0)
+        self:setSchedule(self.SCHEDULE_ATTACK_GRABBED)
         return true
     else
         u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
