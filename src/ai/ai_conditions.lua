@@ -28,6 +28,14 @@ function AI:getVisualConditions(conditions)
     -- check attack range, players, units etc
     local unit = self.unit
     local distance
+    if unit:isGrabbing() then
+        conditions["grabbing"] = true
+    else
+        conditions["notGrabbing"] = true
+        if unit.target and not unit.target.isDisabled and unit.target.hp <= 0 then
+            conditions["target0HP"] = true
+        end
+    end
     if not canAct[unit.state] then
         conditions["cannotAct"] = true
         return conditions

@@ -1520,6 +1520,14 @@ function Character:releaseGrabbed()
     return false
 end
 
+function Character:isGrabbing()
+    local g = self.grabContext
+    if g and g.target and g.target.isGrabbed and g.target.grabContext.source == self then
+        return true
+    end
+    return false
+end
+
 function Character:carryStart()
     self.isHittable = true
     local g = self.grabContext
