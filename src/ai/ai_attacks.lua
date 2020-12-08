@@ -22,9 +22,7 @@ function AI:onCombo(dt)
         if not self:canAct() then
             return true
         end
-        if self.conditions.canCombo and not self.conditions.inAir then
-            u.b.setAttack( true )
-        end
+        u.b.setAttack( true )
         return true
     end
     return false
