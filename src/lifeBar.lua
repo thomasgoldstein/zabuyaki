@@ -69,6 +69,7 @@ end
 
 function LifeBar:setPositionUnderAttackersBar(attackerSource)
     local id = self:getAttackerId(attackerSource)
+    if id > GLOBAL_SETTING.MAX_PLAYERS then return end
     self.x, self.y = barsCoords[id].x, barsCoords[id].y + verticalGap
 end
 
