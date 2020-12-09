@@ -97,13 +97,13 @@ function AI:initCommonAiSchedules()
         {"grabbed", "inAir"},
         "SCHEDULE_DANCE")
     self.SCHEDULE_WALK_TO_SHORT_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToShortDistance, self.onMove},
-        {"cannotAct", "grabbed", "inAir", "noPlayers"},
+        {"cannotAct", "grabbed", "inAir", "noPlayers", "loot"},
         "SCHEDULE_WALK_TO_SHORT_DISTANCE")
     self.SCHEDULE_WALK_TO_MEDIUM_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToMediumDistance, self.onMove},
-        {"cannotAct", "grabbed", "inAir", "noPlayers"},
+        {"cannotAct", "grabbed", "inAir", "noPlayers", "loot"},
         "SCHEDULE_WALK_TO_MEDIUM_DISTANCE")
     self.SCHEDULE_WALK_TO_LONG_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToLongDistance, self.onMove},
-        {"cannotAct", "grabbed", "inAir", "noPlayers"},
+        {"cannotAct", "grabbed", "inAir", "noPlayers", "loot"},
         "SCHEDULE_WALK_TO_LONG_DISTANCE")
     self.SCHEDULE_WALK_OVER_TO_SHORT_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToShortDistanceAfterEnemy, self.onMove},
         {"cannotAct", "grabbed", "inAir", "noPlayers"},
