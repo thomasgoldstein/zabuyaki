@@ -41,6 +41,9 @@ function AI:getVisualConditions(conditions)
         return conditions
     elseif unit:canMove() then
         conditions["canMove"] = true
+        if unit:checkForLoot() then
+            conditions["loot"] = true
+        end
     end
     if canAct[unit.state] then
         if unit.target and not unit.target.isDisabled then
