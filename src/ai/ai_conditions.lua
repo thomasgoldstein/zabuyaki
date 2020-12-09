@@ -88,7 +88,7 @@ function AI:getVisualConditions(conditions)
             if self:canJumpAttack(unit, distance, y) then
                 conditions["canJumpAttack"] = true
             end
-            if distance > self.reactLongDistanceMax then
+            if distance > self.reactLongDistanceMax * 1.5 then
                 conditions["tooFarToTarget"] = true
             end
             if math.abs(unit.x - unit.target.x) <= unit.width and math.abs(unit.y - unit.target.y) > unit.width then
