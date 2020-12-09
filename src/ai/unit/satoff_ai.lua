@@ -3,10 +3,12 @@ local eAI = class('eAI', AI)
 
 local _settings = {
     thinkIntervalMin = 0.01,
-    thinkIntervalMax = 0.02,
+    thinkIntervalMax = 0.05,
     waitBeforeActionMin = 0.1,
     waitBeforeActionMax = 0.2,
-    waitChance = 0.15
+    waitChance = 0.3,
+    jumpAttackChance = 0.15,
+    --grabChance  Here it is defined in the random scheduleTable
 }
 
 function eAI:initialize(unit, settings)
@@ -16,13 +18,12 @@ function eAI:initialize(unit, settings)
         {"cannotAct", "inAir", "grabbed", "noTarget", "targetDead", "noPlayers", "tooCloseToPlayer"},
         "SCHEDULE_WALK_AROUND")
     self.randomSchedule = {
-        self.SCHEDULE_SIDE_STEP_AWAY,
         self.SCHEDULE_WALK_BY_TARGET_V,
         self.SCHEDULE_WALK_TO_MEDIUM_DISTANCE,
         self.SCHEDULE_WALK_TO_LONG_DISTANCE,
         self.SCHEDULE_WALK_AROUND,
+        self.SCHEDULE_WALK_AROUND,
         self.SCHEDULE_WALKING_SPEED_UP,
-        self.SCHEDULE_WALK_TO_GRAB,
         self.SCHEDULE_WALK_TO_GRAB,
         self.SCHEDULE_WALK_TO_GRAB,
     }
@@ -51,7 +52,8 @@ end
 
 function eAI:selectNewSchedule(conditions)
     self.unit.b.reset()
-    if not self.currentSchedule or conditions.init then
+    local previousSchedule = self.currentSchedule
+    if not previousSchedule or conditions.init then
         self:setSchedule( self.SCHEDULE_INTRO )
         return
     end
@@ -60,14 +62,14 @@ function eAI:selectNewSchedule(conditions)
         return
     end
     if not conditions.cannotAct then
-        if self.currentSchedule ~= self.SCHEDULE_RUN_DASH_ATTACK
-            and conditions.canMove and ( conditions.tooFarToTarget or conditions.reactLongPlayer)
-            and love.math.random() < 0.25
+        if previousSchedule ~= self.SCHEDULE_RUN_DASH_ATTACK
+            and conditions.canMove and conditions.tooFarToTarget
+            --and love.math.random() < 0.25
         then
             self:setSchedule( self.SCHEDULE_RUN_DASH_ATTACK )
             return
         end
-        if conditions.canMove and conditions.verticalPlayer and love.math.random() < 0.5 then
+        if previousSchedule ~= self.SCHEDULE_SIDE_STEP_OFFENSIVE and conditions.canMove and conditions.verticalPlayer and love.math.random() < 0.5 then
             self:setSchedule( self.SCHEDULE_SIDE_STEP_OFFENSIVE )
             return
         end
@@ -79,16 +81,23 @@ function eAI:selectNewSchedule(conditions)
             self:setSchedule( self.SCHEDULE_FACE_TO_PLAYER )
             return
         end
-        if self.currentSchedule ~= self.SCHEDULE_WAIT_SHORT and love.math.random() < self.waitChance then
+        if previousSchedule ~= self.SCHEDULE_WAIT_SHORT and love.math.random() < self.waitChance then
             self:setSchedule( self.SCHEDULE_WAIT_SHORT )
             return
         end
-        if conditions.canMove and conditions.wokeUp or not conditions.noTarget then
-            self:setSchedule(self.randomSchedule[love.math.random(#self.randomSchedule)])
+        if conditions.canJumpAttack and love.math.random() < self.jumpAttackChance then
+            self:setSchedule( self.SCHEDULE_DIAGONAL_JUMP_ATTACK )
             return
         end
+        if conditions.canMove and conditions.wokeUp or not conditions.noTarget then
+            local pickRandomSchedule = self.randomSchedule[love.math.random(#self.randomSchedule)]
+            if previousSchedule ~= pickRandomSchedule then
+                self:setSchedule(pickRandomSchedule)
+                return
+            end
+        end
         if not conditions.dead and not conditions.cannotAct and conditions.wokeUp then
-            if self.currentSchedule ~= self.SCHEDULE_STAND then
+            if previousSchedule ~= self.SCHEDULE_STAND then
                 self:setSchedule( self.SCHEDULE_STAND )
             else
                 self:setSchedule( self.SCHEDULE_WAIT_SHORT )
@@ -100,7 +109,7 @@ function eAI:selectNewSchedule(conditions)
         self:setSchedule( self.SCHEDULE_RECOVER )
         return
     end
-    if not self.currentSchedule then
+    if not previousSchedule then
         self:setSchedule( self.SCHEDULE_STAND )
     end
 end
