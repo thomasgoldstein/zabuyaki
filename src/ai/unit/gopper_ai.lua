@@ -39,12 +39,21 @@ end
 
 function eAI:selectNewSchedule(conditions)
     self.unit.b.reset()
-    if not self.currentSchedule or conditions.init then
+    local previousSchedule = self.currentSchedule
+    if not previousSchedule or conditions.init then
         self:setSchedule( self.SCHEDULE_INTRO )
         return
     end
+    if conditions.noPlayers then
+        self:setSchedule( self.SCHEDULE_WALK_OFF_THE_SCREEN )
+        return
+    end
+    if conditions.noTarget then
+        self:setSchedule( self.SCHEDULE_GET_TARGET )
+        return
+    end
     if not conditions.cannotAct then
-        if self.currentSchedule ~= self.SCHEDULE_RUN_DASH_ATTACK
+        if previousSchedule ~= self.SCHEDULE_RUN_DASH_ATTACK
             and conditions.canMove and conditions.tooFarToTarget
             and love.math.random() < 0.25
         then
@@ -67,8 +76,9 @@ function eAI:selectNewSchedule(conditions)
             end
 
         end
+        --once recover from INTRO state
         if not conditions.dead and not conditions.cannotAct and conditions.wokeUp then
-            if self.currentSchedule ~= self.SCHEDULE_STAND then
+            if previousSchedule ~= self.SCHEDULE_STAND then
                 self:setSchedule( self.SCHEDULE_STAND )
             else
                 self:setSchedule( self.SCHEDULE_WAIT_MEDIUM )
@@ -81,7 +91,7 @@ function eAI:selectNewSchedule(conditions)
         return
     end
 
-    if not self.currentSchedule then
+    if not previousSchedule then
         self:setSchedule( self.SCHEDULE_STAND )
     end
 end
