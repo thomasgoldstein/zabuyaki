@@ -44,6 +44,10 @@ function eAI:selectNewSchedule(conditions)
         self:setSchedule( self.SCHEDULE_INTRO )
         return
     end
+    if conditions.loot then
+        self:setSchedule( self.SCHEDULE_COMBO ) -- pick up loot (by pressing A)
+        return
+    end
     if conditions.noPlayers then
         self:setSchedule( self.SCHEDULE_WALK_OFF_THE_SCREEN )
         return
