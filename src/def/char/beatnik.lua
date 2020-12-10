@@ -43,6 +43,14 @@ end
 local makeMeHittable = function(slf, cont)
     slf.isHittable = true
 end
+local specialDefensiveShake = function(slf, cont)
+    slf:playSfx(sfx.menuGameStart)  -- temp BEAT sfx
+    mainCamera:onShake(0, 2, 0.03, 0.3)
+end
+local specialDefensive1 = function(slf, cont, attackId) slf:checkAndAttack(
+    { x = 0, z = 32, width = 28, height = 32, depth = 18, damage = 25, type = "shockWave" },
+    cont, attackId
+) end
 
 return {
     serializationVersion = 0.43, -- The version of this serialization process
@@ -158,22 +166,22 @@ return {
             { q = q(61,421,49,67), ox = 21, oy = 66 }, --special defensive transition 2
             { q = q(112,420,60,68), ox = 21, oy = 67, delay = f(6) }, --special defensive transition 3
 
-            { q = q(174,420,67,68), ox = 28, oy = 67, delay = f(10) }, --special defensive 1
-            { q = q(2,490,67,67), ox = 28, oy = 66, delay = f(10) }, --special defensive 2
+            { q = q(174,420,67,68), ox = 28, oy = 67, funcCont = specialDefensive1, attackId = 1, delay = f(10) }, --special defensive 1
+            { q = q(2,490,67,67), ox = 28, oy = 66, func = specialDefensiveShake, delay = f(10) }, --special defensive 2
             { q = q(71,491,67,66), ox = 28, oy = 65 }, --special defensive 3
             { q = q(140,491,67,66), ox = 28, oy = 65 }, --special defensive 4
             { q = q(71,491,67,66), ox = 28, oy = 65 }, --special defensive 3
             { q = q(2,490,67,67), ox = 28, oy = 66, delay = f(3) }, --special defensive 2
 
-            { q = q(174,420,67,68), ox = 28, oy = 67, delay = f(10) }, --special defensive 1
-            { q = q(2,490,67,67), ox = 28, oy = 66, delay = f(10) }, --special defensive 2
+            { q = q(174,420,67,68), ox = 28, oy = 67, funcCont = specialDefensive1, attackId = 1, delay = f(10) }, --special defensive 1
+            { q = q(2,490,67,67), ox = 28, oy = 66, func = specialDefensiveShake, delay = f(10) }, --special defensive 2
             { q = q(71,491,67,66), ox = 28, oy = 65 }, --special defensive 3
             { q = q(140,491,67,66), ox = 28, oy = 65 }, --special defensive 4
             { q = q(71,491,67,66), ox = 28, oy = 65 }, --special defensive 3
             { q = q(2,490,67,67), ox = 28, oy = 66, delay = f(3) }, --special defensive 2
 
-            { q = q(174,420,67,68), ox = 28, oy = 67, delay = f(10) }, --special defensive 1
-            { q = q(2,490,67,67), ox = 28, oy = 66, delay = f(10) }, --special defensive 2
+            { q = q(174,420,67,68), ox = 28, oy = 67, funcCont = specialDefensive1, attackId = 1, delay = f(10) }, --special defensive 1
+            { q = q(2,490,67,67), ox = 28, oy = 66, func = specialDefensiveShake, delay = f(10) }, --special defensive 2
             { q = q(71,491,67,66), ox = 28, oy = 65 }, --special defensive 3
             { q = q(140,491,67,66), ox = 28, oy = 65 }, --special defensive 4
             { q = q(71,491,67,66), ox = 28, oy = 65 }, --special defensive 3
