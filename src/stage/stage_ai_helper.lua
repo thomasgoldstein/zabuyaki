@@ -62,7 +62,7 @@ function Stage:logUnit( unit )
         return
     end
     local _x = math.floor( unit.x / walkableGridSize )
-    if _x > #walkableAreaTop then
+    if _x < 1 or _x > #walkableAreaTop then
         return
     end
     local maxTop = rawget(walkableAreaTop, _x)
