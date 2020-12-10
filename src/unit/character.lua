@@ -2,7 +2,7 @@ local class = require "lib/middleclass"
 local Character = class('Character', Unit)
 
 local function nop() end
-
+local dashAttackDelta = 0.25
 Character.statesForCharging = { stand = true, walk = true, chargeWalk = true, squat = true, land = true, sideStep = true, jump = true, jumpAttackStraight = true, jumpAttackForward = true, jumpAttackRun = true, jumpAttackLight = true, dropDown = true, pickUp = true, chargeDash = true }
 Character.statesForChargeAttack = { stand = true, walk = true, chargeWalk = true, jump = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, chargeWalk = true, run = true, combo = true }
@@ -195,9 +195,85 @@ function Character:addScore(score)
     self.score = self.score + score
 end
 
+function Character:isDoubleTapValid()
+    local doubleTap = self.b.horizontal.doubleTap
+    return self.face == doubleTap.lastDoubleTapDirection and love.timer.getTime() - doubleTap.lastDoubleTapTime <= delayWithSlowMotion(dashAttackDelta)
+end
+
 function Character:updateAI(dt)
     if self.isDisabled or not self.isVisible then
         return
+    end
+    if self.b.debugUpdate then
+        self.b.debugUpdate(dt)
+    end
+    if self.moves.specialDefensive or self.moves.specialOffensive or self.moves.specialDash then
+        if not self:canFall() and isSpecialCommand(self.b) then
+            if ( not self.statesForSpecialToleranceDelay[self.state]
+                or love.timer.getTime() - self.lastStateTime <= delayWithSlowMotion(self.specialToleranceDelay) )
+                and math.abs(self.b.horizontal.doubleTap.lastAttackTapTime - self.b.horizontal.doubleTap.lastJumpTapTime) <= delayWithSlowMotion(self.specialToleranceDelay)
+            then
+                local hv = self.b.horizontal:getValue()
+                if not self:isDoubleTapValid() then
+                    if hv ~= 0 and self.moves.specialOffensive
+                        and self.statesForSpecialOffensive[self.state]
+                    then
+                        self:releaseGrabbed()
+                        self:removeTweenMove()
+                        self.face = hv
+                        if self.state == "squat" and self.lastState == "run" then
+                            self:setState(self.specialDash)
+                            return
+                        end
+                        self:setState(self.specialOffensive)
+                        return
+                    end
+                    if self.moves.specialDefensive and self.statesForSpecialDefensive[self.state]
+                        and not (self.grabContext and self.grabContext.source and self.grabContext.source.state == "grabSwap" ) -- the grabbed cannot trigger it while the grabber is doing grabSwap
+                    then
+                        self:releaseGrabbed()
+                        self:setState(self.specialDefensive)
+                        return
+                    end
+                end
+                if self.moves.specialDash and self.statesForSpecialDash[self.state]
+                    and ( hv ~= 0 or ( hv == 0 or self:isDoubleTapValid() ) )
+                then
+                    self:releaseGrabbed()
+                    self:removeTweenMove()
+                    self:setState(self.specialDash)
+                    return
+                end
+            end
+        end
+    end
+    if self.moves.dashAttack and self.b.attack:pressed() then
+        if self.statesForDashAttack[self.state] and self:isDoubleTapValid() then
+            self:setState(self.dashAttack)
+        end
+    end
+    if self.moves.chargeAttack then
+        if self.delayedChargeAttack then
+            if self.statesForChargeAttack[self.state] then
+                if self.chargeDashAttack and self:canFall() then
+                    self:setState(self.chargeDashAttack)
+                elseif self.chargeAttack then
+                    self:setState(self.chargeAttack)
+                end
+                self.delayedChargeAttack = false
+            elseif not self.statesForCharging[self.state] then
+                self.delayedChargeAttack = false
+            end
+        else
+            if self.b.attack:isDown() and self.statesForCharging[self.state] then
+                self.chargeTimer = self.chargeTimer + dt
+            else
+                if self.chargeTimer >= self.chargedAt then
+                    self.delayedChargeAttack = true
+                end
+                self.chargeTimer = 0
+            end
+        end
     end
     self.time = self.time + dt
     self.lifeBarTimer = self.lifeBarTimer - dt
