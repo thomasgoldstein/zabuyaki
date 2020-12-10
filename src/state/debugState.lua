@@ -91,13 +91,13 @@ function debugState:update(dt)
         if i == menuItems.DEBUGGING_ON then
             m.item = "DEBUGGING " .. (isDebugOption(DEBUGGING_ON) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_FPS_CONTROLS then
-            m.item = "FPS/CONTROLS " .. (isDebugOption(SHOW_DEBUG_FPS_CONTROLS) and "ON" or "OFF")
+            m.item = "FPS/PLAYER CONTROLS " .. (isDebugOption(SHOW_DEBUG_FPS_CONTROLS) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_UNIT_HITBOX then
             m.item = "UNIT HITBOX " .. (isDebugOption(SHOW_DEBUG_UNIT_HITBOX) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_BOXES then
             m.item = "ETC BOXES " .. (isDebugOption(SHOW_DEBUG_BOXES) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_UNIT_INFO then
-            m.item = "UNIT INFO " .. (isDebugOption(SHOW_DEBUG_UNIT_INFO) and "ON" or "OFF")
+            m.item = "UNIT INFO/ENEMY CONTROLS " .. (isDebugOption(SHOW_DEBUG_UNIT_INFO) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_ENEMY_AI_INFO then
             m.item = "ENEMY AI INFO " .. (isDebugOption(SHOW_DEBUG_ENEMY_AI_INFO) and "ON" or "OFF")
         elseif i == menuItems.SHOW_DEBUG_WAVES then
