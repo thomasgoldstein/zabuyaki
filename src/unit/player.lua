@@ -183,7 +183,7 @@ end
 
 function Player:isImmune()   --Immune to the attack?
     local h = self:getDamageContext()
-    if h.type == "shockWave" or self.isDisabled then
+    if (h.type == "shockWave" and h.source.type ~= "enemy" ) or self.isDisabled then
         self:initDamageContext()
         return false
     end
