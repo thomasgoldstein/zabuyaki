@@ -191,6 +191,9 @@ function Player:isImmune()   --Immune to the attack?
 end
 
 function Player:canGrab(target)
+    if target.face == -self.face and self.state ~= "chargeDash" and target.state == "chargeDash" then
+        return false
+    end
     if target.type ~= "player" or (self.canFriendlyAttack and target.canFriendlyAttack) then
         return true
     end

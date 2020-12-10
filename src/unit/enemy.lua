@@ -44,6 +44,9 @@ function Enemy:isImmune()   --Immune to the attack?
 end
 
 function Enemy:canGrab(target)
+    if target.face == -self.face and self.state ~= "chargeDash" and target.state == "chargeDash" then
+        return false
+    end
     if target.type ~= "enemy" or (self.canEnemyFriendlyAttack and target.canEnemyFriendlyAttack) then
         return true
     end
