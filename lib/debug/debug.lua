@@ -293,16 +293,6 @@ function watchDebugVariables()
     end
 end
 
-function startUnitHighlight(slf, text, color)
-    slf.debugHighlight = true
-    slf.debugHighlightText = text or "TEXT"
-    slf.debugHighlightColor = color or "lightBlue"
-end
-
-function stopUnitHighlight(slf)
-    slf.debugHighlight = false
-end
-
 function drawUnitHighlight(slf)
     if slf.debugHighlight and slf.debugHighlightColor then
         colors:set(slf.debugHighlightColor, nil, 75)
