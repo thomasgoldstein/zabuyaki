@@ -20,7 +20,7 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_WALK_CLOSE_TO_ATTACK = Schedule:new({ self.ensureStanding, self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
         {"cannotAct", "inAir", "grabbed", "noTarget", "targetDead", "noPlayers"},
         "SCHEDULE_WALK_CLOSE_TO_ATTACK")
-    self.SCHEDULE_ATTACK_FROM_BACK = Schedule:new({ self.ensureStanding, self.initGetToBack, self.onGetToBack, self.initCombo, self.onCombo  },
+    self.SCHEDULE_ATTACK_FROM_BACK = Schedule:new({ self.ensureStanding, self.initGetToBack, self.onGetToBack, self.initWalkCloser, self.onWalkToAttackRange, self.initCombo, self.onCombo },
         {"cannotAct", "inAir", "grabbed", "noTarget", "targetDead", "noPlayers"},
         "SCHEDULE_ATTACK_FROM_BACK")
     self.SCHEDULE_WALK_AROUND = Schedule:new({ self.ensureStanding, self.initWalkAround, self.onWalkAround },
@@ -724,9 +724,11 @@ function AI:initGetToBack()
 end
 
 function AI:onGetToBack(dt)
+    local horizontalToleranceGap = 4
+    local verticalToleranceGap = 3
     local u = self.unit
     --    dp("AI:onGetToBack() ".. u.name)
-    local attackRange = self:getShortAttackRange(u, u.target)
+    local attackRange = self:getShortAttackRange(u, u.target) - horizontalToleranceGap
     local v, h
     if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
         --print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)
@@ -734,7 +736,7 @@ function AI:onGetToBack(dt)
         u.b.reset()
         return true
     end
-    h, v = signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 )
+    h, v = signDeadzone( u.ttx - u.x, horizontalToleranceGap ), signDeadzone( u.tty - u.y, verticalToleranceGap )
     if v == 0 and h == 0 and u.chaseAngleLockTime > 0.1 then
         -- got to the point, rotate to the next
         if math.abs(u.chaseAngleFinal - u.chaseAngle) < 0.01 then
@@ -744,7 +746,7 @@ function AI:onGetToBack(dt)
         u.chaseAngle = u.chaseAngle + u.chaseAngleStep
         u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
         u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
-        h, v = signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 )
+        h, v = signDeadzone( u.ttx - u.x, horizontalToleranceGap ), signDeadzone( u.tty - u.y, verticalToleranceGap )
         u.chaseAngleLockTime = 0
     end
     u.b.setHorizontalAndVertical( h, v )
