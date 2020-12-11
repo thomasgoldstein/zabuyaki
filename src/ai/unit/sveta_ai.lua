@@ -21,7 +21,6 @@ function eAI:selectNewSchedule(conditions)
     self.unit.b.reset()
     if not self.currentSchedule or conditions.init then
         self:setSchedule( self.SCHEDULE_INTRO )
---        print("SVETA INTRO", self.unit.name, self.unit.id )
         return
     end
     if conditions.noPlayers then
@@ -35,8 +34,9 @@ function eAI:selectNewSchedule(conditions)
         end
         if conditions.canMove
             and (conditions.reactMediumPlayer or conditions.reactLongPlayer  )and not conditions.reactShortPlayer
-            and love.math.random() < 0.2 then
-            self:setSchedule( self.SCHEDULE_SIDE_STEP_TO )
+            and love.math.random() < 0.2
+        then
+            self:setSchedule( self.SCHEDULE_SIDE_STEP_OFFENSIVE )
             return
         end
         if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5

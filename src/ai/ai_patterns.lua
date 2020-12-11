@@ -78,9 +78,9 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_SIDE_STEP_TO = Schedule:new({ self.calcWalkToSideStepToXY, self.onMove, self.initSideStepTo },
         {},
         "SCHEDULE_SIDE_STEP_TO")
-    self.SCHEDULE_SIDE_STEP_OFFENSIVE = Schedule:new({ self.initSideStepTo },
+    self.SCHEDULE_SIDE_STEP_OFFENSIVE = Schedule:new({ self.initSideStepTo, self.emulateFullCharge },
         {},
-        "SCHEDULE_SIDE_STEP_TO")
+        "SCHEDULE_SIDE_STEP_OFFENSIVE")
     self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.onMove },
         {"cannotAct", "grabbed", "inAir", "targetDead", "noPlayers"},
         "SCHEDULE_WALK_RANDOM")
@@ -954,5 +954,12 @@ end
 function AI:emulateReleaseButtons()
     dp("AI:emulateReleaseButtons() " .. self.unit.name)
     self.unit.b.reset()
+    return true
+end
+
+function AI:emulateFullCharge()
+    local u = self.unit
+    u.b.setAttack( true )
+    u.delayedChargeAttack = true
     return true
 end
