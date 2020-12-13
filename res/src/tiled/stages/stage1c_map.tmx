@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="54" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="16" nextobjectid="36">
  <editorsettings>
-  <export target="../../../src/def/stage/stage1c_map.lua" format="lua"/>
+  <export target="../../../../src/def/stage/stage1c_map.lua" format="lua"/>
  </editorsettings>
  <group id="1" name="background" locked="1">
   <imagelayer id="2" name="bg" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../img/stage/stage1/stage1c.png" width="1724" height="652"/>
+   <image source="../../../img/stage/stage1/stage1c.png" width="1724" height="652"/>
   </imagelayer>
  </group>
  <group id="3" name="foreground" locked="1"/>
