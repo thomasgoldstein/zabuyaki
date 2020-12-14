@@ -196,10 +196,14 @@ function bindEnemyInput()
     Controls.doHorizontalDoubleTap = function(lastDirection)
         Controls.horizontal.isDoubleTap = true
         Controls.horizontal.doubleTap.lastDirection = lastDirection or 0
+        Controls.horizontal.doubleTap.lastDoubleTapDirection = lastDirection or 0
+        Controls.horizontal.doubleTap.lastDoubleTapTime = love.timer.getTime() - 0.05
     end
     Controls.doVerticalDoubleTap = function(lastDirection)
         Controls.vertical.isDoubleTap = true
         Controls.vertical.doubleTap.lastDirection = lastDirection or 0
+        Controls.vertical.doubleTap.lastDoubleTapDirection = lastDirection or 0
+        Controls.vertical.doubleTap.lastDoubleTapTime = love.timer.getTime() - 0.05
     end
     Controls.resetButtons = function() Controls.h= 0; Controls.v = 0; Controls.a = false; Controls.j = false; Controls.s = false end
     Controls.reset = function() Controls.h= 0; Controls.v = 0; Controls.a = false; Controls.j = false; Controls.s = false; Controls.horizontal.isDoubleTap = false; Controls.vertical.isDoubleTap = false end
