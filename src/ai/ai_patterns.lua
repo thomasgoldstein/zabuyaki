@@ -81,6 +81,9 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_SIDE_STEP_OFFENSIVE = Schedule:new({ self.initSideStepToTarget, self.emulateFullCharge },
         {},
         "SCHEDULE_SIDE_STEP_OFFENSIVE")
+    self.SCHEDULE_CHARGE_ATTACK = Schedule:new({ self.emulateFullCharge },
+        {},
+        "SCHEDULE_CHARGE_ATTACK")
     self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.onMove },
         {"cannotAct", "grabbed", "inAir", "targetDead", "noPlayers"},
         "SCHEDULE_WALK_RANDOM")
@@ -963,5 +966,13 @@ function AI:emulateFullCharge()
     local u = self.unit
     u.b.setAttack( true )
     u.delayedChargeAttack = true
+    return true
+end
+
+function AI:emulateDoubleTapFace()
+    local u = self.unit
+    u.horizontal = u.face
+    u.b.setHorizontalAndVertical( u.horizontal, 0 )
+    u.b.doHorizontalDoubleTap( u.horizontal )
     return true
 end
