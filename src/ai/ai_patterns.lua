@@ -75,10 +75,10 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_SIDE_STEP_AWAY = Schedule:new({ self.ensureStanding, self.initSideStepAway },
         {},
         "SCHEDULE_SIDE_STEP_AWAY")
-    self.SCHEDULE_SIDE_STEP_TO = Schedule:new({ self.calcWalkToSideStepToXY, self.onMove, self.initSideStepTo },
+    self.SCHEDULE_SIDE_STEP_TO = Schedule:new({ self.calcWalkToSideStepToXY, self.onMove, self.initSideStepToTarget },
         {},
         "SCHEDULE_SIDE_STEP_TO")
-    self.SCHEDULE_SIDE_STEP_OFFENSIVE = Schedule:new({ self.initSideStepTo, self.emulateFullCharge },
+    self.SCHEDULE_SIDE_STEP_OFFENSIVE = Schedule:new({ self.initSideStepToTarget, self.emulateFullCharge },
         {},
         "SCHEDULE_SIDE_STEP_OFFENSIVE")
     self.SCHEDULE_WALK_RANDOM = Schedule:new({ self.calcWalkRandom, self.onMove },
@@ -404,7 +404,7 @@ function AI:calcWalkToSideStepToXY()
     return true
 end
 
-function AI:initSideStepTo()
+function AI:initSideStepToTarget()
     local u = self.unit
     local t = u.target
     if not self:isReadyToMove() then
