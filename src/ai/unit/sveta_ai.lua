@@ -19,7 +19,8 @@ end
 
 function eAI:selectNewSchedule(conditions)
     self.unit.b.reset()
-    if not self.currentSchedule or conditions.init then
+    local previousSchedule = self.currentSchedule
+    if not previousSchedule or conditions.init then
         self:setSchedule( self.SCHEDULE_INTRO )
         return
     end
@@ -28,15 +29,19 @@ function eAI:selectNewSchedule(conditions)
         return
     end
     if not conditions.cannotAct then
+        if previousSchedule == self.SCHEDULE_SIDE_STEP_TO_TARGET and conditions.playerAttackDanger or conditions.canCombo then
+            self:setSchedule( self.SCHEDULE_CHARGE_ATTACK )
+            return
+        end
         if conditions.canCombo then
             self:setSchedule( self.SCHEDULE_COMBO )
             return
         end
         if conditions.canMove
-            and (conditions.reactMediumPlayer or conditions.reactLongPlayer  )and not conditions.reactShortPlayer
-            and love.math.random() < 0.2
+            and (conditions.reactMediumPlayer or conditions.reactLongPlayer ) and not conditions.reactShortPlayer
+            and love.math.random() < 0.25
         then
-            self:setSchedule( self.SCHEDULE_SIDE_STEP_OFFENSIVE )
+            self:setSchedule( self.SCHEDULE_SIDE_STEP_TO_TARGET )
             return
         end
         if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
@@ -47,12 +52,12 @@ function eAI:selectNewSchedule(conditions)
             self:setSchedule( self.SCHEDULE_FACE_TO_PLAYER )
             return
         end
-        if self.currentSchedule ~= self.SCHEDULE_WAIT_MEDIUM and love.math.random() < self.waitChance then
+        if previousSchedule ~= self.SCHEDULE_WAIT_MEDIUM and love.math.random() < self.waitChance then
             self:setSchedule( self.SCHEDULE_WAIT_MEDIUM )
             return
         end
-        if conditions.canDash and love.math.random() < 0.5 then
-            self:setSchedule( self.SCHEDULE_DASH )
+        if conditions.canDashAttack and love.math.random() < 0.5 then
+            self:setSchedule( self.SCHEDULE_DASH_ATTACK )
             return
         end
         if conditions.canMove and conditions.wokeUp or not conditions.noTarget then
@@ -65,7 +70,7 @@ function eAI:selectNewSchedule(conditions)
         end
         if not conditions.dead and not conditions.cannotAct
                 and conditions.wokeUp then
-            if self.currentSchedule ~= self.SCHEDULE_STAND then
+            if previousSchedule ~= self.SCHEDULE_STAND then
                 self:setSchedule( self.SCHEDULE_STAND )
             else
                 self:setSchedule( self.SCHEDULE_WAIT_MEDIUM )
@@ -77,7 +82,7 @@ function eAI:selectNewSchedule(conditions)
         self:setSchedule( self.SCHEDULE_RECOVER )
         return
     end
-    if not self.currentSchedule then
+    if not previousSchedule then
         self:setSchedule( self.SCHEDULE_STAND )
     end
 end

@@ -32,7 +32,7 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_RUN = Schedule:new({ self.ensureStanding, self.initRunToXY, self.onMoveThenNoReset },
         {"cannotAct", "noTarget", "cannotAct", "inAir", "targetDead", "noPlayers"},
         "SCHEDULE_RUN")
-    self.SCHEDULE_DASH_ATTACK = Schedule:new({ self.ensureStanding, self.initDashAttack, self.waitUntilStand, self.initWaitMedium, self.onWait },
+    self.SCHEDULE_DASH_ATTACK = Schedule:new({ self.emulateDoubleTapFace, self.emulateAttackPress },
         { "targetDead", "noPlayers" },
         "SCHEDULE_DASH_ATTACK")
     self.SCHEDULE_RUN_DASH_ATTACK = Schedule:new({ self.ensureStanding, self.initRunToXY, self.onMoveThenDashAttack },
@@ -75,9 +75,9 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_SIDE_STEP_AWAY = Schedule:new({ self.ensureStanding, self.initSideStepAway },
         {},
         "SCHEDULE_SIDE_STEP_AWAY")
-    self.SCHEDULE_SIDE_STEP_TO = Schedule:new({ self.calcWalkToSideStepToXY, self.onMove, self.initSideStepToTarget },
+    self.SCHEDULE_SIDE_STEP_TO_TARGET = Schedule:new({ self.calcWalkToSideStepToXY, self.onMove, self.initSideStepToTarget },
         {},
-        "SCHEDULE_SIDE_STEP_TO")
+        "SCHEDULE_SIDE_STEP_TO_TARGET")
     self.SCHEDULE_SIDE_STEP_OFFENSIVE = Schedule:new({ self.initSideStepToTarget, self.emulateFullCharge },
         {},
         "SCHEDULE_SIDE_STEP_OFFENSIVE")
