@@ -2,13 +2,8 @@ local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
 local _settings = {
-    thinkIntervalMin = 0.02,
-    thinkIntervalMax = 0.25,
-    waitBeforeActionMin = 0.1,
-    waitBeforeActionMax = 0.3,
-    waitChance = 0.5,
     jumpAttackChance = 0.5,
-    grabChance = 0.5 -- 1 == 100%, 0 == 0%
+    grabChance = 0.5, -- 1 == 100%, 0 == 0%
 }
 
 function eAI:initialize(unit, settings)

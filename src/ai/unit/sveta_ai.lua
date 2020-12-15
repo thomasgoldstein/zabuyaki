@@ -2,11 +2,6 @@ local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
 local _settings = {
-    thinkIntervalMin = 0.02,
-    thinkIntervalMax = 0.25,
-    waitBeforeActionMin = 0.1,
-    waitBeforeActionMax = 0.3,
-    waitChance = 0.2
 }
 
 function eAI:initialize(unit, settings)
@@ -16,7 +11,6 @@ function eAI:initialize(unit, settings)
         {"cannotAct", "inAir", "grabbed", "noTarget", "targetDead", "noPlayers", "playerAttackDanger"},
         "SCHEDULE_WALK_CLOSE_TO_ATTACK")
 end
-
 function eAI:selectNewSchedule(conditions)
     self.unit.b.reset()
     local previousSchedule = self.currentSchedule

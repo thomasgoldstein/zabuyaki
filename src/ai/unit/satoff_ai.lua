@@ -2,13 +2,8 @@ local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
 local _settings = {
-    thinkIntervalMin = 0.01,
-    thinkIntervalMax = 0.05,
-    waitBeforeActionMin = 0.1,
-    waitBeforeActionMax = 0.2,
     waitChance = 0.3,
     jumpAttackChance = 0.15,
-    --grabChance  Here it is defined in the random scheduleTable
 }
 
 function eAI:initialize(unit, settings)

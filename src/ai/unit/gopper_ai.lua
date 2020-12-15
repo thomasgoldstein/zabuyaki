@@ -3,11 +3,6 @@ local eAI = class('eAI', AI)
 
 local _settings = {
     maxSwitchingSchedulesCounter = 4,
-    thinkIntervalMin = 0.2,
-    thinkIntervalMax = 0.35,
-    waitBeforeActionMin = 0.2,
-    waitBeforeActionMax = 0.5,
-    waitChance = 0.34
 }
 
 function eAI:initialize(unit, settings)
