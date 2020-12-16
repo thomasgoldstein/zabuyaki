@@ -28,19 +28,28 @@ function AI:onCombo(dt)
     return false
 end
 
-function AI:onMoveThenDashAttack()
+local adjustCoordGap = 4
+function AI:onMoveThenDashAttack(dt)
     local u = self.unit
-    --dp("AI:onMoveThenDashAttack() ".. u.name)
     if u.move then
         return u.move:update(0)
     else
+        if u.target then -- correct x, y pos from the target
+            if u.ttx > u.target.x + adjustCoordGap then
+                u.ttx = u.ttx - u.speed_x * dt
+            elseif u.ttx > u.target.x + adjustCoordGap then
+                u.ttx = u.ttx + u.speed_x * dt
+            end
+            if u.tty > u.target.y + adjustCoordGap then
+                u.tty = u.tty - u.speed_y * dt
+            elseif u.tty > u.target.y + adjustCoordGap then
+                u.tty = u.tty + u.speed_y * dt
+            end
+        end
+        u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
         if math.abs(u.ttx - u.x ) < u.width * 2.5 then
             u.b.setAttack( true )
             return true
-        elseif u.target then -- correct y pos from the target
-            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.target.y - u.y, 2 ) )
-        else
-            u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
         end
         u.old_x = u.x
         u.old_y = u.y
