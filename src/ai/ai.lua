@@ -11,8 +11,8 @@ function AI:initialize(unit, settings)
 
     self.thinkIntervalMin = settings.thinkIntervalMin or 0.016
     self.thinkIntervalMax = settings.thinkIntervalMax or 0.048
-    self.waitBeforeActionMin = settings.waitBeforeActionMin or 0.001 -- hesitation delay before combo
-    self.waitBeforeActionMax = settings.waitBeforeActionMax or 0.033
+    self.waitBeforeActionMin = settings.waitBeforeActionMin or 0.064 -- hesitation delay before combo
+    self.waitBeforeActionMax = settings.waitBeforeActionMax or 0.096
 
     self.reactShortDistanceMin = settings.reactShortDistanceMin or 0
     self.reactShortDistanceMax = settings.reactShortDistanceMax or 49
