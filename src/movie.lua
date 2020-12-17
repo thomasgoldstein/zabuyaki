@@ -126,7 +126,9 @@ function Movie:update(dt)
     else
         self.transparency = 1
     end
-    if (self.time <= 1 and self:compareToFrame(-1)) or (self.time >= timeToFadeout and self:compareToFrame(1)) then
+    if ( self.time <= 1 and ( self:compareToFrame(-1) or self.frames[self.frame].noFadeIn ) )
+        or ( self.time >= timeToFadeout and ( self:compareToFrame(1) or self.frames[self.frame].noFadeOut ) )
+    then
         self.pictureTransparency = 1
     else
         self.pictureTransparency = self.transparency
