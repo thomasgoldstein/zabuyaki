@@ -124,6 +124,7 @@ function calculatePenetration(mx, my, mw, mh)
 end
 
 function dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
+function getAngle(centre_x, centre_y, x,y) return -math.atan2( y - centre_y, x - centre_x ) end
 
 function rand1()
     if love.math.random() < 0.5 then
