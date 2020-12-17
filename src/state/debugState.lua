@@ -113,7 +113,7 @@ function debugState:update(dt)
             m.hint = "USE <- ->"
         elseif i == menuItems.SPAWN_UNIT then
             m.item = "SPAWN " .. unitsSpawnList[ menu[i].n ]
-            m.hint = "Use <- or -> and [A] button"
+            m.hint = "Use <- or -> and [A] button ~[CTRL]"
         else
             m.hint = "Use [J] button to exit"
         end
@@ -176,8 +176,10 @@ function debugState:confirm(button)
             end
             local p = getRegisteredPlayer(1)
             local className = unitsSpawnList[ menu[menuItems.SPAWN_UNIT].n ]
+            local x, y = p.x - 100 + love.math.random(200), p.y - 50 + love.math.random(100)
+            y = Stage:clampWalkableAreaY( x, y )
             local unit = getUnitTypeByName(className):new("*"..className..(GLOBAL_UNIT_ID + 1),
-                "src/def/char/"..className, p.x, p.y, { palette = love.math.random(1, 4) })
+                "src/def/char/"..className, x, y, { palette = love.math.random(1, 4) })
             if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
                 unit.AI = AIExperimental:new(unit)
             end
