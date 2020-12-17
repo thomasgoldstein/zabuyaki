@@ -6,8 +6,15 @@ movie_intro = {
     {
         {
             slide = slides,
-            q = { 0, 0, 240, 120 }
+            q = { 0, 0, 200, 120 },
+            hScroll = 20, -- Scroll to the left by 100px
         },
+        {
+            slide = slides,
+            q = { 0, 480, 200, 120 },
+            hScroll = 32, -- Scroll to the left by 100px
+        },
+        noFadeOut = true,
         text = [[Adigrad is a city ravaged
 by crime and corruption,
 leading to a garbage crisis.]]
@@ -15,8 +22,15 @@ leading to a garbage crisis.]]
     {
         {
             slide = slides,
-            q = { 0, 0, 240, 120 }
+            q = { 0, 0, 240, 120 },
+            hScroll = 20, -- Scroll to the left by 100px
         },
+        {
+            slide = slides,
+            q = { 32, 480, 200, 120 },
+            hScroll = 32, -- Scroll to the left by 100px
+        },
+        noFadeIn = true,
         text = [[The newly-elected mayor,
 Hyke Magger, promised to
 clean up the city.]]
@@ -24,8 +38,10 @@ clean up the city.]]
     {
         {
             slide = slides,
-            q = { 0, 120, 240, 120 }
+            q = { 10, 120, 200, 120 },
+            hScroll = -10, -- Scroll to the left by 100px
         },
+        noFadeOut = true,
         text = [[Viewed as inefficient,
 the waste collection service
 got privatized by the mayor.]]
@@ -33,8 +49,10 @@ got privatized by the mayor.]]
     {
         {
             slide = slides,
-            q = { 0, 120, 240, 120 },
+            q = { 0, 120, 200, 120 },
+            hScroll = -10, -- Scroll to the left by 100px
         },
+        noFadeIn = true,
         text = [[The garbage collectors
 in charge until then took
 the blame and were fired.]]
