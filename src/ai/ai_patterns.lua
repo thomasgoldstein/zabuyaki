@@ -99,6 +99,9 @@ function AI:initCommonAiSchedules()
     self.SCHEDULE_DANCE = Schedule:new({ self.ensureStanding, self.initDance, self.initWaitLong, self.onWait},
         {"grabbed", "inAir"},
         "SCHEDULE_DANCE")
+    self.SCHEDULE_KEEP_DISTANCE = Schedule:new({ self.initKeepDistance, self.onKeepDistance},
+        {},
+        "SCHEDULE_KEEP_DISTANCE")
     self.SCHEDULE_WALK_TO_SHORT_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToShortDistance, self.onMove},
         {"cannotAct", "grabbed", "inAir", "noPlayers", "loot"},
         "SCHEDULE_WALK_TO_SHORT_DISTANCE")
@@ -663,6 +666,40 @@ function AI:onWalkAround(dt)
         --print(getDebugFrame(), "end TIME or < RADIUS", u.chaseAngle)
         return true
     end
+    return false
+end
+
+function AI:initKeepDistance(dt)
+    local u = self.unit
+    if not u.target then
+        self:abort("No target to keep distance")
+    end
+    u.chaseTime = 5
+    u.chaseAngleStep = love.math.random(-1, 1)
+    u.chaseRadiusStep = love.math.random(-1, 1)
+    u.chaseAngle = getAngle( u.target.x, u.target.y, u.x, u.y )
+    u.chaseRadius = math.max( dist(u.target.x, u.target.y, u.x, u.y), self:getShortAttackRange(u, u.target) * 2 )
+    return true
+end
+function AI:onKeepDistance(dt)
+    local u = self.unit
+    local v, h
+    if u.chaseTime <= 0 then
+        u.b.setHorizontalAndVertical( 0, 0 )
+        u.b.reset()
+        return true
+    end
+    u.chaseTime = u.chaseTime - dt
+    u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
+    u.chaseAngle = u.chaseAngle + u.chaseAngleStep * 0.1 * dt
+    if u.chaseRadius < 160 then
+        u.chaseRadius = u.chaseRadius + 1 * dt
+    end
+    h, v = signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 )
+    u.b.setHorizontalAndVertical( h, v )
+    u.b.setStrafe( true )
+    u.old_x = u.x
+    u.old_y = u.y
     return false
 end
 
