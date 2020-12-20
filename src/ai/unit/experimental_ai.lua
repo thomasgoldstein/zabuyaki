@@ -74,7 +74,7 @@ function eAI:selectNewAttackSchedule()
     return true
 end
 
-function eAI:selectNewSchedule(conditions)
+function eAI:old_selectNewSchedule(conditions)
     print(self.unit.name, "selectNewSchedule")
     if self.conditions.tooCloseToPlayer then
         print(self.unit.name, "IN DANGEROUS POS. AVOID")
@@ -93,4 +93,10 @@ function eAI:selectNewSchedule(conditions)
     end
     self:setSchedule( self.tactics[ love.math.random(1, #self.tactics ) ])
 end
+
+function eAI:selectNewSchedule(conditions)
+    print(self.unit.name, "selectNewSchedule")
+    self:setSchedule( self.SCHEDULE_KEEP_DISTANCE )
+end
+
 return eAI
