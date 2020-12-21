@@ -12,14 +12,14 @@ function eAI:initialize(unit, settings)
         --self.SCHEDULE_ATTACK_FROM_BACK,
         --self.SCHEDULE_WALK_CLOSE_TO_ATTACK,
         self.SCHEDULE_WALK_RANDOM,
-        self.SCHEDULE_WALK_AROUND,
+        self.SCHEDULE_KEEP_DISTANCE_PLAYER,
         self.SCHEDULE_GET_TO_BACK,
         self.SCHEDULE_WALK_BY_TARGET_V,
-        self.SCHEDULE_WALK_BY_TARGET_H,
+        --self.SCHEDULE_WALK_BY_TARGET_H,
         self.SCHEDULE_WAIT_SHORT,
         --self.SCHEDULE_ESCAPE_BACK,    --
         self.SCHEDULE_WALK_TO_MEDIUM_DISTANCE,
-        self.SCHEDULE_WALK_TO_SHORT_DISTANCE,
+        --self.SCHEDULE_WALK_TO_SHORT_DISTANCE,
         self.SCHEDULE_WALKING_SPEED_UP,
         self.SCHEDULE_WALKING_SPEED_DOWN,
         --self.SCHEDULE_WALK_OVER_TO_MEDIUM_DISTANCE,   --
