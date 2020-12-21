@@ -38,18 +38,21 @@ function eAI:selectNewSchedule(conditions)
         end
         if conditions.canCombo then
             if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
-                self:setSchedule( self.SCHEDULE_ESCAPE_BACK )
+                self:setSchedule( self.SCHEDULE_KEEP_DISTANCE_PLAYER )
                 return
             end
             self:setSchedule( self.SCHEDULE_COMBO )
             return
         end
-        if conditions.canJumpAttack and love.math.random() < self.jumpAttackChance then
+        if conditions.canJumpAttack
+            and self.currentSchedule ~= self.SCHEDULE_HORIZONTAL_JUMP_ATTACK
+            and love.math.random() < self.jumpAttackChance
+        then
             self:setSchedule( self.SCHEDULE_HORIZONTAL_JUMP_ATTACK )
             return
         end
         if conditions.canMove and conditions.tooCloseToPlayer then --and love.math.random() < 0.5
-            self:setSchedule( self.SCHEDULE_ESCAPE_BACK )
+            self:setSchedule( self.SCHEDULE_GET_TO_BACK )
             return
         end
         if conditions.canMove and conditions.wokeUp or not conditions.noTarget then
