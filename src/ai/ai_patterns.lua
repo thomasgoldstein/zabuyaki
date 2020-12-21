@@ -100,8 +100,11 @@ function AI:initCommonAiSchedules()
         {"grabbed", "inAir"},
         "SCHEDULE_DANCE")
     self.SCHEDULE_KEEP_DISTANCE = Schedule:new({ self.initKeepDistance, self.onKeepDistance},
-        {},
+        {"playerAttackDanger"},
         "SCHEDULE_KEEP_DISTANCE")
+    self.SCHEDULE_KEEP_DISTANCE_PLAYER = Schedule:new({ self.initKeepDistancePlayer, self.onKeepDistance},
+        {"playerAttackDanger", "noTarget", "targetDead", "noPlayers"},
+        "SCHEDULE_KEEP_DISTANCE_PLAYER")
     self.SCHEDULE_WALK_TO_SHORT_DISTANCE = Schedule:new({ self.ensureHasTarget, self.ensureStanding, self.initWalkToShortDistance, self.onMove},
         {"cannotAct", "grabbed", "inAir", "noPlayers", "loot"},
         "SCHEDULE_WALK_TO_SHORT_DISTANCE")
@@ -674,10 +677,43 @@ function AI:onWalkAround(dt)
     return false
 end
 
-function AI:initKeepDistance(dt)
+function AI:getChaseXY()
+    local u = self.unit
+    if u.chaseType == "target" and u.target then
+        return u.target.x + u.chaseOffset_x, u.target.y + u.chaseOffset_y
+    end
+    if u.chaseType == "targetX" and u.target then
+        return u.target.x + u.chaseOffset_x, u.chase_y + u.chaseOffset_y
+    end
+    -- chaseType == "place"
+    return u.chase_x + u.chaseOffset_x, u.chase_y + u.chaseOffset_y
+end
+
+function AI:initKeepDistancePlayer(dt)
     local u = self.unit
     if not u.target then
         self:abort("No target to keep distance")
+        return true
+    end
+    u.chaseType = "target"  --target offsetTarget
+    u.chaseAngleSpeed = 1
+    u.chaseOffset_x = 0
+    u.chaseOffset_y = love.math.random(-u.width, u.width)
+    u.chaseTime = love.math.random(3, 5)
+    local x, y = self:getChaseXY()
+
+    u.chaseAngleStep = love.math.random(-1, 1)
+    u.chaseRadiusStep = love.math.random(-1, 1)
+    u.chaseAngle = getAngle( x, y, u.x, u.y )
+    u.chaseRadius = math.max( dist(x, y, u.x, u.y), self:getShortAttackRange(u, u.target) * 2 )
+    return true
+end
+
+function AI:orig_initKeepDistance(dt)
+    local u = self.unit
+    if not u.target then
+        self:abort("No target to keep distance")
+        return true
     end
     u.chaseTime = 5
     u.chaseAngleStep = love.math.random(-1, 1)
@@ -688,14 +724,15 @@ function AI:initKeepDistance(dt)
 end
 function AI:onKeepDistance(dt)
     local u = self.unit
-    local v, h
+    local h, v, x, y
     if u.chaseTime <= 0 then
         u.b.setHorizontalAndVertical( 0, 0 )
         u.b.reset()
         return true
     end
     u.chaseTime = u.chaseTime - dt
-    u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
+    x, y = self:getChaseXY()
+    u.ttx, u.tty = getPosByAngleR( x, y, u.chaseAngle, u.chaseRadius)
     u.chaseAngle = u.chaseAngle + u.chaseAngleStep * 0.1 * dt
     if u.chaseRadius < 160 then
         u.chaseRadius = u.chaseRadius + 1 * dt
@@ -703,6 +740,9 @@ function AI:onKeepDistance(dt)
     h, v = signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 )
     u.b.setHorizontalAndVertical( h, v )
     u.b.setStrafe( true )
+    if h ~= 0 or v ~= 0 then
+        self:initFaceToPlayer()
+    end
     u.old_x = u.x
     u.old_y = u.y
     return false
