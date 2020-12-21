@@ -96,7 +96,11 @@ end
 
 function eAI:selectNewSchedule(conditions)
     print(self.unit.name, "selectNewSchedule")
-    self:setSchedule( self.SCHEDULE_KEEP_DISTANCE )
+    if love.math.random() < 0.5 then
+        self:setSchedule( self.SCHEDULE_KEEP_DISTANCE_PLAYER )
+    else
+        self:setSchedule( self.SCHEDULE_WAIT_SHORT )
+    end
 end
 
 return eAI
