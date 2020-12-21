@@ -387,6 +387,7 @@ end
 
 function AI:calcWalkToSideStepToXY()
     local u = self.unit
+    u.b.reset()
     if not self:isReadyToMove() then
         return false
     end
@@ -413,10 +414,10 @@ end
 function AI:initSideStepToTarget()
     local u = self.unit
     local t = u.target
+    u.b.reset()
     if not self:isReadyToMove() then
         return false
     end
-    u.b.reset()
     if not t then
         self:abort()
         return true
@@ -434,6 +435,10 @@ end
 function AI:initSideStepAway()
     local u = self.unit
     local top, bottom = stage:getWalkableAreaTopAndBottomY( u.x, u )
+    u.b.reset()
+    if not self:isReadyToMove() then
+        return false
+    end
     if u.y > (top + bottom) / 2 then
         u.vertical = -1
     else
