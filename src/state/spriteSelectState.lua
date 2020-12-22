@@ -22,6 +22,7 @@ local menuItems = {characters = 1, back = 2}
 local menu = fillMenu(txtItems, nil, menuParams)
 
 local currentSprite, currentShader
+local currentSprite2, currentShader2, hero2
 local heroes = {
     {
         name = "RICK",
@@ -137,11 +138,12 @@ function spriteSelectState:update(dt)
         oldMenuState = menuState
         self:showCurrentSprite()
     end
-
     if currentSprite then
         updateSpriteInstance(currentSprite, dt)
     end
-
+    if currentSprite2 then
+        updateSpriteInstance(currentSprite2, dt)
+    end
     self:playerInput(Controls[1])
 end
 
@@ -153,7 +155,8 @@ local function displayHelp()
     if menuState == menuItems.characters then
         love.graphics.print(
             [[<- -> :
-  Select character]], x, y)
+  Select character
+  Hold [CTRL] to select the grabbed unit]], x, y)
     end
     love.graphics.setFont(font)
 end
@@ -171,14 +174,23 @@ function spriteSelectState:draw()
                 m.item = heroes[m.n].name.." - no palettes"
             end
             m.hint = ""..heroes[m.n].spriteInstance
-            currentShader = heroes[m.n].shaders[1]
         end
         drawMenuItem(menu, i, oldMenuState)
     end
     drawMenuTitle(menu, menuTitle)
     --sprite
-    colors:set("white")
+    if currentSprite2 then
+        colors:set("gray")
+        if currentShader2 then
+            love.graphics.setShader(currentShader2)
+        end
+        drawSpriteInstance(currentSprite2, menuParams.screenWidth / 2 + 100, menuParams.menuOffset_y + menuParams.menuItem_h / 2)
+        if currentShader2 then
+            love.graphics.setShader()
+        end
+    end
     if currentSprite then
+        colors:set("white")
         if currentShader then
             love.graphics.setShader(currentShader)
         end
@@ -199,15 +211,25 @@ function spriteSelectState:confirm(button)
     if button == 1 then
         if menuState == menuItems.characters then
             sfx.play("sfx","menuSelect")
-            return Gamestate.push(spriteViewerState, heroes[menu[menuState].n])
+            return Gamestate.push(spriteViewerState, heroes[menu[menuState].n], hero2 or heroes[menu[menuState].n])
         end
     end
 end
 
 function spriteSelectState:showCurrentSprite()
     if menuState == menuItems.characters then
-        currentSprite = getSpriteInstance(heroes[menu[menuState].n].spriteInstance)
-        setSpriteAnimation(currentSprite,"stand")
+        if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+            hero2 = heroes[menu[menuState].n]
+            currentSprite2 = getSpriteInstance(hero2.spriteInstance)
+            currentSprite2.sizeScale = 2
+            currentShader2 = hero2.shaders[1]
+            setSpriteAnimation(currentSprite2, spriteHasAnimation(currentSprite2, "walk") and "walk" or "stand")
+        else
+            currentSprite = getSpriteInstance(heroes[menu[menuState].n].spriteInstance)
+            currentSprite.sizeScale = 2
+            currentShader = heroes[menu[menuState].n].shaders[1]
+            setSpriteAnimation(currentSprite,"stand")
+        end
     end
 end
 
