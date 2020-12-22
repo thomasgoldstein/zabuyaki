@@ -540,6 +540,58 @@ function Unit:moveStatesApply()
     end
 end
 
+function Unit:hasMoveStates(sprite, curAnim, curFrame)  -- for sprite viewer only
+    local moves = sprite.def.animations[curAnim].moves
+    return (moves and moves[curFrame])
+end
+function Unit:hasMoveStatesFrame(sprite, curAnim, curFrame)  -- for sprite viewer only
+    local moves = sprite.def.animations[curAnim].moves
+    local frame = curFrame
+    if self:hasMoveStates(sprite, curAnim, curFrame) then
+        local m = moves[frame]
+        return m.tAnimation
+    end
+    return false
+end
+function Unit:getMoveStates(sprite, curAnim, curFrame)  -- for sprite viewer only
+    local moves = sprite.def.animations[curAnim].moves
+    local frame = curFrame
+    if not moves or not moves[frame] then
+        return
+    end
+    local g = self.grabContext
+    local t = g.target
+    local i = g.init
+    local m = moves[frame]
+    if m.grabberFace then
+        self.face = i.grabberFace * m.grabberFace
+    end
+    if m.grabbedFace then
+        t.face = i.grabbedFace * m.grabbedFace
+    end
+    if m.tAnimation and t.sprite.curAnim ~= m.tAnimation then
+        t:setSpriteIfExists(m.tAnimation)
+    end
+    if m.x then
+        self.x = i.x + m.x * self.face
+    end
+    if m.y then
+        self.y = i.y + m.y
+    end
+    if m.z then
+        self.z = i.z + m.z
+    end
+    if m.ox then
+        t.x = self.x + m.ox * self.face
+    end
+    if m.oy then
+        t.y = self.y + m.oy
+    end
+    if m.oz then
+        t.z = self.z + m.oz
+    end
+end
+
 function Unit:updateAttackersLifeBar(h)
     if h.type ~= "shockWave"
         and (not h.source.victimLifeBar
