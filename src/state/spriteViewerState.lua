@@ -22,7 +22,7 @@ local menuItems = {animations = 1, frames = 2, disabled = 3, palettes = 4, back 
 local menu = fillMenu(txtItems, nil, menuParams)
 
 local character, unit, sprite, specialOverlaySprite, animations
-local character2, unit2, sprite2, specialOverlaySprite2, animations2
+local character2, unit2, sprite2
 
 function spriteViewerState:enter(_, _unit, _unit2)
     unit = _unit
@@ -55,17 +55,15 @@ function spriteViewerState:enter(_, _unit, _unit2)
     character.showEffect = function() end -- block visual effects
     -- the aux unit/character/sprite
     unit2 = _unit2
-    sprite2 = getSpriteInstance(unit2.spriteInstance)
-    sprite2.curAnim = "stand"
-    setSpriteAnimation(sprite2,sprite2.curAnim)
-    sprite2.sizeScale = 2
-
     character2 = Character:new("SPRITE2", unit2.spriteInstance, menuParams.screenWidth /2 + 100, menuParams.menuOffset_y + menuParams.menuItem_h / 2)
     character2.id = 2   -- fixed id
     character2:setOnStage(stage)
     character2.doThrow = function() end -- block ability
     character2.showEffect = function() end -- block visual effects
-    --
+    sprite2 = character2.sprite
+    sprite2.curAnim = "stand"
+    sprite2.sizeScale = 2
+    -- grab context for glued sprites, for moveStatesApply
     local g = character.grabContext
     local gTarget = character2.grabContext
     gTarget.source = unit
@@ -73,7 +71,6 @@ function spriteViewerState:enter(_, _unit, _unit2)
     character2.isGrabbed = true
     g.source = nil
     g.target = character2
-    --g.canGrabSwap = true   --can do 1 grabSwap
 end
 
 local function clearCharacterHitBoxes()
@@ -209,9 +206,6 @@ function spriteViewerState:update(dt)
     if sprite then
         updateSpriteInstance(sprite, dt)
     end
-    if sprite2 then
-        updateSpriteInstance(sprite2, dt)
-    end
     self:playerInput(Controls[1])
 end
 
@@ -314,12 +308,9 @@ function spriteViewerState:draw()
             if menu[menuState].n > #sprite.def.animations[sprite.curAnim] then
                 menu[menuState].n = 1
             end
-
             for i = 1, #sprite.def.animations[sprite.curAnim] do
-
                 colors:set("blue", nil, 150)
                 love.graphics.rectangle("fill", x, 0, 2, menuParams.menuOffset_y + menuParams.menuItem_h)
-
                 colors:set("white", nil, 150)
                 if i ~= menu[menuState].n then
                     drawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
@@ -333,19 +324,40 @@ function spriteViewerState:draw()
             if isDebug() then
                 drawDebugHitBoxes(sprite.sizeScale)
             end
+            if menu[menuState].n == 1 then
+                character.x = 0; character.y = 0; character.z = 0
+                character2.x = character:getGrabDistance()
+                character2.y = 0; character2.z = 0
+                if spriteHasAnimation(sprite2, "grabbedBack") then
+                    sprite2.curAnim = "grabbedBack" -- prevent crashing on stageObjects and missing frames
+                else
+                    sprite2.curAnim = "stand"
+                end
+            end
+            if character2.type ~= "stageObject" and character:hasMoveStates(sprite, sprite.curAnim, menu[menuState].n) then
+                character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n)
+                if Unit:hasMoveStatesFrame(sprite, sprite.curAnim, menu[menuState].n) then
+                    colors:set("white")
+                else
+                    colors:set("white", nil, 200)
+                end
+                drawSpriteInstance(sprite2, x + character2.x * sprite2.sizeScale, y - character2.z * sprite2.sizeScale, sprite2.curFrame )
+            end
             colors:set("white")
-            drawSpriteInstance(sprite, x, y, menu[menuState].n)
+            drawSpriteInstance(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, menu[menuState].n)
             if isDebug() then
-                drawDebugUnitHurtBox(sprite, x, y, menu[menuState].n, sprite.sizeScale)
+                drawDebugUnitHurtBox(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, menu[menuState].n, sprite.sizeScale)
             end
             if specialOverlaySprite then
                 if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
-                    drawSpriteCustomInstance(specialOverlaySprite, x , y, sprite.curAnim, menu[menuState].n)
+                    drawSpriteCustomInstance(specialOverlaySprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, sprite.curAnim, menu[menuState].n)
                 end
             end
         else
             --animation
-            drawSpriteInstance(sprite2, x + 100, y)
+            colors:set("white", nil, 200)
+            drawSpriteInstance(sprite2, x + 200, y)
+            colors:set("white")
             drawSpriteInstance(sprite, x, y)
             if specialOverlaySprite then
                 if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
