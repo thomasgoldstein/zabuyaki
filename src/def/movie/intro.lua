@@ -38,8 +38,8 @@ clean up the city.]]
     {
         {
             slide = slides,
-            q = { 10, 120, 200, 120 },
-            hScroll = -10, -- Scroll to the left by 100px
+            q = { 0, 120, 200, 120 },
+            hScroll = 20, -- Scroll to the left by 100px
         },
         noFadeOut = true,
         text = [[Viewed as inefficient,
@@ -49,8 +49,8 @@ got privatized by the mayor.]]
     {
         {
             slide = slides,
-            q = { 0, 120, 200, 120 },
-            hScroll = -10, -- Scroll to the left by 100px
+            q = { 20, 120, 200, 120 },
+            hScroll = 20, -- Scroll to the left by 100px
         },
         noFadeIn = true,
         text = [[The garbage collectors
