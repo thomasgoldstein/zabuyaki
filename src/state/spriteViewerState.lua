@@ -22,8 +22,9 @@ local menuItems = {animations = 1, frames = 2, disabled = 3, palettes = 4, back 
 local menu = fillMenu(txtItems, nil, menuParams)
 
 local character, unit, sprite, specialOverlaySprite, animations
+local character2, unit2, sprite2, specialOverlaySprite2, animations2
 
-function spriteViewerState:enter(_, _unit)
+function spriteViewerState:enter(_, _unit, _unit2)
     unit = _unit
     sprite = getSpriteInstance(unit.spriteInstance)
     sprite.sizeScale = 2
@@ -52,6 +53,27 @@ function spriteViewerState:enter(_, _unit)
     character:setOnStage(stage)
     character.doThrow = function() end -- block ability
     character.showEffect = function() end -- block visual effects
+    -- the aux unit/character/sprite
+    unit2 = _unit2
+    sprite2 = getSpriteInstance(unit2.spriteInstance)
+    sprite2.curAnim = "stand"
+    setSpriteAnimation(sprite2,sprite2.curAnim)
+    sprite2.sizeScale = 2
+
+    character2 = Character:new("SPRITE2", unit2.spriteInstance, menuParams.screenWidth /2 + 100, menuParams.menuOffset_y + menuParams.menuItem_h / 2)
+    character2.id = 2   -- fixed id
+    character2:setOnStage(stage)
+    character2.doThrow = function() end -- block ability
+    character2.showEffect = function() end -- block visual effects
+    --
+    local g = character.grabContext
+    local gTarget = character2.grabContext
+    gTarget.source = unit
+    gTarget.target = nil
+    character2.isGrabbed = true
+    g.source = nil
+    g.target = character2
+    --g.canGrabSwap = true   --can do 1 grabSwap
 end
 
 local function clearCharacterHitBoxes()
@@ -187,6 +209,9 @@ function spriteViewerState:update(dt)
     if sprite then
         updateSpriteInstance(sprite, dt)
     end
+    if sprite2 then
+        updateSpriteInstance(sprite2, dt)
+    end
     self:playerInput(Controls[1])
 end
 
@@ -289,8 +314,13 @@ function spriteViewerState:draw()
             if menu[menuState].n > #sprite.def.animations[sprite.curAnim] then
                 menu[menuState].n = 1
             end
-            colors:set("white", nil, 150)
+
             for i = 1, #sprite.def.animations[sprite.curAnim] do
+
+                colors:set("blue", nil, 150)
+                love.graphics.rectangle("fill", x, 0, 2, menuParams.menuOffset_y + menuParams.menuItem_h)
+
+                colors:set("white", nil, 150)
                 if i ~= menu[menuState].n then
                     drawSpriteInstance(sprite, x - (menu[menuState].n - i) * xStep, y, i )
                     if specialOverlaySprite then
@@ -315,6 +345,7 @@ function spriteViewerState:draw()
             end
         else
             --animation
+            drawSpriteInstance(sprite2, x + 100, y)
             drawSpriteInstance(sprite, x, y)
             if specialOverlaySprite then
                 if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
