@@ -338,9 +338,9 @@ function spriteViewerState:draw()
                     sprite2.curAnim = "stand"
                 end
             end
-            if character2.type ~= "stageObject" and character:hasMoveStates(sprite, sprite.curAnim, menu[menuState].n) then
-                character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n)
-                local tAnimation = Unit:hasMoveStatesFrame(sprite, sprite.curAnim, menu[menuState].n)
+            if character:hasMoveStates(sprite, sprite.curAnim, menu[menuState].n) then
+                character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n) -- sync pos/anim of aux sprite
+                local tAnimation = character:hasMoveStatesFrame(sprite, sprite.curAnim, menu[menuState].n)
                 if tAnimation then
                     colors:set("darkGray")
                     love.graphics.print("*" .. tAnimation, x + 2, y + 2)
