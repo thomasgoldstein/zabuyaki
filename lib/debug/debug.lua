@@ -1,7 +1,7 @@
 DEBUGGING_ON = 1 -- debugging enabled
 SHOW_DEBUG_FPS_CONTROLS = 2 -- unit's pressed controls
-SHOW_DEBUG_UNIT_HITBOX = 3 -- hitboxes
-SHOW_DEBUG_BOXES = 4 -- debug boxes (attack hitboxes, enemy AI cross, etc)
+SHOW_DEBUG_UNIT_HITBOX = 3 -- attack hitboxes
+SHOW_DEBUG_BOXES = 4 -- debug boxes (hurtboxes, enemy AI cross, danger zone, etc)
 SHOW_DEBUG_UNIT_INFO = 5 -- unit's info: name, pos, state
 SHOW_DEBUG_ENEMY_AI_INFO = 6 -- enemy's AI info
 SHOW_DEBUG_WAVES = 7 -- left edge of the current wave with red and the next with blue
@@ -248,11 +248,12 @@ function drawWalkableArea()
     end
 end
 
-function drawDebugHitBoxes(scale)
+function drawDebugHitBoxes(_x, _y, scale)
     if not scale then
         scale = 1
     end
-    if isDebug(SHOW_DEBUG_BOXES) then
+    local x, y = _x or 0, _y or 0
+    if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
         local a
         -- draw attack hitboxes
         for i = 1, #attackHitBoxes do
@@ -264,10 +265,10 @@ function drawDebugHitBoxes(scale)
                     colors:set("yellow", nil, 150)
                 end
                 -- yellow: width + height
-                love.graphics.rectangle("line", a.x + a.sx * scale, a.y + ( -a.z - a.h / 2) * scale, a.w * scale, a.h * scale)
+                love.graphics.rectangle("line", x + a.x + a.sx * scale, y + a.y + ( -a.z - a.h / 2) * scale, a.w * scale, a.h * scale)
                 colors:set("green", nil, 150)
                 -- green: width + depth
-                love.graphics.rectangle("line", a.x + a.sx * scale, a.y - (a.d / 2) * scale, a.w * scale, a.d * scale)
+                love.graphics.rectangle("line", x + a.x + a.sx * scale, y + a.y - (a.d / 2) * scale, a.w * scale, a.d * scale)
             else
                 -- red / green(not collided) cross
                 if a.collided then
@@ -275,8 +276,8 @@ function drawDebugHitBoxes(scale)
                 else
                     colors:set("green", nil, 150)
                 end
-                love.graphics.rectangle("line", a.x + (a.sx - a.w / 2) * scale, a.y - a.z * scale, a.w * scale, a.h * scale)
-                love.graphics.rectangle("line", a.x + a.sx * scale, a.y + ( -a.z - a.w / 2) * scale, a.h * scale, a.w * scale)
+                love.graphics.rectangle("line", x + a.x + (a.sx - a.w / 2) * scale, y + a.y - a.z * scale, a.w * scale, a.h * scale)
+                love.graphics.rectangle("line", x + a.x + a.sx * scale, y + a.y + ( -a.z - a.w / 2) * scale, a.h * scale, a.w * scale)
             end
         end
     end
@@ -302,7 +303,7 @@ function drawUnitHighlight(slf)
 end
 
 function drawDebugUnitHurtBoxUnder(sprite, x, y, frame, scale)
-    if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
+    if isDebug(SHOW_DEBUG_BOXES) then
         local scale = scale or 1
         local hurtBox =  getSpriteHurtBox(sprite, frame)
         if hurtBox then
@@ -317,7 +318,7 @@ function drawDebugUnitHurtBoxUnder(sprite, x, y, frame, scale)
     end
 end
 function drawDebugUnitDangerBoxUnder(unit, _x, _y, scale)
-    if isDebug(SHOW_DEBUG_UNIT_HITBOX) and unit.id <= GLOBAL_SETTING.MAX_PLAYERS and unit:isDangerous() then
+    if isDebug(SHOW_DEBUG_BOXES) and unit.id <= GLOBAL_SETTING.MAX_PLAYERS and unit:isDangerous() then
         local scale = scale or 1
         local x, y, width, depth = unit:getDangerBox(50, 8)
         colors:set("red", nil, 150)
@@ -325,7 +326,7 @@ function drawDebugUnitDangerBoxUnder(unit, _x, _y, scale)
     end
 end
 function drawDebugUnitHurtBox(sprite, x, y, frame, scale)
-    if isDebug(SHOW_DEBUG_UNIT_HITBOX) then
+    if isDebug(SHOW_DEBUG_BOXES) then
         local scale = scale or 1
         local hurtBox =  getSpriteHurtBox(sprite, frame)
         if hurtBox then
