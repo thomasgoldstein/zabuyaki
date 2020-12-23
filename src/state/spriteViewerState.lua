@@ -366,11 +366,9 @@ function spriteViewerState:draw()
             end
         else
             --animation
-            if sprite.curFrame <= 1 then
-                character.x = 0; character.y = 0; character.z = 0
-                character2.x = character:getGrabDistance()
-                character2.y = 0; character2.z = 0
-            end
+            character.x = 0; character.y = 0; character.z = 0
+            character2.x = character:getGrabDistance()
+            character2.y = 0; character2.z = 0
             character:getMoveStates(sprite, sprite.curAnim, sprite.curFrame) -- sync pos/anim of aux sprite
             if character:hasMoveStates(sprite, sprite.curAnim, sprite.curFrame) then
                 colors:set("white", nil, 200)
