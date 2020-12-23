@@ -71,6 +71,7 @@ function spriteViewerState:enter(_, _unit, _unit2)
     character2.isGrabbed = true
     g.source = nil
     g.target = character2
+    character:moveStatesInit()  -- creates 'init' context for move 'glued sprites'
 end
 
 local function clearCharacterHitBoxes()
@@ -203,8 +204,13 @@ function spriteViewerState:update(dt)
         sfx.play("sfx","menuMove")
         oldMenuState = menuState
     end
-    if sprite then
-        updateSpriteInstance(sprite, dt)
+    if sprite2 then
+        updateSpriteInstance(sprite2, dt)
+    end
+    if menuState == menuItems.animations then
+        if sprite then
+            updateSpriteInstance(sprite, dt)
+        end
     end
     self:playerInput(Controls[1])
 end
@@ -360,8 +366,18 @@ function spriteViewerState:draw()
             end
         else
             --animation
+            if sprite.curFrame <= 1 then
+                character.x = 0; character.y = 0; character.z = 0
+                character2.x = character:getGrabDistance()
+                character2.y = 0; character2.z = 0
+            end
+            character:getMoveStates(sprite, sprite.curAnim, sprite.curFrame) -- sync pos/anim of aux sprite
+            if character:hasMoveStates(sprite, sprite.curAnim, sprite.curFrame) then
+                colors:set("white", nil, 200)
+                drawSpriteInstance(sprite2, x + character2.x * sprite2.sizeScale, y - character2.z * sprite2.sizeScale )
+            end
             colors:set("white")
-            drawSpriteInstance(sprite, x, y)
+            drawSpriteInstance(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale)
             if specialOverlaySprite then
                 if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
                     drawSpriteCustomInstance(specialOverlaySprite, x , y, sprite.curAnim, sprite.curFrame)
