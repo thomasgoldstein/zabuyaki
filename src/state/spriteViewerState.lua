@@ -343,6 +343,7 @@ function spriteViewerState:draw()
                 else
                     sprite2.curAnim = "stand"
                 end
+                sprite2.curFrame = 1
             end
             if character:hasMoveStates(sprite, sprite.curAnim, menu[menuState].n) then
                 character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n) -- sync pos/anim of aux sprite
