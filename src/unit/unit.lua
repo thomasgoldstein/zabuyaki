@@ -549,7 +549,35 @@ function Unit:hasMoveStatesFrame(sprite, curAnim, curFrame)  -- for sprite viewe
     local frame = curFrame
     if self:hasMoveStates(sprite, curAnim, curFrame) then
         local m = moves[frame]
-        return m.tAnimation
+        local t = "MOVE:"
+        if m.grabberFace then
+            t = t .. " rF=" .. m.grabberFace
+        end
+        if m.grabbedFace then
+            t = t .. " dF=" .. m.grabbedFace
+        end
+        if m.tAnimation then
+            t = t .. " " .. m.tAnimation
+        end
+        if m.x then
+            t = t .. " x=" .. m.x
+        end
+        if m.y then
+            t = t .. " y=" .. m.y
+        end
+        if m.z then
+            t = t .. " z=" .. m.z
+        end
+        if m.ox then
+            t = t .. " ox=" .. m.ox
+        end
+        if m.oy then
+            t = t .. " oy=" .. m.oy
+        end
+        if m.oz then
+            t = t .. " oz=" .. m.oz
+        end
+        return m.tAnimation, t
     end
     return false
 end
