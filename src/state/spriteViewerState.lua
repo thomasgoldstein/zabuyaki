@@ -328,10 +328,10 @@ function spriteViewerState:draw()
             if isDebug() then
                 drawDebugHitBoxes(sprite.sizeScale)
             end
+            character.x = 0; character.y = 0; character.z = 0
+            character2.x = character:getGrabDistance()
+            character2.y = 0; character2.z = 0
             if menu[menuState].n == 1 then
-                character.x = 0; character.y = 0; character.z = 0
-                character2.x = character:getGrabDistance()
-                character2.y = 0; character2.z = 0
                 if spriteHasAnimation(sprite2, "grabbedBack") then
                     sprite2.curAnim = "grabbedBack" -- prevent crashing on stageObjects and missing frames
                 else
