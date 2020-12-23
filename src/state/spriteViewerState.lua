@@ -255,6 +255,10 @@ function spriteViewerState:draw()
             if s[m.n].rotate then
                 m.hint = m.hint .. "R:"..s[m.n].rotate.." RXY:"..(s[m.n].rx or 0)..","..(s[m.n].ry or 0).." "
             end
+            local tAnimation, t = character:hasMoveStatesFrame(sprite, sprite.curAnim, menu[menuState].n)
+            if t then
+                m.hint = m.hint .. "\n"..t
+            end
         elseif i == menuItems.palettes then
             if m.n > #unit.shaders then
                 m.n = #unit.shaders
@@ -336,11 +340,12 @@ function spriteViewerState:draw()
             end
             if character2.type ~= "stageObject" and character:hasMoveStates(sprite, sprite.curAnim, menu[menuState].n) then
                 character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n)
-                if Unit:hasMoveStatesFrame(sprite, sprite.curAnim, menu[menuState].n) then
-                    colors:set("white")
-                else
-                    colors:set("white", nil, 200)
+                local tAnimation = Unit:hasMoveStatesFrame(sprite, sprite.curAnim, menu[menuState].n)
+                if tAnimation then
+                    colors:set("darkGray")
+                    love.graphics.print("*" .. tAnimation, x + 2, y + 2)
                 end
+                colors:set("white", nil, 200)
                 drawSpriteInstance(sprite2, x + character2.x * sprite2.sizeScale, y - character2.z * sprite2.sizeScale, sprite2.curFrame )
             end
             colors:set("white")
@@ -355,8 +360,6 @@ function spriteViewerState:draw()
             end
         else
             --animation
-            colors:set("white", nil, 200)
-            drawSpriteInstance(sprite2, x + 200, y)
             colors:set("white")
             drawSpriteInstance(sprite, x, y)
             if specialOverlaySprite then
