@@ -22,7 +22,7 @@ local menuItems = {characters = 1, back = 2}
 local menu = fillMenu(txtItems, nil, menuParams)
 
 local currentSprite, currentShader
-local currentSprite2, currentShader2, hero2
+local hero2_n, currentSprite2, currentShader2, hero2 = 1
 local heroes = {
     {
         name = "RICK",
@@ -180,7 +180,7 @@ function spriteSelectState:draw()
     drawMenuTitle(menu, menuTitle)
     --sprite
     if currentSprite2 then
-        colors:set("gray")
+        colors:set(love.keyboard.isScancodeDown( "lctrl", "rctrl" ) and 'white' or "gray")
         if currentShader2 then
             love.graphics.setShader(currentShader2)
         end
@@ -190,7 +190,7 @@ function spriteSelectState:draw()
         end
     end
     if currentSprite then
-        colors:set("white")
+        colors:set(not love.keyboard.isScancodeDown( "lctrl", "rctrl" ) and 'white' or "gray")
         if currentShader then
             love.graphics.setShader(currentShader)
         end
@@ -219,7 +219,7 @@ end
 function spriteSelectState:showCurrentSprite()
     if menuState == menuItems.characters then
         if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
-            hero2 = heroes[menu[menuState].n]
+            hero2 = heroes[hero2_n]
             currentSprite2 = getSpriteInstance(hero2.spriteInstance)
             currentSprite2.sizeScale = 2
             currentShader2 = hero2.shaders[1]
@@ -234,15 +234,27 @@ function spriteSelectState:showCurrentSprite()
 end
 
 function spriteSelectState:select(i)
-    menu[menuState].n = menu[menuState].n + i
     if menuState == menuItems.characters then
-        if menu[menuState].n < 1 then
-            menu[menuState].n = #heroes
-        end
-        if menu[menuState].n > #heroes then
-            menu[menuState].n = 1
+        if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
+            hero2_n = hero2_n + i
+            if hero2_n < 1 then
+                hero2_n = #heroes
+            end
+            if hero2_n > #heroes then
+                hero2_n = 1
+            end
+        else
+            menu[menuState].n = menu[menuState].n + i
+            if menu[menuState].n < 1 then
+                menu[menuState].n = #heroes
+            end
+            if menu[menuState].n > #heroes then
+                menu[menuState].n = 1
+            end
         end
         self:showCurrentSprite()
+    else
+        menu[menuState].n = menu[menuState].n + i
     end
     if menuState ~= #menu then
         sfx.play("sfx","menuMove")
