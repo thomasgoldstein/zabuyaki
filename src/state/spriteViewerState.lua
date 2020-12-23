@@ -331,9 +331,7 @@ function spriteViewerState:draw()
                     end
                 end
             end
-            if isDebug() then
-                drawDebugHitBoxes(sprite.sizeScale)
-            end
+            drawDebugHitBoxes(x, y, sprite.sizeScale)
             character.x = 0; character.y = 0; character.z = 0
             character2.x = character:getGrabDistance()
             character2.y = 0; character2.z = 0
@@ -357,9 +355,7 @@ function spriteViewerState:draw()
             end
             colors:set("white")
             drawSpriteInstance(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, menu[menuState].n)
-            if isDebug() then
-                drawDebugUnitHurtBox(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, menu[menuState].n, sprite.sizeScale)
-            end
+            drawDebugUnitHurtBox(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, menu[menuState].n, sprite.sizeScale)
             if specialOverlaySprite then
                 if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
                     drawSpriteCustomInstance(specialOverlaySprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, sprite.curAnim, menu[menuState].n)
