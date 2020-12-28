@@ -53,6 +53,15 @@ function loadSpriteSheet(spriteSheet)
     return imageBank[spriteSheet]:getDimensions()
 end
 
+function removeSpriteFromImageBank(spriteDef)
+    if type(spriteDef) == "table" and spriteDef.def then
+        spriteDef.def = nil
+        spriteDef = nil
+    else
+        spriteBank[spriteDef] = nil
+    end
+end
+
 ---Returns instance of the defined sprite
 ---@param spriteDef string Path to the sprite definition file
 function getSpriteInstance (spriteDef)
