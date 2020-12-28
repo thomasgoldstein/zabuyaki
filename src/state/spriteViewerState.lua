@@ -23,9 +23,11 @@ local menu = fillMenu(txtItems, nil, menuParams)
 
 local character, unit, sprite, specialOverlaySprite, animations
 local character2, unit2, sprite2
+local saveUnitSpriteInstance
 
 function spriteViewerState:enter(_, _unit, _unit2)
     unit = _unit
+    saveUnitSpriteInstance = unit.spriteInstance
     sprite = getSpriteInstance(unit.spriteInstance)
     sprite.sizeScale = 2
     menuTitle = love.graphics.newText( gfx.font.kimberley, unit.name )
@@ -101,7 +103,10 @@ local function displayHelp()
   Select animation
 
 Attack/Enter :
-  Replay animation]], x, y)
+  Replay animation
+
+F5 :
+  Reload sprite def and spritesheet image]], x, y)
     elseif menuState == menuItems.frames then
         love.graphics.print(
 [[<- -> :
@@ -123,6 +128,28 @@ Use R-Alt, R-Ctrl, R-Shift for Overlay operations]], x, y)
   Select palette]], x, y)
     end
     love.graphics.setFont(font)
+end
+
+function spriteViewerState:keypressed( key, scancode, isrepeat )
+    if key == 'f5' then
+        sfx.play("sfx","menuSelect")
+        removeSpriteFromImageBank(saveUnitSpriteInstance)
+        sprite = getSpriteInstance(saveUnitSpriteInstance)
+        sprite.sizeScale = 2
+        animations = {}
+        for key, val in pairs(sprite.def.animations) do
+            animations[#animations + 1] = key
+        end
+        table.sort( animations )
+        menu[menuItems.animations].n = math.min(menu[menuItems.animations].n, #animations)
+        setSpriteAnimation(sprite,animations[menu[menuItems.animations].n])
+        removeSpriteFromImageBank(saveUnitSpriteInstance .. "_sp")
+        specialOverlaySprite = getSpriteInstance(saveUnitSpriteInstance .. "_sp")
+        if specialOverlaySprite then
+            specialOverlaySprite.sizeScale = 2
+        end
+        --character.sprite = sprite
+    end
 end
 
 --Only P1 can use menu / options
