@@ -169,7 +169,7 @@ return {
               opacity = 1,
               offsetx = 0,
               offsety = 0,
-              image = "../../../res/img/stage/stage1/stage1a_puddle_overlay_2.png",
+              image = "../../../res/img/stage/stage1/stage1-1_puddle_overlay_2.png",
               properties = {}
             },
             {
@@ -180,7 +180,7 @@ return {
               opacity = 1,
               offsetx = 0,
               offsety = 0,
-              image = "../../../res/img/stage/stage1/stage1a_puddle_overlay_1.png",
+              image = "../../../res/img/stage/stage1/stage1-1_puddle_overlay_1.png",
               properties = {}
             }
           }
@@ -193,7 +193,7 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 96,
-          image = "../../../res/img/stage/stage1/stage1a_rf.png",
+          image = "../../../res/img/stage/stage1/stage1-1_rf.png",
           properties = {
             ["reflect"] = true
           }
@@ -206,7 +206,7 @@ return {
           opacity = 1,
           offsetx = -2,
           offsety = -2,
-          image = "../../../res/img/stage/stage1/stage1a.png",
+          image = "../../../res/img/stage/stage1/stage1-1.png",
           properties = {}
         },
         {
@@ -276,7 +276,7 @@ return {
           opacity = 1,
           offsetx = -2,
           offsety = -2,
-          image = "../../../res/img/stage/stage1/stage1a_fg_bridge_shadow.png",
+          image = "../../../res/img/stage/stage1/stage1-1_fg_bridge_shadow.png",
           properties = {}
         },
         {
@@ -287,7 +287,7 @@ return {
           opacity = 1,
           offsetx = 260,
           offsety = 0,
-          image = "../../../res/img/stage/stage1/stage1a_fg_bridge.png",
+          image = "../../../res/img/stage/stage1/stage1-1_fg_bridge.png",
           properties = {
             ["relativeX"] = "-0.2"
           }
@@ -300,7 +300,7 @@ return {
           opacity = 1,
           offsetx = 200,
           offsety = 0,
-          image = "../../../res/img/stage/stage1/stage1a_fg.png",
+          image = "../../../res/img/stage/stage1/stage1-1_fg.png",
           properties = {
             ["relativeX"] = "-0.8"
           }
@@ -499,7 +499,7 @@ return {
           properties = {
             ["go"] = "exit",
             ["nextevent"] = "nextmap",
-            ["nextmap"] = "stage1b_map"
+            ["nextmap"] = "stage1-2_map"
           }
         },
         {

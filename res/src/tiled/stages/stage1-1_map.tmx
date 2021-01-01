@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#696969" nextlayerid="34" nextobjectid="47">
  <editorsettings>
-  <export target="../../../../src/def/stage/stage1a_map.lua" format="lua"/>
+  <export target="../../../../src/def/stage/stage1-1_map.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="enableReflections" type="bool" value="true"/>
@@ -51,20 +51,20 @@
   </group>
   <group id="12" name="puddle-overlay" locked="1">
    <imagelayer id="13" name="puddle-overlay-2">
-    <image source="../../../img/stage/stage1/stage1a_puddle_overlay_2.png" width="2564" height="324"/>
+    <image source="../../../img/stage/stage1/stage1-1_puddle_overlay_2.png" width="2564" height="324"/>
    </imagelayer>
    <imagelayer id="14" name="puddle-overlay-1">
-    <image source="../../../img/stage/stage1/stage1a_puddle_overlay_1.png" width="2564" height="324"/>
+    <image source="../../../img/stage/stage1/stage1-1_puddle_overlay_1.png" width="2564" height="324"/>
    </imagelayer>
   </group>
   <imagelayer id="15" name="bg-reflection" locked="1" offsetx="0" offsety="96">
-   <image source="../../../img/stage/stage1/stage1a_rf.png" width="2564" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-1_rf.png" width="2564" height="324"/>
    <properties>
     <property name="reflect" type="bool" value="true"/>
    </properties>
   </imagelayer>
   <imagelayer id="16" name="bg" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1a.png" width="2564" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-1.png" width="2564" height="324"/>
   </imagelayer>
   <group id="17" name="burn-barrels" locked="1">
    <properties>
@@ -83,16 +83,16 @@
  </group>
  <group id="21" name="foreground" locked="1">
   <imagelayer id="22" name="bridge-shadow" visible="0" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1a_fg_bridge_shadow.png" width="2564" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-1_fg_bridge_shadow.png" width="2564" height="324"/>
   </imagelayer>
   <imagelayer id="23" name="bridge" locked="1" offsetx="260" offsety="0">
-   <image source="../../../img/stage/stage1/stage1a_fg_bridge.png" width="2564" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-1_fg_bridge.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="-0.2"/>
    </properties>
   </imagelayer>
   <imagelayer id="24" name="fg" offsetx="200" offsety="0">
-   <image source="../../../img/stage/stage1/stage1a_fg.png" width="2564" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-1_fg.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="-0.8"/>
    </properties>
@@ -139,7 +139,7 @@
    <properties>
     <property name="go" value="exit"/>
     <property name="nextevent" value="nextmap"/>
-    <property name="nextmap" value="stage1b_map"/>
+    <property name="nextmap" value="stage1-2_map"/>
    </properties>
    <point/>
   </object>

@@ -27,7 +27,7 @@ local menuItems = {
     SPAWN_UNIT = 10, BACK = 11}
 local menu = fillMenu(txtItems, nil, menuParams)
 
-local stageMaps = { "stage1a_map", "stage1b_map", "stage1c_map" }
+local stageMaps = { "stage1-1_map", "stage1-2_map", "stage1-3_map" }
 local unitsSpawnList = { "gopper", "niko", "sveta", "zeena", "hooch", "beatnik", "satoff" }
 local prevGameState = false
 

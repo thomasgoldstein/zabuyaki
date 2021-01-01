@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="45" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="16" nextobjectid="36">
  <editorsettings>
-  <export target="../../../../src/def/stage/stage1b_map.lua" format="lua"/>
+  <export target="../../../../src/def/stage/stage1-2_map.lua" format="lua"/>
  </editorsettings>
  <group id="1" name="background" locked="1">
   <imagelayer id="2" name="bg" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1b.png" width="1444" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-2.png" width="1444" height="324"/>
   </imagelayer>
  </group>
  <group id="3" name="foreground" locked="1">
   <imagelayer id="4" name="fg-3" locked="1" offsetx="200" offsety="18">
-   <image source="../../../img/stage/stage1/stage1b_fg_2-foreground lights 2.png" width="1444" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-2_fg_2-foreground lights 2.png" width="1444" height="324"/>
    <properties>
     <property name="relativeX" value="-0.8"/>
    </properties>
   </imagelayer>
   <imagelayer id="5" name="fg-2" locked="1" offsetx="200" offsety="18">
-   <image source="../../../img/stage/stage1/stage1b_fg_2-foreground lights 1.png" width="1444" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-2_fg_2-foreground lights 1.png" width="1444" height="324"/>
    <properties>
     <property name="relativeX" value="-0.8"/>
    </properties>
   </imagelayer>
   <imagelayer id="6" name="fg-1" locked="1" offsetx="200" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1b_fg_1.png" width="1444" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-2_fg_1.png" width="1444" height="324"/>
    <properties>
     <property name="relativeX" value="-0.5"/>
    </properties>
   </imagelayer>
   <imagelayer id="7" name="fg" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1b_fg.png" width="1444" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-2_fg.png" width="1444" height="324"/>
   </imagelayer>
  </group>
  <objectgroup color="#aa0000" id="8" name="camera" locked="1">
@@ -72,7 +72,7 @@
    <properties>
     <property name="go" value="exit"/>
     <property name="nextevent" value="nextmap"/>
-    <property name="nextmap" value="stage1c_map"/>
+    <property name="nextmap" value="stage1-3_map"/>
    </properties>
    <point/>
   </object>

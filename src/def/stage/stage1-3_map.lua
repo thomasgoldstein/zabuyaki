@@ -26,7 +26,7 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1c.png",
+          image = "../../../res/img/stage/stage1/stage1-3.png",
           id = 2,
           name = "bg",
           visible = true,

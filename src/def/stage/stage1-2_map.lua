@@ -26,7 +26,7 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1b.png",
+          image = "../../../res/img/stage/stage1/stage1-2.png",
           id = 2,
           name = "bg",
           visible = true,
@@ -49,7 +49,7 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1b_fg_2-foreground lights 2.png",
+          image = "../../../res/img/stage/stage1/stage1-2_fg_2-foreground lights 2.png",
           id = 4,
           name = "fg-3",
           visible = true,
@@ -62,7 +62,7 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1b_fg_2-foreground lights 1.png",
+          image = "../../../res/img/stage/stage1/stage1-2_fg_2-foreground lights 1.png",
           id = 5,
           name = "fg-2",
           visible = true,
@@ -75,7 +75,7 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1b_fg_1.png",
+          image = "../../../res/img/stage/stage1/stage1-2_fg_1.png",
           id = 6,
           name = "fg-1",
           visible = true,
@@ -88,7 +88,7 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1b_fg.png",
+          image = "../../../res/img/stage/stage1/stage1-2_fg.png",
           id = 7,
           name = "fg",
           visible = true,
@@ -291,7 +291,7 @@ return {
           properties = {
             ["go"] = "exit",
             ["nextevent"] = "nextmap",
-            ["nextmap"] = "stage1c_map"
+            ["nextmap"] = "stage1-3_map"
           }
         }
       }

@@ -30,7 +30,7 @@ function arcadeState:enter(_, players)
     credits = GLOBAL_SETTING.MAX_CREDITS
     previousStageMusic = nil
     --load very 1st stage
-    local startFromMap = (isDebug() and configuration:get("DEBUG_STAGE_MAP")) and configuration:get("DEBUG_STAGE_MAP") or "stage1a_map"
+    local startFromMap = (isDebug() and configuration:get("DEBUG_STAGE_MAP")) and configuration:get("DEBUG_STAGE_MAP") or "stage1-1_map"
     stage = Stage:new("NoName", "src/def/stage/".. startFromMap ..".lua", players)
     stage.wave:startPlayingMusic( 1 )
     gameOverDelay = 0
@@ -85,7 +85,7 @@ function arcadeState:update(dt)
                 if stage.nextMap == "ending" then
                     return Gamestate.switch(titleState, "startFromEnding")
                 end
-                stage = Stage:new("Next NoName", "src/def/stage/".. (stage.nextMap or "stage1a_map") ..".lua", nil)
+                stage = Stage:new("Next NoName", "src/def/stage/".. (stage.nextMap or "stage1-1_map") ..".lua", nil)
                 return
             else
                 stage.transition = Transition:new("fadein")

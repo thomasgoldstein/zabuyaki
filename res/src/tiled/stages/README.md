@@ -250,7 +250,7 @@ Their naming doesn't matter. The objects after the 3rd ignored.
 Use menu **Map / Map Properties**/ to see the list of properties.
 Expand "Custom Properties" group. Click "+" button at the bottom to
 add **nextmap** [string] property.
-If the property is not present then the default map name **stage1a_map** is used.
+If the property is not present then the default map name **stage1-1_map** is used.
 Do not add neither path nor extension to the to the map name.
 
 There are predefined map names for special cases:
