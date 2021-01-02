@@ -144,6 +144,10 @@
    <point/>
   </object>
   <object id="11" name="Trash" type="trashcan" x="368" y="248">
+   <properties>
+    <property name="drop" value="chicken"/>
+    <property name="minPlayerCount" type="int" value="2"/>
+   </properties>
    <point/>
   </object>
   <object id="12" name="Trash" type="trashcan" x="392" y="248">

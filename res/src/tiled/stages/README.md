@@ -227,6 +227,7 @@ Optional properties:
 * **wakeDelay** [integer] <- unit starts acting if the delay is over and a player is within 'delayedWakeRange'. It counts from the start of the current wave.
 * **flip** [boolean] <- flip default unit's facing. The current custom animation is saved.  
 * **drop** [string] <- which loot to drop: **apple**, **chicken** or **beef**.
+* **minPlayerCount** [integer] <- condition on dropping loot. If this property is not present then the loot is always dropped. Allowed values: 2, 3.  
 > Hint: All wave enemies inherit attributes from "waves" **Group layer** and individual waves. The inherited attributes may be overridden.
 
 ## Define global units ## 

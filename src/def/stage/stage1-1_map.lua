@@ -513,7 +513,10 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["drop"] = "chicken",
+            ["minPlayerCount"] = 2
+          }
         },
         {
           id = 12,

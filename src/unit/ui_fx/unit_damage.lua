@@ -10,14 +10,17 @@ function Unit:addHp(hp)
         self.hp = maxHp
     end
 end
+function Unit:callFuncOnDeath()
+    if self.func and self.minPlayerCount <= countAlivePlayers(true) then   -- custom function on death (item drop, etc)
+        self:func(self)
+        self.func = nil
+    end
+end
 function Unit:decreaseHp(damage)
     self.hp = self.hp - damage
     if self.hp <= 0 then
         self.hp = 0
-        if self.func then   -- custom function on death
-            self:func(self)
-            self.func = nil
-        end
+        self:callFuncOnDeath()
     end
 end
 function Unit:isFriendlyAttack(target)

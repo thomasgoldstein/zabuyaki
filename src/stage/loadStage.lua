@@ -95,6 +95,8 @@ local function applyWaveUnitProperties(v, waveUnit)
     if v.properties.drop then
         waveUnit.unit.func = Loot.getDropFuncByName(v.properties.drop)
     end
+    waveUnit.minPlayerCount = tonumber(v.properties.minPlayerCount) or 1
+    waveUnit.unit.minPlayerCount = waveUnit.minPlayerCount  -- always spawn, drop loot condition
     if v.properties.z then
         waveUnit.z = tonumber(v.properties.z)
     end

@@ -72,10 +72,7 @@ function Enemy:decreaseHp(damage)
         if self.lives <= 0 then
             self.hp = 0
             self.lives = 1  -- 1 live + 0 hp == enemy's death
-            if self.func then   -- custom function on death (item drop, etc)
-                self:func(self)
-                self.func = nil
-            end
+            Unit.callFuncOnDeath(self)
             return
         end
     end
