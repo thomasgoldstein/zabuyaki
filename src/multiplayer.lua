@@ -33,14 +33,8 @@ function countAlivePlayers(ignoreCreditState)
     local nAlive = 0
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
-        if ignoreCreditState then
-            if player and player:isAlive() then
-                nAlive = nAlive + 1
-            end
-        elseif player and player:isInUseCreditMode() then
-            if player:isAlive() then
-                nAlive = nAlive + 1
-            end
+        if player and player:isAlive() and ( ignoreCreditState or player:isInUseCreditMode() ) then
+            nAlive = nAlive + 1
         end
     end
     return nAlive
