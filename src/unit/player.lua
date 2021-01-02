@@ -30,7 +30,7 @@ function Player:setOnStage(stage)
 end
 
 function Player:isAlive()
-    if (self.playerSelectMode == 0 and credits > 0 and self.state == "useCredit")
+    if (self.playerSelectMode == 0 and credits > 0 and self:isInUseCreditMode())
             or (self.playerSelectMode >= 1 and self.playerSelectMode < 5)
     then
         return true

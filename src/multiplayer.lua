@@ -29,12 +29,18 @@ function doInstantPlayersSelect()
     end
 end
 
-function countAlivePlayers()
+function countAlivePlayers(ignoreCreditState)
     local nAlive = 0
     for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
         local player = getRegisteredPlayer(i)
-        if player and player:isAlive() then
-            nAlive = nAlive + 1
+        if ignoreCreditState then
+            if player and player:isAlive() then
+                nAlive = nAlive + 1
+            end
+        elseif player and player:isInUseCreditMode() then
+            if player:isAlive() then
+                nAlive = nAlive + 1
+            end
         end
     end
     return nAlive
@@ -73,7 +79,7 @@ function fixPlayersPalette(player)
         if p and p.palette
             and p ~= player and p.name == player.name
                 -- other player is selecting the same character on respawn
-            and ( p.state ~= "useCredit" or ( p.playerSelectMode == 2 and p.playerSelectMode == 3 ) )
+            and ( not p:isInUseCreditMode() or ( p.playerSelectMode == 2 and p.playerSelectMode == 3 ) )
         then
             palettes[p.palette] = true
         end

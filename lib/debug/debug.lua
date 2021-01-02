@@ -455,7 +455,7 @@ function checkDebugKeys(key)
                 for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
                     local p = getRegisteredPlayer(i)
                     local s = savePlayersPosAndFaceDebug[i]
-                    if s and p and p:isAlive() and p.state ~= "useCredit" then
+                    if s and p and p:isAlive() and not p:isInUseCreditMode() then
                         p.x, p.y, p.z, p.face, p.vertical, p.horizontal = s.x, s.y, s.z, s.face, s.vertical, s.horizontal
                     end
                 end
@@ -464,7 +464,7 @@ function checkDebugKeys(key)
                 local s = {}
                 for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
                     local p = getRegisteredPlayer(i)
-                    if p and p:isAlive() and p.state ~= "useCredit" then
+                    if p and p:isAlive() and not p:isInUseCreditMode() then
                         s[i] = { x = p.x, y = p.y, z = p.z, face = p.face, vertical = p.vertical, horizontal = p.horizontal }
                     end
                 end

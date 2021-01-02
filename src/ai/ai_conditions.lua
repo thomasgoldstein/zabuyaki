@@ -17,7 +17,7 @@ function AI:getConditions()
     if u.z > 0 and not u.platform then
         conditions["inAir"] = true
     end
-    if countAlivePlayers() < 1 then
+    if countAlivePlayers(true) < 1 then
         conditions["noPlayers"] = true
     end
     return conditions

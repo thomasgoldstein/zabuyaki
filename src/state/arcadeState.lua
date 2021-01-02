@@ -61,7 +61,7 @@ function arcadeState:update(dt)
     --Respawn selected players
     checkPlayersRespawn(stage)
     if stage.mode == "normal" then
-        nAlive = countAlivePlayers()
+        nAlive = countAlivePlayers(true)
     else
         nAlive = 1
     end

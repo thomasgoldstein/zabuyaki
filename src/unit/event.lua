@@ -27,7 +27,7 @@ function Event:checkAndStart(player)
         and self.properties.go
         or self.properties.gox or self.properties.goy
         or self.properties.togox or self.properties.togoy)  -- 'go' event kinds
-        and player.state ~= "useCredit"
+        and not player:isInUseCreditMode()
         and (statesToStartEvent[player.state] or self.properties.ignorestate)
     then
         player:setState(player.eventMove, {
@@ -104,7 +104,7 @@ function Event:updateAI(dt)
                     if statesToStartEvent[player.state] then
                         isDone = self:checkAndStart(player)
                     end
-                    if isDone or player.state == "useCredit" then
+                    if isDone or player:isInUseCreditMode() then
                         dp(" table item removed", i, player.name)
                         table.remove(self.applyToPlayers,i)
                     end
@@ -160,14 +160,14 @@ function Event:startEvent(startByPlayer)
     self.applyToPlayers = {}
     dp("startEvent "..self.name)
     local isDone = false
-    if startByPlayer and self.properties.move == "player" and player.state ~= "useCredit" then
+    if startByPlayer and self.properties.move == "player" and not player:isInUseCreditMode() then
         self.applyToPlayers[#self.applyToPlayers + 1] = startByPlayer
         dp(" added player to the event que ", startByPlayer.name)
         isDone = true
     elseif self.properties.move == "players" then --all alive players
         for i = 1, GLOBAL_SETTING.MAX_PLAYERS do
             local player = getRegisteredPlayer(i)
-            if player and player:isAlive() and player.state ~= "useCredit" then
+            if player and player:isAlive() and not player:isInUseCreditMode() then
                 self.applyToPlayers[#self.applyToPlayers + 1] = player
                 dp(" added player ".. player.name .." to the event que #", i)
                 isDone = true
