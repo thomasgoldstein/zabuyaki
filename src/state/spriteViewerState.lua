@@ -55,6 +55,7 @@ function spriteViewerState:enter(_, _unit, _unit2)
     character:setOnStage(stage)
     character.doThrow = function() end -- block ability
     character.showEffect = function() end -- block visual effects
+    character.face = 1
     -- the aux unit/character/sprite
     unit2 = _unit2
     character2 = Character:new("SPRITE2", unit2.spriteInstance, menuParams.screenWidth /2 + 100, menuParams.menuOffset_y + menuParams.menuItem_h / 2)
@@ -62,6 +63,7 @@ function spriteViewerState:enter(_, _unit, _unit2)
     character2:setOnStage(stage)
     character2.doThrow = function() end -- block ability
     character2.showEffect = function() end -- block visual effects
+    character2.face = 1
     sprite2 = character2.sprite
     sprite2.curAnim = "stand"
     sprite2.sizeScale = 2
@@ -148,7 +150,6 @@ function spriteViewerState:keypressed( key, scancode, isrepeat )
         if specialOverlaySprite then
             specialOverlaySprite.sizeScale = 2
         end
-        --character.sprite = sprite
     end
 end
 
@@ -350,6 +351,10 @@ function spriteViewerState:draw()
                 menu[menuState].n = 1
             end
             for i = 1, #sprite.def.animations[sprite.curAnim] do
+                if i == 1 then -- reset facing for animation with 'moves' table
+                    character.face = 1
+                    character2.face = 1
+                end
                 colors:set("blue", nil, 150)
                 love.graphics.rectangle("fill", x, 0, 2, menuParams.menuOffset_y + menuParams.menuItem_h)
                 colors:set("white", nil, 150)
@@ -394,6 +399,10 @@ function spriteViewerState:draw()
             end
         else
             --animation
+            if sprite.curFrame == 1 then -- reset facing for animation with 'moves' table
+                character.face = 1
+                character2.face = 1
+            end
             character.x = 0; character.y = 0; character.z = 0
             character2.x = character:getGrabDistance()
             character2.y = 0; character2.z = 0
