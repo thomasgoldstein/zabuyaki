@@ -661,17 +661,21 @@ return {
             }
         },
         grabFrontAttackBack = {
-            { q = q(131,1655,42,63), ox = 20, oy = 62, flipH = -1 }, --grab attack 1.3 (shifted 3px left)
-            { q = q(2,928,40,62), ox = 20, oy = 62 }, --throw back 1
+            { q = q(131,1655,42,63), ox = 20, oy = 62 }, --grab attack 1.3 (shifted 3px left)
+            { q = q(131,1655,42,63), ox = 20, oy = 62 }, --grab attack 1.3 (shifted 3px left)
+            { q = q(131,1655,42,63), ox = 20, oy = 62 }, --grab attack 1.3 (shifted 3px left)
+            { q = q(2,928,40,62), ox = 20, oy = 62, flipH = -1 }, --throw back 1
             { q = q(136,862,51,64), ox = 26, oy = 63, func = grabFrontAttackBack }, --throw back 2
-            { q = q(97,928,53,63), ox = 22, oy = 62, delay = f(12) }, --throw back 3
+            { q = q(97,928,53,63), ox = 22, oy = 62 }, --throw back 3
             { q = q(2,273,39,60), ox = 18, oy = 59, delay = f(9) }, --squat
             delay = f(4),
             isThrow = true,
             moves = {
-                { ox = -20, oz = 10, oy = 1, z = 0, grabberFace = -1 },
-                { ox = -10, oz = 20, z = 4 },
-                { ox = 10, oz = 30, grabbedFace = 1, z = 8 },
+                { ox = 20, oz = 0, z = 0, grabberFace = 1 },
+                { ox = 24, oz = 2, z = 2 },
+                { ox = 20, oz = 4, z = 4 },
+                { ox = 10, oz = 20, z = 4, grabberFace = 1 },
+                { ox = 10, oz = 30, z = 8, grabberFace = -1, grabbedFace = -1 },
                 { z = 4 },
                 { z = 0 }
             }
