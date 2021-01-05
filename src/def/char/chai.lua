@@ -249,7 +249,7 @@ local grabBackAttack = function(slf, cont)
     end
 end
 local grabFrontAttackBack = function(slf, cont)
-    slf:doThrow(slf.throwSpeed_x, 0, slf.throwSpeed_z / 10, slf.face)
+    slf:doThrow(slf.throwSpeed_x, 0, -slf.throwSpeed_z, slf.face)
 end
 local grabFrontAttackDown = function(slf, cont)
     slf:checkAndAttack(
