@@ -22,10 +22,10 @@ local menuItems = {animations = 1, frames = 2, disabled = 3, palettes = 4, back 
 local menu = fillMenu(txtItems, nil, menuParams)
 
 local character, unit, sprite, specialOverlaySprite, animations
-local character2, unit2, sprite2
+local character2, unit2, sprite2, unit2InitialFacing
 local saveUnitSpriteInstance
 
-function spriteViewerState:enter(_, _unit, _unit2)
+function spriteViewerState:enter(_, _unit, _unit2, flipH)
     unit = _unit
     saveUnitSpriteInstance = unit.spriteInstance
     sprite = getSpriteInstance(unit.spriteInstance)
@@ -57,13 +57,14 @@ function spriteViewerState:enter(_, _unit, _unit2)
     character.showEffect = function() end -- block visual effects
     character.face = 1
     -- the aux unit/character/sprite
+    unit2InitialFacing = flipH
     unit2 = _unit2
     character2 = Character:new("SPRITE2", unit2.spriteInstance, menuParams.screenWidth /2 + 100, menuParams.menuOffset_y + menuParams.menuItem_h / 2)
     character2.id = 2   -- fixed id
     character2:setOnStage(stage)
     character2.doThrow = function() end -- block ability
     character2.showEffect = function() end -- block visual effects
-    character2.face = 1
+    character2.face = unit2InitialFacing
     sprite2 = character2.sprite
     sprite2.curAnim = "stand"
     sprite2.sizeScale = 2
@@ -76,6 +77,9 @@ function spriteViewerState:enter(_, _unit, _unit2)
     g.source = nil
     g.target = character2
     character:moveStatesInit()  -- creates 'init' context for move 'glued sprites'
+    character.x = 0; character.y = 0; character.z = 0   -- needed for initial sprite pos
+    character2.x = character:getGrabDistance()
+    character2.y = 0; character2.z = 0
 end
 
 local function clearCharacterHitBoxes()
@@ -353,7 +357,7 @@ function spriteViewerState:draw()
             for i = 1, #sprite.def.animations[sprite.curAnim] do
                 if i == 1 then -- reset facing for animation with 'moves' table
                     character.face = 1
-                    character2.face = 1
+                    character2.face = unit2InitialFacing
                 end
                 colors:set("blue", nil, 150)
                 love.graphics.rectangle("fill", x, 0, 2, menuParams.menuOffset_y + menuParams.menuItem_h)
@@ -368,9 +372,6 @@ function spriteViewerState:draw()
                 end
             end
             drawDebugHitBoxes(x, y, sprite.sizeScale)
-            character.x = 0; character.y = 0; character.z = 0
-            character2.x = character:getGrabDistance()
-            character2.y = 0; character2.z = 0
             if menu[menuState].n == 1 then
                 if spriteHasAnimation(sprite2, "grabbedBack") then
                     sprite2.curAnim = "grabbedBack" -- prevent crashing on stageObjects and missing frames
@@ -378,6 +379,10 @@ function spriteViewerState:draw()
                     sprite2.curAnim = "stand"
                 end
                 sprite2.curFrame = 1
+                sprite2.flipH = unit2InitialFacing
+                character.x = 0; character.y = 0; character.z = 0 -- reset sprite pos for start animation
+                character2.x = character:getGrabDistance()
+                character2.y = 0; character2.z = 0
             end
             if character:hasMoveStates(sprite, sprite.curAnim, menu[menuState].n) then
                 character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n) -- sync pos/anim of aux sprite
@@ -401,11 +406,12 @@ function spriteViewerState:draw()
             --animation
             if sprite.curFrame == 1 then -- reset facing for animation with 'moves' table
                 character.face = 1
-                character2.face = 1
+                character2.face = unit2InitialFacing
+                sprite2.flipH = unit2InitialFacing
+                character.x = 0; character.y = 0; character.z = 0 -- reset sprite pos for start animation
+                character2.x = character:getGrabDistance()
+                character2.y = 0; character2.z = 0
             end
-            character.x = 0; character.y = 0; character.z = 0
-            character2.x = character:getGrabDistance()
-            character2.y = 0; character2.z = 0
             character:getMoveStates(sprite, sprite.curAnim, sprite.curFrame) -- sync pos/anim of aux sprite
             if character:hasMoveStates(sprite, sprite.curAnim, sprite.curFrame) then
                 colors:set("white", nil, 200)
