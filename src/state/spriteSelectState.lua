@@ -156,7 +156,8 @@ local function displayHelp()
         love.graphics.print(
             [[<- -> :
   Select character
-  Hold [CTRL] to select the grabbed unit]], x, y)
+  Hold [CTRL] to select the grabbed unit
+  Hold [SHIFT] to flip]], x, y)
     end
     love.graphics.setFont(font)
 end
@@ -211,7 +212,7 @@ function spriteSelectState:confirm(button)
     if button == 1 then
         if menuState == menuItems.characters then
             sfx.play("sfx","menuSelect")
-            return Gamestate.push(spriteViewerState, heroes[menu[menuState].n], hero2 or heroes[menu[menuState].n])
+            return Gamestate.push(spriteViewerState, heroes[menu[menuState].n], hero2 or heroes[menu[menuState].n], currentSprite2 and currentSprite2.flipH or 1 )
         end
     end
 end
@@ -233,6 +234,16 @@ function spriteSelectState:showCurrentSprite()
     end
 end
 
+function spriteSelectState:keypressed( key, scancode, isrepeat )
+    if currentSprite2 and love.keyboard.isScancodeDown( "lshift", "rshift" ) then
+        if key == 'left' then
+            currentSprite2.flipH = -1
+        elseif key =='right' then
+            currentSprite2.flipH = 1
+        end
+    end
+end
+
 function spriteSelectState:select(i)
     if menuState == menuItems.characters then
         if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
@@ -243,7 +254,8 @@ function spriteSelectState:select(i)
             if hero2_n > #heroes then
                 hero2_n = 1
             end
-        else
+            self:showCurrentSprite()
+        elseif not love.keyboard.isScancodeDown( "lshift", "rshift" ) then
             menu[menuState].n = menu[menuState].n + i
             if menu[menuState].n < 1 then
                 menu[menuState].n = #heroes
@@ -251,8 +263,8 @@ function spriteSelectState:select(i)
             if menu[menuState].n > #heroes then
                 menu[menuState].n = 1
             end
+            self:showCurrentSprite()
         end
-        self:showCurrentSprite()
     else
         menu[menuState].n = menu[menuState].n + i
     end
