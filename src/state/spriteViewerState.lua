@@ -154,6 +154,25 @@ function spriteViewerState:keypressed( key, scancode, isrepeat )
         if specialOverlaySprite then
             specialOverlaySprite.sizeScale = 2
         end
+    elseif scancode >= 'a' and scancode <= 'z' then
+        if menuState == menuItems.animations then
+            local first, last = #animations, 1
+            local n = menu[menuItems.animations].n
+            for i = 1, #animations do
+                local a = animations[i]
+                if i < first and a:sub(1,1):lower() == scancode then
+                    first = i
+                end
+                if i > last and a:sub(1,1):lower() == scancode then
+                    last = i
+                end
+            end
+            if first == #animations and last == 1 then return end
+            n = n + 1
+            if n < first or n > last then n = first end
+            menu[menuItems.animations].n = n
+            setSpriteAnimation(sprite, animations[n])
+        end
     end
 end
 
