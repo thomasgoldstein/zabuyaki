@@ -399,12 +399,13 @@ function spriteViewerState:draw()
                 end
                 sprite2.curFrame = 1
                 sprite2.flipH = unit2InitialFacing
-                character.x = 0; character.y = 0; character.z = 0 -- reset sprite pos for start animation
-                character2.x = character:getGrabDistance()
-                character2.y = 0; character2.z = 0
             end
-            if character:hasMoveStates(sprite, sprite.curAnim, menu[menuState].n) then
-                character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n) -- sync pos/anim of aux sprite
+            character.x = 0; character.y = 0; character.z = 0
+            character2.x = character:getGrabDistance()
+            character2.y = 0; character2.z = 0
+            character:moveStatesInit()
+            if character:hasMoveOStates(sprite, sprite.curAnim, menu[menuState].n) then
+                character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n, 0, 0, 0) -- sync pos/anim of aux sprite
                 local tAnimation = character:hasMoveStatesFrame(sprite, sprite.curAnim, menu[menuState].n)
                 if tAnimation then
                     colors:set("darkGray")
@@ -427,12 +428,13 @@ function spriteViewerState:draw()
                 character.face = 1
                 character2.face = unit2InitialFacing
                 sprite2.flipH = unit2InitialFacing
-                character.x = 0; character.y = 0; character.z = 0 -- reset sprite pos for start animation
-                character2.x = character:getGrabDistance()
-                character2.y = 0; character2.z = 0
             end
-            character:getMoveStates(sprite, sprite.curAnim, sprite.curFrame) -- sync pos/anim of aux sprite
-            if character:hasMoveStates(sprite, sprite.curAnim, sprite.curFrame) then
+            character.x = 0; character.y = 0; character.z = 0 -- reset sprite pos for start animation
+            character2.x = character:getGrabDistance()
+            character2.y = 0; character2.z = 0
+            character:moveStatesInit()
+            character:getMoveStates(sprite, sprite.curAnim, sprite.curFrame, 0, 0, 0) -- sync pos/anim of aux sprite
+            if character:hasMoveOStates(sprite, sprite.curAnim, sprite.curFrame) then
                 colors:set("white", nil, 200)
                 drawSpriteInstance(sprite2, x + character2.x * sprite2.sizeScale, y - character2.z * sprite2.sizeScale )
             end
