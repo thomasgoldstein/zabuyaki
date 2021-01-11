@@ -17,13 +17,25 @@ local menuParams = {
     itemHeightMargin = 10
 }
 local menuTitle
-local txtItems = {"ANIMATIONS", "FRAMES", "DISABLED", "PALETTES", "BACK"}
-local menuItems = {animations = 1, frames = 2, disabled = 3, palettes = 4, back = 5}
+local txtItems = {"ANIMATIONS", "FRAMES", "SHOW GRABBED", "PALETTES", "BACK"}
+local menuItems = {animations = 1, frames = 2, showGrabbed = 3, palettes = 4, back = 5}
 local menu = fillMenu(txtItems, nil, menuParams)
+local txtShowGrabbed = {"SHOW GRABBED UNIT (IF MOVED)", "SHOW GRABBED UNIT ALWAYS", "HIDE GRABBED UNIT"}
 
 local character, unit, sprite, specialOverlaySprite, animations
 local character2, unit2, sprite2, unit2InitialFacing
 local saveUnitSpriteInstance
+
+local function resetSpritesFacingAndAnim()  -- initial sprite and sprite2 facing, sprite2 animation
+    character.face = 1
+    character2.face = unit2InitialFacing
+    sprite2.flipH = unit2InitialFacing
+    if unit2InitialFacing == -1 then
+        sprite2.curAnim = spriteHasAnimation(sprite2, "grabbedFront") and "grabbedFront" or "stand"
+    else
+        sprite2.curAnim = spriteHasAnimation(sprite2, "grabbedBack") and "grabbedBack" or "stand"
+    end
+end
 
 function spriteViewerState:enter(_, _unit, _unit2, flipH)
     unit = _unit
@@ -55,7 +67,6 @@ function spriteViewerState:enter(_, _unit, _unit2, flipH)
     character:setOnStage(stage)
     character.doThrow = function() end -- block ability
     character.showEffect = function() end -- block visual effects
-    character.face = 1
     -- the aux unit/character/sprite
     unit2InitialFacing = flipH
     unit2 = _unit2
@@ -64,9 +75,7 @@ function spriteViewerState:enter(_, _unit, _unit2, flipH)
     character2:setOnStage(stage)
     character2.doThrow = function() end -- block ability
     character2.showEffect = function() end -- block visual effects
-    character2.face = unit2InitialFacing
     sprite2 = character2.sprite
-    sprite2.curAnim = "stand"
     sprite2.sizeScale = 2
     -- grab context for glued sprites, for moveStatesApply
     local g = character.grabContext
@@ -76,10 +85,7 @@ function spriteViewerState:enter(_, _unit, _unit2, flipH)
     character2.isGrabbed = true
     g.source = nil
     g.target = character2
-    character:moveStatesInit()  -- creates 'init' context for move 'glued sprites'
-    character.x = 0; character.y = 0; character.z = 0   -- needed for initial sprite pos
-    character2.x = character:getGrabDistance()
-    character2.y = 0; character2.z = 0
+    resetSpritesFacingAndAnim()
 end
 
 local function clearCharacterHitBoxes()
@@ -270,6 +276,16 @@ function spriteViewerState:update(dt)
     self:playerInput(Controls[1])
 end
 
+function spriteViewerState:displayGrabbedUnit()
+    local m = menu[menuItems.showGrabbed]
+    if m.n == 3 then
+        return false
+    elseif m.n == 2 then -- has any move attributes
+        return true --character:hasMoveStates(sprite, sprite.curAnim, sprite.curFrame)
+    end -- has any target move attributes
+    return character:hasMoveOStates(sprite, sprite.curAnim, sprite.curFrame)
+end
+
 local function delayToFrames(n) return n <= 1/60 and 1 or math.ceil(n * 60) end
 function spriteViewerState:draw()
     push:start()
@@ -320,6 +336,9 @@ function spriteViewerState:draw()
             if t then
                 m.hint = m.hint .. "\n"..t
             end
+        elseif i == menuItems.showGrabbed then
+            m.item = txtShowGrabbed[m.n]
+            m.hint = ""
         elseif i == menuItems.palettes then
             if m.n > #unit.shaders then
                 m.n = #unit.shaders
@@ -375,8 +394,7 @@ function spriteViewerState:draw()
             end
             for i = 1, #sprite.def.animations[sprite.curAnim] do
                 if i == 1 then -- reset facing for animation with 'moves' table
-                    character.face = 1
-                    character2.face = unit2InitialFacing
+                    resetSpritesFacingAndAnim()
                 end
                 colors:set("blue", nil, 150)
                 love.graphics.rectangle("fill", x, 0, 2, menuParams.menuOffset_y + menuParams.menuItem_h)
@@ -404,8 +422,8 @@ function spriteViewerState:draw()
             character2.x = character:getGrabDistance()
             character2.y = 0; character2.z = 0
             character:moveStatesInit()
-            if character:hasMoveOStates(sprite, sprite.curAnim, menu[menuState].n) then
-                character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n, 0, 0, 0) -- sync pos/anim of aux sprite
+            character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n) -- sync pos/anim of aux sprite
+            if self:displayGrabbedUnit() then
                 local tAnimation = character:hasMoveStatesFrame(sprite, sprite.curAnim, menu[menuState].n)
                 if tAnimation then
                     colors:set("darkGray")
@@ -425,16 +443,14 @@ function spriteViewerState:draw()
         else
             --animation
             if sprite.curFrame == 1 then -- reset facing for animation with 'moves' table
-                character.face = 1
-                character2.face = unit2InitialFacing
-                sprite2.flipH = unit2InitialFacing
+                resetSpritesFacingAndAnim()
             end
             character.x = 0; character.y = 0; character.z = 0 -- reset sprite pos for start animation
             character2.x = character:getGrabDistance()
             character2.y = 0; character2.z = 0
             character:moveStatesInit()
-            character:getMoveStates(sprite, sprite.curAnim, sprite.curFrame, 0, 0, 0) -- sync pos/anim of aux sprite
-            if character:hasMoveOStates(sprite, sprite.curAnim, sprite.curFrame) then
+            character:getMoveStates(sprite, sprite.curAnim, sprite.curFrame) -- sync pos/anim of aux sprite
+            if self:displayGrabbedUnit() then
                 colors:set("white", nil, 200)
                 drawSpriteInstance(sprite2, x + character2.x * sprite2.sizeScale, y - character2.z * sprite2.sizeScale )
             end
@@ -459,9 +475,12 @@ function spriteViewerState:confirm(button)
     if button == 1 then
         if menuState == menuItems.animations then
             setSpriteAnimation(sprite, animations[menu[menuState].n])
+            resetSpritesFacingAndAnim()
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.frames then
             print(parseSpriteAnimation(sprite))
+            sfx.play("sfx","menuSelect")
+        elseif menuState == menuItems.showGrabbed then
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.palettes then
             sfx.play("sfx","menuSelect")
@@ -490,6 +509,13 @@ function spriteViewerState:select(i)
             return
         end
         getCharacterHitBoxes()
+    elseif menuState == menuItems.showGrabbed then
+        if menu[menuState].n < 1 then
+            menu[menuState].n = 3
+        end
+        if menu[menuState].n > 3 then
+            menu[menuState].n = 1
+        end
     elseif menuState == menuItems.palettes then
         if #unit.shaders < 1 then
             return
