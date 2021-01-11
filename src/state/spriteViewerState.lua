@@ -406,45 +406,34 @@ function spriteViewerState:draw()
                             drawSpriteCustomInstance(specialOverlaySprite, x - (menu[menuState].n - i) * xStep, y, sprite.curAnim, i)
                         end
                     end
-                end
-            end
-            drawDebugHitBoxes(x, y, sprite.sizeScale)
-            if menu[menuState].n == 1 then
-                if spriteHasAnimation(sprite2, "grabbedBack") then
-                    sprite2.curAnim = "grabbedBack" -- prevent crashing on stageObjects and missing frames
                 else
-                    sprite2.curAnim = "stand"
-                end
-                sprite2.curFrame = 1
-                sprite2.flipH = unit2InitialFacing
-            end
-            character.x = 0; character.y = 0; character.z = 0
-            character2.x = character:getGrabDistance()
-            character2.y = 0; character2.z = 0
-            character:moveStatesInit()
-            character:getMoveStates(sprite, sprite.curAnim, menu[menuState].n) -- sync pos/anim of aux sprite
-            if self:displayGrabbedUnit() then
-                local tAnimation = character:hasMoveStatesFrame(sprite, sprite.curAnim, menu[menuState].n)
-                if tAnimation then
-                    colors:set("darkGray")
-                    love.graphics.print("*" .. tAnimation, x + 2, y + 2)
-                end
-                colors:set("white", nil, 200)
-                drawSpriteInstance(sprite2, x + character2.x * sprite2.sizeScale, y - character2.z * sprite2.sizeScale, sprite2.curFrame )
-            end
-            colors:set("white")
-            drawSpriteInstance(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, menu[menuState].n)
-            drawDebugUnitHurtBox(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, menu[menuState].n, sprite.sizeScale)
-            if specialOverlaySprite then
-                if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
-                    drawSpriteCustomInstance(specialOverlaySprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, sprite.curAnim, menu[menuState].n)
+                    character.x = 0; character.y = 0; character.z = 0
+                    character2.x = character:getGrabDistance()
+                    character2.y = 0; character2.z = 0
+                    character:moveStatesInit()
+                    character:getMoveStates(sprite, sprite.curAnim, i) -- sync pos/anim of aux sprite
+                    if self:displayGrabbedUnit() then
+                        local tAnimation = character:hasMoveStatesFrame(sprite, sprite.curAnim, i)
+                        if tAnimation then
+                            colors:set("darkGray")
+                            love.graphics.print("*" .. tAnimation, x + 2, y + 2)
+                        end
+                        colors:set("white", nil, 200)
+                        drawSpriteInstance(sprite2, x + character2.x * sprite2.sizeScale, y - character2.z * sprite2.sizeScale, sprite2.curFrame )
+                    end
+                    colors:set("white")
+                    drawSpriteInstance(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, i)
+                    drawDebugUnitHurtBox(sprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, i, sprite.sizeScale)
+                    if specialOverlaySprite then
+                        if spriteHasAnimation(specialOverlaySprite, sprite.curAnim) then
+                            drawSpriteCustomInstance(specialOverlaySprite, x + character.x * sprite.sizeScale, y - character.z * sprite.sizeScale, sprite.curAnim, i)
+                        end
+                    end
+                    drawDebugHitBoxes(x, y, sprite.sizeScale)
                 end
             end
         else
             --animation
-            if sprite.curFrame == 1 then -- reset facing for animation with 'moves' table
-                resetSpritesFacingAndAnim()
-            end
             character.x = 0; character.y = 0; character.z = 0 -- reset sprite pos for start animation
             character2.x = character:getGrabDistance()
             character2.y = 0; character2.z = 0
