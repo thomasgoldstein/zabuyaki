@@ -550,7 +550,7 @@ function Unit:hasMoveOStates(sprite, curAnim, curFrame)  -- for sprite viewer on
         return false
     end
     local m = moves[curFrame]
-    return m and (m.ox or m.oy or m.oz)
+    return m and (m.ox or m.oy or m.oz or m.grabbedFace or m.tAnimation)
 end
 function Unit:hasMoveStatesFrame(sprite, curAnim, curFrame)  -- for sprite viewer only
     local moves = sprite.def.animations[curAnim].moves
