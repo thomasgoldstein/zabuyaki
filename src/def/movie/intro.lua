@@ -1,18 +1,22 @@
--- Date: 28.10.2016
-
 -- Intro Movie
+local scene1 = love.graphics.newImage("res/img/misc/introScene1.png")
 local slides = love.graphics.newImage("res/img/misc/intro.png")
 movie_intro = {
     {
         {
-            slide = slides,
-            q = { 0, 0, 200, 120 },
-            hScroll = 20, -- Scroll to the left by 100px
+            slide = scene1,
+            q = { 0, 0, 200, 135 },
+            hScroll = 20, -- Scroll to the right by 20px
         },
         {
-            slide = slides,
-            q = { 0, 480, 200, 120 },
-            hScroll = 32, -- Scroll to the left by 100px
+            slide = scene1,
+            q = { 0, 136, 200, 135 },
+            hScroll = -32, -- Scroll to the left by 32px
+        },
+        {
+            slide = scene1,
+            q = { 0, 271, 200, 135 },
+            hScroll = -32, -- Scroll to the left by 32px
         },
         noFadeOut = true,
         text = [[Adigrad is a city ravaged
@@ -21,14 +25,19 @@ leading to a garbage crisis.]]
     },
     {
         {
-            slide = slides,
-            q = { 0, 0, 240, 120 },
-            hScroll = 20, -- Scroll to the left by 100px
+            slide = scene1,
+            q = { 20, 0, 200, 135 },
+            hScroll = 20, -- Scroll to the left by 20px
         },
         {
-            slide = slides,
-            q = { 32, 480, 200, 120 },
-            hScroll = 32, -- Scroll to the left by 100px
+            slide = scene1,
+            q = { -32, 136, 200, 135 }, -- we start here from the -28px offset
+            hScroll = -32, -- Scroll to the left by 32px
+        },
+        {
+            slide = scene1,
+            q = { -32, 271, 200, 135 },
+            hScroll = -32, -- Scroll to the left by 32px
         },
         noFadeIn = true,
         text = [[The newly-elected mayor,
