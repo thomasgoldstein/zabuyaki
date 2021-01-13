@@ -5,18 +5,7 @@ movie_intro = {
     {
         {
             slide = scene1,
-            q = { 0, 0, 200, 135 },
-            hScroll = 20, -- Scroll to the right by 20px
-        },
-        {
-            slide = scene1,
-            q = { 0, 136, 200, 135 },
-            hScroll = -32, -- Scroll to the left by 32px
-        },
-        {
-            slide = scene1,
-            q = { 0, 271, 200, 135 },
-            hScroll = -32, -- Scroll to the left by 32px
+            q = { 0, 0, 180, 135 }, -- bg city, window
         },
         noFadeOut = true,
         text = [[Adigrad is a city ravaged
@@ -26,18 +15,18 @@ leading to a garbage crisis.]]
     {
         {
             slide = scene1,
-            q = { 20, 0, 200, 135 },
-            hScroll = 20, -- Scroll to the left by 20px
+            q = { 0, 0, 180, 135 }, -- bg city, window
+            hScroll = 60, -- Scroll to the left by 60px
         },
         {
             slide = scene1,
-            q = { -32, 136, 200, 135 }, -- we start here from the -28px offset
-            hScroll = -32, -- Scroll to the left by 32px
+            q = { -180, 136, 180, 135 }, -- reflection
+            hScroll = 180, -- Scroll to the left by 180px
         },
         {
             slide = scene1,
-            q = { -32, 271, 200, 135 },
-            hScroll = -32, -- Scroll to the left by 32px
+            q = { -190, 271, 180, 135 }, -- boss
+            hScroll = 200, -- Scroll to the left by 200px
         },
         noFadeIn = true,
         text = [[The newly-elected mayor,
