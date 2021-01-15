@@ -1,6 +1,7 @@
 -- Intro Movie
 local scene1 = love.graphics.newImage("res/img/misc/introScene1.png")
 local scene2 = love.graphics.newImage("res/img/misc/introScene2.png")
+local scene3 = love.graphics.newImage("res/img/misc/introScene3.png")
 local slides = love.graphics.newImage("res/img/misc/intro.png")
 movie_intro = {
     {
@@ -73,23 +74,46 @@ the blame and were fired.]]
     },
 
 
-
-
-
     {
         {
-            slide = slides,
-            q = { 0, 240, 240, 120 },
+            slide = scene3,
+            q = { 0, 0, 240, 160 }, -- bg
+            hScroll = 30, -- Scroll to the left
         },
+        {
+            slide = scene3,
+            q = { 0, 181, 240, 160 }, -- gopniks
+            hScroll = 30, -- Scroll to the left
+        },
+        {
+            slide = scene3,
+            q = { 20, 361+ 20, 240, 160 }, -- beer
+            vScroll = -10,
+            hScroll = -10,
+        },
+        noFadeOut = true,
         text = [[However, the situation only
 got worse since then. Wild
 rubbish dumps keep piling up.]]
     },
     {
         {
-            slide = slides,
-            q = { 0, 240, 240, 120 },
+            slide = scene3,
+            q = { 30, 0, 240, 160 }, -- bg
+            hScroll = 40, -- Scroll to the left
         },
+        {
+            slide = scene3,
+            q = { 30, 181, 240, 160 }, -- gopniks
+            hScroll = 40, -- Scroll to the left
+        },
+        {
+            slide = scene3,
+            q = { 10, 361 + 10, 240, 160 }, -- beer
+            vScroll = -10,
+            hScroll = -10,
+        },
+        noFadeIn = true,
         text = [[While insecurity is on the rise,
 the ex-garbage collectors saw
 their city turn into a landfill.]]
