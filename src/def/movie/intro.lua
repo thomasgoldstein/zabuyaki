@@ -1,5 +1,6 @@
 -- Intro Movie
 local scene1 = love.graphics.newImage("res/img/misc/introScene1.png")
+local scene2 = love.graphics.newImage("res/img/misc/introScene2.png")
 local slides = love.graphics.newImage("res/img/misc/intro.png")
 movie_intro = {
     {
@@ -35,9 +36,19 @@ clean up the city.]]
     },
     {
         {
-            slide = slides,
-            q = { 0, 120, 200, 120 },
-            hScroll = 20, -- Scroll to the left by 100px
+            slide = scene2,
+            q = { 0, 0, 240, 160 }, -- bg yar
+            hScroll = 60, -- Scroll to the left
+        },
+        {
+            slide = scene2,
+            q = { -40, 181, 240, 160 }, -- chai kisa
+            hScroll = 100, -- Scroll to the left
+        },
+        {
+            slide = scene2,
+            q = { 0, 361, 240, 160 }, -- boss
+            hScroll = 170, -- Scroll to the left
         },
         noFadeOut = true,
         text = [[Viewed as inefficient,
@@ -46,15 +57,25 @@ got privatized by the mayor.]]
     },
     {
         {
-            slide = slides,
-            q = { 20, 120, 200, 120 },
-            hScroll = 20, -- Scroll to the left by 100px
+            slide = scene2,
+            q = { 60, 0, 240, 160 }, -- bg yar
+            hScroll = 20, -- Scroll to the left
+        },
+        {
+            slide = scene2,
+            q = { 60, 181, 240, 160 }, -- chai kisa
+            hScroll = 40, -- Scroll to the left
         },
         noFadeIn = true,
         text = [[The garbage collectors
 in charge until then took
 the blame and were fired.]]
     },
+
+
+
+
+
     {
         {
             slide = slides,
