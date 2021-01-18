@@ -51,7 +51,6 @@ function parseAnimateString(w, h, animate, spriteSheet)
     local n = 1
     local s = string.match(spriteSheet, "(.+)/[%a+.png]")
     s = s .. "/" .. t[1] .. ".png" -- get file name from the animate prop, add original path
-    frames.maxDelay = tonumber( t[2] ) or 1
     local image, quad = cacheImage(s)
     local _,_,sw,sh = quad:getViewport()
     if h ~= sh then
