@@ -51,6 +51,45 @@ table = {
 }
 ]]
 
+function Movie:parseAnimateString(animate)
+    -- example: Animate 3 frames as 4 framed animation. Define the frames and delays : "1 0.3 2 0.1 3 0.3 2 0.5"
+    if not animate then
+        return nil
+    end
+    local t = splitString(animate)
+    if #t < 4 then
+        error("Movie 'animate' property should contain at least 2 frames with delays.")
+    end
+    local frames = {
+        maxFrame = 1,
+        curFrame = 1,
+        --quads = {},
+        frame = {},
+        delay = {},
+        elapsedTime = 0,
+    }
+    local n = 1
+    frames.maxFrame = 1
+    for i = 1, #t, 2 do
+        frames.maxFrame = math.max(frames.maxFrame, t[i])
+    end
+    --for i = 1, frames.maxFrame do
+        --frames.quads[i] = love.graphics.newQuad( x + (i - 1) * w, y, w, h, w * frames.maxFrame, h)
+    --end
+    for i = 1, #t, 2 do
+        if tonumber(t[i]) < 1 or tonumber(t[i]) > frames.maxFrame then
+            error("Movie 'animate' property should have frame numbers between 1 and " .. frames.maxFrame .. " for the current layer: ".. animate .. " Wrong value: " .. t[i])
+        end
+        frames.frame[n] = tonumber(t[i])
+        if not t[i + 1] then
+            error("Movie 'animate' property is missing the last frame delay value: ".. animate .. "<==" )
+        end
+        frames.delay[n] = tonumber(t[i + 1])
+        n = n + 1
+    end
+    return frames
+end
+
 function Movie:initialize(frames)
     self.type = "movie"
     self.font = gfx.font.arcade3
@@ -72,8 +111,12 @@ function Movie:initialize(frames)
         local width, _ = self.font:getWrap( self.frames[i].text, screenWidth )
         self.frames[i].x =  r( (screenWidth - width) / 2 )
         local f = self.frames[i]
-        for i = 1, #f do
-            f[i]._hScroll, f[i]._vScroll = 0, 0
+        for k = 1, #f do
+            f[k]._hScroll, f[k]._vScroll = 0, 0
+            if f[k].animate then
+                f[k].animate = self:parseAnimateString(f[k].animate)
+                print(i, k, f[k].animate)
+            end
         end
     end
     if frames.music then
@@ -134,6 +177,18 @@ function Movie:update(dt)
         self.pictureTransparency = self.transparency
     end
     local f = self.frames[self.frame]
+    -- animate
+    local a = f.animate
+    if a then
+        a.elapsedTime = a.elapsedTime + dt
+        if a.elapsedTime >= a.delay[a.curFrame] then
+            a.elapsedTime = 0
+            a.curFrame = a.curFrame + 1
+            if a.curFrame > a.maxFrame then
+                a.curFrame = 1
+            end
+        end
+    end
     -- h/vScroll
     if self.time < self.frames[self.frame].delay + self.delayAfterFrame then
         for i = 1, #f do
@@ -157,6 +212,9 @@ function Movie:draw(l, t, _w, _h)
     -- Show Pictures from table
     for i = 1, #f do
         colors:set("white", nil, 255 * self.pictureTransparency)
+        local a = f[i].animate
+        if a then
+        end
         local w, h = f[i].q[3], f[i].q[4]
         local x, y = (screenWidth - w) / 2, (screenHeight - h) / 2
         local q = { r(f[i].q[1] + f[i]._hScroll), r(f[i].q[2] + f[i]._vScroll), w, h }
