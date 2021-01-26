@@ -73,9 +73,6 @@ function Movie:parseAnimateString(animate)
     for i = 1, #t, 2 do
         frames.maxFrame = math.max(frames.maxFrame, t[i])
     end
-    --for i = 1, frames.maxFrame do
-        --frames.quads[i] = love.graphics.newQuad( x + (i - 1) * w, y, w, h, w * frames.maxFrame, h)
-    --end
     for i = 1, #t, 2 do
         if tonumber(t[i]) < 1 or tonumber(t[i]) > frames.maxFrame then
             error("Movie 'animate' property should have frame numbers between 1 and " .. frames.maxFrame .. " for the current layer: ".. animate .. " Wrong value: " .. t[i])
@@ -177,18 +174,6 @@ function Movie:update(dt)
         self.pictureTransparency = self.transparency
     end
     local f = self.frames[self.frame]
-    -- animate
-    local a = f.animate
-    if a then
-        a.elapsedTime = a.elapsedTime + dt
-        if a.elapsedTime >= a.delay[a.curFrame] then
-            a.elapsedTime = 0
-            a.curFrame = a.curFrame + 1
-            if a.curFrame > a.maxFrame then
-                a.curFrame = 1
-            end
-        end
-    end
     -- h/vScroll
     if self.time < self.frames[self.frame].delay + self.delayAfterFrame then
         for i = 1, #f do
@@ -197,6 +182,17 @@ function Movie:update(dt)
             end
             if f[i].vScroll then
                 f[i]._vScroll = self.time * f[i].vScroll / ( self.frames[self.frame].delay + self.delayAfterFrame )
+            end
+            local a = f[i].animate
+            if a then
+                a.elapsedTime = a.elapsedTime + dt
+                if a.elapsedTime >= a.delay[a.curFrame] then
+                    a.elapsedTime = 0
+                    a.curFrame = a.curFrame + 1
+                    if a.curFrame > a.maxFrame then
+                        a.curFrame = 1
+                    end
+                end
             end
         end
     end
@@ -209,15 +205,19 @@ end
 function Movie:draw(l, t, _w, _h)
     love.graphics.clear(unpack(self.bgColor))
     local f = self.frames[self.frame]
+    local animationFrameN
     -- Show Pictures from table
     for i = 1, #f do
         colors:set("white", nil, 255 * self.pictureTransparency)
         local a = f[i].animate
         if a then
+            animationFrameN = a.curFrame - 1
+        else
+            animationFrameN = 0
         end
         local w, h = f[i].q[3], f[i].q[4]
         local x, y = (screenWidth - w) / 2, (screenHeight - h) / 2
-        local q = { r(f[i].q[1] + f[i]._hScroll), r(f[i].q[2] + f[i]._vScroll), w, h }
+        local q = { r(f[i].q[1] + f[i]._hScroll + animationFrameN * w ), r(f[i].q[2] + f[i]._vScroll), w, h }
         q[5], q[6] = f[i].slide:getDimensions()
         love.graphics.draw(f[i].slide,
             love.graphics.newQuad(unpack(q)),
