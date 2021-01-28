@@ -2,7 +2,7 @@
 local scene1 = love.graphics.newImage("res/img/misc/introScene1.png")
 local scene2 = love.graphics.newImage("res/img/misc/introScene2.png")
 local scene3 = love.graphics.newImage("res/img/misc/introScene3.png")
-local slides = love.graphics.newImage("res/img/misc/intro.png")
+local scene4 = love.graphics.newImage("res/img/misc/introScene4.png")
 movie_intro = {
     {
         {
@@ -120,18 +120,46 @@ their city turn into a landfill.]]
     },
     {
         {
-            slide = slides,
-            q = { 0, 360, 240, 120 },
+            slide = scene4,
+            q = { 40, 30, 240, 160 }, -- yar chai
+            vScroll = -15,
+            hScroll = -5,
         },
+        {
+            slide = scene4,
+            q = { 30, 220, 240, 160 }, -- rick
+            vScroll = -15,
+            hScroll = 5,
+        },
+        {
+            slide = scene4,
+            q = { 40, 410, 240, 160 }, -- kisa
+            vScroll = -12,
+        },
+        noFadeOut = true,
         text = [[Outraged and losing patience,
 some of them decided to
 stand up and take action.]]
     },
     {
         {
-            slide = slides,
-            q = { 0, 360, 240, 120 },
+            slide = scene4,
+            q = { 40 - 5, 30 - 15, 240, 160 }, -- yar chai
+            vScroll = -15,
+            hScroll = -4,
         },
+        {
+            slide = scene4,
+            q = { 30 + 5, 220 - 15, 240, 160 }, -- rick
+            vScroll = -15,
+            hScroll = 4,
+        },
+        {
+            slide = scene4,
+            q = { 40, 410 - 12, 240, 160 }, -- kisa
+            vScroll = -12,
+        },
+        noFadeIn = true,
         text = [[It's now or never!
 Time to hit the streets
 and take out the trash!]]
