@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 19,
-  nextobjectid = 36,
+  nextobjectid = 38,
   backgroundcolor = { 0, 85, 0 },
   properties = {},
   tilesets = {},
@@ -99,8 +99,27 @@ return {
           polyline = {
             { x = 0, y = 0 },
             { x = 384, y = 0 },
-            { x = 768, y = 192 },
-            { x = 1728, y = 192 }
+            { x = 680, y = 144 },
+            { x = 1728, y = 144 }
+          },
+          properties = {}
+        },
+        {
+          id = 37,
+          name = "",
+          type = "",
+          shape = "polyline",
+          x = 0,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 384, y = 0 },
+            { x = 680, y = 144 },
+            { x = 1728, y = 144 }
           },
           properties = {}
         }
@@ -118,13 +137,26 @@ return {
       properties = {},
       objects = {
         {
+          id = 4,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1860,
+          y = 0,
+          width = 64,
+          height = 648,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
           id = 2,
           name = "",
           type = "",
           shape = "rectangle",
           x = -128,
           y = 0,
-          width = 1944,
+          width = 1988,
           height = 240,
           rotation = 0,
           visible = true,
@@ -136,19 +168,6 @@ return {
           type = "",
           shape = "rectangle",
           x = -192,
-          y = 0,
-          width = 64,
-          height = 648,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 4,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1816,
           y = 0,
           width = 64,
           height = 648,
@@ -300,8 +319,8 @@ return {
               shape = "rectangle",
               x = 960,
               y = 0,
-              width = 760,
-              height = 648,
+              width = 768,
+              height = 640,
               rotation = 0,
               visible = true,
               properties = {}
@@ -337,6 +356,19 @@ return {
           },
           objects = {
             {
+              id = 26,
+              name = "2",
+              type = "wave",
+              shape = "rectangle",
+              x = 480,
+              y = 0,
+              width = 480,
+              height = 640,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            },
+            {
               id = 18,
               name = "Niko",
               type = "niko",
@@ -352,19 +384,6 @@ return {
                 ["palette"] = "blue",
                 ["spawnDelay"] = 2
               }
-            },
-            {
-              id = 26,
-              name = "2",
-              type = "wave",
-              shape = "rectangle",
-              x = 480,
-              y = 0,
-              width = 480,
-              height = 648,
-              rotation = 0,
-              visible = true,
-              properties = {}
             }
           }
         },
@@ -391,7 +410,7 @@ return {
               x = 0,
               y = 0,
               width = 480,
-              height = 648,
+              height = 640,
               rotation = 0,
               visible = true,
               properties = {}
