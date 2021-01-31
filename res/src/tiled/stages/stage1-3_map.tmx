@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="54" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="16" nextobjectid="36">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="54" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="19" nextobjectid="36">
  <editorsettings>
   <export target="../../../../src/def/stage/stage1-3_map.lua" format="lua"/>
  </editorsettings>
  <group id="1" name="background" locked="1">
+  <imagelayer id="17" name="bg2" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-3_bg_2.png" width="1724" height="652"/>
+   <properties>
+    <property name="relativeX" value="0.35"/>
+   </properties>
+  </imagelayer>
+  <imagelayer id="18" name="bg1" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-3_bg_1.png" width="1724" height="652"/>
+   <properties>
+    <property name="relativeX" value="0.15"/>
+   </properties>
+  </imagelayer>
   <imagelayer id="2" name="bg" locked="1" offsetx="-2" offsety="-2">
    <image source="../../../img/stage/stage1/stage1-3.png" width="1724" height="652"/>
   </imagelayer>

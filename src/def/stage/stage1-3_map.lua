@@ -8,7 +8,7 @@ return {
   height = 20,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 16,
+  nextlayerid = 19,
   nextobjectid = 36,
   backgroundcolor = { 0, 85, 0 },
   properties = {},
@@ -24,6 +24,32 @@ return {
       offsety = 0,
       properties = {},
       layers = {
+        {
+          type = "imagelayer",
+          image = "../../../res/img/stage/stage1/stage1-3_bg_2.png",
+          id = 17,
+          name = "bg2",
+          visible = true,
+          opacity = 1,
+          offsetx = -2,
+          offsety = -2,
+          properties = {
+            ["relativeX"] = "0.35"
+          }
+        },
+        {
+          type = "imagelayer",
+          image = "../../../res/img/stage/stage1/stage1-3_bg_1.png",
+          id = 18,
+          name = "bg1",
+          visible = true,
+          opacity = 1,
+          offsetx = -2,
+          offsety = -2,
+          properties = {
+            ["relativeX"] = "0.15"
+          }
+        },
         {
           type = "imagelayer",
           image = "../../../res/img/stage/stage1/stage1-3.png",
