@@ -61,21 +61,19 @@ function Movie:parseAnimateString(animate)
         error("Movie 'animate' property should contain at least 2 frames with delays.")
     end
     local frames = {
-        maxFrame = 1,
         curFrame = 1,
-        --quads = {},
         frame = {},
         delay = {},
         elapsedTime = 0,
     }
     local n = 1
-    frames.maxFrame = 1
+    local maxFrame = 1  -- used to check the animate que format
     for i = 1, #t, 2 do
-        frames.maxFrame = math.max(frames.maxFrame, t[i])
+        maxFrame = math.max(maxFrame, t[i])   -- used only in
     end
     for i = 1, #t, 2 do
-        if tonumber(t[i]) < 1 or tonumber(t[i]) > frames.maxFrame then
-            error("Movie 'animate' property should have frame numbers between 1 and " .. frames.maxFrame .. " for the current layer: ".. animate .. " Wrong value: " .. t[i])
+        if tonumber(t[i]) < 1 or tonumber(t[i]) > maxFrame then
+            error("Movie 'animate' property should have frame numbers between 1 and " .. maxFrame .. " for the current layer: ".. animate .. " Wrong value: " .. t[i])
         end
         frames.frame[n] = tonumber(t[i])
         if not t[i + 1] then
@@ -112,7 +110,6 @@ function Movie:initialize(frames)
             f[k]._hScroll, f[k]._vScroll = 0, 0
             if f[k].animate then
                 f[k].animate = self:parseAnimateString(f[k].animate)
-                print(i, k, f[k].animate)
             end
         end
     end
@@ -189,7 +186,7 @@ function Movie:update(dt)
                 if a.elapsedTime >= a.delay[a.curFrame] then
                     a.elapsedTime = 0
                     a.curFrame = a.curFrame + 1
-                    if a.curFrame > a.maxFrame then
+                    if a.curFrame > #a.frame then
                         a.curFrame = 1
                     end
                 end
