@@ -3,6 +3,7 @@ local scene1 = love.graphics.newImage("res/img/misc/introScene1.png")
 local scene2 = love.graphics.newImage("res/img/misc/introScene2.png")
 local scene3 = love.graphics.newImage("res/img/misc/introScene3.png")
 local scene4 = love.graphics.newImage("res/img/misc/introScene4.png")
+local scene4animate = love.graphics.newImage("res/img/misc/introScene4tempAnim.png")
 movie_intro = {
     {
         {
@@ -136,6 +137,11 @@ their city turn into a landfill.]]
             q = { 40, 410, 240, 160 }, -- kisa
             vScroll = -12,
         },
+        {
+            slide = scene4animate,
+            q = { 0, 0, 240, 160 },
+            animate = "1 1 2 0.5"
+        },
         noFadeOut = true,
         text = [[Outraged and losing patience,
 some of them decided to
@@ -158,6 +164,11 @@ stand up and take action.]]
             slide = scene4,
             q = { 40, 410 - 12, 240, 160 }, -- kisa
             vScroll = -12,
+        },
+        {
+            slide = scene4animate,
+            q = { 0, 0, 240, 160 },
+            animate = "1 0.3 2 0.3 3 0.3 2 0.3"
         },
         noFadeIn = true,
         text = [[It's now or never!
