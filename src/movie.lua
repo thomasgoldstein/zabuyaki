@@ -208,7 +208,7 @@ function Movie:draw(l, t, _w, _h)
         colors:set("white", nil, 255 * self.pictureTransparency)
         local a = f[i].animate
         if a then
-            animationFrameN = a.curFrame - 1
+            animationFrameN = a.frame[a.curFrame] - 1
         else
             animationFrameN = 0
         end
