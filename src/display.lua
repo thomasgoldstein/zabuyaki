@@ -9,7 +9,7 @@ return {
     },
     zoom = {
         minScale = 4, -- zoom in. default value
-        maxScale = 3, -- zoom out. default value
+        maxScale = 3.2, -- zoom out. default value
         zoomSpeed = 2, -- speed of zoom-in-out transition
         maxDistanceNoZoom = 200, -- between players
         minDistanceToKeepZoom = 190, -- between players
