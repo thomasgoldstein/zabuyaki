@@ -8,11 +8,11 @@ local minGapBetweenStoppers = 420
 local stoppersPadding = 8
 
 -- Zooming
-local maxZoom = display.inner.minScale --4 -- zoom in. default value
-local minZoom = display.inner.maxScale --3 -- zoom out
-local zoomSpeed = 2 -- speed of zoom-in-out transition
-local maxDistanceNoZoom = 200   -- between players
-local minDistanceToKeepZoom = 190   -- between players
+local maxZoom = display.zoom.minScale
+local minZoom = display.zoom.maxScale
+local zoomSpeed = display.zoom.zoomSpeed
+local maxDistanceNoZoom = display.zoom.maxDistanceNoZoom
+local minDistanceToKeepZoom = display.zoom.minDistanceToKeepZoom
 local oldCoord_x, oldCoord_y    -- smooth scrolling
 local scrollSpeed = 150 -- speed of P1 camera centering on P2+P3 death (not related to the scroll speed after the end of the wave)
 
@@ -278,9 +278,6 @@ function Stage:setCamera(dt)
     end
     -- Correct coord_y according to the zoom stage
     coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
-    --    local delta_y = display.inner.resolution.height * display.inner.minScale - display.inner.resolution.height * display.inner.maxScale
-    --    coord_y = coord_y - 2 * delta_y * (display.inner.minScale - mainCamera:getScale()) * display.inner.minScale / display.inner.maxScale
-
     if oldCoord_x then
         if math.abs(coord_x - oldCoord_x) > 4 then
             oldCoord_x = oldCoord_x + sign(coord_x - oldCoord_x) * scrollSpeed * dt
