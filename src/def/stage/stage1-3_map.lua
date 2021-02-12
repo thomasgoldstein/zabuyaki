@@ -5,11 +5,11 @@ return {
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 54,
-  height = 20,
+  height = 15,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 19,
-  nextobjectid = 38,
+  nextlayerid = 20,
+  nextobjectid = 39,
   backgroundcolor = { 0, 85, 0 },
   properties = {},
   tilesets = {},
@@ -54,7 +54,7 @@ return {
           type = "imagelayer",
           image = "../../../res/img/stage/stage1/stage1-3.png",
           id = 2,
-          name = "bg",
+          name = "stage",
           visible = true,
           opacity = 1,
           offsetx = -2,
@@ -72,7 +72,19 @@ return {
       offsetx = 0,
       offsety = 0,
       properties = {},
-      layers = {}
+      layers = {
+        {
+          type = "imagelayer",
+          image = "../../../res/img/stage/stage1/stage1-3_fg.png",
+          id = 19,
+          name = "fg",
+          visible = true,
+          opacity = 1,
+          offsetx = 0,
+          offsety = 0,
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -85,25 +97,6 @@ return {
       offsety = 0,
       properties = {},
       objects = {
-        {
-          id = 1,
-          name = "",
-          type = "",
-          shape = "polyline",
-          x = 0,
-          y = 320,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 384, y = 0 },
-            { x = 680, y = 144 },
-            { x = 1728, y = 144 }
-          },
-          properties = {}
-        },
         {
           id = 37,
           name = "",
@@ -118,8 +111,8 @@ return {
           polyline = {
             { x = 0, y = 0 },
             { x = 384, y = 0 },
-            { x = 680, y = 144 },
-            { x = 1728, y = 144 }
+            { x = 704, y = 160 },
+            { x = 1728, y = 160 }
           },
           properties = {}
         }
