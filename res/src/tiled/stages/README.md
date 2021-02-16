@@ -22,13 +22,15 @@ Zabuyaki uses no tile layers. But you can set the _tile size_ to use it as a gri
 Then press **Ok**. Now you should delete default **Tile Layer**.
 
 ## Collision objects (walls) ##
-Go to the layers tab. Create **Object layer**. Rename it to "collision".
-Only the first "collision" layer will be used. All the rest object layers named "collision" will be ignored. 
+Go to the layers tab.  Create **Group layer**. Rename it to "collision". Make it the current layer and create **Object layer**. Rename it to whatever you want.
+Only the first "collision" object layer will be used. All the rest object layers named "collision" will be ignored. 
 
-Now you can add collision objects into the game. The collision objects names are optional.
+Now you can add collision objects into the game. The collision objects names are optional. You can create many group layers and objects layers within the root 'collision' layer.
 
 To select / edit certain objects go to the **Objects** tab (at the right) and expand 
 the collision layer list.
+
+> Hint: To disable a wall or a group of walls use **visible** property. 
 
 > Hint: Use menu **View / Object Types Editor** to set the colour of the walls (e.g. blue).
 

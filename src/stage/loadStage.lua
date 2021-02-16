@@ -21,33 +21,48 @@ local function mergeTables(tab, superTab)
     end
 end
 
-local function loadCollision(items, stage)
-    dp("Load collisions...")
-    local t = extractTable(items.layers, "collision")
-    if not t then
-        error("Tiled: Object layer 'collision' is not present in the map file.")
+local function addCollisionToLayer(v, stage)
+    if not v.visible then
+        return
     end
-    for i, v in ipairs(t.objects) do
-        if v.shape == "rectangle" then
-            if v.properties.height then
-                local platform = Platform:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height }, height = v.properties.height })
-                dp("platform", v.properties.height)
-                platform:setOnStage(stage)
-            else
-                local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = { v.x, v.y, v.width, v.height } })
-                wall:setOnStage(stage)
-            end
-        elseif v.shape == "polygon" then
-            local shapeArgs = {}
-            for k = 1, #v.polygon do
-                shapeArgs[#shapeArgs + 1] = v.x + v.polygon[k].x
-                shapeArgs[#shapeArgs + 1] = v.y + v.polygon[k].y
-            end
-            local wall = Wall:new(v.name, { shapeType = v.shape, shapeArgs = shapeArgs })
-            wall:setOnStage(stage)
-        else
-            error("Tiled: Wrong Tiled object shape #"..i)
+    if v.type == "group" then
+        for i, v2 in ipairs(v.layers) do
+            addCollisionToLayer(v2, stage)
         end
+    elseif v.type == "objectgroup" then
+        for i, v2 in ipairs(v.objects) do
+            if v2.shape == "rectangle" then
+                if v2.properties.height then
+                    local platform = Platform:new(v2.name, { shapeType = v2.shape, shapeArgs = { v2.x, v2.y, v2.width, v2.height }, height = v2.properties.height })
+                    dp("platform", v2.properties.height)
+                    platform:setOnStage(stage)
+                else
+                    local wall = Wall:new(v2.name, { shapeType = v2.shape, shapeArgs = { v2.x, v2.y, v2.width, v2.height } })
+                    wall:setOnStage(stage)
+                end
+            elseif v2.shape == "polygon" then
+                local shapeArgs = {}
+                for k = 1, #v2.polygon do
+                    shapeArgs[#shapeArgs + 1] = v2.x + v2.polygon[k].x
+                    shapeArgs[#shapeArgs + 1] = v2.y + v2.polygon[k].y
+                end
+                local wall = Wall:new(v2.name, { shapeType = v2.shape, shapeArgs = shapeArgs })
+                wall:setOnStage(stage)
+            else
+                error("Tiled: Wrong Tiled object shape #"..i)
+            end
+        end
+    end
+end
+
+local function loadCollisionLayer(items, stage)
+    local layerName = 'collision'
+    local t = extractTable(items.layers, layerName)
+    if not t then
+        error("Tiled: Group layer '".. layerName .."' is not present in the map file.")
+    end
+    for i, v in ipairs(t.layers) do
+        addCollisionToLayer(v, stage)
     end
 end
 
@@ -389,7 +404,8 @@ function loadStageData(stage, mapFile, players)
     stage.reflectionsHeight = d.properties.reflectionsHeight or 1
     stage.reflectionsOpacity = d.properties.reflectionsOpacity or GLOBAL_SETTING.REFLECTIONS_OPACITY
     stage.weather = d.properties.weather or ""
-    loadCollision(d, stage)
+    --loadCollision(d, stage)
+    loadCollisionLayer(d, stage)
     addPlayersToStage(d, players, stage)
     doInstantPlayersSelect() -- if debug, you can select char on start
     loadGlobalUnits(d, stage)
