@@ -108,7 +108,7 @@ function Movie:initialize(frames)
         local f = self.frames[i]
         for k = 1, #f do
             f[k]._hScroll, f[k]._vScroll = 0, 0
-            if f[k].animate then
+            if f[k].animate and type(f[k].animate) == "string" then -- do not parse the animation sequence again
                 f[k].animate = self:parseAnimateString(f[k].animate)
             end
         end
