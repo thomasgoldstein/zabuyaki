@@ -8,7 +8,7 @@ return {
   height = 15,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 20,
+  nextlayerid = 21,
   nextobjectid = 39,
   backgroundcolor = { 0, 85, 0 },
   properties = {},
@@ -121,58 +121,6 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
-      id = 9,
-      name = "collision",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      properties = {},
-      objects = {
-        {
-          id = 4,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1860,
-          y = 0,
-          width = 64,
-          height = 648,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 2,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = -128,
-          y = 0,
-          width = 1988,
-          height = 240,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 3,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = -192,
-          y = 0,
-          width = 64,
-          height = 648,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
       id = 10,
       name = "players",
       visible = true,
@@ -219,6 +167,70 @@ return {
           rotation = 0,
           visible = false,
           properties = {}
+        }
+      }
+    },
+    {
+      type = "group",
+      id = 20,
+      name = "collision",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      layers = {
+        {
+          type = "objectgroup",
+          draworder = "topdown",
+          id = 9,
+          name = "collision",
+          visible = true,
+          opacity = 1,
+          offsetx = 0,
+          offsety = 0,
+          properties = {},
+          objects = {
+            {
+              id = 4,
+              name = "",
+              type = "",
+              shape = "rectangle",
+              x = 1860,
+              y = 0,
+              width = 64,
+              height = 480,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            },
+            {
+              id = 2,
+              name = "",
+              type = "",
+              shape = "rectangle",
+              x = -128,
+              y = 0,
+              width = 1988,
+              height = 240,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            },
+            {
+              id = 3,
+              name = "",
+              type = "",
+              shape = "rectangle",
+              x = -192,
+              y = 0,
+              width = 64,
+              height = 480,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            }
+          }
         }
       }
     },
@@ -313,7 +325,7 @@ return {
               x = 960,
               y = 0,
               width = 768,
-              height = 640,
+              height = 480,
               rotation = 0,
               visible = true,
               properties = {}
@@ -356,7 +368,7 @@ return {
               x = 480,
               y = 0,
               width = 480,
-              height = 640,
+              height = 480,
               rotation = 0,
               visible = true,
               properties = {}
@@ -403,7 +415,7 @@ return {
               x = 0,
               y = 0,
               width = 480,
-              height = 640,
+              height = 480,
               rotation = 0,
               visible = true,
               properties = {}

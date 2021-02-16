@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="54" height="15" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="20" nextobjectid="39">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="54" height="15" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="21" nextobjectid="39">
  <editorsettings>
   <export target="../../../../src/def/stage/stage1-3_map.lua" format="lua"/>
  </editorsettings>
  <group id="1" name="background" locked="1">
   <imagelayer id="17" name="bg2" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-3_bg_2.png" width="1732" height="644"/>
+   <image source="../../../img/stage/stage1/stage1-3_bg_2.png" width="1732" height="484"/>
    <properties>
     <property name="relativeX" value="0.35"/>
    </properties>
@@ -30,11 +30,6 @@
    <polyline points="0,0 384,0 704,160 1728,160"/>
   </object>
  </objectgroup>
- <objectgroup color="#00aa00" id="9" name="collision" locked="1">
-  <object id="4" x="1860" y="0" width="64" height="480"/>
-  <object id="2" x="-128" y="0" width="1988" height="240"/>
-  <object id="3" x="-192" y="0" width="64" height="480"/>
- </objectgroup>
  <objectgroup color="#00aaff" id="10" name="players" locked="1">
   <object id="5" name="1" x="64" y="288" visible="0">
    <point/>
@@ -46,6 +41,13 @@
    <point/>
   </object>
  </objectgroup>
+ <group id="20" name="collision" locked="1">
+  <objectgroup color="#00aa00" id="9" name="collision" locked="1">
+   <object id="4" x="1860" y="0" width="64" height="480"/>
+   <object id="2" x="-128" y="0" width="1988" height="240"/>
+   <object id="3" x="-192" y="0" width="64" height="480"/>
+  </objectgroup>
+ </group>
  <objectgroup color="#55557f" id="11" name="global" locked="1">
   <object id="8" name="enterMap" type="event" x="16" y="192">
    <properties>

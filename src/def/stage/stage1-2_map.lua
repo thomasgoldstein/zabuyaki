@@ -8,7 +8,7 @@ return {
   height = 10,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 16,
+  nextlayerid = 17,
   nextobjectid = 36,
   backgroundcolor = { 0, 85, 0 },
   properties = {},
@@ -130,54 +130,66 @@ return {
       }
     },
     {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 9,
+      type = "group",
+      id = 16,
       name = "collision",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       properties = {},
-      objects = {
+      layers = {
         {
-          id = 2,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = -128,
-          y = 0,
-          width = 1664,
-          height = 240,
-          rotation = 0,
+          type = "objectgroup",
+          draworder = "topdown",
+          id = 9,
+          name = "collision",
           visible = true,
-          properties = {}
-        },
-        {
-          id = 3,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = -192,
-          y = 0,
-          width = 64,
-          height = 320,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 4,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1536,
-          y = 0,
-          width = 64,
-          height = 320,
-          rotation = 0,
-          visible = true,
-          properties = {}
+          opacity = 1,
+          offsetx = 0,
+          offsety = 0,
+          properties = {},
+          objects = {
+            {
+              id = 2,
+              name = "",
+              type = "",
+              shape = "rectangle",
+              x = -128,
+              y = 0,
+              width = 1664,
+              height = 240,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            },
+            {
+              id = 3,
+              name = "",
+              type = "",
+              shape = "rectangle",
+              x = -192,
+              y = 0,
+              width = 64,
+              height = 320,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            },
+            {
+              id = 4,
+              name = "",
+              type = "",
+              shape = "rectangle",
+              x = 1536,
+              y = 0,
+              width = 64,
+              height = 320,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            }
+          }
         }
       }
     },
