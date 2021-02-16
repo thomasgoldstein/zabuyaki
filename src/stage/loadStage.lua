@@ -404,7 +404,6 @@ function loadStageData(stage, mapFile, players)
     stage.reflectionsHeight = d.properties.reflectionsHeight or 1
     stage.reflectionsOpacity = d.properties.reflectionsOpacity or GLOBAL_SETTING.REFLECTIONS_OPACITY
     stage.weather = d.properties.weather or ""
-    --loadCollision(d, stage)
     loadCollisionLayer(d, stage)
     addPlayersToStage(d, players, stage)
     doInstantPlayersSelect() -- if debug, you can select char on start
