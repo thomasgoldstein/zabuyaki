@@ -87,90 +87,6 @@ return {
       }
     },
     {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 8,
-      name = "camera",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      properties = {},
-      objects = {
-        {
-          id = 37,
-          name = "",
-          type = "",
-          shape = "polyline",
-          x = 0,
-          y = 320,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 384, y = 0 },
-            { x = 704, y = 160 },
-            { x = 1728, y = 160 }
-          },
-          properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 10,
-      name = "players",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      properties = {},
-      objects = {
-        {
-          id = 5,
-          name = "1",
-          type = "",
-          shape = "point",
-          x = 64,
-          y = 288,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = false,
-          properties = {}
-        },
-        {
-          id = 6,
-          name = "2",
-          type = "",
-          shape = "point",
-          x = 40,
-          y = 288,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = false,
-          properties = {}
-        },
-        {
-          id = 7,
-          name = "3",
-          type = "",
-          shape = "point",
-          x = 16,
-          y = 288,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = false,
-          properties = {}
-        }
-      }
-    },
-    {
       type = "group",
       id = 20,
       name = "collision",
@@ -231,64 +147,6 @@ return {
               properties = {}
             }
           }
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 11,
-      name = "global",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      properties = {},
-      objects = {
-        {
-          id = 8,
-          name = "enterMap",
-          type = "event",
-          shape = "point",
-          x = 16,
-          y = 192,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["togox"] = "-100"
-          }
-        },
-        {
-          id = 9,
-          name = "leaveMap",
-          type = "event",
-          shape = "point",
-          x = 1752,
-          y = 344,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["go"] = "exit",
-            ["nextevent"] = "nextmap",
-            ["nextmap"] = "ending"
-          }
-        },
-        {
-          id = 10,
-          name = "exit",
-          type = "event",
-          shape = "point",
-          x = 1752,
-          y = 432,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
         }
       }
     },
@@ -438,6 +296,148 @@ return {
               }
             }
           }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 8,
+      name = "camera",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      objects = {
+        {
+          id = 37,
+          name = "",
+          type = "",
+          shape = "polyline",
+          x = 0,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 384, y = 0 },
+            { x = 704, y = 160 },
+            { x = 1728, y = 160 }
+          },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 10,
+      name = "players",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      objects = {
+        {
+          id = 5,
+          name = "1",
+          type = "",
+          shape = "point",
+          x = 64,
+          y = 288,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = false,
+          properties = {}
+        },
+        {
+          id = 6,
+          name = "2",
+          type = "",
+          shape = "point",
+          x = 40,
+          y = 288,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = false,
+          properties = {}
+        },
+        {
+          id = 7,
+          name = "3",
+          type = "",
+          shape = "point",
+          x = 16,
+          y = 288,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = false,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 11,
+      name = "global",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      objects = {
+        {
+          id = 8,
+          name = "enterMap",
+          type = "event",
+          shape = "point",
+          x = 16,
+          y = 192,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["togox"] = "-100"
+          }
+        },
+        {
+          id = 9,
+          name = "leaveMap",
+          type = "event",
+          shape = "point",
+          x = 1752,
+          y = 344,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["go"] = "exit",
+            ["nextevent"] = "nextmap",
+            ["nextmap"] = "ending"
+          }
+        },
+        {
+          id = 10,
+          name = "exit",
+          type = "event",
+          shape = "point",
+          x = 1752,
+          y = 432,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }

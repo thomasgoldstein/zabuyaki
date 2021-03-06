@@ -98,68 +98,13 @@
    </properties>
   </imagelayer>
  </group>
- <objectgroup color="#aa0000" id="25" name="camera" locked="1">
-  <object id="1" x="0" y="320">
-   <polyline points="0,0 2560,0"/>
-  </object>
- </objectgroup>
- <objectgroup color="#00aaff" id="27" name="players" locked="1">
-  <object id="5" name="1" x="48" y="256" visible="0">
-   <point/>
-  </object>
-  <object id="6" name="2" x="32" y="280" visible="0">
-   <point/>
-  </object>
-  <object id="7" name="3" x="16" y="304" visible="0">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup color="#55557f" id="28" name="global">
-  <object id="8" name="enterMap" type="event" x="16" y="192">
-   <properties>
-    <property name="togox" value="-100"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="9" name="leaveMap" type="event" x="2480" y="184">
-   <properties>
-    <property name="animation" value="stand"/>
-    <property name="duration" value="2"/>
-    <property name="gox" value="0"/>
-    <property name="nextevent" value="exit"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="10" name="exit" type="event" x="2584" y="280">
-   <properties>
-    <property name="go" value="exit"/>
-    <property name="nextevent" value="nextmap"/>
-    <property name="nextmap" value="stage1-2_map"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="11" name="Trash" type="trashcan" x="368" y="248">
-   <properties>
-    <property name="drop" value="chicken"/>
-    <property name="minPlayerCount" type="int" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="12" name="Trash" type="trashcan" x="392" y="248">
-   <properties>
-    <property name="drop" value="apple"/>
-    <property name="palette" type="int" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="46" name="Sign" type="sign" x="176" y="240">
-   <properties>
-    <property name="drop" value="apple"/>
-    <property name="palette" type="int" value="2"/>
-   </properties>
-   <point/>
-  </object>
- </objectgroup>
+ <group id="34" name="collision" locked="1">
+  <objectgroup color="#00aa00" id="26" name="collision" locked="1">
+   <object id="2" x="-128" y="0" width="2816" height="240"/>
+   <object id="3" x="-192" y="0" width="64" height="320"/>
+   <object id="4" x="2688" y="0" width="64" height="320"/>
+  </objectgroup>
+ </group>
  <group id="29" name="waves">
   <objectgroup color="#00ff00" id="30" name="4">
    <properties>
@@ -418,11 +363,66 @@
    </object>
   </objectgroup>
  </group>
- <group id="34" name="collision" locked="1">
-  <objectgroup color="#00aa00" id="26" name="collision" locked="1">
-   <object id="2" x="-128" y="0" width="2816" height="240"/>
-   <object id="3" x="-192" y="0" width="64" height="320"/>
-   <object id="4" x="2688" y="0" width="64" height="320"/>
-  </objectgroup>
- </group>
+ <objectgroup color="#aa0000" id="25" name="camera" locked="1">
+  <object id="1" x="0" y="320">
+   <polyline points="0,0 2560,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00aaff" id="27" name="players" locked="1">
+  <object id="5" name="1" x="48" y="256" visible="0">
+   <point/>
+  </object>
+  <object id="6" name="2" x="32" y="280" visible="0">
+   <point/>
+  </object>
+  <object id="7" name="3" x="16" y="304" visible="0">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55557f" id="28" name="global">
+  <object id="8" name="enterMap" type="event" x="16" y="192">
+   <properties>
+    <property name="togox" value="-100"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="9" name="leaveMap" type="event" x="2480" y="184">
+   <properties>
+    <property name="animation" value="stand"/>
+    <property name="duration" value="2"/>
+    <property name="gox" value="0"/>
+    <property name="nextevent" value="exit"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="10" name="exit" type="event" x="2584" y="280">
+   <properties>
+    <property name="go" value="exit"/>
+    <property name="nextevent" value="nextmap"/>
+    <property name="nextmap" value="stage1-2_map"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="11" name="Trash" type="trashcan" x="368" y="248">
+   <properties>
+    <property name="drop" value="chicken"/>
+    <property name="minPlayerCount" type="int" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="12" name="Trash" type="trashcan" x="392" y="248">
+   <properties>
+    <property name="drop" value="apple"/>
+    <property name="palette" type="int" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="46" name="Sign" type="sign" x="176" y="240">
+   <properties>
+    <property name="drop" value="apple"/>
+    <property name="palette" type="int" value="2"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
 </map>

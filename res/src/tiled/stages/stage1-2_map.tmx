@@ -31,11 +31,6 @@
    <image source="../../../img/stage/stage1/stage1-2_fg.png" width="1444" height="324"/>
   </imagelayer>
  </group>
- <objectgroup color="#aa0000" id="8" name="camera" locked="1">
-  <object id="1" x="0" y="320">
-   <polyline points="0,0 1280,0"/>
-  </object>
- </objectgroup>
  <group id="16" name="collision" locked="1">
   <objectgroup color="#00aa00" id="9" name="collision" locked="1">
    <object id="2" x="-128" y="0" width="1664" height="240"/>
@@ -43,42 +38,6 @@
    <object id="4" x="1536" y="0" width="64" height="320"/>
   </objectgroup>
  </group>
- <objectgroup color="#00aaff" id="10" name="players" locked="1">
-  <object id="5" name="1" x="48" y="265" visible="0">
-   <point/>
-  </object>
-  <object id="6" name="2" x="32" y="285" visible="0">
-   <point/>
-  </object>
-  <object id="7" name="3" x="16" y="305" visible="0">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup color="#55557f" id="11" name="global">
-  <object id="8" name="enterMap" type="event" x="16" y="192">
-   <properties>
-    <property name="togox" value="-100"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="9" name="leaveMap" type="event" x="1408" y="184">
-   <properties>
-    <property name="animation" value="stand"/>
-    <property name="duration" type="int" value="2"/>
-    <property name="gox" type="int" value="0"/>
-    <property name="nextevent" value="exit"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="10" name="exit" type="event" x="1464" y="256">
-   <properties>
-    <property name="go" value="exit"/>
-    <property name="nextevent" value="nextmap"/>
-    <property name="nextmap" value="stage1-3_map"/>
-   </properties>
-   <point/>
-  </object>
- </objectgroup>
  <group id="12" name="waves">
   <objectgroup color="#ffff00" id="13" name="3">
    <properties>
@@ -276,4 +235,45 @@
    </object>
   </objectgroup>
  </group>
+ <objectgroup color="#aa0000" id="8" name="camera" locked="1">
+  <object id="1" x="0" y="320">
+   <polyline points="0,0 1280,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00aaff" id="10" name="players" locked="1">
+  <object id="5" name="1" x="48" y="265" visible="0">
+   <point/>
+  </object>
+  <object id="6" name="2" x="32" y="285" visible="0">
+   <point/>
+  </object>
+  <object id="7" name="3" x="16" y="305" visible="0">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#55557f" id="11" name="global">
+  <object id="8" name="enterMap" type="event" x="16" y="192">
+   <properties>
+    <property name="togox" value="-100"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="9" name="leaveMap" type="event" x="1408" y="184">
+   <properties>
+    <property name="animation" value="stand"/>
+    <property name="duration" type="int" value="2"/>
+    <property name="gox" type="int" value="0"/>
+    <property name="nextevent" value="exit"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="10" name="exit" type="event" x="1464" y="256">
+   <properties>
+    <property name="go" value="exit"/>
+    <property name="nextevent" value="nextmap"/>
+    <property name="nextmap" value="stage1-3_map"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
 </map>

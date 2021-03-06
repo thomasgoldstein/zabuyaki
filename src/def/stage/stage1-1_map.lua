@@ -308,194 +308,65 @@ return {
       }
     },
     {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 25,
-      name = "camera",
+      type = "group",
+      id = 34,
+      name = "collision",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       properties = {},
-      objects = {
+      layers = {
         {
-          id = 1,
-          name = "",
-          type = "",
-          shape = "polyline",
-          x = 0,
-          y = 320,
-          width = 0,
-          height = 0,
-          rotation = 0,
+          type = "objectgroup",
+          draworder = "topdown",
+          id = 26,
+          name = "collision",
           visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 2560, y = 0 }
-          },
-          properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 27,
-      name = "players",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      properties = {},
-      objects = {
-        {
-          id = 5,
-          name = "1",
-          type = "",
-          shape = "point",
-          x = 48,
-          y = 256,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = false,
-          properties = {}
-        },
-        {
-          id = 6,
-          name = "2",
-          type = "",
-          shape = "point",
-          x = 32,
-          y = 280,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = false,
-          properties = {}
-        },
-        {
-          id = 7,
-          name = "3",
-          type = "",
-          shape = "point",
-          x = 16,
-          y = 304,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = false,
-          properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 28,
-      name = "global",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      properties = {},
-      objects = {
-        {
-          id = 8,
-          name = "enterMap",
-          type = "event",
-          shape = "point",
-          x = 16,
-          y = 192,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["togox"] = "-100"
-          }
-        },
-        {
-          id = 9,
-          name = "leaveMap",
-          type = "event",
-          shape = "point",
-          x = 2480,
-          y = 184,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["animation"] = "stand",
-            ["duration"] = "2",
-            ["gox"] = "0",
-            ["nextevent"] = "exit"
-          }
-        },
-        {
-          id = 10,
-          name = "exit",
-          type = "event",
-          shape = "point",
-          x = 2584,
-          y = 280,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["go"] = "exit",
-            ["nextevent"] = "nextmap",
-            ["nextmap"] = "stage1-2_map"
-          }
-        },
-        {
-          id = 11,
-          name = "Trash",
-          type = "trashcan",
-          shape = "point",
-          x = 368,
-          y = 248,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["drop"] = "chicken",
-            ["minPlayerCount"] = 2
-          }
-        },
-        {
-          id = 12,
-          name = "Trash",
-          type = "trashcan",
-          shape = "point",
-          x = 392,
-          y = 248,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["drop"] = "apple",
-            ["palette"] = 2
-          }
-        },
-        {
-          id = 46,
-          name = "Sign",
-          type = "sign",
-          shape = "point",
-          x = 176,
-          y = 240,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["drop"] = "apple",
-            ["palette"] = 2
+          opacity = 1,
+          offsetx = 0,
+          offsety = 0,
+          properties = {},
+          objects = {
+            {
+              id = 2,
+              name = "",
+              type = "",
+              shape = "rectangle",
+              x = -128,
+              y = 0,
+              width = 2816,
+              height = 240,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            },
+            {
+              id = 3,
+              name = "",
+              type = "",
+              shape = "rectangle",
+              x = -192,
+              y = 0,
+              width = 64,
+              height = 320,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            },
+            {
+              id = 4,
+              name = "",
+              type = "",
+              shape = "rectangle",
+              x = 2688,
+              y = 0,
+              width = 64,
+              height = 320,
+              rotation = 0,
+              visible = true,
+              properties = {}
+            }
           }
         }
       }
@@ -1118,65 +989,194 @@ return {
       }
     },
     {
-      type = "group",
-      id = 34,
-      name = "collision",
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 25,
+      name = "camera",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       properties = {},
-      layers = {
+      objects = {
         {
-          type = "objectgroup",
-          draworder = "topdown",
-          id = 26,
-          name = "collision",
+          id = 1,
+          name = "",
+          type = "",
+          shape = "polyline",
+          x = 0,
+          y = 320,
+          width = 0,
+          height = 0,
+          rotation = 0,
           visible = true,
-          opacity = 1,
-          offsetx = 0,
-          offsety = 0,
-          properties = {},
-          objects = {
-            {
-              id = 2,
-              name = "",
-              type = "",
-              shape = "rectangle",
-              x = -128,
-              y = 0,
-              width = 2816,
-              height = 240,
-              rotation = 0,
-              visible = true,
-              properties = {}
-            },
-            {
-              id = 3,
-              name = "",
-              type = "",
-              shape = "rectangle",
-              x = -192,
-              y = 0,
-              width = 64,
-              height = 320,
-              rotation = 0,
-              visible = true,
-              properties = {}
-            },
-            {
-              id = 4,
-              name = "",
-              type = "",
-              shape = "rectangle",
-              x = 2688,
-              y = 0,
-              width = 64,
-              height = 320,
-              rotation = 0,
-              visible = true,
-              properties = {}
-            }
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 2560, y = 0 }
+          },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 27,
+      name = "players",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      objects = {
+        {
+          id = 5,
+          name = "1",
+          type = "",
+          shape = "point",
+          x = 48,
+          y = 256,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = false,
+          properties = {}
+        },
+        {
+          id = 6,
+          name = "2",
+          type = "",
+          shape = "point",
+          x = 32,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = false,
+          properties = {}
+        },
+        {
+          id = 7,
+          name = "3",
+          type = "",
+          shape = "point",
+          x = 16,
+          y = 304,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = false,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 28,
+      name = "global",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      objects = {
+        {
+          id = 8,
+          name = "enterMap",
+          type = "event",
+          shape = "point",
+          x = 16,
+          y = 192,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["togox"] = "-100"
+          }
+        },
+        {
+          id = 9,
+          name = "leaveMap",
+          type = "event",
+          shape = "point",
+          x = 2480,
+          y = 184,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["animation"] = "stand",
+            ["duration"] = "2",
+            ["gox"] = "0",
+            ["nextevent"] = "exit"
+          }
+        },
+        {
+          id = 10,
+          name = "exit",
+          type = "event",
+          shape = "point",
+          x = 2584,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["go"] = "exit",
+            ["nextevent"] = "nextmap",
+            ["nextmap"] = "stage1-2_map"
+          }
+        },
+        {
+          id = 11,
+          name = "Trash",
+          type = "trashcan",
+          shape = "point",
+          x = 368,
+          y = 248,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["drop"] = "chicken",
+            ["minPlayerCount"] = 2
+          }
+        },
+        {
+          id = 12,
+          name = "Trash",
+          type = "trashcan",
+          shape = "point",
+          x = 392,
+          y = 248,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["drop"] = "apple",
+            ["palette"] = 2
+          }
+        },
+        {
+          id = 46,
+          name = "Sign",
+          type = "sign",
+          shape = "point",
+          x = 176,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["drop"] = "apple",
+            ["palette"] = 2
           }
         }
       }
