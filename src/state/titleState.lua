@@ -205,15 +205,7 @@ function titleState:confirm(button)
         if menuState == menuItems.start then
             sfx.play("sfx","menuSelect")
             time = 0
-            if isDebug() then
-                playerSelectState.enablePlayerSelectOnStart = true
-                playerSelectState:initDefaultPlayersSelectionOrder()
-                playerSelectState:confirmAllPlayers()
-                playerSelectState:GameStart()
-                return
-            else
-                return Gamestate.push(playerSelectState)
-            end
+            return Gamestate.push(playerSelectState)
         elseif menuState == menuItems.options then
             sfx.play("sfx","menuSelect")
             time = 0
