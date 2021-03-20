@@ -9,62 +9,56 @@
  </properties>
  <group id="1" name="background" locked="1">
   <imagelayer id="2" name="sky" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/sky.png" width="1545" height="160"/>
+   <image source="../../../img/stage/stage1/stage1-1/sky.png" width="1545" height="160"/>
    <properties>
     <property name="relativeX" value="0.45"/>
    </properties>
   </imagelayer>
-  <group id="3" name="bg-city-3" locked="1" offsetx="113" offsety="0">
+  <imagelayer id="4" name="bg-city-3">
+   <image source="../../../img/stage/stage1/stage1-1/background-city-3.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="0.30"/>
    </properties>
-   <imagelayer id="4" name="city">
-    <image source="../../../img/stage/stage1/background-city-3.png" width="2564" height="324"/>
-   </imagelayer>
-  </group>
-  <group id="5" name="bg-city-2" locked="1" offsetx="80" offsety="0">
+  </imagelayer>
+  <imagelayer id="6" name="bg-city-2">
+   <image source="../../../img/stage/stage1/stage1-1/background-city-2.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="0.25"/>
    </properties>
-   <imagelayer id="6" name="city">
-    <image source="../../../img/stage/stage1/background-city-2.png" width="2564" height="324"/>
-   </imagelayer>
-  </group>
-  <group id="7" name="bg-city-1" locked="1">
+  </imagelayer>
+  <imagelayer id="8" name="bg-city-1">
+   <image source="../../../img/stage/stage1/stage1-1/background-city-1.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="0.20"/>
    </properties>
-   <imagelayer id="8" name="city">
-    <image source="../../../img/stage/stage1/background-city-1.png" width="2564" height="324"/>
-   </imagelayer>
-  </group>
+  </imagelayer>
   <group id="9" name="bg-building" locked="1">
    <properties>
     <property name="relativeX" value="0.05"/>
    </properties>
    <imagelayer id="10" name="building-2" locked="1" offsetx="-26" offsety="0">
-    <image source="../../../img/stage/stage1/background-building-2.png" width="2564" height="324"/>
+    <image source="../../../img/stage/stage1/stage1-1/background-building-2.png" width="2564" height="324"/>
    </imagelayer>
    <imagelayer id="11" name="building-1" offsetx="-9" offsety="0">
-    <image source="../../../img/stage/stage1/background-building-1.png" width="2564" height="324"/>
+    <image source="../../../img/stage/stage1/stage1-1/background-building-1.png" width="2564" height="324"/>
    </imagelayer>
   </group>
   <group id="12" name="puddle-overlay" locked="1">
    <imagelayer id="13" name="puddle-overlay-2">
-    <image source="../../../img/stage/stage1/stage1-1_puddle_overlay_2.png" width="2564" height="324"/>
+    <image source="../../../img/stage/stage1/stage1-1/puddle-overlay-2.png" width="2564" height="324"/>
    </imagelayer>
    <imagelayer id="14" name="puddle-overlay-1">
-    <image source="../../../img/stage/stage1/stage1-1_puddle_overlay_1.png" width="2564" height="324"/>
+    <image source="../../../img/stage/stage1/stage1-1/puddle-overlay-1.png" width="2564" height="324"/>
    </imagelayer>
   </group>
-  <imagelayer id="15" name="bg-reflection" locked="1" offsetx="0" offsety="96">
-   <image source="../../../img/stage/stage1/stage1-1_rf.png" width="2564" height="324"/>
+  <imagelayer id="15" name="main-reflection" locked="1" offsetx="0" offsety="96">
+   <image source="../../../img/stage/stage1/stage1-1/main-reflection.png" width="2564" height="324"/>
    <properties>
     <property name="reflect" type="bool" value="true"/>
    </properties>
   </imagelayer>
-  <imagelayer id="16" name="bg" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-1.png" width="2564" height="324"/>
+  <imagelayer id="16" name="main" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-1/main.png" width="2564" height="324"/>
   </imagelayer>
   <group id="17" name="burn-barrels" locked="1">
    <properties>
@@ -83,16 +77,16 @@
  </group>
  <group id="21" name="foreground" locked="1">
   <imagelayer id="22" name="bridge-shadow" visible="0" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-1_fg_bridge_shadow.png" width="2564" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-1/bridge-shadow.png" width="2564" height="324"/>
   </imagelayer>
-  <imagelayer id="23" name="bridge" locked="1" offsetx="260" offsety="0">
-   <image source="../../../img/stage/stage1/stage1-1_fg_bridge.png" width="2564" height="324"/>
+  <imagelayer id="23" name="bridge-foreground" locked="1" offsetx="260" offsety="0">
+   <image source="../../../img/stage/stage1/stage1-1/bridge-foreground.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="-0.2"/>
    </properties>
   </imagelayer>
-  <imagelayer id="24" name="fg" offsetx="200" offsety="0">
-   <image source="../../../img/stage/stage1/stage1-1_fg.png" width="2564" height="324"/>
+  <imagelayer id="24" name="foreground" offsetx="200" offsety="0">
+   <image source="../../../img/stage/stage1/stage1-1/foreground.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="-0.8"/>
    </properties>

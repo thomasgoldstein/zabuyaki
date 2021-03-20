@@ -29,7 +29,7 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/sky.png",
+          image = "../../../res/img/stage/stage1/stage1-1/sky.png",
           id = 2,
           name = "sky",
           visible = true,
@@ -41,58 +41,35 @@ return {
           }
         },
         {
-          type = "group",
-          id = 3,
+          type = "imagelayer",
+          image = "../../../res/img/stage/stage1/stage1-1/background-city-3.png",
+          id = 4,
           name = "bg-city-3",
           visible = true,
           opacity = 1,
-          offsetx = 113,
+          offsetx = 0,
           offsety = 0,
           properties = {
             ["relativeX"] = "0.30"
-          },
-          layers = {
-            {
-              type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-city-3.png",
-              id = 4,
-              name = "city",
-              visible = true,
-              opacity = 1,
-              offsetx = 0,
-              offsety = 0,
-              properties = {}
-            }
           }
         },
         {
-          type = "group",
-          id = 5,
+          type = "imagelayer",
+          image = "../../../res/img/stage/stage1/stage1-1/background-city-2.png",
+          id = 6,
           name = "bg-city-2",
           visible = true,
           opacity = 1,
-          offsetx = 80,
+          offsetx = 0,
           offsety = 0,
           properties = {
             ["relativeX"] = "0.25"
-          },
-          layers = {
-            {
-              type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-city-2.png",
-              id = 6,
-              name = "city",
-              visible = true,
-              opacity = 1,
-              offsetx = 0,
-              offsety = 0,
-              properties = {}
-            }
           }
         },
         {
-          type = "group",
-          id = 7,
+          type = "imagelayer",
+          image = "../../../res/img/stage/stage1/stage1-1/background-city-1.png",
+          id = 8,
           name = "bg-city-1",
           visible = true,
           opacity = 1,
@@ -100,19 +77,6 @@ return {
           offsety = 0,
           properties = {
             ["relativeX"] = "0.20"
-          },
-          layers = {
-            {
-              type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-city-1.png",
-              id = 8,
-              name = "city",
-              visible = true,
-              opacity = 1,
-              offsetx = 0,
-              offsety = 0,
-              properties = {}
-            }
           }
         },
         {
@@ -129,7 +93,7 @@ return {
           layers = {
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-building-2.png",
+              image = "../../../res/img/stage/stage1/stage1-1/background-building-2.png",
               id = 10,
               name = "building-2",
               visible = true,
@@ -140,7 +104,7 @@ return {
             },
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/background-building-1.png",
+              image = "../../../res/img/stage/stage1/stage1-1/background-building-1.png",
               id = 11,
               name = "building-1",
               visible = true,
@@ -163,7 +127,7 @@ return {
           layers = {
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/stage1-1_puddle_overlay_2.png",
+              image = "../../../res/img/stage/stage1/stage1-1/puddle-overlay-2.png",
               id = 13,
               name = "puddle-overlay-2",
               visible = true,
@@ -174,7 +138,7 @@ return {
             },
             {
               type = "imagelayer",
-              image = "../../../res/img/stage/stage1/stage1-1_puddle_overlay_1.png",
+              image = "../../../res/img/stage/stage1/stage1-1/puddle-overlay-1.png",
               id = 14,
               name = "puddle-overlay-1",
               visible = true,
@@ -187,9 +151,9 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-1_rf.png",
+          image = "../../../res/img/stage/stage1/stage1-1/main-reflection.png",
           id = 15,
-          name = "bg-reflection",
+          name = "main-reflection",
           visible = true,
           opacity = 1,
           offsetx = 0,
@@ -200,9 +164,9 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-1.png",
+          image = "../../../res/img/stage/stage1/stage1-1/main.png",
           id = 16,
-          name = "bg",
+          name = "main",
           visible = true,
           opacity = 1,
           offsetx = -2,
@@ -270,7 +234,7 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-1_fg_bridge_shadow.png",
+          image = "../../../res/img/stage/stage1/stage1-1/bridge-shadow.png",
           id = 22,
           name = "bridge-shadow",
           visible = false,
@@ -281,9 +245,9 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-1_fg_bridge.png",
+          image = "../../../res/img/stage/stage1/stage1-1/bridge-foreground.png",
           id = 23,
-          name = "bridge",
+          name = "bridge-foreground",
           visible = true,
           opacity = 1,
           offsetx = 260,
@@ -294,9 +258,9 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-1_fg.png",
+          image = "../../../res/img/stage/stage1/stage1-1/foreground.png",
           id = 24,
-          name = "fg",
+          name = "foreground",
           visible = true,
           opacity = 1,
           offsetx = 200,

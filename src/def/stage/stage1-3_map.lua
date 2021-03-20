@@ -26,9 +26,9 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-3_bg_2.png",
+          image = "../../../res/img/stage/stage1/stage1-3/city.png",
           id = 2,
-          name = "bg2",
+          name = "city",
           visible = true,
           opacity = 1,
           offsetx = -2,
@@ -39,9 +39,9 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-3_bg_1.png",
+          image = "../../../res/img/stage/stage1/stage1-3/buildings.png",
           id = 3,
-          name = "bg1",
+          name = "buildings",
           visible = true,
           opacity = 1,
           offsetx = -2,
@@ -52,9 +52,9 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-3.png",
+          image = "../../../res/img/stage/stage1/stage1-3/main.png",
           id = 4,
-          name = "stage",
+          name = "main",
           visible = true,
           opacity = 1,
           offsetx = -2,
@@ -75,9 +75,9 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-3_fg.png",
+          image = "../../../res/img/stage/stage1/stage1-3/foreground.png",
           id = 6,
-          name = "fg",
+          name = "foreground",
           visible = true,
           opacity = 1,
           offsetx = 0,

@@ -4,25 +4,25 @@
   <export target="../../../../src/def/stage/stage1-3_map.lua" format="lua"/>
  </editorsettings>
  <group id="1" name="background" locked="1">
-  <imagelayer id="2" name="bg2" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-3_bg_2.png" width="1732" height="484"/>
+  <imagelayer id="2" name="city" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-3/city.png" width="1732" height="484"/>
    <properties>
     <property name="relativeX" value="0.35"/>
    </properties>
   </imagelayer>
-  <imagelayer id="3" name="bg1" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-3_bg_1.png" width="1732" height="644"/>
+  <imagelayer id="3" name="buildings" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-3/buildings.png" width="1732" height="644"/>
    <properties>
     <property name="relativeX" value="0.15"/>
    </properties>
   </imagelayer>
-  <imagelayer id="4" name="stage" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-3.png" width="1732" height="484"/>
+  <imagelayer id="4" name="main" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-3/main.png" width="1732" height="484"/>
   </imagelayer>
  </group>
  <group id="5" name="foreground">
-  <imagelayer id="6" name="fg" offsetx="0" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-3_fg.png" width="1732" height="484"/>
+  <imagelayer id="6" name="foreground" offsetx="0" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-3/foreground.png" width="1732" height="484"/>
   </imagelayer>
  </group>
  <group id="7" name="collision">

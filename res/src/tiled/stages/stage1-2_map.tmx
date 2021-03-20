@@ -4,31 +4,25 @@
   <export target="../../../../src/def/stage/stage1-2_map.lua" format="lua"/>
  </editorsettings>
  <group id="1" name="background" locked="1">
-  <imagelayer id="2" name="bg" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-2.png" width="1444" height="324"/>
+  <imagelayer id="2" name="main" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-2/main.png" width="1444" height="324"/>
   </imagelayer>
  </group>
  <group id="3" name="foreground" locked="1">
-  <imagelayer id="4" name="fg-3" locked="1" offsetx="200" offsety="18">
-   <image source="../../../img/stage/stage1/stage1-2_fg_2-foreground lights 2.png" width="1444" height="324"/>
+  <imagelayer id="5" name="lamps" locked="1" offsetx="200" offsety="18">
+   <image source="../../../img/stage/stage1/stage1-2/lamps.png" width="1444" height="324"/>
    <properties>
     <property name="relativeX" value="-0.8"/>
    </properties>
   </imagelayer>
-  <imagelayer id="5" name="fg-2" locked="1" offsetx="200" offsety="18">
-   <image source="../../../img/stage/stage1/stage1-2_fg_2-foreground lights 1.png" width="1444" height="324"/>
-   <properties>
-    <property name="relativeX" value="-0.8"/>
-   </properties>
-  </imagelayer>
-  <imagelayer id="6" name="fg-1" locked="1" offsetx="200" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-2_fg_1.png" width="1444" height="324"/>
+  <imagelayer id="6" name="foreground-stuff" locked="1" offsetx="200" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-2/foreground-stuff.png" width="1444" height="324"/>
    <properties>
     <property name="relativeX" value="-0.5"/>
    </properties>
   </imagelayer>
-  <imagelayer id="7" name="fg" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-2_fg.png" width="1444" height="324"/>
+  <imagelayer id="7" name="outdoor-light" locked="1" offsetx="-2" offsety="-2">
+   <image source="../../../img/stage/stage1/stage1-2/outdoor-light.png" width="1444" height="324"/>
   </imagelayer>
  </group>
  <group id="16" name="collision" locked="1">

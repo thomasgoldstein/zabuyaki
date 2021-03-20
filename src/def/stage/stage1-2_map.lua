@@ -26,9 +26,9 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-2.png",
+          image = "../../../res/img/stage/stage1/stage1-2/main.png",
           id = 2,
-          name = "bg",
+          name = "main",
           visible = true,
           opacity = 1,
           offsetx = -2,
@@ -49,22 +49,9 @@ return {
       layers = {
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-2_fg_2-foreground lights 2.png",
-          id = 4,
-          name = "fg-3",
-          visible = true,
-          opacity = 1,
-          offsetx = 200,
-          offsety = 18,
-          properties = {
-            ["relativeX"] = "-0.8"
-          }
-        },
-        {
-          type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-2_fg_2-foreground lights 1.png",
+          image = "../../../res/img/stage/stage1/stage1-2/lamps.png",
           id = 5,
-          name = "fg-2",
+          name = "lamps",
           visible = true,
           opacity = 1,
           offsetx = 200,
@@ -75,9 +62,9 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-2_fg_1.png",
+          image = "../../../res/img/stage/stage1/stage1-2/foreground-stuff.png",
           id = 6,
-          name = "fg-1",
+          name = "foreground-stuff",
           visible = true,
           opacity = 1,
           offsetx = 200,
@@ -88,9 +75,9 @@ return {
         },
         {
           type = "imagelayer",
-          image = "../../../res/img/stage/stage1/stage1-2_fg.png",
+          image = "../../../res/img/stage/stage1/stage1-2/outdoor-light.png",
           id = 7,
-          name = "fg",
+          name = "outdoor-light",
           visible = true,
           opacity = 1,
           offsetx = -2,
