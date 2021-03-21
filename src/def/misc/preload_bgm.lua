@@ -48,12 +48,9 @@ BGM.stop = function()
     end
 end
 
---BGM.level01 = BGM.test
---BGM.level00 = {"res/bgm/theme.xm","res/bgm/testtrck.xm"}
-
 BGM.load("intro","res/bgm/stage0.xm","J.J")
-BGM.load("title","res/bgm/theme.xm","Don Miguel")
-BGM.load("zaburap","res/bgm/zaburap.xm")
-BGM.load("stage1","res/bgm/stage1.xm")
+BGM.load("title","res/bgm/theme.xm","J.J")
+BGM.load("zaburap","res/bgm/zaburap.xm", "J.J")
+BGM.load("stage1","res/bgm/stage1.xm", "J.J")
 
 return BGM
