@@ -45,16 +45,16 @@ function Stage:initialize(name, mapFile, players)
         loadStageData(self, mapFile, players)
     end
     mainCamera = Camera:new(self.worldWidth, self.worldHeight)
-    self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shift_x = stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight } })
-    self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shift_x = -stoppersPadding, shapeArgs = { 0, 0, 40, self.worldHeight } })
+    self.leftStopper = Stopper:new("LEFT.S", { shapeType = "rectangle", shift_x = stoppersPadding, shapeArgs = { -100, 0, 40, self.worldHeight } })
+    self.rightStopper = Stopper:new("RIGHT.S", { shapeType = "rectangle", shift_x = -stoppersPadding, shapeArgs = { -100, 0, 40, self.worldHeight } })
     self.topStopper = Stopper:new("TOP.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth * 2 + 80, 40,  } })
     self.bottomStopper = Wall:new("BOTTOM.S", { shapeType = "rectangle", shapeArgs = { 0, 0, self.worldWidth * 2 + 80, 40 } })
     self.objects:addArray({
         self.leftStopper, self.rightStopper, self.topStopper, self.bottomStopper
     })
+    self:initLog()
     self:initialMoveStoppers()
     self.transition = Transition:new("fadeout")
-    self:initLog()
 end
 
 function Stage:freezeZoomingFor(time)
