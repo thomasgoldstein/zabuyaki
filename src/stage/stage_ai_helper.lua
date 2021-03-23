@@ -10,9 +10,6 @@ local walkableAreaBottom = {}
 function Stage:initLog()
     walkableAreaTop = {}
     walkableAreaBottom = {}
-    -- Calc initial walkable area
-    local bottom_y = self.bottomStopper.y -  self.bottomStopper.depth / 2 - 20
-    local top_y = bottom_y - 240/3 + 40
     local player = getRegisteredPlayer(1)
     for x = 1, self.worldWidth, walkableGridSize do
         local _x = math.floor( x / walkableGridSize )
