@@ -16,17 +16,17 @@ function Stage:initLog()
         local _y = self:getScrollingY(x) + 120
         rawset(walkableAreaBottom, _x, _y - 1)
         rawset(walkableAreaTop, _x, _y - 1)
-        local isWall = "lookForTopOfBottomWall"
+        local mode = "lookForTopOfBottomWall"
         local step = 4
         local offset = -3 * step
         while offset < 240 do --240 max height of the walkable area
             offset = offset + step
-            if isWall == "lookForTopOfBottomWall" then
+            if mode == "lookForTopOfBottomWall" then
                 if player:hasPlaceToStand(x, _y - offset) then
                     rawset(walkableAreaBottom, _x, _y - offset)
-                    isWall = "lookForTopOfWalkableArea"
+                    mode = "lookForTopOfWalkableArea"
                 end
-            elseif isWall == "lookForTopOfWalkableArea" then
+            elseif mode == "lookForTopOfWalkableArea" then
                 if not player:hasPlaceToStand(x, _y - offset) then
                     rawset(walkableAreaTop, _x, _y - offset + step)
                     break
