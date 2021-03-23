@@ -52,7 +52,7 @@ function Stage:initialize(name, mapFile, players)
     self.objects:addArray({
         self.leftStopper, self.rightStopper, self.topStopper, self.bottomStopper
     })
-    self:initLog()
+    self:detectWalkableArea()
     self:initialMoveStoppers()
     self.transition = Transition:new("fadeout")
 end

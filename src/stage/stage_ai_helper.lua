@@ -7,7 +7,7 @@ local walkableGridSize = 8
 local walkableAreaTop = {}
 local walkableAreaBottom = {}
 
-function Stage:initLog()
+function Stage:detectWalkableArea()
     walkableAreaTop = {}
     walkableAreaBottom = {}
     local player = getRegisteredPlayer(1)
