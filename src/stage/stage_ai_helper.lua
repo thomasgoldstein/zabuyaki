@@ -13,12 +13,29 @@ function Stage:initLog()
     -- Calc initial walkable area
     local bottom_y = self.bottomStopper.y -  self.bottomStopper.depth / 2 - 20
     local top_y = bottom_y - 240/3 + 40
-    --print(top_y, bottom_y)
+    local player = getRegisteredPlayer(1)
     for x = 1, self.worldWidth, walkableGridSize do
         local _x = math.floor( x / walkableGridSize )
-        rawset(walkableAreaTop, _x, top_y)
-        rawset(walkableAreaBottom, _x, bottom_y)
-        --print(_x, top_y, bottom_y)
+        local _y = self:getScrollingY(x) + 120
+        rawset(walkableAreaBottom, _x, _y - 1)
+        rawset(walkableAreaTop, _x, _y - 1)
+        local isWall = "lookForTopOfBottomWall"
+        local step = 4
+        local offset = -3 * step
+        while offset < 240 do --240 max height of the walkable area
+            offset = offset + step
+            if isWall == "lookForTopOfBottomWall" then
+                if player:hasPlaceToStand(x, _y - offset) then
+                    rawset(walkableAreaBottom, _x, _y - offset)
+                    isWall = "lookForTopOfWalkableArea"
+                end
+            elseif isWall == "lookForTopOfWalkableArea" then
+                if not player:hasPlaceToStand(x, _y - offset) then
+                    rawset(walkableAreaTop, _x, _y - offset + step)
+                    break
+                end
+            end
+        end
     end
 end
 
