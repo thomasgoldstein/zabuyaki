@@ -240,6 +240,9 @@ function Stage:getScrollingY(x)
             return (cx * ty) / tx + c.start_y
         end
     end
+    local i = 1 --use the 1st chunk of polyline for the undefined area
+    local c = self.scrolling.chunks[i]
+    return c.start_y
 end
 
 function Stage:setCamera(dt)
