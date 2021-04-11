@@ -53,6 +53,7 @@ end
 function Control:addButtonPair(negative, positive)
   table.insert(self._detectors, function()
     local n, p = negative(), positive()
+    if n and p then return 0 end -- You cannot press both buttons and get correct direction
     return n and p and 0
       or n and -1
       or p and 1
