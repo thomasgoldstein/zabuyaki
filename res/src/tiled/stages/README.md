@@ -224,9 +224,9 @@ Optional properties:
 * **animation** [string] <- any sprite animation name that should override defaults. The animation will stay until players woke up the unit. Note if the state is unset then it changes to 'intro' state before starting the custom animation.
 * **target** [string] <- select a player to attack first ("close", "far", "weak", "healthy", "slow" or "fast").
 * **palette** [integer] or [string] <- select unit's coloring number (shaders) or a "String" value of the coloring alias (e.g. "red"). The aliases should be predefined in _shaders.lua_. 1 - default value.
-* **wakeRange** [integer] <- distance in pixels to the closest player to wake from the 'intro' and 'stand' states (100px by default).  
-* **delayedWakeRange** [integer] <- the 2nd distance in pixels to the closest player to wake from the 'intro' and 'stand' states (150px by default).
-* **wakeDelay** [integer] <- unit starts acting if the delay is over and a player is within 'delayedWakeRange'. It counts from the start of the current wave.
+* **wakeRange** [integer] <- distance in pixels to the closest player to wake from the 'intro' and 'stand' states (100px by default). It can be disabled with -1 value.  
+* **delayedWakeRange** [integer] <- the 2nd distance in pixels to the closest player to wake from the 'intro' and 'stand' states (150px by default). It can be disabled with -1 value (Then it also disables 'wakeDelay' property).   
+* **wakeDelay** [integer] <- unit starts acting if the delay is over and a player is within 'delayedWakeRange'. It counts from the start of the current wave. It can be disabled with -1 value (Then it also disables 'delayedWakeRange' property).
 * **flip** [boolean] <- flip default unit's facing. The current custom animation is saved.  
 * **drop** [string] <- which loot to drop: **apple**, **chicken** or **beef**.
 * **minPlayerCount** [integer] <- condition on dropping loot. If this property is not present then the loot is always dropped. Allowed values: 2, 3.  

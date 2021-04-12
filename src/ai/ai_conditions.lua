@@ -109,7 +109,9 @@ function AI:getVisualConditions(conditions)
             conditions["tooCloseToPlayer"] = true
         end
         if self.currentSchedule == self.SCHEDULE_INTRO then
-            if distance < unit.wakeRange or ( distance < unit.delayedWakeRange and unit.time > unit.wakeDelay ) then
+            if (unit.wakeRange ~= -1 and distance < unit.wakeRange)
+                or ( unit.delayedWakeRange ~= -1 and distance < unit.delayedWakeRange and unit.wakeDelay ~= -1 and unit.time > unit.wakeDelay )
+            then
                 -- ready to act
                 conditions["wokeUp"] = true
             end
