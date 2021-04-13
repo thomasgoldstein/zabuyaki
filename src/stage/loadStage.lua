@@ -95,8 +95,8 @@ local function applyWaveUnitProperties(v, waveUnit)
     waveUnit.state = v.properties.state or waveUnit.state
     waveUnit.animation = v.properties.animation or waveUnit.animation
     waveUnit.target = v.properties.target or waveUnit.target
-    if v.properties.wakeDelay then
-        waveUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay)
+    if v.properties.delayedWakeDelay then
+        waveUnit.unit.delayedWakeDelay = tonumber(v.properties.delayedWakeDelay)
     end
     if v.properties.instantWakeRange then
         waveUnit.unit.instantWakeRange = tonumber(v.properties.instantWakeRange)

@@ -14,8 +14,8 @@ function Enemy:initialize(name, sprite, x, y, f, input)
     self.comboTimeout = 2 -- max delay to connect combo hits
     self.whichPlayerAttack = "lone" -- lone random far close weak healthy fast slow
     self.instantWakeRange = 100 -- make enemy instantly active if distance to player is less
-    self.wakeDelay = 3
-    self.delayedWakeRange = 150 -- make enemy active if the wakeDelay is over and the distance to player is less
+    self.delayedWakeDelay = 3
+    self.delayedWakeRange = 150 -- make enemy active if the delayedWakeDelay is over and the distance to player is less
 end
 
 function Enemy:updateAI(dt)

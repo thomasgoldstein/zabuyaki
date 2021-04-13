@@ -110,7 +110,7 @@ function AI:getVisualConditions(conditions)
         end
         if self.currentSchedule == self.SCHEDULE_INTRO then
             if (unit.instantWakeRange ~= -1 and distance < unit.instantWakeRange)
-                or ( unit.delayedWakeRange ~= -1 and distance < unit.delayedWakeRange and unit.wakeDelay ~= -1 and unit.time > unit.wakeDelay )
+                or ( unit.delayedWakeRange ~= -1 and distance < unit.delayedWakeRange and unit.delayedWakeDelay ~= -1 and unit.time > unit.delayedWakeDelay )
             then
                 -- ready to act
                 conditions["wokeUp"] = true

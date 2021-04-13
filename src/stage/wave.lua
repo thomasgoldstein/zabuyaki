@@ -111,8 +111,8 @@ function Wave:spawn(dt)
             end
             if waveUnit.spawnDelayBeforeActivation <= 0 and waveUnit.spawnDelay <= self.lastSpawnedTime then -- delay before the unit's spawn
                 if waveUnit.appearFrom then -- alter unit coords if needed
-                    unit.delayedWakeRange = math.huge -- make unit active after wakeDelay despite the distance to players
-                    unit.wakeDelay = 0 -- make unit active
+                    unit.delayedWakeRange = math.huge -- make unit active after delayedWakeDelay despite the distance to players
+                    unit.delayedWakeDelay = 0 -- make unit active
                     if waveUnit.appearFrom == "left"
                         or waveUnit.appearFrom == "leftJump"
                     then
