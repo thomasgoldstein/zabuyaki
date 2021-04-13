@@ -98,8 +98,8 @@ local function applyWaveUnitProperties(v, waveUnit)
     if v.properties.wakeDelay then
         waveUnit.unit.wakeDelay = tonumber(v.properties.wakeDelay)
     end
-    if v.properties.wakeRange then
-        waveUnit.unit.wakeRange = tonumber(v.properties.wakeRange)
+    if v.properties.instantWakeRange then
+        waveUnit.unit.instantWakeRange = tonumber(v.properties.instantWakeRange)
     end
     if v.properties.delayedWakeRange then
         waveUnit.unit.delayedWakeRange = tonumber(v.properties.delayedWakeRange)

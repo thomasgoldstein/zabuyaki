@@ -54,7 +54,7 @@ function AI:update(dt)
     if self.thinkInterval <= 0 then
         self.conditions = self:getConditions()
         if self.conditions.inAir then
-            self.unit.wakeRange = math.huge -- woke up sleeping units on fall e.g. shockWave
+            self.unit.instantWakeRange = math.huge -- instantly woke up sleeping units on fall e.g. after shockWave
         end
         if not self.conditions.cannotAct then
             if not self.currentSchedule or self.currentSchedule:isDone(self.conditions) then
