@@ -4,7 +4,7 @@ local class = require "lib/middleclass"
 local Wave = class('Wave')
 
 local scrollSpeed = 150 -- speed of rightStopper movement. Usually seen on the going to the next wave
-local distanceBetweenStoppers = 520
+local safeOffsetFromTheWave = 40
 
 function Wave:printWaveState(t)
     dp("WAVE #"..self.n.." State:"..self.state.." "..(t or ""))
@@ -50,10 +50,11 @@ function Wave:spawn(dt)
     local wave = self.waves[self.n]
     local center_x, playerGroupDistance, min_x, max_x = self.stage.center_x, self.stage.playerGroupDistance, self.stage.min_x, self.stage.max_x
     local lx, rx = self.stage.leftStopper:getX(), self.stage.rightStopper:getX()    --current in the stage
-    if lx < wave.leftStopper_x
-        and min_x > wave.leftStopper_x + distanceBetweenStoppers
+    local camera_x, _, cameraWidth, _ = mainCamera:getVisible()
+    if lx < wave.leftStopper_x - safeOffsetFromTheWave
+        and min_x > wave.leftStopper_x
     then
-        lx = wave.leftStopper_x
+        lx = lx + dt * scrollSpeed
     end
     if rx < wave.rightStopper_x then
         rx = rx + dt * scrollSpeed -- speed of the right Stopper movement > char's run
@@ -61,7 +62,6 @@ function Wave:spawn(dt)
     if lx ~= self.stage.leftStopper:getX() or rx ~= self.stage.rightStopper:getX() then
         self.stage:moveStoppers(lx, rx)
     end
-    local camera_x, _, cameraWidth, _ = mainCamera:getVisible()
     if not self.isWaveReadyToSpawnUnits then    -- wait until camera view collides with the wave rectangle
         if CheckLinearCollision(wave.leftStopper_x, wave.width, camera_x, cameraWidth + 1) then
             self.isWaveReadyToSpawnUnits = true
