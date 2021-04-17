@@ -141,6 +141,7 @@ function showDebugWave(l,t,w,h)
     if isDebug(SHOW_DEBUG_WAVES) then
         local s = stage.wave
         if s then
+            love.graphics.setFont(gfx.font.arcade3)
             local b,b2 = s.waves[s.n], s.waves[s.n + 1]
             if b then
                 colors:set("red", nil, 150)
