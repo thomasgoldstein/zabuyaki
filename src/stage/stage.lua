@@ -289,7 +289,8 @@ function Stage:setCamera(dt)
         oldCoord_x = coord_x
         oldCoord_y = coord_y
     end
-    mainCamera:update(dt, math.floor(oldCoord_x * 2) / 2, math.floor(oldCoord_y * 2) / 2)
+    local step = mainCamera:getScale()
+    mainCamera:update(dt, math.floor(oldCoord_x * step) / step, math.floor(oldCoord_y * step) / step)
     oldCoord_y = coord_y
 end
 
