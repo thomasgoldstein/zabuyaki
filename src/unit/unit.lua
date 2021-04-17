@@ -70,7 +70,7 @@ function Unit:initialize(name, sprite, x, y, f, input)
         n = 0,
         time = 0,
         delay = 0.1, -- interval of removal of 1 ghost on ghostTrailsFadeout
-        shift = 2,  -- frames count back to the past per the ghost
+        shift = 3,  -- frames count back to the past per the ghost
         ghost = {}
     }
     self.func = f.func  --custom function call onDeath
