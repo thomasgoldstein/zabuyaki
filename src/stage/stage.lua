@@ -52,8 +52,10 @@ function Stage:initialize(name, mapFile, players)
     self.objects:addArray({
         self.leftStopper, self.rightStopper, self.topStopper, self.bottomStopper
     })
-    self:detectWalkableArea()
-    self:initialMoveStoppers()
+    if mapFile then -- skip dor UT and Sprite Viewer Mode
+        self:detectWalkableArea()
+        self:initialMoveStoppers()
+    end
     self.transition = Transition:new("fadeout")
 end
 
