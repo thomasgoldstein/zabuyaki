@@ -2059,18 +2059,6 @@ function Character:knockedDownUpdate(dt)
 end
 Character.knockedDown = {name = "knockedDown", start = Character.knockedDownStart, exit = nop, update = Character.knockedDownUpdate, draw = Character.defaultDraw}
 
-function Character:initSlide(speed_x, diagonalSpeed_x, diagonalSpeed_y, friction)
-    self.toSlowDown = true
-    self.customFriction = friction or self.repelFriction
-    if self.b.vertical:getValue() ~= 0 then
-        self.vertical = self.b.vertical:getValue()
-        self.speed_x = diagonalSpeed_x or speed_x * 0.8 -- diagonal horizontal speed
-        self.speed_y = diagonalSpeed_y or speed_x / 4 -- diagonal vertical speed
-    else
-        self.speed_x = speed_x -- horizontal speed
-    end
-end
-
 function Character:eventMoveStart()
     if not self.condition then
         error(self.name.." eventMove got no target x,y")

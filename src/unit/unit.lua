@@ -468,6 +468,18 @@ function Unit:calcMovement(dt)
     end
 end
 
+function Unit:initSlide(speed_x, diagonalSpeed_x, diagonalSpeed_y, friction)
+    self.toSlowDown = true
+    self.customFriction = friction or self.repelFriction
+    if self.b.vertical:getValue() ~= 0 then
+        self.vertical = self.b.vertical:getValue()
+        self.speed_x = diagonalSpeed_x or speed_x * 0.8 -- diagonal horizontal speed
+        self.speed_y = diagonalSpeed_y or speed_x / 4 -- diagonal vertical speed
+    else
+        self.speed_x = speed_x -- horizontal speed
+    end
+end
+
 function Unit:calcDamageFrame()
     -- HP max..0 / Frame 1..#max
     local spr = self.sprite
