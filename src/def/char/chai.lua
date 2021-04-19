@@ -671,10 +671,10 @@ return {
             delay = f(4),
             isThrow = true,
             moves = {
-                { ox = 20, oz = 0, z = 0, grabberFace = 1 },
-                { ox = 24, oz = 2, z = 2 },
-                { ox = 20, oz = 4, z = 4 },
-                { ox = 10, oz = 20, z = 4, grabberFace = 1 },
+                { ox = 20, oz = 0, x = 10, z = 0 }, --grabberFace = 1
+                { ox = 24, oz = 2, y = 10, z = 2 },
+                { ox = 20, oz = 4, x = 1, z = 4 },
+                { ox = 10, oz = 20, z = 4 }, -- grabberFace = 1
                 { ox = 10, oz = 30, z = 8, grabberFace = -1, grabbedFace = -1 },
                 { z = 4 },
                 { z = 0 }
