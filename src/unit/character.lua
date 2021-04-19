@@ -1,4 +1,5 @@
 local class = require "lib/middleclass"
+local class = require "lib/middleclass"
 local Character = class('Character', Unit)
 
 local function nop() end
@@ -582,6 +583,17 @@ function Character:slideUpdate(dt)
     end
 end
 Character.slide = {name = "slide", start = Character.slideStart, exit = nop, update = Character.slideUpdate, draw = Character.defaultDraw}
+
+function Character:stopStart()
+    self.knockedDownDelay = 5
+end
+function Character:stopUpdate(dt)
+    self.knockedDownDelay = self.knockedDownDelay - dt
+    if self.knockedDownDelay <= 0 then
+        return
+    end
+end
+Character.stop = {name = "stop", start = Character.stopStart, exit = nop, update = Character.stopUpdate, draw = Character.defaultDraw}
 
 function Character:standStart()
     self.isHittable = true
