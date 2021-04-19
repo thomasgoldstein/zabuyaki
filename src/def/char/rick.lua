@@ -226,6 +226,12 @@ local grabFrontAttackLast = function(slf, cont)
         cont
     )
 end
+local grabFrontAttackForwardHit = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 20, z = 37, width = 55, damage = 10, type = "fell" },
+        cont
+    )
+end
 local grabFrontAttackForward = function(slf, cont)
     slf:initSlide(slf.comboSlideSpeed2_x * 1.25)
     local g = slf.grabContext
@@ -619,8 +625,7 @@ return {
         grabFrontAttackForward = {
             { q = q(2,2361,56,62), ox = 33, oy = 61 }, --throw forward 1
             { q = q(60,2362,42,61), ox = 17, oy = 61 }, --throw forward 2
-            { q = q(104,2361,63,62), ox = 20, oy = 62, func = grabFrontAttackForward, delay = f(12) }, --throw forward 3
-            --{ q = q(104,2361,63,62), ox = 20, oy = 62, delay = f(1) }, --throw forward 3
+            { q = q(104,2361,63,62), ox = 20, oy = 62, func = grabFrontAttackForward, funcCont = grabFrontAttackForwardHit, delay = f(12) }, --throw forward 3
             { q = q(169,2370,54,53), ox = 17, oy = 52, func = grabFrontAttackForward2, delay = f(4) }, --throw forward 4
             { q = q(2,1899,47,50), ox = 17, oy = 49, delay = f(8) }, --dash attack 7
             { q = q(51,1891,41,58), ox = 14, oy = 57 }, --dash attack 8
