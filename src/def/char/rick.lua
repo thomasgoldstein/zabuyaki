@@ -233,18 +233,18 @@ local grabFrontAttackForwardHit = function(slf, cont)
     )
 end
 local grabFrontAttackForward = function(slf, cont)
-    slf:initSlide(slf.comboSlideSpeed2_x * 1.25)
+    slf:initSlide(slf.comboSlideSpeed2_x * 1.25, 0, 0, slf.comboSlideSpeed2_x * 1.25)
     local g = slf.grabContext
     if g and g.target then
         local target = g.target
         target.horizontal = slf.horizontal
-        target:initSlide(slf.comboSlideSpeed2_x * 1.3)
+        target:initSlide(slf.comboSlideSpeed2_x * 1.09, 0, 0, slf.comboSlideSpeed2_x * 1.09)
         target:setSpriteIfExists("fall", "stand")
         target:setState(target.stop)
     end
 end
 local grabFrontAttackForward2 = function(slf, cont)
-    slf:doThrow(slf.throwSpeed_x / 2.5, 0,
+    slf:doThrow(slf.throwSpeed_x * 1.5, 0,
         150,
         slf.face, nil,
         slf.z + 1)
@@ -625,7 +625,7 @@ return {
         grabFrontAttackForward = {
             { q = q(2,2361,56,62), ox = 33, oy = 61 }, --throw forward 1
             { q = q(60,2362,42,61), ox = 17, oy = 61 }, --throw forward 2
-            { q = q(104,2361,63,62), ox = 20, oy = 62, func = grabFrontAttackForward, funcCont = grabFrontAttackForwardHit, delay = f(12) }, --throw forward 3
+            { q = q(104,2361,63,62), ox = 20, oy = 62, func = grabFrontAttackForward, funcCont = grabFrontAttackForwardHit, delay = f(18) }, --throw forward 3
             { q = q(169,2370,54,53), ox = 17, oy = 52, func = grabFrontAttackForward2, delay = f(4) }, --throw forward 4
             { q = q(2,1899,47,50), ox = 17, oy = 49, delay = f(8) }, --dash attack 7
             { q = q(51,1891,41,58), ox = 14, oy = 57 }, --dash attack 8
@@ -635,8 +635,7 @@ return {
             moves = {
                 { oz = 0, ox = 26 },
                 { oz = 0, ox = 30 },
-                { oz = 1, ox = 40, z = 1 },
-                --{ z = 1 }
+                { oz = 1, ox = 40, z = 1 }
             }
         },
         grabFrontAttackBack = {
