@@ -10,7 +10,7 @@ local walkableAreaBottom = {}
 function Stage:detectWalkableArea()
     walkableAreaTop = {}
     walkableAreaBottom = {}
-    local player = getRegisteredPlayer(1)
+    local player = getRegisteredPlayer(1) or getRegisteredPlayer(2) or getRegisteredPlayer(3)
     for x = 1, self.worldWidth, walkableGridSize do
         local _x = math.floor( x / walkableGridSize )
         local _y = self:getScrollingY(x) + 120
