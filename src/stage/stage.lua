@@ -246,18 +246,20 @@ function Stage:getScrollingY(x)
 end
 
 function Stage:setCamera(dt)
+    local currentScale = mainCamera:getScale()
     if self.zoomMode == "wait" then
-        mainCamera:update(dt, math.floor(oldCoord_x * 2) / 2, math.floor(oldCoord_y * 2) / 2)
+        mainCamera:update(dt, math.floor(oldCoord_x * currentScale) / currentScale, math.floor(oldCoord_y * currentScale) / currentScale)
         return
     end
-    local coord_y = 430 -- const vertical Y (no scroll)
+    local coord_y
     local coord_x
     local center_x, playerGroupDistance, min_x, max_x = self.center_x, self.playerGroupDistance, self.min_x, self.max_x
-    if mainCamera:getScale() ~= self.zoom then
+    if currentScale ~= self.zoom then
         mainCamera:setScale(self.zoom)
+        currentScale = mainCamera:getScale()
         for i = 1, #canvas do
             if self.zoom < maxZoom then
-                canvas[i]:setFilter("linear", "linear", 2)
+                canvas[i]:setFilter("linear", "linear", 8)
             else
                 canvas[i]:setFilter("nearest", "nearest")
             end
@@ -279,8 +281,6 @@ function Stage:setCamera(dt)
             end
         end
     end
-    -- Correct coord_y according to the zoom stage
-    coord_y = coord_y - 480 / mainCamera:getScale() + 240 / 2
     if oldCoord_x then
         if math.abs(coord_x - oldCoord_x) > 4 then
             oldCoord_x = oldCoord_x + sign(coord_x - oldCoord_x) * scrollSpeed * dt
@@ -291,8 +291,7 @@ function Stage:setCamera(dt)
         oldCoord_x = coord_x
         oldCoord_y = coord_y
     end
-    local step = mainCamera:getScale()
-    mainCamera:update(dt, math.floor(oldCoord_x * step) / step, math.floor(oldCoord_y * step) / step)
+    mainCamera:update(dt, math.floor(oldCoord_x * currentScale) / currentScale, math.floor(oldCoord_y * currentScale) / currentScale)
     oldCoord_y = coord_y
 end
 
