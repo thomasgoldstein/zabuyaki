@@ -639,10 +639,11 @@ return {
             }
         },
         grabFrontAttackBack = {
-            { q = q(2,1110,43,61), ox = 26, oy = 60 }, --throw back 1
-            { q = q(47,1113,42,58), ox = 17, oy = 57, func = grabFrontAttackBack, delay = f(3) }, --throw back 2
-            { q = q(91,1115,44,56), ox = 14, oy = 55 }, --throw back 3
-            { q = q(137,1112,39,59), ox = 14, oy = 58, delay = f(6) }, --throw back 4
+            { q = q(2,1109,42,63), ox = 23, oy = 62 }, --throw back 1
+            { q = q(46,1116,49,54), ox = 9, oy = 54, delay = f(3) }, --throw back 2
+            { q = q(97,1122,59,48), ox = 16, oy = 48, func = grabFrontAttackBack }, --throw back 3
+            { q = q(158,1116,51,54), ox = 9, oy = 54, delay = f(4) }, --throw back 4
+            { q = q(204,1178,39,62), ox = 10, oy = 61, delay = f(2) }, --throw back 5
             delay = f(12),
             isThrow = true,
             moves = {
