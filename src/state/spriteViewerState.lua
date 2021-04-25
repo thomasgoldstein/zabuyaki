@@ -266,6 +266,9 @@ function spriteViewerState:update(dt)
         oldMenuState = menuState
     end
     if sprite2 then
+        if sprite2.curFrame > sprite2.maxFrame then
+            sprite2.curFrame = 1
+        end
         updateSpriteInstance(sprite2, dt)
     end
     if menuState == menuItems.animations then
