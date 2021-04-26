@@ -7,12 +7,6 @@ local sign = sign
 local minGapBetweenStoppers = 420
 local stoppersPadding = 8
 
--- Zooming
-local maxZoom = display.zoom.minScale
-local minZoom = display.zoom.maxScale
-local zoomSpeed = display.zoom.zoomSpeed
-local maxDistanceNoZoom = display.zoom.maxDistanceNoZoom
-local minDistanceToKeepZoom = display.zoom.minDistanceToKeepZoom
 local oldCoord_x, oldCoord_y    -- smooth scrolling
 local scrollSpeed = 150 -- speed of P1 camera centering on P2+P3 death (not related to the scroll speed after the end of the wave)
 
@@ -32,9 +26,6 @@ function Stage:initialize(name, mapFile, players)
     self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
     self.objects = Entity:new()
     oldCoord_x, oldCoord_y = nil, nil -- smooth scrolling init
-    self.zoom = maxZoom
-    self.zoomMode = "check"
-    self.zoomWaitTime = 0
     self.playerGroupStoppersMode = "check"
     self.nextMap = nil
     self.background = CompoundPicture:new(self.name .. " Background")
@@ -57,44 +48,6 @@ function Stage:initialize(name, mapFile, players)
         self:initialMoveStoppers()
     end
     self.transition = Transition:new("fadeout")
-end
-
-function Stage:freezeZoomingFor(time)
-    self.zoomWaitTime = time or 5
-    self.zoomMode = "wait"
-end
-
-function Stage:updateZoom(dt)
-    if self.zoomMode == "wait" then
-        self.zoomWaitTime = self.zoomWaitTime - dt
-        if self.zoomWaitTime <= 0 then
-            self.zoomMode = "check"
-        end
-    elseif self.zoomMode == "check" then
-        if self.playerGroupDistance > maxDistanceNoZoom then
-            self.zoomMode = "zoomout"
-        end
-    elseif self.zoomMode == "zoomout" then
-        if self.playerGroupDistance < minDistanceToKeepZoom then
-            self.zoomMode = "zoomin"
-        end
-        if self.zoom > minZoom then
-            self.zoom = self.zoom - dt * zoomSpeed
-        else
-            self.zoom = minZoom
-        end
-    elseif self.zoomMode == "zoomin" then
-        if self.playerGroupDistance < maxDistanceNoZoom then
-            if self.zoom < maxZoom then
-                self.zoom = self.zoom + dt * zoomSpeed
-            else
-                self.zoom = maxZoom
-                self.zoomMode = "check"
-            end
-        else
-            self.zoomMode = "zoomout"
-        end
-    end
 end
 
 function Stage:moveStoppers(x1, x2)
@@ -120,7 +73,12 @@ function Stage:moveStoppers(x1, x2)
         self.leftStopper:moveTo(x2, self.worldHeight / 2)
         self.rightStopper:moveTo(x1, self.worldHeight / 2)
     end
-    mainCamera:setWorld(math.floor(self.leftStopper:getX() + self.leftStopper.width / 2), 0, math.floor(self.rightStopper:getX() - self.leftStopper:getX()) - self.leftStopper.width, self.worldHeight)
+    mainCamera:setWorld(
+        math.floor( (self.leftStopper:getX() + self.leftStopper.width / 2) ),
+        0,
+        math.floor( (self.rightStopper:getX() - self.leftStopper:getX()) - self.leftStopper.width ),
+        self.worldHeight
+    )
 end
 
 function Stage:initialMoveStoppers()
@@ -151,7 +109,6 @@ function Stage:update(dt)
             if self.wave then
                 self.showGoMark = self.wave:update(dt)
             end
-            self:updateZoom(dt)
             self.objects:update(dt)
             --sort players by y
             self.objects:sortByZIndex()
@@ -191,6 +148,7 @@ function Stage:update(dt)
 end
 
 function Stage:draw(l, t, w, h)
+    local l, t, w, h = math.floor(l), math.floor(t), math.floor(w), math.floor(h)
     love.graphics.setBlendMode("alpha")
     love.graphics.setCanvas(canvas[1])
     love.graphics.clear()
@@ -246,26 +204,9 @@ function Stage:getScrollingY(x)
 end
 
 function Stage:setCamera(dt)
-    local currentScale = mainCamera:getScale()
-    if self.zoomMode == "wait" then
-        mainCamera:update(dt, math.floor(oldCoord_x * currentScale) / currentScale, math.floor(oldCoord_y * currentScale) / currentScale)
-        return
-    end
     local coord_y
     local coord_x
     local center_x, playerGroupDistance, min_x, max_x = self.center_x, self.playerGroupDistance, self.min_x, self.max_x
-    if currentScale ~= self.zoom then
-        mainCamera:setScale(self.zoom)
-        currentScale = mainCamera:getScale()
-        for i = 1, #canvas do
-            if self.zoom < maxZoom then
-                canvas[i]:setFilter("linear", "linear", 8)
-            else
-                canvas[i]:setFilter("nearest", "nearest")
-            end
-        end
-    end
-    -- Camera positioning
     coord_x = center_x
     coord_y = self.scrolling.common_y or coord_y
     local ty, tx, cx = 0, 0, 0
@@ -291,7 +232,7 @@ function Stage:setCamera(dt)
         oldCoord_x = coord_x
         oldCoord_y = coord_y
     end
-    mainCamera:update(dt, math.floor(oldCoord_x * currentScale) / currentScale, math.floor(oldCoord_y * currentScale) / currentScale)
+    mainCamera:update(dt, math.floor(oldCoord_x), math.floor(oldCoord_y))
     oldCoord_y = coord_y
 end
 

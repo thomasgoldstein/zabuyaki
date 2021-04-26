@@ -7,8 +7,8 @@ function Camera:initialize(worldWidth, worldHeight, x, y)
     self.x = x
     self.y = y
     self.cam = gamera.new(0, 0, worldWidth, worldHeight)
-    self.cam:setWindow(0, 0, display.inner.resolution.width, display.inner.resolution.height)
-    self.cam:setScale(display.zoom.minScale)
+    self.cam:setWindow(0, 0, display.rawCanvas.resolution.width, display.rawCanvas.resolution.height)
+    self:setScale(display.rawCanvas.scale)
     --self.cam:setAngle(0.10)
 end
 

@@ -240,7 +240,6 @@ Player.useCredit = {name = "useCredit", start = Player.useCreditStart, exit = no
 
 function Player:respawnStart()
     self.isHittable = false
-    stage:freezeZoomingFor(1.5)
     self.x, self.y = stage:getSafeRespawnPosition(self)
     self:setSprite("respawn")
     self.deathDelay = 3 --seconds to remove
