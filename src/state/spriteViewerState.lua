@@ -238,14 +238,9 @@ function spriteViewerState:playerInput(controls)
     elseif controls.attack:pressed() or controls.start:pressed() then
         return self:confirm( 1)
     end
-    local doubleTap = controls.horizontal.doubleTap
     local h = controls.horizontal:getValue()
     if controls.horizontal:pressed(-1) or controls.horizontal:pressed(1) then
-        if h == doubleTap.lastDoubleTapDirection and love.timer.getTime() - doubleTap.lastDoubleTapTime <= 0.16 then
-            self:select(h * 9)
-        else
-            self:select(h)
-        end
+        self:select(h)
     elseif controls.vertical:pressed(-1) then
         menuState = menuState - 1
     elseif controls.vertical:pressed(1) then
