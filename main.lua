@@ -56,7 +56,7 @@ function love.load(arg, unfilteredArg)
     Gamestate.switch(logoState)
     love.graphics.setBackgroundColor(0, 0, 0, 255)
     for i=1,4 do
-        canvas[i] = love.graphics.newCanvas(display.inner.resolution.width, display.inner.resolution.height)
+        canvas[i] = love.graphics.newCanvas(display.rawCanvas.resolution.width, display.rawCanvas.resolution.height)
     end
     --Working folder for writing data
     love.filesystem.setIdentity("Zabuyaki")

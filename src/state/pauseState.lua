@@ -82,15 +82,15 @@ function pauseState:draw()
         if stage.enableReflections then
             love.graphics.setBlendMode("alpha")
             colors:set("pauseStateColors", 2, 255 * stage.reflectionsOpacity)   -- TODO remove 255 colors logic at LOVE 11.x
-            love.graphics.draw(canvas[2], 0,0, nil, display.final.scale) -- reflections
+            love.graphics.draw(canvas[2], 0,0, nil, display.gameWindowCanvas.scale) -- reflections
         end
         love.graphics.setBlendMode("alpha", "premultiplied")
         colors:set("pauseStateColors", 1)
-        love.graphics.draw(canvas[1], 0,0, nil, display.final.scale) --bg
+        love.graphics.draw(canvas[1], 0,0, nil, display.gameWindowCanvas.scale) --bg
         colors:set("pauseStateColors", 2)
-        love.graphics.draw(canvas[3], 0,0, nil, display.final.scale) -- shadows
+        love.graphics.draw(canvas[3], 0,0, nil, display.gameWindowCanvas.scale) -- shadows
         colors:set("pauseStateColors", 1)
-        love.graphics.draw(canvas[4], 0,0, nil, display.final.scale) -- sprites + fg
+        love.graphics.draw(canvas[4], 0,0, nil, display.gameWindowCanvas.scale) -- sprites + fg
         love.graphics.setBlendMode("alpha")
     end
     if stage.mode == "normal" then
