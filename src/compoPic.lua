@@ -1,7 +1,7 @@
 -- draws a big picture that consists of many pieces
-
 local class = require "lib/middleclass"
 
+local round = math.floor
 local CheckCollision = CheckCollision
 
 local CompoundPicture = class('CompoundPicture')
@@ -170,13 +170,13 @@ function CompoundPicture:draw(l, t, w, h, drawReflections)
             if p.animate then
                 love.graphics.draw(p.image,
                     p.animate.quads[ p.animate.frame[p.animate.curFrame] ],
-                    p.x + p.relativeX * l, -- slow down parallax
-                    p.y + p.relativeY * t)
+                    round(p.x + p.relativeX * l), -- slow down parallax
+                    round(p.y + p.relativeY * t))
             else
                 love.graphics.draw(p.image,
                     p.quad,
-                    p.x + p.relativeX * l, -- slow down parallax
-                    p.y + p.relativeY * t)
+                    round(p.x + p.relativeX * l), -- slow down parallax
+                    round(p.y + p.relativeY * t))
             end
         end
     end
