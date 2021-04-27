@@ -5,6 +5,7 @@ local Character = Character
 local iconWidth = 40
 local sign = sign
 local clamp = clamp
+local round = math.floor
 
 -- # of emitting particles
 local PA_DUST_DUST_STEPS_N_PARTICLES = 2
@@ -52,9 +53,9 @@ function Character:showEffect(effect, obj)
         particles = PA_LOOT_GET:clone()
         particles:setQuads(lootSprite.q)
         particles:setOffset(lootSprite.ox, lootSprite.oy)
-        particles:setPosition(loot.x - self.x, loot.y - self.y - 10)
+        particles:setPosition(round(loot.x - self.x), round(loot.y - self.y - 10))
         particles:emit(1)
-        stage.objects:add(Effect:new(particles, self.x, self.y + 10, self.z))
+        stage.objects:add(Effect:new(particles, round(self.x), round(self.y + 10), self.z))
     elseif effect == "step" then
         -- running dust clouds
         self:playSfx(self.sfx.step, 0.5, 1 + 0.02 * love.math.random(-2, 2))
