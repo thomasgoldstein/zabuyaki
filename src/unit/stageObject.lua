@@ -2,6 +2,7 @@ local class = require "lib/middleclass"
 local StageObject = class("StageObject", Unit)
 
 local function nop() end
+local round = math.floor
 
 -- borrow methods from character class
 StageObject.checkAndAttack = Character.checkAndAttack
@@ -68,7 +69,7 @@ end
 
 function StageObject:drawSprite(x, y)
     self.sprite.flipH = self.faceFix
-    drawSpriteInstance(self.sprite, x, y)
+    drawSpriteInstance(self.sprite, round(x), round(y))
 end
 
 function StageObject:addScore() end
