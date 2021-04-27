@@ -45,13 +45,13 @@ function Unit:showHitMarks(dmg, z, offset_x)
     if isDebug() then
         attackHitBoxes[#attackHitBoxes + 1] = { x = self.x, sx = 0, y = self.y, w = 31, h = 0.1, z = z, collided = true }
     end
-    paHitMark:setPosition(self.face * (offset_x or 4), -z + hitMarkOffset_y)
+    paHitMark:setPosition(round(self.face * (offset_x or 4)), round(-z + hitMarkOffset_y))
     if not offset_x then
         --still mark e.g. for clashing
         paHitMark:setSpeed(-self.face * 30, -self.face * 60) --move the marks from the attacker by default
     end
     paHitMark:emit(1)
-    stage.objects:add(Effect:new(paHitMark, self.x, y - hitMarkOffset_y))
+    stage.objects:add(Effect:new(paHitMark, round(self.x), round(y - hitMarkOffset_y)))
 end
 
 function Unit:updateSprite(dt)
