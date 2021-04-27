@@ -141,7 +141,6 @@ end
 function debugState:confirm(button)
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
-        bgm.play(bgm.title)
         return Gamestate.pop()
     end
     if button == 1 then
