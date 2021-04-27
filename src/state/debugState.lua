@@ -48,12 +48,21 @@ loadStageMap()
 
 function debugState:enter(prevState)
     prevGameState = prevState -- enable SPAWN and other debug functions only for certain states
+    if prevGameState ~= pauseState then
+        bgm.pause()
+    end
     -- Prevent double press at start (e.g. auto confirmation)
     Controls[1].attack:update()
     Controls[1].jump:update()
     Controls[1].start:update()
     Controls[1].back:update()
     love.graphics.setLineWidth( 2 )
+end
+
+function debugState:leave()
+    if prevGameState ~= pauseState then
+        bgm.resume()
+    end
 end
 
 function debugState:playerInput(controls)

@@ -23,7 +23,7 @@ local menu = fillMenu(txtItems, nil, menuParams)
 
 function pauseState:enter()
     menuState = menuItems.continue
-    bgm.setVolume(GLOBAL_SETTING.BGM_VOLUME * 0.75)
+    bgm.pause()
     sfx.play("sfx","menuCancel")
 
     Controls[1].attack:update()
@@ -34,6 +34,7 @@ function pauseState:enter()
 end
 
 function pauseState:leave()
+    bgm.resume()
 end
 
 --Only P1 can use menu / options
