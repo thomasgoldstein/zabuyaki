@@ -1,6 +1,7 @@
 local Unit = Unit
 
 local clamp = clamp
+local round = math.floor
 local CheckCollision = CheckCollision
 
 function Unit:playSfx(sample, volume, pitch)
@@ -130,12 +131,12 @@ function Unit:setHurtAnimation(dmg, isHigh)
 end
 
 function Unit:drawSprite(x, y)
-    drawSpriteInstance(self.sprite, x, y)
+    drawSpriteInstance(self.sprite, round(x), round(y))
 end
 
 function Unit:drawSpriteOverlay(x, y)
     if self.spriteOverlay then
-        drawSpriteInstance(self.spriteOverlay, x, y)
+        drawSpriteInstance(self.spriteOverlay, round(x), round(y))
     end
 end
 
@@ -272,7 +273,7 @@ function Unit:updateGhostTrails(dt)
     if not t or not t.enabled then
         return
     end
-    t.ghost[t.i] = not t.stop and { self.x, self.y - self.z, self.sprite.curAnim, self.sprite.curFrame, self.face } or false
+    t.ghost[t.i] = not t.stop and { round(self.x), round(self.y - self.z), self.sprite.curAnim, self.sprite.curFrame, self.face } or false
     t.i = t.i + 1
     if t.i > maxGhostTrailsFrames then
         t.i = 1
@@ -294,7 +295,7 @@ function Unit:drawShadow(l, t, w, h)
         local image, spr, sc, shadowAngle, y_shift = self:calcShadowSpriteAndTransparency()
         love.graphics.draw(image, --The image
             sc.q, --Current frame of the current animation
-            self.x + self.shake.x, self.y + self.z * stage.shadowHeight + y_shift or 0,
+            round(self.x + self.shake.x), round(self.y + self.z * stage.shadowHeight + y_shift or 0),
             0,
             spr.flipH,
             -stage.shadowHeight,
@@ -308,7 +309,7 @@ function Unit:drawReflection(l, t, w, h)
         local image, spr, sc, shadowAngle, y_shift = self:calcReflectionSpriteAndTransparency()
         love.graphics.draw(image, --The image
             sc.q, --Current frame of the current animation
-            self.x + self.shake.x, self.y + self.z + y_shift or 0,
+            round(self.x + self.shake.x), round(self.y + self.z + y_shift or 0),
             0,
             spr.flipH,
             -stage.reflectionsHeight,
