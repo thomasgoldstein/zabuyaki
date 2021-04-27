@@ -48,6 +48,17 @@ BGM.stop = function()
     end
 end
 
+local currentMusicPosition = 0
+BGM.pause = function()
+    currentMusicPosition = currentMusic:tell("seconds")
+    currentMusic:pause()
+end
+
+BGM.resume = function()
+    currentMusic:play()
+    currentMusic:seek(currentMusicPosition, "seconds")
+end
+
 BGM.load("intro","res/bgm/stage0.xm","J.J")
 BGM.load("title","res/bgm/theme.xm","J.J")
 BGM.load("zaburap","res/bgm/zaburap.xm", "J.J")
