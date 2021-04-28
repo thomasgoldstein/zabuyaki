@@ -1,6 +1,6 @@
 # Editing Zabuyaki with Tiled #
 Download Tiled [Tiled Map Editor](http://www.mapeditor.org) or [GitHub](https://github.com/bjorn/tiled)
-Version 1.3.3
+Version 1.5.0
 
 ## Stages naming ##
 Default stage name template: **stageX_map.tmx**
@@ -155,12 +155,12 @@ There are 3 allowed event shapes: **Rectangle**, **Ellipse** and **Point**.
 > **Polygon** shape is not supported. 
 
 Custom Properties:
-* **go** (point name) [integer] <- move player(s) to the map point. 
-* **gox** ( X ) [integer] <- move player(s) by X pixels. Use negative number to move players left. You cannot use both '**go**' and '**gox**' in the same event.
-* **goy** ( Y ) [integer] <- move player(s) by Y pixels. Use negative number to move players up. You can use both '**goy**' and '**gox**' in the same event to move players diagonally.
-* **togox** ( X ) & **togoy** ( Y ) [integer] <- The same as **gox**/**goy**, but players are instantly teleported to the x+togox, y+togoy point and return to their original position. It is used in the enter map events.
-* **duration** (seconds) [integer] <- duration of the movement. 1 second if missing.
-* **face** ( 1 / -1 ) [integer] <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
+* **go** (point name) [int] <- move player(s) to the map point. 
+* **gox** ( X ) [int] <- move player(s) by X pixels. Use negative number to move players left. You cannot use both '**go**' and '**gox**' in the same event.
+* **goy** ( Y ) [int] <- move player(s) by Y pixels. Use negative number to move players up. You can use both '**goy**' and '**gox**' in the same event to move players diagonally.
+* **togox** ( X ) & **togoy** ( Y ) [int] <- The same as **gox**/**goy**, but players are instantly teleported to the x+togox, y+togoy point and return to their original position. It is used in the enter map events.
+* **duration** (seconds) [int] <- duration of the movement. 1 second if missing.
+* **face** ( 1 / -1 ) [int] <- Face player(s)'s face to the set direction. If missing the facing is set automatically.
 * **move** ("player"/"players") [string] <- Whom to move either the 1st collided player or all the alive players. On missing the property "players" type is used. 
 * **ignorestate** <- Apply the movement to players despite on their current states. (This property is ignored now). 
 * **disabled** [boolean] <- Disable event. It cannot be run. It is used for empty events that work as targets for '**go**' events.
@@ -189,8 +189,9 @@ To define the wave area width add a rectangle object into the **Group layer** "w
 The x coordinate of the left and the right sides of the wave are used as the horizontal positions of the players stoppers.
 
 Custom properties for each **Object layer** wave:
-* **maxActiveEnemies** [integer] <- enemies count should be active on the screen at the time. Default value: 5.
-* **aliveEnemiesToAdvance** [integer] <- alive enemies count to be able to end current wave and go to the next wave. Default value: 0. The final wave should have value 0 or else the walking alive enemies might break the ending events in the stage.
+* **maxBacktrackDistance** [int] <- optional maximum value you can walk back (it overrides the stage property for the current wave).
+* **maxActiveEnemies** [int] <- enemies count should be active on the screen at the time. Default value: 5.
+* **aliveEnemiesToAdvance** [int] <- alive enemies count to be able to end current wave and go to the next wave. Default value: 0. The final wave should have value 0 or else the walking alive enemies might break the ending events in the stage.
 * **music** [string] <- start playing a new BGM by alias. All the music aliases are defined in 'preload_bgm.lua'. This property is optional.
 * **onStart** (event name) [string] <- call event at the wave init (before its enemy spawn because the whole spawn can be delayed and an every enemy spawn can be delayed, too).
 * **onEnter** (event name) [string] <- call event on the last player crossing the left bound of the wave.
@@ -218,23 +219,23 @@ Optional properties:
 **left** and **right** make units walk in the stage from the certain screen edges. 
 **jump** is for a vertical jump on place. **leftJump** and **rightJump** make units jump in the stage from the certain screen edges. You can alter initial **z** coordinate with a property.
 **fall** (**fallDamage**) <- spawn a falling (falling with damage) unit. You can alter initial **z** coordinate with a property. Use properties **flip** and **speed_x**, **speed_y**, **speed_z** to alter facing and the direction of the fall.
-* **hp** [integer] <- override default HP. The value should be less or equal to 100.
-* **lives** [integer] <- override default number of lives (default = 1). Each extra life adds 100 HP to the default HP.
-* **spawnDelay** [integer] <- delay before unit's appearance in seconds (float numbers are fine, too).
-* **spawnDelayBeforeActivation** [integer] <- an extra absolute delay in seconds. It starts right after **spawnDelay** if exists or else it counts from the start of the current wave.
+* **hp** [int] <- override default HP. The value should be less or equal to 100.
+* **lives** [int] <- override default number of lives (default = 1). Each extra life adds 100 HP to the default HP.
+* **spawnDelay** [int] <- delay before unit's appearance in seconds (float numbers are fine, too).
+* **spawnDelayBeforeActivation** [int] <- an extra absolute delay in seconds. It starts right after **spawnDelay** if exists or else it counts from the start of the current wave.
 * **waitCamera** [any] <- hold unit spawning until it is in the camera view (on the players screen).
-* **z** [integer] <- initial z coordinate (e.g. to jump off heights). The max value is not limited to the stage height (240 for unzoomed scene, 300 for the zoomed out scene).
+* **z** [int] <- initial z coordinate (e.g. to jump off heights). The max value is not limited to the stage height (240 for unzoomed scene, 300 for the zoomed out scene).
 * **state** [string] <- units state on spawn. The default unit state is 'stand'.
-* **speed_x** **speed_y** **speed_z** [integer] <- override default speed of spawned units (it is used in jumps and falls).
+* **speed_x** **speed_y** **speed_z** [int] <- override default speed of spawned units (it is used in jumps and falls).
 * **animation** [string] <- any sprite animation name that should override defaults. The animation will stay until players woke up the unit. Note if the state is unset then it changes to 'intro' state before starting the custom animation.
 * **target** [string] <- select a player to attack first ("close", "far", "weak", "healthy", "slow" or "fast").
-* **palette** [integer] or [string] <- select unit's coloring number (shaders) or a "String" value of the coloring alias (e.g. "red"). The aliases should be predefined in _shaders.lua_. 1 - default value.
-* **instantWakeRange** [integer] <- distance (radius) in pixels to the closest player to wake from the 'intro' and 'stand' states (100px by default). It can be disabled with -1 value.  
-* **delayedWakeRange** [integer] <- the 2nd distance (radius) in pixels to the closest player to wake from the 'intro' and 'stand' states (150px by default). It can be disabled with -1 value (Then it also disables 'delayedWakeDelay' property).   
-* **delayedWakeDelay** [integer] <- unit starts acting if the delay is over, and a player is within 'delayedWakeRange'. It counts from the start of the current wave. It can be disabled with -1 value (Then it also disables 'delayedWakeRange' property).
+* **palette** [int] or [string] <- select unit's coloring number (shaders) or a "String" value of the coloring alias (e.g. "red"). The aliases should be predefined in _shaders.lua_. 1 - default value.
+* **instantWakeRange** [int] <- distance (radius) in pixels to the closest player to wake from the 'intro' and 'stand' states (100px by default). It can be disabled with -1 value.  
+* **delayedWakeRange** [int] <- the 2nd distance (radius) in pixels to the closest player to wake from the 'intro' and 'stand' states (150px by default). It can be disabled with -1 value (Then it also disables 'delayedWakeDelay' property).   
+* **delayedWakeDelay** [int] <- unit starts acting if the delay is over, and a player is within 'delayedWakeRange'. It counts from the start of the current wave. It can be disabled with -1 value (Then it also disables 'delayedWakeRange' property).
 * **flip** [boolean] <- flip default unit's facing. The current custom animation is saved.  
 * **drop** [string] <- which loot to drop: **apple**, **chicken** or **beef**.
-* **minPlayerCount** [integer] <- condition on dropping loot. If this property is not present then the loot is always dropped. Allowed values: 2, 3.  
+* **minPlayerCount** [int] <- condition on dropping loot. If this property is not present then the loot is always dropped. Allowed values: 2, 3.  
 > Hint: All wave enemies inherit attributes from "waves" **Group layer** and individual waves. The inherited attributes may be overridden.
 
 ## Define global units ## 

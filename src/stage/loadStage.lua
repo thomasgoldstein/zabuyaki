@@ -1,4 +1,4 @@
--- Load and correct objects from Tiled 1.3 exported Lua files
+-- Load and correct objects from Tiled 1.5 exported Lua files
 
 local r = math.floor
 local maxActiveEnemiesDefault = 5
@@ -246,6 +246,7 @@ local function loadWave(items, stage)
                     width = r(v2.width) or 1,
                     leftStopper_x = tonumber(r(v2.x) or 0),
                     rightStopper_x = tonumber(r(v2.x + v2.width) or 4000),
+                    maxBacktrackDistance = v.properties.maxBacktrackDistance or stage.maxBacktrackDistance,
                     music = v.properties.music,
                     units = loadUnit(v, v2.name),
                     maxActiveEnemies = v.properties.maxActiveEnemies,
