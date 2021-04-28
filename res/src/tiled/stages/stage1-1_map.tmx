@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="80" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#696969" nextlayerid="38" nextobjectid="53">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="84" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#696969" nextlayerid="38" nextobjectid="53">
  <editorsettings>
   <export target="../../../../src/def/stage/stage1-1_map.lua" format="lua"/>
  </editorsettings>
@@ -7,26 +7,26 @@
   <property name="enableReflections" type="bool" value="true"/>
   <property name="reflectionsOpacity" type="float" value="0.6"/>
  </properties>
- <group id="1" name="background" locked="1">
+ <group id="1" name="background">
   <imagelayer id="2" name="sky" locked="1" offsetx="-2" offsety="-2">
    <image source="../../../img/stage/stage1/stage1-1/sky.png" width="1545" height="160"/>
    <properties>
     <property name="relativeX" value="0.45"/>
    </properties>
   </imagelayer>
-  <imagelayer id="4" name="bg-city-3">
+  <imagelayer id="4" name="bg-city-3" offsetx="-2" offsety="0">
    <image source="../../../img/stage/stage1/stage1-1/background-city-3.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="0.30"/>
    </properties>
   </imagelayer>
-  <imagelayer id="6" name="bg-city-2">
+  <imagelayer id="6" name="bg-city-2" offsetx="-2" offsety="0">
    <image source="../../../img/stage/stage1/stage1-1/background-city-2.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="0.25"/>
    </properties>
   </imagelayer>
-  <imagelayer id="8" name="bg-city-1">
+  <imagelayer id="8" name="bg-city-1" offsetx="-2" offsety="0">
    <image source="../../../img/stage/stage1/stage1-1/background-city-1.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="0.20"/>
@@ -44,59 +44,59 @@
    </imagelayer>
   </group>
   <group id="12" name="puddle-overlay" locked="1">
-   <imagelayer id="13" name="puddle-overlay-2">
+   <imagelayer id="13" name="puddle-overlay-2" offsetx="128" offsety="0">
     <image source="../../../img/stage/stage1/stage1-1/puddle-overlay-2.png" width="2564" height="324"/>
    </imagelayer>
-   <imagelayer id="14" name="puddle-overlay-1">
+   <imagelayer id="14" name="puddle-overlay-1" offsetx="128" offsety="0">
     <image source="../../../img/stage/stage1/stage1-1/puddle-overlay-1.png" width="2564" height="324"/>
    </imagelayer>
   </group>
-  <imagelayer id="15" name="main-reflection" locked="1" offsetx="0" offsety="96">
+  <imagelayer id="15" name="main-reflection" locked="1" offsetx="128" offsety="96">
    <image source="../../../img/stage/stage1/stage1-1/main-reflection.png" width="2564" height="324"/>
    <properties>
     <property name="reflect" type="bool" value="true"/>
    </properties>
   </imagelayer>
   <imagelayer id="16" name="main" locked="1" offsetx="-2" offsety="-2">
-   <image source="../../../img/stage/stage1/stage1-1/main.png" width="2564" height="324"/>
+   <image source="../../../img/stage/stage1/stage1-1/main.png" width="2692" height="324"/>
   </imagelayer>
-  <group id="17" name="burn-barrels" locked="1">
+  <group id="17" name="burn-barrels">
    <properties>
     <property name="animate" value="burn-barrel 1 0.11 2 0.11 3 0.11 4 0.11"/>
    </properties>
-   <imagelayer id="18" name="barrel3" offsetx="1812" offsety="191">
+   <imagelayer id="18" name="barrel3" offsetx="1940" offsety="191">
     <image source="../../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
    </imagelayer>
-   <imagelayer id="19" name="barrel2" offsetx="757" offsety="189">
+   <imagelayer id="19" name="barrel2" offsetx="885" offsety="189">
     <image source="../../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
    </imagelayer>
-   <imagelayer id="20" name="barrel1" offsetx="274" offsety="194">
+   <imagelayer id="20" name="barrel1" offsetx="402" offsety="189">
     <image source="../../../img/stage/stage1/burn-barrel-placeholder.png" width="26" height="38"/>
    </imagelayer>
   </group>
  </group>
  <group id="21" name="foreground" locked="1">
-  <imagelayer id="22" name="bridge-shadow" visible="0" offsetx="-2" offsety="-2">
+  <imagelayer id="22" name="bridge-shadow" visible="0" offsetx="126" offsety="-2">
    <image source="../../../img/stage/stage1/stage1-1/bridge-shadow.png" width="2564" height="324"/>
   </imagelayer>
-  <imagelayer id="23" name="bridge-foreground" locked="1" offsetx="260" offsety="0">
+  <imagelayer id="23" name="bridge-foreground" locked="1" offsetx="388" offsety="0">
    <image source="../../../img/stage/stage1/stage1-1/bridge-foreground.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="-0.2"/>
    </properties>
   </imagelayer>
-  <imagelayer id="24" name="foreground" offsetx="200" offsety="0">
+  <imagelayer id="24" name="foreground" offsetx="328" offsety="0">
    <image source="../../../img/stage/stage1/stage1-1/foreground.png" width="2564" height="324"/>
    <properties>
     <property name="relativeX" value="-0.8"/>
    </properties>
   </imagelayer>
  </group>
- <group id="34" name="collision" locked="1">
-  <objectgroup color="#00aa00" id="26" name="collision" locked="1">
-   <object id="2" x="-128" y="0" width="2816" height="240"/>
+ <group id="34" name="collision">
+  <objectgroup color="#00aa00" id="26" name="collision">
+   <object id="2" x="-128" y="0" width="2944" height="240"/>
    <object id="3" x="-192" y="0" width="64" height="320"/>
-   <object id="4" x="2688" y="0" width="64" height="320"/>
+   <object id="4" x="2816" y="0" width="64" height="320"/>
   </objectgroup>
  </group>
  <group id="29" name="waves">
@@ -105,15 +105,15 @@
     <property name="maxActiveEnemies" type="int" value="5"/>
     <property name="onComplete" value="leaveMap"/>
    </properties>
-   <object id="13" name="4" type="wave" x="1920" y="0" width="640" height="320"/>
-   <object id="14" name="Beatnik" type="beatnik" x="2440" y="272">
+   <object id="13" name="4" type="wave" x="2048" y="0" width="640" height="320"/>
+   <object id="14" name="Beatnik" type="beatnik" x="2568" y="272">
     <properties>
      <property name="flip" type="bool" value="true"/>
      <property name="waitCamera" type="bool" value="true"/>
     </properties>
     <point/>
    </object>
-   <object id="15" name="Igor" type="niko" x="2424" y="248">
+   <object id="15" name="Igor" type="niko" x="2552" y="248">
     <properties>
      <property name="animation" value="dance"/>
      <property name="flip" type="bool" value="true"/>
@@ -122,7 +122,7 @@
     </properties>
     <point/>
    </object>
-   <object id="16" name="Grichka" type="gopper" x="2456" y="304">
+   <object id="16" name="Grichka" type="gopper" x="2584" y="304">
     <properties>
      <property name="animation" value="dance"/>
      <property name="flip" type="bool" value="true"/>
@@ -136,14 +136,14 @@
    <properties>
     <property name="maxActiveEnemies" type="int" value="4"/>
    </properties>
-   <object id="17" name="3" type="wave" x="1280" y="0" width="640" height="320"/>
-   <object id="18" name="Booze" type="hooch" x="1528" y="272">
+   <object id="17" name="3" type="wave" x="1408" y="0" width="640" height="320"/>
+   <object id="18" name="Booze" type="hooch" x="1656" y="272">
     <properties>
      <property name="flip" type="bool" value="true"/>
     </properties>
     <point/>
    </object>
-   <object id="19" name="Mila" type="zeena" x="1568" y="248">
+   <object id="19" name="Mila" type="zeena" x="1696" y="248">
     <properties>
      <property name="animation" value="squat"/>
      <property name="flip" type="bool" value="true"/>
@@ -151,7 +151,7 @@
     </properties>
     <point/>
    </object>
-   <object id="20" name="Alex" type="gopper" x="1592" y="296">
+   <object id="20" name="Alex" type="gopper" x="1720" y="296">
     <properties>
      <property name="animation" value="squat"/>
      <property name="flip" type="bool" value="true"/>
@@ -159,7 +159,7 @@
     </properties>
     <point/>
    </object>
-   <object id="21" name="Mikha" type="gopper" x="1664" y="272">
+   <object id="21" name="Mikha" type="gopper" x="1792" y="272">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="red"/>
@@ -167,14 +167,14 @@
     </properties>
     <point/>
    </object>
-   <object id="22" name="Boyara" type="hooch" x="1312" y="272">
+   <object id="22" name="Boyara" type="hooch" x="1440" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="spawnDelay" type="int" value="2"/>
     </properties>
     <point/>
    </object>
-   <object id="23" name="Bogdan" type="gopper" x="1520" y="272">
+   <object id="23" name="Bogdan" type="gopper" x="1648" y="272">
     <properties>
      <property name="appearFrom" value="fall"/>
      <property name="flip" type="bool" value="true"/>
@@ -184,7 +184,7 @@
     </properties>
     <point/>
    </object>
-   <object id="24" name="Anna" type="zeena" x="1760" y="288">
+   <object id="24" name="Anna" type="zeena" x="1888" y="288">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="pink"/>
@@ -192,7 +192,7 @@
     </properties>
     <point/>
    </object>
-   <object id="25" name="Alexey" type="niko" x="1808" y="256">
+   <object id="25" name="Alexey" type="niko" x="1936" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="green"/>
@@ -205,8 +205,8 @@
    <properties>
     <property name="maxActiveEnemies" type="int" value="4"/>
    </properties>
-   <object id="26" name="2" type="wave" x="640" y="0" width="640" height="320"/>
-   <object id="27" name="Zeena" type="zeena" x="728" y="272">
+   <object id="26" name="2" type="wave" x="768" y="0" width="640" height="320"/>
+   <object id="27" name="Zeena" type="zeena" x="856" y="272">
     <properties>
      <property name="animation" value="squat"/>
      <property name="flip" type="bool" value="true"/>
@@ -214,14 +214,14 @@
     </properties>
     <point/>
    </object>
-   <object id="28" name="Vik" type="niko" x="784" y="288">
+   <object id="28" name="Vik" type="niko" x="912" y="288">
     <properties>
      <property name="flip" type="bool" value="true"/>
      <property name="palette" value="black"/>
     </properties>
     <point/>
    </object>
-   <object id="29" name="Ivan" type="gopper" x="656" y="272">
+   <object id="29" name="Ivan" type="gopper" x="784" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="green"/>
@@ -229,7 +229,7 @@
     </properties>
     <point/>
    </object>
-   <object id="30" name="Vlad" type="gopper" x="896" y="256">
+   <object id="30" name="Vlad" type="gopper" x="1024" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="blue"/>
@@ -237,7 +237,7 @@
     </properties>
     <point/>
    </object>
-   <object id="31" name="Nitsa" type="zeena" x="680" y="256">
+   <object id="31" name="Nitsa" type="zeena" x="808" y="256">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="black"/>
@@ -245,7 +245,7 @@
     </properties>
     <point/>
    </object>
-   <object id="32" name="Andrei" type="gopper" x="928" y="272">
+   <object id="32" name="Andrei" type="gopper" x="1056" y="272">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="black"/>
@@ -253,7 +253,7 @@
     </properties>
     <point/>
    </object>
-   <object id="33" name="Maksim" type="gopper" x="960" y="288">
+   <object id="33" name="Maksim" type="gopper" x="1088" y="288">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="blue"/>
@@ -261,7 +261,7 @@
     </properties>
     <point/>
    </object>
-   <object id="34" name="Vasily" type="niko" x="704" y="272">
+   <object id="34" name="Vasily" type="niko" x="832" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="blue"/>
@@ -269,7 +269,7 @@
     </properties>
     <point/>
    </object>
-   <object id="35" name="Reta" type="zeena" x="992" y="272">
+   <object id="35" name="Reta" type="zeena" x="1120" y="272">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="blue"/>
@@ -277,7 +277,7 @@
     </properties>
     <point/>
    </object>
-   <object id="36" name="Vadim" type="niko" x="1024" y="288">
+   <object id="36" name="Vadim" type="niko" x="1152" y="288">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="black"/>
@@ -292,31 +292,37 @@
     <property name="music" value="stage1"/>
     <property name="onStart" value="enterMap"/>
    </properties>
-   <object id="37" name="1" type="wave" x="0" y="0" width="640" height="320"/>
-   <object id="38" name="Niko" type="niko" x="288" y="280">
+   <object id="37" name="1" type="wave" x="320" y="0" width="448" height="320"/>
+   <object id="38" name="Niko" type="niko" x="424" y="280">
     <properties>
      <property name="animation" value="squat"/>
+     <property name="delayedWakeRange" type="int" value="0"/>
      <property name="flip" type="bool" value="true"/>
      <property name="palette" value="blue"/>
+     <property name="wakeRange" type="int" value="0"/>
     </properties>
     <point/>
    </object>
-   <object id="39" name="Sergey" type="gopper" x="248" y="256">
+   <object id="39" name="Sergey" type="gopper" x="384" y="256">
     <properties>
      <property name="animation" value="squat"/>
+     <property name="delayedWakeRange" type="int" value="0"/>
      <property name="flip" type="bool" value="true"/>
      <property name="palette" value="black"/>
+     <property name="wakeRange" type="int" value="0"/>
     </properties>
     <point/>
    </object>
-   <object id="40" name="Gopper" type="gopper" x="208" y="280">
+   <object id="40" name="Gopper" type="gopper" x="344" y="280">
     <properties>
      <property name="animation" value="squat"/>
+     <property name="delayedWakeRange" type="int" value="0"/>
      <property name="palette" value="blue"/>
+     <property name="wakeRange" type="int" value="0"/>
     </properties>
     <point/>
    </object>
-   <object id="41" name="Dima" type="gopper" x="416" y="256">
+   <object id="41" name="Dima" type="gopper" x="544" y="256">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="black"/>
@@ -324,7 +330,7 @@
     </properties>
     <point/>
    </object>
-   <object id="42" name="Pavel" type="gopper" x="-32" y="272">
+   <object id="42" name="Pavel" type="gopper" x="96" y="272">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="black"/>
@@ -332,7 +338,7 @@
     </properties>
     <point/>
    </object>
-   <object id="43" name="Pyotr" type="niko" x="480" y="288">
+   <object id="43" name="Pyotr" type="niko" x="608" y="288">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="palette" value="red"/>
@@ -340,7 +346,7 @@
     </properties>
     <point/>
    </object>
-   <object id="44" name="Boris" type="gopper" x="-72" y="296">
+   <object id="44" name="Boris" type="gopper" x="56" y="296">
     <properties>
      <property name="appearFrom" value="left"/>
      <property name="palette" value="blue"/>
@@ -348,7 +354,7 @@
     </properties>
     <point/>
    </object>
-   <object id="45" name="Hooch" type="hooch" x="576" y="280">
+   <object id="45" name="Hooch" type="hooch" x="704" y="280">
     <properties>
      <property name="appearFrom" value="right"/>
      <property name="spawnDelay" type="int" value="2"/>
@@ -357,19 +363,19 @@
    </object>
   </objectgroup>
  </group>
- <objectgroup color="#aa0000" id="25" name="camera" locked="1">
+ <objectgroup color="#aa0000" id="25" name="camera">
   <object id="1" x="0" y="320">
-   <polyline points="0,0 2560,0"/>
+   <polyline points="0,0 2688,0"/>
   </object>
  </objectgroup>
  <objectgroup color="#00aaff" id="27" name="players" locked="1">
-  <object id="5" name="1" x="48" y="256" visible="0">
+  <object id="5" name="1" x="48" y="256">
    <point/>
   </object>
-  <object id="6" name="2" x="32" y="280" visible="0">
+  <object id="6" name="2" x="32" y="280">
    <point/>
   </object>
-  <object id="7" name="3" x="16" y="304" visible="0">
+  <object id="7" name="3" x="16" y="304">
    <point/>
   </object>
  </objectgroup>
@@ -380,7 +386,7 @@
    </properties>
    <point/>
   </object>
-  <object id="9" name="leaveMap" type="event" x="2480" y="184">
+  <object id="9" name="leaveMap" type="event" x="2608" y="184">
    <properties>
     <property name="animation" value="stand"/>
     <property name="duration" value="2"/>
@@ -389,7 +395,7 @@
    </properties>
    <point/>
   </object>
-  <object id="10" name="exit" type="event" x="2584" y="280">
+  <object id="10" name="exit" type="event" x="2712" y="280">
    <properties>
     <property name="go" value="exit"/>
     <property name="nextevent" value="nextmap"/>
@@ -397,21 +403,21 @@
    </properties>
    <point/>
   </object>
-  <object id="11" name="Trash" type="trashcan" x="368" y="248">
+  <object id="11" name="Trash" type="trashcan" x="496" y="248">
    <properties>
     <property name="drop" value="chicken"/>
     <property name="minPlayerCount" type="int" value="2"/>
    </properties>
    <point/>
   </object>
-  <object id="12" name="Trash" type="trashcan" x="392" y="248">
+  <object id="12" name="Trash" type="trashcan" x="520" y="248">
    <properties>
     <property name="drop" value="apple"/>
     <property name="palette" type="int" value="2"/>
    </properties>
    <point/>
   </object>
-  <object id="46" name="Sign" type="sign" x="176" y="240">
+  <object id="46" name="Sign" type="sign" x="304" y="240">
    <properties>
     <property name="drop" value="apple"/>
     <property name="palette" type="int" value="2"/>

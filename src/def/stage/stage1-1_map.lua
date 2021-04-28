@@ -1,10 +1,10 @@
 return {
-  version = "1.4",
+  version = "1.5",
   luaversion = "5.1",
-  tiledversion = "1.4.3",
+  tiledversion = "1.5.0",
   orientation = "orthogonal",
   renderorder = "left-up",
-  width = 80,
+  width = 84,
   height = 10,
   tilewidth = 32,
   tileheight = 32,
@@ -25,6 +25,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       layers = {
         {
@@ -36,6 +38,8 @@ return {
           opacity = 1,
           offsetx = -2,
           offsety = -2,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["relativeX"] = "0.45"
           }
@@ -47,8 +51,10 @@ return {
           name = "bg-city-3",
           visible = true,
           opacity = 1,
-          offsetx = 0,
+          offsetx = -2,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["relativeX"] = "0.30"
           }
@@ -60,8 +66,10 @@ return {
           name = "bg-city-2",
           visible = true,
           opacity = 1,
-          offsetx = 0,
+          offsetx = -2,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["relativeX"] = "0.25"
           }
@@ -73,8 +81,10 @@ return {
           name = "bg-city-1",
           visible = true,
           opacity = 1,
-          offsetx = 0,
+          offsetx = -2,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["relativeX"] = "0.20"
           }
@@ -87,6 +97,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["relativeX"] = "0.05"
           },
@@ -100,6 +112,8 @@ return {
               opacity = 1,
               offsetx = -26,
               offsety = 0,
+              parallaxx = 1,
+              parallaxy = 1,
               properties = {}
             },
             {
@@ -111,6 +125,8 @@ return {
               opacity = 1,
               offsetx = -9,
               offsety = 0,
+              parallaxx = 1,
+              parallaxy = 1,
               properties = {}
             }
           }
@@ -123,6 +139,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {},
           layers = {
             {
@@ -132,8 +150,10 @@ return {
               name = "puddle-overlay-2",
               visible = true,
               opacity = 1,
-              offsetx = 0,
+              offsetx = 128,
               offsety = 0,
+              parallaxx = 1,
+              parallaxy = 1,
               properties = {}
             },
             {
@@ -143,8 +163,10 @@ return {
               name = "puddle-overlay-1",
               visible = true,
               opacity = 1,
-              offsetx = 0,
+              offsetx = 128,
               offsety = 0,
+              parallaxx = 1,
+              parallaxy = 1,
               properties = {}
             }
           }
@@ -156,8 +178,10 @@ return {
           name = "main-reflection",
           visible = true,
           opacity = 1,
-          offsetx = 0,
+          offsetx = 128,
           offsety = 96,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["reflect"] = true
           }
@@ -171,6 +195,8 @@ return {
           opacity = 1,
           offsetx = -2,
           offsety = -2,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {}
         },
         {
@@ -181,6 +207,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["animate"] = "burn-barrel 1 0.11 2 0.11 3 0.11 4 0.11"
           },
@@ -192,8 +220,10 @@ return {
               name = "barrel3",
               visible = true,
               opacity = 1,
-              offsetx = 1812,
+              offsetx = 1940,
               offsety = 191,
+              parallaxx = 1,
+              parallaxy = 1,
               properties = {}
             },
             {
@@ -203,8 +233,10 @@ return {
               name = "barrel2",
               visible = true,
               opacity = 1,
-              offsetx = 757,
+              offsetx = 885,
               offsety = 189,
+              parallaxx = 1,
+              parallaxy = 1,
               properties = {}
             },
             {
@@ -214,8 +246,10 @@ return {
               name = "barrel1",
               visible = true,
               opacity = 1,
-              offsetx = 274,
-              offsety = 194,
+              offsetx = 402,
+              offsety = 189,
+              parallaxx = 1,
+              parallaxy = 1,
               properties = {}
             }
           }
@@ -230,6 +264,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       layers = {
         {
@@ -239,8 +275,10 @@ return {
           name = "bridge-shadow",
           visible = false,
           opacity = 1,
-          offsetx = -2,
+          offsetx = 126,
           offsety = -2,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {}
         },
         {
@@ -250,8 +288,10 @@ return {
           name = "bridge-foreground",
           visible = true,
           opacity = 1,
-          offsetx = 260,
+          offsetx = 388,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["relativeX"] = "-0.2"
           }
@@ -263,8 +303,10 @@ return {
           name = "foreground",
           visible = true,
           opacity = 1,
-          offsetx = 200,
+          offsetx = 328,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["relativeX"] = "-0.8"
           }
@@ -279,6 +321,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       layers = {
         {
@@ -290,6 +334,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {},
           objects = {
             {
@@ -299,7 +345,7 @@ return {
               shape = "rectangle",
               x = -128,
               y = 0,
-              width = 2816,
+              width = 2944,
               height = 240,
               rotation = 0,
               visible = true,
@@ -323,7 +369,7 @@ return {
               name = "",
               type = "",
               shape = "rectangle",
-              x = 2688,
+              x = 2816,
               y = 0,
               width = 64,
               height = 320,
@@ -343,6 +389,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       layers = {
         {
@@ -354,6 +402,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["maxActiveEnemies"] = 5,
             ["onComplete"] = "leaveMap"
@@ -364,7 +414,7 @@ return {
               name = "4",
               type = "wave",
               shape = "rectangle",
-              x = 1920,
+              x = 2048,
               y = 0,
               width = 640,
               height = 320,
@@ -377,7 +427,7 @@ return {
               name = "Beatnik",
               type = "beatnik",
               shape = "point",
-              x = 2440,
+              x = 2568,
               y = 272,
               width = 0,
               height = 0,
@@ -393,7 +443,7 @@ return {
               name = "Igor",
               type = "niko",
               shape = "point",
-              x = 2424,
+              x = 2552,
               y = 248,
               width = 0,
               height = 0,
@@ -411,7 +461,7 @@ return {
               name = "Grichka",
               type = "gopper",
               shape = "point",
-              x = 2456,
+              x = 2584,
               y = 304,
               width = 0,
               height = 0,
@@ -435,6 +485,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["maxActiveEnemies"] = 4
           },
@@ -444,7 +496,7 @@ return {
               name = "3",
               type = "wave",
               shape = "rectangle",
-              x = 1280,
+              x = 1408,
               y = 0,
               width = 640,
               height = 320,
@@ -457,7 +509,7 @@ return {
               name = "Booze",
               type = "hooch",
               shape = "point",
-              x = 1528,
+              x = 1656,
               y = 272,
               width = 0,
               height = 0,
@@ -472,7 +524,7 @@ return {
               name = "Mila",
               type = "zeena",
               shape = "point",
-              x = 1568,
+              x = 1696,
               y = 248,
               width = 0,
               height = 0,
@@ -489,7 +541,7 @@ return {
               name = "Alex",
               type = "gopper",
               shape = "point",
-              x = 1592,
+              x = 1720,
               y = 296,
               width = 0,
               height = 0,
@@ -506,7 +558,7 @@ return {
               name = "Mikha",
               type = "gopper",
               shape = "point",
-              x = 1664,
+              x = 1792,
               y = 272,
               width = 0,
               height = 0,
@@ -523,7 +575,7 @@ return {
               name = "Boyara",
               type = "hooch",
               shape = "point",
-              x = 1312,
+              x = 1440,
               y = 272,
               width = 0,
               height = 0,
@@ -539,7 +591,7 @@ return {
               name = "Bogdan",
               type = "gopper",
               shape = "point",
-              x = 1520,
+              x = 1648,
               y = 272,
               width = 0,
               height = 0,
@@ -558,7 +610,7 @@ return {
               name = "Anna",
               type = "zeena",
               shape = "point",
-              x = 1760,
+              x = 1888,
               y = 288,
               width = 0,
               height = 0,
@@ -575,7 +627,7 @@ return {
               name = "Alexey",
               type = "niko",
               shape = "point",
-              x = 1808,
+              x = 1936,
               y = 256,
               width = 0,
               height = 0,
@@ -598,6 +650,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["maxActiveEnemies"] = 4
           },
@@ -607,7 +661,7 @@ return {
               name = "2",
               type = "wave",
               shape = "rectangle",
-              x = 640,
+              x = 768,
               y = 0,
               width = 640,
               height = 320,
@@ -620,7 +674,7 @@ return {
               name = "Zeena",
               type = "zeena",
               shape = "point",
-              x = 728,
+              x = 856,
               y = 272,
               width = 0,
               height = 0,
@@ -637,7 +691,7 @@ return {
               name = "Vik",
               type = "niko",
               shape = "point",
-              x = 784,
+              x = 912,
               y = 288,
               width = 0,
               height = 0,
@@ -653,7 +707,7 @@ return {
               name = "Ivan",
               type = "gopper",
               shape = "point",
-              x = 656,
+              x = 784,
               y = 272,
               width = 0,
               height = 0,
@@ -670,7 +724,7 @@ return {
               name = "Vlad",
               type = "gopper",
               shape = "point",
-              x = 896,
+              x = 1024,
               y = 256,
               width = 0,
               height = 0,
@@ -687,7 +741,7 @@ return {
               name = "Nitsa",
               type = "zeena",
               shape = "point",
-              x = 680,
+              x = 808,
               y = 256,
               width = 0,
               height = 0,
@@ -704,7 +758,7 @@ return {
               name = "Andrei",
               type = "gopper",
               shape = "point",
-              x = 928,
+              x = 1056,
               y = 272,
               width = 0,
               height = 0,
@@ -721,7 +775,7 @@ return {
               name = "Maksim",
               type = "gopper",
               shape = "point",
-              x = 960,
+              x = 1088,
               y = 288,
               width = 0,
               height = 0,
@@ -738,7 +792,7 @@ return {
               name = "Vasily",
               type = "niko",
               shape = "point",
-              x = 704,
+              x = 832,
               y = 272,
               width = 0,
               height = 0,
@@ -755,7 +809,7 @@ return {
               name = "Reta",
               type = "zeena",
               shape = "point",
-              x = 992,
+              x = 1120,
               y = 272,
               width = 0,
               height = 0,
@@ -772,7 +826,7 @@ return {
               name = "Vadim",
               type = "niko",
               shape = "point",
-              x = 1024,
+              x = 1152,
               y = 288,
               width = 0,
               height = 0,
@@ -795,6 +849,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["maxActiveEnemies"] = 3,
             ["music"] = "stage1",
@@ -806,9 +862,9 @@ return {
               name = "1",
               type = "wave",
               shape = "rectangle",
-              x = 0,
+              x = 320,
               y = 0,
-              width = 640,
+              width = 448,
               height = 320,
               rotation = 0,
               visible = true,
@@ -819,7 +875,7 @@ return {
               name = "Niko",
               type = "niko",
               shape = "point",
-              x = 288,
+              x = 424,
               y = 280,
               width = 0,
               height = 0,
@@ -827,8 +883,10 @@ return {
               visible = true,
               properties = {
                 ["animation"] = "squat",
+                ["delayedWakeRange"] = 0,
                 ["flip"] = true,
-                ["palette"] = "blue"
+                ["palette"] = "blue",
+                ["wakeRange"] = 0
               }
             },
             {
@@ -836,7 +894,7 @@ return {
               name = "Sergey",
               type = "gopper",
               shape = "point",
-              x = 248,
+              x = 384,
               y = 256,
               width = 0,
               height = 0,
@@ -844,8 +902,10 @@ return {
               visible = true,
               properties = {
                 ["animation"] = "squat",
+                ["delayedWakeRange"] = 0,
                 ["flip"] = true,
-                ["palette"] = "black"
+                ["palette"] = "black",
+                ["wakeRange"] = 0
               }
             },
             {
@@ -853,7 +913,7 @@ return {
               name = "Gopper",
               type = "gopper",
               shape = "point",
-              x = 208,
+              x = 344,
               y = 280,
               width = 0,
               height = 0,
@@ -861,7 +921,9 @@ return {
               visible = true,
               properties = {
                 ["animation"] = "squat",
-                ["palette"] = "blue"
+                ["delayedWakeRange"] = 0,
+                ["palette"] = "blue",
+                ["wakeRange"] = 0
               }
             },
             {
@@ -869,7 +931,7 @@ return {
               name = "Dima",
               type = "gopper",
               shape = "point",
-              x = 416,
+              x = 544,
               y = 256,
               width = 0,
               height = 0,
@@ -886,7 +948,7 @@ return {
               name = "Pavel",
               type = "gopper",
               shape = "point",
-              x = -32,
+              x = 96,
               y = 272,
               width = 0,
               height = 0,
@@ -903,7 +965,7 @@ return {
               name = "Pyotr",
               type = "niko",
               shape = "point",
-              x = 480,
+              x = 608,
               y = 288,
               width = 0,
               height = 0,
@@ -920,7 +982,7 @@ return {
               name = "Boris",
               type = "gopper",
               shape = "point",
-              x = -72,
+              x = 56,
               y = 296,
               width = 0,
               height = 0,
@@ -937,7 +999,7 @@ return {
               name = "Hooch",
               type = "hooch",
               shape = "point",
-              x = 576,
+              x = 704,
               y = 280,
               width = 0,
               height = 0,
@@ -961,6 +1023,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -976,7 +1040,7 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 2560, y = 0 }
+            { x = 2688, y = 0 }
           },
           properties = {}
         }
@@ -991,6 +1055,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -1003,7 +1069,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           properties = {}
         },
         {
@@ -1016,7 +1082,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           properties = {}
         },
         {
@@ -1029,7 +1095,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           properties = {}
         }
       }
@@ -1043,6 +1109,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -1065,7 +1133,7 @@ return {
           name = "leaveMap",
           type = "event",
           shape = "point",
-          x = 2480,
+          x = 2608,
           y = 184,
           width = 0,
           height = 0,
@@ -1083,7 +1151,7 @@ return {
           name = "exit",
           type = "event",
           shape = "point",
-          x = 2584,
+          x = 2712,
           y = 280,
           width = 0,
           height = 0,
@@ -1100,7 +1168,7 @@ return {
           name = "Trash",
           type = "trashcan",
           shape = "point",
-          x = 368,
+          x = 496,
           y = 248,
           width = 0,
           height = 0,
@@ -1116,7 +1184,7 @@ return {
           name = "Trash",
           type = "trashcan",
           shape = "point",
-          x = 392,
+          x = 520,
           y = 248,
           width = 0,
           height = 0,
@@ -1132,7 +1200,7 @@ return {
           name = "Sign",
           type = "sign",
           shape = "point",
-          x = 176,
+          x = 304,
           y = 240,
           width = 0,
           height = 0,
