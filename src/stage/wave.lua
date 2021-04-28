@@ -51,9 +51,7 @@ function Wave:spawn(dt)
     local center_x, playerGroupDistance, min_x, max_x = self.stage.center_x, self.stage.playerGroupDistance, self.stage.min_x, self.stage.max_x
     local lx, rx = self.stage.leftStopper:getX(), self.stage.rightStopper:getX()    --current in the stage
     local camera_x, _, cameraWidth, _ = mainCamera:getVisible()
-    if lx < wave.leftStopper_x - safeOffsetFromTheWave
-        and min_x > wave.leftStopper_x
-    then
+    if lx < camera_x - stage.maxBacktrackDistance then
         lx = lx + dt * scrollSpeed
     end
     if rx < wave.rightStopper_x then

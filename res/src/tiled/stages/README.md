@@ -113,6 +113,11 @@ Expand the property and edit **R G B** and **Alpha**(transparency) entries.
 Use menu **Map / Map Properties**.
 Add into **Custom Properties** value **weather** [string]. List of supported values: "rain".
 
+## Set the maximum value you can walk back
+Use menu **Map / Map Properties**.
+Add into **Custom Properties** value **maxBacktrackDistance** [int].
+> Hint: The maxBacktrackDistance represents the maximum value you can walk back (ie: make the camera scroll back left) compared to the farthest place you've reached in the stage.
+
 ## Enable reflections on the stage floor
 Use menu **Map / Map Properties**.
 Add into **Custom Properties** value **enableReflections** [boolean].

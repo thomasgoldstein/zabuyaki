@@ -31,6 +31,7 @@ function Stage:initialize(name, mapFile, players)
     self.background = CompoundPicture:new(self.name .. " Background")
     self.foreground = CompoundPicture:new(self.name .. " Foreground")
     self.weather = nil
+    self.maxBacktrackDistance = nil
     Weather.init()
     if mapFile then
         loadStageData(self, mapFile, players)
