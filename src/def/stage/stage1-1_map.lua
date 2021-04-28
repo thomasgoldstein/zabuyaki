@@ -1019,7 +1019,7 @@ return {
           name = "",
           type = "",
           shape = "polyline",
-          x = 0,
+          x = -100,
           y = 240,
           width = 0,
           height = 0,
@@ -1027,7 +1027,7 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 2688, y = 0 }
+            { x = 2890, y = 0 }
           },
           properties = {}
         }

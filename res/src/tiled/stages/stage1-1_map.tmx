@@ -361,8 +361,8 @@
   </objectgroup>
  </group>
  <objectgroup color="#aa0000" id="25" name="camera">
-  <object id="1" x="0" y="240">
-   <polyline points="0,0 2688,0"/>
+  <object id="1" x="-100" y="240">
+   <polyline points="0,0 2890,0"/>
   </object>
  </objectgroup>
  <objectgroup color="#00aaff" id="27" name="players" locked="1">

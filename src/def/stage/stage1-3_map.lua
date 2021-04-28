@@ -1,7 +1,7 @@
 return {
-  version = "1.4",
+  version = "1.5",
   luaversion = "5.1",
-  tiledversion = "1.4.3",
+  tiledversion = "1.5.0",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 54,
@@ -22,6 +22,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       layers = {
         {
@@ -33,6 +35,8 @@ return {
           opacity = 1,
           offsetx = -2,
           offsety = -2,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["relativeX"] = "0.35"
           }
@@ -46,6 +50,8 @@ return {
           opacity = 1,
           offsetx = -2,
           offsety = -2,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["relativeX"] = "0.15"
           }
@@ -59,6 +65,8 @@ return {
           opacity = 1,
           offsetx = -2,
           offsety = -2,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {}
         }
       }
@@ -71,6 +79,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       layers = {
         {
@@ -82,6 +92,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = -2,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {}
         }
       }
@@ -94,6 +106,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       layers = {
         {
@@ -105,6 +119,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {},
           objects = {
             {
@@ -2705,6 +2721,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {},
           objects = {
             {
@@ -4577,6 +4595,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {},
           objects = {
             {
@@ -4798,6 +4818,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {},
           objects = {
             {
@@ -5344,6 +5366,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {},
           objects = {
             {
@@ -7450,6 +7474,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {},
           objects = {
             {
@@ -7503,6 +7529,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       layers = {
         {
@@ -7514,6 +7542,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["maxActiveEnemies"] = 5,
             ["music"] = "zaburap",
@@ -7559,6 +7589,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["maxActiveEnemies"] = 4
           },
@@ -7604,6 +7636,8 @@ return {
           opacity = 1,
           offsetx = 0,
           offsety = 0,
+          parallaxx = 1,
+          parallaxy = 1,
           properties = {
             ["maxActiveEnemies"] = 3,
             ["music"] = "stage1",
@@ -7653,6 +7687,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -7660,7 +7696,7 @@ return {
           name = "",
           type = "",
           shape = "polyline",
-          x = 0,
+          x = -128,
           y = 320,
           width = 0,
           height = 0,
@@ -7668,9 +7704,9 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 384, y = 0 },
-            { x = 704, y = 160 },
-            { x = 1728, y = 160 }
+            { x = 412.444, y = 0 },
+            { x = 756.148, y = 160 },
+            { x = 1856, y = 160 }
           },
           properties = {}
         }
@@ -7685,6 +7721,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
@@ -7737,6 +7775,8 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
       properties = {},
       objects = {
         {
