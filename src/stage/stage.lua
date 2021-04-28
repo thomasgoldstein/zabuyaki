@@ -203,27 +203,14 @@ function Stage:getScrollingY(x)
             return (cx * ty) / tx + c.start_y
         end
     end
-    error("Tiled: Object polyline of layer 'camera' should cover all the stage horizontally from x = 0 to x = widthOfTheStage.")
+    error("Tiled: Object polyline of layer 'camera' should cover all the stage horizontally from x = startingPlayersPos (e.g. -50) to x = widthOfTheStage.")
 end
 
 function Stage:setCamera(dt)
-    local coord_y
-    local coord_x
-    local center_x, playerGroupDistance, min_x, max_x = self.center_x, self.playerGroupDistance, self.min_x, self.max_x
-    coord_x = center_x
-    coord_y = self.scrolling.common_y or coord_y
-    local ty, tx, cx = 0, 0, 0
-    if self.scrolling.chunks then
-        for i = 1, #self.scrolling.chunks do
-            local c = self.scrolling.chunks[i]
-            if coord_x >= c.start_x and coord_x <= c.end_x then
-                ty = c.end_y - c.start_y
-                tx = c.end_x - c.start_x
-                cx = coord_x - c.start_x
-                coord_y = (cx * ty) / tx + c.start_y
-                break
-            end
-        end
+    local coord_x = self.center_x
+    local coord_y = self.scrolling.common_y
+    if self.scrolling.chunks and #self.scrolling.chunks > 0 then
+        coord_y = self:getScrollingY(coord_x)
     end
     if oldCoord_x then
         if math.abs(coord_x - oldCoord_x) > 4 then
