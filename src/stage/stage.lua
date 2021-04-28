@@ -190,6 +190,9 @@ function Stage:draw(l, t, w, h)
 end
 
 function Stage:getScrollingY(x)
+    if x < self.scrolling.chunks[1].start_x then    -- TODO remove after fixing camera polyline length for all stages
+        return self.scrolling.chunks[1].start_y     --
+    end                                             --
     local ty, tx, cx = 0, 0, 0
     for i = 1, #self.scrolling.chunks do
         local c = self.scrolling.chunks[i]
