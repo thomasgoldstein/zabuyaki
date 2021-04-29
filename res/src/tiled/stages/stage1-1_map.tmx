@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="269" height="24" tilewidth="10" tileheight="10" infinite="0" backgroundcolor="#696969" nextlayerid="38" nextobjectid="53">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="168" height="15" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#696969" nextlayerid="38" nextobjectid="53">
  <editorsettings>
   <export target="../../../../src/def/stage/stage1-1_map.lua" format="lua"/>
  </editorsettings>
@@ -58,7 +58,7 @@
    </properties>
   </imagelayer>
   <imagelayer id="16" name="main" locked="1" offsetx="-3" offsety="-3">
-   <image source="../../../img/stage/stage1/stage1-1/main.png" width="2696" height="246"/>
+   <image source="../../../img/stage/stage1/stage1-1/main.png" width="2694" height="246"/>
   </imagelayer>
   <group id="17" name="burn-barrels" locked="1">
    <properties>
@@ -91,9 +91,9 @@
  </group>
  <group id="34" name="collision">
   <objectgroup color="#00aa00" id="26" name="collision">
-   <object id="2" x="-100" y="0" width="2890" height="160"/>
-   <object id="3" x="-150" y="0" width="50" height="240"/>
-   <object id="4" x="2790" y="0" width="50" height="240"/>
+   <object id="2" x="-128" y="0" width="2944" height="160"/>
+   <object id="3" x="-192" y="0" width="64" height="240"/>
+   <object id="4" x="2816" y="0" width="64" height="240"/>
   </objectgroup>
  </group>
  <group id="29" name="waves" locked="1">
@@ -102,7 +102,7 @@
     <property name="maxActiveEnemies" type="int" value="5"/>
     <property name="onComplete" value="leaveMap"/>
    </properties>
-   <object id="13" name="4" type="wave" x="2050" y="0" width="640" height="240"/>
+   <object id="13" name="4" type="wave" x="2048" y="0" width="640" height="240"/>
    <object id="14" name="Beatnik" type="beatnik" x="2568" y="192">
     <properties>
      <property name="flip" type="bool" value="true"/>
@@ -133,7 +133,7 @@
    <properties>
     <property name="maxActiveEnemies" type="int" value="4"/>
    </properties>
-   <object id="17" name="3" type="wave" x="1410" y="0" width="640" height="240"/>
+   <object id="17" name="3" type="wave" x="1408" y="0" width="640" height="240"/>
    <object id="18" name="Booze" type="hooch" x="1656" y="192">
     <properties>
      <property name="flip" type="bool" value="true"/>
@@ -202,7 +202,7 @@
    <properties>
     <property name="maxActiveEnemies" type="int" value="4"/>
    </properties>
-   <object id="26" name="2" type="wave" x="770" y="0" width="640" height="240"/>
+   <object id="26" name="2" type="wave" x="768" y="0" width="640" height="240"/>
    <object id="27" name="Zeena" type="zeena" x="856" y="192">
     <properties>
      <property name="animation" value="squat"/>
@@ -289,7 +289,7 @@
     <property name="music" value="stage1"/>
     <property name="onStart" value="enterMap"/>
    </properties>
-   <object id="37" name="1" type="wave" x="320" y="0" width="450" height="240"/>
+   <object id="37" name="1" type="wave" x="320" y="0" width="448" height="240"/>
    <object id="38" name="Niko" type="niko" x="424" y="200">
     <properties>
      <property name="animation" value="squat"/>
@@ -361,8 +361,8 @@
   </objectgroup>
  </group>
  <objectgroup color="#aa0000" id="25" name="bottomLine">
-  <object id="1" x="-100" y="240">
-   <polyline points="0,0 2890,0"/>
+  <object id="1" x="-128" y="240">
+   <polyline points="0,0 2944,0"/>
   </object>
  </objectgroup>
  <objectgroup color="#00aaff" id="27" name="players" locked="1">

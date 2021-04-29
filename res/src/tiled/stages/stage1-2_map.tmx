@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="45" height="10" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#005500" nextlayerid="17" nextobjectid="36">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="90" height="20" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#005500" nextlayerid="17" nextobjectid="36">
  <editorsettings>
   <export target="../../../../src/def/stage/stage1-2_map.lua" format="lua"/>
  </editorsettings>
