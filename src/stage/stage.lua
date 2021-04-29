@@ -206,7 +206,7 @@ end
 
 function Stage:setCamera(dt)
     local coord_x = self.center_x
-    local coord_y = self.scrolling.common_y
+    local coord_y = 0 -- init value to make it working on a stage with not defined bottomLine layer
     if self.scrolling.chunks and #self.scrolling.chunks > 0 then
         coord_y = self:getScrollingY(coord_x)
     end

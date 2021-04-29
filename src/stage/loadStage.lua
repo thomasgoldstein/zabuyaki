@@ -319,19 +319,10 @@ local function loadCameraScrolling(items, scrolling)
                 scrolling.chunks[#scrolling.chunks + 1] =
                 {start_x = v.x + v.polyline[k].x, end_x = v.x + v.polyline[k + 1].x,
                     start_y = v.y + v.polyline[k].y - y_shift, end_y = v.y + v.polyline[k + 1].y - y_shift }
-                if not scrolling.common_y then
-                    scrolling.common_y = v.y + v.polyline[k].y - y_shift or 0
-                end
             end
         else
             error("Tiled: Wrong Camera Scrolling object shape #"..i)
         end
-    end
-    if not scrolling.chunks or #scrolling.chunks < 1 then
-        dp(" Camera Scrolling is missing... set to Y = 0")
-        scrolling.chunks[#scrolling.chunks + 1] =
-        {start_x = 0, end_x = stage.worldWidth, start_y = 0, end_y = 0 }
-        scrolling.common_y = 0
     end
     return scrolling
 end
