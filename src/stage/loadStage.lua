@@ -397,7 +397,7 @@ function loadStageData(stage, mapFile, players)
     doInstantPlayersSelect() -- if debug, you can select char on start
     loadGlobalUnits(d, stage)
     stage.wave = loadWave(d, stage)
-    stage.scrolling = loadBottomLine(d)
+    stage.bottomLine = loadBottomLine(d)
     loadImageLayer(d, "background", stage.background)
     stage.background:setSize(stage.worldWidth, stage.worldHeight)
     if d.backgroundcolor then

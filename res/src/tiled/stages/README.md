@@ -40,18 +40,18 @@ the collision layer list.
 Add a wall as described in the collision objects. To transform the wall into a platform add custom property:
 * height <- set the platform height. 
 
-## Vertical Camera Positioning ##
+## BottomLine setup for vertical camera positioning ##
 Go to the layers tab. Create **Object layer**. Rename it to "bottomLine".
-Only the first "bottomLine" object layer and the 1st polyline object will be used.
+Only the first "bottomLine" object layer, and the 1st polyline object will be used.
 
 Select "Polyline" drawing tool and draw the line with some segments.
 This polyline sets the bottom of the center of the camera view window (320x240 pixels).
 The polyline should be longer than the width of the stage. It should overlap the starting players positions. Check if players start off the screen from x = -36, etc.
 
 Horizontal parts of the polyline fix vertical camera position. Descending and ascending parts make
-the camera follow the path.
+the camera follow the path. In short the center of the bottom line of the camera view intersects with the bottomLine.
 
-> Hint: Use menu **View / Object Types Editor** to set the colour of the camera object (e.g. red).
+> Hint: Use menu **View / Object Types Editor** to set the colour of the bottomLine object (e.g. red).
 
 > Hint: Hold SPACE key while drawing with the left mouse button pressed to pan the stage.
 

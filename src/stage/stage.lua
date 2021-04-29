@@ -21,7 +21,7 @@ function Stage:initialize(name, mapFile, players)
     self.movie = nil
     self.worldWidth = 4000
     self.worldHeight = 800
-    self.scrolling = {}
+    self.bottomLine = {}
     self.time = 0
     self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
     self.objects = Entity:new()
@@ -192,8 +192,8 @@ end
 
 function Stage:getScrollingY(x)
     local ty, tx, cx = 0, 0, 0
-    for i = 1, #self.scrolling.chunks do
-        local c = self.scrolling.chunks[i]
+    for i = 1, #self.bottomLine.chunks do
+        local c = self.bottomLine.chunks[i]
         if x >= c.start_x and x <= c.end_x then
             ty = c.end_y - c.start_y
             tx = c.end_x - c.start_x
@@ -201,13 +201,13 @@ function Stage:getScrollingY(x)
             return (cx * ty) / tx + c.start_y
         end
     end
-    error("Tiled: Object polyline of layer 'camera' should cover all the stage horizontally from x = startingPlayersPos (e.g. -50) to x = widthOfTheStage.")
+    error("Tiled: Object polyline of layer 'bottomLine' should cover all the stage horizontally from x = startingPlayersPos (e.g. -50) to x = widthOfTheStage.")
 end
 
 function Stage:setCamera(dt)
     local coord_x = self.center_x
     local coord_y = 0 -- init value to make it working on a stage with not defined bottomLine layer
-    if self.scrolling.chunks and #self.scrolling.chunks > 0 then
+    if self.bottomLine.chunks and #self.bottomLine.chunks > 0 then
         coord_y = self:getScrollingY(coord_x)
     end
     if oldCoord_x then
