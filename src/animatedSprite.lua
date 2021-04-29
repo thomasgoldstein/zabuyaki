@@ -136,15 +136,9 @@ function getSpriteHurtBox(spr, frame)
 end
 
 function fixHurtBox(h)
-    if not h then
-        error("Cannot fix an empty hurtBox table.")
-    end
-    if not h.width then
-        error("HurtBox should contain width key.")
-    end
-    if not h.height then
-        error("HurtBox should contain height key.")
-    end
+    assert(h, "Cannot fix an empty hurtBox table.")
+    assert(h.width, "HurtBox should contain width key.")
+    assert(h.height, "HurtBox should contain height key.")
     if not h.depth then
         h.depth = 7
     end
@@ -167,9 +161,7 @@ end
 
 -- calculate the animation delay
 function getSpriteAnimationDelay(spr, anim)
-    if not spr.def.animations[anim] then
-        error("There is no "..anim.." animation to calc its delay. ")
-    end
+    assert(spr.def.animations[anim], "There is no "..anim.." animation to calc its delay. ")
     local delay = 0
     local a = spr.def.animations[anim]
     for i = 1, #a do
@@ -228,9 +220,7 @@ end
 function updateSpriteInstance(spr, dt, slf)
     local s = spr.def.animations[spr.curAnim]
     local sc = s[spr.curFrame]
-    if not sc then
-        error("Missing frame #"..spr.curFrame.." in "..spr.curAnim.." animation")
-    end
+    assert(sc, "Missing frame #"..spr.curFrame.." in "..spr.curAnim.." animation")
     -- call custom frame func once per the frame
     if sc.func and spr.funcCalledOnFrame ~= (spr.curFrame + spr.loopCount) and slf then
         spr.funcCalledOnFrame = spr.curFrame + spr.loopCount
@@ -290,9 +280,7 @@ end
 
 function drawSpriteCustomInstance(spr, x, y, curAnim, frame)
     local sc = spr.def.animations[curAnim][frame]
-    if not sc then
-        error("Animation '"..curAnim.."' is missing frame #"..(frame or -1))
-    end
+    assert(sc, "Animation '"..curAnim.."' is missing frame #"..(frame or -1))
     local scale_h, scale_v, flipH, flipV = sc.scale_h or 1, sc.scale_v or 1, sc.flipH or 1, sc.flipV or 1
     local rotate, rx, ry = sc.rotate or 0, sc.rx or 0, sc.ry or 0 --due to rotation we have to adjust spr pos
     local y_shift = y

@@ -57,9 +57,7 @@ function Movie:parseAnimateString(animate)
         return nil
     end
     local t = splitString(animate)
-    if #t < 4 then
-        error("Movie 'animate' property should contain at least 2 frames with delays.")
-    end
+    assert(#t >= 4, "Movie 'animate' property should contain at least 2 frames with delays.")
     local frames = {
         curFrame = 1,
         frame = {},
@@ -72,13 +70,9 @@ function Movie:parseAnimateString(animate)
         maxFrame = math.max(maxFrame, t[i])   -- used only in
     end
     for i = 1, #t, 2 do
-        if tonumber(t[i]) < 1 or tonumber(t[i]) > maxFrame then
-            error("Movie 'animate' property should have frame numbers between 1 and " .. maxFrame .. " for the current layer: ".. animate .. " Wrong value: " .. t[i])
-        end
+        assert(not (tonumber(t[i]) < 1 or tonumber(t[i]) > maxFrame), "Movie 'animate' property should have frame numbers between 1 and " .. maxFrame .. " for the current layer: ".. animate .. " Wrong value: " .. t[i])
         frames.frame[n] = tonumber(t[i])
-        if not t[i + 1] then
-            error("Movie 'animate' property is missing the last frame delay value: ".. animate .. "<==" )
-        end
+        assert(t[i + 1], "Movie 'animate' property is missing the last frame delay value: ".. animate .. "<==" )
         frames.delay[n] = tonumber(t[i + 1])
         n = n + 1
     end

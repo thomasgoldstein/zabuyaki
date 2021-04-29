@@ -28,9 +28,7 @@ BGM.play = function(alias)
     else
         musicPath = BGM[alias].filePath
     end
-    if not musicPath then
-        error("Wrong BGM alias")
-    end
+    assert(musicPath, "Wrong BGM alias")
     if currentMusicPath ~= musicPath then
         BGM.stop()
         currentMusicPath = musicPath
