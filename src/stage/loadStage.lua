@@ -310,18 +310,13 @@ local function loadCameraScrolling(items, scrolling)
     dp("Load Camera Scrolling...")
     scrolling = { chunks = {} }
     local t = extractTable(items.layers, "camera")
-    if not t then
-        error("Tiled: Object layer 'camera' is not present in the map file.")
-    end
+    assert(t,"Tiled: Object layer 'camera' is not present in the map file.")
     for i, v in ipairs(t.objects) do
-        if v.shape == "polyline" then
-            for k = 1, #v.polyline - 1 do
-                scrolling.chunks[#scrolling.chunks + 1] =
-                {start_x = v.x + v.polyline[k].x, end_x = v.x + v.polyline[k + 1].x,
-                    start_y = v.y + v.polyline[k].y - y_shift, end_y = v.y + v.polyline[k + 1].y - y_shift }
-            end
-        else
-            error("Tiled: Wrong Camera Scrolling object shape #"..i)
+        assert(v.shape == "polyline", "Tiled: Wrong Camera Scrolling object shape #"..i)
+        for k = 1, #v.polyline - 1 do
+            scrolling.chunks[#scrolling.chunks + 1] =
+            {start_x = v.x + v.polyline[k].x, end_x = v.x + v.polyline[k + 1].x,
+                start_y = v.y + v.polyline[k].y - y_shift, end_y = v.y + v.polyline[k + 1].y - y_shift }
         end
     end
     return scrolling
