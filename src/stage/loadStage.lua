@@ -306,20 +306,20 @@ local function loadImageLayer(items, layerName, images)
 end
 
 local y_shift = 240 / 2
-local function loadCameraScrolling(items, scrolling)
-    dp("Load Camera Scrolling...")
-    scrolling = { chunks = {} }
-    local t = extractTable(items.layers, "camera")
-    assert(t,"Tiled: Object layer 'camera' is not present in the map file.")
+local function loadBottomLine(items, bottomLine)
+    dp("Load bottomLine object...")
+    bottomLine = { chunks = {} }
+    local t = extractTable(items.layers, "bottomLine")
+    assert(t,"Tiled: Object layer 'bottomLine' is not present in the map file.")
     for i, v in ipairs(t.objects) do
-        assert(v.shape == "polyline", "Tiled: Wrong Camera Scrolling object shape #"..i)
+        assert(v.shape == "polyline", "Tiled: Wrong 'bottomLine' object shape #"..i)
         for k = 1, #v.polyline - 1 do
-            scrolling.chunks[#scrolling.chunks + 1] =
+            bottomLine.chunks[#bottomLine.chunks + 1] =
             {start_x = v.x + v.polyline[k].x, end_x = v.x + v.polyline[k + 1].x,
                 start_y = v.y + v.polyline[k].y - y_shift, end_y = v.y + v.polyline[k + 1].y - y_shift }
         end
     end
-    return scrolling
+    return bottomLine
 end
 
 local function addPlayersToStage(items, players, stage)
@@ -397,7 +397,7 @@ function loadStageData(stage, mapFile, players)
     doInstantPlayersSelect() -- if debug, you can select char on start
     loadGlobalUnits(d, stage)
     stage.wave = loadWave(d, stage)
-    stage.scrolling = loadCameraScrolling(d)
+    stage.scrolling = loadBottomLine(d)
     loadImageLayer(d, "background", stage.background)
     stage.background:setSize(stage.worldWidth, stage.worldHeight)
     if d.backgroundcolor then

@@ -41,8 +41,8 @@ Add a wall as described in the collision objects. To transform the wall into a p
 * height <- set the platform height. 
 
 ## Vertical Camera Positioning ##
-Go to the layers tab. Create **Object layer**. Rename it to "camera".
-Only the first "camera" object layer and the 1st polyline object will be used.
+Go to the layers tab. Create **Object layer**. Rename it to "bottomLine".
+Only the first "bottomLine" object layer and the 1st polyline object will be used.
 
 Select "Polyline" drawing tool and draw the line with some segments.
 This polyline sets the bottom of the center of the camera view window (320x240 pixels).

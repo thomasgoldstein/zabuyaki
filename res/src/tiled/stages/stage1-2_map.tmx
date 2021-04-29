@@ -229,7 +229,7 @@
    </object>
   </objectgroup>
  </group>
- <objectgroup color="#aa0000" id="8" name="camera" locked="1">
+ <objectgroup color="#aa0000" id="8" name="bottomLine" locked="1">
   <object id="1" x="-128" y="320">
    <polyline points="0,0 1664,0"/>
   </object>

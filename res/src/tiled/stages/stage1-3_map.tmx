@@ -648,7 +648,7 @@
    </object>
   </objectgroup>
  </group>
- <objectgroup color="#aa0000" id="18" name="camera">
+ <objectgroup color="#aa0000" id="18" name="bottomLine">
   <object id="570" x="-128" y="320">
    <polyline points="0,0 412.444,0 756.148,160 1856,160"/>
   </object>

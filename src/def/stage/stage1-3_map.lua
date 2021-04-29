@@ -7682,7 +7682,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 18,
-      name = "camera",
+      name = "bottomLine",
       visible = true,
       opacity = 1,
       offsetx = 0,

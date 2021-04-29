@@ -1005,7 +1005,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 25,
-      name = "camera",
+      name = "bottomLine",
       visible = true,
       opacity = 1,
       offsetx = 0,
