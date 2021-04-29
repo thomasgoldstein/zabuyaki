@@ -270,7 +270,7 @@ function drawSpriteInstance (spr, x, y, frame)
     love.graphics.draw (
         imageBank[spr.def.spriteSheet], --The image
         sc.q, --Current frame of the current animation
-        math.floor((x + rx * spr.flipH * flipH) * 2) / 2, math.floor((y_shift + ry) * 2) / 2,
+        math.floor(x + rx * spr.flipH * flipH), math.floor(y_shift + ry),
         (spr.rotation + rotate) * spr.flipH * flipH,
         spr.sizeScale * spr.flipH * scale_h * flipH,
         spr.sizeScale * spr.flipV * scale_v * flipV,
@@ -290,7 +290,7 @@ function drawSpriteCustomInstance(spr, x, y, curAnim, frame)
     love.graphics.draw (
         imageBank[spr.def.spriteSheet], --The image
         sc.q, --Current frame of the current animation
-        math.floor((x + rx * spr.flipH * flipH) * 2) / 2, math.floor((y_shift + ry) * 2) / 2,
+        math.floor(x + rx * spr.flipH * flipH), math.floor(y_shift + ry),
         (spr.rotation + rotate) * spr.flipH * flipH,
         spr.sizeScale * spr.flipH * scale_h * flipH,
         spr.sizeScale * spr.flipV * scale_v * flipV,
