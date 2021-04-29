@@ -258,11 +258,8 @@ function Stage:getSafeRespawnPosition(unit)
             v[#v + 1] = { x, y }
         end
     end
-    if #v > 0 then
-        r = v[love.math.random(1, #v)]
-    else
-        error("No place to spawn player at X:" .. x)
-    end
+    assert(#v > 0, "No place to spawn player at X:" .. x)
+    r = v[love.math.random(1, #v)]
     return r[1], r[2]
 end
 

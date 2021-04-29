@@ -58,9 +58,7 @@ end
 local function loadCollisionLayer(items, stage)
     local layerName = 'collision'
     local t = extractTable(items.layers, layerName)
-    if not t then
-        error("Tiled: Group layer '".. layerName .."' is not present in the map file.")
-    end
+    assert(t, "Tiled: Group layer '".. layerName .."' is not present in the map file.")
     for i, v in ipairs(t.layers) do
         addCollisionToLayer(v, stage)
     end
@@ -73,12 +71,8 @@ function getUnitTypeByName(name)
     if unitTypeByName[name] then
         return unitTypeByName[name]
     end
-    if tostring(name) == "" then
-        error("Tiled: Property 'type' cannot be empty. It should be 'event' or a class of the unit.")
-    else
-        error("Tiled: Wrong unit type: "..tostring(name))
-    end
-    return nil
+    assert(tostring(name) == "", "Tiled: Wrong unit type: "..tostring(name))
+    error("Tiled: Property 'type' cannot be empty. It should be 'event' or a class of the unit.")
 end
 
 local function applyWaveUnitProperties(v, waveUnit)
@@ -148,9 +142,7 @@ local function loadUnit(items, waveName)
             local u = {}
             local inst = getUnitTypeByName(v.type)
             local palette = v.properties.palette or 1
-            if not inst then
-                error("Missing unit type instance name")
-            end
+            assert(inst, "Missing unit type instance name")
             if inst:isSubclassOf(StageObject) then
                 sprite = "src/def/stage/object/" .. v.type
             else
@@ -169,16 +161,12 @@ local function loadUnit(items, waveName)
             end
             applyWaveUnitProperties(v, u)
         elseif v.type == "event" then
-            if v.shape == "polygon" then
-                error("Tiled: Events don't support 'polygon' shape objects yet.")
-            end
+            assert(v.shape ~= "polygon", "Tiled: Events don't support 'polygon' shape objects yet.")
             local shapeArgs = { v.x, v.y, v.width, v.height }
             if v.shape == "point" then
                 shapeArgs = { v.x, v.y, 1, 1 }
             elseif v.shape == "ellipse" then
-                if v.width ~= v.height then
-                    error("Tiled: Events support only circle 'ellipse' type. Its width and height must be equal.")
-                end
+                assert(v.width == v.height, "Tiled: Events support only circle 'ellipse' type. Its width and height must be equal.")
                 shapeArgs = { v.x + v.width / 2, v.y + v.width / 2, v.width / 2}
             end
             local properties = {
@@ -218,9 +206,7 @@ end
 local function loadGlobalUnits(items, stage)
     dp("Load global units...")
     local t = extractTable(items.layers, "global")
-    if not t then
-        error("Tiled: Object layer 'global' is not present in the map file.")
-    end
+    assert(t, "Tiled: Object layer 'global' is not present in the map file.")
     local units = loadUnit(t)
     for _,unit in ipairs(units) do
         unit:setOnStage(stage)
@@ -231,9 +217,7 @@ local function loadWave(items, stage)
     local wave = {}
     dp("Load waves...")
     local t = extractTable(items.layers, "waves")
-    if not t then
-        error("Tiled: Group layer 'waves' is not present in the map file.")
-    end
+    assert(t, "Tiled: Group layer 'waves' is not present in the map file.")
     for i, v in ipairs(t.layers) do
         mergeTables(v.properties, t.properties)
         for i, v2 in ipairs(v.objects) do
@@ -325,49 +309,41 @@ end
 local function addPlayersToStage(items, players, stage)
     dp("Set players to start positions...")
     local t = extractTable(items.layers, "players")
-    if not t then
-        error("Tiled: Object layer 'players' is not present in the map file.")
-    end
+    assert(t,  "Tiled: Object layer 'players' is not present in the map file.")
     if players then
         -- After player select (1st stage)
         for i, v in ipairs(t.objects) do
             if i > GLOBAL_SETTING.MAX_PLAYERS then
                 break
             end
-            if v.shape == "point" then
-                local p = players[i]
-                if p then
-                    GLOBAL_UNIT_ID = i
-                    p.x = r(v.x)
-                    p.y = r(v.y)
-                    local player = players[i].hero:new(players[i].name,
-                        players[i].spriteInstance,
-                        players[i].x, players[i].y,
-                        { palette = players[i].palette, id = i },
-                        Controls[i]
-                    )
-                    player:setOnStage(stage)
-                    player.isVisible = v.visible
-                    player.isCharacterControlEnabled = false
-                end
-            else
-                error("Wrong Tiled object type #"..i)
+            assert(v.shape == "point", "Wrong Tiled object type #"..i)
+            local p = players[i]
+            if p then
+                GLOBAL_UNIT_ID = i
+                p.x = r(v.x)
+                p.y = r(v.y)
+                local player = players[i].hero:new(players[i].name,
+                    players[i].spriteInstance,
+                    players[i].x, players[i].y,
+                    { palette = players[i].palette, id = i },
+                    Controls[i]
+                )
+                player:setOnStage(stage)
+                player.isVisible = v.visible
+                player.isCharacterControlEnabled = false
             end
         end
     else
         -- Next map, no player select
         for i = 1,GLOBAL_SETTING.MAX_PLAYERS do
             local v = t.objects[i]
-            if v and v.shape == "point" then
-                local p = getRegisteredPlayer(i)
-                if p then
-                    GLOBAL_UNIT_ID = i
-                    p.x = r(v.x)
-                    p.y = r(v.y)
-                    p:setOnStage(stage)
-                end
-            else
-                error("Tiled: Wrong object type #"..i)
+            assert(v and v.shape == "point", "Tiled: Wrong object type #"..i)
+            local p = getRegisteredPlayer(i)
+            if p then
+                GLOBAL_UNIT_ID = i
+                p.x = r(v.x)
+                p.y = r(v.y)
+                p:setOnStage(stage)
             end
         end
     end
@@ -376,13 +352,9 @@ end
 
 function loadStageData(stage, mapFile, players)
     local chunk, err = love.filesystem.load(mapFile)
-    if err then
-        error(err)
-    end
+    assert(not err, err)
     local d = chunk()
-    if not d or type(d)~="table" then
-        error("Tiled: No map data found in "..mapFile)
-    end
+    assert(d or type(d)~="table", "Tiled: No map data found in "..mapFile)
     stage.worldWidth = d.tilewidth * d.width
     stage.worldHeight = d.tileheight * d.height
     stage.shadowAngle = d.properties.shadowAngle or stage.shadowAngle

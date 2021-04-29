@@ -207,9 +207,7 @@ end
 
 function Wave:getCurrentWaveBounds()
     local wave = self.waves[self.n]
-    if not wave then
-        error("Wave #"..self.n.." not found.")
-    end
+    assert(wave, "Wave #"..self.n.." not found.")
     return wave.leftStopper_x, wave.rightStopper_x
 end
 

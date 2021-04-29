@@ -2072,9 +2072,7 @@ end
 Character.knockedDown = {name = "knockedDown", start = Character.knockedDownStart, exit = nop, update = Character.knockedDownUpdate, draw = Character.defaultDraw}
 
 function Character:eventMoveStart()
-    if not self.condition then
-        error(self.name.." eventMove got no target x,y")
-    end
+    assert(self.condition, self.name.." eventMove got no target x,y")
     self.isVisible = true   -- visible on any movement event
     self.isCharacterControlEnabled = false
     self.waitUntilAnimationEnd = 0

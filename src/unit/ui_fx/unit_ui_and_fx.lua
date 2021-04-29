@@ -57,9 +57,7 @@ end
 function Unit:updateSprite(dt)
     updateSpriteInstance(self.sprite, dt, self)
     if self.spriteOverlay then
-        if self.sprite.curFrame > self.spriteOverlay.maxFrame then
-            error("Missing frame N '" .. self.sprite.curFrame .. "' in animation '".. self.spriteOverlay.curAnim .."' of sprite '" .. self.spriteOverlay.def.spriteName .. "'.")
-        end
+        assert(self.sprite.curFrame <= self.spriteOverlay.maxFrame, "Missing frame N '" .. self.sprite.curFrame .. "' in animation '".. self.spriteOverlay.curAnim .."' of sprite '" .. self.spriteOverlay.def.spriteName .. "'.")
         self.spriteOverlay.flipH = self.sprite.flipH
         self.spriteOverlay.curFrame = self.sprite.curFrame
     end
@@ -99,9 +97,7 @@ end
 ---Set current animation of the sprite
 ---@param animation string Animation name
 function Unit:setSprite(animation)
-    if not self:setSpriteIfExists(animation) then
-        error("Missing animation '" .. animation .. "' in '" .. self.sprite.def.spriteName .. "' definition.")
-    end
+    assert(self:setSpriteIfExists(animation), "Missing animation '" .. animation .. "' in '" .. self.sprite.def.spriteName .. "' definition.")
     self:setSpriteOverlay(animation)
 end
 

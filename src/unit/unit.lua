@@ -492,9 +492,7 @@ end
 function Unit:moveStatesInit()
     local g = self.grabContext
     local t = g.target
-    if not g then
-        error("ERROR: No target for init")
-    end
+    assert(g, "ERROR: No target for init")
     g.init = {
         x = self.x, y = self.y, z = self.z,
         grabberFace = self.face, grabbedFace = t.face,
@@ -511,9 +509,7 @@ function Unit:moveStatesApply()
     end
     local g = self.grabContext
     local t = g.target
-    if not g then
-        error("ERROR: No target for apply")
-    end
+    assert(g, "ERROR: No target for apply")
     local i = g.init
     if i.lastFrame ~= frame then
         local m = moves[frame]
