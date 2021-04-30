@@ -11,7 +11,7 @@ describe("Character Class", function()
 
         local n
         -- prepare dummy player
-        n = 1
+        n = 1   -- Rick
         player1 = HEROES[n].hero:new("PL1-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0)
         player1.id = 1 -- fixed id
         player1:setOnStage(stage)
@@ -23,7 +23,7 @@ describe("Character Class", function()
         player1.maxZ = player1.z
         player1:checkCollisionAndMove(0.01)
         player1.b.reset()
-        n = 2
+        n = 2   -- Kisa
         player2 = HEROES[n].hero:new("PL2-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0)
         player2.id = 2 -- fixed id
         player2:setOnStage(stage)
@@ -33,7 +33,7 @@ describe("Character Class", function()
         player2.maxZ = player2.z
         player2:checkCollisionAndMove(0.01)
         player2.b.reset()
-        n = 3
+        n = 3   -- Chai
         player3 = HEROES[n].hero:new("PL3-" .. HEROES[n][1].name, HEROES[n].spriteInstance, 0, 0)
         player3.id = 3 -- fixed id
         player3:setOnStage(stage)
@@ -70,6 +70,132 @@ describe("Character Class", function()
         local a, b, c, d = getDistanceBetweenPlayers()
         expect(b).to.equal(player3.x - player1.x)
         expect(a).to.equal(player1.x + (player3.x - player1.x) / 2)
+    end)
+    describe("Chai Class", function()
+        describe("Jump Method", function()
+            it('Jumps on place', function()
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.squat,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                expect(x).to.equal(_x)
+                expect(y).to.equal(_y)
+                expect(z).to.equal(_z)
+                expect(math.floor(maxZ)).to.equal(40)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Jumps on a trash can', function()
+                stageObject1.x, stageObject1.y = player3.x, player3.y
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.squat,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                expect(x).to.equal(_x)
+                expect(y).to.equal(_y)
+                expect(z).to.equal(stageObject1:getHurtBoxHeight())
+                expect(math.floor(maxZ)).to.equal(40)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Jumps on place and freezes at the Max Z', function()
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.squat,
+                    stopFunc = isUnitsAtMaxZ(player3)
+                })
+                expect(x).to.equal(_x)
+                expect(y).to.equal(_y)
+                expect(math.floor(z)).to.equal(40)
+                expect(math.floor(maxZ)).to.equal(40)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Jumps after walking diagonally', function()
+                player3.speed_x = player3.walkSpeed_x
+                player3.speed_y = player3.walkSpeed_y
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.squat,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(79)
+                expect(math.floor(yd)).to.equal(38)
+                expect(math.floor(maxZ)).to.equal(40)
+                expect(z).to.equal(_z)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Jumps after running diagonally', function()
+                player3.speed_x = player3.runSpeed_x
+                player3.speed_y = player3.runSpeed_y
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.squat,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(116)
+                expect(math.floor(yd)).to.equal(23)
+                expect(math.floor(maxZ)).to.equal(40)
+                expect(z).to.equal(_z)
+                expect(hp).to.equal(_hp)
+            end)
+        end)
+        describe("ChargeDashAttack Method", function()
+            it('Attack from the ground', function()
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.chargeDashAttack,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(10)
+                expect(math.floor(y)).to.equal(_y)
+                expect(math.floor(maxZ)).to.equal(0)
+                expect(z).to.equal(_z)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Attack from just above the ground', function()
+                player3.z = 0.01
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.chargeDashAttack,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(100)
+                expect(math.floor(y)).to.equal(_y)
+                expect(math.floor(maxZ)).to.equal(19)
+                expect(z).to.equal(0)
+                expect(hp).to.equal(_hp)
+            end)
+            it('Attack from just above the ground until the 2nd animation', function()
+                player3.z = 0.01
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.chargeDashAttack,
+                    stopFunc = isUnitsCurAnim(player3, "chargeDashAttack2")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(26)
+                expect(math.floor(y)).to.equal(_y)
+                expect(math.floor(maxZ)).to.equal(16)
+                expect(math.floor(z)).to.equal(16)
+                expect(hp).to.equal(_hp)
+            end)
+
+            it('Attack from just chargeAttack at its max Z', function()
+                player3.z = 20
+                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
+                    setState = player3.chargeAttack,
+                    stopFunc = isUnitsState(player3, "stand")
+                })
+                local xd = absDelta(x, _x)
+                local yd = absDelta(y, _y)
+                expect(math.floor(xd)).to.equal(0)
+                expect(math.floor(y)).to.equal(_y)
+                expect(math.floor(maxZ)).to.equal(29)
+                expect(z).to.equal(0)
+                expect(hp).to.equal(_hp)
+            end)
+        end)
     end)
     describe("Rick Class", function()
         describe("Jump Method", function()
@@ -215,131 +341,21 @@ describe("Character Class", function()
                 expect(player3.hp).to.equal(100)
             end)
         end)
-    end)
-    describe("Chai Class", function()
-        describe("Jump Method", function()
-            it('Jumps on place', function()
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.squat,
-                    stopFunc = isUnitsState(player3, "stand")
-                })
-                expect(x).to.equal(_x)
-                expect(y).to.equal(_y)
-                expect(z).to.equal(_z)
-                expect(math.floor(maxZ)).to.equal(40)
-                expect(hp).to.equal(_hp)
-            end)
-            it('Jumps on a trash can', function()
-                stageObject1.x, stageObject1.y = player3.x, player3.y
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.squat,
-                    stopFunc = isUnitsState(player3, "stand")
-                })
-                expect(x).to.equal(_x)
-                expect(y).to.equal(_y)
-                expect(z).to.equal(stageObject1:getHurtBoxHeight())
-                expect(math.floor(maxZ)).to.equal(40)
-                expect(hp).to.equal(_hp)
-            end)
-            it('Jumps on place and freezes at the Max Z', function()
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.squat,
-                    stopFunc = isUnitsAtMaxZ(player3)
-                })
-                expect(x).to.equal(_x)
-                expect(y).to.equal(_y)
-                expect(math.floor(z)).to.equal(40)
-                expect(math.floor(maxZ)).to.equal(40)
-                expect(hp).to.equal(_hp)
-            end)
-            it('Jumps after walking diagonally', function()
-                player3.speed_x = player3.walkSpeed_x
-                player3.speed_y = player3.walkSpeed_y
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.squat,
-                    stopFunc = isUnitsState(player3, "stand")
-                })
-                local xd = absDelta(x, _x)
-                local yd = absDelta(y, _y)
-                expect(math.floor(xd)).to.equal(79)
-                expect(math.floor(yd)).to.equal(38)
-                expect(math.floor(maxZ)).to.equal(40)
-                expect(z).to.equal(_z)
-                expect(hp).to.equal(_hp)
-            end)
-            it('Jumps after running diagonally', function()
-                player3.speed_x = player3.runSpeed_x
-                player3.speed_y = player3.runSpeed_y
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.squat,
-                    stopFunc = isUnitsState(player3, "stand")
-                })
-                local xd = absDelta(x, _x)
-                local yd = absDelta(y, _y)
-                expect(math.floor(xd)).to.equal(116)
-                expect(math.floor(yd)).to.equal(23)
-                expect(math.floor(maxZ)).to.equal(40)
-                expect(z).to.equal(_z)
-                expect(hp).to.equal(_hp)
-            end)
-        end)
-        describe("ChargeDashAttack Method", function()
-            it('Attack from the ground', function()
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.chargeDashAttack,
-                    stopFunc = isUnitsState(player3, "stand")
-                })
-                local xd = absDelta(x, _x)
-                local yd = absDelta(y, _y)
-                expect(math.floor(xd)).to.equal(10)
-                expect(math.floor(y)).to.equal(_y)
-                expect(math.floor(maxZ)).to.equal(0)
-                expect(z).to.equal(_z)
-                expect(hp).to.equal(_hp)
-            end)
-            it('Attack from just above the ground', function()
-                player3.z = 0.01
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.chargeDashAttack,
-                    stopFunc = isUnitsState(player3, "stand")
-                })
-                local xd = absDelta(x, _x)
-                local yd = absDelta(y, _y)
-                expect(math.floor(xd)).to.equal(100)
-                expect(math.floor(y)).to.equal(_y)
-                expect(math.floor(maxZ)).to.equal(19)
-                expect(z).to.equal(0)
-                expect(hp).to.equal(_hp)
-            end)
-            it('Attack from just above the ground until the 2nd animation', function()
-                player3.z = 0.01
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.chargeDashAttack,
-                    stopFunc = isUnitsCurAnim(player3, "chargeDashAttack2")
-                })
-                local xd = absDelta(x, _x)
-                local yd = absDelta(y, _y)
-                expect(math.floor(xd)).to.equal(26)
-                expect(math.floor(y)).to.equal(_y)
-                expect(math.floor(maxZ)).to.equal(16)
-                expect(math.floor(z)).to.equal(16)
-                expect(hp).to.equal(_hp)
-            end)
 
-            it('Attack from just chargeAttack at its max Z', function()
-                player3.z = 20
-                local x, y, z, maxZ, hp, _x, _y, _z, _hp = setStateAndWait(player3, {
-                    setState = player3.chargeAttack,
-                    stopFunc = isUnitsState(player3, "stand")
+        describe("Offensive SP Method", function()
+            it('P1 attacks P2', function()
+                local p2x = player2.x -- initial p2 x pos
+                setStateAndWait(player1, {
+                    setState = player1.specialOffensive,
+                    wait = player1.comboTimeout - 0.01,
+                    debugPrint = 1,
+                    debugUnit = player2,
                 })
-                local xd = absDelta(x, _x)
-                local yd = absDelta(y, _y)
-                expect(math.floor(xd)).to.equal(0)
-                expect(math.floor(y)).to.equal(_y)
-                expect(math.floor(maxZ)).to.equal(29)
-                expect(z).to.equal(0)
-                expect(hp).to.equal(_hp)
+                expect(player2.x).to_not.equal(p2x) -- attacked characters should move
+                expect(player2.state).to.equal("fall")
+                expect(player2.hp).to.equal(66) -- 34 DMG
             end)
         end)
+
     end)
 end)
