@@ -261,7 +261,9 @@ function spriteViewerState:update(dt)
         oldMenuState = menuState
     end
     if sprite2 then
-        if sprite2.curFrame > sprite2.maxFrame then
+        local s = sprite2.def.animations[sprite2.curAnim]
+        local sc = s[sprite2.curFrame]
+        if not sc then
             sprite2.curFrame = 1
         end
         updateSpriteInstance(sprite2, dt)
