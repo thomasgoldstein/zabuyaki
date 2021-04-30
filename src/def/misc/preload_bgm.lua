@@ -47,11 +47,15 @@ BGM.stop = function()
 end
 
 BGM.pause = function()
-    currentMusic:pause()
+    if currentMusic then
+        currentMusic:pause()
+    end
 end
 
 BGM.resume = function()
-    currentMusic:play()
+    if currentMusic then
+        currentMusic:play()
+    end
 end
 
 BGM.load("intro","res/bgm/stage0.xm","J.J")
