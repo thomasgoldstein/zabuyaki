@@ -1,6 +1,7 @@
 -- Unit Tests helpers functions, saving / restoring environments
 local lust = require 'lib.test.lust.lust'
 local describe, it, expect = lust.describe, lust.it, lust.expect
+local r = math.round
 
 -- save DEBUG level
 local _DebugRawValue = getDebugRawValue()
@@ -66,10 +67,10 @@ function setStateAndWait(a, f)
             end
         end
         if f.debugPrint == 1 or (f.debugPrint == 2 and _state ~= a.state) then
-            print(" #actorUnit", a.name, a.state, a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<== xyzHp", x, y, z, hp, " frame#", frameN)
+            print(" #actorUnit", a.name, a.state, r(a.x), r(a.y), r(a.z), r(a.hp), "MaxZ:" .. r(a.maxZ),  "<== xyzHp", r(x), r(y), r(z), r(hp), " frame#", frameN)
             if f.debugUnit then
                 local a = f.debugUnit
-                print(" >debugUnit", a.name, a.state, a.x, a.y, a.z, a.hp)
+                print(" >debugUnit", a.name, a.state, r(a.x), r(a.y), r(a.z), r(a.hp))
             end
             _state = a.state
         end
