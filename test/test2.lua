@@ -347,9 +347,10 @@ describe("Character Class", function()
                 local p2x = player2.x -- initial p2 x pos
                 setStateAndWait(player1, {
                     setState = player1.specialOffensive,
-                    wait = player1.comboTimeout - 0.01,
+                    wait = 2,
                     debugPrint = 1,
                     debugUnit = player2,
+                    --debugUnitSetState = player2.getUp,
                 })
                 expect(player2.x).to_not.equal(p2x) -- attacked characters should move
                 expect(player2.state).to.equal("fall")
