@@ -82,6 +82,6 @@ function setStateAndWait(a, f)
 end
 
 require "test.test1"
-require "test.test2"
 require "test.test3"
+require "test.test2"
 cleanUpAfterTests()
