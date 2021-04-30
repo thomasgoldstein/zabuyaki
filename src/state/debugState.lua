@@ -177,7 +177,7 @@ function debugState:confirm(button)
             invertDebugOption(SHOW_DEBUG_WALKABLE_AREA)
             sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.SPAWN_UNIT then
-            if not prevGameState == arcadeState then
+            if prevGameState ~= arcadeState then
                 sfx.play("sfx","menuCancel")
                 return
             end
