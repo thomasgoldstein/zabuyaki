@@ -348,12 +348,12 @@ describe("Character Class", function()
                 setStateAndWait(player1, {
                     setState = player1.specialOffensive,
                     wait = 2,
-                    debugPrint = 1,
+                    --debugPrint = 1,
                     debugUnit = player2,
-                    --debugUnitSetState = player2.getUp,
+                    stopFunc = isUnitsState(player2, "getUp")
                 })
                 expect(player2.x).to_not.equal(p2x) -- attacked characters should move
-                expect(player2.state).to.equal("fall")
+                expect(player2.state).to.equal("getUp")
                 expect(player2.hp).to.equal(66) -- 34 DMG
             end)
         end)
