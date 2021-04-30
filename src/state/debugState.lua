@@ -56,7 +56,6 @@ function debugState:enter(prevState)
     Controls[1].jump:update()
     Controls[1].start:update()
     Controls[1].back:update()
-    love.graphics.setLineWidth( 2 )
 end
 
 function debugState:leave()
