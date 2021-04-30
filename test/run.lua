@@ -30,7 +30,6 @@ function isUnitsAtMaxZ(u)
     return function() return u.maxZ > u.z end
 end
 
-showSetStateAndWaitDebug = false
 function setStateAndWait(a, f)
     if not f then
         f = {}
@@ -66,8 +65,12 @@ function setStateAndWait(a, f)
                 end
             end
         end
-        if showSetStateAndWaitDebug and _state ~= a.state then
-            print(" ::", a.name, a.state, a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<== xyzHp", x, y, z, hp, " frame#", frameN)
+        if f.debugPrint == 1 or (f.debugPrint == 2 and _state ~= a.state) then
+            print(" #actorUnit", a.name, a.state, a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<== xyzHp", x, y, z, hp, " frame#", frameN)
+            if f.debugUnit then
+                local a = f.debugUnit
+                print(" >debugUnit", a.name, a.state, a.x, a.y, a.z, a.hp)
+            end
             _state = a.state
         end
         if f.stopFunc and f.stopFunc(i) then
@@ -75,7 +78,6 @@ function setStateAndWait(a, f)
         end
         frameN = frameN + 1
     end
-    --    print(":", a.x, a.y, a.z, a.hp, "MaxZ:" .. a.maxZ,  "<==", x, y, z, hp)
     return a.x, a.y, a.z, a.maxZ, a.hp, x, y, z, hp
 end
 
