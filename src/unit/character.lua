@@ -1207,7 +1207,10 @@ function Character:fallUpdate(dt)
                     self:setState(self.land)
                     return
                 end
-                self:applyDamage(self.thrownFallDamage, "simple", self.indirectAttacker)
+                if self.isThrown then
+                    --apply damage of thrown units on landing
+                    self:applyDamage(self.thrownFallDamage, "simple", self.indirectAttacker)
+                end
                 mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
                 self:setSprite("fallBounce")
             end
