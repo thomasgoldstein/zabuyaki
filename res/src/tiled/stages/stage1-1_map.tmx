@@ -8,28 +8,16 @@
   <property name="reflectionsOpacity" type="float" value="0.6"/>
  </properties>
  <group id="1" name="background" locked="1">
-  <imagelayer id="2" name="sky" locked="1" offsetx="-2" offsety="-2">
+  <imagelayer id="2" name="sky" locked="1" offsetx="-3" offsety="-3">
    <image source="../../../img/stage/stage1/stage1-1/sky.png" width="1545" height="160"/>
    <properties>
     <property name="relativeX" value="0.45"/>
    </properties>
   </imagelayer>
-  <imagelayer id="4" name="bg-city-3" visible="0" locked="1" offsetx="-2" offsety="-80">
-   <image source="../../../img/stage/stage1/stage1-1/background-city-3.png" width="2564" height="324"/>
-   <properties>
-    <property name="relativeX" value="0.30"/>
-   </properties>
-  </imagelayer>
-  <imagelayer id="6" name="bg-city-2" visible="0" locked="1" offsetx="-2" offsety="-80">
-   <image source="../../../img/stage/stage1/stage1-1/background-city-2.png" width="2564" height="324"/>
+  <imagelayer id="8" name="bg-city" locked="1" offsetx="-3" offsety="-3">
+   <image source="../../../img/stage/stage1/stage1-1/background-city.png" width="2694" height="246"/>
    <properties>
     <property name="relativeX" value="0.25"/>
-   </properties>
-  </imagelayer>
-  <imagelayer id="8" name="bg-city-1" visible="0" locked="1" offsetx="-2" offsety="-80">
-   <image source="../../../img/stage/stage1/stage1-1/background-city-1.png" width="2564" height="324"/>
-   <properties>
-    <property name="relativeX" value="0.20"/>
    </properties>
   </imagelayer>
   <group id="9" name="bg-building" visible="0" locked="1">
@@ -43,20 +31,6 @@
     <image source="../../../img/stage/stage1/stage1-1/background-building-1.png" width="2564" height="324"/>
    </imagelayer>
   </group>
-  <group id="12" name="puddle-overlay" visible="0" locked="1">
-   <imagelayer id="13" name="puddle-overlay-2" offsetx="128" offsety="-80">
-    <image source="../../../img/stage/stage1/stage1-1/puddle-overlay-2.png" width="2564" height="324"/>
-   </imagelayer>
-   <imagelayer id="14" name="puddle-overlay-1" offsetx="128" offsety="-80">
-    <image source="../../../img/stage/stage1/stage1-1/puddle-overlay-1.png" width="2564" height="324"/>
-   </imagelayer>
-  </group>
-  <imagelayer id="15" name="main-reflection" visible="0" locked="1" offsetx="128" offsety="16">
-   <image source="../../../img/stage/stage1/stage1-1/main-reflection.png" width="2564" height="324"/>
-   <properties>
-    <property name="reflect" type="bool" value="true"/>
-   </properties>
-  </imagelayer>
   <imagelayer id="16" name="main" locked="1" offsetx="-3" offsety="-3">
    <image source="../../../img/stage/stage1/stage1-1/main.png" width="2694" height="246"/>
   </imagelayer>
@@ -76,8 +50,8 @@
   </group>
  </group>
  <group id="21" name="foreground" locked="1">
-  <imagelayer id="23" name="bridge-foreground" visible="0" locked="1" offsetx="388" offsety="-80">
-   <image source="../../../img/stage/stage1/stage1-1/bridge-foreground.png" width="2564" height="324"/>
+  <imagelayer id="23" name="bridge-foreground" locked="1" offsetx="259" offsety="-3">
+   <image source="../../../img/stage/stage1/stage1-1/bridge-foreground.png" width="2694" height="246"/>
    <properties>
     <property name="relativeX" value="-0.2"/>
    </properties>
