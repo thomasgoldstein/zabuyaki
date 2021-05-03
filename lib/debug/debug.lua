@@ -389,7 +389,7 @@ function drawDebugUnitInfo(a)
         end
     end
     if isDebug(SHOW_DEBUG_ENEMY_AI_INFO) then
-        if a.AI then
+        if a.hp > 0 and a.AI then
             drawDebugUnitConditions(a, a.AI.conditions)
             if a.target then
                 colors:set("white", nil, 55)
