@@ -7,7 +7,7 @@ SHOW_DEBUG_ENEMY_AI_INFO = 6 -- enemy's AI info
 SHOW_DEBUG_WAVES = 7 -- left edge of the current wave with red and the next with blue
 SHOW_DEBUG_WALKABLE_AREA = 8 -- dynamic walkable area
 
-local r = math.round
+local r = math.floor
 
 function getDebugRawValue() return GLOBAL_SETTING.DEBUG or 0 end
 function setDebugRawValue(n) GLOBAL_SETTING.DEBUG = n end
