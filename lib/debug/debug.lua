@@ -7,6 +7,8 @@ SHOW_DEBUG_ENEMY_AI_INFO = 6 -- enemy's AI info
 SHOW_DEBUG_WAVES = 7 -- left edge of the current wave with red and the next with blue
 SHOW_DEBUG_WALKABLE_AREA = 8 -- dynamic walkable area
 
+local r = math.round
+
 function getDebugRawValue() return GLOBAL_SETTING.DEBUG or 0 end
 function setDebugRawValue(n) GLOBAL_SETTING.DEBUG = n end
 
@@ -339,15 +341,15 @@ function drawDebugUnitConditions(a, conditions)
     if a.AI.currentSchedule then
         local scheduleNameAndTaskN = a.AI.currentSchedule.name .. " " .. a.AI.currentSchedule.currentTask .. "/" .. #a.AI.currentSchedule.tasks
         colors:set("white")
-        love.graphics.print( scheduleNameAndTaskN, a.x - 40 - 1, a.y - a.z - z)
-        love.graphics.print( scheduleNameAndTaskN, a.x - 40 + 1, a.y - a.z - z)
+        love.graphics.print( scheduleNameAndTaskN, r(a.x - 40 - 1), r(a.y - a.z - z))
+        love.graphics.print( scheduleNameAndTaskN, r(a.x - 40 + 1), r(a.y - a.z - z))
         colors:set("red")
-        love.graphics.print( scheduleNameAndTaskN, a.x - 40 , a.y - a.z - z)
+        love.graphics.print( scheduleNameAndTaskN, r(a.x - 40), r(a.y - a.z - z))
     end
     colors:set("yellow")
     for k,v in pairs(conditions) do
         z = z + 6
-        love.graphics.print( k, a.x - 40 , a.y - a.z - z)
+        love.graphics.print( k, r(a.x - 40), r(a.y - a.z - z))
     end
 end
 
@@ -356,15 +358,15 @@ function drawDebugUnitInfo(a)
         love.graphics.setFont(gfx.font.debug)
         if a.hp <= 0 then
             colors:set("black", nil, 50)
-            love.graphics.print( a.name, a.x - 16 , a.y - 7 - a.z)
+            love.graphics.print( a.name, r(a.x - 16), r(a.y - 7 - a.z))
         else
             colors:set("black", nil, 120)
             if a.id > GLOBAL_SETTING.MAX_PLAYERS then
                 drawDebugControls(a, a.x - 32, a.y - a:getHurtBoxHeight() - 20 - a.z)
             end
         end
-        love.graphics.print( a.state, a.x - 14, a.y - a.z)
-        love.graphics.print( ""..math.floor(a.x).." "..math.floor(a.y).." "..math.floor(a.z), a.x - 22, a.y + 7 - a.z)
+        love.graphics.print( a.state, r(a.x - 14), r(a.y - a.z))
+        love.graphics.print( ""..r(a.x).." "..r(a.y).." "..r(a.z), r(a.x - 22), r(a.y + 7 - a.z))
         local yShift1 = 0
         colors:set("yellow", nil, 120)
         love.graphics.line( a.x, a.y + yShift1, a.x + 10 * a.horizontal, a.y + yShift1 - a.z)
@@ -372,7 +374,7 @@ function drawDebugUnitInfo(a)
         colors:set("purple", nil, 120)
         love.graphics.line( a.x, a.y + yShift2, a.x + 8 * a.face, a.y + yShift2 - a.z)
         if a.movementMode then
-            love.graphics.print( ""..a.movementMode.." "..( a.movementModeTimer > 0 and a.movementModeTimer or "OK" ), a.x - 22, a.y + 14 - a.z)
+            love.graphics.print( ""..a.movementMode.." "..( a.movementModeTimer > 0 and a.movementModeTimer or "OK" ), r(a.x - 22), r(a.y + 14 - a.z))
         end
         if a.platform and not a.platform.isDisabled and ( getDebugFrame() + a.id ) % 5 == 1 then
             colors:set("black", nil, 255)
