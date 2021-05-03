@@ -5,24 +5,19 @@ local dist = dist
 function AI:getConditions()
     local u = self.unit
     local conditions = {}
-    if u.isDisabled or u.state == "fall" then
-        if u.isDisabled then
-            conditions["dead"] = true
-        end
-        if u.state == "fall" then
-            conditions["cannotAct"] = true
-        end
+    if u.state == "fall" then
+        conditions["cannotAct"] = true
     else
         if u.isGrabbed then
             conditions["grabbed"] = true
         end
+        if u.z > 0 and not u.platform then
+            conditions["inAir"] = true
+        end
+        if countAlivePlayers(true) < 1 then
+            conditions["noPlayers"] = true
+        end
         conditions = self:getVisualConditions(conditions)
-    end
-    if u.z > 0 and not u.platform then
-        conditions["inAir"] = true
-    end
-    if countAlivePlayers(true) < 1 then
-        conditions["noPlayers"] = true
     end
     return conditions
 end
