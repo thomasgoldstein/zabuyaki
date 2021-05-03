@@ -6,8 +6,12 @@ function AI:getConditions()
     local u = self.unit
     local conditions = {}
     if u.isDisabled or u.state == "fall" then
-        conditions["dead"] = true
-        conditions["cannotAct"] = true
+        if u.isDisabled then
+            conditions["dead"] = true
+        end
+        if u.state == "fall" then
+            conditions["cannotAct"] = true
+        end
     else
         if u.isGrabbed then
             conditions["grabbed"] = true
