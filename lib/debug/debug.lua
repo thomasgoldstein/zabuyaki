@@ -295,14 +295,6 @@ function watchDebugVariables()
     end
 end
 
-function drawUnitHighlight(slf)
-    if slf.debugHighlight and slf.debugHighlightColor then
-        colors:set(slf.debugHighlightColor, nil, 75)
-        love.graphics.rectangle("fill", slf.x - slf:getHurtBoxWidth() * 1, slf.y - slf.z - slf:getHurtBoxHeight(), slf:getHurtBoxWidth() * 2, slf:getHurtBoxHeight() )
-        love.graphics.print( slf.debugHighlightText, slf.x + slf:getHurtBoxWidth() * 1, slf.y - slf.z - slf:getHurtBoxHeight())
-    end
-end
-
 function drawDebugUnitHurtBoxUnder(sprite, x, y, frame, scale)
     if isDebug(SHOW_DEBUG_BOXES) then
         local scale = scale or 1
@@ -361,7 +353,6 @@ end
 
 function drawDebugUnitInfo(a)
     if isDebug(SHOW_DEBUG_UNIT_INFO) then
-        drawUnitHighlight(a)
         love.graphics.setFont(gfx.font.debug)
         if a.hp <= 0 then
             colors:set("black", nil, 50)
