@@ -271,10 +271,10 @@ function drawSpriteInstance (spr, x, y, frame)
         imageBank[spr.def.spriteSheet], --The image
         sc.q, --Current frame of the current animation
         math.floor(x + rx * spr.flipH * flipH), math.floor(y_shift + ry),
-        (spr.rotation + rotate) * spr.flipH * flipH,
-        spr.sizeScale * spr.flipH * scale_h * flipH,
-        spr.sizeScale * spr.flipV * scale_v * flipV,
-        sc.ox, sc.oy
+        math.floor((spr.rotation + rotate) * spr.flipH * flipH),
+        math.floor(spr.sizeScale * spr.flipH * scale_h * flipH),
+        math.floor(spr.sizeScale * spr.flipV * scale_v * flipV),
+        math.floor(sc.ox), math.floor(sc.oy)
     )
 end
 
@@ -291,10 +291,10 @@ function drawSpriteCustomInstance(spr, x, y, curAnim, frame)
         imageBank[spr.def.spriteSheet], --The image
         sc.q, --Current frame of the current animation
         math.floor(x + rx * spr.flipH * flipH), math.floor(y_shift + ry),
-        (spr.rotation + rotate) * spr.flipH * flipH,
-        spr.sizeScale * spr.flipH * scale_h * flipH,
-        spr.sizeScale * spr.flipV * scale_v * flipV,
-        sc.ox, sc.oy
+        math.floor((spr.rotation + rotate) * spr.flipH * flipH),
+        math.floor(spr.sizeScale * spr.flipH * scale_h * flipH),
+        math.floor(spr.sizeScale * spr.flipV * scale_v * flipV),
+        math.floor(sc.ox), math.floor(sc.oy)
     )
 end
 
