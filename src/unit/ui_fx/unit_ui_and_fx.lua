@@ -127,12 +127,12 @@ function Unit:setHurtAnimation(dmg, isHigh)
 end
 
 function Unit:drawSprite(x, y)
-    drawSpriteInstance(self.sprite, round(x), round(y))
+    drawSpriteInstance(self.sprite, x, y)
 end
 
 function Unit:drawSpriteOverlay(x, y)
     if self.spriteOverlay then
-        drawSpriteInstance(self.spriteOverlay, round(x), round(y))
+        drawSpriteInstance(self.spriteOverlay, x, y)
     end
 end
 

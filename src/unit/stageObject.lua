@@ -69,7 +69,7 @@ end
 
 function StageObject:drawSprite(x, y)
     self.sprite.flipH = self.faceFix
-    drawSpriteInstance(self.sprite, round(x), round(y))
+    drawSpriteInstance(self.sprite, x, y)
 end
 
 function StageObject:addScore() end
@@ -129,7 +129,7 @@ function StageObject:standUpdate(dt)
         return
     end
 end
-StageObject.stand = {name = "stand", start = StageObject.standStart, exit = nop, update = StageObject.standUpdate, draw = Unit.defaultDraw}
+StageObject.stand = {name = "stand", start = StageObject.standStart, exit = nop, update = StageObject.standUpdate, draw = StageObject.defaultDraw}
 
 function StageObject:getUpStart()
     self.isHittable = false
@@ -148,7 +148,7 @@ function StageObject:getUpUpdate(dt)
         return
     end
 end
-StageObject.getUp = {name = "getUp", start = StageObject.getUpStart, exit = nop, update = StageObject.getUpUpdate, draw = Unit.defaultDraw}
+StageObject.getUp = {name = "getUp", start = StageObject.getUpStart, exit = nop, update = StageObject.getUpUpdate, draw = StageObject.defaultDraw}
 
 function StageObject:hurtStart()
     self.isHittable = true
@@ -159,7 +159,7 @@ function StageObject:hurtUpdate(dt)
         return
     end
 end
-StageObject.hurt = {name = "hurt", start = StageObject.hurtStart, exit = nop, update = StageObject.hurtUpdate, draw = Unit.defaultDraw}
+StageObject.hurt = {name = "hurt", start = StageObject.hurtStart, exit = nop, update = StageObject.hurtUpdate, draw = StageObject.defaultDraw}
 
 function StageObject:fallStart()
     self:removeTweenMove()
