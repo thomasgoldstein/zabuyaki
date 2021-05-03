@@ -1,7 +1,7 @@
 -- Unit Tests helpers functions, saving / restoring environments
 local lust = require 'lib.test.lust.lust'
 local describe, it, expect = lust.describe, lust.it, lust.expect
-local r = math.round
+local r = math.round -- custom function used for formatted floats output
 
 -- save DEBUG level
 local _DebugRawValue = getDebugRawValue()
