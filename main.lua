@@ -115,6 +115,7 @@ function love.load(arg, unfilteredArg)
     require "src/unit/ui_fx/unit_damage"
     Stopper = require "src/unit/stopper"
     Wall = require "src/unit/wall"
+    StageImage = require "src/unit/stageImage"
     Platform = require "src/unit/platform"
     Event = require "src/unit/event"
     Character = require "src/unit/character"
