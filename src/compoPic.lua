@@ -67,6 +67,13 @@ function parseAnimateString(w, h, animate, spriteSheet)
     return frames, image
 end
 
+function CompoundPicture:prepareInfo(spriteSheet, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animate, reflect)
+    local image, quad = cacheImage(spriteSheet)
+    local _,_,w,h = quad:getViewport()
+    local animate, animateImage = parseAnimateString(w, h, animate, spriteSheet)
+    return {image = animateImage or image, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, name = name, animate = animate, reflect = reflect and true or false}
+end
+
 ---Add image to the compound picture table
 ---@param spriteSheet userdata image
 ---@param x number horizontal offset from the top left corner
@@ -79,10 +86,7 @@ end
 ---@param animate string animation params
 ---@param reflect boolean
 function CompoundPicture:add(spriteSheet, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animate, reflect)
-    local image, quad = cacheImage(spriteSheet)
-    local _,_,w,h = quad:getViewport()
-    local animate, animateImage = parseAnimateString(w, h, animate, spriteSheet)
-    table.insert(self.pics, {image = animateImage or image, quad = quad, w = w, h = h, x = x or 0, y = y or 0, relativeX = relativeX or 0, relativeY = relativeY or 0, scrollSpeedX = scrollSpeedX or 0, scrollSpeedY = scrollSpeedY or 0, name = name, animate = animate, reflect = reflect and true or false})
+    table.insert(self.pics, self:prepareInfo(spriteSheet, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animate, reflect))
 end
 
 function CompoundPicture:remove(rect)
