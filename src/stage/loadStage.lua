@@ -3,6 +3,7 @@
 local r = math.floor
 local maxActiveEnemiesDefault = 5
 local aliveEnemiesToAdvanceDefault = 0
+local stageImageUnits = {}
 
 local function extractTable(tab, val)
     for i, value in ipairs(tab) do
@@ -203,12 +204,14 @@ local function loadUnit(items, waveName)
     return units
 end
 
-local function loadGlobalUnits(items, stage)
+local function loadGlobalUnits(items, stage, stageImageUnits)
     dp("Load global units...")
     local t = extractTable(items.layers, "global")
     assert(t, "Tiled: Object layer 'global' is not present in the map file.")
-    local units = loadUnit(t)
-    for _,unit in ipairs(units) do
+    for _,unit in ipairs(stageImageUnits) do
+        unit:setOnStage(stage)
+    end
+    for _,unit in ipairs(loadUnit(t)) do
         unit:setOnStage(stage)
     end
 end
@@ -267,13 +270,18 @@ local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpee
         return
     end
     if v.type == "group" then
-        for i, v2 in ipairs(v.layers) do
+        for _, v2 in ipairs(v.layers) do
             addImageToLayer(images, v2, v.offsetx + x, v.offsety + y, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate, v.properties.reflect or reflect)
         end
     elseif v.type == "imagelayer" then
         local offsetx, offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, animate, reflect =
-            v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate, v.properties.reflect or reflect
-        images:add(v.image, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate, reflect)
+        v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate, v.properties.reflect or reflect
+        if v.properties.stageImage then -- stageImage
+            local stageImage = images:prepareInfo(v.image, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate, reflect)
+            stageImageUnits[#stageImageUnits+1] = StageImage:new( stageImage.name, stageImage)
+        else -- regular image
+            images:add(v.image, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate, reflect)
+        end
     end
 end
 
@@ -352,6 +360,7 @@ end
 
 function loadStageData(stage, mapFile, players)
     local chunk, err = love.filesystem.load(mapFile)
+    stageImageUnits = {}
     assert(not err, err)
     local d = chunk()
     assert(d or type(d)~="table", "Tiled: No map data found in "..mapFile)
@@ -364,17 +373,17 @@ function loadStageData(stage, mapFile, players)
     stage.reflectionsOpacity = d.properties.reflectionsOpacity or GLOBAL_SETTING.REFLECTIONS_OPACITY
     stage.weather = d.properties.weather or ""
     stage.maxBacktrackDistance = d.properties.maxBacktrackDistance or 150 -- maximum value you can walk back
-    loadCollisionLayer(d, stage)
-    addPlayersToStage(d, players, stage)
-    doInstantPlayersSelect() -- if debug, you can select char on start
-    loadGlobalUnits(d, stage)
-    stage.wave = loadWave(d, stage)
-    stage.bottomLine = loadBottomLine(d)
-    loadImageLayer(d, "background", stage.background)
     stage.background:setSize(stage.worldWidth, stage.worldHeight)
     if d.backgroundcolor then
         stage.bgColor = d.backgroundcolor or { 0, 0, 0 }
     end
-    loadImageLayer(d, "foreground", stage.foreground)
+    loadImageLayer(d, "background", stage.background)
     stage.foreground:setSize(stage.worldWidth, stage.worldHeight)
+    loadImageLayer(d, "foreground", stage.foreground)
+    stage.wave = loadWave(d, stage)
+    stage.bottomLine = loadBottomLine(d)
+    loadCollisionLayer(d, stage)
+    addPlayersToStage(d, players, stage)
+    doInstantPlayersSelect() -- if debug, you can select char on start
+    loadGlobalUnits(d, stage, stageImageUnits)
 end
