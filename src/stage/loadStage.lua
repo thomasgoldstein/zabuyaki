@@ -209,6 +209,8 @@ local function loadGlobalUnits(items, stage, stageImageUnits)
     local t = extractTable(items.layers, "global")
     assert(t, "Tiled: Object layer 'global' is not present in the map file.")
     for _,unit in ipairs(stageImageUnits) do
+        unit.image.width = stage.background.width   -- for horizontal scrolling of stageImage
+        unit.image.height = stage.background.height   -- for vertical scrolling of stageImage
         unit:setOnStage(stage)
     end
     for _,unit in ipairs(loadUnit(t)) do
