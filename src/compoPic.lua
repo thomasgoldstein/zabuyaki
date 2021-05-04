@@ -107,6 +107,46 @@ function CompoundPicture:getRect(i)
     return 0, 0, self.width, self.height
 end
 
+function CompoundPicture:updateOne(p, dt)
+    local a = p.animate
+    if a then
+        a.elapsedTime = a.elapsedTime + dt
+        if a.elapsedTime >= a.delay[a.curFrame] then
+            a.elapsedTime = 0
+            a.curFrame = a.curFrame + 1
+            if a.curFrame > a.maxFrame then
+                a.curFrame = 1
+            end
+        end
+    end
+    -- scroll horizontally e.g. clouds
+    if p.scrollSpeedX and p.scrollSpeedX ~= 0 then
+        p.x = p.x + (p.scrollSpeedX * dt)
+        if p.scrollSpeedX > 0 then
+            if p.x > self.width then
+                p.x = -p.w
+            end
+        else
+            if p.x + p.w < 0 then
+                p.x = self.width
+            end
+        end
+    end
+    -- scroll vertically
+    if p.scrollSpeedY and p.scrollSpeedY ~= 0 then
+        p.y = p.y + (p.scrollSpeedY * dt)
+        if p.scrollSpeedY > 0 then
+            if p.y > self.height then
+                p.y = -p.h
+            end
+        else
+            if p.y + p.h < 0 then
+                p.y = self.height
+            end
+        end
+    end
+end
+
 function CompoundPicture:update(dt)
     for i=1, #self.pics do
         self:updateOne(self.pics[i], dt)
