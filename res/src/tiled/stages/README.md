@@ -93,12 +93,16 @@ Custom Properties:
 > Hint: A group of ImageLayers could have the same custom property which could be inherited or replaced by the ImageLayers individually. 
 
 ## Background and foreground parallax ##
-Every Image Layer (single image) or a Group Layer (starting from the root folders **background** and **foregroung**) may have these attributes:
+Every Image Layer (single image) or a Group Layer (starting from the root folders **background** and **foreground**) may have these attributes:
 * **relativeX** [float] - alters the scrolling speed relatively to the horizontal player's movement.
 Use values 0 .. 1 to slow down the background layers. Use 0 to make them stop moving (e.g. Moon). Use negative values for **foreground** layer.
 * **relativeY** [float] - the same behavior as relativeX attribute but for vertical movement.
 * **scrollSpeedX** [float] - speed that moves the image in the horizontal loop. You may use negative value to move the image backwards. 
 * **scrollSpeedY** [float] - speed that moves the image in the vertical loop. 
+
+## Adding images onto the stage as stageImage ##
+Add this attribute to the certain Image Layer from the **background** and **foreground**.
+* **stageImage** [bool] - put the image as an stageImage onto the stage. Its x, y coordinates are moved to the center of the bottom of the placeholder image. New coordinates are used for the stage depth as Z-index. 
   
 ## Background image file format ##
 Supported image formats: **PNG, JPEG, TGA,** and **BMP**.
