@@ -29,6 +29,7 @@ function stageImage:getHeight()
 end
 
 function stageImage:updateSprite(dt)
+    if dt <= 0 then return end -- skip animation update on the class init
     CompoundPicture.updateOne(self.image, self.image, dt)
 end
 
