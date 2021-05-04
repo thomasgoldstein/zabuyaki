@@ -273,7 +273,7 @@ local function addImageToLayer(images, v, x, y, relativeX, relativeY, scrollSpee
     elseif v.type == "imagelayer" then
         local offsetx, offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, animate, reflect =
             v.offsetx, v.offsety, v.properties.relativeX or relativeX, v.properties.relativeY or relativeY, v.properties.scrollSpeedX or scrollSpeedX, v.properties.scrollSpeedY or scrollSpeedY, v.properties.animate or animate, v.properties.reflect or reflect
-        images:add(v.image, quad, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate, reflect)
+        images:add(v.image, x + offsetx, y + offsety, _relativeX, _relativeY, _scrollSpeedX, _scrollSpeedY, v.name, animate, reflect)
     end
 end
 

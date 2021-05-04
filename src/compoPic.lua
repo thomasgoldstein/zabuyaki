@@ -69,7 +69,6 @@ end
 
 ---Add image to the compound picture table
 ---@param spriteSheet userdata image
----@param quad userdata
 ---@param x number horizontal offset from the top left corner
 ---@param y number vertical offset from the top left corner
 ---@param relativeX number relativeX?
@@ -79,7 +78,7 @@ end
 ---@param name string to have access from the stage events
 ---@param animate string animation params
 ---@param reflect boolean
-function CompoundPicture:add(spriteSheet, quad, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animate, reflect)
+function CompoundPicture:add(spriteSheet, x, y, relativeX, relativeY, scrollSpeedX, scrollSpeedY, name, animate, reflect)
     local image, quad = cacheImage(spriteSheet)
     local _,_,w,h = quad:getViewport()
     local animate, animateImage = parseAnimateString(w, h, animate, spriteSheet)
