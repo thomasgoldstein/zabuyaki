@@ -413,6 +413,10 @@ function Unit:canMove()
     return false
 end
 
+function Unit:isAlive()
+    return self.hp + self.lives > 0
+end
+
 local canAct = { stand = true, walk = true, run = true, intro = true }
 function Unit:isDangerous()
     --if self.isMovable then
