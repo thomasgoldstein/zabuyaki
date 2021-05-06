@@ -158,17 +158,17 @@ function CompoundPicture:update(dt)
 end
 
 function CompoundPicture:drawOne(p, l, t, w, h, drawReflections)
-    if p.reflect == drawReflections and CheckCollision(l - p.relativeX * l, t - p.relativeY * t, w, h, p.x, p.y, p.w, p.h) then
+    if p.reflect == drawReflections and CheckCollision(l + p.relativeX * l, t + p.relativeY * t, w, h, p.x, p.y, p.w, p.h) then
         if p.animate then
             love.graphics.draw(p.image,
                 p.animate.quads[ p.animate.frame[p.animate.curFrame] ],
-                round(p.x + p.relativeX * l), -- slow down parallax
-                round(p.y + p.relativeY * t))
+                round(p.x - p.relativeX * l), -- slow down parallax
+                round(p.y - p.relativeY * t))
         else
             love.graphics.draw(p.image,
                 p.quad,
-                round(p.x + p.relativeX * l), -- slow down parallax
-                round(p.y + p.relativeY * t))
+                round(p.x - p.relativeX * l), -- slow down parallax
+                round(p.y - p.relativeY * t))
         end
     end
 end

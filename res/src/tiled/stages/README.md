@@ -94,8 +94,8 @@ Custom Properties:
 
 ## Background and foreground parallax ##
 Every Image Layer (single image) or a Group Layer (starting from the root folders **background** and **foreground**) may have these attributes:
-* **relativeX** [float] - alters the scrolling speed relatively to the horizontal player's movement.
-Use values 0 .. 1 to slow down the background layers. Use 0 to make them stop moving (e.g. Moon). Use negative values for **foreground** layer.
+* **relativeX** [float] - alters the scrolling speed relatively to the horizontal player's movement. The slower parallax has the smallest value.
+Use values 0 .. 1 to slow down the background layers. Use 0 to make them stop moving (e.g. Moon). Use negative values for **background** layer.
 * **relativeY** [float] - the same behavior as relativeX attribute but for vertical movement.
 * **scrollSpeedX** [float] - speed that moves the image in the horizontal loop. You may use negative value to move the image backwards. 
 * **scrollSpeedY** [float] - speed that moves the image in the vertical loop. 
