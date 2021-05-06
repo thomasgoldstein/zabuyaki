@@ -7,13 +7,13 @@
   <imagelayer id="2" name="city" locked="1" offsetx="-2" offsety="-82">
    <image source="../../../img/stage/stage1/stage1-3/city.png" width="1732" height="484"/>
    <properties>
-    <property name="relativeX" value="0.35"/>
+    <property name="relativeX" value="-0.35"/>
    </properties>
   </imagelayer>
   <imagelayer id="3" name="buildings" locked="1" offsetx="-2" offsety="-82">
    <image source="../../../img/stage/stage1/stage1-3/buildings.png" width="1732" height="644"/>
    <properties>
-    <property name="relativeX" value="0.15"/>
+    <property name="relativeX" value="-0.15"/>
    </properties>
   </imagelayer>
   <imagelayer id="4" name="main" locked="1" offsetx="-2" offsety="-82">

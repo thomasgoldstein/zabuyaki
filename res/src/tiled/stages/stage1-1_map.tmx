@@ -11,18 +11,18 @@
   <imagelayer id="2" name="sky" locked="1" offsetx="-3" offsety="-3">
    <image source="../../../img/stage/stage1/stage1-1/sky.png" width="1545" height="160"/>
    <properties>
-    <property name="relativeX" value="0.45"/>
+    <property name="relativeX" value="-0.45"/>
    </properties>
   </imagelayer>
   <imagelayer id="8" name="bg-city" locked="1" offsetx="-3" offsety="-3">
    <image source="../../../img/stage/stage1/stage1-1/background-city.png" width="2694" height="246"/>
    <properties>
-    <property name="relativeX" value="0.25"/>
+    <property name="relativeX" value="-0.25"/>
    </properties>
   </imagelayer>
   <group id="9" name="bg-building" visible="0" locked="1">
    <properties>
-    <property name="relativeX" value="0.05"/>
+    <property name="relativeX" value="-0.05"/>
    </properties>
    <imagelayer id="10" name="building-2" locked="1" offsetx="-26" offsety="-80">
     <image source="../../../img/stage/stage1/stage1-1/background-building-2.png" width="2564" height="324"/>
@@ -53,13 +53,13 @@
   <imagelayer id="23" name="bridge-foreground" locked="1" offsetx="259" offsety="-3">
    <image source="../../../img/stage/stage1/stage1-1/bridge-foreground.png" width="2694" height="246"/>
    <properties>
-    <property name="relativeX" value="-0.2"/>
+    <property name="relativeX" value="0.2"/>
    </properties>
   </imagelayer>
   <imagelayer id="24" name="foreground" visible="0" offsetx="328" offsety="-80">
    <image source="../../../img/stage/stage1/stage1-1/foreground.png" width="2564" height="324"/>
    <properties>
-    <property name="relativeX" value="-0.8"/>
+    <property name="relativeX" value="0.8"/>
    </properties>
   </imagelayer>
  </group>

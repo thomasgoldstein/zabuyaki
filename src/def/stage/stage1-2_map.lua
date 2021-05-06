@@ -65,7 +65,7 @@ return {
           parallaxx = 1,
           parallaxy = 1,
           properties = {
-            ["relativeX"] = "-0.8"
+            ["relativeX"] = "0.8"
           }
         },
         {
@@ -80,7 +80,7 @@ return {
           parallaxx = 1,
           parallaxy = 1,
           properties = {
-            ["relativeX"] = "-0.5"
+            ["relativeX"] = "0.5"
           }
         },
         {

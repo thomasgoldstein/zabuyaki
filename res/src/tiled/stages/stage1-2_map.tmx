@@ -12,13 +12,13 @@
   <imagelayer id="5" name="lamps" locked="1" offsetx="200" offsety="-62">
    <image source="../../../img/stage/stage1/stage1-2/lamps.png" width="1444" height="324"/>
    <properties>
-    <property name="relativeX" value="-0.8"/>
+    <property name="relativeX" value="0.8"/>
    </properties>
   </imagelayer>
   <imagelayer id="6" name="foreground-stuff" locked="1" offsetx="200" offsety="-82">
    <image source="../../../img/stage/stage1/stage1-2/foreground-stuff.png" width="1444" height="324"/>
    <properties>
-    <property name="relativeX" value="-0.5"/>
+    <property name="relativeX" value="0.5"/>
    </properties>
   </imagelayer>
   <imagelayer id="7" name="outdoor-light" locked="1" offsetx="-2" offsety="-82">

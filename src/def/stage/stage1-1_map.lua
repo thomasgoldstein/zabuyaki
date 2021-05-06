@@ -41,7 +41,7 @@ return {
           parallaxx = 1,
           parallaxy = 1,
           properties = {
-            ["relativeX"] = "0.45"
+            ["relativeX"] = "-0.45"
           }
         },
         {
@@ -56,7 +56,7 @@ return {
           parallaxx = 1,
           parallaxy = 1,
           properties = {
-            ["relativeX"] = "0.25"
+            ["relativeX"] = "-0.25"
           }
         },
         {
@@ -70,7 +70,7 @@ return {
           parallaxx = 1,
           parallaxy = 1,
           properties = {
-            ["relativeX"] = "0.05"
+            ["relativeX"] = "-0.05"
           },
           layers = {
             {
@@ -195,7 +195,7 @@ return {
           parallaxx = 1,
           parallaxy = 1,
           properties = {
-            ["relativeX"] = "-0.2"
+            ["relativeX"] = "0.2"
           }
         },
         {
@@ -210,7 +210,7 @@ return {
           parallaxx = 1,
           parallaxy = 1,
           properties = {
-            ["relativeX"] = "-0.8"
+            ["relativeX"] = "0.8"
           }
         }
       }
