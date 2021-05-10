@@ -314,37 +314,7 @@ function Unit:drawReflection(l, t, w, h)
     end
 end
 
-local function calcPIDTransparency(cd)
-    if cd > 1 then
-        return math.sin(cd * 10) * 55 + 200
-    end
-    if cd < 0.33 then
-        return cd * 255
-    end
-    return 255
-end
-
-function Unit:drawPID(x, y_, x_)
-    if self.id > GLOBAL_SETTING.MAX_PLAYERS then
-        return
-    end
-    local y = -30 - self:getHurtBoxHeight() + y_ - math.cos(self.showPIDDelay * 6)
-    colors:set("playersColors", self.id, calcPIDTransparency(self.showPIDDelay))
-    love.graphics.rectangle("fill", x - 15, y, 30, 17)
-    if x == x_ then
-        love.graphics.polygon("fill", x, y + 20, x - 2, y + 17, x + 2, y + 17) -- V
-    elseif x < x_ then
-        love.graphics.polygon("fill", x + 15, y + 6, x + 18, y + 9, x + 15, y + 12) -- >
-    else
-        love.graphics.polygon("fill", x - 15, y + 6, x - 18, y + 9, x - 15, y + 12) -- <
-    end
-
-    colors:set("black", nil, calcPIDTransparency(self.showPIDDelay))
-    love.graphics.rectangle("fill", x - 13, y + 2, 30 - 4, 13)
-    love.graphics.setFont(gfx.font.arcade3)
-    colors:set("white", nil, calcPIDTransparency(self.showPIDDelay))
-    love.graphics.print(self.pid, x - 7, y + 4)
-end
+function Unit:drawPID() end
 
 local transpBg, chargeDelta = 0, 0
 local chargeFlashSpeed = 20
@@ -384,13 +354,7 @@ function Unit:defaultDraw(l, t, w, h, transp)
             drawDebugUnitHurtBox(self.sprite, self.x, self.y - self.z)
             drawDebugUnitInfo(self)
         end
-        if self.hp > 0 and self.showPIDDelay < 1 and (self.x < l or self.x >= l + w ) then
-            self.showPIDDelay = self.showPIDDelay + math.pi
-        end
-        if self.showPIDDelay > 0 then
-            colors:set("white")
-            self:drawPID(clamp(self.x, l + 20, l + w - 20), self.y - self.z, self.x)
-        end
+        self:drawPID(self.x, self.y - self.z, l, w)
     end
 end
 

@@ -4,6 +4,39 @@ local Player = Player
 
 local iconWidth = 40
 
+local function calcPIDTransparency(cd)
+    if cd > 1 then
+        return math.sin(cd * 10) * 55 + 200
+    end
+    if cd < 0.33 then
+        return cd * 255
+    end
+    return 255
+end
+
+function Player:drawPID(x_, y_, l, w)
+    if self.hp > 0 and self.showPIDDelay < 1 and (x_ < l or x_ >= l + w ) then
+        self.showPIDDelay = self.showPIDDelay + math.pi
+    end
+    if self.showPIDDelay <= 0 then return end
+    local x = clamp(x_, l + 20, l + w - 20)
+    local y = y_ - math.cos(self.showPIDDelay * 6) - 30 - self:getHurtBoxHeight()
+    local PIDTransparency = calcPIDTransparency(self.showPIDDelay)
+    colors:set("playersColors", self.id, PIDTransparency)
+    love.graphics.rectangle("fill", x - 15, y, 30, 17)
+    if x == x_ then
+        love.graphics.polygon("fill", x, y + 20, x - 2, y + 17, x + 2, y + 17) -- V
+    elseif x < x_ then
+        love.graphics.polygon("fill", x + 15, y + 6, x + 18, y + 9, x + 15, y + 12) -- >
+    else
+        love.graphics.polygon("fill", x - 15, y + 6, x - 18, y + 9, x - 15, y + 12) -- <
+    end
+    colors:set("black", nil, PIDTransparency)
+    love.graphics.rectangle("fill", x - 13, y + 2, 30 - 4, 13)
+    love.graphics.setFont(gfx.font.arcade3)
+    colors:set("white", nil, PIDTransparency)
+    love.graphics.print(self.pid, x - 7, y + 4)
+end
 -- Start of LifeBar elements
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
