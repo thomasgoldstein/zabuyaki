@@ -5,8 +5,6 @@ local defaultNameN = 1
 function Schedule:initialize(tasks, interrupts, name)
     self.tasks = {}
     self.interrupts = {}
-    self.currentTask = 1
-    self.done = false
     if name then
         self.name = name
     else
@@ -17,6 +15,7 @@ function Schedule:initialize(tasks, interrupts, name)
         self:addTask(tasks[i])
         self:addInterrupt(interrupts[i])
     end
+    self:reset()
     return self
 end
 
@@ -51,7 +50,6 @@ function Schedule:isDone(conditions)
             if self.interrupts[cond] then
                 dp(" interrupted by condition:", cond )
                 return true
-            else
             end
         end
     end
