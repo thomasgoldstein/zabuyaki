@@ -51,8 +51,6 @@ function AI:onMoveThenDashAttack(dt)
             u.b.setAttack( true )
             return true
         end
-        u.old_x = u.x
-        u.old_y = u.y
     end
     return false
 end

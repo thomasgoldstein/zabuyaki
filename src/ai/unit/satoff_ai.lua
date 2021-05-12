@@ -39,8 +39,6 @@ function eAI:onMoveThenDashAttack()
         else
             u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
         end
-        u.old_x = u.x
-        u.old_y = u.y
     end
     return false
 end

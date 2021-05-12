@@ -511,8 +511,6 @@ function AI:initWalkToDistance(distanceMin, distanceMax, toFrontOrBack)
     else
         angle = math.pi + love.math.random() * maxShiftAngle - maxShiftAngle / 2
     end
-    u.old_x = 0
-    u.old_y = 0
     u.speed_x = u.walkSpeed_x
     u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, angle, love.math.random(distanceMin, distanceMax))
     u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
@@ -626,8 +624,6 @@ function AI:initWalkAround()
     end
     u.chaseAngleStep = (math.pi / 9) * ( love.math.random() <= 0.5 and 1 or -1 )
     u.chaseAngleLockTime = 0
-    u.old_x = 0
-    u.old_y = 0
     u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
     u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
     assert(not u.isDisabled and u.hp > 0)
@@ -639,8 +635,7 @@ function AI:onWalkAround(dt)
     --    dp("AI:onWalkAround() ".. u.name)
     local attackRange = self:getShortAttackRange(u, u.target)
     local v, h
-    if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
-        --print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)
+    if self.conditions.stuck and u.chaseAngleLockTime > 0.2 then
         u.b.setHorizontalAndVertical( 0, 0 )
         u.b.reset()
         return true
@@ -653,7 +648,6 @@ function AI:onWalkAround(dt)
         u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
         h, v = signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 )
         u.chaseAngleLockTime = 0
-        --print(getDebugFrame(),v,h,u.x,u.old_x,u.y,u.old_y, u.target.x, u.target.y)
     end
     u.b.setHorizontalAndVertical( h, v )
     u.b.setStrafe( true )
@@ -667,11 +661,8 @@ function AI:onWalkAround(dt)
     u.chaseTime = u.chaseTime - dt
     u.chaseAngleLockTime = u.chaseAngleLockTime + dt
     u.chaseRadius = u.chaseRadius - dt
-    u.old_x = u.x
-    u.old_y = u.y
     if u.chaseTime < 0 or u.chaseRadius < attackRange then
         u.b.reset()
-        --print(getDebugFrame(), "end TIME or < RADIUS", u.chaseAngle)
         return true
     end
     return false
@@ -743,8 +734,6 @@ function AI:onKeepDistance(dt)
     if h ~= 0 or v ~= 0 then
         self:initFaceToPlayer()
     end
-    u.old_x = u.x
-    u.old_y = u.y
     return false
 end
 
@@ -800,8 +789,6 @@ function AI:initGetToBack()
         end
     end
     u.chaseAngleLockTime = 0
-    u.old_x = 0
-    u.old_y = 0
     u.ttx, u.tty = getPosByAngleR( u.target.x, u.target.y, u.chaseAngle, u.chaseRadius)
     u.tty = stage:clampWalkableAreaY( u.ttx, u.tty )
     assert(not u.isDisabled and u.hp > 0)
@@ -815,7 +802,7 @@ function AI:onGetToBack(dt)
     --    dp("AI:onGetToBack() ".. u.name)
     local attackRange = self:getShortAttackRange(u, u.target) - horizontalToleranceGap
     local v, h
-    if u.x == u.old_x and u.y == u.old_y and u.chaseAngleLockTime > 0.2 then
+    if self.conditions.stuck and u.chaseAngleLockTime > 0.2 then
         --print(getDebugFrame(), "step STOP STUCK", u.chaseAngle)
         u.b.setHorizontalAndVertical( 0, 0 )
         u.b.reset()
@@ -846,11 +833,8 @@ function AI:onGetToBack(dt)
     u.chaseTime = u.chaseTime - dt
     u.chaseAngleLockTime = u.chaseAngleLockTime + dt
     u.chaseRadius = u.chaseRadius - dt
-    u.old_x = u.x
-    u.old_y = u.y
     if u.chaseTime < 0 or u.chaseRadius < attackRange then
         u.b.reset()
-        --print(getDebugFrame(), "end TIME or < RADIUS", u.chaseAngle)
         return true
     end
     return false
@@ -865,7 +849,7 @@ function AI:onMove(dt)
     end
     if u.move
         or u.moveTime > onMoveMaxWalkingTimeToAbort
-        or (u.old_x == u.x and u.old_y == u.y and u.moveTime > onMoveMaxDelayToAbort)
+        or (self.conditions.stuck and u.moveTime > onMoveMaxDelayToAbort)
     then
         if u.move then
             u.move:update(0)
@@ -879,8 +863,6 @@ function AI:onMove(dt)
     else
         u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
     end
-    u.old_x = u.x
-    u.old_y = u.y
     return false
 end
 
@@ -898,8 +880,6 @@ function AI:onMoveThenNoReset()
         else
             u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
         end
-        u.old_x = u.x
-        u.old_y = u.y
     end
     return false
 end
@@ -916,7 +896,7 @@ function AI:onMoveUntilGrab(dt)
         or u.state == "grab"
         or u.target.isDisabled
         or u.target.isGrabbed
-        or (u.old_x == u.x and u.old_y == u.y and u.moveTime > onMoveMaxDelayToAbort)
+        or (self.conditions.stuck and u.moveTime > onMoveMaxDelayToAbort)
     then
         if u.moveTime > onMoveMaxWalkingTimeToAbort then
             self:abort()
@@ -932,8 +912,6 @@ function AI:onMoveUntilGrab(dt)
     else
         u.b.setHorizontalAndVertical( signDeadzone( u.ttx - u.x, 4 ), signDeadzone( u.tty - u.y, 2 ) )
     end
-    u.old_x = u.x
-    u.old_y = u.y
     return false
 end
 
