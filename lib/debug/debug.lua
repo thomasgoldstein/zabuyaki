@@ -340,16 +340,29 @@ function drawDebugUnitConditions(a, conditions)
     love.graphics.setFont(gfx.font.debug)
     if a.AI.currentSchedule then
         local scheduleNameAndTaskN = a.AI.currentSchedule.name .. " " .. a.AI.currentSchedule.currentTask .. "/" .. #a.AI.currentSchedule.tasks
-        colors:set("white")
+        colors:set("black")
         love.graphics.print( scheduleNameAndTaskN, r(a.x - 40 - 1), r(a.y - a.z - z))
         love.graphics.print( scheduleNameAndTaskN, r(a.x - 40 + 1), r(a.y - a.z - z))
         colors:set("red")
         love.graphics.print( scheduleNameAndTaskN, r(a.x - 40), r(a.y - a.z - z))
     end
     colors:set("yellow")
-    for k,v in pairs(conditions) do
+    local t = ""
+    for k, _ in pairs(conditions) do
+        if #t > 16 then
+            z = z + 6
+            love.graphics.print( t, r(a.x - 40), r(a.y - a.z - z))
+            t = ""
+        elseif #k > 12 then
+            z = z + 6
+            love.graphics.print( k, r(a.x - 40), r(a.y - a.z - z))
+        else
+            t = k .. " | " .. t
+        end
+    end
+    if #t > 0 then
         z = z + 6
-        love.graphics.print( k, r(a.x - 40), r(a.y - a.z - z))
+        love.graphics.print( t, r(a.x - 40), r(a.y - a.z - z))
     end
 end
 
