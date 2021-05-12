@@ -1,6 +1,7 @@
 local AI = AI
 
 local dist = dist
+local stuckAt = 5 -- # of iterations on the same place
 
 function AI:getConditions()
     local u = self.unit
@@ -18,6 +19,16 @@ function AI:getConditions()
             conditions["noPlayers"] = true
         end
         conditions = self:getVisualConditions(conditions)
+    end
+    if math.abs(self.old_x - u.x) < 0.1 and math.abs(self.old_y - u.y) < 0.1 then
+        self.stuckCounter = self.stuckCounter + 1
+        if self.stuckCounter > stuckAt then
+            conditions["stuck"] = true
+        end
+    else
+        self.old_x = u.x
+        self.old_y = u.y
+        self.stuckCounter = 0 -- did not move for 0 seconds
     end
     return conditions
 end

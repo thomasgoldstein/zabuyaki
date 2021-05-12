@@ -21,6 +21,9 @@ function AI:initialize(unit, settings)
     self.reactLongDistanceMin = settings.reactLongDistanceMin or 70
     self.reactLongDistanceMax = settings.reactLongDistanceMax or 150  -- should be more?
 
+    self.stuckCounter = 0
+    self.old_x = 0
+    self.old_y = 0
     self.waitingCounter = 0
     self.waitChance = settings.waitChance or 0.2 -- 1 == 100%, 0 == 0%
     self.waitShortMin = settings.waitShortMin or 0.5 -- minimal delay for SCHEDULE_WAIT_SHORT
