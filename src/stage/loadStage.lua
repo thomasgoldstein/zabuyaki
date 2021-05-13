@@ -382,10 +382,10 @@ function loadStageData(stage, mapFile, players)
     loadImageLayer(d, "background", stage.background)
     stage.foreground:setSize(stage.worldWidth, stage.worldHeight)
     loadImageLayer(d, "foreground", stage.foreground)
-    stage.wave = loadWave(d, stage)
     stage.bottomLine = loadBottomLine(d)
     loadCollisionLayer(d, stage)
     addPlayersToStage(d, players, stage)
+    stage.wave = loadWave(d, stage) -- should be called after addPlayersToStage to have proper IDs
     doInstantPlayersSelect() -- if debug, you can select char on start
-    loadGlobalUnits(d, stage, stageImageUnits)
+    loadGlobalUnits(d, stage, stageImageUnits) -- should be called after loadWave to have proper IDs
 end
