@@ -1,6 +1,6 @@
 --[[
     Zabuyaki https://www.zabuyaki.com/
-    Copyright (c) 2016-2020 SineDie
+    Copyright (c) 2016-2021 SineDie
     Released under the CC BY-NC 4.0: https://creativecommons.org/licenses/by-nc/4.0/
 ]]
 
