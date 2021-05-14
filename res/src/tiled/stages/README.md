@@ -46,7 +46,7 @@ Only the first "bottomLine" object layer, and the 1st polyline object will be us
 
 Select "Polyline" drawing tool and draw the line with some segments.
 This polyline sets the bottom of the center of the camera view window (320x240 pixels).
-The polyline should be longer than the width of the stage. It should overlap the starting players positions. Check if players start off the screen from x = -36, etc.
+The polyline should be longer than the width of the stage. It should overlap the starting players positions. Check if players start off the screen from x = -36. This line should overlap any Exit points that may be set off the stage.
 
 Horizontal parts of the polyline fix vertical camera position. Descending and ascending parts make
 the camera follow the path. In short the center of the bottom line of the camera view intersects with the bottomLine.

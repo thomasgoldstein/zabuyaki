@@ -201,7 +201,7 @@ function Stage:getScrollingY(x)
             return (cx * ty) / tx + c.start_y
         end
     end
-    error("Tiled: Object polyline of layer 'bottomLine' should cover all the stage horizontally from x = startingPlayersPos (e.g. -50) to x = widthOfTheStage.")
+    error("Tiled: Object polyline of layer 'bottomLine' should cover all the stage horizontally from x = startingPlayersPos (e.g. -50) to x = widthOfTheStage or farther to the point of the Exit off the screen.")
 end
 
 function Stage:setCamera(dt)
