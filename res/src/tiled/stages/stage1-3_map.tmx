@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="108" height="25" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#005500" nextlayerid="21" nextobjectid="577">
+<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="108" height="25" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#005500" nextlayerid="21" nextobjectid="577">
  <editorsettings>
   <export target="../../../../src/def/stage/stage1-3_map.lua" format="lua"/>
  </editorsettings>
@@ -650,7 +650,7 @@
  </group>
  <objectgroup color="#aa0000" id="18" name="bottomLine">
   <object id="570" x="-128" y="240">
-   <polyline points="0,0 412.444,0 756.148,160 1856,160"/>
+   <polyline points="0,0 412.444,0 756.148,160 1888,160"/>
   </object>
  </objectgroup>
  <objectgroup color="#00aaff" id="19" name="players" locked="1">

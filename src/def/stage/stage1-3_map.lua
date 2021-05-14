@@ -1,7 +1,7 @@
 return {
   version = "1.5",
   luaversion = "5.1",
-  tiledversion = "1.5.0",
+  tiledversion = "1.6.0",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 108,
@@ -7706,7 +7706,7 @@ return {
             { x = 0, y = 0 },
             { x = 412.444, y = 0 },
             { x = 756.148, y = 160 },
-            { x = 1856, y = 160 }
+            { x = 1888, y = 160 }
           },
           properties = {}
         }
