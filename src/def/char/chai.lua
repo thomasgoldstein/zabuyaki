@@ -713,34 +713,34 @@ return {
             }
         },
         hurtHighWeak = {
-            { q = q(52,335,50,64), ox = 32, oy = 63, delay = f(13) }, --hurt high 1
+            { q = q(52,335,50,64), ox = 32, oy = 63, delay = f(12) }, --hurt high 1
             { q = q(2,335,48,64), ox = 29, oy = 63 }, --hurt high 2
-            delay = f(3)
+            delay = f(2)
         },
         hurtHighMedium = {
-            { q = q(52,335,50,64), ox = 32, oy = 63, delay = f(21) }, --hurt high 1
+            { q = q(52,335,50,64), ox = 32, oy = 63, delay = f(18) }, --hurt high 1
             { q = q(2,335,48,64), ox = 29, oy = 63 }, --hurt high 2
             delay = f(3)
         },
         hurtHighStrong = {
-            { q = q(52,335,50,64), ox = 32, oy = 63, delay = f(29) }, --hurt high 1
+            { q = q(52,335,50,64), ox = 32, oy = 63, delay = f(24) }, --hurt high 1
             { q = q(2,335,48,64), ox = 29, oy = 63 }, --hurt high 2
-            delay = f(3)
+            delay = f(4)
         },
         hurtLowWeak = {
-            { q = q(148,338,42,61), ox = 22, oy = 60, delay = f(13) }, --hurt low 1
+            { q = q(148,338,42,61), ox = 22, oy = 60, delay = f(12) }, --hurt low 1
             { q = q(104,336,42,63), ox = 22, oy = 62 }, --hurt low 2
-            delay = f(3)
+            delay = f(2)
         },
         hurtLowMedium = {
-            { q = q(148,338,42,61), ox = 22, oy = 60, delay = f(21) }, --hurt low 1
+            { q = q(148,338,42,61), ox = 22, oy = 60, delay = f(18) }, --hurt low 1
             { q = q(104,336,42,63), ox = 22, oy = 62 }, --hurt low 2
             delay = f(3)
         },
         hurtLowStrong = {
-            { q = q(148,338,42,61), ox = 22, oy = 60, delay = f(29) }, --hurt low 1
+            { q = q(148,338,42,61), ox = 22, oy = 60, delay = f(24) }, --hurt low 1
             { q = q(104,336,42,63), ox = 22, oy = 62 }, --hurt low 2
-            delay = f(3)
+            delay = f(4)
         },
         fall = {
 			{ q = q(155,402,60,60), ox = 33, oy = 59, delay = f(20) }, --fall 1
