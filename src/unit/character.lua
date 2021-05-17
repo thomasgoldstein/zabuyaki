@@ -1028,7 +1028,7 @@ function Character:hurtUpdate(dt)
     if self.sprite.curAnim == "stand" then
         self.canActTimer = self.canActTimer - dt
     end
-    if self.canActTimer <= 0 then -- on canActTimer over after the animation end
+    if self.canActTimer < 0 then -- on canActTimer over after the animation end
         if self.hp <= 0 then
             self:setState(self.getUp)
         elseif self.isGrabbed then
