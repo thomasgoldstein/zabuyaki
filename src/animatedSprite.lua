@@ -156,6 +156,11 @@ function getSpriteQuad(spr, frame_n)
     return sc.q
 end
 
+function getSpriteAnimationDuration(spr)
+    local sc = spr.def.animations[spr.curAnim]
+    return sc.duration
+end
+
 function getSpriteFrame(spr, frame_n)
     return spr.def.animations[spr.curAnim][frame_n or spr.curFrame]
 end
