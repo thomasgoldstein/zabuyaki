@@ -55,7 +55,7 @@ end
 
 function Enemy:hurtStart()
     self.isHittable = true
-    self.canActTimer = self.sprite.duration -- delay before starting of the animation
+    self.canActTimer = getSpriteAnimationDuration(self.sprite) -- delay before the animation start
 end
 function Enemy:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
