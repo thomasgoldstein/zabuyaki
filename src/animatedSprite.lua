@@ -78,6 +78,7 @@ function getSpriteInstance (spriteDef)
         curAnim = nil,
         curFrame = 1,
         maxFrame = 1,
+        duration = 0, -- of the whole animation (ignoring the looping). Portraits and _sp animations get 0 duration.
         isThrow = false,
         isFirst = true, -- if the 1st frame
         isLast = false, -- if the last frame
@@ -179,24 +180,25 @@ function initSpriteAnimationDelaysAndHurtBoxes(spr)
     end
     for _, a in pairs(animations) do
         if not a.delay then
-            -- is there default delay for frames of 1 animation?
-            a.delay = spr.def.delay
+            a.delay = spr.def.delay or 0 -- is there default delay for frames of 1 animation or _sp def?
         end
         if not a.hurtBox then
             a.hurtBox = spr.def.hurtBox
             fixHurtBox(a.hurtBox)
         end
+        local duration = 0
         for n = 1, #a do
             local sc = a[n]
             if not sc.delay then
-                -- is there delay for this frame?
-                sc.delay = a.delay
+                sc.delay = a.delay -- is there delay for this frame?
             end
+            duration = duration + sc.delay
             if not sc.hurtBox then
                 sc.hurtBox = a.hurtBox
             end
             fixHurtBox(sc.hurtBox)
         end
+        spr.duration = duration
     end
 end
 
