@@ -1016,9 +1016,15 @@ Character.squat = {name = "squat", start = Character.squatStart, exit = nop, upd
 
 function Character:hurtStart()
     self.isHittable = true
+    self.canActTimer = 0 -- no delay before starting of the animation
 end
 function Character:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
+    self.canActTimer = self.canActTimer - dt
+    if self.canActTimer >= 0 then
+        self.sprite.curFrame = 1 -- show the 1st frame of the animation until canActTimer < 0
+        self.sprite.elapsedTime = 0 -- Reset internal counter to prevent frame change to the 2nd
+    end
     if self.sprite.isFinished then
         if self.hp <= 0 then
             self:setState(self.getUp)
