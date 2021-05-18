@@ -55,11 +55,26 @@ end
 
 function Enemy:hurtStart()
     self.isHittable = true
-    self.canActTimer = self.sprite.duration * 2 -- delay after the end of the animation (to transit from hurt state to stand/grab)
-    print(self.name, self.sprite.duration)
+    self.canActTimer = self.sprite.duration -- delay before starting of the animation
 end
--- using Character.hurtUpdate
-Enemy.hurt = {name = "hurt", start = Enemy.hurtStart, exit = nop, update = Character.hurtUpdate, draw = Character.defaultDraw}
+function Enemy:hurtUpdate(dt)
+    self.comboTimer = self.comboTimer + dt -- freeze comboTimer
+    self.canActTimer = self.canActTimer - dt
+    if self.canActTimer >= 0 then
+        self.sprite.curFrame = 1 -- show the 1st frame of the animation until canActTimer < 0
+        self.sprite.elapsedTime = 0 -- Reset internal counter to prevent frame change to the 2nd
+    end
+    if self.sprite.isFinished then
+        if self.hp <= 0 then
+            self:setState(self.getUp)
+        elseif self.isGrabbed then
+            self:setState(self.grabbedFront)
+        else
+            self:setState(self.stand)
+        end
+    end
+end
+Enemy.hurt = {name = "hurt", start = Enemy.hurtStart, exit = nop, update = Enemy.hurtUpdate, draw = Character.defaultDraw}
 
 function Enemy:onAttacker(h)
     self.AI:onHurtSwitchTarget(h.source)
