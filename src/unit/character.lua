@@ -1016,14 +1016,10 @@ Character.squat = {name = "squat", start = Character.squatStart, exit = nop, upd
 
 function Character:hurtStart()
     self.isHittable = true
-    self.canActTimer = 0
 end
 function Character:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
     if self.sprite.isFinished then
-        self.canActTimer = self.canActTimer - dt
-    end
-    if self.canActTimer < 0 then
         if self.hp <= 0 then
             self:setState(self.getUp)
         elseif self.isGrabbed then
@@ -1031,7 +1027,6 @@ function Character:hurtUpdate(dt)
         else
             self:setState(self.stand)
         end
-        return
     end
 end
 Character.hurt = {name = "hurt", start = Character.hurtStart, exit = nop, update = Character.hurtUpdate, draw = Character.defaultDraw}
