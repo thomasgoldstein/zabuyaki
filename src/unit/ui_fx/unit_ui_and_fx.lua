@@ -41,7 +41,7 @@ function Unit:showHitMarks(dmg, z, offset_x)
     if dmg < 1 then
         return -- e.g. Respawn ShockWave with 0 DMG
     end
-    paHitMark = getItemByDamageLevel(dmg, { PA_IMPACT_SMALL, PA_IMPACT_MEDIUM, PA_IMPACT_BIG }):clone()
+    paHitMark = getItemByDamageLevel(dmg, { PA_IMPACT_WEAK, PA_IMPACT_MEDIUM, PA_IMPACT_STRONG }):clone()
     if isDebug() then
         attackHitBoxes[#attackHitBoxes + 1] = { x = self.x, sx = 0, y = self.y, w = 31, h = 0.1, z = z, collided = true }
     end

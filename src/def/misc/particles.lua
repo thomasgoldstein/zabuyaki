@@ -87,7 +87,7 @@ particles:setEmitterLifetime(0.2)
 particles:setParticleLifetime(0.15)
 particles:setColors(unpack(impactColors))
 particles:setQuads(impactSmallQuad1, impactSmallQuad2, impactSmallQuad3)
-PA_IMPACT_SMALL = particles
+PA_IMPACT_WEAK = particles
 
 particles = love.graphics.newParticleSystem(gfx.particles, 4)
 particles:setOffset(13, 13)
@@ -103,7 +103,7 @@ particles:setEmitterLifetime(0.2)
 particles:setParticleLifetime(0.15)
 particles:setColors(unpack(impactColors))
 particles:setQuads(impactBigQuad1, impactBigQuad2, impactBigQuad3)
-PA_IMPACT_BIG = particles
+PA_IMPACT_STRONG = particles
 
 particles = love.graphics.newParticleSystem(gfx.particles, 4)
 particles:setOffset(10, 11)
