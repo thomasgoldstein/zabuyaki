@@ -53,6 +53,14 @@ function Enemy:canGrab(target)
     return false
 end
 
+function Enemy:hurtStart()
+    self.isHittable = true
+    self.canActTimer = self.sprite.duration * 2 -- delay after the end of the animation (to transit from hurt state to stand/grab)
+    print(self.name, self.sprite.duration)
+end
+-- using Character.hurtUpdate
+Enemy.hurt = {name = "hurt", start = Enemy.hurtStart, exit = nop, update = Character.hurtUpdate, draw = Character.defaultDraw}
+
 function Enemy:onAttacker(h)
     self.AI:onHurtSwitchTarget(h.source)
     Character.onAttacker(self, h)
