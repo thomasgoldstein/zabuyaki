@@ -159,17 +159,6 @@ function getSpriteFrame(spr, frame_n)
     return spr.def.animations[spr.curAnim][frame_n or spr.curFrame]
 end
 
--- calculate the animation delay
-function getSpriteAnimationDelay(spr, anim)
-    assert(spr.def.animations[anim], "There is no "..anim.." animation to calc its delay. ")
-    local delay = 0
-    local a = spr.def.animations[anim]
-    for i = 1, #a do
-        delay = delay + (a[i].delay or a.delay or spr.def.delay)
-    end
-    return delay
-end
-
 -- get the max animations of the same type: combo4 -> 4
 function getMaxSpriteAnimation(spr, anim)
     for i = 1, 10 do
