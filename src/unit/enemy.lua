@@ -9,7 +9,6 @@ function Enemy:initialize(name, sprite, x, y, f, input)
     Character.initialize(self, name, sprite, x, y, f, input)
     self.type = "enemy"
     self.canEnemyFriendlyAttack = true --allow friendly attacks among enemies
-    self.canActAfterHurtDelay = 0.5 -- min delay after which the enemy can attack/move again
     self.isActive = false -- can move, can think
     self.comboTimeout = 2 -- max delay to connect combo hits
     self.whichPlayerAttack = "lone" -- lone random far close weak healthy fast slow

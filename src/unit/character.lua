@@ -34,7 +34,6 @@ function Character:initialize(name, sprite, x, y, f, input)
     self.comboTimeout = 0.37 -- max delay to connect combo hits
     self.comboTimer = 0    -- can continue combo if > 0
     self.comboMobilityDelay = self.comboTimeout - 0.083 -- can move if comboMobilityDelay > comboTimer
-    self.canActAfterHurtDelay = 0 -- min delay after which the character can transit from hurt state to stand/grab
     self.attacksPerAnimation = 0    -- # attacks made during curr animation
     self.grabTimeout = 1.5 -- max delay to keep a unit grabbed
     self.grabReleaseAfter = 0.25 -- seconds if you hold 'back'
@@ -1017,7 +1016,7 @@ Character.squat = {name = "squat", start = Character.squatStart, exit = nop, upd
 
 function Character:hurtStart()
     self.isHittable = true
-    self.canActTimer = self.canActAfterHurtDelay
+    self.canActTimer = 0
 end
 function Character:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
