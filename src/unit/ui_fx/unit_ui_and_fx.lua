@@ -4,6 +4,16 @@ local clamp = clamp
 local round = math.floor
 local CheckCollision = CheckCollision
 
+local function getItemByDamageLevel(dmg, items)
+    if dmg < 9 then
+        return items[1]
+    elseif dmg < 14 then
+        return items[2]
+    else
+        return items[3]
+    end
+end
+
 function Unit:playSfx(sample, volume, pitch)
     sfx.play(self.id, sample, volume, pitch)
 end
@@ -13,13 +23,8 @@ function Unit:playHitSfx(dmg)
     if self.sfx.onHit then
         self:playSfx(self.sfx.onHit, nil, 1 + 0.008 * love.math.random(-1, 1))
         return
-    elseif dmg < 9 then
-        alias = sfx.hitWeak
-    elseif dmg < 14 then
-        alias = sfx.hitMedium
-    else
-        alias = sfx.hitHard
     end
+    alias = getItemByDamageLevel(dmg, { sfx.hitWeak, sfx.hitMedium, sfx.hitHard })
     local s = sfx[alias[love.math.random(1, #alias)]]
     sfx.play("sfx", s)
 end
@@ -35,13 +40,8 @@ function Unit:showHitMarks(dmg, z, offset_x)
     end
     if dmg < 1 then
         return -- e.g. Respawn ShockWave with 0 DMG
-    elseif dmg < 9 then
-        paHitMark = PA_IMPACT_SMALL:clone()
-    elseif dmg < 14 then
-        paHitMark = PA_IMPACT_MEDIUM:clone()
-    else
-        paHitMark = PA_IMPACT_BIG:clone()
     end
+    paHitMark = getItemByDamageLevel(dmg, { PA_IMPACT_SMALL, PA_IMPACT_MEDIUM, PA_IMPACT_BIG }):clone()
     if isDebug() then
         attackHitBoxes[#attackHitBoxes + 1] = { x = self.x, sx = 0, y = self.y, w = 31, h = 0.1, z = z, collided = true }
     end
@@ -112,18 +112,10 @@ function Unit:setSpriteIfNotCurrent(animation)
     return false
 end
 
-local hurtAnimations = {
-    {"hurtLowWeak", "hurtLowMedium", "hurtLowStrong"},
-    {"hurtHighWeak", "hurtHighMedium", "hurtHighStrong"}
-}
 function Unit:setHurtAnimation(dmg, isHigh)
-    if dmg < 9 then
-        self:setSprite(hurtAnimations[isHigh and 2 or 1][1])
-    elseif dmg < 14 then
-        self:setSprite(hurtAnimations[isHigh and 2 or 1][2])
-    else
-        self:setSprite(hurtAnimations[isHigh and 2 or 1][3])
-    end
+    self:setSprite(getItemByDamageLevel(dmg,
+        isHigh and { "hurtHighWeak", "hurtHighMedium", "hurtHighStrong" }
+            or { "hurtLowWeak", "hurtLowMedium", "hurtLowStrong" }))
 end
 
 function Unit:drawSprite(x, y)
