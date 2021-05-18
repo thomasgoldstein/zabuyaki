@@ -1020,15 +1020,10 @@ function Character:hurtStart()
 end
 function Character:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
-    if self.canActTimer >= 0 then -- on canActTimer over after the animation end
-        if self.sprite.isFinished and self.sprite.curAnim ~= "stand" then
-            -- prevents stop on the last frame of hurt anim for enemies
-            self:setSprite("stand")
-        end
-        if self.sprite.curAnim == "stand" then
-            self.canActTimer = self.canActTimer - dt
-        end
-    else
+    if self.sprite.isFinished then
+        self.canActTimer = self.canActTimer - dt
+    end
+    if self.canActTimer < 0 then
         if self.hp <= 0 then
             self:setState(self.getUp)
         elseif self.isGrabbed then
