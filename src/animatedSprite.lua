@@ -198,7 +198,7 @@ function initSpriteAnimationDelaysAndHurtBoxes(spr)
             end
             fixHurtBox(sc.hurtBox)
         end
-        spr.duration = duration
+        a.duration = duration
     end
 end
 
