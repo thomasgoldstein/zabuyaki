@@ -22,7 +22,7 @@ local menuItems = {characters = 1, back = 2}
 local menu = fillMenu(txtItems, nil, menuParams)
 
 local currentSprite, currentShader
-local hero2_n, currentSprite2, currentShader2, hero2 = 1
+local hero2_n, currentSprite2, currentShader2, hero2 = 1, nil, nil, 1
 local heroes = {
     {
         name = "RICK",
