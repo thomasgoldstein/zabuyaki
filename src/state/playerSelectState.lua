@@ -285,7 +285,7 @@ local function drawPID(x, y_, i, confirmed)
         return
     end
     local y = y_ - math.cos(x+time*6)
-    colors:set("playersColors", i, transpBg)
+    colors:set("playersColors", i)
     love.graphics.rectangle( "fill", x - 30, y, 60, 34 )
     love.graphics.polygon( "fill", x, y - 6, x - 4 , y - 0, x + 4, y - 0 ) --arrow up
     colors:set("black")
