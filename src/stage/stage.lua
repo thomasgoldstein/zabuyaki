@@ -104,7 +104,7 @@ end
 function Stage:update(dt)
     if self.mode == "normal" then
         for _ = 1, isDebug() and GLOBAL_SETTING.FRAME_SKIP + 1 or 1 do
-            Weather.generate(self.weather, self.min_x, self.max_x, y1, y2, z1, z2)
+            Weather.generate(self.weather)
             Weather.update(dt)
             self.center_x, self.playerGroupDistance, self.min_x, self.max_x = getDistanceBetweenPlayers()
             if self.wave then
@@ -123,7 +123,7 @@ function Stage:update(dt)
             self.time = self.time + dt
         end
     elseif self.mode == "event" then
-        Weather.generate(self.weather, self.min_x, self.max_x, y1, y2, z1, z2)
+        Weather.generate(self.weather)
         Weather.update(dt)
         if self.event then
             self.event:update(dt)
