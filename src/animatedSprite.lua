@@ -94,7 +94,6 @@ function getSpriteInstance (spriteDef)
         isPlatform = spriteBank[spriteDef].isPlatform or false,
         funcCalledOnFrame = -1,
         funcContCalledOnFrame = -1,
-        comboEnd = false
     }
     calculateSpriteAnimation(s)
     return s
