@@ -9,7 +9,7 @@ function stageImage:initialize(name, image)
     self.width = image.w or 10
     self.height = image.h or 10
     self.depth = 1
-    Unit.initialize(self, name, nil, image.x + image.w / 2 or 0, image.y + image.h or 0, image)
+    Unit.initialize(self, name, nil, image.x + image.w / 2, image.y + image.h, image)
     self.width = image.w or 10 -- because Unit.initialize changes real width
     self.name = name or "Unknown Image"
     self.type = "stageImage"
