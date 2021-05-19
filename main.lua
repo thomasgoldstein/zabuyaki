@@ -87,8 +87,9 @@ function love.load(arg, unfilteredArg)
     sfx = require "src/def/misc/preload_sfx"
     gfx = require "src/def/misc/preload_gfx"
     -- start of the debug section
+    if arg[#arg] == "vsc_debug" then require("lldebugger").start() end
     if (contains(arg, "-debug")) then
-        require("mobdebug").start() -- used to init debugging for ZeroBrane Studio only
+       require("mobdebug").start() -- used to init debugging for ZeroBrane Studio only
     end
     require "lib.debug.debug"
     -- end of the debug section
