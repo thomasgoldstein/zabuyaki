@@ -2,7 +2,7 @@
     animatedSprite.lua
 
     Copyright Dejaime Antonio de Oliveira Neto, 2014
-    Mikhail Bratus, 2020
+    Mikhail Bratus, 2016-2021
 
     Released under the MIT license.
     Visit for more information:
