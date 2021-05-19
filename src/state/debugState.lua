@@ -13,8 +13,6 @@ local menuParams = {
     leftItemOffset = 6,
     topItemOffset = 6,
     titleOffset_y = 14,
-    leftItemOffset = 6,
-    topItemOffset = 6,
     itemWidthMargin = 12,
     itemHeightMargin = 10
 }
