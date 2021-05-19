@@ -125,7 +125,7 @@ function Character:drawTextInfo(l, t, transpBg)
     colors:set("white", nil, transpBg)
     printWithShadow(self.name, l + self.shake.x + iconWidth + 2, t + 9,
         transpBg)
-    self:drawScore(l, t)
+    self:drawScore(l, t, transpBg)
     if self:drawLivesLeftNumber() then
         colors:set("white", nil, transpBg)
         printWithShadow("x", l + self.shake.x + iconWidth + 91, t + 9,

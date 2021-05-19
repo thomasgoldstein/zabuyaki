@@ -41,7 +41,7 @@ end
 local printWithShadow = printWithShadow
 local calcBarTransparency = calcBarTransparency
 
-function Player:drawScore(l, t)
+function Player:drawScore(l, t, transpBg)
     colors:set("playersColors", self.id, transpBg)
     printWithShadow(self.pid, l + self.shake.x + iconWidth + 2, t - 1,
         transpBg)
