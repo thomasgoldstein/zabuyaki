@@ -17,7 +17,9 @@ local TICK_RATE = 1 / 100
 
 -- How many Frames are allowed to be skipped at once due to lag (no "spiral of death")
 local MAX_FRAME_SKIP = 25
-
+if arg[#arg] == "vsc_debug" then
+    MAX_FRAME_SKIP = 1  -- improve frame rate if debugging
+end
 -- No configurable framerate cap currently, either max frames CPU can handle (up to 1000), or vsync'd if conf.lua
 
 function love.run()
