@@ -123,8 +123,7 @@ function getDebugFrame()
 end
 local fonts = { gfx.font.arcade3, gfx.font.arcade3x2, gfx.font.arcade3x3 }
 function showDebugIndicator(size, _x, _y)
-    -- local x, y = _x or 2, _y or (480 - 9 * 4)
-    local x, y = _x, _y
+    local x, y = _x or 2, _y or (480 - 9 * 4)
     if isDebug(SHOW_DEBUG_FPS_CONTROLS) then
         colors:set("white")
         love.graphics.setFont(fonts[size or 1])
