@@ -67,7 +67,6 @@ end
 
 function complexCheckLinearCollision(y1,h1, y2,h2)
     local biggerMin, smallerMax
---    print(y1,"-", y1 + h1, "...", y2,"-",y2+h2)
     if y1 >= y2 then
         biggerMin = y1
     else
