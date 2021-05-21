@@ -15,7 +15,7 @@ end
 function test(title, ...)
     local a = {... }
     ps("Begin test of "..title )
-    res = true
+    local res = true
     for i,v in ipairs(a) do
         res = res and v()
     end
