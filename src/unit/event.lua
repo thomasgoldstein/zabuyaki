@@ -160,7 +160,7 @@ function Event:startEvent(startByPlayer)
     self.applyToPlayers = {}
     dp("startEvent "..self.name)
     local isDone = false
-    if startByPlayer and self.properties.move == "player" and not player:isInUseCreditMode() then
+    if startByPlayer and self.properties.move == "player" and not startByPlayer:isInUseCreditMode() then
         self.applyToPlayers[#self.applyToPlayers + 1] = startByPlayer
         dp(" added player to the event que ", startByPlayer.name)
         isDone = true
