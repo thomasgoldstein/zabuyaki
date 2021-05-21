@@ -283,7 +283,7 @@ function Unit:drawShadow(l, t, w, h)
         local image, spr, sc, shadowAngle, y_shift = self:calcShadowSpriteAndTransparency()
         love.graphics.draw(image, --The image
             sc.q, --Current frame of the current animation
-            round(self.x + self.shake.x), round(self.y + self.z * stage.shadowHeight + y_shift or 0),
+            round(self.x + self.shake.x), round(self.y + self.z * stage.shadowHeight + y_shift),
             0,
             spr.flipH,
             -stage.shadowHeight,
@@ -297,7 +297,7 @@ function Unit:drawReflection(l, t, w, h)
         local image, spr, sc, shadowAngle, y_shift = self:calcReflectionSpriteAndTransparency()
         love.graphics.draw(image, --The image
             sc.q, --Current frame of the current animation
-            round(self.x + self.shake.x), round(self.y + self.z + y_shift or 0),
+            round(self.x + self.shake.x), round(self.y + self.z + y_shift),
             0,
             spr.flipH,
             -stage.reflectionsHeight,
