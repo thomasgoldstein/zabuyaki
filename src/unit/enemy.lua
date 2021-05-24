@@ -55,6 +55,8 @@ end
 
 function Enemy:hurtStart()
     self.isHittable = true
+    self:showHitMarks(self.condition, self.condition2) --args: h.damage, h.z
+    self:setHurtAnimation(self.condition, self.condition2 > 25)
     self.canActTimer = getSpriteAnimationDuration(self.sprite) -- delay before the animation start
 end
 -- reuse Character.hurtUpdate

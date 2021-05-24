@@ -387,9 +387,7 @@ function Character:afterOnHurt()
     if h.type == "hit" then
         self.horizontal = h.horizontal
         if self.hp > 0 and self.z <= self:getRelativeZ() then
-            self:setState(self.hurt)
-            self:showHitMarks(h.damage, h.z)
-            self:setHurtAnimation(h.damage, h.z > 25)
+            self:setState(self.hurt, h.damage, h.z)
             if self.isMovable then
                 if h.repel_x == 0 then
                     if self:isInstanceOf(StageObject) then
@@ -1016,6 +1014,8 @@ Character.squat = {name = "squat", start = Character.squatStart, exit = nop, upd
 
 function Character:hurtStart()
     self.isHittable = true
+    self:showHitMarks(self.condition, self.condition2) --args: h.damage, h.z
+    self:setHurtAnimation(self.condition, self.condition2 > 25)
     self.canActTimer = 0 -- no delay before starting of the animation
 end
 function Character:hurtUpdate(dt)
