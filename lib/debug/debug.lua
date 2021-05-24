@@ -378,7 +378,11 @@ function drawDebugUnitInfo(a)
                 drawDebugControls(a, a.x - 32, a.y - a:getHurtBoxHeight() - 20 - a.z)
             end
         end
-        love.graphics.print( a.state, r(a.x - 14), r(a.y - a.z))
+        if a.debugText then
+            love.graphics.print( a.state .. " " .. a.debugText, r(a.x - 14), r(a.y - a.z))
+        else
+            love.graphics.print( a.state, r(a.x - 14), r(a.y - a.z))
+        end
         love.graphics.print( ""..r(a.x).." "..r(a.y).." "..r(a.z), r(a.x - 22), r(a.y + 7 - a.z))
         local yShift1 = 0
         colors:set("yellow", nil, 120)
