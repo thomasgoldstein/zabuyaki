@@ -15,6 +15,7 @@ function Enemy:initialize(name, sprite, x, y, f, input)
     self.instantWakeRange = 100 -- make enemy instantly active if distance to player is less
     self.delayedWakeDelay = 3
     self.delayedWakeRange = 150 -- make enemy active if the delayedWakeDelay is over and the distance to player is less
+    self.canActTimerMultiplier = 0.75
 end
 
 function Enemy:updateAI(dt)
@@ -57,7 +58,7 @@ function Enemy:hurtStart()
     self.isHittable = true
     self:showHitMarks(self.condition, self.condition2) --args: h.damage, h.z
     self:setHurtAnimation(self.condition, self.condition2 > 25)
-    self.canActTimer = getSpriteAnimationDuration(self.sprite) -- delay before the animation start
+    self.canActTimer = getSpriteAnimationDuration(self.sprite) * self.canActTimerMultiplier -- delay before the animation starts
 end
 -- reuse Character.hurtUpdate
 Enemy.hurt = {name = "hurt", start = Enemy.hurtStart, exit = nop, update = Character.hurtUpdate, draw = Character.defaultDraw}
