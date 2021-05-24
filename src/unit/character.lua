@@ -1016,13 +1016,13 @@ function Character:hurtStart()
     self.isHittable = true
     self:showHitMarks(self.condition, self.condition2) --args: h.damage, h.z
     self:setHurtAnimation(self.condition, self.condition2 > 25)
-    self.canActTimer = 0 -- no delay before starting of the animation
+    self.extraHurtStunTimer = 0 -- no delay before starting of the animation
 end
 function Character:hurtUpdate(dt)
     self.comboTimer = self.comboTimer + dt -- freeze comboTimer
-    self.canActTimer = self.canActTimer - dt
-    if self.canActTimer >= 0 then
-        self.sprite.curFrame = 1 -- show the 1st frame of the animation until canActTimer < 0
+    self.extraHurtStunTimer = self.extraHurtStunTimer - dt
+    if self.extraHurtStunTimer >= 0 then
+        self.sprite.curFrame = 1 -- show the 1st frame of the animation until extraHurtStunTimer < 0
         self.sprite.elapsedTime = 0 -- Reset internal counter to prevent frame change to the 2nd
     end
     if self.sprite.isFinished then
