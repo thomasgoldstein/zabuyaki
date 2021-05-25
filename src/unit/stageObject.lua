@@ -152,6 +152,7 @@ StageObject.getUp = {name = "getUp", start = StageObject.getUpStart, exit = nop,
 
 function StageObject:hurtStart()
     self.isHittable = true
+    self:showHitMarks(self.condition, self.condition2) --args: h.damage, h.z
 end
 function StageObject:hurtUpdate(dt)
     if self.speed_x <= 0 then
