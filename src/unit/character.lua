@@ -8,7 +8,7 @@ Character.statesForCharging = { stand = true, walk = true, chargeWalk = true, sq
 Character.statesForChargeAttack = { stand = true, walk = true, chargeWalk = true, jump = true, chargeDash = true }
 Character.statesForDashAttack = { stand = true, walk = true, chargeWalk = true, run = true, combo = true }
 Character.statesForSpecialDefensive = { stand = true, combo = true, squat = true, walk = true, chargeWalk = true, hurt = true, chargeDash = true, grabFrontAttack = true, grab = true }
-Character.statesForSpecialOffensive = { stand = true, combo = true, squat = true, walk = true, chargeWalk = true, grabFrontAttack = true, grab = true }
+Character.statesForSpecialOffensive = { stand = true, combo = true, squat = true, walk = true, chargeWalk = true, hurt = true, grabFrontAttack = true, grab = true }
 Character.statesForSpecialDash = { stand = true, walk = true, chargeWalk = true, run = true, squat = true, dashAttack = true }
 Character.statesForSpecialToleranceDelay = { squat = true, dashAttack = true }
 
