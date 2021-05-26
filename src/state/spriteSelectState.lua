@@ -204,6 +204,14 @@ function spriteSelectState:draw()
     push:finish()
 end
 
+local function setHero2()   -- init aux hero to show as the grabbed unit
+    hero2 = heroes[hero2_n]
+    currentSprite2 = getSpriteInstance(hero2.spriteInstance)
+    currentSprite2.sizeScale = 2
+    currentShader2 = hero2.shaders[1]
+    setSpriteAnimation(currentSprite2, spriteHasAnimation(currentSprite2, "walk") and "walk" or "stand")    
+end
+
 function spriteSelectState:confirm(button)
     if (button == 1 and menuState == #menu) or button == 2 then
         sfx.play("sfx","menuCancel")
@@ -212,7 +220,8 @@ function spriteSelectState:confirm(button)
     if button == 1 then
         if menuState == menuItems.characters then
             sfx.play("sfx","menuSelect")
-            return Gamestate.push(spriteViewerState, heroes[menu[menuState].n], hero2 or heroes[menu[menuState].n], currentSprite2 and currentSprite2.flipH or 1 )
+            setHero2()
+            return Gamestate.push(spriteViewerState, heroes[menu[menuItems.characters].n], hero2, currentSprite2 and currentSprite2.flipH or 1 )
         end
     end
 end
@@ -220,11 +229,7 @@ end
 function spriteSelectState:showCurrentSprite()
     if menuState == menuItems.characters then
         if love.keyboard.isScancodeDown( "lctrl", "rctrl" ) then
-            hero2 = heroes[hero2_n]
-            currentSprite2 = getSpriteInstance(hero2.spriteInstance)
-            currentSprite2.sizeScale = 2
-            currentShader2 = hero2.shaders[1]
-            setSpriteAnimation(currentSprite2, spriteHasAnimation(currentSprite2, "walk") and "walk" or "stand")
+            setHero2()
         else
             currentSprite = getSpriteInstance(heroes[menu[menuState].n].spriteInstance)
             currentSprite.sizeScale = 2
