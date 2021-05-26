@@ -35,7 +35,7 @@ GLOBAL_SETTING = {
     SHADOW_OPACITY = 0.4 * 255, -- 0..1 TODO remove 255 colors logic at LOVE 11.x
     REFLECTIONS_OPACITY = 0.2, -- 0..1
     AUTO_COMBO = false,
-    DIFFICULTY = 1, -- 1 = Normal, 2 = Hard
+    DIFFICULTY = 2, -- 1 = Easy, 2 = Normal, 3 = Hard
     MAX_CREDITS = 3,
     MAX_LIVES = 3,
     TIMER = 99, -- seconds to pass a stage

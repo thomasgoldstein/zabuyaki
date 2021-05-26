@@ -19,6 +19,7 @@ local menuParams = {
 local menuTitle = love.graphics.newText( gfx.font.kimberley, "OPTIONS" )
 local txtItems = {"DIFFICULTY", "VIDEO", "SOUND", "DEFAULTS", "SPRITE VIEWER", "BACK", "UNIT TESTS"}
 local menuItems = {difficulty = 1, video = 2, sound = 3, defaults = 4, spriteViewer = 5, back = 6, unitTests = 7}
+local txtDifficultyItems = {"EASY", "NORMAL", "HARD"}
 if not love.filesystem.getInfo( 'test', "directory" ) then
     table.remove(txtItems, menuItems.unitTests)
 end
@@ -76,11 +77,7 @@ function optionsState:draw()
     for i = 1,#menu do
         local m = menu[i]
         if i == menuItems.difficulty  then
-            if GLOBAL_SETTING.DIFFICULTY == 1 then
-                m.item = "DIFFICULTY NORMAL"
-            else
-                m.item = "DIFFICULTY HARD"
-            end
+            m.item = "DIFFICULTY " .. (txtDifficultyItems[GLOBAL_SETTING.DIFFICULTY] or "?")
             m.hint = ""
         end
         drawMenuItem(menu, i, oldMenuState)
@@ -91,14 +88,10 @@ function optionsState:draw()
 end
 
 function optionsState:confirm(button)
-    if button == 1 then
+    if button ~= 2 then
         if menuState == menuItems.difficulty then
             sfx.play("sfx","menuSelect")
-            if GLOBAL_SETTING.DIFFICULTY == 1 then
-                configuration:set("DIFFICULTY", 2)
-            else
-                configuration:set("DIFFICULTY", 1)
-            end
+            configuration:set("DIFFICULTY", clamp(GLOBAL_SETTING.DIFFICULTY + button, 1, #txtDifficultyItems))
         elseif menuState == menuItems.video then
             sfx.play("sfx","menuSelect")
             return Gamestate.push(videoModeState)
@@ -137,6 +130,6 @@ end
 function optionsState:select(i)
     menu[menuState].n = menu[menuState].n + i
     if menuState == menuItems.difficulty then
-        return self:confirm( 1)
+        return self:confirm(i) -- pass the direction -1 or 1
     end
 end
