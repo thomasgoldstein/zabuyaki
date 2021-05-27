@@ -113,7 +113,7 @@ function push:finish(shader)
     love.graphics.setCanvas()
 
     love.graphics.translate(self._OFFSET.x, self._OFFSET.y)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(love.math.colorFromBytes(255, 255, 255))
     love.graphics.setShader(shader or self._shader)
     love.graphics.draw(self.canvas, 0, 0, 0, self._SCALE.x, self._SCALE.y)
     love.graphics.setCanvas(self.canvas)
