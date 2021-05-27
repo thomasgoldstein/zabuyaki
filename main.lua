@@ -6,6 +6,7 @@
 
 display = require "src/display"
 configuration = require "src/configuration"
+require "src/commonFunction"
 configuration:load()
 -- global vars
 stage = nil
@@ -79,7 +80,6 @@ function love.load(arg, unfilteredArg)
     tween = require "lib/tween"
     gamera = require "lib/gamera"
     Camera = require "src/stage/camera"
-    require "src/commonFunction"
     bgm = require "src/def/misc/preload_bgm"
     sfx = require "src/def/misc/preload_sfx"
     gfx = require "src/def/misc/preload_gfx"
