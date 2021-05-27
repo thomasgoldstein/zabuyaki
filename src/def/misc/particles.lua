@@ -27,9 +27,9 @@ local dustQuad = q(2,110,32,32) -- dust cloud
 local triangleSmallQuad = q(71,2,9,8) -- crashing debris 1/2
 local triangleBigQuad = q(71,12,12,11) -- crashing debris 2/2
 
-local dustStepColors = {214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188, 10, 214, 205, 188, 5}
-local impactColors = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55}
-local lootColors = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55, 255, 255, 255, 0}
+local dustStepColors = getColorFromTableOfBytes({214, 205, 188, 150, 214, 205, 188, 100, 214, 205, 188, 10, 214, 205, 188, 5})
+local impactColors = getColorFromTableOfBytes({255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55})
+local lootColors = getColorFromTableOfBytes({255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 55, 255, 255, 255, 0})
 
 local quads ={ triangleSmallQuad = triangleSmallQuad, triangleBigQuad = triangleBigQuad }
 

@@ -12,7 +12,7 @@ function StageObject:showEffect(effect, obj)
         particles = PA_OBSTACLE_BREAK_SMALL:clone()
         particles:setPosition( 0, -obj.z )
         if self.particleColor then
-            particles:setColors( unpack(self.particleColor) )
+            particles:setColors( love.math.colorFromBytes(unpack(self.particleColor)) )
         end
         particles:setLinearAcceleration(sign(-self.face) * 100 , -500, sign(-self.face) * 400, 500) -- Random movement in all directions.
         particles:emit(4)
@@ -22,7 +22,7 @@ function StageObject:showEffect(effect, obj)
         particles = PA_OBSTACLE_BREAK_BIG:clone()
         particles:setPosition( 0, -obj.z )
         if self.particleColor then
-            particles:setColors( unpack(self.particleColor) )
+            particles:setColors( love.math.colorFromBytes(unpack(self.particleColor)) )
         end
         --particles:setEmissionArea( "uniform", 2, 8 )
         particles:setLinearDamping( 0.1, 2 )
