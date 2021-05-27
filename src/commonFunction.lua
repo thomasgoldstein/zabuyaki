@@ -203,9 +203,16 @@ function clearBit(x, p)
 end
 
 function getColorFromTableOfBytes( t )  -- convert RGB colors 0..255 to Alpha (for particles)
-    local result = {}
+    local result = {} -- { 255,255,0,255, ... } -> { 1,1,0,1, ... }
     for i = 1, #t do
         table.insert(result, (t[i] or 255)/255)
     end
     return result
+end
+
+function getTableOfColorFromBytes(t)    -- { { 255,255,0,255 }, {}...} -> { { 1,1,0,1 }, {}...}
+    for i = 1, #t do
+        t[i] = {love.math.colorFromBytes(unpack(t[i]))}
+    end
+    return t
 end
