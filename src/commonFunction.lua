@@ -201,3 +201,11 @@ end
 function clearBit(x, p)
     return hasBit(x, p) and x - p or x
 end
+
+function getColorFromTableOfBytes( t )  -- convert RGB colors 0..255 to Alpha (for particles)
+    local result = {}
+    for i = 1, #t do
+        table.insert(result, (t[i] or 255)/255)
+    end
+    return result
+end
