@@ -57,7 +57,7 @@ end
 local tempColor, tempAlpha
 function Colors:set(name, index, alpha) -- index or alpha might be undefined
     if not name then
-        love.graphics.setColor(255, 100, 100)  -- use red color to mark color errors
+        love.graphics.setColor(love.math.colorFromBytes(255, 100, 100))  -- use red color to mark color errors
         return
     end
     if index then
@@ -69,7 +69,7 @@ function Colors:set(name, index, alpha) -- index or alpha might be undefined
         tempAlpha = tempColor[4]
         tempColor[4] = alpha
     end
-    love.graphics.setColor(unpack(tempColor))
+    love.graphics.setColor(love.math.colorFromBytes(unpack(tempColor)))
     if alpha then
         tempColor[4] = tempAlpha
     end
