@@ -670,12 +670,11 @@ return {
             delay = f(9),
             isThrow = true,
             moves = {
-                --{ },
                 { oz = 1, tAnimation = "thrown12h" },
-                { oz = 4 },
-                { oz = 14, ox = 2, tAnimation = "thrown10h" },
-                { oz = 13, ox = -32, tAnimation = "thrown8h" },
-                { oz = 0, ox = -48, tAnimation = "thrown6h" },
+                { oz = 4, tAnimation = "thrown12h" },
+                { oz = 12, ox = 7, tAnimation = "thrown10h" },
+                { oz = 28, ox = -17, tAnimation = "thrown8h" },
+                { oz = -5, ox = -48, tAnimation = "thrown6h" },
             }
         },
         hurtHighWeak = {
@@ -774,7 +773,7 @@ return {
             delay = math.huge
         },
         thrown6h = {
-            { q = q(144,331,44,62), ox = 18, oy = 61, flipH = -1, flipV = -1 }, --hurt low 1 (flipped horizontally and vertically)
+            { q = q(2,484,69,33), ox = 4, oy = 21, rotate = -1.57 }, --fall 3 (rotated -90°)
             delay = math.huge
         },
     }
