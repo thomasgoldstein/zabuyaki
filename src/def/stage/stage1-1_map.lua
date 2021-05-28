@@ -1,14 +1,14 @@
 return {
   version = "1.5",
   luaversion = "5.1",
-  tiledversion = "1.5.0",
+  tiledversion = "1.6.0",
   orientation = "orthogonal",
   renderorder = "left-up",
   width = 168,
   height = 15,
   tilewidth = 16,
   tileheight = 16,
-  nextlayerid = 38,
+  nextlayerid = 39,
   nextobjectid = 53,
   backgroundcolor = { 105, 105, 105 },
   properties = {
@@ -48,7 +48,7 @@ return {
           type = "imagelayer",
           image = "../../../res/img/stage/stage1/stage1-1/background-city.png",
           id = 8,
-          name = "bg-city",
+          name = "cityLandscape",
           visible = true,
           opacity = 1,
           offsetx = -3,
@@ -60,45 +60,18 @@ return {
           }
         },
         {
-          type = "group",
-          id = 9,
-          name = "bg-building",
-          visible = false,
+          type = "imagelayer",
+          image = "../../../res/img/stage/stage1/stage1-1/trees.png",
+          id = 38,
+          name = "trees",
+          visible = true,
           opacity = 1,
-          offsetx = 0,
-          offsety = 0,
+          offsetx = -3,
+          offsety = -3,
           parallaxx = 1,
           parallaxy = 1,
           properties = {
-            ["relativeX"] = "-0.05"
-          },
-          layers = {
-            {
-              type = "imagelayer",
-              image = "../../../res/img/stage/stage1/stage1-1/background-building-2.png",
-              id = 10,
-              name = "building-2",
-              visible = true,
-              opacity = 1,
-              offsetx = -26,
-              offsety = -80,
-              parallaxx = 1,
-              parallaxy = 1,
-              properties = {}
-            },
-            {
-              type = "imagelayer",
-              image = "../../../res/img/stage/stage1/stage1-1/background-building-1.png",
-              id = 11,
-              name = "building-1",
-              visible = true,
-              opacity = 1,
-              offsetx = -9,
-              offsety = -80,
-              parallaxx = 1,
-              parallaxy = 1,
-              properties = {}
-            }
+            ["relativeX"] = "-0.1"
           }
         },
         {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="168" height="15" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#696969" nextlayerid="38" nextobjectid="53">
+<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="168" height="15" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#696969" nextlayerid="39" nextobjectid="53">
  <editorsettings>
   <export target="../../../../src/def/stage/stage1-1_map.lua" format="lua"/>
  </editorsettings>
@@ -14,23 +14,18 @@
     <property name="relativeX" value="-0.45"/>
    </properties>
   </imagelayer>
-  <imagelayer id="8" name="bg-city" locked="1" offsetx="-3" offsety="-3">
+  <imagelayer id="8" name="cityLandscape" locked="1" offsetx="-3" offsety="-3">
    <image source="../../../img/stage/stage1/stage1-1/background-city.png" width="2694" height="246"/>
    <properties>
     <property name="relativeX" value="-0.25"/>
    </properties>
   </imagelayer>
-  <group id="9" name="bg-building" visible="0" locked="1">
+  <imagelayer id="38" name="trees" offsetx="-3" offsety="-3">
+   <image source="../../../img/stage/stage1/stage1-1/trees.png" width="2694" height="246"/>
    <properties>
-    <property name="relativeX" value="-0.05"/>
+    <property name="relativeX" value="-0.1"/>
    </properties>
-   <imagelayer id="10" name="building-2" locked="1" offsetx="-26" offsety="-80">
-    <image source="../../../img/stage/stage1/stage1-1/background-building-2.png" width="2564" height="324"/>
-   </imagelayer>
-   <imagelayer id="11" name="building-1" offsetx="-9" offsety="-80">
-    <image source="../../../img/stage/stage1/stage1-1/background-building-1.png" width="2564" height="324"/>
-   </imagelayer>
-  </group>
+  </imagelayer>
   <imagelayer id="16" name="main" locked="1" offsetx="-3" offsety="-3">
    <image source="../../../img/stage/stage1/stage1-1/main.png" width="2694" height="246"/>
   </imagelayer>
