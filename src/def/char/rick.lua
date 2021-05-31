@@ -272,7 +272,10 @@ local grabBackAttack = function(slf, cont)
         local target = g.target
         slf:releaseGrabbed()
         target:applyDamage(slf.thrownFallDamage, "simple", slf)
-        target:setState(target.bounce)
+        target:showHitMarks(slf.thrownFallDamage, 6, -12) --big hitmark
+        target:playSfx(sfx.hitWeak1)
+        mainCamera:onShake(0, 2, 0.03, 0.3)
+        target:setState(target.getUp, true) -- true - to follow up with getUp anim
     end
 end
 
@@ -674,7 +677,7 @@ return {
                 { oz = 4, tAnimation = "thrown12h" },
                 { oz = 12, ox = 7, tAnimation = "thrown10h" },
                 { oz = 28, ox = -17, tAnimation = "thrown8h" },
-                { oz = -5, ox = -48, tAnimation = "thrown6h" },
+                { oz = -5, ox = -48, tAnimation = "fallOnHead" },
             }
         },
         hurtHighWeak = {
@@ -736,6 +739,14 @@ return {
         fallenDead = {
             { q = q(73,485,69,32), ox = 39, oy = 31 }, --fallen
             delay = math.huge
+        },
+        fallOnHead = {
+            { q = q(2,484,69,33), ox = 4, oy = 21, rotate = -1.57 }, --fall 3 (rotated -90°)
+            { q = q(144,211,63,49), ox = 4, oy = 27, rotate = -1.57 }, --fall 2 (rotated -90°)
+            { q = q(145,136,56,60), ox = 4, oy = 29, rotate = -1.57 }, --fall 1 (rotated -90°)
+            { q = q(73,485,69,32), ox = 39, oy = 31 }, --fallen
+            { q = q(2,484,69,33), ox = 41, oy = 32 }, --fall 3
+            delay = f(2)
         },
         getUp = {
             { q = q(73,485,69,32), ox = 39, oy = 31, delay = f(24) }, --fallen
