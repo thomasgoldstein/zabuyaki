@@ -744,7 +744,7 @@ return {
             { q = q(2,484,69,33), ox = 4, oy = 21, rotate = -1.57 }, --fall 3 (rotated -90°)
             { q = q(144,211,63,49), ox = 4, oy = 27, rotate = -1.57 }, --fall 2 (rotated -90°)
             { q = q(145,136,56,60), ox = 4, oy = 29, rotate = -1.57 }, --fall 1 (rotated -90°)
-            { q = q(73,485,69,32), ox = 39, oy = 31 }, --fallen
+            { q = q(73,485,69,32), ox = 39, oy = 31, delay = f(4) }, --fallen
             { q = q(2,484,69,33), ox = 41, oy = 32 }, --fall 3
             delay = f(2)
         },

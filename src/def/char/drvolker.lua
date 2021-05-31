@@ -166,6 +166,10 @@ return {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --stand 1
             delay = math.huge
         },
+        fallOnHead = {
+            { q = q(2,2,60,74), ox = 30, oy = 73 }, --stand 1
+            delay = f(2)
+        },
         fallenDead = {
             { q = q(2,2,60,74), ox = 30, oy = 73 }, --stand 1
             delay = math.huge
