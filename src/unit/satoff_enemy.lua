@@ -42,7 +42,7 @@ function Satoff:initAttributes()
     self.myThrownBodyDamage = 10  --DMG (weight) of my thrown body that makes DMG to others
     self.thrownFallDamage = 20  --dmg I suffer on landing from the thrown-fall
     -- default sfx
-    self.sfx.throw = sfx.satoffAttack
+    self.sfx.throw = sfx.satoffRoar2
     self.sfx.jumpAttack = sfx.satoffAttack
     self.sfx.step = sfx.satoffStep
     self.sfx.dead = sfx.satoffDeath
