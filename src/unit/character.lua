@@ -1298,7 +1298,9 @@ function Character:getUpStart()
         self:setState(self.dead)
         return
     end
-    self:setSprite("getUp")
+    if not self.condition then  -- u can keep previous animation to play it first
+        self:setSprite("getUp")
+    end
 end
 function Character:getUpUpdate(dt)
     if self:canFall() then
@@ -1306,9 +1308,14 @@ function Character:getUpUpdate(dt)
         return
     end
     if self.sprite.isFinished then
-        self.invincibilityTimer = self.invincibilityTimeout
-        self:setState(self.stand)
-        return
+        if self.sprite.curAnim == "getUp" then
+            self.invincibilityTimer = self.invincibilityTimeout
+            self:setState(self.stand)
+            return
+        end
+        self:setSprite("getUp")
+        self:playSfx(sfx.bodyDrop, 0.5, sfx.randomPitch() - self.bounced * 0.2)
+        self:showEffect("fallLanding")
     end
 end
 Character.getUp = {name = "getUp", start = Character.getUpStart, exit = nop, update = Character.getUpUpdate, draw = Character.defaultDraw}
