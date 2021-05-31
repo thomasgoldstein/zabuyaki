@@ -178,7 +178,7 @@ return {
         },
         fallOnHead = {
             { q = q(2,2,46,62), ox = 27, oy = 61 }, --stand 1
-            delay = f(1)
+            delay = f(5)
         },
         getUp = {
             { q = q(2,2,46,62), ox = 27, oy = 61 }, --stand 1

@@ -243,11 +243,10 @@ return {
         },
         fallOnHead = {
             { q = q(150,361,76,49), ox = 4, oy = 21, rotate = -1.57 }, --fall 3 (rotated -90°)
-            { q = q(72,350,76,60), ox = 4, oy = 27, rotate = -1.57 }, --fall 2 (rotated -90°)
+            { q = q(72,350,76,60), ox = 4, oy = 27, rotate = -1.57, delay = f(4) }, --fall 2 (rotated -90°)
             { q = q(2,340,68,70), ox = 4, oy = 29, rotate = -1.57 }, --fall 1 (rotated -90°)
-            { q = q(228,371,78,39), ox = 44, oy = 34, delay = f(4) }, --fallen
-            { q = q(150,361,76,49), ox = 42, oy = 48 }, --fall 3
-            delay = f(2)
+            { q = q(150,361,76,49), ox = 42, oy = 48, delay = f(4) }, --fall 3
+            delay = f(5)
         },
         getUp = {
             { q = q(228,371,78,39), ox = 44, oy = 34, delay = f(24) }, --fallen
