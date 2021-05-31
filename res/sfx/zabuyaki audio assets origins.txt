@@ -115,8 +115,8 @@ whooshLight:
 
 lifted from the free library "Sonniss.com - GDC - Game Audio Bundle"
 
-
-
+satoffRoar1,2:
+https://www.youtube.com/watch?v=B_1Cfqi4sok
 
 not yet found sources:
 
