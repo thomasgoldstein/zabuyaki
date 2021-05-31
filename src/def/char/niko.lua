@@ -208,7 +208,7 @@ return {
         fall = {
             { q = q(309,256,48,60), ox = 21, oy = 59, delay = f(20) }, --fall 1
             { q = q(359,261,56,55), ox = 35, oy = 54, delay = f(8) }, --fall 2
-            { q = q(417,276,69,40), ox = 42, oy = 39 }, --fall 3
+            { q = q(417,276,69,40), ox = 42, oy = 33 }, --fall 3
             delay = math.huge
         },
         fallTwistWeak = {
@@ -228,7 +228,7 @@ return {
         },
         fallBounce = {
             { q = q(488,277,74,39), ox = 45, oy = 31, delay = f(4) }, --fallen
-            { q = q(417,276,69,40), ox = 42, oy = 39 }, --fall 3
+            { q = q(417,276,69,40), ox = 42, oy = 33 }, --fall 3
             delay = math.huge
         },
         fallenDead = {
@@ -236,10 +236,10 @@ return {
             delay = math.huge
         },
         fallOnHead = {
-            { q = q(417,276,69,40), ox = 4, oy = 21, rotate = -1.57 }, --fall 3 (rotated -90°)
-            { q = q(359,261,56,55), ox = 4, oy = 27, rotate = -1.57, delay = f(4) }, --fall 2 (rotated -90°)
-            { q = q(309,256,48,60), ox = 4, oy = 29, rotate = -1.57 }, --fall 1 (rotated -90°)
-            { q = q(417,276,69,40), ox = 42, oy = 39, delay = f(4) }, --fall 3
+            { q = q(417,276,69,40), ox = 7, oy = 21, rotate = -1.57 }, --fall 3 (rotated -90°)
+            { q = q(359,261,56,55), ox = 3, oy = 34, rotate = -1.57, delay = f(4) }, --fall 2 (rotated -90°)
+            { q = q(309,256,48,60), ox = 0, oy = 41, rotate = -1.57 }, --fall 1 (rotated -90°)
+            { q = q(417,276,69,40), ox = 42, oy = 33, delay = f(4) }, --fall 3
             delay = f(5)
         },
         getUp = {
@@ -261,7 +261,7 @@ return {
         thrown = {
             --rx = ox / 2, ry = -oy / 2 for this rotation
             { q = q(309,256,48,60), ox = 21, oy = 59, rotate = -1.57, rx = 10, ry = -29, delay = f(24) }, --fall 1 (rotated -90°)
-            { q = q(417,276,69,40), ox = 42, oy = 39 }, --fall 3
+            { q = q(417,276,69,40), ox = 42, oy = 33 }, --fall 3
             delay = math.huge
         },
         thrown12h = {
@@ -273,7 +273,7 @@ return {
             delay = math.huge
         },
         thrown8h = {
-            { q = q(359,261,56,55), ox = 35, oy = 54, rotate = -1.57, rx = 35, ry = -27 }, --fall 2 (rotated -90°)
+            { q = q(359,261,56,55), ox = 35, oy = 54, rotate = -1.57, rx = -5, ry = -13 }, --fall 2 (rotated -90°)
             delay = math.huge
         },
         thrown6h = {
