@@ -140,6 +140,8 @@ SFX.loadVoice("beatnikDeath1","res/sfx/beatnikDeath1.wav", 1)
 
 SFX.loadVoice("satoffAttack1","res/sfx/satoffAttack1.wav", 1)
 SFX.loadVoice("satoffDeath1","res/sfx/satoffDeath1.wav", 1)
+SFX.loadVoice("satoffRoar1","res/sfx/satoffRoar1.wav", 1)
+SFX.loadVoice("satoffRoar2","res/sfx/satoffRoar2.wav", 1)
 
 SFX.gopperAttack = {"gopperAttack1","gopperAttack2"}
 SFX.gopperDeath = {"gopnikDeath1","gopnikDeath2"}
