@@ -383,6 +383,7 @@ function drawDebugUnitInfo(a)
         else
             love.graphics.print( a.state, r(a.x - 14), r(a.y - a.z))
         end
+        colors:set(a.isHittable and "black" or "red", nil, 120)
         love.graphics.print( ""..r(a.x).." "..r(a.y).." "..r(a.z), r(a.x - 22), r(a.y + 7 - a.z))
         local yShift1 = 0
         colors:set("yellow", nil, 120)
