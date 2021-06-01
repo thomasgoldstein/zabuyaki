@@ -515,8 +515,8 @@ function Unit:moveStatesApply()
     local t = g.target
     assert(g, "ERROR: No target for apply")
     local i = g.init
-    if i.lastFrame ~= frame then
-        local m = moves[frame]
+    local m = moves[frame]
+    if i.lastFrame ~= frame or m.cont then
         if m.grabberFace then
             self.face = i.grabberFace * m.grabberFace
         end
