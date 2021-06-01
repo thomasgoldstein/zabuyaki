@@ -1877,10 +1877,11 @@ Character.grabFrontAttackBack = {name = "grabFrontAttackBack", start = Character
 
 local grabSwapFrames = { 1, 2, 2, 1 }
 function Character:grabSwapStart()
-    self.isHittable = true
+    self.isHittable = false
     self.toSlowDown = false
     self:setSprite("grabSwap")
     local g = self.grabContext
+    self.grabContext.target.isHittable = false
     self:initGrabTimer()
     g.canGrabSwap = false
     self.isGrabSwapFlipped = false
@@ -1939,6 +1940,7 @@ function Character:grabSwapUpdate(dt)
         end
     else
         if g.target then
+            g.target.isHittable = true -- the grabbed unit is hittable after grabSwap
             self:setState(self.grab)
         else
             self:setState(self.stand)
