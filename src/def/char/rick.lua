@@ -275,7 +275,7 @@ local grabBackAttack = function(slf, cont)
         target:showHitMarks(slf.thrownFallDamage, 6, -12) --big hitmark
         target:playSfx(sfx.hitWeak1)
         mainCamera:onShake(0, 2, 0.03, 0.3)
-        target:setState(target.getUp, true) -- true - to follow up with getUp anim
+        target:setState(target.bounce)
     end
 end
 
