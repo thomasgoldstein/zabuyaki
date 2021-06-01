@@ -516,15 +516,17 @@ function Unit:moveStatesApply()
     assert(g, "ERROR: No target for apply")
     local i = g.init
     local m = moves[frame]
+    if i.lastFrame ~= frame then    -- attribute cont doesnt affect these attributes
+        if m.tAnimation and t.sprite.curAnim ~= m.tAnimation then
+            t:setSpriteIfExists(m.tAnimation, "stand")
+        end
+    end
     if i.lastFrame ~= frame or m.cont then
         if m.grabberFace then
             self.face = i.grabberFace * m.grabberFace
         end
         if m.grabbedFace then
             t.face = i.grabbedFace * m.grabbedFace
-        end
-        if m.tAnimation and t.sprite.curAnim ~= m.tAnimation then
-            t:setSprite(m.tAnimation)
         end
         if m.x then
             self.x = i.x + m.x * self.face
