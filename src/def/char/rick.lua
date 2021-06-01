@@ -234,14 +234,6 @@ local grabFrontAttackForwardHit = function(slf, cont)
 end
 local grabFrontAttackForward = function(slf, cont)
     slf:initSlide(slf.comboSlideSpeed2_x * 1.25, 0, 0, slf.comboSlideSpeed2_x * 1.25)
-    local g = slf.grabContext
-    if g and g.target then
-        local target = g.target
-        target.horizontal = slf.horizontal
-        target:initSlide(slf.comboSlideSpeed2_x * 1.09, 0, 0, slf.comboSlideSpeed2_x * 1.09)
-        target:setSpriteIfExists("fall", "stand")
-        target:setState(target.stop)
-    end
 end
 local grabFrontAttackForward2 = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * 1.5, 0,
@@ -638,7 +630,7 @@ return {
             moves = {
                 { oz = 0, ox = 26 },
                 { oz = 0, ox = 30 },
-                { oz = 1, ox = 40, z = 1 }
+                { oz = 1, ox = 40, z = 0.001, cont = true, tAnimation = "fall" }, -- z > 0 for no friction, cont to apply offset on every draw
             }
         },
         grabFrontAttackBack = {
