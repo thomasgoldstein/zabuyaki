@@ -48,6 +48,12 @@ local grabFrontAttackBack = function(slf, cont)
         slf.face, slf.face,
         slf.z + slf.throwStart_z)
 end
+local roarSfx = function(slf)
+    slf:playSfx(sfx.satoffRoar1)
+end
+local roarShake = function(slf)
+    mainCamera:onShake(0, 2, 0.03, 1.5)
+end
 
 return {
     serializationVersion = 0.43, -- The version of this serialization process
@@ -288,6 +294,30 @@ return {
             { q = q(211,11,69,59), ox = 36, oy = 56 }, --get up
             { q = q(206,736,66,61), ox = 33, oy = 60 }, --pick up
             { q = q(206,665,69,64), ox = 37, oy = 63 }, --squat
+            { q = q(2,933,69,68), ox = 34, oy = 67, delay = f(2) }, --scream 1
+            { q = q(73,922,58,79), ox = 32, oy = 78, delay = f(2) }, --scream 2
+            { q = q(133,923,52,78), ox = 30, oy = 77, func = roarSfx, delay = f(4) }, --scream 3
+            { q = q(73,922,58,79), ox = 32, oy = 78, delay = f(2) }, --scream 2
+            { q = q(187,932,61,69), ox = 33, oy = 68, delay = f(2) }, --scream 4
+            { q = q(2,933,69,68), ox = 34, oy = 67, delay = f(2) }, --scream 1
+            { q = q(250,939,78,62), ox = 38, oy = 61, func = roarShake, delay = f(4) }, --scream 5
+            { q = q(330,939,78,62), ox = 38, oy = 61, delay = f(6) }, --scream 6
+            { q = q(250,939,78,62), ox = 38, oy = 61, delay = f(4) }, --scream 5
+            { q = q(330,939,78,62), ox = 38, oy = 61, delay = f(6) }, --scream 6
+            { q = q(250,939,78,62), ox = 38, oy = 61, delay = f(4) }, --scream 5
+            { q = q(330,939,78,62), ox = 38, oy = 61, delay = f(6) }, --scream 6
+            { q = q(250,939,78,62), ox = 38, oy = 61, delay = f(4) }, --scream 5
+            { q = q(330,939,78,62), ox = 38, oy = 61, delay = f(6) }, --scream 6
+            { q = q(250,939,78,62), ox = 38, oy = 61, delay = f(4) }, --scream 5
+            { q = q(330,939,78,62), ox = 38, oy = 61, delay = f(6) }, --scream 6
+            { q = q(250,939,78,62), ox = 38, oy = 61, delay = f(4) }, --scream 5
+            { q = q(330,939,78,62), ox = 38, oy = 61, delay = f(6) }, --scream 6
+            { q = q(250,939,78,62), ox = 38, oy = 61, delay = f(4) }, --scream 5
+            { q = q(330,939,78,62), ox = 38, oy = 61, delay = f(6) }, --scream 6
+            { q = q(250,939,78,62), ox = 38, oy = 61, delay = f(4) }, --scream 5
+            { q = q(330,939,78,62), ox = 38, oy = 61, delay = f(6) }, --scream 6
+            { q = q(250,939,78,62), ox = 38, oy = 61, delay = f(4) }, --scream 5
+            { q = q(330,939,78,62), ox = 38, oy = 61, delay = f(6) }, --scream 6
             delay = f(9)
         },
         grabbedFront = {
