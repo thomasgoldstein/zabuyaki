@@ -263,10 +263,12 @@ local grabBackAttack = function(slf, cont)
         )
         local target = g.target
         slf:releaseGrabbed()
+        if target:canFall() then
+            target:setState(target.fall)
+            return
+        end
         target:applyDamage(slf.thrownFallDamage, "simple", slf)
         target:showHitMarks(slf.thrownFallDamage, 6, -12) --big hitmark
-        target:playSfx(sfx.hitWeak1)
-        mainCamera:onShake(0, 2, 0.03, 0.3)
         target:setState(target.bounce)
     end
 end
