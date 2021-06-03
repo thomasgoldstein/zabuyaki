@@ -1260,11 +1260,11 @@ function Character:bounceStart()
     self.speed_x = self.throwSpeed_x / 4
     if not self:canFall() then
         self.z = self:getRelativeZ() + 0.01
+        mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
+        self:playSfx(self.sfx.onBreak or sfx.bodyDrop, 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
+        self:showEffect("fallLanding")    
     end
     self.bounced = 0
-    mainCamera:onShake(0, 1, 0.03, 0.3)	--shake on the 1st land touch
-    self:playSfx(self.sfx.onBreak or sfx.bodyDrop, 1 - self.bounced * 0.2, sfx.randomPitch() - self.bounced * 0.2)
-    self:showEffect("fallLanding")
 end
 function Character:bounceUpdate(dt)
     if self:canFall() then
