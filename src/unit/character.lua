@@ -1504,6 +1504,14 @@ function Character:grabStart()
 end
 function Character:grabUpdate(dt)
     local g = self.grabContext
+    if self:canFall() then -- do not start grabbing actions unless the unit is on the ground/platform
+        self:calcFreeFall(dt)
+        if not self:canFall() then
+            self.speed_z = 0
+            self.z = self:getRelativeZ()
+        end
+        return
+    end
     if g and g.target then
         if self.b.vertical.isDoubleTap and self.moves.carry then
             self:setState(self.carry)
@@ -1593,13 +1601,6 @@ function Character:grabUpdate(dt)
         -- release (when not grabbing anything)
         self:releaseGrabbed()
         self:setState(self.stand)
-    end
-    if self:canFall() then
-        self:calcFreeFall(dt)
-        if not self:canFall() then
-            self.speed_z = 0
-            self.z = self:getRelativeZ()
-        end
     end
     if self:tweenMove(dt) then
         self:removeTweenMove()
