@@ -263,11 +263,11 @@ local grabBackAttack = function(slf, cont)
         )
         local target = g.target
         slf:releaseGrabbed()
+        target:applyDamage(slf.thrownFallDamage, "simple", slf)
         if target:canFall() then
             target:setState(target.fall)
             return
         end
-        target:applyDamage(slf.thrownFallDamage, "simple", slf)
         target:showHitMarks(slf.thrownFallDamage, 6, -12) --big hitmark
         target:setState(target.bounce)
     end
