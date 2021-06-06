@@ -96,7 +96,6 @@ function arcadeState:update(dt)
     if Controls[1].back:pressed() then
         return Gamestate.push(pauseState)
     end
-    watchDebugVariables()
 end
 
 function arcadeState:draw()
