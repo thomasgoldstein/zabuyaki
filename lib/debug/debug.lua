@@ -62,9 +62,9 @@ function dp(str1, str2)
 end
 
 -- Print delta x and delta time
-__x = 0
-__anim = 0
-__time = 0
+local __x = 0
+local __anim = 0
+local __time = 0
 function dpdi(self, text) -- reset delta
     __x = self.x
     __anim = self.sprite.curAnim
@@ -79,7 +79,7 @@ function dpd(self, text) -- print current delta on animation change
     end
 end
 
-dboc = {}
+local dboc = {}
 dboc[0] = { x = 0, y = 0, z = 0, time = 0 }
 function dpoInit(o)
     if not isDebug() then
@@ -289,11 +289,6 @@ end
 function clearDebugBoxes()
     if isDebug() then
         attackHitBoxes = {}
-    end
-end
-
-function watchDebugVariables()
-    if isDebug() then
     end
 end
 
