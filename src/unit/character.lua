@@ -1505,7 +1505,7 @@ end
 function Character:grabUpdate(dt)
     local g = self.grabContext
     local canFall = self:canFall()
-    if g and g.target and not canFall then
+    if g and g.target then
         if self.b.vertical.isDoubleTap and self.moves.carry then
             self:setState(self.carry)
             return
@@ -1543,7 +1543,7 @@ function Character:grabUpdate(dt)
             self:setState(self.grabReleaseBackDash)
             return
         end
-        if self.b.attack:pressed() then
+        if self.b.attack:pressed() and not canFall then
             g.target:removeTweenMove()
             self:removeTweenMove()
             local hv, vv = self.b.horizontal:getValue(), self.b.vertical:getValue()
