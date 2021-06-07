@@ -659,13 +659,14 @@ end
 
 function Unit:getZIndex()
     local g = self.grabContext
+    local z = self.y
+    if self.platform then
+        z = math.max(self.platform.y - 0.001, self.platform.y - 0.001 + z / 2048)
+    end
     if self.isGrabbed and g and g.source then
-        return g.source.y - 0.001
+        z = z - 0.0001
     end
-    if self.isPlatform then
-        return self.y - 0.005
-    end
-    return self.y
+    return z
 end
 
 function Unit:getMovementTime(x, y) -- time needed to walk/run to the next point x,y
