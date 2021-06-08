@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="90" height="15" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#005500" nextlayerid="17" nextobjectid="36">
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="90" height="15" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#005500" nextlayerid="19" nextobjectid="36">
  <editorsettings>
   <export target="../../../../src/def/stage/stage1-2_map.lua" format="lua"/>
  </editorsettings>
- <group id="1" name="background" locked="1">
+ <group id="1" name="background">
   <imagelayer id="2" name="main" locked="1" offsetx="-2" offsety="-82">
    <image source="../../../img/stage/stage1/stage1-2/main.png" width="1444" height="324"/>
+  </imagelayer>
+  <imagelayer id="17" name="shelves" offsetx="188" offsety="132">
+   <image source="../../../img/stage/stage1/stage1-2/shelves.png" width="250" height="73"/>
+  </imagelayer>
+  <imagelayer id="18" name="crate" offsetx="252" offsety="180">
+   <image source="../../../img/stage/stage1/stage1-2/crate.png" width="44" height="37"/>
   </imagelayer>
  </group>
  <group id="3" name="foreground" locked="1">
