@@ -1596,6 +1596,11 @@ function Character:grabUpdate(dt)
         self:setState(self.stand)
     end
     if canFall then -- do not start grabbing actions unless the unit is on the ground/platform
+        if not g.canGrabSwap then
+            self:releaseGrabbed()   -- end grabbibng, release after grabSwap
+            self:setState(self.stand)
+            return
+        end
         self:calcFreeFall(dt)
         if not self:canFall() then
             self.speed_z = 0
