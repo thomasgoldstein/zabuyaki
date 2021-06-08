@@ -661,7 +661,8 @@ function Unit:getZIndex()
     local g = self.grabContext
     local z = self.y
     if self.platform then
-        z = math.max(self.platform.y - 0.001, self.platform.y - 0.001 + z / 2048)
+        local pY = self.platform.y - 0.001
+        z = math.max(pY, pY - 0.0001 + z / 1000)
     end
     if self.isGrabbed and g and g.source then
         z = z - 0.0001
