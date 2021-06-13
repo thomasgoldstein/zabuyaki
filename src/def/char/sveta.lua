@@ -23,11 +23,6 @@ local comboKick = function(slf, cont)
         { x = 26, z = 39, width = 28, damage = 10, type = "fell", repel_x = slf.dashAttackRepel_x, sfx = "air" },
         cont
 ) end
-local dashAttack = function(slf, cont) -- to be removed
-    slf:checkAndAttack(
-        { x = 21, z = 10, width = 25, damage = 14, type = "fell", repel_x = slf.dashAttackRepel_x },
-        cont
-) end
 
 return {
     serializationVersion = 0.43, -- The version of this serialization process
@@ -134,12 +129,6 @@ return {
             { q = q(137,458,76,60), ox = 38, oy = 59, delay = f(9) }, --high kick 2.2
             { q = q(2,458,50,60), ox = 31, oy = 59 }, --high kick 1
             delay = f(7)
-        },
-        dashAttack = { -- to be removed
-            { q = q(41,201,56,62), ox = 38, oy = 61 }, --dash attack 1
-            { q = q(99,207,84,56), ox = 50, oy = 55, funcCont = dashAttack, delay = f(30) }, --dash attack 2
-            { q = q(41,201,56,62), ox = 38, oy = 61 }, --dash attack 1
-            delay = f(4)
         },
         chargeAttack = {
             { q = q(2,458,50,60), ox = 31, oy = 59, delay = f(4) }, --high kick 1

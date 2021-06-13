@@ -10,11 +10,6 @@ end
 local airSfx = function(slf)
     slf:playSfx(sfx.air)
 end
-local jumpAttack = function(slf, cont) -- to be removed
-    slf:checkAndAttack(
-        { x = 21, z = 17, width = 25, height = 45, damage = 13, type = "fell", repel_x = slf.dashAttackRepel_x },
-        cont
-) end
 local comboSlap = function(slf, cont)
     slf:checkAndAttack(
         { x = 25, z = 32, width = 26, damage = 5, sfx = "air" },
@@ -81,28 +76,6 @@ return {
         },
         sideStepDown = {
             { q = q(344,203,38,60), ox = 22, oy = 59 }, --jump
-            delay = math.huge
-        },
-        jump = { -- to be removed
-            { q = q(344,203,38,60), ox = 22, oy = 59 }, --jump
-            delay = math.huge
-        },
-        jumpAttackStraight = { -- to be removed
-            { q = q(384,206,43,57), ox = 25, oy = 61, delay = f(4) }, --jump attack 1
-            { q = q(429,210,66,53), ox = 32, oy = 61, funcCont = jumpAttack }, --jump attack 2
-            delay = math.huge
-        },
-        jumpAttackStraightEnd = { -- to be removed
-            { q = q(384,206,43,57), ox = 25, oy = 61 }, --jump attack 1
-            delay = math.huge
-        },
-        jumpAttackForward = { -- to be removed
-            { q = q(384,206,43,57), ox = 25, oy = 61, delay = f(4) }, --jump attack 1
-            { q = q(429,210,66,53), ox = 32, oy = 61, funcCont = jumpAttack }, --jump attack 2
-            delay = math.huge
-        },
-        jumpAttackForwardEnd = { -- to be removed
-            { q = q(384,206,43,57), ox = 25, oy = 61 }, --jump attack 1
             delay = math.huge
         },
         dropDown = {
