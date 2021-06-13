@@ -7,6 +7,11 @@ end
 local function f(n)
     return (n / 60) - ((n / 60) % 0.001) -- converts frames -> seconds. Usage: delay = f(4)
 end
+local jumpAttack = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 21, z = 17, width = 25, height = 45, damage = 14, type = "fell", repel_x = slf.dashAttackRepel_x },
+        cont
+) end
 local comboSlap = function(slf, cont)
     slf:checkAndAttack(
         { x = 25, z = 32, width = 26, damage = 5, sfx = "air" },
@@ -18,7 +23,7 @@ local comboKick = function(slf, cont)
         { x = 26, z = 39, width = 28, damage = 10, type = "fell", repel_x = slf.dashAttackRepel_x, sfx = "air" },
         cont
 ) end
-local dashAttack = function(slf, cont)
+local dashAttack = function(slf, cont) -- to be removed
     slf:checkAndAttack(
         { x = 21, z = 10, width = 25, damage = 14, type = "fell", repel_x = slf.dashAttackRepel_x },
         cont
@@ -70,6 +75,28 @@ return {
             { q = q(2,197,37,66), ox = 22, oy = 65 }, --jump
             delay = math.huge
         },
+        jump = {
+            { q = q(2,197,37,66), ox = 22, oy = 65 }, --jump
+            delay = math.huge
+        },
+        jumpAttackStraight = {
+            { q = q(41,201,56,62), ox = 38, oy = 66, delay = f(4) }, --jump attack 1
+            { q = q(99,207,84,56), ox = 50, oy = 64, funcCont = jumpAttack }, --jump attack 2
+            delay = math.huge
+        },
+        jumpAttackStraightEnd = {
+            { q = q(41,201,56,62), ox = 38, oy = 66 }, --jump attack 1
+            delay = math.huge
+        },
+        jumpAttackForward = {
+            { q = q(41,201,56,62), ox = 38, oy = 66, delay = f(4) }, --jump attack 1
+            { q = q(99,207,84,56), ox = 50, oy = 64, funcCont = jumpAttack }, --jump attack 2
+            delay = math.huge
+        },
+        jumpAttackForwardEnd = {
+            { q = q(41,201,56,62), ox = 38, oy = 66 }, --jump attack 1
+            delay = math.huge
+        },
         dropDown = {
             { q = q(2,197,37,66), ox = 22, oy = 65 }, --jump
             delay = math.huge
@@ -108,9 +135,9 @@ return {
             { q = q(2,458,50,60), ox = 31, oy = 59 }, --high kick 1
             delay = f(7)
         },
-        dashAttack = {
+        dashAttack = { -- to be removed
             { q = q(41,201,56,62), ox = 38, oy = 61 }, --dash attack 1
-            { q = q(99,207,84,56), ox = 55, oy = 55, funcCont = dashAttack, delay = f(30) }, --dash attack 2
+            { q = q(99,207,84,56), ox = 50, oy = 55, funcCont = dashAttack, delay = f(30) }, --dash attack 2
             { q = q(41,201,56,62), ox = 38, oy = 61 }, --dash attack 1
             delay = f(4)
         },

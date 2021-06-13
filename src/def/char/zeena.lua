@@ -10,7 +10,7 @@ end
 local airSfx = function(slf)
     slf:playSfx(sfx.air)
 end
-local jumpAttack = function(slf, cont)
+local jumpAttack = function(slf, cont) -- to be removed
     slf:checkAndAttack(
         { x = 21, z = 17, width = 25, height = 45, damage = 13, type = "fell", repel_x = slf.dashAttackRepel_x },
         cont
@@ -31,6 +31,11 @@ local comboKick = function(slf, cont)
         slf:initSlide(slf.slideSpeed_x)
     end
 end
+local dashAttack = function(slf, cont)
+    slf:checkAndAttack(
+        { x = 21, z = 10, width = 25, damage = 13, type = "fell", repel_x = slf.dashAttackRepel_x },
+        cont
+) end
 
 return {
     serializationVersion = 0.43, -- The version of this serialization process
@@ -78,25 +83,25 @@ return {
             { q = q(344,203,38,60), ox = 22, oy = 59 }, --jump
             delay = math.huge
         },
-        jump = {
+        jump = { -- to be removed
             { q = q(344,203,38,60), ox = 22, oy = 59 }, --jump
             delay = math.huge
         },
-        jumpAttackStraight = {
+        jumpAttackStraight = { -- to be removed
             { q = q(384,206,43,57), ox = 25, oy = 61, delay = f(4) }, --jump attack 1
             { q = q(429,210,66,53), ox = 32, oy = 61, funcCont = jumpAttack }, --jump attack 2
             delay = math.huge
         },
-        jumpAttackStraightEnd = {
+        jumpAttackStraightEnd = { -- to be removed
             { q = q(384,206,43,57), ox = 25, oy = 61 }, --jump attack 1
             delay = math.huge
         },
-        jumpAttackForward = {
+        jumpAttackForward = { -- to be removed
             { q = q(384,206,43,57), ox = 25, oy = 61, delay = f(4) }, --jump attack 1
             { q = q(429,210,66,53), ox = 32, oy = 61, funcCont = jumpAttack }, --jump attack 2
             delay = math.huge
         },
-        jumpAttackForwardEnd = {
+        jumpAttackForwardEnd = { -- to be removed
             { q = q(384,206,43,57), ox = 25, oy = 61 }, --jump attack 1
             delay = math.huge
         },
@@ -135,6 +140,12 @@ return {
             { q = q(384,206,43,57), ox = 25, oy = 56 }, --jump attack 1 (shifted 5px down)
             { q = q(429,210,66,53), ox = 32, oy = 52, funcCont = comboKick, func = airSfx, delay = f(10) }, --jump attack 2 (shifted 9px down)
             { q = q(384,206,43,57), ox = 25, oy = 56, delay = f(7) }, --jump attack 1 (shifted 5px down)
+            delay = f(4)
+        },
+        dashAttack = {
+            { q = q(384,206,43,57), ox = 25, oy = 56 }, --dash attack 1
+            { q = q(429,210,66,53), ox = 32, oy = 52, funcCont = dashAttack, delay = f(30) }, --dash attack 2
+            { q = q(384,206,43,57), ox = 25, oy = 56 }, --dash attack 1
             delay = f(4)
         },
         hurtHighWeak = {
