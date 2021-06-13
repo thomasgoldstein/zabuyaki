@@ -2,6 +2,7 @@ local class = require "lib/middleclass"
 local eAI = class('eAI', AI)
 
 local _settings = {
+    jumpAttackChance = 0.75 -- 1 == 100%, 0 == 0%
 }
 
 function eAI:initialize(unit, settings)
@@ -50,8 +51,11 @@ function eAI:selectNewSchedule(conditions)
             self:setSchedule( self.SCHEDULE_WAIT_MEDIUM )
             return
         end
-        if conditions.canDashAttack and love.math.random() < 0.5 then
-            self:setSchedule( self.SCHEDULE_DASH_ATTACK )
+        if conditions.canJumpAttack
+            and self.currentSchedule ~= self.SCHEDULE_HORIZONTAL_JUMP_ATTACK
+            and love.math.random() < self.jumpAttackChance
+        then
+            self:setSchedule( self.SCHEDULE_HORIZONTAL_JUMP_ATTACK )
             return
         end
         if conditions.canMove and conditions.wokeUp or not conditions.noTarget then
