@@ -12,7 +12,7 @@ end
 
 function Sveta:initAttributes()
     self.moves = { -- list of allowed moves
-        sideStep = true, pickUp = true, jump = true, jumpAttackForward = true, jumpAttackStraight = true,
+        sideStep = true, pickUp = true, jump = true, jumpAttackForward = true, jumpAttackStraight = true, chargeAttack = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, squat = true, land = true,
     }
