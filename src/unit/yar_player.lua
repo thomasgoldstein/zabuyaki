@@ -14,7 +14,7 @@ end
 function Yar:initAttributes()
     self.moves = { -- list of allowed moves
         run = true, pickUp = true,
-        jump = true,
+        jump = true, jumpAttackForward = true, jumpAttackLight = true, jumpAttackRun = true, jumpAttackStraight = true,
         --technically present for all
         stand = true, walk = true, combo = true, slide = true, fall = true, getUp = true, squat = true, land = true,
     }

@@ -13,6 +13,10 @@ end
 local stepFx = function(slf, cont)
     slf:showEffect("step")
 end
+local jumpAttackRun = function(slf, cont) slf:checkAndAttack(
+    { x = 10, z = 25, width = 45, height = 45, damage = 18, type = "fell" },
+    cont
+) end
 local comboAttack1 = function(slf, cont)
     slf:checkAndAttack(
         { x = 31, z = 45, width = 34, damage = 12, sfx = "whooshHeavy" },
@@ -91,20 +95,36 @@ return {
             delay = math.huge
         },
         jumpAttackStraight = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = math.huge
+            { q = q(2,707,53,55), ox = 26, oy = 54, funcCont = jumpAttackRun }, --jump attack run 1
+            { q = q(57,709,61,52), ox = 30, oy = 52, funcCont = jumpAttackRun }, --jump attack run 2
+            { q = q(120,713,52,49), ox = 26, oy = 48, funcCont = jumpAttackRun }, --jump attack run 3
+            { q = q(174,710,59,51), ox = 29, oy = 51, funcCont = jumpAttackRun }, --jump attack run 4
+            loop = true,
+            delay = f(4)
         },
         jumpAttackForward = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = math.huge
+            { q = q(2,707,53,55), ox = 26, oy = 54, funcCont = jumpAttackRun }, --jump attack run 1
+            { q = q(57,709,61,52), ox = 30, oy = 52, funcCont = jumpAttackRun }, --jump attack run 2
+            { q = q(120,713,52,49), ox = 26, oy = 48, funcCont = jumpAttackRun }, --jump attack run 3
+            { q = q(174,710,59,51), ox = 29, oy = 51, funcCont = jumpAttackRun }, --jump attack run 4
+            loop = true,
+            delay = f(4)
         },
         jumpAttackRun = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = math.huge
+            { q = q(2,707,53,55), ox = 26, oy = 54, funcCont = jumpAttackRun }, --jump attack run 1
+            { q = q(57,709,61,52), ox = 30, oy = 52, funcCont = jumpAttackRun }, --jump attack run 2
+            { q = q(120,713,52,49), ox = 26, oy = 48, funcCont = jumpAttackRun }, --jump attack run 3
+            { q = q(174,710,59,51), ox = 29, oy = 51, funcCont = jumpAttackRun }, --jump attack run 4
+            loop = true,
+            delay = f(4)
         },
         jumpAttackLight = {
-            { q = q(2,2,51,73), ox = 26, oy = 72 }, --stand 1
-            delay = math.huge
+            { q = q(2,707,53,55), ox = 26, oy = 54, funcCont = jumpAttackRun }, --jump attack run 1
+            { q = q(57,709,61,52), ox = 30, oy = 52, funcCont = jumpAttackRun }, --jump attack run 2
+            { q = q(120,713,52,49), ox = 26, oy = 48, funcCont = jumpAttackRun }, --jump attack run 3
+            { q = q(174,710,59,51), ox = 29, oy = 51, funcCont = jumpAttackRun }, --jump attack run 4
+            loop = true,
+            delay = f(4)
         },
         dropDown = {
             { q = q(2,479,64,76), ox = 20, oy = 75, delay = f(9) }, --jump up
