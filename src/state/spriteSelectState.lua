@@ -180,7 +180,7 @@ function spriteSelectState:draw()
     end
     drawMenuTitle(menu, menuTitle)
     --sprite
-    if currentSprite2 then
+    if currentSprite2 and currentSprite.def.animations["grabFrontAttack1"] and #currentSprite.def.animations["grabFrontAttack1"] > 1 then
         colors:set(love.keyboard.isScancodeDown( "lctrl", "rctrl" ) and 'white' or "gray")
         if currentShader2 then
             love.graphics.setShader(currentShader2)
