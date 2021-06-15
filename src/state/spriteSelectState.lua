@@ -147,7 +147,7 @@ function spriteSelectState:update(dt)
     self:playerInput(Controls[1])
 end
 
-local function displayHelp()
+local function displayHelp(hasGrabbingAttacks)
     local font = love.graphics.getFont()
     local x, y = menuParams.leftItemOffset, menuParams.menuOffset_y + menuParams.menuItem_h
     love.graphics.setFont(gfx.font.arcade3)
@@ -156,15 +156,15 @@ local function displayHelp()
         love.graphics.print(
             [[<- -> :
   Select character
-  Hold [CTRL] to select the grabbed unit
-  Hold [SHIFT] to flip]], x, y)
+]] .. (hasGrabbingAttacks and [[  Hold [CTRL] to select the grabbed unit
+  Hold [SHIFT] to flip]] or ""), x, y)
     end
     love.graphics.setFont(font)
 end
 
 function spriteSelectState:draw()
     push:start()
-    displayHelp()
+    displayHelp(currentSprite.def.animations["grabFrontAttack1"] and #currentSprite.def.animations["grabFrontAttack1"] > 1)
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]
