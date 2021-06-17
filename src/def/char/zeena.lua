@@ -92,21 +92,21 @@ return {
             delay = f(17)
         },
         combo1 = {
-            { q = q(457,138,39,57), ox = 19, oy = 56 }, --slap 3
-            { q = q(401,138,54,57), ox = 16, oy = 56, func = comboSlap }, --slap 2
             { q = q(344,138,55,57), ox = 35, oy = 56 }, --slap 1
+            { q = q(401,138,54,57), ox = 16, oy = 56, func = comboSlap }, --slap 2
+            { q = q(457,138,39,57), ox = 19, oy = 56 }, --slap 3
             delay = f(4)
         },
         combo2 = {
-            { q = q(344,138,55,57), ox = 35, oy = 56 }, --slap 1
-            { q = q(401,138,54,57), ox = 16, oy = 56, func = comboSlap }, --slap 2
             { q = q(457,138,39,57), ox = 19, oy = 56 }, --slap 3
+            { q = q(401,138,54,57), ox = 16, oy = 56, func = comboSlap }, --slap 2
+            { q = q(344,138,55,57), ox = 35, oy = 56 }, --slap 1
             delay = f(4)
         },
         combo3 = {
-            { q = q(457,138,39,57), ox = 19, oy = 56 }, --slap 3
-            { q = q(401,138,54,57), ox = 16, oy = 56, func = comboSlap }, --slap 2
             { q = q(344,138,55,57), ox = 35, oy = 56 }, --slap 1
+            { q = q(401,138,54,57), ox = 16, oy = 56, func = comboSlap }, --slap 2
+            { q = q(457,138,39,57), ox = 19, oy = 56 }, --slap 3
             delay = f(4)
         },
         combo4 = {
