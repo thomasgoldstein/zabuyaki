@@ -95,34 +95,34 @@ return {
             delay = math.huge
         },
         jumpAttackStraight = {
-            { q = q(2,707,53,55), ox = 26, oy = 54, funcCont = jumpAttackRun }, --jump attack run 1
-            { q = q(57,709,61,52), ox = 30, oy = 52, funcCont = jumpAttackRun }, --jump attack run 2
-            { q = q(120,713,52,49), ox = 26, oy = 48, funcCont = jumpAttackRun }, --jump attack run 3
-            { q = q(174,710,59,51), ox = 29, oy = 51, funcCont = jumpAttackRun }, --jump attack run 4
+            { q = q(2,707,56,60), ox = 28, oy = 59, funcCont = jumpAttackRun }, --jump attack run 1
+            { q = q(60,709,64,57), ox = 32, oy = 57, funcCont = jumpAttackRun }, --jump attack run 2
+            { q = q(126,712,57,55), ox = 28, oy = 54, funcCont = jumpAttackRun }, --jump attack run 3
+            { q = q(185,710,63,56), ox = 31, oy = 56, funcCont = jumpAttackRun }, --jump attack run 4
             loop = true,
             delay = f(4)
         },
         jumpAttackForward = {
-            { q = q(2,707,53,55), ox = 26, oy = 54, funcCont = jumpAttackRun }, --jump attack run 1
-            { q = q(57,709,61,52), ox = 30, oy = 52, funcCont = jumpAttackRun }, --jump attack run 2
-            { q = q(120,713,52,49), ox = 26, oy = 48, funcCont = jumpAttackRun }, --jump attack run 3
-            { q = q(174,710,59,51), ox = 29, oy = 51, funcCont = jumpAttackRun }, --jump attack run 4
+            { q = q(2,707,56,60), ox = 28, oy = 59, funcCont = jumpAttackRun }, --jump attack run 1
+            { q = q(60,709,64,57), ox = 32, oy = 57, funcCont = jumpAttackRun }, --jump attack run 2
+            { q = q(126,712,57,55), ox = 28, oy = 54, funcCont = jumpAttackRun }, --jump attack run 3
+            { q = q(185,710,63,56), ox = 31, oy = 56, funcCont = jumpAttackRun }, --jump attack run 4
             loop = true,
             delay = f(4)
         },
         jumpAttackRun = {
-            { q = q(2,707,53,55), ox = 26, oy = 54, funcCont = jumpAttackRun }, --jump attack run 1
-            { q = q(57,709,61,52), ox = 30, oy = 52, funcCont = jumpAttackRun }, --jump attack run 2
-            { q = q(120,713,52,49), ox = 26, oy = 48, funcCont = jumpAttackRun }, --jump attack run 3
-            { q = q(174,710,59,51), ox = 29, oy = 51, funcCont = jumpAttackRun }, --jump attack run 4
+            { q = q(2,707,56,60), ox = 28, oy = 59, funcCont = jumpAttackRun }, --jump attack run 1
+            { q = q(60,709,64,57), ox = 32, oy = 57, funcCont = jumpAttackRun }, --jump attack run 2
+            { q = q(126,712,57,55), ox = 28, oy = 54, funcCont = jumpAttackRun }, --jump attack run 3
+            { q = q(185,710,63,56), ox = 31, oy = 56, funcCont = jumpAttackRun }, --jump attack run 4
             loop = true,
             delay = f(4)
         },
         jumpAttackLight = {
-            { q = q(2,707,53,55), ox = 26, oy = 54, funcCont = jumpAttackRun }, --jump attack run 1
-            { q = q(57,709,61,52), ox = 30, oy = 52, funcCont = jumpAttackRun }, --jump attack run 2
-            { q = q(120,713,52,49), ox = 26, oy = 48, funcCont = jumpAttackRun }, --jump attack run 3
-            { q = q(174,710,59,51), ox = 29, oy = 51, funcCont = jumpAttackRun }, --jump attack run 4
+            { q = q(2,707,56,60), ox = 28, oy = 59, funcCont = jumpAttackRun }, --jump attack run 1
+            { q = q(60,709,64,57), ox = 32, oy = 57, funcCont = jumpAttackRun }, --jump attack run 2
+            { q = q(126,712,57,55), ox = 28, oy = 54, funcCont = jumpAttackRun }, --jump attack run 3
+            { q = q(185,710,63,56), ox = 31, oy = 56, funcCont = jumpAttackRun }, --jump attack run 4
             loop = true,
             delay = f(4)
         },
