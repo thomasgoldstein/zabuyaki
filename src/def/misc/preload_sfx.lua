@@ -121,6 +121,10 @@ SFX.loadVoice("chaiThrow","res/sfx/chaiThrow.wav", 1)
 SFX.loadVoice("chaiStep","res/sfx/chaiStep.wav", 1)
 SFX.loadVoice("chaiDeath","res/sfx/chaiDeath.wav", 1)
 
+SFX.loadVoice("yarJump","res/sfx/yarJump.wav", 1)
+SFX.loadVoice("yarAttack","res/sfx/yarAttack.wav", 1)
+SFX.loadVoice("yarDeath","res/sfx/yarDeath.wav", 1)
+
 SFX.loadVoice("gopperAttack1","res/sfx/gopperAttack1.wav", 1)
 SFX.loadVoice("gopperAttack2","res/sfx/gopperAttack2.wav", 1)
 
@@ -164,11 +168,8 @@ SFX.satoffStep = SFX.rickStep
 SFX.hoochAttack = SFX.nikoAttack
 SFX.hoochDeath = SFX.nikoDeath
 SFX.hoochStep = SFX.nikoStep
-SFX.yarAttack = SFX.rickAttack
-SFX.yarDeath = SFX.rickDeath
 SFX.yarStep = SFX.rickStep
-SFX.yarJump = SFX.rickJump
-SFX.yarThrow = SFX.rickThrow
+SFX.yarThrow = SFX.yarAttack
 
 SFX.load("metalGrab","res/sfx/metalBreak.wav", 0.5)
 SFX.load("metalHit","res/sfx/metalHit.wav", 1)
