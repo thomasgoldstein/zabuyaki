@@ -233,7 +233,7 @@ local grabFrontAttackForwardHit = function(slf, cont)
     )
 end
 local grabFrontAttackForward = function(slf, cont)
-    slf:initSlide(slf.comboSlideSpeed2_x * 1.25, 0, 0, slf.comboSlideSpeed2_x * 1.25)
+    slf:initSlide(slf.comboSlideSpeed2_x * 1.25, nil, nil, slf.comboSlideSpeed2_x * 1.25)
 end
 local grabFrontAttackForward2 = function(slf, cont)
     slf:doThrow(slf.throwSpeed_x * 1.5, 0,
