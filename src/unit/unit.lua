@@ -475,7 +475,11 @@ end
 function Unit:initSlide(speed_x, diagonalSpeed_x, diagonalSpeed_y, friction)
     self.toSlowDown = true
     self.customFriction = friction or self.repelFriction
-    if self.b.vertical:getValue() ~= 0 and diagonalSpeed_x > 0 or diagonalSpeed_y > 0 then
+    if (diagonalSpeed_x and diagonalSpeed_x < 0) or (diagonalSpeed_y and diagonalSpeed_y < 0) then
+        self.speed_x = speed_x -- diagonal sliding is disabled
+        return
+    end
+    if self.b.vertical:getValue() ~= 0 then
         self.vertical = self.b.vertical:getValue()
         self.speed_x = diagonalSpeed_x or speed_x * 0.8 -- diagonal horizontal speed
         self.speed_y = diagonalSpeed_y or speed_x / 4 -- diagonal vertical speed
