@@ -17,10 +17,9 @@ local menuParams = {
     itemHeightMargin = 10
 }
 local menuTitle
-local txtItems = {"ANIMATIONS", "FRAMES", "SHOW GRABBED", "PALETTES", "BACK"}
-local menuItems = {animations = 1, frames = 2, showGrabbed = 3, palettes = 4, back = 5}
+local txtItems = {"ANIMATIONS", "FRAMES", "PALETTES", "BACK"}
+local menuItems = {animations = 1, frames = 2, palettes = 3, back = 4}
 local menu = fillMenu(txtItems, nil, menuParams)
-local txtShowGrabbed = {"SHOW GRABBED UNIT (IF MOVED)", "SHOW GRABBED UNIT ALWAYS", "HIDE GRABBED UNIT"}
 
 local character, unit, sprite, specialOverlaySprite, animations
 local character2, unit2, sprite2, unit2InitialFacing
@@ -277,12 +276,6 @@ function spriteViewerState:update(dt)
 end
 
 function spriteViewerState:displayGrabbedUnit()
-    local m = menu[menuItems.showGrabbed]
-    if m.n == 3 then
-        return false
-    elseif m.n == 2 then -- has any move attributes
-        return true --character:hasMoveStates(sprite, sprite.curAnim, sprite.curFrame)
-    end -- has any target move attributes
     return character:hasMoveOStates(sprite, sprite.curAnim, sprite.curFrame)
 end
 
@@ -336,9 +329,6 @@ function spriteViewerState:draw()
             if t then
                 m.hint = m.hint .. "\n"..t
             end
-        elseif i == menuItems.showGrabbed then
-            m.item = txtShowGrabbed[m.n]
-            m.hint = ""
         elseif i == menuItems.palettes then
             if m.n > #unit.shaders then
                 m.n = #unit.shaders
@@ -379,8 +369,8 @@ function spriteViewerState:draw()
         x = x - 40
     end
     colors:set("white")
-    if unit.shaders[menu[4].n] then
-        love.graphics.setShader(unit.shaders[menu[4].n])
+    if unit.shaders[menu[menuItems.palettes].n] then
+        love.graphics.setShader(unit.shaders[menu[menuItems.palettes].n])
     end
     if sprite then --for stage objects w/o shaders
         if menuState == menuItems.frames then
@@ -469,8 +459,6 @@ function spriteViewerState:confirm(button)
         elseif menuState == menuItems.frames then
             print(parseSpriteAnimation(sprite))
             sfx.play("sfx","menuSelect")
-        elseif menuState == menuItems.showGrabbed then
-            sfx.play("sfx","menuSelect")
         elseif menuState == menuItems.palettes then
             sfx.play("sfx","menuSelect")
         end
@@ -498,13 +486,6 @@ function spriteViewerState:select(i)
             return
         end
         getCharacterHitBoxes()
-    elseif menuState == menuItems.showGrabbed then
-        if menu[menuState].n < 1 then
-            menu[menuState].n = 3
-        end
-        if menu[menuState].n > 3 then
-            menu[menuState].n = 1
-        end
     elseif menuState == menuItems.palettes then
         if #unit.shaders < 1 then
             return
