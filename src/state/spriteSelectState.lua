@@ -22,6 +22,7 @@ local menuItems = {characters = 1, back = 2}
 local menu = fillMenu(txtItems, nil, menuParams)
 
 local currentSprite, currentShader
+local showHero2 = false
 local hero2_n, currentSprite2, currentShader2, hero2 = 1, nil, nil, 1
 local heroes = {
     {
@@ -106,6 +107,10 @@ function spriteSelectState:enter()
     self:showCurrentSprite()
 end
 
+function spriteSelectState:resume()
+    showHero2 = false
+end
+
 --Only P1 can use menu / options
 function spriteSelectState:playerInput(controls)
     if controls.jump:pressed() or controls.back:pressed() then
@@ -180,7 +185,7 @@ function spriteSelectState:draw()
     end
     drawMenuTitle(menu, menuTitle)
     --sprite
-    if currentSprite2 and currentSprite.def.animations["grabFrontAttack1"] and #currentSprite.def.animations["grabFrontAttack1"] > 1 then
+    if showHero2 and currentSprite2 and currentSprite.def.animations["grabFrontAttack1"] and #currentSprite.def.animations["grabFrontAttack1"] > 1 then
         colors:set(love.keyboard.isScancodeDown( "lctrl", "rctrl" ) and 'white' or "gray")
         if currentShader2 then
             love.graphics.setShader(currentShader2)
@@ -204,7 +209,8 @@ function spriteSelectState:draw()
     push:finish()
 end
 
-local function setHero2()   -- init aux hero to show as the grabbed unit
+local function setHero2()   -- init aux hero to show as the grabbed unit    
+    showHero2 = true
     hero2 = heroes[hero2_n]
     currentSprite2 = getSpriteInstance(hero2.spriteInstance)
     currentSprite2.sizeScale = 2
