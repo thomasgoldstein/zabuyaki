@@ -24,7 +24,6 @@ local menuParams = {
     itemHeightMargin = 10
 }
 local menuTitle
-local siteImageText = love.graphics.newText( gfx.font.arcade3, "WWW.ZABUYAKI.COM" )
 local txtItems = {"START", "OPTIONS", "QUIT"}
 local menuItems = {start = 1, options = 2, quit = 3}
 local disabledQuit = { Web = true }  -- list of OS with disabled Quit menu
@@ -178,7 +177,6 @@ function titleState:draw()
         love.graphics.setShader()
     end
     colors:set("lightGray", nil, 255 * transparency)
-    love.graphics.draw(siteImageText, (menuParams.screenWidth - siteImageText:getWidth())/2, menuParams.screenHeight - 20)
     love.graphics.setFont(gfx.font.arcade4)
     for i = 1,#menu do
         local m = menu[i]

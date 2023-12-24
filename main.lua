@@ -1,5 +1,5 @@
 --[[
-    Zabuyaki https://www.zabuyaki.com/
+    Zabuyaki https://zabu.team/
     Copyright (c) 2016-2021 SineDie
     Released under the CC BY-NC 4.0: https://creativecommons.org/licenses/by-nc/4.0/
 ]]
